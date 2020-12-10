@@ -4,8 +4,10 @@ import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
+import { Factory } from 'rosie'
 
 import DecoratedMultiFrameViewerContainer, { MultiFrameViewerContainer } from './MultiFrameViewerContainer'
+import ImageToolbar from '../../../ImageToolbar'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
@@ -16,7 +18,7 @@ const config = {
   }
 }
 
-const subject = {
+const subject = Factory.build('subject', {
   locations: [
     { 'image/jpeg': 'http://placekitten.com/500/300' },
     { 'image/jpeg': 'http://placekitten.com/300/500' },
@@ -32,7 +34,7 @@ const subject = {
   metadata: {
     default_frame: 7
   }
-}
+})
 
 const mockStore = {
   classifications: {
@@ -40,6 +42,7 @@ const mockStore = {
       annotations: new Map()
     }
   },
+  fieldGuide: {},
   subjectViewer: SubjectViewerStore.create({ frame: subject.metadata.default_frame }),
   workflowSteps: {
     activeStepTasks: []
@@ -59,11 +62,12 @@ function ViewerContext (props) {
 
 const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault })
 
-storiesOf('Subject Viewers | MultiFrameViewer', module)
+storiesOf('Subject Viewers / MultiFrameViewer', module)
+  .addParameters({ component: DecoratedMultiFrameViewerContainer })
   .add('light theme', () => {
     return (
       <ViewerContext theme={zooTheme}>
-        <Box height='medium' width='large'>
+        <Box height='500px' width='large'>
           <DecoratedMultiFrameViewerContainer
             enableInteractionLayer={false}
             subject={subject}
@@ -76,7 +80,7 @@ storiesOf('Subject Viewers | MultiFrameViewer', module)
     const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
     return (
       <ViewerContext theme={darkZooTheme}>
-        <Box height='medium' width='large'>
+        <Box height='500px' width='large'>
           <DecoratedMultiFrameViewerContainer
             enableInteractionLayer={false}
             subject={subject}
@@ -85,3 +89,16 @@ storiesOf('Subject Viewers | MultiFrameViewer', module)
       </ViewerContext>
     )
   }, darkThemeConfig)
+  .add('pan / zoom', () => {
+    return (
+      <ViewerContext mode='light' theme={zooTheme}>
+        <Box direction='row' height='500px' width='large'>
+          <DecoratedMultiFrameViewerContainer
+            enableInteractionLayer={false}
+            subject={subject}
+          />
+          <ImageToolbar />
+        </Box>
+      </ViewerContext>
+    )
+  }, config)

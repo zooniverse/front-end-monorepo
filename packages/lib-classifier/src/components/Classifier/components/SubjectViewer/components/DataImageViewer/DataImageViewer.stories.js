@@ -63,9 +63,9 @@ function ViewerContext (props) {
   )
 }
 
-const stories = storiesOf('Subject Viewers | DataImageViewer', module)
-
-stories.addDecorator(withKnobs)
+const stories = storiesOf('Subject Viewers / DataImageViewer', module)
+  .addDecorator(withKnobs)
+  .addParameters({ component: DataImageViewerContainer })
 // stories.addParameters({ viewport: { defaultViewport: 'responsive' } })
 
 const { colors } = zooTheme.global
@@ -81,7 +81,7 @@ stories
         theme={zooTheme}
         themeMode='light'
       >
-        <Box height='500px' width='large'>
+        <Box width='large'>
           <DataImageViewerContainer
             subject={subject}
           />
@@ -100,7 +100,7 @@ stories
         theme={darkZooTheme}
         themeMode='dark'
       >
-        <Box height='500px' width='large'>
+        <Box width='large'>
           <DataImageViewerContainer
             subject={subject}
           />
@@ -118,7 +118,7 @@ stories
         theme={zooTheme}
         themeMode='light'
       >
-        <Box height='500px' width='large'>
+        <Box width='large'>
           <DataImageViewerContainer
             subject={subject}
           />
@@ -129,7 +129,7 @@ stories
   .add('pan / zoom', () => {
     return (
       <ViewerContext mode='light' theme={zooTheme}>
-        <Box direction='row' height='500px' width='large'>
+        <Box direction='row' width='large'>
           <DataImageViewerConnector />
           <ImageToolbar />
         </Box>

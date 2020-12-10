@@ -1,5 +1,6 @@
 import { Box, Text } from 'grommet'
 import { Blank } from 'grommet-icons'
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -78,4 +79,4 @@ DrawingTask.propTypes = {
   })
 }
 
-export default DrawingTask
+export default observer(DrawingTask)

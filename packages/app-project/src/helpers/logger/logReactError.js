@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/browser'
 
 export default function logReactError (error, errorInfo) {
-  const dsn = process.env.SENTRY_DSN
+  const dsn = process.env.SENTRY_PROJECT_DSN
 
   if (dsn) {
     Sentry.withScope((scope) => {

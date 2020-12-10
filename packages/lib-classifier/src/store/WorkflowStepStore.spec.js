@@ -87,6 +87,17 @@ describe('Model > WorkflowStepStore', function () {
           })
         })
       })
+
+      it('should set the next step', function () {
+        STORE_STEPS.forEach((step, stepIndex) => {
+          const nextStep = step[stepIndex + 1]
+          if (nextStep) {
+            expect(step.next).to.equal(nextStep.stepKey)
+          }
+
+          expect(step.next).to.be.undefined()
+        })
+      })
     })
 
     it('should set the tasks for each step', function () {
@@ -105,12 +116,16 @@ describe('Model > WorkflowStepStore', function () {
     it('should set the first step to be active', function () {
       const { workflowSteps } = rootStore
       const firstStep = workflow.steps[0]
+      const firstStepKey = firstStep[0]
+      const firstStepSnapshot = firstStep[1]
+      const secondStepKey = workflow.steps[1][0]
       const storedStep = workflowSteps.active
-      expect(storedStep.stepKey).to.equal(firstStep[0])
-      firstStep[1].taskKeys.forEach((taskKey, index) => {
-        expect(taskKey).to.equal(firstStep[1].taskKeys[index])
+
+      expect(storedStep.stepKey).to.equal(firstStepKey)
+      firstStepSnapshot.taskKeys.forEach((taskKey, index) => {
+        expect(taskKey).to.equal(storedStep.taskKeys[index])
       })
-      expect(storedStep.next).to.equal(firstStep[1].next)
+      expect(storedStep.next).to.equal(secondStepKey)
     })
   })
 
@@ -253,6 +268,7 @@ describe('Model > WorkflowStepStore', function () {
     let subjects
     let subject
     let hiddenSummaryWorkflow
+    let showSummaryWorkflow
     let workflow
     before(function () {
       workflow = WorkflowFactory.build({
@@ -269,6 +285,20 @@ describe('Model > WorkflowStepStore', function () {
       hiddenSummaryWorkflow = WorkflowFactory.build({
         configuration: {
           hide_classification_summaries: true
+        },
+        steps: [
+          ['S1', { taskKeys: ['T1'] }],
+          ['S2', { taskKeys: ['T2'] }]
+        ],
+        tasks: {
+          T1: SingleChoiceTaskFactory.build(),
+          T2: MultipleChoiceTaskFactory.build()
+        }
+      })
+
+      showSummaryWorkflow = WorkflowFactory.build({
+        configuration: {
+          hide_classification_summaries: false
         },
         steps: [
           ['S1', { taskKeys: ['T1'] }],
@@ -306,13 +336,13 @@ describe('Model > WorkflowStepStore', function () {
       expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
-    it('should return false if the workflow is not configured to hide classification summaries', async function () {
+    it('should default to return true if the workflow is not configured to hide classification summaries', async function () {
       const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
       const panoptesClientStub = stubPanoptesJs({ workflows: workflow, subjects })
       const rootStore = await setupStores(panoptesClientStub, project, workflow)
       rootStore.classifications.createClassification(subject, workflow, project)
       rootStore.workflowSteps.selectStep('S2')
-      expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
+      expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.true()
     })
 
     it('should return false if the classification subject has been flagged', async function () {
@@ -325,7 +355,16 @@ describe('Model > WorkflowStepStore', function () {
       expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
-    it('should return true if the conditions are met', async function () {
+    it('should return false if configured to show the summary', async function () {
+      const project = ProjectFactory.build({}, { activeWorkflowId: showSummaryWorkflow.id })
+      const panoptesClientStub = stubPanoptesJs({ workflows: showSummaryWorkflow, subjects })
+      const rootStore = await setupStores(panoptesClientStub, project, showSummaryWorkflow)
+      rootStore.classifications.createClassification(subject, showSummaryWorkflow, project)
+      rootStore.workflowSteps.selectStep('S2')
+      expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
+    })
+
+    it('should return true if configured to hide the summary', async function () {
       const project = ProjectFactory.build({}, { activeWorkflowId: hiddenSummaryWorkflow.id })
       const panoptesClientStub = stubPanoptesJs({ workflows: hiddenSummaryWorkflow, subjects })
       const rootStore = await setupStores(panoptesClientStub, project, hiddenSummaryWorkflow)

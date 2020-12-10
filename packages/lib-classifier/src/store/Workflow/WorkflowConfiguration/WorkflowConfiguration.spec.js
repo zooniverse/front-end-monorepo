@@ -15,5 +15,9 @@ describe('Model > Workflow > WorkflowConfiguration', function () {
     it('should be ok', function () {
       expect(model).to.be.ok()
     })
+
+    it('should hide classification summaries', function () {
+      expect(model.hide_classification_summaries).to.be.true()
+    })
   })
 })

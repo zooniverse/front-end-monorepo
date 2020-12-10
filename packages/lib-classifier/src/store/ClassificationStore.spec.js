@@ -133,6 +133,7 @@ describe('Model > ClassificationStore', function () {
       beforeEach(function () {
         const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
         taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
+        taskSnapshot.setAnnotation = annotation => taskSnapshot.annotation = annotation
         classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
         classifications.completeClassification({
           preventDefault: sinon.stub()
@@ -185,6 +186,7 @@ describe('Model > ClassificationStore', function () {
         subjectToBeClassified = rootStore.subjects.active
         const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
         taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
+        taskSnapshot.setAnnotation = annotation => taskSnapshot.annotation = annotation
         classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
         classificationWithAnnotation = classifications.active
         classifications.completeClassification({
@@ -233,6 +235,86 @@ describe('Model > ClassificationStore', function () {
         it('should record subject dimensions', function () {
           expect(metadata.subjectDimensions).to.eql(subjectViewer.dimensions)
         })
+      })
+    })
+
+    describe('with demo mode', function () {
+      let classifications
+      let rootStore
+      let firstClassification
+
+      before(function () {
+        rootStore = setupStores({
+          dataVisAnnotating: {},
+          drawing: {},
+          feedback: {},
+          fieldGuide: {},
+          subjectViewer: {},
+          tutorials: {},
+          workflowSteps: {},
+          userProjectPreferences: {}
+        })
+
+        sinon.spy(rootStore.classifications, 'submitClassification')
+        classifications = rootStore.classifications
+        const onComplete = sinon.stub()
+        classifications.setOnComplete(onComplete)
+        classifications.setDemoMode(true)
+
+        // annotate a subject then finish the classification
+        const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
+        taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
+        taskSnapshot.setAnnotation = annotation => taskSnapshot.annotation = annotation
+        classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
+        firstClassification = classifications.active
+        classifications.completeClassification({
+          preventDefault: sinon.stub()
+        })
+      })
+
+      it('should not call submitClassification', function () {
+        expect(classifications.submitClassification).to.have.not.been.called()
+      })
+
+      it('should reset and create a new classification', function () {
+        expect(classifications.active).to.not.deep.equal(firstClassification)
+      })
+    })
+
+    describe('without demo mode', function () {
+      let classifications
+      let rootStore
+
+      before(function () {
+        rootStore = setupStores({
+          dataVisAnnotating: {},
+          drawing: {},
+          feedback: {},
+          fieldGuide: {},
+          subjectViewer: {},
+          tutorials: {},
+          workflowSteps: {},
+          userProjectPreferences: {}
+        })
+
+        sinon.spy(rootStore.classifications, 'submitClassification')
+        classifications = rootStore.classifications
+        const onComplete = sinon.stub()
+        classifications.setOnComplete(onComplete)
+
+        // annotate a subject then finish the classification
+        const subjectToBeClassified = rootStore.subjects.active
+        const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
+        taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
+        taskSnapshot.setAnnotation = annotation => taskSnapshot.annotation = annotation
+        classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
+        classifications.completeClassification({
+          preventDefault: sinon.stub()
+        })
+      })
+
+      it('should call submitClassification', function () {
+        expect(classifications.submitClassification).to.have.been.calledOnce()
       })
     })
   })

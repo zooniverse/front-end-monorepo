@@ -56,7 +56,7 @@ docker-compose build
 
 `docker-compose down` stops the running container.
 
-`docker-compose run --rm yarn` runs the CI tests by default.
+`docker-compose run --rm bash` runs an interactive shell on the Docker image.
 
 Development environments for individual packages can be run from the package directories. For example:
 ```sh
@@ -117,13 +117,11 @@ Apps should have their directory names prefixed with `app-`, e.g. `/project` bec
 
 Deploys to production and staging are handled by [Jenkins](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/front-end-monorepo/) using [Docker images](#docker-images).
 
-Deployments to a staging Kubernetes instance that uses Panoptes production are triggered by merges to master. This is used for manual end to end behavior testing for new code and design reviews. `https://frontend.preview.zooniverse.org/projects/:project-owner/:project-name/` proxy redirects to the new NextJS app while the rest of sub-domain redirects to PFE. Staging projects can be loaded by adding this query param to the URL: `?env=staging`.
+Deployments to a staging Kubernetes instance that uses Panoptes production are triggered by merges to master. This is used for manual end-to-end behavior testing for new code and design reviews. `https://frontend.preview.zooniverse.org/projects/:project-owner/:project-name/` proxy redirects to the new NextJS app while the rest of sub-domain redirects to PFE. Staging projects can be loaded by adding this query param to the URL: `?env=staging`.
 
 Deployments to a production Kubernetes instance are triggered by committing a `production-release` git tag on master. This can either be done using the git CLI or using the lita deploy command on slack. `https://www.zooniverse.org/projects/:project-owner/:project-name/classify` proxy redirects to the new NextJS app while the rest of the domain redirects to PFE. Currently the only project that is configured to do this is Planet Hunters TESS. Eventually more projects will migrate when they migrate to the new classifier.
 
 More information is available in [ADR 12](docs/arch/adr-12.md) and [ADR 17](docs/arch/adr-17.md)
-
-You can test the production image builds using the `docker-compose-prod.yml` files in each pacakge.
 
 ### Environment variables
 
@@ -137,9 +135,8 @@ The yarn build scripts default to production for libraries if `PANOPTES_ENV` is 
 
 ### Docker images
 
-- `zooniverse/front-end-monorepo`: Built from the Dockerfile in the root directory. It runs `yarn install` and `yarn build` for the `lib-` packages.
-- `zooniverse/fe-content-pages`: Built from the Dockerfile in `packages/app-content-pages`. Runs `yarn build` and `yarn start` in `packages/app-content-pages` from `zooniverse/front-end-monorepo:latest`.
-- `zooniverse/fe-project`: Built from the Dockerfile in `packages/app-project`. Runs `yarn build` and `yarn start` in `packages/app-project` from `zooniverse/front-end-monorepo:latest`.
+- `zooniverse/front-end-monorepo-staging`: Built from the Dockerfile in the root directory. It runs `yarn install` and builds all the libraries and apps from the latest main branch commit.
+- `zooniverse/front-end-monorepo-production`: Built from the Dockerfile in the root directory. It runs `yarn install` and builds all the libraries and apps from the `production_release` tag.
 
 ### Publishing
 When publishing an individual package to [npm](https://www.npmjs.com/), first cd into the repo you would like to deploy (within the packages folder), then:

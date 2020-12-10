@@ -1,11 +1,11 @@
-import { withKnobs, boolean, select } from '@storybook/addon-knobs'
+import { withKnobs, boolean, radios, select } from '@storybook/addon-knobs'
 import asyncStates from '@zooniverse/async-states'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { types } from 'mobx-state-tree'
 import React from 'react'
 import { Box, Grommet } from 'grommet'
-import { Provider } from 'mobx-react'
+import { Provider, observer } from 'mobx-react'
 import { Tasks } from '../../../../components/Classifier/components/TaskArea/components/Tasks/Tasks'
 import ClassificationStore from '@store/ClassificationStore'
 import SubjectStore from '@store/SubjectStore'
@@ -49,6 +49,8 @@ function addStepToStore(step, tasks) {
   store.workflowSteps.active.tasks.forEach(task => store.classifications.addAnnotation(task))
 }
 
+const ObservedTasks = observer(Tasks)
+
 function MockTask(props) {
   const { dark, ...taskProps } = props
 
@@ -69,7 +71,7 @@ function MockTask(props) {
         pad='1em'
         width='380px'
       >
-        <Tasks
+        <ObservedTasks
           {...taskProps}
         />
       </Box>
@@ -77,23 +79,7 @@ function MockTask(props) {
   )
 }
 
-const simpleDropdownTask = {
-  instruction: 'Choose your favourite colour',
-  allowCreate: false,
-  options: [
-    'Red',
-    'Blue',
-    'Yellow',
-    'Green',
-    'White',
-    'Black',
-  ],
-  required: false,
-  taskKey: 'init',
-  type: 'dropdown-simple',
-}
-
-storiesOf('Tasks | Simple Dropdown Task', module)
+storiesOf('Tasks / Simple Dropdown Task', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {
@@ -101,6 +87,21 @@ storiesOf('Tasks | Simple Dropdown Task', module)
     }
   })
   .add('light theme', function () {
+    const simpleDropdownTask = {
+      instruction: 'Choose your favourite colour',
+      allowCreate: false,
+      options: [
+        'Red',
+        'Blue',
+        'Yellow',
+        'Green',
+        'White',
+        'Black',
+      ],
+      required: radios('Required', { true: 'true', false: '' }, ''),
+      taskKey: 'init',
+      type: 'dropdown-simple',
+    }
     const tasks = {
       init: simpleDropdownTask
     }

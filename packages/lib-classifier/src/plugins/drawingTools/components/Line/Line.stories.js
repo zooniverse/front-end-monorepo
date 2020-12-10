@@ -91,7 +91,6 @@ function setupStores({ activeMark, subtask }) {
   }
 
   mockStores.classifications.createClassification(subject, workflow, project)
-  mockStores.workflowSteps.activeStepTasks[0].updateAnnotation()
   if (activeMark) {
     mockStores.workflowSteps.activeStepTasks[0].setActiveMark(line.id)
   }
@@ -137,7 +136,7 @@ class DrawingStory extends Component {
   }
 }
 
-storiesOf('Drawing tools | Line', module)
+storiesOf('Drawing tools / Line', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {

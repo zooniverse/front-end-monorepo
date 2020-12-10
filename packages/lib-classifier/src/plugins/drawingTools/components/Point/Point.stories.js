@@ -90,7 +90,6 @@ function setupStores ({ activeMark, subtask }) {
   }
 
   mockStores.classifications.createClassification(subject, workflow, project)
-  mockStores.workflowSteps.activeStepTasks[0].updateAnnotation()
   if (activeMark) {
     mockStores.workflowSteps.activeStepTasks[0].setActiveMark(point.id)
   }
@@ -136,7 +135,7 @@ class DrawingStory extends Component {
     )
   }
 }
-storiesOf('Drawing tools | Point', module)
+storiesOf('Drawing tools / Point', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {

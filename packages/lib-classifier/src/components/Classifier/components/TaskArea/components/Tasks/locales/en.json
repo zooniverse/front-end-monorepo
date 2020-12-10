@@ -1,0 +1,8 @@
+{
+  "Tasks": {
+    "demoMode": "In demo mode, classifications will not be saved. Use this for quick, inaccurate demos of the classification interface.",
+    "error": "Something went wrong",
+    "loading": "Loading",
+    "renderFallback": "Task component could not be rendered."
+  }
+}

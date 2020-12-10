@@ -14,7 +14,6 @@ counterpart.registerTranslations('en', en)
 
 const StyledDrop = styled(DropButton)`
   div {
-    margin-top: 10px;
     padding: 0;
   }
 

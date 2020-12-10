@@ -40,9 +40,9 @@ export const Drawing = types.model('Drawing', {
       return self.tools[self.activeToolIndex]
     },
 
-    get defaultAnnotation () {
+    defaultAnnotation (id = cuid()) {
       return DrawingAnnotation.create({
-        id: cuid(),
+        id,
         task: self.taskKey,
         taskType: self.type
       })
@@ -70,7 +70,7 @@ export const Drawing = types.model('Drawing', {
     }
 
     function complete () {
-      self.updateAnnotation(self.marks)
+      self.annotation.update(self.marks)
     }
 
     function reset () {

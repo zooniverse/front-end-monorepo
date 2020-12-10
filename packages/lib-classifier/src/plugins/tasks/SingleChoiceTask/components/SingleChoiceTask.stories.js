@@ -5,7 +5,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { types } from 'mobx-state-tree'
 import React from 'react'
 import { Box, Grommet } from 'grommet'
-import { Provider } from 'mobx-react'
+import { Provider, observer } from 'mobx-react'
 import { Tasks } from '../../../../components/Classifier/components/TaskArea/components/Tasks/Tasks'
 import ClassificationStore from '@store/ClassificationStore'
 import SubjectStore from '@store/SubjectStore'
@@ -49,6 +49,8 @@ function addStepToStore(step, tasks) {
   store.workflowSteps.active.tasks.forEach(task => store.classifications.addAnnotation(task))
 }
 
+const ObservedTasks = observer(Tasks)
+
 function MockTask(props) {
   const { dark, ...taskProps } = props
 
@@ -69,14 +71,14 @@ function MockTask(props) {
         pad='1em'
         width='380px'
       >
-        <Tasks
+        <ObservedTasks
           {...taskProps}
         />
       </Box>
     </Grommet>
   )
 }
-storiesOf('Tasks | Single Choice Question', module)
+storiesOf('Tasks / Single Choice Question', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {
