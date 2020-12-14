@@ -77,7 +77,7 @@ function MockTask(props) {
   )
 }
 
-storiesOf('Tasks | Drawing Task', module)
+storiesOf('Tasks / Drawing Task', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {

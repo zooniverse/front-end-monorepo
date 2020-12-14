@@ -51,45 +51,34 @@ const darkThemeConfig = Object.assign({}, config, {
 	backgrounds: backgrounds.darkDefault
 })
 
-storiesOf('Subject Viewers | SingleImageViewer', module)
-	.add(
-		'light theme',
-		() => {
-			return (
-				<ViewerContext theme={zooTheme}>
-					<Box height='medium' width='large'>
-						<SingleImageViewer />
-					</Box>
-				</ViewerContext>
-			)
-		},
-		config
-	)
-	.add(
-		'dark theme',
-		() => {
-			const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
-			return (
-				<ViewerContext theme={darkZooTheme}>
-					<Box height='medium' width='large'>
-						<SingleImageViewer />
-					</Box>
-				</ViewerContext>
-			)
-		},
-		darkThemeConfig
-	)
-	.add(
-		'with zoom controls',
-		() => {
-			return (
-				<ViewerContext theme={zooTheme}>
-					<Box direction='row' height='500px' width='large'>
-						<SingleImageViewer />
-						<ImageToolbar />
-					</Box>
-				</ViewerContext>
-			)
-		},
-		config
-	)
+storiesOf('Subject Viewers / SingleVideoViewer', module)
+  .addParameters({ component: SingleImageViewer })
+  .add('light theme', () => {
+    return (
+      <ViewerContext theme={zooTheme}>
+        <Box height='medium' width='large'>
+          <SingleImageViewer />
+        </Box>
+      </ViewerContext>
+    )
+  }, config)
+  .add('dark theme', () => {
+    const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
+    return (
+      <ViewerContext theme={darkZooTheme}>
+        <Box height='medium' width='large'>
+          <SingleImageViewer />
+        </Box>
+      </ViewerContext>
+    )
+  }, darkThemeConfig)
+  .add('with zoom controls', () => {
+    return (
+      <ViewerContext theme={zooTheme}>
+        <Box direction='row' height='500px' width='large'>
+          <SingleImageViewer />
+          <ImageToolbar />
+        </Box>
+      </ViewerContext>
+    )
+  }, config)

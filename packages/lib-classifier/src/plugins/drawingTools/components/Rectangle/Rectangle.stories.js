@@ -136,7 +136,7 @@ class DrawingStory extends Component {
   }
 }
 
-storiesOf('Drawing tools | Rectangle', module)
+storiesOf('Drawing tools / Rectangle', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {

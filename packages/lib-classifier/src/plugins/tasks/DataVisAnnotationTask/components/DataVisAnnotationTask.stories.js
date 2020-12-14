@@ -77,7 +77,7 @@ function MockTask(props) {
   )
 }
 
-storiesOf('Tasks | Data Visualization Annotation', module)
+storiesOf('Tasks / Data Visualization Annotation', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {
