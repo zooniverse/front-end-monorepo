@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { withTheme } from 'styled-components'
-import { MovableModal, Modal } from '@zooniverse/react-components'
+import { MovableModal } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import en from '../../locales/en'
 
@@ -38,13 +38,13 @@ class FieldGuide extends React.Component {
               modal={false}
               pad='medium'
               plain
-              position='center'
+              position='right'
               rndProps={{
                 minHeight: height,
                 minWidth: width,
                 position: {
-                  x: 0,
-                  y: 0
+                  x: 0 - (490 + 60), // width plus margins
+                  y: 0 - (415 + 60) * 0.5 // centers vertically
                 }
               }}
               title={counterpart('FieldGuide.title')}
