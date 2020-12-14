@@ -26,6 +26,12 @@ pipeline {
     // longer-term, we'll want to deploy feature branches as well.
 
     stage('Build base Docker image') {
+      when {
+        anyOf {
+          branch 'master'
+          tag 'production-release'
+        }
+      }
       agent any
 
       environment {
@@ -46,12 +52,7 @@ pipeline {
           def buildArgs = "--build-arg APP_ENV --build-arg COMMIT_ID --build-arg CONTENTFUL_ACCESS_TOKEN --build-arg CONTENTFUL_SPACE_ID --build-arg CONTENT_ASSET_PREFIX --build-arg SENTRY_CONTENT_DSN --build-arg PROJECT_ASSET_PREFIX --build-arg SENTRY_PROJECT_DSN ."
           def newImage = docker.build(dockerImageName, buildArgs)
           newImage.push()
-
-          if (BRANCH_NAME == 'master') {
-            stage('Update latest tag') {
-              newImage.push('latest')
-            }
-          }
+          newImage.push('latest')
         }
       }
     }
