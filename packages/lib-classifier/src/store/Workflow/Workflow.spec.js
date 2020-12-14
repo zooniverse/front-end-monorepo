@@ -29,6 +29,48 @@ describe('Model > Workflow', function () {
     })
   })
 
+  describe('workflow steps', function () {
+    let step
+
+    before(function () {
+      step = {
+        stepKey: 'S1',
+        taskKeys: [],
+        tasks: []
+      }
+    })
+
+    it('should be of the form [stepKey, step]', function (){
+      const { stepKey } = step
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'workflow1',
+        display_name: 'A test workflow',
+        steps: [
+          [ stepKey, step ]
+        ],
+        version: '0.0'
+      })
+      const workflow = Workflow.create(workflowSnapshot)
+      expect(workflow.steps[0]).to.deep.equal([ stepKey, step ])
+    })
+
+    it('should not be of the form [step, stepKey]', function (){
+      function createWorkflow() {
+        const { stepKey } = step
+        const workflowSnapshot = WorkflowFactory.build({
+          id: 'workflow1',
+          display_name: 'A test workflow',
+          steps: [
+            [ step, stepKey ]
+          ],
+          version: '0.0'
+        })
+        const workflow = Workflow.create(workflowSnapshot)
+      }
+      expect(createWorkflow).to.throw()
+    })
+  })
+
   describe('with transcription task', function () {
     let workflow
 
