@@ -10,7 +10,13 @@ describe('Server > setLogging', function () {
 
   describe('default behaviour', function () {
     before(function () {
-      setLogging = require('./set-logging')
+      setLogging = proxyquire('./set-logging', {
+        process: {
+          env: {
+            NODE_ENV: 'development'
+          }
+        }
+      })
     })
 
     afterEach(function () {
