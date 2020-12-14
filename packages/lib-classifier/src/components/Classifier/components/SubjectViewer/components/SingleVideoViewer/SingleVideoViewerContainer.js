@@ -4,6 +4,7 @@ import asyncStates from '@zooniverse/async-states'
 
 import locationValidator from '../../helpers/locationValidator'
 import SingleVideoViewer from './SingleVideoViewer'
+import VideoController from '../VideoController/VideoController'
 
 class SingleVideoViewerContainer extends React.Component {
   constructor() {
@@ -74,7 +75,12 @@ class SingleVideoViewerContainer extends React.Component {
     //   return null
     // }
 
-    return <SingleVideoViewer url={vid}></SingleVideoViewer>
+    return (
+      <div>
+        <SingleVideoViewer url={vid}></SingleVideoViewer>
+        <VideoController />
+      </div>
+    )
   }
 }
 
