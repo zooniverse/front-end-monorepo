@@ -34,7 +34,6 @@
     "mobx-utils": "~5.0.2",
     "pepjs": "~0.5.2",
     "react-resize-detector": "~4.2.0",
-    "react-rnd": "~10.1.5",
     "seven-ten": "~3.4.0",
     "valid-url": "~1.0.9"
   },
