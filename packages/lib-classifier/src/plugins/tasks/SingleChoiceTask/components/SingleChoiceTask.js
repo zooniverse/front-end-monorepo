@@ -1,5 +1,6 @@
 import { Markdownz, pxToRem } from '@zooniverse/react-components'
 import { Box, Text } from 'grommet'
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css } from 'styled-components'
@@ -97,4 +98,4 @@ SingleChoiceTask.propTypes = {
   theme: PropTypes.object
 }
 
-export default SingleChoiceTask
+export default observer(SingleChoiceTask)

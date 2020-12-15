@@ -79,7 +79,7 @@ function MockTask(props) {
   )
 }
 
-storiesOf('Tasks | Multiple Choice Question', module)
+storiesOf('Tasks / Multiple Choice Question', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {
