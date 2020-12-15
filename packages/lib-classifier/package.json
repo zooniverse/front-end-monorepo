@@ -61,7 +61,6 @@
     "@storybook/addon-essentials": "~6.1.10",
     "@storybook/addon-knobs": "~6.1.8",
     "@storybook/addon-links": "~6.1.8",
-    "@storybook/addon-notes": "~5.3.21",
     "@storybook/addons": "~6.1.8",
     "@storybook/react": "~6.1.8",
     "@visx/mock-data": "~1.0.0",

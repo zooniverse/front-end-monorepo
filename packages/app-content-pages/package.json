@@ -58,7 +58,6 @@
     "@storybook/addon-essentials": "~6.1.10",
     "@storybook/addon-knobs": "~6.1.8",
     "@storybook/addon-links": "~6.1.8",
-    "@storybook/addon-notes": "~5.3.21",
     "@storybook/addon-storysource": "~6.1.8",
     "@storybook/react": "~6.1.8",
     "chai": "~4.2.0",
