@@ -35,7 +35,6 @@
     "pepjs": "~0.5.2",
     "react-player": "~2.7.0",
     "react-resize-detector": "~4.2.0",
-    "react-rnd": "~10.1.5",
     "seven-ten": "~3.4.0",
     "valid-url": "~1.0.9"
   },
@@ -63,7 +62,6 @@
     "@storybook/addon-essentials": "~6.1.10",
     "@storybook/addon-knobs": "~6.1.8",
     "@storybook/addon-links": "~6.1.8",
-    "@storybook/addon-notes": "~5.3.21",
     "@storybook/addons": "~6.1.8",
     "@storybook/react": "~6.1.8",
     "@visx/mock-data": "~1.0.0",

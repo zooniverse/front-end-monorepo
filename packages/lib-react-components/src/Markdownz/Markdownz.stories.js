@@ -14,8 +14,10 @@ const TableRowWithBorder = styled(TableRow)`
 `
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 
