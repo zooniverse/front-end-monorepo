@@ -67,11 +67,11 @@ function InteractionLayer ({
   }
 
   function onPointerDown (event) {
-    const { target, pointerId } = event
-    target.setPointerCapture(pointerId)
     if (disabled || move) {
       return true
     }
+    const { target, pointerId } = event
+    target.setPointerCapture(pointerId)
 
     if (!activeTool.type) {
       return false;
