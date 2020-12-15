@@ -1,6 +1,6 @@
 import cuid from 'cuid'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled, { css } from 'styled-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import DrawingToolMarks from './components/DrawingToolMarks'
@@ -29,6 +29,12 @@ function InteractionLayer ({
 }) {
   const [ creating, setCreating ] = React.useState(false)
   const { svg, getScreenCTM } = React.useContext(SVGContext)
+
+  useEffect(function onDeleteMark() {
+    if (creating && !activeMark) {
+      setCreating(false)
+    }
+  }, [activeMark])
 
   function convertEvent (event) {
     const type = event.type
