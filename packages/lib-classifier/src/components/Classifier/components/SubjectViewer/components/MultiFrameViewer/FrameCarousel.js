@@ -70,7 +70,8 @@ export const StyledFrame = styled.label`
 
   height: 40px;
   margin: 5px 0;
-
+  width: 40px;
+            
   &:first-child {
     margin-top: 14px;
   }
@@ -171,11 +172,16 @@ class FrameCarousel extends React.Component {
           />
           <StyledMedia
             alt={counterpart('MultiFrameViewer.FrameCarousel.thumbnailAltText')}
+            background='accent-2'
             fit='cover'
-            height='40'
-            placeholder={<More size='medium' />}
+            height='40px'
+            placeholder={
+              <More
+                color='neutral-6'
+                size='medium'
+              />}
             src={url}
-            width='40'
+            width='40px'
           />
         </StyledFrame>
       )
