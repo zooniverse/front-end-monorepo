@@ -45,7 +45,7 @@ class DraggableStory extends Component {
     )
   }
 }
-storiesOf('Drawing Tools | draggable', module)
+storiesOf('Drawing Tools / draggable', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {

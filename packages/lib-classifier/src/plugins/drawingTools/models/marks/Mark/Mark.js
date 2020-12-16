@@ -64,7 +64,7 @@ const BaseMark = types.model('BaseMark', {
       let isMarkComplete = true
       self.tasks.forEach(task => {
         if (isMarkComplete) {
-          isMarkComplete = !task.required || self.annotation(task).isComplete
+          isMarkComplete = !task.required || !!self.annotation(task)?.isComplete
         }
       })
       return isMarkComplete

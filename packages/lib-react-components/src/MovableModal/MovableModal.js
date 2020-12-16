@@ -13,6 +13,7 @@ function MovableModal (props) {
     overflow,
     pad,
     rndProps: {
+      cancel,
       minHeight,
       minWidth,
       position,
@@ -26,7 +27,7 @@ function MovableModal (props) {
   // Change handleComponent prop to resizeHandleComponent when react-rnd gets upgraded
   return (
     <Rnd
-      cancel='.subtaskpopup-element-that-ignores-drag-actions'
+      cancel={cancel}
       enableResizing={{
         bottom: true,
         bottomLeft: false,
@@ -99,6 +100,7 @@ MovableModal.propTypes = {
   overflow: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
   pad: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
   rndProps: PropTypes.shape({
+    cancel: PropTypes.string,
     minHeight: PropTypes.number,
     minWidth: PropTypes.number,
     position: PropTypes.shape({

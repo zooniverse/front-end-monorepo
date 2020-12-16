@@ -10,7 +10,7 @@
     "dev": "PANOPTES_ENV=${PANOPTES_ENV:-production} node server/server.js",
     "lint": "zoo-standard --fix | snazzy",
     "start": "NODE_ENV=${NODE_ENV:-production} node server/server.js",
-    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook": "start-storybook -p 9002 -c .storybook",
     "test": "BABEL_ENV=test mocha",
     "test:ci": "BABEL_ENV=test mocha --reporter=min"
   },
@@ -54,8 +54,12 @@
   },
   "devDependencies": {
     "@babel/register": "~7.8.3",
-    "@storybook/addon-a11y": "~5.3.10",
-    "@storybook/react": "~5.3.10",
+    "@storybook/addon-a11y": "~6.1.8",
+    "@storybook/addon-essentials": "~6.1.10",
+    "@storybook/addon-knobs": "~6.1.8",
+    "@storybook/addon-links": "~6.1.8",
+    "@storybook/addon-storysource": "~6.1.8",
+    "@storybook/react": "~6.1.8",
     "chai": "~4.2.0",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.11.0",
