@@ -53,32 +53,35 @@ function InteractionLayer ({
     return svgEventOffset
   }
 
+  function createMark (event) {
+    const mark = activeTool.createMark({
+      id: cuid(),
+      frame,
+      toolIndex: activeToolIndex
+    })
+
+    mark.initialPosition(convertEvent(event))
+    setActiveMark(mark)
+    setCreating(true)
+    mark.setSubTaskVisibility(false)
+  }
+
   function onPointerDown (event) {
     if (disabled || move) {
       return true
     }
-    let activeMark
 
     if (!activeTool.type) {
       return false;
     }
 
     if (creating) {
-      activeMark = activeTool.handlePointerDown && activeTool.handlePointerDown(convertEvent(event))
+      const activeMark = activeTool.handlePointerDown && activeTool.handlePointerDown(convertEvent(event))
       if (activeMark.finished) setCreating(false)
       return true
     }
 
-    activeMark = activeTool.createMark({
-      id: cuid(),
-      frame,
-      toolIndex: activeToolIndex
-    })
-
-    activeMark.initialPosition(convertEvent(event))
-    setActiveMark(activeMark)
-    setCreating(true)
-    activeMark.setSubTaskVisibility(false)
+    createMark(event)
     return false
   }
 
@@ -98,7 +101,7 @@ function InteractionLayer ({
       activeTool.deleteMark(activeMark)
       setActiveMark(undefined)
     } else {
-      activeMark.setSubTaskVisibility(true, node)
+      activeMark?.setSubTaskVisibility(true, node)
     }
 
     if (target && pointerId) {
