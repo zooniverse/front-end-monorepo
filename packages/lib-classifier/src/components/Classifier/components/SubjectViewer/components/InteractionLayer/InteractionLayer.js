@@ -107,7 +107,7 @@ function InteractionLayer ({
       activeTool.deleteMark(activeMark)
       setActiveMark(undefined)
     } else {
-      activeMark?.setSubTaskVisibility(true, node)
+      if (node) activeMark?.setSubTaskVisibility(true, node)
     }
 
     if (target && pointerId) {
