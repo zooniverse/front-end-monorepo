@@ -21,6 +21,7 @@ function useStores(task, stores) {
   if (!annotation) {
     annotation = classification.addAnnotation(task)
   }
+  task.setAnnotation(annotation)
   return {
     annotation,
     disabled
@@ -56,4 +57,3 @@ Task.propTypes = {
 }
 
 export default observer(Task)
-

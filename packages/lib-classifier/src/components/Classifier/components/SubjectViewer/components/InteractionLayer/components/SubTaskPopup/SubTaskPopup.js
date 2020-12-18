@@ -84,6 +84,7 @@ function SubTaskPopup(props) {
               annotation = activeMark.addAnnotation(task)
             }
             const { TaskComponent } = taskRegistry.get(task.type)
+            task.setAnnotation(annotation)
 
             if (annotation && TaskComponent) {
               const requiredEmphasis = task.required && !task.isComplete && confirmationState === 'closed'
