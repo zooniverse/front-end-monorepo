@@ -15,7 +15,5 @@ install:
   - yarn workspace @zooniverse/classifier build
 
 script:
-  - npm run test:ci
+  - yarn test:ci
 
-after_success:
-  - yarn coverage

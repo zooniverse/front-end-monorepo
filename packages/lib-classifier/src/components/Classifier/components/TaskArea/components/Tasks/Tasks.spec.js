@@ -11,6 +11,8 @@ import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories
 import stubPanoptesJs from '@test/stubPanoptesJs'
 import en from './locales/en'
 
+import Task from './components/Task'
+
 describe('Tasks', function () {
   let classification
   let step
@@ -21,7 +23,7 @@ describe('Tasks', function () {
   taskTypes.forEach(function (taskType) {
     before(function () {
       const task = taskRegistry.get(taskType)
-      TaskComponent = observer(task.TaskComponent)
+      TaskComponent = task.TaskComponent
       // DrawingTask, TranscriptionTask, DataVisAnnotationTask, TextTask all use instruction
       // SingleChoiceTask, MultipleChoiceTask use question
       // keys that aren't defined on certain task models are ignored
@@ -125,7 +127,7 @@ describe('Tasks', function () {
         expect(wrapper.type()).to.be.null()
       })
 
-      it('should render the correct task component if the workflow is loaded', function () {
+      it('should render a task component if the workflow is loaded', function () {
         const wrapper = shallow(
           <Tasks
             loadingState={asyncStates.success}
@@ -135,7 +137,7 @@ describe('Tasks', function () {
           />
         )
         // Is there a better way to do this?
-        expect(wrapper.find(TaskComponent.displayName)).to.have.lengthOf(1)
+        expect(wrapper.find(Task)).to.have.lengthOf(1)
       })
 
       it('should not render the demo mode messaging', function () {
@@ -153,46 +155,6 @@ describe('Tasks', function () {
             step={step}
           />)
         expect(wrapper.contains(en.Tasks.demoMode)).to.be.true()
-      })
-
-      describe('task components', function () {
-        let taskWrapper
-
-        describe('while the subject is loading', function () {
-          before(function () {
-            const wrapper = shallow(
-              <Tasks
-                classification={classification}
-                loadingState={asyncStates.success}
-                subjectReadyState={asyncStates.loading}
-                step={step}
-              />
-            )
-            taskWrapper = wrapper.find(TaskComponent.displayName)
-          })
-
-          it('should be disabled', function () {
-            expect(taskWrapper.prop('disabled')).to.be.true()
-          })
-        })
-
-        describe('when the subject viewer is ready', function () {
-          before(function () {
-            const wrapper = shallow(
-              <Tasks
-                classification={classification}
-                loadingState={asyncStates.success}
-                subjectReadyState={asyncStates.success}
-                step={step}
-              />
-            )
-            taskWrapper = wrapper.find(TaskComponent.displayName)
-          })
-
-          it('should be enabled', function () {
-            expect(taskWrapper.prop('disabled')).to.be.false()
-          })
-        })
       })
     })
   })

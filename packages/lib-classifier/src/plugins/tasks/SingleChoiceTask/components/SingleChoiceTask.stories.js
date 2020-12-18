@@ -78,7 +78,7 @@ function MockTask(props) {
     </Grommet>
   )
 }
-storiesOf('Tasks | Single Choice Question', module)
+storiesOf('Tasks / Single Choice Question', module)
   .addDecorator(withKnobs)
   .addParameters({
     viewport: {

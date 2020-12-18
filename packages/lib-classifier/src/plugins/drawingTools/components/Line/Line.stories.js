@@ -1,5 +1,4 @@
 import { withKnobs } from '@storybook/addon-knobs'
-import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import React, { Component } from 'react'
 import { Box, Grommet } from 'grommet'
@@ -11,6 +10,7 @@ import ClassificationStore from '@store/ClassificationStore'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import DrawingTask from '@plugins/tasks/DrawingTask/models/DrawingTask'
 import { DrawingTaskFactory, ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
+import Line from './'
 
 const subject = SubjectFactory.build({
   locations: [
@@ -52,23 +52,23 @@ const subTasksSnapshot = [
   }
 ]
 
-function setupStores({ activeMark, subtask }) {
-  if (subtask) {
-    drawingTaskSnapshot.tools[0].details = subTasksSnapshot
-    drawingTaskSnapshot.subTaskVisibility = true
-    // should think of a better way to do this for the story
-    // this is a rough approximation of what the positioning is like now
-    drawingTaskSnapshot.subTaskMarkBounds = {
-      x: 250,
-      y: 250,
-      width: 0,
-      height: 0,
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0
-    }
-  }
+// should think of a better way to do create bounds for the story
+// this is a rough approximation of what the positioning is like now
+const nodeMock = {
+  getBoundingClientRect: () => ({
+    x: 250,
+    y: 250,
+    width: 0,
+    height: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+  })
+}
+
+function setupStores() {
+  drawingTaskSnapshot.tools[0].details = subTasksSnapshot
 
   const drawingTask = DrawingTask.create(drawingTaskSnapshot)
   drawingTask.setActiveTool(0)
@@ -91,11 +91,25 @@ function setupStores({ activeMark, subtask }) {
   }
 
   mockStores.classifications.createClassification(subject, workflow, project)
-  if (activeMark) {
-    mockStores.workflowSteps.activeStepTasks[0].setActiveMark(line.id)
-  }
 
   return mockStores
+}
+
+const stores = setupStores()
+
+function updateStores({ activeMark, finished, subtask }) {
+  const [ drawingTask ] = stores.workflowSteps.activeStepTasks
+  const [ mark ] = drawingTask.marks
+  if (finished) {
+    drawingTask.setActiveMark(mark.id)
+    mark.finish && mark.finish()
+  }
+  mark.setSubTaskVisibility(subtask, nodeMock)
+  if (activeMark) {
+    drawingTask.setActiveMark(mark.id)
+  } else {
+    drawingTask.setActiveMark(undefined)
+  }
 }
 
 class DrawingStory extends Component {
@@ -136,28 +150,49 @@ class DrawingStory extends Component {
   }
 }
 
-storiesOf('Drawing tools | Line', module)
-  .addDecorator(withKnobs)
-  .addParameters({
+export default {
+  title: 'Drawing tools / Line',
+  component: Line,
+  decorators: [withKnobs],
+  parameters: {
     viewport: {
       defaultViewport: 'responsive'
     }
-  })
-  .add('complete', function () {
-    const stores = setupStores({ activeMark: false, subtask: false })
-    return (
-      <DrawingStory stores={stores} />
-    )
-  })
-  .add('active', function () {
-    const stores = setupStores({ activeMark: true, subtask: false })
-    return (
-      <DrawingStory stores={stores} />
-    )
-  })
-  .add('active with subtask', function () {
-    const stores = setupStores({ activeMark: true, subtask: true })
-    return (
-      <DrawingStory stores={stores} />
-    )
-  })
+  }
+}
+
+export function Complete(args) {
+  updateStores(args)
+  return (
+    <DrawingStory stores={stores} />
+  )
+}
+Complete.args = {
+  activeMark: false,
+  finished: false,
+  subtask: false
+}
+
+export function Active(args) {
+  updateStores(args)
+  return (
+    <DrawingStory stores={stores} />
+  )
+}
+Active.args = {
+  activeMark: true,
+  finished: false,
+  subtask: false
+}
+
+export function Subtask(args) {
+  updateStores(args)
+  return (
+    <DrawingStory stores={stores} />
+  )
+}
+Subtask.args = {
+  activeMark: true,
+  finished: true,
+  subtask: true
+}
