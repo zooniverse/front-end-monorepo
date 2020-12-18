@@ -10,9 +10,6 @@ const TranscriptionLineModel = types
     x2: types.maybe(types.number),
     y2: types.maybe(types.number)
   })
-  .volatile(self => ({
-    finished: false
-  }))
   .views(self => ({
     get coords () {
       return {
@@ -46,10 +43,6 @@ const TranscriptionLineModel = types
     }
   }))
   .actions(self => {
-    function finish () {
-      self.finished = true
-    }
-
     function initialDrag ({ x, y }) {
       self.x2 = x
       self.y2 = y
@@ -77,7 +70,6 @@ const TranscriptionLineModel = types
     }
 
     return {
-      finish,
       initialDrag,
       initialPosition,
       move,
