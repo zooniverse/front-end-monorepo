@@ -121,6 +121,7 @@ describe('Model > SurveyAnnotation', function () {
     })
 
     it('should have a default value', function () {
+      expect(surveyAnnotation.value).to.be.an('array')
       expect(surveyAnnotation.value).to.have.lengthOf(0)
     })
 
