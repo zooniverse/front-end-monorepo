@@ -5,8 +5,8 @@ import sinon from 'sinon'
 import {
   FrameCarousel,
   StyledControlButton,
-  StyledFrame,
-  StyledImage
+  StyledMedia,
+  StyledFrame
 } from './FrameCarousel'
 
 describe('Component > FrameCarousel', function () {
@@ -48,7 +48,7 @@ describe('Component > FrameCarousel', function () {
   it('should render a label, input and an img for each location', function () {
     const labels = wrapper.find(StyledFrame)
     const inputs = wrapper.find('input')
-    const images = wrapper.find(StyledImage)
+    const images = wrapper.find(StyledMedia)
     expect(labels).to.have.lengthOf(numberOfFrames)
     expect(inputs).to.have.lengthOf(numberOfFrames)
     expect(images).to.have.lengthOf(numberOfFrames)

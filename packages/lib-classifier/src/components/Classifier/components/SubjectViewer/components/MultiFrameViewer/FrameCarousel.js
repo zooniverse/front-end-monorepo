@@ -1,10 +1,11 @@
 import counterpart from 'counterpart'
 import { Button, Box } from 'grommet'
-import { FormUp, FormDown } from 'grommet-icons'
+import { FormUp, FormDown, More } from 'grommet-icons'
 import { tint } from 'polished'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
+import { Media } from '@zooniverse/react-components'
 
 import locationValidator from '../../helpers/locationValidator'
 import en from './locales/en'
@@ -49,24 +50,28 @@ export function NextLabel () {
   )
 }
 
+// creating StyledMedia allows input state dependent styles as defined in StyledFrame
+export const StyledMedia = styled(Media)``
+
 export const StyledFrame = styled.label`
   ${props => props.theme && css`
-    input:checked + img {
-      border: ${props.theme.global.colors['neutral-4']} solid;
+    input:checked + ${StyledMedia} {
+      border: solid ${props.theme.global.colors['neutral-4']};
     }
     
-    input:focus + img {
+    input:focus + ${StyledMedia} {
       outline: 2px solid ${tint(0.5, props.theme.global.colors.brand)};
     }
 
-    input:hover + img {
+    input:hover + ${StyledMedia} {
       outline: 2px solid ${tint(0.5, props.theme.global.colors.brand)};
     }
   `}
 
   height: 40px;
   margin: 5px 0;
-
+  width: 40px;
+            
   &:first-child {
     margin-top: 14px;
   }
@@ -85,18 +90,11 @@ export const StyledFrame = styled.label`
   }
 `
 
-export const StyledImage = styled.img`
-  height: 40px;
-  object-fit: cover;
-  padding: 0;
-  width: 40px;
-`
-
 export const StyledFrameList = styled.ul`
   align-items: center;
   display: flex;
   flex-direction: column;
-  flex: 1 0 auto;
+  flex: 1 1 auto;
   margin: 0;
   overflow: auto;
   padding: 0;
@@ -160,6 +158,7 @@ class FrameCarousel extends React.Component {
       const mimeType = Object.keys(location)[0]
       const url = location[mimeType]
       const activeFrame = frame === index
+
       return (
         <StyledFrame
           key={`${url}-${index}`}
@@ -171,9 +170,18 @@ class FrameCarousel extends React.Component {
             onChange={() => this.handleFrameChange(index)}
             type='radio'
           />
-          <StyledImage
+          <StyledMedia
             alt={counterpart('MultiFrameViewer.FrameCarousel.thumbnailAltText')}
+            background='accent-2'
+            fit='cover'
+            height='40px'
+            placeholder={
+              <More
+                color='neutral-6'
+                size='medium'
+              />}
             src={url}
+            width='40px'
           />
         </StyledFrame>
       )
