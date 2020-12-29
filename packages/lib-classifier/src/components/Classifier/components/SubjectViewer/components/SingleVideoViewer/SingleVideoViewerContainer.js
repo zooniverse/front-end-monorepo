@@ -11,7 +11,8 @@ class SingleVideoViewerContainer extends React.Component {
     super()
 
     this.state = {
-      vid: ''
+      vid: '',
+      isPlaying: false
     }
   }
 
@@ -19,6 +20,7 @@ class SingleVideoViewerContainer extends React.Component {
     this.onLoad()
   }
 
+  /* ==================== get subject ==================== */
   async onLoad() {
     const { onError, onReady } = this.props
     try {
@@ -56,9 +58,20 @@ class SingleVideoViewerContainer extends React.Component {
     return {}
   }
 
+  /* ==================== video player ==================== */
+  handlePlayerRef = (player) => {
+    console.log('Im handling it!!!')
+    this.player = player
+  }
+
+  onVideoPlayPause = () => {
+    console.log('Play Me!!!')
+    this.setState((prevState) => ({ isPlaying: !prevState.isPlaying }))
+  }
+
   render() {
     const { loadingState } = this.props
-    const { vid } = this.state
+    const { vid, isPlaying } = this.state
     // Erik Todo
     const { naturalHeight, naturalWidth, src } = vid
 
@@ -77,8 +90,15 @@ class SingleVideoViewerContainer extends React.Component {
 
     return (
       <div>
-        <SingleVideoViewer url={vid}></SingleVideoViewer>
-        <VideoController />
+        <div>
+          <SingleVideoViewer
+            playerRef={this.handlePlayerRef}
+            url={vid}
+            isPlaying={isPlaying}
+          ></SingleVideoViewer>
+          {/* Drawing layer here */}
+        </div>
+        <VideoController onPlayPause={this.onVideoPlayPause} />
       </div>
     )
   }

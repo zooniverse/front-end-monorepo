@@ -25,24 +25,33 @@ const Container = styled.div`
   }
 `
 
-const SingleVideoViewer = ({ url }) => (
-  <Container>
-    <ReactPlayer
-      className='react-player'
-      controls={true}
-      url={url}
-      width='100%'
-      height='100%'
-    />
-  </Container>
-)
+const SingleVideoViewer = ({ url, isPlaying, playerRef }) => {
+  console.log('isPlaying ', isPlaying)
+  return (
+    <Container>
+      <ReactPlayer
+        className='react-player'
+        ref={playerRef}
+        controls={true}
+        url={url}
+        playing={isPlaying}
+        width='100%'
+        height='100%'
+      />
+    </Container>
+  )
+}
 
 SingleVideoViewer.propTypes = {
-  url: PropTypes.string
+  playerRef: PropTypes.func,
+  url: PropTypes.string,
+  isPlaying: PropTypes.bool
 }
 
 SingleVideoViewer.defaultProps = {
-  url: ''
+  playerRef: () => {},
+  url: '',
+  isPlaying: false
 }
 
 export default SingleVideoViewer
