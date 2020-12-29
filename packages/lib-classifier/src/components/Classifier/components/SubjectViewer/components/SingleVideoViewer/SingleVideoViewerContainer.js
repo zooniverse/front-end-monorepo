@@ -98,7 +98,10 @@ class SingleVideoViewerContainer extends React.Component {
           ></SingleVideoViewer>
           {/* Drawing layer here */}
         </div>
-        <VideoController onPlayPause={this.onVideoPlayPause} />
+        <VideoController
+          isPlaying={isPlaying}
+          onPlayPause={this.onVideoPlayPause}
+        />
       </div>
     )
   }

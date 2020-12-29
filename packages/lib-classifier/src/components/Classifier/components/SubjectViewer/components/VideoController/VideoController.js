@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { PlayFill } from 'grommet-icons'
+import { PlayFill, PauseFill } from 'grommet-icons'
 
 const Button = styled.button`
   border: none;
@@ -9,18 +9,20 @@ const Button = styled.button`
   cursor: pointer;
 `
 
-const VideoController = ({ onPlayPause }) => (
+const VideoController = ({ isPlaying, onPlayPause }) => (
   <div>
     <Button onClick={onPlayPause}>
-      <PlayFill />
+      {isPlaying ? <PauseFill /> : <PlayFill />}
     </Button>
   </div>
 )
 
 VideoController.propTypes = {
+  isPlaying: PropTypes.bool,
   onPlayPause: PropTypes.func
 }
 VideoController.defaultProps = {
+  isPlaying: false,
   onPlayPause: () => {}
 }
 
