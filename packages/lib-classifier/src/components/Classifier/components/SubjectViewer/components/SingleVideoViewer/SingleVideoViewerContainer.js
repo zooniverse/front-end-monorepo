@@ -60,13 +60,16 @@ class SingleVideoViewerContainer extends React.Component {
 
   /* ==================== video player ==================== */
   handlePlayerRef = (player) => {
-    console.log('Im handling it!!!')
     this.player = player
   }
 
-  onVideoPlayPause = () => {
-    console.log('Play Me!!!')
+  handlePlayPause = () => {
     this.setState((prevState) => ({ isPlaying: !prevState.isPlaying }))
+  }
+
+  handleRewind = () => {
+    this.setState({ isPlaying: false })
+    this.player.seekTo(0)
   }
 
   render() {
@@ -100,7 +103,8 @@ class SingleVideoViewerContainer extends React.Component {
         </div>
         <VideoController
           isPlaying={isPlaying}
-          onPlayPause={this.onVideoPlayPause}
+          onPlayPause={this.handlePlayPause}
+          onRewind={this.handleRewind}
         />
       </div>
     )

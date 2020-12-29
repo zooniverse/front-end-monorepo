@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { PlayFill, PauseFill } from 'grommet-icons'
+import { ChapterPrevious, PlayFill, PauseFill } from 'grommet-icons'
 
 const Button = styled.button`
   border: none;
@@ -9,8 +9,11 @@ const Button = styled.button`
   cursor: pointer;
 `
 
-const VideoController = ({ isPlaying, onPlayPause }) => (
+const VideoController = ({ onRewind, isPlaying, onPlayPause }) => (
   <div>
+    <Button onClick={onRewind}>
+      <ChapterPrevious />
+    </Button>
     <Button onClick={onPlayPause}>
       {isPlaying ? <PauseFill /> : <PlayFill />}
     </Button>
@@ -18,10 +21,12 @@ const VideoController = ({ isPlaying, onPlayPause }) => (
 )
 
 VideoController.propTypes = {
+  onRewind: PropTypes.func,
   isPlaying: PropTypes.bool,
   onPlayPause: PropTypes.func
 }
 VideoController.defaultProps = {
+  onRewind: () => {},
   isPlaying: false,
   onPlayPause: () => {}
 }
