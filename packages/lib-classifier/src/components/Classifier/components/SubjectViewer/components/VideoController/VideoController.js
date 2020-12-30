@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { ChapterPrevious, PlayFill, PauseFill } from 'grommet-icons'
+import FormattedTime from './FormattedTime'
 
 const ControllerWrapper = styled.div`
   display: grid;
@@ -37,35 +38,48 @@ const VideoController = ({
   onRewind,
   isPlaying,
   onPlayPause,
-  onSpeedChange
-}) => (
-  <ControllerWrapper>
-    <ButtonGroup>
-      <Button onClick={onRewind}>
-        <ChapterPrevious />
-      </Button>
-      <Button onClick={onPlayPause}>
-        {isPlaying ? <PauseFill /> : <PlayFill />}
-      </Button>
-      <SpeedButton onClick={() => onSpeedChange(0.25)}>0.25</SpeedButton>
-      <SpeedButton onClick={() => onSpeedChange(0.5)}>0.5</SpeedButton>
-      <SpeedButton onClick={() => onSpeedChange(1)}>1.0</SpeedButton>
-    </ButtonGroup>
-    <TimeWrapper>Time</TimeWrapper>
-  </ControllerWrapper>
-)
+  onSpeedChange,
+  played,
+  duration
+}) => {
+  // console.log('played: ', played)
+  return (
+    <ControllerWrapper>
+      <ButtonGroup>
+        <Button onClick={onRewind}>
+          <ChapterPrevious />
+        </Button>
+        <Button onClick={onPlayPause}>
+          {isPlaying ? <PauseFill /> : <PlayFill />}
+        </Button>
+        <SpeedButton onClick={() => onSpeedChange(0.25)}>0.25</SpeedButton>
+        <SpeedButton onClick={() => onSpeedChange(0.5)}>0.5</SpeedButton>
+        <SpeedButton onClick={() => onSpeedChange(1)}>1.0</SpeedButton>
+      </ButtonGroup>
+      <TimeWrapper>
+        <FormattedTime seconds={played * duration} />
+        {' / '}
+        <FormattedTime seconds={duration} />
+      </TimeWrapper>
+    </ControllerWrapper>
+  )
+}
 
 VideoController.propTypes = {
   onRewind: PropTypes.func,
   isPlaying: PropTypes.bool,
   onPlayPause: PropTypes.func,
-  onSpeedChange: PropTypes.func
+  onSpeedChange: PropTypes.func,
+  played: PropTypes.number,
+  duration: PropTypes.number
 }
 VideoController.defaultProps = {
   onRewind: () => {},
   isPlaying: false,
   onPlayPause: () => {},
-  onSpeedChange: () => {}
+  onSpeedChange: () => {},
+  played: 0,
+  duration: 0
 }
 
 export default VideoController

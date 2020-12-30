@@ -25,7 +25,15 @@ const Container = styled.div`
   }
 `
 
-const SingleVideoViewer = ({ url, isPlaying, playbackRate, playerRef }) => {
+const SingleVideoViewer = ({
+  url,
+  isPlaying,
+  playbackRate,
+  progressInterval,
+  onProgress,
+  playerRef,
+  onDuration
+}) => {
   return (
     <Container>
       <ReactPlayer
@@ -35,6 +43,9 @@ const SingleVideoViewer = ({ url, isPlaying, playbackRate, playerRef }) => {
         url={url}
         playing={isPlaying}
         playbackRate={playbackRate}
+        progressInterval={progressInterval}
+        onProgress={onProgress}
+        onDuration={onDuration}
         width='100%'
         height='100%'
       />
@@ -46,14 +57,20 @@ SingleVideoViewer.propTypes = {
   playerRef: PropTypes.func,
   url: PropTypes.string,
   isPlaying: PropTypes.bool,
-  playbackRate: PropTypes.number
+  playbackRate: PropTypes.number,
+  progressInterval: PropTypes.number,
+  onProgress: PropTypes.func,
+  onDuration: PropTypes.func
 }
 
 SingleVideoViewer.defaultProps = {
   playerRef: () => {},
   url: '',
   isPlaying: false,
-  playbackRate: 1
+  playbackRate: 1,
+  progressInterval: 100,
+  onProgress: () => {},
+  onDuration: () => {}
 }
 
 export default SingleVideoViewer

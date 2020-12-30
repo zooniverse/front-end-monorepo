@@ -13,7 +13,9 @@ class SingleVideoViewerContainer extends React.Component {
     this.state = {
       vid: '',
       isPlaying: false,
-      playbackRate: 1
+      playbackRate: 1,
+      played: 0,
+      duration: 0
     }
   }
 
@@ -64,12 +66,24 @@ class SingleVideoViewerContainer extends React.Component {
     this.player = player
   }
 
+  handleVideoProgress = (state) => {
+    const { played } = state
+    this.setState((prevState) => {
+      if (prevState.isSeeking) return null
+      return { played: this.getFixedNumber(played, 5) }
+    })
+  }
+
+  handleVideoDuration = (duration) => {
+    this.setState({ duration })
+  }
+
   handlePlayPause = () => {
     this.setState((prevState) => ({ isPlaying: !prevState.isPlaying }))
   }
 
   handleRewind = () => {
-    this.setState({ isPlaying: false })
+    this.setState({ isPlaying: false, played: 0 })
     this.player.seekTo(0)
   }
 
@@ -77,9 +91,13 @@ class SingleVideoViewerContainer extends React.Component {
     this.setState({ playbackRate: s })
   }
 
+  getFixedNumber = (number, digits) => {
+    return Math.round(number * 10 ** digits) / 10 ** digits
+  }
+
   render() {
     const { loadingState } = this.props
-    const { vid, isPlaying, playbackRate } = this.state
+    const { vid, isPlaying, playbackRate, played, duration } = this.state
     // Erik Todo
     const { naturalHeight, naturalWidth, src } = vid
 
@@ -104,11 +122,15 @@ class SingleVideoViewerContainer extends React.Component {
             url={vid}
             isPlaying={isPlaying}
             playbackRate={playbackRate}
+            onProgress={this.handleVideoProgress}
+            onDuration={this.handleVideoDuration}
           ></SingleVideoViewer>
           {/* Drawing layer here */}
         </div>
         <VideoController
           isPlaying={isPlaying}
+          played={played}
+          duration={duration}
           onPlayPause={this.handlePlayPause}
           onRewind={this.handleRewind}
           onSpeedChange={this.handleSpeedChange}
