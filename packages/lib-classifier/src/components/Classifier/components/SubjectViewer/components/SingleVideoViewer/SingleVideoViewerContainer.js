@@ -12,7 +12,8 @@ class SingleVideoViewerContainer extends React.Component {
 
     this.state = {
       vid: '',
-      isPlaying: false
+      isPlaying: false,
+      playbackRate: 1
     }
   }
 
@@ -72,9 +73,13 @@ class SingleVideoViewerContainer extends React.Component {
     this.player.seekTo(0)
   }
 
+  handleSpeedChange = (s) => {
+    this.setState({ playbackRate: s })
+  }
+
   render() {
     const { loadingState } = this.props
-    const { vid, isPlaying } = this.state
+    const { vid, isPlaying, playbackRate } = this.state
     // Erik Todo
     const { naturalHeight, naturalWidth, src } = vid
 
@@ -98,6 +103,7 @@ class SingleVideoViewerContainer extends React.Component {
             playerRef={this.handlePlayerRef}
             url={vid}
             isPlaying={isPlaying}
+            playbackRate={playbackRate}
           ></SingleVideoViewer>
           {/* Drawing layer here */}
         </div>
@@ -105,6 +111,7 @@ class SingleVideoViewerContainer extends React.Component {
           isPlaying={isPlaying}
           onPlayPause={this.handlePlayPause}
           onRewind={this.handleRewind}
+          onSpeedChange={this.handleSpeedChange}
         />
       </div>
     )
