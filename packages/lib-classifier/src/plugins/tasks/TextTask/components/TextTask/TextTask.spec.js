@@ -143,35 +143,6 @@ describe('TextTask', function () {
         expect(annotation.update.withArgs('This has been edited.')).to.have.been.calledOnce()
       })
     })
-
-    describe('on unmount', function () {
-      before(function () {
-        sinon.spy(annotation, 'update')
-        annotation.update('Hello, this is an existing annotation')
-        task.setAnnotation(annotation)
-        wrapper = mount(
-          <TextTask
-            annotation={annotation}
-            task={task}
-          />,
-          {
-            wrappingComponent: Grommet,
-            wrappingComponentProps: { theme: zooTheme }
-          }
-        )
-        const textArea = wrapper.find(TextArea).getDOMNode()
-        textArea.value = 'This has been edited.'
-        wrapper.unmount()
-      })
-
-      after(function () {
-        annotation.update.restore()
-      })
-
-      it('should save the current text', function () {
-        expect(annotation.update.withArgs('This has been edited.')).to.have.been.calledOnce()
-      })
-    })
   })
   
   describe('task with suggestions', function () {
