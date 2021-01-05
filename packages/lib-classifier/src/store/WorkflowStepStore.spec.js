@@ -90,7 +90,10 @@ describe('Model > WorkflowStepStore', function () {
 
       it('should set the next step', function () {
         STORE_STEPS.forEach((step, stepIndex) => {
-          const nextStep = step[stepIndex + 1]
+          let nextStep
+          if (STORE_STEPS.length > 0 && stepIndex + 2 <= STORE_STEPS.length) {
+            nextStep = step[stepIndex + 1]
+          }
           if (nextStep) {
             expect(step.next).to.equal(nextStep.stepKey)
           }
