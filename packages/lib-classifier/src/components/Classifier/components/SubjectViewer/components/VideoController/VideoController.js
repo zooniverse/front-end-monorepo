@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { ChapterPrevious, PlayFill, PauseFill } from 'grommet-icons'
 import FormattedTime from './FormattedTime'
+import Slider from './Slider'
 
 const ControllerWrapper = styled.div`
   display: grid;
@@ -26,7 +27,7 @@ const Button = styled.button`
   cursor: pointer;
 `
 
-const Slider = styled.div`
+const SliderWrapper = styled.div`
   border: 2px solid blue;
 `
 
@@ -53,9 +54,11 @@ const VideoController = ({
   onPlayPause,
   onSpeedChange,
   played,
-  duration
+  duration,
+  onSliderMouseUp,
+  onSliderMouseDown,
+  onSliderChange
 }) => {
-  // console.log('played: ', played)
   return (
     <ControllerWrapper>
       <ButtonGroup>
@@ -71,7 +74,14 @@ const VideoController = ({
         {' / '}
         <FormattedTime seconds={duration} />
       </TimeWrapper>
-      <Slider>Slider</Slider>
+      <SliderWrapper>
+        <Slider
+          played={played}
+          onMouseUp={onSliderMouseUp}
+          onMouseDown={onSliderMouseDown}
+          onChange={onSliderChange}
+        />
+      </SliderWrapper>
       <VideoSpeed>
         <SpeedButton onClick={() => onSpeedChange(0.25)}>0.25</SpeedButton>
         <SpeedButton onClick={() => onSpeedChange(0.5)}>0.5</SpeedButton>
@@ -82,20 +92,26 @@ const VideoController = ({
 }
 
 VideoController.propTypes = {
-  onRewind: PropTypes.func,
   isPlaying: PropTypes.bool,
+  played: PropTypes.number,
+  duration: PropTypes.number,
   onPlayPause: PropTypes.func,
   onSpeedChange: PropTypes.func,
-  played: PropTypes.number,
-  duration: PropTypes.number
+  onRewind: PropTypes.func,
+  onSliderMouseUp: PropTypes.func,
+  onSliderMouseDown: PropTypes.func,
+  onSliderChange: PropTypes.func
 }
 VideoController.defaultProps = {
-  onRewind: () => {},
   isPlaying: false,
+  played: 0,
+  duration: 0,
   onPlayPause: () => {},
   onSpeedChange: () => {},
-  played: 0,
-  duration: 0
+  onRewind: () => {},
+  onSliderMouseUp: () => {},
+  onSliderMouseDown: () => {},
+  onSliderChange: () => {}
 }
 
 export default VideoController

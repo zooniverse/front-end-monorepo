@@ -91,6 +91,18 @@ class SingleVideoViewerContainer extends React.Component {
     this.setState({ playbackRate: s })
   }
 
+  handleSliderMouseUp = () => {
+    console.log('Mouse up')
+  }
+
+  handleSliderMouseDown = () => {
+    console.log('Mouse down')
+  }
+
+  handleSliderChange = () => {
+    console.log('Slider Change')
+  }
+
   getFixedNumber = (number, digits) => {
     return Math.round(number * 10 ** digits) / 10 ** digits
   }
@@ -134,6 +146,9 @@ class SingleVideoViewerContainer extends React.Component {
           onPlayPause={this.handlePlayPause}
           onRewind={this.handleRewind}
           onSpeedChange={this.handleSpeedChange}
+          onSliderMouseUp={this.handleSliderMouseUp}
+          onSliderMouseDown={this.handleSliderMouseDown}
+          onSliderChange={this.handleSliderChange}
         />
       </div>
     )
