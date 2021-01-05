@@ -39,7 +39,7 @@ const SingleVideoViewer = ({
       <ReactPlayer
         className='react-player'
         ref={playerRef}
-        controls={true}
+        controls={false}
         url={url}
         playing={isPlaying}
         playbackRate={playbackRate}
