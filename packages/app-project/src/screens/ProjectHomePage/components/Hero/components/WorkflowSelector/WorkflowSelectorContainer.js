@@ -7,7 +7,7 @@ import WorkflowSelector from './WorkflowSelector'
 function storeMapper(stores) {
   const { project, user } = stores.store
   return {
-    loadingState: user.loadingState,
+    userReadyState: user.loadingState,
     workflowDescription: project.workflow_description
   }
 }
@@ -23,7 +23,7 @@ class WorkflowSelectorContainer extends Component {
 }
 
 WorkflowSelectorContainer.propTypes = {
-  loadingState: string,
+  userReadyState: string,
   workflowDescription: string
 }
 

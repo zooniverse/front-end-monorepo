@@ -13,7 +13,7 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelectorContainer', func
   before(function () {
     wrapper = shallow(
       <WorkflowSelectorContainer
-        loadingState='success'
+        userReadyState='success'
         workflowDescription={WORKFLOW_DESCRIPTION}
       />
     )
@@ -33,6 +33,6 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelectorContainer', func
   })
 
   it('should pass down the user loading state', function () {
-    expect(componentWrapper.prop('loadingState')).to.equal('success')
+    expect(componentWrapper.prop('userReadyState')).to.equal('success')
   })
 })

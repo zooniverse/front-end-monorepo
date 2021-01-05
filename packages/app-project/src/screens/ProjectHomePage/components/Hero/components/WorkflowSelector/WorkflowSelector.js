@@ -17,7 +17,7 @@ const markdownzComponents = {
 }
 
 function WorkflowSelector (props) {
-  const { loadingState, workflows } = props
+  const { userReadyState, workflows } = props
   const loaderColor = props.theme.global.colors.brand
   const workflowDescription = props.workflowDescription || counterpart('WorkflowSelector.message')
 
@@ -30,7 +30,7 @@ function WorkflowSelector (props) {
         {workflowDescription}
       </Markdownz>
 
-      {(loadingState === asyncStates.error) && (
+      {(userReadyState === asyncStates.error) && (
         <Box
           align='center'
           justify='center'
@@ -40,7 +40,7 @@ function WorkflowSelector (props) {
         </Box>
       )}
 
-      {(loadingState === asyncStates.success) && (
+      {(userReadyState === asyncStates.success) && (
         <Box
           alignSelf='start'
           fill='horizontal'
@@ -64,7 +64,7 @@ function WorkflowSelector (props) {
         </Box>
       )}
 
-      {(![asyncStates.success, asyncStates.error].includes(loadingState)) && (
+      {(![asyncStates.success, asyncStates.error].includes(userReadyState)) && (
         <Box align='center' justify='center' margin={{ top: 'small' }}>
           <Box height='xxsmall' width='xxsmall'>
             <Bars
@@ -81,7 +81,7 @@ function WorkflowSelector (props) {
 }
 
 WorkflowSelector.propTypes = {
-  loadingState: string,
+  userReadyState: string,
   workflowDescription: string,
   workflows: arrayOf(shape({
       id: string.isRequired
