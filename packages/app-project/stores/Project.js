@@ -95,7 +95,13 @@ const Project = types
             'urls',
             'workflow_description'
           ]
-          properties.forEach(property => { self[property] = project[property] })
+          properties.forEach(property => {
+            try {
+              self[property] = project[property]
+            } catch (error) {
+              console.error(`project.${property} is invalid`, error)
+            }
+          })
 
           self.loadingState = asyncStates.success
         } catch (error) {
