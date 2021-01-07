@@ -38,6 +38,16 @@ const Project = types
       return `/projects/${self.slug}`
     },
 
+    get defaultWorkflow() {
+      const activeWorkflows = self.links['active_workflows']
+      let singleActiveWorkflow
+      if (activeWorkflows.length === 1) {
+        [singleActiveWorkflow] = self.links['active_workflows']
+      }
+      const defaultWorkflow = self.configuration['default_workflow']
+      return singleActiveWorkflow || defaultWorkflow
+    },
+
     get displayName () {
       return self.display_name
     },
