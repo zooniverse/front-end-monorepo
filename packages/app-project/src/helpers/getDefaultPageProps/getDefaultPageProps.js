@@ -13,7 +13,8 @@ export default async function getDefaultPageProps({ params, query, req, res }) {
       mode
     }
   }
-  const store = initStore(true, snapshot)
+  const isServer = true
+  const store = initStore(isServer, snapshot)
 
   if (params.owner && params.project) {
     const { owner, project } = params
