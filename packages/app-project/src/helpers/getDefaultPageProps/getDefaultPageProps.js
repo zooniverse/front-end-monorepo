@@ -7,12 +7,14 @@ export default async function getDefaultPageProps({ params, query, req, res }) {
   // cookie is in the next.js context req object
   const mode = getCookie(req, 'mode') || null
   const dismissedAnnouncementBanner = getCookie(req, 'dismissedAnnouncementBanner') || null
-  const store = initStore({
+  const snapshot = {
     ui: {
       dismissedAnnouncementBanner,
       mode
     }
-  })
+  }
+  const isServer = true
+  const store = initStore(isServer, snapshot)
 
   if (params.owner && params.project) {
     const { owner, project } = params
