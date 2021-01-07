@@ -166,4 +166,69 @@ describe('Stores > Project', function () {
         .then(done, done)
     })
   })
+
+  describe('default workflow', function () {
+    describe('with a single active workflow', function () {
+      let project
+
+      before(function () {
+        const rootStore = Store.create({
+          project: {
+            links: {
+              active_workflows: [ '1234' ]
+            }
+          }
+        }, placeholderEnv)
+        project = rootStore.project
+      })
+
+      it('should be the active workflow', function () {
+        const [ singleActiveWorkflow ] = project.links.active_workflows
+        expect(project.defaultWorkflow).to.equal(singleActiveWorkflow)
+      })
+    })
+
+    describe('with a default workflow', function () {
+      let project
+
+      before(function () {
+        const rootStore = Store.create({
+          project: {
+            configuration: {
+              default_workflow: '5678'
+            },
+            links: {
+              active_workflows: [ '1234', '5678' ]
+            }
+          }
+        }, placeholderEnv)
+        project = rootStore.project
+      })
+
+      it('should be the configured workflow', function () {
+        expect(project.defaultWorkflow).to.exist()
+        expect(project.defaultWorkflow).to.equal(project.configuration.default_workflow)
+      })
+    })
+
+    describe('with neither', function () {
+      let project
+
+      before(function () {
+        const rootStore = Store.create({
+          project: {
+            configuration: {},
+            links: {
+              active_workflows: []
+            }
+          }
+        }, placeholderEnv)
+        project = rootStore.project
+      })
+
+      it('should be undefined', function () {
+        expect(project.defaultWorkflow).to.be.undefined()
+      })
+    })
+  })
 })
