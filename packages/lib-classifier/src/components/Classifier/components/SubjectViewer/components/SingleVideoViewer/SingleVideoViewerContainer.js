@@ -15,7 +15,8 @@ class SingleVideoViewerContainer extends React.Component {
       isPlaying: false,
       playbackRate: 1,
       played: 0,
-      duration: 0
+      duration: 0,
+      isSeeking: false
     }
   }
 
@@ -92,15 +93,42 @@ class SingleVideoViewerContainer extends React.Component {
   }
 
   handleSliderMouseUp = () => {
-    console.log('Mouse up')
+    this.setState({ isSeeking: false })
   }
 
   handleSliderMouseDown = () => {
-    console.log('Mouse down')
+    this.setState({ isPlaying: false, isSeeking: true })
   }
 
   handleSliderChange = () => {
     console.log('Slider Change')
+  }
+
+  // Updates slider as video plays
+  // Slider is clickable; video jumps to time where user clicks
+  handleSliderChange = (e) => {
+    const played = this.getFixedNumber(e.target.value, 5)
+    this.setState(
+      (prevState) => {
+        const { entities } = prevState
+        let { focusing } = prevState
+        if (focusing) {
+          const { incidents } = entities.annotations[focusing]
+          for (let i = 0; i < incidents.length; i += 1) {
+            if (played >= incidents[i].time) {
+              if (i !== incidents.length - 1 && played >= incidents[i + 1].time)
+                continue
+              if (incidents[i].status !== SHOW) focusing = ''
+              break
+            } else if (i === incidents.length - 1) focusing = ''
+          }
+        }
+        return { played, focusing }
+      },
+      () => {
+        this.player.seekTo(played)
+      }
+    )
   }
 
   getFixedNumber = (number, digits) => {
