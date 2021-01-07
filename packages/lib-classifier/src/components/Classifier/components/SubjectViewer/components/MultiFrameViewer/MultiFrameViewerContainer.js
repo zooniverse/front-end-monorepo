@@ -169,6 +169,7 @@ class MultiFrameViewerContainer extends React.Component {
     return (
       <Box
         direction='row'
+        fill='horizontal'
       >
         <FrameCarousel
           frame={frame}
