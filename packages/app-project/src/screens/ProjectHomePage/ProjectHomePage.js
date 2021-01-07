@@ -1,6 +1,6 @@
 import { Box, Grid } from 'grommet'
 import React from 'react'
-import { bool } from 'prop-types'
+import { arrayOf, bool, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import { ZooFooter } from '@zooniverse/react-components'
 
@@ -79,11 +79,15 @@ function ProjectHomePage ({
 }
 
 ProjectHomePage.defaultProps = {
-  inBeta: false
+  inBeta: false,
+  workflows: []
 }
 
 ProjectHomePage.propTypes = {
-  inBeta: bool
+  inBeta: bool,
+  workflows: arrayOf(shape({
+    id: string.isRequired
+  }))
 }
 
 export default ProjectHomePage
