@@ -85,29 +85,27 @@ describe('Stores > Project', function () {
   })
 
   describe('fetch method', function () {
-    let clientStub
-
-    before(function () {
-      clientStub = {
+    it('should exist', function () {
+      const clientStub = {
         projects: {
           getWithLinkedResources: sinon.stub().callsFake(() => {
             return Promise.resolve({ body: mocks.responses.get.projectWithLinkedResources })
           })
         }
       }
-    })
-
-    afterEach(function () {
-      clientStub.projects.getWithLinkedResources.resetHistory()
-    })
-
-    it('should exist', function () {
       const rootStore = Store.create({}, { client: clientStub })
       const project = rootStore.project
       expect(project.fetch).to.be.a('function')
     })
 
     it('should have a loading status while loading', function () {
+      const clientStub = {
+        projects: {
+          getWithLinkedResources: sinon.stub().callsFake(() => {
+            return Promise.resolve({ body: mocks.responses.get.projectWithLinkedResources })
+          })
+        }
+      }
       const rootStore = Store.create({}, { client: clientStub })
       const project = rootStore.project
       expect(project.loadingState).to.equal(asyncStates.initialized)
@@ -120,6 +118,13 @@ describe('Stores > Project', function () {
       let project
 
       before(async function () {
+        const clientStub = {
+          projects: {
+            getWithLinkedResources: sinon.stub().callsFake(() => {
+              return Promise.resolve({ body: mocks.responses.get.projectWithLinkedResources })
+            })
+          }
+        }
         const rootStore = Store.create({}, { client: clientStub })
         project = rootStore.project
         await project.fetch('foo/bar')
@@ -156,7 +161,7 @@ describe('Stores > Project', function () {
     })
 
     it('should set an error state if response is an empty array', async function () {
-      clientStub = {
+      let clientStub = {
         projects: {
           getWithLinkedResources: sinon.stub().callsFake(() => {
             return Promise.resolve({ body: { projects: [] } })
@@ -172,6 +177,13 @@ describe('Stores > Project', function () {
     })
 
     it('should request with params if defined', async function () {
+      const clientStub = {
+        projects: {
+          getWithLinkedResources: sinon.stub().callsFake(() => {
+            return Promise.resolve({ body: mocks.responses.get.projectWithLinkedResources })
+          })
+        }
+      }
       rootStore = Store.create({}, { client: clientStub })
       projectStore = rootStore.project
 
