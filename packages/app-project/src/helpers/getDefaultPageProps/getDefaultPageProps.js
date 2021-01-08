@@ -1,4 +1,5 @@
 import getCookie from '@helpers/getCookie'
+import fetchWorkflowsHelper from '@helpers/fetchWorkflowsHelper'
 import initStore from '@stores'
 import { getSnapshot } from 'mobx-state-tree'
 
@@ -25,6 +26,10 @@ export default async function getDefaultPageProps({ params, query, req, res }) {
 
   const { project, ui } = getSnapshot(store)
   const { headers, connection } = req
+  const { env } = query
+  const language = project.primary_language
+  const { active_workflows, default_workflow } = project.links
+  const workflows = await fetchWorkflowsHelper(language, active_workflows, default_workflow, env)
   const props = {
     host: generateHostUrl(headers, connection),
     initialState: {
@@ -32,7 +37,8 @@ export default async function getDefaultPageProps({ params, query, req, res }) {
       ui
     },
     isServer: true,
-    query
+    query,
+    workflows
   }
 
   return { props }

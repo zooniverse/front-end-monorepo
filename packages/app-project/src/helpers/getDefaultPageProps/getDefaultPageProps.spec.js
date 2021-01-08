@@ -1,8 +1,8 @@
 import nock from 'nock'
 
-import { getServerSideProps } from './getServerSideProps'
+import getDefaultPageProps from './'
 
-describe('Components > ProjectHomePage > getServerSideProps', function () {
+describe('Components > ProjectHomePage > getDefaultPageProps', function () {
   const PROJECT = {
     id: '1',
     default_workflow: '1',
@@ -86,7 +86,7 @@ describe('Components > ProjectHomePage > getServerSideProps', function () {
         }
       }
       const res = {}
-      const { props } = await getServerSideProps({ params, query, req, res })
+      const { props } = await getDefaultPageProps({ params, query, req, res })
       expect(props.workflows).to.deep.equal([
         {
           completeness: 0.4,
@@ -153,7 +153,7 @@ describe('Components > ProjectHomePage > getServerSideProps', function () {
         }
       }
       const res = {}
-      const { props } = await getServerSideProps({ params, query, req, res })
+      const { props } = await getDefaultPageProps({ params, query, req, res })
       expect(props.workflows).to.deep.equal([
         {
           completeness: 0.4,
