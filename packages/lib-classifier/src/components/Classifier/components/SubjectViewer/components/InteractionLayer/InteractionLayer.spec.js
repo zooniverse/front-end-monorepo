@@ -3,7 +3,7 @@ import React from 'react'
 import sinon from 'sinon'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
-import InteractionLayer, { StyledRect } from './InteractionLayer'
+import InteractionLayer, { DrawingCanvas } from './InteractionLayer'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
 import DrawingTask from '@plugins/tasks/DrawingTask'
@@ -94,7 +94,7 @@ describe('Component > InteractionLayer', function () {
     })
 
     it('should render a transparent rect', function () {
-      const rect = wrapper.find(StyledRect)
+      const rect = wrapper.find(DrawingCanvas)
       expect(rect.exists()).to.be.true()
       expect(rect.prop('fill')).to.equal('transparent')
     })
@@ -126,7 +126,7 @@ describe('Component > InteractionLayer', function () {
             releasePointerCapture: sinon.stub()
           }
         }
-        wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+        wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
         expect(activeTool.createMark).to.have.been.calledOnce()
       })
 
@@ -139,7 +139,7 @@ describe('Component > InteractionLayer', function () {
             releasePointerCapture: sinon.stub()
           }
         }
-        wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+        wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
         const createMarkArgs = activeTool.createMark.args[0][0]
         expect(createMarkArgs.frame).to.equal(2)
       })
@@ -153,7 +153,7 @@ describe('Component > InteractionLayer', function () {
             releasePointerCapture: sinon.stub()
           }
         }
-        wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+        wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
         expect(mockMark.initialPosition).to.have.been.calledOnce()
       })
 
@@ -166,12 +166,12 @@ describe('Component > InteractionLayer', function () {
             releasePointerCapture: sinon.stub()
           }
         }
-        wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
-        wrapper.simulate('pointermove', fakeEvent)
+        wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
+        wrapper.find(DrawingCanvas).simulate('pointermove', fakeEvent)
         expect(mockMark.initialDrag).to.have.been.calledOnce()
       })
 
-      it('should capture the pointer on pointer down + move', function () {
+      it('should capture the pointer on pointer down', function () {
         const fakeEvent = {
           pointerId: 'fakePointer',
           type: 'pointer',
@@ -180,7 +180,7 @@ describe('Component > InteractionLayer', function () {
             releasePointerCapture: sinon.stub()
           }
         }
-        wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+        wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
         wrapper.simulate('pointermove', fakeEvent)
         expect(fakeEvent.target.setPointerCapture.withArgs('fakePointer')).to.have.been.calledOnce()
       })
@@ -223,8 +223,8 @@ describe('Component > InteractionLayer', function () {
               releasePointerCapture: sinon.stub()
             }
           }
-          wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
-          wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+          wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
+          wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
           expect(activeTool.handlePointerDown).to.have.been.calledOnce()
         })
       })
@@ -284,7 +284,7 @@ describe('Component > InteractionLayer', function () {
           releasePointerCapture: sinon.stub()
         }
       }
-      wrapper.find(StyledRect).simulate('pointerdown', fakeEvent)
+      wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
       expect(activeTool.createMark).to.have.not.been.called()
     })
   })

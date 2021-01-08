@@ -1,6 +1,6 @@
 import MultipleChoiceAnnotation from './MultipleChoiceAnnotation'
 
-describe('Model > MutipleChoiceAnnotation', function () {
+describe('Model > MultipleChoiceAnnotation', function () {
   describe('with a selected answer', function () {
     let multipleChoiceAnnotation
 
