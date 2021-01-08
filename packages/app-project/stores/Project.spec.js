@@ -205,13 +205,12 @@ describe('Stores > Project', function () {
         project = rootStore.project
       })
 
-      it('should be the configured workflow', function () {
-        expect(project.defaultWorkflow).to.exist()
-        expect(project.defaultWorkflow).to.equal(project.configuration.default_workflow)
+      it('should be undefined', function () {
+        expect(project.defaultWorkflow).to.be.undefined()
       })
     })
 
-    describe('with neither', function () {
+    describe('with no active workflows', function () {
       let project
 
       before(function () {
