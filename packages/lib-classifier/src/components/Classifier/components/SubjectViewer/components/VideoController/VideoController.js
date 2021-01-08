@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { ChapterPrevious, PlayFill, PauseFill } from 'grommet-icons'
+import { CirclePlay, PauseFill } from 'grommet-icons'
 import FormattedTime from './FormattedTime'
 import Slider from './Slider'
 
@@ -49,7 +49,6 @@ const VideoSpeed = styled.div`
 `
 
 const VideoController = ({
-  onRewind,
   isPlaying,
   onPlayPause,
   onSpeedChange,
@@ -62,11 +61,8 @@ const VideoController = ({
   return (
     <ControllerWrapper>
       <ButtonGroup>
-        <Button onClick={onRewind}>
-          <ChapterPrevious />
-        </Button>
         <Button onClick={onPlayPause}>
-          {isPlaying ? <PauseFill /> : <PlayFill />}
+          {isPlaying ? <PauseFill /> : <CirclePlay />}
         </Button>
       </ButtonGroup>
       <TimeWrapper>
@@ -97,7 +93,6 @@ VideoController.propTypes = {
   duration: PropTypes.number,
   onPlayPause: PropTypes.func,
   onSpeedChange: PropTypes.func,
-  onRewind: PropTypes.func,
   onSliderMouseUp: PropTypes.func,
   onSliderMouseDown: PropTypes.func,
   onSliderChange: PropTypes.func
@@ -108,7 +103,6 @@ VideoController.defaultProps = {
   duration: 0,
   onPlayPause: () => {},
   onSpeedChange: () => {},
-  onRewind: () => {},
   onSliderMouseUp: () => {},
   onSliderMouseDown: () => {},
   onSliderChange: () => {}

@@ -83,11 +83,6 @@ class SingleVideoViewerContainer extends React.Component {
     this.setState((prevState) => ({ isPlaying: !prevState.isPlaying }))
   }
 
-  handleRewind = () => {
-    this.setState({ isPlaying: false, played: 0 })
-    this.player.seekTo(0)
-  }
-
   handleSpeedChange = (s) => {
     this.setState({ playbackRate: s })
   }
@@ -172,7 +167,6 @@ class SingleVideoViewerContainer extends React.Component {
           played={played}
           duration={duration}
           onPlayPause={this.handlePlayPause}
-          onRewind={this.handleRewind}
           onSpeedChange={this.handleSpeedChange}
           onSliderMouseUp={this.handleSliderMouseUp}
           onSliderMouseDown={this.handleSliderMouseDown}
