@@ -22,6 +22,15 @@ export default async function getDefaultPageProps({ params, query, req, res }) {
     const projectSlug = `${owner}/${project}`
     const { env } = query
     await store.project.fetch(projectSlug, { env })
+    if (!store.project.id) {
+      res.statusCode = 404
+      return {
+        props: {
+          statusCode: 404,
+          title: `Project ${owner}/${project} was not found.`
+        }
+      }
+    }
   }
 
   const { project, ui } = getSnapshot(store)
