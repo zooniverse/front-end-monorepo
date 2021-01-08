@@ -8,7 +8,7 @@ export default async function getStaticProps() {
       props: {
         teamData
       },
-      unstable_revalidate: 60 * 60 * 1
+      revalidate: 60 * 60 * 1
     }
   } catch (error) {
     logNodeError(error)
