@@ -41,6 +41,11 @@ export default async function getDefaultPageProps({ params, query, req, res }) {
     workflows
   }
 
+  const workflowID = store.project.defaultWorkflow
+  if (workflowID) {
+    props.workflowID = workflowID
+  }
+
   return { props }
 }
 
