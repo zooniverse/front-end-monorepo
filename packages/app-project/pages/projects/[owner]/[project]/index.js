@@ -1,3 +1,8 @@
+import getDefaultPageProps from '@helpers/getDefaultPageProps'
 export { default } from '@screens/ProjectHomePage'
-export { default as getServerSideProps } from '@helpers/getDefaultPageProps'
+
+export async function getServerSideProps({ params, query, req, res }) {
+  const { props } = await getDefaultPageProps({ params, query, req, res })
+  return ({ props })
+}
 
