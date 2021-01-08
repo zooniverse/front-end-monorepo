@@ -11,7 +11,7 @@ Future projects using the `front-end-monorepo` will require a video player. Some
 We will implement `react-player` [Github](https://github.com/CookPete/react-player).
 Demo Page: [Demo](https://cookpete.com/react-player/)
 The lengthy list of attributes (props) and Callback Props makes `react-player` a great choice for developers who need customization. Many of these attributes are simply booleans. For example, to play a video, pass in `playing={boolean}`. Full list of [Props](https://github.com/CookPete/react-player#props)
-`react-player` makes it easy to customize styling so the player looks the same across different browsers.
+Compared to the native HTML video player, `react-player` makes it easy to customize styling so the player looks the same across different browsers.
 Making `react-player` responsive is easy by targeting pre-defined classNames.
 [Responsiveness](https://github.com/cookpete/react-player#responsive-player)
 One of the biggest wins of using `react-player` is ease-of-use. This will reduce developer time and reduce the amount of custom methods in our code base.
@@ -31,7 +31,7 @@ Please read through the [Github](https://github.com/CookPete/react-player) for a
 
 ## Status
 
-Pending
+Approved
 
 ## Consequences
 
