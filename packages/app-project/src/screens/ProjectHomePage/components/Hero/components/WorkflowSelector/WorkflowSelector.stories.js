@@ -8,7 +8,7 @@ import * as nextRouter from 'next/router'
 import React from 'react'
 import sinon from 'sinon'
 
-import WorkflowSelector from './'
+import WorkflowSelector from './WorkflowSelector'
 
 const store = {
   project: {
@@ -26,37 +26,26 @@ const store = {
   }
 }
 
-const WORKFLOWS = {
-  loading: asyncStates.success,
-  data: [
-    {
-      completeness: 0.65,
-      default: false,
-      displayName: 'The Family and the Fishing Net',
-      id: '12345'
-    },
-    {
-      completeness: 0,
-      default: false,
-      displayName: 'Games Without Frontiers',
-      id: '7890'
-    },
-    {
-      completeness: 0.99,
-      default: false,
-      displayName: 'Shock The Monkey',
-      id: '5678'
-    }
-  ]
-}
-const WORKFLOWS_LOADING = {
-  loading: asyncStates.loading,
-  data: null
-}
-const WORKFLOWS_ERROR = {
-  loading: asyncStates.error,
-  data: null
-}
+const WORKFLOWS = [
+  {
+    completeness: 0.65,
+    default: false,
+    displayName: 'The Family and the Fishing Net',
+    id: '12345'
+  },
+  {
+    completeness: 0,
+    default: false,
+    displayName: 'Games Without Frontiers',
+    id: '7890'
+  },
+  {
+    completeness: 0.99,
+    default: false,
+    displayName: 'Shock The Monkey',
+    id: '5678'
+  }
+]
 
 function StoryContext (props) {
   const { children, theme } = props
@@ -82,6 +71,7 @@ storiesOf('Project App / Screens / Project Home / Workflow Selector', module)
   .add('default', () => (
     <StoryContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
       <WorkflowSelector
+        loadingState={asyncStates.success}
         workflows={WORKFLOWS}
       />
     </StoryContext>
@@ -89,7 +79,8 @@ storiesOf('Project App / Screens / Project Home / Workflow Selector', module)
   .add('loading', () => (
     <StoryContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
       <WorkflowSelector
-        workflows={WORKFLOWS_LOADING}
+        loadingState={asyncStates.loading}
+        workflows={WORKFLOWS}
       />
     </StoryContext>
 
@@ -97,7 +88,8 @@ storiesOf('Project App / Screens / Project Home / Workflow Selector', module)
   .add('error', () => (
     <StoryContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
       <WorkflowSelector
-        workflows={WORKFLOWS_ERROR}
+        loadingState={asyncStates.error}
+        workflows={WORKFLOWS}
       />
     </StoryContext>
   ))
