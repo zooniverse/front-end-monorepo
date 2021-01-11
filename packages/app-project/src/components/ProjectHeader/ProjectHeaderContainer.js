@@ -1,6 +1,6 @@
 import { inject, observer } from 'mobx-react'
 import { bool, shape, string } from 'prop-types'
-import React, { Component } from 'react'
+import React from 'react'
 import { withRouter } from 'next/router'
 
 import ProjectHeader from './ProjectHeader'
@@ -14,25 +14,21 @@ function storeMapper (stores) {
   }
 }
 
-class ProjectHeaderContainer extends Component {
-  getBaseUrl () {
-    const { owner, project } = this.props.router.query
+function ProjectHeaderContainer ({ className, inBeta, isLoggedIn, projectName, router }) {
+  function getBaseUrl () {
+    const { owner, project } = router.query
     return `/projects/${owner}/${project}`
   }
+  const navLinks = getNavLinks(isLoggedIn, getBaseUrl())
 
-  render () {
-    const { className, inBeta, isLoggedIn, projectName } = this.props
-    const navLinks = getNavLinks(isLoggedIn, this.getBaseUrl())
-
-    return (
-      <ProjectHeader
-        className={className}
-        inBeta={inBeta}
-        navLinks={navLinks}
-        title={projectName}
-      />
-    )
-  }
+  return (
+    <ProjectHeader
+      className={className}
+      inBeta={inBeta}
+      navLinks={navLinks}
+      title={projectName}
+    />
+  )
 }
 
 ProjectHeaderContainer.defaultProps = {
@@ -52,10 +48,7 @@ ProjectHeaderContainer.propTypes = {
   })
 }
 
-@inject(storeMapper)
-@withRouter
-@observer
-class DecoratedProjectHeaderContainer extends ProjectHeaderContainer {}
+const DecoratedProjectHeaderContainer = inject(storeMapper)(withRouter(observer(ProjectHeaderContainer)))
 
 export {
   DecoratedProjectHeaderContainer as default,
