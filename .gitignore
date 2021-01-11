@@ -91,3 +91,6 @@ typings/
 
 # Repo build artifacts
 dist
+
+# VSCode settings/workspace settings
+.vscode

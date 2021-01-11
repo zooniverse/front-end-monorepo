@@ -8,7 +8,7 @@ const canSetCookie = process.browser || process.env.BABEL_ENV === 'test'
 
 const UI = types
   .model('UI', {
-    dismissedProjectAnnouncementBanner: types.maybe(types.number),
+    dismissedProjectAnnouncementBanner: types.maybeNull(types.number),
 
     // The mode is retrieved out of the cookie in _app.js during store initialization
     mode: types.optional(types.enumeration('mode', ['light', 'dark']), 'light')
