@@ -4,7 +4,7 @@ import React from 'react'
 import WideLayout from './WideLayout'
 import Background from '../Background'
 import Introduction from '../Introduction'
-import WorkflowSelector from '../WorkflowSelector'
+import WorkflowSelector from '@shared/components/WorkflowSelector'
 
 describe('Component > Hero > WideLayout', function () {
   let wrapper
