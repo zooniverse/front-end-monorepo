@@ -10,16 +10,18 @@ function storeMapper (stores) {
   return {
     inBeta: stores.store.project.inBeta,
     isLoggedIn: stores.store.user.isLoggedIn,
-    projectName: stores.store.project.display_name
+    projectName: stores.store.project.display_name,
+    defaultWorkflow: stores.store.project.defaultWorkflow
   }
 }
 
-function ProjectHeaderContainer ({ className, inBeta, isLoggedIn, projectName, router }) {
-  function getBaseUrl () {
-    const { owner, project } = router.query
-    return `/projects/${owner}/${project}`
-  }
-  const navLinks = getNavLinks(isLoggedIn, getBaseUrl())
+function getBaseUrl (router) {
+  const { owner, project } = router.query
+  return `/projects/${owner}/${project}`
+}
+
+function ProjectHeaderContainer ({ className, defaultWorkflow, inBeta, isLoggedIn, projectName, router }) {
+  const navLinks = getNavLinks(isLoggedIn, getBaseUrl(router), defaultWorkflow)
 
   return (
     <ProjectHeader
