@@ -1,6 +1,6 @@
 import { Box, Grid } from 'grommet'
 import React from 'react'
-import { bool } from 'prop-types'
+import { arrayOf, bool, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import { ZooFooter } from '@zooniverse/react-components'
 
@@ -24,14 +24,17 @@ const RemainingHeightBox = styled(Box)`
   flex-grow: 1;
 `
 
-function ProjectHomePage ({ inBeta }) {
+function ProjectHomePage ({
+  inBeta,
+  workflows
+}) {
   return (
     <Box border={(inBeta) ? { color: 'brand', size: 'medium' } : false}>
       <Media at='default'>
         <ZooHeaderWrapper />
         <ProjectHeader />
         <Announcements />
-        <Hero />
+        <Hero workflows={workflows} />
         <Box margin='small' gap='small'>
           <ThemeModeToggle />
           <ZooniverseTalk />
@@ -48,7 +51,7 @@ function ProjectHomePage ({ inBeta }) {
           <ProjectHeader />
           <Announcements />
           <RemainingHeightBox>
-            <Hero isWide={true} />
+            <Hero workflows={workflows} isWide={true} />
           </RemainingHeightBox>
         </FullHeightBox>
         <Box
@@ -76,11 +79,15 @@ function ProjectHomePage ({ inBeta }) {
 }
 
 ProjectHomePage.defaultProps = {
-  inBeta: false
+  inBeta: false,
+  workflows: []
 }
 
 ProjectHomePage.propTypes = {
-  inBeta: bool
+  inBeta: bool,
+  workflows: arrayOf(shape({
+    id: string.isRequired
+  }))
 }
 
 export default ProjectHomePage

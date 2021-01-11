@@ -114,12 +114,12 @@ describe('Stores > UI', function () {
     })
 
     it('should contain a dismissedProjectAnnouncementBanner property', function () {
-      expect(store.dismissedProjectAnnouncementBanner).to.be.undefined()
+      expect(store.dismissedProjectAnnouncementBanner).to.be.null()
     })
 
     it('should have a `dismissProjectAnnouncementBanner` action', function () {
       const expectedValue = stringHash(PROJECT.configuration.announcement)
-      expect(store.dismissedProjectAnnouncementBanner).to.equal(undefined)
+      expect(store.dismissedProjectAnnouncementBanner).to.be.null()
       store.dismissProjectAnnouncementBanner()
       expect(store.dismissedProjectAnnouncementBanner).to.equal(expectedValue)
     })
