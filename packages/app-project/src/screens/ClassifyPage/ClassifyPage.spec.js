@@ -8,10 +8,11 @@ import ProjectName from '@components/ProjectName'
 import YourStats from './components/YourStats'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
-
-let wrapper
+import WorkflowSelector from '@shared/components/WorkflowSelector'
 
 describe('Component > ClassifyPage', function () {
+  let wrapper
+
   before(function () {
     wrapper = shallow(<ClassifyPage />)
   })
@@ -42,5 +43,29 @@ describe('Component > ClassifyPage', function () {
 
   it('should render the `ConnectWithProject` component', function () {
     expect(wrapper.find(ConnectWithProject)).to.have.lengthOf(1)
+  })
+
+  describe('without a selected workflow', function () {
+    let wrapper
+
+    before(function () {
+      wrapper = shallow(<ClassifyPage />)
+    })
+
+    it('should show a workflow selector', function () {
+      expect(wrapper.find(WorkflowSelector)).to.have.lengthOf(1)
+    })
+  })
+
+  describe('with a selected workflow', function () {
+    let wrapper
+
+    before(function () {
+      wrapper = shallow(<ClassifyPage workflowID='1234' />)
+    })
+
+    it('should not show a workflow selector', function () {
+      expect(wrapper.find(WorkflowSelector)).to.have.lengthOf(0)
+    })
   })
 })
