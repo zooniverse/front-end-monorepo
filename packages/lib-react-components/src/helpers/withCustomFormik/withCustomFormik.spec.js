@@ -1,6 +1,7 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import { expect } from 'chai'
+import { Formik } from 'formik'
 import { Box, Button, FormField, Grommet, TextInput } from 'grommet'
 import sinon from 'sinon'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -98,7 +99,7 @@ describe('Higher Order Component > withCustomFormik', function () {
 
       // the form's children prop is a render function
       // ie. a stateless component
-      InnerForm = wrapper.find('Formik').props().children
+      InnerForm = wrapper.find(Formik).props().children
 
       mockForm = shallow(<InnerForm {...mockInnerProps} />)
     })
