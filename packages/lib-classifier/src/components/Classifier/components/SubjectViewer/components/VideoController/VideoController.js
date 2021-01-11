@@ -30,8 +30,8 @@ const VideoController = ({
   onSliderChange
 }) => {
   return (
-    <Box>
-      <Box border={{ color: 'teal', size: 'small' }}>
+    <Box background='#000000'>
+      <Box pad='xxsmall' border={{ color: 'teal', size: 'small' }}>
         <Slider
           played={played}
           onMouseUp={onSliderMouseUp}

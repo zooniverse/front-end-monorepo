@@ -1,27 +1,44 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import { Grommet, Box, RangeInput } from 'grommet'
 
-const SliderParent = styled.div`
-  position: relative;
-`
-
-// const SliderInput = styled.input``
+const customThemeRangeInput = {
+  global: {
+    spacing: '16px'
+  },
+  rangeInput: {
+    track: {
+      color: 'accent-2',
+      height: '6px',
+      extend: () => `border-radius: 10px`,
+      lower: {
+        color: '#EFF2F5'
+      },
+      upper: {
+        color: 'dark-4'
+      }
+    },
+    thumb: {
+      color: '#EFF2F5'
+    }
+  }
+}
 
 const Slider = ({ played, onMouseUp, onMouseDown, onChange }) => (
-  <SliderParent>
-    <input
-      type='range'
-      min={0}
-      max={1}
-      step='any'
-      value={played}
-      onMouseUp={onMouseUp}
-      onMouseDown={onMouseDown}
-      onChange={onChange}
-      onInput={onChange}
-    />
-  </SliderParent>
+  <Grommet theme={customThemeRangeInput}>
+    <Box>
+      <RangeInput
+        min={0}
+        max={1}
+        step={0.0001}
+        value={played}
+        onMouseUp={onMouseUp}
+        onMouseDown={onMouseDown}
+        onChange={onChange}
+        onInput={onChange}
+      />
+    </Box>
+  </Grommet>
 )
 
 Slider.propTypes = {
