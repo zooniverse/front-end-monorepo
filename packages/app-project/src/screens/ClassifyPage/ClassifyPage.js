@@ -13,12 +13,14 @@ import RecentSubjects from './components/RecentSubjects'
 import YourStats from './components/YourStats'
 import StandardLayout from '@shared/components/StandardLayout'
 
+import WorkflowSelector from '@shared/components/WorkflowSelector'
+
 const ClassifierWrapper = dynamic(() =>
   import('./components/ClassifierWrapper'), { ssr: false }
 )
 
 function ClassifyPage (props) {
-  const { addToCollection, screenSize, subjectSetID, workflowID } = props
+  const { addToCollection, screenSize, subjectSetID, workflowID, workflows } = props
   const responsiveColumns = (screenSize === 'small')
     ? ['auto']
     : ['1em', 'auto', '1em']
@@ -35,11 +37,14 @@ function ClassifyPage (props) {
         <Box as='main' fill='horizontal'>
           <Grid columns={responsiveColumns} gap='small'>
             <ProjectName />
-            <ClassifierWrapper
-              onAddToCollection={addToCollection}
-              subjectSetID={subjectSetID}
-              workflowID={workflowID}
-            />
+            {workflowID ? 
+              <ClassifierWrapper
+                onAddToCollection={addToCollection}
+                subjectSetID={subjectSetID}
+                workflowID={workflowID}
+              /> :
+              <WorkflowSelector workflows={workflows} />
+            }
             <ThemeModeToggle />
           </Grid>
         </Box>
