@@ -68,4 +68,38 @@ describe('Component > ClassifyPage', function () {
       expect(wrapper.find(WorkflowSelector)).to.have.lengthOf(0)
     })
   })
+
+  describe('with a grouped workflow', function () {
+    describe('without a subject set', function () {
+      let wrapper
+      let workflows = [{
+        id: '1234',
+        grouped: true
+      }]
+
+      before(function () {
+        wrapper = shallow(<ClassifyPage workflowID='1234' workflows={workflows} />)
+      })
+
+      it('should show a workflow selector', function () {
+        expect(wrapper.find(WorkflowSelector)).to.have.lengthOf(1)
+      })
+    })
+
+    describe('with a subject set', function () {
+      let wrapper
+      let workflows = [{
+        id: '1234',
+        grouped: true
+      }]
+
+      before(function () {
+        wrapper = shallow(<ClassifyPage subjectSetID='3456' workflowID='1234' workflows={workflows} />)
+      })
+
+      it('should not show a workflow selector', function () {
+        expect(wrapper.find(WorkflowSelector)).to.have.lengthOf(0)
+      })
+    })
+  })
 })

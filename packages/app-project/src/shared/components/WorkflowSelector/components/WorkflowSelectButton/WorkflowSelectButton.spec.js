@@ -66,4 +66,15 @@ describe('Component > WorkflowSelectButton', function () {
       expect(wrapper.find(SubjectSetPicker).prop('active')).to.be.true()
     })
   })
+
+  describe('with an active grouped workflow', function () {
+    it('should open a subject set picker', function () {
+      const groupedWorkflow = {
+        ...WORKFLOW,
+        grouped: true
+      }
+      const wrapper = shallow(<WorkflowSelectButton selected workflow={groupedWorkflow} />)
+      expect(wrapper.find(SubjectSetPicker).prop('active')).to.be.true()
+    })
+  })
 })

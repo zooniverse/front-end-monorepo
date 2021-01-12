@@ -17,7 +17,7 @@ const markdownzComponents = {
 }
 
 function WorkflowSelector (props) {
-  const { userReadyState, workflows } = props
+  const { activeWorkflow, userReadyState, workflows } = props
   const loaderColor = props.theme.global.colors.brand
   const workflowDescription = props.workflowDescription || counterpart('WorkflowSelector.message')
 
@@ -50,7 +50,7 @@ function WorkflowSelector (props) {
         >
 
           {(workflows.length > 0) && workflows.map(workflow =>
-            <WorkflowSelectButton key={workflow.id} workflow={workflow} />
+            <WorkflowSelectButton key={workflow.id} selected={workflow.id === activeWorkflow.id} workflow={workflow} />
           )}
 
           {(workflows.length === 0) && (
@@ -81,6 +81,9 @@ function WorkflowSelector (props) {
 }
 
 WorkflowSelector.propTypes = {
+  activeWorkflow: shape({
+    id: string.isRequired
+  }),
   userReadyState: string,
   workflowDescription: string,
   workflows: arrayOf(shape({

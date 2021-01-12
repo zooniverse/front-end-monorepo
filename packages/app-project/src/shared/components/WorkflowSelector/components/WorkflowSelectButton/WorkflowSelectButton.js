@@ -18,10 +18,10 @@ counterpart.registerTranslations('en', en)
 const WorkflowLink = withThemeContext(Link, theme)
 
 function WorkflowSelectButton (props) {
-  const { workflow, ...rest } = props
+  const { selected, workflow, ...rest } = props
   const router = useRouter()
   const { owner, project } = router?.query || {}
-  const [ showPicker, setShowPicker ] = useState(false)
+  const [ showPicker, setShowPicker ] = useState(workflow.grouped && selected)
 
   const url = `/projects/${owner}/${project}/classify/workflow/${workflow.id}`
   const href = '/projects/[owner]/[project]/classify/workflow/[workflowID]'
@@ -73,11 +73,17 @@ function WorkflowSelectButton (props) {
   )
 }
 
+WorkflowSelectButton.defaultProps = {
+  selected: false
+}
+
 WorkflowSelectButton.propTypes = {
+  selected: bool,
   workflow: shape({
     completeness: number,
     default: bool,
     displayName: string.isRequired,
+    grouped: bool,
     id: string
   }).isRequired
 }
