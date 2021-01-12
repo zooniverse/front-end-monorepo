@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Box } from 'grommet'
+import { Box, Select } from 'grommet'
 import { CirclePlay, PauseFill } from 'grommet-icons'
 import FormattedTime from './FormattedTime'
 import Slider from './Slider'
@@ -12,18 +12,12 @@ const Button = styled.button`
   cursor: pointer;
 `
 
-const SpeedButton = styled(Button)`
-  &:focus {
-    font-weight: 700;
-    color: #00979d;
-  }
-`
-
 const VideoController = ({
   isPlaying,
   onPlayPause,
   onSpeedChange,
   played,
+  playbackRate,
   duration,
   onSliderMouseUp,
   onSliderMouseDown,
@@ -49,9 +43,11 @@ const VideoController = ({
           <Button onClick={onPlayPause}>
             {isPlaying ? <PauseFill /> : <CirclePlay />}
           </Button>
-          <SpeedButton onClick={() => onSpeedChange(0.25)}>0.25</SpeedButton>
-          <SpeedButton onClick={() => onSpeedChange(0.5)}>0.5</SpeedButton>
-          <SpeedButton onClick={() => onSpeedChange(1)}>1.0</SpeedButton>
+          <Select
+            options={[0.25, 0.5, 1]}
+            value={playbackRate}
+            onChange={({ option }) => onSpeedChange(option)}
+          />
         </Box>
 
         <Box
@@ -71,6 +67,7 @@ const VideoController = ({
 VideoController.propTypes = {
   isPlaying: PropTypes.bool,
   played: PropTypes.number,
+  playbackRate: PropTypes.number,
   duration: PropTypes.number,
   onPlayPause: PropTypes.func,
   onSpeedChange: PropTypes.func,
@@ -81,6 +78,7 @@ VideoController.propTypes = {
 VideoController.defaultProps = {
   isPlaying: false,
   played: 0,
+  playbackRate: 1,
   duration: 0,
   onPlayPause: () => {},
   onSpeedChange: () => {},

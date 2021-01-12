@@ -165,6 +165,7 @@ class SingleVideoViewerContainer extends React.Component {
         <VideoController
           isPlaying={isPlaying}
           played={played}
+          playbackRate={playbackRate}
           duration={duration}
           onPlayPause={this.handlePlayPause}
           onSpeedChange={this.handleSpeedChange}
