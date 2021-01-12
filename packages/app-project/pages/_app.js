@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
-import App from 'next/app'
+import Error from 'next/error'
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 
@@ -21,30 +21,19 @@ const GlobalStyle = createGlobalStyle`
 
 initializeLogger()
 
-export default class MyApp extends App {
-  constructor (props) {
-    super()
-    const { isServer, initialState } = props.pageProps
-    this.store = initStore(isServer, initialState, props.client)
-    makeInspectable(this.store)
-  }
+export default function MyApp({ Component, client, pageProps }) {
+  try {
+    const { isServer, initialState } = pageProps
+    const store = initStore(isServer, initialState, client)
+    makeInspectable(store)
 
-  componentDidMount () {
     console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
-    this.store.user.checkCurrent()
-  }
+    store.user.checkCurrent()
 
-  componentDidCatch (error, errorInfo) {
-    logReactError(error, errorInfo)
-    super.componentDidCatch(error, errorInfo)
-  }
-
-  render () {
-    const { Component, pageProps } = this.props
     return (
       <>
         <GlobalStyle />
-        <Provider store={this.store}>
+        <Provider store={store}>
           <MediaContextProvider>
             <GrommetWrapper>
               <Head host={pageProps.host} />
@@ -57,6 +46,9 @@ export default class MyApp extends App {
         </Provider>
       </>
     )
+  } catch (error) {
+    logReactError(error)
+    return <Error statusCode={500} title={error.message} />
   }
 }
 
