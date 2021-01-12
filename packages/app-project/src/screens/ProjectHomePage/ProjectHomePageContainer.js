@@ -11,14 +11,8 @@ function storeMapper(stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
-class ProjectHomePageContainer extends Component {
-  render() {
-    const { inBeta } = this.props
-
-    return <ProjectHomePage inBeta={inBeta} {...this.props} />
-  }
+function ProjectHomePageContainer({ inBeta, workflows }) {
+  return <ProjectHomePage inBeta={inBeta} workflows={workflows} />
 }
 
 ProjectHomePageContainer.defaultProps = {
@@ -33,4 +27,4 @@ ProjectHomePageContainer.propTypes = {
   }))
 }
 
-export default ProjectHomePageContainer
+export default inject(storeMapper)(observer(ProjectHomePageContainer))
