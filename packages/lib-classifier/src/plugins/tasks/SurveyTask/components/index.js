@@ -1,1 +1,1 @@
-export { default } from '.SurveyTask'
+export { default } from './SurveyTask'

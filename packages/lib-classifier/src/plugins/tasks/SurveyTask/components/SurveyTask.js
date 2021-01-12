@@ -10,10 +10,9 @@ function SurveyTask (props) {
     disabled,
     task
   } = props
-  const { value } = task.annotation
 
-  function updateAnnotation () {
-    console.log('updateAnnotation')
+  function handleChoice (selectedChoiceId) {
+    console.log('Selected choiceId =', selectedChoiceId)
   }
 
   return (
@@ -21,8 +20,7 @@ function SurveyTask (props) {
       autoFocus={autoFocus}
       disabled={disabled}
       task={task}
-      value={value}
-      updateAnnotation={updateAnnotation}
+      onChoose={handleChoice}
     />
   )
 }

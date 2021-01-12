@@ -1,19 +1,35 @@
+import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Box } from 'grommet'
+import styled from 'styled-components'
+
+import CharacteristicsFilter from './components/CharacteristicsFilter'
+import Choices from './components/Choices'
+
+const StyledHorizontalRule = styled.hr`
+  width: 100%;
+`
 
 export default function Chooser (props) {
   const {
     autoFocus,
     disabled,
     task,
-    value,
-    updateAnnotation
+    onChoose
   } = props
+
+  // TODO: refactor to filtered choices
+  const unfilteredChoices = Array.from(task.choicesOrder)
 
   return (
     <Box>
-      <p>Chooser goes here.</p>
+      <CharacteristicsFilter />
+      <StyledHorizontalRule />
+      <Choices
+        filteredChoices={unfilteredChoices}
+        onChoose={onChoose}
+        task={task}
+      />
     </Box>
   )
 }
@@ -21,18 +37,18 @@ export default function Chooser (props) {
 Chooser.defaultProps = {
   autoFocus: false,
   disabled: false,
-  updateAnnotation: () => {}
+  onChoose: () => {}
 }
 
+// TODO: expand on value propType
 Chooser.propTypes = {
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
+  onChoose: PropTypes.func,
   task: PropTypes.shape({
     help: PropTypes.string,
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     taskKey: PropTypes.string,
     type: PropTypes.string
-  }).isRequired,
-  value: PropTypes.string.isRequired,
-  updateAnnotation: PropTypes.func
+  }).isRequired
 }
