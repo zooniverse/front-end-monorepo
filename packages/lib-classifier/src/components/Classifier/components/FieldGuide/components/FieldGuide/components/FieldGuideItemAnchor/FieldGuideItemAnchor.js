@@ -3,7 +3,7 @@ import React from 'react'
 import { observable } from 'mobx'
 import { Markdownz } from '@zooniverse/react-components'
 import PropTypes from 'prop-types'
-import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import { PropTypes as MobXPropTypes } from 'mobx-react'
 import { withTheme } from 'styled-components'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
 import counterpart from 'counterpart'
@@ -28,25 +28,22 @@ export function AnchorLabel ({ className, icons, item }) {
   )
 }
 
-function storeMapper (stores) {
-  const { attachedMedia: icons, setActiveItemIndex } = stores.classifierStore.fieldGuide
-  return {
+function FieldGuideItemAnchor (props) {
+  const {
+    className,
     icons,
-    setActiveItemIndex
-  }
-}
+    item,
+    itemIndex,
+    setActiveItemIndex,
+    theme
+  } = props
 
-@inject(storeMapper)
-@observer
-class FieldGuideItemAnchor extends React.Component {
-  onClick (event, itemIndex) {
-    const { setActiveItemIndex } = this.props
+  function onClick (event, itemIndex) {
     event.preventDefault()
     setActiveItemIndex(itemIndex)
   }
 
-  render () {
-    const { className, icons, item, itemIndex, theme } = this.props
+
     const label = <AnchorLabel icons={icons} item={item} />
     const anchorColor = (theme.dark) ? 'light-3' : 'dark-5'
     return (
@@ -56,13 +53,12 @@ class FieldGuideItemAnchor extends React.Component {
         color={anchorColor}
         href={`#field-guide-item-${itemIndex}`}
         label={label}
-        onClick={(event) => this.onClick(event, itemIndex)}
+        onClick={(event) => onClick(event, itemIndex)}
       />
     )
-  }
 }
 
-FieldGuideItemAnchor.wrappedComponent.defaultProps = {
+FieldGuideItemAnchor.defaultProps = {
   className: '',
   icons: observable.map(),
   theme: {
@@ -70,7 +66,7 @@ FieldGuideItemAnchor.wrappedComponent.defaultProps = {
   }
 }
 
-FieldGuideItemAnchor.wrappedComponent.propTypes = {
+FieldGuideItemAnchor.propTypes = {
   className: PropTypes.string,
   icons: MobXPropTypes.observableMap,
   item: PropTypes.object.isRequired,
