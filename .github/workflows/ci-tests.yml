@@ -10,7 +10,13 @@ jobs:
   build:
    runs-on: ubuntu-latest
    env:
-     CI: true
+     APP_ENV: production
+     NODE_ENV: production
+     PANOPTES_ENV: production
+     CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+     CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+     CONTENT_ASSET_PREFIX: 'https://fe-content-pages.zooniverse.org'
+     PROJECT_ASSET_PREFIX: 'https://fe-project.zooniverse.org'
 
    steps:
     # See: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow#using-the-checkout-action
@@ -20,10 +26,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
-    - run: yarn install
+    - run: yarn install --production=false
     - run: yarn workspace @zooniverse/react-components build
     - run: yarn workspace @zooniverse/classifier build
-    - run: yarn test:ci
+    - run: yarn workspace @zooniverse/fe-project build
+    - run: yarn workspace @zooniverse/fe-content-pages build
+    - run: PANOPTES_ENV=test yarn test:ci
     - run: yarn coverage-lcov
     - name: Coveralls
       uses: coverallsapp/github-action@master
