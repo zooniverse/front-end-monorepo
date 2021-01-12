@@ -9,8 +9,10 @@ import readme from './README.md'
 import Tooltip from './Tooltip'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 
