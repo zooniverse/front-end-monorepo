@@ -18,7 +18,7 @@ const VideoController = ({
 }) => {
   return (
     <Box background='#000000'>
-      <Box pad='xxsmall' border={{ color: 'teal', size: 'small' }}>
+      <Box pad={{ horizontal: 'xsmall', top: 'xsmall' }}>
         <Slider
           played={played}
           onMouseUp={onSliderMouseUp}
@@ -27,27 +27,19 @@ const VideoController = ({
         />
       </Box>
 
-      <Box
-        direction='row'
-        justify='between'
-        border={{ color: 'black', size: 'small' }}
-      >
-        <Box direction='row' border={{ color: 'red', size: 'small' }}>
+      <Box direction='row' justify='between'>
+        <Box direction='row'>
           <Box
             a11yTitle='Video Play and Pause button'
             alignSelf='center'
-            pad={{ horizontal: 'xsmall' }}
+            pad={{ horizontal: 'small' }}
           >
             <Button onClick={onPlayPause}>
               {isPlaying ? <PauseFill /> : <CirclePlay />}
             </Button>
           </Box>
 
-          <Box
-            a11yTitle='Video playback speed selection'
-            pad={{ left: 'small' }}
-            width='140px'
-          >
+          <Box a11yTitle='Video playback speed selection' width='140px'>
             <Select
               options={[0.25, 0.5, 1]}
               value={playbackRate}
@@ -58,10 +50,10 @@ const VideoController = ({
         </Box>
 
         <Box
-          direction='row'
-          border={{ color: 'blue', size: 'small' }}
-          alignSelf='center'
           a11yTitle='Video player time played and total time'
+          direction='row'
+          alignSelf='center'
+          pad={{ right: 'small' }}
         >
           <FormattedTime seconds={played * duration} />
           {' / '}
