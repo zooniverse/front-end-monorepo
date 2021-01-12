@@ -1,5 +1,3 @@
-import { withKnobs, boolean } from '@storybook/addon-knobs'
-import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import React from 'react'
@@ -24,23 +22,54 @@ function StoryContext (props) {
   )
 }
 
-storiesOf('Project App / Screens / Project Home / Subject Set Picker', module)
-  .addDecorator(withKnobs)
-  .add('default', () => (
-    <StoryContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
+export default {
+  title: 'Project App / Screens / Project Home / Subject Set Picker',
+  component: SubjectSetPicker,
+  parameters: {
+    viewport: {
+      defaultViewport: 'responsive'
+    }
+  }
+}
+
+export function Default({ active, dark, title, workflow }) {
+  return (
+    <StoryContext theme={{ ...zooTheme, dark }}>
       <SubjectSetPicker
-        active
-        title="Question Workflow (grouped)"
-        workflow={mockWorkflow}
+        active={active}
+        title={title}
+        workflow={workflow}
       />
     </StoryContext>
-  ))
-  .add('tablet', () => (
-    <StoryContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
+  )
+}
+Default.args = {
+  active: true,
+  dark: false,
+  title: "Question Workflow (grouped)",
+  workflow: mockWorkflow
+}
+
+export function Tablet({ active, dark, title, workflow }) {
+  return (
+    <StoryContext theme={{ ...zooTheme, dark }}>
       <SubjectSetPicker
-        active
-        title="Question Workflow (grouped)"
-        workflow={mockWorkflow}
+        active={active}
+        title={title}
+        workflow={workflow}
       />
     </StoryContext>
-  ), { viewport: { defaultViewport: 'ipad' }})
+  )
+}
+Tablet.args = {
+  active: true,
+  dark: false,
+  title: "Question Workflow (grouped)",
+  workflow: mockWorkflow
+}
+Tablet.parameters = {
+  viewport: {
+    defaultViewport: 'ipad'
+  }
+}
+
