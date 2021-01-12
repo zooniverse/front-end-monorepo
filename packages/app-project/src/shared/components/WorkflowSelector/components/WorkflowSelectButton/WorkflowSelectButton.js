@@ -3,9 +3,8 @@ import counterpart from 'counterpart'
 import { Button } from 'grommet'
 import { Next } from 'grommet-icons'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { bool, func, number, shape, string } from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
 
 import theme from './theme'
 import addQueryParams from '@helpers/addQueryParams'
@@ -18,8 +17,6 @@ const WorkflowLink = withThemeContext(Link, theme)
 
 function WorkflowSelectButton (props) {
   const { onSelect, workflow, ...rest } = props
-  const router = useRouter()
-  const { owner, project } = router?.query || {}
 
   const url = `/projects/${owner}/${project}/classify/workflow/${workflow.id}`
   const href = '/projects/[owner]/[project]/classify/workflow/[workflowID]'
