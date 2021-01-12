@@ -2,7 +2,7 @@ import { Box } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import Error from 'next/error'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createGlobalStyle } from 'styled-components'
 
 import AuthModal from '@components/AuthModal'
@@ -27,8 +27,11 @@ export default function MyApp({ Component, client, pageProps }) {
     const store = initStore(isServer, initialState, client)
     makeInspectable(store)
 
-    console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
-    store.user.checkCurrent()
+    function onMount() {
+      console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
+      store.user.checkCurrent()
+    }
+    useEffect(onMount, [ initialState ])
 
     return (
       <>
