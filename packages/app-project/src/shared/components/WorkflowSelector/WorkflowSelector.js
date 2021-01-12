@@ -92,3 +92,4 @@ WorkflowSelector.propTypes = {
 }
 
 export default withTheme(WorkflowSelector)
+export { WorkflowSelector }

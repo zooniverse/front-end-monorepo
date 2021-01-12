@@ -1,7 +1,9 @@
+import asyncStates from '@zooniverse/async-states'
 import { shallow, render } from 'enzyme'
 import React from 'react'
 
-import WorkflowSelector from './WorkflowSelector'
+import { WorkflowSelector } from './WorkflowSelector'
+import WorkflowSelectButton from './components/WorkflowSelectButton'
 
 const THEME = {
   global: {
@@ -11,10 +13,16 @@ const THEME = {
   }
 }
 
-const WORKFLOWS = {
-  data: [],
-  loading: false
-}
+const WORKFLOWS = [
+  {
+    id: '1234',
+    displayName: 'a test workflow'
+  },
+  {
+    id: '3456',
+    displayName: 'another test workflow'
+  }
+]
 
 const WORKFLOW_DESCRIPTION = 'Sit nulla mi metus tellus aenean lobortis litora'
 const DEFAULT_WORKFLOW_DESCRIPTION = 'You can do real research by clicking to get started here!'
@@ -62,4 +70,20 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelector', function () {
     })
   })
 
+  describe('with an active workflow', function () {
+    it('should flag that workflow as selected', function () {
+      const wrapper = shallow(
+        <WorkflowSelector
+          theme={THEME}
+          activeWorkflow={WORKFLOWS[0]}
+          userReadyState={asyncStates.success}
+          workflows={WORKFLOWS}
+          workflowDescription={WORKFLOW_DESCRIPTION}
+        />)
+      const selectedWorkflowButtons = wrapper.find(WorkflowSelectButton).find('[selected=true]')
+      expect(selectedWorkflowButtons).to.have.lengthOf(1)
+      const selectedWorkflow = selectedWorkflowButtons.first().prop('workflow')
+      expect(selectedWorkflow).to.equal(WORKFLOWS[0])
+    })
+  })
 })
