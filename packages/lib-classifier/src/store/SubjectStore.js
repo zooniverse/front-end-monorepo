@@ -152,17 +152,25 @@ const SubjectStore = types
       const root = getRoot(self)
       const client = root.client.panoptes
       const workflow = tryReference(() => root.workflows.active)
+      let apiUrl = '/subjects/queued'
+      
       if (workflow) {
         self.loadingState = asyncStates.loading
         const params = { workflow_id: workflow.id }
         if (workflow.grouped) {
           params.subject_set_id = workflow.subjectSetId
         }
+        
+        if (workflow.configuration.subject_viewer === 'subjectGroup') {
+          apiUrl = '/subjects/grouped'
+          params.num_rows = workflow.configuration.subject_viewer_config?.grid_rows || 1
+          params.num_columns = workflow.configuration.subject_viewer_config?.grid_columns || 1
+        }
 
         try {
           const { authClient } = getRoot(self)
           const authorization = yield getBearerToken(authClient)
-          const response = yield client.get(`/subjects/queued`, params, { authorization })
+          const response = yield client.get(apiUrl, params, { authorization })
 
           if (response.body.subjects && response.body.subjects.length > 0) {
             self.append(response.body.subjects)
