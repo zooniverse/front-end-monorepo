@@ -1,5 +1,3 @@
-import { withKnobs, boolean } from '@storybook/addon-knobs'
-import { storiesOf } from '@storybook/react'
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
@@ -66,30 +64,55 @@ function StoryContext (props) {
   )
 }
 
-storiesOf('Project App / Screens / Project Home / Workflow Selector', module)
-  .addDecorator(withKnobs)
-  .add('default', () => (
-    <StoryContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
+export default {
+  title: 'Project App / Screens / Project Home / Workflow Selector',
+  component: WorkflowSelector,
+  parameters: {
+    viewport: {
+      defaultViewport: 'responsive'
+    }
+  }
+}
+
+export function Default({ dark }) {
+  return (
+    <StoryContext theme={{ ...zooTheme, dark }}>
       <WorkflowSelector
         loadingState={asyncStates.success}
         workflows={WORKFLOWS}
       />
     </StoryContext>
-  ))
-  .add('loading', () => (
-    <StoryContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
+  )
+}
+Default.args = {
+  dark: false
+}
+
+export function Loading({ dark }) {
+  return (
+    <StoryContext theme={{ ...zooTheme, dark }}>
       <WorkflowSelector
         loadingState={asyncStates.loading}
         workflows={WORKFLOWS}
       />
     </StoryContext>
+  )
+}
+Loading.args = {
+  dark: false
+}
 
-  ))
-  .add('error', () => (
-    <StoryContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
+export function Error({ dark }) {
+  return (
+    <StoryContext theme={{ ...zooTheme, dark }}>
       <WorkflowSelector
         loadingState={asyncStates.error}
         workflows={WORKFLOWS}
       />
     </StoryContext>
-  ))
+  )
+}
+Error.args = {
+  dark: false
+}
+

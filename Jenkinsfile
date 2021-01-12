@@ -25,33 +25,60 @@ pipeline {
     // Right now, we're *only* building and deploying on the `master` branch;
     // longer-term, we'll want to deploy feature branches as well.
 
-    stage('Build base Docker image') {
+    stage('Build staging Docker image') {
+      when {
+        branch 'master'
+      }
       agent any
 
       environment {
-        APP_ENV = "${env.TAG_NAME == "production-release" ? "production" : "staging"}"
+        APP_ENV = "staging"
         COMMIT_ID = "${GIT_COMMIT}"
         CONTENTFUL_ACCESS_TOKEN = credentials('contentful-access-token')
         CONTENTFUL_SPACE_ID = credentials('contentful-space-ID')
-        CONTENT_ASSET_PREFIX = "${env.TAG_NAME == "production-release" ? "https://fe-content-pages.zooniverse.org" : "https://fe-content-pages.preview.zooniverse.org"}"
+        CONTENT_ASSET_PREFIX = "https://fe-content-pages.preview.zooniverse.org"
         SENTRY_CONTENT_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
-        PROJECT_ASSET_PREFIX = "${env.TAG_NAME == "production-release" ? "https://fe-project.zooniverse.org" : "https://fe-project.preview.zooniverse.org"}"
+        PROJECT_ASSET_PREFIX = "https://fe-project.preview.zooniverse.org"
         SENTRY_PROJECT_DSN = 'https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691'
       }
 
       steps {
         script {
-          def dockerRepoName = 'zooniverse/front-end-monorepo-${APP_ENV}'
+          def dockerRepoName = 'zooniverse/front-end-monorepo-staging'
           def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
           def buildArgs = "--build-arg APP_ENV --build-arg COMMIT_ID --build-arg CONTENTFUL_ACCESS_TOKEN --build-arg CONTENTFUL_SPACE_ID --build-arg CONTENT_ASSET_PREFIX --build-arg SENTRY_CONTENT_DSN --build-arg PROJECT_ASSET_PREFIX --build-arg SENTRY_PROJECT_DSN ."
           def newImage = docker.build(dockerImageName, buildArgs)
           newImage.push()
+          newImage.push('latest')
+        }
+      }
+    }
 
-          if (BRANCH_NAME == 'master') {
-            stage('Update latest tag') {
-              newImage.push('latest')
-            }
-          }
+    stage('Build production Docker image') {
+      when {
+        tag 'production-release'
+      }
+      agent any
+
+      environment {
+        APP_ENV = "production"
+        COMMIT_ID = "${GIT_COMMIT}"
+        CONTENTFUL_ACCESS_TOKEN = credentials('contentful-access-token')
+        CONTENTFUL_SPACE_ID = credentials('contentful-space-ID')
+        CONTENT_ASSET_PREFIX = "https://fe-content-pages.zooniverse.org"
+        SENTRY_CONTENT_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
+        PROJECT_ASSET_PREFIX = "https://fe-project.zooniverse.org"
+        SENTRY_PROJECT_DSN = 'https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691'
+      }
+
+      steps {
+        script {
+          def dockerRepoName = 'zooniverse/front-end-monorepo-production'
+          def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
+          def buildArgs = "--build-arg APP_ENV --build-arg COMMIT_ID --build-arg CONTENTFUL_ACCESS_TOKEN --build-arg CONTENTFUL_SPACE_ID --build-arg CONTENT_ASSET_PREFIX --build-arg SENTRY_CONTENT_DSN --build-arg PROJECT_ASSET_PREFIX --build-arg SENTRY_PROJECT_DSN ."
+          def newImage = docker.build(dockerImageName, buildArgs)
+          newImage.push()
+          newImage.push('latest')
         }
       }
     }
