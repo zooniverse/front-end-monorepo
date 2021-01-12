@@ -1,16 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import { Box, Select } from 'grommet'
+import { Box, Button, Select } from 'grommet'
 import { CirclePlay, PauseFill } from 'grommet-icons'
 import FormattedTime from './FormattedTime'
 import Slider from './Slider'
-
-const Button = styled.button`
-  border: none;
-  outline: none;
-  cursor: pointer;
-`
 
 const VideoController = ({
   isPlaying,
@@ -40,20 +33,35 @@ const VideoController = ({
         border={{ color: 'black', size: 'small' }}
       >
         <Box direction='row' border={{ color: 'red', size: 'small' }}>
-          <Button onClick={onPlayPause}>
-            {isPlaying ? <PauseFill /> : <CirclePlay />}
-          </Button>
-          <Select
-            options={[0.25, 0.5, 1]}
-            value={playbackRate}
-            onChange={({ option }) => onSpeedChange(option)}
-          />
+          <Box
+            a11yTitle='Video Play and Pause button'
+            alignSelf='center'
+            pad={{ horizontal: 'xsmall' }}
+          >
+            <Button onClick={onPlayPause}>
+              {isPlaying ? <PauseFill /> : <CirclePlay />}
+            </Button>
+          </Box>
+
+          <Box
+            a11yTitle='Video playback speed selection'
+            pad={{ left: 'small' }}
+            width='140px'
+          >
+            <Select
+              options={[0.25, 0.5, 1]}
+              value={playbackRate}
+              onChange={({ option }) => onSpeedChange(option)}
+              plain={true}
+            />
+          </Box>
         </Box>
 
         <Box
           direction='row'
           border={{ color: 'blue', size: 'small' }}
           alignSelf='center'
+          a11yTitle='Video player time played and total time'
         >
           <FormattedTime seconds={played * duration} />
           {' / '}

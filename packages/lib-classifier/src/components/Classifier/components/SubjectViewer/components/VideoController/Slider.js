@@ -26,7 +26,7 @@ const customThemeRangeInput = {
 
 const Slider = ({ played, onMouseUp, onMouseDown, onChange }) => (
   <Grommet theme={customThemeRangeInput}>
-    <Box>
+    <Box a11yTitle='Video player slider'>
       <RangeInput
         min={0}
         max={1}
