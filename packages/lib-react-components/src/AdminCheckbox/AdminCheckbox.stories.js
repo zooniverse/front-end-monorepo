@@ -15,7 +15,7 @@ const config = {
   }
 }
 
-storiesOf('ZooFooter/AdminCheckbox', module)
+storiesOf('AdminCheckbox', module)
   .addDecorator(withActions('change #admin-checkbox'))
 
   .add('Light theme (default)', () => (
