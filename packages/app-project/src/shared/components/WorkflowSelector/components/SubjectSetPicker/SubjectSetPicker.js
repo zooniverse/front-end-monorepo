@@ -1,4 +1,4 @@
-import { Modal, SpacedText } from '@zooniverse/react-components'
+import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Anchor, Box, Grid, Heading, Paragraph } from 'grommet'
 import Link from 'next/link'
@@ -35,13 +35,7 @@ function SubjectSetPicker (props) {
   const columns = Math.floor(window.innerWidth / 240)
 
   return (
-    <Modal
-      active={active}
-      closeFn={closeFn}
-      headingBackground='brand'
-      title={title}
-      titleColor='neutral-6'
-    >
+    <>
       <StyledHeading
         level={3}
         margin={{ top: 'xsmall', bottom: 'none' }}
@@ -80,13 +74,11 @@ function SubjectSetPicker (props) {
         })}
         </Grid>
       </Box>
-    </Modal>
+    </>
   )
 }
 
 SubjectSetPicker.propTypes = {
-  active: bool,
-  title: string.isRequired,
   workflow: shape({
     completeness: number,
     default: bool,
@@ -96,8 +88,5 @@ SubjectSetPicker.propTypes = {
   }).isRequired
 }
 
-SubjectSetPicker.defaultProps = {
-  active: false
-}
 export default SubjectSetPicker
 export { StyledHeading }

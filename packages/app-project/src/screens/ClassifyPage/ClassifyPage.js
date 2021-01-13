@@ -52,30 +52,28 @@ function ClassifyPage (props) {
       >
 
         <Box as='main' fill='horizontal'>
-          {!canClassify && !activeWorkflow && (
+          {!canClassify && (
             <Modal
               active
+              closeFn={() => setActiveWorkflow(null)}
+              onEsc={() => setActiveWorkflow(null)}
               headingBackground='brand'
-              title='Choose a workflow'
+              title={activeWorkflow ? (activeWorkflow.displayName || 'Choose a subject set') : 'Choose a workflow'}
               titleColor='neutral-6'
             >
-              <WorkflowSelector
-                activeWorkflow={activeWorkflow}
-                onSelect={onSelectWorkflow}
-                workflows={workflows}
-              />
+              {!activeWorkflow ?
+                <WorkflowSelector
+                  onSelect={onSelectWorkflow}
+                  workflows={workflows}
+                /> :
+                <SubjectSetPicker
+                  owner={owner}
+                  project={project}
+                  workflow={activeWorkflow}
+                />
+              }
             </Modal>
           )}
-          {!canClassify && activeWorkflow &&
-            <SubjectSetPicker
-              active={!!activeWorkflow}
-              closeFn={() => setActiveWorkflow(null)}
-              owner={owner}
-              project={project}
-              title={activeWorkflow.displayName || 'Choose a subject set'}
-              workflow={activeWorkflow}
-            />
-          }
           <Grid columns={responsiveColumns} gap='small'>
             <ProjectName />
             <ClassifierWrapper

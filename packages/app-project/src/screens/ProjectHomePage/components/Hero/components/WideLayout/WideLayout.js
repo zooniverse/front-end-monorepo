@@ -2,6 +2,7 @@ import { Box } from 'grommet'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { Modal } from '@zooniverse/react-components'
 
 import Background from '../Background'
 import Introduction from '../Introduction'
@@ -45,19 +46,23 @@ function WideLayout (props) {
       >
         <Introduction />
         <WorkflowSelector
-          activeWorkflow={activeWorkflow}
           onSelect={onSelectWorkflow}
           workflows={workflows}
         />
         {activeWorkflow &&
-          <SubjectSetPicker
-            active={!!activeWorkflow}
+          <Modal
+            active
             closeFn={() => setActiveWorkflow(null)}
-            owner={owner}
-            project={project}
+            headingBackground='brand'
             title={activeWorkflow.displayName || 'Choose a subject set'}
-            workflow={activeWorkflow}
-          />
+            titleColor='neutral-6'
+          >
+            <SubjectSetPicker
+              owner={owner}
+              project={project}
+              workflow={activeWorkflow}
+            />
+          </Modal>
         }
       </StyledContentBox>
     </GrowBox>
