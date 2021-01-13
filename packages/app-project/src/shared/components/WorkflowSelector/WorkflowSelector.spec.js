@@ -3,7 +3,7 @@ import { shallow, render } from 'enzyme'
 import React from 'react'
 
 import { WorkflowSelector } from './WorkflowSelector'
-import WorkflowSelectButton from './components/WorkflowSelectButton'
+import { SubjectSetPicker } from './components'
 
 const THEME = {
   global: {
@@ -71,7 +71,7 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelector', function () {
   })
 
   describe('with an active workflow', function () {
-    it('should flag that workflow as selected', function () {
+    it('should show the subject set picker', function () {
       const wrapper = shallow(
         <WorkflowSelector
           theme={THEME}
@@ -80,10 +80,7 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelector', function () {
           workflows={WORKFLOWS}
           workflowDescription={WORKFLOW_DESCRIPTION}
         />)
-      const selectedWorkflowButtons = wrapper.find(WorkflowSelectButton).find('[selected=true]')
-      expect(selectedWorkflowButtons).to.have.lengthOf(1)
-      const selectedWorkflow = selectedWorkflowButtons.first().prop('workflow')
-      expect(selectedWorkflow).to.equal(WORKFLOWS[0])
+      expect(wrapper.find(SubjectSetPicker)).to.have.lengthOf(1)
     })
   })
 })
