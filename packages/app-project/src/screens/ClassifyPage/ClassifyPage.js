@@ -2,7 +2,7 @@ import { Box, Grid } from 'grommet'
 import dynamic from 'next/dynamic'
 import { arrayOf, func, shape, string } from 'prop-types'
 import React from 'react'
-import { withResponsiveContext } from '@zooniverse/react-components'
+import { Modal, withResponsiveContext } from '@zooniverse/react-components'
 
 import ThemeModeToggle from '@components/ThemeModeToggle'
 import ProjectName from '@components/ProjectName'
@@ -37,16 +37,23 @@ function ClassifyPage (props) {
       >
 
         <Box as='main' fill='horizontal'>
+          {!canClassify && (
+            <Modal
+              active
+              headingBackground='brand'
+              title='Choose a workflow'
+              titleColor='neutral-6'
+            >
+              <WorkflowSelector activeWorkflow={activeWorkflow} workflows={workflows} />
+            </Modal>
+          )}
           <Grid columns={responsiveColumns} gap='small'>
             <ProjectName />
-            {canClassify ? 
-              <ClassifierWrapper
-                onAddToCollection={addToCollection}
-                subjectSetID={subjectSetID}
-                workflowID={workflowID}
-              /> :
-              <WorkflowSelector activeWorkflow={activeWorkflow} workflows={workflows} />
-            }
+            <ClassifierWrapper
+              onAddToCollection={addToCollection}
+              subjectSetID={subjectSetID}
+              workflowID={workflowID}
+            />
             <ThemeModeToggle />
           </Grid>
         </Box>
