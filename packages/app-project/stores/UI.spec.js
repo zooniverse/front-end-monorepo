@@ -62,8 +62,28 @@ describe('Stores > UI', function () {
   })
 
   describe('when using the mode cookie', function () {
+    let originalDocument
     let setModeCookieSpy
     let store
+
+    before(function () {
+      originalDocument = document
+      document = sinon.mock({
+        value_: '',
+
+        get cookie() {
+          return this.value_;
+        },
+
+        set cookie(value) {
+          this.value_ += value + ';';
+        }
+      })
+    })
+
+    after(function () {
+      document = originalDocument
+    })
 
     beforeEach(function () {
       document.cookie = 'mode=; max-age=-99999999;'
@@ -114,12 +134,12 @@ describe('Stores > UI', function () {
     })
 
     it('should contain a dismissedProjectAnnouncementBanner property', function () {
-      expect(store.dismissedProjectAnnouncementBanner).to.be.undefined()
+      expect(store.dismissedProjectAnnouncementBanner).to.be.null()
     })
 
     it('should have a `dismissProjectAnnouncementBanner` action', function () {
       const expectedValue = stringHash(PROJECT.configuration.announcement)
-      expect(store.dismissedProjectAnnouncementBanner).to.equal(undefined)
+      expect(store.dismissedProjectAnnouncementBanner).to.be.null()
       store.dismissProjectAnnouncementBanner()
       expect(store.dismissedProjectAnnouncementBanner).to.equal(expectedValue)
     })
@@ -134,19 +154,31 @@ describe('Stores > UI', function () {
   describe('when using the dismissedProjectAnnouncementBanner cookie', function () {
     let rootStore
     let store
-    let originalURL
+    let originalDocument
     let setProjectAnnouncementBannerCookieSpy
 
     before(function () {
-      originalURL = document.URL
+      originalDocument = document
       dom.reconfigure({
         url: `https://localhost/projects/${PROJECT.slug}`
+      })
+      document = sinon.mock({
+        value_: '',
+
+        get cookie() {
+          return this.value_;
+        },
+
+        set cookie(value) {
+          this.value_ += value + ';';
+        }
       })
     })
 
     after(function () {
+      document = originalDocument
       dom.reconfigure({
-        url: originalURL
+        url: originalDocument.URL
       })
     })
 

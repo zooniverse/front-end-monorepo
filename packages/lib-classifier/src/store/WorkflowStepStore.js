@@ -156,7 +156,9 @@ const WorkflowStepStore = types
       const { steps } = workflow
       steps.forEach(([ stepKey, step ], index) => {
         let next
-        if (steps[index + 1]) {
+        // checking for there being a next step without accessing it directly
+        // mobx throws errors for undefined indices because you can't observe those
+        if (steps.length > 0 && index + 2 <= steps.length) {
           const [nextStepKey] = steps[index + 1]
           next = nextStepKey
         }

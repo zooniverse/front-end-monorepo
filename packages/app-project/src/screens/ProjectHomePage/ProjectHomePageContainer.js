@@ -1,5 +1,5 @@
 import { inject, observer } from 'mobx-react'
-import { bool } from 'prop-types'
+import { arrayOf, bool, shape, string } from 'prop-types'
 import React, { Component } from 'react'
 
 import ProjectHomePage from './ProjectHomePage'
@@ -22,11 +22,15 @@ class ProjectHomePageContainer extends Component {
 }
 
 ProjectHomePageContainer.defaultProps = {
-  inBeta: false
+  inBeta: false,
+  workflows: []
 }
 
 ProjectHomePageContainer.propTypes = {
-  inBeta: bool
+  inBeta: bool,
+  workflows: arrayOf(shape({
+    id: string.isRequired
+  }))
 }
 
 export default ProjectHomePageContainer

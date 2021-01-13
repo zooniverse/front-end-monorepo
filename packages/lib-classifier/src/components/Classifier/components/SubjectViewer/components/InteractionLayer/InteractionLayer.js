@@ -1,13 +1,13 @@
 import cuid from 'cuid'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled, { css } from 'styled-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
 
-const StyledRect = styled('rect')`
+const DrawingCanvas = styled('rect')`
   ${props => props.disabled ?
     css`cursor: not-allowed;` :
     css`cursor: crosshair;`
@@ -29,6 +29,12 @@ function InteractionLayer ({
 }) {
   const [ creating, setCreating ] = React.useState(false)
   const { svg, getScreenCTM } = React.useContext(SVGContext)
+
+  useEffect(function onDeleteMark() {
+    if (creating && !activeMark) {
+      setCreating(false)
+    }
+  }, [activeMark])
 
   function convertEvent (event) {
     const type = event.type
@@ -53,40 +59,43 @@ function InteractionLayer ({
     return svgEventOffset
   }
 
+  function createMark (event) {
+    const mark = activeTool.createMark({
+      id: cuid(),
+      frame,
+      toolIndex: activeToolIndex
+    })
+
+    mark.initialPosition(convertEvent(event))
+    setActiveMark(mark)
+    setCreating(true)
+    mark.setSubTaskVisibility(false)
+  }
+
   function onPointerDown (event) {
     if (disabled || move) {
       return true
     }
-    let activeMark
+    const { target, pointerId } = event
+    target.setPointerCapture(pointerId)
 
     if (!activeTool.type) {
       return false;
     }
 
     if (creating) {
-      activeMark = activeTool.handlePointerDown && activeTool.handlePointerDown(convertEvent(event))
-      if (activeMark.finished) setCreating(false)
+      activeTool.handlePointerDown && activeTool.handlePointerDown(convertEvent(event), activeMark)
+      if (activeMark.finished) onFinish(event)
       return true
     }
 
-    activeMark = activeTool.createMark({
-      id: cuid(),
-      frame,
-      toolIndex: activeToolIndex
-    })
-
-    activeMark.initialPosition(convertEvent(event))
-    setActiveMark(activeMark)
-    setCreating(true)
-    activeMark.setSubTaskVisibility(false)
+    createMark(event)
     return false
   }
 
   function onPointerMove (event) {
     if (creating) {
-      const { target, pointerId } = event
-      target.setPointerCapture(pointerId)
-      activeMark.initialDrag(convertEvent(event))
+      activeTool.handlePointerMove && activeTool.handlePointerMove(convertEvent(event), activeMark)
     }
   }
 
@@ -98,11 +107,18 @@ function InteractionLayer ({
       activeTool.deleteMark(activeMark)
       setActiveMark(undefined)
     } else {
-      activeMark.setSubTaskVisibility(true, node)
+      if (node) activeMark?.setSubTaskVisibility(true, node)
     }
 
     if (target && pointerId) {
       target.releasePointerCapture(pointerId)
+    }
+  }
+
+  function onPointerUp(event) {
+    if (creating) {
+      activeTool.handlePointerUp && activeTool.handlePointerUp(convertEvent(event), activeMark)
+      if (activeMark.finished) onFinish(event)
     }
   }
 
@@ -111,17 +127,17 @@ function InteractionLayer ({
   }
 
   return (
-    <g
-      onPointerMove={onPointerMove}
-      touch-action='none'
-    >
-      <StyledRect
+    <g>
+      <DrawingCanvas
         disabled={disabled || move}
         pointerEvents={move ? 'none' : 'all'}
         width={width}
         height={height}
         fill='transparent'
         onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        touch-action='none'
       />
       <TranscribedLines
         scale={scale}
@@ -169,4 +185,4 @@ InteractionLayer.defaultProps = {
 }
 
 export default InteractionLayer
-export { StyledRect }
+export { DrawingCanvas }

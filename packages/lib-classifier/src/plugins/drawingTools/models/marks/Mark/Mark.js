@@ -42,6 +42,7 @@ const BaseMark = types.model('BaseMark', {
     return newSnapshot
   })
   .volatile(self => ({
+    finished: false,
     // we may be able to move this to be local component state
     subTaskMarkBounds: undefined,
     subTaskVisibility: false
@@ -87,6 +88,10 @@ const BaseMark = types.model('BaseMark', {
     }
   }))
   .actions(self => {
+    function finish () {
+      self.finished = true
+    }
+
     function setSubTaskVisibility (visible, drawingMarkNode, previousAnnotationValues) {
       if(self.tasks.length > 0) {
         self.subTaskVisibility = visible
@@ -104,6 +109,7 @@ const BaseMark = types.model('BaseMark', {
     }
 
     return {
+      finish,
       setSubTaskVisibility
     }
   })
