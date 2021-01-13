@@ -1,25 +1,49 @@
 import {
-  Box
+  Grid
 } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
+import sortIntoColumns from 'sort-into-columns'
+import styled, { css } from 'styled-components'
 
 import ChoiceButton from './ChoiceButton'
 
-export default function Choices (props) {
+const StyledGrid = styled(Grid)`
+  ${props => props.theme.dark ?
+    css`background-color: ${props.theme.global.colors['dark-1']};` :
+    css`background-color: ${props.theme.global.colors['light-1']};`
+  }
+`
+
+function howManyColumns ({ length }) {
+  if (length <= 5) {
+    return 1
+  } else if (length <= 20) {
+    return 2
+  } else {
+    return 3
+  }
+}
+
+function Choices (props) {
   const {
     filteredChoices,
     onChoose,
     task
   } = props
 
+  const columnsCount = howManyColumns(filteredChoices)
+  const sortedFilteredChoices = sortIntoColumns(filteredChoices, columnsCount)
+
   return (
-    <Box
-      basis='medium'
-      direction='column'
-      wrap
+    <StyledGrid
+      columns={{
+        count: columnsCount,
+        size: 'auto'
+      }}
+      gap='2px'
     >
-      {filteredChoices.map((choiceId) => {
+      {sortedFilteredChoices.map((choiceId) => {
         const choice = task.choices[choiceId]
         return (
           <ChoiceButton
@@ -30,7 +54,7 @@ export default function Choices (props) {
           />
         )
       })}
-    </Box>
+    </StyledGrid>
   )
 }
 
@@ -51,3 +75,5 @@ Choices.propTypes = {
     type: PropTypes.string
   }).isRequired
 }
+
+export default Choices
