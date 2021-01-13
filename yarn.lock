@@ -16443,6 +16443,11 @@ socks@~2.3.2:
     ip "1.1.5"
     smart-buffer "^4.1.0"
 
+sort-into-columns@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/sort-into-columns/-/sort-into-columns-1.0.0.tgz#e7e3ed4fd1f765aa7b1c8473eb58a9f2a680d0cf"
+  integrity sha1-5+PtT9H3Zap7HIRz61ip8qaA0M8=
+
 sort-keys@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/sort-keys/-/sort-keys-2.0.0.tgz#658535584861ec97d730d6cf41822e1f56684128"
