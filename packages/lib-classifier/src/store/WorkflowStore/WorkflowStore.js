@@ -53,18 +53,7 @@ const WorkflowStore = types
 
     function getDefaultWorkflowId () {
       const { project } = self
-      let id = ''
-
-      if (project) {
-        if (project.configuration && project.configuration.default_workflow) {
-          id = project.configuration.default_workflow
-        } else if (project.links && project.links.active_workflows[0]) {
-          // TODO: This should be changed to select an id randomly out of the active workflows array
-          id = project.links.active_workflows[0]
-        }
-      }
-
-      return id
+      return project?.defaultWorkflow || ''
     }
 
     function * selectWorkflow (id = getDefaultWorkflowId(), subjectSetID) {

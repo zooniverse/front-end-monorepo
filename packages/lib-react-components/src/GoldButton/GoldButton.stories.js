@@ -10,8 +10,10 @@ import readme from './README.md'
 import { backgrounds } from '../../.storybook/lib/'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 

@@ -8,9 +8,15 @@ describe('Server > setLogging', function () {
   }
   const useSpy = sinon.spy(expressInstance, 'use')
 
-  describe('default behaviour', function () {
+  describe('in development', function () {
     before(function () {
-      setLogging = require('./set-logging')
+      setLogging = proxyquire('./set-logging', {
+        process: {
+          env: {
+            NODE_ENV: 'development'
+          }
+        }
+      })
     })
 
     afterEach(function () {
@@ -23,7 +29,7 @@ describe('Server > setLogging', function () {
     })
   })
 
-  describe('production behaviour', function () {
+  describe('in production', function () {
     before(function () {
       setLogging = proxyquire('./set-logging', {
         process: {
