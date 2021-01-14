@@ -70,7 +70,7 @@ FieldGuide.defaultProps = {
 FieldGuide.propTypes = {
   activeItemIndex: PropTypes.number,
   className: PropTypes.string,
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  fieldGuide: PropTypes.object.isRequired,
   onClose: PropTypes.func
 }
 
