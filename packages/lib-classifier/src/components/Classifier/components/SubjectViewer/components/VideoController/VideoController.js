@@ -17,7 +17,12 @@ const VideoController = ({
   onSliderChange
 }) => {
   return (
-    <Box background='#000000'>
+    <Box
+      background={{
+        dark: 'dark-3',
+        light: 'light-3'
+      }}
+    >
       <Box pad={{ horizontal: 'xsmall', top: 'xsmall' }}>
         <Slider
           played={played}
