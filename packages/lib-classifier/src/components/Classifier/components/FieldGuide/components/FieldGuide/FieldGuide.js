@@ -1,9 +1,11 @@
 import { Box, ResponsiveContext } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { observable } from 'mobx'
+import { PropTypes as MobXPropTypes } from 'mobx-react'
 import { MovableModal } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import en from '../../locales/en'
+import en from './locales/en'
 
 import FieldGuideItems from './components/FieldGuideItems'
 import FieldGuideItem from './components/FieldGuideItem'
@@ -46,8 +48,8 @@ function FieldGuide (props) {
           >
             <Box
               className={className}
-              height={height}
-              width={width}
+              height={{ min: height }}
+              width={{ min: width }}
             >
               {item
                 ? <FieldGuideItem icons={icons} item={item} setActiveItemIndex={setActiveItemIndex} />
@@ -64,14 +66,18 @@ function FieldGuide (props) {
 FieldGuide.defaultProps = {
   activeItemIndex: -1,
   className: '',
-  onClose: () => {}
+  icons: observable.map(),
+  onClose: () => {},
+  setActiveItemIndex: () => {}
 }
 
 FieldGuide.propTypes = {
   activeItemIndex: PropTypes.number,
   className: PropTypes.string,
   fieldGuide: PropTypes.object.isRequired,
-  onClose: PropTypes.func
+  icons: MobXPropTypes.observableMap,
+  onClose: PropTypes.func,
+  setActiveItemIndex: PropTypes.func
 }
 
 export default FieldGuide
