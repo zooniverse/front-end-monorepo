@@ -1,8 +1,8 @@
 import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Anchor, Box, Grid, Heading, Paragraph } from 'grommet'
+import { Anchor, Box, Button, Grid, Heading, Paragraph } from 'grommet'
 import Link from 'next/link'
-import { array, bool, number, shape, string } from 'prop-types'
+import { array, bool, func, number, shape, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -21,8 +21,20 @@ const StyledHeading = styled(Heading)`
   line-height: 100%;
 `
 
+function BackButton({ onClick }) {
+  return (
+    <Button
+      plain
+      onClick={onClick}
+    >
+      <SpacedText color='accent-2'>
+        {counterpart('SubjectSetPicker.back')}
+      </SpacedText>
+    </Button>
+  )
+}
 function SubjectSetPicker (props) {
-  const { active, closeFn, owner, project, title, workflow } = props
+  const { onClose, owner, project, workflow } = props
   /*
     Vertical spacing for the picker instructions.
     The theme's named margins are set in multiples of 10px, so set 15px explicitly.
@@ -36,6 +48,7 @@ function SubjectSetPicker (props) {
 
   return (
     <>
+      {onClose && <BackButton onClick={onClose} />}
       <StyledHeading
         level={3}
         margin={{ top: 'xsmall', bottom: 'none' }}
@@ -79,6 +92,9 @@ function SubjectSetPicker (props) {
 }
 
 SubjectSetPicker.propTypes = {
+  onClose: func,
+  owner: string.isRequired,
+  project: string.isRequired,
   workflow: shape({
     completeness: number,
     default: bool,
@@ -89,4 +105,4 @@ SubjectSetPicker.propTypes = {
 }
 
 export default SubjectSetPicker
-export { StyledHeading }
+export { BackButton, StyledHeading }

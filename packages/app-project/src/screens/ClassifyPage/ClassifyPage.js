@@ -42,6 +42,10 @@ function ClassifyPage (props) {
     return true
   }
 
+  function onClose() {
+    setActiveWorkflow(null)
+  }
+
   return (
     <StandardLayout>
 
@@ -55,8 +59,8 @@ function ClassifyPage (props) {
           {!canClassify && (
             <Modal
               active
-              closeFn={() => setActiveWorkflow(null)}
-              onEsc={() => setActiveWorkflow(null)}
+              closeFn={onClose}
+              onEsc={onClose}
               headingBackground='brand'
               title={activeWorkflow ? (activeWorkflow.displayName || 'Choose a subject set') : 'Choose a workflow'}
               titleColor='neutral-6'
@@ -67,6 +71,7 @@ function ClassifyPage (props) {
                   workflows={workflows}
                 /> :
                 <SubjectSetPicker
+                  onClose={onClose}
                   owner={owner}
                   project={project}
                   workflow={activeWorkflow}

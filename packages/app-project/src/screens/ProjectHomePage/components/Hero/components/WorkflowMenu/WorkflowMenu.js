@@ -19,6 +19,11 @@ export default function WorkflowMenu({ workflows }) {
     }
     return true
   }
+
+  function onClose() {
+    setActiveWorkflow(null)
+  }
+
   return (
     <>
     <WorkflowSelector
@@ -28,12 +33,13 @@ export default function WorkflowMenu({ workflows }) {
     {activeWorkflow &&
       <Modal
         active
-        closeFn={() => setActiveWorkflow(null)}
+        closeFn={onClose}
         headingBackground='brand'
         title={activeWorkflow.displayName || 'Choose a subject set'}
         titleColor='neutral-6'
       >
         <SubjectSetPicker
+          onClose={onClose}
           owner={owner}
           project={project}
           workflow={activeWorkflow}

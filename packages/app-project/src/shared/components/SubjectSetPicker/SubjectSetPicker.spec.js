@@ -1,9 +1,10 @@
-import { Modal } from '@zooniverse/react-components'
+import { SpacedText } from '@zooniverse/react-components'
 import { shallow } from 'enzyme'
-import { Paragraph } from 'grommet'
+import { Button, Paragraph } from 'grommet'
 import React from 'react'
+import sinon from 'sinon'
 
-import SubjectSetPicker, { StyledHeading } from './SubjectSetPicker'
+import SubjectSetPicker, { BackButton, StyledHeading } from './SubjectSetPicker'
 import SubjectSetCard from './components/SubjectSetCard'
 import en from './locales/en'
 import { mockWorkflow } from './helpers'
@@ -63,5 +64,26 @@ describe('Component > SubjectSetPicker', function () {
   it('should render subject set cards', function () {
     const cards = wrapper.find(SubjectSetCard)
     expect(cards.length).to.equal(mockWorkflow.subjectSets.length)
+  })
+
+  describe('the onClose callback', function () {
+
+    before(function () {
+      wrapper.setProps({
+        onClose: sinon.stub()
+      })
+    })
+
+    it('should show a back button', function () {
+      const button = wrapper.find(BackButton).first()
+      expect(button).to.have.lengthOf(1)
+    })
+
+    it('should be called when the back button is clicked', function () {
+      const button = wrapper.find(BackButton).first()
+      const onClose = button.prop('onClick')
+      button.simulate('click')
+      expect(onClose).to.have.been.calledOnce()
+    })
   })
 })
