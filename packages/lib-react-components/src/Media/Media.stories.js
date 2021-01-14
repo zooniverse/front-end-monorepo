@@ -9,8 +9,10 @@ import readme from './README.md'
 import ZooniverseLogo from '../ZooniverseLogo'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 
