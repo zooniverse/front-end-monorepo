@@ -11,8 +11,10 @@ const signIn = action('Sign in button clicked')
 const signOut = action('Sign out button clicked')
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 
