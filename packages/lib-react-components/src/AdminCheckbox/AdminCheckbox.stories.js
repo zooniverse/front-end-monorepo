@@ -8,12 +8,14 @@ import AdminCheckbox from './AdminCheckbox'
 import readme from './README.md'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 
-storiesOf('ZooFooter/AdminCheckbox', module)
+storiesOf('AdminCheckbox', module)
   .addDecorator(withActions('change #admin-checkbox'))
 
   .add('Light theme (default)', () => (
