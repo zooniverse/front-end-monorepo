@@ -2,7 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
-import { mockWorkflow as mockGroupedWorkflow } from '@shared/components/WorkflowSelector/components/SubjectSetPicker/helpers'
+import { mockWorkflow as mockGroupedWorkflow } from '@shared/components/SubjectSetPicker/helpers'
 import WorkflowMenu from './WorkflowMenu'
 
 const store = {

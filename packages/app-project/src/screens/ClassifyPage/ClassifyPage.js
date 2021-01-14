@@ -15,7 +15,7 @@ import YourStats from './components/YourStats'
 import StandardLayout from '@shared/components/StandardLayout'
 
 import WorkflowSelector from '@shared/components/WorkflowSelector'
-import { SubjectSetPicker } from '@shared/components/WorkflowSelector/components'
+import SubjectSetPicker from '@shared/components/SubjectSetPicker'
 
 const ClassifierWrapper = dynamic(() =>
   import('./components/ClassifierWrapper'), { ssr: false }

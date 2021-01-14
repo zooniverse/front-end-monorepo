@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { Modal } from '@zooniverse/react-components'
 
 import WorkflowSelector from '@shared/components/WorkflowSelector'
-import { SubjectSetPicker } from '@shared/components/WorkflowSelector/components'
+import SubjectSetPicker from '@shared/components/SubjectSetPicker'
 
 export default function WorkflowMenu({ workflows }) {
   const [ activeWorkflow, setActiveWorkflow ] = useState()

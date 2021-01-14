@@ -9,7 +9,7 @@ import YourStats from './components/YourStats'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
 import WorkflowSelector from '@shared/components/WorkflowSelector'
-import { SubjectSetPicker } from '@shared/components/WorkflowSelector/components'
+import SubjectSetPicker from '@shared/components/SubjectSetPicker'
 
 describe('Component > ClassifyPage', function () {
   let wrapper

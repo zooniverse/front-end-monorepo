@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import WorkflowSelector from '@shared/components/WorkflowSelector'
-import { SubjectSetPicker } from '@shared/components/WorkflowSelector/components'
+import SubjectSetPicker from '@shared/components/SubjectSetPicker'
 
 import WorkflowMenu from './WorkflowMenu'
 
