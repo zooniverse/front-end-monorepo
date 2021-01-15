@@ -6,7 +6,7 @@ import React from 'react'
 import sortIntoColumns from 'sort-into-columns'
 import styled, { css } from 'styled-components'
 
-import ChoiceButton from './ChoiceButton'
+import ChoiceButton from './components/ChoiceButton'
 
 const StyledGrid = styled(Grid)`
   ${props => props.theme.dark ?
