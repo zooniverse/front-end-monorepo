@@ -20,7 +20,7 @@ const StyledChoiceButton = styled(Button)`
 
 export const THUMBNAIL_ASPECT_RATIO = 1.25
 
-export function ChoiceButton (props) {
+export function ChoiceButton(props) {
   const {
     choiceId,
     choiceLabel,
@@ -48,7 +48,7 @@ export function ChoiceButton (props) {
           fill
           align='center'
         >
-          {thumbnailSize !== 'none' && 
+          {thumbnailSize !== 'none' &&
             <Media
               height={thumbnailHeight}
               margin={{ right: '1ch' }}
@@ -75,7 +75,7 @@ export function ChoiceButton (props) {
 ChoiceButton.defaultProps = {
   choiceId: '',
   choiceLabel: '',
-  onChoose: () => {},
+  onChoose: () => { },
   src: '',
   theme: {
     dark: false,
