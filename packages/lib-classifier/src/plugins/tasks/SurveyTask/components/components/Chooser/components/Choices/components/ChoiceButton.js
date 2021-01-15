@@ -7,10 +7,9 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 
 const StyledChoiceButton = styled(Button)`
-  ${props => props.theme.dark ?
-    css`background-color: ${props.theme.global.colors['dark-5']};` :
-    css`background-color: ${props.theme.global.colors['neutral-6']};`
-  }
+  ${props => props.theme.dark
+    ? css`background-color: ${props.theme.global.colors['dark-5']};`
+    : css`background-color: ${props.theme.global.colors['neutral-6']};`}
   border: none;
   border-radius: 0px;
   padding: 5px;
