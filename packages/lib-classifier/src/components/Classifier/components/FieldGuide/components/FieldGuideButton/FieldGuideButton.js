@@ -11,7 +11,7 @@ import HelpIcon from './HelpIcon'
 
 counterpart.registerTranslations('en', en)
 
-const StyledButton = styled(Button)`
+export const StyledButton = styled(Button)`
   ${props => props.theme && css`
     background: ${props.theme.global.colors.brand};
     padding: 15px 10px;
@@ -84,8 +84,9 @@ FieldGuideButton.defaultProps = {
 
 FieldGuideButton.propTypes = {
   fieldGuide: PropTypes.object,
-  theme: PropTypes.object,
-  setModalVisibility: PropTypes.func.isRequired
+  onOpen: PropTypes.func.isRequired,
+  theme: PropTypes.object
 }
 
 export default withTheme(FieldGuideButton)
+export { FieldGuideButton }
