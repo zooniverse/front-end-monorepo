@@ -26,21 +26,28 @@ export default {
   component: ChoiceButton
 }
 
-export function Default ({ choiceId, choiceLabel, dark }) {
-  return (
-    <StoryContext
-      theme={{ ...zooTheme, dark }}
-    >
-      <ChoiceButton
-        choiceId={choiceId}
-        choiceLabel={choiceLabel}
-        onChoose={() => console.log(choiceId)}
-      />
-    </StoryContext>
-  )
-}
+const Template = ({ choiceId, choiceLabel, dark }) => (
+  <StoryContext
+    theme={{ ...zooTheme, dark }}
+  >
+    <ChoiceButton
+      choiceId={choiceId}
+      choiceLabel={choiceLabel}
+      onChoose={() => console.log(choiceId)}
+    />
+  </StoryContext>
+)
+
+export const Default = Template.bind({});
 Default.args = {
   choiceId: 'AARDVARK',
   choiceLabel: 'Aardvark',
+  dark: false
+}
+
+export const LongLabel = Template.bind({});
+LongLabel.args = {
+  choiceId: 'LONG',
+  choiceLabel: 'Long label is really long label',
   dark: false
 }
