@@ -15,15 +15,6 @@ function FieldGuideContainer (props) {
     showModal
   } = props
 
-  function onOpen () {
-    setModalVisibility(true)
-  }
-
-  function onClose () {
-    console.log('calling')
-    setModalVisibility(false)
-  }
-
   return (
     <>
       <FieldGuideButton fieldGuide={fieldGuide} onOpen={() => setModalVisibility(true)} />
