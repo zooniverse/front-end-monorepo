@@ -4,11 +4,8 @@ import React from 'react'
 
 import ChoiceButton from './ChoiceButton'
 
-<<<<<<< HEAD
 const CARACAL_SRC = 'https://panoptes-uploads.zooniverse.org/staging/workflow_attached_image/41bddb25-bb8d-4734-88fe-643d88688489.jpeg'
 
-=======
->>>>>>> Add ChoiceButton story
 function StoryContext (props) {
   const { children, theme } = props
 
@@ -31,7 +28,6 @@ export default {
   component: ChoiceButton
 }
 
-<<<<<<< HEAD
 const Template = ({
   choiceId,
   choiceLabel,
@@ -95,23 +91,4 @@ LargeThumbnail.args = {
   dark: false,
   src: CARACAL_SRC,
   thumbnailSize: 'large'
-=======
-export function Default ({ choiceId, choiceLabel, dark }) {
-  return (
-    <StoryContext
-      theme={{ ...zooTheme, dark }}
-    >
-      <ChoiceButton
-        choiceId={choiceId}
-        choiceLabel={choiceLabel}
-        onChoose={() => console.log(choiceId)}
-      />
-    </StoryContext>
-  )
-}
-Default.args = {
-  choiceId: 'AARDVARK',
-  choiceLabel: 'Aardvark',
-  dark: false
->>>>>>> Add ChoiceButton story
 }
