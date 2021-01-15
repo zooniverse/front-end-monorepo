@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Grommet, Box, RangeInput } from 'grommet'
+import counterpart from 'counterpart'
+import en from './locales/en.json'
 
 const customThemeRangeInput = {
   global: {
@@ -24,10 +26,13 @@ const customThemeRangeInput = {
   }
 }
 
+counterpart.registerTranslations('en', en)
+
 const Slider = ({ played, onMouseUp, onMouseDown, onChange }) => (
   <Grommet theme={customThemeRangeInput}>
-    <Box a11yTitle='Video player slider'>
+    <Box>
       <RangeInput
+        a11yTitle={counterpart('VideoController.scrubber')}
         min={0}
         max={1}
         step={0.0001}

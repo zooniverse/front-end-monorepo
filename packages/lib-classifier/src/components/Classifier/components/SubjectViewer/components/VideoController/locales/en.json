@@ -1,0 +1,8 @@
+{
+  "VideoController": {
+    "scrubber": "Video player scrubber",
+    "playbackSpeed": "Video playback speed selection",
+    "play": "Play video button",
+    "pause": "Pause video button"
+  }
+}
