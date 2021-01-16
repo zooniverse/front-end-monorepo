@@ -10,8 +10,10 @@ import PlainButton from './PlainButton'
 import readme from './README.md'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 

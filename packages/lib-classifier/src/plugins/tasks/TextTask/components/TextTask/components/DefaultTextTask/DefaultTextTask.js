@@ -14,15 +14,9 @@ export default function DefaultTextTask (props) {
   } = props
 
   const textArea = React.useRef()
-  useEffect(onMount, [])
 
-  function onUnmount() {
+  function onChange() {
     updateAnnotation(textArea)
-  }
-
-  function onMount() {
-    updateAnnotation(textArea)
-    return onUnmount
   }
 
   return (
@@ -39,7 +33,7 @@ export default function DefaultTextTask (props) {
           disabled={disabled}
           id={`${task.taskKey}-${task.type}`}
           value={value}
-          onChange={() => updateAnnotation(textArea)}
+          onChange={onChange}
         />
       </label>
       <TextTagButtons

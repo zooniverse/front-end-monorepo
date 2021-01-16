@@ -8,8 +8,10 @@ import readme from './README.md'
 import FavouritesButton from './'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 
