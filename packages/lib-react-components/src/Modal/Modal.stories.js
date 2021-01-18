@@ -1,6 +1,6 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
-import React, { useState } from 'react'
+import React from 'react'
 
 import Modal from './Modal'
 import readme from './README.md'
@@ -21,18 +21,18 @@ export default {
   title: 'Modal',
   component: Modal,
   args: {
+    active: true,
     content: EXAMPLE_STRING,
     title: 'Modal Title'
+  },
+  argTypes: {
+    closeFn: {
+      action: 'Close modal'
+    }
   }
 }
 
-export function LightTheme({ content, title }) {
-  const [ active, setActive ] = useState(true)
-
-  function closeFn() {
-    setActive(false)
-  }
-
+export function LightTheme({ active, closeFn, content, title }) {
   return (
     <Grommet
       background={{
@@ -53,13 +53,7 @@ export function LightTheme({ content, title }) {
   )
 }
 
-export function DarkTheme({ content, title }) {
-  const [ active, setActive ] = useState(true)
-
-  function closeFn() {
-    setActive(false)
-  }
-
+export function DarkTheme({ active, closeFn, content, title }) {
   return (
     <Grommet
       background={{
