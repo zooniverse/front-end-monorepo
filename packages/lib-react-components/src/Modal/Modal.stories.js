@@ -26,7 +26,8 @@ export default {
     docs: {
       description: {
         component: readme
-      }
+      },
+      inlineStories: false
     }
   }
 }
