@@ -24,7 +24,7 @@ class Modal extends React.Component {
     const {
       children,
       className = '',
-      closeFn = () => {},
+      closeFn,
       headingBackground,
       overflow = 'auto',
       pad,

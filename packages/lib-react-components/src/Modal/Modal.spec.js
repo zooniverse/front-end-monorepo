@@ -45,7 +45,7 @@ describe('Modal', function () {
       expect(wrapper.find(ModalHeading)).to.have.lengthOf(1)
     })
 
-    it('should set the ModalHeading props', function () {
+    it('should set the ModalHeading title', function () {
       const closeFnSpy = () => true
       const wrapper = shallow(
         <Modal title={title} titleColor='accent-2' closeFn={closeFnSpy}>
@@ -54,8 +54,42 @@ describe('Modal', function () {
       )
       const modalHeadingProps = wrapper.find(ModalHeading).props()
       expect(modalHeadingProps.title).to.equal(title)
-      expect(modalHeadingProps.closeFn).to.equal(closeFnSpy)
+    })
+
+    it('should set the ModalHeading colour', function () {
+      const closeFnSpy = () => true
+      const wrapper = shallow(
+        <Modal title={title} titleColor='accent-2' closeFn={closeFnSpy}>
+          {content}
+        </Modal>
+      )
+      const modalHeadingProps = wrapper.find(ModalHeading).props()
       expect(modalHeadingProps.color).to.equal('accent-2')
+    })
+
+    describe('with a close function', function () {
+      it('should pass the close function to the modal heading', function () {
+        const closeFnSpy = () => true
+        const wrapper = shallow(
+          <Modal title={title} titleColor='accent-2' closeFn={closeFnSpy}>
+            {content}
+          </Modal>
+        )
+        const modalHeadingProps = wrapper.find(ModalHeading).props()
+        expect(modalHeadingProps.closeFn).to.equal(closeFnSpy)
+      })
+    })
+
+    describe('without a close function', function () {
+      it('should pass the close function to the modal heading', function () {
+        const wrapper = shallow(
+          <Modal title={title} titleColor='accent-2'>
+            {content}
+          </Modal>
+        )
+        const modalHeadingProps = wrapper.find(ModalHeading).props()
+        expect(modalHeadingProps.closeFn).to.be.undefined()
+      })
     })
 
     it('should render a ModalBody component', function () {
