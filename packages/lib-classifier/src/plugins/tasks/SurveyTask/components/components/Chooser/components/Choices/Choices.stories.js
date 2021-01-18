@@ -50,8 +50,8 @@ const Template = ({ dark, filteredChoices, task }) => (
   </StoryContext>
 )
 
-export const MoreThanTwenty = Template.bind({});
-MoreThanTwenty.args = {
+export const LessThirtyMoreTwenty = Template.bind({});
+LessThirtyMoreTwenty.args = {
   dark: false,
   filteredChoices,
   task
@@ -60,7 +60,7 @@ MoreThanTwenty.args = {
 export const LessTwentyMoreFive = Template.bind({});
 LessTwentyMoreFive.args = {
   dark: false,
-  filteredChoices: Array.from(filteredChoices).splice(0, 12),
+  filteredChoices: Array.from(filteredChoices).splice(0, 10),
   task
 }
 
