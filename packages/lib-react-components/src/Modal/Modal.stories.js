@@ -7,14 +7,6 @@ import readme from './README.md'
 
 const EXAMPLE_STRING = 'Leo mollis dictum id dis maecenas consectetur metus elementum vivamus nisl, suscipit tristique lectus nulla mus etiam nisi facilisis magnis, scelerisque ligula montes luctus cursus nibh vulputate parturient risus.'
 
-const config = {
-  docs: {
-    description: {
-      component: readme
-    }
-  }
-}
-
 const darkZooTheme = { ...zooTheme, dark: true }
 
 export default {
@@ -28,6 +20,13 @@ export default {
   argTypes: {
     closeFn: {
       action: 'Close modal'
+    }
+  },
+  parameters: {
+    docs: {
+      description: {
+        component: readme
+      }
     }
   }
 }
