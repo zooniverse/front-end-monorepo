@@ -15,7 +15,7 @@ const config = {
   }
 }
 
-storiesOf('SpacedText', module)
+storiesOf('Components/SpacedText', module)
   .addDecorator(withKnobs)
 
   .add('default', () => (

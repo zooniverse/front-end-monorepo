@@ -11,7 +11,7 @@ const { colors } = zooTheme.global
 
 
 export default {
-  title: 'Modal',
+  title: 'Components/Modal',
   component: ModalComponent,
   args: {
     active: true,

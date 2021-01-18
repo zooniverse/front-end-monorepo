@@ -6,7 +6,7 @@ import readme from './README.md'
 import { default as TooltipComponent } from './Tooltip'
 
 export default {
-  title: 'Tooltip',
+  title: 'Components/Tooltip',
   component: TooltipComponent,
   args: {
     dark: false,

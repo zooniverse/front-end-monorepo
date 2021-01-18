@@ -17,7 +17,7 @@ const config = {
 
 const darkZooTheme = { ...zooTheme, dark: true }
 
-storiesOf('Tabs', module)
+storiesOf('Components/Tabs', module)
 
   .add('Light theme (default)', () => (
     <Grommet

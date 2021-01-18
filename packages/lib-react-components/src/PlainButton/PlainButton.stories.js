@@ -17,7 +17,7 @@ const config = {
   }
 }
 
-storiesOf('PlainButton', module)
+storiesOf('Components/PlainButton', module)
   .addDecorator(withActions('click button'))
   .addDecorator(withKnobs)
 

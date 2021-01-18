@@ -35,7 +35,7 @@ const layerPositions = [
   "top-left",
   "top-right"
 ]
-storiesOf('MovableModal', module)
+storiesOf('Components/MovableModal', module)
   .addDecorator(withKnobs)
 
   .add('Light theme (default)', () => (

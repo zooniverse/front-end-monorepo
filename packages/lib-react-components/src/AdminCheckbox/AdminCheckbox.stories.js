@@ -15,7 +15,7 @@ const config = {
   }
 }
 
-storiesOf('AdminCheckbox', module)
+storiesOf('Components/AdminCheckbox', module)
   .addDecorator(withActions('change #admin-checkbox'))
 
   .add('Light theme (default)', () => (

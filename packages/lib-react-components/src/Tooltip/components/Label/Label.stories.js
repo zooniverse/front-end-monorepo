@@ -5,7 +5,7 @@ import React from 'react'
 import { default as LabelComponent } from './Label'
 
 export default {
-  title: 'Tooltip/Label',
+  title: 'Components/Tooltip/Label',
   component: LabelComponent,
   args: {
     arrow: true,
