@@ -1,9 +1,6 @@
-import { withKnobs, text, boolean } from '@storybook/addon-knobs'
-import { action } from '@storybook/addon-actions'
-import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
-import React from 'react'
+import React, { useState } from 'react'
 
 import Modal from './Modal'
 import readme from './README.md'
@@ -20,10 +17,23 @@ const config = {
 
 const darkZooTheme = { ...zooTheme, dark: true }
 
-storiesOf('Modal', module)
-  .addDecorator(withKnobs)
+export default {
+  title: 'Modal',
+  component: Modal,
+  args: {
+    content: EXAMPLE_STRING,
+    title: 'Modal Title'
+  }
+}
 
-  .add('Light theme (default)', () => (
+export function LightTheme({ content, title }) {
+  const [ active, setActive ] = useState(true)
+
+  function closeFn() {
+    setActive(false)
+  }
+
+  return (
     <Grommet
       background={{
         dark: 'dark-1',
@@ -33,30 +43,59 @@ storiesOf('Modal', module)
       themeMode='light'
     >
       <Modal
-        active={boolean('Active', true)}
-        closeFn={action('Close modal')}
-        title={text('Title', 'Modal Title')}
+        active={active}
+        closeFn={closeFn}
+        title={title}
       >
-        {text('Content', EXAMPLE_STRING)}
+        {content}
       </Modal>
     </Grommet>
-  ), config)
+  )
+}
 
-  .add('Dark theme', () => (
+export function DarkTheme({ content, title }) {
+  const [ active, setActive ] = useState(true)
+
+  function closeFn() {
+    setActive(false)
+  }
+
+  return (
     <Grommet
       background={{
         dark: 'dark-1',
         light: 'light-1'
       }}
-      theme={darkZooTheme}
+      theme={zooTheme}
       themeMode='dark'
     >
       <Modal
-        active={boolean('Active', true)}
-        closeFn={action('Close modal')}
-        title={text('Title', 'Modal Title')}
+        active={active}
+        closeFn={closeFn}
+        title={title}
       >
-        {text('Content', EXAMPLE_STRING)}
+        {content}
       </Modal>
     </Grommet>
-  ), config)
+  )
+}
+
+export function Required({ content, title }) {
+  return (
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={zooTheme}
+      themeMode='light'
+    >
+      <Modal
+        active
+        title={title}
+      >
+        {content}
+      </Modal>
+    </Grommet>
+  )
+}
