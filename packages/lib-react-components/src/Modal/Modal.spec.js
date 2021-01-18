@@ -81,7 +81,7 @@ describe('Modal', function () {
     })
 
     describe('without a close function', function () {
-      it('should pass the close function to the modal heading', function () {
+      it('should not pass a close function to the modal heading', function () {
         const wrapper = shallow(
           <Modal title={title} titleColor='accent-2'>
             {content}
