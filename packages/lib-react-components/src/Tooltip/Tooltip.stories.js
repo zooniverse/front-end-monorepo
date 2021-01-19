@@ -1,35 +1,44 @@
-import { withActions } from '@storybook/addon-actions'
-import { withKnobs, text, boolean } from '@storybook/addon-knobs'
-import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Button, Grommet } from 'grommet'
 import React from 'react'
 
 import readme from './README.md'
-import Tooltip from './Tooltip'
+import { default as TooltipComponent } from './Tooltip'
 
-const config = {
-  notes: {
-    markdown: readme
+export default {
+  title: 'Tooltip',
+  component: TooltipComponent,
+  args: {
+    dark: false,
+    tooltipText: 'A helpful tip'
+  },
+  parameters: {
+    docs: {
+      description: {
+        component: readme
+      }
+    }
   }
 }
 
-storiesOf('Tooltip', module)
-  .addDecorator(withKnobs)
-  .addDecorator(withActions('click button'))
-  .add('default', () => (
+export function Tooltip({ dark, tooltipText }) {
+  return (
     <TooltipStoryExample
-      dark={boolean('Dark theme', false)}
+      dark={dark}
       height='500px'
-      tooltipText={text('Tooltip text', 'A helpful tip')}
+      tooltipText={tooltipText}
     />
-  ), config)
-  .add('rotated position when close to viewport edge', () => (
+  )
+}
+
+export function RotatedWhenCloseToTheViewportEdge({ dark, tooltipText }) {
+  return (
     <TooltipStoryExample
-      dark={boolean('Dark theme', false)}
-      tooltipText={text('Tooltip text', 'A helpful tip')}
+      dark={dark}
+      tooltipText={tooltipText}
     />
-  ), config)
+  )
+}
 
 function TooltipStoryExample (props) {
   const { dark, height, tooltipText } = props
@@ -43,11 +52,11 @@ function TooltipStoryExample (props) {
       themeMode={(dark) ? 'dark' : 'light'}
     >
       <Box align='center' height={height} justify='center' pad='medium'>
-        <Tooltip
+        <TooltipComponent
           label={tooltipText}
         >
           <Button label='Focus me' onClick={() => { }} />
-        </Tooltip>
+        </TooltipComponent>
       </Box>
     </Grommet>
   )
