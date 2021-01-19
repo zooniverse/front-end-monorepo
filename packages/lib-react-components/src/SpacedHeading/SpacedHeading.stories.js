@@ -8,8 +8,10 @@ import readme from './README.md'
 import SpacedHeading from './SpacedHeading'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 

@@ -9,8 +9,10 @@ import readme from './README.md'
 import MetaToolsButton from './'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 
