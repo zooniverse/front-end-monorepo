@@ -16,6 +16,7 @@ export default function Characteristics (props) {
 
         return (
           <CharacteristicSection
+            key={characteristicId}
             characteristic={characteristic}
             images={task.images}
           />)
