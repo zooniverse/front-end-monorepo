@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Text, TextInput } from 'grommet'
 import TextTagButtons from '../TextTagButtons'
@@ -16,15 +16,9 @@ export default function TextTaskWithSuggestions (props) {
   } = props
 
   const textInput = React.useRef()
-  useEffect(onMount, [])
 
-  function onUnmount () {
+  function onChange() {
     updateAnnotation(textInput)
-  }
-
-  function onMount () {
-    updateAnnotation(textInput)
-    return onUnmount
   }
 
   return (
@@ -45,7 +39,7 @@ export default function TextTaskWithSuggestions (props) {
           autoFocus={autoFocus}
           disabled={disabled}
           id={`${task.taskKey}-${task.type}`}
-          onChange={() => updateAnnotation(textInput)}
+          onChange={onChange}
           onSelect={(event) => onSelectSuggestion(event, textInput)}
           suggestions={suggestions}
           ref={textInput}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import { Text, TextInput } from 'grommet'
 import { default as Task } from '@plugins/tasks/TextTask'
 import TextTaskWithSuggestions from './TextTaskWithSuggestions'
@@ -20,6 +20,7 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
         suggestions={['one', 'two', 'three']}
         task={task}
         value={annotation.value}
+        updateAnnotation={updateAnnotationSpy}
       />
     )
   })

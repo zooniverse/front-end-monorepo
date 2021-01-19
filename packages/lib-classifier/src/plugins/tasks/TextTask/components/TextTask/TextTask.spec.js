@@ -212,29 +212,6 @@ describe('TextTask', function () {
       })
     })
 
-    describe('on mount', function () {
-      before(function () {
-        annotation.update('Hello, this is an existing annotation')
-        task.setAnnotation(annotation)
-        wrapper = mount(
-          <TextTask
-            annotation={annotation}
-            subTaskPreviousAnnotationValues={suggestions}
-            task={task}
-          />,
-          {
-            wrappingComponent: Grommet,
-            wrappingComponentProps: { theme: zooTheme }
-          }
-        )
-      })
-
-      it('should preserve an existing annotation', function () {
-        const textInput = wrapper.find('input').getDOMNode()
-        expect(textInput.value).to.equal('Hello, this is an existing annotation')
-      })
-    })
-
     describe('on change', function () {
       before(function () {
         sinon.spy(annotation, 'update')
@@ -254,36 +231,6 @@ describe('TextTask', function () {
         const textInput = wrapper.find('input').getDOMNode()
         textInput.value = 'This has been edited.'
         wrapper.find('input').simulate('change')
-      })
-
-      after(function () {
-        annotation.update.restore()
-      })
-
-      it('should save the current text', function () {
-        expect(annotation.update.withArgs('This has been edited.')).to.have.been.calledOnce()
-      })
-    })
-
-    describe('on unmount', function () {
-      before(function () {
-        sinon.spy(annotation, 'update')
-        annotation.update('Hello, this is an existing annotation')
-        task.setAnnotation(annotation)
-        wrapper = mount(
-          <TextTask
-            annotation={annotation}
-            subTaskPreviousAnnotationValues={suggestions}
-            task={task}
-          />,
-          {
-            wrappingComponent: Grommet,
-            wrappingComponentProps: { theme: zooTheme }
-          }
-        )
-        const textInput= wrapper.find('input').getDOMNode()
-        textInput.value = 'This has been edited.'
-        wrapper.unmount()
       })
 
       after(function () {
