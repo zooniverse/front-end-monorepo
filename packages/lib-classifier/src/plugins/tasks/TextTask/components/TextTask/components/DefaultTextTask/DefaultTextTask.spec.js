@@ -1,6 +1,5 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import sinon from 'sinon'
 import { Text, TextArea } from 'grommet'
 import { default as Task } from '@plugins/tasks/TextTask'
 import DefaultTextTask from './DefaultTextTask'
@@ -20,7 +19,6 @@ describe('TextTask > Components > DefaultTextTask', function () {
       <DefaultTextTask
         task={task}
         value={annotation.value}
-        updateAnnotation={updateAnnotationSpy}
       />
     )
   })

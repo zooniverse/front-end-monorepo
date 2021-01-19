@@ -20,7 +20,6 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
         suggestions={['one', 'two', 'three']}
         task={task}
         value={annotation.value}
-        updateAnnotation={updateAnnotationSpy}
       />
     )
   })
