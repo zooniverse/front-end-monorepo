@@ -16,8 +16,7 @@ const Project = types
       if (activeWorkflows.length === 1) {
         [singleActiveWorkflow] = self.links['active_workflows']
       }
-      const defaultWorkflow = self.configuration['default_workflow']
-      return singleActiveWorkflow || defaultWorkflow
+      return singleActiveWorkflow
     }
   }))
 

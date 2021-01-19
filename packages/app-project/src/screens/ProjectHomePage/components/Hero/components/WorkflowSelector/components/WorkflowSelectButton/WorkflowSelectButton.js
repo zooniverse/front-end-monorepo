@@ -23,12 +23,8 @@ function WorkflowSelectButton (props) {
   const { owner, project } = router?.query || {}
   const [ showPicker, setShowPicker ] = useState(false)
 
-  const url = (workflow.default)
-    ? `/projects/${owner}/${project}/classify`
-    : `/projects/${owner}/${project}/classify/workflow/${workflow.id}`
-  const href = (workflow.default)
-    ? '/projects/[owner]/[project]/classify'
-    : '/projects/[owner]/[project]/classify/workflow/[workflowID]'
+  const url = `/projects/${owner}/${project}/classify/workflow/${workflow.id}`
+  const href = '/projects/[owner]/[project]/classify/workflow/[workflowID]'
 
   const as = addQueryParams(url, router)
   const completeness = parseInt(workflow.completeness * 100, 10)
