@@ -46,26 +46,26 @@ const VideoController = ({
             <Button
               a11yTitle={counterpart(playPauseLabel)}
               onClick={onPlayPause}
-            >
-              {isPlaying ? <PauseFill /> : <CirclePlay />}
-            </Button>
+              icon={isPlaying ? <PauseFill /> : <CirclePlay />}
+              plain
+            ></Button>
           </Box>
 
-          <Box width='140px'>
-            <Select
-              a11yTitle={counterpart('VideoController.playbackSpeed')}
-              options={[0.25, 0.5, 1]}
-              value={playbackRate}
-              onChange={({ option }) => onSpeedChange(option)}
-              plain={true}
-            />
+          <Box direction='row' alignSelf='center'>
+            <FormattedTime seconds={played * duration} />
+            {' / '}
+            <FormattedTime seconds={duration} />
           </Box>
         </Box>
 
         <Box direction='row' alignSelf='center' pad={{ right: 'small' }}>
-          <FormattedTime seconds={played * duration} />
-          {' / '}
-          <FormattedTime seconds={duration} />
+          <Select
+            a11yTitle={counterpart('VideoController.playbackSpeed')}
+            options={[0.25, 0.5, 1]}
+            value={playbackRate}
+            onChange={({ option }) => onSpeedChange(option)}
+            plain={true}
+          />
         </Box>
       </Box>
     </Box>
