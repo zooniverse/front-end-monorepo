@@ -56,4 +56,33 @@ describe('Helper > getNavLinks', function () {
       ])
     })
   })
+
+  describe('with a default workflow', function () {
+    it('should return the correct menu links', function () {
+      const links = getNavLinks(true, BASE_URL, '1234')
+      expect(links).to.deep.equal([
+        {
+          href: `${BASE_URL}/about`,
+          text: 'About'
+        },
+        {
+          as: `${BASE_URL}/classify/workflow/1234`,
+          href: '/projects/[owner]/[project]/classify/workflow/[workflowID]',
+          text: 'Classify'
+        },
+        {
+          href: `${BASE_URL}/talk`,
+          text: 'Talk'
+        },
+        {
+          href: `${BASE_URL}/collections`,
+          text: 'Collect'
+        },
+        {
+          href: `${BASE_URL}/recents`,
+          text: 'Recents'
+        }
+      ])
+    })
+  })
 })
