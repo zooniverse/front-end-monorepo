@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Text, TextArea } from 'grommet'
 import TextTagButtons from '../TextTagButtons'
