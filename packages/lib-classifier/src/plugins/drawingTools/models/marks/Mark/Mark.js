@@ -61,14 +61,11 @@ const BaseMark = types.model('BaseMark', {
     },
 
     get isComplete () {
-      // Return false after the first incomplete task, true otherwise.
-      let isMarkComplete = true
-      self.tasks.forEach(task => {
-        if (isMarkComplete) {
-          isMarkComplete = !task.required || !!self.annotation(task)?.isComplete
-        }
+      const incomplete = self.tasks.some(task => {
+        const taskAnnotation = self.annotation(task)
+        return task.required && !taskAnnotation?.isComplete
       })
-      return isMarkComplete
+      return !incomplete
     },
 
     get isValid () {
