@@ -1,5 +1,5 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import { Text, TextArea } from 'grommet'
 import { default as Task } from '@plugins/tasks/TextTask'
 import DefaultTextTask from './DefaultTextTask'
