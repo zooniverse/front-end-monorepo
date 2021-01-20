@@ -215,7 +215,7 @@ describe('Stores > Project', function () {
       })
     })
 
-    describe('with a default workflow', function () {
+    describe('with multiple active workflows', function () {
       let project
 
       before(function () {
