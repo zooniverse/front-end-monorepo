@@ -1,7 +1,9 @@
+import asyncStates from '@zooniverse/async-states'
 import { shallow, render } from 'enzyme'
 import React from 'react'
 
-import WorkflowSelector from './WorkflowSelector'
+import { WorkflowSelector } from './WorkflowSelector'
+import { SubjectSetPicker } from './components'
 
 const THEME = {
   global: {
@@ -11,10 +13,16 @@ const THEME = {
   }
 }
 
-const WORKFLOWS = {
-  data: [],
-  loading: false
-}
+const WORKFLOWS = [
+  {
+    id: '1234',
+    displayName: 'a test workflow'
+  },
+  {
+    id: '3456',
+    displayName: 'another test workflow'
+  }
+]
 
 const WORKFLOW_DESCRIPTION = 'Sit nulla mi metus tellus aenean lobortis litora'
 const DEFAULT_WORKFLOW_DESCRIPTION = 'You can do real research by clicking to get started here!'
@@ -62,4 +70,17 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelector', function () {
     })
   })
 
+  describe('with an active workflow', function () {
+    it('should show the subject set picker', function () {
+      const wrapper = shallow(
+        <WorkflowSelector
+          theme={THEME}
+          activeWorkflow={WORKFLOWS[0]}
+          userReadyState={asyncStates.success}
+          workflows={WORKFLOWS}
+          workflowDescription={WORKFLOW_DESCRIPTION}
+        />)
+      expect(wrapper.find(SubjectSetPicker)).to.have.lengthOf(1)
+    })
+  })
 })
