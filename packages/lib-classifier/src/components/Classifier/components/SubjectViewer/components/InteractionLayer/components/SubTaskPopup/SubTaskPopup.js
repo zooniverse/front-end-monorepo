@@ -47,8 +47,7 @@ function SubTaskPopup(props) {
   }
 
   function close() {
-    const incompleteTask = tasks.some(task => !task.isComplete)
-    if (incompleteTask) {
+    if (!activeMark.isComplete) {
       onOpenConfirm()
     } else {
       setSubTaskVisibility(false)
