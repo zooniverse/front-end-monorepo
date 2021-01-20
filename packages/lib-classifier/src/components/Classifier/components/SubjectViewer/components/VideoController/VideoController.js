@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Box, Button, Select } from 'grommet'
+import { Box, Button, Select, ThemeContext } from 'grommet'
 import { CirclePlay, PauseFill } from 'grommet-icons'
 import counterpart from 'counterpart'
 import en from './locales/en.json'
@@ -8,6 +8,17 @@ import FormattedTime from './FormattedTime'
 import Slider from './Slider'
 
 counterpart.registerTranslations('en', en)
+
+const customSelectTheme = {
+  textInput: {
+    extend: 'text-align: center; padding: 0; width: 40px;'
+  },
+  select: {
+    icons: {
+      margin: 'xxsmall'
+    }
+  }
+}
 
 const VideoController = ({
   isPlaying,
@@ -59,13 +70,15 @@ const VideoController = ({
         </Box>
 
         <Box direction='row' alignSelf='center' pad={{ right: 'small' }}>
-          <Select
-            a11yTitle={counterpart('VideoController.playbackSpeed')}
-            options={[0.25, 0.5, 1]}
-            value={playbackRate}
-            onChange={({ option }) => onSpeedChange(option)}
-            plain={true}
-          />
+          <ThemeContext.Extend value={customSelectTheme}>
+            <Select
+              a11yTitle={counterpart('VideoController.playbackSpeed')}
+              options={[0.25, 0.5, 1]}
+              value={playbackRate}
+              onChange={({ option }) => onSpeedChange(option)}
+              plain
+            />
+          </ThemeContext.Extend>
         </Box>
       </Box>
     </Box>

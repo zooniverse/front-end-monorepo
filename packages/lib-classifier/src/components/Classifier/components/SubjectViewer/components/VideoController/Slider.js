@@ -14,14 +14,14 @@ const customThemeRangeInput = {
       height: '6px',
       extend: () => `border-radius: 10px`,
       lower: {
-        color: '#EFF2F5'
+        color: '#F0B200'
       },
       upper: {
         color: 'dark-4'
       }
     },
     thumb: {
-      color: '#EFF2F5'
+      color: '#F0B200'
     }
   }
 }
