@@ -4,7 +4,7 @@ import React from 'react'
 import NarrowLayout from './NarrowLayout'
 import Background from '../Background'
 import Introduction from '../Introduction'
-import WorkflowSelector from '../WorkflowSelector'
+import WorkflowSelector from '@shared/components/WorkflowSelector'
 
 describe('Component > Hero > NarrowLayout', function () {
   let wrapper

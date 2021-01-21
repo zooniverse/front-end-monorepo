@@ -3,30 +3,24 @@ import React, { Component } from 'react'
 import ClassifyPage from './ClassifyPage'
 import CollectionsModal from '../../shared/components/CollectionsModal'
 
-class ClassifyPageContainer extends Component {
-  constructor () {
-    super()
-    this.collectionsModal = React.createRef()
-    this.addToCollection = this.addToCollection.bind(this)
+function ClassifyPageContainer(props) {
+  const collectionsModal = React.createRef()
+
+  function addToCollection (subjectId) {
+    collectionsModal.current.wrappedInstance.open(subjectId)
   }
 
-  addToCollection (subjectId) {
-    this.collectionsModal.current.wrappedInstance.open(subjectId)
-  }
-
-  render () {
-    return (
-      <>
-        <CollectionsModal
-          ref={this.collectionsModal}
-        />
-        <ClassifyPage
-          addToCollection={this.addToCollection}
-          {...this.props}
-        />
-      </>
-    )
-  }
+  return (
+    <>
+      <CollectionsModal
+        ref={collectionsModal}
+      />
+      <ClassifyPage
+        addToCollection={addToCollection}
+        {...props}
+      />
+    </>
+  )
 }
 
 export default ClassifyPageContainer

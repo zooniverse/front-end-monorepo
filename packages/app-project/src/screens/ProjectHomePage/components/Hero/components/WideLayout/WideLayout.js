@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import Background from '../Background'
 import Introduction from '../Introduction'
-import WorkflowSelector from '../WorkflowSelector'
+import WorkflowSelector from '@shared/components/WorkflowSelector'
 import ContentBox from '@shared/components/ContentBox'
 
 const GrowBox = styled(Box)`
