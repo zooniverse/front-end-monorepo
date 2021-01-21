@@ -63,6 +63,17 @@ Known issues for the dropdown task in PFE include:
 }
 ```
 
+**PFE dropdown task translation strings**
+
+```json
+{
+  "tasks.T0.help": "Pick a colour from the menu.",
+  "tasks.T0.instruction": "Choose your favourite things.",
+  "tasks.T0.selects.*.title": "Favourite colour",
+  "tasks.T0.selects.0.options.*.0.label": "Red",
+  "tasks.T0.selects.0.options.*.1.label": "Blue"
+}
+```
 ## Decision
  
 We will develop a simplified dropdown task in the new classifier in the FEM. Creating a simple dropdown task contains the following functionality:
@@ -131,3 +142,4 @@ However these decisions have impact on building the task in the lab and may mean
 - Dates will need to be set up manually, e.g. free-text for Day, researcher-generated list of months for Month. Note that for Engaging Crowds project #1, each subject set will cover the same year, so that info should already be in the subject metadata. In the future, we will develop some kind of date input task, but it won’t be available for the initial Engaging Crowds effort.
 - Generally project owners using the PFE dropdown task will need to migrate to one of the new options, and thus there will not be backwards compatibility with the PFE version.
 - The updated task type will need an updated editor in the lab.
+- The updated task type may need new translatable fields defined for workflows in Panoptes.
