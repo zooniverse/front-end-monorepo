@@ -69,7 +69,7 @@ Known issues for the dropdown task in PFE include:
 {
   "tasks.T0.help": "Pick a colour from the menu.",
   "tasks.T0.instruction": "Choose your favourite things.",
-  "tasks.T0.selects.*.title": "Favourite colour",
+  "tasks.T0.selects.0.title": "Favourite colour",
   "tasks.T0.selects.0.options.*.0.label": "Red",
   "tasks.T0.selects.0.options.*.1.label": "Blue"
 }
