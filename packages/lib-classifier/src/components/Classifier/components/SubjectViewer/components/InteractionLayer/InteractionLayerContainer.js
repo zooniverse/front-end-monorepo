@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import InteractionLayer from './InteractionLayer'
-import DrawingToolMarks from './components/DrawingToolMarks'
+import PreviousMarks from './components/PreviousMarks'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
 function storeMapper (stores) {
@@ -61,16 +61,6 @@ class InteractionLayerContainer extends Component {
 
     return (
       <>
-        {shownMarks === SHOWN_MARKS.ALL && interactionTaskAnnotations.map((annotation) => {
-          const annotationValuesPerFrame = annotation.value.filter(value => value.frame === frame)
-          return (
-            <DrawingToolMarks
-              key={annotation.task}
-              marks={annotationValuesPerFrame}
-              scale={scale}
-            />
-          )
-        })}
         {activeInteractionTask && activeTool &&
           <InteractionLayer
             activeMark={activeMark}
@@ -87,6 +77,7 @@ class InteractionLayerContainer extends Component {
             width={width}
           />
         }
+        <PreviousMarks scale={scale} />
       </>
     )
   }

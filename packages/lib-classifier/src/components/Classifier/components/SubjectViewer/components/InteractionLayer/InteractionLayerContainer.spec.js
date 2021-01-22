@@ -2,7 +2,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import InteractionLayerContainer from './InteractionLayerContainer'
 import InteractionLayer from './InteractionLayer'
-import DrawingToolMarks from './components/DrawingToolMarks'
+import PreviousMarks from './components/PreviousMarks'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
 describe('Component > InteractionLayerContainer', function () {
@@ -41,6 +41,17 @@ describe('Component > InteractionLayerContainer', function () {
     expect(wrapper).to.be.ok()
   })
 
+  it('should render PreviousMarks',  function () {
+    const wrapper = shallow(
+      <InteractionLayerContainer.wrappedComponent
+        activeInteractionTask={drawingTask}
+        height={height}
+        width={width}
+      />
+    )
+    expect(wrapper.find(PreviousMarks)).to.have.lengthOf(1)
+  })
+
   describe('with an active drawing task and drawing tool', function () {
     let wrapper
 
@@ -56,34 +67,6 @@ describe('Component > InteractionLayerContainer', function () {
 
     it('should render an InteractionLayer', function () {
       expect(wrapper.find(InteractionLayer)).to.have.lengthOf(1)
-    })
-  })
-
-  describe('with annotations from previous drawing or transcription tasks', function () {
-    it('should render DrawingToolMarks', function () {
-      const wrapper = shallow(
-        <InteractionLayerContainer.wrappedComponent
-          interactionTaskAnnotations={drawingAnnotations}
-          frame={0}
-          height={height}
-          width={width}
-        />
-      )
-      expect(wrapper.find(DrawingToolMarks)).to.have.lengthOf(2)
-    })
-
-    it('should render DrawingToolMarks with marks per frame', function () {
-      const wrapper = shallow(
-        <InteractionLayerContainer.wrappedComponent
-          interactionTaskAnnotations={drawingAnnotations}
-          frame={0}
-          height={height}
-          width={width}
-        />
-      )
-
-      expect(wrapper.find(DrawingToolMarks).first().prop('marks')).to.have.lengthOf(1)
-      expect(wrapper.find(DrawingToolMarks).last().prop('marks')).to.have.lengthOf(2)
     })
   })
 
@@ -189,10 +172,6 @@ describe('Component > InteractionLayerContainer', function () {
         )
       })
 
-      it('should hide previous annotations', function () {
-        expect(wrapper.find(DrawingToolMarks)).to.have.lengthOf(0)
-      })
-
       it('should hide all marks before the hiding index', function () {
         const { marks } = wrapper.find(InteractionLayer).props()
         expect(marks).to.have.lengthOf(1)
@@ -215,7 +194,6 @@ describe('Component > InteractionLayerContainer', function () {
 
         const marks = wrapper.find(InteractionLayer).props().marks
         expect(marks).to.have.lengthOf(2)
-        expect(wrapper.find(DrawingToolMarks)).to.have.lengthOf(0)
       })
     })
   })
