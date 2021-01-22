@@ -29,3 +29,4 @@
 - [ADR 27: Subject Viewer Config](adr-27.md)
 - [ADR 28: Data as a subject viewers](adr-28.md)
 - [ADR 29: Video Player](adr-29.md)
+- [ADR 30: Simple Dropdown Task](adr-30.md)
