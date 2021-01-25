@@ -41,7 +41,7 @@ const Project = types
     get defaultWorkflow() {
       const activeWorkflows = self.links['active_workflows']
       let singleActiveWorkflow
-      if (activeWorkflows.length === 1) {
+      if (activeWorkflows?.length === 1) {
         [singleActiveWorkflow] = self.links['active_workflows']
       }
       return singleActiveWorkflow
