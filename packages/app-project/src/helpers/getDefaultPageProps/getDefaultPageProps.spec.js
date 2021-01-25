@@ -41,6 +41,7 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
     before(function () {
       const slug = 'test-owner/test-project'
       const scope = nock('https://panoptes-staging.zooniverse.org/api')
+        .persist()
         .get('/projects')
         .query(query => query.slug === slug)
         .reply(200, {
@@ -77,6 +78,10 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
         .reply(200, {
           workflows: []
         })
+    })
+
+    after(function () {
+      nock.cleanAll()
     })
 
     describe('with a valid project slug', function () {
@@ -149,6 +154,44 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
 
       it('should pass an error message to the error page', function () {
         expect(props.title).to.equal('Project test-owner/test-wrong-project was not found.')
+      })
+    })
+
+    describe('with an invalid workflow ID', function () {
+      let props
+      let res = {}
+
+      before(async function () {
+        const params = {
+          owner: 'test-owner',
+          project: 'test-project',
+          workflowID: '2'
+        }
+        const query = {
+          env: 'staging'
+        }
+        const req = {
+          connection: {
+            encrypted: true
+          },
+          headers: {
+            host: 'www.zooniverse.org'
+          }
+        }
+        const response = await getDefaultPageProps({ params, query, req, res })
+        props = response.props
+      })
+
+      it('should return a 404 response', function () {
+        expect(res.statusCode).to.equal(404)
+      })
+
+      it('should pass the status code to the error page', function () {
+        expect(props.statusCode).to.equal(404)
+      })
+
+      it('should pass an error message to the error page', function () {
+        expect(props.title).to.equal('Workflow 2 was not found.')
       })
     })
   })
@@ -157,6 +200,7 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
     before(function () {
       const slug = 'test-owner/test-project'
       const scope = nock('https://www.zooniverse.org/api')
+        .persist()
         .get('/projects')
         .query(query => query.slug === slug)
         .reply(200, {
@@ -193,6 +237,10 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
         .reply(200, {
           workflows: []
         })
+    })
+
+    after(function () {
+      nock.cleanAll()
     })
 
     describe('with a valid project slug', function () {
@@ -265,6 +313,44 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
 
       it('should pass an error message to the error page', function () {
         expect(props.title).to.equal('Project test-owner/test-wrong-project was not found.')
+      })
+    })
+
+    describe('with an invalid workflow ID', function () {
+      let props
+      let res = {}
+
+      before(async function () {
+        const params = {
+          owner: 'test-owner',
+          project: 'test-project',
+          workflowID: '2'
+        }
+        const query = {
+          env: 'production'
+        }
+        const req = {
+          connection: {
+            encrypted: true
+          },
+          headers: {
+            host: 'www.zooniverse.org'
+          }
+        }
+        const response = await getDefaultPageProps({ params, query, req, res })
+        props = response.props
+      })
+
+      it('should return a 404 response', function () {
+        expect(res.statusCode).to.equal(404)
+      })
+
+      it('should pass the status code to the error page', function () {
+        expect(props.statusCode).to.equal(404)
+      })
+
+      it('should pass an error message to the error page', function () {
+        expect(props.title).to.equal('Workflow 2 was not found.')
       })
     })
   })
