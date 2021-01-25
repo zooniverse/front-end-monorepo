@@ -25,6 +25,11 @@ const Classification = types
       })
       snapshot = Object.assign({}, snapshot, { annotations })
       return snapshot
+    },
+
+    get interactionTaskAnnotations () {
+      const annotations = Array.from(self.annotations.values()) || []
+      return annotations.filter(annotation => (getType(annotation).name === 'DrawingAnnotation' || getType(annotation).name === 'TranscriptionAnnotation'))
     }
   }))
   .preProcessSnapshot(snapshot => {
