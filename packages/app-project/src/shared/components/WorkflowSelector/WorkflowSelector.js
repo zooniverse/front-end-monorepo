@@ -2,12 +2,13 @@ import asyncStates from '@zooniverse/async-states'
 import { Markdownz, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box, Paragraph, Text } from 'grommet'
+import { useRouter } from 'next/router'
 import { arrayOf, shape, string } from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 import { withTheme } from 'styled-components'
 import { Bars } from 'svg-loaders-react'
 
-import WorkflowSelectButton from './components/WorkflowSelectButton'
+import { SubjectSetPicker, WorkflowSelectButton } from './components'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
@@ -17,9 +18,21 @@ const markdownzComponents = {
 }
 
 function WorkflowSelector (props) {
-  const { workflows } = props
+  const { userReadyState, workflows } = props
+  const router = useRouter()
+  const { owner, project } = router?.query || {}
   const loaderColor = props.theme.global.colors.brand
   const workflowDescription = props.workflowDescription || counterpart('WorkflowSelector.message')
+  const [ activeWorkflow, setActiveWorkflow ] = useState(props.activeWorkflow)
+
+  function onSelect(event, workflow) {
+    if (workflow.grouped) {
+      event.preventDefault()
+      setActiveWorkflow(workflow)
+      return false
+    }
+    return true
+  }
 
   return (
     <Box>
@@ -30,7 +43,7 @@ function WorkflowSelector (props) {
         {workflowDescription}
       </Markdownz>
 
-      {(workflows.loading === asyncStates.error) && (
+      {(userReadyState === asyncStates.error) && (
         <Box
           align='center'
           justify='center'
@@ -40,7 +53,7 @@ function WorkflowSelector (props) {
         </Box>
       )}
 
-      {(workflows.loading === asyncStates.success) && (
+      {(userReadyState === asyncStates.success) && (
         <Box
           alignSelf='start'
           fill='horizontal'
@@ -48,12 +61,21 @@ function WorkflowSelector (props) {
           margin={{ top: 'small' }}
           width={{ max: 'medium' }}
         >
-
-          {(workflows.data.length > 0) && workflows.data.map(workflow =>
-            <WorkflowSelectButton key={workflow.id} workflow={workflow} />
+          {activeWorkflow &&
+            <SubjectSetPicker
+              active={!!activeWorkflow}
+              closeFn={() => setActiveWorkflow(null)}
+              owner={owner}
+              project={project}
+              title={activeWorkflow.displayName || 'Choose a subject set'}
+              workflow={activeWorkflow}
+            />
+          }
+          {(workflows.length > 0) && workflows.map(workflow =>
+            <WorkflowSelectButton key={workflow.id} onSelect={onSelect} workflow={workflow} />
           )}
 
-          {(workflows.data.length === 0) && (
+          {(workflows.length === 0) && (
             <Box background='accent-4' pad='xsmall' width={{ max: 'medium' }}>
               <Text size='small' textAlign='center'>
                 {counterpart('WorkflowSelector.noWorkflows')}
@@ -64,7 +86,7 @@ function WorkflowSelector (props) {
         </Box>
       )}
 
-      {(![asyncStates.success, asyncStates.error].includes(workflows.loading)) && (
+      {(![asyncStates.success, asyncStates.error].includes(userReadyState)) && (
         <Box align='center' justify='center' margin={{ top: 'small' }}>
           <Box height='xxsmall' width='xxsmall'>
             <Bars
@@ -81,12 +103,15 @@ function WorkflowSelector (props) {
 }
 
 WorkflowSelector.propTypes = {
+  activeWorkflow: shape({
+    id: string.isRequired
+  }),
+  userReadyState: string,
   workflowDescription: string,
-  workflows: shape({
-    data: arrayOf(shape({
+  workflows: arrayOf(shape({
       id: string.isRequired
     }).isRequired).isRequired
-  }).isRequired
 }
 
 export default withTheme(WorkflowSelector)
+export { WorkflowSelector }

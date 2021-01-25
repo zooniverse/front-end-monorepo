@@ -5,49 +5,17 @@ import SingleVideoViewerContainer from './SingleVideoViewerContainer'
 function useStores() {
   const stores = React.useContext(MobXProviderContext)
 
-  const {
-    active: subject
-  } = stores.classifierStore.subjects
-
-  const {
-    enableRotation,
-    move,
-    rotation,
-    setOnZoom,
-    setOnPan
-  } = stores.classifierStore.subjectViewer
+  const { active: subject } = stores.classifierStore.subjects
 
   return {
-    enableRotation,
-    move,
-    rotation,
-    setOnZoom,
-    setOnPan,
     subject
   }
 }
 
 function SingleVideoViewerConnector(props) {
-  const {
-    enableRotation,
-    move,
-    rotation,
-    setOnPan,
-    setOnZoom,
-    subject
-  } = useStores()
+  const { subject } = useStores()
 
-  return (
-    <SingleVideoViewerContainer
-      enableRotation={enableRotation}
-      move={move}
-      rotation={rotation}
-      setOnPan={setOnPan}
-      setOnZoom={setOnZoom}
-      subject={subject}
-      {...props}
-    />
-  )
+  return <SingleVideoViewerContainer subject={subject} {...props} />
 }
 
 export default observer(SingleVideoViewerConnector)

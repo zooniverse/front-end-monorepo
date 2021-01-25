@@ -4,12 +4,11 @@ import { Button } from 'grommet'
 import { Next } from 'grommet-icons'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { bool, number, shape, string } from 'prop-types'
+import { bool, func, number, shape, string } from 'prop-types'
 import React, { useState } from 'react'
 
 import theme from './theme'
 import addQueryParams from '@helpers/addQueryParams'
-import SubjectSetPicker from '../SubjectSetPicker'
 
 import en from './locales/en'
 
@@ -18,17 +17,12 @@ counterpart.registerTranslations('en', en)
 const WorkflowLink = withThemeContext(Link, theme)
 
 function WorkflowSelectButton (props) {
-  const { workflow, ...rest } = props
+  const { onSelect, workflow, ...rest } = props
   const router = useRouter()
   const { owner, project } = router?.query || {}
-  const [ showPicker, setShowPicker ] = useState(false)
 
-  const url = (workflow.default)
-    ? `/projects/${owner}/${project}/classify`
-    : `/projects/${owner}/${project}/classify/workflow/${workflow.id}`
-  const href = (workflow.default)
-    ? '/projects/[owner]/[project]/classify'
-    : '/projects/[owner]/[project]/classify/workflow/[workflowID]'
+  const url = `/projects/${owner}/${project}/classify/workflow/${workflow.id}`
+  const href = '/projects/[owner]/[project]/classify/workflow/[workflowID]'
 
   const as = addQueryParams(url, router)
   const completeness = parseInt(workflow.completeness * 100, 10)
@@ -42,12 +36,7 @@ function WorkflowSelectButton (props) {
   )
 
   function selectSubjectSet(event) {
-    if (workflow.grouped) {
-      event.preventDefault()
-      setShowPicker(true)
-      return false
-    }
-    return true
+    return onSelect(event, workflow)
   }
 
   return (
@@ -63,25 +52,21 @@ function WorkflowSelectButton (props) {
           {...rest}
         />
       </WorkflowLink>
-      {showPicker &&
-        <SubjectSetPicker
-          active={showPicker}
-          closeFn={() => setShowPicker(false)}
-          owner={owner}
-          project={project}
-          title={workflow.displayName || 'Choose a subject set'}
-          workflow={workflow}
-        />
-      }
     </>
   )
 }
 
+WorkflowSelectButton.defaultProps = {
+  selected: false
+}
+
 WorkflowSelectButton.propTypes = {
+  onSelect: func.isRequired,
   workflow: shape({
     completeness: number,
     default: bool,
     displayName: string.isRequired,
+    grouped: bool,
     id: string
   }).isRequired
 }

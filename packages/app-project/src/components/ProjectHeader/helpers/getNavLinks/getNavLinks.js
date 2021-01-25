@@ -1,14 +1,18 @@
 import counterpart from 'counterpart'
 
-function getNavLinks (isLoggedIn, baseUrl) {
+function getNavLinks (isLoggedIn, baseUrl, defaultWorkflow) {
+  const classifyHref = defaultWorkflow ?
+    `/projects/[owner]/[project]/classify/workflow/[workflowID]` :
+    `/projects/[owner]/[project]/classify`
+  const classifyAs = defaultWorkflow ? `${baseUrl}/classify/workflow/${defaultWorkflow}` : `${baseUrl}/classify`
   const links = [
     {
       href: `${baseUrl}/about`,
       text: counterpart('ProjectHeader.nav.about')
     },
     {
-      as: `${baseUrl}/classify`,
-      href: `/projects/[owner]/[project]/classify`,
+      as: classifyAs,
+      href: classifyHref,
       text: counterpart('ProjectHeader.nav.classify')
     },
     {

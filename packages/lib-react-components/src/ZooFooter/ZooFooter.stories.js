@@ -10,8 +10,10 @@ import readme from './README.md'
 import AdminCheckbox from '../AdminCheckbox'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 

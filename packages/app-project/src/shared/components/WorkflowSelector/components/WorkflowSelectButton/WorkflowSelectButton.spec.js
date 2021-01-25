@@ -5,7 +5,6 @@ import React from 'react'
 import sinon from 'sinon'
 
 import WorkflowSelectButton, { WorkflowLink } from './WorkflowSelectButton'
-import SubjectSetPicker from '../SubjectSetPicker'
 
 const WORKFLOW = {
   default: false,
@@ -22,6 +21,8 @@ const router = {
 }
 
 describe('Component > WorkflowSelectButton', function () {
+  const onSelect = sinon.stub()
+
   before(function () {
     sinon.stub(nextRouter, 'useRouter').callsFake(() => router)
   })
@@ -31,39 +32,38 @@ describe('Component > WorkflowSelectButton', function () {
   })
 
   it('should render without crashing', function () {
-    const wrapper = shallow(<WorkflowSelectButton workflow={WORKFLOW} />)
+    const wrapper = shallow(<WorkflowSelectButton onSelect={onSelect} workflow={WORKFLOW} />)
     expect(wrapper).to.be.ok()
   })
 
   describe('when used with a default workflow', function () {
-    it('should be a link pointing to `/classify`', function () {
+    it('should be a link pointing to `/classify/workflow/:workflow_id`', function () {
       const wrapper = shallow(
-          <WorkflowSelectButton workflow={{
+          <WorkflowSelectButton onSelect={onSelect} workflow={{
           ...WORKFLOW,
           default: true
         }} />
       ).find(WorkflowLink)
-      expect(wrapper.prop('as')).to.equal(`${router.asPath}/classify`)
+      expect(wrapper.prop('as')).to.equal(`${router.asPath}/classify/workflow/${WORKFLOW.id}`)
     })
   })
 
   describe('when used with a non-default workflow', function () {
     it('should be a link pointing to `/classify/workflow/:workflow_id`', function () {
-      const wrapper = shallow(<WorkflowSelectButton workflow={WORKFLOW} />).find(WorkflowLink)
+      const wrapper = shallow(<WorkflowSelectButton onSelect={onSelect} workflow={WORKFLOW} />).find(WorkflowLink)
       expect(wrapper.prop('as')).to.equal(`${router.asPath}/classify/workflow/${WORKFLOW.id}`)
     })
   })
 
   describe('with a grouped workflow', function () {
-    it('should open a subject set picker when clicked', function () {
+    it('should call onSelect when clicked', function () {
       const groupedWorkflow = {
         ...WORKFLOW,
         grouped: true
       }
-      const wrapper = shallow(<WorkflowSelectButton workflow={groupedWorkflow} />)
-      expect(wrapper.find(SubjectSetPicker)).to.be.empty()
+      const wrapper = shallow(<WorkflowSelectButton onSelect={onSelect} workflow={groupedWorkflow} />)
       wrapper.find(Button).simulate('click', { preventDefault: () => false })
-      expect(wrapper.find(SubjectSetPicker).prop('active')).to.be.true()
+      expect(onSelect).to.have.been.calledOnce()
     })
   })
 })
