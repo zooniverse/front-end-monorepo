@@ -51,8 +51,8 @@ const WorkflowStepStore = types
 
     findTasksByType (type) {
       const tasksByType = Array.from(self.steps).map(([stepKey, step]) => {
-        if (step?.tasks) {
-          return Object.values(step.tasks).filter(task => {
+        if (step?.tasks && step.tasks.length > 0) {
+          return step.tasks.filter(task => {
             return task.type === type
           })
         }

@@ -47,21 +47,26 @@ describe('Component > PreviousMarks', function () {
     })
 
     it('should pass along the correct number of marks per task by frame', function () {
+      const firstTaskAnnotationsFirstFrameFirstMark = interactionTaskAnnotations[0].value[0]
+      const secondTaskAnnotationsFirstFrameFirstMark = interactionTaskAnnotations[1].value[0]
+      const secondTaskAnnotationsFirstFrameSecondMark = interactionTaskAnnotations[1].value[1]
+      const secondTaskAnnotationsSecondFrameFirstMark = interactionTaskAnnotations[1].value[2]
+      const secondTaskAnnotationsSecondFrameSecondMark = interactionTaskAnnotations[1].value[3]
       const wrapper = shallow(<PreviousMarks interactionTaskAnnotations={interactionTaskAnnotations} />)
-      let firstAnnotationMarks = wrapper.find(DrawingToolMarks).first().props().marks
-      let secondAnnotationMarks = wrapper.find(DrawingToolMarks).last().props().marks
-      expect(firstAnnotationMarks).to.have.lengthOf(1)
-      expect(firstAnnotationMarks[0]).to.deep.equal(interactionTaskAnnotations[0].value[0])
-      expect(secondAnnotationMarks).to.have.lengthOf(2)
-      expect(secondAnnotationMarks[0]).to.deep.equal(interactionTaskAnnotations[1].value[0])
-      expect(secondAnnotationMarks[1]).to.deep.equal(interactionTaskAnnotations[1].value[1])
+      let firstTaskAnnotationRenderedMarks = wrapper.find(DrawingToolMarks).first().props().marks
+      let secondTaskAnnotationRenderedMarks = wrapper.find(DrawingToolMarks).last().props().marks
+      expect(firstTaskAnnotationRenderedMarks).to.have.lengthOf(1)
+      expect(firstTaskAnnotationRenderedMarks[0]).to.deep.equal(firstTaskAnnotationsFirstFrameFirstMark)
+      expect(secondTaskAnnotationRenderedMarks).to.have.lengthOf(2)
+      expect(secondTaskAnnotationRenderedMarks[0]).to.deep.equal(secondTaskAnnotationsFirstFrameFirstMark)
+      expect(secondTaskAnnotationRenderedMarks[1]).to.deep.equal(secondTaskAnnotationsFirstFrameSecondMark)
       wrapper.setProps({ frame: 1 })
-      firstAnnotationMarks = wrapper.find(DrawingToolMarks).first().props().marks
-      secondAnnotationMarks = wrapper.find(DrawingToolMarks).last().props().marks
-      expect(firstAnnotationMarks).to.have.lengthOf(0)
-      expect(secondAnnotationMarks).to.have.lengthOf(2)
-      expect(secondAnnotationMarks[0]).to.deep.equal(interactionTaskAnnotations[1].value[2])
-      expect(secondAnnotationMarks[1]).to.deep.equal(interactionTaskAnnotations[1].value[3])
+      firstTaskAnnotationRenderedMarks = wrapper.find(DrawingToolMarks).first().props().marks
+      secondTaskAnnotationRenderedMarks = wrapper.find(DrawingToolMarks).last().props().marks
+      expect(firstTaskAnnotationRenderedMarks).to.have.lengthOf(0)
+      expect(secondTaskAnnotationRenderedMarks).to.have.lengthOf(2)
+      expect(secondTaskAnnotationRenderedMarks[0]).to.deep.equal(secondTaskAnnotationsSecondFrameFirstMark)
+      expect(secondTaskAnnotationRenderedMarks[1]).to.deep.equal(secondTaskAnnotationsSecondFrameSecondMark)
     })
   })
 
