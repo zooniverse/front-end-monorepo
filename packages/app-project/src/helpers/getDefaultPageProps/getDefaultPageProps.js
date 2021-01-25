@@ -33,6 +33,17 @@ export default async function getDefaultPageProps({ params, query, req, res }) {
     }
   }
 
+  const workflowExists = store.project.links.active_workflows.includes(params.workflowID)
+  if (params.workflowID && !workflowExists) {
+    res.statusCode = 404
+    return {
+      props: {
+        statusCode: 404,
+        title: `Workflow ${params.workflowID} was not found.`
+      }
+    }
+  }
+
   const { project, ui } = getSnapshot(store)
   const { headers, connection } = req
   const { env } = query
