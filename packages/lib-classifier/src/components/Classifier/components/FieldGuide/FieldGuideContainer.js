@@ -32,14 +32,15 @@ function FieldGuideContainer (props) {
 }
 
 FieldGuideContainer.defaultProps = {
-  setActiveItemIndex: -1,
+  fieldGuide: null,
   icons: observable.map(),
+  setActiveItemIndex: -1,
   showModal: false
 }
 
 FieldGuideContainer.propTypes = {
   activeItemIndex: PropTypes.number,
-  fieldGuide: PropTypes.object.isRequired,
+  fieldGuide: PropTypes.object,
   icons: MobXPropTypes.observableMap,
   setActiveItemIndex: PropTypes.func.isRequired,
   setModalVisibility: PropTypes.func.isRequired,
