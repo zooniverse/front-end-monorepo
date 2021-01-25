@@ -1,3 +1,4 @@
+import NotFoundError from '@helpers/NotFoundError'
 import fetchWorkflowsHelper from '@helpers/fetchWorkflowsHelper'
 import initStore from '@stores'
 import { getSnapshot } from 'mobx-state-tree'
@@ -15,12 +16,7 @@ export default async function getStaticPageProps({ params, query }) {
     const projectSlug = `${owner}/${project}`
     await store.project.fetch(projectSlug, { env })
     if (!store.project.id) {
-      return {
-        props: {
-          statusCode: 404,
-          title: `Project ${owner}/${project} was not found.`
-        }
-      }
+      return NotFoundError(`Project ${owner}/${project} was not found.`)
     }
   }
 
@@ -32,12 +28,7 @@ export default async function getStaticPageProps({ params, query }) {
   const { active_workflows, default_workflow } = project.links
   const workflowExists = active_workflows.includes(params.workflowID)
   if (params.workflowID && !workflowExists) {
-    return {
-      props: {
-        statusCode: 404,
-        title: `Workflow ${params.workflowID} was not found.`
-      }
-    }
+    return NotFoundError(`Workflow ${params.workflowID} was not found.`)
   }
 
   /*
