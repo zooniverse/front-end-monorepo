@@ -114,6 +114,43 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
         ])
       })
     })
+
+    describe('with an invalid project slug', function () {
+      let props
+      let res = {}
+
+      before(async function () {
+        const params = {
+          owner: 'test-owner',
+          project: 'test-wrong-project'
+        }
+        const query = {
+          env: 'staging'
+        }
+        const req = {
+          connection: {
+            encrypted: true
+          },
+          headers: {
+            host: 'www.zooniverse.org'
+          }
+        }
+        const response = await getDefaultPageProps({ params, query, req, res })
+        props = response.props
+      })
+
+      it('should return a 404 response', function () {
+        expect(res.statusCode).to.equal(404)
+      })
+
+      it('should pass the status code to the error page', function () {
+        expect(props.statusCode).to.equal(404)
+      })
+
+      it('should pass an error message to the error page', function () {
+        expect(props.title).to.equal('Project test-owner/test-wrong-project was not found.')
+      })
+    })
   })
 
   describe('with the production API', function () {
@@ -191,6 +228,43 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
             ]
           }
         ])
+      })
+    })
+
+    describe('with an invalid project slug', function () {
+      let props
+      let res = {}
+
+      before(async function () {
+        const params = {
+          owner: 'test-owner',
+          project: 'test-wrong-project'
+        }
+        const query = {
+          env: 'production'
+        }
+        const req = {
+          connection: {
+            encrypted: true
+          },
+          headers: {
+            host: 'www.zooniverse.org'
+          }
+        }
+        const response = await getDefaultPageProps({ params, query, req, res })
+        props = response.props
+      })
+
+      it('should return a 404 response', function () {
+        expect(res.statusCode).to.equal(404)
+      })
+
+      it('should pass the status code to the error page', function () {
+        expect(props.statusCode).to.equal(404)
+      })
+
+      it('should pass an error message to the error page', function () {
+        expect(props.title).to.equal('Project test-owner/test-wrong-project was not found.')
       })
     })
   })
