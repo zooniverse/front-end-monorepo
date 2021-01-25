@@ -1,5 +1,7 @@
-import { getSnapshot } from 'mobx-state-tree'
 import taskRegistry from '@plugins/tasks'
+import TranscriptionLine from '@plugins/drawingTools/experimental/models/marks/TranscriptionLine'
+import Point from '@plugins/drawingTools/models/marks/Point'
+
 import Classification, { ClassificationMetadata } from './'
 
 describe('Model > Classification', function () {
@@ -98,6 +100,67 @@ describe('Model > Classification', function () {
 
     it('should preserve annotation order', function () {
       expect(snapshot.annotations).to.deep.equal([ firstAnnotation.toSnapshot(), secondAnnotation.toSnapshot() ])
+    })
+  })
+
+  describe('interactionTaskAnnotations computed view', function ()  {
+    let singleChoice, text, drawing, transcription
+
+    before(function () {
+      const singleChoiceTask = taskRegistry.get('single')
+      const textTask = taskRegistry.get('text')
+      const drawingTask = taskRegistry.get('drawing')
+      const transcriptionTask = taskRegistry.get('transcription')
+      singleChoice = singleChoiceTask.TaskModel.create({
+        question: 'yes or no?',
+        answers: ['yes', 'no'],
+        taskKey: 'T1',
+        type: 'single'
+      })
+      text = textTask.TaskModel.create({
+        instruction: 'type something',
+        taskKey: 'T0',
+        type: 'text'
+      })
+      drawing = drawingTask.TaskModel.create({
+        instruction: 'draw something',
+        taskKey: 'T2',
+        type: 'drawing'
+      })
+      transcription = transcriptionTask.TaskModel.create({
+        instruction: 'transcribe the text',
+        taskKey: 'T3',
+        type: 'transcription'
+      })
+    })
+
+    it('should return an empty array if the stored annotations are not for drawing or transcription tasks', function ()  {
+      model.addAnnotation(singleChoice, 0)
+      model.addAnnotation(text, 'This is a text task')
+      expect(model.interactionTaskAnnotations).to.be.an('array')
+      expect(model.interactionTaskAnnotations).to.be.empty()
+      model.removeAnnotation('T0')
+      model.removeAnnotation('T1')
+    })
+
+    it('should return an array of annotations if the stored annotations are for drawing tasks', function () {
+      const pointMark = Point.create({ id: 'point1', frame: 0, toolIndex: 0, x: 100, y: 200, toolType: 'point' })
+      model.addAnnotation(drawing, [pointMark])
+      const annotations = model.interactionTaskAnnotations
+      expect(annotations).to.be.an('array')
+      expect(annotations).to.have.lengthOf(1)
+      expect(annotations[0].task).to.equal(drawing.taskKey)
+      model.removeAnnotation('T2')
+    })
+
+    it('should return an array of annotations if the stored annotations are for transcription tasks', function () {
+      const transcriptionMark = TranscriptionLine.create({ id: 'transcriptionline1', frame: 0, toolIndex: 0, x1: 100, y1: 200, x2: 150, y2: 200, toolType: 'transcriptionLine' })
+      model.addAnnotation(transcription, [transcriptionMark])
+      const annotations = model.interactionTaskAnnotations
+      expect(annotations).to.be.an('array')
+      expect(annotations).to.have.lengthOf(1)
+      expect(annotations[0].task).to.deep.equal(transcription.taskKey)
+      model.removeAnnotation('T3')
     })
   })
 })
