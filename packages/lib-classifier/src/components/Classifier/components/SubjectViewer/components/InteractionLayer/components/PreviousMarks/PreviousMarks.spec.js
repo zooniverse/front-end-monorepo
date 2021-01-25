@@ -39,7 +39,7 @@ describe('Component > PreviousMarks', function () {
   })
 
   describe('when there are interaction task annotations', function () {
-    it('should render a DrawingToolMarks for each annotation', function ()  {
+    it('should render a DrawingToolMarks for each task', function ()  {
       const wrapper = shallow(<PreviousMarks interactionTaskAnnotations={interactionTaskAnnotations} />)
       expect(wrapper.find(DrawingToolMarks)).to.have.lengthOf(2)
       expect(wrapper.find(DrawingToolMarks).first().key()).to.equal(interactionTaskAnnotations[0].task)
