@@ -46,6 +46,11 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
         .reply(200, {
           projects: [PROJECT]
         })
+        .get('/projects')
+        .query(query => query.slug !== slug)
+        .reply(200, {
+          projects: []
+        })
         .get('/translations')
         .query(query => {
           return query.translated_type === 'workflow'
@@ -67,40 +72,47 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
             ]
           }
         })
+        .get('/workflows')
+        .query(query => query.id !== '1')
+        .reply(200, {
+          workflows: []
+        })
     })
 
-    it('should return the project\'s active workflows', async function () {
-      const params = {
-        owner: 'test-owner',
-        project: 'test-project'
-      }
-      const query = {
-        env: 'staging'
-      }
-      const req = {
-        connection: {
-          encrypted: true
-        },
-        headers: {
-          host: 'www.zooniverse.org'
+    describe('with a valid project slug', function () {
+      it('should return the project\'s active workflows', async function () {
+        const params = {
+          owner: 'test-owner',
+          project: 'test-project'
         }
-      }
-      const res = {}
-      const { props } = await getDefaultPageProps({ params, query, req, res })
-      expect(props.workflows).to.deep.equal([
-        {
-          completeness: 0.4,
-          default: true,
-          grouped: false,
-          id: '1',
-          displayName: 'Foo',
-          subjectSets: [
-            subjectSet('1'),
-            subjectSet('2'),
-            subjectSet('3')
-          ]
+        const query = {
+          env: 'staging'
         }
-      ])
+        const req = {
+          connection: {
+            encrypted: true
+          },
+          headers: {
+            host: 'www.zooniverse.org'
+          }
+        }
+        const res = {}
+        const { props } = await getDefaultPageProps({ params, query, req, res })
+        expect(props.workflows).to.deep.equal([
+          {
+            completeness: 0.4,
+            default: true,
+            grouped: false,
+            id: '1',
+            displayName: 'Foo',
+            subjectSets: [
+              subjectSet('1'),
+              subjectSet('2'),
+              subjectSet('3')
+            ]
+          }
+        ])
+      })
     })
   })
 
@@ -113,6 +125,11 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
         .reply(200, {
           projects: [PROJECT]
         })
+        .get('/projects')
+        .query(query => query.slug !== slug)
+        .reply(200, {
+          projects: []
+        })
         .get('/translations')
         .query(query => {
           return query.translated_type === 'workflow'
@@ -134,40 +151,47 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
             ]
           }
         })
+        .get('/workflows')
+        .query(query => query.id !== '1')
+        .reply(200, {
+          workflows: []
+        })
     })
 
-    it('should return the project\'s active workflows', async function () {
-      const params = {
-        owner: 'test-owner',
-        project: 'test-project'
-      }
-      const query = {
-        env: 'production'
-      }
-      const req = {
-        connection: {
-          encrypted: true
-        },
-        headers: {
-          host: 'www.zooniverse.org'
+    describe('with a valid project slug', function () {
+      it('should return the project\'s active workflows', async function () {
+        const params = {
+          owner: 'test-owner',
+          project: 'test-project'
         }
-      }
-      const res = {}
-      const { props } = await getDefaultPageProps({ params, query, req, res })
-      expect(props.workflows).to.deep.equal([
-        {
-          completeness: 0.4,
-          default: true,
-          grouped: false,
-          id: '1',
-          displayName: 'Foo',
-          subjectSets: [
-            subjectSet('1'),
-            subjectSet('2'),
-            subjectSet('3')
-          ]
+        const query = {
+          env: 'production'
         }
-      ])
+        const req = {
+          connection: {
+            encrypted: true
+          },
+          headers: {
+            host: 'www.zooniverse.org'
+          }
+        }
+        const res = {}
+        const { props } = await getDefaultPageProps({ params, query, req, res })
+        expect(props.workflows).to.deep.equal([
+          {
+            completeness: 0.4,
+            default: true,
+            grouped: false,
+            id: '1',
+            displayName: 'Foo',
+            subjectSets: [
+              subjectSet('1'),
+              subjectSet('2'),
+              subjectSet('3')
+            ]
+          }
+        ])
+      })
     })
   })
 })
