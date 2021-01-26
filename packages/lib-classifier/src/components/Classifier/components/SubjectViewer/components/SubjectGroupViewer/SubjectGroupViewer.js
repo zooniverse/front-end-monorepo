@@ -72,6 +72,7 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
                 
                 image={image}
                 index={index}
+                subjectId={''}
                 
                 dragMove={dragMove}
                 

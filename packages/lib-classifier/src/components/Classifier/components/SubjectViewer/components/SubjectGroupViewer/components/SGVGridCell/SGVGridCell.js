@@ -30,6 +30,7 @@ function SGVGridCell (props) {
   const {
     image,
     index,
+    subjectId,
     
     dragMove,
     
@@ -96,7 +97,7 @@ function SGVGridCell (props) {
     } else if (!isThisCellSelected && toggledValue) {  // Add cell index to annotation values
       annotationValue.push({
         index,
-        subject: 'temporary subject index'
+        subject: subjectId,
       })
     }
     
@@ -167,6 +168,7 @@ function SGVGridCell (props) {
 SGVGridCell.propTypes = {
   image: PropTypes.object,
   index: PropTypes.number,
+  subjectId: PropTypes.string,
             
   dragMove: PropTypes.func,
   
@@ -191,6 +193,7 @@ SGVGridCell.propTypes = {
 SGVGridCell.defaultProps = {
   image: undefined,
   index: 0,
+  subjectId: '',
             
   dragMove: () => {},
   
