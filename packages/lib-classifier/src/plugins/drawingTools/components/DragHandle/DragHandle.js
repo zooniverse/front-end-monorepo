@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import draggable from '../draggable'
 
 const StyledCircle = styled('circle')`
+  stroke-width: 2;
   &:hover {
     cursor: move;
   }
