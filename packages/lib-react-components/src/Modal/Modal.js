@@ -23,12 +23,12 @@ class Modal extends React.Component {
   render () {
     const {
       children,
-      className = '',
+      className,
       closeFn,
       headingBackground,
-      overflow = 'auto',
+      overflow,
       pad,
-      title = '',
+      title,
       titleColor,
       ...props
     } = this.props
@@ -72,6 +72,7 @@ Modal.defaultProps = {
   className: '',
   closeFn: undefined,
   headingBackground: 'brand',
+  overflow: 'auto',
   title: '',
   titleColor: 'neutral-6'
 }
