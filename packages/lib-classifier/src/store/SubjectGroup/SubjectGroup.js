@@ -10,6 +10,13 @@ const SubjectGroup = types
   })
 
   .preProcessSnapshot(snapshot => {
+    // The Subject Group LOOKS like a normal Subject, but consists of multiple
+    // Subjects stitched together in the backend. The implicit construction of
+    // the Subject Group can be derived from its metadata:
+    // subject.metadata: {
+    //   #group_subject_ids: array of constituent subject IDs 
+    //   #subject_group_id: ID of this specific subject group
+    // }
     const newSnapshot = Object.assign({}, snapshot)
     newSnapshot.subjectIds = snapshot?.metadata['#group_subject_ids']?.split('-') || []
     return newSnapshot
