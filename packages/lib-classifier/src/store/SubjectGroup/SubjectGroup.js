@@ -14,7 +14,7 @@ const SubjectGroup = types
     // Subjects stitched together in the backend. The implicit construction of
     // the Subject Group can be derived from its metadata:
     // subject.metadata: {
-    //   #group_subject_ids: array of constituent subject IDs 
+    //   #group_subject_ids: array of constituent subject IDs, as a string, delimited by '-' 
     //   #subject_group_id: ID of this specific subject group
     // }
     const newSnapshot = Object.assign({}, snapshot)
