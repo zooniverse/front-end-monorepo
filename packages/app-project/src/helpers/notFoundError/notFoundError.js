@@ -1,4 +1,4 @@
-export default function NotFoundError(title) {
+export default function notFoundError(title) {
   return {
     props: {
       statusCode: 404,
