@@ -1,44 +1,48 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { observable } from 'mobx'
+import { PropTypes as MobXPropTypes } from 'mobx-react'
 import FieldGuideButton from './components/FieldGuideButton'
 import FieldGuide from './components/FieldGuide'
 
-function storeMapper (stores) {
-  const { setModalVisibility, showModal } = stores.classifierStore.fieldGuide
-  return {
+function FieldGuideContainer (props) {
+  const {
+    activeItemIndex,
+    fieldGuide,
+    icons,
+    setActiveItemIndex,
     setModalVisibility,
     showModal
-  }
+  } = props
+
+  return (
+    <>
+      <FieldGuideButton fieldGuide={fieldGuide} onOpen={() => setModalVisibility(true)} />
+      {showModal && 
+        <FieldGuide
+          activeItemIndex={activeItemIndex}
+          fieldGuide={fieldGuide}
+          icons={icons}
+          onClose={() => setModalVisibility(false)}
+          setActiveItemIndex={setActiveItemIndex}
+        />
+      }
+    </>
+  )
 }
 
-@inject(storeMapper)
-@observer
-class FieldGuideContainer extends React.Component {
-  onClose () {
-    const { setModalVisibility } = this.props
-    setModalVisibility(false)
-  }
-
-  render () {
-    const {
-      showModal
-    } = this.props
-
-    return (
-      <>
-        <FieldGuideButton />
-        {showModal && <FieldGuide onClose={this.onClose.bind(this)} />}
-      </>
-    )
-  }
-}
-
-FieldGuideContainer.wrappedComponent.defaultProps = {
+FieldGuideContainer.defaultProps = {
+  fieldGuide: null,
+  icons: observable.map(),
+  setActiveItemIndex: -1,
   showModal: false
 }
 
-FieldGuideContainer.wrappedComponent.propTypes = {
+FieldGuideContainer.propTypes = {
+  activeItemIndex: PropTypes.number,
+  fieldGuide: PropTypes.object,
+  icons: MobXPropTypes.observableMap,
+  setActiveItemIndex: PropTypes.func.isRequired,
   setModalVisibility: PropTypes.func.isRequired,
   showModal: PropTypes.bool
 }
