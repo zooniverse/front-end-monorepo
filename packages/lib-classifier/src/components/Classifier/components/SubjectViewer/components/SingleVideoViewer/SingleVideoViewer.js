@@ -32,7 +32,8 @@ const SingleVideoViewer = ({
   progressInterval,
   onProgress,
   playerRef,
-  onDuration
+  onDuration,
+  onEnded
 }) => {
   return (
     <Container>
@@ -46,6 +47,7 @@ const SingleVideoViewer = ({
         progressInterval={progressInterval}
         onProgress={onProgress}
         onDuration={onDuration}
+        onEnded={onEnded}
         width='100%'
         height='100%'
       />
@@ -60,7 +62,8 @@ SingleVideoViewer.propTypes = {
   playbackRate: PropTypes.number,
   progressInterval: PropTypes.number,
   onProgress: PropTypes.func,
-  onDuration: PropTypes.func
+  onDuration: PropTypes.func,
+  onEnded: PropTypes.func
 }
 
 SingleVideoViewer.defaultProps = {
@@ -70,7 +73,8 @@ SingleVideoViewer.defaultProps = {
   playbackRate: 1,
   progressInterval: 100,
   onProgress: () => {},
-  onDuration: () => {}
+  onDuration: () => {},
+  onEnded: () => {}
 }
 
 export default SingleVideoViewer

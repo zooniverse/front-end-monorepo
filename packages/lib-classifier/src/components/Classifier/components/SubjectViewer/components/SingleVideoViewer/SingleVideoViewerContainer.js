@@ -79,6 +79,10 @@ class SingleVideoViewerContainer extends React.Component {
     this.setState({ duration })
   }
 
+  handleVideoEnded = () => {
+    this.setState({ isPlaying: false })
+  }
+
   handlePlayPause = () => {
     this.setState((prevState) => ({ isPlaying: !prevState.isPlaying }))
   }
@@ -159,7 +163,8 @@ class SingleVideoViewerContainer extends React.Component {
             playbackRate={playbackRate}
             onProgress={this.handleVideoProgress}
             onDuration={this.handleVideoDuration}
-          ></SingleVideoViewer>
+            onEnded={this.handleVideoEnded}
+          />
           {/* Drawing layer here */}
         </div>
         <VideoController
