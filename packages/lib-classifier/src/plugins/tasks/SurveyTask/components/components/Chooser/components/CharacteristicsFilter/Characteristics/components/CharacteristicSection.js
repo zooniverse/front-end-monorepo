@@ -1,12 +1,18 @@
-import { Box, Text } from 'grommet'
+import { Box, RadioButtonGroup, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 import FilterButton from './FilterButton'
 
 export default function CharacteristicSection (props) {
-  const { characteristic, images } = props
-
+  const {
+    characteristic,
+    characteristicId,
+    images,
+    onFilter,
+    selectedValueId
+  } = props
+  
   return (
     <Box>
       <Text>{characteristic.label}</Text>
@@ -14,18 +20,31 @@ export default function CharacteristicSection (props) {
         direction='row'
         wrap
       >
-        {characteristic.valuesOrder.map((valueId) => {
-          const value = characteristic.values[valueId]
-          const valueImageSrc = images[value.image]
+        <RadioButtonGroup
+          name="radio"
+          direction="row"
+          gap="small"
+          options={characteristic.valuesOrder}
+          value={selectedValueId}
+          onChange={event => onFilter(characteristicId, event.target.value)}
+        >
+          {(option, { checked, hover }) => {
+            const value = characteristic.values[option]
+            const valueImageSrc = images[value.image]
           
-          return (
-            <FilterButton
-              key={valueId}
-              value={value}
-              valueImageSrc={valueImageSrc}
-            />
-          )
-          })}
+            return (
+              <FilterButton
+                characteristicId={characteristicId}
+                checked={checked}
+                radioHover={hover}
+                onFilter={onFilter}
+                value={value}
+                valueId={option}
+                valueImageSrc={valueImageSrc}
+              />
+            )
+          }}
+        </RadioButtonGroup>
       </Box>
     </Box>
   )
@@ -37,7 +56,9 @@ CharacteristicSection.defaultProps = {
     values: {},
     valuesOrder: []
   },
-  images: {}
+  images: {},
+  onFilter: () => {},
+  selectedValueId: ''
 }
 
 CharacteristicSection.propTypes = {
@@ -46,5 +67,7 @@ CharacteristicSection.propTypes = {
     values: PropTypes.object,
     valuesOrder: PropTypes.arrayOf(PropTypes.string)
   }),
-  images: PropTypes.objectOf(PropTypes.string)
+  images: PropTypes.objectOf(PropTypes.string),
+  onFilter: PropTypes.func,
+  selectedValueId: PropTypes.string
 }
