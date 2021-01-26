@@ -88,13 +88,16 @@ function SGVGridCell (props) {
     setChecked(toggledValue)
 
     const annotationValue = annotation?.value?.slice() || []
-    const hasCellIndex = annotationValue.includes(index)
-    
-    if (hasCellIndex && !toggledValue) {  // Remove cell index from annotation values
-      const indexInValue = annotationValue.indexOf(index)
+    const isThisCellSelected = annotationValue.find(item => item.index === index)
+        
+    if (isThisCellSelected && !toggledValue) {  // Remove cell index from annotation values
+      const indexInValue = annotationValue.indexOf(isThisCellSelected)
       annotationValue.splice(indexInValue, 1)
-    } else if (!hasCellIndex && toggledValue) {  // Add cell index to annotation values
-      annotationValue.push(index)
+    } else if (!isThisCellSelected && toggledValue) {  // Add cell index to annotation values
+      annotationValue.push({
+        index,
+        subject: 'temporary subject index'
+      })
     }
     
     if (annotation?.update) annotation.update(annotationValue)
