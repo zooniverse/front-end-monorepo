@@ -6,6 +6,7 @@ import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
+import PreviousMarks from './components/PreviousMarks'
 
 const DrawingCanvas = styled('rect')`
   ${props => props.disabled ?
@@ -15,6 +16,7 @@ const DrawingCanvas = styled('rect')`
 `
 
 function InteractionLayer ({
+  activeInteractionTask,
   activeMark,
   activeTool,
   activeToolIndex,
@@ -128,23 +130,25 @@ function InteractionLayer ({
 
   return (
     <g>
-      <DrawingCanvas
-        disabled={disabled || move}
-        pointerEvents={move ? 'none' : 'all'}
-        width={width}
-        height={height}
-        fill='transparent'
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        touch-action='none'
-      />
+      {activeInteractionTask && activeTool && 
+        <DrawingCanvas
+          disabled={disabled || move}
+          pointerEvents={move ? 'none' : 'all'}
+          width={width}
+          height={height}
+          fill='transparent'
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          touch-action='none'
+        />}
       <TranscribedLines
         scale={scale}
       />
       <SubTaskPopup
         onDelete={inactivateMark}
       />
+      <PreviousMarks scale={scale} />
       {marks &&
         <DrawingToolMarks
           activeMark={activeMark}
@@ -162,6 +166,7 @@ function InteractionLayer ({
 }
 
 InteractionLayer.propTypes = {
+  activeInteractionTask: PropTypes.object,
   activeMark: PropTypes.object,
   activeTool: PropTypes.object.isRequired,
   activeToolIndex: PropTypes.number,
@@ -175,6 +180,7 @@ InteractionLayer.propTypes = {
 }
 
 InteractionLayer.defaultProps = {
+  activeInteractionTask: null,
   activeMark: undefined,
   activeToolIndex: 0,
   frame: 0,

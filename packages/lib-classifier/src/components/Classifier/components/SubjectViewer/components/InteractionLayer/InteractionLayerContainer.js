@@ -1,10 +1,8 @@
 import { inject, observer } from 'mobx-react'
-import { getType } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import InteractionLayer from './InteractionLayer'
-import PreviousMarks from './components/PreviousMarks'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
 function storeMapper (stores) {
@@ -21,12 +19,10 @@ function storeMapper (stores) {
 
   const [activeInteractionTask] = activeStepTasks.filter(task => task.type === 'drawing' || task.type === 'transcription')
   const annotations = classification ? Array.from(classification.annotations.values()) : []
-  const interactionTaskAnnotations = annotations.filter(annotation => (getType(annotation).name === 'DrawingAnnotation' || getType(annotation).name === 'TranscriptionAnnotation'))
 
   return {
     activeInteractionTask,
     frame,
-    interactionTaskAnnotations,
     move
   }
 }
@@ -39,7 +35,6 @@ class InteractionLayerContainer extends Component {
       activeInteractionTask,
       frame,
       height,
-      interactionTaskAnnotations,
       move,
       scale,
       width
@@ -60,25 +55,21 @@ class InteractionLayerContainer extends Component {
     const visibleMarksPerFrame = newMarks?.filter(mark => mark.frame === frame)
 
     return (
-      <>
-        {activeInteractionTask && activeTool &&
-          <InteractionLayer
-            activeMark={activeMark}
-            activeTool={activeTool}
-            activeToolIndex={activeToolIndex}
-            disabled={activeTool.disabled}
-            frame={frame}
-            height={height}
-            key={taskKey}
-            marks={visibleMarksPerFrame}
-            move={move}
-            scale={scale}
-            setActiveMark={setActiveMark}
-            width={width}
-          />
-        }
-        <PreviousMarks scale={scale} />
-      </>
+      <InteractionLayer
+        activeInteractionTask={activeInteractionTask}
+        activeMark={activeMark}
+        activeTool={activeTool}
+        activeToolIndex={activeToolIndex}
+        disabled={activeTool.disabled}
+        frame={frame}
+        height={height}
+        key={taskKey}
+        marks={visibleMarksPerFrame}
+        move={move}
+        scale={scale}
+        setActiveMark={setActiveMark}
+        width={width}
+      />
     )
   }
 }

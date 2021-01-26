@@ -2,7 +2,6 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import InteractionLayerContainer from './InteractionLayerContainer'
 import InteractionLayer from './InteractionLayer'
-import PreviousMarks from './components/PreviousMarks'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
 describe('Component > InteractionLayerContainer', function () {
@@ -41,7 +40,7 @@ describe('Component > InteractionLayerContainer', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should render PreviousMarks',  function () {
+  it('should render an InteractionLayer', function () {
     const wrapper = shallow(
       <InteractionLayerContainer.wrappedComponent
         activeInteractionTask={drawingTask}
@@ -49,25 +48,7 @@ describe('Component > InteractionLayerContainer', function () {
         width={width}
       />
     )
-    expect(wrapper.find(PreviousMarks)).to.have.lengthOf(1)
-  })
-
-  describe('with an active drawing task and drawing tool', function () {
-    let wrapper
-
-    before(function () {
-      wrapper = shallow(
-        <InteractionLayerContainer.wrappedComponent
-          activeInteractionTask={drawingTask}
-          height={height}
-          width={width}
-        />
-      )
-    })
-
-    it('should render an InteractionLayer', function () {
-      expect(wrapper.find(InteractionLayer)).to.have.lengthOf(1)
-    })
+    expect(wrapper.find(InteractionLayer)).to.have.lengthOf(1)
   })
 
   describe('with transcription task', function () {

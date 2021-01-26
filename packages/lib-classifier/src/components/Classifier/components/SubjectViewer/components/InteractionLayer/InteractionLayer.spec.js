@@ -8,6 +8,7 @@ import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
 import DrawingTask from '@plugins/tasks/DrawingTask'
 import { Line, Point, TranscriptionLine } from '@plugins/drawingTools/components'
+import PreviousMarks from './components/PreviousMarks'
 
 describe('Component > InteractionLayer', function () {
   let wrapper
@@ -72,6 +73,7 @@ describe('Component > InteractionLayer', function () {
       sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
       wrapper = shallow(
         <InteractionLayer
+          activeInteractionTask={mockDrawingTask}
           activeMark={mockMark}
           activeTool={activeTool}
           frame={2}
@@ -105,6 +107,10 @@ describe('Component > InteractionLayer', function () {
 
     it('should render SubTaskPopup', function () {
       expect(wrapper.find(SubTaskPopup)).to.have.lengthOf(1)
+    })
+
+    it('should render PreviousMarks', function () {
+      expect(wrapper.find(PreviousMarks)).to.have.lengthOf(1)
     })
 
     describe('on pointer events', function () {
@@ -207,6 +213,7 @@ describe('Component > InteractionLayer', function () {
 
           wrapper = shallow(
             <InteractionLayer
+              activeInteractionTask={mockDrawingTask}
               activeMark={mockMark}
               activeTool={activeTool}
               frame={2}
@@ -257,6 +264,7 @@ describe('Component > InteractionLayer', function () {
       activeTool.createMark.resetHistory()
       wrapper = shallow(
           <InteractionLayer
+            activeInteractionTask={mockDrawingTask}
             activeTool={activeTool}
             disabled
             height={400}
