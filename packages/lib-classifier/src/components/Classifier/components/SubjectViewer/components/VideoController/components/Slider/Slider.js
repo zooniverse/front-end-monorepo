@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Grommet, Box, RangeInput } from 'grommet'
 import counterpart from 'counterpart'
-import en from './locales/en.json'
+import en from '../../locales/en.json'
 
 const customThemeRangeInput = {
   global: {

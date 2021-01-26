@@ -4,8 +4,8 @@ import { Box, Button, Select, ThemeContext } from 'grommet'
 import { CirclePlay, PauseFill } from 'grommet-icons'
 import counterpart from 'counterpart'
 import en from './locales/en.json'
-import FormattedTime from './FormattedTime'
-import Slider from './Slider'
+import FormattedTime from './components/FormattedTime/FormattedTime'
+import Slider from './components/Slider/Slider'
 
 counterpart.registerTranslations('en', en)
 
