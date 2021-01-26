@@ -24,6 +24,7 @@ const Container = styled.div`
 const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
   const {
     images,
+    subjectIds,
     
     dragMove,
     onKeyDown,
@@ -52,7 +53,7 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
   const annotatedValues = annotation?.value || []
     
   const annotationMode = interactionMode === 'annotate' && isCurrentTaskValidForAnnotation
-
+  
   return (
     <SVGContext.Provider value={{ svg, getScreenCTM }}>
       <Container>
@@ -72,7 +73,7 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
                 
                 image={image}
                 index={index}
-                subjectId={''}
+                subjectId={subjectIds[index]}
                 
                 dragMove={dragMove}
                 
@@ -100,6 +101,7 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
 
 SubjectGroupViewer.propTypes = {
   images: PropTypes.array,
+  subjectIds: PropTypes.arrayOf(PropTypes.string),
             
   dragMove: PropTypes.func,
   onKeyDown: PropTypes.func,
@@ -127,6 +129,7 @@ SubjectGroupViewer.propTypes = {
 
 SubjectGroupViewer.defaultProps = {
   images: [],
+  subjectIds: [],
             
   dragMove: () => {},
   onKeyDown: () => {},
