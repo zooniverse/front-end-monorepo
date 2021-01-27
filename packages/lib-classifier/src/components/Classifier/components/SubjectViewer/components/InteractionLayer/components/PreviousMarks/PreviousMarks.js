@@ -20,11 +20,15 @@ function PreviousMarks (props) {
         {interactionTaskAnnotations.map((annotation) => {
           const annotationValuesPerFrame = annotation.value.filter(value => value.frame === frame)
           return (
-            <DrawingToolMarks
+            <g
               key={annotation.task}
-              marks={annotationValuesPerFrame}
-              scale={scale}
-            />
+              pointerEvents='none'
+            >
+              <DrawingToolMarks
+                marks={annotationValuesPerFrame}
+                scale={scale}
+              />
+            </g>
           )
         })}
       </>
