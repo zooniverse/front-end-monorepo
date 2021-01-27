@@ -10,26 +10,28 @@ function useStores () {
   const {
     active: workflow
   } = stores.classifierStore.workflows
-  const {
-    activeStepTasks
-  } = stores.classifierStore.workflowSteps
   const subject = stores.classifierStore.subjects.active
   const { consensusLines } = subject.transcriptionReductions || {}
-  const [activeTranscriptionTask] = activeStepTasks.filter(task => task.type === 'transcription')
-  return { activeTranscriptionTask, consensusLines, frame, workflow }
+
+  // We expect there to only be one
+  const [transcriptionTask] = stores.classifierStore.workflowSteps.findTasksByType('transcription')
+
+  return { transcriptionTask, consensusLines, frame, workflow }
 }
 
-function TranscribedLinesContainer ({ scale = 1 }) {
+function TranscribedLinesContainer (props) {
   const { 
-    activeTranscriptionTask = {},
+    transcriptionTask = {},
     frame = 0,
     consensusLines = [], 
     workflow = {
       usesTranscriptionTask: false
     }
   } = useStores()
-
-  const { shownMarks } = activeTranscriptionTask
+  const {
+    scale = 1
+  } = props
+  const { shownMarks } = transcriptionTask
   const visibleLinesPerFrame = consensusLines.filter(line => line.frame === frame)
 
   if (workflow?.usesTranscriptionTask && shownMarks === SHOWN_MARKS.ALL && visibleLinesPerFrame.length > 0) {
@@ -37,7 +39,7 @@ function TranscribedLinesContainer ({ scale = 1 }) {
       <TranscribedLines
         lines={visibleLinesPerFrame}
         scale={scale}
-        task={activeTranscriptionTask}
+        task={transcriptionTask}
       />
     )
   }

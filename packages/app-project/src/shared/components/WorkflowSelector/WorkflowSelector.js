@@ -2,12 +2,12 @@ import asyncStates from '@zooniverse/async-states'
 import { Markdownz, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box, Paragraph, Text } from 'grommet'
-import { arrayOf, shape, string } from 'prop-types'
-import React from 'react'
+import { arrayOf, func, shape, string } from 'prop-types'
+import React, { useState } from 'react'
 import { withTheme } from 'styled-components'
 import { Bars } from 'svg-loaders-react'
 
-import WorkflowSelectButton from './components/WorkflowSelectButton'
+import { WorkflowSelectButton } from './components'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
@@ -17,7 +17,7 @@ const markdownzComponents = {
 }
 
 function WorkflowSelector (props) {
-  const { userReadyState, workflows } = props
+  const { onSelect, userReadyState, workflows } = props
   const loaderColor = props.theme.global.colors.brand
   const workflowDescription = props.workflowDescription || counterpart('WorkflowSelector.message')
 
@@ -48,9 +48,8 @@ function WorkflowSelector (props) {
           margin={{ top: 'small' }}
           width={{ max: 'medium' }}
         >
-
           {(workflows.length > 0) && workflows.map(workflow =>
-            <WorkflowSelectButton key={workflow.id} workflow={workflow} />
+            <WorkflowSelectButton key={workflow.id} onSelect={onSelect} workflow={workflow} />
           )}
 
           {(workflows.length === 0) && (
@@ -81,6 +80,7 @@ function WorkflowSelector (props) {
 }
 
 WorkflowSelector.propTypes = {
+  onSelect: func.isRequired,
   userReadyState: string,
   workflowDescription: string,
   workflows: arrayOf(shape({
@@ -89,3 +89,4 @@ WorkflowSelector.propTypes = {
 }
 
 export default withTheme(WorkflowSelector)
+export { WorkflowSelector }

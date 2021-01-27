@@ -12,14 +12,12 @@ function storeMapper(stores) {
   }
 }
 
-class WorkflowSelectorContainer extends Component {
-  render () {
-    return (
-      <WorkflowSelector
-        {...this.props}
-      />
-    )
-  }
+function WorkflowSelectorContainer(props) {
+  return (
+    <WorkflowSelector
+      {...props}
+    />
+  )
 }
 
 WorkflowSelectorContainer.propTypes = {
@@ -27,9 +25,7 @@ WorkflowSelectorContainer.propTypes = {
   workflowDescription: string
 }
 
-@inject(storeMapper)
-@observer
-class DecoratedWorkflowSelectorContainer extends WorkflowSelectorContainer { }
+const DecoratedWorkflowSelectorContainer = inject(storeMapper)(observer(WorkflowSelectorContainer))
 
 export {
   DecoratedWorkflowSelectorContainer as default,

@@ -4,7 +4,7 @@ import React from 'react'
 import WideLayout from './WideLayout'
 import Background from '../Background'
 import Introduction from '../Introduction'
-import WorkflowSelector from '../WorkflowSelector'
+import WorkflowMenu from '../WorkflowMenu'
 
 describe('Component > Hero > WideLayout', function () {
   let wrapper
@@ -25,8 +25,8 @@ describe('Component > Hero > WideLayout', function () {
     expect(wrapper.find(Introduction)).to.have.lengthOf(1)
   })
 
-  it('should render the `WorkflowSelector` component', function () {
-    expect(wrapper.find(WorkflowSelector)).to.have.lengthOf(1)
+  it('should render the `WorkflowMenu` component', function () {
+    expect(wrapper.find(WorkflowMenu)).to.have.lengthOf(1)
   })
 
 })

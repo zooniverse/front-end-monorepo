@@ -10,11 +10,10 @@ import SHOWN_MARKS from '@helpers/shownMarks'
 
 function storeMapper (stores) {
   const { active: subject, isThereMetadata } = stores.classifierStore.subjects
-  const { activeStepTasks } = stores.classifierStore.workflowSteps
-  const [activeInteractionTask] = activeStepTasks.filter(task => task.type === 'drawing' || task.type === 'transcription') || {}
+  const { interactionTask } = stores.classifierStore.workflowSteps
   const upp = stores.classifierStore.userProjectPreferences.active
   return {
-    activeInteractionTask,
+    interactionTask,
     isThereMetadata,
     subject,
     upp
@@ -37,8 +36,15 @@ class MetaTools extends React.Component {
 
   // TODO: Add fallbacks for when Panoptes is not serializing the subject favorite info
   render () {
-    const { activeInteractionTask, className, isThereMetadata, screenSize, subject, upp } = this.props
-    const { shownMarks, marks, togglePreviousMarks, type } = activeInteractionTask || {}
+    const {
+      className,
+      interactionTask,
+      isThereMetadata,
+      screenSize,
+      subject,
+      upp
+    } = this.props
+    const { shownMarks, marks, togglePreviousMarks, type } = interactionTask
     const gap = (screenSize === 'small') ? 'xsmall' : 'small'
     const margin = (screenSize === 'small') ? { top: 'small' } : 'none'
 
@@ -60,9 +66,9 @@ class MetaTools extends React.Component {
           disabled={!subject || !upp}
           onClick={this.addToCollection}
         />
-        {activeInteractionTask && (
+        {Object.keys(interactionTask).length > 0 && (
           <HidePreviousMarksButton
-            disabled={marks.length === 0}
+            disabled={marks?.length === 0}
             shownMarks={shownMarks}
             type={type}
             onClick={(state) => togglePreviousMarks(state)}
@@ -73,25 +79,21 @@ class MetaTools extends React.Component {
   }
 }
 
-MetaTools.defaultProps = {
-  activeInteractionTask: {
-    shownMarks: SHOWN_MARKS.ALL,
-    togglePreviousMarks: () => {},
-    type: ''
-  },
+MetaTools.wrappedComponent.defaultProps = {
   className: '',
+  interactionTask: {},
   isThereMetadata: false,
   subject: null,
   upp: null
 }
 
-MetaTools.propTypes = {
-  activeInteractionTask: PropTypes.shape({
+MetaTools.wrappedComponent.propTypes = {
+  className: PropTypes.string,
+  interactionTask: PropTypes.shape({
     shownMarks: PropTypes.string,
     togglePreviousMarks: PropTypes.func,
     type: PropTypes.string
   }),
-  className: PropTypes.string,
   isThereMetadata: PropTypes.bool,
   screenSize: PropTypes.string,
   subject: PropTypes.object,

@@ -65,13 +65,23 @@ export default class Classifier extends React.Component {
     this.classifierStore.setOnAddToCollection(onAddToCollection)
     this.classifierStore.classifications.setOnComplete(onCompleteClassification)
     this.classifierStore.setOnToggleFavourite(onToggleFavourite)
-    this.classifierStore.workflows.selectWorkflow(workflowID, subjectSetID)
+    if (workflowID) {
+      this.classifierStore.workflows.selectWorkflow(workflowID, subjectSetID)
+    }
   }
 
   componentDidUpdate (prevProps) {
-    const { authClient, project } = this.props
+    const { authClient, project, subjectSetID, workflowID } = this.props
     if (project.id !== prevProps.project.id) {
       this.setProject(project)
+    }
+
+    if (workflowID !== prevProps.workflowID) {
+      this.classifierStore.workflows.selectWorkflow(workflowID, subjectSetID)
+    }
+
+    if (subjectSetID !== prevProps.subjectSetID) {
+      this.classifierStore.workflows.selectWorkflow(workflowID, subjectSetID)
     }
 
     if (authClient) {
