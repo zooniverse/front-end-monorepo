@@ -139,19 +139,6 @@ class SubjectGroupViewerContainer extends React.Component {
       // TODO: Validate for allowed image media mime types
       
       let imageUrls = subject.locations.map(obj => Object.values(obj)[0])
-    
-      // TEMPORARY
-      // HACK
-      // There's currently a bug where the URLs from the Subject Group endpoint is returned as...
-      // https://subject_location/778e6b95-8117-4aa1-a1d8-6c009fe19a87.png
-      // instead of
-      // https://panoptes-uploads-staging.zooniverse.org/subject_location/778e6b95-8117-4aa1-a1d8-6c009fe19a87.png
-      // Please see https://github.com/zooniverse/panoptes/issues/3549
-      // (@shaunanoodin 20210125)
-      imageUrls = imageUrls.map(url =>
-        url.replace('https://subject_location/', 'https://panoptes-uploads-staging.zooniverse.org/subject_location/')
-      )
-    
       const images = await Promise.all(
         imageUrls.map(url => this.fetchImage(url))
       )
