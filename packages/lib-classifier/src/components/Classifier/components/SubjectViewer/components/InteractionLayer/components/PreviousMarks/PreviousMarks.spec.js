@@ -25,6 +25,12 @@ describe('Component > PreviousMarks', function () {
     expect(wrapper).to.be.ok()
   })
 
+  it('should ignore pointer events on all drawn marks', function () {
+    const wrapper = shallow(<PreviousMarks interactionTaskAnnotations={interactionTaskAnnotations} scale={2} />)
+    const marksGroups = wrapper.find('g')
+    marksGroups.forEach( group => expect(group.prop('pointerEvents')).to.equal('none'))
+  })
+
   it('should pass scale along as a prop to each DrawingToolMarks component', function ()  {
     const wrapper = shallow(<PreviousMarks interactionTaskAnnotations={interactionTaskAnnotations} scale={2} />)
     expect(wrapper.find(DrawingToolMarks).first().props().scale).to.equal(2)
@@ -42,8 +48,8 @@ describe('Component > PreviousMarks', function () {
     it('should render a DrawingToolMarks for each task', function ()  {
       const wrapper = shallow(<PreviousMarks interactionTaskAnnotations={interactionTaskAnnotations} />)
       expect(wrapper.find(DrawingToolMarks)).to.have.lengthOf(2)
-      expect(wrapper.find(DrawingToolMarks).first().key()).to.equal(interactionTaskAnnotations[0].task)
-      expect(wrapper.find(DrawingToolMarks).last().key()).to.equal(interactionTaskAnnotations[1].task)
+      expect(wrapper.find('g').first().key()).to.equal(interactionTaskAnnotations[0].task)
+      expect(wrapper.find('g').last().key()).to.equal(interactionTaskAnnotations[1].task)
     })
 
     it('should pass along the correct number of marks per task by frame', function () {
