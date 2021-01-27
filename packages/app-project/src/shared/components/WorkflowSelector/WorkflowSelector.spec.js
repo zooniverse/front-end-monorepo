@@ -1,9 +1,10 @@
 import asyncStates from '@zooniverse/async-states'
 import { shallow, render } from 'enzyme'
 import React from 'react'
+import sinon from 'sinon'
 
 import { WorkflowSelector } from './WorkflowSelector'
-import { SubjectSetPicker } from './components'
+import { WorkflowSelectButton } from './components'
 
 const THEME = {
   global: {
@@ -70,17 +71,21 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelector', function () {
     })
   })
 
-  describe('with an active workflow', function () {
-    it('should show the subject set picker', function () {
+  describe('with an active user', function () {
+    it('should call onSelect on workflow selection', function () {
+      const onSelect = sinon.stub()
       const wrapper = shallow(
         <WorkflowSelector
           theme={THEME}
-          activeWorkflow={WORKFLOWS[0]}
+          onSelect={onSelect}
           userReadyState={asyncStates.success}
           workflows={WORKFLOWS}
           workflowDescription={WORKFLOW_DESCRIPTION}
         />)
-      expect(wrapper.find(SubjectSetPicker)).to.have.lengthOf(1)
+      const workflowButton = wrapper.find(WorkflowSelectButton).first()
+      const buttonSelect = workflowButton.prop('onSelect')
+      buttonSelect()
+      expect(onSelect).to.have.been.calledOnce()
     })
   })
 })

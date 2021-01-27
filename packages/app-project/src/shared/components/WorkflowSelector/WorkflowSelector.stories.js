@@ -64,9 +64,17 @@ function StoryContext (props) {
   )
 }
 
+function onSelect(event, workflow) {
+  event.preventDefault()
+  alert(workflow.displayName)
+}
+
 export default {
   title: 'Project App / Screens / Project Home / Workflow Selector',
   component: WorkflowSelector,
+  args: {
+    dark: false
+  },
   parameters: {
     viewport: {
       defaultViewport: 'responsive'
@@ -78,41 +86,35 @@ export function Default({ dark }) {
   return (
     <StoryContext theme={{ ...zooTheme, dark }}>
       <WorkflowSelector
-        loadingState={asyncStates.success}
+        onSelect={onSelect}
+        userReadyState={asyncStates.success}
         workflows={WORKFLOWS}
       />
     </StoryContext>
   )
-}
-Default.args = {
-  dark: false
 }
 
 export function Loading({ dark }) {
   return (
     <StoryContext theme={{ ...zooTheme, dark }}>
       <WorkflowSelector
-        loadingState={asyncStates.loading}
+        onSelect={onSelect}
+        userReadyState={asyncStates.loading}
         workflows={WORKFLOWS}
       />
     </StoryContext>
   )
-}
-Loading.args = {
-  dark: false
 }
 
 export function Error({ dark }) {
   return (
     <StoryContext theme={{ ...zooTheme, dark }}>
       <WorkflowSelector
-        loadingState={asyncStates.error}
+        onSelect={onSelect}
+        userReadyState={asyncStates.error}
         workflows={WORKFLOWS}
       />
     </StoryContext>
   )
-}
-Error.args = {
-  dark: false
 }
 

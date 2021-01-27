@@ -28,7 +28,13 @@ const mockStoresWithTranscriptionTask = {
         shownMarks: 'ALL',
         type: 'transcription'
       }
-    ]
+    ],
+    findTasksByType: () => {
+      return [{
+        shownMarks: 'ALL',
+        type: 'transcription'
+      }]
+    }
   }
 }
 
@@ -68,7 +74,8 @@ const mockStoresWithoutTranscriptionTask = {
         shownMarks: 'ALL',
         type: 'drawing'
       }
-    ]
+    ],
+    findTasksByType: () => { return []}
   }
 }
 
@@ -142,7 +149,13 @@ describe('Component > TranscribedLinesContainer', function () {
               shownMarks: 'USER',
               type: 'transcription'
             }
-          ]
+          ],
+          findTasksByType: () => {
+            return [{
+              shownMarks: 'USER',
+              type: 'transcription'
+            }]
+          }
         }
       }
       mockUseContext = sinon.stub(React, 'useContext').callsFake(() => {
@@ -162,7 +175,13 @@ describe('Component > TranscribedLinesContainer', function () {
               shownMarks: 'NONE',
               type: 'transcription'
             }
-          ]
+          ],
+          findTasksByType: () => {
+            return [{
+              shownMarks: 'NONE',
+              type: 'transcription'
+            }]
+          }
         }
       }
       mockUseContext = sinon.stub(React, 'useContext').callsFake(() => {

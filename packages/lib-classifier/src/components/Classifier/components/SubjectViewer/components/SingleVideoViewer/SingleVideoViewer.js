@@ -5,9 +5,14 @@ import ReactPlayer from 'react-player'
 
 const Container = styled.div`
   animation: fadein 1s 0s forwards;
-  height: 100%;
-  overflow: hidden;
-  width: 100%;
+  position: relative;
+  padding-top: 56.25%;
+
+  .react-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 
   @keyframes fadein {
     from {
@@ -20,18 +25,56 @@ const Container = styled.div`
   }
 `
 
-const SingleVideoViewer = ({ url }) => (
-  <Container>
-    <ReactPlayer controls={true} url={url} />
-  </Container>
-)
+const SingleVideoViewer = ({
+  url,
+  isPlaying,
+  playbackRate,
+  progressInterval,
+  onProgress,
+  playerRef,
+  onDuration,
+  onEnded
+}) => {
+  return (
+    <Container>
+      <ReactPlayer
+        className='react-player'
+        ref={playerRef}
+        controls={false}
+        url={url}
+        playing={isPlaying}
+        playbackRate={playbackRate}
+        progressInterval={progressInterval}
+        onProgress={onProgress}
+        onDuration={onDuration}
+        onEnded={onEnded}
+        width='100%'
+        height='100%'
+      />
+    </Container>
+  )
+}
 
 SingleVideoViewer.propTypes = {
-  url: PropTypes.string
+  playerRef: PropTypes.func,
+  url: PropTypes.string,
+  isPlaying: PropTypes.bool,
+  playbackRate: PropTypes.number,
+  progressInterval: PropTypes.number,
+  onProgress: PropTypes.func,
+  onDuration: PropTypes.func,
+  onEnded: PropTypes.func
 }
 
 SingleVideoViewer.defaultProps = {
-  url: ''
+  playerRef: () => {},
+  url: '',
+  isPlaying: false,
+  playbackRate: 1,
+  progressInterval: 100,
+  onProgress: () => {},
+  onDuration: () => {},
+  onEnded: () => {}
 }
 
 export default SingleVideoViewer
