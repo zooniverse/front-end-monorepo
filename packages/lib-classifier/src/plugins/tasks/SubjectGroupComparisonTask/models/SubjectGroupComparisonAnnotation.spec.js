@@ -9,7 +9,10 @@ describe('Model > SubjectGroupComparisonAnnotation', function () {
         id: 'subjectGroupAnnotation-0',
         task: 'T0',
         taskType: 'subjectGroupComparison',
-        value: [0, 3]
+        value: [
+          { index: 0, subject: 'subject-1110' },
+          { index: 5, subject: 'subject-1115' },
+        ]
       })
     })
 
