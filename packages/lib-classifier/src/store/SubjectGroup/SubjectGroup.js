@@ -18,7 +18,7 @@ const SubjectGroup = types
     //   #subject_group_id: ID of this specific subject group
     // }
     const newSnapshot = Object.assign({}, snapshot)
-    newSnapshot.subjectIds = snapshot?.metadata['#group_subject_ids']?.split('-') || []
+    newSnapshot.subjectIds = snapshot?.metadata?.['#group_subject_ids']?.split('-') || []
     return newSnapshot
   })
 
