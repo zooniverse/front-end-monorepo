@@ -1,6 +1,6 @@
-import { SpacedText } from '@zooniverse/react-components'
+import { PlainButton } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Anchor, Box, Button, Grid, Heading, Paragraph } from 'grommet'
+import { Anchor, Box, Grid, Heading, Paragraph } from 'grommet'
 import Link from 'next/link'
 import { array, bool, func, number, shape, string } from 'prop-types'
 import React from 'react'
@@ -23,14 +23,10 @@ const StyledHeading = styled(Heading)`
 
 function BackButton({ onClick }) {
   return (
-    <Button
-      plain
+    <PlainButton
       onClick={onClick}
-    >
-      <SpacedText color='accent-2'>
-        {counterpart('SubjectSetPicker.back')}
-      </SpacedText>
-    </Button>
+      text={counterpart('SubjectSetPicker.back')}
+    />
   )
 }
 function SubjectSetPicker (props) {

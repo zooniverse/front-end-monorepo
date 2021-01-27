@@ -60,7 +60,6 @@ function ClassifyPage (props) {
             <Modal
               active
               closeFn={onClose}
-              onEsc={onClose}
               headingBackground='brand'
               title={activeWorkflow ? (activeWorkflow.displayName || 'Choose a subject set') : 'Choose a workflow'}
               titleColor='neutral-6'

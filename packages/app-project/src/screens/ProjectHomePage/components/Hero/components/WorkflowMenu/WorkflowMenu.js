@@ -1,3 +1,4 @@
+import counterpart from 'counterpart'
 import { arrayOf, shape, string } from 'prop-types'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
@@ -5,6 +6,9 @@ import { Modal } from '@zooniverse/react-components'
 
 import WorkflowSelector from '@shared/components/WorkflowSelector'
 import SubjectSetPicker from '@shared/components/SubjectSetPicker'
+
+import en from './locales/en'
+counterpart.registerTranslations('en', en)
 
 export default function WorkflowMenu({ workflows }) {
   const [ activeWorkflow, setActiveWorkflow ] = useState()
@@ -35,7 +39,7 @@ export default function WorkflowMenu({ workflows }) {
         active
         closeFn={onClose}
         headingBackground='brand'
-        title={activeWorkflow.displayName || 'Choose a subject set'}
+        title={activeWorkflow.displayName || counterpart('WorkflowMenu.chooseASubjectSet')}
         titleColor='neutral-6'
       >
         <SubjectSetPicker
