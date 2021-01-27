@@ -85,7 +85,9 @@ const subjectSets = [
 ]
 
 const WORKFLOW = {
+  completeness: 0.34,
   displayName: 'Question Workflow (grouped)',
+  grouped: true,
   id: '15652',
   subjectSets
 }

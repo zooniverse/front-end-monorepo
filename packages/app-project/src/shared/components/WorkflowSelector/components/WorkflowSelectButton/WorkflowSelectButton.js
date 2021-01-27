@@ -5,7 +5,7 @@ import { Next } from 'grommet-icons'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { bool, func, number, shape, string } from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
 
 import theme from './theme'
 import addQueryParams from '@helpers/addQueryParams'
@@ -54,10 +54,6 @@ function WorkflowSelectButton (props) {
       </WorkflowLink>
     </>
   )
-}
-
-WorkflowSelectButton.defaultProps = {
-  selected: false
 }
 
 WorkflowSelectButton.propTypes = {

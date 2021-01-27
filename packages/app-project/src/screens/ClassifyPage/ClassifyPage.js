@@ -1,8 +1,9 @@
 import { Box, Grid } from 'grommet'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import { arrayOf, func, shape, string } from 'prop-types'
-import React from 'react'
-import { withResponsiveContext } from '@zooniverse/react-components'
+import React, { useState } from 'react'
+import { Modal, withResponsiveContext } from '@zooniverse/react-components'
 
 import ThemeModeToggle from '@components/ThemeModeToggle'
 import ProjectName from '@components/ProjectName'
@@ -14,6 +15,7 @@ import YourStats from './components/YourStats'
 import StandardLayout from '@shared/components/StandardLayout'
 
 import WorkflowSelector from '@shared/components/WorkflowSelector'
+import SubjectSetPicker from '@shared/components/SubjectSetPicker'
 
 const ClassifierWrapper = dynamic(() =>
   import('./components/ClassifierWrapper'), { ssr: false }
@@ -25,8 +27,25 @@ function ClassifyPage (props) {
     ? ['auto']
     : ['1em', 'auto', '1em']
 
-  const [ activeWorkflow ] = workflows.filter(workflow => workflow.id === workflowID)
-  const canClassify = activeWorkflow?.grouped ? !!subjectSetID : !!workflowID
+  const [ workflowFromUrl ] = workflows.filter(workflow => workflow.id === workflowID)
+  const canClassify = workflowFromUrl?.grouped ? !!subjectSetID : !!workflowID
+  const router = useRouter()
+  const { owner, project } = router?.query || {}
+  const [ activeWorkflow, setActiveWorkflow ] = useState(workflowFromUrl)
+
+  function onSelectWorkflow(event, workflow) {
+    if (workflow.grouped) {
+      event.preventDefault()
+      setActiveWorkflow(workflow)
+      return false
+    }
+    return true
+  }
+
+  function onClose() {
+    setActiveWorkflow(null)
+  }
+
   return (
     <StandardLayout>
 
@@ -37,16 +56,35 @@ function ClassifyPage (props) {
       >
 
         <Box as='main' fill='horizontal'>
+          {!canClassify && (
+            <Modal
+              active
+              closeFn={onClose}
+              headingBackground='brand'
+              title={activeWorkflow ? (activeWorkflow.displayName || 'Choose a subject set') : 'Choose a workflow'}
+              titleColor='neutral-6'
+            >
+              {!activeWorkflow ?
+                <WorkflowSelector
+                  onSelect={onSelectWorkflow}
+                  workflows={workflows}
+                /> :
+                <SubjectSetPicker
+                  onClose={onClose}
+                  owner={owner}
+                  project={project}
+                  workflow={activeWorkflow}
+                />
+              }
+            </Modal>
+          )}
           <Grid columns={responsiveColumns} gap='small'>
             <ProjectName />
-            {canClassify ? 
-              <ClassifierWrapper
-                onAddToCollection={addToCollection}
-                subjectSetID={subjectSetID}
-                workflowID={workflowID}
-              /> :
-              <WorkflowSelector activeWorkflow={activeWorkflow} workflows={workflows} />
-            }
+            <ClassifierWrapper
+              onAddToCollection={addToCollection}
+              subjectSetID={subjectSetID}
+              workflowID={workflowID}
+            />
             <ThemeModeToggle />
           </Grid>
         </Box>

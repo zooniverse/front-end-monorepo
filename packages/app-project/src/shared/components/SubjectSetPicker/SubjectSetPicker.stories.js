@@ -25,6 +25,10 @@ function StoryContext (props) {
 export default {
   title: 'Project App / Screens / Project Home / Subject Set Picker',
   component: SubjectSetPicker,
+  args: {
+    dark: false,
+    workflow: mockWorkflow
+  },
   parameters: {
     viewport: {
       defaultViewport: 'responsive'
@@ -32,40 +36,38 @@ export default {
   }
 }
 
-export function Default({ active, dark, title, workflow }) {
+export function Default({ dark, workflow }) {
   return (
     <StoryContext theme={{ ...zooTheme, dark }}>
       <SubjectSetPicker
-        active={active}
-        title={title}
         workflow={workflow}
       />
     </StoryContext>
   )
 }
-Default.args = {
-  active: true,
-  dark: false,
-  title: "Question Workflow (grouped)",
-  workflow: mockWorkflow
+
+export function WithBackButton({ dark, workflow }) {
+  function onClose() {
+    alert('you clicked the back button.')
+  }
+  return (
+    <StoryContext theme={{ ...zooTheme, dark }}>
+      <SubjectSetPicker
+        onClose={onClose}
+        workflow={workflow}
+      />
+    </StoryContext>
+  )
 }
 
 export function Tablet({ active, dark, title, workflow }) {
   return (
     <StoryContext theme={{ ...zooTheme, dark }}>
       <SubjectSetPicker
-        active={active}
-        title={title}
         workflow={workflow}
       />
     </StoryContext>
   )
-}
-Tablet.args = {
-  active: true,
-  dark: false,
-  title: "Question Workflow (grouped)",
-  workflow: mockWorkflow
 }
 Tablet.parameters = {
   viewport: {

@@ -1,9 +1,10 @@
 import { Box, Grid } from 'grommet'
+import { arrayOf, shape, string } from 'prop-types'
 import React from 'react'
 
 import Background from '../Background'
 import Introduction from '../Introduction'
-import WorkflowSelector from '@shared/components/WorkflowSelector'
+import WorkflowMenu from '../WorkflowMenu'
 import ContentBox from '@shared/components/ContentBox'
 
 function NarrowLayout (props) {
@@ -23,7 +24,9 @@ function NarrowLayout (props) {
       <Grid margin={{ top: 'medium-neg', horizontal: 'medium' }}>
         <ContentBox gap='medium' >
           <Introduction />
-          <WorkflowSelector workflows={workflows} />
+          <WorkflowMenu
+            workflows={workflows}
+          />
         </ContentBox>
       </Grid>
     </Box>
@@ -34,4 +37,9 @@ NarrowLayout.defaultProps = {
   workflows: []
 }
 
+NarrowLayout.propTypes = {
+  workflows: arrayOf(shape({
+    id: string.isRequired
+  }))
+}
 export default NarrowLayout

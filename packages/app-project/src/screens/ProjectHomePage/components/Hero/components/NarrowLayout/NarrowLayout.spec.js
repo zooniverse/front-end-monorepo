@@ -4,7 +4,7 @@ import React from 'react'
 import NarrowLayout from './NarrowLayout'
 import Background from '../Background'
 import Introduction from '../Introduction'
-import WorkflowSelector from '@shared/components/WorkflowSelector'
+import WorkflowMenu from '../WorkflowMenu'
 
 describe('Component > Hero > NarrowLayout', function () {
   let wrapper
@@ -25,8 +25,8 @@ describe('Component > Hero > NarrowLayout', function () {
     expect(wrapper.find(Introduction)).to.have.lengthOf(1)
   })
 
-  it('should render the `WorkflowSelector` component', function () {
-    expect(wrapper.find(WorkflowSelector)).to.have.lengthOf(1)
+  it('should render the `WorkflowMenu` component', function () {
+    expect(wrapper.find(WorkflowMenu)).to.have.lengthOf(1)
   })
 
 })
