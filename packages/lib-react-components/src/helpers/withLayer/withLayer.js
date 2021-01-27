@@ -8,7 +8,7 @@ function withLayer (WrappedComponent) {
       active = false,
       animate = false,
       className = '',
-      closeFn = () => true,
+      closeFn,
       modal = true,
       plain = false,
       position = 'center', 

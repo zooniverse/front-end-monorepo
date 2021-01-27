@@ -5,7 +5,7 @@
 A generic modal component. Accepts the following props:
 
 - `active` (boolean) - determines whether the modal is visible or not
-- `closeFn` (function) - function called when clicking outside the modal, or when the Esc button is pressed
+- `closeFn` (function) - Optional function called when clicking outside the modal, or when the Esc button is pressed. If this is not present, then the close button is not shown and the modal cannot be closed except by taking action in the content eg. pressing a button to continue.
 -  `headingBackground` (object or string) - Defaults to `'brand'`. The background color for the modal header. It can be set to any CSS color value or color string value from the Zooniverse Grommet theme or an object setting the color for the light and dark theme.
 - `pad` (string or object) - Defaults to `medium`. Determines Box padding of the modal body. 
 - `title` (string) - string to use as the modal title
