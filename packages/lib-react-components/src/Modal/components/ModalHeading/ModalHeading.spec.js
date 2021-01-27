@@ -19,15 +19,29 @@ describe('Modal > ModalHeading', function () {
     expect(wrapper.props().background).to.equal('light-1')
   })
 
-  it('should render a CloseButton', function () {
+  it('should not render a CloseButton', function () {
     const wrapper = shallow(<ModalHeading />)
-    expect(wrapper.find(CloseButton)).to.have.lengthOf(1)
+    expect(wrapper.find(CloseButton)).to.have.lengthOf(0)
   })
 
-  it('should set the CloseButton closeFn by prop', function () {
-    const closeFnSpy = sinon.spy()
-    const wrapper = shallow(<ModalHeading closeFn={closeFnSpy} />)
-    expect(wrapper.find(CloseButton).props().closeFn).to.equal(closeFnSpy)
+  describe('with a close function', function () {
+    let closeButton
+    let closeFnSpy
+
+    before(function () {
+      closeFnSpy = sinon.spy()
+      const wrapper = shallow(<ModalHeading closeFn={closeFnSpy} />)
+      closeButton = wrapper.find(CloseButton)
+    })
+
+    it('should render a CloseButton', function () {
+      
+      expect(closeButton).to.have.lengthOf(1)
+    })
+
+    it('should pass the closeFn callback to the close button', function () {
+      expect(closeButton.prop('closeFn')).to.equal(closeFnSpy)
+    })
   })
 
   describe('when there is a title', function () {

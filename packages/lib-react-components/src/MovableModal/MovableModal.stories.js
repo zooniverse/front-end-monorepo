@@ -15,7 +15,8 @@ const config = {
   docs: {
     description: {
       component: readme
-    }
+    },
+    inlineStories: false
   }
 }
 
