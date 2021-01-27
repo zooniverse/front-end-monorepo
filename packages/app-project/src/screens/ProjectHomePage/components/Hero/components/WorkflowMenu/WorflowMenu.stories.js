@@ -2,11 +2,8 @@ import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
-import * as nextRouter from 'next/router'
-import React from 'react'
-import sinon from 'sinon'
-
-import WorkflowSelector from './WorkflowSelector'
+import { mockWorkflow as mockGroupedWorkflow } from '@shared/components/SubjectSetPicker/helpers'
+import WorkflowMenu from './WorkflowMenu'
 
 const store = {
   project: {
@@ -21,6 +18,9 @@ const store = {
       2) "Location": Smartphone-friendly, series of questions on the geographic location of the nest.  
       3) "Nest Attempt: Smartphone-friendly, for data-entry lovers to record nest attempt data on cards.  
       4) "Comments": For transcription lovers, we ask you to transcribe all the written comments on the cards.`
+  },
+  user: {
+    loadingState: asyncStates.success
   }
 }
 
@@ -64,57 +64,19 @@ function StoryContext (props) {
   )
 }
 
-function onSelect(event, workflow) {
-  event.preventDefault()
-  alert(workflow.displayName)
-}
-
 export default {
-  title: 'Project App / Screens / Project Home / Workflow Selector',
-  component: WorkflowSelector,
+  title: 'Project App / Screens / Project Home / Workflow Menu',
+  component: WorkflowMenu,
   args: {
-    dark: false
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
+    dark: false,
+    workflows: [ ...WORKFLOWS, mockGroupedWorkflow ]
   }
 }
 
-export function Default({ dark }) {
+export function Default({ dark, workflows }) {
   return (
     <StoryContext theme={{ ...zooTheme, dark }}>
-      <WorkflowSelector
-        onSelect={onSelect}
-        userReadyState={asyncStates.success}
-        workflows={WORKFLOWS}
-      />
+      <WorkflowMenu workflows={workflows} />
     </StoryContext>
   )
 }
-
-export function Loading({ dark }) {
-  return (
-    <StoryContext theme={{ ...zooTheme, dark }}>
-      <WorkflowSelector
-        onSelect={onSelect}
-        userReadyState={asyncStates.loading}
-        workflows={WORKFLOWS}
-      />
-    </StoryContext>
-  )
-}
-
-export function Error({ dark }) {
-  return (
-    <StoryContext theme={{ ...zooTheme, dark }}>
-      <WorkflowSelector
-        onSelect={onSelect}
-        userReadyState={asyncStates.error}
-        workflows={WORKFLOWS}
-      />
-    </StoryContext>
-  )
-}
-
