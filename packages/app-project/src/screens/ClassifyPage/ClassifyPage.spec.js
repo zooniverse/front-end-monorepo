@@ -9,6 +9,7 @@ import YourStats from './components/YourStats'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
 import WorkflowSelector from '@shared/components/WorkflowSelector'
+import SubjectSetPicker from '@shared/components/SubjectSetPicker'
 
 describe('Component > ClassifyPage', function () {
   let wrapper
@@ -81,8 +82,12 @@ describe('Component > ClassifyPage', function () {
         wrapper = shallow(<ClassifyPage workflowID='1234' workflows={workflows} />)
       })
 
-      it('should show a workflow selector', function () {
-        expect(wrapper.find(WorkflowSelector)).to.have.lengthOf(1)
+      it('should not show a workflow selector', function () {
+        expect(wrapper.find(WorkflowSelector)).to.have.lengthOf(0)
+      })
+
+      it('should show a subject set picker', function () {
+        expect(wrapper.find(SubjectSetPicker)).to.have.lengthOf(1)
       })
     })
 

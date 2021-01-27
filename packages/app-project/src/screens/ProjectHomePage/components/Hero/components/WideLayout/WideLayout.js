@@ -1,10 +1,11 @@
 import { Box } from 'grommet'
+import { arrayOf, shape, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
 import Background from '../Background'
 import Introduction from '../Introduction'
-import WorkflowSelector from '@shared/components/WorkflowSelector'
+import WorkflowMenu from '../WorkflowMenu'
 import ContentBox from '@shared/components/ContentBox'
 
 const GrowBox = styled(Box)`
@@ -30,10 +31,22 @@ function WideLayout (props) {
         width='38%'
       >
         <Introduction />
-        <WorkflowSelector workflows={workflows} />
+        <WorkflowMenu
+          workflows={workflows}
+        />
       </StyledContentBox>
     </GrowBox>
   )
+}
+
+WideLayout.defaultProps = {
+  workflows: []
+}
+
+WideLayout.propTypes = {
+  workflows: arrayOf(shape({
+    id: string.isRequired
+  }))
 }
 
 export default WideLayout

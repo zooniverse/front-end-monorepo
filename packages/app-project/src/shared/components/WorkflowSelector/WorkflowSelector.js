@@ -2,13 +2,12 @@ import asyncStates from '@zooniverse/async-states'
 import { Markdownz, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box, Paragraph, Text } from 'grommet'
-import { useRouter } from 'next/router'
-import { arrayOf, shape, string } from 'prop-types'
+import { arrayOf, func, shape, string } from 'prop-types'
 import React, { useState } from 'react'
 import { withTheme } from 'styled-components'
 import { Bars } from 'svg-loaders-react'
 
-import { SubjectSetPicker, WorkflowSelectButton } from './components'
+import { WorkflowSelectButton } from './components'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
@@ -18,21 +17,9 @@ const markdownzComponents = {
 }
 
 function WorkflowSelector (props) {
-  const { userReadyState, workflows } = props
-  const router = useRouter()
-  const { owner, project } = router?.query || {}
+  const { onSelect, userReadyState, workflows } = props
   const loaderColor = props.theme.global.colors.brand
   const workflowDescription = props.workflowDescription || counterpart('WorkflowSelector.message')
-  const [ activeWorkflow, setActiveWorkflow ] = useState(props.activeWorkflow)
-
-  function onSelect(event, workflow) {
-    if (workflow.grouped) {
-      event.preventDefault()
-      setActiveWorkflow(workflow)
-      return false
-    }
-    return true
-  }
 
   return (
     <Box>
@@ -61,16 +48,6 @@ function WorkflowSelector (props) {
           margin={{ top: 'small' }}
           width={{ max: 'medium' }}
         >
-          {activeWorkflow &&
-            <SubjectSetPicker
-              active={!!activeWorkflow}
-              closeFn={() => setActiveWorkflow(null)}
-              owner={owner}
-              project={project}
-              title={activeWorkflow.displayName || 'Choose a subject set'}
-              workflow={activeWorkflow}
-            />
-          }
           {(workflows.length > 0) && workflows.map(workflow =>
             <WorkflowSelectButton key={workflow.id} onSelect={onSelect} workflow={workflow} />
           )}
@@ -103,9 +80,7 @@ function WorkflowSelector (props) {
 }
 
 WorkflowSelector.propTypes = {
-  activeWorkflow: shape({
-    id: string.isRequired
-  }),
+  onSelect: func.isRequired,
   userReadyState: string,
   workflowDescription: string,
   workflows: arrayOf(shape({
