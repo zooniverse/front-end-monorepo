@@ -3,13 +3,12 @@ import React from 'react'
 
 import { ClassifyPage } from './ClassifyPage'
 import FinishedForTheDay from './components/FinishedForTheDay'
+import WorkflowMenu from './components/WorkflowMenu'
 import ThemeModeToggle from '@components/ThemeModeToggle'
 import ProjectName from '@components/ProjectName'
 import YourStats from './components/YourStats'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
-import WorkflowSelector from '@shared/components/WorkflowSelector'
-import SubjectSetPicker from '@shared/components/SubjectSetPicker'
 
 describe('Component > ClassifyPage', function () {
   let wrapper
@@ -54,7 +53,7 @@ describe('Component > ClassifyPage', function () {
     })
 
     it('should show a workflow selector', function () {
-      expect(wrapper.find(WorkflowSelector)).to.have.lengthOf(1)
+      expect(wrapper.find(WorkflowMenu)).to.have.lengthOf(1)
     })
   })
 
@@ -66,7 +65,7 @@ describe('Component > ClassifyPage', function () {
     })
 
     it('should not show a workflow selector', function () {
-      expect(wrapper.find(WorkflowSelector)).to.have.lengthOf(0)
+      expect(wrapper.find(WorkflowMenu)).to.have.lengthOf(0)
     })
   })
 
@@ -82,12 +81,8 @@ describe('Component > ClassifyPage', function () {
         wrapper = shallow(<ClassifyPage workflowID='1234' workflows={workflows} />)
       })
 
-      it('should not show a workflow selector', function () {
-        expect(wrapper.find(WorkflowSelector)).to.have.lengthOf(0)
-      })
-
-      it('should show a subject set picker', function () {
-        expect(wrapper.find(SubjectSetPicker)).to.have.lengthOf(1)
+      it('should show a workflow menu', function () {
+        expect(wrapper.find(WorkflowMenu)).to.have.lengthOf(1)
       })
     })
 
@@ -102,8 +97,8 @@ describe('Component > ClassifyPage', function () {
         wrapper = shallow(<ClassifyPage subjectSetID='3456' workflowID='1234' workflows={workflows} />)
       })
 
-      it('should not show a workflow selector', function () {
-        expect(wrapper.find(WorkflowSelector)).to.have.lengthOf(0)
+      it('should not show a workflow menu', function () {
+        expect(wrapper.find(WorkflowMenu)).to.have.lengthOf(0)
       })
     })
   })
