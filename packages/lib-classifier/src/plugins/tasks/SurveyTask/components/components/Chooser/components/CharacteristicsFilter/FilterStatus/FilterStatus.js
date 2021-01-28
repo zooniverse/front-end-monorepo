@@ -14,6 +14,7 @@ export default function FilterStatus (props) {
   const [ filters, setFilters ] = useState({})
 
   function handleFilter (characteristicId, valueId) {
+    // TODO ported from PFE, investigate why
     setTimeout(() => {
       const newFilters = Object.assign({}, filters)
       if (valueId) {
@@ -62,11 +63,7 @@ export default function FilterStatus (props) {
         return (
           <FilterButton
             key={selectedValueId}
-            characteristicId={characteristicId}
             checked
-            onFilter={handleFilter}
-            value={value}
-            valueId={selectedValueId}
             valueImageSrc={valueImageSrc}
           />
         )

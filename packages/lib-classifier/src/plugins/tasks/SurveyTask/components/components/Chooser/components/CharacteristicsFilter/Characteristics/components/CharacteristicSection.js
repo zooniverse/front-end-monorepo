@@ -34,12 +34,7 @@ export default function CharacteristicSection (props) {
           
             return (
               <FilterButton
-                characteristicId={characteristicId}
                 checked={checked}
-                radioHover={hover}
-                onFilter={onFilter}
-                value={value}
-                valueId={option}
                 valueImageSrc={valueImageSrc}
               />
             )
@@ -56,6 +51,7 @@ CharacteristicSection.defaultProps = {
     values: {},
     valuesOrder: []
   },
+  characteristicId: '',
   images: {},
   onFilter: () => {},
   selectedValueId: ''
@@ -67,6 +63,7 @@ CharacteristicSection.propTypes = {
     values: PropTypes.object,
     valuesOrder: PropTypes.arrayOf(PropTypes.string)
   }),
+  characteristicId: PropTypes.string,
   images: PropTypes.objectOf(PropTypes.string),
   onFilter: PropTypes.func,
   selectedValueId: PropTypes.string
