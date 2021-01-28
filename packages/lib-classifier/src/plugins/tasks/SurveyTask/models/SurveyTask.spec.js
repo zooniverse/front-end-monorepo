@@ -410,6 +410,236 @@ describe('Model > SurveyTask', function () {
     expect(errorThrown).to.be.true()
   })
 
+  describe('when characteristics are invalid', function () {
+    it('should error when the characteristics key is not a string', function () {
+      const surveyTask = {
+        characteristics: {
+          0: {
+            'label': 'Like',
+            'valuesOrder': [
+              'CATDOG',
+              'COWHORSE',
+              'ANTELOPEDEER',
+              'PRIMATE',
+              'WEASEL',
+              'BIRD',
+              'OTHER'
+            ],
+            'values': {
+              'CATDOG': {
+                'label': 'cat/dog',
+                'image': 'cat-dog-icon.svg'
+              },
+            }
+          }
+        },
+        characteristicsOrder: [],
+        choicesOrder: '',
+        exclusions: '',
+        inclusions: [],
+        questionsOrder: []
+      }
+
+      let errorThrown = false
+      try {
+        SurveyTask.TaskModel.create(surveyTask)
+      } catch (e) {
+        errorThrown = true
+      }
+      expect(errorThrown).to.be.true()
+    })
+
+    it('should error when a characteristic label is not a string', function () {
+      const surveyTask = {
+        characteristics: {
+          'LIKE': {
+            'label': 0,
+            'valuesOrder': [
+              'CATDOG',
+              'COWHORSE',
+              'ANTELOPEDEER',
+              'PRIMATE',
+              'WEASEL',
+              'BIRD',
+              'OTHER'
+            ],
+            'values': {
+              'CATDOG': {
+                'label': 'cat/dog',
+                'image': 'cat-dog-icon.svg'
+              },
+            }
+          }
+        },
+        characteristicsOrder: [],
+        choicesOrder: '',
+        exclusions: '',
+        inclusions: [],
+        questionsOrder: []
+      }
+
+      let errorThrown = false
+      try {
+        SurveyTask.TaskModel.create(surveyTask)
+      } catch (e) {
+        errorThrown = true
+      }
+      expect(errorThrown).to.be.true()
+    })
+
+    it('should error when an item in the valuesOrder array is not a string', function () {
+      const surveyTask = {
+        characteristics: {
+          'LIKE': {
+            'label': 'Like',
+            'valuesOrder': [
+              0,
+              'COWHORSE',
+              'ANTELOPEDEER',
+              'PRIMATE',
+              'WEASEL',
+              'BIRD',
+              'OTHER'
+            ],
+            'values': {
+              'CATDOG': {
+                'label': 'cat/dog',
+                'image': 'cat-dog-icon.svg'
+              },
+            }
+          }
+        },
+        characteristicsOrder: [],
+        choicesOrder: '',
+        exclusions: '',
+        inclusions: [],
+        questionsOrder: []
+      }
+
+      let errorThrown = false
+      try {
+        SurveyTask.TaskModel.create(surveyTask)
+      } catch (e) {
+        errorThrown = true
+      }
+      expect(errorThrown).to.be.true()
+    })
+
+    it('should error when a characteristic values key is not a string', function () {
+      const surveyTask = {
+        characteristics: {
+          'LIKE': {
+            'label': 'Like',
+            'valuesOrder': [
+              'CATDOG',
+              'COWHORSE',
+              'ANTELOPEDEER',
+              'PRIMATE',
+              'WEASEL',
+              'BIRD',
+              'OTHER'
+            ],
+            'values': {
+              0: {
+                'label': 'cat/dog',
+                'image': 'cat-dog-icon.svg'
+              },
+            }
+          }
+        },
+        characteristicsOrder: [],
+        choicesOrder: '',
+        exclusions: '',
+        inclusions: [],
+        questionsOrder: []
+      }
+
+      let errorThrown = false
+      try {
+        SurveyTask.TaskModel.create(surveyTask)
+      } catch (e) {
+        errorThrown = true
+      }
+      expect(errorThrown).to.be.true()
+    })
+
+    it('should error when a characteristic values label is not a string', function () {
+      const surveyTask = {
+        characteristics: {
+          'LIKE': {
+            'label': 'Like',
+            'valuesOrder': [
+              'CATDOG',
+              'COWHORSE',
+              'ANTELOPEDEER',
+              'PRIMATE',
+              'WEASEL',
+              'BIRD',
+              'OTHER'
+            ],
+            'values': {
+              'CATDOG': {
+                'label': 0,
+                'image': 'cat-dog-icon.svg'
+              },
+            }
+          }
+        },
+        characteristicsOrder: [],
+        choicesOrder: '',
+        exclusions: '',
+        inclusions: [],
+        questionsOrder: []
+      }
+
+      let errorThrown = false
+      try {
+        SurveyTask.TaskModel.create(surveyTask)
+      } catch (e) {
+        errorThrown = true
+      }
+      expect(errorThrown).to.be.true()
+    })
+
+    it('should error when a characteristic values image is not a string', function () {
+      const surveyTask = {
+        characteristics: {
+          'LIKE': {
+            'label': 'Like',
+            'valuesOrder': [
+              'CATDOG',
+              'COWHORSE',
+              'ANTELOPEDEER',
+              'PRIMATE',
+              'WEASEL',
+              'BIRD',
+              'OTHER'
+            ],
+            'values': {
+              'CATDOG': {
+                'label': 'cat/dog',
+                'image': 0
+              },
+            }
+          }
+        },
+        characteristicsOrder: [],
+        choicesOrder: '',
+        exclusions: '',
+        inclusions: [],
+        questionsOrder: []
+      }
+
+      let errorThrown = false
+      try {
+        SurveyTask.TaskModel.create(surveyTask)
+      } catch (e) {
+        errorThrown = true
+      }
+      expect(errorThrown).to.be.true()
+    })
+  })
+
   describe('Views > defaultAnnotation', function () {
     let task
 
