@@ -88,10 +88,14 @@ export default {
   }
 }
 
-export function Default({ dark, workflows }) {
+export function Default({ dark, headingBackground, titleColor, workflows }) {
   return (
     <StoryContext theme={{ ...zooTheme, dark }}>
-      <WorkflowMenu workflows={workflows} />
+      <WorkflowMenu
+        headingBackground={headingBackground}
+        titleColor={titleColor}
+        workflows={workflows}
+      />
     </StoryContext>
   )
 }
