@@ -3,7 +3,7 @@ import { Box, Grommet } from 'grommet'
 import React from 'react'
 
 import Choices from './Choices'
-import task from '../../../../../data/task'
+import { task } from '@plugins/tasks/SurveyTask/mock-data'
 
 const filteredChoices = Array.from(task.choicesOrder)
 
