@@ -33,7 +33,7 @@ describe.only('Component > SubjectGroupViewer > SGVGridCell', function () {
       <SGVGridCell
         image={exampleImage}
         index={0}
-        subjectId={'1111222'}
+        subjectId={'1000'}
       
         dragMove={() => {}}
         cellWidth={cellWidth}
@@ -93,5 +93,11 @@ describe.only('Component > SubjectGroupViewer > SGVGridCell', function () {
       const transform = wrapper.first().prop('transform')
       expect(transform).to.have.string(`translate(800, 1200)`)
     })
+  })
+  
+  it('should update the annotations, when clicked', function () {
+    const node = wrapper.find({tabIndex: 0})
+    node.simulate('click', { preventDefault: () => {} })
+    expect(annotation.value).to.deep.equal([{ index: 0, subject: '1000' }])
   })
 })
