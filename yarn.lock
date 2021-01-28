@@ -10296,11 +10296,6 @@ hmac-drbg@^1.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hoist-non-react-statics@^2.5.0:
-  version "2.5.5"
-  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
-  integrity sha512-rqcy4pJo55FTTLWt+bU8ukscqHeE/e9KWvsOW2b/a3afxQZhwkQdT1rPPCJ0rYXdj4vNcasY8zHTH+jF/qStxw==
-
 hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.2.0, hoist-non-react-statics@^3.3.0:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"
@@ -12847,7 +12842,7 @@ mkdirp@^1.0.3, mkdirp@^1.0.4:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
-mobx-devtools-mst@~0.9.18, mobx-devtools-mst@~0.9.21:
+mobx-devtools-mst@~0.9.21:
   version "0.9.30"
   resolved "https://registry.yarnpkg.com/mobx-devtools-mst/-/mobx-devtools-mst-0.9.30.tgz#0d1cad8b3d97e1f3f94bb9afb701cd9c8b5b164d"
   integrity sha512-6fIYeFG4xT4syIeKddmK55zQbc3ZZZr/272/cCbfaAAM5YiuFdteGZGUgdsz8wxf/mGxWZbFOM3WmASAnpwrbw==
@@ -12856,22 +12851,6 @@ mobx-react-lite@^1.4.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/mobx-react-lite/-/mobx-react-lite-1.5.2.tgz#c4395b0568b9cb16f07669d8869cc4efa1b8656d"
   integrity sha512-PyZmARqqWtpuQaAoHF5pKX7h6TKNLwq6vtovm4zZvG6sEbMRHHSqioGXSeQbpRmG8Kw8uln3q/W1yMO5IfL5Sg==
-
-mobx-react@~5.2.8:
-  version "5.2.8"
-  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-5.2.8.tgz#059c7f29254d7cd36e103d79113103b40348d3bf"
-  integrity sha512-VAkeqkrIpdoy3VPPoqvxjdQmcTT6hi7i3TsZSwcKbSrPbSTuWc7cp1EOiX/zV1wPWEuoNAQ22bCrskQwvdYTJA==
-  dependencies:
-    hoist-non-react-statics "^2.5.0"
-    react-lifecycles-compat "^3.0.2"
-
-mobx-react@~5.4.4:
-  version "5.4.4"
-  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-5.4.4.tgz#b3de9c6eabcd0ed8a40036888cb0221ab9568b80"
-  integrity sha512-2mTzpyEjVB/RGk2i6KbcmP4HWcAUFox5ZRCrGvSyz49w20I4C4qql63grPpYrS9E9GKwgydBHQlA4y665LuRCQ==
-  dependencies:
-    hoist-non-react-statics "^3.0.0"
-    react-lifecycles-compat "^3.0.2"
 
 mobx-react@~6.1.4:
   version "6.1.8"
@@ -12899,16 +12878,6 @@ mobx@~5.15.0:
   version "5.15.7"
   resolved "https://registry.yarnpkg.com/mobx/-/mobx-5.15.7.tgz#b9a5f2b6251f5d96980d13c78e9b5d8d4ce22665"
   integrity sha512-wyM3FghTkhmC+hQjyPGGFdpehrcX1KOXsDuERhfK2YbJemkUhEB+6wzEN639T21onxlfYBmriA1PFnvxTUhcKw==
-
-mobx@~5.5.0:
-  version "5.5.2"
-  resolved "https://registry.yarnpkg.com/mobx/-/mobx-5.5.2.tgz#4f5d751b77807a88218caede92198679a0e18a4a"
-  integrity sha512-2/nZyxET6T2BvFDLYGSf5sMJ1N9wdV9zHtAkfkk+hzJL+kzQQ/vLdPS5UmwNNBqH1HF6FpIcZR+1BJ/jc3YrMQ==
-
-mobx@~5.9.0:
-  version "5.9.4"
-  resolved "https://registry.yarnpkg.com/mobx/-/mobx-5.9.4.tgz#1dee92aba33f67b7baeeb679e3bd376a12e55812"
-  integrity sha512-L9JjTX2rtQUAhCIgnHokfntNOsF14uioT9LqStf6Mya+16j56ZBe21E8Y9V59tfr2aH2kLQPD10qtCJXBuTAxw==
 
 mocha@~5.2.0:
   version "5.2.0"
@@ -15219,7 +15188,7 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.1.tgz#5b3531bd76a645a4c9fb6e693ed36419e3301339"
   integrity sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
 
-react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
+react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
