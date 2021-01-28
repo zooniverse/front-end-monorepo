@@ -18,7 +18,7 @@ const MINIMUM_QUEUE_SIZE = 3
 
 const SingleSubject = types.union(SingleImageSubject, SingleVideoSubject, Subject)
 function subjectDispatcher (snapshot) {
-  if (snapshot.metadata['#subject_group_id']) {
+  if (snapshot?.metadata?.['#subject_group_id']) {
     return SubjectGroup
   }
   return SingleSubject
