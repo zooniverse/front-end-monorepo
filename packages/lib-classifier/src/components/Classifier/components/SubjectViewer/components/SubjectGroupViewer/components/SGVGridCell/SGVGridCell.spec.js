@@ -2,8 +2,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 
 import SGVGridCell from './SGVGridCell'
-
-let wrapper
+import { default as Task } from '@plugins/tasks/SubjectGroupComparisonTask'
 
 const exampleImage = {
   src: 'https://foo.bar/example.png',
@@ -16,12 +15,26 @@ const cellHeight = 600
 const gridRows = 3
 const gridColumns = 3
 
-describe('Component > SubjectGroupViewer > SGVGridCell', function () {
+// +++ TEMP
+describe.only('Component > SubjectGroupViewer > SGVGridCell', function () {
+  let wrapper, annotation
+  
+  const task = Task.TaskModel.create({
+    question: 'Please select the cells that look weird.',
+    required: true,
+    taskKey: 'init',
+    type: 'subjectGroupComparison'
+  })
+  
   beforeEach(function () {
+    annotation = task.defaultAnnotation()
+    
     wrapper = shallow(
       <SGVGridCell
         image={exampleImage}
         index={0}
+        subjectId={'1111222'}
+      
         dragMove={() => {}}
         cellWidth={cellWidth}
         cellHeight={cellHeight}
@@ -34,9 +47,14 @@ describe('Component > SubjectGroupViewer > SGVGridCell', function () {
         }}
         gridRows={gridRows}
         gridColumns={gridColumns}
+        
         panX={0}
         panY={0}
         zoom={1}
+             
+        annotation={annotation}
+        annotationMode={true}
+        cellAnnotated={false}
       />
     )
   })
