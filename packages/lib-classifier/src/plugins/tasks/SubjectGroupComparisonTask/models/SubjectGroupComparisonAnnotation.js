@@ -7,7 +7,7 @@ const SubjectIndexPair = types.model('SubjectIndexPair', {
 })
 
 const SubjectGroupComparison = types.model('SubjectGroupComparison', {
-  value: types.optional(types.array(SubjectIndexPair), [])
+  value: types.array(SubjectIndexPair),
 })
   .views(self => ({
     get isComplete () {
