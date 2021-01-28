@@ -16,33 +16,28 @@ export default function CharacteristicSection (props) {
   return (
     <Box>
       <Text>{characteristic.label}</Text>
-      <Box
+      <RadioButtonGroup
+        name='radio'
         direction='row'
+        options={characteristic.valuesOrder}
+        value={selectedValueId}
+        onChange={event => onFilter(characteristicId, event.target.value)}
         wrap
       >
-        <RadioButtonGroup
-          name="radio"
-          direction="row"
-          gap="small"
-          options={characteristic.valuesOrder}
-          value={selectedValueId}
-          onChange={event => onFilter(characteristicId, event.target.value)}
-        >
-          {(option, { checked, hover }) => {
-            const value = characteristic.values[option]
-            const valueImageSrc = images[value.image]
-          
-            return (
-              <FilterButton
-                characteristicId={characteristicId}
-                checked={checked}
-                onFilter={onFilter}
-                valueImageSrc={valueImageSrc}
-              />
-            )
-          }}
-        </RadioButtonGroup>
-      </Box>
+        {(option, { checked, hover }) => {
+          const value = characteristic.values[option]
+          const valueImageSrc = images[value.image]
+        
+          return (
+            <FilterButton
+              characteristicId={characteristicId}
+              checked={checked}
+              onFilter={onFilter}
+              valueImageSrc={valueImageSrc}
+            />
+          )
+        }}
+      </RadioButtonGroup>
     </Box>
   )
 }

@@ -1,8 +1,20 @@
-import { Box, Button } from 'grommet'
-import { FormClose } from 'grommet-icons'
+import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
+import styled from 'styled-components'
 import { CloseButton, Media } from '@zooniverse/react-components'
+
+const StyledBox = styled(Box)`
+  button {
+    display: none;
+  }
+
+  &:focus > button, 
+  &:hover > button {
+    display: block;
+    position: absolute;
+  }
+`
 
 export default function FilterButton (props) {
   const {
@@ -15,9 +27,11 @@ export default function FilterButton (props) {
   const backgroundColor = checked ? 'accent-2' : 'neutral-6'
 
   return (
-    <Box
+    <StyledBox
+      align='center'  
       background={{ color: backgroundColor }}
       height='40px'
+      justify='center'
       round='full'
       width='40px'
     >
@@ -31,7 +45,7 @@ export default function FilterButton (props) {
           closeFn={() => onFilter(characteristicId, undefined)}
         />
       )}
-    </Box>
+    </StyledBox>
   )
 }
 
