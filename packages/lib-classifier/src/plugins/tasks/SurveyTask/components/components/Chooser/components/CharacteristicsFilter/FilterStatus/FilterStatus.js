@@ -14,18 +14,15 @@ export default function FilterStatus (props) {
   const [ filters, setFilters ] = useState({})
 
   function handleFilter (characteristicId, valueId) {
-    // TODO ported from PFE, investigate why
-    setTimeout(() => {
-      let newFilters = Object.assign({}, filters)
-      if (valueId) {
-        newFilters[characteristicId] = valueId
-      } else if (characteristicId) {
-        delete newFilters[characteristicId]
-      } else {
-        newFilters = {}
-      }
-      setFilters(newFilters)
-    })
+    let newFilters = Object.assign({}, filters)
+    if (valueId) {
+      newFilters[characteristicId] = valueId
+    } else if (characteristicId) {
+      delete newFilters[characteristicId]
+    } else {
+      newFilters = {}
+    }
+    setFilters(newFilters)
   }
 
   const selectedCharacteristicIds = Object.keys(filters)
