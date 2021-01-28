@@ -16,11 +16,13 @@ export default function FilterStatus (props) {
   function handleFilter (characteristicId, valueId) {
     // TODO ported from PFE, investigate why
     setTimeout(() => {
-      const newFilters = Object.assign({}, filters)
+      let newFilters = Object.assign({}, filters)
       if (valueId) {
         newFilters[characteristicId] = valueId
-      } else {
+      } else if (characteristicId) {
         delete newFilters[characteristicId]
+      } else {
+        newFilters = {}
       }
       setFilters(newFilters)
     })

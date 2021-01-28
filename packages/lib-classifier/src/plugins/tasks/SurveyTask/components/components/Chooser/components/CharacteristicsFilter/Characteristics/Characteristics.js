@@ -31,6 +31,7 @@ export default function Characteristics (props) {
       })}
       <Button
         label="Clear filters"
+        onClick={() => onFilter(undefined, undefined)}
       />
     </Box>
   )
