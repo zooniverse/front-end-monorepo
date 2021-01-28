@@ -34,7 +34,9 @@ export default function CharacteristicSection (props) {
           
             return (
               <FilterButton
+                characteristicId={characteristicId}
                 checked={checked}
+                onFilter={onFilter}
                 valueImageSrc={valueImageSrc}
               />
             )

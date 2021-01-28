@@ -63,7 +63,9 @@ export default function FilterStatus (props) {
         return (
           <FilterButton
             key={selectedValueId}
+            characteristicId={characteristicId}
             checked
+            onFilter={handleFilter}
             valueImageSrc={valueImageSrc}
           />
         )
