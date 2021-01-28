@@ -47,8 +47,9 @@ describe('Model > SubjectGroupComparisonTask', function () {
     })
 
     it('should update annotations', function () {
-      annotation.update([1])
-      expect(task.annotation.value).to.deep.equal([1])
+      const markedCell = { index: 1, subject: 'subject1111' }
+      annotation.update([ markedCell ])
+      expect(task.annotation.value[0]).to.deep.equal(markedCell)
     })
   })
 
@@ -78,7 +79,8 @@ describe('Model > SubjectGroupComparisonTask', function () {
 
     describe('with a complete annotation', function () {
       it('should be complete', function () {
-        annotation.update([1])
+        const markedCell = { index: 1, subject: 'subject1111' }
+        annotation.update([ markedCell ])
         expect(task.isComplete).to.be.true()
       })
     })
