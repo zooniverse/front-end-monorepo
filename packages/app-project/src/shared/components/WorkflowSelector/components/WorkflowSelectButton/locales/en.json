@@ -1,5 +1,6 @@
 {
   "WorkflowSelectButton": {
-    "complete": "%(completeness)s%% complete"
+    "complete": "%(completeness)s%% complete",
+    "setSelection": "set selection"
   }
 }
