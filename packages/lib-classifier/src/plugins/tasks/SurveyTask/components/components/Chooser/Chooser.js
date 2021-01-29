@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
-import CharacteristicsFilter from './components/CharacteristicsFilter'
+import CharacteristicsFilterLabel from './components/CharacteristicsFilterLabel'
 import Choices from './components/Choices'
 
 const StyledHorizontalRule = styled.hr`
@@ -23,7 +23,7 @@ export default function Chooser (props) {
 
   return (
     <Box>
-      <CharacteristicsFilter />
+      <CharacteristicsFilterLabel />
       <StyledHorizontalRule />
       <Choices
         filteredChoices={unfilteredChoices}

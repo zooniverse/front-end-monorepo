@@ -3,7 +3,7 @@ import { Filter } from 'grommet-icons'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-export default function CharacteristicsFilter () {
+export default function CharacteristicsFilterLabel () {
   return (
     <Box
       align='center'
