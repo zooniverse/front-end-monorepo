@@ -4,6 +4,7 @@ import Task from '../../models/Task'
 import SurveyAnnotation from './SurveyAnnotation'
 
 const Survey = types.model('Survey', {
+  alwaysShowThumbnails: types.maybe(types.boolean()),
   annotation: types.safeReference(SurveyAnnotation),
   characteristics: types.frozen({}),
   characteristicsOrder: types.array(types.string),
