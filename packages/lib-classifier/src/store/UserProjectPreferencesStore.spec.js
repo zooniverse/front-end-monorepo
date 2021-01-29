@@ -161,7 +161,7 @@ describe('Model > UserProjectPreferencesStore', function () {
     it('should call createUPP action upon successful request and there is not an existing UPP', async function () {
       rootStore = setupStores(clientStubWithoutUPP, authClientStubWithUser)
       const createUPPSpy = sinon.spy(rootStore.userProjectPreferences, 'createUPP')
-      await rootStore.projects.createActive(project.id)
+      await rootStore.projects.setActive(project.id)
       expect(createUPPSpy).to.have.been.calledOnceWith(`Bearer ${token}`)
       createUPPSpy.restore()
     })
