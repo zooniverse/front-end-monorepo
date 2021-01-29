@@ -9,31 +9,34 @@ let wrapper
 describe('Component > SubjectGroupViewer', function () {
   const exampleImages = [
     {
-      src: 'https://foo.bar/example.png',
+      src: 'https://foo.bar/example1.png',
       naturalHeight: 400,
       naturalWidth: 300,
     },
     {
-      src: 'https://foo.bar/example.png',
+      src: 'https://foo.bar/example2.png',
       naturalHeight: 400,
       naturalWidth: 300,
     },
     {
-      src: 'https://foo.bar/example.png',
+      src: 'https://foo.bar/example3.png',
       naturalHeight: 400,
       naturalWidth: 300,
     },
     {
-      src: 'https://foo.bar/example.png',
+      src: 'https://foo.bar/example4.png',
       naturalHeight: 400,
       naturalWidth: 300,
     },
   ]
   
+  const exampleSubjectIds = ['1000', '1001', '1002', '1003']
+  
   beforeEach(function () {
     wrapper = shallow(
       <SubjectGroupViewer
         images={exampleImages}
+        subjectIds={exampleSubjectIds}
         dragMove={() => {}}
         onKeyDown={() => {}}
         cellWidth={800}
@@ -60,6 +63,15 @@ describe('Component > SubjectGroupViewer', function () {
   
   it('should render 4 grid cells', function () {
     expect(wrapper.find(SGVGridCell)).to.have.lengthOf(4)
+  })
+  
+  it('should render grid cells with the correct props', function () {
+    const gridCells = wrapper.find(SGVGridCell)
+    const LAST_INDEX = exampleImages.length - 1
+    
+    expect(gridCells.last().props().image).to.deep.equal(exampleImages[LAST_INDEX])
+    expect(gridCells.last().props().subjectId).to.equal(exampleSubjectIds[LAST_INDEX])
+    expect(gridCells.last().props().index).to.equal(LAST_INDEX)
   })
   
   it('should have a viewBox proportional to width and height', function () {
