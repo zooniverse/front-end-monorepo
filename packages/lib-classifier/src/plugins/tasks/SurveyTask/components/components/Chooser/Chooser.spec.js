@@ -3,10 +3,11 @@ import { types } from 'mobx-state-tree'
 import React from 'react'
 
 import { default as Task } from '@plugins/tasks/SurveyTask'
-import Choices from './Choices'
-import { expect } from 'chai'
+import Chooser from './Chooser'
+import CharacteristicsFilterLabel from './components/CharacteristicsFilterLabel'
+import Choices from './components/Choices'
 
-describe.only('Component > Choices', function () {
+describe('Component > Chooser', function () {
   let wrapper
   const task = Task.TaskModel.create({
     taskKey: 'T0',
@@ -26,13 +27,21 @@ describe.only('Component > Choices', function () {
     task.setAnnotation(annotation)
 
     wrapper = shallow(
-      <Choices
+      <Chooser
         task={task}
       />
     )
   })
-
+  
   it('should render without crashing', function () {
     expect(wrapper).to.be.ok()
+  })
+
+  it('should render a CharacteristicsFilterLabel component', function () {
+    expect(wrapper.find(CharacteristicsFilterLabel)).to.have.lengthOf(1)
+  })
+
+  it('should render a Choices component', function () {
+    expect(wrapper.find(Choices)).to.have.lengthOf(1)
   })
 })

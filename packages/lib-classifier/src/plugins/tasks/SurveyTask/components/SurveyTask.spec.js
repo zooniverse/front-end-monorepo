@@ -1,15 +1,12 @@
 import { shallow } from 'enzyme'
-import { Grommet } from 'grommet'
 import { types } from 'mobx-state-tree'
 import React from 'react'
-import sinon from 'sinon'
 
-import zooTheme from '@zooniverse/grommet-theme'
-import SurveyTask from './'
+import SurveyTask from './SurveyTask'
 import { default as Task } from '@plugins/tasks/SurveyTask'
 import Chooser from './components/Chooser'
 
-describe('SurveyTask', function () {
+describe.only('SurveyTask', function () {
   const task = Task.TaskModel.create({
     taskKey: 'T0',
     type: 'survey'
@@ -32,15 +29,10 @@ describe('SurveyTask', function () {
     let wrapper
     
     before(function () {
-      const shallowOptions = {
-        wrappingComponent: <Grommet />,
-        wrappingComponentProps: { theme: zooTheme }
-      }
       wrapper = shallow(
         <SurveyTask
           task={task}
-        />,
-        shallowOptions
+        />
       )
     })
 
