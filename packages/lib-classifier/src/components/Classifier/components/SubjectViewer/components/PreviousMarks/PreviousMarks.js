@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import DrawingToolMarks from '../DrawingToolMarks'
+import DrawingToolMarks from '../InteractionLayer/components/DrawingToolMarks'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
 function PreviousMarks (props) {

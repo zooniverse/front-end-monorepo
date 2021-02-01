@@ -3,6 +3,7 @@ import React, { createRef, forwardRef, useContext } from 'react'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import { Box } from 'grommet'
 import InteractionLayer from '../InteractionLayer'
+import PreviousMarks from '../PreviousMarks'
 import ZoomControlButton from '../ZoomControlButton'
 
 const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
@@ -53,6 +54,7 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
                 height={height}
                 width={width}
               />}
+              <PreviousMarks scale={scale} />
           </g>
         </svg>
       </Box>

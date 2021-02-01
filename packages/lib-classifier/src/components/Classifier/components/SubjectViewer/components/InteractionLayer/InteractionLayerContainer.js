@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import InteractionLayer from './InteractionLayer'
-import PreviousMarks from './components/PreviousMarks'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
 function storeMapper (stores) {
@@ -77,7 +76,6 @@ class InteractionLayerContainer extends Component {
             width={width}
           />
         }
-        <PreviousMarks scale={scale} />
       </>
     )
   }

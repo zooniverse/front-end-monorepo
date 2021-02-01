@@ -3,6 +3,7 @@ import React from 'react'
 
 import SingleImageViewer from './SingleImageViewer'
 import InteractionLayer from '../InteractionLayer'
+import PreviousMarks from '../PreviousMarks'
 
 let wrapper
 
@@ -18,6 +19,10 @@ describe('Component > SingleImageViewer', function () {
   it('should be upright', function () {
     const transform = wrapper.find('svg').find('g').prop('transform')
     expect(transform).to.have.string('rotate(0 50 100)')
+  })
+
+  it('should render marks from previous drawing steps', function () {
+    expect(wrapper.find(PreviousMarks)).to.have.lengthOf(1)
   })
 
   describe('with a rotation angle', function () {
