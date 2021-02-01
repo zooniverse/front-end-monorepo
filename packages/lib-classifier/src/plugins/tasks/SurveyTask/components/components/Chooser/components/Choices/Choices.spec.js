@@ -6,6 +6,7 @@ import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 
 import { default as Task } from '@plugins/tasks/SurveyTask'
 import Choices from './Choices'
+import ChoiceButton from './components/ChoiceButton'
 
 describe.only('Component > Choices', function () {
   let wrapper
@@ -56,6 +57,13 @@ describe.only('Component > Choices', function () {
     it('should set the set the number of grid columns to 3', function () {
       expect(wrapper.find(Grid).props().columns.count).to.equal(3)
     })
+
+    it('should have small thumbnails', function () {
+      const choiceButtons = wrapper.find(ChoiceButton)
+      choiceButtons.forEach((choiceButton) => {
+        expect(choiceButton.props().thumbnailSize).to.equal('small')
+      })
+    })
   })
 
   describe('when the column count is 2', function () {
@@ -87,6 +95,13 @@ describe.only('Component > Choices', function () {
     it('should set the set the number of grid columns to 2', function () {
       expect(wrapper.find(Grid).props().columns.count).to.equal(2)
     })
+
+    it('should have medium thumbnails', function () {
+      const choiceButtons = wrapper.find(ChoiceButton)
+      choiceButtons.forEach((choiceButton) => {
+        expect(choiceButton.props().thumbnailSize).to.equal('medium')
+      })
+    })
   })
 
   describe('when the column count is 1', function () {
@@ -117,6 +132,13 @@ describe.only('Component > Choices', function () {
 
     it('should set the set the number of grid columns to 1', function () {
       expect(wrapper.find(Grid).props().columns.count).to.equal(1)
+    })
+
+    it('should have large thumbnails', function () {
+      const choiceButtons = wrapper.find(ChoiceButton)
+      choiceButtons.forEach((choiceButton) => {
+        expect(choiceButton.props().thumbnailSize).to.equal('large')
+      })
     })
   })
 })
