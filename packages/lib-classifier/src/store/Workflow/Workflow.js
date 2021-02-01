@@ -37,9 +37,11 @@ const Workflow = types
     },
 
     get usesTranscriptionTask () {
-      return self.tasks && Object.values(self.tasks).some(task => {
+      const anyTranscriptionTasks = self.tasks && Object.values(self.tasks).some(task => {
         return task.type === 'transcription'
       })
+
+      return anyTranscriptionTasks
     }
   }))
 

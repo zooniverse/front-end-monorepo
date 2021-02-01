@@ -94,3 +94,6 @@ dist
 
 # VSCode settings/workspace settings
 .vscode
+
+# Mac file
+*.DS_Store
