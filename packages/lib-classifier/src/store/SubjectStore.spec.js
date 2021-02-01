@@ -6,6 +6,7 @@ import { openTalkPage, MINIMUM_QUEUE_SIZE } from './SubjectStore'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 import { Factory } from 'rosie'
 import stubPanoptesJs from '@test/stubPanoptesJs'
+import { getType } from 'mobx-state-tree'
 
 describe('Model > SubjectStore', function () {
   const longListSubjects = Factory.buildList('subject', 10)
@@ -135,28 +136,42 @@ describe('Model > SubjectStore', function () {
       const expectedSubject = SingleImageSubject.create(imageSubjects[0])
       expect(subjects.active).to.deep.equal(expectedSubject)
     })
+    
+    it('should be of the correct subject type', function () {
+      expect(getType(subjects.active).name).to.equal('SubjectResource')
+    })
   })
 
   describe('subject groups', function () {
     let subjects
-    let imageSubjects = Factory.buildList('subject', 25, { locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
+    let subjectGroups = Factory.buildList(
+      'subject',
+      10,
+      {
+        id: 'testGroup',
+        locations: [
+          { 'image/png': 'https://foo.bar/example.png' },
+          { 'image/png': 'https://foo.bar/example.png' },
+          { 'image/png': 'https://foo.bar/example.png' },
+          { 'image/png': 'https://foo.bar/example.png' },
+        ],
+        metadata: {
+          '#group_subject_ids': '1111-1112-1113-1114',
+          '#subject_group_id': 101,
+      }
+    })
 
     before(function () {
-      const subjectGroups = []
-      for (let i = 0; i < 6; i++) {
-        const subjectGroup = {
-          id: `${i}`,
-          subjects: imageSubjects
-        }
-        subjectGroups.push(subjectGroup)
-      }
       subjects = mockSubjectStore(subjectGroups)
     })
 
     it('should be valid subjects', function () {
-      expect(subjects.active).to.exist()
-      expect(subjects.active.id).to.equal('0')
-      expect(subjects.active.subjects).to.have.lengthOf(25)
+      const expectedSubject = SubjectGroup.create(subjectGroups[0])
+      expect(subjects.active).to.deep.equal(expectedSubject)
+    })
+    
+    it('should be of the correct "subject group" type', function () {
+      expect(getType(subjects.active).name).to.equal('SubjectGroup')
     })
   })
 

@@ -26,12 +26,15 @@ function WorkflowSelectButton (props) {
 
   const as = addQueryParams(url, router)
   const completeness = parseInt(workflow.completeness * 100, 10)
+  const buttonLabel = workflow.grouped ?
+    `${workflow.displayName} - ${counterpart('WorkflowSelectButton.setSelection')}` :
+    workflow.displayName
   const label = (
     <span>
       <SpacedText size='10px'>
         {counterpart('WorkflowSelectButton.complete', { completeness })}
       </SpacedText><br />
-      {workflow.displayName}
+      {buttonLabel}
     </span>
   )
 
