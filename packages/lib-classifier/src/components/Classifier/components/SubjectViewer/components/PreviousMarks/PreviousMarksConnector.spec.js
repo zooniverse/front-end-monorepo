@@ -15,6 +15,7 @@ const mockStores = {
     frame: 1
   }, 
   workflowSteps: {
+    activeStepTasks: [],
     interactionTask: {}
   }
 }
@@ -45,6 +46,13 @@ const mockStoresWithDrawingAnnotations = {
     frame: 1
   },
   workflowSteps: {
+    activeStepTasks: [
+      {
+        taskKey: 'T1',
+        shownMarks: 'USER',
+        type: 'drawing'
+      }
+    ],
     interactionTask: {
       taskKey: 'T1',
       shownMarks: 'USER',
@@ -63,10 +71,16 @@ const mockStoresWithTranscriptionAnnotations = {
     frame: 1
   },
   workflowSteps: {
+    activeStepTasks: [
+      {
+        taskKey: 'T1',
+        type: 'question'
+      }
+    ],
     interactionTask: {
       taskKey: 'T0',
       shownMarks: 'USER',
-      type: 'drawing'
+      type: 'transcription'
     }
   }
 }
@@ -181,7 +195,7 @@ describe('Component > PreviousMarksConnector', function () {
       expect(taskKeys).to.deep.equal(['T0'])
     })
 
-    it('should not pass along those transcription annotations from the active task', function () {
+    it('should pass along transcription annotations from previous steps', function () {
       mockUseContext = sinon.stub(React, 'useContext').callsFake(() => {
         return {
           classifierStore: mockStoresWithTranscriptionAnnotations
@@ -190,7 +204,8 @@ describe('Component > PreviousMarksConnector', function () {
       const wrapper = shallow(<PreviousMarksConnector />)
       const { interactionTaskAnnotations } = wrapper.find(PreviousMarks).props()
       expect(interactionTaskAnnotations).to.be.an('array')
-      expect(interactionTaskAnnotations).to.have.lengthOf(0)
+      expect(interactionTaskAnnotations).to.have.lengthOf(1)
+      expect(interactionTaskAnnotations[0]).to.equal(transcriptionAnnotation)
     })
   })
 })

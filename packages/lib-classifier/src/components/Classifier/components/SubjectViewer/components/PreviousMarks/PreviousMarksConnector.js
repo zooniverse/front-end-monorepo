@@ -5,12 +5,13 @@ import PreviousMarks from './PreviousMarks'
 
 function useStores() {
   const stores = React.useContext(MobXProviderContext)
-  const { interactionTask } = stores.classifierStore.workflowSteps
+  const { activeStepTasks, interactionTask } = stores.classifierStore.workflowSteps
+  const [activeInteractionTask] = activeStepTasks.filter(task => task.type === 'drawing' || task.type === 'transcription')
   const {
     active: classification
   } = stores.classifierStore.classifications
   const interactionTaskAnnotations = classification?.interactionTaskAnnotations || []
-  const previousTaskAnnotations = interactionTaskAnnotations.filter(annotation => annotation.task !== interactionTask?.taskKey)
+  const previousTaskAnnotations = interactionTaskAnnotations.filter(annotation => annotation.task !== activeInteractionTask?.taskKey)
   const {
     frame
   } = stores.classifierStore.subjectViewer
