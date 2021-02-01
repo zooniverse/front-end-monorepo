@@ -1,3 +1,4 @@
+import { when } from 'mobx'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
@@ -36,14 +37,26 @@ describe('Model > UserProjectPreferencesStore', function () {
     workflows: workflow
   })
 
+  function mockUserAPI(user) {
+    return async function getUser() {
+      return user
+    }
+  }
+
+  function mockTokenAPI(token) {
+    return async function getToken() {
+      return token
+    }
+  }
+
   const authClientStubWithoutUser = {
-    checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null)),
-    checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null))
+    checkCurrent: sinon.stub().callsFake(mockUserAPI(null)),
+    checkBearerToken: sinon.stub().callsFake(mockTokenAPI(null))
   }
 
   const authClientStubWithUser = {
-    checkCurrent: sinon.stub().callsFake(() => Promise.resolve(user)),
-    checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(token))
+    checkCurrent: sinon.stub().callsFake(mockUserAPI(user)),
+    checkBearerToken: sinon.stub().callsFake(mockTokenAPI(token))
   }
 
   function setupStores (clientStub, authClientStub) {
@@ -76,11 +89,18 @@ describe('Model > UserProjectPreferencesStore', function () {
     it('should set project preferences if there is a user and a project', function (done) {
       rootStore = setupStores(clientStub, authClientStubWithUser)
       rootStore.projects.setActive(project.id)
-        .then(() => {
+      function preferencesAreLoaded() {
+        return rootStore.userProjectPreferences.loadingState === asyncStates.success
+      }
+      when(
+        preferencesAreLoaded,
+        () => {
           const uppInStore = rootStore.userProjectPreferences.active
           expect(uppInStore.toJSON()).to.deep.equal(upp)
           rootStore = null
-        }).then(done, done)
+          done()
+        }
+      )
     })
   })
 
@@ -102,10 +122,17 @@ describe('Model > UserProjectPreferencesStore', function () {
     it('should set to a successful state if there is no user', function (done) {
       rootStore = setupStores(clientStub, authClientStubWithoutUser)
       rootStore.projects.setActive(project.id)
-        .then(() => {
+      function preferencesAreLoaded() {
+        return rootStore.userProjectPreferences.loadingState === asyncStates.success
+      }
+      when(
+        preferencesAreLoaded,
+        () => {
           expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.success)
           expect(rootStore.userProjectPreferences.active).to.be.undefined()
-        }).then(done, done)
+          done()
+        }
+      )
     })
 
     it('should set state to error upon error', function (done) {
@@ -116,9 +143,16 @@ describe('Model > UserProjectPreferencesStore', function () {
 
       rootStore = setupStores(clientStub, errorAuthClientStub)
       rootStore.projects.setActive(project.id)
-        .then(() => {
+      function preferencesAreLoaded() {
+        return rootStore.userProjectPreferences.loadingState === asyncStates.error
+      }
+      when(
+        preferencesAreLoaded,
+        () => {
           expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.error)
-        }).then(done, done)
+          done()
+        }
+      )
     })
 
     it('should call fetchUPP if there is a user', function (done) {
@@ -126,9 +160,16 @@ describe('Model > UserProjectPreferencesStore', function () {
       const fetchUPPSpy = sinon.spy(rootStore.userProjectPreferences, 'fetchUPP')
 
       rootStore.projects.setActive(project.id)
-        .then(() => {
+      function preferencesAreLoaded() {
+        return rootStore.userProjectPreferences.loadingState === asyncStates.success
+      }
+      when(
+        preferencesAreLoaded,
+        () => {
           expect(fetchUPPSpy).to.have.been.called()
-        }).then(done, done)
+          done()
+        }
+      )
     })
   })
 
@@ -151,9 +192,16 @@ describe('Model > UserProjectPreferencesStore', function () {
     it('should set the loading state to loading then to success upon successful request', function (done) {
       rootStore = setupStores(clientStub, authClientStubWithUser)
       rootStore.projects.setActive(project.id)
-        .then(() => {
+      function preferencesAreLoaded() {
+        return rootStore.userProjectPreferences.loadingState === asyncStates.success
+      }
+      when(
+        preferencesAreLoaded,
+        () => {
           expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.success)
-        }).then(done, done)
+          done()
+        }
+      )
 
       expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.initialized)
     })
@@ -161,31 +209,54 @@ describe('Model > UserProjectPreferencesStore', function () {
     it('should request for the user project preferences', function (done) {
       rootStore = setupStores(clientStub, authClientStubWithUser)
       rootStore.projects.setActive(project.id)
-        .then(() => {
+      function preferencesAreLoaded() {
+        return rootStore.userProjectPreferences.loadingState === asyncStates.success
+      }
+      when(
+        preferencesAreLoaded,
+        () => {
           expect(getSpy).to.have.been.calledWith(
             '/project_preferences',
             { project_id: project.id, user_id: user.id },
             { authorization: 'Bearer 1234' }
           )
-        }).then(done, done)
+          done()
+        }
+      )
+    })
 
-      it('should call createUPP action upon successful request and there is not an existing UPP', function () {
-        rootStore = setupStores(clientStubWithoutUPP, authClientStubWithUser)
-        const createUPPSpy = sinon.spy(rootStore.userProjectPreferences, 'createUPP')
-        rootStore.projects.createActive(project.id)
-          .then(() => {
-            expect(createUPPSpy).to.have.been.calledOnceWith(`Bearer ${token}`)
-          }).then(createUPPSpy.restore()).then(done, done)
-      })
+    it('should call createUPP action upon successful request and there is not an existing UPP', function () {
+      rootStore = setupStores(clientStubWithoutUPP, authClientStubWithUser)
+      const createUPPSpy = sinon.spy(rootStore.userProjectPreferences, 'createUPP')
+      rootStore.projects.setActive(project.id)
+      function preferencesAreLoaded() {
+        return rootStore.userProjectPreferences.loadingState === asyncStates.success
+      }
+      when(
+        preferencesAreLoaded,
+        () => {
+          expect(createUPPSpy).to.have.been.calledOnceWith(`Bearer ${token}`)
+          createUPPSpy.restore()
+          done()
+        }
+      )
+    })
 
-      it('should call setUPP action upon successful request and there is an existing UPP', function () {
-        rootStore = setupStores(clientStub, authClientStubWithUser)
-        const setUPPSpy = sinon.spy(rootStore.userProjectPreferences, 'setUPP')
-        rootStore.projects.setActive(project.id)
-          .then(() => {
-            expect(setUPPSpy).to.have.been.calledOnceWith(upp)
-          }).then(setUPPSpy.restore()).then(done, done)
-      })
+    it('should call setUPP action upon successful request and there is an existing UPP', function () {
+      rootStore = setupStores(clientStub, authClientStubWithUser)
+      const setUPPSpy = sinon.spy(rootStore.userProjectPreferences, 'setUPP')
+      rootStore.projects.setActive(project.id)
+      function preferencesAreLoaded() {
+        return rootStore.userProjectPreferences.loadingState === asyncStates.success
+      }
+      when(
+        preferencesAreLoaded,
+        () => {
+          expect(setUPPSpy).to.have.been.calledOnceWith(upp)
+          setUPPSpy.restore()
+          done()
+        }
+      )
     })
   })
 
@@ -213,7 +284,12 @@ describe('Model > UserProjectPreferencesStore', function () {
 
       rootStore = setupStores(panoptesClientStub, authClientStubWithUser)
       rootStore.projects.setActive(project.id)
-        .then(() => {
+      function preferencesAreLoaded() {
+        return rootStore.userProjectPreferences.loadingState === asyncStates.success
+      }
+      when(
+        preferencesAreLoaded,
+        () => {
           expect(postStub).to.have.been.calledOnceWith(
             '/project_preferences',
             { project_preferences: {
@@ -222,7 +298,9 @@ describe('Model > UserProjectPreferencesStore', function () {
             } },
             { authorization: `Bearer ${token}` }
           )
-        }).then(done, done)
+          done()
+        }
+      )
     })
 
     it('should set the loading state to error upon error', function (done) {
@@ -242,9 +320,16 @@ describe('Model > UserProjectPreferencesStore', function () {
 
       rootStore = setupStores(panoptesClientStub, authClientStubWithUser)
       rootStore.projects.setActive(project.id)
-        .then(() => {
+      function preferencesAreLoaded() {
+        return rootStore.userProjectPreferences.loadingState === asyncStates.error
+      }
+      when(
+        preferencesAreLoaded,
+        () => {
           expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.error)
-        }).then(done, done)
+          done()
+        }
+      )
     })
   })
 
