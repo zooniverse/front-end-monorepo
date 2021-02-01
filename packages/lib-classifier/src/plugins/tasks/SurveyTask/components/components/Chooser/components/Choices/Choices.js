@@ -21,7 +21,13 @@ function Choices (props) {
   const thumbnailSize = task.alwaysShowThumbnails ? 'small' : whatSizeThumbnail(filteredChoices)
 
   return (
-    <Box>
+    // Could possibly drop box by styling gap color? Is that possible? Or using border on button?
+    <Box
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+    >
       <Grid
         columns={{
           count: columnsCount,

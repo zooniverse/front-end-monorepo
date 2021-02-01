@@ -5,7 +5,7 @@ import {
 } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, withTheme } from 'styled-components'
 import { Media } from '@zooniverse/react-components'
 
 const StyledChoiceButton = styled(Button)`
@@ -18,9 +18,9 @@ const StyledChoiceButton = styled(Button)`
   text-align: start; 
 `
 
-const THUMBNAIL_ASPECT_RATIO = 1.25
+export const THUMBNAIL_ASPECT_RATIO = 1.25
 
-export default function ChoiceButton (props) {
+export function ChoiceButton (props) {
   const {
     choiceId,
     choiceLabel,
@@ -77,6 +77,12 @@ ChoiceButton.defaultProps = {
   choiceLabel: '',
   onChoose: () => {},
   src: '',
+  theme: {
+    dark: false,
+    global: {
+      colors: {}
+    }
+  },
   thumbnailSize: 'none'
 }
 
@@ -85,5 +91,8 @@ ChoiceButton.propTypes = {
   choiceLabel: PropTypes.string,
   onChoose: PropTypes.func,
   src: PropTypes.string,
+  theme: PropTypes.object,
   thumbnailSize: PropTypes.string
 }
+
+export default withTheme(ChoiceButton)

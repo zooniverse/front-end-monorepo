@@ -1,6 +1,6 @@
 import howManyColumns from './howManyColumns'
 
-describe.only('Function > howManyColumns', function ()  {
+describe('Function > howManyColumns', function ()  {
   it('should be a function',  function () {
     expect(howManyColumns).to.be.a('function')
   })

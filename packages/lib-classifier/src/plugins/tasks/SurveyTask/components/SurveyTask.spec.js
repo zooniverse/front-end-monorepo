@@ -6,7 +6,7 @@ import SurveyTask from './SurveyTask'
 import { default as Task } from '@plugins/tasks/SurveyTask'
 import Chooser from './components/Chooser'
 
-describe.only('SurveyTask', function () {
+describe('SurveyTask', function () {
   const task = Task.TaskModel.create({
     taskKey: 'T0',
     type: 'survey'

@@ -1,6 +1,6 @@
 import whatSizeThumbnail from './whatSizeThumbnail'
 
-describe.only('Function > whatSizeThumbnail', function () {
+describe('Function > whatSizeThumbnail', function () {
   it('should be a function', function () {
     expect(whatSizeThumbnail).to.be.a('function')
   })
