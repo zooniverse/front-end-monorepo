@@ -74,6 +74,14 @@ describe('Model > UserProjectPreferencesStore', function () {
     }, { authClient: authClientStub, client: clientStub })
   }
 
+  function preferencesAreReady(preferences) {
+    return function preferencesAreLoaded() {
+      const { loadingState } = preferences
+      const { error, success } = asyncStates
+      return (loadingState === success) || (loadingState === error)
+    }
+  }
+
   describe('when instantiated', function () {
     let rootStore
     it('should exist', function () {
@@ -89,11 +97,8 @@ describe('Model > UserProjectPreferencesStore', function () {
     it('should set project preferences if there is a user and a project', function (done) {
       rootStore = setupStores(clientStub, authClientStubWithUser)
       rootStore.projects.setActive(project.id)
-      function preferencesAreLoaded() {
-        return rootStore.userProjectPreferences.loadingState === asyncStates.success
-      }
       when(
-        preferencesAreLoaded,
+        preferencesAreReady(rootStore.userProjectPreferences),
         () => {
           const uppInStore = rootStore.userProjectPreferences.active
           expect(uppInStore.toJSON()).to.deep.equal(upp)
@@ -122,11 +127,8 @@ describe('Model > UserProjectPreferencesStore', function () {
     it('should set to a successful state if there is no user', function (done) {
       rootStore = setupStores(clientStub, authClientStubWithoutUser)
       rootStore.projects.setActive(project.id)
-      function preferencesAreLoaded() {
-        return rootStore.userProjectPreferences.loadingState === asyncStates.success
-      }
       when(
-        preferencesAreLoaded,
+        preferencesAreReady(rootStore.userProjectPreferences),
         () => {
           expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.success)
           expect(rootStore.userProjectPreferences.active).to.be.undefined()
@@ -143,11 +145,8 @@ describe('Model > UserProjectPreferencesStore', function () {
 
       rootStore = setupStores(clientStub, errorAuthClientStub)
       rootStore.projects.setActive(project.id)
-      function preferencesAreLoaded() {
-        return rootStore.userProjectPreferences.loadingState === asyncStates.error
-      }
       when(
-        preferencesAreLoaded,
+        preferencesAreReady(rootStore.userProjectPreferences),
         () => {
           expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.error)
           done()
@@ -160,11 +159,8 @@ describe('Model > UserProjectPreferencesStore', function () {
       const fetchUPPSpy = sinon.spy(rootStore.userProjectPreferences, 'fetchUPP')
 
       rootStore.projects.setActive(project.id)
-      function preferencesAreLoaded() {
-        return rootStore.userProjectPreferences.loadingState === asyncStates.success
-      }
       when(
-        preferencesAreLoaded,
+        preferencesAreReady(rootStore.userProjectPreferences),
         () => {
           expect(fetchUPPSpy).to.have.been.called()
           done()
@@ -192,11 +188,8 @@ describe('Model > UserProjectPreferencesStore', function () {
     it('should set the loading state to loading then to success upon successful request', function (done) {
       rootStore = setupStores(clientStub, authClientStubWithUser)
       rootStore.projects.setActive(project.id)
-      function preferencesAreLoaded() {
-        return rootStore.userProjectPreferences.loadingState === asyncStates.success
-      }
       when(
-        preferencesAreLoaded,
+        preferencesAreReady(rootStore.userProjectPreferences),
         () => {
           expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.success)
           done()
@@ -209,11 +202,8 @@ describe('Model > UserProjectPreferencesStore', function () {
     it('should request for the user project preferences', function (done) {
       rootStore = setupStores(clientStub, authClientStubWithUser)
       rootStore.projects.setActive(project.id)
-      function preferencesAreLoaded() {
-        return rootStore.userProjectPreferences.loadingState === asyncStates.success
-      }
       when(
-        preferencesAreLoaded,
+        preferencesAreReady(rootStore.userProjectPreferences),
         () => {
           expect(getSpy).to.have.been.calledWith(
             '/project_preferences',
@@ -229,11 +219,8 @@ describe('Model > UserProjectPreferencesStore', function () {
       rootStore = setupStores(clientStubWithoutUPP, authClientStubWithUser)
       const createUPPSpy = sinon.spy(rootStore.userProjectPreferences, 'createUPP')
       rootStore.projects.setActive(project.id)
-      function preferencesAreLoaded() {
-        return rootStore.userProjectPreferences.loadingState === asyncStates.success
-      }
       when(
-        preferencesAreLoaded,
+        preferencesAreReady(rootStore.userProjectPreferences),
         () => {
           expect(createUPPSpy).to.have.been.calledOnceWith(`Bearer ${token}`)
           createUPPSpy.restore()
@@ -246,11 +233,8 @@ describe('Model > UserProjectPreferencesStore', function () {
       rootStore = setupStores(clientStub, authClientStubWithUser)
       const setUPPSpy = sinon.spy(rootStore.userProjectPreferences, 'setUPP')
       rootStore.projects.setActive(project.id)
-      function preferencesAreLoaded() {
-        return rootStore.userProjectPreferences.loadingState === asyncStates.success
-      }
       when(
-        preferencesAreLoaded,
+        preferencesAreReady(rootStore.userProjectPreferences),
         () => {
           expect(setUPPSpy).to.have.been.calledOnceWith(upp)
           setUPPSpy.restore()
@@ -284,11 +268,8 @@ describe('Model > UserProjectPreferencesStore', function () {
 
       rootStore = setupStores(panoptesClientStub, authClientStubWithUser)
       rootStore.projects.setActive(project.id)
-      function preferencesAreLoaded() {
-        return rootStore.userProjectPreferences.loadingState === asyncStates.success
-      }
       when(
-        preferencesAreLoaded,
+        preferencesAreReady(rootStore.userProjectPreferences),
         () => {
           expect(postStub).to.have.been.calledOnceWith(
             '/project_preferences',
@@ -320,11 +301,8 @@ describe('Model > UserProjectPreferencesStore', function () {
 
       rootStore = setupStores(panoptesClientStub, authClientStubWithUser)
       rootStore.projects.setActive(project.id)
-      function preferencesAreLoaded() {
-        return rootStore.userProjectPreferences.loadingState === asyncStates.error
-      }
       when(
-        preferencesAreLoaded,
+        preferencesAreReady(rootStore.userProjectPreferences),
         () => {
           expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.error)
           done()
