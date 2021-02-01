@@ -12871,11 +12871,6 @@ mobx-react@~6.3.0:
   dependencies:
     mobx-react-lite "^2.2.0"
 
-mobx-state-tree@~3.15.0:
-  version "3.15.0"
-  resolved "https://registry.yarnpkg.com/mobx-state-tree/-/mobx-state-tree-3.15.0.tgz#62efb04acb3562c251f043d6a2624b783887054b"
-  integrity sha512-65vvHPBWlz1gmZggbMAdg9ZSEVMGtyLj0drPDTYo/yMv8NVel52mNgBUKxDYWsNU9XMX4GM71wABhx7fD8s0Uw==
-
 mobx-state-tree@~3.17.0:
   version "3.17.3"
   resolved "https://registry.yarnpkg.com/mobx-state-tree/-/mobx-state-tree-3.17.3.tgz#e9c40dca17e7b72ad01270852a516145bf6b6c72"
