@@ -19,11 +19,15 @@ const mockStores = {
   }
 }
 
-const drawingAnnotation = {
+const drawingAnnotations = [{
   id: cuid(),
   task: 'T0',
   taskType: 'drawing'
-}
+}, {
+  id: cuid(),
+  task: 'T1',
+  taskType: 'drawing'
+}]
 
 const transcriptionAnnotation = {
   id: cuid(),
@@ -34,7 +38,7 @@ const transcriptionAnnotation = {
 const mockStoresWithDrawingAnnotations = {
   classifications: {
     active: {
-      interactionTaskAnnotations: [drawingAnnotation]
+      interactionTaskAnnotations: drawingAnnotations
     }
   },
   subjectViewer: {
@@ -42,6 +46,7 @@ const mockStoresWithDrawingAnnotations = {
   },
   workflowSteps: {
     interactionTask: {
+      taskKey: 'T1',
       shownMarks: 'USER',
       type: 'drawing'
     }
@@ -59,8 +64,9 @@ const mockStoresWithTranscriptionAnnotations = {
   },
   workflowSteps: {
     interactionTask: {
+      taskKey: 'T0',
       shownMarks: 'USER',
-      type: 'transcription'
+      type: 'drawing'
     }
   }
 }
@@ -160,10 +166,22 @@ describe('Component > PreviousMarksConnector', function () {
       const { interactionTaskAnnotations } = wrapper.find(PreviousMarks).props()
       expect(interactionTaskAnnotations).to.be.an('array')
       expect(interactionTaskAnnotations).to.have.lengthOf(1)
-      expect(interactionTaskAnnotations[0]).to.equal(drawingAnnotation)
+      expect(interactionTaskAnnotations[0]).to.equal(drawingAnnotations[0])
     })
 
-    it('should pass along those transcription annotations in an array', function () {
+    it('should only show marks from previous drawing steps', function () {
+      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => {
+        return {
+          classifierStore: mockStoresWithDrawingAnnotations
+        }
+      })
+      const wrapper = shallow(<PreviousMarksConnector />)
+      const { interactionTaskAnnotations } = wrapper.find(PreviousMarks).props()
+      const taskKeys = interactionTaskAnnotations.map(annotation => annotation.task)
+      expect(taskKeys).to.deep.equal(['T0'])
+    })
+
+    it('should not pass along those transcription annotations from the active task', function () {
       mockUseContext = sinon.stub(React, 'useContext').callsFake(() => {
         return {
           classifierStore: mockStoresWithTranscriptionAnnotations
@@ -172,8 +190,7 @@ describe('Component > PreviousMarksConnector', function () {
       const wrapper = shallow(<PreviousMarksConnector />)
       const { interactionTaskAnnotations } = wrapper.find(PreviousMarks).props()
       expect(interactionTaskAnnotations).to.be.an('array')
-      expect(interactionTaskAnnotations).to.have.lengthOf(1)
-      expect(interactionTaskAnnotations[0]).to.equal(transcriptionAnnotation)
+      expect(interactionTaskAnnotations).to.have.lengthOf(0)
     })
   })
 })

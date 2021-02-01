@@ -10,23 +10,24 @@ function useStores() {
     active: classification
   } = stores.classifierStore.classifications
   const interactionTaskAnnotations = classification?.interactionTaskAnnotations || []
+  const previousTaskAnnotations = interactionTaskAnnotations.filter(annotation => annotation.task !== interactionTask?.taskKey)
   const {
     frame
   } = stores.classifierStore.subjectViewer
-  return { frame, interactionTask, interactionTaskAnnotations }
+  return { frame, interactionTask, previousTaskAnnotations }
 }
 
 function PreviousMarksConnector({ scale, ...rest }) {
   const {
     frame = 0,
     interactionTask,
-    interactionTaskAnnotations
+    previousTaskAnnotations
   } = useStores()
   const { shownMarks } = interactionTask
   return (
     <PreviousMarks
       frame={frame}
-      interactionTaskAnnotations={interactionTaskAnnotations}
+      interactionTaskAnnotations={previousTaskAnnotations}
       scale={scale}
       shownMarks={shownMarks}
       {...rest}
