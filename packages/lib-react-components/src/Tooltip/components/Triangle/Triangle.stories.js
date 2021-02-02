@@ -5,7 +5,7 @@ import React from 'react'
 import { default as TriangleComponent } from './Triangle'
 
 export default {
-  title: 'Tooltip/Triangle',
+  title: 'Components/Tooltip/Triangle',
   component: TriangleComponent,
   args: {
     dark: false,
