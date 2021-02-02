@@ -21,7 +21,7 @@ const darkTheme = Object.assign({}, zooTheme, { dark: true })
 const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault })
 const colors = ['blue', 'gold', 'green', 'teal']
 
-storiesOf('PrimaryButton', module)
+storiesOf('Components/PrimaryButton', module)
   .addDecorator(withActions('click button'))
   .addDecorator(withKnobs)
 

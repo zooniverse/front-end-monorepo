@@ -15,7 +15,7 @@ const config = {
   }
 }
 
-storiesOf('SpacedHeading', module)
+storiesOf('Components/SpacedHeading', module)
   .addDecorator(withKnobs)
 
   .add('default', () => (
