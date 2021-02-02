@@ -7,7 +7,7 @@ function ClassifyPageContainer(props) {
   const collectionsModal = React.createRef()
 
   function addToCollection (subjectId) {
-    collectionsModal.current.wrappedInstance.open(subjectId)
+    collectionsModal.current.open(subjectId)
   }
 
   return (
