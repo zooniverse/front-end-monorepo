@@ -12,16 +12,21 @@ function useStoreContext(stores) {
   }
 }
 
-function ProjectHomePageContainer({ stores, workflows }) {
+/**
+  Connect the home page to the store. Pass down the project beta status and active workflows.
+*/
+function ProjectHomePageContainer({
+  stores,
+  workflows = []
+}) {
   const { inBeta } = useStoreContext(stores)
   return <ProjectHomePage inBeta={inBeta} workflows={workflows} />
 }
 
-ProjectHomePageContainer.defaultProps = {
-  workflows: []
-}
-
 ProjectHomePageContainer.propTypes = {
+  /**
+   Optional project store. Use this to mock the stores for tests etc.
+  */
   stores: shape({
     store: shape({
       project: shape({
@@ -29,6 +34,9 @@ ProjectHomePageContainer.propTypes = {
       })
     })
   }),
+  /**
+    Active project workflows,containing the workflow names,completeness and any linked subject sets.
+  */
   workflows: arrayOf(shape({
     id: string.isRequired
   }))
