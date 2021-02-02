@@ -156,11 +156,17 @@ describe('Model > Classification', function () {
       })
     })
 
-    describe('when the view function is called without an active task key', function () {
-      it('should return an empty array', function () {
+    describe('when the view function is called without an active step task key', function () {
+      it('should return any drawing task annotation regardless of step activeness', function () {
+        const pointMark = Point.create({ id: 'point1', frame: 0, toolIndex: 0, x: 100, y: 200, toolType: 'point' })
+        const lineMark = Line.create({ id: 'line1', frame: 0, toolIndex: 0, x1: 100, y1: 200, x2: 300, y2: 400, toolType: 'line' })
+        model.addAnnotation(drawingOne, [pointMark])
+        model.addAnnotation(drawingTwo, [lineMark])
         const previousAnnotations = model.previousInteractionTaskAnnotations()
         expect(previousAnnotations).to.be.an('array')
-        expect(previousAnnotations).to.be.empty()
+        expect(previousAnnotations).to.have.lengthOf(2)
+        expect(previousAnnotations[0].task).to.equal(drawingOne.taskKey)
+        expect(previousAnnotations[1].task).to.equal(drawingTwo.taskKey)
       })
     })
 

@@ -27,15 +27,12 @@ const Classification = types
       return snapshot
     },
 
+    // Use this to retrieve previous drawing or transcription task annotations.
+    // Use the optional parameter to filter by the current active step drawing or transcription task
     previousInteractionTaskAnnotations (activeTaskKey) {
-      if (activeTaskKey) {
-        const annotations = Array.from(self.annotations.values()) || []
-        const interactionTaskAnnotations = annotations.filter(annotation => (getType(annotation).name === 'DrawingAnnotation' || getType(annotation).name === 'TranscriptionAnnotation'))
-        return interactionTaskAnnotations.filter(annotation => annotation.task !== activeTaskKey) 
-      }
-
-      if (console) console.warn('Did you mean to call previousInteractionTaskAnnotations without an active task key?')
-      return []
+      const annotations = Array.from(self.annotations.values()) || []
+      const interactionTaskAnnotations = annotations.filter(annotation => (getType(annotation).name === 'DrawingAnnotation' || getType(annotation).name === 'TranscriptionAnnotation'))
+      return interactionTaskAnnotations.filter(annotation => annotation.task !== activeTaskKey)
     }
   }))
   .preProcessSnapshot(snapshot => {
