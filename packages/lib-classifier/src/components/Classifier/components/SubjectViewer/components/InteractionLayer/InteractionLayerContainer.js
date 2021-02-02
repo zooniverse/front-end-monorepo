@@ -20,13 +20,10 @@ function storeMapper (stores) {
   } = stores.classifierStore.classifications
 
   const [activeInteractionTask] = activeStepTasks.filter(task => task.type === 'drawing' || task.type === 'transcription')
-  const annotations = classification ? Array.from(classification.annotations.values()) : []
-  const interactionTaskAnnotations = annotations.filter(annotation => (getType(annotation).name === 'DrawingAnnotation' || getType(annotation).name === 'TranscriptionAnnotation'))
 
   return {
     activeInteractionTask,
     frame,
-    interactionTaskAnnotations,
     move
   }
 }
@@ -39,7 +36,6 @@ class InteractionLayerContainer extends Component {
       activeInteractionTask,
       frame,
       height,
-      interactionTaskAnnotations,
       move,
       scale,
       width

@@ -27,9 +27,10 @@ const Classification = types
       return snapshot
     },
 
-    get interactionTaskAnnotations () {
+    previousInteractionTaskAnnotations (activeTaskKey) {
       const annotations = Array.from(self.annotations.values()) || []
-      return annotations.filter(annotation => (getType(annotation).name === 'DrawingAnnotation' || getType(annotation).name === 'TranscriptionAnnotation'))
+      const interactionTaskAnnotations = annotations.filter(annotation => (getType(annotation).name === 'DrawingAnnotation' || getType(annotation).name === 'TranscriptionAnnotation'))
+      return interactionTaskAnnotations.filter(annotation => annotation.task !== activeTaskKey) 
     }
   }))
   .preProcessSnapshot(snapshot => {
