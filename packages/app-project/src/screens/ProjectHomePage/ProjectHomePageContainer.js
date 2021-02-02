@@ -1,30 +1,37 @@
-import { inject, observer } from 'mobx-react'
+import { observer, MobXProviderContext } from 'mobx-react'
 import { arrayOf, bool, shape, string } from 'prop-types'
-import React, { Component } from 'react'
+import React, { useContext } from 'react'
 
 import ProjectHomePage from './ProjectHomePage'
 
-function storeMapper(stores) {
-  const { inBeta } = stores.store.project
+function useStoreContext(stores) {
+  const { store } = stores || useContext(MobXProviderContext)
+  const { inBeta } = store.project
   return {
     inBeta
   }
 }
 
-function ProjectHomePageContainer({ inBeta, workflows }) {
+function ProjectHomePageContainer({ stores, workflows }) {
+  const { inBeta } = useStoreContext(stores)
   return <ProjectHomePage inBeta={inBeta} workflows={workflows} />
 }
 
 ProjectHomePageContainer.defaultProps = {
-  inBeta: false,
   workflows: []
 }
 
 ProjectHomePageContainer.propTypes = {
-  inBeta: bool,
+  stores: shape({
+    store: shape({
+      project: shape({
+        inBeta: bool
+      })
+    })
+  }),
   workflows: arrayOf(shape({
     id: string.isRequired
   }))
 }
 
-export default inject(storeMapper)(observer(ProjectHomePageContainer))
+export default observer(ProjectHomePageContainer)
