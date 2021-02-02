@@ -31,7 +31,7 @@ export default function MyApp({ Component, client, pageProps }) {
       console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
       store.user.checkCurrent()
     }
-    useEffect(onMount, [ initialState ])
+    useEffect(onMount, [])
 
     return (
       <>
