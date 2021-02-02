@@ -36,7 +36,6 @@ export default async function getDefaultPageProps({ params, query, req, res }) {
       project,
       ui
     },
-    isServer: true,
     query,
     workflows
   }

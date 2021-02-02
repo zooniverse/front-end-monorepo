@@ -1,4 +1,3 @@
-import { applySnapshot } from 'mobx-state-tree'
 import {
   collections as collectionsClient,
   panoptes as panoptesClient,
@@ -14,17 +13,13 @@ const defaultClient = {
   projects: projectsClient
 }
 
-function initStore (isServer, snapshot = null, client = defaultClient) {
+function initStore (isServer, snapshot = {}, client = defaultClient) {
   if (isServer) {
-    store = Store.create({}, { client })
+    store = Store.create(snapshot, { client })
   }
 
   if (store === null) {
-    store = Store.create({}, { client })
-  }
-
-  if (snapshot) {
-    applySnapshot(store, snapshot)
+    store = Store.create(snapshot, { client })
   }
 
   return store
