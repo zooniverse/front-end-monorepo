@@ -17,7 +17,7 @@ const config = {
 
 const darkZooTheme = { ...zooTheme, dark: true }
 
-storiesOf('CloseButton', module)
+storiesOf('Components/CloseButton', module)
   .addDecorator(withActions('click button'))
 
   .add('Light theme (default)', () => (

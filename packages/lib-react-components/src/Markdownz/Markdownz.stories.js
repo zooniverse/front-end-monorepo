@@ -21,7 +21,7 @@ const config = {
   }
 }
 
-storiesOf('Markdownz', module)
+storiesOf('Components/Markdownz', module)
 
   .add('Light theme (default)', () => (
     <Grommet theme={zooTheme}>
