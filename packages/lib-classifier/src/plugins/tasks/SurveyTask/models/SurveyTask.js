@@ -20,16 +20,18 @@ const Characteristics = types.refinement(
   'Characteristics',
   types.frozen(),
   function validate (characteristic) {
-    const validKeys = Object.keys(characteristic).every(key => typeof key === 'string')
-    const validValues = Object.values(characteristic).every(value => validateCharacteristic(value))
-    return validKeys && validValues
+    if (characteristic) {
+      const validKeys = Object.keys(characteristic).every(key => typeof key === 'string')
+      const validValues = Object.values(characteristic).every(value => validateCharacteristic(value))
+      return validKeys && validValues
+    }
   }
 )
 
 const Survey = types.model('Survey', {
   alwaysShowThumbnails: types.maybe(types.boolean),
   annotation: types.safeReference(SurveyAnnotation),
-  characteristics: types.frozen(Characteristics),
+  characteristics: types.optional(types.frozen(Characteristics), {}),
   characteristicsOrder: types.array(types.string),
   choices: types.frozen({}),
   choicesOrder: types.array(types.string),
