@@ -9,8 +9,10 @@ import readme from './README.md'
 import ZooniverseLogo from '../ZooniverseLogo'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 
@@ -18,7 +20,7 @@ const AUDIO_URL = 'https://panoptes-uploads.zooniverse.org/production/subject_lo
 const IMAGE_URL = 'https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg'
 const VIDEO_URL = 'https://static.zooniverse.org/www.zooniverse.org/assets/home-video.mp4'
 
-storiesOf('Media', module)
+storiesOf('Components/Media', module)
   .addDecorator(withKnobs)
 
   .add('Image', () => (

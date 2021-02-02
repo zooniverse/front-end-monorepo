@@ -33,18 +33,24 @@ function ModalHeading ({ background = 'brand', color = 'neutral-6', className = 
         >
           {title}
         </StyledHeading>}
-      <CloseButton
-        closeFn={closeFn}
-        color={color}
-      />
+      {closeFn &&
+        <CloseButton
+          closeFn={closeFn}
+          color={color}
+        />
+      }
     </StyledBox>
   )
+}
+
+ModalHeading.defaultProps = {
+  closeFn: undefined
 }
 
 ModalHeading.propTypes = {
   background: PropTypes.oneOfType([ PropTypes.object, PropTypes.string ]),
   className: PropTypes.string,
-  closeFn: PropTypes.func.isRequired,
+  closeFn: PropTypes.func,
   color: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   title: PropTypes.string
 }

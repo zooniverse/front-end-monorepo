@@ -10,12 +10,14 @@ import PlainButton from './PlainButton'
 import readme from './README.md'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 
-storiesOf('PlainButton', module)
+storiesOf('Components/PlainButton', module)
   .addDecorator(withActions('click button'))
   .addDecorator(withKnobs)
 

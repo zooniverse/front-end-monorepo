@@ -10,12 +10,14 @@ import readme from './README.md'
 import AdminCheckbox from '../AdminCheckbox'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 
-storiesOf('ZooFooter', module)
+storiesOf('Components/ZooFooter', module)
 
   .add('Light theme (default)', () => (
     <Grommet

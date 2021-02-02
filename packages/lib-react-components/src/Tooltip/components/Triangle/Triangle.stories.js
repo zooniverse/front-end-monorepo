@@ -1,31 +1,35 @@
-import { withActions } from '@storybook/addon-actions'
-import { withKnobs, text, boolean, select } from '@storybook/addon-knobs'
-import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Button, Grommet } from 'grommet'
 import React from 'react'
 
-// import readme from './README.md'
-import Triangle from './Triangle'
+import { default as TriangleComponent } from './Triangle'
 
-const config = {
-  // notes: {
-  //   markdown: readme
-  // }
+export default {
+  title: 'Components/Tooltip/Triangle',
+  component: TriangleComponent,
+  args: {
+    dark: false,
+    height: '500px'
+  },
+  argTypes: {
+    pointDirection: {
+      control: {
+        type: 'select',
+        options: ['up', 'down', 'left', 'right']
+      }
+    }
+  }
 }
 
-const pointDirections = ['up', 'down', 'left', 'right']
-
-storiesOf('Triangle', module)
-  .addDecorator(withKnobs)
-  .addDecorator(withActions('click button'))
-  .add('default', () => (
+export function Triangle({ dark, height, pointDirection }){
+  return (
     <TriangleStoryExample
-      dark={boolean('Dark theme', false)}
-      height='500px'
-      pointDirection={select('Point Direction', pointDirections)}
+      dark={dark}
+      height={height}
+      pointDirection={pointDirection}
     />
-  ), config)
+  )
+}
 
 function TriangleStoryExample(props) {
   const { dark, pointDirection } = props
@@ -39,7 +43,7 @@ function TriangleStoryExample(props) {
       themeMode={(dark) ? 'dark' : 'light'}
     >
       <Box align='center' height='medium' justify='center' pad='medium'>
-        <Triangle pointDirection={pointDirection} />
+        <TriangleComponent pointDirection={pointDirection} />
       </Box>
     </Grommet>
   )

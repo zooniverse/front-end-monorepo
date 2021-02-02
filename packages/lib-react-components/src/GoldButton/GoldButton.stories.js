@@ -10,15 +10,17 @@ import readme from './README.md'
 import { backgrounds } from '../../.storybook/lib/'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 
 const darkTheme = Object.assign({}, zooTheme, { dark: true })
 const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault })
 
-storiesOf('GoldButton', module)
+storiesOf('Components/GoldButton', module)
   .addDecorator(withActions('click button'))
   .addDecorator(withKnobs)
 

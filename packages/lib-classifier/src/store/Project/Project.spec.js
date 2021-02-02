@@ -60,7 +60,7 @@ describe('Model > Project', function () {
       })
     })
 
-    describe('with a default workflow', function () {
+    describe('with multiple active workflows', function () {
       let project
 
       before(function () {
@@ -75,9 +75,8 @@ describe('Model > Project', function () {
         })
       })
 
-      it('should be the configured workflow', function () {
-        expect(project.defaultWorkflow).to.exist()
-        expect(project.defaultWorkflow).to.equal(project.configuration.default_workflow)
+      it('should be undefined', function () {
+        expect(project.defaultWorkflow).to.be.undefined()
       })
     })
 

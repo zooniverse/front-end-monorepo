@@ -47,6 +47,27 @@ const WorkflowStepStore = types
       }
 
       return false
+    },
+
+    findTasksByType (type) {
+      const tasksByType = Array.from(self.steps).map(([stepKey, step]) => {
+        if (step?.tasks && step.tasks.length > 0) {
+          return step.tasks.filter(task => {
+            return task.type === type
+          })
+        }
+        
+        return []
+      })
+
+      return tasksByType.flat()
+    },
+
+    get interactionTask () {
+      const [activeDrawingTask] = self.activeStepTasks.filter(task => task.type === 'drawing')
+      const [transcriptionTask] = self.findTasksByType('transcription')
+
+      return activeDrawingTask || transcriptionTask  || {}
     }
   }))
   .actions(self => {

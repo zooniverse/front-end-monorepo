@@ -138,7 +138,7 @@ class SubjectGroupViewerContainer extends React.Component {
     if (subject && subject.locations) {
       // TODO: Validate for allowed image media mime types
       
-      const imageUrls = subject.locations.map(obj => Object.values(obj)[0])
+      let imageUrls = subject.locations.map(obj => Object.values(obj)[0])
       const images = await Promise.all(
         imageUrls.map(url => this.fetchImage(url))
       )
@@ -285,6 +285,7 @@ class SubjectGroupViewerContainer extends React.Component {
             ref={this.groupViewer}
             
             images={images}
+            subjectIds={subject.subjectIds}
             
             dragMove={this.dragMove}
             onKeyDown={onKeyDown}
@@ -314,7 +315,8 @@ class SubjectGroupViewerContainer extends React.Component {
 
 SubjectGroupViewerContainer.propTypes = {
   subject: PropTypes.shape({
-    locations: PropTypes.arrayOf(locationValidator)
+    locations: PropTypes.arrayOf(locationValidator),
+    subjectIds: PropTypes.arrayOf(PropTypes.string),
   }),
   loadingState: PropTypes.string,
   onError: PropTypes.func,

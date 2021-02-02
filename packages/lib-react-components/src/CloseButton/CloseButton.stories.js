@@ -8,14 +8,16 @@ import CloseButton from './CloseButton'
 import readme from './README.md'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 
 const darkZooTheme = { ...zooTheme, dark: true }
 
-storiesOf('CloseButton', module)
+storiesOf('Components/CloseButton', module)
   .addDecorator(withActions('click button'))
 
   .add('Light theme (default)', () => (

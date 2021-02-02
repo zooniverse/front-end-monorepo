@@ -10,8 +10,10 @@ import readme from './README.md'
 import PrimaryButton from './PrimaryButton'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 
@@ -19,7 +21,7 @@ const darkTheme = Object.assign({}, zooTheme, { dark: true })
 const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault })
 const colors = ['blue', 'gold', 'green', 'teal']
 
-storiesOf('PrimaryButton', module)
+storiesOf('Components/PrimaryButton', module)
   .addDecorator(withActions('click button'))
   .addDecorator(withKnobs)
 

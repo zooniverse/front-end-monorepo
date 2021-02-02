@@ -5,14 +5,14 @@ import DefaultTextTask from './components/DefaultTextTask'
 import TextTaskWithSuggestions from './components/TextTaskWithSuggestions'
 
 function TextTask (props) {
-  const { autoFocus, disabled, subTaskPreviousAnnotationValues, task } = props
-  const { value } = task.annotation
+  const { annotation, autoFocus, disabled, subTaskPreviousAnnotationValues, task } = props
+  const { value } = annotation
 
   function updateAnnotation (ref) {
     const currentRef = ref.current
-    if (currentRef && task.annotation) {
+    if (currentRef && annotation) {
       const text = currentRef.value
-      task.annotation.update(text)
+      annotation.update(text)
     }
   }
 

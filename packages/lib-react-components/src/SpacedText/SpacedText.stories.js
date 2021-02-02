@@ -8,12 +8,14 @@ import readme from './README.md'
 import SpacedText from './SpacedText'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 
-storiesOf('SpacedText', module)
+storiesOf('Components/SpacedText', module)
   .addDecorator(withKnobs)
 
   .add('default', () => (

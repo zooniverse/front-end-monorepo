@@ -8,12 +8,14 @@ import readme from './README.md'
 import SpacedHeading from './SpacedHeading'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 
-storiesOf('SpacedHeading', module)
+storiesOf('Components/SpacedHeading', module)
   .addDecorator(withKnobs)
 
   .add('default', () => (

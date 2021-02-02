@@ -2,13 +2,21 @@ import { Factory } from 'rosie'
 import SubjectGroup from './SubjectGroup'
 
 describe('Model > SubjectGroup', function () {
-  const subjects = Factory.buildList('subject', 25, { locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
   let subjectGroup
 
   before(function () {
     subjectGroup = SubjectGroup.create({
       id: 'testGroup',
-      subjects
+      locations: [
+        { 'image/png': 'https://foo.bar/example.png' },
+        { 'image/png': 'https://foo.bar/example.png' },
+        { 'image/png': 'https://foo.bar/example.png' },
+        { 'image/png': 'https://foo.bar/example.png' },
+      ],
+      metadata: {
+        '#group_subject_ids': '1111-1112-1113-1114',
+        '#subject_group_id': 101,
+      }
     })
   })
 
@@ -16,13 +24,11 @@ describe('Model > SubjectGroup', function () {
     expect(subjectGroup).to.be.ok()
   })
 
-  it('should contain subjects', function () {
-    expect(subjectGroup.subjects).to.have.lengthOf(25)
+  it('should contain locations', function () {
+    expect(subjectGroup.locations).to.have.lengthOf(4)
   })
-
-  it('should have subject locations', function () {
-    subjectGroup.locations.forEach(location => {
-      expect(location).to.deep.equal({ 'image/png': 'https://foo.bar/example.png' })
-    })
+  
+  it('should contain subjects IDs', function () {
+    expect(subjectGroup.subjectIds).to.have.lengthOf(4)
   })
 })

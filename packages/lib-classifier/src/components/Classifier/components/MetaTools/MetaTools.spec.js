@@ -7,6 +7,7 @@ import Metadata from './components/Metadata'
 import CollectionsButton from './components/CollectionsButton'
 import HidePreviousMarksButton from './components/HidePreviousMarksButton'
 import { Factory } from 'rosie'
+import SHOWN_MARKS from '@helpers/shownMarks'
 
 const subjectWithMetadata = Factory.build('subject', { metadata: { foo: 'bar' } })
 
@@ -14,9 +15,10 @@ const favoriteSubject = Factory.build('subject', { favorite: true })
 
 const spy = sinon.spy()
 
-const activeInteractionTask = {
+const interactionTask = {
   hidePreviousMarks: false,
   marks: [{ x: 0, y: 0 }],
+  shownMarks: SHOWN_MARKS.ALL,
   togglePreviousMarks: spy
 }
 
@@ -112,7 +114,7 @@ describe('Component > MetaTools', function () {
       let wrapper
 
       beforeEach(function () {
-        wrapper = shallow(<MetaTools.wrappedComponent activeInteractionTask={activeInteractionTask} />)
+        wrapper = shallow(<MetaTools.wrappedComponent interactionTask={interactionTask} />)
       })
 
       it('should render', function () {

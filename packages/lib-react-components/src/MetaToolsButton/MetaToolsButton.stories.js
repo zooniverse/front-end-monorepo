@@ -9,12 +9,14 @@ import readme from './README.md'
 import MetaToolsButton from './'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 
-storiesOf('MetaToolsButton', module)
+storiesOf('Components/MetaToolsButton', module)
   .addDecorator(withKnobs)
   .add('plain', () => (
     <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>

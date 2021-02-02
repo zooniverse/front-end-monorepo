@@ -1,29 +1,28 @@
-import { withActions } from '@storybook/addon-actions'
-import { withKnobs, text, boolean, select } from '@storybook/addon-knobs'
-import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Button, Grommet } from 'grommet'
 import React from 'react'
 
-// import readme from './README.md'
-import Label from './Label'
+import { default as LabelComponent } from './Label'
 
-const config = {
-  // notes: {
-  //   markdown: readme
-  // }
+export default {
+  title: 'Components/Tooltip/Label',
+  component: LabelComponent,
+  args: {
+    arrow: true,
+    dark: false,
+    label: 'Hello'
+  }
 }
 
-storiesOf('Tooltip/Label', module)
-  .addDecorator(withKnobs)
-  .addDecorator(withActions('click button'))
-  .add('default', () => (
+export function Label({ arrow, dark, label }){
+  return (
     <LabelStoryExample
-      arrow={boolean('Arrow', true)}
-      dark={boolean('Dark theme', false)}
-      label={text('Label text', 'Hello')}
+      arrow={arrow}
+      dark={dark}
+      label={label}
     />
-  ), config)
+  )
+}
 
 function LabelStoryExample(props) {
   const { arrow, dark, label } = props
@@ -37,7 +36,7 @@ function LabelStoryExample(props) {
       themeMode={(dark) ? 'dark' : 'light'}
     >
       <Box align='center' height='medium' justify='center' pad='medium'>
-        <Label arrow={arrow} label={label} />
+        <LabelComponent arrow={arrow} label={label} />
       </Box>
     </Grommet>
   )

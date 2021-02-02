@@ -8,14 +8,16 @@ import Tab from '../Tab'
 import readme from './README.md'
 
 const config = {
-  notes: {
-    markdown: readme
+  docs: {
+    description: {
+      component: readme
+    }
   }
 }
 
 const darkZooTheme = { ...zooTheme, dark: true }
 
-storiesOf('Tabs', module)
+storiesOf('Components/Tabs', module)
 
   .add('Light theme (default)', () => (
     <Grommet
