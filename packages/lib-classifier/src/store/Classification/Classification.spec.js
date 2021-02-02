@@ -104,14 +104,30 @@ describe('Model > Classification', function () {
     })
   })
 
-  describe('previousInteractionTaskAnnotations computed view', function ()  {
+  describe('when there are previous annotations', function ()  {
     let singleChoice, text, drawingOne, transcription, drawingTwo
 
-    before(function () {
+    beforeEach(function () {
       const singleChoiceTask = taskRegistry.get('single')
       const textTask = taskRegistry.get('text')
       const drawingTask = taskRegistry.get('drawing')
       const transcriptionTask = taskRegistry.get('transcription')
+
+      model = Classification.create({
+        annotations: [],
+        links: {
+          project: '1234',
+          subjects: ['4567'],
+          workflow: '5678'
+        },
+        metadata: ClassificationMetadata.create({
+          classifier_version: '2.0',
+          source: 'api',
+          userLanguage: 'en',
+          workflowVersion: '1.0'
+        })
+      })
+
       singleChoice = singleChoiceTask.TaskModel.create({
         question: 'yes or no?',
         answers: ['yes', 'no'],
@@ -140,47 +156,73 @@ describe('Model > Classification', function () {
       })
     })
 
-    it('should return an empty array if the stored annotations are not for drawing or transcription tasks', function ()  {
-      model.addAnnotation(singleChoice, 0)
-      model.addAnnotation(text, 'This is a text task')
-      const previousAnnotations = model.previousInteractionTaskAnnotations('T1')
-      expect(previousAnnotations).to.be.an('array')
-      expect(previousAnnotations).to.be.empty()
-      model.removeAnnotation('T0')
-      model.removeAnnotation('T1')
+    describe('when the view function is called without an active task key', function () {
+      it('should return an empty array', function () {
+        const previousAnnotations = model.previousInteractionTaskAnnotations()
+        expect(previousAnnotations).to.be.an('array')
+        expect(previousAnnotations).to.be.empty()
+      })
     })
 
-    it('should return an empty array if the active task key is the same as the annotations task key', function () {
-      const pointMark = Point.create({ id: 'point1', frame: 0, toolIndex: 0, x: 100, y: 200, toolType: 'point' })
-      model.addAnnotation(drawingOne, [pointMark])
-      const previousAnnotations = model.previousInteractionTaskAnnotations('T2')
-      expect(previousAnnotations).to.be.an('array')
-      expect(previousAnnotations).to.have.empty()
-      model.removeAnnotation('T2')
+    describe('when the previous annotations are not from drawing or transcription tasks', function () {
+      it('should return an empty array', function () {
+        model.addAnnotation(singleChoice, 0)
+        model.addAnnotation(text, 'This is a text task')
+        let previousAnnotations = model.previousInteractionTaskAnnotations(singleChoice.taskKey)
+        expect(previousAnnotations).to.be.an('array')
+        expect(previousAnnotations).to.be.empty()
+
+        previousAnnotations = model.previousInteractionTaskAnnotations(text.taskKey)
+        expect(previousAnnotations).to.be.an('array')
+        expect(previousAnnotations).to.be.empty()
+      })
     })
 
-    it('should return an array of annotations if the stored annotations are for previous drawing tasks', function () {
-      const pointMark = Point.create({ id: 'point1', frame: 0, toolIndex: 0, x: 100, y: 200, toolType: 'point' })
-      const lineMark = Line.create({ id: 'line1', frame: 0, toolIndex: 0, x1: 100, y1: 200, x2: 300, y2: 400, toolType: 'line' })
-
-      model.addAnnotation(drawingOne, [pointMark])
-      model.addAnnotation(drawingTwo, [lineMark])
-      const previousAnnotations = model.previousInteractionTaskAnnotations('T4')
-      expect(previousAnnotations).to.be.an('array')
-      expect(previousAnnotations).to.have.lengthOf(1)
-      expect(previousAnnotations[0].task).to.equal(drawingOne.taskKey)
-      model.removeAnnotation('T2')
-      model.removeAnnotation('T4')
+    describe('when the annotations are from the current drawing task', function () {
+      it('should return an empty array', function () {
+        const pointMark = Point.create({ id: 'point1', frame: 0, toolIndex: 0, x: 100, y: 200, toolType: 'point' })
+        model.addAnnotation(drawingOne, [pointMark])
+        const previousAnnotations = model.previousInteractionTaskAnnotations(drawingOne.taskKey)
+        expect(previousAnnotations).to.be.an('array')
+        expect(previousAnnotations).to.have.empty()
+      })
     })
 
-    it('should return an array of annotations if the stored annotations are for previous transcription tasks', function () {
-      const transcriptionMark = TranscriptionLine.create({ id: 'transcriptionline1', frame: 0, toolIndex: 0, x1: 100, y1: 200, x2: 150, y2: 200, toolType: 'transcriptionLine' })
-      model.addAnnotation(transcription, [transcriptionMark])
-      const annotations = model.previousInteractionTaskAnnotations()
-      expect(annotations).to.be.an('array')
-      expect(annotations).to.have.lengthOf(1)
-      expect(annotations[0].task).to.deep.equal(transcription.taskKey)
-      model.removeAnnotation('T3')
+    describe('when the annotations are from the previous drawing task', function () {
+      it('should return an array of annotations', function () {
+        const pointMark = Point.create({ id: 'point1', frame: 0, toolIndex: 0, x: 100, y: 200, toolType: 'point' })
+        const lineMark = Line.create({ id: 'line1', frame: 0, toolIndex: 0, x1: 100, y1: 200, x2: 300, y2: 400, toolType: 'line' })
+
+        model.addAnnotation(drawingOne, [pointMark])
+        model.addAnnotation(drawingTwo, [lineMark])
+        const previousAnnotations = model.previousInteractionTaskAnnotations(drawingTwo.taskKey)
+        expect(previousAnnotations).to.be.an('array')
+        expect(previousAnnotations).to.have.lengthOf(1)
+        expect(previousAnnotations[0].task).to.equal(drawingOne.taskKey)
+      })
+    })
+
+    describe('when the annotations are from the current transcription task', function () {
+      it('should return an empty array', function () {
+        const transcriptionMark = TranscriptionLine.create({ id: 'transcriptionline1', frame: 0, toolIndex: 0, x1: 100, y1: 200, x2: 150, y2: 200, toolType: 'transcriptionLine' })
+        model.addAnnotation(transcription, [transcriptionMark])
+        model.addAnnotation(singleChoice, 0)
+        const previousAnnotations = model.previousInteractionTaskAnnotations(transcription.taskKey)
+        expect(previousAnnotations).to.be.an('array')
+        expect(previousAnnotations).to.have.empty()
+      })
+    })
+
+    describe('when the annotations are from the previous transcription task', function () {
+      it('should return an array of annotations', function () {
+        const transcriptionMark = TranscriptionLine.create({ id: 'transcriptionline1', frame: 0, toolIndex: 0, x1: 100, y1: 200, x2: 150, y2: 200, toolType: 'transcriptionLine' })
+        model.addAnnotation(transcription, [transcriptionMark])
+        model.addAnnotation(singleChoice, 0)
+        const annotations = model.previousInteractionTaskAnnotations(singleChoice.taskKey)
+        expect(annotations).to.be.an('array')
+        expect(annotations).to.have.lengthOf(1)
+        expect(annotations[0].task).to.deep.equal(transcription.taskKey)
+      })
     })
   })
 })
