@@ -6,18 +6,18 @@ import SHOWN_MARKS from '@helpers/shownMarks'
 function PreviousMarks (props) {
   const {
     frame = 0,
-    interactionTaskAnnotations = [],
+    previousAnnotations = [],
     scale = 1,
     shownMarks = 'ALL'
   } = props
   const marksToShow = shownMarks === SHOWN_MARKS.ALL || shownMarks === SHOWN_MARKS.USER
 
-  if (interactionTaskAnnotations?.length > 0 && marksToShow) {
+  if (previousAnnotations?.length > 0 && marksToShow) {
     // Wrapping the array in an react fragment because enzyme errors otherwise 
     // React v16 allows this, though. 
     return (
       <>
-        {interactionTaskAnnotations.map((annotation) => {
+        {previousAnnotations.map((annotation) => {
           const annotationValuesPerFrame = annotation.value.filter(value => value.frame === frame)
           return (
             <g
@@ -36,6 +36,13 @@ function PreviousMarks (props) {
   }
 
   return null
+}
+
+PreviousMarks.propTypes = {
+  frame: PropTypes.number,
+  previousAnnotations: PropTypes.array,
+  scale: PropTypes.number,
+  shownMarks: PropTypes.string
 }
 
 export default PreviousMarks
