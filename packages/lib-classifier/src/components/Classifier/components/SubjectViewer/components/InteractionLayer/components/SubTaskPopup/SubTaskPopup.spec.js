@@ -28,7 +28,8 @@ describe('SubTaskPopup', function () {
     const fakeEvent = {
       stopPropagation: sinon.stub()
     }
-    const wrapper = shallow(<SubTaskPopup />)
+    const activeMark = { subTaskVisibility: true }
+    const wrapper = shallow(<SubTaskPopup activeMark={activeMark} />)
     wrapper.find(MovableModal).simulate('wheel', fakeEvent)
     expect(fakeEvent.stopPropagation).to.have.been.calledOnce()
   })
