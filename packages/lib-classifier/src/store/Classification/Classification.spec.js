@@ -190,7 +190,7 @@ describe('Model > Classification', function () {
         model.addAnnotation(drawingOne, [pointMark])
         const previousAnnotations = model.previousInteractionTaskAnnotations(drawingOne.taskKey)
         expect(previousAnnotations).to.be.an('array')
-        expect(previousAnnotations).to.have.empty()
+        expect(previousAnnotations).to.be.empty()
       })
     })
 
