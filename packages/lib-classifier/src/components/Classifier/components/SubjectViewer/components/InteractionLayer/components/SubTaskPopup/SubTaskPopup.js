@@ -54,6 +54,10 @@ function SubTaskPopup(props) {
     }
   }
 
+  function onWheel(event) {
+    event.stopPropagation()
+  }
+
   const defaultPosition = getDefaultPosition(subTaskMarkBounds, MIN_POPUP_HEIGHT, MIN_POPUP_WIDTH)
 
   return (
@@ -62,6 +66,7 @@ function SubTaskPopup(props) {
         active
         closeFn={close}
         headingBackground='transparent'
+        onWheel={onWheel}
         pad={{ bottom: 'medium', left: 'medium', right: 'medium' }}
         plain
         position='top-left'

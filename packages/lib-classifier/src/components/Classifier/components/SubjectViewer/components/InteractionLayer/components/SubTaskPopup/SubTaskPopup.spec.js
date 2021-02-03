@@ -24,6 +24,15 @@ describe('SubTaskPopup', function () {
     expect(wrapper.find(ConfirmModal)).to.have.lengthOf(0)
   })
 
+  it('should trap scroll wheel events', function () {
+    const fakeEvent = {
+      stopPropagation: sinon.stub()
+    }
+    const wrapper = shallow(<SubTaskPopup />)
+    wrapper.find(MovableModal).simulate('wheel', fakeEvent)
+    expect(fakeEvent.stopPropagation).to.have.been.calledOnce()
+  })
+
   describe('with confirm modal', function () {
     let wrapper
 
