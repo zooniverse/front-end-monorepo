@@ -33,6 +33,10 @@ export default function ConsensusPopup (props) {
 
   line.textOptions.forEach((option, index) => itemProps[index] = { border: false, pad: { horizontal: 'none', vertical: 'xsmall'} })
 
+  function onWheel(event) {
+    event.stopPropagation()
+  }
+
   return (
     <MovableModal
       active={active}
@@ -42,6 +46,7 @@ export default function ConsensusPopup (props) {
         light: 'neutral-6'
       }}
       height={{ min: '250px', max: '350px' }}
+      onWheel={onWheel}
       pad={{ bottom: 'medium', left: 'medium', right: 'medium' }}
       position='top-left'
       plain
