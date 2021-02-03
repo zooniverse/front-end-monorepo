@@ -1,4 +1,5 @@
 import { panoptes } from '@zooniverse/panoptes-js'
+import fetch from 'node-fetch'
 
 async function fetchWorkflowData (activeWorkflows, env) {
   const response = await panoptes
@@ -28,6 +29,14 @@ function fetchDisplayNames (language, activeWorkflows, env) {
     .then(createDisplayNamesMap)
 }
 
+async function fetchWorkflowCellectStatus(workflow) {
+  const workflowURL = `https://cellect.zooniverse.org/workflows/${workflow.id}/status`
+  const response = await fetch(workflowURL)
+  const body = await response.json()
+  const { groups } = body ?? {}
+  return groups
+}
+
 async function fetchPreviewImage (subjectSet, env) {
   const response = await panoptes
     .get('/set_member_subjects', {
@@ -40,28 +49,34 @@ async function fetchPreviewImage (subjectSet, env) {
   subjectSet.subjects = linked.subjects
 }
 
+async function buildWorkflow(workflow, displayNames, subjectSets) {
+  const subjectSetCounts = await fetchWorkflowCellectStatus(workflow)
+  const workflowSubjectSets = workflow.links.subject_sets
+    .map(subjectSetID => {
+      const subjectSet = subjectSets.find(subjectSet => subjectSet.id === subjectSetID)
+      subjectSet.availableSubjects = subjectSetCounts[subjectSetID]
+      return subjectSet
+    })
+    .filter(Boolean)
+
+  return {
+    completeness: workflow.completeness || 0,
+    displayName: displayNames[workflow.id],
+    grouped: workflow.grouped,
+    id: workflow.id,
+    subjectSets: workflowSubjectSets
+  }
+}
+
 async function fetchWorkflowsHelper (language = 'en', activeWorkflows, defaultWorkflow, env) {
   const { subjectSets, workflows } = await fetchWorkflowData(activeWorkflows, env)
   const workflowIds = workflows.map(workflow => workflow.id)
   const displayNames = await fetchDisplayNames(language, workflowIds, env)
 
-  return workflows.map(workflow => {
-    const isDefault = workflows.length === 1 || workflow.id === defaultWorkflow
-    const workflowSubjectSets = workflow.links.subject_sets
-      .map(subjectSetID => {
-        return subjectSets.find(subjectSet => subjectSet.id === subjectSetID)
-      })
-      .filter(Boolean)
-
-    return {
-      completeness: workflow.completeness || 0,
-      default: isDefault,
-      displayName: displayNames[workflow.id],
-      grouped: workflow.grouped,
-      id: workflow.id,
-      subjectSets: workflowSubjectSets
-    }
-  })
+  const awaitWorkflows = await Promise.allSettled(workflows.map(workflow => buildWorkflow(workflow, displayNames, subjectSets)))
+  const workflowsWithSubjectSets = awaitWorkflows.map(result => result.value)
+  console.log({ workflowsWithSubjectSets })
+  return workflowsWithSubjectSets
 }
 
 function createDisplayNamesMap (translations) {
