@@ -215,7 +215,7 @@ describe('Model > Classification', function () {
         model.addAnnotation(singleChoice, 0)
         const previousAnnotations = model.previousInteractionTaskAnnotations(transcription.taskKey)
         expect(previousAnnotations).to.be.an('array')
-        expect(previousAnnotations).to.have.empty()
+        expect(previousAnnotations).to.be.empty()
       })
     })
 
