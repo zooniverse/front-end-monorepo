@@ -1,8 +1,8 @@
 import { Box } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
-import App from 'next/app'
-import React from 'react'
+import Error from 'next/error'
+import React, { useEffect, useMemo } from 'react'
 import { createGlobalStyle } from 'styled-components'
 
 import AuthModal from '@components/AuthModal'
@@ -21,30 +21,32 @@ const GlobalStyle = createGlobalStyle`
 
 initializeLogger()
 
-export default class MyApp extends App {
-  constructor (props) {
-    super()
-    const { isServer, initialState } = props.pageProps
-    this.store = initStore(isServer, initialState, props.client)
-    makeInspectable(this.store)
-  }
+/**
+  useStore hook adapted from
+  https://github.com/vercel/next.js/blob/5201cdbaeaa72b54badc8f929ddc73c09f414dc4/examples/with-mobx-state-tree/store.js#L49-L52
+*/
+function useStore(initialState) {
+  const isServer = typeof window === 'undefined'
+  const store = useMemo(() => initStore(isServer, initialState), [isServer, initialState])
+  return store
+}
 
-  componentDidMount () {
-    console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
-    this.store.user.checkCurrent()
-  }
+export default function MyApp({ Component, pageProps }) {
+  try {
+    const { initialState } = pageProps
+    const store = useStore(initialState)
+    makeInspectable(store)
 
-  componentDidCatch (error, errorInfo) {
-    logReactError(error, errorInfo)
-    super.componentDidCatch(error, errorInfo)
-  }
+    function onMount() {
+      console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
+      store.user.checkCurrent()
+    }
+    useEffect(onMount, [])
 
-  render () {
-    const { Component, pageProps } = this.props
     return (
       <>
         <GlobalStyle />
-        <Provider store={this.store}>
+        <Provider store={store}>
           <MediaContextProvider>
             <GrommetWrapper>
               <Head host={pageProps.host} />
@@ -57,6 +59,9 @@ export default class MyApp extends App {
         </Provider>
       </>
     )
+  } catch (error) {
+    logReactError(error)
+    return <Error statusCode={500} title={error.message} />
   }
 }
 
