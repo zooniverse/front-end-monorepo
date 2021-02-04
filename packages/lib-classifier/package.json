@@ -36,6 +36,7 @@
     "react-player": "~2.7.0",
     "react-resize-detector": "~4.2.0",
     "seven-ten": "~3.4.0",
+    "sort-into-columns": "~1.0.0",
     "valid-url": "~1.0.9"
   },
   "peerDependencies": {
