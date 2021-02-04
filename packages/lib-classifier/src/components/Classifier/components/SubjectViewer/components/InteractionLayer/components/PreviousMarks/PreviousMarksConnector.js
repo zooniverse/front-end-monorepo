@@ -5,28 +5,28 @@ import PreviousMarks from './PreviousMarks'
 
 function useStores() {
   const stores = React.useContext(MobXProviderContext)
-  const { interactionTask } = stores.classifierStore.workflowSteps
+  const { activeInteractionTask, interactionTask } = stores.classifierStore.workflowSteps
   const {
     active: classification
   } = stores.classifierStore.classifications
-  const interactionTaskAnnotations = classification?.interactionTaskAnnotations || []
+  const previousAnnotations = classification?.previousInteractionTaskAnnotations(activeInteractionTask.taskKey) || []
   const {
     frame
   } = stores.classifierStore.subjectViewer
-  return { frame, interactionTask, interactionTaskAnnotations }
+  return { frame, interactionTask, previousAnnotations }
 }
 
 function PreviousMarksConnector({ scale, ...rest }) {
   const {
     frame = 0,
     interactionTask,
-    interactionTaskAnnotations
+    previousAnnotations
   } = useStores()
   const { shownMarks } = interactionTask
   return (
     <PreviousMarks
       frame={frame}
-      interactionTaskAnnotations={interactionTaskAnnotations}
+      previousAnnotations={previousAnnotations}
       scale={scale}
       shownMarks={shownMarks}
       {...rest}

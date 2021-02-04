@@ -5,7 +5,7 @@ import DrawingToolMarks from '../DrawingToolMarks'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
 describe('Component > PreviousMarks', function () {
-  const interactionTaskAnnotations = [{
+  const previousAnnotations = [{
     task: 'T2',
     value: [
       { id: 'point1', frame: 0, toolIndex: 0, x: 100, y: 200 }
@@ -26,13 +26,13 @@ describe('Component > PreviousMarks', function () {
   })
 
   it('should ignore pointer events on all drawn marks', function () {
-    const wrapper = shallow(<PreviousMarks interactionTaskAnnotations={interactionTaskAnnotations} scale={2} />)
+    const wrapper = shallow(<PreviousMarks previousAnnotations={previousAnnotations} scale={2} />)
     const marksGroups = wrapper.find('g')
     marksGroups.forEach( group => expect(group.prop('pointerEvents')).to.equal('none'))
   })
 
   it('should pass scale along as a prop to each DrawingToolMarks component', function ()  {
-    const wrapper = shallow(<PreviousMarks interactionTaskAnnotations={interactionTaskAnnotations} scale={2} />)
+    const wrapper = shallow(<PreviousMarks previousAnnotations={previousAnnotations} scale={2} />)
     expect(wrapper.find(DrawingToolMarks).first().props().scale).to.equal(2)
     expect(wrapper.find(DrawingToolMarks).last().props().scale).to.equal(2)
   })
@@ -46,19 +46,19 @@ describe('Component > PreviousMarks', function () {
 
   describe('when there are interaction task annotations', function () {
     it('should render a DrawingToolMarks for each task', function ()  {
-      const wrapper = shallow(<PreviousMarks interactionTaskAnnotations={interactionTaskAnnotations} />)
+      const wrapper = shallow(<PreviousMarks previousAnnotations={previousAnnotations} />)
       expect(wrapper.find(DrawingToolMarks)).to.have.lengthOf(2)
-      expect(wrapper.find('g').first().key()).to.equal(interactionTaskAnnotations[0].task)
-      expect(wrapper.find('g').last().key()).to.equal(interactionTaskAnnotations[1].task)
+      expect(wrapper.find('g').first().key()).to.equal(previousAnnotations[0].task)
+      expect(wrapper.find('g').last().key()).to.equal(previousAnnotations[1].task)
     })
 
     it('should pass along the correct number of marks per task by frame', function () {
-      const firstTaskAnnotationsFirstFrameFirstMark = interactionTaskAnnotations[0].value[0]
-      const secondTaskAnnotationsFirstFrameFirstMark = interactionTaskAnnotations[1].value[0]
-      const secondTaskAnnotationsFirstFrameSecondMark = interactionTaskAnnotations[1].value[1]
-      const secondTaskAnnotationsSecondFrameFirstMark = interactionTaskAnnotations[1].value[2]
-      const secondTaskAnnotationsSecondFrameSecondMark = interactionTaskAnnotations[1].value[3]
-      const wrapper = shallow(<PreviousMarks interactionTaskAnnotations={interactionTaskAnnotations} />)
+      const firstTaskAnnotationsFirstFrameFirstMark = previousAnnotations[0].value[0]
+      const secondTaskAnnotationsFirstFrameFirstMark = previousAnnotations[1].value[0]
+      const secondTaskAnnotationsFirstFrameSecondMark = previousAnnotations[1].value[1]
+      const secondTaskAnnotationsSecondFrameFirstMark = previousAnnotations[1].value[2]
+      const secondTaskAnnotationsSecondFrameSecondMark = previousAnnotations[1].value[3]
+      const wrapper = shallow(<PreviousMarks previousAnnotations={previousAnnotations} />)
       let firstTaskAnnotationRenderedMarks = wrapper.find(DrawingToolMarks).first().props().marks
       let secondTaskAnnotationRenderedMarks = wrapper.find(DrawingToolMarks).last().props().marks
       expect(firstTaskAnnotationRenderedMarks).to.have.lengthOf(1)
@@ -83,7 +83,7 @@ describe('Component > PreviousMarks', function () {
     })
 
     it('should render DrawingToolMarks if there are also annotations', function () {
-      const wrapper = shallow(<PreviousMarks interactionTaskAnnotations={interactionTaskAnnotations} shownMarks={SHOWN_MARKS.USER} />)
+      const wrapper = shallow(<PreviousMarks previousAnnotations={previousAnnotations} shownMarks={SHOWN_MARKS.USER} />)
       expect(wrapper.find(DrawingToolMarks)).to.have.lengthOf(2)
     })
   })

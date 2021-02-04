@@ -1,6 +1,7 @@
 import React from 'react'
 import { List, Paragraph, Text } from 'grommet'
 import { shallow } from 'enzyme'
+import sinon from 'sinon'
 import { MovableModal } from '@zooniverse/react-components'
 import ConsensusPopup from './ConsensusPopup'
 import setupMock from './helpers/setupMock'
@@ -26,6 +27,14 @@ describe('TranscribedLines > Component > ConsensusPopup', function () {
 
     it('should render a MovableModal component', function () {
       expect(wrapper.find(MovableModal)).to.have.lengthOf(1)
+    })
+
+    it('should trap scroll wheel events', function () {
+      const fakeEvent = {
+        stopPropagation: sinon.stub()
+      }
+      wrapper.simulate('wheel', fakeEvent)
+      expect(fakeEvent.stopPropagation).to.have.been.calledOnce()
     })
 
     describe('title bar', function () {

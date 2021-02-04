@@ -23,7 +23,7 @@ const CAT = {
   ]
 }
 
-storiesOf('Favourites Button', module)
+storiesOf('Components/Favourites Button', module)
   .addDecorator(withKnobs)
   .add('plain', () => (
     <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
