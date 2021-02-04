@@ -1,5 +1,6 @@
 import React from 'react'
 import counterpart from 'counterpart'
+import { array, bool, func, object, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import { Box, List, Paragraph, Text } from 'grommet'
 import { MovableModal } from '@zooniverse/react-components'
@@ -16,22 +17,26 @@ const StyledBox = styled(Box)`
     font-size: 0.8em;
   }
 `
-
-export default function ConsensusPopup (props) {
-  const {
-    active = false,
-    bounds = undefined,
-    closeFn = () => {},
-    line = {
-      consensusText: '',
-      textOptions: []
-    }
-  } = props
-
+/**
+  A popup which shows the previous annotations for a single transcription line.
+*/
+export default function ConsensusPopup ({
+  active = false,
+  bounds = undefined,
+  closeFn = () => {},
+  line = {
+    consensusText: '',
+    textOptions: []
+  }
+}) {
   const itemProps = {}
   const position = getDefaultPosition(bounds, MIN_POPUP_HEIGHT, MIN_POPUP_WIDTH)
 
   line.textOptions.forEach((option, index) => itemProps[index] = { border: false, pad: { horizontal: 'none', vertical: 'xsmall'} })
+
+  function onWheel(event) {
+    event.stopPropagation()
+  }
 
   return (
     <MovableModal
@@ -42,6 +47,7 @@ export default function ConsensusPopup (props) {
         light: 'neutral-6'
       }}
       height={{ min: '250px', max: '350px' }}
+      onWheel={onWheel}
       pad={{ bottom: 'medium', left: 'medium', right: 'medium' }}
       position='top-left'
       plain
@@ -76,4 +82,26 @@ export default function ConsensusPopup (props) {
       </StyledBox>
     </MovableModal>
   )
+}
+
+ConsensusPopup.propTypes = {
+  /**
+    Modal active state.
+  */
+  active: bool,
+  /**
+    Bounding rectangle in the browser.
+  */
+  bounds: object,
+  /**
+    Callback for the modal's close button.
+  */
+  closeFn: func,
+  /**
+    Consensus options for the current line.
+  */
+  line:shape({
+    consensusText: string,
+    textOptions: array
+  })
 }
