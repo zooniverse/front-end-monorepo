@@ -1,10 +1,10 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import ProjectHomePageContainer from './ProjectHomePageContainer'
+import ProjectHomePageConnector from './ProjectHomePageConnector'
 import ProjectHomePage from './ProjectHomePage'
 
-describe('Component > ProjectHomePageContainer', function () {
+describe('Component > ProjectHomePageConnector', function () {
   describe('with a project not in beta', function () {
     let wrapper
     const stores = {
@@ -16,7 +16,7 @@ describe('Component > ProjectHomePageContainer', function () {
     }
 
     before(function () {
-      wrapper = shallow(<ProjectHomePageContainer stores={stores} />)
+      wrapper = shallow(<ProjectHomePageConnector stores={stores} />)
     })
 
     it('should render without crashing', function () {
@@ -40,7 +40,7 @@ describe('Component > ProjectHomePageContainer', function () {
     }
 
     before(function () {
-      wrapper = shallow(<ProjectHomePageContainer stores={stores} />)
+      wrapper = shallow(<ProjectHomePageConnector stores={stores} />)
     })
 
     it('should render without crashing', function () {

@@ -15,7 +15,7 @@ function useStoreContext(stores) {
 /**
   Connect the home page to the store. Pass down the project beta status and active workflows.
 */
-function ProjectHomePageContainer({
+function ProjectHomePageConnector({
   stores,
   workflows = []
 }) {
@@ -23,7 +23,7 @@ function ProjectHomePageContainer({
   return <ProjectHomePage inBeta={inBeta} workflows={workflows} />
 }
 
-ProjectHomePageContainer.propTypes = {
+ProjectHomePageConnector.propTypes = {
   /**
    Optional project store. Use this to mock the stores for tests etc.
   */
@@ -42,4 +42,4 @@ ProjectHomePageContainer.propTypes = {
   }))
 }
 
-export default observer(ProjectHomePageContainer)
+export default observer(ProjectHomePageConnector)
