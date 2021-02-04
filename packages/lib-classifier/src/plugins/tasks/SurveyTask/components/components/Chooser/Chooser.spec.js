@@ -1,0 +1,47 @@
+import { shallow } from 'enzyme'
+import { types } from 'mobx-state-tree'
+import React from 'react'
+
+import { default as Task } from '@plugins/tasks/SurveyTask'
+import Chooser from './Chooser'
+import CharacteristicsFilterLabel from './components/CharacteristicsFilterLabel'
+import Choices from './components/Choices'
+
+describe('Component > Chooser', function () {
+  let wrapper
+  const task = Task.TaskModel.create({
+    taskKey: 'T0',
+    type: 'survey'
+  })
+  const annotation = task.defaultAnnotation()
+
+  before(function () {
+    types.model('MockStore', {
+      annotation: Task.AnnotationModel,
+      task: Task.TaskModel
+    })
+      .create({
+        annotation,
+        task
+      })
+    task.setAnnotation(annotation)
+
+    wrapper = shallow(
+      <Chooser
+        task={task}
+      />
+    )
+  })
+  
+  it('should render without crashing', function () {
+    expect(wrapper).to.be.ok()
+  })
+
+  it('should render a CharacteristicsFilterLabel component', function () {
+    expect(wrapper.find(CharacteristicsFilterLabel)).to.have.lengthOf(1)
+  })
+
+  it('should render a Choices component', function () {
+    expect(wrapper.find(Choices)).to.have.lengthOf(1)
+  })
+})

@@ -1,17 +1,23 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { withKnobs, number } from '@storybook/addon-knobs'
 import setupMock from './helpers/setupMock'
 import ConsensusPopup from './ConsensusPopup'
 
-const config = {}
 const completedLines = setupMock()
-const stories = storiesOf('Drawing Tools / TranscribedLines/ConsensusPopup', module)
-stories.addDecorator(withKnobs)
 
-function ConsensusPopupStory (props) {
+export default {
+  title: 'Drawing Tools / TranscribedLines/ConsensusPopup',
+  component: ConsensusPopup,
+  parameters: {
+    docs: {
+      inlineStories: false
+    }
+  }
+}
+
+function ConsensusPopupStory(props) {
   const { dark = false, index = 0 } = props
 
   return (
@@ -30,15 +36,19 @@ function ConsensusPopupStory (props) {
   )
 }
 
-stories
-  .add('default', () => (
+export function Default() {
+  return (
     <ConsensusPopupStory
       index={number('Completed lines index', 0, { min: 0, max: 12 })}
     />
-  ), config)
-  .add('dark theme', () => (
+  )
+}
+
+export function DarkTheme() {
+  return (
     <ConsensusPopupStory
       dark
       index={number('Completed lines index', 0, { min: 0, max: 12 })}
     />
-  ), config)
+  )
+}

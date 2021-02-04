@@ -68,6 +68,12 @@ const WorkflowStepStore = types
       const [transcriptionTask] = self.findTasksByType('transcription')
 
       return activeDrawingTask || transcriptionTask  || {}
+    },
+
+    get activeInteractionTask () {
+      const [activeInteractionTask] = self.activeStepTasks.filter(task => task.type === 'drawing' || task.type === 'transcription')
+
+      return activeInteractionTask || {}
     }
   }))
   .actions(self => {
