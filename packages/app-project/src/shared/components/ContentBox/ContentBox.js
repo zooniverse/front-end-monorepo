@@ -18,7 +18,7 @@ function ContentBox (props) {
     ...rest
   } = props
 
-  const showHeader = title || (linkLabel && linkUrl)
+  const showHeader = title || (linkLabel && linkProps)
 
   return (
     <Box
@@ -53,13 +53,11 @@ function ContentBox (props) {
           )}
 
           {(linkLabel && linkProps) && (
-            <Link {...linkProps} passHref>
-              <Anchor>
-                <SpacedText>
-                  {linkLabel}
-                </SpacedText>
-              </Anchor>
-            </Link>
+            <Anchor {...linkProps}>
+              <SpacedText>
+                {linkLabel}
+              </SpacedText>
+            </Anchor>
           )}
 
         </Box>
