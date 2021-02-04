@@ -26,6 +26,7 @@ const Project = types
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
     researcher_quote: types.optional(types.string, ''),
     owners: types.frozen([]),
+    primary_language: types.optional(types.string, 'en'),
     retired_subjects_count: types.optional(types.number, 0),
     slug: types.optional(types.string, ''),
     urls: types.frozen([]),
@@ -63,6 +64,27 @@ const Project = types
   .actions(self => {
     let client
 
+    function setProperty([ key, value ]) {
+      try {
+        self[key] = value
+      } catch (error) {
+        console.error(`project.${property} is invalid`, error)
+      }
+    }
+
+    const fetchTranslations = flow(function * fetchTranslations(params) {
+      const { panoptes } = getRoot(self).client
+      const response = yield panoptes.get('/translations', {
+        language: self.primary_language,
+        'translated_id': self.id,
+        'translated_type': 'project',
+        ...params
+      })
+      const [ translation ] = response.body.translations
+      const strings = translation?.strings ?? {}
+      Object.entries(strings).forEach(setProperty)
+    })
+
     return {
       afterAttach () {
         client = getRoot(self).client.projects
@@ -97,6 +119,7 @@ const Project = types
             'launch_approved',
             'links',
             'live',
+            'primary_language',
             'researcher_quote',
             'retired_subjects_count',
             'slug',
@@ -104,13 +127,8 @@ const Project = types
             'urls',
             'workflow_description'
           ]
-          properties.forEach(property => {
-            try {
-              self[property] = project[property]
-            } catch (error) {
-              console.error(`project.${property} is invalid`, error)
-            }
-          })
+          properties.forEach(property => setProperty([property, project[property]]))
+          yield fetchTranslations(params)
 
           self.loadingState = asyncStates.success
         } catch (error) {
