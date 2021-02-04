@@ -1,6 +1,6 @@
 import { shallow, mount } from 'enzyme'
 import React from 'react'
-import { MovableModal } from '@zooniverse/react-components'
+import { MovableModal, Modal } from '@zooniverse/react-components'
 import { observable } from 'mobx'
 import en from './locales/en'
 import FieldGuide from './FieldGuide'
@@ -38,7 +38,7 @@ describe('Component > FieldGuide', function () {
     expect(wrapper).to.be.ok()
   })
 
-  describe('modal render', function () {
+  describe('when the window size is greater than small', function () {
     let wrapper
     before(function () {
       wrapper = mount(
@@ -52,8 +52,8 @@ describe('Component > FieldGuide', function () {
     })
 
     it('should render at a default minimum size', function () {
-      const minHeight = '415px'
-      const minWidth = '490px'
+      const minHeight = 415
+      const minWidth = 490
       const { rndProps } = wrapper.find(MovableModal).props()
       expect(rndProps.minHeight).to.equal(minHeight)
       expect(rndProps.minWidth).to.equal(minWidth)
@@ -61,6 +61,16 @@ describe('Component > FieldGuide', function () {
 
     it('should render a title', function () {
       expect(wrapper.find(MovableModal).props().title).to.equal(en.FieldGuide.title)
+    })
+  })
+
+  describe('when the window size is small', function () {
+    it('should render a Modal', function () {
+      expect(wrapper.find(MovableModal)).to.have.lengthOf(1)
+    })
+
+    it('should render a title', function () {
+      expect(wrapper.find(Modal).props().title).to.equal(en.FieldGuide.title)
     })
   })
 

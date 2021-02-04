@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { observable } from 'mobx'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
-import { MovableModal } from '@zooniverse/react-components'
+import { MovableModal, Modal } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import en from './locales/en'
 
@@ -26,25 +26,31 @@ function FieldGuide (props) {
   return (
     <ResponsiveContext.Consumer>
       {size => {
-        const height = (size === 'small') ? '100%' : '415px'
-        const width = (size === 'small') ? '100%' : '490px'
+        const minHeight = 415
+        const minWidth = 490
+        const height = (size === 'small') ? '100%' : `${minHeight}px`
+        const width = (size === 'small') ? '100%' : `${minWidth}px`
+        const ModalWrapper = (size === 'small') ? Modal : MovableModal
+        const modalProps = {
+          active: true,
+          closeFn: onClose,
+          modal: false,
+          pad: 'medium',
+          position: 'right',
+          title: counterpart('FieldGuide.title')
+        }
+        const rndProps = {
+          minHeight,
+          minWidth,
+          position: {
+            x: 0 - (minWidth + 60), // width plus margins
+            y: 0 - (minHeight + 60) * 0.5 // centers vertically
+          }
+        }
+        const modalPropsToUse = (size === 'small') ? modalProps : Object.assign({}, modalProps, { rndProps })
         return (
-          <MovableModal
-            active
-            closeFn={onClose}
-            modal={false}
-            pad='medium'
-            plain
-            position='right'
-            rndProps={{
-              minHeight: height,
-              minWidth: width,
-              position: {
-                x: 0 - (490 + 60), // width plus margins
-                y: 0 - (415 + 60) * 0.5 // centers vertically
-              }
-            }}
-            title={counterpart('FieldGuide.title')}
+          <ModalWrapper
+            {...modalPropsToUse}
           >
             <Box
               className={className}
@@ -56,7 +62,7 @@ function FieldGuide (props) {
                 : <FieldGuideItems icons={icons} items={items} setActiveItemIndex={setActiveItemIndex} />
               }
             </Box>
-          </MovableModal>
+          </ModalWrapper>
         )
       }}
     </ResponsiveContext.Consumer>
