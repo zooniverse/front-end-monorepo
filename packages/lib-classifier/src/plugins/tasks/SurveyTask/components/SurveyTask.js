@@ -1,7 +1,9 @@
+import { Box, Drop } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState, useRef } from 'react'
 
+import Choice from './components/Choice'
 import Chooser from './components/Chooser'
 
 function SurveyTask (props) {
@@ -11,17 +13,42 @@ function SurveyTask (props) {
     task
   } = props
 
+  const [selectedChoice, setSelectedChoice] = useState(false)
+
   function handleChoice (selectedChoiceId) {
     console.log('Selected choiceId =', selectedChoiceId)
+
+    setSelectedChoice(selectedChoiceId)
   }
 
+  const choiceTargetRef = useRef()
+
   return (
-    <Chooser
-      autoFocus={autoFocus}
-      disabled={disabled}
-      task={task}
-      onChoose={handleChoice}
-    />
+    <Box
+      ref={choiceTargetRef}
+    >
+      <Chooser
+        autoFocus={autoFocus}
+        disabled={disabled}
+        onChoose={handleChoice}
+        task={task}
+      />
+      {choiceTargetRef.current && selectedChoice && (
+        <Drop
+          align={{
+            top: 'top'
+          }}
+          onClickOutside={() => setSelectedChoice(false)}
+          onEsc={() => setSelectedChoice(false)}
+          stretch
+          target={choiceTargetRef.current}
+        >
+          <Choice
+            choiceId={selectedChoice}
+          />
+        </Drop>
+      )}
+    </Box>
   )
 }
 
