@@ -4,35 +4,18 @@ import Link from 'next/link'
 import { withRouter } from 'next/router'
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
 
-const StyledSpacedText = styled(SpacedText)`
-  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
-`
 
-const StyledAnchor = styled(Anchor)`
-  border-bottom: 3px solid transparent;
-  white-space: nowrap;
-
-  &:hover {
-    text-decoration: none;
-  }
-  ${props => css`
-    &[href]:hover {
-      border-bottom-color: ${props.color};
-    }
-    &:not([href]) {
-      cursor: default;
-      border-bottom-color: ${props.color};
-    }
-  `}
-
-`
-
-function NavLink (props) {
-  const { color, link, router, weight } = props
+function NavLink ({
+  color = 'white',
+  link,
+  router = {},
+  StyledAnchor = Anchor,
+  StyledSpacedText = SpacedText,
+  weight = 'bold'
+}) {
   const { as, href, text } = link
   const isCurrentPage = router?.pathname === href
   const isPFELink = !as
@@ -56,12 +39,6 @@ function NavLink (props) {
   }
 }
 
-NavLink.defaultProps = {
-  color: 'white',
-  router: {},
-  weight: 'bold'
-}
-
 NavLink.propTypes = {
   color: PropTypes.string,
   link: PropTypes.shape({
@@ -70,6 +47,8 @@ NavLink.propTypes = {
     text: PropTypes.string
   }).isRequired,
   router: PropTypes.object,
+  StyledAnchor: PropTypes.node,
+  StyledSpacedText: PropTypes.node,
   weight: PropTypes.string
 }
 
