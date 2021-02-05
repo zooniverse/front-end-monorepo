@@ -2,7 +2,7 @@ import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Anchor, Box, Paragraph } from 'grommet'
 import { Next } from 'grommet-icons'
-import Link from 'next/link'
+import NavLink from '@shared/components/NavLink'
 import { object, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -24,6 +24,11 @@ const StyledParagraph = styled(Paragraph)`
 
 function Introduction (props) {
   const { description, linkProps, title } = props
+  const linkText = counterpart('Introduction.link')
+  const link = {
+    ...linkProps,
+    text: linkText
+  }
   return (
     <Box>
       <Box margin={{ bottom: 'xsmall' }}>
@@ -34,14 +39,13 @@ function Introduction (props) {
       <StyledParagraph margin={{ bottom: 'small', top: 'none' }} size='xxlarge'>
         {description}
       </StyledParagraph>
-      <Link {...linkProps} passHref>
-        <StyledAnchor
-          gap='xsmall'
-          icon={<Next color='light-5' size='12px' />}
-          label={<SpacedText>{counterpart('Introduction.link')}</SpacedText>}
-          reverse
-        />
-      </Link>
+      <NavLink
+        gap='xsmall'
+        icon={<Next color='light-5' size='12px' />}
+        link={link}
+        reverse
+        StyledAnchor={StyledAnchor}
+      />
     </Box>
   )
 }
