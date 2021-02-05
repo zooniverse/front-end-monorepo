@@ -1,10 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 import asyncStates from '@zooniverse/async-states'
 
 import locationValidator from '../../helpers/locationValidator'
 import SingleVideoViewer from './SingleVideoViewer'
 import VideoController from '../VideoController/VideoController'
+
+const DrawingContainer = styled.div`
+  position: absolute;
+  top: 50px;
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+  background-color: rgba(221, 221, 221, 0.3);
+  width: 500px;
+  height: 300px;
+  padding: 10px 0;
+  cursor: default;
+`
 
 class SingleVideoViewerContainer extends React.Component {
   constructor() {
@@ -21,6 +35,8 @@ class SingleVideoViewerContainer extends React.Component {
   }
 
   componentDidMount() {
+    console.log('this.props: ', this.props)
+
     this.onLoad()
   }
 
@@ -99,10 +115,6 @@ class SingleVideoViewerContainer extends React.Component {
     this.setState({ isPlaying: false, isSeeking: true })
   }
 
-  handleSliderChange = () => {
-    console.log('Slider Change')
-  }
-
   // Updates slider as video plays
   // Slider is clickable; video jumps to time where user clicks
   handleSliderChange = (e) => {
@@ -135,7 +147,7 @@ class SingleVideoViewerContainer extends React.Component {
   }
 
   render() {
-    const { loadingState } = this.props
+    const { loadingState, enableInteractionLayer } = this.props
     const { vid, isPlaying, playbackRate, played, duration } = this.state
     // Erik Todo
     const { naturalHeight, naturalWidth, src } = vid
@@ -153,20 +165,24 @@ class SingleVideoViewerContainer extends React.Component {
     //   return null
     // }
 
+    const enableDrawing =
+      loadingState === asyncStates.success && enableInteractionLayer
+
     return (
       <div>
-        <div>
-          <SingleVideoViewer
-            playerRef={this.handlePlayerRef}
-            url={vid}
-            isPlaying={isPlaying}
-            playbackRate={playbackRate}
-            onProgress={this.handleVideoProgress}
-            onDuration={this.handleVideoDuration}
-            onEnded={this.handleVideoEnded}
-          />
-          {/* Drawing layer here */}
-        </div>
+        <SingleVideoViewer
+          playerRef={this.handlePlayerRef}
+          url={vid}
+          isPlaying={isPlaying}
+          playbackRate={playbackRate}
+          onProgress={this.handleVideoProgress}
+          onDuration={this.handleVideoDuration}
+          onEnded={this.handleVideoEnded}
+        />
+
+        {/* Drawing Layer */}
+        <DrawingContainer>SVG drawing layer</DrawingContainer>
+
         <VideoController
           isPlaying={isPlaying}
           played={played}
@@ -185,6 +201,7 @@ class SingleVideoViewerContainer extends React.Component {
 
 SingleVideoViewerContainer.propTypes = {
   loadingState: PropTypes.string,
+  enableInteractionLayer: PropTypes.bool,
   onError: PropTypes.func,
   onReady: PropTypes.func,
   subject: PropTypes.shape({
@@ -194,6 +211,7 @@ SingleVideoViewerContainer.propTypes = {
 
 SingleVideoViewerContainer.defaultProps = {
   loadingState: asyncStates.initialized,
+  enableInteractionLayer: true,
   onError: () => true,
   onReady: () => true
 }
