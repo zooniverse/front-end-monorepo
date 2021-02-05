@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 import { withRouter } from 'next/router'
 
 import ProjectStatistics from './ProjectStatistics'
-import addQueryParams from '@helpers/addQueryParams'
 
 function storeMapper (stores) {
   const { project } = stores.store
@@ -22,7 +21,7 @@ class ProjectStatisticsContainer extends Component {
     const { router } = this.props
     const { owner, project } = router.query
     return {
-      href: addQueryParams(`/projects/${owner}/${project}/stats`, router)
+      href: `/projects/${owner}/${project}/stats`
     }
   }
 
