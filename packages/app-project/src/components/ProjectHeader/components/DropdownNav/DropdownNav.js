@@ -69,8 +69,10 @@ function DropdownNav({
             key={navLink.href}
           >
             <NavLink
+              color='white'
               link={navLink}
               StyledAnchor={StyledAnchor}
+              weight='bold'
             />
           </Box>
         ))}

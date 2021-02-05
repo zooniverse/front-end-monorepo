@@ -47,9 +47,11 @@ function Nav({
         {navLinks.map(navLink => (
           <Box as='li' key={navLink.href} pad={{ left: 'medium' }}>
             <NavLink
+              color='white'
               link={navLink}
               StyledAnchor={StyledAnchor}
               StyledSpacedText={StyledSpacedText}
+              weight='bold'
             />
           </Box>
         ))}
