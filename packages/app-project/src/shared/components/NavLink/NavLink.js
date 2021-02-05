@@ -9,12 +9,13 @@ import addQueryParams from '@helpers/addQueryParams'
 
 
 function NavLink ({
-  color = 'white',
+  color,
   link,
   router = {},
   StyledAnchor = Anchor,
   StyledSpacedText = SpacedText,
-  weight = 'bold'
+  weight,
+  ...anchorProps
 }) {
   const { as, href, text } = link
   const isCurrentPage = router?.pathname === href
@@ -24,16 +25,16 @@ function NavLink ({
 
   if (isCurrentPage) {
     return (
-      <StyledAnchor color={color} label={label} />
+      <StyledAnchor color={color} label={label} {...anchorProps} />
     )
   } else if (isPFELink) {
     return (
-      <StyledAnchor color={color} label={label} href={addQueryParams(href, router)} />
+      <StyledAnchor color={color} label={label} href={addQueryParams(href, router)} {...anchorProps} />
     )
   } else {
     return (
       <Link as={addQueryParams(as, router)} color={color} href={href} passHref>
-        <StyledAnchor color={color} label={label} />
+        <StyledAnchor color={color} label={label} {...anchorProps} />
       </Link>
     )
   }
