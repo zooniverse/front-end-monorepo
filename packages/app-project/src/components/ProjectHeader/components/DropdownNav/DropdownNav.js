@@ -2,10 +2,9 @@ import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Anchor, Box, DropButton } from 'grommet'
 import { FormDown } from 'grommet-icons'
-import Link from 'next/link'
-import { withRouter } from 'next/router'
+import NavLink from '@shared/components/NavLink'
 import { arrayOf, shape, string } from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 import styled, { css, withTheme } from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
@@ -39,69 +38,65 @@ const StyledDropButton = styled(DropButton)`
   }
 `
 
-class DropdownNav extends React.Component {
-  state = {
-    isOpen: false
+function DropdownNav({
+  className,
+  navLinks = [],
+}) {
+  const [ isOpen, setIsOpen ] = useState(false)
+
+  function onClose() {
+    setIsOpen(false)
   }
 
-  onClose = () => this.setState({ isOpen: false })
+  function onOpen() {
+    setIsOpen(true)
+  }
 
-  onOpen = () => this.setState({ isOpen: true })
-
-  renderItems () {
-    const { router } = this.props
-    return (
+  const dropContent = (
+    <Box
+      as='nav'
+      background='brand'
+      elevation='medium'
+      margin={{ top: 'medium ' }}
+    >
       <Box
-        as='nav'
-        background='brand'
-        elevation='medium'
-        margin={{ top: 'medium ' }}
+        as='ul'
+        pad="none"
       >
-        <Box as='ul'>
-          {this.props.navLinks.map(navLink => (
-            <Box as='li' key={navLink.href}>
-              <Link
-                as={addQueryParams(navLink.as, router)}
-                href={navLink.href}
-                passHref
-              >
-                <StyledAnchor
-                  label={
-                    <SpacedText color='white' weight='bold'>
-                      {navLink.text}
-                    </SpacedText>
-                  }
-                  theme={this.props.theme}
-                />
-              </Link>
-            </Box>
-          ))}
-        </Box>
+        {navLinks.map(navLink => (
+          <Box
+            as='li'
+            key={navLink.href}
+          >
+            <NavLink
+              link={navLink}
+              StyledAnchor={StyledAnchor}
+            />
+          </Box>
+        ))}
       </Box>
-    )
-  }
+    </Box>
+  )
 
-  render () {
-    return (
-      <StyledDropButton
-        alignSelf='center'
-        className={this.props.className}
-        dropContent={this.renderItems()}
-        dropAlign={{ top: 'bottom' }}
-        isOpen={this.state.isOpen}
-        margin={{ top: 'xsmall' }}
-        onClose={this.onClose}
-        onOpen={this.onOpen}
-      >
-        <Box align='center' direction='row' gap='xsmall' justify='center'>
-          <SpacedText weight='bold'>
-            {counterpart('ProjectHeader.nav.exploreProject')}
-          </SpacedText>
-          <FormDown />
-        </Box>
-      </StyledDropButton>
-    )
-  }
+  return (
+    <StyledDropButton
+      alignSelf='center'
+      className={className}
+      dropContent={dropContent}
+      dropAlign={{ top: 'bottom' }}
+      isOpen={isOpen}
+      margin={{ top: 'xsmall' }}
+      onClose={onClose}
+      onOpen={onOpen}
+    >
+      <Box align='center' direction='row' gap='xsmall' justify='center'>
+        <SpacedText weight='bold'>
+          {counterpart('ProjectHeader.nav.exploreProject')}
+        </SpacedText>
+        <FormDown />
+      </Box>
+    </StyledDropButton>
+  )
 }
 
 DropdownNav.propTypes = {
@@ -122,11 +117,8 @@ DropdownNav.propTypes = {
   })
 }
 
-@withTheme
-@withRouter
-class DecoratedDropdownNav extends DropdownNav { }
-
+export default withTheme(DropdownNav)
 export {
-  DecoratedDropdownNav as default,
-  DropdownNav
+  DropdownNav,
+  StyledDropButton
 }
