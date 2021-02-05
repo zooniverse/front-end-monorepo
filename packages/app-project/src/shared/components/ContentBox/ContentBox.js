@@ -1,9 +1,9 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box } from 'grommet'
-import Link from 'next/link'
 import { bool, node, object, shape, string } from 'prop-types'
 import React from 'react'
 import { withTheme } from 'styled-components'
+import NavLink from '@shared/components/NavLink'
 
 import WidgetHeading from '../WidgetHeading'
 
@@ -19,6 +19,10 @@ function ContentBox (props) {
   } = props
 
   const showHeader = title || (linkLabel && linkProps)
+  const link = {
+    ...linkProps,
+    text: linkLabel
+  }
 
   return (
     <Box
@@ -52,12 +56,10 @@ function ContentBox (props) {
             <WidgetHeading children={title} level={titleLevel} />
           )}
 
-          {(linkLabel && linkProps) && (
-            <Anchor {...linkProps}>
-              <SpacedText>
-                {linkLabel}
-              </SpacedText>
-            </Anchor>
+          {link.text && (
+            <NavLink
+              link={link}
+            />
           )}
 
         </Box>

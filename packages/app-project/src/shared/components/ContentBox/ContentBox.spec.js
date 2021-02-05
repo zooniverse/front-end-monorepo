@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
-import { Anchor } from 'grommet'
 import React from 'react'
+import NavLink from '@shared/components/NavLink'
 
 import { ContentBox } from './ContentBox'
 
@@ -42,12 +42,18 @@ describe('Component > ContentBox', function () {
       )
     })
 
-    it('should render a link anchor', function () {
-      expect(wrapper.find(Anchor)).to.have.lengthOf(1)
+    it('should render a navigation link', function () {
+      expect(wrapper.find(NavLink)).to.have.lengthOf(1)
     })
 
     it('should link to the specified href', function () {
-      expect(wrapper.find(Anchor).prop('href')).to.equal('/projects/test/project/stats')
+      const link = wrapper.find(NavLink).prop('link')
+      expect(link.href).to.equal('/projects/test/project/stats')
+    })
+    
+    it('should use the specified link text', function () {
+      const link = wrapper.find(NavLink).prop('link')
+      expect(link.text).to.equal('View more stats')
     })
   })
 })
