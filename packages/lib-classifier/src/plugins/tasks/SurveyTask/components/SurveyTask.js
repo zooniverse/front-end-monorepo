@@ -40,11 +40,12 @@ function SurveyTask (props) {
           }}
           onClickOutside={() => setSelectedChoice(false)}
           onEsc={() => setSelectedChoice(false)}
-          stretch
+          stretch='align'
           target={choiceTargetRef.current}
         >
           <Choice
             choiceId={selectedChoice}
+            task={task}
           />
         </Drop>
       )}
