@@ -2,50 +2,73 @@ import nock from 'nock'
 
 import fetchWorkflowsHelper from './fetchWorkflowsHelper'
 
-const WORKFLOWS = [
-  {
-    id: '1',
-    completeness: 0.4,
-    grouped: false,
-    links: {
-      subject_sets: ['1', '2', '3']
-    }
-  },
-  {
-    id: '2',
-    completeness: 0.7,
-    grouped: false,
-    links: {
-      subject_sets: ['1', '2', '3']
-    }
-  }
-]
-
-// `translated_id` is a number because of a bug in the translations API :(
-const TRANSLATIONS = [
-  {
-    translated_id: 1,
-    strings: {
-      display_name: 'Foo'
-    }
-  },
-  {
-    translated_id: 2,
-    strings: {
-      display_name: 'Bar'
-    }
-  }
-]
-
-function subjectSet(id) {
-  return {
-    id,
-    display_name: `test set ${id}`,
-    set_member_subjects_count: 10
-  }
-}
-
 describe('Helpers > fetchWorkflowsHelper', function () {
+  const WORKFLOWS = [
+    {
+      id: '1',
+      completeness: 0.4,
+      grouped: false,
+      links: {
+        subject_sets: ['1', '2', '3']
+      }
+    },
+    {
+      id: '2',
+      completeness: 0.7,
+      grouped: false,
+      links: {
+        subject_sets: ['1', '2', '3']
+      }
+    }
+  ]
+
+  // `translated_id` is a number because of a bug in the translations API :(
+  const TRANSLATIONS = [
+    {
+      translated_id: 1,
+      strings: {
+        display_name: 'Foo'
+      }
+    },
+    {
+      translated_id: 2,
+      strings: {
+        display_name: 'Bar'
+      }
+    }
+  ]
+
+  const availableSubjects = {
+      1: 4,
+      2: 10,
+      3: 10
+  }
+
+  function subjectSet(id) {
+    return {
+      id,
+      display_name: `test set ${id}`,
+      set_member_subjects_count: 10
+    }
+  }
+
+  before(function () {
+    const cellect = nock('https://cellect.zooniverse.org')
+    .persist()
+    .get('/workflows/1/status')
+    .reply(200, {
+      groups: availableSubjects
+    })
+    .get('/workflows/2/status')
+    .reply(200, {
+      groups: availableSubjects
+    })
+  })
+
+  after(function () {
+    nock.cleanAll()
+  })
+
   it('should provide the expected result with a single workflow', async function () {
     const scope = nock('https://panoptes-staging.zooniverse.org/api')
       .get('/translations')
@@ -76,9 +99,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         id: '1',
         displayName: 'Foo',
         subjectSets: [
-          subjectSet('1'),
-          subjectSet('2'),
-          subjectSet('3')
+          Object.assign(subjectSet('1'), { availableSubjects: availableSubjects[1]}),
+          Object.assign(subjectSet('2'), { availableSubjects: availableSubjects[2]}),
+          Object.assign(subjectSet('3'), { availableSubjects: availableSubjects[3]})
         ]
       }
     ])
@@ -113,9 +136,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         id: '1',
         displayName: 'Foo',
         subjectSets: [
-          subjectSet('1'),
-          subjectSet('2'),
-          subjectSet('3')
+          Object.assign(subjectSet('1'), { availableSubjects: availableSubjects[1]}),
+          Object.assign(subjectSet('2'), { availableSubjects: availableSubjects[2]}),
+          Object.assign(subjectSet('3'), { availableSubjects: availableSubjects[3]})
         ]
       },
       {
@@ -125,9 +148,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         id: '2',
         displayName: 'Bar',
         subjectSets: [
-          subjectSet('1'),
-          subjectSet('2'),
-          subjectSet('3')
+          Object.assign(subjectSet('1'), { availableSubjects: availableSubjects[1]}),
+          Object.assign(subjectSet('2'), { availableSubjects: availableSubjects[2]}),
+          Object.assign(subjectSet('3'), { availableSubjects: availableSubjects[3]})
         ]
       }
     ])
@@ -163,9 +186,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           id: '1',
           displayName: 'Foo',
           subjectSets: [
-            subjectSet('1'),
-            subjectSet('2'),
-            subjectSet('3')
+            Object.assign(subjectSet('1'), { availableSubjects: availableSubjects[1]}),
+            Object.assign(subjectSet('2'), { availableSubjects: availableSubjects[2]}),
+            Object.assign(subjectSet('3'), { availableSubjects: availableSubjects[3]})
           ]
         },
         {
@@ -175,9 +198,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           id: '2',
           displayName: 'Bar',
           subjectSets: [
-            subjectSet('1'),
-            subjectSet('2'),
-            subjectSet('3')
+            Object.assign(subjectSet('1'), { availableSubjects: availableSubjects[1]}),
+            Object.assign(subjectSet('2'), { availableSubjects: availableSubjects[2]}),
+            Object.assign(subjectSet('3'), { availableSubjects: availableSubjects[3]})
           ]
         }
       ])

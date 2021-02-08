@@ -29,6 +29,12 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
     }
   }
 
+  const availableSubjects = {
+      1: 4,
+      2: 10,
+      3: 10
+  }
+
   function subjectSet(id) {
     return {
       id,
@@ -40,6 +46,12 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
   describe('with the staging API', function () {
     before(function () {
       const slug = 'test-owner/test-project'
+      const cellect = nock('https://cellect.zooniverse.org')
+      .persist()
+      .get('/workflows/1/status')
+      .reply(200, {
+        groups: availableSubjects
+      })
       const scope = nock('https://panoptes-staging.zooniverse.org/api')
         .persist()
         .get('/projects')
@@ -111,9 +123,9 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
             id: '1',
             displayName: 'Foo',
             subjectSets: [
-              subjectSet('1'),
-              subjectSet('2'),
-              subjectSet('3')
+              Object.assign(subjectSet('1'), { availableSubjects: availableSubjects[1]}),
+              Object.assign(subjectSet('2'), { availableSubjects: availableSubjects[2]}),
+              Object.assign(subjectSet('3'), { availableSubjects: availableSubjects[3]})
             ]
           }
         ])
@@ -199,6 +211,12 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
   describe('with the production API', function () {
     before(function () {
       const slug = 'test-owner/test-project'
+      const cellect = nock('https://cellect.zooniverse.org')
+      .persist()
+      .get('/workflows/1/status')
+      .reply(200, {
+        groups: availableSubjects
+      })
       const scope = nock('https://www.zooniverse.org/api')
         .persist()
         .get('/projects')
@@ -270,9 +288,9 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
             id: '1',
             displayName: 'Foo',
             subjectSets: [
-              subjectSet('1'),
-              subjectSet('2'),
-              subjectSet('3')
+              Object.assign(subjectSet('1'), { availableSubjects: availableSubjects[1]}),
+              Object.assign(subjectSet('2'), { availableSubjects: availableSubjects[2]}),
+              Object.assign(subjectSet('3'), { availableSubjects: availableSubjects[3]})
             ]
           }
         ])
