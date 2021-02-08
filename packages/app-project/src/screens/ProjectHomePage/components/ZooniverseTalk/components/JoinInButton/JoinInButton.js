@@ -1,6 +1,5 @@
 import counterpart from 'counterpart'
 import { Button } from 'grommet'
-import Link from 'next/link'
 import { object } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -13,9 +12,8 @@ function JoinInButton (props) {
   const { linkProps } = props
   const label = counterpart('ZooniverseTalk.button')
   return (
-    <Link {...linkProps} passHref>
-      <StyledButton label={label} />
-    </Link>
+    // if you pass href to Button, you get a link instead of a button.
+    <StyledButton {...linkProps} label={label} />
   )
 }
 
