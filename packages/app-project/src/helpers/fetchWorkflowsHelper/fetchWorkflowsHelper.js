@@ -49,7 +49,7 @@ async function fetchPreviewImage (subjectSet, env) {
   subjectSet.subjects = linked.subjects
 }
 
-async function buildWorkflow(workflow, displayNames, subjectSets, isDefault) {
+async function buildWorkflow(workflow, displayName, subjectSets, isDefault) {
   const subjectSetCounts = await fetchWorkflowCellectStatus(workflow)
   const workflowSubjectSets = workflow.links.subject_sets
     .map(subjectSetID => {
@@ -62,7 +62,7 @@ async function buildWorkflow(workflow, displayNames, subjectSets, isDefault) {
   return {
     completeness: workflow.completeness || 0,
     default: isDefault,
-    displayName: displayNames[workflow.id],
+    displayName,
     grouped: workflow.grouped,
     id: workflow.id,
     subjectSets: workflowSubjectSets
@@ -76,7 +76,8 @@ async function fetchWorkflowsHelper (language = 'en', activeWorkflows, defaultWo
 
   const awaitWorkflows = workflows.map(workflow => {
     const isDefault = workflows.length === 1 || workflow.id === defaultWorkflow
-    return buildWorkflow(workflow, displayNames, subjectSets, isDefault)
+    const displayName = displayNames[workflow.id]
+    return buildWorkflow(workflow, displayName, subjectSets, isDefault)
   })
   const workflowStatuses = await Promise.allSettled(awaitWorkflows)
   const workflowsWithSubjectSets = workflowStatuses.map(result => result.value)
