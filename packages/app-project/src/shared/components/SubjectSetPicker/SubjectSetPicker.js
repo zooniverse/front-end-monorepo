@@ -71,8 +71,7 @@ function SubjectSetPicker (props) {
           return (
             <Link
               key={subjectSet.id}
-              as={`/projects/${owner}/${project}/classify/workflow/${workflow.id}/subject-set/${subjectSet.id}`}
-              href="/projects/[owner]/[project]/classify/workflow/[workflowID]/subject-set/[subjectSetID]"
+              href={`/projects/${owner}/${project}/classify/workflow/${workflow.id}/subject-set/${subjectSet.id}`}
               passHref
             >
               <Anchor>
