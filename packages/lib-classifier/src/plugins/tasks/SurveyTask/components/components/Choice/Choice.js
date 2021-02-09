@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Media } from '@zooniverse/react-components'
 
+import Questions from './components/Questions'
+
 export default function Choice (props) {
   const {
     choiceId,
@@ -13,6 +15,7 @@ export default function Choice (props) {
 
   return (
     <Box
+      flex='grow'
       pad='small'
     >
       {choice.images.length > 0 && (
@@ -28,7 +31,10 @@ export default function Choice (props) {
       )}
       <Heading>{choice.label}</Heading>
       <Paragraph>{choice.description}</Paragraph>
-      <Box>Questions go here.</Box>
+      <Questions
+        choiceId={choiceId}
+        task={task}
+      />
       <Box>Buttons go here.</Box>
     </Box>
   )
