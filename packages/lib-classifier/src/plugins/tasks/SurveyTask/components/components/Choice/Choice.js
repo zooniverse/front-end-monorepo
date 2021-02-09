@@ -23,7 +23,8 @@ export default function Choice (props) {
           controls='arrows'
         >
           {choice.images.map(filename => (
-            <Media 
+            <Media
+              key={filename}
               src={task.images[filename]}
             />
           ))}
