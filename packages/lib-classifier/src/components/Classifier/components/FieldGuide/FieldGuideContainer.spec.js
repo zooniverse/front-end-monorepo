@@ -1,13 +1,15 @@
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
 import { observable } from 'mobx'
+import { Grommet } from 'grommet'
+import { zooTheme } from '@zooniverse/grommet-theme'
 import FieldGuideContainer from './FieldGuideContainer'
 import FieldGuide from './components/FieldGuide'
 import FieldGuideButton from './components/FieldGuideButton'
 import { FieldGuideFactory } from '@test/factories'
 
-describe('Component > FieldGuideContainer', function () {
+describe.only('Component > FieldGuideContainer', function () {
   const fieldGuide = FieldGuideFactory.build()
   const icons = observable.map()
 
@@ -31,7 +33,7 @@ describe('Component > FieldGuideContainer', function () {
     const setActiveItemIndexSpy = sinon.spy()
     const setModalVisibilityStub = sinon.stub().callsFake((boolean) => { showModal = boolean })
     beforeEach(function () {
-      wrapper = shallow(
+      wrapper = mount(
         <FieldGuideContainer
           activeItemIndex={-1}
           fieldGuide={fieldGuide}
@@ -39,7 +41,10 @@ describe('Component > FieldGuideContainer', function () {
           setActiveItemIndex={setActiveItemIndexSpy}
           setModalVisibility={setModalVisibilityStub}
           showModal={showModal}
-        />
+        />, {
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        }
       )
     })
 

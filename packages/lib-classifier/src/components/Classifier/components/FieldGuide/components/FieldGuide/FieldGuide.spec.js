@@ -1,4 +1,4 @@
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
 import { MovableModal, Modal } from '@zooniverse/react-components'
 import { observable } from 'mobx'
@@ -38,10 +38,10 @@ describe('Component > FieldGuide', function () {
     expect(wrapper).to.be.ok()
   })
 
-  describe('when the window size is greater than small', function () {
+  describe('when the window size is not small', function () {
     let wrapper
     before(function () {
-      wrapper = mount(
+      wrapper = shallow(
         <FieldGuide
           fieldGuide={fieldGuide}
         />)
@@ -65,8 +65,17 @@ describe('Component > FieldGuide', function () {
   })
 
   describe('when the window size is small', function () {
+    let wrapper
+    before(function () {
+      wrapper = shallow(
+        <FieldGuide
+          fieldGuide={fieldGuide}
+          size='small'
+        />)
+    })
+
     it('should render a Modal', function () {
-      expect(wrapper.find(MovableModal)).to.have.lengthOf(1)
+      expect(wrapper.find(Modal)).to.have.lengthOf(1)
     })
 
     it('should render a title', function () {
@@ -77,7 +86,7 @@ describe('Component > FieldGuide', function () {
   describe('when there is not an active item', function () {
     let wrapper
     before(function () {
-      wrapper = mount(
+      wrapper = shallow(
         <FieldGuide
           fieldGuide={fieldGuide}
           icons={icons}
@@ -101,7 +110,7 @@ describe('Component > FieldGuide', function () {
   describe('when there is an active item', function () {
     let wrapper
     before(function () {
-      wrapper = mount(
+      wrapper = shallow(
         <FieldGuide
           activeItemIndex={0}
           fieldGuide={fieldGuide}

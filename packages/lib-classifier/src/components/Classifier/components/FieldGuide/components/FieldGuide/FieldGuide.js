@@ -1,4 +1,4 @@
-import { Box, ResponsiveContext } from 'grommet'
+import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { observable } from 'mobx'
@@ -18,54 +18,49 @@ function FieldGuide (props) {
     className,
     fieldGuide,
     icons,
+    onClose,
     setActiveItemIndex,
-    onClose
+    size
   } = props
   const items = fieldGuide?.items || []
   const item = items[activeItemIndex]
+  const minHeight = 415
+  const minWidth = 490
+  const height = (size === 'small') ? '100%' : `${minHeight}px`
+  const width = (size === 'small') ? '100%' : `${minWidth}px`
+  const ModalWrapper = (size === 'small') ? Modal : MovableModal
+  const modalProps = {
+    active: true,
+    closeFn: onClose,
+    modal: false,
+    pad: 'medium',
+    position: 'right',
+    title: counterpart('FieldGuide.title')
+  }
+  const rndProps = {
+    minHeight,
+    minWidth,
+    position: {
+      x: 0 - (minWidth + 60), // width plus margins
+      y: 0 - (minHeight + 60) * 0.5 // centers vertically
+    }
+  }
+  const modalPropsToUse = (size === 'small') ? modalProps : Object.assign({}, modalProps, { rndProps })
   return (
-    <ResponsiveContext.Consumer>
-      {size => {
-        const minHeight = 415
-        const minWidth = 490
-        const height = (size === 'small') ? '100%' : `${minHeight}px`
-        const width = (size === 'small') ? '100%' : `${minWidth}px`
-        const ModalWrapper = (size === 'small') ? Modal : MovableModal
-        const modalProps = {
-          active: true,
-          closeFn: onClose,
-          modal: false,
-          pad: 'medium',
-          position: 'right',
-          title: counterpart('FieldGuide.title')
+    <ModalWrapper
+      {...modalPropsToUse}
+    >
+      <Box
+        className={className}
+        height={{ min: height }}
+        width={{ min: width }}
+      >
+        {item
+          ? <FieldGuideItem icons={icons} item={item} setActiveItemIndex={setActiveItemIndex} />
+          : <FieldGuideItems icons={icons} items={items} setActiveItemIndex={setActiveItemIndex} />
         }
-        const rndProps = {
-          minHeight,
-          minWidth,
-          position: {
-            x: 0 - (minWidth + 60), // width plus margins
-            y: 0 - (minHeight + 60) * 0.5 // centers vertically
-          }
-        }
-        const modalPropsToUse = (size === 'small') ? modalProps : Object.assign({}, modalProps, { rndProps })
-        return (
-          <ModalWrapper
-            {...modalPropsToUse}
-          >
-            <Box
-              className={className}
-              height={{ min: height }}
-              width={{ min: width }}
-            >
-              {item
-                ? <FieldGuideItem icons={icons} item={item} setActiveItemIndex={setActiveItemIndex} />
-                : <FieldGuideItems icons={icons} items={items} setActiveItemIndex={setActiveItemIndex} />
-              }
-            </Box>
-          </ModalWrapper>
-        )
-      }}
-    </ResponsiveContext.Consumer>
+      </Box>
+    </ModalWrapper>
   )
 }
 
@@ -74,6 +69,7 @@ FieldGuide.defaultProps = {
   className: '',
   icons: observable.map(),
   onClose: () => {},
+  size: 'large',
   setActiveItemIndex: () => {}
 }
 
@@ -83,6 +79,7 @@ FieldGuide.propTypes = {
   fieldGuide: PropTypes.object.isRequired,
   icons: MobXPropTypes.observableMap,
   onClose: PropTypes.func,
+  size: PropTypes.string,
   setActiveItemIndex: PropTypes.func
 }
 

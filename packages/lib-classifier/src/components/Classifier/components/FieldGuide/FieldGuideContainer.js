@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { observable } from 'mobx'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
+import { ResponsiveContext } from 'grommet'
 import FieldGuideButton from './components/FieldGuideButton'
 import FieldGuide from './components/FieldGuide'
 
@@ -18,14 +19,19 @@ function FieldGuideContainer (props) {
   return (
     <>
       <FieldGuideButton fieldGuide={fieldGuide} onOpen={() => setModalVisibility(true)} />
-      {showModal && 
-        <FieldGuide
-          activeItemIndex={activeItemIndex}
-          fieldGuide={fieldGuide}
-          icons={icons}
-          onClose={() => setModalVisibility(false)}
-          setActiveItemIndex={setActiveItemIndex}
-        />
+      {showModal &&
+        <ResponsiveContext.Consumer>
+          {size => {
+            <FieldGuide
+              activeItemIndex={activeItemIndex}
+              fieldGuide={fieldGuide}
+              icons={icons}
+              onClose={() => setModalVisibility(false)}
+              size={size}
+              setActiveItemIndex={setActiveItemIndex}
+            />
+          }}
+        </ResponsiveContext.Consumer>
       }
     </>
   )
