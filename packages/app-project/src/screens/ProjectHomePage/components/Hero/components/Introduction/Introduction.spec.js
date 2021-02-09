@@ -5,8 +5,7 @@ import Introduction from './Introduction'
 
 const DESCRIPTION = 'Project Title!'
 const LINK_PROPS = {
-  as: '/projects/foo/bar/about',
-  href: '/projects/[owner]/[project]/about'
+  href: '/projects/foo/bar/about'
 }
 const TITLE = 'baz'
 
@@ -34,6 +33,6 @@ describe('Component > Hero > Introduction', function () {
   })
 
   it('should render a link to the about page', function () {
-    expect(wrapper.find(`a[href="${LINK_PROPS.as}"]`)).to.have.lengthOf(1)
+    expect(wrapper.find(`a[href="${LINK_PROPS.href}"]`)).to.have.lengthOf(1)
   })
 })
