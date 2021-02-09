@@ -1,6 +1,6 @@
 import { Box, CheckBoxGroup, RadioButtonGroup } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 import { SpacedHeading } from '@zooniverse/react-components'
 
 export default function Questions (props) {
@@ -13,6 +13,13 @@ export default function Questions (props) {
 
   function handleAnswer (value, questionId) {
     const newAnswers = Object.assign({}, answers, { [questionId]: value })
+
+    setAnswers(newAnswers)
+  }
+
+  function handleAnswer (value, questionId) {
+    const newAnswers = Object.assign({}, answers)
+    newAnswers[questionId] = value
 
     setAnswers(newAnswers)
   }
