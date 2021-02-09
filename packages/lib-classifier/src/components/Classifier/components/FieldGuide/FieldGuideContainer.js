@@ -21,7 +21,7 @@ function FieldGuideContainer (props) {
       <FieldGuideButton fieldGuide={fieldGuide} onOpen={() => setModalVisibility(true)} />
       {showModal &&
         <ResponsiveContext.Consumer>
-          {size => {
+          {size => (
             <FieldGuide
               activeItemIndex={activeItemIndex}
               fieldGuide={fieldGuide}
@@ -30,7 +30,7 @@ function FieldGuideContainer (props) {
               size={size}
               setActiveItemIndex={setActiveItemIndex}
             />
-          }}
+          )}
         </ResponsiveContext.Consumer>
       }
     </>

@@ -9,7 +9,7 @@ import FieldGuide from './components/FieldGuide'
 import FieldGuideButton from './components/FieldGuideButton'
 import { FieldGuideFactory } from '@test/factories'
 
-describe.only('Component > FieldGuideContainer', function () {
+describe('Component > FieldGuideContainer', function () {
   const fieldGuide = FieldGuideFactory.build()
   const icons = observable.map()
 
@@ -77,7 +77,7 @@ describe.only('Component > FieldGuideContainer', function () {
     let showModal = false
     const setModalVisibilityStub = sinon.stub().callsFake((boolean) => { showModal = boolean })
     beforeEach(function () {
-      wrapper = shallow(
+      wrapper = mount(
         <FieldGuideContainer
           activeItemIndex={-1}
           fieldGuide={fieldGuide}
@@ -85,7 +85,10 @@ describe.only('Component > FieldGuideContainer', function () {
           setActiveItemIndex={() => {}}
           setModalVisibility={setModalVisibilityStub}
           showModal={showModal}
-        />
+        />, {
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        }
       )
     })
 
