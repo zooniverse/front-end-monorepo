@@ -12,6 +12,8 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
+import Questions from './components/Questions'
+
 export default function Choice (props) {
   const {
     choiceId,
