@@ -16,6 +16,17 @@ function FieldGuideContainer (props) {
     showModal
   } = props
 
+  const [height, setHeight] = React.useState(415)
+  React.useEffect(() => { return onUnmount }, [showModal])
+
+  function onUnmount () {
+    setHeight(415)
+  }
+  function onResize (e, direction, ref, delta, position) {
+    if (height !== 'auto') setHeight('auto')
+  }
+
+
   return (
     <>
       <FieldGuideButton fieldGuide={fieldGuide} onOpen={() => setModalVisibility(true)} />
@@ -26,7 +37,9 @@ function FieldGuideContainer (props) {
               activeItemIndex={activeItemIndex}
               fieldGuide={fieldGuide}
               icons={icons}
+              maxHeight={height}
               onClose={() => setModalVisibility(false)}
+              onResize={onResize}
               size={size}
               setActiveItemIndex={setActiveItemIndex}
             />

@@ -18,7 +18,9 @@ function FieldGuide (props) {
     className,
     fieldGuide,
     icons,
+    maxHeight,
     onClose,
+    onResize,
     setActiveItemIndex,
     size
   } = props
@@ -40,7 +42,9 @@ function FieldGuide (props) {
   const rndProps = {
     minHeight,
     minWidth,
+    onResize,
     position: {
+      height: maxHeight,
       x: 0 - (minWidth + 60), // width plus margins
       y: 0 - (minHeight + 60) * 0.5 // centers vertically
     }
@@ -52,7 +56,6 @@ function FieldGuide (props) {
     >
       <Box
         className={className}
-        height={{ min: height }}
         width={{ min: width }}
       >
         {item
