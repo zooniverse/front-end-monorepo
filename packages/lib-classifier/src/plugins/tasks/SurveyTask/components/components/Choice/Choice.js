@@ -1,13 +1,14 @@
-import { Box, Carousel, Heading, Paragraph } from 'grommet'
+import { Box, Button, Carousel, Heading, Paragraph } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Media } from '@zooniverse/react-components'
+import { GoldButton, Media } from '@zooniverse/react-components'
 
 import Questions from './components/Questions'
 
 export default function Choice (props) {
   const {
     choiceId,
+    onCancel,
     task
   } = props
 
@@ -36,17 +37,42 @@ export default function Choice (props) {
         choiceId={choiceId}
         task={task}
       />
-      <Box>Buttons go here.</Box>
+      <Box
+        border={{
+          color: 'light-5',
+          side: 'top',
+          size: 'small'
+        }}
+        direction='row'
+        fill='horizontal'
+        gap='xsmall'
+        justify='center'
+        margin={{ top: 'small' }}
+        pad={{ top: 'small' }}
+      >
+        <Button
+          fill='horizontal'
+          label='Not this'
+          onClick={() => onCancel()}
+        />
+        <GoldButton
+          fill='horizontal'
+          label='Identify'
+          onClick={() => onCancel()}
+        />
+      </Box>
     </Box>
   )
 }
 
 Choice.defaultProps = {
-  choiceId: ''
+  choiceId: '',
+  onCancel: () => {}
 }
 
 Choice.propTypes = {
   choiceId: PropTypes.string,
+  onCancel: PropTypes.func,
   task: PropTypes.shape({
     help: PropTypes.string,
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),

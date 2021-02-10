@@ -45,6 +45,7 @@ function SurveyTask (props) {
         >
           <Choice
             choiceId={selectedChoice}
+            onCancel={() => setSelectedChoice(false)}
             task={task}
           />
         </Drop>
