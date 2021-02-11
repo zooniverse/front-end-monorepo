@@ -16,15 +16,28 @@ const defaultClient = {
 
 function initStore (isServer, snapshot = null, client = defaultClient) {
   if (isServer) {
-    store = Store.create({}, { client })
+    const initialState = snapshot ?? {}
+    // Create a new store for the server-side render.
+    store = Store.create(initialState, { client })
+    return store
   }
 
   if (store === null) {
-    store = Store.create({}, { client })
+    const initialState = snapshot ?? {}
+    // create a new store in the browser .
+    store = Store.create(initialState, { client })
+    return store
   }
 
   if (snapshot) {
-    applySnapshot(store, snapshot)
+    /*
+      Don't overwrite the stored user, collections, recents or stats in the browser.
+      Only apply store state that was generated on the server.
+      TODO: won't this overwrite local changes to the UI store?
+    */
+    const { project, ui } = snapshot
+    applySnapshot(store.project, project)
+    applySnapshot(store.ui, ui)
   }
 
   return store

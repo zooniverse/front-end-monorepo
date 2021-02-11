@@ -1,2 +1,2 @@
-export { default } from './ProjectHomePageContainer'
+export { default } from './ProjectHomePageConnector'
 
