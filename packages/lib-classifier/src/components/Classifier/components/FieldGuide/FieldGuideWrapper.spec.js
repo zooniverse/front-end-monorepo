@@ -4,18 +4,18 @@ import sinon from 'sinon'
 import { observable } from 'mobx'
 import { Grommet } from 'grommet'
 import { zooTheme } from '@zooniverse/grommet-theme'
-import FieldGuideContainer from './FieldGuideContainer'
+import FieldGuideWrapper from './FieldGuideWrapper'
 import FieldGuide from './components/FieldGuide'
 import FieldGuideButton from './components/FieldGuideButton'
 import { FieldGuideFactory } from '@test/factories'
 
-describe('Component > FieldGuideContainer', function () {
+describe('Component > FieldGuideWrapper', function () {
   const fieldGuide = FieldGuideFactory.build()
   const icons = observable.map()
 
   it('should render without crashing', function () {
     const wrapper = shallow(
-      <FieldGuideContainer
+      <FieldGuideWrapper
         activeItemIndex={-1}
         fieldGuide={fieldGuide}
         icons={icons}
@@ -27,14 +27,28 @@ describe('Component > FieldGuideContainer', function () {
     expect(wrapper).to.be.ok()
   })
 
-  describe('FieldGuide', function () {
+  it('should not show the field guide', function () {
+    const wrapper = shallow(
+      <FieldGuideWrapper
+        activeItemIndex={-1}
+        fieldGuide={fieldGuide}
+        icons={icons}
+        setActiveItemIndex={() => { }}
+        setModalVisibility={() => { }}
+        showModal={false}
+      />
+    )
+    expect(wrapper.find(FieldGuide)).to.have.lengthOf(0)
+  })
+
+  describe('when the field guide is shown', function () {
     let wrapper
     let showModal = true
     const setActiveItemIndexSpy = sinon.spy()
     const setModalVisibilityStub = sinon.stub().callsFake((boolean) => { showModal = boolean })
     beforeEach(function () {
       wrapper = mount(
-        <FieldGuideContainer
+        <FieldGuideWrapper
           activeItemIndex={-1}
           fieldGuide={fieldGuide}
           icons={icons}
@@ -50,8 +64,6 @@ describe('Component > FieldGuideContainer', function () {
 
     it('should display the FieldGuide based on the showModal prop', function () {
       expect(wrapper.find(FieldGuide)).to.have.lengthOf(1)
-      wrapper.setProps({ showModal: false })
-      expect(wrapper.find(FieldGuide)).to.have.lengthOf(0)
     })
 
     it('should pass the expected props', function () {
@@ -78,7 +90,7 @@ describe('Component > FieldGuideContainer', function () {
     const setModalVisibilityStub = sinon.stub().callsFake((boolean) => { showModal = boolean })
     beforeEach(function () {
       wrapper = mount(
-        <FieldGuideContainer
+        <FieldGuideWrapper
           activeItemIndex={-1}
           fieldGuide={fieldGuide}
           icons={icons}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { MobXProviderContext, observer } from 'mobx-react'
-import FieldGuideContainer from './FieldGuideContainer'
+import FieldGuideWrapper from './FieldGuideWrapper'
 
 function useStores() {
   const stores = React.useContext(MobXProviderContext)
@@ -35,7 +35,7 @@ function FieldGuideConnector(props) {
   } = useStores()
 
   return (
-    <FieldGuideContainer
+    <FieldGuideWrapper
       activeItemIndex={activeItemIndex}
       fieldGuide={fieldGuide}
       icons={icons}

@@ -2,7 +2,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
 import FieldGuideConnector from './FieldGuideConnector'
-import FieldGuideContainer from './FieldGuideContainer'
+import FieldGuideWrapper from './FieldGuideWrapper'
 
 const mockStoreSnapshot = {
   classifierStore: {
@@ -29,7 +29,7 @@ describe('FieldGuideConnector', function () {
     wrapper = shallow(
       <FieldGuideConnector foo='bar' />
     )
-    containerProps = wrapper.find(FieldGuideContainer).props()
+    containerProps = wrapper.find(FieldGuideWrapper).props()
   })
 
   after(function () {

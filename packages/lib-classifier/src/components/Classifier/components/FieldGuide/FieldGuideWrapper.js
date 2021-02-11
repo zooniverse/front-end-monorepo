@@ -6,26 +6,12 @@ import { ResponsiveContext } from 'grommet'
 import FieldGuideButton from './components/FieldGuideButton'
 import FieldGuide from './components/FieldGuide'
 
-function FieldGuideContainer (props) {
+function FieldGuideWrapper (props) {
   const {
-    activeItemIndex,
     fieldGuide,
-    icons,
-    setActiveItemIndex,
     setModalVisibility,
     showModal
   } = props
-
-  const [height, setHeight] = React.useState(415)
-  React.useEffect(() => { return onUnmount }, [showModal])
-
-  function onUnmount () {
-    setHeight(415)
-  }
-  function onResize (e, direction, ref, delta, position) {
-    if (height !== 'auto') setHeight('auto')
-  }
-
 
   return (
     <>
@@ -34,14 +20,9 @@ function FieldGuideContainer (props) {
         <ResponsiveContext.Consumer>
           {size => (
             <FieldGuide
-              activeItemIndex={activeItemIndex}
-              fieldGuide={fieldGuide}
-              icons={icons}
-              maxHeight={height}
               onClose={() => setModalVisibility(false)}
-              onResize={onResize}
               size={size}
-              setActiveItemIndex={setActiveItemIndex}
+              {...props}
             />
           )}
         </ResponsiveContext.Consumer>
@@ -50,14 +31,14 @@ function FieldGuideContainer (props) {
   )
 }
 
-FieldGuideContainer.defaultProps = {
+FieldGuideWrapper.defaultProps = {
+  activeItemIndex: -1,
   fieldGuide: null,
   icons: observable.map(),
-  setActiveItemIndex: -1,
   showModal: false
 }
 
-FieldGuideContainer.propTypes = {
+FieldGuideWrapper.propTypes = {
   activeItemIndex: PropTypes.number,
   fieldGuide: PropTypes.object,
   icons: MobXPropTypes.observableMap,
@@ -66,4 +47,4 @@ FieldGuideContainer.propTypes = {
   showModal: PropTypes.bool
 }
 
-export default FieldGuideContainer
+export default FieldGuideWrapper
