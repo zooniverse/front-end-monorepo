@@ -204,8 +204,8 @@ class SubjectGroupViewerContainer extends React.Component {
   doZoom (type) {
     const { zoom } = this.state
     
-    const ARBITRARY_MIN_ZOOM = 0.5
-    const ARBITRARY_MAX_ZOOM = 2
+    const ARBITRARY_MIN_ZOOM = 1
+    const ARBITRARY_MAX_ZOOM = 4
     
     switch (type) {
       case 'zoomin':
