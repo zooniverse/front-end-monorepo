@@ -85,7 +85,7 @@ class App extends React.Component {
     }
 
     const { active_workflows } = this.state.project.links
-    const [singleActiveWorkflow] = (active_workflows.length === 1) && active_workflows
+    const [singleActiveWorkflow] = (active_workflows.length === 1) ? active_workflows : []
     const workflowID = this.props.workflowID ?? singleActiveWorkflow
     const mergedThemes = _.merge({}, baseTheme, zooTheme, { dark: this.state.dark })
 
