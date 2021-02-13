@@ -16,20 +16,20 @@ export default async function getDefaultPageProps({ params, query, req, res }) {
   }
   const isServer = true
   const store = initStore(isServer, snapshot)
+  const { env, language } = query
 
   if (params.owner && params.project) {
     const { owner, project } = params
     const projectSlug = `${owner}/${project}`
-    const { env } = query
-    await store.project.fetch(projectSlug, { env })
+    await store.project.fetch(projectSlug, { env, language })
   }
 
   const { project, ui } = getSnapshot(store)
   const { headers, connection } = req
-  const { env } = query
-  const language = project.primary_language
   const { active_workflows, default_workflow } = project.links
-  const workflows = await fetchWorkflowsHelper(language, active_workflows, default_workflow, env)
+  const { primary_language } = project
+  const workflowLanguage = language ?? primary_language
+  const workflows = await fetchWorkflowsHelper(workflowLanguage, active_workflows, default_workflow, env)
   const props = {
     host: generateHostUrl(headers, connection),
     initialState: {
