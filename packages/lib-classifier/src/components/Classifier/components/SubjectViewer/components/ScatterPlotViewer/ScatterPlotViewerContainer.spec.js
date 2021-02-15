@@ -3,7 +3,7 @@ import React from 'react'
 import nock from 'nock'
 import sinon from 'sinon'
 
-import { ScatterPlotViewerContainer } from './ScatterPlotViewerContainer'
+import ScatterPlotViewerContainer from './ScatterPlotViewerContainer'
 import ScatterPlotViewer from './ScatterPlotViewer'
 import { dataSeriesWithXErrors, keplerMockDataWithOptions } from './helpers/mockData'
 

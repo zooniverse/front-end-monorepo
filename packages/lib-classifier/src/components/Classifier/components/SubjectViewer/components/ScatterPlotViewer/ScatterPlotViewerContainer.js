@@ -2,22 +2,9 @@ import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import request from 'superagent'
-import { inject, observer } from 'mobx-react'
 
 import ScatterPlotViewer from './ScatterPlotViewer'
 import locationValidator from '../../helpers/locationValidator'
-
-function storeMapper(stores) {
-  const {
-    setOnZoom,
-    setOnPan
-  } = stores.classifierStore.subjectViewer
-
-  return {
-    setOnZoom,
-    setOnPan
-  }
-}
 
 class ScatterPlotViewerContainer extends Component {
   constructor() {
@@ -148,9 +135,4 @@ ScatterPlotViewerContainer.propTypes = {
   })
 }
 
-@inject(storeMapper)
-@observer
-class DecoratedScatterPlotViewerContainer extends ScatterPlotViewerContainer { }
-
-export default DecoratedScatterPlotViewerContainer
-export { ScatterPlotViewerContainer }
+export default ScatterPlotViewerContainer
