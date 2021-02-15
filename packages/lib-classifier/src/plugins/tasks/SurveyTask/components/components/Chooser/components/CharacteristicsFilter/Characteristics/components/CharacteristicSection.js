@@ -25,8 +25,8 @@ export default function CharacteristicSection (props) {
         wrap
       >
         {(option, { checked, hover }) => {
-          const value = characteristic.values[option]
-          const valueImageSrc = images[value.image]
+          const value = characteristic?.values?.[option] || {}
+          const valueImageSrc = images?.[value.image] || ''
         
           return (
             <FilterButton

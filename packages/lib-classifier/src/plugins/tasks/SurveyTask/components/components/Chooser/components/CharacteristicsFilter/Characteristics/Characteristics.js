@@ -16,8 +16,8 @@ export default function Characteristics (props) {
       fill='horizontal'
     >
       {task.characteristicsOrder.map((characteristicId, i) => {
-        const characteristic = task.characteristics[characteristicId]
-        const selectedValueId = filters[characteristicId]
+        const characteristic = task.characteristics?.[characteristicId] || {}
+        const selectedValueId = filters?.[characteristicId] || ''
 
         return (
           <CharacteristicSection

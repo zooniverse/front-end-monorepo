@@ -54,10 +54,10 @@ export default function FilterStatus (props) {
         dropTarget={filterStatusRef.current}
       />
       {selectedCharacteristicIds.map(characteristicId => {
-        const characteristic = task.characteristics[characteristicId]
-        const selectedValueId = filters[characteristicId]
-        const value = characteristic.values[selectedValueId]
-        const valueImageSrc = task.images[value.image]
+        const characteristic = task.characteristics?.[characteristicId] || {}
+        const selectedValueId = filters?.[characteristicId] || ''
+        const value = characteristic.values?.[selectedValueId] || {}
+        const valueImageSrc = task.images?.[value.image] || ''
         
         return (
           <FilterButton
