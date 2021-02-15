@@ -131,7 +131,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return a project error message', function () {
-        expect(props.title).to.equal('Project test-owner/test-wrong-project was not found.')
+        expect(props.title).to.equal('Project test-owner/test-wrong-project was not found')
       })
     })
 
@@ -156,7 +156,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return a workflow error message', function () {
-        expect(props.title).to.equal('Workflow 2 was not found.')
+        expect(props.title).to.equal('Workflow 2 was not found')
       })
     })
   })
@@ -263,7 +263,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return a project error message', function () {
-        expect(props.title).to.equal('Project test-owner/test-wrong-project was not found.')
+        expect(props.title).to.equal('Project test-owner/test-wrong-project was not found')
       })
     })
 
@@ -288,7 +288,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return a workflow error message', function () {
-        expect(props.title).to.equal('Workflow 2 was not found.')
+        expect(props.title).to.equal('Workflow 2 was not found')
       })
     })
   })

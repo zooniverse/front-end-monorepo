@@ -153,7 +153,7 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
       })
 
       it('should pass an error message to the error page', function () {
-        expect(props.title).to.equal('Project test-owner/test-wrong-project was not found.')
+        expect(props.title).to.equal('Project test-owner/test-wrong-project was not found')
       })
     })
 
@@ -191,7 +191,7 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
       })
 
       it('should pass an error message to the error page', function () {
-        expect(props.title).to.equal('Workflow 2 was not found.')
+        expect(props.title).to.equal('Workflow 2 was not found')
       })
     })
   })
@@ -312,7 +312,7 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
       })
 
       it('should pass an error message to the error page', function () {
-        expect(props.title).to.equal('Project test-owner/test-wrong-project was not found.')
+        expect(props.title).to.equal('Project test-owner/test-wrong-project was not found')
       })
     })
 
@@ -350,7 +350,7 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
       })
 
       it('should pass an error message to the error page', function () {
-        expect(props.title).to.equal('Workflow 2 was not found.')
+        expect(props.title).to.equal('Workflow 2 was not found')
       })
     })
   })

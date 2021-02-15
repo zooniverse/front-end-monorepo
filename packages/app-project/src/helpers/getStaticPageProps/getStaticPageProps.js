@@ -16,7 +16,7 @@ export default async function getStaticPageProps({ params, query }) {
     const projectSlug = `${owner}/${project}`
     await store.project.fetch(projectSlug, { env })
     if (!store.project.id) {
-      return notFoundError(`Project ${owner}/${project} was not found.`)
+      return notFoundError(`Project ${owner}/${project} was not found`)
     }
   }
 
@@ -28,7 +28,7 @@ export default async function getStaticPageProps({ params, query }) {
   const { active_workflows, default_workflow } = project.links
   const workflowExists = active_workflows.includes(params.workflowID)
   if (params.workflowID && !workflowExists) {
-    return notFoundError(`Workflow ${params.workflowID} was not found.`)
+    return notFoundError(`Workflow ${params.workflowID} was not found`)
   }
 
   /*
