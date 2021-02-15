@@ -5,7 +5,7 @@ import { Box, Grommet } from 'grommet'
 import { darken } from 'polished'
 import { withKnobs, boolean, text, number, object } from '@storybook/addon-knobs'
 import ScatterPlotViewer from './ScatterPlotViewer'
-import ScatterPlotViewerContainer from './ScatterPlotViewerContainer'
+import ScatterPlotViewerConnector from './ScatterPlotViewerConnector'
 import { Provider } from 'mobx-react'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import ImageToolbar from '../../../ImageToolbar'
@@ -46,6 +46,15 @@ const stories = storiesOf('Subject Viewers / ScatterPlotViewer', module)
 
 const { colors } = zooTheme.global
 
+const subject = Factory.build('subject', {
+  locations: [
+    {
+      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/kepler.json'
+    },
+    { 'image/png': 'https://panoptes-uploads.zooniverse.org/production/subject_location/6379335f-d893-445d-a25e-c14b83eabf63.png' }
+  ]
+})
+
 const mockStore = {
   classifications: {
     active: {
@@ -53,6 +62,9 @@ const mockStore = {
     }
   },
   fieldGuide: {},
+  subjects: {
+    active: subject
+  },
   subjectViewer: SubjectViewerStore.create({}),
   workflowSteps: {
     activeStepTasks: []
@@ -259,18 +271,7 @@ stories
     return (
       <ViewerContext theme={zooTheme}>
         <Box direction='row' height='medium' width='large'>
-          <ScatterPlotViewerContainer
-            panning={boolean('panning', true)}
-            subject={keplerSubject}
-            zooming={boolean('zooming', true)}
-            zoomConfiguration={{
-              direction: text('zoom direction', 'both'),
-              minZoom: number('min zoom', 1),
-              maxZoom: number('max zoom', 10),
-              zoomInValue: number('zoom in scale', 1.2),
-              zoomOutValue: number('zoom out scale', 0.8)
-            }}
-          />
+          <ScatterPlotViewerConnector />
           <ImageToolbar />
         </Box>
       </ViewerContext>
@@ -280,20 +281,7 @@ stories
     return (
       <ViewerContext theme={zooTheme}>
         <Box direction='row' height='medium' width='large'>
-          <ScatterPlotViewerContainer
-            panning={boolean('panning', true)}
-            subject={transientObjectSubject}
-            xAxisLabelOffset={number('x axis label offset', undefined)}
-            yAxisLabelOffset={number('y axis label offset', undefined)}
-            zooming={boolean('zooming', true)}
-            zoomConfiguration={{
-              direction: text('zoom direction', 'both'),
-              minZoom: number('min zoom', 1),
-              maxZoom: number('max zoom', 10),
-              zoomInValue: number('zoom in scale', 1.2),
-              zoomOutValue: number('zoom out scale', 0.8)
-            }}
-          />
+          <ScatterPlotViewerConnector />
           <ImageToolbar />
         </Box>
       </ViewerContext>

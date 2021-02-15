@@ -2,7 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import request from 'superagent'
-
+import { Box } from 'grommet'
 import ScatterPlotViewer from './ScatterPlotViewer'
 import locationValidator from '../../helpers/locationValidator'
 
@@ -84,7 +84,7 @@ class ScatterPlotViewerContainer extends Component {
       JSONData
     },
       function () {
-        onReady({ target })
+        onReady({ target: {} })
       })
   }
 
@@ -100,17 +100,21 @@ class ScatterPlotViewerContainer extends Component {
       return null
     }
 
+    // TODO: make zooming configurable from chart options per subject
     return (
-      <ScatterPlotViewer
-        data={data}
-        margin={chartOptions?.margin}
-        padding={chartOptions?.padding}
-        xAxisLabel={chartOptions?.xAxisLabel}
-        xAxisLabelOffset={chartOptions?.xAxisLabelOffset}
-        yAxisLabel={chartOptions?.yAxisLabel}
-        yAxisLabelOffset={chartOptions?.yAxisLabelOffset}
-        {...rest}
-      />
+      <Box height='500px'>
+        <ScatterPlotViewer
+          data={data}
+          margin={chartOptions?.margin}
+          padding={chartOptions?.padding}
+          xAxisLabel={chartOptions?.xAxisLabel}
+          xAxisLabelOffset={chartOptions?.xAxisLabelOffset}
+          yAxisLabel={chartOptions?.yAxisLabel}
+          yAxisLabelOffset={chartOptions?.yAxisLabelOffset}
+          zooming
+          {...rest}
+        />
+      </Box>
     )
   }
 }
