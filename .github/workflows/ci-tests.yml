@@ -32,7 +32,7 @@ jobs:
       run: echo "::set-output name=dir::$(yarn cache dir)"
 
     - name: Cache dependencies
-      uses: actions/cache@v1
+      uses: actions/cache@v2
       with:
         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -42,7 +42,25 @@ jobs:
     - run: yarn install --production=false
     - run: yarn workspace @zooniverse/react-components build
     - run: yarn workspace @zooniverse/classifier build
+
+    - name: Cache project builds
+      uses: actions/cache@v2
+      with:
+        path: ${{ github.workspace }}/packages/app-project/.next/cache
+        key: ${{ runner.os }}-nextjs-project-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-nextjs-project-
+
     - run: yarn workspace @zooniverse/fe-project build
+
+    - name: Cache content pages builds
+      uses: actions/cache@v2
+      with:
+        path: ${{ github.workspace }}/packages/app-content-pages/.next/cache
+        key: ${{ runner.os }}-nextjs-content-pages-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-nextjs-content-pages-
+
     - run: yarn workspace @zooniverse/fe-content-pages build
     - run: PANOPTES_ENV=test yarn test:ci
     - run: yarn coverage-lcov
