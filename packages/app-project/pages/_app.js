@@ -42,6 +42,15 @@ export default function MyApp({ Component, pageProps }) {
       store.user.checkCurrent()
     }
     useEffect(onMount, [])
+    
+    if (pageProps.statusCode) {
+      return (
+        <Error
+          statusCode={pageProps.statusCode}
+          title={pageProps.title}
+        />
+      )
+    }
 
     return (
       <>
