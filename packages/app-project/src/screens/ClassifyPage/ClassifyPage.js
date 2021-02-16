@@ -27,6 +27,7 @@ function ClassifyPage (props) {
 
   const [ workflowFromUrl ] = workflows.filter(workflow => workflow.id === workflowID)
   const canClassify = workflowFromUrl?.grouped ? !!subjectSetID : !!workflowID
+  const classifierKey = workflowID ?? 'placeholder'
 
   return (
     <StandardLayout>
@@ -46,6 +47,7 @@ function ClassifyPage (props) {
           <Grid columns={responsiveColumns} gap='small'>
             <ProjectName />
             <ClassifierWrapper
+              key={classifierKey}
               onAddToCollection={addToCollection}
               subjectSetID={subjectSetID}
               workflowID={workflowID}
