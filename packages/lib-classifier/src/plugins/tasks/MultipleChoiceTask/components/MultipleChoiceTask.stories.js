@@ -1,11 +1,9 @@
 import { withKnobs, boolean, radios, select } from '@storybook/addon-knobs'
 import asyncStates from '@zooniverse/async-states'
 import { storiesOf } from '@storybook/react'
-import zooTheme from '@zooniverse/grommet-theme'
 import React from 'react'
-import { Box, Grommet } from 'grommet'
-import { Provider, observer } from 'mobx-react'
-import { Tasks } from '../../../../components/Classifier/components/TaskArea/components/Tasks/Tasks'
+import { Provider } from 'mobx-react'
+import { MockTask } from '@helpers'
 import { createStore }  from '@store/helpers'
 
 const store = createStore()
@@ -13,36 +11,6 @@ function addStepToStore(step, tasks) {
   const steps = [['S1', step]]
   store.workflowSteps.setStepsAndTasks({ steps, tasks })
   store.workflowSteps.active.tasks.forEach(task => store.classifications.addAnnotation(task))
-}
-
-const ObservedTasks = observer(Tasks)
-
-function MockTask(props) {
-  const { dark, ...taskProps } = props
-
-  return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={Object.assign({}, zooTheme, { dark })}
-      themeMode={(dark) ? 'dark' : 'light'}
-    >
-      <Box
-        background={{
-          dark: 'dark-3',
-          light: 'neutral-6'
-        }}
-        pad='1em'
-        width='380px'
-      >
-        <ObservedTasks
-          {...taskProps}
-        />
-      </Box>
-    </Grommet>
-  )
 }
 
 storiesOf('Tasks / Multiple Choice Question', module)
@@ -80,6 +48,7 @@ storiesOf('Tasks / Multiple Choice Question', module)
           loadingState={asyncStates.success}
           step={store.workflowSteps.active}
           subjectReadyState={subjectReadyState}
+          subjectViewer={store.subjectViewer}
         />
       </Provider>
     )
