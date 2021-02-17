@@ -1,15 +1,7 @@
-// export { default } from '@shared/components/StubComponent'
-// import { Stuff } from 'grommet'
+import getDefaultPageProps from '@helpers/getDefaultPageProps'
+export { default } from '@screens/ProjectAboutPage'
 
-import React from 'react';
-
-const Research = ({ pageProps }) => {
-  console.log(pageProps)
-  return (
-    <div>
-      This is the Research Page
-    </div>
-  )
+export async function getServerSideProps({ params, query, req, res }) {
+  const { props } = await getDefaultPageProps({ params, query, req, res })
+  return ({ props })
 }
-
-export default Research;

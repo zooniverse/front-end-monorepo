@@ -1,13 +1,13 @@
 import { observer, MobXProviderContext } from 'mobx-react'
 import React, { useContext } from 'react'
 
-import ProjectHomePage from './ProjectHomePage'
+import ProjectAboutPage from './ProjectAboutPage'
 
 function useStoreContext (stores) {
   const { store } = stores || useContext(MobXProviderContext)
-  const { inBeta } = store.project
+  const aboutPages = store.project.about_pages
   return {
-    inBeta
+    aboutPages
   }
 }
 
@@ -17,7 +17,8 @@ function useStoreContext (stores) {
 function ProjectAboutPageConnector ({
   stores
 }) {
-  return <ProjectHomePage />
+  const { aboutPages } = useStoreContext(stores)
+  return <ProjectAboutPage aboutPages={aboutPages} />
 }
 
 export default observer(ProjectAboutPageConnector)

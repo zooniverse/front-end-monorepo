@@ -6,6 +6,7 @@ import numberString from './types/numberString'
 
 const Project = types
   .model('Project', {
+    about_pages: types.frozen([]),
     avatar: types.frozen({}),
     background: types.frozen({}),
     beta_approved: types.optional(types.boolean, false),
@@ -81,6 +82,7 @@ const Project = types
           self.avatar = get(linked, 'avatars[0]', {})
           self.background = get(linked, 'backgrounds[0]', {})
           self.owners = get(linked, 'owners', [])
+          self.about_pages = get(linked, 'project_pages', [])
 
           const properties = [
             'beta_approved',
