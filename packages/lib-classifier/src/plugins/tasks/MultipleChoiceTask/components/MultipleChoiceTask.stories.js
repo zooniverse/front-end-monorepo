@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import React from 'react'
-import { MockTask } from '@helpers'
+import { MockTask } from '@stories/components'
 import MultipleChoiceTask from './MultipleChoiceTask'
 
 export default {

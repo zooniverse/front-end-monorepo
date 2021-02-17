@@ -1,7 +1,7 @@
 import { Box, Grommet } from 'grommet'
 import { Provider, observer } from 'mobx-react'
 import React from 'react'
-import { Tasks } from '../../components/Classifier/components/TaskArea/components/Tasks/Tasks'
+import { Tasks } from '@components/Classifier/components/TaskArea/components/Tasks/Tasks'
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { createStore }  from '@store/helpers'

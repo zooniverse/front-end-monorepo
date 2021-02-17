@@ -2,7 +2,7 @@ import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 import asyncStates from '@zooniverse/async-states'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
-import { MockTask } from '@helpers'
+import { MockTask } from '@stories/components'
 import DrawingTask from '../../DrawingTask/components/DrawingTask'
 
 export default {

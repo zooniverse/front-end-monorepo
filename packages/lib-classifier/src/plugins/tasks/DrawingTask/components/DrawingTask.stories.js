@@ -3,7 +3,7 @@ import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
-import { MockTask } from '@helpers'
+import { MockTask } from '@stories/components'
 import DrawingTask from './DrawingTask'
 
 export default {
