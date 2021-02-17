@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
 import SubjectSet from '../SubjectSet'
-import ResourceStore from '../../ResourceStore'
+import ResourceStore from '../ResourceStore'
 
 const SubjectSetStore = types
   .model('SubjectSetStore', {
