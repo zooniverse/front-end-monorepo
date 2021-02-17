@@ -1,6 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import { types } from 'mobx-state-tree'
 import ClassificationStore from '@store/ClassificationStore'
+import ProjectStore from '@store/ProjectStore'
 import SubjectStore from '@store/SubjectStore'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import WorkflowStore from '@store/WorkflowStore'
@@ -22,6 +23,7 @@ export default function createStore() {
 
   const store = types.model('MockStore', {
     classifications: ClassificationStore,
+    projects: ProjectStore,
     subjects: SubjectStore,
     subjectViewer: SubjectViewerStore,
     workflows: WorkflowStore,
@@ -29,6 +31,7 @@ export default function createStore() {
   })
     .create({
       classifications,
+      projects: ProjectStore.create({}),
       subjects: SubjectStore.create({}),
       subjectViewer: SubjectViewerStore.create({ loadingState: asyncStates.success }),
       workflows: WorkflowStore.create({}),
