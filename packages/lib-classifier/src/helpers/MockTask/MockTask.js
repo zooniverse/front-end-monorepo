@@ -16,9 +16,26 @@ function addStepToStore(step, tasks) {
   store.workflowSteps.active.tasks.forEach(task => store.classifications.addAnnotation(task))
 }
 
+function initStore() {
+  const mockSubject = {
+    id: 'subject',
+    metadata: {}
+  }
+  const mockWorkflow = {
+    id: 'workflow',
+    version: '1.0'
+  }
+  const mockProject = {
+    id: 'project'
+  }
+  const newStore = createStore()
+  newStore.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
+  return newStore
+}
+
 export default function MockTask(props) {
   const { dark, step, tasks, ...taskProps } = props
-  store = store ?? createStore()
+  store = store ?? initStore()
   addStepToStore(step, tasks)
   const { subjectViewer } = store
   switch (taskProps.subjectReadyState) {
