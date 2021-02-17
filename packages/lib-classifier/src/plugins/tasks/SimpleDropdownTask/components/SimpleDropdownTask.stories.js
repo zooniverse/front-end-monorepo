@@ -1,6 +1,4 @@
-import { withKnobs, boolean, radios, select } from '@storybook/addon-knobs'
 import asyncStates from '@zooniverse/async-states'
-import { storiesOf } from '@storybook/react'
 import React from 'react'
 import { MockTask } from '@stories/components'
 import SimpleDropdownTask from './SimpleDropdownTask'

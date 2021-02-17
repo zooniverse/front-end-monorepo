@@ -1,7 +1,5 @@
-import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
-import { storiesOf } from '@storybook/react'
 import React from 'react'
 import { MockTask } from '@stories/components'
 import DrawingTask from './DrawingTask'
