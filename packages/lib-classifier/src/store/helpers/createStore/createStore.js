@@ -1,11 +1,11 @@
 import asyncStates from '@zooniverse/async-states'
 import { types } from 'mobx-state-tree'
-import ClassificationStore from '@store/ClassificationStore'
-import ProjectStore from '@store/ProjectStore'
-import SubjectStore from '@store/SubjectStore'
-import SubjectViewerStore from '@store/SubjectViewerStore'
-import WorkflowStore from '@store/WorkflowStore'
-import WorkflowStepStore from '@store/WorkflowStepStore'
+import ClassificationStore from '../..//ClassificationStore'
+import ProjectStore from '../..//ProjectStore'
+import SubjectStore from '../..//SubjectStore'
+import SubjectViewerStore from '../..//SubjectViewerStore'
+import WorkflowStore from '../..//WorkflowStore'
+import WorkflowStepStore from '../..//WorkflowStepStore'
 
 export default function createStore() {
   const classifications = ClassificationStore.create()

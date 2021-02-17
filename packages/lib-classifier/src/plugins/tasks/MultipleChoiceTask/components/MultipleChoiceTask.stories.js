@@ -6,7 +6,7 @@ import React from 'react'
 import { Box, Grommet } from 'grommet'
 import { Provider, observer } from 'mobx-react'
 import { Tasks } from '../../../../components/Classifier/components/TaskArea/components/Tasks/Tasks'
-import { createStore } from '@plugins/tasks/helpers'
+import { createStore }  from '@store/helpers'
 
 const store = createStore()
 function addStepToStore(step, tasks) {
