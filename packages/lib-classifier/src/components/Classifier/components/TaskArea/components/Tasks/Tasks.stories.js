@@ -2,45 +2,11 @@ import { withKnobs, boolean, radios, select } from '@storybook/addon-knobs'
 import asyncStates from '@zooniverse/async-states'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
-import { types } from 'mobx-state-tree'
 import React from 'react'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import { Tasks } from './Tasks'
-import ClassificationStore from '@store/ClassificationStore'
-import SubjectStore from '@store/SubjectStore'
-import WorkflowStore from '@store/WorkflowStore'
-import WorkflowStepStore from '@store/WorkflowStepStore'
-
-function createStore() {
-  const classifications = ClassificationStore.create()
-  const mockSubject = {
-    id: 'subject',
-    metadata: {}
-  }
-  const mockWorkflow = {
-    id: 'workflow',
-    version: '1.0'
-  }
-  const mockProject = {
-    id: 'project'
-  }
-
-  const store = types.model('MockStore', {
-    classifications: ClassificationStore,
-    subjects: SubjectStore,
-    workflows: WorkflowStore,
-    workflowSteps: WorkflowStepStore
-  })
-  .create({
-    classifications,
-    subjects: SubjectStore.create({}),
-    workflows: WorkflowStore.create({}),
-    workflowSteps: WorkflowStepStore.create({})
-  })
-  classifications.createClassification(mockSubject, mockWorkflow, mockProject)
-  return store
-}
+import { createStore } from '@plugins/tasks/helpers'
 
 const store = createStore()
 function addStepToStore (step, tasks) {
