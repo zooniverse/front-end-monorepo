@@ -1,41 +1,54 @@
-import { withKnobs, boolean, radios, select } from '@storybook/addon-knobs'
 import asyncStates from '@zooniverse/async-states'
-import { storiesOf } from '@storybook/react'
 import React from 'react'
 import { MockTask } from '@helpers'
+import MultipleChoiceTask from './MultipleChoiceTask'
 
-storiesOf('Tasks / Multiple Choice Question', module)
-  .addDecorator(withKnobs)
-  .addParameters({
+export default {
+  title: 'Tasks / Multiple Choice Question',
+  component: MultipleChoiceTask,
+  args: {
+    dark: false,
+    isThereTaskHelp: true,
+    required: false,
+    subjectReadyState: asyncStates.success
+  },
+  argTypes: {
+    subjectReadyState: {
+      control: {
+        type: 'select',
+        options: asyncStates
+      }
+    }
+  },
+  parameters: {
     viewport: {
       defaultViewport: 'responsive'
     }
-  })
-.add('light theme', function () {
-    const tasks = {
-      T1: {
-        answers: [{ label: 'sleeping' }, { label: 'playing' }, { label: 'looking indifferent' }],
-        help: 'Pick as many answers as apply, then press Done.',
-        question: 'What is it doing?',
-        required: radios('Required', { true: 'true', false: '' }, ''),
-        taskKey: 'T1',
-        type: 'multiple'
-      }
+  }
+}
+
+export function LightTheme({ dark, isThereTaskHelp, required, subjectReadyState }) {
+  const tasks = {
+    T1: {
+      answers: [{ label: 'sleeping' }, { label: 'playing' }, { label: 'looking indifferent' }],
+      help: 'Pick as many answers as apply, then press Done.',
+      question: 'What is it doing?',
+      required,
+      taskKey: 'T1',
+      type: 'multiple'
     }
-    const step = {
-      stepKey: 'S1',
-      taskKeys: ['T1']
-    }
-    const dark = boolean('Dark theme', false)
-    const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
-    const isThereTaskHelp = boolean('Enable task help', true)
-    return (
-      <MockTask
-        dark={dark}
-        isThereTaskHelp={isThereTaskHelp}
-        step={step}
-        subjectReadyState={subjectReadyState}
-        tasks={tasks}
-      />
-    )
-  })
+  }
+  const step = {
+    stepKey: 'S1',
+    taskKeys: ['T1']
+  }
+  return (
+    <MockTask
+      dark={dark}
+      isThereTaskHelp={isThereTaskHelp}
+      step={step}
+      subjectReadyState={subjectReadyState}
+      tasks={tasks}
+    />
+  )
+}

@@ -3,47 +3,62 @@ import asyncStates from '@zooniverse/async-states'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 import { MockTask } from '@helpers'
+import SimpleDropdownTask from './SimpleDropdownTask'
 
-storiesOf('Tasks / Simple Dropdown Task', module)
-  .addDecorator(withKnobs)
-  .addParameters({
+export default {
+  title: 'Tasks / Simple Dropdown',
+  component: SimpleDropdownTask,
+  args: {
+    dark: false,
+    isThereTaskHelp: true,
+    required: false,
+    subjectReadyState: asyncStates.success
+  },
+  argTypes: {
+    subjectReadyState: {
+      control: {
+        type: 'select',
+        options: asyncStates
+      }
+    }
+  },
+  parameters: {
     viewport: {
       defaultViewport: 'responsive'
     }
-  })
-  .add('light theme', function () {
-    const simpleDropdownTask = {
-      instruction: 'Choose your favourite colour',
-      allowCreate: false,
-      options: [
-        'Red',
-        'Blue',
-        'Yellow',
-        'Green',
-        'White',
-        'Black',
-      ],
-      required: radios('Required', { true: 'true', false: '' }, ''),
-      taskKey: 'init',
-      type: 'dropdown-simple',
-    }
-    const tasks = {
-      init: simpleDropdownTask
-    }
-    const step = {
-      stepKey: 'S1',
-      taskKeys: ['init']
-    }
-    const dark = boolean('Dark theme', false)
-    const subjectReadyState = select('Subject loading', asyncStates, asyncStates.success)
-    const isThereTaskHelp = boolean('Enable task help', true)
-    return (
-      <MockTask
-        dark={dark}
-        isThereTaskHelp={isThereTaskHelp}
-        step={step}
-        subjectReadyState={subjectReadyState}
-        tasks={tasks}
-      />
-    )
-  })
+  }
+}
+
+export function LightTheme({ dark, isThereTaskHelp, required, subjectReadyState }) {
+  const simpleDropdownTask = {
+    instruction: 'Choose your favourite colour',
+    allowCreate: false,
+    options: [
+      'Red',
+      'Blue',
+      'Yellow',
+      'Green',
+      'White',
+      'Black',
+    ],
+    required,
+    taskKey: 'init',
+    type: 'dropdown-simple',
+  }
+  const tasks = {
+    init: simpleDropdownTask
+  }
+  const step = {
+    stepKey: 'S1',
+    taskKeys: ['init']
+  }
+  return (
+    <MockTask
+      dark={dark}
+      isThereTaskHelp={isThereTaskHelp}
+      step={step}
+      subjectReadyState={subjectReadyState}
+      tasks={tasks}
+    />
+  )
+}
