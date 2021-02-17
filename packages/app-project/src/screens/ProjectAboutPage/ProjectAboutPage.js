@@ -1,10 +1,10 @@
 import React from 'react'
 
-function ProjectAboutPage ({ aboutPages }) {
-  console.log(aboutPages)
+function ProjectAboutPage ({ aboutPageData }) {
+  // console.log(aboutPageData)
 
   return (
-    <div>This is the About Page</div>
+    <div>This is the {aboutPageData.title} Page</div>
   )
 }
 
