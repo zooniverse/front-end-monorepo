@@ -5,6 +5,7 @@ import request from 'superagent'
 import { Box } from 'grommet'
 import ScatterPlotViewer from './ScatterPlotViewer'
 import locationValidator from '../../helpers/locationValidator'
+import { findLocationsByMediaType } from '@helpers'
 
 class ScatterPlotViewerContainer extends Component {
   constructor() {
@@ -37,8 +38,14 @@ class ScatterPlotViewerContainer extends Component {
   }
 
   getSubjectUrl () {
+    let jsonLocation = {}
+    const { subject } = this.props
     // Find the first location that has a JSON MIME type.
-    const jsonLocation = this.props.subject.locations.find(l => l['application/json']) || {}
+    // do we need to support the text file fallback?
+    const locations = findLocationsByMediaType(subject.locations, 'application') || []
+    if (locations?.length > 0 && locations[0]) {
+      jsonLocation = locations[0]
+    }
     const url = Object.values(jsonLocation)[0]
     if (url) {
       return url
@@ -52,10 +59,10 @@ class ScatterPlotViewerContainer extends Component {
     try {
       const url = this.getSubjectUrl()
       const response = await request.get(url)
-
       // Get the JSON data, or (as a failsafe) parse the JSON data if the
       // response is returned as a string
       const responseData = response.body || JSON.parse(response.text)
+
       if (responseData.data && responseData.chartOptions) {
         return responseData
       } else {
@@ -102,7 +109,7 @@ class ScatterPlotViewerContainer extends Component {
 
     // TODO: make zooming configurable from chart options per subject
     return (
-      <Box height='500px'>
+      <Box width='100%' height='500px'>
         <ScatterPlotViewer
           data={data}
           margin={chartOptions?.margin}

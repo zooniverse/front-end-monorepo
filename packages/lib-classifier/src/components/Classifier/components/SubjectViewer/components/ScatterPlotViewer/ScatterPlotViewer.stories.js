@@ -46,12 +46,17 @@ const stories = storiesOf('Subject Viewers / ScatterPlotViewer', module)
 
 const { colors } = zooTheme.global
 
-const subject = Factory.build('subject', {
+const keplerSubject = Factory.build('subject', {
+  locations: [
+    { 'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/kepler.json' }
+  ]
+})
+
+const transientObjectSubject = Factory.build('subject', {
   locations: [
     {
-      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/kepler.json'
-    },
-    { 'image/png': 'https://panoptes-uploads.zooniverse.org/production/subject_location/6379335f-d893-445d-a25e-c14b83eabf63.png' }
+      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/978b660f4ef660d5355148c3c22ef0912b96c7c1/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/transients/subject-1/zoo_subject_ZTF20abqdkne.json'
+    }
   ]
 })
 
@@ -61,9 +66,12 @@ const mockStore = {
       annotations: new Map()
     }
   },
-  fieldGuide: {},
+  fieldGuide: {
+    setActiveItemIndex: () => {},
+    setModalVisibility:  ()  => {}
+  },
   subjects: {
-    active: subject
+    active: transientObjectSubject
   },
   subjectViewer: SubjectViewerStore.create({}),
   workflowSteps: {
@@ -89,20 +97,6 @@ function ViewerContext(props) {
     </Provider>
   )
 }
-
-const keplerSubject = Factory.build('subject', {
-  locations: [
-    { 'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/kepler.json' }
-  ]
-})
-
-const transientObjectSubject = Factory.build('subject', {
-  locations: [
-    {
-      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/978b660f4ef660d5355148c3c22ef0912b96c7c1/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/transients/subject-1/zoo_subject_ZTF20abqdkne.json'
-    }
-  ]
-})
 
 stories
   .add('light theme', () => {
