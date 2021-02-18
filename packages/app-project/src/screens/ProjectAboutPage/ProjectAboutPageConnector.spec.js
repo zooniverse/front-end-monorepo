@@ -20,4 +20,9 @@ describe('Component > ProjectAboutPageConnector', function () {
   it('should render without crashing', function () {
     expect(wrapper).to.be.ok()
   })
+
+  xit('should pass correct page data to ProjectAboutPage depending on url_key', function () {
+    const aboutPage = wrapper.find(ProjectAboutPage)
+    console.log(aboutPage.prop('aboutPageData'))
+  })
 })
