@@ -1,0 +1,7 @@
+{
+  "SubjectSetProgressBanner": {
+    "alreadySeen": "Already seen",
+    "bannerText": "Subject %(number)s/%(total)s",
+    "finished": "Finished"
+  }
+}
