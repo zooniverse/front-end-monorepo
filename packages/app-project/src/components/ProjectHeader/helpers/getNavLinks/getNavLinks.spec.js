@@ -12,8 +12,7 @@ describe('Helper > getNavLinks', function () {
           text: 'About'
         },
         {
-          as: `${BASE_URL}/classify`,
-          href: '/projects/[owner]/[project]/classify',
+          href: `${BASE_URL}/classify`,
           text: 'Classify'
         },
         {
@@ -37,8 +36,7 @@ describe('Helper > getNavLinks', function () {
           text: 'About'
         },
         {
-          as: `${BASE_URL}/classify`,
-          href: '/projects/[owner]/[project]/classify',
+          href: `${BASE_URL}/classify`,
           text: 'Classify'
         },
         {
@@ -66,8 +64,7 @@ describe('Helper > getNavLinks', function () {
           text: 'About'
         },
         {
-          as: `${BASE_URL}/classify/workflow/1234`,
-          href: '/projects/[owner]/[project]/classify/workflow/[workflowID]',
+          href: `${BASE_URL}/classify/workflow/1234`,
           text: 'Classify'
         },
         {
