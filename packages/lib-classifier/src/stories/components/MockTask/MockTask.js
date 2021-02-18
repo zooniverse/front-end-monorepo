@@ -6,9 +6,15 @@ import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { createStore }  from '@store/helpers'
 
+/**
+  Global store. This should be created only once, otherwise the Provider will error.
+*/
 let store
 const ObservedTasks = observer(Tasks)
 
+/**
+  Takes a workflow tasks object and sets up the active workflow step and classification annotations.
+*/
 function addStepToStore(tasks = {}) {
   const stepKey = 'S1'
   const taskKeys = Object.values(tasks).map(task => task.taskKey)
@@ -41,7 +47,19 @@ function initStore(tasks) {
   store.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
 }
 
-export default function MockTask({ dark, subjectReadyState, tasks, ...taskProps }) {
+/**
+  Scaffolding to display a set of workflow tasks in a story, with a state store.
+*/
+export default function MockTask({
+  /** Use the dark theme */
+  dark = false,
+  /** subject loading state */
+  subjectReadyState = asyncStates.success,
+  /** a workflow tasks object */
+  tasks,
+  /** any other props to pass down to the tasks */
+  ...taskProps
+}) {
   const [ loaded, setLoaded ] = useState(false)
 
   useEffect(function init() {
