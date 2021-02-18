@@ -1,14 +1,13 @@
-import { Markdownz, Media } from '@zooniverse/react-components'
+import { Markdownz, Media, SpacedHeading } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Button, Box, Paragraph } from 'grommet'
 import { FormPrevious } from 'grommet-icons'
 import { observable } from 'mobx'
-import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 
-import SpacedHeading from './components/SpacedHeading'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
 import en from './locales/en'
 
@@ -47,17 +46,13 @@ const markdownComponents = {
   p: (nodeProps) => <Paragraph margin={{ bottom: 'none', top: 'xxsmall' }}>{nodeProps.children}</Paragraph>
 }
 
-function storeMapper (stores) {
-  const { setActiveItemIndex, attachedMedia: icons } = stores.classifierStore.fieldGuide
-  return {
-    icons,
-    setActiveItemIndex
-  }
-}
-
-class FieldGuideItem extends React.Component {
-  render () {
-    const { className, icons, item, setActiveItemIndex } = this.props
+function FieldGuideItem (props) {
+    const {
+      className,
+      icons,
+      item,
+      setActiveItemIndex
+    } = props
     const icon = icons.get(item.icon)
 
     return (
@@ -94,7 +89,6 @@ class FieldGuideItem extends React.Component {
         </Box>
       </Box>
     )
-  }
 }
 
 FieldGuideItem.defaultProps = {
@@ -115,10 +109,5 @@ FieldGuideItem.propTypes = {
   theme: PropTypes.object
 }
 
-@inject(storeMapper)
-@withTheme
-@observer
-class DecoratedFieldGuideItem extends FieldGuideItem { }
-
-export default DecoratedFieldGuideItem
+export default withTheme(FieldGuideItem)
 export { FieldGuideItem }

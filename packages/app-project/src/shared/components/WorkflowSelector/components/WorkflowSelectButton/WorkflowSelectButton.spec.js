@@ -50,14 +50,14 @@ describe('Component > WorkflowSelectButton', function () {
           default: true
         }} />
       ).find(WorkflowLink)
-      expect(wrapper.prop('as')).to.equal(`${router.asPath}/classify/workflow/${WORKFLOW.id}`)
+      expect(wrapper.prop('href')).to.equal(`${router.asPath}/classify/workflow/${WORKFLOW.id}`)
     })
   })
 
   describe('when used with a non-default workflow', function () {
     it('should be a link pointing to `/classify/workflow/:workflow_id`', function () {
       const wrapper = shallow(<WorkflowSelectButton onSelect={onSelect} workflow={WORKFLOW} />).find(WorkflowLink)
-      expect(wrapper.prop('as')).to.equal(`${router.asPath}/classify/workflow/${WORKFLOW.id}`)
+      expect(wrapper.prop('href')).to.equal(`${router.asPath}/classify/workflow/${WORKFLOW.id}`)
     })
   })
 
