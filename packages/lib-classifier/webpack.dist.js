@@ -24,9 +24,12 @@ module.exports = {
   mode: 'production',
   resolve: {
     alias: {
+      '@components': path.resolve(__dirname, 'src/components'),
       '@helpers': path.resolve(__dirname, 'src/helpers'),
       '@plugins': path.resolve(__dirname, 'src/plugins'),
       '@store': path.resolve(__dirname, 'src/store'),
+      '@stories': path.resolve(__dirname, 'src/stories'),
+      '@test': path.resolve(__dirname, 'test'),
       '@viewers': path.resolve(__dirname, 'src/components/Classifier/components/SubjectViewer')
     }
   },
