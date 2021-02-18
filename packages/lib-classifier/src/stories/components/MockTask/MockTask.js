@@ -67,6 +67,10 @@ export default function MockTask({
     setLoaded(true)
   }, [])
 
+  useEffect(function onTasksChange() {
+    addStepToStore(tasks)
+  }, [tasks])
+
   useEffect(function onSubjectReadyStateChange() {
     const { subjectViewer } = store
     switch (subjectReadyState) {
