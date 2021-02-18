@@ -14,6 +14,7 @@ import FeedbackStore from './FeedbackStore'
 import FieldGuideStore from './FieldGuideStore'
 import ProjectStore from './ProjectStore'
 import SubjectStore from './SubjectStore'
+import SubjectSetStore from './SubjectSetStore'
 import SubjectViewerStore from './SubjectViewerStore'
 import TutorialStore from './TutorialStore'
 import WorkflowStore from './WorkflowStore'
@@ -27,6 +28,7 @@ const RootStore = types
     fieldGuide: types.optional(FieldGuideStore, () => FieldGuideStore.create({})),
     projects: types.optional(ProjectStore, () => ProjectStore.create({})),
     subjects: types.optional(SubjectStore, () => SubjectStore.create({})),
+    subjectSets: types.optional(SubjectSetStore, () => SubjectSetStore.create({})),
     subjectViewer: types.optional(SubjectViewerStore, () => SubjectViewerStore.create({})),
     tutorials: types.optional(TutorialStore, () => TutorialStore.create({})),
     workflows: types.optional(WorkflowStore, () => WorkflowStore.create({})),

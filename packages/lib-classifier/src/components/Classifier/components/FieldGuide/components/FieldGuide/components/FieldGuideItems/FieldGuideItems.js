@@ -1,9 +1,9 @@
 import { Box, Grid } from 'grommet'
 import React from 'react'
 import PropTypes from 'prop-types'
-import FieldGuideItemAnchor from './FieldGuideItemAnchor'
+import FieldGuideItemAnchor from '../FieldGuideItemAnchor'
 
-function FieldGuideItems ({ items }) {
+function FieldGuideItems ({ icons, items, setActiveItemIndex }) {
   return (
     <Box overflow='auto'>
       <Grid
@@ -12,7 +12,16 @@ function FieldGuideItems ({ items }) {
         rows='150px'
         width='100%'
       >
-        {items.map((item, index) => <FieldGuideItemAnchor key={item.title} item={item} itemIndex={index} />)}
+        {items.map((item, index) => (
+          <FieldGuideItemAnchor
+            key={item.title}
+            icons={icons}
+            item={item}
+            itemIndex={index}
+            setActiveItemIndex={setActiveItemIndex}
+          />
+        ))}
+
       </Grid>
     </Box>
   )

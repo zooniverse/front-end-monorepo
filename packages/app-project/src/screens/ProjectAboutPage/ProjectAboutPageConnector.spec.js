@@ -9,7 +9,7 @@ describe('Component > ProjectAboutPageConnector', function () {
   const stores = {
     store: {
       project: {
-        about_pages: [ { title: 'Title', url_key: 'science_case' } ]
+        about_pages: [ { id: '1234', title: 'Title', url_key: 'science_case' } ]
       }
     }
   }
@@ -21,8 +21,9 @@ describe('Component > ProjectAboutPageConnector', function () {
     expect(wrapper).to.be.ok()
   })
 
-  xit('should pass correct page data to ProjectAboutPage depending on url_key', function () {
+  it.only('should pass correct data to ProjectAboutPage depending on pageType', function () {
     const aboutPage = wrapper.find(ProjectAboutPage)
-    console.log(aboutPage.prop('aboutPageData'))
+    const aboutProps = aboutPage.prop('aboutPageData')
+    expect(aboutProps.url_key).to.equal('science_case')
   })
 })
