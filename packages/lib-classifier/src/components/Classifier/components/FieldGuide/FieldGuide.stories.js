@@ -2,7 +2,7 @@ import React from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
-import FieldGuideContainer from './FieldGuideContainer'
+import FieldGuideConnector from './FieldGuideConnector'
 import FieldGuideStore from '@store/FieldGuideStore'
 import {
   FieldGuideFactory,
@@ -42,7 +42,7 @@ const mockStore = {
 
 export default {
   title: 'Help Resources/Field Guide',
-  component: FieldGuideContainer,
+  component: FieldGuideConnector,
   parameters: {
     viewport: {
       defaultViewport: 'responsive'
@@ -63,7 +63,7 @@ function FieldGuideStoryContext (props) {
         themeMode={(props.darkMode) ? 'dark' : 'light'}
       >
         <Box height='60px' width='60px'>
-          <FieldGuideContainer />
+          <FieldGuideConnector />
         </Box>
       </Grommet>
     </Provider>

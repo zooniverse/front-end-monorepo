@@ -14,8 +14,7 @@ const ROUTER_ON_OTHER_PAGE = {
 }
 
 const LINK = {
-  as: '/projects/foo/bar/baz',
-  href: '/projects/[project]/[owner]/baz',
+  href: '/projects/foo/bar/baz',
   text: 'Foobar'
 }
 
@@ -36,7 +35,7 @@ describe('Component > NavLink', function () {
 
   describe('when not on the current page', function () {
     it(`should have an href`, function () {
-      expect(wrapper.attr('href')).to.equal(LINK.as)
+      expect(wrapper.attr('href')).to.equal(LINK.href)
     })
   })
 

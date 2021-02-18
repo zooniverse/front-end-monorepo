@@ -1,1 +1,1 @@
-export { default } from './FieldGuide'
+export { default } from './FieldGuideContainer'

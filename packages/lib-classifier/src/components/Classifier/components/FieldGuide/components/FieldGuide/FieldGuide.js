@@ -1,58 +1,68 @@
-import { Box, ResponsiveContext } from 'grommet'
-import { inject, observer } from 'mobx-react'
+import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { withTheme } from 'styled-components'
+import { observable } from 'mobx'
+import { PropTypes as MobXPropTypes } from 'mobx-react'
 
 import FieldGuideItems from './components/FieldGuideItems'
 import FieldGuideItem from './components/FieldGuideItem'
 
-function storeMapper (stores) {
-  const { active: fieldGuide, activeItemIndex } = stores.classifierStore.fieldGuide
-  return {
+function FieldGuide (props) {
+  const {
     activeItemIndex,
-    items: fieldGuide.items
-  }
+    boxHeight,
+    boxWidth,
+    className,
+    fieldGuide,
+    icons,
+    modalComponent,
+    modalProps,
+    setActiveItemIndex,
+  } = props
+  const items = fieldGuide?.items || []
+  const item = items[activeItemIndex]
+  const ModalComponent = modalComponent
+  return (
+    <ModalComponent
+      {...modalProps}
+    >
+      <Box
+        className={className}
+        height={{ min: boxHeight }}
+        width={{ min: boxWidth }}
+      >
+        {item
+          ? <FieldGuideItem icons={icons} item={item} setActiveItemIndex={setActiveItemIndex} />
+          : <FieldGuideItems icons={icons} items={items} setActiveItemIndex={setActiveItemIndex} />
+        }
+      </Box>
+    </ModalComponent>
+  )
 }
 
-@inject(storeMapper)
-@withTheme
-@observer
-class FieldGuide extends React.Component {
-  render () {
-    const { activeItemIndex, className, items } = this.props
-    return (
-      <ResponsiveContext.Consumer>
-        {size => {
-          const height = (size === 'small') ? '100%' : '415px'
-          const width = (size === 'small') ? '100%' : '490px'
-          return (
-            <Box
-              className={className}
-              height={height}
-              width={width}
-            >
-              {items[activeItemIndex]
-                ? <FieldGuideItem item={items[activeItemIndex]} />
-                : <FieldGuideItems items={items} />
-              }
-            </Box>
-          )
-        }}
-      </ResponsiveContext.Consumer>
-    )
-  }
-}
-
-FieldGuide.wrappedComponent.defaultProps = {
+FieldGuide.defaultProps = {
   activeItemIndex: -1,
-  className: ''
+  boxHeight: '415px',
+  boxWidth: '490px',
+  className: '',
+  icons: observable.map(),
+  onClose: () => {},
+  size: 'large',
+  setActiveItemIndex: () => {}
 }
 
-FieldGuide.wrappedComponent.propTypes = {
+FieldGuide.propTypes = {
   activeItemIndex: PropTypes.number,
+  boxHeight: PropTypes.string,
+  boxWidth: PropTypes.string,
   className: PropTypes.string,
-  items: PropTypes.arrayOf(PropTypes.object).isRequired
+  fieldGuide: PropTypes.object.isRequired,
+  icons: MobXPropTypes.observableMap,
+  modalComponent: PropTypes.func.isRequired,
+  modalProps: PropTypes.object.isRequired,
+  onClose: PropTypes.func,
+  size: PropTypes.string,
+  setActiveItemIndex: PropTypes.func
 }
 
 export default FieldGuide
