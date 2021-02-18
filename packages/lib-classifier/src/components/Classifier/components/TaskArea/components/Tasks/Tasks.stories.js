@@ -27,17 +27,19 @@ export default {
   }
 }
 
-export function Loading() {
+export function Loading({ dark, isThereTaskHelp, required, subjectReadyState }) {
   return (
     <MockTask
+      dark={dark}
       loadingState={asyncStates.loading}
     />
   )
 }
 
-export function Error() {
+export function Error({ dark, isThereTaskHelp, required, subjectReadyState }) {
   return (
     <MockTask
+      dark={dark}
       loadingState={asyncStates.error}
     />
   )
@@ -62,15 +64,10 @@ export function MultipleTasks({ dark, isThereTaskHelp, required, subjectReadySta
       type: 'multiple'
     }
   }
-  const step = {
-    stepKey: 'S1',
-    taskKeys: ['init', 'T1']
-  }
   return (
     <MockTask
       dark={dark}
       isThereTaskHelp={isThereTaskHelp}
-      step={step}
       subjectReadyState={subjectReadyState}
       tasks={tasks}
     />

@@ -38,15 +38,10 @@ export function Default({ dark, isThereTaskHelp, required, subjectReadyState }) 
       type: 'text'
     }
   }
-  const step = {
-    stepKey: 'S1',
-    taskKeys: ['T0']
-  }
   return (
     <MockTask
       dark={dark}
       isThereTaskHelp={isThereTaskHelp}
-      step={step}
       subjectReadyState={subjectReadyState}
       tasks={tasks}
     />
@@ -64,15 +59,10 @@ export function withSuggestions({ dark, isThereTaskHelp, required, subjectReadyS
       type: 'text'
     }
   }
-  const step = {
-    stepKey: 'S1',
-    taskKeys: ['T0']
-  }
   return (
     <MockTask
       dark={dark}
       isThereTaskHelp={isThereTaskHelp}
-      step={step}
       subjectReadyState={subjectReadyState}
       subTaskPreviousAnnotationValues={['a', 'b', 'c']}
       tasks={tasks}

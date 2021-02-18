@@ -38,15 +38,10 @@ export function LightTheme({ dark, isThereTaskHelp, required, subjectReadyState 
       type: 'single'
     }
   }
-  const step = {
-    stepKey: 'S1',
-    taskKeys: ['init']
-  }
   return (
     <MockTask
       dark={dark}
       isThereTaskHelp={isThereTaskHelp}
-      step={step}
       subjectReadyState={subjectReadyState}
       tasks={tasks}
     />

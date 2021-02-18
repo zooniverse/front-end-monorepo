@@ -1,22 +1,32 @@
 import { Box, Grommet } from 'grommet'
 import { Provider, observer } from 'mobx-react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Tasks } from '@components/Classifier/components/TaskArea/components/Tasks/Tasks'
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { createStore }  from '@store/helpers'
 
 let store
-
 const ObservedTasks = observer(Tasks)
 
-function addStepToStore(step, tasks) {
-  const steps = [['S1', step]]
+function addStepToStore(tasks = {}) {
+  const stepKey = 'S1'
+  const taskKeys = Object.values(tasks).map(task => task.taskKey)
+  const step = {
+    stepKey,
+    taskKeys
+  }
+  const steps = [[stepKey, step]]
   store.workflowSteps.setStepsAndTasks({ steps, tasks })
   store.workflowSteps.active.tasks.forEach(task => store.classifications.addAnnotation(task))
 }
 
-function initStore() {
+/**
+  Initialise the store state on story load.
+*/
+function initStore(tasks) {
+  store = store ?? createStore()
+  addStepToStore(tasks)
   const mockSubject = {
     id: 'subject',
     metadata: {}
@@ -28,30 +38,41 @@ function initStore() {
   const mockProject = {
     id: 'project'
   }
-  const newStore = createStore()
-  newStore.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
-  return newStore
+  store.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
 }
 
-export default function MockTask(props) {
-  const { dark, step, tasks, ...taskProps } = props
-  store = store ?? initStore()
-  addStepToStore(step, tasks)
-  const { subjectViewer } = store
-  switch (taskProps.subjectReadyState) {
-    case asyncStates.error: {
-      subjectViewer.onError()
-      break
+export default function MockTask({ dark, subjectReadyState, tasks, ...taskProps }) {
+  const [ loaded, setLoaded ] = useState(false)
+
+  useEffect(function init() {
+    initStore(tasks)
+    setLoaded(true)
+  }, [])
+
+  useEffect(function onSubjectReadyStateChange() {
+    const { subjectViewer } = store
+    switch (subjectReadyState) {
+      case asyncStates.error: {
+        subjectViewer.onError()
+        break
+      }
+      case asyncStates.loading: {
+        subjectViewer.resetSubject()
+        break
+      }
+      case asyncStates.success: {
+        subjectViewer.onSubjectReady()
+        break
+      }
     }
-    case asyncStates.loading: {
-      subjectViewer.resetSubject()
-      break
-    }
-    case asyncStates.success: {
-      subjectViewer.onSubjectReady()
-      break
-    }
+  }, [subjectReadyState])
+
+  if (!loaded) {
+    return null
   }
+
+  const classification = store?.classifications?.active
+  const step = store?.workflowSteps?.active
 
   return (
     <Provider classifierStore={store}>
@@ -72,10 +93,10 @@ export default function MockTask(props) {
           width='380px'
         >
           <ObservedTasks
-            classification={store.classifications.active}
+            classification={classification}
             loadingState={asyncStates.success}
-            step={store.workflowSteps.active}
-            subjectViewer={store.subjectViewer}
+            step={step}
+            subjectReadyState={subjectReadyState}
             {...taskProps}
           />
         </Box>

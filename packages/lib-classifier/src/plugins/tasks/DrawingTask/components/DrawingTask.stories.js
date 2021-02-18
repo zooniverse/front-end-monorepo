@@ -68,15 +68,10 @@ export function Drawing({ dark, isThereTaskHelp, required, subjectReadyState }) 
       type: 'drawing'
     }
   }
-  const step = {
-    stepKey: 'S1',
-    taskKeys: ['T2']
-  }
   return (
     <MockTask
       dark={dark}
       isThereTaskHelp={isThereTaskHelp}
-      step={step}
       subjectReadyState={subjectReadyState}
       tasks={tasks}
     />

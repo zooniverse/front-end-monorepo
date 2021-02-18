@@ -46,15 +46,10 @@ export function LightTheme({ dark, isThereTaskHelp, required, subjectReadyState 
   const tasks = {
     init: simpleDropdownTask
   }
-  const step = {
-    stepKey: 'S1',
-    taskKeys: ['init']
-  }
   return (
     <MockTask
       dark={dark}
       isThereTaskHelp={isThereTaskHelp}
-      step={step}
       subjectReadyState={subjectReadyState}
       tasks={tasks}
     />
