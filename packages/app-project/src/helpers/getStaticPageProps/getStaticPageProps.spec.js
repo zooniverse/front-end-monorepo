@@ -1,8 +1,8 @@
 import nock from 'nock'
 
-import getDefaultPageProps from './'
+import getStaticPageProps from './'
 
-describe('Components > ProjectHomePage > getDefaultPageProps', function () {
+describe('Helpers > getStaticPageProps', function () {
   const PROJECT = {
     id: '1',
     default_workflow: '1',
@@ -93,16 +93,7 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
         const query = {
           env: 'staging'
         }
-        const req = {
-          connection: {
-            encrypted: true
-          },
-          headers: {
-            host: 'www.zooniverse.org'
-          }
-        }
-        const res = {}
-        const { props } = await getDefaultPageProps({ params, query, req, res })
+        const { props } = await getStaticPageProps({ params, query })
         expect(props.workflows).to.deep.equal([
           {
             completeness: 0.4,
@@ -122,7 +113,6 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
 
     describe('with an invalid project slug', function () {
       let props
-      let res = {}
 
       before(async function () {
         const params = {
@@ -132,34 +122,21 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
         const query = {
           env: 'staging'
         }
-        const req = {
-          connection: {
-            encrypted: true
-          },
-          headers: {
-            host: 'www.zooniverse.org'
-          }
-        }
-        const response = await getDefaultPageProps({ params, query, req, res })
+        const response = await getStaticPageProps({ params, query })
         props = response.props
       })
 
-      it('should return a 404 response', function () {
-        expect(res.statusCode).to.equal(404)
-      })
-
-      it('should pass the status code to the error page', function () {
+      it('should return a 404 status code', function () {
         expect(props.statusCode).to.equal(404)
       })
 
-      it('should pass an error message to the error page', function () {
+      it('should return a project error message', function () {
         expect(props.title).to.equal('Project test-owner/test-wrong-project was not found')
       })
     })
 
     describe('with an invalid workflow ID', function () {
       let props
-      let res = {}
 
       before(async function () {
         const params = {
@@ -170,27 +147,15 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
         const query = {
           env: 'staging'
         }
-        const req = {
-          connection: {
-            encrypted: true
-          },
-          headers: {
-            host: 'www.zooniverse.org'
-          }
-        }
-        const response = await getDefaultPageProps({ params, query, req, res })
+        const response = await getStaticPageProps({ params, query })
         props = response.props
       })
 
-      it('should return a 404 response', function () {
-        expect(res.statusCode).to.equal(404)
-      })
-
-      it('should pass the status code to the error page', function () {
+      it('should return a 404 status code', function () {
         expect(props.statusCode).to.equal(404)
       })
 
-      it('should pass an error message to the error page', function () {
+      it('should return a workflow error message', function () {
         expect(props.title).to.equal('Workflow 2 was not found')
       })
     })
@@ -252,16 +217,7 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
         const query = {
           env: 'production'
         }
-        const req = {
-          connection: {
-            encrypted: true
-          },
-          headers: {
-            host: 'www.zooniverse.org'
-          }
-        }
-        const res = {}
-        const { props } = await getDefaultPageProps({ params, query, req, res })
+        const { props } = await getStaticPageProps({ params, query })
         expect(props.workflows).to.deep.equal([
           {
             completeness: 0.4,
@@ -281,7 +237,6 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
 
     describe('with an invalid project slug', function () {
       let props
-      let res = {}
 
       before(async function () {
         const params = {
@@ -299,26 +254,21 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
             host: 'www.zooniverse.org'
           }
         }
-        const response = await getDefaultPageProps({ params, query, req, res })
+        const response = await getStaticPageProps({ params, query })
         props = response.props
       })
 
-      it('should return a 404 response', function () {
-        expect(res.statusCode).to.equal(404)
-      })
-
-      it('should pass the status code to the error page', function () {
+      it('should return a 404 status code', function () {
         expect(props.statusCode).to.equal(404)
       })
 
-      it('should pass an error message to the error page', function () {
+      it('should return a project error message', function () {
         expect(props.title).to.equal('Project test-owner/test-wrong-project was not found')
       })
     })
 
     describe('with an invalid workflow ID', function () {
       let props
-      let res = {}
 
       before(async function () {
         const params = {
@@ -329,27 +279,15 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
         const query = {
           env: 'production'
         }
-        const req = {
-          connection: {
-            encrypted: true
-          },
-          headers: {
-            host: 'www.zooniverse.org'
-          }
-        }
-        const response = await getDefaultPageProps({ params, query, req, res })
+        const response = await getStaticPageProps({ params, query })
         props = response.props
       })
 
-      it('should return a 404 response', function () {
-        expect(res.statusCode).to.equal(404)
-      })
-
-      it('should pass the status code to the error page', function () {
+      it('should return a 404 status code', function () {
         expect(props.statusCode).to.equal(404)
       })
 
-      it('should pass an error message to the error page', function () {
+      it('should return a workflow error message', function () {
         expect(props.title).to.equal('Workflow 2 was not found')
       })
     })
