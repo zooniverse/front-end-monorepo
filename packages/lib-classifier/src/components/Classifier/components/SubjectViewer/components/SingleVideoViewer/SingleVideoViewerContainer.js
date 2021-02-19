@@ -51,6 +51,7 @@ class SingleVideoViewerContainer extends React.Component {
         naturalWidth
       } = await this.getVideoSize()
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
+      console.log('target: ', target)
       onReady({ target })
     } catch (error) {
       onError(error)
@@ -63,19 +64,32 @@ class SingleVideoViewerContainer extends React.Component {
     return {
       clientHeight,
       clientWidth,
-      naturalHeight: vid.naturalHeight,
-      naturalWidth: vid.naturalWidth
+      naturalHeight: vid.videoHeight,
+      naturalWidth: vid.videoWidth
     }
   }
 
-  preload() {
+  async preload() {
     const { subject } = this.props
     if (subject && subject.locations) {
-      const vid = Object.values(subject.locations[0])[0]
+      const videoUrl = Object.values(subject.locations[0])[0]
+      console.log('videoUrl: ', videoUrl)
+      const vid = await this.fetchVideo(videoUrl)
+      console.log('vid: ', vid)
       this.setState({ vid })
       return vid
     }
     return {}
+  }
+
+  fetchVideo(url) {
+    return new Promise((resolve, reject) => {
+      const video = document.createElement('video')
+      video.onloadedmetadata = () => resolve(video)
+      video.onerror = reject
+      video.src = url
+      return video
+    })
   }
 
   /* ==================== video player ==================== */
@@ -172,7 +186,7 @@ class SingleVideoViewerContainer extends React.Component {
       <div>
         <SingleVideoViewer
           playerRef={this.handlePlayerRef}
-          url={vid}
+          url={vid.src}
           isPlaying={isPlaying}
           playbackRate={playbackRate}
           onProgress={this.handleVideoProgress}
