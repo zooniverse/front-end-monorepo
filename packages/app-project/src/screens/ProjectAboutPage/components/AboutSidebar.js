@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import NavLink from '@shared/components/NavLink'
+import React from 'react'
+import AboutNavLink from './AboutNavLink'
 import { Nav } from 'grommet'
 import { withRouter } from 'next/router'
-import addQueryParams from '@helpers/addQueryParams'
 import PropTypes from 'prop-types'
 
 function AboutSidebar({ router }) {
@@ -10,7 +9,7 @@ function AboutSidebar({ router }) {
   const baseUrl = `/projects/${owner}/${project}/about`
 
   return (
-    <Nav flex direction="column">
+    <Nav flex direction="column" gap='xsmall'>
       <AboutNavLink
         link={{ href: `${baseUrl}/research`, text: 'research' }}
         router={router}
@@ -36,41 +35,6 @@ function AboutSidebar({ router }) {
 }
 
 AboutSidebar.propTypes = {
-  router: PropTypes.object,
-}
-
-
-const AboutNavLink = ({ router, link }) => {
-  const inActiveColor = 'grey'
-  const activeColor = 'brand'
-
-  const inActiveWeight = '400'
-  const activeWeight = '700'
-
-  const inActiveBg = 'white'
-  const activeBg = 'brand'
-
-  const [isCurrentPage, setCurrentPage] = useState(false)
-
-  useEffect(() => {
-    const { href } = link
-    setCurrentPage(router?.asPath === addQueryParams(href, router))
-  }, [router])
-
-  return (
-    <NavLink
-      link={link}
-      color={isCurrentPage ? activeColor : inActiveColor}
-      weight={isCurrentPage ? activeWeight : inActiveWeight}
-    />
-  )
-}
-
-AboutNavLink.propTypes = {
-  link: PropTypes.shape({
-    href: PropTypes.string,
-    text: PropTypes.string
-  }).isRequired,
   router: PropTypes.object,
 }
 
