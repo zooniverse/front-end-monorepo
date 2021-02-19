@@ -131,8 +131,8 @@ function SGVGridCell (props) {
           fill={(checked) ? cellStyle.overlay : 'none'}
           stroke={(checked) ? cellStyle.selectedStroke : cellStyle.stroke}
           strokeWidth={(checked)
-            ? cellStyle.selectedStrokeWidth * BORDER_MULTIPLIER
-            : cellStyle.strokeWidth * BORDER_MULTIPLIER
+            ? cellStyle.selectedStrokeWidth
+            : cellStyle.strokeWidth
           }
           width={cellWidth}
           height={cellHeight}
