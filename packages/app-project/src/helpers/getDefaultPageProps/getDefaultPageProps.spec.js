@@ -41,10 +41,16 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
     before(function () {
       const slug = 'test-owner/test-project'
       const scope = nock('https://panoptes-staging.zooniverse.org/api')
+        .persist()
         .get('/projects')
         .query(query => query.slug === slug)
         .reply(200, {
           projects: [PROJECT]
+        })
+        .get('/projects')
+        .query(query => query.slug !== slug)
+        .reply(200, {
+          projects: []
         })
         .get('/translations')
         .query(query => {
@@ -67,40 +73,126 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
             ]
           }
         })
+        .get('/workflows')
+        .query(query => query.id !== '1')
+        .reply(200, {
+          workflows: []
+        })
     })
 
-    it('should return the project\'s active workflows', async function () {
-      const params = {
-        owner: 'test-owner',
-        project: 'test-project'
-      }
-      const query = {
-        env: 'staging'
-      }
-      const req = {
-        connection: {
-          encrypted: true
-        },
-        headers: {
-          host: 'www.zooniverse.org'
+    after(function () {
+      nock.cleanAll()
+    })
+
+    describe('with a valid project slug', function () {
+      it('should return the project\'s active workflows', async function () {
+        const params = {
+          owner: 'test-owner',
+          project: 'test-project'
         }
-      }
-      const res = {}
-      const { props } = await getDefaultPageProps({ params, query, req, res })
-      expect(props.workflows).to.deep.equal([
-        {
-          completeness: 0.4,
-          default: true,
-          grouped: false,
-          id: '1',
-          displayName: 'Foo',
-          subjectSets: [
-            subjectSet('1'),
-            subjectSet('2'),
-            subjectSet('3')
-          ]
+        const query = {
+          env: 'staging'
         }
-      ])
+        const req = {
+          connection: {
+            encrypted: true
+          },
+          headers: {
+            host: 'www.zooniverse.org'
+          }
+        }
+        const res = {}
+        const { props } = await getDefaultPageProps({ params, query, req, res })
+        expect(props.workflows).to.deep.equal([
+          {
+            completeness: 0.4,
+            default: true,
+            grouped: false,
+            id: '1',
+            displayName: 'Foo',
+            subjectSets: [
+              subjectSet('1'),
+              subjectSet('2'),
+              subjectSet('3')
+            ]
+          }
+        ])
+      })
+    })
+
+    describe('with an invalid project slug', function () {
+      let props
+      let res = {}
+
+      before(async function () {
+        const params = {
+          owner: 'test-owner',
+          project: 'test-wrong-project'
+        }
+        const query = {
+          env: 'staging'
+        }
+        const req = {
+          connection: {
+            encrypted: true
+          },
+          headers: {
+            host: 'www.zooniverse.org'
+          }
+        }
+        const response = await getDefaultPageProps({ params, query, req, res })
+        props = response.props
+      })
+
+      it('should return a 404 response', function () {
+        expect(res.statusCode).to.equal(404)
+      })
+
+      it('should pass the status code to the error page', function () {
+        expect(props.statusCode).to.equal(404)
+      })
+
+      it('should pass an error message to the error page', function () {
+        expect(props.title).to.equal('Project test-owner/test-wrong-project was not found')
+      })
+    })
+
+    describe('with an invalid workflow ID', function () {
+      let props
+      let res = {}
+
+      before(async function () {
+        const params = {
+          owner: 'test-owner',
+          project: 'test-project',
+          workflowID: '2'
+        }
+        const query = {
+          env: 'staging'
+        }
+        const req = {
+          connection: {
+            encrypted: true
+          },
+          headers: {
+            host: 'www.zooniverse.org'
+          }
+        }
+        const response = await getDefaultPageProps({ params, query, req, res })
+        props = response.props
+      })
+
+      it('should return a 404 response', function () {
+        expect(res.statusCode).to.equal(404)
+      })
+
+      it('should pass the status code to the error page', function () {
+        expect(props.statusCode).to.equal(404)
+      })
+
+      it('should pass an error message to the error page', function () {
+        expect(props.title).to.equal('Workflow 2 was not found')
+      })
     })
   })
 
@@ -108,10 +200,16 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
     before(function () {
       const slug = 'test-owner/test-project'
       const scope = nock('https://www.zooniverse.org/api')
+        .persist()
         .get('/projects')
         .query(query => query.slug === slug)
         .reply(200, {
           projects: [PROJECT]
+        })
+        .get('/projects')
+        .query(query => query.slug !== slug)
+        .reply(200, {
+          projects: []
         })
         .get('/translations')
         .query(query => {
@@ -134,40 +232,126 @@ describe('Components > ProjectHomePage > getDefaultPageProps', function () {
             ]
           }
         })
+        .get('/workflows')
+        .query(query => query.id !== '1')
+        .reply(200, {
+          workflows: []
+        })
     })
 
-    it('should return the project\'s active workflows', async function () {
-      const params = {
-        owner: 'test-owner',
-        project: 'test-project'
-      }
-      const query = {
-        env: 'production'
-      }
-      const req = {
-        connection: {
-          encrypted: true
-        },
-        headers: {
-          host: 'www.zooniverse.org'
+    after(function () {
+      nock.cleanAll()
+    })
+
+    describe('with a valid project slug', function () {
+      it('should return the project\'s active workflows', async function () {
+        const params = {
+          owner: 'test-owner',
+          project: 'test-project'
         }
-      }
-      const res = {}
-      const { props } = await getDefaultPageProps({ params, query, req, res })
-      expect(props.workflows).to.deep.equal([
-        {
-          completeness: 0.4,
-          default: true,
-          grouped: false,
-          id: '1',
-          displayName: 'Foo',
-          subjectSets: [
-            subjectSet('1'),
-            subjectSet('2'),
-            subjectSet('3')
-          ]
+        const query = {
+          env: 'production'
         }
-      ])
+        const req = {
+          connection: {
+            encrypted: true
+          },
+          headers: {
+            host: 'www.zooniverse.org'
+          }
+        }
+        const res = {}
+        const { props } = await getDefaultPageProps({ params, query, req, res })
+        expect(props.workflows).to.deep.equal([
+          {
+            completeness: 0.4,
+            default: true,
+            grouped: false,
+            id: '1',
+            displayName: 'Foo',
+            subjectSets: [
+              subjectSet('1'),
+              subjectSet('2'),
+              subjectSet('3')
+            ]
+          }
+        ])
+      })
+    })
+
+    describe('with an invalid project slug', function () {
+      let props
+      let res = {}
+
+      before(async function () {
+        const params = {
+          owner: 'test-owner',
+          project: 'test-wrong-project'
+        }
+        const query = {
+          env: 'production'
+        }
+        const req = {
+          connection: {
+            encrypted: true
+          },
+          headers: {
+            host: 'www.zooniverse.org'
+          }
+        }
+        const response = await getDefaultPageProps({ params, query, req, res })
+        props = response.props
+      })
+
+      it('should return a 404 response', function () {
+        expect(res.statusCode).to.equal(404)
+      })
+
+      it('should pass the status code to the error page', function () {
+        expect(props.statusCode).to.equal(404)
+      })
+
+      it('should pass an error message to the error page', function () {
+        expect(props.title).to.equal('Project test-owner/test-wrong-project was not found')
+      })
+    })
+
+    describe('with an invalid workflow ID', function () {
+      let props
+      let res = {}
+
+      before(async function () {
+        const params = {
+          owner: 'test-owner',
+          project: 'test-project',
+          workflowID: '2'
+        }
+        const query = {
+          env: 'production'
+        }
+        const req = {
+          connection: {
+            encrypted: true
+          },
+          headers: {
+            host: 'www.zooniverse.org'
+          }
+        }
+        const response = await getDefaultPageProps({ params, query, req, res })
+        props = response.props
+      })
+
+      it('should return a 404 response', function () {
+        expect(res.statusCode).to.equal(404)
+      })
+
+      it('should pass the status code to the error page', function () {
+        expect(props.statusCode).to.equal(404)
+      })
+
+      it('should pass an error message to the error page', function () {
+        expect(props.title).to.equal('Workflow 2 was not found')
+      })
     })
   })
 })

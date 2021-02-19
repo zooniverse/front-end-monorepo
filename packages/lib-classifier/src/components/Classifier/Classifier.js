@@ -66,7 +66,7 @@ export default class Classifier extends React.Component {
     this.classifierStore.classifications.setOnComplete(onCompleteClassification)
     this.classifierStore.setOnToggleFavourite(onToggleFavourite)
     if (workflowID) {
-      this.classifierStore.workflows.selectWorkflow(workflowID, subjectSetID)
+      this.selectWorkflow(workflowID, subjectSetID)
     }
   }
 
@@ -77,11 +77,11 @@ export default class Classifier extends React.Component {
     }
 
     if (workflowID !== prevProps.workflowID) {
-      this.classifierStore.workflows.selectWorkflow(workflowID, subjectSetID)
+      this.selectWorkflow(workflowID, subjectSetID)
     }
 
     if (subjectSetID !== prevProps.subjectSetID) {
-      this.classifierStore.workflows.selectWorkflow(workflowID, subjectSetID)
+      this.selectWorkflow(workflowID, subjectSetID)
     }
 
     if (authClient) {
@@ -92,6 +92,14 @@ export default class Classifier extends React.Component {
   setProject (project) {
     this.classifierStore.projects.setResources([project])
     this.classifierStore.projects.setActive(project.id)
+  }
+
+  selectWorkflow() {
+    const { classifierStore } = this
+    const { subjectSetID, workflowID } = this.props
+    if (workflowID) {
+      classifierStore.workflows.selectWorkflow(workflowID, subjectSetID)
+    }
   }
 
   render () {

@@ -25,6 +25,7 @@ describe('Model > WorkflowStore', function () {
       feedback: {},
       fieldGuide: {},
       subjects: {},
+      subjectSets: {},
       subjectViewer: {},
       tutorials: {},
       workflowSteps: {},
@@ -125,18 +126,11 @@ describe('Model > WorkflowStore', function () {
 
       before(async function () {
         const subjectSets = Factory.buildList('subject_set', 5)
-        const subjectSetMap = {}
-        subjectSets.forEach(subjectSet => {
-          subjectSetMap[subjectSet.id] = subjectSet
-        })
         const workflowSnapshot = WorkflowFactory.build({
           id: workflow.id,
           display_name: 'A test workflow',
           links: {
-            subject_sets: Object.keys(subjectSetMap)
-          },
-          subjectSets: {
-            resources: subjectSetMap
+            subject_sets: subjectSets.map(subjectSet => subjectSet.id)
           },
           version: '0.0'
         })
@@ -150,6 +144,7 @@ describe('Model > WorkflowStore', function () {
 
         rootStore = setupStores(panoptesClientStub, projectWithoutDefault)
         rootStore.workflows.reset()
+        rootStore.subjectSets.setResources(subjectSets)
         rootStore.workflows.setResources([workflowWithSubjectSets])
         await rootStore.workflows.selectWorkflow(workflowID, subjectSetID)
       })
