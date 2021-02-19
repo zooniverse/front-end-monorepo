@@ -1,5 +1,6 @@
-import { Box, Grid, Heading, Paragraph } from 'grommet'
+import { Box, Grid, Heading } from 'grommet'
 import React from 'react'
+import { string, shape } from 'prop-types'
 import Announcements from '@components/Announcements'
 import ProjectHeader from '@components/ProjectHeader'
 import ZooHeaderWrapper from '@components/ZooHeaderWrapper'
@@ -57,7 +58,7 @@ function ProjectAboutPage({ aboutPageData, screenSize }) {
         </FullHeightBox>
       )}
       {screenSize === 'small' && (
-        <Box background='white' pad='small'>
+        <Box background="white" pad="small">
           <AboutDropdownNav />
           <StyledHeading level="2" size="medium">
             {title}
@@ -68,6 +69,15 @@ function ProjectAboutPage({ aboutPageData, screenSize }) {
       <ZooFooter />
     </Box>
   )
+}
+
+ProjectAboutPage.propTypes = {
+  screenSize: string,
+  aboutPageData: shape({
+    id: string.isRequired,
+    title: string,
+    content: string,
+  })
 }
 
 export default withResponsiveContext(ProjectAboutPage)

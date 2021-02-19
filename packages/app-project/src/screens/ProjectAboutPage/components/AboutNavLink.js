@@ -49,7 +49,7 @@ AboutNavLink.propTypes = {
   link: PropTypes.shape({
     href: PropTypes.string,
     text: PropTypes.string,
-  }).isRequired,
+  }),
   router: PropTypes.object,
 }
 

@@ -5,7 +5,7 @@ import { withRouter } from 'next/router'
 import PropTypes from 'prop-types'
 import { withResponsiveContext } from '@zooniverse/react-components'
 
-function AboutSidebar({ router, screenSize }) {
+function AboutSidebar({ router }) {
 
   const { owner, project } = router.query
   const baseUrl = `/projects/${owner}/${project}/about`
