@@ -3,8 +3,10 @@ import AboutNavLink from './AboutNavLink'
 import { Nav } from 'grommet'
 import { withRouter } from 'next/router'
 import PropTypes from 'prop-types'
+import { withResponsiveContext } from '@zooniverse/react-components'
 
-function AboutSidebar({ router }) {
+function AboutSidebar({ router, screenSize }) {
+
   const { owner, project } = router.query
   const baseUrl = `/projects/${owner}/${project}/about`
 
@@ -38,4 +40,4 @@ AboutSidebar.propTypes = {
   router: PropTypes.object,
 }
 
-export default withRouter(AboutSidebar)
+export default withResponsiveContext(withRouter(AboutSidebar))

@@ -19,7 +19,7 @@ const AboutNavLink = ({ router, link }) => {
   const activeWeight = '700'
 
   const inActiveBg = 'white'
-  const activeBg = '#addde0' // why doesn't 'lightTeal' work here?
+  const activeBg = '#addde0' // lightTeal - add withTheme to use variable names
 
   const [isCurrentPage, setCurrentPage] = useState(false)
 
