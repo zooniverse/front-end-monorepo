@@ -21,8 +21,10 @@ const DEFAULT_CELL_STYLE = {
   stroke: '#fff',
   strokeWidth: '1',
   overlay: 'rgba(41,103,255,0.3)',
-  highlight: '#2967FF',
-  highlightWidth: '4',
+  selectedStroke: '#2967FF',
+  selectedStrokeWidth: '6',
+  focusStroke: '#fff',
+  focusStrokeWidth: '8',
   background: '#000'
 }
 const DEFAULT_GRID_COLUMNS = 3
