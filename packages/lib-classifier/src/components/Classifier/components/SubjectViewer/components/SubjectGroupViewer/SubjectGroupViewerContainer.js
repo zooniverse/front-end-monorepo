@@ -24,7 +24,7 @@ const DEFAULT_CELL_STYLE = {
   selectedStroke: '#2967FF',
   selectedStrokeWidth: '8',
   focusStroke: '#fff',
-  focusStrokeWidth: '8',
+  focusStrokeWidth: '4',
   background: '#000'
 }
 const DEFAULT_GRID_COLUMNS = 3

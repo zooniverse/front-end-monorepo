@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 
 import { draggable } from '@plugins/drawingTools/components'
 
-const BORDER_MULTIPLIER = 2  // Multiply by 2 because half of intended stroke-width will be clipped
+const FOCUS_OFFSET = 8
 
 const DraggableImage = styled(draggable('image'))`
     cursor: grab;
@@ -145,8 +145,10 @@ function SGVGridCell (props) {
             aria-label={`Cell at row ${row} column ${col}`}
             fill="transparent"
             cellStyle={cellStyle}
-            width={cellWidth}
-            height={cellHeight}
+            x={FOCUS_OFFSET}
+            y={FOCUS_OFFSET}
+            width={cellWidth - FOCUS_OFFSET * 2}
+            height={cellHeight - FOCUS_OFFSET * 2}
             onClick={(e) => {
               toggleCellAnnotation()
               e.preventDefault()
