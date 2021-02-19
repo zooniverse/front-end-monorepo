@@ -1,4 +1,4 @@
-import { Box, Grid } from 'grommet'
+import { Box, Grid, Heading, Paragraph } from 'grommet'
 import React from 'react'
 import Announcements from '@components/Announcements'
 import ProjectHeader from '@components/ProjectHeader'
@@ -15,6 +15,15 @@ const FullHeightBox = styled(Box)`
   min-height: 98vh;
 `
 
+const StyledHeading = styled(Heading)`
+  font-weight: 400;
+`
+
+const components = {
+  h1: (nodeProps) => <Heading children={nodeProps.children} color='#005D69' />, // darkTeal
+  h2: (nodeProps) => <Heading children={nodeProps.children} color='#005D69' />,
+}
+
 function ProjectAboutPage({ aboutPageData }) {
   const { content = '', title = '' } = aboutPageData
 
@@ -27,17 +36,19 @@ function ProjectAboutPage({ aboutPageData }) {
         margin={{ left: 'large', right: 'large' }}
         width={{ max: 'xxlarge' }}
         background="white"
-        pad="medium"
+        pad="large"
         border="2px"
       >
-        <Grid columns={['small', 'flex']} gap="medium">
+        <Grid columns={['small', 'flex']} gap="xlarge">
           <Box>
-            <SpacedHeading children="About" />
+            <SpacedHeading children="About" style={{ padding: '5px 20px' }} />
             <AboutSidebar />
           </Box>
           <Box>
-            <h1>{title}</h1>
-            <Markdownz>{content}</Markdownz>
+            <StyledHeading level="2" size="large">
+              {title}
+            </StyledHeading>
+            <Markdownz children={content} components={components} />
           </Box>
         </Grid>
       </FullHeightBox>

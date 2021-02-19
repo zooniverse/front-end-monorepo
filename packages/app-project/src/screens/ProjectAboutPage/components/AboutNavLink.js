@@ -29,7 +29,12 @@ const AboutNavLink = ({ router, link }) => {
   }, [router])
 
   return (
-    <Box style={{ background: isCurrentPage ? activeBg : inActiveBg, padding: '5px 20px' }} >
+    <Box
+      style={{
+        background: isCurrentPage ? activeBg : inActiveBg,
+        padding: '5px 20px',
+      }}
+    >
       <NavLink
         link={link}
         color={isCurrentPage ? activeColor : inActiveColor}
