@@ -2,6 +2,7 @@
   "SubjectSetProgressBanner": {
     "alreadySeen": "Already seen",
     "bannerText": "Subject %(number)s/%(total)s",
-    "finished": "Finished"
+    "finished": "Finished",
+    "tooltipText": "This project allows volunteers to view subjects in sequential order. The number shows you the subject’s position within the total group."
   }
 }

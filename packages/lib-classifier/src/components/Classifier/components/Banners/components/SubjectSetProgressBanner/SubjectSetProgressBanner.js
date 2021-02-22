@@ -17,6 +17,7 @@ function SubjectSetProgressBanner({ subject, workflow }) {
     number: subjectNumber,
     total: subjectTotal
   })
+  const tooltipText = counterpart('SubjectSetProgressBanner.tooltipText')
 
   const bannerText = statusText ? `${progressText} (${statusText})`: progressText
   return (
@@ -24,6 +25,7 @@ function SubjectSetProgressBanner({ subject, workflow }) {
       background={colour}
       bannerText={bannerText}
       show
+      tooltipText={tooltipText}
     />
   )
 }
