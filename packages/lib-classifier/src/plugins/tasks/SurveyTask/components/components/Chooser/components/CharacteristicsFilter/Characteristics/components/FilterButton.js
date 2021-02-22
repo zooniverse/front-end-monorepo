@@ -4,7 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { CloseButton, Media } from '@zooniverse/react-components'
 
-const StyledBox = styled(Box)`
+ export const StyledFilter = styled(Box)`
   button {
     display: none;
   }
@@ -21,13 +21,14 @@ export default function FilterButton (props) {
     characteristicId,
     checked,
     onFilter,
-    valueImageSrc
+    valueImageSrc,
+    valueLabel
   } = props
 
   const backgroundColor = checked ? 'accent-2' : 'neutral-6'
 
   return (
-    <StyledBox
+    <StyledFilter
       align='center'  
       background={{ color: backgroundColor }}
       height='40px'
@@ -36,6 +37,7 @@ export default function FilterButton (props) {
       width='40px'
     >
       <Media
+        alt={valueLabel}
         height='25'
         src={valueImageSrc}
         width='25'
@@ -45,7 +47,7 @@ export default function FilterButton (props) {
           closeFn={() => onFilter(characteristicId, undefined)}
         />
       )}
-    </StyledBox>
+    </StyledFilter>
   )
 }
 
@@ -53,12 +55,14 @@ FilterButton.defaultProps = {
   characteristicId: '',
   checked: false,
   onFilter: () => {},
-  valueImageSrc: ''
+  valueImageSrc: '',
+  valueLabel: ''
 }
 
 FilterButton.propTypes = {
   characteristicId: PropTypes.string,
   checked: PropTypes.bool,
-  onFilter: PropTypes.func,
-  valueImageSrc: PropTypes.string
+  onFilter: PropTypes.func,  
+  valueImageSrc: PropTypes.string,
+  valueLabel: PropTypes.string
 }

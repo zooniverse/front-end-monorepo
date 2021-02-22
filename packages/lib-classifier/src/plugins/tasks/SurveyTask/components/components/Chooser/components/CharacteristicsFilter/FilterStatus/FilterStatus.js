@@ -74,6 +74,7 @@ export default function FilterStatus (props) {
             checked
             onFilter={handleFilter}
             valueImageSrc={valueImageSrc}
+            valueLabel={value.label}
           />
         )
       })}

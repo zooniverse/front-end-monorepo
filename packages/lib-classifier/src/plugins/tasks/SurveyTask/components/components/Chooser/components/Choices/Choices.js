@@ -9,7 +9,7 @@ import howManyColumns from './helpers/howManyColumns'
 import whatSizeThumbnail from './helpers/whatSizeThumbnail'
 import ChoiceButton from './components/ChoiceButton'
 
-function Choices(props) {
+function Choices (props) {
   const {
     filteredChoices,
     onChoose,
@@ -57,7 +57,7 @@ function Choices(props) {
 
 Choices.defaultProps = {
   filteredChoices: [],
-  onChoose: () => { }
+  onChoose: () => {}
 }
 
 Choices.propTypes = {

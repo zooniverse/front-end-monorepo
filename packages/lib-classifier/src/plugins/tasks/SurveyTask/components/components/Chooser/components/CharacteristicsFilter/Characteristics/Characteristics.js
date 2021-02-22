@@ -17,7 +17,7 @@ export default function Characteristics (props) {
     <Box
       fill='horizontal'
     >
-      {characteristicsOrder.map((characteristicId, i) => {
+      {characteristicsOrder.map((characteristicId) => {
         const characteristic = characteristics[characteristicId] || {}
         const selectedValueId = filters[characteristicId] || ''
 
