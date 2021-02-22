@@ -2,18 +2,31 @@ import { panoptes } from '@zooniverse/panoptes-js'
 import fetch from 'node-fetch'
 
 async function fetchWorkflowData (activeWorkflows, env) {
-  const response = await panoptes
-    .get('/workflows', {
-      complete: false,
+  const query = {
+    complete: false,
+    env,
+    fields: 'completeness,display_name,grouped',
+    id: activeWorkflows.join(',')
+  }
+  const response = await panoptes.get('/workflows', query)
+  const { workflows } = response.body
+  return workflows
+}
+
+async function fetchSubjectSetData(subjectSetIDs, env) {
+  let subject_sets = []
+  try {
+    const query = {
       env,
-      fields: 'completeness,grouped',
-      id: activeWorkflows.join(','),
-      include: 'subject_sets'
-    })
-  const { workflows, linked } = response.body
-  const subjectSets = linked ? linked.subject_sets : []
-  await Promise.allSettled(subjectSets.map(subjectSet => fetchPreviewImage(subjectSet, env)))
-  return { subjectSets, workflows }
+      id: subjectSetIDs.join(',')
+    }
+    const response = await panoptes.get('/subject_sets', query)
+    subject_sets = response.body.subject_sets
+    await Promise.allSettled(subject_sets.map(subjectSet => fetchPreviewImage(subjectSet, env)))
+  } catch (error) {
+    console.error(error)
+  }
+  return subject_sets
 }
 
 function fetchDisplayNames (language, activeWorkflows, env) {
@@ -30,10 +43,17 @@ function fetchDisplayNames (language, activeWorkflows, env) {
 }
 
 async function fetchWorkflowCellectStatus(workflow) {
-  const workflowURL = `https://cellect.zooniverse.org/workflows/${workflow.id}/status`
-  const response = await fetch(workflowURL)
-  const body = await response.json()
-  const { groups } = body ?? {}
+  let groups = {}
+  if (workflow.grouped) {
+    try {
+      const workflowURL = `https://cellect.zooniverse.org/workflows/${workflow.id}/status`
+      const response = await fetch(workflowURL)
+      const body = await response.json()
+      groups = body.groups ?? {}
+    } catch (error) {
+      console.error(error)
+    }
+  }
   return groups
 }
 
@@ -49,38 +69,44 @@ async function fetchPreviewImage (subjectSet, env) {
   subjectSet.subjects = linked.subjects
 }
 
-async function buildWorkflow(workflow, displayName, subjectSets, isDefault) {
+async function workflowSubjectSets(workflow, env) {
   const subjectSetCounts = await fetchWorkflowCellectStatus(workflow)
-  const workflowSubjectSets = workflow.links.subject_sets
-    .map(subjectSetID => {
-      const subjectSet = subjectSets.find(subjectSet => subjectSet.id === subjectSetID)
-      subjectSet.availableSubjects = subjectSetCounts[subjectSetID]
-      return subjectSet
-    })
-    .filter(Boolean)
+  const subjectSetIDs = Object.keys(subjectSetCounts)
+  const subjectSets = await fetchSubjectSetData(subjectSetIDs, env)
+  subjectSets.forEach(subjectSet => {
+    subjectSet.availableSubjects = subjectSetCounts[subjectSet.id]
+  })
+  return subjectSets
+}
 
-  return {
+async function buildWorkflow(workflow, displayName, isDefault, env) {
+  const workflowData = {
     completeness: workflow.completeness || 0,
     default: isDefault,
     displayName,
     grouped: workflow.grouped,
     id: workflow.id,
-    subjectSets: workflowSubjectSets
+    subjectSets: []
   }
+  if (workflow.grouped) {
+    workflowData.subjectSets = await workflowSubjectSets(workflow, env)
+  }
+
+  return workflowData
 }
 
 async function fetchWorkflowsHelper (language = 'en', activeWorkflows, defaultWorkflow, env) {
-  const { subjectSets, workflows } = await fetchWorkflowData(activeWorkflows, env)
+  const workflows = await fetchWorkflowData(activeWorkflows, env)
   const workflowIds = workflows.map(workflow => workflow.id)
   const displayNames = await fetchDisplayNames(language, workflowIds, env)
 
   const awaitWorkflows = workflows.map(workflow => {
     const isDefault = workflows.length === 1 || workflow.id === defaultWorkflow
-    const displayName = displayNames[workflow.id]
-    return buildWorkflow(workflow, displayName, subjectSets, isDefault)
+    const displayName = displayNames[workflow.id] || workflow.display_name
+    return buildWorkflow(workflow, displayName, isDefault, env)
   })
   const workflowStatuses = await Promise.allSettled(awaitWorkflows)
-  const workflowsWithSubjectSets = workflowStatuses.map(result => result.value)
+  const workflowsWithSubjectSets = workflowStatuses.map(result => result.value || result.reason)
   return workflowsWithSubjectSets
 }
 

@@ -14,6 +14,16 @@ describe('Helpers > getStaticPageProps', function () {
     }
   }
 
+  const GROUPED_PROJECT = {
+    id: '2',
+    default_workflow: '2',
+    primary_language: 'en',
+    slug: 'test-owner/grouped-project',
+    links: {
+      active_workflows: ['2']
+    }
+  }
+
   const TRANSLATION = {
     translated_id: 1,
     strings: {
@@ -21,10 +31,26 @@ describe('Helpers > getStaticPageProps', function () {
     }
   }
 
+  const GROUPED_TRANSLATION = {
+    translated_id: 2,
+    strings: {
+      display_name: 'Bar'
+    }
+  }
+
   const WORKFLOW = {
     id: '1',
     completeness: 0.4,
     grouped: false,
+    links: {
+      subject_sets: ['1', '2', '3']
+    }
+  }
+
+  const GROUPED_WORKFLOW = {
+    id: '2',
+    completeness: 0.4,
+    grouped: true,
     links: {
       subject_sets: ['1', '2', '3']
     }
@@ -44,53 +70,77 @@ describe('Helpers > getStaticPageProps', function () {
     }
   }
 
+  function mockAPI(panoptesHost) {
+    const cellect = nock('https://cellect.zooniverse.org')
+    .persist()
+    .get('/workflows/2/status')
+    .reply(200, {
+      groups: availableSubjects
+    })
+    const scope = nock(panoptesHost)
+      .persist()
+      .get('/projects')
+      .query(query => query.slug === 'test-owner/test-project')
+      .reply(200, {
+        projects: [PROJECT]
+      })
+      .get('/projects')
+      .query(query => query.slug === 'test-owner/grouped-project')
+      .reply(200, {
+        projects: [GROUPED_PROJECT]
+      })
+      .get('/projects')
+      .query(query => query.slug === 'test-owner/test-wrong-project')
+      .reply(200, {
+        projects: []
+      })
+      .get('/translations')
+      .query(query => {
+        return query.translated_type === 'workflow'
+        && query.translated_id === '1'
+        && query.language === 'en'
+      })
+      .reply(200, {
+        translations: [TRANSLATION]
+      })
+      .get('/translations')
+      .query(query => {
+        return query.translated_type === 'workflow'
+        && query.translated_id === '2'
+        && query.language === 'en'
+      })
+      .reply(200, {
+        translations: [GROUPED_TRANSLATION]
+      })
+      .get('/subject_sets')
+      .query(query => query.id === '1,2,3')
+      .reply(200, {
+        subject_sets: [
+          subjectSet('1'),
+          subjectSet('2'),
+          subjectSet('3')
+        ]
+      })
+      .get('/workflows')
+      .query(query => query.id === '1')
+      .reply(200, {
+        workflows: [WORKFLOW]
+      })
+      .get('/workflows')
+      .query(query => query.id === '2')
+      .reply(200, {
+        workflows: [GROUPED_WORKFLOW]
+      })
+      .get('/workflows')
+      .query(query => parseInt(query.id) > 2)
+      .reply(200, {
+        workflows: []
+      })
+  }
+
   describe('with the staging API', function () {
     before(function () {
-      const slug = 'test-owner/test-project'
-      const cellect = nock('https://cellect.zooniverse.org')
-      .persist()
-      .get('/workflows/1/status')
-      .reply(200, {
-        groups: availableSubjects
-      })
-      const scope = nock('https://panoptes-staging.zooniverse.org/api')
-        .persist()
-        .get('/projects')
-        .query(query => query.slug === slug)
-        .reply(200, {
-          projects: [PROJECT]
-        })
-        .get('/projects')
-        .query(query => query.slug !== slug)
-        .reply(200, {
-          projects: []
-        })
-        .get('/translations')
-        .query(query => {
-          return query.translated_type === 'workflow'
-          && query.translated_id === '1'
-          && query.language === 'en'
-        })
-        .reply(200, {
-          translations: [TRANSLATION]
-        })
-        .get('/workflows')
-        .query(query => query.id === '1')
-        .reply(200, {
-          workflows: [WORKFLOW],
-          linked: {
-            subject_sets: [
-              subjectSet('1'),
-              subjectSet('2'),
-              subjectSet('3')
-            ]
-          }
-        })
-        .get('/workflows')
-        .query(query => query.id !== '1')
-        .reply(200, {
-          workflows: []
-        })
+      mockAPI('https://panoptes-staging.zooniverse.org/api')
     })
 
     after(function () {
@@ -114,11 +164,7 @@ describe('Helpers > getStaticPageProps', function () {
             grouped: false,
             id: '1',
             displayName: 'Foo',
-            subjectSets: [
-              Object.assign(subjectSet('1'), { availableSubjects: availableSubjects[1]}),
-              Object.assign(subjectSet('2'), { availableSubjects: availableSubjects[2]}),
-              Object.assign(subjectSet('3'), { availableSubjects: availableSubjects[3]})
-            ]
+            subjectSets: []
           }
         ])
       })
@@ -148,6 +194,43 @@ describe('Helpers > getStaticPageProps', function () {
       })
     })
 
+    describe('with a grouped workflow', function () {
+      it('should return the project\'s active workflows with subject sets', async function () {
+        const params = {
+          owner: 'test-owner',
+          project: 'grouped-project',
+          workflowID: '2'
+        }
+        const query = {
+          env: 'staging'
+        }
+        const req = {
+          connection: {
+            encrypted: true
+          },
+          headers: {
+            host: 'www.zooniverse.org'
+          }
+        }
+        const res = {}
+        const { props } = await getStaticPageProps({ params, query })
+        expect(props.workflows).to.deep.equal([
+          {
+            completeness: 0.4,
+            default: true,
+            grouped: true,
+            id: '2',
+            displayName: 'Bar',
+            subjectSets: [
+              Object.assign(subjectSet('1'), { availableSubjects: availableSubjects[1]}),
+              Object.assign(subjectSet('2'), { availableSubjects: availableSubjects[2]}),
+              Object.assign(subjectSet('3'), { availableSubjects: availableSubjects[3]})
+            ]
+          }
+        ])
+      })
+    })
+
     describe('with an invalid workflow ID', function () {
       let props
 
@@ -155,7 +238,7 @@ describe('Helpers > getStaticPageProps', function () {
         const params = {
           owner: 'test-owner',
           project: 'test-project',
-          workflowID: '2'
+          workflowID: '3'
         }
         const query = {
           env: 'staging'
@@ -169,58 +252,14 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return a workflow error message', function () {
-        expect(props.title).to.equal('Workflow 2 was not found')
+        expect(props.title).to.equal('Workflow 3 was not found')
       })
     })
   })
 
   describe('with the production API', function () {
     before(function () {
-      const slug = 'test-owner/test-project'
-      const cellect = nock('https://cellect.zooniverse.org')
-      .persist()
-      .get('/workflows/1/status')
-      .reply(200, {
-        groups: availableSubjects
-      })
-      const scope = nock('https://www.zooniverse.org/api')
-        .persist()
-        .get('/projects')
-        .query(query => query.slug === slug)
-        .reply(200, {
-          projects: [PROJECT]
-        })
-        .get('/projects')
-        .query(query => query.slug !== slug)
-        .reply(200, {
-          projects: []
-        })
-        .get('/translations')
-        .query(query => {
-          return query.translated_type === 'workflow'
-          && query.translated_id === '1'
-          && query.language === 'en'
-        })
-        .reply(200, {
-          translations: [TRANSLATION]
-        })
-        .get('/workflows')
-        .query(query => query.id === '1')
-        .reply(200, {
-          workflows: [WORKFLOW],
-          linked: {
-            subject_sets: [
-              subjectSet('1'),
-              subjectSet('2'),
-              subjectSet('3')
-            ]
-          }
-        })
-        .get('/workflows')
-        .query(query => query.id !== '1')
-        .reply(200, {
-          workflows: []
-        })
+      mockAPI('https://www.zooniverse.org/api')
     })
 
     after(function () {
@@ -244,11 +283,7 @@ describe('Helpers > getStaticPageProps', function () {
             grouped: false,
             id: '1',
             displayName: 'Foo',
-            subjectSets: [
-              Object.assign(subjectSet('1'), { availableSubjects: availableSubjects[1]}),
-              Object.assign(subjectSet('2'), { availableSubjects: availableSubjects[2]}),
-              Object.assign(subjectSet('3'), { availableSubjects: availableSubjects[3]})
-            ]
+            subjectSets: []
           }
         ])
       })
@@ -283,6 +318,43 @@ describe('Helpers > getStaticPageProps', function () {
 
       it('should return a project error message', function () {
         expect(props.title).to.equal('Project test-owner/test-wrong-project was not found')
+      })
+    })
+
+    describe('with a grouped workflow', function () {
+      it('should return the project\'s active workflows with subject sets', async function () {
+        const params = {
+          owner: 'test-owner',
+          project: 'grouped-project',
+          workflowID: '2'
+        }
+        const query = {
+          env: 'production'
+        }
+        const req = {
+          connection: {
+            encrypted: true
+          },
+          headers: {
+            host: 'www.zooniverse.org'
+          }
+        }
+        const res = {}
+        const { props } = await getStaticPageProps({ params, query })
+        expect(props.workflows).to.deep.equal([
+          {
+            completeness: 0.4,
+            default: true,
+            grouped: true,
+            id: '2',
+            displayName: 'Bar',
+            subjectSets: [
+              Object.assign(subjectSet('1'), { availableSubjects: availableSubjects[1]}),
+              Object.assign(subjectSet('2'), { availableSubjects: availableSubjects[2]}),
+              Object.assign(subjectSet('3'), { availableSubjects: availableSubjects[3]})
+            ]
+          }
+        ])
       })
     })
 
