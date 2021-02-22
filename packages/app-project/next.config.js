@@ -39,7 +39,10 @@ const nextConfig = {
     assetPrefix
   },
 
-  webpack: (config) => {
+  webpack: (config, options) => {
+    if (options.isServer) {
+      config.resolve.alias['@sentry/browser'] = '@sentry/node'
+    }
     config.plugins.concat([
       new Dotenv({
         path: path.join(__dirname, '.env'),
