@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import asyncStates from '@zooniverse/async-states'
+import { Box } from 'grommet'
 
+import InteractionLayer from '../InteractionLayer'
 import locationValidator from '../../helpers/locationValidator'
 import SingleVideoViewer from './SingleVideoViewer'
 import VideoController from '../VideoController/VideoController'
@@ -16,13 +18,14 @@ const DrawingContainer = styled.div`
   background-color: rgba(221, 221, 221, 0.3);
   width: 500px;
   height: 300px;
-  padding: 10px 0;
   cursor: default;
 `
 
 class SingleVideoViewerContainer extends React.Component {
   constructor() {
     super()
+
+    this.videoViewer = React.createRef()
 
     this.state = {
       vid: '',
@@ -60,6 +63,9 @@ class SingleVideoViewerContainer extends React.Component {
 
   async getVideoSize() {
     const vid = await this.preload()
+    const svg = this.videoViewer.current
+    console.log('svg: ', svg)
+
     const { width: clientWidth, height: clientHeight } = {}
     return {
       clientHeight,
@@ -73,9 +79,7 @@ class SingleVideoViewerContainer extends React.Component {
     const { subject } = this.props
     if (subject && subject.locations) {
       const videoUrl = Object.values(subject.locations[0])[0]
-      console.log('videoUrl: ', videoUrl)
       const vid = await this.fetchVideo(videoUrl)
-      console.log('vid: ', vid)
       this.setState({ vid })
       return vid
     }
@@ -161,7 +165,7 @@ class SingleVideoViewerContainer extends React.Component {
   }
 
   render() {
-    const { loadingState, enableInteractionLayer } = this.props
+    const { loadingState, enableInteractionLayer, onKeyDown } = this.props
     const { vid, isPlaying, playbackRate, played, duration } = this.state
     // Erik Todo
     const { naturalHeight, naturalWidth, src } = vid
@@ -179,6 +183,7 @@ class SingleVideoViewerContainer extends React.Component {
     //   return null
     // }
 
+    // const svg = this.videoViewer.current
     const enableDrawing =
       loadingState === asyncStates.success && enableInteractionLayer
 
@@ -195,7 +200,25 @@ class SingleVideoViewerContainer extends React.Component {
         />
 
         {/* Drawing Layer */}
-        <DrawingContainer>SVG drawing layer</DrawingContainer>
+        <DrawingContainer>
+          SVG drawing layer
+          <Box animation='fadeIn' overflow='hidden'>
+            <svg
+              ref={this.videoViewer}
+              focusable
+              onKeyDown={onKeyDown}
+              tabIndex={0}
+              viewBox={'0 0 400 300'}
+            >
+              {/* {title?.id && title?.text && (
+                <title id={title.id}>{title.text}</title>
+              )} */}
+              {enableInteractionLayer && (
+                <InteractionLayer scale={scale} height={height} width={width} />
+              )}
+            </svg>
+          </Box>
+        </DrawingContainer>
 
         <VideoController
           isPlaying={isPlaying}
@@ -218,6 +241,8 @@ SingleVideoViewerContainer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   onError: PropTypes.func,
   onReady: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  viewBox: PropTypes.string.isRequired,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
   })
@@ -226,6 +251,7 @@ SingleVideoViewerContainer.propTypes = {
 SingleVideoViewerContainer.defaultProps = {
   loadingState: asyncStates.initialized,
   enableInteractionLayer: true,
+  onKeyDown: () => true,
   onError: () => true,
   onReady: () => true
 }
