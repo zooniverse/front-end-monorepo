@@ -1,4 +1,4 @@
-import { GoldButton, withThemeContext } from '@zooniverse/react-components'
+import { PrimaryButton, withThemeContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { bool, func } from 'prop-types'
 import React from 'react'
@@ -12,15 +12,11 @@ function NextButton (props) {
   const { autoFocus, disabled, onClick } = props
   const label = counterpart('NextButton.next')
   return (
-    <GoldButton
+    <PrimaryButton
       autoFocus={autoFocus}
       disabled={disabled}
-      fill
       label={label}
       onClick={onClick}
-      primary
-      reverse
-      type='button'
     />
   )
 }
