@@ -1,16 +1,22 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 import fetch from 'node-fetch'
 
+import { logToSentry } from '@helpers/logger'
+
 async function fetchWorkflowData (activeWorkflows, env) {
-  const query = {
-    complete: false,
-    env,
-    fields: 'completeness,display_name,grouped',
-    id: activeWorkflows.join(',')
+  try {
+    const query = {
+      complete: false,
+      env,
+      fields: 'completeness,display_name,grouped',
+      id: activeWorkflows.join(',')
+    }
+    const response = await panoptes.get('/workflows', query)
+    return response.body.workflows
+  } catch (error) {
+    logToSentry(error)
+    throw error
   }
-  const response = await panoptes.get('/workflows', query)
-  const { workflows } = response.body
-  return workflows
 }
 
 async function fetchSubjectSetData(subjectSetIDs, env) {
@@ -25,21 +31,28 @@ async function fetchSubjectSetData(subjectSetIDs, env) {
     await Promise.allSettled(subject_sets.map(subjectSet => fetchPreviewImage(subjectSet, env)))
   } catch (error) {
     console.error(error)
+    logToSentry(error)
   }
   return subject_sets
 }
 
-function fetchDisplayNames (language, activeWorkflows, env) {
-  return panoptes
-    .get('/translations', {
+async function fetchDisplayNames (language, activeWorkflows, env) {
+  let displayNames = {}
+  try {
+    const response = await panoptes.get('/translations', {
       env,
       fields: 'strings,translated_id',
       language,
       'translated_id': activeWorkflows.join(','),
       'translated_type': 'workflow'
     })
-    .then(response => response.body.translations)
-    .then(createDisplayNamesMap)
+    const { translations } = response.body
+    displayNames = createDisplayNamesMap(translations)
+  } catch (error) {
+    logToSentry(error)
+    throw error
+  }
+  return displayNames
 }
 
 async function fetchWorkflowCellectStatus(workflow) {
@@ -52,6 +65,7 @@ async function fetchWorkflowCellectStatus(workflow) {
       groups = body.groups ?? {}
     } catch (error) {
       console.error(error)
+      logToSentry(error)
     }
   }
   return groups

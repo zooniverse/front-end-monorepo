@@ -219,29 +219,37 @@ describe('Helpers > fetchWorkflowsHelper', function () {
   })
 
   describe(`when there's an error`, function () {
+    let workflows
+
     it('should allow the error to be thrown for the consumer to handle', async function () {
-      const error = {
-        message: 'oh dear. oh dear god'
-      }
+      let thrownError
+      const mockError = new Error('oh dear. oh dear god')
       const scope = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/translations')
         .query(true)
-        .replyWithError(error)
+        .replyWithError(mockError)
         .get('/workflows')
         .query(true)
         .reply(200, {
           workflows: WORKFLOWS
         })
+        .get('/subject_sets')
+        .query(true)
+        .reply(200, {
+          subject_sets: [
+            subjectSet('1'),
+            subjectSet('2'),
+            subjectSet('3')
+          ]
+        })
 
       try {
-        await fetchWorkflowsHelper('en', ['1', '2'], '2')
-        expect.fail()
+        workflows = await fetchWorkflowsHelper('en', ['1', '2'], '2')
       } catch (error) {
-        expect(error).to.deep.equal({
-          ...error,
-          response: undefined
-        })
+        thrownError = error
       }
+      expect(thrownError).to.deep.equal(mockError)
+      expect(workflows).to.be.undefined()
     })
   })
 })
