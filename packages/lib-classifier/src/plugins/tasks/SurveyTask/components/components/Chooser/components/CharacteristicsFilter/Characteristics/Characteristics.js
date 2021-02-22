@@ -6,44 +6,57 @@ import CharacteristicSection from './components/CharacteristicSection'
 
 export default function Characteristics (props) {
   const {
+    characteristics,
+    characteristicsOrder,
     filters,
-    onFilter,
-    task
+    images,
+    onFilter
   } = props
 
   return (
     <Box
       fill='horizontal'
     >
-      {task.characteristicsOrder.map((characteristicId, i) => {
-        const characteristic = task.characteristics?.[characteristicId] || {}
-        const selectedValueId = filters?.[characteristicId] || ''
+      {characteristicsOrder.map((characteristicId, i) => {
+        const characteristic = characteristics[characteristicId] || {}
+        const selectedValueId = filters[characteristicId] || ''
 
         return (
           <CharacteristicSection
             key={characteristicId}
             characteristic={characteristic}
             characteristicId={characteristicId}
-            images={task.images}
+            images={images}
             onFilter={onFilter}
             selectedValueId={selectedValueId}
           />)
       })}
       <Button
         label="Clear filters"
-        onClick={() => onFilter(undefined, undefined)}
+        onClick={() => onFilter()}
       />
     </Box>
   )
 }
 
+Characteristics.defaultProps = {
+  characteristics: {},
+  characteristicsOrder: [],
+  filters: {},
+  images: {},
+  onFilter: () => {}
+}
+
 Characteristics.propTypes = {
+  characteristics: PropTypes.objectOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      values: PropTypes.object,
+      valuesOrder: PropTypes.arrayOf(PropTypes.string)
+    })
+  ),
+  characteristicsOrder: PropTypes.arrayOf(PropTypes.string),
   filters: PropTypes.objectOf(PropTypes.string),
-  onFilter: PropTypes.func,
-  task: PropTypes.shape({
-    help: PropTypes.string,
-    required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    taskKey: PropTypes.string,
-    type: PropTypes.string
-  }).isRequired
+  images: PropTypes.objectOf(PropTypes.string),
+  onFilter: PropTypes.func
 }

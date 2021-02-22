@@ -8,6 +8,12 @@ import FilterButton from '../Characteristics/components/FilterButton'
 
 export default function FilterStatus (props) {
   const { task } = props
+  const { 
+    characteristics,
+    characteristicsOrder,
+    images
+  } = task
+  
   const filterStatusRef = useRef()
 
   // TODO: refactor filter state to model
@@ -43,9 +49,11 @@ export default function FilterStatus (props) {
         }}
         dropContent={
           <Characteristics
+            characteristics={characteristics}
+            characteristicsOrder={characteristicsOrder}
             filters={filters}
+            images={images}
             onFilter={handleFilter}
-            task={task}
           />}
         dropProps={{
           elevation: 'medium',
@@ -54,10 +62,10 @@ export default function FilterStatus (props) {
         dropTarget={filterStatusRef.current}
       />
       {selectedCharacteristicIds.map(characteristicId => {
-        const characteristic = task.characteristics?.[characteristicId] || {}
+        const characteristic = characteristics?.[characteristicId] || {}
         const selectedValueId = filters?.[characteristicId] || ''
         const value = characteristic.values?.[selectedValueId] || {}
-        const valueImageSrc = task.images?.[value.image] || ''
+        const valueImageSrc = images?.[value.image] || ''
         
         return (
           <FilterButton
