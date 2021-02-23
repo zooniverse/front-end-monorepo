@@ -17,6 +17,7 @@ function NextButton (props) {
       disabled={disabled}
       label={label}
       onClick={onClick}
+      style={{ flex: '1 0'}}
     />
   )
 }
