@@ -55,6 +55,11 @@ export default class Classifier extends React.Component {
     makeInspectable(this.classifierStore)
   }
 
+  componentDidCatch(error, info) {
+    info.package = '@zooniverse/classifier'
+    this.props.onError(error, info);
+  }
+
   componentDidMount () {
     const { onAddToCollection, onCompleteClassification, onToggleFavourite, project, subjectSetID, workflowID } = this.props
     this.setProject(project)
@@ -114,6 +119,7 @@ Classifier.defaultProps = {
   mode: 'light',
   onAddToCollection: () => true,
   onCompleteClassification: () => true,
+  onError: () => true,
   onToggleFavourite: () => true,
   theme: zooTheme
 }
@@ -123,6 +129,7 @@ Classifier.propTypes = {
   mode: PropTypes.string,
   onAddToCollection: PropTypes.func,
   onCompleteClassification: PropTypes.func,
+  onError: PropTypes.func,
   onToggleFavourite: PropTypes.func,
   project: PropTypes.shape({
     id: PropTypes.string.isRequired
