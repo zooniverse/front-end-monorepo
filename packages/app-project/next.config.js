@@ -40,8 +40,8 @@ const nextConfig = {
   },
 
   webpack: (config, options) => {
-    if (options.isServer) {
-      config.resolve.alias['@sentry/browser'] = '@sentry/node'
+    if (!options.isServer) {
+      config.resolve.alias['@sentry/node'] = '@sentry/browser'
     }
     config.plugins.concat([
       new Dotenv({
