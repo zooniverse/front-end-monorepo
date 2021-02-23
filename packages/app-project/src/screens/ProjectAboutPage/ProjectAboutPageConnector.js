@@ -18,9 +18,8 @@ function useStoreContext (stores) {
 function ProjectAboutPageConnector ({
   stores,
   pageType,
-  aboutPages
 }) {
-  // const { aboutPages } = useStoreContext(stores)
+  const { aboutPages } = useStoreContext(stores)
   const [aboutPageData] = aboutPages.filter(page => page.url_key === pageType)
   return <ProjectAboutPage aboutPageData={aboutPageData} />
 }

@@ -1,55 +1,49 @@
 import getDefaultPageProps from '@helpers/getDefaultPageProps'
 export { default } from '@screens/ProjectAboutPage'
-
-// export async function getServerSideProps({ params, query, req, res }) {
-//   const { props } = await getDefaultPageProps({ params, query, req, res })
-
-//   return {
-//     props: {
-//       ...props,
-//       pageType: 'science_case'
-//     }
-//   }
-// }
-
-/////////////////
-
 import initStore from '@stores'
 import { getSnapshot } from 'mobx-state-tree'
 
-export async function getStaticPaths() {
-  // dynamic route: /projects/[owner]/[project]/about/research
-  // need to fetch every zooniverse [owner] & [project] here??
-
-  return {
-    paths: [
-      { params: { owner: 'brooke', project: 'i-fancy-cats' } },
-      { params: { owner: 'goplayoutside3', project: 'test-bike-lane-uprising' } }
-    ],
-    fallback: true,
-  }
-}
-
-export async function getStaticProps({ params }) {
-  const store = initStore(false)
-
-  if (params.owner && params.project) {
-    const { owner, project } = params
-    const projectSlug = `${owner}/${project}`
-    await store.project.fetch(projectSlug)
-    if (!store.project.id) {
-      return notFoundError(`Project ${owner}/${project} was not found`)
-    }
-  }
-
-  const { project } = getSnapshot(store)
-  const aboutPages = project.about_pages
+export async function getServerSideProps({ params, query, req, res }) {
+  const { props } = await getDefaultPageProps({ params, query, req, res })
 
   return {
     props: {
-      aboutPages,
-      pageType: 'science_case',
-    },
+      ...props,
+      pageType: 'science_case'
+    }
   }
 }
+
+// export async function getStaticPaths() {
+//   return {
+//     paths: [
+//       { params: { owner: 'brooke', project: 'i-fancy-cats' } },
+//       { params: { owner: 'goplayoutside3', project: 'test-bike-lane-uprising' } }
+//     ],
+//     fallback: true,
+//   }
+// }
+
+// export async function getStaticProps({ params }) {
+//   const store = initStore(false)
+
+//   if (params.owner && params.project) {
+//     const { owner, project } = params
+//     const projectSlug = `${owner}/${project}`
+//     await store.project.fetch(projectSlug)
+//     if (!store.project.id) {
+//       return notFoundError(`Project ${owner}/${project} was not found`)
+//     }
+//   }
+
+//   const { project } = getSnapshot(store)
+//   const aboutPages = project.about_pages
+
+//   return {
+//     props: {
+//       aboutPages,
+//       pageType: 'science_case',
+//     },
+//   }
+// }
 
