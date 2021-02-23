@@ -21,7 +21,7 @@ describe('Component > ProjectAboutPageConnector', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it.only('should pass correct data to ProjectAboutPage depending on pageType', function () {
+  it('should pass correct data to ProjectAboutPage depending on pageType', function () {
     const aboutPage = wrapper.find(ProjectAboutPage)
     const aboutProps = aboutPage.prop('aboutPageData')
     expect(aboutProps.url_key).to.equal('science_case')
