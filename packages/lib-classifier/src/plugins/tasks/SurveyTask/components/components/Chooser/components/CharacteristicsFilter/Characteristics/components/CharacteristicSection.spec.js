@@ -37,8 +37,17 @@ describe('Component > CharacteristicSection', function () {
     expect(wrapper.find(RadioButtonGroup)).to.have.lengthOf(1)
   })
 
-  it('should render FilterButton for characteristic values', function () {
-    expect(wrapper.find(FilterButton)).to.have.lengthOf(5)
+  it('should render FilterButtons for the characteristic values', function () {
+    expect(wrapper.find(FilterButton)).to.have.lengthOf(characteristicTail.valuesOrder.length)
+  })
+
+  it('should render FilterButtons in order per the characteristic valuesOrder', function () {
+    const filterButtons = wrapper.find(FilterButton)
+    filterButtons.forEach((filterButton, index) => {
+      const valueIdPerTask = characteristicTail.valuesOrder[index]
+
+      expect(filterButton.props().valueLabel).to.equal(characteristicTail.values[valueIdPerTask].label)
+    })
   })
   
   describe('onChange', function () {
