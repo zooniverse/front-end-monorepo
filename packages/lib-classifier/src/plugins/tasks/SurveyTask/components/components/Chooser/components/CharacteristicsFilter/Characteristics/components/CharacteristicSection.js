@@ -17,7 +17,7 @@ export default function CharacteristicSection (props) {
     <Box>
       <Text>{characteristic.label}</Text>
       <RadioButtonGroup
-        name='radio'
+        name={`${characteristic.label}RadioButtonGroup`}
         direction='row'
         options={characteristic.valuesOrder}
         value={selectedValueId}

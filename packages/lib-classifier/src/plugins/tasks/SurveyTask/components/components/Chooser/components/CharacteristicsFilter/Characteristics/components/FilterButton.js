@@ -44,7 +44,11 @@ export default function FilterButton (props) {
       />
       {checked && (
         <CloseButton
-          closeFn={() => onFilter(characteristicId, undefined)}
+          closeFn={(event) => {
+            event.preventDefault()
+            event.stopPropagation()
+            onFilter(characteristicId)
+          }}
         />
       )}
     </StyledFilter>

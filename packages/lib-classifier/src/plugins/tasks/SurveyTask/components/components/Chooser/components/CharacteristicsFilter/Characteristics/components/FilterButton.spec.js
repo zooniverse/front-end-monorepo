@@ -64,7 +64,7 @@ describe('Component > FilterButton', function () {
     })
 
     it('should call onFilter on click of the CloseButton', function () {
-      wrapper.find(CloseButton).simulate('click')
+      wrapper.find(CloseButton).at(0).simulate('click')
       expect(onFilterSpy).to.have.been.calledOnceWith('LK')
     })
   })
