@@ -1,6 +1,6 @@
-import { flow, tryReference, types } from 'mobx-state-tree'
+import { flow, getRoot, tryReference, types } from 'mobx-state-tree'
 import Resource from '../Resource'
-import SubjectSetStore from './SubjectSetStore'
+import SubjectSet from '../SubjectSet'
 import WorkflowConfiguration from './WorkflowConfiguration'
 
 // The db type for steps is jsonb which is being serialized as an empty object when not defined.
@@ -25,14 +25,14 @@ const Workflow = types
     grouped: types.optional(types.boolean, false),
     links: types.frozen({}),
     steps: types.array(WorkflowStep),
-    subjectSets: types.optional(SubjectSetStore, () => SubjectSetStore.create({})),
+    subjectSet: types.safeReference(SubjectSet),
     tasks: types.maybe(types.frozen()),
     version: types.string
   })
 
   .views(self => ({
     get subjectSetId () {
-      const activeSet = tryReference(() => self.subjectSets.active)
+      const activeSet = tryReference(() => self.subjectSet)
       return activeSet?.id
     },
 
@@ -49,8 +49,10 @@ const Workflow = types
     function * selectSubjectSet(id) {
       const validSets = self.links.subject_sets || []
       if (validSets.indexOf(id) > -1) {
-        yield self.subjectSets.setActive(id)
-        return tryReference(() => self.subjectSets.active)
+        const { subjectSets } = getRoot(self)
+        const subjectSet = yield subjectSets.getResource(id)
+        self.subjectSet = subjectSet.id
+        return subjectSet
       }
       throw new Error(`No subject set ${id} for workflow ${self.id}`)
     }

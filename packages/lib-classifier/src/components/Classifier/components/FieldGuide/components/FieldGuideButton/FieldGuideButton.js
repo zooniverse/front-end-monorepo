@@ -5,14 +5,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
 import { tint } from 'polished'
-import { inject, observer } from 'mobx-react'
 
 import en from './locales/en'
 import HelpIcon from './HelpIcon'
 
 counterpart.registerTranslations('en', en)
 
-const StyledButton = styled(Button)`
+export const StyledButton = styled(Button)`
   ${props => props.theme && css`
     background: ${props.theme.global.colors.brand};
     padding: 15px 10px;
@@ -54,39 +53,24 @@ export function ButtonLabel () {
   )
 }
 
-function storeMapper (stores) {
-  const { active: fieldGuide, setModalVisibility } = stores.classifierStore.fieldGuide
-  return {
+function FieldGuideButton (props) {
+  const {
     fieldGuide,
-    setModalVisibility
-  }
-}
+    onOpen,
+    theme
+  } = props
+  const disabled = !fieldGuide || fieldGuide.items.length === 0
 
-@inject(storeMapper)
-@observer
-class FieldGuideButton extends React.Component {
-  onClick () {
-    const { setModalVisibility } = this.props
-    setModalVisibility(true)
-  }
+  return (
+    <StyledButton
+      label={<ButtonLabel />}
+      disabled={disabled}
+      onClick={onOpen}
+      plain
+      theme={theme}
+    />
+  )
 
-  render () {
-    const {
-      fieldGuide,
-      theme
-    } = this.props
-    const disabled = !fieldGuide || fieldGuide.items.length === 0
-
-    return (
-      <StyledButton
-        label={<ButtonLabel />}
-        disabled={disabled}
-        onClick={this.onClick.bind(this)}
-        plain
-        theme={theme}
-      />
-    )
-  }
 }
 
 FieldGuideButton.defaultProps = {
@@ -98,10 +82,11 @@ FieldGuideButton.defaultProps = {
   }
 }
 
-FieldGuideButton.wrappedComponent.propTypes = {
+FieldGuideButton.propTypes = {
   fieldGuide: PropTypes.object,
-  theme: PropTypes.object,
-  setModalVisibility: PropTypes.func.isRequired
+  onOpen: PropTypes.func.isRequired,
+  theme: PropTypes.object
 }
 
 export default withTheme(FieldGuideButton)
+export { FieldGuideButton }
