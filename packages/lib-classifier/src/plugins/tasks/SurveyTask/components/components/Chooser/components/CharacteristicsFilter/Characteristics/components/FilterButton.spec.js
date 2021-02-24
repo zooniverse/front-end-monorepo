@@ -6,7 +6,6 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { CloseButton, Media } from '@zooniverse/react-components'
 
 import FilterButton, { StyledFilter } from './FilterButton'
-import { expect } from 'chai'
 
 describe('Component > FilterButton', function () {
   let wrapper, onFilterSpy
