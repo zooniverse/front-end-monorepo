@@ -2,12 +2,13 @@ import subjectViewers from './subjectViewers'
 
 describe('Helpers > subjectViewers', function () {
   const viewers = [
-    'singleImage',
-    'singleVideo',
+    'dataImage',
     'lightCurve',
     'multiFrame',
+    'scatterPlot',
+    'singleImage',
+    'singleVideo',
     'subjectGroup',
-    'dataImage',
     'variableStar'
   ]
 
