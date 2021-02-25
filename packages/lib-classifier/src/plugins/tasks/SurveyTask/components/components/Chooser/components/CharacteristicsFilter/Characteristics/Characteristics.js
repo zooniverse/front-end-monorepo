@@ -16,6 +16,7 @@ export default function Characteristics (props) {
   return (
     <Box
       fill='horizontal'
+      flex='grow'
     >
       {characteristicsOrder.map((characteristicId) => {
         const characteristic = characteristics[characteristicId] || {}
@@ -31,10 +32,14 @@ export default function Characteristics (props) {
             selectedValueId={selectedValueId}
           />)
       })}
-      <Button
-        label="Clear filters"
-        onClick={() => onFilter()}
-      />
+      <Box
+        pad='small'
+      >
+        <Button
+          label="Clear filters"
+          onClick={() => onFilter()}
+        />
+      </Box>
     </Box>
   )
 }

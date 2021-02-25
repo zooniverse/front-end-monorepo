@@ -1,6 +1,7 @@
 import { Box, RadioButtonGroup, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { SpacedHeading } from '@zooniverse/react-components'
 
 import FilterButton from './FilterButton'
 
@@ -14,14 +15,29 @@ export default function CharacteristicSection (props) {
   } = props
   
   return (
-    <Box>
-      <Text>{characteristic.label}</Text>
+    <Box
+      border={{
+        color: 'light-5',
+        size: 'xsmall',
+        style: 'solid',
+        side: 'bottom'
+      }}
+      pad={{
+        horizontal: 'small'
+      }}
+    >
+      <SpacedHeading
+        margin='none'
+      >
+        {characteristic.label}
+      </SpacedHeading>
       <RadioButtonGroup
         name={`${characteristic.label}RadioButtonGroup`}
         direction='row'
+        gap='xsmall'
+        onChange={event => onFilter(characteristicId, event.target.value)}
         options={characteristic.valuesOrder}
         value={selectedValueId}
-        onChange={event => onFilter(characteristicId, event.target.value)}
         wrap
       >
         {(option, { checked, hover }) => {

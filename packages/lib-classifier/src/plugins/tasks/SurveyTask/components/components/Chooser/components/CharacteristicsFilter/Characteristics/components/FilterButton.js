@@ -33,6 +33,9 @@ export default function FilterButton (props) {
       background={{ color: backgroundColor }}
       height='40px'
       justify='center'
+      margin={{
+        bottom: 'xsmall'
+      }}
       round='full'
       width='40px'
     >
