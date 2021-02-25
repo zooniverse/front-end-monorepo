@@ -8,9 +8,11 @@ import ProjectAboutPage from './ProjectAboutPage'
   Connect the about page to the store. Pass down aboutPages data.
 */
 function ProjectAboutPageConnector ({
+  project,
   pageType,
-  project
+  teamArray
 }) {
+  // console.log(teamArray)
   const { store } = useContext(MobXProviderContext)
   const { inBeta } = store.project
   const { about_pages: aboutPages } = project

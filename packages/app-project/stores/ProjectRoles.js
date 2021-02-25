@@ -3,13 +3,21 @@ import { flow, getRoot, types } from 'mobx-state-tree'
 
 import numberString from './types/numberString'
 
-const ProjectRoles = types.model('ProjectRoles', {
-  id: types.maybeNull(numberString),
-  loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
-  roles: types.frozen([])
-}).actions(self => {
-  return {
-    fetch: flow(function * fetch (projectId) {
+import User from './User'
+
+const ProjectRoles = types
+  .model('ProjectRoles', {
+    id: types.maybeNull(numberString),
+    loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
+    team: types.array(User)
+  })
+  .views(self => ({
+    get projectTeam () {
+      return self.team
+    }
+  }))
+  .actions(self => {
+    const fetch = flow(function * fetch (projectId) {
       const { client } = getRoot(self)
       self.loadingState = asyncStates.loading
       try {
@@ -26,18 +34,36 @@ const ProjectRoles = types.model('ProjectRoles', {
             return getRoles(meta.project_roles.next_page)
           }
         }
-
         yield getRoles(1)
-        self.loadingState = asyncStates.success
 
-        return allRoles
+        let teamArray = []
+
+        yield Promise.all(
+          allRoles.map(async role => {
+            const response = await client.panoptes.get(`/users`, {
+              id: role.links.owner.id
+            })
+            const userData = response.body.users[0]
+            return {
+              ...userData,
+              role: role.roles[0]
+            }
+          })
+        )
+          .then(users => (teamArray = users))
+          .catch(error => console.error('Error retrieving team users', error))
+
+        self.loadingState = asyncStates.success
+        return teamArray
       } catch (error) {
-        console.error('Error loading project:', error)
+        console.error('Error loading project roles:', error)
         self.error = error
         self.loadingState = asyncStates.error
       }
     })
-  }
-})
+    return {
+      fetch
+    }
+  })
 
 export default ProjectRoles

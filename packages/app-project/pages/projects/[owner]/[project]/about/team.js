@@ -10,13 +10,13 @@ export async function getServerSideProps({ params, query, req, res }) {
   const isServer = true
   const store = initStore(isServer)
 
-  const rolesArray = await store.projectRoles.fetch(project.id)
+  const teamArray = await store.projectRoles.fetch(project.id)
 
   return {
     props: {
-      project,
       pageType: 'team',
-      rolesArray
+      project,
+      teamArray
     }
   }
 }
