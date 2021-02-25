@@ -23,7 +23,7 @@ const DEFAULT_CELL_STYLE = {
   overlay: 'rgba(41,103,255,0.3)',
   selectedStroke: '#2967FF',
   selectedStrokeWidth: '8',
-  focusStroke: '#fff',
+  focusStroke: '#06FE76',
   focusStrokeWidth: '4',
   background: '#000'
 }
