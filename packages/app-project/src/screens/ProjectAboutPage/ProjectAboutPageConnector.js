@@ -4,24 +4,18 @@ import { arrayOf, shape, string } from 'prop-types'
 
 import ProjectAboutPage from './ProjectAboutPage'
 
-function useStoreContext (stores) {
-  const { store } = stores || useContext(MobXProviderContext)
-  const aboutPages = store.project.about_pages
-  return {
-    aboutPages
-  }
-}
-
 /**
   Connect the about page to the store. Pass down aboutPages data.
 */
 function ProjectAboutPageConnector ({
-  stores,
   pageType,
+  project
 }) {
-  const { aboutPages } = useStoreContext(stores)
+  const { store } = useContext(MobXProviderContext)
+  const { inBeta } = store.project
+  const { about_pages: aboutPages } = project
   const [aboutPageData] = aboutPages.filter(page => page.url_key === pageType)
-  return <ProjectAboutPage aboutPageData={aboutPageData} />
+  return aboutPageData && <ProjectAboutPage inBeta={inBeta} aboutPageData={aboutPageData} />
 }
 
 ProjectAboutPageConnector.propTypes = {
