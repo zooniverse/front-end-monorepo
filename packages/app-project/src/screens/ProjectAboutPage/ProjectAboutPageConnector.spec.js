@@ -6,15 +6,16 @@ import ProjectAboutPage from './ProjectAboutPage'
 
 describe('Component > ProjectAboutPageConnector', function () {
   let wrapper
-  const stores = {
+  const testStore = {
     store: {
       project: {
-        about_pages: [ { id: '1234', title: 'Title', url_key: 'science_case' } ]
+        about_pages: [ { id: '1234', title: 'Title', url_key: 'science_case' } ],
+        inBeta: false
       }
     }
   }
   before(function () {
-    wrapper = shallow(<ProjectAboutPageConnector stores={stores} pageType='science_case' />)
+    wrapper = shallow(<ProjectAboutPageConnector testStore={testStore} pageType='science_case' />)
   })
 
   it('should render without crashing', function () {
