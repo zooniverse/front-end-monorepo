@@ -13,24 +13,28 @@ import styled from 'styled-components'
 import AboutSidebar from './components/AboutSidebar'
 import { withResponsiveContext } from '@zooniverse/react-components'
 import AboutDropdownNav from './components/AboutDropdownNav'
+import TeamMember from './components/TeamMember'
 
 const FullHeightBox = styled(Box)`
   min-height: 98vh;
 `
 
+// see if this weight changes if using withTheme
 const StyledHeading = styled(Heading)`
   font-weight: 400;
 `
 
 const components = {
-  h1: nodeProps => <Heading children={nodeProps.children} color="#005D69" />, // darkTeal
+  h1: nodeProps => <Heading children={nodeProps.children} color="#005D69" />, // darkTeal withTheme
   h2: nodeProps => <Heading children={nodeProps.children} color="#005D69" />
 }
 
 function ProjectAboutPage({ aboutPageData, inBeta, teamArray, screenSize }) {
-  // console.log(teamArray)
-
   const { content = '', title = '' } = aboutPageData
+
+  const isTeamPage = title.toLowerCase().includes('team')
+
+  console.log(screenSize)
 
   return (
     <Box>
@@ -44,17 +48,36 @@ function ProjectAboutPage({ aboutPageData, inBeta, teamArray, screenSize }) {
           background="white"
           pad="large"
           border="2px"
+          alignSelf="center"
         >
-          <Grid columns={['small', 'flex']} gap="xlarge">
+          <Grid columns={['small', 'flex']} gap="8%">
             <Box>
               <SpacedHeading children="About" style={{ padding: '5px 20px' }} />
               <AboutSidebar />
             </Box>
             <Box>
               <StyledHeading level="2" size="large">
-                {title}
+                {isTeamPage ? 'The Team' : title}
               </StyledHeading>
-              <Markdownz children={content} components={components} />
+              {isTeamPage ? (
+                <Grid columns={['flex', 'small']} gap="8%">
+                  <Box>
+                    <Markdownz children={content} components={components} />
+                  </Box>
+                  <Box>
+                    <SpacedHeading children={`[Project Title] TEAM`} />
+                    {teamArray.length && (
+                      <Box as="ul">
+                        {teamArray.map(user => (
+                          <TeamMember key={user.id} user={user} />
+                        ))}
+                      </Box>
+                    )}
+                  </Box>
+                </Grid>
+              ) : (
+                <Markdownz children={content} components={components} />
+              )}
             </Box>
           </Grid>
         </FullHeightBox>
