@@ -8,6 +8,11 @@ import { SpacedText } from '@zooniverse/react-components'
 import Characteristics from '../Characteristics'
 import FilterButton from '../Characteristics/components/FilterButton'
 
+import counterpart from 'counterpart'
+import en from './locales/en'
+
+counterpart.registerTranslations('en', en)
+
 const StyledDropButton = styled(DropButton)`
   border: none;
   border-radius: 16px;
@@ -84,7 +89,7 @@ export default function FilterStatus (props) {
           <StyledLabel 
             color='neutral-2'
           >
-            Filter
+            {counterpart('SurveyTask.filter')}
           </StyledLabel>
         }
       />
