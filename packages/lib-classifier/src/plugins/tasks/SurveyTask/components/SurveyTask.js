@@ -13,7 +13,7 @@ function SurveyTask (props) {
     task
   } = props
 
-  const [selectedChoice, setSelectedChoice] = useState(false)
+  const [selectedChoice, setSelectedChoice] = useState('')
 
   function handleChoice (selectedChoiceId) {
     console.log('Selected choiceId =', selectedChoiceId)
@@ -38,14 +38,14 @@ function SurveyTask (props) {
           align={{
             top: 'top'
           }}
-          onClickOutside={() => setSelectedChoice(false)}
-          onEsc={() => setSelectedChoice(false)}
+          onClickOutside={() => setSelectedChoice('')}
+          onEsc={() => setSelectedChoice('')}
           stretch='align'
           target={choiceTargetRef.current}
         >
           <Choice
             choiceId={selectedChoice}
-            onCancel={() => setSelectedChoice(false)}
+            onCancel={() => setSelectedChoice('')}
             task={task}
           />
         </Drop>

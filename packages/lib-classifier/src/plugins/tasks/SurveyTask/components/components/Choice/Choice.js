@@ -12,7 +12,7 @@ export default function Choice (props) {
     task
   } = props
 
-  const choice = task.choices[choiceId]
+  const choice = task.choices?.[choiceId]
 
   return (
     <Box
