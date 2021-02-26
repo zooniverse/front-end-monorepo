@@ -3,19 +3,11 @@ import { flow, getRoot, types } from 'mobx-state-tree'
 
 import numberString from './types/numberString'
 
-import User from './User'
-
 const ProjectRoles = types
   .model('ProjectRoles', {
     id: types.maybeNull(numberString),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
-    team: types.array(User)
   })
-  .views(self => ({
-    get projectTeam () {
-      return self.team
-    }
-  }))
   .actions(self => {
     const fetch = flow(function * fetch (projectId) {
       const { client } = getRoot(self)
