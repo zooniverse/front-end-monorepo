@@ -1,6 +1,6 @@
 import { observer, MobXProviderContext } from 'mobx-react'
 import React, { useContext } from 'react'
-import { arrayOf, shape, string } from 'prop-types'
+import { arrayOf, bool, object, shape, string } from 'prop-types'
 
 import ProjectAboutPage from './ProjectAboutPage'
 
@@ -24,17 +24,15 @@ function ProjectAboutPageConnector ({ project, pageType, teamArray }) {
 }
 
 ProjectAboutPageConnector.propTypes = {
-  stores: shape({
-    store: shape({
-      project: shape({
-        about_pages: arrayOf(
-          shape({
-            id: string.isRequired
-          })
-        )
-      })
-    })
-  })
+  inBeta: bool,
+  project: object,
+  teamArray: arrayOf(shape({
+    avatar_src: string,
+    display_name: string,
+    id: string.isRequired,
+    login: string,
+    role: string
+  }))
 }
 
 export default observer(ProjectAboutPageConnector)
