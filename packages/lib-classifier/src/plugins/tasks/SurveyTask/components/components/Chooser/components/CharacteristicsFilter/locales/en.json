@@ -1,5 +1,6 @@
 {
   "SurveyTask": {
+    "clearFilters": "Clear filters",
     "filter": "Filter"
   }
 }

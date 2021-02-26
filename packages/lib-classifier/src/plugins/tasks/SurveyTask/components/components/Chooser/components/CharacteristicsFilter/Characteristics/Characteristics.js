@@ -4,6 +4,11 @@ import React from 'react'
 
 import CharacteristicSection from './components/CharacteristicSection'
 
+import counterpart from 'counterpart'
+import en from '../locales/en'
+
+counterpart.registerTranslations('en', en)
+
 export default function Characteristics (props) {
   const {
     characteristics,
@@ -36,7 +41,7 @@ export default function Characteristics (props) {
         pad='small'
       >
         <Button
-          label="Clear filters"
+          label={counterpart('SurveyTask.clearFilters')}
           onClick={() => onFilter()}
         />
       </Box>

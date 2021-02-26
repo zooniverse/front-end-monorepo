@@ -9,7 +9,7 @@ import Characteristics from '../Characteristics'
 import FilterButton from '../Characteristics/components/FilterButton'
 
 import counterpart from 'counterpart'
-import en from './locales/en'
+import en from '../locales/en'
 
 counterpart.registerTranslations('en', en)
 
