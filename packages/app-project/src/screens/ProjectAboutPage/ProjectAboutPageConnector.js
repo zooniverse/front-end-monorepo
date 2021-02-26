@@ -7,10 +7,10 @@ import ProjectAboutPage from './ProjectAboutPage'
 /**
   Connect the about page to the store. Pass down aboutPages data.
 */
-function ProjectAboutPageConnector ({ project, pageType, teamArray }) {
+function ProjectAboutPageConnector ({ initialState, pageType, teamArray }) {
   const { store } = useContext(MobXProviderContext)
   const { inBeta } = store.project
-  const { about_pages: aboutPages } = project
+  const aboutPages = initialState.project.about_pages
   const [aboutPageData] = aboutPages.filter(page => page.url_key === pageType)
   return aboutPageData ? (
     <ProjectAboutPage
@@ -25,7 +25,7 @@ function ProjectAboutPageConnector ({ project, pageType, teamArray }) {
 
 ProjectAboutPageConnector.propTypes = {
   inBeta: bool,
-  project: object,
+  initialState: object,
   teamArray: arrayOf(shape({
     avatar_src: string,
     display_name: string,
