@@ -7,7 +7,7 @@ import placeholderEnv from './helpers/placeholderEnv'
 
 // TO DO: fill in more tests
 
-describe.only('Stores > ProjectRoles', function () {
+describe('Stores > ProjectRoles', function () {
   let projectStore
   let rootStore
   const { mocks } = projects

@@ -15,7 +15,7 @@ export async function getServerSideProps({ params, query, req, res }) {
   return {
     props: {
       pageType: 'team',
-      project,
+      ...props,
       teamArray
     }
   }
