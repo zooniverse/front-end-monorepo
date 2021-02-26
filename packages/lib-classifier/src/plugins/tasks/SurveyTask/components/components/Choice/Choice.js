@@ -33,7 +33,7 @@ export default function Choice (props) {
   const questionIds = getQuestionIds(choiceId, task)
   const allowIdentify = allowIdentification(answers, choiceId, task)
 
-  const choice = task.choices[choiceId]
+  const choice = task.choices?.[choiceId]
 
   return (
     <Box
