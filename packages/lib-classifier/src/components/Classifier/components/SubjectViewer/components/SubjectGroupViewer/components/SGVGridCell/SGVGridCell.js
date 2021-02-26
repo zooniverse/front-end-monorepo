@@ -4,8 +4,7 @@ import styled, { css } from 'styled-components'
 
 import { draggable } from '@plugins/drawingTools/components'
 
-const BORDER_MULTIPLIER = 2  // Multiply by 2 because half of intended stroke-width will be clipped
-const FOCUS_MULTIPLIER = 6
+const FOCUS_OFFSET = 8
 
 const DraggableImage = styled(draggable('image'))`
     cursor: grab;
@@ -20,8 +19,8 @@ const DraggableRect = styled(draggable('rect'))`
 const ClickableRect = styled('rect')`
     cursor: pointer;
     &:focus {
-      ${props => css`stroke: ${props.cellStyle.highlight};`}
-      ${props => css`stroke-width: ${props.cellStyle.highlightWidth * FOCUS_MULTIPLIER};`}
+      ${props => css`stroke: ${props.cellStyle.focusStroke};`}
+      ${props => css`stroke-width: ${props.cellStyle.focusStrokeWidth};`}
     }
   }
 `
@@ -130,10 +129,10 @@ function SGVGridCell (props) {
         />
         <DraggableRect
           fill={(checked) ? cellStyle.overlay : 'none'}
-          stroke={(checked) ? cellStyle.highlight : cellStyle.stroke}
+          stroke={(checked) ? cellStyle.selectedStroke : cellStyle.stroke}
           strokeWidth={(checked)
-            ? cellStyle.highlightWidth * BORDER_MULTIPLIER
-            : cellStyle.strokeWidth * BORDER_MULTIPLIER
+            ? cellStyle.selectedStrokeWidth
+            : cellStyle.strokeWidth
           }
           width={cellWidth}
           height={cellHeight}
@@ -146,8 +145,10 @@ function SGVGridCell (props) {
             aria-label={`Cell at row ${row} column ${col}`}
             fill="transparent"
             cellStyle={cellStyle}
-            width={cellWidth}
-            height={cellHeight}
+            x={FOCUS_OFFSET}
+            y={FOCUS_OFFSET}
+            width={cellWidth - FOCUS_OFFSET * 2}
+            height={cellHeight - FOCUS_OFFSET * 2}
             onClick={(e) => {
               toggleCellAnnotation()
               e.preventDefault()

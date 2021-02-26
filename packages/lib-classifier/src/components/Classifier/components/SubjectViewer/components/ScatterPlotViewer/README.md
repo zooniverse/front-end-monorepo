@@ -40,7 +40,7 @@ The Scatter Plot Viewer...
 The Workflow of the project had a configuration that specified to the Monorepo
 Front End that the Scatter Plot Viewer should be used.
 
-`workflow.configuration = { subject_viewer: 'scatterplot' }`
+`workflow.configuration = { subject_viewer: 'scatterPlot' }`
 
 ### Subject
 
