@@ -12,9 +12,10 @@ const StyledTeamMember = styled(Box)`
 `
 
 const Placeholder = styled(Box)`
-  ${props => css`background: ${props.theme.global.colors['brand']};`}
   height: 60px;
   width: 60px;
+  ${props =>
+    css`background: ${props.theme.global.colors['brand']};`}
 `
 
 const StyledAvatar = styled(Box)`
@@ -25,22 +26,20 @@ const StyledAvatar = styled(Box)`
 `
 
 const StyledDisplayName = styled(Box)`
-    font-size: 14px;
-    line-height: 1;
-    ${props => css`color: ${props.theme.global.colors['black']};`}
+  font-size: 14px;
+  line-height: 1;
+  ${props => css`color: ${props.theme.global.colors['black']};`}
 `
 
 const StyledUsername = styled(NavLink)`
   line-height: 1;
-    & > * {
-      font-size: 12px;
-    }
+  & > * {
+    font-size: 12px;
+  }
 `
 
 const StyledRole = styled(Box)`
   font-size: 10px;
-  ${props => css`background: ${props.theme.global.colors['brand']};`}
-  ${props => css`color: ${props.theme.global.colors['black']};`}
   display: flex;
   align-items: center;
   width: 100px;
@@ -49,9 +48,13 @@ const StyledRole = styled(Box)`
   text-transform: uppercase;
   font-weight: bold;
   margin-top: 5px;
+  ${props => css`color: ${props.theme.global.colors['black']};`}
 `
 
-const TeamMember = ({ user }) => {
+// TO DO: how to tell if user is part of zooniverse team??
+
+const TeamMember = ({ user, theme }) => {
+
   return (
     <StyledTeamMember as="li">
       <StyledAvatar overflow="hidden" width="30%">
@@ -64,7 +67,16 @@ const TeamMember = ({ user }) => {
       <Box flex={true} direction="column">
         <StyledDisplayName>{user.display_name}</StyledDisplayName>
         <StyledUsername link={{ href: ``, text: `@${user.login}` }} />
-        <StyledRole round="xxsmall">{user.role}</StyledRole>
+        <StyledRole
+          round="xxsmall"
+          background={
+            user.role === 'owner'
+              ? theme.global.colors['neutral-4']
+              : theme.global.colors.brand
+          }
+        >
+          {user.role}
+        </StyledRole>
       </Box>
     </StyledTeamMember>
   )
