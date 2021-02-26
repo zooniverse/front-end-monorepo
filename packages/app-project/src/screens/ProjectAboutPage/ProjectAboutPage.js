@@ -7,7 +7,7 @@ import ZooHeaderWrapper from '@components/ZooHeaderWrapper'
 import {
   ZooFooter,
   Markdownz,
-  SpacedHeading,
+  SpacedHeading
 } from '@zooniverse/react-components'
 import styled from 'styled-components'
 import AboutSidebar from './components/AboutSidebar'
@@ -23,11 +23,11 @@ const StyledHeading = styled(Heading)`
 `
 
 const components = {
-  h1: (nodeProps) => <Heading children={nodeProps.children} color="#005D69" />, // darkTeal
-  h2: (nodeProps) => <Heading children={nodeProps.children} color="#005D69" />,
+  h1: nodeProps => <Heading children={nodeProps.children} color="#005D69" />, // darkTeal
+  h2: nodeProps => <Heading children={nodeProps.children} color="#005D69" />
 }
 
-function ProjectAboutPage ({ aboutPageData, inBeta, teamArray }) {
+function ProjectAboutPage({ aboutPageData, inBeta, teamArray, screenSize }) {
   // console.log(teamArray)
 
   const { content = '', title = '' } = aboutPageData
@@ -82,13 +82,15 @@ ProjectAboutPage.defaultProps = {
 ProjectAboutPage.propTypes = {
   aboutPageData: object,
   inBeta: bool,
-  teamArray: arrayOf(shape({
-    avatar_src: string,
-    display_name: string,
-    id: string.isRequired,
-    login: string,
-    role: string
-  }))
+  teamArray: arrayOf(
+    shape({
+      avatar_src: string,
+      display_name: string,
+      id: string.isRequired,
+      login: string,
+      role: string
+    })
+  )
 }
 
-export default ProjectAboutPage
+export default withResponsiveContext(ProjectAboutPage)
