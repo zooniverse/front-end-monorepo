@@ -24,6 +24,10 @@ const StyledHeading = styled(Heading)`
   font-weight: 400;
 `
 
+const StyledList = styled(Box)`
+  padding: 0;
+`
+
 const components = {
   h1: nodeProps => <Heading children={nodeProps.children} color="#005D69" />, // darkTeal withTheme
   h2: nodeProps => <Heading children={nodeProps.children} color="#005D69" />
@@ -33,8 +37,6 @@ function ProjectAboutPage({ aboutPageData, inBeta, teamArray, screenSize }) {
   const { content = '', title = '' } = aboutPageData
 
   const isTeamPage = title.toLowerCase().includes('team')
-
-  console.log(screenSize)
 
   return (
     <Box>
@@ -65,13 +67,13 @@ function ProjectAboutPage({ aboutPageData, inBeta, teamArray, screenSize }) {
                     <Markdownz children={content} components={components} />
                   </Box>
                   <Box>
-                    <SpacedHeading children={`[Project Title] TEAM`} />
+                    <SpacedHeading children={`[Project Title] TEAM`} margin='0'/>
                     {teamArray.length && (
-                      <Box as="ul">
+                      <StyledList as="ul">
                         {teamArray.map(user => (
                           <TeamMember key={user.id} user={user} />
                         ))}
-                      </Box>
+                      </StyledList>
                     )}
                   </Box>
                 </Grid>
