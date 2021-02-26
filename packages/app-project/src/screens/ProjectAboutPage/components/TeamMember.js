@@ -3,6 +3,7 @@ import React from 'react'
 import { shape, string } from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
 import NavLink from '@shared/components/NavLink'
+import { withRouter } from 'next/router'
 
 const StyledTeamMember = styled(Box)`
   margin-bottom: 14px;
@@ -14,8 +15,7 @@ const StyledTeamMember = styled(Box)`
 const Placeholder = styled(Box)`
   height: 60px;
   width: 60px;
-  ${props =>
-    css`background: ${props.theme.global.colors['brand']};`}
+  ${props => css`background: ${props.theme.global.colors['brand']};`}
 `
 
 const StyledAvatar = styled(Box)`
@@ -53,8 +53,10 @@ const StyledRole = styled(Box)`
 
 // TO DO: how to tell if user is part of zooniverse team??
 
-const TeamMember = ({ user, theme }) => {
-
+const TeamMember = ({ user, theme, router }) => {
+  const { owner, project } = router.query
+  const baseUrl = `/projects/${owner}/${project}/users`
+  
   return (
     <StyledTeamMember as="li">
       <StyledAvatar overflow="hidden" width="30%">
@@ -66,7 +68,7 @@ const TeamMember = ({ user, theme }) => {
       </StyledAvatar>
       <Box flex={true} direction="column">
         <StyledDisplayName>{user.display_name}</StyledDisplayName>
-        <StyledUsername link={{ href: ``, text: `@${user.login}` }} />
+        <StyledUsername link={{ href: `${baseUrl}/${user.login}`, text: `@${user.login}` }} />
         <StyledRole
           round="xxsmall"
           background={
@@ -92,4 +94,4 @@ TeamMember.propTypes = {
   })
 }
 
-export default withTheme(TeamMember)
+export default withRouter(withTheme(TeamMember))
