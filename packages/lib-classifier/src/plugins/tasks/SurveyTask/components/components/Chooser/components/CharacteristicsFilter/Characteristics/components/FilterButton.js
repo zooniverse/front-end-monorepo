@@ -21,29 +21,31 @@ export default function FilterButton (props) {
     characteristicId,
     checked,
     onFilter,
+    size,
     valueImageSrc,
     valueLabel
   } = props
 
   const backgroundColor = checked ? 'accent-2' : 'neutral-6'
+  const marginPerSize = size === 'small' ? 'none' : { bottom: 'xsmall' }
+  const containerSize = size === 'small' ? '30px' : '40px'
+  const mediaSize = size === 'small' ? '18' : '25'
 
   return (
     <StyledFilter
       align='center'  
       background={{ color: backgroundColor }}
-      height='40px'
+      height={containerSize}
       justify='center'
-      margin={{
-        bottom: 'xsmall'
-      }}
+      margin={marginPerSize}
       round='full'
-      width='40px'
+      width={containerSize}
     >
       <Media
         alt={valueLabel}
-        height='25'
+        height={mediaSize}
         src={valueImageSrc}
-        width='25'
+        width={mediaSize}
       />
       {checked && (
         <CloseButton
@@ -62,6 +64,7 @@ FilterButton.defaultProps = {
   characteristicId: '',
   checked: false,
   onFilter: () => {},
+  size: 'medium',
   valueImageSrc: '',
   valueLabel: ''
 }
@@ -69,7 +72,8 @@ FilterButton.defaultProps = {
 FilterButton.propTypes = {
   characteristicId: PropTypes.string,
   checked: PropTypes.bool,
-  onFilter: PropTypes.func,  
+  onFilter: PropTypes.func,
+  size: PropTypes.string,
   valueImageSrc: PropTypes.string,
   valueLabel: PropTypes.string
 }

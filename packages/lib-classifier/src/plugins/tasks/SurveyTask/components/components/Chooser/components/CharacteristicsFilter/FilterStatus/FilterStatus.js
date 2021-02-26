@@ -2,9 +2,27 @@ import { Box, DropButton } from 'grommet'
 import { Filter } from 'grommet-icons'
 import PropTypes from 'prop-types'
 import React, { useRef, useState } from 'react'
+import styled, { css } from 'styled-components'
+import { SpacedText } from '@zooniverse/react-components'
 
 import Characteristics from '../Characteristics'
 import FilterButton from '../Characteristics/components/FilterButton'
+
+const StyledDropButton = styled(DropButton)`
+  border: none;
+  border-radius: 16px;
+  padding: 5px 10px;
+
+  ${props => props.backgroundColor ? css`
+    background-color: ${props.theme.global.colors['accent-2']};
+  ` : css`
+    background-color: none;
+  `}
+`
+
+const StyledLabel = styled(SpacedText)`
+  text-transform: uppercase;
+`
 
 export default function FilterStatus (props) {
   const { task } = props
@@ -39,10 +57,10 @@ export default function FilterStatus (props) {
       align='center'
       direction='row'
       fill='horizontal'
+      gap='xxsmall'
     >
-      <DropButton
-        icon={<Filter />}
-        label='Filter'
+      <StyledDropButton
+        backgroundColor={selectedCharacteristicIds.length > 0}
         dropAlign={{
           left: 'left',
           top: 'bottom'
@@ -60,6 +78,15 @@ export default function FilterStatus (props) {
           stretch: 'align'
         }}
         dropTarget={filterStatusRef.current}
+        gap='none'
+        icon={<Filter />}
+        label={
+          <StyledLabel 
+            color='neutral-2'
+          >
+            Filter
+          </StyledLabel>
+        }
       />
       {selectedCharacteristicIds.map(characteristicId => {
         const characteristic = characteristics?.[characteristicId] || {}
@@ -73,6 +100,7 @@ export default function FilterStatus (props) {
             characteristicId={characteristicId}
             checked
             onFilter={handleFilter}
+            size='small'
             valueImageSrc={valueImageSrc}
             valueLabel={value.label}
           />
