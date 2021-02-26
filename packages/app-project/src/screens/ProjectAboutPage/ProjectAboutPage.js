@@ -1,6 +1,6 @@
 import { Box, Grid, Heading } from 'grommet'
 import React from 'react'
-import { string, shape } from 'prop-types'
+import { arrayOf, bool, object, shape, string } from 'prop-types'
 import Announcements from '@components/Announcements'
 import ProjectHeader from '@components/ProjectHeader'
 import ZooHeaderWrapper from '@components/ZooHeaderWrapper'
@@ -27,7 +27,9 @@ const components = {
   h2: (nodeProps) => <Heading children={nodeProps.children} color="#005D69" />,
 }
 
-function ProjectAboutPage({ aboutPageData, screenSize }) {
+function ProjectAboutPage ({ aboutPageData, inBeta, teamArray }) {
+  // console.log(teamArray)
+
   const { content = '', title = '' } = aboutPageData
 
   return (
@@ -71,13 +73,22 @@ function ProjectAboutPage({ aboutPageData, screenSize }) {
   )
 }
 
-ProjectAboutPage.propTypes = {
-  screenSize: string,
-  aboutPageData: shape({
-    id: string.isRequired,
-    title: string,
-    content: string,
-  })
+ProjectAboutPage.defaultProps = {
+  aboutPageData: {},
+  inBeta: false,
+  teamArray: []
 }
 
-export default withResponsiveContext(ProjectAboutPage)
+ProjectAboutPage.propTypes = {
+  aboutPageData: object,
+  inBeta: bool,
+  teamArray: arrayOf(shape({
+    avatar_src: string,
+    display_name: string,
+    id: string.isRequired,
+    login: string,
+    role: string
+  }))
+}
+
+export default ProjectAboutPage

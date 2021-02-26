@@ -9,6 +9,7 @@ const WorkflowConfiguration = types.model({
     'dataImage',
     'lightcurve',
     'multiFrame',
+    'scatterPlot',
     'singleImage',
     'subjectGroup',
     'variableStar'
@@ -26,6 +27,9 @@ const WorkflowConfiguration = types.model({
         }
         case 'multiFrame': {
           return subjectViewers.multiFrame
+        }
+        case 'scatterPlot': {
+          return subjectViewers.scatterPlot
         }
         case 'singleImage': {
           return subjectViewers.singleImage

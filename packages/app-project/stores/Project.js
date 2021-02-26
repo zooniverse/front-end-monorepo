@@ -29,8 +29,8 @@ const Project = types
     owners: types.frozen([]),
     retired_subjects_count: types.optional(types.number, 0),
     slug: types.optional(types.string, ''),
-    urls: types.frozen([]),
     subjects_count: types.optional(types.number, 0),
+    urls: types.frozen([]),
     workflow_description: types.maybeNull(types.string)
   })
 

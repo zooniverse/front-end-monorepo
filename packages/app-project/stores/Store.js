@@ -3,6 +3,7 @@ import { logNodeError } from '../src/helpers/logger'
 
 import Collections from './Collections'
 import Project from './Project'
+import ProjectRoles from './ProjectRoles'
 import Recents from './Recents'
 import UI from './UI'
 import User from './User'
@@ -12,6 +13,7 @@ const Store = types
   .model('Store', {
     collections: types.optional(Collections, {}),
     project: types.optional(Project, {}),
+    projectRoles: types.optional(ProjectRoles, {}),
     recents: types.optional(Recents, {}),
     ui: types.optional(UI, {}),
     user: types.optional(User, {}),

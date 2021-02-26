@@ -4,12 +4,15 @@ export default function initializeSentry () {
   const dsn = process.env.SENTRY_CONTENT_DSN
   const release = process.env.COMMIT_ID
   const environment = process.env.APP_ENV
-
+  const ignoreErrors = [
+    'ResizeObserver loop limit exceeded' // Ignore benign error: https://github.com/WICG/resize-observer/issues/38
+  ]
   if (dsn) {
     Sentry.init({
       dsn,
       release,
-      environment
+      environment,
+      ignoreErrors
     })
   }
 

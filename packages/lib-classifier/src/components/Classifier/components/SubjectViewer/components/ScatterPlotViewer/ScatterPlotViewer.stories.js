@@ -5,7 +5,7 @@ import { Box, Grommet } from 'grommet'
 import { darken } from 'polished'
 import { withKnobs, boolean, text, number, object } from '@storybook/addon-knobs'
 import ScatterPlotViewer from './ScatterPlotViewer'
-import ScatterPlotViewerContainer from './ScatterPlotViewerContainer'
+import ScatterPlotViewerConnector from './ScatterPlotViewerConnector'
 import { Provider } from 'mobx-react'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import ImageToolbar from '../../../ImageToolbar'
@@ -46,13 +46,33 @@ const stories = storiesOf('Subject Viewers / ScatterPlotViewer', module)
 
 const { colors } = zooTheme.global
 
+const keplerSubject = Factory.build('subject', {
+  locations: [
+    { 'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/kepler.json' }
+  ]
+})
+
+const transientObjectSubject = Factory.build('subject', {
+  locations: [
+    {
+      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/978b660f4ef660d5355148c3c22ef0912b96c7c1/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/transients/subject-1/zoo_subject_ZTF20abqdkne.json'
+    }
+  ]
+})
+
 const mockStore = {
   classifications: {
     active: {
       annotations: new Map()
     }
   },
-  fieldGuide: {},
+  fieldGuide: {
+    setActiveItemIndex: () => {},
+    setModalVisibility:  ()  => {}
+  },
+  subjects: {
+    active: transientObjectSubject
+  },
   subjectViewer: SubjectViewerStore.create({}),
   workflowSteps: {
     activeStepTasks: []
@@ -77,20 +97,6 @@ function ViewerContext(props) {
     </Provider>
   )
 }
-
-const keplerSubject = Factory.build('subject', {
-  locations: [
-    { 'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/kepler.json' }
-  ]
-})
-
-const transientObjectSubject = Factory.build('subject', {
-  locations: [
-    {
-      'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/978b660f4ef660d5355148c3c22ef0912b96c7c1/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/transients/subject-1/zoo_subject_ZTF20abqdkne.json'
-    }
-  ]
-})
 
 stories
   .add('light theme', () => {
@@ -259,18 +265,7 @@ stories
     return (
       <ViewerContext theme={zooTheme}>
         <Box direction='row' height='medium' width='large'>
-          <ScatterPlotViewerContainer
-            panning={boolean('panning', true)}
-            subject={keplerSubject}
-            zooming={boolean('zooming', true)}
-            zoomConfiguration={{
-              direction: text('zoom direction', 'both'),
-              minZoom: number('min zoom', 1),
-              maxZoom: number('max zoom', 10),
-              zoomInValue: number('zoom in scale', 1.2),
-              zoomOutValue: number('zoom out scale', 0.8)
-            }}
-          />
+          <ScatterPlotViewerConnector />
           <ImageToolbar />
         </Box>
       </ViewerContext>
@@ -280,20 +275,7 @@ stories
     return (
       <ViewerContext theme={zooTheme}>
         <Box direction='row' height='medium' width='large'>
-          <ScatterPlotViewerContainer
-            panning={boolean('panning', true)}
-            subject={transientObjectSubject}
-            xAxisLabelOffset={number('x axis label offset', undefined)}
-            yAxisLabelOffset={number('y axis label offset', undefined)}
-            zooming={boolean('zooming', true)}
-            zoomConfiguration={{
-              direction: text('zoom direction', 'both'),
-              minZoom: number('min zoom', 1),
-              maxZoom: number('max zoom', 10),
-              zoomInValue: number('zoom in scale', 1.2),
-              zoomOutValue: number('zoom out scale', 0.8)
-            }}
-          />
+          <ScatterPlotViewerConnector />
           <ImageToolbar />
         </Box>
       </ViewerContext>
