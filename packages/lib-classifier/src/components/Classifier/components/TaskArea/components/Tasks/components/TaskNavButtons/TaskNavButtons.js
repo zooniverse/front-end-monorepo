@@ -14,7 +14,7 @@ export default function TaskNavButtons (props) {
 
   if (props.showNextButton) {
     return (
-      <Box direction='row' gap='xsmall'>
+      <Box direction='row'>
         {props.showBackButton &&
           <BackButton
             areAnnotationsNotPersisted={props.areAnnotationsNotPersisted}
@@ -45,7 +45,7 @@ export default function TaskNavButtons (props) {
   }
 
   return (
-    <Box direction='row' gap='xsmall'>
+    <Box direction='row'>
       {props.showBackButton &&
         <BackButton
           areAnnotationsNotPersisted={props.areAnnotationsNotPersisted}
