@@ -137,7 +137,6 @@ function InteractionLayer ({
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
-        touch-action='none'
       />
       <TranscribedLines
         scale={scale}
