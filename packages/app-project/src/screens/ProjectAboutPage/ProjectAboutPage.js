@@ -1,31 +1,36 @@
-import { Box, Grid, Heading } from 'grommet'
-import React from 'react'
+import { Box, Grid, Heading, Paragraph } from 'grommet'
 import { arrayOf, bool, object, shape, string } from 'prop-types'
+import styled, { css, withTheme } from 'styled-components'
+import { withResponsiveContext } from '@zooniverse/react-components'
+
+/** Components */
 import Announcements from '@components/Announcements'
 import ProjectHeader from '@components/ProjectHeader'
 import ZooHeaderWrapper from '@components/ZooHeaderWrapper'
-import {
-  ZooFooter,
-  Markdownz,
-  SpacedHeading
-} from '@zooniverse/react-components'
-import styled from 'styled-components'
+import { ZooFooter, Markdownz, SpacedHeading} from '@zooniverse/react-components'
 import AboutSidebar from './components/AboutSidebar'
-import { withResponsiveContext } from '@zooniverse/react-components'
 import AboutDropdownNav from './components/AboutDropdownNav'
 import TeamMember from './components/TeamMember'
 
 const FullHeightBox = styled(Box)`
   min-height: 98vh;
+  border-width: 0 1px;
+  border-style: solid;
+  ${props => css`border-color: ${props.theme.global.colors['light-3']};`}
+  ${props => css`background: ${props.theme.global.colors['white']};`}
 `
 
 // see if this weight changes if using withTheme
-const StyledHeading = styled(Heading)`
-  font-weight: 400;
+const PageHeading = styled(Heading)`
+  font-weight: normal;
 `
 
-const StyledSpacedHeading = styled(SpacedHeading)`
+const TeamHeading = styled(SpacedHeading)`
   margin: 0;
+`
+
+const SidebarHeading = styled(SpacedHeading)`
+  padding: 5px 20px;
 `
 
 const StyledList = styled(Box)`
@@ -33,8 +38,8 @@ const StyledList = styled(Box)`
 `
 
 const components = {
-  h1: nodeProps => <Heading children={nodeProps.children} color="#005D69" />, // darkTeal withTheme
-  h2: nodeProps => <Heading children={nodeProps.children} color="#005D69" />
+  h1: nodeProps => <Heading children={nodeProps.children} color="#005D69" />, // darkTeal
+  h2: nodeProps => <Heading children={nodeProps.children} color="#005D69" />,
 }
 
 function ProjectAboutPage({ aboutPageData, inBeta, projectDisplayName, teamArray, screenSize }) {
@@ -51,27 +56,23 @@ function ProjectAboutPage({ aboutPageData, inBeta, projectDisplayName, teamArray
         <FullHeightBox
           margin={{ left: 'large', right: 'large' }}
           width={{ max: 'xxlarge' }}
-          background="white"
           pad="large"
-          border="2px"
           alignSelf="center"
         >
           <Grid columns={['small', 'flex']} gap="8%">
             <Box>
-              <SpacedHeading children="About" style={{ padding: '5px 20px' }} />
+              <SidebarHeading children="About" />
               <AboutSidebar />
             </Box>
             <Box>
-              <StyledHeading level="2" size="large">
-                {isTeamPage ? 'The Team' : title}
-              </StyledHeading>
+              <PageHeading level="2" size="large" children={isTeamPage ? 'The Team' : title} />
               {isTeamPage ? (
                 <Grid columns={['flex', 'small']} gap="8%">
                   <Box>
                     <Markdownz children={content} components={components} />
                   </Box>
                   <Box>
-                    <StyledSpacedHeading children={`${projectDisplayName} TEAM`} margin='0'/>
+                    <TeamHeading children={`${projectDisplayName} TEAM`} margin='0'/>
                     {teamArray.length && (
                       <StyledList as="ul">
                         {teamArray.map(user => (
@@ -122,4 +123,4 @@ ProjectAboutPage.propTypes = {
   )
 }
 
-export default withResponsiveContext(ProjectAboutPage)
+export default withTheme(withResponsiveContext(ProjectAboutPage))

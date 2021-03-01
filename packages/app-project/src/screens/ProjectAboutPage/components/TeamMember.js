@@ -1,5 +1,4 @@
 import { Box, Image } from 'grommet'
-import React from 'react'
 import { shape, string } from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
 import NavLink from '@shared/components/NavLink'
