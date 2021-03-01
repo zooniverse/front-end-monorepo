@@ -43,7 +43,6 @@ class ZoomOutButtonContainer extends React.Component {
     const { zoomOut } = this.props
     return (
       <span
-        touch-action='none'
         onPointerDown={this.onPointerDown}
         onPointerUp={this.onPointerUp}
       >
