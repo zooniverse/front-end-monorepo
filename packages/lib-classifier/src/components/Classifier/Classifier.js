@@ -11,10 +11,6 @@ import {
   tutorials as tutorialsClient
 } from '@zooniverse/panoptes-js'
 
-// Pointer event API polyfill just for Safari 12
-// Can likely be removed Sept 2020
-import 'pepjs'
-
 import { unregisterWorkers } from '../../workers'
 import RootStore from '../../store'
 import Layout from './components/Layout'
