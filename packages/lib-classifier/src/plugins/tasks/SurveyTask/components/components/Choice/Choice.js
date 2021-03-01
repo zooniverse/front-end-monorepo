@@ -1,7 +1,7 @@
 import { Box, Button, Carousel, Heading, Paragraph } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { GoldButton, Media } from '@zooniverse/react-components'
+import { PrimaryButton, Media } from '@zooniverse/react-components'
 
 import Questions from './components/Questions'
 
@@ -55,7 +55,7 @@ export default function Choice (props) {
           label='Not this'
           onClick={() => onCancel()}
         />
-        <GoldButton
+        <PrimaryButton
           fill='horizontal'
           label='Identify'
           onClick={() => onCancel()}
