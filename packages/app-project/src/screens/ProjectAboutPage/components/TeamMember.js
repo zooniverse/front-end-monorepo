@@ -13,27 +13,29 @@ const StyledTeamMember = styled(Box)`
 `
 
 const Placeholder = styled(Box)`
-  height: 60px;
-  width: 60px;
+  height: 50px;
+  width: 50px;
   ${props => css`background: ${props.theme.global.colors['brand']};`}
 `
 
 const StyledAvatar = styled(Box)`
   border-radius: 50%;
-  height: 60px;
-  width: 60px;
+  height: 50px;
+  width: 50px;
   margin-right: 10px;
 `
 
 const StyledDisplayName = styled(Box)`
   font-size: 14px;
   line-height: 1;
+  word-wrap: break-word;
   ${props => css`color: ${props.theme.global.colors['black']};`}
 `
 
 const StyledUsername = styled(NavLink)`
   line-height: 1;
   & > * {
+    word-wrap: break-word;
     font-size: 12px;
   }
 `

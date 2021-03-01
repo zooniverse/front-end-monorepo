@@ -21,12 +21,14 @@ function ProjectAboutPageConnector ({ pageType, teamArray, testStore }) {
   const { store } = useStoreContext(testStore)
   const { inBeta } = store.project
   const aboutPages = store.project.about_pages
+  const projectDisplayName = store.project.display_name
   const [aboutPageData] = aboutPages.filter(page => page.url_key === pageType)
   return aboutPageData ? (
     <ProjectAboutPage
       inBeta={inBeta}
       aboutPageData={aboutPageData}
       teamArray={teamArray}
+      projectDisplayName={projectDisplayName}
     />
   ) : (
     <p>No data for this page...</p>
