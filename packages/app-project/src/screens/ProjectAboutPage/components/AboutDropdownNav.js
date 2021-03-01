@@ -1,13 +1,13 @@
-import { Box, DropButton, Nav } from 'grommet'
-import { FormDown } from 'grommet-icons'
-import React, { useState } from 'react'
-import { SpacedText } from '@zooniverse/react-components'
-import AboutNavLink from './AboutNavLink'
-import styled from 'styled-components'
-import { arrayOf, shape, string, object } from 'prop-types'
+import { useState } from 'react'
+import { object } from 'prop-types'
 import { withRouter } from 'next/router'
 
-const StyledDropButton = styled(DropButton)``
+/** Components */
+import { Box, DropButton, Nav } from 'grommet'
+import { FormDown } from 'grommet-icons'
+import { SpacedText } from '@zooniverse/react-components'
+import AboutNavLink from './AboutNavLink'
+
 
 const AboutDropdownNav = ({ router }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -43,7 +43,7 @@ const AboutDropdownNav = ({ router }) => {
   )
 
   return (
-    <StyledDropButton
+    <DropButton
       isOpen={isOpen}
       alignSelf="center"
       dropContent={dropContent}
@@ -54,7 +54,7 @@ const AboutDropdownNav = ({ router }) => {
         <SpacedText weight="bold">About</SpacedText>
         <FormDown />
       </Box>
-    </StyledDropButton>
+    </DropButton>
   )
 }
 

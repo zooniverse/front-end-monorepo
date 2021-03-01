@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
+import { string, object, shape } from 'prop-types'
+import styled, { withTheme } from 'styled-components'
+import addQueryParams from '@helpers/addQueryParams'
+
+/** Components */
 import NavLink from '@shared/components/NavLink'
 import { Anchor, Box } from 'grommet'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import addQueryParams from '@helpers/addQueryParams'
+
+
+const StyledBox = styled(Box)`
+  padding: 5px 20px;
+`
 
 const StyledAnchor = styled(Anchor)`
   &:hover {
@@ -11,15 +18,16 @@ const StyledAnchor = styled(Anchor)`
   }
 `
 
-const AboutNavLink = ({ router, link }) => {
-  const inActiveColor = 'grey'
-  const activeColor = 'brand'
+const AboutNavLink = ({ router, link, theme }) => {
 
-  const inActiveWeight = '400'
-  const activeWeight = '700'
+  const inActiveColor = theme.global.colors['dark-5']
+  const activeColor = theme.global.colors['brand']
 
-  const inActiveBg = 'white'
-  const activeBg = '#addde0' // lightTeal - add withTheme to use variable names
+  const inActiveWeight = 'normal'
+  const activeWeight = 'bold'
+
+  const inActiveBg = theme.global.colors['white']
+  const activeBg = theme.global.colors['accent-2']
 
   const [isCurrentPage, setCurrentPage] = useState(false)
 
@@ -29,10 +37,9 @@ const AboutNavLink = ({ router, link }) => {
   }, [router])
 
   return (
-    <Box
+    <StyledBox
       style={{
         background: isCurrentPage ? activeBg : inActiveBg,
-        padding: '5px 20px',
       }}
     >
       <NavLink
@@ -41,16 +48,16 @@ const AboutNavLink = ({ router, link }) => {
         weight={isCurrentPage ? activeWeight : inActiveWeight}
         StyledAnchor={StyledAnchor}
       />
-    </Box>
+    </StyledBox>
   )
 }
 
 AboutNavLink.propTypes = {
-  link: PropTypes.shape({
-    href: PropTypes.string,
-    text: PropTypes.string,
+  link: shape({
+    href: string,
+    text: string,
   }),
-  router: PropTypes.object,
+  router: object,
 }
 
-export default AboutNavLink
+export default withTheme(AboutNavLink)

@@ -20,7 +20,6 @@ const FullHeightBox = styled(Box)`
   ${props => css`background: ${props.theme.global.colors['white']};`}
 `
 
-// see if this weight changes if using withTheme
 const PageHeading = styled(Heading)`
   font-weight: normal;
 `
@@ -38,8 +37,9 @@ const StyledList = styled(Box)`
 `
 
 const components = {
-  h1: nodeProps => <Heading children={nodeProps.children} color="#005D69" />, // darkTeal
-  h2: nodeProps => <Heading children={nodeProps.children} color="#005D69" />,
+  h1: nodeProps => <Heading children={nodeProps.children} level='1' color="#005D69" />, // darkTeal
+  h2: nodeProps => <Heading children={nodeProps.children} level='2' color="#005D69" />,
+  // do we need to add all 6 header levels with custom color here?
 }
 
 function ProjectAboutPage({ aboutPageData, inBeta, projectDisplayName, teamArray, screenSize }) {
@@ -92,9 +92,7 @@ function ProjectAboutPage({ aboutPageData, inBeta, projectDisplayName, teamArray
       {screenSize === 'small' && (
         <Box background="white" pad="small">
           <AboutDropdownNav />
-          <StyledHeading level="2" size="medium">
-            {title}
-          </StyledHeading>
+          <PageHeading level="2" size="medium" children={title}/>
           <Markdownz children={content} components={components} />
         </Box>
       )}
