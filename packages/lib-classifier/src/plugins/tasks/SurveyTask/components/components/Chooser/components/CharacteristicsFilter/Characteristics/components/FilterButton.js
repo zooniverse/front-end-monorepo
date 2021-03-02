@@ -21,15 +21,15 @@ export default function FilterButton (props) {
     characteristicId,
     checked,
     onFilter,
-    size,
+    buttonSize,
     valueImageSrc,
     valueLabel
   } = props
 
   const backgroundColor = checked ? 'accent-2' : 'neutral-6'
-  const marginPerSize = size === 'small' ? 'none' : { bottom: 'xsmall' }
-  const containerSize = size === 'small' ? '30px' : '40px'
-  const mediaSize = size === 'small' ? '18' : '25'
+  const marginPerSize = buttonSize === 'small' ? 'none' : { bottom: 'xsmall' }
+  const containerSize = buttonSize === 'small' ? '30px' : '40px'
+  const mediaSize = buttonSize === 'small' ? '18' : '25'
 
   return (
     <StyledFilter
@@ -50,6 +50,7 @@ export default function FilterButton (props) {
       {checked && (
         <CloseButton
           closeFn={(event) => {
+            // Note: preventDefault and stopPropagation are to prevent the radio button input click handler from firing and re-selecting the characteristic filter
             event.preventDefault()
             event.stopPropagation()
             onFilter(characteristicId)
@@ -64,7 +65,7 @@ FilterButton.defaultProps = {
   characteristicId: '',
   checked: false,
   onFilter: () => {},
-  size: 'medium',
+  buttonSize: 'medium',
   valueImageSrc: '',
   valueLabel: ''
 }
@@ -73,7 +74,7 @@ FilterButton.propTypes = {
   characteristicId: PropTypes.string,
   checked: PropTypes.bool,
   onFilter: PropTypes.func,
-  size: PropTypes.string,
+  buttonSize: PropTypes.string,
   valueImageSrc: PropTypes.string,
   valueLabel: PropTypes.string
 }
