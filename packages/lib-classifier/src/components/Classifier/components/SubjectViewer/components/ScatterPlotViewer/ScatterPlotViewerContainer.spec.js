@@ -3,7 +3,7 @@ import React from 'react'
 import nock from 'nock'
 import sinon from 'sinon'
 
-import { ScatterPlotViewerContainer } from './ScatterPlotViewerContainer'
+import ScatterPlotViewerContainer from './ScatterPlotViewerContainer'
 import ScatterPlotViewer from './ScatterPlotViewer'
 import { dataSeriesWithXErrors, keplerMockDataWithOptions } from './helpers/mockData'
 
@@ -168,7 +168,7 @@ describe('Component > ScatterPlotViewerContainer', function () {
       )
 
       cdmSpy.returnValues[0].then(() => {
-        expect(onReadySpy).to.have.been.calledOnceWith({ target: wrapper.instance().viewer.current })
+        expect(onReadySpy).to.have.been.calledOnceWith({ target: {} })
       }).then(done, done)
     })
 

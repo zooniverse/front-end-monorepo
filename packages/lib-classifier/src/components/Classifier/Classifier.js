@@ -11,10 +11,6 @@ import {
   tutorials as tutorialsClient
 } from '@zooniverse/panoptes-js'
 
-// Pointer event API polyfill just for Safari 12
-// Can likely be removed Sept 2020
-import 'pepjs'
-
 import { unregisterWorkers } from '../../workers'
 import RootStore from '../../store'
 import Layout from './components/Layout'
@@ -66,7 +62,7 @@ export default class Classifier extends React.Component {
     this.classifierStore.classifications.setOnComplete(onCompleteClassification)
     this.classifierStore.setOnToggleFavourite(onToggleFavourite)
     if (workflowID) {
-      this.classifierStore.workflows.selectWorkflow(workflowID, subjectSetID)
+      this.selectWorkflow(workflowID, subjectSetID)
     }
   }
 
@@ -77,11 +73,11 @@ export default class Classifier extends React.Component {
     }
 
     if (workflowID !== prevProps.workflowID) {
-      this.classifierStore.workflows.selectWorkflow(workflowID, subjectSetID)
+      this.selectWorkflow(workflowID, subjectSetID)
     }
 
     if (subjectSetID !== prevProps.subjectSetID) {
-      this.classifierStore.workflows.selectWorkflow(workflowID, subjectSetID)
+      this.selectWorkflow(workflowID, subjectSetID)
     }
 
     if (authClient) {
@@ -92,6 +88,14 @@ export default class Classifier extends React.Component {
   setProject (project) {
     this.classifierStore.projects.setResources([project])
     this.classifierStore.projects.setActive(project.id)
+  }
+
+  selectWorkflow() {
+    const { classifierStore } = this
+    const { subjectSetID, workflowID } = this.props
+    if (workflowID) {
+      classifierStore.workflows.selectWorkflow(workflowID, subjectSetID)
+    }
   }
 
   render () {

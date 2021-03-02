@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
-import { GoldButton } from '@zooniverse/react-components'
+import { PrimaryButton } from '@zooniverse/react-components'
 import { NextButton } from './NextButton'
 
 describe('NextButton', function () {
@@ -16,8 +16,8 @@ describe('NextButton', function () {
       expect(wrapper).to.be.ok()
     })
 
-    it('should render a GoldButton component', function () {
-      expect(wrapper.find(GoldButton)).to.have.lengthOf(1)
+    it('should render a PrimaryButton component', function () {
+      expect(wrapper.find(PrimaryButton)).to.have.lengthOf(1)
     })
   })
 
