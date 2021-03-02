@@ -1,4 +1,4 @@
-import { Box, Grid, Heading, Paragraph } from 'grommet'
+import { Box, Grid, Heading } from 'grommet'
 import { arrayOf, bool, object, shape, string } from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
 import { withResponsiveContext } from '@zooniverse/react-components'
@@ -7,17 +7,24 @@ import { withResponsiveContext } from '@zooniverse/react-components'
 import Announcements from '@components/Announcements'
 import ProjectHeader from '@components/ProjectHeader'
 import ZooHeaderWrapper from '@components/ZooHeaderWrapper'
-import { ZooFooter, Markdownz, SpacedHeading} from '@zooniverse/react-components'
+import { ZooFooter, SpacedHeading } from '@zooniverse/react-components'
 import AboutSidebar from './components/AboutSidebar'
 import AboutDropdownNav from './components/AboutDropdownNav'
 import TeamMember from './components/TeamMember'
+import AboutMarkdownz from './components/AboutMarkdownz/AboutMarkdownz'
 
 const FullHeightBox = styled(Box)`
   min-height: 98vh;
   border-width: 0 1px;
   border-style: solid;
-  ${props => css`border-color: ${props.theme.global.colors['light-3']};`}
-  ${props => css`background: ${props.theme.global.colors['white']};`}
+  ${props =>
+    css`
+      border-color: ${props.theme.global.colors['light-3']};
+    `}
+  ${props =>
+    css`
+      background: ${props.theme.global.colors['white']};
+    `}
 `
 
 const PageHeading = styled(Heading)`
@@ -36,13 +43,13 @@ const StyledList = styled(Box)`
   padding: 0;
 `
 
-const components = {
-  h1: nodeProps => <Heading children={nodeProps.children} level='1' color="#005D69" />, // darkTeal
-  h2: nodeProps => <Heading children={nodeProps.children} level='2' color="#005D69" />,
-  // do we need to add all 6 header levels with custom color here?
-}
-
-function ProjectAboutPage({ aboutPageData, inBeta, projectDisplayName, teamArray, screenSize }) {
+function ProjectAboutPage({
+  aboutPageData,
+  inBeta,
+  projectDisplayName,
+  teamArray,
+  screenSize
+}) {
   const { content = '', title = '' } = aboutPageData
 
   const isTeamPage = title.toLowerCase().includes('team')
@@ -65,14 +72,19 @@ function ProjectAboutPage({ aboutPageData, inBeta, projectDisplayName, teamArray
               <AboutSidebar />
             </Box>
             <Box>
-              <PageHeading level="2" size="large" children={isTeamPage ? 'The Team' : title} />
+              <PageHeading
+                level="2"
+                size="large"
+                children={isTeamPage ? 'The Team' : title}
+              />
               {isTeamPage ? (
                 <Grid columns={['flex', 'small']} gap="8%">
+                  <AboutMarkdownz content={content} />
                   <Box>
-                    <Markdownz children={content} components={components} />
-                  </Box>
-                  <Box>
-                    <TeamHeading children={`${projectDisplayName} TEAM`} margin='0'/>
+                    <TeamHeading
+                      children={`${projectDisplayName} TEAM`}
+                      margin="0"
+                    />
                     {teamArray.length && (
                       <StyledList as="ul">
                         {teamArray.map(user => (
@@ -83,7 +95,7 @@ function ProjectAboutPage({ aboutPageData, inBeta, projectDisplayName, teamArray
                   </Box>
                 </Grid>
               ) : (
-                <Markdownz children={content} components={components} />
+                <AboutMarkdownz content={content} />
               )}
             </Box>
           </Grid>
@@ -92,8 +104,8 @@ function ProjectAboutPage({ aboutPageData, inBeta, projectDisplayName, teamArray
       {screenSize === 'small' && (
         <Box background="white" pad="small">
           <AboutDropdownNav />
-          <PageHeading level="2" size="medium" children={title}/>
-          <Markdownz children={content} components={components} />
+          <PageHeading level="2" size="medium" children={title} />
+          <AboutMarkdownz content={content} />
         </Box>
       )}
       <ZooFooter />
