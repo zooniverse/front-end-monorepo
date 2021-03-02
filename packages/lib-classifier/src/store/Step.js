@@ -31,10 +31,6 @@ const Step = types
       return !!self.next && self.next !== 'summary'
     },
 
-    get isThereAPreviousStep () {
-      return !!self.previous && self.stepKey !== 'summary'
-    },
-
     get isThereBranching () {
       // We return the first single choice task
       // It doesn't make sense to have more than one single choice task in a step
