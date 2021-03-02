@@ -1,4 +1,4 @@
-import { Box, Grid, Heading } from 'grommet'
+import { Box, Grid, Heading, Text } from 'grommet'
 import { arrayOf, bool, object, shape, string } from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
 import { withResponsiveContext } from '@zooniverse/react-components'
@@ -31,12 +31,16 @@ const PageHeading = styled(Heading)`
   font-weight: normal;
 `
 
-const TeamHeading = styled(SpacedHeading)`
-  margin: 0;
-`
-
 const SidebarHeading = styled(SpacedHeading)`
   padding: 5px 20px;
+`
+
+const TeamHeading = styled(Text)`
+  letter-spacing: 0.067rem; // same as SpacedText component
+  text-transform: uppercase;
+  color: black;
+  font-weight: bold;
+  margin-bottom: 14px;
 `
 
 const StyledList = styled(Box)`
@@ -83,7 +87,6 @@ function ProjectAboutPage({
                   <Box>
                     <TeamHeading
                       children={`${projectDisplayName} TEAM`}
-                      margin="0"
                     />
                     {teamArray.length && (
                       <StyledList as="ul">

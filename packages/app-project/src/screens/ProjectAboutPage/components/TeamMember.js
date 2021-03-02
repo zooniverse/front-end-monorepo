@@ -25,6 +25,7 @@ const StyledAvatar = styled(Box)`
   height: 50px;
   width: 50px;
   margin-right: 10px;
+  overflow: hidden;
 `
 
 const StyledDisplayName = styled(Box)`
@@ -69,7 +70,7 @@ const TeamMember = ({ user, theme, router }) => {
 
   return (
     <StyledTeamMember as="li">
-      <StyledAvatar overflow="hidden" width="30%">
+      <StyledAvatar>
         {!user.avatar_src ? (
           <Placeholder />
         ) : (
@@ -88,7 +89,7 @@ const TeamMember = ({ user, theme, router }) => {
               key={role}
               round="xxsmall"
               background={
-                user.role === 'owner'
+                role === 'owner'
                   ? theme.global.colors['neutral-4']
                   : theme.global.colors.brand
               }

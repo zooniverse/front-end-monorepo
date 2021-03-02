@@ -51,7 +51,7 @@ const AboutDropdownNav = ({ router }) => {
       onOpen={handleOpen}
     >
       <Box align="center" direction="row" gap="xsmall" justify="center">
-        <SpacedText weight="bold">About</SpacedText>
+        <SpacedText weight="bold" color="black">About</SpacedText>
         <FormDown />
       </Box>
     </DropButton>
