@@ -1,9 +1,10 @@
 import { Box, Button, Carousel, Heading, Paragraph } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 import { PrimaryButton, Media } from '@zooniverse/react-components'
 
 import Questions from './components/Questions'
+import checkFilledIn from './helpers/checkFilledIn'
 
 export default function Choice (props) {
   const {
@@ -11,8 +12,11 @@ export default function Choice (props) {
     onCancel,
     task
   } = props
+  const [ answers, setAnswers ] = useState({})
+  console.log('answers', answers)
 
   const choice = task.choices?.[choiceId]
+  const allowIdentify = checkFilledIn(answers, choiceId, task)
 
   return (
     <Box
@@ -34,7 +38,9 @@ export default function Choice (props) {
       <Heading>{choice.label}</Heading>
       <Paragraph>{choice.description}</Paragraph>
       <Questions
+        answers={answers}
         choiceId={choiceId}
+        setAnswers={setAnswers}
         task={task}
       />
       <Box
@@ -56,6 +62,7 @@ export default function Choice (props) {
           onClick={() => onCancel()}
         />
         <PrimaryButton
+          disabled={!allowIdentify}
           fill='horizontal'
           label='Identify'
           onClick={() => onCancel()}

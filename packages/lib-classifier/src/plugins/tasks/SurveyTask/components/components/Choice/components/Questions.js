@@ -1,14 +1,17 @@
 import { Box, CheckBoxGroup, RadioButtonGroup } from 'grommet'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
 import { SpacedHeading } from '@zooniverse/react-components'
 
 import getQuestionIds from '../helpers/getQuestionIds'
 
 export default function Questions (props) {
-  const { choiceId, task } = props
-  const [ answers, setAnswers ] = useState({})
-  console.log('answers', answers)
+  const {
+    answers,
+    choiceId,
+    setAnswers,
+    task
+  } = props
 
   const questionIds = getQuestionIds(choiceId, task)
 
@@ -61,11 +64,15 @@ export default function Questions (props) {
 }
 
 Questions.defaultProps = {
-  choiceId: ''
+  answers: {},
+  choiceId: '',
+  setAnswers: () => {}
 }
 
 Questions.propTypes = {
+  answers: PropTypes.object,
   choiceId: PropTypes.string,
+  setAnswers: PropTypes.func,
   task: PropTypes.shape({
     help: PropTypes.string,
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
