@@ -19,10 +19,7 @@ describe('Component > FilterButton', function () {
         onFilter={onFilterSpy}
         valueImageSrc='bird-icon.svg'
         valueLabel='bird'
-      />, {
-        wrappingComponent: Grommet,
-        wrappingComponentProps: { theme: zooTheme }
-      }
+      />
     )
   })
 

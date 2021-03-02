@@ -1,4 +1,4 @@
-import { mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import { Grommet } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
@@ -13,16 +13,13 @@ describe('Component > Characteristics', function () {
 
   before(function () {
     onFilterSpy = sinon.spy()
-    wrapper = mount(
+    wrapper = shallow(
       <Characteristics
         characteristics={mockTask.characteristics}
         characteristicsOrder={mockTask.characteristicsOrder}
         images={mockTask.images}
         onFilter={onFilterSpy}
-      />, {
-        wrappingComponent: Grommet,
-        wrappingComponentProps: { theme: zooTheme }
-      }
+      />
     )
   })
 

@@ -22,10 +22,7 @@ describe('Component > CharacteristicSection', function () {
         images={mockTask.images}
         onFilter={onFilterSpy}
         selectedValueId=''
-      />, {
-        wrappingComponent: Grommet,
-        wrappingComponentProps: { theme: zooTheme }
-      }
+      />
     )
   })
 
