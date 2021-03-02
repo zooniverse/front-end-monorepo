@@ -1,8 +1,6 @@
 import { shallow } from 'enzyme'
-import { Grommet } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
-import zooTheme from '@zooniverse/grommet-theme'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import Characteristics from './Characteristics'

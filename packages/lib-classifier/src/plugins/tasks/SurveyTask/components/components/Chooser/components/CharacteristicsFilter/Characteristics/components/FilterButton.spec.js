@@ -1,8 +1,6 @@
 import { mount } from 'enzyme'
-import { Grommet } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
-import zooTheme from '@zooniverse/grommet-theme'
 import { CloseButton, Media } from '@zooniverse/react-components'
 
 import FilterButton, { StyledFilter } from './FilterButton'
@@ -48,15 +46,9 @@ describe('Component > FilterButton', function () {
     before(function () {
       wrapper.setProps({ checked: true })
     })
-    
+
     it('should have a background color of accent-2', function () {
       expect(wrapper.find(StyledFilter).props().background.color).to.equal('accent-2')
-    })
-
-    it.skip('should show a CloseButton on focus', function () {
-    })
-
-    it.skip('should show a CloseButton on hover', function () {
     })
 
     it('should call onFilter on click of the CloseButton', function () {

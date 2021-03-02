@@ -61,6 +61,7 @@ describe('Component > FilterStatus', function () {
     })
   })
 
+  // TODO: update the following test once filter state passed down as prop
   describe.skip('with selected filters', function () {
     before(function () {
       wrapper.setState({ filter: {

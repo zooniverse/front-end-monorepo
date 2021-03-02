@@ -1,8 +1,7 @@
 import { mount, shallow } from 'enzyme'
-import { Grommet, RadioButtonGroup } from 'grommet'
+import { RadioButtonGroup } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
-import zooTheme from '@zooniverse/grommet-theme'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import CharacteristicSection from './CharacteristicSection'
@@ -46,7 +45,7 @@ describe('Component > CharacteristicSection', function () {
       expect(filterButton.props().valueLabel).to.equal(characteristicTail.values[valueIdPerTask].label)
     })
   })
-  
+
   describe('onChange', function () {
     it('should call onFilter with characteristic and value IDs', function () {
       wrapper = shallow(
@@ -60,8 +59,10 @@ describe('Component > CharacteristicSection', function () {
       )
 
       expect(onFilterSpy).to.have.not.been.called()
-      
-      wrapper.find(RadioButtonGroup).at(0).simulate('change', { target: { value: 'LNG' }})
+
+      wrapper.find(RadioButtonGroup).at(0).simulate('change', {
+        target: { value: 'LNG' }
+      })
 
       expect(onFilterSpy).to.have.been.calledOnceWith('TL', 'LNG')
     })
