@@ -55,6 +55,7 @@ const StyledRole = styled(Box)`
 // TO DO: how to tell if user is part of zooniverse team??
 
 const TeamMember = ({ user, theme, router }) => {
+  console.log(user)
   const { owner, project } = router.query
   const baseUrl = `/projects/${owner}/${project}/users`
   

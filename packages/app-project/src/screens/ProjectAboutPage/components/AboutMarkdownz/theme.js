@@ -8,6 +8,9 @@ const theme = {
     `,
     level: {
       4: {
+        medium: { // medium is the default
+          size: '16px'
+        },
         font: {
           weight: 'bold'
         }
@@ -22,6 +25,8 @@ const theme = {
   paragraph: {
     extend: props => css`
       color: ${props.theme.global.colors.black};
+      line-height: 1.5;
+      margin: 0 0 14px 0;
     `
   }
 }
