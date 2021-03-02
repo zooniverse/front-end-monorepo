@@ -32,6 +32,7 @@ export default function Choice (props) {
   const allowIdentify = allowIdentification(answers, choiceId, task)
 
   const choice = task.choices?.[choiceId]
+  const allowIdentify = checkFilledIn(answers, choiceId, task)
 
   return (
     <Box

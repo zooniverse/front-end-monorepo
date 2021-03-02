@@ -1,6 +1,6 @@
 import { Box, CheckBoxGroup, RadioButtonGroup } from 'grommet'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
 import { SpacedHeading } from '@zooniverse/react-components'
 
 export default function Questions (props) {
