@@ -2,7 +2,6 @@ import React from 'react'
 import { arrayOf, bool, object, shape, string } from 'prop-types'
 
 function ProjectAboutPage ({ aboutPageData, inBeta, teamArray }) {
-  // console.log(teamArray)
 
   const { title = '' } = aboutPageData
 

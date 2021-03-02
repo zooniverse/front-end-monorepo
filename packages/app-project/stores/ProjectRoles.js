@@ -38,7 +38,7 @@ const ProjectRoles = types
             const userData = response.body.users[0]
             return {
               ...userData,
-              role: role.roles[0]
+              roles: role.roles
             }
           })
         )
