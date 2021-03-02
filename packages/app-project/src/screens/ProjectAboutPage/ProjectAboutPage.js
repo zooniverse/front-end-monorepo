@@ -85,9 +85,7 @@ function ProjectAboutPage({
                 <Grid columns={['flex', 'small']} gap="8%">
                   <AboutMarkdownz content={content} />
                   <Box>
-                    <TeamHeading
-                      children={`${projectDisplayName} TEAM`}
-                    />
+                    <TeamHeading children={`${projectDisplayName} TEAM`} />
                     {teamArray.length && (
                       <StyledList as="ul">
                         {teamArray.map(user => (
@@ -108,7 +106,21 @@ function ProjectAboutPage({
         <Box background="white" pad="small">
           <AboutDropdownNav />
           <PageHeading level="2" size="medium" children={title} />
-          <AboutMarkdownz content={content} />
+          {isTeamPage ? (
+              <Box>
+              <AboutMarkdownz content={content} />
+                <TeamHeading children={`${projectDisplayName} TEAM`} style={{ marginTop: '14px' }} />
+                {teamArray.length && (
+                  <StyledList as="ul">
+                    {teamArray.map(user => (
+                      <TeamMember key={user.id} user={user} />
+                    ))}
+                  </StyledList>
+                )}
+              </Box>
+          ) : (
+            <AboutMarkdownz content={content} />
+          )}
         </Box>
       )}
       <ZooFooter />
