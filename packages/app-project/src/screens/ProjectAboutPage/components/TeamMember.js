@@ -14,7 +14,10 @@ const StyledTeamMember = styled(Box)`
 const Placeholder = styled(Box)`
   height: 50px;
   width: 50px;
-  ${props => css`background: ${props.theme.global.colors['brand']};`}
+  ${props =>
+    css`
+      background: ${props.theme.global.colors['brand']};
+    `}
 `
 
 const StyledAvatar = styled(Box)`
@@ -28,7 +31,10 @@ const StyledDisplayName = styled(Box)`
   font-size: 14px;
   line-height: 1;
   word-wrap: break-word;
-  ${props => css`color: ${props.theme.global.colors['black']};`}
+  ${props =>
+    css`
+      color: ${props.theme.global.colors['black']};
+    `}
 `
 
 const StyledUsername = styled(NavLink)`
@@ -49,16 +55,18 @@ const StyledRole = styled(Box)`
   text-transform: uppercase;
   font-weight: bold;
   margin-top: 5px;
-  ${props => css`color: ${props.theme.global.colors['black']};`}
+  ${props =>
+    css`
+      color: ${props.theme.global.colors['black']};
+    `}
 `
 
 // TO DO: how to tell if user is part of zooniverse team??
 
 const TeamMember = ({ user, theme, router }) => {
-  console.log(user)
   const { owner, project } = router.query
   const baseUrl = `/projects/${owner}/${project}/users`
-  
+
   return (
     <StyledTeamMember as="li">
       <StyledAvatar overflow="hidden" width="30%">
@@ -70,17 +78,24 @@ const TeamMember = ({ user, theme, router }) => {
       </StyledAvatar>
       <Box flex={true} direction="column">
         <StyledDisplayName>{user.display_name}</StyledDisplayName>
-        <StyledUsername link={{ href: `${baseUrl}/${user.login}`, text: `@${user.login}` }} />
-        <StyledRole
-          round="xxsmall"
-          background={
-            user.role === 'owner'
-              ? theme.global.colors['neutral-4']
-              : theme.global.colors.brand
-          }
-        >
-          {user.role}
-        </StyledRole>
+        <StyledUsername
+          link={{ href: `${baseUrl}/${user.login}`, text: `@${user.login}` }}
+        />
+        {user.roles &&
+          user.roles.length &&
+          user.roles.map(role => (
+            <StyledRole
+              key={role}
+              round="xxsmall"
+              background={
+                user.role === 'owner'
+                  ? theme.global.colors['neutral-4']
+                  : theme.global.colors.brand
+              }
+            >
+              {role}
+            </StyledRole>
+          ))}
       </Box>
     </StyledTeamMember>
   )
