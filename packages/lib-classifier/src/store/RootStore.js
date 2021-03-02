@@ -9,6 +9,7 @@ import {
   setLivelynessChecking
 } from 'mobx-state-tree'
 
+import AnnotatedSteps from './AnnotatedSteps'
 import ClassificationStore from './ClassificationStore'
 import FeedbackStore from './FeedbackStore'
 import FieldGuideStore from './FieldGuideStore'
@@ -23,6 +24,7 @@ import UserProjectPreferencesStore from './UserProjectPreferencesStore'
 
 const RootStore = types
   .model('RootStore', {
+    annotatedSteps: types.optional(AnnotatedSteps, () => AnnotatedSteps.create({})),
     classifications: types.optional(ClassificationStore, () => ClassificationStore.create({})),
     feedback: types.optional(FeedbackStore, () => FeedbackStore.create({})),
     fieldGuide: types.optional(FieldGuideStore, () => FieldGuideStore.create({})),
@@ -46,11 +48,12 @@ const RootStore = types
   .actions(self => {
     // Private methods
     function onSubjectAdvance () {
-      const { classifications, feedback, projects, subjects, workflows, workflowSteps } = self
+      const { annotatedSteps, classifications, feedback, projects, subjects, workflows, workflowSteps } = self
       const subject = tryReference(() => subjects?.active)
       const workflow = tryReference(() => workflows?.active)
       const project = tryReference(() => projects?.active)
       if (subject && workflow && project) {
+        annotatedSteps.reset()
         workflowSteps.resetSteps()
         classifications.reset()
         classifications.createClassification(subject, workflow, project)

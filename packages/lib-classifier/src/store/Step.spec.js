@@ -122,20 +122,6 @@ describe('Model > Step', function () {
     })
   })
 
-  describe('with a previous step', function () {
-    it('should have isThereAPreviousStep return true', function () {
-      const step = Step.create({ stepKey: 'S2', taskKeys: ['T1', 'T2'], previous: 'S1' })
-      expect(step.isThereAPreviousStep).to.be.true()
-    })
-  })
-
-  describe('without a previous step', function () {
-    it('should have isThereAPreviousStep return false', function () {
-      const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], next: 'S2' })
-      expect(step.isThereAPreviousStep).to.be.false()
-    })
-  })
-
   describe('with a single choice branching task, two unique next steps', function () {
     let tasks
     before(function () {

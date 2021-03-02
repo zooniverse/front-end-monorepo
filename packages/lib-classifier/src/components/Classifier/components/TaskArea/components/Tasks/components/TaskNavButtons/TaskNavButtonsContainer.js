@@ -1,25 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer, PropTypes as MobXPropTypes } from 'mobx-react'
+import { MobXProviderContext, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import TaskNavButtons from './TaskNavButtons'
 
-function storeMapper (stores) {
+function storeMapper ({ classifierStore }) {
+  const {
+    annotatedSteps,
+    classifications,
+    workflowSteps
+  } = classifierStore
   const {
     active: step,
     activeStepTasks: tasks,
-    getPreviousStepKey,
     selectStep
-  } = stores.classifierStore.workflowSteps
+  } = workflowSteps
   const {
     active: classification,
     completeClassification,
     removeAnnotation
-  } = stores.classifierStore.classifications
+  } = classifications
 
   return {
+    annotatedSteps,
     classification,
     completeClassification,
-    getPreviousStepKey,
     removeAnnotation,
     selectStep,
     step,
@@ -27,11 +31,17 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
 class TaskNavButtonsContainer extends React.Component {
+  constructor() {
+    super()
+    this.goToNextStep = this.goToNextStep.bind(this)
+    this.goToPreviousStep = this.goToPreviousStep.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
+  }
+
   completeStepTasks () {
-    const { classification, tasks } = this.props
+    const { classifierStore } = this.props.store ?? this.context
+    const { classification, tasks } = storeMapper({ classifierStore })
     if (classification) {
       tasks.forEach((task) => {
         task.complete()
@@ -40,63 +50,87 @@ class TaskNavButtonsContainer extends React.Component {
   }
 
   goToPreviousStep () {
+    const { classifierStore } = this.props.store ?? this.context
     const {
-      getPreviousStepKey,
+      annotatedSteps,
       removeAnnotation,
       selectStep,
       step
-    } = this.props
-
-    if (step.isThereAPreviousStep) {
-      const previousStep = getPreviousStepKey()
+    } = storeMapper({ classifierStore })
+    if (annotatedSteps.canUndo) {
+      const previousStep = annotatedSteps.latest.step
       step.taskKeys.forEach((taskKey) => {
         removeAnnotation(taskKey)
       })
-      selectStep(previousStep)
+      selectStep(previousStep.stepKey)
+      annotatedSteps.back()
     }
   }
 
   goToNextStep () {
-    const { selectStep } = this.props
+    const { classifierStore } = this.props.store ?? this.context
+    const {
+      annotatedSteps,
+      classification,
+      selectStep,
+      step,
+      tasks
+    } = storeMapper({ classifierStore })
     this.completeStepTasks()
+    const annotations = tasks.map(task => classification.annotation(task))
+    annotatedSteps.next({
+      step,
+      annotations
+    })
     selectStep()
   }
 
   onSubmit (event) {
     event.preventDefault()
-    const { completeClassification } = this.props
+    const { classifierStore } = this.props.store ?? this.context
+    const { completeClassification } = storeMapper({ classifierStore })
     this.completeStepTasks()
     return completeClassification()
   }
 
   render () {
-    const { disabled, step } = this.props
+    const {
+      goToNextStep,
+      goToPreviousStep,
+      onSubmit
+    } = this
+    const { disabled } = this.props
+    const { classifierStore } = this.props.store ?? this.context
+    const { annotatedSteps, step } = storeMapper({ classifierStore })
+    const { canUndo } = annotatedSteps
+    const { isThereANextStep }= step
 
     return (
       <TaskNavButtons
         disabled={disabled}
-        goToNextStep={this.goToNextStep.bind(this)}
-        goToPreviousStep={this.goToPreviousStep.bind(this)}
-        showBackButton={step.isThereAPreviousStep}
-        showNextButton={step.isThereANextStep}
-        onSubmit={this.onSubmit.bind(this)}
+        goToNextStep={goToNextStep}
+        goToPreviousStep={goToPreviousStep}
+        showBackButton={canUndo}
+        showNextButton={isThereANextStep}
+        onSubmit={onSubmit}
       />
     )
   }
 }
 
-TaskNavButtonsContainer.wrappedComponent.defaultProps = {
+TaskNavButtonsContainer.contextType = MobXProviderContext
+
+TaskNavButtonsContainer.defaultProps = {
   completeClassification: () => {},
   disabled: false,
   selectStep: () => {},
   step: {
-    isThereANextStep: false,
-    isThereAPreviousStep: false
+    isThereANextStep: false
   },
   tasks: []
 }
 
-TaskNavButtonsContainer.wrappedComponent.propTypes = {
+TaskNavButtonsContainer.propTypes = {
   classification: PropTypes.shape({
     annotations: MobXPropTypes.observableMap
   }),
@@ -104,10 +138,10 @@ TaskNavButtonsContainer.wrappedComponent.propTypes = {
   disabled: PropTypes.bool,
   selectStep: PropTypes.func,
   step: PropTypes.shape({
-    isThereANextStep: PropTypes.bool,
-    isThereAPreviousStep: PropTypes.bool
+    isThereANextStep: PropTypes.bool
   }),
   tasks: PropTypes.arrayOf(PropTypes.object)
 }
 
-export default TaskNavButtonsContainer
+export default observer(TaskNavButtonsContainer)
+export { TaskNavButtonsContainer }
