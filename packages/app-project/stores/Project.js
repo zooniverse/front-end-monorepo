@@ -1,6 +1,5 @@
-import { get } from 'lodash'
 import asyncStates from '@zooniverse/async-states'
-import { flow, getRoot, types } from 'mobx-state-tree'
+import { getRoot, types } from 'mobx-state-tree'
 
 import numberString from './types/numberString'
 
@@ -60,68 +59,5 @@ const Project = types
       return !self.launch_approved && self.beta_approved
     }
   }))
-
-  .actions(self => {
-    let client
-
-    return {
-      afterAttach () {
-        client = getRoot(self).client.projects
-      },
-
-      fetch: flow(function * fetch (slug, params) {
-        self.loadingState = asyncStates.loading
-        try {
-          const query = { ...params, slug }
-          const response = yield client.getWithLinkedResources({ query })
-          const project = response.body.projects[0]
-          if (!project) throw new Error(`${slug} could not be found`)
-
-          const linked = response.body.linked
-
-          self.avatar = get(linked, 'avatars[0]', {})
-          self.background = get(linked, 'backgrounds[0]', {})
-          self.owners = get(linked, 'owners', [])
-          self.about_pages = get(linked, 'project_pages', [])
-
-          const properties = [
-            'beta_approved',
-            'beta_requested',
-            'classifications_count',
-            'classifiers_count',
-            'completeness',
-            'configuration',
-            'description',
-            'display_name',
-            'experimental_tools',
-            'id',
-            'introduction',
-            'launch_approved',
-            'links',
-            'live',
-            'researcher_quote',
-            'retired_subjects_count',
-            'slug',
-            'subjects_count',
-            'urls',
-            'workflow_description'
-          ]
-          properties.forEach(property => {
-            try {
-              self[property] = project[property]
-            } catch (error) {
-              console.error(`project.${property} is invalid`, error)
-            }
-          })
-
-          self.loadingState = asyncStates.success
-        } catch (error) {
-          console.error('Error loading project:', error)
-          self.error = error
-          self.loadingState = asyncStates.error
-        }
-      })
-    }
-  })
 
 export default Project
