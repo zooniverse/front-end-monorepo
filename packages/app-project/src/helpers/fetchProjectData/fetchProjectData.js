@@ -42,7 +42,7 @@ export default async function fetchProjectData(slug, params) {
     ]
     properties.forEach(property => {
       try {
-        projectData[property] = project[property]
+        projectData[property] = project[property] ?? undefined
       } catch (error) {
         console.error(`project.${property} is invalid`, error)
       }
