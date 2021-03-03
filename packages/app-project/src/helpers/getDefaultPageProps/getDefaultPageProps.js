@@ -8,7 +8,7 @@ export default async function getDefaultPageProps({ params, query, req, res }) {
   const dismissedAnnouncementBanner = getCookie(req, 'dismissedAnnouncementBanner') || null
 
   const { props: staticProps } = await getStaticPageProps({ params, query })
-  const { project, isServer, statusCode, title, workflowID, workflows } = staticProps
+  const { project, statusCode, title, workflowID, workflows } = staticProps
   if (statusCode) {
     res.statusCode = statusCode
     return {
