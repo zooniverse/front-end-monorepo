@@ -320,7 +320,7 @@ const task = {
     },
     'HMN': {
       'label': 'Human',
-      'images': ['human-1.jpg'],
+      'images': [],
       'confusions': {},
       'description': 'Probably a researcher. Or not. Who knows!',
       'noQuestions': false,

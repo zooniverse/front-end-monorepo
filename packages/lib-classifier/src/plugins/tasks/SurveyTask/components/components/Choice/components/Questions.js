@@ -3,17 +3,13 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { SpacedHeading } from '@zooniverse/react-components'
 
-import getQuestionIds from '../helpers/getQuestionIds'
-
 export default function Questions (props) {
   const {
     answers,
-    choiceId,
-    setAnswers,
-    task
+    questionIds,
+    questions,
+    setAnswers
   } = props
-
-  const questionIds = getQuestionIds(choiceId, task)
 
   function handleAnswer (value, questionId) {
     const newAnswers = Object.assign({}, answers)
@@ -27,7 +23,7 @@ export default function Questions (props) {
       flex='grow'
     >
       {questionIds.map(questionId => {
-        const question = task.questions?.[questionId] || { answers: {}, answersOrder: [] }
+        const question = questions[questionId] || { answers: {}, answersOrder: [] }
         const inputType = question.multiple ? 'checkbox' : 'radio'
         const labels = question.answersOrder.map(answerId => ({
           label: question.answers[answerId].label,
@@ -65,18 +61,16 @@ export default function Questions (props) {
 
 Questions.defaultProps = {
   answers: {},
-  choiceId: '',
+  questionIds: [],
+  questions: {},
   setAnswers: () => {}
 }
 
 Questions.propTypes = {
   answers: PropTypes.object,
-  choiceId: PropTypes.string,
-  setAnswers: PropTypes.func,
-  task: PropTypes.shape({
-    help: PropTypes.string,
-    required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    taskKey: PropTypes.string,
-    type: PropTypes.string
-  }).isRequired
+  questionIds: PropTypes.arrayOf(
+    PropTypes.string
+  ),
+  questions: PropTypes.object,
+  setAnswers: PropTypes.func
 }

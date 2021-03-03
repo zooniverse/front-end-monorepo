@@ -5,6 +5,7 @@ import { PrimaryButton, Media } from '@zooniverse/react-components'
 
 import Questions from './components/Questions'
 import checkFilledIn from './helpers/checkFilledIn'
+import getQuestionIds from './helpers/getQuestionIds'
 
 export default function Choice (props) {
   const {
@@ -12,10 +13,17 @@ export default function Choice (props) {
     onCancel,
     task
   } = props
+  const {
+    choices,
+    images,
+    questions
+  } = task
+  
   const [ answers, setAnswers ] = useState({})
   console.log('answers', answers)
 
-  const choice = task.choices?.[choiceId]
+  const choice = choices?.[choiceId]
+  const questionIds = getQuestionIds(choiceId, task)
   const allowIdentify = checkFilledIn(answers, choiceId, task)
 
   return (
@@ -30,19 +38,22 @@ export default function Choice (props) {
           {choice.images.map(filename => (
             <Media
               key={filename}
-              src={task.images[filename]}
+              src={images[filename]}
             />
           ))}
         </Carousel>
       )}
       <Heading>{choice.label}</Heading>
       <Paragraph>{choice.description}</Paragraph>
-      <Questions
-        answers={answers}
-        choiceId={choiceId}
-        setAnswers={setAnswers}
-        task={task}
-      />
+      {questionIds.length > 0 && (
+        <Questions
+          answers={answers}
+          choiceId={choiceId}
+          questionIds={questionIds}
+          questions={questions}
+          setAnswers={setAnswers}
+        />
+      )}
       <Box
         border={{
           color: 'light-5',
