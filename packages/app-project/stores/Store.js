@@ -1,5 +1,5 @@
 import { addMiddleware, getEnv, types } from 'mobx-state-tree'
-import { logNodeError } from '../src/helpers/logger'
+import { logToSentry } from '../src/helpers/logger'
 
 import Collections from './Collections'
 import Project from './Project'
@@ -31,7 +31,7 @@ const Store = types
           next(call)
         } catch (error) {
           console.error('Project App MST error:', error)
-          logNodeError(error)
+          logToSentry(error)
         }
       })
     },

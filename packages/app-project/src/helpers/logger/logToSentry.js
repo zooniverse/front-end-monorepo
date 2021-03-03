@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/node'
 
-export default function logReactError (error, errorInfo = {}) {
+export default function logToSentry(error, errorInfo = {}) {
   const dsn = process.env.SENTRY_PROJECT_DSN
 
   if (dsn) {
