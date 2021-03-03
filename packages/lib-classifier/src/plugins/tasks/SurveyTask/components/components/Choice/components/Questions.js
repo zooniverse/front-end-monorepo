@@ -29,7 +29,7 @@ export default function Questions (props) {
       flex='grow'
     >
       {questionIds.map(questionId => {
-        const question = task.questions?.[questionId] || { answers: {}, answersOrder: [] }
+        const question = questions[questionId] || { answers: {}, answersOrder: [] }
         const inputType = question.multiple ? 'checkbox' : 'radio'
         const labels = question.answersOrder.map(answerId => ({
           label: question.answers[answerId].label,
