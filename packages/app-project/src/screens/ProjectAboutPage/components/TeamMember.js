@@ -47,10 +47,11 @@ const StyledUsername = styled(NavLink)`
 `
 
 const StyledRole = styled(Box)`
-  font-size: 10px;
+  font-size: 8px;
+  letter-spacing: 0.5px;
   display: flex;
   align-items: center;
-  width: 100px;
+  width: 90px;
   line-height: 1;
   padding: 5px 0;
   text-transform: uppercase;
