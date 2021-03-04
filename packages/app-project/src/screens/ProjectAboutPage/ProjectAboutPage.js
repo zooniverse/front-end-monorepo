@@ -4,10 +4,8 @@ import styled, { css, withTheme } from 'styled-components'
 import { withResponsiveContext } from '@zooniverse/react-components'
 
 /** Components */
-import Announcements from '@components/Announcements'
-import ProjectHeader from '@components/ProjectHeader'
-import ZooHeaderWrapper from '@components/ZooHeaderWrapper'
-import { ZooFooter, SpacedHeading } from '@zooniverse/react-components'
+import StandardLayout from '@shared/components/StandardLayout'
+import { SpacedHeading } from '@zooniverse/react-components'
 import AboutSidebar from './components/AboutSidebar'
 import AboutDropdownNav from './components/AboutDropdownNav'
 import TeamMember from './components/TeamMember'
@@ -61,10 +59,7 @@ function ProjectAboutPage({
   const isTeamPage = title.toLowerCase().includes('team')
 
   return (
-    <Box>
-      <ZooHeaderWrapper />
-      <ProjectHeader />
-      <Announcements />
+    <StandardLayout inBeta={inBeta}>
       {screenSize !== 'small' && (
         <FullHeightBox
           margin={{ left: 'large', right: 'large' }}
@@ -79,8 +74,6 @@ function ProjectAboutPage({
             </Box>
             <Box>
               <PageHeading
-                // level="2"
-                // size="large"
                 children={isTeamPage ? 'The Team' : title}
               />
               {isTeamPage ? (
@@ -125,8 +118,7 @@ function ProjectAboutPage({
           )}
         </Box>
       )}
-      <ZooFooter />
-    </Box>
+    </StandardLayout>
   )
 }
 
