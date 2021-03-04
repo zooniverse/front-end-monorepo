@@ -100,7 +100,7 @@ class TranscribedLines extends React.Component {
     const transcribedLines = lines.filter(line => !line.consensusReached)
 
     const fills = {
-      transcribed: 'drawing-purple',
+      transcribed: 'drawing-pink',
       complete: 'light-5'
     }
 

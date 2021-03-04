@@ -85,7 +85,10 @@ function setupStores () {
       active: { id: cuid() }
     },
     workflowSteps: {
-      activeStepTasks: [drawingTask]
+      activeInteractionTask: {},
+      activeStepTasks: [drawingTask],
+      findTasksByType: () => { return [] },
+      interactionTask: {}
     }
   }
 
