@@ -13,8 +13,8 @@ const Pre = styled.pre`
 `
 
 function ErrorMessage ({ error }) {
-  const { message, name, stack } = error
-  const errorString = stack || `${name}: ${message}`
+  const { message, name } = error
+  const errorString = `${name}: ${message}`
 
   return (
     <Box

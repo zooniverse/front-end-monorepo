@@ -7,6 +7,7 @@ describe('Helpers > getStaticPageProps', function () {
     id: '1',
     default_workflow: '1',
     primary_language: 'en',
+    researcher_quote: null,
     slug: 'test-owner/test-project',
     links: {
       active_workflows: ['1']
