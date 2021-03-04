@@ -27,7 +27,7 @@ const AboutNavLink = ({ router, link, theme }) => {
   const activeWeight = 'bold'
 
   const inActiveBg = theme.global.colors['white']
-  const activeBg = theme.global.colors['accent-2']
+  const activeBg = theme.global.colors['accent-2']  // lightTeal
 
   const [isCurrentPage, setCurrentPage] = useState(false)
 

@@ -91,7 +91,7 @@ const TeamMember = ({ user, theme, router }) => {
               background={
                 role === 'owner'
                   ? theme.global.colors['neutral-4']
-                  : theme.global.colors.brand
+                  : theme.global.colors['accent-2']
               }
             >
               {role}
