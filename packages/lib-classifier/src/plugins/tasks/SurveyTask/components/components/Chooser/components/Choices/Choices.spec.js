@@ -84,7 +84,7 @@ describe('Component > Choices', function () {
       const choiceButtons = wrapper.find(ChoiceButton)
       choiceButtons.forEach((choiceButton) => {
         const { choiceId } = choiceButton.props()
-        const imageSource = mockTask.images[mockTask.choices[choiceId].images[0]]
+        const imageSource = mockTask.images[mockTask.choices[choiceId].images[0]] || ''
         expect(choiceButton.props().src).to.equal(imageSource)
       })
     })
