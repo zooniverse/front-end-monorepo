@@ -17,10 +17,10 @@ export default async function getStaticPageProps({ params, query }) {
   if (params.owner && params.project) {
     const projectSlug = `${params.owner}/${params.project}`
     const project = await fetchProjectData(projectSlug, { env })
-    if (!project.id) {
+    applySnapshot(store.project, project)
+    if (!store.project.id) {
       return notFoundError(`Project ${params.owner}/${params.project} was not found`)
     }
-    applySnapshot(store.project, project)
   }
 
   // snapshots don't include computed values, so cache the default workflow ID.
