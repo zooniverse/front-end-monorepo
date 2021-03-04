@@ -83,7 +83,7 @@ class Banner extends Component {
 
         <Button
           aria-label={counterpart('Banner.whyAmISeeingThis')}
-          disabled={!show}
+          disabled={!tooltipText}
           label={<Label />}
           onClick={this.toggle}
           plain
@@ -118,7 +118,7 @@ Banner.propTypes = {
   tooltipText: oneOfType([
     array,
     string
-  ]).isRequired
+  ])
 }
 
 Banner.defaultProps = {

@@ -1,36 +1,125 @@
 import { shallow } from 'enzyme'
 import React from 'react'
+import sinon from 'sinon'
+
+import { SubjectFactory, SubjectSetFactory, WorkflowFactory } from '@test/factories'
+import RootStore from '@store'
+import stubPanoptesJs from '@test/stubPanoptesJs'
 
 import Banners from './Banners'
 import AlreadySeenBanner from './components/AlreadySeenBanner'
 import RetiredBanner from './components/RetiredBanner'
+import SubjectSetProgressBanner from './components/SubjectSetProgressBanner'
 import UserHasFinishedWorkflowBanner from './components/UserHasFinishedWorkflowBanner'
 import WorkflowIsFinishedBanner from './components/WorkflowIsFinishedBanner'
 
-let wrapper
-
 describe('Component > Banners', function () {
-  before(function () {
-    wrapper = shallow(<Banners />)
+  let wrapper
+
+  function buildMocks(subjectData, subjectSetData, workflowData) {
+    const subjectSnapshot = SubjectFactory.build(subjectData)
+    const subjectSetSnapshot = SubjectSetFactory.build(subjectSetData)
+    const workflowSnapshot = WorkflowFactory.build(workflowData)
+    const { panoptes } = stubPanoptesJs({
+      field_guides: [],
+      projects: [],
+      subjects: [subjectSnapshot],
+      subject_sets: [subjectSetSnapshot],
+      tutorials: [],
+      workflows: [workflowSnapshot]
+    })
+    const client = {
+      panoptes,
+      tutorials: {
+        get: sinon.stub().callsFake(() =>
+          Promise.resolve({ body: {
+            tutorials: []
+          }})
+        )
+      }
+    }
+    const store = RootStore.create({
+      subjects: {
+        active: subjectSnapshot.id,
+        resources: {
+          [subjectSnapshot.id]: subjectSnapshot
+        }
+      },
+      subjectSets: {
+        resources: {
+          [subjectSetSnapshot.id]: subjectSetSnapshot
+        }
+      },
+      workflows: {
+        active: workflowSnapshot.id,
+        resources: {
+          [workflowSnapshot.id]: workflowSnapshot
+        }
+      }
+    },{
+      authClient: {
+        checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null)),
+        checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null))
+      },
+      client
+    })
+    /*
+      Loading a workflow overwrites the subjects store.
+      This is a workaround.
+    */
+    store.subjects.setResources([subjectSnapshot])
+    store.subjects.setActive(subjectSnapshot.id)
+    return { classifierStore: store }
+  }
+
+  describe('default banners', function () {
+    before(function () {
+      const stores = buildMocks({})
+      wrapper = shallow(<Banners stores={stores} />)
+    })
+
+    it('should render without crashing', function () {
+      expect(wrapper).to.be.ok()
+    })
+
+    it('should render the `AlreadySeenBanner` component', function () {
+      expect(wrapper.find(AlreadySeenBanner)).to.have.lengthOf(1)
+    })
+
+    it('should render the `RetiredBanner` component', function () {
+      expect(wrapper.find(RetiredBanner)).to.have.lengthOf(1)
+    })
+
+    it('should render the `UserHasFinishedWorkflowBanner` component', function () {
+      expect(wrapper.find(UserHasFinishedWorkflowBanner)).to.have.lengthOf(1)
+    })
+
+    it('should render the `WorkflowIsFinishedBanner` component', function () {
+      expect(wrapper.find(WorkflowIsFinishedBanner)).to.have.lengthOf(1)
+    })
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
+  describe('with sequential subjects', function () {
+    before(function () {
+      const stores = buildMocks({
+        metadata: {
+          ['#priority']: 37
+        }
+      }, {
+        id: '1'
+      }, {
+        grouped: true,
+        subjectSet: '1'
+      })
+      wrapper = shallow(<Banners stores={stores} />)
+    })
 
-  it('should render the `AlreadySeenBanner` component', function () {
-    expect(wrapper.find(AlreadySeenBanner)).to.have.lengthOf(1)
-  })
+    it('should render without crashing', function () {
+      expect(wrapper).to.be.ok()
+    })
 
-  it('should render the `RetiredBanner` component', function () {
-    expect(wrapper.find(RetiredBanner)).to.have.lengthOf(1)
-  })
-
-  it('should render the `UserHasFinishedWorkflowBanner` component', function () {
-    expect(wrapper.find(UserHasFinishedWorkflowBanner)).to.have.lengthOf(1)
-  })
-
-  it('should render the `WorkflowIsFinishedBanner` component', function () {
-    expect(wrapper.find(WorkflowIsFinishedBanner)).to.have.lengthOf(1)
+    it('should render the `SubjectSetProgressBanner` component', function () {
+      expect(wrapper.find(SubjectSetProgressBanner)).to.have.lengthOf(1)
+    })
   })
 })
