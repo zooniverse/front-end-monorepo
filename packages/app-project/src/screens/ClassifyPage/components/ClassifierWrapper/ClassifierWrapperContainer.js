@@ -68,7 +68,7 @@ class ClassifierWrapperContainer extends Component {
   }
 
   render () {
-    const { onAddToCollection, authClient, mode, project, subjectSetID, user, workflowID } = this.props
+    const { onAddToCollection, authClient, mode, project, subjectID, subjectSetID, user, workflowID } = this.props
     const somethingWentWrong = this.state.error || project.loadingState === asyncStates.error
 
     if (somethingWentWrong) {
@@ -99,6 +99,7 @@ class ClassifierWrapperContainer extends Component {
           onError={this.onError}
           onToggleFavourite={this.onToggleFavourite}
           project={project}
+          subjectID={subjectID}
           subjectSetID={subjectSetID}
           workflowID={workflowID}
         />
