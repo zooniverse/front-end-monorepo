@@ -1,6 +1,10 @@
 import getQuestionIds from './getQuestionIds'
 
-export default function checkFilledIn (answers, choiceId, task) {
+export default function checkFilledIn (
+  answers = {},
+  choiceId = '',
+  task = {}
+) {
   // if there are no questions, don't make them fill one in
   if (getQuestionIds(choiceId, task).length === 0) {
     return true
