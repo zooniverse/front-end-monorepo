@@ -5,7 +5,7 @@ import NavLink from '@shared/components/NavLink'
 import { withRouter } from 'next/router'
 
 const StyledTeamMember = styled(Box)`
-  margin-bottom: 14px;
+  margin-bottom: 30px;
   list-style: none;
   display: flex;
   flex-direction: row;

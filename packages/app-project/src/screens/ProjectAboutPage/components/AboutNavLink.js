@@ -21,7 +21,7 @@ const StyledAnchor = styled(Anchor)`
 const AboutNavLink = ({ router, link, theme }) => {
 
   const inActiveColor = theme.global.colors['dark-5']
-  const activeColor = theme.global.colors['brand']
+  const activeColor = theme.global.colors['neutral-2'] // darkTeal
 
   const inActiveWeight = 'normal'
   const activeWeight = 'bold'

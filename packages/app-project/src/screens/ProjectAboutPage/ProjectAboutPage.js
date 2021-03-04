@@ -29,6 +29,8 @@ const FullHeightBox = styled(Box)`
 
 const PageHeading = styled(Heading)`
   font-weight: normal;
+  font-size: 40px;
+  margin-bottom: 30px;
 `
 
 const SidebarHeading = styled(SpacedHeading)`
@@ -77,8 +79,8 @@ function ProjectAboutPage({
             </Box>
             <Box>
               <PageHeading
-                level="2"
-                size="large"
+                // level="2"
+                // size="large"
                 children={isTeamPage ? 'The Team' : title}
               />
               {isTeamPage ? (
