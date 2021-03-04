@@ -1,4 +1,7 @@
-export default function getQuestionIDs (choiceId, task) {
+export default function getQuestionIds (
+  choiceId = '',
+  task = {}
+) {
   if (task.choices[choiceId].noQuestions) {
     return []
   }
