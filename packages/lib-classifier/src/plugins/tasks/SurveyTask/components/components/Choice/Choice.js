@@ -7,6 +7,11 @@ import Questions from './components/Questions'
 import checkFilledIn from './helpers/checkFilledIn'
 import getQuestionIds from './helpers/getQuestionIds'
 
+import counterpart from 'counterpart'
+import en from './locales/en'
+
+counterpart.registerTranslations('en', en)
+
 export default function Choice (props) {
   const {
     choiceId,
@@ -69,13 +74,13 @@ export default function Choice (props) {
       >
         <Button
           fill='horizontal'
-          label='Not this'
+          label={counterpart('Choice.notThis')}
           onClick={() => onCancel()}
         />
         <PrimaryButton
           disabled={!allowIdentify}
           fill='horizontal'
-          label='Identify'
+          label={counterpart('Choice.identify')}
           onClick={() => onCancel()}
         />
       </Box>
