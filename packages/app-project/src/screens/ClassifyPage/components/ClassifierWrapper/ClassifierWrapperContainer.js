@@ -4,6 +4,7 @@ import auth from 'panoptes-client/lib/auth'
 import { func, shape } from 'prop-types'
 import React, { Component } from 'react'
 import asyncStates from '@zooniverse/async-states'
+import { logToSentry } from '@helpers/logger'
 import ErrorMessage from './components/ErrorMessage'
 
 function storeMapper (stores) {
@@ -29,6 +30,7 @@ class ClassifierWrapperContainer extends Component {
     super()
     this.onCompleteClassification = this.onCompleteClassification.bind(this)
     this.onToggleFavourite = this.onToggleFavourite.bind(this)
+    this.onError = this.onError.bind(this)
     this.state = {
       error: null
     }
@@ -49,6 +51,11 @@ class ClassifierWrapperContainer extends Component {
       subjectId: subject.id,
       locations: subject.locations
     })
+  }
+
+  onError(error, errorInfo={}) {
+    logToSentry(error, errorInfo)
+    this.setState({ error })
   }
 
   onToggleFavourite (subjectId, isFavourite) {
@@ -89,6 +96,7 @@ class ClassifierWrapperContainer extends Component {
           mode={mode}
           onAddToCollection={onAddToCollection}
           onCompleteClassification={this.onCompleteClassification}
+          onError={this.onError}
           onToggleFavourite={this.onToggleFavourite}
           project={project}
           subjectID={subjectID}

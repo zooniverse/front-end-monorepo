@@ -9,7 +9,7 @@ import AuthModal from '@components/AuthModal'
 import getCookie from '@helpers/getCookie'
 import GrommetWrapper from '@helpers/GrommetWrapper'
 import Head from '@components/Head'
-import { initializeLogger, logReactError } from '@helpers/logger'
+import { initializeLogger, logToSentry } from '@helpers/logger'
 import { MediaContextProvider } from '@shared/components/Media'
 import initStore from '@stores'
 
@@ -69,7 +69,7 @@ export default function MyApp({ Component, pageProps }) {
       </>
     )
   } catch (error) {
-    logReactError(error)
+    logToSentry(error)
     return <Error statusCode={500} title={error.message} />
   }
 }
