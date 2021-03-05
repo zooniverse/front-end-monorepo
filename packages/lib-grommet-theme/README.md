@@ -49,8 +49,8 @@ class MyComponent extends React.Component {
 | `drawing-green` | `#06FE76` | ![](https://via.placeholder.com/80x30.png/06FE76?text=+) |
 | `drawing-aqua` | `#0CFFE0` | ![](https://via.placeholder.com/80x30.png/0CFFE0?text=+) |
 | `drawing-blue` | `#235DFF` | ![](https://via.placeholder.com/80x30.png/235DFF?text=+) |
-| `drawing-purple` | `#FF40FF` | ![](https://via.placeholder.com/80x30.png/FF40FF?text=+) |
-| `drawing-pink` | `#FF2B70` | ![](https://via.placeholder.com/80x30.png/FF2B70?text=+) |
+| `drawing-pink` | `#FF40FF` | ![](https://via.placeholder.com/80x30.png/FF40FF?text=+) |
+| `drawing-ruby` | `#FF2B70` | ![](https://via.placeholder.com/80x30.png/FF2B70?text=+) |
 | `highlighter-red` | `#E65252` | ![](https://via.placeholder.com/80x30.png/E65252?text=+) |
 | `highlighter-orange` | `#F1AE4D` | ![](https://via.placeholder.com/80x30.png/F1AE4D?text=+) |
 | `highlighter-yellow` | `#FCED54` | ![](https://via.placeholder.com/80x30.png/FCED54?text=+) |
