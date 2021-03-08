@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
 
-import Step from '@store/Step'
+import Step from '@store/WorkflowStepStore/Step'
 import { annotationModels } from '@plugins/tasks'
 
 const TaskAnnotation = types.union(...annotationModels)

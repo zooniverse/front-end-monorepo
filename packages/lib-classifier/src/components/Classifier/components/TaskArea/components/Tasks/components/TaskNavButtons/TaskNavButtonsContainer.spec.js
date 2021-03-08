@@ -7,7 +7,7 @@ import sinon from 'sinon'
 import TaskNavButtonsContainer from './TaskNavButtonsContainer'
 
 import RootStore from '@store'
-import Step from '@store/Step'
+import Step from '@store/WorkflowStepStore/Step'
 import { SubjectFactory, WorkflowFactory, ProjectFactory } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 
