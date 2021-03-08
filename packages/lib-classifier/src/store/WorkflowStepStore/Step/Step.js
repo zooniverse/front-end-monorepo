@@ -17,7 +17,6 @@ const GenericTask = types.union({ dispatcher: taskDispatcher }, ...taskModels)
 const Step = types
   .model('Step', {
     next: types.maybe(types.string),
-    previous: types.maybe(types.string),
     stepKey: types.identifier,
     taskKeys: types.array(types.string),
     tasks: types.array(GenericTask)
@@ -49,14 +48,10 @@ const Step = types
       self.tasks.forEach(task => task.reset())
       if (self.isThereBranching) {
         self.setNext(undefined)
-        self.setPrevious(undefined)
       }
     },
     setNext (nextStepKey) {
       self.next = nextStepKey
-    },
-    setPrevious (previousStepKey) {
-      self.previous = previousStepKey
     }
   }))
 
