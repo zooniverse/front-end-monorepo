@@ -11,10 +11,6 @@ import {
   tutorials as tutorialsClient
 } from '@zooniverse/panoptes-js'
 
-// Pointer event API polyfill just for Safari 12
-// Can likely be removed Sept 2020
-import 'pepjs'
-
 import { unregisterWorkers } from '../../workers'
 import RootStore from '../../store'
 import Layout from './components/Layout'
@@ -57,6 +53,11 @@ export default class Classifier extends React.Component {
       client
     })
     makeInspectable(this.classifierStore)
+  }
+
+  componentDidCatch(error, info) {
+    info.package = '@zooniverse/classifier'
+    this.props.onError(error, info);
   }
 
   componentDidMount () {
@@ -118,6 +119,7 @@ Classifier.defaultProps = {
   mode: 'light',
   onAddToCollection: () => true,
   onCompleteClassification: () => true,
+  onError: () => true,
   onToggleFavourite: () => true,
   theme: zooTheme
 }
@@ -127,6 +129,7 @@ Classifier.propTypes = {
   mode: PropTypes.string,
   onAddToCollection: PropTypes.func,
   onCompleteClassification: PropTypes.func,
+  onError: PropTypes.func,
   onToggleFavourite: PropTypes.func,
   project: PropTypes.shape({
     id: PropTypes.string.isRequired

@@ -19,8 +19,14 @@ const ClassifierWrapper = dynamic(() =>
   import('./components/ClassifierWrapper'), { ssr: false }
 )
 
-function ClassifyPage (props) {
-  const { addToCollection, screenSize, subjectSetID, workflowID, workflows } = props
+function ClassifyPage ({
+  addToCollection,
+  screenSize,
+  subjectID,
+  subjectSetID,
+  workflowID,
+  workflows = []
+}) {
   const responsiveColumns = (screenSize === 'small')
     ? ['auto']
     : ['1em', 'auto', '1em']
@@ -47,6 +53,7 @@ function ClassifyPage (props) {
             <ProjectName />
             <ClassifierWrapper
               onAddToCollection={addToCollection}
+              subjectID={subjectID}
               subjectSetID={subjectSetID}
               workflowID={workflowID}
             />
@@ -75,13 +82,10 @@ function ClassifyPage (props) {
   )
 }
 
-ClassifyPage.defaultProps = {
-  workflows: []
-}
-
 ClassifyPage.propTypes = {
   addToCollection: func,
   screenSize: string,
+  subjectID: string,
   subjectSetID: string,
   workflowID: string,
   workflows: arrayOf(shape({

@@ -10,8 +10,9 @@ import theme from './theme'
 counterpart.registerTranslations('en', en)
 
 export const StyledBackButtonWrapper = styled.div`
+  margin-right: 1ch;
   position: relative;
-  flex: 1 0;
+  flex: 0 0 33%;
 `
 
 // Firefox returns CSS.supports('width', 'max-content') as false

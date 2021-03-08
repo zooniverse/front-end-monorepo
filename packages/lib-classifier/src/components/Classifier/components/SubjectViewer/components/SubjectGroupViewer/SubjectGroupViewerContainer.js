@@ -21,8 +21,10 @@ const DEFAULT_CELL_STYLE = {
   stroke: '#fff',
   strokeWidth: '1',
   overlay: 'rgba(41,103,255,0.3)',
-  highlight: '#2967FF',
-  highlightWidth: '4',
+  selectedStroke: '#2967FF',
+  selectedStrokeWidth: '8',
+  focusStroke: '#06FE76',
+  focusStrokeWidth: '4',
   background: '#000'
 }
 const DEFAULT_GRID_COLUMNS = 3
@@ -204,8 +206,8 @@ class SubjectGroupViewerContainer extends React.Component {
   doZoom (type) {
     const { zoom } = this.state
     
-    const ARBITRARY_MIN_ZOOM = 0.5
-    const ARBITRARY_MAX_ZOOM = 2
+    const ARBITRARY_MIN_ZOOM = 1
+    const ARBITRARY_MAX_ZOOM = 4
     
     switch (type) {
       case 'zoomin':

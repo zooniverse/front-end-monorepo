@@ -43,7 +43,6 @@ class ZoomInButtonContainer extends React.Component {
     const { zoomIn } = this.props
     return (
       <span
-        touch-action='none'
         onPointerDown={this.onPointerDown}
         onPointerUp={this.onPointerUp}
       >
