@@ -304,13 +304,6 @@ describe('Model > Step', function () {
         ]
       })
 
-      it('should reset previous to undefined', function () {
-        step = Step.create({ stepKey: 'S2', taskKeys: ['T2'], tasks, previous: 'S1' })
-        expect(step.previous).to.equal('S1')
-        step.reset()
-        expect(step.previous).to.equal(undefined)
-      })
-
       it('should reset next to undefined', function () {
         step = Step.create({ stepKey: 'S2', taskKeys: ['T2'], tasks, next: 'S3' })
         expect(step.next).to.equal('S3')
@@ -330,13 +323,6 @@ describe('Model > Step', function () {
             ]
           }))
         ]
-      })
-
-      it('should not reset previous to undefined', function () {
-        step = Step.create({ stepKey: 'S2', taskKeys: ['T2'], tasks, previous: 'S1' })
-        expect(step.previous).to.equal('S1')
-        step.reset()
-        expect(step.previous).to.equal('S1')
       })
 
       it('should not reset next to undefined', function () {
