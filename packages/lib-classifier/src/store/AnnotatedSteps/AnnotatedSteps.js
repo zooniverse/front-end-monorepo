@@ -6,16 +6,15 @@ import AnnotatedStep from './AnnotatedStep'
 
 let undoManager = {}
 function setUndoManager(targetStore) {
-    undoManager = targetStore.history
+    undoManager = UndoManager.create({}, { targetStore })
 }
 
 const AnnotatedSteps = types.model('AnnotatedSteps', {
-  steps: types.map(AnnotatedStep),
-  history: types.optional(UndoManager, {})
+  steps: types.map(AnnotatedStep)
 })
 .views(self => ({
   get canUndo() {
-    return self.history.canUndo
+    return undoManager.canUndo
   },
 
   get latest() {
@@ -28,9 +27,8 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   setUndoManager(self)
 
   function back() {
-    const { history } = self
-    if (history.canUndo) {
-      history.undo()
+    if (undoManager.canUndo) {
+      undoManager.undo()
     }
   }
 
@@ -45,19 +43,17 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   }
 
   function next({ step, annotations }) {
-    const { history } = self
-    if (history.canRedo) {
-      history.redo()
+    if (undoManager.canRedo) {
+      undoManager.redo()
     } else {
       createStep({ step, annotations })
     }
   }
 
   function reset() {
-    const { history, steps } = self
-    history.withoutUndo(() => {
-      steps.clear()
-      history.clear()
+    undoManager.withoutUndo(() => {
+      self.steps.clear()
+      undoManager.clear()
     })
   }
 
