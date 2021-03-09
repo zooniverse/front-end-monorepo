@@ -39,16 +39,6 @@ const AnnotationsStore = types
       return annotation
     }
 
-    function removeAnnotation (taskKey) {
-      let taskAnnotation
-      self.annotations.forEach(annotation => {
-        if (annotation.task === taskKey) {
-          taskAnnotation = annotation
-        }
-      })
-      taskAnnotation && self.annotations.delete(taskAnnotation.id)
-    }
-
     function reset () {
       self.annotations.clear()
     }
@@ -57,7 +47,6 @@ const AnnotationsStore = types
       addAnnotation,
       createAnnotation,
       beforeDestroy,
-      removeAnnotation,
       reset
     }
   })
