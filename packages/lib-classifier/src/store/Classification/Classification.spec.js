@@ -1,12 +1,103 @@
+import { Factory } from 'rosie'
+import sinon from 'sinon'
+
 import taskRegistry from '@plugins/tasks'
 import TranscriptionLine from '@plugins/drawingTools/experimental/models/marks/TranscriptionLine'
 import Point from '@plugins/drawingTools/models/marks/Point'
 import Line from '@plugins/drawingTools/models/marks/Line'
 
+import RootStore from '@store'
 import Classification, { ClassificationMetadata } from './'
+import { SubjectFactory, WorkflowFactory, ProjectFactory } from '@test/factories'
+import stubPanoptesJs from '@test/stubPanoptesJs'
 
 describe('Model > Classification', function () {
   let model
+
+  function setupMocks () {
+    const singleChoiceTask = {
+      answers: [{ label: 'yes', next: 'T1' }, { label: 'no' }],
+      question: 'Is there a cat?',
+      required: '',
+      taskKey: 'T0',
+      type: 'single'
+    }
+    const textTask = {
+      instruction: 'type something',
+      taskKey: 'T0',
+      type: 'text'
+    }
+    const workflowSnapshot = WorkflowFactory.build({
+      id: 'tasksWorkflow',
+      display_name: 'A test workflow',
+      first_task: 'T0',
+      tasks: {
+        T0: singleChoiceTask,
+        T1: textTask
+      },
+      version: '0.0'
+    })
+    const subjectSnapshot = SubjectFactory.build({
+      id: 'subject',
+      metadata: {}
+    })
+    const projectSnapshot = ProjectFactory.build({
+      id: 'project'
+    })
+    const { panoptes } = stubPanoptesJs({
+      field_guides: [],
+      projects: [projectSnapshot],
+      subjects: Factory.buildList('subject', 10),
+      tutorials: [],
+      workflows: [workflowSnapshot]
+    })
+    const client = {
+      caesar: { request: sinon.stub().callsFake(() => Promise.resolve({})) },
+      panoptes,
+      tutorials: {
+        get: sinon.stub().callsFake(() =>
+          Promise.resolve({ body: {
+            tutorials: []
+          }})
+        )
+      }
+    }
+    const rootStore = RootStore.create({
+      projects: {
+        active: projectSnapshot.id,
+        resources: {
+          [projectSnapshot.id]: projectSnapshot
+        }
+      },
+      subjects: {
+        active: subjectSnapshot.id,
+        resources: {
+          [subjectSnapshot.id]: subjectSnapshot
+        }
+      },
+      workflows: {
+        active: workflowSnapshot.id,
+        resources: {
+          [workflowSnapshot.id]: workflowSnapshot
+        }
+      }
+    }, {
+      authClient: {
+        checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null)),
+        checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null))
+      },
+      client
+    })
+    rootStore.workflows.setResources([workflowSnapshot])
+    rootStore.workflows.setActive(workflowSnapshot.id)
+    rootStore.subjects.setResources([subjectSnapshot])
+    rootStore.subjects.advance()
+    // set an answer to the branching task question, so that step.next is set.
+    const classification = rootStore.classifications.active
+    const singleChoiceAnnotation = classification.annotation(singleChoiceTask)
+    singleChoiceAnnotation.update(0)
+    return rootStore
+  }
 
   before(function () {
     model = Classification.create({
@@ -72,23 +163,17 @@ describe('Model > Classification', function () {
     let secondAnnotation
 
     before(function () {
-      const singleChoiceTask = taskRegistry.get('single')
-      const textTask = taskRegistry.get('text')
-      const singleChoice = singleChoiceTask.TaskModel.create({
-        question: 'yes or no?',
-        answers: [ 'yes', 'no'],
-        taskKey: 'T1',
-        type: 'single'
-      })
-      const text = textTask.TaskModel.create({
-        instruction: 'type something',
-        taskKey: 'T0',
-        type: 'text'
-      })
+      const store = setupMocks()
+      const classification = store.classifications.active
       // lets update a couple of mock annotations
-      firstAnnotation = model.addAnnotation(singleChoice, 0)
-      secondAnnotation = model.addAnnotation(text, 'This is a text task')
-      snapshot = model.toSnapshot()
+      let { annotations } = store.annotatedSteps.latest
+      firstAnnotation = annotations[0]
+      firstAnnotation.update(0)
+      store.annotatedSteps.next()
+      annotations = store.annotatedSteps.latest.annotations
+      secondAnnotation = annotations[0]
+      secondAnnotation.update('This is a text task.')
+      snapshot = classification.toSnapshot()
     })
 
     it('should not have an ID', function () {

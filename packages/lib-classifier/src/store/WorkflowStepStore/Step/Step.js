@@ -22,12 +22,13 @@ const Step = types
     tasks: types.array(GenericTask)
   })
   .views(self => ({
-    get isComplete () {
-      return self.tasks.reduce((isStepComplete, task) => isStepComplete && task.isComplete, true)
-    },
-
-    get isThereANextStep () {
-      return !!self.next && self.next !== 'summary'
+    isComplete(annotations=[]) {
+      let isIncomplete = false
+      self.tasks.forEach(task => {
+        const [annotation] = annotations.filter(annotation => annotation.task === task.taskKey)
+        isIncomplete = task.required && !annotation?.isComplete
+      })
+      return !isIncomplete
     },
 
     get isThereBranching () {
@@ -46,9 +47,6 @@ const Step = types
   .actions(self => ({
     reset () {
       self.tasks.forEach(task => task.reset())
-      if (self.isThereBranching) {
-        self.setNext(undefined)
-      }
     },
     setNext (nextStepKey) {
       self.next = nextStepKey

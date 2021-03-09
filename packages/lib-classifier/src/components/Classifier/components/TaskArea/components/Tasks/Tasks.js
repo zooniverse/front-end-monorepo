@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { Box, Paragraph } from 'grommet'
-import { inject, observer } from 'mobx-react'
+import { MobXProviderContext, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -12,18 +12,28 @@ import counterpart from 'counterpart'
 
 counterpart.registerTranslations('en', en)
 
-function storeMapper (stores) {
-  const { active: classification, demoMode } = stores.classifierStore.classifications
-  const { loadingState } = stores.classifierStore.workflows
-  const { active: step, isThereTaskHelp } = stores.classifierStore.workflowSteps
-  const { loadingState: subjectReadyState } = stores.classifierStore.subjectViewer
+function storeMapper({ classifierStore }) {
+  const {
+    annotatedSteps,
+    classifications,
+    subjectViewer,
+    workflows,
+    workflowSteps
+  } = classifierStore
+  const { active: classification, demoMode } = classifications
+  const { loadingState } = workflows
+  const { active: step, isThereTaskHelp } = workflowSteps
+  const { loadingState: subjectReadyState } = subjectViewer
+  const isComplete = annotatedSteps.latest?.isComplete
+
   return {
     classification,
     demoMode,
+    isComplete,
     isThereTaskHelp,
     loadingState,
     step,
-    subjectReadyState,
+    subjectReadyState
   }
 }
 
@@ -42,13 +52,15 @@ class Tasks extends React.Component {
   }
 
   [asyncStates.success] () {
-    const { 
+    const { classifierStore } = this.context
+    const {
       classification,
       demoMode,
+      isComplete,
       isThereTaskHelp,
       subjectReadyState,
       step
-    } = this.props
+    } = classifierStore ? storeMapper({ classifierStore }) : this.props
     const ready = subjectReadyState === asyncStates.success
     if (classification && step.tasks.length > 0) {
       // setting the wrapping box of the task component to a basis of 246px feels hacky,
@@ -72,7 +84,7 @@ class Tasks extends React.Component {
             />
           ))}
           {isThereTaskHelp && <TaskHelp tasks={step.tasks} />}
-          <TaskNavButtons disabled={!ready || !step.isComplete} />
+          <TaskNavButtons disabled={!ready || !isComplete} />
           {demoMode &&
             <Paragraph>
               {counterpart('Tasks.demoMode')}
@@ -85,13 +97,17 @@ class Tasks extends React.Component {
   }
 
   render () {
-    const { loadingState } = this.props
+    const { classifierStore } = this.context
+    const { loadingState } = classifierStore ? storeMapper({ classifierStore }) : this.props
     return this[loadingState]() || null
   }
 }
 
+Tasks.contextType = MobXProviderContext
+
 Tasks.propTypes = {
   demoMode: PropTypes.bool,
+  isComplete: PropTypes.bool,
   isThereTaskHelp: PropTypes.bool,
   loadingState: PropTypes.oneOf(asyncStates.values),
   ready: PropTypes.bool
@@ -99,14 +115,11 @@ Tasks.propTypes = {
 
 Tasks.defaultProps = {
   demoMode: false,
+  isComplete: false,
   isThereTaskHelp: false,
   loadingState: asyncStates.initialized,
   ready: false
 }
 
-@inject(storeMapper)
-@observer
-class DecoratedTasks extends Tasks {}
-
-export default DecoratedTasks
+export default observer(Tasks)
 export { Tasks }

@@ -32,7 +32,7 @@ describe('Model > Step', function () {
 
     it('should be complete', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      expect(step.isComplete).to.be.true()
+      expect(step.isComplete()).to.be.true()
     })
   })
 
@@ -47,11 +47,12 @@ describe('Model > Step', function () {
 
     it('should be incomplete', function () {
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      expect(step.isComplete).to.be.false()
+      expect(step.isComplete()).to.be.false()
     })
   })
 
   describe('with only required tasks', function () {
+    let annotations
     let multipleChoiceAnnotation
     let singleChoiceAnnotation
     let step
@@ -64,61 +65,25 @@ describe('Model > Step', function () {
       step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
       multipleChoiceAnnotation = tasks[0].defaultAnnotation()
       singleChoiceAnnotation = tasks[1].defaultAnnotation()
-      const store = types.model({
-        annotations: types.array(types.union(MultipleChoiceTask.AnnotationModel, SingleChoiceTask.AnnotationModel)),
-        step: Step
-      })
-        .create({
-          annotations: [
-            multipleChoiceAnnotation,
-            singleChoiceAnnotation
-          ],
-          step
-        })
-      tasks[0].setAnnotation(multipleChoiceAnnotation)
-      tasks[1].setAnnotation(singleChoiceAnnotation)
+      annotations = [multipleChoiceAnnotation, singleChoiceAnnotation]
     })
 
     it('should be incomplete', function () {
-      expect(step.isComplete).to.be.false()
+      expect(step.isComplete(annotations)).to.be.false()
     })
 
     describe('after annotating task T1', function () {
       it('should still be incomplete', function () {
         multipleChoiceAnnotation.update([1])
-        expect(step.isComplete).to.be.false()
-      })
-
-      it('should have one complete task', function () {
-        expect(tasks[0].isComplete).to.be.true()
-        expect(tasks[1].isComplete).to.be.false()
+        expect(step.isComplete(annotations)).to.be.false()
       })
     })
 
     describe('after annotating tasks T1 & T2', function () {
       it('should be complete', function () {
         singleChoiceAnnotation.update(1)
-        expect(step.isComplete).to.be.true()
+        expect(step.isComplete(annotations)).to.be.true()
       })
-
-      it('should have two complete tasks', function () {
-        expect(tasks[0].isComplete).to.be.true()
-        expect(tasks[1].isComplete).to.be.true()
-      })
-    })
-  })
-
-  describe('with a next step', function () {
-    it('should have isThereANextStep return true', function () {
-      const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], next: 'S2' })
-      expect(step.isThereANextStep).to.be.true()
-    })
-  })
-
-  describe('without a next step', function () {
-    it('should have isThereANextStep return false', function () {
-      const step = Step.create({ stepKey: 'S2', taskKeys: ['T1', 'T2'], previous: 'S1' })
-      expect(step.isThereANextStep).to.be.false()
     })
   })
 
@@ -292,44 +257,6 @@ describe('Model > Step', function () {
       step.reset()
       step.tasks.forEach(task => {
         expect(resetSpies[task.taskKey]).to.have.been.calledOnce()
-      })
-    })
-
-    describe('and branching', function () {
-      beforeEach(function () {
-        tasks = [
-          SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({
-            taskKey: 'T2'
-          }))
-        ]
-      })
-
-      it('should reset next to undefined', function () {
-        step = Step.create({ stepKey: 'S2', taskKeys: ['T2'], tasks, next: 'S3' })
-        expect(step.next).to.equal('S3')
-        step.reset()
-        expect(step.next).to.equal(undefined)
-      })
-    })
-
-    describe('and no branching', function () {
-      beforeEach(function () {
-        tasks = [
-          SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({
-            taskKey: 'T2',
-            answers: [
-              { label: 'Red', next: 'S3' },
-              { label: 'Blue', next: 'S3' }
-            ]
-          }))
-        ]
-      })
-
-      it('should not reset next to undefined', function () {
-        step = Step.create({ stepKey: 'S2', taskKeys: ['T2'], tasks, next: 'S3' })
-        expect(step.next).to.equal('S3')
-        step.reset()
-        expect(step.next).to.equal('S3')
       })
     })
   })

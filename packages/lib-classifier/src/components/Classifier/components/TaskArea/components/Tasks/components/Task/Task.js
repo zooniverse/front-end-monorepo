@@ -10,17 +10,21 @@ function useStores(task, stores) {
   const { classifierStore } = stores || useContext(MobXProviderContext)
 
   const {
-    classifications,
+    annotatedSteps,
     subjectViewer
   } = classifierStore
   const { loadingState: subjectReadyState } = subjectViewer
-  const classification = classifications.active
   const disabled = subjectReadyState !== asyncStates.success
 
-  let annotation = classification.annotation(task)
-  if (!annotation) {
-    annotation = classification.addAnnotation(task)
+  let annotation
+  const { annotations } = annotatedSteps.latest
+  if (annotations) {
+    ([ annotation ] = annotations.filter(annotation => annotation.task === task.taskKey))
   }
+  if (!annotation) {
+    console.log(`annotation missing for ${task.taskKey}`)
+  }
+
   return {
     annotation,
     disabled

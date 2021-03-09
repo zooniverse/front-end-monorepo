@@ -16,15 +16,13 @@ function storeMapper ({ classifierStore }) {
   } = workflowSteps
   const {
     active: classification,
-    completeClassification,
-    removeAnnotation
+    completeClassification
   } = classifications
 
   return {
     annotatedSteps,
     classification,
     completeClassification,
-    removeAnnotation,
     selectStep,
     step,
     tasks
@@ -52,17 +50,9 @@ class TaskNavButtonsContainer extends React.Component {
   goToPreviousStep () {
     const { classifierStore } = this.props.store ?? this.context
     const {
-      annotatedSteps,
-      removeAnnotation,
-      selectStep,
-      step
+      annotatedSteps
     } = storeMapper({ classifierStore })
     if (annotatedSteps.canUndo) {
-      const previousStep = annotatedSteps.latest.step
-      step.taskKeys.forEach((taskKey) => {
-        removeAnnotation(taskKey)
-      })
-      selectStep(previousStep.stepKey)
       annotatedSteps.back()
     }
   }
@@ -70,19 +60,10 @@ class TaskNavButtonsContainer extends React.Component {
   goToNextStep () {
     const { classifierStore } = this.props.store ?? this.context
     const {
-      annotatedSteps,
-      classification,
-      selectStep,
-      step,
-      tasks
+      annotatedSteps
     } = storeMapper({ classifierStore })
     this.completeStepTasks()
-    const annotations = tasks.map(task => classification.annotation(task))
-    annotatedSteps.next({
-      step,
-      annotations
-    })
-    selectStep()
+    annotatedSteps.next()
   }
 
   onSubmit (event) {
@@ -102,8 +83,7 @@ class TaskNavButtonsContainer extends React.Component {
     const { disabled } = this.props
     const { classifierStore } = this.props.store ?? this.context
     const { annotatedSteps, step } = storeMapper({ classifierStore })
-    const { canUndo } = annotatedSteps
-    const { isThereANextStep }= step
+    const { canUndo, latest } = annotatedSteps
 
     return (
       <TaskNavButtons
@@ -111,7 +91,7 @@ class TaskNavButtonsContainer extends React.Component {
         goToNextStep={goToNextStep}
         goToPreviousStep={goToPreviousStep}
         showBackButton={canUndo}
-        showNextButton={isThereANextStep}
+        showNextButton={latest.nextStepKey()}
         onSubmit={onSubmit}
       />
     )

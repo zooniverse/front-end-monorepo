@@ -53,10 +53,10 @@ const RootStore = types
       const workflow = tryReference(() => workflows?.active)
       const project = tryReference(() => projects?.active)
       if (subject && workflow && project) {
-        annotatedSteps.reset()
         workflowSteps.resetSteps()
         classifications.reset()
         classifications.createClassification(subject, workflow, project)
+        annotatedSteps.start()
         feedback.onNewSubject()
       }
     }
@@ -71,7 +71,7 @@ const RootStore = types
       const classificationDisposer = autorun(() => {
         onAction(self, (call) => {
           if (call.name === 'completeClassification') {
-            const annotations = self.classifications.currentAnnotations
+            const annotations = self.annotatedSteps.annotations
             annotations.forEach(annotation => self.feedback.update(annotation))
           }
         })

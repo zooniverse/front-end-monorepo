@@ -11,7 +11,6 @@ import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories
 import stubPanoptesJs from '@test/stubPanoptesJs'
 
 describe('Components > Task', function () {
-  let classification
   let activeTask
   let TaskComponent
   let store
@@ -94,8 +93,7 @@ describe('Components > Task', function () {
       rootStore.workflows.setActive(workflowSnapshot.id)
       rootStore.subjects.setResources([subjectSnapshot])
       rootStore.subjects.advance()
-      classification = rootStore.classifications.active
-      const step = rootStore.workflowSteps.active
+      const { step } = rootStore.annotatedSteps.latest
       activeTask = step.tasks[0]
       store = { classifierStore: rootStore }
     })
@@ -129,7 +127,9 @@ describe('Components > Task', function () {
             task={activeTask}
           />
         )
-        const activeAnnotation = classification.addAnnotation(activeTask)
+        const { classifierStore } = store
+        const classification = classifierStore.classifications.active
+        const activeAnnotation = classification.annotation(activeTask)
         const taskComponent = wrapper.find(TaskComponent)
         expect(taskComponent.prop('annotation')).to.deep.equal(activeAnnotation)
       })

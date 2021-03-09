@@ -214,7 +214,9 @@ describe('Model > ClassificationStore', function () {
         The tests for invalid feedback would have to be moved too.
       */
       it('should update feedback', function () {
-        expect(feedback.update.withArgs(singleChoiceAnnotationSnapshot)).to.have.been.calledOnce()
+        const { annotations } = rootStore.annotatedSteps
+        const [ singleChoiceAnnotation ] = annotations
+        expect(feedback.update.withArgs(singleChoiceAnnotation)).to.have.been.calledOnce()
       })
 
       it('should call the onComplete callback with the classification and subject', function () {

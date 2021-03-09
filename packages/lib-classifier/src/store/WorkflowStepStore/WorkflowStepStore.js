@@ -39,7 +39,7 @@ const WorkflowStepStore = types
 
       if (workflow && step && classification) {
         const disableTalk = classification.metadata.subject_flagged
-        const lastStep = !step.isThereANextStep
+        const lastStep = !step.next
         return lastStep &&
         workflow.configuration.hide_classification_summaries && // Default in model is to hide
         !disableTalk // &&
@@ -79,7 +79,6 @@ const WorkflowStepStore = types
   .actions(self => {
     function afterAttach () {
       createWorkflowObserver()
-      createAnnotationObserver()
     }
 
     function createWorkflowObserver () {
@@ -99,34 +98,6 @@ const WorkflowStepStore = types
         }
       }, { name: 'WorkflowStepStore Workflow Observer autorun' })
       addDisposer(self, workflowDisposer)
-    }
-
-    function createAnnotationObserver () {
-      const annotationDisposer = autorun(() => {
-        if (self.active?.isThereBranching) {
-          // presumes one single choice task per step
-          const [singleChoiceTask] = self.activeStepTasks.filter(task => task.type === 'single')
-          onAction(getRoot(self), (call) => {
-            if (call.path.endsWith(singleChoiceTask?.annotation?.id) && call.name === 'update') {
-              let nextStepKey
-              const nextKey = singleChoiceTask.answers[call.args[0]].next
-              if (nextKey?.startsWith('T')) {
-                // Backwards compatibility
-                self.steps.forEach(step => {
-                  if (step.taskKeys.includes(nextKey)) {
-                    nextStepKey = step.stepKey
-                  }
-                })
-              } else {
-                nextStepKey = nextKey
-              }
-              self.active.setNext(nextStepKey)
-            }
-          })
-        }
-        
-      }, { name: 'Annotation Observer autorun' })
-      addDisposer(self, annotationDisposer)
     }
 
     function getNextStepKey () {

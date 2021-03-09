@@ -12,7 +12,16 @@ describe('Model > AnnotatedSteps', function () {
 
   function setupMocks () {
     const singleChoiceTask = {
-      answers: [{ label: 'yes' }, { label: 'no' }],
+      answers: [
+        {
+          label: 'yes',
+          next: 'T1'
+        },
+        {
+          label: 'no',
+          next: 'T2'
+        }
+      ],
       next: 'T1',
       question: 'Is there a cat?',
       required: '',
@@ -26,13 +35,21 @@ describe('Model > AnnotatedSteps', function () {
       taskKey: 'T1',
       type: 'multiple'
     }
+    const alternativeTask = {
+      answers: [{ label: 'oranges' }, { label: 'apples' }, { label: 'bananas' }],
+      question: 'Favourite fruit?',
+      required: '',
+      taskKey: 'T2',
+      type: 'multiple'
+    }
     const workflowSnapshot = WorkflowFactory.build({
       id: 'tasksWorkflow',
       display_name: 'A test workflow',
       first_task: 'T0',
       tasks: {
         T0: singleChoiceTask,
-        T1: multipleChoiceTask
+        T1: multipleChoiceTask,
+        T2: alternativeTask
       },
       version: '0.0'
     })
@@ -104,35 +121,12 @@ describe('Model > AnnotatedSteps', function () {
   })
 
   describe('when the workflow starts', function () {
-    it('should be empty', function () {
-      expect(store.annotatedSteps.steps).to.be.empty()
-    })
-
-    it('should not have a latest step', function () {
-      expect(store.annotatedSteps.latest).to.be.undefined()
-    })
-
-    it('should not be able to undo', function () {
-      expect(store.annotatedSteps.canUndo).to.be.false()
-    })
-  })
-
-  describe('after the first workflow step', function () {
-    before(function () {
-      const { annotatedSteps, classifications, workflowSteps } = store
-      const step = workflowSteps.active
-      const classification = classifications.active
-      const annotations = step.tasks.map(task => classification.annotation(task))
-      annotatedSteps.next({ step, annotations })
-      workflowSteps.selectStep()
-    })
-
     it('should have one step', function () {
       expect(store.annotatedSteps.steps.size).to.equal(1)
     })
 
     it('should store the first workflow step', function () {
-      expect(store.workflowSteps.active.stepKey).to.equal('S1')
+      expect(store.workflowSteps.active.stepKey).to.equal('S0')
       const { step } = store.annotatedSteps.latest
       expect(step.stepKey).to.equal('S0')
     })
@@ -144,6 +138,39 @@ describe('Model > AnnotatedSteps', function () {
       expect(annotation.task).to.equal('T0')
     })
 
+    it('should not be able to undo', function () {
+      expect(store.annotatedSteps.canUndo).to.be.false()
+    })
+  })
+
+  describe('after moving to the second step', function () {
+    before(function () {
+      const [ branchingQuestionAnnotation ] = store.annotatedSteps.latest.annotations
+      // answer Yes to the branching question.
+      branchingQuestionAnnotation.update(0)
+      store.annotatedSteps.next()
+      const [ multipleChoiceAnnotation ] = store.annotatedSteps.latest.annotations
+      // answer the T1 question so we can test redo.
+      multipleChoiceAnnotation.update([0,1])
+    })
+
+    it('should have two steps', function () {
+      expect(store.annotatedSteps.steps.size).to.equal(2)
+    })
+
+    it('should store the second workflow step', function () {
+      expect(store.workflowSteps.active.stepKey).to.equal('S1')
+      const { step } = store.annotatedSteps.latest
+      expect(step.stepKey).to.equal('S1')
+    })
+
+    it('should store the second step\'s annotations', function () {
+      const { annotations } = store.annotatedSteps.latest
+      const [ annotation ] = annotations
+      expect(annotations.length).to.equal(1)
+      expect(annotation.task).to.equal('T1')
+    })
+
     it('should be able to undo', function () {
       expect(store.annotatedSteps.canUndo).to.be.true()
     })
@@ -153,36 +180,97 @@ describe('Model > AnnotatedSteps', function () {
         store.annotatedSteps.back()
       })
 
-      it('should be empty', function () {
-        expect(store.annotatedSteps.steps).to.be.empty()
+      it('should store the first workflow step', function () {
+        expect(store.workflowSteps.active.stepKey).to.equal('S0')
+        const { step } = store.annotatedSteps.latest
+        expect(step.stepKey).to.equal('S0')
       })
 
-      it('should not have a latest step', function () {
-        expect(store.annotatedSteps.latest).to.be.undefined()
+      it('should store the first step\'s annotations', function () {
+        const { annotations } = store.annotatedSteps.latest
+        const [ annotation ] = annotations
+        expect(annotations.length).to.equal(1)
+        expect(annotation.task).to.equal('T0')
       })
 
       it('should not be able to undo', function () {
         expect(store.annotatedSteps.canUndo).to.be.false()
       })
     })
+
+    describe('on redo', function () {
+      before(function () {
+        store.annotatedSteps.next()
+      })
+
+      it('should return to the second workflow step', function () {
+        expect(store.workflowSteps.active.stepKey).to.equal('S1')
+        const { step } = store.annotatedSteps.latest
+        expect(step.stepKey).to.equal('S1')
+      })
+
+      it('should remember the second step\'s annotations', function () {
+        const { annotations } = store.annotatedSteps.latest
+        const [ annotation ] = annotations
+        expect(annotations.length).to.equal(1)
+        expect(annotation.task).to.equal('T1')
+        expect(annotation.value).to.deep.equal([0,1])
+      })
+
+      it('should be able to undo', function () {
+        expect(store.annotatedSteps.canUndo).to.be.true()
+      })
+    })
+
+    describe('on going back and choosing a different branch', function () {
+      before(function () {
+        store.annotatedSteps.back()
+        const [ branchingQuestionAnnotation ] = store.annotatedSteps.latest.annotations
+        // answer No to the branching question.
+        branchingQuestionAnnotation.update(1)
+        store.annotatedSteps.next()
+      })
+
+      it('should load a new workflow step', function () {
+        expect(store.workflowSteps.active.stepKey).to.equal('S2')
+        const { step } = store.annotatedSteps.latest
+        expect(step.stepKey).to.equal('S2')
+      })
+
+      it('should clear the second step\'s annotations from history', function () {
+        const { annotations } = store.annotatedSteps
+        const [ annotation ] = annotations.filter(annotation => annotation.task === 'T1')
+        expect(annotation).to.be.undefined()
+      })
+
+      it('should be able to undo', function () {
+        expect(store.annotatedSteps.canUndo).to.be.true()
+      })
+    })
   })
 
-  describe('on reset', function () {
+  describe('on subject advance', function () {
+
     before(function () {
-      const { annotatedSteps, classifications, workflowSteps } = store
-      const step = workflowSteps.active
-      const classification = classifications.active
-      const annotations = step.tasks.map(task => classification.annotation(task))
-      annotatedSteps.next({ step, annotations })
-      annotatedSteps.reset()
+      store = setupMocks()
+      const [ branchingQuestionAnnotation ] = store.annotatedSteps.latest.annotations
+      // answer Yes to the branching question.
+      branchingQuestionAnnotation.update(0)
+      store.annotatedSteps.next()
+      store.subjects.advance()
     })
 
-    it('should be empty', function () {
-      expect(store.annotatedSteps.steps).to.be.empty()
+    it('should store the first workflow step', function () {
+      const { latest } = store.annotatedSteps
+      expect(store.workflowSteps.active.stepKey).to.equal('S0')
+      expect(latest.step.stepKey).to.equal('S0')
     })
 
-    it('should not have a latest step', function () {
-      expect(store.annotatedSteps.latest).to.be.undefined()
+    it('should store the first step\'s annotations', function () {
+      const { latest } = store.annotatedSteps
+      expect(latest.annotations.length).to.equal(1)
+      const [ annotation ] = latest.annotations
+      expect(annotation.task).to.equal('T0')
     })
 
     it('should not be able to undo', function () {

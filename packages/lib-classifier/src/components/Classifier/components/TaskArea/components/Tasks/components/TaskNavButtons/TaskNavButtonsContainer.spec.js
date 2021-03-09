@@ -14,8 +14,7 @@ import stubPanoptesJs from '@test/stubPanoptesJs'
 describe('TaskNavButtonsContainer', function () {
   function setupMocks () {
     const singleChoiceTask = {
-      answers: [{ label: 'yes' }, { label: 'no' }],
-      next: 'T1',
+      answers: [{ label: 'yes', next: 'T1' }, { label: 'no' }],
       question: 'Is there a cat?',
       required: '',
       taskKey: 'T0',
@@ -93,11 +92,6 @@ describe('TaskNavButtonsContainer', function () {
     rootStore.workflows.setActive(workflowSnapshot.id)
     rootStore.subjects.setResources([subjectSnapshot])
     rootStore.subjects.advance()
-    const classification = rootStore.classifications.active
-    const activeStep = rootStore.workflowSteps.active
-    activeStep.tasks.forEach(task => {
-      classification.addAnnotation(task)
-    })
     return rootStore
   }
 
@@ -123,15 +117,15 @@ describe('TaskNavButtonsContainer', function () {
     let wrapper
     let classifierStore
 
-    before(function () {
+    beforeEach(function () {
       classifierStore = setupMocks()
       const store = { classifierStore }
       wrapper = shallow(<TaskNavButtonsContainer store={store} />)
     })
 
     it('should create a default annotation for each task if there is not an annotation for that task', function () {
-      const step = classifierStore.workflowSteps.active
       wrapper.instance().goToNextStep()
+      const step = classifierStore.workflowSteps.active
       const classification = classifierStore.classifications.active
       step.tasks.forEach((task) => {
         const { task: taskKey, value } = task.defaultAnnotation()
@@ -142,6 +136,10 @@ describe('TaskNavButtonsContainer', function () {
     })
 
     it('should select the next step', function () {
+      // set an answer to the branching task question, so that step.next is set.
+      const classification = classifierStore.classifications.active
+      const singleChoiceAnnotation = classification.annotation({ taskKey: 'T0'})
+      singleChoiceAnnotation.update(0)
       wrapper.instance().goToNextStep()
       const step = classifierStore.workflowSteps.active
       expect(step.stepKey).to.equal('S1')
@@ -168,13 +166,19 @@ describe('TaskNavButtonsContainer', function () {
 
     describe('when there is a previous step', function () {
       before(function() {
+        // set an answer to the branching task question, so that step.next is set.
+        const classification = classifierStore.classifications.active
+        const singleChoiceAnnotation = classification.annotation({ taskKey: 'T0'})
+        singleChoiceAnnotation.update(0)
         // push the first task to the history stack
         wrapper.instance().goToNextStep()
         wrapper.instance().goToPreviousStep()
       })
 
       it('should undo the most recent step', function () {
-        expect(classifierStore.annotatedSteps.latest).to.be.undefined()
+        const { latest, steps} = classifierStore.annotatedSteps
+        expect(steps.size).to.equal(1)
+        expect(latest.step.stepKey).to.equal('S0')
       })
 
       it('should select the previous step', function () {
@@ -182,9 +186,10 @@ describe('TaskNavButtonsContainer', function () {
         expect(activeStep.stepKey).to.equal('S0')
       })
 
-      it('should remove annotatiions for the current task', function () {
-        const classification = classifierStore.classifications.active
-        const annotation = classification.annotation('T1')
+      it('should remove annotations for the current task', function () {
+        const { annotations, steps } = classifierStore.annotatedSteps
+        expect(steps.size).to.equal(1)
+        const [annotation] = annotations.filter(annotation => annotation.task === 'T1')
         expect(annotation).to.be.undefined()
       })
     })

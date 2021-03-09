@@ -1,5 +1,5 @@
 import cuid from 'cuid'
-import { types, getSnapshot, getType } from 'mobx-state-tree'
+import { types, getRoot, getSnapshot, getType } from 'mobx-state-tree'
 import { annotationModels } from '@plugins/tasks'
 import AnnotationsStore from '@store/AnnotationsStore'
 import Resource from '@store/Resource'
@@ -19,10 +19,8 @@ const Classification = types
   .views(self => ({
     toSnapshot () {
       let snapshot = getSnapshot(self)
-      let annotations = []
-      self.annotations.forEach(annotation => {
-        annotations = annotations.concat(annotation.toSnapshot())
-      })
+      const { annotatedSteps } = getRoot(self)
+      let annotations = annotatedSteps.annotations.map(annotation => annotation.toSnapshot())
       snapshot = Object.assign({}, snapshot, { annotations })
       return snapshot
     },

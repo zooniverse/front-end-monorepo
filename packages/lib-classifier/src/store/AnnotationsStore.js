@@ -55,6 +55,7 @@ const AnnotationsStore = types
 
     return {
       addAnnotation,
+      createAnnotation,
       beforeDestroy,
       removeAnnotation,
       reset
