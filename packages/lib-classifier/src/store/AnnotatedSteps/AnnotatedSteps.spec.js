@@ -238,8 +238,8 @@ describe('Model > AnnotatedSteps', function () {
       })
 
       it('should clear the second step\'s annotations from history', function () {
-        const { annotations } = store.annotatedSteps
-        const [ annotation ] = annotations.filter(annotation => annotation.task === 'T1')
+        const classification = store.classifications.active
+        const annotation = classification.annotation('T1')
         expect(annotation).to.be.undefined()
       })
 

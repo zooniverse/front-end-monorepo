@@ -39,6 +39,12 @@ const AnnotationsStore = types
       return annotation
     }
 
+    function removeAnnotation(annotation) {
+      if (annotation?.id) {
+        self.annotations.delete(annotation.id)
+      }
+    }
+
     function reset () {
       self.annotations.clear()
     }
@@ -47,6 +53,7 @@ const AnnotationsStore = types
       addAnnotation,
       createAnnotation,
       beforeDestroy,
+      removeAnnotation,
       reset
     }
   })

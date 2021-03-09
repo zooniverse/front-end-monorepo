@@ -71,7 +71,7 @@ const RootStore = types
       const classificationDisposer = autorun(() => {
         onAction(self, (call) => {
           if (call.name === 'completeClassification') {
-            const annotations = self.annotatedSteps.annotations
+            const annotations = self.classifications.currentAnnotations
             annotations.forEach(annotation => self.feedback.update(annotation))
           }
         })

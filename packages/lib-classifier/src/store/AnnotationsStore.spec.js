@@ -59,6 +59,31 @@ describe('Model > AnnotationsStore', function () {
     })
   })
 
+  describe('removing an annotation', function () {
+    const task = Task.create({ taskKey: 'T0', type: 'default', question: 'How many cats?' })
+
+    before(function () {
+      model = AnnotationsStore.create({})
+    })
+
+    describe('without an annotation ID', function () {
+      it('should do nothing', function () {
+        expect(model.annotations.size).to.equal(0)
+        model.removeAnnotation('T0')
+        expect(model.annotations.size).to.equal(0)
+      })
+    })
+
+    describe('for an existing task', function () {
+      it('should remove the existing annotation', function () {
+        const annotation = model.addAnnotation(task, 2)
+        expect(model.annotations.size).to.equal(1)
+        model.removeAnnotation(annotation)
+        expect(model.annotations.size).to.equal(0)
+      })
+    })
+  })
+
   describe('reset observer', function () {
     it('should reset itself when the parent ClassificationStore node resets itself', function () {
       // Classification and AnnotationsStore are a composition whose parent is ClassificationStore
