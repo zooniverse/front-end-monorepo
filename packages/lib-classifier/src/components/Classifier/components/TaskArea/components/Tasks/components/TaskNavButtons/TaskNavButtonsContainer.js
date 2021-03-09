@@ -69,8 +69,9 @@ class TaskNavButtonsContainer extends React.Component {
   onSubmit (event) {
     event.preventDefault()
     const { classifierStore } = this.props.store ?? this.context
-    const { completeClassification } = storeMapper({ classifierStore })
+    const { annotatedSteps, completeClassification } = storeMapper({ classifierStore })
     this.completeStepTasks()
+    annotatedSteps.clearRedo()
     return completeClassification()
   }
 

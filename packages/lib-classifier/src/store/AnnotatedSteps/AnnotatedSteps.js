@@ -57,18 +57,6 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
       self.steps.put(historyStep)
     }
   }
-  /** Clear the redo history and delete orphaned annotations. */
-  function _clearRedo() {
-    undoManager.clearRedo()
-    const { classifications } = getRoot(self)
-    const classification = classifications.active
-    classification.annotations.forEach(annotation => {
-      const exists = self.annotations.includes(annotation)
-      if (!exists) {
-        classification.removeAnnotation(annotation)
-      }
-    })
-  }
   /** Get the step for a given task key */
   // TODO put this in the WorkflowSteps store?
   function _getTaskStepKey(taskKey) {
@@ -95,7 +83,7 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   function _replace(stepKey) {
     const { workflowSteps } = getRoot(self)
     undoManager.undo()
-    _clearRedo()
+    self.clearRedo()
     workflowSteps.selectStep(stepKey)
     _beginStep()
   }
@@ -112,6 +100,18 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
       const { step } = self.latest
       workflowSteps.selectStep(step.stepKey)
     }
+  }
+  /** Clear the redo history and delete orphaned annotations. */
+  function clearRedo() {
+    undoManager.clearRedo()
+    const { classifications } = getRoot(self)
+    const classification = classifications.active
+    classification.annotations.forEach(annotation => {
+      const exists = self.annotations.includes(annotation)
+      if (!exists) {
+        classification.removeAnnotation(annotation)
+      }
+    })
   }
   /** Redo the next step, or add a new step to history if there is no redo. */
   function next() {
@@ -139,6 +139,7 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
 
   return {
     back,
+    clearRedo,
     next,
     start
   }
