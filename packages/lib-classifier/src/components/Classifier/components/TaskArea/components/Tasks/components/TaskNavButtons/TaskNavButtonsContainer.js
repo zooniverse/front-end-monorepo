@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { MobXProviderContext, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import TaskNavButtons from './TaskNavButtons'
 
-function storeMapper ({ classifierStore }) {
+function useStores(store) {
+  const { classifierStore } = store || useContext(MobXProviderContext)
   const {
     annotatedSteps,
     classifications,
@@ -29,17 +30,20 @@ function storeMapper ({ classifierStore }) {
   }
 }
 
-class TaskNavButtonsContainer extends React.Component {
-  constructor() {
-    super()
-    this.goToNextStep = this.goToNextStep.bind(this)
-    this.goToPreviousStep = this.goToPreviousStep.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
-  }
+function TaskNavButtonsContainer({
+  disabled = false,
+  store
+}) {
+  const {
+    annotatedSteps,
+    classification,
+    completeClassification,
+    selectStep,
+    step,
+    tasks
+  } = useStores(store)
 
-  completeStepTasks () {
-    const { classifierStore } = this.props.store ?? this.context
-    const { classification, tasks } = storeMapper({ classifierStore })
+  function completeStepTasks() {
     if (classification) {
       tasks.forEach((task) => {
         task.complete()
@@ -47,59 +51,35 @@ class TaskNavButtonsContainer extends React.Component {
     }
   }
 
-  goToPreviousStep () {
-    const { classifierStore } = this.props.store ?? this.context
-    const {
-      annotatedSteps
-    } = storeMapper({ classifierStore })
-    if (annotatedSteps.canUndo) {
-      annotatedSteps.back()
-    }
+  function goToPreviousStep() {
+    annotatedSteps.back()
   }
 
-  goToNextStep () {
-    const { classifierStore } = this.props.store ?? this.context
-    const {
-      annotatedSteps
-    } = storeMapper({ classifierStore })
-    this.completeStepTasks()
+  function goToNextStep() {
+    completeStepTasks()
     annotatedSteps.next()
   }
 
-  onSubmit (event) {
+  function onSubmit(event) {
     event.preventDefault()
-    const { classifierStore } = this.props.store ?? this.context
-    const { annotatedSteps, completeClassification } = storeMapper({ classifierStore })
-    this.completeStepTasks()
+    completeStepTasks()
     annotatedSteps.clearRedo()
     return completeClassification()
   }
 
-  render () {
-    const {
-      goToNextStep,
-      goToPreviousStep,
-      onSubmit
-    } = this
-    const { disabled } = this.props
-    const { classifierStore } = this.props.store ?? this.context
-    const { annotatedSteps, step } = storeMapper({ classifierStore })
-    const { canUndo, latest } = annotatedSteps
+  const { canUndo, latest } = annotatedSteps
 
-    return (
-      <TaskNavButtons
-        disabled={disabled}
-        goToNextStep={goToNextStep}
-        goToPreviousStep={goToPreviousStep}
-        showBackButton={canUndo}
-        showNextButton={latest.nextStepKey()}
-        onSubmit={onSubmit}
-      />
-    )
-  }
+  return (
+    <TaskNavButtons
+      disabled={disabled}
+      goToNextStep={goToNextStep}
+      goToPreviousStep={goToPreviousStep}
+      showBackButton={canUndo}
+      showNextButton={latest.nextStepKey()}
+      onSubmit={onSubmit}
+    />
+  )
 }
-
-TaskNavButtonsContainer.contextType = MobXProviderContext
 
 TaskNavButtonsContainer.defaultProps = {
   completeClassification: () => {},

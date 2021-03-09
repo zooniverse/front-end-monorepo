@@ -5,6 +5,7 @@ import { Provider } from 'mobx-state-tree'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
 import TaskNavButtonsContainer from './TaskNavButtonsContainer'
+import TaskNavButtons from './TaskNavButtons'
 
 import RootStore from '@store'
 import Step from '@store/WorkflowStepStore/Step'
@@ -124,7 +125,8 @@ describe('TaskNavButtonsContainer', function () {
     })
 
     it('should create a default annotation for each task if there is not an annotation for that task', function () {
-      wrapper.instance().goToNextStep()
+      const buttons = wrapper.find(TaskNavButtons)
+      buttons.props().goToNextStep()
       const step = classifierStore.workflowSteps.active
       const classification = classifierStore.classifications.active
       step.tasks.forEach((task) => {
@@ -140,7 +142,8 @@ describe('TaskNavButtonsContainer', function () {
       const classification = classifierStore.classifications.active
       const singleChoiceAnnotation = classification.annotation({ taskKey: 'T0'})
       singleChoiceAnnotation.update(0)
-      wrapper.instance().goToNextStep()
+      const buttons = wrapper.find(TaskNavButtons)
+      buttons.props().goToNextStep()
       const step = classifierStore.workflowSteps.active
       expect(step.stepKey).to.equal('S1')
     })
@@ -159,7 +162,8 @@ describe('TaskNavButtonsContainer', function () {
     it('should not go back if there is not a previous step', function () {
       let activeStep = classifierStore.workflowSteps.active
       expect(activeStep.stepKey).to.equal('S0')
-      wrapper.instance().goToPreviousStep()
+      const buttons = wrapper.find(TaskNavButtons)
+      buttons.props().goToPreviousStep()
       activeStep = classifierStore.workflowSteps.active
       expect(activeStep.stepKey).to.equal('S0')
     })
@@ -171,8 +175,9 @@ describe('TaskNavButtonsContainer', function () {
         const singleChoiceAnnotation = classification.annotation({ taskKey: 'T0'})
         singleChoiceAnnotation.update(0)
         // push the first task to the history stack
-        wrapper.instance().goToNextStep()
-        wrapper.instance().goToPreviousStep()
+        const buttons = wrapper.find(TaskNavButtons)
+        buttons.props().goToNextStep()
+        buttons.props().goToPreviousStep()
       })
 
       it('should undo the most recent step', function () {
@@ -220,7 +225,8 @@ describe('TaskNavButtonsContainer', function () {
     it('should create a default annotation for each task if there is not an annotation for that task', function () {
       const step = classifierStore.workflowSteps.active
       const classification = classifierStore.classifications.active
-      wrapper.instance().onSubmit({ preventDefault: preventDefaultSpy })
+      const buttons = wrapper.find(TaskNavButtons)
+      buttons.props().onSubmit({ preventDefault: preventDefaultSpy })
       step.tasks.forEach((task) => {
         const { task: taskKey, value } = task.defaultAnnotation()
         const annotation = classification.annotation(task)
@@ -230,12 +236,14 @@ describe('TaskNavButtonsContainer', function () {
     })
 
     it('should prevent the event default', function () {
-      wrapper.instance().onSubmit({ preventDefault: preventDefaultSpy })
+      const buttons = wrapper.find(TaskNavButtons)
+      buttons.props().onSubmit({ preventDefault: preventDefaultSpy })
       expect(preventDefaultSpy).to.have.been.calledOnce()
     })
 
     it('should call complete the classification', function () {
-      wrapper.instance().onSubmit({ preventDefault: preventDefaultSpy })
+      const buttons = wrapper.find(TaskNavButtons)
+      buttons.props().onSubmit({ preventDefault: preventDefaultSpy })
       expect(classifierStore.classifications.completeClassification).to.have.been.calledOnce()
     })
   })
