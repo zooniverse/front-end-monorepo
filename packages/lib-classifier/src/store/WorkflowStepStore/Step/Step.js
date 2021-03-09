@@ -42,6 +42,17 @@ const Step = types
         }
         return false
       })
+    },
+
+    nextStepKey(annotations = []) {
+      // assume only one branching question per step.
+      const [ singleChoiceAnnotation ] = annotations.filter(annotation => annotation.taskType === 'single')
+      if (singleChoiceAnnotation) {
+        const [singleChoiceTask] = self.tasks.filter(task => task.taskKey === singleChoiceAnnotation.task)
+        const selectedAnswer = singleChoiceTask?.answers[singleChoiceAnnotation.value]
+        return selectedAnswer?.next
+      }
+      return self.next
     }
   }))
   .actions(self => ({

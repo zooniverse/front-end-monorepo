@@ -240,6 +240,55 @@ describe('Model > Step', function () {
     })
   })
 
+  describe('nextStepKey()', function () {
+    describe('without a single choice branching task', function () {
+      let tasks
+      before(function () {
+        tasks = [
+          MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: '', next: 'T2' })
+        ]
+      })
+
+      it('should be step.next', function () {
+        const step = Step.create({ stepKey: 'S1', taskKeys: ['T1'], tasks, next: 'S2' })
+        const annotations = [{ task: 'T1', taskType: 'multiple', value: [0,1] }]
+        expect(step.nextStepKey(annotations)).to.equal('S2')
+      })
+    })
+
+    describe('with a single choice branching task', function () {
+      let tasks
+      before(function () {
+        tasks = [
+          SingleChoiceTaskFactory.build({
+          taskKey: 'T2',
+          required: '',
+          answers: [
+            { label: 'Red', next: 'T1' },
+            { label: 'Blue', next: 'T3' }
+          ]
+        })
+        ]
+      })
+
+      describe('and no selected answer', function () {
+        it('should be undefined', function () {
+          const step = Step.create({ stepKey: 'S2', taskKeys: ['T2'], tasks })
+          const annotations = []
+          expect(step.nextStepKey(annotations)).to.be.undefined()
+        })
+      })
+
+      describe('and a selected answer', function () {
+        it('should be answer.next', function () {
+          const step = Step.create({ stepKey: 'S2', taskKeys: ['T2'], tasks })
+          const annotations = [{ task: 'T2', taskType: 'single', value: 0 }]
+          expect(step.nextStepKey(annotations)).to.equal('T1')
+        })
+      })
+    })
+  })
+
   describe('with reset', function () {
     let tasks
 
