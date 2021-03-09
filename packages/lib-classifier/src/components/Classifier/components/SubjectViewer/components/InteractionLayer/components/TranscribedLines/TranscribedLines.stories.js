@@ -126,6 +126,6 @@ stories
       theme={zooTheme}
       themeMode='light'
     >
-      <TooltipLabel fill={select('Fill color', ['drawing-purple', 'light-5'], 'drawing-purple')} label={text('Label text', 'This line has been transcribed')} />
+      <TooltipLabel fill={select('Fill color', ['drawing-pink', 'light-5'], 'drawing-pink')} label={text('Label text', 'This line has been transcribed')} />
     </Grommet>
   ), config)
