@@ -43,10 +43,14 @@ function TaskNavButtonsContainer({
     tasks
   } = useStores(store)
 
+  const { canUndo, latest } = annotatedSteps
+
   function completeStepTasks() {
     if (classification) {
+      const { annotations } = latest
       tasks.forEach((task) => {
-        task.complete()
+        const [ annotation ] = annotations.filter(annotation => annotation.task === task.taskKey)
+        task.complete(annotation)
       })
     }
   }
@@ -66,8 +70,6 @@ function TaskNavButtonsContainer({
     annotatedSteps.clearRedo()
     return completeClassification()
   }
-
-  const { canUndo, latest } = annotatedSteps
 
   return (
     <TaskNavButtons

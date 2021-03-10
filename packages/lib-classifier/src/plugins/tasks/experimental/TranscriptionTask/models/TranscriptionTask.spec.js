@@ -154,12 +154,13 @@ describe('Model > TranscriptionTask', function () {
   })
 
   describe('on complete', function () {
+    let annotation
     let transcriptionLine
     let task
 
     before(function () {
       task = TranscriptionTask.TaskModel.create(transcriptionTaskSnapshot)
-      const annotation = task.defaultAnnotation()
+      annotation = task.defaultAnnotation()
       const store = types.model('MockStore', {
         annotation: TranscriptionTask.AnnotationModel,
         task: TranscriptionTask.TaskModel
@@ -168,13 +169,12 @@ describe('Model > TranscriptionTask', function () {
           annotation,
           task
         })
-      task.setAnnotation(annotation)
       transcriptionLine = task.tools[0].createMark({ id: 'transcriptionLine1' })
-      task.complete()
+      task.complete(annotation)
     })
 
     it('should copy marks to the task annotation', function () {
-      expect(task.annotation.value).to.deep.equal([transcriptionLine])
+      expect(annotation.value).to.deep.equal([transcriptionLine])
     })
   })
 

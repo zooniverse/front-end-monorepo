@@ -67,7 +67,7 @@ All tasks should extend the Task model by implementing the following:
 Tasks may implement the following actions to hook into the workflow classification lifecycle
 - _reset()_ Reset the task for a new subject and annotation.
 - _start()_ Runs each time we enter the task while navigating a workflow.
-- _complete()_ Runs when exiting a task by pressing Next or Done. Creates the task's classification annotation by default.
+- _complete(annotation)_ Runs when exiting a task by pressing Next or Done.
 
 ## Annotation models
 

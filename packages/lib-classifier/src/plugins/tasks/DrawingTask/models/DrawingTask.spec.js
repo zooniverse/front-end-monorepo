@@ -192,6 +192,7 @@ describe('Model > DrawingTask', function () {
   })
 
   describe('on complete', function () {
+    let annotation
     let line1
     let point1
     let point2
@@ -199,7 +200,7 @@ describe('Model > DrawingTask', function () {
 
     before(function () {
       task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
-      const annotation = task.defaultAnnotation()
+      annotation = task.defaultAnnotation()
       const store = types.model('MockStore', {
         annotation: DrawingTask.AnnotationModel,
         task: DrawingTask.TaskModel
@@ -208,15 +209,14 @@ describe('Model > DrawingTask', function () {
           annotation,
           task
         })
-      task.setAnnotation(annotation)
       point1 = task.tools[0].createMark({ id: 'point1' })
       point2 = task.tools[0].createMark({ id: 'point2' })
       line1 = task.tools[1].createMark({ id: 'line1' })
-      task.complete()
+      task.complete(annotation)
     })
 
     it('should copy marks to the task annotation', function () {
-      expect(task.annotation.value).to.deep.equal([point1, point2, line1])
+      expect(annotation.value).to.deep.equal([point1, point2, line1])
     })
   })
 
