@@ -103,14 +103,16 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   }
   /** Clear the redo history and delete orphaned annotations. */
   function clearRedo() {
-    undoManager.clearRedo()
-    const { classifications } = getRoot(self)
-    const classification = classifications.active
-    classification.annotations.forEach(annotation => {
-      const exists = self.annotations.includes(annotation)
-      if (!exists) {
-        classification.removeAnnotation(annotation)
-      }
+    undoManager.withoutUndo(() => {
+      const { classifications } = getRoot(self)
+      const classification = classifications.active
+      classification.annotations.forEach(annotation => {
+        const exists = self.annotations.includes(annotation)
+        if (!exists) {
+          classification.removeAnnotation(annotation)
+        }
+      })
+      undoManager.clearRedo()
     })
   }
   /** Redo the next step, or add a new step to history if there is no redo. */
