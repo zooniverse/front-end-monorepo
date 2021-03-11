@@ -155,7 +155,7 @@ describe('TaskNavButtonsContainer', function () {
       expect(preventDefaultSpy).to.have.been.calledOnce()
     })
 
-    it('should call complete the classification', function () {
+    it('should complete the classification', function () {
       const buttons = wrapper.find(TaskNavButtons)
       buttons.props().onSubmit({ preventDefault: preventDefaultSpy })
       expect(classifierStore.classifications.completeClassification).to.have.been.calledOnce()
