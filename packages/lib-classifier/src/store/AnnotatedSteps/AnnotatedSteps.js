@@ -104,10 +104,13 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
     undoManager.clear()
   }
   /** Undo the current step and select the previous step. */
-  function back() {
+  function back(persistAnnotations = true) {
     const { workflowSteps } = getRoot(self)
     if (undoManager.canUndo) {
       undoManager.undo()
+      if (!persistAnnotations) {
+        self.clearRedo()
+      }
       const { step } = self.latest
       workflowSteps.selectStep(step.stepKey)
     }

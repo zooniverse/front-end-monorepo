@@ -8,6 +8,7 @@ function useStores(store) {
   const {
     annotatedSteps,
     classifications,
+    workflows,
     workflowSteps
   } = classifierStore
   const {
@@ -19,6 +20,9 @@ function useStores(store) {
     active: classification,
     completeClassification
   } = classifications
+  const {
+    active: workflow
+  } = workflows
 
   return {
     annotatedSteps,
@@ -26,7 +30,8 @@ function useStores(store) {
     completeClassification,
     selectStep,
     step,
-    tasks
+    tasks,
+    workflow
   }
 }
 
@@ -40,7 +45,8 @@ function TaskNavButtonsContainer({
     completeClassification,
     selectStep,
     step,
-    tasks
+    tasks,
+    workflow
   } = useStores(store)
 
   const { canUndo, latest } = annotatedSteps
@@ -56,7 +62,7 @@ function TaskNavButtonsContainer({
   }
 
   function goToPreviousStep() {
-    annotatedSteps.back()
+    annotatedSteps.back(workflow.configuration.persist_annotations)
   }
 
   function goToNextStep() {
