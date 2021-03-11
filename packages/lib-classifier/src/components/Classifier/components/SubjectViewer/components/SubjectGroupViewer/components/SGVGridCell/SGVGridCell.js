@@ -19,7 +19,7 @@ const DraggableRect = styled(draggable('rect'))`
 const ClickableRect = styled('rect')`
     cursor: pointer;
     &:focus {
-      outline: 2px dashed rgba(255, 255, 255, 0.5);
+      ${props => css`outline: ${props.cellStyle.focusOutline};`}
     }
   }
 `

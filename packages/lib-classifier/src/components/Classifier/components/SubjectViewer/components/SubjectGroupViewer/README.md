@@ -59,8 +59,12 @@ workflow.configuration = {
     cell_height: 1000,
     cell_style: {
       stroke: '#fff',
-      strokeWidth: '4',
-      fill: '#000'
+      strokeWidth: '1',
+      overlay: 'rgba(41,103,255,0.3)',
+      selectedStroke: '#2967FF',
+      selectedStrokeWidth: '8',
+      focusOutline: '2px dashed rgba(255, 255, 255, 0.5)',
+      background: '#000'
     },
     grid_columns: 4,
     grid_rows: 3
