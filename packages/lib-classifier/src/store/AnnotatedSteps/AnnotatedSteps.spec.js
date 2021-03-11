@@ -5,114 +5,14 @@ import AnnotatedSteps from './'
 
 import RootStore from '@store'
 import { SubjectFactory, WorkflowFactory, ProjectFactory } from '@test/factories'
+import mockStore from '@test/mockStore'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 
 describe('Model > AnnotatedSteps', function () {
   let store
 
-  function setupMocks () {
-    const singleChoiceTask = {
-      answers: [
-        {
-          label: 'yes',
-          next: 'T1'
-        },
-        {
-          label: 'no',
-          next: 'T2'
-        }
-      ],
-      next: 'T1',
-      question: 'Is there a cat?',
-      required: '',
-      taskKey: 'T0',
-      type: 'single'
-    }
-    const multipleChoiceTask = {
-      answers: [{ label: 'napping' }, { label: 'standing' }, { label: 'playing' }],
-      question: 'What is/are the cat(s) doing?',
-      required: '',
-      taskKey: 'T1',
-      type: 'multiple'
-    }
-    const alternativeTask = {
-      answers: [{ label: 'oranges' }, { label: 'apples' }, { label: 'bananas' }],
-      question: 'Favourite fruit?',
-      required: '',
-      taskKey: 'T2',
-      type: 'multiple'
-    }
-    const workflowSnapshot = WorkflowFactory.build({
-      id: 'tasksWorkflow',
-      display_name: 'A test workflow',
-      first_task: 'T0',
-      tasks: {
-        T0: singleChoiceTask,
-        T1: multipleChoiceTask,
-        T2: alternativeTask
-      },
-      version: '0.0'
-    })
-    const subjectSnapshot = SubjectFactory.build()
-    const projectSnapshot = ProjectFactory.build()
-    const { panoptes } = stubPanoptesJs({
-      field_guides: [],
-      projects: [projectSnapshot],
-      subjects: Factory.buildList('subject', 10),
-      tutorials: [],
-      workflows: [workflowSnapshot]
-    })
-    const client = {
-      caesar: { request: sinon.stub().callsFake(() => Promise.resolve({})) },
-      panoptes,
-      tutorials: {
-        get: sinon.stub().callsFake(() =>
-          Promise.resolve({ body: {
-            tutorials: []
-          }})
-        )
-      }
-    }
-    const rootStore = RootStore.create({
-      projects: {
-        active: projectSnapshot.id,
-        resources: {
-          [projectSnapshot.id]: projectSnapshot
-        }
-      },
-      subjects: {
-        active: subjectSnapshot.id,
-        resources: {
-          [subjectSnapshot.id]: subjectSnapshot
-        }
-      },
-      workflows: {
-        active: workflowSnapshot.id,
-        resources: {
-          [workflowSnapshot.id]: workflowSnapshot
-        }
-      }
-    }, {
-      authClient: {
-        checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null)),
-        checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null))
-      },
-      client
-    })
-    rootStore.workflows.setResources([workflowSnapshot])
-    rootStore.workflows.setActive(workflowSnapshot.id)
-    rootStore.subjects.setResources([subjectSnapshot])
-    rootStore.subjects.advance()
-    const classification = rootStore.classifications.active
-    const activeStep = rootStore.workflowSteps.active
-    activeStep.tasks.forEach(task => {
-      classification.addAnnotation(task)
-    })
-    return rootStore
-  }
-
   before(function () {
-    store = setupMocks()
+    store = mockStore()
   })
 
   it('should exist', function () {
@@ -252,7 +152,7 @@ describe('Model > AnnotatedSteps', function () {
   describe('on subject advance', function () {
 
     before(function () {
-      store = setupMocks()
+      store = mockStore()
       const [ branchingQuestionAnnotation ] = store.annotatedSteps.latest.annotations
       // answer Yes to the branching question.
       branchingQuestionAnnotation.update(0)
