@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
 
+import SVGContext from '@plugins/drawingTools/shared/SVGContext'
+
 import InteractionLayer from '../InteractionLayer'
 import locationValidator from '../../helpers/locationValidator'
 import SingleVideoViewer from './SingleVideoViewer'
@@ -183,7 +185,11 @@ class SingleVideoViewerContainer extends React.Component {
     //   return null
     // }
 
-    // const svg = this.videoViewer.current
+    const transformLayer = React.createRef()
+    const svg = this.videoViewer.current
+    const transform = ``
+    const getScreenCTM = () => transformLayer.current.getScreenCTM()
+
     const enableDrawing =
       loadingState === asyncStates.success && enableInteractionLayer
 
@@ -203,20 +209,24 @@ class SingleVideoViewerContainer extends React.Component {
         <DrawingContainer>
           SVG drawing layer
           <Box animation='fadeIn' overflow='hidden'>
-            <svg
-              ref={this.videoViewer}
-              focusable
-              onKeyDown={onKeyDown}
-              tabIndex={0}
-              viewBox={'0 0 400 300'}
-            >
-              {/* {title?.id && title?.text && (
+            <SVGContext.Provider value={{ svg, getScreenCTM }}>
+              <svg
+                ref={this.videoViewer}
+                focusable
+                onKeyDown={onKeyDown}
+                tabIndex={0}
+                viewBox={'0 0 400 300'}
+              >
+                {/* {title?.id && title?.text && (
                 <title id={title.id}>{title.text}</title>
               )} */}
-              {enableInteractionLayer && (
-                <InteractionLayer scale={scale} height={height} width={width} />
-              )}
-            </svg>
+                <g ref={transformLayer} transform={transform}>
+                  {enableInteractionLayer && (
+                    <InteractionLayer scale={1} height={300} width={400} />
+                  )}
+                </g>
+              </svg>
+            </SVGContext.Provider>
           </Box>
         </DrawingContainer>
 
@@ -242,7 +252,7 @@ SingleVideoViewerContainer.propTypes = {
   onError: PropTypes.func,
   onReady: PropTypes.func,
   onKeyDown: PropTypes.func,
-  viewBox: PropTypes.string.isRequired,
+  // viewBox: PropTypes.string.isRequired,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
   })
