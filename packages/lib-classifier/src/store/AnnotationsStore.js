@@ -32,7 +32,6 @@ const AnnotationsStore = types
       if (!annotation) {
         annotation = createAnnotation(task)
       }
-      task.setAnnotation(annotation)
       if (value !== undefined) {
         annotation.update(value)
       }

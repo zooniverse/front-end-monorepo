@@ -54,7 +54,7 @@ The [base Task model](https://github.com/zooniverse/front-end-monorepo/tree/mast
 
 - _taskKey (string)_ An identifier for the task eg. `T0`
 - _required (boolean = false)_ True if the task must be annotated before continuing.
-- _annotation (Annotation)_ The classification annotation for this task's task key.
+- _annotation (Annotation)_ DEPRECATED The classification annotation for this task's task key.
 - _isComplete(annotation) (boolean = true)_ False if the task is required and `annotation` is invalid.
 - _createAnnotation() (Annotation)_ Returns a new, empty annotation for this task. 
 
