@@ -147,22 +147,12 @@ describe('Model > DrawingTask', function () {
       task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
       pointSubTask = task.tools[0].tasks[1]
       const annotation = task.defaultAnnotation()
-      const store = types.model('MockStore', {
-        annotation: DrawingTask.AnnotationModel,
-        task: DrawingTask.TaskModel
-      })
-        .create({
-          annotation,
-          task
-        })
 
       function updateMark (mark, value) {
         const markAnnotation = mark.addAnnotation(pointSubTask)
-        pointSubTask.setAnnotation(markAnnotation)
         markAnnotation.update(value)
       }
 
-      task.setAnnotation(annotation)
       point1 = task.tools[0].createMark({ id: 'point1' })
       point2 = task.tools[0].createMark({ id: 'point2' })
       point3 = task.tools[0].createMark({ id: 'point3' })
@@ -229,15 +219,6 @@ describe('Model > DrawingTask', function () {
     before(function () {
       task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
       const annotation = task.defaultAnnotation()
-      types.model('MockStore', {
-        annotation: DrawingTask.AnnotationModel,
-        task: DrawingTask.TaskModel
-      })
-        .create({
-          annotation,
-          task
-        })
-      task.setAnnotation(annotation)
       pointTool = task.tools[0]
       lineTool = task.tools[1]
       task.setActiveTool(0)

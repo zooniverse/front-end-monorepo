@@ -18,18 +18,6 @@ describe('TextTask', function () {
   })
   const annotation = task.defaultAnnotation()
 
-  before(function () {
-    types.model('MockStore', {
-      annotation: Task.AnnotationModel,
-      task: Task.TaskModel
-    })
-    .create({
-      annotation,
-      task
-    })
-    task.setAnnotation(annotation)
-  })
-
   describe('default task', function () {
     let wrapper
     before(function () {
@@ -96,7 +84,6 @@ describe('TextTask', function () {
     describe('on mount', function () {
       before(function () {
         annotation.update('Hello, this is an existing annotation')
-        task.setAnnotation(annotation)
         wrapper = mount(
           <TextTask
             annotation={annotation}
@@ -119,7 +106,6 @@ describe('TextTask', function () {
       before(function () {
         sinon.spy(annotation, 'update')
         annotation.update('Hello, this is an existing annotation')
-        task.setAnnotation(annotation)
         wrapper = mount(
           <TextTask
             annotation={annotation}
@@ -216,7 +202,6 @@ describe('TextTask', function () {
       before(function () {
         sinon.spy(annotation, 'update')
         annotation.update('Hello, this is an existing annotation')
-        task.setAnnotation(annotation)
         wrapper = mount(
           <TextTask
             annotation={annotation}

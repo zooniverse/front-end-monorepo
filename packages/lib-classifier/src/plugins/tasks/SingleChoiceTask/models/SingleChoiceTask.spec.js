@@ -36,24 +36,15 @@ describe('Model > SingleChoiceTask', function () {
     before(function () {
       task = SingleChoiceTask.TaskModel.create(singleChoiceTask)
       annotation = task.defaultAnnotation()
-      const store = types.model('MockStore', {
-        annotation: SingleChoiceTask.AnnotationModel,
-        task: SingleChoiceTask.TaskModel
-      })
-      .create({
-        annotation,
-        task
-      })
-      task.setAnnotation(annotation)
     })
 
     it('should start up with a null value', function () {
-      expect(task.annotation.value).to.be.null()
+      expect(annotation.value).to.be.null()
     })
 
     it('should update annotations', function () {
       annotation.update(1)
-      expect(task.annotation.value).to.equal(1)
+      expect(annotation.value).to.equal(1)
     })
   })
 
@@ -86,27 +77,18 @@ describe('Model > SingleChoiceTask', function () {
       const requiredTask = Object.assign({}, singleChoiceTask, { required: 'true' })
       task = SingleChoiceTask.TaskModel.create(requiredTask)
       annotation = task.defaultAnnotation()
-      const store = types.model('MockStore', {
-        annotation: SingleChoiceTask.AnnotationModel,
-        task: SingleChoiceTask.TaskModel
-      })
-      .create({
-        annotation,
-        task
-      })
-      task.setAnnotation(annotation)
     })
 
     describe('with an incomplete annotation', function () {
       it('should be incomplete', function () {
-        expect(task.isComplete).to.be.false()
+        expect(task.isComplete(annotation)).to.be.false()
       })
     })
 
     describe('with a complete annotation', function () {
       it('should be complete', function () {
         annotation.update(1)
-        expect(task.isComplete).to.be.true()
+        expect(task.isComplete(annotation)).to.be.true()
       })
     })
   })

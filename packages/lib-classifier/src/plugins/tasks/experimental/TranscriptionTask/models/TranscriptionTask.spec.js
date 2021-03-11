@@ -125,22 +125,12 @@ describe('Model > TranscriptionTask', function () {
       task = TranscriptionTask.TaskModel.create(transcriptionTaskSnapshot)
       textSubTask = task.tools[0].tasks[0]
       const annotation = task.defaultAnnotation()
-      types.model('MockStore', {
-        annotation: TranscriptionTask.AnnotationModel,
-        task: TranscriptionTask.TaskModel
-      })
-        .create({
-          annotation,
-          task
-        })
 
       function updateMark(mark, value) {
         const markAnnotation = mark.addAnnotation(textSubTask)
-        textSubTask.setAnnotation(markAnnotation)
         markAnnotation.update(value)
       }
 
-      task.setAnnotation(annotation)
       transcriptionLine = task.tools[0].createMark({ id: 'transcriptionLine' })
 
       updateMark(transcriptionLine, 'foo')
@@ -186,15 +176,6 @@ describe('Model > TranscriptionTask', function () {
     before(function () {
       task = TranscriptionTask.TaskModel.create(transcriptionTaskSnapshot)
       const annotation = task.defaultAnnotation()
-      types.model('MockStore', {
-        annotation: TranscriptionTask.AnnotationModel,
-        task: TranscriptionTask.TaskModel
-      })
-        .create({
-          annotation,
-          task
-        })
-      task.setAnnotation(annotation)
       transcriptionLineTool = task.tools[0]
       task.reset()
       marks = task.marks
