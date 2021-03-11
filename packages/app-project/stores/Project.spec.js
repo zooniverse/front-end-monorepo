@@ -15,7 +15,7 @@ describe('Stores > Project', function () {
     expect(projectStore).to.be.ok()
   })
 
-  describe.only('default model properties', function () {
+  describe('default model properties', function () {
     before(function () {
       rootStore = Store.create({}, placeholderEnv)
       projectStore = rootStore.project

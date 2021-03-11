@@ -18,10 +18,15 @@ function useStoreContext (testStore) {
   Connect the about page to the store. Pass down correct aboutPages data.
 */
 function ProjectAboutPageConnector ({ pageType, teamArray, testStore }) {
-  const { store } = useStoreContext(testStore)
-  const { inBeta } = store.project
-  const aboutPages = store.project.about_pages
-  const [aboutPageData] = aboutPages.filter(page => page.url_key === pageType)
+  const {
+    store: {
+      project: {
+        inBeta = false,
+        about_pages = []
+      }
+    }
+  } = useStoreContext(testStore)
+  const [aboutPageData] = about_pages.filter(page => page.url_key === pageType)
   return aboutPageData ? (
     <ProjectAboutPage
       inBeta={inBeta}
