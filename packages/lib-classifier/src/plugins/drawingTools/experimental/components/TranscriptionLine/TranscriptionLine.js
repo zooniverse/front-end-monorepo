@@ -22,7 +22,7 @@ function TranscriptionLine (props) {
     transcriptionTaskColors = {
       active: theme.global.colors.drawingTools.green,
       default: theme.global.colors.drawingTools.blue,
-      transcribed: theme.global.colors.drawingTools.purple,
+      transcribed: theme.global.colors.drawingTools.pink,
       complete: theme.global.colors['light-5']
     }
   }

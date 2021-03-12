@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Lowered font weight for form input text.
 - Removed border radius on inputs
+- Changed the name for the colors `drawing-purple` to `drawing-pink` and `drawing-pink` to `drawing-ruby` for clarity.
 
 ## [2.2.0] 2019-09-23
 ### Added

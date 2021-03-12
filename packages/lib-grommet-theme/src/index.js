@@ -90,8 +90,8 @@ const drawingTools = {
   green: '#06FE76', // drawing-green
   aqua: '#0CFFE0', // drawing-aqua
   blue: '#235DFF', // drawing-blue
-  purple: '#FF40FF', // drawing-purple
-  pink: '#FF2B70' // drawing-pink
+  pink: '#FF40FF', // drawing-pink
+  ruby: '#FF2B70' // drawing-ruby
 }
 
 const highlighterTool = {

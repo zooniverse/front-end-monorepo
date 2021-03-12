@@ -1,5 +1,3 @@
-// export { default } from '@shared/components/StubComponent'
-
 import React from 'react';
 
 const AboutProject = () => {
