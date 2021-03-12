@@ -1,6 +1,6 @@
-import { Box, Grid, Heading, Text } from 'grommet'
+import { Box, Grid, Heading } from 'grommet'
 import { arrayOf, bool, object, shape, string } from 'prop-types'
-import styled, { css, withTheme } from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import { withResponsiveContext } from '@zooniverse/react-components'
 
 /** Components */
@@ -39,7 +39,7 @@ function ProjectAboutPage({
   return (
     <StandardLayout inBeta={inBeta}>
       <FullHeightBox
-        background='neutral-6'
+        background="neutral-6"
         border={{
           color: 'light-3',
           size: '1px',
@@ -53,26 +53,35 @@ function ProjectAboutPage({
         alignSelf="center"
         flex
       >
-        <Grid columns={(screenSize === 'small') ? ['auto'] : ['small', 'flex']} gap="8%">
-          {(screenSize !== 'small') ? (
+        <Grid
+          columns={screenSize === 'small' ? ['auto'] : ['small', 'flex']}
+          gap="8%"
+        >
+          {screenSize !== 'small' ? (
             <Box>
               <SidebarHeading children="About" />
               <AboutSidebar />
-            </Box>) : (
-              <AboutDropdownNav />
-            )
-          }
+            </Box>
+          ) : (
+            <AboutDropdownNav />
+          )}
           <Box>
-            <PageHeading
-              children={isTeamPage ? 'The Team' : title}
-            />
+            <PageHeading children={isTeamPage ? 'The Team' : title} />
             {isTeamPage ? (
-              <Grid columns={(screenSize === 'small') ? ['auto'] : ['flex', 'small']} gap="8%">
+              <Grid
+                columns={screenSize === 'small' ? ['auto'] : ['flex', 'small']}
+                gap="8%"
+              >
                 <AboutMarkdownz content={content} />
                 <Box>
-                  <SpacedText margin={{ bottom: '14px' }} children={`${projectDisplayName} TEAM`} weight='bold' color='black' />
+                  <SpacedText
+                    margin={{ bottom: '14px' }}
+                    children={`${projectDisplayName} TEAM`}
+                    weight="bold"
+                    color="black"
+                  />
                   {teamArray.length && (
-                    <Box as="ul" margin='none' pad='none'>
+                    <Box as="ul" margin="none" pad="none">
                       {teamArray.map(user => (
                         <TeamMember key={user.id} user={user} />
                       ))}
@@ -87,66 +96,6 @@ function ProjectAboutPage({
         </Grid>
       </FullHeightBox>
     </StandardLayout>
-    // <StandardLayout inBeta={inBeta}>
-    //   {screenSize !== 'small' && (
-    //     <FullHeightBox
-    //       margin={{ left: 'large', right: 'large' }}
-    //       width={{ max: 'xxlarge' }}
-    //       pad="large"
-    //       alignSelf="center"
-    //     >
-    //       <Grid columns={['small', 'flex']} gap="8%">
-    //         <Box>
-    //           <SidebarHeading children="About" />
-    //           <AboutSidebar />
-    //         </Box>
-    //         <Box>
-    //           <PageHeading
-    //             children={isTeamPage ? 'The Team' : title}
-    //           />
-    //           {isTeamPage ? (
-    //             <Grid columns={['flex', 'small']} gap="8%">
-    //               <AboutMarkdownz content={content} />
-    //               <Box>
-    //                 <TeamHeading children={`${projectDisplayName} TEAM`} />
-    //                 {teamArray.length && (
-    //                   <StyledList as="ul">
-    //                     {teamArray.map(user => (
-    //                       <TeamMember key={user.id} user={user} />
-    //                     ))}
-    //                   </StyledList>
-    //                 )}
-    //               </Box>
-    //             </Grid>
-    //           ) : (
-    //             <AboutMarkdownz content={content} />
-    //           )}
-    //         </Box>
-    //       </Grid>
-    //     </FullHeightBox>
-    //   )}
-    //   {screenSize === 'small' && (
-    //     <Box background="white" pad="small">
-    //       <AboutDropdownNav />
-    //       <PageHeading level="2" size="medium" children={title} />
-    //       {isTeamPage ? (
-    //           <Box>
-    //           <AboutMarkdownz content={content} />
-    //             <TeamHeading children={`${projectDisplayName} TEAM`} style={{ marginTop: '14px' }} />
-    //             {teamArray.length && (
-    //               <StyledList as="ul">
-    //                 {teamArray.map(user => (
-    //                   <TeamMember key={user.id} user={user} />
-    //                 ))}
-    //               </StyledList>
-    //             )}
-    //           </Box>
-    //       ) : (
-    //         <AboutMarkdownz content={content} />
-    //       )}
-    //     </Box>
-    //   )}
-    // </StandardLayout>
   )
 }
 
