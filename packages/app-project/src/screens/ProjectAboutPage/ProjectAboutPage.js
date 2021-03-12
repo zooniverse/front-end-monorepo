@@ -55,7 +55,7 @@ function ProjectAboutPage({
       >
         <Grid
           columns={screenSize === 'small' ? ['auto'] : ['small', 'flex']}
-          gap="8%"
+          gap={screenSize === 'small' ? '' : '8%'}
         >
           {screenSize !== 'small' ? (
             <Box>
@@ -70,8 +70,8 @@ function ProjectAboutPage({
             {isTeamPage ? (
               <Grid
                 columns={screenSize === 'small' ? ['auto'] : ['flex', 'small']}
-                gap="8%"
-              >
+                gap={screenSize === 'small' ? '' : '8%'}
+                >
                 <AboutMarkdownz content={content} />
                 <Box>
                   <SpacedText
