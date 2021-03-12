@@ -42,10 +42,6 @@ const Task = types.model('Task', {
       */
     },
 
-    setAnnotation (annotation) {
-      self.annotation = annotation.id
-    },
-
     start () {
       /*
       Override this with any setup actions for your task

@@ -68,7 +68,6 @@ function Task ({
 
 Task.propTypes = {
   task: shape({
-    setAnnotation: func.isRequired,
     taskKey: string.isRequired
   }).isRequired
 }
