@@ -1,6 +1,6 @@
 import { Box, Image } from 'grommet'
 import { shape, string } from 'prop-types'
-import styled, { css, withTheme } from 'styled-components'
+import styled, { css } from 'styled-components'
 import NavLink from '@shared/components/NavLink'
 import { withRouter } from 'next/router'
 
@@ -9,15 +9,6 @@ const StyledTeamMember = styled(Box)`
   list-style: none;
   display: flex;
   flex-direction: row;
-`
-
-const Placeholder = styled(Box)`
-  height: 50px;
-  width: 50px;
-  ${props =>
-    css`
-      background: ${props.theme.global.colors['brand']};
-    `}
 `
 
 const StyledAvatar = styled(Box)`
@@ -65,7 +56,7 @@ const StyledRole = styled(Box)`
 
 // TO DO: how to tell if user is part of zooniverse team??
 
-const TeamMember = ({ user, theme, router }) => {
+const TeamMember = ({ user, router }) => {
   const { owner, project } = router.query
   const baseUrl = `/projects/${owner}/${project}/users`
 
@@ -73,7 +64,7 @@ const TeamMember = ({ user, theme, router }) => {
     <StyledTeamMember as="li">
       <StyledAvatar>
         {!user.avatar_src ? (
-          <Placeholder />
+          <Box background="brand" height="50px" width="50px" />
         ) : (
           <Image alt={user.display_name} fit="cover" src={user.avatar_src} />
         )}
@@ -89,11 +80,7 @@ const TeamMember = ({ user, theme, router }) => {
             <StyledRole
               key={role}
               round="xxsmall"
-              background={
-                role === 'owner'
-                  ? theme.global.colors['neutral-4']
-                  : theme.global.colors['accent-2']
-              }
+              background={role === 'owner' ? 'neutral-4' : 'accent-2'}
             >
               {role === 'scientist' ? 'researcher' : role}
             </StyledRole>
@@ -113,4 +100,4 @@ TeamMember.propTypes = {
   })
 }
 
-export default withRouter(withTheme(TeamMember))
+export default withRouter(TeamMember)

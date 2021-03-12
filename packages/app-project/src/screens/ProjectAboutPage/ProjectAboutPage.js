@@ -11,14 +11,8 @@ import AboutDropdownNav from './components/AboutDropdownNav'
 import TeamMember from './components/TeamMember'
 import AboutMarkdownz from './components/AboutMarkdownz/AboutMarkdownz'
 
-const FullHeightBox = styled(Box)`
-  min-height: 98vh;
-`
-
 const PageHeading = styled(Heading)`
   font-weight: normal;
-  font-size: 40px;
-  margin-bottom: 30px;
 `
 
 const SidebarHeading = styled(SpacedHeading)`
@@ -38,7 +32,7 @@ function ProjectAboutPage({
 
   return (
     <StandardLayout inBeta={inBeta}>
-      <FullHeightBox
+      <Box
         background="neutral-6"
         border={{
           color: 'light-3',
@@ -66,12 +60,17 @@ function ProjectAboutPage({
             <AboutDropdownNav />
           )}
           <Box>
-            <PageHeading children={isTeamPage ? 'The Team' : title} />
+            <PageHeading
+              children={isTeamPage ? 'The Team' : title}
+              weight="normal"
+              size="40px"
+              margin={{ bottom: '30px' }}
+            />
             {isTeamPage ? (
               <Grid
                 columns={screenSize === 'small' ? ['auto'] : ['flex', 'small']}
                 gap={screenSize === 'small' ? '' : '8%'}
-                >
+              >
                 <AboutMarkdownz content={content} />
                 <Box>
                   <SpacedText
@@ -94,7 +93,7 @@ function ProjectAboutPage({
             )}
           </Box>
         </Grid>
-      </FullHeightBox>
+      </Box>
     </StandardLayout>
   )
 }
