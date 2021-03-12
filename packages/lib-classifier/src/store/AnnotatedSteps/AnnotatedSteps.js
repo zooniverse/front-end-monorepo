@@ -44,7 +44,8 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   setUndoManager(self)
 
   /** Create a new history entry from the current active step. **/
-  function _beginStep() {
+  function _beginStep(stepKey) {
+    _selectStep(stepKey)
     const { workflowSteps } = getRoot(self)
     const step = tryReference(() => workflowSteps.active)
     if (self.classification && step) {
@@ -96,8 +97,7 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   function _replace(stepKey) {
     undoManager.undo()
     self.clearRedo()
-    _selectStep(stepKey)
-    _beginStep()
+    _beginStep(stepKey)
   }
   /** Clear stored steps and history. Should be run before classifying a new subject. */
   function _reset() {
@@ -137,8 +137,7 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
     if (undoManager.canRedo) {
       _redo(nextStepKey)
     } else {
-      _selectStep(nextStepKey)
-      _beginStep()
+      _beginStep(nextStepKey)
     }
   }
   /** Start a new history. The first step in a workflow cannot be undone. */

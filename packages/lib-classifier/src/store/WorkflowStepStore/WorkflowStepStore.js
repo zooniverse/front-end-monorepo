@@ -119,7 +119,6 @@ const WorkflowStepStore = types
     function resetSteps () {
       self.active = undefined
       self.steps.forEach(step => step.reset())
-      self.selectStep()
     }
 
     function reset () {
@@ -137,7 +136,6 @@ const WorkflowStepStore = types
     function setStepsAndTasks (workflow) {
       self.setSteps(workflow)
       self.setTasks(workflow)
-      self.selectStep()
     }
 
     function setSteps (workflow) {
@@ -270,8 +268,6 @@ const WorkflowStepStore = types
           }
         }
       })
-
-      self.selectStep()
     }
 
     return {

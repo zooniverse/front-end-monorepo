@@ -118,12 +118,13 @@ describe('Model > WorkflowStepStore', function () {
       })
     })
 
-    it('should set the first step to be active', function () {
+    it('should select the first step to be active', function () {
       const { workflowSteps } = rootStore
       const firstStep = workflow.steps[0]
       const firstStepKey = firstStep[0]
       const firstStepSnapshot = firstStep[1]
       const secondStepKey = workflow.steps[1][0]
+      workflowSteps.selectStep()
       const storedStep = workflowSteps.active
 
       expect(storedStep.stepKey).to.equal(firstStepKey)
@@ -179,6 +180,7 @@ describe('Model > WorkflowStepStore', function () {
 
     it('should set the first step to be active', function () {
       const { workflowSteps } = rootStore
+      workflowSteps.selectStep()
       const storedStep = workflowSteps.active
       expect(storedStep.stepKey).to.equal('S0')
       storedStep.taskKeys.forEach(taskKey =>
@@ -245,6 +247,7 @@ describe('Model > WorkflowStepStore', function () {
 
     it('should set the first step to be active', function () {
       const { workflowSteps } = rootStore
+      workflowSteps.selectStep()
       const storedStep = workflowSteps.active
       expect(storedStep.stepKey).to.equal('S0')
       storedStep.taskKeys.forEach(taskKey =>
@@ -468,6 +471,7 @@ describe('Model > WorkflowStepStore', function () {
       const subjects = Factory.buildList('subject', 10)
       const panoptesClientStub = stubPanoptesJs({ workflows: singleChoiceWorkflow, subjects })
       const rootStore = await setupStores(panoptesClientStub, project, singleChoiceWorkflow)
+      rootStore.workflowSteps.selectStep()
       expect(rootStore.workflowSteps.interactionTask).to.be.empty()
     })
 
@@ -476,6 +480,7 @@ describe('Model > WorkflowStepStore', function () {
       const subjects = Factory.buildList('subject', 10)
       const panoptesClientStub = stubPanoptesJs({ workflows: manyStepWorkflow, subjects })
       const rootStore = await setupStores(panoptesClientStub, project, manyStepWorkflow)
+      rootStore.workflowSteps.selectStep()
       expect(rootStore.workflowSteps.interactionTask).to.be.empty()
     })
 
@@ -484,6 +489,7 @@ describe('Model > WorkflowStepStore', function () {
       const subjects = Factory.buildList('subject', 10)
       const panoptesClientStub = stubPanoptesJs({ workflows: drawingWorkflow, subjects })
       const rootStore = await setupStores(panoptesClientStub, project, drawingWorkflow)
+      rootStore.workflowSteps.selectStep()
       expect(rootStore.workflowSteps.interactionTask.type).to.equal('drawing')
     })
 
@@ -492,6 +498,7 @@ describe('Model > WorkflowStepStore', function () {
       const subjects = Factory.buildList('subject', 10)
       const panoptesClientStub = stubPanoptesJs({ workflows: transcriptionWorkflow, subjects })
       const rootStore = await setupStores(panoptesClientStub, project, transcriptionWorkflow)
+      rootStore.workflowSteps.selectStep()
       expect(rootStore.workflowSteps.interactionTask.type).to.equal('transcription')
     })
   })
@@ -555,6 +562,7 @@ describe('Model > WorkflowStepStore', function () {
       const subjects = Factory.buildList('subject', 10)
       const panoptesClientStub = stubPanoptesJs({ workflows: singleChoiceWorkflow, subjects })
       const rootStore = await setupStores(panoptesClientStub, project, singleChoiceWorkflow)
+      rootStore.workflowSteps.selectStep()
       expect(rootStore.workflowSteps.activeInteractionTask).to.be.empty()
     })
 
@@ -563,6 +571,7 @@ describe('Model > WorkflowStepStore', function () {
       const subjects = Factory.buildList('subject', 10)
       const panoptesClientStub = stubPanoptesJs({ workflows: manyStepDrawingWorkflow, subjects })
       const rootStore = await setupStores(panoptesClientStub, project, manyStepDrawingWorkflow)
+      rootStore.workflowSteps.selectStep()
       expect(rootStore.workflowSteps.activeInteractionTask).to.be.empty()
     })
 
@@ -571,6 +580,7 @@ describe('Model > WorkflowStepStore', function () {
       const subjects = Factory.buildList('subject', 10)
       const panoptesClientStub = stubPanoptesJs({ workflows: manyStepTranscriptionWorkflow, subjects })
       const rootStore = await setupStores(panoptesClientStub, project, manyStepTranscriptionWorkflow)
+      rootStore.workflowSteps.selectStep()
       expect(rootStore.workflowSteps.activeInteractionTask).to.be.empty()
     })
 
@@ -579,6 +589,7 @@ describe('Model > WorkflowStepStore', function () {
       const subjects = Factory.buildList('subject', 10)
       const panoptesClientStub = stubPanoptesJs({ workflows: drawingWorkflow, subjects })
       const rootStore = await setupStores(panoptesClientStub, project, drawingWorkflow)
+      rootStore.workflowSteps.selectStep()
       expect(rootStore.workflowSteps.activeInteractionTask.type).to.equal('drawing')
     })
 
@@ -587,6 +598,7 @@ describe('Model > WorkflowStepStore', function () {
       const subjects = Factory.buildList('subject', 10)
       const panoptesClientStub = stubPanoptesJs({ workflows: transcriptionWorkflow, subjects })
       const rootStore = await setupStores(panoptesClientStub, project, transcriptionWorkflow)
+      rootStore.workflowSteps.selectStep()
       expect(rootStore.workflowSteps.activeInteractionTask.type).to.equal('transcription')
     })
   })
