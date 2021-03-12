@@ -16,7 +16,7 @@ describe('TaskNavButtonsContainer', function () {
     before(function () {
       const classifierStore = mockStore()
       const store = { classifierStore }
-      wrapper = shallow(<TaskNavButtonsContainer store={store} />)
+      wrapper = shallow(<TaskNavButtonsContainer store={store} />).dive()
     })
 
     it('should render without crashing', function () {
@@ -35,7 +35,7 @@ describe('TaskNavButtonsContainer', function () {
     beforeEach(function () {
       classifierStore = mockStore()
       const store = { classifierStore }
-      wrapper = shallow(<TaskNavButtonsContainer store={store} />)
+      wrapper = shallow(<TaskNavButtonsContainer store={store} />).dive()
     })
 
     it('should create a default annotation for each task if there is not an annotation for that task', function () {
@@ -70,7 +70,7 @@ describe('TaskNavButtonsContainer', function () {
     before(function () {
       classifierStore = mockStore()
       const store = { classifierStore }
-      wrapper = shallow(<TaskNavButtonsContainer store={store} />)
+      wrapper = shallow(<TaskNavButtonsContainer store={store} />).dive()
     })
 
     it('should not go back if there is not a previous step', function () {
@@ -124,7 +124,7 @@ describe('TaskNavButtonsContainer', function () {
       const store = { classifierStore }
       sinon.stub(classifierStore.classifications, 'completeClassification')
 
-      wrapper = shallow(<TaskNavButtonsContainer store={store} />)
+      wrapper = shallow(<TaskNavButtonsContainer store={store} />).dive()
     })
 
     afterEach(function () {

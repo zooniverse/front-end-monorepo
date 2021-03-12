@@ -3,52 +3,51 @@ import PropTypes from 'prop-types'
 import { MobXProviderContext, observer, PropTypes as MobXPropTypes } from 'mobx-react'
 import TaskNavButtons from './TaskNavButtons'
 
-function useStores(store) {
-  const { classifierStore } = store || useContext(MobXProviderContext)
-  const {
-    annotatedSteps,
-    classifications,
-    workflows,
-    workflowSteps
-  } = classifierStore
-  const {
-    active: step,
-    activeStepTasks: tasks,
-    selectStep
-  } = workflowSteps
-  const {
-    active: classification,
-    completeClassification
-  } = classifications
-  const {
-    active: workflow
-  } = workflows
+function withStores(Component) {
+  function TaskNavButtonsConnector(props) {
+    const { classifierStore } = props.store || useContext(MobXProviderContext)
+    const {
+      annotatedSteps,
+      classifications: {
+        active: classification,
+        completeClassification
+      },
+      workflows: {
+        active: workflow
+      },
+      workflowSteps: {
+        active: step,
+        activeStepTasks: tasks,
+        selectStep
+      }
+    } = classifierStore
 
-  return {
-    annotatedSteps,
-    classification,
-    completeClassification,
-    selectStep,
-    step,
-    tasks,
-    workflow
+    return (
+      <Component
+        annotatedSteps={annotatedSteps}
+        classification={classification}
+        completeClassification={completeClassification}
+        selectStep={selectStep}
+        step={step}
+        tasks={tasks}
+        workflow={workflow}
+        {...props}
+      />
+    )
   }
+  return observer(TaskNavButtonsConnector)
 }
 
 function TaskNavButtonsContainer({
+  annotatedSteps,
+  classification,
   disabled = false,
-  store
+  completeClassification,
+  selectStep,
+  step,
+  tasks,
+  workflow
 }) {
-  const {
-    annotatedSteps,
-    classification,
-    completeClassification,
-    selectStep,
-    step,
-    tasks,
-    workflow
-  } = useStores(store)
-
   const { canUndo, latest } = annotatedSteps
 
   function completeStepTasks() {
@@ -112,5 +111,5 @@ TaskNavButtonsContainer.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.object)
 }
 
-export default observer(TaskNavButtonsContainer)
+export default withStores(TaskNavButtonsContainer)
 export { TaskNavButtonsContainer }
