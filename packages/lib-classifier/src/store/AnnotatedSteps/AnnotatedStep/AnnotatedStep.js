@@ -16,7 +16,7 @@ const AnnotatedStep = types.model('AnnotatedStep', {
       return self.step.isComplete(self.annotations)
     },
     /** Get the next step key from any single choice answers, or the current step otherwise. */
-    nextStepKey() {
+    get nextStepKey() {
       return self.step.nextStepKey(self.annotations)
     }
   })

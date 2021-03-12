@@ -33,6 +33,10 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   get canUndo() {
     return undoManager.canUndo
   },
+  get hasNextStep() {
+    const { nextStepKey } = self.latest
+    return !!nextStepKey && nextStepKey !== 'summary'
+  },
   /** The latest step in the workflow, with its annotations. */
   get latest() {
     const stepsArray = Array.from(self.steps.values())
@@ -129,7 +133,7 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   }
   /** Redo the next step, or add a new step to history if there is no redo. */
   function next() {
-    let nextStepKey = self.latest.nextStepKey()
+    let { nextStepKey } = self.latest
     // look up steps from task keys for backwards compatibility
     if (nextStepKey?.startsWith('T')) {
       nextStepKey = _getTaskStepKey(nextStepKey)

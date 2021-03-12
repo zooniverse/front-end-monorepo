@@ -7,7 +7,16 @@ function withStores(Component) {
   function TaskNavButtonsConnector(props) {
     const { classifierStore } = props.store || useContext(MobXProviderContext)
     const {
-      annotatedSteps,
+      annotatedSteps:{
+        back,
+        canUndo,
+        clearRedo,
+        hasNextStep,
+        latest: {
+          annotations
+        },
+        next
+      },
       classifications: {
         active: classification,
         completeClassification
@@ -24,9 +33,14 @@ function withStores(Component) {
 
     return (
       <Component
-        annotatedSteps={annotatedSteps}
+        annotations={annotations}
+        back={back}
+        canUndo={canUndo}
         classification={classification}
+        clearRedo={clearRedo}
         completeClassification={completeClassification}
+        hasNextStep={hasNextStep}
+        next={next}
         selectStep={selectStep}
         step={step}
         tasks={tasks}
@@ -39,20 +53,22 @@ function withStores(Component) {
 }
 
 function TaskNavButtonsContainer({
-  annotatedSteps,
+  annotations,
+  back,
+  canUndo,
   classification,
-  disabled = false,
+  clearRedo,
   completeClassification,
+  disabled = false,
+  hasNextStep,
+  next,
   selectStep,
   step,
   tasks,
   workflow
 }) {
-  const { canUndo, latest } = annotatedSteps
-
   function completeStepTasks() {
     if (classification) {
-      const { annotations } = latest
       tasks.forEach((task) => {
         const [ annotation ] = annotations.filter(annotation => annotation.task === task.taskKey)
         task.complete(annotation)
@@ -61,18 +77,18 @@ function TaskNavButtonsContainer({
   }
 
   function goToPreviousStep() {
-    annotatedSteps.back(workflow.configuration.persist_annotations)
+    back(workflow.configuration.persist_annotations)
   }
 
   function goToNextStep() {
     completeStepTasks()
-    annotatedSteps.next()
+    next()
   }
 
   function onSubmit(event) {
     event.preventDefault()
     completeStepTasks()
-    annotatedSteps.clearRedo()
+    clearRedo()
     return completeClassification()
   }
 
@@ -82,7 +98,7 @@ function TaskNavButtonsContainer({
       goToNextStep={goToNextStep}
       goToPreviousStep={goToPreviousStep}
       showBackButton={canUndo}
-      showNextButton={latest.nextStepKey()}
+      showNextButton={hasNextStep}
       onSubmit={onSubmit}
     />
   )
