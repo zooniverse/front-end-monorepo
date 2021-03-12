@@ -24,6 +24,11 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
     })
     return annotations
   },
+  get classification() {
+    const { classifications } = getRoot(self)
+    const classification = tryReference(() => classifications.active)
+    return classification
+  },
   /** Boolean flag. True when an undo history exists. */
   get canUndo() {
     return undoManager.canUndo
@@ -40,13 +45,12 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
 
   /** Create a new history entry from the current active step. **/
   function _beginStep() {
-    const { classifications, workflowSteps } = getRoot(self)
-    const classification = tryReference(() => classifications?.active)
+    const { workflowSteps } = getRoot(self)
     const step = tryReference(() => workflowSteps.active)
-    if (classification && step) {
+    if (self.classification && step) {
       let annotations
       undoManager.withoutUndo(() => {
-        annotations = step.tasks.map(task => classification.createAnnotation(task))
+        annotations = step.tasks.map(task => self.classification.createAnnotation(task))
       })
       const historyStep = {
         id: cuid(),
@@ -59,12 +63,10 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   }
   /** clear pending annotations from the classification. */
   function _clearPendingAnnotations() {
-    const { classifications } = getRoot(self)
-    const classification = classifications.active
-    classification.annotations.forEach(annotation => {
+    self.classification.annotations.forEach(annotation => {
       const exists = self.annotations.includes(annotation)
       if (!exists) {
-        classification.removeAnnotation(annotation)
+        self.classification.removeAnnotation(annotation)
       }
     })
   }
@@ -92,10 +94,9 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   }
   /** Clear the redo history and restart history from this point with a new step. */
   function _replace(stepKey) {
-    const { workflowSteps } = getRoot(self)
     undoManager.undo()
     self.clearRedo()
-    workflowSteps.selectStep(stepKey)
+    _selectStep(stepKey)
     _beginStep()
   }
   /** Clear stored steps and history. Should be run before classifying a new subject. */
@@ -103,16 +104,20 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
     self.steps.clear()
     undoManager.clear()
   }
+  /** select a new active workflow step */
+  function _selectStep(stepKey) {
+    const { workflowSteps } = getRoot(self)
+    workflowSteps.selectStep(stepKey)
+  }
   /** Undo the current step and select the previous step. */
   function back(persistAnnotations = true) {
-    const { workflowSteps } = getRoot(self)
     if (undoManager.canUndo) {
       undoManager.undo()
       if (!persistAnnotations) {
         self.clearRedo()
       }
       const { step } = self.latest
-      workflowSteps.selectStep(step.stepKey)
+      _selectStep(step.stepKey)
     }
   }
   /** Clear the redo history and delete orphaned annotations. */
@@ -132,8 +137,7 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
     if (undoManager.canRedo) {
       _redo(nextStepKey)
     } else {
-      const { workflowSteps } = getRoot(self)
-      workflowSteps.selectStep(nextStepKey)
+      _selectStep(nextStepKey)
       _beginStep()
     }
   }
