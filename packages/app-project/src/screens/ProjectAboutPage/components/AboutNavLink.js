@@ -1,16 +1,11 @@
 import { useState, useEffect } from 'react'
 import { string, object, shape } from 'prop-types'
-import styled, { withTheme } from 'styled-components'
+import styled from 'styled-components'
 import addQueryParams from '@helpers/addQueryParams'
 
 /** Components */
 import NavLink from '@shared/components/NavLink'
 import { Anchor, Box } from 'grommet'
-
-
-const StyledBox = styled(Box)`
-  padding: 5px 20px;
-`
 
 const StyledAnchor = styled(Anchor)`
   &:hover {
@@ -18,17 +13,7 @@ const StyledAnchor = styled(Anchor)`
   }
 `
 
-const AboutNavLink = ({ router, link, theme }) => {
-
-  const inActiveColor = theme.global.colors['dark-5']
-  const activeColor = theme.global.colors['neutral-2'] // darkTeal
-
-  const inActiveWeight = 'normal'
-  const activeWeight = 'bold'
-
-  const inActiveBg = theme.global.colors['white']
-  const activeBg = theme.global.colors['accent-2']  // lightTeal
-
+const AboutNavLink = ({ router, link }) => {
   const [isCurrentPage, setCurrentPage] = useState(false)
 
   useEffect(() => {
@@ -37,18 +22,17 @@ const AboutNavLink = ({ router, link, theme }) => {
   }, [router])
 
   return (
-    <StyledBox
-      style={{
-        background: isCurrentPage ? activeBg : inActiveBg,
-      }}
+    <Box
+       background={(isCurrentPage) ? 'accent-2' : 'neutral-6'}
+       pad={{ horizontal: '20px', vertical: '5px' }}
     >
       <NavLink
         link={link}
-        color={isCurrentPage ? activeColor : inActiveColor}
-        weight={isCurrentPage ? activeWeight : inActiveWeight}
+        color={isCurrentPage ? 'neutral-2' : 'dark-5'}
+        weight={isCurrentPage ? 'bold' : 'normal'}
         StyledAnchor={StyledAnchor}
       />
-    </StyledBox>
+    </Box>
   )
 }
 
@@ -60,4 +44,4 @@ AboutNavLink.propTypes = {
   router: object,
 }
 
-export default withTheme(AboutNavLink)
+export default AboutNavLink
