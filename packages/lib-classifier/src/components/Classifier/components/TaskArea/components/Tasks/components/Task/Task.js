@@ -6,34 +6,48 @@ import React, { useContext } from 'react'
 
 import taskRegistry from '@plugins/tasks'
 
-function useStores(task, stores) {
-  const { classifierStore } = stores || useContext(MobXProviderContext)
+function withStores(Component) {
+  function TaskConnector({
+    store,
+    task,
+    ...props
+  }) {
+    const { classifierStore } = store || useContext(MobXProviderContext)
 
-  const {
-    annotatedSteps,
-    subjectViewer
-  } = classifierStore
-  const { loadingState: subjectReadyState } = subjectViewer
-  const disabled = subjectReadyState !== asyncStates.success
+    const {
+      annotatedSteps,
+      subjectViewer
+    } = classifierStore
+    const { loadingState: subjectReadyState } = subjectViewer
+    const disabled = subjectReadyState !== asyncStates.success
 
-  let annotation
-  const { annotations } = annotatedSteps.latest
-  if (annotations) {
-    ([ annotation ] = annotations.filter(annotation => annotation.task === task.taskKey))
-  }
-  if (!annotation) {
-    console.log(`annotation missing for ${task.taskKey}`)
-  }
+    let annotation
+    const { annotations } = annotatedSteps.latest
+    if (annotations) {
+      ([ annotation ] = annotations.filter(annotation => annotation.task === task.taskKey))
+    }
+    if (!annotation) {
+      console.log(`annotation missing for ${task.taskKey}`)
+    }
 
-  return {
-    annotation,
-    disabled
+    return (
+      <Component
+        annotation={annotation}
+        disabled={disabled}
+        task={task}
+        {...props}
+      />
+    )
   }
+  return observer(TaskConnector)
 }
 
-function Task (props) {
-  const { store, task } = props
-  const { annotation, disabled } = useStores(task, store)
+function Task ({
+  annotation,
+  disabled,
+  task,
+  ...props
+}) {
   const { TaskComponent } = taskRegistry.get(task.type)
 
   if (annotation && TaskComponent) {
@@ -59,5 +73,5 @@ Task.propTypes = {
   }).isRequired
 }
 
-export default observer(Task)
+export default withStores(Task)
 
