@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
 
@@ -17,9 +17,12 @@ const DrawingContainer = styled.div`
   color: #fff;
   text-align: center;
   font-size: 20px;
-  background-color: rgba(221, 221, 221, 0.3);
-  width: 500px;
-  height: 300px;
+  background-color: rgba(221, 221, 221, 0.6);
+  ${(props) =>
+    css`
+      height: ${props.height}px;
+      width: ${props.width}px;
+    `}
   cursor: default;
 `
 
@@ -35,7 +38,9 @@ class SingleVideoViewerContainer extends React.Component {
       playbackRate: 1,
       played: 0,
       duration: 0,
-      isSeeking: false
+      isSeeking: false,
+      naturalWidth: 0,
+      naturalHeight: 0
     }
   }
 
@@ -55,7 +60,11 @@ class SingleVideoViewerContainer extends React.Component {
         naturalHeight,
         naturalWidth
       } = await this.getVideoSize()
-      const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
+      const target = { clientHeight, clientWidth, naturalWidth, naturalHeight }
+      this.setState({
+        naturalWidth: naturalWidth,
+        naturalHeight: naturalHeight
+      })
       console.log('target: ', target)
       onReady({ target })
     } catch (error) {
@@ -168,9 +177,18 @@ class SingleVideoViewerContainer extends React.Component {
 
   render() {
     const { loadingState, enableInteractionLayer, onKeyDown } = this.props
-    const { vid, isPlaying, playbackRate, played, duration } = this.state
+    const {
+      vid,
+      isPlaying,
+      playbackRate,
+      played,
+      duration,
+      naturalWidth,
+      naturalHeight
+    } = this.state
+
     // Erik Todo
-    const { naturalHeight, naturalWidth, src } = vid
+    // const { naturalHeight, naturalWidth, src } = vid
 
     if (loadingState === asyncStates.error) {
       return <div>Something went wrong.</div>
@@ -206,8 +224,7 @@ class SingleVideoViewerContainer extends React.Component {
         />
 
         {/* Drawing Layer */}
-        <DrawingContainer>
-          SVG drawing layer
+        <DrawingContainer width={naturalWidth} height={naturalHeight}>
           <Box animation='fadeIn' overflow='hidden'>
             <SVGContext.Provider value={{ svg, getScreenCTM }}>
               <svg
@@ -215,14 +232,18 @@ class SingleVideoViewerContainer extends React.Component {
                 focusable
                 onKeyDown={onKeyDown}
                 tabIndex={0}
-                viewBox={'0 0 400 300'}
+                viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
               >
                 {/* {title?.id && title?.text && (
                 <title id={title.id}>{title.text}</title>
               )} */}
                 <g ref={transformLayer} transform={transform}>
                   {enableInteractionLayer && (
-                    <InteractionLayer scale={1} height={300} width={400} />
+                    <InteractionLayer
+                      scale={1}
+                      width={naturalWidth}
+                      height={naturalHeight}
+                    />
                   )}
                 </g>
               </svg>
