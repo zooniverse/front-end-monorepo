@@ -95,7 +95,7 @@ const TeamMember = ({ user, theme, router }) => {
                   : theme.global.colors['accent-2']
               }
             >
-              {role}
+              {role === 'scientist' ? 'researcher' : role}
             </StyledRole>
           ))}
       </Box>
