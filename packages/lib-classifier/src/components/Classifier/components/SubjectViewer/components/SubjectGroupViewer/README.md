@@ -59,8 +59,12 @@ workflow.configuration = {
     cell_height: 1000,
     cell_style: {
       stroke: '#fff',
-      strokeWidth: '4',
-      fill: '#000'
+      strokeWidth: '1',
+      overlay: 'rgba(41,103,255,0.3)',
+      selectedStroke: '#2967FF',
+      selectedStrokeWidth: '8',
+      focusOutline: '2px dashed rgba(255, 255, 255, 0.5)',
+      background: '#000'
     },
     grid_columns: 4,
     grid_rows: 3
@@ -68,11 +72,11 @@ workflow.configuration = {
 }
 ```
 
-Some notes:
+Some notes on cell_style:
 
 - 'stroke' and 'strokeWidth' define the border around each cell, when that cell is idle (not being focused on, and not marked as selected)
-- 'highlight' and 'highlightWidth' define the border around each cell, when that cell is marked/selected.
-- A cell can also be in the "has keyboard focus" state or the "has keyboard focus AND has been marked/selected" state, and those state are visually represented by a combination of 'stroke' colour and 'highlightWidth' size.
+- 'selectedStroke' and 'selectedStrokeWidth' define the border around each cell, when that cell is marked/selected.
+- A cell can also be in the "has keyboard focus" state. This is visually represented by 'focusOutline'.
 - 'background' indicates the colour to fill the cell with when, e.g. the image doesn't fill the cell's available visible space.
 
 **Subject: Group Subjects**
