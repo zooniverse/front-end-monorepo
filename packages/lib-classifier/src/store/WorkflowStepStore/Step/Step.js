@@ -17,22 +17,18 @@ const GenericTask = types.union({ dispatcher: taskDispatcher }, ...taskModels)
 const Step = types
   .model('Step', {
     next: types.maybe(types.string),
-    previous: types.maybe(types.string),
     stepKey: types.identifier,
     taskKeys: types.array(types.string),
     tasks: types.array(GenericTask)
   })
   .views(self => ({
-    get isComplete () {
-      return self.tasks.reduce((isStepComplete, task) => isStepComplete && task.isComplete, true)
-    },
-
-    get isThereANextStep () {
-      return !!self.next && self.next !== 'summary'
-    },
-
-    get isThereAPreviousStep () {
-      return !!self.previous && self.stepKey !== 'summary'
+    isComplete(annotations=[]) {
+      let isIncomplete = false
+      self.tasks.forEach(task => {
+        const [annotation] = annotations.filter(annotation => annotation.task === task.taskKey)
+        isIncomplete = task.required && !annotation?.isComplete
+      })
+      return !isIncomplete
     },
 
     get isThereBranching () {
@@ -46,21 +42,25 @@ const Step = types
         }
         return false
       })
+    },
+
+    nextStepKey(annotations = []) {
+      // assume only one branching question per step.
+      const [ singleChoiceAnnotation ] = annotations.filter(annotation => annotation.taskType === 'single')
+      if (singleChoiceAnnotation) {
+        const [singleChoiceTask] = self.tasks.filter(task => task.taskKey === singleChoiceAnnotation.task)
+        const selectedAnswer = singleChoiceTask?.answers[singleChoiceAnnotation.value]
+        return selectedAnswer?.next
+      }
+      return self.next
     }
   }))
   .actions(self => ({
     reset () {
       self.tasks.forEach(task => task.reset())
-      if (self.isThereBranching) {
-        self.setNext(undefined)
-        self.setPrevious(undefined)
-      }
     },
     setNext (nextStepKey) {
       self.next = nextStepKey
-    },
-    setPrevious (previousStepKey) {
-      self.previous = previousStepKey
     }
   }))
 

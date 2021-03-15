@@ -1,14 +1,12 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import { Factory } from 'rosie'
 import sinon from 'sinon'
 import { shallow } from 'enzyme'
 import { Tasks } from './Tasks'
 import asyncStates from '@zooniverse/async-states'
 import taskRegistry from '@plugins/tasks'
-import RootStore from '@store'
-import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
-import stubPanoptesJs from '@test/stubPanoptesJs'
+import { WorkflowFactory } from '@test/factories'
+import mockStore from '@test/mockStore'
 import en from './locales/en'
 
 import Task from './components/Task'
@@ -42,61 +40,7 @@ describe('Tasks', function () {
         },
         version: '0.0'
       })
-      const subjectSnapshot = SubjectFactory.build({
-        id: 'subject',
-        metadata: {}
-      })
-      const projectSnapshot = ProjectFactory.build({
-        id: 'project'
-      })
-      const { panoptes } = stubPanoptesJs({
-        field_guides: [],
-        projects: [projectSnapshot],
-        subjects: Factory.buildList('subject', 10),
-        tutorials: [],
-        workflows: [workflowSnapshot]
-      })
-      const client = {
-        caesar: { request: sinon.stub().callsFake(() => Promise.resolve({})) },
-        panoptes,
-        tutorials: {
-          get: sinon.stub().callsFake(() =>
-            Promise.resolve({ body: {
-              tutorials: []
-            }})
-          )
-        }
-      }
-      const rootStore = RootStore.create({
-        projects: {
-          active: projectSnapshot.id,
-          resources: {
-            [projectSnapshot.id]: projectSnapshot
-          }
-        },
-        subjects: {
-          active: subjectSnapshot.id,
-          resources: {
-            [subjectSnapshot.id]: subjectSnapshot
-          }
-        },
-        workflows: {
-          active: workflowSnapshot.id,
-          resources: {
-            [workflowSnapshot.id]: workflowSnapshot
-          }
-        }
-      }, {
-        authClient: {
-          checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null)),
-          checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null))
-        },
-        client
-      })
-      rootStore.workflows.setResources([workflowSnapshot])
-      rootStore.workflows.setActive(workflowSnapshot.id)
-      rootStore.subjects.setResources([subjectSnapshot])
-      rootStore.subjects.advance()
+      const rootStore = mockStore(workflowSnapshot)
       classification = rootStore.classifications.active
       step = rootStore.workflowSteps.active
     })

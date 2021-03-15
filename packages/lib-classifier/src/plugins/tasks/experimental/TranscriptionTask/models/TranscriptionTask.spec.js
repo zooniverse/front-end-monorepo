@@ -125,22 +125,12 @@ describe('Model > TranscriptionTask', function () {
       task = TranscriptionTask.TaskModel.create(transcriptionTaskSnapshot)
       textSubTask = task.tools[0].tasks[0]
       const annotation = task.defaultAnnotation()
-      types.model('MockStore', {
-        annotation: TranscriptionTask.AnnotationModel,
-        task: TranscriptionTask.TaskModel
-      })
-        .create({
-          annotation,
-          task
-        })
 
       function updateMark(mark, value) {
         const markAnnotation = mark.addAnnotation(textSubTask)
-        textSubTask.setAnnotation(markAnnotation)
         markAnnotation.update(value)
       }
 
-      task.setAnnotation(annotation)
       transcriptionLine = task.tools[0].createMark({ id: 'transcriptionLine' })
 
       updateMark(transcriptionLine, 'foo')
@@ -154,12 +144,13 @@ describe('Model > TranscriptionTask', function () {
   })
 
   describe('on complete', function () {
+    let annotation
     let transcriptionLine
     let task
 
     before(function () {
       task = TranscriptionTask.TaskModel.create(transcriptionTaskSnapshot)
-      const annotation = task.defaultAnnotation()
+      annotation = task.defaultAnnotation()
       const store = types.model('MockStore', {
         annotation: TranscriptionTask.AnnotationModel,
         task: TranscriptionTask.TaskModel
@@ -168,13 +159,12 @@ describe('Model > TranscriptionTask', function () {
           annotation,
           task
         })
-      task.setAnnotation(annotation)
       transcriptionLine = task.tools[0].createMark({ id: 'transcriptionLine1' })
-      task.complete()
+      task.complete(annotation)
     })
 
     it('should copy marks to the task annotation', function () {
-      expect(task.annotation.value).to.deep.equal([transcriptionLine])
+      expect(annotation.value).to.deep.equal([transcriptionLine])
     })
   })
 
@@ -186,15 +176,6 @@ describe('Model > TranscriptionTask', function () {
     before(function () {
       task = TranscriptionTask.TaskModel.create(transcriptionTaskSnapshot)
       const annotation = task.defaultAnnotation()
-      types.model('MockStore', {
-        annotation: TranscriptionTask.AnnotationModel,
-        task: TranscriptionTask.TaskModel
-      })
-        .create({
-          annotation,
-          task
-        })
-      task.setAnnotation(annotation)
       transcriptionLineTool = task.tools[0]
       task.reset()
       marks = task.marks

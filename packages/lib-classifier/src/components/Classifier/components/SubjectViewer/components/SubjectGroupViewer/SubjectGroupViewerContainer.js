@@ -23,8 +23,7 @@ const DEFAULT_CELL_STYLE = {
   overlay: 'rgba(41,103,255,0.3)',
   selectedStroke: '#2967FF',
   selectedStrokeWidth: '8',
-  focusStroke: '#06FE76',
-  focusStrokeWidth: '4',
+  focusOutline: '2px dashed rgba(255, 255, 255, 0.5)',
   background: '#000'
 }
 const DEFAULT_GRID_COLUMNS = 3

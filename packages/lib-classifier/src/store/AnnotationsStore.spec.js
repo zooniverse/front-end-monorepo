@@ -66,7 +66,7 @@ describe('Model > AnnotationsStore', function () {
       model = AnnotationsStore.create({})
     })
 
-    describe('for a new task', function () {
+    describe('without an annotation ID', function () {
       it('should do nothing', function () {
         expect(model.annotations.size).to.equal(0)
         model.removeAnnotation('T0')
@@ -76,9 +76,9 @@ describe('Model > AnnotationsStore', function () {
 
     describe('for an existing task', function () {
       it('should remove the existing annotation', function () {
-        model.addAnnotation(task, 2)
+        const annotation = model.addAnnotation(task, 2)
         expect(model.annotations.size).to.equal(1)
-        model.removeAnnotation('T0')
+        model.removeAnnotation(annotation)
         expect(model.annotations.size).to.equal(0)
       })
     })
