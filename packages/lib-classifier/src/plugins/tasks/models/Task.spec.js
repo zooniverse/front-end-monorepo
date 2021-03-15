@@ -47,38 +47,28 @@ describe('Model > Task', function () {
   })
 
   describe('with an annotation', function () {
+    let annotation
     let task
 
     before(function () {
       task = Task.create(mockTask)
-      const annotations = AnnotationsStore.create()
-      const store = types.model('MockStore', {
-        annotations: AnnotationsStore,
-        task: Task
-      })
-      .create({
-        annotations,
-        task
-      })
-      annotations.addAnnotation(task)
-      task.setAnnotation(annotations.annotation(task))
+      annotation = task.createAnnotation()
     })
 
     it('should start up with an undefined value', function () {
-      expect(task.annotation.value).to.be.undefined()
+      expect(task.annotation).to.be.undefined()
     })
 
     it('should always be complete', function () {
-      expect(task.isComplete).to.be.true()
+      expect(task.isComplete(annotation)).to.be.true()
     })
 
     it('should create new Annotation models', function () {
-      const annotation = task.createAnnotation()
       expect(getType(annotation)).to.equal(Annotation)
     })
 
     it('should add its task key to annotations', function () {
-      expect(task.annotation.task).to.equal(task.taskKey)
+      expect(annotation.task).to.equal(task.taskKey)
     })
   })
 })

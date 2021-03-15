@@ -90,7 +90,7 @@ function SubTaskPopup(props) {
             const { TaskComponent } = taskRegistry.get(task.type)
 
             if (annotation && TaskComponent) {
-              const requiredEmphasis = task.required && !task.isComplete && confirmationState === 'closed'
+              const requiredEmphasis = task.required && !task.isComplete(annotation) && confirmationState === 'closed'
               return (
                 // horizontal pad for the space for the box-shadow focus style
                 // is there a better way?
