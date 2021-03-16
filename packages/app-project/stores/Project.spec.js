@@ -21,6 +21,10 @@ describe('Stores > Project', function () {
       projectStore = rootStore.project
     })
 
+    it('should have an `about_pages` property', function () {
+      expect(projectStore.about_pages).to.be.an('array')
+    })
+
     it('should have a `background` property', function () {
       expect(projectStore.background).to.be.an('object')
     })
@@ -71,6 +75,10 @@ describe('Stores > Project', function () {
 
     it('should have a `state` property', function () {
       expect(projectStore.loadingState).to.equal(asyncStates.initialized)
+    })
+
+    it('should have a `urls` property', function () {
+      expect(projectStore.urls).to.be.an('array')
     })
 
     it('should have a `workflow_description` property', function () {
