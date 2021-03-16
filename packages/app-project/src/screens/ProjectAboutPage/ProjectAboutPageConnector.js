@@ -12,7 +12,8 @@ function ProjectAboutPageConnector ({ pageType, teamArray }) {
     store: {
       project: {
         inBeta = false,
-        about_pages = []
+        about_pages = [],
+        display_name = ''
       }
     }
   } = React.useContext(MobXProviderContext)
@@ -22,6 +23,7 @@ function ProjectAboutPageConnector ({ pageType, teamArray }) {
       inBeta={inBeta}
       aboutPageData={aboutPageData}
       teamArray={teamArray}
+      projectDisplayName={display_name}
     />
   ) : (
     <p>No data for this page...</p>
