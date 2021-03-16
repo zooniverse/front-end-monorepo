@@ -5,6 +5,7 @@ import numberString from './types/numberString'
 
 const Project = types
   .model('Project', {
+    about_pages: types.frozen([]),
     avatar: types.frozen({}),
     background: types.frozen({}),
     beta_approved: types.optional(types.boolean, false),
@@ -27,8 +28,8 @@ const Project = types
     owners: types.frozen([]),
     retired_subjects_count: types.optional(types.number, 0),
     slug: types.optional(types.string, ''),
-    urls: types.frozen([]),
     subjects_count: types.optional(types.number, 0),
+    urls: types.frozen([]),
     workflow_description: types.maybeNull(types.string)
   })
 
