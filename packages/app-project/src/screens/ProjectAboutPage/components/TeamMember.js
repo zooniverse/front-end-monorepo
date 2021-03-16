@@ -64,7 +64,11 @@ const TeamMember = ({ user, router }) => {
     <StyledTeamMember as="li">
       <StyledAvatar>
         {!user.avatar_src ? (
-          <Box background="brand" height="50px" width="50px" />
+          <Image
+            alt="Placeholder Avatar"
+            fit="cover"
+            src="/simple-avatar.png"
+          />
         ) : (
           <Image alt={user.display_name} fit="cover" src={user.avatar_src} />
         )}
