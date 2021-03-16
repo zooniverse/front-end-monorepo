@@ -158,7 +158,7 @@ describe('Helpers > convertWorkflowToUseSteps', function () {
     const { name, input, output } = testCase
 
     it(`should convert ${name}`, function () {
-      const steps = convertWorkflowToUseSteps(input)
+      const { steps } = convertWorkflowToUseSteps(input)
       expect(steps).to.deep.equal(output)
     })
   }

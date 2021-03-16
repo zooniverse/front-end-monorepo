@@ -100,5 +100,5 @@ export default function convertWorkflowToUseSteps ({ first_task, tasks }) {
     }
   })
 
-  return steps
+  return { steps, tasks }
 }

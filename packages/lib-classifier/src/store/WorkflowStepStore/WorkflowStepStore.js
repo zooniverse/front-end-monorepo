@@ -86,16 +86,15 @@ const WorkflowStepStore = types
         const workflow = tryReference(() => getRoot(self).workflows?.active)
         if (workflow) {
           self.reset()
-          let steps
-          if (workflow.steps &&
-            workflow.steps.length > 0 &&
-            Object.keys(workflow.tasks).length > 0) {
-            steps = workflow.steps
-          } else {
+          let steps = workflow.steps
+          let tasks = workflow.tasks
+          const workflowHasSteps = (steps &&
+            steps.length > 0 &&
+            Object.keys(tasks).length > 0)
+          if (!workflowHasSteps) {
             // backwards compatibility
-            steps = convertWorkflowToUseSteps(workflow)
+            ({ steps, tasks } = convertWorkflowToUseSteps(workflow))
           }
-          const { tasks } = workflow
           _setStepsAndTasks({ steps, tasks })
         }
       }, { name: 'WorkflowStepStore Workflow Observer autorun' })
