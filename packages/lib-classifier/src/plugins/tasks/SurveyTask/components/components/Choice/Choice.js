@@ -36,7 +36,7 @@ export default function Choice (props) {
       flex='grow'
       pad='small'
     >
-      {choice.images.length > 0 && (
+      {choice.images?.length > 0 && (
         <Carousel
           controls='arrows'
         >
