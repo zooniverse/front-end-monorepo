@@ -69,8 +69,8 @@ export const Drawing = types.model('Drawing', {
       self.activeToolIndex = toolIndex
     }
 
-    function complete () {
-      self.annotation.update(self.marks)
+    function complete(annotation) {
+      annotation.update(self.marks)
     }
 
     function reset () {

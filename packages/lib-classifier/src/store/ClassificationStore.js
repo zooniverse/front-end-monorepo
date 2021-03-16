@@ -101,22 +101,6 @@ const ClassificationStore = types
       }
     }
 
-    function removeAnnotation (taskKey) {
-      const validClassificationReference = isValidReference(() => self.active)
-      const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
-
-      if (validClassificationReference && validWorkflowReference) {
-        const classification = self.active
-        const workflow = getRoot(self).workflows.active
-        const isPersistAnnotationsSet = workflow.configuration.persist_annotations
-        if (!isPersistAnnotationsSet) classification.removeAnnotation(taskKey)
-      } else {
-        if (process.browser) {
-          console.error('No active classification or no active workflow. Cannot remove annotation.')
-        }
-      }
-    }
-
     function completeClassification () {
       const validClassificationReference = isValidReference(() => self.active)
       const validSubjectReference = isValidReference(() => getRoot(self).subjects.active)
@@ -205,7 +189,6 @@ const ClassificationStore = types
       completeClassification,
       createClassification,
       onClassificationSaved,
-      removeAnnotation,
       setDemoMode,
       setOnComplete,
       submitClassification: flow(submitClassification)

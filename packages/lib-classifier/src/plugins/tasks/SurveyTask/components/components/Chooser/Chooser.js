@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
-import CharacteristicsFilterLabel from './components/CharacteristicsFilterLabel'
+import FilterStatus from './components/CharacteristicsFilter/FilterStatus'
 import Choices from './components/Choices'
 
 const StyledHorizontalRule = styled.hr`
@@ -23,7 +23,9 @@ export default function Chooser (props) {
 
   return (
     <Box>
-      <CharacteristicsFilterLabel />
+      <FilterStatus
+        task={task}
+      />
       <StyledHorizontalRule />
       <Choices
         filteredChoices={unfilteredChoices}
@@ -40,7 +42,6 @@ Chooser.defaultProps = {
   onChoose: () => {}
 }
 
-// TODO: expand on value propType
 Chooser.propTypes = {
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,

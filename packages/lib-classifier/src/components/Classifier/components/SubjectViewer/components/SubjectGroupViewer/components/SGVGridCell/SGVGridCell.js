@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 
 import { draggable } from '@plugins/drawingTools/components'
 
-const FOCUS_OFFSET = 8
+const FOCUS_OFFSET = 2
 
 const DraggableImage = styled(draggable('image'))`
     cursor: grab;
@@ -19,8 +19,7 @@ const DraggableRect = styled(draggable('rect'))`
 const ClickableRect = styled('rect')`
     cursor: pointer;
     &:focus {
-      ${props => css`stroke: ${props.cellStyle.focusStroke};`}
-      ${props => css`stroke-width: ${props.cellStyle.focusStrokeWidth};`}
+      ${props => css`outline: ${props.cellStyle.focusOutline};`}
     }
   }
 `

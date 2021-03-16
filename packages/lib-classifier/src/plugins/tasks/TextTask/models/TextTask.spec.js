@@ -64,24 +64,15 @@ describe('Model > TextTask', function () {
     before(function () {
       task = TextTask.TaskModel.create(textTask)
       annotation = task.defaultAnnotation()
-      const store = types.model('MockStore', {
-        annotation: TextTask.AnnotationModel,
-        task: TextTask.TaskModel
-      })
-      .create({
-        annotation,
-        task
-      })
-      task.setAnnotation(annotation)
     })
 
     it('should start up with an empty string', function () {
-      expect(task.annotation.value).to.equal('')
+      expect(annotation.value).to.equal('')
     })
 
     it('should update annotations', function () {
       annotation.update('Hello there!')
-      expect(task.annotation.value).to.equal('Hello there!')
+      expect(annotation.value).to.equal('Hello there!')
     })
   })
 })

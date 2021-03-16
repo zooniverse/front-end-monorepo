@@ -37,6 +37,19 @@ const ResourceStore = types
       }
     }),
 
+    onError (error) {
+      if (process.browser || process.env.NODE_ENV === 'test') console.error(error)
+      self.loadingState = asyncStates.error
+    },
+
+    onLoading () {
+      self.loadingState = asyncStates.loading
+    },
+
+    onReady () {
+      self.loadingState = asyncStates.success
+    },
+
     reset () {
       self.headers = undefined
       self.active = undefined
