@@ -19,18 +19,14 @@ describe('Component > Choice', function () {
     taskKey: 'T0',
     type: 'survey'
   })
-  const annotation = task.defaultAnnotation()
 
   before(function () {
     types.model('MockStore', {
-      annotation: Task.AnnotationModel,
       task: Task.TaskModel
     })
       .create({
-        annotation,
         task
       })
-    task.setAnnotation(annotation)
 
     wrapper = shallow(
       <Choice

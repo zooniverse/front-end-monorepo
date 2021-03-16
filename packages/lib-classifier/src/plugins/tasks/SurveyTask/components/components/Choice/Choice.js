@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { PrimaryButton, Media } from '@zooniverse/react-components'
 
 import Questions from './components/Questions'
-import checkFilledIn from './helpers/checkFilledIn'
+import allowIdentification from './helpers/allowIdentification'
 import getQuestionIds from './helpers/getQuestionIds'
 
 import counterpart from 'counterpart'
@@ -29,7 +29,7 @@ export default function Choice (props) {
 
   const choice = choices?.[choiceId]
   const questionIds = getQuestionIds(choiceId, task)
-  const allowIdentify = checkFilledIn(answers, choiceId, task)
+  const allowIdentify = allowIdentification(answers, choiceId, task)
 
   return (
     <Box
