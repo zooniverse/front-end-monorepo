@@ -57,24 +57,15 @@ describe('Model > MultipleChoiceTask', function () {
     before(function () {
       task = MultipleChoiceTask.TaskModel.create(multipleChoiceTask)
       annotation = task.defaultAnnotation()
-      const store = types.model('MockStore', {
-        annotation: MultipleChoiceTask.AnnotationModel,
-        task: MultipleChoiceTask.TaskModel
-      })
-      .create({
-        annotation,
-        task
-      })
-      task.setAnnotation(annotation)
     })
 
     it('should start up with an empty value', function () {
-      expect(task.annotation.value).to.be.empty()
+      expect(annotation.value).to.be.empty()
     })
 
     it('should update annotations', function () {
       annotation.update([1])
-      expect(task.annotation.value).to.deep.equal([1])
+      expect(annotation.value).to.deep.equal([1])
     })
   })
 
@@ -86,27 +77,18 @@ describe('Model > MultipleChoiceTask', function () {
       const requiredTask = Object.assign({}, multipleChoiceTask, { required: 'true' })
       task = MultipleChoiceTask.TaskModel.create(requiredTask)
       annotation = task.defaultAnnotation()
-      const store = types.model('MockStore', {
-        annotation: MultipleChoiceTask.AnnotationModel,
-        task: MultipleChoiceTask.TaskModel
-      })
-      .create({
-        annotation,
-        task
-      })
-      task.setAnnotation(annotation)
     })
 
     describe('with an incomplete annotation', function () {
       it('should be incomplete', function () {
-        expect(task.isComplete).to.be.false()
+        expect(task.isComplete(annotation)).to.be.false()
       })
     })
 
     describe('with a complete annotation', function () {
       it('should be complete', function () {
         annotation.update([1])
-        expect(task.isComplete).to.be.true()
+        expect(task.isComplete(annotation)).to.be.true()
       })
     })
   })

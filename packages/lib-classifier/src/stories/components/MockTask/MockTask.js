@@ -1,7 +1,7 @@
 import { Box, Grommet } from 'grommet'
 import { Provider, observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { Tasks } from '@components/Classifier/components/TaskArea/components/Tasks/Tasks'
+import Tasks from '@components/Classifier/components/TaskArea/components/Tasks/Tasks'
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { createStore }  from '@store/helpers'
@@ -10,12 +10,11 @@ import { createStore }  from '@store/helpers'
   Global store. This should be created only once, otherwise the Provider will error.
 */
 let store
-const ObservedTasks = observer(Tasks)
 
 /**
   Takes a workflow tasks object and sets up the active workflow step and classification annotations.
 */
-function addStepToStore(tasks = {}) {
+function addStepToStore(tasks = {}, isThereTaskHelp = true) {
   const stepKey = 'S1'
   const taskKeys = Object.values(tasks).map(task => task.taskKey)
   const step = {
@@ -23,15 +22,22 @@ function addStepToStore(tasks = {}) {
     taskKeys
   }
   const steps = [[stepKey, step]]
+  Object.values(tasks).forEach(task => {
+    task.help = isThereTaskHelp ? task.help : undefined
+  })
   store.workflowSteps.setStepsAndTasks({ steps, tasks })
-  store.workflowSteps.active.tasks.forEach(task => store.classifications.addAnnotation(task))
+  store.annotatedSteps.start()
 }
 
 /**
   Initialise the store state on story load.
 */
-function initStore(tasks) {
-  store = store ?? createStore()
+function initStore(loadingState, tasks) {
+  store = store ?? createStore({
+    workflows: {
+      loadingState
+    }
+  })
   addStepToStore(tasks)
   const mockSubject = {
     id: 'subject',
@@ -53,6 +59,10 @@ function initStore(tasks) {
 export default function MockTask({
   /** Use the dark theme */
   dark = false,
+  /** show task help */
+  isThereTaskHelp = true,
+  /** workflow loading state */
+  loadingState = asyncStates.success,
   /** subject loading state */
   subjectReadyState = asyncStates.success,
   /** a workflow tasks object */
@@ -63,13 +73,31 @@ export default function MockTask({
   const [ loaded, setLoaded ] = useState(false)
 
   useEffect(function init() {
-    initStore(tasks)
+    initStore(loadingState, tasks)
     setLoaded(true)
   }, [])
 
   useEffect(function onTasksChange() {
-    addStepToStore(tasks)
-  }, [tasks])
+    addStepToStore(tasks, isThereTaskHelp)
+  }, [isThereTaskHelp, tasks])
+
+  useEffect(function onLoadingStateChange() {
+    const { workflows } = store
+    switch (loadingState) {
+      case asyncStates.error: {
+        workflows.onError()
+        break
+      }
+      case asyncStates.loading: {
+        workflows.onLoading()
+        break
+      }
+      case asyncStates.success: {
+        workflows.onReady()
+        break
+      }
+    }
+  }, [loadingState])
 
   useEffect(function onSubjectReadyStateChange() {
     const { subjectViewer } = store
@@ -93,9 +121,6 @@ export default function MockTask({
     return null
   }
 
-  const classification = store?.classifications?.active
-  const step = store?.workflowSteps?.active
-
   return (
     <Provider classifierStore={store}>
       <Grommet
@@ -114,11 +139,7 @@ export default function MockTask({
           pad='1em'
           width='380px'
         >
-          <ObservedTasks
-            classification={classification}
-            loadingState={asyncStates.success}
-            step={step}
-            subjectReadyState={subjectReadyState}
+          <Tasks
             {...taskProps}
           />
         </Box>

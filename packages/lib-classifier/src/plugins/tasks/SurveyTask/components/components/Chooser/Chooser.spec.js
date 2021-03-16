@@ -4,7 +4,7 @@ import React from 'react'
 
 import { default as Task } from '@plugins/tasks/SurveyTask'
 import Chooser from './Chooser'
-import CharacteristicsFilterLabel from './components/CharacteristicsFilterLabel'
+import FilterStatus from './components/CharacteristicsFilter/FilterStatus'
 import Choices from './components/Choices'
 
 describe('Component > Chooser', function () {
@@ -16,16 +16,6 @@ describe('Component > Chooser', function () {
   const annotation = task.defaultAnnotation()
 
   before(function () {
-    types.model('MockStore', {
-      annotation: Task.AnnotationModel,
-      task: Task.TaskModel
-    })
-      .create({
-        annotation,
-        task
-      })
-    task.setAnnotation(annotation)
-
     wrapper = shallow(
       <Chooser
         task={task}
@@ -37,8 +27,8 @@ describe('Component > Chooser', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should render a CharacteristicsFilterLabel component', function () {
-    expect(wrapper.find(CharacteristicsFilterLabel)).to.have.lengthOf(1)
+  it('should render a FilterStatus component', function () {
+    expect(wrapper.find(FilterStatus)).to.have.lengthOf(1)
   })
 
   it('should render a Choices component', function () {

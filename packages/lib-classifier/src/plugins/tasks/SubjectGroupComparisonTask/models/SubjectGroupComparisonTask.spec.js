@@ -31,25 +31,16 @@ describe('Model > SubjectGroupComparisonTask', function () {
     before(function () {
       task = SubjectGroupComparisonTask.TaskModel.create(subjectGroupTask)
       annotation = task.defaultAnnotation()
-      const store = types.model('MockStore', {
-        annotation: SubjectGroupComparisonTask.AnnotationModel,
-        task: SubjectGroupComparisonTask.TaskModel
-      })
-      .create({
-        annotation,
-        task
-      })
-      task.setAnnotation(annotation)
     })
 
     it('should start up with an empty value', function () {
-      expect(task.annotation.value).to.be.empty()
+      expect(annotation.value).to.be.empty()
     })
 
     it('should update annotations', function () {
       const markedCell = { index: 1, subject: 'subject1111' }
       annotation.update([ markedCell ])
-      expect(task.annotation.value[0]).to.deep.equal(markedCell)
+      expect(annotation.value[0]).to.deep.equal(markedCell)
     })
   })
 
@@ -60,20 +51,11 @@ describe('Model > SubjectGroupComparisonTask', function () {
       const requiredTask = Object.assign({}, subjectGroupTask, { required: true })
       task = SubjectGroupComparisonTask.TaskModel.create(requiredTask)
       annotation = task.defaultAnnotation()
-      const store = types.model('MockStore', {
-        annotation: SubjectGroupComparisonTask.AnnotationModel,
-        task: SubjectGroupComparisonTask.TaskModel
-      })
-      .create({
-        annotation,
-        task
-      })
-      task.setAnnotation(annotation)
     })
 
     describe('with an incomplete annotation', function () {
       it('should be incomplete', function () {
-        expect(task.isComplete).to.be.false()
+        expect(task.isComplete(annotation)).to.be.false()
       })
     })
 
@@ -81,7 +63,7 @@ describe('Model > SubjectGroupComparisonTask', function () {
       it('should be complete', function () {
         const markedCell = { index: 1, subject: 'subject1111' }
         annotation.update([ markedCell ])
-        expect(task.isComplete).to.be.true()
+        expect(task.isComplete(annotation)).to.be.true()
       })
     })
   })
