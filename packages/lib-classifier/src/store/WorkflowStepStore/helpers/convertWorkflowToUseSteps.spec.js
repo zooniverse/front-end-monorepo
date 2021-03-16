@@ -15,13 +15,18 @@ describe('Helpers > convertWorkflowToUseSteps', function () {
           T0: SingleChoiceTaskFactory.build({ taskKey: 'T0' })
         }
       },
-      output: [
-        ['S0', {
-          next: undefined,
-          stepKey: 'S0',
-          taskKeys: ['T0']
-        }]
-      ]
+      output: {
+        steps: [
+          ['S0', {
+            next: undefined,
+            stepKey: 'S0',
+            taskKeys: ['T0']
+          }]
+        ],
+        tasks: {
+          T0: SingleChoiceTaskFactory.build({ taskKey: 'T0' })
+        }
+      }
     },
     // linear workflow T0 -> T1 -> T2
     {
@@ -34,23 +39,30 @@ describe('Helpers > convertWorkflowToUseSteps', function () {
           T2: DrawingTaskFactory.build({ taskKey: 'T2'})
         }
       },
-      output: [
-        ['S0', {
-          next: 'S1',
-          stepKey: 'S0',
-          taskKeys: ['T0']
-        }],
-        ['S1', {
-          next: 'S2',
-          stepKey: 'S1',
-          taskKeys: ['T1']
-        }],
-        ['S2', {
-          next: undefined,
-          stepKey: 'S2',
-          taskKeys: ['T2']
-        }]
-      ]
+      output: {
+        steps: [
+          ['S0', {
+            next: 'S1',
+            stepKey: 'S0',
+            taskKeys: ['T0']
+          }],
+          ['S1', {
+            next: 'S2',
+            stepKey: 'S1',
+            taskKeys: ['T1']
+          }],
+          ['S2', {
+            next: undefined,
+            stepKey: 'S2',
+            taskKeys: ['T2']
+          }]
+        ],
+        tasks: {
+          T0: MultipleChoiceTaskFactory.build({ taskKey: 'T0', next: 'T1' }),
+          T1: MultipleChoiceTaskFactory.build({ taskKey: 'T1', next: 'T2' }),
+          T2: DrawingTaskFactory.build({ taskKey: 'T2'})
+        }
+      }
     },
     // linear workflow T1 -> T0 -> T2
     {
@@ -63,23 +75,30 @@ describe('Helpers > convertWorkflowToUseSteps', function () {
           T2: DrawingTaskFactory.build({ taskKey: 'T2'})
         }
       },
-      output: [
-        ['S0', {
-          next: 'S1',
-          stepKey: 'S0',
-          taskKeys: ['T1']
-        }],
-        ['S1', {
-          next: 'S2',
-          stepKey: 'S1',
-          taskKeys: ['T0']
-        }],
-        ['S2', {
-          next: undefined,
-          stepKey: 'S2',
-          taskKeys: ['T2']
-        }]
-      ]
+      output: {
+        steps: [
+          ['S0', {
+            next: 'S1',
+            stepKey: 'S0',
+            taskKeys: ['T1']
+          }],
+          ['S1', {
+            next: 'S2',
+            stepKey: 'S1',
+            taskKeys: ['T0']
+          }],
+          ['S2', {
+            next: undefined,
+            stepKey: 'S2',
+            taskKeys: ['T2']
+          }]
+        ],
+        tasks: {
+          T0: MultipleChoiceTaskFactory.build({ taskKey: 'T0', next: 'T2' }),
+          T1: MultipleChoiceTaskFactory.build({ taskKey: 'T1', next: 'T0' }),
+          T2: DrawingTaskFactory.build({ taskKey: 'T2'})
+        }
+      }
     },
     // [T0, T1] -> T2
     {
@@ -104,18 +123,37 @@ describe('Helpers > convertWorkflowToUseSteps', function () {
           }
         }
       },
-      output: [
-        ['S0', {
-          next: 'S1',
-          stepKey: 'S0',
-          taskKeys: ['T0', 'T1']
-        }],
-        ['S1', {
-          next: undefined,
-          stepKey: 'S1',
-          taskKeys: ['T2']
-        }]
-      ]
+      output: {
+        steps: [
+          ['S0', {
+            next: 'S1',
+            stepKey: 'S0',
+            taskKeys: ['T0', 'T1']
+          }],
+          ['S1', {
+            next: undefined,
+            stepKey: 'S1',
+            taskKeys: ['T2']
+          }]
+        ],
+        tasks: {
+          T0: SingleChoiceTaskFactory.build({
+            taskKey: 'T0',
+            answers: [
+              { label: 'Yes' },
+              { label: 'No' }
+            ]
+          }),
+          T1: DrawingTaskFactory.build({ taskKey: 'T1' }),
+          T2: MultipleChoiceTaskFactory.build({ taskKey: 'T2' }),
+          T3: {
+            next: 'T2',
+            taskKey: 'T3',
+            type: 'combo',
+            tasks: ['T0', 'T1']
+          }
+        }
+      }
     }, 
     // T0 -> T1 or T2
     {
@@ -134,23 +172,36 @@ describe('Helpers > convertWorkflowToUseSteps', function () {
           T2: MultipleChoiceTaskFactory.build({ taskKey: 'T2' })
         }
       },
-      output: [
-        ['S0', {
-          next: undefined,
-          stepKey: 'S0',
-          taskKeys: ['T0']
-        }],
-        ['S1', {
-          next: undefined,
-          stepKey: 'S1',
-          taskKeys: ['T1']
-        }],
-        ['S2', {
-          next: undefined,
-          stepKey: 'S2',
-          taskKeys: ['T2']
-        }]
-      ]
+      output: {
+        steps: [
+          ['S0', {
+            next: undefined,
+            stepKey: 'S0',
+            taskKeys: ['T0']
+          }],
+          ['S1', {
+            next: undefined,
+            stepKey: 'S1',
+            taskKeys: ['T1']
+          }],
+          ['S2', {
+            next: undefined,
+            stepKey: 'S2',
+            taskKeys: ['T2']
+          }]
+        ],
+        tasks: {
+          T0: SingleChoiceTaskFactory.build({
+            taskKey: 'T0',
+            answers: [
+              { label: 'Yes', next: 'T1' },
+              { label: 'No', next: 'T2' }
+            ]
+          }),
+          T1: DrawingTaskFactory.build({ taskKey: 'T1' }),
+          T2: MultipleChoiceTaskFactory.build({ taskKey: 'T2' })
+        }
+      }
     }
   ]
 
@@ -158,8 +209,8 @@ describe('Helpers > convertWorkflowToUseSteps', function () {
     const { name, input, output } = testCase
 
     it(`should convert ${name}`, function () {
-      const { steps } = convertWorkflowToUseSteps(input)
-      expect(steps).to.deep.equal(output)
+      const { steps, tasks } = convertWorkflowToUseSteps(input)
+      expect({ steps, tasks }).to.deep.equal(output)
     })
   }
   testCases.forEach(runTestCase)
