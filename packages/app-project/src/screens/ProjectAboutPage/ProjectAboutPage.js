@@ -62,6 +62,7 @@ function ProjectAboutPage({
           <Box>
             <PageHeading
               children={isTeamPage ? 'The Team' : title}
+              level="2"
               weight="normal"
               size="40px"
               margin={{ bottom: '30px' }}
