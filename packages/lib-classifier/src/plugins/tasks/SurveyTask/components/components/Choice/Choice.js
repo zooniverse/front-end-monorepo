@@ -40,9 +40,10 @@ export default function Choice (props) {
         <Carousel
           controls='arrows'
         >
-          {choice.images.map(filename => (
+          {choice.images.map((filename, index) => (
             <Media
               key={filename}
+              alt={`${choice.label}-image${index}`}
               src={images[filename]}
             />
           ))}
