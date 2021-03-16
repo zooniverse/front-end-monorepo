@@ -1,6 +1,6 @@
 import getQuestionIds from './getQuestionIds'
 
-export default function checkFilledIn (
+export default function allowIdentification (
   answers = {},
   choiceId = '',
   task = {}
