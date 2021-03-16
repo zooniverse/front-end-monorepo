@@ -12,7 +12,13 @@ describe('Helpers > convertWorkflowToUseSteps', function () {
       input: {
         first_task: 'T0',
         tasks: {
-          T0: SingleChoiceTaskFactory.build({ taskKey: 'T0' })
+          T0: SingleChoiceTaskFactory.build({
+            taskKey: 'T0',
+            answers: [
+              { label: 'Yes' },
+              { label: 'No' }
+            ]
+          })
         }
       },
       output: {
@@ -24,7 +30,13 @@ describe('Helpers > convertWorkflowToUseSteps', function () {
           }]
         ],
         tasks: {
-          T0: SingleChoiceTaskFactory.build({ taskKey: 'T0' })
+          T0: SingleChoiceTaskFactory.build({
+            taskKey: 'T0',
+            answers: [
+              { label: 'Yes' },
+              { label: 'No' }
+            ]
+          })
         }
       }
     },
@@ -194,12 +206,72 @@ describe('Helpers > convertWorkflowToUseSteps', function () {
           T0: SingleChoiceTaskFactory.build({
             taskKey: 'T0',
             answers: [
-              { label: 'Yes', next: 'T1' },
-              { label: 'No', next: 'T2' }
+              { label: 'Yes', next: 'S1' },
+              { label: 'No', next: 'S2' }
             ]
           }),
           T1: DrawingTaskFactory.build({ taskKey: 'T1' }),
           T2: MultipleChoiceTaskFactory.build({ taskKey: 'T2' })
+        }
+      }
+    },
+    // T0 -> [T1, T2] or T4
+    {
+      name: 'single choice branching with a combo task',
+      input: {
+        first_task: 'T0',
+        tasks: {
+          T0: SingleChoiceTaskFactory.build({
+            taskKey: 'T0',
+            answers: [
+              { label: 'Yes', next: 'T4' },
+              { label: 'No', next: 'T3' }
+            ]
+          }),
+          T1: MultipleChoiceTaskFactory.build({ taskKey: 'T1' }),
+          T2: MultipleChoiceTaskFactory.build({ taskKey: 'T2' }),
+          T3: {
+            taskKey: 'T3',
+            type: 'combo',
+            tasks: ['T1', 'T2']
+          },
+          T4: DrawingTaskFactory.build({ taskKey: 'T4' })
+        }
+      },
+      output: {
+        steps: [
+          ['S0', {
+            next: undefined,
+            stepKey: 'S0',
+            taskKeys: ['T0']
+          }],
+          ['S1', {
+            next: undefined,
+            stepKey: 'S1',
+            taskKeys: ['T1', 'T2']
+          }],
+          ['S2', {
+            next: undefined,
+            stepKey: 'S2',
+            taskKeys: ['T4']
+          }]
+        ],
+        tasks: {
+          T0: SingleChoiceTaskFactory.build({
+            taskKey: 'T0',
+            answers: [
+              { label: 'Yes', next: 'S2' },
+              { label: 'No', next: 'S1' }
+            ]
+          }),
+          T1: MultipleChoiceTaskFactory.build({ taskKey: 'T1' }),
+          T2: MultipleChoiceTaskFactory.build({ taskKey: 'T2' }),
+          T3: {
+            taskKey: 'T3',
+            type: 'combo',
+            tasks: ['T1', 'T2']
+          },
+          T4: DrawingTaskFactory.build({ taskKey: 'T4' })
         }
       }
     }
