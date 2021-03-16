@@ -668,16 +668,6 @@ describe('Model > SurveyTask', function () {
     before(function () {
       task = SurveyTask.TaskModel.create(surveyTask)
       annotation = task.defaultAnnotation()
-      const store = types
-        .model('MockStore', {
-          annotation: SurveyTask.AnnotationModel,
-          task: SurveyTask.TaskModel
-        })
-        .create({
-          annotation,
-          task
-        })
-      task.setAnnotation(annotation)
     })
 
     it('should start up with an empty array', function () {
@@ -688,7 +678,7 @@ describe('Model > SurveyTask', function () {
 
     it('should update annotations', function () {
       annotation.update(surveyAnnotation)
-      expect(task.annotation.value).to.deep.equal(surveyAnnotation)
+      expect(annotation.value).to.deep.equal(surveyAnnotation)
     })
   })
 
@@ -700,27 +690,18 @@ describe('Model > SurveyTask', function () {
       const requiredTask = Object.assign({}, surveyTask, { required: 'true' })
       task = SurveyTask.TaskModel.create(requiredTask)
       annotation = task.defaultAnnotation()
-      const store = types.model('MockStore', {
-        annotation: SurveyTask.AnnotationModel,
-        task: SurveyTask.TaskModel
-      })
-        .create({
-          annotation,
-          task
-        })
-      task.setAnnotation(annotation)
     })
 
     describe('with an incomplete annotation', function () {
       it('should be incomplete', function () {
-        expect(task.isComplete).to.be.false()
+        expect(task.isComplete(annotation)).to.be.false()
       })
     })
 
     describe('with a complete annotation', function () {
       it('should be complete', function () {
         annotation.update(surveyAnnotation)
-        expect(task.isComplete).to.be.true()
+        expect(task.isComplete(annotation)).to.be.true()
       })
     })
   })

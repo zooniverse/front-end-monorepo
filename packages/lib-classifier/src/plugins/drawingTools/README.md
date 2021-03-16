@@ -121,13 +121,9 @@ const task = tool.tasks[0]
 
 let annotation = line1.addAnnotation({ task })
 
-task.setAnnotation(annotation)
-
 annotation.update('Hello! This is the first line.')
 
 annotation = line2.addAnnotation({ task })
-
-task.setAnnotation(annotation)
 
 annotation.update('This is the second line of text.')
 

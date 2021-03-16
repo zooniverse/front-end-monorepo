@@ -4,6 +4,7 @@ import Point from '@plugins/drawingTools/models/marks/Point'
 import Line from '@plugins/drawingTools/models/marks/Line'
 
 import Classification, { ClassificationMetadata } from './'
+import mockStore from '@test/mockStore'
 
 describe('Model > Classification', function () {
   let model
@@ -72,23 +73,17 @@ describe('Model > Classification', function () {
     let secondAnnotation
 
     before(function () {
-      const singleChoiceTask = taskRegistry.get('single')
-      const textTask = taskRegistry.get('text')
-      const singleChoice = singleChoiceTask.TaskModel.create({
-        question: 'yes or no?',
-        answers: [ 'yes', 'no'],
-        taskKey: 'T1',
-        type: 'single'
-      })
-      const text = textTask.TaskModel.create({
-        instruction: 'type something',
-        taskKey: 'T0',
-        type: 'text'
-      })
+      const store = mockStore()
+      const classification = store.classifications.active
       // lets update a couple of mock annotations
-      firstAnnotation = model.addAnnotation(singleChoice, 0)
-      secondAnnotation = model.addAnnotation(text, 'This is a text task')
-      snapshot = model.toSnapshot()
+      let step = store.workflowSteps.active
+      const [ firstTask ] = step.tasks
+      firstAnnotation = classification.addAnnotation(firstTask, 0)
+      store.workflowSteps.selectStep('S1')
+      step = store.workflowSteps.active
+      const [ secondTask ] = step.tasks
+      secondAnnotation = classification.addAnnotation(secondTask, [1])
+      snapshot = classification.toSnapshot()
     })
 
     it('should not have an ID', function () {

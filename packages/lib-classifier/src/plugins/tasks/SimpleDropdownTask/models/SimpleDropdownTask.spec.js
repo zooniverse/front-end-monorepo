@@ -43,19 +43,10 @@ describe('Model > SimpleDropdownTask', function () {
     before(function () {
       task = TaskModel.create(simpleDropdownTask)
       annotation = task.defaultAnnotation()
-      const store = types.model('MockStore', {
-        annotation: AnnotationModel,
-        task: TaskModel
-      })
-      .create({
-        annotation,
-        task
-      })
-      task.setAnnotation(annotation)
     })
 
     it('should start up with a null value', function () {
-      expect(task.annotation.value).to.be.null()
+      expect(annotation.value).to.be.null()
     })
 
     it('should update annotations', function () {
@@ -63,7 +54,7 @@ describe('Model > SimpleDropdownTask', function () {
         selection: 5,  // Corresponds to "Black"
         option: true,
       })
-      const annotationValue = task.annotation.value
+      const annotationValue = annotation.value
       expect(annotationValue.selection).to.equal(5)
     })
   })
@@ -76,20 +67,11 @@ describe('Model > SimpleDropdownTask', function () {
       const requiredTask = Object.assign({}, simpleDropdownTask, { required: true })
       task = TaskModel.create(requiredTask)
       annotation = task.defaultAnnotation()
-      const store = types.model('MockStore', {
-        annotation: AnnotationModel,
-        task: TaskModel
-      })
-      .create({
-        annotation,
-        task
-      })
-      task.setAnnotation(annotation)
     })
 
     describe('with an incomplete annotation', function () {
       it('should be incomplete', function () {
-        expect(task.isComplete).to.be.false()
+        expect(task.isComplete(annotation)).to.be.false()
       })
     })
 
@@ -99,7 +81,7 @@ describe('Model > SimpleDropdownTask', function () {
           selection: 5,
           option: true,
         })
-        expect(task.isComplete).to.be.true()
+        expect(task.isComplete(annotation)).to.be.true()
       })
     })
   })

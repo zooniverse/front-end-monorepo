@@ -39,7 +39,7 @@ const WorkflowStepStore = types
 
       if (workflow && step && classification) {
         const disableTalk = classification.metadata.subject_flagged
-        const lastStep = !step.isThereANextStep
+        const lastStep = !step.next
         return lastStep &&
         workflow.configuration.hide_classification_summaries && // Default in model is to hide
         !disableTalk // &&
@@ -79,7 +79,6 @@ const WorkflowStepStore = types
   .actions(self => {
     function afterAttach () {
       createWorkflowObserver()
-      createAnnotationObserver()
     }
 
     function createWorkflowObserver () {
@@ -101,34 +100,6 @@ const WorkflowStepStore = types
       addDisposer(self, workflowDisposer)
     }
 
-    function createAnnotationObserver () {
-      const annotationDisposer = autorun(() => {
-        if (self.active?.isThereBranching) {
-          // presumes one single choice task per step
-          const [singleChoiceTask] = self.activeStepTasks.filter(task => task.type === 'single')
-          onAction(getRoot(self), (call) => {
-            if (call.path.endsWith(singleChoiceTask?.annotation?.id) && call.name === 'update') {
-              let nextStepKey
-              const nextKey = singleChoiceTask.answers[call.args[0]].next
-              if (nextKey?.startsWith('T')) {
-                // Backwards compatibility
-                self.steps.forEach(step => {
-                  if (step.taskKeys.includes(nextKey)) {
-                    nextStepKey = step.stepKey
-                  }
-                })
-              } else {
-                nextStepKey = nextKey
-              }
-              self.active.setNext(nextStepKey)
-            }
-          })
-        }
-        
-      }, { name: 'Annotation Observer autorun' })
-      addDisposer(self, annotationDisposer)
-    }
-
     function getNextStepKey () {
       const validStepReference = isValidReference(() => self.active)
       const stepKeys = self.steps.keys()
@@ -145,20 +116,9 @@ const WorkflowStepStore = types
       return stepKeys.next().value
     }
 
-    function getPreviousStepKey () {
-      const validStepReference = isValidReference(() => self.active)
-      if (validStepReference) {
-        const stepsKeys = Array.from(self.steps.keys())
-        const currentStepIndex = stepsKeys.indexOf(self.active.stepKey)
-        return stepsKeys[currentStepIndex - 1]
-      }
-      return undefined
-    }
-
     function resetSteps () {
       self.active = undefined
       self.steps.forEach(step => step.reset())
-      self.selectStep()
     }
 
     function reset () {
@@ -176,7 +136,6 @@ const WorkflowStepStore = types
     function setStepsAndTasks (workflow) {
       self.setSteps(workflow)
       self.setTasks(workflow)
-      self.selectStep()
     }
 
     function setSteps (workflow) {
@@ -309,15 +268,12 @@ const WorkflowStepStore = types
           }
         }
       })
-
-      self.selectStep()
     }
 
     return {
       afterAttach,
       convertWorkflowToUseSteps,
       getNextStepKey,
-      getPreviousStepKey,
       reset,
       resetSteps,
       selectStep,

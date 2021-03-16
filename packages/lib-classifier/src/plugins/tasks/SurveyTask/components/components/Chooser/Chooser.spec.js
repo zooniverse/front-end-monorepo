@@ -16,16 +16,6 @@ describe('Component > Chooser', function () {
   const annotation = task.defaultAnnotation()
 
   before(function () {
-    types.model('MockStore', {
-      annotation: Task.AnnotationModel,
-      task: Task.TaskModel
-    })
-      .create({
-        annotation,
-        task
-      })
-    task.setAnnotation(annotation)
-
     wrapper = shallow(
       <Chooser
         task={task}

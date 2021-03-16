@@ -11,7 +11,7 @@ const Task = types.model('Task', {
 })
   .views(self => ({
 
-    defaultAnnotation (id = cuid()) {
+    defaultAnnotation(id = cuid()) {
     // Override this in a real task
       return Annotation.create({
         id,
@@ -20,8 +20,7 @@ const Task = types.model('Task', {
       })
     },
 
-    get isComplete () {
-      const annotation = tryReference(() => self.annotation)
+    isComplete(annotation) {
       return !self.required || !!annotation?.isComplete
     }
   }))
@@ -41,10 +40,6 @@ const Task = types.model('Task', {
       /*
       Override this to reset your task for a new annotation.
       */
-    },
-
-    setAnnotation (annotation) {
-      self.annotation = annotation.id
     },
 
     start () {

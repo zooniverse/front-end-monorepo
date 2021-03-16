@@ -8,6 +8,7 @@ import Chooser from './components/Chooser'
 
 function SurveyTask (props) {
   const {
+    annotation,
     autoFocus,
     disabled,
     task

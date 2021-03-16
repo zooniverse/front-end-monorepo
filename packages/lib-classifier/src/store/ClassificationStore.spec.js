@@ -133,7 +133,6 @@ describe('Model > ClassificationStore', function () {
       beforeEach(function () {
         const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
         taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
-        taskSnapshot.setAnnotation = annotation => taskSnapshot.annotation = annotation
         classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
         classifications.completeClassification({
           preventDefault: sinon.stub()
@@ -186,7 +185,6 @@ describe('Model > ClassificationStore', function () {
         subjectToBeClassified = rootStore.subjects.active
         const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
         taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
-        taskSnapshot.setAnnotation = annotation => taskSnapshot.annotation = annotation
         classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
         classificationWithAnnotation = classifications.active
         classifications.completeClassification({
@@ -214,7 +212,9 @@ describe('Model > ClassificationStore', function () {
         The tests for invalid feedback would have to be moved too.
       */
       it('should update feedback', function () {
-        expect(feedback.update.withArgs(singleChoiceAnnotationSnapshot)).to.have.been.calledOnce()
+        classificationWithAnnotation.annotations.forEach(annotation => {
+          expect(feedback.update.withArgs(annotation)).to.have.been.calledOnce()
+        })
       })
 
       it('should call the onComplete callback with the classification and subject', function () {
@@ -264,7 +264,6 @@ describe('Model > ClassificationStore', function () {
         // annotate a subject then finish the classification
         const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
         taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
-        taskSnapshot.setAnnotation = annotation => taskSnapshot.annotation = annotation
         classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
         firstClassification = classifications.active
         classifications.completeClassification({
@@ -306,7 +305,6 @@ describe('Model > ClassificationStore', function () {
         const subjectToBeClassified = rootStore.subjects.active
         const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
         taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
-        taskSnapshot.setAnnotation = annotation => taskSnapshot.annotation = annotation
         classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
         classifications.completeClassification({
           preventDefault: sinon.stub()
