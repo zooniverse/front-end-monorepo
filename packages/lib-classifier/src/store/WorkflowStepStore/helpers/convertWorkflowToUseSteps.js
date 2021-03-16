@@ -4,7 +4,7 @@ function getNextStepFromTaskKey(taskKey, steps, tasks) {
   let nextStepKey = getStepKeyFromTaskKey(steps, taskKey)
   if (!nextStepKey) {
     const comboTask = tasks[taskKey]
-    steps.forEach(step => {
+    steps.forEach(([stepkey, step]) => {
       if (isEqual(step.taskKeys, comboTask.tasks)) {
         nextStepKey = step.stepKey
       }
@@ -97,6 +97,17 @@ export default function convertWorkflowToUseSteps ({ first_task, tasks }) {
   steps.forEach(([stepKey, step]) => {
     if (Object.keys(tasks).includes(step.next)) {
       step.next = getNextStepFromTaskKey(step.next, steps, tasks)
+    }
+  })
+
+  // convert single choice answers to use step keys
+  Object.values(tasks).forEach(task => {
+    if (task.type === 'single') {
+      task.answers.forEach(answer => {
+        if (answer.next?.startsWith('T')) {
+          answer.next = getNextStepFromTaskKey(answer.next, steps, tasks)
+        }
+      })
     }
   })
 
