@@ -386,8 +386,8 @@ describe('Model > WorkflowStepStore', function () {
     let rootStore, workflow
     const singleChoiceTask = SingleChoiceTaskFactory.build({
       answers: [
-        { label: 'Yes', next: 'T4' },
-        { label: 'No', next: 'T4' }
+        { label: 'Yes', next: 'T2' },
+        { label: 'No', next: 'T2' }
       ]
     })
     const multipleChoiceTaskOne = MultipleChoiceTaskFactory.build()

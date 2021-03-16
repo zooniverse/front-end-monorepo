@@ -103,7 +103,7 @@ export default function convertWorkflowToUseSteps ({ first_task, tasks }) {
   // convert single choice answers to use step keys
   Object.values(tasks).forEach(task => {
     if (task.type === 'single') {
-      task.answers.forEach(answer => {
+      task.answers?.forEach(answer => {
         if (answer.next?.startsWith('T')) {
           answer.next = getNextStepFromTaskKey(answer.next, steps, tasks)
         }

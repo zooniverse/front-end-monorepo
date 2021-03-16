@@ -93,7 +93,14 @@ describe('Model > Step', function () {
       tasks = [
         MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: '' })),
         // SingleChoiceTaskFactory defaults to a branching single choice task (answers with different next values)
-        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: '' }))
+        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({
+          taskKey: 'T2',
+          required: '',
+          answers: [
+            { label: 'Yes', next: 'S2' },
+            { label: 'No', next: 'S3' }
+          ]
+        }))
       ]
     })
 
