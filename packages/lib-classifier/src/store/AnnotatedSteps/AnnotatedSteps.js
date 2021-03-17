@@ -75,18 +75,6 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
       }
     })
   }
-  /** Get the step for a given task key */
-  // TODO put this in the WorkflowSteps store?
-  function _getTaskStepKey(taskKey) {
-    const { workflowSteps } = getRoot(self)
-    let stepKey
-    workflowSteps.steps.forEach(step => {
-      if (step.taskKeys.includes(taskKey)) {
-        stepKey = step.stepKey
-      }
-    })
-    return stepKey
-  }
   /** Redo stepKey,or replace the last step if history has diverged. */
   function _redo(stepKey) {
     undoManager.redo()
@@ -134,10 +122,6 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   /** Redo the next step, or add a new step to history if there is no redo. */
   function next() {
     let { nextStepKey } = self.latest
-    // look up steps from task keys for backwards compatibility
-    if (nextStepKey?.startsWith('T')) {
-      nextStepKey = _getTaskStepKey(nextStepKey)
-    }
     if (undoManager.canRedo) {
       _redo(nextStepKey)
     } else {
