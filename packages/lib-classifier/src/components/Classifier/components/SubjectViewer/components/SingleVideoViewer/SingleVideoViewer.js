@@ -6,12 +6,12 @@ import ReactPlayer from 'react-player'
 const Container = styled.div`
   animation: fadein 1s 0s forwards;
   position: relative;
-  padding-top: 56.25%;
+  /* padding-top: 56.25%; */
 
   .react-player {
-    position: absolute;
+    /* position: absolute;
     top: 0;
-    left: 0;
+    left: 0; */
   }
 
   @keyframes fadein {

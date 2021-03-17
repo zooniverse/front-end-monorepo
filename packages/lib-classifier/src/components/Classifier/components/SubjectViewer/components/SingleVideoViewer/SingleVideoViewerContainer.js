@@ -11,18 +11,22 @@ import locationValidator from '../../helpers/locationValidator'
 import SingleVideoViewer from './SingleVideoViewer'
 import VideoController from '../VideoController/VideoController'
 
+const Container = styled.div`
+  position: relative;
+`
+
 const DrawingContainer = styled.div`
   position: absolute;
-  top: 50px;
-  color: #fff;
-  text-align: center;
-  font-size: 20px;
+  width: 100%;
+  height: 100%;
+  top: 0px;
   background-color: rgba(221, 221, 221, 0.6);
-  ${(props) =>
+  outline: 2px solid red;
+  /* ${(props) =>
     css`
       height: ${props.height}px;
       width: ${props.width}px;
-    `}
+    `} */
   cursor: default;
 `
 
@@ -212,45 +216,46 @@ class SingleVideoViewerContainer extends React.Component {
       loadingState === asyncStates.success && enableInteractionLayer
 
     return (
-      <div>
-        <SingleVideoViewer
-          playerRef={this.handlePlayerRef}
-          url={vid.src}
-          isPlaying={isPlaying}
-          playbackRate={playbackRate}
-          onProgress={this.handleVideoProgress}
-          onDuration={this.handleVideoDuration}
-          onEnded={this.handleVideoEnded}
-        />
+      <>
+        <Container>
+          <SingleVideoViewer
+            playerRef={this.handlePlayerRef}
+            url={vid.src}
+            isPlaying={isPlaying}
+            playbackRate={playbackRate}
+            onProgress={this.handleVideoProgress}
+            onDuration={this.handleVideoDuration}
+            onEnded={this.handleVideoEnded}
+          />
 
-        {/* Drawing Layer */}
-        <DrawingContainer width={naturalWidth} height={naturalHeight}>
-          <Box animation='fadeIn' overflow='hidden'>
-            <SVGContext.Provider value={{ svg, getScreenCTM }}>
-              <svg
-                ref={this.videoViewer}
-                focusable
-                onKeyDown={onKeyDown}
-                tabIndex={0}
-                viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
-              >
-                {/* {title?.id && title?.text && (
-                <title id={title.id}>{title.text}</title>
-              )} */}
-                <g ref={transformLayer} transform={transform}>
-                  {enableInteractionLayer && (
-                    <InteractionLayer
-                      scale={1}
-                      width={naturalWidth}
-                      height={naturalHeight}
-                    />
-                  )}
-                </g>
-              </svg>
-            </SVGContext.Provider>
-          </Box>
-        </DrawingContainer>
-
+          {/* Drawing Layer */}
+          <DrawingContainer>
+            <Box animation='fadeIn' overflow='hidden'>
+              <SVGContext.Provider value={{ svg, getScreenCTM }}>
+                <svg
+                  ref={this.videoViewer}
+                  focusable
+                  onKeyDown={onKeyDown}
+                  tabIndex={0}
+                  viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
+                >
+                  {/* {title?.id && title?.text && (
+                  <title id={title.id}>{title.text}</title>
+                )} */}
+                  <g ref={transformLayer} transform={transform}>
+                    {enableInteractionLayer && (
+                      <InteractionLayer
+                        scale={1}
+                        width={naturalWidth}
+                        height={naturalHeight}
+                      />
+                    )}
+                  </g>
+                </svg>
+              </SVGContext.Provider>
+            </Box>
+          </DrawingContainer>
+        </Container>
         <VideoController
           isPlaying={isPlaying}
           played={played}
@@ -262,7 +267,7 @@ class SingleVideoViewerContainer extends React.Component {
           onSliderMouseDown={this.handleSliderMouseDown}
           onSliderChange={this.handleSliderChange}
         />
-      </div>
+      </>
     )
   }
 }
