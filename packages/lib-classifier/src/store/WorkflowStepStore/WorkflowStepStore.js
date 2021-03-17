@@ -8,7 +8,7 @@ import {
   types 
 } from 'mobx-state-tree'
 
-import { convertWorkflowToUseSteps } from './helpers'
+import { convertWorkflowToUseSteps } from '@store/helpers'
 import Step from './Step'
 
 const WorkflowStepStore = types

@@ -1,4 +1,4 @@
-import { convertWorkflowToUseSteps } from './'
+import convertWorkflowToUseSteps from './'
 import {
   DrawingTaskFactory,
   MultipleChoiceTaskFactory,
