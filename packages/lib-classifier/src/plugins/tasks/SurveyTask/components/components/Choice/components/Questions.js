@@ -13,14 +13,6 @@ export default function Questions (props) {
 
   function handleAnswer (value, questionId) {
     const newAnswers = Object.assign({}, answers, { [questionId]: value })
-
-    setAnswers(newAnswers)
-  }
-
-  function handleAnswer (value, questionId) {
-    const newAnswers = Object.assign({}, answers)
-    newAnswers[questionId] = value
-
     setAnswers(newAnswers)
   }
 
