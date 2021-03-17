@@ -8,7 +8,6 @@ import {
   types 
 } from 'mobx-state-tree'
 
-import { convertWorkflowToUseSteps } from '@store/helpers'
 import Step from './Step'
 
 const WorkflowStepStore = types
@@ -86,16 +85,7 @@ const WorkflowStepStore = types
         const workflow = tryReference(() => getRoot(self).workflows?.active)
         if (workflow) {
           self.reset()
-          let steps = workflow.steps
-          let tasks = workflow.tasks
-          const workflowHasSteps = (steps &&
-            steps.length > 0 &&
-            Object.keys(tasks).length > 0)
-          if (!workflowHasSteps) {
-            // backwards compatibility
-            ({ steps, tasks } = convertWorkflowToUseSteps(workflow))
-          }
-          _setStepsAndTasks({ steps, tasks })
+          _setStepsAndTasks(workflow)
         }
       }, { name: 'WorkflowStepStore Workflow Observer autorun' })
       addDisposer(self, workflowDisposer)
