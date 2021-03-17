@@ -12,8 +12,7 @@ export default function Questions (props) {
   } = props
 
   function handleAnswer (value, questionId) {
-    const newAnswers = Object.assign({}, answers)
-    newAnswers[questionId] = value
+    const newAnswers = Object.assign({}, answers, { [questionId]: value })
 
     setAnswers(newAnswers)
   }
