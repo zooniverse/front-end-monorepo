@@ -43,6 +43,7 @@ function Introduction (props) {
         gap='xsmall'
         icon={<Next color='light-5' size='12px' />}
         href={link.href}
+        label={link.text}
         reverse
       />
     </Box>
