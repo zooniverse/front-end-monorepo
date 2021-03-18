@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import { types } from 'mobx-state-tree'
 import React from 'react'
 import { Grid } from 'grommet'
 import sinon from 'sinon'
@@ -18,7 +17,6 @@ describe('Component > Choices', function () {
     taskKey: 'T0',
     type: 'survey'
   })
-  const annotation = task.defaultAnnotation()
 
   before(function () {
     wrapper = shallow(

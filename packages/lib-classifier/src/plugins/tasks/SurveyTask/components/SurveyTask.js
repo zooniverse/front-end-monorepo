@@ -1,26 +1,22 @@
 import { Box, Drop } from 'grommet'
-import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { useState, useRef } from 'react'
+import React, { useRef } from 'react'
 
 import Choice from './components/Choice'
 import Chooser from './components/Chooser'
 
 function SurveyTask (props) {
   const {
-    annotation,
+    answers,
     autoFocus,
     disabled,
+    filters,
+    handleAnswers,
+    handleChoice,
+    handleFilter,
+    selectedChoice,
     task
   } = props
-
-  const [selectedChoice, setSelectedChoice] = useState('')
-
-  function handleChoice (selectedChoiceId) {
-    console.log('Selected choiceId =', selectedChoiceId)
-
-    setSelectedChoice(selectedChoiceId)
-  }
 
   const choiceTargetRef = useRef()
 
@@ -31,6 +27,8 @@ function SurveyTask (props) {
       <Chooser
         autoFocus={autoFocus}
         disabled={disabled}
+        filters={filters}
+        handleFilter={handleFilter}
         onChoose={handleChoice}
         task={task}
       />
@@ -39,14 +37,16 @@ function SurveyTask (props) {
           align={{
             top: 'top'
           }}
-          onClickOutside={() => setSelectedChoice('')}
-          onEsc={() => setSelectedChoice('')}
+          onClickOutside={() => handleChoice('')}
+          onEsc={() => handleChoice('')}
           stretch='align'
           target={choiceTargetRef.current}
         >
           <Choice
+            answers={answers}
             choiceId={selectedChoice}
-            onCancel={() => setSelectedChoice('')}
+            handleAnswers={handleAnswers}
+            onCancel={() => handleChoice('')}
             task={task}
           />
         </Drop>
@@ -56,13 +56,30 @@ function SurveyTask (props) {
 }
 
 SurveyTask.defaultProps = {
+  answers: {},
   autoFocus: false,
-  disabled: false
+  disabled: false,
+  filters: {},
+  handleAnswers: () => {},
+  handleChoice: () => {},
+  handleFilter: () => {},
+  selectedChoice: ''
 }
 
 SurveyTask.propTypes = {
+  answers: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.string),
+      PropTypes.string
+    ])
+  ),
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
+  filters: PropTypes.objectOf(PropTypes.string),
+  handleAnswers: PropTypes.func,
+  handleChoice: PropTypes.func,
+  handleFilter: PropTypes.func,
+  selectedChoice: PropTypes.string,
   task: PropTypes.shape({
     help: PropTypes.string,
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
@@ -71,4 +88,4 @@ SurveyTask.propTypes = {
   }).isRequired
 }
 
-export default observer(SurveyTask)
+export default SurveyTask

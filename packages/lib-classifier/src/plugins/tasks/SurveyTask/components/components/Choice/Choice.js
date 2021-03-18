@@ -1,6 +1,6 @@
 import { Box, Button, Carousel, Heading, Paragraph } from 'grommet'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
 import { PrimaryButton, Media } from '@zooniverse/react-components'
 
 import Questions from './components/Questions'
@@ -14,7 +14,9 @@ counterpart.registerTranslations('en', en)
 
 export default function Choice (props) {
   const {
+    answers,
     choiceId,
+    handleAnswers,
     onCancel,
     task
   } = props
@@ -23,9 +25,6 @@ export default function Choice (props) {
     images,
     questions
   } = task
-  
-  const [ answers, setAnswers ] = useState({})
-  console.log('answers', answers)
 
   const choice = choices?.[choiceId]
   const questionIds = getQuestionIds(choiceId, task)
@@ -57,7 +56,7 @@ export default function Choice (props) {
           choiceId={choiceId}
           questionIds={questionIds}
           questions={questions}
-          setAnswers={setAnswers}
+          setAnswers={handleAnswers}
         />
       )}
       <Box
@@ -90,12 +89,21 @@ export default function Choice (props) {
 }
 
 Choice.defaultProps = {
+  answers: {},
   choiceId: '',
+  handleAnswers: () => {},
   onCancel: () => {}
 }
 
 Choice.propTypes = {
+  answers: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.string),
+      PropTypes.string
+    ])
+  ),
   choiceId: PropTypes.string,
+  handleAnswers: PropTypes.func,
   onCancel: PropTypes.func,
   task: PropTypes.shape({
     help: PropTypes.string,

@@ -1,21 +1,20 @@
 import { shallow } from 'enzyme'
 import React from 'react'
+import sinon from 'sinon'
 
 import { default as Task } from '@plugins/tasks/SurveyTask'
-import Chooser from './components/Chooser'
-import SurveyTask from './SurveyTask'
-import { expect } from 'chai'
+import SurveyTaskContainer from './SurveyTaskContainer'
 
-describe('SurveyTask', function () {
+describe('SurveyTaskContainer', function () {
   let wrapper
   const task = Task.TaskModel.create({
     taskKey: 'T0',
     type: 'survey'
   })
-
+    
   before(function () {
     wrapper = shallow(
-      <SurveyTask
+      <SurveyTaskContainer
         task={task}
       />
     )
@@ -24,10 +23,4 @@ describe('SurveyTask', function () {
   it('should render without crashing', function () {
     expect(wrapper).to.be.ok()
   })
-
-  it('should render a Chooser component', function () {
-    expect(wrapper.find(Chooser)).to.have.lengthOf(1)
-  })
-
-  // TODO: add Choice component tests
 })
