@@ -23,36 +23,35 @@ const moreMiddleGrey = '#979797'
 const tomato = '#E45950'
 const pink = '#FFB6AA'
 const darkGold = '#CC9200'
-const green = '#078F52'
+const green = '#1ED359'
 
 // accent colors
-const mint = '#B8E986'
-const lightGold = '#f6d885'
-const lightNavy = '#6D91B3'
 const lightTeal = '#addde0'
+const lightGold = '#f6d885'
+const mint = '#B8E986'
 
 // neutral colors
-const darkGreen = '#345446'
 const darkTeal = '#005D69'
-const navy = '#0C4881'
 const gold = '#f0b200'
 const blue = '#43BBFD'
 const white = '#ffffff'
+const black = '#000000'
 
 const accentColors = [
-  mint, // accent-1
-  lightTeal, // accent-2
-  lightNavy, // accent-3
-  lightGold // accent-4
+  lightTeal, // accent-1
+  lightGold, // accent-2
+  mint, // accent-3
+  pink, // accent-4
 ]
 
 const neutralColors = [
-  darkGreen, // neutral-1
-  darkTeal, // neutral-2
-  navy, // neutral-3
-  gold, // neutral-4
+  darkTeal, // neutral-1
+  gold, // neutral-2
+  green, // neutral-3
+  tomato, // neutral-4
   blue, // neutral-5
-  white // neutral-6
+  white, // neutral-6
+  black // neutral-7
 ]
 
 const statusColors = {
@@ -115,7 +114,7 @@ const colors = {
     light: 'light-2'
   },
   drawingTools,
-  focus: 'accent-2',
+  focus: 'accent-1',
   highlighterTool,
   icon: {
     dark: 'light-6',
@@ -242,7 +241,7 @@ const theme = deepFreeze({
   },
   anchor: {
     color: {
-      dark: 'accent-2',
+      dark: 'accent-1',
       light: 'brand'
     }
   },
@@ -269,25 +268,25 @@ const theme = deepFreeze({
     },
     check: {
       color: {
-        dark: 'accent-2',
+        dark: 'accent-1',
         light: 'brand'
       }
     },
     color: {
-      dark: 'accent-2',
+      dark: 'accent-1',
       light: 'brand'
     },
     hover: {
       border: {
         color: {
-          dark: 'accent-2',
+          dark: 'accent-1',
           light: 'brand'
         }
       }
     },
     knob: {
       color: {
-        dark: 'accent-2',
+        dark: 'accent-1',
         light: 'brand'
       }
     },
@@ -494,12 +493,12 @@ const theme = deepFreeze({
   radioButton: {
     check: {
       color: {
-        dark: 'accent-2',
+        dark: 'accent-1',
         light: 'brand'
       }
     },
     color: {
-      dark: 'accent-2',
+      dark: 'accent-1',
       light: 'brand'
     },
     icon: {
@@ -515,7 +514,7 @@ const theme = deepFreeze({
   select: {
     icons: {
       color: {
-        dark: 'accent-2',
+        dark: 'accent-1',
         light: 'brand'
       }
     }

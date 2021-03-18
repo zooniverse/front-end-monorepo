@@ -11,7 +11,7 @@ const theme = {
     extend: props => {
       const { theme: { dark, global: { colors } } } = props
       const darkerStatusOkColor = darken(0.15, colors['status-ok'])
-      const borderColor = dark ? colors['accent-1'] : colors['status-ok']
+      const borderColor = dark ? colors['accent-3'] : colors['status-ok']
       return css`
         background: ${colors['status-ok']};
         box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);

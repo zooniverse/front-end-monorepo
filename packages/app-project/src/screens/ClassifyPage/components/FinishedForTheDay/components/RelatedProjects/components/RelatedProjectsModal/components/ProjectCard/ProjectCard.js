@@ -36,7 +36,7 @@ function ProjectCard (props) {
         </Box>
         <StyledButton
           alignSelf='start'
-          color='neutral-4'
+          color='neutral-2'
           label={
             <Text size='small'>
               {counterpart('ProjectCard.viewProject')}

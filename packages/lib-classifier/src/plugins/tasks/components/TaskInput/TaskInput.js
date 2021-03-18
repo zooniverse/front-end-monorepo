@@ -10,16 +10,16 @@ import TaskInputLabel from './components/TaskInputLabel'
 function getHoverStyles (props, active = false) {
   const { theme: { dark, global: { colors } } } = props
   if (dark) {
-    const borderColor = active ? colors['accent-2'] : colors['light-1']
-    const darkerBackgroundColor = darken(0.04, colors['neutral-2'])
+    const borderColor = active ? colors['accent-1'] : colors['light-1']
+    const darkerBackgroundColor = darken(0.04, colors['neutral-1'])
     return css`
       background: ${darkerBackgroundColor};
       border: 2px solid ${borderColor};
       color: ${colors.text.dark};
     `
   } else {
-    const gradientTop = lighten(0.05, colors['accent-2'])
-    const gradientBottom = darken(0.11, colors['accent-2'])
+    const gradientTop = lighten(0.05, colors['accent-1'])
+    const gradientBottom = darken(0.11, colors['accent-1'])
     const borderTopColor = active ? colors.brand : gradientTop
     const borderBottomColor = active ? colors.brand : gradientBottom
     const borderRightColor = active ? colors.brand : 'transparent'
@@ -84,7 +84,7 @@ export const StyledTaskInput = styled.label`
   input:checked + ${StyledTaskLabel}:hover {
     ${props => props.theme.dark ?
       css`border: 2px solid ${props.theme.global.colors['light-1']};` :
-      css`border: 2px solid ${props.theme.global.colors['neutral-2']};`
+      css`border: 2px solid ${props.theme.global.colors['neutral-1']};`
     }
   
     > img:only-child, svg:only-child {

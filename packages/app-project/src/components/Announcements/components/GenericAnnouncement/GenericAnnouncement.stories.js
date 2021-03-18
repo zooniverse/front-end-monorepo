@@ -19,7 +19,7 @@ storiesOf('Project App / Screens / Project Home / Announcements / GenericAnnounc
     <Grommet theme={zooTheme}>
       <GenericAnnouncement
         announcement={text('Announcement', ANNOUNCEMENT)}
-        color={select('color', zooThemeColors, 'neutral-4')}
+        color={select('color', zooThemeColors, 'neutral-2')}
         dismissable={boolean('dismissable', false)}
       />
     </Grommet>

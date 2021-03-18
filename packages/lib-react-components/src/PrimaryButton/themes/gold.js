@@ -5,7 +5,7 @@ import getGradientShade from '../helpers/getGradientShade'
 const theme = {
   button: {
     border: {
-      color: 'neutral-4',
+      color: 'neutral-2',
       width: '1px'
     },
     color: {
@@ -15,11 +15,11 @@ const theme = {
     primary: {
       color: {
         dark: 'dark-3',
-        light: 'neutral-4'
+        light: 'neutral-2'
       }
     },
     extend: props => {
-      const color = normalizeColor('neutral-4', props.theme)
+      const color = normalizeColor('neutral-2', props.theme)
       const gradientShade = getGradientShade(color)
 
       return css`

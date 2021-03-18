@@ -53,7 +53,7 @@ const yScale = scaleLinear({
 const variableStarPeriodMockData = {
   data: [
     {
-      color: 'neutral-3',
+      color: 'neutral-2',
       label: 'filter-1',
       value: 0.4661477096
     },
@@ -78,7 +78,7 @@ const variableStarPeriodMockData = {
 const variableStarAmplitudeMockData = {
   data: [
     {
-      color: 'neutral-3',
+      color: 'neutral-2',
       label: 'filter-1',
       value: 1.045
     },

@@ -48,7 +48,7 @@ describe('Modal', function () {
     it('should set the ModalHeading title', function () {
       const closeFnSpy = () => true
       const wrapper = shallow(
-        <Modal title={title} titleColor='accent-2' closeFn={closeFnSpy}>
+        <Modal title={title} titleColor='accent-1' closeFn={closeFnSpy}>
           {content}
         </Modal>
       )
@@ -59,19 +59,19 @@ describe('Modal', function () {
     it('should set the ModalHeading colour', function () {
       const closeFnSpy = () => true
       const wrapper = shallow(
-        <Modal title={title} titleColor='accent-2' closeFn={closeFnSpy}>
+        <Modal title={title} titleColor='accent-1' closeFn={closeFnSpy}>
           {content}
         </Modal>
       )
       const modalHeadingProps = wrapper.find(ModalHeading).props()
-      expect(modalHeadingProps.color).to.equal('accent-2')
+      expect(modalHeadingProps.color).to.equal('accent-1')
     })
 
     describe('with a close function', function () {
       it('should pass the close function to the modal heading', function () {
         const closeFnSpy = () => true
         const wrapper = shallow(
-          <Modal title={title} titleColor='accent-2' closeFn={closeFnSpy}>
+          <Modal title={title} titleColor='accent-1' closeFn={closeFnSpy}>
             {content}
           </Modal>
         )
@@ -83,7 +83,7 @@ describe('Modal', function () {
     describe('without a close function', function () {
       it('should not pass a close function to the modal heading', function () {
         const wrapper = shallow(
-          <Modal title={title} titleColor='accent-2'>
+          <Modal title={title} titleColor='accent-1'>
             {content}
           </Modal>
         )
