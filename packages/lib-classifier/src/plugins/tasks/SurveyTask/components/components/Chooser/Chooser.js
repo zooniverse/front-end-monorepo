@@ -14,6 +14,8 @@ export default function Chooser (props) {
   const {
     autoFocus,
     disabled,
+    filters,
+    handleFilter,
     onChoose,
     task
   } = props
@@ -24,6 +26,8 @@ export default function Chooser (props) {
   return (
     <Box>
       <FilterStatus
+        filters={filters}
+        handleFilter={handleFilter}
         task={task}
       />
       <StyledHorizontalRule />
@@ -39,12 +43,16 @@ export default function Chooser (props) {
 Chooser.defaultProps = {
   autoFocus: false,
   disabled: false,
+  filters: {},
+  handleFilter: () => {},
   onChoose: () => {}
 }
 
 Chooser.propTypes = {
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
+  filters: PropTypes.objectOf(PropTypes.string),
+  handleFilter: PropTypes.func,
   onChoose: PropTypes.func,
   task: PropTypes.shape({
     help: PropTypes.string,

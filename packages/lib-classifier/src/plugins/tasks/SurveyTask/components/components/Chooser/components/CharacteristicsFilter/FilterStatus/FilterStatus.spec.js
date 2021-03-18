@@ -1,6 +1,5 @@
 import { mount } from 'enzyme'
 import { DropButton } from 'grommet'
-import { types } from 'mobx-state-tree'
 import React from 'react'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
@@ -19,7 +18,6 @@ describe('Component > FilterStatus', function () {
     taskKey: 'T0',
     type: 'survey'
   })
-  const annotation = task.defaultAnnotation()
 
   before(function () {
     wrapper = mount(
@@ -54,7 +52,7 @@ describe('Component > FilterStatus', function () {
   // TODO: update the following test once filter state passed down as prop
   describe.skip('with selected filters', function () {
     before(function () {
-      wrapper.setState({ filter: {
+      wrapper.setState({ filters: {
         LK: 'CTDG',
         CLR: 'BLCK',
         TL: 'LNG'
