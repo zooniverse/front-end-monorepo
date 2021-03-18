@@ -4,6 +4,9 @@ import React from 'react'
 import { IntroductionContainer } from './IntroductionContainer'
 import Introduction from './Introduction'
 
+let wrapper
+let componentWrapper
+
 const DESCRIPTION = 'Ligula vestibulum id natoque mus cursus sociis varius risus nunc'
 const ROUTER = {
   asPath: '/projects/foo/bar',
@@ -15,8 +18,6 @@ const ROUTER = {
 const TITLE = 'Cum semper tristique'
 
 describe('Component > Hero > IntroductionContainer', function () {
-  let wrapper
-  let componentWrapper
   before(function () {
     wrapper = shallow(<IntroductionContainer
       description={DESCRIPTION}
@@ -37,32 +38,8 @@ describe('Component > Hero > IntroductionContainer', function () {
   it('should pass down the expected props to the `Introduction` component', function () {
     expect(componentWrapper.prop('description')).to.equal(DESCRIPTION)
     expect(componentWrapper.prop('linkProps')).to.deep.equal({
-      href: '/projects/foo/bar/about/research'
+      href: '/projects/foo/bar/about'
     })
     expect(componentWrapper.prop('title')).to.equal(TITLE)
-  })
-
-  describe('when the PANOPTES_ENV is production', function () {
-    let previousEnv
-    before(function () {
-      previousEnv = process.env.PANOPTES_ENV
-      process.env.PANOPTES_ENV = 'production'
-      wrapper = shallow(<IntroductionContainer
-        description={DESCRIPTION}
-        router={ROUTER}
-        title={TITLE}
-      />)
-      componentWrapper = wrapper.find(Introduction)
-    })
-
-    after(function () {
-      process.env.PANOPTES_ENV = previousEnv
-    })
-
-    it('should pass the expect href prop', function () {
-      expect(componentWrapper.prop('linkProps')).to.deep.equal({
-        href: 'https://www.zooniverse.org/projects/foo/bar/about'
-      })
-    })
   })
 })
