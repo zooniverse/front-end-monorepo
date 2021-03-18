@@ -89,16 +89,23 @@ describe('Component > NavLink', function () {
     })
   })
 
-  describe('PFE links', function () {
+  describe('production PFE links', function () {
     let wrapper
+    let panoptesEnv
 
     before(function () {
+      panoptesEnv = process.env.PANOPTES_ENV
+      process.env.PANOPTES_ENV = 'production'
       wrapper = shallow(<NavLink router={ROUTER_ON_OTHER_PAGE} link={PFE_LINK} />)
+    })
+
+    after(function () {
+      process.env.PANOPTES_ENV = panoptesEnv
     })
 
     it('should use a link anchor', function () {
       const link = wrapper.find(Anchor)
-      expect(link.prop('href')).to.equal(PFE_LINK.href)
+      expect(link.prop('href')).to.equal(`https://www.zooniverse.org${PFE_LINK.href}`)
     })
 
     it('should not use client-side links', function () {
