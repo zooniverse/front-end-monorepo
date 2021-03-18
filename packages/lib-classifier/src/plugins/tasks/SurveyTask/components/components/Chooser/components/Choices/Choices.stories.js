@@ -5,7 +5,7 @@ import React from 'react'
 import Choices from './Choices'
 import { task } from '@plugins/tasks/SurveyTask/mock-data'
 
-const filteredChoices = Array.from(task.choicesOrder)
+const filteredChoiceIds = Array.from(task.choicesOrder)
 
 function StoryContext (props) {
   const { children, theme } = props
@@ -38,12 +38,12 @@ export default {
   component: Choices
 }
 
-const Template = ({ dark, filteredChoices, task }) => (
+const Template = ({ dark, filteredChoiceIds, task }) => (
   <StoryContext
     theme={{ ...zooTheme, dark }}
   >
     <Choices
-      filteredChoices={filteredChoices}
+      filteredChoiceIds={filteredChoiceIds}
       onChoose={() => console.log('button clicked')}
       task={task}
     />
@@ -53,20 +53,20 @@ const Template = ({ dark, filteredChoices, task }) => (
 export const LessThirtyMoreTwenty = Template.bind({});
 LessThirtyMoreTwenty.args = {
   dark: false,
-  filteredChoices,
+  filteredChoiceIds,
   task
 }
 
 export const LessTwentyMoreFive = Template.bind({});
 LessTwentyMoreFive.args = {
   dark: false,
-  filteredChoices: Array.from(filteredChoices).splice(0, 10),
+  filteredChoiceIds: Array.from(filteredChoiceIds).splice(0, 10),
   task
 }
 
 export const LessThanSix = Template.bind({});
 LessThanSix.args = {
   dark: false,
-  filteredChoices: Array.from(filteredChoices).splice(0, 4),
+  filteredChoiceIds: Array.from(filteredChoiceIds).splice(0, 4),
   task
 }

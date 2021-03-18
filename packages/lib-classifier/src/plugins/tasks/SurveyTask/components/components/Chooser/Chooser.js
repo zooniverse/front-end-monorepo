@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import FilterStatus from './components/CharacteristicsFilter/FilterStatus'
 import Choices from './components/Choices'
+import getFilteredChoiceIds from './helpers/getFilteredChoiceIds'
 
 const StyledHorizontalRule = styled.hr`
   width: 100%;
@@ -20,8 +21,7 @@ export default function Chooser (props) {
     task
   } = props
 
-  // TODO: refactor to filtered choices
-  const unfilteredChoices = Array.from(task.choicesOrder)
+  const filteredChoiceIds = getFilteredChoiceIds(filters, task)
 
   return (
     <Box>
@@ -32,7 +32,7 @@ export default function Chooser (props) {
       />
       <StyledHorizontalRule />
       <Choices
-        filteredChoices={unfilteredChoices}
+        filteredChoiceIds={filteredChoiceIds}
         onChoose={onChoose}
         task={task}
       />

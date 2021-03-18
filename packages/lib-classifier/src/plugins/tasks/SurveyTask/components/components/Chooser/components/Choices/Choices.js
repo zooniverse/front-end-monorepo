@@ -11,14 +11,14 @@ import ChoiceButton from './components/ChoiceButton'
 
 function Choices (props) {
   const {
-    filteredChoices,
+    filteredChoiceIds,
     onChoose,
     task
   } = props
 
-  const columnsCount = howManyColumns(filteredChoices)
-  const sortedFilteredChoices = sortIntoColumns(filteredChoices, columnsCount)
-  const thumbnailSize = task.alwaysShowThumbnails ? 'small' : whatSizeThumbnail(filteredChoices)
+  const columnsCount = howManyColumns(filteredChoiceIds)
+  const sortedFilteredChoiceIds = sortIntoColumns(filteredChoiceIds, columnsCount)
+  const thumbnailSize = task.alwaysShowThumbnails ? 'small' : whatSizeThumbnail(filteredChoiceIds)
 
   return (
     // Could possibly drop box by styling gap color? Is that possible? Or using border on button?
@@ -36,7 +36,7 @@ function Choices (props) {
         fill
         gap='2px'
       >
-        {sortedFilteredChoices.map((choiceId) => {
+        {sortedFilteredChoiceIds.map((choiceId) => {
           const choice = task.choices?.[choiceId] || {}
           const src = task.images?.[choice.images?.[0]] || ''
           return (
@@ -56,12 +56,12 @@ function Choices (props) {
 }
 
 Choices.defaultProps = {
-  filteredChoices: [],
+  filteredChoiceIds: [],
   onChoose: () => {}
 }
 
 Choices.propTypes = {
-  filteredChoices: PropTypes.arrayOf(
+  filteredChoiceIds: PropTypes.arrayOf(
     PropTypes.string
   ),
   onChoose: PropTypes.func,

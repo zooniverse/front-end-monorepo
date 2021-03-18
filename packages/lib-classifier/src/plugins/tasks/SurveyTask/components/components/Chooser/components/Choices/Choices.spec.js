@@ -21,7 +21,7 @@ describe('Component > Choices', function () {
   before(function () {
     wrapper = shallow(
       <Choices
-        filteredChoices={mockTask.choicesOrder}
+        filteredChoiceIds={mockTask.choicesOrder}
         task={task}
       />
     )
@@ -37,7 +37,7 @@ describe('Component > Choices', function () {
     before(function () {
       wrapper = shallow(
         <Choices
-          filteredChoices={mockTask.choicesOrder}
+          filteredChoiceIds={mockTask.choicesOrder}
           onChoose={onChooseSpy}
           task={task}
         />
@@ -96,7 +96,7 @@ describe('Component > Choices', function () {
       })
       wrapper = shallow(
         <Choices
-          filteredChoices={mockTask.choicesOrder}
+          filteredChoiceIds={mockTask.choicesOrder}
           task={task}
         />
       )
@@ -135,7 +135,7 @@ describe('Component > Choices', function () {
       })
       wrapper = shallow(
         <Choices
-          filteredChoices={choicesOrder}
+          filteredChoiceIds={choicesOrder}
           task={task}
         />
       )
@@ -174,7 +174,7 @@ describe('Component > Choices', function () {
       })
       wrapper = shallow(
         <Choices
-          filteredChoices={choicesOrder}
+          filteredChoiceIds={choicesOrder}
           task={task}
         />
       )
@@ -205,7 +205,7 @@ describe('Component > Choices', function () {
       })
       wrapper = shallow(
         <Choices
-          filteredChoices={mockTask.choicesOrder}
+          filteredChoiceIds={mockTask.choicesOrder}
           task={task}
         />
       )
@@ -238,7 +238,7 @@ describe('Component > Choices', function () {
       })
       wrapper = shallow(
         <Choices
-          filteredChoices={choicesOrder}
+          filteredChoiceIds={choicesOrder}
           task={task}
         />
       )
