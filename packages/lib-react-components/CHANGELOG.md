@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Removed hardcoded margin-top from MetaToolsButton. Leave spacing to the consuming library.
 - Removed the hardcoded cancel string for MovableModal applied to Rnd.
 
+### Changed
+- Updated text color on green `PrimaryButton` variant
+
 ### Removed
 - Removed GoldButton component in favor of PrimaryButton which defaults to gold theme colors. Added GoldButton as an alias for the PrimaryButton export as to not make a breaking change.
 

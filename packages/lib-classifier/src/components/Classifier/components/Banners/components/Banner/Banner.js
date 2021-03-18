@@ -15,9 +15,9 @@ const StyledSpacedText = styled(SpacedText)`
   text-shadow: 0 2px 2px rgba(0,0,0,0.22);
 `
 
-function Label () {
+function Label ({ color }) {
   return (
-    <SpacedText color='white'>
+    <SpacedText color={color}>
       {counterpart('Banner.whyAmISeeingThis')}
     </SpacedText>
   )
@@ -60,6 +60,7 @@ class Banner extends Component {
     const {
       background,
       bannerText,
+      color,
       theme: { mode },
       show,
       tooltipText
@@ -77,14 +78,14 @@ class Banner extends Component {
         show={show}
       >
 
-        <StyledSpacedText color='white' weight='bold'>
+        <StyledSpacedText color={color} weight='bold'>
           {bannerText}
         </StyledSpacedText>
 
         <Button
           aria-label={counterpart('Banner.whyAmISeeingThis')}
           disabled={!tooltipText}
-          label={<Label />}
+          label={<Label color={color} />}
           onClick={this.toggle}
           plain
           ref={this.ref}
@@ -111,6 +112,7 @@ class Banner extends Component {
 Banner.propTypes = {
   background: string.isRequired,
   bannerText: string.isRequired,
+  color: string,
   show: bool,
   theme: shape({
     mode: oneOf(['dark', 'light'])
@@ -122,6 +124,7 @@ Banner.propTypes = {
 }
 
 Banner.defaultProps = {
+  color: 'neutral-6',
   show: false
 }
 
