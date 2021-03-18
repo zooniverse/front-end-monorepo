@@ -8,7 +8,7 @@ describe('Helper > getNavLinks', function () {
       const links = getNavLinks(false, BASE_URL)
       expect(links).to.deep.equal([
         {
-          href: `${BASE_URL}/about`,
+          href: `${BASE_URL}/about/research`,
           text: 'About'
         },
         {
@@ -32,7 +32,7 @@ describe('Helper > getNavLinks', function () {
       const links = getNavLinks(true, BASE_URL)
       expect(links).to.deep.equal([
         {
-          href: `${BASE_URL}/about`,
+          href: `${BASE_URL}/about/research`,
           text: 'About'
         },
         {
@@ -60,7 +60,7 @@ describe('Helper > getNavLinks', function () {
       const links = getNavLinks(true, BASE_URL, '1234')
       expect(links).to.deep.equal([
         {
-          href: `${BASE_URL}/about`,
+          href: `${BASE_URL}/about/research`,
           text: 'About'
         },
         {

@@ -19,6 +19,8 @@ function NavLink ({
 }) {
   const { href, text } = link
   const isCurrentPage = router?.asPath === addQueryParams(href, router)
+  const { owner, project } = router ? router.query : {}
+  const isPFELink = href.startsWith(`/projects/${owner}/${project}/about`)
 
   const label = <StyledSpacedText children={text} color={color} weight={weight} />
 
@@ -26,13 +28,17 @@ function NavLink ({
     return (
       <StyledAnchor color={color} label={label} {...anchorProps} />
     )
-  } else {
-    return (
-      <Link href={addQueryParams(href, router)} color={color} passHref>
-        <StyledAnchor color={color} label={label} {...anchorProps} />
-      </Link>
-    )
   }
+  
+  if (isPFELink) {
+    return <StyledAnchor color={color} label={label} href={addQueryParams(href, router)} {...anchorProps} />
+  }
+  
+  return (
+    <Link href={addQueryParams(href, router)} color={color} passHref>
+      <StyledAnchor color={color} label={label} {...anchorProps} />
+    </Link>
+  )
 }
 
 NavLink.propTypes = {

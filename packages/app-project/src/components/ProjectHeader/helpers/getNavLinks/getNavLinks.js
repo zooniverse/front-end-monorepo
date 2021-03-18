@@ -4,7 +4,7 @@ function getNavLinks (isLoggedIn, baseUrl, defaultWorkflow) {
   const classifyHref = defaultWorkflow ? `${baseUrl}/classify/workflow/${defaultWorkflow}` : `${baseUrl}/classify`
   const links = [
     {
-      href: `${baseUrl}/about`,
+      href: `${baseUrl}/about/research`,
       text: counterpart('ProjectHeader.nav.about')
     },
     {

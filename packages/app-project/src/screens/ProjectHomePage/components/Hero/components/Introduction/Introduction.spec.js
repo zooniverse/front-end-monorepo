@@ -5,7 +5,7 @@ import Introduction from './Introduction'
 
 const DESCRIPTION = 'Project Title!'
 const LINK_PROPS = {
-  href: '/projects/foo/bar/about'
+  href: '/projects/foo/bar/about/research'
 }
 const TITLE = 'baz'
 
