@@ -11,10 +11,6 @@ import Triangle from '../../../shared/Triangle'
 
 counterpart.registerTranslations('en', en)
 
-const StyledSpacedText = styled(SpacedText)`
-  text-shadow: 0 2px 2px rgba(0,0,0,0.22);
-`
-
 function Label ({ color }) {
   return (
     <SpacedText color={color}>
@@ -78,9 +74,9 @@ class Banner extends Component {
         show={show}
       >
 
-        <StyledSpacedText color={color} weight='bold'>
+        <SpacedText color={color} weight='bold'>
           {bannerText}
-        </StyledSpacedText>
+        </SpacedText>
 
         <Button
           aria-label={counterpart('Banner.whyAmISeeingThis')}

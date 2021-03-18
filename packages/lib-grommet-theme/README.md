@@ -70,7 +70,7 @@ class MyComponent extends React.Component {
 | `light-6` | `#979797` | ![](https://via.placeholder.com/80x30.png/979797?text=+) |
 | `neutral-1` | `#005D69` | ![](https://via.placeholder.com/80x30.png/005D69?text=+) |
 | `neutral-2` | `#f0b200` | ![](https://via.placeholder.com/80x30.png/f0b200?text=+) |
-| `neutral-3` | `#1ED359` | ![](https://via.placeholder.com/80x30.png/078F52?text=+) |
+| `neutral-3` | `#1ED359` | ![](https://via.placeholder.com/80x30.png/1ED359?text=+) |
 | `neutral-4` | `#E45950` | ![](https://via.placeholder.com/80x30.png/E45950?text=+) |
 | `neutral-5` | `#43BBFD` | ![](https://via.placeholder.com/80x30.png/43BBFD?text=+) |
 | `neutral-6` | `#ffffff` | ![](https://via.placeholder.com/80x30.png/ffffff?text=+) |
@@ -78,7 +78,7 @@ class MyComponent extends React.Component {
 | `status-critical` | `#E45950` | ![](https://via.placeholder.com/80x30.png/E45950?text=+) |
 | `status-error` | `#FFB6AA` | ![](https://via.placeholder.com/80x30.png/FFB6AA?text=+) |
 | `status-warning` | `#CC9200` | ![](https://via.placeholder.com/80x30.png/CC9200?text=+) |
-| `status-ok` | `#1ED359` | ![](https://via.placeholder.com/80x30.png/078F52?text=+) |
+| `status-ok` | `#1ED359` | ![](https://via.placeholder.com/80x30.png/1ED359?text=+) |
 | `status-unknown` | `#CBCCCB` | ![](https://via.placeholder.com/80x30.png/CBCCCB?text=+) |
 | `status-disabled` | `#CBCCCB` | ![](https://via.placeholder.com/80x30.png/CBCCCB?text=+) |
 
