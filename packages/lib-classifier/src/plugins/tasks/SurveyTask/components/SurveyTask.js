@@ -14,11 +14,17 @@ function SurveyTask (props) {
     handleAnswers,
     handleChoice,
     handleFilter,
+    handleIdentify,
     selectedChoice,
     task
   } = props
 
   const choiceTargetRef = useRef()
+
+  function handleCancel () {
+    handleAnswers({})
+    handleChoice('')
+  }
 
   return (
     <Box
@@ -37,8 +43,8 @@ function SurveyTask (props) {
           align={{
             top: 'top'
           }}
-          onClickOutside={() => handleChoice('')}
-          onEsc={() => handleChoice('')}
+          onClickOutside={() => handleCancel()}
+          onEsc={() => handleCancel()}
           stretch='align'
           target={choiceTargetRef.current}
         >
@@ -46,7 +52,8 @@ function SurveyTask (props) {
             answers={answers}
             choiceId={selectedChoice}
             handleAnswers={handleAnswers}
-            onCancel={() => handleChoice('')}
+            onCancel={() => handleCancel()}
+            onIdentify={handleIdentify}
             task={task}
           />
         </Drop>
@@ -63,6 +70,7 @@ SurveyTask.defaultProps = {
   handleAnswers: () => {},
   handleChoice: () => {},
   handleFilter: () => {},
+  handleIdentify: () => {},
   selectedChoice: ''
 }
 
@@ -79,6 +87,7 @@ SurveyTask.propTypes = {
   handleAnswers: PropTypes.func,
   handleChoice: PropTypes.func,
   handleFilter: PropTypes.func,
+  handleIdentify: PropTypes.func,
   selectedChoice: PropTypes.string,
   task: PropTypes.shape({
     help: PropTypes.string,
