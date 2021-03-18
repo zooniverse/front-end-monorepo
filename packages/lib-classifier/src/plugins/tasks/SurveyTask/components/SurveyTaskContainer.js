@@ -35,6 +35,20 @@ class SurveyTaskContainer extends React.Component {
     this.setState({ filters: newFilters })
   }
 
+  handleIdentify() {
+    const { annotation } = this.props
+    const { answers, filters, selectedChoice } = this.state
+
+    const parsedFilters = JSON.parse(JSON.stringify(filters))
+    const value = annotation.value.filter(item => item.choice !== selectedChoice)
+    value.push({ choice: selectedChoice, answers, filters: parsedFilters })
+
+    this.handleAnswers({})
+    this.handleChoice('')
+
+    annotation.update(value)
+  }
+
   render () {
     const {
       autoFocus,
@@ -47,10 +61,6 @@ class SurveyTaskContainer extends React.Component {
       filters,
       selectedChoice
     } = this.state
-    
-    console.log('answers', answers)
-    console.log('filters', filters)
-    console.log('selectedChoice', selectedChoice)
 
     return (
       <SurveyTask
@@ -61,6 +71,7 @@ class SurveyTaskContainer extends React.Component {
         handleAnswers={this.handleAnswers.bind(this)}
         handleChoice={this.handleChoice.bind(this)}
         handleFilter={this.handleFilter.bind(this)}
+        handleIdentify={this.handleIdentify.bind(this)}
         selectedChoice={selectedChoice}
         task={task}
       />
@@ -75,6 +86,10 @@ SurveyTaskContainer.defaultProps = {
 
 SurveyTaskContainer.propTypes = {
   autoFocus: PropTypes.bool,
+  annotation: PropTypes.shape({
+    update: PropTypes.func,
+    value: PropTypes.array
+  }).isRequired,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
     help: PropTypes.string,

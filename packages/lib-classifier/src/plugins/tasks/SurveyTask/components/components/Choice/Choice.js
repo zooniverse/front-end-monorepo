@@ -18,6 +18,7 @@ export default function Choice (props) {
     choiceId,
     handleAnswers,
     onCancel,
+    onIdentify,
     task
   } = props
   const {
@@ -81,7 +82,7 @@ export default function Choice (props) {
           disabled={!allowIdentify}
           fill='horizontal'
           label={counterpart('Choice.identify')}
-          onClick={() => onCancel()}
+          onClick={() => onIdentify()}
         />
       </Box>
     </Box>
@@ -92,7 +93,8 @@ Choice.defaultProps = {
   answers: {},
   choiceId: '',
   handleAnswers: () => {},
-  onCancel: () => {}
+  onCancel: () => {},
+  onIdentify: () => {}
 }
 
 Choice.propTypes = {
@@ -105,6 +107,7 @@ Choice.propTypes = {
   choiceId: PropTypes.string,
   handleAnswers: PropTypes.func,
   onCancel: PropTypes.func,
+  onIdentify: PropTypes.func,
   task: PropTypes.shape({
     help: PropTypes.string,
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
