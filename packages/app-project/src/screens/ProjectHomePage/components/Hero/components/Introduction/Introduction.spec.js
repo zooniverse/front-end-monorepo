@@ -1,13 +1,11 @@
-import { expect } from 'chai'
 import { render } from 'enzyme'
 import React from 'react'
-import en from './locales/en'
 
 import Introduction from './Introduction'
 
 const DESCRIPTION = 'Project Title!'
 const LINK_PROPS = {
-  href: '/projects/foo/bar/about'
+  href: '/projects/foo/bar/about/research'
 }
 const TITLE = 'baz'
 
@@ -35,8 +33,6 @@ describe('Component > Hero > Introduction', function () {
   })
 
   it('should render a link to the about page', function () {
-    const link = wrapper.find(`a[href="${LINK_PROPS.href}"]`)
-    expect(link).to.have.lengthOf(1)
-    expect(link.text()).to.contain(en.Introduction.link)
+    expect(wrapper.find(`a[href="${LINK_PROPS.href}"]`)).to.have.lengthOf(1)
   })
 })

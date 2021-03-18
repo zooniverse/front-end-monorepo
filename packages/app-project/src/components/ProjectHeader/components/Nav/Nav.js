@@ -41,17 +41,9 @@ const StyledAnchor = styled(Anchor)`
 function Nav({
   navLinks = []
 }) {
-  const aboutNavLink = navLinks.shift()
   return (
     <Box aria-label={counterpart('ProjectNav.ariaLabel')} as='nav'>
       <Box as='ul' direction='row'>
-        <Box as='li' pad={{ left: 'medium' }}>
-          <StyledAnchor
-            color='white'
-            href={aboutNavLink.href}
-            label={<StyledSpacedText children={aboutNavLink.text} weight='bold' />}
-          />
-        </Box>
         {navLinks.map(navLink => (
           <Box as='li' key={navLink.href} pad={{ left: 'medium' }}>
             <NavLink
