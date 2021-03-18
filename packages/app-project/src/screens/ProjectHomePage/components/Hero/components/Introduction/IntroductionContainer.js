@@ -17,8 +17,9 @@ class IntroductionContainer extends Component {
   getLinkProps () {
     const { router } = this.props
     const { owner, project } = router?.query || {}
+    const href = (process.env.PANOPTES_ENV === 'production') ? `https://www.zooniverse.org/projects/${owner}/${project}/about` : `/projects/${owner}/${project}/about/research`
     return {
-      href: `/projects/${owner}/${project}/about`
+      href
     }
   }
 
