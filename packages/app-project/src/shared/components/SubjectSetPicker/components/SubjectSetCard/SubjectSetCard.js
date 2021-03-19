@@ -6,13 +6,15 @@ import { array, number, string } from 'prop-types'
 import React from 'react'
 
 function SubjectSetCard (props) {
-  const { display_name, id, set_member_subjects_count, subjects } = props
+  const { availableSubjects, display_name, id, set_member_subjects_count, subjects } = props
   const [subject] = subjects
   const { publicRuntimeConfig = {} } = getConfig() || {}
   const assetPrefix = publicRuntimeConfig.assetPrefix || ''
   const placeholderUrl = `${assetPrefix}/subject-placeholder.png`
   const subjectURLs = subject ? subject.locations.map(location => Object.values(location)[0]) : []
   const alt = subject ? `Subject ${subject.id}` : 'Loading'
+  const completeness = 1 - (availableSubjects / set_member_subjects_count)
+  const percentComplete = parseInt(100 * completeness)
 
   return (
     <Box
@@ -42,11 +44,23 @@ function SubjectSetCard (props) {
         >
           {display_name}
         </SpacedText>
-        <Paragraph>
+        <Paragraph
+          margin={{
+            top: 'small',
+            bottom: 'none',
+            horizontal: 'none'
+          }}
+        >
           <Text
             weight="normal"
           >
             {`${set_member_subjects_count} subjects`}
+          </Text>
+            <br/>
+          <Text
+            weight="normal"
+          >
+            {`${percentComplete}% complete`}
           </Text>
         </Paragraph>
       </Box>
