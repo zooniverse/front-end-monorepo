@@ -14,8 +14,8 @@ export default function Chooser (props) {
   const {
     autoFocus,
     disabled,
-    task,
-    onChoose
+    onChoose,
+    task
   } = props
 
   // TODO: refactor to filtered choices

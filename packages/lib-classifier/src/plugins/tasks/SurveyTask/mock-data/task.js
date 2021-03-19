@@ -320,7 +320,7 @@ const task = {
     },
     'HMN': {
       'label': 'Human',
-      'images': ['human-1.jpg'],
+      'images': [],
       'confusions': {},
       'description': 'Probably a researcher. Or not. Who knows!',
       'noQuestions': false,
@@ -807,7 +807,6 @@ const task = {
     }
   },
   'questionsMap': {
-    'HN': ['HWMN', 'WHTBHVRSDS', 'RTHRNNGPRSNT'],
     'HR': ['HWMN', 'WHTBHVRSDS', 'RTHRNNGPRSNT'],
     'KD': ['HWMN', 'WHTBHVRSDS', 'RTHRNNGPRSNT', 'DSNHRNS'],
     'BBN': ['HWMN', 'WHTBHVRSDS', 'RTHRNNGPRSNT'],
@@ -815,7 +814,7 @@ const task = {
     'CVT': ['HWMN', 'WHTBHVRSDS', 'RTHRNNGPRSNT'],
     'DKR': ['HWMN', 'WHTBHVRSDS', 'RTHRNNGPRSNT'],
     'GNT': ['HWMN', 'WHTBHVRSDS', 'RTHRNNGPRSNT'],
-    'HMN': ['WHTBHVRSDS', 'RTHRNNGPRSNT'],
+    'HMN': ['RTHRNNGPRSNT'],
     'LND': ['HWMN', 'WHTBHVRSDS', 'RTHRNNGPRSNT', 'DSNHRNS'],
     'MPL': ['HWMN', 'WHTBHVRSDS', 'RTHRNNGPRSNT', 'DSNHRNS'],
     'BFFL': ['HWMN', 'WHTBHVRSDS', 'RTHRNNGPRSNT'],

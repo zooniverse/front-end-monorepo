@@ -28,5 +28,7 @@ describe('SurveyTask', function () {
     it('should render a Chooser component', function () {
       expect(wrapper.find(Chooser)).to.have.lengthOf(1)
     })
+
+    // TODO: add Choice component tests
   })
 })

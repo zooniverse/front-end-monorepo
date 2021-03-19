@@ -105,7 +105,7 @@ export default function FilterStatus (props) {
             characteristicId={characteristicId}
             checked
             onFilter={handleFilter}
-            size='small'
+            buttonSize='small'
             valueImageSrc={valueImageSrc}
             valueLabel={value.label}
           />
