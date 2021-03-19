@@ -32,6 +32,7 @@ const Template = ({
   choiceId,
   choiceLabel,
   dark,
+  selected,
   src,
   thumbnailSize
 }) => (
@@ -42,6 +43,7 @@ const Template = ({
       choiceId={choiceId}
       choiceLabel={choiceLabel}
       onChoose={() => console.log(choiceId)}
+      selected={selected}
       src={src}
       thumbnailSize={thumbnailSize}
     />
@@ -53,6 +55,7 @@ Default.args = {
   choiceId: 'AARDVARK',
   choiceLabel: 'Aardvark',
   dark: false,
+  selected: false,
   src: '',
   thumbnailSize: 'none'
 }
@@ -62,6 +65,7 @@ LongLabel.args = {
   choiceId: 'LONG',
   choiceLabel: 'Long label is really long label',
   dark: false,
+  selected: false,
   src: '',
   thumbnailSize: 'none'
 }
@@ -71,6 +75,7 @@ SmallThumbnail.args = {
   choiceId: 'CRCL',
   choiceLabel: 'Caracal',
   dark: false,
+  selected: false,
   src: CARACAL_SRC,
   thumbnailSize: 'small'
 }
@@ -80,6 +85,7 @@ MediumThumbnail.args = {
   choiceId: 'CRCL',
   choiceLabel: 'Caracal',
   dark: false,
+  selected: false,
   src: CARACAL_SRC,
   thumbnailSize: 'medium'
 }
@@ -89,6 +95,7 @@ LargeThumbnail.args = {
   choiceId: 'CRCL',
   choiceLabel: 'Caracal',
   dark: false,
+  selected: false,
   src: CARACAL_SRC,
   thumbnailSize: 'large'
 }

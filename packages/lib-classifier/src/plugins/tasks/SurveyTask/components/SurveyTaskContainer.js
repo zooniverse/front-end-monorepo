@@ -51,6 +51,7 @@ class SurveyTaskContainer extends React.Component {
 
   render () {
     const {
+      annotation,
       autoFocus,
       disabled,
       task
@@ -61,6 +62,8 @@ class SurveyTaskContainer extends React.Component {
       filters,
       selectedChoice
     } = this.state
+
+    const selectedChoiceIds = annotation?.value?.map(item => item.choice)
 
     return (
       <SurveyTask
@@ -73,6 +76,7 @@ class SurveyTaskContainer extends React.Component {
         handleFilter={this.handleFilter.bind(this)}
         handleIdentify={this.handleIdentify.bind(this)}
         selectedChoice={selectedChoice}
+        selectedChoiceIds={selectedChoiceIds}
         task={task}
       />
     )
