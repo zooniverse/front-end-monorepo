@@ -53,7 +53,7 @@ async function fetchPreviewImage (subjectSet, env) {
   }
 }
 
-export default async function workflowSubjectSets(workflow, env) {
+export default async function fetchSubjectSets(workflow, env) {
   const subjectSetCounts = await fetchWorkflowCellectStatus(workflow)
   const subjectSetIDs = Object.keys(subjectSetCounts)
   const subjectSets = await fetchSubjectSetData(subjectSetIDs, env)
@@ -62,4 +62,3 @@ export default async function workflowSubjectSets(workflow, env) {
   })
   return subjectSets
 }
-
