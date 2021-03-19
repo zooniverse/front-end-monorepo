@@ -40,6 +40,7 @@ export default function Questions (props) {
                 name={questionId}
                 onChange={({ value }) => handleAnswer(value, questionId)}
                 options={labels}
+                value={answers[questionId]}
                 wrap
               />
             ) : (
@@ -48,6 +49,7 @@ export default function Questions (props) {
                 name={questionId}
                 onChange={({ target }) => handleAnswer(target.value, questionId)}
                 options={labels}
+                value={answers[questionId]}
                 wrap
               />
             )}

@@ -20,7 +20,14 @@ class SurveyTaskContainer extends React.Component {
   }
 
   handleChoice (selectedChoice) {
-    this.setState({ selectedChoice })
+    const { annotation } = this.props
+
+    if (annotation?.value?.map(item => item.choice).includes(selectedChoice)) {
+      const existingAnnotationValue = annotation?.value?.find(value => value.choice === selectedChoice)
+      this.setState({ selectedChoice, answers: existingAnnotationValue.answers })
+    } else {
+      this.setState({ selectedChoice })
+    }
   }
 
   handleFilter (characteristicId, valueId) {
@@ -40,7 +47,7 @@ class SurveyTaskContainer extends React.Component {
     const { answers, filters, selectedChoice } = this.state
 
     const parsedFilters = JSON.parse(JSON.stringify(filters))
-    const value = annotation.value.filter(item => item.choice !== selectedChoice)
+    const value = annotation?.value?.filter(item => item.choice !== selectedChoice)
     value.push({ choice: selectedChoice, answers, filters: parsedFilters })
 
     this.handleAnswers({})
