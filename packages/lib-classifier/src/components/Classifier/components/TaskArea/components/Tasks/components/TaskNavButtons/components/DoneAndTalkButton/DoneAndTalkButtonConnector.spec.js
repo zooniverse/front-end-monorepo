@@ -105,4 +105,19 @@ describe('Components > DoneAndTalkButtonConnector', function () {
       expect(subject.openInTalk.withArgs(true)).to.have.been.calledOnce()
     })
   })
+
+  describe('when there is another step in the workflow', function () {
+    before(function () {
+      // set an answer to the branching task question, so that step.next is set.
+      const classification = classifierStore.classifications.active
+      const singleChoiceAnnotation = classification.annotation({ taskKey: 'T0'})
+      singleChoiceAnnotation.update(0)
+      wrapper.update()
+    })
+
+    it('should be hidden', function () {
+      const button = wrapper.find(DoneAndTalkButton)
+      expect(button).to.be.empty()
+    })
+  })
 })
