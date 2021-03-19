@@ -2,10 +2,9 @@ import counterpart from 'counterpart'
 
 function getNavLinks (isLoggedIn, baseUrl, defaultWorkflow) {
   const classifyHref = defaultWorkflow ? `${baseUrl}/classify/workflow/${defaultWorkflow}` : `${baseUrl}/classify`
-  const aboutHref = (process.env.PANOPTES_ENV === 'production') ? `https://www.zooniverse.org${baseUrl}/about` : `${baseUrl}/about/research`
   const links = [
     {
-      href: aboutHref,
+      href: `${baseUrl}/about/research`,
       text: counterpart('ProjectHeader.nav.about')
     },
     {

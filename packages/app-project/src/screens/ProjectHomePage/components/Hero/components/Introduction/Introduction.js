@@ -39,12 +39,12 @@ function Introduction (props) {
       <StyledParagraph margin={{ bottom: 'small', top: 'none' }} size='xxlarge'>
         {description}
       </StyledParagraph>
-      <StyledAnchor
+      <NavLink
         gap='xsmall'
         icon={<Next color='light-5' size='12px' />}
-        href={link.href}
-        label={<SpacedText>{link.text}</SpacedText>}
+        link={link}
         reverse
+        StyledAnchor={StyledAnchor}
       />
     </Box>
   )

@@ -19,6 +19,9 @@ function NavLink ({
 }) {
   const { href, text } = link
   const isCurrentPage = router?.asPath === addQueryParams(href, router)
+  const { owner, project } = router ? router.query : {}
+  const isPFELink = href.startsWith(`/projects/${owner}/${project}/about`)
+  const isProductionAPI = process.env.PANOPTES_ENV === 'production'
 
   const label = <StyledSpacedText children={text} color={color} weight={weight} />
 
@@ -26,13 +29,18 @@ function NavLink ({
     return (
       <StyledAnchor color={color} label={label} {...anchorProps} />
     )
-  } else {
-    return (
-      <Link href={addQueryParams(href, router)} color={color} passHref>
-        <StyledAnchor color={color} label={label} {...anchorProps} />
-      </Link>
-    )
   }
+  
+  if (isPFELink && isProductionAPI) {
+    const PFEHref = addQueryParams(`https://www.zooniverse.org${href}`, router)
+    return <StyledAnchor color={color} label={label} href={PFEHref} {...anchorProps} />
+  }
+  
+  return (
+    <Link href={addQueryParams(href, router)} color={color} passHref>
+      <StyledAnchor color={color} label={label} {...anchorProps} />
+    </Link>
+  )
 }
 
 NavLink.propTypes = {
