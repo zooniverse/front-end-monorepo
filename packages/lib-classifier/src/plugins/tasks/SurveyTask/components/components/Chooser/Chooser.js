@@ -18,6 +18,7 @@ export default function Chooser (props) {
     filters,
     handleFilter,
     onChoose,
+    selectedChoiceIds,
     task
   } = props
 
@@ -34,6 +35,7 @@ export default function Chooser (props) {
       <Choices
         filteredChoiceIds={filteredChoiceIds}
         onChoose={onChoose}
+        selectedChoiceIds={selectedChoiceIds}
         task={task}
       />
     </Box>
@@ -45,6 +47,7 @@ Chooser.defaultProps = {
   disabled: false,
   filters: {},
   handleFilter: () => {},
+  selectedChoiceIds: [],
   onChoose: () => {}
 }
 
@@ -54,6 +57,7 @@ Chooser.propTypes = {
   filters: PropTypes.objectOf(PropTypes.string),
   handleFilter: PropTypes.func,
   onChoose: PropTypes.func,
+  selectedChoiceIds: PropTypes.arrayOf(PropTypes.string),
   task: PropTypes.shape({
     help: PropTypes.string,
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),

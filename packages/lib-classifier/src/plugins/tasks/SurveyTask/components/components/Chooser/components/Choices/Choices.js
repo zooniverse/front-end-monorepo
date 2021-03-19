@@ -13,6 +13,7 @@ function Choices (props) {
   const {
     filteredChoiceIds,
     onChoose,
+    selectedChoiceIds,
     task
   } = props
 
@@ -38,6 +39,7 @@ function Choices (props) {
       >
         {sortedFilteredChoiceIds.map((choiceId) => {
           const choice = task.choices?.[choiceId] || {}
+          const selected = selectedChoiceIds.indexOf(choiceId) > -1
           const src = task.images?.[choice.images?.[0]] || ''
           return (
             <ChoiceButton
@@ -45,6 +47,7 @@ function Choices (props) {
               choiceId={choiceId}
               choiceLabel={choice.label}
               onChoose={onChoose}
+              selected={selected}
               src={src}
               thumbnailSize={thumbnailSize}
             />
@@ -57,7 +60,8 @@ function Choices (props) {
 
 Choices.defaultProps = {
   filteredChoiceIds: [],
-  onChoose: () => {}
+  onChoose: () => {},
+  selectedChoiceIds: []
 }
 
 Choices.propTypes = {
@@ -65,6 +69,7 @@ Choices.propTypes = {
     PropTypes.string
   ),
   onChoose: PropTypes.func,
+  selectedChoiceIds: PropTypes.arrayOf(PropTypes.string),
   task: PropTypes.shape({
     help: PropTypes.string,
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),

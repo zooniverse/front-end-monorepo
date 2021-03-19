@@ -16,6 +16,7 @@ function SurveyTask (props) {
     handleFilter,
     handleIdentify,
     selectedChoice,
+    selectedChoiceIds,
     task
   } = props
 
@@ -36,6 +37,7 @@ function SurveyTask (props) {
         filters={filters}
         handleFilter={handleFilter}
         onChoose={handleChoice}
+        selectedChoiceIds={selectedChoiceIds}
         task={task}
       />
       {choiceTargetRef.current && selectedChoice && (
@@ -71,7 +73,8 @@ SurveyTask.defaultProps = {
   handleChoice: () => {},
   handleFilter: () => {},
   handleIdentify: () => {},
-  selectedChoice: ''
+  selectedChoice: '',
+  selectedChoiceIds: []
 }
 
 SurveyTask.propTypes = {
@@ -89,6 +92,7 @@ SurveyTask.propTypes = {
   handleFilter: PropTypes.func,
   handleIdentify: PropTypes.func,
   selectedChoice: PropTypes.string,
+  selectedChoiceIds: PropTypes.arrayOf(PropTypes.string),
   task: PropTypes.shape({
     help: PropTypes.string,
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
