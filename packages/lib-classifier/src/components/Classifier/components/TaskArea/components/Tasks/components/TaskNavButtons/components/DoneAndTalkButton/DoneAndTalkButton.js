@@ -15,35 +15,23 @@ const Label = (
   </Text>
 )
 
-function DoneAndTalkButton (props) {
-  if (!props.completed) {
-    return (
-      <Button
-        disabled={props.disabled}
-        label={Label}
-        onClick={props.onClick}
-        style={{ marginRight: '1ch' }}
-        type='submit'
-      />
-    )
-  }
-
-  return null
-}
-
-DoneAndTalkButton.defaultProps = {
-  completed: false,
-  demoMode: false, // TODO: add demo mode to classifier
-  disabled: false,
-  goldStandardMode: false, // TODO: add gold standard mode to classifier
-  onClick: () => {}
+function DoneAndTalkButton ({
+  disabled = false,
+  onClick = () => {}
+}) {
+  return (
+    <Button
+      disabled={disabled}
+      label={Label}
+      onClick={onClick}
+      style={{ marginRight: '1ch' }}
+      type='submit'
+    />
+  )
 }
 
 DoneAndTalkButton.propTypes = {
-  completed: PropTypes.bool,
-  demoMode: PropTypes.bool,
   disabled: PropTypes.bool,
-  goldStandardMode: PropTypes.bool,
   onClick: PropTypes.func
 }
 
