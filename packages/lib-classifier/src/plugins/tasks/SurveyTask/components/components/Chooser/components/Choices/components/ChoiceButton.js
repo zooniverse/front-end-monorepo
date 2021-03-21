@@ -48,7 +48,7 @@ export function ChoiceButton (props) {
           fill
           align='center'
         >
-          {thumbnailSize !== 'none' && 
+          {thumbnailSize !== 'none' && src &&
             <Media
               height={thumbnailHeight}
               margin={{ right: '1ch' }}
