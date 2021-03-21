@@ -11,22 +11,14 @@ import locationValidator from '../../helpers/locationValidator'
 import SingleVideoViewer from './SingleVideoViewer'
 import VideoController from '../VideoController/VideoController'
 
-const Container = styled.div`
+const ScreenContainer = styled.div`
   position: relative;
 `
 
-const DrawingContainer = styled.div`
+const DrawingLayer = styled.div`
   position: absolute;
-  width: 100%;
-  height: 100%;
   top: 0px;
-  background-color: rgba(221, 221, 221, 0.6);
-  outline: 2px solid red;
-  /* ${(props) =>
-    css`
-      height: ${props.height}px;
-      width: ${props.width}px;
-    `} */
+  width: 100%;
   cursor: default;
 `
 
@@ -217,7 +209,7 @@ class SingleVideoViewerContainer extends React.Component {
 
     return (
       <>
-        <Container>
+        <ScreenContainer>
           <SingleVideoViewer
             playerRef={this.handlePlayerRef}
             url={vid.src}
@@ -229,7 +221,7 @@ class SingleVideoViewerContainer extends React.Component {
           />
 
           {/* Drawing Layer */}
-          <DrawingContainer>
+          <DrawingLayer>
             <Box animation='fadeIn' overflow='hidden'>
               <SVGContext.Provider value={{ svg, getScreenCTM }}>
                 <svg
@@ -254,8 +246,8 @@ class SingleVideoViewerContainer extends React.Component {
                 </svg>
               </SVGContext.Provider>
             </Box>
-          </DrawingContainer>
-        </Container>
+          </DrawingLayer>
+        </ScreenContainer>
         <VideoController
           isPlaying={isPlaying}
           played={played}
