@@ -28,18 +28,11 @@ function withStores(Component) {
     } = props.store || useContext(MobXProviderContext)
 
     if (!hasNextStep && shouldWeShowDoneAndTalkButton && subject.id) {
-      function completeStepTasks() {
-        step.tasks.forEach((task) => {
-          const [ annotation ] = annotations.filter(annotation => annotation.task === task.taskKey)
-          task.complete(annotation)
-        })
-      }
-
       function onClick(event) {
         event.preventDefault()
         const isCmdClick = event.metaKey
         subject.openInTalk(isCmdClick)
-        completeStepTasks()
+        step.completeTasks(annotations)
         clearRedo()
         return completeClassification()
       }

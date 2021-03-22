@@ -27,16 +27,9 @@ function withStores(Component) {
       return null
     }
 
-    function completeStepTasks() {
-      step.tasks.forEach((task) => {
-        const [ annotation ] = annotations.filter(annotation => annotation.task === task.taskKey)
-        task.complete(annotation)
-      })
-    }
-
     function onClick(event) {
       event.preventDefault()
-      completeStepTasks()
+      step.completeTasks(annotations)
       clearRedo()
       return completeClassification()
     }

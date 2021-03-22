@@ -24,15 +24,8 @@ function withStores(Component) {
       return null
     }
 
-    function completeStepTasks() {
-      step.tasks.forEach((task) => {
-        const [ annotation ] = annotations.filter(annotation => annotation.task === task.taskKey)
-        task.complete(annotation)
-      })
-    }
-
     function onClick() {
-      completeStepTasks()
+      step.completeTasks(annotations)
       next()
     }
 
