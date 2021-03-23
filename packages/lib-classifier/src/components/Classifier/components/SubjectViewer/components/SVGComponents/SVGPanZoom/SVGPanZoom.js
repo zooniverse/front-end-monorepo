@@ -24,23 +24,17 @@ function SVGPanZoom ({
 
   const [ zoom, setZoom ] = useState(1)
   const [ viewBox, setViewBox ] = useState(defaultViewBox)
-  
-  function preventDefault (e) {
-    e.preventDefault()
-  }
 
   function enableZoom () {
     setOnDrag(onDrag)
     setOnPan(onPan)
     setOnZoom(onZoom)
-    scrollContainer.current.addEventListener('wheel', preventDefault)
   }
 
   function disableZoom () {
     setOnDrag(() => true)
     setOnPan(() => true)
     setOnZoom(() => true)
-    scrollContainer.current.removeEventListener('wheel', preventDefault)
   }
 
   useEffect(() => {
@@ -117,22 +111,12 @@ function SVGPanZoom ({
     }
   }
 
-  function onWheel (event) {
-    const { deltaY } = event
-    if (deltaY < 0) {
-      onZoom('zoomout', -1)
-    } else {
-      onZoom('zoomin', 1)
-    }
-  }
-
   const { x, y, width, height } = scaledViewBox(zoom)
   const scale = imageScale(img)
 
   return (
     <div
       ref={scrollContainer}
-      onWheel={onWheel}
       style={{ width: '100%' }}
     >
       {cloneElement(children, { scale, viewBox: `${x} ${y} ${width} ${height}` })}
