@@ -1,5 +1,4 @@
 import { inject, observer } from 'mobx-react'
-import { getType } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
@@ -10,7 +9,6 @@ import SHOWN_MARKS from '@helpers/shownMarks'
 function storeMapper(stores) {
   const { activeStepTasks } = stores.classifierStore.workflowSteps
   const { frame, move } = stores.classifierStore.subjectViewer
-  const { active: classification } = stores.classifierStore.classifications
 
   const [activeInteractionTask] = activeStepTasks.filter(
     (task) => task.type === 'drawing' || task.type === 'transcription'
