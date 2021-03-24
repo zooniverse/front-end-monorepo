@@ -39,6 +39,10 @@ function isThereBranching (task) {
   })
 }
 
+function taskExists(taskKey, tasks) {
+  return Object.keys(tasks).includes(taskKey)
+}
+
 export default function convertWorkflowToUseSteps ({ first_task, tasks }) {
   const steps = []
   const taskKeys = Object.keys(tasks)
@@ -66,7 +70,7 @@ export default function convertWorkflowToUseSteps ({ first_task, tasks }) {
 
     taskKeysToConvertToSteps.splice(taskKeysToConvertToSteps.indexOf(first_task), 1)
 
-    steps.push(['S0', firstStep])
+    steps.push([firstStep.stepKey, firstStep])
   }
 
   taskKeysToConvertToSteps.forEach((taskKey, index) => {
@@ -95,7 +99,7 @@ export default function convertWorkflowToUseSteps ({ first_task, tasks }) {
 
   // convert step.next from task key to step key
   steps.forEach(([stepKey, step]) => {
-    if (Object.keys(tasks).includes(step.next)) {
+    if (taskExists(step.next, tasks)) {
       step.next = getNextStepFromTaskKey(step.next, steps, tasks)
     }
   })
@@ -104,7 +108,7 @@ export default function convertWorkflowToUseSteps ({ first_task, tasks }) {
   Object.values(tasks).forEach(task => {
     if (task.type === 'single') {
       task.answers?.forEach(answer => {
-        if (answer.next?.startsWith('T')) {
+        if (taskExists(answer.next, tasks)) {
           answer.next = getNextStepFromTaskKey(answer.next, steps, tasks)
         }
       })
