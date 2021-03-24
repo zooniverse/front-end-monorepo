@@ -197,6 +197,14 @@ describe('Drawing tools > Mark', function () {
   })
 
   describe('useEffect hook', function () {
+    const pointTool = PointTool.create({
+      type: 'point',
+      tasks: [{
+        taskKey: 'T0.0.0',
+        type: 'text',
+        instruction: 'dummy task'
+      }]
+    })
     describe('with finished mark and no subTaskVisibility', function () {
       let markWrapper = (mark) => {
         return (
@@ -207,7 +215,7 @@ describe('Drawing tools > Mark', function () {
             onFinish={onFinish}
             onSelect={onSelect}
           >
-            <Point mark={point} />
+            <Point mark={mark} />
           </Mark>
         )
       }
@@ -217,14 +225,15 @@ describe('Drawing tools > Mark', function () {
       })
 
       it('should set subtask visibility', function () {
-        const newMark = Object.assign({}, point, { finished: true })
+        const newMark = pointTool.createMark()
+        newMark.finish()
         wrapper = mount(markWrapper(newMark))
         expect(newMark.subTaskVisibility).to.be.true()
       })
 
       describe('when the mark is not finished', function () {
         it('should not set subtask visibility', function () {
-          const newMark = Object.assign({}, point, { finished: false })
+          const newMark = pointTool.createMark()
           wrapper = mount(markWrapper(newMark))
           expect(newMark.subTaskVisibility).to.be.false()
         })
@@ -232,7 +241,8 @@ describe('Drawing tools > Mark', function () {
 
       describe('when the subtask is visible', function () {
         it('should not change subtask visibility', function () {
-          const newMark = Object.assign({}, point, { subTaskVisibility: true })
+          const newMark = pointTool.createMark()
+          newMark.setSubTaskVisibility(true)
           wrapper = mount(markWrapper(newMark))
           expect(newMark.subTaskVisibility).to.be.true()
         })
