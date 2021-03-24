@@ -101,15 +101,10 @@ function InteractionLayer ({
 
   function onFinish (event) {
     if (event.preventDefault) event.preventDefault()
-    const { target, pointerId } = event
     setCreating(false)
     if (activeMark && !activeMark.isValid) {
       activeTool.deleteMark(activeMark)
       setActiveMark(undefined)
-    }
-
-    if (target && pointerId) {
-      target.releasePointerCapture(pointerId)
     }
   }
 
