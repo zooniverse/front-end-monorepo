@@ -41,7 +41,7 @@ const Mark = forwardRef(function Mark ({
 
   React.useEffect(() => {
     if (mark.finished && !mark.subTaskVisibility) {
-      onFinish()
+      mark.setSubTaskVisibility(true, ref?.current)
     }
   }, [mark.finished])
 

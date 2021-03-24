@@ -24,10 +24,6 @@ function DrawingToolMarks (props) {
     const isActive = mark.id === activeMark?.id
     const ref = React.createRef()
 
-    function onFinishWithRef (event) {
-      onFinish(event, ref.current)
-    }
-
     function isInBounds (markElement) {
       const object = markElement.getBoundingClientRect()
       const bounds = svg.getBoundingClientRect()
@@ -60,7 +56,8 @@ function DrawingToolMarks (props) {
       if (event?.currentTarget && !isInBounds(event.currentTarget)) {
         deleteMark()
       } else {
-        onFinishWithRef(event)
+        activeMark.setSubTaskVisibility(true, ref.current)
+        onFinish(event)
       }
     }
 
@@ -79,7 +76,7 @@ function DrawingToolMarks (props) {
         label={`Mark ${index}`}
         mark={mark}
         onDelete={deleteMark}
-        onFinish={onFinishWithRef}
+        onFinish={onFinish}
         onSelect={selectMark}
         ref={ref}
         scale={scale}
@@ -87,7 +84,7 @@ function DrawingToolMarks (props) {
         <MarkingComponent
           active={isActive}
           mark={mark}
-          onFinish={onFinishWithRef}
+          onFinish={onFinish}
           scale={scale}
         />
         {isActive && <ObservedDeleteButton

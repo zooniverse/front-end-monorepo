@@ -216,25 +216,25 @@ describe('Drawing tools > Mark', function () {
         onFinish.resetHistory()
       })
 
-      it('should call onFinish', function () {
+      it('should set subtask visibility', function () {
         const newMark = Object.assign({}, point, { finished: true })
         wrapper = mount(markWrapper(newMark))
-        expect(onFinish).to.have.been.calledOnce()
+        expect(newMark.subTaskVisibility).to.be.true()
       })
 
       describe('when the mark is not finished', function () {
-        it('should not call onFinish', function () {
+        it('should not set subtask visibility', function () {
           const newMark = Object.assign({}, point, { finished: false })
           wrapper = mount(markWrapper(newMark))
-          expect(onFinish).not.to.have.been.called()
+          expect(newMark.subTaskVisibility).to.be.false()
         })
       })
 
       describe('when the subtask is visible', function () {
-        it('should not call onFinish', function () {
+        it('should not change subtask visibility', function () {
           const newMark = Object.assign({}, point, { subTaskVisibility: true })
           wrapper = mount(markWrapper(newMark))
-          expect(onFinish).not.to.have.been.called()
+          expect(newMark.subTaskVisibility).to.be.true()
         })
       })
     })
