@@ -7,7 +7,6 @@ import {
   tryReference, 
   types 
 } from 'mobx-state-tree'
-import { difference, isEqual } from 'lodash'
 
 import Step from './Step'
 
@@ -86,15 +85,7 @@ const WorkflowStepStore = types
         const workflow = tryReference(() => getRoot(self).workflows?.active)
         if (workflow) {
           self.reset()
-          if (workflow.steps &&
-            workflow.steps.length > 0 &&
-            Object.keys(workflow.tasks).length > 0) {
-            self.setStepsAndTasks(workflow)
-          } else {
-            // backwards compatibility
-            self.convertWorkflowToUseSteps(workflow)
-            self.setTasks(workflow)
-          }
+          _setStepsAndTasks(workflow)
         }
       }, { name: 'WorkflowStepStore Workflow Observer autorun' })
       addDisposer(self, workflowDisposer)
@@ -133,13 +124,12 @@ const WorkflowStepStore = types
       }
     }
 
-    function setStepsAndTasks (workflow) {
-      self.setSteps(workflow)
-      self.setTasks(workflow)
+    function _setStepsAndTasks ({ steps, tasks }) {
+      self.setSteps(steps)
+      self.setTasks(tasks)
     }
 
-    function setSteps (workflow) {
-      const { steps } = workflow
+    function setSteps (steps) {
       steps.forEach(([ stepKey, step ], index) => {
         let next
         // checking for there being a next step without accessing it directly
@@ -153,13 +143,13 @@ const WorkflowStepStore = types
       })
     }
 
-    function setTasks (workflow) {
+    function setTasks (tasks) {
       self.steps.forEach(function (step) {
         step.taskKeys.forEach((taskKey) => {
           // Set tasks object as a MobX observable JS map in the store
           // put is a MST method, not native to ES Map
           // the key is inferred from the identifier type of the target model
-          const taskToStore = Object.assign({}, workflow.tasks[taskKey], { taskKey })
+          const taskToStore = Object.assign({}, tasks[taskKey], { taskKey })
           try {
             step.tasks.push(taskToStore)
           } catch (error) {
@@ -170,115 +160,13 @@ const WorkflowStepStore = types
       })
     }
 
-    function convertWorkflowToUseSteps (workflow) {
-      const taskKeys = Object.keys(workflow.tasks)
-
-      function getTaskKeysIncludedInComboTasks (tasks) {
-        let taskKeys
-        const comboTasks = Object.values(tasks).filter(task => task?.type === 'combo')
-        taskKeys = comboTasks.map(combo => combo.tasks)
-        return taskKeys.flat()
-      }
-
-      function isThereBranching (task) {
-        return task?.answers?.some((answer, index) => {
-          if (task.answers.length > index + 1) {
-            return answer.next !== task.answers[index + 1].next
-          }
-          return false
-        })
-      }
-
-      const taskKeysIncludedInComboTasks = getTaskKeysIncludedInComboTasks(workflow.tasks)
-      const taskKeysToConvertToSteps = difference(taskKeys, taskKeysIncludedInComboTasks)
-
-      const { first_task } = workflow
-      const firstTask = workflow.tasks[first_task]
-
-      if (first_task) {
-        let firstStep = {
-          next: firstTask.next, // temporarily set next to task key, convert to step key once steps created
-          stepKey: 'S0',
-          taskKeys: [first_task]
-        }
-
-        if (firstTask.type === 'combo') {
-          firstStep.taskKeys = firstTask.tasks
-        }
-
-        const isFirstSingleChoiceTaskNotBranching = firstTask.type === 'single' && !isThereBranching(firstTask)
-        if (isFirstSingleChoiceTaskNotBranching) {
-          firstStep.next = firstTask.answers[0]?.next
-        }
-
-        taskKeysToConvertToSteps.splice(taskKeysToConvertToSteps.indexOf(first_task), 1)
-
-        self.steps.put(firstStep)
-      }
-
-      taskKeysToConvertToSteps.forEach((taskKey, index) => {
-        const task = workflow.tasks[taskKey]
-        if (task.type !== 'shortcut') {
-          let stepTasks = [taskKey]
-          if (task.type === 'combo') {
-            stepTasks = task.tasks
-          }
-
-          let stepSnapshot = {
-            next: task.next, // temporarily set next to task key, convert to step key once steps created
-            previous: `S${index}`,
-            stepKey: `S${index + 1}`,
-            taskKeys: stepTasks
-          }
-
-          const isSingleChoiceTaskNotBranching = task.type === 'single' && !isThereBranching(task)
-          if (isSingleChoiceTaskNotBranching) {
-            stepSnapshot.next = task.answers && task.answers[0]?.next
-          }
-
-          self.steps.put(stepSnapshot)
-        }
-      })
-
-      function getStepKeyFromTaskKey(steps, taskKey) {
-        let stepKey
-        steps.forEach(step => {
-          if (step.taskKeys.includes(taskKey)) {
-            stepKey = step.stepKey
-          }
-        })
-        return stepKey
-      }
-
-      // convert step.next from task key to step key
-      self.steps.forEach(step => {
-        if (Object.keys(workflow.tasks).includes(step.next)) {
-          const stepKeyFromTaskKey = getStepKeyFromTaskKey(self.steps, step.next)
-          if (!!stepKeyFromTaskKey) {
-            step.setNext(stepKeyFromTaskKey)
-          } else { // next task is combo task
-            let nextStepKey
-            const comboTask = workflow.tasks[step.next]
-            self.steps.forEach(step => {
-              if (isEqual(step.taskKeys, comboTask.tasks)) {
-                nextStepKey = step.stepKey
-              }
-            })
-            step.setNext(nextStepKey)
-          }
-        }
-      })
-    }
-
     return {
       afterAttach,
-      convertWorkflowToUseSteps,
       getNextStepKey,
       reset,
       resetSteps,
       selectStep,
       setSteps,
-      setStepsAndTasks,
       setTasks
     }
   })
