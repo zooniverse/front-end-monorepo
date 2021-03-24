@@ -7,19 +7,14 @@ import InteractionLayer from './InteractionLayer'
 import PreviousMarks from './components/PreviousMarks'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
-function storeMapper (stores) {
-  const {
-    activeStepTasks
-  } = stores.classifierStore.workflowSteps
-  const {
-    frame,
-    move
-  } = stores.classifierStore.subjectViewer
-  const {
-    active: classification
-  } = stores.classifierStore.classifications
+function storeMapper(stores) {
+  const { activeStepTasks } = stores.classifierStore.workflowSteps
+  const { frame, move } = stores.classifierStore.subjectViewer
+  const { active: classification } = stores.classifierStore.classifications
 
-  const [activeInteractionTask] = activeStepTasks.filter(task => task.type === 'drawing' || task.type === 'transcription')
+  const [activeInteractionTask] = activeStepTasks.filter(
+    (task) => task.type === 'drawing' || task.type === 'transcription'
+  )
 
   return {
     activeInteractionTask,
@@ -31,7 +26,7 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class InteractionLayerContainer extends Component {
-  render () {
+  render() {
     const {
       activeInteractionTask,
       frame,
@@ -52,12 +47,15 @@ class InteractionLayerContainer extends Component {
       taskKey
     } = activeInteractionTask
 
-    const newMarks = shownMarks === SHOWN_MARKS.NONE ? marks.slice(hidingIndex) : marks
-    const visibleMarksPerFrame = newMarks?.filter(mark => mark.frame === frame)
+    const newMarks =
+      shownMarks === SHOWN_MARKS.NONE ? marks.slice(hidingIndex) : marks
+    const visibleMarksPerFrame = newMarks?.filter(
+      (mark) => mark.frame === frame
+    )
 
     return (
       <>
-        {activeInteractionTask && activeTool &&
+        {activeInteractionTask && activeTool && (
           <InteractionLayer
             activeMark={activeMark}
             activeTool={activeTool}
@@ -72,7 +70,7 @@ class InteractionLayerContainer extends Component {
             setActiveMark={setActiveMark}
             width={width}
           />
-        }
+        )}
         <PreviousMarks scale={scale} />
       </>
     )
