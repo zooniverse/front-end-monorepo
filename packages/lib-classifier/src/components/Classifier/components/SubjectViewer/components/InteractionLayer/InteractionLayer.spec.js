@@ -13,6 +13,7 @@ describe('Component > InteractionLayer', function () {
   let wrapper
   let activeTool
   const mockMark = {
+    finish: sinon.stub(),
     initialDrag: sinon.stub(),
     initialPosition: sinon.stub(),
     setCoordinates: sinon.stub(),
@@ -107,114 +108,58 @@ describe('Component > InteractionLayer', function () {
       expect(wrapper.find(SubTaskPopup)).to.have.lengthOf(1)
     })
 
-    describe('on pointer events', function () {
-      let mockedContext
-      before(function () {
-        mockedContext = sinon.stub(React, 'useContext').callsFake(() => { return { svg, getScreenCTM } })
-      })
+    describe('pointer events', function () {
+      describe('onPointerDown', function () {
+        let mockedContext
+        before(function () {
+          mockedContext = sinon.stub(React, 'useContext').callsFake(() => { return { svg, getScreenCTM } })
+        })
 
-      after(function () {
-        mockedContext.restore()
-      })
+        after(function () {
+          mockedContext.restore()
+        })
 
-      it('should create a mark on pointer down', function () {
-        const fakeEvent = {
-          pointerId: 'fakePointer',
-          type: 'pointerdown',
-          target: {
-            setPointerCapture: sinon.stub(),
-            releasePointerCapture: sinon.stub()
+        it('should create a mark', function () {
+          const fakeEvent = {
+            pointerId: 'fakePointer',
+            type: 'pointerdown',
+            target: {
+              setPointerCapture: sinon.stub(),
+              releasePointerCapture: sinon.stub()
+            }
           }
-        }
-        wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
-        expect(activeTool.createMark).to.have.been.calledOnce()
-      })
+          wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
+          expect(activeTool.createMark).to.have.been.calledOnce()
+        })
 
-      it('should create a mark with current frame', function () {
-        const fakeEvent = {
-          pointerId: 'fakePointer',
-          type: 'pointerdown',
-          target: {
-            setPointerCapture: sinon.stub(),
-            releasePointerCapture: sinon.stub()
+        it('should create a mark with current frame', function () {
+          const fakeEvent = {
+            pointerId: 'fakePointer',
+            type: 'pointerdown',
+            target: {
+              setPointerCapture: sinon.stub(),
+              releasePointerCapture: sinon.stub()
+            }
           }
-        }
-        wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
-        const createMarkArgs = activeTool.createMark.args[0][0]
-        expect(createMarkArgs.frame).to.equal(2)
-      })
+          wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
+          const createMarkArgs = activeTool.createMark.args[0][0]
+          expect(createMarkArgs.frame).to.equal(2)
+        })
 
-      it('should place a new mark on pointer down', function () {
-        const fakeEvent = {
-          pointerId: 'fakePointer',
-          type: 'pointerdown',
-          target: {
-            setPointerCapture: sinon.stub(),
-            releasePointerCapture: sinon.stub()
+        it('should place a new mark', function () {
+          const fakeEvent = {
+            pointerId: 'fakePointer',
+            type: 'pointerdown',
+            target: {
+              setPointerCapture: sinon.stub(),
+              releasePointerCapture: sinon.stub()
+            }
           }
-        }
-        wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
-        expect(mockMark.initialPosition).to.have.been.calledOnce()
-      })
+          wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
+          expect(mockMark.initialPosition).to.have.been.calledOnce()
+        })
 
-      it('should drag the new mark on pointer down + move', function () {
-        const fakeEvent = {
-          pointerId: 'fakePointer',
-          type: 'pointer',
-          target: {
-            setPointerCapture: sinon.stub(),
-            releasePointerCapture: sinon.stub()
-          }
-        }
-        wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
-        wrapper.find(DrawingCanvas).simulate('pointermove', fakeEvent)
-        expect(mockMark.initialDrag).to.have.been.calledOnce()
-      })
-
-      it('should capture the pointer on pointer down', function () {
-        const fakeEvent = {
-          pointerId: 'fakePointer',
-          type: 'pointer',
-          target: {
-            setPointerCapture: sinon.stub(),
-            releasePointerCapture: sinon.stub()
-          }
-        }
-        wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
-        wrapper.simulate('pointermove', fakeEvent)
-        expect(fakeEvent.target.setPointerCapture.withArgs('fakePointer')).to.have.been.calledOnce()
-      })
-
-      describe('onPointerDown with a TranscriptionLine mark already in progress', function () {
-        it('should call the handlePointerDown function', function () {
-          const mockDrawingTask = DrawingTask.TaskModel.create({
-            activeToolIndex: 0,
-            instruction: 'draw a mark',
-            taskKey: 'T0',
-            tools: [
-              {
-                marks: {},
-                max: 2,
-                toolComponent: TranscriptionLine,
-                type: 'transcriptionLine'
-              }
-            ],
-            type: 'drawing'
-          })
-          activeTool = mockDrawingTask.activeTool
-          sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
-          sinon.stub(activeTool, 'handlePointerDown').callsFake(() => mockMark)
-
-          wrapper = shallow(
-            <InteractionLayer
-              activeMark={mockMark}
-              activeTool={activeTool}
-              frame={2}
-              height={400}
-              width={600}
-            />
-          )
-
+        it('should drag the new mark on pointer down + move', function () {
           const fakeEvent = {
             pointerId: 'fakePointer',
             type: 'pointer',
@@ -224,9 +169,108 @@ describe('Component > InteractionLayer', function () {
             }
           }
           wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
-          wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
-          expect(activeTool.handlePointerDown).to.have.been.calledOnce()
+          wrapper.find(DrawingCanvas).simulate('pointermove', fakeEvent)
+          expect(mockMark.initialDrag).to.have.been.calledOnce()
         })
+
+        it('should capture the pointer', function () {
+          const fakeEvent = {
+            pointerId: 'fakePointer',
+            type: 'pointer',
+            target: {
+              setPointerCapture: sinon.stub(),
+              releasePointerCapture: sinon.stub()
+            }
+          }
+          wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
+          wrapper.simulate('pointermove', fakeEvent)
+          expect(fakeEvent.target.setPointerCapture.withArgs('fakePointer')).to.have.been.calledOnce()
+        })
+
+        describe('with a TranscriptionLine mark already in progress', function () {
+          it('should call the handlePointerDown function once', function () {
+            const mockDrawingTask = DrawingTask.TaskModel.create({
+              activeToolIndex: 0,
+              instruction: 'draw a mark',
+              taskKey: 'T0',
+              tools: [
+                {
+                  marks: {},
+                  max: 2,
+                  toolComponent: TranscriptionLine,
+                  type: 'transcriptionLine'
+                }
+              ],
+              type: 'drawing'
+            })
+            activeTool = mockDrawingTask.activeTool
+            sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
+            sinon.stub(activeTool, 'handlePointerDown').callsFake(() => mockMark)
+
+            wrapper = shallow(
+              <InteractionLayer
+                activeMark={mockMark}
+                activeTool={activeTool}
+                frame={2}
+                height={400}
+                width={600}
+              />
+            )
+
+            const fakeEvent = {
+              pointerId: 'fakePointer',
+              type: 'pointer',
+              target: {
+                setPointerCapture: sinon.stub(),
+                releasePointerCapture: sinon.stub()
+              }
+            }
+            wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
+            wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
+            expect(activeTool.handlePointerDown).to.have.been.calledOnce()
+          })
+        })
+      })
+    })
+
+    describe('onPointerUp', function () {
+      let mockedContext
+      before(function () {
+        mockedContext = sinon.stub(React, 'useContext').callsFake(() => { return { svg, getScreenCTM } })
+      })
+
+      after(function () {
+        mockedContext.restore()
+      })
+
+      it('should set the mark to finished', function () {
+        const fakeEvent = {
+          pointerId: 'fakePointer',
+          type: 'pointer',
+          target: {
+            setPointerCapture: sinon.stub(),
+            releasePointerCapture: sinon.stub()
+          }
+        }
+        wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
+        wrapper.find(DrawingCanvas).simulate('pointerup', fakeEvent)
+        expect(mockMark.finish).to.have.been.calledOnce()
+      })
+
+      it('should release the pointer', function () {
+        const fakeEvent = {
+          pointerId: 'fakePointer',
+          type: 'pointer',
+          target: {
+            setPointerCapture: sinon.stub(),
+            releasePointerCapture: sinon.stub()
+          }
+        }
+        const finishedMark = Object.assign({}, mockMark, { finished: true })
+        wrapper.setProps({ activeMark: finishedMark })
+        wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
+        wrapper.find(DrawingCanvas).simulate('pointerup', fakeEvent)
+        expect(fakeEvent.target.releasePointerCapture.withArgs('fakePointer')).to.have.been.calledOnce()
       })
     })
   })

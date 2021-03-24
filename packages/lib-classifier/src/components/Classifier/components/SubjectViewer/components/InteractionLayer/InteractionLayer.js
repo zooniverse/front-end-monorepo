@@ -100,8 +100,8 @@ function InteractionLayer ({
   }
 
   function onFinish (event = {}, node) {
+    if (event.preventDefault) event.preventDefault()
     const { target, pointerId } = event
-
     setCreating(false)
     if (activeMark && !activeMark.isValid) {
       activeTool.deleteMark(activeMark)
