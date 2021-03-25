@@ -8,17 +8,24 @@ import Point from '../Point'
 
 describe('Drawing tools > Mark', function () {
   const pointTool = PointTool.create({
-    type: 'point'
+    type: 'point',
+    tasks: [{
+      taskKey: 'T0.0.0',
+      type: 'text',
+      instruction: 'dummy task'
+    }]
   })
-  const point = pointTool.createMark({
-    id: 'point1'
-  })
+  let point
   const onDelete = sinon.stub()
   const onFinish = sinon.stub()
   const onSelect = sinon.stub()
   let wrapper
 
-  beforeEach(function () {
+  before(function () {
+    point = pointTool.createMark({
+      id: 'point1'
+    })
+    point.finish()
     wrapper = shallow(
       <Mark
         label='Point 1'
@@ -92,6 +99,7 @@ describe('Drawing tools > Mark', function () {
       }
 
       before(function () {
+        point.setSubTaskVisibility(false)
         wrapper.simulate('keydown', fakeEvent)
       })
 
@@ -107,6 +115,10 @@ describe('Drawing tools > Mark', function () {
         expect(fakeEvent.preventDefault).to.have.been.calledOnce()
       })
 
+      it('should set subtask visibility', function () {
+        expect(point.subTaskVisibility).to.be.true()
+      })
+
       it('should call onFinish', function () {
         expect(onFinish).to.have.been.calledOnce()
       })
@@ -120,6 +132,7 @@ describe('Drawing tools > Mark', function () {
       }
 
       before(function () {
+        point.setSubTaskVisibility(false)
         wrapper.simulate('keydown', fakeEvent)
       })
 
@@ -135,6 +148,10 @@ describe('Drawing tools > Mark', function () {
         expect(fakeEvent.preventDefault).to.have.been.calledOnce()
       })
 
+      it('should set subtask visibility', function () {
+        expect(point.subTaskVisibility).to.be.true()
+      })
+
       it('should call onFinish', function () {
         expect(onFinish).to.have.been.calledOnce()
       })
@@ -147,6 +164,7 @@ describe('Drawing tools > Mark', function () {
         stopPropagation: sinon.stub()
       }
       before(function () {
+        point.setSubTaskVisibility(false)
         wrapper.simulate('keydown', fakeEvent)
       })
 
@@ -197,14 +215,6 @@ describe('Drawing tools > Mark', function () {
   })
 
   describe('useEffect hook', function () {
-    const pointTool = PointTool.create({
-      type: 'point',
-      tasks: [{
-        taskKey: 'T0.0.0',
-        type: 'text',
-        instruction: 'dummy task'
-      }]
-    })
     describe('with finished mark and no subTaskVisibility', function () {
       let markWrapper = (mark) => {
         return (
