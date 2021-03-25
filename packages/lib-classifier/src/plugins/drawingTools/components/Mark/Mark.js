@@ -39,11 +39,16 @@ const Mark = forwardRef(function Mark ({
   }
   const focusColor = theme.global.colors[theme.global.colors.focus]
 
-  React.useEffect(() => {
-    if (mark.finished && !mark.subTaskVisibility) {
+  function openSubTaskPopup() {
+    if (mark.finished &&
+      !mark.subTaskVisibility &&
+      mark.tasks.length > 0
+    ) {
       mark.setSubTaskVisibility(true, ref?.current)
     }
-  }, [mark.finished])
+  }
+
+  React.useEffect(openSubTaskPopup, [mark.finished])
 
   function onKeyDown (event) {
     switch (event.key) {
@@ -53,15 +58,11 @@ const Mark = forwardRef(function Mark ({
         onDelete(mark)
         return false
       }
+      case ' ':
       case 'Enter': {
         event.preventDefault()
         event.stopPropagation()
-        onFinish(event)
-        return false
-      }
-      case ' ': {
-        event.preventDefault()
-        event.stopPropagation()
+        openSubTaskPopup()
         onFinish(event)
         return false
       }
@@ -88,6 +89,7 @@ const Mark = forwardRef(function Mark ({
       focusColor={focusColor}
       onFocus={select}
       onKeyDown={onKeyDown}
+      onPointerUp={openSubTaskPopup}
       ref={ref}
       role='button'
       strokeWidth={isActive ? SELECTED_STROKE_WIDTH / scale : STROKE_WIDTH / scale}

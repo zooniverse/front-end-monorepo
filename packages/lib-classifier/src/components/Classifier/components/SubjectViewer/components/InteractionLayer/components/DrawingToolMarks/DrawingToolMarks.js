@@ -56,7 +56,6 @@ function DrawingToolMarks (props) {
       if (event?.currentTarget && !isInBounds(event.currentTarget)) {
         deleteMark()
       } else {
-        activeMark.setSubTaskVisibility(true, ref.current)
         onFinish(event)
       }
     }
