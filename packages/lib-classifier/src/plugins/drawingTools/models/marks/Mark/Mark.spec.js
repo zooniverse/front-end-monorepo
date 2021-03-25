@@ -201,26 +201,9 @@ describe('Models > Drawing Task > Mark', function () {
       })
     })
 
-    describe('visibility', function () {
+    describe('setPreviousAnnotations', function () {
       before(function () {
         ({ mark } = mockMark())
-      })
-
-      it('should toggle the visibility of the UI', function () {
-        expect(mark.subTaskVisibility).to.be.false()
-        mark.setSubTaskVisibility(true)
-        expect(mark.subTaskVisibility).to.be.true()
-        mark.setSubTaskVisibility(false)
-        expect(mark.subTaskVisibility).to.be.false()
-      })
-
-      it('should store the DOM node bounds if bounds are passed as a parameter', function () {
-        const bounds = document.createElement('g').getBoundingClientRect()
-        expect(mark.subTaskMarkBounds).to.be.undefined()
-        mark.setSubTaskVisibility(true, bounds)
-        expect(mark.subTaskMarkBounds).to.equal(bounds)
-        mark.setSubTaskVisibility(false)
-        expect(mark.subTaskMarkBounds).to.be.undefined()
       })
 
       it('should store the previous annotation values if passed as a parameter', function () {
@@ -244,12 +227,59 @@ describe('Models > Drawing Task > Mark', function () {
           }
         ]
         expect(mark.subTaskPreviousAnnotationValues.size).to.equal(0)
-        mark.setSubTaskVisibility(true, node, previousAnnotationValues)
+        mark.setPreviousAnnotations(previousAnnotationValues)
         expect(mark.subTaskPreviousAnnotationValues.size).to.equal(previousAnnotationValues.length)
         expect(mark.subTaskPreviousAnnotationValues.get(previousAnnotationValues[0].taskKey)).to.deep.equal(previousAnnotationValues[0])
         expect(mark.subTaskPreviousAnnotationValues.get(previousAnnotationValues[1].taskKey)).to.deep.equal(previousAnnotationValues[1])
-        mark.setSubTaskVisibility(false)
+      })
+
+      it('should clear previous values otherwise', function () {
+        const node = document.createElement('g')
+        const previousAnnotationValues = [
+          {
+            taskKey: 'T0.0.0',
+            taskType: 'text',
+            values: [
+              'Hello',
+              'Hello'
+            ]
+          },
+          {
+            taskKey: 'T0.0.1',
+            taskType: 'text',
+            values: [
+              'World',
+              'World'
+            ]
+          }
+        ]
+        mark.setPreviousAnnotations(previousAnnotationValues)
+        expect(mark.subTaskPreviousAnnotationValues.size).to.equal(2)
+        mark.setPreviousAnnotations()
         expect(mark.subTaskPreviousAnnotationValues.size).to.equal(0)
+      })
+    })
+
+    describe('visibility', function () {
+      before(function () {
+        ({ mark } = mockMark())
+      })
+
+      it('should toggle the visibility of the UI', function () {
+        expect(mark.subTaskVisibility).to.be.false()
+        mark.setSubTaskVisibility(true)
+        expect(mark.subTaskVisibility).to.be.true()
+        mark.setSubTaskVisibility(false)
+        expect(mark.subTaskVisibility).to.be.false()
+      })
+
+      it('should store the DOM node bounds if bounds are passed as a parameter', function () {
+        const bounds = document.createElement('g').getBoundingClientRect()
+        expect(mark.subTaskMarkBounds).to.be.undefined()
+        mark.setSubTaskVisibility(true, bounds)
+        expect(mark.subTaskMarkBounds).to.equal(bounds)
+        mark.setSubTaskVisibility(false)
+        expect(mark.subTaskMarkBounds).to.be.undefined()
       })
     })
   })

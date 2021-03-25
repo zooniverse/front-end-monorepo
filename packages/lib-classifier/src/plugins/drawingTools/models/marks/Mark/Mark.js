@@ -89,22 +89,26 @@ const BaseMark = types.model('BaseMark', {
       self.finished = true
     }
 
-    function setSubTaskVisibility (visible, markBounds, previousAnnotationValues) {
+    function setPreviousAnnotations(previousAnnotationValues) {
+      if (previousAnnotationValues?.length > 0) {
+        previousAnnotationValues.forEach((previousAnnotationValue) => {
+          self.subTaskPreviousAnnotationValues.put(previousAnnotationValue)
+        })
+      } else {
+        self.subTaskPreviousAnnotationValues.clear()
+      }
+    }
+
+    function setSubTaskVisibility (visible, markBounds) {
       if(self.tasks.length > 0) {
         self.subTaskVisibility = visible
         self.subTaskMarkBounds = markBounds
-        if (previousAnnotationValues?.length > 0) {
-          previousAnnotationValues.forEach((previousAnnotationValue) => {
-            self.subTaskPreviousAnnotationValues.put(previousAnnotationValue)
-          })
-        } else {
-          self.subTaskPreviousAnnotationValues.clear()
-        }
       }
     }
 
     return {
       finish,
+      setPreviousAnnotations,
       setSubTaskVisibility
     }
   })

@@ -273,12 +273,6 @@ describe('Component > TranscribedLines', function () {
       })
     })
 
-    it('should call blur on the transcribed line', function () {
-      const line = wrapper.find({ 'aria-describedby': `transcribed-0` })
-      line.simulate('click')
-      expect(currentMock.current.blur).to.have.been.calledOnce()
-    })
-
     it('should have an explanatory tooltip', function () {
       lines.forEach((component, index) => {
         const tooltip = wrapper.find({ id: `transcribed-${index}` })

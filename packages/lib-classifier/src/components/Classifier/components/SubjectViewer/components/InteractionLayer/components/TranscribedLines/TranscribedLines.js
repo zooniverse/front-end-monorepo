@@ -43,7 +43,6 @@ class TranscribedLines extends React.Component {
 
     if (activeTool) {
       const mark = activeTool.createMark(markSnapshot)
-      mark.finish()
       setActiveMark(mark)
 
       let previousAnnotationValuesForEachMark = []
@@ -56,9 +55,8 @@ class TranscribedLines extends React.Component {
         }
         previousAnnotationValuesForEachMark.push(previousAnnotationValuesForThisMark)
       })
-      const bounds = ref?.current?.getBoundingClientRect()
-      mark.setSubTaskVisibility(true, bounds, previousAnnotationValuesForEachMark)
-      ref?.current?.blur()
+      mark.setPreviousAnnotations(previousAnnotationValuesForEachMark)
+      mark.finish()
     }
   }
 
