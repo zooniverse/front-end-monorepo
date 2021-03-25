@@ -31,6 +31,7 @@ const Mark = forwardRef(function Mark ({
   scale,
   theme
 }, ref) {
+  const markRoot = ref ?? React.createRef()
   const { tool } = mark
   const mainStyle = {
     color: tool && tool.color ? tool.color : 'green',
@@ -44,7 +45,7 @@ const Mark = forwardRef(function Mark ({
       !mark.subTaskVisibility &&
       mark.tasks.length > 0
     ) {
-      mark.setSubTaskVisibility(true, ref?.current)
+      mark.setSubTaskVisibility(true, markRoot.current)
     }
   }
 
@@ -90,7 +91,7 @@ const Mark = forwardRef(function Mark ({
       onFocus={select}
       onKeyDown={onKeyDown}
       onPointerUp={openSubTaskPopup}
-      ref={ref}
+      ref={markRoot}
       role='button'
       strokeWidth={isActive ? SELECTED_STROKE_WIDTH / scale : STROKE_WIDTH / scale}
       tabIndex='0'
