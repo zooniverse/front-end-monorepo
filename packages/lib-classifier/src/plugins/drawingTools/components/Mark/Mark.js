@@ -41,11 +41,14 @@ const Mark = forwardRef(function Mark ({
   const focusColor = theme.global.colors[theme.global.colors.focus]
 
   function openSubTaskPopup() {
+    const hasFocus = markRoot.current === document.activeElement
     if (mark.finished &&
       !mark.subTaskVisibility &&
       mark.tasks.length > 0
     ) {
-      markRoot.current?.focus()
+      if (!hasFocus) {
+        markRoot.current?.focus()
+      }
       const markBounds = markRoot.current?.getBoundingClientRect()
       mark.setSubTaskVisibility(true, markBounds)
     }
