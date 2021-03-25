@@ -214,11 +214,11 @@ describe('Models > Drawing Task > Mark', function () {
         expect(mark.subTaskVisibility).to.be.false()
       })
 
-      it('should store the DOM node bounds if a reference is passed as a parameter', function () {
-        const node = document.createElement('g')
+      it('should store the DOM node bounds if bounds are passed as a parameter', function () {
+        const bounds = document.createElement('g').getBoundingClientRect()
         expect(mark.subTaskMarkBounds).to.be.undefined()
-        mark.setSubTaskVisibility(true, node)
-        expect(mark.subTaskMarkBounds).to.be.an('object')
+        mark.setSubTaskVisibility(true, bounds)
+        expect(mark.subTaskMarkBounds).to.equal(bounds)
         mark.setSubTaskVisibility(false)
         expect(mark.subTaskMarkBounds).to.be.undefined()
       })
