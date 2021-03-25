@@ -15,6 +15,16 @@ class SurveyTaskContainer extends React.Component {
     }
   }
 
+  componentDidUpdate (prevProps) {
+    const { task } = this.props
+    const prevTaskKey = prevProps.task && prevProps.task.taskKey
+    const taskChanged = task && (task.taskKey !== prevTaskKey)
+
+    if (taskChanged) {
+      this.handleReset()
+    }
+  }
+
   handleAnswers (answers) {
     this.setState({ answers })
   }
@@ -50,10 +60,20 @@ class SurveyTaskContainer extends React.Component {
     const value = annotation?.value?.filter(item => item.choice !== selectedChoice)
     value.push({ choice: selectedChoice, answers, filters: parsedFilters })
 
-    this.handleAnswers({})
-    this.handleChoice('')
+    this.setState({
+      answers: {},
+      selectedChoice: ''
+    })
 
     annotation.update(value)
+  }
+
+  handleReset() {
+    this.setState({
+      answers: {},
+      filters: {},
+      selectedChoice: ''
+    })
   }
 
   render () {
