@@ -45,6 +45,7 @@ const Mark = forwardRef(function Mark ({
       !mark.subTaskVisibility &&
       mark.tasks.length > 0
     ) {
+      markRoot.current?.focus()
       const markBounds = markRoot.current?.getBoundingClientRect()
       mark.setSubTaskVisibility(true, markBounds)
     }
