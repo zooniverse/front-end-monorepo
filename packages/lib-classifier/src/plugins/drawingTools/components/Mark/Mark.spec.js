@@ -218,15 +218,17 @@ describe('Drawing tools > Mark', function () {
     describe('with finished mark and no subTaskVisibility', function () {
       let markWrapper = (mark) => {
         return (
-          <Mark
-            label='Point 1'
-            mark={mark}
-            onDelete={onDelete}
-            onFinish={onFinish}
-            onSelect={onSelect}
-          >
-            <Point mark={mark} />
-          </Mark>
+          <svg>
+            <Mark
+              label='Point 1'
+              mark={mark}
+              onDelete={onDelete}
+              onFinish={onFinish}
+              onSelect={onSelect}
+            >
+              <Point mark={mark} />
+            </Mark>
+          </svg>
         )
       }
 
