@@ -46,11 +46,14 @@ const Mark = forwardRef(function Mark ({
       !mark.subTaskVisibility &&
       mark.tasks.length > 0
     ) {
+      const x = scrollX
+      const y = scrollY
       if (!hasFocus) {
         markRoot.current?.focus()
       }
       const markBounds = markRoot.current?.getBoundingClientRect()
       mark.setSubTaskVisibility(true, markBounds)
+      window.scrollTo(x, y)
     }
   }
 
