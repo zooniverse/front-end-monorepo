@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { forwardRef } from 'react'
 import styled, { css, withTheme } from 'styled-components'
@@ -40,24 +41,35 @@ const Mark = forwardRef(function Mark ({
   }
   const focusColor = theme.global.colors[theme.global.colors.focus]
 
-  function openSubTaskPopup() {
+  function focusMark() {
     const hasFocus = markRoot.current === document.activeElement
-    if (mark.finished &&
-      !mark.subTaskVisibility &&
-      mark.tasks.length > 0
-    ) {
+    if (!hasFocus) {
       const x = scrollX
       const y = scrollY
-      if (!hasFocus) {
-        markRoot.current?.focus()
-      }
-      const markBounds = markRoot.current?.getBoundingClientRect()
-      mark.setSubTaskVisibility(true, markBounds)
+      markRoot.current?.focus()
       window.scrollTo(x, y)
     }
   }
 
+  function openSubTaskPopup() {
+    if (mark.finished &&
+      !mark.subTaskVisibility &&
+      mark.tasks.length > 0
+    ) {
+      focusMark()
+      const markBounds = markRoot.current?.getBoundingClientRect()
+      mark.setSubTaskVisibility(true, markBounds)
+    }
+  }
+
+  function onSubTaskVisibilityChange() {
+    if (mark.finished && !mark.subTaskVisibility) {
+      focusMark()
+    }
+  }
+
   React.useEffect(openSubTaskPopup, [mark.finished])
+  React.useEffect(onSubTaskVisibilityChange, [mark.subTaskVisibility])
 
   function onKeyDown (event) {
     switch (event.key) {
@@ -142,5 +154,15 @@ Mark.defaultProps = {
   }
 }
 
-export default draggable(withTheme(Mark))
+const ObservedMark = observer(Mark)
+
+ObservedMark.defaultProps = {
+  theme: {
+    global: {
+      colors: {}
+    }
+  }
+}
+
+export default draggable(withTheme(ObservedMark))
 export { Mark }
