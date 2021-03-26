@@ -99,9 +99,9 @@ const BaseMark = types.model('BaseMark', {
       }
     }
 
-    function setSubTaskVisibility (visible, markBounds) {
+    function setSubTaskVisibility (visibility, markBounds) {
       if(self.tasks.length > 0) {
-        self.subTaskVisibility = visible
+        self.subTaskVisibility = visibility
         self.subTaskMarkBounds = markBounds
       }
     }
