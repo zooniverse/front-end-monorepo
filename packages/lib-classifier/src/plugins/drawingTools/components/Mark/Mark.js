@@ -94,6 +94,7 @@ const Mark = forwardRef(function Mark ({
   }
 
   function select () {
+    markRoot.current?.scrollIntoView()
     onSelect(mark)
   }
 
