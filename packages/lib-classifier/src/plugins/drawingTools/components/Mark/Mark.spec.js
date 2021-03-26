@@ -22,6 +22,7 @@ describe('Drawing tools > Mark', function () {
   let wrapper
 
   before(function () {
+    sinon.stub(window, 'scrollTo')
     point = pointTool.createMark({
       id: 'point1'
     })
@@ -42,6 +43,7 @@ describe('Drawing tools > Mark', function () {
   after(function () {
     onFinish.resetHistory()
     onSelect.resetHistory()
+    window.scrollTo.restore()
   })
 
   it('should render without crashing', function () {
@@ -235,7 +237,7 @@ describe('Drawing tools > Mark', function () {
       let newMark
 
       before(function () {
-        window.scrollTo = sinon.stub()
+        window.scrollTo.resetHistory()
         newMark = pointTool.createMark()
         newMark.finish()
         wrapper = mount(markWrapper(newMark))
@@ -243,7 +245,7 @@ describe('Drawing tools > Mark', function () {
 
       after(function () {
         onFinish.resetHistory()
-        window.scrollTo = undefined
+        window.scrollTo.resetHistory()
       })
 
       it('should set subtask visibility', function () {
@@ -259,14 +261,13 @@ describe('Drawing tools > Mark', function () {
       let newMark
 
       before(function () {
-        window.scrollTo = sinon.stub()
         newMark = pointTool.createMark()
         wrapper = mount(markWrapper(newMark))
       })
 
       after(function () {
         onFinish.resetHistory()
-        window.scrollTo = undefined
+        window.scrollTo.resetHistory()
       })
 
       it('should not set subtask visibility', function () {
@@ -282,7 +283,6 @@ describe('Drawing tools > Mark', function () {
       let newMark
 
       before(function () {
-        window.scrollTo = sinon.stub()
         newMark = pointTool.createMark()
         newMark.setSubTaskVisibility(true)
         wrapper = mount(markWrapper(newMark))
@@ -290,7 +290,7 @@ describe('Drawing tools > Mark', function () {
 
       after(function () {
         onFinish.resetHistory()
-        window.scrollTo = undefined
+        window.scrollTo.resetHistory()
       })
 
       it('should not change subtask visibility', function () {
