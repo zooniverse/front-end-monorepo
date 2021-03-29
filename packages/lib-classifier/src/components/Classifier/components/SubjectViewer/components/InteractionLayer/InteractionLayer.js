@@ -8,13 +8,17 @@ import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
 
 const DrawingCanvas = styled('rect')`
-  ${props => props.disabled ?
-    css`cursor: not-allowed;` :
-    css`cursor: crosshair;`
-  }
+  ${(props) =>
+    props.disabled
+      ? css`
+          cursor: not-allowed;
+        `
+      : css`
+          cursor: crosshair;
+        `}
 `
 
-function InteractionLayer ({
+function InteractionLayer({
   activeMark,
   activeTool,
   activeToolIndex,
@@ -25,18 +29,24 @@ function InteractionLayer ({
   move,
   setActiveMark,
   scale,
-  width
+  width,
+  played
 }) {
-  const [ creating, setCreating ] = React.useState(false)
+  const [creating, setCreating] = React.useState(false)
   const { svg, getScreenCTM } = React.useContext(SVGContext)
 
-  useEffect(function onDeleteMark() {
-    if (creating && !activeMark) {
-      setCreating(false)
-    }
-  }, [activeMark])
+  console.log('played: ', played)
 
-  function convertEvent (event) {
+  useEffect(
+    function onDeleteMark() {
+      if (creating && !activeMark) {
+        setCreating(false)
+      }
+    },
+    [activeMark]
+  )
+
+  function convertEvent(event) {
     const type = event.type
 
     const svgEventOffset = getEventOffset(event)
@@ -51,7 +61,7 @@ function InteractionLayer ({
     return svgCoordinateEvent
   }
 
-  function getEventOffset (event) {
+  function getEventOffset(event) {
     const svgPoint = svg.createSVGPoint()
     svgPoint.x = event.clientX
     svgPoint.y = event.clientY
@@ -59,7 +69,7 @@ function InteractionLayer ({
     return svgEventOffset
   }
 
-  function createMark (event) {
+  function createMark(event) {
     const mark = activeTool.createMark({
       id: cuid(),
       frame,
@@ -72,7 +82,7 @@ function InteractionLayer ({
     mark.setSubTaskVisibility(false)
   }
 
-  function onPointerDown (event) {
+  function onPointerDown(event) {
     if (disabled || move) {
       return true
     }
@@ -80,11 +90,12 @@ function InteractionLayer ({
     target.setPointerCapture(pointerId)
 
     if (!activeTool.type) {
-      return false;
+      return false
     }
 
     if (creating) {
-      activeTool.handlePointerDown && activeTool.handlePointerDown(convertEvent(event), activeMark)
+      activeTool.handlePointerDown &&
+        activeTool.handlePointerDown(convertEvent(event), activeMark)
       if (activeMark.finished) onFinish(event)
       return true
     }
@@ -93,13 +104,14 @@ function InteractionLayer ({
     return false
   }
 
-  function onPointerMove (event) {
+  function onPointerMove(event) {
     if (creating) {
-      activeTool.handlePointerMove && activeTool.handlePointerMove(convertEvent(event), activeMark)
+      activeTool.handlePointerMove &&
+        activeTool.handlePointerMove(convertEvent(event), activeMark)
     }
   }
 
-  function onFinish (event = {}, node) {
+  function onFinish(event = {}, node) {
     if (event.preventDefault) event.preventDefault()
     const { target, pointerId } = event
     setCreating(false)
@@ -117,12 +129,13 @@ function InteractionLayer ({
 
   function onPointerUp(event) {
     if (creating) {
-      activeTool.handlePointerUp && activeTool.handlePointerUp(convertEvent(event), activeMark)
+      activeTool.handlePointerUp &&
+        activeTool.handlePointerUp(convertEvent(event), activeMark)
       if (activeMark.finished) onFinish(event)
     }
   }
 
-  function inactivateMark () {
+  function inactivateMark() {
     setActiveMark(undefined)
   }
 
@@ -138,24 +151,21 @@ function InteractionLayer ({
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
       />
-      <TranscribedLines
-        scale={scale}
-      />
-      <SubTaskPopup
-        onDelete={inactivateMark}
-      />
-      {marks &&
+      <TranscribedLines scale={scale} />
+      <SubTaskPopup onDelete={inactivateMark} />
+      {marks && (
         <DrawingToolMarks
           activeMark={activeMark}
           marks={marks}
           onDelete={inactivateMark}
           onDeselectMark={inactivateMark}
           onFinish={onFinish}
-          onSelectMark={mark => setActiveMark(mark)}
+          onSelectMark={(mark) => setActiveMark(mark)}
           onMove={(mark, difference) => mark.move(difference)}
           scale={scale}
+          played={played}
         />
-      }
+      )}
     </g>
   )
 }
