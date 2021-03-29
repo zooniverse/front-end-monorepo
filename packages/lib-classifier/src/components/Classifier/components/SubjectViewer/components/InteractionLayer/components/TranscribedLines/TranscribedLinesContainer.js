@@ -21,7 +21,9 @@ function useStores () {
 
 function TranscribedLinesContainer (props) {
   const { 
-    transcriptionTask = {},
+    transcriptionTask = {
+      marks: []
+    },
     frame = 0,
     consensusLines = [], 
     workflow = {
@@ -38,6 +40,7 @@ function TranscribedLinesContainer (props) {
     return (
       <TranscribedLines
         lines={visibleLinesPerFrame}
+        marks={transcriptionTask.marks}
         scale={scale}
         task={transcriptionTask}
       />
