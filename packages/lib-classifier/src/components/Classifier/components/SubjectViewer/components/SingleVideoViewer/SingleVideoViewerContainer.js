@@ -10,6 +10,7 @@ import InteractionLayer from '../InteractionLayer'
 import locationValidator from '../../helpers/locationValidator'
 import SingleVideoViewer from './SingleVideoViewer'
 import VideoController from '../VideoController/VideoController'
+import getFixedNumber from '../../helpers/getFixedNumber'
 
 const ScreenContainer = styled.div`
   position: relative;
@@ -113,9 +114,10 @@ class SingleVideoViewerContainer extends React.Component {
 
   handleVideoProgress = (state) => {
     const { played } = state
+    const fixedNumber = getFixedNumber(played, 5)
     this.setState((prevState) => {
       if (prevState.isSeeking) return null
-      return { played: this.getFixedNumber(played, 5) }
+      return { played: fixedNumber }
     })
   }
 
@@ -146,7 +148,7 @@ class SingleVideoViewerContainer extends React.Component {
   // Updates slider as video plays
   // Slider is clickable; video jumps to time where user clicks
   handleSliderChange = (e) => {
-    const played = this.getFixedNumber(e.target.value, 5)
+    const played = getFixedNumber(e.target.value, 5)
     this.setState(
       (prevState) => {
         const { entities } = prevState
@@ -168,10 +170,6 @@ class SingleVideoViewerContainer extends React.Component {
         this.player.seekTo(played)
       }
     )
-  }
-
-  getFixedNumber = (number, digits) => {
-    return Math.round(number * 10 ** digits) / 10 ** digits
   }
 
   render() {
