@@ -8,29 +8,39 @@ const SELECTED_STROKE_WIDTH = 4
 
 const StyledGroup = styled('g')`
   &:focus {
-    ${props => css`outline: solid 4px ${props.focusColor};`}
+    ${(props) =>
+      css`
+        outline: solid 4px ${props.focusColor};
+      `}
   }
 
   :hover {
-    ${props => props.dragging ?
-      css`cursor: grabbing;` :
-      css`cursor: grab;`
-    }
+    ${(props) =>
+      props.dragging
+        ? css`
+            cursor: grabbing;
+          `
+        : css`
+            cursor: grab;
+          `}
   }
 `
 
-const Mark = forwardRef(function Mark ({
-  children,
-  dragging,
-  isActive,
-  label,
-  mark,
-  onDelete,
-  onFinish,
-  onSelect,
-  scale,
-  theme
-}, ref) {
+const Mark = forwardRef(function Mark(
+  {
+    children,
+    dragging,
+    isActive,
+    label,
+    mark,
+    onDelete,
+    onFinish,
+    onSelect,
+    scale,
+    theme
+  },
+  ref
+) {
   const { tool } = mark
   const mainStyle = {
     color: tool && tool.color ? tool.color : 'green',
@@ -45,7 +55,7 @@ const Mark = forwardRef(function Mark ({
     }
   }, [mark.finished])
 
-  function onKeyDown (event) {
+  function onKeyDown(event) {
     switch (event.key) {
       case 'Backspace': {
         event.preventDefault()
@@ -71,12 +81,15 @@ const Mark = forwardRef(function Mark ({
     }
   }
 
-  function select () {
+  function select() {
     onSelect(mark)
   }
 
   let transform = ''
-  transform = (mark.x && mark.y) ? `${transform} translate(${mark.x}, ${mark.y})` : transform
+  transform =
+    mark.x && mark.y
+      ? `${transform} translate(${mark.x}, ${mark.y})`
+      : transform
   transform = mark.angle ? `${transform} rotate(${mark.angle})` : transform
 
   return (
@@ -90,7 +103,9 @@ const Mark = forwardRef(function Mark ({
       onKeyDown={onKeyDown}
       ref={ref}
       role='button'
-      strokeWidth={isActive ? SELECTED_STROKE_WIDTH / scale : STROKE_WIDTH / scale}
+      strokeWidth={
+        isActive ? SELECTED_STROKE_WIDTH / scale : STROKE_WIDTH / scale
+      }
       tabIndex='0'
       transform={transform}
     >
