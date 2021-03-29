@@ -6,6 +6,7 @@ import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
+import getFixedNumber from '../../helpers/getFixedNumber'
 
 const DrawingCanvas = styled('rect')`
   ${(props) =>
@@ -34,8 +35,6 @@ function InteractionLayer({
 }) {
   const [creating, setCreating] = React.useState(false)
   const { svg, getScreenCTM } = React.useContext(SVGContext)
-
-  console.log('played: ', played)
 
   useEffect(
     function onDeleteMark() {
@@ -70,11 +69,16 @@ function InteractionLayer({
   }
 
   function createMark(event) {
+    // TODO: add case for played = undefined
+    const timeStamp = getFixedNumber(played, 5)
     const mark = activeTool.createMark({
       id: cuid(),
       frame,
-      toolIndex: activeToolIndex
+      toolIndex: activeToolIndex,
+      t: timeStamp
     })
+
+    console.log('mark: ', mark)
 
     mark.initialPosition(convertEvent(event))
     setActiveMark(mark)

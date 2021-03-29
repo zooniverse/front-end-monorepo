@@ -20,6 +20,7 @@ function DrawingToolMarks(props) {
 
   return marks.map((mark, index) => {
     const { tool } = mark
+    const { t } = mark
     const MarkingComponent = observer(mark.toolComponent)
     const ObservedDeleteButton = observer(DeleteButton)
     const isActive = mark.id === activeMark?.id
@@ -68,6 +69,8 @@ function DrawingToolMarks(props) {
     function selectMark() {
       onSelectMark(mark)
     }
+
+    if (played < t) return null
 
     return (
       <Mark
