@@ -17,7 +17,7 @@ class SurveyTaskContainer extends React.Component {
 
   componentDidUpdate (prevProps) {
     const { task } = this.props
-    const prevTaskKey = prevProps.task && prevProps.task.taskKey
+    const prevTaskKey = prevProps.task?.taskKey
     const taskChanged = task && (task.taskKey !== prevTaskKey)
 
     if (taskChanged) {
@@ -57,7 +57,7 @@ class SurveyTaskContainer extends React.Component {
     const { answers, filters, selectedChoice } = this.state
 
     const parsedFilters = JSON.parse(JSON.stringify(filters))
-    const value = annotation?.value?.filter(item => item.choice !== selectedChoice)
+    const value = annotation?.value?.filter(item => item.choice !== selectedChoice) || []
     value.push({ choice: selectedChoice, answers, filters: parsedFilters })
 
     this.setState({
