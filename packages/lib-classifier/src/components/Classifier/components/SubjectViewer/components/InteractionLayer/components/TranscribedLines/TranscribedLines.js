@@ -165,7 +165,7 @@ class TranscribedLines extends React.Component {
                   onKeyDown={(event) => {
                     if (!disabled) this.onKeyDown(event, this.createMark, line)
                   }}
-                  tabIndex={0}
+                  tabIndex={disabled ? -1 : 0}
                 >
                   <TranscriptionLine
                     state='transcribed'
