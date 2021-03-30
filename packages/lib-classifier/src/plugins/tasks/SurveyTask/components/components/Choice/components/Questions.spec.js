@@ -5,7 +5,6 @@ import sinon from 'sinon'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import Questions from './Questions'
-import { expect } from 'chai'
 
 describe('Component > Questions', function () {
   let wrapper, setAnswersSpy, checkboxes, radioButtons
