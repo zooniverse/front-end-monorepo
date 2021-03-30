@@ -1,7 +1,7 @@
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import { Drop } from 'grommet'
 import React from 'react'
-
+import sinon from 'sinon'
 import { default as Task } from '@plugins/tasks/SurveyTask'
 import Choice from './components/Choice'
 import Chooser from './components/Chooser'
@@ -30,14 +30,19 @@ describe('SurveyTask', function () {
     expect(wrapper.find(Chooser)).to.have.lengthOf(1)
   })
 
-  describe.skip('with selectedChoice', function () {
+  describe('with selectedChoice', function () {
     before(function () {
-      wrapper = shallow(
+      sinon.stub(React, 'useRef').callsFake(() => { return { current: document.createElement('div') } })
+      wrapper = mount(
         <SurveyTask
           selectedChoice='HPPPTMS'
           task={task}
         />
       )
+    })
+
+    after(function () {
+      React.useRef.restore()
     })
 
     it('should render a Drop component', function () {

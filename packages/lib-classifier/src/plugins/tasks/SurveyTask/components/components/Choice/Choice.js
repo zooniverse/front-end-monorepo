@@ -27,7 +27,7 @@ export default function Choice (props) {
     questions
   } = task
 
-  const choice = choices?.[choiceId]
+  const choice = choices?.[choiceId] || {}
   const questionIds = getQuestionIds(choiceId, task)
   const allowIdentify = allowIdentification(answers, choiceId, task)
 

@@ -9,6 +9,7 @@ import { default as Task } from '@plugins/tasks/SurveyTask'
 import FilterStatus from './FilterStatus'
 import Characteristics from '../Characteristics'
 import FilterButton from '../Characteristics/components/FilterButton'
+import { expect } from 'chai'
 
 describe('Component > FilterStatus', function () {
   let wrapper
@@ -54,16 +55,22 @@ describe('Component > FilterStatus', function () {
   })
 
   describe('with selected filters', function () {
-    before(function () {
-      wrapper.setProps({ filters: {
-        LK: 'CTDG',
-        CLR: 'BLCK',
-        TL: 'LNG'
-      }})
-    })
-
     it('should show the appropriate checked FilterButtons', function () {
-      expect(wrapper.find(FilterButton).filterWhere((filterButton) => filterButton.props().buttonSize === 'small')).to.have.lengthOf(3)
+      const selectedValueIds = [ 'CTDG', 'BLCK', 'LNG']
+      let filterButtons = wrapper.find({ buttonSize: 'small' })
+      expect(filterButtons).to.have.lengthOf(0)
+      wrapper.setProps({
+        filters: {
+          LK: 'CTDG',
+          CLR: 'BLCK',
+          TL: 'LNG'
+        }
+      })
+      filterButtons = wrapper.find({ buttonSize: 'small' })
+      expect(filterButtons).to.have.lengthOf(3)
+      filterButtons.forEach((button, index) => {
+        expect(button.key()).to.equal(selectedValueIds[index])
+      })
     })
   })
 })

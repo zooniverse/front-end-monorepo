@@ -20,7 +20,7 @@ function SurveyTask (props) {
     task
   } = props
 
-  const choiceTargetRef = useRef()
+  const choiceTargetRef = React.useRef()
 
   function handleCancel () {
     handleAnswers({})

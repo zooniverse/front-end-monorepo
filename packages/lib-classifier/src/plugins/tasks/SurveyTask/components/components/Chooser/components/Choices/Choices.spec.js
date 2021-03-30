@@ -83,6 +83,24 @@ describe('Component > Choices', function () {
         expect(choiceButton.props().onChoose).to.equal(onChooseSpy)
       })
     })
+
+    it('should pass the selected choice prop', function () {
+      const choiceId = 'FR'
+      let choiceButtons = wrapper.find(ChoiceButton)
+
+      choiceButtons.forEach((choiceButton) => {
+        expect(choiceButton.props().selected).to.be.false()
+      })
+      wrapper.setProps({ selectedChoiceIds: [choiceId] })
+      choiceButtons = wrapper.find(ChoiceButton)
+      choiceButtons.forEach((choiceButton) => {
+        if (choiceButton.key() === choiceId) {
+          expect(choiceButton.props().selected).to.be.true()
+        } else {
+          expect(choiceButton.props().selected).to.be.false()
+        }
+      })
+    })
   })
 
   describe('when the column count is 3', function () {
