@@ -35,14 +35,13 @@ class SingleVideoViewerContainer extends React.Component {
       played: 0,
       duration: 0,
       isSeeking: false,
+      clientWidth: 0,
       naturalWidth: 0,
       naturalHeight: 0
     }
   }
 
   componentDidMount() {
-    console.log('this.props: ', this.props)
-
     this.onLoad()
   }
 
@@ -61,7 +60,6 @@ class SingleVideoViewerContainer extends React.Component {
         naturalWidth: naturalWidth,
         naturalHeight: naturalHeight
       })
-      console.log('target: ', target)
       onReady({ target })
     } catch (error) {
       onError(error)
@@ -71,9 +69,14 @@ class SingleVideoViewerContainer extends React.Component {
   async getVideoSize() {
     const vid = await this.preload()
     const svg = this.videoViewer.current
-    console.log('svg: ', svg)
+    const { width: clientWidth, height: clientHeight } = svg
+      ? svg.getBoundingClientRect()
+      : {}
 
-    const { width: clientWidth, height: clientHeight } = {}
+    this.setState({
+      clientWidth: clientWidth
+    })
+
     return {
       clientHeight,
       clientWidth,
@@ -179,6 +182,7 @@ class SingleVideoViewerContainer extends React.Component {
       playbackRate,
       played,
       duration,
+      clientWidth,
       naturalWidth,
       naturalHeight
     } = this.state
@@ -203,6 +207,7 @@ class SingleVideoViewerContainer extends React.Component {
     const svg = this.videoViewer.current
     const transform = ``
     const getScreenCTM = () => transformLayer.current.getScreenCTM()
+    const scale = clientWidth / naturalWidth
 
     const enableDrawing =
       loadingState === asyncStates.success && enableInteractionLayer
@@ -237,7 +242,7 @@ class SingleVideoViewerContainer extends React.Component {
                   <g ref={transformLayer} transform={transform}>
                     {enableInteractionLayer && (
                       <InteractionLayer
-                        scale={1}
+                        scale={scale}
                         width={naturalWidth}
                         height={naturalHeight}
                       />
