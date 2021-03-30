@@ -3,6 +3,8 @@ import Resource from '../Resource'
 import SubjectSet from '../SubjectSet'
 import WorkflowConfiguration from './WorkflowConfiguration'
 
+import { convertWorkflowToUseSteps } from '@store/helpers'
+
 // The db type for steps is jsonb which is being serialized as an empty object when not defined.
 // Steps will be stored as an array of pairs to preserve order.
 
@@ -29,7 +31,18 @@ const Workflow = types
     tasks: types.maybe(types.frozen()),
     version: types.string
   })
-
+  .preProcessSnapshot(
+    /** convert Panoptes workflows to use steps, if necessary. */
+    function convertPanoptesWorkflows(snapshot) {
+      const workflowHasSteps = (snapshot.steps?.length > 0 && Object.keys(snapshot.tasks).length > 0)
+      if (workflowHasSteps) {
+        return snapshot
+      }
+      const newSnapshot = Object.assign({}, snapshot)
+      const { steps, tasks } = convertWorkflowToUseSteps(newSnapshot)
+      return { ...newSnapshot, steps, tasks }
+    }
+  )
   .views(self => ({
     get subjectSetId () {
       const activeSet = tryReference(() => self.subjectSet)

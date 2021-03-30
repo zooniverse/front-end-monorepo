@@ -4,6 +4,8 @@ import sinon from 'sinon'
 import RootStore from '../RootStore'
 import Workflow from './Workflow'
 
+import { MultipleChoiceTaskFactory } from '@test/factories'
+
 describe('Model > Workflow', function () {
   it('should exist', function () {
     expect(Workflow).to.be.an('object')
@@ -32,12 +34,13 @@ describe('Model > Workflow', function () {
 
   describe('workflow steps', function () {
     let step
+    const task = MultipleChoiceTaskFactory.build({ taskKey: 'T1' })
 
     before(function () {
       step = {
         stepKey: 'S1',
-        taskKeys: [],
-        tasks: []
+        taskKeys: ['T1'],
+        tasks: [task]
       }
     })
 
@@ -49,6 +52,9 @@ describe('Model > Workflow', function () {
         steps: [
           [ stepKey, step ]
         ],
+        tasks: {
+          T1: task
+        },
         version: '0.0'
       })
       const workflow = Workflow.create(workflowSnapshot)
@@ -64,6 +70,9 @@ describe('Model > Workflow', function () {
           steps: [
             [ step, stepKey ]
           ],
+          tasks: {
+            T1: task
+          },
           version: '0.0'
         })
         const workflow = Workflow.create(workflowSnapshot)
