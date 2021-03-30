@@ -49,8 +49,8 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
 
   /** Create a new history entry from the current active step. **/
   function _beginStep(stepKey) {
-    _selectStep(stepKey)
     const { workflowSteps } = getRoot(self)
+    workflowSteps.selectStep(stepKey)
     const step = tryReference(() => workflowSteps.active)
     if (self.classification && step) {
       let annotations
@@ -62,7 +62,6 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
         step,
         annotations
       }
-      console.log(`Adding ${historyStep.step.stepKey} to history`)
       self.steps.put(historyStep)
     }
   }
@@ -79,9 +78,7 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   function _redo(stepKey) {
     undoManager.redo()
     const storedStepKey = self.latest.step.stepKey
-    console.log(`redo ${storedStepKey}`)
     if (stepKey !== storedStepKey) {
-      console.log(`replace ${storedStepKey} with ${stepKey}`)
       _replace(stepKey)
     }
   }
@@ -96,11 +93,6 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
     self.steps.clear()
     undoManager.clear()
   }
-  /** select a new active workflow step */
-  function _selectStep(stepKey) {
-    const { workflowSteps } = getRoot(self)
-    workflowSteps.selectStep(stepKey)
-  }
   /** Undo the current step and select the previous step. */
   function back(persistAnnotations = true) {
     if (undoManager.canUndo) {
@@ -108,8 +100,6 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
       if (!persistAnnotations) {
         self.clearRedo()
       }
-      const { step } = self.latest
-      _selectStep(step.stepKey)
     }
   }
   /** Clear the redo history and delete orphaned annotations. */
