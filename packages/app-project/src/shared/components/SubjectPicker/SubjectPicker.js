@@ -121,7 +121,7 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
             margin='medium'
             weight='bold'
           >
-            {subjectSet.title}
+            {subjectSet.display_name}
           </SpacedText>
         </Paragraph>
       </StyledBox>
@@ -145,7 +145,7 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
 SubjectPicker.defaultProps = {
   subjectSet: {
     id: '15582',
-    title: 'Anti-Slavery Letters: 1800-1839',
+    display_name: 'Anti-Slavery Letters: 1800-1839',
     metadata: {
       indexFields: 'date,title,creators'
     }
