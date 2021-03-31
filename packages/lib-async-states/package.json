@@ -12,8 +12,8 @@
   "main": "src/async-states.js",
   "scripts": {
     "lint": "zoo-standard src --fix | snazzy",
-    "test": "mocha --config test/.mocharc.json ./src/async-states.spec.js",
-    "test:ci": "mocha --reporter=min --config test/.mocharc.json ./src/async-states.spec.js"
+    "test": "mocha --config ./test/.mocharc.json \"./src/async-states.spec.js\"",
+    "test:ci": "mocha --reporter=min --config ./test/.mocharc.json \"./src/async-states.spec.js\""
   },
   "devDependencies": {
     "@zooniverse/standard": "~1.0.0",

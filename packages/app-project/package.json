@@ -12,8 +12,8 @@
     "lint": "zoo-standard --fix | snazzy",
     "start": "NODE_ENV=${NODE_ENV:-production} node server/server.js",
     "storybook": "start-storybook -p 9001 -c .storybook -s public",
-    "test": "BABEL_ENV=test mocha --config test/.mocharc.json ./{src,pages,stores}/**/*.spec.js",
-    "test:ci": "BABEL_ENV=test mocha --reporter=min --config test/.mocharc.json ./{src,pages,stores}/**/*.spec.js"
+    "test": "BABEL_ENV=test mocha --config test/.mocharc.json \"./{src,pages,stores}/**/*.spec.js\"",
+    "test:ci": "BABEL_ENV=test mocha --config test/.mocharc.json --reporter=min \"./{src,pages,stores}/**/*.spec.js\""
   },
   "dependencies": {
     "@artsy/fresnel": "~1.0.7",
