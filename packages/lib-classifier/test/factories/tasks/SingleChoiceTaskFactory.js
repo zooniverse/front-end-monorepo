@@ -2,8 +2,8 @@ import { Factory } from 'rosie'
 
 export default new Factory()
   .attr('answers', [
-    { label: 'Yes', next: 'S2' },
-    { label: 'No', next: 'S3' }
+    { label: 'Yes' },
+    { label: 'No' }
   ])
   .attr('help', '')
   .attr('required', 'true')
