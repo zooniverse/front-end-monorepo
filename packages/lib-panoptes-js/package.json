@@ -9,8 +9,8 @@
   "scripts": {
     "lint": "zoo-standard --fix | snazzy",
     "postversion": "npm publish",
-    "test": "NODE_ENV=test mocha",
-    "test:ci": "NODE_ENV=test mocha --reporter=min"
+    "test": "NODE_ENV=test mocha --recursive --config ./test/.mocharc.json  ./src/*.spec.js",
+    "test:ci": "NODE_ENV=test mocha --config ./test/.mocharc.json --reporter=min ./src/**/*.spec.js"
   },
   "dependencies": {
     "superagent": "~5.1.0",

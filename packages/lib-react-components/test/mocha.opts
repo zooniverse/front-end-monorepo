@@ -1,6 +1,0 @@
---require @babel/register
---require ignore-styles
---ui bdd
---file ./test/setup.js
-
-./src/**/*.spec.js
