@@ -66,7 +66,7 @@ docker-compose up
 to run a develeopment server for the project app.
 
 ### With Node and yarn
-Alternatively, you can install Node 10 and yarn and build the monorepo packages.
+Alternatively, you can install Node 14 and yarn and build the monorepo packages.
 
 ```sh
 git clone git@github.com:zooniverse/front-end-monorepo.git
