@@ -2,9 +2,12 @@ import { PlainButton } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Anchor, Box, Grid, Heading, Paragraph } from 'grommet'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { array, bool, func, number, shape, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
+
+import addQueryParams from '@helpers/addQueryParams'
 
 import SubjectSetCard from './components/SubjectSetCard'
 import en from './locales/en'
@@ -29,8 +32,8 @@ function BackButton({ onClick }) {
     />
   )
 }
-function SubjectSetPicker (props) {
-  const { onClose, owner, project, workflow } = props
+function SubjectSetPicker ({ baseUrl, onClose, onSelect, workflow }) {
+  const router = useRouter()
   /*
     Vertical spacing for the picker instructions.
     The theme's named margins are set in multiples of 10px, so set 15px explicitly.
@@ -41,6 +44,13 @@ function SubjectSetPicker (props) {
   }
 
   const columns = Math.floor(window.innerWidth / 240)
+
+  function onClick(event, subjectSet) {
+    if (onSelect) {
+      return onSelect(event, subjectSet)
+    }
+    return true
+  }
 
   return (
     <>
@@ -68,13 +78,16 @@ function SubjectSetPicker (props) {
           pad='medium'
         >
         {workflow?.subjectSets.map(subjectSet => {
+          const href = `${baseUrl}/subject-set/${subjectSet.id}`
           return (
             <Link
               key={subjectSet.id}
-              href={`/projects/${owner}/${project}/classify/workflow/${workflow.id}/subject-set/${subjectSet.id}`}
+              href={addQueryParams(href, router)}
               passHref
             >
-              <Anchor>
+              <Anchor
+                onClick={event => onClick(event, subjectSet)}
+              >
                 <SubjectSetCard {...subjectSet} />
               </Anchor>
             </Link>
