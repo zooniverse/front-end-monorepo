@@ -58,9 +58,6 @@ const Step = types
   .actions(self => ({
     reset () {
       self.tasks.forEach(task => task.reset())
-    },
-    setNext (nextStepKey) {
-      self.next = nextStepKey
     }
   }))
 
