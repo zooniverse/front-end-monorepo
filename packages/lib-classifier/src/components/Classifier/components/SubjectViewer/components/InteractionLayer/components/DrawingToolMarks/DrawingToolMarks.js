@@ -19,8 +19,11 @@ function DrawingToolMarks(props) {
   const { svg } = useContext(SVGContext)
 
   return marks.map((mark, index) => {
-    const { tool } = mark
-    const { t } = mark
+    /*
+    mark.tool: the tool definition (e.g. "small red Point")
+    mark.videoTime: indicates when the mark was created. Only relevant to certain time-based tools, otherwise undefined.
+     */
+    const { tool, videoTime } = mark
     const MarkingComponent = observer(mark.toolComponent)
     const ObservedDeleteButton = observer(DeleteButton)
     const isActive = mark.id === activeMark?.id
@@ -70,7 +73,7 @@ function DrawingToolMarks(props) {
       onSelectMark(mark)
     }
 
-    if (played < t) return null
+    if (played < videoTime) return null
 
     return (
       <Mark

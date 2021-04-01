@@ -75,15 +75,15 @@ function InteractionLayer({
       id: cuid(),
       frame,
       toolIndex: activeToolIndex,
-      t: timeStamp
     })
-
+    
     console.log('mark: ', mark)
 
     mark.initialPosition(convertEvent(event))
     setActiveMark(mark)
     setCreating(true)
     mark.setSubTaskVisibility(false)
+    mark.setVideoTime(timeStamp)  // Add a time value for tools that care about time. For most tools, this value is ignored.
   }
 
   function onPointerDown(event) {

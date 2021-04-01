@@ -87,7 +87,15 @@ const BaseMark = types
 
     get tasks() {
       return self.tool.tasks
-    }
+    },
+          
+    get videoTime() {
+      /*
+        For certain drawing tools (e.g. Temporal Point), we need to know WHEN the mark was created.
+        For other drawing tools, .videoTime will always return undefined. 
+       */
+      return undefined
+    },
   }))
   .actions((self) => {
     function finish() {
@@ -113,10 +121,13 @@ const BaseMark = types
         }
       }
     }
+            
+    function setVideoTime (t) {}
 
     return {
       finish,
-      setSubTaskVisibility
+      setSubTaskVisibility,
+      setVideoTime,
     }
   })
 

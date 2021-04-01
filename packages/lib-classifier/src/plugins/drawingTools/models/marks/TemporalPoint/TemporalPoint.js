@@ -13,7 +13,7 @@ import Point from '../Point'
 
 const TemporalPointModel = types
   .model('TemporalPointModel', {
-    t: types.optional(types.number, 0),
+    t: types.optional(types.number, 0),  // TODO: check if researchers prefer "t" or "start time" or "video time" or etc
   })
   .views((self) => ({
     get tool() {
@@ -22,8 +22,21 @@ const TemporalPointModel = types
 
     get toolComponent() {
       return TemporalPointComponent
-    }
+    },
+    
+    get videoTime() {
+      return self.t
+    },
   }))
+  .actions((self) => {
+    function setVideoTime (t) {
+      self.t = t
+    }
+
+    return {
+      setVideoTime,
+    }
+  })
 
 
 const TemporalPoint = types.compose('TemporalPoint', Point, TemporalPointModel)
