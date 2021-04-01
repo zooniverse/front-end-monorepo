@@ -1,10 +1,9 @@
 import { types } from 'mobx-state-tree'
-import Tool from '../Tool'
+import PointTool from '../PointTool'
 import { TemporalPoint } from '../../marks'
 
 const TemporalPointTool = types.model('TemporalPoint', {
   marks: types.map(TemporalPoint),
-  size: types.optional(types.enumeration(['large', 'small']), 'large'),
   type: types.literal('temporal-point')
 })
   .actions(self => {
@@ -19,4 +18,4 @@ const TemporalPointTool = types.model('TemporalPoint', {
     }
   })
 
-export default types.compose('TemporalPointTool', Tool, TemporalPointTool)
+export default types.compose('TemporalPointTool', PointTool, TemporalPointTool)
