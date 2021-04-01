@@ -5,13 +5,13 @@ import {
   isValidReference,
   types
 } from 'mobx-state-tree'
-import { Point as PointComponent } from '../../../components'
-import { PointTool } from '@plugins/drawingTools/models/tools'
+import { TemporalPoint as TemporalPointComponent } from '../../../components'
+import { TemporalPointTool } from '@plugins/drawingTools/models/tools'
 
 import Mark from '../Mark'
 
-const PointModel = types
-  .model('PointModel', {
+const TemporalPointModel = types
+  .model('TemporalPointModel', {
     x: types.optional(types.number, 0),
     y: types.optional(types.number, 0)
   })
@@ -34,11 +34,11 @@ const PointModel = types
     },
 
     get tool() {
-      return getParentOfType(self, PointTool)
+      return getParentOfType(self, TemporalPointTool)
     },
 
     get toolComponent() {
-      return PointComponent
+      return TemporalPointComponent
     }
   }))
   .actions((self) => {
@@ -70,6 +70,6 @@ const PointModel = types
     }
   })
 
-const Point = types.compose('Point', Mark, PointModel)
+const TemporalPoint = types.compose('TemporalPoint', Mark, TemporalPointModel)
 
-export default Point
+export default TemporalPoint
