@@ -13,7 +13,7 @@ import Mark from '../Mark'
 const TemporalPointModel = types
   .model('TemporalPointModel', {
     x: types.optional(types.number, 0),
-    y: types.optional(types.number, 0)
+    y: types.optional(types.number, 0),
   })
   .views((self) => ({
     get coords() {
