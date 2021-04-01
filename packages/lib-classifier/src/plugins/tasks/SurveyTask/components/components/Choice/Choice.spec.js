@@ -1,7 +1,9 @@
 import { shallow } from 'enzyme'
-import { Carousel } from 'grommet'
+import { Button, Carousel } from 'grommet'
 import { types } from 'mobx-state-tree'
 import React from 'react'
+import sinon from 'sinon'
+import { PrimaryButton } from '@zooniverse/react-components'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import { default as Task } from '@plugins/tasks/SurveyTask'
@@ -20,6 +22,9 @@ describe('Component > Choice', function () {
     type: 'survey'
   })
 
+  const onCancelSpy = sinon.spy()
+  const onIdentifySpy = sinon.spy()
+
   before(function () {
     types.model('MockStore', {
       task: Task.TaskModel
@@ -31,6 +36,8 @@ describe('Component > Choice', function () {
     wrapper = shallow(
       <Choice
         choiceId='CRCL'
+        onCancel={onCancelSpy}
+        onIdentify={onIdentifySpy}
         task={task}
       />
     )
@@ -60,5 +67,13 @@ describe('Component > Choice', function () {
     expect(wrapper.find(Questions)).to.have.lengthOf(1)
   })
 
-  // TODO: add tests for Identify button disabled prop once state passed down as prop
+  it('should call onCancel when "Not this" button clicked', function () {
+    wrapper.find(Button).simulate('click')
+    expect(onCancelSpy).to.have.been.calledOnce()
+  })
+
+  it('should call onIdentify when "Identify" button clicked', function () {
+    wrapper.find(PrimaryButton).simulate('click')
+    expect(onIdentifySpy).to.have.been.calledOnce()
+  })
 })
