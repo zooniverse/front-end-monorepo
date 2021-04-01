@@ -13,7 +13,7 @@ export default function MetadataButton (props) {
   return (
     <MetaToolsButton
       disabled={disabled}
-      icon={<InfoIcon color='dark-5' size='1em' />}
+      icon={<InfoIcon color='dark-5' size='15px' />}
       text={counterpart('MetadataButton.label')}
       onClick={onClick}
       {...props}

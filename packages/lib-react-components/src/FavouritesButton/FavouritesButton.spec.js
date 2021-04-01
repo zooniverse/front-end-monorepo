@@ -28,7 +28,7 @@ describe('Component > FavouritesButton', function () {
   it('should display an empty icon', function () {
     const button = wrapper.find(MetaToolsButton)
     const { icon } = button.props()
-    expect(icon).to.deep.equal(<HeartIcon color='dark-5' fill='none' size='1em' />)
+    expect(icon).to.deep.equal(<HeartIcon color='dark-5' fill='none' size='15px' />)
   })
 
   it('should not be checked', function () {
@@ -75,7 +75,7 @@ describe('Component > FavouritesButton', function () {
       const button = wrapper.find(MetaToolsButton)
       const { icon } = button.props()
       const fill = mockTheme.global.colors.statusColors.error
-      expect(icon).to.deep.equal(<HeartIcon color='dark-5' fill={fill} size='1em' />)
+      expect(icon).to.deep.equal(<HeartIcon color='dark-5' fill={fill} size='15px' />)
     })
 
     it('should be checked', function () {
