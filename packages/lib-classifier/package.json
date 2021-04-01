@@ -121,7 +121,7 @@
     ],
     "parser": "babel-eslint",
     "engines": {
-      "node": ">=10"
+      "node": ">=14"
     }
   }
 }
