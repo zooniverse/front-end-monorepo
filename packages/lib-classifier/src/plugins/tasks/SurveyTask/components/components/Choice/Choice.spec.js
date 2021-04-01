@@ -67,12 +67,12 @@ describe('Component > Choice', function () {
     expect(wrapper.find(Questions)).to.have.lengthOf(1)
   })
 
-  it('should call onCancel with "Not this" button click', function () {
+  it('should call onCancel when "Not this" button clicked', function () {
     wrapper.find(Button).simulate('click')
     expect(onCancelSpy).to.have.been.calledOnce()
   })
 
-  it('should call onIdentify with "Identify" button click', function () {
+  it('should call onIdentify when "Identify" button clicked', function () {
     wrapper.find(PrimaryButton).simulate('click')
     expect(onIdentifySpy).to.have.been.calledOnce()
   })
