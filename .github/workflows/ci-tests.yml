@@ -22,10 +22,10 @@ jobs:
     # See: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow#using-the-checkout-action
     - uses: actions/checkout@v2
 
-    - name: Use Node.js 12
+    - name: Use Node.js 14
       uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
+        node-version: '14.x'
     - run: yarn install --production=false
     - run: yarn workspace @zooniverse/react-components build
     - run: yarn workspace @zooniverse/classifier build
