@@ -8,4 +8,3 @@ export { default as Point } from './Point'
 export { default as Rectangle } from './Rectangle'
 export { default as TemporalPoint } from './TemporalPoint'
 export { default as TranscriptionLine } from '@plugins/drawingTools/experimental/components/TranscriptionLine'
-

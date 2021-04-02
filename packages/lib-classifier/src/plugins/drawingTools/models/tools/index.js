@@ -5,4 +5,3 @@ export { default as RectangleTool } from './RectangleTool'
 export { default as TemporalPointTool } from './TemporalPointTool'
 export { default as Tool } from './Tool'
 export { default as TranscriptionLineTool } from '@plugins/drawingTools/experimental/models/tools/TranscriptionLineTool'
-
