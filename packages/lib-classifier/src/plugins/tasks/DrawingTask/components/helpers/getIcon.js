@@ -44,7 +44,7 @@ const icons = {
   triangle: Triangle
 }
 
-function getIcon (icon) {
+function getIcon(icon) {
   return icons[icon] || (() => null)
 }
 
