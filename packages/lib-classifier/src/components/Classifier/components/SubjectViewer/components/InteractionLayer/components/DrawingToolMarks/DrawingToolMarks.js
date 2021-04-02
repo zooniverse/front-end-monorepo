@@ -73,7 +73,7 @@ function DrawingToolMarks(props) {
       onSelectMark(mark)
     }
 
-    if (played < videoTime) return null
+    if (videoTime !== undefined && played < videoTime) return null
 
     return (
       <Mark
