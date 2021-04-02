@@ -1,6 +1,5 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const path = require('path')
-const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin')
 
 module.exports = {
   devtool: 'source-map',
@@ -22,6 +21,14 @@ module.exports = {
       }
     ]
   },
+  externals: {
+    '@zooniverse/grommet-theme': '@zooniverse/grommet-theme',
+    grommet: 'grommet',
+    'grommet-icons': 'grommet-icons',
+    react: 'react',
+    'react-dom': 'react-dom',
+    'styled-components': 'styled-components'
+  },
   output: {
     path: path.resolve('dist'),
     filename: 'main.js',
@@ -32,14 +39,14 @@ module.exports = {
     globalObject: `typeof self !== 'undefined' ? self : this`
   },
   plugins: [
-    new CleanWebpackPlugin(),
-    new PeerDepsExternalsPlugin(),
+    new CleanWebpackPlugin()
   ],
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
     modules: [
       path.resolve(__dirname),
       'node_modules'
-    ]
+    ],
+    fallback: { "path": require.resolve("path-browserify") }
   }
 }
