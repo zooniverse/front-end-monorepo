@@ -1,7 +1,7 @@
 import { mount } from 'enzyme'
-import { DropButton } from 'grommet'
-import { types } from 'mobx-state-tree'
+import { DropButton, Grommet } from 'grommet'
 import React from 'react'
+import zooTheme from '@zooniverse/grommet-theme'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import { default as Task } from '@plugins/tasks/SurveyTask'
@@ -19,13 +19,15 @@ describe('Component > FilterStatus', function () {
     taskKey: 'T0',
     type: 'survey'
   })
-  const annotation = task.defaultAnnotation()
 
   before(function () {
     wrapper = mount(
       <FilterStatus
         task={task}
-      />
+      />, {
+        wrappingComponent: Grommet,
+        wrappingComponentProps: { theme: zooTheme }
+      }
     )
   })
 
@@ -51,18 +53,23 @@ describe('Component > FilterStatus', function () {
     })
   })
 
-  // TODO: update the following test once filter state passed down as prop
-  describe.skip('with selected filters', function () {
-    before(function () {
-      wrapper.setState({ filter: {
-        LK: 'CTDG',
-        CLR: 'BLCK',
-        TL: 'LNG'
-      }})
-    })
-
+  describe('with selected filters', function () {
     it('should show the appropriate checked FilterButtons', function () {
-      expect(wrapper.find(FilterButton)).to.have.lengthOf(3)
+      const selectedValueIds = [ 'CTDG', 'BLCK', 'LNG']
+      let filterButtons = wrapper.find({ buttonSize: 'small' })
+      expect(filterButtons).to.have.lengthOf(0)
+      wrapper.setProps({
+        filters: {
+          LK: 'CTDG',
+          CLR: 'BLCK',
+          TL: 'LNG'
+        }
+      })
+      filterButtons = wrapper.find({ buttonSize: 'small' })
+      expect(filterButtons).to.have.lengthOf(3)
+      filterButtons.forEach((button, index) => {
+        expect(button.key()).to.equal(selectedValueIds[index])
+      })
     })
   })
 })

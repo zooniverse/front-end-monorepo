@@ -1,5 +1,4 @@
 const task = {
-  'annotation': 'ckjyqacz100013h6adfjhrkcu',
   'taskKey': 'T0',
   'required': false,
   'type': 'survey',

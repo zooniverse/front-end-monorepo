@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import { types } from 'mobx-state-tree'
 import React from 'react'
 import { Grid } from 'grommet'
 import sinon from 'sinon'
@@ -18,12 +17,11 @@ describe('Component > Choices', function () {
     taskKey: 'T0',
     type: 'survey'
   })
-  const annotation = task.defaultAnnotation()
 
   before(function () {
     wrapper = shallow(
       <Choices
-        filteredChoices={mockTask.choicesOrder}
+        filteredChoiceIds={mockTask.choicesOrder}
         task={task}
       />
     )
@@ -39,7 +37,7 @@ describe('Component > Choices', function () {
     before(function () {
       wrapper = shallow(
         <Choices
-          filteredChoices={mockTask.choicesOrder}
+          filteredChoiceIds={mockTask.choicesOrder}
           onChoose={onChooseSpy}
           task={task}
         />
@@ -85,6 +83,24 @@ describe('Component > Choices', function () {
         expect(choiceButton.props().onChoose).to.equal(onChooseSpy)
       })
     })
+
+    it('should pass the selected choice prop', function () {
+      const choiceId = 'FR'
+      let choiceButtons = wrapper.find(ChoiceButton)
+
+      choiceButtons.forEach((choiceButton) => {
+        expect(choiceButton.props().selected).to.be.false()
+      })
+      wrapper.setProps({ selectedChoiceIds: [choiceId] })
+      choiceButtons = wrapper.find(ChoiceButton)
+      choiceButtons.forEach((choiceButton) => {
+        if (choiceButton.key() === choiceId) {
+          expect(choiceButton.props().selected).to.be.true()
+        } else {
+          expect(choiceButton.props().selected).to.be.false()
+        }
+      })
+    })
   })
 
   describe('when the column count is 3', function () {
@@ -98,7 +114,7 @@ describe('Component > Choices', function () {
       })
       wrapper = shallow(
         <Choices
-          filteredChoices={mockTask.choicesOrder}
+          filteredChoiceIds={mockTask.choicesOrder}
           task={task}
         />
       )
@@ -137,7 +153,7 @@ describe('Component > Choices', function () {
       })
       wrapper = shallow(
         <Choices
-          filteredChoices={choicesOrder}
+          filteredChoiceIds={choicesOrder}
           task={task}
         />
       )
@@ -176,7 +192,7 @@ describe('Component > Choices', function () {
       })
       wrapper = shallow(
         <Choices
-          filteredChoices={choicesOrder}
+          filteredChoiceIds={choicesOrder}
           task={task}
         />
       )
@@ -207,7 +223,7 @@ describe('Component > Choices', function () {
       })
       wrapper = shallow(
         <Choices
-          filteredChoices={mockTask.choicesOrder}
+          filteredChoiceIds={mockTask.choicesOrder}
           task={task}
         />
       )
@@ -240,7 +256,7 @@ describe('Component > Choices', function () {
       })
       wrapper = shallow(
         <Choices
-          filteredChoices={choicesOrder}
+          filteredChoiceIds={choicesOrder}
           task={task}
         />
       )
