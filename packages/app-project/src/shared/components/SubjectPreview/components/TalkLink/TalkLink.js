@@ -13,7 +13,7 @@ export default function TalkLink (props) {
   return (
     <MetaToolsButton
       href={href}
-      icon={<TalkIcon color='dark-5' size='1em' />}
+      icon={<TalkIcon color='dark-5' size='15px' />}
       text={counterpart('TalkLink.label')}
     />
   )
