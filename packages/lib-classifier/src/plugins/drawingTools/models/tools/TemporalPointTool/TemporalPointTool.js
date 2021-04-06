@@ -5,7 +5,7 @@ import { TemporalPoint } from '../../marks'
 const TemporalPointTool = types
   .model('TemporalPoint', {
     marks: types.map(TemporalPoint),
-    type: types.literal('temporal-point')
+    type: types.literal('temporalPoint')
   })
   .actions((self) => {
     function createMark(mark) {
