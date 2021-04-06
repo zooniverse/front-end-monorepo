@@ -5,7 +5,7 @@ import {
 } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled, { css, withTheme } from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Media } from '@zooniverse/react-components'
 
 const StyledChoiceButton = styled(Button)`
@@ -26,7 +26,7 @@ const StyledChoiceButton = styled(Button)`
 
 export const THUMBNAIL_ASPECT_RATIO = 1.25
 
-export function ChoiceButton (props) {
+function ChoiceButton (props) {
   const {
     choiceId,
     choiceLabel,
@@ -105,4 +105,4 @@ ChoiceButton.propTypes = {
   thumbnailSize: PropTypes.string
 }
 
-export default withTheme(ChoiceButton)
+export default ChoiceButton
