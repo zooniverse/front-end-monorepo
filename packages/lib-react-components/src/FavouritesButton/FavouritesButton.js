@@ -26,7 +26,7 @@ function FavouritesButton (props) {
     <MetaToolsButton
       aria-checked={isFavourite}
       disabled={disabled}
-      icon={<HeartIcon color='dark-5' fill={fill} size='1em' />}
+      icon={<HeartIcon color='dark-5' fill={fill} size='15px' />}
       role='checkbox'
       text={counterpart(label)}
       onClick={toggleFavourite}
