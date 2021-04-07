@@ -3,7 +3,6 @@ import { types } from 'mobx-state-tree'
 import Task from '../../models/Task'
 import SurveyAnnotation from './SurveyAnnotation'
 
-
 function validateCharacteristic (characteristic) {
   return (
     typeof characteristic.label === 'string' &&

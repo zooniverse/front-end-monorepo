@@ -1,7 +1,7 @@
 import { Box, DropButton } from 'grommet'
 import { Filter } from 'grommet-icons'
 import PropTypes from 'prop-types'
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import styled, { css } from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
 
@@ -30,7 +30,11 @@ const StyledLabel = styled(SpacedText)`
 `
 
 export default function FilterStatus (props) {
-  const { task } = props
+  const { 
+    filters,
+    handleFilter,
+    task
+  } = props
   const { 
     characteristics,
     characteristicsOrder,
@@ -38,21 +42,6 @@ export default function FilterStatus (props) {
   } = task
   
   const filterStatusRef = useRef()
-
-  // TODO: refactor filter state to model
-  const [ filters, setFilters ] = useState({})
-
-  function handleFilter (characteristicId, valueId) {
-    let newFilters = Object.assign({}, filters)
-    if (valueId) {
-      newFilters[characteristicId] = valueId
-    } else if (characteristicId) {
-      delete newFilters[characteristicId]
-    } else {
-      newFilters = {}
-    }
-    setFilters(newFilters)
-  }
 
   const selectedCharacteristicIds = Object.keys(filters)
 
@@ -115,7 +104,14 @@ export default function FilterStatus (props) {
   )
 }
 
+FilterStatus.defaultProps = {
+  filters: {},
+  handleFilter: () => {}
+}
+
 FilterStatus.propTypes = {
+  filters: PropTypes.objectOf(PropTypes.string),
+  handleFilter: PropTypes.func,
   task: PropTypes.shape({
     help: PropTypes.string,
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),

@@ -11,14 +11,15 @@ import ChoiceButton from './components/ChoiceButton'
 
 function Choices (props) {
   const {
-    filteredChoices,
+    filteredChoiceIds,
     onChoose,
+    selectedChoiceIds,
     task
   } = props
 
-  const columnsCount = howManyColumns(filteredChoices)
-  const sortedFilteredChoices = sortIntoColumns(filteredChoices, columnsCount)
-  const thumbnailSize = task.alwaysShowThumbnails ? 'small' : whatSizeThumbnail(filteredChoices)
+  const columnsCount = howManyColumns(filteredChoiceIds)
+  const sortedFilteredChoiceIds = sortIntoColumns(filteredChoiceIds, columnsCount)
+  const thumbnailSize = task.alwaysShowThumbnails ? 'small' : whatSizeThumbnail(filteredChoiceIds)
 
   return (
     // Could possibly drop box by styling gap color? Is that possible? Or using border on button?
@@ -36,8 +37,9 @@ function Choices (props) {
         fill
         gap='2px'
       >
-        {sortedFilteredChoices.map((choiceId) => {
+        {sortedFilteredChoiceIds.map((choiceId) => {
           const choice = task.choices?.[choiceId] || {}
+          const selected = selectedChoiceIds.indexOf(choiceId) > -1
           const src = task.images?.[choice.images?.[0]] || ''
           return (
             <ChoiceButton
@@ -45,6 +47,7 @@ function Choices (props) {
               choiceId={choiceId}
               choiceLabel={choice.label}
               onChoose={onChoose}
+              selected={selected}
               src={src}
               thumbnailSize={thumbnailSize}
             />
@@ -56,15 +59,17 @@ function Choices (props) {
 }
 
 Choices.defaultProps = {
-  filteredChoices: [],
-  onChoose: () => {}
+  filteredChoiceIds: [],
+  onChoose: () => {},
+  selectedChoiceIds: []
 }
 
 Choices.propTypes = {
-  filteredChoices: PropTypes.arrayOf(
+  filteredChoiceIds: PropTypes.arrayOf(
     PropTypes.string
   ),
   onChoose: PropTypes.func,
+  selectedChoiceIds: PropTypes.arrayOf(PropTypes.string),
   task: PropTypes.shape({
     help: PropTypes.string,
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),

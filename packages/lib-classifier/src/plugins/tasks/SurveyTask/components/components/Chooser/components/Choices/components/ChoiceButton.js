@@ -9,13 +9,19 @@ import styled, { css, withTheme } from 'styled-components'
 import { Media } from '@zooniverse/react-components'
 
 const StyledChoiceButton = styled(Button)`
-  ${props => props.theme.dark
+  ${props => props.selected
+  ? css`background-color: ${props.theme.global.colors['brand']};`
+  : props.theme.dark
     ? css`background-color: ${props.theme.global.colors['dark-5']};`
     : css`background-color: ${props.theme.global.colors['neutral-6']};`}
   border: none;
   border-radius: 0px;
   padding: 5px;
-  text-align: start; 
+  text-align: start;
+
+  &:focus, &:hover {
+    background-color: ${props => props.theme.global.colors['accent-2']};
+  }
 `
 
 export const THUMBNAIL_ASPECT_RATIO = 1.25
@@ -25,6 +31,7 @@ export function ChoiceButton (props) {
     choiceId,
     choiceLabel,
     onChoose,
+    selected,
     src,
     thumbnailSize
   } = props
@@ -67,6 +74,7 @@ export function ChoiceButton (props) {
         </Box>
       }
       onClick={() => onChoose(choiceId)}
+      selected={selected}
       size='small'
     />
   )
@@ -76,6 +84,7 @@ ChoiceButton.defaultProps = {
   choiceId: '',
   choiceLabel: '',
   onChoose: () => {},
+  selected: false,
   src: '',
   theme: {
     dark: false,
@@ -90,6 +99,7 @@ ChoiceButton.propTypes = {
   choiceId: PropTypes.string,
   choiceLabel: PropTypes.string,
   onChoose: PropTypes.func,
+  selected: PropTypes.bool,
   src: PropTypes.string,
   theme: PropTypes.object,
   thumbnailSize: PropTypes.string
