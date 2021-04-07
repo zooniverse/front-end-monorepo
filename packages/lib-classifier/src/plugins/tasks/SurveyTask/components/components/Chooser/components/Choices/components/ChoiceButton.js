@@ -101,7 +101,12 @@ ChoiceButton.propTypes = {
   onChoose: PropTypes.func,
   selected: PropTypes.bool,
   src: PropTypes.string,
-  theme: PropTypes.object,
+  theme: PropTypes.shape({
+    dark: PropTypes.bool,
+    global: PropTypes.shape({
+      colors: PropTypes.object
+    })
+  }),
   thumbnailSize: PropTypes.string
 }
 

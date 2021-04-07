@@ -1,6 +1,6 @@
 import { Box, Drop } from 'grommet'
 import PropTypes from 'prop-types'
-import React, { useRef } from 'react'
+import React from 'react'
 
 import Choice from './components/Choice'
 import Chooser from './components/Chooser'
