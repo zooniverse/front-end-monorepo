@@ -15,7 +15,7 @@
     "test:ci": "BABEL_ENV=test mocha --config ./test/.mocharc.json --reporter=min \"./{src,server}/**/*.spec.js\""
   },
   "dependencies": {
-    "@babel/plugin-proposal-decorators": "~7.8.3",
+    "@babel/plugin-proposal-decorators": "~7.13.5",
     "@sentry/browser": "~6.2.0",
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "@zooniverse/async-states": "~0.0.1",
@@ -24,7 +24,7 @@
     "@zooniverse/react-components": "~1.0.2",
     "async": "~2.6.2",
     "babel-plugin-dynamic-import-node": "~2.3.0",
-    "babel-plugin-styled-components": "~1.10.7",
+    "babel-plugin-styled-components": "~1.12.0",
     "contentful": "~8.1.6",
     "counterpart": "~0.18.6",
     "dotenv-webpack": "~1.7.0",
@@ -53,7 +53,7 @@
     "validator": "~10.11.0"
   },
   "devDependencies": {
-    "@babel/register": "~7.8.3",
+    "@babel/register": "~7.13.14",
     "@storybook/addon-a11y": "~6.1.8",
     "@storybook/addon-essentials": "~6.1.10",
     "@storybook/addon-knobs": "~6.1.8",

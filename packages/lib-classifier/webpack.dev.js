@@ -67,6 +67,9 @@ module.exports = {
     umdNamedDefine: true
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
     EnvironmentWebpackPlugin,
     HtmlWebpackPluginConfig
   ]
