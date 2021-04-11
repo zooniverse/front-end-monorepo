@@ -1,0 +1,17 @@
+{
+  "diff": true,
+  "extension": [
+    "js"
+  ],
+  "require": [
+    "@babel/register",
+    "chai/register-expect"
+  ],
+  "file": [
+    "./test/create-enzyme-adapter.js",
+    "./test/create-global-document.js",
+    "./test/chai-config.js"
+  ],
+  "reporter": "spec",
+  "ui": "bdd"
+}
