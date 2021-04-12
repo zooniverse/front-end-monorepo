@@ -9,13 +9,7 @@ function withStores(Component) {
       classifierStore: {
         annotatedSteps: {
           hasNextStep,
-          latest: {
-            annotations
-          },
           next
-        },
-        workflowSteps: {
-          active: step
         }
       }
     } = props.store || useContext(MobXProviderContext)
@@ -24,14 +18,9 @@ function withStores(Component) {
       return null
     }
 
-    function onClick() {
-      step.completeTasks(annotations)
-      next()
-    }
-
     return (
       <Component
-        onClick={onClick}
+        onClick={next}
         {...props}
       />
     )
