@@ -77,8 +77,6 @@ function InteractionLayer({
       toolIndex: activeToolIndex
     })
 
-    console.log('mark: ', mark)
-
     mark.initialPosition(convertEvent(event))
     setActiveMark(mark)
     setCreating(true)
