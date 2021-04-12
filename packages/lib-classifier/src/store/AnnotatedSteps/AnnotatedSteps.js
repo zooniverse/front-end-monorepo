@@ -74,6 +74,13 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
       }
     })
   }
+  /** Clear the redo history and delete orphaned annotations. */
+  function _clearRedo() {
+    undoManager.withoutUndo(() => {
+      _clearPendingAnnotations()
+      undoManager.clearRedo()
+    })
+  }
   /** Redo stepKey,or replace the last step if history has diverged. */
   function _redo(stepKey) {
     undoManager.redo()
@@ -85,7 +92,7 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   /** Clear the redo history and restart history from this point with a new step. */
   function _replace(stepKey) {
     undoManager.undo()
-    self.clearRedo()
+    _clearRedo()
     _beginStep(stepKey)
   }
   /** Clear stored steps and history. Should be run before classifying a new subject. */
@@ -98,15 +105,16 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
     if (undoManager.canUndo) {
       undoManager.undo()
       if (!persistAnnotations) {
-        self.clearRedo()
+        _clearRedo()
       }
     }
   }
-  /** Clear the redo history and delete orphaned annotations. */
-  function clearRedo() {
+  /** Finish the current subject and clear the redo history*/
+  function finish(){
+    const { annotations, step } = self.latest
     undoManager.withoutUndo(() => {
-      _clearPendingAnnotations()
-      undoManager.clearRedo()
+      step.completeTasks(annotations)
+      _clearRedo()
     })
   }
   /** Redo the next step, or add a new step to history if there is no redo. */
@@ -130,7 +138,7 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
 
   return {
     back,
-    clearRedo,
+    finish,
     next,
     start
   }

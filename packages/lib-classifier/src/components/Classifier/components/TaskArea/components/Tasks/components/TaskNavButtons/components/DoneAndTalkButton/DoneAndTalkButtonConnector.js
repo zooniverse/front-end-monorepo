@@ -8,11 +8,8 @@ function withStores(Component) {
     const {
       classifierStore: {
         annotatedSteps: {
-          clearRedo,
-          hasNextStep,
-          latest: {
-            annotations
-          }
+          finish,
+          hasNextStep
         },
         classifications: {
           completeClassification
@@ -21,7 +18,6 @@ function withStores(Component) {
           active: subject
         },
         workflowSteps: {
-          active: step,
           shouldWeShowDoneAndTalkButton
         }
       }
@@ -32,8 +28,7 @@ function withStores(Component) {
         event.preventDefault()
         const isCmdClick = event.metaKey
         subject.openInTalk(isCmdClick)
-        step.completeTasks(annotations)
-        clearRedo()
+        finish()
         return completeClassification()
       }
 

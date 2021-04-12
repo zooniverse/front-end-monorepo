@@ -8,17 +8,11 @@ function withStores(Component) {
     const {
       classifierStore: {
         annotatedSteps: {
-          clearRedo,
-          hasNextStep,
-          latest: {
-            annotations
-          }
+          finish,
+          hasNextStep
         },
         classifications: {
           completeClassification
-        },
-        workflowSteps: {
-          active: step
         }
       }
     } = props.store || useContext(MobXProviderContext)
@@ -29,8 +23,7 @@ function withStores(Component) {
 
     function onClick(event) {
       event.preventDefault()
-      step.completeTasks(annotations)
-      clearRedo()
+      finish()
       return completeClassification()
     }
 
