@@ -57,12 +57,14 @@ function ProjectHomePage ({
         <Box
           align='start'
           direction='row'
-          gap='small'
           margin='small'
           width={{ max: 'xxlarge' }}
         >
           <Box gap='medium'>
-            <ZooniverseTalk />
+            <Grid columns={['auto', '1em']} gap='small'>
+              <ZooniverseTalk />
+              <ThemeModeToggle />
+            </Grid>
             <ProjectStatistics />
             <Grid columns={['1fr', '1fr']} gap='medium'>
               <MessageFromResearcher />
@@ -70,7 +72,6 @@ function ProjectHomePage ({
             </Grid>
             <ConnectWithProject />
           </Box>
-          <ThemeModeToggle />
         </Box>
       </Media>
       <ZooFooter />

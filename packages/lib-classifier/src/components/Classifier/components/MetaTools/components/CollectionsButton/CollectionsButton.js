@@ -13,7 +13,7 @@ export default function CollectionsButton (props) {
   return (
     <MetaToolsButton
       disabled={disabled}
-      icon={<CollectionsIcon color='dark-5' size='1em' />}
+      icon={<CollectionsIcon color='dark-5' size='15px' />}
       text={counterpart('CollectionsButton.add')}
       onClick={onClick}
     />

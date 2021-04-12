@@ -1,4 +1,4 @@
-import { default as TaskComponent } from './components/SurveyTask'
+import { default as TaskComponent } from './components/'
 import { default as TaskModel } from './models/SurveyTask'
 import { default as AnnotationModel } from './models/SurveyAnnotation'
 

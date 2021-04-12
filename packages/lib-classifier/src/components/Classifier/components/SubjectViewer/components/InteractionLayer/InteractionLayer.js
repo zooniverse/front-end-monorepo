@@ -113,19 +113,12 @@ function InteractionLayer({
     }
   }
 
-  function onFinish(event = {}, node) {
+  function onFinish(event) {
     if (event.preventDefault) event.preventDefault()
-    const { target, pointerId } = event
     setCreating(false)
     if (activeMark && !activeMark.isValid) {
       activeTool.deleteMark(activeMark)
       setActiveMark(undefined)
-    } else {
-      if (node) activeMark?.setSubTaskVisibility(true, node)
-    }
-
-    if (target && pointerId) {
-      target.releasePointerCapture(pointerId)
     }
   }
 

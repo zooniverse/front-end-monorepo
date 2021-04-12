@@ -51,6 +51,7 @@ function SubTaskPopup(props) {
       onOpenConfirm()
     } else {
       setSubTaskVisibility(false)
+      activeMark.setPreviousAnnotations()
     }
   }
 

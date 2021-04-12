@@ -102,23 +102,20 @@ const BaseMark = types
       self.finished = true
     }
 
-    function setSubTaskVisibility(
-      visible,
-      drawingMarkNode,
-      previousAnnotationValues
-    ) {
+    function setPreviousAnnotations(previousAnnotationValues) {
+      if (previousAnnotationValues?.length > 0) {
+        previousAnnotationValues.forEach((previousAnnotationValue) => {
+          self.subTaskPreviousAnnotationValues.put(previousAnnotationValue)
+        })
+      } else {
+        self.subTaskPreviousAnnotationValues.clear()
+      }
+    }
+
+    function setSubTaskVisibility(visibility, markBounds) {
       if (self.tasks.length > 0) {
-        self.subTaskVisibility = visible
-        self.subTaskMarkBounds = drawingMarkNode
-          ? drawingMarkNode.getBoundingClientRect()
-          : undefined
-        if (previousAnnotationValues?.length > 0) {
-          previousAnnotationValues.forEach((previousAnnotationValue) => {
-            self.subTaskPreviousAnnotationValues.put(previousAnnotationValue)
-          })
-        } else {
-          self.subTaskPreviousAnnotationValues.clear()
-        }
+        self.subTaskVisibility = visibility
+        self.subTaskMarkBounds = markBounds
       }
     }
 
@@ -126,8 +123,8 @@ const BaseMark = types
 
     return {
       finish,
-      setSubTaskVisibility,
-      setVideoTime
+      setPreviousAnnotations,
+      setSubTaskVisibility
     }
   })
 

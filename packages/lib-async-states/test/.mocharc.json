@@ -1,0 +1,11 @@
+{
+  "diff": true,
+  "extension": [
+    "js"
+  ],
+  "require": [
+    "chai/register-expect"
+  ],
+  "reporter": "spec",
+  "ui": "bdd"
+}

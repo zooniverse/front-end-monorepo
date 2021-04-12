@@ -9,8 +9,8 @@
   "scripts": {
     "lint": "zoo-standard --fix | snazzy",
     "postversion": "npm publish",
-    "test": "NODE_ENV=test mocha",
-    "test:ci": "NODE_ENV=test mocha --reporter=min"
+    "test": "NODE_ENV=test mocha --recursive --config ./test/.mocharc.json  \"./src/**/*.spec.js\"",
+    "test:ci": "NODE_ENV=test mocha --config ./test/.mocharc.json --reporter=min \"./src/**/*.spec.js\""
   },
   "dependencies": {
     "superagent": "~5.1.0",
@@ -18,18 +18,18 @@
   },
   "devDependencies": {
     "@zooniverse/standard": "~1.0.0",
-    "chai": "~4.2.0",
+    "chai": "~4.3.4",
     "dirty-chai": "~2.0.1",
-    "jsdom": "~16.4.0",
-    "mocha": "~6.1.4",
+    "jsdom": "~16.5.2",
+    "mocha": "~8.3.2",
     "mock-local-storage": "~1.1.8",
-    "nock": "~10.0.6",
-    "sinon": "~7.3.2",
-    "sinon-chai": "~3.3.0",
-    "snazzy": "~8.0.0"
+    "nock": "~13.0.11",
+    "sinon": "~10.0.0",
+    "sinon-chai": "~3.6.0",
+    "snazzy": "~9.0.0"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "standard": {
     "env": {

@@ -52,7 +52,7 @@ function ThemeModeToggle (props) {
     <Box justify='center'>
       <StyledButton
         a11yTitle={text}
-        icon={<StyledInfo color='dark-5' screensize={screenSize} size='1em' />}
+        icon={<StyledInfo color='dark-5' screensize={screenSize} size='15px' />}
         text={text}
         onClick={onClick}
         screenSize={screenSize}

@@ -19,7 +19,7 @@ describe('Component > TalkLink', function () {
   it('should display a Talk icon', function () {
     const button = wrapper.find(MetaToolsButton)
     const { icon } = button.props()
-    expect(icon).to.deep.equal(<TalkIcon color='dark-5' size='1em' />)
+    expect(icon).to.deep.equal(<TalkIcon color='dark-5' size='15px' />)
   })
 
   it('should link to the subject Talk page', function () {

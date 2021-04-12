@@ -48,9 +48,25 @@ describe('Helpers > fetchWorkflowsHelper', function () {
     return {
       id,
       display_name: `test set ${id}`,
-      set_member_subjects_count: 10
+      set_member_subjects_count: 10,
+      subjects: mockSetSubjects
     }
   }
+
+  const mockSetSubjects = [
+    {
+      "id":"47696316",
+      "metadata":{"Filename":"ultraman-x.png"},
+      "locations":[
+        {"image/png":"https://panoptes-uploads.zooniverse.org/production/subject_location/78964ce7-72db-4607-b493-63626738cf4e.png"}
+      ],
+      "zooniverse_id":null,
+      "external_id":null,
+      "created_at":"2020-07-09T20:47:07.128Z",
+      "updated_at":"2020-07-09T20:47:07.128Z",
+      "href":"/subjects/47696316",
+      "links":{"project":"12754","collections":[],"subject_sets":["85771"],"set_member_subjects":["80512512"]}}
+  ]
 
   before(function () {
     const cellect = nock('https://cellect.zooniverse.org')
@@ -60,6 +76,25 @@ describe('Helpers > fetchWorkflowsHelper', function () {
     .get('/workflows/2/status')
     .reply(200, {
       groups: availableSubjects
+    })
+
+    const panoptes = nock('https://panoptes-staging.zooniverse.org/api')
+    .persist()
+    .get('/subject_sets')
+    .query(true)
+    .reply(200, {
+      subject_sets: [
+        subjectSet('1'),
+        subjectSet('2'),
+        subjectSet('3')
+      ]
+    })
+    .get('/set_member_subjects')
+    .query(query => query.include === 'subject')
+    .reply(200, {
+      linked: {
+        subjects: mockSetSubjects
+      }
     })
   })
 
@@ -78,15 +113,6 @@ describe('Helpers > fetchWorkflowsHelper', function () {
       .query(true)
       .reply(200, {
         workflows: WORKFLOWS.slice(0, 1)
-      })
-      .get('/subject_sets')
-      .query(query => query.id === '1,2,3')
-      .reply(200, {
-        subject_sets: [
-          subjectSet('1'),
-          subjectSet('2'),
-          subjectSet('3')
-        ]
       })
 
     const result = await fetchWorkflowsHelper('en', ['1'])
@@ -114,15 +140,6 @@ describe('Helpers > fetchWorkflowsHelper', function () {
       .query(true)
       .reply(200, {
         workflows: WORKFLOWS
-      })
-      .get('/subject_sets')
-      .query(true)
-      .reply(200, {
-        subject_sets: [
-          subjectSet('1'),
-          subjectSet('2'),
-          subjectSet('3')
-        ]
       })
 
     const result = await fetchWorkflowsHelper('en', ['1', '2'])
@@ -162,15 +179,6 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         .query(true)
         .reply(200, {
           workflows: WORKFLOWS
-        })
-        .get('/subject_sets')
-        .query(true)
-        .reply(200, {
-          subject_sets: [
-            subjectSet('1'),
-            subjectSet('2'),
-            subjectSet('3')
-          ]
         })
 
       const result = await fetchWorkflowsHelper('en', ['1', '2'], '2')
@@ -232,15 +240,6 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         .query(true)
         .reply(200, {
           workflows: WORKFLOWS
-        })
-        .get('/subject_sets')
-        .query(true)
-        .reply(200, {
-          subject_sets: [
-            subjectSet('1'),
-            subjectSet('2'),
-            subjectSet('3')
-          ]
         })
 
       try {

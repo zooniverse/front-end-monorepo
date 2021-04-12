@@ -20,7 +20,7 @@ describe('Component > CollectionsButton', function () {
   it('should display a Collect icon', function () {
     const button = wrapper.find(MetaToolsButton)
     const { icon } = button.props()
-    expect(icon).to.deep.equal(<CollectionsIcon color='dark-5' size='1em' />)
+    expect(icon).to.deep.equal(<CollectionsIcon color='dark-5' size='15px' />)
   })
 
   it('should call props.onClick on click', function () {
