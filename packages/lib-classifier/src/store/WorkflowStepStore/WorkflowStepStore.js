@@ -130,16 +130,9 @@ const WorkflowStepStore = types
     }
 
     function setSteps (steps) {
-      steps.forEach(([ stepKey, step ], index) => {
-        let next
-        // checking for there being a next step without accessing it directly
-        // mobx throws errors for undefined indices because you can't observe those
-        if (steps.length > 0 && index + 2 <= steps.length) {
-          const [nextStepKey] = steps[index + 1]
-          next = nextStepKey
-        }
-
-        self.steps.put(Object.assign({}, step, { stepKey, next }))
+      steps.forEach(workflowStep => {
+        const [ stepKey, step ] = workflowStep
+        self.steps.put(Object.assign({}, step, { stepKey }))
       })
     }
 
