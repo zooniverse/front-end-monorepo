@@ -131,7 +131,7 @@ describe('Model > WorkflowStepStore', function () {
       firstStepSnapshot.taskKeys.forEach((taskKey, index) => {
         expect(taskKey).to.equal(storedStep.taskKeys[index])
       })
-      expect(storedStep.next).to.equal(secondStepKey)
+      expect(storedStep.next).to.be.undefined()
     })
   })
 
