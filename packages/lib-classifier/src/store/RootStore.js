@@ -9,11 +9,13 @@ import {
   setLivelynessChecking
 } from 'mobx-state-tree'
 
+import AnnotatedSteps from './AnnotatedSteps'
 import ClassificationStore from './ClassificationStore'
 import FeedbackStore from './FeedbackStore'
 import FieldGuideStore from './FieldGuideStore'
 import ProjectStore from './ProjectStore'
 import SubjectStore from './SubjectStore'
+import SubjectSetStore from './SubjectSetStore'
 import SubjectViewerStore from './SubjectViewerStore'
 import TutorialStore from './TutorialStore'
 import WorkflowStore from './WorkflowStore'
@@ -22,11 +24,13 @@ import UserProjectPreferencesStore from './UserProjectPreferencesStore'
 
 const RootStore = types
   .model('RootStore', {
+    annotatedSteps: types.optional(AnnotatedSteps, () => AnnotatedSteps.create({})),
     classifications: types.optional(ClassificationStore, () => ClassificationStore.create({})),
     feedback: types.optional(FeedbackStore, () => FeedbackStore.create({})),
     fieldGuide: types.optional(FieldGuideStore, () => FieldGuideStore.create({})),
     projects: types.optional(ProjectStore, () => ProjectStore.create({})),
     subjects: types.optional(SubjectStore, () => SubjectStore.create({})),
+    subjectSets: types.optional(SubjectSetStore, () => SubjectSetStore.create({})),
     subjectViewer: types.optional(SubjectViewerStore, () => SubjectViewerStore.create({})),
     tutorials: types.optional(TutorialStore, () => TutorialStore.create({})),
     workflows: types.optional(WorkflowStore, () => WorkflowStore.create({})),
@@ -44,7 +48,7 @@ const RootStore = types
   .actions(self => {
     // Private methods
     function onSubjectAdvance () {
-      const { classifications, feedback, projects, subjects, workflows, workflowSteps } = self
+      const { annotatedSteps, classifications, feedback, projects, subjects, workflows, workflowSteps } = self
       const subject = tryReference(() => subjects?.active)
       const workflow = tryReference(() => workflows?.active)
       const project = tryReference(() => projects?.active)
@@ -52,6 +56,7 @@ const RootStore = types
         workflowSteps.resetSteps()
         classifications.reset()
         classifications.createClassification(subject, workflow, project)
+        annotatedSteps.start()
         feedback.onNewSubject()
       }
     }

@@ -3,7 +3,6 @@ import { Grommet } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
 import zooTheme from '@zooniverse/grommet-theme'
-import CollectionsModal from '@shared/components/CollectionsModal'
 import { MetaToolsButton } from '@zooniverse/react-components'
 import CollectionsButton from './CollectionsButton'
 import CollectionsIcon from './CollectionsIcon'
@@ -30,7 +29,7 @@ describe('Component > CollectionsButton', function () {
   it('should display a Collect icon', function () {
     const button = wrapper.find(MetaToolsButton)
     const { icon } = button.props()
-    expect(icon).to.deep.equal(<CollectionsIcon color='dark-5' size='1em' />)
+    expect(icon).to.deep.equal(<CollectionsIcon color='dark-5' size='15px' />)
   })
 
   describe('on click', function () {
@@ -49,18 +48,13 @@ describe('Component > CollectionsButton', function () {
           wrappingComponentProps: { theme: zooTheme }
         }
       )
-      collectionsModal = wrapper.find(CollectionsModal).instance().wrappedInstance
+      collectionsModal = wrapper.find('CollectionsModalContainer').instance()
       sinon.stub(collectionsModal, 'open')
-      sinon.stub(console, 'error')
     })
 
     afterEach(function () {
       collectionsModal.open.resetHistory()
       onClick.resetHistory()
-    })
-
-    after(function () {
-      console.error.restore()
     })
 
     it('should open a collections modal', function () {
@@ -91,7 +85,7 @@ describe('Component > CollectionsButton', function () {
           wrappingComponentProps: { theme: zooTheme }
         }
       )
-      collectionsModal = wrapper.find(CollectionsModal).instance().wrappedInstance
+      collectionsModal = wrapper.find('CollectionsModalContainer').instance()
       sinon.spy(collectionsModal, 'open')
     })
 

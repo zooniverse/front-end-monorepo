@@ -1,7 +1,10 @@
 import { WorkflowFactory } from '@test/factories'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
+import RootStore from '../RootStore'
 import Workflow from './Workflow'
+
+import { MultipleChoiceTaskFactory } from '@test/factories'
 
 describe('Model > Workflow', function () {
   it('should exist', function () {
@@ -31,12 +34,13 @@ describe('Model > Workflow', function () {
 
   describe('workflow steps', function () {
     let step
+    const task = MultipleChoiceTaskFactory.build({ taskKey: 'T1' })
 
     before(function () {
       step = {
         stepKey: 'S1',
-        taskKeys: [],
-        tasks: []
+        taskKeys: ['T1'],
+        tasks: [task]
       }
     })
 
@@ -48,6 +52,9 @@ describe('Model > Workflow', function () {
         steps: [
           [ stepKey, step ]
         ],
+        tasks: {
+          T1: task
+        },
         version: '0.0'
       })
       const workflow = Workflow.create(workflowSnapshot)
@@ -63,6 +70,9 @@ describe('Model > Workflow', function () {
           steps: [
             [ step, stepKey ]
           ],
+          tasks: {
+            T1: task
+          },
           version: '0.0'
         })
         const workflow = Workflow.create(workflowSnapshot)
@@ -102,36 +112,32 @@ describe('Model > Workflow', function () {
   })
 
   describe('Actions > selectSubjectSet', function () {
+    let rootStore
     let workflow
 
     beforeEach(function () {
+      rootStore = RootStore.create();
       const subjectSets = Factory.buildList('subject_set', 5)
-      const subjectSetMap = {}
-      subjectSets.forEach(subjectSet => {
-        subjectSetMap[subjectSet.id] = subjectSet
-      })
+      rootStore.subjectSets.setResources(subjectSets)
       const workflowSnapshot = WorkflowFactory.build({
         id: 'workflow1',
         display_name: 'A test workflow',
         links: {
-          subject_sets: Object.keys(subjectSetMap)
-        },
-        subjectSets: {
-          resources: subjectSetMap
+          subject_sets: subjectSets.map(subjectSet => subjectSet.id)
         },
         version: '0.0'
       })
       workflow = Workflow.create(workflowSnapshot)
+      rootStore.workflows.setResources([workflow])
     })
 
     describe('with a valid subject set', function () {
 
-      it('should set the active subject set', async function () {
+      it('should select the subject set', async function () {
         expect(workflow.subjectSetId).to.be.undefined()
         const subjectSetID = workflow.links.subject_sets[1]
         const subjectSet = await workflow.selectSubjectSet(subjectSetID)
         expect(subjectSet.id).to.equal(subjectSetID)
-        expect(subjectSet).to.deep.equal(workflow.subjectSets.active)
       })
     })
 
@@ -139,7 +145,7 @@ describe('Model > Workflow', function () {
 
       it('should throw an error', async function () {
         let errorThrown = false
-        sinon.stub(workflow.subjectSets, 'fetchResource').callsFake(async () => undefined)
+        sinon.stub(rootStore.subjectSets, 'fetchResource').callsFake(async () => undefined)
         expect(workflow.subjectSetId).to.be.undefined()
         try {
           const subjectSet = await workflow.selectSubjectSet('abcdefg')
@@ -148,32 +154,29 @@ describe('Model > Workflow', function () {
           expect(e.message).to.equal('No subject set abcdefg for workflow workflow1')
         }
         expect(errorThrown).to.be.true()
-        workflow.subjectSets.fetchResource.restore()
+        rootStore.subjectSets.fetchResource.restore()
       })
     })
   })
 
   describe('Views > subjectSetId', function () {
+    let rootStore
     let workflow
 
     beforeEach(function () {
+      rootStore = RootStore.create();
       const subjectSets = Factory.buildList('subject_set', 5)
-      const subjectSetMap = {}
-      subjectSets.forEach(subjectSet => {
-        subjectSetMap[subjectSet.id] = subjectSet
-      })
+      rootStore.subjectSets.setResources(subjectSets)
       const workflowSnapshot = WorkflowFactory.build({
         id: 'workflow1',
         display_name: 'A test workflow',
         links: {
-          subject_sets: Object.keys(subjectSetMap)
-        },
-        subjectSets: {
-          resources: subjectSetMap
+          subject_sets: subjectSets.map(subjectSet => subjectSet.id)
         },
         version: '0.0'
       })
       workflow = Workflow.create(workflowSnapshot)
+      rootStore.workflows.setResources([workflow])
     })
 
     describe('with no selected subject set', function () {
@@ -185,7 +188,7 @@ describe('Model > Workflow', function () {
 
     describe('with a selected subject set', function () {
 
-      it('should return the active subject set', async function () {
+      it('should return the selected subject set ID', async function () {
         expect(workflow.subjectSetId).to.be.undefined()
         const subjectSetID = workflow.links.subject_sets[1]
         await workflow.selectSubjectSet(subjectSetID)
@@ -197,7 +200,7 @@ describe('Model > Workflow', function () {
 
       it('should error', async function () {
         let errorThrown = false
-        sinon.stub(workflow.subjectSets, 'fetchResource').callsFake(async () => undefined)
+        sinon.stub(rootStore.subjectSets, 'fetchResource').callsFake(async () => undefined)
         expect(workflow.subjectSetId).to.be.undefined()
         try {
           await workflow.selectSubjectSet('abcdefg')
@@ -206,7 +209,7 @@ describe('Model > Workflow', function () {
           expect(e.message).to.equal('No subject set abcdefg for workflow workflow1')
         }
         expect(errorThrown).to.be.true()
-        workflow.subjectSets.fetchResource.restore()
+        rootStore.subjectSets.fetchResource.restore()
       })
     })
   })

@@ -4,62 +4,43 @@ import Link from 'next/link'
 import { withRouter } from 'next/router'
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
 
-const StyledSpacedText = styled(SpacedText)`
-  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
-`
 
-const StyledAnchor = styled(Anchor)`
-  border-bottom: 3px solid transparent;
-  white-space: nowrap;
-
-  &:hover {
-    text-decoration: none;
-  }
-  ${props => css`
-    &[href]:hover {
-      border-bottom-color: ${props.color};
-    }
-    &:not([href]) {
-      cursor: default;
-      border-bottom-color: ${props.color};
-    }
-  `}
-
-`
-
-function NavLink (props) {
-  const { color, link, router, weight } = props
-  const { as, href, text } = link
-  const isCurrentPage = router?.pathname === href
-  const isPFELink = !as
+function NavLink ({
+  color,
+  link,
+  router = {},
+  StyledAnchor = Anchor,
+  StyledSpacedText = SpacedText,
+  weight,
+  ...anchorProps
+}) {
+  const { href, text } = link
+  const isCurrentPage = router?.asPath === addQueryParams(href, router)
+  const { owner, project } = router ? router.query : {}
+  const isPFELink = href.startsWith(`/projects/${owner}/${project}/about`)
+  const isProductionAPI = process.env.PANOPTES_ENV === 'production'
 
   const label = <StyledSpacedText children={text} color={color} weight={weight} />
 
   if (isCurrentPage) {
     return (
-      <StyledAnchor color={color} label={label} />
-    )
-  } else if (isPFELink) {
-    return (
-      <StyledAnchor color={color} label={label} href={addQueryParams(href, router)} />
-    )
-  } else {
-    return (
-      <Link as={addQueryParams(as, router)} color={color} href={href} passHref>
-        <StyledAnchor color={color} label={label} />
-      </Link>
+      <StyledAnchor color={color} label={label} {...anchorProps} />
     )
   }
-}
-
-NavLink.defaultProps = {
-  color: 'white',
-  router: {},
-  weight: 'bold'
+  
+  if (isPFELink && isProductionAPI) {
+    const PFEHref = addQueryParams(`https://www.zooniverse.org${href}`, router)
+    return <StyledAnchor color={color} label={label} href={PFEHref} {...anchorProps} />
+  }
+  
+  return (
+    <Link href={addQueryParams(href, router)} color={color} passHref>
+      <StyledAnchor color={color} label={label} {...anchorProps} />
+    </Link>
+  )
 }
 
 NavLink.propTypes = {
@@ -70,6 +51,8 @@ NavLink.propTypes = {
     text: PropTypes.string
   }).isRequired,
   router: PropTypes.object,
+  StyledAnchor: PropTypes.node,
+  StyledSpacedText: PropTypes.node,
   weight: PropTypes.string
 }
 

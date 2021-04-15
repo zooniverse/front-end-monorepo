@@ -14,13 +14,13 @@
   },
   "devDependencies": {
     "@zooniverse/standard": "~1.0.0",
-    "snazzy": "~8.0.0"
+    "snazzy": "~9.0.0"
   },
   "peerDependencies": {
     "grommet": ">=2"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "publishConfig": {
     "access": "public"

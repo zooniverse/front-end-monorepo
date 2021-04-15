@@ -51,7 +51,12 @@ function SubTaskPopup(props) {
       onOpenConfirm()
     } else {
       setSubTaskVisibility(false)
+      activeMark.setPreviousAnnotations()
     }
+  }
+
+  function onWheel(event) {
+    event.stopPropagation()
   }
 
   const defaultPosition = getDefaultPosition(subTaskMarkBounds, MIN_POPUP_HEIGHT, MIN_POPUP_WIDTH)
@@ -62,6 +67,7 @@ function SubTaskPopup(props) {
         active
         closeFn={close}
         headingBackground='transparent'
+        onWheel={onWheel}
         pad={{ bottom: 'medium', left: 'medium', right: 'medium' }}
         plain
         position='top-left'
@@ -85,7 +91,7 @@ function SubTaskPopup(props) {
             const { TaskComponent } = taskRegistry.get(task.type)
 
             if (annotation && TaskComponent) {
-              const requiredEmphasis = task.required && !task.isComplete && confirmationState === 'closed'
+              const requiredEmphasis = task.required && !task.isComplete(annotation) && confirmationState === 'closed'
               return (
                 // horizontal pad for the space for the box-shadow focus style
                 // is there a better way?

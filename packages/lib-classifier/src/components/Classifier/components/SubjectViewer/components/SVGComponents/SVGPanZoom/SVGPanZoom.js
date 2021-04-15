@@ -22,25 +22,28 @@ function SVGPanZoom({
     width: naturalWidth
   }
 
+<<<<<<< HEAD
   const [zoom, setZoom] = useState(1)
   const [viewBox, setViewBox] = useState(defaultViewBox)
 
   function preventDefault(e) {
     e.preventDefault()
   }
+=======
+  const [ zoom, setZoom ] = useState(1)
+  const [ viewBox, setViewBox ] = useState(defaultViewBox)
+>>>>>>> ead1abcdaeb817286196a2b7921a0bbdfe2b651f
 
   function enableZoom() {
     setOnDrag(onDrag)
     setOnPan(onPan)
     setOnZoom(onZoom)
-    scrollContainer.current.addEventListener('wheel', preventDefault)
   }
 
   function disableZoom() {
     setOnDrag(() => true)
     setOnPan(() => true)
     setOnZoom(() => true)
-    scrollContainer.current.removeEventListener('wheel', preventDefault)
   }
 
   useEffect(() => {
@@ -122,6 +125,7 @@ function SVGPanZoom({
     }
   }
 
+<<<<<<< HEAD
   function onWheel(event) {
     const { deltaY } = event
     if (deltaY < 0) {
@@ -131,15 +135,25 @@ function SVGPanZoom({
     }
   }
 
+=======
+>>>>>>> ead1abcdaeb817286196a2b7921a0bbdfe2b651f
   const { x, y, width, height } = scaledViewBox(zoom)
   const scale = imageScale(img)
 
   return (
+<<<<<<< HEAD
     <div ref={scrollContainer} onWheel={onWheel} style={{ width: '100%' }}>
       {cloneElement(children, {
         scale,
         viewBox: `${x} ${y} ${width} ${height}`
       })}
+=======
+    <div
+      ref={scrollContainer}
+      style={{ width: '100%' }}
+    >
+      {cloneElement(children, { scale, viewBox: `${x} ${y} ${width} ${height}` })}
+>>>>>>> ead1abcdaeb817286196a2b7921a0bbdfe2b651f
     </div>
   )
 }

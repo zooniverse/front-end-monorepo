@@ -4,17 +4,17 @@ A server/client-agnostic helper function to add the current URL query parameters
 
 ## Arguments
 
-- `as` (string) - the string to append the query parameters to
+- `url` (string) - the string to append the query parameters to
 - `router` (object) - an instance of Next.js's [router](https://github.com/zeit/next.js/#userouter) object
 
 ## Example
 
 ```js
 function SomeLinkComponent (props) {
-  const { as, href } = props
+  const { href } = props
   const router = useRouter()
   return (
-    <Link as={addQueryParams('/page/1', router)} href='/page/[id]'>
+    <Link href={addQueryParams(href, router)} >
       text
     </Link>
   )

@@ -16,7 +16,7 @@ const config = {
   }
 }
 
-storiesOf('MetaToolsButton', module)
+storiesOf('Components/MetaToolsButton', module)
   .addDecorator(withKnobs)
   .add('plain', () => (
     <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>

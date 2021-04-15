@@ -2,22 +2,10 @@ import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import request from 'superagent'
-import { inject, observer } from 'mobx-react'
-
+import { Box } from 'grommet'
 import ScatterPlotViewer from './ScatterPlotViewer'
 import locationValidator from '../../helpers/locationValidator'
-
-function storeMapper(stores) {
-  const {
-    setOnZoom,
-    setOnPan
-  } = stores.classifierStore.subjectViewer
-
-  return {
-    setOnZoom,
-    setOnPan
-  }
-}
+import { findLocationsByMediaType } from '@helpers'
 
 class ScatterPlotViewerContainer extends Component {
   constructor() {
@@ -50,8 +38,14 @@ class ScatterPlotViewerContainer extends Component {
   }
 
   getSubjectUrl () {
+    let jsonLocation = {}
+    const { subject } = this.props
     // Find the first location that has a JSON MIME type.
-    const jsonLocation = this.props.subject.locations.find(l => l['application/json']) || {}
+    // do we need to support the text file fallback?
+    const locations = findLocationsByMediaType(subject.locations, 'application') || []
+    if (locations?.length > 0 && locations[0]) {
+      jsonLocation = locations[0]
+    }
     const url = Object.values(jsonLocation)[0]
     if (url) {
       return url
@@ -65,10 +59,10 @@ class ScatterPlotViewerContainer extends Component {
     try {
       const url = this.getSubjectUrl()
       const response = await request.get(url)
-
       // Get the JSON data, or (as a failsafe) parse the JSON data if the
       // response is returned as a string
       const responseData = response.body || JSON.parse(response.text)
+
       if (responseData.data && responseData.chartOptions) {
         return responseData
       } else {
@@ -97,7 +91,7 @@ class ScatterPlotViewerContainer extends Component {
       JSONData
     },
       function () {
-        onReady({ target })
+        onReady({ target: {} })
       })
   }
 
@@ -113,17 +107,21 @@ class ScatterPlotViewerContainer extends Component {
       return null
     }
 
+    // TODO: make zooming configurable from chart options per subject
     return (
-      <ScatterPlotViewer
-        data={data}
-        margin={chartOptions?.margin}
-        padding={chartOptions?.padding}
-        xAxisLabel={chartOptions?.xAxisLabel}
-        xAxisLabelOffset={chartOptions?.xAxisLabelOffset}
-        yAxisLabel={chartOptions?.yAxisLabel}
-        yAxisLabelOffset={chartOptions?.yAxisLabelOffset}
-        {...rest}
-      />
+      <Box width='100%' height='500px'>
+        <ScatterPlotViewer
+          data={data}
+          margin={chartOptions?.margin}
+          padding={chartOptions?.padding}
+          xAxisLabel={chartOptions?.xAxisLabel}
+          xAxisLabelOffset={chartOptions?.xAxisLabelOffset}
+          yAxisLabel={chartOptions?.yAxisLabel}
+          yAxisLabelOffset={chartOptions?.yAxisLabelOffset}
+          zooming
+          {...rest}
+        />
+      </Box>
     )
   }
 }
@@ -148,9 +146,4 @@ ScatterPlotViewerContainer.propTypes = {
   })
 }
 
-@inject(storeMapper)
-@observer
-class DecoratedScatterPlotViewerContainer extends ScatterPlotViewerContainer { }
-
-export default DecoratedScatterPlotViewerContainer
-export { ScatterPlotViewerContainer }
+export default ScatterPlotViewerContainer

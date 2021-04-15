@@ -18,7 +18,7 @@ describe('MetadataButton', function () {
     const wrapper = shallow(<MetadataButton />)
     const button = wrapper.find(MetaToolsButton)
     const { icon } = button.props()
-    expect(icon).to.deep.equal(<InfoIcon color='dark-5' size='1em' />)
+    expect(icon).to.deep.equal(<InfoIcon color='dark-5' size='15px' />)
   })
 
   it('should call props.onClick when button is clicked', function () {

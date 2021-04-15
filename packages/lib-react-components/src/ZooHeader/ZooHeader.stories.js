@@ -18,7 +18,7 @@ const config = {
   }
 }
 
-storiesOf('ZooHeader', module)
+storiesOf('Components/ZooHeader', module)
 
   .add('Signed out', () => (
     <Grommet theme={zooTheme} full>

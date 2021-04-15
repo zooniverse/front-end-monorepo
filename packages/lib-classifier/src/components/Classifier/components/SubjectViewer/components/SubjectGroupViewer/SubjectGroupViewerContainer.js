@@ -21,8 +21,9 @@ const DEFAULT_CELL_STYLE = {
   stroke: '#fff',
   strokeWidth: '1',
   overlay: 'rgba(41,103,255,0.3)',
-  highlight: '#2967FF',
-  highlightWidth: '4',
+  selectedStroke: '#2967FF',
+  selectedStrokeWidth: '8',
+  focusOutline: '2px dashed rgba(255, 255, 255, 0.5)',
   background: '#000'
 }
 const DEFAULT_GRID_COLUMNS = 3
@@ -138,7 +139,7 @@ class SubjectGroupViewerContainer extends React.Component {
     if (subject && subject.locations) {
       // TODO: Validate for allowed image media mime types
       
-      const imageUrls = subject.locations.map(obj => Object.values(obj)[0])
+      let imageUrls = subject.locations.map(obj => Object.values(obj)[0])
       const images = await Promise.all(
         imageUrls.map(url => this.fetchImage(url))
       )
@@ -204,8 +205,8 @@ class SubjectGroupViewerContainer extends React.Component {
   doZoom (type) {
     const { zoom } = this.state
     
-    const ARBITRARY_MIN_ZOOM = 0.5
-    const ARBITRARY_MAX_ZOOM = 2
+    const ARBITRARY_MIN_ZOOM = 1
+    const ARBITRARY_MAX_ZOOM = 4
     
     switch (type) {
       case 'zoomin':
@@ -285,6 +286,7 @@ class SubjectGroupViewerContainer extends React.Component {
             ref={this.groupViewer}
             
             images={images}
+            subjectIds={subject.subjectIds}
             
             dragMove={this.dragMove}
             onKeyDown={onKeyDown}
@@ -314,7 +316,8 @@ class SubjectGroupViewerContainer extends React.Component {
 
 SubjectGroupViewerContainer.propTypes = {
   subject: PropTypes.shape({
-    locations: PropTypes.arrayOf(locationValidator)
+    locations: PropTypes.arrayOf(locationValidator),
+    subjectIds: PropTypes.arrayOf(PropTypes.string),
   }),
   loadingState: PropTypes.string,
   onError: PropTypes.func,

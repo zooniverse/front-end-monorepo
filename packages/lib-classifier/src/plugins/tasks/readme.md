@@ -54,8 +54,8 @@ The [base Task model](https://github.com/zooniverse/front-end-monorepo/tree/mast
 
 - _taskKey (string)_ An identifier for the task eg. `T0`
 - _required (boolean = false)_ True if the task must be annotated before continuing.
-- _annotation (Annotation)_ The classification annotation for this task's task key.
-- _isComplete (boolean = true)_ False if the task's annotation is invalid.
+- _annotation (Annotation)_ DEPRECATED The classification annotation for this task's task key.
+- _isComplete(annotation) (boolean = true)_ False if the task is required and `annotation` is invalid.
 - _createAnnotation() (Annotation)_ Returns a new, empty annotation for this task. 
 
 
@@ -67,7 +67,7 @@ All tasks should extend the Task model by implementing the following:
 Tasks may implement the following actions to hook into the workflow classification lifecycle
 - _reset()_ Reset the task for a new subject and annotation.
 - _start()_ Runs each time we enter the task while navigating a workflow.
-- _complete()_ Runs when exiting a task by pressing Next or Done. Creates the task's classification annotation by default.
+- _complete(annotation)_ Runs when exiting a task by pressing Next or Done.
 
 ## Annotation models
 

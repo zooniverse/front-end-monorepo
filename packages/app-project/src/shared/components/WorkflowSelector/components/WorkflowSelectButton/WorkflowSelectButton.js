@@ -22,16 +22,18 @@ function WorkflowSelectButton (props) {
   const { owner, project } = router?.query || {}
 
   const url = `/projects/${owner}/${project}/classify/workflow/${workflow.id}`
-  const href = '/projects/[owner]/[project]/classify/workflow/[workflowID]'
 
-  const as = addQueryParams(url, router)
+  const href = addQueryParams(url, router)
   const completeness = parseInt(workflow.completeness * 100, 10)
+  const buttonLabel = workflow.grouped ?
+    `${workflow.displayName} - ${counterpart('WorkflowSelectButton.setSelection')}` :
+    workflow.displayName
   const label = (
     <span>
       <SpacedText size='10px'>
         {counterpart('WorkflowSelectButton.complete', { completeness })}
       </SpacedText><br />
-      {workflow.displayName}
+      {buttonLabel}
     </span>
   )
 
@@ -41,7 +43,7 @@ function WorkflowSelectButton (props) {
 
   return (
     <>
-      <WorkflowLink as={as} href={href} passHref>
+      <WorkflowLink href={href} passHref>
         <Button
           completeness={completeness}
           icon={<Next />}

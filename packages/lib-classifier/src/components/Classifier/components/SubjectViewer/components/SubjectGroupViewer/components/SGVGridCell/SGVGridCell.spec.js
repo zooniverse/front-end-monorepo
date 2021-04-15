@@ -2,8 +2,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 
 import SGVGridCell from './SGVGridCell'
-
-let wrapper
+import { default as Task } from '@plugins/tasks/SubjectGroupComparisonTask'
 
 const exampleImage = {
   src: 'https://foo.bar/example.png',
@@ -17,11 +16,24 @@ const gridRows = 3
 const gridColumns = 3
 
 describe('Component > SubjectGroupViewer > SGVGridCell', function () {
+  let wrapper, annotation
+  
+  const task = Task.TaskModel.create({
+    question: 'Please select the cells that look weird.',
+    required: true,
+    taskKey: 'init',
+    type: 'subjectGroupComparison'
+  })
+  
   beforeEach(function () {
+    annotation = task.defaultAnnotation()
+    
     wrapper = shallow(
       <SGVGridCell
         image={exampleImage}
         index={0}
+        subjectId={'1000'}
+      
         dragMove={() => {}}
         cellWidth={cellWidth}
         cellHeight={cellHeight}
@@ -34,9 +46,14 @@ describe('Component > SubjectGroupViewer > SGVGridCell', function () {
         }}
         gridRows={gridRows}
         gridColumns={gridColumns}
+        
         panX={0}
         panY={0}
         zoom={1}
+             
+        annotation={annotation}
+        annotationMode={true}
+        cellAnnotated={false}
       />
     )
   })
@@ -74,6 +91,27 @@ describe('Component > SubjectGroupViewer > SGVGridCell', function () {
     it('should position the cell according to predefined cell width/height', function () {
       const transform = wrapper.first().prop('transform')
       expect(transform).to.have.string(`translate(800, 1200)`)
+    })
+  })
+  
+  describe('when clicked', function () {
+    
+    it('should have no reaction if not in annotation mode', function () {
+      wrapper.setProps({ annotationMode: false })
+      const clickableBit = wrapper.find({tabIndex: 0})
+      expect(clickableBit).to.be.empty()
+    })
+    
+    it('should add the cell to the annotations (if in annotation mode, and if cell wasn\'t added already)', function () {
+      wrapper.setProps({ annotationMode: true })
+      annotation.update([
+        { index: 99, subject: '1099' }
+      ])
+      
+      const clickableBit = wrapper.find({tabIndex: 0})
+      clickableBit.simulate('click', { preventDefault: () => {} })
+      expect(annotation.value.length).to.equal(2)
+      expect(annotation.value).to.deep.equal([{ index: 99, subject: '1099' }, { index: 0, subject: '1000' }])
     })
   })
 })

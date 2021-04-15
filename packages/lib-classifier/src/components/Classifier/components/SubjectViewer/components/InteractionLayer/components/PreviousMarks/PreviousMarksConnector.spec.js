@@ -8,13 +8,14 @@ import cuid from 'cuid'
 const mockStores = {
   classifications: {
     active: {
-      interactionTaskAnnotations: []
+      previousInteractionTaskAnnotations: () => []
     }
   },
   subjectViewer: {
     frame: 1
   }, 
   workflowSteps: {
+    activeInteractionTask: {},
     interactionTask: {}
   }
 }
@@ -34,15 +35,19 @@ const transcriptionAnnotation = {
 const mockStoresWithDrawingAnnotations = {
   classifications: {
     active: {
-      interactionTaskAnnotations: [drawingAnnotation]
+      previousInteractionTaskAnnotations: () => [drawingAnnotation]
     }
   },
   subjectViewer: {
     frame: 1
   },
   workflowSteps: {
+    activeInteractionTask: {
+      taskKey: 'T0',
+      type: 'drawing'
+    },
     interactionTask: {
-      shownMarks: 'USER',
+      shownMarks: 'ALL',
       type: 'drawing'
     }
   }
@@ -51,13 +56,17 @@ const mockStoresWithDrawingAnnotations = {
 const mockStoresWithTranscriptionAnnotations = {
   classifications: {
     active: {
-      interactionTaskAnnotations: [transcriptionAnnotation]
+      previousInteractionTaskAnnotations: () => [transcriptionAnnotation]
     }
   },
   subjectViewer: {
     frame: 1
   },
   workflowSteps: {
+    activeInteractionTask: {
+      taskKey: 'T0',
+      type: 'transcription'
+    },
     interactionTask: {
       shownMarks: 'USER',
       type: 'transcription'
@@ -121,7 +130,7 @@ describe('Component > PreviousMarksConnector', function () {
         }
       })
       const wrapper = shallow(<PreviousMarksConnector />)
-      expect(wrapper.find(PreviousMarks).props().shownMarks).to.equal('USER')
+      expect(wrapper.find(PreviousMarks).props().shownMarks).to.equal('ALL')
     })
 
     it('should pass along the type of shownMarks from the transcription task', function () {
@@ -143,9 +152,9 @@ describe('Component > PreviousMarksConnector', function () {
         }
       })
       const wrapper = shallow(<PreviousMarksConnector />)
-      const { interactionTaskAnnotations } = wrapper.find(PreviousMarks).props()
-      expect(interactionTaskAnnotations).to.be.an('array')
-      expect(interactionTaskAnnotations).to.be.empty()
+      const { previousAnnotations } = wrapper.find(PreviousMarks).props()
+      expect(previousAnnotations).to.be.an('array')
+      expect(previousAnnotations).to.be.empty()
     })
   })
 
@@ -157,10 +166,10 @@ describe('Component > PreviousMarksConnector', function () {
         }
       })
       const wrapper = shallow(<PreviousMarksConnector />)
-      const { interactionTaskAnnotations } = wrapper.find(PreviousMarks).props()
-      expect(interactionTaskAnnotations).to.be.an('array')
-      expect(interactionTaskAnnotations).to.have.lengthOf(1)
-      expect(interactionTaskAnnotations[0]).to.equal(drawingAnnotation)
+      const { previousAnnotations } = wrapper.find(PreviousMarks).props()
+      expect(previousAnnotations).to.be.an('array')
+      expect(previousAnnotations).to.have.lengthOf(1)
+      expect(previousAnnotations[0]).to.equal(drawingAnnotation)
     })
 
     it('should pass along those transcription annotations in an array', function () {
@@ -170,10 +179,10 @@ describe('Component > PreviousMarksConnector', function () {
         }
       })
       const wrapper = shallow(<PreviousMarksConnector />)
-      const { interactionTaskAnnotations } = wrapper.find(PreviousMarks).props()
-      expect(interactionTaskAnnotations).to.be.an('array')
-      expect(interactionTaskAnnotations).to.have.lengthOf(1)
-      expect(interactionTaskAnnotations[0]).to.equal(transcriptionAnnotation)
+      const { previousAnnotations } = wrapper.find(PreviousMarks).props()
+      expect(previousAnnotations).to.be.an('array')
+      expect(previousAnnotations).to.have.lengthOf(1)
+      expect(previousAnnotations[0]).to.equal(transcriptionAnnotation)
     })
   })
 })

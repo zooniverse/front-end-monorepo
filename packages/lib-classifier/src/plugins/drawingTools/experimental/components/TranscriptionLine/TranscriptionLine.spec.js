@@ -372,8 +372,8 @@ describe('Components > Drawing marks > Transcription line', function () {
       expect(outerGroupNode.props().stroke).to.equal(blue)
     })
 
-    it('should use the purple drawing tool color when the state is transcribed', function () {
-      const { purple } = zooTheme.global.colors.drawingTools
+    it('should use the pink drawing tool color when the state is transcribed', function () {
+      const { pink } = zooTheme.global.colors.drawingTools
       const wrapper = mount(
         <svg>
           <Grommet
@@ -400,9 +400,9 @@ describe('Components > Drawing marks > Transcription line', function () {
       )
 
       const outerGroupNode = wrapper.find('g').first()
-      expect(outerGroupNode.props().color).to.equal(purple)
-      expect(outerGroupNode.props().fill).to.equal(purple)
-      expect(outerGroupNode.props().stroke).to.equal(purple)
+      expect(outerGroupNode.props().color).to.equal(pink)
+      expect(outerGroupNode.props().fill).to.equal(pink)
+      expect(outerGroupNode.props().stroke).to.equal(pink)
     })
 
     it('should use a gray theme color when the state is complete', function () {

@@ -22,6 +22,7 @@ function DoneAndTalkButton (props) {
         disabled={props.disabled}
         label={Label}
         onClick={props.onClick}
+        style={{ marginRight: '1ch' }}
         type='submit'
       />
     )

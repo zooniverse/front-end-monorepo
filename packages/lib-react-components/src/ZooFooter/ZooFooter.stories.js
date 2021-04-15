@@ -17,7 +17,7 @@ const config = {
   }
 }
 
-storiesOf('ZooFooter', module)
+storiesOf('Components/ZooFooter', module)
 
   .add('Light theme (default)', () => (
     <Grommet

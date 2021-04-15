@@ -8,12 +8,11 @@ describe('Helper > getNavLinks', function () {
       const links = getNavLinks(false, BASE_URL)
       expect(links).to.deep.equal([
         {
-          href: `${BASE_URL}/about`,
+          href: `${BASE_URL}/about/research`,
           text: 'About'
         },
         {
-          as: `${BASE_URL}/classify`,
-          href: '/projects/[owner]/[project]/classify',
+          href: `${BASE_URL}/classify`,
           text: 'Classify'
         },
         {
@@ -33,12 +32,11 @@ describe('Helper > getNavLinks', function () {
       const links = getNavLinks(true, BASE_URL)
       expect(links).to.deep.equal([
         {
-          href: `${BASE_URL}/about`,
+          href: `${BASE_URL}/about/research`,
           text: 'About'
         },
         {
-          as: `${BASE_URL}/classify`,
-          href: '/projects/[owner]/[project]/classify',
+          href: `${BASE_URL}/classify`,
           text: 'Classify'
         },
         {
@@ -62,12 +60,11 @@ describe('Helper > getNavLinks', function () {
       const links = getNavLinks(true, BASE_URL, '1234')
       expect(links).to.deep.equal([
         {
-          href: `${BASE_URL}/about`,
+          href: `${BASE_URL}/about/research`,
           text: 'About'
         },
         {
-          as: `${BASE_URL}/classify/workflow/1234`,
-          href: '/projects/[owner]/[project]/classify/workflow/[workflowID]',
+          href: `${BASE_URL}/classify/workflow/1234`,
           text: 'Classify'
         },
         {

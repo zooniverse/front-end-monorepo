@@ -36,6 +36,12 @@ describe('Component > WorkflowSelectButton', function () {
     expect(wrapper).to.be.ok()
   })
 
+  it('should not add "set selection" to the label', function () {
+    const wrapper = shallow(<WorkflowSelectButton onSelect={onSelect} workflow={WORKFLOW} />)
+    const label = shallow(wrapper.find(Button).prop('label'))
+    expect(label.text()).to.satisfy(label => label.endsWith('Workflow name'))
+  })
+
   describe('when used with a default workflow', function () {
     it('should be a link pointing to `/classify/workflow/:workflow_id`', function () {
       const wrapper = shallow(
@@ -44,26 +50,36 @@ describe('Component > WorkflowSelectButton', function () {
           default: true
         }} />
       ).find(WorkflowLink)
-      expect(wrapper.prop('as')).to.equal(`${router.asPath}/classify/workflow/${WORKFLOW.id}`)
+      expect(wrapper.prop('href')).to.equal(`${router.asPath}/classify/workflow/${WORKFLOW.id}`)
     })
   })
 
   describe('when used with a non-default workflow', function () {
     it('should be a link pointing to `/classify/workflow/:workflow_id`', function () {
       const wrapper = shallow(<WorkflowSelectButton onSelect={onSelect} workflow={WORKFLOW} />).find(WorkflowLink)
-      expect(wrapper.prop('as')).to.equal(`${router.asPath}/classify/workflow/${WORKFLOW.id}`)
+      expect(wrapper.prop('href')).to.equal(`${router.asPath}/classify/workflow/${WORKFLOW.id}`)
     })
   })
 
   describe('with a grouped workflow', function () {
-    it('should call onSelect when clicked', function () {
+    let wrapper
+
+    before(function () {
       const groupedWorkflow = {
         ...WORKFLOW,
         grouped: true
       }
-      const wrapper = shallow(<WorkflowSelectButton onSelect={onSelect} workflow={groupedWorkflow} />)
+      wrapper = shallow(<WorkflowSelectButton onSelect={onSelect} workflow={groupedWorkflow} />)
+    })
+
+    it('should call onSelect when clicked', function () {
       wrapper.find(Button).simulate('click', { preventDefault: () => false })
       expect(onSelect).to.have.been.calledOnce()
+    })
+
+    it('should add "set selection" to the label', function () {
+      const label = shallow(wrapper.find(Button).prop('label'))
+      expect(label.text()).to.satisfy(label => label.endsWith('Workflow name - set selection'))
     })
   })
 })

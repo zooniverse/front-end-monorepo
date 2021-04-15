@@ -1,9 +1,9 @@
-import Document, { Head, Main, NextScript } from 'next/document'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 import React from 'react'
 import { ServerStyleSheet } from 'styled-components'
 
 import { mediaStyle } from '@shared/components/Media'
-import { logNodeError } from '@helpers/logger'
+import { logToSentry } from '@helpers/logger'
 
 const GA_TRACKING_ID = 'GTM-WDW6V4'
 
@@ -13,8 +13,8 @@ const GA_TRACKING_SCRIPT = `
 
 const isProduction = process.env.NODE_ENV === 'production'
 
-process.on('unhandledRejection', logNodeError)
-process.on('uncaughtException', logNodeError)
+process.on('unhandledRejection', logToSentry)
+process.on('uncaughtException', logToSentry)
 
 export default class MyDocument extends Document {
   static async getInitialProps (ctx) {
@@ -33,7 +33,7 @@ export default class MyDocument extends Document {
         styles: <>{initialProps.styles}{sheet.getStyleElement()}</>
       }
     } catch (error) {
-      logNodeError(error)
+      logToSentry(error)
       return {
         html: error.message
       }
@@ -44,7 +44,7 @@ export default class MyDocument extends Document {
 
   render () {
     return (
-      <html>
+      <Html lang="en">
         <Head>
           <style type='text/css'>${mediaStyle}</style>
           {isProduction && (
@@ -65,7 +65,7 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     )
   }
 }

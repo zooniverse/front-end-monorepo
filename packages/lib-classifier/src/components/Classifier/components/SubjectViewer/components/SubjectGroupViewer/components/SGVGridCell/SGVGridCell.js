@@ -4,8 +4,7 @@ import styled, { css } from 'styled-components'
 
 import { draggable } from '@plugins/drawingTools/components'
 
-const BORDER_MULTIPLIER = 2  // Multiply by 2 because half of intended stroke-width will be clipped
-const FOCUS_MULTIPLIER = 6
+const FOCUS_OFFSET = 2
 
 const DraggableImage = styled(draggable('image'))`
     cursor: grab;
@@ -20,8 +19,7 @@ const DraggableRect = styled(draggable('rect'))`
 const ClickableRect = styled('rect')`
     cursor: pointer;
     &:focus {
-      ${props => css`stroke: ${props.cellStyle.highlight};`}
-      ${props => css`stroke-width: ${props.cellStyle.highlightWidth * FOCUS_MULTIPLIER};`}
+      ${props => css`outline: ${props.cellStyle.focusOutline};`}
     }
   }
 `
@@ -30,6 +28,7 @@ function SGVGridCell (props) {
   const {
     image,
     index,
+    subjectId,
     
     dragMove,
     
@@ -88,13 +87,16 @@ function SGVGridCell (props) {
     setChecked(toggledValue)
 
     const annotationValue = annotation?.value?.slice() || []
-    const hasCellIndex = annotationValue.includes(index)
-    
-    if (hasCellIndex && !toggledValue) {  // Remove cell index from annotation values
-      const indexInValue = annotationValue.indexOf(index)
+    const isThisCellSelected = annotationValue.find(item => item.index === index)
+        
+    if (isThisCellSelected && !toggledValue) {  // Remove cell index from annotation values
+      const indexInValue = annotationValue.indexOf(isThisCellSelected)
       annotationValue.splice(indexInValue, 1)
-    } else if (!hasCellIndex && toggledValue) {  // Add cell index to annotation values
-      annotationValue.push(index)
+    } else if (!isThisCellSelected && toggledValue) {  // Add cell index to annotation values
+      annotationValue.push({
+        index,
+        subject: subjectId,
+      })
     }
     
     if (annotation?.update) annotation.update(annotationValue)
@@ -126,10 +128,10 @@ function SGVGridCell (props) {
         />
         <DraggableRect
           fill={(checked) ? cellStyle.overlay : 'none'}
-          stroke={(checked) ? cellStyle.highlight : cellStyle.stroke}
+          stroke={(checked) ? cellStyle.selectedStroke : cellStyle.stroke}
           strokeWidth={(checked)
-            ? cellStyle.highlightWidth * BORDER_MULTIPLIER
-            : cellStyle.strokeWidth * BORDER_MULTIPLIER
+            ? cellStyle.selectedStrokeWidth
+            : cellStyle.strokeWidth
           }
           width={cellWidth}
           height={cellHeight}
@@ -142,8 +144,10 @@ function SGVGridCell (props) {
             aria-label={`Cell at row ${row} column ${col}`}
             fill="transparent"
             cellStyle={cellStyle}
-            width={cellWidth}
-            height={cellHeight}
+            x={FOCUS_OFFSET}
+            y={FOCUS_OFFSET}
+            width={cellWidth - FOCUS_OFFSET * 2}
+            height={cellHeight - FOCUS_OFFSET * 2}
             onClick={(e) => {
               toggleCellAnnotation()
               e.preventDefault()
@@ -164,6 +168,7 @@ function SGVGridCell (props) {
 SGVGridCell.propTypes = {
   image: PropTypes.object,
   index: PropTypes.number,
+  subjectId: PropTypes.string,
             
   dragMove: PropTypes.func,
   
@@ -188,6 +193,7 @@ SGVGridCell.propTypes = {
 SGVGridCell.defaultProps = {
   image: undefined,
   index: 0,
+  subjectId: '',
             
   dragMove: () => {},
   

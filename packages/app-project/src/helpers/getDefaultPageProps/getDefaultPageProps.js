@@ -1,47 +1,43 @@
 import getCookie from '@helpers/getCookie'
-import fetchWorkflowsHelper from '@helpers/fetchWorkflowsHelper'
-import initStore from '@stores'
-import { getSnapshot } from 'mobx-state-tree'
+import getStaticPageProps from '@helpers/getStaticPageProps'
 
 export default async function getDefaultPageProps({ params, query, req, res }) {
 
   // cookie is in the next.js context req object
   const mode = getCookie(req, 'mode') || null
   const dismissedAnnouncementBanner = getCookie(req, 'dismissedAnnouncementBanner') || null
-  const snapshot = {
+
+  const { props: staticProps } = await getStaticPageProps({ params, query })
+  const { project, statusCode, title, workflowID, workflows } = staticProps
+  if (statusCode) {
+    res.statusCode = statusCode
+    return {
+      props: {
+        statusCode,
+        title
+      }
+    }
+  }
+  const { headers, connection } = req
+  const host = generateHostUrl(headers, connection)
+  /*
+    snapshot for store hydration in the browser
+  */
+  const initialState = {
+    project,
     ui: {
       dismissedAnnouncementBanner,
       mode
     }
   }
-  const isServer = true
-  const store = initStore(isServer, snapshot)
 
-  if (params.owner && params.project) {
-    const { owner, project } = params
-    const projectSlug = `${owner}/${project}`
-    const { env } = query
-    await store.project.fetch(projectSlug, { env })
-  }
-
-  const { project, ui } = getSnapshot(store)
-  const { headers, connection } = req
-  const { env } = query
-  const language = project.primary_language
-  const { active_workflows, default_workflow } = project.links
-  const workflows = await fetchWorkflowsHelper(language, active_workflows, default_workflow, env)
   const props = {
-    host: generateHostUrl(headers, connection),
-    initialState: {
-      project,
-      ui
-    },
-    isServer: true,
+    host,
+    initialState,
     query,
     workflows
   }
 
-  const workflowID = store.project.defaultWorkflow
   if (workflowID) {
     props.workflowID = workflowID
   }

@@ -8,17 +8,25 @@ import Point from '../Point'
 
 describe('Drawing tools > Mark', function () {
   const pointTool = PointTool.create({
-    type: 'point'
+    type: 'point',
+    tasks: [{
+      taskKey: 'T0.0.0',
+      type: 'text',
+      instruction: 'dummy task'
+    }]
   })
-  const point = pointTool.createMark({
-    id: 'point1'
-  })
+  let point
   const onDelete = sinon.stub()
   const onFinish = sinon.stub()
   const onSelect = sinon.stub()
   let wrapper
 
-  beforeEach(function () {
+  before(function () {
+    sinon.stub(window, 'scrollTo')
+    point = pointTool.createMark({
+      id: 'point1'
+    })
+    point.finish()
     wrapper = shallow(
       <Mark
         label='Point 1'
@@ -35,6 +43,7 @@ describe('Drawing tools > Mark', function () {
   after(function () {
     onFinish.resetHistory()
     onSelect.resetHistory()
+    window.scrollTo.restore()
   })
 
   it('should render without crashing', function () {
@@ -92,6 +101,7 @@ describe('Drawing tools > Mark', function () {
       }
 
       before(function () {
+        point.setSubTaskVisibility(false)
         wrapper.simulate('keydown', fakeEvent)
       })
 
@@ -107,6 +117,10 @@ describe('Drawing tools > Mark', function () {
         expect(fakeEvent.preventDefault).to.have.been.calledOnce()
       })
 
+      it('should set subtask visibility', function () {
+        expect(point.subTaskVisibility).to.be.true()
+      })
+
       it('should call onFinish', function () {
         expect(onFinish).to.have.been.calledOnce()
       })
@@ -120,6 +134,7 @@ describe('Drawing tools > Mark', function () {
       }
 
       before(function () {
+        point.setSubTaskVisibility(false)
         wrapper.simulate('keydown', fakeEvent)
       })
 
@@ -135,6 +150,10 @@ describe('Drawing tools > Mark', function () {
         expect(fakeEvent.preventDefault).to.have.been.calledOnce()
       })
 
+      it('should set subtask visibility', function () {
+        expect(point.subTaskVisibility).to.be.true()
+      })
+
       it('should call onFinish', function () {
         expect(onFinish).to.have.been.calledOnce()
       })
@@ -147,6 +166,7 @@ describe('Drawing tools > Mark', function () {
         stopPropagation: sinon.stub()
       }
       before(function () {
+        point.setSubTaskVisibility(false)
         wrapper.simulate('keydown', fakeEvent)
       })
 
@@ -197,9 +217,9 @@ describe('Drawing tools > Mark', function () {
   })
 
   describe('useEffect hook', function () {
-    describe('with finished mark and no subTaskVisibility', function () {
-      let markWrapper = (mark) => {
-        return (
+    function markWrapper(mark) {
+      return (
+        <svg>
           <Mark
             label='Point 1'
             mark={mark}
@@ -207,35 +227,78 @@ describe('Drawing tools > Mark', function () {
             onFinish={onFinish}
             onSelect={onSelect}
           >
-            <Point mark={point} />
+            <Point mark={mark} />
           </Mark>
-        )
-      }
+        </svg>
+      )
+    }
 
-      afterEach(function () {
-        onFinish.resetHistory()
-      })
+    describe('with finished mark and no subTaskVisibility', function () {
+      let newMark
 
-      it('should call onFinish', function () {
-        const newMark = Object.assign({}, point, { finished: true })
+      before(function () {
+        window.scrollTo.resetHistory()
+        newMark = pointTool.createMark()
+        newMark.finish()
         wrapper = mount(markWrapper(newMark))
-        expect(onFinish).to.have.been.calledOnce()
       })
 
-      describe('when the mark is not finished', function () {
-        it('should not call onFinish', function () {
-          const newMark = Object.assign({}, point, { finished: false })
-          wrapper = mount(markWrapper(newMark))
-          expect(onFinish).not.to.have.been.called()
-        })
+      after(function () {
+        onFinish.resetHistory()
+        window.scrollTo.resetHistory()
       })
 
-      describe('when the subtask is visible', function () {
-        it('should not call onFinish', function () {
-          const newMark = Object.assign({}, point, { subTaskVisibility: true })
-          wrapper = mount(markWrapper(newMark))
-          expect(onFinish).not.to.have.been.called()
-        })
+      it('should set subtask visibility', function () {
+        expect(newMark.subTaskVisibility).to.be.true()
+      })
+
+      it('should preserve window scroll position', function () {
+        expect(window.scrollTo).to.have.been.calledOnce()
+      })
+    })
+
+    describe('when the mark is not finished', function () {
+      let newMark
+
+      before(function () {
+        newMark = pointTool.createMark()
+        wrapper = mount(markWrapper(newMark))
+      })
+
+      after(function () {
+        onFinish.resetHistory()
+        window.scrollTo.resetHistory()
+      })
+
+      it('should not set subtask visibility', function () {
+        expect(newMark.subTaskVisibility).to.be.false()
+      })
+
+      it('should not scroll the window',function () {
+        expect(window.scrollTo).to.not.have.been.called()
+      })
+    })
+
+    describe('when the subtask is visible', function () {
+      let newMark
+
+      before(function () {
+        newMark = pointTool.createMark()
+        newMark.setSubTaskVisibility(true)
+        wrapper = mount(markWrapper(newMark))
+      })
+
+      after(function () {
+        onFinish.resetHistory()
+        window.scrollTo.resetHistory()
+      })
+
+      it('should not change subtask visibility', function () {
+        expect(newMark.subTaskVisibility).to.be.true()
+      })
+
+      it('should not scroll the window',function () {
+        expect(window.scrollTo).to.not.have.been.called()
       })
     })
   })

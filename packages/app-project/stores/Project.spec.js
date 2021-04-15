@@ -8,7 +8,6 @@ import placeholderEnv from './helpers/placeholderEnv'
 describe('Stores > Project', function () {
   let projectStore
   let rootStore
-  const { mocks } = projects
 
   it('should exist', function () {
     rootStore = Store.create({}, placeholderEnv)
@@ -20,6 +19,10 @@ describe('Stores > Project', function () {
     before(function () {
       rootStore = Store.create({}, placeholderEnv)
       projectStore = rootStore.project
+    })
+
+    it('should have an `about_pages` property', function () {
+      expect(projectStore.about_pages).to.be.an('array')
     })
 
     it('should have a `background` property', function () {
@@ -74,6 +77,10 @@ describe('Stores > Project', function () {
       expect(projectStore.loadingState).to.equal(asyncStates.initialized)
     })
 
+    it('should have a `urls` property', function () {
+      expect(projectStore.urls).to.be.an('array')
+    })
+
     it('should have a `workflow_description` property', function () {
       expect(projectStore.workflow_description).to.be.null()
     })
@@ -81,116 +88,6 @@ describe('Stores > Project', function () {
     after(function () {
       rootStore = null
       projectStore = null
-    })
-  })
-
-  describe('fetch method', function () {
-    it('should exist', function () {
-      const clientStub = {
-        projects: {
-          getWithLinkedResources: sinon.stub().callsFake(() => {
-            return Promise.resolve({ body: mocks.responses.get.projectWithLinkedResources })
-          })
-        }
-      }
-      const rootStore = Store.create({}, { client: clientStub })
-      const project = rootStore.project
-      expect(project.fetch).to.be.a('function')
-    })
-
-    it('should have a loading status while loading', function () {
-      const clientStub = {
-        projects: {
-          getWithLinkedResources: sinon.stub().callsFake(() => {
-            return Promise.resolve({ body: mocks.responses.get.projectWithLinkedResources })
-          })
-        }
-      }
-      const rootStore = Store.create({}, { client: clientStub })
-      const project = rootStore.project
-      expect(project.loadingState).to.equal(asyncStates.initialized)
-
-      project.fetch('foo/bar')
-      expect(project.loadingState).to.equal(asyncStates.loading)
-    })
-
-    describe('with a valid project resource', function () {
-      let project
-
-      before(async function () {
-        const clientStub = {
-          projects: {
-            getWithLinkedResources: sinon.stub().callsFake(() => {
-              return Promise.resolve({ body: mocks.responses.get.projectWithLinkedResources })
-            })
-          }
-        }
-        const rootStore = Store.create({}, { client: clientStub })
-        project = rootStore.project
-        await project.fetch('foo/bar')
-      })
-
-      it('should load successfully', function () {
-        expect(project.loadingState).to.equal(asyncStates.success)
-      })
-
-      it('should have a background', function () {
-        const { projectBackground } = mocks.resources
-        expect(project.background).to.eql(projectBackground)
-      })
-
-      it('should have a display name', function () {
-        const { projectTwo } = mocks.resources
-        expect(project.displayName).to.equal(projectTwo.display_name)
-      })
-
-      it('should have an ID', function () {
-        const { projectTwo } = mocks.resources
-        expect(project.id).to.equal(projectTwo.id)
-      })
-
-      it('should be launch approved', function () {
-        const { projectTwo } = mocks.resources
-        expect(project.launch_approved).to.equal(projectTwo.launch_approved)
-      })
-
-      it('should have a URL slug', function () {
-        const { projectTwo } = mocks.resources
-        expect(project.slug).to.equal(projectTwo.slug)
-      })
-    })
-
-    it('should set an error state if response is an empty array', async function () {
-      let clientStub = {
-        projects: {
-          getWithLinkedResources: sinon.stub().callsFake(() => {
-            return Promise.resolve({ body: { projects: [] } })
-          })
-        }
-      }
-      rootStore = Store.create({}, { client: clientStub })
-      projectStore = rootStore.project
-
-      await projectStore.fetch('foo/bar')
-      expect(projectStore.loadingState).to.equal(asyncStates.error)
-      expect(projectStore.error.message).to.equal('foo/bar could not be found')
-    })
-
-    it('should request with params if defined', async function () {
-      const clientStub = {
-        projects: {
-          getWithLinkedResources: sinon.stub().callsFake(() => {
-            return Promise.resolve({ body: mocks.responses.get.projectWithLinkedResources })
-          })
-        }
-      }
-      rootStore = Store.create({}, { client: clientStub })
-      projectStore = rootStore.project
-
-      await projectStore.fetch('foo/bar', { env: 'staging' })
-      expect(rootStore.client.projects.getWithLinkedResources).to.be.calledOnceWith(
-        { query: { slug: 'foo/bar', env: 'staging' } }
-      )
     })
   })
 
