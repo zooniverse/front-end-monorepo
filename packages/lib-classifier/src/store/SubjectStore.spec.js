@@ -124,6 +124,24 @@ describe('Model > SubjectStore', function () {
     })
   })
 
+  // TODO: test that this uses the subjects/selection endpoint.
+  describe('with specific subjects', function () {
+    let subjects
+    let subjectIDs
+
+    before(function () {
+      const subjectSnapshots = Factory.buildList('subject', 5)
+      subjectIDs = subjectSnapshots.map(subject => subject.id)
+      subjects = mockSubjectStore(subjectSnapshots)
+      subjects.populateQueue(subjectIDs)
+    })
+
+    it('should select those subjects', function () {
+      expect(subjects.resources.size).to.equal(5)
+      expect(Array.from(subjects.resources.keys())).to.deep.equal(subjectIDs)
+    })
+  })
+
   describe('single image subjects', function () {
     let subjects
     let imageSubjects = Factory.buildList('subject', 10, { locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
