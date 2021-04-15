@@ -2,7 +2,7 @@ import { GraphQLClient } from 'graphql-request'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect, useMemo } from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 import {
   env,
@@ -45,83 +45,77 @@ const client = {
 // So we'll unregister the worker for now.
 unregisterWorkers('./queue.js')
 
-export default class Classifier extends React.Component {
-  constructor (props) {
-    super(props)
-    this.classifierStore = RootStore.create({}, {
-      authClient: props.authClient,
-      client
-    })
-    makeInspectable(this.classifierStore)
-  }
+function initStore({ authClient, client, initialState }) {
+  const store = RootStore.create(initialState, {
+    authClient,
+    client
+  })
+  makeInspectable(store)
+  return store
+}
+/**
+  useStore hook adapted from
+  https://github.com/vercel/next.js/blob/5201cdbaeaa72b54badc8f929ddc73c09f414dc4/examples/with-mobx-state-tree/store.js#L49-L52
+*/
+function useStore({ authClient, client, initialState }) {
+  const store = useMemo(() => initStore({ authClient, client, initialState }), [authClient, initialState])
+  return store
+}
 
-  componentDidCatch(error, info) {
-    info.package = '@zooniverse/classifier'
-    this.props.onError(error, info);
-  }
+export default function Classifier({
+  authClient,
+  onAddToCollection = () => true,
+  onCompleteClassification = () => true,
+  onError = () => true,
+  onToggleFavourite = () => true,
+  project,
+  subjectSetID,
+  workflowID
+}) {
 
-  componentDidMount () {
-    const { onAddToCollection, onCompleteClassification, onToggleFavourite, project, subjectSetID, workflowID } = this.props
-    this.setProject(project)
-    this.classifierStore.setOnAddToCollection(onAddToCollection)
-    this.classifierStore.classifications.setOnComplete(onCompleteClassification)
-    this.classifierStore.setOnToggleFavourite(onToggleFavourite)
-    if (workflowID) {
-      this.selectWorkflow(workflowID, subjectSetID)
-    }
-  }
+  const classifierStore = useStore({
+    authClient,
+    client,
+    initialState: {}
+  })
 
-  componentDidUpdate (prevProps) {
-    const { authClient, project, subjectSetID, workflowID } = this.props
-    if (project.id !== prevProps.project.id) {
-      this.setProject(project)
-    }
+  useEffect(function onMount() {
+    classifierStore.setOnAddToCollection(onAddToCollection)
+    classifierStore.classifications.setOnComplete(onCompleteClassification)
+    classifierStore.setOnToggleFavourite(onToggleFavourite)
+  }, [])
 
-    if (workflowID !== prevProps.workflowID) {
-      this.selectWorkflow(workflowID, subjectSetID)
-    }
+  useEffect(function onProjectChange() {
+    classifierStore.projects.setResources([project])
+    classifierStore.projects.setActive(project.id)
+  }, [project.id])
 
-    if (subjectSetID !== prevProps.subjectSetID) {
-      this.selectWorkflow(workflowID, subjectSetID)
-    }
-
-    if (authClient) {
-      this.classifierStore.userProjectPreferences.checkForUser()
-    }
-  }
-
-  setProject (project) {
-    this.classifierStore.projects.setResources([project])
-    this.classifierStore.projects.setActive(project.id)
-  }
-
-  selectWorkflow() {
-    const { classifierStore } = this
-    const { subjectSetID, workflowID } = this.props
+  useEffect(function onURLChange() {
     if (workflowID) {
       classifierStore.workflows.selectWorkflow(workflowID, subjectSetID)
     }
-  }
+  }, [subjectSetID, workflowID])
 
-  render () {
+  useEffect(function onAuthChange() {
+    classifierStore.userProjectPreferences.checkForUser()
+  }, [authClient])
+
+  try {
     return (
-      <Provider classifierStore={this.classifierStore}>
+      <Provider classifierStore={classifierStore}>
           <>
             <Layout />
             <ModalTutorial />
           </>
       </Provider>
     )
+  } catch (error) {
+    const info = {
+      package: '@zooniverse/classifier'
+    }
+    onError(error, info);
   }
-}
-
-Classifier.defaultProps = {
-  mode: 'light',
-  onAddToCollection: () => true,
-  onCompleteClassification: () => true,
-  onError: () => true,
-  onToggleFavourite: () => true,
-  theme: zooTheme
+  return null
 }
 
 Classifier.propTypes = {
