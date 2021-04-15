@@ -25,6 +25,10 @@ class App extends React.Component {
       .then(() => this.fetchProject())
   }
 
+  onError (error, info) {
+    console.error(error)
+  }
+
   initAuthorization () {
     this.setState({ loading: true })
     return oauth.init('7532a403edf16f31fb2a210b8a49f59553d45064e6c292679c3eac53631d73d1')
@@ -111,7 +115,9 @@ class App extends React.Component {
               authClient={oauth}
               onAddToCollection={(subjectId) => console.log(subjectId)}
               onCompleteClassification={(classification, subject) => console.log('onComplete', classification, subject)}
+              onError={this.onError}
               project={this.state.project}
+              subjectID={this.props.subjectID}
               subjectSetID={this.props.subjectSetID}
               workflowID={workflowID}
             />

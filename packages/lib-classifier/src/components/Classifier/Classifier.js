@@ -69,6 +69,7 @@ export default function Classifier({
   onError = () => true,
   onToggleFavourite = () => true,
   project,
+  subjectID,
   subjectSetID,
   workflowID
 }) {
@@ -79,25 +80,32 @@ export default function Classifier({
     initialState: {}
   })
 
+  const {
+    classifications,
+    projects,
+    userProjectPreferences,
+    workflows
+  } = classifierStore
+
   useEffect(function onMount() {
     classifierStore.setOnAddToCollection(onAddToCollection)
-    classifierStore.classifications.setOnComplete(onCompleteClassification)
+    classifications.setOnComplete(onCompleteClassification)
     classifierStore.setOnToggleFavourite(onToggleFavourite)
   }, [])
 
   useEffect(function onProjectChange() {
-    classifierStore.projects.setResources([project])
-    classifierStore.projects.setActive(project.id)
+    projects.setResources([project])
+    projects.setActive(project.id)
   }, [project.id])
 
   useEffect(function onURLChange() {
     if (workflowID) {
-      classifierStore.workflows.selectWorkflow(workflowID, subjectSetID)
+      workflows.selectWorkflow(workflowID, subjectSetID, subjectID)
     }
-  }, [subjectSetID, workflowID])
+  }, [subjectID, subjectSetID, workflowID])
 
   useEffect(function onAuthChange() {
-    classifierStore.userProjectPreferences.checkForUser()
+    userProjectPreferences.checkForUser()
   }, [authClient])
 
   try {
