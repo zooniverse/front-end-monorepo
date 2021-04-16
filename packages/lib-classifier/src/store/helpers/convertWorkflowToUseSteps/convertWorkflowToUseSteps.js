@@ -17,7 +17,7 @@ function getStepKeyFromTaskKey(steps, taskKey) {
   let taskStepKey
   steps.forEach(([stepKey, step]) => {
     if (step.taskKeys.includes(taskKey)) {
-      taskStepKey = step.stepKey
+      taskStepKey = stepKey
     }
   })
   return taskStepKey
@@ -43,16 +43,16 @@ function taskExists(taskKey, tasks) {
   return Object.keys(tasks).includes(taskKey)
 }
 
-export default function convertWorkflowToUseSteps ({ first_task, tasks }) {
-  const steps = []
+export default function convertWorkflowToUseSteps ({ first_task, steps = [], tasks }) {
+  steps = steps.slice()
   const taskKeys = Object.keys(tasks)
 
   const taskKeysIncludedInComboTasks = getTaskKeysIncludedInComboTasks(tasks)
-  const taskKeysToConvertToSteps = difference(taskKeys, taskKeysIncludedInComboTasks)
+  const taskKeysToConvertToSteps = steps.length ? [] : difference(taskKeys, taskKeysIncludedInComboTasks)
 
   const firstTask = tasks[first_task]
 
-  if (first_task) {
+  if (steps.length === 0 && first_task) {
     let firstStep = {
       next: firstTask.next, // temporarily set next to task key, convert to step key once steps created
       stepKey: 'S0',
@@ -99,6 +99,13 @@ export default function convertWorkflowToUseSteps ({ first_task, tasks }) {
 
   // convert step.next from task key to step key
   steps.forEach(([stepKey, step]) => {
+    if (!step.next) {
+      const [ taskKey ] = step.taskKeys
+      const task = tasks[taskKey]
+      if (task?.next) {
+        step.next = task.next
+      }
+    }
     if (taskExists(step.next, tasks)) {
       step.next = getNextStepFromTaskKey(step.next, steps, tasks)
     }
