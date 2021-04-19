@@ -1,0 +1,19 @@
+{
+  "diff": true,
+  "extension": [
+    "js"
+  ],
+  "require": [
+    "@babel/register",
+    "@babel/polyfill",
+    "chai/register-expect",
+    "chai/register-should",
+    "ignore-styles"
+  ],
+  "file": [
+    "./test/enzyme-config.js",
+    "./test/setup.js"
+  ],
+  "reporter": "spec",
+  "ui": "bdd"
+}

@@ -61,7 +61,12 @@ Characteristics.propTypes = {
   characteristics: PropTypes.objectOf(
     PropTypes.shape({
       label: PropTypes.string,
-      values: PropTypes.object,
+      values: PropTypes.objectOf(
+        PropTypes.shape({
+          image: PropTypes.string,
+          label: PropTypes.string
+        })
+      ),
       valuesOrder: PropTypes.arrayOf(PropTypes.string)
     })
   ),

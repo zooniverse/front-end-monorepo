@@ -83,57 +83,36 @@ describe('withKeyZoom', function () {
       }
     ]
 
+    function testAllowedTag(tagName) {
+      describe(`when the event target is ${tagName}`, function () {
+        afterEach(function () {
+          panLeft.resetHistory()
+          panRight.resetHistory()
+          panUp.resetHistory()
+          panDown.resetHistory()
+          zoomIn.resetHistory()
+          zoomOut.resetHistory()
+        })
 
-
-    describe('when the event target is svg', function () {
-      afterEach(function () {
-        panLeft.resetHistory()
-        panRight.resetHistory()
-        panUp.resetHistory()
-        panDown.resetHistory()
-        zoomIn.resetHistory()
-        zoomOut.resetHistory()
-      })
-
-      bindings.forEach(function ({ key, name, handler }) {
-        it(`should call ${name} for ${key}`, function () {
-          const fakeEvent = {
-            key,
-            preventDefault: sinon.stub(),
-            target: {
-              tagName: 'svg'
+        bindings.forEach(function ({ key, name, handler }) {
+          it(`should call ${name} for ${key}`, function () {
+            const fakeEvent = {
+              key,
+              preventDefault: sinon.stub(),
+              target: {
+                tagName
+              }
             }
-          }
-          wrappedComponent.props.onKeyDown(fakeEvent)
-          expect(handler).to.have.been.calledOnce()
+            wrappedComponent.props.onKeyDown(fakeEvent)
+            expect(handler).to.have.been.calledOnce()
+          })
         })
       })
-    })
+    }
 
-    describe('when the event target is a button', function () {
-      afterEach(function () {
-        panLeft.resetHistory()
-        panRight.resetHistory()
-        panUp.resetHistory()
-        panDown.resetHistory()
-        zoomIn.resetHistory()
-        zoomOut.resetHistory()
-      })
-
-      bindings.forEach(function ({ key, name, handler }) {
-        it(`should call ${name} for ${key}`, function () {
-          const fakeEvent = {
-            key,
-            preventDefault: sinon.stub(),
-            target: {
-              tagName: 'BUTTON'
-            }
-          }
-          wrappedComponent.props.onKeyDown(fakeEvent)
-          expect(handler).to.have.been.calledOnce()
-        })
-      })
-    })
+    testAllowedTag('SVG')
+    testAllowedTag('BUTTON')
+    testAllowedTag('G')
 
     describe('when the event target is something else', function () {
       afterEach(function () {

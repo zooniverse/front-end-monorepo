@@ -256,22 +256,6 @@ describe('Component > InteractionLayer', function () {
         wrapper.find(DrawingCanvas).simulate('pointerup', fakeEvent)
         expect(mockMark.finish).to.have.been.calledOnce()
       })
-
-      it('should release the pointer', function () {
-        const fakeEvent = {
-          pointerId: 'fakePointer',
-          type: 'pointer',
-          target: {
-            setPointerCapture: sinon.stub(),
-            releasePointerCapture: sinon.stub()
-          }
-        }
-        const finishedMark = Object.assign({}, mockMark, { finished: true })
-        wrapper.setProps({ activeMark: finishedMark })
-        wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
-        wrapper.find(DrawingCanvas).simulate('pointerup', fakeEvent)
-        expect(fakeEvent.target.releasePointerCapture.withArgs('fakePointer')).to.have.been.calledOnce()
-      })
     })
   })
 
