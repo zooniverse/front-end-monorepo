@@ -1,5 +1,4 @@
 import { Box, DropButton } from 'grommet'
-import { Filter } from 'grommet-icons'
 import PropTypes from 'prop-types'
 import React, { useRef } from 'react'
 import styled, { css } from 'styled-components'
@@ -7,6 +6,7 @@ import { SpacedText } from '@zooniverse/react-components'
 
 import Characteristics from '../Characteristics'
 import FilterButton from '../Characteristics/components/FilterButton'
+import FilterIcon from './FilterIcon'
 
 import counterpart from 'counterpart'
 import en from '../locales/en'
@@ -73,7 +73,7 @@ export default function FilterStatus (props) {
         }}
         dropTarget={filterStatusRef.current}
         gap='none'
-        icon={<Filter />}
+        icon={<FilterIcon />}
         label={
           <StyledLabel 
             color='neutral-2'
