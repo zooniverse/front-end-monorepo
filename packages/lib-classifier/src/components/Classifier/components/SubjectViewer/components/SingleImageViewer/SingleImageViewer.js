@@ -63,7 +63,7 @@ SingleImageViewer.propTypes = {
     id: PropTypes.string,
     text: PropTypes.string
   }),
-  viewBox: PropTypes.string,
+  viewBox: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
   zoomControlFn: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   zooming: PropTypes.bool

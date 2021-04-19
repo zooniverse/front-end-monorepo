@@ -137,7 +137,7 @@ SVGPanZoom.propTypes = {
   naturalWidth: PropTypes.number.isRequired,
   setOnPan: PropTypes.func,
   setOnZoom: PropTypes.func,
-  src: PropTypes.string,
+  src: PropTypes.string.isRequired,
   zooming: PropTypes.bool
 }
 
