@@ -1,12 +1,4 @@
-import { Factory } from 'rosie'
-import sinon from 'sinon'
-
-import AnnotatedSteps from './'
-
-import RootStore from '@store'
-import { SubjectFactory, WorkflowFactory, ProjectFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
-import stubPanoptesJs from '@test/stubPanoptesJs'
 
 describe('Model > AnnotatedSteps', function () {
   let store

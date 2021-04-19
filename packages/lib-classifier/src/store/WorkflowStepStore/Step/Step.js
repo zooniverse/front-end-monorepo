@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { getRoot, types } from 'mobx-state-tree'
 import taskRegistry, { taskModels } from '@plugins/tasks'
 
 function taskDispatcher (snapshot) {
@@ -45,14 +45,23 @@ const Step = types
     },
 
     nextStepKey(annotations = []) {
+      const { workflowSteps } = getRoot(self)
       // assume only one branching question per step.
-      const [ singleChoiceAnnotation ] = annotations.filter(annotation => annotation.taskType === 'single')
-      if (singleChoiceAnnotation) {
-        const [singleChoiceTask] = self.tasks.filter(task => task.taskKey === singleChoiceAnnotation.task)
-        const selectedAnswer = singleChoiceTask?.answers[singleChoiceAnnotation.value]
-        return selectedAnswer?.next
+      if (self.isThereBranching) {
+        const [singleChoiceAnnotation] = annotations.filter(annotation => annotation.taskType === 'single')
+        if (singleChoiceAnnotation) {
+          // We use the workflowSteps' active step tasks 
+          // because they've been correctly converted for backwards compatibility
+          const [singleChoiceTask] = workflowSteps.active.tasks.filter(task => task.taskKey === singleChoiceAnnotation.task)
+          const selectedAnswer = singleChoiceTask?.answers[singleChoiceAnnotation.value]
+          return selectedAnswer?.next
+        }
+
+        return undefined
       }
-      return self.next
+
+      // Get next step in map order or step.next if recursing
+      return workflowSteps.getNextStepKey()
     }
   }))
   .actions(self => ({

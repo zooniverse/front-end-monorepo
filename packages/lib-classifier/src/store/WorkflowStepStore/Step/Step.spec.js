@@ -1,4 +1,3 @@
-import { types } from 'mobx-state-tree'
 import sinon from 'sinon'
 import Step from './Step'
 import {
@@ -6,6 +5,7 @@ import {
   SingleChoiceTaskFactory
 } from '@test/factories'
 import taskRegistry from '@plugins/tasks'
+import createStore from '../../helpers/createStore'
 
 describe('Model > Step', function () {
   let step
@@ -247,50 +247,129 @@ describe('Model > Step', function () {
   })
 
   describe('nextStepKey()', function () {
-    describe('without a single choice branching task', function () {
-      let tasks
-      before(function () {
-        tasks = [
-          MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: '', next: 'T2' })
+    describe('default behavior', function () {
+      it('should be the next step in map order', function () {
+        const stepOneTasks = [
+          MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: '' })
         ]
-      })
+        const stepTwoTasks = [
+          SingleChoiceTaskFactory.build({ taskKey: 'T2' })
+        ]
+        const store = createStore({
+          workflowSteps: {
+            active: 'S1',
+            steps: {
+              S1: {
+                stepKey: 'S1',
+                taskKeys: ['T1'],
+                tasks: stepOneTasks
+              },
+              S2: {
+                stepKey: 'S2',
+                taskKeys: ['T2'],
+                tasks: stepTwoTasks
+              }
+            }
+          }
+        })
+        expect(store.workflowSteps.active.nextStepKey()).to.equal('S2')
 
-      it('should be step.next', function () {
-        const step = Step.create({ stepKey: 'S1', taskKeys: ['T1'], tasks, next: 'S2' })
-        const annotations = [{ task: 'T1', taskType: 'multiple', value: [0,1] }]
-        expect(step.nextStepKey(annotations)).to.equal('S2')
       })
     })
 
     describe('with a single choice branching task', function () {
-      let tasks
+      let store
       before(function () {
-        tasks = [
+        const stepOneTasks = [
           SingleChoiceTaskFactory.build({
-          taskKey: 'T2',
-          required: '',
-          answers: [
-            { label: 'Red', next: 'T1' },
-            { label: 'Blue', next: 'T3' }
-          ]
-        })
+            taskKey: 'T2',
+            required: '',
+            answers: [
+              { label: 'Red', next: 'S2' },
+              { label: 'Blue', next: 'S3' }
+            ]
+          })
         ]
+        const stepTwoTasks = [
+          MultipleChoiceTaskFactory.build({
+            taskKey: 'T3'
+          })
+        ]
+        const stepThreeTasks = [
+          MultipleChoiceTaskFactory.build({
+            taskKey: 'T4'
+          })
+        ]
+        store = createStore({
+          workflowSteps: {
+            active: 'S1',
+            steps: {
+              S1: {
+                stepKey: 'S1',
+                taskKeys: ['T2'],
+                tasks: stepOneTasks
+              },
+              S2: {
+                stepKey: 'S2',
+                taskKeys: ['T3'],
+                tasks: stepTwoTasks
+              },
+              S3: {
+                stepKey: 'S2',
+                taskKeys: ['T4'],
+                tasks: stepThreeTasks
+              }
+            }
+          }
+        })
       })
 
       describe('and no selected answer', function () {
         it('should be undefined', function () {
-          const step = Step.create({ stepKey: 'S2', taskKeys: ['T2'], tasks })
-          const annotations = []
-          expect(step.nextStepKey(annotations)).to.be.undefined()
+          expect(store.workflowSteps.active.nextStepKey()).to.be.undefined()
         })
       })
 
       describe('and a selected answer', function () {
         it('should be answer.next', function () {
-          const step = Step.create({ stepKey: 'S2', taskKeys: ['T2'], tasks })
           const annotations = [{ task: 'T2', taskType: 'single', value: 0 }]
-          expect(step.nextStepKey(annotations)).to.equal('T1')
+          expect(store.workflowSteps.active.nextStepKey(annotations)).to.equal('S2')
+          const newAnnotations = [{ task: 'T2', taskType: 'single', value: 1 }]
+          expect(store.workflowSteps.active.nextStepKey(newAnnotations)).to.equal('S3')
         })
+      })
+    })
+
+    describe('with step recursion', function () {
+      it('should be step.next', function () {
+        const store = createStore({
+          workflowSteps: {
+            active: 'S2',
+            steps: {
+              S1: {
+                stepKey: 'S1',
+                taskKeys: ['T1'],
+                tasks: [
+                  MultipleChoiceTaskFactory.build({
+                    taskKey: 'T1'
+                  })
+                ]
+              },
+              S2: {
+                stepKey: 'S2',
+                taskKeys: ['T3'],
+                tasks: [
+                  MultipleChoiceTaskFactory.build({
+                    taskKey: 'T3'
+                  })
+                ],
+                next: 'S1'
+              }
+            }
+          }
+        })
+
+        expect(store.workflowSteps.active.nextStepKey()).to.equal('S1')
       })
     })
   })
