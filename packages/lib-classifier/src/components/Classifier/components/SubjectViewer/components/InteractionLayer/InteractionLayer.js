@@ -81,7 +81,8 @@ function InteractionLayer({
     setActiveMark(mark)
     setCreating(true)
     mark.setSubTaskVisibility(false)
-    mark.setVideoTime(timeStamp) // Add a time value for tools that care about time. For most tools, this value is ignored.
+    // Add a time value for tools that care about time. For most tools, this value is ignored.
+    mark.setVideoTime(timeStamp)
   }
 
   function onPointerDown(event) {

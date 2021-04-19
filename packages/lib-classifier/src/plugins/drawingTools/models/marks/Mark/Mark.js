@@ -124,7 +124,8 @@ const BaseMark = types
     return {
       finish,
       setPreviousAnnotations,
-      setSubTaskVisibility
+      setSubTaskVisibility,
+      setVideoTime
     }
   })
 
