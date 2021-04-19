@@ -36,14 +36,13 @@ class TranscribedLines extends React.Component {
     this.showConsensus = this.showConsensus.bind(this)
   }
 
-  createMark (line, ref) {
+  createMark (line) {
     const { activeTool, activeToolIndex, setActiveMark } = this.props.task
     const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
     const markSnapshot = { x1, y1, x2, y2, toolIndex: activeToolIndex }
 
     if (activeTool) {
       const mark = activeTool.createMark(markSnapshot)
-      mark.finish()
       setActiveMark(mark)
 
       let previousAnnotationValuesForEachMark = []
@@ -56,8 +55,8 @@ class TranscribedLines extends React.Component {
         }
         previousAnnotationValuesForEachMark.push(previousAnnotationValuesForThisMark)
       })
-      mark.setSubTaskVisibility(true, ref?.current, previousAnnotationValuesForEachMark)
-      ref?.current?.blur()
+      mark.setPreviousAnnotations(previousAnnotationValuesForEachMark)
+      mark.finish()
     }
   }
 
@@ -147,7 +146,6 @@ class TranscribedLines extends React.Component {
             const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
             const mark = { length, x1, y1, x2, y2 }
             const id = `transcribed-${index}`
-            const ref = React.createRef()
 
             return (
               <Tooltip
@@ -156,19 +154,18 @@ class TranscribedLines extends React.Component {
                 label={<TooltipLabel fill={fills.transcribed} label={counterpart('TranscribedLines.transcribed')} />}
               >
                 <ConsensusLine
-                  ref={ref}
                   role='button'
                   aria-describedby={id}
                   aria-disabled={disabled.toString()}
                   aria-label={line.consensusText}
                   focusColor={focusColor}
                   onClick={() => {
-                    if (!disabled) this.onClick(this.createMark, line, ref)
+                    if (!disabled) this.createMark(line)
                   }}
                   onKeyDown={(event) => {
-                    if (!disabled) this.onKeyDown(event, this.createMark, line, ref)
+                    if (!disabled) this.onKeyDown(event, this.createMark, line)
                   }}
-                  tabIndex={0}
+                  tabIndex={disabled ? -1 : 0}
                 >
                   <TranscriptionLine
                     state='transcribed'

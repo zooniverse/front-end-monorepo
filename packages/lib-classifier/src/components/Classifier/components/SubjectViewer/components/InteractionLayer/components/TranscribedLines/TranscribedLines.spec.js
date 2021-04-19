@@ -118,8 +118,9 @@ describe('Component > TranscribedLines', function () {
       showConsensusStub.restore()
     })
 
-    it('should call React createRef for each line', function () {
-      expect(React.createRef.callCount).to.equal(consensusLines.length)
+    it('should create a ref for each completed line', function () {
+      const completedLines = consensusLines.filter(line => line.consensusReached)
+      expect(React.createRef.callCount).to.equal(completedLines.length)
     })
 
     it('should call ConsensusLine callback with expected ref on click', function () {
@@ -271,12 +272,6 @@ describe('Component > TranscribedLines', function () {
         expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
         task.setActiveMark(undefined)
       })
-    })
-
-    it('should call blur on the transcribed line', function () {
-      const line = wrapper.find({ 'aria-describedby': `transcribed-0` })
-      line.simulate('click')
-      expect(currentMock.current.blur).to.have.been.calledOnce()
     })
 
     it('should have an explanatory tooltip', function () {
