@@ -22,6 +22,10 @@ describe('Model > SurveyAnnotation', function () {
       expect(surveyAnnotation).to.be.an('object')
     })
 
+    it('should have _choiceInProgress as false', function () {
+      expect(surveyAnnotation._choiceInProgress).to.be.false()
+    })
+
     it('should be complete', function () {
       expect(surveyAnnotation.isComplete).to.be.true()
     })
@@ -105,6 +109,33 @@ describe('Model > SurveyAnnotation', function () {
 
     it('should be complete', function () {
       expect(surveyAnnotation.isComplete).to.be.true()
+    })
+  })
+
+  describe('with _choiceInProgress as true', function () {
+    let surveyAnnotationInProgress
+
+    before(function () {
+      surveyAnnotationInProgress = SurveyAnnotation.create({
+        id: 'survey1',
+        task: 'T0',
+        taskType: 'survey',
+        value: [{
+          answers: {},
+          choice: 'WHISTLE',
+          filters: {}
+        }],
+        _choiceInProgress: true
+      })
+    })
+
+    it('should be incomplete', function () {
+      expect(surveyAnnotationInProgress.isComplete).to.be.false()
+    })
+
+    it('should update _choiceInProgress to false when action inProgress is called with false', function () {
+      surveyAnnotationInProgress.setChoiceInProgress(false)
+      expect(surveyAnnotationInProgress._choiceInProgress).to.be.false()
     })
   })
 
