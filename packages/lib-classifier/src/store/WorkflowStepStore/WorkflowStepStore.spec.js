@@ -11,6 +11,7 @@ import {
 } from '@test/factories'
 import { Factory } from 'rosie'
 import stubPanoptesJs from '@test/stubPanoptesJs'
+import { expect } from 'chai'
 
 async function setupStores (clientStub, project, workflow) {
   const store = RootStore.create({
@@ -49,11 +50,13 @@ describe('Model > WorkflowStepStore', function () {
       workflow = WorkflowFactory.build({
         steps: [
           ['S1', { taskKeys: ['T1'] }],
-          ['S2', { taskKeys: ['T2'] }]
+          ['S2', { taskKeys: ['T2'] }],
+          ['S3', { taskKeys: ['T3'], next: 'S1' }]
         ],
         tasks: {
           T1: SingleChoiceTaskFactory.build(),
-          T2: MultipleChoiceTaskFactory.build()
+          T2: MultipleChoiceTaskFactory.build(),
+          T3: MultipleChoiceTaskFactory.build()
         }
       })
 
@@ -91,16 +94,8 @@ describe('Model > WorkflowStepStore', function () {
       })
 
       it('should set the next step', function () {
-        STORE_STEPS.forEach((step, stepIndex) => {
-          let nextStep
-          if (STORE_STEPS.length > 0 && stepIndex + 2 <= STORE_STEPS.length) {
-            nextStep = step[stepIndex + 1]
-          }
-          if (nextStep) {
-            expect(step.next).to.equal(nextStep.stepKey)
-          }
-
-          expect(step.next).to.be.undefined()
+        STORE_STEPS.forEach((step, index) => {
+          expect(step.next).to.equal(workflow.steps[index].next)
         })
       })
     })
@@ -123,7 +118,6 @@ describe('Model > WorkflowStepStore', function () {
       const firstStep = workflow.steps[0]
       const firstStepKey = firstStep[0]
       const firstStepSnapshot = firstStep[1]
-      const secondStepKey = workflow.steps[1][0]
       workflowSteps.selectStep()
       const storedStep = workflowSteps.active
 
