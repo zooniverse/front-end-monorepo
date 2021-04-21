@@ -8,9 +8,13 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-function NextButton (props) {
-  const { autoFocus, disabled, onClick } = props
+function NextButton ({
+  autoFocus = false,
+  disabled = false,
+  onClick = () => true
+}) {
   const label = counterpart('NextButton.next')
+
   return (
     <PrimaryButton
       autoFocus={autoFocus}
@@ -22,15 +26,9 @@ function NextButton (props) {
   )
 }
 
-NextButton.defaultProps = {
-  autoFocus: false,
-  disabled: false
-}
-
 NextButton.propTypes = {
   autoFocus: bool,
-  disabled: bool,
-  onClick: func.isRequired
+  disabled: bool
 }
 
 export default withThemeContext(NextButton, nextButtonTheme)

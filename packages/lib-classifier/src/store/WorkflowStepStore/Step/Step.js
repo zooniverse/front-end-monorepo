@@ -56,6 +56,13 @@ const Step = types
     }
   }))
   .actions(self => ({
+    completeTasks(annotations) {
+      self.tasks.forEach((task) => {
+        const [ annotation ] = annotations.filter(annotation => annotation.task === task.taskKey)
+        task.complete(annotation)
+      })
+    },
+
     reset () {
       self.tasks.forEach(task => task.reset())
     }
