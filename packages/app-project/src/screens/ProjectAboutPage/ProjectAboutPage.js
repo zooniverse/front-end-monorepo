@@ -1,11 +1,14 @@
 import { Box, Grid, Heading } from 'grommet'
 import { arrayOf, bool, object, shape, string } from 'prop-types'
 import styled, { withTheme } from 'styled-components'
-import { withResponsiveContext } from '@zooniverse/react-components'
 
 /** Components */
 import StandardLayout from '@shared/components/StandardLayout'
-import { SpacedHeading, SpacedText } from '@zooniverse/react-components'
+import {
+  SpacedHeading,
+  SpacedText,
+  withResponsiveContext
+} from '@zooniverse/react-components'
 import AboutSidebar from './components/AboutSidebar'
 import AboutDropdownNav from './components/AboutDropdownNav'
 import TeamMember from './components/TeamMember'

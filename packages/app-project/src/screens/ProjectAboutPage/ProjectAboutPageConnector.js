@@ -7,14 +7,10 @@ import ProjectAboutPage from './ProjectAboutPage'
 /**
   Connect the about page to the store. Pass down correct aboutPages data.
 */
-function ProjectAboutPageConnector ({ pageType, teamArray }) {
+function ProjectAboutPageConnector({ pageType, teamArray }) {
   const {
     store: {
-      project: {
-        inBeta = false,
-        about_pages = [],
-        display_name = ''
-      }
+      project: { inBeta = false, about_pages = [], display_name = '' }
     }
   } = React.useContext(MobXProviderContext)
   const [aboutPageData] = about_pages.filter(page => page.url_key === pageType)
@@ -26,7 +22,11 @@ function ProjectAboutPageConnector ({ pageType, teamArray }) {
       projectDisplayName={display_name}
     />
   ) : (
-    <p>No data for this page...</p>
+    <ProjectAboutPage
+      inBeta={inBeta}
+      teamArray={teamArray}
+      projectDisplayName={display_name}
+    />
   )
 }
 
