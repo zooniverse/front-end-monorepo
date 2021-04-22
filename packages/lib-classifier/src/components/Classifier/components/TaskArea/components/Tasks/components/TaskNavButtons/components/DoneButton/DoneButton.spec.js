@@ -18,34 +18,13 @@ describe('DoneButton', function () {
     })
   })
 
-  it('should call props.onClick for the onClick event', function () {
-    const onClickSpy = sinon.spy()
-    const wrapper = shallow(<DoneButton onClick={onClickSpy} />)
-    wrapper.simulate('click')
-    expect(onClickSpy).to.have.been.calledOnce()
-  })
-
-  xdescribe('props.goldStandardMode', function () {
-    it('should not render a star icon if props.goldStandardMode is false', function () {
-      const wrapper = shallow(<DoneButton />)
-      expect(wrapper.find('i.fa-star')).to.have.lengthOf(0)
-    })
-
-    it('should render a star icon if props.goldStandardMode is true', function () {
-      const wrapper = shallow(<DoneButton goldStandardMode />)
-      expect(wrapper.find('i.fa-star')).to.have.lengthOf(1)
-    })
-  })
-
-  xdescribe('props.demoMode', function () {
-    it('should not render a trash icon if props.demoMode is false', function () {
-      const wrapper = shallow(<DoneButton />)
-      expect(wrapper.find('i.fa-trash')).to.have.lengthOf(0)
-    })
-
-    it('should render a trash icon if props.demoMode is true', function () {
-      const wrapper = shallow(<DoneButton demoMode />)
-      expect(wrapper.find('i.fa-trash')).to.have.lengthOf(1)
+  describe('on click', function () {
+    it('should call the onClick callback', function () {
+      const onClick = sinon.spy()
+      const preventDefault = sinon.spy()
+      const wrapper = shallow(<DoneButton onClick={onClick} />)
+      wrapper.simulate('click', { preventDefault })
+      expect(onClick).to.have.been.calledOnce()
     })
   })
 })

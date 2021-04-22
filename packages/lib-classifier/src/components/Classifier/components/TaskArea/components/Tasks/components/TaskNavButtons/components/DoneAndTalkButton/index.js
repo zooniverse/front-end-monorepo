@@ -1,1 +1,1 @@
-export { default } from './DoneAndTalkButtonContainer'
+export { default } from './DoneAndTalkButtonConnector'
