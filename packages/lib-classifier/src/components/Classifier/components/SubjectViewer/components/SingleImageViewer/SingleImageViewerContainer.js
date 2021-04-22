@@ -17,25 +17,25 @@ const DraggableImage = styled(draggable('image'))`
 `
 
 class SingleImageViewerContainer extends React.Component {
-  constructor () {
+  constructor() {
     super()
     this.dragMove = this.dragMove.bind(this)
     this.setOnDrag = this.setOnDrag.bind(this)
-    
+
     this.imageViewer = React.createRef()
     this.subjectImage = React.createRef()
 
     this.state = {
-      img: {},
+      img: {}
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.enableRotation()
     this.onLoad()
   }
 
-  fetchImage (url) {
+  fetchImage(url) {
     const { ImageObject } = this.props
     return new Promise((resolve, reject) => {
       const img = new ImageObject()
@@ -46,15 +46,15 @@ class SingleImageViewerContainer extends React.Component {
     })
   }
 
-  dragMove (event, difference) {
+  dragMove(event, difference) {
     this.onDrag && this.onDrag(event, difference)
   }
 
-  setOnDrag (callback) {
+  setOnDrag(callback) {
     this.onDrag = callback
   }
 
-  async preload () {
+  async preload() {
     const { subject } = this.props
     if (subject && subject.locations) {
       const imageUrl = Object.values(subject.locations[0])[0]
@@ -65,10 +65,12 @@ class SingleImageViewerContainer extends React.Component {
     return {}
   }
 
-  async getImageSize () {
+  async getImageSize() {
     const img = await this.preload()
     const svg = this.imageViewer.current
-    const { width: clientWidth, height: clientHeight } = svg ? svg.getBoundingClientRect() : {}
+    const { width: clientWidth, height: clientHeight } = svg
+      ? svg.getBoundingClientRect()
+      : {}
     return {
       clientHeight,
       clientWidth,
@@ -77,10 +79,15 @@ class SingleImageViewerContainer extends React.Component {
     }
   }
 
-  async onLoad () {
+  async onLoad() {
     const { onError, onReady } = this.props
     try {
-      const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
+      const {
+        clientHeight,
+        clientWidth,
+        naturalHeight,
+        naturalWidth
+      } = await this.getImageSize()
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
       onReady({ target })
     } catch (error) {
@@ -89,7 +96,7 @@ class SingleImageViewerContainer extends React.Component {
     }
   }
 
-  render () {
+  render() {
     const {
       enableInteractionLayer,
       loadingState,
@@ -106,21 +113,20 @@ class SingleImageViewerContainer extends React.Component {
     const { naturalHeight, naturalWidth, src } = img
 
     if (loadingState === asyncStates.error) {
-      return (
-        <div>Something went wrong.</div>
-      )
+      return <div>Something went wrong.</div>
     }
 
     if (!src) {
       return null
     }
-    
+
     if (!naturalWidth) {
       return null
     }
 
     const svg = this.imageViewer.current
-    const enableDrawing = (loadingState === asyncStates.success) && enableInteractionLayer
+    const enableDrawing =
+      loadingState === asyncStates.success && enableInteractionLayer
     const SubjectImage = move ? DraggableImage : 'image'
     const subjectImageProps = {
       height: naturalHeight,
@@ -153,9 +159,7 @@ class SingleImageViewerContainer extends React.Component {
             zooming={zooming}
           >
             <g ref={this.subjectImage}>
-              <SubjectImage
-                {...subjectImageProps}
-              />
+              <SubjectImage {...subjectImageProps} />
             </g>
           </SingleImageViewer>
         </SVGPanZoom>
