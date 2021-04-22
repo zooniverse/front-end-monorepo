@@ -17,20 +17,20 @@ function getStepKeyFromTaskKey(steps, taskKey) {
   let taskStepKey
   steps.forEach(([stepKey, step]) => {
     if (step.taskKeys.includes(taskKey)) {
-      taskStepKey = step.stepKey
+      taskStepKey = stepKey
     }
   })
   return taskStepKey
 }
 
-function getTaskKeysIncludedInComboTasks (tasks) {
+function getTaskKeysIncludedInComboTasks(tasks) {
   let taskKeys
   const comboTasks = Object.values(tasks).filter(task => task?.type === 'combo')
   taskKeys = comboTasks.map(combo => combo.tasks)
   return taskKeys.flat()
 }
 
-function isThereBranching (task) {
+function isThereBranching(task) {
   return task?.answers?.some((answer, index) => {
     if (task.answers.length > index + 1) {
       return answer.next !== task.answers[index + 1].next
@@ -43,7 +43,7 @@ function taskExists(taskKey, tasks) {
   return Object.keys(tasks).includes(taskKey)
 }
 
-export default function convertWorkflowToUseSteps ({ first_task, tasks }) {
+function createStepsFromTasks(first_task, tasks) {
   const steps = []
   const taskKeys = Object.keys(tasks)
 
@@ -97,8 +97,21 @@ export default function convertWorkflowToUseSteps ({ first_task, tasks }) {
     }
   })
 
+  return steps
+}
+
+export default function convertWorkflowToUseSteps({ first_task, steps = [], tasks }) {
+  steps = steps.length > 0 ? steps : createStepsFromTasks(first_task, tasks)
+
   // convert step.next from task key to step key
   steps.forEach(([stepKey, step]) => {
+    if (!step.next) {
+      const [ taskKey ] = step.taskKeys
+      const task = tasks[taskKey]
+      if (task?.next) {
+        step.next = task.next
+      }
+    }
     if (taskExists(step.next, tasks)) {
       step.next = getNextStepFromTaskKey(step.next, steps, tasks)
     }
