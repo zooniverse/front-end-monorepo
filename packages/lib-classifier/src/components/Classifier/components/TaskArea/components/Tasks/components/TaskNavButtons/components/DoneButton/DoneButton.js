@@ -18,27 +18,25 @@ const Label = (
 // TODO add back gold standard and demo buttons using grommet Button icon prop
 // {props.demoMode && <i className="fa fa-trash fa-fw" />}
 // {props.goldStandardMode && <i className="fa fa-star fa-fw" />}
-function DoneButton (props) {
-  if (!props.completed) {
+function DoneButton ({
+  annotations = [],
+  completed = false,
+  disabled = false,
+  hasNextStep = false,
+  onClick = () => true
+}) {
+  if (!completed) {
     return (
       <Button
-        disabled={props.disabled}
+        disabled={disabled}
         label={Label}
-        onClick={props.onClick}
+        onClick={onClick}
         type='submit'
       />
     )
   }
 
   return null
-}
-
-DoneButton.defaultProps = {
-  completed: false,
-  demoMode: false,
-  disabled: false,
-  goldStandardMode: false,
-  onClick: () => {}
 }
 
 DoneButton.propTypes = {

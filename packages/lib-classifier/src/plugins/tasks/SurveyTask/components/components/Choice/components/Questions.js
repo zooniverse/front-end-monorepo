@@ -68,10 +68,25 @@ Questions.defaultProps = {
 }
 
 Questions.propTypes = {
-  answers: PropTypes.object,
+  answers: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.string),
+      PropTypes.string
+    ])
+  ),
   questionIds: PropTypes.arrayOf(
     PropTypes.string
   ),
-  questions: PropTypes.object,
+  questions: PropTypes.shape({
+    answers: PropTypes.objectOf(
+      PropTypes.shape({
+        label: PropTypes.string
+      })
+    ),
+    answersOrder: PropTypes.arrayOf(PropTypes.string),
+    label: PropTypes.string,
+    multiple: PropTypes.bool,
+    required: PropTypes.bool
+  }),
   setAnswers: PropTypes.func
 }

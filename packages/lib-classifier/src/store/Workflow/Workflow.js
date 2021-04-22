@@ -35,9 +35,6 @@ const Workflow = types
     /** convert Panoptes workflows to use steps, if necessary. */
     function convertPanoptesWorkflows(snapshot) {
       const workflowHasSteps = (snapshot.steps?.length > 0 && Object.keys(snapshot.tasks).length > 0)
-      if (workflowHasSteps) {
-        return snapshot
-      }
       const newSnapshot = Object.assign({}, snapshot)
       const { steps, tasks } = convertWorkflowToUseSteps(newSnapshot)
       return { ...newSnapshot, steps, tasks }
