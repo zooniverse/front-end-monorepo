@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Text } from 'grommet'
 import styled, { css } from 'styled-components'
@@ -37,64 +37,59 @@ export const StyledBackButtonToolTip = styled.span`
     right: 0;
   }
   `
+function BackButton({
+  autoFocus = false,
+  disabled = false,
+  onClick = () => true,
+  persistAnnotations = false,
+  theme = {
+    dark: false
+  }
+}) {
+  const [ showWarning, setShowWarning ] = useState(false)
+  let tooltipEventHandlers = {}
 
-class BackButton extends React.Component {
-  constructor () {
-    super()
-
-    this.state = {
-      showWarning: false
+  if (!persistAnnotations) {
+    function showTooltip() {
+      if (!persistAnnotations && !showWarning) {
+        setShowWarning(true)
+      }
     }
 
-    this.showWarning = this.showWarning.bind(this)
-    this.hideWarning = this.hideWarning.bind(this)
-  }
-
-  showWarning () {
-    if (this.props.areAnnotationsNotPersisted && !this.state.showWarning) {
-      this.setState({ showWarning: true })
+    function hideTooltip() {
+      if (!persistAnnotations && showWarning) {
+        setShowWarning(false)
+      }
     }
-  }
 
-  hideWarning () {
-    if (this.props.areAnnotationsNotPersisted && this.state.showWarning) {
-      this.setState({ showWarning: false })
+    tooltipEventHandlers = {
+      onMouseEnter: showTooltip,
+      onFocus: showTooltip,
+      onMouseLeave: hideTooltip,
+      onBlur: hideTooltip
     }
   }
 
   // TODO convert to use Grommet Button and Drop for tooltip: https://codesandbox.io/s/rj0y95jr3n
-  render () {
-    const backButtonWarning = counterpart('BackButton.tooltip')
-    return (
-      <StyledBackButtonWrapper theme={this.props.theme}>
-        <Button
-          aria-label={(this.props.areAnnotationsNotPersisted ? backButtonWarning : '')}
-          focusIndicator={false}
-          label={<Text size='small'>{counterpart('BackButton.back')}</Text>}
-          onClick={this.props.onClick}
-          onMouseEnter={this.showWarning}
-          onFocus={this.showWarning}
-          onMouseLeave={this.hideWarning}
-          onBlur={this.hideWarning}
-        />
-        {this.state.showWarning &&
-          <StyledBackButtonToolTip>
-            {counterpart('BackButton.tooltip')}
-          </StyledBackButtonToolTip>}
-      </StyledBackButtonWrapper>
-    )
-  }
-}
-
-BackButton.defaultProps = {
-  areAnnotationsNotPersisted: false,
-  theme: { dark: false },
-  onClick: () => {}
+  const backButtonWarning = counterpart('BackButton.tooltip')
+  return (
+    <StyledBackButtonWrapper theme={theme}>
+      <Button
+        focusIndicator={false}
+        label={<Text size='small'>{counterpart('BackButton.back')}</Text>}
+        onClick={onClick}
+        {...tooltipEventHandlers}
+      />
+      {showWarning &&
+        <StyledBackButtonToolTip>
+          {counterpart('BackButton.tooltip')}
+        </StyledBackButtonToolTip>}
+    </StyledBackButtonWrapper>
+  )
 }
 
 BackButton.propTypes = {
-  areAnnotationsNotPersisted: PropTypes.bool,
-  onClick: PropTypes.func,
+  persistAnnotations: PropTypes.bool,
   theme: PropTypes.object
 }
 
