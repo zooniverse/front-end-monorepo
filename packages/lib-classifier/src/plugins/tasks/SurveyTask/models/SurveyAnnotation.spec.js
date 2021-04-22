@@ -124,9 +124,9 @@ describe('Model > SurveyAnnotation', function () {
           answers: {},
           choice: 'WHISTLE',
           filters: {}
-        }],
-        _choiceInProgress: true
+        }]
       })
+      surveyAnnotationInProgress.setChoiceInProgress(true)
     })
 
     it('should be incomplete', function () {
