@@ -22,11 +22,4 @@ describe('DoneAndTalkButton', function () {
     wrapper.simulate('click', { event: { metaKey: false } })
     expect(onClickSpy).to.have.been.calledOnce()
   })
-
-  describe('when props.completed is true', function () {
-    it('should render null', function () {
-      const wrapper = shallow(<DoneAndTalkButton completed talkURL={talkURL} />)
-      expect(wrapper.html()).to.be.null()
-    })
-  })
 })

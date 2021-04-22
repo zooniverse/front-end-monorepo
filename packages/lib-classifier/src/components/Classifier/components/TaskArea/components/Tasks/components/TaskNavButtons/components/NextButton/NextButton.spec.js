@@ -9,7 +9,7 @@ describe('NextButton', function () {
   describe('rendering', function () {
     let wrapper
     before(function () {
-      wrapper = shallow(<NextButton onClick={() => {}} />)
+      wrapper = shallow(<NextButton />)
     })
 
     it('should render without crashing', function () {
@@ -21,14 +21,14 @@ describe('NextButton', function () {
     })
   })
 
-  describe('onClick event', function () {
+  describe('on click', function () {
     let wrapper
     const onClickSpy = sinon.spy()
     before(function () {
       wrapper = shallow(<NextButton onClick={onClickSpy} />)
     })
 
-    it('should call props.onClick for the onClick event', function () {
+    it('should call onClick', function () {
       wrapper.simulate('click')
       expect(onClickSpy).to.have.been.calledOnce()
     })
@@ -37,7 +37,7 @@ describe('NextButton', function () {
   describe('props.disabled', function () {
     let wrapper
     before(function () {
-      wrapper = shallow(<NextButton onClick={() => { }} />)
+      wrapper = shallow(<NextButton />)
     })
 
     it('should not be disabled if props.disabled is false', function () {
@@ -53,7 +53,7 @@ describe('NextButton', function () {
   describe('props.autoFocus', function () {
     let wrapper
     before(function () {
-      wrapper = shallow(<NextButton onClick={() => { }} />)
+      wrapper = shallow(<NextButton />)
     })
 
     it('should not be auto-focused if props.autoFocus is false', function () {

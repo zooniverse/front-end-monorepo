@@ -315,4 +315,39 @@ describe('Model > Step', function () {
       })
     })
   })
+
+  describe('completeTasks', function () {
+    let tasks
+
+    before(function () {
+      tasks = [
+        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: '' })),
+        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({
+          taskKey: 'T2',
+          required: '',
+          answers: [
+            { label: 'Red' },
+            { label: 'Blue' }
+          ]
+        }))
+      ]
+      tasks.forEach(task => {
+        sinon.spy(task, 'complete')
+      })
+      const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
+      step.completeTasks([])
+    })
+
+    after(function () {
+      tasks.forEach(task => {
+        task.complete.restore()
+      })
+    })
+
+    it('should complete each step task', function () {
+      tasks.forEach(task => {
+        expect(task.complete).to.have.been.calledOnce()
+      })
+    })
+  })
 })
