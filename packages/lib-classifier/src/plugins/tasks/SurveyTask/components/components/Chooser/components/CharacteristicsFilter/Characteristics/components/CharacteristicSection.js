@@ -1,4 +1,4 @@
-import { Box, RadioButtonGroup, Text } from 'grommet'
+import { Box, RadioButtonGroup } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { SpacedHeading } from '@zooniverse/react-components'
@@ -13,7 +13,7 @@ export default function CharacteristicSection (props) {
     onFilter,
     selectedValueId
   } = props
-  
+
   return (
     <Box
       border={{
@@ -43,7 +43,7 @@ export default function CharacteristicSection (props) {
         {(option, { checked, hover }) => {
           const value = characteristic?.values?.[option] || {}
           const valueImageSrc = images?.[value.image] || ''
-        
+
           return (
             <FilterButton
               characteristicId={characteristicId}

@@ -34,25 +34,27 @@ export default function Questions (props) {
             key={questionId}
           >
             <SpacedHeading>{question.label}</SpacedHeading>
-            {inputType === 'checkbox' ? (
-              <CheckBoxGroup
-                direction='row'
-                name={questionId}
-                onChange={({ value }) => handleAnswer(value, questionId)}
-                options={labels}
-                value={answers[questionId]}
-                wrap
-              />
-            ) : (
-              <RadioButtonGroup
-                direction='row'
-                name={questionId}
-                onChange={({ target }) => handleAnswer(target.value, questionId)}
-                options={labels}
-                value={answers[questionId]}
-                wrap
-              />
-            )}
+            {inputType === 'checkbox'
+              ? (
+                <CheckBoxGroup
+                  direction='row'
+                  name={questionId}
+                  onChange={({ value }) => handleAnswer(value, questionId)}
+                  options={labels}
+                  value={answers[questionId]}
+                  wrap
+                />
+                )
+              : (
+                <RadioButtonGroup
+                  direction='row'
+                  name={questionId}
+                  onChange={({ target }) => handleAnswer(target.value, questionId)}
+                  options={labels}
+                  value={answers[questionId]}
+                  wrap
+                />
+                )}
           </Box>
         )
       })}
