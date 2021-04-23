@@ -1,8 +1,18 @@
 import { css } from 'styled-components'
 
 export default {
+  anchor: {
+    fontWeight: 400,
+    hover: {
+      fontWeight: 600
+    },
+    textDecoration: 'underline'
+  },
   heading: { // medium is the default
-    color: '#005D69',
+    color: {
+      dark: 'accent-1',
+      light: 'neutral-1'
+    },
     level: {
       1: {
         // "font": {},

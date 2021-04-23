@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Stories and readme for MetaToolsButton
+- Custom theme object for `Markdownz` which defines styles for headings and anchors
 
 ### Fixed
 - Allow for modals that can't be closed. [#1983]

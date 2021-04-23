@@ -242,9 +242,8 @@ const theme = deepFreeze({
   anchor: {
     color: {
       dark: 'accent-1',
-      light: 'brand'
-    },
-    textDecoration: 'underline'
+      light: 'neutral-1'
+    }
   },
   button: {
     border: {
