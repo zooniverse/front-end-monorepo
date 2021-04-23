@@ -15,7 +15,12 @@ describe('Model > SubjectStore', function () {
   function mockSubjectStore (subjects) {
     const project = ProjectFactory.build()
     const workflow = WorkflowFactory.build({ id: project.configuration.default_workflow })
-    const client = stubPanoptesJs({ subjects, workflows: workflow })
+    const subjectMocks = {
+      ['/subjects/grouped']: subjects['/subjects/grouped'] || subjects,
+      ['/subjects/queued']: subjects['/subjects/queued'] || subjects,
+      ['/subjects/selection']: subjects['/subjects/selection'] || subjects
+    }
+    const client = stubPanoptesJs({ ...subjectMocks, workflows: workflow })
     const store = RootStore.create({
       classifications: {},
       dataVisAnnotating: {},
@@ -121,6 +126,28 @@ describe('Model > SubjectStore', function () {
         expect(subjects.resources.size).to.equal(0)
         expect(subjects.active).to.be.undefined()
       })
+    })
+  })
+
+  describe('with specific subjects', function () {
+    let subjects
+    let subjectIDs
+
+    before(function () {
+      const subjectSnapshots = Factory.buildList('subject', 5)
+      const subjectMocks = {
+        ['/subjects/grouped']: [],
+        ['/subjects/queued']: [],
+        ['/subjects/selection']: subjectSnapshots
+      }
+      subjectIDs = subjectSnapshots.map(subject => subject.id)
+      subjects = mockSubjectStore(subjectMocks)
+      subjects.populateQueue(subjectIDs)
+    })
+
+    it('should select those subjects', function () {
+      expect(subjects.resources.size).to.equal(5)
+      expect(Array.from(subjects.resources.keys())).to.deep.equal(subjectIDs)
     })
   })
 
