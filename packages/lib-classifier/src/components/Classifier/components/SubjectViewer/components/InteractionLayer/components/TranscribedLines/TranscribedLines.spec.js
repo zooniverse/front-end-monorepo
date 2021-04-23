@@ -37,7 +37,7 @@ describe('Component > TranscribedLines', function () {
   })
 
   it('should render without crashing', function () {
-    wrapper = shallow(<TranscribedLines lines={consensusLines} task={task} />)
+    wrapper = shallow(<TranscribedLines lines={consensusLines} task={task} marks={task.marks} />)
     expect(wrapper).to.be.ok()
   })
 
@@ -89,6 +89,7 @@ describe('Component > TranscribedLines', function () {
         <svg>
           <TranscribedLines
             lines={consensusLines}
+            marks={task.marks}
             task={task}
             theme={zooTheme}
           />
@@ -199,19 +200,32 @@ describe('Component > TranscribedLines', function () {
         getBoundingClientRect: sinon.spy()
       }
     }
-    let lines, refStub
+    let lines
+    let task
+    let wrapper
+
     before(function () {
-      refStub = sinon.stub(React, 'createRef').callsFake(() => { return currentMock })
-      wrapper = shallow(<TranscribedLines lines={consensusLines} task={task} />)
+      const transcriptionModels = taskRegistry.get('transcription')
+      task = transcriptionModels.TaskModel.create({
+        tools: [{
+          type: 'transcriptionLine',
+          tasks: [{
+            instruction: 'Transcribe the text',
+            taskKey: 'T1.0.0',
+            type: 'text'
+          }]
+        }],
+        instruction: 'Underline and transcribe the text',
+        taskKey: 'T1',
+        type: 'transcription'
+      })
+      task.setActiveTool(0)
+      wrapper = shallow(<TranscribedLines lines={consensusLines} marks={task.marks} task={task} />)
       lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
     })
 
     afterEach(function () {
       currentMock.current.blur.resetHistory()
-    })
-
-    after(function () {
-      refStub.restore()
     })
 
     it('should render', function () {
@@ -233,44 +247,116 @@ describe('Component > TranscribedLines', function () {
       })
     })
 
-    it('should create a new mark on click', function () {
-      const transcribedLines = consensusLines.filter(line => !line.consensusReached)
-      lines.forEach((line, index) => {
-        expect(task.activeMark).to.be.undefined()
-        wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('click')
-        expect(task.activeMark.x1).to.equal(transcribedLines[index].points[0].x)
-        expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
-        expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
-        expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
-        task.setActiveMark(undefined)
+    describe('on click', function () {
+      before(function () {
+        task.reset()
+      })
+
+      it('should create a new mark', function () {
+        const transcribedLines = consensusLines.filter(line => !line.consensusReached)
+        expect(task.marks.length).to.equal(0)
+        lines.forEach((line, index) => {
+          expect(task.activeMark).to.be.undefined()
+          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('click')
+          expect(task.activeMark.x1).to.equal(transcribedLines[index].points[0].x)
+          expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
+          expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
+          expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
+          expect(task.marks.length).to.equal(index + 1)
+          task.setActiveMark(undefined)
+        })
+      })
+
+      it('should create only one mark per transcribed line', function () {
+        const eventMock = { key: 'Enter', preventDefault: sinon.spy() }
+        const transcribedLines = consensusLines.filter(line => !line.consensusReached)
+        expect(task.marks.length).to.equal(transcribedLines.length)
+        lines.forEach((line, index) => {
+          expect(task.activeMark).to.be.undefined()
+          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', eventMock)
+          expect(task.activeMark.x1).to.equal(transcribedLines[index].points[0].x)
+          expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
+          expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
+          expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
+          expect(task.marks.length).to.equal(transcribedLines.length)
+          task.setActiveMark(undefined)
+        })
       })
     })
 
-    it('should create a new mark on keydown with enter', function () {
-      const eventMock = { key: 'Enter', preventDefault: sinon.spy() }
-      const transcribedLines = consensusLines.filter(line => !line.consensusReached)
-      lines.forEach((line, index) => {
-        expect(task.activeMark).to.be.undefined()
-        wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', eventMock)
-        expect(task.activeMark.x1).to.equal(transcribedLines[index].points[0].x)
-        expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
-        expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
-        expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
-        task.setActiveMark(undefined)
+    describe('on Enter', function () {
+      before(function () {
+        task.reset()
+      })
+
+      it('should create new marks', function () {
+        const eventMock = { key: 'Enter', preventDefault: sinon.spy() }
+        const transcribedLines = consensusLines.filter(line => !line.consensusReached)
+        expect(task.marks.length).to.equal(0)
+        lines.forEach((line, index) => {
+          expect(task.activeMark).to.be.undefined()
+          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', eventMock)
+          expect(task.activeMark.x1).to.equal(transcribedLines[index].points[0].x)
+          expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
+          expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
+          expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
+          expect(task.marks.length).to.equal(index + 1)
+          task.setActiveMark(undefined)
+        })
+      })
+
+      it('should create only one mark per transcribed line', function () {
+        const eventMock = { key: 'Enter', preventDefault: sinon.spy() }
+        const transcribedLines = consensusLines.filter(line => !line.consensusReached)
+        expect(task.marks.length).to.equal(transcribedLines.length)
+        lines.forEach((line, index) => {
+          expect(task.activeMark).to.be.undefined()
+          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', eventMock)
+          expect(task.activeMark.x1).to.equal(transcribedLines[index].points[0].x)
+          expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
+          expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
+          expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
+          expect(task.marks.length).to.equal(transcribedLines.length)
+          task.setActiveMark(undefined)
+        })
       })
     })
 
-    it('should create a new mark on keydown with space', function () {
-      const eventMock = { key: ' ', preventDefault: sinon.spy() }
-      const transcribedLines = consensusLines.filter(line => !line.consensusReached)
-      lines.forEach((line, index) => {
-        expect(task.activeMark).to.be.undefined()
-        wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', eventMock)
-        expect(task.activeMark.x1).to.equal(transcribedLines[index].points[0].x)
-        expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
-        expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
-        expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
-        task.setActiveMark(undefined)
+    describe('on Space', function () {
+      before(function () {
+        task.reset()
+      })
+
+      it('should create a new mark', function () {
+        const eventMock = { key: ' ', preventDefault: sinon.spy() }
+        const transcribedLines = consensusLines.filter(line => !line.consensusReached)
+        expect(task.marks.length).to.equal(0)
+        lines.forEach((line, index) => {
+          expect(task.activeMark).to.be.undefined()
+          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', eventMock)
+          expect(task.activeMark.x1).to.equal(transcribedLines[index].points[0].x)
+          expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
+          expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
+          expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
+          expect(task.marks.length).to.equal(index + 1)
+          task.setActiveMark(undefined)
+        })
+      })
+
+      it('should create only one mark per transcribed line', function () {
+        const eventMock = { key: 'Enter', preventDefault: sinon.spy() }
+        const transcribedLines = consensusLines.filter(line => !line.consensusReached)
+        expect(task.marks.length).to.equal(transcribedLines.length)
+        lines.forEach((line, index) => {
+          expect(task.activeMark).to.be.undefined()
+          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', eventMock)
+          expect(task.activeMark.x1).to.equal(transcribedLines[index].points[0].x)
+          expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
+          expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
+          expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
+          expect(task.marks.length).to.equal(transcribedLines.length)
+          task.setActiveMark(undefined)
+        })
       })
     })
 
