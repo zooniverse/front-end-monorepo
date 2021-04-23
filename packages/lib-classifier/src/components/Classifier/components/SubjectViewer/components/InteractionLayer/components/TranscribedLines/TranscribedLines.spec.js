@@ -129,19 +129,21 @@ describe('Component > TranscribedLines', function () {
         const lineState = consensusComponent.find(TranscriptionLine).prop('state')
         if (lineState === 'transcribed') {
           expect(createMarkSpy).to.not.have.been.called()
-          consensusComponent.simulate('click')
+          const fakeNode = {
+            getBoundingClientRect: sinon.stub()
+          }
+          consensusComponent.simulate('click', { target: fakeNode })
           const [createMarkArgs] = createMarkSpy.args
-          const expectedRefForMark = createMarkArgs[1]
-          expect(expectedRefForMark).to.equal(returnRefs[index])
           createMarkSpy.resetHistory()
+          expect(createMarkArgs[1]).to.equal(fakeNode)
         }
         if (lineState === 'complete') {
           expect(showConsensusStub).to.not.have.been.called()
           consensusComponent.simulate('click')
           const [completeArgs] = showConsensusStub.args
           const expectedRefForMark = completeArgs[1]
-          expect(expectedRefForMark).to.equal(returnRefs[index])
           showConsensusStub.resetHistory()
+          expect(expectedRefForMark).to.equal(returnRefs[index].current)
         }
       })
     })
@@ -151,20 +153,23 @@ describe('Component > TranscribedLines', function () {
       consensusComponents.forEach((consensusComponent, index) => {
         const lineState = consensusComponent.find(TranscriptionLine).prop('state')
         if (lineState === 'transcribed') {
+          const fakeNode = {
+            getBoundingClientRect: sinon.stub()
+          }
+          eventMock.target = fakeNode
           expect(createMarkSpy).to.not.have.been.called()
           consensusComponent.simulate('keydown', eventMock)
           const [createMarkArgs] = createMarkSpy.args
-          const expectedRefForMark = createMarkArgs[1]
-          expect(expectedRefForMark).to.equal(returnRefs[index])
           createMarkSpy.resetHistory()
+          expect(createMarkArgs[1]).to.equal(fakeNode)
         }
         if (lineState === 'complete') {
           expect(showConsensusStub).to.not.have.been.called()
           consensusComponent.simulate('keydown', eventMock)
           const [completeArgs] = showConsensusStub.args
           const expectedRefForMark = completeArgs[1]
-          expect(expectedRefForMark).to.equal(returnRefs[index])
           showConsensusStub.resetHistory()
+          expect(expectedRefForMark).to.equal(returnRefs[index].current)
         }
       })
     })
@@ -174,20 +179,23 @@ describe('Component > TranscribedLines', function () {
       consensusComponents.forEach((consensusComponent, index) => {
         const lineState = consensusComponent.find(TranscriptionLine).prop('state')
         if (lineState === 'transcribed') {
+          const fakeNode = {
+            getBoundingClientRect: sinon.stub()
+          }
+          eventMock.target = fakeNode
           expect(createMarkSpy).to.not.have.been.called()
           consensusComponent.simulate('keydown', eventMock)
           const [createMarkArgs] = createMarkSpy.args
-          const expectedRefForMark = createMarkArgs[1]
-          expect(expectedRefForMark).to.equal(returnRefs[index])
           createMarkSpy.resetHistory()
+          expect(createMarkArgs[1]).to.equal(fakeNode)
         }
         if (lineState === 'complete') {
           expect(showConsensusStub).to.not.have.been.called()
           consensusComponent.simulate('keydown', eventMock)
           const [completeArgs] = showConsensusStub.args
           const expectedRefForMark = completeArgs[1]
-          expect(expectedRefForMark).to.equal(returnRefs[index])
           showConsensusStub.resetHistory()
+          expect(expectedRefForMark).to.equal(returnRefs[index].current)
         }
       })
     })
@@ -257,7 +265,7 @@ describe('Component > TranscribedLines', function () {
         expect(task.marks.length).to.equal(0)
         lines.forEach((line, index) => {
           expect(task.activeMark).to.be.undefined()
-          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('click')
+          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('click', { target: null })
           expect(task.activeMark.x1).to.equal(transcribedLines[index].points[0].x)
           expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
           expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
@@ -268,7 +276,7 @@ describe('Component > TranscribedLines', function () {
       })
 
       it('should create only one mark per transcribed line', function () {
-        const eventMock = { key: 'Enter', preventDefault: sinon.spy() }
+        const eventMock = { key: 'Enter', preventDefault: sinon.spy(), target: null }
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         expect(task.marks.length).to.equal(transcribedLines.length)
         lines.forEach((line, index) => {
@@ -290,7 +298,7 @@ describe('Component > TranscribedLines', function () {
       })
 
       it('should create new marks', function () {
-        const eventMock = { key: 'Enter', preventDefault: sinon.spy() }
+        const eventMock = { key: 'Enter', preventDefault: sinon.spy(), target: null }
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         expect(task.marks.length).to.equal(0)
         lines.forEach((line, index) => {

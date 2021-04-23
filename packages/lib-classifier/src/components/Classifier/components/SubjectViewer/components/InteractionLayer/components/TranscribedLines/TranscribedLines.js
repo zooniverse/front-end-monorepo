@@ -38,7 +38,7 @@ class TranscribedLines extends React.Component {
     this.showConsensus = this.showConsensus.bind(this)
   }
 
-  createMark (line) {
+  createMark (line, node) {
     const { activeTool, activeToolIndex, marks, setActiveMark } = this.props.task
 
     if (activeTool) {
@@ -62,15 +62,16 @@ class TranscribedLines extends React.Component {
       })
       mark.setPreviousAnnotations(previousAnnotationValuesForEachMark)
       if (mark.finished) {
-        mark.setSubTaskVisibility(true)
+        const markBounds = node?.getBoundingClientRect()
+        mark.setSubTaskVisibility(true, markBounds)
       } else {
         mark.finish()
       }
     }
   }
 
-  showConsensus (line, ref) {
-    const bounds = ref?.current?.getBoundingClientRect() || {}
+  showConsensus (line, node) {
+    const bounds = node?.getBoundingClientRect() || {}
     this.setState({
       bounds,
       line,
@@ -78,14 +79,14 @@ class TranscribedLines extends React.Component {
     })
   }
 
-  onClick (callback, line, ref) {
-    callback(line, ref)
+  onClick (callback, line, node) {
+    callback(line, node)
   }
 
-  onKeyDown (event, callback, line, ref) {
+  onKeyDown (event, callback, line, node) {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
-      callback(line, ref)
+      callback(line, node)
     }
   }
 
@@ -135,8 +136,8 @@ class TranscribedLines extends React.Component {
                   aria-describedby={id}
                   aria-label={line.consensusText}
                   focusColor={focusColor}
-                  onClick={() => this.onClick(this.showConsensus, line, ref)}
-                  onKeyDown={event => this.onKeyDown(event, this.showConsensus, line, ref)}
+                  onClick={() => this.onClick(this.showConsensus, line, ref?.current)}
+                  onKeyDown={event => this.onKeyDown(event, this.showConsensus, line, ref?.current)}
                   tabIndex={0}
                 >
                   <TranscriptionLine
@@ -166,8 +167,8 @@ class TranscribedLines extends React.Component {
 
             const lineProps = {}
             if (!disabled) {
-              lineProps.onClick = event => this.createMark(line)
-              lineProps.onKeyDown = event => this.onKeyDown(event, this.createMark, line)
+              lineProps.onClick = event => this.createMark(line, event.target)
+              lineProps.onKeyDown = event => this.onKeyDown(event, this.createMark, line, event.target)
             }
 
             return (
