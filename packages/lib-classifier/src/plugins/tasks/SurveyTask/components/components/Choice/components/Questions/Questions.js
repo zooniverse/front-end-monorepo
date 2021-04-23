@@ -1,7 +1,9 @@
-import { Box, CheckBoxGroup, RadioButtonGroup } from 'grommet'
+import { Box, CheckBoxGroup } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { SpacedHeading } from '@zooniverse/react-components'
+
+import RadioQuestion from './components/RadioQuestion'
 
 export default function Questions (props) {
   const {
@@ -46,13 +48,11 @@ export default function Questions (props) {
                 />
                 )
               : (
-                <RadioButtonGroup
-                  direction='row'
-                  name={questionId}
-                  onChange={({ target }) => handleAnswer(target.value, questionId)}
-                  options={labels}
+                <RadioQuestion
+                  handleAnswer={handleAnswer}
+                  labels={labels}
+                  questionId={questionId}
                   value={answers[questionId]}
-                  wrap
                 />
                 )}
           </Box>

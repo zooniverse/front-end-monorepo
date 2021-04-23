@@ -1,10 +1,11 @@
 import { shallow } from 'enzyme'
-import { CheckBoxGroup, RadioButtonGroup } from 'grommet'
+import { CheckBoxGroup } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import Questions from './Questions'
+import RadioQuestion from './components/RadioQuestion'
 
 describe('Component > Questions', function () {
   let wrapper, setAnswersSpy, checkboxes, radioButtons
@@ -20,7 +21,7 @@ describe('Component > Questions', function () {
       />
     )
     checkboxes = wrapper.find(CheckBoxGroup)
-    radioButtons = wrapper.find(RadioButtonGroup)
+    radioButtons = wrapper.find(RadioQuestion)
   })
 
   it('should render without crashing', function () {
@@ -44,25 +45,13 @@ describe('Component > Questions', function () {
     setAnswersSpy.resetHistory()
   })
 
-  it('should call setAnswers with new answers on RadioButtonGroup change', function () {
-    expect(setAnswersSpy).to.not.have.been.called()
-
-    radioButtons.at(0).simulate('change', { target: { value: '3' }})
-    expect(setAnswersSpy).to.have.been.calledWith({ HWMN: '3' })
-
-    radioButtons.at(0).simulate('change', { target: { value: '9' }})
-    expect(setAnswersSpy).to.have.been.calledWith({ HWMN: '9' })
-
-    setAnswersSpy.resetHistory()
-  })
-
   it('should render the chosen values for each input group', function () {
     wrapper.setProps({ answers: { WHTBHVRSDS: ['RSTNG', 'TNG'], HWMN: '9' } })
-    checkboxes = wrapper.find(CheckBoxGroup) 
-    radioButtons = wrapper.find(RadioButtonGroup)
+    checkboxes = wrapper.find(CheckBoxGroup)
+    radioButtons = wrapper.find(RadioQuestion)
 
     expect(checkboxes.find({ name: 'WHTBHVRSDS' }).props().value).to.deep.equal(['RSTNG', 'TNG'])
-    expect(radioButtons.find({ name: 'HWMN' }).props().value).to.equal('9')
-    expect(radioButtons.find({ name: 'RTHRNNGPRSNT' }).props().value).to.be.undefined()
+    expect(radioButtons.find({ questionId: 'HWMN' }).props().value).to.equal('9')
+    expect(radioButtons.find({ questionId: 'RTHRNNGPRSNT' }).props().value).to.be.undefined()
   })
 })
