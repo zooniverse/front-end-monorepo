@@ -1,10 +1,9 @@
-import { PrimaryButton, withThemeContext } from '@zooniverse/react-components'
+import { PrimaryButton } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 import en from './locales/en'
-import theme from './theme'
 
 counterpart.registerTranslations('en', en)
 
@@ -20,21 +19,12 @@ function DoneButton ({
 }) {
   if (!completed) {
     return (
-<<<<<<< HEAD
-      <Button
-        disabled={disabled}
-        label={Label}
-        onClick={onClick}
-        type='submit'
-=======
       <PrimaryButton
         color='green'
-        disabled={props.disabled}
-        fill
+        disabled={disabled}
         label={counterpart('DoneButton.done')}
-        onClick={props.onClick}
-        style={{ textTransform: 'capitalize' }}
->>>>>>> Fix regressions and update text color on green button for accessibility
+        onClick={onClick}
+        style={{ flex: '1 0', textTransform: 'capitalize' }}
       />
     )
   }
@@ -50,5 +40,4 @@ DoneButton.propTypes = {
   onClick: PropTypes.func
 }
 
-export default withThemeContext(DoneButton, theme)
-export { DoneButton }
+export default DoneButton
