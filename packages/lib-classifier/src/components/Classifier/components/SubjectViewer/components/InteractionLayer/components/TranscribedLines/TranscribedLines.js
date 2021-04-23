@@ -61,7 +61,11 @@ class TranscribedLines extends React.Component {
         previousAnnotationValuesForEachMark.push(previousAnnotationValuesForThisMark)
       })
       mark.setPreviousAnnotations(previousAnnotationValuesForEachMark)
-      mark.finish()
+      if (mark.finished) {
+        mark.setSubTaskVisibility(true)
+      } else {
+        mark.finish()
+      }
     }
   }
 
