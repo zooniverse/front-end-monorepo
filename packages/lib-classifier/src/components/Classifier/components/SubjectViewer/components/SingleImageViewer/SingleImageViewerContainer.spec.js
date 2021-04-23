@@ -76,8 +76,6 @@ describe('Component > SingleImageViewerContainer', function () {
       imageWrapper = wrapper.find(SingleImageViewer)
       wrapper.instance().imageViewer = {
         current: {
-          clientHeight: 50,
-          clientWidth: 100,
           addEventListener: sinon.stub(),
           getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
           removeEventListener: sinon.stub()
@@ -96,15 +94,10 @@ describe('Component > SingleImageViewerContainer', function () {
     it('should record the original image dimensions on load', function () {
       const svg = wrapper.instance().imageViewer.current
       const fakeEvent = {
-        target: {
-          clientHeight: 0,
-          clientWidth: 0
-        }
+        target: {}
       }
       const expectedEvent = {
         target: {
-          clientHeight: svg.clientHeight,
-          clientWidth: svg.clientWidth,
           naturalHeight: height,
           naturalWidth: width
         }
@@ -164,8 +157,6 @@ describe('Component > SingleImageViewerContainer', function () {
       imageWrapper = wrapper.find(SingleImageViewer)
       wrapper.instance().imageViewer = {
         current: {
-          clientHeight: 50,
-          clientWidth: 100,
           addEventListener: sinon.stub(),
           getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
           removeEventListener: sinon.stub()
@@ -188,10 +179,7 @@ describe('Component > SingleImageViewerContainer', function () {
 
     it('should log an error from an invalid image', function () {
       const fakeEvent = {
-        target: {
-          clientHeight: 0,
-          clientWidth: 0
-        }
+        target: {}
       }
       expect(onError.withArgs(HTMLImgError)).to.have.been.calledOnce()
     })

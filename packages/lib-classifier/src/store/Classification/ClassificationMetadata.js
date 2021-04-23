@@ -8,8 +8,6 @@ const ClassificationMetadata = types.model('ClassificationMetadata', {
   source: types.enumeration(['api', 'sugar']),
   startedAt: types.optional(types.string, (new Date()).toISOString()),
   subjectDimensions: types.array(types.frozen({
-    clientHeight: types.integer,
-    clientWidth: types.integer,
     naturalHeight: types.integer,
     naturalWidth: types.integer
   })),

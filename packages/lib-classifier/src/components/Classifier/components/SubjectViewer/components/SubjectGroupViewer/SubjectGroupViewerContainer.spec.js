@@ -93,8 +93,6 @@ describe('Component > SubjectGroupViewerContainer', function () {
       groupWrapper = wrapper.find(SubjectGroupViewer)
       wrapper.instance().groupViewer = {
         current: {
-          clientHeight: 50,
-          clientWidth: 100,
           addEventListener: sinon.stub(),
           getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
           removeEventListener: sinon.stub()
@@ -148,8 +146,6 @@ describe('Component > SubjectGroupViewerContainer', function () {
       groupWrapper = wrapper.find(SubjectGroupViewer)
       wrapper.instance().groupViewer = {
         current: {
-          clientHeight: 50,
-          clientWidth: 100,
           addEventListener: sinon.stub(),
           getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
           removeEventListener: sinon.stub()
@@ -172,10 +168,7 @@ describe('Component > SubjectGroupViewerContainer', function () {
 
     it('should log an error from an invalid image', function () {
       const fakeEvent = {
-        target: {
-          clientHeight: 0,
-          clientWidth: 0
-        }
+        target: {}
       }
       expect(onError.withArgs(HTMLImgError)).to.have.been.calledOnce()
     })

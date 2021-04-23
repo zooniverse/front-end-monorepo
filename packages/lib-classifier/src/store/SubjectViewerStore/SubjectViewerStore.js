@@ -7,8 +7,6 @@ const SubjectViewer = types
   .model('SubjectViewer', {
     annotate: types.optional(types.boolean, true),
     dimensions: types.array(types.frozen({
-      clientHeight: types.integer,
-      clientWidth: types.integer,
       naturalHeight: types.integer,
       naturalWidth: types.integer
     })),
@@ -90,12 +88,10 @@ const SubjectViewer = types
       onSubjectReady (event) {
         const { target = {} } = event || {}
         const {
-          clientHeight = 0,
-          clientWidth = 0,
           naturalHeight = 0,
           naturalWidth = 0
         } = target
-        self.dimensions.push({ clientHeight, clientWidth, naturalHeight, naturalWidth })
+        self.dimensions.push({ naturalHeight, naturalWidth })
         self.rotation = 0
         self.loadingState = asyncStates.success
       },

@@ -88,7 +88,7 @@ describe('Model > SubjectViewerStore', function () {
       subjectViewerStub = {
         loadingState: asyncStates.success,
         dimensions: [
-          { clientHeight: 200, clientWidth: 200, naturalHeight: 200, naturalWidth: 200 }
+          { naturalHeight: 200, naturalWidth: 200 }
         ]
       }
       subjectViewerStore = SubjectViewerStore.create(subjectViewerStub)

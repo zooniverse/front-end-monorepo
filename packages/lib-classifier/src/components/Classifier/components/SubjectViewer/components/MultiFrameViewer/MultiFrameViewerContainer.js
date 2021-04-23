@@ -105,11 +105,8 @@ class MultiFrameViewerContainer extends React.Component {
 
   async getImageSize () {
     const img = await this.preload()
-    const svg = this.imageViewer.current
-    const { width: clientWidth, height: clientHeight } = svg ? svg.getBoundingClientRect() : {}
+
     return {
-      clientHeight,
-      clientWidth,
       naturalHeight: img.naturalHeight,
       naturalWidth: img.naturalWidth
     }
@@ -118,8 +115,8 @@ class MultiFrameViewerContainer extends React.Component {
   async onLoad () {
     const { onError, onReady } = this.props
     try {
-      const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
-      const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
+      const { naturalHeight, naturalWidth } = await this.getImageSize()
+      const target = { naturalHeight, naturalWidth }
       onReady({ target })
     } catch (error) {
       console.error(error)

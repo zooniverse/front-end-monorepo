@@ -151,15 +151,12 @@ class SubjectGroupViewerContainer extends React.Component {
 
   getGridSize () {
     const svg = this.groupViewer.current || {}
-    const { width: clientWidth, height: clientHeight } = svg.getBoundingClientRect && svg.getBoundingClientRect() || {}
     const { gridRows, gridColumns, cellWidth, cellHeight } = this.props
     
     const gridWidth = gridColumns * cellWidth
     const gridHeight = gridRows * cellHeight
     
     return {
-      clientHeight,
-      clientWidth,
       gridHeight,
       gridWidth,
     }
@@ -169,8 +166,8 @@ class SubjectGroupViewerContainer extends React.Component {
     const { onError, onReady } = this.props
     try {
       await this.preload()
-      const { clientHeight, clientWidth, gridHeight: naturalHeight, gridWidth: naturalWidth } = this.getGridSize()
-      const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
+      const { gridHeight: naturalHeight, gridWidth: naturalWidth } = this.getGridSize()
+      const target = { naturalHeight, naturalWidth }
       onReady({ target })
     } catch (error) {
       console.error(error)

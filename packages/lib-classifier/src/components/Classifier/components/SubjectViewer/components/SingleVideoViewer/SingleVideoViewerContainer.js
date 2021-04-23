@@ -50,15 +50,15 @@ class SingleVideoViewerContainer extends React.Component {
     const { onError, onReady } = this.props
     try {
       const {
-        clientHeight,
         clientWidth,
         naturalHeight,
         naturalWidth
       } = await this.getVideoSize()
-      const target = { clientHeight, clientWidth, naturalWidth, naturalHeight }
+      const target = { naturalWidth, naturalHeight }
       this.setState({
-        naturalWidth: naturalWidth,
-        naturalHeight: naturalHeight
+        clientWidth,
+        naturalWidth,
+        naturalHeight
       })
       onReady({ target })
     } catch (error) {
@@ -69,16 +69,11 @@ class SingleVideoViewerContainer extends React.Component {
   async getVideoSize() {
     const vid = await this.preload()
     const svg = this.videoViewer.current
-    const { width: clientWidth, height: clientHeight } = svg
+    const { width: clientWidth } = svg
       ? svg.getBoundingClientRect()
       : {}
 
-    this.setState({
-      clientWidth: clientWidth
-    })
-
     return {
-      clientHeight,
       clientWidth,
       naturalHeight: vid.videoHeight,
       naturalWidth: vid.videoWidth
