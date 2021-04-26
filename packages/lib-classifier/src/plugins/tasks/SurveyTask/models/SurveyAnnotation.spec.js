@@ -134,6 +134,7 @@ describe('Model > SurveyAnnotation', function () {
     })
 
     it('should update _choiceInProgress to false when action inProgress is called with false', function () {
+      expect(surveyAnnotationInProgress._choiceInProgress).to.be.true()
       surveyAnnotationInProgress.setChoiceInProgress(false)
       expect(surveyAnnotationInProgress._choiceInProgress).to.be.false()
     })
