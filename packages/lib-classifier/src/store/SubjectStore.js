@@ -68,10 +68,10 @@ const SubjectStore = types
 
     function createWorkflowObserver () {
       const workflowDisposer = autorun(() => {
-        const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
-        if (validWorkflowReference) {
+        const workflow = tryReference(() => getRoot(self).workflows.active)
+        if (workflow) {
           self.reset()
-          self.populateQueue()
+          self.populateQueue(workflow.selectedSubjects)
         }
       }, { name: 'SubjectStore Workflow Observer autorun' })
       addDisposer(self, workflowDisposer)
@@ -148,7 +148,7 @@ const SubjectStore = types
       }
     }
 
-    function * populateQueue () {
+    function * populateQueue (subjectIDs) {
       const root = getRoot(self)
       const client = root.client.panoptes
       const workflow = tryReference(() => root.workflows.active)
@@ -157,6 +157,7 @@ const SubjectStore = types
       if (workflow) {
         self.loadingState = asyncStates.loading
         const params = { workflow_id: workflow.id }
+
         if (workflow.grouped) {
           params.subject_set_id = workflow.subjectSetId
         }
@@ -165,6 +166,11 @@ const SubjectStore = types
           apiUrl = '/subjects/grouped'
           params.num_rows = workflow.configuration.subject_viewer_config?.grid_rows || 1
           params.num_columns = workflow.configuration.subject_viewer_config?.grid_columns || 1
+        }
+
+        if (subjectIDs) {
+          apiUrl = '/subjects/selection'
+          params.ids = subjectIDs
         }
 
         try {
