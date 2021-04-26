@@ -162,6 +162,45 @@ describe('Model > WorkflowStore', function () {
       })
     })
 
+    describe('with a valid workflow and subject', function () {
+      let rootStore
+      let subjectID
+      let subjectSetID
+      let workflowID
+
+      before(async function () {
+        const workflowSnapshot = WorkflowFactory.build({
+          id: workflow.id,
+          display_name: 'A test workflow',
+          version: '0.0'
+        })
+        const workflowWithSubject = Workflow.create(workflowSnapshot)
+        workflowID = workflow.id
+        subjectID = '1234'
+        const panoptesClientStub = stubPanoptesJs({
+          subjects: Factory.buildList('subject', 10),
+          workflows: [workflowWithSubject]
+        })
+
+        rootStore = setupStores(panoptesClientStub, projectWithoutDefault)
+        rootStore.workflows.reset()
+        rootStore.workflows.setResources([workflowWithSubject])
+        await rootStore.workflows.selectWorkflow(workflowID, subjectSetID, subjectID)
+      })
+
+      after(function () {
+        rootStore = null
+      })
+
+      it('should set the active workflow', function () {
+        expect(rootStore.workflows.active.id).to.equal(workflowID)
+      })
+
+      it('should set the selected subject', function () {
+        expect(rootStore.workflows.active.selectedSubjects).to.deep.equal([ subjectID ])
+      })
+    })
+
     describe('with an invalid workflow ID', function () {
       let rootStore
 

@@ -85,7 +85,7 @@ const WorkflowStepStore = types
         const workflow = tryReference(() => getRoot(self).workflows?.active)
         if (workflow) {
           self.reset()
-          _setStepsAndTasks(workflow)
+          setStepsAndTasks(workflow)
         }
       }, { name: 'WorkflowStepStore Workflow Observer autorun' })
       addDisposer(self, workflowDisposer)
@@ -124,7 +124,7 @@ const WorkflowStepStore = types
       }
     }
 
-    function _setStepsAndTasks ({ steps, tasks }) {
+    function setStepsAndTasks ({ steps, tasks }) {
       self.setSteps(steps)
       self.setTasks(tasks)
     }
@@ -159,6 +159,7 @@ const WorkflowStepStore = types
       reset,
       resetSteps,
       selectStep,
+      setStepsAndTasks,
       setSteps,
       setTasks
     }
