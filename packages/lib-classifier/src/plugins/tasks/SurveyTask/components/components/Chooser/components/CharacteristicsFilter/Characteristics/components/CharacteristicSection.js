@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { SpacedHeading } from '@zooniverse/react-components'
 
-import FilterButton from './FilterButton'
+import FilterButton from '../../components/FilterButton'
 
 export default function CharacteristicSection (props) {
   const {
