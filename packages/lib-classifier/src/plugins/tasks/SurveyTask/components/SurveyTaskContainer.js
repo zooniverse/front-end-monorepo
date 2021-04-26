@@ -31,6 +31,13 @@ class SurveyTaskContainer extends React.Component {
 
   handleChoice (selectedChoice) {
     const { annotation } = this.props
+    
+    // onCancel, onClickOutside, and onEsc selectedChoice defined as ''
+    if (selectedChoice === '') {
+      annotation.setChoiceInProgress(false)
+    } else {
+      annotation.setChoiceInProgress(true)
+    }
 
     if (annotation?.value?.map(item => item.choice).includes(selectedChoice)) {
       const existingAnnotationValue = annotation?.value?.find(value => value.choice === selectedChoice)
@@ -66,6 +73,7 @@ class SurveyTaskContainer extends React.Component {
     })
 
     annotation.update(value)
+    annotation.setChoiceInProgress(false)
   }
 
   handleReset() {
@@ -118,8 +126,10 @@ SurveyTaskContainer.defaultProps = {
 SurveyTaskContainer.propTypes = {
   autoFocus: PropTypes.bool,
   annotation: PropTypes.shape({
+    setChoiceInProgress: PropTypes.func,
     update: PropTypes.func,
-    value: PropTypes.array
+    value: PropTypes.array,
+    _choiceInProgress: PropTypes.bool
   }).isRequired,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
