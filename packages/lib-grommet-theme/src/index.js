@@ -465,27 +465,27 @@ const theme = deepFreeze({
   paragraph: {
     small: {
       size: '14px',
-      height: '14px',
+      height: '19px',
       maxWidth: '100%'
     },
     medium: {
       size: '14px',
-      height: '18px',
+      height: '19px',
       maxWidth: '100%'
     },
     large: {
       size: '18px',
-      height: '22px',
+      height: '23px',
       maxWidth: '100%'
     },
     xlarge: {
       size: '22px',
-      height: '26px',
+      height: '27px',
       maxWidth: '100%'
     },
     xxlarge: {
       size: '26px',
-      height: '30px',
+      height: '31px',
       maxWidth: '100%'
     },
     extend: props => `margin: ${props.margin || '1em 0 1em 0'}`
@@ -522,32 +522,32 @@ const theme = deepFreeze({
   text: {
     xsmall: {
       size: '12px',
-      height: '16px',
+      height: '17px',
       maxWidth: '100%'
     },
     small: {
       size: '14px',
-      height: '14px',
+      height: '19px',
       maxWidth: '100%'
     },
     medium: {
       size: '14px',
-      height: '18px',
+      height: '19px',
       maxWidth: '100%'
     },
     large: {
       size: '22px',
-      height: '26px',
+      height: '27px',
       maxWidth: '100%'
     },
     xlarge: {
       size: '26px',
-      height: '30px',
+      height: '31px',
       maxWidth: '100%'
     },
     xxlarge: {
       size: '34px',
-      height: '38px',
+      height: '39px',
       maxWidth: '100%'
     }
   }

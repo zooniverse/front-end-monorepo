@@ -11,10 +11,8 @@ counterpart.registerTranslations('en', en)
 // {props.demoMode && <i className="fa fa-trash fa-fw" />}
 // {props.goldStandardMode && <i className="fa fa-star fa-fw" />}
 function DoneButton ({
-  annotations = [],
   completed = false,
   disabled = false,
-  hasNextStep = false,
   onClick = () => true
 }) {
   if (!completed) {

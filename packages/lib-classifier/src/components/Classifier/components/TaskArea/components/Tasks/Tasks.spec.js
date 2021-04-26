@@ -1,6 +1,4 @@
-import { observer } from 'mobx-react'
 import React from 'react'
-import sinon from 'sinon'
 import { shallow } from 'enzyme'
 import { Tasks } from './Tasks'
 import asyncStates from '@zooniverse/async-states'
@@ -14,7 +12,6 @@ import Task from './components/Task'
 describe('Tasks', function () {
   let classification
   let step
-  let TaskComponent
 
   const taskTypes = Object.keys(taskRegistry.register)
 
