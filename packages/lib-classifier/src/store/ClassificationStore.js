@@ -149,7 +149,7 @@ const ClassificationStore = types
           // subject advance is observing for this to know when to advance the queue
           self.loadingState = asyncStates.posting
           if (process.browser) console.log('Demo mode enabled. No classification submitted.')
-          return Promise.resolve(true)
+          return Promise.resolve(classificationToSubmit)
         }
 
         return self.submitClassification(classificationToSubmit)

@@ -146,11 +146,34 @@ describe.only('workflow with invalid dropdown task', function () {
 
     it('should have a dropdown-simple annotation for task T1', function () {
       const annotation = classification.annotation({ taskKey: 'T1' })
-      expect(annotation.taskType).to.equal('dropdown-simple') 
+      expect(annotation.taskType).to.equal('dropdown-simple')
     })
 
     it('should not have a dropdown annotation for task T0', function () {
       const annotation = classification.annotation({ taskKey: 'T0' })
+      expect(annotation).to.be.undefined()
+    })
+  })
+
+  describe('submitted classifications', function () {
+    let classification
+
+    before(async function () {
+      store.classifications.setDemoMode(true)
+      classification = await store.classifications.completeClassification()
+    })
+
+    it('should have one annotation', function () {
+      expect(classification.annotations.length).to.equal(1)
+    })
+
+    it('should have a dropdown-simple annotation for task T1', function () {
+      const [ annotation ] = classification.annotations.filter(annotation => annotation.task === 'T1')
+      expect(annotation.taskType).to.equal('dropdown-simple')
+    })
+
+    it('should not have a dropdown annotation for task T0', function () {
+      const [ annotation ] = classification.annotations.filter(annotation => annotation.task === 'T0')
       expect(annotation).to.be.undefined()
     })
   })
