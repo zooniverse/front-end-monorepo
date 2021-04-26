@@ -29,6 +29,7 @@ function addStepToStore(taskSnapshots = {}, isThereTaskHelp = true) {
     task.help = isThereTaskHelp ? task.help : undefined
     tasks[task.taskKey] = task
   })
+  store.workflowSteps.reset()
   store.workflowSteps.setStepsAndTasks({ steps, tasks })
   store.annotatedSteps.start()
 }
