@@ -8,6 +8,7 @@ const SurveyChoice = types.model('SurveyChoice', {
 })
 
 const Survey = types.model('Survey', {
+  taskType: types.literal('survey'),
   value: types.optional(types.array(SurveyChoice), [])
 })
   .views(self => ({
