@@ -18,16 +18,16 @@ function StoryContext (props) {
   return (
     <Grommet
       background={{
-        dark: 'dark-1',
-        light: 'light-1'
+        dark: 'dark-3',
+        light: 'neutral-6'
       }}
       theme={theme}
       themeMode={(theme.dark) ? 'dark' : 'light'}
     >
       <Box
         background={{
-          dark: 'dark-3',
-          light: 'neutral-6'
+          dark: 'dark-1',
+          light: 'light-1'
         }}
         pad='1em'
         width='380px'
