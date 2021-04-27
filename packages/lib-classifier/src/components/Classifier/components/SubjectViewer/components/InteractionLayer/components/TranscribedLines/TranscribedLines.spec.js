@@ -256,6 +256,8 @@ describe('Component > TranscribedLines', function () {
     })
 
     describe('on click', function () {
+      const eventMock = { preventDefault: sinon.spy(), target: null }
+
       before(function () {
         task.reset()
       })
@@ -265,7 +267,7 @@ describe('Component > TranscribedLines', function () {
         expect(task.marks.length).to.equal(0)
         lines.forEach((line, index) => {
           expect(task.activeMark).to.be.undefined()
-          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('click', { target: null })
+          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('click', eventMock)
           expect(task.activeMark.x1).to.equal(transcribedLines[index].points[0].x)
           expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
           expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
@@ -276,12 +278,11 @@ describe('Component > TranscribedLines', function () {
       })
 
       it('should create only one mark per transcribed line', function () {
-        const eventMock = { key: 'Enter', preventDefault: sinon.spy(), target: null }
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         expect(task.marks.length).to.equal(transcribedLines.length)
         lines.forEach((line, index) => {
           expect(task.activeMark).to.be.undefined()
-          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', eventMock)
+          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('click', eventMock)
           expect(task.activeMark.x1).to.equal(transcribedLines[index].points[0].x)
           expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
           expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
@@ -293,12 +294,13 @@ describe('Component > TranscribedLines', function () {
     })
 
     describe('on Enter', function () {
+      const eventMock = { key: 'Enter', preventDefault: sinon.spy(), target: null }
+
       before(function () {
         task.reset()
       })
 
       it('should create new marks', function () {
-        const eventMock = { key: 'Enter', preventDefault: sinon.spy(), target: null }
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         expect(task.marks.length).to.equal(0)
         lines.forEach((line, index) => {
@@ -314,7 +316,6 @@ describe('Component > TranscribedLines', function () {
       })
 
       it('should create only one mark per transcribed line', function () {
-        const eventMock = { key: 'Enter', preventDefault: sinon.spy() }
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         expect(task.marks.length).to.equal(transcribedLines.length)
         lines.forEach((line, index) => {
@@ -331,12 +332,13 @@ describe('Component > TranscribedLines', function () {
     })
 
     describe('on Space', function () {
+      const eventMock = { key: ' ', preventDefault: sinon.spy(), target: null }
+
       before(function () {
         task.reset()
       })
 
       it('should create a new mark', function () {
-        const eventMock = { key: ' ', preventDefault: sinon.spy() }
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         expect(task.marks.length).to.equal(0)
         lines.forEach((line, index) => {
@@ -352,7 +354,6 @@ describe('Component > TranscribedLines', function () {
       })
 
       it('should create only one mark per transcribed line', function () {
-        const eventMock = { key: 'Enter', preventDefault: sinon.spy() }
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         expect(task.marks.length).to.equal(transcribedLines.length)
         lines.forEach((line, index) => {
