@@ -32,10 +32,10 @@ export default function CharacteristicSection (props) {
         {characteristic.label}
       </SpacedHeading>
       <RadioButtonGroup
-        name={`${characteristic.label}RadioButtonGroup`}
         direction='row'
         gap='xsmall'
-        onChange={event => onFilter(characteristicId, event.target.value)}
+        name={`${characteristic.label}RadioButtonGroup`}
+        onChange={({ target }) => onFilter(characteristicId, target.value)}
         options={characteristic.valuesOrder}
         value={selectedValueId}
         wrap

@@ -7,7 +7,7 @@ import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 
 const questionId = 'HWMN'
 const question = mockTask.questions[questionId]
-const labels = question.answersOrder.map(answerId => ({
+const options = question.answersOrder.map(answerId => ({
   label: question.answers[answerId].label,
   value: answerId
 }))
@@ -43,12 +43,12 @@ export default {
   component: RadioQuestion
 }
 
-const Template = ({ dark, labels, questionId }) => (
+const Template = ({ dark, options, questionId }) => (
   <StoryContext
     theme={{ ...zooTheme, dark }}
   >
     <RadioQuestion
-      labels={labels}
+      options={options}
       questionId={questionId}
     />
   </StoryContext>
@@ -57,6 +57,6 @@ const Template = ({ dark, labels, questionId }) => (
 export const Default = Template.bind({})
 Default.args = {
   dark: false,
-  labels,
+  options,
   questionId
 }

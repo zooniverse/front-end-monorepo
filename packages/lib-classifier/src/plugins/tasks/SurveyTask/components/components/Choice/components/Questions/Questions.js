@@ -26,7 +26,7 @@ export default function Questions (props) {
       {questionIds.map(questionId => {
         const question = questions[questionId] || { answers: {}, answersOrder: [] }
         const inputType = question.multiple ? 'checkbox' : 'radio'
-        const labels = question.answersOrder.map(answerId => ({
+        const options = question.answersOrder.map(answerId => ({
           label: question.answers[answerId].label,
           value: answerId
         }))
@@ -42,7 +42,7 @@ export default function Questions (props) {
                   direction='row'
                   name={questionId}
                   onChange={({ value }) => handleAnswer(value, questionId)}
-                  options={labels}
+                  options={options}
                   value={answers[questionId]}
                   wrap
                 />
@@ -50,7 +50,7 @@ export default function Questions (props) {
               : (
                 <RadioQuestion
                   handleAnswer={handleAnswer}
-                  labels={labels}
+                  options={options}
                   questionId={questionId}
                   value={answers[questionId]}
                 />

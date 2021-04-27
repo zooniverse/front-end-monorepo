@@ -5,7 +5,7 @@ import React from 'react'
 export default function RadioQuestion (props) {
   const {
     handleAnswer,
-    labels,
+    options,
     questionId,
     value
   } = props
@@ -15,7 +15,7 @@ export default function RadioQuestion (props) {
       direction='row'
       name={questionId}
       onChange={({ target }) => handleAnswer(target.value, questionId)}
-      options={labels}
+      options={options}
       value={value}
       wrap
     />
@@ -24,14 +24,14 @@ export default function RadioQuestion (props) {
 
 RadioQuestion.defaultProps = {
   handleAnswer: () => {},
-  labels: [],
+  options: [],
   questionId: '',
   value: undefined
 }
 
 RadioQuestion.propTypes = {
   handleAnswer: PropTypes.func,
-  labels: PropTypes.arrayOf(
+  options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
       value: PropTypes.string
