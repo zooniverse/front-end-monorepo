@@ -15,22 +15,25 @@ function useStores () {
 
   // We expect there to only be one
   const [transcriptionTask] = stores.classifierStore.workflowSteps.findTasksByType('transcription')
+  // We want to observe the marks array for changes, so pass that as a separate prop.
+  const marks = transcriptionTask?.marks
 
-  return { transcriptionTask, consensusLines, frame, workflow }
+  return { transcriptionTask, consensusLines, frame, marks, workflow }
 }
 
-function TranscribedLinesContainer (props) {
+function TranscribedLinesContainer ({
+  scale = 1
+}) {
   const { 
     transcriptionTask = {},
     frame = 0,
-    consensusLines = [], 
+    consensusLines = [],
+    marks = [],
     workflow = {
       usesTranscriptionTask: false
     }
   } = useStores()
-  const {
-    scale = 1
-  } = props
+
   const { shownMarks } = transcriptionTask
   const visibleLinesPerFrame = consensusLines.filter(line => line.frame === frame)
 
@@ -38,6 +41,7 @@ function TranscribedLinesContainer (props) {
     return (
       <TranscribedLines
         lines={visibleLinesPerFrame}
+        marks={marks}
         scale={scale}
         task={transcriptionTask}
       />
