@@ -10,7 +10,7 @@ describe('Component > RadioQuestion', function () {
   let wrapper, handleAnswerSpy
   const questionId = 'HWMN'
   const question = mockTask.questions[questionId]
-  const labels = question.answersOrder.map(answerId => ({
+  const options = question.answersOrder.map(answerId => ({
     label: question.answers[answerId].label,
     value: answerId
   }))
@@ -20,7 +20,7 @@ describe('Component > RadioQuestion', function () {
     wrapper = shallow(
       <RadioQuestion
         handleAnswer={handleAnswerSpy}
-        labels={labels}
+        options={options}
         questionId={questionId}
       />
     )

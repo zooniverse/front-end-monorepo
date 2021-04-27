@@ -1,8 +1,9 @@
-import { Box, CheckBoxGroup } from 'grommet'
+import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { SpacedHeading } from '@zooniverse/react-components'
 
+import CheckBoxQuestion from './components/CheckBoxQuestion'
 import RadioQuestion from './components/RadioQuestion'
 
 export default function Questions (props) {
@@ -38,13 +39,11 @@ export default function Questions (props) {
             <SpacedHeading>{question.label}</SpacedHeading>
             {inputType === 'checkbox'
               ? (
-                <CheckBoxGroup
-                  direction='row'
-                  name={questionId}
-                  onChange={({ value }) => handleAnswer(value, questionId)}
+                <CheckBoxQuestion
+                  handleAnswer={handleAnswer}
                   options={options}
+                  questionId={questionId}
                   value={answers[questionId]}
-                  wrap
                 />
                 )
               : (
