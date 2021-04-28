@@ -5,6 +5,7 @@ import Tasks from '@components/Classifier/components/TaskArea/components/Tasks/T
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { createStore }  from '@store/helpers'
+import { WorkflowFactory } from '@test/factories'
 
 /**
   Global store. This should be created only once, otherwise the Provider will error.
@@ -14,17 +15,21 @@ let store
 /**
   Takes a workflow tasks object and sets up the active workflow step and classification annotations.
 */
-function addStepToStore(tasks = {}, isThereTaskHelp = true) {
+function addStepToStore(taskSnapshots = {}, isThereTaskHelp = true) {
   const stepKey = 'S1'
-  const taskKeys = Object.values(tasks).map(task => task.taskKey)
+  const taskKeys = Object.values(taskSnapshots).map(task => task.taskKey)
   const step = {
     stepKey,
     taskKeys
   }
   const steps = [[stepKey, step]]
-  Object.values(tasks).forEach(task => {
+  const tasks = {}
+  Object.values(taskSnapshots).forEach(snapshot => {
+    const task = Object.assign({}, snapshot)
     task.help = isThereTaskHelp ? task.help : undefined
+    tasks[task.taskKey] = task
   })
+  store.workflowSteps.reset()
   store.workflowSteps.setStepsAndTasks({ steps, tasks })
   store.annotatedSteps.start()
 }
@@ -33,24 +38,18 @@ function addStepToStore(tasks = {}, isThereTaskHelp = true) {
   Initialise the store state on story load.
 */
 function initStore(loadingState, tasks) {
-  store = store ?? createStore({
-    workflows: {
-      loadingState
-    }
-  })
-  addStepToStore(tasks)
+  store = store ?? createStore()
+  const workflow = WorkflowFactory.build(Object.assign({}, { tasks }))
+  store.workflows.setResources([workflow])
+  store.workflows.setActive(workflow.id)
   const mockSubject = {
     id: 'subject',
     metadata: {}
   }
-  const mockWorkflow = {
-    id: 'workflow',
-    version: '1.0'
-  }
   const mockProject = {
     id: 'project'
   }
-  store.classifications.createClassification(mockSubject, mockWorkflow, mockProject)
+  store.classifications.createClassification(mockSubject, workflow, mockProject)
 }
 
 /**
