@@ -1,16 +1,16 @@
 import { shallow } from 'enzyme'
-import { CheckBoxGroup } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import CheckBoxQuestion from './CheckBoxQuestion'
+import CheckBoxOption from './components/CheckBoxOption'
 
 describe('Component > CheckBoxQuestion', function () {
   let wrapper, handleAnswerSpy
   const questionId = 'WHTBHVRSDS'
   const question = mockTask.questions[questionId]
-  const labels = question.answersOrder.map(answerId => ({
+  const options = question.answersOrder.map(answerId => ({
     label: question.answers[answerId].label,
     value: answerId
   }))
@@ -20,7 +20,7 @@ describe('Component > CheckBoxQuestion', function () {
     wrapper = shallow(
       <CheckBoxQuestion
         handleAnswer={handleAnswerSpy}
-        labels={labels}
+        options={options}
         questionId={questionId}
       />
     )
@@ -30,24 +30,27 @@ describe('Component > CheckBoxQuestion', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should render a CheckBoxGroup', function () {
-    expect(wrapper.find(CheckBoxGroup)).to.have.lengthOf(1)
+  it('should render CheckBoxOptions', function () {
+    expect(wrapper.find(CheckBoxOption)).to.have.lengthOf(options.length)
   })
 
-  it('should call handleAnswer with new answer on CheckBoxGroup change', function () {
-    expect(handleAnswerSpy).to.not.have.been.called()
+  describe('with defined answer', function () {
+    let checkBoxOptions
 
-    wrapper.find(CheckBoxGroup).at(0).simulate('change', { value: ['RSTNG'] })
-    expect(handleAnswerSpy).to.have.been.calledWith(['RSTNG'], 'WHTBHVRSDS')
+    before(function () {
+      wrapper.setProps({ questionAnswer: ['RSTNG', 'TNG'] })
+      checkBoxOptions = wrapper.find(CheckBoxOption)
+    })
 
-    wrapper.find(CheckBoxGroup).at(0).simulate('change', { value: ['RSTNG', 'TNG'] })
-    expect(handleAnswerSpy).to.have.been.calledWith(['RSTNG', 'TNG'], 'WHTBHVRSDS')
+    it('should render chosen CheckBoxOptions as checked', function () {
+      expect(checkBoxOptions.find({ option: { label: 'Resting', value: 'RSTNG' } }).props().isChecked).to.be.true()
+      expect(checkBoxOptions.find({ option: { label: 'Eating', value: 'TNG' } }).props().isChecked).to.be.true()
+    })
 
-    handleAnswerSpy.resetHistory()
-  })
-
-  it('should render the chosen value', function () {
-    wrapper.setProps({ value: ['RSTNG', 'TNG'] })
-    expect(wrapper.find(CheckBoxGroup).props().value).to.deep.equal(['RSTNG', 'TNG'])
+    it('should render not chosen CheckBoxOptions as unchecked', function () {
+      expect(checkBoxOptions.find({ option: { label: 'Standing', value: 'STNDNG' } }).props().isChecked).to.be.false()
+      expect(checkBoxOptions.find({ option: { label: 'Moving', value: 'MVNG' } }).props().isChecked).to.be.false()
+      expect(checkBoxOptions.find({ option: { label: 'Interacting', value: 'NTRCTNG' } }).props().isChecked).to.be.false()
+    })
   })
 })

@@ -14,8 +14,8 @@ export default function Questions (props) {
     setAnswers
   } = props
 
-  function handleAnswer (value, questionId) {
-    const newAnswers = Object.assign({}, answers, { [questionId]: value })
+  function handleAnswer (questionAnswer, questionId) {
+    const newAnswers = Object.assign({}, answers, { [questionId]: questionAnswer })
 
     setAnswers(newAnswers)
   }
@@ -43,7 +43,7 @@ export default function Questions (props) {
                   handleAnswer={handleAnswer}
                   options={options}
                   questionId={questionId}
-                  value={answers[questionId]}
+                  questionAnswer={answers[questionId]}
                 />
                 )
               : (
@@ -51,7 +51,7 @@ export default function Questions (props) {
                   handleAnswer={handleAnswer}
                   options={options}
                   questionId={questionId}
-                  value={answers[questionId]}
+                  questionAnswer={answers[questionId]}
                 />
                 )}
           </Box>

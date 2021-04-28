@@ -8,8 +8,8 @@ export default function RadioQuestion (props) {
   const {
     handleAnswer,
     options,
-    questionId,
-    value
+    questionAnswer,
+    questionId
   } = props
 
   return (
@@ -18,7 +18,7 @@ export default function RadioQuestion (props) {
       name={questionId}
       onChange={({ target }) => handleAnswer(target.value, questionId)}
       options={options}
-      value={value}
+      value={questionAnswer}
       wrap
     >
       {(option, { checked, hover }) => {
@@ -36,8 +36,8 @@ export default function RadioQuestion (props) {
 RadioQuestion.defaultProps = {
   handleAnswer: () => {},
   options: [],
-  questionId: '',
-  value: undefined
+  questionAnswer: undefined,
+  questionId: ''
 }
 
 RadioQuestion.propTypes = {
@@ -48,6 +48,6 @@ RadioQuestion.propTypes = {
       value: PropTypes.string
     })
   ),
-  questionId: PropTypes.string,
-  value: PropTypes.string
+  questionAnswer: PropTypes.string,
+  questionId: PropTypes.string
 }

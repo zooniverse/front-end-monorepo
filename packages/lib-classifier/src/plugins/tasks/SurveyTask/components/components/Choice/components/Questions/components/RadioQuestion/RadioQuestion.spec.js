@@ -44,7 +44,7 @@ describe('Component > RadioQuestion', function () {
   })
 
   it('should render the chosen value', function () {
-    wrapper.setProps({ value: '9' })
+    wrapper.setProps({ questionAnswer: '9' })
     expect(wrapper.find(RadioButtonGroup).props().value).to.equal('9')
   })
 })

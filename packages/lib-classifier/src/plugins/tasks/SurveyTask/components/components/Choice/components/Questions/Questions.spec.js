@@ -33,13 +33,13 @@ describe('Component > Questions', function () {
     expect(radioButtons).to.have.lengthOf(2)
   })
 
-  it('should render the chosen values for each input group', function () {
+  it('should pass the chosen answers for each input group', function () {
     wrapper.setProps({ answers: { WHTBHVRSDS: ['RSTNG', 'TNG'], HWMN: '9' } })
     checkboxes = wrapper.find(CheckBoxQuestion)
     radioButtons = wrapper.find(RadioQuestion)
 
-    expect(checkboxes.find({ questionId: 'WHTBHVRSDS' }).props().value).to.deep.equal(['RSTNG', 'TNG'])
-    expect(radioButtons.find({ questionId: 'HWMN' }).props().value).to.equal('9')
-    expect(radioButtons.find({ questionId: 'RTHRNNGPRSNT' }).props().value).to.be.undefined()
+    expect(checkboxes.find({ questionId: 'WHTBHVRSDS' }).props().questionAnswer).to.deep.equal(['RSTNG', 'TNG'])
+    expect(radioButtons.find({ questionId: 'HWMN' }).props().questionAnswer).to.equal('9')
+    expect(radioButtons.find({ questionId: 'RTHRNNGPRSNT' }).props().questionAnswer).to.be.undefined()
   })
 })
