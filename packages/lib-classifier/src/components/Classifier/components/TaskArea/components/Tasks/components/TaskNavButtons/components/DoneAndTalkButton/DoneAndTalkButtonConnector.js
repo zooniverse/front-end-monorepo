@@ -23,7 +23,7 @@ function withStores(Component) {
       }
     } = props.store || useContext(MobXProviderContext)
 
-    if (!hasNextStep && shouldWeShowDoneAndTalkButton && subject.id) {
+    if (!hasNextStep && shouldWeShowDoneAndTalkButton && subject?.id) {
       function onClick(event) {
         event.preventDefault()
         const isCmdClick = event.metaKey
