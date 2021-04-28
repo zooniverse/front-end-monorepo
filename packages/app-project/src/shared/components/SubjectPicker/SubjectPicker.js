@@ -141,17 +141,3 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
     </>
   )
 }
-
-SubjectPicker.defaultProps = {
-  subjectSet: {
-    id: '15582',
-    display_name: 'Anti-Slavery Letters: 1800-1839',
-    metadata: {
-      indexFields: 'date,title,creators'
-    }
-  },
-  workflow: {
-    id: '5329',
-    display_name: 'Transcribe Text (Main Workflow)'
-  }
-}
