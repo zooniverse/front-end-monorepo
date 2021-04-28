@@ -28,7 +28,7 @@ describe('Component > RadioOption', function () {
     expect(wrapper.find(Box).props().background.color).to.equal('neutral-6')
   })
 
-  it('shuold have text weight normal', function () {
+  it('should have text weight normal', function () {
     expect(wrapper.find(Text).props().weight).to.equal('normal')
   })
 
@@ -41,7 +41,7 @@ describe('Component > RadioOption', function () {
       expect(wrapper.find(Box).props().background.color).to.equal('accent-2')
     })
 
-    it('shuold have text weight bold', function () {
+    it('should have text weight bold', function () {
       expect(wrapper.find(Text).props().weight).to.equal('bold')
     })
   })
