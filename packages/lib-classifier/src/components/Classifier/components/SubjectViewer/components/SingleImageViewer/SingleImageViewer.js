@@ -22,17 +22,15 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
 
   const transformLayer = createRef()
   const { svg } = useContext(SVGContext)
-  const transform = `rotate(${rotate} ${width / 2} ${height / 2 })`
+  const transform = `rotate(${rotate} ${width / 2} ${height / 2})`
   const getScreenCTM = () => transformLayer.current.getScreenCTM()
 
   return (
     <SVGContext.Provider value={{ svg, getScreenCTM }}>
-      {zoomControlFn &&
-        <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />}
-      <Box
-        animation='fadeIn'
-        overflow='hidden'
-      >
+      {zoomControlFn && (
+        <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />
+      )}
+      <Box animation='fadeIn' overflow='hidden'>
         <svg
           ref={ref}
           focusable
@@ -40,19 +38,14 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
           tabIndex={0}
           viewBox={viewBox}
         >
-          {title?.id && title?.text &&
-            <title id={title.id}>{title.text}</title>}
-          <g
-            ref={transformLayer}
-            transform={transform}
-          >
+          {title?.id && title?.text && (
+            <title id={title.id}>{title.text}</title>
+          )}
+          <g ref={transformLayer} transform={transform}>
             {children}
-            {enableInteractionLayer &&
-              <InteractionLayer
-                scale={scale}
-                height={height}
-                width={width}
-              />}
+            {enableInteractionLayer && (
+              <InteractionLayer scale={scale} height={height} width={width} />
+            )}
           </g>
         </svg>
       </Box>
@@ -70,9 +63,9 @@ SingleImageViewer.propTypes = {
     id: PropTypes.string,
     text: PropTypes.string
   }),
-  viewBox: PropTypes.string.isRequired,
+  viewBox: PropTypes.string,
   width: PropTypes.number.isRequired,
-  zoomControlFn: PropTypes.oneOfType([ PropTypes.func, PropTypes.object ]),
+  zoomControlFn: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   zooming: PropTypes.bool
 }
 
