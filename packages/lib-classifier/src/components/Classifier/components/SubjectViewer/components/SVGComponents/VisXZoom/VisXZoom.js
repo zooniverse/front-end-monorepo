@@ -139,6 +139,7 @@ class VisXZoom extends PureComponent {
             <ZoomingComponent
               initialTransformMatrix={zoom.initialTransformMatrix}
               transformMatrix={zoom.transformMatrix}
+              transform={zoom.toString()}
               {...this.props}
             >
               <ZoomEventLayer
