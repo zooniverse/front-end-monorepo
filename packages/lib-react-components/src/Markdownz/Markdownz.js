@@ -55,7 +55,6 @@ class Markdownz extends React.Component {
     let alt = nodeProps.alt
     const src = nodeProps.src
     const match = alt.match(imgSizeRegex)
-
     if (match && match.length > 0) {
       width = parseInt(match[1])
       height = parseInt(match[3])
@@ -64,6 +63,14 @@ class Markdownz extends React.Component {
 
     if (src) return <Media alt={alt} height={height} src={src} width={width} />
     return null
+  }
+
+  findResizedImages () {
+    // manually changing children prop? this has to be done before renderMedia()
+    // img with markdown-it-imsize gets sorted into html text
+    // find src strings formatted as ![]()
+    // if it includes ' =' handle it like markdown-it-imsize plugin
+    // place 100x100 into alt tag
   }
 
   render () {
