@@ -2,15 +2,14 @@ import { shallow } from 'enzyme'
 import React from 'react'
 
 // import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
-// import { default as Task } from '@plugins/tasks/SurveyTask'
-import ConfusedWith from './ConfusedWith'
+import Confusion from './Confusion'
 
-describe.only('Component > Choice', function () {
+describe.only('Component > Confusion', function () {
   let wrapper
 
   before(function () {
     wrapper = shallow(
-      <ConfusedWith />
+      <Confusion />
     )
   })
 

@@ -57,6 +57,8 @@ describe('Component > Choice', function () {
     expect(wrapper.find(Carousel)).to.have.lengthOf(1)
   })
 
+  // TODO: add ConfusedWith tests
+
   it('should not render Questions with choice without questions', function () {
     wrapper.setProps({ choiceId: 'FR' })
     expect(wrapper.find(Questions)).to.have.lengthOf(0)
