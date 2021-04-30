@@ -9,25 +9,8 @@ import ProjectAboutPage from './ProjectAboutPage'
   If a non-required about page is empty or missing, content is set as null.
 */
 const ProjectAboutPageConnector = ({ pageType, teamArray }) => {
-  const handleMissingTitle = () => {
-    switch (pageType) {
-      case 'science_case':
-        return 'Research'
-      case 'team':
-        return 'The Team'
-      case 'results':
-        return 'Results'
-      case 'education':
-        return 'Education'
-      case 'faq':
-        return 'FAQ'
-      default:
-        return 'Research'
-    }
-  }
-
   const returnDefaultContent = () => {
-    const pageTitle = handleMissingTitle(pageType)
+    const pageTitle = pageType === 'science_case' ? 'research' : pageType
     const requiredPage = pageType === 'science_case' || pageType === 'team'
 
     return {
@@ -46,11 +29,12 @@ const ProjectAboutPageConnector = ({ pageType, teamArray }) => {
   const aboutNavLinks = ['research', 'team']
   if (about_pages.length) {
     about_pages.forEach(page => {
+      const type = page.url_key === 'science_case' ? 'research' : page.url_key
       if (
         page.content?.length &&
-        !aboutNavLinks.includes(page.title.toLowerCase())
+        !aboutNavLinks.includes(type)
       ) {
-        aboutNavLinks.push(page.title.toLowerCase())
+        aboutNavLinks.push(type)
       }
     })
     aboutPageData = about_pages.filter(page => page.url_key === pageType)[0]

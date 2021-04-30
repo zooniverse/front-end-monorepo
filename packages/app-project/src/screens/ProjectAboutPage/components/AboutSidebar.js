@@ -10,16 +10,47 @@ const AboutSidebar = ({ router, aboutNavLinks }) => {
 
   return (
     <Nav flex direction="column" gap="xsmall">
-      {aboutNavLinks.map(link => (
+      <AboutNavLink
+        link={{
+          href: `${baseUrl}/research`,
+          text: 'research'
+        }}
+        router={router}
+      />
+      <AboutNavLink
+        link={{
+          href: `${baseUrl}/team`,
+          text: 'the team'
+        }}
+        router={router}
+      />
+      {aboutNavLinks.includes('results') && (
         <AboutNavLink
-          key={link}
           link={{
-            href: `${baseUrl}/${link}`,
-            text: link === 'team' ? 'the team' : link
+            href: `${baseUrl}/results`,
+            text: 'results'
           }}
           router={router}
         />
-      ))}
+      )}
+      {aboutNavLinks.includes('education') && (
+        <AboutNavLink
+          link={{
+            href: `${baseUrl}/education`,
+            text: 'education'
+          }}
+          router={router}
+        />
+      )}
+      {aboutNavLinks.includes('faq') && (
+        <AboutNavLink
+          link={{
+            href: `${baseUrl}/faq`,
+            text: 'faq'
+          }}
+          router={router}
+        />
+      )}
     </Nav>
   )
 }
