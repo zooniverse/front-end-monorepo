@@ -23,11 +23,12 @@ const SidebarHeading = styled(SpacedHeading)`
 `
 
 function ProjectAboutPage({
+  aboutNavLinks,
   aboutPageData,
   inBeta,
   projectDisplayName,
-  teamArray,
-  screenSize
+  screenSize,
+  teamArray
 }) {
   const { content, title } = aboutPageData
 
@@ -57,7 +58,7 @@ function ProjectAboutPage({
           {screenSize !== 'small' ? (
             <Box>
               <SidebarHeading children="About" />
-              <AboutSidebar />
+              <AboutSidebar aboutNavLinks={aboutNavLinks} />
             </Box>
           ) : (
             <AboutDropdownNav />

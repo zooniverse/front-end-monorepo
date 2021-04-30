@@ -1,6 +1,6 @@
 import { observer, MobXProviderContext } from 'mobx-react'
 import React from 'react'
-import { arrayOf, bool, object, shape, string } from 'prop-types'
+import { arrayOf, bool, shape, string } from 'prop-types'
 
 import ProjectAboutPage from './ProjectAboutPage'
 
@@ -8,8 +8,8 @@ import ProjectAboutPage from './ProjectAboutPage'
   Connect the about page to the store. Pass down correct aboutPages data.
   If a non-required about page is empty or missing, content is set as null.
 */
-function ProjectAboutPageConnector({ pageType, teamArray }) {
-  const handleMissingTitle = pageType => {
+const ProjectAboutPageConnector = ({ pageType, teamArray }) => {
+  const handleMissingTitle = () => {
     switch (pageType) {
       case 'science_case':
         return 'Research'
@@ -43,7 +43,16 @@ function ProjectAboutPageConnector({ pageType, teamArray }) {
   } = React.useContext(MobXProviderContext)
 
   let aboutPageData
+  const aboutNavLinks = ['research', 'team']
   if (about_pages.length) {
+    about_pages.forEach(page => {
+      if (
+        page.content.length &&
+        !aboutNavLinks.includes(page.title.toLowerCase())
+      ) {
+        aboutNavLinks.push(page.title.toLowerCase())
+      }
+    })
     aboutPageData = about_pages.filter(page => page.url_key === pageType)[0]
     if (!aboutPageData) {
       aboutPageData = returnDefaultContent()
@@ -54,17 +63,18 @@ function ProjectAboutPageConnector({ pageType, teamArray }) {
 
   return (
     <ProjectAboutPage
-      inBeta={inBeta}
+      aboutNavLinks={aboutNavLinks}
       aboutPageData={aboutPageData}
-      teamArray={teamArray}
+      inBeta={inBeta}
       projectDisplayName={display_name}
+      teamArray={teamArray}
     />
   )
 }
 
 ProjectAboutPageConnector.propTypes = {
   inBeta: bool,
-  initialState: object,
+  pageType: string,
   teamArray: arrayOf(
     shape({
       avatar_src: string,
