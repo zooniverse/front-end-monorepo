@@ -11,8 +11,8 @@ const ERROR = 'That page does not exist'
       props = response.props
     })
 
-    it('should set a 404 status code', function () {
-      expect(props.statusCode).to.equal(404)
+    it('should set notFound', function () {
+      expect(props.notFound).to.be.true()
     })
 
     it('should set a title for the error page', function () {
@@ -28,8 +28,8 @@ const ERROR = 'That page does not exist'
       props = response.props
     })
 
-    it('should set a 404 status code', function () {
-      expect(props.statusCode).to.equal(404)
+    it('should set notFound', function () {
+      expect(props.notFound).to.be.true()
     })
 
     it('should not set a title for the error page', function () {
