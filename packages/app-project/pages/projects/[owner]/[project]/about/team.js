@@ -3,7 +3,7 @@ import { panoptes } from '@zooniverse/panoptes-js'
 export { default } from '@screens/ProjectAboutPage'
 
 export async function getServerSideProps({ params, query, req, res }) {
-  const { props } = await getDefaultPageProps({ params, query, req, res })
+  const { notFound, props } = await getDefaultPageProps({ params, query, req, res })
   const { project } = props.initialState
 
   const fetchTeam = async () => {
@@ -49,6 +49,7 @@ export async function getServerSideProps({ params, query, req, res }) {
   const teamArray = await fetchTeam()
 
   return {
+    notFound,
     props: {
       pageType: 'team',
       ...props,
