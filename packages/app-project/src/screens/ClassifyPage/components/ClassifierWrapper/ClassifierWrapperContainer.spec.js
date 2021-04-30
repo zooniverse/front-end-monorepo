@@ -4,7 +4,8 @@ import React from 'react'
 import asyncStates from '@zooniverse/async-states'
 import Classifier from '@zooniverse/classifier'
 
-import ClassifierWrapperContainer from './ClassifierWrapperContainer'
+import initStore from '@stores/initStore'
+import { ClassifierWrapperContainer, storeMapper } from './ClassifierWrapperContainer'
 
 describe('Component > ClassifierWrapperContainer', function () {
   let wrapper
@@ -13,7 +14,7 @@ describe('Component > ClassifierWrapperContainer', function () {
     const project = {}
     const user = {}
     wrapper = shallow(
-      <ClassifierWrapperContainer.wrappedComponent
+      <ClassifierWrapperContainer
         project={project}
         user={user}
       />
@@ -47,18 +48,18 @@ describe('Component > ClassifierWrapperContainer', function () {
         loadingState: asyncStates.success
       }
       wrapper = shallow(
-        <ClassifierWrapperContainer.wrappedComponent
+        <ClassifierWrapperContainer
           collections={collections}
           project={project}
           recents={recents}
           user={user}
           yourStats={yourStats}
         />
-      )
+      ).find(Classifier)
     })
 
     it('should render the classifier', function () {
-      expect(wrapper.find(Classifier)).to.have.lengthOf(1)
+      expect(wrapper).to.have.lengthOf(1)
     })
 
     describe('on classification complete', function () {
@@ -70,7 +71,7 @@ describe('Component > ClassifierWrapperContainer', function () {
             { 'image/jpeg': 'thing.jpg' }
           ]
         }
-        wrapper.instance().onCompleteClassification({}, subject)
+        wrapper.props().onCompleteClassification({}, subject)
       })
 
       it('should increment stats', function () {
@@ -91,14 +92,48 @@ describe('Component > ClassifierWrapperContainer', function () {
 
     describe('on toggle favourite', function () {
       it('should add a subject to favourites', function () {
-        wrapper.instance().onToggleFavourite('3', true)
+        wrapper.props().onToggleFavourite('3', true)
         expect(collections.addFavourites.withArgs(['3'])).to.have.been.calledOnce()
       })
 
       it('should remove a subject from favourites', function () {
-        wrapper.instance().onToggleFavourite('3', false)
+        wrapper.props().onToggleFavourite('3', false)
         expect(collections.removeFavourites.withArgs(['3'])).to.have.been.calledOnce()
       })
+    })
+  })
+
+  describe('storeMapper', function () {
+    let props
+    let store
+
+    before(function () {
+      store = initStore()
+      props = storeMapper(store)
+    })
+
+    it('should return collections', function () {
+      expect(props.collections).to.equal(store.collections)
+    })
+
+    it('should return recents', function () {
+      expect(props.recents).to.equal(store.recents)
+    })
+
+    it('should return your personal stats', function () {
+      expect(props.yourStats).to.equal(store.yourStats)
+    })
+
+    it('should return the project', function () {
+      expect(props.project).to.equal(store.project)
+    })
+
+    it('should return the logged-in user', function () {
+      expect(props.user).to.equal(store.user)
+    })
+
+    it('should return the theme mode', function () {
+      expect(props.mode).to.equal(store.ui.mode)
     })
   })
 })

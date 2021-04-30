@@ -1,50 +1,78 @@
 import Classifier from '@zooniverse/classifier'
-import { inject, observer } from 'mobx-react'
+import { MobXProviderContext, observer } from 'mobx-react'
 import auth from 'panoptes-client/lib/auth'
 import { func, shape } from 'prop-types'
-import React, { Component } from 'react'
+import React, { Component, useContext } from 'react'
 import asyncStates from '@zooniverse/async-states'
 import { logToSentry } from '@helpers/logger'
 import ErrorMessage from './components/ErrorMessage'
 
-function storeMapper (stores) {
-  const { collections, project, recents, user, yourStats } = stores.store
-  const { mode } = stores.store.ui
-  // We return a POJO here, as the `project` resource is also stored in a
-  // `mobx-state-tree` store in the classifier and an MST node can't be in two
-  // stores at the same time.
-  return {
+export function storeMapper(store) {
+  const {
+    collections,
+    project,
+    recents,
+    user,
+    ui: {
+      mode
+    },
+    yourStats
+  } = store
+
+  return ({
     collections,
     mode,
-    project: project.toJSON(),
+    project,
     recents,
     user,
     yourStats
-  }
+  })
 }
 
-@inject(storeMapper)
-@observer
-class ClassifierWrapperContainer extends Component {
-  constructor () {
-    super()
-    this.onCompleteClassification = this.onCompleteClassification.bind(this)
-    this.onToggleFavourite = this.onToggleFavourite.bind(this)
-    this.onError = this.onError.bind(this)
-    this.state = {
-      error: null
-    }
+function withStore(Component) {
+  function DecoratedComponent(props) {
+    const { store } = useContext(MobXProviderContext)
+    const {
+      collections,
+      mode,
+      project,
+      recents,
+      user,
+      yourStats
+    } = storeMapper(store)
+    return (
+      <Component
+        collections={collections}
+        mode={mode}
+  // We use a POJO here, as the `project` resource is also stored in a
+  // `mobx-state-tree` store in the classifier and an MST node can't be in two
+  // stores at the same time.
+        project={project.toJSON()}
+        recents={recents}
+        user={user}
+        yourStats={yourStats}
+        {...props}
+      />
+    )
   }
+  return observer(DecoratedComponent)
+}
 
-  static getDerivedStateFromError (error) {
-    console.error('error', error)
-    return {
-      error
-    }
-  }
+export function ClassifierWrapperContainer({
+  onAddToCollection = () => true,
+  authClient = auth,
+  collections,
+  mode,
+  project,
+  recents,
+  subjectID,
+  subjectSetID,
+  user,
+  workflowID,
+  yourStats
+}) {
 
-  onCompleteClassification (classification, subject) {
-    const { recents, yourStats } = this.props
+  function onCompleteClassification(classification, subject) {
     yourStats.increment()
     recents.add({
       favorite: subject.favorite,
@@ -53,13 +81,12 @@ class ClassifierWrapperContainer extends Component {
     })
   }
 
-  onError(error, errorInfo={}) {
+  function onError(error, errorInfo={}) {
     logToSentry(error, errorInfo)
-    this.setState({ error })
+    console.error('Classifier error', error)
   }
 
-  onToggleFavourite (subjectId, isFavourite) {
-    const { collections } = this.props
+  function onToggleFavourite(subjectId, isFavourite) {
     if (isFavourite) {
       collections.addFavourites([subjectId])
     } else {
@@ -67,26 +94,25 @@ class ClassifierWrapperContainer extends Component {
     }
   }
 
-  render () {
-    const { onAddToCollection, authClient, mode, project, subjectID, subjectSetID, user, workflowID } = this.props
-    const somethingWentWrong = this.state.error || project.loadingState === asyncStates.error
+  const somethingWentWrong = project.loadingState === asyncStates.error
 
-    if (somethingWentWrong) {
-      const { error } = this.state || project
-      const errorToMessage = error || new Error('Something went wrong')
-      return (
-        <ErrorMessage error={errorToMessage} />
-      )
-    }
+  if (somethingWentWrong) {
+    const { error } = project
+    const errorToMessage = error || new Error('Something went wrong')
+    return (
+      <ErrorMessage error={errorToMessage} />
+    )
+  }
 
-    if (user.loadingState === asyncStates.loading) {
-      return (
-        <p>
-          Signing in…
-        </p>
-      )
-    }
+  if (user.loadingState === asyncStates.loading) {
+    return (
+      <p>
+        Signing in…
+      </p>
+    )
+  }
 
+  try {
     if (project.loadingState === asyncStates.success) {
       const key = user.id || 'no-user'
       return (
@@ -95,9 +121,9 @@ class ClassifierWrapperContainer extends Component {
           key={key}
           mode={mode}
           onAddToCollection={onAddToCollection}
-          onCompleteClassification={this.onCompleteClassification}
-          onError={this.onError}
-          onToggleFavourite={this.onToggleFavourite}
+          onCompleteClassification={onCompleteClassification}
+          onError={onError}
+          onToggleFavourite={onToggleFavourite}
           project={project}
           subjectID={subjectID}
           subjectSetID={subjectSetID}
@@ -105,11 +131,16 @@ class ClassifierWrapperContainer extends Component {
         />
       )
     }
-
+  } catch (error) {
+    onError(error)
     return (
-      <div>Loading…</div>
+      <ErrorMessage error={error} />
     )
   }
+
+  return (
+    <div>Loading…</div>
+  )
 }
 
 ClassifierWrapperContainer.propTypes = {
@@ -118,9 +149,4 @@ ClassifierWrapperContainer.propTypes = {
   project: shape({})
 }
 
-ClassifierWrapperContainer.defaultProps = {
-  onAddToCollection: () => true,
-  authClient: auth
-}
-
-export default ClassifierWrapperContainer
+export default withStore(ClassifierWrapperContainer)
