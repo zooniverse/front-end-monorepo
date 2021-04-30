@@ -4,41 +4,54 @@ import { arrayOf, bool, object, shape, string } from 'prop-types'
 
 import ProjectAboutPage from './ProjectAboutPage'
 
-const handleMissingTitle = pageType => {
-  switch (pageType) {
-    case 'science_case':
-      return 'Research'
-    case 'team':
-      return 'The Team'
-    case 'results':
-      return 'Results'
-    case 'education':
-      return 'Education'
-    case 'faq':
-      return 'FAQ'
-    default:
-      return 'Research'
-  }
-}
-
 /**
   Connect the about page to the store. Pass down correct aboutPages data.
+  If a non-required about page is empty or missing, content is set as null.
 */
 function ProjectAboutPageConnector({ pageType, teamArray }) {
+  const handleMissingTitle = pageType => {
+    switch (pageType) {
+      case 'science_case':
+        return 'Research'
+      case 'team':
+        return 'The Team'
+      case 'results':
+        return 'Results'
+      case 'education':
+        return 'Education'
+      case 'faq':
+        return 'FAQ'
+      default:
+        return 'Research'
+    }
+  }
+
+  const returnDefaultContent = () => {
+    const pageTitle = handleMissingTitle(pageType)
+    const requiredPage = pageType === 'science_case' || pageType === 'team'
+
+    return {
+      title: pageTitle,
+      content: requiredPage ? 'No content yet.' : null
+    }
+  }
+
   const {
     store: {
       project: { inBeta = false, about_pages = [], display_name = '' }
     }
   } = React.useContext(MobXProviderContext)
+
   let aboutPageData
-  if (about_pages.length) aboutPageData = about_pages.filter(page => page.url_key === pageType)[0]
-  else {
-    const pageTitle = handleMissingTitle(pageType)
-    aboutPageData = {
-      title: pageTitle,
-      content: 'No content yet.'
+  if (about_pages.length) {
+    aboutPageData = about_pages.filter(page => page.url_key === pageType)[0]
+    if (!aboutPageData) {
+      aboutPageData = returnDefaultContent()
     }
+  } else {
+    aboutPageData = returnDefaultContent()
   }
+
   return (
     <ProjectAboutPage
       inBeta={inBeta}

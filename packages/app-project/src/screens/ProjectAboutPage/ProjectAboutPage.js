@@ -29,7 +29,7 @@ function ProjectAboutPage({
   teamArray,
   screenSize
 }) {
-  const { content = 'No content yet.', title } = aboutPageData
+  const { content, title } = aboutPageData
 
   const isTeamPage = title.toLowerCase().includes('team')
 
