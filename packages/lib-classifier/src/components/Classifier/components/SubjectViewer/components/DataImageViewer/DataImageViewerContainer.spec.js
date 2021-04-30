@@ -34,7 +34,7 @@ const failSubject = Factory.build('subject', {
   ]
 })
 
-describe.only('Component > DataImageViewerContainer', function () {
+describe('Component > DataImageViewerContainer', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<DataImageViewerContainer />)
     expect(wrapper).to.be.ok()
