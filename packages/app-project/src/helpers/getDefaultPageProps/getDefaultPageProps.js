@@ -26,8 +26,11 @@ export default async function getDefaultPageProps({ params, query, req }) {
     host,
     initialState,
     query,
-    title,
     workflows
+  }
+
+  if (title) {
+    props.title = title
   }
 
   if (workflowID) {
