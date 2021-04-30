@@ -5,7 +5,7 @@ import sinon from 'sinon'
 import ProjectAboutPageConnector from './ProjectAboutPageConnector'
 import ProjectAboutPage from './ProjectAboutPage'
 
-describe.only('Component > ProjectAboutPageConnector', () => {
+describe('Component > ProjectAboutPageConnector', () => {
   let wrapper
   let useContextStub
 
