@@ -12,7 +12,9 @@ export default function Confusion (props) {
     confusion,
     confusionId,
     confusionText,
-    images
+    handleChoice,
+    images,
+    onClose
   } = props
 
   return (
@@ -50,12 +52,12 @@ export default function Confusion (props) {
         <Button
           fill='horizontal'
           label={counterpart('ConfusedWith.cancel')}
-          onClick={() => {}}
+          onClick={() => onClose()}
         />
         <PrimaryButton
           fill='horizontal'
           label={counterpart('ConfusedWith.this')}
-          onClick={() => {}}
+          onClick={() => handleChoice(confusionId)}
         />
       </Box>
     </Box>
@@ -66,12 +68,16 @@ Confusion.defaultProps = {
   confusion: {},
   confusionId: '',
   confusionText: '',
-  images: {}
+  handleChoice: () => {},
+  images: {},
+  onClose: () => {}
 }
 
 Confusion.propTypes = {
   confusion: PropTypes.object, // TODO: refactor for relevant properties
   confusionId: PropTypes.string,
   confusionText: PropTypes.string,
-  images: PropTypes.objectOf(PropTypes.string)
+  handleChoice: PropTypes.func,
+  images: PropTypes.objectOf(PropTypes.string),
+  onClose: PropTypes.func
 }

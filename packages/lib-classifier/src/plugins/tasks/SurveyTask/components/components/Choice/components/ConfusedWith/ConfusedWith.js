@@ -15,8 +15,17 @@ export default function ConfusedWith (props) {
     choices,
     confusions,
     confusionsOrder,
+    handleChoice,
     images
   } = props
+
+  const [open, setOpen] = React.useState(false)
+  function onClose () {
+    setOpen(false)
+  }
+  function onOpen (confusionId) {
+    setOpen(confusionId)
+  }
 
   return (
     <Box>
@@ -37,10 +46,15 @@ export default function ConfusedWith (props) {
                   confusion={choices[confusionId]}
                   confusionId={confusionId}
                   confusionText={confusions[confusionId]}
+                  handleChoice={handleChoice}
                   images={images}
+                  onClose={onClose}
                 />
               }
               label={choices[confusionId].label}
+              open={open === confusionId}
+              onClose={() => onClose()}
+              onOpen={() => onOpen(confusionId)}
             />
           )
         })}
@@ -53,6 +67,7 @@ ConfusedWith.defaultProps = {
   choices: {},
   confusions: {},
   confusionsOrder: [],
+  handleChoice: () => {},
   images: {}
 }
 
@@ -60,5 +75,6 @@ ConfusedWith.propTypes = {
   choices: PropTypes.object, // TODO: refactor for relevant properties
   confusions: PropTypes.objectOf(PropTypes.string),
   confusionsOrder: PropTypes.arrayOf(PropTypes.string),
+  handleChoice: PropTypes.func,
   images: PropTypes.objectOf(PropTypes.string)
 }

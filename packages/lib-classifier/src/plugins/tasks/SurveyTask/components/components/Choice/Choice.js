@@ -18,6 +18,7 @@ export default function Choice (props) {
     answers,
     choiceId,
     handleAnswers,
+    handleChoice,
     onCancel,
     onIdentify,
     task
@@ -57,6 +58,7 @@ export default function Choice (props) {
           choices={choices}
           confusions={choice.confusions}
           confusionsOrder={choice.confusionsOrder}
+          handleChoice={handleChoice}
           images={images}
         />
       )}
@@ -102,6 +104,7 @@ Choice.defaultProps = {
   answers: {},
   choiceId: '',
   handleAnswers: () => {},
+  handleChoice: () => {},
   onCancel: () => {},
   onIdentify: () => {}
 }
@@ -115,6 +118,7 @@ Choice.propTypes = {
   ),
   choiceId: PropTypes.string,
   handleAnswers: PropTypes.func,
+  handleChoice: PropTypes.func,
   onCancel: PropTypes.func,
   onIdentify: PropTypes.func,
   task: PropTypes.shape({
