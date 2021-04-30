@@ -11,11 +11,10 @@ import ProjectAboutPage from './ProjectAboutPage'
 const ProjectAboutPageConnector = ({ pageType, teamArray }) => {
   const returnDefaultContent = () => {
     const pageTitle = pageType === 'science_case' ? 'research' : pageType
-    const requiredPage = pageType === 'science_case' || pageType === 'team'
 
     return {
       title: pageTitle,
-      content: requiredPage ? 'No content yet.' : null
+      content: 'No content yet.'
     }
   }
 

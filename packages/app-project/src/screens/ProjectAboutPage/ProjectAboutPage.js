@@ -1,6 +1,7 @@
 import { Box, Grid, Heading } from 'grommet'
 import { arrayOf, bool, object, shape, string } from 'prop-types'
 import styled, { withTheme } from 'styled-components'
+import { capitalize } from 'lodash'
 
 /** Components */
 import StandardLayout from '@shared/components/StandardLayout'
@@ -65,7 +66,7 @@ function ProjectAboutPage({
           )}
           <Box>
             <PageHeading
-              children={isTeamPage ? 'The Team' : title}
+              children={isTeamPage ? 'The Team' : capitalize(title)}
               level="2"
               weight="normal"
               size="40px"
