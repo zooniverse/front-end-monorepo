@@ -34,7 +34,7 @@ const failSubject = Factory.build('subject', {
   ]
 })
 
-describe('Component > DataImageViewerContainer', function () {
+describe.only('Component > DataImageViewerContainer', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<DataImageViewerContainer />)
     expect(wrapper).to.be.ok()
@@ -232,6 +232,132 @@ describe('Component > DataImageViewerContainer', function () {
       expect(wrapper.state().allowPanZoom).to.be.empty()
       wrapper.instance().setAllowPanZoom('image')
       expect(wrapper.state().allowPanZoom).to.equal('image')
+    })
+  })
+
+  describe('zoom configuration', function () {
+    it('should default to undefined', async function () {
+      const wrapper = shallow(
+        <DataImageViewerContainer
+          subject={subject}
+        />,
+        { disableLifecycleMethods: true }
+      )
+      expect(wrapper.find(DataImageViewer).props().zoomConfiguration).to.be.undefined()
+    })
+
+    describe('when subject specific zoom configuration is defined', function () {
+      let nockScope
+      let cdmSpy
+      let wrapper
+      const subjectZoomConfiguration = {
+        direction: 'both',
+        minZoom: 0.5,
+        maxZoom: 15,
+        zoomInValue: 1.2,
+        zoomOutValue: 0.8
+      }
+
+      before(function () {
+        const subjectWithZoomConfigJSON = Object.assign({}, kepler, { chartOptions: { zoomConfiguration: subjectZoomConfiguration } })
+        cdmSpy = sinon.spy(DataImageViewerContainer.prototype, 'componentDidMount')
+        nockScope = nock('http://localhost:8080')
+          .persist(true)
+          .get('/mockData.json')
+          .reply(200, subjectWithZoomConfigJSON)
+      })
+
+      afterEach(function () {
+        cdmSpy.resetHistory()
+      })
+
+      after(function () {
+        cdmSpy.restore()
+        nock.cleanAll()
+        nockScope.persist(false)
+      })
+
+      it('should pass the configuration as a prop', function (done) {
+        wrapper = shallow(
+          <DataImageViewerContainer
+            subject={subject}
+          />
+        )
+
+        cdmSpy.returnValues[0].then(() => {
+          const props = wrapper.find(DataImageViewer).props()
+          expect(props.zoomConfiguration).to.deep.equal(subjectZoomConfiguration)
+        }).then(done, done)
+      })
+
+      it('should prefer subject specific configuration over workflow zoom configuration', function (done) {
+        wrapper = shallow(
+          <DataImageViewerContainer
+            subject={subject}
+            viewerConfiguration={{
+              zoomConfiguration: {
+                direction: 'x',
+                minZoom: 1,
+                maxZoom: 10,
+                zoomInValue: 1.2,
+                zoomOutValue: 0.8
+              }
+            }}
+          />
+        )
+
+        cdmSpy.returnValues[0].then(() => {
+          const props = wrapper.find(DataImageViewer).props()
+          expect(props.zoomConfiguration).to.deep.equal(subjectZoomConfiguration)
+        }).then(done, done)
+      })
+    })
+
+    describe('when workflow zoom configuration is defined', function () {
+      let nockScope
+      let cdmSpy
+      let wrapper
+
+      before(function () {
+        cdmSpy = sinon.spy(DataImageViewerContainer.prototype, 'componentDidMount')
+        nockScope = nock('http://localhost:8080')
+          .persist(true)
+          .get('/mockData.json')
+          .reply(200, subjectJSON)
+      })
+
+      afterEach(function () {
+        cdmSpy.resetHistory()
+      })
+
+      after(function () {
+        cdmSpy.restore()
+        nock.cleanAll()
+        nockScope.persist(false)
+      })
+
+      it('should pass the configuration as a prop', function (done) {
+        const zoomConfiguration = {
+          direction: 'x',
+          minZoom: 1,
+          maxZoom: 10,
+          zoomInValue: 1.2,
+          zoomOutValue: 0.8
+        }
+        wrapper = shallow(
+          <DataImageViewerContainer
+            subject={subject}
+            viewerConfiguration={{
+              zoomConfiguration
+            }}
+          />
+        )
+
+        cdmSpy.returnValues[0].then(() => {
+          const props = wrapper.find(DataImageViewer).props()
+          expect(props.zoomConfiguration).to.deep.equal(zoomConfiguration)
+        }).then(done, done)
+      })
     })
   })
 })
