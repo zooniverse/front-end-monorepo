@@ -47,7 +47,7 @@ const ProjectAboutPageConnector = ({ pageType, teamArray }) => {
   if (about_pages.length) {
     about_pages.forEach(page => {
       if (
-        page.content.length &&
+        page.content?.length &&
         !aboutNavLinks.includes(page.title.toLowerCase())
       ) {
         aboutNavLinks.push(page.title.toLowerCase())
