@@ -78,7 +78,12 @@ Confusion.defaultProps = {
 }
 
 Confusion.propTypes = {
-  confusion: PropTypes.object, // TODO: refactor for relevant properties
+  confusion: PropTypes.shape({
+    confusions: PropTypes.objectOf(PropTypes.string),
+    confusionsOrder: PropTypes.arrayOf(PropTypes.string),
+    images: PropTypes.arrayOf(PropTypes.string),
+    label: PropTypes.string
+  }),
   confusionId: PropTypes.string,
   confusionText: PropTypes.string,
   handleChoice: PropTypes.func,

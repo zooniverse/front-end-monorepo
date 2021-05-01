@@ -85,7 +85,14 @@ ConfusedWith.defaultProps = {
 }
 
 ConfusedWith.propTypes = {
-  choices: PropTypes.object, // TODO: refactor for relevant properties
+  choices: PropTypes.objectOf(
+    PropTypes.shape({
+      confusions: PropTypes.objectOf(PropTypes.string),
+      confusionsOrder: PropTypes.arrayOf(PropTypes.string),
+      images: PropTypes.arrayOf(PropTypes.string),
+      label: PropTypes.string
+    })
+  ),
   confusions: PropTypes.objectOf(PropTypes.string),
   confusionsOrder: PropTypes.arrayOf(PropTypes.string),
   handleChoice: PropTypes.func,
