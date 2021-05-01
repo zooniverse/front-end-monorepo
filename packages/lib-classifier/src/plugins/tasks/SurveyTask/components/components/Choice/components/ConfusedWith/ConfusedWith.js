@@ -1,6 +1,7 @@
 import { Box, DropButton } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
+import styled from 'styled-components'
 import { SpacedHeading } from '@zooniverse/react-components'
 
 import Confusion from './components/Confusion'
@@ -9,6 +10,18 @@ import counterpart from 'counterpart'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
+
+const StyledDropButton = styled(DropButton)`
+  background-color: ${props => props.open
+    ? props.theme.global.colors['accent-2']
+    : props.theme.dark
+      ? props.theme.global.colors['dark-3']
+      : props.theme.global.colors['neutral-6']
+  };
+  border: none;
+  margin-right: 5px;
+  padding: 5px;
+`
 
 export default function ConfusedWith (props) {
   const {
@@ -36,10 +49,10 @@ export default function ConfusedWith (props) {
       >
         {confusionsOrder.map((confusionId) => {
           return (
-            <DropButton
+            <StyledDropButton
               key={confusionId}
               dropAlign={{
-                right: 'left'
+                bottom: 'top'
               }}
               dropContent={
                 <Confusion

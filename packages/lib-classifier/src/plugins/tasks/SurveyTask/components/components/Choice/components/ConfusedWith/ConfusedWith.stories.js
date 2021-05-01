@@ -21,11 +21,15 @@ function StoryContext (props) {
     >
       <Box
         align='end'
-        height='large'
-        justify='center'
-        pad='1em'
+        width='full'
       >
-        {children}
+        <Box
+          justify='center'
+          height='large'
+          width='380px'
+        >
+          {children}
+        </Box>
       </Box>
     </Grommet>
   )

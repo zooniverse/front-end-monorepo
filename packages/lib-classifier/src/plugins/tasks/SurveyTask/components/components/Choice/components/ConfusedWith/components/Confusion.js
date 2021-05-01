@@ -19,12 +19,16 @@ export default function Confusion (props) {
 
   return (
     <Box
-      width='medium'
+      background={{
+        dark: 'dark-3',
+        light: 'neutral-6'
+      }}
       pad={{
         bottom: 'small',
         horizontal: 'small',
         top: 'none'
       }}
+      width='medium'
     >
       <SpacedHeading>{confusion.label}</SpacedHeading>
       {confusion.images?.length > 0 && (

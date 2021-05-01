@@ -18,14 +18,14 @@ function StoryContext (props) {
       themeMode={(theme.dark) ? 'dark' : 'light'}
     >
       <Box
-        background={{
-          dark: 'dark-3',
-          light: 'neutral-6'
-        }}
-        pad='1em'
-        width='380px'
+        align='end'
+        width='full'
       >
-        {children}
+        <Box
+          width='380px'
+        >
+          {children}
+        </Box>
       </Box>
     </Grommet>
   )
@@ -41,7 +41,7 @@ const Template = ({ dark, choiceId, task }) => (
     theme={{ ...zooTheme, dark }}
   >
     <Choice
-      choiceId='LPHNT'
+      choiceId={choiceId}
       task={task}
     />
   </StoryContext>
@@ -50,6 +50,6 @@ const Template = ({ dark, choiceId, task }) => (
 export const Default = Template.bind({});
 Default.args = {
   dark: false,
-  choiceId: 'LPHNT',
+  choiceId: 'KD',
   task
 }
