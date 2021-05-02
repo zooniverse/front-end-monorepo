@@ -53,7 +53,7 @@ export default function Choice (props) {
       )}
       <Heading>{choice.label}</Heading>
       <Paragraph>{choice.description}</Paragraph>
-      {choice.confusionsOrder.length > 0 && (
+      {choice.confusionsOrder?.length > 0 && (
         <ConfusedWith
           choices={choices}
           confusions={choice.confusions}

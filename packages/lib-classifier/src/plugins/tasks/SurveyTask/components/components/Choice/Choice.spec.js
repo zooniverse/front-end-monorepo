@@ -8,6 +8,7 @@ import { PrimaryButton } from '@zooniverse/react-components'
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import { default as Task } from '@plugins/tasks/SurveyTask'
 import Choice from './Choice'
+import ConfusedWith from './components/ConfusedWith'
 import Questions from './components/Questions'
 
 describe('Component > Choice', function () {
@@ -57,7 +58,15 @@ describe('Component > Choice', function () {
     expect(wrapper.find(Carousel)).to.have.lengthOf(1)
   })
 
-  // TODO: add ConfusedWith tests
+  it('should not render ConfusedWith with choice without confusions', function () {
+    wrapper.setProps({ choiceId: 'HMN' })
+    expect(wrapper.find(ConfusedWith)).to.have.lengthOf(0)
+  })
+
+  it('should render ConfusedWith with choice with confusions', function () {
+    wrapper.setProps({ choiceId: 'KD' })
+    expect(wrapper.find(ConfusedWith)).to.have.lengthOf(1)
+  })
 
   it('should not render Questions with choice without questions', function () {
     wrapper.setProps({ choiceId: 'FR' })

@@ -60,7 +60,7 @@ export default function Confusion (props) {
         />
         <PrimaryButton
           fill='horizontal'
-          label={counterpart('ConfusedWith.this')}
+          label={counterpart('ConfusedWith.itsThis')}
           onClick={() => handleChoice(confusionId)}
         />
       </Box>

@@ -11,7 +11,7 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-const StyledDropButton = styled(DropButton)`
+export const StyledDropButton = styled(DropButton)`
   background-color: ${props => props.open
     ? props.theme.global.colors['accent-2']
     : props.theme.dark
