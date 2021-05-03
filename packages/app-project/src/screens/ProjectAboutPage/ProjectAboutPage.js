@@ -15,7 +15,7 @@ import AboutDropdownNav from './components/AboutDropdownNav'
 import TeamMember from './components/TeamMember'
 import AboutMarkdownz from './components/AboutMarkdownz/AboutMarkdownz'
 
-const PageHeading = styled(Heading)`
+export const PageHeading = styled(Heading)`
   font-weight: normal;
 `
 
@@ -124,4 +124,5 @@ ProjectAboutPage.propTypes = {
   )
 }
 
+export { ProjectAboutPage }
 export default withTheme(withResponsiveContext(ProjectAboutPage))

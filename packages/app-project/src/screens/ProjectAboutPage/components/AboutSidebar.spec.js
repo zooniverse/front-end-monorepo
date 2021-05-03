@@ -9,6 +9,9 @@ describe('Component > AboutSidebar', () => {
     wrapper = shallow(<AboutSidebar navLinks={['research', 'team']} />)
   })
 
+  // always render research and team
+  // render only pages with content
+
   it('should render without crashing', () => {
     expect(wrapper).to.be.ok()
   })
