@@ -6,12 +6,14 @@ import { Modal } from '@zooniverse/react-components'
 
 import WorkflowSelector from '@shared/components/WorkflowSelector'
 import SubjectSetPicker from '@shared/components/SubjectSetPicker'
+import SubjectPicker from '@shared/components/SubjectPicker'
 
 import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 export default function WorkflowMenu({ workflows }) {
   const [ activeWorkflow, setActiveWorkflow ] = useState()
+  const [ activeSubjectSet, setActiveSubjectSet ] = useState()
   const router = useRouter()
   const { owner, project } = router?.query || {}
 
@@ -24,8 +26,26 @@ export default function WorkflowMenu({ workflows }) {
     return true
   }
 
+  function onSelectSubjectSet(event, subjectSet) {
+    const useSubjectSelection = activeWorkflow.id === '16106'
+    if (useSubjectSelection) {
+      event.preventDefault()
+      setActiveSubjectSet(subjectSet)
+      return false
+    }
+    return true
+  }
+
   function onClose() {
     setActiveWorkflow(null)
+  }
+
+  let baseUrl = `/projects/${owner}/${project}/classify`
+  if (activeWorkflow) {
+    baseUrl = `${baseUrl}/workflow/${activeWorkflow.id}`
+  }
+  if (activeSubjectSet) {
+    baseUrl = `${baseUrl}/subject-set/${activeSubjectSet.id}`
   }
 
   return (
@@ -42,12 +62,21 @@ export default function WorkflowMenu({ workflows }) {
         title={activeWorkflow.displayName || counterpart('WorkflowMenu.chooseASubjectSet')}
         titleColor='neutral-6'
       >
-        <SubjectSetPicker
-          onClose={onClose}
-          owner={owner}
-          project={project}
-          workflow={activeWorkflow}
-        />
+        {activeSubjectSet ?
+          <SubjectPicker
+            baseUrl={baseUrl}
+            subjectSet={activeSubjectSet}
+            workflow={activeWorkflow}
+          /> :
+          <SubjectSetPicker
+            baseUrl={baseUrl}
+            onClose={onClose}
+            onSelect={onSelectSubjectSet}
+            owner={owner}
+            project={project}
+            workflow={activeWorkflow}
+          />
+        }
       </Modal>
     }
     </>
