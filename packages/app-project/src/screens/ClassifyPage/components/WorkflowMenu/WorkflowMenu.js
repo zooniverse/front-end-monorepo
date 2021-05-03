@@ -5,6 +5,7 @@ import { Modal } from '@zooniverse/react-components'
 
 import WorkflowSelector from '@shared/components/WorkflowSelector'
 import SubjectSetPicker from '@shared/components/SubjectSetPicker'
+import SubjectPicker from '@shared/components/SubjectPicker'
 
 /**
   A popup menu which allows you to choose a workflow and optional subject set from the classify page.
@@ -17,7 +18,18 @@ export default function WorkflowMenu({
 }) {
   const router = useRouter()
   const { owner, project } = router?.query || {}
+  const [ activeSubjectSet, setActiveSubjectSet ] = useState()
   const [ activeWorkflow, setActiveWorkflow ] = useState(workflowFromUrl)
+
+  function onSelectSubjectSet(event, subjectSet) {
+    const useSubjectSelection = activeWorkflow.id === '16106'
+    if (useSubjectSelection) {
+      event.preventDefault()
+      setActiveSubjectSet(subjectSet)
+      return false
+    }
+    return true
+  }
 
   function onSelectWorkflow(event, workflow) {
     if (workflow.grouped) {
@@ -32,6 +44,34 @@ export default function WorkflowMenu({
     setActiveWorkflow(null)
   }
 
+  let modalContent = (
+    <WorkflowSelector
+      onSelect={onSelectWorkflow}
+      workflows={workflows}
+    />
+  )
+  let baseUrl = `/projects/${owner}/${project}/classify`
+  if (activeWorkflow) {
+    baseUrl = `${baseUrl}/workflow/${activeWorkflow.id}`
+    modalContent = (
+      <SubjectSetPicker
+        baseUrl={baseUrl}
+        onClose={onClose}
+        onSelect={onSelectSubjectSet}
+        workflow={activeWorkflow}
+      />
+    )
+  }
+  if (activeSubjectSet) {
+    baseUrl = `${baseUrl}/subject-set/${activeSubjectSet.id}`
+    modalContent = (
+      <SubjectPicker
+        baseUrl={baseUrl}
+        subjectSet={activeSubjectSet}
+        workflow={activeWorkflow}
+      />
+    )
+  }
   return (
     <Modal
       active
@@ -39,18 +79,7 @@ export default function WorkflowMenu({
       title={activeWorkflow ? (activeWorkflow.displayName || 'Choose a subject set') : 'Choose a workflow'}
       titleColor={titleColor}
     >
-      {!activeWorkflow ?
-        <WorkflowSelector
-          onSelect={onSelectWorkflow}
-          workflows={workflows}
-        /> :
-        <SubjectSetPicker
-          onClose={onClose}
-          owner={owner}
-          project={project}
-          workflow={activeWorkflow}
-        />
-      }
+      {modalContent}
     </Modal>
   )
 }

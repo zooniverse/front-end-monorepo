@@ -99,11 +99,35 @@ describe('Component > Banners', function () {
     })
   })
 
-  describe('with sequential subjects', function () {
+  describe('with #priority metadata', function () {
     before(function () {
       const stores = buildMocks({
         metadata: {
           ['#priority']: 37
+        }
+      }, {
+        id: '1'
+      }, {
+        grouped: true,
+        subjectSet: '1'
+      })
+      wrapper = shallow(<Banners stores={stores} />)
+    })
+
+    it('should render without crashing', function () {
+      expect(wrapper).to.be.ok()
+    })
+
+    it('should render the `SubjectSetProgressBanner` component', function () {
+      expect(wrapper.find(SubjectSetProgressBanner)).to.have.lengthOf(1)
+    })
+  })
+
+  describe('with priority metadata', function () {
+    before(function () {
+      const stores = buildMocks({
+        metadata: {
+          priority: 37
         }
       }, {
         id: '1'

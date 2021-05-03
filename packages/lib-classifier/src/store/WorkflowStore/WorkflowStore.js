@@ -56,17 +56,20 @@ const WorkflowStore = types
       return project?.defaultWorkflow || ''
     }
 
-    function * selectWorkflow (id = getDefaultWorkflowId(), subjectSetID) {
+    function * selectWorkflow (id = getDefaultWorkflowId(), subjectSetID, subjectID) {
       if (id) {
         const activeWorkflows = self.project?.links?.active_workflows || []
         const projectID = self.project?.id
         if (activeWorkflows.indexOf(id) > -1) {
           const workflow = yield self.getResource(id)
           self.resources.put(workflow)
+          const selectedWorkflow = self.resources.get(id)
           if (subjectSetID) {
-            const selectedWorkflow = self.resources.get(id)
             // wait for the subject set to load before activating the workflow
             const subjectSet = yield selectedWorkflow.selectSubjectSet(subjectSetID)
+          }
+          if (subjectID) {
+            selectedWorkflow.selectSubjects([ subjectID ])
           }
           self.setActive(id)
         } else {
