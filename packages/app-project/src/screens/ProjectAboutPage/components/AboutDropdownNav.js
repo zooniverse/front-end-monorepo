@@ -9,7 +9,7 @@ import { SpacedText } from '@zooniverse/react-components'
 import AboutNavLink from './AboutNavLink'
 
 
-const AboutDropdownNav = ({ router }) => {
+const AboutDropdownNav = ({ aboutNavLinks, router }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleOpen = () => setIsOpen(!isOpen)

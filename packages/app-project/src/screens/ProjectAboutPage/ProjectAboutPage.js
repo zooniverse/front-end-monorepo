@@ -62,7 +62,7 @@ function ProjectAboutPage({
               <AboutSidebar aboutNavLinks={aboutNavLinks} />
             </Box>
           ) : (
-            <AboutDropdownNav />
+            <AboutDropdownNav aboutNavLinks={aboutNavLinks} />
           )}
           <Box>
             <PageHeading

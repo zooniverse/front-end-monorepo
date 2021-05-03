@@ -6,7 +6,7 @@ import TeamMember from './components/TeamMember'
 
 let wrapper
 
-describe.only('Component > ProjectAboutPage', () => {
+describe('Component > ProjectAboutPage', () => {
   describe('About pages layout', () => {
     const aboutPageData = {
       title: 'Title',

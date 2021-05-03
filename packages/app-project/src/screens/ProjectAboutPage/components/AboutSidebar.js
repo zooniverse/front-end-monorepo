@@ -60,4 +60,5 @@ AboutSidebar.propTypes = {
   router: object
 }
 
+export { AboutSidebar }
 export default withRouter(AboutSidebar)
