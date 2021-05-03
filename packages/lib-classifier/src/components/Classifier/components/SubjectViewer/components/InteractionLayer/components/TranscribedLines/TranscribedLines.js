@@ -17,7 +17,10 @@ export const ConsensusLine = styled('g')`
     ${props => css`outline: solid 4px ${props.focusColor};`}
   }
 
-  ${props => css`opacity: ${props['aria-disabled'] === 'true' ? 0.3 : 1};`}
+  &[aria-disabled="true"] {
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
 `
 
 class TranscribedLines extends React.Component {
@@ -42,12 +45,11 @@ class TranscribedLines extends React.Component {
     const { activeTool, activeToolIndex, marks, setActiveMark } = this.props.task
 
     if (activeTool) {
-      const [ existingMark ] = marks.filter(mark => mark.id === line.id)
       const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
       const { id } = line
       const toolIndex = activeToolIndex
       const markSnapshot = { id, x1, y1, x2, y2, toolIndex }
-      const mark = existingMark ? existingMark : activeTool.createMark(markSnapshot)
+      const mark = activeTool.createMark(markSnapshot)
       setActiveMark(mark)
 
       let previousAnnotationValuesForEachMark = []
@@ -104,7 +106,7 @@ class TranscribedLines extends React.Component {
   render () {
     const { lines, marks, scale, task, theme } = this.props
     const { bounds, line, show } = this.state
-    const invalidTask = Object.keys(task).length === 0
+    const invalidTranscriptionTask = Object.keys(task).length === 0
     const completedLines = lines.filter(line => line.consensusReached)
     const transcribedLines = lines.filter(line => !line.consensusReached)
 
@@ -114,6 +116,7 @@ class TranscribedLines extends React.Component {
     }
 
     const focusColor = theme.global.colors[theme.global.colors.focus]
+
     return (
       <g>
         {completedLines
@@ -153,13 +156,7 @@ class TranscribedLines extends React.Component {
         {transcribedLines
           .map((line, index) => {
             const [ existingMark ] = marks.filter(mark => mark.id === line.id)
-            let disabled = invalidTask
-            // Uncomment this to disable prevous lines if they have a transcription line
-            // disabled = disabled || !!existingMark
-            // Uncomment this to remove previous lines if they have a transcription line.
-            // if (existingMark) {
-            //   return null
-            // }
+            const disabled = invalidTranscriptionTask || !!existingMark
             const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
             const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
             const mark = { length, x1, y1, x2, y2 }

@@ -11,6 +11,8 @@ import ConsensusPopup from './components/ConsensusPopup'
 import zooTheme from '@zooniverse/grommet-theme'
 
 describe('Component > TranscribedLines', function () {
+  const transcriptionModels = taskRegistry.get('transcription')
+
   let wrapper, task, consensusLines
   before(function () {
     const transcriptionReductions = TranscriptionReductions.create({
@@ -19,7 +21,6 @@ describe('Component > TranscribedLines', function () {
       workflowId: '5678'
     })
     consensusLines = transcriptionReductions.consensusLines
-    const transcriptionModels = taskRegistry.get('transcription')
     task = transcriptionModels.TaskModel.create({
       tools: [{
         type: 'transcriptionLine',
@@ -213,7 +214,6 @@ describe('Component > TranscribedLines', function () {
     let wrapper
 
     before(function () {
-      const transcriptionModels = taskRegistry.get('transcription')
       task = transcriptionModels.TaskModel.create({
         tools: [{
           type: 'transcriptionLine',
@@ -252,6 +252,54 @@ describe('Component > TranscribedLines', function () {
       lines.forEach((component) => {
         const consensusLineWrapper = component.parent()
         expect(consensusLineWrapper.props().tabIndex).to.equal(0)
+      })
+    })
+
+    describe('when there is an existing volunteer mark created from a previous consensus mark', function () {
+      let wrapper
+      before(function () {
+        const transcriptionReductions = TranscriptionReductions.create({
+          reductions: [{ data: reducedSubject }],
+          subjectId: '1234',
+          workflowId: '5678'
+        })
+        const consensusLines = transcriptionReductions.consensusLines
+        const task = transcriptionModels.TaskModel.create({
+          tools: [{
+            type: 'transcriptionLine',
+            tasks: [{
+              instruction: 'Transcribe the text',
+              taskKey: 'T1.0.0',
+              type: 'text'
+            }]
+          }],
+          instruction: 'Underline and transcribe the text',
+          taskKey: 'T1',
+          type: 'transcription'
+        })
+        task.setActiveTool(0)
+        const [ transcribedLine ] = consensusLines.filter(line => !line.consensusReached)
+        const { id, x1, x2, y1, y2 } = transcribedLine
+        task.activeTool.createMark({ id, x1, y1, x2, y2, toolIndex: 0 })
+        wrapper = shallow(<TranscribedLines lines={consensusLines} marks={task.marks} task={task} />)
+      })
+
+      it('should disable the existing mark', function () {
+        const previousMarkProps = wrapper.find({ 'aria-describedby': 'transcribed-0' }).props()
+        expect(previousMarkProps['aria-disabled']).to.equal('true')
+      })
+
+      it('should not define on click or on keydown handlers', function () {
+        const previousMarkProps = wrapper.find({ 'aria-describedby': 'transcribed-0' }).props()
+        expect(previousMarkProps.onClick).to.be.undefined()
+        expect(previousMarkProps.onKeyDown).to.be.undefined()
+      })
+
+      it('should leave other previous marks interactive', function () {
+        const previousMarkProps = wrapper.find({ 'aria-describedby': 'transcribed-1' }).props()
+        expect(previousMarkProps['aria-disabled']).to.equal('false')
+        expect(previousMarkProps.onClick).to.be.a('function')
+        expect(previousMarkProps.onKeyDown).to.be.a('function')
       })
     })
 
