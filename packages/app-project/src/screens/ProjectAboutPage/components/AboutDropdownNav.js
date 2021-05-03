@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { object } from 'prop-types'
+import { arrayOf, object, string } from 'prop-types'
 import { withRouter } from 'next/router'
 
 /** Components */
@@ -7,7 +7,6 @@ import { Box, DropButton, Nav } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import { SpacedText } from '@zooniverse/react-components'
 import AboutNavLink from './AboutNavLink'
-
 
 const AboutDropdownNav = ({ aboutNavLinks, router }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -27,18 +26,33 @@ const AboutDropdownNav = ({ aboutNavLinks, router }) => {
         link={{ href: `${baseUrl}/team`, text: 'the team' }}
         router={router}
       />
-      <AboutNavLink
-        link={{ href: `${baseUrl}/results`, text: 'results' }}
-        router={router}
-      />
-      <AboutNavLink
-        link={{ href: `${baseUrl}/education`, text: 'education' }}
-        router={router}
-      />
-      <AboutNavLink
-        link={{ href: `${baseUrl}/faq`, text: 'faq' }}
-        router={router}
-      />
+      {aboutNavLinks.includes('results') && (
+        <AboutNavLink
+          link={{
+            href: `${baseUrl}/results`,
+            text: 'results'
+          }}
+          router={router}
+        />
+      )}
+      {aboutNavLinks.includes('education') && (
+        <AboutNavLink
+          link={{
+            href: `${baseUrl}/education`,
+            text: 'education'
+          }}
+          router={router}
+        />
+      )}
+      {aboutNavLinks.includes('faq') && (
+        <AboutNavLink
+          link={{
+            href: `${baseUrl}/faq`,
+            text: 'faq'
+          }}
+          router={router}
+        />
+      )}
     </Nav>
   )
 
@@ -51,7 +65,9 @@ const AboutDropdownNav = ({ aboutNavLinks, router }) => {
       onOpen={handleOpen}
     >
       <Box align="center" direction="row" gap="xsmall" justify="center">
-        <SpacedText weight="bold" color="black">About</SpacedText>
+        <SpacedText weight="bold" color="black">
+          About
+        </SpacedText>
         <FormDown />
       </Box>
     </DropButton>
@@ -59,7 +75,9 @@ const AboutDropdownNav = ({ aboutNavLinks, router }) => {
 }
 
 AboutDropdownNav.propTypes = {
-  router: object,
+  aboutNavLinks: arrayOf(string),
+  router: object
 }
 
+export { AboutDropdownNav }
 export default withRouter(AboutDropdownNav)
