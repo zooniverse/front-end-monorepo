@@ -743,7 +743,7 @@ const task = {
       'label': "Don't care?",
       'answers': {
         'N': {
-          'label': 'No'
+          'label': ' No'
         },
         'S': {
           'label': 'Yes'
@@ -757,7 +757,7 @@ const task = {
       'label': 'Do you see any horns?',
       'answers': {
         'N': {
-          'label': 'No'
+          'label': ' No'
         },
         'S': {
           'label': 'Yes'
@@ -771,19 +771,19 @@ const task = {
       'label': 'What behaviors do you see?',
       'answers': {
         'TNG': {
-          'label': 'Eating'
+          'label': ' Eating'
         },
         'MVNG': {
-          'label': 'Moving'
+          'label': ' Moving'
         },
         'RSTNG': {
           'label': 'Resting'
         },
         'STNDNG': {
-          'label': 'Standing'
+          'label': ' Standing'
         },
         'NTRCTNG': {
-          'label': 'Interacting'
+          'label': ' Interacting'
         }
       },
       'multiple': true,
@@ -794,7 +794,7 @@ const task = {
       'label': 'Are there any young present?',
       'answers': {
         'N': {
-          'label': 'No'
+          'label': ' No'
         },
         'S': {
           'label': 'Yes'
