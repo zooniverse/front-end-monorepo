@@ -1,4 +1,4 @@
-_Please request review from `@zooniverse/frontend` team._ 
+_Please request review from `@zooniverse/frontend` team or an individual member of that team._ 
 
 Package:
 
