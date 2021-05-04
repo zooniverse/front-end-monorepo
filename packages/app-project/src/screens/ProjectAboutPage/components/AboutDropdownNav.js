@@ -8,15 +8,12 @@ import { FormDown } from 'grommet-icons'
 import { SpacedText } from '@zooniverse/react-components'
 import AboutNavLink from './AboutNavLink'
 
-const AboutDropdownNav = ({ aboutNavLinks, router }) => {
-  const [isOpen, setIsOpen] = useState(false)
-
-  const handleOpen = () => setIsOpen(!isOpen)
-
+// this is a separate componenet specifically for testing with enzyme
+export const AboutDropContent = ({ aboutNavLinks, router }) => {
   const { owner, project } = router.query
   const baseUrl = `/projects/${owner}/${project}/about`
-
-  const dropContent = (
+  
+  return (
     <Nav gap="xsmall" background="white">
       <AboutNavLink
         link={{ href: `${baseUrl}/research`, text: 'research' }}
@@ -55,12 +52,20 @@ const AboutDropdownNav = ({ aboutNavLinks, router }) => {
       )}
     </Nav>
   )
+}
+
+const AboutDropdownNav = ({ aboutNavLinks, router }) => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const handleOpen = () => setIsOpen(!isOpen)
 
   return (
     <DropButton
       isOpen={isOpen}
       alignSelf="center"
-      dropContent={dropContent}
+      dropContent={
+        <AboutDropContent aboutNavLinks={aboutNavLinks} router={router} />
+      }
       onClose={handleOpen}
       onOpen={handleOpen}
     >
