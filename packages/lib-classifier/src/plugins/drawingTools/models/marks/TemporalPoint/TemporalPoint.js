@@ -25,12 +25,12 @@ const TemporalPointModel = types
     },
 
     get videoTime() {
-      return self.t
+      return self.displayTime
     }
   }))
   .actions((self) => {
-    function setVideoTime(t) {
-      self.t = t
+    function setVideoTime(displayTime) {
+      self.displayTime = displayTime
     }
 
     return {

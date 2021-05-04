@@ -119,7 +119,7 @@ const BaseMark = types
       }
     }
 
-    function setVideoTime(t) {}
+    function setVideoTime(displayTime) {}
 
     return {
       finish,
