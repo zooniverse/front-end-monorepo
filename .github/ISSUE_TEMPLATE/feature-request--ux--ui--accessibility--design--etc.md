@@ -3,7 +3,6 @@ name: 'Feature request: UX, UI, accessibility, design, etc'
 about: Suggest an idea for this project related to UX, UI, accessibility, or design
 title: ''
 labels: enhancement
-assignees: beckyrother
 
 ---
 
