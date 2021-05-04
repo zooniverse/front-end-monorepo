@@ -1,4 +1,4 @@
-_Please request review from `@zooniverse/frontend` team. If PR is related to design, please request review from `@beckyrother` in addition._ 
+_Please request review from `@zooniverse/frontend` team or an individual member of that team._ 
 
 Package:
 
