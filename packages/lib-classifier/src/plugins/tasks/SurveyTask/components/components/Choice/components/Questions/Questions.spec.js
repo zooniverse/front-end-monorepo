@@ -4,8 +4,8 @@ import sinon from 'sinon'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import Questions from './Questions'
-import CheckBoxQuestion from './components/CheckBoxQuestion'
-import RadioQuestion from './components/RadioQuestion'
+import CheckBoxInputs from './components/CheckBoxInputs'
+import RadioInputs from './components/RadioInputs'
 
 describe('Component > Questions', function () {
   let wrapper, setAnswersSpy, checkboxes, radioButtons
@@ -20,8 +20,8 @@ describe('Component > Questions', function () {
         setAnswers={setAnswersSpy}
       />
     )
-    checkboxes = wrapper.find(CheckBoxQuestion)
-    radioButtons = wrapper.find(RadioQuestion)
+    checkboxes = wrapper.find(CheckBoxInputs)
+    radioButtons = wrapper.find(RadioInputs)
   })
 
   it('should render without crashing', function () {
@@ -35,8 +35,8 @@ describe('Component > Questions', function () {
 
   it('should pass the chosen answers for each input group', function () {
     wrapper.setProps({ answers: { WHTBHVRSDS: ['RSTNG', 'TNG'], HWMN: '9' } })
-    checkboxes = wrapper.find(CheckBoxQuestion)
-    radioButtons = wrapper.find(RadioQuestion)
+    checkboxes = wrapper.find(CheckBoxInputs)
+    radioButtons = wrapper.find(RadioInputs)
 
     expect(checkboxes.find({ questionId: 'WHTBHVRSDS' }).props().questionAnswer).to.deep.equal(['RSTNG', 'TNG'])
     expect(radioButtons.find({ questionId: 'HWMN' }).props().questionAnswer).to.equal('9')

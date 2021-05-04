@@ -3,15 +3,15 @@ import { Text } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
 
-import CheckBoxOption, { StyledBox } from './CheckBoxOption'
+import CheckBoxInput, { StyledBox } from './CheckBoxInput'
 
-describe('Component > CheckBoxOption', function () {
+describe('Component > CheckBoxInput', function () {
   let wrapper, handleCheckBoxChangeSpy
 
   before(function () {
     handleCheckBoxChangeSpy = sinon.spy()
     wrapper = shallow(
-      <CheckBoxOption
+      <CheckBoxInput
         handleCheckBoxChange={handleCheckBoxChangeSpy}
         option={{
           label: 'Eating',

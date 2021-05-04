@@ -2,9 +2,9 @@ import { RadioButtonGroup } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import RadioOption from './components/RadioOption'
+import RadioInput from './components/RadioInput'
 
-export default function RadioQuestion (props) {
+export default function RadioInputs (props) {
   const {
     handleAnswer,
     options,
@@ -23,7 +23,7 @@ export default function RadioQuestion (props) {
     >
       {(option, { checked, hover }) => {
         return (
-          <RadioOption
+          <RadioInput
             checked={checked}
             label={option.label}
           />
@@ -33,14 +33,14 @@ export default function RadioQuestion (props) {
   )
 }
 
-RadioQuestion.defaultProps = {
+RadioInputs.defaultProps = {
   handleAnswer: () => {},
   options: [],
   questionAnswer: undefined,
   questionId: ''
 }
 
-RadioQuestion.propTypes = {
+RadioInputs.propTypes = {
   handleAnswer: PropTypes.func,
   options: PropTypes.arrayOf(
     PropTypes.shape({

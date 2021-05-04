@@ -2,9 +2,9 @@ import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import CheckBoxOption from './components/CheckBoxOption'
+import CheckBoxInput from './components/CheckBoxInput'
 
-export default function CheckBoxQuestion (props) {
+export default function CheckBoxInputs (props) {
   const {
     handleAnswer,
     options,
@@ -33,7 +33,7 @@ export default function CheckBoxQuestion (props) {
         const isChecked = questionAnswer.indexOf(option.value) > -1
 
         return (
-          <CheckBoxOption
+          <CheckBoxInput
             key={option.value}
             handleCheckBoxChange={handleCheckBoxChange}
             isChecked={isChecked}
@@ -46,14 +46,14 @@ export default function CheckBoxQuestion (props) {
   )
 }
 
-CheckBoxQuestion.defaultProps = {
+CheckBoxInputs.defaultProps = {
   handleAnswer: () => {},
   options: [],
   questionAnswer: [],
   questionId: ''
 }
 
-CheckBoxQuestion.propTypes = {
+CheckBoxInputs.propTypes = {
   handleAnswer: PropTypes.func,
   options: PropTypes.arrayOf(
     PropTypes.shape({

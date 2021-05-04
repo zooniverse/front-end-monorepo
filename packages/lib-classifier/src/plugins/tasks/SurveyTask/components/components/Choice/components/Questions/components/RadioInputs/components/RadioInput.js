@@ -2,7 +2,7 @@ import { Box, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-export default function RadioOption (props) {
+export default function RadioInput (props) {
   const {
     checked,
     label
@@ -30,10 +30,10 @@ export default function RadioOption (props) {
   )
 }
 
-RadioOption.defaultProps = {
+RadioInput.defaultProps = {
   checked: false
 }
 
-RadioOption.propTypes = {
+RadioInput.propTypes = {
   checked: PropTypes.bool
 }

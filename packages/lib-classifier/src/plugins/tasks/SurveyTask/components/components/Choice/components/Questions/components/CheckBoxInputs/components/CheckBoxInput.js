@@ -17,7 +17,7 @@ export const StyledBox = styled(Box)`
   }
 `
 
-export default function CheckBoxOption (props) {
+export default function CheckBoxInput (props) {
   const {
     handleCheckBoxChange,
     isChecked,
@@ -58,7 +58,7 @@ export default function CheckBoxOption (props) {
   )
 }
 
-CheckBoxOption.defaultProps = {
+CheckBoxInput.defaultProps = {
   handleCheckBoxChange: () => {},
   isChecked: false,
   option: {
@@ -68,7 +68,7 @@ CheckBoxOption.defaultProps = {
   questionId: ''
 }
 
-CheckBoxOption.propTypes = {
+CheckBoxInput.propTypes = {
   handleCheckBoxChange: PropTypes.func,
   isChecked: PropTypes.bool,
   option: PropTypes.shape({

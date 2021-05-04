@@ -2,14 +2,14 @@ import { shallow } from 'enzyme'
 import { Box, Text } from 'grommet'
 import React from 'react'
 
-import RadioOption from './RadioOption'
+import RadioInput from './RadioInput'
 
-describe('Component > RadioOption', function () {
+describe('Component > RadioInput', function () {
   let wrapper
 
   before(function () {
     wrapper = shallow(
-      <RadioOption
+      <RadioInput
         check={false}
         label='True'
       />

@@ -3,10 +3,10 @@ import React from 'react'
 import sinon from 'sinon'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
-import CheckBoxQuestion from './CheckBoxQuestion'
-import CheckBoxOption from './components/CheckBoxOption'
+import CheckBoxInputs from './CheckBoxInputs'
+import CheckBoxInput from './components/CheckBoxInput'
 
-describe('Component > CheckBoxQuestion', function () {
+describe('Component > CheckBoxInputs', function () {
   let wrapper, handleAnswerSpy
   const questionId = 'WHTBHVRSDS'
   const question = mockTask.questions[questionId]
@@ -18,7 +18,7 @@ describe('Component > CheckBoxQuestion', function () {
   before(function () {
     handleAnswerSpy = sinon.spy()
     wrapper = shallow(
-      <CheckBoxQuestion
+      <CheckBoxInputs
         handleAnswer={handleAnswerSpy}
         options={options}
         questionId={questionId}
@@ -31,7 +31,7 @@ describe('Component > CheckBoxQuestion', function () {
   })
 
   it('should render CheckBoxOptions', function () {
-    expect(wrapper.find(CheckBoxOption)).to.have.lengthOf(options.length)
+    expect(wrapper.find(CheckBoxInput)).to.have.lengthOf(options.length)
   })
 
   describe('with defined answer', function () {
@@ -39,7 +39,7 @@ describe('Component > CheckBoxQuestion', function () {
 
     before(function () {
       wrapper.setProps({ questionAnswer: ['RSTNG', 'TNG'] })
-      checkBoxOptions = wrapper.find(CheckBoxOption)
+      checkBoxOptions = wrapper.find(CheckBoxInput)
     })
 
     it('should render chosen CheckBoxOptions as checked', function () {

@@ -4,9 +4,9 @@ import React from 'react'
 import sinon from 'sinon'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
-import RadioQuestion from './RadioQuestion'
+import RadioInputs from './RadioInputs'
 
-describe('Component > RadioQuestion', function () {
+describe('Component > RadioInputs', function () {
   let wrapper, handleAnswerSpy
   const questionId = 'HWMN'
   const question = mockTask.questions[questionId]
@@ -18,7 +18,7 @@ describe('Component > RadioQuestion', function () {
   before(function () {
     handleAnswerSpy = sinon.spy()
     wrapper = shallow(
-      <RadioQuestion
+      <RadioInputs
         handleAnswer={handleAnswerSpy}
         options={options}
         questionId={questionId}

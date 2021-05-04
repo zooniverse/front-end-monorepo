@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { SpacedHeading } from '@zooniverse/react-components'
 
-import CheckBoxQuestion from './components/CheckBoxQuestion'
-import RadioQuestion from './components/RadioQuestion'
+import CheckBoxInputs from './components/CheckBoxInputs'
+import RadioInputs from './components/RadioInputs'
 
 export default function Questions (props) {
   const {
@@ -39,7 +39,7 @@ export default function Questions (props) {
             <SpacedHeading>{question.label}</SpacedHeading>
             {inputType === 'checkbox'
               ? (
-                <CheckBoxQuestion
+                <CheckBoxInputs
                   handleAnswer={handleAnswer}
                   options={options}
                   questionId={questionId}
@@ -47,7 +47,7 @@ export default function Questions (props) {
                 />
                 )
               : (
-                <RadioQuestion
+                <RadioInputs
                   handleAnswer={handleAnswer}
                   options={options}
                   questionId={questionId}
