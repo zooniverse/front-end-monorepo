@@ -5,7 +5,7 @@ import {
   isValidReference,
   types
 } from 'mobx-state-tree'
-import { TemporalPoint as TemporalPointComponent } from '../../../components'
+import { Point as PointComponent } from '@plugins/drawingTools/components'
 import { TemporalPointTool } from '@plugins/drawingTools/models/tools'
 
 import Mark from '../Mark'
@@ -13,7 +13,7 @@ import Point from '../Point'
 
 const TemporalPointModel = types
   .model('TemporalPointModel', {
-    t: types.optional(types.number, 0)
+    displayTime: types.optional(types.number, 0)
   })
   .views((self) => ({
     get tool() {
@@ -21,7 +21,7 @@ const TemporalPointModel = types
     },
 
     get toolComponent() {
-      return TemporalPointComponent
+      return PointComponent
     },
 
     get videoTime() {
