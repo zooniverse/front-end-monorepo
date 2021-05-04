@@ -4,9 +4,9 @@ import AboutDropdownNav from './components/AboutDropdownNav'
 import AboutSidebar from './components/AboutSidebar'
 import TeamMember from './components/TeamMember'
 
-let wrapper
-
 describe('Component > ProjectAboutPage', () => {
+  let wrapper
+
   describe('About pages layout', () => {
     const aboutPageData = {
       title: 'Title',
