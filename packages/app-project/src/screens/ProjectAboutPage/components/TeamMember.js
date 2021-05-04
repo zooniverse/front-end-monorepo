@@ -80,9 +80,9 @@ const TeamMember = ({ user, router }) => {
         />
         {user.roles &&
           user.roles.length &&
-          user.roles.map((role, index) => (
+          user.roles.map((role) => (
             <StyledRole
-              key={`${role}${index}`}
+              key={role}
               round="xxsmall"
               background={role === 'owner' ? 'neutral-4' : 'accent-2'}
             >
