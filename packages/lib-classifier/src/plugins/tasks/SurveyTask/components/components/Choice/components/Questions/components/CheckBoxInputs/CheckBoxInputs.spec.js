@@ -30,27 +30,27 @@ describe('Component > CheckBoxInputs', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should render CheckBoxOptions', function () {
+  it('should render 5 CheckBoxInput components', function () {
     expect(wrapper.find(CheckBoxInput)).to.have.lengthOf(options.length)
   })
 
   describe('with defined answer', function () {
-    let checkBoxOptions
+    let inputs
 
     before(function () {
       wrapper.setProps({ questionAnswer: ['RSTNG', 'TNG'] })
-      checkBoxOptions = wrapper.find(CheckBoxInput)
+      inputs = wrapper.find(CheckBoxInput)
     })
 
-    it('should render chosen CheckBoxOptions as checked', function () {
-      expect(checkBoxOptions.find({ option: { label: 'Resting', value: 'RSTNG' } }).props().isChecked).to.be.true()
-      expect(checkBoxOptions.find({ option: { label: 'Eating', value: 'TNG' } }).props().isChecked).to.be.true()
+    it('should render chosen CheckBoxInputs as checked', function () {
+      expect(inputs.find({ option: { label: 'Resting', value: 'RSTNG' } }).props().isChecked).to.be.true()
+      expect(inputs.find({ option: { label: ' Eating', value: 'TNG' } }).props().isChecked).to.be.true()
     })
 
-    it('should render not chosen CheckBoxOptions as unchecked', function () {
-      expect(checkBoxOptions.find({ option: { label: 'Standing', value: 'STNDNG' } }).props().isChecked).to.be.false()
-      expect(checkBoxOptions.find({ option: { label: 'Moving', value: 'MVNG' } }).props().isChecked).to.be.false()
-      expect(checkBoxOptions.find({ option: { label: 'Interacting', value: 'NTRCTNG' } }).props().isChecked).to.be.false()
+    it('should render not chosen CheckBoxInputs as unchecked', function () {
+      expect(inputs.find({ option: { label: ' Standing', value: 'STNDNG' } }).props().isChecked).to.be.false()
+      expect(inputs.find({ option: { label: ' Moving', value: 'MVNG' } }).props().isChecked).to.be.false()
+      expect(inputs.find({ option: { label: ' Interacting', value: 'NTRCTNG' } }).props().isChecked).to.be.false()
     })
   })
 })
