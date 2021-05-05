@@ -7,6 +7,7 @@ const SubjectIndexPair = types.model('SubjectIndexPair', {
 })
 
 const SubjectGroupComparison = types.model('SubjectGroupComparison', {
+  taskType: types.literal('subjectGroupComparison'),
   value: types.array(SubjectIndexPair),
 })
   .views(self => ({

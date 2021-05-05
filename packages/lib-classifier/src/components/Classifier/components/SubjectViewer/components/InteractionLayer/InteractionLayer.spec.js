@@ -7,7 +7,11 @@ import InteractionLayer, { DrawingCanvas } from './InteractionLayer'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
 import DrawingTask from '@plugins/tasks/DrawingTask'
-import { Line, Point, TranscriptionLine } from '@plugins/drawingTools/components'
+import {
+  Line,
+  Point,
+  TranscriptionLine
+} from '@plugins/drawingTools/components'
 
 describe('Component > InteractionLayer', function () {
   let wrapper
@@ -17,7 +21,8 @@ describe('Component > InteractionLayer', function () {
     initialDrag: sinon.stub(),
     initialPosition: sinon.stub(),
     setCoordinates: sinon.stub(),
-    setSubTaskVisibility: sinon.stub()
+    setSubTaskVisibility: sinon.stub(),
+    setVideoTime: sinon.stub()
   }
   const mockSVGPoint = {
     x: 100,
@@ -112,7 +117,9 @@ describe('Component > InteractionLayer', function () {
       describe('onPointerDown', function () {
         let mockedContext
         before(function () {
-          mockedContext = sinon.stub(React, 'useContext').callsFake(() => { return { svg, getScreenCTM } })
+          mockedContext = sinon.stub(React, 'useContext').callsFake(() => {
+            return { svg, getScreenCTM }
+          })
         })
 
         after(function () {
@@ -184,7 +191,9 @@ describe('Component > InteractionLayer', function () {
           }
           wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
           wrapper.simulate('pointermove', fakeEvent)
-          expect(fakeEvent.target.setPointerCapture.withArgs('fakePointer')).to.have.been.calledOnce()
+          expect(
+            fakeEvent.target.setPointerCapture.withArgs('fakePointer')
+          ).to.have.been.calledOnce()
         })
 
         describe('with a TranscriptionLine mark already in progress', function () {
@@ -205,7 +214,9 @@ describe('Component > InteractionLayer', function () {
             })
             activeTool = mockDrawingTask.activeTool
             sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
-            sinon.stub(activeTool, 'handlePointerDown').callsFake(() => mockMark)
+            sinon
+              .stub(activeTool, 'handlePointerDown')
+              .callsFake(() => mockMark)
 
             wrapper = shallow(
               <InteractionLayer
@@ -236,7 +247,9 @@ describe('Component > InteractionLayer', function () {
     describe('onPointerUp', function () {
       let mockedContext
       before(function () {
-        mockedContext = sinon.stub(React, 'useContext').callsFake(() => { return { svg, getScreenCTM } })
+        mockedContext = sinon.stub(React, 'useContext').callsFake(() => {
+          return { svg, getScreenCTM }
+        })
       })
 
       after(function () {
@@ -284,12 +297,13 @@ describe('Component > InteractionLayer', function () {
       sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
       activeTool.createMark.resetHistory()
       wrapper = shallow(
-          <InteractionLayer
-            activeTool={activeTool}
-            disabled
-            height={400}
-            width={600}
-          />, {
+        <InteractionLayer
+          activeTool={activeTool}
+          disabled
+          height={400}
+          width={600}
+        />,
+        {
           wrappingComponent: SVGContext.Provider,
           wrappingComponentProps: { value: { svg, getScreenCTM } }
         }

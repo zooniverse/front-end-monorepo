@@ -17,7 +17,7 @@ function useStores(stores) {
 
 function Banners({ stores }) {
   const { subject, workflow } = useStores(stores)
-  const subjectNumber = subject?.metadata['#priority'] ?? -1
+  const subjectNumber = subject?.priority ?? -1
   if (workflow?.grouped && subjectNumber !== -1) {
     return (
       <SubjectSetProgressBanner
