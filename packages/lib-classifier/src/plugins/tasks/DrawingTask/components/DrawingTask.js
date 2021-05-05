@@ -28,10 +28,10 @@ const StyledText = styled(Text)`
     margin-top: 0;
   }
 `
-function DrawingTask (props) {
+function DrawingTask(props) {
   const { task } = props
   const { setActiveTool } = task
-  function onChange (index, event) {
+  function onChange(index, event) {
     if (event.target.checked) {
       setActiveTool(index)
     }
@@ -40,9 +40,7 @@ function DrawingTask (props) {
   return (
     <Box>
       <StyledText size='small' tag='legend'>
-        <Markdownz>
-          {task.instruction}
-        </Markdownz>
+        <Markdownz>{task.instruction}</Markdownz>
       </StyledText>
 
       {task.tools.map((tool, index) => {
@@ -54,10 +52,15 @@ function DrawingTask (props) {
             index={index}
             key={`${task.taskKey}_${index}`}
             label={tool.label}
-            labelIcon={<InputIcon icon={<ToolIcon type={tool.type} />} color={tool.color} />}
+            labelIcon={
+              <InputIcon
+                icon={<ToolIcon type={tool.type} />}
+                color={tool.color}
+              />
+            }
             labelStatus={<InputStatus count={tool.marks.size} tool={tool} />}
             name='drawing-tool'
-            onChange={event => onChange(index, event)}
+            onChange={(event) => onChange(index, event)}
             required={task.required}
             type='radio'
           />

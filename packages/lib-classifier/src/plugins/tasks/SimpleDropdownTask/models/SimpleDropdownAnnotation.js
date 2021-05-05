@@ -12,6 +12,7 @@ const otherOption = types.model('SimpleDropdownOtherOption', {
 })
 
 const SimpleDropdown = types.model('SimpleDropdown', {
+  taskType: types.literal('dropdown-simple'),
   value: types.maybeNull(types.union(presetOption, otherOption), null),
 })
   .views(self => ({

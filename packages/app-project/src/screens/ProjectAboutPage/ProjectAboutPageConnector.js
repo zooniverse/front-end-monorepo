@@ -1,38 +1,63 @@
 import { observer, MobXProviderContext } from 'mobx-react'
 import React from 'react'
-import { arrayOf, bool, object, shape, string } from 'prop-types'
+import { arrayOf, bool, shape, string } from 'prop-types'
 
 import ProjectAboutPage from './ProjectAboutPage'
 
 /**
   Connect the about page to the store. Pass down correct aboutPages data.
+  If a non-required about page is empty or missing, content is set as null.
 */
-function ProjectAboutPageConnector ({ pageType, teamArray }) {
+const ProjectAboutPageConnector = ({ pageType, teamArray }) => {
+  const returnDefaultContent = () => {
+    const pageTitle = pageType === 'science_case' ? 'research' : pageType
+
+    return {
+      title: pageTitle,
+      content: 'No content yet.'
+    }
+  }
+
   const {
     store: {
-      project: {
-        inBeta = false,
-        about_pages = [],
-        display_name = ''
-      }
+      project: { inBeta = false, about_pages = [], display_name = '' }
     }
   } = React.useContext(MobXProviderContext)
-  const [aboutPageData] = about_pages.filter(page => page.url_key === pageType)
-  return aboutPageData ? (
+
+  let aboutPageData
+  const aboutNavLinks = ['research', 'team']
+  if (about_pages.length) {
+    about_pages.forEach(page => {
+      const type = page.url_key === 'science_case' ? 'research' : page.url_key
+      if (
+        page.content?.length &&
+        !aboutNavLinks.includes(type)
+      ) {
+        aboutNavLinks.push(type)
+      }
+    })
+    aboutPageData = about_pages.filter(page => page.url_key === pageType)[0]
+    if (!aboutPageData) {
+      aboutPageData = returnDefaultContent()
+    }
+  } else {
+    aboutPageData = returnDefaultContent()
+  }
+
+  return (
     <ProjectAboutPage
-      inBeta={inBeta}
+      aboutNavLinks={aboutNavLinks}
       aboutPageData={aboutPageData}
-      teamArray={teamArray}
+      inBeta={inBeta}
       projectDisplayName={display_name}
+      teamArray={teamArray}
     />
-  ) : (
-    <p>No data for this page...</p>
   )
 }
 
 ProjectAboutPageConnector.propTypes = {
   inBeta: bool,
-  initialState: object,
+  pageType: string,
   teamArray: arrayOf(
     shape({
       avatar_src: string,

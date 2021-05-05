@@ -1,17 +1,21 @@
 import { Box, Grid, Heading } from 'grommet'
 import { arrayOf, bool, object, shape, string } from 'prop-types'
 import styled, { withTheme } from 'styled-components'
-import { withResponsiveContext } from '@zooniverse/react-components'
+import { capitalize } from 'lodash'
 
 /** Components */
 import StandardLayout from '@shared/components/StandardLayout'
-import { SpacedHeading, SpacedText } from '@zooniverse/react-components'
+import {
+  SpacedHeading,
+  SpacedText,
+  withResponsiveContext
+} from '@zooniverse/react-components'
 import AboutSidebar from './components/AboutSidebar'
 import AboutDropdownNav from './components/AboutDropdownNav'
 import TeamMember from './components/TeamMember'
 import AboutMarkdownz from './components/AboutMarkdownz/AboutMarkdownz'
 
-const PageHeading = styled(Heading)`
+export const PageHeading = styled(Heading)`
   font-weight: normal;
 `
 
@@ -20,13 +24,14 @@ const SidebarHeading = styled(SpacedHeading)`
 `
 
 function ProjectAboutPage({
+  aboutNavLinks,
   aboutPageData,
   inBeta,
   projectDisplayName,
-  teamArray,
-  screenSize
+  screenSize,
+  teamArray
 }) {
-  const { content = '', title = '' } = aboutPageData
+  const { content, title } = aboutPageData
 
   const isTeamPage = title.toLowerCase().includes('team')
 
@@ -54,14 +59,14 @@ function ProjectAboutPage({
           {screenSize !== 'small' ? (
             <Box>
               <SidebarHeading children="About" />
-              <AboutSidebar />
+              <AboutSidebar aboutNavLinks={aboutNavLinks} />
             </Box>
           ) : (
-            <AboutDropdownNav />
+            <AboutDropdownNav aboutNavLinks={aboutNavLinks} />
           )}
           <Box>
             <PageHeading
-              children={isTeamPage ? 'The Team' : title}
+              children={isTeamPage ? 'The Team' : capitalize(title)}
               level="2"
               weight="normal"
               size="40px"
@@ -119,4 +124,5 @@ ProjectAboutPage.propTypes = {
   )
 }
 
+export { ProjectAboutPage }
 export default withTheme(withResponsiveContext(ProjectAboutPage))
