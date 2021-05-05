@@ -42,7 +42,7 @@ class TranscribedLines extends React.Component {
   }
 
   createMark (line, node) {
-    const { activeTool, activeToolIndex, marks, setActiveMark } = this.props.task
+    const { activeTool, activeToolIndex, setActiveMark } = this.props.task
 
     if (activeTool) {
       const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
@@ -63,12 +63,7 @@ class TranscribedLines extends React.Component {
         previousAnnotationValuesForEachMark.push(previousAnnotationValuesForThisMark)
       })
       mark.setPreviousAnnotations(previousAnnotationValuesForEachMark)
-      if (mark.finished) {
-        const markBounds = node?.getBoundingClientRect()
-        mark.setSubTaskVisibility(true, markBounds)
-      } else {
-        mark.finish()
-      }
+      mark.finish()
     }
   }
 
@@ -81,12 +76,14 @@ class TranscribedLines extends React.Component {
     })
   }
 
-  onClick (callback, line, node) {
+  onClick (event, callback, line) {
+    const node = event.target
     callback(line, node)
   }
 
-  onKeyDown (event, callback, line, node) {
+  onKeyDown (event, callback, line) {
     if (event.key === 'Enter' || event.key === ' ') {
+      const node = event.target
       event.preventDefault()
       callback(line, node)
     }
@@ -125,7 +122,6 @@ class TranscribedLines extends React.Component {
             const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
             const mark = { length, x1, y1, x2, y2 }
             const id = `complete-${index}`
-            const ref = React.createRef()
 
             return (
               <Tooltip
@@ -134,13 +130,12 @@ class TranscribedLines extends React.Component {
                 label={<TooltipLabel fill={fills.complete} label={counterpart('TranscribedLines.complete')} />}
               >
                 <ConsensusLine
-                  ref={ref}
                   role='button'
                   aria-describedby={id}
                   aria-label={line.consensusText}
                   focusColor={focusColor}
-                  onClick={() => this.onClick(this.showConsensus, line, ref?.current)}
-                  onKeyDown={event => this.onKeyDown(event, this.showConsensus, line, ref?.current)}
+                  onClick={(event) => this.onClick(event, this.showConsensus, line)}
+                  onKeyDown={event => this.onKeyDown(event, this.showConsensus, line)}
                   tabIndex={0}
                 >
                   <TranscriptionLine
@@ -164,8 +159,8 @@ class TranscribedLines extends React.Component {
 
             const lineProps = {}
             if (!disabled) {
-              lineProps.onClick = event => this.createMark(line, event.target)
-              lineProps.onKeyDown = event => this.onKeyDown(event, this.createMark, line, event.target)
+              lineProps.onClick = event => this.onClick(event, this.createMark, line)
+              lineProps.onKeyDown = event => this.onKeyDown(event, this.createMark, line)
             }
 
             return (

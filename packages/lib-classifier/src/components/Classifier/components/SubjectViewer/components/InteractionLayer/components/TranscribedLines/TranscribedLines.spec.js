@@ -1,14 +1,12 @@
-import { mount, shallow } from 'enzyme'
-import { Provider } from 'mobx-react'
+import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
 import TranscriptionReductions from '@store/TranscriptionReductions'
 import taskRegistry from '@plugins/tasks'
-import { ConsensusLine, TranscribedLines } from './TranscribedLines'
+import { TranscribedLines } from './TranscribedLines'
 import { reducedSubject } from '@store/TranscriptionReductions/mocks'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
 import ConsensusPopup from './components/ConsensusPopup'
-import zooTheme from '@zooniverse/grommet-theme'
 
 describe('Component > TranscribedLines', function () {
   const transcriptionModels = taskRegistry.get('transcription')
@@ -79,136 +77,7 @@ describe('Component > TranscribedLines', function () {
     })
   })
 
-  describe('with all lines', function () {
-    let consensusComponents, createMarkSpy, returnRefs, showConsensusStub
-
-    before(function () {
-      sinon.spy(React, 'createRef')
-      createMarkSpy = sinon.spy(TranscribedLines.prototype, 'createMark')
-      showConsensusStub = sinon.stub(TranscribedLines.prototype, 'showConsensus')
-      wrapper = mount(
-        <svg>
-          <TranscribedLines
-            lines={consensusLines}
-            marks={task.marks}
-            task={task}
-            theme={zooTheme}
-          />
-        </svg>,
-        {
-          wrappingComponent: Provider,
-          wrappingComponentProps: {
-            classifierStore: {
-              workflows: {
-                active: {
-                  usesTranscriptionTask: true
-                }
-              }
-            }
-          }
-        }
-      )
-
-      returnRefs = React.createRef.returnValues
-      consensusComponents = wrapper.find(ConsensusLine)
-    })
-
-    after(function () {
-      task.setActiveMark(undefined)
-      React.createRef.restore()
-      createMarkSpy.restore()
-      showConsensusStub.restore()
-    })
-
-    it('should create a ref for each completed line', function () {
-      const completedLines = consensusLines.filter(line => line.consensusReached)
-      expect(React.createRef.callCount).to.equal(completedLines.length)
-    })
-
-    it('should call ConsensusLine callback with expected ref on click', function () {
-      consensusComponents.forEach((consensusComponent, index) => {
-        const lineState = consensusComponent.find(TranscriptionLine).prop('state')
-        if (lineState === 'transcribed') {
-          expect(createMarkSpy).to.not.have.been.called()
-          const fakeNode = {
-            getBoundingClientRect: sinon.stub()
-          }
-          consensusComponent.simulate('click', { target: fakeNode })
-          const [createMarkArgs] = createMarkSpy.args
-          createMarkSpy.resetHistory()
-          expect(createMarkArgs[1]).to.equal(fakeNode)
-        }
-        if (lineState === 'complete') {
-          expect(showConsensusStub).to.not.have.been.called()
-          consensusComponent.simulate('click')
-          const [completeArgs] = showConsensusStub.args
-          const expectedRefForMark = completeArgs[1]
-          showConsensusStub.resetHistory()
-          expect(expectedRefForMark).to.equal(returnRefs[index].current)
-        }
-      })
-    })
-
-    it('should call ConsensusLine callback with expected ref on keydown with enter', function () {
-      const eventMock = { key: 'Enter', preventDefault: sinon.spy() }
-      consensusComponents.forEach((consensusComponent, index) => {
-        const lineState = consensusComponent.find(TranscriptionLine).prop('state')
-        if (lineState === 'transcribed') {
-          const fakeNode = {
-            getBoundingClientRect: sinon.stub()
-          }
-          eventMock.target = fakeNode
-          expect(createMarkSpy).to.not.have.been.called()
-          consensusComponent.simulate('keydown', eventMock)
-          const [createMarkArgs] = createMarkSpy.args
-          createMarkSpy.resetHistory()
-          expect(createMarkArgs[1]).to.equal(fakeNode)
-        }
-        if (lineState === 'complete') {
-          expect(showConsensusStub).to.not.have.been.called()
-          consensusComponent.simulate('keydown', eventMock)
-          const [completeArgs] = showConsensusStub.args
-          const expectedRefForMark = completeArgs[1]
-          showConsensusStub.resetHistory()
-          expect(expectedRefForMark).to.equal(returnRefs[index].current)
-        }
-      })
-    })
-
-    it('should call ConsensusLine callback with expected ref on keydown with space', function () {
-      const eventMock = { key: ' ', preventDefault: sinon.spy() }
-      consensusComponents.forEach((consensusComponent, index) => {
-        const lineState = consensusComponent.find(TranscriptionLine).prop('state')
-        if (lineState === 'transcribed') {
-          const fakeNode = {
-            getBoundingClientRect: sinon.stub()
-          }
-          eventMock.target = fakeNode
-          expect(createMarkSpy).to.not.have.been.called()
-          consensusComponent.simulate('keydown', eventMock)
-          const [createMarkArgs] = createMarkSpy.args
-          createMarkSpy.resetHistory()
-          expect(createMarkArgs[1]).to.equal(fakeNode)
-        }
-        if (lineState === 'complete') {
-          expect(showConsensusStub).to.not.have.been.called()
-          consensusComponent.simulate('keydown', eventMock)
-          const [completeArgs] = showConsensusStub.args
-          const expectedRefForMark = completeArgs[1]
-          showConsensusStub.resetHistory()
-          expect(expectedRefForMark).to.equal(returnRefs[index].current)
-        }
-      })
-    })
-  })
-
   describe('incomplete lines', function () {
-    const currentMock = {
-      current: {
-        blur: sinon.spy(),
-        getBoundingClientRect: sinon.spy()
-      }
-    }
     let lines
     let task
     let wrapper
@@ -230,10 +99,6 @@ describe('Component > TranscribedLines', function () {
       task.setActiveTool(0)
       wrapper = shallow(<TranscribedLines lines={consensusLines} marks={task.marks} task={task} />)
       lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
-    })
-
-    afterEach(function () {
-      currentMock.current.blur.resetHistory()
     })
 
     it('should render', function () {
@@ -466,7 +331,7 @@ describe('Component > TranscribedLines', function () {
           consensusText: '',
           textOptions: []
         })
-        wrapper.find({ 'aria-describedby': `complete-${index}` }).simulate('click')
+        wrapper.find({ 'aria-describedby': `complete-${index}` }).simulate('click', { target: { getBoundingClientRect: sinon.spy() }})
         popup = wrapper.find(ConsensusPopup)
         expect(popup.props().active).to.be.true()
         expect(popup.props().line).to.deep.equal(completeLines[index])
@@ -481,7 +346,7 @@ describe('Component > TranscribedLines', function () {
     })
 
     it('should show the ConsensusPopup onKeyDown with enter', function () {
-      const eventMock = { key: 'Enter', preventDefault: sinon.spy() }
+      const eventMock = { key: 'Enter', preventDefault: sinon.spy(), target: { getBoundingClientRect: sinon.spy() } }
       lines.forEach((line, index) => {
         let popup = wrapper.find(ConsensusPopup)
         expect(popup.props().active).to.be.false()
@@ -506,7 +371,7 @@ describe('Component > TranscribedLines', function () {
     })
 
     it('should show the ConsensusPopup onKeyDown with space', function () {
-      const eventMock = { key: ' ', preventDefault: sinon.spy() }
+      const eventMock = { key: ' ', preventDefault: sinon.spy(), target: { getBoundingClientRect: sinon.spy() } }
       lines.forEach((line, index) => {
         let popup = wrapper.find(ConsensusPopup)
         expect(popup.props().active).to.be.false()
