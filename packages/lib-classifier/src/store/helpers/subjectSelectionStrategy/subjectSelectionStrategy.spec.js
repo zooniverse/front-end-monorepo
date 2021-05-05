@@ -109,6 +109,7 @@ describe('Store > Helpers > subjectSelectionStrategy', function () {
 
     before(async function () {
       nock('https://subject-set-search-api.zooniverse.org')
+      .persist(true)
       .get('/subjects/2.json')
       .query(query => query.priority__gt === '-1')
       .reply(200, {
@@ -127,6 +128,16 @@ describe('Store > Helpers > subjectSelectionStrategy', function () {
           ['56789', '3']
         ]
       })
+      .get('/subjects/2.json')
+      .query(query => query.priority__gt === '3')
+      .reply(200, {
+        columns: ['subject_id', 'priority'],
+        rows: []
+      })
+    })
+
+    after(function () {
+      nock.cleanAll()
     })
 
     describe('with a subject priority', function () {
@@ -149,6 +160,31 @@ describe('Store > Helpers > subjectSelectionStrategy', function () {
       it('should query by workflow and subjects greater than the specified priority', function () {
         expect(strategy.params).to.deep.equal({
           ids: '56789',
+          workflow_id: '12345'
+        })
+      })
+    })
+
+    describe('at the end of a set', function () {
+      before(async function () {
+        const workflow = WorkflowFactory.build({
+          id: '12345',
+          grouped: true,
+          prioritized: true,
+          hasIndexedSubjects: true,
+          subjectSetId: '2'
+        })
+        let subjectIDs
+        strategy = await subjectSelectionStrategy(workflow, subjectIDs, '3')
+      })
+
+      it(`should use the /subjects/selection endpoint`, function () {
+        expect(strategy.apiUrl).to.equal('/subjects/selection')
+      })
+
+      it('should query by workflow and the first subjects in the set', function () {
+        expect(strategy.params).to.deep.equal({
+          ids: '12345,34567,56789',
           workflow_id: '12345'
         })
       })
