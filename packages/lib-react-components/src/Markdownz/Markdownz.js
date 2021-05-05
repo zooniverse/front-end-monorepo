@@ -32,7 +32,7 @@ class Markdownz extends React.Component {
     const { baseURI, projectSlug } = this.props
     const baseURL = (projectSlug) ? `${baseURI}/projects/${projectSlug}` : baseURI
 
-    if (symbol === hashtag) return projectSlug ? `${baseURL}/talk/tag/${resource}` : `${baseURL}/talk/search?query=%23${resource}`
+    if (symbol === hashtag) return (projectSlug) ? `${baseURL}/talk/tag/${resource}` : `${baseURL}/talk/search?query=%23${resource}`
     if (symbol === at) return `${baseURL}/users/${resource}`
     if (symbol === subjectSymbol && projectSlug) return `${baseURL}/talk/subjects/${resource}`
 
@@ -96,7 +96,7 @@ class Markdownz extends React.Component {
     return newChildren
   }
 
-  render() {
+  render () {
     const { children, components, settings } = this.props
 
     if (!children) return null
@@ -109,12 +109,12 @@ class Markdownz extends React.Component {
 
     const componentMappings = {
       a: Anchor,
-      h1: (nodeProps) => <Heading level="1">{nodeProps.children}</Heading>,
-      h2: (nodeProps) => <Heading level="2">{nodeProps.children}</Heading>,
-      h3: (nodeProps) => <Heading level="3">{nodeProps.children}</Heading>,
-      h4: (nodeProps) => <Heading level="4">{nodeProps.children}</Heading>,
-      h5: (nodeProps) => <Heading level="5">{nodeProps.children}</Heading>,
-      h6: (nodeProps) => <Heading level="6">{nodeProps.children}</Heading>,
+      h1: (nodeProps) => <Heading level='1'>{nodeProps.children}</Heading>,
+      h2: (nodeProps) => <Heading level='2'>{nodeProps.children}</Heading>,
+      h3: (nodeProps) => <Heading level='3'>{nodeProps.children}</Heading>,
+      h4: (nodeProps) => <Heading level='4'>{nodeProps.children}</Heading>,
+      h5: (nodeProps) => <Heading level='5'>{nodeProps.children}</Heading>,
+      h6: (nodeProps) => <Heading level='6'>{nodeProps.children}</Heading>,
       hr: () => <hr style={{ width: '100%' }} />,
       img: (nodeProps) => this.renderMedia(nodeProps),
       p: Paragraph,
@@ -138,8 +138,7 @@ class Markdownz extends React.Component {
       .use(ping, {
         ping: (resource, symbol) => this.shouldResourceBeLinkable(resource, symbol), // We could support passing in a prop to call a function here
         pingSymbols: [at, hashtag, subjectSymbol],
-        resourceURL: (resource, symbol) =>
-          this.buildResourceURL(resource, symbol),
+        resourceURL: (resource, symbol) => this.buildResourceURL(resource, symbol),
         matchRegex: /@([\w\-.]+\b)|#([-\w\d]{3,40})|(\^S[0-9]+)/
       })
       .use(toc)
@@ -158,14 +157,7 @@ Markdownz.defaultProps = {
   baseURI: '',
   components: {},
   projectSlug: '',
-  restrictedUserNames: [
-    'admins',
-    'moderators',
-    'researchers',
-    'scientists',
-    'team',
-    'support'
-  ],
+  restrictedUserNames: ['admins', 'moderators', 'researchers', 'scientists', 'team', 'support'],
   settings: {}
 }
 
