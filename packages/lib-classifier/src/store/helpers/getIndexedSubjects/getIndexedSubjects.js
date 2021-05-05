@@ -1,5 +1,4 @@
-export default async function getIndexedSubjects(workflow, priority = -1) {
-  const { subjectSetId } = workflow
+export default async function getIndexedSubjects(subjectSetId, priority = -1) {
   const subjectSetURL = `https://subject-set-search-api.zooniverse.org/subjects/${subjectSetId}.json`
   const query = `priority__gt=${priority}&_sort=priority`
   const mode = 'cors'
