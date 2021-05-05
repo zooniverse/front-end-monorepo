@@ -1,10 +1,10 @@
 export default function searchParams(data) {
-  let query = ''
+  let query = []
   Object.entries(data).forEach(([key, value]) => {
     if (value !== '') {
-      query += `@${key}:${value}*`
+      query.push(`${key}__contains=${value}`)
     }
   })
-  const urlParams = (query !== '') ? `filter_field=${query}` : ''
+  const urlParams = (query !== '') ? query.join('&') : ''
   return urlParams
 }
