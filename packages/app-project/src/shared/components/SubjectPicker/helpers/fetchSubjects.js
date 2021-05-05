@@ -1,15 +1,14 @@
-const API_HOST = 'https://redsea.zooniverse.org/search'
+const API_HOST = 'https://subject-set-search-api.zooniverse.org/subjects'
 
 export default async function fetchSubjects(
   subjectSetID,
   query='',
-  sortField='subject_id',
-  sortOrder='asc',
+  sortField='priority',
   page_size=20
 ) {
-  const url = `${API_HOST}/${subjectSetID}?${query}&limit=${page_size}&sort_field=${sortField}&sort_order=${sortOrder}`
+  const url = `${API_HOST}/${subjectSetID}.json?${query}&_sort=${sortField}`
   const mode = 'cors'
   const response = await fetch(url, { mode })
-  const results = await response.json()
-  return results
+  const data = await response.json()
+  return data
 }
