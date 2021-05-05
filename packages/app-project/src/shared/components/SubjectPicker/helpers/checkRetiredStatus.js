@@ -2,7 +2,7 @@ import { env, panoptes } from '@zooniverse/panoptes-js'
 import { logToSentry } from '@helpers/logger'
 
 export default async function checkRetiredStatus(subject_ids, workflow, page_size=20) {
-  const workflow_id = '5329'
+  const workflow_id = workflow.id
   const retirementStatuses = {}
   try {
     const response = await panoptes
