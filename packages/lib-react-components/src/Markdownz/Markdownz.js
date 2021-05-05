@@ -27,19 +27,23 @@ const at = '@'
 const subjectSymbol = '^S'
 
 class Markdownz extends React.Component {
-  buildResourceURL (resource, symbol) {
+  buildResourceURL(resource, symbol) {
     if (!resource) return ''
     const { baseURI, projectSlug } = this.props
-    const baseURL = (projectSlug) ? `${baseURI}/projects/${projectSlug}` : baseURI
+    const baseURL = projectSlug ? `${baseURI}/projects/${projectSlug}` : baseURI
 
-    if (symbol === hashtag) return (projectSlug) ? `${baseURL}/talk/tag/${resource}` : `${baseURL}/talk/search?query=%23${resource}`
+    if (symbol === hashtag)
+      return projectSlug
+        ? `${baseURL}/talk/tag/${resource}`
+        : `${baseURL}/talk/search?query=%23${resource}`
     if (symbol === at) return `${baseURL}/users/${resource}`
-    if (symbol === subjectSymbol && projectSlug) return `${baseURL}/talk/subjects/${resource}`
+    if (symbol === subjectSymbol && projectSlug)
+      return `${baseURL}/talk/subjects/${resource}`
 
     return ''
   }
 
-  shouldResourceBeLinkable (resource, symbol) {
+  shouldResourceBeLinkable(resource, symbol) {
     const { projectSlug, restrictedUserNames } = this.props
 
     if (symbol === at) return !restrictedUserNames.includes(resource)
@@ -49,7 +53,7 @@ class Markdownz extends React.Component {
   }
 
   // Support image resizing, video, and audio using markdown's image syntax
-  renderMedia (nodeProps) {
+  renderMedia(nodeProps) {
     let width, height
     const imgSizeRegex = /=(\d+(%|px|em|rem|vw)?)x(\d+(%|px|em|rem|vh)?)/
     let alt = nodeProps.alt
@@ -65,33 +69,59 @@ class Markdownz extends React.Component {
     return null
   }
 
-  findResizedImages () {
-    // manually changing children prop? this has to be done before renderMedia()
-    // img with markdown-it-imsize gets sorted into html text
-    // find src strings formatted as ![]()
-    // if it includes ' =' handle it like markdown-it-imsize plugin
-    // place 100x100 into alt tag
+  findResizedImages(children) {
+    const imageRegex = /(?:!\[(.*?)\]\((.*?)\))/g
+    const images = Array.from(children.matchAll(imageRegex))
+
+    let newChildren = children
+
+    if (images.length) {
+      images.forEach(img => {
+        const imgSizeRegex = /=(\d+(%|px|em|rem|vw)?)x(\d+(%|px|em|rem|vh)?)/
+
+        const imgSizeMatch = img[0].match(imgSizeRegex)
+        if (imgSizeMatch && imgSizeMatch.length > 0) {
+          // delete imgSizeMatch from alt and url string (including the preceding space character)
+          const sanitizedImgStr = img[0].replace(` ${imgSizeMatch[0]}`, '')
+
+          // place imgSizeMatch into only alt tag
+          const altTagRegex = /(?:!\[(.*?)\])/
+          const altTag = sanitizedImgStr.match(altTagRegex)
+          const altTextWithSize = `${altTag[1]} ${imgSizeMatch[0]}`
+
+          // replace corresponding image string in the children
+          const newImgStr = sanitizedImgStr.replace(altTag[0], `![${altTextWithSize}]`)
+          newChildren = newChildren.replace(img[0], newImgStr)
+        }
+      })
+    }
+
+    return newChildren
   }
 
-  render () {
+  render() {
     const { children, components, settings } = this.props
 
     if (!children) return null
 
     if (Object.keys(components).includes('img')) {
-      console.warn('Overriding the rendering function for the img tag may break the syntax support for image resizing and using image markup for video and audio. Are you sure you want to do this?')
+      console.warn(
+        'Overriding the rendering function for the img tag may break the syntax support for image resizing and using image markup for video and audio. Are you sure you want to do this?'
+      )
     }
+
+    const childrenWIthImageResize = this.findResizedImages(children)
 
     const componentMappings = {
       a: Anchor,
-      h1: (nodeProps) => <Heading level='1'>{nodeProps.children}</Heading>,
-      h2: (nodeProps) => <Heading level='2'>{nodeProps.children}</Heading>,
-      h3: (nodeProps) => <Heading level='3'>{nodeProps.children}</Heading>,
-      h4: (nodeProps) => <Heading level='4'>{nodeProps.children}</Heading>,
-      h5: (nodeProps) => <Heading level='5'>{nodeProps.children}</Heading>,
-      h6: (nodeProps) => <Heading level='6'>{nodeProps.children}</Heading>,
+      h1: nodeProps => <Heading level="1">{nodeProps.children}</Heading>,
+      h2: nodeProps => <Heading level="2">{nodeProps.children}</Heading>,
+      h3: nodeProps => <Heading level="3">{nodeProps.children}</Heading>,
+      h4: nodeProps => <Heading level="4">{nodeProps.children}</Heading>,
+      h5: nodeProps => <Heading level="5">{nodeProps.children}</Heading>,
+      h6: nodeProps => <Heading level="6">{nodeProps.children}</Heading>,
       hr: () => <hr style={{ width: '100%' }} />,
-      img: (nodeProps) => this.renderMedia(nodeProps),
+      img: nodeProps => this.renderMedia(nodeProps),
       p: Paragraph,
       span: Text,
       table: Table,
@@ -102,7 +132,11 @@ class Markdownz extends React.Component {
       tr: TableRow
     }
 
-    const remarkReactComponents = Object.assign({}, componentMappings, components)
+    const remarkReactComponents = Object.assign(
+      {},
+      componentMappings,
+      components
+    )
     const remarkSettings = Object.assign({}, { footnotes: true }, settings)
 
     const markdown = remark()
@@ -111,20 +145,18 @@ class Markdownz extends React.Component {
       .use(remarkSubSuper)
       .use(externalLinks)
       .use(ping, {
-        ping: (resource, symbol) => this.shouldResourceBeLinkable(resource, symbol), // We could support passing in a prop to call a function here
+        ping: (resource, symbol) =>
+          this.shouldResourceBeLinkable(resource, symbol), // We could support passing in a prop to call a function here
         pingSymbols: [at, hashtag, subjectSymbol],
-        resourceURL: (resource, symbol) => this.buildResourceURL(resource, symbol),
+        resourceURL: (resource, symbol) =>
+          this.buildResourceURL(resource, symbol),
         matchRegex: /@([\w\-.]+\b)|#([-\w\d]{3,40})|(\^S[0-9]+)/
       })
       .use(toc)
       .use(remark2react, { remarkReactComponents })
-      .processSync(children).contents
+      .processSync(childrenWIthImageResize).contents
 
-    return (
-      <React.Fragment>
-        {markdown}
-      </React.Fragment>
-    )
+    return <React.Fragment>{markdown}</React.Fragment>
   }
 }
 
@@ -132,7 +164,14 @@ Markdownz.defaultProps = {
   baseURI: '',
   components: {},
   projectSlug: '',
-  restrictedUserNames: ['admins', 'moderators', 'researchers', 'scientists', 'team', 'support'],
+  restrictedUserNames: [
+    'admins',
+    'moderators',
+    'researchers',
+    'scientists',
+    'team',
+    'support'
+  ],
   settings: {}
 }
 
