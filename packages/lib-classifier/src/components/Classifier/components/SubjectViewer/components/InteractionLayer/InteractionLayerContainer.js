@@ -1,5 +1,4 @@
 import { inject, observer } from 'mobx-react'
-import { getType } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
@@ -7,19 +6,13 @@ import InteractionLayer from './InteractionLayer'
 import PreviousMarks from './components/PreviousMarks'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
-function storeMapper (stores) {
-  const {
-    activeStepTasks
-  } = stores.classifierStore.workflowSteps
-  const {
-    frame,
-    move
-  } = stores.classifierStore.subjectViewer
-  const {
-    active: classification
-  } = stores.classifierStore.classifications
+function storeMapper(stores) {
+  const { activeStepTasks } = stores.classifierStore.workflowSteps
+  const { frame, move } = stores.classifierStore.subjectViewer
 
-  const [activeInteractionTask] = activeStepTasks.filter(task => task.type === 'drawing' || task.type === 'transcription')
+  const [activeInteractionTask] = activeStepTasks.filter(
+    (task) => task.type === 'drawing' || task.type === 'transcription'
+  )
 
   return {
     activeInteractionTask,
@@ -31,14 +24,15 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class InteractionLayerContainer extends Component {
-  render () {
+  render() {
     const {
       activeInteractionTask,
       frame,
       height,
       move,
       scale,
-      width
+      width,
+      played
     } = this.props
 
     const {
@@ -52,12 +46,15 @@ class InteractionLayerContainer extends Component {
       taskKey
     } = activeInteractionTask
 
-    const newMarks = shownMarks === SHOWN_MARKS.NONE ? marks.slice(hidingIndex) : marks
-    const visibleMarksPerFrame = newMarks?.filter(mark => mark.frame === frame)
+    const newMarks =
+      shownMarks === SHOWN_MARKS.NONE ? marks.slice(hidingIndex) : marks
+    const visibleMarksPerFrame = newMarks?.filter(
+      (mark) => mark.frame === frame
+    )
 
     return (
       <>
-        {activeInteractionTask && activeTool &&
+        {activeInteractionTask && activeTool && (
           <InteractionLayer
             activeMark={activeMark}
             activeTool={activeTool}
@@ -69,10 +66,11 @@ class InteractionLayerContainer extends Component {
             marks={visibleMarksPerFrame}
             move={move}
             scale={scale}
+            played={played}
             setActiveMark={setActiveMark}
             width={width}
           />
-        }
+        )}
         <PreviousMarks scale={scale} />
       </>
     )
@@ -96,6 +94,7 @@ InteractionLayerContainer.wrappedComponent.propTypes = {
   interactionTaskAnnotations: PropTypes.array,
   move: PropTypes.bool,
   scale: PropTypes.number,
+  played: PropTypes.number,
   width: PropTypes.number.isRequired
 }
 
@@ -114,7 +113,8 @@ InteractionLayerContainer.wrappedComponent.defaultProps = {
   frame: 0,
   interactionTaskAnnotations: [],
   move: false,
-  scale: 1
+  scale: 1,
+  played: undefined // used for tracking video progress from 0 - 1. if undefined, subject is not a video
 }
 
 export default InteractionLayerContainer
