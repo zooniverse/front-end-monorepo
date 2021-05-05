@@ -3,6 +3,7 @@ import Annotation from '../../models/Annotation'
 import { Graph2dRangeXAnnotation } from './DataVisToolAnnotations'
 
 const DataVis = types.model('DataVis', {
+  taskType: types.literal('dataVisAnnotation'),
   value: types.array(types.union({
     dispatcher: (snapshot) => {
       if (snapshot.toolType === 'graph2dRangeX') return Graph2dRangeXAnnotation
