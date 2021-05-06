@@ -4,6 +4,7 @@ const ClassificationMetadata = types.model('ClassificationMetadata', {
   classifier_version: types.literal('2.0'),
   feedback: types.frozen({}),
   finishedAt: types.maybe(types.string),
+  revision: types.frozen(process.env.COMMIT_ID),
   session: types.maybe(types.string),
   source: types.enumeration(['api', 'sugar']),
   startedAt: types.optional(types.string, (new Date()).toISOString()),

@@ -39,6 +39,10 @@ const nextConfig = {
     TALK_HOST: talkHosts[PANOPTES_ENV]
   },
 
+  future: {
+    webpack5: true
+  },
+
   publicRuntimeConfig: {
     assetPrefix
   },

@@ -35,14 +35,14 @@ const Workflow = types
     /** convert Panoptes workflows to use steps, if necessary. */
     function convertPanoptesWorkflows(snapshot) {
       const workflowHasSteps = (snapshot.steps?.length > 0 && Object.keys(snapshot.tasks).length > 0)
-      if (workflowHasSteps) {
-        return snapshot
-      }
       const newSnapshot = Object.assign({}, snapshot)
       const { steps, tasks } = convertWorkflowToUseSteps(newSnapshot)
       return { ...newSnapshot, steps, tasks }
     }
   )
+  .volatile(self => ({
+    selectedSubjects: undefined
+  }))
   .views(self => ({
     get subjectSetId () {
       const activeSet = tryReference(() => self.subjectSet)
@@ -59,6 +59,10 @@ const Workflow = types
   }))
 
   .actions(self => {
+    function selectSubjects(subjectIDs) {
+      self.selectedSubjects = subjectIDs
+    }
+
     function * selectSubjectSet(id) {
       const validSets = self.links.subject_sets || []
       if (validSets.indexOf(id) > -1) {
@@ -71,6 +75,7 @@ const Workflow = types
     }
 
     return {
+      selectSubjects,
       selectSubjectSet: flow(selectSubjectSet)
     }
   })

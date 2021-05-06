@@ -8,11 +8,20 @@ const SurveyChoice = types.model('SurveyChoice', {
 })
 
 const Survey = types.model('Survey', {
+  taskType: types.literal('survey'),
   value: types.optional(types.array(SurveyChoice), [])
 })
   .views(self => ({
     get isComplete () {
-      return self.value.length > 0
+      return self.value.length > 0 && !self._choiceInProgress
+    }
+  }))
+  .volatile(self => ({
+    _choiceInProgress: false
+  }))
+  .actions(self => ({
+    setChoiceInProgress (boolean) {
+      self._choiceInProgress = boolean
     }
   }))
 
