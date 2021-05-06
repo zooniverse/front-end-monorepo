@@ -5,9 +5,7 @@ import SingleImageViewerContainer from './SingleImageViewerContainer'
 function useStores() {
   const stores = React.useContext(MobXProviderContext)
 
-  const {
-    active: subject
-  } = stores.classifierStore.subjects
+  const { active: subject } = stores.classifierStore.subjects
 
   const {
     enableRotation,

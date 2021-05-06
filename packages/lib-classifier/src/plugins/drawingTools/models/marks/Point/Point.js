@@ -1,4 +1,10 @@
-import { addDisposer, getRoot, getParentOfType, isValidReference, types } from 'mobx-state-tree'
+import {
+  addDisposer,
+  getRoot,
+  getParentOfType,
+  isValidReference,
+  types
+} from 'mobx-state-tree'
 import { Point as PointComponent } from '../../../components'
 import { PointTool } from '@plugins/drawingTools/models/tools'
 
@@ -9,17 +15,17 @@ const PointModel = types
     x: types.optional(types.number, 0),
     y: types.optional(types.number, 0)
   })
-  .views(self => ({
-    get coords () {
+  .views((self) => ({
+    get coords() {
       return {
         x: self.x,
         y: self.y
       }
     },
 
-    deleteButtonPosition (scale) {
+    deleteButtonPosition(scale) {
       const DELETE_BUTTON_ANGLE = 45
-      const theta = (DELETE_BUTTON_ANGLE) * (Math.PI / 180)
+      const theta = DELETE_BUTTON_ANGLE * (Math.PI / 180)
       const dx = (20 / scale) * Math.cos(theta)
       const dy = -1 * (20 / scale) * Math.sin(theta)
       const x = dx
@@ -27,31 +33,31 @@ const PointModel = types
       return { x, y }
     },
 
-    get tool () {
+    get tool() {
       return getParentOfType(self, PointTool)
     },
 
-    get toolComponent () {
+    get toolComponent() {
       return PointComponent
     }
   }))
-  .actions(self => {
-    function initialDrag ({ x, y }) {
+  .actions((self) => {
+    function initialDrag({ x, y }) {
       self.x = x
       self.y = y
     }
 
-    function initialPosition ({ x, y }) {
+    function initialPosition({ x, y }) {
       self.x = x
       self.y = y
     }
 
-    function move ({ x, y }) {
+    function move({ x, y }) {
       self.x += x
       self.y += y
     }
 
-    function setCoordinates ({ x, y }) {
+    function setCoordinates({ x, y }) {
       self.x = x
       self.y = y
     }

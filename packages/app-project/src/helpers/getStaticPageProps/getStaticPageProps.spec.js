@@ -208,8 +208,8 @@ describe('Helpers > getStaticPageProps', function () {
         props = response.props
       })
 
-      it('should return a 404 status code', function () {
-        expect(props.statusCode).to.equal(404)
+      it('should return notFound', function () {
+        expect(props.notFound).to.be.true()
       })
 
       it('should return a project error message', function () {
@@ -270,8 +270,8 @@ describe('Helpers > getStaticPageProps', function () {
         props = response.props
       })
 
-      it('should return a 404 status code', function () {
-        expect(props.statusCode).to.equal(404)
+      it('should return notFound', function () {
+        expect(props.notFound).to.be.true()
       })
 
       it('should return a workflow error message', function () {
@@ -335,8 +335,8 @@ describe('Helpers > getStaticPageProps', function () {
         props = response.props
       })
 
-      it('should return a 404 status code', function () {
-        expect(props.statusCode).to.equal(404)
+      it('should return notFound', function () {
+        expect(props.notFound).to.be.true()
       })
 
       it('should return a project error message', function () {
@@ -397,8 +397,8 @@ describe('Helpers > getStaticPageProps', function () {
         props = response.props
       })
 
-      it('should return a 404 status code', function () {
-        expect(props.statusCode).to.equal(404)
+      it('should return notFound', function () {
+        expect(props.notFound).to.be.true()
       })
 
       it('should return a workflow error message', function () {
