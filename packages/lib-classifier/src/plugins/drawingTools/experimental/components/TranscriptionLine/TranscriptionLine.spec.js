@@ -6,6 +6,8 @@ import { Grommet } from 'grommet'
 import { TranscriptionLine as TranscriptionLineMark } from '../../models/marks'
 import { DragHandle } from '@plugins/drawingTools/components'
 import zooTheme from '@zooniverse/grommet-theme'
+import { Tooltip } from '@zooniverse/react-components'
+import TooltipIcon from './components/TooltipIcon'
 
 describe('Components > Drawing marks > Transcription line', function () {
   let mark
@@ -104,7 +106,8 @@ describe('Components > Drawing marks > Transcription line', function () {
             theme={zooTheme}
           />
         </svg>,
-        { wrappingComponent: Provider,
+        {
+          wrappingComponent: Provider,
           wrappingComponentProps: {
             classifierStore: {
               workflows: {
@@ -227,7 +230,7 @@ describe('Components > Drawing marks > Transcription line', function () {
         }
       )
       const dragMove = wrapper.find(DragHandle).find('[x=300]').at(0).prop('dragMove')
-      
+
       wrapper.find('circle[cx=300]').at(0).simulate('pointerdown')
       expect(mark.x2).to.equal(300)
       expect(mark.y2).to.equal(400)
@@ -260,7 +263,7 @@ describe('Components > Drawing marks > Transcription line', function () {
         }
       )
       const dragMove = wrapper.find(DragHandle).find('[x=300]').at(0).prop('dragMove')
-      
+
       wrapper.find('circle[cx=300]').at(0).simulate('pointerdown')
       expect(mark.finished).to.be.false()
       wrapper.find('circle[cx=300]').at(0).simulate('pointerup')
@@ -311,7 +314,7 @@ describe('Components > Drawing marks > Transcription line', function () {
       const { green } = zooTheme.global.colors.drawingTools
       const wrapper = mount(
         <svg>
-          <Grommet 
+          <Grommet
             theme={zooTheme}
           >
             <TranscriptionLine

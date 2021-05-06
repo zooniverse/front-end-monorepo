@@ -2,16 +2,20 @@ import PropTypes from 'prop-types'
 import React, { useContext, useState } from 'react'
 import { ThemeContext } from 'styled-components'
 import { MobXProviderContext } from 'mobx-react'
-import { DragHandle } from '@plugins/drawingTools/components'
+import counterpart from 'counterpart'
+import { Tooltip } from '@zooniverse/react-components'
+import TooltipIcon from './components/TooltipIcon'
+import { HANDLE_RADIUS } from './helpers/constants'
+import TranscriptionLineMark from './components/TranscriptionLineMark'
+import en from './locales/en'
 
-const HANDLE_RADIUS = 5
-const GRAB_STROKE_WIDTH = 6
+counterpart.registerTranslations('en', en)
 
 function storeMapper(stores) {
   return stores.classifierStore.workflows.active?.usesTranscriptionTask || false
 }
 
-function TranscriptionLine (props) {
+function TranscriptionLine(props) {
   let transcriptionTaskColors = {}
   const stores = useContext(MobXProviderContext)
   const theme = useContext(ThemeContext)
@@ -32,99 +36,57 @@ function TranscriptionLine (props) {
     lineState = 'active'
   }
   const colorToRender = (usesTranscriptionTask) ? transcriptionTaskColors[lineState] : color
-  const { x1, y1, x2, y2, finished } = mark
   const handleRadius = HANDLE_RADIUS / scale
 
-  function onHandleDrag (coords) {
+  function onHandleDrag(coords) {
     mark.setCoordinates(coords)
   }
 
-  function handlePointerDown (event) {
+  function handlePointerDown(event) {
     event.stopPropagation()
     event.preventDefault()
     setAllowFinish(true)
   }
 
-  function handleFinishClick (event) {
+  function handleFinishClick(event) {
     if (allowFinish) {
       mark.finish()
       onFinish(event)
     }
   }
 
-  let offsetX = 0
-  let offsetY = 0
-  if (mark.length) {
-    const deltaX = x2 - x1
-    const deltaY = y2 - y1
-    offsetX = deltaX * (handleRadius/mark.length)
-    offsetY = deltaY * (handleRadius/mark.length)
+  if (usesTranscriptionTask) {
+    const tooltipLabel = (lineState === 'active') ? counterpart('TranscriptionLine.editing') : counterpart('TranscriptionLine.created')
+    return (
+      <Tooltip
+        icon={<TooltipIcon fill={colorToRender} />}
+        label={tooltipLabel}
+      >
+        <TranscriptionLineMark
+          active={active}
+          color={colorToRender}
+          handlePointerDown={handlePointerDown}
+          handleFinishClick={handleFinishClick}
+          handleRadius={handleRadius}
+          mark={mark}
+          onHandleDrag={onHandleDrag}
+          scale={scale}
+        />
+      </Tooltip>
+    )
   }
 
   return (
-    <g
+    <TranscriptionLineMark
+      active={active}
       color={colorToRender}
-      fill={colorToRender}
-      stroke={colorToRender}
-      strokeWidth={2}
-    >
-      <line x1={x1 + offsetX} y1={y1 + offsetY} x2={x2} y2={y2} />
-      <line x1={x1} y1={y1} x2={x2} y2={y2} strokeWidth={GRAB_STROKE_WIDTH / scale} strokeOpacity='0' />
-
-      {active ?
-        <DragHandle
-          fill='transparent'
-          radius={HANDLE_RADIUS}
-          scale={scale}
-          x={x1}
-          y={y1}
-          dragMove={(e, d) => onHandleDrag({ x1: x1 + d.x, y1: y1 + d.y, x2, y2 })}
-        /> :
-        <circle
-          cx={x1}
-          cy={y1}
-          fill='transparent'
-          r={handleRadius}
-          stroke='currentColor'
-        />
-      }
-      {active ?
-        <DragHandle
-          radius={HANDLE_RADIUS}
-          scale={scale}
-          x={x2}
-          y={y2}
-          dragMove={(e, d) => onHandleDrag({ x1, y1, x2: x2 + d.x, y2: y2 + d.y })}
-        /> :
-        <circle
-          cx={x2}
-          cy={y2}
-          fill='currentColor'
-          r={handleRadius}
-          stroke='currentColor'
-        />
-      }
-
-      {active && !finished &&
-        <g>
-          <circle
-            r={handleRadius}
-            cx={x1}
-            cy={y1}
-            fill="transparent"
-            onPointerDown={handlePointerDown}
-            onPointerUp={handleFinishClick}
-          />
-          <circle
-            r={handleRadius}
-            cx={x2}
-            cy={y2}
-            onPointerDown={handlePointerDown}
-            onPointerUp={handleFinishClick}
-          />
-        </g>
-      }
-    </g>
+      handlePointerDown={handlePointerDown}
+      handleFinishClick={handleFinishClick}
+      handleRadius={handleRadius}
+      mark={mark}
+      onHandleDrag={onHandleDrag}
+      scale={scale}
+    />
   )
 }
 
