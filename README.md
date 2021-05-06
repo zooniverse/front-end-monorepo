@@ -136,6 +136,7 @@ The yarn build scripts default to production for libraries if `PANOPTES_ENV` is 
 - `CONTENTFUL_SPACE_ID`: space ID for Zooniverse About pages in Contentful. Should be kept secret.
 - `CONTENT_ASSET_PREFIX`: [NextJS asset prefix](https://nextjs.org/docs/api-reference/next.config.js/cdn-support-with-asset-prefix) for `app-content-pages`.
 - `PROJECT_ASSET_PREFIX`: [NextJS asset prefix](https://nextjs.org/docs/api-reference/next.config.js/cdn-support-with-asset-prefix) for `app-project`.
+- `COMMIT_ID`: the latest git commit hash. Used for versioning Sentry releases and recorded in classification metadata.
 
 ### Docker images
 
