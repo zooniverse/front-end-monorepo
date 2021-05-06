@@ -225,6 +225,36 @@ describe('<Markdownz />', function () {
     })
   })
 
+  describe('#findResizedImages', function () {
+    let findResizedImagesSpy
+    const mockChildren = '![imagealttext =100x100](https://panoptes-uploads.zooniverse.org/image.jpeg =100x100)![imagealttext =100x100](https://panoptes-uploads.zooniverse.org/image.jpeg)'
+
+    before(function () {
+      wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
+      findResizedImagesSpy = sinon.spy(Markdownz.prototype, 'findResizedImages')
+    })
+    afterEach(function () {
+      findResizedImagesSpy.resetHistory()
+    })
+    after(function () {
+      findResizedImagesSpy.restore()
+    })
+
+    it('should return a children string', function () {
+      wrapper.instance().findResizedImages(markdown)
+      const returnedValue = findResizedImagesSpy.returnValues[0]
+      expect(returnedValue).to.be.a('string')
+    })
+
+    it('should remove any size parameters from markdown image src, and place them in the alt tag', function () {
+      const imageWithResizeParamters = '![imagealttext](https://panoptes-uploads.zooniverse.org/production/subject_location/66094.jpeg =100x100)'
+      const expectedReturnValue = '![imagealttext =100x100](https://panoptes-uploads.zooniverse.org/production/subject_location/66094.jpeg)'
+      wrapper.instance().findResizedImages(imageWithResizeParamters)
+      const returnedValue = findResizedImagesSpy.returnValues[0]
+      expect(returnedValue).to.equal(expectedReturnValue)
+    })
+  })
+
   describe('#renderMedia', function () {
     let renderMediaSpy
     const src = 'https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg'
