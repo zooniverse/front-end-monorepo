@@ -45,12 +45,16 @@ const client = {
 // So we'll unregister the worker for now.
 unregisterWorkers('./queue.js')
 
+let store
+
 function initStore({ authClient, client, initialState }) {
-  const store = RootStore.create(initialState, {
-    authClient,
-    client
-  })
-  makeInspectable(store)
+  if (!store) {
+    store = RootStore.create(initialState, {
+      authClient,
+      client
+    })
+    makeInspectable(store)
+  }
   return store
 }
 /**
@@ -58,8 +62,8 @@ function initStore({ authClient, client, initialState }) {
   https://github.com/vercel/next.js/blob/5201cdbaeaa72b54badc8f929ddc73c09f414dc4/examples/with-mobx-state-tree/store.js#L49-L52
 */
 function useStore({ authClient, client, initialState }) {
-  const store = useMemo(() => initStore({ authClient, client, initialState }), [authClient, initialState])
-  return store
+  const _store = useMemo(() => initStore({ authClient, client, initialState }), [authClient, initialState])
+  return _store
 }
 
 export default function Classifier({
@@ -77,7 +81,14 @@ export default function Classifier({
   const classifierStore = useStore({
     authClient,
     client,
-    initialState: {}
+    initialState: {
+      projects: {
+        active: project.id,
+        resources: {
+          [project.id]: project
+        }
+      }
+    }
   })
 
   const {
@@ -94,8 +105,10 @@ export default function Classifier({
   }, [])
 
   useEffect(function onProjectChange() {
-    projects.setResources([project])
-    projects.setActive(project.id)
+    if (project.id) {
+      projects.setResources([project])
+      projects.setActive(project.id)
+    }
   }, [project.id])
 
   useEffect(function onURLChange() {
