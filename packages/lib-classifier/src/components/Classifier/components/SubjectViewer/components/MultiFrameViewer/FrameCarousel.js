@@ -174,14 +174,14 @@ class FrameCarousel extends React.Component {
             alt={counterpart('MultiFrameViewer.FrameCarousel.thumbnailAltText')}
             background='accent-2'
             fit='cover'
-            height='40px'
+            height={40}
             placeholder={
               <More
                 color='neutral-6'
                 size='medium'
               />}
             src={url}
-            width='40px'
+            width={40}
           />
         </StyledFrame>
       )
