@@ -7,6 +7,7 @@ const allDrawingMarks = Object.values(markTypes)
 const GenericMark = types.union(...allDrawingMarks)
 
 const Drawing = types.model('Drawing', {
+  taskType: types.literal('drawing'),
   value: types.array(types.safeReference(GenericMark))
 })
   .views(self => ({

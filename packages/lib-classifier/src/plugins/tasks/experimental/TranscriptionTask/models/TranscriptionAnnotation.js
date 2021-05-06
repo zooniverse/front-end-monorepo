@@ -4,6 +4,7 @@ import { TranscriptionLine } from '@plugins/drawingTools/models/marks'
 import Annotation from '../../../models/Annotation'
 
 const Transcription = types.model('Transcription', {
+  taskType: types.literal('transcription'),
   value: types.array(types.safeReference(TranscriptionLine))
 })
   .views(self => ({
