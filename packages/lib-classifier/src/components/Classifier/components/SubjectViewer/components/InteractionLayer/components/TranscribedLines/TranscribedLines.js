@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { arrayOf, bool, number, object, shape } from 'prop-types'
+import { arrayOf, bool, number, object, shape, string } from 'prop-types'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
@@ -16,6 +16,8 @@ export const ConsensusLine = styled('g')`
   &:focus {
     ${props => css`outline: solid 4px ${props.focusColor};`}
   }
+
+  ${props => css`opacity: ${props['aria-disabled'] === 'true' ? 0.3 : 1};`}
 `
 
 class TranscribedLines extends React.Component {
@@ -36,13 +38,16 @@ class TranscribedLines extends React.Component {
     this.showConsensus = this.showConsensus.bind(this)
   }
 
-  createMark (line) {
-    const { activeTool, activeToolIndex, setActiveMark } = this.props.task
-    const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
-    const markSnapshot = { x1, y1, x2, y2, toolIndex: activeToolIndex }
+  createMark (line, node) {
+    const { activeTool, activeToolIndex, marks, setActiveMark } = this.props.task
 
     if (activeTool) {
-      const mark = activeTool.createMark(markSnapshot)
+      const [ existingMark ] = marks.filter(mark => mark.id === line.id)
+      const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
+      const { id } = line
+      const toolIndex = activeToolIndex
+      const markSnapshot = { id, x1, y1, x2, y2, toolIndex }
+      const mark = existingMark ? existingMark : activeTool.createMark(markSnapshot)
       setActiveMark(mark)
 
       let previousAnnotationValuesForEachMark = []
@@ -56,12 +61,17 @@ class TranscribedLines extends React.Component {
         previousAnnotationValuesForEachMark.push(previousAnnotationValuesForThisMark)
       })
       mark.setPreviousAnnotations(previousAnnotationValuesForEachMark)
-      mark.finish()
+      if (mark.finished) {
+        const markBounds = node?.getBoundingClientRect()
+        mark.setSubTaskVisibility(true, markBounds)
+      } else {
+        mark.finish()
+      }
     }
   }
 
-  showConsensus (line, ref) {
-    const bounds = ref?.current?.getBoundingClientRect() || {}
+  showConsensus (line, node) {
+    const bounds = node?.getBoundingClientRect() || {}
     this.setState({
       bounds,
       line,
@@ -69,14 +79,14 @@ class TranscribedLines extends React.Component {
     })
   }
 
-  onClick (callback, line, ref) {
-    callback(line, ref)
+  onClick (callback, line, node) {
+    callback(line, node)
   }
 
-  onKeyDown (event, callback, line, ref) {
+  onKeyDown (event, callback, line, node) {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
-      callback(line, ref)
+      callback(line, node)
     }
   }
 
@@ -92,9 +102,9 @@ class TranscribedLines extends React.Component {
   }
 
   render () {
-    const { lines, scale, task, theme } = this.props
+    const { lines, marks, scale, task, theme } = this.props
     const { bounds, line, show } = this.state
-    const disabled = Object.keys(task).length === 0
+    const invalidTask = Object.keys(task).length === 0
     const completedLines = lines.filter(line => line.consensusReached)
     const transcribedLines = lines.filter(line => !line.consensusReached)
 
@@ -126,8 +136,8 @@ class TranscribedLines extends React.Component {
                   aria-describedby={id}
                   aria-label={line.consensusText}
                   focusColor={focusColor}
-                  onClick={() => this.onClick(this.showConsensus, line, ref)}
-                  onKeyDown={event => this.onKeyDown(event, this.showConsensus, line, ref)}
+                  onClick={() => this.onClick(this.showConsensus, line, ref?.current)}
+                  onKeyDown={event => this.onKeyDown(event, this.showConsensus, line, ref?.current)}
                   tabIndex={0}
                 >
                   <TranscriptionLine
@@ -142,10 +152,24 @@ class TranscribedLines extends React.Component {
         }
         {transcribedLines
           .map((line, index) => {
+            const [ existingMark ] = marks.filter(mark => mark.id === line.id)
+            let disabled = invalidTask
+            // Uncomment this to disable prevous lines if they have a transcription line
+            // disabled = disabled || !!existingMark
+            // Uncomment this to remove previous lines if they have a transcription line.
+            // if (existingMark) {
+            //   return null
+            // }
             const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
             const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
             const mark = { length, x1, y1, x2, y2 }
             const id = `transcribed-${index}`
+
+            const lineProps = {}
+            if (!disabled) {
+              lineProps.onClick = event => this.createMark(line, event.target)
+              lineProps.onKeyDown = event => this.onKeyDown(event, this.createMark, line, event.target)
+            }
 
             return (
               <Tooltip
@@ -159,13 +183,8 @@ class TranscribedLines extends React.Component {
                   aria-disabled={disabled.toString()}
                   aria-label={line.consensusText}
                   focusColor={focusColor}
-                  onClick={() => {
-                    if (!disabled) this.createMark(line)
-                  }}
-                  onKeyDown={(event) => {
-                    if (!disabled) this.onKeyDown(event, this.createMark, line)
-                  }}
                   tabIndex={disabled ? -1 : 0}
+                  {...lineProps}
                 >
                   <TranscriptionLine
                     state='transcribed'
@@ -196,6 +215,9 @@ TranscribedLines.propTypes = {
       y: number
     }))
   })),
+  marks: arrayOf(shape({
+    id: string
+  })),
   scale: number,
   task: object,
   theme: shape({
@@ -207,6 +229,7 @@ TranscribedLines.propTypes = {
 
 TranscribedLines.defaultProps = {
   lines: [],
+  marks: [],
   scale: 1,
   task: {},
   theme: {

@@ -2,6 +2,7 @@ import { types } from 'mobx-state-tree'
 import Annotation from '../../models/Annotation'
 
 const SingleChoice = types.model('SingleChoice', {
+  taskType: types.literal('single'),
   value: types.maybeNull(types.number)
 })
   .views(self => ({
