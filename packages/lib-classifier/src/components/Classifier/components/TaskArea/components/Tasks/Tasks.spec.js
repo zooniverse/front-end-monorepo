@@ -71,6 +71,40 @@ describe('Tasks', function () {
         expect(wrapper.type()).to.be.null()
       })
 
+      describe('without an active step', function () {
+        let wrapper
+
+        before(function () {
+          wrapper = shallow(
+            <Tasks
+              loadingState={asyncStates.success}
+              ready
+              classification={classification}
+            />
+          )
+        })
+        it('should render without crashing', function () {
+          expect(wrapper).to.be.ok()
+        })
+      })
+
+      describe('without an active classification', function () {
+        let wrapper
+
+        before(function () {
+          wrapper = shallow(
+            <Tasks
+              loadingState={asyncStates.success}
+              ready
+              step={step}
+            />
+          )
+        })
+        it('should render without crashing', function () {
+          expect(wrapper).to.be.ok()
+        })
+      })
+
       it('should render a task component if the workflow is loaded', function () {
         const wrapper = shallow(
           <Tasks
