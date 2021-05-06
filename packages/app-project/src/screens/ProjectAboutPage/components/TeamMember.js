@@ -80,7 +80,7 @@ const TeamMember = ({ user, router }) => {
         />
         {user.roles &&
           user.roles.length &&
-          user.roles.map(role => (
+          user.roles.map((role) => (
             <StyledRole
               key={role}
               round="xxsmall"
