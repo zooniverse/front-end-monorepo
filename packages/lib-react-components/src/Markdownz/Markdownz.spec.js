@@ -227,7 +227,6 @@ describe('<Markdownz />', function () {
 
   describe('#findResizedImages', function () {
     let findResizedImagesSpy
-    const mockChildren = '![imagealttext =100x100](https://panoptes-uploads.zooniverse.org/image.jpeg =100x100)![imagealttext =100x100](https://panoptes-uploads.zooniverse.org/image.jpeg)'
 
     before(function () {
       wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
@@ -247,9 +246,9 @@ describe('<Markdownz />', function () {
     })
 
     it('should remove any size parameters from markdown image src, and place them in the alt tag', function () {
-      const imageWithResizeParamters = '![imagealttext](https://panoptes-uploads.zooniverse.org/production/subject_location/66094.jpeg =100x100)'
+      const imageWithResizeParameters = '![imagealttext](https://panoptes-uploads.zooniverse.org/production/subject_location/66094.jpeg =100x100)'
       const expectedReturnValue = '![imagealttext =100x100](https://panoptes-uploads.zooniverse.org/production/subject_location/66094.jpeg)'
-      wrapper.instance().findResizedImages(imageWithResizeParamters)
+      wrapper.instance().findResizedImages(imageWithResizeParameters)
       const returnedValue = findResizedImagesSpy.returnValues[0]
       expect(returnedValue).to.equal(expectedReturnValue)
     })
