@@ -40,11 +40,12 @@ const icons = {
   polygon: Polygon,
   rectangle: Rectangle,
   rotateRectangle: RotateRectangle,
+  temporalPoint: Point,
   transcriptionLine: TranscriptionLine,
   triangle: Triangle
 }
 
-function getIcon (icon) {
+function getIcon(icon) {
   return icons[icon] || (() => null)
 }
 

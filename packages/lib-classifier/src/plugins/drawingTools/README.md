@@ -57,7 +57,9 @@ The [base Mark model](https://github.com/zooniverse/front-end-monorepo/tree/mast
 - _isValid (boolean)_ Read only. True if any required validations pass for this mark (eg. minimum length for a line.)
 - _tasks (array)_ Read only. An array of any sub-tasks linked to this mark eg. a text task for a transcription line.
 - _tool (Tool)_ Read only. A reference to the tool that created this mark.
+- _videoTime (number = undefined)_ For certain drawing tools (e.g. Temporal Point), we need to know WHEN the mark was created. For other drawing tools, videoTime will always return undefined. 
 - _addAnnotation(task, value)_ Add `value` to the annotation for `task`, which should be a valid task for this mark.
+- _setVideoTime(number)_ For most drawing tools, this does nothing. For certain drawing tools (e.g. Temporal Point), this function must be customised to set a time value for the mark.
 
 All marks should extend the Mark model by implementing the following views and actions:
 - _coords (Object { x, y })_ Read only. Returns the `{ x, y }` coords for this mark.
