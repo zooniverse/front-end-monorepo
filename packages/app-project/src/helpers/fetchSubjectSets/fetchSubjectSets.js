@@ -55,7 +55,10 @@ async function fetchPreviewImage (subjectSet, env) {
 
 export default async function fetchSubjectSets(workflow, env) {
   const subjectSetCounts = await fetchWorkflowCellectStatus(workflow)
-  const subjectSetIDs = Object.keys(subjectSetCounts)
+  let subjectSetIDs = Object.keys(subjectSetCounts)
+  if (subjectSetIDs.length === 0) {
+    subjectSetIDs = workflow.links.subject_sets
+  }
   const subjectSets = await fetchSubjectSetData(subjectSetIDs, env)
   subjectSets.forEach(subjectSet => {
     subjectSet.availableSubjects = subjectSetCounts[subjectSet.id]
