@@ -55,7 +55,7 @@ function TranscriptionLine(props) {
     }
   }
 
-  if (usesTranscriptionTask) {
+  if (usesTranscriptionTask && lineState === 'active' || lineState === 'default') {
     const tooltipLabel = (lineState === 'active') ? counterpart('TranscriptionLine.editing') : counterpart('TranscriptionLine.created')
     return (
       <Tooltip

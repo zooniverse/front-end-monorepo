@@ -3,16 +3,16 @@ import { mount } from 'enzyme'
 import TranscriptionLine from './TranscriptionLine'
 import { Provider } from 'mobx-react'
 import { Grommet } from 'grommet'
-import { TranscriptionLine as TranscriptionLineMark } from '../../models/marks'
+import { TranscriptionLine as TranscriptionLineMarkModel } from '../../models/marks'
 import { DragHandle } from '@plugins/drawingTools/components'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Tooltip } from '@zooniverse/react-components'
-import TooltipIcon from './components/TooltipIcon'
+import en from './locales/en'
 
 describe('Components > Drawing marks > Transcription line', function () {
   let mark
   beforeEach(function () {
-    mark = TranscriptionLineMark.create({
+    mark = TranscriptionLineMarkModel.create({
       id: 'line1',
       toolType: 'transcriptionLine',
       x1: 100,
@@ -439,6 +439,72 @@ describe('Components > Drawing marks > Transcription line', function () {
       expect(outerGroupNode.props().color).to.equal(gray)
       expect(outerGroupNode.props().fill).to.equal(gray)
       expect(outerGroupNode.props().stroke).to.equal(gray)
+    })
+
+    it('should have a tooltip for the default line state', function () {
+      const { blue } = zooTheme.global.colors.drawingTools
+      const wrapper = mount(
+        <svg>
+          <Grommet
+            theme={zooTheme}
+          >
+            <TranscriptionLine
+              mark={mark}
+              state='default'
+            />
+          </Grommet>
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: true
+                }
+              }
+            }
+          }
+        }
+      )
+      
+      const tooltip = wrapper.find(Tooltip)
+      expect(tooltip).to.have.lengthOf(1)
+      expect(tooltip.props().label).to.equal(en.TranscriptionLine.created)
+      expect(tooltip.props().icon.props.fill).to.equal(blue)
+    })
+
+    it('should have a tooltip for the active line state', function () {
+      const { green } = zooTheme.global.colors.drawingTools
+      const wrapper = mount(
+        <svg>
+          <Grommet
+            theme={zooTheme}
+          >
+            <TranscriptionLine
+              mark={mark}
+              state='active'
+            />
+          </Grommet>
+        </svg>,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: {
+            classifierStore: {
+              workflows: {
+                active: {
+                  usesTranscriptionTask: true
+                }
+              }
+            }
+          }
+        }
+      )
+
+      const tooltip = wrapper.find(Tooltip)
+      expect(tooltip).to.have.lengthOf(1)
+      expect(tooltip.props().label).to.equal(en.TranscriptionLine.editing)
+      expect(tooltip.props().icon.props.fill).to.equal(green)
     })
   })
 })

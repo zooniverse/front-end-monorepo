@@ -4,8 +4,8 @@ import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
 import { Tooltip } from '@zooniverse/react-components'
+import TooltipIcon from './components/TooltipIcon'
 import ConsensusPopup from './components/ConsensusPopup'
-import TooltipLabel from './components/TooltipLabel'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
@@ -127,7 +127,8 @@ class TranscribedLines extends React.Component {
               <Tooltip
                 id={id}
                 key={line.id}
-                label={<TooltipLabel fill={fills.complete} label={counterpart('TranscribedLines.complete')} />}
+                icon={<TooltipIcon fill={fills.complete} />}
+                label={counterpart('TranscribedLines.complete')}
               >
                 <ConsensusLine
                   role='button'
@@ -167,7 +168,8 @@ class TranscribedLines extends React.Component {
               <Tooltip
                 id={id}
                 key={line.id}
-                label={<TooltipLabel fill={fills.transcribed} label={counterpart('TranscribedLines.transcribed')} />}
+                icon={<TooltipIcon fill={fills.transcribed} />}
+                label={counterpart('TranscribedLines.transcribed')}
               >
                 <ConsensusLine
                   role='button'
