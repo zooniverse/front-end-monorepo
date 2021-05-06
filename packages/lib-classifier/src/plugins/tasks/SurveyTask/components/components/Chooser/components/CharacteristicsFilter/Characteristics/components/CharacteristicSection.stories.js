@@ -26,7 +26,7 @@ function StoryContext (props) {
 }
 
 export default {
-  title: 'Tasks / SurveyTask / CharacteristicSection',
+  title: 'Tasks / SurveyTask / Chooser / CharacteristicsFilter / CharacteristicSection',
   component: CharacteristicSection
 }
 
@@ -49,7 +49,7 @@ const Template = ({
   </StoryContext>
 )
 
-export const Default = Template.bind({});
+export const Default = Template.bind({})
 Default.args = {
   characteristic: characteristicLike,
   characteristicId: 'LK',
