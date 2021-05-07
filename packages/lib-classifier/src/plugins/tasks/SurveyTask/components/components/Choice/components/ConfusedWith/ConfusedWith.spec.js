@@ -1,10 +1,11 @@
 import { shallow } from 'enzyme'
 import React from 'react'
+import zooTheme from '@zooniverse/grommet-theme'
 import { SpacedHeading } from '@zooniverse/react-components'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import en from './locales/en'
-import ConfusedWith, { StyledDropButton } from './ConfusedWith'
+import { ConfusedWith, StyledDropButton } from './ConfusedWith'
 
 const KUDU = mockTask.choices.KD
 
@@ -18,6 +19,7 @@ describe('Component > ConfusedWith', function () {
         confusions={KUDU.confusions}
         confusionsOrder={KUDU.confusionsOrder}
         images={mockTask.images}
+        theme={zooTheme}
       />
     )
   })

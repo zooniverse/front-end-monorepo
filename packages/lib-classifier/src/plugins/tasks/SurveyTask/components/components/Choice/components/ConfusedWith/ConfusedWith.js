@@ -1,7 +1,7 @@
 import { Box, DropButton } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import { SpacedHeading } from '@zooniverse/react-components'
 
 import Confusion from './components/Confusion'
@@ -12,24 +12,20 @@ import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
 export const StyledDropButton = styled(DropButton)`
-  background-color: ${props => props.open
-    ? props.theme.global.colors['accent-2']
-    : props.theme.dark
-      ? props.theme.global.colors['dark-3']
-      : props.theme.global.colors['neutral-6']
-  };
+  background-color: ${props => props.theme.global.colors[props.backgroundColor]};
   border: none;
   margin-right: 5px;
   padding: 5px;
 `
 
-export default function ConfusedWith (props) {
+function ConfusedWith (props) {
   const {
     choices,
     confusions,
     confusionsOrder,
     handleChoice,
-    images
+    images,
+    theme
   } = props
 
   const [open, setOpen] = React.useState(false)
@@ -48,9 +44,18 @@ export default function ConfusedWith (props) {
         wrap
       >
         {confusionsOrder.map((confusionId) => {
+          let backgroundColor = 'neutral-6'
+          if (theme.dark) {
+            backgroundColor = 'dark-3'
+          }
+          if (open === confusionId) {
+            backgroundColor = 'accent-2'
+          }
+
           return (
             <StyledDropButton
               key={confusionId}
+              backgroundColor={backgroundColor}
               dropAlign={{
                 bottom: 'top'
               }}
@@ -98,3 +103,6 @@ ConfusedWith.propTypes = {
   handleChoice: PropTypes.func,
   images: PropTypes.objectOf(PropTypes.string)
 }
+
+export default withTheme(ConfusedWith)
+export { ConfusedWith }
