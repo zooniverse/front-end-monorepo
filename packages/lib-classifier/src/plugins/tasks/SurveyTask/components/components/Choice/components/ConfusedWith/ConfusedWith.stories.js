@@ -2,8 +2,10 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import React from 'react'
 
-import Choice from './Choice'
+import ConfusedWith from './ConfusedWith'
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
+
+const KUDU = mockTask.choices.KD
 
 function StoryContext (props) {
   const { children, theme } = props
@@ -11,8 +13,8 @@ function StoryContext (props) {
   return (
     <Grommet
       background={{
-        dark: 'dark-3',
-        light: 'neutral-6'
+        dark: 'dark-1',
+        light: 'light-1'
       }}
       theme={theme}
       themeMode={(theme.dark) ? 'dark' : 'light'}
@@ -22,6 +24,8 @@ function StoryContext (props) {
         width='full'
       >
         <Box
+          justify='center'
+          height='large'
           width='380px'
         >
           {children}
@@ -32,24 +36,28 @@ function StoryContext (props) {
 }
 
 export default {
-  title: 'Tasks / SurveyTask / Choice',
-  component: Choice
+  title: 'Tasks / SurveyTask / Choice / ConfusedWith',
+  component: ConfusedWith
 }
 
-const Template = ({ dark, choiceId, task }) => (
+const Template = ({ choices, confusions, confusionsOrder, dark, images }) => (
   <StoryContext
     theme={{ ...zooTheme, dark }}
   >
-    <Choice
-      choiceId={choiceId}
-      task={task}
+    <ConfusedWith
+      choices={choices}
+      confusions={confusions}
+      confusionsOrder={confusionsOrder}
+      images={images}
     />
   </StoryContext>
 )
 
 export const Default = Template.bind({})
 Default.args = {
+  choices: mockTask.choices,
+  confusions: KUDU.confusions,
+  confusionsOrder: KUDU.confusionsOrder,
   dark: false,
-  choiceId: 'KD',
-  task: mockTask
+  images: mockTask.images
 }
