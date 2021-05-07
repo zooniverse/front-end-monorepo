@@ -1,10 +1,16 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
+import { Box, Grommet } from 'grommet'
 import React from 'react'
 
+import RadioInputs from './RadioInputs'
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 
-import FilterStatus from './FilterStatus'
+const questionId = 'HWMN'
+const question = mockTask.questions[questionId]
+const options = question.answersOrder.map(answerId => ({
+  label: question.answers[answerId].label,
+  value: answerId
+}))
 
 function StoryContext (props) {
   const { children, theme } = props
@@ -18,25 +24,28 @@ function StoryContext (props) {
       theme={theme}
       themeMode={(theme.dark) ? 'dark' : 'light'}
     >
-      {children}
+      <Box
+        pad='1em'
+        width='380px'
+      >
+        {children}
+      </Box>
     </Grommet>
   )
 }
 
 export default {
-  title: 'Tasks / SurveyTask / Chooser / CharacteristicsFilter / FilterStatus',
-  component: FilterStatus
+  title: 'Tasks / SurveyTask / Choice / RadioInputs',
+  component: RadioInputs
 }
 
-const Template = ({
-  dark,
-  task
-}) => (
+const Template = ({ dark, options, questionId }) => (
   <StoryContext
     theme={{ ...zooTheme, dark }}
   >
-    <FilterStatus
-      task={task}
+    <RadioInputs
+      options={options}
+      questionId={questionId}
     />
   </StoryContext>
 )
@@ -44,5 +53,6 @@ const Template = ({
 export const Default = Template.bind({})
 Default.args = {
   dark: false,
-  task: mockTask
+  options,
+  questionId
 }

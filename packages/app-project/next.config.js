@@ -12,7 +12,11 @@ const withSourceMaps = require('@zeit/next-source-maps')()
 const talkHosts = require('./config/talkHosts')
 
 function commitID () {
-  return execSync('git rev-parse HEAD').toString('utf8').trim()
+  try {
+    return execSync('git rev-parse HEAD').toString('utf8').trim()
+  } catch (error) {
+    return error.message
+  }
 }
 
 const PANOPTES_ENV = process.env.PANOPTES_ENV || 'staging'

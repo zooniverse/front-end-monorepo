@@ -24,7 +24,7 @@ function StoryContext (props) {
 }
 
 export default {
-  title: 'Tasks / SurveyTask / ChoiceButton',
+  title: 'Tasks / SurveyTask / Chooser / Choices / ChoiceButton',
   component: ChoiceButton
 }
 
@@ -50,7 +50,7 @@ const Template = ({
   </StoryContext>
 )
 
-export const Default = Template.bind({});
+export const Default = Template.bind({})
 Default.args = {
   choiceId: 'AARDVARK',
   choiceLabel: 'Aardvark',
@@ -60,7 +60,7 @@ Default.args = {
   thumbnailSize: 'none'
 }
 
-export const LongLabel = Template.bind({});
+export const LongLabel = Template.bind({})
 LongLabel.args = {
   choiceId: 'LONG',
   choiceLabel: 'Long label is really long label',
@@ -70,7 +70,7 @@ LongLabel.args = {
   thumbnailSize: 'none'
 }
 
-export const SmallThumbnail = Template.bind({});
+export const SmallThumbnail = Template.bind({})
 SmallThumbnail.args = {
   choiceId: 'CRCL',
   choiceLabel: 'Caracal',
@@ -80,7 +80,7 @@ SmallThumbnail.args = {
   thumbnailSize: 'small'
 }
 
-export const MediumThumbnail = Template.bind({});
+export const MediumThumbnail = Template.bind({})
 MediumThumbnail.args = {
   choiceId: 'CRCL',
   choiceLabel: 'Caracal',
@@ -90,7 +90,7 @@ MediumThumbnail.args = {
   thumbnailSize: 'medium'
 }
 
-export const LargeThumbnail = Template.bind({});
+export const LargeThumbnail = Template.bind({})
 LargeThumbnail.args = {
   choiceId: 'CRCL',
   choiceLabel: 'Caracal',

@@ -2,8 +2,15 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import React from 'react'
 
-import Choice from './Choice'
+import CheckBoxInputs from './CheckBoxInputs'
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
+
+const questionId = 'WHTBHVRSDS'
+const question = mockTask.questions[questionId]
+const options = question.answersOrder.map(answerId => ({
+  label: question.answers[answerId].label,
+  value: answerId
+}))
 
 function StoryContext (props) {
   const { children, theme } = props
@@ -11,17 +18,13 @@ function StoryContext (props) {
   return (
     <Grommet
       background={{
-        dark: 'dark-3',
-        light: 'neutral-6'
+        dark: 'dark-1',
+        light: 'light-1'
       }}
       theme={theme}
       themeMode={(theme.dark) ? 'dark' : 'light'}
     >
       <Box
-        background={{
-          dark: 'dark-1',
-          light: 'light-1'
-        }}
         pad='1em'
         width='380px'
       >
@@ -32,17 +35,18 @@ function StoryContext (props) {
 }
 
 export default {
-  title: 'Tasks / SurveyTask / Choice',
-  component: Choice
+  title: 'Tasks / SurveyTask / Choice / CheckBoxInputs',
+  component: CheckBoxInputs
 }
 
-const Template = ({ dark, choiceId, task }) => (
+const Template = ({ dark, options, questionAnswer, questionId }) => (
   <StoryContext
     theme={{ ...zooTheme, dark }}
   >
-    <Choice
-      choiceId={choiceId}
-      task={task}
+    <CheckBoxInputs
+      options={options}
+      questionAnswer={questionAnswer}
+      questionId={questionId}
     />
   </StoryContext>
 )
@@ -50,6 +54,7 @@ const Template = ({ dark, choiceId, task }) => (
 export const Default = Template.bind({})
 Default.args = {
   dark: false,
-  choiceId: 'LPHNT',
-  task: mockTask
+  options,
+  questionAnswer: ['RSTNG', 'TNG'],
+  questionId
 }
