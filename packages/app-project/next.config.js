@@ -12,7 +12,11 @@ const withSourceMaps = require('@zeit/next-source-maps')()
 const talkHosts = require('./config/talkHosts')
 
 function commitID () {
-  return execSync('git rev-parse HEAD').toString('utf8').trim()
+  try {
+    return execSync('git rev-parse HEAD').toString('utf8').trim()
+  } catch (error) {
+    return error.message
+  }
 }
 
 const PANOPTES_ENV = process.env.PANOPTES_ENV || 'staging'
@@ -33,6 +37,10 @@ const nextConfig = {
     SENTRY_PROJECT_DSN,
     APP_ENV,
     TALK_HOST: talkHosts[PANOPTES_ENV]
+  },
+
+  future: {
+    webpack5: true
   },
 
   publicRuntimeConfig: {

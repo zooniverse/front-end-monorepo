@@ -35,7 +35,8 @@ export default function Characteristics (props) {
             images={images}
             onFilter={onFilter}
             selectedValueId={selectedValueId}
-          />)
+          />
+        )
       })}
       <Box
         pad='small'

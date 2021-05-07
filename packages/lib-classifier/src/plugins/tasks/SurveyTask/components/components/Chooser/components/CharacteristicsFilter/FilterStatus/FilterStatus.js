@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
 
 import Characteristics from '../Characteristics'
-import FilterButton from '../Characteristics/components/FilterButton'
+import FilterButton from '../components/FilterButton'
 import FilterIcon from './FilterIcon'
 
 import counterpart from 'counterpart'
