@@ -54,6 +54,7 @@ function SurveyTask (props) {
             answers={answers}
             choiceId={selectedChoice}
             handleAnswers={handleAnswers}
+            handleChoice={handleChoice}
             onCancel={() => handleCancel()}
             onIdentify={handleIdentify}
             task={task}

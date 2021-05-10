@@ -49,7 +49,7 @@
     "snazzy": "^8.0.0",
     "styled-components": "~5.1.1",
     "superagent": "~5.1.1",
-    "url-parse": "~1.4.4",
+    "url-parse": "~1.5.0",
     "validator": "~10.11.0"
   },
   "devDependencies": {
