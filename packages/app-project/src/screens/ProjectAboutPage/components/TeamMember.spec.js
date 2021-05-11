@@ -1,8 +1,7 @@
 import { shallow } from 'enzyme'
-
 import TeamMember from './TeamMember'
 
-describe.only('Component > ProjectHomePage', function () {
+describe.only('Component > TeamMember', function () {
   let wrapper
   before(function () {
     wrapper = shallow(<TeamMember />)
