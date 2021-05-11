@@ -39,6 +39,9 @@ The idea is to create two new rectangle drawing tools based off the standard Rec
 
 **NOTE:** angle is Degrees (-180, 180)
 
+- positive angles rotate from +x to +y (a right-handed coordinate system)
+- rotation is about the center of the rectangle
+
 **TemporalRotatingRectangle**
 
 \*everything the `RotatingRectangle` tool has plus this addition:
