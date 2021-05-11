@@ -4,8 +4,13 @@ const path = require('path')
 const webpack = require('webpack')
 
 function gitCommit() {
-  const commitHash = execSync('git describe --always').toString('utf8').trim()
-  return commitHash
+  try {
+    const commitHash = execSync('git describe --always').toString('utf8').trim()
+    return commitHash
+  } catch (error) {
+    console.log(error)
+    return 'Not a git repository.'
+  }
 }
 
 const EnvironmentWebpackPlugin = new webpack.EnvironmentPlugin({

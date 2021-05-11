@@ -8,7 +8,7 @@ import { default as Task } from '@plugins/tasks/SurveyTask'
 
 import FilterStatus from './FilterStatus'
 import Characteristics from '../Characteristics'
-import FilterButton from '../Characteristics/components/FilterButton'
+import FilterButton from '../components/FilterButton'
 
 describe('Component > FilterStatus', function () {
   let wrapper

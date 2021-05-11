@@ -4,7 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { CloseButton, Media } from '@zooniverse/react-components'
 
- export const StyledFilter = styled(Box)`
+export const StyledFilter = styled(Box)`
   button {
     display: none;
   }
@@ -33,7 +33,7 @@ export default function FilterButton (props) {
 
   return (
     <StyledFilter
-      align='center'  
+      align='center'
       background={{ color: backgroundColor }}
       height={containerSize}
       justify='center'

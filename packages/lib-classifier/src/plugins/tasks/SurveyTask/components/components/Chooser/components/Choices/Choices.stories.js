@@ -3,9 +3,9 @@ import { Box, Grommet } from 'grommet'
 import React from 'react'
 
 import Choices from './Choices'
-import { task } from '@plugins/tasks/SurveyTask/mock-data'
+import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 
-const filteredChoiceIds = Array.from(task.choicesOrder)
+const filteredChoiceIds = Array.from(mockTask.choicesOrder)
 
 function StoryContext (props) {
   const { children, theme } = props
@@ -34,7 +34,7 @@ function StoryContext (props) {
 }
 
 export default {
-  title: 'Tasks / SurveyTask / Choices',
+  title: 'Tasks / SurveyTask / Chooser / Choices',
   component: Choices
 }
 
@@ -50,23 +50,23 @@ const Template = ({ dark, filteredChoiceIds, task }) => (
   </StoryContext>
 )
 
-export const LessThirtyMoreTwenty = Template.bind({});
+export const LessThirtyMoreTwenty = Template.bind({})
 LessThirtyMoreTwenty.args = {
   dark: false,
   filteredChoiceIds,
-  task
+  task: mockTask
 }
 
-export const LessTwentyMoreFive = Template.bind({});
+export const LessTwentyMoreFive = Template.bind({})
 LessTwentyMoreFive.args = {
   dark: false,
   filteredChoiceIds: Array.from(filteredChoiceIds).splice(0, 10),
-  task
+  task: mockTask
 }
 
-export const LessThanSix = Template.bind({});
+export const LessThanSix = Template.bind({})
 LessThanSix.args = {
   dark: false,
   filteredChoiceIds: Array.from(filteredChoiceIds).splice(0, 4),
-  task
+  task: mockTask
 }
