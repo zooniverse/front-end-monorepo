@@ -24,7 +24,7 @@ function StoryContext (props) {
 }
 
 export default {
-  title: 'Tasks / SurveyTask / FilterButton',
+  title: 'Tasks / SurveyTask / Chooser / CharacteristicsFilter / FilterButton',
   component: FilterButton
 }
 
@@ -47,7 +47,7 @@ const Template = ({
   </StoryContext>
 )
 
-export const Default = Template.bind({});
+export const Default = Template.bind({})
 Default.args = {
   characteristicId: 'LK',
   checked: false,
