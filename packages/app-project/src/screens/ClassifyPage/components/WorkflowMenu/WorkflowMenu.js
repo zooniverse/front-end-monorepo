@@ -12,13 +12,14 @@ import SubjectPicker from '@shared/components/SubjectPicker'
 */
 export default function WorkflowMenu({
   headingBackground = 'brand',
+  subjectSetFromUrl,
   titleColor = 'neutral-6',
   workflowFromUrl,
   workflows
 }) {
   const router = useRouter()
   const { owner, project } = router?.query || {}
-  const [ activeSubjectSet, setActiveSubjectSet ] = useState()
+  const [ activeSubjectSet, setActiveSubjectSet ] = useState(subjectSetFromUrl)
   const [ activeWorkflow, setActiveWorkflow ] = useState(workflowFromUrl)
 
   function onSelectSubjectSet(event, subjectSet) {

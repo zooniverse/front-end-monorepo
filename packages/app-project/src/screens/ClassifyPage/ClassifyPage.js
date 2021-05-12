@@ -32,7 +32,12 @@ function ClassifyPage ({
     : ['1em', 'auto', '1em']
 
   const [ workflowFromUrl ] = workflows.filter(workflow => workflow.id === workflowID)
-  const canClassify = workflowFromUrl?.grouped ? !!subjectSetID : !!workflowID
+  let subjectSetFromUrl
+  if (workflowFromUrl) {
+    [ subjectSetFromUrl ] = workflowFromUrl.subjectSets.filter(subjectSet => subjectSet.id === subjectSetID)
+  }
+  let canClassify = workflowFromUrl?.grouped ? !!subjectSetID : !!workflowID
+  canClassify = subjectSetFromUrl?.isIndexed ? !!subjectID : canClassify 
 
   return (
     <StandardLayout>
@@ -46,6 +51,8 @@ function ClassifyPage ({
         <Box as='main' fill='horizontal'>
           {!canClassify && (
             <WorkflowMenu
+              subjectSetFromUrl={subjectSetFromUrl}
+              workflowFromUrl={workflowFromUrl}
               workflows={workflows}
             />
           )}
