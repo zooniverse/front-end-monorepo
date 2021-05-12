@@ -2,14 +2,14 @@ import searchParams from './searchParams'
 
 describe('Components > Subject Picker > helpers > searchParams', function () {
   describe('with data', function () {
-    it('should generate a filter_field query param', function () {
+    it('should generate Datasette query params', function () {
       const data = {
-        creators: 'Smith',
+        creators: 'Smith & Jones',
         date: '',
         title: 'boston'
       }
       const query = searchParams(data)
-      expect(query).to.equal('filter_field=@creators:Smith*@title:boston*')
+      expect(query).to.equal('creators__contains=Smith%20%26%20Jones&title__contains=boston')
     })
   })
 

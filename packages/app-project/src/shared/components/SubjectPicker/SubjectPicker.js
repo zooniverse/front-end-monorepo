@@ -18,14 +18,14 @@ counterpart.registerTranslations('en', en)
   https://matthiasott.com/notes/the-thing-with-leading-in-css
 */
 
-const StyledBox = styled(Box)`
+export const StyledBox = styled(Box)`
   min-height: 30px;
 `
-const StyledHeading = styled(Heading)`
+export const StyledHeading = styled(Heading)`
   line-height: 100%;
 `
 
-const SubjectDataTable = styled(DataTable)`
+export const SubjectDataTable = styled(DataTable)`
   button {
     padding: 0;
   }
@@ -44,13 +44,13 @@ const PAGE_SIZE = 100
 export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
   const [ rows, setRows ] = useState([])
   const [ query, setQuery ] = useState('')
-  const [ sortField, setSortField ] = useState('subject_id')
+  const [ sortField, setSortField ] = useState('priority')
   const [ sortOrder, setSortOrder ] = useState('asc')
   const { indexFields } = subjectSet.metadata
-  const customHeaders = indexFields ? indexFields.split(',') : ['date', 'title', 'creators']
+  const customHeaders = indexFields.split(',')
 
   async function fetchSubjectData() {
-    const subjects = await fetchSubjects('15582', query, sortField, sortOrder, PAGE_SIZE)
+    const subjects = await fetchSubjects(subjectSet.id, query, sortField, sortOrder, PAGE_SIZE)
     const rows = await fetchRows(subjects, workflow, PAGE_SIZE)
     setRows(rows)
   }

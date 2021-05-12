@@ -27,8 +27,7 @@ export default function WorkflowMenu({ workflows }) {
   }
 
   function onSelectSubjectSet(event, subjectSet) {
-    const useSubjectSelection = activeWorkflow.id === '16106'
-    if (useSubjectSelection) {
+    if (subjectSet.isIndexed) {
       event.preventDefault()
       setActiveSubjectSet(subjectSet)
       return false
@@ -38,6 +37,7 @@ export default function WorkflowMenu({ workflows }) {
 
   function onClose() {
     setActiveWorkflow(null)
+    setActiveSubjectSet(null)
   }
 
   let baseUrl = `/projects/${owner}/${project}/classify`

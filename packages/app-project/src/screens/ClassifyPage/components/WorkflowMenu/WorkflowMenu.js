@@ -22,8 +22,7 @@ export default function WorkflowMenu({
   const [ activeWorkflow, setActiveWorkflow ] = useState(workflowFromUrl)
 
   function onSelectSubjectSet(event, subjectSet) {
-    const useSubjectSelection = activeWorkflow.id === '16106'
-    if (useSubjectSelection) {
+    if (subjectSet.isIndexed) {
       event.preventDefault()
       setActiveSubjectSet(subjectSet)
       return false
@@ -42,6 +41,7 @@ export default function WorkflowMenu({
 
   function onClose() {
     setActiveWorkflow(null)
+    setActiveSubjectSet(null)
   }
 
   let modalContent = (
