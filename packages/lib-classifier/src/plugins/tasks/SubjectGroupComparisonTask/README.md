@@ -4,8 +4,8 @@ This Task allows users to select cells on the Subject Group Viewer's grid.
 Selecting cells is a way for volunteers to say that, "hey, these images look
 different from other images on the grid!"
 
-- This task is STRONGLY associated with the Subject Group Viewer.
-  - Please see `src/components/Classifier/components/SubjectViewer/components/SubjectGroupViewer/README.md` for more details.
+- This task is STRONGLY ASSOCIATED with the Subject Group Viewer. Please see `src/components/Classifier/components/SubjectViewer/components/SubjectGroupViewer/README.md` for more details.
+- This task is STRONGLY ASSOCIATED with the Subject Group "type" of Subjects. Please see `src/store/SubjectGroup/README.md` for more details.
 
 The Subject Group Comparison Task was originally created by @shaunanoordin on Mar 2020, for the SURVOS project.
 
@@ -21,7 +21,9 @@ Simple Dropdown task data structure, example:
 }
 ```
 
-That's all! Most of the work is done by the `workflow.configuration` set for the Subject Group _Viewer._
+That's all! The Task Area only has a question, and nothing else.
+
+Most of the classification interactivity resides in the Subject Group Viewer. As such, most of the setup work is done by the `workflow.configuration` set for the Subject Group Viewer.
 
 Subject Group Comparison Task annotation (classification) data structure, example:
 
