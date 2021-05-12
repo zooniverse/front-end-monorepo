@@ -4,7 +4,7 @@ The Subject Group Viewer (SGV) is a variant of the Subject Viewer that's used to
 display Subjects containing an array of sub-Subjects, with each sub-Subject
 shown on a grid.
 
-The Subject Group Viewer was originally created by @shaun.a.noordin on Mar 2020, for the SURVOS project.
+The Subject Group Viewer was originally created by @shaunanoordin on Mar 2020, for the SURVOS project.
 
 ## Features
 
@@ -112,3 +112,10 @@ Some notes on cell_style:
   - `subject.locations` has X (where X = rows x columns) number of image URLs.
   - `subject.metadata.#group_subject_ids` is a string of X Subject IDs, consisting of the Subject Group's _constituent Subject's IDs_ joined together with the dash `-` character. e.g. "134859-134722-134823-134642-134700-134888-134853-134685-134843-134619-134864-134697-134637-134624-134832-134805-134623-134788-134828-134643-134610-134795-134756-134676-134714"
   - `subject.metadata.#subject_group_id` is a number indicating the unique ID of this Subject Group, which is distinct from `subject.id`. Honestly, don't worry about this for now.
+
+**Associated Task: Subject Group Comparison Task**
+
+- The Subject Group _Viewer_ is STRONGLY ASSOCIATED with the Subject Group _Comparison Task._
+- The SGComparisonTask allows users to CLICK ON cells in the grid to "select" them. (i.e. to pick the cells that look different from the others)
+- Without this Task, the viewer is just a fancy way of seeing multiple images in a grid.
+- Please see `src/plugins/tasks/SubjectGroupComparisonTask/README.md` for more details.
