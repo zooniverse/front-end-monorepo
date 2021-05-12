@@ -85,6 +85,11 @@ export default function WorkflowMenu({
   )
 }
 
+const subjectSetType = shape({
+  displayName: string,
+  id: string
+})
+
 const workflowType = shape({
   displayName: string,
   id: string
@@ -95,6 +100,10 @@ WorkflowMenu.propTypes = {
     Background colour of the title bar.
   */
   headingBackground: string,
+  /**
+    An optional selected subject set. If present, we can jump straight to subject selection.
+  **/
+  subjectSetFromUrl: subjectSetType,
   /**
     text colour of the title bar.
   */
