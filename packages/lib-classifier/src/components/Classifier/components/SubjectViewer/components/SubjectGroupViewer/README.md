@@ -101,7 +101,7 @@ Some notes on cell_style:
 - A cell can also be in the "has keyboard focus" state. This is visually represented by 'focusOutline'.
 - 'background' indicates the colour to fill the cell with when, e.g. the image doesn't fill the cell's available visible space.
 
-**Subject: Group Subjects**
+**New Subject "type": Subject Groups**
 
 - Subjects for the SubjectGroupViewer are a special case; a "Group Subject" is a randomised collection of X **single image Subjects** (where X = rows x columns) that the backend packages in to a single "pseudo" Subject.
 - Subject Groups are called from the `/subjects/grouped` Panoptes endpoint (instead of the usual `/subjects/queued` endpoint)
