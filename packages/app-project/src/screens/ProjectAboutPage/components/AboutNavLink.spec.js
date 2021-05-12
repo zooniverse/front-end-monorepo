@@ -3,7 +3,7 @@ import AboutNavLink from './AboutNavLink'
 import NavLink from '@shared/components/NavLink'
 import { Box } from 'grommet'
 
-describe.only('Component > AboutNavLink', function () {
+describe('Component > AboutNavLink', function () {
   let wrapper
 
   describe('not active page', function () {
