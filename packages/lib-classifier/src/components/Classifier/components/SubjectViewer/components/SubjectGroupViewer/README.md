@@ -45,11 +45,29 @@ When the _current task_ on the Classifier is a Subject Group Task - which usuall
 
 **Workflow: Configuration**
 
-To enable the SGV, the Workflow of the project must have its `.configuration` set up.
+To enable the SGV, the Workflow of the project must have its `.configuration` set up. For example, this is for a 5x5 grid with 200x200px cells:
 
-`workflow.configuration = { subject_viewer: 'subjectGroup' }`
+```
+workflow.configuration = {
+  subject_viewer: 'subjectGroup',
+  subject_viewer_config: {
+    cell_width: 200,
+    cell_height: 200,
+    grid_columns: 5,
+    grid_rows: 5,
+  },
+  subject_group: {
+    num_columns: 5,  // This must match grid_columns
+    num_rows: 5,     // This must match grid_rows
+  }
+}
+```
 
-Optionally, the SGV can be further configured to specify a certain grid size. The example here shows how to specify a 4x3 grid, with each cell having a "native size" of 1200px x 1000px. (This will result in a grid with a "native size" of 4800px x 3000px, which will then be squished to fit the available view space of the Classifier.)
+(Note 1: the actual size of the cells will be "squished" to fit the actual visible size of the viewer on the classifier.)
+
+(Note 2: `subject_viewer_config` is used by the frontend UI, while `subject_group` is used by the backend service. There's a small duplication of values here, don't mind it.)
+
+Optionally, the SGV can be further configured with specific styles.
 
 ```
 workflow.configuration = {
@@ -66,8 +84,12 @@ workflow.configuration = {
       focusOutline: '2px dashed rgba(255, 255, 255, 0.5)',
       background: '#000'
     },
-    grid_columns: 4,
-    grid_rows: 3
+    grid_columns: 5,
+    grid_rows: 5
+  },
+  subject_group: {
+    num_columns: 5,
+    num_rows: 5,
   }
 }
 ```
@@ -81,4 +103,12 @@ Some notes on cell_style:
 
 **Subject: Group Subjects**
 
-// TODO
+- Subjects for the SubjectGroupViewer are a special case; a "Group Subject" is a randomised collection of X **single image Subjects** (where X = rows x columns) that the backend packages in to a single "pseudo" Subject.
+- Subject Groups are called from the `/subjects/grouped` Panoptes endpoint (instead of the usual `/subjects/queued` endpoint)
+  - An example request looks like `https://panoptes-staging.zooniverse.org/api/subjects/grouped?workflow_id=3412&num_rows=5&num_columns=5`
+  - Note: `num_rows` and `num_columns` need to match the `workflow.configuration.subject_group` value
+  - Note: as of May 2021, there is a maximum limit of 25 constituent Subjects per Subject Group
+- To the frontend, a Subject Group looks almost EXACTLY like a multi-image Subject, but with extra metadata.
+  - `subject.locations` has X (where X = rows x columns) number of image URLs.
+  - `subject.metadata.#group_subject_ids` is a string of X Subject IDs, consisting of the Subject Group's _constituent Subject's IDs_ joined together with the dash `-` character. e.g. "134859-134722-134823-134642-134700-134888-134853-134685-134843-134619-134864-134697-134637-134624-134832-134805-134623-134788-134828-134643-134610-134795-134756-134676-134714"
+  - `subject.metadata.#subject_group_id` is a number indicating the unique ID of this Subject Group, which is distinct from `subject.id`. Honestly, don't worry about this for now.
