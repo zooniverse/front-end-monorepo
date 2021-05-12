@@ -33,7 +33,7 @@ function ClassifyPage ({
 
   const [ workflowFromUrl ] = workflows.filter(workflow => workflow.id === workflowID)
   let subjectSetFromUrl
-  if (workflowFromUrl) {
+  if (workflowFromUrl && workflowFromUrl.subjectSets) {
     [ subjectSetFromUrl ] = workflowFromUrl.subjectSets.filter(subjectSet => subjectSet.id === subjectSetID)
   }
   let canClassify = workflowFromUrl?.grouped ? !!subjectSetID : !!workflowID
