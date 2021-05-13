@@ -43,7 +43,7 @@ class SurveyTaskContainer extends React.Component {
       const existingAnnotationValue = annotation?.value?.find(value => value.choice === selectedChoice)
       this.setState({ selectedChoice, answers: existingAnnotationValue.answers })
     } else {
-      this.setState({ selectedChoice })
+      this.setState({ selectedChoice, answers: {} })
     }
   }
 

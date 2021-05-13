@@ -16,7 +16,9 @@ function withStores(Component) {
   function TasksConnector(props) {
     const { classifierStore } = useContext(MobXProviderContext)
     const {
-      annotatedSteps,
+      annotatedSteps: {
+        latest
+      },
       classifications: {
         active: classification,
         demoMode
@@ -32,7 +34,13 @@ function withStores(Component) {
         isThereTaskHelp
       }
     } = classifierStore
-    const isComplete = annotatedSteps.latest?.isComplete
+
+    let isComplete
+    // wait for the step and the classification before calculating isComplete from annotations.
+    if (step && classification) {
+      isComplete = step.isComplete(latest.annotations)
+    }
+
     return (
       <Component
         classification={classification}
@@ -73,7 +81,7 @@ class Tasks extends React.Component {
       step
     } = this.props
     const ready = subjectReadyState === asyncStates.success
-    if (classification && step.tasks.length > 0) {
+    if (classification && step) {
       // setting the wrapping box of the task component to a basis of 246px feels hacky,
       // but gets the area to be the same 453px height (or very close) as the subject area
       // and keeps the task nav buttons at the the bottom area
@@ -126,7 +134,8 @@ Tasks.defaultProps = {
   isComplete: false,
   isThereTaskHelp: false,
   loadingState: asyncStates.initialized,
-  ready: false
+  ready: false,
+  step: undefined
 }
 
 export default withStores(Tasks)

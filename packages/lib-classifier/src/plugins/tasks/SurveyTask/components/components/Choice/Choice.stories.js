@@ -3,7 +3,7 @@ import { Box, Grommet } from 'grommet'
 import React from 'react'
 
 import Choice from './Choice'
-import { task } from '@plugins/tasks/SurveyTask/mock-data'
+import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 
 function StoryContext (props) {
   const { children, theme } = props
@@ -11,21 +11,21 @@ function StoryContext (props) {
   return (
     <Grommet
       background={{
-        dark: 'dark-1',
-        light: 'light-1'
+        dark: 'dark-3',
+        light: 'neutral-6'
       }}
       theme={theme}
       themeMode={(theme.dark) ? 'dark' : 'light'}
     >
       <Box
-        background={{
-          dark: 'dark-3',
-          light: 'neutral-6'
-        }}
-        pad='1em'
-        width='380px'
+        align='end'
+        width='full'
       >
-        {children}
+        <Box
+          width='380px'
+        >
+          {children}
+        </Box>
       </Box>
     </Grommet>
   )
@@ -41,15 +41,15 @@ const Template = ({ dark, choiceId, task }) => (
     theme={{ ...zooTheme, dark }}
   >
     <Choice
-      choiceId='LPHNT'
+      choiceId={choiceId}
       task={task}
     />
   </StoryContext>
 )
 
-export const Default = Template.bind({});
+export const Default = Template.bind({})
 Default.args = {
   dark: false,
-  choiceId: 'LPHNT',
-  task
+  choiceId: 'KD',
+  task: mockTask
 }

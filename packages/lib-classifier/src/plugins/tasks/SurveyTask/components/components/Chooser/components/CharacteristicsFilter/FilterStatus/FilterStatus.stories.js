@@ -24,7 +24,7 @@ function StoryContext (props) {
 }
 
 export default {
-  title: 'Tasks / SurveyTask / FilterStatus',
+  title: 'Tasks / SurveyTask / Chooser / CharacteristicsFilter / FilterStatus',
   component: FilterStatus
 }
 
@@ -41,7 +41,7 @@ const Template = ({
   </StoryContext>
 )
 
-export const Default = Template.bind({});
+export const Default = Template.bind({})
 Default.args = {
   dark: false,
   task: mockTask
