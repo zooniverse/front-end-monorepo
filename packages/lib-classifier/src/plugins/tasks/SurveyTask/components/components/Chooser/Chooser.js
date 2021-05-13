@@ -42,7 +42,7 @@ export default function Chooser (props) {
       <ClearFilters
         handleFilter={handleFilter}
         showingChoices={filteredChoiceIds.length}
-        totalChoices={task.choices?.length}
+        totalChoices={task.choicesOrder?.length}
       />
     </Box>
   )
