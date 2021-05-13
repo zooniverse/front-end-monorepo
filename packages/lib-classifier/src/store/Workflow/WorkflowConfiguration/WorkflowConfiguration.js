@@ -14,7 +14,15 @@ const WorkflowConfiguration = types.model({
     'subjectGroup',
     'variableStar'
   ])),
-  subject_viewer_config: types.frozen({})
+  subject_viewer_config: types.maybe(types.frozen({
+    zoomConfiguration: types.maybe(types.frozen({
+      direction: types.enumeration(['both', 'x', 'y']),
+      minZoom: types.number,
+      maxZoom: types.number,
+      zoomInValue: types.number,
+      zoomOutValue: types.number
+    }))
+  }))
 })
   .views(self => ({
     get viewerType () {

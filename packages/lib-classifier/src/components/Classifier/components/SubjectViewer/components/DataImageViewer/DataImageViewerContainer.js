@@ -124,12 +124,15 @@ export default class DataImageViewerContainer extends React.Component {
 
     const {
       subject,
+      viewerConfiguration,
       ...rest
     } = this.props
 
     if (!subject.id) {
       return null
     }
+
+    const zoomConfiguration = JSONData.chartOptions?.zoomConfiguration || viewerConfiguration?.zoomConfiguration
 
     return (
       <DataImageViewer
@@ -138,6 +141,7 @@ export default class DataImageViewerContainer extends React.Component {
         ref={this.viewer}
         JSONData={JSONData}
         setAllowPanZoom={this.setAllowPanZoom}
+        zoomConfiguration={zoomConfiguration}
         {...rest}
       />
     )

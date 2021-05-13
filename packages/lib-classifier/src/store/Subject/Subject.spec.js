@@ -7,6 +7,7 @@ import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories
 import stubPanoptesJs from '@test/stubPanoptesJs'
 import RootStore from '../'
 import subjectViewers from '@helpers/subjectViewers'
+import { expect } from 'chai'
 
 describe('Model > Subject', function () {
   const stub = SubjectFactory.build()
@@ -213,6 +214,51 @@ describe('Model > Subject', function () {
           }
           expect(subjectStore).to.throw(Error)
         })
+      })
+    })
+  })
+
+  describe('Views > viewerConfiguration', function () {
+    let subject
+    beforeEach(function () {
+      subject = Subject.create(stub)
+    })
+
+    describe('when there is not a workflow', function () {
+      it('should return undefined', function () {
+        expect(subject.viewerConfiguration).to.be.undefined()
+      })
+    })
+
+    describe('when there is a workflow and it has viewer configuration', function () {
+      it('should return the subject_viewer_configuration object', function () {
+        const workflowWithViewerConfiguration = WorkflowFactory.build({
+          configuration: {
+            subject_viewer_config: {
+              zoomConfiguration: {
+                direction: 'both',
+                minZoom: 1,
+                maxZoom: 10,
+                zoomInValue: 1.2,
+                zoomOutValue: 0.8
+              }
+            }
+          }
+        })
+        subject.workflows = WorkflowStore.create()
+        subject.workflows.setResources([workflowWithViewerConfiguration])
+        subject.workflows.setActive(workflowWithViewerConfiguration.id)
+        expect(subject.viewerConfiguration).to.deep.equal(workflowWithViewerConfiguration.configuration.subject_viewer_configuration)
+      })
+    })
+
+    describe('when there is a workflow and it does not have viewer configuration', function () {
+      it('should return undefined', function () {
+        const workflowWithoutViewerConfiguration = WorkflowFactory.build()
+        subject.workflows = WorkflowStore.create()
+        subject.workflows.setResources([workflowWithoutViewerConfiguration])
+        subject.workflows.setActive(workflowWithoutViewerConfiguration.id)
+        expect(subject.viewerConfiguration).to.be.undefined()
       })
     })
   })
