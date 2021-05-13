@@ -11,7 +11,7 @@ The Subject Group Comparison Task was originally created by @shaunanoordin on Ma
 
 ## Data Models
 
-Simple Dropdown task data structure, example:
+Subject Group Comparison Task data structure, example:
 
 ```
 "T0":{
