@@ -265,7 +265,15 @@ stories
     return (
       <ViewerContext theme={zooTheme}>
         <Box direction='row' height='medium' width='large'>
-          <ScatterPlotViewerConnector />
+          <ScatterPlotViewerConnector
+            zoomConfiguration={{
+              direction: text('zoom direction', 'both'),
+              minZoom: number('min zoom', 1),
+              maxZoom: number('max zoom', 10),
+              zoomInValue: number('zoom in scale', 1.2),
+              zoomOutValue: number('zoom out scale', 0.8)
+            }}
+          />
           <ImageToolbar />
         </Box>
       </ViewerContext>
