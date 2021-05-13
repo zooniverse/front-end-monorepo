@@ -67,7 +67,8 @@ class Markdownz extends React.Component {
   }
 
   findResizedImages (children) {
-    const imageRegex = /(?:!\[(.*?)\]\((.*?)\))/g
+    // const imageRegex = /(?:!\[(.*?)\]\((.*?)\))/g
+    const imageRegex = /!\[[^\]]+\]\([^)]+\)/g
     const images = Array.from(children.matchAll(imageRegex))
 
     let newChildren = children
