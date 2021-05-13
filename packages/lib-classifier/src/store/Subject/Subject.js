@@ -19,6 +19,12 @@ const Subject = types
     transcriptionReductions: types.maybe(TranscriptionReductions)
   })
 
+  .views(self => ({
+    get priority() {
+      return self.metadata['#priority'] ?? self.metadata.priority
+    }
+  }))
+
   .actions(self => {
     function afterAttach () {
       fetchTranscriptionReductions()

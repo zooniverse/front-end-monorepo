@@ -4,7 +4,7 @@ import { getSnapshot, types } from 'mobx-state-tree'
 const Annotation = types.model('Annotation', {
   id: types.identifier,
   task: types.string,
-  taskType: types.string
+  taskType: types.literal('default')
 })
   .preProcessSnapshot(snapshot => {
     const newSnapshot = Object.assign({}, snapshot)

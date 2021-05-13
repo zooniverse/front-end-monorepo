@@ -1,5 +1,5 @@
 import { Box, Image } from 'grommet'
-import { shape, string } from 'prop-types'
+import { arrayOf, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 import NavLink from '@shared/components/NavLink'
 import { withRouter } from 'next/router'
@@ -11,7 +11,7 @@ const StyledTeamMember = styled(Box)`
   flex-direction: row;
 `
 
-const StyledAvatar = styled(Box)`
+export const StyledAvatar = styled(Box)`
   border-radius: 50%;
   height: 50px;
   width: 50px;
@@ -19,7 +19,7 @@ const StyledAvatar = styled(Box)`
   overflow: hidden;
 `
 
-const StyledDisplayName = styled(Box)`
+export const StyledDisplayName = styled(Box)`
   font-size: 14px;
   line-height: 1;
   word-wrap: break-word;
@@ -29,7 +29,7 @@ const StyledDisplayName = styled(Box)`
     `}
 `
 
-const StyledUsername = styled(NavLink)`
+export const StyledUsername = styled(NavLink)`
   line-height: 1;
   & > * {
     word-wrap: break-word;
@@ -37,7 +37,7 @@ const StyledUsername = styled(NavLink)`
   }
 `
 
-const StyledRole = styled(Box)`
+export const StyledRole = styled(Box)`
   font-size: 8px;
   letter-spacing: 0.5px;
   display: flex;
@@ -73,7 +73,7 @@ const TeamMember = ({ user, router }) => {
           <Image alt={user.display_name} fit="cover" src={user.avatar_src} />
         )}
       </StyledAvatar>
-      <Box flex={true} direction="column">
+      <Box flex direction="column">
         <StyledDisplayName>{user.display_name}</StyledDisplayName>
         <StyledUsername
           link={{ href: `${baseUrl}/${user.login}`, text: `@${user.login}` }}
@@ -100,8 +100,9 @@ TeamMember.propTypes = {
     display_name: string,
     id: string.isRequired,
     login: string,
-    role: string
+    roles: arrayOf(string)
   })
 }
 
+export { TeamMember }
 export default withRouter(TeamMember)

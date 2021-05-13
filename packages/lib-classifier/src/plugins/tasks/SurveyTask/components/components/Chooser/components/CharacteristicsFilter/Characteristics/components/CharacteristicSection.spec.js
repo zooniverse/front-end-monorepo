@@ -5,7 +5,7 @@ import sinon from 'sinon'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import CharacteristicSection from './CharacteristicSection'
-import FilterButton from './FilterButton'
+import FilterButton from '../../components/FilterButton'
 
 const characteristicTail = mockTask.characteristics.TL
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { PrimaryButton, Media } from '@zooniverse/react-components'
 
+import ConfusedWith from './components/ConfusedWith'
 import Questions from './components/Questions'
 import allowIdentification from './helpers/allowIdentification'
 import getQuestionIds from './helpers/getQuestionIds'
@@ -17,6 +18,7 @@ export default function Choice (props) {
     answers,
     choiceId,
     handleAnswers,
+    handleChoice,
     onCancel,
     onIdentify,
     task
@@ -51,6 +53,15 @@ export default function Choice (props) {
       )}
       <Heading>{choice.label}</Heading>
       <Paragraph>{choice.description}</Paragraph>
+      {choice.confusionsOrder?.length > 0 && (
+        <ConfusedWith
+          choices={choices}
+          confusions={choice.confusions}
+          confusionsOrder={choice.confusionsOrder}
+          handleChoice={handleChoice}
+          images={images}
+        />
+      )}
       {questionIds.length > 0 && (
         <Questions
           answers={answers}
@@ -93,6 +104,7 @@ Choice.defaultProps = {
   answers: {},
   choiceId: '',
   handleAnswers: () => {},
+  handleChoice: () => {},
   onCancel: () => {},
   onIdentify: () => {}
 }
@@ -106,6 +118,7 @@ Choice.propTypes = {
   ),
   choiceId: PropTypes.string,
   handleAnswers: PropTypes.func,
+  handleChoice: PropTypes.func,
   onCancel: PropTypes.func,
   onIdentify: PropTypes.func,
   task: PropTypes.shape({
