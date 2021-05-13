@@ -78,7 +78,7 @@ export default function FilterStatus (props) {
           <StyledLabel 
             color='neutral-2'
           >
-            {counterpart('SurveyTask.filter')}
+            {counterpart('CharacteristicsFilter.filter')}
           </StyledLabel>
         }
       />
