@@ -60,7 +60,7 @@
     "react-dom": "~16.13.0",
     "styled-components": "~5.1.1",
     "svg-loaders-react": "~2.0.1",
-    "url-parse": "~1.5.0",
+    "url-parse": "~1.5.1",
     "validator": "~11.0.0"
   },
   "devDependencies": {
