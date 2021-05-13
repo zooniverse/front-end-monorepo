@@ -13,6 +13,7 @@ async function fetchSubjectSetData(subjectSetIDs, env) {
     const response = await panoptes.get('/subject_sets', query)
     subject_sets = response.body.subject_sets
     await Promise.allSettled(subject_sets.map(subjectSet => fetchPreviewImage(subjectSet, env)))
+    await Promise.allSettled(subject_sets.map(subjectSet => hasIndexedSubjects(subjectSet)))
   } catch (error) {
     console.error(error)
     logToSentry(error)
@@ -51,6 +52,12 @@ async function fetchPreviewImage (subjectSet, env) {
     console.error(error)
     logToSentry(error)
   }
+}
+
+async function hasIndexedSubjects(subjectSet) {
+  const response = await fetch(`https://subject-set-search-api.zooniverse.org/subjects/${subjectSet.id}.json`)
+  const data = await response.json()
+  subjectSet.isIndexed = !!data.rows
 }
 
 export default async function fetchSubjectSets(workflow, env) {
