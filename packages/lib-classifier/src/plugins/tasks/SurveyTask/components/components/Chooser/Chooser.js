@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import FilterStatus from './components/CharacteristicsFilter/FilterStatus'
 import Choices from './components/Choices'
+import ClearFilters from './components/CharacteristicsFilter/ClearFilters'
 import getFilteredChoiceIds from './helpers/getFilteredChoiceIds'
 
 const StyledHorizontalRule = styled.hr`
@@ -37,6 +38,11 @@ export default function Chooser (props) {
         onChoose={onChoose}
         selectedChoiceIds={selectedChoiceIds}
         task={task}
+      />
+      <ClearFilters
+        handleFilter={handleFilter}
+        showingChoices={filteredChoiceIds.length}
+        totalChoices={task.choices?.length}
       />
     </Box>
   )
