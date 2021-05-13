@@ -49,6 +49,7 @@ class SubjectViewer extends React.Component {
           loadingState={subjectReadyState}
           onError={onError}
           onReady={onSubjectReady}
+          viewerConfiguration={subject?.viewerConfiguration}
         />
       )
     }
