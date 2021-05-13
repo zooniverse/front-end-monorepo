@@ -1,7 +1,30 @@
-import { Box } from 'grommet'
+import { Box, Button } from 'grommet'
+import { Clear } from 'grommet-icons'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { SpacedText } from '@zooniverse/react-components'
+
+import counterpart from 'counterpart'
+import en from '../locales/en'
+
+counterpart.registerTranslations('en', en)
+
+function Label () {
+  return (
+    <Box
+      align='center'
+      direction='row'
+      gap='xxsmall'
+    >
+      <Clear
+        size='small'
+      />
+      <SpacedText>
+        {counterpart('CharacteristicsFilter.clearFilters')}
+      </SpacedText>
+    </Box>
+  )
+}
 
 export default function ClearFilters (props) {
   const {
@@ -11,10 +34,23 @@ export default function ClearFilters (props) {
   } = props
 
   return (
-    <Box>
+    <Box
+      align='center'
+      direction='row'
+      fill='horizontal'
+      gap='xxsmall'
+      justify='center'
+      pad={{ top: 'xsmall' }}
+    >
       <SpacedText>
-        Showing {showingChoices} of {totalChoices}
+        {counterpart('CharacteristicsFilter.showing', { showing: showingChoices, total: totalChoices })}
       </SpacedText>
+      <Button
+        disabled={showingChoices === totalChoices}
+        label={<Label />}
+        onClick={() => handleFilter()}
+        plain
+      />
     </Box>
   )
 }
