@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-decorators": "~7.13.5",
-    "@sentry/browser": "~6.2.0",
+    "@sentry/browser": "~6.3.6",
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/grommet-theme": "~2.2.0",
@@ -49,7 +49,7 @@
     "snazzy": "^8.0.0",
     "styled-components": "~5.1.1",
     "superagent": "~5.1.1",
-    "url-parse": "~1.5.0",
+    "url-parse": "~1.5.1",
     "validator": "~10.11.0"
   },
   "devDependencies": {

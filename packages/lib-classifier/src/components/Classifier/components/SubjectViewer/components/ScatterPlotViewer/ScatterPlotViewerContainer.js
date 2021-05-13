@@ -98,6 +98,7 @@ class ScatterPlotViewerContainer extends Component {
   render() {
     const {
       subject,
+      viewerConfiguration,
       ...rest
     } = this.props
 
@@ -107,7 +108,8 @@ class ScatterPlotViewerContainer extends Component {
       return null
     }
 
-    // TODO: make zooming configurable from chart options per subject
+    const zoomConfiguration = chartOptions?.zoomConfiguration || viewerConfiguration?.zoomConfiguration
+
     return (
       <Box width='100%' height='500px'>
         <ScatterPlotViewer
@@ -118,6 +120,7 @@ class ScatterPlotViewerContainer extends Component {
           xAxisLabelOffset={chartOptions?.xAxisLabelOffset}
           yAxisLabel={chartOptions?.yAxisLabel}
           yAxisLabelOffset={chartOptions?.yAxisLabelOffset}
+          zoomConfiguration={zoomConfiguration}
           zooming
           {...rest}
         />
