@@ -62,7 +62,7 @@ const Mark = forwardRef(function Mark(
   }
 
   function openSubTaskPopup() {
-    if (mark.finished && !mark.subTaskVisibility && mark.tasks.length > 0) {
+    if (mark.isValid && mark.finished && !mark.subTaskVisibility && mark.tasks.length > 0) {
       focusMark()
       const markBounds = markRoot.current?.getBoundingClientRect()
       mark.setSubTaskVisibility(true, markBounds)

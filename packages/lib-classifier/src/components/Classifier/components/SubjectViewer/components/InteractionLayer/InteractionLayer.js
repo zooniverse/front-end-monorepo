@@ -120,6 +120,7 @@ function InteractionLayer({
     if (activeMark && !activeMark.isValid) {
       activeTool.deleteMark(activeMark)
       setActiveMark(undefined)
+      event.stopPropagation()
     }
   }
 

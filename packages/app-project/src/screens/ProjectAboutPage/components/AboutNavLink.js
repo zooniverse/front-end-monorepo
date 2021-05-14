@@ -23,8 +23,8 @@ const AboutNavLink = ({ router, link }) => {
 
   return (
     <Box
-       background={(isCurrentPage) ? 'accent-2' : 'neutral-6'}
-       pad={{ horizontal: '20px', vertical: '5px' }}
+      background={isCurrentPage ? 'accent-2' : 'neutral-6'}
+      pad={{ horizontal: '20px', vertical: '5px' }}
     >
       <NavLink
         link={link}
@@ -39,9 +39,9 @@ const AboutNavLink = ({ router, link }) => {
 AboutNavLink.propTypes = {
   link: shape({
     href: string,
-    text: string,
+    text: string
   }),
-  router: object,
+  router: object
 }
 
 export default AboutNavLink
