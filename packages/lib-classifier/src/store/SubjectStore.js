@@ -2,6 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
 import { addDisposer, addMiddleware, flow, getRoot, isValidReference, onPatch, tryReference, types } from 'mobx-state-tree'
 import { getBearerToken } from './utils'
+import { subjectSelectionStrategy } from './helpers'
 import { filterByLabel, filters } from '../components/Classifier/components/MetaTools/components/Metadata/components/MetadataModal'
 import ResourceStore from './ResourceStore'
 import Subject from './Subject'
@@ -56,6 +57,17 @@ const SubjectStore = types
       }
 
       return false
+    },
+
+    /** a helper to get the last subject in the queue */
+    get last () {
+      let lastSubject
+
+      if ( self.resources.size > 0 ) {
+        const activeSubjects = Array.from(self.resources.values())
+        lastSubject = activeSubjects[self.resources.size - 1]
+      }
+      return lastSubject
     }
   }))
 
@@ -152,26 +164,10 @@ const SubjectStore = types
       const root = getRoot(self)
       const client = root.client.panoptes
       const workflow = tryReference(() => root.workflows.active)
-      let apiUrl = '/subjects/queued'
       
       if (workflow) {
         self.loadingState = asyncStates.loading
-        const params = { workflow_id: workflow.id }
-
-        if (workflow.grouped) {
-          params.subject_set_id = workflow.subjectSetId
-        }
-        
-        if (workflow.configuration.subject_viewer === 'subjectGroup') {
-          apiUrl = '/subjects/grouped'
-          params.num_rows = workflow.configuration.subject_viewer_config?.grid_rows || 1
-          params.num_columns = workflow.configuration.subject_viewer_config?.grid_columns || 1
-        }
-
-        if (subjectIDs) {
-          apiUrl = '/subjects/selection'
-          params.ids = subjectIDs
-        }
+        const { apiUrl, params } = yield subjectSelectionStrategy(workflow, subjectIDs, self.last?.priority)
 
         try {
           const { authClient } = getRoot(self)
