@@ -23,4 +23,61 @@ describe('Model > SubjectSet', function () {
   it('should have a subject count', function () {
     expect(model.set_member_subjects_count).to.equal(19)
   })
+
+  describe('isIndexed', function () {
+    let isIndexed
+
+    describe('without metadata', function () {
+      before(function () {
+        const metadataModel = SubjectSet.create({
+          id: '1234',
+          display_name: 'Hello there!',
+          set_member_subjects_count: 19
+        })
+        isIndexed = metadataModel.isIndexed
+      })
+
+      it('should be false', function () {
+        expect(isIndexed).to.be.false()
+      })
+    })
+
+    describe('with metadata', function () {
+      describe('but no indexed fields', function () {
+        before(function () {
+          const metadataModel = SubjectSet.create({
+            id: '1234',
+            display_name: 'Hello there!',
+            metadata: {
+              indexFields: ''
+            },
+            set_member_subjects_count: 19
+          })
+          isIndexed = metadataModel.isIndexed
+        })
+
+        it('should be false', function () {
+          expect(isIndexed).to.be.false()
+        })
+      })
+
+      describe('and indexed fields', function () {
+        before(function () {
+          const metadataModel = SubjectSet.create({
+            id: '1234',
+            display_name: 'Hello there!',
+            metadata: {
+              indexFields: 'Date,Creator'
+            },
+            set_member_subjects_count: 19
+          })
+          isIndexed = metadataModel.isIndexed
+        })
+
+        it('should be true', function () {
+          expect(isIndexed).to.be.true()
+        })
+      })
+    })
+  })
 })
