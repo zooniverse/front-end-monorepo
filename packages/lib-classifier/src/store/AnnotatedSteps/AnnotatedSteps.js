@@ -113,6 +113,7 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   function finish(){
     const { annotations, step } = self.latest
     undoManager.withoutUndo(() => {
+      step.validateTasks(annotations)
       step.completeTasks(annotations)
       _clearRedo()
     })
@@ -123,6 +124,7 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
     if (undoManager.canRedo) {
       _redo(nextStepKey)
     } else {
+      step.validateTasks(annotations)
       _beginStep(nextStepKey)
     }
   }

@@ -22,6 +22,10 @@ const Task = types.model('Task', {
 
     isComplete(annotation) {
       return !self.required || !!annotation?.isComplete
+    },
+
+    isValid() {
+      return true
     }
   }))
   .actions(self => ({
@@ -46,6 +50,12 @@ const Task = types.model('Task', {
       /*
       Override this with any setup actions for your task
       eg. setting the task value from a saved annotation
+      */
+    },
+
+    validate () {
+      /*
+      Override this with any actions that should validate the task annotations, typically on task completion.
       */
     }
   }))

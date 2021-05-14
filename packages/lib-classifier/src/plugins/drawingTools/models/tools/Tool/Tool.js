@@ -43,6 +43,12 @@ const Tool = types.model('Tool', {
       const allMarksComplete = Array.from(self.marks.values())
         .reduce((allComplete, mark) => allComplete && mark.isComplete, true)
       return (allMarksComplete && self.marks.size >= self.min)
+    },
+
+    get isValid () {
+      const allMarksValid = Array.from(self.marks.values())
+        .reduce((allValid, mark) => allValid && mark.isValid, true)
+      return allMarksValid
     }
   }))
   .actions(self => {
@@ -78,13 +84,22 @@ const Tool = types.model('Tool', {
       self.marks.clear()
     }
 
+    function validate () {
+      self.marks.forEach(mark => {
+        if (!mark.isValid) {
+          self.deleteMark(mark)
+        }
+      })
+    }
+
     return {
       createMark,
       createTask,
       deleteMark,
       handlePointerMove,
       handlePointerUp,
-      reset
+      reset,
+      validate
     }
   })
 
