@@ -20,7 +20,6 @@ const Transcription = types.model('Transcription', {
       // then return the flattened array
       const drawingAnnotations = [drawingSnapshot]
       drawingSnapshot.value.forEach((markSnapshot, markIndex) => {
-        console.log('markSnapshot', markSnapshot)
         const mark = Object.assign({}, markSnapshot)
         // map subtask keys to mark.details
         mark.details = mark.annotations.map(annotation => ({ task: annotation.task }))
