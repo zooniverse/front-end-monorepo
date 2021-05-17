@@ -296,6 +296,14 @@ describe('<Markdownz />', function () {
       expect(returnedValue.props.height).to.equal(100)
     })
 
+    it('should set height as auto if only width is defined', function () {
+      const imagePropsMockWithWidth = { src, alt: `${altText} =100x`, children: undefined }
+      wrapper.instance().renderMedia(imagePropsMockWithWidth)
+      const returnedValue = renderMediaSpy.returnValues[0]
+      expect(returnedValue.props.width).to.equal(100)
+      expect(returnedValue.props.height).to.equal('auto')
+    })
+
     it('should remove the width and height declaration from the alt text before setting it on the rendered Image', function () {
       wrapper.instance().renderMedia(imagePropsMockWithSize)
       const returnedValue = renderMediaSpy.returnValues[0]
