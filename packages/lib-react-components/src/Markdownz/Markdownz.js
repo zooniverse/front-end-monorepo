@@ -67,41 +67,24 @@ class Markdownz extends React.Component {
     return null
   }
 
-  findResizedImages (children) {
-    /*
-    !\[         \]                                                                     | Match the image description brackets
-        ([^\]]+?)                                                                      | Grab the description
-                  \(                                                                \) | Match the image src brackets
-                    (https:\/\/[^)]+?)                                                 | Grab the image URL
-                                      (=\d+?(|%|px|em|rem|vw)x\d+?(|%|px|em|rem|vh))   | Grab the dimensions
-    */
-    const imageRegex = /!\[([^\]]+?)\]\((https:\/\/[^)]+?) (=\d+?(|%|px|em|rem|vw)x\d*?(|%|px|em|rem|vh))\)/g
-    const images = Array.from(children.matchAll(imageRegex))
+  replaceImageString (img) {
+    const imgSizeRegex = /=(\d+(%|px|em|rem|vw)?)x(\d+(%|px|em|rem|vh)?)?/
+    const imgSizeMatch = img.match(imgSizeRegex)
 
-    let newChildren = children
+    let newImgStr = ''
 
-    if (images.length) {
-      images.forEach(img => {
-        const imgSizeRegex = /=(\d+(%|px|em|rem|vw)?)x(\d+(%|px|em|rem|vh)?)?/
+    if (imgSizeMatch && imgSizeMatch.length > 0) {
+      // delete imgSizeMatch from alt and url string (including the preceding space character)
+      const sanitizedImgStr = img.replace(` ${imgSizeMatch[0]}`, '')
 
-        const imgSizeMatch = img[0].match(imgSizeRegex)
-        if (imgSizeMatch && imgSizeMatch.length > 0) {
-          // delete imgSizeMatch from alt and url string (including the preceding space character)
-          const sanitizedImgStr = img[0].replace(` ${imgSizeMatch[0]}`, '')
+      // place imgSizeMatch into only alt tag
+      const altTagRegex = /(?:!\[(.*?)\])/
+      const altTag = sanitizedImgStr.match(altTagRegex)
+      const altTextWithSize = `${altTag[1]} ${imgSizeMatch[0]}`
 
-          // place imgSizeMatch into only alt tag
-          const altTagRegex = /(?:!\[(.*?)\])/
-          const altTag = sanitizedImgStr.match(altTagRegex)
-          const altTextWithSize = `${altTag[1]} ${imgSizeMatch[0]}`
-
-          // replace corresponding image string in the children
-          const newImgStr = sanitizedImgStr.replace(altTag[0], `![${altTextWithSize}]`)
-          newChildren = newChildren.replace(img[0], newImgStr)
-        }
-      })
+      newImgStr = sanitizedImgStr.replace(altTag[0], `![${altTextWithSize}]`)
     }
-
-    return newChildren
+    return newImgStr
   }
 
   render () {
@@ -113,7 +96,8 @@ class Markdownz extends React.Component {
       console.warn('Overriding the rendering function for the img tag may break the syntax support for image resizing and using image markup for video and audio. Are you sure you want to do this?')
     }
 
-    const childrenWithImageResize = this.findResizedImages(children)
+    const imageRegex = /!\[([^\]]+?)\]\((https:\/\/[^)]+?) (=\d+?(|%|px|em|rem|vw)x\d*?(|%|px|em|rem|vh))\)/g
+    const newChildren = children.replace(imageRegex, this.replaceImageString)
 
     const componentMappings = {
       a: Anchor,
@@ -151,7 +135,7 @@ class Markdownz extends React.Component {
       })
       .use(toc)
       .use(remark2react, { remarkReactComponents })
-      .processSync(childrenWithImageResize).contents
+      .processSync(newChildren).contents
 
     return (
       <React.Fragment>

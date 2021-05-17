@@ -8,7 +8,7 @@ import { markdown } from './helpers/testExamples'
 
 // TO DO: Add back working snapshots to test the overall HTML output
 // We have to use snapshots with styled-components because of the generated class names
-describe('<Markdownz />', function () {
+describe.only('<Markdownz />', function () {
   let wrapper
 
   it('renders without crashing', function () {
@@ -225,31 +225,31 @@ describe('<Markdownz />', function () {
     })
   })
 
-  describe('#findResizedImages', function () {
-    let findResizedImagesSpy
+  describe('#replaceImageString', function () {
+    let replaceImageStringSpy
 
     before(function () {
       wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
-      findResizedImagesSpy = sinon.spy(Markdownz.prototype, 'findResizedImages')
+      replaceImageStringSpy = sinon.spy(Markdownz.prototype, 'replaceImageString')
     })
     afterEach(function () {
-      findResizedImagesSpy.resetHistory()
+      replaceImageStringSpy.resetHistory()
     })
     after(function () {
-      findResizedImagesSpy.restore()
+      replaceImageStringSpy.restore()
     })
 
-    it('should return a children string', function () {
-      wrapper.instance().findResizedImages(markdown)
-      const returnedValue = findResizedImagesSpy.returnValues[0]
+    it('should return a string', function () {
+      wrapper.instance().replaceImageString(markdown)
+      const returnedValue = replaceImageStringSpy.returnValues[0]
       expect(returnedValue).to.be.a('string')
     })
 
     it('should remove any size parameters from markdown image src, and place them in the alt tag', function () {
       const imageWithResizeParameters = '![imagealttext](https://panoptes-uploads.zooniverse.org/production/subject_location/66094.jpeg =100x100)'
       const expectedReturnValue = '![imagealttext =100x100](https://panoptes-uploads.zooniverse.org/production/subject_location/66094.jpeg)'
-      wrapper.instance().findResizedImages(imageWithResizeParameters)
-      const returnedValue = findResizedImagesSpy.returnValues[0]
+      wrapper.instance().replaceImageString(imageWithResizeParameters)
+      const returnedValue = replaceImageStringSpy.returnValues[0]
       expect(returnedValue).to.equal(expectedReturnValue)
     })
   })
