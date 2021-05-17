@@ -117,6 +117,14 @@ const Subject = types
       return viewer
     },
 
+    get viewerConfiguration () {
+      if (self.workflow) {
+        return self.workflow.configuration.subject_viewer_configuration
+      }
+
+      return undefined
+    },
+
     get project () {
       return tryReference(() => getRoot(self).projects?.active)
     },

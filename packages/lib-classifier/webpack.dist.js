@@ -1,7 +1,19 @@
+const { execSync } = require('child_process')
 const path = require('path')
 const webpack = require('webpack')
 
+function gitCommit() {
+  try {
+    const commitHash = execSync('git describe --always').toString('utf8').trim()
+    return commitHash
+  } catch (error) {
+    console.log(error)
+    return 'Not a git repository.'
+  }
+}
+
 const EnvironmentWebpackPlugin = new webpack.EnvironmentPlugin({
+  COMMIT_ID: gitCommit(),
   DEBUG: false,
   NODE_ENV: 'production',
   PANOPTES_ENV: 'production'

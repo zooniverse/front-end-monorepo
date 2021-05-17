@@ -4,7 +4,7 @@ The Subject Group Viewer (SGV) is a variant of the Subject Viewer that's used to
 display Subjects containing an array of sub-Subjects, with each sub-Subject
 shown on a grid.
 
-The Subject Group Viewer was originally created by @shaun.a.noordin on Mar 2020, for the SURVOS project.
+The Subject Group Viewer was originally created by @shaunanoordin on Mar 2020, for the SURVOS project.
 
 ## Features
 
@@ -45,11 +45,29 @@ When the _current task_ on the Classifier is a Subject Group Task - which usuall
 
 **Workflow: Configuration**
 
-To enable the SGV, the Workflow of the project must have its `.configuration` set up.
+To enable the SGV, the Workflow of the project must have its `.configuration` set up. For example, this is for a 5x5 grid with 200x200px cells:
 
-`workflow.configuration = { subject_viewer: 'subjectGroup' }`
+```
+workflow.configuration = {
+  subject_viewer: 'subjectGroup',
+  subject_viewer_config: {
+    cell_width: 200,
+    cell_height: 200,
+    grid_columns: 5,
+    grid_rows: 5,
+  },
+  subject_group: {
+    num_columns: 5,  // This must match grid_columns
+    num_rows: 5,     // This must match grid_rows
+  }
+}
+```
 
-Optionally, the SGV can be further configured to specify a certain grid size. The example here shows how to specify a 4x3 grid, with each cell having a "native size" of 1200px x 1000px. (This will result in a grid with a "native size" of 4800px x 3000px, which will then be squished to fit the available view space of the Classifier.)
+(Note 1: the actual size of the cells will be "squished" to fit the actual visible size of the viewer on the classifier.)
+
+(Note 2: `subject_viewer_config` is used by the frontend UI, while `subject_group` is used by the backend service. There's a small duplication of values here, don't mind it.)
+
+Optionally, the SGV can be further configured with specific styles.
 
 ```
 workflow.configuration = {
@@ -66,8 +84,12 @@ workflow.configuration = {
       focusOutline: '2px dashed rgba(255, 255, 255, 0.5)',
       background: '#000'
     },
-    grid_columns: 4,
-    grid_rows: 3
+    grid_columns: 5,
+    grid_rows: 5
+  },
+  subject_group: {
+    num_columns: 5,
+    num_rows: 5,
   }
 }
 ```
@@ -79,6 +101,15 @@ Some notes on cell_style:
 - A cell can also be in the "has keyboard focus" state. This is visually represented by 'focusOutline'.
 - 'background' indicates the colour to fill the cell with when, e.g. the image doesn't fill the cell's available visible space.
 
-**Subject: Group Subjects**
+**Associated Subject "type": Subject Groups**
 
-// TODO
+- The Subject Group _Viewer_ is STRONGLY ASSOCIATED with the Subject Group "type" of Subject.
+- Subjects for the SubjectGroupViewer are a special case; a "Group Subject" is a randomised collection of X **single image Subjects** (where X = rows x columns) that the backend packages in to a single "pseudo" Subject.
+- Please see `src/store/SubjectGroup/README.md` for more details.
+
+**Associated Task: Subject Group Comparison Task**
+
+- The Subject Group _Viewer_ is STRONGLY ASSOCIATED with the Subject Group _Comparison Task._
+- The SGComparisonTask allows users to CLICK ON cells in the grid to "select" them. (i.e. to pick the cells that look different from the others)
+- Without this Task, the viewer is just a fancy way of seeing multiple images in a grid.
+- Please see `src/plugins/tasks/SubjectGroupComparisonTask/README.md` for more details.

@@ -193,7 +193,8 @@ class ZoomingScatterPlot extends Component {
       margin,
       parentHeight,
       parentWidth,
-      tickDirection
+      tickDirection,
+      zoomConfiguration
     } = this.props
     const height = parentHeight - margin.bottom - margin.top
     const width = parentWidth - margin.right - margin.left
@@ -208,6 +209,7 @@ class ZoomingScatterPlot extends Component {
         top={topPosition}
         width={width}
         zoomingComponent={ScatterPlot}
+        zoomConfiguration={zoomConfiguration}
         {...this.props}
       />
     )

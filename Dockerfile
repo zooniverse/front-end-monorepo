@@ -31,14 +31,24 @@ ARG PROJECT_ASSET_PREFIX
 ENV PROJECT_ASSET_PREFIX=$PROJECT_ASSET_PREFIX
 
 RUN mkdir -p /usr/src
+
 WORKDIR /usr/src/
 
-COPY ./ /usr/src
+ADD package.json /usr/src/
+
+ADD yarn.lock /usr/src/
+
+COPY .yarn /usr/src/.yarn
+
+ADD .yarnrc /usr/src/
+
+COPY ./packages /usr/src/packages
+
 RUN chown -R node:node .
 
 USER node
 
-RUN yarn install --production=false
+RUN yarn install --production=false --frozen-lockfile
 
 RUN yarn workspace @zooniverse/react-components build
 
