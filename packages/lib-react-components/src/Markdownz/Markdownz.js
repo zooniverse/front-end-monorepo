@@ -51,7 +51,7 @@ class Markdownz extends React.Component {
   // Support image resizing, video, and audio using markdown's image syntax
   renderMedia (nodeProps) {
     let width, height
-    const imgSizeRegex = /=(\d+(%|px|em|rem|vw)?)x(\d+(%|px|em|rem|vh)?)/
+    const imgSizeRegex = /=(\d+(%|px|em|rem|vw)?)x(\d+(%|px|em|rem|vh)?)?/
     let alt = nodeProps.alt
     const src = nodeProps.src
     const match = alt.match(imgSizeRegex)
@@ -60,6 +60,7 @@ class Markdownz extends React.Component {
       width = parseInt(match[1])
       height = parseInt(match[3])
       alt = alt.split(match[0])[0].trim()
+      if (width && !height) height = 'auto'
     }
 
     if (src) return <Media alt={alt} height={height} src={src} width={width} />
@@ -75,7 +76,7 @@ class Markdownz extends React.Component {
 
     if (images.length) {
       images.forEach(img => {
-        const imgSizeRegex = /=(\d+(%|px|em|rem|vw)?)x(\d+(%|px|em|rem|vh)?)/
+        const imgSizeRegex = /=(\d+(%|px|em|rem|vw)?)x(\d+(%|px|em|rem|vh)?)?/
 
         const imgSizeMatch = img[0].match(imgSizeRegex)
         if (imgSizeMatch && imgSizeMatch.length > 0) {
