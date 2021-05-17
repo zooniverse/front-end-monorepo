@@ -8,7 +8,7 @@ import { markdown } from './helpers/testExamples'
 
 // TO DO: Add back working snapshots to test the overall HTML output
 // We have to use snapshots with styled-components because of the generated class names
-describe.only('<Markdownz />', function () {
+describe('<Markdownz />', function () {
   let wrapper
 
   it('renders without crashing', function () {
