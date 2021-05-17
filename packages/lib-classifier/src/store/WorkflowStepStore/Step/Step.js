@@ -31,10 +31,9 @@ const baseStep = types
       return !isIncomplete
     },
 
-    isValid(annotations=[]) {
+    get isValid() {
       let isValid = true
       self.tasks.forEach(task => {
-        const [annotation] = annotations.filter(annotation => annotation.task === task.taskKey)
         isValid = task.isValid
       })
       return isValid
