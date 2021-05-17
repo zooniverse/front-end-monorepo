@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import { Box, Paragraph } from 'grommet'
 import { MobXProviderContext, observer } from 'mobx-react'
-import { func, shape, string } from 'prop-types'
+import { shape, string } from 'prop-types'
 import React, { useContext } from 'react'
 
 import taskRegistry from '@plugins/tasks'
