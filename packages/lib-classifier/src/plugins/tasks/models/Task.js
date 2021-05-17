@@ -1,5 +1,5 @@
 import cuid from 'cuid'
-import { tryReference, types } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 import Annotation from './Annotation'
 
 const Task = types.model('Task', {
@@ -24,7 +24,7 @@ const Task = types.model('Task', {
       return !self.required || !!annotation?.isComplete
     },
 
-    isValid() {
+    get isValid() {
       return true
     }
   }))
