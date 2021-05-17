@@ -106,7 +106,7 @@ class Markdownz extends React.Component {
       console.warn('Overriding the rendering function for the img tag may break the syntax support for image resizing and using image markup for video and audio. Are you sure you want to do this?')
     }
 
-    const childrenWIthImageResize = this.findResizedImages(children)
+    const childrenWithImageResize = this.findResizedImages(children)
 
     const componentMappings = {
       a: Anchor,
@@ -144,7 +144,7 @@ class Markdownz extends React.Component {
       })
       .use(toc)
       .use(remark2react, { remarkReactComponents })
-      .processSync(childrenWIthImageResize).contents
+      .processSync(childrenWithImageResize).contents
 
     return (
       <React.Fragment>
