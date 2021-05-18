@@ -12,6 +12,7 @@ import {
   Point,
   TranscriptionLine
 } from '@plugins/drawingTools/components'
+import { expect } from 'chai'
 
 describe('Component > InteractionLayer', function () {
   let wrapper
@@ -256,18 +257,83 @@ describe('Component > InteractionLayer', function () {
         mockedContext.restore()
       })
 
-      it('should set the mark to finished', function () {
-        const fakeEvent = {
-          pointerId: 'fakePointer',
-          type: 'pointer',
-          target: {
-            setPointerCapture: sinon.stub(),
-            releasePointerCapture: sinon.stub()
+      describe('when the mark is valid', function () {
+        it('should set the mark to finished', function () {
+          const fakeEvent = {
+            pointerId: 'fakePointer',
+            type: 'pointer',
+            target: {
+              setPointerCapture: sinon.stub(),
+              releasePointerCapture: sinon.stub()
+            }
           }
-        }
-        wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
-        wrapper.find(DrawingCanvas).simulate('pointerup', fakeEvent)
-        expect(mockMark.finish).to.have.been.calledOnce()
+          wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
+          wrapper.find(DrawingCanvas).simulate('pointerup', fakeEvent)
+          expect(mockMark.finish).to.have.been.calledOnce()
+        })
+      })
+
+      describe('when the mark is invalid', function () {
+        it('should delete the mark', function () {
+          const mockMark = {
+            finished: true,
+            isValid: false,
+            finish: sinon.stub(),
+            initialDrag: sinon.stub(),
+            initialPosition: sinon.stub(),
+            setCoordinates: sinon.stub(),
+            setSubTaskVisibility: sinon.stub(),
+            setVideoTime: sinon.stub()
+          }
+          const mockDrawingTask = DrawingTask.TaskModel.create({
+            activeToolIndex: 0,
+            instruction: 'draw a mark',
+            taskKey: 'T0',
+            tools: [
+              {
+                marks: {},
+                max: 2,
+                toolComponent: TranscriptionLine,
+                type: 'transcriptionLine'
+              }
+            ],
+            type: 'drawing'
+          })
+          activeTool = mockDrawingTask.activeTool
+          const setActiveMarkStub = sinon.stub()
+          sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
+          sinon.stub(activeTool, 'deleteMark').callsFake(() => {})
+          sinon
+            .stub(activeTool, 'handlePointerDown')
+            .callsFake(() => mockMark)
+
+          wrapper = shallow(
+            <InteractionLayer
+              activeMark={mockMark}
+              activeTool={activeTool}
+              frame={2}
+              height={400}
+              setActiveMark={setActiveMarkStub}
+              width={600}
+            />
+          )
+
+          const fakeEvent = {
+            pointerId: 'fakePointer',
+            type: 'pointer',
+            target: {
+              setPointerCapture: sinon.stub(),
+              releasePointerCapture: sinon.stub()
+            },
+            stopPropagation: sinon.stub()
+          }
+          wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
+          setActiveMarkStub.resetHistory()
+          wrapper.find(DrawingCanvas).simulate('pointerup', fakeEvent)
+          expect(activeTool.deleteMark).to.have.been.calledOnce()
+          expect(setActiveMarkStub).to.have.been.calledOnceWith(undefined)
+          expect(fakeEvent.stopPropagation).to.have.been.calledOnce()
+        })
       })
     })
   })

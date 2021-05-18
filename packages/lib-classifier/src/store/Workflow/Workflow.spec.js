@@ -4,7 +4,7 @@ import sinon from 'sinon'
 import RootStore from '../RootStore'
 import Workflow from './Workflow'
 
-import { MultipleChoiceTaskFactory } from '@test/factories'
+import { MultipleChoiceTaskFactory, SubjectSetFactory } from '@test/factories'
 
 describe('Model > Workflow', function () {
   it('should exist', function () {
@@ -29,6 +29,10 @@ describe('Model > Workflow', function () {
 
     it('should not use transcription task', function () {
       expect(workflow.usesTranscriptionTask).to.be.false()
+    })
+
+    it('should not use indexed subject selection', function () {
+      expect(workflow.hasIndexedSubjects).to.be.false()
     })
   })
 
@@ -155,6 +159,61 @@ describe('Model > Workflow', function () {
         }
         expect(errorThrown).to.be.true()
         rootStore.subjectSets.fetchResource.restore()
+      })
+    })
+  })
+
+  describe('Views > hasIndexedSubjects', function () {
+    let indexedSet
+    let workflow
+
+    beforeEach(function () {
+      const rootStore = RootStore.create();
+      const subjectSets = Factory.buildList('subject_set', 5)
+      indexedSet = SubjectSetFactory.build({
+        metadata: {
+          indexFields: 'Date,Creator'
+        }
+      })
+      subjectSets.push(indexedSet)
+      rootStore.subjectSets.setResources(subjectSets)
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'workflow1',
+        display_name: 'A test workflow',
+        grouped: true,
+        links: {
+          subject_sets: subjectSets.map(subjectSet => subjectSet.id)
+        },
+        version: '0.0'
+      })
+      workflow = Workflow.create(workflowSnapshot)
+      rootStore.workflows.setResources([workflow])
+    })
+
+    describe('with no selected subject set', function () {
+
+      it('should be false', async function () {
+        expect(workflow.hasIndexedSubjects).to.be.false()
+      })
+    })
+
+    describe('with a selected subject set', function () {
+
+      describe('without indexed subjects', function () {
+        it('should be false', async function () {
+          expect(workflow.subjectSetId).to.be.undefined()
+          const subjectSetID = workflow.links.subject_sets[1]
+          await workflow.selectSubjectSet(subjectSetID)
+          expect(workflow.hasIndexedSubjects).to.be.false()
+        })
+      })
+
+      describe('with indexed subjects', function () {
+        it('should be true', async function () {
+          expect(workflow.subjectSetId).to.be.undefined()
+          await workflow.selectSubjectSet(indexedSet.id)
+          expect(workflow.hasIndexedSubjects).to.be.true()
+        })
       })
     })
   })
