@@ -26,7 +26,7 @@ const TranscriptionLineModel = types
     },
 
     get isValid () {
-      return true
+      return self.x1 !== self.x2 || self.y1 !== self.y2
     },
 
     get length () {

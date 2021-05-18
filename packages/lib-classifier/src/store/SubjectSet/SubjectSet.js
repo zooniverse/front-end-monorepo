@@ -5,7 +5,13 @@ const SubjectSet = types
   .model('SubjectSet', {
     display_name: types.string,
     links: types.frozen({}),
+    metadata: types.frozen({}),
     set_member_subjects_count: types.number
   })
+  .views(self => ({
+    get isIndexed () {
+      return self.metadata.indexFields?.length > 0
+    }
+  }))
 
 export default types.compose('SubjectSetResource', Resource, SubjectSet)

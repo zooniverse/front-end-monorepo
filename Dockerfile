@@ -48,7 +48,7 @@ RUN chown -R node:node .
 
 USER node
 
-RUN yarn install --production=false
+RUN yarn install --production=false --frozen-lockfile
 
 RUN yarn workspace @zooniverse/react-components build
 

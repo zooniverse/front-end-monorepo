@@ -66,6 +66,7 @@ describe('Helpers > getStaticPageProps', function () {
     return {
       id,
       display_name: `test set ${id}`,
+      isIndexed: false,
       set_member_subjects_count: 10,
       subjects: mockSetSubjects
     }

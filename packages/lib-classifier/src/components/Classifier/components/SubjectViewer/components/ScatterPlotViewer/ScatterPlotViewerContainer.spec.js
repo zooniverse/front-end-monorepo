@@ -190,8 +190,8 @@ describe('Component > ScatterPlotViewerContainer', function () {
         expect(scatterPlotViewerProps.xAxisLabelOffset).to.equal(chartOptions.xAxisLabelOffset)
         expect(scatterPlotViewerProps.yAxisLabel).to.equal(chartOptions.yAxisLabel)
         expect(scatterPlotViewerProps.yAxisLabelOffset).to.equal(chartOptions.yAxisLabelOffset)
-
       })
+
       wrapper.setProps({ subject: nextSubject })
 
       cduSpy.returnValues[0].then(() => {
@@ -210,6 +210,132 @@ describe('Component > ScatterPlotViewerContainer', function () {
         expect(scatterPlotViewerProps.yAxisLabel).to.be.undefined()
         expect(scatterPlotViewerProps.yAxisLabelOffset).to.be.undefined()
       }).then(done, done)
+    })
+  })
+
+  describe('zoom configuration', function () {
+    it('should default to undefined', async function () {
+      const wrapper = shallow(
+        <ScatterPlotViewerContainer
+          subject={subject}
+        />,
+        { disableLifecycleMethods: true }
+      )
+      expect(wrapper.find(ScatterPlotViewer).props().zoomConfiguration).to.be.undefined()
+    })
+
+    describe('when subject specific zoom configuration is defined', function () {
+      let nockScope
+      let cdmSpy
+      let wrapper
+      const subjectZoomConfiguration =  {
+        direction: 'both',
+        minZoom: 0.5,
+        maxZoom: 15,
+        zoomInValue: 1.2,
+        zoomOutValue: 0.8
+      }
+
+      before(function () {
+        const subjectWithZoomConfigJSON = Object.assign({}, keplerMockDataWithOptions, { chartOptions: { zoomConfiguration:  subjectZoomConfiguration }})
+        cdmSpy = sinon.spy(ScatterPlotViewerContainer.prototype, 'componentDidMount')
+        nockScope = nock('http://localhost:8080')
+          .persist(true)
+          .get('/mockData.json')
+          .reply(200, subjectWithZoomConfigJSON)
+      })
+
+      afterEach(function () {
+        cdmSpy.resetHistory()
+      })
+
+      after(function () {
+        cdmSpy.restore()
+        nock.cleanAll()
+        nockScope.persist(false)
+      })
+
+      it('should pass the configuration as a prop', function (done) {
+        wrapper = shallow(
+          <ScatterPlotViewerContainer
+            subject={subject}
+          />
+        )
+
+        cdmSpy.returnValues[0].then(() => {
+          const props = wrapper.find(ScatterPlotViewer).props()
+          expect(props.zoomConfiguration).to.deep.equal(subjectZoomConfiguration)
+        }).then(done, done)
+      })
+
+      it('should prefer subject specific configuration over workflow zoom configuration', function (done) {
+        wrapper = shallow(
+          <ScatterPlotViewerContainer
+            subject={subject}
+            viewerConfiguration={{
+              zoomConfiguration: {
+                direction: 'x',
+                minZoom: 1,
+                maxZoom: 10,
+                zoomInValue: 1.2,
+                zoomOutValue: 0.8
+              }
+            }}
+          />
+        )
+
+        cdmSpy.returnValues[0].then(() => {
+          const props = wrapper.find(ScatterPlotViewer).props()
+          expect(props.zoomConfiguration).to.deep.equal(subjectZoomConfiguration)
+        }).then(done, done)
+      })
+    })
+
+    describe('when workflow zoom configuration is defined', function () {
+      let nockScope
+      let cdmSpy
+      let wrapper
+
+      before(function () {
+        cdmSpy = sinon.spy(ScatterPlotViewerContainer.prototype, 'componentDidMount')
+        nockScope = nock('http://localhost:8080')
+          .persist(true)
+          .get('/mockData.json')
+          .reply(200, subjectJSON)
+      })
+
+      afterEach(function () {
+        cdmSpy.resetHistory()
+      })
+
+      after(function () {
+        cdmSpy.restore()
+        nock.cleanAll()
+        nockScope.persist(false)
+      })
+
+      it('should pass the configuration as a prop', function (done) {
+        const zoomConfiguration = {
+          direction: 'x',
+          minZoom: 1,
+          maxZoom: 10,
+          zoomInValue: 1.2,
+          zoomOutValue: 0.8
+        }
+        wrapper = shallow(
+          <ScatterPlotViewerContainer
+            subject={subject}
+            viewerConfiguration={{
+              zoomConfiguration
+            }}
+          />
+        )
+
+        cdmSpy.returnValues[0].then(() => {
+          const props = wrapper.find(ScatterPlotViewer).props()
+          expect(props.zoomConfiguration).to.deep.equal(zoomConfiguration)
+        }).then(done, done)
+      })
     })
   })
 })
