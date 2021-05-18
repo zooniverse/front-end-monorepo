@@ -43,6 +43,7 @@ const Template = ({
 
 export const Default = Template.bind({})
 Default.args = {
+  dark: false,
   showingChoices: 5,
   totalChoices: 20
 }

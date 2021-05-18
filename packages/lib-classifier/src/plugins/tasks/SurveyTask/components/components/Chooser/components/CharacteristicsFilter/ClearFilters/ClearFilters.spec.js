@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
-import { Button } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
+import { PlainButton } from '@zooniverse/react-components'
 
 import ClearFilters from './ClearFilters'
 
@@ -24,13 +24,13 @@ describe('Component > ClearFilters', function () {
   })
 
   it('should render a Button', function () {
-    expect(wrapper.find(Button)).to.have.lengthOf(1)
+    expect(wrapper.find(PlainButton)).to.have.lengthOf(1)
   })
 
   it('should call handleFilter on button click', function () {
     expect(handleFilterSpy).to.not.have.been.called()
 
-    wrapper.find(Button).simulate('click')
+    wrapper.find(PlainButton).simulate('click')
 
     expect(handleFilterSpy).to.have.been.calledOnce()
     handleFilterSpy.resetHistory()
@@ -39,6 +39,6 @@ describe('Component > ClearFilters', function () {
   it('should disable the button if showing choices = total choices', function () {
     wrapper.setProps({ showingChoices: 20 })
 
-    expect(wrapper.find(Button).props().disabled).to.be.true()
+    expect(wrapper.find(PlainButton).props().disabled).to.be.true()
   })
 })
