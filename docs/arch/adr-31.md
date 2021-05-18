@@ -8,9 +8,9 @@ In Review
 
 The Solar Jets project requires a TemporalRotatingRectangle drawing tool for volunteers to capture the width, height, angle and time properties of a solar jet. At the time of this writing, the `front-end-monorepo` has a standard Rectangle drawing tool which gives the width and height properties. Based on the standard Rectangle drawing tool, we want to create a RotatingRectangle drawing tool and a TemporalRotatingRectangle drawing tool.
 
-The RotatingRectangle drawing tool is a common tool used in the Panoptes code based and eventually needs to be written in the `front-end-monorepo`. This is a good opportunity to complete this task.
+The RotatingRectangle drawing tool is a common tool used in the `Panoptes-Front-End` code base and eventually needs to be written in the `front-end-monorepo`. This is a good opportunity to complete this task.
 
-The idea is to create two new rectangle drawing tools based off the standard Rectangle drawing tool. once complete, the `front-end-monorepo` will have the following rectangle drawing tools:
+The idea is to create two new rectangle drawing tools based off the standard Rectangle drawing tool. Once complete, the `front-end-monorepo` will have the following rectangle drawing tools:
 
 **Rectangle**
 
@@ -81,10 +81,18 @@ An example of this tool extension can be seen in this PR: [PR#2099](https://gith
 
 Theses decisions allow for these improvements:
 
-- Separation of concerns. Each tool will be it's own component making debugging and testing easier.
+- Separation of concerns. Each tool will be its own component making debugging and testing easier.
 - For down-stream aggregation this method is clean as rotating shapes are handled differently than non-rotating ones (the difference stems from how the "distance" between two angles is different than the "distance" between two points because angles wrap back around at 360 deg).
   Also, the auto-configuration step for aggregation only works with the workflow data, and that is the step that needs to pick between the non-rotating extractor and the rotating extractor (as it is currently written), so having them be different tool types would require less reworking of how aggregation works with the data.
 
 Potential negative impact:
 
 - May cause configuration issues in a new project builder design
+
+Questions to consider:
+
+Do we support both standard drawing tools and temporary drawing tools for multi-frame subjects that have both video and images? Would this introduce complexity to the project builder UI, classification UI, as well as downstream aggregation?
+
+How do we distinguish visually between the temporal tools and standard tools? Should we have a separate icon set or another indicator of some sort in the project builder and classifier task area that a temporal version of the tool is loaded?
+
+Will we eventually support temporal versions of all our drawing tools?
