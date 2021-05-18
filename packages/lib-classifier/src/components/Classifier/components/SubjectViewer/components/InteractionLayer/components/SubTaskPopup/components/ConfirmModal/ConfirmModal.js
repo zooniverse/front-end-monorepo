@@ -13,6 +13,7 @@ function ConfirmModal ({ onClose, onDelete }) {
     <Modal
       active
       closeFn={onClose}
+      modal={false}
     >
       <Paragraph
         margin={{ bottom: 'medium' }}
