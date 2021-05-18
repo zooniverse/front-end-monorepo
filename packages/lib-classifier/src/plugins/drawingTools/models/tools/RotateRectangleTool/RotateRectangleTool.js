@@ -1,6 +1,5 @@
 import { types } from 'mobx-state-tree'
-import Tool from '../Tool'
-// import RectangleTool from '../RectangleTool'
+import RectangleTool from '../RectangleTool'
 import { RotateRectangle } from '../../marks'
 
 const RotateRectangleTool = types
@@ -22,4 +21,8 @@ const RotateRectangleTool = types
     }
   })
 
-export default types.compose('RotateRectangleTool', Tool, RotateRectangleTool)
+export default types.compose(
+  'RotateRectangleTool',
+  RectangleTool,
+  RotateRectangleTool
+)
