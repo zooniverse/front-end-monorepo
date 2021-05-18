@@ -246,9 +246,12 @@ describe('<Markdownz />', function () {
     })
 
     it('should remove any size parameters from markdown image src, and place them in the alt tag', function () {
-      const imageWithResizeParameters = '![imagealttext](https://panoptes-uploads.zooniverse.org/production/subject_location/66094.jpeg =100x100)'
+      const img = '![imagealttext](https://panoptes-uploads.zooniverse.org/production/subject_location/66094.jpeg =100x100)'
+      const altText = 'imagealttext'
+      const imageSize = '=100x100'
+      const imageURL = 'https://panoptes-uploads.zooniverse.org/production/subject_location/66094.jpeg'
       const expectedReturnValue = '![imagealttext =100x100](https://panoptes-uploads.zooniverse.org/production/subject_location/66094.jpeg)'
-      wrapper.instance().replaceImageString(imageWithResizeParameters)
+      wrapper.instance().replaceImageString(img, altText, imageURL, imageSize)
       const returnedValue = replaceImageStringSpy.returnValues[0]
       expect(returnedValue).to.equal(expectedReturnValue)
     })
@@ -296,12 +299,12 @@ describe('<Markdownz />', function () {
       expect(returnedValue.props.height).to.equal(100)
     })
 
-    it('should set height as auto if only width is defined', function () {
+    it('should set max height as none if only width is defined', function () {
       const imagePropsMockWithWidth = { src, alt: `${altText} =100x`, children: undefined }
       wrapper.instance().renderMedia(imagePropsMockWithWidth)
       const returnedValue = renderMediaSpy.returnValues[0]
       expect(returnedValue.props.width).to.equal(100)
-      expect(returnedValue.props.height).to.equal('auto')
+      expect(returnedValue.props.height).to.equal('none')
     })
 
     it('should remove the width and height declaration from the alt text before setting it on the rendered Image', function () {
