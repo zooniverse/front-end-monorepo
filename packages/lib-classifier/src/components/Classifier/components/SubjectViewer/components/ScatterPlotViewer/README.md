@@ -9,6 +9,7 @@ The Scatter Plot Viewer...
 - allows users to view coordinate data
 - can be configurable to display a standard outer facing axes or display a inner facing axes similar to the PH: TESS light curve viewer design. Right now this configuration is not available via API, but can be set by devs in the code if the design for the specific use case calls for it. The prop `tickDirection` which can be set to either `'outer'` or `'inner'`, defaulting to `'outer'`, is for this use case.
 - can render single or multiple data series
+- can be configurable for zoom
 
 ## Props
 
@@ -38,9 +39,26 @@ The Scatter Plot Viewer...
 ### Workflow
 
 The Workflow of the project had a configuration that specified to the Monorepo
-Front End that the Scatter Plot Viewer should be used.
+Front End that the Scatter Plot Viewer should be used. 
 
 `workflow.configuration = { subject_viewer: 'scatterPlot' }`
+
+The workflow configuration also supports subject viewer specific configurations. For the scatter plot, this includes zoom configuration that you wish to have applied to all subjects. [Read more about the allowed zoom configuration values.](#Chart_Options)
+
+```js
+workflow.configuration = {
+  subject_viewer: 'scatterPlot',
+  subject_viewer_config: {
+    zoomConfiguration: {
+      direction: 'both',
+      minZoom: 1,
+      maxZoom: 10,
+      zoomInValue: 1.2,
+      zoomOutValue: 0.8
+    }
+  }
+}
+```
 
 ### Subject
 
@@ -58,7 +76,11 @@ subject.locations = [
 
 The JSON file can take two different shapes depending on if the data is a single series or multiple series. 
 
-The single series JSON shape is a very, very basic data object consisting of an array of numbers for each axis:
+#### Series Data
+
+The `seriesData` property should be an array of objects where at minimum an x and y coordinate is required. An optional `x_error` and/or `y_error` number can be specified if error bars need to be displayed for that single data point. Each series supports a set of options under `seriesOptions` and at minimum a string `label` is required for each series. An optional string `color` for can defined using either a variable name from the colors available in from the [zooniverse theme object](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-grommet-theme) or a hex value. If a color is not provided, a color from the zooniverse theme will be chosen and applied for each series. 
+
+The single series JSON shape is a very, very basic data object consisting of an array of numbers for each axis. The multiple series shape can also be used for a single series and is required if you need to use error bars:
 
 ``` json
 //subject1234.json
@@ -124,10 +146,29 @@ The multiple series JSON shape is an array of objects consisting of `seriesData`
 }
 ```
 
-The `seriesData` property should be an array of objects where at minimum an x and y coordinate is required. An optional `x_error` and/or `y_error` number can be specified if error bars need to be displayed for that single data point. Each series supports a set of options under `seriesOptions` and at minimum a string `label` is required for each series. An optional string `color` for can defined using either a variable name from the colors available in from the [zooniverse theme object](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-grommet-theme) or a hex value. If a color is not provided, a color from the zooniverse theme will be chosen and applied for each series. 
 
-For both single series data and multiple series data, a set of chart options can also be supplied that define the x-axis and y-axis labels as well as the margins and padding to use. Padding is defined as the space inside the axes lines. Defined padding will likely only be used by scatter plots using an inner tick direction similar to the current PH: TESS light curve viewer. Margin is defined as the space outside axes lines. Defined margin should be used by the outer tick direction which is the default orientation for the scatter plot axes. 
 
+#### Chart Options
+
+For both single series data and multiple series data, a set of chart options can also be supplied that define the x-axis and y-axis labels as well as optionally the margins and padding to use and zoom configurations. Padding is defined as the space inside the axes lines. Defined padding will likely only be used by scatter plots using an inner tick direction similar to the current PH: TESS light curve viewer. Margin is defined as the space outside axes lines. Defined margin should be used by the outer tick direction which is the default orientation for the scatter plot axes.
+
+Zoom configuration supports configuring the directionality of the zoom, the minimum zoom, maximum zoom, the zoom in value, and the zoom out value. The order of precedence for zoom configuration values are subject's chart options, the workflow configuration, then the default values. 
+
+```js
+// default zoom configuration values
+{
+  zoomConfiguration: {
+    direction: 'both', // string. Allows 'both', 'x', 'y'
+    minZoom: 1, // number
+    maxZoom: 10, // number
+    zoomInValue: 1.2, // number
+    zoomOutValue: 0.8 // number
+  }
+}
+```
+
+
+Example of JSON using various chart options:
 
 ``` json
 //subject1234.json
@@ -158,6 +199,14 @@ For both single series data and multiple series data, a set of chart options can
     },
     "xAxisLabel": "Days",
     "yAxisLabel": "Brightness",
+    "zoomConfiguration": {
+      "direction": "x",
+      "minZoom": 1,
+      "maxZoom": 10,
+      "zoomInValue": 1.2,
+      "zoomOutValue": 0.8
+    }
   }
 }
 ```
+
