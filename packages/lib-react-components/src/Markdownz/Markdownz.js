@@ -51,7 +51,7 @@ class Markdownz extends React.Component {
   // Support image resizing, video, and audio using markdown's image syntax
   renderMedia (nodeProps) {
     let width, height
-    const imgSizeRegex = /=(\d+(%|px|em|rem|vw)?)x(\d+(%|px|em|rem|vh)?)?/
+    const imgSizeRegex = /=(\d+?(|%|px|em|rem|vw))x(\d*?(|%|px|em|rem|vh))/
     let alt = nodeProps.alt
     const src = nodeProps.src
     const match = alt.match(imgSizeRegex)
@@ -67,24 +67,8 @@ class Markdownz extends React.Component {
     return null
   }
 
-  replaceImageString (img) {
-    const imgSizeRegex = /=(\d+(%|px|em|rem|vw)?)x(\d+(%|px|em|rem|vh)?)?/
-    const imgSizeMatch = img.match(imgSizeRegex)
-
-    let newImgStr = ''
-
-    if (imgSizeMatch && imgSizeMatch.length > 0) {
-      // delete imgSizeMatch from alt and url string (including the preceding space character)
-      const sanitizedImgStr = img.replace(` ${imgSizeMatch[0]}`, '')
-
-      // place imgSizeMatch into only alt tag
-      const altTagRegex = /(?:!\[(.*?)\])/
-      const altTag = sanitizedImgStr.match(altTagRegex)
-      const altTextWithSize = `${altTag[1]} ${imgSizeMatch[0]}`
-
-      newImgStr = sanitizedImgStr.replace(altTag[0], `![${altTextWithSize}]`)
-    }
-    return newImgStr
+  replaceImageString (img, altText, imageURL, imageSize) {
+    return `![${altText} ${imageSize}](${imageURL})`
   }
 
   render () {
