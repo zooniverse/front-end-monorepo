@@ -1,6 +1,5 @@
 const path = require('path')
 const Dotenv = require('dotenv-webpack')
-const webpack = require('webpack')
 const webpackConfig = require('../webpack.config')
 
 module.exports = async ({ config }) => {
@@ -8,12 +7,9 @@ module.exports = async ({ config }) => {
     new Dotenv({
       path: path.join(__dirname, '../.env'),
       systemvars: true
-    }),
-    new webpack.ProvidePlugin({
-      process: 'process/browser',
     })
   ])
-  // config.plugins.concat(webpackConfig.plugins)
+  config.plugins.concat(webpackConfig.plugins)
 
   const newAliases = webpackConfig.resolve.alias
   const alias = Object.assign({}, config.resolve.alias, newAliases)
