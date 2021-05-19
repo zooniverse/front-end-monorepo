@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { DeleteButton, Mark } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
@@ -24,8 +23,7 @@ function DrawingToolMarks(props) {
     mark.videoTime: indicates when the mark was created. Only relevant to certain time-based tools, otherwise undefined.
      */
     const { tool, videoTime } = mark
-    const MarkingComponent = observer(mark.toolComponent)
-    const ObservedDeleteButton = observer(DeleteButton)
+    const MarkingComponent = mark.toolComponent
     const isActive = mark.id === activeMark?.id
 
     function isInBounds(markElement) {
@@ -93,7 +91,7 @@ function DrawingToolMarks(props) {
           played={played}
         />
         {isActive && (
-          <ObservedDeleteButton
+          <DeleteButton
             label={`Delete ${tool.type}`}
             mark={mark}
             scale={scale}
