@@ -4,7 +4,6 @@ import cuid from 'cuid'
 import _ from 'lodash'
 import { toJS } from 'mobx'
 import { flow, getRoot, isValidReference, types } from 'mobx-state-tree'
-import { Split } from 'seven-ten'
 
 import Classification, { ClassificationMetadata } from './Classification'
 import ResourceStore from './ResourceStore'
@@ -161,7 +160,7 @@ const ClassificationStore = types
     }
 
     function onClassificationSaved (savedClassification) {
-      Split.classificationCreated(savedClassification) // Metric log needs classification id
+      // handle any processing of classificatiions that have been saved to Panoptes.
     }
 
     function * submitClassification (classification) {
