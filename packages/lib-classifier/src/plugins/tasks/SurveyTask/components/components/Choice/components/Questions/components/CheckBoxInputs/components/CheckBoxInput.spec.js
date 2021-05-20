@@ -56,9 +56,9 @@ describe('Component > CheckBoxInput', function () {
     it('should call handleCheckBoxChange with checked and value', function () {
       expect(handleCheckBoxChangeSpy).to.not.have.been.called()
 
-      wrapper.find('input').simulate('change', { target: { checked: false, value: 'TNG' } })
+      wrapper.find('input').simulate('change', { target: { checked: true, value: 'TNG' } })
 
-      expect(handleCheckBoxChangeSpy).to.have.been.calledWith(false, 'TNG')
+      expect(handleCheckBoxChangeSpy).to.have.been.calledWith(true, 'TNG')
 
       handleCheckBoxChangeSpy.resetHistory()
     })

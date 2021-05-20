@@ -1,14 +1,14 @@
 import { shallow } from 'enzyme'
-import { RadioButtonGroup } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import RadioInputs from './RadioInputs'
+import RadioInput from './components/RadioInput'
 
 describe('Component > RadioInputs', function () {
   let wrapper, handleAnswerSpy
-  const questionId = 'HWMN'
+  const questionId = 'RTHRNNGPRSNT'
   const question = mockTask.questions[questionId]
   const options = question.answersOrder.map(answerId => ({
     label: question.answers[answerId].label,
@@ -30,21 +30,24 @@ describe('Component > RadioInputs', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should render a RadioButtonGroup', function () {
-    expect(wrapper.find(RadioButtonGroup)).to.have.lengthOf(1)
+  it('should render 2 RadioInput components', function () {
+    expect(wrapper.find(RadioInput)).to.have.lengthOf(options.length)
   })
 
-  it('should call handleAnswer with new answer on RadioButtonGroup change', function () {
-    expect(handleAnswerSpy).to.not.have.been.called()
+  describe('with defined answer', function () {
+    let inputs
 
-    wrapper.find(RadioButtonGroup).simulate('change', { target: { value: '3' } })
-    expect(handleAnswerSpy).to.have.been.calledWith('3', 'HWMN')
+    before(function () {
+      wrapper.setProps({ questionAnswer: 'S' })
+      inputs = wrapper.find(RadioInput)
+    })
 
-    handleAnswerSpy.resetHistory()
-  })
+    it('should render chosen RadioInput as checked', function () {
+      expect(inputs.find({ option: { label: 'Yes', value: 'S' } }).props().isChecked).to.be.true()
+    })
 
-  it('should render the chosen value', function () {
-    wrapper.setProps({ questionAnswer: '9' })
-    expect(wrapper.find(RadioButtonGroup).props().value).to.equal('9')
+    it('should render not chosen RadioInputs as unchecked', function () {
+      expect(inputs.find({ option: { label: ' No', value: 'N' } }).props().isChecked).to.be.false()
+    })
   })
 })
