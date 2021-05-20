@@ -51,7 +51,7 @@ class Markdownz extends React.Component {
   // Support image resizing, video, and audio using markdown's image syntax
   renderMedia (nodeProps) {
     let width, height
-    const imgSizeRegex = /=(\d+(%|px|em|rem|vw)?)x(\d+(%|px|em|rem|vh)?)/
+    const imgSizeRegex = /=(\d+(%|px|em|rem|vw)?)x(\d+(%|px|em|rem|vh)?)?/
     let alt = nodeProps.alt
     const src = nodeProps.src
     const match = alt.match(imgSizeRegex)
@@ -60,10 +60,15 @@ class Markdownz extends React.Component {
       width = parseInt(match[1])
       height = parseInt(match[3])
       alt = alt.split(match[0])[0].trim()
+      if (width && !height) height = 'none'
     }
 
     if (src) return <Media alt={alt} height={height} src={src} width={width} />
     return null
+  }
+
+  replaceImageString (img, altText, imageURL, imageSize) {
+    return `![${altText} ${imageSize}](${imageURL})`
   }
 
   render () {
@@ -74,6 +79,9 @@ class Markdownz extends React.Component {
     if (Object.keys(components).includes('img')) {
       console.warn('Overriding the rendering function for the img tag may break the syntax support for image resizing and using image markup for video and audio. Are you sure you want to do this?')
     }
+
+    const imageRegex = /!\[([^\]]+?)\]\((https:\/\/[^)]+?) (=\d+?(|%|px|em|rem|vw)x\d*?(|%|px|em|rem|vh))\)/g
+    const newChildren = children.replace(imageRegex, this.replaceImageString)
 
     const componentMappings = {
       a: Anchor,
@@ -111,7 +119,7 @@ class Markdownz extends React.Component {
       })
       .use(toc)
       .use(remark2react, { remarkReactComponents })
-      .processSync(children).contents
+      .processSync(newChildren).contents
 
     return (
       <React.Fragment>
