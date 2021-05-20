@@ -2,25 +2,29 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import DragHandle from '../DragHandle'
 
+const GUIDE_DASH = [4, 4]
+const GUIDE_WIDTH = 1
 const GRAB_STROKE_WIDTH = 6
+const BUFFER = 32
 
 function RotateRectangle({ active, children, mark, onFinish, scale }) {
   const { x_center, y_center, width, height } = mark
-
-  function onHandleDrag(coords) {
-    mark.setCoordinates(coords)
-  }
-
+  const guideWidth = GUIDE_WIDTH / scale
   const x_left = x_center - width / 2
   const x_right = x_center + width / 2
   const y_top = y_center - height / 2
   const y_bottom = y_center + height / 2
+  const xRot = x_center + width / 2 + BUFFER
 
   const _onFinish =
     onFinish ||
     function () {
       return true
     }
+
+  function onHandleDrag(coords) {
+    mark.setCoordinates(coords)
+  }
 
   return (
     <g onPointerUp={active ? _onFinish : undefined}>
@@ -33,6 +37,19 @@ function RotateRectangle({ active, children, mark, onFinish, scale }) {
         strokeWidth={GRAB_STROKE_WIDTH / scale}
         strokeOpacity='0'
       />
+      {/* Rotate Handle */}
+      {active && (
+        <g>
+          <line
+            x1={x_center}
+            y1={y_center}
+            x2={xRot}
+            y2={y_center}
+            strokeWidth={guideWidth}
+            strokeDasharray={GUIDE_DASH}
+          />
+        </g>
+      )}
       {active && (
         <DragHandle
           scale={scale}
