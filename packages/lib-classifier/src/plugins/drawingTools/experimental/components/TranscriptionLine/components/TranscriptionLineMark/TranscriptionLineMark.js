@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import { observer } from 'mobx-react'
 import { DragHandle } from '@plugins/drawingTools/components'
 import { HANDLE_RADIUS, GRAB_STROKE_WIDTH } from '../../helpers/constants'
 
@@ -31,7 +32,6 @@ const TranscriptionLineMark = React.forwardRef((props, ref) => {
     offsetX = deltaX * (handleRadius / mark.length)
     offsetY = deltaY * (handleRadius / mark.length)
   }
-
   return (
     <g
       color={color}
@@ -100,4 +100,16 @@ const TranscriptionLineMark = React.forwardRef((props, ref) => {
   )
 })
 
-export default TranscriptionLineMark
+TranscriptionLineMark.propTypes = {
+  active: PropTypes.bool,
+  color: PropTypes.string,
+  handleFinishClick: PropTypes.func,
+  handlePointerDown: PropTypes.func,
+  handleRadius: PropTypes.func,
+  mark: PropTypes.object.isRequired,
+  onHandleDrag: PropTypes.func,
+  scale: PropTypes.number
+}
+
+export default observer(TranscriptionLineMark)
+export { TranscriptionLineMark }

@@ -225,6 +225,38 @@ describe('<Markdownz />', function () {
     })
   })
 
+  describe('#replaceImageString', function () {
+    let replaceImageStringSpy
+
+    before(function () {
+      wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
+      replaceImageStringSpy = sinon.spy(Markdownz.prototype, 'replaceImageString')
+    })
+    afterEach(function () {
+      replaceImageStringSpy.resetHistory()
+    })
+    after(function () {
+      replaceImageStringSpy.restore()
+    })
+
+    it('should return a string', function () {
+      wrapper.instance().replaceImageString(markdown)
+      const returnedValue = replaceImageStringSpy.returnValues[0]
+      expect(returnedValue).to.be.a('string')
+    })
+
+    it('should remove any size parameters from markdown image src, and place them in the alt tag', function () {
+      const img = '![imagealttext](https://panoptes-uploads.zooniverse.org/production/subject_location/66094.jpeg =100x100)'
+      const altText = 'imagealttext'
+      const imageSize = '=100x100'
+      const imageURL = 'https://panoptes-uploads.zooniverse.org/production/subject_location/66094.jpeg'
+      const expectedReturnValue = '![imagealttext =100x100](https://panoptes-uploads.zooniverse.org/production/subject_location/66094.jpeg)'
+      wrapper.instance().replaceImageString(img, altText, imageURL, imageSize)
+      const returnedValue = replaceImageStringSpy.returnValues[0]
+      expect(returnedValue).to.equal(expectedReturnValue)
+    })
+  })
+
   describe('#renderMedia', function () {
     let renderMediaSpy
     const src = 'https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg'
@@ -265,6 +297,14 @@ describe('<Markdownz />', function () {
       const returnedValue = renderMediaSpy.returnValues[0]
       expect(returnedValue.props.width).to.equal(100)
       expect(returnedValue.props.height).to.equal(100)
+    })
+
+    it('should set max height as none if only width is defined', function () {
+      const imagePropsMockWithWidth = { src, alt: `${altText} =100x`, children: undefined }
+      wrapper.instance().renderMedia(imagePropsMockWithWidth)
+      const returnedValue = renderMediaSpy.returnValues[0]
+      expect(returnedValue.props.width).to.equal(100)
+      expect(returnedValue.props.height).to.equal('none')
     })
 
     it('should remove the width and height declaration from the alt text before setting it on the rendered Image', function () {
