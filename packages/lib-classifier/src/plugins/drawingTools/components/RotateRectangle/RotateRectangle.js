@@ -26,7 +26,11 @@ function RotateRectangle({ active, children, mark, onFinish, scale }) {
     mark.setCoordinates(coords)
   }
 
-  // function onRotateDrag() {}
+  function onRotateDrag(e) {
+    // const r = mark.getDistance(x_center, y_center, e.x, e.y)
+    const angle = mark.getAngle(x_center, y_center, e.x, e.y)
+    mark.setCoordinates({ x_left, x_right, y_top, y_bottom, angle })
+  }
 
   return (
     <g onPointerUp={active ? _onFinish : undefined}>
@@ -50,9 +54,15 @@ function RotateRectangle({ active, children, mark, onFinish, scale }) {
             strokeWidth={guideWidth}
             strokeDasharray={GUIDE_DASH}
           />
-          <DragHandle scale={scale} x={xRotationHandle} y={y_center} />
+          <DragHandle
+            dragMove={onRotateDrag}
+            scale={scale}
+            x={xRotationHandle}
+            y={y_center}
+          />
         </g>
       )}
+
       {active && (
         <DragHandle
           scale={scale}
@@ -63,7 +73,8 @@ function RotateRectangle({ active, children, mark, onFinish, scale }) {
               x_left: x_left + d.x,
               x_right: x_right,
               y_top: y_top + d.y,
-              y_bottom: y_bottom
+              y_bottom: y_bottom,
+              angle: angle
             })
           }
         />
@@ -78,7 +89,8 @@ function RotateRectangle({ active, children, mark, onFinish, scale }) {
               x_left: x_left,
               x_right: x_right + d.x,
               y_top: y_top,
-              y_bottom: y_bottom + d.y
+              y_bottom: y_bottom + d.y,
+              angle: angle
             })
           }
         />
@@ -93,7 +105,8 @@ function RotateRectangle({ active, children, mark, onFinish, scale }) {
               x_left: x_left + d.x,
               x_right: x_right,
               y_top: y_top,
-              y_bottom: y_bottom + d.y
+              y_bottom: y_bottom + d.y,
+              angle: angle
             })
           }
         />
@@ -108,7 +121,8 @@ function RotateRectangle({ active, children, mark, onFinish, scale }) {
               x_left: x_left,
               x_right: x_right + d.x,
               y_top: y_top + d.y,
-              y_bottom: y_bottom
+              y_bottom: y_bottom,
+              angle: angle
             })
           }
         />
@@ -119,11 +133,17 @@ function RotateRectangle({ active, children, mark, onFinish, scale }) {
 }
 
 RotateRectangle.propTypes = {
-  active: PropTypes.bool
+  active: PropTypes.bool,
+  children: PropTypes.node,
+  mark: PropTypes.object.isRequired,
+  onFinish: PropTypes.func,
+  scale: PropTypes.number
 }
 
 RotateRectangle.defaultProps = {
-  active: false
+  active: false,
+  onFinish: () => true,
+  scale: 1
 }
 
 export default RotateRectangle
