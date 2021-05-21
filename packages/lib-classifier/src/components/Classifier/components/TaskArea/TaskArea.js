@@ -3,7 +3,7 @@ import counterpart from 'counterpart'
 import { Box } from 'grommet'
 import { inject, observer } from 'mobx-react'
 import { bool, func, object } from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 
 import Tasks from './components/Tasks'
 import en from './locales/en'
@@ -21,71 +21,60 @@ function storeMapper (stores) {
     tutorial
   }
 }
+/**
+The tabbed tasks area of the classifier, with tabs for the tutorial and active tasks.
+*/
+function TaskArea({
+  /** Optional CSS classes */
+  className,
+  /** disable the tutorial tab */
+  disableTutorialTab = true,
+  /** select an active tutorial */
+  setActiveTutorial = () => true,
+  /** current tutorial */
+  tutorial = null
+}) {
+  const [ activeIndex, setActiveIndex ] = useState(0)
 
-class TaskArea extends React.Component {
-  constructor () {
-    super()
-
-    this.state = {
-      activeIndex: 0
-    }
+  function onTabClick(newIndex) {
+    if (newIndex === 1) setActiveTutorial(tutorial)
+    if (newIndex === 0) setActiveTutorial()
+    setActiveIndex(newIndex)
   }
 
-  onTabClick (activeIndex) {
-    const { setActiveTutorial, tutorial } = this.props
-    if (activeIndex === 1) setActiveTutorial(tutorial)
-    if (activeIndex === 0) setActiveTutorial()
-    this.setActiveIndex(activeIndex)
-  }
-
-  onClose () {
-    const { setActiveTutorial } = this.props
+  function onClose() {
     setActiveTutorial()
-    this.setActiveIndex(0)
+    setActiveIndex(0)
   }
 
-  setActiveIndex (activeIndex) {
-    this.setState({ activeIndex })
-  }
-
-  render () {
-    const { disableTutorialTab } = this.props
-
-    return (
-      <Tabs
-        activeIndex={this.state.activeIndex}
-        className={this.props.className}
-        onActive={this.onTabClick.bind(this)}
-        flex
+  return (
+    <Tabs
+      activeIndex={activeIndex}
+      className={className}
+      onActive={onTabClick}
+      flex
+    >
+      <Tab title={counterpart('TaskArea.task')}>
+        <Box fill>
+          <Tasks />
+        </Box>
+      </Tab>
+      <Tab
+        disabled={disableTutorialTab}
+        title={counterpart('TaskArea.tutorial')}
       >
-        <Tab title={counterpart('TaskArea.task')}>
-          <Box fill>
-            <Tasks />
-          </Box>
-        </Tab>
-        <Tab
-          disabled={disableTutorialTab}
-          title={counterpart('TaskArea.tutorial')}
-        >
-          <Box>
-            <SlideTutorial onClick={this.onClose.bind(this)} pad='none' />
-          </Box>
-        </Tab>
-      </Tabs>
-    )
-  }
+        <Box>
+          <SlideTutorial onClick={onClose} pad='none' />
+        </Box>
+      </Tab>
+    </Tabs>
+  )
 }
 
 TaskArea.propTypes = {
   disableTutorialTab: bool,
   setActiveTutorial: func,
   tutorial: object
-}
-
-TaskArea.defaultProps = {
-  disableTutorialTab: true,
-  setActiveTutorial: () => {},
-  tutorial: null
 }
 
 /*
