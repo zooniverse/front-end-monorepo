@@ -8,13 +8,13 @@ const GRAB_STROKE_WIDTH = 6
 const BUFFER = 32
 
 function RotateRectangle({ active, children, mark, onFinish, scale }) {
-  const { x_center, y_center, width, height } = mark
+  const { x_center, y_center, width, height, angle } = mark
   const guideWidth = GUIDE_WIDTH / scale
   const x_left = x_center - width / 2
   const x_right = x_center + width / 2
   const y_top = y_center - height / 2
   const y_bottom = y_center + height / 2
-  const xRot = x_center + width / 2 + BUFFER
+  const xRotationHandle = x_center + width / 2 + BUFFER
 
   const _onFinish =
     onFinish ||
@@ -25,6 +25,8 @@ function RotateRectangle({ active, children, mark, onFinish, scale }) {
   function onHandleDrag(coords) {
     mark.setCoordinates(coords)
   }
+
+  // function onRotateDrag() {}
 
   return (
     <g onPointerUp={active ? _onFinish : undefined}>
@@ -43,11 +45,12 @@ function RotateRectangle({ active, children, mark, onFinish, scale }) {
           <line
             x1={x_center}
             y1={y_center}
-            x2={xRot}
+            x2={xRotationHandle}
             y2={y_center}
             strokeWidth={guideWidth}
             strokeDasharray={GUIDE_DASH}
           />
+          <DragHandle scale={scale} x={xRotationHandle} y={y_center} />
         </g>
       )}
       {active && (

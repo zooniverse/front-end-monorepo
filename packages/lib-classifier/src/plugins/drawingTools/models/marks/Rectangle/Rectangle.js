@@ -50,11 +50,8 @@ const RectangleModel = types
   .actions((self) => {
     function initialDrag({ x, y }) {
       const x_left = x < self.x_center ? x : self.x_center - self.width / 2
-
       const x_right = x > self.x_center ? x : self.x_center + self.width / 2
-
       const y_top = y < self.y_center ? y : self.y_center - self.height / 2
-
       const y_bottom = y > self.y_center ? y : self.y_center + self.height / 2
 
       self.width = x_right - x_left

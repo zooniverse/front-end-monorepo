@@ -1,10 +1,4 @@
-import {
-  addDisposer,
-  getRoot,
-  getParentOfType,
-  isValidReference,
-  types
-} from 'mobx-state-tree'
+import { getParentOfType, types } from 'mobx-state-tree'
 import { RotateRectangle as RotateRectangleComponent } from '../../../components/'
 import { RotateRectangleTool } from '@plugins/drawingTools/models/tools'
 
@@ -23,12 +17,19 @@ const RotateRectangleModel = types
       return RotateRectangleComponent
     }
   }))
-// .actions((self) => {
+  .actions((self) => {
+    function setCoordinates({ x_left, x_right, y_top, y_bottom, angle }) {
+      self.x_center = (x_left + x_right) / 2
+      self.y_center = (y_top + y_bottom) / 2
+      self.width = Math.abs(x_right - x_left)
+      self.height = Math.abs(y_bottom - y_top)
+      self.angle = angle
+    }
 
-//   return {
-
-//   }
-// })
+    return {
+      setCoordinates
+    }
+  })
 
 const RotateRectangle = types.compose(
   'RotateRectangle',
