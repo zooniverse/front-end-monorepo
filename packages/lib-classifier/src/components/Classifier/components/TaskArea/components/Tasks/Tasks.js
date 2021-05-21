@@ -57,68 +57,73 @@ function withStores(Component) {
   return observer(TasksConnector)
 }
 
-class Tasks extends React.Component {
-  [asyncStates.initialized] () {
-    return null
-  }
-
-  [asyncStates.loading] () {
-    return (<Paragraph>{counterpart('Tasks.loading')}</Paragraph>)
-  }
-
-  [asyncStates.error] () {
-    console.error('There was an error loading the workflow steps and tasks.')
-    return (<Paragraph>{counterpart('Tasks.error')}</Paragraph>)
-  }
-
-  [asyncStates.success] () {
-    const {
-      classification,
-      demoMode,
-      isComplete,
-      isThereTaskHelp,
-      subjectReadyState,
-      step
-    } = this.props
-    const ready = subjectReadyState === asyncStates.success
-    if (classification && step) {
-      // setting the wrapping box of the task component to a basis of 246px feels hacky,
-      // but gets the area to be the same 453px height (or very close) as the subject area
-      // and keeps the task nav buttons at the the bottom area
-      // there has to be a better way
-      // but works for now
-      return (
-        <Box
-          key={classification.id}
-          as='form'
-          gap='small'
-          justify='between'
-          fill
-        >
-          {step.tasks.map((task, index) => (
-            <Task
-              key={task.taskKey}
-              {...this.props}
-              autoFocus={index === 0}
-              task={task}
-            />
-          ))}
-          {isThereTaskHelp && <TaskHelp tasks={step.tasks} />}
-          <TaskNavButtons disabled={!ready || !isComplete} />
-          {demoMode &&
-            <Paragraph>
-              {counterpart('Tasks.demoMode')}
-            </Paragraph>}
-        </Box>
-      )
+/**
+The classifier tasks arewa. It displays tasks for the active step, along with task help (if any) and navigation buttons to go to the next/previous step, or submit the classification.
+*/
+function Tasks({
+  classification,
+  /** Enable demo mode and turn off classification submission  */
+  demoMode = false,
+  /** Are these tasks complete, so that we can go to the next step. */
+  isComplete = false,
+  /** show a help button for these tasks */
+  isThereTaskHelp = false,
+  /** The workflow loading state */
+  loadingState = asyncStates.initialized,
+  /** Subject loading state. */
+  subjectReadyState,
+  /** The active workflow step. */
+  step
+}) {
+  switch (loadingState) {
+    case asyncStates.initialized: {
+      return null
     }
+    case asyncStates.loading: {
+      return (<Paragraph>{counterpart('Tasks.loading')}</Paragraph>)
+    }
+    case asyncStates.error: {
+      console.error('There was an error loading the workflow steps and tasks.')
+      return (<Paragraph>{counterpart('Tasks.error')}</Paragraph>)
+    }
+    case asyncStates.success: {
+      const ready = subjectReadyState === asyncStates.success
+      if (classification && step) {
+        // setting the wrapping box of the task component to a basis of 246px feels hacky,
+        // but gets the area to be the same 453px height (or very close) as the subject area
+        // and keeps the task nav buttons at the the bottom area
+        // there has to be a better way
+        // but works for now
+        return (
+          <Box
+            key={classification.id}
+            as='form'
+            gap='small'
+            justify='between'
+            fill
+          >
+            {step.tasks.map((task,index) => (
+              <Task
+                autoFocus={index === 0}
+                key={task.taskKey}
+                task={task}
+              />
+            ))}
+            {isThereTaskHelp && <TaskHelp tasks={step.tasks} />}
+            <TaskNavButtons disabled={!ready || !isComplete} />
+            {demoMode &&
+              <Paragraph>
+                {counterpart('Tasks.demoMode')}
+              </Paragraph>}
+          </Box>
+        )
+      }
 
-    return null
-  }
-
-  render () {
-    const { loadingState } = this.props
-    return this[loadingState]() || null
+      return null
+    }
+    default: {
+      return null
+    }
   }
 }
 
@@ -128,15 +133,6 @@ Tasks.propTypes = {
   isThereTaskHelp: PropTypes.bool,
   loadingState: PropTypes.oneOf(asyncStates.values),
   ready: PropTypes.bool
-}
-
-Tasks.defaultProps = {
-  demoMode: false,
-  isComplete: false,
-  isThereTaskHelp: false,
-  loadingState: asyncStates.initialized,
-  ready: false,
-  step: undefined
 }
 
 export default withStores(Tasks)
