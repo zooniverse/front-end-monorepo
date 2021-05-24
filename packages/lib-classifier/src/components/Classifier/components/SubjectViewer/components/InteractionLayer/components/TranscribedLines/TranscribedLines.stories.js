@@ -12,7 +12,7 @@ import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import readme from './README.md'
 import { reducedASMSubject } from '@store/TranscriptionReductions/mocks'
 import MultiFrameViewer from '@viewers/components/MultiFrameViewer'
-import TooltipLabel from './components/TooltipLabel'
+import TooltipIcon from './components/TooltipIcon'
 
 const config = {
   notes: {
@@ -117,7 +117,7 @@ stories
   .add('default', () => (
     <TranscribedLinesStory />
   ), config)
-  .add('Tooltip Label', () => (
+  .add('Tooltip Icon', () => (
     <Grommet
       background={{
         dark: 'dark-1',
@@ -126,6 +126,6 @@ stories
       theme={zooTheme}
       themeMode='light'
     >
-      <TooltipLabel fill={select('Fill color', ['drawing-pink', 'light-5'], 'drawing-pink')} label={text('Label text', 'This line has been transcribed')} />
+      <TooltipIcon fill={select('Fill color', ['drawing-pink', 'light-5'], 'drawing-pink')} />
     </Grommet>
   ), config)

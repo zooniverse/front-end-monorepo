@@ -17,6 +17,7 @@ export { FieldGuideMediumFactory, TutorialMediumFactory }
 export { default as DrawingTaskFactory } from './tasks/DrawingTaskFactory'
 export { default as MultipleChoiceTaskFactory } from './tasks/MultipleChoiceTaskFactory'
 export { default as SingleChoiceTaskFactory } from './tasks/SingleChoiceTaskFactory'
+export { default as TextTaskFactory } from './tasks/TextTaskFactory'
 export { default as TranscriptionTaskFactory } from './tasks/TranscriptionTaskFactory'
 
 // Classification Annotation Factories

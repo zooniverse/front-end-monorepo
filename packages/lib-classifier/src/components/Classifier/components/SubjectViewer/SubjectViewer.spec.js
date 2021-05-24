@@ -4,6 +4,7 @@ import React from 'react'
 
 import SubjectViewer from './SubjectViewer'
 import SingleImageViewer from './components/SingleImageViewer'
+import VariableStarViewer from './components/VariableStarViewer'
 
 describe('Component > SubjectViewer', function () {
   it('should render without crashing', function () {
@@ -29,6 +30,21 @@ describe('Component > SubjectViewer', function () {
   it('should render a subject viewer if the subject store successfully loads', function () {
     const wrapper = shallow(<SubjectViewer.wrappedComponent subjectQueueState={asyncStates.success} subject={{ viewer: 'singleImage' }} />)
     expect(wrapper.find(SingleImageViewer)).to.have.lengthOf(1)
+  })
+
+  it('should pass along the viewer configuration', function () {
+    const viewerConfiguration = {
+      zoomConfiguration: {
+        direction: 'both',
+        minZoom: 1,
+        maxZoom: 10,
+        zoomInValue: 1.2,
+        zoomOutValue: 0.8
+      }
+    }
+
+    const wrapper = shallow(<SubjectViewer.wrappedComponent subjectQueueState={asyncStates.success} subject={{ viewer: 'variableStar', viewerConfiguration }} />)
+    expect(wrapper.find(VariableStarViewer).props().viewerConfiguration).to.deep.equal(viewerConfiguration)
   })
 
   describe('when there is an null viewer because of invalid subject media', function () {

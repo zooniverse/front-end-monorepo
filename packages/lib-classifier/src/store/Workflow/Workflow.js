@@ -44,6 +44,11 @@ const Workflow = types
     selectedSubjects: undefined
   }))
   .views(self => ({
+    get hasIndexedSubjects () {
+      const activeSet = tryReference(() => self.subjectSet)
+      return self.grouped && !!activeSet?.isIndexed
+    },
+
     get subjectSetId () {
       const activeSet = tryReference(() => self.subjectSet)
       return activeSet?.id
