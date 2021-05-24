@@ -3,13 +3,16 @@ import PropTypes from 'prop-types'
 import DrawingToolMarks from '../DrawingToolMarks'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
-function PreviousMarks (props) {
-  const {
-    frame = 0,
-    previousAnnotations = [],
-    scale = 1,
-    shownMarks = 'ALL'
-  } = props
+function PreviousMarks ({
+  /** The current active frame in the subject viewer. */
+  frame = 0,
+  /** Annotations from previous marking tasks. Each annotation is an array of marks. */
+  previousAnnotations = [],
+  /** SVG image scale (client size / natural size.)*/
+  scale = 1,
+  /** The show/hide previous marks setting. */
+  shownMarks = 'ALL'
+}) {
   const marksToShow = shownMarks === SHOWN_MARKS.ALL || shownMarks === SHOWN_MARKS.USER
 
   if (previousAnnotations?.length > 0 && marksToShow) {
