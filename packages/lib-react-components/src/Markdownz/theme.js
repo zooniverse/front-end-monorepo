@@ -3,9 +3,6 @@ import { css } from 'styled-components'
 export default {
   anchor: {
     fontWeight: 400,
-    hover: {
-      fontWeight: 600
-    },
     textDecoration: 'underline'
   },
   heading: { // medium is the default
