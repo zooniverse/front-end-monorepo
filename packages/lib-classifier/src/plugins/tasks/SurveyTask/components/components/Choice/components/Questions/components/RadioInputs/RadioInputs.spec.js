@@ -46,7 +46,7 @@ describe('Component > RadioInputs', function () {
       expect(inputs.find({ option: { label: 'Yes', value: 'S' } }).props().isChecked).to.be.true()
     })
 
-    it('should render not chosen RadioInputs as unchecked', function () {
+    it('should render unchosen RadioInputs as unchecked', function () {
       expect(inputs.find({ option: { label: ' No', value: 'N' } }).props().isChecked).to.be.false()
     })
   })
