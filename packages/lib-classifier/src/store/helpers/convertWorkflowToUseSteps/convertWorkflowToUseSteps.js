@@ -113,7 +113,8 @@ export default function convertWorkflowToUseSteps({ first_task, steps = [], task
       }
     }
     if (taskExists(step.next, tasks)) {
-      step.next = getNextStepFromTaskKey(step.next, steps, tasks)
+      const nextStep = getNextStepFromTaskKey(step.next, steps, tasks)
+      step.next = (nextStep !== stepKey) ? nextStep : undefined
     }
   })
 
