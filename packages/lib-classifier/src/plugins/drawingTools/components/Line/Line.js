@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import DragHandle from '../DragHandle'
@@ -50,4 +51,4 @@ Line.defaultProps = {
   scale: 1
 }
 
-export default Line
+export default observer(Line)

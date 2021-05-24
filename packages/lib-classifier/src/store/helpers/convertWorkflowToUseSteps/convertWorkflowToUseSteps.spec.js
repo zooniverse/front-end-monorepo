@@ -2,7 +2,8 @@ import convertWorkflowToUseSteps from './'
 import {
   DrawingTaskFactory,
   MultipleChoiceTaskFactory,
-  SingleChoiceTaskFactory
+  SingleChoiceTaskFactory,
+  TextTaskFactory
 } from '@test/factories'
 
 describe('Helpers > convertWorkflowToUseSteps', function () {
@@ -335,6 +336,64 @@ describe('Helpers > convertWorkflowToUseSteps', function () {
         }
       }
     },
+    // single step combo task with individual tasks linked up.
+    {
+      name: 'single step combo task',
+      input: {
+        first_task: 'T3',
+        tasks: {
+          T0: TextTaskFactory.build({
+            taskKey: 'T0',
+            next: 'T1',
+            instruction: 'Entry 1'
+          }),
+          T1: TextTaskFactory.build({
+            taskKey: 'T1',
+            next: 'T2',
+            instruction: 'Entry 2'
+          }),
+          T2: TextTaskFactory.build({
+            taskKey: 'T2',
+            instruction: 'Entry 3'
+          }),
+          T3: {
+            taskKey: 'T3',
+            type: 'combo',
+            tasks: ['T0', 'T1', 'T2']
+          }
+        }
+      },
+      output: {
+        steps: [
+          ['S0', {
+            next: undefined,
+            stepKey: 'S0',
+            taskKeys: ['T0', 'T1', 'T2']
+          }]
+        ],
+        tasks: {
+          T0: TextTaskFactory.build({
+            taskKey: 'T0',
+            next: 'T1',
+            instruction: 'Entry 1'
+          }),
+          T1: TextTaskFactory.build({
+            taskKey: 'T1',
+            next: 'T2',
+            instruction: 'Entry 2'
+          }),
+          T2: TextTaskFactory.build({
+            taskKey: 'T2',
+            instruction: 'Entry 3'
+          }),
+          T3: {
+            taskKey: 'T3',
+            type: 'combo',
+            tasks: ['T0', 'T1', 'T2']
+          }
+        }
+      }
+    }
   ]
 
   function runTestCase(testCase) {
