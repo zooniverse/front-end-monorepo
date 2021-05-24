@@ -85,6 +85,9 @@ const Tool = types.model('Tool', {
     }
 
     function validate () {
+      // if the needed validation action needs to vary,
+      // then this can be moved to the tools that should delete on invalid mark
+      // transcription line, ellipse
       self.marks.forEach(mark => {
         if (!mark.isValid) {
           self.deleteMark(mark)
