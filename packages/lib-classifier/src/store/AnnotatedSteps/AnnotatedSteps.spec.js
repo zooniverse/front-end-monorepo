@@ -1,7 +1,7 @@
 import sinon from 'sinon'
 import mockStore from '@test/mockStore'
 
-describe('Model > AnnotatedSteps', function () {
+describe.only('Model > AnnotatedSteps', function () {
   let store
 
   before(function () {
@@ -37,6 +37,8 @@ describe('Model > AnnotatedSteps', function () {
   })
 
   describe('after moving to the second step', function () {
+    let firstStep
+
     before(function () {
       const [ branchingQuestionAnnotation ] = store.annotatedSteps.latest.annotations
       // answer Yes to the branching question.
@@ -63,10 +65,6 @@ describe('Model > AnnotatedSteps', function () {
 
     it('should validate the first step\'s tasks', function () {
       firstStep.tasks.forEach(task => expect(task.validate).to.have.been.calledOnce())
-    })
-
-    it('should complete the first step', function () {
-      firstStep.tasks.forEach(task => expect(task.complete).to.have.been.calledOnce())
     })
 
     it('should store the second workflow step', function () {
