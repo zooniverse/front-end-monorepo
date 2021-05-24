@@ -1,7 +1,7 @@
 import sinon from 'sinon'
 import mockStore from '@test/mockStore'
 
-describe.only('Model > AnnotatedSteps', function () {
+describe('Model > AnnotatedSteps', function () {
   let store
 
   before(function () {
