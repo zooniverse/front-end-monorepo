@@ -14,7 +14,7 @@ function taskDispatcher (snapshot) {
 
 const GenericTask = types.union({ dispatcher: taskDispatcher }, ...taskModels)
 
-const Step = types
+const baseStep = types
   .model('Step', {
     next: types.maybe(types.string),
     stepKey: types.identifier,
@@ -67,5 +67,9 @@ const Step = types
       self.tasks.forEach(task => task.reset())
     }
   }))
+
+const Step = types.refinement(baseStep, function validateStep(snapshot) {
+  return snapshot.stepKey !== snapshot.next
+})
 
 export default Step
