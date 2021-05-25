@@ -44,6 +44,7 @@ function withStores(Component) {
 
 function Task ({
   annotation,
+  autoFocus = false,
   disabled,
   task,
   ...props
@@ -55,6 +56,7 @@ function Task ({
       <Box key={annotation.id} basis='auto'>
         <TaskComponent
           {...props}
+          autoFocus={autoFocus}
           disabled={disabled}
           annotation={annotation}
           task={task}
