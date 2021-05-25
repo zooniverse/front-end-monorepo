@@ -5,7 +5,6 @@ import {
   SingleChoiceTaskFactory
 } from '@test/factories'
 import taskRegistry from '@plugins/tasks'
-import { expect } from 'chai'
 
 describe('Model > Step', function () {
   let step
@@ -19,6 +18,15 @@ describe('Model > Step', function () {
   it('should exist', function () {
     expect(step).to.be.ok()
     expect(step).to.be.an('object')
+  })
+
+  describe('with valid tasks', function () {
+    it('should be valid', function () {
+      // All tasks default to valid
+      // drawing task can be invalid if it has an invalid mark
+      // this is tested in the transcription line tool specs
+      expect(step.isValid).to.be.true()
+    })
   })
 
   describe('with incomplete, optional tasks', function () {
@@ -316,7 +324,7 @@ describe('Model > Step', function () {
     })
   })
 
-  describe('completeTasks', function () {
+  describe('on next or finish', function () {
     let tasks
 
     before(function () {
@@ -333,14 +341,22 @@ describe('Model > Step', function () {
       ]
       tasks.forEach(task => {
         sinon.spy(task, 'complete')
+        sinon.spy(task, 'validate')
       })
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      step.completeTasks([])
+      step.completeAndValidate([])
     })
 
     after(function () {
       tasks.forEach(task => {
         task.complete.restore()
+        task.validate.restore()
+      })
+    })
+
+    it('should validate each step task', function () {
+      tasks.forEach(task => {
+        expect(task.validate).to.have.been.calledOnce()
       })
     })
 
@@ -348,39 +364,6 @@ describe('Model > Step', function () {
       tasks.forEach(task => {
         expect(task.complete).to.have.been.calledOnce()
       })
-    })
-  })
-
-  describe('validation', function () {
-    let tasks
-
-    before(function () {
-      tasks = [
-        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: '' })),
-        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({
-          taskKey: 'T2',
-          required: '',
-          answers: [
-            { label: 'Red' },
-            { label: 'Blue' }
-          ]
-        }))
-      ]
-      tasks.forEach(task => {
-        sinon.spy(task, 'validate')
-      })
-      const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      step.validateTasks([])
-    })
-
-    it('should validate each task', function () {
-      tasks.forEach(task => {
-        expect(task.validate).to.have.been.calledOnce()
-      })
-    })
-
-    it('should be valid', function () {
-      expect(step.isValid).to.be.true()
     })
   })
 })

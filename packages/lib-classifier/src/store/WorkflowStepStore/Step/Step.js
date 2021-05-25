@@ -64,16 +64,10 @@ const baseStep = types
     }
   }))
   .actions(self => ({
-    completeTasks(annotations) {
-      self.tasks.forEach((task) => {
-        const [ annotation ] = annotations.filter(annotation => annotation.task === task.taskKey)
-        task.complete(annotation)
-      })
-    },
-
-    validateTasks(annotations) {
+    completeAndValidate(annotations) {
       self.tasks.forEach((task) => {
         const [annotation] = annotations.filter(annotation => annotation.task === task.taskKey)
+        task.complete(annotation)
         task.validate(annotation)
       })
     },
