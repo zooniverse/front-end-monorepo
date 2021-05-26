@@ -8,7 +8,7 @@ export default function RadioInput (props) {
     label
   } = props
 
-  const backgroundColor = checked ? 'accent-2' : 'neutral-6'
+  const backgroundColor = checked ? 'accent-1' : 'neutral-6'
 
   return (
     <Box
