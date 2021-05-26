@@ -1,17 +1,23 @@
 import { shallow } from 'enzyme'
-import { Box, Text } from 'grommet'
+import { Text } from 'grommet'
 import React from 'react'
+import sinon from 'sinon'
 
-import RadioInput from './RadioInput'
+import RadioInput, { StyledBox } from './RadioInput'
 
 describe('Component > RadioInput', function () {
-  let wrapper
+  let wrapper, handleRadioChangeSpy
 
   before(function () {
+    handleRadioChangeSpy = sinon.spy()
     wrapper = shallow(
       <RadioInput
-        check={false}
-        label='True'
+        handleRadioChange={handleRadioChangeSpy}
+        option={{
+          label: 'Yes',
+          value: 'S'
+        }}
+        questionId='RTHRNNGPRSNT'
       />
     )
   })
@@ -21,11 +27,11 @@ describe('Component > RadioInput', function () {
   })
 
   it('should render the label', function () {
-    expect(wrapper.find(Text).text()).to.equal('True')
+    expect(wrapper.find(Text).text()).to.equal('Yes')
   })
 
   it('should have a background color neutral-6', function () {
-    expect(wrapper.find(Box).props().background.color).to.equal('neutral-6')
+    expect(wrapper.find(StyledBox).props().background.color).to.equal('neutral-6')
   })
 
   it('should have text weight normal', function () {
@@ -34,15 +40,39 @@ describe('Component > RadioInput', function () {
 
   describe('when checked', function () {
     before(function () {
-      wrapper.setProps({ checked: true })
+      wrapper.setProps({ isChecked: true })
     })
 
     it('should have a background color of accent-2', function () {
-      expect(wrapper.find(Box).props().background.color).to.equal('accent-2')
+      expect(wrapper.find(StyledBox).props().background.color).to.equal('accent-2')
     })
 
     it('should have text weight bold', function () {
       expect(wrapper.find(Text).props().weight).to.equal('bold')
+    })
+  })
+
+  describe('onChange', function () {
+    it('should call handleRadioChange with checked and value', function () {
+      expect(handleRadioChangeSpy).to.not.have.been.called()
+
+      wrapper.find('input').simulate('change', { target: { checked: true, value: 'S' } })
+
+      expect(handleRadioChangeSpy).to.have.been.calledWith('S')
+
+      handleRadioChangeSpy.resetHistory()
+    })
+  })
+
+  describe('onClick', function () {
+    it('should call handleRadioChange with checked and value', function () {
+      expect(handleRadioChangeSpy).to.not.have.been.called()
+
+      wrapper.find('input').simulate('click', { target: { checked: true, value: 'S' } })
+
+      expect(handleRadioChangeSpy).to.have.been.calledWith('S')
+
+      handleRadioChangeSpy.resetHistory()
     })
   })
 })

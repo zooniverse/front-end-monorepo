@@ -28,6 +28,7 @@ class AlreadySeenBannerContainer extends Component {
       <Banner
         background='status-ok'
         bannerText={counterpart('AlreadySeenBanner.bannerText')}
+        color='neutral-7'
         show={show}
         tooltipText={counterpart('AlreadySeenBanner.tooltipText')}
       />

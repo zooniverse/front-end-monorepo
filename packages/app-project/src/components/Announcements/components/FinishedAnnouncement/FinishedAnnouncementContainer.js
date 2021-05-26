@@ -53,7 +53,7 @@ FinishedAnnouncementContainer.propTypes = {
   theme: shape({
     global: shape({
       colors: shape({
-        'accent-2': string,
+        'accent-1': string,
         brand: string
       })
     })

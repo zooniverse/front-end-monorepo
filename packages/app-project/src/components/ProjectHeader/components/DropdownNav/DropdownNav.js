@@ -14,7 +14,7 @@ const StyledAnchor = styled(Anchor)`
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
   &:focus,
   &:hover {
-    ${props => css`background: ${props.theme.global.colors['neutral-2']};`}
+    ${props => css`background: ${props.theme.global.colors['neutral-1']};`}
     text-decoration: none;
   }
 `
@@ -26,13 +26,13 @@ const StyledDropButton = styled(DropButton)`
   color: white;
 
   ${props => props.isOpen && css`
-    background: ${props.theme.global.colors['accent-2']};
+    background: ${props.theme.global.colors['accent-1']};
   `}
 
   &:focus,
   &:hover {
     ${props => css`
-      background: ${props.theme.global.colors['accent-2']};
+      background: ${props.theme.global.colors['accent-1']};
       color: ${props.theme.global.colors['brand']};
     `}
   }
@@ -112,7 +112,7 @@ DropdownNav.propTypes = {
   theme: shape({
     global: shape({
       colors: shape({
-        'accent-2': string,
+        'accent-1': string,
         brand: string
       })
     })

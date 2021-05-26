@@ -19,7 +19,7 @@ const StyledDropButton = styled(DropButton)`
   padding: 5px 10px;
 
   ${props => props.backgroundColor ? css`
-    background-color: ${props.theme.global.colors['accent-2']};
+    background-color: ${props.theme.global.colors['accent-1']};
   ` : css`
     background-color: none;
   `}
@@ -76,7 +76,7 @@ export default function FilterStatus (props) {
         icon={<FilterIcon />}
         label={
           <StyledLabel 
-            color='neutral-2'
+            color='neutral-1'
           >
             {counterpart('CharacteristicsFilter.filter')}
           </StyledLabel>

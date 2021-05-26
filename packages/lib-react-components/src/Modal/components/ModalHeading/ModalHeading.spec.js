@@ -65,14 +65,14 @@ describe('Modal > ModalHeading', function () {
     describe('with a color prop', function () {
       it('should set the heading text colour', function () {
         expect(wrapper.find(StyledHeading).props().color).to.equal('neutral-6')
-        wrapper.setProps({ color: 'accent-2' })
-        expect(wrapper.find(StyledHeading).props().color).to.equal('accent-2')
+        wrapper.setProps({ color: 'accent-1' })
+        expect(wrapper.find(StyledHeading).props().color).to.equal('accent-1')
       })
       
       it('should set the close button colour', function () {
         expect(wrapper.find(CloseButton).props().color).to.equal('neutral-6')
-        wrapper.setProps({ color: 'accent-2' })
-        expect(wrapper.find(CloseButton).props().color).to.equal('accent-2')
+        wrapper.setProps({ color: 'accent-1' })
+        expect(wrapper.find(CloseButton).props().color).to.equal('accent-1')
       })
     })
 

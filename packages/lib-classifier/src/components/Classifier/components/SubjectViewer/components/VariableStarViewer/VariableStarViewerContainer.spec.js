@@ -27,7 +27,7 @@ const nextSubjectJSON = {
             }
           ],
           "seriesOptions": {
-            "color": "accent-2",
+            "color": "accent-1",
             "period": 2.5
           }
         }, {
@@ -67,8 +67,8 @@ const nextSubjectJSON = {
       },
       amplitude: {
         data: [
-          { color: 'accent-1', label: 'X', value: 34.3747 },
-          { color: 'accent-2', label: 'Y', value: 236.3637 }
+          { color: 'accent-3', label: 'X', value: 34.3747 },
+          { color: 'accent-1', label: 'Y', value: 236.3637 }
         ],
         chartOptions: {
           xAxisLabel: 'Amplitude',
