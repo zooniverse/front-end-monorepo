@@ -15,7 +15,7 @@ storiesOf('Project App / Screens / Project Home / Announcements / ProjectAnnounc
     <Grommet theme={zooTheme}>
       <ProjectAnnouncementContainer
         announcement={text('Announcement', ANNOUNCEMENT)}
-        color='neutral-4'
+        color='neutral-2'
         dismissBanner={() => {}}
         isVisible
       />

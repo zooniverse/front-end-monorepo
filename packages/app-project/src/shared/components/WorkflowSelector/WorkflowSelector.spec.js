@@ -1,5 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { shallow, render } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
 
@@ -29,7 +29,6 @@ const WORKFLOW_DESCRIPTION = 'Sit nulla mi metus tellus aenean lobortis litora'
 const DEFAULT_WORKFLOW_DESCRIPTION = 'You can do real research by clicking to get started here!'
 
 describe('Component > Hero > WorkflowSelector > WorkflowSelector', function () {
-
   it('should render without crashing', function () {
     const wrapper = shallow(
       <WorkflowSelector
@@ -42,32 +41,32 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelector', function () {
 
   describe('workflow description', function () {
     it('should use the `workflowDescription` prop if available', function () {
-      const wrapper = render(
+      const wrapper = shallow(
         <WorkflowSelector
           theme={THEME}
           workflows={WORKFLOWS}
           workflowDescription={WORKFLOW_DESCRIPTION}
         />)
-      expect(wrapper.text()).to.include(WORKFLOW_DESCRIPTION)
+      expect(wrapper.contains(WORKFLOW_DESCRIPTION)).to.be.true()
     })
 
     it('should use the default message if the `workflowDescription` prop is unset', function () {
-      const wrapper = render(
+      const wrapper = shallow(
         <WorkflowSelector
           theme={THEME}
           workflows={WORKFLOWS}
         />)
-      expect(wrapper.text()).to.include(DEFAULT_WORKFLOW_DESCRIPTION)
+      expect(wrapper.contains(DEFAULT_WORKFLOW_DESCRIPTION)).to.be.true()
     })
 
     it('should use the default message if the `workflowDescription` prop is an empty string', function () {
-      const wrapper = render(
+      const wrapper = shallow(
         <WorkflowSelector
           theme={THEME}
           workflows={WORKFLOWS}
           workflowDescription=''
         />)
-      expect(wrapper.text()).to.include(DEFAULT_WORKFLOW_DESCRIPTION)
+      expect(wrapper.contains(DEFAULT_WORKFLOW_DESCRIPTION)).to.be.true()
     })
   })
 

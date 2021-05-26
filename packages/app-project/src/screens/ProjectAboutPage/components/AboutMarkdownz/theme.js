@@ -3,7 +3,7 @@ import { css } from 'styled-components'
 const theme = {
   heading: {
     extend: props => css`
-      color: ${props.theme.global.colors['neutral-2']};
+      color: ${props.theme.global.colors['neutral-1']};
       margin: 14px 0;
     `,
     level: {

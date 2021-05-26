@@ -10,7 +10,7 @@ const customThemeRangeInput = {
   },
   rangeInput: {
     track: {
-      color: 'accent-2',
+      color: 'accent-1',
       height: '6px',
       extend: () => `border-radius: 10px`,
       lower: {
