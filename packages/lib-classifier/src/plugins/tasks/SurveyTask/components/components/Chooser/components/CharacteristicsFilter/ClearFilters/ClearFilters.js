@@ -55,7 +55,14 @@ export default function ClearFilters (props) {
           light: 'dark-5'
         }}
         disabled={showingChoices === totalChoices}
-        label={<Label />}
+        icon={<Clear
+          color={{
+            dark: 'light-3',
+            light: 'dark-5'
+          }}
+          size='small'
+        />}
+        label={counterpart('CharacteristicsFilter.clearFilters')}
         onClick={() => handleFilter()}
         plain
       />
