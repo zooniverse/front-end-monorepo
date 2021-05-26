@@ -1,4 +1,4 @@
-import { autorun } from 'mobx'
+import { autorun, configure } from 'mobx'
 import {
   addDisposer,
   addMiddleware,
@@ -21,6 +21,10 @@ import TutorialStore from './TutorialStore'
 import WorkflowStore from './WorkflowStore'
 import WorkflowStepStore from './WorkflowStepStore'
 import UserProjectPreferencesStore from './UserProjectPreferencesStore'
+
+// Isolate mobx globals. 
+// See: https://github.com/mobxjs/mobx/blob/72d06f8cd2519ce4dbfb807bc13556ca35866690/docs/configuration.md#isolateglobalstate-boolean
+configure({ isolateGlobalState: true })
 
 const RootStore = types
   .model('RootStore', {
