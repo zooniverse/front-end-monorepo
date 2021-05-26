@@ -1,5 +1,12 @@
 import { types } from 'mobx-state-tree'
 
+const Preferences = types
+  .model('Preferences', {
+    minicourses: types.maybe(types.frozen()),
+    selected_workflow: types.maybe(types.string),
+    tutorials_completed_at: types.maybe(types.frozen())
+  })
+
 const UserProjectPreferences = types
   .model('UserProjectPreferences', {
     activity_count: types.maybe(types.number),
