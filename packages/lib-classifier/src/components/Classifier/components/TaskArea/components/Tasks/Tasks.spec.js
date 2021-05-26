@@ -22,7 +22,9 @@ describe('Tasks', function () {
       // keys that aren't defined on certain task models are ignored
       // but missing keys that aren't an optional or maybe type will throw an error
       const taskSnapshot = {
+        answers: [],
         instruction: `${taskType} instructions`,
+        options: [],
         question: `${taskType} question`,
         taskKey: 'init',
         type: taskType
@@ -121,6 +123,19 @@ describe('Tasks', function () {
         )
         // Is there a better way to do this?
         expect(wrapper.find(Task)).to.have.lengthOf(1)
+      })
+
+      it('should autofocus the task', function () {
+        const wrapper = shallow(
+          <Tasks
+            loadingState={asyncStates.success}
+            ready
+            classification={classification}
+            step={step}
+          />
+        )
+        // Is there a better way to do this?
+        expect(wrapper.find(Task).prop('autoFocus')).to.be.true()
       })
 
       it('should not render the demo mode messaging', function () {
