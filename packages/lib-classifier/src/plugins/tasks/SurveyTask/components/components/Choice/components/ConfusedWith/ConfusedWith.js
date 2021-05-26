@@ -49,7 +49,7 @@ function ConfusedWith (props) {
             backgroundColor = 'dark-3'
           }
           if (open === confusionId) {
-            backgroundColor = 'accent-2'
+            backgroundColor = 'accent-1'
           }
 
           return (
