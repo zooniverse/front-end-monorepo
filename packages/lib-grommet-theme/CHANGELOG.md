@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unpublished]
+## [3.0.0]
 ### Added
 - Added drawing tool colors as `drawing-${variableName}` and to the colors object for utility use
 - Added highlighter tool colors as `highlighter-${variableName}` and to the colors object for utility use
