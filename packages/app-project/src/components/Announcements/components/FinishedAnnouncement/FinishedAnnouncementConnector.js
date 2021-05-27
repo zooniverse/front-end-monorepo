@@ -1,9 +1,6 @@
 import { MobXProviderContext, observer } from 'mobx-react'
-import { shape, object } from 'prop-types'
 import React from 'react'
 import counterpart from 'counterpart'
-import { withTheme } from 'styled-components'
-import { lighten } from 'polished'
 
 import NavLink from '@shared/components/NavLink'
 import en from './locales/en'
@@ -22,7 +19,7 @@ function useStores() {
   }
 }
 
-function FinishedAnnouncementConnector ({ theme }) {
+function FinishedAnnouncementConnector () {
   const { 
     baseUrl = '',
     isVisible = false
@@ -37,7 +34,7 @@ function FinishedAnnouncementConnector ({ theme }) {
     return (
       <GenericAnnouncement
         announcement={announcement}
-        color={'neutral-3'}
+        color='neutral-3'
       >
         <NavLink color='#000000' link={link} weight='normal' />
       </GenericAnnouncement>
@@ -47,21 +44,5 @@ function FinishedAnnouncementConnector ({ theme }) {
   return null
 }
 
-FinishedAnnouncementConnector.propTypes = {
-  theme: shape({
-    global: shape({
-      colors: object
-    })
-  })
-}
-
-FinishedAnnouncementConnector.defaultProps = {
-  theme: {
-    global: {
-      colors: {}
-    }
-  }
-}
-
-export default withTheme(observer(FinishedAnnouncementConnector))
+export default observer(FinishedAnnouncementConnector)
 export { FinishedAnnouncementConnector }
