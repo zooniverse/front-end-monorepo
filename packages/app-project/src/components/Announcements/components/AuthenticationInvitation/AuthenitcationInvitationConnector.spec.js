@@ -1,12 +1,9 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
-import zooTheme from '@zooniverse/grommet-theme'
 
-import { AuthenticationInvitationConnector } from './AuthenticationInvitationConnector'
-import GenericAnnouncement from '../GenericAnnouncement'
-import en from './locales/en'
-import { expect } from 'chai'
+import AuthenticationInvitationConnector from './AuthenticationInvitationConnector'
+import AuthenticationInvitationContainer from './AuthenticationInvitationContainer'
 
 describe('Component > AuthenticationInvitationConnector', function () {
   let wrapper
@@ -16,12 +13,7 @@ describe('Component > AuthenticationInvitationConnector', function () {
   const mockStore = {
     store: {
       project: {
-        baseUrl: 'zookeeper/galaxy-zoo',
         isComplete: false
-      },
-      ui: {
-        dismissProjectAnnouncementBanner: sinon.spy(),
-        showAnnouncement: true
       },
       user: {
         isLoggedIn: false
@@ -35,9 +27,9 @@ describe('Component > AuthenticationInvitationConnector', function () {
   before(function () {
     useContextMock = sinon.stub(React, 'useContext').callsFake(() => mockStore)
     wrapper = shallow(
-      <AuthenticationInvitationConnector theme={zooTheme} />
+      <AuthenticationInvitationConnector />
     )
-    componentWrapper = wrapper.find(GenericAnnouncement)
+    componentWrapper = wrapper.find(AuthenticationInvitationContainer)
   })
 
   after(function () {
@@ -48,79 +40,53 @@ describe('Component > AuthenticationInvitationConnector', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should render the `GenericAnnouncement` component if visible', function () {
-    expect(componentWrapper).to.have.lengthOf(1)
-  })
-
-  it('should pass down the required props', function () {
-    expect(componentWrapper.props().announcement).to.equal(en.AuthenticationInvitation.announcement)
+  it('should be visible', function () {
+    expect(componentWrapper.props().isVisible).to.be.true()
   })
 
   describe('when the project is finished', function () {
     before(function () {
       mockStore.store.project.isComplete = true
       wrapper = shallow(
-        <AuthenticationInvitationConnector theme={zooTheme} />
+        <AuthenticationInvitationConnector />
       )
-      componentWrapper = wrapper.find(GenericAnnouncement)
+      componentWrapper = wrapper.find(AuthenticationInvitationContainer)
     })
 
     after(function () {
       mockStore.store.project.isComplete = false
     })
 
-    it('should not render the `GenericAnnouncement` component', function () {
-      expect(componentWrapper).to.have.lengthOf(0)
+    it('should not be visible', function () {
+      expect(componentWrapper.props().isVisible).to.be.false()
     })
   })
 
   describe('when the user is logged in', function () {
     before(function () {
       mockStore.store.user.isLoggedIn = true
-      wrapper = shallow(
-        <AuthenticationInvitationConnector theme={zooTheme} />
-      )
-      componentWrapper = wrapper.find(GenericAnnouncement)
+      wrapper = shallow(<AuthenticationInvitationConnector />)
+      componentWrapper = wrapper.find(AuthenticationInvitationContainer)
     })
 
     after(function () {
       mockStore.store.user.isLoggedIn = false
     })
 
-    it('should not render the `GenericAnnouncement` component', function () {
-      expect(componentWrapper).to.have.lengthOf(0)
-    })
-  })
-
-  describe('when the banner has been dismissed for the session', function () {
-    before(function () {
-      mockStore.store.ui.showAnnouncement = false
-      wrapper = shallow(
-        <AuthenticationInvitationConnector theme={zooTheme} />
-      )
-      componentWrapper = wrapper.find(GenericAnnouncement)
-    })
-
-    after(function () {
-      mockStore.store.ui.showAnnouncement = true
-    })
-
-    it('should not render the `GenericAnnouncement` component', function () {
-      expect(componentWrapper).to.have.lengthOf(0)
+    it('should not be visible', function () {
+      expect(componentWrapper.props().isVisible).to.be.false()
     })
   })
 
   describe('when the session classification count is less than five', function () {
     before(function () {
       mockStore.store.yourStats.sessionCount = 3
-      wrapper = shallow(
-        <AuthenticationInvitationConnector theme={zooTheme} />
-      )
-      componentWrapper = wrapper.find(GenericAnnouncement)
+      wrapper = shallow(<AuthenticationInvitationConnector />)
+      componentWrapper = wrapper.find(AuthenticationInvitationContainer)
     })
 
-    it('should not render the `GenericAnnouncement` component', function () {
-      expect(componentWrapper).to.have.lengthOf(0)
+    it('should not be visible', function () {
+      expect(componentWrapper.props().isVisible).to.be.false()
     })
   })
 })

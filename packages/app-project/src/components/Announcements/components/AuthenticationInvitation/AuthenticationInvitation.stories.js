@@ -3,7 +3,7 @@ import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import React from 'react'
 
-import { AuthenticationInvitationConnector } from './AuthenticationInvitationConnector'
+import AuthenticationInvitationConnector from './AuthenticationInvitationConnector'
 import readme from './README.md'
 
 export default {
@@ -26,10 +26,6 @@ const stores = {
   project: {
     isComplete: false
   },
-  ui: {
-    dismissProjectAnnouncementBanner: () => {},
-    showAnnouncement: true
-  },
   user: {
     isLoggedIn: false
   },
@@ -43,18 +39,18 @@ function StoryContext(props) {
   const { children, theme } = props
 
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={theme}
-      themeMode={(theme.dark) ? 'dark' : 'light'}
-    >
-      <Provider store={stores}>
+    <Provider store={stores}>
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={theme}
+        themeMode={(theme.dark) ? 'dark' : 'light'}
+      >
         {children}
-      </Provider>
-    </Grommet>
+      </Grommet>
+    </Provider>
   )
 }
 
