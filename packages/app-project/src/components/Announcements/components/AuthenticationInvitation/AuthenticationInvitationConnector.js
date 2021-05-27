@@ -1,11 +1,17 @@
 import { MobXProviderContext, observer } from 'mobx-react'
 import React from 'react'
+import styled from 'styled-components'
+import { Anchor } from 'grommet'
 import NavLink from '@shared/components/NavLink'
 import GenericAnnouncement from '../GenericAnnouncement'
 import en from './locales/en'
 import counterpart from 'counterpart'
 
 counterpart.registerTranslations('en', en)
+
+const StyledAnchor = styled(Anchor)`
+  line-height: 19px;
+`
 
 function useStores() {
   const stores = React.useContext(MobXProviderContext)
@@ -47,8 +53,8 @@ function AuthenticationInvitationConnector (props) {
         color='neutral-5'
         dismissable
       >
-        <NavLink color='#000000' link={signInLink} weight='normal' />
-        <NavLink color='#000000' link={registerLink} weight='normal' />
+        <NavLink color='#000000' link={signInLink} weight='normal' StyledAnchor={StyledAnchor} />
+        <NavLink color='#000000' link={registerLink} weight='normal' StyledAnchor={StyledAnchor} />
       </GenericAnnouncement>
     )
   }

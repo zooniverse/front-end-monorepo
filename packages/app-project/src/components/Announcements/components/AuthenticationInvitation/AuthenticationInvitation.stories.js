@@ -23,22 +23,21 @@ export default {
 }
 
 const stores = {
-  store: {
-    project: {
-      isComplete: false
-    },
-    ui: {
-      dismissProjectAnnouncementBanner: () => {},
-      showAnnouncement: true
-    },
-    user: {
-      isLoggedIn: false
-    },
-    yourStats: {
-      sessionCount: 5
-    }
+  project: {
+    isComplete: false
+  },
+  ui: {
+    dismissProjectAnnouncementBanner: () => {},
+    showAnnouncement: true
+  },
+  user: {
+    isLoggedIn: false
+  },
+  yourStats: {
+    sessionCount: 5
   }
 }
+
 
 function StoryContext(props) {
   const { children, theme } = props
