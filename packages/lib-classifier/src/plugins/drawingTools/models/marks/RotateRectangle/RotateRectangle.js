@@ -15,7 +15,15 @@ const RotateRectangleModel = types
 
     get toolComponent() {
       return RotateRectangleComponent
-    }
+    },
+    
+    get x() {  // Define x so <Mark /> performs transform="translate(x,y)"
+      return self.x_center
+    },
+    
+    get y() {  // Define y so <Mark /> performs transform="translate(x,y)"
+      return self.y_center
+    },
   }))
   .actions((self) => {
     function setCoordinates({ x_left, x_right, y_top, y_bottom, angle }) {

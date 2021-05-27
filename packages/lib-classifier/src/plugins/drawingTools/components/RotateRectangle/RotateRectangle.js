@@ -10,11 +10,15 @@ const BUFFER = 32
 function RotateRectangle({ active, children, mark, onFinish, scale }) {
   const { x_center, y_center, width, height, angle } = mark
   const guideWidth = GUIDE_WIDTH / scale
-  const x_left = x_center - width / 2
-  const x_right = x_center + width / 2
-  const y_top = y_center - height / 2
-  const y_bottom = y_center + height / 2
-  const xRotationHandle = x_center + width / 2 + BUFFER
+  
+  // First, draw the rectangle around the origin point (0,0)
+  // Then, the rectangle will be moved to the correct x-y position via
+  // transform=transalate(x,y) at the higher-level <Mark/>
+  const x_left = - width / 2
+  const x_right = + width / 2
+  const y_top = - height / 2
+  const y_bottom = + height / 2
+  const xRotationHandle = + width / 2 + BUFFER
 
   const _onFinish =
     onFinish ||
@@ -34,6 +38,8 @@ function RotateRectangle({ active, children, mark, onFinish, scale }) {
 
   return (
     <g onPointerUp={active ? _onFinish : undefined}>
+      <circle cx="0" cy="0" r="20" fill="blue" />
+    
       <rect x={x_left} y={y_top} width={width} height={height} />
       <rect
         x={x_left}
