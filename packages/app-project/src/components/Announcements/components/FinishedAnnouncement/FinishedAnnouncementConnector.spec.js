@@ -1,20 +1,36 @@
 import { shallow } from 'enzyme'
 import React from 'react'
+import sinon from 'sinon'
 import zooTheme from '@zooniverse/grommet-theme'
 
-import { FinishedAnnouncementContainer } from './FinishedAnnouncementContainer'
+import { FinishedAnnouncementConnector } from './FinishedAnnouncementConnector'
 import GenericAnnouncement from '../GenericAnnouncement'
 import en from './locales/en'
 
-describe('Component > FinishedAnnouncementContainer', function () {
+describe('Component > FinishedAnnouncementConnector', function () {
   let wrapper
   let componentWrapper
+  let useContextMock
+
+  const mockStore = {
+    store: {
+      project: {
+        baseUrl: 'zookeeper/galaxy-zoo',
+        isComplete: false
+      }
+    }
+  }
 
   before(function () {
+    useContextMock = sinon.stub(React, 'useContext').callsFake(() => mockStore)
     wrapper = shallow(
-      <FinishedAnnouncementContainer theme={zooTheme} />
+      <FinishedAnnouncementConnector theme={zooTheme} />
     )
     componentWrapper = wrapper.find(GenericAnnouncement)
+  })
+
+  after(function () {
+    useContextMock.restore()
   })
 
   it('should render without crashing', function () {
@@ -23,7 +39,10 @@ describe('Component > FinishedAnnouncementContainer', function () {
 
   it('should render the `GenericAnnouncement` component if visible', function () {
     expect(componentWrapper).to.have.lengthOf(0)
-    wrapper.setProps({ isVisible: true })
+    mockStore.store.project.isComplete = true
+    wrapper = shallow(
+      <FinishedAnnouncementConnector theme={zooTheme} />
+    )
     componentWrapper = wrapper.find(GenericAnnouncement)
     expect(componentWrapper).to.have.lengthOf(1)
   })

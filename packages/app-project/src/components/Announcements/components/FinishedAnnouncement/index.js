@@ -1,1 +1,1 @@
-export { default } from './FinishedAnnouncementContainer'
+export { default } from './FinishedAnnouncementConnector'
