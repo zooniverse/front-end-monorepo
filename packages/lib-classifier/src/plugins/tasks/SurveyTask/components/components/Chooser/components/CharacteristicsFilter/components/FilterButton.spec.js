@@ -47,8 +47,8 @@ describe('Component > FilterButton', function () {
       wrapper.setProps({ checked: true })
     })
 
-    it('should have a background color of accent-2', function () {
-      expect(wrapper.find(StyledFilter).props().background.color).to.equal('accent-2')
+    it('should have a background color of accent-1', function () {
+      expect(wrapper.find(StyledFilter).props().background.color).to.equal('accent-1')
     })
 
     it('should call onFilter on click of the CloseButton', function () {

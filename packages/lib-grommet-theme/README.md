@@ -32,10 +32,10 @@ class MyComponent extends React.Component {
 
 | theme variable | hex | color |
 | - | - | - |
-| `accent-1` | `#B8E986` | ![](https://via.placeholder.com/80x30.png/B8E986?text=+) |
-| `accent-2` | `#addde0` | ![](https://via.placeholder.com/80x30.png/addde0?text=+) |
-| `accent-3` | `#6D91B3` | ![](https://via.placeholder.com/80x30.png/6D91B3?text=+) |
-| `accent-4` | `#f6d885` | ![](https://via.placeholder.com/80x30.png/f6d885?text=+) |
+| `accent-1` | `#addde0` | ![](https://via.placeholder.com/80x30.png/addde0?text=+) |
+| `accent-2` | `#f6d885` | ![](https://via.placeholder.com/80x30.png/f6d885?text=+) |
+| `accent-3` | `#B8E986` | ![](https://via.placeholder.com/80x30.png/B8E986?text=+) |
+| `accent-4` | `#FFB6AA` | ![](https://via.placeholder.com/80x30.png/FFB6AA?text=+) |
 | `brand` | `#00979d` | ![](https://via.placeholder.com/80x30.png/00979d?text=+) |
 | `dark-1` | `#2D2D2D` | ![](https://via.placeholder.com/80x30.png/2D2D2D?text=+) |
 | `dark-2` | `#272727` | ![](https://via.placeholder.com/80x30.png/272727?text=+) |
@@ -68,16 +68,17 @@ class MyComponent extends React.Component {
 | `light-4` | `#CBCCCB` | ![](https://via.placeholder.com/80x30.png/CBCCCB?text=+) |
 | `light-5` | `#a6a7a9` | ![](https://via.placeholder.com/80x30.png/a6a7a9?text=+) |
 | `light-6` | `#979797` | ![](https://via.placeholder.com/80x30.png/979797?text=+) |
-| `neutral-1` | `#345446` | ![](https://via.placeholder.com/80x30.png/345446?text=+) |
-| `neutral-2` | `#005D69` | ![](https://via.placeholder.com/80x30.png/005D69?text=+) |
-| `neutral-3` | `#0C4881` | ![](https://via.placeholder.com/80x30.png/0C4881?text=+) |
-| `neutral-4` | `#f0b200` | ![](https://via.placeholder.com/80x30.png/f0b200?text=+) |
+| `neutral-1` | `#005D69` | ![](https://via.placeholder.com/80x30.png/005D69?text=+) |
+| `neutral-2` | `#f0b200` | ![](https://via.placeholder.com/80x30.png/f0b200?text=+) |
+| `neutral-3` | `#1ED359` | ![](https://via.placeholder.com/80x30.png/1ED359?text=+) |
+| `neutral-4` | `#E45950` | ![](https://via.placeholder.com/80x30.png/E45950?text=+) |
 | `neutral-5` | `#43BBFD` | ![](https://via.placeholder.com/80x30.png/43BBFD?text=+) |
-| `neutral-6` | `#ffffff` | ![](https://via.placeholder.com/80x30.png/ffffff?text=+)
+| `neutral-6` | `#ffffff` | ![](https://via.placeholder.com/80x30.png/ffffff?text=+) |
+| `neutral-7` | `#000000` | ![](https://via.placeholder.com/80x30.png/000000?text=+) |
 | `status-critical` | `#E45950` | ![](https://via.placeholder.com/80x30.png/E45950?text=+) |
 | `status-error` | `#FFB6AA` | ![](https://via.placeholder.com/80x30.png/FFB6AA?text=+) |
 | `status-warning` | `#CC9200` | ![](https://via.placeholder.com/80x30.png/CC9200?text=+) |
-| `status-ok` | `#078F52` | ![](https://via.placeholder.com/80x30.png/078F52?text=+) |
+| `status-ok` | `#1ED359` | ![](https://via.placeholder.com/80x30.png/1ED359?text=+) |
 | `status-unknown` | `#CBCCCB` | ![](https://via.placeholder.com/80x30.png/CBCCCB?text=+) |
 | `status-disabled` | `#CBCCCB` | ![](https://via.placeholder.com/80x30.png/CBCCCB?text=+) |
 

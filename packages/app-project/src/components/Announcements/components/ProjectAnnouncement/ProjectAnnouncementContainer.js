@@ -24,7 +24,7 @@ class ProjectAnnouncementContainer extends Component {
     return (isVisible && announcement)
       ? <GenericAnnouncement
           announcement={announcement}
-          color='neutral-4'
+          color='neutral-2'
           closeFn={dismissBanner}
           dismissable
         />
