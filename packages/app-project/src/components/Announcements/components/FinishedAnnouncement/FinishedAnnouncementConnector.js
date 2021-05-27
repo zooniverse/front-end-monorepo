@@ -37,7 +37,7 @@ function FinishedAnnouncementConnector ({ theme }) {
     return (
       <GenericAnnouncement
         announcement={announcement}
-        color={lighten(0.07, theme.global.colors['status-ok'])}
+        color={'neutral-3'}
       >
         <NavLink color='#000000' link={link} weight='normal' />
       </GenericAnnouncement>
