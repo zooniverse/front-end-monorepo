@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -73,4 +74,4 @@ Point.defaultProps = {
   scale: 1
 }
 
-export default Point
+export default observer(Point)

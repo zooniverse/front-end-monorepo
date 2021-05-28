@@ -1,21 +1,22 @@
 import React, { useContext } from 'react'
-import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { DeleteButton, Mark } from '@plugins/drawingTools/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
-function DrawingToolMarks(props) {
-  const {
-    activeMark,
-    marks,
-    onDelete,
-    onDeselectMark,
-    onFinish,
-    onMove,
-    onSelectMark,
-    scale,
-    played
-  } = props
+function DrawingToolMarks({
+  activeMark = {
+      id: '',
+      setSubTaskVisibility: () => {}
+    },
+  marks = [],
+  onDelete = () => true,
+  onDeselectMark = () => true,
+  onFinish = () => true,
+  onMove = () => true,
+  onSelectMark = () => true,
+  scale = 1,
+  played
+}) {
   const { svg } = useContext(SVGContext)
 
   return marks.map((mark, index) => {
@@ -24,8 +25,7 @@ function DrawingToolMarks(props) {
     mark.videoTime: indicates when the mark was created. Only relevant to certain time-based tools, otherwise undefined.
      */
     const { tool, videoTime } = mark
-    const MarkingComponent = observer(mark.toolComponent)
-    const ObservedDeleteButton = observer(DeleteButton)
+    const MarkingComponent = mark.toolComponent
     const isActive = mark.id === activeMark?.id
 
     function isInBounds(markElement) {
@@ -93,7 +93,7 @@ function DrawingToolMarks(props) {
           played={played}
         />
         {isActive && (
-          <ObservedDeleteButton
+          <DeleteButton
             label={`Delete ${tool.type}`}
             mark={mark}
             scale={scale}
@@ -118,19 +118,6 @@ DrawingToolMarks.propTypes = {
   onMove: PropTypes.func,
   onSelectMark: PropTypes.func,
   scale: PropTypes.number
-}
-
-DrawingToolMarks.defaultProps = {
-  activeMark: {
-    id: '',
-    setSubTaskVisibility: () => {}
-  },
-  onDelete: () => true,
-  onDeselectMark: () => true,
-  onFinish: () => true,
-  onMove: () => true,
-  onSelectMark: () => true,
-  scale: 1
 }
 
 export default DrawingToolMarks

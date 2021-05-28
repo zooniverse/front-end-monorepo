@@ -5,23 +5,23 @@ import { css } from 'styled-components'
 const theme = {
   button: {
     border: {
-      color: 'accent-4',
+      color: 'accent-2',
       width: '1px'
     },
     color: 'black',
     primary: {
       color: {
         dark: 'dark-3',
-        light: 'neutral-4'
+        light: 'neutral-2'
       }
     },
     extend: props => {
       const { theme: { global: { colors } }, completeness } = props
-      const color = normalizeColor(colors['neutral-4'], props.theme)
+      const color = normalizeColor(colors['neutral-2'], props.theme)
       const secondaryColor = getGradientShade(color)
       const percentComplete = `${completeness}%`
       const progressGradient = [
-        `${colors['accent-4']} ${percentComplete}`,
+        `${colors['accent-2']} ${percentComplete}`,
         `transparent ${percentComplete}`
       ].join(',')
 

@@ -6,7 +6,10 @@
 |anchor|`[link](https://www.zooniverse.org/)`|[link](https://www.zooniverse.org/)|
 |relative link|`[relative-link](/relative)`|[relative-link](/relative)|
 |image|`![imagealttext](https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg)`|![imagealttext](https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg)|
-|image resized|`![imagealttext =100x100](https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg)`|![imagealttext =100x100](https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg)|
+|image resized like TESS|`![like TESS](https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg =100x)`|![like TESS](https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg =100x)|
+|image resized in alt text|`![imagealttext =100x100](https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg)`|![imagealttext =100x100](https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg)|
+|image resized in url|`![imagealttext](https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg =100x100)`|![imagealttext](https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg =100x100)|
+|image with equals sign in the alt text|`![A blackboard showing the expression 2x2=4](https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg =100x100)`|![A blackboard showing the expression 2x2=4](https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg =100x100)|
 |video (using image syntax)|`![alt](https://static.zooniverse.org/www.zooniverse.org/assets/home-video.mp4)`|![alt](https://static.zooniverse.org/www.zooniverse.org/assets/home-video.mp4)|
 |audio (using image syntax)|`![alt](https://panoptes-uploads.zooniverse.org/production/subject_location/1c93591f-5d7e-4129-a6da-a65419b88048.mpga)`|![alt](https://panoptes-uploads.zooniverse.org/production/subject_location/1c93591f-5d7e-4129-a6da-a65419b88048.mpga)|
 |superscript|`super^script^`|super^script^|
@@ -31,17 +34,17 @@ Ordered list:
 2. item two
 3. item three
 
-# header1
+# header 1
 
-## header2
+## header 2
 
-### header3
+### header 3
 
-#### header4
+#### header 4
 
-##### header5
+##### header 5
 
-###### header6
+###### header 6
 
 ## Table of Contents
 

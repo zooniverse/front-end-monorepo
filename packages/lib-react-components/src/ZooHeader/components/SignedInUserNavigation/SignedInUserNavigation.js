@@ -59,13 +59,13 @@ export default function SignedInUserNavigation (props) {
         gap='small'
       >
         <NavListItem
-          color={unreadNotifications ? 'accent-2' : '#B2B2B2'}
+          color={unreadNotifications ? 'accent-1' : '#B2B2B2'}
           label={notificationLabel}
           unread={unreadNotifications}
           url={`${host}/notifications`}
         />
         <NavListItem
-          color={unreadMessages ? 'accent-2' : '#B2B2B2'}
+          color={unreadMessages ? 'accent-1' : '#B2B2B2'}
           label={messagesLabel}
           unread={unreadMessages}
           url={`${host}/inbox`}

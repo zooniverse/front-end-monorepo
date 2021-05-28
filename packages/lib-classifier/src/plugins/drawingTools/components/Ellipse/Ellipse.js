@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import DragHandle from '../DragHandle'
@@ -53,4 +54,4 @@ Ellipse.defaultProps = {
   scale: 1
 }
 
-export default Ellipse
+export default observer(Ellipse)

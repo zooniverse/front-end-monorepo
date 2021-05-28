@@ -54,12 +54,12 @@ describe('Component > AboutNavLink', function () {
 
     it('should display active background color', function () {
       const container = wrapper.find(Box)
-      expect(container.props().background).to.equal('accent-2')
+      expect(container.props().background).to.equal('accent-1')
     })
 
     it('should display active font color', function () {
       const navLink = wrapper.find(NavLink)
-      expect(navLink.props().color).to.equal('neutral-2')
+      expect(navLink.props().color).to.equal('neutral-1')
     })
 
     it('should display bold font weight', function () {

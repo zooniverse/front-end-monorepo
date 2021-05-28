@@ -75,7 +75,7 @@ class CompletionBar extends Component {
         width='100%'
       >
         <rect
-          fill={theme.global.colors['accent-2']}
+          fill={theme.global.colors['accent-1']}
           height='100%'
           width='100%'
         />

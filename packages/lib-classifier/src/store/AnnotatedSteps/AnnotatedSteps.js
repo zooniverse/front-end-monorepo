@@ -119,11 +119,10 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   }
   /** Redo the next step, or add a new step to history if there is no redo. */
   function next() {
-    const { annotations, step, nextStepKey } = self.latest
+    const { nextStepKey } = self.latest
     if (undoManager.canRedo) {
       _redo(nextStepKey)
     } else {
-      step.completeTasks(annotations)
       _beginStep(nextStepKey)
     }
   }

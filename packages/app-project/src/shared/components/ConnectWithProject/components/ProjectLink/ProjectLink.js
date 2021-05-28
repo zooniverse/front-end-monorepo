@@ -10,11 +10,6 @@ import formatUrlObject from './helpers/formatUrlObject'
 
 counterpart.registerTranslations('en', en)
 
-const StyledAnchor = styled(Anchor)`
-  font-weight: 200;
-  text-transform: uppercase;
-`
-
 function ProjectLink ({ className, urlObject }) {
   const { IconComponent, label, type, url } = formatUrlObject(urlObject)
   return (
@@ -23,11 +18,11 @@ function ProjectLink ({ className, urlObject }) {
         <IconComponent color='dark-5' size='medium' />
       </Box>
       <Box gap='xxsmall'>
-        <SpacedText>
-          <StyledAnchor href={url} size='small'>
+        <Anchor href={url} size='small'>
+          <SpacedText weight='normal'>
             {label}
-          </StyledAnchor>
-        </SpacedText>
+          </SpacedText>
+        </Anchor>
         <Box area='type'>
           <Text
             color={{

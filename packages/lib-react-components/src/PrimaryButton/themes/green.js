@@ -10,7 +10,7 @@ const theme = {
     },
     color: {
       dark: 'white',
-      light: 'white'
+      light: 'black'
     },
     primary: {
       color: {
@@ -30,12 +30,12 @@ const theme = {
         }
         &:focus:not(:disabled),
         &:hover:not(:disabled) {
-          color: white;
+          color: black;
           background: linear-gradient(${color}, ${gradientShade});
           box-shadow: none;
         }
         &:active:not(:disabled) {
-          color: white;
+          color: black;
           background: linear-gradient(${gradientShade}, ${color});
         }
     `}
