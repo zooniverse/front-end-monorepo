@@ -56,7 +56,7 @@ export const StyledMedia = styled(Media)``
 export const StyledFrame = styled.label`
   ${props => props.theme && css`
     input:checked + ${StyledMedia} {
-      border: solid ${props.theme.global.colors['neutral-4']};
+      border: solid ${props.theme.global.colors['neutral-2']};
     }
     
     input:focus + ${StyledMedia} {
@@ -172,7 +172,7 @@ class FrameCarousel extends React.Component {
           />
           <StyledMedia
             alt={counterpart('MultiFrameViewer.FrameCarousel.thumbnailAltText')}
-            background='accent-2'
+            background='accent-1'
             fit='cover'
             height={40}
             placeholder={

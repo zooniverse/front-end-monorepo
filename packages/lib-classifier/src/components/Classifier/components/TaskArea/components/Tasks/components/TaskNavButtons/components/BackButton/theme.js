@@ -16,8 +16,8 @@ const theme = {
     },
     extend: props => {
       const { theme: { dark, global: { colors } } } = props
-      const lighterAccent2 = lighten(0.05, colors['accent-2'])
-      const darkerAccent2 = darken(0.11, colors['accent-2'])
+      const lighterAccent2 = lighten(0.05, colors['accent-1'])
+      const darkerAccent2 = darken(0.11, colors['accent-1'])
       const background = dark ? colors['dark-1'] : colors['light-1']
       const backgroundFocusColor = dark ?
         colors['dark-1'] :
