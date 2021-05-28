@@ -25,7 +25,7 @@ export default function RadioInput (props) {
     questionId
   } = props
 
-  const backgroundColor = isChecked ? 'accent-2' : 'neutral-6'
+  const backgroundColor = isChecked ? 'accent-1' : 'neutral-6'
 
   return (
     <label>

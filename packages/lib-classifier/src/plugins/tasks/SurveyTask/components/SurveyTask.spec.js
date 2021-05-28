@@ -1,7 +1,8 @@
 import { mount, shallow } from 'enzyme'
-import { Drop } from 'grommet'
+import { Drop, Grommet } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
+import zooTheme from '@zooniverse/grommet-theme'
 import { default as Task } from '@plugins/tasks/SurveyTask'
 import Choice from './components/Choice'
 import Chooser from './components/Chooser'
@@ -37,7 +38,10 @@ describe('SurveyTask', function () {
         <SurveyTask
           selectedChoice='HPPPTMS'
           task={task}
-        />
+        />, {
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        }
       )
     })
 
