@@ -9,26 +9,6 @@ import en from '../locales/en'
 
 counterpart.registerTranslations('en', en)
 
-function Label () {
-  return (
-    <Box
-      align='center'
-      direction='row'
-      gap='xxsmall'
-    >
-      <Clear
-        color={{
-          dark: 'light-3',
-          light: 'dark-5'
-        }}
-        size='small'
-      />
-      <SpacedText>
-        {counterpart('CharacteristicsFilter.clearFilters')}
-      </SpacedText>
-    </Box>
-  )
-}
 
 export default function ClearFilters (props) {
   const {
@@ -50,21 +30,10 @@ export default function ClearFilters (props) {
         {counterpart('CharacteristicsFilter.showing', { showing: showingChoices, total: totalChoices })}
       </SpacedText>
       <PlainButton
-        color={{
-          dark: 'light-3',
-          light: 'dark-5'
-        }}
         disabled={showingChoices === totalChoices}
-        icon={<Clear
-          color={{
-            dark: 'light-3',
-            light: 'dark-5'
-          }}
-          size='small'
-        />}
-        label={counterpart('CharacteristicsFilter.clearFilters')}
+        icon={<Clear />}
         onClick={() => handleFilter()}
-        plain
+        text={counterpart('CharacteristicsFilter.clearFilters')}
       />
     </Box>
   )
