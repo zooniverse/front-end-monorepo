@@ -3,7 +3,7 @@ name: CI Tests
 on:
   pull_request:
   push:
-    branches:    
+    branches:
       - master
 
 jobs:
@@ -26,7 +26,20 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '14.x'
-    - run: yarn install --production=false
+
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+
+    - run: yarn install --production=false --frozen-lockfile
     - run: yarn workspace @zooniverse/react-components build
     - run: yarn workspace @zooniverse/classifier build
     - run: yarn workspace @zooniverse/fe-project build

@@ -1,4 +1,4 @@
-import { RadioButtonGroup } from 'grommet'
+import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -12,24 +12,33 @@ export default function RadioInputs (props) {
     questionId
   } = props
 
+  function handleRadioChange (value) {
+    if (questionAnswer === value) {
+      handleAnswer('', questionId)
+    } else {
+      handleAnswer(value, questionId)
+    }
+  }
+
   return (
-    <RadioButtonGroup
+    <Box
       direction='row'
-      name={questionId}
-      onChange={({ target }) => handleAnswer(target.value, questionId)}
-      options={options}
-      value={questionAnswer}
       wrap
     >
-      {(option, { checked, hover }) => {
+      {options.map(option => {
+        const isChecked = questionAnswer === option.value
+
         return (
           <RadioInput
-            checked={checked}
-            label={option.label}
+            key={option.value}
+            handleRadioChange={handleRadioChange}
+            isChecked={isChecked}
+            option={option}
+            questionId={questionId}
           />
         )
-      }}
-    </RadioButtonGroup>
+      })}
+    </Box>
   )
 }
 

@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import DragHandle from '../DragHandle'
@@ -106,4 +107,4 @@ Rectangle.defaultProps = {
   active: false
 }
 
-export default Rectangle
+export default observer(Rectangle)

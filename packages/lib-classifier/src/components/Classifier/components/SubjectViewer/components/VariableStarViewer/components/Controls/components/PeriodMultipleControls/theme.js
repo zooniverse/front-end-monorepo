@@ -38,8 +38,8 @@ const theme = {
     hover: {
       border: {
         color: {
-          dark: 'accent-2',
-          light: 'neutral-2'
+          dark: 'accent-1',
+          light: 'neutral-1'
         }
       }
     },

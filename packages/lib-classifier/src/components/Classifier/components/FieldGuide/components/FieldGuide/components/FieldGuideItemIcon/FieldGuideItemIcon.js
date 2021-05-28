@@ -21,7 +21,7 @@ export default function FieldGuideItemIcon (props) {
 
   return (
     <svg className={className} viewBox={viewBox} {...props}>
-      <rect fill={zooTheme.global.colors['accent-2']} height={height} width={width} />
+      <rect fill={zooTheme.global.colors['accent-1']} height={height} width={width} />
     </svg>
   )
 }

@@ -39,12 +39,13 @@ export default {
   component: RadioInputs
 }
 
-const Template = ({ dark, options, questionId }) => (
+const Template = ({ dark, options, questionAnswer, questionId }) => (
   <StoryContext
     theme={{ ...zooTheme, dark }}
   >
     <RadioInputs
       options={options}
+      questionAnswer={questionAnswer}
       questionId={questionId}
     />
   </StoryContext>
@@ -54,5 +55,6 @@ export const Default = Template.bind({})
 Default.args = {
   dark: false,
   options,
+  questionAnswer: '9',
   questionId
 }

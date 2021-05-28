@@ -95,10 +95,11 @@ class Tasks extends React.Component {
           justify='between'
           fill
         >
-          {step.tasks.map((task) => (
+          {step.tasks.map((task, index) => (
             <Task
               key={task.taskKey}
               {...this.props}
+              autoFocus={index === 0}
               task={task}
             />
           ))}

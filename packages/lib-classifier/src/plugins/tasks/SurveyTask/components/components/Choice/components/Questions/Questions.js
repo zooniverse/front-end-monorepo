@@ -17,6 +17,11 @@ export default function Questions (props) {
   function handleAnswer (questionAnswer, questionId) {
     const newAnswers = Object.assign({}, answers, { [questionId]: questionAnswer })
 
+    // if questionAnswer is an empty string (cleared radio input) or an empty array (cleared checkbox inputs) then questionAnswer length is 0
+    if (questionAnswer.length === 0) {
+      delete newAnswers[questionId]
+    }
+
     setAnswers(newAnswers)
   }
 
