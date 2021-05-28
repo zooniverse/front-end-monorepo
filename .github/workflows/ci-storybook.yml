@@ -1,22 +1,11 @@
-name: CI Tests
+name: Build storybooks
 
 on:
-  pull_request:
-  push:
-    branches:
-      - master
+  pull_request
 
 jobs:
-  build:
+  build_storybooks:
    runs-on: ubuntu-latest
-   env:
-     APP_ENV: production
-     NODE_ENV: production
-     PANOPTES_ENV: production
-     CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
-     CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
-     CONTENT_ASSET_PREFIX: 'https://fe-content-pages.zooniverse.org'
-     PROJECT_ASSET_PREFIX: 'https://fe-project.zooniverse.org'
 
    steps:
     # See: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow#using-the-checkout-action
@@ -39,14 +28,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-yarn-
 
-    - run: yarn install --production=false --frozen-lockfile
+    - run: yarn install --frozen-lockfile
     - run: yarn workspace @zooniverse/react-components build
     - run: yarn workspace @zooniverse/classifier build
-    - run: yarn workspace @zooniverse/fe-project build
-    - run: yarn workspace @zooniverse/fe-content-pages build
-    - run: PANOPTES_ENV=test yarn test:ci
-    - run: yarn coverage-lcov
-    - name: Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+    - run: yarn deploy-storybook --dry-run
