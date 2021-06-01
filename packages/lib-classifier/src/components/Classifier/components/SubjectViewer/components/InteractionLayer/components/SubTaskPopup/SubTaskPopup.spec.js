@@ -9,6 +9,7 @@ import ConfirmModal from './components/ConfirmModal'
 import SaveButton from './components/SaveButton'
 import { CloseButton, MovableModal, PrimaryButton } from '@zooniverse/react-components'
 import * as Tools from '@plugins/drawingTools/models/tools'
+import taskRegistry from '@plugins/tasks'
 import { SingleChoiceTaskFactory } from '@test/factories'
 
 describe('SubTaskPopup', function () {
@@ -35,6 +36,7 @@ describe('SubTaskPopup', function () {
   })
 
   describe('with required tasks', function () {
+    let pointMark
     let wrapper
 
     before(function () {
@@ -52,7 +54,7 @@ describe('SubTaskPopup', function () {
           })
         ]
       })
-      const pointMark = pointTool.createMark({
+      pointMark = pointTool.createMark({
         id: cuid(),
         toolType: pointTool.type
       })
@@ -64,11 +66,13 @@ describe('SubTaskPopup', function () {
       )
     })
 
-    it('should have initial render without required subtask emphasis', function () {
-      expect(wrapper.find('.subtaskpopup-element-that-ignores-drag-actions')).to.have.lengthOf(2)
-      const requiredSubtask = wrapper.find('.subtaskpopup-element-that-ignores-drag-actions').first()
-      expect(requiredSubtask.prop('border')).to.be.false()
-      expect(requiredSubtask.find('strong')).to.have.lengthOf(0)
+    describe('on initial render', function () {
+      it('should not show required subtask emphasis', function () {
+        expect(wrapper.find('.subtaskpopup-element-that-ignores-drag-actions')).to.have.lengthOf(2)
+        const requiredSubtask = wrapper.find('.subtaskpopup-element-that-ignores-drag-actions').first()
+        expect(requiredSubtask.prop('border')).to.be.false()
+        expect(requiredSubtask.find('strong')).to.have.lengthOf(0)
+      })
     })
 
     describe('on saving an incomplete annotation', function () {
@@ -81,13 +85,12 @@ describe('SubTaskPopup', function () {
       })
 
       it('should disable tasks in progress', function () {
-        const activeMark = wrapper.prop('activeMark')
-        function checkTask(task) {
-          const { TaskComponent } = taskRegistry.get(task.type)
-          const taskWrapper = warpper.find(TaskComponent)
-          expect(taskwrapper.prop('disabled')).to.be.true()
+        function checkTask(wrapper) {
+          expect(wrapper.prop('disabled')).to.be.true()
         }
-        activeMark.tasks.forEach(checkTask)
+        const { TaskComponent } = taskRegistry.get('single')
+        const taskWrappers = wrapper.find(TaskComponent)
+        taskWrappers.forEach(checkTask)
       })
 
       it('should disable the save button', function () {
@@ -96,15 +99,22 @@ describe('SubTaskPopup', function () {
       })
     })
 
-    it('should emphasize required subtask after clicking "Keep working" from confirm modal', function () {
-      wrapper.find(SaveButton).simulate('click')
-      wrapper.find(ConfirmModal).dive().find(PrimaryButton).simulate('click')
+    describe('on clicking "Keep working"', function () {
+      let taskWrappers
 
-      expect(wrapper.find('.subtaskpopup-element-that-ignores-drag-actions')).to.have.lengthOf(2)
-      const requiredSubtask = wrapper.find('.subtaskpopup-element-that-ignores-drag-actions').first()
-      expect(requiredSubtask.prop('border').size).to.equal('small')
-      expect(requiredSubtask.prop('border').color).to.equal('tomato')
-      expect(requiredSubtask.find('strong').text()).to.equal('This task is required.')
+      before(function () {
+        wrapper.find(SaveButton).simulate('click')
+        wrapper.find(ConfirmModal).dive().find(PrimaryButton).simulate('click')
+        taskWrappers = wrapper.find('.subtaskpopup-element-that-ignores-drag-actions')
+      })
+
+      it('should emphasize the required subtask', function () {
+        expect(taskWrappers).to.have.lengthOf(2)
+        const requiredSubtask = taskWrappers.first()
+        expect(requiredSubtask.prop('border').size).to.equal('small')
+        expect(requiredSubtask.prop('border').color).to.equal('tomato')
+        expect(requiredSubtask.find('strong').text()).to.equal('This task is required.')
+      })
     })
   })
 
