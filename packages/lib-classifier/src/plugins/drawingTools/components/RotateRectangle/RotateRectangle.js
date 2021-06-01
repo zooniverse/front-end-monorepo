@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import DragHandle from '../DragHandle'
@@ -146,4 +147,4 @@ RotateRectangle.defaultProps = {
   scale: 1
 }
 
-export default RotateRectangle
+export default observer(RotateRectangle)
