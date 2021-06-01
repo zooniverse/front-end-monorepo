@@ -9,10 +9,16 @@ function withStores(Component) {
       classifierStore: {
         annotatedSteps: {
           finish,
-          hasNextStep
+          hasNextStep,
+          latest: {
+            annotations
+          },
         },
         classifications: {
           completeClassification
+        },
+        workflowSteps: {
+          active: step
         }
       }
     } = props.store || useContext(MobXProviderContext)
@@ -23,6 +29,7 @@ function withStores(Component) {
 
     function onClick(event) {
       event.preventDefault()
+      step.completeAndValidate(annotations)
       finish()
       return completeClassification()
     }

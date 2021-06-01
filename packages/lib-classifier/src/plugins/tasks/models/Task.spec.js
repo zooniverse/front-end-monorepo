@@ -1,5 +1,4 @@
-import { getType, types } from 'mobx-state-tree'
-import AnnotationsStore from '@store/AnnotationsStore'
+import { getType } from 'mobx-state-tree'
 import Task from './Task'
 import Annotation from './Annotation'
 
@@ -23,6 +22,11 @@ describe('Model > Task', function () {
       errorThrown = true
     }
     expect(errorThrown).to.be.true()
+  })
+
+  it('should have a validation function', function () {
+    const taskInstance = Task.create({ taskKey: 'T3', type: 'default' })
+    expect(taskInstance.validate).to.be.a('function')
   })
 
   describe('Views > defaultAnnotation', function () {
@@ -69,6 +73,10 @@ describe('Model > Task', function () {
 
     it('should add its task key to annotations', function () {
       expect(annotation.task).to.equal(task.taskKey)
+    })
+
+    it('should always be valid', function () {
+      expect(task.isValid).to.be.true()
     })
   })
 })
