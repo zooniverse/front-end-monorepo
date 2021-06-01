@@ -5,7 +5,7 @@ import { default as RotateRectangleMark } from '@plugins/drawingTools/models/mar
 import RotateRectangle from './RotateRectangle'
 import DragHandle from '../DragHandle'
 
-describe.only('RotateRectangle tool', function () {
+describe('RotateRectangle tool', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
       <RotateRectangle
