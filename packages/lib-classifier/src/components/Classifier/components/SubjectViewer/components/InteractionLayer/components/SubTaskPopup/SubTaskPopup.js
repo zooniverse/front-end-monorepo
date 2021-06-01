@@ -60,6 +60,7 @@ function SubTaskPopup(props) {
   }
 
   const defaultPosition = getDefaultPosition(subTaskMarkBounds, MIN_POPUP_HEIGHT, MIN_POPUP_WIDTH)
+  const disabled = !ready || confirmationState === 'confirming'
 
   return (
     <>
@@ -105,7 +106,7 @@ function SubTaskPopup(props) {
                   <TaskComponent
                     annotation={annotation}
                     autoFocus={(index === 0)}
-                    disabled={!ready}
+                    disabled={disabled}
                     subTaskPreviousAnnotationValues={subTaskPreviousAnnotationValues?.get(task.taskKey)?.values}
                     task={task}
                   />
@@ -126,6 +127,7 @@ function SubTaskPopup(props) {
           })}
 
           <SaveButton
+            disabled={disabled}
             onClick={close}
           />
         </Box>

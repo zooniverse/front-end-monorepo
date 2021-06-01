@@ -34,7 +34,7 @@ describe('SubTaskPopup', function () {
     expect(fakeEvent.stopPropagation).to.have.been.calledOnce()
   })
 
-  describe('with confirm modal', function () {
+  describe('with required tasks', function () {
     let wrapper
 
     before(function () {
@@ -71,10 +71,29 @@ describe('SubTaskPopup', function () {
       expect(requiredSubtask.find('strong')).to.have.lengthOf(0)
     })
 
-    it('should render confirm modal on save with incomplete required subtask', function () {
-      wrapper.find(SaveButton).simulate('click')
+    describe('on saving an incomplete annotation', function () {
+      before(function () {
+        wrapper.find(SaveButton).simulate('click')
+      })
 
-      expect(wrapper.find(ConfirmModal)).to.have.lengthOf(1)
+      it('should render a confirm modal', function () {
+        expect(wrapper.find(ConfirmModal)).to.have.lengthOf(1)
+      })
+
+      it('should disable tasks in progress', function () {
+        const activeMark = wrapper.prop('activeMark')
+        function checkTask(task) {
+          const { TaskComponent } = taskRegistry.get(task.type)
+          const taskWrapper = warpper.find(TaskComponent)
+          expect(taskwrapper.prop('disabled')).to.be.true()
+        }
+        activeMark.tasks.forEach(checkTask)
+      })
+
+      it('should disable the save button', function () {
+        const disabled = wrapper.find(SaveButton).prop('disabled')
+        expect(disabled).to.be.true()
+      })
     })
 
     it('should emphasize required subtask after clicking "Keep working" from confirm modal', function () {

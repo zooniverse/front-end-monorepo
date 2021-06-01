@@ -12,7 +12,6 @@ function ConfirmModal ({ onClose, onDelete }) {
   return (
     <Modal
       active
-      closeFn={onClose}
       modal={false}
     >
       <Paragraph
