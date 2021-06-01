@@ -116,12 +116,13 @@ const Mark = forwardRef(function Mark(
       ? `${transform} translate(${mark.x}, ${mark.y})`
       : transform
 
-  if (mark.x_rotate && mark.y_rotate) {
-    transform = mark.angle
-      ? `${transform} rotate(${mark.angle}, ${mark.x_rotate}, ${mark.y_rotate})`
-      : transform
-  } else {
-    transform = mark.angle ? `${transform} rotate(${mark.angle})` : transform
+  if (mark.angle) {
+    const rotateTransform =
+      mark.x_rotate && mark.y_rotate
+        ? `rotate(${mark.angle}, ${mark.x_rotate}, ${mark.y_rotate})`
+        : `rotate(${mark.angle})`
+
+    transform = `${transform} ${rotateTransform}`
   }
 
   return (
