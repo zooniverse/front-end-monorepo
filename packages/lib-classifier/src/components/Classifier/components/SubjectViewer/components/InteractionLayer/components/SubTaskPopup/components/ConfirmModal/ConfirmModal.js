@@ -8,7 +8,15 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-function ConfirmModal ({ onClose, onDelete }) {
+/**
+ An alert which confirms 'keep working' or 'delete' for incomplete annotations. Incomplete annotations must be either completed or deleted.
+*/
+function ConfirmModal ({
+  /** callback to close the modal and keep working. */
+  onClose = () => true,
+  /** callback to close the modal and delete the active mark. */
+  onDelete = () => true
+}) {
   return (
     <Modal
       active
@@ -41,11 +49,6 @@ function ConfirmModal ({ onClose, onDelete }) {
 ConfirmModal.propTypes = {
   onClose: func,
   onDelete: func
-}
-
-ConfirmModal.defaultProps = {
-  onClose: () => {},
-  onDelete: () => {}
 }
 
 export default ConfirmModal
