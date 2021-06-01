@@ -16,12 +16,15 @@ counterpart.registerTranslations('en', en)
 const MIN_POPUP_WIDTH = 350
 const MIN_POPUP_HEIGHT = 100
 
-function SubTaskPopup(props) {
-  const {
-    activeMark,
-    onDelete
-  } = props
-
+/**
+  A popup that renders activeMark.tasks for the active mark. Incomplete task annotations are confirmed, on save or close, for required tasks.
+*/
+function SubTaskPopup({
+  /** The active drawing mark */
+  activeMark,
+  /** A callback that is called if the active mark is deleted. */
+  onDelete
+}) {
   const {
     subTaskMarkBounds,
     subTaskVisibility,
@@ -31,8 +34,12 @@ function SubTaskPopup(props) {
   if (!subTaskVisibility) return null
 
   const [confirmationState, setConfirm] = React.useState('pending')
-  const onOpenConfirm = () => setConfirm('confirming');
-  const onCloseConfirm = () => setConfirm('closed');
+  function onOpenConfirm() {
+    setConfirm('confirming')
+  }
+  function onCloseConfirm() {
+    setConfirm('closed')
+  }
 
   // TODO: split render() into various asyncStates?
   const ready = true // TODO: check with TaskArea/components/Tasks/Tasks.js
@@ -40,7 +47,7 @@ function SubTaskPopup(props) {
 
   function deleteMark() {
     const { tool } = activeMark
-    onCloseConfirm()
+    setConfirm('closed')
     setSubTaskVisibility(false)
     tool.deleteMark(activeMark)
     onDelete()
@@ -48,7 +55,7 @@ function SubTaskPopup(props) {
 
   function close() {
     if (!activeMark.isComplete) {
-      onOpenConfirm()
+      setConfirm('confirming')
     } else {
       setSubTaskVisibility(false)
       activeMark.setPreviousAnnotations()
