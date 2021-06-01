@@ -66,8 +66,9 @@ All tasks should extend the Task model by implementing the following:
 
 Tasks may implement the following actions to hook into the workflow classification lifecycle
 - _reset()_ Reset the task for a new subject and annotation.
-- _start()_ Runs each time we enter the task while navigating a workflow.
-- _complete(annotation)_ Runs when exiting a task by pressing Next or Done.
+- _start()_ Runs each time we enter the step's task while navigating a workflow.
+- _complete(annotation)_ Runs when exiting a step task by pressing Next or Done.
+- _validate_ Runs when exiting a step task by pressing Next or Done. Intended for annotation validation, but could be used for any kind of validation if it must run on step Next or Done. Drawing task deletes invalid tool marks when this is called.
 
 ## Annotation models
 
