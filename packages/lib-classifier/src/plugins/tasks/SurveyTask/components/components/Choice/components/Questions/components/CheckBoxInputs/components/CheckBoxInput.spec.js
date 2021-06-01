@@ -43,8 +43,8 @@ describe('Component > CheckBoxInput', function () {
       wrapper.setProps({ isChecked: true })
     })
 
-    it('should have a background color of accent-2', function () {
-      expect(wrapper.find(StyledBox).props().background.color).to.equal('accent-2')
+    it('should have a background color of accent-1', function () {
+      expect(wrapper.find(StyledBox).props().background.color).to.equal('accent-1')
     })
 
     it('should have text weight bold', function () {
