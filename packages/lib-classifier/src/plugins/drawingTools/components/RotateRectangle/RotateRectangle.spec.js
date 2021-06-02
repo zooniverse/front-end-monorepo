@@ -4,6 +4,7 @@ import { expect } from 'chai'
 import { default as RotateRectangleMark } from '@plugins/drawingTools/models/marks/RotateRectangle'
 import RotateRectangle from './RotateRectangle'
 import DragHandle from '../DragHandle'
+import RotateHandle from '../RotateHandle'
 
 describe('RotateRectangle tool', function () {
   it('should render without crashing', function () {
@@ -45,7 +46,18 @@ describe('RotateRectangle tool', function () {
         scale={1}
       />
     )
-    expect(wrapper.find(DragHandle)).to.have.lengthOf(5)
+    expect(wrapper.find(DragHandle)).to.have.lengthOf(4)
+  })
+
+  it('should render an active rectangle with one rotate handle', function () {
+    const wrapper = mount(
+      <RotateRectangle
+        active
+        mark={{ x_center: 100, y_center: 200, width: 30, height: 40 }}
+        scale={1}
+      />
+    )
+    expect(wrapper.find(RotateHandle)).to.have.lengthOf(1)
   })
 
   it('should resize when the drag handles are moved', function () {
