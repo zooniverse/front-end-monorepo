@@ -3,6 +3,7 @@ import { arrayOf, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 import NavLink from '@shared/components/NavLink'
 import { withRouter } from 'next/router'
+import getConfig from 'next/config'
 
 const StyledTeamMember = styled(Box)`
   margin-bottom: 30px;
@@ -60,6 +61,10 @@ const TeamMember = ({ user, router }) => {
   const { owner, project } = router.query
   const baseUrl = `/projects/${owner}/${project}/users`
 
+  const { publicRuntimeConfig = {} } = getConfig() || {}
+  const assetPrefix = publicRuntimeConfig.assetPrefix || ''
+  const placeholderAvatar = `${assetPrefix}/simple-avatar.png`
+
   return (
     <StyledTeamMember as="li">
       <StyledAvatar>
@@ -67,7 +72,7 @@ const TeamMember = ({ user, router }) => {
           <Image
             alt="Placeholder Avatar"
             fit="cover"
-            src="/simple-avatar.png"
+            src={placeholderAvatar}
           />
         ) : (
           <Image alt={user.display_name} fit="cover" src={user.avatar_src} />
