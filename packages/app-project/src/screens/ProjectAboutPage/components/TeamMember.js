@@ -83,8 +83,8 @@ const TeamMember = ({ user, router }) => {
         <StyledUsername
           link={{ href: `${baseUrl}/${user.login}`, text: `@${user.login}` }}
         />
-        {user.roles &&
-          user.roles.length &&
+        {!!user.roles &&
+          !!user.roles.length &&
           user.roles.map(role => (
             <StyledRole
               key={role}
