@@ -56,4 +56,6 @@ RUN yarn workspace @zooniverse/classifier build
 
 RUN yarn workspace @zooniverse/fe-content-pages build
 
+RUN echo $COMMIT_ID > /usr/src/packages/app-project/public/commit_id.txt
+
 RUN yarn workspace @zooniverse/fe-project build
