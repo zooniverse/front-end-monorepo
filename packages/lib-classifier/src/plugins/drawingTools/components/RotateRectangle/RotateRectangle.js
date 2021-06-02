@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
+import RotateHandle from '../RotateHandle'
 import DragHandle from '../DragHandle'
 
 const GUIDE_DASH = [4, 4]
@@ -55,7 +56,7 @@ function RotateRectangle({ active, children, mark, onFinish, scale }) {
             strokeWidth={guideWidth}
             strokeDasharray={GUIDE_DASH}
           />
-          <DragHandle
+          <RotateHandle
             dragMove={onRotateDrag}
             scale={scale}
             x={xRotationHandle}
