@@ -101,7 +101,7 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
                 <Bar
                   aria-label={stat.alt}
                   role='img'
-                  fill={theme.global.colors['accent-2']}
+                  fill={theme.global.colors['accent-1']}
                   height={barHeight}
                   width={barWidth}
                   x={barX}

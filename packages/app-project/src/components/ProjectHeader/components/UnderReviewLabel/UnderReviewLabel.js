@@ -7,7 +7,7 @@ counterpart.registerTranslations('en', en)
 
 export default function UnderReviewLabel () {
   return (
-    <SpacedText color='accent-2' size='small'>
+    <SpacedText color='accent-1' size='small'>
       {counterpart('UnderReviewLabel.underReview')}
     </SpacedText>
   )

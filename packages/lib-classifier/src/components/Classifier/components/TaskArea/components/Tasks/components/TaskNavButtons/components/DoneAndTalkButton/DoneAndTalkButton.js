@@ -1,31 +1,23 @@
-import { withThemeContext } from '@zooniverse/react-components'
+import { PrimaryButton } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Button, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 import en from './locales/en'
-import theme from './theme'
 
 counterpart.registerTranslations('en', en)
-
-const Label = (
-  <Text size='medium'>
-    {counterpart('DoneAndTalkButton.doneAndTalk')}
-  </Text>
-)
 
 function DoneAndTalkButton ({
   disabled = false,
   onClick = () => {}
 }) {
   return (
-    <Button
+    <PrimaryButton
+      color='blue'
       disabled={disabled}
-      label={Label}
+      label={counterpart('DoneAndTalkButton.doneAndTalk')}
       onClick={onClick}
-      style={{ marginRight: '1ch' }}
-      type='submit'
+      style={{ flex: '1 0', marginRight: '1ch' , textTransform: 'capitalize' }}
     />
   )
 }
@@ -35,5 +27,4 @@ DoneAndTalkButton.propTypes = {
   onClick: PropTypes.func
 }
 
-export default withThemeContext(DoneAndTalkButton, theme)
-export { DoneAndTalkButton }
+export default DoneAndTalkButton

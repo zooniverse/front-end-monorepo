@@ -46,9 +46,9 @@ describe('Component > SpacedHeading', function () {
       light: 'black'
     })
     expect(textProps.weight).to.equal('bold')
-    wrapper.setProps({ color: 'accent-2', weight: 'normal' })
+    wrapper.setProps({ color: 'accent-1', weight: 'normal' })
     textProps = wrapper.find(SpacedText).props()
-    expect(textProps.color).to.equal('accent-2')
+    expect(textProps.color).to.equal('accent-1')
     expect(textProps.weight).to.equal('normal')
   })
 })

@@ -1,11 +1,11 @@
 import React from 'react'
-import sinon from 'sinon'
 import { mount } from 'enzyme'
 import Task from './Task'
-import asyncStates from '@zooniverse/async-states'
 import taskRegistry from '@plugins/tasks'
 import { WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
+import { Grommet } from 'grommet'
+import { zooTheme } from '@zooniverse/grommet-theme'
 
 describe('Components > Task', function () {
   let activeTask
@@ -48,7 +48,10 @@ describe('Components > Task', function () {
           <Task
             store={store}
             task={activeTask}
-          />
+          />, {
+            wrappingComponent: Grommet,
+            wrappingComponentProps: { theme: zooTheme }
+          }
         )
         expect(wrapper).to.be.ok()
       })
@@ -58,8 +61,10 @@ describe('Components > Task', function () {
           <Task
             store={store}
             task={activeTask}
-          />
-        )
+          />, {
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        })
         // Is there a better way to do this?
         expect(wrapper.find(TaskComponent)).to.have.lengthOf(1)
       })
@@ -69,8 +74,10 @@ describe('Components > Task', function () {
           <Task
             store={store}
             task={activeTask}
-          />
-        )
+          />, {
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        })
         const { classifierStore } = store
         const classification = classifierStore.classifications.active
         const activeAnnotation = classification.annotation(activeTask)
@@ -88,8 +95,10 @@ describe('Components > Task', function () {
               <Task
                 store={store}
                 task={activeTask}
-              />
-            )
+              />, {
+              wrappingComponent: Grommet,
+              wrappingComponentProps: { theme: zooTheme }
+            })
             taskWrapper = wrapper.find(TaskComponent)
           })
 
@@ -105,8 +114,10 @@ describe('Components > Task', function () {
               <Task
                 store={store}
                 task={activeTask}
-              />
-            )
+              />, {
+              wrappingComponent: Grommet,
+              wrappingComponentProps: { theme: zooTheme }
+            })
             taskWrapper = wrapper.find(TaskComponent)
           })
 

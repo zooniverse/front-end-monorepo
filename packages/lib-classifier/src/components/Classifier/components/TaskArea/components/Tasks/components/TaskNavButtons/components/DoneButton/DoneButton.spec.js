@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
 
-import { DoneButton } from './DoneButton'
+import DoneButton from './DoneButton'
 
 describe('DoneButton', function () {
   it('should render without crashing', function () {

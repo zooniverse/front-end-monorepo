@@ -1,15 +1,15 @@
 import sinon from 'sinon'
 import Tool from './Tool'
 
-const toolData = {
-  color: '#ff0000',
-  label: 'Point',
-  max: '10',
-  min: 1,
-  type: 'default'
-}
-
 describe('Model > DrawingTools > Tool', function () {
+  const toolData = {
+    color: '#ff0000',
+    label: 'Point',
+    max: '10',
+    min: 1,
+    type: 'default'
+  }
+
   it('should exist', function () {
     const tool = Tool.create(toolData)
     expect(tool).to.exist()
@@ -182,6 +182,26 @@ describe('Model > DrawingTools > Tool', function () {
       const ids = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
       ids.forEach(id => tool.createMark({ id }))
       expect(tool.disabled).to.be.true()
+    })
+  })
+
+  describe('validation', function () {
+    let tool
+    before(function () {
+      tool = Tool.create(toolData)
+      tool.createMark({ id: '1' })
+      tool.createMark({ id: '2' })
+    })
+
+    it('should compute a reduced validity for all marks belonging to the tool', function () {
+      expect(tool.isValid).to.be.true()
+    })
+
+    it('should delete invalid marks', function () {
+      // Generic marks default to always be valid
+      expect(tool.marks.size).to.equal(2)
+      tool.validate()
+      expect(tool.marks.size).to.equal(2)
     })
   })
 })

@@ -20,7 +20,7 @@ const StyledChoiceButton = styled(Button)`
   text-align: start;
 
   &:focus, &:hover {
-    background-color: ${props => props.theme.global.colors['accent-2']};
+    background-color: ${props => props.theme.global.colors['accent-1']};
   }
 `
 

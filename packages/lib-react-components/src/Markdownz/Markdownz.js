@@ -21,6 +21,8 @@ import externalLinks from 'remark-external-links'
 import toc from 'remark-toc'
 import ping from './lib/ping'
 import Media from '../Media'
+import withThemeContext from '../helpers/withThemeContext'
+import theme from './theme'
 
 const hashtag = '#'
 const at = '@'
@@ -146,4 +148,5 @@ Markdownz.propTypes = {
   settings: PropTypes.object
 }
 
-export default Markdownz
+export { Markdownz }
+export default withThemeContext(Markdownz, theme)
