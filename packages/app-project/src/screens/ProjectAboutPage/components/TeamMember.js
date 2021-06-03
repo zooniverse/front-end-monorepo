@@ -69,10 +69,10 @@ const TeamMember = ({ user, router }) => {
     <StyledTeamMember as="li">
       <StyledAvatar>
         {!user.avatar_src ? (
-          <Image
+          <Image 
             alt="Placeholder Avatar"
-            fit="cover"
-            src={placeholderAvatar}
+            fit="cover" 
+            src={placeholderAvatar} 
           />
         ) : (
           <Image alt={user.display_name} fit="cover" src={user.avatar_src} />
@@ -83,17 +83,15 @@ const TeamMember = ({ user, router }) => {
         <StyledUsername
           link={{ href: `${baseUrl}/${user.login}`, text: `@${user.login}` }}
         />
-        {!!user.roles &&
-          !!user.roles.length &&
-          user.roles.map(role => (
-            <StyledRole
-              key={role}
-              round="xxsmall"
-              background={role === 'owner' ? 'neutral-2' : 'accent-1'}
-            >
-              {role === 'scientist' ? 'researcher' : role}
-            </StyledRole>
-          ))}
+        {user?.roles?.map(role => (
+          <StyledRole
+            key={role}
+            round="xxsmall"
+            background={role === 'owner' ? 'neutral-2' : 'accent-1'}
+          >
+            {role === 'scientist' ? 'researcher' : role}
+          </StyledRole>
+        ))}
       </Box>
     </StyledTeamMember>
   )
