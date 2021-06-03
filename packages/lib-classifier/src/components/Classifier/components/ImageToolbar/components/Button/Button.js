@@ -22,10 +22,10 @@ const StyledButton = styled(GrommetButton)`
   &:hover, &:focus {
     ${props => props.theme.dark ?
       css`
-        background-color: ${props.theme.global.colors['neutral-2']};
+        background-color: ${props.theme.global.colors['neutral-1']};
       ` :
       css`
-        background-color: ${props.theme.global.colors['accent-2']};
+        background-color: ${props.theme.global.colors['accent-1']};
       `
     }
 

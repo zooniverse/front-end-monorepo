@@ -22,7 +22,7 @@ export const StyledBackButtonToolTip = styled.span`
   bottom: '-100%';
   box-sizing: border-box;
   ${props => props.theme.dark ? 
-    css`color: ${props.theme.global.colors['accent-2']};` :
+    css`color: ${props.theme.global.colors['accent-1']};` :
     css`color: ${props.theme.global.colors.brand};`
   }
   font-size: 0.9em;

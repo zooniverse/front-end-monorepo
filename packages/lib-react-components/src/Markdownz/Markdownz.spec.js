@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import { Anchor, Paragraph } from 'grommet'
 import Media from '../Media'
-import Markdownz from './Markdownz'
+import { Markdownz } from './Markdownz'
 import { markdown } from './helpers/testExamples'
 
 // TO DO: Add back working snapshots to test the overall HTML output

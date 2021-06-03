@@ -26,7 +26,7 @@ export default function FilterButton (props) {
     valueLabel
   } = props
 
-  const backgroundColor = checked ? 'accent-2' : 'neutral-6'
+  const backgroundColor = checked ? 'accent-1' : 'neutral-6'
   const marginPerSize = buttonSize === 'small' ? 'none' : { bottom: 'xsmall' }
   const containerSize = buttonSize === 'small' ? '30px' : '40px'
   const mediaSize = buttonSize === 'small' ? '18' : '25'

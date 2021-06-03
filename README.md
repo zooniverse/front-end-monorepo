@@ -154,7 +154,10 @@ When publishing an individual package to [npm](https://www.npmjs.com/), first cd
 1. Merge branch
 1. Checkout master, pull for latest
 1. Build the package with `yarn build` from the package dir, where available
-1. `yarn publish` from the package dir
+1. `yarn publish --new-version <version> --access public` from the package dir
+    - yarn v1 `publish` command tries to version bump with the publish command. You can specify the exact same version from step two with the `--new-version` variable. 
+    - `--access public` publishes the package publicly
+    - You can optionally login in to npm prior to this using `npm login` and storing an auth token in an `.npmrc` file
 
 ---
 

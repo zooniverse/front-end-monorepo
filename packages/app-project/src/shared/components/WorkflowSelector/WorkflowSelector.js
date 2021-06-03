@@ -53,7 +53,7 @@ function WorkflowSelector (props) {
           )}
 
           {(workflows.length === 0) && (
-            <Box background='accent-4' pad='xsmall' width={{ max: 'medium' }}>
+            <Box background='accent-2' pad='xsmall' width={{ max: 'medium' }}>
               <Text size='small' textAlign='center'>
                 {counterpart('WorkflowSelector.noWorkflows')}
               </Text>

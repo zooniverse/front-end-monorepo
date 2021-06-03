@@ -1,15 +1,11 @@
-import React from 'react'
-import { shallow } from 'enzyme'
 import TranscriptionLineTool from './TranscriptionLineTool'
-import { TranscriptionLine } from '@plugins/drawingTools/models/marks'
-
-const toolData = {
-  color: '#ff0000',
-  type: 'transcriptionLine'
-}
 
 describe('Model > TranscriptionLineTool', function () {
   let tool
+  const toolData = {
+    color: '#ff0000',
+    type: 'transcriptionLine'
+  }
 
   beforeEach(function () {
     tool = TranscriptionLineTool.create(toolData)
@@ -37,6 +33,19 @@ describe('Model > TranscriptionLineTool', function () {
         tool.handlePointerDown(pointerEvent, mark)
         expect(tool.marks.size).to.equal(1)
         expect(mark.finished).to.be.true()
+      })
+    })
+
+    describe('validate', function () {
+      it('should delete invalid marks', function () {
+        // Validate action is from generic tool model
+        // but only the transcription line tool has logic for invalid marks right now
+        const mark = tool.createMark({ x: 0, y: 0 })
+        tool.handlePointerDown({ x: 10, y: 10 }, mark)
+        tool.createMark({ x: 15, y: 15 })
+        expect(tool.marks.size).to.equal(2)
+        tool.validate()
+        expect(tool.marks.size).to.equal(1)
       })
     })
   })

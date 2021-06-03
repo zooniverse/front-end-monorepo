@@ -34,17 +34,17 @@ Ordered list:
 2. item two
 3. item three
 
-# header1
+# header 1
 
-## header2
+## header 2
 
-### header3
+### header 3
 
-#### header4
+#### header 4
 
-##### header5
+##### header 5
 
-###### header6
+###### header 6
 
 ## Table of Contents
 

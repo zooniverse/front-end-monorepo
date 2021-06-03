@@ -84,7 +84,7 @@ const TeamMember = ({ user, router }) => {
             <StyledRole
               key={role}
               round="xxsmall"
-              background={role === 'owner' ? 'neutral-4' : 'accent-2'}
+              background={role === 'owner' ? 'neutral-2' : 'accent-1'}
             >
               {role === 'scientist' ? 'researcher' : role}
             </StyledRole>
