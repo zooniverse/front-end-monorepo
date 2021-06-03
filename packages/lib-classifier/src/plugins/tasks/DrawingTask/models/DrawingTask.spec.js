@@ -25,6 +25,7 @@ const details = [
 const pointTool = {
   help: '',
   label: 'Point please.',
+  min: 1,
   type: 'point',
   details
 }
@@ -89,6 +90,27 @@ describe('Model > DrawingTask', function () {
       const secondAnnotation = task.defaultAnnotation()
       expect(firstAnnotation.id).to.not.equal(secondAnnotation.id)
     })
+  })
+
+  describe('Views > isComplete', function () {
+    let task
+
+    before(function () {
+      task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
+    })
+
+    it('should return isComplete of false for under minimum tool mark count', function () {
+      expect(task.isComplete()).to.be.false()
+    })
+
+    it('should return isComplete of true for over minimum tool mark count', function () {
+      task.tools[0].createMark({ id: 'point1' })
+      task.tools[0].createMark({ id: 'point2' })
+
+      expect(task.isComplete()).to.be.true()
+    })
+
+    // TODO tests with complete and incomplete marks/annotations
   })
 
   describe('drawn marks', function () {
