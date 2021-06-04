@@ -48,6 +48,7 @@ const SVG = styled.svg`
     ? css`max-height: ${props.gridMaxHeight};`
     : ''}
 `
+SVG.displayName = 'styledSvg'  // Required for testing
 
 const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
   const {

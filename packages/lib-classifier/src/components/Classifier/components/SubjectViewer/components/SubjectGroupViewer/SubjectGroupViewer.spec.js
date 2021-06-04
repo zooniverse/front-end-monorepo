@@ -75,7 +75,7 @@ describe('Component > SubjectGroupViewer', function () {
   })
   
   it('should have a viewBox proportional to width and height', function () {
-    const viewBox = wrapper.find('svg').prop('viewBox')
+    const viewBox = wrapper.find('styledSvg').prop('viewBox')  // The styled <svg> needs a custom .displayName
     expect(viewBox).to.have.string('0 0 1600 1200')
   })
 })
