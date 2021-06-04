@@ -1,12 +1,13 @@
 import React from 'react'
 import { shallow, mount } from 'enzyme'
+import sinon from 'sinon'
 import { expect } from 'chai'
 import { RotateRectangle as RotateRectangleMark } from '@plugins/drawingTools/models/marks'
 import RotateRectangle from './RotateRectangle'
 import DragHandle from '../DragHandle'
 import RotateHandle from '../RotateHandle'
 
-describe.only('RotateRectangle tool', function () {
+describe('RotateRectangle tool', function () {
   let mark
   beforeEach(function () {
     mark = RotateRectangleMark.create({
@@ -112,6 +113,15 @@ describe.only('RotateRectangle tool', function () {
       expect(mark.y_center).to.equal(300)
       expect(mark.width).to.equal(200)
       expect(mark.height).to.equal(200)
+    })
+
+    it('should finish on pointer up', function () {
+      const onFinish = sinon.stub()
+      const wrapper = shallow(
+        <RotateRectangle active mark={mark} onFinish={onFinish} />
+      )
+      wrapper.simulate('pointerup')
+      expect(onFinish).to.have.been.calledOnce()
     })
   })
 })
