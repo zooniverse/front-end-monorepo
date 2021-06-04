@@ -19,12 +19,6 @@ function RotateRectangle({ active, children, mark, onFinish, scale }) {
   const y_bottom = y_center + height / 2
   const xRotationHandle = x_center + width / 2 + BUFFER
 
-  const _onFinish =
-    onFinish ||
-    function () {
-      return true
-    }
-
   function onHandleDrag(coords) {
     mark.setCoordinates(coords)
   }
@@ -35,7 +29,7 @@ function RotateRectangle({ active, children, mark, onFinish, scale }) {
   }
 
   return (
-    <g onPointerUp={active ? _onFinish : undefined}>
+    <g onPointerUp={active ? onFinish : undefined}>
       <rect x={x_left} y={y_top} width={width} height={height} />
       <rect
         x={x_left}
