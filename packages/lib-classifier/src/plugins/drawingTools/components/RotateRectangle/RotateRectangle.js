@@ -9,7 +9,13 @@ const GUIDE_WIDTH = 1
 const GRAB_STROKE_WIDTH = 6
 const BUFFER = 32
 
-function RotateRectangle({ active, children, mark, onFinish, scale }) {
+function RotateRectangle({
+  active = false,
+  children,
+  mark,
+  onFinish = () => true,
+  scale = 1
+}) {
   const { x_center, y_center, width, height, angle } = mark
   const guideWidth = GUIDE_WIDTH / scale
 
@@ -129,17 +135,26 @@ function RotateRectangle({ active, children, mark, onFinish, scale }) {
 }
 
 RotateRectangle.propTypes = {
+  /**
+    Modal active state.
+  */
   active: PropTypes.bool,
+  /**
+    node
+  */
   children: PropTypes.node,
+  /**
+    object
+  */
   mark: PropTypes.object.isRequired,
+  /**
+    func
+  */
   onFinish: PropTypes.func,
+  /**
+    Image scale factor. Used to keep line widths and sizes constant at all image scales.
+  */
   scale: PropTypes.number
-}
-
-RotateRectangle.defaultProps = {
-  active: false,
-  onFinish: () => true,
-  scale: 1
 }
 
 export default observer(RotateRectangle)
