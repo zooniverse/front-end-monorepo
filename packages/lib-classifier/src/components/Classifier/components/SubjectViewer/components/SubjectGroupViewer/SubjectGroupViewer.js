@@ -5,9 +5,8 @@ import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SGVGridCell from './components/SGVGridCell'
 
 const Container = styled.div`
-  animation: fadein 1s 0s forwards;
-  height: 100%;
   overflow: hidden;
+  height: 100%;
   width: 100%;
   ${props => props.gridMaxWidth
     ? css`max-width: ${props.gridMaxWidth};`
@@ -16,6 +15,7 @@ const Container = styled.div`
     ? css`max-height: ${props.gridMaxHeight};`
     : ''}
 
+  animation: fadein 1s 0s forwards;
   @keyframes fadein {
     from {
       opacity: 0;
@@ -30,12 +30,23 @@ const Container = styled.div`
 /*
 Note on Subject Viewer sizing/fitting:
 - The grid should fit the height OR width of the available visible space.
-- This is implemented with the container div having optional max-width/height
-- and the <svg> having width/height=100%
+- This is implemented with the container div AND the <svg> having
+  width/height=100% (which 'fits') an optional max-width/height (which
+  'restricts').
+- Curious note: the max-width/height has to be repeated in <svg> due to
+  Safari 12. If we ignore Safari, we only need max-width/height on the
+  container div, not the <svg>
  */
 const SVG = styled.svg`
   width: 100%;
   height: 100%;
+
+  ${props => props.gridMaxWidth
+    ? css`max-width: ${props.gridMaxWidth};`
+    : ''}
+  ${props => props.gridMaxHeight
+    ? css`max-height: ${props.gridMaxHeight};`
+    : ''}
 `
 
 const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
@@ -87,6 +98,8 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
           onKeyDown={onKeyDown}
           tabIndex={0}
           viewBox={`0 0 ${width} ${height}`}
+          gridMaxWidth={gridMaxWidth}
+          gridMaxHeight={gridMaxHeight}
         >
           <g
             ref={transformLayer}
