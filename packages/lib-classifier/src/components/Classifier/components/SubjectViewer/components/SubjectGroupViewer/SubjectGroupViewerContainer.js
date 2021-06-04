@@ -28,6 +28,8 @@ const DEFAULT_CELL_STYLE = {
 }
 const DEFAULT_GRID_COLUMNS = 3
 const DEFAULT_GRID_ROWS = 3
+const DEFAULT_GRID_MAX_WIDTH = ''
+const DEFAULT_GRID_MAX_HEIGHT = ''
 
 function storeMapper (stores) {
   const {
@@ -47,6 +49,8 @@ function storeMapper (stores) {
   const cellStyle = viewerConfig.cell_style || DEFAULT_CELL_STYLE
   const gridColumns = viewerConfig.grid_columns || DEFAULT_GRID_COLUMNS
   const gridRows = viewerConfig.grid_rows || DEFAULT_GRID_ROWS
+  const gridMaxWidth = viewerConfig.grid_max_width || DEFAULT_GRID_MAX_WIDTH
+  const gridMaxHeight = viewerConfig.grid_max_height || DEFAULT_GRID_MAX_HEIGHT
   
   const {
     activeStepTasks
@@ -74,6 +78,8 @@ function storeMapper (stores) {
     cellStyle,
     gridColumns,
     gridRows,
+    gridMaxWidth,
+    gridMaxHeight,
     
     interactionMode,
     setOnZoom,
@@ -246,6 +252,8 @@ class SubjectGroupViewerContainer extends React.Component {
       cellStyle,
       gridColumns,
       gridRows,
+      gridMaxWidth,
+      gridMaxHeight,
       
       interactionMode,
       onKeyDown,
@@ -296,6 +304,8 @@ class SubjectGroupViewerContainer extends React.Component {
             cellStyle={cellStyle}
             gridRows={gridRows}
             gridColumns={gridColumns}
+            gridMaxWidth={gridMaxWidth}
+            gridMaxHeight={gridMaxHeight}
             
             width={gridWidth}
             height={gridHeight}
