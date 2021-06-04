@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react'
-import PropTypes from 'prop-types'
+import { string, number } from 'prop-types'
 import draggable from '../draggable'
 
 const RotateHandle = forwardRef(function RotateHandle(
-  { fill, scale, x, y },
+  { fill = 'currentColor', scale = 1, x, y },
   ref
 ) {
   const transform = `translate(${x}, ${y}) scale(${1 / scale})`
@@ -28,15 +28,22 @@ const RotateHandle = forwardRef(function RotateHandle(
 })
 
 RotateHandle.propTypes = {
-  fill: PropTypes.string,
-  scale: PropTypes.number,
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired
-}
-
-RotateHandle.defaultProps = {
-  fill: 'currentColor',
-  scale: 1
+  /**
+    The RotateHandle color
+   */
+  fill: string,
+  /**
+    Image scale factor. Used to keep line widths and sizes constant at all image scales.
+   */
+  scale: number,
+  /**
+    x position of the vertex closets to the origin before rotation
+   */
+  x: number.isRequired,
+  /**
+    y position of the vertex closets to the origin before rotation
+   */
+  y: number.isRequired
 }
 
 export default draggable(RotateHandle)
