@@ -7,34 +7,26 @@ import DragHandle from '../DragHandle'
 import RotateHandle from '../RotateHandle'
 
 describe.only('RotateRectangle tool', function () {
+  let mark
+  beforeEach(function () {
+    mark = RotateRectangleMark.create({
+      id: 'rotateRectangle1',
+      toolType: 'rotateRectangle',
+      angle: 0,
+      x_center: 300,
+      y_center: 300,
+      width: 200,
+      height: 200
+    })
+  })
+
   it('should render without crashing', function () {
-    const wrapper = shallow(
-      <RotateRectangle
-        mark={{
-          angle: 0,
-          x_center: 300,
-          y_center: 300,
-          width: 200,
-          height: 200
-        }}
-      />
-    )
+    const wrapper = shallow(<RotateRectangle mark={mark} />)
     expect(wrapper).to.be.ok()
   })
 
   it('should render a rectangle with the coordinates provided', function () {
-    const wrapper = shallow(
-      <RotateRectangle
-        mark={{
-          angle: 0,
-          x_center: 300,
-          y_center: 300,
-          width: 200,
-          height: 200
-        }}
-        scale={1}
-      />
-    )
+    const wrapper = shallow(<RotateRectangle mark={mark} scale={1} />)
     expect(
       wrapper.containsMatchingElement(
         // x & y here are rect upper left corner
@@ -47,50 +39,16 @@ describe.only('RotateRectangle tool', function () {
 
   describe('when active', function () {
     it('should render an active rectangle with four drag handles', function () {
-      const wrapper = mount(
-        <RotateRectangle
-          active
-          mark={{
-            angle: 0,
-            x_center: 300,
-            y_center: 300,
-            width: 200,
-            height: 200
-          }}
-          scale={1}
-        />
-      )
+      const wrapper = mount(<RotateRectangle active mark={mark} scale={1} />)
       expect(wrapper.find(DragHandle)).to.have.lengthOf(4)
     })
 
     it('should render an active rectangle with one rotate handle', function () {
-      const wrapper = mount(
-        <RotateRectangle
-          active
-          mark={{
-            angle: 0,
-            x_center: 300,
-            y_center: 300,
-            width: 200,
-            height: 200
-          }}
-          scale={1}
-        />
-      )
+      const wrapper = mount(<RotateRectangle active mark={mark} scale={1} />)
       expect(wrapper.find(RotateHandle)).to.have.lengthOf(1)
     })
 
     it('should resize when the drag handles are moved', function () {
-      const mark = RotateRectangleMark.create({
-        id: 'rotateRectangle2',
-        toolType: 'rotateRectangle',
-        angle: 0,
-        x_center: 300,
-        y_center: 300,
-        width: 200,
-        height: 200
-      })
-
       const wrapper = mount(<RotateRectangle active mark={mark} scale={1} />)
 
       const dragMove = wrapper
@@ -113,16 +71,6 @@ describe.only('RotateRectangle tool', function () {
     })
 
     it('should rotate to 90 degrees when the RotateHandle is moved', function () {
-      const mark = RotateRectangleMark.create({
-        id: 'rotateRectangle90',
-        toolType: 'rotateRectangle',
-        angle: 0,
-        x_center: 300,
-        y_center: 300,
-        width: 200,
-        height: 200
-      })
-
       const wrapper = mount(<RotateRectangle active mark={mark} scale={1} />)
 
       const dragMove = wrapper
@@ -145,16 +93,6 @@ describe.only('RotateRectangle tool', function () {
     })
 
     it('should rotate to -135 degrees when the RotateHandle is moved', function () {
-      const mark = RotateRectangleMark.create({
-        id: 'rotateRectangle135',
-        toolType: 'rotateRectangle',
-        angle: 0,
-        x_center: 300,
-        y_center: 300,
-        width: 200,
-        height: 200
-      })
-
       const wrapper = mount(<RotateRectangle active mark={mark} scale={1} />)
 
       const dragMove = wrapper
