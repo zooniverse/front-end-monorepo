@@ -1,4 +1,3 @@
-import { types } from 'mobx-state-tree'
 import sinon from 'sinon'
 import Step from './Step'
 import {
@@ -23,7 +22,16 @@ describe('Model > Step', function () {
     expect(step).to.be.an('object')
   })
 
-  describe('with complete, optional tasks', function () {
+  describe('with valid tasks', function () {
+    it('should be valid', function () {
+      // All tasks default to valid
+      // drawing task can be invalid if it has an invalid mark
+      // this is tested in the transcription line tool specs
+      expect(step.isValid).to.be.true()
+    })
+  })
+
+  describe('with incomplete, optional tasks', function () {
     let tasks
     before(function () {
       tasks = [
@@ -342,7 +350,7 @@ describe('Model > Step', function () {
     })
   })
 
-  describe('completeTasks', function () {
+  describe('on next or finish', function () {
     let tasks
 
     before(function () {
@@ -359,14 +367,22 @@ describe('Model > Step', function () {
       ]
       tasks.forEach(task => {
         sinon.spy(task, 'complete')
+        sinon.spy(task, 'validate')
       })
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      step.completeTasks([])
+      step.completeAndValidate([])
     })
 
     after(function () {
       tasks.forEach(task => {
         task.complete.restore()
+        task.validate.restore()
+      })
+    })
+
+    it('should validate each step task', function () {
+      tasks.forEach(task => {
+        expect(task.validate).to.have.been.calledOnce()
       })
     })
 

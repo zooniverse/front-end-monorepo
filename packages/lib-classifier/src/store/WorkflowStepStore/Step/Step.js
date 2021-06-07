@@ -31,6 +31,14 @@ const baseStep = types
       return !isIncomplete
     },
 
+    get isValid() {
+      let isValid = true
+      self.tasks.forEach(task => {
+        isValid = task.isValid
+      })
+      return isValid
+    },
+
     get isThereBranching () {
       // We return the first single choice task
       // It doesn't make sense to have more than one single choice task in a step
@@ -56,10 +64,11 @@ const baseStep = types
     }
   }))
   .actions(self => ({
-    completeTasks(annotations) {
+    completeAndValidate(annotations) {
       self.tasks.forEach((task) => {
-        const [ annotation ] = annotations.filter(annotation => annotation.task === task.taskKey)
+        const [annotation] = annotations.filter(annotation => annotation.task === task.taskKey)
         task.complete(annotation)
+        task.validate(annotation)
       })
     },
 

@@ -111,9 +111,7 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   }
   /** Finish the current subject and clear the redo history*/
   function finish(){
-    const { annotations, step } = self.latest
     undoManager.withoutUndo(() => {
-      step.completeTasks(annotations)
       _clearRedo()
     })
   }

@@ -52,6 +52,10 @@ export const Drawing = types.model('Drawing', {
       return self.tools.reduce((isTaskComplete, tool) => isTaskComplete && tool.isComplete, true)
     },
 
+    get isValid () {
+      return self.tools.reduce((isTaskValid, tool) => isTaskValid && tool.isValid, true)
+    },
+
     get marks () {
       return self.tools.reduce(function flattenMarks (allMarks, tool) {
         const toolMarks = Array.from(tool.marks.values())
@@ -84,12 +88,17 @@ export const Drawing = types.model('Drawing', {
       self.hidingIndex = self.shownMarks === SHOWN_MARKS.NONE ? self.marks.length : 0
     }
 
+    function validate () {
+      self.tools.forEach(tool => tool.validate())
+    }
+
     return {
       complete,
       reset,
       setActiveMark,
       setActiveTool,
-      togglePreviousMarks
+      togglePreviousMarks,
+      validate
     }
   })
 

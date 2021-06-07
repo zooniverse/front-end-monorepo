@@ -1,71 +1,71 @@
 import { types } from 'mobx-state-tree'
 import DrawingTask from '@plugins/tasks/DrawingTask'
 import SHOWN_MARKS from '@helpers/shownMarks'
+import sinon from 'sinon'
 
-const details = [
-  {
-    type: 'multiple',
-    question: 'which fruit?',
-    answers: ['apples', 'oranges', 'pears'],
-    required: ''
-  },
-  {
+describe('Model > DrawingTask', function () {
+  const details = [
+    {
+      type: 'multiple',
+      question: 'which fruit?',
+      answers: ['apples', 'oranges', 'pears'],
+      required: ''
+    },
+    {
+      type: 'single',
+      question: 'how many?',
+      answers: ['one', 'two', 'three'],
+      required: ''
+    },
+    {
+      type: 'text',
+      instruction: 'Transcribe something',
+      required: ''
+    }
+  ]
+
+  const pointTool = {
+    help: '',
+    label: 'Point please.',
+    type: 'point',
+    details
+  }
+
+  const lineTool = {
+    help: '',
+    label: 'Draw a line',
+    type: 'line'
+  }
+
+  const drawingTaskSnapshot = {
+    instruction: "Mark each cat's face and tail. Draw an ellipse around each cat's face (not including the ears), and mark the tail tip with a point.",
+    taskKey: 'T3',
+    tools: [pointTool, lineTool],
+    type: 'drawing'
+  }
+
+  const singleRequiredSubtask = {
+    taskKey: 'T4.0.0',
     type: 'single',
     question: 'how many?',
     answers: ['one', 'two', 'three'],
-    required: ''
-  },
-  {
-    type: 'text',
-    instruction: 'Transcribe something',
-    required: ''
+    required: true
   }
-]
 
-const pointTool = {
-  help: '',
-  label: 'Point please.',
-  min: 1,
-  type: 'point',
-  details
-}
+  const pointToolWithRequiredSubtask = {
+    help: '',
+    label: 'Point please.',
+    type: 'point',
+    details: [singleRequiredSubtask]
+  }
 
-const lineTool = {
-  help: '',
-  label: 'Draw a line',
-  type: 'line'
-}
+  const drawingTaskRequiredSubtaskSnapshot = {
+    instruction: "Mark each cat's face and tail. Draw an ellipse around each cat's face (not including the ears), and mark the tail tip with a point.",
+    taskKey: 'T4',
+    tools: [pointToolWithRequiredSubtask],
+    type: 'drawing'
+  }
 
-const drawingTaskSnapshot = {
-  instruction: "Mark each cat's face and tail. Draw an ellipse around each cat's face (not including the ears), and mark the tail tip with a point.",
-  taskKey: 'T3',
-  tools: [pointTool, lineTool],
-  type: 'drawing'
-}
-
-const singleRequiredSubtask = {
-  taskKey: 'T4.0.0',
-  type: 'single',
-  question: 'how many?',
-  answers: ['one', 'two', 'three'],
-  required: true
-}
-
-const pointToolWithRequiredSubtask = {
-  help: '',
-  label: 'Point please.',
-  type: 'point',
-  details: [singleRequiredSubtask]
-}
-
-const drawingTaskRequiredSubtaskSnapshot = {
-  instruction: "Mark each cat's face and tail. Draw an ellipse around each cat's face (not including the ears), and mark the tail tip with a point.",
-  taskKey: 'T4',
-  tools: [pointToolWithRequiredSubtask],
-  type: 'drawing'
-}
-
-describe('Model > DrawingTask', function () {
   it('should exist', function () {
     const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
     expect(drawingTask).to.be.ok()
@@ -222,7 +222,6 @@ describe('Model > DrawingTask', function () {
     before(function () {
       task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
       pointSubTask = task.tools[0].tasks[1]
-      const annotation = task.defaultAnnotation()
 
       function updateMark (mark, value) {
         const markAnnotation = mark.addAnnotation(pointSubTask)
@@ -267,7 +266,7 @@ describe('Model > DrawingTask', function () {
     before(function () {
       task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
       annotation = task.defaultAnnotation()
-      const store = types.model('MockStore', {
+      types.model('MockStore', {
         annotation: DrawingTask.AnnotationModel,
         task: DrawingTask.TaskModel
       })
@@ -317,7 +316,6 @@ describe('Model > DrawingTask', function () {
 
     before(function () {
       task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
-      const annotation = task.defaultAnnotation()
       pointTool = task.tools[0]
       lineTool = task.tools[1]
       task.setActiveTool(0)
@@ -336,6 +334,40 @@ describe('Model > DrawingTask', function () {
 
     it('should reset the active tool', function () {
       expect(task.activeToolIndex).to.equal(0)
+    })
+  })
+
+  describe('validation', function () {
+    let task, pointToolValidateSpy, lineToolValidateSpy
+    before(function () {
+      task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
+      task.tools[0].createMark({ id: 'point1' })
+      task.tools[0].createMark({ id: 'point2' })
+      pointToolValidateSpy = sinon.spy(task.tools[0], 'validate')
+      lineToolValidateSpy = sinon.spy(task.tools[1], 'validate')
+    })
+
+    after(function () {
+      pointToolValidateSpy.restore()
+      lineToolValidateSpy.restore()
+    })
+
+    describe('computing validity for all of the tools marks', function () {
+      it('should return true when all marks are valid', function () {
+        expect(task.isValid).to.be.true()
+      })
+
+      it('should return false when there is an invalid mark for any of the tools', function () {
+        expect(task.isValid).to.be.true()
+        task.tools[1].createMark({ id: 'line1' })
+        expect(task.isValid).to.be.false()
+      })
+    })
+
+    it('should call validate for each tool', function () {
+      task.validate()
+      expect(pointToolValidateSpy).to.have.been.calledOnce()
+      expect(lineToolValidateSpy).to.have.been.calledOnce()
     })
   })
 })
