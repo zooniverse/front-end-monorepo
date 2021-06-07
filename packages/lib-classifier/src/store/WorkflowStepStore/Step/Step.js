@@ -26,7 +26,7 @@ const baseStep = types
       let isIncomplete = false
       self.tasks.forEach(task => {
         const [annotation] = annotations.filter(annotation => annotation.task === task.taskKey)
-        isIncomplete = !task.isComplete(annotation)
+        isIncomplete = isIncomplete || !task.isComplete(annotation)
       })
       return !isIncomplete
     },
