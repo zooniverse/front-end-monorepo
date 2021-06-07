@@ -2,11 +2,32 @@ import { types } from 'mobx-state-tree'
 import DrawingTask from '@plugins/tasks/DrawingTask'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
+const details = [
+  {
+    type: 'multiple',
+    question: 'which fruit?',
+    answers: ['apples', 'oranges', 'pears'],
+    required: ''
+  },
+  {
+    type: 'single',
+    question: 'how many?',
+    answers: ['one', 'two', 'three'],
+    required: ''
+  },
+  {
+    type: 'text',
+    instruction: 'Transcribe something',
+    required: ''
+  }
+]
+
 const pointTool = {
   help: '',
   label: 'Point please.',
   min: 1,
-  type: 'point'
+  type: 'point',
+  details
 }
 
 const lineTool = {
