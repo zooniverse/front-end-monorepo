@@ -48,8 +48,8 @@ export const Drawing = types.model('Drawing', {
       })
     },
 
-    isComplete (annotation) {
-      return self.tools.reduce((isTaskComplete, tool) => isTaskComplete && tool.isComplete, true) && !!annotation?.isComplete
+    isComplete () {
+      return self.tools.reduce((isTaskComplete, tool) => isTaskComplete && tool.isComplete, true)
     },
 
     get marks () {
