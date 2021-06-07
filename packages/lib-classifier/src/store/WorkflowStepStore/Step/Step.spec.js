@@ -98,16 +98,16 @@ describe('Model > Step', function () {
       expect(step.isComplete(annotations)).to.be.false()
     })
 
-    describe('after annotating task T1', function () {
+    describe('after annotating task T2', function () {
       it('should still be incomplete', function () {
-        multipleChoiceAnnotation.update([1])
+        singleChoiceAnnotation.update(1)
         expect(step.isComplete(annotations)).to.be.false()
       })
     })
 
     describe('after annotating tasks T1 & T2', function () {
       it('should be complete', function () {
-        singleChoiceAnnotation.update(1)
+        multipleChoiceAnnotation.update([1])
         expect(step.isComplete(annotations)).to.be.true()
       })
     })
