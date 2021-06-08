@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import sinon from 'sinon'
 import auth from 'panoptes-client/lib/auth'
 import nock from 'nock'
@@ -36,7 +35,7 @@ describe('Stores > UserPersonalization', function () {
           { activity_count: 23 }
         ]
       })
-      .get('/collections')
+      .get('/collections') // This is to get the collections store to not make real requests
       .query(true)
       .reply(200)
       .post('/collections')

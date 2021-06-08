@@ -38,20 +38,16 @@ const UserProjectPreferences = types
             project_id: project.id,
             user_id: user.id
           }
-          // TODO: this should really share the UPP that's being requested by the classifier.
+
           const response = yield client.panoptes.get('/project_preferences', query, { authorization })
           const [preferences] = response.body.project_preferences
           if (preferences) {
-
-          }
-          if (preferences) {
             applySnapshot(self, preferences)
+            user.personalization.setTotalClassificationCount(preferences.activity_count)
           }
 
           self.loadingState = asyncStates.success
-          if (preferences.activity_count) {
-            user.personalization.setTotalCount(preferences.activity_count)
-          }
+          console.log(self.toJSON())
         } catch (error) {
           console.error(error)
           self.error = error
