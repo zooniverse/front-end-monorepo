@@ -27,6 +27,7 @@ describe('Model > DrawingTask', function () {
   const pointTool = {
     help: '',
     label: 'Point please.',
+    min: 1,
     type: 'point',
     details
   }
