@@ -1,12 +1,10 @@
-import { expect } from 'chai'
 import sinon from 'sinon'
-import auth from 'panoptes-client/lib/auth'
-
+import nock from 'nock'
 import initStore from './initStore'
-import YourStats, { statsClient } from './YourStats'
+import { statsClient } from './YourStats'
 
 describe('Stores > YourStats', function () {
-  let rootStore
+  let rootStore, nockScope
   const project = {
     id: '2',
     display_name: 'Hello',
@@ -15,15 +13,7 @@ describe('Stores > YourStats', function () {
 
   before(function () {
     sinon.stub(console, 'error')
-    const mockResponse = {
-      body: {
-        project_preferences: [
-          {
-            activity_count: 23
-          }
-        ]
-      }
-    }
+
     const MOCK_DAILY_COUNTS = [
       { count: 12, period: '2019-09-29' },
       { count: 12, period: '2019-09-30' },
@@ -34,24 +24,36 @@ describe('Stores > YourStats', function () {
       { count: 8, period: '2019-10-05' },
       { count: 15, period: '2019-10-06' }
     ]
+    nockScope = nock('https://panoptes-staging.zooniverse.org/api')
+      .persist()
+      .get('/project_preferences')
+      .query(true)
+      .reply(200, {
+        project_preferences: [
+          { activity_count: 23 }
+        ]
+      })
+      .get('/collections')
+      .query(true)
+      .reply(200)
+      .post('/collections')
+      .query(true)
+      .reply(200)
     rootStore = initStore(true, { project })
-    sinon.stub(rootStore.client.panoptes, 'get').callsFake(() => Promise.resolve(mockResponse))
-    sinon.stub(rootStore.client.panoptes, 'post').callsFake(() => Promise.resolve({}))
     sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve({ statsCount: MOCK_DAILY_COUNTS }))
   })
 
   after(function () {
     console.error.restore()
-    rootStore.client.panoptes.get.restore()
-    rootStore.client.panoptes.post.restore()
     statsClient.request.restore()
+    nock.cleanAll()
   })
 
   it('should exist', function () {
-    expect(rootStore.yourStats).to.be.ok()
+    expect(rootStore.user.personalization.stats).to.be.ok()
   })
 
-  describe('with a project and user', function () {
+  describe('Actions > fetchDailyCounts', function () {
     let clock
 
     before(function () {
@@ -60,29 +62,12 @@ describe('Stores > YourStats', function () {
         id: '123',
         login: 'test.user'
       }
-      sinon.stub(rootStore.collections, 'fetchFavourites')
+
       rootStore.user.set(user)
     })
 
     after(function () {
       clock.restore()
-      rootStore.client.panoptes.get.resetHistory()
-      rootStore.client.panoptes.post.resetHistory()
-      rootStore.collections.fetchFavourites.restore()
-    })
-
-    it('should request user preferences', function () {
-      const authorization = 'Bearer '
-      const endpoint = '/project_preferences'
-      const query = {
-        project_id: '2',
-        user_id: '123'
-      }
-      expect(rootStore.client.panoptes.get.withArgs(endpoint, query, { authorization })).to.have.been.calledOnce()
-    })
-
-    it('should store your activity count', function () {
-      expect(rootStore.yourStats.totalCount).to.equal(23)
     })
 
     it('should request user statistics', function () {
@@ -98,156 +83,21 @@ describe('Stores > YourStats', function () {
           count
         }
       }`
+
       expect(statsClient.request).to.have.been.calledOnceWith(query.replace(/\s+/g, ' '))
     })
 
     describe('weekly classification stats', function () {
       it('should be created', function () {
-        expect(rootStore.yourStats.thisWeek.length).to.equal(7)
+        expect(rootStore.user.personalization.stats.thisWeek.length).to.equal(7)
       })
 
       it('should start on Monday', function () {
-        expect(rootStore.yourStats.thisWeek[0]).to.deep.equal({ count: 12, period: '2019-09-30' })
+        expect(rootStore.user.personalization.stats.thisWeek[0]).to.deep.equal({ count: 12, period: '2019-09-30' })
       })
 
       it('should end on Sunday', function () {
-        expect(rootStore.yourStats.thisWeek[6]).to.deep.equal({ count: 15, period: '2019-10-06' })
-      })
-    })
-
-    describe('incrementing your classification count', function () {
-      before(function () {
-        rootStore.yourStats.increment()
-      })
-
-      it('should add 1 to your total count', function () {
-        expect(rootStore.yourStats.totalCount).to.equal(24)
-      })
-
-      it('should add 1 to your session count', function () {
-        expect(rootStore.yourStats.sessionCount).to.equal(1)
-      })
-    })
-  })
-
-  describe('with a project and anonymous user', function () {
-    before(function () {
-      rootStore = initStore(true, { project })
-    })
-
-    it('should not request user preferences from Panoptes', function () {
-      expect(rootStore.client.panoptes.get).to.have.not.been.called()
-    })
-
-    it('should start counting from 0', function () {
-      expect(rootStore.yourStats.totalCount).to.equal(0)
-    })
-
-    describe('incrementing your classification count', function () {
-      before(function () {
-        rootStore.yourStats.increment()
-      })
-
-      it('should add 1 to your total count', function () {
-        expect(rootStore.yourStats.totalCount).to.equal(1)
-      })
-    })
-  })
-
-  describe('when Zooniverse auth is down.', function () {
-    before(function () {
-      rootStore = initStore(true, { project })
-      const user = {
-        id: '123',
-        login: 'test.user'
-      }
-      sinon.stub(auth, 'checkBearerToken').callsFake(() => Promise.reject(new Error('Auth is not available')))
-      sinon.stub(rootStore.collections, 'fetchFavourites')
-      rootStore.user.set(user)
-      rootStore.yourStats.increment()
-    })
-
-    after(function () {
-      auth.checkBearerToken.restore()
-      rootStore.collections.fetchFavourites.restore()
-    })
-
-    it('should count session classifications from 0', function () {
-      expect(rootStore.yourStats.totalCount).to.equal(1)
-    })
-  })
-
-  describe('on Panoptes API errors', function () {
-    before(function () {
-      rootStore = initStore(true, { project })
-      const user = {
-        id: '123',
-        login: 'test.user'
-      }
-      rootStore.client.panoptes.get.callsFake(() => Promise.reject(new Error('Panoptes is not available')))
-      sinon.stub(rootStore.collections, 'fetchFavourites')
-      rootStore.user.set(user)
-      rootStore.yourStats.increment()
-    })
-
-    after(function () {
-      rootStore.collections.fetchFavourites.restore()
-    })
-
-    it('should count session classifications from 0', function () {
-      expect(rootStore.yourStats.totalCount).to.equal(1)
-    })
-  })
-
-  describe('counts view', function () {
-    it('should return the expected counts with no data', function () {
-      const statsStore = YourStats.create()
-      expect(statsStore.counts).to.deep.equal({
-        today: 0,
-        total: 0
-      })
-    })
-
-    describe('total count', function () {
-      it('should get the total count from the store `totalCount` value', function () {
-        const statsStore = YourStats.create({ totalCount: 42 })
-        expect(statsStore.counts.total).to.equal(42)
-      })
-    })
-
-    describe('today\'s count', function () {
-      let clock
-
-      before(function () {
-        clock = sinon.useFakeTimers({ now: new Date(2019, 9, 1, 12), toFake: ['Date'] })
-      })
-
-      after(function () {
-        clock.restore()
-      })
-
-      it('should get today\'s count from the store\'s counts for this week', function () {
-        const MOCK_DAILY_COUNTS = [
-          { count: 12, period: '2019-09-30T00:00:00Z' },
-          { count: 13, period: '2019-10-01T00:00:00Z' },
-          { count: 14, period: '2019-10-02T00:00:00Z' },
-          { count: 10, period: '2019-10-03T00:00:00Z' },
-          { count: 11, period: '2019-10-04T00:00:00Z' },
-          { count: 8, period: '2019-10-05T00:00:00Z' },
-          { count: 15, period: '2019-10-06T00:00:00Z' }
-        ]
-        const statsStore = YourStats.create({ thisWeek: MOCK_DAILY_COUNTS })
-        expect(statsStore.counts.today).to.equal(MOCK_DAILY_COUNTS[1].count)
-      })
-
-      it('should be `0` if there are no classifications today', function () {
-        const MOCK_DAILY_COUNTS = [
-          { count: 12, period: '2019-01-03T00:00:00Z' },
-          { count: 13, period: '2019-01-02T00:00:00Z' },
-          { count: 14, period: '2019-01-01T00:00:00Z' }
-        ]
-        const statsStore = YourStats.create({ thisWeek: MOCK_DAILY_COUNTS })
-        expect(statsStore.counts.today).to.equal(0)
+        expect(rootStore.user.personalization.stats.thisWeek[6]).to.deep.equal({ count: 15, period: '2019-10-06' })
       })
     })
   })
