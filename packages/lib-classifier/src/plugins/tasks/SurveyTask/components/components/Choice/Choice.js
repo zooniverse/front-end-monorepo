@@ -37,6 +37,7 @@ export default function Choice (props) {
     <Box
       flex='grow'
       pad='small'
+      style={{ overflowAnchor: 'none' }}
     >
       {choice.images?.length > 0 && (
         <Carousel
