@@ -43,6 +43,20 @@ const nextConfig = {
     webpack5: true
   },
 
+  async headers() {
+    return [
+      {
+        source: '/commit_id.txt',
+        headers: [
+          {
+            key: 'cache-control',
+            value: 'public, max-age=60'
+          }
+        ]
+      }
+    ]
+  },
+
   publicRuntimeConfig: {
     assetPrefix
   },
