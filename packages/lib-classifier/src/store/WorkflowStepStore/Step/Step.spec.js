@@ -75,7 +75,7 @@ describe('Model > Step', function () {
       tasks = [
         MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: '' })),
         SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: '' })),
-        DrawingTask.TaskModel.create(DrawingTaskFactory.build({ taskKey: 'T3', required: '', tools: [pointToolWithMin] }))
+        DrawingTask.TaskModel.create(DrawingTaskFactory.build({ taskKey: 'T3', required: false, tools: [pointToolWithMin] }))
       ]
     })
 
