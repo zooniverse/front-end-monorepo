@@ -28,30 +28,56 @@ const UserProjectPreferences = types
   })
   .actions(self => {
     return {
+      reset() {
+        const resetSnapshot = {
+          activity_count: undefined,
+          activity_count_by_workflow: undefined,
+          error: undefined,
+          id: undefined,
+          links: undefined,
+          loadingState: asyncStates.initialized,
+          preferences: undefined,
+          settings: undefined
+        }
+        applySnapshot(self, resetSnapshot)
+      },
+
+      setResource(resource) {
+        applySnapshot(self, resource)
+      },
+
+      handleError(error) {
+        console.error(error)
+        self.error = error
+        self.setLoadingState(asyncStates.error)
+      },
+
+      setLoadingState(state) {
+        self.loadingState = state
+      },
+
       fetchResource: flow(function* fetchResource() {
-        const { client, project, user } = getRoot(self)
-        self.loadingState = asyncStates.loading
-        try {
-          const token = yield auth.checkBearerToken()
-          const authorization = `Bearer ${token}`
-          const query = {
-            project_id: project.id,
-            user_id: user.id
-          }
+        if (!self.id) {
+          const { client, project, user } = getRoot(self)
+          self.setLoadingState(asyncStates.loading)
+          try {
+            const token = yield auth.checkBearerToken()
+            const authorization = `Bearer ${token}`
+            const query = {
+              project_id: project.id,
+              user_id: user.id
+            }
 
-          const response = yield client.panoptes.get('/project_preferences', query, { authorization })
-          const [preferences] = response.body.project_preferences
-          if (preferences) {
-            applySnapshot(self, preferences)
-            user.personalization.setTotalClassificationCount(preferences.activity_count)
+            const response = yield client.panoptes.get('/project_preferences', query, { authorization })
+            const [preferences] = response.body.project_preferences
+            if (preferences) {
+              self.setResource(preferences)
+              user.personalization.setTotalClassificationCount(preferences.activity_count)
+            }
+            self.setLoadingState(asyncStates.success)
+          } catch (error) {
+            self.handleError(error)
           }
-
-          self.loadingState = asyncStates.success
-          console.log(self.toJSON())
-        } catch (error) {
-          console.error(error)
-          self.error = error
-          self.loadingState = asyncStates.error
         }
       })
     }

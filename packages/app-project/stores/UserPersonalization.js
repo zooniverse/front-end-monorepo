@@ -36,7 +36,7 @@ const UserPersonalization = types
       const parentDisposer = autorun(() => {
         const { project, user } = getRoot(self)
         if (project.id && user.id) {
-          if (!self.projectPreferences.id) self.projectPreferences.fetchResource()
+          self.projectPreferences.fetchResource()
           self.stats.fetchDailyCounts()
         }
       })
