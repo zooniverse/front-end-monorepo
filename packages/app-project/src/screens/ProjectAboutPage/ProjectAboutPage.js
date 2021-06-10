@@ -1,7 +1,11 @@
 import { Box, Grid, Heading } from 'grommet'
 import { arrayOf, bool, object, shape, string } from 'prop-types'
 import styled, { withTheme } from 'styled-components'
-import { capitalize } from 'lodash'
+import counterpart from 'counterpart'
+import en from './locales/en'
+
+counterpart.registerTranslations('en', en)
+
 
 /** Components */
 import StandardLayout from '@shared/components/StandardLayout'
@@ -34,6 +38,7 @@ function ProjectAboutPage({
   const { content, title } = aboutPageData
 
   const isTeamPage = title.toLowerCase().includes('team')
+  const pageTitle = counterpart(`PageHeading.title.${title.toLowerCase()}`)
 
   return (
     <StandardLayout inBeta={inBeta}>
@@ -66,7 +71,7 @@ function ProjectAboutPage({
           )}
           <Box>
             <PageHeading
-              children={isTeamPage ? 'The Team' : capitalize(title)}
+              children={pageTitle}
               level="2"
               weight="normal"
               size="40px"
