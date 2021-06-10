@@ -17,7 +17,7 @@ export default function plugin({
   if (typeof ping !== 'function' || typeof resourceURL !== 'function') {
     throw new Error(helpMsg)
   }
-  const customMatchRegex = /@([\w\-.]+\b)|#([-\w\d]{3,40})|(\^S[0-9]+)/ // match must not be inside an email address
+  const customMatchRegex = /\B@([\w\-.]+\b)|#([-\w\d]{3,40})|(\^S[0-9]+)/ // match must not be inside an email address
 
   function inlineTokenizer(eat, value, silent) {
     const match = customMatchRegex.exec(value)
