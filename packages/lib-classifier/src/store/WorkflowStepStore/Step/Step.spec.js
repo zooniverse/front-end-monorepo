@@ -2,7 +2,8 @@ import sinon from 'sinon'
 import Step from './Step'
 import {
   MultipleChoiceTaskFactory,
-  SingleChoiceTaskFactory
+  SingleChoiceTaskFactory,
+  DrawingTaskFactory
 } from '@test/factories'
 import taskRegistry from '@plugins/tasks'
 
@@ -10,6 +11,7 @@ describe('Model > Step', function () {
   let step
   const SingleChoiceTask = taskRegistry.get('single')
   const MultipleChoiceTask = taskRegistry.get('multiple')
+  const DrawingTask = taskRegistry.get('drawing')
 
   before(function () {
     step = Step.create({ stepKey: 'S1', taskKeys: ['T1'] })
@@ -59,6 +61,30 @@ describe('Model > Step', function () {
     })
   })
 
+  describe('with any incomplete, optional tasks', function () {
+    let tasks
+
+    const pointToolWithMin = {
+      help: '',
+      label: 'Point please.',
+      min: 1,
+      type: 'point'
+    }
+
+    before(function () {
+      tasks = [
+        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: '' })),
+        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: '' })),
+        DrawingTask.TaskModel.create(DrawingTaskFactory.build({ taskKey: 'T3', required: false, tools: [pointToolWithMin] }))
+      ]
+    })
+
+    it('should be incomplete', function () {
+      const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2', 'T3'], tasks })
+      expect(step.isComplete()).to.be.false()
+    })
+  })
+
   describe('with only required tasks', function () {
     let annotations
     let multipleChoiceAnnotation
@@ -80,16 +106,16 @@ describe('Model > Step', function () {
       expect(step.isComplete(annotations)).to.be.false()
     })
 
-    describe('after annotating task T1', function () {
+    describe('after annotating task T2', function () {
       it('should still be incomplete', function () {
-        multipleChoiceAnnotation.update([1])
+        singleChoiceAnnotation.update(1)
         expect(step.isComplete(annotations)).to.be.false()
       })
     })
 
     describe('after annotating tasks T1 & T2', function () {
       it('should be complete', function () {
-        singleChoiceAnnotation.update(1)
+        multipleChoiceAnnotation.update([1])
         expect(step.isComplete(annotations)).to.be.true()
       })
     })
