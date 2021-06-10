@@ -6,7 +6,6 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-
 /** Components */
 import StandardLayout from '@shared/components/StandardLayout'
 import {
@@ -39,6 +38,7 @@ function ProjectAboutPage({
 
   const isTeamPage = title.toLowerCase().includes('team')
   const pageTitle = counterpart(`PageHeading.title.${title.toLowerCase()}`)
+  // note that for future additional locales, CSS property :lang is available to format strings
 
   return (
     <StandardLayout inBeta={inBeta}>
