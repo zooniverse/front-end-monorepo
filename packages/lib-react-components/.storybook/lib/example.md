@@ -18,6 +18,7 @@
 |Zooniverse user mention|`@srallen @team`|@srallen @team|
 |Zooniverse Talk Tag mention|`#tiger`|#tiger|
 |Zooniverse Subject mention (only works in project context)|`^S1234`|^S1234|
+|Link inside a link|`[foo @username bar](http://example.com)`|[foo @username bar](http://example.com)|
 
 ---
 
