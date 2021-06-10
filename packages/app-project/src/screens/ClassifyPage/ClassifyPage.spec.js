@@ -10,6 +10,9 @@ import YourStats from './components/YourStats'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
 
+// TODO: is there a better way to find the dynamically imported classifier?
+const ClassifierDisplayName = 'ForwardRef(LoadableComponent)'
+
 describe('Component > ClassifyPage', function () {
   let wrapper
 
@@ -84,6 +87,11 @@ describe('Component > ClassifyPage', function () {
       it('should show a workflow menu', function () {
         expect(wrapper.find(WorkflowMenu)).to.have.lengthOf(1)
       })
+
+      it('should not pass the workflow ID to the classifier', function () {
+        const classifier = wrapper.find(ClassifierDisplayName)
+        expect(classifier.prop('workflowID')).to.be.undefined()
+      })
     })
 
     describe('with a subject set', function () {
@@ -99,6 +107,16 @@ describe('Component > ClassifyPage', function () {
 
       it('should not show a workflow menu', function () {
         expect(wrapper.find(WorkflowMenu)).to.have.lengthOf(0)
+      })
+
+      it('should pass the workflow ID to the classifier', function () {
+        const classifier = wrapper.find(ClassifierDisplayName)
+        expect(classifier.prop('workflowID')).to.equal('1234')
+      })
+
+      it('should pass the subject set ID to the classifier', function () {
+        const classifier = wrapper.find(ClassifierDisplayName)
+        expect(classifier.prop('subjectSetID')).to.equal('3456')
       })
     })
 
@@ -129,6 +147,16 @@ describe('Component > ClassifyPage', function () {
         it('should show a workflow menu', function () {
           expect(wrapper.find(WorkflowMenu)).to.have.lengthOf(1)
         })
+
+        it('should not pass the workflow ID to the classifier', function () {
+          const classifier = wrapper.find(ClassifierDisplayName)
+          expect(classifier.prop('workflowID')).to.be.undefined()
+        })
+
+        it('should not pass the subject set ID to the classifier', function () {
+          const classifier = wrapper.find(ClassifierDisplayName)
+          expect(classifier.prop('subjectSetID')).to.be.undefined()
+        })
       })
 
       describe('with a subject', function () {
@@ -147,6 +175,21 @@ describe('Component > ClassifyPage', function () {
 
         it('should not show a workflow menu', function () {
           expect(wrapper.find(WorkflowMenu)).to.have.lengthOf(0)
+        })
+
+        it('should pass the workflow ID to the classifier', function () {
+          const classifier = wrapper.find(ClassifierDisplayName)
+          expect(classifier.prop('workflowID')).to.equal('1234')
+        })
+
+        it('should pass the subject set ID to the classifier', function () {
+          const classifier = wrapper.find(ClassifierDisplayName)
+          expect(classifier.prop('subjectSetID')).to.equal('3456')
+        })
+
+        it('should pass the subject ID to the classifier', function () {
+          const classifier = wrapper.find(ClassifierDisplayName)
+          expect(classifier.prop('subjectID')).to.equal('5678')
         })
       })
     })

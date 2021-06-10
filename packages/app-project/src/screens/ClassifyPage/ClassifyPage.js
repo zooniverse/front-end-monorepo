@@ -43,6 +43,15 @@ function ClassifyPage ({
   // indexed subject sets require a subject
   canClassify = subjectSetFromUrl?.isIndexed ? !!subjectID : canClassify 
 
+  let classifierProps = {}
+  if (canClassify) {
+    classifierProps = {
+      workflowID,
+      subjectSetID,
+      subjectID
+    }
+  }
+
   return (
     <StandardLayout>
 
@@ -64,9 +73,7 @@ function ClassifyPage ({
             <ProjectName />
             <ClassifierWrapper
               onAddToCollection={addToCollection}
-              subjectID={subjectID}
-              subjectSetID={subjectSetID}
-              workflowID={workflowID}
+              {...classifierProps}
             />
             <ThemeModeToggle />
           </Grid>
