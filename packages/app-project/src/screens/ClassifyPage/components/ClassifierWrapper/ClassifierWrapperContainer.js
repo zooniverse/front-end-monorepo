@@ -1,6 +1,6 @@
 import { MobXProviderContext, observer } from 'mobx-react'
 import { func, string, shape } from 'prop-types'
-import React, { useContext } from 'react'
+import React from 'react'
 
 import ClassifierWrapper from './classifierWrapper'
 
@@ -43,7 +43,7 @@ export function storeMapper(store) {
   ```
 */
 function ClassifierWrapperContainer(props) {
-  const { store } = useContext(MobXProviderContext)
+  const { store } = React.useContext(MobXProviderContext)
   const {
     collections,
     mode,

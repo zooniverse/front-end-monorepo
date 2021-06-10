@@ -1,43 +1,50 @@
 import { shallow } from 'enzyme'
+import { MobXProviderContext } from 'mobx-react'
 import sinon from 'sinon'
 import React from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import initStore from '@stores/initStore'
-import ClassifierWrapperContainer, { storeMapper } from './ClassifierWrapperContainer'
+import ClassifierWrapper from './ClassifierWrapper'
+import ClassifierWrapperContainer from './ClassifierWrapperContainer'
 
 describe('Component > ClassifierWrapperContainer', function () {
-  describe('storeMapper', function () {
-    let props
-    let store
+  let wrapper
+  let store
 
-    before(function () {
-      store = initStore()
-      props = storeMapper(store)
-    })
+  before(function () {
+    store = initStore()
+    sinon.stub(React, 'useContext')
+      .withArgs(MobXProviderContext)
+      .returns({ store })
+    wrapper = shallow(<ClassifierWrapperContainer />)
+  })
 
-    it('should return collections', function () {
-      expect(props.collections).to.equal(store.collections)
-    })
+  after(function () {
+    React.useContext.restore()
+  })
 
-    it('should return recents', function () {
-      expect(props.recents).to.equal(store.recents)
-    })
+  it('should return collections', function () {
+    expect(wrapper.props().collections).to.equal(store.collections)
+  })
 
-    it('should return your personal stats', function () {
-      expect(props.yourStats).to.equal(store.yourStats)
-    })
+  it('should return recents', function () {
+    expect(wrapper.props().recents).to.equal(store.recents)
+  })
 
-    it('should return the project', function () {
-      expect(props.project).to.equal(store.project)
-    })
+  it('should return your personal stats', function () {
+    expect(wrapper.props().yourStats).to.equal(store.yourStats)
+  })
 
-    it('should return the logged-in user', function () {
-      expect(props.user).to.equal(store.user)
-    })
+  it('should return the project', function () {
+    expect(wrapper.props().project).to.deep.equal(store.project)
+  })
 
-    it('should return the theme mode', function () {
-      expect(props.mode).to.equal(store.ui.mode)
-    })
+  it('should return the logged-in user', function () {
+    expect(wrapper.props().user).to.equal(store.user)
+  })
+
+  it('should return the theme mode', function () {
+    expect(wrapper.props().mode).to.equal(store.ui.mode)
   })
 })
