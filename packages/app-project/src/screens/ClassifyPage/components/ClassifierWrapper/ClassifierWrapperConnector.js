@@ -2,7 +2,7 @@ import { MobXProviderContext, observer } from 'mobx-react'
 import { func, string, shape } from 'prop-types'
 import React from 'react'
 
-import ClassifierWrapper from './classifierWrapper'
+import ClassifierWrapper from './ClassifierWrapper'
 
 export function storeMapper(store) {
   const {
@@ -42,7 +42,7 @@ export function storeMapper(store) {
   />
   ```
 */
-function ClassifierWrapperContainer(props) {
+function ClassifierWrapperConnector(props) {
   const { store } = React.useContext(MobXProviderContext)
   const {
     collections,
@@ -68,7 +68,7 @@ function ClassifierWrapperContainer(props) {
   )
 }
 
-ClassifierWrapperContainer.propTypes = {
+ClassifierWrapperConnector.propTypes = {
   /** Callback that will be called with a subject ID when the classification subject is added to a collection. */
   onAddToCollection: func,
   /** optional subjectID (from the page URL.) */
@@ -79,4 +79,4 @@ ClassifierWrapperContainer.propTypes = {
   workflowID: string
 }
 
-export default observer(ClassifierWrapperContainer)
+export default observer(ClassifierWrapperConnector)
