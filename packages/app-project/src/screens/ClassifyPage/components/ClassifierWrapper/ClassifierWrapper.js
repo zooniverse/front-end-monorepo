@@ -3,6 +3,7 @@ import auth from 'panoptes-client/lib/auth'
 import { func, string, shape } from 'prop-types'
 import React, { Component, useContext } from 'react'
 import asyncStates from '@zooniverse/async-states'
+
 import { logToSentry } from '@helpers/logger'
 import ErrorMessage from './components/ErrorMessage'
 
@@ -56,14 +57,6 @@ export default function ClassifierWrapper({
     const errorToMessage = error || new Error('Something went wrong')
     return (
       <ErrorMessage error={errorToMessage} />
-    )
-  }
-
-  if (user.loadingState === asyncStates.loading) {
-    return (
-      <p>
-        Signing in…
-      </p>
     )
   }
 

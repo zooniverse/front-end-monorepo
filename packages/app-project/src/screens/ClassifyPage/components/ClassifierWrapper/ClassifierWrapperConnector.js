@@ -1,6 +1,7 @@
 import { MobXProviderContext, observer } from 'mobx-react'
 import { func, string, shape } from 'prop-types'
 import React from 'react'
+import asyncStates from '@zooniverse/async-states'
 
 import ClassifierWrapper from './ClassifierWrapper'
 
@@ -52,6 +53,15 @@ function ClassifierWrapperConnector(props) {
     user,
     yourStats
   } = useStore()
+
+  if (user.loadingState === asyncStates.loading) {
+    return (
+      <p>
+        Signing in…
+      </p>
+    )
+  }
+
   return (
     <ClassifierWrapper
       collections={collections}
