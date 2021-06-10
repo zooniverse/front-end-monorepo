@@ -4,7 +4,8 @@ import React from 'react'
 
 import ClassifierWrapper from './ClassifierWrapper'
 
-export function storeMapper(store) {
+function useStore() {
+  const { store } = React.useContext(MobXProviderContext)
   const {
     collections,
     project,
@@ -43,7 +44,6 @@ export function storeMapper(store) {
   ```
 */
 function ClassifierWrapperConnector(props) {
-  const { store } = React.useContext(MobXProviderContext)
   const {
     collections,
     mode,
@@ -51,7 +51,7 @@ function ClassifierWrapperConnector(props) {
     recents,
     user,
     yourStats
-  } = storeMapper(store)
+  } = useStore()
   return (
     <ClassifierWrapper
       collections={collections}
