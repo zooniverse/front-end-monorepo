@@ -14,6 +14,7 @@
 |audio (using image syntax)|`![alt](https://panoptes-uploads.zooniverse.org/production/subject_location/1c93591f-5d7e-4129-a6da-a65419b88048.mpga)`|![alt](https://panoptes-uploads.zooniverse.org/production/subject_location/1c93591f-5d7e-4129-a6da-a65419b88048.mpga)|
 |superscript|`super^script^`|super^script^|
 |subscript|`sub~script~`|sub~script~|
+|Typed Email Address|`contact@zooniverse.org`|contact@zooniverse.org|
 |Zooniverse user mention|`@srallen @team`|@srallen @team|
 |Zooniverse Talk Tag mention|`#tiger`|#tiger|
 |Zooniverse Subject mention (only works in project context)|`^S1234`|^S1234|

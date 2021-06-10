@@ -12,17 +12,18 @@ export default function plugin({
   ping, // Rename this from pingUsername to ping since we may be pinging more than users
   pingSymbols = ['@'], // Add a parameter to specify what the ping symbols are to be able to support custom ping symbols and more than one.
   resourceURL, // Rename from userURL to resourceURL
-  matchRegex = /@(?:\*\*([^*]+)\*\*|(\w+))/,
+  matchRegex // plugin default is /@([\w\-.]+\b)|#([-\w\d]{3,40})|(\^S[0-9]+)/
 }) {
   if (typeof ping !== 'function' || typeof resourceURL !== 'function') {
     throw new Error(helpMsg)
   }
+  const customMatchRegex = /\B@([\w\-.]+\b)|#([-\w\d]{3,40})|(\^S[0-9]+)/ // match must not be inside an email address
 
   function inlineTokenizer(eat, value, silent) {
-    const match = matchRegex.exec(value)
+    const match = customMatchRegex.exec(value)
     if (!match || match.index > 0) return
     const total = match[0]
-     // Add Array find function to match the symbol in the parsed markdown to the symbols specified to use
+    // Add Array find function to match the symbol in the parsed markdown to the symbols specified to use
     const symbol = pingSymbols.find((element) => total.indexOf(element) === 0)
 
     // Pull the resource out of the matched string.
@@ -72,7 +73,7 @@ export default function plugin({
   }
 
   function locator(value, fromIndex) {
-    const keep = matchRegex.exec(value, fromIndex)
+    const keep = customMatchRegex.exec(value, fromIndex)
     if (keep) {
       const symbol = pingSymbols.find((element) => keep[0].indexOf(element) === 0)
 
