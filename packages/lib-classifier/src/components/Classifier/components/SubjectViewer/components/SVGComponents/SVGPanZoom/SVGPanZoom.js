@@ -62,7 +62,8 @@ function SVGPanZoom({
       ? img.getBoundingClientRect()
       : {}
     const scale = clientWidth / naturalWidth
-    return scale
+    console.log('+++G ', scale, !Number.isNaN(scale) ? scale : 1)
+    return !Number.isNaN(scale) ? scale : 1
   }
 
   function scaledViewBox(scale) {
@@ -118,6 +119,7 @@ function SVGPanZoom({
 
   const { x, y, width, height } = scaledViewBox(zoom)
   const scale = imageScale(img)
+  console.log('+++F SVGPanZoom, scale: ', scale)
 
   return (
     <div ref={scrollContainer} style={{ width: '100%' }}>
