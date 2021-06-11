@@ -13,6 +13,7 @@ function SurveyTask (props) {
     filters,
     handleAnswers,
     handleChoice,
+    handleDelete,
     handleFilter,
     handleIdentify,
     selectedChoice,
@@ -55,7 +56,7 @@ function SurveyTask (props) {
             choiceId={selectedChoice}
             handleAnswers={handleAnswers}
             handleChoice={handleChoice}
-            onCancel={() => handleCancel()}
+            handleDelete={handleDelete}
             onIdentify={handleIdentify}
             task={task}
           />
@@ -72,6 +73,7 @@ SurveyTask.defaultProps = {
   filters: {},
   handleAnswers: () => {},
   handleChoice: () => {},
+  handleDelete: () => {},
   handleFilter: () => {},
   handleIdentify: () => {},
   selectedChoice: '',
@@ -90,6 +92,7 @@ SurveyTask.propTypes = {
   filters: PropTypes.objectOf(PropTypes.string),
   handleAnswers: PropTypes.func,
   handleChoice: PropTypes.func,
+  handleDelete: PropTypes.func,
   handleFilter: PropTypes.func,
   handleIdentify: PropTypes.func,
   selectedChoice: PropTypes.string,

@@ -19,7 +19,7 @@ export default function Choice (props) {
     choiceId,
     handleAnswers,
     handleChoice,
-    onCancel,
+    handleDelete,
     onIdentify,
     task
   } = props
@@ -87,7 +87,7 @@ export default function Choice (props) {
         <Button
           fill='horizontal'
           label={counterpart('Choice.notThis')}
-          onClick={() => onCancel()}
+          onClick={() => handleDelete(choiceId)}
         />
         <PrimaryButton
           disabled={!allowIdentify}
@@ -105,7 +105,7 @@ Choice.defaultProps = {
   choiceId: '',
   handleAnswers: () => {},
   handleChoice: () => {},
-  onCancel: () => {},
+  handleDelete: () => {},
   onIdentify: () => {}
 }
 
@@ -119,7 +119,7 @@ Choice.propTypes = {
   choiceId: PropTypes.string,
   handleAnswers: PropTypes.func,
   handleChoice: PropTypes.func,
-  onCancel: PropTypes.func,
+  handleDelete: PropTypes.func,
   onIdentify: PropTypes.func,
   task: PropTypes.shape({
     help: PropTypes.string,
