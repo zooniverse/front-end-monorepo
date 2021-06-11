@@ -110,13 +110,23 @@ class SingleImageViewerContainer extends React.Component {
       zoomControlFn
     } = this.props
     const { img } = this.state
-    const { naturalHeight, naturalWidth, src } = img
+    // const { naturalHeight, naturalWidth, src } = img
+    
+    // If image hasn't been fully retrieved, use a placeholder
+    const src = img?.src || 'https://via.placeholder.com/200'
+    const naturalWidth = img?.naturalWidth || 200
+    const naturalHeight = img?.naturalHeight || 200
 
     if (loadingState === asyncStates.error) {
       return <div>Something went wrong.</div>
     }
 
     const svg = this.imageViewer.current
+    console.log('+++A SingleImageViewerContainer.render() \n' + '-'.repeat(40))
+    console.log('+++A loading state: ', loadingState)
+    console.log('+++A svg: ', this.imageViewer, this.imageViewer.current)
+    console.log('+++A this.state: ', this.state)
+    console.log('+++A render? ', !!(src && naturalWidth), src, naturalWidth)
     const enableDrawing =
       loadingState === asyncStates.success && enableInteractionLayer
     const SubjectImage = move ? DraggableImage : 'image'
@@ -127,7 +137,7 @@ class SingleImageViewerContainer extends React.Component {
       ...(move && { dragMove: this.dragMove })
     }
 
-    if (src && naturalWidth) {
+    if (loadingState === asyncStates.success) {
       return (
         <SVGContext.Provider value={{ svg }}>
           <SVGPanZoom
