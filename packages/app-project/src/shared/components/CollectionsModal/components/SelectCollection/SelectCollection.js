@@ -15,6 +15,9 @@ function SelectCollection ({
   onSubmit,
   selected
 }) {
+  const dropProps = {
+    trapFocus: false
+  }
   return (
     <Grid
       as='form'
@@ -31,6 +34,7 @@ function SelectCollection ({
       >
         <Select
           dropHeight='medium'
+          dropProps={dropProps}
           id='collectionsSearch'
           labelKey='display_name'
           name='display_name'

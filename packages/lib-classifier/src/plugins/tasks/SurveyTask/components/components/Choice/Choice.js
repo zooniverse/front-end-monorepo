@@ -35,6 +35,8 @@ export default function Choice (props) {
 
   return (
     <Box
+      background='light-1'
+      elevation='large'
       flex='grow'
       pad='small'
     >
