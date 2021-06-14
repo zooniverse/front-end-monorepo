@@ -6,7 +6,7 @@ import { DraggableImage, SingleImageViewerContainer } from './SingleImageViewerC
 import SingleImageViewer from './SingleImageViewer'
 import asyncStates from '@zooniverse/async-states'
 
-describe.only('Component > SingleImageViewerContainer', function () {
+describe('Component > SingleImageViewerContainer', function () {
   let wrapper
   const height = 200
   const width = 400
