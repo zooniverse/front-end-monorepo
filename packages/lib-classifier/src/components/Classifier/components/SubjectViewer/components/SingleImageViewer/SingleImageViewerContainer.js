@@ -132,37 +132,39 @@ class SingleImageViewerContainer extends React.Component {
       ...(move && { dragMove: this.dragMove })
     }
 
-    return (
-      <SVGContext.Provider value={{ svg }}>
-        <SVGPanZoom
-          img={this.subjectImage.current}
-          maxZoom={5}
-          naturalHeight={naturalHeight}
-          naturalWidth={naturalWidth}
-          setOnDrag={this.setOnDrag}
-          setOnPan={setOnPan}
-          setOnZoom={setOnZoom}
-          zooming={zooming}
-          src={src}
-        >
-          <SingleImageViewer
-            enableInteractionLayer={enableDrawing}
-            height={naturalHeight}
-            onKeyDown={onKeyDown}
-            ref={this.imageViewer}
-            rotate={rotation}
-            title={title}
-            width={naturalWidth}
-            zoomControlFn={zoomControlFn}
+    if (loadingState !== asyncStates.initialized) {
+      return (
+        <SVGContext.Provider value={{ svg }}>
+          <SVGPanZoom
+            img={this.subjectImage.current}
+            maxZoom={5}
+            naturalHeight={naturalHeight}
+            naturalWidth={naturalWidth}
+            setOnDrag={this.setOnDrag}
+            setOnPan={setOnPan}
+            setOnZoom={setOnZoom}
             zooming={zooming}
+            src={src}
           >
-            <g ref={this.subjectImage}>
-              <SubjectImage {...subjectImageProps} />
-            </g>
-          </SingleImageViewer>
-        </SVGPanZoom>
-      </SVGContext.Provider>
-    )
+            <SingleImageViewer
+              enableInteractionLayer={enableDrawing}
+              height={naturalHeight}
+              onKeyDown={onKeyDown}
+              ref={this.imageViewer}
+              rotate={rotation}
+              title={title}
+              width={naturalWidth}
+              zoomControlFn={zoomControlFn}
+              zooming={zooming}
+            >
+              <g ref={this.subjectImage}>
+                <SubjectImage {...subjectImageProps} />
+              </g>
+            </SingleImageViewer>
+          </SVGPanZoom>
+        </SVGContext.Provider>
+      )
+    }
   }
 }
 
