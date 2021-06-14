@@ -85,8 +85,6 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
     
   const annotationMode = interactionMode === 'annotate' && isCurrentTaskValidForAnnotation
   
-  console.log('+++ C ', gridMaxWidth, gridMaxHeight)
-  
   return (
     <SVGContext.Provider value={{ svg, getScreenCTM }}>
       <Container
