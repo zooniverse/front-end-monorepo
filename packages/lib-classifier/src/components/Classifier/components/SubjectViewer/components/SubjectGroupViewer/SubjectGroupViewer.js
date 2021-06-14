@@ -37,7 +37,7 @@ Note on Subject Viewer sizing/fitting:
   Safari 12. If we ignore Safari, we only need max-width/height on the
   container div, not the <svg>
  */
-const SVG = styled.svg`
+export const SVG = styled.svg`
   width: 100%;
   height: 100%;
 
@@ -48,7 +48,6 @@ const SVG = styled.svg`
     ? css`max-height: ${props.gridMaxHeight};`
     : ''}
 `
-SVG.displayName = 'styledSvg'  // Required for testing
 
 const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
   const {

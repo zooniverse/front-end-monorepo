@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import SubjectGroupViewer from './SubjectGroupViewer'
+import SubjectGroupViewer, { SVG } from './SubjectGroupViewer'
 import SGVGridCell from './components/SGVGridCell'
 
 let wrapper
@@ -75,7 +75,7 @@ describe('Component > SubjectGroupViewer', function () {
   })
   
   it('should have a viewBox proportional to width and height', function () {
-    const viewBox = wrapper.find('styledSvg').prop('viewBox')  // The styled <svg> needs a custom .displayName
+    const viewBox = wrapper.find(SVG).prop('viewBox')
     expect(viewBox).to.have.string('0 0 1600 1200')
   })
 })
