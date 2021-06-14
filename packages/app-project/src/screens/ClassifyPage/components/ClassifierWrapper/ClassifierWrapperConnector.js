@@ -14,8 +14,7 @@ function useStore() {
     user,
     ui: {
       mode
-    },
-    yourStats
+    }
   } = store
 
   return ({
@@ -24,7 +23,7 @@ function useStore() {
     project,
     recents,
     user,
-    yourStats
+    yourStats: user.personalization
   })
 }
 

@@ -1,4 +1,4 @@
-import { Box, Drop } from 'grommet'
+import { Stack } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -20,17 +20,13 @@ function SurveyTask (props) {
     task
   } = props
 
-  const choiceTargetRef = React.useRef()
-
   function handleCancel () {
     handleAnswers({})
     handleChoice('')
   }
 
   return (
-    <Box
-      ref={choiceTargetRef}
-    >
+    <Stack fill>
       <Chooser
         autoFocus={autoFocus}
         disabled={disabled}
@@ -40,28 +36,18 @@ function SurveyTask (props) {
         selectedChoiceIds={selectedChoiceIds}
         task={task}
       />
-      {choiceTargetRef.current && selectedChoice && (
-        <Drop
-          align={{
-            top: 'top'
-          }}
-          onClickOutside={() => handleCancel()}
-          onEsc={() => handleCancel()}
-          stretch='align'
-          target={choiceTargetRef.current}
-        >
-          <Choice
-            answers={answers}
-            choiceId={selectedChoice}
-            handleAnswers={handleAnswers}
-            handleChoice={handleChoice}
-            onCancel={() => handleCancel()}
-            onIdentify={handleIdentify}
-            task={task}
-          />
-        </Drop>
+      {selectedChoice && (
+        <Choice
+          answers={answers}
+          choiceId={selectedChoice}
+          handleAnswers={handleAnswers}
+          handleChoice={handleChoice}
+          onCancel={() => handleCancel()}
+          onIdentify={handleIdentify}
+          task={task}
+        />
       )}
-    </Box>
+    </Stack>
   )
 }
 
