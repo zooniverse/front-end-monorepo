@@ -5,7 +5,6 @@ import React from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import initStore from '@stores/initStore'
-import ClassifierWrapper from './ClassifierWrapper'
 import ClassifierWrapperConnector from './ClassifierWrapperConnector'
 
 describe('Component > ClassifierWrapperConnector', function () {
@@ -59,7 +58,7 @@ describe('Component > ClassifierWrapperConnector', function () {
       })
 
       it('should include your personal stats', function () {
-        expect(wrapper.props().yourStats).to.equal(store.yourStats)
+        expect(wrapper.props().yourStats).to.equal(store.user.personalization)
       })
 
       it('should include the project', function () {

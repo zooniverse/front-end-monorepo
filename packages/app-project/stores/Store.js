@@ -6,7 +6,6 @@ import Project from './Project'
 import Recents from './Recents'
 import UI from './UI'
 import User from './User'
-import YourStats from './YourStats'
 
 const Store = types
   .model('Store', {
@@ -14,8 +13,7 @@ const Store = types
     project: types.optional(Project, {}),
     recents: types.optional(Recents, {}),
     ui: types.optional(UI, {}),
-    user: types.optional(User, {}),
-    yourStats: types.optional(YourStats, {})
+    user: types.optional(User, {})
   })
 
   .views(self => ({
