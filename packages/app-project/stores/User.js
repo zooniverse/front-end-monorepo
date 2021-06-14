@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import { flow, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
-
+import UserPersonalization from './UserPersonalization'
 import numberString from './types/numberString'
 
 const User = types
@@ -11,7 +11,8 @@ const User = types
     error: types.maybeNull(types.frozen({})),
     id: types.maybeNull(numberString),
     login: types.maybeNull(types.string),
-    loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.loading)
+    loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.loading),
+    personalization: types.optional(UserPersonalization, {})
   })
 
   .views(self => ({
