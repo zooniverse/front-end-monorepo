@@ -15,7 +15,7 @@ function RotateRectangle({
   onFinish = () => true,
   scale = 1
 }) {
-  const { x_center, y_center, width, height, angle } = mark
+  const { angle, height, width, x_center, y_center } = mark
   const guideWidth = GUIDE_WIDTH / scale
 
   const x_left = x_center - width / 2
@@ -138,11 +138,18 @@ RotateRectangle.propTypes = {
   */
   active: PropTypes.bool,
   /**
-    object
+    RotateRectangle data: { angle, height, width, x_center, y_center }
   */
-  mark: PropTypes.object.isRequired,
+  mark: PropTypes.shape({
+    angle: PropTypes.number,
+    height: PropTypes.number,
+    width: PropTypes.number,
+    x_center: PropTypes.number,
+    y_center: PropTypes.number
+  }).isRequired,
+
   /**
-    func
+    Callback to reset the drawing canvas when creation of the rectangle is finished.
   */
   onFinish: PropTypes.func,
   /**
