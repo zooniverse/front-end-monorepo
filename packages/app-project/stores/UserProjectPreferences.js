@@ -26,6 +26,18 @@ const UserProjectPreferences = types
     preferences: types.maybe(Preferences),
     settings: types.maybe(types.frozen())
   })
+  .views(self => ({
+    userHasAssignment(currentWorkflowId) {
+      const project = getRoot(self).project
+      const assignedWorkflowId = self.settings?.workflow_id
+
+      if (assignedWorkflowId !== currentWorkflowId) {
+        return project.workflowIsActive(assignedWorkflowId)
+      }
+
+      return false
+    }
+  }))
   .actions(self => {
     return {
       reset() {

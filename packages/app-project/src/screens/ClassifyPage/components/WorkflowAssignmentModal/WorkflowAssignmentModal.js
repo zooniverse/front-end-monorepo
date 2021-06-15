@@ -7,9 +7,9 @@ import counterpart from 'counterpart'
 
 counterpart.registerTranslations('en', en)
 
-export default function WorkflowAssignmentModal({ active = false }) {
+export default function WorkflowAssignmentModal({ active = false, closeFn }) {
   return (
-    <Modal active={active} closeFn={() => {}}>
+    <Modal active={active} closeFn={closeFn}>
       <Box pad={{ bottom: 'xsmall' }}>{counterpart('WorkflowAssignmentModal.content')}</Box>
       <Box direction='row' gap='xsmall' justify='center'>
         <Button label={counterpart('WorkflowAssignmentModal.cancel')} />
@@ -20,5 +20,6 @@ export default function WorkflowAssignmentModal({ active = false }) {
 }
 
 WorkflowAssignmentModal.propTypes = {
-  active: PropTypes.bool
+  active: PropTypes.bool,
+  closeFn: PropTypes.func
 }
