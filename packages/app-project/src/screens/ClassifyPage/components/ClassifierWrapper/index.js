@@ -1,1 +1,1 @@
-export { default } from './ClassifierWrapperContainer'
+export { default } from './ClassifierWrapperConnector'
