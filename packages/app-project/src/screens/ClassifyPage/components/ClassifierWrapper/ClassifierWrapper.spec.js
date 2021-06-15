@@ -4,16 +4,16 @@ import React from 'react'
 import asyncStates from '@zooniverse/async-states'
 import Classifier from '@zooniverse/classifier'
 
-import ClassifierWrapperContainer from './ClassifierWrapperContainer'
+import ClassifierWrapper from './ClassifierWrapper'
 
-describe('Component > ClassifierWrapperContainer', function () {
+describe('Component > ClassifierWrapper', function () {
   let wrapper
 
   before(function () {
     const project = {}
     const user = {}
     wrapper = shallow(
-      <ClassifierWrapperContainer.wrappedComponent
+      <ClassifierWrapper
         project={project}
         user={user}
       />
@@ -47,18 +47,18 @@ describe('Component > ClassifierWrapperContainer', function () {
         loadingState: asyncStates.success
       }
       wrapper = shallow(
-        <ClassifierWrapperContainer.wrappedComponent
+        <ClassifierWrapper
           collections={collections}
           project={project}
           recents={recents}
           user={user}
           yourStats={yourStats}
         />
-      )
+      ).find(Classifier)
     })
 
     it('should render the classifier', function () {
-      expect(wrapper.find(Classifier)).to.have.lengthOf(1)
+      expect(wrapper).to.have.lengthOf(1)
     })
 
     describe('on classification complete', function () {
@@ -70,7 +70,7 @@ describe('Component > ClassifierWrapperContainer', function () {
             { 'image/jpeg': 'thing.jpg' }
           ]
         }
-        wrapper.instance().onCompleteClassification({}, subject)
+        wrapper.props().onCompleteClassification({}, subject)
       })
 
       it('should increment stats', function () {
@@ -91,12 +91,12 @@ describe('Component > ClassifierWrapperContainer', function () {
 
     describe('on toggle favourite', function () {
       it('should add a subject to favourites', function () {
-        wrapper.instance().onToggleFavourite('3', true)
+        wrapper.props().onToggleFavourite('3', true)
         expect(collections.addFavourites.withArgs(['3'])).to.have.been.calledOnce()
       })
 
       it('should remove a subject from favourites', function () {
-        wrapper.instance().onToggleFavourite('3', false)
+        wrapper.props().onToggleFavourite('3', false)
         expect(collections.removeFavourites.withArgs(['3'])).to.have.been.calledOnce()
       })
     })

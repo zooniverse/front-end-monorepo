@@ -27,6 +27,7 @@ describe('Model > DrawingTask', function () {
   const pointTool = {
     help: '',
     label: 'Point please.',
+    min: 1,
     type: 'point',
     details
   }
@@ -41,6 +42,28 @@ describe('Model > DrawingTask', function () {
     instruction: "Mark each cat's face and tail. Draw an ellipse around each cat's face (not including the ears), and mark the tail tip with a point.",
     taskKey: 'T3',
     tools: [pointTool, lineTool],
+    type: 'drawing'
+  }
+
+  const singleRequiredSubtask = {
+    taskKey: 'T4.0.0',
+    type: 'single',
+    question: 'how many?',
+    answers: ['one', 'two', 'three'],
+    required: true
+  }
+
+  const pointToolWithRequiredSubtask = {
+    help: '',
+    label: 'Point please.',
+    type: 'point',
+    details: [singleRequiredSubtask]
+  }
+
+  const drawingTaskRequiredSubtaskSnapshot = {
+    instruction: "Mark each cat's face and tail. Draw an ellipse around each cat's face (not including the ears), and mark the tail tip with a point.",
+    taskKey: 'T4',
+    tools: [pointToolWithRequiredSubtask],
     type: 'drawing'
   }
 
@@ -89,6 +112,59 @@ describe('Model > DrawingTask', function () {
       const firstAnnotation = task.defaultAnnotation()
       const secondAnnotation = task.defaultAnnotation()
       expect(firstAnnotation.id).to.not.equal(secondAnnotation.id)
+    })
+  })
+
+  describe('Views > isComplete', function () {
+    describe('with minimum marks', function () {
+      let task
+
+      before(function () {
+        task = DrawingTask.TaskModel.create(drawingTaskSnapshot)
+      })
+
+      it('should return isComplete of false for under minimum tool mark count', function () {
+        expect(task.isComplete()).to.be.false()
+      })
+
+      it('should return isComplete of true for over minimum tool mark count', function () {
+        task.tools[0].createMark({ id: 'point1' })
+        task.tools[0].createMark({ id: 'point2' })
+
+        expect(task.isComplete()).to.be.true()
+      })
+    })
+
+    describe('with tool with incomplete required subtask', function () {
+      let task
+
+      before(function () {
+        task = DrawingTask.TaskModel.create(drawingTaskRequiredSubtaskSnapshot)
+        task.tools[0].createTask(singleRequiredSubtask)
+        task.tools[0].createMark({ id: 'point3' })
+      })
+
+      it('should return isComplete of false', function () {
+        expect(task.isComplete()).to.be.false()
+      })
+    })
+
+    describe('with tool with complete required subtask', function () {
+      let mark
+      let singleTask
+      let task
+
+      before(function () {
+        task = DrawingTask.TaskModel.create(drawingTaskRequiredSubtaskSnapshot)
+        singleTask = task.tools[0].createTask(singleRequiredSubtask)
+        mark = task.tools[0].createMark({ id: 'point4' })
+      })
+
+      it('should return isComplete of true', function () {
+        mark.addAnnotation(singleTask, 1)
+
+        expect(task.isComplete()).to.be.true()
+      })
     })
   })
 

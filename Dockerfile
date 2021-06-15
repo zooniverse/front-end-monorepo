@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:14-alpine
 
 ARG COMMIT_ID
 ENV COMMIT_ID=$COMMIT_ID
@@ -55,5 +55,7 @@ RUN yarn workspace @zooniverse/react-components build
 RUN yarn workspace @zooniverse/classifier build
 
 RUN yarn workspace @zooniverse/fe-content-pages build
+
+RUN echo $COMMIT_ID > /usr/src/packages/app-project/public/commit_id.txt
 
 RUN yarn workspace @zooniverse/fe-project build

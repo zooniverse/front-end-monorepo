@@ -48,7 +48,7 @@ export const Drawing = types.model('Drawing', {
       })
     },
 
-    get isComplete () {
+    isComplete () {
       return self.tools.reduce((isTaskComplete, tool) => isTaskComplete && tool.isComplete, true)
     },
 
@@ -75,6 +75,7 @@ export const Drawing = types.model('Drawing', {
 
     function complete(annotation) {
       annotation.update(self.marks)
+      self.subTaskVisibility = false
     }
 
     function reset () {
