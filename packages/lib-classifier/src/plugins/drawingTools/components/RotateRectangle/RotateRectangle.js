@@ -11,7 +11,6 @@ const BUFFER = 32
 
 function RotateRectangle({
   active = false,
-  children,
   mark,
   onFinish = () => true,
   scale = 1
@@ -129,7 +128,6 @@ function RotateRectangle({
           }
         />
       )}
-      {children}
     </g>
   )
 }
@@ -139,10 +137,6 @@ RotateRectangle.propTypes = {
     Modal active state.
   */
   active: PropTypes.bool,
-  /**
-    node
-  */
-  children: PropTypes.node,
   /**
     object
   */
