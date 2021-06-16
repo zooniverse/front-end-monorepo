@@ -116,8 +116,7 @@ class Markdownz extends React.Component {
       .use(ping, {
         ping: (resource, symbol) => this.shouldResourceBeLinkable(resource, symbol), // We could support passing in a prop to call a function here
         pingSymbols: [at, hashtag, subjectSymbol],
-        resourceURL: (resource, symbol) => this.buildResourceURL(resource, symbol),
-        matchRegex: /\B@([\w\-.]+\b)|#([-\w\d]{3,40})|(\^S[0-9]+)/
+        resourceURL: (resource, symbol) => this.buildResourceURL(resource, symbol)
       })
       .use(toc)
       .use(remark2react, { remarkReactComponents })

@@ -12,7 +12,7 @@ export default function plugin({
   ping, // Rename this from pingUsername to ping since we may be pinging more than users
   pingSymbols = ['@'], // Add a parameter to specify what the ping symbols are to be able to support custom ping symbols and more than one.
   resourceURL, // Rename from userURL to resourceURL
-  matchRegex
+  matchRegex = /\B@([\w\-.]+\b)|#([-\w\d]{3,40})|(\^S[0-9]+)/
 }) {
   if (typeof ping !== 'function' || typeof resourceURL !== 'function') {
     throw new Error(helpMsg)
