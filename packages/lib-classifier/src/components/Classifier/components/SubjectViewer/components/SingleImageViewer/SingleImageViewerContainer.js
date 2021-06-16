@@ -165,6 +165,7 @@ class SingleImageViewerContainer extends React.Component {
         </SVGContext.Provider>
       )
     }
+    return null
   }
 }
 
