@@ -33,6 +33,15 @@ export default function Choice (props) {
   const questionIds = getQuestionIds(choiceId, task)
   const allowIdentify = allowIdentification(answers, choiceId, task)
 
+  let hasFocus = 'identify'
+  if (choice.images?.length > 1) {
+    hasFocus = 'images'
+  } else if (choice.confusionsOrder?.length > 0) {
+    hasFocus = 'confusions'
+  } else if (questionIds.length > 0) {
+    hasFocus = 'questions'
+  }
+
   return (
     <Box
       background='light-1'
@@ -42,6 +51,7 @@ export default function Choice (props) {
     >
       {choice.images?.length > 0 && (
         <Carousel
+          autoFocus={hasFocus === 'images'}
           controls='arrows'
         >
           {choice.images.map((filename, index) => (
@@ -57,6 +67,7 @@ export default function Choice (props) {
       <Paragraph>{choice.description}</Paragraph>
       {choice.confusionsOrder?.length > 0 && (
         <ConfusedWith
+          hasFocus={hasFocus === 'confusions'}
           choices={choices}
           confusions={choice.confusions}
           confusionsOrder={choice.confusionsOrder}
@@ -67,6 +78,7 @@ export default function Choice (props) {
       {questionIds.length > 0 && (
         <Questions
           answers={answers}
+          hasFocus={hasFocus === 'questions'}
           choiceId={choiceId}
           questionIds={questionIds}
           questions={questions}
@@ -92,6 +104,7 @@ export default function Choice (props) {
           onClick={() => handleDelete(choiceId)}
         />
         <PrimaryButton
+          autoFocus={hasFocus === 'identify'}
           disabled={!allowIdentify}
           fill='horizontal'
           label={counterpart('Choice.identify')}

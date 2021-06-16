@@ -555,8 +555,10 @@ const task = {
     },
     'NTHNGHR': {
       'label': 'Nothing here',
-      'images': ['empty-1.jpg'],
-      'confusions': {},
+      'images': [],
+      'confusions': {
+        'FR': "You probably shouldn't be getting these confused."
+      },
       'description': "Don't tell the plant biologists we called vegetation \"nothing here\"�",
       'noQuestions': true,
       'characteristics': {
@@ -567,7 +569,7 @@ const task = {
         'HRNS': [],
         'PTTRN': []
       },
-      'confusionsOrder': []
+      'confusionsOrder': ['FR']
     },
     'GRNDHRNBLL': {
       'label': 'Ground Hornbill',
