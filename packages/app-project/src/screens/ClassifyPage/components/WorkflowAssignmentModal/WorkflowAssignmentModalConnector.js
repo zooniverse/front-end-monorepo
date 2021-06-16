@@ -4,16 +4,9 @@ import WorkflowAssignmentModalContainer from './WorkflowAssignmentModalContainer
 
 function useStore() {
   const { store } = React.useContext(MobXProviderContext)
-  const {
-    user: {
-      personalization: {
-        projectPreferences
-      }
-    }
-  } = store
 
   return {
-    projectPreferences
+    projectPreferences: store.user.personalization.projectPreferences
   }
 }
 

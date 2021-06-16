@@ -27,12 +27,12 @@ const UserProjectPreferences = types
     settings: types.maybe(types.frozen())
   })
   .views(self => ({
-    userHasAssignment(currentWorkflowId) {
+    promptAssignment(currentWorkflowID) {
       const project = getRoot(self).project
-      const assignedWorkflowId = self.settings?.workflow_id
+      const assignedWorkflowID = self.settings?.workflow_id
 
-      if (assignedWorkflowId !== currentWorkflowId) {
-        return project.workflowIsActive(assignedWorkflowId)
+      if (assignedWorkflowID && currentWorkflowID && assignedWorkflowID !== currentWorkflowID) {
+        return project.workflowIsActive(assignedWorkflowID)
       }
 
       return false

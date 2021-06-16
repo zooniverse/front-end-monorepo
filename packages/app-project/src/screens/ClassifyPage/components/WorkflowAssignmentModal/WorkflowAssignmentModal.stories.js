@@ -18,7 +18,7 @@ export default {
 
 export function Default({ dark, active }) {
   const projectPreferences = {
-    userHasAssignment: () => true
+    promptAssignment: () => true
   }
   return (
     <Grommet

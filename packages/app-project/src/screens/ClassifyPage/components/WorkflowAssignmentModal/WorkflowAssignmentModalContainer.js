@@ -15,7 +15,7 @@ function WorkflowAssignmentModalContainer({ projectPreferences, workflowID }) {
   }
 
   React.useEffect(() => {
-    if (projectPreferences?.userHasAssignment(workflowID)) {
+    if (projectPreferences?.promptAssignment(workflowID)) {
       if (!dismissedForSession) setActive(true)
     }
 
