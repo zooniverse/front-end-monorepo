@@ -1,13 +1,12 @@
 import React from 'react'
-import WorkflowAssignmentModal from './WorkflowAssignmentModal'
+import WorkflowAssignmentModalContainer from './WorkflowAssignmentModalContainer'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 
 export default {
   title: 'Workflow Assignment / Assignment Modal',
-  component: WorkflowAssignmentModal,
+  component: WorkflowAssignmentModalContainer,
   args: {
-    active: true,
     dark: false
   },
   parameters: {
@@ -18,6 +17,9 @@ export default {
 }
 
 export function Default({ dark, active }) {
+  const projectPreferences = {
+    userHasAssignment: () => true
+  }
   return (
     <Grommet
       background={{
@@ -27,7 +29,7 @@ export function Default({ dark, active }) {
       theme={zooTheme}
       themeMode={(dark) ? 'dark' : 'light'}
     >
-      <WorkflowAssignmentModal active={active} />
+      <WorkflowAssignmentModalContainer projectPreferences={projectPreferences} />
     </Grommet>
   )
 }
