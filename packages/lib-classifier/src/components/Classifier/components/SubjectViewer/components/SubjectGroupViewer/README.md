@@ -67,7 +67,20 @@ workflow.configuration = {
 
 (Note 2: `subject_viewer_config` is used by the frontend UI, while `subject_group` is used by the backend service. There's a small duplication of values here, don't mind it.)
 
-Optionally, the SGV can be further configured with specific styles.
+**Optional:** if the grid isn't fitting properly on the screen (e.g. the grid is too tall, and since the grid automatically tries to fit to width, this causes the bottom half of the grid to be cut off) then try setting some maximum size settings. Be sure to specify unit of measure, e.g. `px`
+
+```
+workflow.configuration = {
+  subject_viewer_config: {
+    grid_max_width: '1000px',
+    grid_max_height: '50vh',
+    ...
+  },
+  ...
+}
+```
+
+**Optional:** the SGV can be further configured with specific styles.
 
 ```
 workflow.configuration = {
