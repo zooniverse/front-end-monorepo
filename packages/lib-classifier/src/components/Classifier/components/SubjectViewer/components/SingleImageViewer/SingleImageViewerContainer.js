@@ -113,9 +113,9 @@ class SingleImageViewerContainer extends React.Component {
     // const { naturalHeight, naturalWidth, src } = img
     
     // If image hasn't been fully retrieved, use a placeholder
-    const src = img?.src || 'https://via.placeholder.com/200'
-    const naturalWidth = img?.naturalWidth || 200
-    const naturalHeight = img?.naturalHeight || 200
+    const src = img?.src || 'https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png'  // Use this instead of https://www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png to save on network calls
+    const naturalWidth = img?.naturalWidth || 800
+    const naturalHeight = img?.naturalHeight || 600
 
     if (loadingState === asyncStates.error) {
       return <div>Something went wrong.</div>
