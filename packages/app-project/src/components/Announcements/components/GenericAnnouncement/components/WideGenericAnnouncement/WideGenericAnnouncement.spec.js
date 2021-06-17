@@ -1,6 +1,6 @@
-import { render, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
-
+import { CloseButton } from '@zooniverse/react-components'
 import WideGenericAnnouncement from './WideGenericAnnouncement'
 
 const ANNOUNCEMENT = 'Arcu scelerisque curae eu sapien euismod nisl, viverra gravida donec interdum tempor vulputate nec, nam morbi rhoncus porta sollicitudin.'
@@ -9,7 +9,7 @@ describe('Component > GenericAnnouncement > WideGenericAnnouncement', function (
   let wrapper
 
   before(function () {
-    wrapper = render(<WideGenericAnnouncement announcement={ANNOUNCEMENT} />)
+    wrapper = shallow(<WideGenericAnnouncement announcement={ANNOUNCEMENT} />)
   })
 
   it('should render without crashing', function () {
@@ -17,8 +17,7 @@ describe('Component > GenericAnnouncement > WideGenericAnnouncement', function (
   })
 
   it('should render a paragraph with the announcement text', function () {
-    const paragraphWrapper = wrapper.find('p')
-    expect(paragraphWrapper.text()).to.contain(ANNOUNCEMENT)
+    expect(wrapper.contains(ANNOUNCEMENT)).to.be.true()
   })
 
   it('should be the full width of its container', function () {
@@ -27,25 +26,24 @@ describe('Component > GenericAnnouncement > WideGenericAnnouncement', function (
   })
 
   it('should not render a close button', function () {
-    const buttonWrapper = wrapper.find('button')
+    const buttonWrapper = wrapper.find(CloseButton)
     expect(buttonWrapper).to.have.lengthOf(0)
   })
 
   describe('when dismissable', function () {
     before(function () {
-      wrapper = render(<WideGenericAnnouncement announcement={ANNOUNCEMENT} dismissable closeFn={() => {}} />)
+      wrapper = shallow(<WideGenericAnnouncement announcement={ANNOUNCEMENT} dismissable closeFn={() => {}} />)
     })
 
     it('should render a close button', function () {
-      const buttonWrapper = wrapper.find('button')
-      // a second one is rendered for visual balancing, but is hidden from DOM / accessibility tree
-      expect(buttonWrapper).to.have.lengthOf(2)
+      const buttonWrapper = wrapper.find(CloseButton)
+      expect(buttonWrapper).to.have.lengthOf(1)
     })
   })
 
   describe('when there are children nodes', function () {
     before(function () {
-      wrapper = render(
+      wrapper = shallow(
         <WideGenericAnnouncement announcement={ANNOUNCEMENT}>
           <span id='child'></span>
         </WideGenericAnnouncement>

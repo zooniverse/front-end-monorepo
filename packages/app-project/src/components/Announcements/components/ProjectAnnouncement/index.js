@@ -1,1 +1,1 @@
-export { default } from './ProjectAnnouncementContainer'
+export { default } from './ProjectAnnouncementConnector'

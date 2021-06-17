@@ -114,7 +114,7 @@ function getFromTheme (props, darkColor, lightColor) {
 }
 
 function getHoverBackground (props) {
-  const color = getFromTheme(props, 'neutral-2', 'accent-2')
+  const color = getFromTheme(props, 'neutral-1', 'accent-1')
   const darkColors = [darken(0.04, color), darken(0.11, color)]
   const lightColors = [lighten(0.05, color), darken(0.11, color)]
   const activeColors = props.theme.dark ? darkColors : lightColors

@@ -9,13 +9,16 @@ import SingleImageViewer from '@viewers/components/SingleImageViewer'
 import ClassificationStore from '@store/ClassificationStore'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import DrawingTask from '@plugins/tasks/DrawingTask/models/DrawingTask'
-import { DrawingTaskFactory, ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
+import {
+  DrawingTaskFactory,
+  ProjectFactory,
+  SubjectFactory,
+  WorkflowFactory
+} from '@test/factories'
 import Rectangle from './'
 
 const subject = SubjectFactory.build({
-  locations: [
-    { 'image/jpeg': 'http://placekitten.com/500/300' }
-  ]
+  locations: [{ 'image/jpeg': 'http://placekitten.com/500/300' }]
 })
 
 const project = ProjectFactory.build()
@@ -23,10 +26,12 @@ const workflow = WorkflowFactory.build()
 const drawingTaskSnapshot = DrawingTaskFactory.build({
   instruction: 'Draw a rectangle',
   taskKey: 'T1',
-  tools: [{
-    color: zooTheme.global.colors['drawing-red'],
-    type: 'rectangle'
-  }],
+  tools: [
+    {
+      color: zooTheme.global.colors['drawing-red'],
+      type: 'rectangle'
+    }
+  ],
   type: 'drawing'
 })
 
@@ -37,16 +42,16 @@ const subTasksSnapshot = [
     type: 'text'
   },
   {
-    answers: [{ label: "yes" }, { label: "no" }],
-    help: "",
-    question: "Is it tasty?",
+    answers: [{ label: 'yes' }, { label: 'no' }],
+    help: '',
+    question: 'Is it tasty?',
     taskKey: 'T0.1',
     type: 'single'
   },
   {
-    answers: [{ label: "cat" }, { label: "dog" }, { label: "bird" }],
-    help: "",
-    question: "Select your favourite animals.",
+    answers: [{ label: 'cat' }, { label: 'dog' }, { label: 'bird' }],
+    help: '',
+    question: 'Select your favourite animals.',
     taskKey: 'T0.2',
     type: 'multiple'
   }
@@ -88,7 +93,9 @@ function setupStores() {
     workflowSteps: {
       activeInteractionTask: {},
       activeStepTasks: [drawingTask],
-      findTasksByType: () => { return [] },
+      findTasksByType: () => {
+        return []
+      },
       interactionTask: {}
     }
   }
@@ -101,8 +108,8 @@ function setupStores() {
 const stores = setupStores()
 
 function updateStores({ activeMark, finished, subtask }) {
-  const [ drawingTask ] = stores.workflowSteps.activeStepTasks
-  const [ mark ] = drawingTask.marks
+  const [drawingTask] = stores.workflowSteps.activeStepTasks
+  const [mark] = drawingTask.marks
   if (finished) {
     drawingTask.setActiveMark(mark.id)
     mark.finish && mark.finish()
@@ -130,7 +137,7 @@ class DrawingStory extends Component {
     setTimeout(() => this.setState({ loadingState: asyncStates.success }), 1000)
   }
 
-  render () {
+  render() {
     return (
       <Provider classifierStore={this.props.stores}>
         <Grommet
@@ -166,9 +173,7 @@ export default {
 
 export function Complete(args) {
   updateStores(args)
-  return (
-    <DrawingStory stores={stores} />
-  )
+  return <DrawingStory stores={stores} />
 }
 Complete.args = {
   activeMark: false,
@@ -178,9 +183,7 @@ Complete.args = {
 
 export function Active(args) {
   updateStores(args)
-  return (
-    <DrawingStory stores={stores} />
-  )
+  return <DrawingStory stores={stores} />
 }
 Active.args = {
   activeMark: true,
@@ -190,9 +193,7 @@ Active.args = {
 
 export function Subtask(args) {
   updateStores(args)
-  return (
-    <DrawingStory stores={stores} />
-  )
+  return <DrawingStory stores={stores} />
 }
 Subtask.args = {
   activeMark: true,

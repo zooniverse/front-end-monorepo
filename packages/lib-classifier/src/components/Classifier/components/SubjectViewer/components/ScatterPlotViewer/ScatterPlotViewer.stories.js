@@ -239,7 +239,7 @@ stories
         <Box height='medium' width='large'>
           <ScatterPlotViewer
             axisColor={text('axis color', colors['light-1'])}
-            backgroundColor={text('background color', darken(0.08, colors['neutral-2']))}
+            backgroundColor={text('background color', darken(0.08, colors['neutral-1']))}
             data={object('data', keplerMockDataWithOptions.data)}
             glyphColors={[colors['light-1']]}
             margin={keplerMockDataWithOptions.chartOptions.margin}

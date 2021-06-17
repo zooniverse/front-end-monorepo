@@ -1,42 +1,55 @@
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import DragHandle from '../DragHandle'
 
 const GRAB_STROKE_WIDTH = 6
 
-function Rectangle ({ active, children, mark, onFinish, scale }) {
+function Rectangle({ active, mark, onFinish, scale }) {
   const { x_center, y_center, width, height } = mark
 
-  function onHandleDrag (coords) {
+  function onHandleDrag(coords) {
     mark.setCoordinates(coords)
   }
-  
+
   const x_left = x_center - width / 2
   const x_right = x_center + width / 2
   const y_top = y_center - height / 2
   const y_bottom = y_center + height / 2
-  
-  const _onFinish = onFinish || function () { return true }
-  
+
+  const _onFinish =
+    onFinish ||
+    function () {
+      return true
+    }
+
   return (
     <g onPointerUp={active ? _onFinish : undefined}>
       <rect x={x_left} y={y_top} width={width} height={height} />
-      <rect x={x_left} y={y_top} width={width} height={height} strokeWidth={GRAB_STROKE_WIDTH / scale} strokeOpacity='0' />
-      {active &&
+      <rect
+        x={x_left}
+        y={y_top}
+        width={width}
+        height={height}
+        strokeWidth={GRAB_STROKE_WIDTH / scale}
+        strokeOpacity='0'
+      />
+      {active && (
         <DragHandle
           scale={scale}
           x={x_left}
           y={y_top}
-          dragMove={(e, d) => 
+          dragMove={(e, d) =>
             onHandleDrag({
               x_left: x_left + d.x,
               x_right: x_right,
               y_top: y_top + d.y,
-              y_bottom: y_bottom,
+              y_bottom: y_bottom
             })
           }
-        />}
-      {active &&
+        />
+      )}
+      {active && (
         <DragHandle
           scale={scale}
           x={x_right}
@@ -46,11 +59,12 @@ function Rectangle ({ active, children, mark, onFinish, scale }) {
               x_left: x_left,
               x_right: x_right + d.x,
               y_top: y_top,
-              y_bottom: y_bottom + d.y,
+              y_bottom: y_bottom + d.y
             })
           }
-        />}
-        {active &&
+        />
+      )}
+      {active && (
         <DragHandle
           scale={scale}
           x={x_left}
@@ -60,11 +74,12 @@ function Rectangle ({ active, children, mark, onFinish, scale }) {
               x_left: x_left + d.x,
               x_right: x_right,
               y_top: y_top,
-              y_bottom: y_bottom + d.y,
+              y_bottom: y_bottom + d.y
             })
           }
-        />}
-        {active &&
+        />
+      )}
+      {active && (
         <DragHandle
           scale={scale}
           x={x_right}
@@ -74,11 +89,11 @@ function Rectangle ({ active, children, mark, onFinish, scale }) {
               x_left: x_left,
               x_right: x_right + d.x,
               y_top: y_top + d.y,
-              y_bottom: y_bottom,
+              y_bottom: y_bottom
             })
           }
-        />}
-      {children}
+        />
+      )}
     </g>
   )
 }
@@ -91,6 +106,4 @@ Rectangle.defaultProps = {
   active: false
 }
 
-export default Rectangle
-
-
+export default observer(Rectangle)

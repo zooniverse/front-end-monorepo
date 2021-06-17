@@ -20,7 +20,7 @@ function BannerContainer () {
     <GenericAnnouncement
       announcement='Hello world!'
       closeFn={() => setShowBanner(false)}
-      color='neutral-4'
+      color='neutral-2'
       dismissable
     />
   )

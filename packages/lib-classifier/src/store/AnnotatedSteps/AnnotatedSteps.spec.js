@@ -1,12 +1,5 @@
-import { Factory } from 'rosie'
 import sinon from 'sinon'
-
-import AnnotatedSteps from './'
-
-import RootStore from '@store'
-import { SubjectFactory, WorkflowFactory, ProjectFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
-import stubPanoptesJs from '@test/stubPanoptesJs'
 
 describe('Model > AnnotatedSteps', function () {
   let store
@@ -51,27 +44,14 @@ describe('Model > AnnotatedSteps', function () {
       // answer Yes to the branching question.
       branchingQuestionAnnotation.update(0)
       firstStep = store.annotatedSteps.latest.step
-      firstStep.tasks.forEach(task => {
-        sinon.spy(task, 'complete')
-      })
       store.annotatedSteps.next()
       const [ multipleChoiceAnnotation ] = store.annotatedSteps.latest.annotations
       // answer the T1 question so we can test redo.
       multipleChoiceAnnotation.update([0,1])
     })
 
-    after(function () {
-      firstStep.tasks.forEach(task => {
-        task.complete.restore()
-      })
-    })
-
     it('should have two steps', function () {
       expect(store.annotatedSteps.steps.size).to.equal(2)
-    })
-
-    it('should complete the first step', function () {
-      firstStep.tasks.forEach(task => expect(task.complete).to.have.been.calledOnce())
     })
 
     it('should store the second workflow step', function () {
@@ -166,23 +146,7 @@ describe('Model > AnnotatedSteps', function () {
 
     describe('on finish',function () {
       before(function () {
-        const { step } = store.annotatedSteps.latest
-        step.tasks.forEach(task => {
-          sinon.spy(task, 'complete')
-        })
         store.annotatedSteps.finish()
-      })
-
-      after(function () {
-        const { step } = store.annotatedSteps.latest
-        step.tasks.forEach(task => {
-          task.complete.restore()
-        })
-      })
-
-      it('should complete the final step', function () {
-        const { step } = store.annotatedSteps.latest
-        step.tasks.forEach(task => expect(task.complete).to.have.been.calledOnce())
       })
 
       it('should clear pending annotations', function () {

@@ -119,7 +119,7 @@ The multiple series JSON shape is an array of objects consisting of `seriesData`
         }
       ],
       "seriesOptions": {
-        "color": "accent-2",
+        "color": "accent-1",
         "label": "Filter 1"
       }
     }, {

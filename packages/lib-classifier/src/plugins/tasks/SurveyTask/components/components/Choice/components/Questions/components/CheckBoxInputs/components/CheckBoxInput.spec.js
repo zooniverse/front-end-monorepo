@@ -43,8 +43,8 @@ describe('Component > CheckBoxInput', function () {
       wrapper.setProps({ isChecked: true })
     })
 
-    it('should have a background color of accent-2', function () {
-      expect(wrapper.find(StyledBox).props().background.color).to.equal('accent-2')
+    it('should have a background color of accent-1', function () {
+      expect(wrapper.find(StyledBox).props().background.color).to.equal('accent-1')
     })
 
     it('should have text weight bold', function () {
@@ -56,9 +56,9 @@ describe('Component > CheckBoxInput', function () {
     it('should call handleCheckBoxChange with checked and value', function () {
       expect(handleCheckBoxChangeSpy).to.not.have.been.called()
 
-      wrapper.find('input').simulate('change', { target: { checked: false, value: 'TNG' } })
+      wrapper.find('input').simulate('change', { target: { checked: true, value: 'TNG' } })
 
-      expect(handleCheckBoxChangeSpy).to.have.been.calledWith(false, 'TNG')
+      expect(handleCheckBoxChangeSpy).to.have.been.calledWith(true, 'TNG')
 
       handleCheckBoxChangeSpy.resetHistory()
     })

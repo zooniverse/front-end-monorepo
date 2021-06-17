@@ -4,9 +4,11 @@ import React from 'react'
 import { observable } from 'mobx'
 import { Markdownz } from '@zooniverse/react-components'
 import { Anchor } from 'grommet'
-import FieldGuideItemAnchor, { AnchorLabel } from './FieldGuideItemAnchor'
+import { FieldGuideItemAnchor, AnchorLabel } from './FieldGuideItemAnchor'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
 import { FieldGuideMediumFactory } from '@test/factories'
+import { Grommet } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
 
 const mediumOne = FieldGuideMediumFactory.build()
 const mediumTwo = FieldGuideMediumFactory.build()
@@ -39,7 +41,10 @@ describe('Component > FieldGuideItemAnchor', function () {
         item={item}
         itemIndex={itemIndex}
         setActiveItemIndex={() => { }}
-      />)
+      />, {
+      wrappingComponent: Grommet,
+      wrappingComponentProps: { theme: zooTheme }
+    })
     expect(wrapper.find(Anchor).props().label.type).to.equal(AnchorLabel)
   })
 
@@ -51,7 +56,10 @@ describe('Component > FieldGuideItemAnchor', function () {
         item={item}
         itemIndex={itemIndex}
         setActiveItemIndex={setActiveItemIndexSpy}
-      />)
+      />, {
+      wrappingComponent: Grommet,
+      wrappingComponentProps: { theme: zooTheme }
+    })
 
     wrapper.find(Anchor).simulate('click', { preventDefault: () => {} })
     expect(setActiveItemIndexSpy).to.have.been.calledOnceWith(itemIndex)
