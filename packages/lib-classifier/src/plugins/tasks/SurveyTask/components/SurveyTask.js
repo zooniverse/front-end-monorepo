@@ -1,4 +1,4 @@
-import { Stack } from 'grommet'
+import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -27,28 +27,29 @@ function SurveyTask (props) {
   }
 
   return (
-    <Stack fill>
-      <Chooser
-        autoFocus={autoFocus}
-        disabled={disabled}
-        filters={filters}
-        handleFilter={handleFilter}
-        onChoose={handleChoice}
-        selectedChoiceIds={selectedChoiceIds}
-        task={task}
-      />
-      {selectedChoice && (
-        <Choice
-          answers={answers}
-          choiceId={selectedChoice}
-          handleAnswers={handleAnswers}
-          handleChoice={handleChoice}
-          handleDelete={handleDelete}
-          onIdentify={handleIdentify}
-          task={task}
-        />
-      )}
-    </Stack>
+    <Box
+      fill
+    >
+      {selectedChoice
+        ? <Choice
+            answers={answers}
+            choiceId={selectedChoice}
+            handleAnswers={handleAnswers}
+            handleChoice={handleChoice}
+            onCancel={() => handleCancel()}
+            onIdentify={handleIdentify}
+            task={task}
+          />
+        : <Chooser
+            autoFocus={autoFocus}
+            disabled={disabled}
+            filters={filters}
+            handleFilter={handleFilter}
+            onChoose={handleChoice}
+            selectedChoiceIds={selectedChoiceIds}
+            task={task}
+          />}
+    </Box>
   )
 }
 
