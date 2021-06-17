@@ -23,7 +23,7 @@ describe('Component > Choice', function () {
     type: 'survey'
   })
 
-  const onCancelSpy = sinon.spy()
+  const handleDeleteSpy = sinon.spy()
   const onIdentifySpy = sinon.spy()
 
   before(function () {
@@ -37,7 +37,7 @@ describe('Component > Choice', function () {
     wrapper = shallow(
       <Choice
         choiceId='CRCL'
-        onCancel={onCancelSpy}
+        handleDelete={handleDeleteSpy}
         onIdentify={onIdentifySpy}
         task={task}
       />
@@ -80,7 +80,7 @@ describe('Component > Choice', function () {
 
   it('should call onCancel when "Not this" button clicked', function () {
     wrapper.find(Button).simulate('click')
-    expect(onCancelSpy).to.have.been.calledOnce()
+    expect(handleDeleteSpy).to.have.been.calledOnceWith('CRCL')
   })
 
   it('should call onIdentify when "Identify" button clicked', function () {
