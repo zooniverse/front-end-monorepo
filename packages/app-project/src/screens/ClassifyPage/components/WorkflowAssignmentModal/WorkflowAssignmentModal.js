@@ -29,5 +29,7 @@ export default function WorkflowAssignmentModal(props) {
 
 WorkflowAssignmentModal.propTypes = {
   active: PropTypes.bool,
-  closeFn: PropTypes.func
+  closeFn: PropTypes.func.isRequired,
+  dismiss: PropTypes.func.isRequired,
+  dismissedForSession: PropTypes.bool
 }

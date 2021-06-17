@@ -1,3 +1,4 @@
+import { PropTypes } from 'mobx-react'
 import React from 'react'
 import WorkflowAssignmentModal from './WorkflowAssignmentModal'
 
@@ -30,6 +31,13 @@ function WorkflowAssignmentModalContainer({ projectPreferences, workflowID }) {
       dismissedForSession={dismissedForSession}
     />
   )
+}
+
+WorkflowAssignmentModalContainer.propTypes = {
+  projectPreferences: PropTypes.shape({
+    promptAssignment: PropTypes.func
+  }),
+  workflowID: PropTypes.string
 }
 
 export default WorkflowAssignmentModalContainer

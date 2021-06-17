@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { MobXProviderContext, observer } from 'mobx-react'
 import WorkflowAssignmentModalContainer from './WorkflowAssignmentModalContainer'
 
@@ -20,6 +21,10 @@ function WorkflowAssignmentModalConnector({ workflowID, ...rest }) {
       {...rest}
     />
   )
+}
+
+WorkflowAssignmentModalConnector.propTypes = {
+  workflowID: PropTypes.string.isRequired
 }
 
 export default observer(WorkflowAssignmentModalConnector)
