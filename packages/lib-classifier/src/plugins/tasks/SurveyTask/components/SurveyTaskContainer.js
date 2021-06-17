@@ -47,10 +47,32 @@ class SurveyTaskContainer extends React.Component {
 
     if (annotation?.value?.map(item => item.choice).includes(selectedChoice)) {
       const existingAnnotationValue = annotation?.value?.find(value => value.choice === selectedChoice)
-      this.setState({ selectedChoice, answers: existingAnnotationValue.answers })
+      this.setState({
+        selectedChoice,
+        answers: existingAnnotationValue.answers
+      })
     } else {
-      this.setState({ selectedChoice, answers: {} })
+      this.setState({ 
+        selectedChoice,
+        answers: {}
+      })
     }
+  }
+
+  handleDelete (deletedChoice) {
+    const { annotation } = this.props
+    
+    if (annotation?.value?.map(item => item.choice).includes(deletedChoice)) {
+      const value = annotation?.value?.filter(item => item.choice !== deletedChoice) || []
+      annotation.update(value)
+    }
+    
+    this.setState({
+      selectedChoice: '',
+      answers: {}
+    })
+
+    annotation.setChoiceInProgress(false)
   }
 
   handleFilter (characteristicId, valueId) {
@@ -114,6 +136,7 @@ class SurveyTaskContainer extends React.Component {
         filters={filters}
         handleAnswers={this.handleAnswers.bind(this)}
         handleChoice={this.handleChoice.bind(this)}
+        handleDelete={this.handleDelete.bind(this)}
         handleFilter={this.handleFilter.bind(this)}
         handleIdentify={this.handleIdentify.bind(this)}
         selectedChoice={selectedChoice}
