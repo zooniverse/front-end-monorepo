@@ -16,6 +16,9 @@ export default function TextTaskWithSuggestions (props) {
   } = props
 
   const textInput = React.useRef()
+  const dropProps = {
+    trapFocus: false
+  }
 
   function onChange() {
     updateAnnotation(textInput)
@@ -38,6 +41,7 @@ export default function TextTaskWithSuggestions (props) {
         <TextInput
           autoFocus={autoFocus}
           disabled={disabled}
+          dropProps={dropProps}
           id={`${task.taskKey}-${task.type}`}
           onChange={onChange}
           onSelect={(event) => onSelectSuggestion(event, textInput)}

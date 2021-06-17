@@ -1,10 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
-import { panoptes } from '@zooniverse/panoptes-js'
 import { GraphQLClient } from 'graphql-request'
 import _ from 'lodash'
-import { DateTime } from 'luxon'
-import { autorun } from 'mobx'
-import { addDisposer, flow, getRoot, types } from 'mobx-state-tree'
+import { flow, getRoot, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 
 export const statsClient = new GraphQLClient('https://graphql-stats.zooniverse.org/graphql')
@@ -33,45 +30,9 @@ const YourStats = types
     error: types.maybeNull(types.frozen({})),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
     thisWeek: types.array(Count),
-    totalCount: types.optional(types.number, 0)
   })
 
-  .volatile(self => ({
-    sessionCount: 0
-  }))
-
-  .views(self => ({
-    get counts () {
-      const todaysDate = new Date()
-      let today
-      try {
-        const todaysCount = self.thisWeek.length === 7
-          ? self.thisWeek[todaysDate.getDay() - 1].count
-          : 0
-        today = todaysCount + self.sessionCount
-      } catch (error) {
-        today = 0
-      }
-
-      return {
-        today,
-        total: self.totalCount
-      }
-    }
-  }))
-
   .actions(self => {
-    function createProjectObserver () {
-      const projectDisposer = autorun(() => {
-        const { project, user } = getRoot(self)
-        if (project.id && user.id) {
-          self.fetchActivityCount()
-          self.fetchDailyCounts()
-        }
-      })
-      addDisposer(self, projectDisposer)
-    }
-
     function calculateWeeklyStats (dailyCounts) {
       /*
       Calculate daily stats for this week, starting last Monday.
@@ -94,31 +55,6 @@ const YourStats = types
     }
 
     return {
-      afterAttach () {
-        createProjectObserver()
-      },
-
-      fetchActivityCount: flow(function * fetchActivityCount () {
-        const { project, user } = getRoot(self)
-        self.loadingState = asyncStates.loading
-        try {
-          const token = yield auth.checkBearerToken()
-          const authorization = `Bearer ${token}`
-          const query = {
-            project_id: project.id,
-            user_id: user.id
-          }
-          // TODO: this should really share the UPP that's being requested by the classifier.
-          const response = yield panoptes.get('/project_preferences', query, { authorization })
-          const [ preferences ] = response.body.project_preferences
-          self.totalCount = preferences ? preferences.activity_count : 0
-        } catch (error) {
-          console.error(error)
-          self.error = error
-          self.loadingState = asyncStates.error
-        }
-      }),
-
       fetchDailyCounts: flow(function * fetchDailyCounts () {
         const { project, user } = getRoot(self)
         self.loadingState = asyncStates.loading
@@ -151,12 +87,7 @@ const YourStats = types
           dailyCounts = []
         }
         self.thisWeek = calculateWeeklyStats(dailyCounts)
-      }),
-
-      increment () {
-        self.sessionCount = self.sessionCount + 1
-        self.totalCount = self.totalCount + 1
-      }
+      })
     }
   })
 

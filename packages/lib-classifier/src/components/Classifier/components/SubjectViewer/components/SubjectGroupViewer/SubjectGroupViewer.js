@@ -1,15 +1,21 @@
 import PropTypes from 'prop-types'
 import React, { forwardRef, useContext, useRef } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SGVGridCell from './components/SGVGridCell'
 
 const Container = styled.div`
-  animation: fadein 1s 0s forwards;
-  height: 100%;
   overflow: hidden;
+  height: 100%;
   width: 100%;
+  ${props => props.gridMaxWidth
+    ? css`max-width: ${props.gridMaxWidth};`
+    : ''}
+  ${props => props.gridMaxHeight
+    ? css`max-height: ${props.gridMaxHeight};`
+    : ''}
 
+  animation: fadein 1s 0s forwards;
   @keyframes fadein {
     from {
       opacity: 0;
@@ -19,6 +25,28 @@ const Container = styled.div`
       opacity: 100%;
     }
   }
+`
+
+/*
+Note on Subject Viewer sizing/fitting:
+- The grid should fit the height OR width of the available visible space.
+- This is implemented with the container div AND the <svg> having
+  width/height=100% (which 'fits') an optional max-width/height (which
+  'restricts').
+- Curious note: the max-width/height has to be repeated in <svg> due to
+  Safari 12. If we ignore Safari, we only need max-width/height on the
+  container div, not the <svg>
+ */
+export const SVG = styled.svg`
+  width: 100%;
+  height: 100%;
+
+  ${props => props.gridMaxWidth
+    ? css`max-width: ${props.gridMaxWidth};`
+    : ''}
+  ${props => props.gridMaxHeight
+    ? css`max-height: ${props.gridMaxHeight};`
+    : ''}
 `
 
 const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
@@ -34,6 +62,8 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
     cellStyle,
     gridRows,
     gridColumns,
+    gridMaxWidth,
+    gridMaxHeight,
     
     width,
     height,
@@ -56,13 +86,18 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
   
   return (
     <SVGContext.Provider value={{ svg, getScreenCTM }}>
-      <Container>
-        <svg
+      <Container
+        gridMaxWidth={gridMaxWidth}
+        gridMaxHeight={gridMaxHeight}
+      >
+        <SVG
           ref={ref}
           focusable
           onKeyDown={onKeyDown}
           tabIndex={0}
           viewBox={`0 0 ${width} ${height}`}
+          gridMaxWidth={gridMaxWidth}
+          gridMaxHeight={gridMaxHeight}
         >
           <g
             ref={transformLayer}
@@ -93,7 +128,7 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
               />
             ))}
           </g>
-        </svg>
+        </SVG>
       </Container>
     </SVGContext.Provider>
   )
@@ -111,6 +146,8 @@ SubjectGroupViewer.propTypes = {
   cellStyle: PropTypes.object,
   gridRows: PropTypes.number,
   gridColumns: PropTypes.number,
+  gridMaxWidth: PropTypes.string,
+  gridMaxHeight: PropTypes.string,
 
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
@@ -139,6 +176,8 @@ SubjectGroupViewer.defaultProps = {
   cellStyle: {},
   gridRows: 1,
   gridColumns: 1,
+  gridMaxWidth: '',
+  gridMaxHeight: '',
 
   panX: 0,
   panY: 0,

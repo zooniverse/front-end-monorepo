@@ -6,7 +6,7 @@ import React, { Component } from 'react'
 import DailyClassificationsChart from './DailyClassificationsChart'
 
 function storeMapper (stores) {
-  const { project, yourStats: { counts, thisWeek } } = stores.store
+  const { project, user: { personalization: { counts, stats: { thisWeek } } } } = stores.store
   return {
     counts,
     thisWeek,

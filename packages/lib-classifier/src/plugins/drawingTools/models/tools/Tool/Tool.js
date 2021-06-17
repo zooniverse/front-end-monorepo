@@ -1,24 +1,27 @@
 import { types } from 'mobx-state-tree'
 import { Mark } from '../../marks'
-import SingleChoiceTask  from '@plugins/tasks/SingleChoiceTask'
+import SingleChoiceTask from '@plugins/tasks/SingleChoiceTask'
 import MultipleChoiceTask from '@plugins/tasks/MultipleChoiceTask'
 import TextTask from '@plugins/tasks/TextTask'
 
-const Tool = types.model('Tool', {
-  color: types.optional(types.string, ''),
-  details: types.array(types.frozen()),
-  label: types.optional(types.string, ''),
-  marks: types.map(Mark),
-  max: types.optional(types.union(types.string, types.number), Infinity),
-  min: types.optional(types.union(types.string, types.number), 0),
-  tasks: types.array(types.union(
-    SingleChoiceTask.TaskModel,
-    MultipleChoiceTask.TaskModel,
-    TextTask.TaskModel
-  )),
-  type: types.literal('default')
-})
-  .preProcessSnapshot(snapshot => {
+const Tool = types
+  .model('Tool', {
+    color: types.optional(types.string, ''),
+    details: types.array(types.frozen()),
+    label: types.optional(types.string, ''),
+    marks: types.map(Mark),
+    max: types.optional(types.union(types.string, types.number), Infinity),
+    min: types.optional(types.union(types.string, types.number), 0),
+    tasks: types.array(
+      types.union(
+        SingleChoiceTask.TaskModel,
+        MultipleChoiceTask.TaskModel,
+        TextTask.TaskModel
+      )
+    ),
+    type: types.literal('default')
+  })
+  .preProcessSnapshot((snapshot) => {
     const newSnapshot = Object.assign({}, snapshot)
     /*
     Create tasks from details if we have details but no tasks.
@@ -34,8 +37,8 @@ const Tool = types.model('Tool', {
     }
     return newSnapshot
   })
-  .views(self => ({
-    get disabled () {
+  .views((self) => ({
+    get disabled() {
       return self.marks.size >= self.max
     },
 
@@ -51,24 +54,25 @@ const Tool = types.model('Tool', {
       return allMarksValid
     }
   }))
-  .actions(self => {
-    function createMark (mark) {
-      const newMark = Mark.create(Object.assign({}, mark, { toolType: self.type }))
+  .actions((self) => {
+    function createMark(mark) {
+      const newMark = Mark.create(
+        Object.assign({}, mark, { toolType: self.type })
+      )
       self.marks.put(newMark)
       return newMark
     }
 
-    function createTask (snapshot) {
+    function createTask(snapshot) {
       try {
         self.tasks.push(snapshot)
         return self.tasks[self.tasks.length - 1]
-      }
-      catch (e) {
+      } catch (e) {
         console.error(`${snapshot.taskKey} is not a valid drawing subtask`)
       }
     }
 
-    function deleteMark (mark) {
+    function deleteMark(mark) {
       self.marks.delete(mark.id)
     }
 
@@ -76,11 +80,11 @@ const Tool = types.model('Tool', {
       mark.initialDrag(event)
     }
 
-    function handlePointerUp (event, mark) {
+    function handlePointerUp(event, mark) {
       mark.finish()
     }
 
-    function reset () {
+    function reset() {
       self.marks.clear()
     }
 
