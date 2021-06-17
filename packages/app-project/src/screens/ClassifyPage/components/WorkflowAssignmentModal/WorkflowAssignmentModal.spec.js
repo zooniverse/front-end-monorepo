@@ -63,7 +63,7 @@ describe('Component > WorkflowAssignmentModal', function () {
     expect(closeFnSpy).to.have.been.calledOnce()
   })
 
-  its('should render a dismissal checkbox', function () {
+  it('should render a dismissal checkbox', function () {
     const checkbox = wrapper.find(CheckBox)
     expect(checkbox.dive().contains(en.WorkflowAssignmentModal.dismiss)).to.be.true()
   })
