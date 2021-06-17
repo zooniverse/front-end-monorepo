@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - Changed `LinkList` component to use `fit-content` CSS styling to render correct height in Safari.
+- Modified matchRegex in `ping` of `Markdownz` to avoid creating username-links in typed email addresses.
 
 ## [1.1.0] 2021-05-26
 
