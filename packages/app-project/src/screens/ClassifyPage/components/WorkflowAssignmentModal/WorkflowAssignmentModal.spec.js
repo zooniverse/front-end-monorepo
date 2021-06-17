@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { Modal, PrimaryButton, SpacedText } from '@zooniverse/react-components'
+import { Modal, PrimaryButton } from '@zooniverse/react-components'
 import { Button, CheckBox } from 'grommet'
 import sinon from 'sinon'
 import WorkflowAssignmentModal from './WorkflowAssignmentModal'
@@ -63,7 +63,7 @@ describe('Component > WorkflowAssignmentModal', function () {
     expect(closeFnSpy).to.have.been.calledOnce()
   })
 
-  it('should render a dismissal checkbox', function () {
+  its('should render a dismissal checkbox', function () {
     const checkbox = wrapper.find(CheckBox)
     expect(checkbox.dive().contains(en.WorkflowAssignmentModal.dismiss)).to.be.true()
   })
