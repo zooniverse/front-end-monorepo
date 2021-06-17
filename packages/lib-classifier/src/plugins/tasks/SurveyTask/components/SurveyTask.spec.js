@@ -24,12 +24,14 @@ describe('SurveyTask', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should render a Chooser component', function () {
-    expect(wrapper.find(Chooser)).to.have.lengthOf(1)
-  })
+  describe('without selectedChoice', function () {
+    it('should render a Chooser component', function () {
+      expect(wrapper.find(Chooser)).to.have.lengthOf(1)
+    })
 
-  it('should not render a Choice component', function () {
-    expect(wrapper.find(Choice)).to.have.lengthOf(0)
+    it('should not render a Choice component', function () {
+      expect(wrapper.find(Choice)).to.have.lengthOf(0)
+    })
   })
 
   describe('with selectedChoice', function () {
@@ -40,6 +42,10 @@ describe('SurveyTask', function () {
     it('should render a Choice component with selectedChoice', function () {
       expect(wrapper.find(Choice)).to.have.lengthOf(1)
       expect(wrapper.find(Choice).props().choiceId).to.equal('HPPPTMS')
+    })
+
+    it('should not render a Chooser component', function () {
+      expect(wrapper.find(Chooser)).to.have.lengthOf(0)
     })
   })
 })
