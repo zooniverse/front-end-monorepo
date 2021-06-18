@@ -661,6 +661,69 @@ describe('Model > SurveyTask', function () {
     })
   })
 
+  describe('Views > isComplete', function () {
+    describe('with required identification', function () {
+      let annotation
+      let task
+
+      before(function () {
+        const requiredTask = Object.assign({}, surveyTask, { required: 'true' })
+        task = SurveyTask.TaskModel.create(requiredTask)
+        annotation = task.defaultAnnotation()
+      })
+
+      describe('without annotation', function () {
+        it('should be incomplete', function () {
+          expect(task.isComplete(annotation)).to.be.false()
+        })
+      })
+
+      describe('with a complete annotation', function () {
+        it('should be complete', function () {
+          annotation.update(surveyAnnotation)
+          expect(task.isComplete(annotation)).to.be.true()
+        })
+      })
+
+      describe('with an identification in progress', function () {
+        it('should be incomplete', function () {
+          annotation.setChoiceInProgress(true)
+          expect(task.isComplete(annotation)).to.be.false()
+        })
+      })
+    })
+
+    describe('without required identification', function () {
+      let annotation
+      let task
+
+      before(function () {
+        task = SurveyTask.TaskModel.create(surveyTask)
+        annotation = task.defaultAnnotation()
+      })
+
+      describe('without annotation', function () {
+        it('should be complete', function () {
+          expect(task.isComplete(annotation)).to.be.true()
+        })
+      })
+
+      describe('with a complete annotation', function () {
+        it('should be complete', function () {
+          annotation.update(surveyAnnotation)
+          expect(task.isComplete(annotation)).to.be.true()
+        })
+      })
+
+      describe('with an identification in progress', function () {
+        it('should be incomplete', function () {
+          annotation.setChoiceInProgress(true)
+          expect(task.isComplete(annotation)).to.be.false()
+        })
+      })
+    })
+  })
+
   describe('with an annotation', function () {
     let annotation
     let task
@@ -673,36 +736,11 @@ describe('Model > SurveyTask', function () {
     it('should start up with an empty array', function () {
       expect(annotation.value).to.be.an('array')
       expect(annotation.value).to.have.lengthOf(0)
-
     })
 
     it('should update annotations', function () {
       annotation.update(surveyAnnotation)
       expect(annotation.value).to.deep.equal(surveyAnnotation)
-    })
-  })
-
-  describe('when required', function () {
-    let annotation
-    let task
-
-    before(function () {
-      const requiredTask = Object.assign({}, surveyTask, { required: 'true' })
-      task = SurveyTask.TaskModel.create(requiredTask)
-      annotation = task.defaultAnnotation()
-    })
-
-    describe('with an incomplete annotation', function () {
-      it('should be incomplete', function () {
-        expect(task.isComplete(annotation)).to.be.false()
-      })
-    })
-
-    describe('with a complete annotation', function () {
-      it('should be complete', function () {
-        annotation.update(surveyAnnotation)
-        expect(task.isComplete(annotation)).to.be.true()
-      })
     })
   })
 })
