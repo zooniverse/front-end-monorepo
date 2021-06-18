@@ -242,6 +242,7 @@ class SingleVideoViewerContainer extends React.Component {
                       <InteractionLayer
                         scale={scale}
                         played={played}
+                        duration={duration}
                         width={naturalWidth}
                         height={naturalHeight}
                       />
