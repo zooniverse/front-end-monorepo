@@ -3,11 +3,18 @@ import sinon from 'sinon'
 import React from 'react'
 import WorkflowAssignmentModalContainer from './WorkflowAssignmentModalContainer'
 import WorkflowAssignmentModal from './WorkflowAssignmentModal'
+import { Grommet } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
 
 describe('Component > WorkflowAssignmentModalContainer', function() {
   let wrapper
   before(function () {
-    wrapper = mount(<WorkflowAssignmentModalContainer />)
+    wrapper = mount(
+      <WorkflowAssignmentModalContainer />, {
+        wrappingComponent: Grommet,
+        wrappingComponentProps: { theme: zooTheme }
+      }
+    )
   })
   it('should render without crashing', function() {
     expect(wrapper).to.be.ok()
@@ -72,7 +79,10 @@ describe('Component > WorkflowAssignmentModalContainer', function() {
 
     describe('when the modal has been dismissed for the session', function () {
       it('should not display the modal', function () {
-        wrapper = mount(<WorkflowAssignmentModalContainer />)
+        wrapper = mount(<WorkflowAssignmentModalContainer />, {
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        })
         expect(wrapper.find(WorkflowAssignmentModal).props().active).to.be.false()
         const projectPreferences = {
           promptAssignment: sinon.stub().callsFake(() => true),
@@ -95,7 +105,10 @@ describe('Component > WorkflowAssignmentModalContainer', function() {
             workflow_id: '555'
           }
         }
-        wrapper = mount(<WorkflowAssignmentModalContainer projectPreferences={projectPreferences} workflowID='123' />)
+        wrapper = mount(<WorkflowAssignmentModalContainer projectPreferences={projectPreferences} workflowID='123' />, {
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        })
         expect(wrapper.find(WorkflowAssignmentModal).props().active).to.be.true()
         wrapper.find(WorkflowAssignmentModal).props().closeFn()
         wrapper.update()
