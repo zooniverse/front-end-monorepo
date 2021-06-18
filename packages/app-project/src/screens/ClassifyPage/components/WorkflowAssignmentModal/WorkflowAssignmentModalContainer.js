@@ -1,5 +1,5 @@
-import { PropTypes } from 'mobx-react'
 import React from 'react'
+import PropTypes from 'prop-types'
 import WorkflowAssignmentModal from './WorkflowAssignmentModal'
 
 function WorkflowAssignmentModalContainer({ projectPreferences, workflowID }) {

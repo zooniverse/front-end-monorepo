@@ -16,7 +16,7 @@ export default {
   }
 }
 
-export function Default({ dark, active }) {
+export function Default({ dark }) {
   const projectPreferences = {
     promptAssignment: () => true
   }
