@@ -50,6 +50,14 @@ const Survey = types.model('Survey', {
         task: self.taskKey,
         taskType: self.type
       })
+    },
+
+    isComplete (annotation) {
+      if (self.required) {
+        return !!annotation?.isComplete
+      } else {
+        return !annotation._choiceInProgress
+      }
     }
   }))
 
