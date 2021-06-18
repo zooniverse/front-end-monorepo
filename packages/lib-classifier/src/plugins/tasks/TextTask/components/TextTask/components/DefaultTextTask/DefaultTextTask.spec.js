@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { Text, TextArea } from 'grommet'
+import { TextArea } from 'grommet'
+import { Markdownz } from '@zooniverse/react-components'
 import { default as Task } from '@plugins/tasks/TextTask'
 import DefaultTextTask from './DefaultTextTask'
 
@@ -25,7 +26,7 @@ describe('TextTask > Components > DefaultTextTask', function () {
 
   it('should have a labelled textarea', function () {
     const label = wrapper.find('label')
-    expect(label.find(Text).prop('children')).to.equal(task.instruction)
+    expect(label.find(Markdownz).prop('children')).to.equal(task.instruction)
     const textarea = label.find(TextArea)
     expect(textarea.prop('value')).to.equal(annotation.value)
   })

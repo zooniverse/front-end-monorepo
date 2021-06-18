@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Box, Text, TextInput } from 'grommet'
+import { Box, TextInput } from 'grommet'
+import { Markdownz } from '@zooniverse/react-components'
 import TextTagButtons from '../TextTagButtons'
 
 export default function TextTaskWithSuggestions (props) {
@@ -37,7 +38,7 @@ export default function TextTaskWithSuggestions (props) {
       <label
         htmlFor={`${task.taskKey}-${task.type}`}
       >
-        <Text>{task.instruction}</Text>
+        <Markdownz>{task.instruction}</Markdownz>
         <TextInput
           autoFocus={autoFocus}
           disabled={disabled}
