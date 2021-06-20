@@ -1,13 +1,20 @@
 import {
-  Box,
-  Grid
+  Box
 } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import sortIntoColumns from 'sort-into-columns'
+import styled from 'styled-components'
+
 import howManyColumns from './helpers/howManyColumns'
 import whatSizeThumbnail from './helpers/whatSizeThumbnail'
 import ChoiceButton from './components/ChoiceButton'
+
+const StyledGrid = styled(Box)`
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 2px;
+  grid-template-rows: repeat(${props => props.rowsCount}, auto);
+`
 
 function Choices (props) {
   const {
@@ -18,43 +25,35 @@ function Choices (props) {
   } = props
 
   const columnsCount = howManyColumns(filteredChoiceIds)
-  const sortedFilteredChoiceIds = sortIntoColumns(filteredChoiceIds, columnsCount)
+  const rowsCount = Math.ceil(filteredChoiceIds.length / columnsCount)
   const thumbnailSize = task.alwaysShowThumbnails ? 'small' : whatSizeThumbnail(filteredChoiceIds)
 
   return (
-    // Could possibly drop box by styling gap color? Is that possible? Or using border on button?
-    <Box
+    <StyledGrid
       background={{
         dark: 'dark-1',
         light: 'light-1'
       }}
+      fill
+      rowsCount={rowsCount}
     >
-      <Grid
-        columns={{
-          count: columnsCount,
-          size: 'auto'
-        }}
-        fill
-        gap='2px'
-      >
-        {sortedFilteredChoiceIds.map((choiceId) => {
-          const choice = task.choices?.[choiceId] || {}
-          const selected = selectedChoiceIds.indexOf(choiceId) > -1
-          const src = task.images?.[choice.images?.[0]] || ''
-          return (
-            <ChoiceButton
-              key={choiceId}
-              choiceId={choiceId}
-              choiceLabel={choice.label}
-              onChoose={onChoose}
-              selected={selected}
-              src={src}
-              thumbnailSize={thumbnailSize}
-            />
-          )
-        })}
-      </Grid>
-    </Box>
+      {filteredChoiceIds.map((choiceId) => {
+        const choice = task.choices?.[choiceId] || {}
+        const selected = selectedChoiceIds.indexOf(choiceId) > -1
+        const src = task.images?.[choice.images?.[0]] || ''
+        return (
+          <ChoiceButton
+            key={choiceId}
+            choiceId={choiceId}
+            choiceLabel={choice.label}
+            onChoose={onChoose}
+            selected={selected}
+            src={src}
+            thumbnailSize={thumbnailSize}
+          />
+        )
+      })}
+    </StyledGrid>
   )
 }
 
