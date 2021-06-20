@@ -1,8 +1,6 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import { Grid } from 'grommet'
 import sinon from 'sinon'
-import sortIntoColumns from 'sort-into-columns'
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 
 import { default as Task } from '@plugins/tasks/SurveyTask'
@@ -32,7 +30,7 @@ describe('Component > Choices', function () {
   })
 
   describe('ChoiceButton', function () {
-    let wrapper, sortedChoices
+    let wrapper
     const onChooseSpy = sinon.spy()
     before(function () {
       wrapper = shallow(
@@ -42,21 +40,19 @@ describe('Component > Choices', function () {
           task={task}
         />
       )
-      const columnCount = wrapper.find(Grid).props().columns.count
-      sortedChoices = sortIntoColumns(mockTask.choicesOrder, columnCount)
     })
 
     it('should key the the choice buttons with the choice ids from the task\'s choices order', function () {
       const choiceButtons = wrapper.find(ChoiceButton)
       choiceButtons.forEach((choiceButton, index) => {
-        expect(choiceButton.key()).to.equal(sortedChoices[index])
+        expect(choiceButton.key()).to.equal(mockTask.choicesOrder[index])
       })
     })
 
     it('should pass the choice id as a prop', function () {
       const choiceButtons = wrapper.find(ChoiceButton)
       choiceButtons.forEach((choiceButton, index) => {
-        expect(choiceButton.props().choiceId).to.equal(sortedChoices[index])
+        expect(choiceButton.props().choiceId).to.equal(mockTask.choicesOrder[index])
       })
     })
 
@@ -120,10 +116,6 @@ describe('Component > Choices', function () {
       )
     })
 
-    it('should set the set the number of grid columns to 3', function () {
-      expect(wrapper.find(Grid).props().columns.count).to.equal(3)
-    })
-
     it('should have small thumbnails', function () {
       const choiceButtons = wrapper.find(ChoiceButton)
       choiceButtons.forEach((choiceButton) => {
@@ -159,10 +151,6 @@ describe('Component > Choices', function () {
       )
     })
 
-    it('should set the set the number of grid columns to 2', function () {
-      expect(wrapper.find(Grid).props().columns.count).to.equal(2)
-    })
-
     it('should have medium thumbnails', function () {
       const choiceButtons = wrapper.find(ChoiceButton)
       choiceButtons.forEach((choiceButton) => {
@@ -196,10 +184,6 @@ describe('Component > Choices', function () {
           task={task}
         />
       )
-    })
-
-    it('should set the set the number of grid columns to 1', function () {
-      expect(wrapper.find(Grid).props().columns.count).to.equal(1)
     })
 
     it('should have large thumbnails', function () {
