@@ -19,6 +19,7 @@ const StyledGrid = styled(Box)`
 function Choices (props) {
   const {
     filteredChoiceIds,
+    handleDelete,
     onChoose,
     selectedChoiceIds,
     task
@@ -27,6 +28,20 @@ function Choices (props) {
   const columnsCount = howManyColumns(filteredChoiceIds)
   const rowsCount = Math.ceil(filteredChoiceIds.length / columnsCount)
   const thumbnailSize = task.alwaysShowThumbnails ? 'small' : whatSizeThumbnail(filteredChoiceIds)
+
+  function handleKeyDown (choiceId, event) {
+    switch (event.key) {
+      case 'Backspace': {
+        event.preventDefault()
+        event.stopPropagation()
+        handleDelete(choiceId)
+        return false
+      }
+      default: {
+        return true
+      }
+    }
+  }
 
   return (
     <StyledGrid
@@ -47,6 +62,7 @@ function Choices (props) {
             choiceId={choiceId}
             choiceLabel={choice.label}
             onChoose={onChoose}
+            onKeyDown={handleKeyDown}
             selected={selected}
             src={src}
             thumbnailSize={thumbnailSize}
@@ -59,6 +75,7 @@ function Choices (props) {
 
 Choices.defaultProps = {
   filteredChoiceIds: [],
+  handleDelete: () => {},
   onChoose: () => {},
   selectedChoiceIds: []
 }
@@ -67,6 +84,7 @@ Choices.propTypes = {
   filteredChoiceIds: PropTypes.arrayOf(
     PropTypes.string
   ),
+  handleDelete: PropTypes.func,
   onChoose: PropTypes.func,
   selectedChoiceIds: PropTypes.arrayOf(PropTypes.string),
   task: PropTypes.shape({

@@ -31,11 +31,13 @@ describe('Component > Choices', function () {
 
   describe('ChoiceButton', function () {
     let wrapper
+    const handleDeleteSpy = sinon.spy()
     const onChooseSpy = sinon.spy()
     before(function () {
       wrapper = shallow(
         <Choices
           filteredChoiceIds={mockTask.choicesOrder}
+          handleDelete={handleDeleteSpy}
           onChoose={onChooseSpy}
           task={task}
         />
@@ -96,6 +98,16 @@ describe('Component > Choices', function () {
           expect(choiceButton.props().selected).to.be.false()
         }
       })
+    })
+
+    it('should call handleDelete with choice ID on ChoiceButton backspace keyDown', function () {
+      const choiceId = 'FR'
+      const backspaceEventMock = { key: 'Backspace', preventDefault: sinon.spy(), stopPropagation: sinon.spy() }
+
+      const fireChoiceButton = wrapper.find(ChoiceButton).filterWhere(button => button.key() === choiceId)
+      fireChoiceButton.simulate('keydown', choiceId, backspaceEventMock)
+
+      expect(handleDeleteSpy).to.have.been.calledOnceWith(choiceId)
     })
   })
 

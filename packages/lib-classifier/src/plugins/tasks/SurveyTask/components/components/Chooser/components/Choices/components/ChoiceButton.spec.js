@@ -7,15 +7,17 @@ import { Media } from '@zooniverse/react-components'
 import ChoiceButton, { THUMBNAIL_ASPECT_RATIO } from './ChoiceButton'
 
 describe('Component > ChoiceButton', function () {
-  let wrapper, onChooseSpy
+  let wrapper, onChooseSpy, onKeyDownSpy
 
   before(function () {
     onChooseSpy = sinon.spy()
+    onKeyDownSpy = sinon.spy()
     wrapper = mount(
       <ChoiceButton
         choiceId='cat-1'
         choiceLabel='cat'
         onChoose={onChooseSpy}
+        onKeyDown={onKeyDownSpy}
         src='cat.jpg'
       />, {
         wrappingComponent: Grommet,
@@ -35,6 +37,12 @@ describe('Component > ChoiceButton', function () {
   it('should call onChoose on click of the button', function () {
     wrapper.simulate('click')
     expect(onChooseSpy).to.have.been.calledOnceWith('cat-1')
+  })
+
+  it('should call onKeyDown on keyDown of the button', function () {
+    const backspaceEventMock = { key: 'Backspace', preventDefault: sinon.spy() }
+    wrapper.simulate('keydown', backspaceEventMock)
+    expect(onKeyDownSpy).to.have.been.calledOnceWith('cat-1')
   })
 
   it('should not render a thumbnail', function () {

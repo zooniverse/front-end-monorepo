@@ -39,6 +39,7 @@ function SurveyTask (props) {
             autoFocus={autoFocus}
             disabled={disabled}
             filters={filters}
+            handleDelete={handleDelete}
             handleFilter={handleFilter}
             onChoose={handleChoice}
             selectedChoiceIds={selectedChoiceIds}

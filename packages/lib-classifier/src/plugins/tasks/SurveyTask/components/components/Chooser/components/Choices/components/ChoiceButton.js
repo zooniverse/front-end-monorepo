@@ -30,6 +30,7 @@ export function ChoiceButton (props) {
   const {
     choiceId,
     choiceLabel,
+    onKeyDown,
     onChoose,
     selected,
     src,
@@ -74,6 +75,7 @@ export function ChoiceButton (props) {
         </Box>
       }
       onClick={() => onChoose(choiceId)}
+      onKeyDown={(event) => onKeyDown(choiceId, event)}
       selected={selected}
       size='small'
     />
@@ -84,6 +86,7 @@ ChoiceButton.defaultProps = {
   choiceId: '',
   choiceLabel: '',
   onChoose: () => {},
+  onKeyDown: () => {},
   selected: false,
   src: '',
   theme: {
@@ -99,6 +102,7 @@ ChoiceButton.propTypes = {
   choiceId: PropTypes.string,
   choiceLabel: PropTypes.string,
   onChoose: PropTypes.func,
+  onKeyDown: PropTypes.func,
   selected: PropTypes.bool,
   src: PropTypes.string,
   theme: PropTypes.shape({
