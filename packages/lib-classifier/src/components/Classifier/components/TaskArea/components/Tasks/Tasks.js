@@ -12,67 +12,59 @@ import counterpart from 'counterpart'
 
 counterpart.registerTranslations('en', en)
 
-function withStores(Component) {
-  function TasksConnector(props) {
-    const { classifierStore } = useContext(MobXProviderContext)
-    const {
-      annotatedSteps: {
-        latest
-      },
-      classifications: {
-        active: classification,
-        demoMode
-      },
-      subjectViewer: {
-        loadingState: subjectReadyState
-      },
-      workflows: {
-        loadingState
-      },
-      workflowSteps: {
-        active: step,
-        isThereTaskHelp
-      }
-    } = classifierStore
-
-    let isComplete
-    // wait for the step and the classification before calculating isComplete from annotations.
-    if (step && classification) {
-      isComplete = step.isComplete(latest.annotations)
+function TasksConnector(props) {
+  const { classifierStore } = useContext(MobXProviderContext)
+  const {
+    annotatedSteps: {
+      latest
+    },
+    classifications: {
+      active: classification,
+      demoMode
+    },
+    subjectViewer: {
+      loadingState: subjectReadyState
+    },
+    workflows: {
+      loadingState
+    },
+    workflowSteps: {
+      active: step,
+      isThereTaskHelp
     }
+  } = classifierStore
 
-    return (
-      <Component
-        classification={classification}
-        demoMode={demoMode}
-        isComplete={isComplete}
-        isThereTaskHelp={isThereTaskHelp}
-        loadingState={loadingState}
-        step={step}
-        subjectReadyState={subjectReadyState}
-        {...props}
-      />
-    )
+  let isComplete
+  // wait for the step and the classification before calculating isComplete from annotations.
+  if (step && classification) {
+    isComplete = step.isComplete(latest.annotations)
   }
-  return observer(TasksConnector)
+
+  return (
+    <Tasks
+      classification={classification}
+      demoMode={demoMode}
+      isComplete={isComplete}
+      isThereTaskHelp={isThereTaskHelp}
+      loadingState={loadingState}
+      step={step}
+      subjectReadyState={subjectReadyState}
+      {...props}
+    />
+  )
 }
 
 /**
-The classifier tasks arewa. It displays tasks for the active step, along with task help (if any) and navigation buttons to go to the next/previous step, or submit the classification.
+The classifier tasks area. It displays tasks for the active step, along with task help (if any) and navigation buttons to go to the next/previous step, or submit the classification.
 */
-function Tasks({
+export function Tasks({
   classification,
-  /** Enable demo mode and turn off classification submission  */
   demoMode = false,
-  /** Are these tasks complete, so that we can go to the next step. */
+  disabled = false,
   isComplete = false,
-  /** show a help button for these tasks */
   isThereTaskHelp = false,
-  /** The workflow loading state */
   loadingState = asyncStates.initialized,
-  /** Subject loading state. */
   subjectReadyState,
-  /** The active workflow step. */
   step
 }) {
   switch (loadingState) {
@@ -105,12 +97,13 @@ function Tasks({
             {step.tasks.map((task,index) => (
               <Task
                 autoFocus={index === 0}
+                disabled={disabled}
                 key={task.taskKey}
                 task={task}
               />
             ))}
-            {isThereTaskHelp && <TaskHelp tasks={step.tasks} />}
-            <TaskNavButtons disabled={!ready || !isComplete} />
+            {isThereTaskHelp && <TaskHelp disabled={disabled} tasks={step.tasks} />}
+            <TaskNavButtons disabled={disabled || !ready || !isComplete} />
             {demoMode &&
               <Paragraph>
                 {counterpart('Tasks.demoMode')}
@@ -128,12 +121,23 @@ function Tasks({
 }
 
 Tasks.propTypes = {
+  /** Enable demo mode and turn off classification submission  */
   demoMode: PropTypes.bool,
+  /** disable the entire task area */
+  disabled: PropTypes.bool,
+  /** Are these tasks complete, so that we can go to the next step. */
   isComplete: PropTypes.bool,
+   /** show a help button for these tasks */
   isThereTaskHelp: PropTypes.bool,
+  /** The workflow loading state */
   loadingState: PropTypes.oneOf(asyncStates.values),
-  ready: PropTypes.bool
+  /** Subject loading state. */
+  subjectReadyState: PropTypes.oneOf(asyncStates.values),
+  /** The active workflow step. */
+  step: PropTypes.shape({
+    /** The step's tasks. */
+    tasks: PropTypes.array
+  })
 }
 
-export default withStores(Tasks)
-export { Tasks }
+export default observer(TasksConnector)
