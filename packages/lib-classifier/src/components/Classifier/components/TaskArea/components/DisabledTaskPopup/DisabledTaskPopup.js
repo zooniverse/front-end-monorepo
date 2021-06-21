@@ -1,6 +1,7 @@
 import { Modal, PlainButton, PrimaryButton } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Paragraph } from 'grommet'
+import { bool, func } from 'prop-types'
 import React, { useEffect, useState } from 'react'
 
 import en from './locales/en'
@@ -52,4 +53,11 @@ export default function DisabledTaskPopup({
       />
     </Modal>
   )
+}
+
+DisabledTaskPopup.propTypes = {
+  /** open the poup on mount. */
+  isOpen: bool,
+  /** callback to run when the popup closes */
+  onClose: func
 }
