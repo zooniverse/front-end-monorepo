@@ -38,11 +38,12 @@ export default {
   component: Choices
 }
 
-const Template = ({ dark, filteredChoiceIds, task }) => (
+const Template = ({ autoFocus, dark, filteredChoiceIds, task }) => (
   <StoryContext
     theme={{ ...zooTheme, dark }}
   >
     <Choices
+      autoFocus={autoFocus}
       filteredChoiceIds={filteredChoiceIds}
       onChoose={() => console.log('button clicked')}
       task={task}
@@ -52,6 +53,7 @@ const Template = ({ dark, filteredChoiceIds, task }) => (
 
 export const LessThirtyMoreTwenty = Template.bind({})
 LessThirtyMoreTwenty.args = {
+  autoFocus: true,
   dark: false,
   filteredChoiceIds,
   task: mockTask
@@ -59,6 +61,7 @@ LessThirtyMoreTwenty.args = {
 
 export const LessTwentyMoreFive = Template.bind({})
 LessTwentyMoreFive.args = {
+  autoFocus: true,
   dark: false,
   filteredChoiceIds: Array.from(filteredChoiceIds).splice(0, 10),
   task: mockTask
@@ -66,6 +69,7 @@ LessTwentyMoreFive.args = {
 
 export const LessThanSix = Template.bind({})
 LessThanSix.args = {
+  autoFocus: true,
   dark: false,
   filteredChoiceIds: Array.from(filteredChoiceIds).splice(0, 4),
   task: mockTask
