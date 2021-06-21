@@ -140,20 +140,16 @@ class MultiFrameViewerContainer extends React.Component {
       subject
     } = this.props
     const { img } = this.state
-    const { naturalHeight, naturalWidth, src } = img
+    
+    // If image hasn't been fully retrieved, use a placeholder
+    const src = img?.src || 'https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png'  // Use this instead of https://www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png to save on network calls
+    const naturalWidth = img?.naturalWidth || 800
+    const naturalHeight = img?.naturalHeight || 600
 
     if (loadingState === asyncStates.error) {
       return (
         <div>Something went wrong.</div>
       )
-    }
-
-    if (!src) {
-      return null
-    }
-
-    if (!naturalWidth) {
-      return null
     }
 
     const svg = this.imageViewer.current
@@ -166,45 +162,48 @@ class MultiFrameViewerContainer extends React.Component {
       ...(move && { dragMove: this.dragMove })
     }
     
-    return (
-      <Box
-        direction='row'
-        fill='horizontal'
-      >
-        <FrameCarousel
-          frame={frame}
-          onFrameChange={this.onFrameChange}
-          locations={subject.locations}
-        />
-        <SVGContext.Provider value={{ svg }}>
-          <SVGPanZoom
-            img={this.subjectImage.current}
-            maxZoom={5}
-            naturalHeight={naturalHeight}
-            naturalWidth={naturalWidth}
-            setOnDrag={this.setOnDrag}
-            setOnPan={setOnPan}
-            setOnZoom={setOnZoom}
-            src={src}
-          >
-            <SingleImageViewer
-              enableInteractionLayer={enableDrawing}
-              height={naturalHeight}
-              onKeyDown={onKeyDown}
-              ref={this.imageViewer}
-              rotate={rotation}
-              width={naturalWidth}
+    if (loadingState !== asyncStates.initialized) {
+      return (
+        <Box
+          direction='row'
+          fill='horizontal'
+        >
+          <FrameCarousel
+            frame={frame}
+            onFrameChange={this.onFrameChange}
+            locations={subject.locations}
+          />
+          <SVGContext.Provider value={{ svg }}>
+            <SVGPanZoom
+              img={this.subjectImage.current}
+              maxZoom={5}
+              naturalHeight={naturalHeight}
+              naturalWidth={naturalWidth}
+              setOnDrag={this.setOnDrag}
+              setOnPan={setOnPan}
+              setOnZoom={setOnZoom}
+              src={src}
             >
-              <g ref={this.subjectImage}>
-                <SubjectImage
-                  {...subjectImageProps}
-                />
-              </g>
-            </SingleImageViewer>
-          </SVGPanZoom>
-        </SVGContext.Provider>
-      </Box>
-    )
+              <SingleImageViewer
+                enableInteractionLayer={enableDrawing}
+                height={naturalHeight}
+                onKeyDown={onKeyDown}
+                ref={this.imageViewer}
+                rotate={rotation}
+                width={naturalWidth}
+              >
+                <g ref={this.subjectImage}>
+                  <SubjectImage
+                    {...subjectImageProps}
+                  />
+                </g>
+              </SingleImageViewer>
+            </SVGPanZoom>
+          </SVGContext.Provider>
+        </Box>
+      )
+    }
+    return null
   }
 }
 
