@@ -2,7 +2,7 @@ import {
   Box
 } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import howManyColumns from './helpers/howManyColumns'
@@ -18,19 +18,44 @@ const StyledGrid = styled(Box)`
 
 function Choices (props) {
   const {
+    autoFocus,
     filteredChoiceIds,
     handleDelete,
     onChoose,
     selectedChoiceIds,
     task
   } = props
+  const [focusIndex, setFocusIndex] = useState(0)
+
+  useEffect(() => {
+    setFocusIndex(0)
+  }, [filteredChoiceIds])
 
   const columnsCount = howManyColumns(filteredChoiceIds)
   const rowsCount = Math.ceil(filteredChoiceIds.length / columnsCount)
   const thumbnailSize = task.alwaysShowThumbnails ? 'small' : whatSizeThumbnail(filteredChoiceIds)
 
   function handleKeyDown (choiceId, event) {
+    const index = filteredChoiceIds.indexOf(choiceId)
+    let newIndex
     switch (event.key) {
+      case 'ArrowDown': {
+        event.preventDefault()
+        event.stopPropagation()
+        newIndex = (index + 1) % filteredChoiceIds.length
+        setFocusIndex(newIndex)
+        return false
+      }
+      case 'ArrowUp': {
+        event.preventDefault()
+        event.stopPropagation()
+        newIndex = index - 1
+        if (newIndex === -1) {
+          newIndex = filteredChoiceIds.length - 1
+        }
+        setFocusIndex(newIndex)
+        return false
+      }
       case 'Backspace': {
         event.preventDefault()
         event.stopPropagation()
@@ -52,19 +77,25 @@ function Choices (props) {
       fill
       rowsCount={rowsCount}
     >
-      {filteredChoiceIds.map((choiceId) => {
+      {filteredChoiceIds.map((choiceId, index) => {
         const choice = task.choices?.[choiceId] || {}
         const selected = selectedChoiceIds.indexOf(choiceId) > -1
         const src = task.images?.[choice.images?.[0]] || ''
+
+        const hasFocus = autoFocus && (index === focusIndex)
+        const tabIndex = (index === focusIndex) ? 0 : -1
+
         return (
           <ChoiceButton
             key={choiceId}
             choiceId={choiceId}
             choiceLabel={choice.label}
+            hasFocus={hasFocus}
             onChoose={onChoose}
             onKeyDown={handleKeyDown}
             selected={selected}
             src={src}
+            tabIndex={tabIndex}
             thumbnailSize={thumbnailSize}
           />
         )
@@ -74,6 +105,7 @@ function Choices (props) {
 }
 
 Choices.defaultProps = {
+  autoFocus: false,
   filteredChoiceIds: [],
   handleDelete: () => {},
   onChoose: () => {},
@@ -81,6 +113,7 @@ Choices.defaultProps = {
 }
 
 Choices.propTypes = {
+  autoFocus: PropTypes.bool,
   filteredChoiceIds: PropTypes.arrayOf(
     PropTypes.string
   ),
