@@ -1,40 +1,71 @@
 import { Tab, Tabs } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box } from 'grommet'
-import { inject, observer } from 'mobx-react'
-import { bool, func, object } from 'prop-types'
-import React, { useState } from 'react'
+import { MobXProviderContext, observer } from 'mobx-react'
+import { bool, func, object, shape, string } from 'prop-types'
+import React, { useEffect, useRef, useState } from 'react'
 
-import Tasks from './components/Tasks'
+import { DisabledTaskPopup, Tasks } from './components'
 import en from './locales/en'
 import SlideTutorial from '../SlideTutorial'
 
 counterpart.registerTranslations('en', en)
 
-// TODO: add autofocus for the first tab/task area
-function storeMapper (stores) {
-  const { disableTutorialTab, setActiveTutorial, tutorial } = stores.classifierStore.tutorials
+function storeMapper (store) {
+  const { disableTutorialTab, setActiveTutorial, tutorial } = store.tutorials
+  const subject = store.subjects.active
 
   return {
     disableTutorialTab,
     setActiveTutorial,
+    subject,
     tutorial
   }
 }
+
+function TaskAreaConnector(props) {
+  const { classifierStore } = React.useContext(MobXProviderContext)
+  const {
+    disableTutorialTab = true,
+    setActiveTutorial = () => true,
+    subject,
+    tutorial
+  } = storeMapper(classifierStore)
+
+  return (
+    <TaskArea
+      disableTutorialTab={disableTutorialTab}
+      setActiveTutorial={setActiveTutorial}
+      subject={subject}
+      tutorial={tutorial}
+      {...props}
+    />
+  )
+}
+
+// TODO: add autofocus for the first tab/task area
 /**
 The tabbed tasks area of the classifier, with tabs for the tutorial and active tasks.
 */
-function TaskArea({
-  /** Optional CSS classes */
+export function TaskArea({
   className,
-  /** disable the tutorial tab */
   disableTutorialTab = true,
-  /** select an active tutorial */
   setActiveTutorial = () => true,
-  /** current tutorial */
+  subject,
   tutorial = null
 }) {
   const [ activeIndex, setActiveIndex ] = useState(0)
+  const [ disabled, setDisabled ] = useState(false)
+  const taskArea = useRef(null)
+
+  useEffect(function onSubjectChange() {
+    const finished = !!subject?.id || subject?.retired || subject?.already_seen
+    setDisabled(finished)
+  }, [subject])
+
+  function enableTasks() {
+    setDisabled(false)
+  }
 
   function onTabClick(newIndex) {
     if (newIndex === 1) setActiveTutorial(tutorial)
@@ -48,32 +79,58 @@ function TaskArea({
   }
 
   return (
-    <Tabs
-      activeIndex={activeIndex}
-      className={className}
-      onActive={onTabClick}
-      flex
-    >
-      <Tab title={counterpart('TaskArea.task')}>
-        <Box fill>
-          <Tasks />
-        </Box>
-      </Tab>
-      <Tab
-        disabled={disableTutorialTab}
-        title={counterpart('TaskArea.tutorial')}
+    <>
+      <DisabledTaskPopup
+        isOpen={disabled}
+        onClose={enableTasks}
+        target={taskArea?.current}
+      />
+      <Tabs
+        activeIndex={activeIndex}
+        className={className}
+        onActive={onTabClick}
+        flex
       >
-        <Box>
-          <SlideTutorial onClick={onClose} pad='none' />
-        </Box>
-      </Tab>
-    </Tabs>
+        <Tab
+          disabled={disabled}
+          title={counterpart('TaskArea.task')}
+        >
+          <Box
+            ref={taskArea}
+            fill
+          >
+            <Tasks
+              disabled={disabled}
+            />
+          </Box>
+        </Tab>
+        <Tab
+          disabled={disabled || disableTutorialTab}
+          title={counterpart('TaskArea.tutorial')}
+        >
+          <Box>
+            <SlideTutorial onClick={onClose} pad='none' />
+          </Box>
+        </Tab>
+      </Tabs>
+    </>
   )
 }
 
 TaskArea.propTypes = {
+  /** Optional CSS classes */
+  className: string,
+  /** disable the tutorial tab */
   disableTutorialTab: bool,
+  /** select an active tutorial */
   setActiveTutorial: func,
+  /** the current subject. */
+  subject: shape({
+    already_seen: bool,
+    id: string,
+    retired: bool
+  }),
+  /** current tutorial */
   tutorial: object
 }
 
@@ -85,5 +142,4 @@ TaskArea.propTypes = {
 
   https://github.com/styled-components/jest-styled-components/issues/191#issuecomment-465020345
 */
-export default inject(storeMapper)(observer(TaskArea))
-export { TaskArea }
+export default observer(TaskAreaConnector)
