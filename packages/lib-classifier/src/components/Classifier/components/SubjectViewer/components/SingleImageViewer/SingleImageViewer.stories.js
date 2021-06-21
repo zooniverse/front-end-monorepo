@@ -9,6 +9,7 @@ import SingleImageViewer from '@viewers/components/SingleImageViewer'
 import ImageToolbar from '../../../ImageToolbar'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
+import asyncStates from '@zooniverse/async-states'
 
 const config = {
   notes: {
@@ -60,7 +61,10 @@ storiesOf('Subject Viewers / SingleImageViewer', module)
     return (
       <ViewerContext theme={zooTheme}>
         <Box height='500px' width='large'>
-          <SingleImageViewer />
+          <SingleImageViewer
+            loadingState={asyncStates.success}
+            enableInteractionLayer={false}
+          />
         </Box>
       </ViewerContext>
     )
@@ -70,7 +74,10 @@ storiesOf('Subject Viewers / SingleImageViewer', module)
     return (
       <ViewerContext theme={darkZooTheme}>
         <Box height='500px' width='large'>
-          <SingleImageViewer />
+          <SingleImageViewer
+            loadingState={asyncStates.success}
+            enableInteractionLayer={false}
+          />
         </Box>
       </ViewerContext>
     )
@@ -79,7 +86,10 @@ storiesOf('Subject Viewers / SingleImageViewer', module)
     return (
       <ViewerContext theme={zooTheme}>
         <Box direction='row' height='500px' width='large'>
-          <SingleImageViewer />
+          <SingleImageViewer
+            loadingState={asyncStates.success}
+            enableInteractionLayer={false}
+          />
           <ImageToolbar />
         </Box>
       </ViewerContext>
