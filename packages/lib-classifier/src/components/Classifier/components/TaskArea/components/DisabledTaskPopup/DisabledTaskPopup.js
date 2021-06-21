@@ -9,7 +9,9 @@ counterpart.registerTranslations('en', en)
 
 export default function DisabledTaskPopup({
   isOpen = false,
+  nextAvailable,
   onClose = () => true,
+  reset,
   target
 }) {
   const [ active, setActive ] = useState(false)
@@ -39,11 +41,13 @@ export default function DisabledTaskPopup({
       </Paragraph>
       <PlainButton
         alignSelf="center"
+        onClick={reset}
         text={counterpart('DisabledTaskPopup.options.select')}
       />
       <PrimaryButton
         color='teal'
         label={counterpart('DisabledTaskPopup.options.next')}
+        onClick={nextAvailable}
         margin="xsmall"
       />
       <PlainButton
@@ -58,6 +62,10 @@ export default function DisabledTaskPopup({
 DisabledTaskPopup.propTypes = {
   /** open the poup on mount. */
   isOpen: bool,
+  /** load the next unclassified subject */
+  nextAvailable: func,
   /** callback to run when the popup closes */
-  onClose: func
+  onClose: func,
+  /** reset the subject store and choose a new subject */
+  reset: func
 }

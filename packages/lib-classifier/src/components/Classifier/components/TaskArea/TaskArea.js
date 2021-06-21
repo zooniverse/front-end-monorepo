@@ -12,14 +12,24 @@ import SlideTutorial from '../SlideTutorial'
 counterpart.registerTranslations('en', en)
 
 function storeMapper (store) {
-  const { disableTutorialTab, setActiveTutorial, tutorial } = store.tutorials
-  const subject = store.subjects.active
+  const {
+    subjects: {
+      active: subject,
+      nextAvailable,
+      reset
+    },
+    tutorials: {
+      disableTutorialTab,
+      setActiveTutorial
+    }
+  } = store
 
   return {
     disableTutorialTab,
+    nextAvailable,
+    reset,
     setActiveTutorial,
-    subject,
-    tutorial
+    subject
   }
 }
 
@@ -27,17 +37,19 @@ function TaskAreaConnector(props) {
   const { classifierStore } = React.useContext(MobXProviderContext)
   const {
     disableTutorialTab = true,
+    nextAvailable,
+    reset,
     setActiveTutorial = () => true,
-    subject,
-    tutorial
+    subject
   } = storeMapper(classifierStore)
 
   return (
     <TaskArea
       disableTutorialTab={disableTutorialTab}
+      nextAvailable={nextAvailable}
+      reset={reset}
       setActiveTutorial={setActiveTutorial}
       subject={subject}
-      tutorial={tutorial}
       {...props}
     />
   )
@@ -50,6 +62,8 @@ The tabbed tasks area of the classifier, with tabs for the tutorial and active t
 export function TaskArea({
   className,
   disableTutorialTab = true,
+  nextAvailable,
+  reset,
   setActiveTutorial = () => true,
   subject,
   tutorial = null
@@ -82,7 +96,9 @@ export function TaskArea({
     <>
       <DisabledTaskPopup
         isOpen={disabled}
+        nextAvailable={nextAvailable}
         onClose={enableTasks}
+        reset={reset}
         target={taskArea?.current}
       />
       <Tabs
@@ -122,6 +138,10 @@ TaskArea.propTypes = {
   className: string,
   /** disable the tutorial tab */
   disableTutorialTab: bool,
+  /** load the next unclassified subject */
+  nextAvailable: func,
+  /** reset the subject store and choose a new subject */
+  reset: func,
   /** select an active tutorial */
   setActiveTutorial: func,
   /** the current subject. */
@@ -129,9 +149,7 @@ TaskArea.propTypes = {
     already_seen: bool,
     id: string,
     retired: bool
-  }),
-  /** current tutorial */
-  tutorial: object
+  })
 }
 
 /*

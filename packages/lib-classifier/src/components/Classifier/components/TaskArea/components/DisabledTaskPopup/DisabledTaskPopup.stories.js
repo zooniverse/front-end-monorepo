@@ -12,8 +12,14 @@ export default {
     themeMode: 'light'
   },
   argTypes: {
+    nextAvailable: {
+      action: 'Next available subject'
+    },
     onClose: {
       action: 'Close popup'
+    },
+    reset: {
+      action: 'Clear the stored subject'
     },
     themeMode: {
       control: {
@@ -29,7 +35,7 @@ export default {
   }
 }
 
-export function Default({ isOpen, onClose, themeMode }) {
+export function Default({ isOpen, nextAvailable, onClose, reset, themeMode }) {
   return (
     <Grommet
       background={{
@@ -41,7 +47,9 @@ export function Default({ isOpen, onClose, themeMode }) {
     >
       <DisabledTaskPopup
         isOpen={isOpen}
+        nextAvailable={nextAvailable}
         onClose={onClose}
+        reset={reset}
       />
     </Grommet>
   )
