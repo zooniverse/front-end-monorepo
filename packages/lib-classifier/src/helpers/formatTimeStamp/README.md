@@ -6,11 +6,11 @@ The Zooniverse video player has a slider who's values are 0.0 to 1.0. As a video
 
 ### accepts
 
-**displayTime:** Required. This is a number between 0 and 1 having 3 decimal places. This represents the current position (time) on the video slider.
+**displayTime:** Required. Type: number. Number must be between 0 and 1 having 3 decimal places. This represents the current position (time) on the video slider.
 
 E.g. `0.287` or `0.962`
 
-**duration:** Required. This is the total length of the video. This must be a number with 3 decimal places.
+**duration:** Optional. Type: number. This is the total length of the video. This must be a number with 3 decimal places.
 
 E.g. `4.025` or `8.480`
 

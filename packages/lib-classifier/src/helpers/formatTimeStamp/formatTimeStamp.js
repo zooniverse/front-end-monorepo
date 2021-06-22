@@ -1,5 +1,5 @@
-function formatTimeStamp(seconds, duration) {
-  const currentVideoTime = duration ? seconds * duration : seconds
+function formatTimeStamp(displayTime, duration) {
+  const currentVideoTime = duration ? displayTime * duration : displayTime
 
   const pad = (string, digits) =>
     ('0'.repeat(digits - 1) + string).slice(-digits)

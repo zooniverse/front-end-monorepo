@@ -2,15 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import formatTimeStamp from '@helpers/formatTimeStamp'
 
-const FormattedTime = ({ seconds }) => (
-  <time dateTime={`P${Math.round(seconds)}S`}>{formatTimeStamp(seconds)}</time>
+const FormattedTime = ({ displayTime }) => (
+  <time dateTime={`P${Math.round(displayTime)}S`}>
+    {formatTimeStamp(displayTime)}
+  </time>
 )
 
 FormattedTime.propTypes = {
-  seconds: PropTypes.number
+  displayTime: PropTypes.number
 }
 FormattedTime.defaultProps = {
-  seconds: 0
+  displayTime: 0
 }
 
 export default FormattedTime
