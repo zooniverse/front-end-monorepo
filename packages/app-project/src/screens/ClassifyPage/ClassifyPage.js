@@ -1,7 +1,7 @@
 import { Box, Grid } from 'grommet'
 import dynamic from 'next/dynamic'
 import { arrayOf, func, shape, string } from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
 import { withResponsiveContext } from '@zooniverse/react-components'
 
 import ThemeModeToggle from '@components/ThemeModeToggle'
@@ -12,7 +12,7 @@ import FinishedForTheDay from './components/FinishedForTheDay'
 import RecentSubjects from './components/RecentSubjects'
 import YourStats from './components/YourStats'
 import StandardLayout from '@shared/components/StandardLayout'
-
+import WorkflowAssignmentModal from './components/WorkflowAssignmentModal'
 import WorkflowMenu from './components/WorkflowMenu'
 
 const ClassifierWrapper = dynamic(() =>
@@ -59,6 +59,7 @@ function ClassifyPage ({
             />
             <ThemeModeToggle />
           </Grid>
+          <WorkflowAssignmentModal workflowID={workflowID} />
         </Box>
 
         <Box as='aside' gap='medium' width={{ min: 'none', max: 'xxlarge' }}>

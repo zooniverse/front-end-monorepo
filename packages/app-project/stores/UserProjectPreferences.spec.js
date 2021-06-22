@@ -3,11 +3,10 @@ import nock from 'nock'
 import initStore from './initStore'
 import asyncStates from '@zooniverse/async-states'
 import { statsClient } from './YourStats'
-import { expect } from 'chai'
 import UserProjectPreferences from './UserProjectPreferences'
 
 describe('Stores > UserProjectPreferences', function () {
-  let rootStore
+  let nockScope, rootStore
   const project = {
     id: '2',
     display_name: 'Hello',
@@ -45,7 +44,9 @@ describe('Stores > UserProjectPreferences', function () {
       selected_workflow: undefined,
       tutorials_completed_at: undefined
     },
-    settings: {}
+    settings: {
+      workflow_id: '999'
+    }
   }
   const authorization = 'Bearer '
   const endpoint = '/project_preferences'
@@ -57,6 +58,13 @@ describe('Stores > UserProjectPreferences', function () {
   before(function () {
     sinon.stub(console, 'error')
     sinon.stub(statsClient, 'request')
+    nockScope = nock('https://panoptes-staging.zooniverse.org/api')
+      .get('/collections') // This is to prevent the collections store from making real requests
+      .query(true)
+      .reply(200)
+      .post('/collections')
+      .query(true)
+      .reply(200)
     rootStore = initStore(true, {
       project,
       user
@@ -69,6 +77,7 @@ describe('Stores > UserProjectPreferences', function () {
   })
 
   after(function () {
+    nock.cleanAll()
     statsClient.request.restore()
     rootStore.client.panoptes.get.restore()
     console.error.restore()
@@ -233,6 +242,126 @@ describe('Stores > UserProjectPreferences', function () {
         await rootStore.user.personalization.projectPreferences.fetchResource()
         expect(rootStore.user.personalization.projectPreferences.error.message).to.equal('Unauthorized')
         expect(rootStore.user.personalization.projectPreferences.loadingState).to.equal(asyncStates.error)
+      })
+    })
+  })
+
+  describe('Views > promptAssignment', function () {
+    let nockScope
+
+    before(function () {
+      nockScope = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/collections') // This is to prevent the collections store from making real requests
+        .query(true)
+        .reply(200)
+        .post('/collections')
+        .query(true)
+        .reply(200)
+    })
+
+    after(function () {
+      nockScope = null
+      nock.cleanAll()
+    })
+
+    describe('when a workflow is not currently selected', function () {
+      let rootStore
+      const user = {
+        id: '5',
+        personalization: {
+          projectPreferences: {
+            id: '10',
+            settings: {
+              workflow_id: '555'
+            }
+          }
+        }
+      }
+
+      before(function () {
+        const project = {
+          id: '2',
+          links: {
+            active_workflows: ['555']
+          }
+        }
+
+        rootStore = initStore(true, {
+          project,
+          user
+        })
+      })
+
+      after(function () {
+        rootStore = null
+      })
+
+      it('should not prompt the user', function () {
+        expect(rootStore.user.personalization.projectPreferences.promptAssignment()).to.be.false()
+      })
+    })
+
+    describe('when the assigned workflow is not active', function () {
+      before(function () {
+        const project = {
+          id: '2',
+          links: {
+            active_workflows: ['123']
+          }
+        }
+
+        rootStore = initStore(true, {
+          project,
+          user
+        })
+      })
+
+      it('should not prompt the user', function () {
+        expect(rootStore.user.personalization.projectPreferences.promptAssignment('123')).to.be.false()
+        expect(rootStore.project.links.active_workflows.includes('555')).to.be.false()
+      })
+    })
+
+    describe('when the assigned workflow is the same as the current workflow', function () {
+      before(function () {
+        const project = {
+          id: '2',
+          links: {
+            active_workflows: ['555']
+          }
+        }
+
+        rootStore = initStore(true, {
+          project,
+          user
+        })
+      })
+
+      it('should not prompt the user', function () {
+        expect(rootStore.user.personalization.projectPreferences.promptAssignment('555')).to.be.false()
+        expect(rootStore.project.links.active_workflows.includes('555')).to.be.true()
+      })
+    })
+
+    describe('when the assigned workflow is not the same as the current workflow', function () {
+      before(function () {
+        const project = {
+          id: '2',
+          links: {
+            active_workflows: ['555', '123']
+          }
+        }
+
+        rootStore = initStore(true, {
+          project,
+          user
+        })
+      })
+
+      it('should prompt the user', function () {
+        expect(rootStore.user.personalization.projectPreferences.promptAssignment('123')).to.be.false()
+        expect(rootStore.project.links.active_workflows.includes('123')).to.be.true()
+        expect(rootStore.project.links.active_workflows.includes('555')).to.be.true()
       })
     })
   })
