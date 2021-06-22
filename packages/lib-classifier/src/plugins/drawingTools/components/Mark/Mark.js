@@ -62,7 +62,12 @@ const Mark = forwardRef(function Mark(
   }
 
   function openSubTaskPopup() {
-    if (mark.isValid && mark.finished && !mark.subTaskVisibility && mark.tasks.length > 0) {
+    if (
+      mark.isValid &&
+      mark.finished &&
+      !mark.subTaskVisibility &&
+      mark.tasks.length > 0
+    ) {
       focusMark()
       const markBounds = markRoot.current?.getBoundingClientRect()
       mark.setSubTaskVisibility(true, markBounds)
@@ -110,7 +115,15 @@ const Mark = forwardRef(function Mark(
     mark.x && mark.y
       ? `${transform} translate(${mark.x}, ${mark.y})`
       : transform
-  transform = mark.angle ? `${transform} rotate(${mark.angle})` : transform
+
+  if (mark.angle) {
+    const rotateTransform =
+      mark.x_rotate && mark.y_rotate
+        ? `rotate(${mark.angle}, ${mark.x_rotate}, ${mark.y_rotate})`
+        : `rotate(${mark.angle})`
+
+    transform = `${transform} ${rotateTransform}`
+  }
 
   return (
     <StyledGroup

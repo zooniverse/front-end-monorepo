@@ -1,6 +1,7 @@
 {
-  "SurveyTask": {
+  "CharacteristicsFilter": {
     "clearFilters": "Clear filters",
-    "filter": "Filter"
+    "filter": "Filter",
+    "showing": "Showing %(showing)s of %(total)s"
   }
 }

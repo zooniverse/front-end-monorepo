@@ -7,7 +7,7 @@ import zipLabelsAndUrls from '../../helpers/zipLabelsAndUrls'
 import SpacedText from '../../../SpacedText'
 
 const StyledBox = styled(Box)`
-  height: 100%;
+  height: fit-content;
   list-style-type: none;
 `
 

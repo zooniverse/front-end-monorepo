@@ -4,6 +4,7 @@ import React from 'react'
 
 import { DraggableImage, SingleImageViewerContainer } from './SingleImageViewerContainer'
 import SingleImageViewer from './SingleImageViewer'
+import asyncStates from '@zooniverse/async-states'
 
 describe('Component > SingleImageViewerContainer', function () {
   let wrapper
@@ -68,6 +69,7 @@ describe('Component > SingleImageViewerContainer', function () {
       wrapper = shallow(
         <SingleImageViewerContainer
           ImageObject={ValidImage}
+          loadingState={asyncStates.success}
           subject={subject}
           onError={onError}
           onReady={onReady}

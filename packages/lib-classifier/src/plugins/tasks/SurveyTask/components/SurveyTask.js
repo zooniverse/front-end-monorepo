@@ -1,4 +1,4 @@
-import { Box, Drop } from 'grommet'
+import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -13,14 +13,13 @@ function SurveyTask (props) {
     filters,
     handleAnswers,
     handleChoice,
+    handleDelete,
     handleFilter,
     handleIdentify,
     selectedChoice,
     selectedChoiceIds,
     task
   } = props
-
-  const choiceTargetRef = React.useRef()
 
   function handleCancel () {
     handleAnswers({})
@@ -29,28 +28,10 @@ function SurveyTask (props) {
 
   return (
     <Box
-      ref={choiceTargetRef}
+      fill
     >
-      <Chooser
-        autoFocus={autoFocus}
-        disabled={disabled}
-        filters={filters}
-        handleFilter={handleFilter}
-        onChoose={handleChoice}
-        selectedChoiceIds={selectedChoiceIds}
-        task={task}
-      />
-      {choiceTargetRef.current && selectedChoice && (
-        <Drop
-          align={{
-            top: 'top'
-          }}
-          onClickOutside={() => handleCancel()}
-          onEsc={() => handleCancel()}
-          stretch='align'
-          target={choiceTargetRef.current}
-        >
-          <Choice
+      {selectedChoice
+        ? <Choice
             answers={answers}
             choiceId={selectedChoice}
             handleAnswers={handleAnswers}
@@ -59,8 +40,15 @@ function SurveyTask (props) {
             onIdentify={handleIdentify}
             task={task}
           />
-        </Drop>
-      )}
+        : <Chooser
+            autoFocus={autoFocus}
+            disabled={disabled}
+            filters={filters}
+            handleFilter={handleFilter}
+            onChoose={handleChoice}
+            selectedChoiceIds={selectedChoiceIds}
+            task={task}
+          />}
     </Box>
   )
 }
@@ -72,6 +60,7 @@ SurveyTask.defaultProps = {
   filters: {},
   handleAnswers: () => {},
   handleChoice: () => {},
+  handleDelete: () => {},
   handleFilter: () => {},
   handleIdentify: () => {},
   selectedChoice: '',
@@ -90,6 +79,7 @@ SurveyTask.propTypes = {
   filters: PropTypes.objectOf(PropTypes.string),
   handleAnswers: PropTypes.func,
   handleChoice: PropTypes.func,
+  handleDelete: PropTypes.func,
   handleFilter: PropTypes.func,
   handleIdentify: PropTypes.func,
   selectedChoice: PropTypes.string,

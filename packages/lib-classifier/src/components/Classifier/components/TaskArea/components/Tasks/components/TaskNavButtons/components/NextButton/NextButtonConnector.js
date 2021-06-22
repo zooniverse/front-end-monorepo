@@ -25,7 +25,7 @@ function withStores(Component) {
     }
 
     function onClick() {
-      step.completeTasks(annotations)
+      step.completeAndValidate(annotations)
       next()
     }
 

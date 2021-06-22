@@ -42,7 +42,7 @@ export default function Characteristics (props) {
         pad='small'
       >
         <Button
-          label={counterpart('SurveyTask.clearFilters')}
+          label={counterpart('CharacteristicsFilter.clearFilters')}
           onClick={() => onFilter()}
         />
       </Box>

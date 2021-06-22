@@ -4,7 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.1.0]
+## [Unreleased]
+
+### Fixed
+- Changed `LinkList` component to use `fit-content` CSS styling to render correct height in Safari.
+- Modified matchRegex in `ping` of `Markdownz` to avoid creating username-links in typed email addresses.
+
+## [1.1.0] 2021-05-26
 
 ### Added
 - Stories and readme for MetaToolsButton
@@ -18,6 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Allow the colour of the Modal close button to be changed based on the ModalHeading text colour.
 - Removed hardcoded margin-top from MetaToolsButton. Leave spacing to the consuming library.
 - Removed the hardcoded cancel string for MovableModal applied to Rnd.
+- Manually parse images in Markdownz children before passing to `remark` to provide backwards compatible custom img sizes previously used with `markdown-it-imsize`.
 
 ### Changed
 - Updated text color on green `PrimaryButton` variant
