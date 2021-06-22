@@ -5,8 +5,16 @@ import getConfig from 'next/config'
 import { array, number, string } from 'prop-types'
 import React from 'react'
 
-function SubjectSetCard (props) {
-  const { availableSubjects, display_name, id, set_member_subjects_count, subjects } = props
+/**
+  Summary card for a subject set, showing a preview subject, the set name, total subject count and completeness percentage.
+*/
+function SubjectSetCard ({
+  availableSubjects,
+  display_name,
+  id,
+  set_member_subjects_count,
+  subjects = []
+}) {
   const [subject] = subjects
   const { publicRuntimeConfig = {} } = getConfig() || {}
   const assetPrefix = publicRuntimeConfig.assetPrefix || ''
@@ -69,14 +77,26 @@ function SubjectSetCard (props) {
 }
 
 SubjectSetCard.propTypes = {
-  display_name: string.required,
-  id: string.required,
-  set_member_subjects_count: number.required,
+  /**
+   The number of subjects available to be classified.
+  */
+  availableSubjects: number.isRequired,
+  /**
+   Subject set title.
+  */
+  display_name: string.isRequired,
+  /**
+    Subject set ID.
+  */
+  id: string.isRequired,
+  /**
+    Total subject count
+  */
+  set_member_subjects_count: number.isRequired,
+  /**
+   Preview subjects. Used to show a preview image.
+  */
   subjects: array
-}
-
-SubjectSetCard.defaultProps = {
-  subjects: []
 }
 
 export default SubjectSetCard
