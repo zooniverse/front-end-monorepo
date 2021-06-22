@@ -5,6 +5,7 @@ import React from 'react'
 import { DraggableImage, MultiFrameViewerContainer } from './MultiFrameViewerContainer'
 import FrameCarousel from './FrameCarousel'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
+import asyncStates from '@zooniverse/async-states'
 
 describe('Component > MultiFrameViewerContainer', function () {
   let wrapper
@@ -70,6 +71,7 @@ describe('Component > MultiFrameViewerContainer', function () {
       wrapper = shallow(
         <MultiFrameViewerContainer
           ImageObject={ValidImage}
+          loadingState={asyncStates.success}
           subject={subject}
           onError={onError}
           onReady={onReady}
@@ -162,6 +164,7 @@ describe('Component > MultiFrameViewerContainer', function () {
       wrapper = shallow(
         <MultiFrameViewerContainer
           ImageObject={InvalidImage}
+          loadingState={asyncStates.success}
           subject={subject}
           onError={onError}
           onReady={onReady}
