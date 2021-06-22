@@ -1,6 +1,11 @@
+import dynamic from 'next/dynamic'
 import { MobXProviderContext, observer } from 'mobx-react'
 import React from 'react'
-import AuthenticationInvitationContainer from './AuthenticationInvitationContainer'
+
+export const DynamicallyImportedAuthenticationInvitationContainer = dynamic(
+  () => import('./AuthenticationInvitationContainer'),
+  { ssr: false }
+)
 
 function useStores() {
   const stores = React.useContext(MobXProviderContext)
@@ -18,7 +23,7 @@ function AuthenticationInvitationConnector (props) {
   const { isVisible = false } = useStores()
 
   return (
-    <AuthenticationInvitationContainer isVisible={isVisible} />
+    <DynamicallyImportedAuthenticationInvitationContainer isVisible={isVisible} />
   )
 }
 
