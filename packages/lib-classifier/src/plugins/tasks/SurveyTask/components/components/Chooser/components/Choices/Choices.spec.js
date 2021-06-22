@@ -1,8 +1,10 @@
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
+import { Grommet } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
-import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
+import zooTheme from '@zooniverse/grommet-theme'
 
+import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import { default as Task } from '@plugins/tasks/SurveyTask'
 import Choices from './Choices'
 import ChoiceButton from './components/ChoiceButton'
@@ -108,6 +110,63 @@ describe('Component > Choices', function () {
       fireChoiceButton.simulate('keydown', choiceId, backspaceEventMock)
 
       expect(handleDeleteSpy).to.have.been.calledOnceWith(choiceId)
+    })
+  })
+
+  describe('with autoFocus', function () {
+    let wrapper
+
+    before(function () {
+      wrapper = mount(
+        <Choices
+          autoFocus
+          filteredChoiceIds={mockTask.choicesOrder}
+          task={task}
+        />, {
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        }
+      )
+    })
+
+    it('should have first choice with hasFocus true and tabIndex 0', function () {
+      const firstChoiceButton = wrapper.find(ChoiceButton).first()
+      expect(firstChoiceButton.props().hasFocus).to.be.true()
+      expect(firstChoiceButton.props().tabIndex).to.equal(0)
+      expect(firstChoiceButton.props().choiceId).to.equal('RDVRK')
+    })
+
+    it('should have not first choices with hasFocus of false and tabIndex -1', function () {
+      const choiceButtons = wrapper.find(ChoiceButton)
+      choiceButtons.forEach((choiceButton, index) => {
+        if (index === 0) return true
+        expect(choiceButton.props().hasFocus).to.be.false()
+        expect(choiceButton.props().tabIndex).to.equal(-1)
+      })
+    })
+
+    describe('with updated filteredChoiceIds', function () {
+      const furtherFilteredChoiceIds = ['BBN', 'FR', 'NTHNGHR']
+
+      before(function () {
+        wrapper.setProps({ filteredChoiceIds: furtherFilteredChoiceIds })
+      })
+
+      it('should have first choice with hasFocus true and tabIndex 0', function () {
+        const firstChoiceButton = wrapper.find(ChoiceButton).first()
+        expect(firstChoiceButton.props().hasFocus).to.be.true()
+        expect(firstChoiceButton.props().tabIndex).to.equal(0)
+        expect(firstChoiceButton.props().choiceId).to.equal('BBN')
+      })
+
+      it('should have not first choices with hasFocus of false and tabIndex -1', function () {
+        const choiceButtons = wrapper.find(ChoiceButton)
+        choiceButtons.forEach((choiceButton, index) => {
+          if (index === 0) return true
+          expect(choiceButton.props().hasFocus).to.be.false()
+          expect(choiceButton.props().tabIndex).to.equal(-1)
+        })
+      })
     })
   })
 
