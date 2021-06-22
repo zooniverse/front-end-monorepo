@@ -15,7 +15,7 @@ import StandardLayout from '@shared/components/StandardLayout'
 import WorkflowAssignmentModal from './components/WorkflowAssignmentModal'
 import WorkflowMenu from './components/WorkflowMenu'
 
-const ClassifierWrapper = dynamic(() =>
+export const ClassifierWrapper = dynamic(() =>
   import('./components/ClassifierWrapper'), { ssr: false }
 )
 
