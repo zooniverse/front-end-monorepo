@@ -113,9 +113,9 @@ describe('Component > Choice', function () {
     })
   })
 
-  it('should call onCancel when "Not this" button clicked', function () {
+  it('should call handleDelete when "Not this" button clicked', function () {
     wrapper.find(Button).simulate('click')
-    expect(handleDeleteSpy).to.have.been.calledOnceWith('CRCL')
+    expect(handleDeleteSpy).to.have.been.calledOnceWith('KD')
   })
 
   it('should call onIdentify when "Identify" button clicked', function () {
