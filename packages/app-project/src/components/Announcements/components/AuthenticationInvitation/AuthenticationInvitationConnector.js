@@ -5,7 +5,7 @@ import AuthenticationInvitationContainer from './AuthenticationInvitationContain
 function useStores() {
   const stores = React.useContext(MobXProviderContext)
   const { isLoggedIn } = stores.store.user
-  const { sessionCount } = stores.store.yourStats
+  const { sessionCount } = stores.store.user.personalization
   const { isComplete } = stores.store.project
   const afterFive = sessionCount >= 5
   const isVisible = !isLoggedIn && !isComplete && afterFive

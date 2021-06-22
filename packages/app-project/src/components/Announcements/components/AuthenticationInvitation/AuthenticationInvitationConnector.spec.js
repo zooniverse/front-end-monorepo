@@ -16,10 +16,10 @@ describe('Component > AuthenticationInvitationConnector', function () {
         isComplete: false
       },
       user: {
-        isLoggedIn: false
-      },
-      yourStats: {
-        sessionCount: 5
+        isLoggedIn: false,
+        personalization: {
+          sessionCount: 5
+        }
       }
     }
   }
@@ -80,7 +80,7 @@ describe('Component > AuthenticationInvitationConnector', function () {
 
   describe('when the session classification count is less than five', function () {
     before(function () {
-      mockStore.store.yourStats.sessionCount = 3
+      mockStore.store.user.personalization.sessionCount = 3
       wrapper = shallow(<AuthenticationInvitationConnector />)
       componentWrapper = wrapper.find(AuthenticationInvitationContainer)
     })
