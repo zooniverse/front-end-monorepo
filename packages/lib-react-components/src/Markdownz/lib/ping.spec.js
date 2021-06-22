@@ -135,8 +135,7 @@ describe('ping plugin', function () {
     `).then((vfile) => {
       return expect(vfile.contents).to.equal(
         dedent`
-          <p><a href="http://example.com">foo <span class="ping ping-in-link">\
-          @<span class="ping-resource">I AM CLEM</span></span> bar</a></p>
+          <p><a href="http://example.com">foo @<strong>I AM CLEM</strong> bar</a></p>
         `
       )
     })

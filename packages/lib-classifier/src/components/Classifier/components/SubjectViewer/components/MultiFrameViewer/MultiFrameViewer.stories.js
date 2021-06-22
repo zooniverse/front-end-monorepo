@@ -10,6 +10,7 @@ import ImageToolbar from '../../../ImageToolbar'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
+import asyncStates from '@zooniverse/async-states'
 
 const config = {
   notes: {
@@ -88,6 +89,7 @@ storiesOf('Subject Viewers / MultiFrameViewer', module)
       <ViewerContext subject={subjectWithMore} theme={zooTheme} themeMode='light'>
         <Box>
           <DecoratedMultiFrameViewerContainer
+            loadingState={asyncStates.success}
             enableInteractionLayer={false}
             subject={subjectWithMore}
           />
@@ -101,6 +103,7 @@ storiesOf('Subject Viewers / MultiFrameViewer', module)
       <ViewerContext subject={subjectWithMore} theme={darkZooTheme} themeMode='dark'>
         <Box>
           <DecoratedMultiFrameViewerContainer
+            loadingState={asyncStates.success}
             enableInteractionLayer={false}
             subject={subjectWithMore}
           />
@@ -113,6 +116,7 @@ storiesOf('Subject Viewers / MultiFrameViewer', module)
       <ViewerContext mode='light' subject={subjectWithMore} theme={zooTheme}>
         <Box direction='row'>
           <DecoratedMultiFrameViewerContainer
+            loadingState={asyncStates.success}
             enableInteractionLayer={false}
             subject={subjectWithMore}
           />
@@ -126,6 +130,7 @@ storiesOf('Subject Viewers / MultiFrameViewer', module)
       <ViewerContext mode='light' subject={subjectWithLess} theme={zooTheme}>
         <Box direction='row'>
           <DecoratedMultiFrameViewerContainer
+            loadingState={asyncStates.success}
             enableInteractionLayer={false}
             subject={subjectWithLess}
           />

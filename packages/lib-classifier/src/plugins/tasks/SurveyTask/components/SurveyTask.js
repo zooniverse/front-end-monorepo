@@ -1,4 +1,4 @@
-import { Stack } from 'grommet'
+import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -13,6 +13,7 @@ function SurveyTask (props) {
     filters,
     handleAnswers,
     handleChoice,
+    handleDelete,
     handleFilter,
     handleIdentify,
     selectedChoice,
@@ -26,28 +27,29 @@ function SurveyTask (props) {
   }
 
   return (
-    <Stack fill>
-      <Chooser
-        autoFocus={autoFocus}
-        disabled={disabled}
-        filters={filters}
-        handleFilter={handleFilter}
-        onChoose={handleChoice}
-        selectedChoiceIds={selectedChoiceIds}
-        task={task}
-      />
-      {selectedChoice && (
-        <Choice
-          answers={answers}
-          choiceId={selectedChoice}
-          handleAnswers={handleAnswers}
-          handleChoice={handleChoice}
-          onCancel={() => handleCancel()}
-          onIdentify={handleIdentify}
-          task={task}
-        />
-      )}
-    </Stack>
+    <Box
+      fill
+    >
+      {selectedChoice
+        ? <Choice
+            answers={answers}
+            choiceId={selectedChoice}
+            handleAnswers={handleAnswers}
+            handleChoice={handleChoice}
+            onCancel={() => handleCancel()}
+            onIdentify={handleIdentify}
+            task={task}
+          />
+        : <Chooser
+            autoFocus={autoFocus}
+            disabled={disabled}
+            filters={filters}
+            handleFilter={handleFilter}
+            onChoose={handleChoice}
+            selectedChoiceIds={selectedChoiceIds}
+            task={task}
+          />}
+    </Box>
   )
 }
 
@@ -58,6 +60,7 @@ SurveyTask.defaultProps = {
   filters: {},
   handleAnswers: () => {},
   handleChoice: () => {},
+  handleDelete: () => {},
   handleFilter: () => {},
   handleIdentify: () => {},
   selectedChoice: '',
@@ -76,6 +79,7 @@ SurveyTask.propTypes = {
   filters: PropTypes.objectOf(PropTypes.string),
   handleAnswers: PropTypes.func,
   handleChoice: PropTypes.func,
+  handleDelete: PropTypes.func,
   handleFilter: PropTypes.func,
   handleIdentify: PropTypes.func,
   selectedChoice: PropTypes.string,
