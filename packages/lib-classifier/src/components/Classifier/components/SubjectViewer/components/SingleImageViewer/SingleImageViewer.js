@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
-import React, { createRef, forwardRef, useContext } from 'react'
+import React, { useRef } from 'react'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import { Box } from 'grommet'
 import InteractionLayer from '../InteractionLayer'
 import ZoomControlButton from '../ZoomControlButton'
 
-const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
+function SingleImageViewer(props) {
   const {
     children,
     enableInteractionLayer,
@@ -20,8 +20,9 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
     zooming
   } = props
 
-  const transformLayer = createRef()
-  const { svg } = useContext(SVGContext)
+  const imageViewer = useRef()
+  const transformLayer = useRef()
+  const svg = imageViewer.current
   const transform = `rotate(${rotate} ${width / 2} ${height / 2})`
   const getScreenCTM = () => transformLayer.current.getScreenCTM()
 
@@ -32,7 +33,7 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
       )}
       <Box animation='fadeIn' overflow='hidden'>
         <svg
-          ref={ref}
+          ref={imageViewer}
           focusable
           onKeyDown={onKeyDown}
           tabIndex={0}
@@ -51,7 +52,7 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
       </Box>
     </SVGContext.Provider>
   )
-})
+}
 
 SingleImageViewer.propTypes = {
   enableInteractionLayer: PropTypes.bool,

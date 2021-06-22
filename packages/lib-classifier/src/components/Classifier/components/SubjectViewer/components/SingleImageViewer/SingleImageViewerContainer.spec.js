@@ -76,7 +76,7 @@ describe('Component > SingleImageViewerContainer', function () {
         />
       )
       imageWrapper = wrapper.find(SingleImageViewer)
-      wrapper.instance().imageViewer = {
+      wrapper.instance().subjectImage = {
         current: {
           clientHeight: 50,
           clientWidth: 100,
@@ -96,7 +96,7 @@ describe('Component > SingleImageViewerContainer', function () {
     })
 
     it('should record the original image dimensions on load', function () {
-      const svg = wrapper.instance().imageViewer.current
+      const svg = wrapper.instance().subjectImage.current
       const fakeEvent = {
         target: {
           clientHeight: 0,
