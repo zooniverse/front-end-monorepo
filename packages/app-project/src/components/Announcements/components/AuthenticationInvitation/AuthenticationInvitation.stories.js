@@ -27,10 +27,10 @@ const stores = {
     isComplete: false
   },
   user: {
-    isLoggedIn: false
-  },
-  yourStats: {
-    sessionCount: 5
+    isLoggedIn: false,
+    personalization: {
+      sessionCount: 5
+    }
   }
 }
 
