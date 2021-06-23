@@ -1,1 +1,1 @@
-export { default } from './WorkflowAssignmentModal'
+export { default } from './WorkflowAssignmentModalConnector'
