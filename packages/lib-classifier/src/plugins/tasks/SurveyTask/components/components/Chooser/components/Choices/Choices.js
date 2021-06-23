@@ -28,6 +28,7 @@ function Choices (props) {
         dark: 'dark-1',
         light: 'light-1'
       }}
+      margin={{ top: 'xsmall' }}
     >
       <Grid
         columns={{

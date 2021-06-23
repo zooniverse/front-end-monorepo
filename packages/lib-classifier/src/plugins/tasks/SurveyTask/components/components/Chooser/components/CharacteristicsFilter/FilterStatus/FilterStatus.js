@@ -16,13 +16,11 @@ counterpart.registerTranslations('en', en)
 const StyledDropButton = styled(DropButton)`
   border: none;
   border-radius: 16px;
-  padding: 5px 10px;
+  padding: 3px 8px;
 
-  ${props => props.backgroundColor ? css`
-    background-color: ${props.theme.global.colors['accent-1']};
-  ` : css`
-    background-color: none;
-  `}
+  ${props => props.backgroundColor
+    ? css`background-color: ${props.theme.global.colors['accent-1']};`
+    : css`background-color: none;`}
 `
 
 const StyledLabel = styled(SpacedText)`
@@ -30,17 +28,17 @@ const StyledLabel = styled(SpacedText)`
 `
 
 export default function FilterStatus (props) {
-  const { 
+  const {
     filters,
     handleFilter,
     task
   } = props
-  const { 
+  const {
     characteristics,
     characteristicsOrder,
     images
   } = task
-  
+
   const filterStatusRef = useRef()
 
   const selectedCharacteristicIds = Object.keys(filters)
@@ -48,10 +46,17 @@ export default function FilterStatus (props) {
   return (
     <Box
       ref={filterStatusRef}
+      border={{
+        color: 'light-5',
+        size: 'xsmall',
+        style: 'solid',
+        side: 'bottom'
+      }}
       align='center'
       direction='row'
       fill='horizontal'
       gap='xxsmall'
+      height='xxsmall'
     >
       <StyledDropButton
         backgroundColor={selectedCharacteristicIds.length > 0}
@@ -66,7 +71,8 @@ export default function FilterStatus (props) {
             filters={filters}
             images={images}
             onFilter={handleFilter}
-          />}
+          />
+        }
         dropProps={{
           elevation: 'medium',
           stretch: 'align'
@@ -75,7 +81,7 @@ export default function FilterStatus (props) {
         gap='none'
         icon={<FilterIcon />}
         label={
-          <StyledLabel 
+          <StyledLabel
             color='neutral-1'
           >
             {counterpart('CharacteristicsFilter.filter')}
@@ -87,7 +93,7 @@ export default function FilterStatus (props) {
         const selectedValueId = filters?.[characteristicId] || ''
         const value = characteristic.values?.[selectedValueId] || {}
         const valueImageSrc = images?.[value.image] || ''
-        
+
         return (
           <FilterButton
             key={selectedValueId}
