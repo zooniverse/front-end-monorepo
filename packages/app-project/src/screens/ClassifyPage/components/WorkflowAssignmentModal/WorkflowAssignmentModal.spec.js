@@ -6,16 +6,27 @@ import sinon from 'sinon'
 import WorkflowAssignmentModal from './WorkflowAssignmentModal'
 import en from './locales/en'
 import NavLink from '@shared/components/NavLink'
+import * as nextRouter from 'next/router'
 
 describe('Component > WorkflowAssignmentModal', function () {
   let wrapper, closeFnSpy, dismissSpy
+  const router = {
+    asPath: '/projects/foo/bar',
+    query: {
+      owner: 'foo',
+      project: 'bar'
+    }
+  }
+
   before(function() {
     closeFnSpy = sinon.spy()
     dismissSpy = sinon.spy()
-    wrapper = shallow(<WorkflowAssignmentModal closeFn={closeFnSpy} dismiss={dismissSpy} />)
+    sinon.stub(nextRouter, 'useRouter').callsFake(() => router)
+    wrapper = shallow(<WorkflowAssignmentModal closeFn={closeFnSpy} dismiss={dismissSpy} assignedWorkflowID='1234' />)
   })
 
   after(function () {
+    nextRouter.useRouter.restore()
     closeFnSpy = null
     dismissSpy = null
     wrapper = null
@@ -50,6 +61,7 @@ describe('Component > WorkflowAssignmentModal', function () {
   it('should render a confirmation link', function () {
     const button = wrapper.find(NavLink)
     expect(button.props().link.text).to.equal(en.WorkflowAssignmentModal.confirm)
+    expect(button.props().link.href).to.equal('/projects/foo/bar/classify/workflow/1234')
   })
 
   it('should render a cancel button', function () {
