@@ -1,8 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Box, TextArea } from 'grommet'
+import { Box, Text, TextArea } from 'grommet'
 import { Markdownz } from '@zooniverse/react-components'
+import styled from 'styled-components'
 import TextTagButtons from '../TextTagButtons'
+
+const StyledText = styled(Text)`
+  display: block;
+  margin: 10px 0;
+`
 
 export default function DefaultTextTask (props) {
   const {
@@ -20,6 +26,18 @@ export default function DefaultTextTask (props) {
     updateAnnotation(textArea)
   }
 
+  const components = {
+    a: StyledText,
+    h1: StyledText,
+    h2: StyledText,
+    h3: StyledText,
+    h4: StyledText,
+    h5: StyledText,
+    h6: StyledText,
+    p: StyledText,
+    span: Text
+  }
+
   return (
     <Box
       direction='column'
@@ -27,7 +45,7 @@ export default function DefaultTextTask (props) {
       <label
         htmlFor={`${task.taskKey}-${task.type}`}
       >
-        <Markdownz>{task.instruction}</Markdownz>
+        <Markdownz components={components}>{task.instruction}</Markdownz>
         <TextArea
           ref={textArea}
           autoFocus={autoFocus}
