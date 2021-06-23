@@ -75,7 +75,7 @@ describe('Component > SubjectGroupViewer > SGVGridCell', function () {
 
     it('should be transformed', function () {
       const transform = wrapper.find('Styled(draggable(image))').prop('transform')
-      expect(transform).to.have.string('scale(1.5) translate(10, 50)')
+      expect(transform).to.have.string('translate(225, 300) scale(1.5) translate(-225, -300) translate(10, 50)')
     })
   })
   

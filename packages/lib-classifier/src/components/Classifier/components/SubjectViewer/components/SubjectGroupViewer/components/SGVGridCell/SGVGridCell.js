@@ -101,6 +101,16 @@ function SGVGridCell (props) {
     
     if (annotation?.update) annotation.update(annotationValue)
   }
+  
+  // Use an offset to ensure the zoom/scale transform occurs at the centre of
+  // the image, instead of the top-left (0,0) origin point.
+  // This hack is necessary since Safari doesn't support transform-origin to
+  // manually define the origin point, i.e. we can't use
+  // transform-origin={`${imageWidth/2}px ${imageHeight/2}px`}
+  const addOriginOffset = `translate(${imageWidth/2}, ${imageHeight/2})`
+  const removeOriginOffset = `translate(${-imageWidth/2}, ${-imageHeight/2})`
+  
+  const imageTransform = `${addOriginOffset} scale(${zoom}) ${removeOriginOffset} translate(${panX}, ${panY})`
 
   return (
     <g
@@ -123,8 +133,7 @@ function SGVGridCell (props) {
           xlinkHref={image.src}
           x={imageX}
           y={imageY}
-          transform={`scale(${zoom}) translate(${panX}, ${panY})`}
-          transform-origin={`${imageWidth/2}px ${imageHeight/2}px`}
+          transform={imageTransform}
         />
         <DraggableRect
           fill={(checked) ? cellStyle.overlay : 'none'}
