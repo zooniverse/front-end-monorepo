@@ -65,9 +65,9 @@ class SingleImageViewerContainer extends React.Component {
 
   async getImageSize() {
     const img = await this.preload()
-    const svg = this.subjectImage.current
-    const { width: clientWidth, height: clientHeight } = svg
-      ? svg.getBoundingClientRect()
+    const svgImage = this.subjectImage.current
+    const { width: clientWidth, height: clientHeight } = svgImage
+      ? svgImage.getBoundingClientRect()
       : {}
     return {
       clientHeight,
