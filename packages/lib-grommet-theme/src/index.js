@@ -276,6 +276,7 @@ const theme = deepFreeze({
       dark: 'accent-1',
       light: 'brand'
     },
+    gap: '10px',
     hover: {
       border: {
         color: {
