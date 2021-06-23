@@ -1,7 +1,7 @@
 import { Box, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 
 export const StyledBox = styled(Box)`
   cursor: pointer;
@@ -17,15 +17,22 @@ export const StyledBox = styled(Box)`
   }
 `
 
-export default function RadioInput (props) {
+function RadioInput (props) {
   const {
     handleRadioChange,
     isChecked,
     option,
-    questionId
+    questionId,
+    theme
   } = props
 
-  const backgroundColor = isChecked ? 'accent-1' : 'neutral-6'
+  let backgroundColor = 'neutral-6'
+  if (theme.dark) {
+    backgroundColor = 'dark-3'
+  }
+  if (isChecked) {
+    backgroundColor = 'accent-1'
+  }
 
   return (
     <label>
@@ -51,7 +58,6 @@ export default function RadioInput (props) {
           onClick={({ target }) => (handleRadioChange(target.value))}
         />
         <Text
-          color='dark-1'
           weight={isChecked ? 'bold' : 'normal'}
         >
           {option.label}
@@ -68,7 +74,10 @@ RadioInput.defaultProps = {
     label: '',
     value: ''
   },
-  questionId: ''
+  questionId: '',
+  theme: {
+    dark: false
+  }
 }
 
 RadioInput.propTypes = {
@@ -78,5 +87,11 @@ RadioInput.propTypes = {
     label: PropTypes.string,
     value: PropTypes.string
   }),
-  questionId: PropTypes.string
+  questionId: PropTypes.string,
+  theme: PropTypes.shape({
+    dark: false
+  })
 }
+
+export default withTheme(RadioInput)
+export { RadioInput }

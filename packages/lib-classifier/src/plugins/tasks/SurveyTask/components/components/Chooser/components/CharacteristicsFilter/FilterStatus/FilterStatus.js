@@ -82,7 +82,10 @@ export default function FilterStatus (props) {
         icon={<FilterIcon />}
         label={
           <StyledLabel
-            color='neutral-1'
+            color={{
+              dark: 'brand',
+              light: 'neutral-1'
+            }}
           >
             {counterpart('CharacteristicsFilter.filter')}
           </StyledLabel>
