@@ -34,11 +34,11 @@ spec:
           args: ["start"]
           resources:
             requests:
-              memory: "500Mi"
-              cpu: "100m"
+              memory: "250Mi"
+              cpu: "10m"
             limits:
               memory: "500Mi"
-              cpu: "500m"
+              cpu: "1000m"
           livenessProbe:
             httpGet:
               path: /Index
@@ -118,11 +118,11 @@ spec:
           args: ["start"]
           resources:
             requests:
-              memory: "500Mi"
-              cpu: "100m"
+              memory: "250Mi"
+              cpu: "10m"
             limits:
               memory: "500Mi"
-              cpu: "500m"
+              cpu: "1000m"
           livenessProbe:
             httpGet:
               path: /Index
