@@ -60,7 +60,7 @@ export function ChoiceButton (props) {
               height={thumbnailHeight}
               margin={{ right: '1ch' }}
               src={src}
-              width={thumbnailHeight * THUMBNAIL_ASPECT_RATIO}
+              width={Math.round(thumbnailHeight * THUMBNAIL_ASPECT_RATIO)}
             />}
           <Text
             color={{
