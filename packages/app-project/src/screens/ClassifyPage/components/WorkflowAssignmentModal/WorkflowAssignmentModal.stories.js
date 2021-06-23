@@ -18,7 +18,10 @@ export default {
 
 export function Default({ dark }) {
   const projectPreferences = {
-    promptAssignment: () => true
+    promptAssignment: () => true,
+    settings: {
+      workflow_id: '1234'
+    }
   }
   return (
     <Grommet

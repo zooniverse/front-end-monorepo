@@ -1,11 +1,11 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { Modal, PrimaryButton } from '@zooniverse/react-components'
+import { Modal } from '@zooniverse/react-components'
 import { Button, CheckBox } from 'grommet'
 import sinon from 'sinon'
 import WorkflowAssignmentModal from './WorkflowAssignmentModal'
 import en from './locales/en'
-import { expect } from 'chai'
+import NavLink from '@shared/components/NavLink'
 
 describe('Component > WorkflowAssignmentModal', function () {
   let wrapper, closeFnSpy, dismissSpy
@@ -47,9 +47,9 @@ describe('Component > WorkflowAssignmentModal', function () {
     expect(wrapper.find(Modal).props().title).to.equal(en.WorkflowAssignmentModal.title)
   })
 
-  it('should render a confirmation button', function () {
-    const button = wrapper.find(PrimaryButton)
-    expect(button.props().label).to.equal(en.WorkflowAssignmentModal.confirm)
+  it('should render a confirmation link', function () {
+    const button = wrapper.find(NavLink)
+    expect(button.props().link.text).to.equal(en.WorkflowAssignmentModal.confirm)
   })
 
   it('should render a cancel button', function () {

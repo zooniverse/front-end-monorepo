@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import WorkflowAssignmentModal from './WorkflowAssignmentModal'
 
-function WorkflowAssignmentModalContainer({ projectPreferences, workflowID }) {
+function WorkflowAssignmentModalContainer({ projectPreferences, currentWorkflowID }) {
   const [ active, setActive ] = React.useState(false)
   const [ dismissedForSession, setDismissed ] = React.useState(false)
 
@@ -16,16 +16,17 @@ function WorkflowAssignmentModalContainer({ projectPreferences, workflowID }) {
   }
 
   React.useEffect(() => {
-    if (projectPreferences?.promptAssignment(workflowID)) {
+    if (projectPreferences?.promptAssignment(currentWorkflowID)) {
       if (!dismissedForSession) setActive(true)
     }
 
     return () => setActive(false)
-  }, [projectPreferences, workflowID])
+  }, [projectPreferences, currentWorkflowID])
 
   return (
     <WorkflowAssignmentModal
       active={active}
+      assignedWorkflowID={projectPreferences?.settings?.workflow_id}
       closeFn={closeFn}
       dismiss={onDismiss}
       dismissedForSession={dismissedForSession}
@@ -34,10 +35,10 @@ function WorkflowAssignmentModalContainer({ projectPreferences, workflowID }) {
 }
 
 WorkflowAssignmentModalContainer.propTypes = {
+  currentWorkflowID: PropTypes.string,
   projectPreferences: PropTypes.shape({
     promptAssignment: PropTypes.func
-  }),
-  workflowID: PropTypes.string
+  })
 }
 
 export default WorkflowAssignmentModalContainer
