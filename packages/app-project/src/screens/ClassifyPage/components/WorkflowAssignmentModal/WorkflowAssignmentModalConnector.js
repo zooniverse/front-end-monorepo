@@ -11,20 +11,20 @@ function useStore() {
   }
 }
 
-function WorkflowAssignmentModalConnector({ workflowID, ...rest }) {
+function WorkflowAssignmentModalConnector({ currentWorkflowID, ...rest }) {
   const { projectPreferences } = useStore()
 
   return (
     <WorkflowAssignmentModalContainer
       projectPreferences={projectPreferences}
-      workflowID={workflowID}
+      currentWorkflowID={currentWorkflowID}
       {...rest}
     />
   )
 }
 
 WorkflowAssignmentModalConnector.propTypes = {
-  workflowID: PropTypes.string.isRequired
+  currentWorkflowID: PropTypes.string.isRequired
 }
 
 export default observer(WorkflowAssignmentModalConnector)

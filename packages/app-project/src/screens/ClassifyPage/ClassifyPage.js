@@ -77,7 +77,7 @@ function ClassifyPage ({
             />
             <ThemeModeToggle />
           </Grid>
-          <WorkflowAssignmentModal workflowID={workflowID} />
+          <WorkflowAssignmentModal currentWorkflowID={workflowID} />
         </Box>
 
         <Box as='aside' gap='medium' width={{ min: 'none', max: 'xxlarge' }}>
