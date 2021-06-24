@@ -1,1 +1,1 @@
-export { default } from './DisabledTaskPopup'
+export { default } from './DisabledTaskPopupConnector'

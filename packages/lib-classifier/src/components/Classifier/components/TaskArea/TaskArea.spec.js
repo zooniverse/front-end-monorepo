@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
 
-import { TaskArea } from './TaskArea'
+import TaskArea from './TaskArea'
 import Tasks from './components/Tasks'
 import SlideTutorial from '../SlideTutorial'
 import { TutorialFactory } from '@test/factories'

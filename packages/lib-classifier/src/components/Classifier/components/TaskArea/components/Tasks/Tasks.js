@@ -1,8 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import { Box, Paragraph } from 'grommet'
-import { MobXProviderContext, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { useContext } from 'react'
+import React from 'react'
 
 import Task from './components/Task'
 import TaskHelp from './components/TaskHelp'
@@ -12,52 +11,10 @@ import counterpart from 'counterpart'
 
 counterpart.registerTranslations('en', en)
 
-function TasksConnector(props) {
-  const { classifierStore } = useContext(MobXProviderContext)
-  const {
-    annotatedSteps: {
-      latest
-    },
-    classifications: {
-      active: classification,
-      demoMode
-    },
-    subjectViewer: {
-      loadingState: subjectReadyState
-    },
-    workflows: {
-      loadingState
-    },
-    workflowSteps: {
-      active: step,
-      isThereTaskHelp
-    }
-  } = classifierStore
-
-  let isComplete
-  // wait for the step and the classification before calculating isComplete from annotations.
-  if (step && classification) {
-    isComplete = step.isComplete(latest.annotations)
-  }
-
-  return (
-    <Tasks
-      classification={classification}
-      demoMode={demoMode}
-      isComplete={isComplete}
-      isThereTaskHelp={isThereTaskHelp}
-      loadingState={loadingState}
-      step={step}
-      subjectReadyState={subjectReadyState}
-      {...props}
-    />
-  )
-}
-
 /**
 The classifier tasks area. It displays tasks for the active step, along with task help (if any) and navigation buttons to go to the next/previous step, or submit the classification.
 */
-export function Tasks({
+export default function Tasks({
   classification,
   demoMode = false,
   disabled = false,
@@ -139,5 +96,3 @@ Tasks.propTypes = {
     tasks: PropTypes.array
   })
 }
-
-export default observer(TasksConnector)

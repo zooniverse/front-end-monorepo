@@ -1,7 +1,6 @@
 import { Tab, Tabs } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box } from 'grommet'
-import { MobXProviderContext, observer } from 'mobx-react'
 import { bool, func, object, shape, string } from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -11,59 +10,13 @@ import SlideTutorial from '../SlideTutorial'
 
 counterpart.registerTranslations('en', en)
 
-function storeMapper (store) {
-  const {
-    subjects: {
-      active: subject,
-      nextAvailable,
-      clearQueue
-    },
-    tutorials: {
-      disableTutorialTab,
-      setActiveTutorial
-    }
-  } = store
-
-  return {
-    disableTutorialTab,
-    nextAvailable,
-    reset: clearQueue,
-    setActiveTutorial,
-    subject
-  }
-}
-
-function TaskAreaConnector(props) {
-  const { classifierStore } = React.useContext(MobXProviderContext)
-  const {
-    disableTutorialTab = true,
-    nextAvailable,
-    reset,
-    setActiveTutorial = () => true,
-    subject
-  } = storeMapper(classifierStore)
-
-  return (
-    <TaskArea
-      disableTutorialTab={disableTutorialTab}
-      nextAvailable={nextAvailable}
-      reset={reset}
-      setActiveTutorial={setActiveTutorial}
-      subject={subject}
-      {...props}
-    />
-  )
-}
-
 // TODO: add autofocus for the first tab/task area
 /**
 The tabbed tasks area of the classifier, with tabs for the tutorial and active tasks.
 */
-export function TaskArea({
+export default function TaskArea({
   className,
   disableTutorialTab = true,
-  nextAvailable,
-  reset,
   setActiveTutorial = () => true,
   subject,
   tutorial = null
@@ -96,9 +49,7 @@ export function TaskArea({
     <>
       <DisabledTaskPopup
         isOpen={disabled}
-        nextAvailable={nextAvailable}
         onClose={enableTasks}
-        reset={reset}
         target={taskArea?.current}
       />
       <Tabs
@@ -138,10 +89,6 @@ TaskArea.propTypes = {
   className: string,
   /** disable the tutorial tab */
   disableTutorialTab: bool,
-  /** load the next unclassified subject */
-  nextAvailable: func,
-  /** reset the subject store and choose a new subject */
-  reset: func,
   /** select an active tutorial */
   setActiveTutorial: func,
   /** the current subject. */
@@ -151,13 +98,3 @@ TaskArea.propTypes = {
     retired: bool
   })
 }
-
-/*
-  Enzyme doesn't support the context API properly yet, so using @withTheme as
-  recommended currently doesn't work. So instead, we're exporting the unwrapped
-  component for testing, and using the HOC function syntax to export the wrapped
-  component.
-
-  https://github.com/styled-components/jest-styled-components/issues/191#issuecomment-465020345
-*/
-export default observer(TaskAreaConnector)

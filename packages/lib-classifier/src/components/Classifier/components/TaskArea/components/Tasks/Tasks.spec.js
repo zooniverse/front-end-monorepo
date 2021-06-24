@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { Tasks } from './Tasks'
+import Tasks from './Tasks'
 import asyncStates from '@zooniverse/async-states'
 import taskRegistry from '@plugins/tasks'
 import { WorkflowFactory } from '@test/factories'
