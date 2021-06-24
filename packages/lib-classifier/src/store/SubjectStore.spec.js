@@ -44,110 +44,188 @@ describe('Model > SubjectStore', function () {
     return store.subjects
   }
 
-  describe('Actions > advance', function () {
-    describe('with a full queue', function () {
-      const subjects = mockSubjectStore(longListSubjects)
-      let previousSubjectID
-      let initialSize
+  describe('Actions', function() {
+    describe('advance', function () {
+      describe('with a full queue', function () {
+        const subjects = mockSubjectStore(longListSubjects)
+        let previousSubjectID
+        let initialSize
 
-      before(function () {
-        previousSubjectID = subjects.active && subjects.active.id
-        initialSize = subjects.resources.size
-        subjects.advance()
+        before(function () {
+          previousSubjectID = subjects.active && subjects.active.id
+          initialSize = subjects.resources.size
+          subjects.advance()
+        })
+
+        it('should make the next subject in the queue active', function () {
+          const currentSubjectID = subjects.active && subjects.active.id
+          expect(currentSubjectID).to.equal(longListSubjects[1].id)
+        })
+
+        it('should reduce the queue size by one', function () {
+          expect(subjects.resources.size).to.equal(initialSize - 1)
+        })
+
+        it('should remove the active subject from the queue', function () {
+          expect(subjects.resources.get(previousSubjectID)).to.be.undefined()
+        })
+
+        it('should change the active subject', function () {
+          const currentSubjectID = subjects.active && subjects.active.id
+          expect(currentSubjectID).to.not.equal(previousSubjectID)
+        })
       })
 
-      it('should make the next subject in the queue active', function () {
-        const currentSubjectID = subjects.active && subjects.active.id
-        expect(currentSubjectID).to.equal(longListSubjects[1].id)
+      describe('with less than three subjects in the queue', function () {
+        describe('when the initial response has ten subjects', function () {
+          const subjects = mockSubjectStore(longListSubjects)
+
+          it('should request more subjects', function () {
+            while (subjects.resources.size > MINIMUM_QUEUE_SIZE) {
+              subjects.advance()
+            }
+            subjects.advance()
+            // Once for initialization and once after the queue has been advanced to less than 3 subjects
+            expect(subjects.populateQueue).to.have.been.calledTwice()
+          })
+        })
+
+        describe('when the initial response has less than three subjects', function () {
+          const subjects = mockSubjectStore(shortListSubjects)
+
+          it('should request more subjects', function () {
+            // Once for initialization and again since less than three subjects in initial response
+            expect(subjects.populateQueue).to.have.been.calledTwice()
+          })
+        })
+
+        describe('when the initial response has no subjects', function () {
+          const subjects = mockSubjectStore([])
+
+          it('should request more subjects', function () {
+            // Once for initialization
+            expect(subjects.populateQueue).to.have.been.calledOnce()
+          })
+
+          it('should not advance the queue', function () {
+            expect(subjects.resources.size).to.equal(0)
+            expect(subjects.active).to.be.undefined()
+          })
+        })
       })
 
-      it('should reduce the queue size by one', function () {
-        expect(subjects.resources.size).to.equal(initialSize - 1)
-      })
-
-      it('should remove the active subject from the queue', function () {
-        expect(subjects.resources.get(previousSubjectID)).to.be.undefined()
-      })
-
-      it('should change the active subject', function () {
-        const currentSubjectID = subjects.active && subjects.active.id
-        expect(currentSubjectID).to.not.equal(previousSubjectID)
-      })
-    })
-
-    describe('with less than three subjects in the queue', function () {
-      describe('when the initial response has ten subjects', function () {
+      describe('after emptying the queue', function () {
         const subjects = mockSubjectStore(longListSubjects)
 
-        it('should request more subjects', function () {
-          while (subjects.resources.size > MINIMUM_QUEUE_SIZE) {
+        beforeEach(function () {
+          while (subjects.resources.size > 0) {
             subjects.advance()
           }
-          subjects.advance()
-          // Once for initialization and once after the queue has been advanced to less than 3 subjects
-          expect(subjects.populateQueue).to.have.been.calledTwice()
-        })
-      })
-
-      describe('when the initial response has less than three subjects', function () {
-        const subjects = mockSubjectStore(shortListSubjects)
-
-        it('should request more subjects', function () {
-          // Once for initialization and again since less than three subjects in initial response
-          expect(subjects.populateQueue).to.have.been.calledTwice()
-        })
-      })
-
-      describe('when the initial response has no subjects', function () {
-        const subjects = mockSubjectStore([])
-
-        it('should request more subjects', function () {
-          // Once for initialization
-          expect(subjects.populateQueue).to.have.been.calledOnce()
         })
 
-        it('should not advance the queue', function () {
+        it('should leave the active subject empty', function () {
           expect(subjects.resources.size).to.equal(0)
           expect(subjects.active).to.be.undefined()
         })
       })
     })
 
-    describe('after emptying the queue', function () {
-      const subjects = mockSubjectStore(longListSubjects)
+    describe('append', function () {
+      const subjects = mockSubjectStore([])
 
-      beforeEach(function () {
-        while (subjects.resources.size > 0) {
-          subjects.advance()
+      before(function () {
+        subjects.append(longListSubjects)
+      })
+
+      it('should increase the size of the queue', function () {
+        expect(subjects.resources.size).to.equal(longListSubjects.length)
+      })
+
+      it('should add new subjects to the end of the queue', function () {
+        const initialSubjectIDs = longListSubjects.map(subject => subject.id)
+        const queue = Array.from(subjects.resources.keys())
+        expect(queue).to.deep.equal(initialSubjectIDs)
+      })
+    
+      it('should preserve the subject order', function () {
+        let index = 0
+        subjects.resources.forEach(function (resource, key) {
+          const subject = longListSubjects[index]
+          expect(key).to.equal(subject.id)
+          index++
+        })
+      })
+
+      it('should set the active subject', function () {
+        expect(subjects.active.id).to.equal(longListSubjects[0].id)
+      })
+
+      describe('with an existing queue', function () {
+        before(function () {
+          subjects.append(shortListSubjects)
+        })
+
+        it('should increase the size of the queue', function () {
+          expect(subjects.resources.size).to.equal(shortListSubjects.length + longListSubjects.length)
+        })
+
+        it('should add new subjects to the end of the queue', function () {
+          const initialSubjectIDs = longListSubjects.map(subject => subject.id)
+          const newSubjectIDs = shortListSubjects.map(subject => subject.id)
+          const queue = Array.from(subjects.resources.keys())
+          expect(queue).to.deep.equal([...initialSubjectIDs, ...newSubjectIDs])
+        })
+
+        it('should not change the active subject', function () {
+          expect(subjects.active.id).to.equal(longListSubjects[0].id)
+        })
+      })
+    })
+
+    describe('next available',function() {
+      let subjects
+      let subjectIDs
+
+      before(function () {
+        const subjectSnapshots = Factory.buildList('subject', 5)
+        const subjectMocks = {
+          ['/subjects/grouped']: [],
+          ['/subjects/queued']: subjectSnapshots.slice(0,1),
+          ['/subjects/selection']: subjectSnapshots.slice(0)
         }
+        subjectIDs = subjectSnapshots.map(subject => subject.id)
+        subjects = mockSubjectStore(subjectMocks)
+        subjects.nextAvailable()
       })
 
-      it('should leave the active subject empty', function () {
-        expect(subjects.resources.size).to.equal(0)
-        expect(subjects.active).to.be.undefined()
+      it('should select the next queued subject', function () {
+        expect(subjects.resources.size).to.equal(1)
+        expect(Array.from(subjects.resources.keys())).to.deep.equal(subjectIDs.slice(0,1))
       })
     })
-  })
 
-  describe('with specific subjects', function () {
-    let subjects
-    let subjectIDs
+    describe('populate queue', function() {
+      describe('with specific subjects', function () {
+        let subjects
+        let subjectIDs
 
-    before(function () {
-      const subjectSnapshots = Factory.buildList('subject', 5)
-      const subjectMocks = {
-        ['/subjects/grouped']: [],
-        ['/subjects/queued']: [],
-        ['/subjects/selection']: subjectSnapshots
-      }
-      subjectIDs = subjectSnapshots.map(subject => subject.id)
-      subjects = mockSubjectStore(subjectMocks)
-      subjects.populateQueue(subjectIDs)
-    })
+        before(function () {
+          const subjectSnapshots = Factory.buildList('subject', 5)
+          const subjectMocks = {
+            ['/subjects/grouped']: [],
+            ['/subjects/queued']: [],
+            ['/subjects/selection']: subjectSnapshots
+          }
+          subjectIDs = subjectSnapshots.map(subject => subject.id)
+          subjects = mockSubjectStore(subjectMocks)
+          subjects.populateQueue(subjectIDs)
+        })
 
-    it('should select those subjects', function () {
-      expect(subjects.resources.size).to.equal(5)
-      expect(Array.from(subjects.resources.keys())).to.deep.equal(subjectIDs)
+        it('should select those subjects', function () {
+          expect(subjects.resources.size).to.equal(5)
+          expect(Array.from(subjects.resources.keys())).to.deep.equal(subjectIDs)
+        })
+      })
     })
   })
 
@@ -199,58 +277,6 @@ describe('Model > SubjectStore', function () {
     
     it('should be of the correct "subject group" type', function () {
       expect(getType(subjects.active).name).to.equal('SubjectGroup')
-    })
-  })
-
-  describe('Actions > append', function () {
-    const subjects = mockSubjectStore([])
-
-    before(function () {
-      subjects.append(longListSubjects)
-    })
-
-    it('should increase the size of the queue', function () {
-      expect(subjects.resources.size).to.equal(longListSubjects.length)
-    })
-
-    it('should add new subjects to the end of the queue', function () {
-      const initialSubjectIDs = longListSubjects.map(subject => subject.id)
-      const queue = Array.from(subjects.resources.keys())
-      expect(queue).to.deep.equal(initialSubjectIDs)
-    })
-    
-    it('should preserve the subject order', function () {
-      let index = 0
-      subjects.resources.forEach(function (resource, key) {
-        const subject = longListSubjects[index]
-        expect(key).to.equal(subject.id)
-        index++
-      })
-    })
-
-    it('should set the active subject', function () {
-      expect(subjects.active.id).to.equal(longListSubjects[0].id)
-    })
-
-    describe('with an existing queue', function () {
-      before(function () {
-        subjects.append(shortListSubjects)
-      })
-
-      it('should increase the size of the queue', function () {
-        expect(subjects.resources.size).to.equal(shortListSubjects.length + longListSubjects.length)
-      })
-
-      it('should add new subjects to the end of the queue', function () {
-        const initialSubjectIDs = longListSubjects.map(subject => subject.id)
-        const newSubjectIDs = shortListSubjects.map(subject => subject.id)
-        const queue = Array.from(subjects.resources.keys())
-        expect(queue).to.deep.equal([...initialSubjectIDs, ...newSubjectIDs])
-      })
-
-      it('should not change the active subject', function () {
-        expect(subjects.active.id).to.equal(longListSubjects[0].id)
-      })
     })
   })
 

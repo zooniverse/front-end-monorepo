@@ -127,6 +127,23 @@ const SubjectStore = types
       addDisposer(self, subjectMiddleware)
     }
 
+    async function _fetchSubjects({ apiUrl, params }) {
+      const {
+        authClient,
+        client: {
+          panoptes
+        }
+      } = getRoot(self)
+
+      const authorization = await getBearerToken(authClient)
+      const response = await panoptes.get(apiUrl, params, { authorization })
+
+      if (response.body.subjects?.length > 0) {
+        return response.body.subjects
+      }
+      return []
+    }
+
     function advance () {
       const validSubjectReference = isValidReference(() => self.active)
       if (validSubjectReference) {
@@ -161,29 +178,54 @@ const SubjectStore = types
       }
     }
 
-    function * populateQueue (subjectIDs) {
+    /** request exactly one unclassified subject from /subjects/queued */
+    function * nextAvailable() {
       const root = getRoot(self)
-      const client = root.client.panoptes
       const workflow = tryReference(() => root.workflows.active)
-      
+
       if (workflow) {
-        self.loadingState = asyncStates.loading
-        const { apiUrl, params } = yield subjectSelectionStrategy(workflow, subjectIDs, self.last?.priority)
-
         try {
-          const { authClient } = getRoot(self)
-          const authorization = yield getBearerToken(authClient)
-          const response = yield client.get(apiUrl, params, { authorization })
-
-          if (response.body.subjects && response.body.subjects.length > 0) {
-            self.append(response.body.subjects)
+          self.reset()
+          const apiUrl = '/subjects/queued'
+          const params = {
+            page_size: 1,
+            workflow_id: workflow.id
+          }
+          if (workflow.grouped) {
+            params.subject_set_id = workflow.subjectSetId
           }
 
+          self.loadingState = asyncStates.loading
+          const subjects = yield _fetchSubjects({ apiUrl, params })
           self.loadingState = asyncStates.success
+          if (subjects?.length > 0) {
+            self.append(subjects)
+          }
         } catch (error) {
           console.error(error)
           self.loadingState = asyncStates.error
         }
+      }
+    }
+
+    function * populateQueue (subjectIDs) {
+      const root = getRoot(self)
+      const workflow = tryReference(() => root.workflows.active)
+      
+      if (workflow) {
+        try {
+          const { apiUrl, params } = yield subjectSelectionStrategy(workflow, subjectIDs, self.last?.priority)
+
+          self.loadingState = asyncStates.loading
+          const subjects = yield _fetchSubjects({ apiUrl, params })
+          self.loadingState = asyncStates.success
+          if (subjects?.length > 0) {
+            self.append(subjects)
+          }
+        } catch (error) {
+          console.error(error)
+          self.loadingState = asyncStates.error
+        } 
       }
     }
 
@@ -195,6 +237,7 @@ const SubjectStore = types
       advance,
       afterAttach,
       append,
+      nextAvailable: flow(nextAvailable),
       populateQueue: flow(populateQueue),
       reset
     }
