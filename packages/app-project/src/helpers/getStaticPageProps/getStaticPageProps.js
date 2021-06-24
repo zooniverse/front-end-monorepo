@@ -28,7 +28,7 @@ export default async function getStaticPageProps({ params, query }) {
   const { project } = getSnapshot(store)
   const language = project.primary_language
   const { active_workflows, default_workflow } = project.links
-  const workflowOrder = project.configuration.workflow_order || []
+  const workflowOrder = project.configuration?.workflow_order || []
   /*
     Validate any workflow URLs
   */
