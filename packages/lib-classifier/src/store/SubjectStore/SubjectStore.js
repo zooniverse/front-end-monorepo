@@ -71,6 +71,12 @@ const SubjectStore = types
     }
   }))
 
+  .volatile(self => {
+    return {
+      onReset: () => null
+    }
+  })
+
   .actions(self => {
     function afterAttach () {
       createWorkflowObserver()
@@ -178,6 +184,11 @@ const SubjectStore = types
       }
     }
 
+    function clearQueue() {
+      self.onReset()
+      self.reset()
+    }
+
     /** request exactly one unclassified subject from /subjects/queued */
     function * nextAvailable() {
       const root = getRoot(self)
@@ -233,13 +244,19 @@ const SubjectStore = types
       self.resources.clear()
     }
 
+    function setOnReset(callback) {
+      self.onReset = callback
+    }
+
     return {
       advance,
       afterAttach,
       append,
+      clearQueue,
       nextAvailable: flow(nextAvailable),
       populateQueue: flow(populateQueue),
-      reset
+      reset,
+      setOnReset
     }
   })
 

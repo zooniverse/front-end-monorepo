@@ -182,7 +182,36 @@ describe('Model > SubjectStore', function () {
       })
     })
 
-    describe('next available',function() {
+    describe('clear the queue', function () {
+      let subjects
+      let onReset
+
+      before(function () {
+        const subjectSnapshots = Factory.buildList('subject', 5)
+        const subjectMocks = {
+          ['/subjects/grouped']: [],
+          ['/subjects/queued']: [],
+          ['/subjects/selection']: subjectSnapshots
+        }
+        const subjectIDs = subjectSnapshots.map(subject => subject.id)
+        subjects = mockSubjectStore(subjectMocks)
+        subjects.populateQueue(subjectIDs)
+        onReset = sinon.stub()
+        subjects.setOnReset(onReset)
+      })
+
+      it('should empty the queue', function () {
+        expect(subjects.resources.size).to.equal(5)
+        subjects.clearQueue()
+        expect(subjects.resources.size).to.equal(0)
+      })
+
+      it('should call onReset', function () {
+        expect(onReset).to.have.been.calledOnce()
+      })
+    })
+
+    describe('next available',function () {
       let subjects
       let subjectIDs
 

@@ -16,7 +16,7 @@ function storeMapper (store) {
     subjects: {
       active: subject,
       nextAvailable,
-      reset
+      clearQueue
     },
     tutorials: {
       disableTutorialTab,
@@ -27,7 +27,7 @@ function storeMapper (store) {
   return {
     disableTutorialTab,
     nextAvailable,
-    reset,
+    reset: clearQueue,
     setActiveTutorial,
     subject
   }
