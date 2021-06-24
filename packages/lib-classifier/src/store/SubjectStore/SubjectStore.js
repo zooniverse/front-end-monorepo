@@ -1,14 +1,14 @@
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
 import { addDisposer, addMiddleware, flow, getRoot, isValidReference, onPatch, tryReference, types } from 'mobx-state-tree'
-import { getBearerToken } from './utils'
+import { getBearerToken } from '../utils'
 import { subjectSelectionStrategy } from './helpers'
-import { filterByLabel, filters } from '../components/Classifier/components/MetaTools/components/Metadata/components/MetadataModal'
-import ResourceStore from './ResourceStore'
-import Subject from './Subject'
-import SingleImageSubject from './SingleImageSubject'
-import SingleVideoSubject from './SingleVideoSubject'
-import SubjectGroup from './SubjectGroup'
+import { filterByLabel, filters } from '../../components/Classifier/components/MetaTools/components/Metadata/components/MetadataModal'
+import ResourceStore from '../ResourceStore'
+import Subject from '../Subject'
+import SingleImageSubject from '../SingleImageSubject'
+import SingleVideoSubject from '../SingleVideoSubject'
+import SubjectGroup from '../SubjectGroup'
 
 const MINIMUM_QUEUE_SIZE = 3
 
