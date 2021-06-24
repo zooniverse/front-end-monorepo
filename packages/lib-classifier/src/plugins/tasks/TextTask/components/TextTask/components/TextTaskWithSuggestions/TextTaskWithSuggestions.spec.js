@@ -1,7 +1,8 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { Text, TextInput } from 'grommet'
+import { TextInput } from 'grommet'
 import { default as Task } from '@plugins/tasks/TextTask'
+import { Markdownz } from '@zooniverse/react-components'
 import TextTaskWithSuggestions from './TextTaskWithSuggestions'
 
 describe('TextTask > Components > TextTaskWithSuggestions', function () {
@@ -26,7 +27,7 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
 
   it('should have a labelled TextInput', function () {
     const label = wrapper.find('label')
-    expect(label.find(Text).prop('children')).to.equal(task.instruction)
+    expect(label.find(Markdownz).prop('children')).to.equal(task.instruction)
     const textInput = label.find(TextInput)
     expect(textInput.prop('value')).to.equal(annotation.value)
   })
