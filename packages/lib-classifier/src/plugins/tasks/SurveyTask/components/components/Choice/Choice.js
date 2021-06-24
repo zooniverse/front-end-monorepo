@@ -34,9 +34,7 @@ export default function Choice (props) {
   const allowIdentify = allowIdentification(answers, choiceId, task)
 
   let hasFocus = 'identify'
-  if (choice.images?.length > 1) {
-    hasFocus = 'images'
-  } else if (choice.confusionsOrder?.length > 0) {
+  if (choice.confusionsOrder?.length > 0) {
     hasFocus = 'confusions'
   } else if (questionIds.length > 0) {
     hasFocus = 'questions'
@@ -51,7 +49,6 @@ export default function Choice (props) {
     >
       {choice.images?.length > 0 && (
         <Carousel
-          autoFocus={hasFocus === 'images'}
           controls='arrows'
         >
           {choice.images.map((filename, index) => (
