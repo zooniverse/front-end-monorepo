@@ -7,6 +7,7 @@ import RadioInput from './components/RadioInput'
 export default function RadioInputs (props) {
   const {
     handleAnswer,
+    hasFocus,
     options,
     questionAnswer,
     questionId
@@ -25,13 +26,20 @@ export default function RadioInputs (props) {
       direction='row'
       wrap
     >
-      {options.map(option => {
+      {options.map((option, index) => {
         const isChecked = questionAnswer === option.value
+        let inputHasFocus = false
+        if (questionAnswer) {
+          inputHasFocus = hasFocus && isChecked
+        } else {
+          inputHasFocus = hasFocus && index === 0
+        }
 
         return (
           <RadioInput
             key={option.value}
             handleRadioChange={handleRadioChange}
+            hasFocus={inputHasFocus}
             isChecked={isChecked}
             option={option}
             questionId={questionId}
@@ -44,6 +52,7 @@ export default function RadioInputs (props) {
 
 RadioInputs.defaultProps = {
   handleAnswer: () => {},
+  hasFocus: false,
   options: [],
   questionAnswer: undefined,
   questionId: ''
@@ -51,6 +60,7 @@ RadioInputs.defaultProps = {
 
 RadioInputs.propTypes = {
   handleAnswer: PropTypes.func,
+  hasFocus: PropTypes.bool,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
