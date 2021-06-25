@@ -2,6 +2,7 @@ import { Tab, Tabs } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box } from 'grommet'
 import { bool, func, object, shape, string } from 'prop-types'
+import queryString from 'query-string'
 import React, { useEffect, useRef, useState } from 'react'
 
 import { DisabledTaskPopup, Tasks } from './components'
@@ -26,7 +27,9 @@ export default function TaskArea({
   const taskArea = useRef(null)
 
   useEffect(function onSubjectChange() {
-    const finished = !!subject?.id || subject?.retired || subject?.already_seen
+    // TODO: remove this once testing is complete.
+    const URLParams = queryString.parse(window?.location?.search)
+    const finished = (subject && URLParams?.finished) || subject?.retired || subject?.already_seen
     setDisabled(finished)
   }, [subject])
 
