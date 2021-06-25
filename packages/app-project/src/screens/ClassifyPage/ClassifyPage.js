@@ -1,7 +1,7 @@
 import { Box, Grid } from 'grommet'
 import dynamic from 'next/dynamic'
 import { arrayOf, func, shape, string } from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
 import { withResponsiveContext } from '@zooniverse/react-components'
 
 import ThemeModeToggle from '@components/ThemeModeToggle'
@@ -12,10 +12,10 @@ import FinishedForTheDay from './components/FinishedForTheDay'
 import RecentSubjects from './components/RecentSubjects'
 import YourStats from './components/YourStats'
 import StandardLayout from '@shared/components/StandardLayout'
-
+import WorkflowAssignmentModal from './components/WorkflowAssignmentModal'
 import WorkflowMenu from './components/WorkflowMenu'
 
-const ClassifierWrapper = dynamic(() =>
+export const ClassifierWrapper = dynamic(() =>
   import('./components/ClassifierWrapper'), { ssr: false }
 )
 
@@ -32,7 +32,25 @@ function ClassifyPage ({
     : ['1em', 'auto', '1em']
 
   const [ workflowFromUrl ] = workflows.filter(workflow => workflow.id === workflowID)
-  const canClassify = workflowFromUrl?.grouped ? !!subjectSetID : !!workflowID
+  let subjectSetFromUrl
+  if (workflowFromUrl && workflowFromUrl.subjectSets) {
+    [ subjectSetFromUrl ] = workflowFromUrl.subjectSets.filter(subjectSet => subjectSet.id === subjectSetID)
+  }
+  // The classifier requires a workflow by default
+  let canClassify = !!workflowID
+  // grouped workflows require a subject set
+  canClassify = workflowFromUrl?.grouped ? !!subjectSetID : canClassify
+  // indexed subject sets require a subject
+  canClassify = subjectSetFromUrl?.isIndexed ? !!subjectID : canClassify 
+
+  let classifierProps = {}
+  if (canClassify) {
+    classifierProps = {
+      workflowID,
+      subjectSetID,
+      subjectID
+    }
+  }
 
   return (
     <StandardLayout>
@@ -46,6 +64,8 @@ function ClassifyPage ({
         <Box as='main' fill='horizontal'>
           {!canClassify && (
             <WorkflowMenu
+              subjectSetFromUrl={subjectSetFromUrl}
+              workflowFromUrl={workflowFromUrl}
               workflows={workflows}
             />
           )}
@@ -53,12 +73,11 @@ function ClassifyPage ({
             <ProjectName />
             <ClassifierWrapper
               onAddToCollection={addToCollection}
-              subjectID={subjectID}
-              subjectSetID={subjectSetID}
-              workflowID={workflowID}
+              {...classifierProps}
             />
             <ThemeModeToggle />
           </Grid>
+          <WorkflowAssignmentModal currentWorkflowID={workflowID} />
         </Box>
 
         <Box as='aside' gap='medium' width={{ min: 'none', max: 'xxlarge' }}>

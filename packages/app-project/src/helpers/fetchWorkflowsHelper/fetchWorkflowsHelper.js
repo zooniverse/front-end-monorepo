@@ -54,7 +54,23 @@ async function buildWorkflow(workflow, displayName, isDefault, env) {
   return workflowData
 }
 
-async function fetchWorkflowsHelper (language = 'en', activeWorkflows, defaultWorkflow, env) {
+function orderWorkflows(workflows, order) {
+  const workflowsByID = {};
+  workflows.forEach((workflow) => { workflowsByID[workflow.id] = workflow; });
+
+  const workflowsInOrder = order.map(workflowID => workflowsByID[workflowID]).filter(Boolean);
+
+  // Append any workflows that exist but do not appear in the order.
+  workflows.forEach((workflow) => {
+    if (workflowsInOrder.indexOf(workflow) === -1) {
+      workflowsInOrder.push(workflow);
+    }
+  });
+
+  return workflowsInOrder
+}
+
+async function fetchWorkflowsHelper(language = 'en', activeWorkflows, defaultWorkflow, workflowOrder = [], env) {
   const workflows = await fetchWorkflowData(activeWorkflows, env)
   const workflowIds = workflows.map(workflow => workflow.id)
   const displayNames = await fetchDisplayNames(language, workflowIds, env)
@@ -66,7 +82,8 @@ async function fetchWorkflowsHelper (language = 'en', activeWorkflows, defaultWo
   })
   const workflowStatuses = await Promise.allSettled(awaitWorkflows)
   const workflowsWithSubjectSets = workflowStatuses.map(result => result.value || result.reason)
-  return workflowsWithSubjectSets
+  const orderedWorkflows = orderWorkflows(workflowsWithSubjectSets, workflowOrder)
+  return orderedWorkflows
 }
 
 function createDisplayNamesMap (translations) {
