@@ -17,7 +17,7 @@ export const StyledBox = styled(Box)`
   }
 
   &:focus-within {
-    box-shadow: 0 0 2px 2px ${props => props.theme.global.colors['accent-1']};
+    box-shadow: 0 0 2px 2px ${props => props.theme.global.colors[props.theme.global.colors.focus]};
   }
 `
 
