@@ -7,6 +7,19 @@ import React, { useEffect, useState } from 'react'
 import en from './locales/en'
 counterpart.registerTranslations('en', en)
 
+/**
+ A popup which interrupts classification for subjects that are retired or already seen.
+
+ Volunteers are offered options to choose something else to work on, or to dismiss the popup and continue anyway.
+
+ ```
+  <DisabledTaskPopup
+   isOpen
+   onClose={callback}
+   target={parentNode}
+  />
+ ```
+*/
 export default function DisabledTaskPopup({
   isOpen = false,
   nextAvailable,

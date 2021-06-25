@@ -2,7 +2,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import React from 'react'
 
-import DisabledTaskPopup from './'
+import DisabledTaskPopup from './DisabledTaskPopup'
 
 export default {
   title: 'Tasks / Disabled Task Popup',
