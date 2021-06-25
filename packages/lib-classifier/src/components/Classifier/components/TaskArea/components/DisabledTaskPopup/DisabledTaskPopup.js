@@ -27,7 +27,7 @@ export default function DisabledTaskPopup({
   reset,
   target
 }) {
-  const [ active, setActive ] = useState(false)
+  const [ active, setActive ] = useState(isOpen)
 
   useEffect(function onLoaded() {
     if (isOpen) {
