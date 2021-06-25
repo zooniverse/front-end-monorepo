@@ -11,6 +11,7 @@ function Head (props) {
   const {
     description,
     ogImage,
+    page,
     projectTwitterUsername,
     siteName,
     title,
@@ -23,7 +24,7 @@ function Head (props) {
       <meta charSet='UTF-8' />
 
       <title>
-        {title} | {siteName}
+        {page && `${page} |`} {title} | {siteName}
       </title>
 
       <meta name='description' content={description} />
