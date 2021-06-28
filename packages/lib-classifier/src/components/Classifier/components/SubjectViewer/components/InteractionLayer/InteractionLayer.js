@@ -62,10 +62,10 @@ function InteractionLayer({
   }
 
   function getEventOffset(event) {
-    const svgPoint = svg.createSVGPoint()
-    svgPoint.x = event.clientX
-    svgPoint.y = event.clientY
-    const svgEventOffset = svgPoint.matrixTransform(getScreenCTM().inverse())
+    const domPoint = new DOMPoint()
+    domPoint.x = event.clientX
+    domPoint.y = event.clientY
+    const svgEventOffset = domPoint.matrixTransform(getScreenCTM().inverse())
     return svgEventOffset
   }
 
