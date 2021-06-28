@@ -6,6 +6,7 @@ import WorkflowSelector from './WorkflowSelector'
 function useStores() {
   const { store } = React.useContext(MobXProviderContext)
 
+  console.log('store', store)
   return {
     uppSettings: store.user.personalization.projectPreferences.settings,
     userReadyState: store.user.loadingState,
