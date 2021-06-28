@@ -15,6 +15,7 @@ describe('Component > Questions', function () {
     wrapper = shallow(
       <Questions
         answers={{}}
+        hasFocus
         questionIds={questionIds}
         questions={mockTask.questions}
         setAnswers={setAnswersSpy}
@@ -41,5 +42,18 @@ describe('Component > Questions', function () {
     expect(checkboxes.find({ questionId: 'WHTBHVRSDS' }).props().questionAnswer).to.deep.equal(['RSTNG', 'TNG'])
     expect(radioButtons.find({ questionId: 'HWMN' }).props().questionAnswer).to.equal('9')
     expect(radioButtons.find({ questionId: 'RTHRNNGPRSNT' }).props().questionAnswer).to.be.undefined()
+  })
+
+  describe('with hasFocus of true', function () {
+    it('should have the first inputs component with hasFocus true', function () {
+      // per the survey task questionsOrder the first inputs component is HWMN (How many?)
+
+      expect(radioButtons.find({ questionId: 'HWMN' }).props().hasFocus).to.be.true()
+    })
+
+    it('should have other inputs components with hasFocus false', function () {
+      expect(checkboxes.find({ questionId: 'WHTBHVRSDS' }).props().hasFocus).to.be.false()
+      expect(radioButtons.find({ questionId: 'RTHRNNGPRSNT' }).props().hasFocus).to.be.false()
+    })
   })
 })

@@ -32,7 +32,8 @@ class InteractionLayerContainer extends Component {
       move,
       scale,
       width,
-      played
+      played,
+      duration
     } = this.props
 
     const {
@@ -67,6 +68,7 @@ class InteractionLayerContainer extends Component {
             move={move}
             scale={scale}
             played={played}
+            duration={duration}
             setActiveMark={setActiveMark}
             width={width}
           />
@@ -95,6 +97,7 @@ InteractionLayerContainer.wrappedComponent.propTypes = {
   move: PropTypes.bool,
   scale: PropTypes.number,
   played: PropTypes.number,
+  duration: PropTypes.number,
   width: PropTypes.number.isRequired
 }
 
@@ -114,7 +117,8 @@ InteractionLayerContainer.wrappedComponent.defaultProps = {
   interactionTaskAnnotations: [],
   move: false,
   scale: 1,
-  played: undefined // used for tracking video progress from 0 - 1. if undefined, subject is not a video
+  played: undefined, // used for tracking video progress from 0 - 1. if undefined, subject is not a video
+  duration: undefined // total length of video. if undefined, subject is not a video
 }
 
 export default InteractionLayerContainer

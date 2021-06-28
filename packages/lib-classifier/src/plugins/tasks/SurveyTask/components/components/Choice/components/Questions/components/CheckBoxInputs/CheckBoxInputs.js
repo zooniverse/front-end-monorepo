@@ -7,6 +7,7 @@ import CheckBoxInput from './components/CheckBoxInput'
 export default function CheckBoxInputs (props) {
   const {
     handleAnswer,
+    hasFocus,
     options,
     questionAnswer,
     questionId
@@ -29,13 +30,14 @@ export default function CheckBoxInputs (props) {
       direction='row'
       wrap
     >
-      {options.map(option => {
+      {options.map((option, index) => {
         const isChecked = questionAnswer.indexOf(option.value) > -1
 
         return (
           <CheckBoxInput
             key={option.value}
             handleCheckBoxChange={handleCheckBoxChange}
+            hasFocus={hasFocus && index === 0}
             isChecked={isChecked}
             option={option}
             questionId={questionId}
@@ -48,6 +50,7 @@ export default function CheckBoxInputs (props) {
 
 CheckBoxInputs.defaultProps = {
   handleAnswer: () => {},
+  hasFocus: false,
   options: [],
   questionAnswer: [],
   questionId: ''
@@ -55,6 +58,7 @@ CheckBoxInputs.defaultProps = {
 
 CheckBoxInputs.propTypes = {
   handleAnswer: PropTypes.func,
+  hasFocus: PropTypes.bool,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
