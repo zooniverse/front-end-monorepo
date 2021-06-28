@@ -41,6 +41,7 @@ const icons = {
   rectangle: Rectangle,
   rotateRectangle: RotateRectangle,
   temporalPoint: Point,
+  temporalRotateRectangle: RotateRectangle,
   transcriptionLine: TranscriptionLine,
   triangle: Triangle
 }

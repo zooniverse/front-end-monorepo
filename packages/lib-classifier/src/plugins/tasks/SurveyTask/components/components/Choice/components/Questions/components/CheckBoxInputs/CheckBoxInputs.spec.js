@@ -20,6 +20,7 @@ describe('Component > CheckBoxInputs', function () {
     wrapper = shallow(
       <CheckBoxInputs
         handleAnswer={handleAnswerSpy}
+        hasFocus
         options={options}
         questionId={questionId}
       />
@@ -51,6 +52,27 @@ describe('Component > CheckBoxInputs', function () {
       expect(inputs.find({ option: { label: ' Standing', value: 'STNDNG' } }).props().isChecked).to.be.false()
       expect(inputs.find({ option: { label: ' Moving', value: 'MVNG' } }).props().isChecked).to.be.false()
       expect(inputs.find({ option: { label: ' Interacting', value: 'NTRCTNG' } }).props().isChecked).to.be.false()
+    })
+  })
+
+  describe('with hasFocus true', function () {
+    let inputs
+
+    before(function () {
+      inputs = wrapper.find(CheckBoxInput)
+    })
+
+    // per the question ('WHTBHVRSDS') answersOrder 'RSTNG' is the first input
+
+    it('should have the first CheckBoxInput with hasFocus true', function () {
+      expect(inputs.find({ option: { label: 'Resting', value: 'RSTNG' } }).props().hasFocus).to.be.true()
+    })
+
+    it('should have other CheckBoxInputs with hasFocus false', function () {
+      expect(inputs.find({ option: { label: ' Eating', value: 'TNG' } }).props().hasFocus).to.be.false()
+      expect(inputs.find({ option: { label: ' Standing', value: 'STNDNG' } }).props().hasFocus).to.be.false()
+      expect(inputs.find({ option: { label: ' Moving', value: 'MVNG' } }).props().hasFocus).to.be.false()
+      expect(inputs.find({ option: { label: ' Interacting', value: 'NTRCTNG' } }).props().hasFocus).to.be.false()
     })
   })
 })

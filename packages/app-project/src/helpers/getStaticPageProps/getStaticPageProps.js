@@ -28,7 +28,7 @@ export default async function getStaticPageProps({ params, query }) {
   const { project } = getSnapshot(store)
   const language = project.primary_language
   const { active_workflows, default_workflow } = project.links
-  
+  const workflowOrder = project.configuration?.workflow_order || []
   /*
     Validate any workflow URLs
   */
@@ -40,7 +40,7 @@ export default async function getStaticPageProps({ params, query }) {
   /*
     Fetch the active project workflows
   */
-  const workflows = await fetchWorkflowsHelper(language, active_workflows, default_workflow, env)
+  const workflows = await fetchWorkflowsHelper(language, active_workflows, default_workflow, workflowOrder, env)
   const props = {
     project,
     workflows

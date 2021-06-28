@@ -20,7 +20,10 @@ const store = {
       4) "Comments": For transcription lovers, we ask you to transcribe all the written comments on the cards.`
   },
   user: {
-    loadingState: asyncStates.success
+    loadingState: asyncStates.success,
+    personalization: {
+      projectPreferences: {}
+    }
   }
 }
 

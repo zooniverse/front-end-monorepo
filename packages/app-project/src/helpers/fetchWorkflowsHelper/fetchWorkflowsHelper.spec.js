@@ -1,3 +1,4 @@
+import { expect } from 'chai'
 import nock from 'nock'
 
 import fetchWorkflowsHelper from './fetchWorkflowsHelper'
@@ -250,6 +251,45 @@ describe('Helpers > fetchWorkflowsHelper', function () {
       }
       expect(thrownError).to.deep.equal(mockError)
       expect(workflows).to.be.undefined()
+    })
+  })
+
+  describe('when there is a workflow order', function () {
+    it('should reorder and return the workflows', async function () {
+      const scope = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/translations')
+        .query(true)
+        .reply(200, {
+          translations: TRANSLATIONS
+        })
+        .get('/workflows')
+        .query(true)
+        .reply(200, {
+          workflows: WORKFLOWS
+        })
+      const workflows = await fetchWorkflowsHelper('en', ['1', '2'], '2', ['2', '1'])
+      expect(workflows).to.deep.equal([
+        {
+          completeness: 0.7,
+          default: true,
+          grouped: true,
+          id: '2',
+          displayName: 'Bar',
+          subjectSets: [
+            Object.assign(subjectSet('1'), { availableSubjects: availableSubjects[1] }),
+            Object.assign(subjectSet('2'), { availableSubjects: availableSubjects[2] }),
+            Object.assign(subjectSet('3'), { availableSubjects: availableSubjects[3] })
+          ]
+        },
+        {
+          completeness: 0.4,
+          default: false,
+          grouped: false,
+          id: '1',
+          displayName: 'Foo',
+          subjectSets: []
+        }
+      ])
     })
   })
 })
