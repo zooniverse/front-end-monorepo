@@ -53,3 +53,9 @@ Default.args = {
   choiceId: 'KD',
   task: mockTask
 }
+Default.argTypes = {
+  choiceId: {
+    options: ['KD', 'FR', 'NTHNGHR', 'HMN'],
+    control: { type: 'radio' }
+  }
+}

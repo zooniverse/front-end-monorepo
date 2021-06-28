@@ -1,22 +1,22 @@
 import { getParentOfType, types } from 'mobx-state-tree'
-import { Point as PointComponent } from '@plugins/drawingTools/components'
-import { TemporalPointTool } from '@plugins/drawingTools/models/tools'
+import { RotateRectangle as RotateRectangleComponent } from '@plugins/drawingTools/components'
+import { TemporalRotateRectangleTool } from '@plugins/drawingTools/models/tools'
 import formatTimeStamp from '@helpers/formatTimeStamp'
 
-import Point from '../Point'
+import RotateRectangle from '../RotateRectangle'
 
-const TemporalPointModel = types
-  .model('TemporalPointModel', {
+const TemporalRotateRectangleModel = types
+  .model('TemporalRotateRectangleModel', {
     displayTime: types.optional(types.number, 0),
     displayTimeStamp: types.optional(types.string, '')
   })
   .views((self) => ({
     get tool() {
-      return getParentOfType(self, TemporalPointTool)
+      return getParentOfType(self, TemporalRotateRectangleTool)
     },
 
     get toolComponent() {
-      return PointComponent
+      return RotateRectangleComponent
     },
 
     get videoTime() {
@@ -34,6 +34,10 @@ const TemporalPointModel = types
     }
   })
 
-const TemporalPoint = types.compose('TemporalPoint', Point, TemporalPointModel)
+const TemporalRotateRectangle = types.compose(
+  'TemporalRotateRectangle',
+  RotateRectangle,
+  TemporalRotateRectangleModel
+)
 
-export default TemporalPoint
+export default TemporalRotateRectangle

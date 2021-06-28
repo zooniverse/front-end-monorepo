@@ -15,11 +15,16 @@ export const StyledBox = styled(Box)`
     opacity: 0.01;
     position: absolute;
   }
+
+  &:focus-within {
+    box-shadow: 0 0 2px 2px ${props => props.theme.global.colors[props.theme.global.colors.focus]};
+  }
 `
 
 function CheckBoxInput (props) {
   const {
     handleCheckBoxChange,
+    hasFocus,
     isChecked,
     option,
     questionId,
@@ -48,6 +53,7 @@ function CheckBoxInput (props) {
         pad={{ horizontal: 'xsmall' }}
       >
         <input
+          autoFocus={hasFocus}
           name={questionId}
           value={option.value}
           type='checkbox'
@@ -66,6 +72,7 @@ function CheckBoxInput (props) {
 
 CheckBoxInput.defaultProps = {
   handleCheckBoxChange: () => {},
+  hasFocus: false,
   isChecked: false,
   option: {
     label: '',
@@ -79,6 +86,7 @@ CheckBoxInput.defaultProps = {
 
 CheckBoxInput.propTypes = {
   handleCheckBoxChange: PropTypes.func,
+  hasFocus: PropTypes.bool,
   isChecked: PropTypes.bool,
   option: PropTypes.shape({
     label: PropTypes.string,

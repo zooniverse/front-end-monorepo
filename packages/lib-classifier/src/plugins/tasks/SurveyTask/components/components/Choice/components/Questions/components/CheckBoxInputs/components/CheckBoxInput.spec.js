@@ -1,3 +1,4 @@
+import { expect } from 'chai'
 import { shallow } from 'enzyme'
 import { Text } from 'grommet'
 import React from 'react'
@@ -40,6 +41,10 @@ describe('Component > CheckBoxInput', function () {
     expect(wrapper.find(Text).props().weight).to.equal('normal')
   })
 
+  it('should have input autoFocus false', function () {
+    expect(wrapper.find('input').props().autoFocus).to.be.false()
+  })
+
   describe('when checked', function () {
     before(function () {
       wrapper.setProps({ isChecked: true })
@@ -51,6 +56,16 @@ describe('Component > CheckBoxInput', function () {
 
     it('should have text weight bold', function () {
       expect(wrapper.find(Text).props().weight).to.equal('bold')
+    })
+  })
+
+  describe('with hasFocus true', function () {
+    before(function () {
+      wrapper.setProps({ hasFocus: true })
+    })
+
+    it('should have input autoFocus true', function () {
+      expect(wrapper.find('input').props().autoFocus).to.be.true()
     })
   })
 

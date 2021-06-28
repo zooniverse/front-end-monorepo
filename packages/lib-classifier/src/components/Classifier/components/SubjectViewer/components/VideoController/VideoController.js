@@ -63,9 +63,9 @@ const VideoController = ({
           </Box>
 
           <Box direction='row' alignSelf='center'>
-            <FormattedTime seconds={played * duration} />
+            <FormattedTime displayTime={played * duration} />
             {' / '}
-            <FormattedTime seconds={duration} />
+            <FormattedTime displayTime={duration} />
           </Box>
         </Box>
 
