@@ -31,7 +31,8 @@ function InteractionLayer({
   setActiveMark,
   scale,
   width,
-  played
+  played,
+  duration
 }) {
   const [creating, setCreating] = React.useState(false)
   const { svg, getScreenCTM } = React.useContext(SVGContext)
@@ -82,7 +83,7 @@ function InteractionLayer({
     setCreating(true)
     mark.setSubTaskVisibility(false)
     // Add a time value for tools that care about time. For most tools, this value is ignored.
-    mark.setVideoTime(timeStamp)
+    mark.setVideoTime(timeStamp, duration)
   }
 
   function onPointerDown(event) {

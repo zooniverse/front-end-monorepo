@@ -36,7 +36,7 @@ describe('Component > Choice', function () {
 
     wrapper = shallow(
       <Choice
-        choiceId='CRCL'
+        choiceId='KD'
         handleDelete={handleDeleteSpy}
         onIdentify={onIdentifySpy}
         task={task}
@@ -48,39 +48,74 @@ describe('Component > Choice', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should not render Carousel with choice without images', function () {
-    wrapper.setProps({ choiceId: 'HMN' })
-    expect(wrapper.find(Carousel)).to.have.lengthOf(0)
+  describe('with choice with images, confusions, and questions', function () {
+    // choice 'KD' (Kudu) includes images, confusions, and questions
+
+    it('should render Carousel', function () {
+      expect(wrapper.find(Carousel)).to.have.lengthOf(1)
+    })
+
+    it('should render ConfusedWith', function () {
+      expect(wrapper.find(ConfusedWith)).to.have.lengthOf(1)
+    })
+
+    it('should render Questions', function () {
+      expect(wrapper.find(Questions)).to.have.lengthOf(1)
+    })
   })
 
-  it('should render Carousel with choice with images', function () {
-    wrapper.setProps({ choiceId: 'CRCL' })
-    expect(wrapper.find(Carousel)).to.have.lengthOf(1)
+  describe('with choice without images, with confusions', function () {
+    // choice 'NTHNGHR' (Nothing here) excludes images, includes confusions
+
+    before(function () {
+      wrapper.setProps({ choiceId: 'NTHNGHR' })
+    })
+
+    it('should not render Carousel', function () {
+      expect(wrapper.find(Carousel)).to.have.lengthOf(0)
+    })
+
+    it('should have ConfusedWith with hasFocus true', function () {
+      expect(wrapper.find(ConfusedWith).props().hasFocus).to.be.true()
+    })
   })
 
-  it('should not render ConfusedWith with choice without confusions', function () {
-    wrapper.setProps({ choiceId: 'HMN' })
-    expect(wrapper.find(ConfusedWith)).to.have.lengthOf(0)
+  describe('with choice without images or confusions, with questions', function () {
+    // choice 'HMN' (Human) excludes images and confusions, includes questions
+
+    before(function () {
+      wrapper.setProps({ choiceId: 'HMN' })
+    })
+
+    it('should not render ConfusedWith', function () {
+      wrapper.setProps({ choiceId: 'HMN' })
+      expect(wrapper.find(ConfusedWith)).to.have.lengthOf(0)
+    })
+
+    it('should have Questions with hasFocus true', function () {
+      expect(wrapper.find(Questions).props().hasFocus).to.be.true()
+    })
   })
 
-  it('should render ConfusedWith with choice with confusions', function () {
-    wrapper.setProps({ choiceId: 'KD' })
-    expect(wrapper.find(ConfusedWith)).to.have.lengthOf(1)
+  describe('with choice without more than 1 image, confusions, or questions', function () {
+    // choice 'FR' (Fire) has 1 image, excludes confusions and questions
+
+    before(function () {
+      wrapper.setProps({ choiceId: 'FR' })
+    })
+
+    it('should not render Questions', function () {
+      expect(wrapper.find(Questions)).to.have.lengthOf(0)
+    })
+
+    it('should have "Identify" button with autoFocus true', function () {
+      expect(wrapper.find(PrimaryButton).props().autoFocus).to.be.true()
+    })
   })
 
-  it('should not render Questions with choice without questions', function () {
-    wrapper.setProps({ choiceId: 'FR' })
-    expect(wrapper.find(Questions)).to.have.lengthOf(0)
-  })
-
-  it('should render Questions with choice with questions', function () {
-    wrapper.setProps({ choiceId: 'CRCL' })
-    expect(wrapper.find(Questions)).to.have.lengthOf(1)
-  })
-
-  it('should call onCancel when "Not this" button clicked', function () {
+  it('should call handleDelete when "Not this" button clicked', function () {
     wrapper.find(Button).simulate('click')
-    expect(handleDeleteSpy).to.have.been.calledOnceWith('CRCL')
+    expect(handleDeleteSpy).to.have.been.calledOnceWith('KD')
   })
 
   it('should call onIdentify when "Identify" button clicked', function () {

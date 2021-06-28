@@ -9,6 +9,7 @@ import RadioInputs from './components/RadioInputs'
 export default function Questions (props) {
   const {
     answers,
+    hasFocus,
     questionIds,
     questions,
     setAnswers
@@ -29,7 +30,7 @@ export default function Questions (props) {
     <Box
       flex='grow'
     >
-      {questionIds.map(questionId => {
+      {questionIds.map((questionId, index) => {
         const question = questions[questionId] || { answers: {}, answersOrder: [] }
         const inputType = question.multiple ? 'checkbox' : 'radio'
         const options = question.answersOrder.map(answerId => ({
@@ -46,6 +47,7 @@ export default function Questions (props) {
               ? (
                 <CheckBoxInputs
                   handleAnswer={handleAnswer}
+                  hasFocus={hasFocus && index === 0}
                   options={options}
                   questionId={questionId}
                   questionAnswer={answers[questionId]}
@@ -54,6 +56,7 @@ export default function Questions (props) {
               : (
                 <RadioInputs
                   handleAnswer={handleAnswer}
+                  hasFocus={hasFocus && index === 0}
                   options={options}
                   questionId={questionId}
                   questionAnswer={answers[questionId]}
@@ -68,6 +71,7 @@ export default function Questions (props) {
 
 Questions.defaultProps = {
   answers: {},
+  hasFocus: false,
   questionIds: [],
   questions: {},
   setAnswers: () => {}
@@ -80,6 +84,7 @@ Questions.propTypes = {
       PropTypes.string
     ])
   ),
+  hasFocus: PropTypes.bool,
   questionIds: PropTypes.arrayOf(
     PropTypes.string
   ),

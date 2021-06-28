@@ -24,6 +24,7 @@ function ConfusedWith (props) {
     confusions,
     confusionsOrder,
     handleChoice,
+    hasFocus,
     images,
     theme
   } = props
@@ -43,7 +44,7 @@ function ConfusedWith (props) {
         direction='row'
         wrap
       >
-        {confusionsOrder.map((confusionId) => {
+        {confusionsOrder.map((confusionId, index) => {
           let backgroundColor = 'neutral-6'
           if (theme.dark) {
             backgroundColor = 'dark-3'
@@ -55,6 +56,7 @@ function ConfusedWith (props) {
           return (
             <StyledDropButton
               key={confusionId}
+              autoFocus={hasFocus && index === 0}
               backgroundColor={backgroundColor}
               dropAlign={{
                 bottom: 'top'
@@ -86,6 +88,7 @@ ConfusedWith.defaultProps = {
   confusions: {},
   confusionsOrder: [],
   handleChoice: () => {},
+  hasFocus: false,
   images: {}
 }
 
@@ -101,6 +104,7 @@ ConfusedWith.propTypes = {
   confusions: PropTypes.objectOf(PropTypes.string),
   confusionsOrder: PropTypes.arrayOf(PropTypes.string),
   handleChoice: PropTypes.func,
+  hasFocus: PropTypes.bool,
   images: PropTypes.objectOf(PropTypes.string)
 }
 
