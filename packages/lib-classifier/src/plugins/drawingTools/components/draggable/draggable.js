@@ -40,11 +40,11 @@ function draggable (WrappedComponent) {
 
     getEventOffset (event) {
       const { clientX, clientY } = event
-      const { svg, getScreenCTM } = this.context
+      const { svg } = this.context
       const svgPoint = svg.createSVGPoint()
       svgPoint.x = clientX
       svgPoint.y = clientY
-      const svgEventOffset = svgPoint.matrixTransform(getScreenCTM().inverse())
+      const svgEventOffset = svgPoint.matrixTransform(svg.getScreenCTM().inverse())
       return svgEventOffset
     }
 
