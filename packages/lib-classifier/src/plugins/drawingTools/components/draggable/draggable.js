@@ -41,7 +41,7 @@ function draggable (WrappedComponent) {
     createPoint(event) {
       const { clientX, clientY } = event
       // SVG 2 uses DOMPoint
-      if (document.DOMPointReadOnly) {
+      if (window.DOMPointReadOnly) {
         return new DOMPointReadOnly(clientX, clientY)
       }
       // SVG 1.1 uses SVGPoint
