@@ -1,8 +1,7 @@
 import cuid from 'cuid'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled, { css } from 'styled-components'
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
@@ -34,8 +33,8 @@ function InteractionLayer({
   played,
   duration
 }) {
-  const [creating, setCreating] = React.useState(false)
-  const { svg, getScreenCTM } = React.useContext(SVGContext)
+  const [creating, setCreating] = useState(false)
+  const svg = useRef()
 
   useEffect(
     function onDeleteMark() {
@@ -61,11 +60,31 @@ function InteractionLayer({
     return svgCoordinateEvent
   }
 
+  function createPoint(event) {
+    const { clientX, clientY } = event
+    // SVG 2 uses DOMPoint
+    if (document.DOMPointReadOnly) {
+      return new DOMPointReadOnly(clientX, clientY)
+    }
+    // SVG 1.1 uses SVGPoint
+    if (svg.current?.createSVGPoint) {
+      const svgPoint = svg.current.createSVGPoint()
+      svgPoint.x = clientX
+      svgPoint.y = clientY
+      return svgPoint
+    }
+    // jsdom doesn't support SVG
+    return {
+      x: clientX,
+      y: clientY
+    }
+  }
+
   function getEventOffset(event) {
-    const svgPoint = svg.createSVGPoint()
-    svgPoint.x = event.clientX
-    svgPoint.y = event.clientY
-    const svgEventOffset = svgPoint.matrixTransform(getScreenCTM().inverse())
+    const svgPoint = createPoint(event)
+    const svgEventOffset = svgPoint.matrixTransform ?
+      svgPoint.matrixTransform(svg.current?.getScreenCTM().inverse()) :
+      svgPoint
     return svgEventOffset
   }
 
@@ -138,7 +157,10 @@ function InteractionLayer({
   }
 
   return (
-    <g>
+    <svg
+      ref={svg}
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <DrawingCanvas
         disabled={disabled || move}
         pointerEvents={move ? 'none' : 'all'}
@@ -164,7 +186,7 @@ function InteractionLayer({
           played={played}
         />
       )}
-    </g>
+    </svg>
   )
 }
 

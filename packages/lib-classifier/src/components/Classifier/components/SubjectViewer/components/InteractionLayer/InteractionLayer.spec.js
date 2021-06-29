@@ -2,7 +2,6 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
 
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import InteractionLayer, { DrawingCanvas } from './InteractionLayer'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
@@ -116,17 +115,6 @@ describe('Component > InteractionLayer', function () {
 
     describe('pointer events', function () {
       describe('onPointerDown', function () {
-        let mockedContext
-        before(function () {
-          mockedContext = sinon.stub(React, 'useContext').callsFake(() => {
-            return { svg, getScreenCTM }
-          })
-        })
-
-        after(function () {
-          mockedContext.restore()
-        })
-
         it('should create a mark', function () {
           const fakeEvent = {
             pointerId: 'fakePointer',
@@ -246,17 +234,6 @@ describe('Component > InteractionLayer', function () {
     })
 
     describe('onPointerUp', function () {
-      let mockedContext
-      before(function () {
-        mockedContext = sinon.stub(React, 'useContext').callsFake(() => {
-          return { svg, getScreenCTM }
-        })
-      })
-
-      after(function () {
-        mockedContext.restore()
-      })
-
       describe('when the mark is valid', function () {
         it('should set the mark to finished', function () {
           const fakeEvent = {
@@ -368,11 +345,7 @@ describe('Component > InteractionLayer', function () {
           disabled
           height={400}
           width={600}
-        />,
-        {
-          wrappingComponent: SVGContext.Provider,
-          wrappingComponentProps: { value: { svg, getScreenCTM } }
-        }
+        />
       )
     })
 
