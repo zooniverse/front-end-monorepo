@@ -27,7 +27,7 @@ class SingleVideoViewerContainer extends React.Component {
   constructor() {
     super()
 
-    this.videoViewer = React.createRef()
+    this.transformLayer = React.createRef()
 
     this.state = {
       vid: '',
@@ -201,10 +201,8 @@ class SingleVideoViewerContainer extends React.Component {
     //   return null
     // }
 
-    const transformLayer = React.createRef()
-    const svg = this.videoViewer.current
+    const svg = this.transformLayer.current
     const transform = ``
-    const getScreenCTM = () => transformLayer.current.getScreenCTM()
     const scale = clientWidth / naturalWidth
 
     const enableDrawing =
@@ -226,18 +224,22 @@ class SingleVideoViewerContainer extends React.Component {
           {/* Drawing Layer */}
           <DrawingLayer>
             <Box animation='fadeIn' overflow='hidden'>
-              <SVGContext.Provider value={{ svg, getScreenCTM }}>
+              <SVGContext.Provider value={{ svg }}>
                 <svg
-                  ref={this.videoViewer}
                   focusable
                   onKeyDown={onKeyDown}
                   tabIndex={0}
                   viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   {/* {title?.id && title?.text && (
                   <title id={title.id}>{title.text}</title>
                 )} */}
-                  <g ref={transformLayer} transform={transform}>
+                  <svg
+                    ref={this.transformLayer}
+                    transform={transform}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     {enableInteractionLayer && (
                       <InteractionLayer
                         scale={scale}
@@ -247,7 +249,7 @@ class SingleVideoViewerContainer extends React.Component {
                         height={naturalHeight}
                       />
                     )}
-                  </g>
+                  </svg>
                 </svg>
               </SVGContext.Provider>
             </Box>
