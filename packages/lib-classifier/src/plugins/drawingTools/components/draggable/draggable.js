@@ -38,13 +38,34 @@ function draggable (WrappedComponent) {
       return this.wrappedComponent.current.getBoundingClientRect()
     }
 
+    createPoint(event) {
+      const { clientX, clientY } = event
+      // SVG 2 uses DOMPoint
+      if (document.DOMPointReadOnly) {
+        return new DOMPointReadOnly(clientX, clientY)
+      }
+      // SVG 1.1 uses SVGPoint
+      const { svg } = this.context
+      if (svg.createSVGPoint) {
+        const svgPoint = svg.createSVGPoint()
+        svgPoint.x = clientX
+        svgPoint.y = clientY
+        return svgPoint
+      }
+      // jsdom doesn't support SVG
+      return {
+        x: clientX,
+        y: clientY
+      }
+    }
+
     getEventOffset (event) {
       const { clientX, clientY } = event
       const { svg } = this.context
-      const svgPoint = svg.createSVGPoint()
-      svgPoint.x = clientX
-      svgPoint.y = clientY
-      const svgEventOffset = svgPoint.matrixTransform(svg.getScreenCTM().inverse())
+      const svgPoint = this.createPoint(event)
+      const svgEventOffset = svgPoint.matrixTransform ?
+        svgPoint.matrixTransform(svg.getScreenCTM().inverse()) :
+        svgPoint
       return svgEventOffset
     }
 
