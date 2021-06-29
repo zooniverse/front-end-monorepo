@@ -110,6 +110,18 @@ describe('Component > Choices', function () {
       fireChoiceButton.simulate('keydown', choiceId, backspaceEventMock)
 
       expect(handleDeleteSpy).to.have.been.calledOnceWith(choiceId)
+      handleDeleteSpy.resetHistory()
+    })
+
+    it('should call handleDelete with choice ID on ChoiceButton delete keyDown', function () {
+      const choiceId = 'FR'
+      const backspaceEventMock = { key: 'Delete', preventDefault: sinon.spy(), stopPropagation: sinon.spy() }
+
+      const fireChoiceButton = wrapper.find(ChoiceButton).filterWhere(button => button.key() === choiceId)
+      fireChoiceButton.simulate('keydown', choiceId, backspaceEventMock)
+
+      expect(handleDeleteSpy).to.have.been.calledOnceWith(choiceId)
+      handleDeleteSpy.resetHistory()
     })
   })
 

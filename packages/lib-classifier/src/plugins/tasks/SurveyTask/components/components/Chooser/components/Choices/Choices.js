@@ -56,7 +56,8 @@ function Choices (props) {
         setFocusIndex(newIndex)
         return false
       }
-      case 'Backspace': {
+      case 'Backspace':
+      case 'Delete': {
         event.preventDefault()
         event.stopPropagation()
         handleDelete(choiceId)
