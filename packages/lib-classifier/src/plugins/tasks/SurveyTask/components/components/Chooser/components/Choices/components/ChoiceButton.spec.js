@@ -1,10 +1,11 @@
 import { mount } from 'enzyme'
-import sinon from 'sinon'
-import React from 'react'
 import { Grommet, Text } from 'grommet'
+import React from 'react'
+import sinon from 'sinon'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Media } from '@zooniverse/react-components'
-import ChoiceButton, { THUMBNAIL_ASPECT_RATIO } from './ChoiceButton'
+
+import { ChoiceButton, THUMBNAIL_ASPECT_RATIO } from './ChoiceButton'
 
 describe('Component > ChoiceButton', function () {
   let wrapper, onChooseSpy, onKeyDownSpy

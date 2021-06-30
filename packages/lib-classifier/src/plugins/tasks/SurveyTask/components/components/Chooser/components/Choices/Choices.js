@@ -1,22 +1,25 @@
-import {
-  Box
-} from 'grommet'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
+import styled, { css, withTheme } from 'styled-components'
 
 import howManyColumns from './helpers/howManyColumns'
 import whatSizeThumbnail from './helpers/whatSizeThumbnail'
 import ChoiceButton from './components/ChoiceButton'
 
-const StyledGrid = styled(Box)`
+const StyledGrid = styled.div`
+  ${props => props.theme.dark
+    ? css`background-color: ${props.theme.global.colors['dark-1']};`
+    : css`background-color: ${props.theme.global.colors['light-1']};`
+  }
   display: grid;
   grid-auto-flow: column;
   grid-gap: 2px;
   grid-template-rows: repeat(${props => props.rowsCount}, auto);
+  width: 100%;
+  height: 100%;
 `
 
-function Choices (props) {
+export function Choices (props) {
   const {
     autoFocus,
     filteredChoiceIds,
@@ -42,6 +45,7 @@ function Choices (props) {
       case 'ArrowDown': {
         event.preventDefault()
         event.stopPropagation()
+
         newIndex = (index + 1) % filteredChoiceIds.length
         setFocusIndex(newIndex)
         return false
@@ -49,6 +53,7 @@ function Choices (props) {
       case 'ArrowUp': {
         event.preventDefault()
         event.stopPropagation()
+
         newIndex = index - 1
         if (newIndex === -1) {
           newIndex = filteredChoiceIds.length - 1
@@ -60,6 +65,7 @@ function Choices (props) {
       case 'Delete': {
         event.preventDefault()
         event.stopPropagation()
+
         handleDelete(choiceId)
         return false
       }
@@ -71,11 +77,6 @@ function Choices (props) {
 
   return (
     <StyledGrid
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      fill
       rowsCount={rowsCount}
     >
       {filteredChoiceIds.map((choiceId, index) => {
@@ -110,7 +111,13 @@ Choices.defaultProps = {
   filteredChoiceIds: [],
   handleDelete: () => {},
   onChoose: () => {},
-  selectedChoiceIds: []
+  selectedChoiceIds: [],
+  theme: {
+    dark: false,
+    global: {
+      colors: {}
+    }
+  }
 }
 
 Choices.propTypes = {
@@ -126,7 +133,13 @@ Choices.propTypes = {
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     taskKey: PropTypes.string,
     type: PropTypes.string
-  }).isRequired
+  }).isRequired,
+  theme: PropTypes.shape({
+    dark: PropTypes.bool,
+    global: PropTypes.shape({
+      colors: PropTypes.object
+    })
+  })
 }
 
-export default Choices
+export default withTheme(Choices)

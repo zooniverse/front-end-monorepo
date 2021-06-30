@@ -36,13 +36,16 @@ describe('Component > Choices', function () {
     const handleDeleteSpy = sinon.spy()
     const onChooseSpy = sinon.spy()
     before(function () {
-      wrapper = shallow(
+      wrapper = mount(
         <Choices
           filteredChoiceIds={mockTask.choicesOrder}
           handleDelete={handleDeleteSpy}
           onChoose={onChooseSpy}
           task={task}
-        />
+        />, {
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        }
       )
     })
 
@@ -107,7 +110,7 @@ describe('Component > Choices', function () {
       const backspaceEventMock = { key: 'Backspace', preventDefault: sinon.spy(), stopPropagation: sinon.spy() }
 
       const fireChoiceButton = wrapper.find(ChoiceButton).filterWhere(button => button.key() === choiceId)
-      fireChoiceButton.simulate('keydown', choiceId, backspaceEventMock)
+      fireChoiceButton.simulate('keydown', backspaceEventMock)
 
       expect(handleDeleteSpy).to.have.been.calledOnceWith(choiceId)
       handleDeleteSpy.resetHistory()
@@ -118,7 +121,7 @@ describe('Component > Choices', function () {
       const backspaceEventMock = { key: 'Delete', preventDefault: sinon.spy(), stopPropagation: sinon.spy() }
 
       const fireChoiceButton = wrapper.find(ChoiceButton).filterWhere(button => button.key() === choiceId)
-      fireChoiceButton.simulate('keydown', choiceId, backspaceEventMock)
+      fireChoiceButton.simulate('keydown', backspaceEventMock)
 
       expect(handleDeleteSpy).to.have.been.calledOnceWith(choiceId)
       handleDeleteSpy.resetHistory()
