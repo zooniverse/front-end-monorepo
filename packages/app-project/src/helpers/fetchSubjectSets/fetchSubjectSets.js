@@ -28,7 +28,8 @@ async function workflowSubjectSets(subjectSetIDs, env) {
   const setsToFetch = []
   subjectSetIDs.forEach(id => {
     if (subjectSetCache[id]) {
-      workflowSubjectSets.push(subjectSetCache[id])
+      const workflowSubjectSet = Object.assign({}, subjectSetCache[id])
+      workflowSubjectSets.push(workflowSubjectSet)
     } else {
       setsToFetch.push(id)
     }
