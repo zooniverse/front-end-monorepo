@@ -3,6 +3,7 @@
 const subjectSets = [
   {
     "id":"85771",
+    completeness: 0.64,
     "display_name":"Ultraman Series",
     "set_member_subjects_count":6,
     "metadata":{},
@@ -29,6 +30,7 @@ const subjectSets = [
     ]
   },{
     "id":"85772",
+    completeness: 0,
     "display_name":"Transformers Series",
     "set_member_subjects_count":4,
     "metadata":{},
@@ -56,6 +58,7 @@ const subjectSets = [
     ]
   },{
     "id":"85773",
+    completeness: 1,
     "display_name":"Overwatch Series",
     "set_member_subjects_count":9,
     "metadata":{},

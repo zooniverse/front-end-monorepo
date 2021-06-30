@@ -90,7 +90,9 @@ export default async function fetchSubjectSets(workflow, env) {
   }
   const subjectSets = await workflowSubjectSets(subjectSetIDs, env)
   subjectSets.forEach(subjectSet => {
-    subjectSet.availableSubjects = subjectSetCounts[subjectSet.id]
+    const availableSubjects = subjectSetCounts[subjectSet.id]
+    const totalSubjects = subjectSet.set_member_subjects_count
+    subjectSet.completeness = 1 - (availableSubjects / totalSubjects)
   })
   return subjectSets
 }
