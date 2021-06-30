@@ -144,14 +144,14 @@ describe('Component > Choices', function () {
       )
     })
 
-    it('should have first choice with hasFocus true and tabIndex 0', function () {
+    it('should give focus to the first choice', function () {
       const firstChoiceButton = wrapper.find(ChoiceButton).first()
       expect(firstChoiceButton.props().hasFocus).to.be.true()
       expect(firstChoiceButton.props().tabIndex).to.equal(0)
       expect(firstChoiceButton.props().choiceId).to.equal('RDVRK')
     })
 
-    it('should have not first choices with hasFocus of false and tabIndex -1', function () {
+    it('should not give focus to other choices', function () {
       const choiceButtons = wrapper.find(ChoiceButton)
       choiceButtons.forEach((choiceButton, index) => {
         if (index === 0) return true
@@ -167,14 +167,14 @@ describe('Component > Choices', function () {
         wrapper.setProps({ filteredChoiceIds: furtherFilteredChoiceIds })
       })
 
-      it('should have first choice with hasFocus true and tabIndex 0', function () {
+      it('should give focus to the updated first choice', function () {
         const firstChoiceButton = wrapper.find(ChoiceButton).first()
         expect(firstChoiceButton.props().hasFocus).to.be.true()
         expect(firstChoiceButton.props().tabIndex).to.equal(0)
         expect(firstChoiceButton.props().choiceId).to.equal('BBN')
       })
 
-      it('should have not first choices with hasFocus of false and tabIndex -1', function () {
+      it('should not give focus to other updated choices', function () {
         const choiceButtons = wrapper.find(ChoiceButton)
         choiceButtons.forEach((choiceButton, index) => {
           if (index === 0) return true
