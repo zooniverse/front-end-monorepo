@@ -37,10 +37,6 @@ const nextConfig = {
     APP_ENV
   },
 
-  future: {
-    webpack5: true
-  },
-
   webpack: (config) => {
     config.plugins.concat([
       new Dotenv({
