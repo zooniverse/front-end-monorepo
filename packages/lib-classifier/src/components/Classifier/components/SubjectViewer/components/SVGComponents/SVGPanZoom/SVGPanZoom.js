@@ -42,7 +42,7 @@ function SVGPanZoom({
       enableZoom()
       return disableZoom
     }
-  }, [zooming])
+  }, [zooming, src])
 
   useEffect(
     function onZoomChange() {
