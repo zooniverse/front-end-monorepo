@@ -37,6 +37,10 @@ const nextConfig = {
     APP_ENV
   },
 
+  eslint: {
+    ignoreDuringBuilds: true
+  },
+
   webpack: (config) => {
     config.plugins.concat([
       new Dotenv({
