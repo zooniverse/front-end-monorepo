@@ -62,6 +62,12 @@ describe('Helpers > getStaticPageProps', function () {
       3: 10
   }
 
+  const completeness = {
+    1: 0.6,
+    2: 0,
+    3: 0
+  }
+
   function subjectSet(id) {
     return {
       id,
@@ -246,9 +252,9 @@ describe('Helpers > getStaticPageProps', function () {
             id: '2',
             displayName: 'Bar',
             subjectSets: [
-              Object.assign(subjectSet('1'), { availableSubjects: availableSubjects[1]}),
-              Object.assign(subjectSet('2'), { availableSubjects: availableSubjects[2]}),
-              Object.assign(subjectSet('3'), { availableSubjects: availableSubjects[3]})
+              Object.assign(subjectSet('1'), { completeness: completeness[1] }),
+              Object.assign(subjectSet('2'), { completeness: completeness[2] }),
+              Object.assign(subjectSet('3'), { completeness: completeness[3] })
             ]
           }
         ])
@@ -373,9 +379,9 @@ describe('Helpers > getStaticPageProps', function () {
             id: '2',
             displayName: 'Bar',
             subjectSets: [
-              Object.assign(subjectSet('1'), { availableSubjects: availableSubjects[1]}),
-              Object.assign(subjectSet('2'), { availableSubjects: availableSubjects[2]}),
-              Object.assign(subjectSet('3'), { availableSubjects: availableSubjects[3]})
+              Object.assign(subjectSet('1'), { completeness: completeness[1] }),
+              Object.assign(subjectSet('2'), { completeness: completeness[2] }),
+              Object.assign(subjectSet('3'), { completeness: completeness[3] })
             ]
           }
         ])
