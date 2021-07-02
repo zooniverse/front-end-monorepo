@@ -1,5 +1,4 @@
 import { SpacedText } from '@zooniverse/react-components'
-import React from 'react'
 
 function FieldLabel (props) {
   return (

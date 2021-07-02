@@ -1,5 +1,4 @@
 import Document from 'next/document'
-import React from 'react'
 import { ServerStyleSheet } from 'styled-components'
 
 import { logNodeError } from '../src/helpers/logger'

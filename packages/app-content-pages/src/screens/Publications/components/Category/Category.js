@@ -1,6 +1,5 @@
 import { Box, Heading } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
-import React from 'react'
 
 import Project from '../Project'
 
