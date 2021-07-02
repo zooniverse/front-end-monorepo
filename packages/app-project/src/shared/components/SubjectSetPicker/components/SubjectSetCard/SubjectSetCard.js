@@ -3,7 +3,6 @@ import { Media, SpacedText } from '@zooniverse/react-components'
 import { Box, Paragraph, Text } from 'grommet'
 import getConfig from 'next/config'
 import { array, number, string } from 'prop-types'
-import React from 'react'
 
 /**
   Summary card for a subject set, showing a preview subject, the set name, total subject count and completeness percentage.

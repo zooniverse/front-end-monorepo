@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
-import React from 'react'
 
 import DailyClassificationsChartContainer from './DailyClassificationsChartContainer'
 import DailyClassificationsChart from './DailyClassificationsChart'

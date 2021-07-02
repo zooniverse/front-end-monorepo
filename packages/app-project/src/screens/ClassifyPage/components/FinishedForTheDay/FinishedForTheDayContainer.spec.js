@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import FinishedForTheDay from './FinishedForTheDay'
 import { FinishedForTheDayContainer } from './FinishedForTheDayContainer'

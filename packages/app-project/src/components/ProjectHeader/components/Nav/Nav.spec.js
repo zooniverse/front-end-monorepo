@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import Nav from './Nav'
 import NavLink from '@shared/components/NavLink'

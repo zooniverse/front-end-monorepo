@@ -2,7 +2,6 @@ import { withResponsiveContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 import ApprovedIcon from './components/ApprovedIcon'

@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import { createRef, Component } from 'react';
 
 import ClassifyPage from './ClassifyPage'
 import CollectionsModal from '../../shared/components/CollectionsModal'
 
 function ClassifyPageContainer(props) {
-  const collectionsModal = React.createRef()
+  const collectionsModal = createRef()
 
   function addToCollection (subjectId) {
     collectionsModal.current.open(subjectId)

@@ -1,7 +1,6 @@
 import { Anchor, Heading } from 'grommet'
 import Link from 'next/link'
 import { withRouter } from 'next/router'
-import React from 'react'
 import styled from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'

@@ -2,7 +2,6 @@ import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Anchor, Box } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
-import React from 'react'
 import styled, { css } from 'styled-components'
 
 import NavLink from '@shared/components/NavLink'

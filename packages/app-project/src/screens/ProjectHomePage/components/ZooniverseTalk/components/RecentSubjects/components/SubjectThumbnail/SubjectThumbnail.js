@@ -1,6 +1,5 @@
 import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
-import React from 'react'
 import { Anchor, Box } from 'grommet'
 import { Media, SpacedText } from '@zooniverse/react-components'
 import styled, { css } from 'styled-components'

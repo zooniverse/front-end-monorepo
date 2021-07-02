@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import { YourStatsContainer } from './YourStatsContainer'
 import YourStats from './YourStats'

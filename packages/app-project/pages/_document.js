@@ -1,5 +1,4 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import React from 'react'
 import { ServerStyleSheet } from 'styled-components'
 
 import { mediaStyle } from '@shared/components/Media'

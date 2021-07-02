@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import ProjectStatistics from './ProjectStatistics'
 import CompletionBar from './components/CompletionBar'
