@@ -41,8 +41,8 @@
     "@zooniverse/grommet-theme": "3.x.x",
     "grommet": "2.17.x",
     "grommet-icons": "4.5.x",
-    "react": "16.13.x",
-    "react-dom": "16.13.x",
+    "react": "16.14.x",
+    "react-dom": "16.14.x",
     "styled-components": "5.x.x"
   },
   "devDependencies": {
@@ -75,8 +75,8 @@
     "path-browserify": "~1.0.1",
     "peer-deps-externals-webpack-plugin": "~1.0.4",
     "polished": "~3.6.4",
-    "react": "~16.13.0",
-    "react-dom": "~16.13.0",
+    "react": "~16.14.0",
+    "react-dom": "~16.14.0",
     "sinon": "~10.0.0",
     "sinon-chai": "~3.6.0",
     "snazzy": "~9.0.0",
