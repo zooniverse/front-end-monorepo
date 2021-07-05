@@ -28,7 +28,8 @@ async function workflowSubjectSets(subjectSetIDs, env) {
   const setsToFetch = []
   subjectSetIDs.forEach(id => {
     if (subjectSetCache[id]) {
-      workflowSubjectSets.push(subjectSetCache[id])
+      const workflowSubjectSet = Object.assign({}, subjectSetCache[id])
+      workflowSubjectSets.push(workflowSubjectSet)
     } else {
       setsToFetch.push(id)
     }
@@ -90,7 +91,9 @@ export default async function fetchSubjectSets(workflow, env) {
   }
   const subjectSets = await workflowSubjectSets(subjectSetIDs, env)
   subjectSets.forEach(subjectSet => {
-    subjectSet.availableSubjects = subjectSetCounts[subjectSet.id]
+    const availableSubjects = subjectSetCounts[subjectSet.id]
+    const totalSubjects = subjectSet.set_member_subjects_count
+    subjectSet.completeness = 1 - (availableSubjects / totalSubjects)
   })
   return subjectSets
 }
