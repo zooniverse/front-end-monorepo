@@ -10,6 +10,10 @@ function webpackFinal(config, options) {
 }
 
 module.exports = {
+  // uncomment this to build with webpack 5
+  // core: {
+//     builder: 'webpack5'
+//   },
   stories: ['../src/**/*.stories.js'],
   addons: [
     '@storybook/addon-essentials',
