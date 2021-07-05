@@ -1,9 +1,15 @@
 const path = require('path')
+const webpack = require('webpack')
 const Dotenv = require('dotenv-webpack')
+
 const webpackConfig = require('../webpack.config')
 
 function webpackFinal(config, options) {
+  config.plugins.concat(webpackConfig.plugins)
   config.plugins.concat([
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
     new Dotenv({
       path: path.join(__dirname, '../.env'),
       systemvars: true
@@ -14,7 +20,13 @@ function webpackFinal(config, options) {
     ...config.resolve,
     alias: {
       ...webpackConfig.resolve.alias,
+      process: 'process/browser',
       ['@sentry/node']: '@sentry/browser'
+    },
+    fallback: {
+      ...webpackConfig.resolve.fallback,
+      crypto: false,
+      process: 'process/browser'
     }
   }
 
@@ -22,10 +34,9 @@ function webpackFinal(config, options) {
 }
 
 module.exports = {
-  // uncomment this to build with webpack 5
-  // core: {
-//     builder: 'webpack5'
-//   },
+  core: {
+    builder: 'webpack5'
+  },
   stories: ['../src/**/*.stories.js'],
   addons: [
     '@storybook/addon-essentials',
