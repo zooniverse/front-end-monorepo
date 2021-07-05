@@ -1,7 +1,6 @@
 import counterpart from 'counterpart'
 import { Text, Paragraph } from 'grommet'
 import { number, object, string } from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 import en from './locales/en'

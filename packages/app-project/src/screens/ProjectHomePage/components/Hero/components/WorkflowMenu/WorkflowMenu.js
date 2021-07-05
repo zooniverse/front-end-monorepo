@@ -1,7 +1,7 @@
 import counterpart from 'counterpart'
 import { arrayOf, shape, string } from 'prop-types'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import { useState } from 'react';
 import { Modal } from '@zooniverse/react-components'
 
 import WorkflowSelector from '@shared/components/WorkflowSelector'

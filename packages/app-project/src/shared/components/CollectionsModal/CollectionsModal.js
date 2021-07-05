@@ -1,6 +1,5 @@
 import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
-import React from 'react'
 import { Modal } from '@zooniverse/react-components'
 
 import en from './locales/en'

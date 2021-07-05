@@ -1,7 +1,6 @@
 import { Anchor } from 'grommet'
 import { Twitter } from 'grommet-icons'
 import { string } from 'prop-types'
-import React from 'react'
 import styled, { css } from 'styled-components'
 
 const StyledAnchor = styled(Anchor)`

@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import { projects } from '@zooniverse/panoptes-js'
 
 import { HeadContainer } from './HeadContainer'

@@ -1,6 +1,6 @@
 import { inject, observer } from 'mobx-react'
 import { string } from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import RelatedProjectsModal from './RelatedProjectsModal'
 

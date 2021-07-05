@@ -1,6 +1,5 @@
 import { Modal, Tabs, Tab, withOnlyRenderOnBrowser, withThemeContext } from '@zooniverse/react-components'
 import { func, string } from 'prop-types'
-import React from 'react'
 import styled, { css } from 'styled-components'
 
 import authModalTheme from './theme'

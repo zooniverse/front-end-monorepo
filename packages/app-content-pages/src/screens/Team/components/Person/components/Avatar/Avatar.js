@@ -1,7 +1,6 @@
 import { ZooniverseLogo } from '@zooniverse/react-components'
 import { Box, Image } from 'grommet'
 import { string } from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 const StyledImage = styled(Image)`

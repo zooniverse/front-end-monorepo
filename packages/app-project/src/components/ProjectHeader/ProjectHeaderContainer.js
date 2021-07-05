@@ -1,6 +1,5 @@
 import { inject, observer } from 'mobx-react'
 import { bool, shape, string } from 'prop-types'
-import React from 'react'
 import { withRouter } from 'next/router'
 
 import ProjectHeader from './ProjectHeader'

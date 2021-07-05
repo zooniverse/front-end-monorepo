@@ -2,7 +2,7 @@ import { Box } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import Error from 'next/error'
-import React, { useEffect, useMemo } from 'react'
+import { useEffect, useMemo } from 'react';
 import { createGlobalStyle } from 'styled-components'
 
 import AuthModal from '@components/AuthModal'

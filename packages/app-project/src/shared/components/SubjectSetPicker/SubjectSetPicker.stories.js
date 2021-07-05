@@ -1,6 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
-import React from 'react'
 
 import SubjectSetPicker from './'
 import { mockWorkflow } from './helpers'

@@ -1,4 +1,3 @@
-import React from 'react'
 import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
 import { Grommet, TextInput } from 'grommet'

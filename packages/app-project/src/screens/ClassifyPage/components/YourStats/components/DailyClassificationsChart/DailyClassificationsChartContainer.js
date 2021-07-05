@@ -1,7 +1,7 @@
 import counterpart from 'counterpart'
 import { inject, observer } from 'mobx-react'
 import { array, number, shape, string } from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import DailyClassificationsChart from './DailyClassificationsChart'
 

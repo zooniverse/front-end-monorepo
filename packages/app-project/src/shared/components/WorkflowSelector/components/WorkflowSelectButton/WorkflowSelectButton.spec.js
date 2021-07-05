@@ -1,7 +1,6 @@
 import { render, shallow } from 'enzyme'
 import { Button } from 'grommet'
 import * as nextRouter from 'next/router'
-import React from 'react'
 import sinon from 'sinon'
 
 import WorkflowSelectButton, { WorkflowLink } from './WorkflowSelectButton'

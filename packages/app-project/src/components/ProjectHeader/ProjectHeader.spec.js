@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import { ProjectHeader } from './ProjectHeader'
 import Avatar from './components/Avatar'

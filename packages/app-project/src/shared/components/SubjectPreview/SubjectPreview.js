@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import { array, bool, func, node, number, shape, string } from 'prop-types'
-import React from 'react'
+import { createRef } from 'react';
 import { Anchor, Box } from 'grommet'
 import { FavouritesButton, Media } from '@zooniverse/react-components'
 import { CollectionsButton, TalkLink } from './components'
@@ -13,7 +13,7 @@ counterpart.registerTranslations('en', en)
 function SubjectPreview ({ height, isLoggedIn, placeholder, subject, slug, width }) {
   const subjectURLs = subject.locations.map(location => Object.values(location)[0])
   const subjectURL = subjectURLs[0]
-  const collectionsModal = React.createRef()
+  const collectionsModal = createRef()
   const href = `/projects/${slug}/talk/subjects/${subject.id}`
 
   return (

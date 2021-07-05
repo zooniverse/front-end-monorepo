@@ -2,7 +2,7 @@ import { Modal, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { debounce } from 'lodash'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import styled from 'styled-components'
 import { Box, DataTable, Heading, Paragraph } from 'grommet'
 

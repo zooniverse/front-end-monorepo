@@ -1,5 +1,5 @@
 import { MobXProviderContext, observer } from 'mobx-react'
-import React from 'react'
+import * as React from 'react'
 import counterpart from 'counterpart'
 
 import NavLink from '@shared/components/NavLink'

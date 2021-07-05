@@ -4,7 +4,6 @@ import counterpart from 'counterpart'
 import { Anchor, Box, Button, FormField, TextInput } from 'grommet'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
-import React from 'react'
 import { withCustomFormik } from '@zooniverse/react-components'
 
 import en from '../../locales/en'

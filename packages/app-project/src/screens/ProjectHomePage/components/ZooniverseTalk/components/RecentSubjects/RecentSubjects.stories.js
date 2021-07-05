@@ -2,7 +2,6 @@ import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import counterpart from 'counterpart'
 import { Grommet } from 'grommet'
-import React from 'react'
 import en from './locales/en'
 
 import RecentSubjects from './RecentSubjects'
