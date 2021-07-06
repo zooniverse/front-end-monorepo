@@ -78,13 +78,13 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
   } = props
 
   const transformLayer = useRef()
-  const svg = transformLayer.current
+  const canvas = transformLayer.current
   const annotatedValues = annotation?.value || []
     
   const annotationMode = interactionMode === 'annotate' && isCurrentTaskValidForAnnotation
   
   return (
-    <SVGContext.Provider value={{ svg }}>
+    <SVGContext.Provider value={{ canvas }}>
       <Container
         gridMaxWidth={gridMaxWidth}
         gridMaxHeight={gridMaxHeight}
@@ -99,9 +99,8 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
           gridMaxHeight={gridMaxHeight}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <svg
+          <g
             ref={transformLayer}
-            xmlns="http://www.w3.org/2000/svg"
           >
             {images.map((image, index) => (
               <SGVGridCell
@@ -128,7 +127,7 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
                 cellAnnotated={annotatedValues.includes(index)}
               />
             ))}
-          </svg>
+          </g>
         </SVG>
       </Container>
     </SVGContext.Provider>
