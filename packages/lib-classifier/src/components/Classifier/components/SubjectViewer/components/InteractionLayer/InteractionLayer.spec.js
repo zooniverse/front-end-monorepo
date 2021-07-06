@@ -24,33 +24,6 @@ describe('Component > InteractionLayer', function () {
     setSubTaskVisibility: sinon.stub(),
     setVideoTime: sinon.stub()
   }
-  const mockSVGPoint = {
-    x: 100,
-    y: 200,
-    matrixTransform: sinon.stub().callsFake(() => ({
-      x: 100,
-      y: 200
-    }))
-  }
-  const mockScreenCTM = {
-    a: 1,
-    b: 1,
-    c: 1,
-    d: 1,
-    e: 1,
-    f: 1,
-    inverse: () => ({
-      a: 1,
-      b: 1,
-      c: 1,
-      d: 1,
-      e: 1,
-      f: 1
-    })
-  }
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-  svg.createSVGPoint = () => mockSVGPoint
-  const getScreenCTM = () => mockScreenCTM
 
   describe('when enabled', function () {
     beforeEach(function () {

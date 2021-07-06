@@ -34,7 +34,7 @@ function InteractionLayer({
   duration
 }) {
   const [creating, setCreating] = useState(false)
-  const svg = useRef()
+  const canvas = useRef()
 
   useEffect(
     function onDeleteMark() {
@@ -66,13 +66,6 @@ function InteractionLayer({
     if (window.DOMPointReadOnly) {
       return new DOMPointReadOnly(clientX, clientY)
     }
-    // SVG 1.1 uses SVGPoint
-    if (svg.current?.createSVGPoint) {
-      const svgPoint = svg.current.createSVGPoint()
-      svgPoint.x = clientX
-      svgPoint.y = clientY
-      return svgPoint
-    }
     // jsdom doesn't support SVG
     return {
       x: clientX,
@@ -83,7 +76,7 @@ function InteractionLayer({
   function getEventOffset(event) {
     const svgPoint = createPoint(event)
     const svgEventOffset = svgPoint.matrixTransform ?
-      svgPoint.matrixTransform(svg.current?.getScreenCTM().inverse()) :
+      svgPoint.matrixTransform(canvas.current?.getScreenCTM().inverse()) :
       svgPoint
     return svgEventOffset
   }
@@ -157,11 +150,9 @@ function InteractionLayer({
   }
 
   return (
-    <svg
-      ref={svg}
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <>
       <DrawingCanvas
+        ref={canvas}
         disabled={disabled || move}
         pointerEvents={move ? 'none' : 'all'}
         width={width}
@@ -185,8 +176,8 @@ function InteractionLayer({
           scale={scale}
           played={played}
         />
-      )}
-    </svg>
+    )}
+    </>
   )
 }
 
