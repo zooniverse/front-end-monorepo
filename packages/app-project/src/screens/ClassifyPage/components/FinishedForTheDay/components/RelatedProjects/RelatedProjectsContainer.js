@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react';
 
 import RelatedProjectsButton from './components/RelatedProjectsButton'
 import RelatedProjectsModal from './components/RelatedProjectsModal'

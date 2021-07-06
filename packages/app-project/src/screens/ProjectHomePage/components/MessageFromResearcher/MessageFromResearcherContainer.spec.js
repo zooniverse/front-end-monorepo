@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import MessageFromResearcher from './MessageFromResearcher'
 import { MessageFromResearcherContainer } from './MessageFromResearcherContainer'

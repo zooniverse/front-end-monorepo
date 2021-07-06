@@ -1,7 +1,6 @@
 import counterpart from 'counterpart'
 import NextHead from 'next/head'
 import { string } from 'prop-types'
-import React from 'react'
 
 import en from './locales/en'
 

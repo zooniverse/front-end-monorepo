@@ -1,5 +1,4 @@
 import { shallow, render } from 'enzyme'
-import React from 'react'
 
 import { JoinInButtonContainer } from './JoinInButtonContainer'
 import JoinInButton from './JoinInButton'

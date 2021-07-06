@@ -1,6 +1,5 @@
 import { withThemeContext } from '@zooniverse/react-components'
 import { Box, Text } from 'grommet'
-import React from 'react'
 
 import NavLink from './components/NavLink'
 import theme from './theme'

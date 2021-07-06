@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme'
 import nock from 'nock'
-import React from 'react'
 
 import RecentSubjectsContainer from './RecentSubjectsContainer'
 

@@ -1,6 +1,5 @@
 import counterpart from 'counterpart'
 import { array, object, string } from 'prop-types'
-import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import { AxisBottom, AxisLeft } from '@visx/axis'
 import { Group } from '@visx/group'

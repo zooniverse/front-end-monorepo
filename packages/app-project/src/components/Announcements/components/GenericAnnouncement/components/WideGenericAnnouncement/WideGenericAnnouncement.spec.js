@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import { CloseButton } from '@zooniverse/react-components'
 import WideGenericAnnouncement from './WideGenericAnnouncement'
 

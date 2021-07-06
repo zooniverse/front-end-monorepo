@@ -1,7 +1,7 @@
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'next/router'
 import { func, shape, string } from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 import Url from 'url-parse'
 
 import AuthModal from './AuthModal'

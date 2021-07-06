@@ -1,7 +1,7 @@
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'next/router'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import FinishedForTheDay from './FinishedForTheDay'
 import addQueryParams from '@helpers/addQueryParams'

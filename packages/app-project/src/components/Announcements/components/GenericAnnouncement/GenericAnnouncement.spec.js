@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import GenericAnnouncement from './GenericAnnouncement'
 import NarrowGenericAnnouncement from './components/NarrowGenericAnnouncement'

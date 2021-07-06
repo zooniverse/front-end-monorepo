@@ -1,11 +1,11 @@
 import * as d3 from 'd3'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import { createRef, Component } from 'react';
 
 class AnimatedNumber extends Component {
   constructor () {
     super()
-    this.ref = React.createRef()
+    this.ref = createRef()
   }
 
   componentDidMount () {

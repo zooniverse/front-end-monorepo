@@ -1,5 +1,5 @@
 import { MobXProviderContext, observer } from 'mobx-react'
-import React from 'react'
+import * as React from 'react'
 
 import WorkflowSelector from './WorkflowSelector'
 

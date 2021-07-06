@@ -1,6 +1,6 @@
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import CompletionBar from './CompletionBar'
 

@@ -3,7 +3,6 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import * as nextRouter from 'next/router'
-import React from 'react'
 import sinon from 'sinon'
 
 import WorkflowSelector from './WorkflowSelector'

@@ -1,7 +1,6 @@
 import { mount } from 'enzyme'
 import { Button, CheckBox, Grommet, TextInput } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
-import React from 'react'
 import sinon from 'sinon'
 
 import CreateCollection from './CreateCollection'

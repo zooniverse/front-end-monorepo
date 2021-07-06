@@ -3,7 +3,6 @@ import counterpart from 'counterpart'
 import { Box } from 'grommet'
 import { Info } from 'grommet-icons'
 import { func, string } from 'prop-types'
-import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 
 import en from './locales/en'
