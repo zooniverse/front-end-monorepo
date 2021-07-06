@@ -21,11 +21,11 @@ function SingleImageViewer(props) {
   } = props
 
   const transformLayer = useRef()
-  const svg = transformLayer.current
+  const canvas = transformLayer.current
   const transform = `rotate(${rotate} ${width / 2} ${height / 2})`
 
   return (
-    <SVGContext.Provider value={{ svg }}>
+    <SVGContext.Provider value={{ canvas }}>
       {zoomControlFn && (
         <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />
       )}
@@ -40,16 +40,15 @@ function SingleImageViewer(props) {
           {title?.id && title?.text && (
             <title id={title.id}>{title.text}</title>
           )}
-          <svg
+          <g
             ref={transformLayer}
             transform={transform}
-            xmlns="http://www.w3.org/2000/svg"
           >
             {children}
             {enableInteractionLayer && (
               <InteractionLayer scale={scale} height={height} width={width} />
             )}
-          </svg>
+          </g>
         </svg>
       </Box>
     </SVGContext.Provider>
