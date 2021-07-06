@@ -201,7 +201,7 @@ class SingleVideoViewerContainer extends React.Component {
     //   return null
     // }
 
-    const svg = this.transformLayer.current
+    const canvas = this.transformLayer.current
     const transform = ``
     const scale = clientWidth / naturalWidth
 
@@ -224,7 +224,7 @@ class SingleVideoViewerContainer extends React.Component {
           {/* Drawing Layer */}
           <DrawingLayer>
             <Box animation='fadeIn' overflow='hidden'>
-              <SVGContext.Provider value={{ svg }}>
+              <SVGContext.Provider value={{ canvas }}>
                 <svg
                   focusable
                   onKeyDown={onKeyDown}
@@ -235,10 +235,9 @@ class SingleVideoViewerContainer extends React.Component {
                   {/* {title?.id && title?.text && (
                   <title id={title.id}>{title.text}</title>
                 )} */}
-                  <svg
+                  <g
                     ref={this.transformLayer}
                     transform={transform}
-                    xmlns="http://www.w3.org/2000/svg"
                   >
                     {enableInteractionLayer && (
                       <InteractionLayer
@@ -249,7 +248,7 @@ class SingleVideoViewerContainer extends React.Component {
                         height={naturalHeight}
                       />
                     )}
-                  </svg>
+                  </g>
                 </svg>
               </SVGContext.Provider>
             </Box>
