@@ -1,7 +1,6 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Heading } from 'grommet'
 import { string } from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 const StyledHeading = styled(Heading)`

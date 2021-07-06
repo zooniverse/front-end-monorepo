@@ -1,7 +1,6 @@
 import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
-import React from 'react'
 import { Media, ZooniverseLogo } from '@zooniverse/react-components'
 
 import en from './locales/en'

@@ -1,5 +1,5 @@
 import { shape, string } from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { withRouter } from 'next/router'
 
 import JoinInButton from './JoinInButton'

@@ -1,6 +1,6 @@
 import { Button, Grid, Heading } from 'grommet'
 import Error from 'next/error'
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 
 function storeMapper(stores) {

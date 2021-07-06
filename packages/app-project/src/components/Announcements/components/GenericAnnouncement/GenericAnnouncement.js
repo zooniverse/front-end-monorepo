@@ -1,5 +1,4 @@
 import { bool, string, func } from 'prop-types'
-import React from 'react'
 
 import { Media } from '@shared/components/Media'
 import NarrowGenericAnnouncement from './components/NarrowGenericAnnouncement'

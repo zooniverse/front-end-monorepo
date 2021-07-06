@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
-import React from 'react'
+import * as React from 'react'
 import WorkflowAssignmentModalConnector from './WorkflowAssignmentModalConnector'
 
 describe('Component > WorkflowAssignmentModalConnector', function () {

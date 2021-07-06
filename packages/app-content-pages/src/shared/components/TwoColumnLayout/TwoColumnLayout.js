@@ -1,6 +1,5 @@
 import { Box } from 'grommet'
 import { node } from 'prop-types'
-import React from 'react'
 
 import AboutHeader from '../AboutHeader'
 

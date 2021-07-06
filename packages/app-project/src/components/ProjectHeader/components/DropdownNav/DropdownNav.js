@@ -4,7 +4,7 @@ import { Anchor, Box, DropButton } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import NavLink from '@shared/components/NavLink'
 import { arrayOf, shape, string } from 'prop-types'
-import React, { useState } from 'react'
+import { useState } from 'react';
 import styled, { css, withTheme } from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'

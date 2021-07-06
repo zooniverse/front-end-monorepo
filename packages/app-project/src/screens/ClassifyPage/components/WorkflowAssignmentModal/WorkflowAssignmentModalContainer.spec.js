@@ -1,6 +1,5 @@
 import { mount } from 'enzyme'
 import sinon from 'sinon'
-import React from 'react'
 import WorkflowAssignmentModalContainer from './WorkflowAssignmentModalContainer'
 import WorkflowAssignmentModal from './WorkflowAssignmentModal'
 import { Grommet } from 'grommet'

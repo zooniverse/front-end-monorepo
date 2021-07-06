@@ -1,7 +1,6 @@
 import counterpart from 'counterpart'
 import { Box, Heading, Text } from 'grommet'
 import { func, string } from 'prop-types'
-import React from 'react'
 import Form from './components/Form'
 
 import en from './locales/en'

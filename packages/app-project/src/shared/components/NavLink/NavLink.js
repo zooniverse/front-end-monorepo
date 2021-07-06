@@ -2,7 +2,6 @@ import { SpacedText } from '@zooniverse/react-components'
 import { Anchor } from 'grommet'
 import Link from 'next/link'
 import { withRouter } from 'next/router'
-import React from 'react'
 import PropTypes from 'prop-types'
 
 import addQueryParams from '@helpers/addQueryParams'

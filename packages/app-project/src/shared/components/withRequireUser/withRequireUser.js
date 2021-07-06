@@ -2,7 +2,7 @@ import counterpart from 'counterpart'
 import { Box, Stack } from 'grommet'
 import { inject } from 'mobx-react'
 import { func, shape, string } from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import en from './locales/en'
 

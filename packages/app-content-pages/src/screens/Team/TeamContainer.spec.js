@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import TeamContainer from './TeamContainer'
 import mockData from './TeamContainer.mock'

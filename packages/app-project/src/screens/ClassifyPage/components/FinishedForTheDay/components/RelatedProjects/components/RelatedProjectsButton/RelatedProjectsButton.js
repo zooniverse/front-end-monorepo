@@ -1,7 +1,6 @@
 import counterpart from 'counterpart'
 import { Button, Text } from 'grommet'
 import { func } from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 import en from './locales/en'

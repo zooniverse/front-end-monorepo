@@ -1,5 +1,4 @@
 import { mount, shallow } from 'enzyme'
-import React from 'react'
 import { CloseButton } from '@zooniverse/react-components'
 import AuthenticationInvitationContainer from './AuthenticationInvitationContainer'
 import GenericAnnouncement from '../GenericAnnouncement'

@@ -1,6 +1,6 @@
 import { inject, observer } from 'mobx-react'
 import { array, func } from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import CollectionsModal from './CollectionsModal'
 import SelectCollection from './components/SelectCollection'

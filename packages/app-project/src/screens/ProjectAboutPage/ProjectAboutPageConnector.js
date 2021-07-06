@@ -1,5 +1,5 @@
 import { observer, MobXProviderContext } from 'mobx-react'
-import React from 'react'
+import * as React from 'react'
 import { arrayOf, bool, shape, string } from 'prop-types'
 
 import ProjectAboutPage from './ProjectAboutPage'

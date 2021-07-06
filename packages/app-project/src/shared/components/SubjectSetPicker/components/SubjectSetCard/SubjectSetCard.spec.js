@@ -1,7 +1,6 @@
 import { Media, SpacedText } from '@zooniverse/react-components'
 import { shallow } from 'enzyme'
 import { Paragraph, Text } from 'grommet'
-import React from 'react'
 
 import SubjectSetCard from './'
 import { mockWorkflow } from '../../helpers'

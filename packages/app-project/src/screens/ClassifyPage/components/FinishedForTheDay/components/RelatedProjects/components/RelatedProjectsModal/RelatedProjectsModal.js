@@ -2,7 +2,6 @@ import { Modal } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box, Heading } from 'grommet'
 import { array, bool, func, string } from 'prop-types'
-import React from 'react'
 
 import ProjectCard from './components/ProjectCard'
 import en from './locales/en'

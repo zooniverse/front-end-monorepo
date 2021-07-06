@@ -25,12 +25,11 @@ describe('draggable', function () {
       inverse: sinon.stub()
     }))
   }
-  const getScreenCTM = sinon.stub().callsFake(() => ({ inverse: sinon.stub() }))
   let wrapper
 
   before(function () {
     wrapper = mount(
-      <SVGContext.Provider value={{ svg: mockSVG, getScreenCTM }}>
+      <SVGContext.Provider value={{ svg: mockSVG }}>
         <svg>
           <Draggable
             dragStart={onStart}

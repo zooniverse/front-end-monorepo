@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme'
 import { Paragraph } from 'grommet'
-import React from 'react'
 
 import { FinishedForTheDay, StyledButton } from './FinishedForTheDay'
 import ProjectImage from './components/ProjectImage'

@@ -4,7 +4,6 @@ import { Anchor, Box, Grid, Heading, Paragraph } from 'grommet'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { array, bool, func, number, shape, string } from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
