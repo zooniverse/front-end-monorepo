@@ -6,25 +6,38 @@ import TranscribedLines from './TranscribedLines'
 
 function useStores () {
   const stores = React.useContext(MobXProviderContext)
-  const { frame } = stores.classifierStore.subjectViewer
   const {
-    active: workflow
-  } = stores.classifierStore.workflows
-  const subject = stores.classifierStore.subjects.active
+    subjects: {
+      active: subject
+    },
+    subjectViewer: {
+      frame
+    },
+    workflows: {
+      active: workflow
+    },
+    workflowSteps: {
+      active: step,
+      findTasksByType
+    }
+  } = stores.classifierStore
+
   const { consensusLines } = subject.transcriptionReductions || {}
 
   // We expect there to only be one
-  const [transcriptionTask] = stores.classifierStore.workflowSteps.findTasksByType('transcription')
+  const [transcriptionTask] = findTasksByType('transcription')
   // We want to observe the marks array for changes, so pass that as a separate prop.
   const marks = transcriptionTask?.marks
 
-  return { transcriptionTask, consensusLines, frame, marks, workflow }
+  const valid = step?.isValid
+  return { invalid: !valid, transcriptionTask, consensusLines, frame, marks, workflow }
 }
 
 function TranscribedLinesContainer ({
   scale = 1
 }) {
   const { 
+    invalid = false,
     transcriptionTask = {},
     frame = 0,
     consensusLines = [],
@@ -33,13 +46,14 @@ function TranscribedLinesContainer ({
       usesTranscriptionTask: false
     }
   } = useStores()
-
+  console.log('invalid', invalid)
   const { shownMarks } = transcriptionTask
   const visibleLinesPerFrame = consensusLines.filter(line => line.frame === frame)
 
   if (workflow?.usesTranscriptionTask && shownMarks === SHOWN_MARKS.ALL && visibleLinesPerFrame.length > 0) {
     return (
       <TranscribedLines
+        invalidMark={invalid}
         lines={visibleLinesPerFrame}
         marks={marks}
         scale={scale}
