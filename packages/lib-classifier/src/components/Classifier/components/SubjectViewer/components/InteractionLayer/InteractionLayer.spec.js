@@ -2,7 +2,6 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
 
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import InteractionLayer, { DrawingCanvas } from './InteractionLayer'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
@@ -25,33 +24,6 @@ describe('Component > InteractionLayer', function () {
     setSubTaskVisibility: sinon.stub(),
     setVideoTime: sinon.stub()
   }
-  const mockSVGPoint = {
-    x: 100,
-    y: 200,
-    matrixTransform: sinon.stub().callsFake(() => ({
-      x: 100,
-      y: 200
-    }))
-  }
-  const mockScreenCTM = {
-    a: 1,
-    b: 1,
-    c: 1,
-    d: 1,
-    e: 1,
-    f: 1,
-    inverse: () => ({
-      a: 1,
-      b: 1,
-      c: 1,
-      d: 1,
-      e: 1,
-      f: 1
-    })
-  }
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-  svg.createSVGPoint = () => mockSVGPoint
-  const getScreenCTM = () => mockScreenCTM
 
   describe('when enabled', function () {
     beforeEach(function () {
@@ -116,17 +88,6 @@ describe('Component > InteractionLayer', function () {
 
     describe('pointer events', function () {
       describe('onPointerDown', function () {
-        let mockedContext
-        before(function () {
-          mockedContext = sinon.stub(React, 'useContext').callsFake(() => {
-            return { svg, getScreenCTM }
-          })
-        })
-
-        after(function () {
-          mockedContext.restore()
-        })
-
         it('should create a mark', function () {
           const fakeEvent = {
             pointerId: 'fakePointer',
@@ -246,17 +207,6 @@ describe('Component > InteractionLayer', function () {
     })
 
     describe('onPointerUp', function () {
-      let mockedContext
-      before(function () {
-        mockedContext = sinon.stub(React, 'useContext').callsFake(() => {
-          return { svg, getScreenCTM }
-        })
-      })
-
-      after(function () {
-        mockedContext.restore()
-      })
-
       describe('when the mark is valid', function () {
         it('should set the mark to finished', function () {
           const fakeEvent = {
@@ -368,11 +318,7 @@ describe('Component > InteractionLayer', function () {
           disabled
           height={400}
           width={600}
-        />,
-        {
-          wrappingComponent: SVGContext.Provider,
-          wrappingComponentProps: { value: { svg, getScreenCTM } }
-        }
+        />
       )
     })
 
