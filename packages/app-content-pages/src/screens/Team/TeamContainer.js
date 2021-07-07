@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import { array, string } from 'prop-types'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import en from './locales/en'
 import Team from './Team'

@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 import { MobXProviderContext } from 'mobx-react'
 import sinon from 'sinon'
-import React from 'react'
+import * as React from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import initStore from '@stores/initStore'

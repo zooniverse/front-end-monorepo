@@ -1,6 +1,5 @@
 import { SpacedText, withResponsiveContext } from '@zooniverse/react-components'
 import { string } from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 const StyledText = styled(SpacedText)`

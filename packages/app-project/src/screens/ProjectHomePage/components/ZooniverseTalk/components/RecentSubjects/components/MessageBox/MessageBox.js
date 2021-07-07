@@ -1,6 +1,5 @@
 import { Box } from 'grommet'
 import { string } from 'prop-types'
-import React from 'react'
 
 function MessageBox (props) {
   return (

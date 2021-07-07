@@ -1,4 +1,3 @@
-import React from 'react'
 import AuthenticationInvitation from './components/AuthenticationInvitation'
 import ProjectAnnouncement from './components/ProjectAnnouncement'
 import FinishedAnnouncement from './components/FinishedAnnouncement'

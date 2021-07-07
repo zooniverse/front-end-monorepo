@@ -1,7 +1,6 @@
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
-import React from 'react'
 
 import DailyClassificationsChart from './DailyClassificationsChartContainer'
 const MOCK_DAILY_COUNTS = [

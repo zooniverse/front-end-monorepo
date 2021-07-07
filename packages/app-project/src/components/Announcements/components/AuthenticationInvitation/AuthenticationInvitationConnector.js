@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 import { MobXProviderContext, observer } from 'mobx-react'
-import React from 'react'
+import * as React from 'react'
 
 export const DynamicallyImportedAuthenticationInvitationContainer = dynamic(
   () => import('./AuthenticationInvitationContainer'),

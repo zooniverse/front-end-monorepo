@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme'
-import React from 'react'
+import * as React from 'react'
 import sinon from 'sinon'
 
 import ProjectAboutPageConnector from './ProjectAboutPageConnector'
@@ -18,7 +18,7 @@ describe('Component > ProjectAboutPageConnector', () => {
               about_pages: [
                 {
                   id: '1234',
-                  title: 'Title',
+                  title: 'Research Case',
                   url_key: 'science_case',
                   content: 'This is some content.'
                 }
@@ -39,7 +39,12 @@ describe('Component > ProjectAboutPageConnector', () => {
       const aboutPage = wrapper.find(ProjectAboutPage)
       const aboutProps = aboutPage.prop('aboutPageData')
       expect(aboutProps.url_key).to.equal('science_case')
-      expect(aboutProps.title).to.equal('Title')
+    })
+
+    it('should correct the Research Case page title to Research', () => {
+      const aboutPage = wrapper.find(ProjectAboutPage)
+      const aboutProps = aboutPage.prop('aboutPageData')
+      expect(aboutProps.title).to.equal('Research')
     })
 
     after(() => {

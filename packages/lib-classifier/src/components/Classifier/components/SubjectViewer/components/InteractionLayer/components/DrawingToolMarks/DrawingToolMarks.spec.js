@@ -8,15 +8,15 @@ import DrawingToolMarks from './DrawingToolMarks'
 
 describe('Components > DrawingToolMarks', function () {
   let mockContext
-  let svg
+  let canvas
   let line
   let point
   let marks
 
   beforeEach(function () {
-    svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+    canvas = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
     const svgBounds = { left: 0, top: 0, right: 2000, bottom: 1000, width: 2000, height: 1000 }
-    sinon.stub(svg, 'getBoundingClientRect').callsFake(() => svgBounds)
+    sinon.stub(canvas, 'getBoundingClientRect').callsFake(() => svgBounds)
     const lineTool = LineTool.create({
       help: '',
       label: 'Draw a line',
@@ -30,7 +30,7 @@ describe('Components > DrawingToolMarks', function () {
     line = lineTool.createMark({ id: 'line1' })
     point = pointTool.createMark({ id: 'point1' })
     marks = [ line, point ]
-    mockContext = { svg }
+    mockContext = { canvas }
   })
 
   it('should render without crashing', function () {

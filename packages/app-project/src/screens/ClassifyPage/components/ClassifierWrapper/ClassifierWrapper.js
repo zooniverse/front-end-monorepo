@@ -1,7 +1,7 @@
 import Classifier from '@zooniverse/classifier'
 import auth from 'panoptes-client/lib/auth'
 import { func, string, shape } from 'prop-types'
-import React, { Component, useContext } from 'react'
+import { Component, useContext } from 'react';
 import asyncStates from '@zooniverse/async-states'
 
 import { logToSentry } from '@helpers/logger'

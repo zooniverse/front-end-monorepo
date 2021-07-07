@@ -1,6 +1,5 @@
 import { Text } from 'grommet'
 import { number, string } from 'prop-types'
-import React from 'react'
 
 import AnimatedNumber from './components/AnimatedNumber'
 

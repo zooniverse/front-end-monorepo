@@ -1,4 +1,31 @@
+const path = require('path')
+const Dotenv = require('dotenv-webpack')
+const webpackConfig = require('../webpack.config')
+
+function webpackFinal(config, options) {
+  config.plugins.concat([
+    new Dotenv({
+      path: path.join(__dirname, '../.env'),
+      systemvars: true
+    })
+  ])
+
+  const resolve = {
+    ...config.resolve,
+    alias: {
+      ...webpackConfig.resolve.alias,
+      ['@sentry/node']: '@sentry/browser'
+    }
+  }
+
+  return { ...config, resolve }
+}
+
 module.exports = {
+  // uncomment this to build with webpack 5
+  // core: {
+//     builder: 'webpack5'
+//   },
   stories: ['../src/**/*.stories.js'],
   addons: [
     '@storybook/addon-essentials',
@@ -6,5 +33,6 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-a11y',
     '@storybook/addon-storysource'
-  ]
+  ],
+  webpackFinal
 };

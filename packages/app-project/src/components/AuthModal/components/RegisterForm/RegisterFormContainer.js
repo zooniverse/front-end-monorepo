@@ -2,7 +2,7 @@ import counterpart from 'counterpart'
 import { inject, observer } from 'mobx-react'
 import auth from 'panoptes-client/lib/auth'
 import { func, shape } from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 import en from './locales/en'
 
 import RegisterForm from './RegisterForm'

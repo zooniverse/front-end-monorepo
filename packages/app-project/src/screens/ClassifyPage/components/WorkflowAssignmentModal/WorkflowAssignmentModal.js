@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Box, CheckBox, Text } from 'grommet'
 import { Modal, PrimaryButton, SpacedText } from '@zooniverse/react-components'

@@ -18,6 +18,7 @@ describe('Component > ConfusedWith', function () {
         choices={mockTask.choices}
         confusions={KUDU.confusions}
         confusionsOrder={KUDU.confusionsOrder}
+        hasFocus
         images={mockTask.images}
         theme={zooTheme}
       />
@@ -37,5 +38,15 @@ describe('Component > ConfusedWith', function () {
     expect(dropButtons).to.have.lengthOf(2)
     expect(dropButtons.at(0).props().label).to.equal('Eland')
     expect(dropButtons.at(1).props().label).to.equal('Hartebeest')
+  })
+
+  describe('with hasFocus of true', function () {
+    it('should have the first StyledDropButton with autoFocus true', function () {
+      expect(wrapper.find(StyledDropButton).first().props().autoFocus).to.be.true()
+    })
+
+    it('should have other StyledDropButton with autoFocus false', function () {
+      expect(wrapper.find(StyledDropButton).last().props().autoFocus).to.be.false()
+    })
   })
 })

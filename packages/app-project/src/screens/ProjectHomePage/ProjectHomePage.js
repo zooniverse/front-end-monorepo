@@ -1,5 +1,4 @@
 import { Box, Grid } from 'grommet'
-import React from 'react'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import { ZooFooter } from '@zooniverse/react-components'

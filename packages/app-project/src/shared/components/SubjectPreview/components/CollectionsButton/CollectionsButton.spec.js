@@ -1,6 +1,5 @@
 import { mount, shallow } from 'enzyme'
 import { Grommet } from 'grommet'
-import React from 'react'
 import sinon from 'sinon'
 import zooTheme from '@zooniverse/grommet-theme'
 import { MetaToolsButton } from '@zooniverse/react-components'

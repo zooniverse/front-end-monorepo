@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import { ClassifyPage, ClassifierWrapper } from './ClassifyPage'
 import FinishedForTheDay from './components/FinishedForTheDay'

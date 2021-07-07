@@ -1,7 +1,6 @@
 import counterpart from 'counterpart'
 import { Anchor, Box, Button, Heading, Paragraph } from 'grommet'
 import { array, arrayOf, bool, func, shape, string } from 'prop-types'
-import React from 'react'
 import styled, { css } from 'styled-components'
 
 import Category from './components/Category'
