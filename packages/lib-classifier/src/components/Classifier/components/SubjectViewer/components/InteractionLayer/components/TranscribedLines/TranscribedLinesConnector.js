@@ -33,7 +33,7 @@ function useStores () {
   return { invalid: !valid, transcriptionTask, consensusLines, frame, marks, workflow }
 }
 
-function TranscribedLinesContainer ({
+function TranscribedLinesConnector ({
   scale = 1
 }) {
   const { 
@@ -46,7 +46,6 @@ function TranscribedLinesContainer ({
       usesTranscriptionTask: false
     }
   } = useStores()
-  console.log('invalid', invalid)
   const { shownMarks } = transcriptionTask
   const visibleLinesPerFrame = consensusLines.filter(line => line.frame === frame)
 
@@ -65,8 +64,8 @@ function TranscribedLinesContainer ({
   return null
 }
 
-TranscribedLinesContainer.propTypes = {
+TranscribedLinesConnector.propTypes = {
   scale: PropTypes.number
 }
 
-export default observer(TranscribedLinesContainer)
+export default observer(TranscribedLinesConnector)

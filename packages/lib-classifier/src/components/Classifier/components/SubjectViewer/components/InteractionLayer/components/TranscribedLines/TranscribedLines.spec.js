@@ -120,6 +120,24 @@ describe('Component > TranscribedLines', function () {
       })
     })
 
+    describe('when there is an existing invalid mark', function () {
+      before(function () {
+        wrapper = shallow(<TranscribedLines invalidMark={true} lines={consensusLines} marks={task.marks} task={task} />)
+        lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
+      })
+
+      it('should disable the lines', function () {
+        lines.forEach((component) => {
+          const consensusLineWrapper = component.parent()
+          const props = consensusLineWrapper.props()
+          expect(props['aria-disabled']).to.equal('true')
+          expect(props.tabIndex).to.equal(-1)
+          expect(props.onClick).to.be.undefined()
+          expect(props.onKeyDown).to.be.undefined()
+        })
+      })
+    })
+
     describe('when there is an existing volunteer mark created from a previous consensus mark', function () {
       let wrapper
       before(function () {
@@ -392,6 +410,25 @@ describe('Component > TranscribedLines', function () {
           textOptions: []
         })
         eventMock.preventDefault.resetHistory()
+      })
+    })
+
+    describe('when there is an existing invalid mark', function () {
+      before(function () {
+        wrapper = shallow(<TranscribedLines invalidMark={true} lines={consensusLines} task={task} />)
+        lines = wrapper.find(TranscriptionLine).find({ state: 'complete' })
+        completeLines = consensusLines.filter(line => line.consensusReached)
+      })
+
+      it('should disable the lines', function () {
+        lines.forEach((component) => {
+          const consensusLineWrapper = component.parent()
+          const props = consensusLineWrapper.props()
+          expect(props['aria-disabled']).to.equal('true')
+          expect(props.tabIndex).to.equal(-1)
+          expect(props.onClick).to.be.undefined()
+          expect(props.onKeyDown).to.be.undefined()
+        })
       })
     })
   })

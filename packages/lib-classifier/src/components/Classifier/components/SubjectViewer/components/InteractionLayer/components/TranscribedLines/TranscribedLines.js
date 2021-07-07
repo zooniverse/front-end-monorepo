@@ -137,6 +137,7 @@ class TranscribedLines extends React.Component {
               >
                 <ConsensusLine
                   role='button'
+                  aria-disabled={disabled.toString()}
                   aria-describedby={id}
                   aria-label={line.consensusText}
                   focusColor={focusColor}
@@ -206,7 +207,7 @@ class TranscribedLines extends React.Component {
 }
 
 TranscribedLines.propTypes = {
-  disabled: bool,
+  invalidMark: bool,
   lines: arrayOf(shape({
     consensusReached: bool,
     points: arrayOf(shape({
@@ -227,7 +228,7 @@ TranscribedLines.propTypes = {
 }
 
 TranscribedLines.defaultProps = {
-  disabled: false,
+  invalidMark: false,
   lines: [],
   marks: [],
   scale: 1,
