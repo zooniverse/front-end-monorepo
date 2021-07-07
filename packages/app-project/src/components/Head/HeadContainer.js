@@ -29,16 +29,9 @@ class HeadContainer extends Component {
     return project['display_name'] || project.title || project.slug || undefined
   }
 
-  getProjectPage () {
-    const { router } = this.props
-
-    if (router.route?.includes('about')) {
-      return 'About'
-    } else if (router.route?.includes('classify')) {
-      return 'Classify'
-    } else {
-      return
-    }
+  getPageTitle () {
+    const { pageTitle } = this.props
+    return pageTitle
   }
 
   getProjectTwitterUsername () {
@@ -64,7 +57,7 @@ class HeadContainer extends Component {
       <Head
         description={this.getProjectDescription()}
         ogImage={this.getProjectImage()}
-        page={this.getProjectPage()}
+        pageTitle={this.getPageTitle()}
         projectTwitterUsername={this.getProjectTwitterUsername()}
         title={this.getProjectTitle()}
         url={this.getProjectUrl()}

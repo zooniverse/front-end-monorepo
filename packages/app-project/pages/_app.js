@@ -58,7 +58,7 @@ export default function MyApp({ Component, pageProps }) {
         <Provider store={store}>
           <MediaContextProvider>
             <GrommetWrapper>
-              <Head host={pageProps.host} />
+              <Head host={pageProps.host} pageTitle={pageProps.pageTitle} />
               <Box>
                 <Component {...pageProps} />
               </Box>
