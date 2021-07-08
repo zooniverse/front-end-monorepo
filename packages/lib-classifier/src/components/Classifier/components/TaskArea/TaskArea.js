@@ -20,7 +20,10 @@ export default function TaskArea({
   disableTutorialTab = true,
   setActiveTutorial = () => true,
   subject,
-  tutorial = null
+  tutorial = null,
+  workflow = {
+    hasIndexedSubjects: false
+  }
 }) {
   const [ activeIndex, setActiveIndex ] = useState(0)
   const [ disabled, setDisabled ] = useState(false)
@@ -30,7 +33,7 @@ export default function TaskArea({
     // TODO: remove this once testing is complete.
     const URLParams = queryString.parse(window?.location?.search)
     const finished = (subject && URLParams?.finished) || subject?.retired || subject?.already_seen
-    setDisabled(finished)
+    setDisabled(finished && workflow.hasIndexedSubjects)
   }, [subject])
 
   function enableTasks() {
@@ -99,5 +102,9 @@ TaskArea.propTypes = {
     already_seen: bool,
     id: string,
     retired: bool
+  }),
+  /** the active workflow */
+  workflow: shape({
+    hasIndexedSubjects: bool
   })
 }

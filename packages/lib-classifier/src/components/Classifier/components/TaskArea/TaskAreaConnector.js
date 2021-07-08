@@ -10,13 +10,17 @@ function storeMapper (store) {
     tutorials: {
       disableTutorialTab,
       setActiveTutorial
+    },
+    workflows: {
+      active: workflow
     }
   } = store
 
   return {
     disableTutorialTab,
     setActiveTutorial,
-    subject
+    subject,
+    workflow
   }
 }
 
@@ -25,7 +29,8 @@ function TaskAreaConnector(props) {
   const {
     disableTutorialTab = true,
     setActiveTutorial = () => true,
-    subject
+    subject,
+    workflow
   } = storeMapper(classifierStore)
 
   return (
@@ -33,6 +38,7 @@ function TaskAreaConnector(props) {
       disableTutorialTab={disableTutorialTab}
       setActiveTutorial={setActiveTutorial}
       subject={subject}
+      workflow={workflow}
       {...props}
     />
   )
