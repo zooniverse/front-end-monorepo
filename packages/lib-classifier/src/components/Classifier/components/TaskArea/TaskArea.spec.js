@@ -1,17 +1,17 @@
 import { Tab, Tabs } from '@zooniverse/react-components'
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
 
 import TaskArea from './TaskArea'
-import Tasks from './components/Tasks'
+import { DisabledTaskPopup, Tasks } from './components'
 import SlideTutorial from '../SlideTutorial'
-import { TutorialFactory } from '@test/factories'
+import { SubjectFactory, TutorialFactory, WorkflowFactory } from '@test/factories'
 
-const tutorial = TutorialFactory.build()
+describe.only('TaskArea', function () {
+  const tutorial = TutorialFactory.build()
 
-describe('TaskArea', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(<TaskArea />)
     expect(wrapper).to.be.ok()
@@ -93,6 +93,62 @@ describe('TaskArea', function () {
 
     it('should activate the tasks tab', function () {
       expect(wrapper.find(Tabs).props().activeIndex).to.equal(0)
+    })
+  })
+
+  describe('with an indexed workflow', function () {
+    const workflow = WorkflowFactory.build({
+      hasIndexedSubjects: true
+    })
+    let wrapper
+
+    before(function () {
+      wrapper = mount(
+        <TaskArea
+          tutorial={tutorial}
+          workflow={workflow}
+        />
+      )
+    })
+
+    describe('with a retired subject', function () {
+      const subject = SubjectFactory.build({
+        retired: true
+      })
+
+      before(function () {
+        wrapper.setProps({ subject })
+        wrapper.update()
+      })
+
+      it('should disable the task area', function () {
+        const tasks = wrapper.find(Tasks)
+        expect(tasks.prop('disabled')).to.be.true()
+      })
+
+      it('should open a popup', function () {
+        const popup = wrapper.find(DisabledTaskPopup)
+        expect(popup.prop('isOpen')).to.be.true()
+      })
+    })
+
+    describe('with an unclassified subject', function () {
+      const subject = SubjectFactory.build()
+
+      before(function () {
+        wrapper.setProps({ subject })
+        wrapper.update()
+      })
+
+      it('should enable the task area', function () {
+        const tasks = wrapper.find(Tasks)
+        expect(tasks.prop('disabled')).to.be.false()
+      })
+
+      it('should not open a popup', function () {
+        const popup = wrapper.find(DisabledTaskPopup)
+        expect(popup.prop('isOpen')).to.be.false()
+      })
     })
   })
 })
