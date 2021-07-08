@@ -4,7 +4,7 @@ import {
   Text
 } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import { Media } from '@zooniverse/react-components'
 
@@ -30,11 +30,21 @@ export function ChoiceButton (props) {
   const {
     choiceId,
     choiceLabel,
+    hasFocus,
+    onKeyDown,
     onChoose,
     selected,
     src,
+    tabIndex,
     thumbnailSize
   } = props
+
+  const choiceButton = useRef(null)
+  useEffect(() => {
+    if (choiceButton && hasFocus) {
+      choiceButton.current.focus()
+    }
+  })
 
   let thumbnailHeight = 0
   if (thumbnailSize === 'small') {
@@ -49,6 +59,7 @@ export function ChoiceButton (props) {
 
   return (
     <StyledChoiceButton
+      ref={choiceButton}
       label={
         <Box
           direction='row'
@@ -74,8 +85,10 @@ export function ChoiceButton (props) {
         </Box>
       }
       onClick={() => onChoose(choiceId)}
+      onKeyDown={(event) => onKeyDown(choiceId, event)}
       selected={selected}
       size='small'
+      tabIndex={tabIndex}
     />
   )
 }
@@ -83,9 +96,12 @@ export function ChoiceButton (props) {
 ChoiceButton.defaultProps = {
   choiceId: '',
   choiceLabel: '',
+  hasFocus: false,
   onChoose: () => {},
+  onKeyDown: () => {},
   selected: false,
   src: '',
+  tabIndex: -1,
   theme: {
     dark: false,
     global: {
@@ -98,9 +114,12 @@ ChoiceButton.defaultProps = {
 ChoiceButton.propTypes = {
   choiceId: PropTypes.string,
   choiceLabel: PropTypes.string,
+  hasFocus: PropTypes.bool,
   onChoose: PropTypes.func,
+  onKeyDown: PropTypes.func,
   selected: PropTypes.bool,
   src: PropTypes.string,
+  tabIndex: PropTypes.number,
   theme: PropTypes.shape({
     dark: PropTypes.bool,
     global: PropTypes.shape({

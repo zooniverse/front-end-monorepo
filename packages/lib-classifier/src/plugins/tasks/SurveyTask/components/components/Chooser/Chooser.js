@@ -17,6 +17,7 @@ export default function Chooser (props) {
     autoFocus,
     disabled,
     filters,
+    handleDelete,
     handleFilter,
     onChoose,
     selectedChoiceIds,
@@ -34,7 +35,9 @@ export default function Chooser (props) {
       />
       <StyledHorizontalRule />
       <Choices
+        autoFocus={autoFocus}
         filteredChoiceIds={filteredChoiceIds}
+        handleDelete={handleDelete}
         onChoose={onChoose}
         selectedChoiceIds={selectedChoiceIds}
         task={task}
@@ -52,6 +55,7 @@ Chooser.defaultProps = {
   autoFocus: false,
   disabled: false,
   filters: {},
+  handleDelete: () => {},
   handleFilter: () => {},
   selectedChoiceIds: [],
   onChoose: () => {}
@@ -61,6 +65,7 @@ Chooser.propTypes = {
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
   filters: PropTypes.objectOf(PropTypes.string),
+  handleDelete: PropTypes.func,
   handleFilter: PropTypes.func,
   onChoose: PropTypes.func,
   selectedChoiceIds: PropTypes.arrayOf(PropTypes.string),

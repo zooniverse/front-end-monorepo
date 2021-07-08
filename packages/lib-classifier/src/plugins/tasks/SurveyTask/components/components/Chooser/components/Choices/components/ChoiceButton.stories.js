@@ -32,8 +32,10 @@ const Template = ({
   choiceId,
   choiceLabel,
   dark,
+  hasFocus,
   selected,
   src,
+  tabIndex,
   thumbnailSize
 }) => (
   <StoryContext
@@ -42,9 +44,12 @@ const Template = ({
     <ChoiceButton
       choiceId={choiceId}
       choiceLabel={choiceLabel}
+      hasFocus={hasFocus}
       onChoose={() => console.log(choiceId)}
+      onKeyDown={({ key }) => console.log(choiceId, key)}
       selected={selected}
       src={src}
+      tabIndex={tabIndex}
       thumbnailSize={thumbnailSize}
     />
   </StoryContext>
@@ -55,8 +60,10 @@ Default.args = {
   choiceId: 'AARDVARK',
   choiceLabel: 'Aardvark',
   dark: false,
+  hasFocus: false,
   selected: false,
   src: '',
+  tabIndex: -1,
   thumbnailSize: 'none'
 }
 
@@ -65,8 +72,10 @@ LongLabel.args = {
   choiceId: 'LONG',
   choiceLabel: 'Long label is really long label',
   dark: false,
+  hasFocus: false,
   selected: false,
   src: '',
+  tabIndex: -1,
   thumbnailSize: 'none'
 }
 
@@ -75,8 +84,10 @@ SmallThumbnail.args = {
   choiceId: 'CRCL',
   choiceLabel: 'Caracal',
   dark: false,
+  hasFocus: false,
   selected: false,
   src: CARACAL_SRC,
+  tabIndex: -1,
   thumbnailSize: 'small'
 }
 
@@ -85,8 +96,10 @@ MediumThumbnail.args = {
   choiceId: 'CRCL',
   choiceLabel: 'Caracal',
   dark: false,
+  hasFocus: false,
   selected: false,
   src: CARACAL_SRC,
+  tabIndex: -1,
   thumbnailSize: 'medium'
 }
 
@@ -95,7 +108,9 @@ LargeThumbnail.args = {
   choiceId: 'CRCL',
   choiceLabel: 'Caracal',
   dark: false,
+  hasFocus: false,
   selected: false,
   src: CARACAL_SRC,
+  tabIndex: -1,
   thumbnailSize: 'large'
 }

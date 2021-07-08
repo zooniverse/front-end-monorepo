@@ -1,10 +1,10 @@
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
+import { Grommet } from 'grommet'
 import React from 'react'
-import { Grid } from 'grommet'
 import sinon from 'sinon'
-import sortIntoColumns from 'sort-into-columns'
-import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
+import zooTheme from '@zooniverse/grommet-theme'
 
+import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import { default as Task } from '@plugins/tasks/SurveyTask'
 import Choices from './Choices'
 import ChoiceButton from './components/ChoiceButton'
@@ -32,31 +32,34 @@ describe('Component > Choices', function () {
   })
 
   describe('ChoiceButton', function () {
-    let wrapper, sortedChoices
+    let wrapper
+    const handleDeleteSpy = sinon.spy()
     const onChooseSpy = sinon.spy()
     before(function () {
-      wrapper = shallow(
+      wrapper = mount(
         <Choices
           filteredChoiceIds={mockTask.choicesOrder}
+          handleDelete={handleDeleteSpy}
           onChoose={onChooseSpy}
           task={task}
-        />
+        />, {
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        }
       )
-      const columnCount = wrapper.find(Grid).props().columns.count
-      sortedChoices = sortIntoColumns(mockTask.choicesOrder, columnCount)
     })
 
     it('should key the the choice buttons with the choice ids from the task\'s choices order', function () {
       const choiceButtons = wrapper.find(ChoiceButton)
       choiceButtons.forEach((choiceButton, index) => {
-        expect(choiceButton.key()).to.equal(sortedChoices[index])
+        expect(choiceButton.key()).to.equal(mockTask.choicesOrder[index])
       })
     })
 
     it('should pass the choice id as a prop', function () {
       const choiceButtons = wrapper.find(ChoiceButton)
       choiceButtons.forEach((choiceButton, index) => {
-        expect(choiceButton.props().choiceId).to.equal(sortedChoices[index])
+        expect(choiceButton.props().choiceId).to.equal(mockTask.choicesOrder[index])
       })
     })
 
@@ -101,6 +104,85 @@ describe('Component > Choices', function () {
         }
       })
     })
+
+    it('should call handleDelete with choice ID on ChoiceButton backspace keyDown', function () {
+      const choiceId = 'FR'
+      const backspaceEventMock = { key: 'Backspace', preventDefault: sinon.spy(), stopPropagation: sinon.spy() }
+
+      const fireChoiceButton = wrapper.find(ChoiceButton).filterWhere(button => button.key() === choiceId)
+      fireChoiceButton.simulate('keydown', backspaceEventMock)
+
+      expect(handleDeleteSpy).to.have.been.calledOnceWith(choiceId)
+      handleDeleteSpy.resetHistory()
+    })
+
+    it('should call handleDelete with choice ID on ChoiceButton delete keyDown', function () {
+      const choiceId = 'FR'
+      const backspaceEventMock = { key: 'Delete', preventDefault: sinon.spy(), stopPropagation: sinon.spy() }
+
+      const fireChoiceButton = wrapper.find(ChoiceButton).filterWhere(button => button.key() === choiceId)
+      fireChoiceButton.simulate('keydown', backspaceEventMock)
+
+      expect(handleDeleteSpy).to.have.been.calledOnceWith(choiceId)
+      handleDeleteSpy.resetHistory()
+    })
+  })
+
+  describe('with autoFocus', function () {
+    let wrapper
+
+    before(function () {
+      wrapper = mount(
+        <Choices
+          autoFocus
+          filteredChoiceIds={mockTask.choicesOrder}
+          task={task}
+        />, {
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        }
+      )
+    })
+
+    it('should give focus to the first choice', function () {
+      const firstChoiceButton = wrapper.find(ChoiceButton).first()
+      expect(firstChoiceButton.props().hasFocus).to.be.true()
+      expect(firstChoiceButton.props().tabIndex).to.equal(0)
+      expect(firstChoiceButton.props().choiceId).to.equal('RDVRK')
+    })
+
+    it('should not give focus to other choices', function () {
+      const choiceButtons = wrapper.find(ChoiceButton)
+      choiceButtons.forEach((choiceButton, index) => {
+        if (index === 0) return true
+        expect(choiceButton.props().hasFocus).to.be.false()
+        expect(choiceButton.props().tabIndex).to.equal(-1)
+      })
+    })
+
+    describe('with updated filteredChoiceIds', function () {
+      const furtherFilteredChoiceIds = ['BBN', 'FR', 'NTHNGHR']
+
+      before(function () {
+        wrapper.setProps({ filteredChoiceIds: furtherFilteredChoiceIds })
+      })
+
+      it('should give focus to the updated first choice', function () {
+        const firstChoiceButton = wrapper.find(ChoiceButton).first()
+        expect(firstChoiceButton.props().hasFocus).to.be.true()
+        expect(firstChoiceButton.props().tabIndex).to.equal(0)
+        expect(firstChoiceButton.props().choiceId).to.equal('BBN')
+      })
+
+      it('should not give focus to other updated choices', function () {
+        const choiceButtons = wrapper.find(ChoiceButton)
+        choiceButtons.forEach((choiceButton, index) => {
+          if (index === 0) return true
+          expect(choiceButton.props().hasFocus).to.be.false()
+          expect(choiceButton.props().tabIndex).to.equal(-1)
+        })
+      })
+    })
   })
 
   describe('when the column count is 3', function () {
@@ -118,10 +200,6 @@ describe('Component > Choices', function () {
           task={task}
         />
       )
-    })
-
-    it('should set the set the number of grid columns to 3', function () {
-      expect(wrapper.find(Grid).props().columns.count).to.equal(3)
     })
 
     it('should have small thumbnails', function () {
@@ -159,10 +237,6 @@ describe('Component > Choices', function () {
       )
     })
 
-    it('should set the set the number of grid columns to 2', function () {
-      expect(wrapper.find(Grid).props().columns.count).to.equal(2)
-    })
-
     it('should have medium thumbnails', function () {
       const choiceButtons = wrapper.find(ChoiceButton)
       choiceButtons.forEach((choiceButton) => {
@@ -196,10 +270,6 @@ describe('Component > Choices', function () {
           task={task}
         />
       )
-    })
-
-    it('should set the set the number of grid columns to 1', function () {
-      expect(wrapper.find(Grid).props().columns.count).to.equal(1)
     })
 
     it('should have large thumbnails', function () {

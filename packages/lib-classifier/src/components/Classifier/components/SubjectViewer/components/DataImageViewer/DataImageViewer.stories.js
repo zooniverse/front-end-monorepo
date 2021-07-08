@@ -5,7 +5,7 @@ import { Box, Grommet } from 'grommet'
 import { withKnobs, boolean, text, object } from '@storybook/addon-knobs'
 import { Factory } from 'rosie'
 import { Provider } from 'mobx-react'
-
+import asyncStates from '@zooniverse/async-states'
 import DataImageViewerContainer from './DataImageViewerContainer'
 import DataImageViewerConnector from './DataImageViewerConnector'
 import ImageToolbar from '../../../ImageToolbar'
@@ -83,6 +83,7 @@ stories
       >
         <Box width='large'>
           <DataImageViewerContainer
+            loadingState={asyncStates.success}
             subject={subject}
           />
         </Box>
@@ -102,6 +103,7 @@ stories
       >
         <Box width='large'>
           <DataImageViewerContainer
+            loadingState={asyncStates.success}
             subject={subject}
           />
         </Box>
@@ -120,6 +122,7 @@ stories
       >
         <Box width='large'>
           <DataImageViewerContainer
+            loadingState={asyncStates.success}
             subject={subject}
           />
         </Box>
@@ -130,7 +133,9 @@ stories
     return (
       <ViewerContext mode='light' theme={zooTheme}>
         <Box direction='row' width='large'>
-          <DataImageViewerConnector />
+          <DataImageViewerConnector
+            loadingState={asyncStates.success}
+          />
           <ImageToolbar />
         </Box>
       </ViewerContext>

@@ -23,6 +23,7 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
     highlightedSeries,
     imageLocation,
     invertYAxis,
+    loadingState,
     parentHeight,
     parentWidth,
     periodMultiple,
@@ -205,6 +206,7 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
           <SingleImageViewerContainer
             aria-labelledby='imageId'
             enableInteractionLayer={false}
+            loadingState={loadingState}
             role='img'
             subject={{
               locations: [
