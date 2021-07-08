@@ -121,6 +121,7 @@ describe('Component > TranscribedLines', function () {
     })
 
     describe('when there is an existing invalid mark', function () {
+      let wrapper, lines
       before(function () {
         wrapper = shallow(<TranscribedLines invalidMark={true} lines={consensusLines} marks={task.marks} task={task} />)
         lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
