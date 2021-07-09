@@ -4,8 +4,8 @@ import fetchRows from './fetchRows'
 describe('Components > Subject Picker > helpers > fetchRows', function () {
   let data
   const expectedData = [
-    { subject_id: '1', Page: '43', Date: '23 January 1916', status: 'Unclassified' },
-    { subject_id: '2', Page: '44', Date: '24 January 1916', status: 'In progress' },
+    { subject_id: '1', Page: '43', Date: '23 January 1916', status: 'Available' },
+    { subject_id: '2', Page: '44', Date: '24 January 1916', status: 'Already seen' },
     { subject_id: '3', Page: '45', Date: '25 January 1916', status: 'Retired' },
   ]
 
@@ -24,13 +24,13 @@ describe('Components > Subject Picker > helpers > fetchRows', function () {
       id: '1'
     }
     const panoptes = nock('https://panoptes-staging.zooniverse.org/api')
-    .get('/subject_workflow_statuses')
+    .get('/subjects/selection')
     .query(true)
     .reply(200, {
-      subject_workflow_statuses: [
-        { classifications_count: 0, retired_at: null, links: { subject: '1' }},
-        { classifications_count: 3, retired_at: null, links: { subject: '2' }},
-        { classifications_count: 5, retired_at: "2018-01-30T21:09:49.396Z", links: { subject: '3' }}
+      subjects: [
+        { id: 1, already_seen: false, retired: false },
+        { id: 2, already_seen: true, retired: false },
+        { id: 3, already_seen: true, retired: true }
       ]
     })
     data = await fetchRows({ columns, rows }, workflow)
