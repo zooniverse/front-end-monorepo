@@ -13,7 +13,7 @@ export const StyledPlainButton = styled(Button)`
 `
 
 function PlainButton (props) {
-  const { className, onClick, labelSize, text, color } = props
+  const { className, onClick, labelSize, text, color, ...rest } = props
 
   return (
     <StyledPlainButton
@@ -29,7 +29,7 @@ function PlainButton (props) {
       )}
       onClick={onClick}
       plain
-      {...props}
+      {...rest}
     />
   )
 }

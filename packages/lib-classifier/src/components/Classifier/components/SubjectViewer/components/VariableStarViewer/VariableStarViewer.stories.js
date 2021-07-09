@@ -11,6 +11,7 @@ import SubjectViewerStore from '@store/SubjectViewerStore'
 import ImageToolbar from '../../../ImageToolbar'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
+import asyncStates from '@zooniverse/async-states'
 
 const config = {
   notes: {
@@ -82,6 +83,7 @@ stories
       <ViewerContext theme={zooTheme} mode='light'>
         <Box height='640px' width={{ max: '900px' }}>
           <VariableStarViewer
+            loadingState={asyncStates.success}
             subject={subject}
           />
         </Box>
@@ -94,6 +96,7 @@ stories
       <ViewerContext theme={darkZooTheme} mode='dark'>
         <Box height='640px' width={{ max: '900px' }}>
           <VariableStarViewer
+            loadingState={asyncStates.success}
             subject={subject}
           />
         </Box>
@@ -105,6 +108,7 @@ stories
       <ViewerContext theme={zooTheme} mode='light'>
         <Box height='640px' width={{ max: '900px' }}>
           <VariableStarViewer
+            loadingState={asyncStates.success}
             subject={subject}
           />
         </Box>
@@ -115,7 +119,9 @@ stories
     return (
       <ViewerContext theme={zooTheme} mode='light'>
         <Box direction='row' height='640px' width={{ max: '900px' }}>
-          <VariableStarViewerConnector />
+          <VariableStarViewerConnector
+            loadingState={asyncStates.success}
+          />
           <ImageToolbar />
         </Box>
       </ViewerContext>

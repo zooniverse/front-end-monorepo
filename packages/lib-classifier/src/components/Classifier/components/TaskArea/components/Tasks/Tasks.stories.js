@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import React from 'react'
 import { MockTask } from '@stories/components'
-import Tasks from './Tasks'
+import { Tasks } from './Tasks'
 
 export default {
   title: 'Tasks / General',
@@ -13,6 +13,12 @@ export default {
     subjectReadyState: asyncStates.success
   },
   argTypes: {
+    loadingState: {
+      control: {
+        type: 'select',
+        options: asyncStates
+      }
+    },
     subjectReadyState: {
       control: {
         type: 'select',

@@ -16,6 +16,7 @@ import ErrorMessage from './components/ErrorMessage'
 */
 export default function ClassifierWrapper({
   onAddToCollection = () => true,
+  onSubjectReset = () => true,
   authClient = auth,
   collections,
   mode,
@@ -71,6 +72,7 @@ export default function ClassifierWrapper({
           onAddToCollection={onAddToCollection}
           onCompleteClassification={onCompleteClassification}
           onError={onError}
+          onSubjectReset={onSubjectReset}
           onToggleFavourite={onToggleFavourite}
           project={project}
           subjectID={subjectID}
@@ -96,6 +98,8 @@ ClassifierWrapper.propTypes = {
   onAddToCollection: func,
   /** Panoptes Auth client */
   authClient: shape({}),
+  /** Callback that runs when the classifier subject queue is reset, so that we can pick a new subject. */
+  onSubjectReset: func,
   /** JSON snapshot of the active Panoptes project */
   project: shape({}),
   /** optional subjectID (from the page URL.) */

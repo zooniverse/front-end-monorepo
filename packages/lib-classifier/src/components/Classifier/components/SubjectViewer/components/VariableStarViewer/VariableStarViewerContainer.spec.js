@@ -112,7 +112,6 @@ describe('Component > VariableStarViewerContainer', function () {
     highlightedSeries: [],
     imageLocation: null,
     invertYAxis: false,
-    loadingState: asyncStates.initialized,
     periodMultiple: 1,
     phaseFocusedSeries: 0,
     phasedJSON: {
