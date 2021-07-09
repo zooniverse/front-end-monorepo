@@ -52,6 +52,7 @@ class HeadContainer extends Component {
       <Head
         description={this.getProjectDescription()}
         ogImage={this.getProjectImage()}
+        pageTitle={this.props.pageTitle}
         projectTwitterUsername={this.getProjectTwitterUsername()}
         title={this.getProjectTitle()}
         url={this.getProjectUrl()}
