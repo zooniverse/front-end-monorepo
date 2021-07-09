@@ -20,6 +20,7 @@ export const ClassifierWrapper = dynamic(() =>
 
 function ClassifyPage ({
   addToCollection,
+  onSubjectReset,
   screenSize,
   subjectID,
   subjectSetID,
@@ -72,6 +73,7 @@ function ClassifyPage ({
             <ProjectName />
             <ClassifierWrapper
               onAddToCollection={addToCollection}
+              onSubjectReset={onSubjectReset}
               {...classifierProps}
             />
             <ThemeModeToggle />
