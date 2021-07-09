@@ -29,11 +29,6 @@ class HeadContainer extends Component {
     return project['display_name'] || project.title || project.slug || undefined
   }
 
-  getPageTitle () {
-    const { pageTitle } = this.props
-    return pageTitle
-  }
-
   getProjectTwitterUsername () {
     const twitter = this.props.project.urls.find(({ site }) => site &&
       site.includes('twitter.com'))
@@ -57,7 +52,7 @@ class HeadContainer extends Component {
       <Head
         description={this.getProjectDescription()}
         ogImage={this.getProjectImage()}
-        pageTitle={this.getPageTitle()}
+        pageTitle={this.props.pageTitle}
         projectTwitterUsername={this.getProjectTwitterUsername()}
         title={this.getProjectTitle()}
         url={this.getProjectUrl()}
