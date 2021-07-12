@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@artsy/fresnel@~1.0.7":
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/@artsy/fresnel/-/fresnel-1.0.13.tgz#4bbbda274e74e0d63b471a36d72360d33d571598"
-  integrity sha512-Gg/43i30aIqkryVE6eLhNe4j9G1fk41qIJqYfj/b+mv3bYCl8H9HSaedcM7exuh0RlexZGLMD2aYnugiobrpxQ==
+"@artsy/fresnel@~1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@artsy/fresnel/-/fresnel-1.7.0.tgz#665f803cb9561c7c5d8f4a884803c2813ba9197a"
+  integrity sha512-TXIFVwMXE8GHe2c6NEJ6FFhB8+6gCIfU6lwd/MeSIwYw7QzpyYrcaOjvLh33ZmuD7HWSnQ0kdK9TErj7l9BrUQ==
 
 "@babel/code-frame@7.10.4":
   version "7.10.4"
