@@ -1,6 +1,5 @@
 import { Box } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 import Background from '../Background'

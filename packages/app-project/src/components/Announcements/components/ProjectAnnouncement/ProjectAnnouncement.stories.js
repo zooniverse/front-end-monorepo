@@ -3,7 +3,6 @@ import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
-import React from 'react'
 
 import ProjectAnnouncementConnector from './ProjectAnnouncementConnector'
 import readme from './README.md'

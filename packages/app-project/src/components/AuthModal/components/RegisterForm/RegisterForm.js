@@ -1,5 +1,4 @@
 import counterpart from 'counterpart'
-import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Heading, Text } from 'grommet'
 import en from './locales/en'

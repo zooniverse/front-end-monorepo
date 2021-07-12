@@ -17,7 +17,7 @@ function DrawingToolMarks({
   scale = 1,
   played
 }) {
-  const { svg } = useContext(SVGContext)
+  const { canvas } = useContext(SVGContext)
 
   return marks.map((mark, index) => {
     /*
@@ -30,7 +30,7 @@ function DrawingToolMarks({
 
     function isInBounds(markElement) {
       const object = markElement.getBoundingClientRect()
-      const bounds = svg.getBoundingClientRect()
+      const bounds = canvas.getBoundingClientRect()
       const notBeyondLeft = object.left + object.width > bounds.left
       const notBeyondRight = object.left < bounds.left + bounds.width
       const notBeyondTop = object.top + object.height > bounds.top

@@ -8,7 +8,7 @@ import { Grommet } from 'grommet'
 import { Provider } from "mobx-react";
 import Router from 'next/router'
 import PropTypes from 'prop-types'
-import React from 'react'
+import { Component } from 'react';
 import sinon from 'sinon'
 
 import HeroContainer from './'
@@ -50,7 +50,7 @@ const mockedRouter = {
 }
 
 const withMockRouterContext = mockRouter => {
-  class MockRouterContext extends React.Component {
+  class MockRouterContext extends Component {
     getChildContext () {
       return {
         router: { ...mockedRouter, ...mockRouter }

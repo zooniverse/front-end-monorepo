@@ -1,5 +1,4 @@
 import { number, shape, string } from 'prop-types'
-import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 
 const Img = styled.img`

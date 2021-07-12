@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import { DropdownNav, StyledDropButton } from './DropdownNav'
 import NavLink from '@shared/components/NavLink'

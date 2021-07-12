@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import RelatedProjectsContainer from './RelatedProjectsContainer'
 import RelatedProjectsButton from './components/RelatedProjectsButton'

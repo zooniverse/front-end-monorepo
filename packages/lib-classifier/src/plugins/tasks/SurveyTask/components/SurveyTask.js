@@ -21,11 +21,6 @@ function SurveyTask (props) {
     task
   } = props
 
-  function handleCancel () {
-    handleAnswers({})
-    handleChoice('')
-  }
-
   return (
     <Box
       fill
@@ -36,7 +31,7 @@ function SurveyTask (props) {
             choiceId={selectedChoice}
             handleAnswers={handleAnswers}
             handleChoice={handleChoice}
-            onCancel={() => handleCancel()}
+            handleDelete={handleDelete}
             onIdentify={handleIdentify}
             task={task}
           />
@@ -44,6 +39,7 @@ function SurveyTask (props) {
             autoFocus={autoFocus}
             disabled={disabled}
             filters={filters}
+            handleDelete={handleDelete}
             handleFilter={handleFilter}
             onChoose={handleChoice}
             selectedChoiceIds={selectedChoiceIds}

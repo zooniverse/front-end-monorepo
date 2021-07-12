@@ -1,7 +1,6 @@
 import counterpart from 'counterpart'
 import { Box, Button, FormField, Grid, Select } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import en from './locales/en'
 

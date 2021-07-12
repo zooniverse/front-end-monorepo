@@ -3,8 +3,7 @@ const API_HOST = 'https://subject-set-search-api.zooniverse.org/subjects'
 export default async function fetchSubjects(
   subjectSetID,
   query='',
-  sortField='priority',
-  page_size=20
+  sortField='priority'
 ) {
   const url = `${API_HOST}/${subjectSetID}.json?${query}&_sort=${sortField}`
   const mode = 'cors'

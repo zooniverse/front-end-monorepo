@@ -53,6 +53,7 @@ export async function getServerSideProps({ params, query, req, res }) {
   return {
     notFound,
     props: {
+      pageTitle: 'The Team',
       pageType: 'team',
       ...props,
       teamArray

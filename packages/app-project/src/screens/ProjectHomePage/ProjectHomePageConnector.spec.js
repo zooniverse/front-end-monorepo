@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import ProjectHomePageConnector from './ProjectHomePageConnector'
 import ProjectHomePage from './ProjectHomePage'

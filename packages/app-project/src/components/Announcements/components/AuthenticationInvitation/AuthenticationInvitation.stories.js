@@ -1,7 +1,6 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
-import React from 'react'
 
 import AuthenticationInvitationConnector from './AuthenticationInvitationConnector'
 import readme from './README.md'

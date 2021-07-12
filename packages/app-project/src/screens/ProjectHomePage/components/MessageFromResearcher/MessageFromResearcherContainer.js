@@ -1,6 +1,6 @@
 import { inject, observer } from 'mobx-react'
 import { arrayOf, shape, string } from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { get } from 'lodash'
 import MessageFromResearcher from './MessageFromResearcher'
 

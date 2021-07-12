@@ -1,7 +1,6 @@
 import { Heading } from 'grommet'
 import { withResponsiveContext } from '@zooniverse/react-components'
 import { object, oneOfType, string } from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 // TODO add this as an xsmall option for h3 into theme

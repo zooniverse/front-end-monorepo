@@ -2,7 +2,6 @@ import { withKnobs, boolean, select, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
-import React from 'react'
 
 import GenericAnnouncement from './GenericAnnouncement'
 import readme from './README.md'

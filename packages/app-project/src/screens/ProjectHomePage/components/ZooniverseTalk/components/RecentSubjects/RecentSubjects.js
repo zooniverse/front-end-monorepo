@@ -1,6 +1,5 @@
 import counterpart from 'counterpart'
 import { arrayOf, shape, string } from 'prop-types'
-import React from 'react'
 import { Grid } from 'grommet'
 import SubjectThumbnail from './components/SubjectThumbnail'
 

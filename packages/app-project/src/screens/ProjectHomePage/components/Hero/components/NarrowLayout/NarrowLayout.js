@@ -1,6 +1,5 @@
 import { Box, Grid } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
-import React from 'react'
 
 import Background from '../Background'
 import Introduction from '../Introduction'

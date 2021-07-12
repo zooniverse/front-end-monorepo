@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import PublicationsContainer from './PublicationsContainer'
 import mockData from './PublicationsContainer.mock'

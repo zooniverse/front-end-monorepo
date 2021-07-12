@@ -1,10 +1,10 @@
-import React from 'react'
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types'
 import WorkflowAssignmentModal from './WorkflowAssignmentModal'
 
 function WorkflowAssignmentModalContainer({ projectPreferences, currentWorkflowID }) {
-  const [ active, setActive ] = React.useState(false)
-  const [ dismissedForSession, setDismissed ] = React.useState(false)
+  const [ active, setActive ] = useState(false)
+  const [ dismissedForSession, setDismissed ] = useState(false)
 
   // TODO: integrate session storage
   function onDismiss(event) {
@@ -15,7 +15,7 @@ function WorkflowAssignmentModalContainer({ projectPreferences, currentWorkflowI
     setActive(false)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (projectPreferences?.promptAssignment(currentWorkflowID)) {
       if (!dismissedForSession) setActive(true)
     }

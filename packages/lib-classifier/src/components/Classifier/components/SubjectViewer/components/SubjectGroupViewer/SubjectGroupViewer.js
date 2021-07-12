@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { forwardRef, useContext, useRef } from 'react'
+import React, { forwardRef, useRef } from 'react'
 import styled, { css } from 'styled-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SGVGridCell from './components/SGVGridCell'
@@ -78,14 +78,13 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
   } = props
 
   const transformLayer = useRef()
-  const { svg } = useContext(SVGContext)
-  const getScreenCTM = () => transformLayer.current.getScreenCTM()
+  const canvas = transformLayer.current
   const annotatedValues = annotation?.value || []
     
   const annotationMode = interactionMode === 'annotate' && isCurrentTaskValidForAnnotation
   
   return (
-    <SVGContext.Provider value={{ svg, getScreenCTM }}>
+    <SVGContext.Provider value={{ canvas }}>
       <Container
         gridMaxWidth={gridMaxWidth}
         gridMaxHeight={gridMaxHeight}
@@ -98,6 +97,7 @@ const SubjectGroupViewer = forwardRef(function SubjectGroupViewer(props, ref) {
           viewBox={`0 0 ${width} ${height}`}
           gridMaxWidth={gridMaxWidth}
           gridMaxHeight={gridMaxHeight}
+          xmlns="http://www.w3.org/2000/svg"
         >
           <g
             ref={transformLayer}

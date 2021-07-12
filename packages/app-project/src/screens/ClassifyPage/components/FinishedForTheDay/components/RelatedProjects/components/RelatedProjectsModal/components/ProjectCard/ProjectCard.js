@@ -2,7 +2,6 @@ import { Media, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box, Button, Text } from 'grommet'
 import { string } from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 import en from './locales/en'
