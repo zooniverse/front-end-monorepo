@@ -32,10 +32,8 @@ const baseStep = types
     },
 
     get isValid() {
-      let isValid = true
-      self.tasks.forEach(task => {
-        isValid = task.isValid
-      })
+      let isValid = self.tasks.every((task) => task.isValid)
+
       return isValid
     },
 
