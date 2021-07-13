@@ -101,7 +101,10 @@ const SubjectStore = types
       const classificationDisposer = autorun(() => {
         onPatch(getRoot(self), (patch) => {
           const { path, value } = patch
-          if (path === '/classifications/loadingState' && value === 'posting') self.advance()
+          if (path === '/classifications/loadingState' && value === 'posting') {
+            self.clearAvailable()
+            self.advance()
+          }
         })
       }, { name: 'SubjectStore Classification Observer autorun' })
       addDisposer(self, classificationDisposer)
@@ -198,6 +201,10 @@ const SubjectStore = types
       }
     }
 
+    function clearAvailable() {
+      self.availableSubjects.clear()
+    }
+
     function clearQueue() {
       self.onReset()
       self.reset()
@@ -262,6 +269,7 @@ const SubjectStore = types
       advance,
       afterAttach,
       append,
+      clearAvailable,
       clearQueue,
       nextAvailable: flow(nextAvailable),
       populateQueue: flow(populateQueue),
