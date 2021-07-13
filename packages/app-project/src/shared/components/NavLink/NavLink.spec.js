@@ -2,7 +2,6 @@ import { SpacedText } from '@zooniverse/react-components'
 import { shallow } from 'enzyme'
 import { Anchor } from 'grommet'
 import Link from 'next/link'
-import React from 'react'
 
 import { NavLink } from './NavLink'
 

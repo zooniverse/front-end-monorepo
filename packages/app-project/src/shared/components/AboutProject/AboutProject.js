@@ -1,7 +1,6 @@
 import { Markdownz } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { string } from 'prop-types'
-import React from 'react'
 import { Paragraph } from 'grommet'
 
 import en from './locales/en'

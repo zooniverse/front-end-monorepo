@@ -20,6 +20,7 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
     enableRotation,
     imageLocation,
     JSONData,
+    loadingState,
     move,
     parentWidth,
     resetView,
@@ -99,6 +100,7 @@ const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
           <SingleImageViewerContainer
             enableInteractionLayer={false}
             enableRotation={enableRotation}
+            loadingState={loadingState}
             move={move}
             rotation={rotation}
             subject={{

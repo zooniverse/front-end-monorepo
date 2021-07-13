@@ -1,7 +1,6 @@
 import { MetaToolsButton } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { string } from 'prop-types'
-import React from 'react'
 import TalkIcon from './TalkIcon'
 
 import en from './locales/en'

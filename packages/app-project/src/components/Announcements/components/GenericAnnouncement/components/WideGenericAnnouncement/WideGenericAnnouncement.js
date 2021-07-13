@@ -1,7 +1,6 @@
 import { Box } from 'grommet'
 import { CloseButton, Markdownz } from '@zooniverse/react-components'
 import { bool, string, func } from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 import markdownzComponents from '../../helpers/markdownzComponents'

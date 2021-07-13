@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
-import React from 'react'
 import asyncStates from '@zooniverse/async-states'
 import Classifier from '@zooniverse/classifier'
 

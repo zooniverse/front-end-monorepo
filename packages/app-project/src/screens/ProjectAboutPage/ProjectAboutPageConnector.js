@@ -1,5 +1,5 @@
 import { observer, MobXProviderContext } from 'mobx-react'
-import React from 'react'
+import * as React from 'react'
 import { arrayOf, bool, shape, string } from 'prop-types'
 
 import ProjectAboutPage from './ProjectAboutPage'
@@ -25,6 +25,7 @@ const ProjectAboutPageConnector = ({ pageType, teamArray }) => {
   } = React.useContext(MobXProviderContext)
 
   let aboutPageData
+
   const aboutNavLinks = ['research', 'team']
   if (about_pages.length) {
     about_pages.forEach(page => {
@@ -37,6 +38,13 @@ const ProjectAboutPageConnector = ({ pageType, teamArray }) => {
       }
     })
     aboutPageData = about_pages.filter(page => page.url_key === pageType)[0]
+
+    // Some old project Research pages have default title 'Research Case'
+    // Title is corrected here for /locales translation files
+    if (aboutPageData?.title.toLowerCase().includes('research')) {
+      aboutPageData.title = 'Research'
+    }
+
     if (!aboutPageData) {
       aboutPageData = returnDefaultContent()
     }

@@ -1,4 +1,4 @@
-import { getIndexedSubjects } from '@store/helpers'
+import { getIndexedSubjects } from '../'
 
 export default async function subjectSelectionStrategy(workflow, subjectIDs, priority = -1) {
   const workflow_id = workflow.id

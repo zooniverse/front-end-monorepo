@@ -1,5 +1,4 @@
 import { shallow, render } from 'enzyme'
-import React from 'react'
 import { Grid } from 'grommet'
 
 import { ZooniverseTalk } from './ZooniverseTalk'

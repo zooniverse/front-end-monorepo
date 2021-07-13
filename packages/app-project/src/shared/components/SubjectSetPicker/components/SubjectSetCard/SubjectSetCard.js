@@ -3,13 +3,12 @@ import { Media, SpacedText } from '@zooniverse/react-components'
 import { Box, Paragraph, Text } from 'grommet'
 import getConfig from 'next/config'
 import { array, number, string } from 'prop-types'
-import React from 'react'
 
 /**
   Summary card for a subject set, showing a preview subject, the set name, total subject count and completeness percentage.
 */
 function SubjectSetCard ({
-  availableSubjects,
+  completeness,
   display_name,
   id,
   set_member_subjects_count,
@@ -21,7 +20,6 @@ function SubjectSetCard ({
   const placeholderUrl = `${assetPrefix}/subject-placeholder.png`
   const subjectURLs = subject ? subject.locations.map(location => Object.values(location)[0]) : []
   const alt = subject ? `Subject ${subject.id}` : 'Loading'
-  const completeness = 1 - (availableSubjects / set_member_subjects_count)
   const percentComplete = parseInt(100 * completeness)
 
   return (

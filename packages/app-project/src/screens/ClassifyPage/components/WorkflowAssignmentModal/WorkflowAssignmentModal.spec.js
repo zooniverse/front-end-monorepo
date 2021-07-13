@@ -1,4 +1,3 @@
-import React from 'react'
 import { shallow } from 'enzyme'
 import { Modal } from '@zooniverse/react-components'
 import { Button, CheckBox } from 'grommet'

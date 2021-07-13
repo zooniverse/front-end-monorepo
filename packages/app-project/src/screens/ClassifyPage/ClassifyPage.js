@@ -1,7 +1,6 @@
 import { Box, Grid } from 'grommet'
 import dynamic from 'next/dynamic'
 import { arrayOf, func, shape, string } from 'prop-types'
-import React from 'react'
 import { withResponsiveContext } from '@zooniverse/react-components'
 
 import ThemeModeToggle from '@components/ThemeModeToggle'
@@ -21,6 +20,7 @@ export const ClassifierWrapper = dynamic(() =>
 
 function ClassifyPage ({
   addToCollection,
+  onSubjectReset,
   screenSize,
   subjectID,
   subjectSetID,
@@ -73,6 +73,7 @@ function ClassifyPage ({
             <ProjectName />
             <ClassifierWrapper
               onAddToCollection={addToCollection}
+              onSubjectReset={onSubjectReset}
               {...classifierProps}
             />
             <ThemeModeToggle />

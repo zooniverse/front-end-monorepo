@@ -1,6 +1,6 @@
 import { inject, observer } from 'mobx-react'
 import { bool, node, string } from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import Avatar from './Avatar'
 

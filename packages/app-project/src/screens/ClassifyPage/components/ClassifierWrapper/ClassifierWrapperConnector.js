@@ -1,6 +1,6 @@
 import { MobXProviderContext, observer } from 'mobx-react'
 import { func, string, shape } from 'prop-types'
-import React from 'react'
+import * as React from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import ClassifierWrapper from './ClassifierWrapper'

@@ -101,7 +101,7 @@ class TranscribedLines extends React.Component {
   }
 
   render () {
-    const { lines, marks, scale, task, theme } = this.props
+    const { invalidMark, lines, marks, scale, task, theme } = this.props
     const { bounds, line, show } = this.state
     const invalidTranscriptionTask = Object.keys(task).length === 0
     const completedLines = lines.filter(line => line.consensusReached)
@@ -122,7 +122,12 @@ class TranscribedLines extends React.Component {
             const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
             const mark = { length, x1, y1, x2, y2 }
             const id = `complete-${index}`
-
+            const disabled = invalidMark
+            let lineProps = {}
+            if (!disabled) {
+              lineProps.onClick = event => this.onClick(event, this.showConsensus, line)
+              lineProps.onKeyDown = event => this.onKeyDown(event, this.showConsensus, line)
+            }
             return (
               <Tooltip
                 id={id}
@@ -132,12 +137,12 @@ class TranscribedLines extends React.Component {
               >
                 <ConsensusLine
                   role='button'
+                  aria-disabled={disabled.toString()}
                   aria-describedby={id}
                   aria-label={line.consensusText}
                   focusColor={focusColor}
-                  onClick={(event) => this.onClick(event, this.showConsensus, line)}
-                  onKeyDown={event => this.onKeyDown(event, this.showConsensus, line)}
-                  tabIndex={0}
+                  tabIndex={disabled ? -1 : 0}
+                  {...lineProps}
                 >
                   <TranscriptionLine
                     state='complete'
@@ -152,7 +157,7 @@ class TranscribedLines extends React.Component {
         {transcribedLines
           .map((line, index) => {
             const [ existingMark ] = marks.filter(mark => mark.id === line.id)
-            const disabled = invalidTranscriptionTask || !!existingMark
+            const disabled = invalidTranscriptionTask || invalidMark || !!existingMark
             const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
             const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
             const mark = { length, x1, y1, x2, y2 }
@@ -202,6 +207,7 @@ class TranscribedLines extends React.Component {
 }
 
 TranscribedLines.propTypes = {
+  invalidMark: bool,
   lines: arrayOf(shape({
     consensusReached: bool,
     points: arrayOf(shape({
@@ -222,6 +228,7 @@ TranscribedLines.propTypes = {
 }
 
 TranscribedLines.defaultProps = {
+  invalidMark: false,
   lines: [],
   marks: [],
   scale: 1,

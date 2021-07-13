@@ -28,7 +28,9 @@ class SurveyTaskContainer extends React.Component {
   componentWillUnmount () {
     const { annotation } = this.props
 
-    annotation.setChoiceInProgress(false)
+    if (annotation._choiceInProgress) {
+      annotation.setChoiceInProgress(false)
+    }
   }
 
   handleAnswers (answers) {

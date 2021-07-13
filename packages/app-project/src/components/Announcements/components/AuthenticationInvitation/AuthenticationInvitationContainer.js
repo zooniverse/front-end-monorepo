@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react';
 import styled from 'styled-components'
 import { Anchor } from 'grommet'
 import NavLink from '@shared/components/NavLink'
@@ -13,7 +13,7 @@ const StyledAnchor = styled(Anchor)`
 `
 
 export default function AuthenticationInvitationContainer({ isVisible }) {
-  const [dismissed, setDismissed] = React.useState(false)
+  const [dismissed, setDismissed] = useState(false)
   const { pathname } = window.location
   const signInLink = {
     href: `${pathname}?login=true`,

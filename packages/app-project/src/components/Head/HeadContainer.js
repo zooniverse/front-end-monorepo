@@ -1,7 +1,7 @@
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'next/router'
 import { arrayOf, shape, string } from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import Head from './Head'
 
@@ -52,6 +52,7 @@ class HeadContainer extends Component {
       <Head
         description={this.getProjectDescription()}
         ogImage={this.getProjectImage()}
+        pageTitle={this.props.pageTitle}
         projectTwitterUsername={this.getProjectTwitterUsername()}
         title={this.getProjectTitle()}
         url={this.getProjectUrl()}

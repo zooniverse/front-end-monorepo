@@ -1,6 +1,6 @@
 import { observer, MobXProviderContext } from 'mobx-react'
 import { arrayOf, bool, shape, string } from 'prop-types'
-import React, { useContext } from 'react'
+import { useContext } from 'react';
 
 import ProjectHomePage from './ProjectHomePage'
 

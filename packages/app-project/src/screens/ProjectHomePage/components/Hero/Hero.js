@@ -1,5 +1,5 @@
 import { arrayOf, bool, shape, string } from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react';
 import asyncStates from '@zooniverse/async-states'
 
 import WideLayout from './components/WideLayout'
