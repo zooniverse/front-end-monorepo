@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
-import { addDisposer, addMiddleware, flow, getRoot, isValidReference, onPatch, tryReference, types } from 'mobx-state-tree'
+import { addDisposer, addMiddleware, flow, getRoot, getSnapshot, isValidReference, onPatch, tryReference, types } from 'mobx-state-tree'
 import { getBearerToken } from '../utils'
 import { subjectSelectionStrategy } from './helpers'
 import { filterByLabel, filters } from '../../components/Classifier/components/MetaTools/components/Metadata/components/MetadataModal'
@@ -43,6 +43,7 @@ function openTalkPage (talkURL, newTab = false) {
 const SubjectStore = types
   .model('SubjectStore', {
     active: types.safeReference(SubjectType),
+    availableSubjects: types.array(SubjectType),
     resources: types.map(SubjectType),
     type: types.optional(types.string, 'subjects')
   })
@@ -133,6 +134,19 @@ const SubjectStore = types
       addDisposer(self, subjectMiddleware)
     }
 
+    async function _fetchAvailableSubjects(workflow) {
+      const apiUrl = '/subjects/queued'
+      const params = {
+        page_size: 10,
+        workflow_id: workflow.id
+      }
+      if (workflow.grouped) {
+        params.subject_set_id = workflow.subjectSetId
+      }
+
+      return await _fetchSubjects({ apiUrl, params })
+    }
+
     async function _fetchSubjects({ apiUrl, params }) {
       const {
         authClient,
@@ -196,21 +210,17 @@ const SubjectStore = types
 
       if (workflow) {
         try {
-          self.reset()
-          const apiUrl = '/subjects/queued'
-          const params = {
-            page_size: 1,
-            workflow_id: workflow.id
+          if (self.availableSubjects.length === 0) {
+            self.loadingState = asyncStates.loading
+            const availableSubjects = yield _fetchAvailableSubjects(workflow)
+            self.availableSubjects.replace(availableSubjects)
+            self.loadingState = asyncStates.success
           }
-          if (workflow.grouped) {
-            params.subject_set_id = workflow.subjectSetId
-          }
-
-          self.loadingState = asyncStates.loading
-          const subjects = yield _fetchSubjects({ apiUrl, params })
-          self.loadingState = asyncStates.success
-          if (subjects?.length > 0) {
-            self.append(subjects)
+          if (self.availableSubjects.length > 0) {
+            self.reset()
+            const newSubject = getSnapshot(self.availableSubjects[0])
+            self.availableSubjects.shift()
+            self.append([newSubject])
           }
         } catch (error) {
           console.error(error)
