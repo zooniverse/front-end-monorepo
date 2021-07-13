@@ -211,11 +211,33 @@ describe('Model > SubjectStore', function () {
       })
     })
 
+    describe('clear available', function () {
+      let subjects
+
+      beforeEach(async function () {
+        const queuedSubjectSnapshots = Factory.buildList('subject', 10)
+        const selectedSubjectSnapshots = Factory.buildList('subject', 10)
+        const subjectMocks = {
+          ['/subjects/grouped']: [],
+          ['/subjects/queued']: queuedSubjectSnapshots,
+          ['/subjects/selection']: selectedSubjectSnapshots
+        }
+        subjects = mockSubjectStore(subjectMocks)
+        await subjects.nextAvailable()
+      })
+
+      it('should clear available subjects', function () {
+        expect(subjects.availableSubjects.length).to.equal(9)
+        subjects.clearAvailable()
+        expect(subjects.availableSubjects).to.be.empty()
+      })
+    })
+
     describe('next available',function () {
       let subjects
       let subjectIDs
 
-      before(function () {
+      beforeEach(async function () {
         const queuedSubjectSnapshots = Factory.buildList('subject', 10)
         const selectedSubjectSnapshots = Factory.buildList('subject', 10)
         const subjectMocks = {
@@ -225,16 +247,15 @@ describe('Model > SubjectStore', function () {
         }
         subjectIDs = queuedSubjectSnapshots.map(subject => subject.id)
         subjects = mockSubjectStore(subjectMocks)
-        subjects.nextAvailable()
+        await subjects.nextAvailable()
       })
 
       it('should select the first queued subject', function () {
-        expect(subjects.resources.size).to.equal(10)
         expect(subjects.active.id).to.equal(subjectIDs[0])
       })
 
-      it('should cycle through queued subjects', function () {
-        subjects.nextAvailable()
+      it('should cycle through queued subjects', async function () {
+        await subjects.nextAvailable()
         expect(subjects.active.id).to.equal(subjectIDs[1])
       })
     })
