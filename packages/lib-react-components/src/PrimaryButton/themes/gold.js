@@ -27,6 +27,7 @@ const theme = {
         text-align: center;
         &:disabled {
           cursor: not-allowed;
+          pointer-events: 'none';
         }
         &:focus:not(:disabled),
         &:hover:not(:disabled) {

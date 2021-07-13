@@ -9,6 +9,7 @@ import addQueryParams from '@helpers/addQueryParams'
 
 function NavLink ({
   color,
+  label,
   link,
   router = {},
   StyledAnchor = Anchor,
@@ -22,22 +23,22 @@ function NavLink ({
   const isPFELink = href.startsWith(`/projects/${owner}/${project}/about`)
   const isProductionAPI = process.env.PANOPTES_ENV === 'production'
 
-  const label = <StyledSpacedText children={text} color={color} weight={weight} />
+  const labelToRender = label || <StyledSpacedText children={text} color={color} weight={weight} />
 
   if (isCurrentPage) {
     return (
-      <StyledAnchor color={color} label={label} {...anchorProps} />
+      <StyledAnchor color={color} label={labelToRender} {...anchorProps} />
     )
   }
   
   if (isPFELink && isProductionAPI) {
     const PFEHref = addQueryParams(`https://www.zooniverse.org${href}`, router)
-    return <StyledAnchor color={color} label={label} href={PFEHref} {...anchorProps} />
+    return <StyledAnchor color={color} label={labelToRender} href={PFEHref} {...anchorProps} />
   }
   
   return (
     <Link href={addQueryParams(href, router)} color={color} passHref>
-      <StyledAnchor color={color} label={label} {...anchorProps} />
+      <StyledAnchor color={color} label={labelToRender} {...anchorProps} />
     </Link>
   )
 }

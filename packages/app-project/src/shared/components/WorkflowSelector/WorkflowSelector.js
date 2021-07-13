@@ -5,8 +5,7 @@ import { Box, Paragraph, Text } from 'grommet'
 import { arrayOf, func, shape, string } from 'prop-types'
 import { withTheme } from 'styled-components'
 import { Bars } from 'svg-loaders-react'
-
-import { WorkflowSelectButton } from './components'
+import WorkflowSelectButtons from './components/WorkflowSelectButtons'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
@@ -16,7 +15,7 @@ const markdownzComponents = {
 }
 
 function WorkflowSelector (props) {
-  const { onSelect, userReadyState, workflows } = props
+  const { assignedWorkflowID, onSelect, userReadyState, workflows } = props
   const loaderColor = props.theme.global.colors.brand
   const workflowDescription = props.workflowDescription || counterpart('WorkflowSelector.message')
 
@@ -47,9 +46,7 @@ function WorkflowSelector (props) {
           margin={{ top: 'small' }}
           width={{ max: 'medium' }}
         >
-          {(workflows.length > 0) && workflows.map(workflow =>
-            <WorkflowSelectButton key={workflow.id} onSelect={onSelect} workflow={workflow} />
-          )}
+          <WorkflowSelectButtons assignedWorkflowID={assignedWorkflowID} onSelect={onSelect} workflows={workflows} />
 
           {(workflows.length === 0) && (
             <Box background='accent-2' pad='xsmall' width={{ max: 'medium' }}>

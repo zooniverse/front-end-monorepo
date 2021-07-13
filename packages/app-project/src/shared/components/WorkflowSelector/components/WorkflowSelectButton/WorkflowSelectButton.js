@@ -1,11 +1,10 @@
-import { SpacedText, withThemeContext } from '@zooniverse/react-components'
+import { PrimaryButton, SpacedText, withThemeContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Button } from 'grommet'
+import { Button, Text } from 'grommet'
 import { Next } from 'grommet-icons'
-import Link from 'next/link'
+import NavLink from '@shared/components/NavLink'
 import { useRouter } from 'next/router'
 import { bool, func, number, shape, string } from 'prop-types'
-
 import theme from './theme'
 import addQueryParams from '@helpers/addQueryParams'
 
@@ -13,10 +12,9 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-const WorkflowLink = withThemeContext(Link, theme)
 
 function WorkflowSelectButton (props) {
-  const { onSelect, workflow, ...rest } = props
+  const { disabled = false, onSelect, workflow, ...rest } = props
   const router = useRouter()
   const { owner, project } = router?.query || {}
 
@@ -28,7 +26,7 @@ function WorkflowSelectButton (props) {
     `${workflow.displayName} - ${counterpart('WorkflowSelectButton.setSelection')}` :
     workflow.displayName
   const label = (
-    <span>
+    <span style={{ textAlign: 'left' }}>
       <SpacedText size='10px'>
         {counterpart('WorkflowSelectButton.complete', { completeness })}
       </SpacedText><br />
@@ -41,23 +39,25 @@ function WorkflowSelectButton (props) {
   }
 
   return (
-    <>
-      <WorkflowLink href={href} passHref>
-        <Button
-          completeness={completeness}
-          icon={<Next />}
-          reverse
-          label={label}
-          primary
-          onClick={selectSubjectSet}
-          {...rest}
-        />
-      </WorkflowLink>
-    </>
+    <NavLink
+      align='between'
+      completeness={completeness}
+      disabled={disabled}
+      href={href}
+      icon={<Next size='15px' />}
+      justify='space-between'
+      label={label}
+      link={(disabled) ? { href: '' } : { href }}
+      onClick={selectSubjectSet}
+      StyledAnchor={PrimaryButton}
+      reverse
+      {...rest}
+    />
   )
 }
 
 WorkflowSelectButton.propTypes = {
+  disabled: bool,
   onSelect: func.isRequired,
   workflow: shape({
     completeness: number,
@@ -68,5 +68,4 @@ WorkflowSelectButton.propTypes = {
   }).isRequired
 }
 
-export default WorkflowSelectButton
-export { WorkflowLink }
+export default withThemeContext(WorkflowSelectButton, theme)

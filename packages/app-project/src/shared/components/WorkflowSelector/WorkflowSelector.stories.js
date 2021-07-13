@@ -24,18 +24,27 @@ const store = {
 const WORKFLOWS = [
   {
     completeness: 0.65,
+    configuration: {
+      level: 1
+    },
     default: false,
     displayName: 'The Family and the Fishing Net',
     id: '12345'
   },
   {
     completeness: 0,
+    configuration: {
+      level: 2
+    },
     default: false,
     displayName: 'Games Without Frontiers',
     id: '7890'
   },
   {
     completeness: 0.99,
+    configuration: {
+      level: 3
+    },
     default: false,
     displayName: 'Shock The Monkey',
     id: '5678'
@@ -83,6 +92,19 @@ export function Default({ dark }) {
   return (
     <StoryContext theme={{ ...zooTheme, dark }}>
       <WorkflowSelector
+        onSelect={onSelect}
+        userReadyState={asyncStates.success}
+        workflows={WORKFLOWS}
+      />
+    </StoryContext>
+  )
+}
+
+export function WithLevels({ dark }) {
+  return (
+    <StoryContext theme={{ ...zooTheme, dark }}>
+      <WorkflowSelector
+        assignedWorkflowID='7890'
         onSelect={onSelect}
         userReadyState={asyncStates.success}
         workflows={WORKFLOWS}
