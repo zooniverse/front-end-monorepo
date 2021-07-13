@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
-import { addDisposer, addMiddleware, flow, getRoot, getSnapshot, isValidReference, onPatch, tryReference, types } from 'mobx-state-tree'
+import { addDisposer, addMiddleware, flow, getRoot, isValidReference, onPatch, tryReference, types } from 'mobx-state-tree'
 import { getBearerToken } from '../utils'
 import { subjectSelectionStrategy } from './helpers'
 import { filterByLabel, filters } from '../../components/Classifier/components/MetaTools/components/Metadata/components/MetadataModal'
@@ -9,6 +9,7 @@ import Subject from '../Subject'
 import SingleImageSubject from '../SingleImageSubject'
 import SingleVideoSubject from '../SingleVideoSubject'
 import SubjectGroup from '../SubjectGroup'
+import AvailableSubjects from './AvailableSubjects'
 
 const MINIMUM_QUEUE_SIZE = 3
 
@@ -43,7 +44,7 @@ function openTalkPage (talkURL, newTab = false) {
 const SubjectStore = types
   .model('SubjectStore', {
     active: types.safeReference(SubjectType),
-    availableSubjects: types.array(SubjectType),
+    available: types.optional(AvailableSubjects, () => AvailableSubjects.create({})),
     resources: types.map(SubjectType),
     type: types.optional(types.string, 'subjects')
   })
@@ -137,19 +138,6 @@ const SubjectStore = types
       addDisposer(self, subjectMiddleware)
     }
 
-    async function _fetchAvailableSubjects(workflow) {
-      const apiUrl = '/subjects/queued'
-      const params = {
-        page_size: 10,
-        workflow_id: workflow.id
-      }
-      if (workflow.grouped) {
-        params.subject_set_id = workflow.subjectSetId
-      }
-
-      return await _fetchSubjects({ apiUrl, params })
-    }
-
     async function _fetchSubjects({ apiUrl, params }) {
       const {
         authClient,
@@ -202,7 +190,7 @@ const SubjectStore = types
     }
 
     function clearAvailable() {
-      self.availableSubjects.clear()
+      self.available.clear()
     }
 
     function clearQueue() {
@@ -217,16 +205,9 @@ const SubjectStore = types
 
       if (workflow) {
         try {
-          if (self.availableSubjects.length === 0) {
-            self.loadingState = asyncStates.loading
-            const availableSubjects = yield _fetchAvailableSubjects(workflow)
-            self.availableSubjects.replace(availableSubjects)
-            self.loadingState = asyncStates.success
-          }
-          if (self.availableSubjects.length > 0) {
-            self.reset()
-            const newSubject = getSnapshot(self.availableSubjects[0])
-            self.availableSubjects.shift()
+          self.reset()
+          const newSubject = yield self.available.next(workflow)
+          if (newSubject) {
             self.append([newSubject])
           }
         } catch (error) {
