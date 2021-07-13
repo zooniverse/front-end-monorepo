@@ -3,7 +3,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import { mockWorkflow as mockGroupedWorkflow } from '@shared/components/SubjectSetPicker/helpers'
-import WorkflowMenu from './WorkflowMenu'
+import WorkflowMenuModal from './WorkflowMenuModal'
 
 const store = {
   project: {
@@ -68,8 +68,8 @@ function StoryContext (props) {
 }
 
 export default {
-  title: 'Project App / Screens / Classify / Workflow Menu',
-  component: WorkflowMenu,
+  title: 'Project App / Screens / Classify / Workflow Menu Modal',
+  component: WorkflowMenuModal,
   args: {
     dark: false,
     headingBackground: zooTheme.global.colors.brand,
@@ -94,7 +94,7 @@ export default {
 export function Default({ dark, headingBackground, titleColor, workflows }) {
   return (
     <StoryContext theme={{ ...zooTheme, dark }}>
-      <WorkflowMenu
+      <WorkflowMenuModal
         headingBackground={headingBackground}
         titleColor={titleColor}
         workflows={workflows}

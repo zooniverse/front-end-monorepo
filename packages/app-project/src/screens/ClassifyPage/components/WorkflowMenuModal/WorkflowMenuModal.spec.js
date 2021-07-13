@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 
-import WorkflowMenu from './'
+import WorkflowMenuModal from './WorkflowMenuModal'
 
 import WorkflowSelector from '@shared/components/WorkflowSelector'
 import SubjectSetPicker from '@shared/components/SubjectSetPicker'
@@ -14,7 +14,7 @@ describe('Component > ClassifyPage > WorkflowMenu', function () {
     }]
 
     before(function () {
-      wrapper = shallow(<WorkflowMenu workflows={workflows} />)
+      wrapper = shallow(<WorkflowMenuModal workflows={workflows} />)
     })
 
     it('should show a workflow selector', function () {
@@ -30,7 +30,7 @@ describe('Component > ClassifyPage > WorkflowMenu', function () {
     }]
 
     before(function () {
-      wrapper = shallow(<WorkflowMenu workflowFromUrl={workflows[0]} workflows={workflows} />)
+      wrapper = shallow(<WorkflowMenuModal workflowFromUrl={workflows[0]} workflows={workflows} />)
     })
 
     it('should not show a workflow selector', function () {
@@ -55,7 +55,7 @@ describe('Component > ClassifyPage > WorkflowMenu', function () {
 
     before(function () {
       wrapper = shallow(
-        <WorkflowMenu
+        <WorkflowMenuModal
           subjectSetFromUrl={subjectSet}
           workflowFromUrl={workflows[0]}
           workflows={workflows}
