@@ -227,9 +227,9 @@ describe('Model > SubjectStore', function () {
       })
 
       it('should clear available subjects', function () {
-        expect(subjects.availableSubjects.length).to.equal(9)
+        expect(subjects.available.subjects.length).to.equal(9)
         subjects.clearAvailable()
-        expect(subjects.availableSubjects).to.be.empty()
+        expect(subjects.available.subjects).to.be.empty()
       })
     })
 
