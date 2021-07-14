@@ -20,29 +20,30 @@ function SingleImageViewer(props) {
     zooming
   } = props
 
-  const imageViewer = useRef()
   const transformLayer = useRef()
-  const svg = imageViewer.current
+  const canvas = transformLayer.current
   const transform = `rotate(${rotate} ${width / 2} ${height / 2})`
-  const getScreenCTM = () => transformLayer.current.getScreenCTM()
 
   return (
-    <SVGContext.Provider value={{ svg, getScreenCTM }}>
+    <SVGContext.Provider value={{ canvas }}>
       {zoomControlFn && (
         <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />
       )}
       <Box animation='fadeIn' overflow='hidden'>
         <svg
-          ref={imageViewer}
           focusable
           onKeyDown={onKeyDown}
           tabIndex={0}
           viewBox={viewBox}
+          xmlns="http://www.w3.org/2000/svg"
         >
           {title?.id && title?.text && (
             <title id={title.id}>{title.text}</title>
           )}
-          <g ref={transformLayer} transform={transform}>
+          <g
+            ref={transformLayer}
+            transform={transform}
+          >
             {children}
             {enableInteractionLayer && (
               <InteractionLayer scale={scale} height={height} width={width} />

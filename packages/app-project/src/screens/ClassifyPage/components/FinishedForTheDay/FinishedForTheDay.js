@@ -2,7 +2,6 @@ import counterpart from 'counterpart'
 import { Box, Button, Grid, Heading, Paragraph, Text } from 'grommet'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
-import React from 'react'
 import styled, { withTheme } from 'styled-components'
 import { withResponsiveContext } from '@zooniverse/react-components'
 

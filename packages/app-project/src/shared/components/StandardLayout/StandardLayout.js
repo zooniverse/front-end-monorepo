@@ -1,5 +1,4 @@
 import { bool, node } from 'prop-types'
-import React from 'react'
 import { Box } from 'grommet'
 import Announcements from '@components/Announcements'
 import ProjectHeader from '@components/ProjectHeader'

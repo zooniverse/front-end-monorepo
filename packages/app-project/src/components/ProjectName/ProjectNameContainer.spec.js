@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import ProjectNameContainer from './ProjectNameContainer'
 import ProjectName from './ProjectName'

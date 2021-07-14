@@ -1,6 +1,6 @@
 import { Grid, Heading } from 'grommet'
 import Error from 'next/error'
-import React, { Component } from 'react'
+import { Component } from 'react';
 
 class StubComponent extends Component {
   static async getInitialProps ({ res }) {

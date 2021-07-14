@@ -30,7 +30,6 @@ class VariableStarViewerContainer extends Component {
       highlightedSeries: [],
       imageLocation: null,
       invertYAxis: false,
-      loadingState: asyncStates.initialized,
       periodMultiple: 1,
       phaseFocusedSeries: 0,
       phasedJSON: {
@@ -263,6 +262,7 @@ class VariableStarViewerContainer extends Component {
 
   render () {
     const {
+      loadingState,
       setOnPan,
       setOnZoom,
       subject,
@@ -279,6 +279,7 @@ class VariableStarViewerContainer extends Component {
         highlightedSeries={this.state.highlightedSeries}
         imageLocation={this.state.imageLocation}
         invertYAxis={this.state.invertYAxis}
+        loadingState={loadingState}
         periodMultiple={this.state.periodMultiple}
         phaseFocusedSeries={this.state.phaseFocusedSeries}
         phaseLimit={this.state.phaseLimit}

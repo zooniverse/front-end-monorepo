@@ -1,7 +1,6 @@
 import counterpart from 'counterpart'
 import { Grid } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
-import React from 'react'
 
 import ProjectLink from './components/ProjectLink'
 import en from './locales/en'

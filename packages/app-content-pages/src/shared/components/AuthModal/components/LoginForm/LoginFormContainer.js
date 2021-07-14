@@ -1,7 +1,7 @@
 import auth from 'panoptes-client/lib/auth'
 import { inject, observer } from 'mobx-react'
 import { func, shape } from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 import counterpart from 'counterpart'
 
 import LoginForm from './LoginForm'

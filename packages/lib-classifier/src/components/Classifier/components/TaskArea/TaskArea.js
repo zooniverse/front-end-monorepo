@@ -1,100 +1,110 @@
 import { Tab, Tabs } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box } from 'grommet'
-import { inject, observer } from 'mobx-react'
-import { bool, func, object } from 'prop-types'
-import React from 'react'
+import { bool, func, object, shape, string } from 'prop-types'
+import queryString from 'query-string'
+import React, { useEffect, useRef, useState } from 'react'
 
-import Tasks from './components/Tasks'
+import { DisabledTaskPopup, Tasks } from './components'
 import en from './locales/en'
 import SlideTutorial from '../SlideTutorial'
 
 counterpart.registerTranslations('en', en)
 
 // TODO: add autofocus for the first tab/task area
-function storeMapper (stores) {
-  const { disableTutorialTab, setActiveTutorial, tutorial } = stores.classifierStore.tutorials
-
-  return {
-    disableTutorialTab,
-    setActiveTutorial,
-    tutorial
+/**
+The tabbed tasks area of the classifier, with tabs for the tutorial and active tasks.
+*/
+export default function TaskArea({
+  className,
+  disableTutorialTab = true,
+  setActiveTutorial = () => true,
+  subject,
+  tutorial = null,
+  workflow = {
+    hasIndexedSubjects: false
   }
-}
+}) {
+  const [ activeIndex, setActiveIndex ] = useState(0)
+  const [ disabled, setDisabled ] = useState(false)
+  const taskArea = useRef(null)
 
-class TaskArea extends React.Component {
-  constructor () {
-    super()
+  useEffect(function onSubjectChange() {
+    // TODO: remove this once testing is complete.
+    const URLParams = queryString.parse(window?.location?.search)
+    const finished = (subject && URLParams?.finished) || subject?.retired || subject?.already_seen
+    setDisabled(finished && workflow.hasIndexedSubjects)
+  }, [subject])
 
-    this.state = {
-      activeIndex: 0
-    }
+  function enableTasks() {
+    setDisabled(false)
   }
 
-  onTabClick (activeIndex) {
-    const { setActiveTutorial, tutorial } = this.props
-    if (activeIndex === 1) setActiveTutorial(tutorial)
-    if (activeIndex === 0) setActiveTutorial()
-    this.setActiveIndex(activeIndex)
+  function onTabClick(newIndex) {
+    if (newIndex === 1) setActiveTutorial(tutorial)
+    if (newIndex === 0) setActiveTutorial()
+    setActiveIndex(newIndex)
   }
 
-  onClose () {
-    const { setActiveTutorial } = this.props
+  function onClose() {
     setActiveTutorial()
-    this.setActiveIndex(0)
+    setActiveIndex(0)
   }
 
-  setActiveIndex (activeIndex) {
-    this.setState({ activeIndex })
-  }
-
-  render () {
-    const { disableTutorialTab } = this.props
-
-    return (
+  return (
+    <>
+      <DisabledTaskPopup
+        isOpen={disabled}
+        onClose={enableTasks}
+        target={taskArea?.current}
+      />
       <Tabs
-        activeIndex={this.state.activeIndex}
-        className={this.props.className}
-        onActive={this.onTabClick.bind(this)}
+        activeIndex={activeIndex}
+        className={className}
+        onActive={onTabClick}
         flex
       >
-        <Tab title={counterpart('TaskArea.task')}>
-          <Box fill>
-            <Tasks />
+        <Tab
+          disabled={disabled}
+          title={counterpart('TaskArea.task')}
+        >
+          <Box
+            ref={taskArea}
+            fill
+          >
+            <Tasks
+              disabled={disabled}
+            />
           </Box>
         </Tab>
         <Tab
-          disabled={disableTutorialTab}
+          disabled={disabled || disableTutorialTab}
           title={counterpart('TaskArea.tutorial')}
         >
           <Box>
-            <SlideTutorial onClick={this.onClose.bind(this)} pad='none' />
+            <SlideTutorial onClick={onClose} pad='none' />
           </Box>
         </Tab>
       </Tabs>
-    )
-  }
+    </>
+  )
 }
 
 TaskArea.propTypes = {
+  /** Optional CSS classes */
+  className: string,
+  /** disable the tutorial tab */
   disableTutorialTab: bool,
+  /** select an active tutorial */
   setActiveTutorial: func,
-  tutorial: object
+  /** the current subject. */
+  subject: shape({
+    already_seen: bool,
+    id: string,
+    retired: bool
+  }),
+  /** the active workflow */
+  workflow: shape({
+    hasIndexedSubjects: bool
+  })
 }
-
-TaskArea.defaultProps = {
-  disableTutorialTab: true,
-  setActiveTutorial: () => {},
-  tutorial: null
-}
-
-/*
-  Enzyme doesn't support the context API properly yet, so using @withTheme as
-  recommended currently doesn't work. So instead, we're exporting the unwrapped
-  component for testing, and using the HOC function syntax to export the wrapped
-  component.
-
-  https://github.com/styled-components/jest-styled-components/issues/191#issuecomment-465020345
-*/
-export default inject(storeMapper)(observer(TaskArea))
-export { TaskArea }

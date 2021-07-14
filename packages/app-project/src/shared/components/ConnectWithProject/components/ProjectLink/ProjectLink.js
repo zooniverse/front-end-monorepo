@@ -2,7 +2,6 @@ import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Anchor, Box, Text } from 'grommet'
 import { shape, string } from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 import en from './locales/en'

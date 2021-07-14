@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
 
-import { TaskArea } from './TaskArea'
+import TaskArea from './TaskArea'
 import Tasks from './components/Tasks'
 import SlideTutorial from '../SlideTutorial'
 import { TutorialFactory } from '@test/factories'
@@ -33,9 +33,9 @@ describe('TaskArea', function () {
     expect(wrapper.find(SlideTutorial)).to.have.lengthOf(1)
   })
 
-  it('should set the Tabs prop with the activeIndex state', function () {
+  it('should activate the first tab by default', function () {
     const wrapper = shallow(<TaskArea />)
-    expect(wrapper.find(Tabs).props().activeIndex).to.equal(wrapper.state().activeIndex)
+    expect(wrapper.find(Tabs).props().activeIndex).to.equal(0)
   })
 
   it('should disable the tutorial tab if disableTutorialTab is true', function () {
@@ -43,55 +43,56 @@ describe('TaskArea', function () {
     expect(wrapper.find(Tab).last().props().disabled).to.be.true()
   })
 
-  describe('#onTabClick', function () {
+  describe('on Tab Click', function () {
     let setActiveTutorialSpy
     let wrapper
+    let onActive
+
     before(function () {
       setActiveTutorialSpy = sinon.spy()
       wrapper = shallow(<TaskArea setActiveTutorial={setActiveTutorialSpy} tutorial={tutorial} />)
+      onActive = wrapper.find(Tabs).prop('onActive')
     })
     afterEach(function () {
       setActiveTutorialSpy.resetHistory()
     })
 
-    it('should call setActiveTutorial when activeIndex is 1 with the tutorial', function () {
-      wrapper.instance().onTabClick(1)
+    it('should set the active tutorial when the tutorial tab is clicked', function () {
+      onActive(1)
       expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial)
     })
 
-    it('should call setActiveTutorial when activeIndex is 0 with no argument', function () {
-      wrapper.instance().onTabClick(0)
+    it('should clear the active tutorial when the tasks Tab is clicked', function () {
+      onActive(0)
       expect(setActiveTutorialSpy).to.have.been.calledOnce()
       expect(setActiveTutorialSpy.args[0]).to.have.lengthOf(0)
     })
 
-    it('should set the active index state', function () {
-      const activeIndex = 1
-      wrapper.instance().onTabClick(activeIndex)
-      expect(wrapper.state().activeIndex).to.equal(activeIndex)
+    it('should set the active tab', function () {
+      onActive(1)
+      expect(wrapper.find(Tabs).props().activeIndex).to.equal(1)
     })
   })
 
-  describe('#onClose', function () {
+  describe('when the tutorial closes', function () {
     let setActiveTutorialSpy
     let wrapper
     before(function () {
       setActiveTutorialSpy = sinon.spy()
       wrapper = shallow(<TaskArea setActiveTutorial={setActiveTutorialSpy} tutorial={tutorial} />)
+      wrapper.find(SlideTutorial).simulate('click')
     })
     afterEach(function () {
       setActiveTutorialSpy.resetHistory()
     })
 
-    it('should call setActiveTutorial with no argument', function () {
-      wrapper.instance().onClose()
+    it('should clear the active tutorial', function () {
       expect(setActiveTutorialSpy).to.have.been.calledOnce()
       expect(setActiveTutorialSpy.args[0]).to.have.lengthOf(0)
     })
 
-    it('should set the active index state to 0', function () {
-      wrapper.instance().onClose()
-      expect(wrapper.state().activeIndex).to.equal(0)
+    it('should activate the tasks tab', function () {
+      expect(wrapper.find(Tabs).props().activeIndex).to.equal(0)
     })
   })
 })

@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme'
-import React from 'react'
+import * as React from 'react'
 import sinon from 'sinon'
 import WorkflowSelectorConnector from './WorkflowSelectorConnector'
 import WorkflowSelector from './WorkflowSelector'

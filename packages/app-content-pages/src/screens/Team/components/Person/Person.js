@@ -1,6 +1,5 @@
 import { Box, Heading, Text } from 'grommet'
 import { string } from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 import Avatar from './components/Avatar'

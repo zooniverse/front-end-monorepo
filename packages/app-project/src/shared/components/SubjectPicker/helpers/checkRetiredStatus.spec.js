@@ -10,24 +10,24 @@ describe('Components > Subject Picker > helpers > checkRetiredStatus', function 
       id: '1'
     }
     const panoptes = nock('https://panoptes-staging.zooniverse.org/api')
-    .get('/subject_workflow_statuses')
+    .get('/subjects/selection')
     .query(true)
     .reply(200, {
-      subject_workflow_statuses: [
-        { classifications_count: 0, retired_at: null, links: { subject: '1' }},
-        { classifications_count: 3, retired_at: null, links: { subject: '2' }},
-        { classifications_count: 5, retired_at: "2018-01-30T21:09:49.396Z", links: { subject: '3' }}
+      subjects: [
+        { id: 1, already_seen: false, retired: false },
+        { id: 2, already_seen: true, retired: false },
+        { id: 3, already_seen: true, retired: true }
       ]
     })
     retirementStatuses = await checkRetiredStatus(subject_ids, workflow)
   })
 
   it('should set the status of unclassified subjects', function () {
-    expect(retirementStatuses['1']).to.equal('Unclassified')
+    expect(retirementStatuses['1']).to.equal('Available')
   })
 
-  it('should set the status of classified subjects', function () {
-    expect(retirementStatuses['2']).to.equal('In progress')
+  it('should set the status of seen subjects', function () {
+    expect(retirementStatuses['2']).to.equal('Already seen')
   })
 
   it('should set the status of retired subjects', function () {

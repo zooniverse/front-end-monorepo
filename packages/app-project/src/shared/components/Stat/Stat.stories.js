@@ -1,4 +1,3 @@
-import React from 'react'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'

@@ -2,7 +2,7 @@ import CollectionsModal from '@shared/components/CollectionsModal'
 import { MetaToolsButton } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { array, bool, func, shape, string } from 'prop-types'
-import React from 'react'
+import { createRef } from 'react';
 import CollectionsIcon from './CollectionsIcon'
 
 import en from './locales/en'
@@ -11,7 +11,7 @@ counterpart.registerTranslations('en', en)
 
 export default function CollectionsButton (props) {
   const { disabled, onClick, subject } = props
-  const collectionsModal = React.createRef()
+  const collectionsModal = createRef()
 
   function addToCollections () {
     collectionsModal.current.open(subject.id)

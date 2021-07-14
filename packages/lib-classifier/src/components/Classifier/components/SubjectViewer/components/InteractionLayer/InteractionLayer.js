@@ -1,8 +1,7 @@
 import cuid from 'cuid'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled, { css } from 'styled-components'
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
@@ -34,8 +33,8 @@ function InteractionLayer({
   played,
   duration
 }) {
-  const [creating, setCreating] = React.useState(false)
-  const { svg, getScreenCTM } = React.useContext(SVGContext)
+  const [creating, setCreating] = useState(false)
+  const canvas = useRef()
 
   useEffect(
     function onDeleteMark() {
@@ -61,11 +60,24 @@ function InteractionLayer({
     return svgCoordinateEvent
   }
 
+  function createPoint(event) {
+    const { clientX, clientY } = event
+    // SVG 2 uses DOMPoint
+    if (window.DOMPointReadOnly) {
+      return new DOMPointReadOnly(clientX, clientY)
+    }
+    // jsdom doesn't support SVG
+    return {
+      x: clientX,
+      y: clientY
+    }
+  }
+
   function getEventOffset(event) {
-    const svgPoint = svg.createSVGPoint()
-    svgPoint.x = event.clientX
-    svgPoint.y = event.clientY
-    const svgEventOffset = svgPoint.matrixTransform(getScreenCTM().inverse())
+    const svgPoint = createPoint(event)
+    const svgEventOffset = svgPoint.matrixTransform ?
+      svgPoint.matrixTransform(canvas.current?.getScreenCTM().inverse()) :
+      svgPoint
     return svgEventOffset
   }
 
@@ -138,8 +150,9 @@ function InteractionLayer({
   }
 
   return (
-    <g>
+    <>
       <DrawingCanvas
+        ref={canvas}
         disabled={disabled || move}
         pointerEvents={move ? 'none' : 'all'}
         width={width}
@@ -163,8 +176,8 @@ function InteractionLayer({
           scale={scale}
           played={played}
         />
-      )}
-    </g>
+    )}
+    </>
   )
 }
 

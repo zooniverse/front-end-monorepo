@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import ApprovedIconContainer from './ApprovedIconContainer'
 import ApprovedIcon from './ApprovedIcon'

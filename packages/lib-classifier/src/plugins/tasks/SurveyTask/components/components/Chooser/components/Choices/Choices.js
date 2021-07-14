@@ -1,74 +1,131 @@
-import {
-  Box,
-  Grid
-} from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
-import sortIntoColumns from 'sort-into-columns'
+import React, { useEffect, useState } from 'react'
+import styled, { css, withTheme } from 'styled-components'
+
 import howManyColumns from './helpers/howManyColumns'
 import whatSizeThumbnail from './helpers/whatSizeThumbnail'
 import ChoiceButton from './components/ChoiceButton'
 
-function Choices (props) {
+const StyledGrid = styled.div`
+  ${props => props.theme.dark
+    ? css`background-color: ${props.theme.global.colors['dark-1']};`
+    : css`background-color: ${props.theme.global.colors['light-1']};`
+  }
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 2px;
+  grid-template-rows: repeat(${props => props.rowsCount}, auto);
+  width: 100%;
+  height: 100%;
+`
+
+export function Choices (props) {
   const {
+    autoFocus,
     filteredChoiceIds,
+    handleDelete,
     onChoose,
     selectedChoiceIds,
     task
   } = props
+  const [focusIndex, setFocusIndex] = useState(0)
+
+  useEffect(() => {
+    setFocusIndex(0)
+  }, [filteredChoiceIds])
 
   const columnsCount = howManyColumns(filteredChoiceIds)
-  const sortedFilteredChoiceIds = sortIntoColumns(filteredChoiceIds, columnsCount)
+  const rowsCount = Math.ceil(filteredChoiceIds.length / columnsCount)
   const thumbnailSize = task.alwaysShowThumbnails ? 'small' : whatSizeThumbnail(filteredChoiceIds)
 
+  function handleKeyDown (choiceId, event) {
+    const index = filteredChoiceIds.indexOf(choiceId)
+    let newIndex
+    switch (event.key) {
+      case 'ArrowDown': {
+        event.preventDefault()
+        event.stopPropagation()
+
+        newIndex = (index + 1) % filteredChoiceIds.length
+        setFocusIndex(newIndex)
+        return false
+      }
+      case 'ArrowUp': {
+        event.preventDefault()
+        event.stopPropagation()
+
+        newIndex = index - 1
+        if (newIndex === -1) {
+          newIndex = filteredChoiceIds.length - 1
+        }
+        setFocusIndex(newIndex)
+        return false
+      }
+      case 'Backspace':
+      case 'Delete': {
+        event.preventDefault()
+        event.stopPropagation()
+
+        handleDelete(choiceId)
+        return false
+      }
+      default: {
+        return true
+      }
+    }
+  }
+
   return (
-    // Could possibly drop box by styling gap color? Is that possible? Or using border on button?
-    <Box
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      margin={{ top: 'xsmall' }}
+    <StyledGrid
+      rowsCount={rowsCount}
     >
-      <Grid
-        columns={{
-          count: columnsCount,
-          size: 'auto'
-        }}
-        fill
-        gap='2px'
-      >
-        {sortedFilteredChoiceIds.map((choiceId) => {
-          const choice = task.choices?.[choiceId] || {}
-          const selected = selectedChoiceIds.indexOf(choiceId) > -1
-          const src = task.images?.[choice.images?.[0]] || ''
-          return (
-            <ChoiceButton
-              key={choiceId}
-              choiceId={choiceId}
-              choiceLabel={choice.label}
-              onChoose={onChoose}
-              selected={selected}
-              src={src}
-              thumbnailSize={thumbnailSize}
-            />
-          )
-        })}
-      </Grid>
-    </Box>
+      {filteredChoiceIds.map((choiceId, index) => {
+        const choice = task.choices?.[choiceId] || {}
+        const selected = selectedChoiceIds.indexOf(choiceId) > -1
+        const src = task.images?.[choice.images?.[0]] || ''
+
+        const hasFocus = autoFocus && (index === focusIndex)
+        const tabIndex = (index === focusIndex) ? 0 : -1
+
+        return (
+          <ChoiceButton
+            key={choiceId}
+            choiceId={choiceId}
+            choiceLabel={choice.label}
+            hasFocus={hasFocus}
+            onChoose={onChoose}
+            onKeyDown={handleKeyDown}
+            selected={selected}
+            src={src}
+            tabIndex={tabIndex}
+            thumbnailSize={thumbnailSize}
+          />
+        )
+      })}
+    </StyledGrid>
   )
 }
 
 Choices.defaultProps = {
+  autoFocus: false,
   filteredChoiceIds: [],
+  handleDelete: () => {},
   onChoose: () => {},
-  selectedChoiceIds: []
+  selectedChoiceIds: [],
+  theme: {
+    dark: false,
+    global: {
+      colors: {}
+    }
+  }
 }
 
 Choices.propTypes = {
+  autoFocus: PropTypes.bool,
   filteredChoiceIds: PropTypes.arrayOf(
     PropTypes.string
   ),
+  handleDelete: PropTypes.func,
   onChoose: PropTypes.func,
   selectedChoiceIds: PropTypes.arrayOf(PropTypes.string),
   task: PropTypes.shape({
@@ -76,7 +133,13 @@ Choices.propTypes = {
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     taskKey: PropTypes.string,
     type: PropTypes.string
-  }).isRequired
+  }).isRequired,
+  theme: PropTypes.shape({
+    dark: PropTypes.bool,
+    global: PropTypes.shape({
+      colors: PropTypes.object
+    })
+  })
 }
 
-export default Choices
+export default withTheme(Choices)

@@ -2,7 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import counterpart from 'counterpart'
 import { inject, observer } from 'mobx-react'
 import { bool } from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import RecentSubjects from './RecentSubjects'
 import RecentSubjectsCarousel from './RecentSubjectsCarousel'

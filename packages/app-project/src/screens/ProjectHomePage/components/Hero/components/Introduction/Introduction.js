@@ -4,7 +4,6 @@ import { Anchor, Box, Paragraph } from 'grommet'
 import { Next } from 'grommet-icons'
 import NavLink from '@shared/components/NavLink'
 import { object, string } from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 import en from './locales/en'

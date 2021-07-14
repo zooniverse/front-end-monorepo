@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import ThemeModeToggleContainer from './ThemeModeToggleContainer'
 import ThemeModeToggle from './ThemeModeToggle'

@@ -1,6 +1,5 @@
 import { withResponsiveContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import React from 'react'
 import { Chat } from 'grommet-icons'
 import { Box, Grid, Paragraph } from 'grommet'
 import { string } from 'prop-types'

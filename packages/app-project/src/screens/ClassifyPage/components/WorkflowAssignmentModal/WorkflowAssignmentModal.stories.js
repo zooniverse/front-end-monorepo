@@ -1,4 +1,3 @@
-import React from 'react'
 import WorkflowAssignmentModalContainer from './WorkflowAssignmentModalContainer'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'

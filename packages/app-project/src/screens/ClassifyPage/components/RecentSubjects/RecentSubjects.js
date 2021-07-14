@@ -2,7 +2,6 @@ import counterpart from 'counterpart'
 import { Box, Grid, Paragraph } from 'grommet'
 import getConfig from 'next/config'
 import { array, bool, number, string } from 'prop-types'
-import React from 'react'
 
 import en from './locales/en'
 import ContentBox from '@shared/components/ContentBox'
