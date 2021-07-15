@@ -18,6 +18,7 @@ describe('Component > ProjectAboutPage', () => {
         <ProjectAboutPage
           aboutNavLinks={['research', 'team']}
           aboutPageData={aboutPageData}
+          theme={{ dark: false }}
         />
       )
     })
@@ -53,6 +54,7 @@ describe('Component > ProjectAboutPage', () => {
             { id: 1, display_name: 'name', role: 'owner' }
 
           ]}
+          theme={{ dark: false }}
         />
       )
     })
