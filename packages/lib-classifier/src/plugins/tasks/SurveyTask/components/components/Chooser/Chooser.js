@@ -29,6 +29,7 @@ export default function Chooser (props) {
   return (
     <Box>
       <FilterStatus
+        disabled={disabled}
         filters={filters}
         handleFilter={handleFilter}
         task={task}
@@ -36,6 +37,7 @@ export default function Chooser (props) {
       <StyledHorizontalRule />
       <Choices
         autoFocus={autoFocus}
+        disabled={disabled}
         filteredChoiceIds={filteredChoiceIds}
         handleDelete={handleDelete}
         onChoose={onChoose}

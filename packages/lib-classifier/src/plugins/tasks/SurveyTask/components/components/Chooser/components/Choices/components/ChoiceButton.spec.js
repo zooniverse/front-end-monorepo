@@ -38,6 +38,7 @@ describe('Component > ChoiceButton', function () {
   it('should call onChoose on click of the button', function () {
     wrapper.simulate('click')
     expect(onChooseSpy).to.have.been.calledOnceWith('cat-1')
+    onChooseSpy.resetHistory()
   })
 
   it('should call onKeyDown on keyDown of the button', function () {
@@ -48,6 +49,18 @@ describe('Component > ChoiceButton', function () {
 
   it('should not render a thumbnail', function () {
     expect(wrapper.find(Media)).to.have.lengthOf(0)
+  })
+
+  describe('when disabled', function () {
+    before(function () {
+      wrapper.setProps({ disabled: true })
+    })
+
+    it('should not be clickable', function () {
+      wrapper.simulate('click')
+      expect(onChooseSpy).to.not.have.been.called()
+      onChooseSpy.resetHistory()
+    })
   })
 
   describe('when there is a small thumbnail', function () {

@@ -32,6 +32,7 @@ const Template = ({
   choiceId,
   choiceLabel,
   dark,
+  disabled,
   hasFocus,
   selected,
   src,
@@ -44,6 +45,7 @@ const Template = ({
     <ChoiceButton
       choiceId={choiceId}
       choiceLabel={choiceLabel}
+      disabled={disabled}
       hasFocus={hasFocus}
       onChoose={() => console.log(choiceId)}
       onKeyDown={({ key }) => console.log(choiceId, key)}
@@ -60,6 +62,7 @@ Default.args = {
   choiceId: 'AARDVARK',
   choiceLabel: 'Aardvark',
   dark: false,
+  disabled: false,
   hasFocus: false,
   selected: false,
   src: '',
@@ -72,6 +75,7 @@ LongLabel.args = {
   choiceId: 'LONG',
   choiceLabel: 'Long label is really long label',
   dark: false,
+  disabled: false,
   hasFocus: false,
   selected: false,
   src: '',
@@ -84,6 +88,7 @@ SmallThumbnail.args = {
   choiceId: 'CRCL',
   choiceLabel: 'Caracal',
   dark: false,
+  disabled: false,
   hasFocus: false,
   selected: false,
   src: CARACAL_SRC,
@@ -96,6 +101,7 @@ MediumThumbnail.args = {
   choiceId: 'CRCL',
   choiceLabel: 'Caracal',
   dark: false,
+  disabled: false,
   hasFocus: false,
   selected: false,
   src: CARACAL_SRC,
@@ -108,6 +114,7 @@ LargeThumbnail.args = {
   choiceId: 'CRCL',
   choiceLabel: 'Caracal',
   dark: false,
+  disabled: false,
   hasFocus: false,
   selected: false,
   src: CARACAL_SRC,

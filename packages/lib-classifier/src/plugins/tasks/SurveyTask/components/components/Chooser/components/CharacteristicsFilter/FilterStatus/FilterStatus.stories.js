@@ -30,12 +30,14 @@ export default {
 
 const Template = ({
   dark,
+  disabled,
   task
 }) => (
   <StoryContext
     theme={{ ...zooTheme, dark }}
   >
     <FilterStatus
+      disabled={disabled}
       task={task}
     />
   </StoryContext>
@@ -44,5 +46,6 @@ const Template = ({
 export const Default = Template.bind({})
 Default.args = {
   dark: false,
+  disabled: false,
   task: mockTask
 }
