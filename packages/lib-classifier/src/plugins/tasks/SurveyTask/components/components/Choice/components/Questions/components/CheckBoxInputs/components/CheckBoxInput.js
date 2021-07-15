@@ -19,6 +19,10 @@ export const StyledBox = styled(Box)`
   &:focus-within {
     box-shadow: 0 0 2px 2px ${props => props.theme.global.colors[props.theme.global.colors.focus]};
   }
+
+  &:hover:not(:focus-within) {
+    box-shadow: 0 0 2px 2px ${props => props.theme.global.colors.brand};
+  }
 `
 
 function CheckBoxInput (props) {
