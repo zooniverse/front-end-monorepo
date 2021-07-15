@@ -28,6 +28,7 @@ export const StyledBox = styled(Box)`
 function RadioInput (props) {
   const {
     handleRadioChange,
+    handleRadioKeyDown,
     hasFocus,
     isChecked,
     option,
@@ -66,6 +67,7 @@ function RadioInput (props) {
           checked={isChecked}
           onChange={({ target }) => (handleRadioChange(target.value))}
           onClick={({ target }) => (handleRadioChange(target.value))}
+          onKeyDown={(event) => (handleRadioKeyDown(event))}
         />
         <Text
           weight={isChecked ? 'bold' : 'normal'}
