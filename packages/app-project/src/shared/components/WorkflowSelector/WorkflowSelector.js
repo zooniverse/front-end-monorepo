@@ -3,7 +3,6 @@ import { Markdownz, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box, Paragraph, Text } from 'grommet'
 import { arrayOf, func, shape, string } from 'prop-types'
-import { useState } from 'react';
 import { withTheme } from 'styled-components'
 import { Bars } from 'svg-loaders-react'
 
