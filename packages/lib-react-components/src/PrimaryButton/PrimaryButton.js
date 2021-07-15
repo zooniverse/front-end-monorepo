@@ -42,7 +42,9 @@ PrimaryButton.propTypes = {
 }
 
 PrimaryButton.defaultProps = {
-  color: 'gold'
+  color: 'gold',
+  disabled: false,
+  href: ''
 }
 
 export default PrimaryButton

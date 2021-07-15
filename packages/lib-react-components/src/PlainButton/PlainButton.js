@@ -50,6 +50,7 @@ function PlainButton (props) {
 
 PlainButton.defaultProps = {
   className: '',
+  href: '',
   labelSize: 'medium',
   onClick: () => {},
   text: '',
@@ -80,3 +81,4 @@ PlainButton.propTypes = {
 }
 
 export default withTheme(PlainButton)
+export { PlainButton }
