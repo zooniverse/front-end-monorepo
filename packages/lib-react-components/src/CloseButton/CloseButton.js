@@ -27,11 +27,19 @@ const StyledButton = styled(Button)`
   }
 `
 
-function CloseButton ({ closeFn, color, ...rest }) {
+function CloseButton ({ as, closeFn, color, disabled, href, ...rest }) {
+  // Dunno why anyone would do this to do this button
+  // But let's keep them from doing something that
+  // shouldn't be done
+  const renderAs = as || href && disabled && 'span'
+
   return (
     <StyledButton
       a11yTitle={counterpart('CloseButton.close')}
+      as={renderAs}
+      disabled={disabled}
       icon={<CloseIcon color={color} size='15px' />}
+      href={href}
       onClick={closeFn}
       {...rest}
     />

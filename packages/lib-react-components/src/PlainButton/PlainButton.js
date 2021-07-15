@@ -13,11 +13,25 @@ export const StyledPlainButton = styled(Button)`
 `
 
 function PlainButton (props) {
-  const { className, onClick, labelSize, text, color, ...rest } = props
+  const {
+    as,
+    className,
+    disabled,
+    href,
+    onClick,
+    labelSize,
+    text,
+    color,
+    ...rest
+  } = props
+  const renderAs = as || href && disabled && 'span'
 
   return (
     <StyledPlainButton
+      as={renderAs}
       className={className}
+      disabled={disabled}
+      href={href}
       gap='xxsmall'
       label={(
         <SpacedText

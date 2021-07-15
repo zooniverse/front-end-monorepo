@@ -15,15 +15,19 @@ const themeMap = {
 }
 
 function PrimaryButton (props) {
-  const { color, label, ...rest } = props
+  const { as, color, disabled, href, label, ...rest } = props
   const theme = themeMap[color] || themeMap['gold']
   const wrappedLabel = React.isValidElement(label)
     ? label
     : <Text children={label} size='medium' />
+  const renderAs = as || href && disabled && 'span'
 
   return (
     <ThemeContext.Extend value={theme}>
       <Button
+        as={renderAs}
+        disabled={disabled}
+        href={href}
         label={wrappedLabel}
         primary
         {...rest}

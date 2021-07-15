@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Changed `LinkList` component to use `fit-content` CSS styling to render correct height in Safari.
 - Modified matchRegex in `ping` of `Markdownz` to avoid creating username-links in typed email addresses.
+- Fixed buttons that could be rendered like disabled buttons, but still functioned as links. Grommet's `Button` allows you to add an `href` prop which will render a link (HTML anchor tag) styled like a button. It, however, accepts all `Button` props including `disabled`, but links can't be disabled. We now prevent this by checking to see if an `href` is defined and if `disabled` is true and instead render a span via the `as` prop. This impacts `PrimaryButton`, `PlainButton`, and `CloseButton` which directly use Grommet's `Button`.
 
 ## [1.1.0] 2021-05-26
 
