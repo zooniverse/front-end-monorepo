@@ -4,9 +4,6 @@ import styled, { withTheme } from 'styled-components'
 import counterpart from 'counterpart'
 import en from './locales/en'
 
-counterpart.registerTranslations('en', en)
-
-/** Components */
 import StandardLayout from '@shared/components/StandardLayout'
 import {
   SpacedHeading,
@@ -17,6 +14,9 @@ import AboutSidebar from './components/AboutSidebar'
 import AboutDropdownNav from './components/AboutDropdownNav'
 import TeamMember from './components/TeamMember'
 import AboutMarkdownz from './components/AboutMarkdownz/AboutMarkdownz'
+import ThemeModeToggle from '@components/ThemeModeToggle'
+
+counterpart.registerTranslations('en', en)
 
 export const PageHeading = styled(Heading)`
   font-weight: normal;
@@ -26,13 +26,14 @@ const SidebarHeading = styled(SpacedHeading)`
   padding: 5px 20px;
 `
 
-function ProjectAboutPage({
+function ProjectAboutPage ({
   aboutNavLinks,
   aboutPageData,
   inBeta,
   projectDisplayName,
   screenSize,
-  teamArray
+  teamArray,
+  theme: { dark = true }
 }) {
   const { content, title } = aboutPageData
 
@@ -42,10 +43,11 @@ function ProjectAboutPage({
 
   return (
     <StandardLayout inBeta={inBeta}>
+      {/* <ThemeModeToggle /> */}
       <Box
-        background="neutral-6"
+        background={{ dark: 'dark-3', light: 'neutral-6' }}
         border={{
-          color: 'light-3',
+          color: { light: 'light-3' },
           size: '1px',
           style: 'solid',
           side: 'vertical'
@@ -53,8 +55,9 @@ function ProjectAboutPage({
         height={{ min: '98vh' }}
         margin={{ left: 'large', right: 'large' }}
         width={{ min: 'fill-available', max: 'xxlarge' }}
-        pad="large"
-        alignSelf="center"
+        pad='large'
+        alignSelf='center'
+        elevation={dark ? 'xlarge' : 'none'}
         flex
       >
         <Grid
@@ -63,7 +66,7 @@ function ProjectAboutPage({
         >
           {screenSize !== 'small' ? (
             <Box>
-              <SidebarHeading children="About" />
+              <SidebarHeading children='About' />
               <AboutSidebar aboutNavLinks={aboutNavLinks} />
             </Box>
           ) : (
@@ -72,9 +75,9 @@ function ProjectAboutPage({
           <Box>
             <PageHeading
               children={pageTitle}
-              level="2"
-              weight="normal"
-              size="40px"
+              level='2'
+              weight='normal'
+              size='40px'
               margin={{ bottom: '30px' }}
             />
             {isTeamPage ? (
@@ -87,11 +90,11 @@ function ProjectAboutPage({
                   <SpacedText
                     margin={{ bottom: '14px' }}
                     children={`${projectDisplayName} TEAM`}
-                    weight="bold"
-                    color="black"
+                    weight='bold'
+                    color='black'
                   />
                   {teamArray.length && (
-                    <Box as="ul" margin="none" pad="none">
+                    <Box as='ul' margin='none' pad='none'>
                       {teamArray.map(user => (
                         <TeamMember key={user.id} user={user} />
                       ))}
