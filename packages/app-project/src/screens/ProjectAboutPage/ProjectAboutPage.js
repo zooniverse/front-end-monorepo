@@ -44,7 +44,7 @@ function ProjectAboutPage ({
 
   return (
     <StandardLayout inBeta={inBeta}>
-      <Grid columns={['xxsmall', 'flex', 'xxsmall']} gap='xxsmall'>
+      <Grid columns={screenSize === 'small' ? ['auto'] : ['xsmall', 'flex', 'xsmall']}>
         <Box />
         <Box
           background={{ dark: 'dark-3', light: 'neutral-6' }}
@@ -55,7 +55,6 @@ function ProjectAboutPage ({
             side: 'vertical'
           }}
           height={{ min: '98vh' }}
-          // margin={{ left: 'large', right: 'large' }}
           width={{ min: 'fill-available', max: 'xxlarge' }}
           pad='large'
           alignSelf='center'
@@ -110,7 +109,7 @@ function ProjectAboutPage ({
             </Box>
           </Grid>
         </Box>
-        <Box justify='start' margin={{ top: 'small' }}>
+        <Box justify='start' margin={screenSize === 'small' ? { vertical: 'medium' } : { top: 'medium' }}>
           <ThemeModeToggle />
         </Box>
       </Grid>
