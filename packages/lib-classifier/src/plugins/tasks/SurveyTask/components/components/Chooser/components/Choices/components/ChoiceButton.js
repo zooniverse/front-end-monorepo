@@ -19,7 +19,7 @@ const StyledChoiceButton = styled(Button)`
   padding: 5px;
   text-align: start;
 
-  &:focus, &:hover {
+  &:focus, &:enabled:hover {
     background-color: ${props => props.theme.global.colors['accent-1']};
   }
 `
@@ -30,6 +30,7 @@ export function ChoiceButton (props) {
   const {
     choiceId,
     choiceLabel,
+    disabled,
     hasFocus,
     onKeyDown,
     onChoose,
@@ -60,6 +61,7 @@ export function ChoiceButton (props) {
   return (
     <StyledChoiceButton
       ref={choiceButton}
+      disabled={disabled}
       label={
         <Box
           direction='row'
@@ -96,6 +98,7 @@ export function ChoiceButton (props) {
 ChoiceButton.defaultProps = {
   choiceId: '',
   choiceLabel: '',
+  disabled: false,
   hasFocus: false,
   onChoose: () => {},
   onKeyDown: () => {},
@@ -114,6 +117,7 @@ ChoiceButton.defaultProps = {
 ChoiceButton.propTypes = {
   choiceId: PropTypes.string,
   choiceLabel: PropTypes.string,
+  disabled: PropTypes.bool,
   hasFocus: PropTypes.bool,
   onChoose: PropTypes.func,
   onKeyDown: PropTypes.func,

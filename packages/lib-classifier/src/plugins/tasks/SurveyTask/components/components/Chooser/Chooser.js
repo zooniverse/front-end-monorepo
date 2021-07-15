@@ -36,6 +36,7 @@ export default function Chooser (props) {
       <StyledHorizontalRule />
       <Choices
         autoFocus={autoFocus}
+        disabled={disabled}
         filteredChoiceIds={filteredChoiceIds}
         handleDelete={handleDelete}
         onChoose={onChoose}
