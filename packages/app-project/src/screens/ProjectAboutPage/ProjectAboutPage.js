@@ -44,71 +44,76 @@ function ProjectAboutPage ({
 
   return (
     <StandardLayout inBeta={inBeta}>
-      <ThemeModeToggle />
-      <Box
-        background={{ dark: 'dark-3', light: 'neutral-6' }}
-        border={{
-          color: { light: 'light-3' },
-          size: '1px',
-          style: 'solid',
-          side: 'vertical'
-        }}
-        height={{ min: '98vh' }}
-        margin={{ left: 'large', right: 'large' }}
-        width={{ min: 'fill-available', max: 'xxlarge' }}
-        pad='large'
-        alignSelf='center'
-        elevation={dark ? 'xlarge' : 'none'}
-        flex
-      >
-        <Grid
-          columns={screenSize === 'small' ? ['auto'] : ['small', 'flex']}
-          gap={screenSize === 'small' ? '' : '8%'}
+      <Grid columns={['xxsmall', 'flex', 'xxsmall']} gap='xxsmall'>
+        <Box />
+        <Box
+          background={{ dark: 'dark-3', light: 'neutral-6' }}
+          border={{
+            color: { light: 'light-3' },
+            size: '1px',
+            style: 'solid',
+            side: 'vertical'
+          }}
+          height={{ min: '98vh' }}
+          // margin={{ left: 'large', right: 'large' }}
+          width={{ min: 'fill-available', max: 'xxlarge' }}
+          pad='large'
+          alignSelf='center'
+          elevation={dark ? 'xlarge' : 'none'}
+          flex
         >
-          {screenSize !== 'small' ? (
-            <Box>
-              <SidebarHeading children='About' />
-              <AboutSidebar aboutNavLinks={aboutNavLinks} />
-            </Box>
-          ) : (
-            <AboutDropdownNav aboutNavLinks={aboutNavLinks} />
-          )}
-          <Box>
-            <PageHeading
-              children={pageTitle}
-              level='2'
-              weight='normal'
-              size='40px'
-              margin={{ bottom: '30px' }}
-            />
-            {isTeamPage ? (
-              <Grid
-                columns={screenSize === 'small' ? ['auto'] : ['flex', 'small']}
-                gap={screenSize === 'small' ? '' : '8%'}
-              >
-                <AboutMarkdownz content={content} />
-                <Box>
-                  <SpacedText
-                    margin={{ bottom: '14px' }}
-                    children={`${projectDisplayName} TEAM`}
-                    weight='bold'
-                    color={{ light: 'black' }}
-                  />
-                  {teamArray.length && (
-                    <Box as='ul' margin='none' pad='none'>
-                      {teamArray.map(user => (
-                        <TeamMember key={user.id} user={user} />
-                      ))}
-                    </Box>
-                  )}
-                </Box>
-              </Grid>
+          <Grid
+            columns={screenSize === 'small' ? ['auto'] : ['small', 'flex']}
+            gap={screenSize === 'small' ? '' : '8%'}
+          >
+            {screenSize !== 'small' ? (
+              <Box>
+                <SidebarHeading children='About' />
+                <AboutSidebar aboutNavLinks={aboutNavLinks} />
+              </Box>
             ) : (
-              <AboutMarkdownz content={content} />
+              <AboutDropdownNav aboutNavLinks={aboutNavLinks} />
             )}
-          </Box>
-        </Grid>
-      </Box>
+            <Box>
+              <PageHeading
+                children={pageTitle}
+                level='2'
+                weight='normal'
+                size='40px'
+                margin={{ bottom: '30px' }}
+              />
+              {isTeamPage ? (
+                <Grid
+                  columns={screenSize === 'small' ? ['auto'] : ['flex', 'small']}
+                  gap={screenSize === 'small' ? '' : '8%'}
+                >
+                  <AboutMarkdownz content={content} />
+                  <Box>
+                    <SpacedText
+                      margin={{ bottom: '14px' }}
+                      children={`${projectDisplayName} TEAM`}
+                      weight='bold'
+                      color={{ light: 'black' }}
+                    />
+                    {teamArray.length && (
+                      <Box as='ul' margin='none' pad='none'>
+                        {teamArray.map(user => (
+                          <TeamMember key={user.id} user={user} />
+                        ))}
+                      </Box>
+                    )}
+                  </Box>
+                </Grid>
+              ) : (
+                <AboutMarkdownz content={content} />
+              )}
+            </Box>
+          </Grid>
+        </Box>
+        <Box justify='start' margin={{ top: 'small' }}>
+          <ThemeModeToggle />
+        </Box>
+      </Grid>
     </StandardLayout>
   )
 }
