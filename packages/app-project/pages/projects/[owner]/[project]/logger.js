@@ -38,7 +38,7 @@ class Logger extends Component {
           </Heading>
           <div>
             <p>
-              You're in development mode (<code>NODE_ENV !== 'production'</code>), so you're seeing this message. In production, this route will 404, so make sure you check the CloudFront config so it's picked up by PFE.
+              You are in development mode (<code>NODE_ENV !== &#39;production&#39;</code>), so you are seeing this message. In production, this route will 404, so make sure you check the CloudFront config so it is picked up by PFE.
             </p>
             <Button label='Throw Error!' onClick={testError} />
           </div>

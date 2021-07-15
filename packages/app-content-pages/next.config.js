@@ -37,8 +37,8 @@ const nextConfig = {
     APP_ENV
   },
 
-  future: {
-    webpack5: true
+  eslint: {
+    ignoreDuringBuilds: true
   },
 
   webpack: (config) => {

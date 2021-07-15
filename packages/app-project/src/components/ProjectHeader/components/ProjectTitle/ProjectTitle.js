@@ -31,18 +31,16 @@ function ProjectTitle (props) {
 
   const isCurrentPage = router.pathname === linkProps.href
 
-  const anchor = (
-    <StyledAnchor
-      label={(
-        <StyledHeading
-          children={title}
-          color='white'
-          margin='none'
-          size='small'
-        />
-      )}
-    />
+  const label = (
+    <StyledHeading
+      color='white'
+      margin='none'
+      size='small'
+    >
+      {title}
+    </StyledHeading>
   )
+  const anchor = <StyledAnchor label={label} />
 
   if (isCurrentPage) {
     return anchor
