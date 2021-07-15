@@ -34,7 +34,7 @@ function ProjectAboutPage ({
   projectDisplayName,
   screenSize,
   teamArray,
-  theme: { dark }
+  theme: { dark = false }
 }) {
   const { content, title } = aboutPageData
 
