@@ -1,40 +1,52 @@
 import { normalizeColor } from 'grommet/utils'
 import { css } from 'styled-components'
-import getGradientShade from '../helpers/getGradientShade'
+import { getGradientShade } from '@zooniverse/react-components'
 
 const theme = {
   button: {
-    color: {
-      dark: 'neutral-6',
-      light: 'dark-1'
-    },
-    primary: {
-      color: {
-        dark: 'dark-1',
-        light: 'neutral-6'
-      }
-    },
     extend: props => {
-      const color = normalizeColor('brand', props.theme)
+      const { selected, theme } = props
+      const { dark, global: { colors } } = theme
+      const color = normalizeColor('accent-1', theme)
       const gradientShade = getGradientShade(color)
 
+      let backgroundColor = colors['neutral-6']
+      let textColor = colors['dark-1']
+      if (dark) {
+        backgroundColor = colors['dark-5']
+        textColor = colors['neutral-6']
+      }
+      if (selected) {
+        backgroundColor = colors['brand']
+        textColor = colors['neutral-6']
+      }
+
       return css`
+        background: ${backgroundColor};
+        border: none;
+        border-radius: 0px;
+        color: ${textColor};
+        padding: 5px;
+        text-align: start;
         transition: none;
-        text-align: center;
+        
         &:disabled {
           cursor: not-allowed;
         }
+        
         &:focus:not(:disabled),
         &:hover:not(:disabled) {
-          color: white;
           background: linear-gradient(${color}, ${gradientShade});
           box-shadow: none;
+          color: ${colors['dark-1']};
         }
+        
         &:active:not(:disabled) {
-          color: white;
           background: linear-gradient(${gradientShade}, ${color});
+          color: ${colors['dark-1']};
         }
-    `}
+      `
+    }
   }
 }
 

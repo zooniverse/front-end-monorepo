@@ -3,8 +3,9 @@ import { shallow } from 'enzyme'
 import { Text } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
+import zooTheme from '@zooniverse/grommet-theme'
 
-import CheckBoxInput, { StyledBox } from './CheckBoxInput'
+import { CheckBoxInput, StyledBox } from './CheckBoxInput'
 
 describe('Component > CheckBoxInput', function () {
   let wrapper, handleCheckBoxChangeSpy
@@ -19,6 +20,7 @@ describe('Component > CheckBoxInput', function () {
           value: 'TNG'
         }}
         questionId='WHTBHVRSDS'
+        theme={zooTheme}
       />
     )
   })

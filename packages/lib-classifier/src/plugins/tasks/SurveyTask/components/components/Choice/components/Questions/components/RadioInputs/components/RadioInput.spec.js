@@ -2,8 +2,9 @@ import { shallow } from 'enzyme'
 import { Text } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
+import zooTheme from '@zooniverse/grommet-theme'
 
-import RadioInput, { StyledBox } from './RadioInput'
+import { RadioInput, StyledBox } from './RadioInput'
 
 describe('Component > RadioInput', function () {
   let wrapper, handleRadioChangeSpy, handleRadioKeyDownSpy
@@ -20,6 +21,7 @@ describe('Component > RadioInput', function () {
           value: 'S'
         }}
         questionId='RTHRNNGPRSNT'
+        theme={zooTheme}
       />
     )
   })

@@ -13,7 +13,7 @@ function StoryContext (props) {
     <Grommet
       background={{
         dark: 'dark-1',
-        light: 'light-1'
+        light: 'neutral-6'
       }}
       theme={theme}
       themeMode={(theme.dark) ? 'dark' : 'light'}
