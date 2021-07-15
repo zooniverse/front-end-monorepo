@@ -30,17 +30,18 @@ const StyledLabel = styled(SpacedText)`
 `
 
 export default function FilterStatus (props) {
-  const { 
+  const {
+    disabled,
     filters,
     handleFilter,
     task
   } = props
-  const { 
+  const {
     characteristics,
     characteristicsOrder,
     images
   } = task
-  
+
   const filterStatusRef = useRef()
 
   const selectedCharacteristicIds = Object.keys(filters)
@@ -55,6 +56,7 @@ export default function FilterStatus (props) {
     >
       <StyledDropButton
         backgroundColor={selectedCharacteristicIds.length > 0}
+        disabled={disabled}
         dropAlign={{
           left: 'left',
           top: 'bottom'
@@ -75,7 +77,7 @@ export default function FilterStatus (props) {
         gap='none'
         icon={<FilterIcon />}
         label={
-          <StyledLabel 
+          <StyledLabel
             color='neutral-1'
           >
             {counterpart('CharacteristicsFilter.filter')}
@@ -87,7 +89,7 @@ export default function FilterStatus (props) {
         const selectedValueId = filters?.[characteristicId] || ''
         const value = characteristic.values?.[selectedValueId] || {}
         const valueImageSrc = images?.[value.image] || ''
-        
+
         return (
           <FilterButton
             key={selectedValueId}
@@ -105,11 +107,13 @@ export default function FilterStatus (props) {
 }
 
 FilterStatus.defaultProps = {
+  disabled: false,
   filters: {},
   handleFilter: () => {}
 }
 
 FilterStatus.propTypes = {
+  disabled: PropTypes.bool,
   filters: PropTypes.objectOf(PropTypes.string),
   handleFilter: PropTypes.func,
   task: PropTypes.shape({
