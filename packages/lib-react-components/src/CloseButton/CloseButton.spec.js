@@ -2,6 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import CloseButton from './CloseButton'
+import { expect } from 'chai'
 
 describe('<CloseButton />', function () {
   let wrapper
@@ -16,6 +17,11 @@ describe('<CloseButton />', function () {
   it('calls on the closeFn prop on click', function () {
     wrapper.simulate('click')
     expect(wrapper.props().onClick).to.have.been.calledOnce()
+  })
+
+  it('should not pass along a href prop', function () {
+    wrapper.setProps({ href: 'www.google.com' })
+    expect(wrapper.props().href).to.be.undefined()
   })
 
   describe('with a color prop', function () {

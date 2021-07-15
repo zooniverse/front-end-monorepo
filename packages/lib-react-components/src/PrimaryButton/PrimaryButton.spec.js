@@ -1,5 +1,6 @@
+import { expect } from 'chai'
 import { shallow, render } from 'enzyme'
-import { Grommet } from 'grommet'
+import { Grommet, Button } from 'grommet'
 import React from 'react'
 
 import PrimaryButton from './PrimaryButton'
@@ -27,13 +28,23 @@ describe('Component > PrimaryButton', function () {
     }
 
     const wrapper = shallow(
-      <Grommet>
-        <PrimaryButton label={LABEL} {...TEST_PROPS} />
-      </Grommet>
+        <PrimaryButton label={LABEL} {...TEST_PROPS} />, {
+        wrappingComponent: <Grommet />
+      }
     )
 
-    const primaryButton = wrapper.find(PrimaryButton).dive()
-    const grommetButton = primaryButton.dive().dive().dive()
-    expect(grommetButton.props()).to.deep.include(TEST_PROPS)
+    expect(wrapper.find(Button).props()).to.deep.include(TEST_PROPS)
+  })
+
+  describe('when href is defined and disabled is true', function () {
+    it('should render as a span', function () {
+      const wrapper = render(
+        <Grommet>
+          <PrimaryButton disabled href='www.google.com' label={LABEL} />
+        </Grommet>
+      )
+
+      expect(wrapper.children()[0].name).to.equal('span')
+    })
   })
 })

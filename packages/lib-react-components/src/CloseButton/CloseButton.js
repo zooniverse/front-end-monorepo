@@ -27,10 +27,13 @@ const StyledButton = styled(Button)`
   }
 `
 
-function CloseButton ({ closeFn, color, ...rest }) {
+function CloseButton ({ as, closeFn, color, disabled, href, ...rest }) {
+  // We've destructured href from the props to make sure it's NOT passed along
+
   return (
     <StyledButton
       a11yTitle={counterpart('CloseButton.close')}
+      disabled={disabled}
       icon={<CloseIcon color={color} size='15px' />}
       onClick={closeFn}
       {...rest}
