@@ -4,6 +4,7 @@ import styled, { withTheme } from 'styled-components'
 import counterpart from 'counterpart'
 import en from './locales/en'
 
+/** Components */
 import StandardLayout from '@shared/components/StandardLayout'
 import {
   SpacedHeading,
@@ -33,7 +34,7 @@ function ProjectAboutPage ({
   projectDisplayName,
   screenSize,
   teamArray,
-  theme: { dark = true }
+  theme: { dark }
 }) {
   const { content, title } = aboutPageData
 
