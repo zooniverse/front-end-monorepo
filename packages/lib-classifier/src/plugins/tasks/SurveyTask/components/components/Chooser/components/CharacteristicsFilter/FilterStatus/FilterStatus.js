@@ -1,7 +1,7 @@
 import { Box, DropButton } from 'grommet'
 import PropTypes from 'prop-types'
 import React, { useRef } from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
 
 import Characteristics from '../Characteristics'
@@ -18,9 +18,14 @@ const StyledDropButton = styled(DropButton)`
   border-radius: 16px;
   padding: 3px 8px;
 
-  ${props => props.backgroundColor
-    ? css`background-color: ${props.theme.global.colors['accent-1']};`
-    : css`background-color: none;`}
+  &:focus,
+  &:enabled:hover {
+    text-decoration: underline;
+  }
+
+  &:hover:not(:focus) {
+    box-shadow: none;
+  }
 `
 
 const StyledLabel = styled(SpacedText)`
@@ -59,7 +64,6 @@ export default function FilterStatus (props) {
       height='xxsmall'
     >
       <StyledDropButton
-        backgroundColor={selectedCharacteristicIds.length > 0}
         dropAlign={{
           left: 'left',
           top: 'bottom'
@@ -83,7 +87,7 @@ export default function FilterStatus (props) {
         label={
           <StyledLabel
             color={{
-              dark: 'brand',
+              dark: 'accent-1',
               light: 'neutral-1'
             }}
           >
