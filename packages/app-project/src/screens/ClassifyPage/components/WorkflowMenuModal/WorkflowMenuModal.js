@@ -10,7 +10,7 @@ import SubjectPicker from '@shared/components/SubjectPicker'
 /**
   A popup menu which allows you to choose a workflow and optional subject set from the classify page.
 */
-export default function WorkflowMenu({
+export default function WorkflowMenuModal({
   headingBackground = 'brand',
   subjectSetFromUrl,
   titleColor = 'neutral-6',
@@ -95,7 +95,7 @@ const workflowType = shape({
   id: string
 })
 
-WorkflowMenu.propTypes = {
+WorkflowMenuModal.propTypes = {
   /**
     Background colour of the title bar.
   */
