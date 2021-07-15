@@ -2,7 +2,7 @@ import { shallow } from 'enzyme'
 
 import { ClassifyPage, ClassifierWrapper } from './ClassifyPage'
 import FinishedForTheDay from './components/FinishedForTheDay'
-import WorkflowMenu from './components/WorkflowMenu'
+import WorkflowMenuModal from './components/WorkflowMenuModal'
 import ThemeModeToggle from '@components/ThemeModeToggle'
 import ProjectName from '@components/ProjectName'
 import YourStats from './components/YourStats'
@@ -52,7 +52,7 @@ describe('Component > ClassifyPage', function () {
     })
 
     it('should show a workflow selector', function () {
-      expect(wrapper.find(WorkflowMenu)).to.have.lengthOf(1)
+      expect(wrapper.find(WorkflowMenuModal)).to.have.lengthOf(1)
     })
   })
 
@@ -64,7 +64,7 @@ describe('Component > ClassifyPage', function () {
     })
 
     it('should not show a workflow selector', function () {
-      expect(wrapper.find(WorkflowMenu)).to.have.lengthOf(0)
+      expect(wrapper.find(WorkflowMenuModal)).to.have.lengthOf(0)
     })
   })
 
@@ -81,7 +81,7 @@ describe('Component > ClassifyPage', function () {
       })
 
       it('should show a workflow menu', function () {
-        expect(wrapper.find(WorkflowMenu)).to.have.lengthOf(1)
+        expect(wrapper.find(WorkflowMenuModal)).to.have.lengthOf(1)
       })
 
       it('should not pass the workflow ID to the classifier', function () {
@@ -102,7 +102,7 @@ describe('Component > ClassifyPage', function () {
       })
 
       it('should not show a workflow menu', function () {
-        expect(wrapper.find(WorkflowMenu)).to.have.lengthOf(0)
+        expect(wrapper.find(WorkflowMenuModal)).to.have.lengthOf(0)
       })
 
       it('should pass the workflow ID to the classifier', function () {
@@ -141,7 +141,7 @@ describe('Component > ClassifyPage', function () {
         })
 
         it('should show a workflow menu', function () {
-          expect(wrapper.find(WorkflowMenu)).to.have.lengthOf(1)
+          expect(wrapper.find(WorkflowMenuModal)).to.have.lengthOf(1)
         })
 
         it('should not pass the workflow ID to the classifier', function () {
@@ -170,7 +170,7 @@ describe('Component > ClassifyPage', function () {
         })
 
         it('should not show a workflow menu', function () {
-          expect(wrapper.find(WorkflowMenu)).to.have.lengthOf(0)
+          expect(wrapper.find(WorkflowMenuModal)).to.have.lengthOf(0)
         })
 
         it('should pass the workflow ID to the classifier', function () {

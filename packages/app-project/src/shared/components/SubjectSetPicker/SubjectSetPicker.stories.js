@@ -22,7 +22,7 @@ function StoryContext (props) {
 }
 
 export default {
-  title: 'Project App / Screens / Project Home / Subject Set Picker',
+  title: 'Project App / Shared / Subject Set Picker',
   component: SubjectSetPicker,
   args: {
     dark: false,
