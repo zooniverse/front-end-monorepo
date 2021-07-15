@@ -44,7 +44,7 @@ function ProjectAboutPage ({
 
   return (
     <StandardLayout inBeta={inBeta}>
-      {/* <ThemeModeToggle /> */}
+      <ThemeModeToggle />
       <Box
         background={{ dark: 'dark-3', light: 'neutral-6' }}
         border={{
@@ -92,7 +92,7 @@ function ProjectAboutPage ({
                     margin={{ bottom: '14px' }}
                     children={`${projectDisplayName} TEAM`}
                     weight='bold'
-                    color='black'
+                    color={{ light: 'black' }}
                   />
                   {teamArray.length && (
                     <Box as='ul' margin='none' pad='none'>
