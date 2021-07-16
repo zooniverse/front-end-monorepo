@@ -42,6 +42,8 @@ COPY .yarn /usr/src/.yarn
 
 ADD .yarnrc /usr/src/
 
+ADD lerna.json /usr/src/
+
 COPY ./packages /usr/src/packages
 
 RUN chown -R node:node .
