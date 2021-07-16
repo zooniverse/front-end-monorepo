@@ -103,7 +103,7 @@ ADD .yarnrc /usr/src/
 
 COPY --from=builder /usr/src/packages ./packages
 
-RUN --mount=type=cache,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn install --production --frozen-lockfile --ignore-scripts --prefer-offline
+RUN yarn install --production --frozen-lockfile --ignore-scripts --prefer-offline
 
 RUN rm -rf /usr/src/packages/lib-react-components/src
 RUN rm -rf /usr/src/packages/lib-classifier/src
