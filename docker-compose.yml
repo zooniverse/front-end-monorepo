@@ -2,10 +2,11 @@ version: '3.7'
 
 services:
   shell:
-    image: front-end-monorepo_dev:latest
+    image: front-end-monorepo_shell:latest
     build:
       context: ./
-    entrypoint:
+      target: builder
+    command:
       - "/bin/sh"
   fe-project:
     image: front-end-monorepo_dev:latest
