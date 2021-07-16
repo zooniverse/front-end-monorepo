@@ -21,7 +21,7 @@ function StoryContext (props) {
 }
 
 export default {
-  title: 'Project App / Screens / Project Home / Subject Picker',
+  title: 'Project App / Shared / Subject Picker',
   component: SubjectPicker
 }
 

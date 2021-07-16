@@ -24,6 +24,7 @@ export const StyledBox = styled(Box)`
 export default function RadioInput (props) {
   const {
     handleRadioChange,
+    handleRadioKeyDown,
     hasFocus,
     isChecked,
     option,
@@ -55,6 +56,7 @@ export default function RadioInput (props) {
           checked={isChecked}
           onChange={({ target }) => (handleRadioChange(target.value))}
           onClick={({ target }) => (handleRadioChange(target.value))}
+          onKeyDown={(event) => (handleRadioKeyDown(event))}
         />
         <Text
           color='dark-1'

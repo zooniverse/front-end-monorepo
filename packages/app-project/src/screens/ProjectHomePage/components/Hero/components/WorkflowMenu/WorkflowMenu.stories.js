@@ -48,7 +48,7 @@ const WORKFLOWS = [
   }
 ]
 
-function StoryContext (props) {
+function StoryContext(props) {
   const { children, theme } = props
 
   return (
@@ -68,15 +68,15 @@ function StoryContext (props) {
 }
 
 export default {
-  title: 'Project App / Screens / Project Home / Workflow Menu',
+  title: 'Project App / Screens / Project Home / Hero / Workflow Menu',
   component: WorkflowMenu,
   args: {
     dark: false,
-    workflows: [ ...WORKFLOWS, mockGroupedWorkflow ]
+    workflows: [...WORKFLOWS, mockGroupedWorkflow]
   }
 }
 
-export function Default({ dark, workflows }) {
+export function WithSubjectSetSelection({ dark, workflows }) {
   return (
     <StoryContext theme={{ ...zooTheme, dark }}>
       <WorkflowMenu workflows={workflows} />
