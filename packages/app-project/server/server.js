@@ -32,8 +32,7 @@ app.prepare().then(() => {
     return https.createServer(cert, server)
       .listen(port, err => {
         if (err) throw err
-        console.log(`> Ready on https://localhost:${port}`)
+        console.log(`> Ready on https://local.zooniverse.org:${port} or https://localhost.zooniverse.org:${port}`)
       })
   }).catch(error => console.error(error))
-
 })
