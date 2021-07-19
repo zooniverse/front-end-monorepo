@@ -21,6 +21,27 @@ export default function RadioInputs (props) {
     }
   }
 
+  function handleRadioKeyDown (event) {
+    const { value } = event.target
+    if (questionAnswer !== value) return true
+
+    switch (event.key) {
+      case ' ':
+      case 'Backspace':
+      case 'Delete': {
+        event.preventDefault()
+        event.stopPropagation()
+
+        handleAnswer('', questionId)
+
+        return false
+      }
+      default: {
+        return true
+      }
+    }
+  }
+
   return (
     <Box
       direction='row'
@@ -39,6 +60,7 @@ export default function RadioInputs (props) {
           <RadioInput
             key={option.value}
             handleRadioChange={handleRadioChange}
+            handleRadioKeyDown={handleRadioKeyDown}
             hasFocus={inputHasFocus}
             isChecked={isChecked}
             option={option}
