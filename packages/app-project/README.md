@@ -13,11 +13,13 @@ This package should be cloned as part of the [front-end-monorepo](https://github
 
 ## Running in development
 
-Starts a development server on port 3000 and a Storybook server on port 9001 by default.
+Starts a development server on port 3000 and a Storybook server on port 9001 by default. The package `devcert` sets up a local certificate authority to generate self-signed SSL certificates for the `local.zooniverse.org` and `localhost.zooniverse.org` sub-domains. When you run this for the first time on Mac OS, you will be prompted for sudo (Read more at: https://github.com/davewasmer/devcert#security-concerns). In addition, you must have one of those sub-domains [setup](https://stackoverflow.com/c/zooniverse/questions/109) to get past CORS errors when authenticating with Panoptes in your hosts file.
+
+Once the local CA is created and you have the hosts file configured, you'll be able to use one of those subdomains to do local development for projects on and be able to authenticate with Panoptes, i.e. at `https://local.zooniverse.org:3000/projects/brooke/i-fancy-cats` or `https://localhost.zooniverse.org:3000/projects/brooke/i-fancy-cats`
 
 ### Docker
 
-- `docker-compose up -d` to run a dev server, in the background, on http://localhost:3000 and the storybook on http://localhost:9001 using `yarn dev` and `yarn storybook` respectively. The `--build` flag can be used to build the container. This builds and runs a local image which matches the Jenkins build except for running behind a proxy.
+- `docker-compose up -d` to run a dev server, in the background, on http://localhost:3000 and the storybook on http://localhost:9001 using `yarn dev` and `yarn storybook` respectively. The `--build` flag can be used to build the container. This builds and runs a local image which matches the Jenkins build except for running behind a proxy. Note: `devcert` is not yet setup for our docker build for local development.
 - `docker-compose down` to stop the dev containers.
 - `docker-compose run --rm project test` to run the tests.
 
