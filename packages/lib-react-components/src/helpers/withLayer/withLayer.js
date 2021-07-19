@@ -3,18 +3,18 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 function withLayer (WrappedComponent) {
-  function HOC (props) {
-    const {
-      active = false,
-      animate = false,
-      className = '',
-      closeFn,
-      modal = true,
-      plain = false,
-      position = 'center', 
-      ...rest
-    } = props
-
+  function HOC ({
+    active = false,
+    animate = false,
+    className = '',
+    closeFn,
+    full = false,
+    modal = true,
+    plain = false,
+    position = 'center',
+    target,
+    ...rest
+  }) {
     if (!active) {
       return null
     }
@@ -23,11 +23,13 @@ function withLayer (WrappedComponent) {
       <Layer
         animate={animate}
         className={className}
+        full={full}
         modal={modal}
         plain={plain}
         position={position}
         onClickOutside={closeFn}
         onEsc={closeFn}
+        target={target}
       >
         <WrappedComponent closeFn={closeFn} {...rest} />
       </Layer>
@@ -41,7 +43,10 @@ function withLayer (WrappedComponent) {
     closeFn: PropTypes.func,
     modal: PropTypes.bool,
     plain: PropTypes.bool,
-    position: PropTypes.string
+    position: PropTypes.string,
+    target: PropTypes.shape({
+      current: PropTypes.node
+    })
   }
 
   return HOC

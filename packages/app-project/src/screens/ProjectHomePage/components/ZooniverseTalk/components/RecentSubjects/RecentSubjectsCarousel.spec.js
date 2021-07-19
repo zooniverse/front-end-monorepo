@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import RecentSubjectsCarousel from './RecentSubjectsCarousel'
 import SubjectThumbnail from './components/SubjectThumbnail'

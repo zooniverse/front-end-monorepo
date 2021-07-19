@@ -57,6 +57,10 @@ const Project = types
 
     get inBeta () {
       return !self.launch_approved && self.beta_approved
+    },
+
+    workflowIsActive(workflowId) {
+      return self.links['active_workflows'].includes(workflowId)
     }
   }))
 

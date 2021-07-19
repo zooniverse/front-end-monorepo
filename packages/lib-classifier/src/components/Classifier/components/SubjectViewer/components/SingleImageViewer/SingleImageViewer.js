@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
-import React, { createRef, forwardRef, useContext } from 'react'
+import React, { useRef } from 'react'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import { Box } from 'grommet'
 import InteractionLayer from '../InteractionLayer'
 import ZoomControlButton from '../ZoomControlButton'
 
-const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
+function SingleImageViewer(props) {
   const {
     children,
     enableInteractionLayer,
@@ -20,28 +20,30 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
     zooming
   } = props
 
-  const transformLayer = createRef()
-  const { svg } = useContext(SVGContext)
+  const transformLayer = useRef()
+  const canvas = transformLayer.current
   const transform = `rotate(${rotate} ${width / 2} ${height / 2})`
-  const getScreenCTM = () => transformLayer.current.getScreenCTM()
 
   return (
-    <SVGContext.Provider value={{ svg, getScreenCTM }}>
+    <SVGContext.Provider value={{ canvas }}>
       {zoomControlFn && (
         <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />
       )}
       <Box animation='fadeIn' overflow='hidden'>
         <svg
-          ref={ref}
           focusable
           onKeyDown={onKeyDown}
           tabIndex={0}
           viewBox={viewBox}
+          xmlns="http://www.w3.org/2000/svg"
         >
           {title?.id && title?.text && (
             <title id={title.id}>{title.text}</title>
           )}
-          <g ref={transformLayer} transform={transform}>
+          <g
+            ref={transformLayer}
+            transform={transform}
+          >
             {children}
             {enableInteractionLayer && (
               <InteractionLayer scale={scale} height={height} width={width} />
@@ -51,7 +53,7 @@ const SingleImageViewer = forwardRef(function SingleImageViewer(props, ref) {
       </Box>
     </SVGContext.Provider>
   )
-})
+}
 
 SingleImageViewer.propTypes = {
   enableInteractionLayer: PropTypes.bool,

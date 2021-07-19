@@ -1,7 +1,6 @@
 import counterpart from 'counterpart'
 import { Box, Button, FormField, Grid, Select } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import en from './locales/en'
 
@@ -15,6 +14,9 @@ function SelectCollection ({
   onSubmit,
   selected
 }) {
+  const dropProps = {
+    trapFocus: false
+  }
   return (
     <Grid
       as='form'
@@ -31,6 +33,7 @@ function SelectCollection ({
       >
         <Select
           dropHeight='medium'
+          dropProps={dropProps}
           id='collectionsSearch'
           labelKey='display_name'
           name='display_name'

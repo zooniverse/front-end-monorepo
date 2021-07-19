@@ -15,11 +15,17 @@ export const StyledBox = styled(Box)`
     opacity: 0.01;
     position: absolute;
   }
+
+  &:focus-within {
+    box-shadow: 0 0 2px 2px ${props => props.theme.global.colors[props.theme.global.colors.focus]};
+  }
 `
 
 export default function RadioInput (props) {
   const {
     handleRadioChange,
+    handleRadioKeyDown,
+    hasFocus,
     isChecked,
     option,
     questionId
@@ -43,12 +49,14 @@ export default function RadioInput (props) {
         width={{ min: '40px' }}
       >
         <input
+          autoFocus={hasFocus}
           name={questionId}
           value={option.value}
           type='radio'
           checked={isChecked}
           onChange={({ target }) => (handleRadioChange(target.value))}
           onClick={({ target }) => (handleRadioChange(target.value))}
+          onKeyDown={(event) => (handleRadioKeyDown(event))}
         />
         <Text
           color='dark-1'
@@ -63,6 +71,7 @@ export default function RadioInput (props) {
 
 RadioInput.defaultProps = {
   handleRadioChange: () => {},
+  hasFocus: false,
   isChecked: false,
   option: {
     label: '',
@@ -73,6 +82,7 @@ RadioInput.defaultProps = {
 
 RadioInput.propTypes = {
   handleRadioChange: PropTypes.func,
+  hasFocus: PropTypes.bool,
   isChecked: PropTypes.bool,
   option: PropTypes.shape({
     label: PropTypes.string,

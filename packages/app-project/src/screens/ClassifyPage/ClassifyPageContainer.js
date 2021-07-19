@@ -1,13 +1,25 @@
-import React, { Component } from 'react'
+import { createRef, useEffect, useState } from 'react'
 
 import ClassifyPage from './ClassifyPage'
 import CollectionsModal from '../../shared/components/CollectionsModal'
 
-function ClassifyPageContainer(props) {
-  const collectionsModal = React.createRef()
+function ClassifyPageContainer({
+  subjectID: subjectFromURL,
+  ...props
+}) {
+  const [ subjectID, setSubjectID ] = useState(subjectFromURL)
+  const collectionsModal = createRef()
 
-  function addToCollection (subjectId) {
+  useEffect(function onSubjectChange() {
+    setSubjectID(subjectFromURL)
+  }, [subjectFromURL])
+
+  function addToCollection(subjectId) {
     collectionsModal.current.open(subjectId)
+  }
+
+  function onSubjectReset() {
+    setSubjectID(undefined)
   }
 
   return (
@@ -17,6 +29,8 @@ function ClassifyPageContainer(props) {
       />
       <ClassifyPage
         addToCollection={addToCollection}
+        onSubjectReset={onSubjectReset}
+        subjectID={subjectID}
         {...props}
       />
     </>

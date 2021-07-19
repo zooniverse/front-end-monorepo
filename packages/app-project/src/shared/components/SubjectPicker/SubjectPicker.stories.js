@@ -1,6 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
-import React from 'react'
 
 import SubjectPicker from './SubjectPicker'
 
@@ -22,7 +21,7 @@ function StoryContext (props) {
 }
 
 export default {
-  title: 'Project App / Screens / Project Home / Subject Picker',
+  title: 'Project App / Shared / Subject Picker',
   component: SubjectPicker
 }
 

@@ -5,7 +5,6 @@ import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
 import App from 'next/app'
-import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 import merge from 'lodash/merge'
 

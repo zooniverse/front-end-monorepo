@@ -2,7 +2,6 @@ import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean } from '@storybook/addon-knobs'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
-import React from 'react'
 import { backgrounds } from '../../../../.storybook/lib'
 
 import SubjectPreview from './'

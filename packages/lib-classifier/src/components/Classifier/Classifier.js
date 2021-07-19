@@ -71,6 +71,7 @@ export default function Classifier({
   onAddToCollection = () => true,
   onCompleteClassification = () => true,
   onError = () => true,
+  onSubjectReset = () => true,
   onToggleFavourite = () => true,
   project,
   subjectID,
@@ -94,6 +95,7 @@ export default function Classifier({
   const {
     classifications,
     projects,
+    subjects,
     userProjectPreferences,
     workflows
   } = classifierStore
@@ -101,6 +103,7 @@ export default function Classifier({
   useEffect(function onMount() {
     classifierStore.setOnAddToCollection(onAddToCollection)
     classifications.setOnComplete(onCompleteClassification)
+    subjects.setOnReset(onSubjectReset)
     classifierStore.setOnToggleFavourite(onToggleFavourite)
   }, [])
 
@@ -145,6 +148,7 @@ Classifier.propTypes = {
   onAddToCollection: PropTypes.func,
   onCompleteClassification: PropTypes.func,
   onError: PropTypes.func,
+  onSubjectReset: PropTypes.func,
   onToggleFavourite: PropTypes.func,
   project: PropTypes.shape({
     id: PropTypes.string.isRequired

@@ -1,5 +1,4 @@
 import counterpart from 'counterpart'
-import React from 'react'
 import PropTypes from 'prop-types'
 import { Anchor, Box, Button, CheckBox, Grid, Text, FormField, TextInput } from 'grommet'
 import styled from 'styled-components'

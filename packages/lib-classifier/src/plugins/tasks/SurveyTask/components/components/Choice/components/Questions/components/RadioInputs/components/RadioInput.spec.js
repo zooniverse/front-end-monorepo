@@ -6,13 +6,15 @@ import sinon from 'sinon'
 import RadioInput, { StyledBox } from './RadioInput'
 
 describe('Component > RadioInput', function () {
-  let wrapper, handleRadioChangeSpy
+  let wrapper, handleRadioChangeSpy, handleRadioKeyDownSpy
 
   before(function () {
     handleRadioChangeSpy = sinon.spy()
+    handleRadioKeyDownSpy = sinon.spy()
     wrapper = shallow(
       <RadioInput
         handleRadioChange={handleRadioChangeSpy}
+        handleRadioKeyDown={handleRadioKeyDownSpy}
         option={{
           label: 'Yes',
           value: 'S'
@@ -38,6 +40,10 @@ describe('Component > RadioInput', function () {
     expect(wrapper.find(Text).props().weight).to.equal('normal')
   })
 
+  it('should have input autoFocus false', function () {
+    expect(wrapper.find('input').props().autoFocus).to.be.false()
+  })
+
   describe('when checked', function () {
     before(function () {
       wrapper.setProps({ isChecked: true })
@@ -49,6 +55,16 @@ describe('Component > RadioInput', function () {
 
     it('should have text weight bold', function () {
       expect(wrapper.find(Text).props().weight).to.equal('bold')
+    })
+  })
+
+  describe('with hasFocus true', function () {
+    before(function () {
+      wrapper.setProps({ hasFocus: true })
+    })
+
+    it('should have input autoFocus true', function () {
+      expect(wrapper.find('input').props().autoFocus).to.be.true()
     })
   })
 
@@ -73,6 +89,14 @@ describe('Component > RadioInput', function () {
       expect(handleRadioChangeSpy).to.have.been.calledWith('S')
 
       handleRadioChangeSpy.resetHistory()
+    })
+  })
+
+  describe('onKeyDown', function () {
+    it('should call handleRadioKeyDown on keyDown of the input', function () {
+      const backspaceEventMock = { key: 'Backspace', preventDefault: sinon.spy() }
+      wrapper.find('input').simulate('keydown', backspaceEventMock)
+      expect(handleRadioKeyDownSpy).to.have.been.calledOnce()
     })
   })
 })

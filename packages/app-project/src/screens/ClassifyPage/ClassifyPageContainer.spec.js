@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import ClassifyPageContainer from './ClassifyPageContainer'
 import ClassifyPage from './ClassifyPage'
@@ -24,5 +23,21 @@ describe('Component > ClassifyPageContainer', function () {
 
   it('should render the `CollectionsModal` component', function () {
     expect(wrapper.find(CollectionsModal)).to.have.lengthOf(1)
+  })
+
+  describe('on subject reset', function () {
+    let wrapper
+
+    before(function () {
+      wrapper = shallow(<ClassifyPageContainer subjectID="12345" />)
+    })
+
+    it('should clear the active subject', function () {
+      const { onSubjectReset, subjectID } = wrapper.find(ClassifyPage).props()
+      expect(subjectID).to.equal('12345')
+      onSubjectReset()
+      const newSubjectID = wrapper.find(ClassifyPage).prop('subjectID')
+      expect(newSubjectID).to.be.undefined()
+    })
   })
 })

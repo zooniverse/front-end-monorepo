@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import NavLink from '@shared/components/NavLink'
 
 import { ContentBox } from './ContentBox'

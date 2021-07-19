@@ -42,7 +42,7 @@ function SVGPanZoom({
       enableZoom()
       return disableZoom
     }
-  }, [zooming])
+  }, [zooming, src])
 
   useEffect(
     function onZoomChange() {
@@ -62,7 +62,7 @@ function SVGPanZoom({
       ? img.getBoundingClientRect()
       : {}
     const scale = clientWidth / naturalWidth
-    return scale
+    return !Number.isNaN(scale) ? scale : 1
   }
 
   function scaledViewBox(scale) {

@@ -1,7 +1,6 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { shallow } from 'enzyme'
 import { Button, Paragraph } from 'grommet'
-import React from 'react'
 import sinon from 'sinon'
 
 import SubjectSetPicker, { BackButton, StyledHeading } from './SubjectSetPicker'

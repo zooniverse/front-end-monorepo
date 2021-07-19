@@ -2,7 +2,7 @@ import { Grommet } from 'grommet'
 import merge from 'lodash/merge'
 import { inject, observer } from 'mobx-react'
 import { node, object, oneOf } from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import theme from '../theme'
 

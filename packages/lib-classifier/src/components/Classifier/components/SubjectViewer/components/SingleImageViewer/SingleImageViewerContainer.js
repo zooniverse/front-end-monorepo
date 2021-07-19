@@ -5,7 +5,6 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { draggable } from '@plugins/drawingTools/components'
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 import locationValidator from '../../helpers/locationValidator'
 import SingleImageViewer from './SingleImageViewer'
@@ -22,7 +21,6 @@ class SingleImageViewerContainer extends React.Component {
     this.dragMove = this.dragMove.bind(this)
     this.setOnDrag = this.setOnDrag.bind(this)
 
-    this.imageViewer = React.createRef()
     this.subjectImage = React.createRef()
 
     this.state = {
@@ -67,9 +65,9 @@ class SingleImageViewerContainer extends React.Component {
 
   async getImageSize() {
     const img = await this.preload()
-    const svg = this.imageViewer.current
-    const { width: clientWidth, height: clientHeight } = svg
-      ? svg.getBoundingClientRect()
+    const svgImage = this.subjectImage.current
+    const { width: clientWidth, height: clientHeight } = svgImage
+      ? svgImage.getBoundingClientRect()
       : {}
     return {
       clientHeight,
@@ -110,13 +108,16 @@ class SingleImageViewerContainer extends React.Component {
       zoomControlFn
     } = this.props
     const { img } = this.state
-    const { naturalHeight, naturalWidth, src } = img
+    
+    // If image hasn't been fully retrieved, use a placeholder
+    const src = img?.src || 'https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png'  // Use this instead of https://www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png to save on network calls
+    const naturalWidth = img?.naturalWidth || 800
+    const naturalHeight = img?.naturalHeight || 600
 
     if (loadingState === asyncStates.error) {
       return <div>Something went wrong.</div>
     }
 
-    const svg = this.imageViewer.current
     const enableDrawing =
       loadingState === asyncStates.success && enableInteractionLayer
     const SubjectImage = move ? DraggableImage : 'image'
@@ -127,37 +128,34 @@ class SingleImageViewerContainer extends React.Component {
       ...(move && { dragMove: this.dragMove })
     }
 
-    if (src && naturalWidth) {
+    if (loadingState !== asyncStates.initialized) {
       return (
-        <SVGContext.Provider value={{ svg }}>
-          <SVGPanZoom
-            img={this.subjectImage.current}
-            maxZoom={5}
-            naturalHeight={naturalHeight}
-            naturalWidth={naturalWidth}
-            setOnDrag={this.setOnDrag}
-            setOnPan={setOnPan}
-            setOnZoom={setOnZoom}
+        <SVGPanZoom
+          img={this.subjectImage.current}
+          maxZoom={5}
+          naturalHeight={naturalHeight}
+          naturalWidth={naturalWidth}
+          setOnDrag={this.setOnDrag}
+          setOnPan={setOnPan}
+          setOnZoom={setOnZoom}
+          zooming={zooming}
+          src={src}
+        >
+          <SingleImageViewer
+            enableInteractionLayer={enableDrawing}
+            height={naturalHeight}
+            onKeyDown={onKeyDown}
+            rotate={rotation}
+            title={title}
+            width={naturalWidth}
+            zoomControlFn={zoomControlFn}
             zooming={zooming}
-            src={src}
           >
-            <SingleImageViewer
-              enableInteractionLayer={enableDrawing}
-              height={naturalHeight}
-              onKeyDown={onKeyDown}
-              ref={this.imageViewer}
-              rotate={rotation}
-              title={title}
-              width={naturalWidth}
-              zoomControlFn={zoomControlFn}
-              zooming={zooming}
-            >
-              <g ref={this.subjectImage}>
-                <SubjectImage {...subjectImageProps} />
-              </g>
-            </SingleImageViewer>
-          </SVGPanZoom>
-        </SVGContext.Provider>
+            <g ref={this.subjectImage}>
+              <SubjectImage {...subjectImageProps} />
+            </g>
+          </SingleImageViewer>
+        </SVGPanZoom>
       )
     }
     return null

@@ -1,12 +1,12 @@
 import { inject, observer } from 'mobx-react'
 import { object, string } from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import YourStats from './YourStats'
 import withRequireUser from '@shared/components/withRequireUser'
 
 function storeMapper (stores) {
-  const { project, yourStats: { counts } } = stores.store
+  const { project, user: { personalization: { counts } } } = stores.store
   return {
     counts,
     projectName: project['display_name']

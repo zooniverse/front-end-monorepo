@@ -6,8 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Add Grommet's `target` and `full` props to modal layers.
+
 ### Fixed
 - Changed `LinkList` component to use `fit-content` CSS styling to render correct height in Safari.
+- Modified matchRegex in `ping` of `Markdownz` to avoid creating username-links in typed email addresses.
 
 ## [1.1.0] 2021-05-26
 

@@ -4,6 +4,7 @@ import React from 'react'
 
 import { DraggableImage, SingleImageViewerContainer } from './SingleImageViewerContainer'
 import SingleImageViewer from './SingleImageViewer'
+import asyncStates from '@zooniverse/async-states'
 
 describe('Component > SingleImageViewerContainer', function () {
   let wrapper
@@ -68,13 +69,14 @@ describe('Component > SingleImageViewerContainer', function () {
       wrapper = shallow(
         <SingleImageViewerContainer
           ImageObject={ValidImage}
+          loadingState={asyncStates.success}
           subject={subject}
           onError={onError}
           onReady={onReady}
         />
       )
       imageWrapper = wrapper.find(SingleImageViewer)
-      wrapper.instance().imageViewer = {
+      wrapper.instance().subjectImage = {
         current: {
           clientHeight: 50,
           clientWidth: 100,
@@ -94,7 +96,7 @@ describe('Component > SingleImageViewerContainer', function () {
     })
 
     it('should record the original image dimensions on load', function () {
-      const svg = wrapper.instance().imageViewer.current
+      const svg = wrapper.instance().subjectImage.current
       const fakeEvent = {
         target: {
           clientHeight: 0,

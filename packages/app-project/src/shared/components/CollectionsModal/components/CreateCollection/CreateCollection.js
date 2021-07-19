@@ -1,15 +1,15 @@
 import counterpart from 'counterpart'
 import { Box, Button, CheckBox, FormField, Grid, TextInput } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
+import { createRef } from 'react';
 
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
 function CreateCollection ({ collection, disabled, onChange, onSubmit }) {
-  const checkbox = React.createRef()
-  const textInput = React.createRef()
+  const checkbox = createRef()
+  const textInput = createRef()
   const { display_name, private: isPrivate } = collection // eslint-disable-line
   function updateCollection () {
     const display_name = textInput.current.value // eslint-disable-line

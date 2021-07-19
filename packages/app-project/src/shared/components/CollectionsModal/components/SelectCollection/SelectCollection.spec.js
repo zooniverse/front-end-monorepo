@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme'
 import { Button, Select } from 'grommet'
-import React from 'react'
 import sinon from 'sinon'
 
 import SelectCollection from './SelectCollection'

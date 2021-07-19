@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import { Anchor } from 'grommet'
 import { Media } from '@zooniverse/react-components'
 

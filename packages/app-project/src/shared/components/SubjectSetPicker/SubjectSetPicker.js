@@ -4,7 +4,6 @@ import { Anchor, Box, Grid, Heading, Paragraph } from 'grommet'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { array, bool, func, number, shape, string } from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
@@ -32,7 +31,15 @@ function BackButton({ onClick }) {
     />
   )
 }
-function SubjectSetPicker ({ baseUrl, onClose, onSelect, workflow }) {
+/**
+  Display a list of subject set cards for a workflow. Each card links to the corresponding subject set ID.
+*/
+function SubjectSetPicker ({
+  baseUrl,
+  onClose = () => true,
+  onSelect = () => true,
+  workflow
+}) {
   const router = useRouter()
   /*
     Vertical spacing for the picker instructions.
@@ -100,9 +107,21 @@ function SubjectSetPicker ({ baseUrl, onClose, onSelect, workflow }) {
 }
 
 SubjectSetPicker.propTypes = {
+  /**
+    Base URL for links eg. `/projects/${owner}/${project}/classify`
+  */
+  baseUrl: string.isRequired,
+  /**
+    Callback to close/cancel the picker without taking action.
+  */
   onClose: func,
-  owner: string.isRequired,
-  project: string.isRequired,
+  /**
+    Callback to call on clicking a subject set card: `onSelect(event, subjectSet)`
+  */
+  onSelect: func,
+  /**
+    The selected workflow.
+  */
   workflow: shape({
     completeness: number,
     default: bool,

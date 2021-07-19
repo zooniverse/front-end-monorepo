@@ -6,7 +6,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Paragraph } from 'grommet'
 
-import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SubjectGroupViewer from './SubjectGroupViewer'
 import locationValidator from '../../helpers/locationValidator'
 import withKeyZoom from '../../../withKeyZoom'
@@ -28,6 +27,8 @@ const DEFAULT_CELL_STYLE = {
 }
 const DEFAULT_GRID_COLUMNS = 3
 const DEFAULT_GRID_ROWS = 3
+const DEFAULT_GRID_MAX_WIDTH = ''
+const DEFAULT_GRID_MAX_HEIGHT = ''
 
 function storeMapper (stores) {
   const {
@@ -47,6 +48,8 @@ function storeMapper (stores) {
   const cellStyle = viewerConfig.cell_style || DEFAULT_CELL_STYLE
   const gridColumns = viewerConfig.grid_columns || DEFAULT_GRID_COLUMNS
   const gridRows = viewerConfig.grid_rows || DEFAULT_GRID_ROWS
+  const gridMaxWidth = viewerConfig.grid_max_width || DEFAULT_GRID_MAX_WIDTH
+  const gridMaxHeight = viewerConfig.grid_max_height || DEFAULT_GRID_MAX_HEIGHT
   
   const {
     activeStepTasks
@@ -74,6 +77,8 @@ function storeMapper (stores) {
     cellStyle,
     gridColumns,
     gridRows,
+    gridMaxWidth,
+    gridMaxHeight,
     
     interactionMode,
     setOnZoom,
@@ -246,6 +251,8 @@ class SubjectGroupViewerContainer extends React.Component {
       cellStyle,
       gridColumns,
       gridRows,
+      gridMaxWidth,
+      gridMaxHeight,
       
       interactionMode,
       onKeyDown,
@@ -258,7 +265,6 @@ class SubjectGroupViewerContainer extends React.Component {
       
     } = this.props
     const { images, panX, panY, zoom } = this.state
-    const svg = this.groupViewer.current
     
     const gridWidth = gridColumns * cellWidth
     const gridHeight = gridRows * cellHeight
@@ -280,36 +286,36 @@ class SubjectGroupViewerContainer extends React.Component {
     }
     
     return (
-      <SVGContext.Provider value={{ svg }}>
-        <div ref={this.scrollContainer}>
-          <SubjectGroupViewer
-            ref={this.groupViewer}
-            
-            images={images}
-            subjectIds={subject.subjectIds}
-            
-            dragMove={this.dragMove}
-            onKeyDown={onKeyDown}
-            
-            cellWidth={cellWidth}
-            cellHeight={cellHeight}
-            cellStyle={cellStyle}
-            gridRows={gridRows}
-            gridColumns={gridColumns}
-            
-            width={gridWidth}
-            height={gridHeight}
-            
-            panX={panX}
-            panY={panY}
-            zoom={zoom}
-    
-            annotation={annotation}
-            interactionMode={interactionMode}
-            isCurrentTaskValidForAnnotation={isCurrentTaskValidForAnnotation}
-          />
-        </div>
-      </SVGContext.Provider>
+      <div ref={this.scrollContainer}>
+        <SubjectGroupViewer
+          ref={this.groupViewer}
+          
+          images={images}
+          subjectIds={subject.subjectIds}
+          
+          dragMove={this.dragMove}
+          onKeyDown={onKeyDown}
+          
+          cellWidth={cellWidth}
+          cellHeight={cellHeight}
+          cellStyle={cellStyle}
+          gridRows={gridRows}
+          gridColumns={gridColumns}
+          gridMaxWidth={gridMaxWidth}
+          gridMaxHeight={gridMaxHeight}
+          
+          width={gridWidth}
+          height={gridHeight}
+          
+          panX={panX}
+          panY={panY}
+          zoom={zoom}
+  
+          annotation={annotation}
+          interactionMode={interactionMode}
+          isCurrentTaskValidForAnnotation={isCurrentTaskValidForAnnotation}
+        />
+      </div>
     )
   }
 }

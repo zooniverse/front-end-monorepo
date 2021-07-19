@@ -2,14 +2,19 @@ import sinon from 'sinon'
 import Step from './Step'
 import {
   MultipleChoiceTaskFactory,
-  SingleChoiceTaskFactory
+  SingleChoiceTaskFactory,
+  DrawingTaskFactory,
+  TranscriptionTaskFactory
 } from '@test/factories'
 import taskRegistry from '@plugins/tasks'
+import { expect } from 'chai'
 
 describe('Model > Step', function () {
   let step
   const SingleChoiceTask = taskRegistry.get('single')
   const MultipleChoiceTask = taskRegistry.get('multiple')
+  const DrawingTask = taskRegistry.get('drawing')
+  const TranscriptionTask = taskRegistry.get('transcription')
 
   before(function () {
     step = Step.create({ stepKey: 'S1', taskKeys: ['T1'] })
@@ -23,9 +28,29 @@ describe('Model > Step', function () {
   describe('with valid tasks', function () {
     it('should be valid', function () {
       // All tasks default to valid
-      // drawing task can be invalid if it has an invalid mark
-      // this is tested in the transcription line tool specs
       expect(step.isValid).to.be.true()
+    })
+  })
+
+  describe('with an invalid task', function () {
+    let tasks, step
+    before(function () {
+      tasks = [
+        TranscriptionTask.TaskModel.create(TranscriptionTaskFactory.build({
+          taskKey: 'T1',
+          required: ''
+        }))
+      ]
+      step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
+      const mark = step.tasks[0].activeTool.createMark({ id: '1'})
+      mark.initialPosition({ x1: 1, y1: 1 })
+    })
+
+    it('should be invalid', function () {
+      // drawing task or transcription task can be invalid if it has an invalid mark
+      // only transcription line currently has logic to be invalid
+      // step is invalid if any task evaluates to be invalid
+      expect(step.isValid).to.be.false()
     })
   })
 
@@ -59,6 +84,30 @@ describe('Model > Step', function () {
     })
   })
 
+  describe('with any incomplete, optional tasks', function () {
+    let tasks
+
+    const pointToolWithMin = {
+      help: '',
+      label: 'Point please.',
+      min: 1,
+      type: 'point'
+    }
+
+    before(function () {
+      tasks = [
+        MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: '' })),
+        SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: '' })),
+        DrawingTask.TaskModel.create(DrawingTaskFactory.build({ taskKey: 'T3', required: false, tools: [pointToolWithMin] }))
+      ]
+    })
+
+    it('should be incomplete', function () {
+      const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2', 'T3'], tasks })
+      expect(step.isComplete()).to.be.false()
+    })
+  })
+
   describe('with only required tasks', function () {
     let annotations
     let multipleChoiceAnnotation
@@ -80,16 +129,16 @@ describe('Model > Step', function () {
       expect(step.isComplete(annotations)).to.be.false()
     })
 
-    describe('after annotating task T1', function () {
+    describe('after annotating task T2', function () {
       it('should still be incomplete', function () {
-        multipleChoiceAnnotation.update([1])
+        singleChoiceAnnotation.update(1)
         expect(step.isComplete(annotations)).to.be.false()
       })
     })
 
     describe('after annotating tasks T1 & T2', function () {
       it('should be complete', function () {
-        singleChoiceAnnotation.update(1)
+        multipleChoiceAnnotation.update([1])
         expect(step.isComplete(annotations)).to.be.true()
       })
     })

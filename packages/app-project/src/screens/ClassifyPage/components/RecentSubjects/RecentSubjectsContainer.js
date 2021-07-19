@@ -1,6 +1,6 @@
 import { inject, observer } from 'mobx-react'
 import { array, bool, number, string } from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import RecentSubjects from './RecentSubjects'
 

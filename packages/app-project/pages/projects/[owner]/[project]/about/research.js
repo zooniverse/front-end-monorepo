@@ -7,8 +7,9 @@ export async function getServerSideProps({ params, query, req, res }) {
   return {
     notFound,
     props: {
-      ...props,
-      pageType: 'science_case'
+      pageTitle: 'Research',
+      pageType: 'science_case',
+      ...props
     }
   }
 }

@@ -1,7 +1,7 @@
 import theme from '@zooniverse/grommet-theme'
 import * as d3 from 'd3'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import { createRef, Component } from 'react';
 import styled from 'styled-components'
 
 import createBar from './d3/createBar'
@@ -14,7 +14,7 @@ const SVG = styled.svg`
 class CompletionBar extends Component {
   constructor () {
     super()
-    this.svgRef = React.createRef()
+    this.svgRef = createRef()
     this.d3svg = null
   }
 

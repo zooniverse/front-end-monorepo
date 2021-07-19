@@ -10,11 +10,12 @@ export async function getServerSideProps({ params, query, req, res }) {
     try {
       let allRoles = []
       const getRoles = async (page = 1) => {
-        const query = {
+        const teamQuery = {
+          env: query.env,
           project_id: project.id,
           page: page
         }
-        const response = await panoptes.get(`/project_roles`, query)
+        const response = await panoptes.get(`/project_roles`, teamQuery)
         const { meta, project_roles: projectRoles } = response.body
         allRoles = allRoles.concat(projectRoles)
         if (meta.project_roles && meta.project_roles.next_page) {
@@ -28,6 +29,7 @@ export async function getServerSideProps({ params, query, req, res }) {
       await Promise.all(
         allRoles.map(async role => {
           const response = await panoptes.get(`/users`, {
+            env: query.env,
             id: role.links.owner.id
           })
           const userData = response.body.users[0]
@@ -51,6 +53,7 @@ export async function getServerSideProps({ params, query, req, res }) {
   return {
     notFound,
     props: {
+      pageTitle: 'The Team',
       pageType: 'team',
       ...props,
       teamArray

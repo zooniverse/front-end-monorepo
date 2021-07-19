@@ -2,9 +2,6 @@ import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
-import * as nextRouter from 'next/router'
-import React from 'react'
-import sinon from 'sinon'
 
 import WorkflowSelector from './WorkflowSelector'
 
@@ -70,7 +67,7 @@ function onSelect(event, workflow) {
 }
 
 export default {
-  title: 'Project App / Screens / Project Home / Workflow Selector',
+  title: 'Project App / Shared / Workflow Selector',
   component: WorkflowSelector,
   args: {
     dark: false
