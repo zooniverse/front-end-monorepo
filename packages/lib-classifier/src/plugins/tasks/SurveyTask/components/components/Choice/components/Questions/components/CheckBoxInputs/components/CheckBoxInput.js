@@ -1,7 +1,7 @@
 import { Box, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 
 export const StyledBox = styled(Box)`
   cursor: pointer;
@@ -19,18 +19,29 @@ export const StyledBox = styled(Box)`
   &:focus-within {
     box-shadow: 0 0 2px 2px ${props => props.theme.global.colors[props.theme.global.colors.focus]};
   }
+
+  &:hover:not(:focus-within) {
+    box-shadow: 0 0 2px 2px ${props => props.theme.global.colors.brand};
+  }
 `
 
-export default function CheckBoxInput (props) {
+function CheckBoxInput (props) {
   const {
     handleCheckBoxChange,
     hasFocus,
     isChecked,
     option,
-    questionId
+    questionId,
+    theme
   } = props
 
-  const backgroundColor = isChecked ? 'accent-1' : 'neutral-6'
+  let backgroundColor = 'neutral-6'
+  if (theme.dark) {
+    backgroundColor = 'dark-3'
+  }
+  if (isChecked) {
+    backgroundColor = 'accent-1'
+  }
 
   return (
     <label>
@@ -54,7 +65,6 @@ export default function CheckBoxInput (props) {
           onChange={({ target }) => (handleCheckBoxChange(target.checked, target.value))}
         />
         <Text
-          color='dark-1'
           weight={isChecked ? 'bold' : 'normal'}
         >
           {option.label}
@@ -72,7 +82,10 @@ CheckBoxInput.defaultProps = {
     label: '',
     value: ''
   },
-  questionId: ''
+  questionId: '',
+  theme: {
+    dark: false
+  }
 }
 
 CheckBoxInput.propTypes = {
@@ -83,5 +96,11 @@ CheckBoxInput.propTypes = {
     label: PropTypes.string,
     value: PropTypes.string
   }),
-  questionId: PropTypes.string
+  questionId: PropTypes.string,
+  theme: PropTypes.shape({
+    dark: PropTypes.bool
+  })
 }
+
+export default withTheme(CheckBoxInput)
+export { CheckBoxInput }

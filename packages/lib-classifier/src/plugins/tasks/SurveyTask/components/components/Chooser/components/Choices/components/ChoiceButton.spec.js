@@ -80,7 +80,7 @@ describe('Component > ChoiceButton', function () {
     })
 
     it('should calculate the width based on the height using set aspect ratio', function () {
-      expect(media.props().width).to.equal(21 * THUMBNAIL_ASPECT_RATIO)
+      expect(media.props().width).to.equal(Math.round(21 * THUMBNAIL_ASPECT_RATIO))
     })
   })
 
@@ -101,7 +101,7 @@ describe('Component > ChoiceButton', function () {
     })
 
     it('should calculate the width based on the height using set aspect ratio', function () {
-      expect(media.props().width).to.equal(42 * THUMBNAIL_ASPECT_RATIO)
+      expect(media.props().width).to.equal(Math.round(42 * THUMBNAIL_ASPECT_RATIO))
     })
   })
 
@@ -122,7 +122,7 @@ describe('Component > ChoiceButton', function () {
     })
 
     it('should calculate the width based on the height using set aspect ratio', function () {
-      expect(media.props().width).to.equal(84 * THUMBNAIL_ASPECT_RATIO)
+      expect(media.props().width).to.equal(Math.round(84 * THUMBNAIL_ASPECT_RATIO))
     })
   })
 })

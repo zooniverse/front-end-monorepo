@@ -2,7 +2,10 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import React from 'react'
 
+import theme from './theme'
 import ChoiceButton from './ChoiceButton'
+
+const combinedTheme = Object.assign({}, zooTheme, theme)
 
 const CARACAL_SRC = 'https://panoptes-uploads.zooniverse.org/staging/workflow_attached_image/41bddb25-bb8d-4734-88fe-643d88688489.jpeg'
 
@@ -40,7 +43,7 @@ const Template = ({
   thumbnailSize
 }) => (
   <StoryContext
-    theme={{ ...zooTheme, dark }}
+    theme={{ ...combinedTheme, dark }}
   >
     <ChoiceButton
       choiceId={choiceId}
