@@ -79,7 +79,6 @@ export default function FilterStatus (props) {
         }
         dropProps={{
           elevation: 'medium',
-          stretch: 'align'
         }}
         dropTarget={filterStatusRef.current}
         gap='none'
