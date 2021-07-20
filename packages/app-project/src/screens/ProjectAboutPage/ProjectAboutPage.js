@@ -49,10 +49,13 @@ function ProjectAboutPage ({
         <Box
           background={{ dark: 'dark-3', light: 'neutral-6' }}
           border={{
-            color: { light: 'light-3' },
-            size: '1px',
-            style: 'solid',
-            side: 'vertical'
+            light: {
+              color: 'light-3',
+              size: '1px',
+              style: 'solid',
+              side: 'vertical'
+            },
+            dark: 'none'
           }}
           height={{ min: '98vh' }}
           width={{ min: 'fill-available', max: 'xxlarge' }}
@@ -92,7 +95,7 @@ function ProjectAboutPage ({
                       margin={{ bottom: '14px' }}
                       children={`${projectDisplayName} TEAM`}
                       weight='bold'
-                      color={{ light: 'black' }}
+                      color={{ light: 'black', dark: '' }}
                     />
                     {teamArray.length && (
                       <Box as='ul' margin='none' pad='none'>

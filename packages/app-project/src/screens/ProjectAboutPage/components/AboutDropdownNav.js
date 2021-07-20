@@ -14,7 +14,7 @@ export const AboutDropContent = ({ aboutNavLinks, router }) => {
   const baseUrl = `/projects/${owner}/${project}/about`
   
   return (
-    <Nav gap='xsmall' background={{ dark: 'dark-3', light: 'neutral-6' }}>
+    <Nav gap='xsmall' background={{ dark: 'dark-5', light: 'neutral-6' }}>
       <AboutNavLink
         link={{ href: `${baseUrl}/research`, text: 'research' }}
         router={router}
@@ -70,7 +70,7 @@ const AboutDropdownNav = ({ aboutNavLinks, router }) => {
       onOpen={handleOpen}
     >
       <Box align='center' direction='row' gap='xsmall' justify='center'>
-        <SpacedText weight='bold' color={{ light: 'black' }}>
+        <SpacedText weight='bold' color={{ light: 'black', dark: '' }}>
           About
         </SpacedText>
         <FormDown />

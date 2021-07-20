@@ -81,7 +81,7 @@ const TeamMember = ({ user, router }) => {
         )}
       </StyledAvatar>
       <Box flex direction='column'>
-        <StyledDisplayName color={{ light: 'neutral-7' }}>{user.display_name}</StyledDisplayName>
+        <StyledDisplayName color={{ light: 'neutral-7', dark: '' }}>{user.display_name}</StyledDisplayName>
         <StyledUsername
           link={{ href: `${baseUrl}/${user.login}`, text: `@${user.login}` }}
         />
