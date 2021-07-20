@@ -34,6 +34,7 @@ const StyledLabel = styled(SpacedText)`
 
 export default function FilterStatus (props) {
   const {
+    disabled,
     filters,
     handleFilter,
     task
@@ -64,6 +65,7 @@ export default function FilterStatus (props) {
       height='xxsmall'
     >
       <StyledDropButton
+        disabled={disabled}
         dropAlign={{
           left: 'left',
           top: 'bottom'
@@ -117,11 +119,13 @@ export default function FilterStatus (props) {
 }
 
 FilterStatus.defaultProps = {
+  disabled: false,
   filters: {},
   handleFilter: () => {}
 }
 
 FilterStatus.propTypes = {
+  disabled: PropTypes.bool,
   filters: PropTypes.objectOf(PropTypes.string),
   handleFilter: PropTypes.func,
   task: PropTypes.shape({
