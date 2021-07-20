@@ -64,6 +64,7 @@ function RotateRectangle({
         </g>
       )}
 
+      {/* Original Top Left corner */}
       {active && (
         <DragHandle
           scale={scale}
@@ -80,38 +81,8 @@ function RotateRectangle({
           }
         />
       )}
-      {active && (
-        <DragHandle
-          scale={scale}
-          x={x_right}
-          y={y_bottom}
-          dragMove={(e, d) =>
-            onHandleDrag({
-              x_left: x_left,
-              x_right: x_right + d.x,
-              y_top: y_top,
-              y_bottom: y_bottom + d.y,
-              angle: angle
-            })
-          }
-        />
-      )}
-      {active && (
-        <DragHandle
-          scale={scale}
-          x={x_left}
-          y={y_bottom}
-          dragMove={(e, d) =>
-            onHandleDrag({
-              x_left: x_left + d.x,
-              x_right: x_right,
-              y_top: y_top,
-              y_bottom: y_bottom + d.y,
-              angle: angle
-            })
-          }
-        />
-      )}
+
+      {/* Original Top Right corner */}
       {active && (
         <DragHandle
           scale={scale}
@@ -123,6 +94,42 @@ function RotateRectangle({
               x_right: x_right + d.x,
               y_top: y_top + d.y,
               y_bottom: y_bottom,
+              angle: angle
+            })
+          }
+        />
+      )}
+
+      {/* Original Bottom Right corner */}
+      {active && (
+        <DragHandle
+          scale={scale}
+          x={x_right}
+          y={y_bottom}
+          dragMove={(e, d) =>
+            onHandleDrag({
+              x_left: x_left,
+              x_right: x_right + d.x,
+              y_top: y_top,
+              y_bottom: y_bottom + d.y,
+              angle: angle
+            })
+          }
+        />
+      )}
+
+      {/* Original Bottom Left corner */}
+      {active && (
+        <DragHandle
+          scale={scale}
+          x={x_left}
+          y={y_bottom}
+          dragMove={(e, d) =>
+            onHandleDrag({
+              x_left: x_left + d.x,
+              x_right: x_right,
+              y_top: y_top,
+              y_bottom: y_bottom + d.y,
               angle: angle
             })
           }
