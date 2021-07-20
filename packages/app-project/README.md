@@ -45,6 +45,8 @@ yarn build
 yarn start
 ```
 
+If you wish to run the app in a production environment with [`devcert`](#running-in-development), then run `yarn start:dev`.
+
 ### Tests
 
 See [Testing](#testing) for more details.

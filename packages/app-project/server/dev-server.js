@@ -1,9 +1,7 @@
-if (process.env.NEWRELIC_LICENSE_KEY) {
-  require('newrelic')
-}
-
 const express = require('express')
 const next = require('next')
+const devcert = require('devcert')
+const https = require('https')
 
 const setLogging = require('./set-logging')
 const setCacheHeaders = require('./set-cache-headers')
@@ -23,8 +21,14 @@ app.prepare().then(() => {
     return handle(req, res)
   })
 
-  server.listen(port, err => {
-    if (err) throw err
-    console.log(`> Ready on http://localhost:${port}`)
-  })
+  devcert.certificateFor([
+    'local.zooniverse.org',
+    'localhost.zooniverse.org'
+  ]).then(cert => {
+    return https.createServer(cert, server)
+      .listen(port, err => {
+        if (err) throw err
+        console.log(`> Ready on https://local.zooniverse.org:${port} or https://localhost.zooniverse.org:${port}`)
+      })
+  }).catch(error => console.error(error))
 })
