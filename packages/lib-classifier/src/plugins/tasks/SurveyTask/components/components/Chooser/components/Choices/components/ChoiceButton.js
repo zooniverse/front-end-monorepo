@@ -15,6 +15,7 @@ function ChoiceButton (props) {
   const {
     choiceId,
     choiceLabel,
+    disabled,
     hasFocus,
     onKeyDown,
     onChoose,
@@ -45,6 +46,7 @@ function ChoiceButton (props) {
   return (
     <Button
       ref={choiceButton}
+      disabled={disabled}
       label={
         <Box
           direction='row'
@@ -77,6 +79,7 @@ function ChoiceButton (props) {
 ChoiceButton.defaultProps = {
   choiceId: '',
   choiceLabel: '',
+  disabled: false,
   hasFocus: false,
   onChoose: () => {},
   onKeyDown: () => {},
@@ -89,6 +92,7 @@ ChoiceButton.defaultProps = {
 ChoiceButton.propTypes = {
   choiceId: PropTypes.string,
   choiceLabel: PropTypes.string,
+  disabled: PropTypes.bool,
   hasFocus: PropTypes.bool,
   onChoose: PropTypes.func,
   onKeyDown: PropTypes.func,

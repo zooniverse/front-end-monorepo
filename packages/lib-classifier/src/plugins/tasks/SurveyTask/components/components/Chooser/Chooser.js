@@ -24,12 +24,14 @@ export default function Chooser (props) {
   return (
     <Box>
       <FilterStatus
+        disabled={disabled}
         filters={filters}
         handleFilter={handleFilter}
         task={task}
       />
       <Choices
         autoFocus={autoFocus}
+        disabled={disabled}
         filteredChoiceIds={filteredChoiceIds}
         handleDelete={handleDelete}
         onChoose={onChoose}
