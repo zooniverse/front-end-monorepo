@@ -1,16 +1,11 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
 
 import FilterStatus from './components/CharacteristicsFilter/FilterStatus'
 import Choices from './components/Choices'
 import ClearFilters from './components/CharacteristicsFilter/ClearFilters'
 import getFilteredChoiceIds from './helpers/getFilteredChoiceIds'
-
-const StyledHorizontalRule = styled.hr`
-  width: 100%;
-`
 
 export default function Chooser (props) {
   const {
@@ -29,13 +24,14 @@ export default function Chooser (props) {
   return (
     <Box>
       <FilterStatus
+        disabled={disabled}
         filters={filters}
         handleFilter={handleFilter}
         task={task}
       />
-      <StyledHorizontalRule />
       <Choices
         autoFocus={autoFocus}
+        disabled={disabled}
         filteredChoiceIds={filteredChoiceIds}
         handleDelete={handleDelete}
         onChoose={onChoose}

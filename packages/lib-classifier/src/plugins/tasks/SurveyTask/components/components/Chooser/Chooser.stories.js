@@ -2,10 +2,8 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import React from 'react'
 
-import ConfusedWith from './ConfusedWith'
+import Chooser from './Chooser'
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
-
-const KUDU = mockTask.choices.KD
 
 function StoryContext (props) {
   const { children, theme } = props
@@ -20,12 +18,15 @@ function StoryContext (props) {
       themeMode={(theme.dark) ? 'dark' : 'light'}
     >
       <Box
-        align='center'
+        align='end'
         width='full'
       >
         <Box
-          justify='center'
-          height='large'
+          background={{
+            dark: 'dark-1',
+            light: 'neutral-6'
+          }}
+          pad='medium'
           width='380px'
         >
           {children}
@@ -36,28 +37,30 @@ function StoryContext (props) {
 }
 
 export default {
-  title: 'Tasks / SurveyTask / Choice / ConfusedWith',
-  component: ConfusedWith
+  title: 'Tasks / SurveyTask / Chooser',
+  component: Chooser
 }
 
-const Template = ({ choices, confusions, confusionsOrder, dark, images }) => (
+const Template = ({ autoFocus, dark, filters, selectedChoiceIds, task }) => (
   <StoryContext
     theme={{ ...zooTheme, dark }}
   >
-    <ConfusedWith
-      choices={choices}
-      confusions={confusions}
-      confusionsOrder={confusionsOrder}
-      images={images}
+    <Chooser
+      autoFocus={autoFocus}
+      filters={filters}
+      handleFilter={() => console.log('handleFilter')}
+      onChoose={() => console.log('onChoose')}
+      selectedChoiceIds={selectedChoiceIds}
+      task={task}
     />
   </StoryContext>
 )
 
 export const Default = Template.bind({})
 Default.args = {
-  choices: mockTask.choices,
-  confusions: KUDU.confusions,
-  confusionsOrder: KUDU.confusionsOrder,
+  autoFocus: true,
   dark: false,
-  images: mockTask.images
+  filters: {},
+  selectedChoiceIds: [],
+  task: mockTask
 }
