@@ -1,7 +1,7 @@
 import { Box, DropButton } from 'grommet'
 import PropTypes from 'prop-types'
 import React, { useRef } from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
 
 import Characteristics from '../Characteristics'
@@ -16,13 +16,16 @@ counterpart.registerTranslations('en', en)
 const StyledDropButton = styled(DropButton)`
   border: none;
   border-radius: 16px;
-  padding: 5px 10px;
+  padding: 3px 8px;
 
-  ${props => props.backgroundColor ? css`
-    background-color: ${props.theme.global.colors['accent-1']};
-  ` : css`
-    background-color: none;
-  `}
+  &:focus,
+  &:enabled:hover {
+    text-decoration: underline;
+  }
+
+  &:hover:not(:focus) {
+    box-shadow: none;
+  }
 `
 
 const StyledLabel = styled(SpacedText)`
@@ -30,17 +33,17 @@ const StyledLabel = styled(SpacedText)`
 `
 
 export default function FilterStatus (props) {
-  const { 
+  const {
     filters,
     handleFilter,
     task
   } = props
-  const { 
+  const {
     characteristics,
     characteristicsOrder,
     images
   } = task
-  
+
   const filterStatusRef = useRef()
 
   const selectedCharacteristicIds = Object.keys(filters)
@@ -48,13 +51,19 @@ export default function FilterStatus (props) {
   return (
     <Box
       ref={filterStatusRef}
+      border={{
+        color: 'light-5',
+        size: 'xsmall',
+        style: 'solid',
+        side: 'bottom'
+      }}
       align='center'
       direction='row'
       fill='horizontal'
       gap='xxsmall'
+      height='xxsmall'
     >
       <StyledDropButton
-        backgroundColor={selectedCharacteristicIds.length > 0}
         dropAlign={{
           left: 'left',
           top: 'bottom'
@@ -66,17 +75,20 @@ export default function FilterStatus (props) {
             filters={filters}
             images={images}
             onFilter={handleFilter}
-          />}
+          />
+        }
         dropProps={{
           elevation: 'medium',
-          stretch: 'align'
         }}
         dropTarget={filterStatusRef.current}
         gap='none'
         icon={<FilterIcon />}
         label={
-          <StyledLabel 
-            color='neutral-1'
+          <StyledLabel
+            color={{
+              dark: 'accent-1',
+              light: 'neutral-1'
+            }}
           >
             {counterpart('CharacteristicsFilter.filter')}
           </StyledLabel>
@@ -87,7 +99,7 @@ export default function FilterStatus (props) {
         const selectedValueId = filters?.[characteristicId] || ''
         const value = characteristic.values?.[selectedValueId] || {}
         const valueImageSrc = images?.[value.image] || ''
-        
+
         return (
           <FilterButton
             key={selectedValueId}

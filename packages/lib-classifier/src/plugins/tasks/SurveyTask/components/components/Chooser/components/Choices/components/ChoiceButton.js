@@ -5,28 +5,13 @@ import {
 } from 'grommet'
 import PropTypes from 'prop-types'
 import React, { useEffect, useRef } from 'react'
-import styled, { css, withTheme } from 'styled-components'
-import { Media } from '@zooniverse/react-components'
+import { Media, withThemeContext } from '@zooniverse/react-components'
 
-const StyledChoiceButton = styled(Button)`
-  ${props => props.selected
-  ? css`background-color: ${props.theme.global.colors['brand']};`
-  : props.theme.dark
-    ? css`background-color: ${props.theme.global.colors['dark-5']};`
-    : css`background-color: ${props.theme.global.colors['neutral-6']};`}
-  border: none;
-  border-radius: 0px;
-  padding: 5px;
-  text-align: start;
-
-  &:focus, &:hover {
-    background-color: ${props => props.theme.global.colors['accent-1']};
-  }
-`
+import theme from './theme'
 
 export const THUMBNAIL_ASPECT_RATIO = 1.25
 
-export function ChoiceButton (props) {
+function ChoiceButton (props) {
   const {
     choiceId,
     choiceLabel,
@@ -58,7 +43,7 @@ export function ChoiceButton (props) {
   }
 
   return (
-    <StyledChoiceButton
+    <Button
       ref={choiceButton}
       label={
         <Box
@@ -71,13 +56,9 @@ export function ChoiceButton (props) {
               height={thumbnailHeight}
               margin={{ right: '1ch' }}
               src={src}
-              width={thumbnailHeight * THUMBNAIL_ASPECT_RATIO}
+              width={Math.round(thumbnailHeight * THUMBNAIL_ASPECT_RATIO)}
             />}
           <Text
-            color={{
-              dark: 'neutral-6',
-              light: 'dark-1'
-            }}
             wordBreak='break-word'
           >
             {choiceLabel}
@@ -102,12 +83,6 @@ ChoiceButton.defaultProps = {
   selected: false,
   src: '',
   tabIndex: -1,
-  theme: {
-    dark: false,
-    global: {
-      colors: {}
-    }
-  },
   thumbnailSize: 'none'
 }
 
@@ -120,13 +95,8 @@ ChoiceButton.propTypes = {
   selected: PropTypes.bool,
   src: PropTypes.string,
   tabIndex: PropTypes.number,
-  theme: PropTypes.shape({
-    dark: PropTypes.bool,
-    global: PropTypes.shape({
-      colors: PropTypes.object
-    })
-  }),
   thumbnailSize: PropTypes.string
 }
 
-export default withTheme(ChoiceButton)
+export default withThemeContext(ChoiceButton, theme)
+export { ChoiceButton }
