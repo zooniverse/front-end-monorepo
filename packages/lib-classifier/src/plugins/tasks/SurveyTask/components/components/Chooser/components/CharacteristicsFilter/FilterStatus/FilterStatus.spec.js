@@ -43,7 +43,22 @@ describe('Component > FilterStatus', function () {
     expect(wrapper.find(FilterButton)).to.have.lengthOf(0)
   })
 
-  describe('with drop content', function () {
+  describe('when disabled, on click', function () {
+    before(function () {
+      wrapper.setProps({ disabled: true })
+      wrapper.find(DropButton).at(0).simulate('click')
+    })
+
+    after(function () {
+      wrapper.setProps({ disabled: false })
+    })
+
+    it('should not show Characteristics on click', function () {
+      expect(wrapper.find(Characteristics)).to.have.lengthOf(0)
+    })
+  })
+
+  describe('on click', function () {
     before(function () {
       wrapper.find(DropButton).at(0).simulate('click')
     })
