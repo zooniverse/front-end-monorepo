@@ -8,7 +8,7 @@ Currently, the FEM Classifier's default "Subject Viewer sizing/fitting" behaviou
 
 This is analogous to PFE's special "no-max-height" behaviour, which had to be _explicitly set._
 
-While the default "fit to width, no ma height" behaviour is good in many cases, there can be issues for certain workflows, e.g. when the Subject is a tall image (such as a portrait photo) and the user's window is very wide, causing the bottom half of the image to be "cut off".
+While the default "fit to width, no max height" behaviour is good in many cases, there can be issues for certain workflows, e.g. when the Subject is a tall image (such as a portrait photo) and the user's window is very wide, causing the bottom half of the image to be "cut off".
 
 We need to consider how to size/fit viewers for a variety of Subjects and Subject Viewers.
 
