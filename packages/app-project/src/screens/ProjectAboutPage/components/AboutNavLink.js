@@ -28,7 +28,7 @@ const AboutNavLink = ({ router, link }) => {
     >
       <NavLink
         link={link}
-        color={isCurrentPage ? 'neutral-1' : { dark: 'neutral-6', light: 'dark-5' }}
+        color={{ dark: 'neutral-6', light: 'dark-3' }}
         weight={isCurrentPage ? 'bold' : 'normal'}
         StyledAnchor={StyledAnchor}
       />
