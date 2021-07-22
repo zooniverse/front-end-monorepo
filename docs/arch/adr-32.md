@@ -20,6 +20,12 @@ The answer is to use **Layouts**.
 - The choice of Layout (presumably per workflow) should be controllable by the project owner.
 - Whether or not a specific subject viewer size configuration is supported will depend on the Layout.
 
+Notes:
+- Please also note that in addition to layouts, certain specialised Subject Viewers can have their visible characteristics (e.g. margin, padding, number of columns/rows/etc) _further customised_ via configuration data found in either the workflow configuration or even in the Subject data itself. 
+  - Example 1: the [ScatterPlotViewer](https://github.com/zooniverse/front-end-monorepo/blob/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/components/ScatterPlotViewer/README.md) allows us to set the visible margin and padding _per Subject._
+  - Example 2: the [SubjectGroupViewer](https://github.com/zooniverse/front-end-monorepo/blob/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/components/SubjectGroupViewer/README.md) allows us to set the number of rows/columns and size of cells via a JSON object at `workflow.configuration.subject_viewer_config`.
+- Please see [ADR 27](./adr-27.md) for further information on Subject Viewer Configuration.
+
 See also:
 - The current [Layout code](../../packages/lib-classifier/src/components/Classifier/components/Layout), as of June 2021, currently only has DefaultLayout.
 
