@@ -2,7 +2,10 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import React from 'react'
 
+import theme from './theme'
 import ChoiceButton from './ChoiceButton'
+
+const combinedTheme = Object.assign({}, zooTheme, theme)
 
 const CARACAL_SRC = 'https://panoptes-uploads.zooniverse.org/staging/workflow_attached_image/41bddb25-bb8d-4734-88fe-643d88688489.jpeg'
 
@@ -32,6 +35,7 @@ const Template = ({
   choiceId,
   choiceLabel,
   dark,
+  disabled,
   hasFocus,
   selected,
   src,
@@ -39,11 +43,12 @@ const Template = ({
   thumbnailSize
 }) => (
   <StoryContext
-    theme={{ ...zooTheme, dark }}
+    theme={{ ...combinedTheme, dark }}
   >
     <ChoiceButton
       choiceId={choiceId}
       choiceLabel={choiceLabel}
+      disabled={disabled}
       hasFocus={hasFocus}
       onChoose={() => console.log(choiceId)}
       onKeyDown={({ key }) => console.log(choiceId, key)}
@@ -60,6 +65,7 @@ Default.args = {
   choiceId: 'AARDVARK',
   choiceLabel: 'Aardvark',
   dark: false,
+  disabled: false,
   hasFocus: false,
   selected: false,
   src: '',
@@ -72,6 +78,7 @@ LongLabel.args = {
   choiceId: 'LONG',
   choiceLabel: 'Long label is really long label',
   dark: false,
+  disabled: false,
   hasFocus: false,
   selected: false,
   src: '',
@@ -84,6 +91,7 @@ SmallThumbnail.args = {
   choiceId: 'CRCL',
   choiceLabel: 'Caracal',
   dark: false,
+  disabled: false,
   hasFocus: false,
   selected: false,
   src: CARACAL_SRC,
@@ -96,6 +104,7 @@ MediumThumbnail.args = {
   choiceId: 'CRCL',
   choiceLabel: 'Caracal',
   dark: false,
+  disabled: false,
   hasFocus: false,
   selected: false,
   src: CARACAL_SRC,
@@ -108,6 +117,7 @@ LargeThumbnail.args = {
   choiceId: 'CRCL',
   choiceLabel: 'Caracal',
   dark: false,
+  disabled: false,
   hasFocus: false,
   selected: false,
   src: CARACAL_SRC,
