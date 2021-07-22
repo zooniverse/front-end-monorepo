@@ -23,12 +23,12 @@ const AboutNavLink = ({ router, link }) => {
 
   return (
     <Box
-      background={isCurrentPage ? 'accent-1' : 'neutral-6'}
+      background={isCurrentPage ? 'accent-1' : { light: 'neutral-6', dark: '' }}
       pad={{ horizontal: '20px', vertical: '5px' }}
     >
       <NavLink
         link={link}
-        color={isCurrentPage ? 'neutral-1' : 'dark-5'}
+        color={{ dark: 'neutral-6', light: 'dark-3' }}
         weight={isCurrentPage ? 'bold' : 'normal'}
         StyledAnchor={StyledAnchor}
       />
