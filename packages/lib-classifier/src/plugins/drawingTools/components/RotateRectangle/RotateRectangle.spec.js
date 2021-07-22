@@ -65,10 +65,10 @@ describe('RotateRectangle tool', function () {
       dragMove({}, { x: 50, y: 20 })
 
       expect(mark.angle).to.equal(0)
-      expect(mark.x_center).to.equal(325)
-      expect(mark.y_center).to.equal(310)
-      expect(mark.width).to.equal(250)
-      expect(mark.height).to.equal(220)
+      expect(mark.x_center).to.equal(300)
+      expect(mark.y_center).to.equal(300)
+      expect(mark.width).to.equal(300)
+      expect(mark.height).to.equal(240)
     })
 
     it('should rotate to 90 degrees when the RotateHandle is moved', function () {
@@ -122,6 +122,45 @@ describe('RotateRectangle tool', function () {
       )
       wrapper.simulate('pointerup')
       expect(onFinish).to.have.been.calledOnce()
+    })
+
+    describe('when rotated 180 degrees', function () {
+      let mark
+      beforeEach(function () {
+        mark = RotateRectangleMark.create({
+          id: 'rotateRectangle2',
+          toolType: 'rotateRectangle',
+          angle: 180,
+          x_center: 300,
+          y_center: 300,
+          width: 200,
+          height: 200
+        })
+      })
+
+      it('should resize when the drag handles are moved', function () {
+        const wrapper = mount(<RotateRectangle active mark={mark} scale={1} />)
+
+        // rectangle is now rotated 180 degrees
+        // test current Top Right handle
+        const dragMove = wrapper
+          .find(DragHandle)
+          .find('[x=400][y=200][dragMove]')
+          .prop('dragMove')
+        expect(mark.angle).to.equal(180)
+        expect(mark.x_center).to.equal(300)
+        expect(mark.y_center).to.equal(300)
+        expect(mark.width).to.equal(200)
+        expect(mark.height).to.equal(200)
+
+        dragMove({}, { x: 50, y: 50 })
+
+        expect(mark.angle).to.equal(180)
+        expect(mark.x_center).to.equal(300)
+        expect(mark.y_center).to.equal(300)
+        expect(mark.width).to.equal(100)
+        expect(mark.height).to.equal(300)
+      })
     })
   })
 })
