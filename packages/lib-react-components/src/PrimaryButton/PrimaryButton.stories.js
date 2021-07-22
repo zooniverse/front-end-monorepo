@@ -39,6 +39,7 @@ storiesOf('Components/PrimaryButton', module)
           color={select('Color', colors, colors[1])}
           disabled={boolean('Disabled', false)}
           label={text('Label', 'Click me')}
+          href={text('href', '')}
           onClick={() => { }}
         />
       </Box>
@@ -59,6 +60,7 @@ storiesOf('Components/PrimaryButton', module)
           color={select('Color', colors, colors[1])}
           disabled={boolean('Disabled', false)}
           label={text('Label', 'Click me')}
+          href={text('href', '')}
           onClick={() => { }}
         />
       </Box>

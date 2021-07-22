@@ -59,7 +59,7 @@ storiesOf('Components/PlainButton', module)
 
   .add('Disabled', () => (
     <Grommet theme={zooTheme}>
-      <PlainButton disabled text={text('Text', 'Click me')} />
+      <PlainButton href={text('href', '')} disabled text={text('Text', 'Click me')} />
     </Grommet>
   ), config)
 

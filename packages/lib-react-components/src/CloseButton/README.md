@@ -1,6 +1,6 @@
 # CloseButton
 
-A styled Grommet `Button` component that displays a close icon. Has the same API as [Grommet's `Button`](https://v2.grommet.io/button).
+A styled Grommet `Button` component that displays a close icon. Has the same API as [Grommet's `Button`](https://v2.grommet.io/button) except we've disallowed the `href` prop for this component.
 
 ## props
 
