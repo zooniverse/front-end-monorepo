@@ -8,9 +8,10 @@
   "scripts": {
     "build": "PANOPTES_ENV=${PANOPTES_ENV:-production} next build",
     "build-storybook": "build-storybook -s public",
-    "dev": "PANOPTES_ENV=${PANOPTES_ENV:-staging} node server/server.js",
+    "dev": "PANOPTES_ENV=${PANOPTES_ENV:-staging} node server/dev-server.js",
     "lint": "zoo-standard --fix | snazzy",
     "start": "NODE_ENV=${NODE_ENV:-production} node server/server.js",
+    "start:dev": "NODE_ENV=${NODE_ENV:-production} node server/dev-server.js",
     "storybook": "start-storybook -p 9001 -c .storybook -s public",
     "test": "BABEL_ENV=test mocha --config test/.mocharc.json \"./{src,pages,stores}/**/*.spec.js\"",
     "test:ci": "BABEL_ENV=test mocha --config test/.mocharc.json --reporter=min \"./{src,pages,stores}/**/*.spec.js\""
@@ -76,6 +77,7 @@
     "babel-loader": "~8.2.2",
     "babel-plugin-webpack-alias": "~2.1.2",
     "chai": "~4.3.4",
+    "devcert": "~1.2.0",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.11.0",
     "enzyme-adapter-react-16": "~1.15.2",
