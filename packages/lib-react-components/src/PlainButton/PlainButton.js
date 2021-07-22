@@ -10,6 +10,10 @@ export const StyledPlainButton = styled(Button)`
   &:enabled:hover {
     text-decoration: underline;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `
 
 function PlainButton (props) {
