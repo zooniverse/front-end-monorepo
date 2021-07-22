@@ -26,7 +26,9 @@ export const StyledDisplayName = styled(Box)`
   word-wrap: break-word;
   ${props =>
     css`
-      color: ${props.theme.global.colors['black']};
+      color: ${props.theme.dark
+          ? props.theme.global.colors['neutral-6']
+          : props.theme.global.colors.black};
     `}
 `
 
@@ -51,7 +53,7 @@ export const StyledRole = styled(Box)`
   margin-top: 5px;
   ${props =>
     css`
-      color: ${props.theme.global.colors['black']};
+      color: ${props.theme.global.colors.black};
     `}
 `
 
@@ -66,27 +68,27 @@ const TeamMember = ({ user, router }) => {
   const placeholderAvatar = `${assetPrefix}/simple-avatar.png`
 
   return (
-    <StyledTeamMember as="li">
+    <StyledTeamMember as='li'>
       <StyledAvatar>
         {!user.avatar_src ? (
           <Image 
-            alt="Placeholder Avatar"
-            fit="cover" 
+            alt='Placeholder Avatar'
+            fit='cover' 
             src={placeholderAvatar} 
           />
         ) : (
-          <Image alt={user.display_name} fit="cover" src={user.avatar_src} />
+          <Image alt={user.display_name} fit='cover' src={user.avatar_src} />
         )}
       </StyledAvatar>
-      <Box flex direction="column">
-        <StyledDisplayName>{user.display_name}</StyledDisplayName>
+      <Box flex direction='column'>
+        <StyledDisplayName color={{ light: 'neutral-7', dark: '' }}>{user.display_name}</StyledDisplayName>
         <StyledUsername
           link={{ href: `${baseUrl}/${user.login}`, text: `@${user.login}` }}
         />
         {user?.roles?.map(role => (
           <StyledRole
             key={role}
-            round="xxsmall"
+            round='xxsmall'
             background={role === 'owner' ? 'neutral-2' : 'accent-1'}
           >
             {role === 'scientist' ? 'researcher' : role}
