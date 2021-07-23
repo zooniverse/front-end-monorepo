@@ -1,16 +1,11 @@
 import { Box } from 'grommet'
 import { SpacedText } from '@zooniverse/react-components'
-import styled from 'styled-components'
 import WorkflowSelectButton from '../WorkflowSelectButton'
 import en from './locales/en'
 import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 
 counterpart.registerTranslations('en', en)
-
-export const WorkflowList = styled.ul`
-
-`
 
 export default function WorkflowSelectButtons ({ assignedWorkflowID = '', onSelect, workflows = [] }) {
   let assignedWorkflow
@@ -72,7 +67,7 @@ export default function WorkflowSelectButtons ({ assignedWorkflowID = '', onSele
           >
             {filteredWorkflowsByLevel.disallowed.map((workflow) => (
               <li key={workflow.id}>
-                <WorkflowSelectButton key={workflow.id} disabled={true} onSelect={onSelect} workflow={workflow} />
+                <WorkflowSelectButton disabled={true} onSelect={onSelect} workflow={workflow} />
               </li>
             ))}
           </Box>
