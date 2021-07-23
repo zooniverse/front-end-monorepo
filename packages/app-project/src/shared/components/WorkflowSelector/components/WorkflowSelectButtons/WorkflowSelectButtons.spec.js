@@ -1,13 +1,13 @@
-import { render, screen } from '@testing-library/react'
+// import { render, screen } from '@testing-library/react'
 import { expect } from 'chai'
 import { SpacedText } from '@zooniverse/react-components'
 import WorkflowSelectButtons from './WorkflowSelectButtons'
 import WorkflowSelectButton from '../WorkflowSelectButton'
 
-describe.only('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
-  it.only('should render without crashing', function () {
-    const { container } = render(<WorkflowSelectButtons onSelect={() => {}} />)
-    console.log('container', container)
+xdescribe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
+  it('should render without crashing', function () {
+    // const { container } = render(<WorkflowSelectButtons onSelect={() => {}} />)
+    // console.log('container', container)
     // expect(wrapper).to.be.ok()
   })
 
