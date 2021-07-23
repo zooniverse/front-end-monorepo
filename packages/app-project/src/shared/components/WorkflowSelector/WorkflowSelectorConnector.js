@@ -7,6 +7,7 @@ function useStores() {
   const { store } = React.useContext(MobXProviderContext)
 
   return {
+    uppLoaded: store.user.personalization.projectPreferences.isLoaded,
     uppSettings: store.user.personalization.projectPreferences.settings,
     userReadyState: store.user.loadingState,
     workflowDescription: store.project.workflow_description
@@ -14,11 +15,12 @@ function useStores() {
 }
 
 function WorkflowSelectorConnector(props) {
-  const { uppSettings, userReadyState, workflowDescription } = useStores()
+  const { uppLoaded, uppSettings, userReadyState, workflowDescription } = useStores()
   const assignedWorkflowID = uppSettings?.workflow_id || ''
   return (
     <WorkflowSelector
       assignedWorkflowID={assignedWorkflowID}
+      uppLoaded={uppLoaded}
       userReadyState={userReadyState}
       workflowDescription={workflowDescription}
       {...props}

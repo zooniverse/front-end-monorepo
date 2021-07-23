@@ -36,7 +36,12 @@ const UserProjectPreferences = types
       }
 
       return false
+    },
+
+    get isLoaded() {
+      return self.loadingState === asyncStates.success
     }
+
   }))
   .actions(self => {
     return {

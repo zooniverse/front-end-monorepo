@@ -81,4 +81,22 @@ describe('Component > WorkflowSelectButton', function () {
       expect(label.text()).to.satisfy(label => label.endsWith('Workflow name - set selection'))
     })
   })
+
+  xdescribe('with an active user', function () {
+    it('should call onSelect on workflow selection', function () {
+      const onSelect = sinon.stub()
+      const wrapper = shallow(
+        <WorkflowSelector
+          theme={THEME}
+          onSelect={onSelect}
+          userReadyState={asyncStates.success}
+          workflows={WORKFLOWS}
+          workflowDescription={WORKFLOW_DESCRIPTION}
+        />)
+      const workflowButton = wrapper.find(WorkflowSelectButton).first()
+      const buttonSelect = workflowButton.prop('onSelect')
+      buttonSelect()
+      expect(onSelect).to.have.been.calledOnce()
+    })
+  })
 })

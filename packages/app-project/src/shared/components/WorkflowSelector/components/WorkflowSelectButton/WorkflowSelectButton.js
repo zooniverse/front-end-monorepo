@@ -1,20 +1,32 @@
-import { PrimaryButton, SpacedText, withThemeContext } from '@zooniverse/react-components'
+import { PrimaryButton, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Button, Text } from 'grommet'
 import { Next } from 'grommet-icons'
 import NavLink from '@shared/components/NavLink'
 import { useRouter } from 'next/router'
 import { bool, func, number, shape, string } from 'prop-types'
-import theme from './theme'
 import addQueryParams from '@helpers/addQueryParams'
+import styled, { css, withTheme } from 'styled-components'
 
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
+export const StyledNavLink = styled(NavLink)`
+  position: relative;
+
+  &:before {
+    content: "";
+    width: 100%;
+    position: absolute;
+    height: 5px;
+    ${({ progressGradient }) => css`background: linear-gradient(to right, ${progressGradient});`}
+    top: 0;
+    left: 0;
+  }
+`
 
 function WorkflowSelectButton (props) {
-  const { disabled = false, onSelect, workflow, ...rest } = props
+  const { disabled = false, onSelect, theme: { global: { colors } }, workflow, ...rest } = props
   const router = useRouter()
   const { owner, project } = router?.query || {}
 
@@ -25,7 +37,7 @@ function WorkflowSelectButton (props) {
   const buttonLabel = workflow.grouped ?
     `${workflow.displayName} - ${counterpart('WorkflowSelectButton.setSelection')}` :
     workflow.displayName
-  const label = (
+  const Label = () => (
     <span style={{ textAlign: 'left' }}>
       <SpacedText size='10px'>
         {counterpart('WorkflowSelectButton.complete', { completeness })}
@@ -38,18 +50,24 @@ function WorkflowSelectButton (props) {
     return onSelect(event, workflow)
   }
 
+  const percentComplete = `${completeness}%`
+  const progressGradient = [
+    `${colors['accent-2']} ${percentComplete}`,
+    `transparent ${percentComplete}`
+  ].join(',')
+
   return (
-    <NavLink
+    <StyledNavLink
       align='between'
       completeness={completeness}
       disabled={disabled}
-      href={href}
       icon={<Next size='15px' />}
       justify='space-between'
-      label={label}
       link={(disabled) ? { href: '' } : { href }}
       onClick={selectSubjectSet}
+      progressGradient={progressGradient}
       StyledAnchor={PrimaryButton}
+      StyledSpacedText={Label}
       reverse
       {...rest}
     />
@@ -68,4 +86,4 @@ WorkflowSelectButton.propTypes = {
   }).isRequired
 }
 
-export default withThemeContext(WorkflowSelectButton, theme)
+export default withTheme(WorkflowSelectButton)

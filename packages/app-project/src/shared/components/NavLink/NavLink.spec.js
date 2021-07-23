@@ -1,4 +1,3 @@
-import { SpacedText } from '@zooniverse/react-components'
 import { shallow } from 'enzyme'
 import { Anchor } from 'grommet'
 import Link from 'next/link'

@@ -15,9 +15,16 @@ const markdownzComponents = {
 }
 
 function WorkflowSelector (props) {
-  const { assignedWorkflowID, onSelect, userReadyState, workflows } = props
+  const {
+    assignedWorkflowID = '',
+    onSelect,
+    uppLoaded = false,
+    userReadyState,
+    workflowDescription = '',
+    workflows
+  } = props
   const loaderColor = props.theme.global.colors.brand
-  const workflowDescription = props.workflowDescription || counterpart('WorkflowSelector.message')
+  const workflowDescriptionToRender = workflowDescription || counterpart('WorkflowSelector.message')
 
   return (
     <Box>
@@ -25,7 +32,7 @@ function WorkflowSelector (props) {
         {counterpart('WorkflowSelector.getStarted')}
       </SpacedText>
       <Markdownz components={markdownzComponents}>
-        {workflowDescription}
+        {workflowDescriptionToRender}
       </Markdownz>
 
       {(userReadyState === asyncStates.error) && (
@@ -38,7 +45,7 @@ function WorkflowSelector (props) {
         </Box>
       )}
 
-      {(userReadyState === asyncStates.success) && (
+      {(userReadyState === asyncStates.success && uppLoaded) && (
         <Box
           alignSelf='start'
           fill='horizontal'

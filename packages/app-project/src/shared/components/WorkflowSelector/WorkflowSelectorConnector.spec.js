@@ -17,7 +17,12 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelectorConnector', func
         },
         user: {
           loadingState: 'success',
-          personalization: { projectPreferences: { settings: { workflow_id: '5' } } }
+          personalization: { 
+            projectPreferences: {
+              isLoaded: true,
+              settings: { workflow_id: '5' }
+            }
+          }
         }
       }
     }
@@ -49,6 +54,10 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelectorConnector', func
 
   it('should pass down the user loading state', function () {
     expect(componentWrapper.prop('userReadyState')).to.equal('success')
+  })
+
+  it('should pass down the user project preferences isLoaded state', function () {
+    expect(componentWrapper.prop('uppLoaded')).to.be.true()
   })
 
   it('should pass down the assigned workflow id', function () {

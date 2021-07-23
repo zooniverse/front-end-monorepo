@@ -25,6 +25,10 @@ const theme = {
       return css`
         transition: none;
         text-align: center;
+
+        width: 100%;
+        max-width: 350px;
+
         &:disabled {
           cursor: not-allowed;
           pointer-events: 'none';

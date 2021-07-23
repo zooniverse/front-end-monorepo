@@ -1,10 +1,11 @@
 import sinon from 'sinon'
 import auth from 'panoptes-client/lib/auth'
 import nock from 'nock'
-
+import asyncStates from '@zooniverse/async-states'
 import initStore from './initStore'
 import UserPersonalization from './UserPersonalization'
 import { statsClient } from './YourStats'
+import { expect } from 'chai'
 
 describe('Stores > UserPersonalization', function () {
   let rootStore, nockScope
@@ -55,6 +56,13 @@ describe('Stores > UserPersonalization', function () {
 
   it('should exist', function () {
     expect(rootStore.user.personalization).to.be.ok()
+  })
+
+  describe('without a project or a user', function () {
+    it('should reset the child project preferences and set load to success', function () {
+      expect(rootStore.user.personalization.projectPreferences.loadingState).to.equal(asyncStates.success)
+      expect(rootStore.user.personalization.projectPreferences.id).to.be.undefined()
+    })
   })
 
   describe('with a project and user', function () {

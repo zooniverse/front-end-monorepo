@@ -1,12 +1,18 @@
 import { Box } from 'grommet'
 import { SpacedText } from '@zooniverse/react-components'
+import styled from 'styled-components'
 import WorkflowSelectButton from '../WorkflowSelectButton'
 import en from './locales/en'
 import counterpart from 'counterpart'
+import PropTypes from 'prop-types'
 
 counterpart.registerTranslations('en', en)
 
-export default function WorkflowSelectButtons ({ assignedWorkflowID, onSelect, workflows = [] }) {
+export const WorkflowList = styled.ul`
+
+`
+
+export default function WorkflowSelectButtons ({ assignedWorkflowID = '', onSelect, workflows = [] }) {
   let assignedWorkflow
   if (assignedWorkflowID) {
     assignedWorkflow = workflows.find((workflow) => {
@@ -17,28 +23,38 @@ export default function WorkflowSelectButtons ({ assignedWorkflowID, onSelect, w
   if (assignedWorkflow) {
     const filteredWorkflowsByLevel = { allowed: [], disallowed: [] }
 
-    const assignedWorkflowLevel = assignedWorkflow.configuration.level
-    workflows.forEach(workflow => {
-      if (workflow.configuration.level <= assignedWorkflowLevel) {
-        filteredWorkflowsByLevel.allowed.push(workflow)
-      } else {
-        filteredWorkflowsByLevel.disallowed.push(workflow)
-      }
-    })
+    const assignedWorkflowLevel = assignedWorkflow?.configuration?.level
+    if (assignedWorkflowLevel) {
+      workflows.forEach(workflow => {
+        if (workflow.configuration.level <= assignedWorkflowLevel) {
+          filteredWorkflowsByLevel.allowed.push(workflow)
+        } else {
+          filteredWorkflowsByLevel.disallowed.push(workflow)
+        }
+      })
+    }
 
     return (
       <>
         <Box
           alignSelf='start'
           fill='horizontal'
-          gap='xsmall'
           margin={{ top: 'small' }}
           width={{ max: 'medium' }}
         >
           <SpacedText>{counterpart('WorkflowSelectButtons.unlocked')}</SpacedText>
-          {filteredWorkflowsByLevel.allowed.map((workflow) => (
-            <WorkflowSelectButton key={workflow.id} onSelect={onSelect} workflow={workflow} />
-          ))}
+          <Box
+            as="ul"
+            gap='xsmall'
+            pad='none'
+            style={{ listStyle: 'none' }}
+          >
+            {filteredWorkflowsByLevel.allowed.map((workflow) => (
+              <li key={workflow.id}>
+                <WorkflowSelectButton onSelect={onSelect} workflow={workflow} />
+              </li>
+            ))}
+          </Box>
         </Box>
         <Box
           alignSelf='start'
@@ -48,9 +64,18 @@ export default function WorkflowSelectButtons ({ assignedWorkflowID, onSelect, w
           width={{ max: 'medium' }}
         >
           <SpacedText>{counterpart('WorkflowSelectButtons.locked')}</SpacedText>
-          {filteredWorkflowsByLevel.disallowed.map((workflow) => (
-            <WorkflowSelectButton key={workflow.id} disabled={true} onSelect={onSelect} workflow={workflow} />
-          ))}
+          <Box
+            as="ul"
+            gap='xsmall'
+            pad='none'
+            style={{ listStyle: 'none' }}
+          >
+            {filteredWorkflowsByLevel.disallowed.map((workflow) => (
+              <li key={workflow.id}>
+                <WorkflowSelectButton key={workflow.id} disabled={true} onSelect={onSelect} workflow={workflow} />
+              </li>
+            ))}
+          </Box>
         </Box>
       </>
     )
@@ -60,12 +85,24 @@ export default function WorkflowSelectButtons ({ assignedWorkflowID, onSelect, w
   return (
     <Box
       alignSelf='start'
+      as="ul"
       fill='horizontal'
       gap='xsmall'
       margin={{ top: 'small' }}
+      pad='none'
+      style={{ listStyle: 'none' }}
       width={{ max: 'medium' }}
-    >{workflows.map(workflow =>
-      <WorkflowSelectButton key={workflow.id} onSelect={onSelect} workflow={workflow} />)}
+    >{workflows.map(workflow => (
+        <li key={workflow.id}>
+          <WorkflowSelectButton onSelect={onSelect} workflow={workflow} />
+        </li>
+      ))}
     </Box>
   )
+}
+
+WorkflowSelectButtons.propTypes = {
+  assignedWorkflowID: PropTypes.string,
+  onSelect: PropTypes.func.isRequired,
+  workflows: PropTypes.arrayOf(PropTypes.object)
 }
