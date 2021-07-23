@@ -36,11 +36,14 @@ function NavLink ({
   }
 
   if (disabled) {
-    // On the surface this may look odd, but you can't disable links
-    // And sometimes we want to render anchors that look like buttons
-    // This enables to render a placeholder span for a link that is "disabled"
-    // and in case StyledAnchor is set to use a Grommet Button (Button can be rendered as an anchor if href is defined)
+    // On the surface this may look odd, since you can't disable links
+    // Sometimes we want to render anchors that look like buttons
+    // In case of when StyledAnchor is set to use a Grommet Button (Button can be rendered as an anchor if href is defined)
+    // This enables us to render links to look like buttons
+    // Regardless, though, if disabled is passed along
+    // render a placeholder span for a link that is "disabled"
     // Also pass along a disabled prop so it renders like a disabled button
+    // If a Grommet Button (or one of the component library buttons) is set to StyledAnchor
     // We also do not wrap it with next.js's Link
     return <StyledAnchor as='span' color={color} disabled label={label} {...anchorProps} />
   }
@@ -54,6 +57,7 @@ function NavLink ({
 
 NavLink.propTypes = {
   color: PropTypes.string,
+  disabled: PropTypes.bool,
   link: PropTypes.shape({
     as: PropTypes.string,
     href: PropTypes.string,

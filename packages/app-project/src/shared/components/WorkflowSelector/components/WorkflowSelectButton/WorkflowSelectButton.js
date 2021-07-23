@@ -3,7 +3,7 @@ import counterpart from 'counterpart'
 import { Next } from 'grommet-icons'
 import NavLink from '@shared/components/NavLink'
 import { useRouter } from 'next/router'
-import { bool, func, number, shape, string } from 'prop-types'
+import { bool, func, number, object, shape, string } from 'prop-types'
 import addQueryParams from '@helpers/addQueryParams'
 import styled, { css, withTheme } from 'styled-components'
 
@@ -77,6 +77,7 @@ function WorkflowSelectButton (props) {
 WorkflowSelectButton.propTypes = {
   disabled: bool,
   onSelect: func.isRequired,
+  theme: object,
   workflow: shape({
     completeness: number,
     default: bool,
