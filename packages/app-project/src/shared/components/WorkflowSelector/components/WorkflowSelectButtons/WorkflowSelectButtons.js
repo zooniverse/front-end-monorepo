@@ -21,11 +21,14 @@ export default function WorkflowSelectButtons ({ assignedWorkflowID = '', onSele
     const assignedWorkflowLevel = assignedWorkflow?.configuration?.level
     if (assignedWorkflowLevel) {
       workflows.forEach(workflow => {
-        if (workflow.configuration.level <= assignedWorkflowLevel) {
-          filteredWorkflowsByLevel.allowed.push(workflow)
-        } else {
-          filteredWorkflowsByLevel.disallowed.push(workflow)
-        }
+        const workflowLevel = workflow.configuration.level
+        if (workflowLevel) {
+          if (workflowLevel <= assignedWorkflowLevel) {
+            filteredWorkflowsByLevel.allowed.push(workflow)
+          } else {
+            filteredWorkflowsByLevel.disallowed.push(workflow)
+          }
+        } 
       })
     }
 
