@@ -14,6 +14,10 @@ export const StyledFilter = styled(Box)`
     display: block;
     position: absolute;
   }
+
+  &:hover {
+    box-shadow: 0 0 2px 2px ${props => props.theme.global.colors.brand};
+  }
 `
 
 export default function FilterButton (props) {

@@ -27,6 +27,7 @@ class SingleVideoViewerContainer extends React.Component {
   constructor() {
     super()
 
+    this.videoViewer = React.createRef()
     this.transformLayer = React.createRef()
 
     this.state = {
@@ -226,19 +227,17 @@ class SingleVideoViewerContainer extends React.Component {
             <Box animation='fadeIn' overflow='hidden'>
               <SVGContext.Provider value={{ canvas }}>
                 <svg
+                  ref={this.videoViewer}
                   focusable
                   onKeyDown={onKeyDown}
                   tabIndex={0}
                   viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
-                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns='http://www.w3.org/2000/svg'
                 >
                   {/* {title?.id && title?.text && (
                   <title id={title.id}>{title.text}</title>
                 )} */}
-                  <g
-                    ref={this.transformLayer}
-                    transform={transform}
-                  >
+                  <g ref={this.transformLayer} transform={transform}>
                     {enableInteractionLayer && (
                       <InteractionLayer
                         scale={scale}

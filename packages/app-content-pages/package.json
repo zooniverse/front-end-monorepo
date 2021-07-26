@@ -62,6 +62,7 @@
     "@storybook/builder-webpack5": "~6.3.2",
     "@storybook/manager-webpack5": "~6.3.2",
     "@storybook/react": "~6.3.2",
+    "@testing-library/react": "~12.0.0",
     "chai": "~4.3.4",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.11.0",
@@ -69,7 +70,6 @@
     "jsdom": "~16.5.2",
     "mocha": "~8.3.2",
     "proxyquire": "~2.1.0",
-    "react-testing-library": "~8.0.1",
     "sinon": "~10.0.0",
     "sinon-chai": "~3.6.0"
   },
