@@ -16,7 +16,6 @@ const StyledGrid = styled.div`
   grid-gap: 2px;
   grid-template-rows: repeat(${props => props.rowsCount}, auto);
   width: 100%;
-  height: 100%;
 `
 
 export function Choices (props) {
