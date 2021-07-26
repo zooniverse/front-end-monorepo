@@ -1,5 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
+import { Box, Grommet } from 'grommet'
 import React from 'react'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
@@ -13,12 +13,21 @@ function StoryContext (props) {
     <Grommet
       background={{
         dark: 'dark-1',
-        light: 'neutral-6'
+        light: 'light-1'
       }}
       theme={theme}
       themeMode={(theme.dark) ? 'dark' : 'light'}
     >
-      {children}
+      <Box
+        background={{
+          dark: 'dark-3',
+          light: 'neutral-6'
+        }}
+        pad='medium'
+        width='380px'
+      >
+        {children}
+      </Box>
     </Grommet>
   )
 }

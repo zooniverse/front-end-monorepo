@@ -1,5 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
+import { Box, Grommet } from 'grommet'
 import React from 'react'
 
 import ClearFilters from './ClearFilters'
@@ -16,7 +16,16 @@ function StoryContext (props) {
       theme={theme}
       themeMode={(theme.dark) ? 'dark' : 'light'}
     >
-      {children}
+      <Box
+        background={{
+          dark: 'dark-3',
+          light: 'neutral-6'
+        }}
+        pad='medium'
+        width='380px'
+      >
+        {children}
+      </Box>
     </Grommet>
   )
 }
