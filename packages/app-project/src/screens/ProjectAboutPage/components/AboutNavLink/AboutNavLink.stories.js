@@ -30,7 +30,7 @@ export default {
 }
 
 export const Default = ({ dark }) => (
-  <Grid columns={['small', 'flex']} gap='8%'>
+  <Grid columns={['small', 'flex']}>
     <Grommet
       background={{ dark: 'dark-3', light: 'neutral-6' }}
       theme={{ ...zooTheme, dark }}
@@ -42,7 +42,7 @@ export const Default = ({ dark }) => (
 )
 
 export const Current = ({ dark }) => (
-  <Grid columns={['small', 'flex']} gap='8%'>
+  <Grid columns={['small', 'flex']}>
     <Grommet
       background={{ dark: 'dark-3', light: 'neutral-6' }}
       theme={{ ...zooTheme, dark }}
