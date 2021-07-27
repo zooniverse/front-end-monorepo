@@ -8,7 +8,7 @@ const AboutSidebar = ({ router, aboutNavLinks }) => {
   const baseUrl = `/projects/${owner}/${project}/about`
 
   return (
-    <Nav flex direction="column" gap="xsmall">
+    <Nav flex direction='column' gap='xsmall'>
       <AboutNavLink
         link={{
           href: `${baseUrl}/research`,
