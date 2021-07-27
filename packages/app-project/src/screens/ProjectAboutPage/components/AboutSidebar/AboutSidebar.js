@@ -1,4 +1,4 @@
-import AboutNavLink from './AboutNavLink'
+import AboutNavLink from '../AboutNavLink'
 import { Nav } from 'grommet'
 import { withRouter } from 'next/router'
 import { arrayOf, object, string } from 'prop-types'

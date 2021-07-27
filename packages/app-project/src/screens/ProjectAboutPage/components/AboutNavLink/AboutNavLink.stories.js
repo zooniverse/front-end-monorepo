@@ -1,4 +1,4 @@
-import { Grommet } from 'grommet'
+import { Grommet, Grid } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 import AboutNavLink from './AboutNavLink'
 
@@ -30,23 +30,27 @@ export default {
 }
 
 export const Default = ({ dark }) => (
-  <Grommet
-    background={{ dark: 'dark-3', light: 'neutral-6' }}
-    theme={{ ...zooTheme, dark }}
-    themeMode={dark ? 'dark' : 'light'}
-  >
-    <AboutNavLink router={mockedRouter} link={defaultLink} />
-  </Grommet>
+  <Grid columns={['small', 'flex']} gap='8%'>
+    <Grommet
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      theme={{ ...zooTheme, dark }}
+      themeMode={dark ? 'dark' : 'light'}
+    >
+      <AboutNavLink router={mockedRouter} link={defaultLink} />
+    </Grommet>
+  </Grid>
 )
 
 export const Current = ({ dark }) => (
-  <Grommet
-    background={{ dark: 'dark-3', light: 'neutral-6' }}
-    theme={{ ...zooTheme, dark }}
-    themeMode={dark ? 'dark' : 'light'}
-  >
-    <AboutNavLink router={mockedRouter} link={currentLink} />
-  </Grommet>
+  <Grid columns={['small', 'flex']} gap='8%'>
+    <Grommet
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      theme={{ ...zooTheme, dark }}
+      themeMode={dark ? 'dark' : 'light'}
+    >
+      <AboutNavLink router={mockedRouter} link={currentLink} />
+    </Grommet>
+  </Grid>
 )
 
 Default.args = {
