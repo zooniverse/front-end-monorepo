@@ -1,7 +1,5 @@
-import { storiesOf } from '@storybook/react'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
-
 import AboutNavLink from './AboutNavLink'
 
 const defaultLink = {
@@ -22,14 +20,39 @@ const currentLink = {
   text: 'team'
 }
 
-storiesOf('Project App / Screens / About Pages / AboutNavLink', module)
-  .add('default', () => (
-    <Grommet theme={zooTheme}>
-      <AboutNavLink router={mockedRouter} link={defaultLink} />
-    </Grommet>
-  ))
-  .add('current page', () => (
-    <Grommet theme={zooTheme}>
-      <AboutNavLink router={mockedRouter} link={currentLink} />
-    </Grommet>
-  ))
+export default {
+  title: 'Project App / Screens / About Pages / AboutNavLink',
+  component: AboutNavLink,
+  args: {
+    dark: false,
+    router: mockedRouter
+  }
+}
+
+export const Default = ({ dark }) => (
+  <Grommet
+    background={{ dark: 'dark-3', light: 'neutral-6' }}
+    theme={{ ...zooTheme, dark }}
+    themeMode={dark ? 'dark' : 'light'}
+  >
+    <AboutNavLink router={mockedRouter} link={defaultLink} />
+  </Grommet>
+)
+
+export const Current = ({ dark }) => (
+  <Grommet
+    background={{ dark: 'dark-3', light: 'neutral-6' }}
+    theme={{ ...zooTheme, dark }}
+    themeMode={dark ? 'dark' : 'light'}
+  >
+    <AboutNavLink router={mockedRouter} link={currentLink} />
+  </Grommet>
+)
+
+Default.args = {
+  link: defaultLink
+}
+
+Current.args = {
+  link: currentLink
+}
