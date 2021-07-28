@@ -106,6 +106,7 @@ export function WithLevels({ dark }) {
       <WorkflowSelector
         assignedWorkflowID='7890'
         onSelect={onSelect}
+        uppLoaded
         userReadyState={asyncStates.success}
         workflows={WORKFLOWS}
       />
@@ -136,4 +137,3 @@ export function Error({ dark }) {
     </StoryContext>
   )
 }
-
