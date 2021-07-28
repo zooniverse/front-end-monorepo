@@ -7,15 +7,21 @@ import PropTypes from 'prop-types'
 
 counterpart.registerTranslations('en', en)
 
-export default function WorkflowSelectButtons ({ assignedWorkflowID = '', onSelect, workflows = [] }) {
-  let assignedWorkflow
-  if (assignedWorkflowID) {
-    assignedWorkflow = workflows.find((workflow) => {
-      return workflow.id === assignedWorkflowID
-    })
-  }
+export default function WorkflowSelectButtons (props) {
+  const {
+    assignedWorkflowID = '',
+    onSelect,
+    workflowAssignmentEnabled = false,
+    workflows = []
+  } = props
 
-  if (assignedWorkflow) {
+  if (workflowAssignmentEnabled) {
+    let assignedWorkflow
+    if (assignedWorkflowID) {
+      assignedWorkflow = workflows.find((workflow) => {
+        return workflow.id === assignedWorkflowID
+      })
+    }
     const filteredWorkflowsByLevel = { allowed: [], disallowed: [] }
 
     const assignedWorkflowLevel = assignedWorkflow?.configuration?.level
@@ -29,6 +35,15 @@ export default function WorkflowSelectButtons ({ assignedWorkflowID = '', onSele
             filteredWorkflowsByLevel.disallowed.push(workflow)
           }
         } 
+      })
+    } else {
+      workflows.forEach(workflow => {
+        const workflowLevel = workflow.configuration.level
+        if (workflowLevel === '1') {
+          filteredWorkflowsByLevel.allowed.push(workflow)
+        } else if (workflowLevel) {
+          filteredWorkflowsByLevel.disallowed.push(workflow)
+        }
       })
     }
 

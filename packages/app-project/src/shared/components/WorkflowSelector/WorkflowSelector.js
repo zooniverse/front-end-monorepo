@@ -2,7 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import { Markdownz, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box, Paragraph, Text } from 'grommet'
-import { arrayOf, func, shape, string } from 'prop-types'
+import { arrayOf, bool, func, shape, string } from 'prop-types'
 import { withTheme } from 'styled-components'
 import { Bars } from 'svg-loaders-react'
 import WorkflowSelectButtons from './components/WorkflowSelectButtons'
@@ -20,6 +20,7 @@ function WorkflowSelector (props) {
     onSelect,
     uppLoaded = false,
     userReadyState,
+    workflowAssignmentEnabled = false,
     workflowDescription = '',
     workflows
   } = props
@@ -53,7 +54,12 @@ function WorkflowSelector (props) {
           margin={{ top: 'small' }}
           width={{ max: 'medium' }}
         >
-          <WorkflowSelectButtons assignedWorkflowID={assignedWorkflowID} onSelect={onSelect} workflows={workflows} />
+          <WorkflowSelectButtons
+            assignedWorkflowID={assignedWorkflowID}
+            onSelect={onSelect}
+            workflowAssignmentEnabled={workflowAssignmentEnabled}
+            workflows={workflows}
+          />
 
           {(workflows.length === 0) && (
             <Box background='accent-2' pad='xsmall' width={{ max: 'medium' }}>
@@ -85,6 +91,7 @@ function WorkflowSelector (props) {
 WorkflowSelector.propTypes = {
   onSelect: func.isRequired,
   userReadyState: string,
+  workflowAssignmentEnabled: bool,
   workflowDescription: string,
   workflows: arrayOf(shape({
       id: string.isRequired
