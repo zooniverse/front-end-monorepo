@@ -93,6 +93,7 @@ export function Default({ dark }) {
     <StoryContext theme={{ ...zooTheme, dark }}>
       <WorkflowSelector
         onSelect={onSelect}
+        uppLoaded
         userReadyState={asyncStates.success}
         workflows={WORKFLOWS}
       />
