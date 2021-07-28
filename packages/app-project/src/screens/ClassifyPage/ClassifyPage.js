@@ -13,6 +13,7 @@ import YourStats from './components/YourStats'
 import StandardLayout from '@shared/components/StandardLayout'
 import WorkflowAssignmentModal from './components/WorkflowAssignmentModal'
 import WorkflowMenuModal from './components/WorkflowMenuModal'
+import QuickTalk from './components/QuickTalk'
 
 export const ClassifierWrapper = dynamic(() =>
   import('./components/ClassifierWrapper'), { ssr: false }
@@ -69,6 +70,7 @@ function ClassifyPage ({
               workflows={workflows}
             />
           )}
+          <QuickTalk {...classifierProps} />
           <Grid columns={responsiveColumns} gap='small'>
             <ProjectName />
             <ClassifierWrapper
