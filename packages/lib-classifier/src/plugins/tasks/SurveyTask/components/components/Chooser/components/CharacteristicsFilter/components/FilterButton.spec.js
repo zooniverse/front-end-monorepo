@@ -1,6 +1,8 @@
 import { mount } from 'enzyme'
+import { Grommet } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
+import zooTheme from '@zooniverse/grommet-theme'
 import { CloseButton, Media } from '@zooniverse/react-components'
 
 import FilterButton, { StyledFilter } from './FilterButton'
@@ -17,7 +19,10 @@ describe('Component > FilterButton', function () {
         onFilter={onFilterSpy}
         valueImageSrc='bird-icon.svg'
         valueLabel='bird'
-      />
+      />, {
+        wrappingComponent: Grommet,
+        wrappingComponentProps: { theme: zooTheme }
+      }
     )
   })
 
