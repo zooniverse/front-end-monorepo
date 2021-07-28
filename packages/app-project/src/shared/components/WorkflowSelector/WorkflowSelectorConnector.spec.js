@@ -13,6 +13,7 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelectorConnector', func
     mockStore = {
       store: {
         project: {
+          experimental_tools: [],
           workflow_description: WORKFLOW_DESCRIPTION
         },
         user: {
@@ -62,6 +63,10 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelectorConnector', func
 
   it('should pass down the assigned workflow id', function () {
     expect(componentWrapper.prop('assignedWorkflowID')).to.equal(mockStore.store.user.personalization.projectPreferences.settings.workflow_id)
+  })
+
+  it('should pass down if workflow assignment is enabled for the project', function () {
+    expect(componentWrapper.prop('workflowAssignmentEnabled')).to.be.false()
   })
 
   it('should pass down parent props', function () {

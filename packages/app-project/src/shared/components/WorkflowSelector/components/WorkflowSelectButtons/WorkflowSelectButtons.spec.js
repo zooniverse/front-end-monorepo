@@ -43,6 +43,11 @@ describe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
       it('should only render links for unlocked workflows', function () {
         render(<WorkflowSelectButtons assignedWorkflowID='2' onSelect={() => { }} workflowAssignmentEnabled workflows={workflows} />)
         expect(screen.getAllByRole('link')).to.have.lengthOf(2)
+        
+      })
+
+      it('should render other workflows as just text', function () {
+        render(<WorkflowSelectButtons assignedWorkflowID='2' onSelect={() => { }} workflowAssignmentEnabled workflows={workflows} />)
         expect(screen.getByText('workflow 3')).to.exist()
       })
     })
@@ -52,6 +57,11 @@ describe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
         render(<WorkflowSelectButtons assignedWorkflowID='1' onSelect={() => { }} workflowAssignmentEnabled workflows={workflows} />)
         expect(screen.getByRole('link', { href: '/projects/undefined/undefined/classify/workflow/1' })).to.exist()
         expect(screen.getAllByRole('link')).to.have.lengthOf(1)
+
+      })
+
+      it('should render other workflows as just text', function () {
+        render(<WorkflowSelectButtons assignedWorkflowID='1' onSelect={() => { }} workflowAssignmentEnabled workflows={workflows} />)
         expect(screen.getByText('workflow 2')).to.exist()
         expect(screen.getByText('workflow 3')).to.exist()
       })
