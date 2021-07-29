@@ -1,36 +1,52 @@
+import React from 'react'
 import { inject, observer } from 'mobx-react'
-import { Component } from 'react'
-import { string } from 'prop-types'
+import PropTypes from 'prop-types'
 
 import QuickTalk from './QuickTalk'
 
 function storeMapper (stores) {
-  const projectSlug = stores.store.project.slug
+  const {
+    active: subject
+  } = stores.classifierStore.subjects
   
-  return { projectSlug }
+  return {
+    subject
+  }
 }
 
-@inject(storeMapper)
-@observer
-class QuickTalkContainer extends Component {
+class QuickTalkContainer extends React.Component {
+  constructor () {
+    super()
+  }
+    
   render () {
-    const { projectSlug, subjectID } = this.props
+    const {
+      subject,
+    } = this.props
+
+    if (!subject) {
+      return (<div>NOTHING</div>)
+    }
     
     return (
-      <div>
-        [{projectSlug}] [{subjectID}]
-        <QuickTalk
-          projectSlug
-          subjectID
-        />
-      </div>
+      <QuickTalk
+        subject={subject}
+      />
     )
   }
 }
 
 QuickTalkContainer.propTypes = {
-  projectSlug: string,
-  subjectID: string,
+  subject: PropTypes.object,
 }
 
-export default QuickTalkContainer
+QuickTalkContainer.defaultProps = {
+  subject: undefined,
+}
+
+@inject(storeMapper)
+@observer
+class DecoratedQuickTalkContainer extends QuickTalkContainer { }
+
+export default DecoratedQuickTalkContainer
+export { QuickTalkContainer }
