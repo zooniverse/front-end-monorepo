@@ -1,9 +1,9 @@
 import asyncStates from '@zooniverse/async-states'
 import { shallow } from 'enzyme'
-import sinon from 'sinon'
 
 import { WorkflowSelector } from './WorkflowSelector'
-import { WorkflowSelectButton } from './components'
+import WorkflowSelectButtons from './components/WorkflowSelectButtons'
+import { expect } from 'chai'
 
 const THEME = {
   global: {
@@ -27,7 +27,7 @@ const WORKFLOWS = [
 const WORKFLOW_DESCRIPTION = 'Sit nulla mi metus tellus aenean lobortis litora'
 const DEFAULT_WORKFLOW_DESCRIPTION = 'You can do real research by clicking to get started here!'
 
-describe('Component > Hero > WorkflowSelector > WorkflowSelector', function () {
+describe('Component > WorkflowSelector', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
       <WorkflowSelector
@@ -69,21 +69,16 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelector', function () {
     })
   })
 
-  describe('with an active user', function () {
-    it('should call onSelect on workflow selection', function () {
-      const onSelect = sinon.stub()
+  describe('when successfully loaded the user state and loaded the user project preferences', function () {
+    it('should render workflow select buttons', function () {
       const wrapper = shallow(
         <WorkflowSelector
-          theme={THEME}
-          onSelect={onSelect}
+          uppLoaded={true}
           userReadyState={asyncStates.success}
+          theme={THEME}
           workflows={WORKFLOWS}
-          workflowDescription={WORKFLOW_DESCRIPTION}
         />)
-      const workflowButton = wrapper.find(WorkflowSelectButton).first()
-      const buttonSelect = workflowButton.prop('onSelect')
-      buttonSelect()
-      expect(onSelect).to.have.been.calledOnce()
+        expect(wrapper.find(WorkflowSelectButtons)).to.have.lengthOf(1)
     })
   })
 })

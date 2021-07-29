@@ -13,11 +13,17 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelectorConnector', func
     mockStore = {
       store: {
         project: {
+          experimental_tools: [],
           workflow_description: WORKFLOW_DESCRIPTION
         },
         user: {
           loadingState: 'success',
-          personalization: { projectPreferences: { settings: { workflow_id: '5' } } }
+          personalization: { 
+            projectPreferences: {
+              isLoaded: true,
+              settings: { workflow_id: '5' }
+            }
+          }
         }
       }
     }
@@ -51,8 +57,16 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelectorConnector', func
     expect(componentWrapper.prop('userReadyState')).to.equal('success')
   })
 
+  it('should pass down the user project preferences isLoaded state', function () {
+    expect(componentWrapper.prop('uppLoaded')).to.be.true()
+  })
+
   it('should pass down the assigned workflow id', function () {
     expect(componentWrapper.prop('assignedWorkflowID')).to.equal(mockStore.store.user.personalization.projectPreferences.settings.workflow_id)
+  })
+
+  it('should pass down if workflow assignment is enabled for the project', function () {
+    expect(componentWrapper.prop('workflowAssignmentEnabled')).to.be.false()
   })
 
   it('should pass down parent props', function () {
