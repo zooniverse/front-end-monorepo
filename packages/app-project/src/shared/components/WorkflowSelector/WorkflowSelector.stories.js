@@ -108,6 +108,7 @@ export function WithLevels({ dark }) {
         assignedWorkflowID='7890'
         onSelect={onSelect}
         uppLoaded
+        workflowAssignmentEnabled
         userReadyState={asyncStates.success}
         workflows={WORKFLOWS}
       />
