@@ -104,7 +104,7 @@ export default function FilterStatus (props) {
 
         return (
           <FilterButton
-            key={selectedValueId}
+            key={`${characteristicId}-${selectedValueId}`}
             characteristicId={characteristicId}
             checked
             onFilter={handleFilter}
