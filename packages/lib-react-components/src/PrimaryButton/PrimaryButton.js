@@ -20,7 +20,7 @@ function PrimaryButton (props) {
   const wrappedLabel = React.isValidElement(label)
     ? label
     : <Text children={label} size='medium' />
-  const renderAs = as || href && disabled && 'span'
+  const renderAs = (href && disabled) ? 'span' : as
 
   return (
     <ThemeContext.Extend value={theme}>
@@ -37,11 +37,15 @@ function PrimaryButton (props) {
 }
 
 PrimaryButton.propTypes = {
+  as: PropTypes.string,
   color: PropTypes.oneOf(['blue', 'gold', 'green', 'teal']),
+  disabled: PropTypes.bool,
+  href: PropTypes.string,
   label: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired
 }
 
 PrimaryButton.defaultProps = {
+  as: '',
   color: 'gold',
   disabled: false,
   href: ''
