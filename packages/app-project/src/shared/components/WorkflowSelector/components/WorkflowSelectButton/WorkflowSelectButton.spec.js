@@ -2,7 +2,8 @@ import { shallow } from 'enzyme'
 import * as nextRouter from 'next/router'
 import sinon from 'sinon'
 import zooTheme from '@zooniverse/grommet-theme'
-import { StyledNavLink, WorkflowSelectButton } from './WorkflowSelectButton'
+import WorkflowSelectButton, { ThemedButton } from './WorkflowSelectButton'
+import Link from 'next/link'
 import { expect } from 'chai'
 
 describe('Component > WorkflowSelector > WorkflowSelectButton', function () {
@@ -36,13 +37,13 @@ describe('Component > WorkflowSelector > WorkflowSelectButton', function () {
 
   it('should call onSelect when clicked', function () {
     const wrapper = shallow(<WorkflowSelectButton onSelect={onSelect} theme={zooTheme} workflow={WORKFLOW} />)
-    wrapper.find(StyledNavLink).simulate('click', { preventDefault: () => false })
+    wrapper.find(ThemedButton).simulate('click', { preventDefault: () => false })
     expect(onSelect).to.have.been.calledOnce()
   })
 
   it('should not add "set selection" to the label', function () {
     const wrapper = shallow(<WorkflowSelectButton onSelect={onSelect} theme={zooTheme} workflow={WORKFLOW} />)
-    const label = wrapper.renderProp('StyledSpacedText')()
+    const label = shallow(wrapper.find(ThemedButton).prop('label'))
     expect(label.text()).to.satisfy(label => label.endsWith('Workflow name'))
   })
 
@@ -58,14 +59,14 @@ describe('Component > WorkflowSelector > WorkflowSelectButton', function () {
             }}
           />
       )
-      expect(wrapper.prop('link')).to.deep.equal({ href: `${router.asPath}/classify/workflow/${WORKFLOW.id}` })
+      expect(wrapper.prop('href')).to.equal(`${router.asPath}/classify/workflow/${WORKFLOW.id}`)
     })
   })
 
   describe('when used with a non-default workflow', function () {
     it('should be a link pointing to `/classify/workflow/:workflow_id`', function () {
       const wrapper = shallow(<WorkflowSelectButton onSelect={onSelect} theme={zooTheme} workflow={WORKFLOW} />)
-      expect(wrapper.prop('link')).to.deep.equal({ href: `${router.asPath}/classify/workflow/${WORKFLOW.id}` })
+      expect(wrapper.prop('href')).to.equal(`${router.asPath}/classify/workflow/${WORKFLOW.id}`)
     })
   })
 
@@ -81,15 +82,20 @@ describe('Component > WorkflowSelector > WorkflowSelectButton', function () {
     })
 
     it('should add "set selection" to the label', function () {
-      const label = wrapper.renderProp('StyledSpacedText')()
+      const label = shallow(wrapper.find(ThemedButton).prop('label'))
       expect(label.text()).to.satisfy(label => label.endsWith('Workflow name - set selection'))
     })
   })
 
   describe('when disabled', function () {
-    it('should set href to an empty string', function () {
+    it('should not have an href', function () {
       const wrapper = shallow(<WorkflowSelectButton disabled onSelect={onSelect} theme={zooTheme} workflow={WORKFLOW} />)
-      expect(wrapper.prop('link')).to.deep.equal({ href: '' })
+      expect(wrapper.prop('href')).to.be.undefined()
+    })
+
+    it('should not wrap the button with Link', function () {
+      const wrapper = shallow(<WorkflowSelectButton disabled onSelect={onSelect} theme={zooTheme} workflow={WORKFLOW} />)
+      expect(wrapper.find(Link)).to.have.lengthOf(0)
     })
   })
 })

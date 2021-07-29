@@ -1,32 +1,21 @@
-import { PrimaryButton, SpacedText } from '@zooniverse/react-components'
+import { SpacedText, withThemeContext } from '@zooniverse/react-components'
+import { Button } from 'grommet'
 import counterpart from 'counterpart'
 import { Next } from 'grommet-icons'
-import NavLink from '@shared/components/NavLink'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { bool, func, number, object, shape, string } from 'prop-types'
 import addQueryParams from '@helpers/addQueryParams'
-import styled, { css, withTheme } from 'styled-components'
+import theme from './theme'
 
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-export const StyledNavLink = styled(NavLink)`
-  position: relative;
-
-  &:before {
-    content: "";
-    width: 100%;
-    position: absolute;
-    height: 5px;
-    ${({ progressGradient }) => css`background: linear-gradient(to right, ${progressGradient});`}
-    top: 0;
-    left: 0;
-  }
-`
+export const ThemedButton = withThemeContext(Button, theme)
 
 function WorkflowSelectButton (props) {
-  const { disabled = false, onSelect, theme: { global: { colors } }, workflow, ...rest } = props
+  const { disabled = false, onSelect, workflow, ...rest } = props
   const router = useRouter()
   const { owner, project } = router?.query || {}
 
@@ -37,8 +26,8 @@ function WorkflowSelectButton (props) {
   const buttonLabel = workflow.grouped ?
     `${workflow.displayName} - ${counterpart('WorkflowSelectButton.setSelection')}` :
     workflow.displayName
-  const Label = () => (
-    <span style={{ textAlign: 'left' }}>
+  const label = (
+    <span>
       <SpacedText size='10px'>
         {counterpart('WorkflowSelectButton.complete', { completeness })}
       </SpacedText><br />
@@ -50,27 +39,31 @@ function WorkflowSelectButton (props) {
     return onSelect(event, workflow)
   }
 
-  const percentComplete = `${completeness}%`
-  const progressGradient = [
-    `${colors['accent-2']} ${percentComplete}`,
-    `transparent ${percentComplete}`
-  ].join(',')
-
+  if (href && disabled) {
+    return (
+      <ThemedButton
+        completeness={completeness}
+        disabled={disabled}
+        icon={<Next size='15px' />}
+        reverse
+        label={label}
+        primary
+        {...rest}
+      />
+    )
+  }
   return (
-    <StyledNavLink
-      align='between'
-      completeness={completeness}
-      disabled={disabled}
-      icon={<Next size='15px' />}
-      justify='space-between'
-      link={(disabled) ? { href: '' } : { href }}
-      onClick={selectSubjectSet}
-      progressGradient={progressGradient}
-      StyledAnchor={PrimaryButton}
-      StyledSpacedText={Label}
-      reverse
-      {...rest}
-    />
+    <Link href={href} passHref>
+      <ThemedButton
+        completeness={completeness}
+        icon={<Next  size='15px' />}
+        reverse
+        label={label}
+        primary
+        onClick={selectSubjectSet}
+        {...rest}
+      />
+    </Link>
   )
 }
 
@@ -87,5 +80,4 @@ WorkflowSelectButton.propTypes = {
   }).isRequired
 }
 
-export default withTheme(WorkflowSelectButton)
-export { WorkflowSelectButton }
+export default WorkflowSelectButton
