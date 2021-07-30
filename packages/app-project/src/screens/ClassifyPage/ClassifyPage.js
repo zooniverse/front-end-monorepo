@@ -12,7 +12,7 @@ import RecentSubjects from './components/RecentSubjects'
 import YourStats from './components/YourStats'
 import StandardLayout from '@shared/components/StandardLayout'
 import WorkflowAssignmentModal from './components/WorkflowAssignmentModal'
-import WorkflowMenu from './components/WorkflowMenu'
+import WorkflowMenuModal from './components/WorkflowMenuModal'
 
 export const ClassifierWrapper = dynamic(() =>
   import('./components/ClassifierWrapper'), { ssr: false }
@@ -20,6 +20,7 @@ export const ClassifierWrapper = dynamic(() =>
 
 function ClassifyPage ({
   addToCollection,
+  onSubjectReset,
   screenSize,
   subjectID,
   subjectSetID,
@@ -62,7 +63,7 @@ function ClassifyPage ({
 
         <Box as='main' fill='horizontal'>
           {!canClassify && (
-            <WorkflowMenu
+            <WorkflowMenuModal
               subjectSetFromUrl={subjectSetFromUrl}
               workflowFromUrl={workflowFromUrl}
               workflows={workflows}
@@ -72,6 +73,7 @@ function ClassifyPage ({
             <ProjectName />
             <ClassifierWrapper
               onAddToCollection={addToCollection}
+              onSubjectReset={onSubjectReset}
               {...classifierProps}
             />
             <ThemeModeToggle />

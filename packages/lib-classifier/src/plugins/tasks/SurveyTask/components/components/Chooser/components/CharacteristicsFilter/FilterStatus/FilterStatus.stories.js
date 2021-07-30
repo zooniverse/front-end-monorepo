@@ -1,5 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
+import { Box, Grommet } from 'grommet'
 import React from 'react'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
@@ -18,7 +18,16 @@ function StoryContext (props) {
       theme={theme}
       themeMode={(theme.dark) ? 'dark' : 'light'}
     >
-      {children}
+      <Box
+        background={{
+          dark: 'dark-3',
+          light: 'neutral-6'
+        }}
+        pad='medium'
+        width='380px'
+      >
+        {children}
+      </Box>
     </Grommet>
   )
 }
@@ -30,12 +39,14 @@ export default {
 
 const Template = ({
   dark,
+  disabled,
   task
 }) => (
   <StoryContext
     theme={{ ...zooTheme, dark }}
   >
     <FilterStatus
+      disabled={disabled}
       task={task}
     />
   </StoryContext>
@@ -44,5 +55,6 @@ const Template = ({
 export const Default = Template.bind({})
 Default.args = {
   dark: false,
+  disabled: false,
   task: mockTask
 }

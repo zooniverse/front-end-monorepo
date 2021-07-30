@@ -20,7 +20,7 @@ function StoryContext (props) {
       themeMode={(theme.dark) ? 'dark' : 'light'}
     >
       <Box
-        align='end'
+        align='center'
         width='full'
       >
         <Box

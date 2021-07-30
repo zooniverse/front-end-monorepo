@@ -2,12 +2,10 @@ import asyncStates from '@zooniverse/async-states'
 import { Markdownz, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box, Paragraph, Text } from 'grommet'
-import { arrayOf, func, shape, string } from 'prop-types'
-import { useState } from 'react';
+import { arrayOf, bool, func, shape, string } from 'prop-types'
 import { withTheme } from 'styled-components'
 import { Bars } from 'svg-loaders-react'
-
-import { WorkflowSelectButton } from './components'
+import WorkflowSelectButtons from './components/WorkflowSelectButtons'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
@@ -17,9 +15,17 @@ const markdownzComponents = {
 }
 
 function WorkflowSelector (props) {
-  const { onSelect, userReadyState, workflows } = props
+  const {
+    assignedWorkflowID = '',
+    onSelect,
+    uppLoaded = false,
+    userReadyState,
+    workflowAssignmentEnabled = false,
+    workflowDescription = '',
+    workflows
+  } = props
   const loaderColor = props.theme.global.colors.brand
-  const workflowDescription = props.workflowDescription || counterpart('WorkflowSelector.message')
+  const workflowDescriptionToRender = workflowDescription || counterpart('WorkflowSelector.message')
 
   return (
     <Box>
@@ -27,7 +33,7 @@ function WorkflowSelector (props) {
         {counterpart('WorkflowSelector.getStarted')}
       </SpacedText>
       <Markdownz components={markdownzComponents}>
-        {workflowDescription}
+        {workflowDescriptionToRender}
       </Markdownz>
 
       {(userReadyState === asyncStates.error) && (
@@ -40,7 +46,7 @@ function WorkflowSelector (props) {
         </Box>
       )}
 
-      {(userReadyState === asyncStates.success) && (
+      {(userReadyState === asyncStates.success && uppLoaded) && (
         <Box
           alignSelf='start'
           fill='horizontal'
@@ -48,9 +54,12 @@ function WorkflowSelector (props) {
           margin={{ top: 'small' }}
           width={{ max: 'medium' }}
         >
-          {(workflows.length > 0) && workflows.map(workflow =>
-            <WorkflowSelectButton key={workflow.id} onSelect={onSelect} workflow={workflow} />
-          )}
+          <WorkflowSelectButtons
+            assignedWorkflowID={assignedWorkflowID}
+            onSelect={onSelect}
+            workflowAssignmentEnabled={workflowAssignmentEnabled}
+            workflows={workflows}
+          />
 
           {(workflows.length === 0) && (
             <Box background='accent-2' pad='xsmall' width={{ max: 'medium' }}>
@@ -82,6 +91,7 @@ function WorkflowSelector (props) {
 WorkflowSelector.propTypes = {
   onSelect: func.isRequired,
   userReadyState: string,
+  workflowAssignmentEnabled: bool,
   workflowDescription: string,
   workflows: arrayOf(shape({
       id: string.isRequired

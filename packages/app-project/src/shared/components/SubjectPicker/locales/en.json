@@ -1,6 +1,9 @@
 {
   "SubjectPicker": {
     "heading": "Choose a subject to get started",
-    "byline": "Sort the list by clicking column names. You will see subjects sequentially, starting with the one you choose."
+    "byline": "Sort the list by clicking column names. You will see subjects sequentially, starting with the one you choose.",
+    "alreadySeen": "Already seen",
+    "retired": "Retired",
+    "unclassified": "Available"
   }
 }

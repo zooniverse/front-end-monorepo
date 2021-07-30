@@ -2,22 +2,26 @@ import { shallow } from 'enzyme'
 import { Text } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
+import zooTheme from '@zooniverse/grommet-theme'
 
-import RadioInput, { StyledBox } from './RadioInput'
+import { RadioInput, StyledBox } from './RadioInput'
 
 describe('Component > RadioInput', function () {
-  let wrapper, handleRadioChangeSpy
+  let wrapper, handleRadioChangeSpy, handleRadioKeyDownSpy
 
   before(function () {
     handleRadioChangeSpy = sinon.spy()
+    handleRadioKeyDownSpy = sinon.spy()
     wrapper = shallow(
       <RadioInput
         handleRadioChange={handleRadioChangeSpy}
+        handleRadioKeyDown={handleRadioKeyDownSpy}
         option={{
           label: 'Yes',
           value: 'S'
         }}
         questionId='RTHRNNGPRSNT'
+        theme={zooTheme}
       />
     )
   })
@@ -87,6 +91,14 @@ describe('Component > RadioInput', function () {
       expect(handleRadioChangeSpy).to.have.been.calledWith('S')
 
       handleRadioChangeSpy.resetHistory()
+    })
+  })
+
+  describe('onKeyDown', function () {
+    it('should call handleRadioKeyDown on keyDown of the input', function () {
+      const backspaceEventMock = { key: 'Backspace', preventDefault: sinon.spy() }
+      wrapper.find('input').simulate('keydown', backspaceEventMock)
+      expect(handleRadioKeyDownSpy).to.have.been.calledOnce()
     })
   })
 })

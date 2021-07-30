@@ -39,7 +39,7 @@ export const SubjectDataTable = styled(DataTable)`
   }
 `
 
-const PAGE_SIZE = 100
+const PAGE_SIZE = 10
 
 export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
   const [ rows, setRows ] = useState([])
@@ -50,7 +50,7 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
   const customHeaders = indexFields.split(',')
 
   async function fetchSubjectData() {
-    const subjects = await fetchSubjects(subjectSet.id, query, sortField, sortOrder, PAGE_SIZE)
+    const subjects = await fetchSubjects(subjectSet.id, query, sortField, sortOrder)
     const rows = await fetchRows(subjects, workflow, PAGE_SIZE)
     setRows(rows)
   }

@@ -16,12 +16,12 @@ const StyledGrid = styled.div`
   grid-gap: 2px;
   grid-template-rows: repeat(${props => props.rowsCount}, auto);
   width: 100%;
-  height: 100%;
 `
 
 export function Choices (props) {
   const {
     autoFocus,
+    disabled,
     filteredChoiceIds,
     handleDelete,
     onChoose,
@@ -92,6 +92,7 @@ export function Choices (props) {
             key={choiceId}
             choiceId={choiceId}
             choiceLabel={choice.label}
+            disabled={disabled}
             hasFocus={hasFocus}
             onChoose={onChoose}
             onKeyDown={handleKeyDown}
@@ -108,6 +109,7 @@ export function Choices (props) {
 
 Choices.defaultProps = {
   autoFocus: false,
+  disabled: false,
   filteredChoiceIds: [],
   handleDelete: () => {},
   onChoose: () => {},
@@ -122,6 +124,7 @@ Choices.defaultProps = {
 
 Choices.propTypes = {
   autoFocus: PropTypes.bool,
+  disabled: PropTypes.bool,
   filteredChoiceIds: PropTypes.arrayOf(
     PropTypes.string
   ),

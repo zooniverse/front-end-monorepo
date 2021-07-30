@@ -2,8 +2,6 @@ import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
-import * as nextRouter from 'next/router'
-import sinon from 'sinon'
 
 import WorkflowSelector from './WorkflowSelector'
 
@@ -26,18 +24,27 @@ const store = {
 const WORKFLOWS = [
   {
     completeness: 0.65,
+    configuration: {
+      level: 1
+    },
     default: false,
     displayName: 'The Family and the Fishing Net',
     id: '12345'
   },
   {
     completeness: 0,
+    configuration: {
+      level: 2
+    },
     default: false,
     displayName: 'Games Without Frontiers',
     id: '7890'
   },
   {
     completeness: 0.99,
+    configuration: {
+      level: 3
+    },
     default: false,
     displayName: 'Shock The Monkey',
     id: '5678'
@@ -69,7 +76,7 @@ function onSelect(event, workflow) {
 }
 
 export default {
-  title: 'Project App / Screens / Project Home / Workflow Selector',
+  title: 'Project App / Shared / Workflow Selector',
   component: WorkflowSelector,
   args: {
     dark: false
@@ -86,6 +93,22 @@ export function Default({ dark }) {
     <StoryContext theme={{ ...zooTheme, dark }}>
       <WorkflowSelector
         onSelect={onSelect}
+        uppLoaded
+        userReadyState={asyncStates.success}
+        workflows={WORKFLOWS}
+      />
+    </StoryContext>
+  )
+}
+
+export function WithLevels({ dark }) {
+  return (
+    <StoryContext theme={{ ...zooTheme, dark }}>
+      <WorkflowSelector
+        assignedWorkflowID='7890'
+        onSelect={onSelect}
+        uppLoaded
+        workflowAssignmentEnabled
         userReadyState={asyncStates.success}
         workflows={WORKFLOWS}
       />
@@ -116,4 +139,3 @@ export function Error({ dark }) {
     </StoryContext>
   )
 }
-

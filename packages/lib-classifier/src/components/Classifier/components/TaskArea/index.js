@@ -1,1 +1,1 @@
-export { default } from './TaskArea'
+export { default } from './TaskAreaConnector'
