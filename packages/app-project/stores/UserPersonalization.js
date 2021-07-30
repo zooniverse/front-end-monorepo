@@ -54,6 +54,10 @@ const UserPersonalization = types
       increment() {
         self.sessionCount = self.sessionCount + 1
         self.totalClassificationCount = self.totalClassificationCount + 1
+
+        if (self.sessionCount % 5 === 0 && self.projectPreferences.id) {
+          self.projectPreferences.fetchResource()
+        }
       },
 
       setTotalClassificationCount(count) {
