@@ -24,7 +24,7 @@ function StoryContext (props) {
           dark: 'dark-3',
           light: 'neutral-6'
         }}
-        pad='1em'
+        pad='medium'
         width='380px'
       >
         {children}

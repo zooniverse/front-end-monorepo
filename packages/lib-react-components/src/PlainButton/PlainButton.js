@@ -10,14 +10,32 @@ export const StyledPlainButton = styled(Button)`
   &:enabled:hover {
     text-decoration: underline;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `
 
 function PlainButton (props) {
-  const { className, onClick, labelSize, text, color, ...rest } = props
+  const {
+    as,
+    className,
+    disabled,
+    href,
+    onClick,
+    labelSize,
+    text,
+    color,
+    ...rest
+  } = props
+  const renderAs = (href && disabled) ? 'span' : as
 
   return (
     <StyledPlainButton
+      as={renderAs}
       className={className}
+      disabled={disabled}
+      href={href}
       gap='xxsmall'
       label={(
         <SpacedText
@@ -35,24 +53,24 @@ function PlainButton (props) {
 }
 
 PlainButton.defaultProps = {
+  as: '',
   className: '',
-  labelSize: 'medium',
-  onClick: () => {},
-  text: '',
   color: {
     dark: 'accent-1',
     light: 'neutral-1'
   },
+  href: '',
+  labelSize: 'medium',
+  onClick: () => {},
+  text: '',
   theme: {
     dark: false
   }
 }
 
 PlainButton.propTypes = {
+  as: string,
   className: string,
-  labelSize: string,
-  onClick: func,
-  text: string,
   color: oneOfType([
     shape({
       dark: string,
@@ -60,9 +78,14 @@ PlainButton.propTypes = {
     }),
     string
   ]),
+  href: string,
+  labelSize: string,
+  onClick: func,
+  text: string,
   theme: shape({
     dark: bool
   })
 }
 
 export default withTheme(PlainButton)
+export { PlainButton }

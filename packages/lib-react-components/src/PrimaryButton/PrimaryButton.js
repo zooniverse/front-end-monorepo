@@ -15,15 +15,19 @@ const themeMap = {
 }
 
 function PrimaryButton (props) {
-  const { color, label, ...rest } = props
+  const { as, color, disabled, href, label, ...rest } = props
   const theme = themeMap[color] || themeMap['gold']
   const wrappedLabel = React.isValidElement(label)
     ? label
     : <Text children={label} size='medium' />
+  const renderAs = (href && disabled) ? 'span' : as
 
   return (
     <ThemeContext.Extend value={theme}>
       <Button
+        as={renderAs}
+        disabled={disabled}
+        href={href}
         label={wrappedLabel}
         primary
         {...rest}
@@ -33,12 +37,18 @@ function PrimaryButton (props) {
 }
 
 PrimaryButton.propTypes = {
+  as: PropTypes.string,
   color: PropTypes.oneOf(['blue', 'gold', 'green', 'teal']),
+  disabled: PropTypes.bool,
+  href: PropTypes.string,
   label: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired
 }
 
 PrimaryButton.defaultProps = {
-  color: 'gold'
+  as: '',
+  color: 'gold',
+  disabled: false,
+  href: ''
 }
 
 export default PrimaryButton

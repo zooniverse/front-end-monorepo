@@ -23,7 +23,7 @@ function StoryContext (props) {
       >
         <Box
           background={{
-            dark: 'dark-1',
+            dark: 'dark-3',
             light: 'neutral-6'
           }}
           pad='medium'
@@ -41,12 +41,13 @@ export default {
   component: Chooser
 }
 
-const Template = ({ autoFocus, dark, filters, selectedChoiceIds, task }) => (
+const Template = ({ autoFocus, dark, disabled, filters, selectedChoiceIds, task }) => (
   <StoryContext
     theme={{ ...zooTheme, dark }}
   >
     <Chooser
       autoFocus={autoFocus}
+      disabled={disabled}
       filters={filters}
       handleFilter={() => console.log('handleFilter')}
       onChoose={() => console.log('onChoose')}
@@ -60,6 +61,7 @@ export const Default = Template.bind({})
 Default.args = {
   autoFocus: true,
   dark: false,
+  disabled: false,
   filters: {},
   selectedChoiceIds: [],
   task: mockTask

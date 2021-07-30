@@ -74,6 +74,7 @@
     "@storybook/builder-webpack5": "~6.3.2",
     "@storybook/manager-webpack5": "~6.3.2",
     "@storybook/react": "~6.3.2",
+    "@testing-library/react": "~12.0.0",
     "babel-loader": "~8.2.2",
     "babel-plugin-webpack-alias": "~2.1.2",
     "chai": "~4.3.4",
