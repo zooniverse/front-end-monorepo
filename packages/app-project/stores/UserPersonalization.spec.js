@@ -14,6 +14,10 @@ describe('Stores > UserPersonalization', function () {
     display_name: 'Hello',
     slug: 'test/project'
   }
+  const user = {
+    id: '123',
+    login: 'test.user'
+  }
 
   before(function () {
     sinon.stub(console, 'error')
@@ -33,7 +37,7 @@ describe('Stores > UserPersonalization', function () {
       .query(true)
       .reply(200, {
         project_preferences: [
-          { activity_count: 23 }
+          { activity_count: 23, id: '5' }
         ]
       })
       .get('/collections') // This is to get the collections store to not make real requests
@@ -42,6 +46,12 @@ describe('Stores > UserPersonalization', function () {
       .post('/collections')
       .query(true)
       .reply(200)
+      .post('/oauth/token') // auth
+      .query(true)
+      .reply(200)
+      .get('/me') // getting user
+      .reply(200)
+
     rootStore = initStore(true, { project })
     sinon.spy(rootStore.client.panoptes, 'get')
     sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve({ statsCount: MOCK_DAILY_COUNTS }))
@@ -58,22 +68,11 @@ describe('Stores > UserPersonalization', function () {
     expect(rootStore.user.personalization).to.be.ok()
   })
 
-  describe('without a project or a user', function () {
-    it('should reset the child project preferences and set load to success', function () {
-      expect(rootStore.user.personalization.projectPreferences.loadingState).to.equal(asyncStates.success)
-      expect(rootStore.user.personalization.projectPreferences.id).to.be.undefined()
-    })
-  })
-
   describe('with a project and user', function () {
     let clock
 
     before(function () {
       clock = sinon.useFakeTimers({ now: new Date(2019, 9, 1, 12), toFake: ['Date'] })
-      const user = {
-        id: '123',
-        login: 'test.user'
-      }
       rootStore.user.set(user)
     })
 
@@ -124,6 +123,7 @@ describe('Stores > UserPersonalization', function () {
         rootStore.user.personalization.increment()
       })
 
+
       it('should add 1 to your total count', function () {
         expect(rootStore.user.personalization.totalClassificationCount).to.equal(24)
       })
@@ -131,6 +131,50 @@ describe('Stores > UserPersonalization', function () {
       it('should add 1 to your session count', function () {
         expect(rootStore.user.personalization.sessionCount).to.equal(1)
       })
+
+      describe('every five classifications', function () {
+        before(function () {
+          rootStore.client.panoptes.get.resetHistory()
+          rootStore.user.personalization.increment()
+          rootStore.user.personalization.increment()
+          rootStore.user.personalization.increment()
+          rootStore.user.personalization.increment()
+        })
+
+        it('should request for the user project preferences', function () {
+          const authorization = 'Bearer '
+          const endpoint = '/project_preferences'
+          const query = {
+            project_id: '2',
+            user_id: '123'
+          }
+
+          expect(rootStore.client.panoptes.get.withArgs(endpoint, query, { authorization })).to.have.been.calledOnce()
+          expect(rootStore.user.personalization.sessionCount).to.equal(5)
+        })
+      })
+    })
+  })
+
+  describe('without a project and a user', function () {
+    before(function () {
+      const user = {
+        id: '123',
+        login: 'test.user',
+        personalization: {
+          projectPreferences: {
+            activity_count: 23,
+            id: '5'
+          }
+        }
+      }
+      rootStore = initStore(true, { project, user })
+    })
+
+    it('should reset the child project preferences', function () {
+      expect(rootStore.user.personalization.projectPreferences.id).to.equal('5')
+      rootStore.user.clear()
+      expect(rootStore.user.personalization.projectPreferences.id).to.be.undefined()
     })
   })
 
@@ -145,6 +189,18 @@ describe('Stores > UserPersonalization', function () {
 
     it('should start counting from 0', function () {
       expect(rootStore.user.personalization.totalClassificationCount).to.equal(0)
+    })
+
+    describe('when we successfully know there is an anonymous user', function () {
+      before(function () {
+        rootStore.user.checkCurrent()
+      })
+
+      it('should set the user project preferences load to success', function () {
+        expect(rootStore.user.isLoggedIn).to.be.false()
+        expect(rootStore.user.loadingState).to.equal(asyncStates.success)
+        expect(rootStore.user.personalization.projectPreferences.loadingState).to.equal(asyncStates.success)
+      })
     })
 
     describe('incrementing your classification count', function () {
