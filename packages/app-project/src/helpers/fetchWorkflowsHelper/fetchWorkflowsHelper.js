@@ -1,5 +1,4 @@
 import { panoptes } from '@zooniverse/panoptes-js'
-import fetch from 'node-fetch'
 
 import { logToSentry } from '@helpers/logger'
 import fetchSubjectSets from '@helpers/fetchSubjectSets'
@@ -9,7 +8,7 @@ async function fetchWorkflowData (activeWorkflows, env) {
     const query = {
       complete: false,
       env,
-      fields: 'completeness,display_name,grouped',
+      fields: 'completeness,configuration,display_name,grouped',
       id: activeWorkflows.join(',')
     }
     const response = await panoptes.get('/workflows', query)
@@ -41,6 +40,7 @@ async function fetchDisplayNames (language, activeWorkflows, env) {
 async function buildWorkflow(workflow, displayName, isDefault, env) {
   const workflowData = {
     completeness: workflow.completeness || 0,
+    configuration: workflow.configuration,
     default: isDefault,
     displayName,
     grouped: workflow.grouped,
