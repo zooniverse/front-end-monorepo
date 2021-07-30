@@ -31,6 +31,9 @@ const theme = {
         position: relative;
         text-align: left;
         transition-property: color, border-color, box-shadow;
+        width: 100%;
+        max-width: 350px;
+
         > div {
           justify-content: space-between;
         }

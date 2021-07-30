@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
-- Add Grommet's `target` and `full` props to modal layers.
+- Added Grommet's `target` and `full` props to modal layers.
+- Added standard width sizes to PrimaryButton according to design
 
 ### Fixed
 - Changed `LinkList` component to use `fit-content` CSS styling to render correct height in Safari.
