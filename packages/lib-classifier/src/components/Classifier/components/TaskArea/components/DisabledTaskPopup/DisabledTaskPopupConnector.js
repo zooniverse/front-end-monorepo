@@ -1,8 +1,9 @@
-import React, { useContext } from 'react'
-import { MobXProviderContext, observer } from 'mobx-react'
+import React from 'react'
+import { observer } from 'mobx-react'
+import { useStores } from '@helpers'
 import DisabledTaskPopup from './DisabledTaskPopup'
 
-function storeMapper (store) {
+function storeMapper(store) {
   const {
     subjects: {
       nextAvailable,
@@ -17,11 +18,10 @@ function storeMapper (store) {
 }
 
 function DisabledTaskPopupConnector(props) {
-  const { classifierStore } = useContext(MobXProviderContext)
   const {
     nextAvailable,
     reset
-  } = storeMapper(classifierStore)
+  } = useStores(storeMapper)
 
   return (
     <DisabledTaskPopup
