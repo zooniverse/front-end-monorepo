@@ -18,6 +18,10 @@ function storeMapper (stores) {
 class QuickTalkContainer extends React.Component {
   constructor () {
     super()
+    
+    this.state = {
+      comments: [],
+    }
   }
   
   componentDidMount () {
@@ -31,20 +35,84 @@ class QuickTalkContainer extends React.Component {
     }
     
   }
+        
+  /*
+  https://talk-staging.zooniverse.org/comments?http_cache=true&admin=true&section=project-1651&focus_id=75268&focus_type=Subject&page=1&sort=-created_at
+  
+  getComments: (page = @props.location.query.page) ->
+    query =
+      section: @props.section
+      focus_id: @props.subject.id
+      focus_type: 'Subject'
+      page: page or 1
+      sort: '-created_at'
+
+    talkClient.type('comments').get(query).then (comments) =>
+        author_ids = []
+        authors = {}
+        author_roles = {}
+        meta = comments[0]?.getMeta() or { }
+        @setState {comments, meta}
+        comments.map (comment) ->
+          author_ids.push comment.user_id
+        author_ids = author_ids.filter (id, i) -> author_ids.indexOf(id) is i
+
+        apiClient
+          .type 'users'
+          .get
+            id: author_ids
+          .then (users) =>
+            users.map (user) -> authors[user.id] = user
+            @setState {authors}
+
+        talkClient
+          .type 'roles'
+          .get
+            user_id: author_ids
+            section: ['zooniverse', @props.section]
+            is_shown: true
+            page_size: 100
+          .then (roles) =>
+            roles.map (role) ->
+              author_roles[role.user_id] ?= []
+              author_roles[role.user_id].push role
+            @setState {author_roles}
+  
+   */
   
   fetchComments () {
+    this.resetComments()
+    
     const subject = this.props?.subject
-    if (!subject) {
-      this.resetComments()
+    const project = subject?.project
+    if (!subject || !project) {
       return
     }
     
-    console.log('+++ fetchComments')
+    const query = {
+      section: `project-${project.id}`,
+      focus_id: subject.id,
+      focus_type: 'Subject',
+      page: 1,
+      sort: '-created_at',
+    }
+        
+    console.log('+++ fetchComments', query)
+      
+    talkClient.type('comments').get(query)
+      .then (comments =>{
+        console.log('+++ comments: ', comments)
+      })
+        
+    
   }
         
   resetComments () {
-    // TODO
     console.log('+++ resetComments')
+    
+    this.setState({
+      comments: [],
+    })
   }
     
   render () {
