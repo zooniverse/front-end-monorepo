@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import { AboutDropContent, AboutDropdownNav } from './AboutDropdownNav'
-import AboutNavLink from './AboutNavLink'
+import AboutNavLink from '../AboutNavLink'
 
 describe('Component > AboutDropdownNav', () => {
   let wrapper
