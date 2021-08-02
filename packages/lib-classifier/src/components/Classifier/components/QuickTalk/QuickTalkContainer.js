@@ -23,6 +23,7 @@ class QuickTalkContainer extends React.Component {
     this.state = {
       comments: [],
       authors: {},
+      authorRoles: {},
     }
   }
   
@@ -36,50 +37,6 @@ class QuickTalkContainer extends React.Component {
       this.fetchComments()
     }
   }
-        
-  /*
-  https://talk-staging.zooniverse.org/comments?http_cache=true&admin=true&section=project-1651&focus_id=75268&focus_type=Subject&page=1&sort=-created_at
-  
-  getComments: (page = @props.location.query.page) ->
-    query =
-      section: @props.section
-      focus_id: @props.subject.id
-      focus_type: 'Subject'
-      page: page or 1
-      sort: '-created_at'
-
-    talkClient.type('comments').get(query).then (comments) =>
-        author_ids = []
-        authors = {}
-        author_roles = {}
-        meta = comments[0]?.getMeta() or { }
-        @setState {comments, meta}
-        comments.map (comment) ->
-          author_ids.push comment.user_id
-        author_ids = author_ids.filter (id, i) -> author_ids.indexOf(id) is i
-
-        apiClient
-          .type 'users'
-          .get
-            id: author_ids
-          .then (users) =>
-            users.map (user) -> authors[user.id] = user
-            @setState {authors}
-
-        talkClient
-          .type 'roles'
-          .get
-            user_id: author_ids
-            section: ['zooniverse', @props.section]
-            is_shown: true
-            page_size: 100
-          .then (roles) =>
-            roles.map (role) ->
-              author_roles[role.user_id] ?= []
-              author_roles[role.user_id].push role
-            @setState {author_roles}
-  
-   */
   
   fetchComments () {
     this.resetComments()
@@ -90,8 +47,9 @@ class QuickTalkContainer extends React.Component {
       return
     }
     
+    const section = 'project-' + project.id
     const query = {
-      section: `project-${project.id}`,
+      section: section,
       focus_id: subject.id,
       focus_type: 'Subject',
       page: 1,
@@ -108,7 +66,7 @@ class QuickTalkContainer extends React.Component {
         
         let author_ids = []
         let authors = {}
-        let author_roles = {}
+        let authorRoles = {}
 
         author_ids = comments.map(comment => comment.user_id)
         author_ids = author_ids.filter((id, i) => author_ids.indexOf(id) === i)
@@ -119,22 +77,20 @@ class QuickTalkContainer extends React.Component {
             console.log('+++ authors: ', authors)
             this.setState({ authors })
           })
-
-        /*
-        talkClient
-          .type 'roles'
-          .get
-            user_id: author_ids
-            section: ['zooniverse', @props.section]
-            is_shown: true
-            page_size: 100
-          .then (roles) =>
-            roles.map (role) ->
-              author_roles[role.user_id] ?= []
-              author_roles[role.user_id].push role
-            @setState {author_roles}
-        */
         
+        talkClient.type('roles')
+          .get({
+            user_id: author_ids,
+            section: ['zooniverse', section],
+            is_shown: true,
+          })
+          .then(roles => {
+            roles.forEach(role => {
+              if (!authorRoles[role.user_id]) authorRoles[role.user_id] = []
+              authorRoles[role.user_id].push(role)
+            })
+            this.setState({ authorRoles })
+          })
       })
   }
         
@@ -144,6 +100,7 @@ class QuickTalkContainer extends React.Component {
     this.setState({
       comments: [],
       authors: {},
+      authorRoles: {},
     })
   }
     
@@ -157,9 +114,15 @@ class QuickTalkContainer extends React.Component {
     }
     
     return (
-      <QuickTalk
-        subject={subject}
-      />
+      <div>
+        <QuickTalk
+          subject={subject}
+        />
+        <div>
+          <div>Comments:</div>
+          {this.state.comments.length}
+        </div>
+      </div>
     )
   }
 }
