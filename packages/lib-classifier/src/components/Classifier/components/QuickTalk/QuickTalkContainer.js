@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 
 import QuickTalk from './QuickTalk'
+import apiClient from 'panoptes-client/lib/api-client'
 import talkClient from 'panoptes-client/lib/talk-client'
 
 function storeMapper (stores) {
@@ -21,6 +22,7 @@ class QuickTalkContainer extends React.Component {
     
     this.state = {
       comments: [],
+      authors: {},
     }
   }
   
@@ -33,7 +35,6 @@ class QuickTalkContainer extends React.Component {
     if (props.subject?.id !== prevProps.subject?.id) {
       this.fetchComments()
     }
-    
   }
         
   /*
@@ -102,9 +103,39 @@ class QuickTalkContainer extends React.Component {
     talkClient.type('comments').get(query)
       .then (comments =>{
         console.log('+++ comments: ', comments)
-      })
         
-    
+        this.setState({ comments })
+        
+        let author_ids = []
+        let authors = {}
+        let author_roles = {}
+
+        author_ids = comments.map(comment => comment.user_id)
+        author_ids = author_ids.filter((id, i) => author_ids.indexOf(id) === i)
+        
+        apiClient.type('users').get({ id: author_ids })
+          .then(users => {
+            users.forEach(user => authors[user.id] = user)
+            console.log('+++ authors: ', authors)
+            this.setState({ authors })
+          })
+
+        /*
+        talkClient
+          .type 'roles'
+          .get
+            user_id: author_ids
+            section: ['zooniverse', @props.section]
+            is_shown: true
+            page_size: 100
+          .then (roles) =>
+            roles.map (role) ->
+              author_roles[role.user_id] ?= []
+              author_roles[role.user_id].push role
+            @setState {author_roles}
+        */
+        
+      })
   }
         
   resetComments () {
@@ -112,6 +143,7 @@ class QuickTalkContainer extends React.Component {
     
     this.setState({
       comments: [],
+      authors: {},
     })
   }
     
