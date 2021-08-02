@@ -58,6 +58,7 @@ export default function DisabledTaskPopup({
         text={counterpart('DisabledTaskPopup.options.select')}
       />
       <PrimaryButton
+        alignSelf="center"
         color='teal'
         label={counterpart('DisabledTaskPopup.options.next')}
         onClick={nextAvailable}
