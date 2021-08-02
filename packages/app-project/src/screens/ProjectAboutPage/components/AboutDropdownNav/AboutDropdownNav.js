@@ -6,7 +6,7 @@ import { withRouter } from 'next/router'
 import { Box, DropButton, Nav } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import { SpacedText } from '@zooniverse/react-components'
-import AboutNavLink from './AboutNavLink'
+import AboutNavLink from '../AboutNavLink'
 
 // this is a separate componenet specifically for testing with enzyme
 export const AboutDropContent = ({ aboutNavLinks, router }) => {

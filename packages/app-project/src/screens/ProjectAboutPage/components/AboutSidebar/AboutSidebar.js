@@ -1,4 +1,4 @@
-import AboutNavLink from './AboutNavLink'
+import AboutNavLink from '../AboutNavLink'
 import { Nav } from 'grommet'
 import { withRouter } from 'next/router'
 import { arrayOf, object, string } from 'prop-types'
@@ -8,7 +8,7 @@ const AboutSidebar = ({ router, aboutNavLinks }) => {
   const baseUrl = `/projects/${owner}/${project}/about`
 
   return (
-    <Nav flex direction="column" gap="xsmall">
+    <Nav flex direction='column' gap='xsmall'>
       <AboutNavLink
         link={{
           href: `${baseUrl}/research`,
