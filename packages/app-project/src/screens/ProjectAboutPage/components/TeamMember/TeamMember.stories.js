@@ -26,7 +26,7 @@ export const Default = ({ dark, user }) => (
       theme={{ ...zooTheme, dark }}
       themeMode={dark ? 'dark' : 'light'}
     >
-      <Box pad={{ top: 'small', left: 'small' }}>
+      <Box as='ul' pad={{ top: 'small', left: 'small' }}>
         <TeamMember router={mockedRouter} user={user} />
       </Box>
     </Grommet>
@@ -42,7 +42,7 @@ export const Placeholder = ({ dark, user }) => {
         theme={{ ...zooTheme, dark }}
         themeMode={dark ? 'dark' : 'light'}
       >
-        <Box pad={{ top: 'small', left: 'small' }}>
+        <Box as='ul' pad={{ top: 'small', left: 'small' }}>
           <TeamMember router={mockedRouter} user={user} />
         </Box>
       </Grommet>
@@ -59,7 +59,7 @@ export const Owner = ({ dark, user }) => {
         theme={{ ...zooTheme, dark }}
         themeMode={dark ? 'dark' : 'light'}
       >
-        <Box pad={{ top: 'small', left: 'small' }}>
+        <Box as='ul' pad={{ top: 'small', left: 'small' }}>
           <TeamMember router={mockedRouter} user={user} />
         </Box>
       </Grommet>
