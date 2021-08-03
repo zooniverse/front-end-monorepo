@@ -4,26 +4,11 @@ import { Box } from 'grommet'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
+import Comment from './components/Comment'
+
 const StyledBox = styled(Box)`
   border: 1px solid red;
 `
-
-function roleDisplayName (role) {
-  if (
-    role.section === 'zooniverse'
-    && ['admin', 'team'].indexOf(role.name) >= 0
-  ) {
-    return 'Zooniverse Team'
-    
-  } else if (
-    role.section !== 'zooniverse'
-    && ['admin', 'scientist', 'owner'].indexOf(role.name) >= 0
-  ) {
-    return 'Researcher'
-  }
-  
-  return role.name
-}
 
 function QuickTalk ({
   subject,
@@ -50,17 +35,12 @@ function QuickTalk ({
           const roles = authorRoles[comment.user_id]
 
           return (
-            <li key={`quicktalk-comment-${comment.id}`}>
-              <h5>
-                {author?.display_name} (@{author?.login})
-                {roles?.map(role =>
-                  <span key={`quicktalk-role-${comment.id}-${role.name}`}>[{roleDisplayName(role)}]</span>
-                )}
-              </h5>
-              <p>
-                {comment.body}
-              </p>
-            </li>
+            <Comment
+              key={`quicktalk-comment-${comment.id}`}
+              comment={comment}
+              author={author}
+              roles={roles}
+            />
           )
         })}
       </ul>
