@@ -3,7 +3,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import AboutSidebar from './AboutSidebar'
 
 const mockedRouter = {
-  asPath: '/projects/zooniverse/snapshot-serengeti/about/team',
+  asPath: '/projects/zooniverse/snapshot-serengeti/about/research',
   query: {
     owner: 'zooniverse',
     project: 'snapshot-serengeti'
@@ -20,6 +20,18 @@ export default {
 }
 
 export const Default = ({ dark }) => (
+  <Grid columns={['small', 'flex']}>
+    <Grommet
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      theme={{ ...zooTheme, dark }}
+      themeMode={dark ? 'dark' : 'light'}
+    >
+      <AboutSidebar aboutNavLinks={[]} router={mockedRouter} />
+    </Grommet>
+  </Grid>
+)
+
+export const MoreLinks = ({ dark }) => (
   <Grid columns={['small', 'flex']}>
     <Grommet
       background={{ dark: 'dark-3', light: 'neutral-6' }}
