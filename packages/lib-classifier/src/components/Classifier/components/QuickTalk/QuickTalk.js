@@ -8,6 +8,23 @@ const StyledBox = styled(Box)`
   border: 1px solid red;
 `
 
+function roleDisplayName (role) {
+  if (
+    role.section === 'zooniverse'
+    && ['admin', 'team'].indexOf(role.name) >= 0
+  ) {
+    return 'Zooniverse Team'
+    
+  } else if (
+    role.section !== 'zooniverse'
+    && ['admin', 'scientist', 'owner'].indexOf(role.name) >= 0
+  ) {
+    return 'Researcher'
+  }
+  
+  return role.name
+}
+
 function QuickTalk ({
   subject,
   comments = [],
@@ -37,7 +54,7 @@ function QuickTalk ({
               <h5>
                 {author?.display_name} (@{author?.login})
                 {roles?.map(role =>
-                  <span key={`quicktalk-role-${comment.id}-${role.name}`}>[{role.name}]</span>
+                  <span key={`quicktalk-role-${comment.id}-${role.name}`}>[{roleDisplayName(role)}]</span>
                 )}
               </h5>
               <p>
