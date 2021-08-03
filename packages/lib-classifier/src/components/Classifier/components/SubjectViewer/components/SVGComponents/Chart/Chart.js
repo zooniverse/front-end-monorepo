@@ -6,6 +6,7 @@ const Chart = React.forwardRef(function Chart ({ children, height, width, ...res
     <svg
       height={height}
       ref={ref}
+      role='graphics-document'
       width={width}
       {...rest}
     >

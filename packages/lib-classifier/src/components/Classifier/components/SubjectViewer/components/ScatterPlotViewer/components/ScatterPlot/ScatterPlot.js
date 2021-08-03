@@ -41,6 +41,7 @@ function ScatterPlot (props) {
       }
     },
     transformMatrix,
+    transform,
     underlays,
     xAxisLabel,
     xAxisLabelOffset,
@@ -189,6 +190,7 @@ function ScatterPlot (props) {
                     y2={yErrorBarPoints.y2}
                   />}
                 <GlyphComponent
+                  data-testid={`visx-glyph-${pointIndex}`}
                   data-x={x}
                   data-y={y}
                   left={cx}
