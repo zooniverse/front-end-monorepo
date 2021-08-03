@@ -8,6 +8,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
     {
       id: '1',
       completeness: 0.4,
+      configuration: {
+        level: 1
+      },
       grouped: false,
       links: {
         subject_sets: ['1', '2', '3']
@@ -16,6 +19,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
     {
       id: '2',
       completeness: 0.7,
+      configuration: {
+        level: 2
+      },
       grouped: true,
       links: {
         subject_sets: ['1', '2', '3']
@@ -124,10 +130,13 @@ describe('Helpers > fetchWorkflowsHelper', function () {
       })
 
     const result = await fetchWorkflowsHelper('en', ['1'])
-    const expectedWorkflow = Object.assign({}, WORKFLOWS[0], { displayName: 'Foo' })
+
     expect(result).to.deep.equal([
       {
         completeness: 0.4,
+        configuration: {
+          level: 1
+        },
         default: true,
         grouped: false,
         id: '1',
@@ -154,6 +163,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
     expect(result).to.deep.equal([
       {
         completeness: 0.4,
+        configuration: {
+          level: 1
+        },
         default: false,
         grouped: false,
         id: '1',
@@ -162,6 +174,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
       },
       {
         completeness: 0.7,
+        configuration: {
+          level: 2
+        },
         default: false,
         grouped: true,
         id: '2',
@@ -193,6 +208,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
       expect(result).to.deep.equal([
         {
           completeness: 0.4,
+          configuration: {
+            level: 1
+          },
           default: false,
           grouped: false,
           id: '1',
@@ -201,6 +219,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         },
         {
           completeness: 0.7,
+          configuration: {
+            level: 2
+          },
           default: true,
           grouped: true,
           id: '2',
@@ -277,6 +298,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
       expect(workflows).to.deep.equal([
         {
           completeness: 0.7,
+          configuration: {
+            level: 2
+          },
           default: true,
           grouped: true,
           id: '2',
@@ -289,6 +313,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         },
         {
           completeness: 0.4,
+          configuration: {
+            level: 1
+          },
           default: false,
           grouped: false,
           id: '1',

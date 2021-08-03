@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import { Image } from 'grommet'
-import { TeamMember, StyledDisplayName, StyledRole, StyledUsername} from './TeamMember'
+import { TeamMember, StyledDisplayName, StyledRole, StyledUsername } from './TeamMember'
 
 describe('Component > TeamMember', function () {
   let wrapper

@@ -40,6 +40,7 @@ describe('Helpers > getDefaultPageProps', function () {
   const WORKFLOW = {
     id: '1',
     completeness: 0.4,
+    configuration: {},
     grouped: false,
     links: {
       subject_sets: ['1', '2', '3']
@@ -49,6 +50,7 @@ describe('Helpers > getDefaultPageProps', function () {
   const GROUPED_WORKFLOW = {
     id: '2',
     completeness: 0.4,
+    configuration: {},
     grouped: true,
     links: {
       subject_sets: ['1', '2', '3']
@@ -198,6 +200,7 @@ describe('Helpers > getDefaultPageProps', function () {
         expect(props.workflows).to.deep.equal([
           {
             completeness: 0.4,
+            configuration: {},
             default: true,
             grouped: false,
             id: '1',
@@ -261,6 +264,7 @@ describe('Helpers > getDefaultPageProps', function () {
         expect(props.workflows).to.deep.equal([
           {
             completeness: 0.4,
+            configuration: {},
             default: true,
             grouped: true,
             id: '2',
@@ -338,6 +342,7 @@ describe('Helpers > getDefaultPageProps', function () {
         expect(props.workflows).to.deep.equal([
           {
             completeness: 0.4,
+            configuration: {},
             default: true,
             grouped: false,
             id: '1',
@@ -401,6 +406,7 @@ describe('Helpers > getDefaultPageProps', function () {
         expect(props.workflows).to.deep.equal([
           {
             completeness: 0.4,
+            configuration: {},
             default: true,
             grouped: true,
             id: '2',

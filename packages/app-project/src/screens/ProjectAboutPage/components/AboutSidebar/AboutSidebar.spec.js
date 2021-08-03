@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import { AboutSidebar } from './AboutSidebar'
-import AboutNavLink from './AboutNavLink'
+import AboutNavLink from '../AboutNavLink'
 
 describe('Component > AboutSidebar', () => {
   let wrapper

@@ -1,5 +1,6 @@
 import { addDisposer, getRoot, types } from 'mobx-state-tree'
 import { autorun } from 'mobx'
+import asyncStates from '@zooniverse/async-states'
 import UserProjectPreferences from './UserProjectPreferences'
 import YourStats from './YourStats'
 
@@ -38,6 +39,9 @@ const UserPersonalization = types
         if (project.id && user.id) {
           self.projectPreferences.fetchResource()
           self.stats.fetchDailyCounts()
+        } else {
+          self.projectPreferences.reset()
+          self.projectPreferences.setLoadingState(asyncStates.success)
         }
       })
       addDisposer(self, parentDisposer)
