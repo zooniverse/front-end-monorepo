@@ -56,12 +56,8 @@ class QuickTalkContainer extends React.Component {
       sort: '-created_at',
     }
         
-    console.log('+++ fetchComments', query)
-      
     talkClient.type('comments').get(query)
       .then (comments =>{
-        console.log('+++ comments: ', comments)
-        
         this.setState({ comments })
         
         let author_ids = []
@@ -74,7 +70,6 @@ class QuickTalkContainer extends React.Component {
         apiClient.type('users').get({ id: author_ids })
           .then(users => {
             users.forEach(user => authors[user.id] = user)
-            console.log('+++ authors: ', authors)
             this.setState({ authors })
           })
         
@@ -95,8 +90,6 @@ class QuickTalkContainer extends React.Component {
   }
         
   resetComments () {
-    console.log('+++ resetComments')
-    
     this.setState({
       comments: [],
       authors: {},
@@ -108,21 +101,24 @@ class QuickTalkContainer extends React.Component {
     const {
       subject,
     } = this.props
+    
+    const {
+      comments,
+      authors,
+      authorRoles,
+    } = this.state
 
     if (!subject) {
       return (<div>NOTHING</div>)
     }
     
     return (
-      <div>
-        <QuickTalk
-          subject={subject}
-        />
-        <div>
-          <div>Comments:</div>
-          {this.state.comments.length}
-        </div>
-      </div>
+      <QuickTalk
+        subject={subject}
+        comments={comments}
+        authors={authors}
+        authorRoles={authorRoles}
+      />
     )
   }
 }
