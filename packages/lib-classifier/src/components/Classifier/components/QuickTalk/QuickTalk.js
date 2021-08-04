@@ -1,13 +1,23 @@
 import React from 'react'
 import { withResponsiveContext } from '@zooniverse/react-components'
-import { Box } from 'grommet'
+import { Box, Button } from 'grommet'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import zooTheme from '@zooniverse/grommet-theme'
 
 import Comment from './components/Comment'
 
-const StyledBox = styled(Box)`
+const FixedBox = styled(Box)`
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+  max-width: 80vw;
+  max-height: 80vh;
+  overflow: auto;
+  border: 1px solid red;
+`
+
+const FixedButton = styled(Button)`
   position: fixed;
   bottom: 1em;
   right: 1em;
@@ -26,11 +36,20 @@ function QuickTalk ({
   
   if (!subject) return null
   
+  const [expand, setExpand] = React.useState(false)
+  
+  if (!expand) {
+    return (
+      <FixedButton onClick={() => setExpand(true)}>
+        {comments.length} comment(s)
+      </FixedButton>
+    )
+  }
+  
   return (
-    <StyledBox
+    <FixedBox
       pad='small'
       background={{ dark: 'dark-3', light: 'light-3' }}
-      width='large'
     >
       <div>
         <a href={subject.talkURL}>[TALK LINK]</a>
@@ -52,7 +71,8 @@ function QuickTalk ({
           )
         })}
       </ul>
-    </StyledBox>
+      <Button onClick={() => setExpand(false)}>Close</Button>
+    </FixedBox>
   )
 }
 
