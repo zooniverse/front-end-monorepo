@@ -110,13 +110,15 @@ describe.only('Component > ZoomingScatterPlot', function() {
             />
           </Provider>
         )
+        console.log(container.querySelector('.visx-axis-bottom').querySelectorAll('tspan')[0])
         
         const pointTransformPreZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
         fireEvent.wheel(getByTestId('zoom-layer'), zoomInEventMock)
         const pointTransformPostZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
         expect(pointTransformPreZoomIn).to.not.equal(pointTransformPostZoomIn)
-
-        screen.debug()
+        // console.log(container.querySelector('.visx-axis-left'))
+        console.log(container.querySelector('.visx-axis-bottom').querySelectorAll('tspan')[0])
+        // screen.debug()
 
         // const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
         // expect(transformMatrix).to.deep.equal(initialTransformMatrix)
