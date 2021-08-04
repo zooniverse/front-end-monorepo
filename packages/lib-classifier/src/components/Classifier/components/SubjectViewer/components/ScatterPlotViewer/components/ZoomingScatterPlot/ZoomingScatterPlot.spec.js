@@ -83,19 +83,6 @@ describe.only('Component > ZoomingScatterPlot', function() {
   })
 
   describe('when zooming', function () {
-    function testTransformations({ currentTransformMatrix, previousTransformMatrix, zoomValue, direction }) {
-      if (direction === 'both') {
-        expect(currentTransformMatrix.scaleX).to.equal(previousTransformMatrix.scaleX * zoomValue)
-        expect(currentTransformMatrix.scaleY).to.equal(previousTransformMatrix.scaleY * zoomValue)
-      } else if (direction === 'x') {
-        expect(currentTransformMatrix.scaleX).to.equal(previousTransformMatrix.scaleX * zoomValue)
-        expect(currentTransformMatrix.scaleY).to.equal(previousTransformMatrix.scaleY)
-      } else if (direction === 'y') {
-        expect(currentTransformMatrix.scaleX).to.equal(previousTransformMatrix.scaleX)
-        expect(currentTransformMatrix.scaleY).to.equal(previousTransformMatrix.scaleY * zoomValue)
-      }
-    }
-
     describe('with the default configuration of allowing zoom in both directions', function () {
       it('should scale both axes and transform data points', function () {
         const { container, getByTestId } = render(
