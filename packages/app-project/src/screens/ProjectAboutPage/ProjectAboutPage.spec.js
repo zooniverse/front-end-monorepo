@@ -1,40 +1,15 @@
-import { shallow } from 'enzyme'
-import { ProjectAboutPage, PageHeading } from './ProjectAboutPage'
-import AboutDropdownNav from './components/AboutDropdownNav'
-import AboutSidebar from './components/AboutSidebar'
-import TeamMember from './components/TeamMember'
+import { ProjectAboutPage } from './ProjectAboutPage'
+import { render, screen } from '@testing-library/react'
 
-describe('Component > ProjectAboutPage', () => {
-  let wrapper
-
+describe.only('Component > ProjectAboutPage', () => {
   describe('About pages layout', () => {
     const aboutPageData = {
       title: 'Title',
       content: 'This is some content.'
     }
 
-    before(() => {
-      wrapper = shallow(
-        <ProjectAboutPage
-          aboutNavLinks={['research', 'team']}
-          aboutPageData={aboutPageData}
-          theme={{ dark: false }}
-        />
-      )
-    })
-
-    it('should render without crashing', () => {
-      expect(wrapper).to.be.ok()
-    })
-
     it('should render the dropdown nav on mobile screen sizes', () => {
-      wrapper.setProps({ screenSize: 'small' })
-      expect(wrapper.find(AboutDropdownNav)).to.have.lengthOf(1)
-    })
-
-    it('should render the sidebar nav on desktop screen sizes', () => {
-      wrapper.setProps({ screenSize: 'medium' })
-      expect(wrapper.find(AboutSidebar)).to.have.lengthOf(1)
+      // links should not be rendered for research and team, just drop button
     })
   })
 
@@ -44,29 +19,13 @@ describe('Component > ProjectAboutPage', () => {
       content: 'This is some content.'
     }
 
-    before(() => {
-      wrapper = shallow(
-        <ProjectAboutPage
-          aboutNavLinks={['research', 'team']}
-          aboutPageData={aboutTeamPageData}
-          teamArray={[
-            { id: 0, display_name: 'name', role: 'scientist' },
-            { id: 1, display_name: 'name', role: 'owner' }
-
-          ]}
-          theme={{ dark: false }}
-        />
-      )
-    })
-
-    it('should display page heading The Team', () => {
-      const heading = wrapper.find(PageHeading)
-      expect(heading.text()).to.equal('The Team')
-    })
+    const teamArray = [
+      { id: 0, display_name: 'name', role: 'scientist' },
+      { id: 1, display_name: 'name', role: 'owner' }
+    ]
 
     it('should render a list of Team Members', () => {
-      const teamList = wrapper.find(TeamMember)
-      expect(teamList).to.have.lengthOf(2)
+      // list of TeamMember components should be 2
     })
   })
 })

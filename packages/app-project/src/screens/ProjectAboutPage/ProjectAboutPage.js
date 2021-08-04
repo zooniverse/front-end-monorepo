@@ -19,7 +19,7 @@ import ThemeModeToggle from '@components/ThemeModeToggle'
 
 counterpart.registerTranslations('en', en)
 
-export const PageHeading = styled(Heading)`
+const PageHeading = styled(Heading)`
   font-weight: normal;
 `
 
