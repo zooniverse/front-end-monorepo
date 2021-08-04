@@ -30,16 +30,16 @@ function QuickTalk ({
   authors = {},
   authorRoles = {},
   screenSize,
-  autoExpand = true,
+  expand = true,
 }) {
   // TODO: figure out if/how the QuickTalk component should/could be displayed on mobile
   // if (screenSize === 'small') return null
   
   if (!subject) return null
   
-  const [expand, setExpand] = React.useState(autoExpand)
+  const [_expand, setExpand] = React.useState(expand)
   
-  if (!expand) {
+  if (!_expand) {
     return (
       <FixedButton onClick={() => setExpand(true)}>
         {comments.length} comment(s)
@@ -82,7 +82,7 @@ QuickTalk.propTypes = {
   comments: PropTypes.arrayOf(PropTypes.object),
   authors: PropTypes.object,
   authorRoles: PropTypes.object,
-  autoExpand: PropTypes.bool,  // Start expanded
+  expand: PropTypes.bool,
 }
 
 export default withResponsiveContext(QuickTalk)

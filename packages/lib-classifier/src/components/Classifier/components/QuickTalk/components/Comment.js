@@ -21,6 +21,7 @@ author_login = if @props.author?.login then "@#{@props.author.login}" else ""
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import UserAvatar from './UserAvatar'
 import UserRole from './UserRole'
 
 function Comment ({
@@ -30,12 +31,16 @@ function Comment ({
 }) {
   return (
     <li>
-      <h5>
+      <div>
+        <UserAvatar
+          src={author?.avatar_src}
+          displayName={author?.display_name}
+        />
         {author?.display_name} (@{author?.login})
         {roles?.map(role =>
           <UserRole key={`quicktalk-role-${comment.id}-${role.name}`} role={role} />
         )}
-      </h5>
+      </div>
       <p>
         {comment?.body}
       </p>
