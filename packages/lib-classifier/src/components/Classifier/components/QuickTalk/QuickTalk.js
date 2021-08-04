@@ -3,10 +3,14 @@ import { withResponsiveContext } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import zooTheme from '@zooniverse/grommet-theme'
 
 import Comment from './components/Comment'
 
 const StyledBox = styled(Box)`
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
   border: 1px solid red;
 `
 
@@ -23,7 +27,11 @@ function QuickTalk ({
   if (!subject) return null
   
   return (
-    <StyledBox>
+    <StyledBox
+      pad='small'
+      background={{ dark: 'dark-3', light: 'light-3' }}
+      width='large'
+    >
       <div>
         <a href={subject.talkURL}>[TALK LINK]</a>
         &nbsp;
