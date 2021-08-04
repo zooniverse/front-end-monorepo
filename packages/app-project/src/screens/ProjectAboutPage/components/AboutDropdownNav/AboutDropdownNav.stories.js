@@ -27,6 +27,18 @@ export const Default = ({ dark }) => (
     themeMode={dark ? 'dark' : 'light'}
   >
     <Box pad='xsmall'>
+      <AboutDropdownNav aboutNavLinks={[]} router={mockedRouter} />
+    </Box>
+  </Grommet>
+)
+
+export const MoreLinks = ({ dark }) => (
+  <Grommet
+    background={{ dark: 'dark-3', light: 'neutral-6' }}
+    theme={{ ...zooTheme, dark }}
+    themeMode={dark ? 'dark' : 'light'}
+  >
+    <Box pad='xsmall'>
       <AboutDropdownNav aboutNavLinks={mockAboutNavLinks} router={mockedRouter} />
     </Box>
   </Grommet>

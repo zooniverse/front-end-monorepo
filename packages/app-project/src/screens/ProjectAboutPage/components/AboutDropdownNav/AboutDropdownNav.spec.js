@@ -1,57 +1,21 @@
-import { shallow } from 'enzyme'
-import { AboutDropContent, AboutDropdownNav } from './AboutDropdownNav'
-import AboutNavLink from '../AboutNavLink'
+import { render, fireEvent } from '@testing-library/react'
+import * as stories from './AboutDropdownNav.stories'
 
 describe('Component > AboutDropdownNav', () => {
-  let wrapper
-
-  const router = {
-    query: {
-      owner: 'test-owner',
-      project: 'test-project'
-    }
-  }
-
-  before(() => {
-    wrapper = shallow(<AboutDropdownNav aboutNavLinks={[]} router={router} />)
-  })
-
-  it('should render without crashing', () => {
-    expect(wrapper).to.be.ok()
-  })
-})
-
-describe('Component > AboutDropContent', () => {
-  let wrapper
-
-  const router = {
-    query: {
-      owner: 'test-owner',
-      project: 'test-project'
-    }
-  }
-
-  before(() => {
-    wrapper = shallow(<AboutDropContent aboutNavLinks={[]} router={router} />)
-  })
-
-  it('should render without crashing', () => {
-    expect(wrapper).to.be.ok()
-  })
+  const { Default, MoreLinks } = stories
 
   it('should always render at least two links: Research and The Team', () => {
-    const links = wrapper.find(AboutNavLink)
+    window.scrollTo = () => {} // this a side effect behavior of clicking a Grommet DropButton
+    const { getByRole, getAllByRole } = render(<Default />)
+    fireEvent.click(getByRole('button'))
+    const links = getAllByRole('link')
     expect(links).to.have.lengthOf(2)
   })
 
   it('should render other links passed in the aboutNavLinks array', () => {
-    wrapper = shallow(
-      <AboutDropContent
-        aboutNavLinks={['research', 'team', 'results']}
-        router={router}
-      />
-    )
-    const links = wrapper.find(AboutNavLink)
-    expect(links).to.have.lengthOf(3)
+    const { getByRole, getAllByRole } = render(<MoreLinks />)
+    fireEvent.click(getByRole('button'))
+    const links = getAllByRole('link')
+    expect(links).to.have.lengthOf(4)
   })
 })
