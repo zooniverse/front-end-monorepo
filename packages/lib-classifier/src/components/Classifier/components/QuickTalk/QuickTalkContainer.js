@@ -53,7 +53,7 @@ class QuickTalkContainer extends React.Component {
       focus_id: subject.id,
       focus_type: 'Subject',
       page: 1,
-      sort: '-created_at',
+      sort: 'created_at',  // PFE used '-created_at' to sort in reverse order, and I have no idea why.
     }
         
     talkClient.type('comments').get(query)
