@@ -2,10 +2,12 @@ import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
+
 import { mockWorkflow as mockGroupedWorkflow } from '@shared/components/SubjectSetPicker/helpers'
+import initStore from '@stores'
 import WorkflowMenuModal from './WorkflowMenuModal'
 
-const store = {
+const snapshot = {
   project: {
     background: {
       src: 'https://panoptes-uploads.zooniverse.org/production/project_background/260e68fd-d3ec-4a94-bb32-43ff91d5579a.jpeg'
@@ -26,6 +28,8 @@ const store = {
     }
   }
 }
+
+const store = initStore(false, snapshot)
 
 const WORKFLOWS = [
   {
