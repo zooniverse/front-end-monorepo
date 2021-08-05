@@ -1,19 +1,17 @@
 import { MediaContextProvider } from '@shared/components/Media'
-import { withKnobs, boolean } from '@storybook/addon-knobs'
-import { storiesOf } from '@storybook/react'
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import counterpart from 'counterpart'
 import { Grommet } from 'grommet'
 import { Provider } from "mobx-react";
-import Router from 'next/router'
 import PropTypes from 'prop-types'
 import { Component } from 'react';
 import sinon from 'sinon'
 
-import HeroContainer from './'
+import initStore from '@stores'
+import Hero from './'
 
-const mockStore = {
+const snapshot = {
   project: {
     background: {
       src: 'https://panoptes-uploads.zooniverse.org/production/project_background/260e68fd-d3ec-4a94-bb32-43ff91d5579a.jpeg'
@@ -35,47 +33,12 @@ const mockStore = {
   }
 }
 
-/*
-Mock NextJS router adapted from
-https://github.com/zeit/next.js/issues/1827#issuecomment-470155709
-*/
-const mockedRouter = {
-  asPath: '/projects/zooniverse/snapshot-serengeti',
-  push: () => {},
-  prefetch: () => {},
-  query: {
-    owner: 'zooniverse',
-    project: 'snapshot-serengeti'
-  }
-}
-
-const withMockRouterContext = mockRouter => {
-  class MockRouterContext extends Component {
-    getChildContext () {
-      return {
-        router: { ...mockedRouter, ...mockRouter }
-      }
-    }
-    render () {
-      return this.props.children
-    }
-  }
-
-  MockRouterContext.childContextTypes = {
-    router: PropTypes.object
-  }
-
-  return MockRouterContext
-}
-
-Router.router = mockedRouter
-
-const StorybookRouterFix = withMockRouterContext(mockedRouter)
+const store = initStore(false, snapshot)
 
 function MockProjectContext({ children, theme }) {
   return (
     <MediaContextProvider>
-      <Provider store={mockStore}>
+      <Provider store={store}>
         <Grommet
           background={{
             dark: 'dark-1',
@@ -84,9 +47,7 @@ function MockProjectContext({ children, theme }) {
           theme={theme}
           themeMode={(theme.dark) ? 'dark' : 'light'}
         >
-          <StorybookRouterFix>
-            {children}
-          </StorybookRouterFix>
+          {children}
         </Grommet>
       </Provider>
     </MediaContextProvider>
@@ -113,21 +74,44 @@ const WORKFLOWS = [
   }
 ]
 
-storiesOf('Project App / Screens / Project Home / Hero', module)
-  .addDecorator(withKnobs)
-  .addParameters({ viewport: { defaultViewport: 'responsive' }})
-  .add('default', () => (
-    <MockProjectContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <HeroContainer
-        isWide
+export default {
+  title: 'Project App / Screens / Project Home / Hero',
+  component: Hero,
+  parameters: {
+    viewport: {
+      defaultViewport: 'responsive'
+    }
+  },
+  args: {
+    dark: false,
+    isWide: true
+  }
+}
+
+export function Default({ dark, isWide }) {
+  return(
+    <MockProjectContext theme={{ ...zooTheme, dark }}>
+      <Hero
+        isWide={isWide}
         workflows={WORKFLOWS}
       />
     </MockProjectContext>
-  ))
-  .add('small screen', () => (
-    <MockProjectContext theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <HeroContainer
+  )
+}
+
+export function SmallScreen({ dark }) {
+  return (
+    <MockProjectContext theme={{ ...zooTheme, dark }}>
+      <Hero
+        isWide={false}
         workflows={WORKFLOWS}
       />
     </MockProjectContext>
-  ), { viewport: { defaultViewport: 'iphone5' }})
+  )
+}
+
+SmallScreen.parameters = {
+  viewport: {
+    defaultViewport: 'iphone5'
+  }
+}
