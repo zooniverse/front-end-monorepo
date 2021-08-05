@@ -1,20 +1,17 @@
-import { act, createEvent, fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 import sinon from 'sinon'
 import { Provider } from 'mobx-react'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import ZoomingScatterPlot from './ZoomingScatterPlot'
-import ScatterPlot from '../ScatterPlot'
-import ZoomEventLayer from '../../../SVGComponents/ZoomEventLayer'
 import zooTheme from '@zooniverse/grommet-theme'
 import {
-  dataSeriesWithXErrors,
   parentHeight as height,
   parentWidth as width
 } from '../../helpers/mockData'
 import { expect } from 'chai'
 
-describe.only('Component > ZoomingScatterPlot', function() {
+describe('Component > ZoomingScatterPlot', function() {
   const mockData = [{
     seriesData: [{ x: 1, y: 6 }, { x: 10, y: 1 }],
     seriesOptions: {
@@ -442,7 +439,7 @@ describe.only('Component > ZoomingScatterPlot', function() {
     })
   })
 
-  describe.only('panning', function () {
+  describe('panning', function () {
     describe('when panning is disabled', function () {
       it('should not translate the SVG position', function () {
         const { container, getByTestId } = render(
@@ -482,13 +479,12 @@ describe.only('Component > ZoomingScatterPlot', function() {
     })
 
     describe('when panning is enabled', function () {
-      describe.only('with the default configuration allowing pan in both directions', function () {
+      describe('with the default configuration allowing pan in both directions', function () {
         it('should transform the data points and scale the axes', function () {
           const { container, getByTestId } = render(
             <Provider classifierStore={mockStore}>
               <ZoomingScatterPlot
                 data={mockData}
-                panning={false}
                 parentHeight={height}
                 parentWidth={width}
                 theme={zooTheme}
@@ -498,36 +494,417 @@ describe.only('Component > ZoomingScatterPlot', function() {
             </Provider>
           )
 
-          const eventLayer = getByTestId('zoom-layer')
+          // The position and labels prior to panning
+          const pointTransformPrePanning = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPrePanning = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPrePanning = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
 
-          // We zoom in a bit so we don't run into the data boundary constraints
-          // fireEvent.wheel(eventLayer, zoomInEventMock)
+          // // Now to simulate the panning
+          fireEvent.mouseDown(getByTestId('zoom-layer'), {
+            clientX: 50,
+            clientY: 50
+          })
+          fireEvent.mouseMove(getByTestId('zoom-layer'), {
+            clientX: 155,
+            clientY: 155
+          })
+          fireEvent.mouseUp(getByTestId('zoom-layer'))
+
+          // Get the changes post panning
+          const pointTransformPostPanning = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPostPanning = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPostPanning = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          expect(pointTransformPrePanning).to.not.equal(pointTransformPostPanning)
+          expect(xAxisLabelPrePanning).to.not.equal(xAxisLabelPostPanning)
+          expect(yAxisLabelPrePanning).to.not.equal(yAxisLabelPostPanning)
+        })
+      })
+
+      describe('when only panning the x-axis', function () {
+        it('should translate the SVG position', function () {
+          const zoomConfiguration = {
+            direction: 'x',
+            minZoom: 1,
+            maxZoom: 10,
+            zoomInValue: 1.2,
+            zoomOutValue: 0.8
+          }
+
+          const { container, getByTestId } = render(
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+                zoomConfiguration={zoomConfiguration}
+              />
+            </Provider>
+          )
 
           // The position and labels prior to panning
           const pointTransformPrePanning = container.querySelector('.visx-glyph').getAttribute('transform')
           const xAxisLabelPrePanning = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
           const yAxisLabelPrePanning = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
 
-          screen.debug()
           // // Now to simulate the panning
-          fireEvent.mouseDown(eventLayer, {
+          fireEvent.mouseDown(getByTestId('zoom-layer'), {
             clientX: 50,
             clientY: 50
           })
-          fireEvent.mouseMove(eventLayer, {
+          fireEvent.mouseMove(getByTestId('zoom-layer'), {
             clientX: 155,
             clientY: 155
           })
-          fireEvent.mouseUp(eventLayer)
+          fireEvent.mouseUp(getByTestId('zoom-layer'))
+
           // Get the changes post panning
           const pointTransformPostPanning = container.querySelector('.visx-glyph').getAttribute('transform')
           const xAxisLabelPostPanning = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
           const yAxisLabelPostPanning = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
 
-          screen.debug()
           expect(pointTransformPrePanning).to.not.equal(pointTransformPostPanning)
           expect(xAxisLabelPrePanning).to.not.equal(xAxisLabelPostPanning)
+          expect(yAxisLabelPrePanning).to.equal(yAxisLabelPostPanning)
+        })
+      })
+      
+      describe('when only panning the y-axis', function () {
+        it('should translate the SVG position', function () {
+          const zoomConfiguration = {
+            direction: 'y',
+            minZoom: 1,
+            maxZoom: 10,
+            zoomInValue: 1.2,
+            zoomOutValue: 0.8
+          }
+          const { container, getByTestId } = render(
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+                zoomConfiguration={zoomConfiguration}
+              />
+            </Provider>
+          )
+
+          // The position and labels prior to panning
+          const pointTransformPrePanning = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPrePanning = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPrePanning = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          // // Now to simulate the panning
+          fireEvent.mouseDown(getByTestId('zoom-layer'), {
+            clientX: 50,
+            clientY: 50
+          })
+          fireEvent.mouseMove(getByTestId('zoom-layer'), {
+            clientX: 155,
+            clientY: 155
+          })
+          fireEvent.mouseUp(getByTestId('zoom-layer'))
+
+          // Get the changes post panning
+          const pointTransformPostPanning = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPostPanning = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPostPanning = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          expect(pointTransformPrePanning).to.not.equal(pointTransformPostPanning)
+          expect(xAxisLabelPrePanning).to.equal(xAxisLabelPostPanning)
           expect(yAxisLabelPrePanning).to.not.equal(yAxisLabelPostPanning)
+        })
+      })
+    })
+  })
+
+  describe('data boundary constraints', function () {
+    describe('when zooming', function () {
+      let zoomConfig
+      before(function () {
+        zoomConfig = {
+          direction: 'both',
+          minZoom: 1,
+          maxZoom: 5,
+          zoomInValue: 1.2,
+          zoomOutValue: 0.8
+        }
+      })
+
+      it('should not zoom in beyond maximum zoom configuration', function () {
+        const { container, getByTestId } = render(
+          <Provider classifierStore={mockStore}>
+            <ZoomingScatterPlot
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              theme={zooTheme}
+              xAxisLabelOffset={10}
+              yAxisLabelOffset={10}
+              zoomConfiguration={zoomConfig}
+            />
+          </Provider>
+        )
+
+        // The position and labels prior to zooming
+        const pointTransformPreZooming = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPreZooming = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPreZooming = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+        // multiplying the scale 1.2 nine times is 5.159780352
+        let pointTransformOnNinthZoom, xAxisLabelOnNinthZoom, yAxisLabelOnNinthZoom, pointTransformOnTenthZoom, xAxisLabelOnTenthZoom, yAxisLabelOnTenthZoom
+        for (let i = 0; i < 11; i++) {
+          fireEvent.dblClick(getByTestId('zoom-layer'), zoomInEventMock)
+          // Ninth zoom in event
+          if (i === 8) {
+            pointTransformOnNinthZoom = container.querySelector('.visx-glyph').getAttribute('transform')
+            xAxisLabelOnNinthZoom = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+            yAxisLabelOnNinthZoom = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+          }
+          // Tenth zoom in event
+          if (i === 9) {
+            pointTransformOnTenthZoom = container.querySelector('.visx-glyph').getAttribute('transform')
+            xAxisLabelOnTenthZoom = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+            yAxisLabelOnTenthZoom = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+          }
+        }
+
+        // Confirming we're zoomed in
+        expect(pointTransformPreZooming).to.not.equal(pointTransformOnNinthZoom)
+        expect(xAxisLabelPreZooming).to.not.equal(xAxisLabelOnNinthZoom)
+        expect(yAxisLabelPreZooming).to.not.equal(yAxisLabelOnNinthZoom)
+
+        // Zooming should now have stopped because of the max zoom constraint
+        expect(pointTransformOnNinthZoom).to.equal(pointTransformOnTenthZoom)
+        expect(xAxisLabelOnNinthZoom).to.equal(xAxisLabelOnTenthZoom)
+        expect(yAxisLabelOnNinthZoom).to.equal(yAxisLabelOnTenthZoom)
+      })
+
+      it('should not zoom out beyond the minimum zoom configuration and reset the zoom', function () {
+        const { container, getByTestId } = render(
+          <Provider classifierStore={mockStore}>
+            <ZoomingScatterPlot
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              theme={zooTheme}
+              xAxisLabelOffset={10}
+              yAxisLabelOffset={10}
+              zoomConfiguration={zoomConfig}
+            />
+          </Provider>
+        )
+
+        // The position and labels prior to zooming
+        const pointTransformPreZooming = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPreZooming = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPreZooming = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+        // zoom in first
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomInEventMock)
+        const pointTransformPostZooming = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPostZooming = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPostZooming = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+        // zoom out by mouse wheel
+        // 1 * 1.2 * 0.8 is 0.96
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
+
+        const pointTransformZoomedOut = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelZoomedOut = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelZoomedOut = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+        // Confirm we zoomed in first
+        expect(pointTransformPreZooming).to.not.equal(pointTransformPostZooming)
+        expect(xAxisLabelPreZooming).to.not.equal(xAxisLabelPostZooming)
+        expect(yAxisLabelPreZooming).to.not.equal(yAxisLabelPostZooming)
+
+        // When the constraint is hit, we should reset
+        expect(pointTransformZoomedOut).to.not.equal(pointTransformPostZooming)
+        expect(pointTransformZoomedOut).to.equal(pointTransformPreZooming)
+        expect(xAxisLabelZoomedOut).to.not.equal(xAxisLabelPostZooming)
+        expect(xAxisLabelZoomedOut).to.equal(xAxisLabelPreZooming)
+        expect(yAxisLabelZoomedOut).to.not.equal(yAxisLabelPostZooming)
+        expect(yAxisLabelZoomedOut).to.equal(yAxisLabelPreZooming)
+      })
+    })
+
+    describe('when panning', function () {
+      describe('in the x-axis direction', function () {
+        it('should not pan beyond the data extent minimum', function () {
+          const { container, getByTestId } = render(
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+              />
+            </Provider>
+          )
+
+          // The position and labels prior to panning
+          const pointTransformPrePan = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPrePan = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPrePan = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          // // Now to simulate the panning
+          fireEvent.mouseDown(getByTestId('zoom-layer'), {
+            clientX: 50,
+            clientY: 50
+          })
+          fireEvent.mouseMove(getByTestId('zoom-layer'), {
+            clientX: -2000,
+            clientY: 50
+          })
+          fireEvent.mouseUp(getByTestId('zoom-layer'))
+
+          const pointTransformPostPan = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPostPan = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPostPan = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          // We expect no change because our arbitrary panning simulation instantly went from clientX 50 to clientX -2000
+          // In reality, mousemove would be firing the whole time and the pan position would be the edge of minimum data point
+          // But I have no idea of what that would be numerically
+          expect(pointTransformPrePan).to.equal(pointTransformPostPan)
+          expect(xAxisLabelPrePan).to.equal(xAxisLabelPostPan)
+          expect(yAxisLabelPrePan).to.equal(yAxisLabelPostPan)
+        })
+
+        it('should not pan beyond the data extent maximum', function () {
+          const { container, getByTestId } = render(
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+              />
+            </Provider>
+          )
+
+          // The position and labels prior to panning
+          const pointTransformPrePan = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPrePan = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPrePan = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          // // Now to simulate the panning
+          fireEvent.mouseDown(getByTestId('zoom-layer'), {
+            clientX: 50,
+            clientY: 50
+          })
+          fireEvent.mouseMove(getByTestId('zoom-layer'), {
+            clientX: 2000,
+            clientY: 50
+          })
+          fireEvent.mouseUp(getByTestId('zoom-layer'))
+
+          const pointTransformPostPan = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPostPan = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPostPan = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          // We expect no change because our arbitrary panning simulation instantly went from clientX 50 to clientX 2000
+          // In reality, mousemove would be firing the whole time and the pan position would be the edge of minimum data point
+          // But I have no idea of what that would be numerically
+          expect(pointTransformPrePan).to.equal(pointTransformPostPan)
+          expect(xAxisLabelPrePan).to.equal(xAxisLabelPostPan)
+          expect(yAxisLabelPrePan).to.equal(yAxisLabelPostPan)
+        })
+      })
+
+      describe('in the y-axis direction', function () {
+        it('should not pan beyond the data extent minimum', function () {
+          const { container, getByTestId } = render(
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+              />
+            </Provider>
+          )
+
+          // The position and labels prior to panning
+          const pointTransformPrePan = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPrePan = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPrePan = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          // // Now to simulate the panning
+          fireEvent.mouseDown(getByTestId('zoom-layer'), {
+            clientX: 50,
+            clientY: 50
+          })
+          fireEvent.mouseMove(getByTestId('zoom-layer'), {
+            clientX: 50,
+            clientY: -2000
+          })
+          fireEvent.mouseUp(getByTestId('zoom-layer'))
+
+          const pointTransformPostPan = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPostPan = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPostPan = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          // We expect no change because our arbitrary panning simulation instantly went from clientY 50 to clientY -2000
+          // In reality, mousemove would be firing the whole time and the pan position would be the edge of minimum data point
+          // But I have no idea of what that would be numerically
+          expect(pointTransformPrePan).to.equal(pointTransformPostPan)
+          expect(xAxisLabelPrePan).to.equal(xAxisLabelPostPan)
+          expect(yAxisLabelPrePan).to.equal(yAxisLabelPostPan)
+        })
+
+        it('should not pan beyond the data extent maximum', function () {
+          const { container, getByTestId } = render(
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+              />
+            </Provider>
+          )
+
+          // The position and labels prior to panning
+          const pointTransformPrePan = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPrePan = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPrePan = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          // // Now to simulate the panning
+          fireEvent.mouseDown(getByTestId('zoom-layer'), {
+            clientX: 50,
+            clientY: 50
+          })
+          fireEvent.mouseMove(getByTestId('zoom-layer'), {
+            clientX: 50,
+            clientY: 2000
+          })
+          fireEvent.mouseUp(getByTestId('zoom-layer'))
+
+          const pointTransformPostPan = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPostPan = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPostPan = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          // We expect no change because our arbitrary panning simulation instantly went from clientY 50 to clientY 2000
+          // In reality, mousemove would be firing the whole time and the pan position would be the edge of minimum data point
+          // But I have no idea of what that would be numerically
+          expect(pointTransformPrePan).to.equal(pointTransformPostPan)
+          expect(xAxisLabelPrePan).to.equal(xAxisLabelPostPan)
+          expect(yAxisLabelPrePan).to.equal(yAxisLabelPostPan)
         })
       })
     })
