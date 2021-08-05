@@ -30,7 +30,7 @@ function QuickTalk ({
   authors = {},
   authorRoles = {},
   screenSize,
-  expand = true,
+  expand = false,
 }) {
   // TODO: figure out if/how the QuickTalk component should/could be displayed on mobile
   // if (screenSize === 'small') return null

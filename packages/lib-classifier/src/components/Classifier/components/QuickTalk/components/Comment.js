@@ -20,6 +20,8 @@ author_login = if @props.author?.login then "@#{@props.author.login}" else ""
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Box } from 'grommet'
+import { Markdownz } from '@zooniverse/react-components'
 
 import UserAvatar from './UserAvatar'
 import UserRole from './UserRole'
@@ -30,8 +32,13 @@ function Comment ({
   roles,
 }) {
   return (
-    <li>
-      <div>
+    <Box
+      as='li'
+      direction='row'
+    >
+      <Box
+        width='small'
+      >
         <UserAvatar
           src={author?.avatar_src}
           displayName={author?.display_name}
@@ -40,11 +47,15 @@ function Comment ({
         {roles?.map(role =>
           <UserRole key={`quicktalk-role-${comment.id}-${role.name}`} role={role} />
         )}
-      </div>
-      <p>
-        {comment?.body}
-      </p>
-    </li>
+      </Box>
+      <Box
+        flex={true}
+      >
+        <Markdownz>
+          {comment?.body}
+        </Markdownz>
+      </Box>
+    </Box>
   )
 }
 
