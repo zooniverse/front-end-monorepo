@@ -4,9 +4,9 @@ import React from 'react'
 const Chart = React.forwardRef(function Chart ({ children, height, width, ...rest }, ref) {
   return (
     <svg
+      data-testid='data-vis-chart'
       height={height}
       ref={ref}
-      role='graphics-document'
       width={width}
       {...rest}
     >

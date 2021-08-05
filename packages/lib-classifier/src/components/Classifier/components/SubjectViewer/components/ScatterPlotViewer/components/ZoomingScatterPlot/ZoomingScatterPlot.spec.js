@@ -76,7 +76,7 @@ describe('Component > ZoomingScatterPlot', function() {
       </Provider>
     )
 
-    expect(output.getAllByRole('graphics-document')).to.have.lengthOf(1)
+    expect(output.getAllByTestId('data-vis-chart')).to.have.lengthOf(1)
   })
 
   describe('when zooming', function () {
