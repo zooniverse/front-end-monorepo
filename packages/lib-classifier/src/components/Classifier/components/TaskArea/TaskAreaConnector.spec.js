@@ -44,15 +44,15 @@ describe('TaskAreaConnector', function () {
       isThereTaskHelp: false
     },
   }
-  const renderedComponent = render(
-    <Grommet theme={zooTheme}>
-      <Provider classifierStore={mockStore}>
-        <TaskAreaConnector />
-      </Provider>
-    </Grommet>
-  )
 
   it('should render without crashing', function () {
+    const renderedComponent = render(
+      <Grommet theme={zooTheme}>
+        <Provider classifierStore={mockStore}>
+          <TaskAreaConnector />
+        </Provider>
+      </Grommet>
+    )
     expect(renderedComponent).to.be.ok()
   })
 })
