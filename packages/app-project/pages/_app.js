@@ -32,17 +32,17 @@ function useStore(initialState) {
 }
 
 export default function MyApp({ Component, pageProps }) {
-  try {
-    const { initialState } = pageProps
-    const store = useStore(initialState)
-    makeInspectable(store)
+  const { initialState } = pageProps
+  const store = useStore(initialState)
+  makeInspectable(store)
 
-    function onMount() {
-      console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
-      store.user.checkCurrent()
-    }
-    useEffect(onMount, [])
-    
+  function onMount() {
+    console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
+    store.user.checkCurrent()
+  }
+  useEffect(onMount, [])
+
+  try {
     if (pageProps.statusCode) {
       return (
         <Error

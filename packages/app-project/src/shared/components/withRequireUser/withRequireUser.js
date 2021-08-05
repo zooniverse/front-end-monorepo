@@ -15,7 +15,7 @@ function storeMapper (stores) {
 
 function withRequireUser (WrappedComponent) {
   @inject(storeMapper)
-  class RequireUser extends React.Component {
+  class RequireUser extends Component {
     render () {
       const { isLoggedIn, ...rest } = this.props
       return (
