@@ -1,6 +1,8 @@
 import { shallow } from 'enzyme'
 import * as React from 'react'
 import sinon from 'sinon'
+// import provider from mobx state react and pass in a store object
+// look for an example in stories of using mobx
 
 import ProjectAboutPageConnector from './ProjectAboutPageConnector'
 import ProjectAboutPage from './ProjectAboutPage'
