@@ -2,13 +2,10 @@ version: '3.7'
 
 services:
   shell:
-    image: front-end-monorepo_shell:latest
-    volumes:
-      - node_modules:/usr/src/node_modules
+    image: front-end-monorepo_dev:latest
     build:
       context: ./
-      target: builder
-    command:
+    entrypoint:
       - "/bin/sh"
   fe-project:
     image: front-end-monorepo_dev:latest
@@ -46,6 +43,3 @@ services:
       - APP_ENV=development
     ports:
       - "3001:3000"
-
-volumes:
-  node_modules:
