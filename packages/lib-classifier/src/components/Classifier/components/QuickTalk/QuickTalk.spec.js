@@ -1,7 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 
-
 import { QuickTalk } from './QuickTalk'
 
 let wrapper
@@ -57,16 +56,34 @@ const authorRoles = {
   '300002': [],
 }
 
-describe.only('Component > QuickTalk', function () {
-  render(
-    <QuickTalk
-      subject={subject}
-      comments={comments}
-      authors={authors}
-      authorRoles={authorRoles}
-    />
-  )
-  // expect(screen.getByRole('heading')).toHaveTextContent('Welcome, John Doe')
-  // screen.debug()
-  // TODO
+describe('Component > QuickTalk', function () {
+  
+  it('should render (collapsed) without crashing', function () {
+    render(
+      <QuickTalk
+        subject={subject}
+        comments={comments}
+        authors={authors}
+        authorRoles={authorRoles}
+      />
+    )
+    
+    expect(screen.getByTestId('quicktalk-button')).to.exist()
+    // expect(screen.getByTestId('quicktalk-panel')).to.not.exist()
+  })
+  
+  it('should render (expanded) without crashing', function () {
+    render(
+      <QuickTalk
+        subject={subject}
+        comments={comments}
+        authors={authors}
+        authorRoles={authorRoles}
+        expand={true}
+      />
+    )
+    
+    // expect(screen.getByTestId('quicktalk-button')).to.not.exist()
+    expect(screen.getByTestId('quicktalk-panel')).to.exist()
+  })
 })

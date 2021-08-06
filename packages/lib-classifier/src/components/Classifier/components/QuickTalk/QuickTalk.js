@@ -41,7 +41,10 @@ function QuickTalk ({
   
   if (!_expand) {
     return (
-      <FixedButton onClick={() => setExpand(true)}>
+      <FixedButton
+        onClick={() => setExpand(true)}
+        data-testid='quicktalk-button'
+      >
         {comments.length} comment(s)
       </FixedButton>
     )
@@ -51,6 +54,7 @@ function QuickTalk ({
     <FixedBox
       pad='small'
       background={{ dark: 'dark-3', light: 'light-3' }}
+      data-testid='quicktalk-panel'
     >
       <div>
         <a href={subject.talkURL}>[TALK LINK]</a>
