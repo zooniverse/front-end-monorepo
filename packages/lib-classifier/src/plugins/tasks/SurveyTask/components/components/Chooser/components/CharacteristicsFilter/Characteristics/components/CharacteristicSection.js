@@ -14,6 +14,19 @@ export default function CharacteristicSection (props) {
     selectedValueId
   } = props
 
+  const characteristicOptions = characteristic.valuesOrder.map(valueId => {
+    const value = characteristic?.values?.[valueId] || {}
+    const valueImageSrc = images?.[value.image] || ''
+
+    return ({
+      disabled: false,
+      id: `${characteristicId}-${valueId}`,
+      imageSrc: valueImageSrc,
+      label: value.label,
+      value: valueId
+    })
+  })
+
   return (
     <Box
       border={{
@@ -36,21 +49,18 @@ export default function CharacteristicSection (props) {
         gap='xsmall'
         name={`${characteristic.label}RadioButtonGroup`}
         onChange={({ target }) => onFilter(characteristicId, target.value)}
-        options={characteristic.valuesOrder}
+        options={characteristicOptions}
         value={selectedValueId}
         wrap
       >
         {(option, { checked, hover }) => {
-          const value = characteristic?.values?.[option] || {}
-          const valueImageSrc = images?.[value.image] || ''
-
           return (
             <FilterButton
               characteristicId={characteristicId}
-              valueLabel={value.label}
+              valueLabel={option.label}
               checked={checked}
               onFilter={onFilter}
-              valueImageSrc={valueImageSrc}
+              valueImageSrc={option.imageSrc}
             />
           )
         }}
