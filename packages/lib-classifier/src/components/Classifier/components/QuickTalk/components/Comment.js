@@ -17,6 +17,11 @@ author_login = if @props.author?.login then "@#{@props.author.login}" else ""
     <DisplayRoles roles={@props.roles} section={@props.data.section} />
   </div>
  */
+/*
+TODO:
+- [ ] add avatar-side style
+- [ ] add isDeleted style
+ */
 
 import React from 'react'
 import PropTypes from 'prop-types'

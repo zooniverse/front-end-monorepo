@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import zooTheme from '@zooniverse/grommet-theme'
 
 import Comment from './components/Comment'
+import PostForm from './components/PostForm'
 
 const FixedBox = styled(Box)`
   position: fixed;
@@ -76,6 +77,7 @@ function QuickTalk ({
           )
         })}
       </ul>
+      <PostForm />
       <Button onClick={() => setExpand(false)}>Close</Button>
     </FixedBox>
   )

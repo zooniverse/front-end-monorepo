@@ -1,15 +1,3 @@
-/*
-<img
-  src={@state.src}
-  alt="Avatar for #{@props.user.display_name}"
-  className={"avatar #{@props.className}".trim()}
-  style={
-    height: @props.size
-    width: @props.size
-  }
-  onError={@handleError}
-/>
-*/
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
