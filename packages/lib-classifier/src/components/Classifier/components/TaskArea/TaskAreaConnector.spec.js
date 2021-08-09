@@ -1,58 +1,204 @@
-import * as React from 'react'
+import zooTheme from '@zooniverse/grommet-theme'
 import { render, screen } from '@testing-library/react'
 import { expect } from 'chai'
-import { Provider } from 'mobx-react'
 import { Grommet } from 'grommet'
-import zooTheme from '@zooniverse/grommet-theme'
+import { when } from 'mobx'
+import { Provider } from 'mobx-react'
+import nock from 'nock'
+import React from 'react'
+import { Factory } from 'rosie'
+
+import { SubjectFactory, SubjectSetFactory, WorkflowFactory } from '@test/factories'
+import mockStore from '@test/mockStore'
 import TaskAreaConnector from './TaskAreaConnector'
 
+import popupText from './components/DisabledTaskPopup/locales/en'
+
 describe('TaskAreaConnector', function () {
-  const mockStore = {
-    annotatedSteps: {
-      latest: {
-        isComplete: () => {},
-        tasks: []
-      }
-    },
-    classifications: {
-      active: { id: '10' },
-      demoMode: false
-    },
-    subjects: {
-      active: { id: '2' }
-    },
-    subjectViewer: {
-      loadingState: 'success'
-    },
-    tutorials: {
-      disableTutorialTab: false,
-      setActiveTutorial: () => {},
-      tutorial: { id: '1' }
-    },
-    workflows: {
-      active: {
-        configuration: {},
-        id: '5'
-      },
-      loadingState: 'success'
-    },
-    workflowSteps: {
-      active: {
-        isComplete: () => {},
-        tasks: []
-      },
-      isThereTaskHelp: false
-    },
+
+  function withStore(store) {
+    return function Wrapper({ children }) {
+      return (
+        <Grommet theme={zooTheme}>
+          <Provider classifierStore={store}>
+            {children}
+          </Provider>
+        </Grommet>
+      )
+    }
   }
 
-  it('should render without crashing', function () {
-    const renderedComponent = render(
-      <Grommet theme={zooTheme}>
-        <Provider classifierStore={mockStore}>
-          <TaskAreaConnector />
-        </Provider>
-      </Grommet>
-    )
-    expect(renderedComponent).to.be.ok()
+  function subjectsAreReady(subjects) {
+    return function subjectsAreLoaded() {
+      const { resources } = subjects
+      return resources.size > 9
+    }
+  }
+
+  describe('without indexed subjects', function () {
+    let renderedComponent
+
+    before(function () {
+      const store = mockStore()
+    
+      renderedComponent = render(
+        <TaskAreaConnector />,
+        {
+          wrapper: withStore(store)
+        }
+      )
+    })
+
+    it('should render without crashing', function () {
+      expect(renderedComponent).to.be.ok()
+    })
+  })
+
+  describe('with an indexed subject set', function () {
+
+    function mockSubjectSetAPI(subjectSetSnapshot) {
+      const response = {
+        columns: ['subject_id'],
+        rows: [
+          ['1', '2', '3', '4', '5']
+        ]
+      }
+      return nock('https://subject-set-search-api.zooniverse.org')
+        .get(`/subjects/${subjectSetSnapshot.id}.json`)
+        .query(true)
+        .reply(200, response)
+    }
+
+    async function buildStore(subject) {
+      const subjectSetSnapshot = SubjectSetFactory.build({
+        metadata: {
+          indexFields: 'date,title'
+        }
+      })
+      const workflowSnapshot = WorkflowFactory.build({
+        grouped: true,
+        links: {
+          subject_sets: [subjectSetSnapshot.id] 
+        }
+      })
+      const subjectSetAPI = mockSubjectSetAPI(subjectSetSnapshot)
+
+      const store = mockStore({ subject, workflow: workflowSnapshot })
+      store.subjectSets.setResources([subjectSetSnapshot])
+      const workflow = store.workflows.active
+      workflow.selectSubjectSet(subjectSetSnapshot.id)
+      await when(subjectsAreReady(store.subjects))
+      store.subjectViewer.onSubjectReady()
+      return store
+    }
+
+    describe('with a retired subject', function () {
+      let renderedComponent
+
+      beforeEach(async function () {
+        const subject = SubjectFactory.build({
+          retired: true
+        })
+        const store = await buildStore(subject)
+        renderedComponent = render(
+          <TaskAreaConnector />,
+          {
+            wrapper: withStore(store)
+          }
+        )
+      })
+
+      it('should show a message that the subject is finished', function () {
+        const para = renderedComponent.queryByText(popupText.DisabledTaskPopup.body)
+        expect(para).to.be.ok()
+      })
+
+      it('should show a button to choose a new subject', function () {
+        const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.select)
+        expect(button).to.be.ok()
+      })
+
+      it('should show a button to choose the next available subject', function () {
+        const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.next)
+        expect(button).to.be.ok()
+      })
+
+      it('should show a button to dismiss the popup', function () {
+        const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.dismiss)
+        expect(button).to.be.ok()
+      })
+    })
+
+    describe('with an already seen subject', function () {
+      let renderedComponent
+
+      beforeEach(async function () {
+        const subject = SubjectFactory.build({
+          already_seen: true
+        })
+        const store = await buildStore(subject)
+        renderedComponent = render(
+          <TaskAreaConnector />,
+          {
+            wrapper: withStore(store)
+          }
+        )
+      })
+
+      it('should show a message that the subject is finished', function () {
+        const para = renderedComponent.queryByText(popupText.DisabledTaskPopup.body)
+        expect(para).to.be.ok()
+      })
+
+      it('should show a button to choose a new subject', function () {
+        const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.select)
+        expect(button).to.be.ok()
+      })
+
+      it('should show a button to choose the next available subject', function () {
+        const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.next)
+        expect(button).to.be.ok()
+      })
+
+      it('should show a button to dismiss the popup', function () {
+        const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.dismiss)
+        expect(button).to.be.ok()
+      })
+    })
+
+    describe('with an unfinished subject', function () {
+      let renderedComponent
+
+      beforeEach(async function () {
+        const subject = SubjectFactory.build()
+        const store = await buildStore(subject)
+        renderedComponent = render(
+          <TaskAreaConnector />,
+          {
+            wrapper: withStore(store)
+          }
+        )
+      })
+
+      it('should not show a message that the subject is finished', function () {
+        const para = renderedComponent.queryByText(popupText.DisabledTaskPopup.body)
+        expect(para).to.be.null()
+      })
+
+      it('should not show a button to choose a new subject', function () {
+        const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.select)
+        expect(button).to.be.null()
+      })
+
+      it('should not show a button to choose the next available subject', function () {
+        const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.next)
+        expect(button).to.be.null()
+      })
+
+      it('should not show a button to dismiss the popup', function () {
+        const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.dismiss)
+        expect(button).to.be.null()
+      })
+    })
   })
 })
