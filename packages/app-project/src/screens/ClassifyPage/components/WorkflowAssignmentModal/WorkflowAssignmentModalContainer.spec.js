@@ -52,7 +52,6 @@ describe('Component > WorkflowAssignmentModalContainer', function() {
 
     describe('when the currently selected workflow is the same as the assigned workflow', function () {
       it('should not display the modal', function () {
-        console.log(wrapper.debug())
         expect(wrapper.find(WorkflowAssignmentModal)).to.have.lengthOf(0)
         const promptAssignment = sinon.stub().callsFake(() => false)
         const assignedWorkflowID = '555'
