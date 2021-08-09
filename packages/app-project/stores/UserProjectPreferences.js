@@ -98,12 +98,12 @@ const UserProjectPreferences = types
 
       fetchResource: flow(function* fetchResource() {
         if (!self.id) {
-          _fetch()
+          yield _fetch()
         }
       }),
 
       refreshResource: flow(function * refreshResource() {
-        _fetch()
+        yield _fetch()
       })
     }
   })

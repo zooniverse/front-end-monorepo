@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { expect } from 'chai'
-import WorkflowSelectButtons from './WorkflowSelectButtons'
+import { WorkflowSelectButtons } from './WorkflowSelectButtons'
 
 describe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
   const workflows = [

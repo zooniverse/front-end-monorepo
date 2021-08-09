@@ -30,6 +30,10 @@ const UserPersonalization = types
         today,
         total: self.totalClassificationCount
       }
+    },
+
+    get sessionCountIsDivisibleByFive() {
+      return self.sessionCount % 5 === 0
     }
   }))
   .actions(self => {
@@ -56,7 +60,7 @@ const UserPersonalization = types
         self.sessionCount = self.sessionCount + 1
         self.totalClassificationCount = self.totalClassificationCount + 1
 
-        if (self.sessionCount % 5 === 0) {
+        if (self.sessionCountIsDivisibleByFive) {
           self.projectPreferences.refreshResource()
         }
       },
