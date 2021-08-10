@@ -11,7 +11,12 @@ const StyledCircle = styled('circle')`
 `
 const RADIUS = screen.width > 900 ? 4 : 10
 
-const DragHandle = forwardRef(function DragHandle ({ fill, radius, scale, x, y }, ref) {
+const DragHandle = forwardRef(function DragHandle(
+  { fill, radius, scale, x, y },
+  ref
+) {
+  console.log('x: ', x)
+  console.log('y: ', y)
   const transform = `translate(${x}, ${y}) scale(${1 / scale})`
   const styleProps = {
     fill,
@@ -20,10 +25,7 @@ const DragHandle = forwardRef(function DragHandle ({ fill, radius, scale, x, y }
   }
 
   return (
-    <g
-      ref={ref}
-      transform={transform}
-    >
+    <g ref={ref} transform={transform}>
       <StyledCircle r={radius} {...styleProps} />
       <StyledCircle r={2 * radius} fill='transparent' stroke='transparent' />
     </g>
