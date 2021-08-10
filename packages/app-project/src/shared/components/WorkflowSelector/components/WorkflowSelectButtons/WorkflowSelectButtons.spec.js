@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { expect } from 'chai'
 import { WorkflowSelectButtons } from './WorkflowSelectButtons'
 
-describe.only('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
+describe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
   const workflows = [
     {
       completeness: 0.3,

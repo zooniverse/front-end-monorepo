@@ -6,9 +6,13 @@ import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 import asyncStates from '@zooniverse/async-states'
 
-describe.only('Component > WorkflowAssignmentModalContainer', function() {
+describe('Component > WorkflowAssignmentModalContainer', function() {
+  let wrapper
+  afterEach(function () {
+    wrapper.unmount()
+  })
   it('should render without crashing', function() {
-    const wrapper = mount(
+    wrapper = mount(
       <WorkflowAssignmentModalContainer />, {
       wrappingComponent: Grommet,
       wrappingComponentProps: { theme: zooTheme }
@@ -18,7 +22,7 @@ describe.only('Component > WorkflowAssignmentModalContainer', function() {
 
   describe('when the project preferences are not loaded and a current workflow selected', function () {
     it('should not display the modal', function () {
-      const wrapper = mount(
+      wrapper = mount(
         <WorkflowAssignmentModalContainer />, {
         wrappingComponent: Grommet,
         wrappingComponentProps: { theme: zooTheme }
@@ -33,7 +37,7 @@ describe.only('Component > WorkflowAssignmentModalContainer', function() {
   describe('when there are project preferences but no workflow selected', function () {
     it('should not display the modal', function () {
       const promptAssignment = sinon.stub().callsFake(() => false)
-      const wrapper = mount(
+      wrapper = mount(
         <WorkflowAssignmentModalContainer />, {
         wrappingComponent: Grommet,
         wrappingComponentProps: { theme: zooTheme }
@@ -48,7 +52,7 @@ describe.only('Component > WorkflowAssignmentModalContainer', function() {
   describe('when there are project preferences and a workflow is selected', function () {
     describe('when the currently selected workflow is the same as the assigned workflow', function () {
       it('should not display the modal', function () {
-        const wrapper = mount(
+        wrapper = mount(
           <WorkflowAssignmentModalContainer loadingState={asyncStates.initialized} />, {
           wrappingComponent: Grommet,
           wrappingComponentProps: { theme: zooTheme }
@@ -65,7 +69,7 @@ describe.only('Component > WorkflowAssignmentModalContainer', function() {
 
     describe('when the currently selected workflow is not the same as the assigned workflow', function () {
       it('should display the modal', function () {
-        const wrapper = mount(
+        wrapper = mount(
           <WorkflowAssignmentModalContainer loadingState={asyncStates.initialized} />, {
           wrappingComponent: Grommet,
           wrappingComponentProps: { theme: zooTheme }
@@ -83,7 +87,7 @@ describe.only('Component > WorkflowAssignmentModalContainer', function() {
     describe('when the modal has been dismissed for the session', function () {
       it('should not display the modal', function () {
         const promptAssignment = sinon.stub().callsFake(() => {})
-        const wrapper = mount(<WorkflowAssignmentModalContainer assignedWorkflowID='555' currentWorkflowID='123' promptAssignment={promptAssignment} />, {
+        wrapper = mount(<WorkflowAssignmentModalContainer assignedWorkflowID='555' currentWorkflowID='123' promptAssignment={promptAssignment} />, {
           wrappingComponent: Grommet,
           wrappingComponentProps: { theme: zooTheme }
         })
@@ -101,7 +105,7 @@ describe.only('Component > WorkflowAssignmentModalContainer', function() {
         const promptAssignment = sinon.stub().callsFake(() => true)
         const assignedWorkflowID = '555'
         const loadingState = asyncStates.success
-        const wrapper = mount(
+        wrapper = mount(
           <WorkflowAssignmentModalContainer
             assignedWorkflowID={assignedWorkflowID}
             currentWorkflowID='123'
@@ -118,9 +122,5 @@ describe.only('Component > WorkflowAssignmentModalContainer', function() {
         expect(wrapper.find(WorkflowAssignmentModal).props().active).to.be.false()
       })
     })
-  })
-
-  after(function () {
-    console.log(document.body.children)
   })
 })
