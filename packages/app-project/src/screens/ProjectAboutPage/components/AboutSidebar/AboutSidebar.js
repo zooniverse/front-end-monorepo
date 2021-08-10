@@ -1,9 +1,10 @@
 import AboutNavLink from '../AboutNavLink'
 import { Nav } from 'grommet'
-import { withRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { arrayOf, object, string } from 'prop-types'
 
-const AboutSidebar = ({ router, aboutNavLinks }) => {
+const AboutSidebar = ({ aboutNavLinks }) => {
+  const router = useRouter()
   const { owner, project } = router.query
   const baseUrl = `/projects/${owner}/${project}/about`
 
@@ -60,4 +61,4 @@ AboutSidebar.propTypes = {
 }
 
 export { AboutSidebar }
-export default withRouter(AboutSidebar)
+export default AboutSidebar

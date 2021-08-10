@@ -3,45 +3,46 @@ import { Provider } from 'mobx-react'
 import { render, screen } from '@testing-library/react'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
-import Router from 'next/router'
+import * as Router from 'next/router'
 import PropTypes from 'prop-types'
-
+import sinon from 'sinon'
 import ProjectAboutPageConnector from './ProjectAboutPageConnector'
 import { ProjectAboutPage } from './ProjectAboutPage'
+import { expect } from 'chai'
 
 describe.only('Component > ProjectAboutPageConnector', () => {
-  const mockedRouter = {
-    asPath: '/projects/zooniverse/snapshot-serengeti',
-    push: () => {},
-    prefetch: () => {},
-    query: {
-      owner: 'zooniverse',
-      project: 'snapshot-serengeti'
-    }
-  }
+  // const mockedRouter = {
+  //   asPath: '/projects/zooniverse/snapshot-serengeti',
+  //   push: () => {},
+  //   prefetch: () => {},
+  //   query: {
+  //     owner: 'zooniverse',
+  //     project: 'snapshot-serengeti'
+  //   }
+  // }
 
-  Router.router = mockedRouter
+  // Router.router = mockedRouter
 
-  const withMockRouterContext = mockRouter => {
-    class MockRouterContext extends Component {
-      getChildContext () {
-        return {
-          router: { ...mockedRouter, ...mockRouter }
-        }
-      }
-      render() {
-        return this.props.children
-      }
-    }
+  // const withMockRouterContext = mockRouter => {
+  //   class MockRouterContext extends Component {
+  //     getChildContext () {
+  //       return {
+  //         router: { ...mockedRouter, ...mockRouter }
+  //       }
+  //     }
+  //     render() {
+  //       return this.props.children
+  //     }
+  //   }
 
-    MockRouterContext.childContextTypes = {
-      router: PropTypes.object
-    }
+  //   MockRouterContext.childContextTypes = {
+  //     router: PropTypes.object
+  //   }
 
-    return MockRouterContext
-  }
+  //   return MockRouterContext
+  // }
 
-  const WithRouter = withMockRouterContext(mockedRouter)
+  // const WithRouter = withMockRouterContext(mockedRouter)
 
   const mockStore = {
     project: {
@@ -61,18 +62,31 @@ describe.only('Component > ProjectAboutPageConnector', () => {
   }
 
   describe('About pages with content', () => {
-    it('should render without crashing', () => {
-      const { getByText } = render(
+    let routerMock
+    before(function () {
+      routerMock = sinon.stub(Router, 'useRouter').callsFake(() => { 
+        return {
+          asPath: 'projects/foo/bar',
+          query: { owner: 'foo', project: 'bar' }
+        }
+      })
+    })
+    after(function () {
+      routerMock.restore()
+    })
+    it.only('should render without crashing', () => {
+      const output = render(
         <Provider store={mockStore}>
           <Grommet theme={zooTheme} themeMode="light">
-            <WithRouter>
-              <ProjectAboutPageConnector pageType="science_case">
-                {/* <ProjectAboutPage /> */}
-              </ProjectAboutPageConnector>
-            </WithRouter>
+
+            <ProjectAboutPageConnector pageType="science_case">
+              {/* <ProjectAboutPage /> */}
+            </ProjectAboutPageConnector>
+
           </Grommet>
         </Provider>
       )
+      expect(output).to.be.ok()
     })
 
     it('should pass correct data to ProjectAboutPage depending on pageType', () => {})
