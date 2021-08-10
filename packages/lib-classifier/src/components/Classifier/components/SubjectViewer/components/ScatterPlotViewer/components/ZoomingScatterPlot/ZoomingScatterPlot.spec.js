@@ -1,183 +1,192 @@
-import { mount, shallow } from 'enzyme'
+import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 import sinon from 'sinon'
 import { Provider } from 'mobx-react'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import ZoomingScatterPlot from './ZoomingScatterPlot'
-import ScatterPlot from '../ScatterPlot'
-import ZoomEventLayer from '../../../SVGComponents/ZoomEventLayer'
 import zooTheme from '@zooniverse/grommet-theme'
 import {
-  randomSingleSeriesData,
   parentHeight as height,
   parentWidth as width
 } from '../../helpers/mockData'
+import { expect } from 'chai'
 
-const mockData = randomSingleSeriesData.data
-
-const mockStore = {
-  classifications: {
-    active: {
-      annotations: new Map()
+describe('Component > ZoomingScatterPlot', function() {
+  const mockData = [{
+    seriesData: [{ x: 1, y: 6 }, { x: 10, y: 1 }],
+    seriesOptions: {
+      label: 'My data'
     }
-  },
-  fieldGuide: {},
-  subjectViewer: SubjectViewerStore.create({}),
-  workflowSteps: {
-    activeStepTasks: []
+  }]
+
+  const mockStore = {
+    classifications: {
+      active: {
+        annotations: new Map()
+      }
+    },
+    fieldGuide: {},
+    subjectViewer: SubjectViewerStore.create({}),
+    workflowSteps: {
+      activeStepTasks: []
+    }
   }
-}
 
-const zoomInEventMock = {
-  clientX: 50,
-  clientY: 50,
-  deltaY: -1,
-  preventDefault: sinon.spy()
-}
+  const zoomInEventMock = {
+    clientX: 50,
+    clientY: 50,
+    deltaY: -1,
+    preventDefault: sinon.spy()
+  }
 
-const zoomOutEventMock = {
-  clientX: 50,
-  clientY: 50,
-  deltaY: 10,
-  preventDefault: sinon.spy()
-}
+  const zoomOutEventMock = {
+    clientX: 50,
+    clientY: 50,
+    deltaY: 10,
+    preventDefault: sinon.spy()
+  }
 
-describe('Component > ZoomingScatterPlot', function () {
-  it('should render without crashing', function () {
-    const wrapper = shallow(
-      <ZoomingScatterPlot
-        data={mockData}
-        parentHeight={height}
-        parentWidth={width}
-      />
+  it('should render without crashing', function() {
+    const output = render(
+      <Provider classifierStore={mockStore}>
+        <ZoomingScatterPlot
+          data={mockData}
+          parentHeight={height}
+          parentWidth={width}
+          theme={zooTheme}
+          xAxisLabelOffset={10}
+          yAxisLabelOffset={10}
+        />
+      </Provider>
     )
-    expect(wrapper).to.be.ok()
+    expect(output).to.be.ok()
   })
 
-  it('should render the ScatterPlot component as a child', function () {
-    const wrapper = mount(
-      <ZoomingScatterPlot
-        data={mockData}
-        parentHeight={height}
-        parentWidth={width}
-        theme={zooTheme}
-      />,
-      { 
-        wrappingComponent: Provider,
-        wrappingComponentProps: {
-          classifierStore: mockStore
-        }
-      }
+  it('should render a scatter plot', function () {
+    const output = render(
+      <Provider classifierStore={mockStore}>
+        <ZoomingScatterPlot
+          data={mockData}
+          parentHeight={height}
+          parentWidth={width}
+          theme={zooTheme}
+          xAxisLabelOffset={10}
+          yAxisLabelOffset={10}
+        />
+      </Provider>
     )
-    expect(wrapper.find(ScatterPlot)).to.have.lengthOf(1)
+
+    expect(output.getAllByTestId('data-vis-chart')).to.have.lengthOf(1)
   })
 
-  describe('zooming', function () {
-    function testTransformations ({ currentTransformMatrix, previousTransformMatrix, zoomValue, direction }) {
-      if (direction === 'both') {
-        expect(currentTransformMatrix.scaleX).to.equal(previousTransformMatrix.scaleX * zoomValue)
-        expect(currentTransformMatrix.scaleY).to.equal(previousTransformMatrix.scaleY * zoomValue)
-      } else if (direction === 'x') {
-        expect(currentTransformMatrix.scaleX).to.equal(previousTransformMatrix.scaleX * zoomValue)
-        expect(currentTransformMatrix.scaleY).to.equal(previousTransformMatrix.scaleY)
-      } else if (direction === 'y') {
-        expect(currentTransformMatrix.scaleX).to.equal(previousTransformMatrix.scaleX)
-        expect(currentTransformMatrix.scaleY).to.equal(previousTransformMatrix.scaleY * zoomValue)
-      }
-    }
-
+  describe('when zooming', function () {
     describe('with the default configuration of allowing zoom in both directions', function () {
-      it('should scale both axes in', function () {
-        const wrapper = mount(
-          <ZoomingScatterPlot
-            data={mockData}
-            parentHeight={height}
-            parentWidth={width}
-            theme={zooTheme}
-          />,
-          {
-            wrappingComponent: Provider,
-            wrappingComponentProps: {
-              classifierStore: mockStore
-            }
-          }
+      it('should scale both axes and transform data points', function () {
+        const { container, getByTestId } = render(
+          <Provider classifierStore={mockStore}>
+            <ZoomingScatterPlot
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              theme={zooTheme}
+              xAxisLabelOffset={10}
+              yAxisLabelOffset={10}
+            />
+          </Provider>
         )
 
-        const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
-        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
-
-        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-        testTransformations({
-          currentTransformMatrix: zoomedInTransformMatrix,
-          previousTransformMatrix: initialTransformMatrix,
-          zoomValue: zoomConfiguration.zoomInValue,
-          direction: 'both'
-        })
+        // Original transform position and axes labels
+        const pointTransformPreZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPreZoomIn = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPreZoomIn = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomInEventMock)
+        // Zoomed in transform position and axes labels
+        const pointTransformPostZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPostZoomIn = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPostZoomIn = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        expect(pointTransformPreZoomIn).to.not.equal(pointTransformPostZoomIn)
+        // The the scales change, therefore the labels of the ticks change
+        expect(xAxisLabelPreZoomIn).to.not.equal(xAxisLabelPostZoomIn)
+        expect(yAxisLabelPreZoomIn).to.not.equal(yAxisLabelPostZoomIn)
       })
 
-      it('should scale both axes out', function () {
-        const wrapper = mount(
-          <ZoomingScatterPlot
-            data={mockData}
-            parentHeight={height}
-            parentWidth={width}
-            theme={zooTheme}
-          />,
-          {
-            wrappingComponent: Provider,
-            wrappingComponentProps: {
-              classifierStore: mockStore
-            }
-          }
+      it('should scale both axes out and and transform data points', function () {
+        const { container, getByTestId } = render(
+          <Provider classifierStore={mockStore}>
+            <ZoomingScatterPlot
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              theme={zooTheme}
+              xAxisLabelOffset={10}
+              yAxisLabelOffset={10}
+            />
+          </Provider>
         )
 
-        const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
-        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
-
-        // zooming in first
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
-        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomOutEventMock)
-        const zoomedOutTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-
-        testTransformations({
-          currentTransformMatrix: zoomedOutTransformMatrix,
-          previousTransformMatrix: zoomedInTransformMatrix,
-          zoomValue: zoomConfiguration.zoomOutValue,
-          direction: 'both'
-        })
+        // Original transform position and axes labels
+        const pointTransformPreZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPreZoomIn = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPreZoomIn = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        // We zoom in twice to make sure we don't hit the zoom out constrain limit
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomInEventMock)
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomInEventMock)
+        // Zoomed in transform position and axes labels
+        const pointTransformPostZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPostZoomIn = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPostZoomIn = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        expect(pointTransformPreZoomIn).to.not.equal(pointTransformPostZoomIn)
+        // The the scales change, therefore the labels of the ticks change
+        expect(xAxisLabelPreZoomIn).to.not.equal(xAxisLabelPostZoomIn)
+        expect(yAxisLabelPreZoomIn).to.not.equal(yAxisLabelPostZoomIn)
+        // Zoom out
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
+        const pointTransformPostZoomOut = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPostZoomOut = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPostZoomOut = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        expect(pointTransformPostZoomIn).to.not.equal(pointTransformPostZoomOut)
+        // The the scales change, therefore the labels of the ticks change
+        expect(xAxisLabelPostZoomIn).to.not.equal(xAxisLabelPostZoomOut)
+        expect(yAxisLabelPostZoomIn).to.not.equal(yAxisLabelPostZoomOut)
       })
 
       it('should reset the scale when zooming out beyond the minimum scale', function () {
-        const wrapper = mount(
-          <ZoomingScatterPlot
-            data={mockData}
-            parentHeight={height}
-            parentWidth={width}
-            theme={zooTheme}
-          />,
-          {
-            wrappingComponent: Provider,
-            wrappingComponentProps: {
-              classifierStore: mockStore
-            }
-          }
+        const { container, getByTestId } = render(
+          <Provider classifierStore={mockStore}>
+            <ZoomingScatterPlot
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              theme={zooTheme}
+              xAxisLabelOffset={10}
+              yAxisLabelOffset={10}
+            />
+          </Provider>
         )
-        const { initialTransformMatrix } = wrapper.find(ScatterPlot).props()
 
-        // zooming in first
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
-        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-        expect(zoomedInTransformMatrix.scaleX).to.not.equal(initialTransformMatrix.scaleX)
-        expect(zoomedInTransformMatrix.scaleY).to.not.equal(initialTransformMatrix.scaleY)
-
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomOutEventMock)
-        const zoomedOutTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-        expect(zoomedOutTransformMatrix.scaleX).to.equal(initialTransformMatrix.scaleX)
-        expect(zoomedOutTransformMatrix.scaleY).to.equal(initialTransformMatrix.scaleY)
+        // Original transform position and axes labels
+        const pointTransformPreZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPreZoomIn = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPreZoomIn = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        // We zoom in once to make sure we hit the zoom out constraint next
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomInEventMock)
+        // Zoomed in transform position and axes labels
+        const pointTransformPostZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPostZoomIn = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPostZoomIn = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        expect(pointTransformPreZoomIn).to.not.equal(pointTransformPostZoomIn)
+        // The the scales change, therefore the labels of the ticks change
+        expect(xAxisLabelPreZoomIn).to.not.equal(xAxisLabelPostZoomIn)
+        expect(yAxisLabelPreZoomIn).to.not.equal(yAxisLabelPostZoomIn)
+        // Zoom out
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
+        const pointTransformPostZoomOut = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPostZoomOut = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPostZoomOut = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        // The the scales and transform are reset
+        expect(pointTransformPostZoomOut).to.equal(pointTransformPreZoomIn)
+        expect(xAxisLabelPostZoomOut).to.equal(xAxisLabelPreZoomIn)
+        expect(yAxisLabelPostZoomOut).to.equal(yAxisLabelPreZoomIn)
       })
     })
 
@@ -194,107 +203,114 @@ describe('Component > ZoomingScatterPlot', function () {
       })
 
       it('should scale the x-axis in', function () {
-        const wrapper = mount(
-          <ZoomingScatterPlot
-            data={mockData}
-            parentHeight={height}
-            parentWidth={width}
-            theme={zooTheme}
-            zoomConfiguration={zoomConfig}
-          />,
-          {
-            wrappingComponent: Provider,
-            wrappingComponentProps: {
-              classifierStore: mockStore
-            }
-          }
+        const { container, getByTestId } = render(
+          <Provider classifierStore={mockStore}>
+            <ZoomingScatterPlot
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              theme={zooTheme}
+              xAxisLabelOffset={10}
+              yAxisLabelOffset={10}
+              zoomConfiguration={zoomConfig}
+            />
+          </Provider>
         )
 
-        const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
-        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
-
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
-        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-
-        testTransformations({
-          currentTransformMatrix: zoomedInTransformMatrix,
-          previousTransformMatrix: initialTransformMatrix,
-          zoomValue: zoomConfiguration.zoomInValue,
-          direction: 'x'
-        })
+        // Original transform position and axes labels
+        const pointTransformPreZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPreZoomIn = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPreZoomIn = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomInEventMock)
+        // Zoomed in transform position and axes labels
+        const pointTransformPostZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPostZoomIn = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPostZoomIn = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        expect(pointTransformPreZoomIn).to.not.equal(pointTransformPostZoomIn)
+        // The the scales change, therefore the labels of the ticks change only for the x-axis
+        expect(xAxisLabelPreZoomIn).to.not.equal(xAxisLabelPostZoomIn)
+        expect(yAxisLabelPreZoomIn).to.equal(yAxisLabelPostZoomIn)
       })
 
       it('should scale the x-axis out', function () {
-        const wrapper = mount(
-          <ZoomingScatterPlot
-            data={mockData}
-            parentHeight={height}
-            parentWidth={width}
-            theme={zooTheme}
-            zoomConfiguration={zoomConfig}
-          />,
-          {
-            wrappingComponent: Provider,
-            wrappingComponentProps: {
-              classifierStore: mockStore
-            }
-          }
+        const { container, getByTestId } = render(
+          <Provider classifierStore={mockStore}>
+            <ZoomingScatterPlot
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              theme={zooTheme}
+              xAxisLabelOffset={10}
+              yAxisLabelOffset={10}
+              zoomConfiguration={zoomConfig}
+            />
+          </Provider>
         )
 
-        const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
-        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
-
-        // zooming in first
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
-        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomOutEventMock)
-        const zoomedOutTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-
-        testTransformations({
-          currentTransformMatrix: zoomedOutTransformMatrix,
-          previousTransformMatrix: zoomedInTransformMatrix,
-          zoomValue: zoomConfiguration.zoomOutValue,
-          direction: 'x'
-        })
+        // Original transform position and axes labels
+        const pointTransformPreZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPreZoomIn = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPreZoomIn = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        // We zoom in twice to make sure we don't hit the zoom out constrain limit
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomInEventMock)
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomInEventMock)
+        // Zoomed in transform position and axes labels
+        const pointTransformPostZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPostZoomIn = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPostZoomIn = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        expect(pointTransformPreZoomIn).to.not.equal(pointTransformPostZoomIn)
+        // The the scales change, therefore the labels of the ticks change only for the x-axis
+        expect(xAxisLabelPreZoomIn).to.not.equal(xAxisLabelPostZoomIn)
+        expect(yAxisLabelPreZoomIn).to.equal(yAxisLabelPostZoomIn)
+        // Zoom out
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
+        const pointTransformPostZoomOut = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPostZoomOut = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPostZoomOut = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        expect(pointTransformPostZoomIn).to.not.equal(pointTransformPostZoomOut)
+        // The the scales change, therefore the labels of the ticks change only for the x-axis
+        expect(xAxisLabelPostZoomIn).to.not.equal(xAxisLabelPostZoomOut)
+        expect(yAxisLabelPostZoomIn).to.equal(yAxisLabelPostZoomOut)
       })
 
       it('should reset the x-scale when zooming out beyond the minimum', function () {
-        const wrapper = mount(
-          <ZoomingScatterPlot
-            data={mockData}
-            parentHeight={height}
-            parentWidth={width}
-            theme={zooTheme}
-            zoomConfiguration={zoomConfig}
-          />,
-          {
-            wrappingComponent: Provider,
-            wrappingComponentProps: {
-              classifierStore: mockStore
-            }
-          }
+        const { container, getByTestId } = render(
+          <Provider classifierStore={mockStore}>
+            <ZoomingScatterPlot
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              theme={zooTheme}
+              xAxisLabelOffset={10}
+              yAxisLabelOffset={10}
+              zoomConfiguration={zoomConfig}
+            />
+          </Provider>
         )
 
-        const { initialTransformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
-        // zooming in first
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
-        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-        expect(zoomedInTransformMatrix.scaleX).to.not.equal(initialTransformMatrix.scaleX)
-        expect(zoomedInTransformMatrix.scaleY).to.equal(initialTransformMatrix.scaleY)
-
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomOutEventMock)
-        const zoomedOutTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-        expect(zoomedOutTransformMatrix.scaleX).to.equal(initialTransformMatrix.scaleX)
-        expect(zoomedOutTransformMatrix.scaleY).to.equal(initialTransformMatrix.scaleY)
-
-        testTransformations({
-          currentTransformMatrix: zoomedInTransformMatrix,
-          previousTransformMatrix: zoomedOutTransformMatrix,
-          zoomValue: zoomConfiguration.zoomInValue,
-          direction: 'x'
-        })
+        // Original transform position and axes labels
+        const pointTransformPreZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPreZoomIn = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPreZoomIn = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        // We zoom in once to make sure we hit the zoom out constraint next
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomInEventMock)
+        // Zoomed in transform position and axes labels
+        const pointTransformPostZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPostZoomIn = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPostZoomIn = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        expect(pointTransformPreZoomIn).to.not.equal(pointTransformPostZoomIn)
+        // The the scales change, therefore the labels of the ticks change for the x-axis
+        expect(xAxisLabelPreZoomIn).to.not.equal(xAxisLabelPostZoomIn)
+        expect(yAxisLabelPreZoomIn).to.equal(yAxisLabelPostZoomIn)
+        // Zoom out
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
+        const pointTransformPostZoomOut = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPostZoomOut = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPostZoomOut = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        // The the scales and transform are reset
+        expect(pointTransformPostZoomOut).to.equal(pointTransformPreZoomIn)
+        expect(xAxisLabelPostZoomOut).to.equal(xAxisLabelPreZoomIn)
+        expect(yAxisLabelPostZoomOut).to.equal(yAxisLabelPreZoomIn)
       })
     })
 
@@ -311,107 +327,114 @@ describe('Component > ZoomingScatterPlot', function () {
       })
 
       it('should scale the y-axis in', function () {
-        const wrapper = mount(
-          <ZoomingScatterPlot
-            data={mockData}
-            parentHeight={height}
-            parentWidth={width}
-            theme={zooTheme}
-            zoomConfiguration={zoomConfig}
-          />,
-          {
-            wrappingComponent: Provider,
-            wrappingComponentProps: {
-              classifierStore: mockStore
-            }
-          }
+        const { container, getByTestId } = render(
+          <Provider classifierStore={mockStore}>
+            <ZoomingScatterPlot
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              theme={zooTheme}
+              xAxisLabelOffset={10}
+              yAxisLabelOffset={10}
+              zoomConfiguration={zoomConfig}
+            />
+          </Provider>
         )
 
-        const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
-        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
-
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
-        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-
-        testTransformations({
-          currentTransformMatrix: zoomedInTransformMatrix,
-          previousTransformMatrix: initialTransformMatrix,
-          zoomValue: zoomConfiguration.zoomInValue,
-          direction: 'y'
-        })
+        // Original transform position and axes labels
+        const pointTransformPreZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPreZoomIn = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPreZoomIn = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomInEventMock)
+        // Zoomed in transform position and axes labels
+        const pointTransformPostZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPostZoomIn = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPostZoomIn = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        expect(pointTransformPreZoomIn).to.not.equal(pointTransformPostZoomIn)
+        // The the scales change, therefore the labels of the ticks change only for the y-axis
+        expect(xAxisLabelPreZoomIn).to.equal(xAxisLabelPostZoomIn)
+        expect(yAxisLabelPreZoomIn).to.not.equal(yAxisLabelPostZoomIn)
       })
 
       it('should scale the y-axis out', function () {
-        const wrapper = mount(
-          <ZoomingScatterPlot
-            data={mockData}
-            parentHeight={height}
-            parentWidth={width}
-            theme={zooTheme}
-            zoomConfiguration={zoomConfig}
-          />,
-          {
-            wrappingComponent: Provider,
-            wrappingComponentProps: {
-              classifierStore: mockStore
-            }
-          }
+        const { container, getByTestId } = render(
+          <Provider classifierStore={mockStore}>
+            <ZoomingScatterPlot
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              theme={zooTheme}
+              xAxisLabelOffset={10}
+              yAxisLabelOffset={10}
+              zoomConfiguration={zoomConfig}
+            />
+          </Provider>
         )
 
-        const { initialTransformMatrix, transformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
-        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
-
-        // zooming in first
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
-        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomOutEventMock)
-        const zoomedOutTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-
-        testTransformations({
-          currentTransformMatrix: zoomedOutTransformMatrix,
-          previousTransformMatrix: zoomedInTransformMatrix,
-          zoomValue: zoomConfiguration.zoomOutValue,
-          direction: 'y'
-        })
+        // Original transform position and axes labels
+        const pointTransformPreZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPreZoomIn = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPreZoomIn = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        // We zoom in twice to make sure we don't hit the zoom out constrain limit
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomInEventMock)
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomInEventMock)
+        // Zoomed in transform position and axes labels
+        const pointTransformPostZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPostZoomIn = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPostZoomIn = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        expect(pointTransformPreZoomIn).to.not.equal(pointTransformPostZoomIn)
+        // The the scales change, therefore the labels of the ticks change only for the y-axis
+        expect(xAxisLabelPreZoomIn).to.equal(xAxisLabelPostZoomIn)
+        expect(yAxisLabelPreZoomIn).to.not.equal(yAxisLabelPostZoomIn)
+        // Zoom out
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
+        const pointTransformPostZoomOut = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPostZoomOut = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPostZoomOut = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        expect(pointTransformPostZoomIn).to.not.equal(pointTransformPostZoomOut)
+        // The the scales change, therefore the labels of the ticks change only for the y-axis
+        expect(xAxisLabelPostZoomIn).to.equal(xAxisLabelPostZoomOut)
+        expect(yAxisLabelPostZoomIn).to.not.equal(yAxisLabelPostZoomOut)
       })
 
       it('should reset the y-scale when zooming out beyond the minimum', function () {
-        const wrapper = mount(
-          <ZoomingScatterPlot
-            data={mockData}
-            parentHeight={height}
-            parentWidth={width}
-            theme={zooTheme}
-            zoomConfiguration={zoomConfig}
-          />,
-          {
-            wrappingComponent: Provider,
-            wrappingComponentProps: {
-              classifierStore: mockStore
-            }
-          }
+        const { container, getByTestId } = render(
+          <Provider classifierStore={mockStore}>
+            <ZoomingScatterPlot
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              theme={zooTheme}
+              xAxisLabelOffset={10}
+              yAxisLabelOffset={10}
+              zoomConfiguration={zoomConfig}
+            />
+          </Provider>
         )
 
-        const { initialTransformMatrix, zoomConfiguration } = wrapper.find(ScatterPlot).props()
-        // zooming in first
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEventMock)
-        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-        expect(zoomedInTransformMatrix.scaleX).to.equal(initialTransformMatrix.scaleX)
-        expect(zoomedInTransformMatrix.scaleY).to.not.equal(initialTransformMatrix.scaleY)
-
-        wrapper.find(ZoomEventLayer).simulate('wheel', zoomOutEventMock)
-        const zoomedOutTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-        expect(zoomedOutTransformMatrix.scaleX).to.equal(initialTransformMatrix.scaleX)
-        expect(zoomedOutTransformMatrix.scaleY).to.equal(initialTransformMatrix.scaleY)
-
-        testTransformations({
-          currentTransformMatrix: zoomedInTransformMatrix,
-          previousTransformMatrix: zoomedOutTransformMatrix,
-          zoomValue: zoomConfiguration.zoomInValue,
-          direction: 'y'
-        })
+        // Original transform position and axes labels
+        const pointTransformPreZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPreZoomIn = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPreZoomIn = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        // We zoom in once to make sure we hit the zoom out constraint next
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomInEventMock)
+        // Zoomed in transform position and axes labels
+        const pointTransformPostZoomIn = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPostZoomIn = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPostZoomIn = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        expect(pointTransformPreZoomIn).to.not.equal(pointTransformPostZoomIn)
+        // The the scales change, therefore the labels of the ticks change for the x-axis
+        expect(xAxisLabelPreZoomIn).to.equal(xAxisLabelPostZoomIn)
+        expect(yAxisLabelPreZoomIn).to.not.equal(yAxisLabelPostZoomIn)
+        // Zoom out
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
+        const pointTransformPostZoomOut = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPostZoomOut = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPostZoomOut = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        // The the scales and transform are reset
+        expect(pointTransformPostZoomOut).to.equal(pointTransformPreZoomIn)
+        expect(xAxisLabelPostZoomOut).to.equal(xAxisLabelPreZoomIn)
+        expect(yAxisLabelPostZoomOut).to.equal(yAxisLabelPreZoomIn)
       })
     })
   })
@@ -419,84 +442,82 @@ describe('Component > ZoomingScatterPlot', function () {
   describe('panning', function () {
     describe('when panning is disabled', function () {
       it('should not translate the SVG position', function () {
-        const wrapper = mount(
-          <ZoomingScatterPlot
-            data={mockData}
-            panning={false}
-            parentHeight={height}
-            parentWidth={width}
-            theme={zooTheme}
-          />,
-          {
-            wrappingComponent: Provider,
-            wrappingComponentProps: {
-              classifierStore: mockStore
-            }
-          }
+        const { container, getByTestId } = render(
+          <Provider classifierStore={mockStore}>
+            <ZoomingScatterPlot
+              data={mockData}
+              panning={false}
+              parentHeight={height}
+              parentWidth={width}
+              theme={zooTheme}
+              xAxisLabelOffset={10}
+              yAxisLabelOffset={10}
+            />
+          </Provider>
         )
 
-        const events = ['mousedown', 'mouseup', 'mousemove', 'mouseleave']
         const eventMock = {
           preventDefault: sinon.spy()
         }
-
-        events.forEach((event) => {
-          wrapper.find(ZoomEventLayer).simulate(event, eventMock)
-          const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
-          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
-        })
+        // Original transform position and axes labels
+        const pointTransformPrePanning = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPrePanning = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPrePanning = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        // Simulate panning
+        fireEvent.mouseDown(getByTestId('zoom-layer'), eventMock)
+        fireEvent.mouseMove(getByTestId('zoom-layer'), eventMock)
+        fireEvent.mouseUp(getByTestId('zoom-layer'), eventMock)
+        fireEvent.mouseLeave(getByTestId('zoom-layer'), eventMock)
+        // Original transform position and axes labels
+        const pointTransformPostPanning = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPostPanning = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPostPanning = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+        expect(pointTransformPrePanning).to.equal(pointTransformPostPanning)
+        expect(xAxisLabelPrePanning).to.equal(xAxisLabelPostPanning)
+        expect(yAxisLabelPrePanning).to.equal(yAxisLabelPostPanning)
       })
     })
 
     describe('when panning is enabled', function () {
       describe('with the default configuration allowing pan in both directions', function () {
-        it('should translate the SVG position', function () {
-          const wrapper = mount(
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-            />,
-            {
-              wrappingComponent: Provider,
-              wrappingComponentProps: {
-                classifierStore: mockStore
-              }
-            }
+        it('should transform the data points and scale the axes', function () {
+          const { container, getByTestId } = render(
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+              />
+            </Provider>
           )
 
-          const eventLayer = wrapper.find(ZoomEventLayer)
+          // The position and labels prior to panning
+          const pointTransformPrePanning = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPrePanning = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPrePanning = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
 
-          const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
-          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
-
-          // We zoom in a bit so we don't run into the data boundary constraints
-          eventLayer.simulate('dblclick', zoomInEventMock)
-          const zoomedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-
-          // Now to simulate the panning
-          // visx switched to typescript and are type checking the event
-          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
-          eventLayer.simulate('mousedown', {
+          // // Now to simulate the panning
+          fireEvent.mouseDown(getByTestId('zoom-layer'), {
             clientX: 50,
-            clientY: 50,
-            nativeEvent: new Event('test')
+            clientY: 50
           })
-          eventLayer.simulate('mousemove', {
-            clientX: 55,
-            clientY: 55,
-            nativeEvent: new Event('test')
+          fireEvent.mouseMove(getByTestId('zoom-layer'), {
+            clientX: 155,
+            clientY: 155
           })
-          eventLayer.simulate('mouseup',{
-            nativeEvent: new Event('test')
-          })
+          fireEvent.mouseUp(getByTestId('zoom-layer'))
 
-          const pannedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-          expect(pannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
-          expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
-          expect(pannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX + 5)
-          expect(pannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY + 5)
+          // Get the changes post panning
+          const pointTransformPostPanning = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPostPanning = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPostPanning = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          expect(pointTransformPrePanning).to.not.equal(pointTransformPostPanning)
+          expect(xAxisLabelPrePanning).to.not.equal(xAxisLabelPostPanning)
+          expect(yAxisLabelPrePanning).to.not.equal(yAxisLabelPostPanning)
         })
       })
 
@@ -509,56 +530,48 @@ describe('Component > ZoomingScatterPlot', function () {
             zoomInValue: 1.2,
             zoomOutValue: 0.8
           }
-          const wrapper = mount(
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-              zoomConfiguration={zoomConfiguration}
-            />,
-            {
-              wrappingComponent: Provider,
-              wrappingComponentProps: {
-                classifierStore: mockStore
-              }
-            }
+
+          const { container, getByTestId } = render(
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+                zoomConfiguration={zoomConfiguration}
+              />
+            </Provider>
           )
 
-          const eventLayer = wrapper.find(ZoomEventLayer)
+          // The position and labels prior to panning
+          const pointTransformPrePanning = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPrePanning = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPrePanning = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
 
-          const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
-          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
-
-          // We enable zooming and zoom in a bit so we don't run into the data boundary constraints
-          eventLayer.simulate('dblclick', zoomInEventMock)
-          const zoomedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-
-          // Now to simulate the panning
-          // visx switched to typescript and are type checking the event
-          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
-          eventLayer.simulate('mousedown', {
-            clientX: 55,
-            clientY: 50,
-            nativeEvent: new Event('test')
+          // // Now to simulate the panning
+          fireEvent.mouseDown(getByTestId('zoom-layer'), {
+            clientX: 50,
+            clientY: 50
           })
-          eventLayer.simulate('mousemove', {
-            clientX: 60,
-            clientY: 50,
-            nativeEvent: new Event('test')
+          fireEvent.mouseMove(getByTestId('zoom-layer'), {
+            clientX: 155,
+            clientY: 155
           })
-          eventLayer.simulate('mouseup', {
-            nativeEvent: new Event('test')
-          })
+          fireEvent.mouseUp(getByTestId('zoom-layer'))
 
-          const pannedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-          expect(pannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
-          expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
-          expect(pannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX + 5)
-          expect(pannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY)
+          // Get the changes post panning
+          const pointTransformPostPanning = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPostPanning = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPostPanning = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          expect(pointTransformPrePanning).to.not.equal(pointTransformPostPanning)
+          expect(xAxisLabelPrePanning).to.not.equal(xAxisLabelPostPanning)
+          expect(yAxisLabelPrePanning).to.equal(yAxisLabelPostPanning)
         })
       })
-
+      
       describe('when only panning the y-axis', function () {
         it('should translate the SVG position', function () {
           const zoomConfiguration = {
@@ -568,52 +581,44 @@ describe('Component > ZoomingScatterPlot', function () {
             zoomInValue: 1.2,
             zoomOutValue: 0.8
           }
-          const wrapper = mount(
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-              zoomConfiguration={zoomConfiguration}
-            />,
-            {
-              wrappingComponent: Provider,
-              wrappingComponentProps: {
-                classifierStore: mockStore
-              }
-            }
+          const { container, getByTestId } = render(
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+                zoomConfiguration={zoomConfiguration}
+              />
+            </Provider>
           )
-          const eventLayer = wrapper.find(ZoomEventLayer)
 
-          const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
-          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+          // The position and labels prior to panning
+          const pointTransformPrePanning = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPrePanning = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPrePanning = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
 
-          // We enable zooming and zoom in a bit so we don't run into the data boundary constraints
-          eventLayer.simulate('dblclick', zoomInEventMock)
-          const zoomedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-
-          // Now to simulate the panning
-          // visx switched to typescript and are type checking the event
-          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
-          eventLayer.simulate('mousedown', {
+          // // Now to simulate the panning
+          fireEvent.mouseDown(getByTestId('zoom-layer'), {
             clientX: 50,
-            clientY: 55,
-            nativeEvent: new Event('test')
+            clientY: 50
           })
-          eventLayer.simulate('mousemove', {
-            clientX: 50,
-            clientY: 60,
-            nativeEvent: new Event('test')
+          fireEvent.mouseMove(getByTestId('zoom-layer'), {
+            clientX: 155,
+            clientY: 155
           })
-          eventLayer.simulate('mouseup', {
-            nativeEvent: new Event('test')
-          })
+          fireEvent.mouseUp(getByTestId('zoom-layer'))
 
-          const pannedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-          expect(pannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
-          expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
-          expect(pannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX)
-          expect(pannedTransformMatrix.translateY).to.equal(zoomedTransformMatrix.translateY + 5)
+          // Get the changes post panning
+          const pointTransformPostPanning = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPostPanning = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPostPanning = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          expect(pointTransformPrePanning).to.not.equal(pointTransformPostPanning)
+          expect(xAxisLabelPrePanning).to.equal(xAxisLabelPostPanning)
+          expect(yAxisLabelPrePanning).to.not.equal(yAxisLabelPostPanning)
         })
       })
     })
@@ -631,243 +636,275 @@ describe('Component > ZoomingScatterPlot', function () {
           zoomOutValue: 0.8
         }
       })
+
       it('should not zoom in beyond maximum zoom configuration', function () {
-        const wrapper = mount(
-          <ZoomingScatterPlot
-            data={mockData}
-            parentHeight={height}
-            parentWidth={width}
-            theme={zooTheme}
-            zoomConfiguration={zoomConfig}
-          />,
-          {
-            wrappingComponent: Provider,
-            wrappingComponentProps: {
-              classifierStore: mockStore
-            }
-          }
+        const { container, getByTestId } = render(
+          <Provider classifierStore={mockStore}>
+            <ZoomingScatterPlot
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              theme={zooTheme}
+              xAxisLabelOffset={10}
+              yAxisLabelOffset={10}
+              zoomConfiguration={zoomConfig}
+            />
+          </Provider>
         )
 
-        const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
-        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+        // The position and labels prior to zooming
+        const pointTransformPreZooming = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPreZooming = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPreZooming = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
 
         // multiplying the scale 1.2 nine times is 5.159780352
-        let previousTransformMatrix
-        for (let i = 0; i < 10; i++) {
-          wrapper.find(ZoomEventLayer).simulate('dblclick', zoomInEventMock)
+        let pointTransformOnNinthZoom, xAxisLabelOnNinthZoom, yAxisLabelOnNinthZoom, pointTransformOnTenthZoom, xAxisLabelOnTenthZoom, yAxisLabelOnTenthZoom
+        for (let i = 0; i < 11; i++) {
+          fireEvent.dblClick(getByTestId('zoom-layer'), zoomInEventMock)
+          // Ninth zoom in event
           if (i === 8) {
-            previousTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
+            pointTransformOnNinthZoom = container.querySelector('.visx-glyph').getAttribute('transform')
+            xAxisLabelOnNinthZoom = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+            yAxisLabelOnNinthZoom = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+          }
+          // Tenth zoom in event
+          if (i === 9) {
+            pointTransformOnTenthZoom = container.querySelector('.visx-glyph').getAttribute('transform')
+            xAxisLabelOnTenthZoom = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+            yAxisLabelOnTenthZoom = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
           }
         }
-        const zoomedTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
 
-        expect(zoomedTransformMatrix).to.not.deep.equal(transformMatrix)
-        expect(zoomedTransformMatrix.scaleX).to.equal(zoomConfig.maxZoom)
-        expect(zoomedTransformMatrix.scaleY).to.equal(zoomConfig.maxZoom)
-        expect(zoomedTransformMatrix.translateX).to.equal(previousTransformMatrix.translateX)
-        expect(zoomedTransformMatrix.translateY).to.equal(previousTransformMatrix.translateY)
+        // Confirming we're zoomed in
+        expect(pointTransformPreZooming).to.not.equal(pointTransformOnNinthZoom)
+        expect(xAxisLabelPreZooming).to.not.equal(xAxisLabelOnNinthZoom)
+        expect(yAxisLabelPreZooming).to.not.equal(yAxisLabelOnNinthZoom)
+
+        // Zooming should now have stopped because of the max zoom constraint
+        expect(pointTransformOnNinthZoom).to.equal(pointTransformOnTenthZoom)
+        expect(xAxisLabelOnNinthZoom).to.equal(xAxisLabelOnTenthZoom)
+        expect(yAxisLabelOnNinthZoom).to.equal(yAxisLabelOnTenthZoom)
       })
 
       it('should not zoom out beyond the minimum zoom configuration and reset the zoom', function () {
-        const wrapper = mount(
-          <ZoomingScatterPlot
-            data={mockData}
-            parentHeight={height}
-            parentWidth={width}
-            theme={zooTheme}
-            zoomConfiguration={zoomConfig}
-          />,
-          {
-            wrappingComponent: Provider,
-            wrappingComponentProps: {
-              classifierStore: mockStore
-            }
-          }
+        const { container, getByTestId } = render(
+          <Provider classifierStore={mockStore}>
+            <ZoomingScatterPlot
+              data={mockData}
+              parentHeight={height}
+              parentWidth={width}
+              theme={zooTheme}
+              xAxisLabelOffset={10}
+              yAxisLabelOffset={10}
+              zoomConfiguration={zoomConfig}
+            />
+          </Provider>
         )
 
-        const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
-        expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+        // The position and labels prior to zooming
+        const pointTransformPreZooming = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPreZooming = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPreZooming = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
 
         // zoom in first
-        wrapper.find(ZoomEventLayer).simulate('dblclick', zoomInEventMock)
-        const zoomedInTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
-        expect(zoomedInTransformMatrix).to.not.deep.equal(initialTransformMatrix)
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomInEventMock)
+        const pointTransformPostZooming = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelPostZooming = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelPostZooming = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
 
         // zoom out by mouse wheel
         // 1 * 1.2 * 0.8 is 0.96
-        wrapper.find(ZoomEventLayer).simulate('wheel', {
-          clientX: 50,
-          clientY: 50,
-          deltaY: 10,
-          preventDefault: sinon.spy()
-        })
-        const zoomedOutTransformMatrix = wrapper.find(ScatterPlot).props().transformMatrix
+        fireEvent.wheel(getByTestId('zoom-layer'), zoomOutEventMock)
 
-        expect(zoomedOutTransformMatrix).to.not.deep.equal(zoomedInTransformMatrix)
-        expect(zoomedOutTransformMatrix).to.deep.equal(initialTransformMatrix)
+        const pointTransformZoomedOut = container.querySelector('.visx-glyph').getAttribute('transform')
+        const xAxisLabelZoomedOut = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+        const yAxisLabelZoomedOut = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+        // Confirm we zoomed in first
+        expect(pointTransformPreZooming).to.not.equal(pointTransformPostZooming)
+        expect(xAxisLabelPreZooming).to.not.equal(xAxisLabelPostZooming)
+        expect(yAxisLabelPreZooming).to.not.equal(yAxisLabelPostZooming)
+
+        // When the constraint is hit, we should reset
+        expect(pointTransformZoomedOut).to.not.equal(pointTransformPostZooming)
+        expect(pointTransformZoomedOut).to.equal(pointTransformPreZooming)
+        expect(xAxisLabelZoomedOut).to.not.equal(xAxisLabelPostZooming)
+        expect(xAxisLabelZoomedOut).to.equal(xAxisLabelPreZooming)
+        expect(yAxisLabelZoomedOut).to.not.equal(yAxisLabelPostZooming)
+        expect(yAxisLabelZoomedOut).to.equal(yAxisLabelPreZooming)
       })
     })
 
     describe('when panning', function () {
       describe('in the x-axis direction', function () {
-        let wrapper, eventLayer, isXAxisOutOfBoundsSpy
-        before(function () {
-          isXAxisOutOfBoundsSpy = sinon.spy(ZoomingScatterPlot.prototype, 'isXAxisOutOfBounds')
-        })
-
-        beforeEach(function () {
-          wrapper = mount(
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              panning
-              theme={zooTheme}
-            />,
-            {
-              wrappingComponent: Provider,
-              wrappingComponentProps: {
-                classifierStore: mockStore
-              }
-            }
+        it('should not pan beyond the data extent minimum', function () {
+          const { container, getByTestId } = render(
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+              />
+            </Provider>
           )
 
-          eventLayer = wrapper.find(ZoomEventLayer)
-        })
+          // The position and labels prior to panning
+          const pointTransformPrePan = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPrePan = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPrePan = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
 
-        afterEach(function () {
-          isXAxisOutOfBoundsSpy.resetHistory()
-        })
-
-        after(function () {
-          isXAxisOutOfBoundsSpy.restore()
-        })
-
-        it('should not pan beyond the data extent minimum', function () {
-          const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
-          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
-
-          // visx switched to typescript and are type checking the event
-          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
-          eventLayer.simulate('mousedown', {
+          // // Now to simulate the panning
+          fireEvent.mouseDown(getByTestId('zoom-layer'), {
             clientX: 50,
-            clientY: 50,
-            nativeEvent: new Event('test')
+            clientY: 50
           })
-          eventLayer.simulate('mousemove', {
+          fireEvent.mouseMove(getByTestId('zoom-layer'), {
             clientX: -2000,
-            clientY: 50,
-            nativeEvent: new Event('test')
+            clientY: 50
           })
-          eventLayer.simulate('mouseup', {
-            nativeEvent: new Event('test')
-          })
+          fireEvent.mouseUp(getByTestId('zoom-layer'))
 
-          expect(isXAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
+          const pointTransformPostPan = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPostPan = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPostPan = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          // We expect no change because our arbitrary panning simulation instantly went from clientX 50 to clientX -2000
+          // In reality, mousemove would be firing the whole time and the pan position would be the edge of minimum data point
+          // But I have no idea of what that would be numerically
+          expect(pointTransformPrePan).to.equal(pointTransformPostPan)
+          expect(xAxisLabelPrePan).to.equal(xAxisLabelPostPan)
+          expect(yAxisLabelPrePan).to.equal(yAxisLabelPostPan)
         })
 
         it('should not pan beyond the data extent maximum', function () {
-          const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
-          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+          const { container, getByTestId } = render(
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+              />
+            </Provider>
+          )
 
-          // visx switched to typescript and are type checking the event
-          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
-          eventLayer.simulate('mousedown', {
+          // The position and labels prior to panning
+          const pointTransformPrePan = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPrePan = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPrePan = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          // // Now to simulate the panning
+          fireEvent.mouseDown(getByTestId('zoom-layer'), {
             clientX: 50,
-            clientY: 50,
-            nativeEvent: new Event('test')
+            clientY: 50
           })
-          eventLayer.simulate('mousemove', {
+          fireEvent.mouseMove(getByTestId('zoom-layer'), {
             clientX: 2000,
-            clientY: 50,
-            nativeEvent: new Event('test')
+            clientY: 50
           })
-          eventLayer.simulate('mouseup', {
-            nativeEvent: new Event('test')
-          })
+          fireEvent.mouseUp(getByTestId('zoom-layer'))
 
-          expect(isXAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
+          const pointTransformPostPan = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPostPan = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPostPan = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          // We expect no change because our arbitrary panning simulation instantly went from clientX 50 to clientX 2000
+          // In reality, mousemove would be firing the whole time and the pan position would be the edge of minimum data point
+          // But I have no idea of what that would be numerically
+          expect(pointTransformPrePan).to.equal(pointTransformPostPan)
+          expect(xAxisLabelPrePan).to.equal(xAxisLabelPostPan)
+          expect(yAxisLabelPrePan).to.equal(yAxisLabelPostPan)
         })
       })
 
       describe('in the y-axis direction', function () {
-        let wrapper, eventLayer, isYAxisOutOfBoundsSpy
-        before(function () {
-          isYAxisOutOfBoundsSpy = sinon.spy(ZoomingScatterPlot.prototype, 'isYAxisOutOfBounds')
-        })
-
-        beforeEach(function () {
-          wrapper = mount(
-            <ZoomingScatterPlot
-              data={mockData}
-              panning
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-            />,
-            {
-              wrappingComponent: Provider,
-              wrappingComponentProps: {
-                classifierStore: mockStore
-              }
-            }
+        it('should not pan beyond the data extent minimum', function () {
+          const { container, getByTestId } = render(
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+              />
+            </Provider>
           )
 
-          eventLayer = wrapper.find(ZoomEventLayer)
-        })
+          // The position and labels prior to panning
+          const pointTransformPrePan = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPrePan = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPrePan = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
 
-        afterEach(function () {
-          isYAxisOutOfBoundsSpy.resetHistory()
-        })
-
-        after(function () {
-          isYAxisOutOfBoundsSpy.restore()
-        })
-
-        it('should not pan beyond the data extent minimum', function () {
-          const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
-          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
-
-          // visx switched to typescript and are type checking the event
-          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
-          eventLayer.simulate('mousedown', {
+          // // Now to simulate the panning
+          fireEvent.mouseDown(getByTestId('zoom-layer'), {
             clientX: 50,
-            clientY: 50,
-            nativeEvent: new Event('test')
+            clientY: 50
           })
-          eventLayer.simulate('mousemove', {
+          fireEvent.mouseMove(getByTestId('zoom-layer'), {
             clientX: 50,
-            clientY: -2000,
-            nativeEvent: new Event('test')
+            clientY: -2000
           })
-          eventLayer.simulate('mouseup', {
-            nativeEvent: new Event('test')
-          })
+          fireEvent.mouseUp(getByTestId('zoom-layer'))
 
-          expect(isYAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
+          const pointTransformPostPan = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPostPan = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPostPan = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          // We expect no change because our arbitrary panning simulation instantly went from clientY 50 to clientY -2000
+          // In reality, mousemove would be firing the whole time and the pan position would be the edge of minimum data point
+          // But I have no idea of what that would be numerically
+          expect(pointTransformPrePan).to.equal(pointTransformPostPan)
+          expect(xAxisLabelPrePan).to.equal(xAxisLabelPostPan)
+          expect(yAxisLabelPrePan).to.equal(yAxisLabelPostPan)
         })
 
         it('should not pan beyond the data extent maximum', function () {
-          const { transformMatrix, initialTransformMatrix } = wrapper.find(ScatterPlot).props()
-          expect(transformMatrix).to.deep.equal(initialTransformMatrix)
+          const { container, getByTestId } = render(
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+              />
+            </Provider>
+          )
 
-          // visx switched to typescript and are type checking the event
-          // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
-          eventLayer.simulate('mousedown', {
-            clientX: 50,
-            clientY: 50,
-            nativeEvent: new Event('test')
-          })
-          eventLayer.simulate('mousemove', {
-            clientX: 50,
-            clientY: 2000,
-            nativeEvent: new Event('test')
-          })
-          eventLayer.simulate('mouseup', {
-            nativeEvent: new Event('test')
-          })
+          // The position and labels prior to panning
+          const pointTransformPrePan = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPrePan = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPrePan = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
 
-          expect(isYAxisOutOfBoundsSpy.returnValues[0]).to.be.true()
+          // // Now to simulate the panning
+          fireEvent.mouseDown(getByTestId('zoom-layer'), {
+            clientX: 50,
+            clientY: 50
+          })
+          fireEvent.mouseMove(getByTestId('zoom-layer'), {
+            clientX: 50,
+            clientY: 2000
+          })
+          fireEvent.mouseUp(getByTestId('zoom-layer'))
+
+          const pointTransformPostPan = container.querySelector('.visx-glyph').getAttribute('transform')
+          const xAxisLabelPostPan = container.querySelector('.visx-axis-bottom').querySelector('tspan').innerHTML
+          const yAxisLabelPostPan = container.querySelector('.visx-axis-left').querySelector('tspan').innerHTML
+
+          // We expect no change because our arbitrary panning simulation instantly went from clientY 50 to clientY 2000
+          // In reality, mousemove would be firing the whole time and the pan position would be the edge of minimum data point
+          // But I have no idea of what that would be numerically
+          expect(pointTransformPrePan).to.equal(pointTransformPostPan)
+          expect(xAxisLabelPrePan).to.equal(xAxisLabelPostPan)
+          expect(yAxisLabelPrePan).to.equal(yAxisLabelPostPan)
         })
       })
     })

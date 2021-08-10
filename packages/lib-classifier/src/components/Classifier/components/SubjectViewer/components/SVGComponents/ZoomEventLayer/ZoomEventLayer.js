@@ -42,6 +42,7 @@ function ZoomEventLayer (props) {
   const focusColor = theme.global.colors[theme.global.colors.focus]
   return (
     <StyledRect
+      data-testid='zoom-layer'
       fill='transparent'
       focusColor={focusColor}
       height={height}
