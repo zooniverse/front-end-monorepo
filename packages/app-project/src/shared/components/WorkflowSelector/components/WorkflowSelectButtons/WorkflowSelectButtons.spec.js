@@ -1,8 +1,8 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { expect } from 'chai'
 import { WorkflowSelectButtons } from './WorkflowSelectButtons'
 
-describe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
+describe.only('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
   const workflows = [
     {
       completeness: 0.3,
@@ -28,7 +28,7 @@ describe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
     }
   ]
   it('should render without crashing', function () {
-    expect(render(<WorkflowSelectButtons onSelect={() => { }} />)).to.be.ok()
+    expect(render(<WorkflowSelectButtons onSelect={() => { }} workflows={workflows} />)).to.be.ok()
   })
 
   describe('when workflow assignment is not enabled', function () {
@@ -43,7 +43,6 @@ describe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
       it('should only render links for unlocked workflows', function () {
         const { getAllByRole } = render(<WorkflowSelectButtons assignedWorkflowID='2' onSelect={() => { }} workflowAssignmentEnabled workflows={workflows} />)
         expect(getAllByRole('link')).to.have.lengthOf(2)
-        
       })
 
       it('should render other workflows as just text', function () {

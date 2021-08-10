@@ -9,7 +9,7 @@ import YourStats from './components/YourStats'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
 
-describe('Component > ClassifyPage', function () {
+describe.only('Component > ClassifyPage', function () {
   let wrapper
 
   before(function () {

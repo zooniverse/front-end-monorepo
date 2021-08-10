@@ -6,22 +6,23 @@ import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 import asyncStates from '@zooniverse/async-states'
 
-describe('Component > WorkflowAssignmentModalContainer', function() {
-  let wrapper
-  before(function () {
-    wrapper = mount(
-      <WorkflowAssignmentModalContainer />, {
-        wrappingComponent: Grommet,
-        wrappingComponentProps: { theme: zooTheme }
-      }
-    )
-  })
+describe.only('Component > WorkflowAssignmentModalContainer', function() {
   it('should render without crashing', function() {
+    const wrapper = mount(
+      <WorkflowAssignmentModalContainer />, {
+      wrappingComponent: Grommet,
+      wrappingComponentProps: { theme: zooTheme }
+    })
     expect(wrapper).to.be.ok()
   })
 
   describe('when the project preferences are not loaded and a current workflow selected', function () {
     it('should not display the modal', function () {
+      const wrapper = mount(
+        <WorkflowAssignmentModalContainer />, {
+        wrappingComponent: Grommet,
+        wrappingComponentProps: { theme: zooTheme }
+      })
       expect(wrapper.find(WorkflowAssignmentModal)).to.have.lengthOf(0)
       wrapper.setProps({ currentWorkflowID: '555' })
       wrapper.update()
@@ -32,7 +33,11 @@ describe('Component > WorkflowAssignmentModalContainer', function() {
   describe('when there are project preferences but no workflow selected', function () {
     it('should not display the modal', function () {
       const promptAssignment = sinon.stub().callsFake(() => false)
-
+      const wrapper = mount(
+        <WorkflowAssignmentModalContainer />, {
+        wrappingComponent: Grommet,
+        wrappingComponentProps: { theme: zooTheme }
+      })
       expect(wrapper.find(WorkflowAssignmentModal)).to.have.lengthOf(0)
       wrapper.setProps({ assignedWorkflowID: '555', loadingState: asyncStates.success, currentWorkflowID: '', promptAssignment })
       wrapper.update()
@@ -41,17 +46,13 @@ describe('Component > WorkflowAssignmentModalContainer', function() {
   })
 
   describe('when there are project preferences and a workflow is selected', function () {
-    beforeEach(function () {
-      wrapper = mount(
-        <WorkflowAssignmentModalContainer loadingState={asyncStates.initialized}/>, {
-        wrappingComponent: Grommet,
-        wrappingComponentProps: { theme: zooTheme }
-      }
-      )
-    })
-
     describe('when the currently selected workflow is the same as the assigned workflow', function () {
       it('should not display the modal', function () {
+        const wrapper = mount(
+          <WorkflowAssignmentModalContainer loadingState={asyncStates.initialized} />, {
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        })
         expect(wrapper.find(WorkflowAssignmentModal)).to.have.lengthOf(0)
         const promptAssignment = sinon.stub().callsFake(() => false)
         const assignedWorkflowID = '555'
@@ -64,6 +65,11 @@ describe('Component > WorkflowAssignmentModalContainer', function() {
 
     describe('when the currently selected workflow is not the same as the assigned workflow', function () {
       it('should display the modal', function () {
+        const wrapper = mount(
+          <WorkflowAssignmentModalContainer loadingState={asyncStates.initialized} />, {
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        })
         expect(wrapper.find(WorkflowAssignmentModal)).to.have.lengthOf(0)
         const promptAssignment = sinon.stub().callsFake(() => true)
         const assignedWorkflowID = '555'
@@ -77,7 +83,7 @@ describe('Component > WorkflowAssignmentModalContainer', function() {
     describe('when the modal has been dismissed for the session', function () {
       it('should not display the modal', function () {
         const promptAssignment = sinon.stub().callsFake(() => {})
-        wrapper = mount(<WorkflowAssignmentModalContainer assignedWorkflowID='555' currentWorkflowID='123' promptAssignment={promptAssignment} />, {
+        const wrapper = mount(<WorkflowAssignmentModalContainer assignedWorkflowID='555' currentWorkflowID='123' promptAssignment={promptAssignment} />, {
           wrappingComponent: Grommet,
           wrappingComponentProps: { theme: zooTheme }
         })
@@ -95,7 +101,7 @@ describe('Component > WorkflowAssignmentModalContainer', function() {
         const promptAssignment = sinon.stub().callsFake(() => true)
         const assignedWorkflowID = '555'
         const loadingState = asyncStates.success
-        wrapper = mount(
+        const wrapper = mount(
           <WorkflowAssignmentModalContainer
             assignedWorkflowID={assignedWorkflowID}
             currentWorkflowID='123'
@@ -112,5 +118,9 @@ describe('Component > WorkflowAssignmentModalContainer', function() {
         expect(wrapper.find(WorkflowAssignmentModal).props().active).to.be.false()
       })
     })
+  })
+
+  after(function () {
+    console.log(document.body.children)
   })
 })
