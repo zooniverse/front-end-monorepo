@@ -70,7 +70,8 @@ describe('Component > FilterStatus', function () {
 
   describe('with selected filters', function () {
     it('should show the appropriate checked FilterButtons', function () {
-      const selectedValueIds = [ 'CTDG', 'BLCK', 'LNG']
+      const characteristicIds = ['LK', 'CLR', 'TL']
+      const selectedValueIds = ['CTDG', 'BLCK', 'LNG']
       let filterButtons = wrapper.find({ buttonSize: 'small' })
       expect(filterButtons).to.have.lengthOf(0)
       wrapper.setProps({
@@ -83,7 +84,7 @@ describe('Component > FilterStatus', function () {
       filterButtons = wrapper.find({ buttonSize: 'small' })
       expect(filterButtons).to.have.lengthOf(3)
       filterButtons.forEach((button, index) => {
-        expect(button.key()).to.equal(selectedValueIds[index])
+        expect(button.key()).to.equal(`${characteristicIds[index]}-${selectedValueIds[index]}`)
       })
     })
   })
