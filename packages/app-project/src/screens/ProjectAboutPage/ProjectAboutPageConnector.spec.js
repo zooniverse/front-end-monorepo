@@ -1,49 +1,14 @@
-import React, { Component } from 'react'
 import { Provider } from 'mobx-react'
 import { render, screen } from '@testing-library/react'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 import * as Router from 'next/router'
-import PropTypes from 'prop-types'
 import sinon from 'sinon'
 import ProjectAboutPageConnector from './ProjectAboutPageConnector'
 import { ProjectAboutPage } from './ProjectAboutPage'
 import { expect } from 'chai'
 
-describe.only('Component > ProjectAboutPageConnector', () => {
-  // const mockedRouter = {
-  //   asPath: '/projects/zooniverse/snapshot-serengeti',
-  //   push: () => {},
-  //   prefetch: () => {},
-  //   query: {
-  //     owner: 'zooniverse',
-  //     project: 'snapshot-serengeti'
-  //   }
-  // }
-
-  // Router.router = mockedRouter
-
-  // const withMockRouterContext = mockRouter => {
-  //   class MockRouterContext extends Component {
-  //     getChildContext () {
-  //       return {
-  //         router: { ...mockedRouter, ...mockRouter }
-  //       }
-  //     }
-  //     render() {
-  //       return this.props.children
-  //     }
-  //   }
-
-  //   MockRouterContext.childContextTypes = {
-  //     router: PropTypes.object
-  //   }
-
-  //   return MockRouterContext
-  // }
-
-  // const WithRouter = withMockRouterContext(mockedRouter)
-
+describe('Component > ProjectAboutPageConnector', () => {
   const mockStore = {
     project: {
       about_pages: [
@@ -51,95 +16,129 @@ describe.only('Component > ProjectAboutPageConnector', () => {
           id: '1234',
           title: 'Research Case',
           url_key: 'science_case',
-          content: 'This is some content.'
+          content: 'This is content of a science_case page.'
+        },
+        {
+          id: '1234',
+          title: 'Results',
+          url_key: 'results',
+          content: 'This is content of a results page.'
+
         }
       ],
+      avatar: {
+        src:
+          'https://panoptes-uploads.zooniverse.org/production/project_background/260e68fd-d3ec-4a94-bb32-43ff91d5579a.jpeg'
+      },
+      background: {
+        src:
+          'https://panoptes-uploads.zooniverse.org/production/project_background/260e68fd-d3ec-4a94-bb32-43ff91d5579a.jpeg'
+      },
+      configuration: {
+        announcement: ''
+      },
+      description: 'This is a description',
+      display_name: 'Display Name',
       inBeta: false
     },
     ui: {
       mode: 'light'
+    },
+    user: {
+      isLoggedIn: false,
+      personalization: {
+        sessionCount: 5
+      }
     }
   }
 
+  let routerMock
+
+  before(function () {
+    routerMock = sinon.stub(Router, 'useRouter').callsFake(() => {
+      return {
+        asPath: 'projects/foo/bar',
+        push: () => {},
+        prefetch: () => new Promise((resolve, reject) => {}),
+        query: { owner: 'foo', project: 'bar' }
+      }
+    })
+  })
+
+  after(function () {
+    routerMock.restore()
+  })
+
+  it('should render without crashing', () => {
+    const output = render(
+      <Provider store={mockStore}>
+        <Grommet theme={zooTheme} themeMode='light'>
+          <ProjectAboutPageConnector pageType='science_case' />
+        </Grommet>
+      </Provider>
+    )
+    expect(output).to.be.ok()
+  })
+
   describe('About pages with content', () => {
-    let routerMock
-    before(function () {
-      routerMock = sinon.stub(Router, 'useRouter').callsFake(() => { 
-        return {
-          asPath: 'projects/foo/bar',
-          query: { owner: 'foo', project: 'bar' }
-        }
-      })
-    })
-    after(function () {
-      routerMock.restore()
-    })
-    it.only('should render without crashing', () => {
-      const output = render(
+    it('should pass correct data to ProjectAboutPage depending on pageType', () => {
+      const { getByText } = render(
         <Provider store={mockStore}>
-          <Grommet theme={zooTheme} themeMode="light">
-
-            <ProjectAboutPageConnector pageType="science_case">
-              {/* <ProjectAboutPage /> */}
-            </ProjectAboutPageConnector>
-
+          <Grommet theme={zooTheme} themeMode='light'>
+            <ProjectAboutPageConnector pageType='science_case' />
           </Grommet>
         </Provider>
       )
-      expect(output).to.be.ok()
+      const content = getByText(mockStore.project.about_pages[0].content)
+      expect(content).to.exist()
     })
 
-    it('should pass correct data to ProjectAboutPage depending on pageType', () => {})
-
-    it('should correct the Research Case page title to Research', () => {})
+    it('should correct the Research Case page title to Research', () => {
+      const { getByRole, queryByRole } = render(
+        <Provider store={mockStore}>
+          <Grommet theme={zooTheme} themeMode='light'>
+            <ProjectAboutPageConnector pageType='science_case' />
+          </Grommet>
+        </Provider>
+      )
+      expect(getByRole('heading', { name: 'Research' })).to.exist()
+      expect(queryByRole('heading', { name: 'Research Case' })).to.not.exist()
+    })
   })
 
   describe('About pages without content', () => {
-    const mockStore = {
-      project: {
-        about_pages: [
-          {
-            id: '1234',
-            title: 'Research',
-            url_key: 'science_case',
-            content: 'This is some content'
-          },
-          {
-            id: '1234',
-            title: 'Results',
-            url_key: 'results',
-            content: 'Some results.'
-          }
-        ],
-        inBeta: false
-      }
-    }
+    it('should pass default content if a page doesnt exist yet', () => {
+      const { getByText, getByRole } = render(
+        <Provider store={mockStore}>
+          <Grommet theme={zooTheme} themeMode='light'>
+            <ProjectAboutPageConnector pageType='team' />
+          </Grommet>
+        </Provider>
+      )
+      expect(getByRole('heading', { name: 'The Team' })).to.exist()
+      expect(getByText('No content yet.')).to.exist()
+    })
+  })
 
-    // it('should pass default content if a page doesnt exist yet', () => {
-    //   const aboutPage = wrapper.find(ProjectAboutPage)
-    //   const aboutProps = aboutPage.prop('aboutPageData')
-    //   expect(aboutProps.title).to.equal('team')
-    //   expect(aboutProps.content).to.equal('No content yet.')
-    // })
+  describe('filtering of aboutNavLinks', function () {
+    it('should pass a default navLinks array that always includes Research and Team pages', () => {
+      // get heading named "About", get its sibling
+      // query sibling for links
+      const { getAllByText, getAllByRole } = render(
+        <Provider store={mockStore}>
+          <Grommet theme={zooTheme} themeMode='light'>
+            <ProjectAboutPageConnector pageType='team' />
+          </Grommet>
+        </Provider>
+      )
+    })
 
-    // it('should pass a default navLinks array that always includes Research and Team pages', () => {
-    //   const aboutPage = wrapper.find(ProjectAboutPage)
-    //   const aboutNavLinks = aboutPage.prop('aboutNavLinks')
-    //   expect(aboutNavLinks).to.include('research')
-    //   expect(aboutNavLinks).to.include('team')
-    // })
+    it('should pass a navLink if an about page has content', () => {
 
-    // it('should pass a navLink if an about page has content', () => {
-    //   const aboutPage = wrapper.find(ProjectAboutPage)
-    //   const aboutNavLinks = aboutPage.prop('aboutNavLinks')
-    //   expect(aboutNavLinks).to.include('results')
-    // })
+    })
 
-    // it('should not pass a navLink for a page without content (excluding Research & Team)', () => {
-    //   const aboutPage = wrapper.find(ProjectAboutPage)
-    //   const aboutNavLinks = aboutPage.prop('aboutNavLinks')
-    //   expect(aboutNavLinks).not.to.include('education')
-    //   expect(aboutNavLinks).not.to.include('faq')
-    // })
+    it('should not pass a navLink for a page without content (excluding Research & Team)', () => {
+
+    })
   })
 })

@@ -1,7 +1,7 @@
 import { ProjectAboutPage } from './ProjectAboutPage'
 import { render, screen } from '@testing-library/react'
 
-describe.only('Component > ProjectAboutPage', () => {
+describe('Component > ProjectAboutPage', () => {
   describe('About pages layout', () => {
     const aboutPageData = {
       title: 'Title',

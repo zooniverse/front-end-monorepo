@@ -60,5 +60,4 @@ AboutSidebar.propTypes = {
   router: object
 }
 
-export { AboutSidebar }
 export default AboutSidebar
