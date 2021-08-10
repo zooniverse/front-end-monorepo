@@ -28,7 +28,7 @@ function PlainButton (props) {
     color,
     ...rest
   } = props
-  const renderAs = as || href && disabled && 'span'
+  const renderAs = (href && disabled) ? 'span' : as
 
   return (
     <StyledPlainButton
@@ -53,25 +53,24 @@ function PlainButton (props) {
 }
 
 PlainButton.defaultProps = {
+  as: '',
   className: '',
-  href: '',
-  labelSize: 'medium',
-  onClick: () => {},
-  text: '',
   color: {
     dark: 'accent-1',
     light: 'neutral-1'
   },
+  href: '',
+  labelSize: 'medium',
+  onClick: () => {},
+  text: '',
   theme: {
     dark: false
   }
 }
 
 PlainButton.propTypes = {
+  as: string,
   className: string,
-  labelSize: string,
-  onClick: func,
-  text: string,
   color: oneOfType([
     shape({
       dark: string,
@@ -79,6 +78,10 @@ PlainButton.propTypes = {
     }),
     string
   ]),
+  href: string,
+  labelSize: string,
+  onClick: func,
+  text: string,
   theme: shape({
     dark: bool
   })

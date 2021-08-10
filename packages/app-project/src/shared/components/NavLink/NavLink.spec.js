@@ -1,39 +1,38 @@
-import { SpacedText } from '@zooniverse/react-components'
+import { expect } from 'chai'
 import { shallow } from 'enzyme'
 import { Anchor } from 'grommet'
 import Link from 'next/link'
 
 import { NavLink } from './NavLink'
 
-const ROUTER_ON_CURRENT_PAGE = {
-  asPath: '/projects/foo/bar/baz',
-  pathname: '/projects/[project]/[owner]/baz',
-  query: {
-    owner: 'foo',
-    project: 'bar'
-  }
-}
-
-const ROUTER_ON_OTHER_PAGE = {
-  asPath: '/projects/foo/bar/bing',
-  pathname: '/projects/[project]/[owner]/bing',
-  query: {
-    owner: 'foo',
-    project: 'bar'
-  }
-}
-
-const LINK = {
-  href: '/projects/foo/bar/baz',
-  text: 'Foobar'
-}
-
-const PFE_LINK = {
-  href: '/projects/foo/bar/about/research',
-  text: 'Foobar'
-}
-
 describe('Component > NavLink', function () {
+  const ROUTER_ON_CURRENT_PAGE = {
+    asPath: '/projects/foo/bar/baz',
+    pathname: '/projects/[project]/[owner]/baz',
+    query: {
+      owner: 'foo',
+      project: 'bar'
+    }
+  }
+
+  const ROUTER_ON_OTHER_PAGE = {
+    asPath: '/projects/foo/bar/bing',
+    pathname: '/projects/[project]/[owner]/bing',
+    query: {
+      owner: 'foo',
+      project: 'bar'
+    }
+  }
+
+  const LINK = {
+    href: '/projects/foo/bar/baz',
+    text: 'Foobar'
+  }
+
+  const PFE_LINK = {
+    href: '/projects/foo/bar/about/research',
+    text: 'Foobar'
+  }
   describe('default behaviour', function () {
     let wrapper
 
@@ -110,6 +109,22 @@ describe('Component > NavLink', function () {
     it('should not use client-side links', function () {
       const link = wrapper.find(Link)
       expect(link).to.be.empty()
+    })
+  })
+
+  describe('when the link is "disabled"', function () {
+    let wrapper
+    before(function () {
+      wrapper = shallow(<NavLink disabled router={ROUTER_ON_OTHER_PAGE} link={LINK} />)
+    })
+
+    it('should render as a span', function () {
+      expect(wrapper.find(Anchor).props().as).to.equal('span')
+    })
+
+    it('should not use client side links', function () {
+      const nextLink = wrapper.find(Link)
+      expect(nextLink).to.be.empty()
     })
   })
 })
