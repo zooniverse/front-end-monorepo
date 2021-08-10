@@ -62,6 +62,10 @@ describe('Component > FieldGuideWrapper', function () {
       )
     })
 
+    afterEach(function () {
+      wrapper.unmount()
+    })
+
     it('should display the FieldGuide based on the showModal prop', function () {
       expect(wrapper.find(FieldGuide)).to.have.lengthOf(1)
     })
@@ -102,6 +106,10 @@ describe('Component > FieldGuideWrapper', function () {
           wrappingComponentProps: { theme: zooTheme }
         }
       )
+    })
+
+    afterEach(function () {
+      wrapper.unmount()
     })
 
     it('should render a FieldGuideButton', function () {
