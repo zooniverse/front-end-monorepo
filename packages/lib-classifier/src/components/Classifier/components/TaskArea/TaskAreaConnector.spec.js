@@ -76,7 +76,17 @@ describe('TaskAreaConnector', function () {
         }
       })
       const workflowSnapshot = WorkflowFactory.build({
+        first_task: 'T0',
         grouped: true,
+        tasks: {
+          T0: {
+            answers: [{ label: 'yes', next: 'T1' }, { label: 'no', next: 'T2' }],
+            question: 'Is there a cat?',
+            required: false,
+            taskKey: 'T0',
+            type: 'single'
+          }
+        },
         links: {
           subject_sets: [subjectSetSnapshot.id] 
         }
@@ -127,6 +137,14 @@ describe('TaskAreaConnector', function () {
         const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.dismiss)
         expect(button).to.be.ok()
       })
+
+      it('should disable the active task', function () {
+        const inputs = renderedComponent.queryAllByRole('radio')
+        expect(inputs).to.not.be.empty()
+        inputs.forEach(input => {
+          expect(input.disabled).to.be.true()
+        })
+      })
     })
 
     describe('with an already seen subject', function () {
@@ -164,6 +182,14 @@ describe('TaskAreaConnector', function () {
         const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.dismiss)
         expect(button).to.be.ok()
       })
+
+      it('should disable the active task', function () {
+        const inputs = renderedComponent.queryAllByRole('radio')
+        expect(inputs).to.not.be.empty()
+        inputs.forEach(input => {
+          expect(input.disabled).to.be.true()
+        })
+      })
     })
 
     describe('with an unfinished subject', function () {
@@ -198,6 +224,14 @@ describe('TaskAreaConnector', function () {
       it('should not show a button to dismiss the popup', function () {
         const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.dismiss)
         expect(button).to.be.null()
+      })
+
+      it('should not disable the active task', function () {
+        const inputs = renderedComponent.queryAllByRole('radio')
+        expect(inputs).to.not.be.empty()
+        inputs.forEach(input => {
+          expect(input.disabled).to.be.false()
+        })
       })
     })
   })
