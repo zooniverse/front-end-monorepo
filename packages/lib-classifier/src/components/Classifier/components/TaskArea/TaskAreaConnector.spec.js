@@ -38,7 +38,7 @@ describe('TaskAreaConnector', function () {
   describe('without indexed subjects', function () {
     let renderedComponent
 
-    before(function () {
+    beforeEach(function () {
       const store = mockStore()
     
       renderedComponent = render(
@@ -51,6 +51,34 @@ describe('TaskAreaConnector', function () {
 
     it('should render without crashing', function () {
       expect(renderedComponent).to.be.ok()
+    })
+
+    it('should render the active task', function () {
+      const inputs = renderedComponent.queryAllByRole('radio')
+      expect(inputs).to.not.be.empty()
+      inputs.forEach(input => {
+        expect(input.disabled).to.be.false()
+      })
+    })
+
+    it('should not show a message that the subject is finished', function () {
+      const para = renderedComponent.queryByText(popupText.DisabledTaskPopup.body)
+      expect(para).to.be.null()
+    })
+
+    it('should not show a button to choose a new subject', function () {
+      const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.select)
+      expect(button).to.be.null()
+    })
+
+    it('should not show a button to choose the next available subject', function () {
+      const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.next)
+      expect(button).to.be.null()
+    })
+
+    it('should not show a button to dismiss the popup', function () {
+      const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.dismiss)
+      expect(button).to.be.null()
     })
   })
 
