@@ -36,12 +36,11 @@ describe('TaskAreaConnector', function () {
   }
 
   describe('without indexed subjects', function () {
-    let renderedComponent
 
     beforeEach(function () {
       const store = mockStore()
     
-      renderedComponent = render(
+      render(
         <TaskAreaConnector />,
         {
           wrapper: withStore(store)
@@ -49,12 +48,8 @@ describe('TaskAreaConnector', function () {
       )
     })
 
-    it('should render without crashing', function () {
-      expect(renderedComponent).to.be.ok()
-    })
-
     it('should render the active task', function () {
-      const inputs = renderedComponent.queryAllByRole('radio')
+      const inputs = screen.queryAllByRole('radio')
       expect(inputs).to.not.be.empty()
       inputs.forEach(input => {
         expect(input.disabled).to.be.false()
@@ -62,22 +57,22 @@ describe('TaskAreaConnector', function () {
     })
 
     it('should not show a message that the subject is finished', function () {
-      const para = renderedComponent.queryByText(popupText.DisabledTaskPopup.body)
+      const para = screen.queryByText(popupText.DisabledTaskPopup.body)
       expect(para).to.be.null()
     })
 
     it('should not show a button to choose a new subject', function () {
-      const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.select)
+      const button = screen.queryByText(popupText.DisabledTaskPopup.options.select)
       expect(button).to.be.null()
     })
 
     it('should not show a button to choose the next available subject', function () {
-      const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.next)
+      const button = screen.queryByText(popupText.DisabledTaskPopup.options.next)
       expect(button).to.be.null()
     })
 
     it('should not show a button to dismiss the popup', function () {
-      const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.dismiss)
+      const button = screen.queryByText(popupText.DisabledTaskPopup.options.dismiss)
       expect(button).to.be.null()
     })
   })
@@ -131,14 +126,13 @@ describe('TaskAreaConnector', function () {
     }
 
     describe('with a retired subject', function () {
-      let renderedComponent
 
       beforeEach(async function () {
         const subject = SubjectFactory.build({
           retired: true
         })
         const store = await buildStore(subject)
-        renderedComponent = render(
+        render(
           <TaskAreaConnector />,
           {
             wrapper: withStore(store)
@@ -147,27 +141,27 @@ describe('TaskAreaConnector', function () {
       })
 
       it('should show a message that the subject is finished', function () {
-        const para = renderedComponent.queryByText(popupText.DisabledTaskPopup.body)
+        const para = screen.queryByText(popupText.DisabledTaskPopup.body)
         expect(para).to.be.ok()
       })
 
       it('should show a button to choose a new subject', function () {
-        const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.select)
+        const button = screen.queryByText(popupText.DisabledTaskPopup.options.select)
         expect(button).to.be.ok()
       })
 
       it('should show a button to choose the next available subject', function () {
-        const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.next)
+        const button = screen.queryByText(popupText.DisabledTaskPopup.options.next)
         expect(button).to.be.ok()
       })
 
       it('should show a button to dismiss the popup', function () {
-        const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.dismiss)
+        const button = screen.queryByText(popupText.DisabledTaskPopup.options.dismiss)
         expect(button).to.be.ok()
       })
 
       it('should disable the active task', function () {
-        const inputs = renderedComponent.queryAllByRole('radio')
+        const inputs = screen.queryAllByRole('radio')
         expect(inputs).to.not.be.empty()
         inputs.forEach(input => {
           expect(input.disabled).to.be.true()
@@ -176,14 +170,13 @@ describe('TaskAreaConnector', function () {
     })
 
     describe('with an already seen subject', function () {
-      let renderedComponent
 
       beforeEach(async function () {
         const subject = SubjectFactory.build({
           already_seen: true
         })
         const store = await buildStore(subject)
-        renderedComponent = render(
+        render(
           <TaskAreaConnector />,
           {
             wrapper: withStore(store)
@@ -192,27 +185,27 @@ describe('TaskAreaConnector', function () {
       })
 
       it('should show a message that the subject is finished', function () {
-        const para = renderedComponent.queryByText(popupText.DisabledTaskPopup.body)
+        const para = screen.queryByText(popupText.DisabledTaskPopup.body)
         expect(para).to.be.ok()
       })
 
       it('should show a button to choose a new subject', function () {
-        const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.select)
+        const button = screen.queryByText(popupText.DisabledTaskPopup.options.select)
         expect(button).to.be.ok()
       })
 
       it('should show a button to choose the next available subject', function () {
-        const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.next)
+        const button = screen.queryByText(popupText.DisabledTaskPopup.options.next)
         expect(button).to.be.ok()
       })
 
       it('should show a button to dismiss the popup', function () {
-        const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.dismiss)
+        const button = screen.queryByText(popupText.DisabledTaskPopup.options.dismiss)
         expect(button).to.be.ok()
       })
 
       it('should disable the active task', function () {
-        const inputs = renderedComponent.queryAllByRole('radio')
+        const inputs = screen.queryAllByRole('radio')
         expect(inputs).to.not.be.empty()
         inputs.forEach(input => {
           expect(input.disabled).to.be.true()
@@ -221,12 +214,11 @@ describe('TaskAreaConnector', function () {
     })
 
     describe('with an unfinished subject', function () {
-      let renderedComponent
 
       beforeEach(async function () {
         const subject = SubjectFactory.build()
         const store = await buildStore(subject)
-        renderedComponent = render(
+        render(
           <TaskAreaConnector />,
           {
             wrapper: withStore(store)
@@ -235,27 +227,27 @@ describe('TaskAreaConnector', function () {
       })
 
       it('should not show a message that the subject is finished', function () {
-        const para = renderedComponent.queryByText(popupText.DisabledTaskPopup.body)
+        const para = screen.queryByText(popupText.DisabledTaskPopup.body)
         expect(para).to.be.null()
       })
 
       it('should not show a button to choose a new subject', function () {
-        const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.select)
+        const button = screen.queryByText(popupText.DisabledTaskPopup.options.select)
         expect(button).to.be.null()
       })
 
       it('should not show a button to choose the next available subject', function () {
-        const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.next)
+        const button = screen.queryByText(popupText.DisabledTaskPopup.options.next)
         expect(button).to.be.null()
       })
 
       it('should not show a button to dismiss the popup', function () {
-        const button = renderedComponent.queryByText(popupText.DisabledTaskPopup.options.dismiss)
+        const button = screen.queryByText(popupText.DisabledTaskPopup.options.dismiss)
         expect(button).to.be.null()
       })
 
       it('should not disable the active task', function () {
-        const inputs = renderedComponent.queryAllByRole('radio')
+        const inputs = screen.queryAllByRole('radio')
         expect(inputs).to.not.be.empty()
         inputs.forEach(input => {
           expect(input.disabled).to.be.false()
