@@ -12,7 +12,8 @@ import { SubjectFactory, SubjectSetFactory, WorkflowFactory } from '@test/factor
 import mockStore from '@test/mockStore'
 import TaskAreaConnector from './TaskAreaConnector'
 
-import popupText from './components/DisabledTaskPopup/locales/en'
+import DisabledTaskPopupLocale from './components/DisabledTaskPopup/locales/en'
+const { DisabledTaskPopup: popupText } = DisabledTaskPopupLocale
 
 describe('TaskAreaConnector', function () {
 
@@ -51,10 +52,10 @@ describe('TaskAreaConnector', function () {
           wrapper: withStore(store)
         }
       )
-      finishedMessage = screen.queryByText(popupText.DisabledTaskPopup.body)
-      selectButton = screen.queryByText(popupText.DisabledTaskPopup.options.select)
-      nextButton = screen.queryByText(popupText.DisabledTaskPopup.options.next)
-      dismissButton = screen.queryByText(popupText.DisabledTaskPopup.options.dismiss)
+      finishedMessage = screen.queryByText(popupText.body)
+      selectButton = screen.queryByText(popupText.options.select)
+      nextButton = screen.queryByText(popupText.options.next)
+      dismissButton = screen.queryByText(popupText.options.dismiss)
       inputs = screen.queryAllByRole('radio')
     })
 
@@ -148,10 +149,10 @@ describe('TaskAreaConnector', function () {
             wrapper: withStore(store)
           }
         )
-        finishedMessage = screen.queryByText(popupText.DisabledTaskPopup.body)
-        selectButton = screen.queryByText(popupText.DisabledTaskPopup.options.select)
-        nextButton = screen.queryByText(popupText.DisabledTaskPopup.options.next)
-        dismissButton = screen.queryByText(popupText.DisabledTaskPopup.options.dismiss)
+        finishedMessage = screen.queryByText(popupText.body)
+        selectButton = screen.queryByText(popupText.options.select)
+        nextButton = screen.queryByText(popupText.options.next)
+        dismissButton = screen.queryByText(popupText.options.dismiss)
         inputs = screen.queryAllByRole('radio')
       })
 
@@ -197,10 +198,10 @@ describe('TaskAreaConnector', function () {
             wrapper: withStore(store)
           }
         )
-        finishedMessage = screen.queryByText(popupText.DisabledTaskPopup.body)
-        selectButton = screen.queryByText(popupText.DisabledTaskPopup.options.select)
-        nextButton = screen.queryByText(popupText.DisabledTaskPopup.options.next)
-        dismissButton = screen.queryByText(popupText.DisabledTaskPopup.options.dismiss)
+        finishedMessage = screen.queryByText(popupText.body)
+        selectButton = screen.queryByText(popupText.options.select)
+        nextButton = screen.queryByText(popupText.options.next)
+        dismissButton = screen.queryByText(popupText.options.dismiss)
         inputs = screen.queryAllByRole('radio')
       })
 
@@ -244,10 +245,10 @@ describe('TaskAreaConnector', function () {
             wrapper: withStore(store)
           }
         )
-        finishedMessage = screen.queryByText(popupText.DisabledTaskPopup.body)
-        selectButton = screen.queryByText(popupText.DisabledTaskPopup.options.select)
-        nextButton = screen.queryByText(popupText.DisabledTaskPopup.options.next)
-        dismissButton = screen.queryByText(popupText.DisabledTaskPopup.options.dismiss)
+        finishedMessage = screen.queryByText(popupText.body)
+        selectButton = screen.queryByText(popupText.options.select)
+        nextButton = screen.queryByText(popupText.options.next)
+        dismissButton = screen.queryByText(popupText.options.dismiss)
         inputs = screen.queryAllByRole('radio')
       })
 
