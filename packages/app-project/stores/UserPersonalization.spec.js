@@ -192,8 +192,8 @@ describe('Stores > UserPersonalization', function () {
     })
 
     describe('when we successfully know there is an anonymous user', function () {
-      before(function () {
-        rootStore.user.checkCurrent()
+      before(async function () {
+        await rootStore.user.checkCurrent()
       })
 
       it('should set the user project preferences load to success', function () {
