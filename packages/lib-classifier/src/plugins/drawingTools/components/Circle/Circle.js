@@ -7,7 +7,7 @@ const GUIDE_DASH = [4, 4]
 const GUIDE_WIDTH = 1
 
 function Circle({ active, mark, onFinish, scale }) {
-  console.log('mark: ', mark)
+  console.log('mark: ', mark, mark.radius)
   const { x_center, y_center, radius } = mark
   const guideWidth = GUIDE_WIDTH / scale
 
@@ -15,30 +15,26 @@ function Circle({ active, mark, onFinish, scale }) {
     mark.setCoordinates(coords)
   }
 
-  // console.log('x_center: ', x_center)
-  // console.log('y_center: ', y_center)
-  console.log('radius: ', radius)
-
-  const handleX = x_center + radius
-  console.log('handleX: ', handleX)
+  const handleX = radius
+  const handleY = 0
 
   return (
     <g onPointerUp={active ? onFinish : undefined}>
-      <circle cx={x_center} cy={y_center} r={radius} />
+      <circle r={radius} />
       {active && (
         <g>
-          {/* <line
-            x1={x_center}
-            y1={y_center}
+          <line
+            x1={0}
+            y1={0}
             x2={handleX}
-            y2={y_center}
+            y2={handleY}
             strokeWidth={guideWidth}
             strokeDasharray={GUIDE_DASH}
-          /> */}
+          />
           <DragHandle
             scale={scale}
             x={handleX}
-            y={y_center}
+            y={handleY}
             dragMove={(e, d) =>
               onHandleDrag({
                 x: x_center + d.x,

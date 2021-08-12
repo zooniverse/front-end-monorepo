@@ -12,7 +12,7 @@ const CircleModel = types
   .model('CircleModel', {
     x_center: types.maybe(types.number),
     y_center: types.maybe(types.number),
-    radius: types.maybe(types.number, 0)
+    radius: types.optional(types.number, 0)
   })
   .views((self) => ({
     get coords() {
