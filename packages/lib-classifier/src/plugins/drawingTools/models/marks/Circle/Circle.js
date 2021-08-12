@@ -55,17 +55,11 @@ const CircleModel = types
   .actions((self) => {
     function initialDrag({ x, y }) {
       self.radius = self.getDistance(self.x_center, self.y_center, x, y)
-      // console.log('initialDragX: ', x)
-      // console.log('initialDragY: ', y)
-      // console.log('self.radius: ', self.radius)
-      // This doesn't seem complete
     }
 
     function initialPosition({ x, y }) {
       self.x_center = x
       self.y_center = y
-      console.log('initialPositionX: ', self.x_center)
-      console.log('initialPositionY: ', self.y_center)
     }
 
     function move({ x, y }) {
