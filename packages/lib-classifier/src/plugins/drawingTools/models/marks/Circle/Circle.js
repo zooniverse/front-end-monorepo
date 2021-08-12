@@ -4,7 +4,7 @@ import { CircleTool } from '@plugins/drawingTools/models/tools'
 
 import Mark from '../Mark'
 
-const BUFFER = 24
+const BUFFER = 12
 const DELETE_BUTTON_ANGLE = -45
 const MINIMUM_RADIUS = 5
 
@@ -24,8 +24,8 @@ const CircleModel = types
 
     deleteButtonPosition(scale) {
       const theta = DELETE_BUTTON_ANGLE * (Math.PI / 180)
-      const dx = ((self.x_center + BUFFER) / scale) * Math.cos(theta)
-      const dy = ((self.y_center + BUFFER) / scale) * Math.sin(theta)
+      const dx = ((self.radius + BUFFER) / scale) * Math.cos(theta)
+      const dy = ((self.radius + BUFFER) / scale) * Math.sin(theta)
       return {
         x: dx,
         y: dy
