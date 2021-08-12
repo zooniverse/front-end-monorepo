@@ -15,8 +15,6 @@ const DragHandle = forwardRef(function DragHandle(
   { fill, radius, scale, x, y },
   ref
 ) {
-  console.log('x: ', x)
-  console.log('y: ', y)
   const transform = `translate(${x}, ${y}) scale(${1 / scale})`
   const styleProps = {
     fill,

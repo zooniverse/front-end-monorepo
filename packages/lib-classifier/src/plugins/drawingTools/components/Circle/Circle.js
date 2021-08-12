@@ -8,37 +8,45 @@ const GUIDE_WIDTH = 1
 
 function Circle({ active, mark, onFinish, scale }) {
   console.log('mark: ', mark)
-  const { x, y, r } = mark
+  const { x_center, y_center, radius } = mark
   const guideWidth = GUIDE_WIDTH / scale
 
   function onHandleDrag(coords) {
     mark.setCoordinates(coords)
   }
 
+  // console.log('x_center: ', x_center)
+  // console.log('y_center: ', y_center)
+  console.log('radius: ', radius)
+
+  const handleX = x_center + radius
+  console.log('handleX: ', handleX)
+
   return (
     <g onPointerUp={active ? onFinish : undefined}>
-      <circle cx={x} cy={y} r={r} />
-      {/* Why do we need two? */}
-      {/* <circle
-        cx={x}
-        cy={y}
-        r={r}
-        strokeWidth={guideWidth}
-        strokeDasharray={GUIDE_DASH}
-      /> */}
+      <circle cx={x_center} cy={y_center} r={radius} />
       {active && (
-        <DragHandle
-          scale={scale}
-          x={x}
-          y={y}
-          dragMove={(e, d) =>
-            onHandleDrag({
-              cx: cx + d.x,
-              cy: cy + d.y,
-              r: r + d.r
-            })
-          }
-        />
+        <g>
+          {/* <line
+            x1={x_center}
+            y1={y_center}
+            x2={handleX}
+            y2={y_center}
+            strokeWidth={guideWidth}
+            strokeDasharray={GUIDE_DASH}
+          /> */}
+          <DragHandle
+            scale={scale}
+            x={handleX}
+            y={y_center}
+            dragMove={(e, d) =>
+              onHandleDrag({
+                x: x_center + d.x,
+                y: y_center + d.y
+              })
+            }
+          />
+        </g>
       )}
     </g>
   )

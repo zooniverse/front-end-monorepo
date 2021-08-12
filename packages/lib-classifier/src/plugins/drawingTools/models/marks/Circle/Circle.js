@@ -10,22 +10,22 @@ const MINIMUM_RADIUS = 5
 
 const CircleModel = types
   .model('CircleModel', {
-    x: types.maybe(types.number),
-    y: types.maybe(types.number),
-    r: types.maybe(types.number)
+    x_center: types.maybe(types.number),
+    y_center: types.maybe(types.number),
+    radius: types.maybe(types.number, 0)
   })
   .views((self) => ({
     get coords() {
       return {
-        x: self.x,
-        y: self.y
+        x: self.x_center,
+        y: self.y_center
       }
     },
 
     deleteButtonPosition(scale) {
       const theta = DELETE_BUTTON_ANGLE * (Math.PI / 180)
-      const dx = ((self.x + BUFFER) / scale) * Math.cos(theta)
-      const dy = ((self.y + BUFFER) / scale) * Math.sin(theta)
+      const dx = ((self.x_center + BUFFER) / scale) * Math.cos(theta)
+      const dy = ((self.y_center + BUFFER) / scale) * Math.sin(theta)
       return {
         x: dx,
         y: dy
@@ -33,7 +33,7 @@ const CircleModel = types
     },
 
     get isValid() {
-      return self.x - MINIMUM_RADIUS > 0
+      return self.x_center - MINIMUM_RADIUS > 0
     },
 
     get tool() {
@@ -45,32 +45,37 @@ const CircleModel = types
     },
 
     get x() {
-      return self.x
+      return self.x_center
     },
 
     get y() {
-      return self.y
+      return self.y_center
     }
   }))
   .actions((self) => {
     function initialDrag({ x, y }) {
-      self.radius = self.getDistance(self.x, self.y, x, y)
+      self.radius = self.getDistance(self.x_center, self.y_center, x, y)
+      // console.log('initialDragX: ', x)
+      // console.log('initialDragY: ', y)
+      // console.log('self.radius: ', self.radius)
       // This doesn't seem complete
     }
 
     function initialPosition({ x, y }) {
-      self.x = x
-      self.y = y
+      self.x_center = x
+      self.y_center = y
+      console.log('initialPositionX: ', self.x_center)
+      console.log('initialPositionY: ', self.y_center)
     }
 
     function move({ x, y }) {
-      self.x += x
-      self.y += y
+      self.x_center += x
+      self.y_center += y
     }
 
     function setCoordinates({ x, y, r }) {
-      self.x = x
-      self.y = y
+      self.x_center = x
+      self.y_center = y
       self.radius = r
     }
 
