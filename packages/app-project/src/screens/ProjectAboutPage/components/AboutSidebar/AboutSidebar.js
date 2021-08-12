@@ -9,7 +9,7 @@ const AboutSidebar = ({ aboutNavLinks }) => {
   const baseUrl = `/projects/${owner}/${project}/about`
 
   return (
-    <Nav flex direction='column' gap='xsmall'>
+    <Nav flex direction='column' gap='xsmall' data-testid='about-sidebar'>
       <AboutNavLink
         link={{
           href: `${baseUrl}/research`,

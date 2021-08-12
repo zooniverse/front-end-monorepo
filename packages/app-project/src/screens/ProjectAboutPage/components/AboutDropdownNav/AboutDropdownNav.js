@@ -61,6 +61,7 @@ const AboutDropdownNav = ({ aboutNavLinks, router }) => {
 
   return (
     <DropButton
+    data-testid='about-dropdown'
       isOpen={isOpen}
       alignSelf='center'
       dropContent={

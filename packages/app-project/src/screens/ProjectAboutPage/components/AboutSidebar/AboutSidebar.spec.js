@@ -1,6 +1,5 @@
 import * as stories from './AboutSidebar.stories'
 import { render } from '@testing-library/react'
-import { expect } from 'chai'
 
 describe('Component > AboutSidebar', function () {
   const { Default, MoreLinks } = stories

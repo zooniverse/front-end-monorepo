@@ -6,9 +6,8 @@ import * as Router from 'next/router'
 import sinon from 'sinon'
 import ProjectAboutPageConnector from './ProjectAboutPageConnector'
 import { ProjectAboutPage } from './ProjectAboutPage'
-import { expect } from 'chai'
 
-describe('Component > ProjectAboutPageConnector', () => {
+describe.only('Component > ProjectAboutPageConnector', () => {
   const mockStore = {
     project: {
       about_pages: [
@@ -82,7 +81,7 @@ describe('Component > ProjectAboutPageConnector', () => {
 
   describe('About pages with content', () => {
     it('should pass correct data to ProjectAboutPage depending on pageType', () => {
-      const { getByText } = render(
+      const { getByText, getByRole, queryByRole } = render(
         <Provider store={mockStore}>
           <Grommet theme={zooTheme} themeMode='light'>
             <ProjectAboutPageConnector pageType='science_case' />
@@ -91,16 +90,7 @@ describe('Component > ProjectAboutPageConnector', () => {
       )
       const content = getByText(mockStore.project.about_pages[0].content)
       expect(content).to.exist()
-    })
 
-    it('should correct the Research Case page title to Research', () => {
-      const { getByRole, queryByRole } = render(
-        <Provider store={mockStore}>
-          <Grommet theme={zooTheme} themeMode='light'>
-            <ProjectAboutPageConnector pageType='science_case' />
-          </Grommet>
-        </Provider>
-      )
       expect(getByRole('heading', { name: 'Research' })).to.exist()
       expect(queryByRole('heading', { name: 'Research Case' })).to.not.exist()
     })
@@ -124,13 +114,14 @@ describe('Component > ProjectAboutPageConnector', () => {
     it('should pass a default navLinks array that always includes Research and Team pages', () => {
       // get heading named "About", get its sibling
       // query sibling for links
-      const { getAllByText, getAllByRole } = render(
+      const { getAllByText, getByTestId } = render(
         <Provider store={mockStore}>
           <Grommet theme={zooTheme} themeMode='light'>
             <ProjectAboutPageConnector pageType='team' />
           </Grommet>
         </Provider>
       )
+      expect(getByTestId('about-dropdown')).to.exist()
     })
 
     it('should pass a navLink if an about page has content', () => {
