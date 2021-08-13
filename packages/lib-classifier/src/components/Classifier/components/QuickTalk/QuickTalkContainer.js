@@ -100,7 +100,11 @@ class QuickTalkContainer extends React.Component {
   }
   
   postComment (text) {
-    console.log('POST: ', text)
+    console.log('+++ POST: ', text)
+    
+    this.setState({
+      postCommentStatus: asyncStates.loading,
+    })
   }
     
   render () {

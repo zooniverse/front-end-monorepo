@@ -85,6 +85,7 @@ function QuickTalk ({
       </div>
       <PostForm
         postComment={postComment}
+        postCommentStatus={postCommentStatus}
       />
       <Button onClick={() => setExpand(false)}>Close</Button>
     </FixedBox>

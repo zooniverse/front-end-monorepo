@@ -6,22 +6,53 @@ TODO:
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Box, Button } from 'grommet'
+import { Box, Button, TextArea } from 'grommet'
 import { Markdownz, MarkdownEditor } from '@zooniverse/react-components'
 
+function stopEvent (e) {
+  if (!e) return false
+  e.preventDefault && e.preventDefault()
+  e.stopPropagation && e.stopPropagation()
+  e.returnValue = false
+  e.cancelBubble = true
+  return false
+}
+
 function PostForm ({
-  onSubmit,
+  postComment,
+  postCommentStatus,
 }) {
+  const [text, setText] = React.useState('')
+  
+  React.useEffect(() => {
+    setText('')
+  }, [postCommentStatus])
+  
+  function onSubmit (e) {
+    postComment(text)
+    return stopEvent(e)
+  }
+  
   return (
     <Box>
-      <form>
-        <Button>Submit</Button>
+      <form onSubmit={onSubmit}>
+        <TextArea
+          value={text}
+          onChange={e => setText(e.target.value)}
+        />
+        <Button
+          onClick={onSubmit}
+          type='submit'
+        >
+          Submit
+        </Button>
       </form>
     </Box>
   )
 }
 
 PostForm.propTypes = {
+  postComment: PropTypes.func,
 }
 
 export default PostForm
