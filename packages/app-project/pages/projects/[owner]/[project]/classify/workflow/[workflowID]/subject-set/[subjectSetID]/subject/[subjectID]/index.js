@@ -8,7 +8,7 @@ export async function getServerSideProps({ params, query, req, res }) {
   const { subjectID, subjectSetID, workflowID } = params
   const props = { ...defaultProps, subjectID, subjectSetID, workflowID }
   const { workflows } = defaultProps
-  const [ workflow ] = workflows.filter(workflow => workflow.id === params.workflowID)
+  const workflow = workflows.find(workflow => workflow.id === params.workflowID)
   if (workflow?.grouped) {
     workflow.subjectSets = await fetchSubjectSets(workflow, env)
   }
