@@ -51,11 +51,11 @@ RUN chown -R node:node .
 USER node
 
 RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn install --production=false --frozen-lockfile
-RUN yarn workspace @zooniverse/react-components build
-RUN yarn workspace @zooniverse/classifier build
-RUN yarn workspace @zooniverse/fe-content-pages build
+RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/react-components build
+RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/classifier build
+RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/fe-content-pages build
 RUN echo $COMMIT_ID > /usr/src/packages/app-project/public/commit_id.txt
-RUN yarn workspace @zooniverse/fe-project build
+RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/fe-project build
 
 FROM node:14-alpine as runner
 
