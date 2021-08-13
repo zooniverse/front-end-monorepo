@@ -42,7 +42,7 @@ describe('Component > Characteristics', function () {
 
   it('should call onFilter when the "Clear filters" button is clicked', function () {
     expect(onFilterSpy).to.have.not.been.called()
-    
+
     wrapper.find('Button').filterWhere((button) => button.props().label === 'Clear filters').at(0).simulate('click')
 
     expect(onFilterSpy).to.have.been.calledOnceWith()
