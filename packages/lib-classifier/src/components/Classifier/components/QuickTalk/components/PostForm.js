@@ -8,6 +8,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Button, TextArea } from 'grommet'
 import { Markdownz, MarkdownEditor } from '@zooniverse/react-components'
+import asyncStates from '@zooniverse/async-states'
 
 function stopEvent (e) {
   if (!e) return false
@@ -24,6 +25,7 @@ function PostForm ({
 }) {
   const [text, setText] = React.useState('')
   
+  // Reset text when the comment is posting/has been posted.
   React.useEffect(() => {
     setText('')
   }, [postCommentStatus])
@@ -33,12 +35,15 @@ function PostForm ({
     return stopEvent(e)
   }
   
+  const disabled = postCommentStatus === asyncStates.loading
+  
   return (
     <Box>
       <form onSubmit={onSubmit}>
         <TextArea
           value={text}
           onChange={e => setText(e.target.value)}
+          disabled={disabled}
         />
         <Button
           onClick={onSubmit}
