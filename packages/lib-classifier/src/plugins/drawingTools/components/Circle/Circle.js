@@ -23,7 +23,7 @@ function Circle({ active, mark, onFinish, scale }) {
   return (
     <g onPointerUp={active ? onFinish : undefined}>
       {/* cx and cy are set in Mark.js component: transform  */}
-      <circle r={radius} />
+      <circle r={radius} data-testid='circle-element' />
       {active && (
         <g>
           <line

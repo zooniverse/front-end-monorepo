@@ -33,7 +33,7 @@ const CircleModel = types
     },
 
     get isValid() {
-      return self.x_center - MINIMUM_RADIUS > 0
+      return self.radius >= MINIMUM_RADIUS
     },
 
     get tool() {
