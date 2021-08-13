@@ -4,6 +4,7 @@ import { Box, Button } from 'grommet'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import zooTheme from '@zooniverse/grommet-theme'
+import asyncStates from '@zooniverse/async-states'
 
 import Comment from './components/Comment'
 import PostForm from './components/PostForm'
@@ -30,6 +31,8 @@ function QuickTalk ({
   comments = [],
   authors = {},
   authorRoles = {},
+  postCommentStatus = asyncStates.initialized,
+  postComment = () => {},
   screenSize,
   expand = false,
 }) {
@@ -77,7 +80,12 @@ function QuickTalk ({
           )
         })}
       </ul>
-      <PostForm />
+      <div>
+        Post Comment Status: {postCommentStatus}
+      </div>
+      <PostForm
+        postComment={postComment}
+      />
       <Button onClick={() => setExpand(false)}>Close</Button>
     </FixedBox>
   )
@@ -88,6 +96,8 @@ QuickTalk.propTypes = {
   comments: PropTypes.arrayOf(PropTypes.object),
   authors: PropTypes.object,
   authorRoles: PropTypes.object,
+  postCommentStatus: PropTypes.string,
+  postComment: PropTypes.func,
   expand: PropTypes.bool,
 }
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
+import asyncStates from '@zooniverse/async-states'
 
 import QuickTalk from './QuickTalk'
 import apiClient from 'panoptes-client/lib/api-client'
@@ -24,6 +25,7 @@ class QuickTalkContainer extends React.Component {
       comments: [],
       authors: {},
       authorRoles: {},
+      postCommentStatus: asyncStates.initialized,
     }
   }
   
@@ -88,13 +90,17 @@ class QuickTalkContainer extends React.Component {
           })
       })
   }
-        
+  
   resetComments () {
     this.setState({
       comments: [],
       authors: {},
       authorRoles: {},
     })
+  }
+  
+  postComment (text) {
+    console.log('POST: ', text)
   }
     
   render () {
@@ -106,6 +112,7 @@ class QuickTalkContainer extends React.Component {
       comments,
       authors,
       authorRoles,
+      postCommentStatus,
     } = this.state
 
     if (!subject) {
@@ -118,6 +125,8 @@ class QuickTalkContainer extends React.Component {
         comments={comments}
         authors={authors}
         authorRoles={authorRoles}
+        postCommentStatus={postCommentStatus}
+        postComment={this.postComment.bind(this)}
       />
     )
   }
