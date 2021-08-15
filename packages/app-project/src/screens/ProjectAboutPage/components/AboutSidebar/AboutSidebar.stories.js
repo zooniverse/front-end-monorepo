@@ -1,6 +1,6 @@
 import { Grommet, Grid } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
-import { RouterContext } from 'next/dist/next-server/lib/router-context'
+import { RouterContext } from 'next/dist/shared/lib/router-context'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
 import AboutSidebar from './AboutSidebar'
