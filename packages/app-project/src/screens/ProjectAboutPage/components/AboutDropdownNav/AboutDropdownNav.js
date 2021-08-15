@@ -14,7 +14,7 @@ export const AboutDropContent = ({ aboutNavLinks, router }) => {
   const baseUrl = `/projects/${owner}/${project}/about`
   
   return (
-    <Nav gap='xsmall' background={{ dark: 'dark-5', light: 'neutral-6' }}>
+    <Nav gap='xsmall' background={{ dark: 'dark-5', light: 'neutral-6' }} data-testid='mobile-about-pages-nav'>
       <AboutNavLink
         link={{ href: `${baseUrl}/research`, text: 'research' }}
         router={router}
@@ -61,7 +61,7 @@ const AboutDropdownNav = ({ aboutNavLinks, router }) => {
 
   return (
     <DropButton
-    data-testid='about-dropdown'
+      data-testid='about-pages-dropdown'
       isOpen={isOpen}
       alignSelf='center'
       dropContent={

@@ -98,7 +98,7 @@ function ProjectAboutPage ({
                       color={{ light: 'black', dark: '' }}
                     />
                     {teamArray.length && (
-                      <Box as='ul' margin='none' pad='none'>
+                      <Box as='ul' margin='none' pad='none' data-testid='about-team-members-list'>
                         {teamArray.map(user => (
                           <TeamMember key={user.id} user={user} />
                         ))}
