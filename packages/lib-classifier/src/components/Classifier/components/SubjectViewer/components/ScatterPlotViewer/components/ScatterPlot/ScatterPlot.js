@@ -41,6 +41,7 @@ function ScatterPlot (props) {
       }
     },
     transformMatrix,
+    transform,
     underlays,
     xAxisLabel,
     xAxisLabelOffset,

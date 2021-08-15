@@ -1,8 +1,10 @@
 import chai from 'chai'
+import chaiDom from 'chai-dom'
 import sinonChai from 'sinon-chai'
 import dirtyChai from 'dirty-chai'
 import { JSDOM } from 'jsdom'
 
+chai.use(chaiDom)
 chai.use(dirtyChai)
 chai.use(sinonChai)
 
@@ -12,13 +14,16 @@ const jsdom = new JSDOM('<!doctype html><html><body></body></html>', {
 })
 const { window } = jsdom
 
-function copyProps (src, target) {
+function copyProps(src, target) {
   const props = Object.getOwnPropertyNames(src)
-    .filter(prop => typeof target[prop] === 'undefined')
-    .reduce((result, prop) => ({
-      ...result,
-      [prop]: Object.getOwnPropertyDescriptor(src, prop)
-    }), {})
+    .filter((prop) => typeof target[prop] === 'undefined')
+    .reduce(
+      (result, prop) => ({
+        ...result,
+        [prop]: Object.getOwnPropertyDescriptor(src, prop)
+      }),
+      {}
+    )
   Object.defineProperties(target, props)
 }
 
