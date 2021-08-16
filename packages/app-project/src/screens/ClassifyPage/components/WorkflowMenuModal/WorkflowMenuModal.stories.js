@@ -95,12 +95,43 @@ export default {
   }
 }
 
-export function Default({ dark, headingBackground, titleColor, workflows }) {
+export function ChooseAWorkflow({ dark, headingBackground, titleColor, workflows }) {
   return (
     <StoryContext theme={{ ...zooTheme, dark }}>
       <WorkflowMenuModal
         headingBackground={headingBackground}
         titleColor={titleColor}
+        workflows={workflows}
+      />
+    </StoryContext>
+  )
+}
+
+export function ChooseASubjectSet({ dark, headingBackground, titleColor, workflows }) {
+  const workflowFromUrl = workflows[3]
+  return (
+    <StoryContext theme={{ ...zooTheme, dark }}>
+      <WorkflowMenuModal
+        headingBackground={headingBackground}
+        titleColor={titleColor}
+        workflowFromUrl={workflowFromUrl}
+        workflows={workflows}
+      />
+    </StoryContext>
+  )
+}
+
+export function ChooseASubject({ dark, headingBackground, titleColor, workflows }) {
+  const workflowFromUrl = workflows[3]
+  const subjectSetFromUrl = workflowFromUrl.subjectSets[1]
+  subjectSetFromUrl.metadata.indexFields = 'date,name'
+  return (
+    <StoryContext theme={{ ...zooTheme, dark }}>
+      <WorkflowMenuModal
+        headingBackground={headingBackground}
+        titleColor={titleColor}
+        subjectSetFromUrl={subjectSetFromUrl}
+        workflowFromUrl={workflowFromUrl}
         workflows={workflows}
       />
     </StoryContext>
