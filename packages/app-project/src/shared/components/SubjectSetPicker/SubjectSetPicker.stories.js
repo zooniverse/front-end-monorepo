@@ -39,20 +39,7 @@ export function Default({ dark, workflow }) {
   return (
     <StoryContext theme={{ ...zooTheme, dark }}>
       <SubjectSetPicker
-        workflow={workflow}
-      />
-    </StoryContext>
-  )
-}
-
-export function WithBackButton({ dark, workflow }) {
-  function onClose() {
-    alert('you clicked the back button.')
-  }
-  return (
-    <StoryContext theme={{ ...zooTheme, dark }}>
-      <SubjectSetPicker
-        onClose={onClose}
+        baseUrl='/projects/test-owner/test-project/classify'
         workflow={workflow}
       />
     </StoryContext>
@@ -63,6 +50,7 @@ export function Tablet({ active, dark, title, workflow }) {
   return (
     <StoryContext theme={{ ...zooTheme, dark }}>
       <SubjectSetPicker
+        baseUrl='/projects/test-owner/test-project/classify'
         workflow={workflow}
       />
     </StoryContext>

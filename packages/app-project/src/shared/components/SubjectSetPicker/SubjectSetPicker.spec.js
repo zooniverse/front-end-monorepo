@@ -1,6 +1,7 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { shallow } from 'enzyme'
 import { Button, Paragraph } from 'grommet'
+import Link from 'next/link'
 import sinon from 'sinon'
 
 import SubjectSetPicker, { BackButton, StyledHeading } from './SubjectSetPicker'
@@ -14,6 +15,7 @@ describe('Component > SubjectSetPicker', function () {
   before(function () {
     wrapper = shallow(
       <SubjectSetPicker
+        baseUrl='/projects/test-owner/test-project/classify'
         title={mockWorkflow.displayName}
         workflow={mockWorkflow}
       />
@@ -65,24 +67,15 @@ describe('Component > SubjectSetPicker', function () {
     expect(cards.length).to.equal(mockWorkflow.subjectSets.length)
   })
 
-  describe('the onClose callback', function () {
+  describe('Back link', function () {
+    let link
 
     before(function () {
-      wrapper.setProps({
-        onClose: sinon.stub()
-      })
+      link = wrapper.find(Link).first()
     })
 
-    it('should show a back button', function () {
-      const button = wrapper.find(BackButton).first()
-      expect(button).to.have.lengthOf(1)
-    })
-
-    it('should be called when the back button is clicked', function () {
-      const button = wrapper.find(BackButton).first()
-      const onClose = button.prop('onClick')
-      button.simulate('click')
-      expect(onClose).to.have.been.calledOnce()
+    it('should link to the base URL', function () {
+      expect(link.prop('href')).to.equal('/projects/test-owner/test-project/classify')
     })
   })
 })
