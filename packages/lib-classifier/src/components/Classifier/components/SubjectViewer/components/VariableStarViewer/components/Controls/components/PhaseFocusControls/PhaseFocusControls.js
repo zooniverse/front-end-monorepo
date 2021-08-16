@@ -11,6 +11,7 @@ counterpart.registerTranslations('en', en)
 function PhaseFocusControls(props) {
   const {
     data,
+    highlightedSeries,
     phaseFocusedSeries,
     setSeriesPhaseFocus,
     theme: {
@@ -34,6 +35,7 @@ function PhaseFocusControls(props) {
             label={
               <Label
                 colors={colors}
+                highlightedSeries={highlightedSeries}
                 seriesIndex={seriesIndex}
                 seriesOptions={seriesOptions}
                 label={label}

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Box, CheckBox } from 'grommet'
 import { withTheme } from 'styled-components'
 import Label from '../Label'
+import isDataSeriesHighlighted from '@viewers/helpers/isDataSeriesHighlighted'
 
 function HighlightSeriesCheckBoxes (props) {
   const {
@@ -18,9 +19,10 @@ function HighlightSeriesCheckBoxes (props) {
 
   return (
     <Box direction='column' pad='none'>
-      {highlightedSeries.map((series, seriesIndex) => {
-        const [[label, checked]] = Object.entries(series)
-        const seriesOptions = data[seriesIndex]?.seriesOptions
+      {data.map((series, seriesIndex) => {
+        const { seriesOptions } = series
+        const { label } = seriesOptions
+        const checked = isDataSeriesHighlighted({ highlightedSeries, seriesOptions })
 
         return (
           <CheckBox
@@ -33,7 +35,7 @@ function HighlightSeriesCheckBoxes (props) {
                 label={label}
                 seriesIndex={seriesIndex}
                 seriesOptions={seriesOptions}
-                highlighted={checked}
+                highlightedSeries={highlightedSeries}
               />
             }
             name='series-highlight'
