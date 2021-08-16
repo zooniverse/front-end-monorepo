@@ -87,7 +87,9 @@ function QuickTalk ({
         postComment={postComment}
         postCommentStatus={postCommentStatus}
       />
-      <Button onClick={() => setExpand(false)}>Close</Button>
+      <div>
+        <Button onClick={() => setExpand(false)}>Close</Button>
+      </div>
     </FixedBox>
   )
 }
