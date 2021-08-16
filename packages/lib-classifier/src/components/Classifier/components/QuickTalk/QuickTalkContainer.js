@@ -155,10 +155,19 @@ class QuickTalkContainer extends React.Component {
             if (discussion) { // Add to the discussion
             
               const comment = {
-                user_id: '1234',
+                user_id: '1325361',  // TEMPORARY: user darke_shard on staging
                 body: text,
                 discussion_id: +discussion.id,
               }
+              
+              talkClient.type('comments').create(comment).save()
+                .then (comment => {
+                  this.setState({
+                    postCommentStatus: asyncStates.success,
+                  })
+                  this.fetchComments()
+                })
+                .catch(catchError)
 
             } else {  // Create a new discussion
               
