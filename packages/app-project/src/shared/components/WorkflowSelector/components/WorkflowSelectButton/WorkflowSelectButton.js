@@ -14,8 +14,11 @@ counterpart.registerTranslations('en', en)
 
 export const ThemedButton = withThemeContext(Button, theme)
 
-function WorkflowSelectButton (props) {
-  const { disabled = false, onSelect, workflow, ...rest } = props
+function WorkflowSelectButton ({
+  disabled = false,
+  workflow,
+  ...rest }
+) {
   const router = useRouter()
   const { owner, project } = router?.query || {}
 
@@ -34,10 +37,6 @@ function WorkflowSelectButton (props) {
       {buttonLabel}
     </span>
   )
-
-  function selectSubjectSet(event) {
-    return onSelect(event, workflow)
-  }
 
   if (href && disabled) {
     return (
@@ -60,7 +59,6 @@ function WorkflowSelectButton (props) {
         reverse
         label={label}
         primary
-        onClick={selectSubjectSet}
         {...rest}
       />
     </Link>
@@ -69,7 +67,6 @@ function WorkflowSelectButton (props) {
 
 WorkflowSelectButton.propTypes = {
   disabled: bool,
-  onSelect: func.isRequired,
   theme: object,
   workflow: shape({
     completeness: number,

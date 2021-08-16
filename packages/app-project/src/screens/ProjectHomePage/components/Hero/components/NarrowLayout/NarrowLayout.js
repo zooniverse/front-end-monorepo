@@ -3,7 +3,7 @@ import { arrayOf, shape, string } from 'prop-types'
 
 import Background from '../Background'
 import Introduction from '../Introduction'
-import WorkflowMenu from '../WorkflowMenu'
+import WorkflowSelector from '@shared/components/WorkflowSelector'
 import ContentBox from '@shared/components/ContentBox'
 
 function NarrowLayout (props) {
@@ -23,7 +23,7 @@ function NarrowLayout (props) {
       <Grid margin={{ top: 'medium-neg', horizontal: 'medium' }}>
         <ContentBox gap='medium' >
           <Introduction />
-          <WorkflowMenu
+          <WorkflowSelector
             workflows={workflows}
           />
         </ContentBox>
