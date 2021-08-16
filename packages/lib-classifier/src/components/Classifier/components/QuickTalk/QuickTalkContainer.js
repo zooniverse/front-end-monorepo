@@ -101,11 +101,8 @@ class QuickTalkContainer extends React.Component {
   }
   
   postComment (text) {
-    console.log('+++ POST: ', text)
-    
     const subject = this.props?.subject
     const project = subject?.project
-    console.log('+++ project.slug: ', project.slug)
     if (!subject || !project) {
       return
     }
@@ -122,16 +119,6 @@ class QuickTalkContainer extends React.Component {
       postCommentStatusMessage: '',
     })
     
-    // Example at https://master.pfe-preview.zooniverse.org/projects/darkeshard/transformers/talk/209/348
-    // POST https://talk-staging.zooniverse.org/comments
-    // {
-    //   "http_cache":true,
-    //   "comments":{
-    //     "user_id":"1325361",
-    //     "discussion_id":348,
-    //     "body":"I'm posting this comment to see what is posted to the Talk API."
-    // }}
-    
     const catchError = (err) => {
       console.error(err)
       this.setState({
@@ -144,18 +131,15 @@ class QuickTalkContainer extends React.Component {
     talkClient.type('boards').get({ section, subject_default: true })
       .then(boards => boards[0])
       .then(defaultBoard => {
-        console.log('+++ defaultBoard', defaultBoard)
-        
         if (!defaultBoard) throw('A board for subject comments has not been setup for this project yet.')
         
+        // Next, attempt to find if the Subject already has a discussion attached to it.
         talkClient.type('discussions').get({
           board_id: defaultBoard.id,
           title: discussionTitle,
-          subject_default: true
+          subject_default: true,
         }).then(discussions => discussions[0])
           .then(discussion => {
-            console.log('+++ discussion', discussion)
-            
             if (discussion) { // Add to the discussion
             
               const comment = {
@@ -203,53 +187,8 @@ class QuickTalkContainer extends React.Component {
             }
           })
           .catch(catchError)
-        
       })
       .catch(catchError)
-    
-    // Get project
-    /*
-    apiClient.type('projects').get(project.id)
-      .then ([project]) =>
-        section = projectSection(project)
-
-        # check for a default board
-        talkClient.type('boards').get({section, subject_default: true}).index(0)
-          .then (board) =>
-            if board?
-              discussionTitle = defaultDiscussionTitle(@props.subject)
-
-              talkClient.type('discussions').get(board_id: board.id, title: discussionTitle, subject_default: true).index(0)
-                .then (discussion) =>
-                  if discussion?
-                    user_id = @props.user?.id
-                    body = commentText
-                    discussion_id = +discussion.id
-
-                    comment = merge {}, {user_id, discussion_id, body}
-
-                    talkClient.type('comments').create(comment).save()
-                      .then (comment) =>
-                        @context.router.push "/projects/#{owner}/#{name}/talk/#{discussion.board_id}/#{discussion.id}?comment=#{comment.id}"
-                  else
-                    focus_id = +@props.subject?.id
-                    focus_type = 'Subject' if !!focus_id
-                    user_id = @props.user?.id
-                    body = commentText
-
-                    comments = [merge({}, {user_id, body}, ({focus_id, focus_type} if !!focus_id))]
-
-                    discussion = {
-                      title: "Subject #{@props.subject.id}"
-                      user_id: @props.user?.id
-                      subject_default: true,
-                      board_id: board.id
-                      comments: comments
-                      }
-                    talkClient.type('discussions').create(discussion).save()
-                      .then (discussion) =>
-                        @context.router.push "/projects/#{owner}/#{name}/talk/#{discussion.board_id}/#{discussion.id}"
-          */
   }
     
   render () {
