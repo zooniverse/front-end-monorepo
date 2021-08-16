@@ -19,57 +19,28 @@ export default function WorkflowMenuModal({
 }) {
   const router = useRouter()
   const { owner, project } = router?.query || {}
-  const [ activeSubjectSet, setActiveSubjectSet ] = useState(subjectSetFromUrl)
-  const [ activeWorkflow, setActiveWorkflow ] = useState(workflowFromUrl)
-
-  function onSelectSubjectSet(event, subjectSet) {
-    if (subjectSet.isIndexed) {
-      event.preventDefault()
-      setActiveSubjectSet(subjectSet)
-      return false
-    }
-    return true
-  }
-
-  function onSelectWorkflow(event, workflow) {
-    if (workflow.grouped) {
-      event.preventDefault()
-      setActiveWorkflow(workflow)
-      return false
-    }
-    return true
-  }
-
-  function onClose() {
-    setActiveWorkflow(null)
-    setActiveSubjectSet(null)
-  }
 
   let modalContent = (
     <WorkflowSelector
-      onSelect={onSelectWorkflow}
       workflows={workflows}
     />
   )
   let baseUrl = `/projects/${owner}/${project}/classify`
-  if (activeWorkflow) {
-    baseUrl = `${baseUrl}/workflow/${activeWorkflow.id}`
+  if (workflowFromUrl) {
     modalContent = (
       <SubjectSetPicker
         baseUrl={baseUrl}
-        onClose={onClose}
-        onSelect={onSelectSubjectSet}
-        workflow={activeWorkflow}
+        workflow={workflowFromUrl}
       />
     )
   }
-  if (activeSubjectSet) {
-    baseUrl = `${baseUrl}/subject-set/${activeSubjectSet.id}`
+  if (subjectSetFromUrl) {
+    baseUrl = `${baseUrl}/workflow/${workflowFromUrl.id}`
     modalContent = (
       <SubjectPicker
         baseUrl={baseUrl}
-        subjectSet={activeSubjectSet}
-        workflow={activeWorkflow}
+        subjectSet={subjectSetFromUrl}
+        workflow={workflowFromUrl}
       />
     )
   }
@@ -77,7 +48,7 @@ export default function WorkflowMenuModal({
     <Modal
       active
       headingBackground={headingBackground}
-      title={activeWorkflow ? (activeWorkflow.displayName || 'Choose a subject set') : 'Choose a workflow'}
+      title={workflowFromUrl ? (workflowFromUrl.displayName || 'Choose a subject set') : 'Choose a workflow'}
       titleColor={titleColor}
     >
       {modalContent}
