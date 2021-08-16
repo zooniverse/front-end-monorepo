@@ -26,6 +26,7 @@ class QuickTalkContainer extends React.Component {
       authors: {},
       authorRoles: {},
       postCommentStatus: asyncStates.initialized,
+      postCommentStatusMessage: '',
     }
   }
   
@@ -114,6 +115,7 @@ class QuickTalkContainer extends React.Component {
     
     this.setState({
       postCommentStatus: asyncStates.loading,
+      postCommentStatusMessage: '',
     })
     
     // Example at https://master.pfe-preview.zooniverse.org/projects/darkeshard/transformers/talk/209/348
@@ -126,20 +128,44 @@ class QuickTalkContainer extends React.Component {
     //     "body":"I'm posting this comment to see what is posted to the Talk API."
     // }}
     
+    const catchError = (err) => {
+      console.error(err)
+      this.setState({
+        postCommentStatus: asyncStates.error,
+        postCommentStatusMessage: err?.message || err,
+      })
+    }
+    
     // First, get default board
     talkClient.type('boards').get({ section, subject_default: true })
       .then(boards => boards[0])
       .then(defaultBoard => {
         console.log('+++ defaultBoard', defaultBoard)
         
+        if (!defaultBoard) throw('A board for subject comments has not been setup for this project yet.')
+        
+        talkClient.type('discussions').get({
+          board_id: defaultBoard.id,
+          title: findByDiscussionTitle,
+          subject_default: true
+        }).then(discussions => discussions[0])
+          .then(discussion => {
+            console.log('+++ discussion', discussion)
+            
+            if (!discussion) throw('Default discussion thread not found.')
+            
+            const comment = {
+              user_id: '1234',
+              body: text,
+              discussion_id: +discussion.id,
+            }
+            
+            console.log('+++ Comment: ', comment)
+          })
+          .catch(catchError)
         
       })
-      .catch(err => {
-        console.error(err)
-        this.setState({
-          postCommentStatus: asyncStates.error
-        })
-      })
+      .catch(catchError)
     
     // Get project
     /*
@@ -178,6 +204,7 @@ class QuickTalkContainer extends React.Component {
       authors,
       authorRoles,
       postCommentStatus,
+      postCommentStatusMessage,
     } = this.state
 
     if (!subject) {
@@ -191,6 +218,7 @@ class QuickTalkContainer extends React.Component {
         authors={authors}
         authorRoles={authorRoles}
         postCommentStatus={postCommentStatus}
+        postCommentStatusMessage={postCommentStatusMessage}
         postComment={this.postComment.bind(this)}
       />
     )

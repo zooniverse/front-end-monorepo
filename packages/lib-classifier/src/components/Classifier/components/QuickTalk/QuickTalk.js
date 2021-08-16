@@ -32,6 +32,7 @@ function QuickTalk ({
   authors = {},
   authorRoles = {},
   postCommentStatus = asyncStates.initialized,
+  postCommentStatusMessage = '',
   postComment = () => {},
   screenSize,
   expand = false,
@@ -61,34 +62,39 @@ function QuickTalk ({
       data-testid='quicktalk-panel'
     >
       <div>
-        <a href={subject.talkURL}>[TALK LINK]</a>
-        &nbsp;
-        {comments.length} comment(s)
-      </div>
-      <ul>
-        {comments.map(comment => {
-          const author = authors[comment.user_id]
-          const roles = authorRoles[comment.user_id]
+        <div>
+          <a href={subject.talkURL}>[TALK LINK]</a>
+          &nbsp;
+          {comments.length} comment(s)
+        </div>
+        <ul>
+          {comments.map(comment => {
+            const author = authors[comment.user_id]
+            const roles = authorRoles[comment.user_id]
 
-          return (
-            <Comment
-              key={`quicktalk-comment-${comment.id}`}
-              comment={comment}
-              author={author}
-              roles={roles}
-            />
-          )
-        })}
-      </ul>
-      <div>
-        Post Comment Status: {postCommentStatus}
-      </div>
-      <PostForm
-        postComment={postComment}
-        postCommentStatus={postCommentStatus}
-      />
-      <div>
-        <Button onClick={() => setExpand(false)}>Close</Button>
+            return (
+              <Comment
+                key={`quicktalk-comment-${comment.id}`}
+                comment={comment}
+                author={author}
+                roles={roles}
+              />
+            )
+          })}
+        </ul>
+        <div>
+          Post Comment Status: {postCommentStatus}
+        </div>
+        <div>
+          [{postCommentStatusMessage}]
+        </div>
+        <PostForm
+          postComment={postComment}
+          postCommentStatus={postCommentStatus}
+        />
+        <div>
+          <Button onClick={() => setExpand(false)}>Close</Button>
+        </div>
       </div>
     </FixedBox>
   )
@@ -100,6 +106,7 @@ QuickTalk.propTypes = {
   authors: PropTypes.object,
   authorRoles: PropTypes.object,
   postCommentStatus: PropTypes.string,
+  postCommentStatusMessage: PropTypes.string,
   postComment: PropTypes.func,
   expand: PropTypes.bool,
 }
