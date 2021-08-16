@@ -1,5 +1,6 @@
 import { mount, shallow } from 'enzyme'
 import { Grommet } from 'grommet'
+import Link from 'next/link'
 import nock from 'nock'
 import zooTheme from '@zooniverse/grommet-theme'
 
@@ -21,7 +22,7 @@ describe('Components > Subject Picker', function () {
   before(function () {
     wrapper = shallow(
       <SubjectPicker
-        baseUrl="/workflow/12345/subject-set/4567"
+        baseUrl="/workflow/12345"
         subjectSet={subjectSet}
         workflow={workflow}
       />
@@ -70,6 +71,7 @@ describe('Components > Subject Picker', function () {
       })
       wrapper = mount(
         <SubjectPicker
+          baseUrl="/workflow/12345"
           subjectSet={subjectSet}
           workflow={workflow}
         />,
@@ -89,6 +91,18 @@ describe('Components > Subject Picker', function () {
       wrapper.update()
       const dataTable = wrapper.find(SubjectDataTable)
       expect(dataTable.prop('data').length).to.equal(3)
+    })
+  })
+
+  describe('Back link', function () {
+    let link
+
+    before(function () {
+      link = wrapper.find(Link).first()
+    })
+
+    it('should link to the base URL', function () {
+      expect(link.prop('href')).to.equal('/workflow/12345')
     })
   })
 })
