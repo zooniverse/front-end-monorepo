@@ -110,8 +110,12 @@ class QuickTalkContainer extends React.Component {
       return
     }
     
+    // TEMPORARY: user darke_shard on staging
+    // TODO: figure out how to pass user object down from app-project?
+    const userId = '1325361'
+    
     const section = 'project-' + project.id
-    const findByDiscussionTitle = 'Subject ' + subject.id
+    const discussionTitle = 'Subject ' + subject.id
     
     this.setState({
       postCommentStatus: asyncStates.loading,
@@ -146,7 +150,7 @@ class QuickTalkContainer extends React.Component {
         
         talkClient.type('discussions').get({
           board_id: defaultBoard.id,
-          title: findByDiscussionTitle,
+          title: discussionTitle,
           subject_default: true
         }).then(discussions => discussions[0])
           .then(discussion => {
@@ -155,7 +159,7 @@ class QuickTalkContainer extends React.Component {
             if (discussion) { // Add to the discussion
             
               const comment = {
-                user_id: '1325361',  // TEMPORARY: user darke_shard on staging
+                user_id: userId,
                 body: text,
                 discussion_id: +discussion.id,
               }
@@ -164,14 +168,38 @@ class QuickTalkContainer extends React.Component {
                 .then (comment => {
                   this.setState({
                     postCommentStatus: asyncStates.success,
+                    postCommentStatusMessage: '',
                   })
                   this.fetchComments()
                 })
                 .catch(catchError)
 
             } else {  // Create a new discussion
+
+              const comments = [{
+                user_id: userId,
+                body: text,
+                focus_id: +subject.id,
+                focus_type: 'Subject',
+              }]
+
+              const discussion = {
+                title: discussionTitle,
+                user_id: userId,
+                subject_default: true,
+                board_id: defaultBoard.id,
+                comments: comments,
+              }
               
-              
+              talkClient.type('discussions').create(discussion).save()
+                .then (discussion => {
+                  this.setState({
+                    postCommentStatus: asyncStates.success,
+                    postCommentStatusMessage: '',
+                  })
+                  this.fetchComments()
+                })
+                .catch(catchError)
             }
           })
           .catch(catchError)
