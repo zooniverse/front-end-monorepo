@@ -57,6 +57,7 @@ describe('Component > ProjectAboutPage & Connector', function () {
   }
 
   let routerMock
+  let scrollMock
 
   before(function () {
     routerMock = sinon.stub(Router, 'useRouter').callsFake(() => {
@@ -67,10 +68,13 @@ describe('Component > ProjectAboutPage & Connector', function () {
         query: { owner: 'foo', project: 'bar' }
       }
     })
+    // Calling window.scrollTo is a side effect of clicking a Grommet Dropbutton
+    scrollMock = sinon.stub(window, 'scrollTo').callsFake(() => {})
   })
 
   after(function () {
     routerMock.restore()
+    scrollMock.restore()
   })
 
   describe('ProjectAboutPageConnector', function () {
@@ -123,11 +127,7 @@ describe('Component > ProjectAboutPage & Connector', function () {
       // AboutDropdown exists because default screen size is small
       const dropdown = getByTestId('about-pages-dropdown')
       expect(dropdown).to.exist()
-
-      // This a side effect behavior of clicking a Grommet DropButton
-      window.scrollTo = () => {}
       fireEvent.click(dropdown)
-
       const navContainer = getByTestId('mobile-about-pages-nav')
       const links = getAllByRole(navContainer, 'link')
       expect(links).to.have.lengthOf(3)

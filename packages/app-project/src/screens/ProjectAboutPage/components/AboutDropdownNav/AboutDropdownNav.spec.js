@@ -1,11 +1,22 @@
 import { render, fireEvent } from '@testing-library/react'
 import * as stories from './AboutDropdownNav.stories'
+import sinon from 'sinon'
 
 describe('Component > AboutDropdownNav', function () {
   const { Default, MoreLinks } = stories
 
+  let scrollMock
+
+  before(function () {
+    // Calling window.scrollTo is a side effect of clicking a Grommet Dropbutton
+    scrollMock = sinon.stub(window, 'scrollTo').callsFake(() => {})
+  })
+
+  after(function () {
+    scrollMock.restore()
+  })
+
   it('should always render at least two links: Research and The Team', function () {
-    window.scrollTo = () => {} // this a side effect behavior of clicking a Grommet DropButton
     const { getByRole, getByText } = render(<Default />)
     fireEvent.click(getByRole('button'))
     expect(getByText('research')).to.exist()
