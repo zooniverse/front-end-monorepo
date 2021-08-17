@@ -24,7 +24,7 @@ describe('Component > DailyClassificationsChartContainer', function () {
   before(function () {
     clock = sinon.useFakeTimers({ now: new Date('2019-10-06'), toFake: ['Date'] })
     wrapper = shallow(
-      <DailyClassificationsChartContainer.wrappedComponent
+      <DailyClassificationsChartContainer
         counts={MOCK_TOTALS}
         projectName='Test Project'
         thisWeek={MOCK_DAILY_COUNTS}

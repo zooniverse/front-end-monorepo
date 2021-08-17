@@ -1,56 +1,44 @@
 import counterpart from 'counterpart'
-import { inject, observer } from 'mobx-react'
 import { array, number, shape, string } from 'prop-types'
-import { Component } from 'react'
 
 import DailyClassificationsChart from './DailyClassificationsChart'
 
-function storeMapper (stores) {
-  const { project, user: { personalization: { counts, stats: { thisWeek } } } } = stores.store
-  return {
-    counts,
-    thisWeek,
-    projectName: project['display_name']
-  }
+const defaultCounts = {
+  today: 0
 }
 
-@inject(storeMapper)
-@observer
-class DailyClassificationsChartContainer extends Component {
-  render () {
-    const TODAY = new Date()
-    const { counts, projectName, thisWeek } = this.props
-    const stats = thisWeek.map(stat => {
-      const day = new Date(stat.period)
-      const locale = counterpart.getLocale()
-      const count = (day.getUTCDay() === TODAY.getUTCDay()) ? counts.today : stat.count
-      const longLabel = day.toLocaleDateString(locale, { weekday: 'long' })
-      const alt = `${longLabel}: ${count}`
-      const label = day.toLocaleDateString(locale, { weekday: 'narrow' })
-      return Object.assign({}, stat, { alt, count, label, longLabel })
-    })
-    return (
-      <DailyClassificationsChart
-        stats={stats}
-        projectName={projectName}
-      />
-    )
-  }
+function DailyClassificationsChartContainer({
+  counts = defaultCounts,
+  projectName,
+  thisWeek = []
+}) {
+  const TODAY = new Date()
+  const stats = thisWeek.map(stat => {
+    const day = new Date(stat.period)
+    const locale = counterpart.getLocale()
+    const count = (day.getUTCDay() === TODAY.getUTCDay()) ? counts.today : stat.count
+    const longLabel = day.toLocaleDateString(locale, { weekday: 'long' })
+    const alt = `${longLabel}: ${count}`
+    const label = day.toLocaleDateString(locale, { weekday: 'narrow' })
+    return Object.assign({}, stat, { alt, count, label, longLabel })
+  })
+  return (
+    <DailyClassificationsChart
+      stats={stats}
+      projectName={projectName}
+    />
+  )
 }
 
 DailyClassificationsChartContainer.propTypes = {
+  /** Today's counts, updated as classifications are made. */
   counts: shape({
     today: number
   }),
+  /** Project name */
   projectName: string.isRequired,
+  /** Array of daily stats from the stats server */
   thisWeek: array
-}
-
-DailyClassificationsChartContainer.defaultProps = {
-  counts: {
-    today: 0
-  },
-  thisWeek: []
 }
 
 export default DailyClassificationsChartContainer

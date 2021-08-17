@@ -18,7 +18,7 @@ const MOCK_TOTALS = {
 
 export default {
   title: 'Project App / Screens / Classify / Daily Classifications Chart',
-  component: DailyClassificationsChart.wrappedComponent,
+  component: DailyClassificationsChart,
   args: {
     counts: MOCK_TOTALS,
     projectName: 'Snapshot Serengeti',
@@ -29,7 +29,7 @@ export default {
 export function Plain({ counts, projectName, thisWeek }) {
   return (
     <Grommet theme={zooTheme}>
-      <DailyClassificationsChart.wrappedComponent
+      <DailyClassificationsChart
         counts={counts}
         thisWeek={thisWeek}
         projectName={projectName}
