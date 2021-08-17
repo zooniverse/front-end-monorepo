@@ -58,50 +58,7 @@ describe('Helpers > getStaticPageProps', function () {
     }
   }
 
-  const availableSubjects = {
-      1: 4,
-      2: 10,
-      3: 10
-  }
-
-  const completeness = {
-    1: 0.6,
-    2: 0,
-    3: 0
-  }
-
-  function subjectSet(id) {
-    return {
-      id,
-      display_name: `test set ${id}`,
-      isIndexed: false,
-      set_member_subjects_count: 10,
-      subjects: mockSetSubjects
-    }
-  }
-
-  const mockSetSubjects = [
-    {
-      "id":"47696316",
-      "metadata":{"Filename":"ultraman-x.png"},
-      "locations":[
-        {"image/png":"https://panoptes-uploads.zooniverse.org/production/subject_location/78964ce7-72db-4607-b493-63626738cf4e.png"}
-      ],
-      "zooniverse_id":null,
-      "external_id":null,
-      "created_at":"2020-07-09T20:47:07.128Z",
-      "updated_at":"2020-07-09T20:47:07.128Z",
-      "href":"/subjects/47696316",
-      "links":{"project":"12754","collections":[],"subject_sets":["85771"],"set_member_subjects":["80512512"]}}
-  ]
-
   function mockAPI(panoptesHost) {
-    const cellect = nock('https://cellect.zooniverse.org')
-    .persist()
-    .get('/workflows/2/status')
-    .reply(200, {
-      groups: availableSubjects
-    })
     const scope = nock(panoptesHost)
       .persist()
       .get('/projects')
@@ -136,22 +93,6 @@ describe('Helpers > getStaticPageProps', function () {
       })
       .reply(200, {
         translations: [GROUPED_TRANSLATION]
-      })
-      .get('/subject_sets')
-      .query(query => query.id === '1,2,3')
-      .reply(200, {
-        subject_sets: [
-          subjectSet('1'),
-          subjectSet('2'),
-          subjectSet('3')
-        ]
-      })
-      .get('/set_member_subjects')
-      .query(query => query.include === 'subject')
-      .reply(200, {
-        linked: {
-          subjects: mockSetSubjects
-        }
       })
       .get('/workflows')
       .query(query => query.id === '1')
@@ -224,44 +165,6 @@ describe('Helpers > getStaticPageProps', function () {
 
       it('should return a project error message', function () {
         expect(props.title).to.equal('Project test-owner/test-wrong-project was not found')
-      })
-    })
-
-    describe('with a grouped workflow', function () {
-      it('should return the project\'s active workflows with subject sets', async function () {
-        const params = {
-          owner: 'test-owner',
-          project: 'grouped-project',
-          workflowID: '2'
-        }
-        const query = {
-          env: 'staging'
-        }
-        const req = {
-          connection: {
-            encrypted: true
-          },
-          headers: {
-            host: 'www.zooniverse.org'
-          }
-        }
-        const res = {}
-        const { props } = await getStaticPageProps({ params, query })
-        expect(props.workflows).to.deep.equal([
-          {
-            completeness: 0.4,
-            configuration: {},
-            default: true,
-            grouped: true,
-            id: '2',
-            displayName: 'Bar',
-            subjectSets: [
-              Object.assign(subjectSet('1'), { completeness: completeness[1] }),
-              Object.assign(subjectSet('2'), { completeness: completeness[2] }),
-              Object.assign(subjectSet('3'), { completeness: completeness[3] })
-            ]
-          }
-        ])
       })
     })
 
@@ -353,44 +256,6 @@ describe('Helpers > getStaticPageProps', function () {
 
       it('should return a project error message', function () {
         expect(props.title).to.equal('Project test-owner/test-wrong-project was not found')
-      })
-    })
-
-    describe('with a grouped workflow', function () {
-      it('should return the project\'s active workflows with subject sets', async function () {
-        const params = {
-          owner: 'test-owner',
-          project: 'grouped-project',
-          workflowID: '2'
-        }
-        const query = {
-          env: 'production'
-        }
-        const req = {
-          connection: {
-            encrypted: true
-          },
-          headers: {
-            host: 'www.zooniverse.org'
-          }
-        }
-        const res = {}
-        const { props } = await getStaticPageProps({ params, query })
-        expect(props.workflows).to.deep.equal([
-          {
-            completeness: 0.4,
-            configuration: {},
-            default: true,
-            grouped: true,
-            id: '2',
-            displayName: 'Bar',
-            subjectSets: [
-              Object.assign(subjectSet('1'), { completeness: completeness[1] }),
-              Object.assign(subjectSet('2'), { completeness: completeness[2] }),
-              Object.assign(subjectSet('3'), { completeness: completeness[3] })
-            ]
-          }
-        ])
       })
     })
 

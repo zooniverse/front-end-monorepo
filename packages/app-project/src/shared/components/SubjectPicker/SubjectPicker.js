@@ -1,10 +1,14 @@
-import { Modal, SpacedText } from '@zooniverse/react-components'
+import { Modal, PlainButton, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { debounce } from 'lodash'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react';
+import { array, bool, func, number, shape, string } from 'prop-types'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Box, DataTable, Heading, Paragraph } from 'grommet'
+
+import addQueryParams from '@helpers/addQueryParams'
 
 import { columns, fetchRows, fetchSubjects, searchParams } from './helpers'
 import en from './locales/en'
@@ -46,6 +50,7 @@ export const SubjectDataTable = styled(DataTable)`
 const PAGE_SIZE = 10
 
 export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
+  const router = useRouter()
   const [ rows, setRows ] = useState([])
   const [ query, setQuery ] = useState('')
   const [ sortField, setSortField ] = useState('priority')
@@ -96,6 +101,14 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
   }
   return (
     <>
+      <Link
+        href={addQueryParams(baseUrl, router)}
+        passHref
+      >
+        <PlainButton
+          text={counterpart('SubjectPicker.back')}
+        />
+      </Link>
       <StyledHeading
         level={3}
         margin={{ top: 'xsmall', bottom: 'none' }}
@@ -131,7 +144,7 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
       </StyledBox>
       <SubjectDataTable
         background={background}
-        columns={columns(customHeaders, baseUrl)}
+        columns={columns(customHeaders, `${baseUrl}/subject-set/${subjectSet.id}`)}
         data={rows}
         fill
         onSearch={debounce(search, 500)}
@@ -144,4 +157,30 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
       />
     </>
   )
+}
+
+SubjectPicker.propTypes = {
+  /**
+    Base URL for links eg. `/projects/${owner}/${project}/classify/workflow/${workflow.id}`
+  */
+  baseUrl: string.isRequired,
+  /**
+    The selected subject set.
+  */
+  subjectSet: shape({
+    completeness: number,
+    display_name: string,
+    id: string,
+    subjects: array
+  }),
+  /**
+    The selected workflow.
+  */
+  workflow: shape({
+    completeness: number,
+    default: bool,
+    display_name: string,
+    id: string,
+    subjectSets: array
+  }).isRequired
 }

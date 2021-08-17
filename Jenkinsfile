@@ -15,6 +15,12 @@
 pipeline {
   agent none
 
+  // enable BUILDKIT https://docs.docker.com/develop/develop-images/build_enhancements/#to-enable-buildkit-builds
+  // for all build stages
+  environment { 
+    DOCKER_BUILDKIT = 1
+  }
+
   options {
     quietPeriod(120) // builds happen at least 120 seconds apart
     disableConcurrentBuilds()
