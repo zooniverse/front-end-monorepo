@@ -23,7 +23,7 @@ class DailyClassificationsChartContainer extends Component {
     const stats = thisWeek.map(stat => {
       const day = new Date(stat.period)
       const locale = counterpart.getLocale()
-      const count = (day.getDay() === TODAY.getDay()) ? counts.today : stat.count
+      const count = (day.getUTCDay() === TODAY.getUTCDay()) ? counts.today : stat.count
       const longLabel = day.toLocaleDateString(locale, { weekday: 'long' })
       const alt = `${longLabel}: ${count}`
       const label = day.toLocaleDateString(locale, { weekday: 'narrow' })
