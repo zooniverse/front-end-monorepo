@@ -1,7 +1,7 @@
 import { Box, Grommet } from 'grommet'
 import { Provider, observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import Tasks from '@components/Classifier/components/TaskArea/components/Tasks/Tasks'
+import Tasks from '@components/Classifier/components/TaskArea/components/Tasks'
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { createStore }  from '@store/helpers'
@@ -37,7 +37,7 @@ function addStepToStore(taskSnapshots = {}, isThereTaskHelp = true) {
 /**
   Initialise the store state on story load.
 */
-function initStore(loadingState, tasks) {
+function initStore(tasks) {
   store = store ?? createStore()
   const workflow = WorkflowFactory.build(Object.assign({}, { tasks }))
   store.workflows.setResources([workflow])
@@ -72,9 +72,9 @@ export default function MockTask({
   const [ loaded, setLoaded ] = useState(false)
 
   useEffect(function init() {
-    initStore(loadingState, tasks)
+    initStore(tasks)
     setLoaded(true)
-  }, [])
+  }, [tasks])
 
   useEffect(function onTasksChange() {
     addStepToStore(tasks, isThereTaskHelp)

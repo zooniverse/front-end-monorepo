@@ -1,7 +1,6 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 
 import { logToSentry } from '@helpers/logger'
-import fetchSubjectSets from '@helpers/fetchSubjectSets'
 
 async function fetchWorkflowData (activeWorkflows, env) {
   try {
@@ -46,9 +45,6 @@ async function buildWorkflow(workflow, displayName, isDefault, env) {
     grouped: workflow.grouped,
     id: workflow.id,
     subjectSets: []
-  }
-  if (workflow.grouped) {
-    workflowData.subjectSets = await fetchSubjectSets(workflow, env)
   }
 
   return workflowData
