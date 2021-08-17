@@ -39,6 +39,7 @@ function PostForm ({
   return (
     <Box
       background={{ dark: 'dark-1', light: 'light-1' }}
+      flex={false}
     >
       <form onSubmit={onSubmit}>
         <TextArea

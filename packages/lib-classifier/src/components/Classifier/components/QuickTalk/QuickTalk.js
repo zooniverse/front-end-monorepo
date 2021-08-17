@@ -47,15 +47,15 @@ function QuickTalk ({
   if (!subject) return null
   
   const [_expand, setExpand] = React.useState(expand)
+  const buttonLabel = `${comments.length} comment(s)`
   
   if (!_expand) {
     return (
       <FixedButton
         onClick={() => setExpand(true)}
         data-testid='quicktalk-button'
-      >
-        {comments.length} comment(s)
-      </FixedButton>
+        label={buttonLabel}
+      />
     )
   }
   
@@ -65,13 +65,15 @@ function QuickTalk ({
       background={{ dark: 'dark-3', light: 'light-3' }}
       data-testid='quicktalk-panel'
     >
-      <div>
-        <div>
+      <Box>
+        <Box flex={false}>
           <a href={subject.talkURL}>[TALK LINK]</a>
           &nbsp;
           {comments.length} comment(s)
-        </div>
-        <UnorderedList as='ul'>
+          
+          <Button onClick={() => setExpand(false)}>Close</Button>
+        </Box>
+        <UnorderedList as='ul' flex={false}>
           {comments.map(comment => {
             const author = authors[comment.user_id]
             const roles = authorRoles[comment.user_id]
@@ -86,20 +88,15 @@ function QuickTalk ({
             )
           })}
         </UnorderedList>
-        <div>
+        <Box flex={false}>
           Post Comment Status: {postCommentStatus}
-        </div>
-        <div>
           [{postCommentStatusMessage}]
-        </div>
+        </Box>
         <PostForm
           postComment={postComment}
           postCommentStatus={postCommentStatus}
         />
-        <div>
-          <Button onClick={() => setExpand(false)}>Close</Button>
-        </div>
-      </div>
+      </Box>
     </FixedBox>
   )
 }
