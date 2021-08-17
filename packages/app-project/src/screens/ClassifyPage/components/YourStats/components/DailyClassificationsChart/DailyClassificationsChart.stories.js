@@ -1,7 +1,7 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 
-import DailyClassificationsChart from './DailyClassificationsChartContainer'
+import DailyClassificationsChartContainer from './DailyClassificationsChartContainer'
 const MOCK_DAILY_COUNTS = [
   { count: 87, period: '2019-09-30' },
   { count: 32, period: '2019-10-01' },
@@ -18,7 +18,7 @@ const MOCK_TOTALS = {
 
 export default {
   title: 'Project App / Screens / Classify / Daily Classifications Chart',
-  component: DailyClassificationsChart,
+  component: DailyClassificationsChartContainer,
   args: {
     counts: MOCK_TOTALS,
     projectName: 'Snapshot Serengeti',
@@ -29,7 +29,7 @@ export default {
 export function Plain({ counts, projectName, thisWeek }) {
   return (
     <Grommet theme={zooTheme}>
-      <DailyClassificationsChart
+      <DailyClassificationsChartContainer
         counts={counts}
         thisWeek={thisWeek}
         projectName={projectName}
