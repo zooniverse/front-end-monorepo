@@ -26,6 +26,10 @@ const FixedButton = styled(Button)`
   border: 1px solid red;
 `
 
+const UnorderedList = styled(Box)`
+  padding: 0;
+`
+
 function QuickTalk ({
   subject,
   comments = [],
@@ -67,7 +71,7 @@ function QuickTalk ({
           &nbsp;
           {comments.length} comment(s)
         </div>
-        <ul>
+        <UnorderedList as='ul'>
           {comments.map(comment => {
             const author = authors[comment.user_id]
             const roles = authorRoles[comment.user_id]
@@ -81,7 +85,7 @@ function QuickTalk ({
               />
             )
           })}
-        </ul>
+        </UnorderedList>
         <div>
           Post Comment Status: {postCommentStatus}
         </div>

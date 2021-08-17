@@ -6,7 +6,7 @@ TODO:
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Button, TextArea } from 'grommet'
-import { Markdownz, MarkdownEditor } from '@zooniverse/react-components'
+import { Markdownz, MarkdownEditor, PrimaryButton } from '@zooniverse/react-components'
 import asyncStates from '@zooniverse/async-states'
 
 function stopEvent (e) {
@@ -37,19 +37,20 @@ function PostForm ({
   const disabled = postCommentStatus === asyncStates.loading
   
   return (
-    <Box>
+    <Box
+      background={{ dark: 'dark-1', light: 'light-1' }}
+    >
       <form onSubmit={onSubmit}>
         <TextArea
           value={text}
           onChange={e => setText(e.target.value)}
           disabled={disabled}
         />
-        <Button
+        <PrimaryButton
           onClick={onSubmit}
           type='submit'
-        >
-          Submit
-        </Button>
+          label='Post'
+        />
       </form>
     </Box>
   )

@@ -39,9 +39,13 @@ function Comment ({
   return (
     <Box
       as='li'
+      background={{ dark: 'dark-1', light: 'light-1' }}
       direction='row'
+      margin={{ horizontal: 'none', 'vertical': 'xsmall' }}
     >
       <Box
+        margin='xsmall'
+        pad='xsmall'
         width='small'
       >
         <UserAvatar
@@ -55,6 +59,8 @@ function Comment ({
       </Box>
       <Box
         flex={true}
+        pad='xsmall'
+        width='small'
       >
         <Markdownz>
           {comment?.body}
