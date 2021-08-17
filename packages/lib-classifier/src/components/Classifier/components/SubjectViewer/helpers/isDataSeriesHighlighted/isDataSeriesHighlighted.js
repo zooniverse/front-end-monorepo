@@ -1,3 +1,4 @@
 export default function isDataSeriesHighlighted ({ highlightedSeries: highlightedSeries = [], seriesOptions: seriesOptions = {} }) {
-  return highlightedSeries.includes(seriesOptions.label)
+  if (highlightedSeries.length > 0) return highlightedSeries.includes(seriesOptions.label)
+  return true
 }
