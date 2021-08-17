@@ -1,4 +1,3 @@
-import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 
@@ -17,13 +16,25 @@ const MOCK_TOTALS = {
   today: 25
 }
 
-storiesOf('Project App / Screens / Classify / Daily Classifications Chart', module)
-  .add('plain', () => (
+export default {
+  title: 'Project App / Screens / Classify / Daily Classifications Chart',
+  component: DailyClassificationsChart.wrappedComponent,
+  args: {
+    counts: MOCK_TOTALS,
+    projectName: 'Snapshot Serengeti',
+    thisWeek: MOCK_DAILY_COUNTS
+  }
+}
+
+export function Plain({ counts, projectName, thisWeek }) {
+  return (
     <Grommet theme={zooTheme}>
       <DailyClassificationsChart.wrappedComponent
-        counts={MOCK_TOTALS}
-        thisWeek={MOCK_DAILY_COUNTS}
-        projectName='Snapshot Serengeti'
+        counts={counts}
+        thisWeek={thisWeek}
+        projectName={projectName}
       />
     </Grommet>
-  ))
+  )
+}
+
