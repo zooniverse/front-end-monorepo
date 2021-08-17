@@ -65,7 +65,7 @@ HighlightSeriesCheckBoxes.propTypes = {
     seriesData: PropTypes.array,
     seriesOptions: PropTypes.object
   })).isRequired,
-  highlightedSeries: PropTypes.arrayOf(PropTypes.object).isRequired,
+  highlightedSeries: PropTypes.arrayOf(PropTypes.string).isRequired,
   setSeriesHighlight: PropTypes.func,
   theme: PropTypes.object
 }
