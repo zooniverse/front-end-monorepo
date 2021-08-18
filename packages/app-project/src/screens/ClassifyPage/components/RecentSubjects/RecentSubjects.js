@@ -20,6 +20,7 @@ function RecentSubjects ({
   const { publicRuntimeConfig = {} } = getConfig() || {}
   const assetPrefix = publicRuntimeConfig.assetPrefix || ''
   const placeholderUrl = `${assetPrefix}/subject-placeholder.png`
+  const displayedRecents = recents.slice(0, size)
 
   return (
     <ContentBox title={counterpart('RecentSubjects.title', { projectName })}>
@@ -31,7 +32,7 @@ function RecentSubjects ({
         columns={[`repeat(${size}, 1fr)`]}
         gap='small'
       >
-        {recents.map(recent => {
+        {displayedRecents.map(recent => {
           const subject = {
             favorite: recent.favorite,
             id: recent.subjectId,
@@ -50,7 +51,7 @@ function RecentSubjects ({
             />
           )
         })}
-        {[...Array(size - recents.length)].map((placeholder, i) => {
+        {[...Array(size - displayedRecents.length)].map((placeholder, i) => {
           return (
             <Box
               align='center'

@@ -1,7 +1,7 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 
-import { RecentSubjectsContainer } from './RecentSubjectsContainer'
+import RecentSubjects from './RecentSubjects'
 
 const RECENTS = [
   {
@@ -84,7 +84,7 @@ RECENTS.forEach(recent => {
 
 export default {
   title: 'Project App / Screens / Classify / Recent Subjects',
-  component: RecentSubjectsContainer,
+  component: RecentSubjects,
   args: {
     dark: false,
     isLoggedIn: true
@@ -99,7 +99,7 @@ export default {
 export function Plain({ dark, isLoggedIn }) {
   return (
     <Grommet theme={{ ...zooTheme, dark }}>
-      <RecentSubjectsContainer
+      <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={RECENTS}
         projectName='Snapshot Serengeti'
@@ -112,7 +112,7 @@ export function Plain({ dark, isLoggedIn }) {
 export function NarrowScreens({ dark, isLoggedIn }) {
   return (
     <Grommet theme={{ ...zooTheme, dark }}>
-      <RecentSubjectsContainer
+      <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={RECENTS}
         projectName='Snapshot Serengeti'
@@ -132,7 +132,7 @@ NarrowScreens.parameters = {
 export function Transcription({ dark, isLoggedIn }) {
   return (
     <Grommet theme={{ ...zooTheme, dark }}>
-      <RecentSubjectsContainer
+      <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={PORTRAIT_SUBJECTS}
         projectName='Notes from Nature'
@@ -145,7 +145,7 @@ export function Transcription({ dark, isLoggedIn }) {
 export function Video({ dark, isLoggedIn }) {
   return (
     <Grommet theme={{ ...zooTheme, dark }}>
-      <RecentSubjectsContainer
+      <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={VIDEO_SUBJECTS}
         projectName='NestCams'
@@ -158,7 +158,7 @@ export function Video({ dark, isLoggedIn }) {
 export function OneSubject({ dark, isLoggedIn }) {
   return (
     <Grommet theme={{ ...zooTheme, dark }}>
-      <RecentSubjectsContainer
+      <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={RECENTS.slice(0, 1)}
         projectName='NestCams'
