@@ -1,9 +1,10 @@
 import WorkflowAssignmentModalContainer from './WorkflowAssignmentModalContainer'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
+import asyncStates from '@zooniverse/async-states'
 
 export default {
-  title: 'Workflow Assignment / Assignment Modal',
+  title: 'Project App / Screens / Classify / Workflow Assignment / Assignment Modal',
   component: WorkflowAssignmentModalContainer,
   args: {
     dark: false
@@ -31,7 +32,12 @@ export function Default({ dark }) {
       theme={zooTheme}
       themeMode={(dark) ? 'dark' : 'light'}
     >
-      <WorkflowAssignmentModalContainer projectPreferences={projectPreferences} />
+      <WorkflowAssignmentModalContainer
+        assignedWorkflowID='1234'
+        currentWorkflowID='5678'
+        loadingState={asyncStates.success}
+        promptAssignment={() => true}
+      />
     </Grommet>
   )
 }

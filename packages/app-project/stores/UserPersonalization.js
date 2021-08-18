@@ -30,6 +30,10 @@ const UserPersonalization = types
         today,
         total: self.totalClassificationCount
       }
+    },
+
+    get sessionCountIsDivisibleByFive() {
+      return self.sessionCount % 5 === 0
     }
   }))
   .actions(self => {
@@ -39,9 +43,10 @@ const UserPersonalization = types
         if (project.id && user.id) {
           self.projectPreferences.fetchResource()
           self.stats.fetchDailyCounts()
+        } else if (user.loadingState === asyncStates.success) {
+          self.projectPreferences.setLoadingState(asyncStates.success)
         } else {
           self.projectPreferences.reset()
-          self.projectPreferences.setLoadingState(asyncStates.success)
         }
       })
       addDisposer(self, parentDisposer)
@@ -54,6 +59,10 @@ const UserPersonalization = types
       increment() {
         self.sessionCount = self.sessionCount + 1
         self.totalClassificationCount = self.totalClassificationCount + 1
+
+        if (self.sessionCountIsDivisibleByFive) {
+          self.projectPreferences.refreshResource()
+        }
       },
 
       setTotalClassificationCount(count) {
