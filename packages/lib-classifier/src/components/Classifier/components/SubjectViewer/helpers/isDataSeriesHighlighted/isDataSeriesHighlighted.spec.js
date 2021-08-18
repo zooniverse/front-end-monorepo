@@ -1,3 +1,4 @@
+import { expect } from 'chai'
 import isDataSeriesHighlighted from './isDataSeriesHighlighted'
 
 describe('Helper > isDataSeriesHighlighted', function () {
@@ -10,9 +11,9 @@ describe('Helper > isDataSeriesHighlighted', function () {
   })
 
   it('should return the highlight state of the series parameters', function () {
-    const highlightedSeries = [{ foo: true }, { bar: false }]
-    const firstSeriesHighlightState = isDataSeriesHighlighted(highlightedSeries, 0)
-    const secondSeriesHighlightState = isDataSeriesHighlighted(highlightedSeries, 1)
+    const highlightedSeries = [ 'foo' ]
+    const firstSeriesHighlightState = isDataSeriesHighlighted({ highlightedSeries, seriesOptions: { label: 'foo' } })
+    const secondSeriesHighlightState = isDataSeriesHighlighted({ highlightedSeries, seriesOptions: { label: 'bar' } })
     expect(firstSeriesHighlightState).to.be.true()
     expect(secondSeriesHighlightState).to.be.false()
   })
