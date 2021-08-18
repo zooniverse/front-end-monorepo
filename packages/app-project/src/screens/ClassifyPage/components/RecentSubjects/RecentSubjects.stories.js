@@ -1,5 +1,3 @@
-import { storiesOf } from '@storybook/react'
-import { withKnobs, boolean } from '@storybook/addon-knobs'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 
@@ -84,56 +82,88 @@ RECENTS.forEach(recent => {
   recent.toggleFavourite = toggle.bind(recent)
 })
 
-storiesOf('Project App / Screens / Classify / Recent Subjects', module)
-  .addDecorator(withKnobs)
-  .add('plain', () => (
-    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
+export default {
+  title: 'Project App / Screens / Classify / Recent Subjects',
+  component: RecentSubjectsContainer,
+  args: {
+    dark: false,
+    isLoggedIn: true
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: 'responsive'
+    }
+  }
+}
+
+export function Plain({ dark, isLoggedIn }) {
+  return (
+    <Grommet theme={{ ...zooTheme, dark }}>
       <RecentSubjectsContainer
-        isLoggedIn={boolean('User logged in', true)}
+        isLoggedIn={isLoggedIn}
         recents={RECENTS}
         projectName='Snapshot Serengeti'
         slug='zooniverse/snapshot-serengeti'
       />
     </Grommet>
-  ), { viewport: { defaultViewport: 'responsive' } })
-  .add('narrow screens', () => (
-    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
+  )
+}
+
+export function NarrowScreens({ dark, isLoggedIn }) {
+  return (
+    <Grommet theme={{ ...zooTheme, dark }}>
       <RecentSubjectsContainer
-        isLoggedIn={boolean('User logged in', true)}
+        isLoggedIn={isLoggedIn}
         recents={RECENTS}
         projectName='Snapshot Serengeti'
         size={1}
         slug='zooniverse/snapshot-serengeti'
       />
     </Grommet>
-  ), { viewport: { defaultViewport: 'iphone5' } })
-  .add('transcription', () => (
-    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
+  )
+}
+
+NarrowScreens.parameters = {
+  viewport: {
+    defaultViewport: 'iphone5' 
+  }
+}
+
+export function Transcription({ dark, isLoggedIn }) {
+  return (
+    <Grommet theme={{ ...zooTheme, dark }}>
       <RecentSubjectsContainer
-        isLoggedIn={boolean('User logged in', true)}
+        isLoggedIn={isLoggedIn}
         recents={PORTRAIT_SUBJECTS}
         projectName='Notes from Nature'
         slug='zooniverse/notes-from-nature'
       />
     </Grommet>
-  ), { viewport: { defaultViewport: 'responsive' } })
-  .add('video', () => (
-    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
+  )
+}
+
+export function Video({ dark, isLoggedIn }) {
+  return (
+    <Grommet theme={{ ...zooTheme, dark }}>
       <RecentSubjectsContainer
-        isLoggedIn={boolean('User logged in', true)}
+        isLoggedIn={isLoggedIn}
         recents={VIDEO_SUBJECTS}
         projectName='NestCams'
         slug='spotteron/nestcams'
       />
     </Grommet>
-  ), { viewport: { defaultViewport: 'responsive' } })
-  .add('one subject', () => (
-    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
+  )
+}
+
+export function OneSubject({ dark, isLoggedIn }) {
+  return (
+    <Grommet theme={{ ...zooTheme, dark }}>
       <RecentSubjectsContainer
-        isLoggedIn={boolean('User logged in', true)}
+        isLoggedIn={isLoggedIn}
         recents={RECENTS.slice(0, 1)}
         projectName='NestCams'
         slug='spotteron/nestcams'
       />
     </Grommet>
-  ), { viewport: { defaultViewport: 'responsive' } })
+  )
+}

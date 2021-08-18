@@ -9,8 +9,13 @@ import SubjectPreview from '@shared/components/SubjectPreview'
 
 counterpart.registerTranslations('en', en)
 
-function RecentSubjects (props) {
-  const { isLoggedIn, recents, projectName, size, slug } = props
+function RecentSubjects ({
+  isLoggedIn = false,
+  recents = [],
+  projectName,
+  size = 3,
+  slug
+}) {
   const height = (size === 1) ? '40vw' : '200px'
   const { publicRuntimeConfig = {} } = getConfig() || {}
   const assetPrefix = publicRuntimeConfig.assetPrefix || ''
@@ -65,17 +70,16 @@ function RecentSubjects (props) {
 }
 
 RecentSubjects.propTypes = {
+  /** Is the volunteer logged in, for favourites and collections. */
   isLoggedIn: bool,
+  /** The project name. */
   projectName: string,
+  /** Recent classification subjects from Panoptes. */
   recents: array,
+  /** The number of previews to show. */
   size: number,
+  /** Project URL slug for links. */
   slug: string.isRequired
-}
-
-RecentSubjects.defaultProps = {
-  isLoggedIn: false,
-  recents: [],
-  size: 3
 }
 
 export default RecentSubjects
