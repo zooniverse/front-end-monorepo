@@ -17,9 +17,9 @@ function DailyClassificationsChartContainer({
     const day = new Date(stat.period)
     const locale = counterpart.getLocale()
     const count = (day.getUTCDay() === TODAY.getUTCDay()) ? counts.today : stat.count
-    const longLabel = day.toLocaleDateString(locale, { weekday: 'long' })
+    const longLabel = day.toLocaleDateString(locale, { timeZone: 'UTC', weekday: 'long' })
     const alt = `${longLabel}: ${count}`
-    const label = day.toLocaleDateString(locale, { weekday: 'narrow' })
+    const label = day.toLocaleDateString(locale, { timeZone: 'UTC', weekday: 'narrow' })
     return Object.assign({}, stat, { alt, count, label, longLabel })
   })
   return (
