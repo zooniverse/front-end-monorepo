@@ -1,57 +1,34 @@
-import { shallow } from 'enzyme'
-import { AboutDropContent, AboutDropdownNav } from './AboutDropdownNav'
-import AboutNavLink from '../AboutNavLink'
+import { render, fireEvent } from '@testing-library/react'
+import * as stories from './AboutDropdownNav.stories'
+import sinon from 'sinon'
 
-describe('Component > AboutDropdownNav', () => {
-  let wrapper
+describe('Component > AboutDropdownNav', function () {
+  const { Default, MoreLinks } = stories
 
-  const router = {
-    query: {
-      owner: 'test-owner',
-      project: 'test-project'
-    }
-  }
+  let scrollMock
 
-  before(() => {
-    wrapper = shallow(<AboutDropdownNav aboutNavLinks={[]} router={router} />)
+  before(function () {
+    // Calling window.scrollTo is a side effect of clicking a Grommet Dropbutton
+    scrollMock = sinon.stub(window, 'scrollTo').callsFake(() => {})
   })
 
-  it('should render without crashing', () => {
-    expect(wrapper).to.be.ok()
-  })
-})
-
-describe('Component > AboutDropContent', () => {
-  let wrapper
-
-  const router = {
-    query: {
-      owner: 'test-owner',
-      project: 'test-project'
-    }
-  }
-
-  before(() => {
-    wrapper = shallow(<AboutDropContent aboutNavLinks={[]} router={router} />)
+  after(function () {
+    scrollMock.restore()
   })
 
-  it('should render without crashing', () => {
-    expect(wrapper).to.be.ok()
+  it('should always render at least two links: Research and The Team', function () {
+    const { getByRole, getByText } = render(<Default />)
+    fireEvent.click(getByRole('button'))
+    expect(getByText('research')).to.exist()
+    expect(getByText('the team')).to.exist()
   })
 
-  it('should always render at least two links: Research and The Team', () => {
-    const links = wrapper.find(AboutNavLink)
-    expect(links).to.have.lengthOf(2)
-  })
-
-  it('should render other links passed in the aboutNavLinks array', () => {
-    wrapper = shallow(
-      <AboutDropContent
-        aboutNavLinks={['research', 'team', 'results']}
-        router={router}
-      />
-    )
-    const links = wrapper.find(AboutNavLink)
-    expect(links).to.have.lengthOf(3)
+  it('should render other links passed in the aboutNavLinks array', function () {
+    const { getByRole, getByText } = render(<MoreLinks />)
+    fireEvent.click(getByRole('button'))
+    expect(getByText('research')).to.exist()
+    expect(getByText('the team')).to.exist()
+    expect(getByText('education')).to.exist()
+    expect(getByText('faq')).to.exist()
   })
 })
