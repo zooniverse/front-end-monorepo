@@ -94,8 +94,8 @@ describe('Component > HighlightSeriesCheckBoxes', function () {
       />
     )
 
-    const seriesOneGlyph = getDataSeriesSymbol(0)
-    const seriesTwoGlyph = getDataSeriesSymbol(1)
+    const seriesOneGlyph = getDataSeriesSymbol({ seriesIndex: 0 })
+    const seriesTwoGlyph = getDataSeriesSymbol({ seriesIndex: 1 })
     const firstGlyph = wrapper.find(seriesOneGlyph)
     const secondGlyph = wrapper.find(seriesTwoGlyph)
     expect(firstGlyph).to.have.lengthOf(1)
