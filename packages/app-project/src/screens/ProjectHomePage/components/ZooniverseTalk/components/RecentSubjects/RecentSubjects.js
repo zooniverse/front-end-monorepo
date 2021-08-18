@@ -4,8 +4,11 @@ import { Grid } from 'grommet'
 import SubjectThumbnail from './components/SubjectThumbnail'
 
 // TODO: Use the subject viewers from the classifier
-function RecentSubjects (props) {
-  const { className, href, subjects } = props
+function RecentSubjects ({
+  className,
+  href,
+  subjects = []
+}) {
   const height = 200
   const width = 270
   return (
@@ -29,12 +32,14 @@ function RecentSubjects (props) {
 }
 
 RecentSubjects.propTypes = {
+  /** CSS class. */
+  className: string,
+  /** Base href for subject links */
+  href: string.isRequired,
+  /** Recent subjects from the Talk API. */
   subjects: arrayOf(shape({
     id: string
-  }))
-}
-
-RecentSubjects.defaultProps = {
+  })).isRequired
 }
 
 export default RecentSubjects
