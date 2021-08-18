@@ -13,14 +13,15 @@ function DailyClassificationsChartContainer({
   thisWeek = []
 }) {
   const TODAY = new Date()
-  const stats = thisWeek.map(stat => {
-    const day = new Date(stat.period)
-    const locale = counterpart.getLocale()
-    const count = (day.getUTCDay() === TODAY.getDay()) ? counts.today : stat.count
+  const locale = counterpart.getLocale()
+  const stats = thisWeek.map(({ count: statsCount, period }) => {
+    const day = new Date(period)
+    const isToday = day.getUTCDay() === TODAY.getDay()
+    const count = isToday ? counts.today : statsCount
     const longLabel = day.toLocaleDateString(locale, { timeZone: 'UTC', weekday: 'long' })
     const alt = `${longLabel}: ${count}`
     const label = day.toLocaleDateString(locale, { timeZone: 'UTC', weekday: 'narrow' })
-    return Object.assign({}, stat, { alt, count, label, longLabel })
+    return { alt, count, label, longLabel, period }
   })
   return (
     <DailyClassificationsChart
