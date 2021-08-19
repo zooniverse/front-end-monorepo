@@ -2,7 +2,7 @@ import { expect } from "chai"
 import sortDataPointsByHighlight from "."
 import variableStarData from '../mockLightCurves/variableStar.json'
 
-describe.only('Helper > sortDataPointsByHighlight', function () {
+describe('Helper > sortDataPointsByHighlight', function () {
   const { data } = variableStarData.data.scatterPlot
   const highlightedSeries = [data[0].seriesOptions.label]
   it('should be a function', function () {
