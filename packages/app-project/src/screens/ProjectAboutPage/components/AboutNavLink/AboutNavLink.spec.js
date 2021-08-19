@@ -1,60 +1,12 @@
-import { mount } from 'enzyme'
-import AboutNavLink from './AboutNavLink'
-import NavLink from '@shared/components/NavLink'
-import { Box } from 'grommet'
+import * as stories from './AboutNavLink.stories'
+import { render } from '@testing-library/react'
 
 describe('Component > AboutNavLink', function () {
-  let wrapper
+  const { Default } = stories
 
-  describe('not active page', function () {
-    const router = {
-      asPath: 'active-path'
-    }
-
-    const link = {
-      href: 'not-active-path'
-    }
-
-    before(function () {
-      wrapper = mount(<AboutNavLink router={router} link={link} />)
-    })
-
-    it('should render without crashing', function () {
-      expect(wrapper).to.be.ok()
-    })  
-
-    it('should display non-active background color', function () {
-      const container = wrapper.find(Box)
-      expect(container.props().background.light).to.equal('neutral-6')
-    })
-
-    it('should display regular font weight', function () {
-      const navLink = wrapper.find(NavLink)
-      expect(navLink.props().weight).to.equal('normal')
-    })
-  })
-
-  describe('active page', function () {
-    const router = {
-      asPath: 'active-path'
-    }
-
-    const link = {
-      href: 'active-path'
-    }
-
-    before(function () {
-      wrapper = mount(<AboutNavLink router={router} link={link} />)
-    })
-
-    it('should display active background color', function () {
-      const container = wrapper.find(Box)
-      expect(container.props().background).to.equal('accent-1')
-    })
-
-    it('should display bold font weight', function () {
-      const navLink = wrapper.find(NavLink)
-      expect(navLink.props().weight).to.equal('bold')
-    })
+  it('should render the component', function () {
+    const { getByRole } = render(<Default />)
+    const link = getByRole('link')
+    expect(link).exists()
   })
 })

@@ -1,8 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import WorkflowAssignmentModal from './WorkflowAssignmentModal'
+import asyncStates from '@zooniverse/async-states'
 
-function WorkflowAssignmentModalContainer({ projectPreferences, currentWorkflowID }) {
+function WorkflowAssignmentModalContainer(props) {
+  const {
+    assignedWorkflowID = '',
+    currentWorkflowID = '',
+    loadingState = asyncStates.initialized,
+    promptAssignment = () => { }
+  } = props
   const [ active, setActive ] = useState(false)
   const [ dismissedForSession, setDismissed ] = useState(false)
 
@@ -16,29 +23,33 @@ function WorkflowAssignmentModalContainer({ projectPreferences, currentWorkflowI
   }
 
   useEffect(() => {
-    if (projectPreferences?.promptAssignment(currentWorkflowID)) {
+    if (promptAssignment(currentWorkflowID)) {
       if (!dismissedForSession) setActive(true)
     }
 
     return () => setActive(false)
-  }, [projectPreferences, currentWorkflowID])
+  }, [loadingState, currentWorkflowID])
 
-  return (
-    <WorkflowAssignmentModal
-      active={active}
-      assignedWorkflowID={projectPreferences?.settings?.workflow_id}
-      closeFn={closeFn}
-      dismiss={onDismiss}
-      dismissedForSession={dismissedForSession}
-    />
-  )
+  if (assignedWorkflowID) {
+    return (
+      <WorkflowAssignmentModal
+        active={active}
+        assignedWorkflowID={assignedWorkflowID}
+        closeFn={closeFn}
+        dismiss={onDismiss}
+        dismissedForSession={dismissedForSession}
+      />
+    )
+  }
+
+  return null
 }
 
 WorkflowAssignmentModalContainer.propTypes = {
+  assignedWorkflowID: PropTypes.string,
   currentWorkflowID: PropTypes.string,
-  projectPreferences: PropTypes.shape({
-    promptAssignment: PropTypes.func
-  })
+  promptAssignment: PropTypes.func
+
 }
 
 export default WorkflowAssignmentModalContainer

@@ -77,7 +77,9 @@ The JSON file can take two different shapes depending on if the data is a single
 
 #### Series Data
 
-The `seriesData` property should be an array of objects where at minimum an x and y coordinate is required. An optional `x_error` and/or `y_error` number can be specified if error bars need to be displayed for that single data point. Each series supports a set of options under `seriesOptions` and at minimum a string `label` is required for each series. An optional string `color` for can defined using either a variable name from the colors available in from the [zooniverse theme object](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-grommet-theme) or a hex value. If a color is not provided, a color from the zooniverse theme will be chosen and applied for each series. 
+The `seriesData` property should be an array of objects where at minimum an x and y coordinate is required. An optional `x_error` and/or `y_error` number can be specified if error bars need to be displayed for that single data point. 
+
+Each series supports a set of options under `seriesOptions` and at minimum a string `label` is required for each series. An optional string `color` for can defined using either a variable name from the colors available in from the [zooniverse theme object](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-grommet-theme) or a hex value. If a color is not provided, a color from the zooniverse theme will be chosen and applied for each series. An optional `glyph` shape can be defined for the data series. This must be a string and must correspond to the following options: `'circle'`, `'cross'`, `'diamond'`, `'square'`, `'star'`, `'triangle'`, `'wye'`. If a glyph shape is not defined in the series options, then a fallback is automatically chosen based on the array order of the data series.
 
 The single series JSON shape is a very, very basic data object consisting of an array of numbers for each axis. The multiple series shape can also be used for a single series and is required if you need to use error bars:
 
@@ -119,6 +121,7 @@ The multiple series JSON shape is an array of objects consisting of `seriesData`
       ],
       "seriesOptions": {
         "color": "accent-1",
+        "glyph": "circle",
         "label": "Filter 1"
       }
     }, {
@@ -134,6 +137,7 @@ The multiple series JSON shape is an array of objects consisting of `seriesData`
       ],
       "seriesOptions": {
         "color": "#98b6a7",
+        "glyph": "cross",
         "label": "Filter 2"
       }
     }

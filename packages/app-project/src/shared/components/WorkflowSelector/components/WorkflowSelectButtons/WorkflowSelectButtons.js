@@ -140,3 +140,4 @@ WorkflowSelectButtons.propTypes = {
 }
 
 export default withTheme(WorkflowSelectButtons)
+export { WorkflowSelectButtons }
