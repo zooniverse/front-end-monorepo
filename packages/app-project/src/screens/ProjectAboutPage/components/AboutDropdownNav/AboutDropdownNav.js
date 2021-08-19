@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { arrayOf, object, string } from 'prop-types'
-import { withRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 /** Components */
 import { Box, DropButton, Nav } from 'grommet'
@@ -9,12 +9,13 @@ import { SpacedText } from '@zooniverse/react-components'
 import AboutNavLink from '../AboutNavLink'
 
 // this is a separate componenet specifically for testing with enzyme
-export const AboutDropContent = ({ aboutNavLinks, router }) => {
+export const AboutDropContent = ({ aboutNavLinks }) => {
+  const router = useRouter()
   const { owner, project } = router.query
   const baseUrl = `/projects/${owner}/${project}/about`
-  
+
   return (
-    <Nav gap='xsmall' background={{ dark: 'dark-5', light: 'neutral-6' }}>
+    <Nav gap='xsmall' background={{ dark: 'dark-5', light: 'neutral-6' }} data-testid='mobile-about-pages-nav'>
       <AboutNavLink
         link={{ href: `${baseUrl}/research`, text: 'research' }}
         router={router}
@@ -61,6 +62,7 @@ const AboutDropdownNav = ({ aboutNavLinks, router }) => {
 
   return (
     <DropButton
+      data-testid='about-pages-dropdown'
       isOpen={isOpen}
       alignSelf='center'
       dropContent={
@@ -84,5 +86,4 @@ AboutDropdownNav.propTypes = {
   router: object
 }
 
-export { AboutDropdownNav }
-export default withRouter(AboutDropdownNav)
+export default AboutDropdownNav

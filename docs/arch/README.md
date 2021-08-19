@@ -32,3 +32,4 @@
 - [ADR 30: Simple Dropdown Task](adr-30.md)
 - [ADR 31: RotatingRectangle Tool and TemporalRotatingRectangle Tool](adr-31.md)
 - [ADR 32: Subject Viewer Layouts (aka subject viewer sizing/fitting behaviour)](adr-32.md)
+- [ADR 33: Survey Task Feedback](adr-33.md)

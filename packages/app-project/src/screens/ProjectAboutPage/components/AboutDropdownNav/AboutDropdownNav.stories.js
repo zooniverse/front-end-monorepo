@@ -1,13 +1,32 @@
 import { Grommet, Box } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
+import { RouterContext } from 'next/dist/shared/lib/router-context'
+import Router from 'next/router'
+import PropTypes from 'prop-types'
 import AboutDropdownNav from '../AboutDropdownNav'
 
-const mockedRouter = {
-  asPath: '/projects/zooniverse/snapshot-serengeti/about/team',
-  query: {
-    owner: 'zooniverse',
-    project: 'snapshot-serengeti'
+function RouterMock ({ children }) {
+  const mockRouter = {
+    asPath: '/projects/zooniverse/snapshot-serengeti/about/research',
+    push: () => {},
+    prefetch: () => new Promise((resolve, reject) => {}),
+    query: {
+      owner: 'zooniverse',
+      project: 'snapshot-serengeti'
+    }
   }
+
+  Router.router = mockRouter
+
+  return (
+    <RouterContext.Provider value={mockRouter}>
+      {children}
+    </RouterContext.Provider>
+  )
+}
+
+RouterMock.propTypes = {
+  children: PropTypes.node.isRequired
 }
 
 const mockAboutNavLinks = ['research', 'team', 'education', 'faq']
@@ -21,13 +40,29 @@ export default {
 }
 
 export const Default = ({ dark }) => (
-  <Grommet
-    background={{ dark: 'dark-3', light: 'neutral-6' }}
-    theme={{ ...zooTheme, dark }}
-    themeMode={dark ? 'dark' : 'light'}
-  >
-    <Box pad='xsmall'>
-      <AboutDropdownNav aboutNavLinks={mockAboutNavLinks} router={mockedRouter} />
-    </Box>
-  </Grommet>
+  <RouterMock>
+    <Grommet
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      theme={{ ...zooTheme, dark }}
+      themeMode={dark ? 'dark' : 'light'}
+    >
+      <Box pad='xsmall'>
+        <AboutDropdownNav aboutNavLinks={[]} />
+      </Box>
+    </Grommet>
+  </RouterMock>
+)
+
+export const MoreLinks = ({ dark }) => (
+  <RouterMock>
+    <Grommet
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      theme={{ ...zooTheme, dark }}
+      themeMode={dark ? 'dark' : 'light'}
+    >
+      <Box pad='xsmall'>
+        <AboutDropdownNav aboutNavLinks={mockAboutNavLinks} />
+      </Box>
+    </Grommet>
+  </RouterMock>
 )
