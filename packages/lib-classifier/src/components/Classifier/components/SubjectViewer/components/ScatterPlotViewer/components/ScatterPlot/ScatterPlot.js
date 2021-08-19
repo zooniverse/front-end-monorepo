@@ -147,7 +147,7 @@ function ScatterPlot (props) {
           })
 
           const errorBarColor = lighten(0.25, glyphColor)
-          const GlyphComponent = getDataSeriesSymbol(seriesIndex)
+          const GlyphComponent = getDataSeriesSymbol({ seriesOptions: series?.seriesOptions, seriesIndex })
 
           return series.seriesData.map((point, pointIndex) => {
             let xErrorBarPoints, yErrorBarPoints

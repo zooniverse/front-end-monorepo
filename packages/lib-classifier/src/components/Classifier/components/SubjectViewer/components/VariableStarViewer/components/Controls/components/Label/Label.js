@@ -24,7 +24,7 @@ const StyledLabel = styled.span`
 
 function Label (props) {
   const { colors, label, seriesIndex, seriesOptions, highlighted } = props
-  const Glyph = getDataSeriesSymbol(seriesIndex)
+  const Glyph = getDataSeriesSymbol({ seriesOptions, seriesIndex })
   const color = getDataSeriesColor({
     defaultColors: Object.values(colors.drawingTools),
     highlighted,
