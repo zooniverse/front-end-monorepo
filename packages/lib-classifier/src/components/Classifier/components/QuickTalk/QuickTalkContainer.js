@@ -108,7 +108,8 @@ class QuickTalkContainer extends React.Component {
     }
     
     // TEMPORARY: user darke_shard on staging
-    // TODO: figure out how to pass user object down from app-project?
+    // TODO: 
+    // - [ ] figure out how to pass user object down from app-project?
     const userId = '1325361'
     
     const section = 'project-' + project.id

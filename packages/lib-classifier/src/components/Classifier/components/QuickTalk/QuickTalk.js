@@ -59,6 +59,10 @@ function QuickTalk ({
     )
   }
   
+  // TODO:
+  // - [ ] add flag for Talk Link
+  // - [ ] Reverse order of comments
+  
   return (
     <FixedBox
       pad='small'
@@ -67,7 +71,7 @@ function QuickTalk ({
     >
       <Box>
         <Box flex={false}>
-          <a href={subject.talkURL}>[TALK LINK]</a>
+          <a href={subject.talkURL} target="_blank">[TALK LINK]</a>
           &nbsp;
           {comments.length} comment(s)
           
