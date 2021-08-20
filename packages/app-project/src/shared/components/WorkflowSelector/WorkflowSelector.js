@@ -13,15 +13,14 @@ const markdownzComponents = {
   p: nodeProps => <Paragraph {...nodeProps} margin='none' />
 }
 
-function WorkflowSelector (props) {
-  const {
-    assignedWorkflowID = '',
-    uppLoaded = false,
-    userReadyState,
-    workflowAssignmentEnabled = false,
-    workflowDescription = '',
-    workflows
-  } = props
+function WorkflowSelector ({
+  assignedWorkflowID = '',
+  uppLoaded = false,
+  userReadyState,
+  workflowAssignmentEnabled = false,
+  workflowDescription = '',
+  workflows
+}) {
   const workflowDescriptionToRender = workflowDescription || counterpart('WorkflowSelector.message')
 
   return (
@@ -76,9 +75,17 @@ function WorkflowSelector (props) {
 }
 
 WorkflowSelector.propTypes = {
+  /** assigned workflow for projects that use workflow assignment. */
+  assignedWorkflowID: string,
+  /** Have the user project preferences loaded? */
+  uppLoaded: bool,
+  /** User loading state */
   userReadyState: string,
+  /** True if this project assigns workflows to volunteers. */
   workflowAssignmentEnabled: bool,
+  /** Localised workflow description for the project. */
   workflowDescription: string,
+  /** Summaries of active workflows with workflow name, completeness etc. */
   workflows: arrayOf(shape({
       id: string.isRequired
     }).isRequired).isRequired
