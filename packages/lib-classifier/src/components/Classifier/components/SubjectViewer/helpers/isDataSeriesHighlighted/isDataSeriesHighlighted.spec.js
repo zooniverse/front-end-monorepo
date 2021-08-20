@@ -10,11 +10,27 @@ describe('Helper > isDataSeriesHighlighted', function () {
     expect(isDataSeriesHighlighted()).to.be.true()
   })
 
-  it('should return the highlight state of the series parameters', function () {
+  it('should return the highlight state of the series parameters when only one is highlighted', function () {
     const highlightedSeries = [ 'foo' ]
     const firstSeriesHighlightState = isDataSeriesHighlighted({ highlightedSeries, seriesOptions: { label: 'foo' } })
     const secondSeriesHighlightState = isDataSeriesHighlighted({ highlightedSeries, seriesOptions: { label: 'bar' } })
     expect(firstSeriesHighlightState).to.be.true()
     expect(secondSeriesHighlightState).to.be.false()
+  })
+
+  it('should return the highlight state of the series parameters when none is highlighted', function () {
+    const highlightedSeries = []
+    const firstSeriesHighlightState = isDataSeriesHighlighted({ highlightedSeries, seriesOptions: { label: 'foo' } })
+    const secondSeriesHighlightState = isDataSeriesHighlighted({ highlightedSeries, seriesOptions: { label: 'bar' } })
+    expect(firstSeriesHighlightState).to.be.false()
+    expect(secondSeriesHighlightState).to.be.false()
+  })
+
+  it('should return the highlight state of the series parameters when all are highlighted', function () {
+    const highlightedSeries = ['foo', 'bar']
+    const firstSeriesHighlightState = isDataSeriesHighlighted({ highlightedSeries, seriesOptions: { label: 'foo' } })
+    const secondSeriesHighlightState = isDataSeriesHighlighted({ highlightedSeries, seriesOptions: { label: 'bar' } })
+    expect(firstSeriesHighlightState).to.be.true()
+    expect(secondSeriesHighlightState).to.be.true()
   })
 })

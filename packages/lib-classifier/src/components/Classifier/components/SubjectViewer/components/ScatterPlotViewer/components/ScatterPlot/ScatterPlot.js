@@ -227,7 +227,6 @@ ScatterPlot.defaultProps = {
   axisColor: '',
   backgroundColor: '',
   dataPointSize: 25,
-  highlightedSeries: [],
   invertAxes: {
     x: false,
     y: false
