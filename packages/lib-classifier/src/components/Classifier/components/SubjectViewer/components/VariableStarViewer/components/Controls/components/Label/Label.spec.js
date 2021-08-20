@@ -46,8 +46,8 @@ describe('Controls > Components > Label', function ()  {
         seriesOptions={seriesOneOptions}
       />
     )
-    const seriesOneGlyph = getDataSeriesSymbol(0)
-    const seriesTwoGlyph = getDataSeriesSymbol(1)
+    const seriesOneGlyph = getDataSeriesSymbol({ seriesIndex: 0 })
+    const seriesTwoGlyph = getDataSeriesSymbol({ seriesIndex: 1 })
     expect(wrapper.find(seriesOneGlyph)).to.have.lengthOf(1)
     expect(wrapper.find(seriesTwoGlyph)).to.have.lengthOf(0)
     wrapper.setProps({ seriesIndex: 1, seriesOptions: seriesTwoOptions })

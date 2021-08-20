@@ -19,12 +19,11 @@ import {
 } from '../../helpers/mockData'
 import { left, top } from '../../helpers/utils'
 
-const { variableStar } = lightCurveMockData
-const { data, dataPoints } = randomSingleSeriesData
-
-const defaultColors = Object.values(zooTheme.global.colors.drawingTools)
-
 describe('Component > ScatterPlot', function () {
+  const { variableStar } = lightCurveMockData
+  const { data, dataPoints } = randomSingleSeriesData
+
+  const defaultColors = Object.values(zooTheme.global.colors.drawingTools)
   describe('render', function () {
     let wrapper, chart
     before(function () {
@@ -124,7 +123,7 @@ describe('Component > ScatterPlot', function () {
           transformMatrix={transformMatrix}
         />
       )
-      glyphs = wrapper.find(glyphComponents[0])
+      glyphs = wrapper.find(glyphComponents.circle)
     })
 
     it('should render a number of glyph components equal to the number of data points', function () {
@@ -152,7 +151,7 @@ describe('Component > ScatterPlot', function () {
           transformMatrix={transformMatrix}
         />
       )
-      renderedSeriesGlyphs = glyphComponents.filter((component) => {
+      renderedSeriesGlyphs = Object.values(glyphComponents).filter((component) => {
         const components = wrapper.find(component)
         return components.length > 0
       })
