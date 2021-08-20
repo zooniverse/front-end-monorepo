@@ -19,5 +19,9 @@ describe('Model > Workflow > WorkflowConfiguration', function () {
     it('should hide classification summaries', function () {
       expect(model.hide_classification_summaries).to.be.true()
     })
+
+    it('should persist annotations', function () {
+      expect(model.persist_annotations).to.be.true()
+    })
   })
 })

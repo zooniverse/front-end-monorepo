@@ -5,6 +5,7 @@ const WorkflowConfiguration = types.model({
   enable_switching_flipbook_and_separate: types.optional(types.boolean, false),
   hide_classification_summaries: types.optional(types.boolean, true),
   multi_image_mode: types.optional(types.enumeration('multiImageMode', ['flipbook', 'separate']), 'flipbook'),
+  persist_annotations: types.optional(types.boolean, true),
   subject_viewer: types.maybe(types.enumeration('subjectViewer', [
     'dataImage',
     'lightcurve',
