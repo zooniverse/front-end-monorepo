@@ -4,6 +4,17 @@ export { default } from '@screens/ClassifyPage'
 export async function getServerSideProps({ params, query, req, res }) {
   const { notFound, props: defaultProps } = await getDefaultPageProps({ params, query, req, res })
   const { subjectID, workflowID } = params
-  const props = { ...defaultProps, subjectID, workflowID }
-  return ({ notFound, props })
+  const { workflows } = defaultProps
+  const workflow = workflows.find(workflow => workflow.id === params.workflowID)
+  const pageTitle = workflow?.displayName
+
+  return ({
+    notFound,
+    props: {
+      ...defaultProps,
+      pageTitle,
+      subjectID,
+      workflowID
+    }
+  })
 }

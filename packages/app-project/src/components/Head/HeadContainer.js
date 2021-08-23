@@ -63,6 +63,7 @@ class HeadContainer extends Component {
 
 HeadContainer.propTypes = {
   host: string,
+  pageTitle: string,
   project: shape({
     avatar: shape({
       src: string
