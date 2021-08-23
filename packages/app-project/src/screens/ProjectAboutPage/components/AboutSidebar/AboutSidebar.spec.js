@@ -1,40 +1,20 @@
-import { shallow } from 'enzyme'
-import { AboutSidebar } from './AboutSidebar'
-import AboutNavLink from '../AboutNavLink'
+import * as stories from './AboutSidebar.stories'
+import { render } from '@testing-library/react'
 
-describe('Component > AboutSidebar', () => {
-  let wrapper
+describe('Component > AboutSidebar', function () {
+  const { Default, MoreLinks } = stories
 
-  const router = {
-    query: {
-      owner: 'test-owner',
-      project: 'test-project'
-    }
-  }
-
-  before(() => {
-    wrapper = shallow(
-      <AboutSidebar aboutNavLinks={[]} router={router} />
-    )
+  it('should always render at least two links: Research and The Team', function () {
+    const { getByText } = render(<Default />)
+    expect(getByText('research')).to.exist()
+    expect(getByText('the team')).to.exist()
   })
 
-  it('should render without crashing', () => {
-    expect(wrapper).to.be.ok()
-  })
-
-  it('should always render at least two links: Research and The Team', () => {
-    const links = wrapper.find(AboutNavLink)
-    expect(links).to.have.lengthOf(2)
-  })
-
-  it('should render other links passed in the aboutNavLinks array', () => {
-    wrapper = shallow(
-      <AboutSidebar
-        aboutNavLinks={['research', 'team', 'results']}
-        router={router}
-      />
-    )
-    const links = wrapper.find(AboutNavLink)
-    expect(links).to.have.lengthOf(3)
+  it('should render other links passed in the aboutNavLinks array', function () {
+    const { getByText } = render(<MoreLinks />)
+    expect(getByText('research')).to.exist()
+    expect(getByText('the team')).to.exist()
+    expect(getByText('education')).to.exist()
+    expect(getByText('faq')).to.exist()
   })
 })

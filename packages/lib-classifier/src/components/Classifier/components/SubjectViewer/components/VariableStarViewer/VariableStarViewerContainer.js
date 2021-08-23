@@ -222,8 +222,9 @@ class VariableStarViewerContainer extends Component {
     return scatterPlotJSON.data.map((series, index) => {
       if (series?.seriesData.length > 0) {
         const fallbackLabel = counterpart('VariableStarViewer.label', { id: index + 1 })
-        const label = series.seriesOptions?.label || fallbackLabel
-        return { [label]: true }
+        series.seriesOptions.label ??= fallbackLabel
+
+        return series.seriesOptions.label
       }
     })
   }
@@ -238,14 +239,16 @@ class VariableStarViewerContainer extends Component {
   }
 
   setSeriesHighlight (event) {
-    const newHighlightedSeriesState = this.state.highlightedSeries.map((series) => {
-      const [[label, checked]] = Object.entries(series)
-      if (label === event.target.value) {
-        return { [event.target.value]: event.target.checked }
-      } else {
-        return series
-      }
+    const newHighlightedSeriesState = this.state.highlightedSeries
+    const seriesToUnhighlightIndex = this.state.highlightedSeries.findIndex((highlightedLabel) => {
+      return highlightedLabel === event.target.value
     })
+
+    if (seriesToUnhighlightIndex > -1) {
+      newHighlightedSeriesState.splice(seriesToUnhighlightIndex, 1)
+    } else {
+      newHighlightedSeriesState.push(event.target.value)
+    }
 
     this.setState({ highlightedSeries: newHighlightedSeriesState })
   }
