@@ -4,6 +4,11 @@ import React, { useEffect } from 'react'
 import DefaultTextTask from './components/DefaultTextTask'
 import TextTaskWithSuggestions from './components/TextTaskWithSuggestions'
 
+/*
+Special case: single insertion tags
+ */
+const singleInsertiontags = ['&']
+
 function TextTask (props) {
   const { annotation, autoFocus, disabled, subTaskPreviousAnnotationValues, task } = props
   const { value } = annotation
@@ -20,6 +25,12 @@ function TextTask (props) {
     const currentRef = ref.current
     const text = currentRef.value
     const textTag = e.currentTarget.value
+    
+    // Special case: single insertion tags
+    if (singleInsertiontags.indexOf(textTag) >= 0) {
+      return setTagSelection_singleInsertion(e, ref)
+    }
+    
     const startTag = `[${textTag}]`
     const endTag = `[/${textTag}]`
     const selectionStart = currentRef.selectionStart
@@ -36,6 +47,33 @@ function TextTask (props) {
       textAfter = text.substring(selectionEnd, text.length)
       newValue = textBefore + startTag + textInBetween + endTag + textAfter
     }
+
+    currentRef.value = newValue
+    updateAnnotation(ref)
+    if (currentRef.focus) {
+      currentRef.setSelectionRange((newValue.length - textAfter.length), (newValue.length - textAfter.length))
+      currentRef.focus()
+    }
+  }
+  
+  /*
+  Special case: single insertion tags
+  - For certain tags, we insert them individually, as is, with no brackets.
+  - i.e. 'tag' instead of '[tag]...[/tag]'
+  - Requested for Davy Notebooks on Aug 2021: https://github.com/zooniverse/front-end-monorepo/issues/2331
+  - This is a temporary measure. Long term solution is to create a new category of text tags.
+ */
+  function setTagSelection_singleInsertion (e, ref) {
+    const currentRef = ref.current
+    const text = currentRef.value
+    const textTag = e.currentTarget.value
+    const startTag = `[${textTag}]`
+    const endTag = `[/${textTag}]`
+    const selectionStart = currentRef.selectionStart
+    const selectionEnd = currentRef.selectionEnd
+    const textBefore = text.substring(0, selectionStart)
+    const textAfter = text.substring(selectionEnd, text.length)
+    const newValue = textBefore + textTag + textAfter
 
     currentRef.value = newValue
     updateAnnotation(ref)
