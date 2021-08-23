@@ -33,6 +33,7 @@ export default function Confusion (props) {
       <SpacedHeading>{confusion.label}</SpacedHeading>
       {confusion.images?.length > 0 && (
         <Carousel
+          data-testid='confusion-images'
           controls='arrows'
         >
           {confusion.images.map((filename, index) => (
