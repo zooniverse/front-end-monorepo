@@ -28,10 +28,10 @@ function Banners({ stores }) {
   }
   return (
     <>
-      <AlreadySeenBanner />
-      <RetiredBanner />
-      <WorkflowIsFinishedBanner />
-      <UserHasFinishedWorkflowBanner />
+      <AlreadySeenBanner subject={subject} />
+      <RetiredBanner subject={subject} />
+      <WorkflowIsFinishedBanner subject={subject} />
+      <UserHasFinishedWorkflowBanner subject={subject} />
     </>
   )
 }
