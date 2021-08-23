@@ -137,7 +137,7 @@ function ScatterPlot (props) {
             width={plotWidth}
           />}
         {dataPoints.map((series, seriesIndex) => {
-          const highlighted = isDataSeriesHighlighted(highlightedSeries, seriesIndex)
+          const highlighted = isDataSeriesHighlighted({ highlightedSeries, seriesOptions: series.seriesOptions })
           const glyphColor = getDataSeriesColor({
             defaultColors: Object.values(colors.drawingTools),
             seriesOptions: series?.seriesOptions,
@@ -227,7 +227,6 @@ ScatterPlot.defaultProps = {
   axisColor: '',
   backgroundColor: '',
   dataPointSize: 25,
-  highlightedSeries: [],
   invertAxes: {
     x: false,
     y: false
