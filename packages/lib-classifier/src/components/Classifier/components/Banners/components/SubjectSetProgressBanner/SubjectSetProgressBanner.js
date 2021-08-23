@@ -8,6 +8,7 @@ import Banner from '../Banner'
 counterpart.registerTranslations('en', en)
 
 function SubjectSetProgressBanner({ subject, workflow }) {
+  const setName = workflow?.subjectSet.display_name
   const subjectTotal = workflow?.subjectSet.set_member_subjects_count
   const background = (subject?.alreadySeen || subject?.retired) ? 'status-critical' : 'status-ok'
   const color = (subject?.alreadySeen || subject?.retired) ? 'neutral-6' : 'neutral-7'
@@ -15,6 +16,7 @@ function SubjectSetProgressBanner({ subject, workflow }) {
   statusText = subject?.retired ? `${counterpart('SubjectSetProgressBanner.finished')}` : statusText
   const progressText = counterpart('SubjectSetProgressBanner.bannerText', {
     number: subject?.priority,
+    setName,
     total: subjectTotal
   })
   const tooltipText = counterpart('SubjectSetProgressBanner.tooltipText')
