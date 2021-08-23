@@ -10,75 +10,6 @@ import VariableStarViewer from './VariableStarViewer'
 import variableStar from '@viewers/helpers/mockLightCurves/variableStar'
 import { additiveDictionary } from './helpers/constants'
 
-const nextSubjectJSON = {
-  data: {
-    scatterPlot: {
-      "data": [
-        {
-          "seriesData": [
-            {
-              "x": 1.46,
-              "y": 6.37,
-              "x_error": 2,
-              "y_error": 0.5
-            }, {
-              "x": 7.58,
-              "y": 9.210
-            }
-          ],
-          "seriesOptions": {
-            "color": "accent-1",
-            "period": 2.5
-          }
-        }, {
-          "seriesData": [
-            {
-              "x": 19.92215,
-              "y": -0.1976986301,
-              "x_error": 2,
-              "y_error": 0.5
-            }, {
-              "x": 35.46347,
-              "y": -0.22472
-            }
-          ],
-          "seriesOptions": {
-            "color": "#98b6a7",
-            "period": 3.5
-          }
-        }
-      ],
-      "chartOptions": {
-        "xAxisLabel": "Days",
-        "yAxisLabel": "Brightness"
-      }
-    },
-    barCharts: {
-      period: {
-        data: [
-          { label: 'A', value: 0.34742 },
-          { label: 'B', value: 2.37438 }
-        ],
-        chartOptions: {
-          xAxisLabel: 'Period',
-          yAxisLabel: '',
-          yAxisDomain: [0, 3]
-        }
-      },
-      amplitude: {
-        data: [
-          { color: 'accent-3', label: 'X', value: 34.3747 },
-          { color: 'accent-1', label: 'Y', value: 236.3637 }
-        ],
-        chartOptions: {
-          xAxisLabel: 'Amplitude',
-          yAxisLabel: ''
-        }
-      }
-    }
-  }
-}
-
 describe('Component > VariableStarViewerContainer', function () {
   const subject = Factory.build('subject', {
     locations: [
@@ -96,6 +27,77 @@ describe('Component > VariableStarViewerContainer', function () {
       { 'image/png': 'http://localhost:8080/image2.png' }
     ]
   })
+
+  const nextSubjectJSON = {
+    data: {
+      scatterPlot: {
+        "data": [
+          {
+            "seriesData": [
+              {
+                "x": 1.46,
+                "y": 6.37,
+                "x_error": 2,
+                "y_error": 0.5
+              }, {
+                "x": 7.58,
+                "y": 9.210
+              }
+            ],
+            "seriesOptions": {
+              "color": "accent-1",
+              "label": "Filter 1",
+              "period": 2.5
+            }
+          }, {
+            "seriesData": [
+              {
+                "x": 19.92215,
+                "y": -0.1976986301,
+                "x_error": 2,
+                "y_error": 0.5
+              }, {
+                "x": 35.46347,
+                "y": -0.22472
+              }
+            ],
+            "seriesOptions": {
+              "color": "#98b6a7",
+              "label": "Filter 2",
+              "period": 3.5
+            }
+          }
+        ],
+        "chartOptions": {
+          "xAxisLabel": "Days",
+          "yAxisLabel": "Brightness"
+        }
+      },
+      barCharts: {
+        period: {
+          data: [
+            { label: 'A', value: 0.34742 },
+            { label: 'B', value: 2.37438 }
+          ],
+          chartOptions: {
+            xAxisLabel: 'Period',
+            yAxisLabel: '',
+            yAxisDomain: [0, 3]
+          }
+        },
+        amplitude: {
+          data: [
+            { color: 'accent-3', label: 'X', value: 34.3747 },
+            { color: 'accent-1', label: 'Y', value: 236.3637 }
+          ],
+          chartOptions: {
+            xAxisLabel: 'Amplitude',
+            yAxisLabel: ''
+          }
+        }
+      }
+    }
+  }
 
   const mockState = {
     allowPanZoom: '',
@@ -292,8 +294,8 @@ describe('Component > VariableStarViewerContainer', function () {
     let cdmSpy
     let nockScope
     const highlightedStateMock = [
-      { [variableStar.data.scatterPlot.data[0].seriesOptions.label]: true },
-      { [variableStar.data.scatterPlot.data[1].seriesOptions.label]: true }
+      variableStar.data.scatterPlot.data[0].seriesOptions.label,
+      variableStar.data.scatterPlot.data[1].seriesOptions.label
     ]
 
     before(function () {
@@ -338,8 +340,8 @@ describe('Component > VariableStarViewerContainer', function () {
 
       cdmSpy.returnValues[0].then(() => {
         const { highlightedSeries } = wrapper.state()
-        const firstSeriesLabel = Object.keys(highlightedSeries[0])[0]
-        const secondSeriesLabel = Object.keys(highlightedSeries[1])[0]
+        const firstSeriesLabel = highlightedSeries[0]
+        const secondSeriesLabel = highlightedSeries[1]
         expect(firstSeriesLabel).to.equal(variableStar.data.scatterPlot.data[0].seriesOptions.label)
         expect(secondSeriesLabel).to.equal(variableStar.data.scatterPlot.data[1].seriesOptions.label)
       }).then(done, done)
@@ -354,8 +356,8 @@ describe('Component > VariableStarViewerContainer', function () {
 
       cdmSpy.returnValues[0].then(() => {
         const { highlightedSeries } = wrapper.state()
-        const firstSeriesLabel = Object.keys(highlightedSeries[0])[0]
-        const secondSeriesLabel = Object.keys(highlightedSeries[1])[0]
+        const firstSeriesLabel = highlightedSeries[0]
+        const secondSeriesLabel = highlightedSeries[1]
         expect(firstSeriesLabel).to.equal('Filter 1')
         expect(secondSeriesLabel).to.equal('Filter 2')
       }).then(done, done)
@@ -365,7 +367,7 @@ describe('Component > VariableStarViewerContainer', function () {
       const eventMock = {
         target: {
           checked: false,
-          value: Object.keys(highlightedStateMock[0])[0]
+          value: highlightedStateMock[0]
         }
       }
       const wrapper = shallow(
@@ -378,8 +380,7 @@ describe('Component > VariableStarViewerContainer', function () {
       expect(wrapper.state().highlightedSeries).to.deep.equal(highlightedStateMock)
       wrapper.instance().setSeriesHighlight(eventMock)
       expect(wrapper.state().highlightedSeries).to.deep.equal([
-        { [variableStar.data.scatterPlot.data[0].seriesOptions.label]: false },
-        { [variableStar.data.scatterPlot.data[1].seriesOptions.label]: true }
+        variableStar.data.scatterPlot.data[1].seriesOptions.label
       ])
     })
   })

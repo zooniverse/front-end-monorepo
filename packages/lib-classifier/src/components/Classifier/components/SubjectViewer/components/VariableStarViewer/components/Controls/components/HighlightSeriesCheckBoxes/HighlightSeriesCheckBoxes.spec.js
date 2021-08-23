@@ -7,22 +7,22 @@ import { SpacedText } from '@zooniverse/react-components'
 import { HighlightSeriesCheckBoxes } from './HighlightSeriesCheckBoxes'
 import variableStar from '../../../../../../helpers/mockLightCurves/variableStar'
 import getDataSeriesSymbol from '../../../../../../helpers/getDataSeriesSymbol'
-
-const seriesOneLabel = variableStar.data.scatterPlot.data[0].seriesOptions.label
-const seriesTwoLabel = variableStar.data.scatterPlot.data[1].seriesOptions.label
-const { data } = variableStar.data.scatterPlot
-
-const defaultStateHighlightedSeries = [
-  { [seriesOneLabel]: true },
-  { [seriesTwoLabel]: true }
-]
-
-const toggledStateHighlightedSeries = [
-  { [seriesOneLabel]: true },
-  { [seriesTwoLabel]: false }
-]
+import { expect } from 'chai'
 
 describe('Component > HighlightSeriesCheckBoxes', function () {
+  const seriesOneLabel = variableStar.data.scatterPlot.data[0].seriesOptions.label
+  const seriesTwoLabel = variableStar.data.scatterPlot.data[1].seriesOptions.label
+  const { data } = variableStar.data.scatterPlot
+
+  const defaultStateHighlightedSeries = [
+    seriesOneLabel,
+    seriesTwoLabel
+  ]
+
+  const toggledStateHighlightedSeries = [
+    seriesOneLabel
+  ]
+
   it('should render without crashing', function () {
     const wrapper = shallow(
       <HighlightSeriesCheckBoxes
@@ -57,17 +57,14 @@ describe('Component > HighlightSeriesCheckBoxes', function () {
 
     inputs = wrapper.find(CheckBox)
     inputs.forEach((input, index) => {
-      const [highlightedStateValue] = Object.values(defaultStateHighlightedSeries[index])
-      expect(input.props().checked).to.equal(highlightedStateValue)
+      expect(input.props().checked).to.be.true()
     })
 
     wrapper.setProps({ highlightedSeries: toggledStateHighlightedSeries })
 
     inputs = wrapper.find(CheckBox)
-    inputs.forEach((input, index) => {
-      const [highlightedStateValue] = Object.values(toggledStateHighlightedSeries[index])
-      expect(input.props().checked).to.equal(highlightedStateValue)
-    })
+    expect(inputs.first().props().checked).to.be.true()
+    expect(inputs.last().props().checked).to.be.false()
   })
 
   it('should render the labels state based on the highlighted state', function () {
@@ -80,7 +77,7 @@ describe('Component > HighlightSeriesCheckBoxes', function () {
     )
     const labels = wrapper.find(SpacedText)
     labels.forEach((label, index) => {
-      const [highlightedStateLabel] = Object.keys(defaultStateHighlightedSeries[index])
+      const highlightedStateLabel = defaultStateHighlightedSeries[index]
       expect(label.html()).to.contain(highlightedStateLabel)
     })
   })

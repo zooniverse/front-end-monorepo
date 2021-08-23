@@ -94,13 +94,6 @@ See each package's folder for more specific documentation.
 | **@zooniverse/panoptes-js** | `packages/lib-panoptes-js` | Panoptes API javascript client. Functional HTTP request helpers built on top of superagent |
 | **@zooniverse/react-components** | `packages/lib-react-components` | A set of Zooniverse-specific React components, built using Grommet |
 
-## Helpers
-
-If you have [`plop`](https://plopjs.com/) installed globally (`npm i -g plop`), you can use it to quickly scaffold new apps and components. The following generators are available:
-
-- `App` - creates a new app in the folder, based on a simple Next.js 7 build, with Styled Components and Mocha included.
-- `Component` - creates a new component in the current folder, including tests and an optional container.
-
 ## Conventions
 
 ### NPM
