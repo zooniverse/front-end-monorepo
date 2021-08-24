@@ -1,5 +1,5 @@
 import React from 'react'
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react-hooks/pure'
 import { Provider } from 'mobx-react'
 
 import mockStore from '@test/mockStore'
