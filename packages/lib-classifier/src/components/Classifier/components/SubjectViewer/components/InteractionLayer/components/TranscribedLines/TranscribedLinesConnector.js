@@ -52,7 +52,6 @@ function TranscribedLinesConnector ({
     }
   } = useStores()
   const { shownMarks } = transcriptionTask
-  console.log('lines', consensusLines)
 
   if (workflow?.usesTranscriptionTask && shownMarks === SHOWN_MARKS.ALL && consensusLines.length > 0) {
     return (
