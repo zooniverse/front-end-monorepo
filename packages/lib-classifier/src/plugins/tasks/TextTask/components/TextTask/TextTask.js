@@ -5,9 +5,9 @@ import DefaultTextTask from './components/DefaultTextTask'
 import TextTaskWithSuggestions from './components/TextTaskWithSuggestions'
 
 /*
-Special case: raw insertion tags
+Special case: literal insertion tags
  */
-const rawInsertiontags = ['&']
+const literalInsertiontags = ['&']
 
 function TextTask (props) {
   const { annotation, autoFocus, disabled, subTaskPreviousAnnotationValues, task } = props
@@ -26,9 +26,9 @@ function TextTask (props) {
     const text = currentRef.value
     const textTag = e.currentTarget.value
     
-    // Special case: raw insertion tags
-    if (rawInsertiontags.indexOf(textTag) >= 0) {
-      return setTagSelection_rawInsertion(e, ref)
+    // Special case: literal insertion tags
+    if (literalInsertiontags.indexOf(textTag) >= 0) {
+      return setTagSelection_literalInsertion(e, ref)
     }
     
     const startTag = `[${textTag}]`
@@ -57,18 +57,16 @@ function TextTask (props) {
   }
   
   /*
-  Special case: raw insertion tags
+  Special case: literal insertion tags
   - For certain tags, we insert them individually, as is, with no brackets.
   - i.e. 'tag' instead of '[tag]...[/tag]'
   - Requested for Davy Notebooks on Aug 2021: https://github.com/zooniverse/front-end-monorepo/issues/2331
   - This is a temporary measure. Long term solution is to create a new category of text tags.
  */
-  function setTagSelection_rawInsertion (e, ref) {
+  function setTagSelection_literalInsertion (e, ref) {
     const currentRef = ref.current
     const text = currentRef.value
     const textTag = e.currentTarget.value
-    const startTag = `[${textTag}]`
-    const endTag = `[/${textTag}]`
     const selectionStart = currentRef.selectionStart
     const selectionEnd = currentRef.selectionEnd
     const textBefore = text.substring(0, selectionStart)
