@@ -127,12 +127,15 @@ class VariableStarViewerContainer extends Component {
     } = rawJSON
 
     const { onReady, subject } = this.props
-    const target = this.viewer.current
+    const container = this.viewer.current?.container
     const phasedJSON = this.calculatePhase(scatterPlot)
     const barJSON = this.calculateBarJSON(barCharts)
     const highlightedSeries = this.setupSeriesHighlight(scatterPlot)
     // think about a better way to do this
     const imageLocation = subject.locations[2] || {}
+
+    const { width: clientWidth, height: clientHeight } = container ? container.getBoundingClientRect() : {}
+    const target = { clientWidth, clientHeight, naturalWidth: 0, naturalHeight: 0 }
 
     this.setState({
       barJSON,
@@ -142,8 +145,7 @@ class VariableStarViewerContainer extends Component {
       highlightedSeries
     },
       function () {
-        // temporarily remove ref param
-        onReady({ target: {} })
+        onReady({ target })
       })
   }
 
