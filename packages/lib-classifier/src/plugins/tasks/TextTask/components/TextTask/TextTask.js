@@ -7,7 +7,7 @@ import TextTaskWithSuggestions from './components/TextTaskWithSuggestions'
 /*
 Special case: literal insertion tags
  */
-const literalInsertiontags = ['&']
+const literalInsertionTags = ['&']
 
 function TextTask (props) {
   const { annotation, autoFocus, disabled, subTaskPreviousAnnotationValues, task } = props
@@ -27,7 +27,7 @@ function TextTask (props) {
     const textTag = e.currentTarget.value
     
     // Special case: literal insertion tags
-    if (literalInsertiontags.indexOf(textTag) >= 0) {
+    if (literalInsertionTags.indexOf(textTag) >= 0) {
       return setTagSelection_literalInsertion(e, ref)
     }
     
