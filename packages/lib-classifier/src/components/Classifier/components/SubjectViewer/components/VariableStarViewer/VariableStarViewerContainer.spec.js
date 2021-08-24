@@ -259,6 +259,7 @@ describe('Component > VariableStarViewerContainer', function () {
     afterEach(function () {
       cdmSpy.resetHistory()
       cduSpy.resetHistory()
+      onReadySpy.resetHistory()
     })
 
     after(function () {
