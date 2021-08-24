@@ -9,7 +9,7 @@ import { default as Task } from '@plugins/tasks/TextTask'
 import DefaultTextTask from './components/DefaultTextTask'
 import TextTaskWithSuggestions from './components/TextTaskWithSuggestions'
 
-describe.only('TextTask', function () {
+describe('TextTask', function () {
   const task = Task.TaskModel.create({
     instruction: 'Type something here',
     taskKey: 'T0',
