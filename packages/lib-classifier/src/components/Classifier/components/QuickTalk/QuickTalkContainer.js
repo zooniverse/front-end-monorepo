@@ -12,8 +12,12 @@ function storeMapper (stores) {
     active: subject
   } = stores.classifierStore.subjects
   
+  const authClient = stores.classifierStore.authClient
+  console.log('+++ authClient: ', authClient)
+  
   return {
-    subject
+    authClient,
+    subject,
   }
 }
 
@@ -206,7 +210,7 @@ class QuickTalkContainer extends React.Component {
     } = this.state
 
     if (!subject) {
-      return (<div>NOTHING</div>)
+      return null
     }
     
     return (
@@ -224,6 +228,7 @@ class QuickTalkContainer extends React.Component {
 }
 
 QuickTalkContainer.propTypes = {
+  authClient: PropTypes.object, // TEMPORARY  // HACK
   subject: PropTypes.object,
 }
 
