@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import Background from '../Background'
 import Introduction from '../Introduction'
-import WorkflowMenu from '../WorkflowMenu'
+import WorkflowSelector from '@shared/components/WorkflowSelector'
 import ContentBox from '@shared/components/ContentBox'
 
 const GrowBox = styled(Box)`
@@ -30,7 +30,7 @@ function WideLayout (props) {
         width='38%'
       >
         <Introduction />
-        <WorkflowMenu
+        <WorkflowSelector
           workflows={workflows}
         />
       </StyledContentBox>

@@ -7,17 +7,25 @@ function useStore() {
   const { store } = React.useContext(MobXProviderContext)
 
   return {
-    projectPreferences: store.user.personalization.projectPreferences
+    assignedWorkflowID: store.user.personalization.projectPreferences.settings?.workflow_id,
+    loadingState: store.user.personalization.projectPreferences.loadingState,
+    promptAssignment: store.user.personalization.projectPreferences.promptAssignment
   }
 }
 
 function WorkflowAssignmentModalConnector({ currentWorkflowID, ...rest }) {
-  const { projectPreferences } = useStore()
+  const {
+    assignedWorkflowID = '',
+    loadingState,
+    promptAssignment
+  } = useStore()
 
   return (
     <WorkflowAssignmentModalContainer
-      projectPreferences={projectPreferences}
+      assignedWorkflowID={assignedWorkflowID}
       currentWorkflowID={currentWorkflowID}
+      loadingState={loadingState}
+      promptAssignment={promptAssignment}
       {...rest}
     />
   )

@@ -1,8 +1,14 @@
 import glyphComponents from './glyphComponents'
 
-export default function getDataSeriesSymbol(seriesIndex) {
+export default function getDataSeriesSymbol({
+  seriesOptions: seriesOptions = {},
+  seriesIndex: seriesIndex = 0
+}) {
   if (seriesIndex === undefined || seriesIndex === null) {
     throw new TypeError('seriesIndex cannot be null or undefined')
   }
-  return glyphComponents[seriesIndex]
+  const glyphNames = Object.keys(glyphComponents)
+  const glyphNameBySeriesIndex = glyphNames[seriesIndex]
+  const glyphToRender = glyphComponents[seriesOptions.glyph] || glyphComponents[glyphNameBySeriesIndex]
+  return glyphToRender
 }

@@ -17,7 +17,6 @@ const markdownzComponents = {
 function WorkflowSelector (props) {
   const {
     assignedWorkflowID = '',
-    onSelect,
     uppLoaded = false,
     userReadyState,
     workflowAssignmentEnabled = false,
@@ -56,7 +55,6 @@ function WorkflowSelector (props) {
         >
           <WorkflowSelectButtons
             assignedWorkflowID={assignedWorkflowID}
-            onSelect={onSelect}
             workflowAssignmentEnabled={workflowAssignmentEnabled}
             workflows={workflows}
           />
@@ -89,7 +87,6 @@ function WorkflowSelector (props) {
 }
 
 WorkflowSelector.propTypes = {
-  onSelect: func.isRequired,
   userReadyState: string,
   workflowAssignmentEnabled: bool,
   workflowDescription: string,

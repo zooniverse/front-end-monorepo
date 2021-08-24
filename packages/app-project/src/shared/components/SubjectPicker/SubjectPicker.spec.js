@@ -1,5 +1,6 @@
 import { mount, shallow } from 'enzyme'
 import { Grommet } from 'grommet'
+import Link from 'next/link'
 import nock from 'nock'
 import zooTheme from '@zooniverse/grommet-theme'
 
@@ -21,7 +22,7 @@ describe('Components > Subject Picker', function () {
   before(function () {
     wrapper = shallow(
       <SubjectPicker
-        baseUrl="/workflow/12345/subject-set/4567"
+        baseUrl="/workflow/12345"
         subjectSet={subjectSet}
         workflow={workflow}
       />
@@ -59,17 +60,18 @@ describe('Components > Subject Picker', function () {
         rows
       })
       nock('https://panoptes-staging.zooniverse.org/api')
-      .get('/subject_workflow_statuses')
+      .get('/subjects/selection')
       .query(true)
       .reply(200, {
-        subject_workflow_statuses: [
-          { classifications_count: 0, retired_at: null, links: { subject: '1' }},
-          { classifications_count: 3, retired_at: null, links: { subject: '2' }},
-          { classifications_count: 5, retired_at: "2018-01-30T21:09:49.396Z", links: { subject: '3' }}
+        subjects: [
+          { id: 1, already_seen: false, retired: false },
+          { id: 2, already_seen: true, retired: false },
+          { id: 3, already_seen: true, retired: true }
         ]
       })
       wrapper = mount(
         <SubjectPicker
+          baseUrl="/workflow/12345"
           subjectSet={subjectSet}
           workflow={workflow}
         />,
@@ -89,6 +91,18 @@ describe('Components > Subject Picker', function () {
       wrapper.update()
       const dataTable = wrapper.find(SubjectDataTable)
       expect(dataTable.prop('data').length).to.equal(3)
+    })
+  })
+
+  describe('Back link', function () {
+    let link
+
+    before(function () {
+      link = wrapper.find(Link).first()
+    })
+
+    it('should link to the base URL', function () {
+      expect(link.prop('href')).to.equal('/workflow/12345')
     })
   })
 })
