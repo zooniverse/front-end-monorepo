@@ -1,57 +1,39 @@
-import { shallow } from 'enzyme'
-import { Image } from 'grommet'
-import { TeamMember, StyledDisplayName, StyledRole, StyledUsername } from './TeamMember'
+import * as stories from './TeamMember.stories'
+import { render } from '@testing-library/react'
 
 describe('Component > TeamMember', function () {
-  let wrapper
+  const { Default, Placeholder } = stories
 
-  const user = {
-    avatar_src: '',
-    display_name: 'Test User',
-    id: '123',
-    login: 'test-user',
-    roles: ['owner', 'scientist']
-  }
+  it('should display the user display name, username, and roles', function () {
+    const { getByText } = render(<Default />)
+    const item = getByText('Mock User')
+    expect(item).exists()
 
-  const router = {
-    query: {
-      owner: 'test-user',
-      project: 'test-project'
-    }
-  }
+    const username = getByText('@mock_user')
+    expect(username).exists()
 
-  before(function () {
-    wrapper = shallow(<TeamMember user={user} router={router} />)
+    const firstRole = getByText('collaborator')
+    expect(firstRole).exists()
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
-
-  it('should display the user display name', function () {
-    const name = wrapper.find(StyledDisplayName)
-    expect(name.text()).to.equal('Test User')
-  })
-
-  it('should display username (login) as a NavLink to user profile', function () {
-    const username = wrapper.find(StyledUsername)
-    expect(username.props().link.text).to.equal('@test-user')
-    expect(username.props().link.href).to.equal('/projects/test-user/test-project/users/test-user')
-  })
-
-  it('should display a placeholder avatar image if user has no avatar src', function () {
-    const avatar = wrapper.find(Image)
-    expect(avatar.props().alt).to.equal('Placeholder Avatar')
-    expect(avatar.props().src).to.equal('/simple-avatar.png')
-  })
-
-  it('should display all roles in roles array', function () {
-    const roles = wrapper.find(StyledRole)
-    expect(roles).to.have.lengthOf(2)
+  it('should display username as a NavLink to user profile', function () {
+    const { getByRole } = render(<Default />)
+    const link = getByRole('link')
+    expect(link).exists()
+    expect(link.href).include(
+      '/projects/zooniverse/snapshot-serengeti/users/mock_user'
+    )
   })
 
   it('should display scientist role as researcher', function () {
-    const roles = wrapper.find(StyledRole)
-    expect(roles.last().text()).to.equal('researcher')
+    const { getByText } = render(<Default />)
+    const secondRole = getByText('researcher')
+    expect(secondRole).exists()
+  })
+
+  it('should display a placeholder avatar image if user has no avatar src', function () {
+    const { getByAltText } = render(<Placeholder />)
+    const placeholder = getByAltText('Placeholder Avatar')
+    expect(placeholder).exists()
   })
 })

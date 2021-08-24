@@ -7,15 +7,19 @@ import variableStar from '@viewers/helpers/mockLightCurves/variableStar'
 import zooTheme from '@zooniverse/grommet-theme'
 import Label from '../Label'
 
-const { data } = variableStar.data.scatterPlot
-
 describe('Controls > Components > PhaseFocusControls', function () {
   let wrapper, setSeriesPhaseFocusSpy
+  const { data } = variableStar.data.scatterPlot
+  const highlightedSeries = [
+    data[0].seriesOptions.label,
+    data[1].seriesOptions.label
+  ]
   before(function () {
     setSeriesPhaseFocusSpy = sinon.spy()
     wrapper = shallow(
       <PhaseFocusControls
         data={data}
+        highlightedSeries={highlightedSeries}
         phaseFocusedSeries={0}
         setSeriesPhaseFocus={setSeriesPhaseFocusSpy}
         theme={zooTheme}
@@ -63,6 +67,7 @@ describe('Controls > Components > PhaseFocusControls', function () {
       expect(radioButton.props().label).to.deep.equal(
         <Label
           colors={zooTheme.global.colors}
+          highlightedSeries={highlightedSeries}
           seriesIndex={seriesIndex}
           seriesOptions={series.seriesOptions}
           label={label}
@@ -85,6 +90,7 @@ describe('Controls > Components > PhaseFocusControls', function () {
       expect(radioButton.props().label).to.deep.equal(
         <Label
           colors={zooTheme.global.colors}
+          highlightedSeries={highlightedSeries}
           seriesIndex={seriesIndex}
           seriesOptions={series.seriesOptions}
           label={label}
