@@ -1,52 +1,84 @@
-import { shallow } from 'enzyme'
+import { expect } from 'chai'
 import React from 'react'
+import { render, screen } from '@testing-library/react'
 import zooTheme from '@zooniverse/grommet-theme'
-import { SpacedHeading } from '@zooniverse/react-components'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import en from './locales/en'
-import { ConfusedWith, StyledDropButton } from './ConfusedWith'
+import { ConfusedWith } from './ConfusedWith'
 
 const KUDU = mockTask.choices.KD
 
 describe('Component > ConfusedWith', function () {
-  let wrapper
-
-  before(function () {
-    wrapper = shallow(
+  it('should render without crashing', function () {
+    render(
       <ConfusedWith
         choices={mockTask.choices}
         confusions={KUDU.confusions}
         confusionsOrder={KUDU.confusionsOrder}
-        hasFocus
         images={mockTask.images}
         theme={zooTheme}
       />
     )
+    expect(screen).to.be.ok()
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
+  it('should render the section title', function () {
+    render(
+      <ConfusedWith
+        choices={mockTask.choices}
+        confusions={KUDU.confusions}
+        confusionsOrder={KUDU.confusionsOrder}
+        images={mockTask.images}
+        theme={zooTheme}
+      />
+    )
+    expect(screen.getByText(en.ConfusedWith.confused)).to.exist()
   })
 
-  it('should render a section title', function () {
-    expect(wrapper.find(SpacedHeading).children().text()).to.equal(en.ConfusedWith.confused)
-  })
+  it('should render the appropriate confused with buttons', function () {
+    render(
+      <ConfusedWith
+        choices={mockTask.choices}
+        confusions={KUDU.confusions}
+        confusionsOrder={KUDU.confusionsOrder}
+        images={mockTask.images}
+        theme={zooTheme}
+      />
+    )
 
-  it('should render the appropriate StyledDropButtons', function () {
-    const dropButtons = wrapper.find(StyledDropButton)
-    expect(dropButtons).to.have.lengthOf(2)
-    expect(dropButtons.at(0).props().label).to.equal('Eland')
-    expect(dropButtons.at(1).props().label).to.equal('Hartebeest')
+    expect(screen.getAllByRole('button')).to.have.lengthOf(2)
+    expect(screen.getByRole('button', { name: 'Eland' })).to.exist()
+    expect(screen.getByRole('button', { name: 'Hartebeest' })).to.exist()
   })
 
   describe('with hasFocus of true', function () {
-    it('should have the first StyledDropButton with autoFocus true', function () {
-      expect(wrapper.find(StyledDropButton).first().props().autoFocus).to.be.true()
+    it('should have the first confused with button as the document active element', function () {
+      render(
+        <ConfusedWith
+          choices={mockTask.choices}
+          confusions={KUDU.confusions}
+          confusionsOrder={KUDU.confusionsOrder}
+          hasFocus
+          images={mockTask.images}
+          theme={zooTheme}
+        />
+      )
+      expect(screen.getByRole('button', { name: 'Eland' })).to.equal(document.activeElement)
     })
 
-    it('should have other StyledDropButton with autoFocus false', function () {
-      expect(wrapper.find(StyledDropButton).last().props().autoFocus).to.be.false()
+    it('should not have the other confused with button as the document active element', function () {
+      render(
+        <ConfusedWith
+          choices={mockTask.choices}
+          confusions={KUDU.confusions}
+          confusionsOrder={KUDU.confusionsOrder}
+          hasFocus
+          images={mockTask.images}
+          theme={zooTheme}
+        />
+      )
+      expect(screen.getByRole('button', { name: 'Hartebeest' })).to.not.equal(document.activeElement)
     })
   })
 })
