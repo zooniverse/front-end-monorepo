@@ -9,7 +9,6 @@ const REDUCER_KEY = 'alice'
 const TranscriptionReductions = types
   .model('TranscriptionReductions', {
     error: types.maybeNull(types.frozen({})),
-    frame: types.optional(types.number, 0),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
     reductions: types.array(types.frozen({})),
     subjectId: types.string,
@@ -42,8 +41,7 @@ const TranscriptionReductions = types
     }
 
     function constructLine (reduction, options) {
-      const { minimumViews, threshold } = options
-      const { frame } = self
+      const { frame, minimumViews, threshold } = options
       const consensusText = reduction.consensus_text
       const points = constructCoordinates(reduction)
       const textOptions = constructText(reduction)
@@ -60,8 +58,8 @@ const TranscriptionReductions = types
     }
 
     return {
-      get consensusLines () {
-        const { frame, reductions } = self
+      consensusLines (frame = 0) {
+        const { reductions } = self
         let consensusLines = []
         reductions.forEach(reduction => {
           const { parameters } = reduction.data
@@ -69,7 +67,7 @@ const TranscriptionReductions = types
           const minimumViews = parameters?.minimum_views || DEFAULT_VIEWS_TO_RETIRE
           const currentFrameReductions = reduction.data[`frame${frame}`] || []
           const currentFrameConsensus = currentFrameReductions.map(reduction => {
-            return constructLine(reduction, { minimumViews, threshold })
+            return constructLine(reduction, { frame, minimumViews, threshold })
           })
           consensusLines = consensusLines.concat(currentFrameConsensus)
         })
@@ -107,11 +105,7 @@ const TranscriptionReductions = types
           self.loadingState = asyncStates.error
           self.reductions = []
         }
-      }),
-
-      changeFrame (frame) {
-        self.frame = frame
-      }
+      })
     }
   })
 

@@ -18,7 +18,7 @@ describe('Component > TranscribedLines', function () {
       subjectId: '1234',
       workflowId: '5678'
     })
-    consensusLines = transcriptionReductions.consensusLines
+    consensusLines = transcriptionReductions.consensusLines()
     task = transcriptionModels.TaskModel.create({
       tools: [{
         type: 'transcriptionLine',
@@ -147,7 +147,7 @@ describe('Component > TranscribedLines', function () {
           subjectId: '1234',
           workflowId: '5678'
         })
-        const consensusLines = transcriptionReductions.consensusLines
+        const consensusLines = transcriptionReductions.consensusLines()
         const task = transcriptionModels.TaskModel.create({
           tools: [{
             type: 'transcriptionLine',

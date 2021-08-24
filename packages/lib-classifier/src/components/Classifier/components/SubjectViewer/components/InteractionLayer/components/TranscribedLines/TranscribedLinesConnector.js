@@ -22,7 +22,7 @@ function useStores () {
     }
   } = stores.classifierStore
 
-  const { consensusLines } = subject.transcriptionReductions || {}
+  const consensusLines = subject.transcriptionReductions?.consensusLines(frame) || []
 
   // We expect there to only be one
   const [transcriptionTask] = findTasksByType('transcription')
@@ -30,7 +30,13 @@ function useStores () {
   const marks = transcriptionTask?.marks
 
   const valid = step?.isValid
-  return { invalid: !valid, transcriptionTask, consensusLines, frame, marks, workflow }
+  return { 
+    invalid: !valid,
+    transcriptionTask,
+    consensusLines,
+    marks,
+    workflow
+  }
 }
 
 function TranscribedLinesConnector ({
@@ -39,7 +45,6 @@ function TranscribedLinesConnector ({
   const { 
     invalid = false,
     transcriptionTask = {},
-    frame = 0,
     consensusLines = [],
     marks = [],
     workflow = {
@@ -47,13 +52,13 @@ function TranscribedLinesConnector ({
     }
   } = useStores()
   const { shownMarks } = transcriptionTask
-  const visibleLinesPerFrame = consensusLines.filter(line => line.frame === frame)
+  console.log('lines', consensusLines)
 
-  if (workflow?.usesTranscriptionTask && shownMarks === SHOWN_MARKS.ALL && visibleLinesPerFrame.length > 0) {
+  if (workflow?.usesTranscriptionTask && shownMarks === SHOWN_MARKS.ALL && consensusLines.length > 0) {
     return (
       <TranscribedLines
         invalidMark={invalid}
-        lines={visibleLinesPerFrame}
+        lines={consensusLines}
         marks={marks}
         scale={scale}
         task={transcriptionTask}
