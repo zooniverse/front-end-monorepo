@@ -2,6 +2,7 @@ import React from 'react'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
+import { getBearerToken } from '../../../../store/utils'
 
 import QuickTalk from './QuickTalk'
 import apiClient from 'panoptes-client/lib/api-client'
@@ -60,10 +61,10 @@ class QuickTalkContainer extends React.Component {
     const authClient = this.props?.authClient
     if (!authClient) return
     
+    const authorization = await getBearerToken(authClient)  // Check bearer token to ensure session hasn't timed out
     const user = await authClient.checkCurrent()
-    console.log('+++ user: ', user)
     this.setState({
-      userId: user?.id
+      userId: (authorization && user) ? user.id : undefined
     })
   }
   
@@ -149,8 +150,10 @@ class QuickTalkContainer extends React.Component {
       - long-term, we want to pass down the User resource from app-project
       - see https://github.com/zooniverse/front-end-monorepo/discussions/2362
        */
+
+      const authorization = await getBearerToken(authClient)  // Check bearer token to ensure session hasn't timed out
       const user = await authClient.checkCurrent()
-      if (!user) throw('User not logged in')
+      if (!authorization || !user) throw('User not logged in')
 
       // First, get default board
       const boards = await talkClient.type('boards').get({ section, subject_default: true })
