@@ -22,7 +22,6 @@ function UserAvatar ({
   
   // Note: state isn't working as expected, maybe need to setSrc() as soon as it detects src !== previousSrc ??
   // const [_src, setSrc] = React.useState(newSrc)
-  // console.log('+++ UserAvatar: [', displayName, ']', src, _src)
   
   function onError () {
     // setSrc(DEFAULT_AVATAR)

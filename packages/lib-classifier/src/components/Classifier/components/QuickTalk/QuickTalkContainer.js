@@ -12,8 +12,12 @@ function storeMapper (stores) {
     active: subject
   } = stores.classifierStore.subjects
   
+  /*
+  Quick Fix: use authClient to check User resource within the QuickTalk component itself
+  - Long-term, app-project should be responsible for managing the User resource.
+  - see https://github.com/zooniverse/front-end-monorepo/discussions/2362
+   */
   const authClient = stores.classifierStore.authClient
-  console.log('+++ authClient: ', authClient)
   
   return {
     authClient,
@@ -112,8 +116,8 @@ class QuickTalkContainer extends React.Component {
       return
     }
     
-    const section = 'project-' + project.id
-    const discussionTitle = 'Subject ' + subject.id
+    const section = `project-${project.id}`
+    const discussionTitle = `Subject ${subject.id}`
     
     this.setState({
       postCommentStatus: asyncStates.loading,
@@ -121,13 +125,13 @@ class QuickTalkContainer extends React.Component {
     })
     
     try {
-      // Quick Fix: check user before posting
-      // - this is because we can never be 100% sure when a user has logged out on lib-classifier
-      // - long-term, we want to pass down the User resource from app-project
-      // see https://github.com/zooniverse/front-end-monorepo/discussions/2362
-      //
+      /*
+      Quick Fix: check user before posting
+      - this is because we can never be 100% sure when a user has logged out on lib-classifier
+      - long-term, we want to pass down the User resource from app-project
+      - see https://github.com/zooniverse/front-end-monorepo/discussions/2362
+       */
       const user = await authClient.checkCurrent()
-      console.log('+++ user: ', user)
       if (!user) throw('User not logged in')
 
       // First, get default board
