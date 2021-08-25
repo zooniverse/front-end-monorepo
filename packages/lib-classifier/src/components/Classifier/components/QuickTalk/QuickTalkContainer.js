@@ -112,11 +112,6 @@ class QuickTalkContainer extends React.Component {
       return
     }
     
-    // TEMPORARY: user darke_shard on staging
-    // TODO: 
-    // - [ ] figure out how to pass user object down from app-project?
-    const userId = '1325361'
-    
     const section = 'project-' + project.id
     const discussionTitle = 'Subject ' + subject.id
     
@@ -125,83 +120,89 @@ class QuickTalkContainer extends React.Component {
       postCommentStatusMessage: '',
     })
     
-    const catchError = (err) => {
+    try {
+      // Quick Fix: check user before posting
+      // - this is because we can never be 100% sure when a user has logged out on lib-classifier
+      // - long-term, we want to pass down the User resource from app-project
+      // see https://github.com/zooniverse/front-end-monorepo/discussions/2362
+      //
+      const user = await authClient.checkCurrent()
+      console.log('+++ user: ', user)
+      if (!user) throw('User not logged in')
+
+      // First, get default board
+      talkClient.type('boards').get({ section, subject_default: true })
+        .then(boards => boards[0])
+        .then(defaultBoard => {
+          if (!defaultBoard) throw('A board for subject comments has not been setup for this project yet.')
+
+          // Next, attempt to find if the Subject already has a discussion attached to it.
+          talkClient.type('discussions').get({
+            board_id: defaultBoard.id,
+            title: discussionTitle,
+            subject_default: true,
+          }).then(discussions => discussions[0])
+            .then(discussion => {
+              if (discussion) { // Add to the discussion
+
+                const comment = {
+                  user_id: user.id,
+                  body: text,
+                  discussion_id: +discussion.id,
+                }
+
+                console.log('+++ TEMP A')
+                
+                /*
+                talkClient.type('comments').create(comment).save()
+                  .then (comment => {
+                    this.setState({
+                      postCommentStatus: asyncStates.success,
+                      postCommentStatusMessage: '',
+                    })
+                    this.fetchComments()
+                  })
+                */
+
+              } else {  // Create a new discussion
+
+                const comments = [{
+                  user_id: user.id,
+                  body: text,
+                  focus_id: +subject.id,
+                  focus_type: 'Subject',
+                }]
+
+                const discussion = {
+                  title: discussionTitle,
+                  user_id: user.id,
+                  subject_default: true,
+                  board_id: defaultBoard.id,
+                  comments: comments,
+                }
+
+                console.log('+++ TEMP B')
+
+                /*
+                talkClient.type('discussions').create(discussion).save()
+                  .then (discussion => {
+                    this.setState({
+                      postCommentStatus: asyncStates.success,
+                      postCommentStatusMessage: '',
+                    })
+                    this.fetchComments()
+                  })
+                */
+              }
+            })
+        })
+    } catch (err) {
       console.error(err)
       this.setState({
         postCommentStatus: asyncStates.error,
         postCommentStatusMessage: err?.message || err,
       })
     }
-    
-    const user = await authClient.checkCurrent()
-    console.log('+++ user: ', user)
-    
-    // First, get default board
-    talkClient.type('boards').get({ section, subject_default: true })
-      .then(boards => boards[0])
-      .then(defaultBoard => {
-        if (!defaultBoard) throw('A board for subject comments has not been setup for this project yet.')
-        
-        // Next, attempt to find if the Subject already has a discussion attached to it.
-        talkClient.type('discussions').get({
-          board_id: defaultBoard.id,
-          title: discussionTitle,
-          subject_default: true,
-        }).then(discussions => discussions[0])
-          .then(discussion => {
-            if (discussion) { // Add to the discussion
-            
-              const comment = {
-                user_id: userId,
-                body: text,
-                discussion_id: +discussion.id,
-              }
-              
-              talkClient.type('comments').create(comment).save()
-                .then (comment => {
-                  this.setState({
-                    postCommentStatus: asyncStates.success,
-                    postCommentStatusMessage: '',
-                  })
-                  this.fetchComments()
-                })
-                .catch(catchError)
-
-            } else {  // Create a new discussion
-
-              const comments = [{
-                user_id: userId,
-                body: text,
-                focus_id: +subject.id,
-                focus_type: 'Subject',
-              }]
-
-              const discussion = {
-                title: discussionTitle,
-                user_id: userId,
-                subject_default: true,
-                board_id: defaultBoard.id,
-                comments: comments,
-              }
-              
-              console.log('+++ TEMP')
-              
-              /*
-              talkClient.type('discussions').create(discussion).save()
-                .then (discussion => {
-                  this.setState({
-                    postCommentStatus: asyncStates.success,
-                    postCommentStatusMessage: '',
-                  })
-                  this.fetchComments()
-                })
-                .catch(catchError)
-              */
-            }
-          })
-          .catch(catchError)
-      })
-      .catch(catchError)
   }
     
   render () {
