@@ -131,71 +131,58 @@ class QuickTalkContainer extends React.Component {
       if (!user) throw('User not logged in')
 
       // First, get default board
-      talkClient.type('boards').get({ section, subject_default: true })
-        .then(boards => boards[0])
-        .then(defaultBoard => {
-          if (!defaultBoard) throw('A board for subject comments has not been setup for this project yet.')
+      const boards = await talkClient.type('boards').get({ section, subject_default: true })
+      const defaultBoard = boards && boards[0]
+      if (!defaultBoard) throw('A board for subject comments has not been setup for this project yet.')
+      
+      // Next, attempt to find if the Subject already has a discussion attached to it.
+      const discussions = await talkClient.type('discussions').get({
+        board_id: defaultBoard.id,
+        title: discussionTitle,
+        subject_default: true,
+      })
+      const existingDiscussion = discussions && discussions[0]
+      
+      if (existingDiscussion) { // Add to the existing discussion
 
-          // Next, attempt to find if the Subject already has a discussion attached to it.
-          talkClient.type('discussions').get({
-            board_id: defaultBoard.id,
-            title: discussionTitle,
-            subject_default: true,
-          }).then(discussions => discussions[0])
-            .then(discussion => {
-              if (discussion) { // Add to the discussion
+        const comment = {
+          user_id: user.id,
+          body: text,
+          discussion_id: +existingDiscussion.id,
+        }
 
-                const comment = {
-                  user_id: user.id,
-                  body: text,
-                  discussion_id: +discussion.id,
-                }
-
-                console.log('+++ TEMP A')
-                
-                /*
-                talkClient.type('comments').create(comment).save()
-                  .then (comment => {
-                    this.setState({
-                      postCommentStatus: asyncStates.success,
-                      postCommentStatusMessage: '',
-                    })
-                    this.fetchComments()
-                  })
-                */
-
-              } else {  // Create a new discussion
-
-                const comments = [{
-                  user_id: user.id,
-                  body: text,
-                  focus_id: +subject.id,
-                  focus_type: 'Subject',
-                }]
-
-                const discussion = {
-                  title: discussionTitle,
-                  user_id: user.id,
-                  subject_default: true,
-                  board_id: defaultBoard.id,
-                  comments: comments,
-                }
-
-                console.log('+++ TEMP B')
-
-                /*
-                talkClient.type('discussions').create(discussion).save()
-                  .then (discussion => {
-                    this.setState({
-                      postCommentStatus: asyncStates.success,
-                      postCommentStatusMessage: '',
-                    })
-                    this.fetchComments()
-                  })
-                */
-              }
-            })
+        await talkClient.type('comments').create(comment).save()
+        this.setState({
+          postCommentStatus: asyncStates.success,
+          postCommentStatusMessage: '',
         })
+        this.fetchComments()
+
+      } else {  // Create a new discussion
+
+        const comments = [{
+          user_id: user.id,
+          body: text,
+          focus_id: +subject.id,
+          focus_type: 'Subject',
+        }]
+
+        const discussion = {
+          title: discussionTitle,
+          user_id: user.id,
+          subject_default: true,
+          board_id: defaultBoard.id,
+          comments: comments,
+        }
+
+        await talkClient.type('discussions').create(discussion).save()
+        this.setState({
+          postCommentStatus: asyncStates.success,
+          postCommentStatusMessage: '',
+        })
+        this.fetchComments()
+      }
+
     } catch (err) {
       console.error(err)
       this.setState({
