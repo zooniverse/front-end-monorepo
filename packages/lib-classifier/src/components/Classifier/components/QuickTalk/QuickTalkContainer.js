@@ -104,10 +104,11 @@ class QuickTalkContainer extends React.Component {
     })
   }
   
-  postComment (text) {
+  async postComment (text) {
     const subject = this.props?.subject
     const project = subject?.project
-    if (!subject || !project) {
+    const authClient = this.props?.authClient
+    if (!subject || !project || !authClient) {
       return
     }
     
@@ -131,6 +132,9 @@ class QuickTalkContainer extends React.Component {
         postCommentStatusMessage: err?.message || err,
       })
     }
+    
+    const user = await authClient.checkCurrent()
+    console.log('+++ user: ', user)
     
     // First, get default board
     talkClient.type('boards').get({ section, subject_default: true })
@@ -180,6 +184,9 @@ class QuickTalkContainer extends React.Component {
                 comments: comments,
               }
               
+              console.log('+++ TEMP')
+              
+              /*
               talkClient.type('discussions').create(discussion).save()
                 .then (discussion => {
                   this.setState({
@@ -189,6 +196,7 @@ class QuickTalkContainer extends React.Component {
                   this.fetchComments()
                 })
                 .catch(catchError)
+              */
             }
           })
           .catch(catchError)
