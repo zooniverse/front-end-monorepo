@@ -27,8 +27,8 @@ describe('Component > Questions', function () {
         questions={mockTask.questions}
       />
     )
-    expect(screen.queryAllByRole('radio')).to.have.lengthOf(14)
-    expect(screen.queryAllByRole('checkbox')).to.have.lengthOf(5)
+    expect(screen.queryAllByRole('radio', { hidden: true })).to.have.lengthOf(14)
+    expect(screen.queryAllByRole('checkbox', { hidden: true })).to.have.lengthOf(5)
   })
 
   it('should show answers provided as checked inputs', function () {
@@ -39,8 +39,8 @@ describe('Component > Questions', function () {
         questions={mockTask.questions}
       />
     )
-    const radioInputs = screen.queryAllByRole('radio')
-    const checkboxInputs = screen.queryAllByRole('checkbox')
+    const radioInputs = screen.queryAllByRole('radio', { hidden: true })
+    const checkboxInputs = screen.queryAllByRole('checkbox', { hidden: true })
     radioInputs.forEach(checkboxInput => {
       if (checkboxInput.getAttribute('value') === '9') {
         expect(checkboxInput.getAttribute('checked')).to.not.be.null()
@@ -69,7 +69,7 @@ describe('Component > Questions', function () {
           questions={mockTask.questions}
         />
       )
-      expect(screen.getByRole('radio', { name: '1' })).to.equal(document.activeElement)
+      expect(screen.getByLabelText('1')).to.equal(document.activeElement)
     })
   })
 })
