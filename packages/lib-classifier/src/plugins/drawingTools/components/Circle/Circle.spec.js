@@ -18,9 +18,7 @@ TODO
 
 describe('Circle tool', function () {
   it('should render a Circle with the coordinates provided', function () {
-    render(
-      <Circle mark={{ x_center: 200, y_center: 200, radius: 100 }} scale={1} />
-    )
+    render(<Circle mark={{ x_center: 200, y_center: 200, r: 100 }} scale={1} />)
 
     expect(screen.getByTestId('circle-element'))
       .to.have.attr('r')

@@ -12,7 +12,7 @@ const CircleModel = types
   .model('CircleModel', {
     x_center: types.maybe(types.number),
     y_center: types.maybe(types.number),
-    radius: types.optional(types.number, 0)
+    r: types.optional(types.number, 0)
   })
   .views((self) => ({
     get coords() {
@@ -24,8 +24,8 @@ const CircleModel = types
 
     deleteButtonPosition(scale) {
       const theta = DELETE_BUTTON_ANGLE * (Math.PI / 180)
-      const dx = ((self.radius + BUFFER) / scale) * Math.cos(theta)
-      const dy = ((self.radius + BUFFER) / scale) * Math.sin(theta)
+      const dx = ((self.r + BUFFER) / scale) * Math.cos(theta)
+      const dy = ((self.r + BUFFER) / scale) * Math.sin(theta)
       return {
         x: dx,
         y: dy
@@ -33,7 +33,7 @@ const CircleModel = types
     },
 
     get isValid() {
-      return self.radius >= MINIMUM_RADIUS
+      return self.r >= MINIMUM_RADIUS
     },
 
     get tool() {
@@ -54,7 +54,7 @@ const CircleModel = types
   }))
   .actions((self) => {
     function initialDrag({ x, y }) {
-      self.radius = self.getDistance(self.x_center, self.y_center, x, y)
+      self.r = self.getDistance(self.x_center, self.y_center, x, y)
     }
 
     function initialPosition({ x, y }) {
@@ -70,7 +70,7 @@ const CircleModel = types
     function setCoordinates({ x, y, r }) {
       self.x_center = x
       self.y_center = y
-      self.radius = r
+      self.r = r
     }
 
     return {

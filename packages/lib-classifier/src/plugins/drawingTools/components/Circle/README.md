@@ -18,7 +18,7 @@ In the `Circle.js` component file, the circle tag only has the `r` attribute.
 
 `<circle r={radius} />`
 
-This is because the `cx` and `cy` attributes are inherited from the parent, `Mark.js` component file. The `Mark.js` component file sets `cx` and `cy` position using `transform = translate(x, y)`
+The `<circle>` implicitly has `cx='0'` and `cy='0`. This is because the vertical & horizontal positioning is handled by the parent, `Mark.js` component file. The `Mark.js` component file sets the x/y position using `transform = translate(x, y)`
 
 ```jsx
 transform =

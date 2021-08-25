@@ -7,11 +7,11 @@ const GUIDE_DASH = [4, 4]
 const GUIDE_WIDTH = 1
 
 function Circle({ active, mark, onFinish, scale }) {
-  const { x_center, y_center, radius } = mark
+  const { x_center, y_center, r } = mark
   const guideWidth = GUIDE_WIDTH / scale
 
   // x, y coords for handle
-  const handleX = radius
+  const handleX = r
   const handleY = 0
 
   function onHandleDrag(e) {
@@ -22,8 +22,8 @@ function Circle({ active, mark, onFinish, scale }) {
 
   return (
     <g onPointerUp={active ? onFinish : undefined}>
-      {/* cx and cy are set in Mark.js component: transform  */}
-      <circle r={radius} data-testid='circle-element' />
+      {/* x-translation and y-translation are set in Mark.js component: transform  */}
+      <circle r={r} data-testid='circle-element' />
       {active && (
         <g>
           <line
