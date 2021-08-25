@@ -14,6 +14,17 @@ function storeMapper (stores) {
   } = stores.classifierStore.subjects
   
   /*
+  Experimental Check
+  - As of Aug 2021, this component is experimental.
+  - Only show this component when explicitly enabled.
+   */
+  const {
+    active: project
+  } = stores.classifierStore.projects
+  console.log('+++ project', project)
+  const enabled = project?.experimental_tools.includes('quicktalk')
+  
+  /*
   Quick Fix: use authClient to check User resource within the QuickTalk component itself
   - Long-term, app-project should be responsible for managing the User resource.
   - see https://github.com/zooniverse/front-end-monorepo/discussions/2362
@@ -22,6 +33,7 @@ function storeMapper (stores) {
   
   return {
     authClient,
+    enabled,
     subject,
   }
 }
@@ -41,11 +53,15 @@ class QuickTalkContainer extends React.Component {
   }
   
   componentDidMount () {
+    if (!this.props.enabled) return
+    
     this.fetchComments()
     this.checkUser()
   }
   
   componentDidUpdate (prevProps) {
+    if (!this.props.enabled) return
+    
     const props = this.props
     if (props.subject?.id !== prevProps.subject?.id) {
       this.fetchComments()
@@ -220,6 +236,7 @@ class QuickTalkContainer extends React.Component {
   render () {
     const {
       subject,
+      enabled,
     } = this.props
     
     const {
@@ -231,7 +248,7 @@ class QuickTalkContainer extends React.Component {
       userId,
     } = this.state
 
-    if (!subject) {
+    if (!subject || !enabled) {
       return null
     }
     
@@ -252,10 +269,13 @@ class QuickTalkContainer extends React.Component {
 
 QuickTalkContainer.propTypes = {
   authClient: PropTypes.object, // Quick Fix
+  enabled: PropTypes.bool,
   subject: PropTypes.object,
 }
 
 QuickTalkContainer.defaultProps = {
+  authClient: undefined,
+  enabled: false,
   subject: undefined,
 }
 
