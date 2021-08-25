@@ -35,18 +35,36 @@ class QuickTalkContainer extends React.Component {
       authorRoles: {},
       postCommentStatus: asyncStates.initialized,
       postCommentStatusMessage: '',
+      userId: '',
     }
   }
   
   componentDidMount () {
     this.fetchComments()
+    this.checkUser()
   }
   
   componentDidUpdate (prevProps) {
     const props = this.props
     if (props.subject?.id !== prevProps.subject?.id) {
       this.fetchComments()
+      this.checkUser()
     }
+  }
+  
+  /*
+  Quick Fix: use authClient to check User resource within the QuickTalk component itself
+  - see https://github.com/zooniverse/front-end-monorepo/discussions/2362
+   */
+  async checkUser () {
+    const authClient = this.props?.authClient
+    if (!authClient) return
+    
+    const user = await authClient.checkCurrent()
+    console.log('+++ user: ', user)
+    this.setState({
+      userId: user?.id
+    })
   }
   
   fetchComments () {
@@ -207,6 +225,7 @@ class QuickTalkContainer extends React.Component {
       authorRoles,
       postCommentStatus,
       postCommentStatusMessage,
+      userId,
     } = this.state
 
     if (!subject) {
@@ -222,13 +241,14 @@ class QuickTalkContainer extends React.Component {
         postCommentStatus={postCommentStatus}
         postCommentStatusMessage={postCommentStatusMessage}
         postComment={this.postComment.bind(this)}
+        userId={userId}
       />
     )
   }
 }
 
 QuickTalkContainer.propTypes = {
-  authClient: PropTypes.object, // TEMPORARY  // HACK
+  authClient: PropTypes.object, // Quick Fix
   subject: PropTypes.object,
 }
 

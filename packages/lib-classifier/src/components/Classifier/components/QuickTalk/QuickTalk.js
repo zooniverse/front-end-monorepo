@@ -38,6 +38,7 @@ function QuickTalk ({
   postCommentStatus = asyncStates.initialized,
   postCommentStatusMessage = '',
   postComment = () => {},
+  userId,
   screenSize,
   expand = false,
 }) {
@@ -60,7 +61,7 @@ function QuickTalk ({
   }
   
   // TODO:
-  // - [ ] add flag for Talk Link
+  // - [ ] add 'external URL' icon for Talk Link
   // - [ ] Reverse order of comments
   
   return (
@@ -96,10 +97,12 @@ function QuickTalk ({
           Post Comment Status: {postCommentStatus}
           [{postCommentStatusMessage}]
         </Box>
-        <PostForm
-          postComment={postComment}
-          postCommentStatus={postCommentStatus}
-        />
+        {userId && (
+          <PostForm
+            postComment={postComment}
+            postCommentStatus={postCommentStatus}
+          />
+        )}
       </Box>
     </FixedBox>
   )
@@ -113,6 +116,7 @@ QuickTalk.propTypes = {
   postCommentStatus: PropTypes.string,
   postCommentStatusMessage: PropTypes.string,
   postComment: PropTypes.func,
+  userId: PropTypes.string,
   expand: PropTypes.bool,
 }
 
