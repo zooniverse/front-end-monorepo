@@ -7,18 +7,19 @@ import { TranscribedLines } from './TranscribedLines'
 import { reducedSubject } from '@store/TranscriptionReductions/mocks'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
 import ConsensusPopup from './components/ConsensusPopup'
+import { expect } from 'chai'
 
-describe('Component > TranscribedLines', function () {
+describe.only('Component > TranscribedLines', function () {
   const transcriptionModels = taskRegistry.get('transcription')
 
-  let wrapper, task, consensusLines
+  let wrapper, task, consensusLines, transcriptionReductions
   before(function () {
-    const transcriptionReductions = TranscriptionReductions.create({
+    transcriptionReductions = TranscriptionReductions.create({
       reductions: [{ data: reducedSubject }],
       subjectId: '1234',
       workflowId: '5678'
     })
-    consensusLines = transcriptionReductions.consensusLines()
+    consensusLines = transcriptionReductions.consensusLines(0)
     task = transcriptionModels.TaskModel.create({
       tools: [{
         type: 'transcriptionLine',
@@ -36,13 +37,13 @@ describe('Component > TranscribedLines', function () {
   })
 
   it('should render without crashing', function () {
-    wrapper = shallow(<TranscribedLines lines={consensusLines} task={task} marks={task.marks} />)
+    wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} task={task} marks={task.marks} />)
     expect(wrapper).to.be.ok()
   })
 
   describe('when on a step without the transcription task', function () {
     before(function () {
-      wrapper = shallow(<TranscribedLines lines={consensusLines} />)
+      wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} />)
     })
 
     it('should disable the incomplete lines', function () {
@@ -97,7 +98,7 @@ describe('Component > TranscribedLines', function () {
         type: 'transcription'
       })
       task.setActiveTool(0)
-      wrapper = shallow(<TranscribedLines lines={consensusLines} marks={task.marks} task={task} />)
+      wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} marks={task.marks} task={task} />)
       lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
     })
 
@@ -142,12 +143,12 @@ describe('Component > TranscribedLines', function () {
     describe('when there is an existing volunteer mark created from a previous consensus mark', function () {
       let wrapper
       before(function () {
-        const transcriptionReductions = TranscriptionReductions.create({
+        transcriptionReductions = TranscriptionReductions.create({
           reductions: [{ data: reducedSubject }],
           subjectId: '1234',
           workflowId: '5678'
         })
-        const consensusLines = transcriptionReductions.consensusLines()
+        const consensusLines = transcriptionReductions.consensusLines(0)
         const task = transcriptionModels.TaskModel.create({
           tools: [{
             type: 'transcriptionLine',
@@ -165,7 +166,7 @@ describe('Component > TranscribedLines', function () {
         const [ transcribedLine ] = consensusLines.filter(line => !line.consensusReached)
         const { id, x1, x2, y1, y2 } = transcribedLine
         task.activeTool.createMark({ id, x1, y1, x2, y2, toolIndex: 0 })
-        wrapper = shallow(<TranscribedLines lines={consensusLines} marks={task.marks} task={task} />)
+        wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} marks={task.marks} task={task} />)
       })
 
       it('should disable the existing mark', function () {
@@ -189,9 +190,11 @@ describe('Component > TranscribedLines', function () {
 
     describe('on click', function () {
       const eventMock = { preventDefault: sinon.spy(), target: null }
-
+      let wrapper, consensusLines
       before(function () {
         task.reset()
+        consensusLines = transcriptionReductions.consensusLines(0)
+        wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} marks={task.marks} task={task} />)
       })
 
       it('should create a new mark', function () {
@@ -204,6 +207,7 @@ describe('Component > TranscribedLines', function () {
           expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
           expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
           expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
+          expect(task.activeMark.frame).to.equal(transcribedLines[index].frame)
           expect(task.marks.length).to.equal(index + 1)
           task.setActiveMark(undefined)
         })
@@ -219,7 +223,22 @@ describe('Component > TranscribedLines', function () {
           expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
           expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
           expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
+          expect(task.activeMark.frame).to.equal(transcribedLines[index].frame)
           expect(task.marks.length).to.equal(transcribedLines.length)
+          task.setActiveMark(undefined)
+        })
+      })
+
+      it('should create a mark for the correct frame', function () {
+        const consensusLines = transcriptionReductions.consensusLines(1)
+        wrapper.setProps({ frame: 1, lines: consensusLines })
+        const transcribedLines = consensusLines.filter(line => !line.consensusReached)
+
+        lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
+        lines.forEach((line, index) => {
+          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('click', eventMock)
+          expect(task.activeMark.frame).to.equal(1)
+          expect(task.activeMark.frame).to.equal(transcribedLines[index].frame)
           task.setActiveMark(undefined)
         })
       })
@@ -227,9 +246,11 @@ describe('Component > TranscribedLines', function () {
 
     describe('on Enter', function () {
       const eventMock = { key: 'Enter', preventDefault: sinon.spy(), target: null }
-
+      let wrapper, consensusLines
       before(function () {
         task.reset()
+        consensusLines = transcriptionReductions.consensusLines(0)
+        wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} marks={task.marks} task={task} />)
       })
 
       it('should create new marks', function () {
@@ -261,13 +282,29 @@ describe('Component > TranscribedLines', function () {
           task.setActiveMark(undefined)
         })
       })
+
+      it('should create a mark for the correct frame', function () {
+        const consensusLines = transcriptionReductions.consensusLines(1)
+        wrapper.setProps({ frame: 1, lines: consensusLines })
+        const transcribedLines = consensusLines.filter(line => !line.consensusReached)
+
+        lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
+        lines.forEach((line, index) => {
+          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('click', eventMock)
+          expect(task.activeMark.frame).to.equal(1)
+          expect(task.activeMark.frame).to.equal(transcribedLines[index].frame)
+          task.setActiveMark(undefined)
+        })
+      })
     })
 
     describe('on Space', function () {
       const eventMock = { key: ' ', preventDefault: sinon.spy(), target: null }
-
+      let wrapper, consensusLines
       before(function () {
         task.reset()
+        consensusLines = transcriptionReductions.consensusLines(0)
+        wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} marks={task.marks} task={task} />)
       })
 
       it('should create a new mark', function () {
@@ -296,6 +333,20 @@ describe('Component > TranscribedLines', function () {
           expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
           expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
           expect(task.marks.length).to.equal(transcribedLines.length)
+          task.setActiveMark(undefined)
+        })
+      })
+
+      it('should create a mark for the correct frame', function () {
+        const consensusLines = transcriptionReductions.consensusLines(1)
+        wrapper.setProps({ frame: 1, lines: consensusLines })
+        const transcribedLines = consensusLines.filter(line => !line.consensusReached)
+
+        lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
+        lines.forEach((line, index) => {
+          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('click', eventMock)
+          expect(task.activeMark.frame).to.equal(1)
+          expect(task.activeMark.frame).to.equal(transcribedLines[index].frame)
           task.setActiveMark(undefined)
         })
       })

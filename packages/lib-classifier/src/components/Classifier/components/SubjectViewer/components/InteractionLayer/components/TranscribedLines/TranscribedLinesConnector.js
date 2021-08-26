@@ -30,7 +30,8 @@ function useStores () {
   const marks = transcriptionTask?.marks
 
   const valid = step?.isValid
-  return { 
+  return {
+    frame,
     invalid: !valid,
     transcriptionTask,
     consensusLines,
@@ -42,7 +43,8 @@ function useStores () {
 function TranscribedLinesConnector ({
   scale = 1
 }) {
-  const { 
+  const {
+    frame,
     invalid = false,
     transcriptionTask = {},
     consensusLines = [],
@@ -56,6 +58,7 @@ function TranscribedLinesConnector ({
   if (workflow?.usesTranscriptionTask && shownMarks === SHOWN_MARKS.ALL && consensusLines.length > 0) {
     return (
       <TranscribedLines
+        frame={frame}
         invalidMark={invalid}
         lines={consensusLines}
         marks={marks}
