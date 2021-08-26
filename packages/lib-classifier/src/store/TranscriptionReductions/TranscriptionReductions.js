@@ -58,7 +58,7 @@ const TranscriptionReductions = types
     }
 
     return {
-      consensusLines (frame = 0) {
+      consensusLines (frame) {
         const { reductions } = self
         let consensusLines = []
         reductions.forEach(reduction => {
