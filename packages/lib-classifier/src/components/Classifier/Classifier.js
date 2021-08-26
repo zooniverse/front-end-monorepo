@@ -120,9 +120,9 @@ export default function Classifier({
     }
   }, [subjectID, subjectSetID, workflowID])
 
-  useEffect(function onAuthChange() {
+  useEffect(function onUpdate() {
     userProjectPreferences.checkForUser()
-  }, [authClient])
+  })
 
   try {
     return (
