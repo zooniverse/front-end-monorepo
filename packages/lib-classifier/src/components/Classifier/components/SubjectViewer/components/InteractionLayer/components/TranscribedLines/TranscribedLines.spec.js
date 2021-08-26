@@ -9,7 +9,7 @@ import { TranscriptionLine } from '@plugins/drawingTools/components'
 import ConsensusPopup from './components/ConsensusPopup'
 import { expect } from 'chai'
 
-describe.only('Component > TranscribedLines', function () {
+describe('Component > TranscribedLines', function () {
   const transcriptionModels = taskRegistry.get('transcription')
 
   let wrapper, task, consensusLines, transcriptionReductions
@@ -124,7 +124,7 @@ describe.only('Component > TranscribedLines', function () {
     describe('when there is an existing invalid mark', function () {
       let wrapper, lines
       before(function () {
-        wrapper = shallow(<TranscribedLines invalidMark={true} lines={consensusLines} marks={task.marks} task={task} />)
+        wrapper = shallow(<TranscribedLines frame={0} invalidMark={true} lines={consensusLines} marks={task.marks} task={task} />)
         lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
       })
 
@@ -190,11 +190,12 @@ describe.only('Component > TranscribedLines', function () {
 
     describe('on click', function () {
       const eventMock = { preventDefault: sinon.spy(), target: null }
-      let wrapper, consensusLines
+      let wrapper, consensusLines, lines
       before(function () {
         task.reset()
         consensusLines = transcriptionReductions.consensusLines(0)
         wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} marks={task.marks} task={task} />)
+        lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
       })
 
       it('should create a new mark', function () {
@@ -215,6 +216,10 @@ describe.only('Component > TranscribedLines', function () {
 
       it('should create only one mark per transcribed line', function () {
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
+        lines.forEach((line, index) => {
+          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', eventMock)
+          task.setActiveMark(undefined)
+        })
         expect(task.marks.length).to.equal(transcribedLines.length)
         lines.forEach((line, index) => {
           expect(task.activeMark).to.be.undefined()
@@ -246,11 +251,12 @@ describe.only('Component > TranscribedLines', function () {
 
     describe('on Enter', function () {
       const eventMock = { key: 'Enter', preventDefault: sinon.spy(), target: null }
-      let wrapper, consensusLines
-      before(function () {
+      let wrapper, consensusLines, lines
+      beforeEach(function () {
         task.reset()
         consensusLines = transcriptionReductions.consensusLines(0)
         wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} marks={task.marks} task={task} />)
+        lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
       })
 
       it('should create new marks', function () {
@@ -263,6 +269,7 @@ describe.only('Component > TranscribedLines', function () {
           expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
           expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
           expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
+          expect(task.activeMark.frame).to.equal(transcribedLines[index].frame)
           expect(task.marks.length).to.equal(index + 1)
           task.setActiveMark(undefined)
         })
@@ -270,6 +277,10 @@ describe.only('Component > TranscribedLines', function () {
 
       it('should create only one mark per transcribed line', function () {
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
+        lines.forEach((line, index) => {
+          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', eventMock)
+          task.setActiveMark(undefined)
+        })
         expect(task.marks.length).to.equal(transcribedLines.length)
         lines.forEach((line, index) => {
           expect(task.activeMark).to.be.undefined()
@@ -301,10 +312,11 @@ describe.only('Component > TranscribedLines', function () {
     describe('on Space', function () {
       const eventMock = { key: ' ', preventDefault: sinon.spy(), target: null }
       let wrapper, consensusLines
-      before(function () {
+      beforeEach(function () {
         task.reset()
         consensusLines = transcriptionReductions.consensusLines(0)
         wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} marks={task.marks} task={task} />)
+        lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
       })
 
       it('should create a new mark', function () {
@@ -317,6 +329,7 @@ describe.only('Component > TranscribedLines', function () {
           expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
           expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
           expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
+          expect(task.activeMark.frame).to.equal(transcribedLines[index].frame)
           expect(task.marks.length).to.equal(index + 1)
           task.setActiveMark(undefined)
         })
@@ -324,6 +337,10 @@ describe.only('Component > TranscribedLines', function () {
 
       it('should create only one mark per transcribed line', function () {
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
+        lines.forEach((line, index) => {
+          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', eventMock)
+          task.setActiveMark(undefined)
+        })
         expect(task.marks.length).to.equal(transcribedLines.length)
         lines.forEach((line, index) => {
           expect(task.activeMark).to.be.undefined()
@@ -363,7 +380,7 @@ describe.only('Component > TranscribedLines', function () {
   describe('completed lines', function () {
     let lines, completeLines
     before(function () {
-      wrapper = shallow(<TranscribedLines lines={consensusLines} task={task} />)
+      wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} task={task} />)
       lines = wrapper.find(TranscriptionLine).find({ state: 'complete' })
       completeLines = consensusLines.filter(line => line.consensusReached)
     })
@@ -467,7 +484,7 @@ describe.only('Component > TranscribedLines', function () {
 
     describe('when there is an existing invalid mark', function () {
       before(function () {
-        wrapper = shallow(<TranscribedLines invalidMark={true} lines={consensusLines} task={task} />)
+        wrapper = shallow(<TranscribedLines frame={0} invalidMark={true} lines={consensusLines} task={task} />)
         lines = wrapper.find(TranscriptionLine).find({ state: 'complete' })
         completeLines = consensusLines.filter(line => line.consensusReached)
       })
