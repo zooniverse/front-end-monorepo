@@ -36,10 +36,11 @@ export default async function subjectSelectionStrategy(workflow, subjectIDs, pri
   /** fetch ordered subjects for indexed subject sets */
   if (workflow.hasIndexedSubjects) {
     const apiUrl = '/subjects/selection'
-    let ids = await getIndexedSubjects(workflow.subjectSetId, priority)
-    if (ids === '') {
-      ids = await getIndexedSubjects(workflow.subjectSetId)
+    let subjectIds = await getIndexedSubjects(workflow.subjectSetId, priority)
+    if (subjectIds.length === 0) {
+      subjectIds = await getIndexedSubjects(workflow.subjectSetId)
     }
+    const ids = subjectIds.join(',')
     const params = {
       ids,
       workflow_id
