@@ -42,13 +42,14 @@ class TranscribedLines extends React.Component {
   }
 
   createMark (line, node) {
+    const { frame } = this.props
     const { activeTool, activeToolIndex, setActiveMark } = this.props.task
 
     if (activeTool) {
       const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
       const { id } = line
       const toolIndex = activeToolIndex
-      const markSnapshot = { id, x1, y1, x2, y2, toolIndex }
+      const markSnapshot = { frame, id, x1, y1, x2, y2, toolIndex }
       const mark = activeTool.createMark(markSnapshot)
       setActiveMark(mark)
 
@@ -207,6 +208,7 @@ class TranscribedLines extends React.Component {
 }
 
 TranscribedLines.propTypes = {
+  frame: number.isRequired,
   invalidMark: bool,
   lines: arrayOf(shape({
     consensusReached: bool,
