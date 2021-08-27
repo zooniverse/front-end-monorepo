@@ -2,7 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
 import { addDisposer, addMiddleware, flow, getRoot, isValidReference, onPatch, tryReference, types } from 'mobx-state-tree'
 import { getBearerToken } from '../utils'
-import { subjectSelectionStrategy } from './helpers'
+import { getIndexedSubjects, subjectSelectionStrategy } from './helpers'
 import { filterByLabel, filters } from '../../components/Classifier/components/MetaTools/components/Metadata/components/MetadataModal'
 import ResourceStore from '../ResourceStore'
 import Subject from '../Subject'
@@ -50,7 +50,7 @@ const SubjectStore = types
   })
 
   .views(self => ({
-    get isThereMetadata () {
+    get isThereMetadata() {
       const validSubjectReference = isValidReference(() => self.active)
       if (validSubjectReference) {
         const filteredMetadata = Object.keys(self.active.metadata)
@@ -60,9 +60,12 @@ const SubjectStore = types
 
       return false
     },
-
+    /** a helper to get the first subject in the queue */
+    get first() {
+      return self.resources.values().next().value
+    },
     /** a helper to get the last subject in the queue */
-    get last () {
+    get last() {
       let lastSubject
 
       if ( self.resources.size > 0 ) {
@@ -138,6 +141,21 @@ const SubjectStore = types
       addDisposer(self, subjectMiddleware)
     }
 
+    async function _fetchPreviousSubjects(workflow, priority) {
+      const ids = await getIndexedSubjects(workflow.subjectSetId, priority, 'lt', 'desc')
+      if (ids.length > 0) {
+        ids.reverse()
+        const apiUrl = '/subjects/selection'
+        const params = {
+          ids: ids.join(','),
+          workflow_id: workflow.id
+        }
+        const newSubjects = await _fetchSubjects({ apiUrl , params })
+        return newSubjects
+      }
+      return []
+    }
+
     async function _fetchSubjects({ apiUrl, params }) {
       const {
         authClient,
@@ -146,29 +164,26 @@ const SubjectStore = types
         }
       } = getRoot(self)
 
-      const authorization = await getBearerToken(authClient)
-      const response = await panoptes.get(apiUrl, params, { authorization })
+      try {
+        const authorization = await getBearerToken(authClient)
+        const response = await panoptes.get(apiUrl, params, { authorization })
 
-      if (response.body.subjects?.length > 0) {
-        return response.body.subjects
+        if (response.body.subjects?.length > 0) {
+          return response.body.subjects
+        }
+      } catch (error) {
+        console.error(error)
       }
       return []
     }
 
-    function advance () {
-      const validSubjectReference = isValidReference(() => self.active)
-      if (validSubjectReference) {
-        const idToRemove = self.active.id
-        self.resources.delete(idToRemove)
-      }
+    function advance() {
+      const workflow = tryReference(() => getRoot(self).workflows.active)
 
-      const nextSubject = self.resources.values().next().value
-      self.active = nextSubject && nextSubject.id
-      if (process.env.NODE_ENV !== 'test') console.log('Loading subject', nextSubject && nextSubject.id)
-
-      if (self.resources.size < MINIMUM_QUEUE_SIZE) {
-        console.log('Fetching more subjects')
-        self.populateQueue()
+      if (workflow?.hasIndexedSubjects) {
+        self.next()
+      } else {
+        self.shift()
       }
     }
 
@@ -197,7 +212,30 @@ const SubjectStore = types
       self.onReset()
       self.reset()
     }
+    /** Get the next subject, in an indexed, prioritised set, and make it the active subject */
+    function next() {
+      const activeSubject = tryReference(() => self.active)
+      const workflow = tryReference(() => getRoot(self).workflows.active)
+      const queue = Array.from(self.resources.values())
 
+      // In indexed, prioritised sets, the next subject may not be first in the queue
+      if (workflow?.hasIndexedSubjects) {
+        self.available.clear()
+        let nextSubjects = queue
+        if (activeSubject) {
+          const activeIndex = queue.indexOf(activeSubject)
+          nextSubjects = queue.slice(activeIndex + 1)
+        }
+        const nextSubject = nextSubjects[0]
+        if (nextSubject) {
+          self.setActiveSubject(nextSubject.id)
+        }
+        if (nextSubjects.length <= MINIMUM_QUEUE_SIZE) {
+          console.log('Fetching more subjects')
+          self.populateQueue()
+        }
+      }
+    }
     /** request exactly one unclassified subject from /subjects/queued */
     function * nextAvailable() {
       const root = getRoot(self)
@@ -223,18 +261,68 @@ const SubjectStore = types
       
       if (workflow) {
         try {
-          const { apiUrl, params } = yield subjectSelectionStrategy(workflow, subjectIDs, self.last?.priority)
+          const strategy = yield subjectSelectionStrategy(workflow, subjectIDs, self.last?.priority)
 
-          self.loadingState = asyncStates.loading
-          const subjects = yield _fetchSubjects({ apiUrl, params })
-          self.loadingState = asyncStates.success
-          if (subjects?.length > 0) {
-            self.append(subjects)
+          if (strategy) {
+            const { apiUrl, params } = strategy
+            self.loadingState = asyncStates.loading
+            const subjects = yield _fetchSubjects({ apiUrl, params })
+            self.loadingState = asyncStates.success
+            if (subjects?.length > 0) {
+              self.append(subjects)
+            }
           }
         } catch (error) {
           console.error(error)
           self.loadingState = asyncStates.error
         } 
+      }
+    }
+    /** Insert new subjects into the queue but maintain priority ordering */
+    function prepend(newSubjects = []) {
+      if (newSubjects.length > 0) {
+        const priorityQueue = Array.from(self.resources.values())
+        priorityQueue.unshift(...newSubjects)
+
+        priorityQueue.forEach(subject => {
+          const subjectSnapshot = subject.toJSON ? subject.toJSON() : subject
+          try {
+            self.resources.delete(subjectSnapshot.id)
+            self.resources.put(subjectSnapshot)
+          } catch (error) {
+            console.error(`Subject ${subject.id} is not a valid subject.`)
+            console.error(error)
+          }
+        })
+      }
+    }
+    /** Get the previous subject, in an indexed, prioritised set, and make it the active subject */
+    function * previous() {
+      const root = getRoot(self)
+      const workflow = tryReference(() => root.workflows.active)
+      const activeSubject = tryReference(() => self.active)
+      const currentPriority = activeSubject?.priority
+
+      if (workflow?.hasIndexedSubjects) {
+        self.available.clear()
+        let previousSubjects = []
+        if (activeSubject) {
+          const queue = Array.from(self.resources.values())
+          const activeIndex = queue.indexOf(activeSubject)
+          previousSubjects = queue.slice(0, activeIndex)
+        }
+        if (previousSubjects.length <= MINIMUM_QUEUE_SIZE) {
+          const newSubjects = yield _fetchPreviousSubjects(workflow, self.first.priority)
+          self.prepend(newSubjects)
+          const queue = Array.from(self.resources.values())
+          const activeIndex = queue.findIndex(subject => subject.priority === currentPriority)
+          previousSubjects = queue.slice(0, activeIndex)
+        }
+        // previous subjects should be in ascending priority order now
+        if (previousSubjects.length > 0) {
+          const previousSubject = previousSubjects[previousSubjects.length - 1]
+          self.setActiveSubject(previousSubject.id)
+        }
       }
     }
 
@@ -243,8 +331,28 @@ const SubjectStore = types
       self.available.clear()
     }
 
+    function setActiveSubject(subjectID) {
+      self.active = subjectID
+      if (process.env.NODE_ENV !== 'test') console.log('Loading subject', subjectID)
+    }
+
     function setOnReset(callback) {
       self.onReset = callback
+    }
+    /** Shift the subject queue by one subject, so that the active subject is always the first subject. */
+    function shift() {
+      const subject = tryReference(() => self.active)
+
+      if (subject) {
+        self.resources.delete(subject.id)
+      }
+      if (self.resources.size < MINIMUM_QUEUE_SIZE) {
+        console.log('Fetching more subjects')
+        self.populateQueue()
+      }
+      if (self.first) {
+        self.setActiveSubject(self.first.id)
+      }
     }
 
     return {
@@ -253,10 +361,15 @@ const SubjectStore = types
       append,
       clearAvailable,
       clearQueue,
+      next,
       nextAvailable: flow(nextAvailable),
+      prepend,
       populateQueue: flow(populateQueue),
+      previous: flow(previous),
       reset,
-      setOnReset
+      setActiveSubject,
+      setOnReset,
+      shift
     }
   })
 

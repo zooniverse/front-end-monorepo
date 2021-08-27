@@ -37,18 +37,18 @@ export default async function subjectSelectionStrategy(workflow, subjectIDs, pri
   if (workflow.hasIndexedSubjects) {
     const apiUrl = '/subjects/selection'
     let subjectIds = await getIndexedSubjects(workflow.subjectSetId, priority)
-    if (subjectIds.length === 0) {
-      subjectIds = await getIndexedSubjects(workflow.subjectSetId)
+    if (subjectIds.length > 0) {
+      const ids = subjectIds.join(',')
+      const params = {
+        ids,
+        workflow_id
+      }
+      return {
+        apiUrl,
+        params
+      }
     }
-    const ids = subjectIds.join(',')
-    const params = {
-      ids,
-      workflow_id
-    }
-    return {
-      apiUrl,
-      params
-    }
+    return null
   }
 
   /** Random grouped selection for grouped workflows */
