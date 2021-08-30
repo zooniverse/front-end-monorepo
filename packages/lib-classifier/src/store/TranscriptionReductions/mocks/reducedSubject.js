@@ -217,6 +217,7 @@ export default {
       'low_consensus': true
     }
   ],
+  'frame3': [], // Added this just for testing purposes
   'parameters': {
     'min_samples': 'auto',
     'max_eps': null,

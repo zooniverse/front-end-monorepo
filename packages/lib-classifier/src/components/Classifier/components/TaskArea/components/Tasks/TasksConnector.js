@@ -1,10 +1,8 @@
-import React, { useContext } from 'react'
-import { MobXProviderContext, observer } from 'mobx-react'
-
+import React from 'react'
+import { withStores } from '@helpers'
 import Tasks from './Tasks'
 
-function TasksConnector(props) {
-  const { classifierStore } = useContext(MobXProviderContext)
+function storeMapper(store) {
   const {
     annotatedSteps: {
       latest
@@ -23,7 +21,7 @@ function TasksConnector(props) {
       active: step,
       isThereTaskHelp
     }
-  } = classifierStore
+  } = store
 
   let isComplete
   // wait for the step and the classification before calculating isComplete from annotations.
@@ -31,18 +29,16 @@ function TasksConnector(props) {
     isComplete = step.isComplete(latest.annotations)
   }
 
-  return (
-    <Tasks
-      classification={classification}
-      demoMode={demoMode}
-      isComplete={isComplete}
-      isThereTaskHelp={isThereTaskHelp}
-      loadingState={loadingState}
-      step={step}
-      subjectReadyState={subjectReadyState}
-      {...props}
-    />
-  )
+  return {
+    classification,
+    demoMode,
+    isComplete,
+    isThereTaskHelp,
+    latest,
+    loadingState,
+    step,
+    subjectReadyState
+  }
 }
 
-export default observer(TasksConnector)
+export default withStores(Tasks, storeMapper)
