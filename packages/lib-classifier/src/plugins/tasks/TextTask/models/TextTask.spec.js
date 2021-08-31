@@ -5,7 +5,7 @@ describe('Model > TextTask', function () {
   const textTask = {
     instruction: 'Type something here',
     taskKey: 'T0',
-    text_tags: ['insertion', 'deletion'],
+    text_tags: ['insertion', 'deletion', '&'],
     type: 'text'
   }
 
