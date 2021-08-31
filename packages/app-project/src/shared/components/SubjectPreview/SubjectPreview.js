@@ -10,7 +10,20 @@ import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
 
-function SubjectPreview ({ height, isLoggedIn, placeholder, subject, slug, width }) {
+const defaultSubject = {
+  favorite: false,
+  id: '',
+  toggleFavorite: () => false,
+  locations: []
+}
+function SubjectPreview ({
+  height = '250px',
+  isLoggedIn = false,
+  placeholder,
+  slug,
+  subject = defaultSubject,
+  width = '400px'
+}) {
   const subjectURLs = subject.locations.map(location => Object.values(location)[0])
   const subjectURL = subjectURLs[0]
   const collectionsModal = createRef()
@@ -57,30 +70,25 @@ function SubjectPreview ({ height, isLoggedIn, placeholder, subject, slug, width
 }
 
 SubjectPreview.propTypes = {
+  /** CSS classes */
   className: string,
+  /** CSS box height */
   height: string,
+  /** Is the volunteer logged in, for favourites and collections. */
   isLoggedIn: bool,
+  /** Placeholder, shown while the subject loads. */
   placeholder: node,
+  /** The current subject */
   subject: shape({
     favorite: bool,
     id: string,
     toggleFavourite: func,
     locations: array
   }),
+  /** Project URL slug for links. */
   slug: string.isRequired,
+  /** CSS box width */
   width: string
-}
-
-SubjectPreview.defaultProps = {
-  height: '250px',
-  isLoggedIn: false,
-  subject: {
-    favorite: false,
-    id: '',
-    toggleFavorite: () => false,
-    locations: []
-  },
-  width: '400px'
 }
 
 export default SubjectPreview
