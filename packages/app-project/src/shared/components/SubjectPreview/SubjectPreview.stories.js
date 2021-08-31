@@ -1,12 +1,7 @@
-import { storiesOf } from '@storybook/react'
-import { withKnobs, boolean } from '@storybook/addon-knobs'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
-import { backgrounds } from '../../../../.storybook/lib'
 
 import SubjectPreview from './'
-
-const darkThemeConfig = { backgrounds: backgrounds.darkDefault }
 
 const CAT = {
   favorite: false,
@@ -44,59 +39,76 @@ function toggle () {
   subject.toggleFavourite = toggle.bind(subject)
 })
 
-storiesOf('Project App / Shared / Subject Preview', module)
-  .addDecorator(withKnobs)
-  .add('plain', () => (
-    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <Box background={{ dark: 'dark-3', light: 'light-3' }} height='medium' pad='medium' width='medium'>
-        <SubjectPreview
-          height={'200px'}
-          isLoggedIn={boolean('User logged in', true)}
-          subject={CAT}
-          slug='zooniverse/snapshot-serengeti'
-          width={'270px'}
-        />
-      </Box>
-    </Grommet>
-  ))
+export default {
+  title: 'Project App / Shared / Subject Preview',
+  component: SubjectPreview
+}
 
-  .add('dark theme', () => (
-    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', true) }}>
-      <Box background={{ dark: 'dark-3', light: 'light-3' }} height='medium' pad='medium' width='medium'>
+export function Plain({ dark, isLoggedIn, subject, slug }) {
+  return (
+    <Grommet theme={{ ...zooTheme, dark }}>
+      <Box height='medium' pad='medium' width='medium'>
         <SubjectPreview
           height={'200px'}
-          isLoggedIn={boolean('User logged in', true)}
-          subject={CAT}
-          slug='zooniverse/snapshot-serengeti'
+          isLoggedIn={isLoggedIn}
+          subject={subject}
+          slug={slug}
           width={'270px'}
         />
       </Box>
     </Grommet>
-  ), darkThemeConfig)
+  )
+}
 
-  .add('transcription', () => (
-    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <Box background={{ dark: 'dark-3', light: 'light-3' }} height='medium' pad='medium' width='medium'>
+Plain.args = {
+  dark: false,
+  isLoggedIn: true,
+  subject: CAT,
+  slug: 'zooniverse/snapshot-serengeti'
+}
+
+export function Transcription({ dark, isLoggedIn, subject, slug }) {
+  return (
+    <Grommet theme={{ ...zooTheme, dark }}>
+      <Box height='medium' pad='medium' width='medium'>
         <SubjectPreview
           height={'200px'}
-          isLoggedIn={boolean('User logged in', true)}
-          subject={PORTRAIT_PAGE}
-          slug='zooniverse/snapshot-serengeti'
+          isLoggedIn={isLoggedIn}
+          subject={subject}
+          slug={slug}
           width={'270px'}
         />
       </Box>
     </Grommet>
-  ))
-  .add('video', () => (
-    <Grommet theme={{ ...zooTheme, dark: boolean('Dark theme', false) }}>
-      <Box background={{ dark: 'dark-3', light: 'light-3' }} height='medium' pad='medium' width='medium'>
+  )
+}
+
+Transcription.args = {
+  dark: false,
+  isLoggedIn: true,
+  subject: PORTRAIT_PAGE,
+  slug: 'zooniverse/snapshot-serengeti'
+}
+  
+export function Video({ dark, isLoggedIn, subject, slug }) {
+  return (
+    <Grommet theme={{ ...zooTheme, dark }}>
+      <Box height='medium' pad='medium' width='medium'>
         <SubjectPreview
           height={'200px'}
-          isLoggedIn={boolean('User logged in', true)}
-          subject={VIDEO}
-          slug='zooniverse/snapshot-serengeti'
+          isLoggedIn={isLoggedIn}
+          subject={subject}
+          slug={slug}
           width={'270px'}
         />
       </Box>
     </Grommet>
-  ))
+  )
+}
+
+Video.args = {
+  dark: false,
+  isLoggedIn: true,
+  subject: VIDEO,
+  slug: 'zooniverse/snapshot-serengeti'
+}
