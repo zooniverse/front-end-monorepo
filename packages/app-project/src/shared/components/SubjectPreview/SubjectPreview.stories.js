@@ -3,11 +3,11 @@ import { Box, Grommet } from 'grommet'
 
 import SubjectPreview from './'
 
-const CAT = {
+const GIRAFFE = {
   favorite: false,
   id: '123',
   locations: [
-    { 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/335/0/2d63944e-f0bc-4fc5-8531-f603886513a1.jpeg' }
+    { 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/production/subject_location/48972f7b-8a4d-4f98-a85b-ed3578db75f0.jpeg' }
   ]
 }
 
@@ -32,7 +32,7 @@ function toggle () {
 }
 
 [
-  CAT,
+  GIRAFFE,
   PORTRAIT_PAGE,
   VIDEO
 ].forEach(subject => {
@@ -63,7 +63,7 @@ export function Plain({ dark, isLoggedIn, subject, slug }) {
 Plain.args = {
   dark: false,
   isLoggedIn: true,
-  subject: CAT,
+  subject: GIRAFFE,
   slug: 'zooniverse/snapshot-serengeti'
 }
 
