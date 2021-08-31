@@ -34,7 +34,7 @@ export function Default({ dark, isThereTaskHelp, required, subjectReadyState }) 
       instruction: 'Type something here',
       required,
       taskKey: 'T0',
-      text_tags: ['insertion', 'deletion'],
+      text_tags: ['insertion', 'deletion', '&'],
       type: 'text'
     }
   }
@@ -55,7 +55,7 @@ export function withSuggestions({ dark, isThereTaskHelp, required, subjectReadyS
       instruction: 'Type something here',
       required,
       taskKey: 'T0',
-      text_tags: ['insertion', 'deletion'],
+      text_tags: ['insertion', 'deletion', '&'],
       type: 'text'
     }
   }
