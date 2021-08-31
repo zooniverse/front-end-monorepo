@@ -1,1 +1,1 @@
-export { default } from './RecentSubjectsContainer'
+export { default } from './RecentSubjectsConnector'
