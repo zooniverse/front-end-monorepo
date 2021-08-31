@@ -92,7 +92,7 @@ describe('Stores > UserProjectPreferences', function () {
     expect(rootStore.client.panoptes.get.withArgs(endpoint, query, { authorization })).to.not.have.been.called()
   })
 
-  describe('Action > fetchResource', function () {
+  describe('fetching the resource', function () {
     describe('when there is a resource in the response', function () {
       let nockScope
       before(function () {

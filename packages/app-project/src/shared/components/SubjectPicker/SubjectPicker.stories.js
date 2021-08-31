@@ -37,6 +37,7 @@ export function Default(args) {
 }
 Default.args = {
   active: true,
+  baseUrl: '/projects/test-owner/test-project/classify/workflow/12345',
   closeFn: e => true,
   dark: false,
   subjectSet: {
@@ -65,6 +66,7 @@ export function Tablet(args) {
 Tablet.parameters = { viewport: { defaultViewport: 'ipad' }}
 Tablet.args = {
   active: true,
+  baseUrl: '/projects/test-owner/test-project/classify/workflow/12345',
   closeFn: e => true,
   dark: false,
   subjectSet: {

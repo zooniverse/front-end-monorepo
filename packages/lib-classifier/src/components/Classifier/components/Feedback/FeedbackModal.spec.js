@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
-import { Button } from 'grommet'
+import { Box, Button } from 'grommet'
 import FeedbackModal from './FeedbackModal'
 import getFeedbackViewer from './helpers/getFeedbackViewer'
 
@@ -42,6 +42,20 @@ describe('FeedbackModal', function () {
     const FeedbackViewer = getFeedbackViewer(applicableRules)
     const viewer = wrapper.find(FeedbackViewer)
     expect(viewer).to.have.lengthOf(0)
+  })
+
+  it('should not show FeedbackViewer if FeedbackViewer null', function () {
+    const wrapper = shallow(
+      <FeedbackModal.wrappedComponent
+        showModal
+        hideSubjectViewer={false}
+        applicableRules={[
+          { id: '1', strategy: 'singleAnswerQuestion' }
+        ]}
+        messages={['Yay!', 'Good Job', 'Try Again']}
+      />)
+    const viewerBox = wrapper.find(Box).filterWhere((box) => box.props().height === '400px' && box.props().width === '600px')
+    expect(viewerBox).to.have.lengthOf(0)
   })
 
   it('should show messages', function () {

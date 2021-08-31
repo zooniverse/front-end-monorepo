@@ -23,21 +23,11 @@ const StyledHeading = styled(Heading)`
   line-height: 100%;
 `
 
-function BackButton({ onClick }) {
-  return (
-    <PlainButton
-      onClick={onClick}
-      text={counterpart('SubjectSetPicker.back')}
-    />
-  )
-}
 /**
   Display a list of subject set cards for a workflow. Each card links to the corresponding subject set ID.
 */
 function SubjectSetPicker ({
   baseUrl,
-  onClose = () => true,
-  onSelect = () => true,
   workflow
 }) {
   const router = useRouter()
@@ -52,16 +42,16 @@ function SubjectSetPicker ({
 
   const columns = Math.floor(window.innerWidth / 240)
 
-  function onClick(event, subjectSet) {
-    if (onSelect) {
-      return onSelect(event, subjectSet)
-    }
-    return true
-  }
-
   return (
     <>
-      {onClose && <BackButton onClick={onClose} />}
+      <Link
+        href={addQueryParams(baseUrl, router)}
+        passHref
+      >
+        <PlainButton
+          text={counterpart('SubjectSetPicker.back')}
+        />
+      </Link>
       <StyledHeading
         level={3}
         margin={{ top: 'xsmall', bottom: 'none' }}
@@ -85,16 +75,14 @@ function SubjectSetPicker ({
           pad='medium'
         >
         {workflow?.subjectSets.map(subjectSet => {
-          const href = `${baseUrl}/subject-set/${subjectSet.id}`
+          const href = `${baseUrl}/workflow/${workflow.id}/subject-set/${subjectSet.id}`
           return (
             <Link
               key={subjectSet.id}
               href={addQueryParams(href, router)}
               passHref
             >
-              <Anchor
-                onClick={event => onClick(event, subjectSet)}
-              >
+              <Anchor>
                 <SubjectSetCard {...subjectSet} />
               </Anchor>
             </Link>
@@ -112,14 +100,6 @@ SubjectSetPicker.propTypes = {
   */
   baseUrl: string.isRequired,
   /**
-    Callback to close/cancel the picker without taking action.
-  */
-  onClose: func,
-  /**
-    Callback to call on clicking a subject set card: `onSelect(event, subjectSet)`
-  */
-  onSelect: func,
-  /**
     The selected workflow.
   */
   workflow: shape({
@@ -132,4 +112,4 @@ SubjectSetPicker.propTypes = {
 }
 
 export default SubjectSetPicker
-export { BackButton, StyledHeading }
+export { StyledHeading }

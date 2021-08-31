@@ -31,8 +31,17 @@ export function Choices (props) {
   const [focusIndex, setFocusIndex] = useState(0)
 
   useEffect(() => {
-    setFocusIndex(0)
-  }, [filteredChoiceIds])
+    if (selectedChoiceIds.length > 0) {
+      const lastSelectedIndex = filteredChoiceIds.indexOf(selectedChoiceIds[selectedChoiceIds.length - 1])
+      if (lastSelectedIndex > -1) {
+        setFocusIndex(lastSelectedIndex)
+      } else {
+        setFocusIndex(0)
+      }
+    } else {
+      setFocusIndex(0)
+    }
+  }, [filteredChoiceIds, selectedChoiceIds])
 
   const columnsCount = howManyColumns(filteredChoiceIds)
   const rowsCount = Math.ceil(filteredChoiceIds.length / columnsCount)
@@ -83,7 +92,6 @@ export function Choices (props) {
         const choice = task.choices?.[choiceId] || {}
         const selected = selectedChoiceIds.indexOf(choiceId) > -1
         const src = task.images?.[choice.images?.[0]] || ''
-
         const hasFocus = autoFocus && (index === focusIndex)
         const tabIndex = (index === focusIndex) ? 0 : -1
 

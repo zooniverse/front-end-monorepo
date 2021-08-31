@@ -7,6 +7,6 @@ export default function setupMock () {
     subjectId: '1',
     workflowId: '2'
   })
-  const { consensusLines } = transcriptionReductions
+  const consensusLines = transcriptionReductions.consensusLines(0)
   return consensusLines.filter(line => line.consensusReached)
 }

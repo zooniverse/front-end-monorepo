@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
 import getDataSeriesColor from '@viewers/helpers/getDataSeriesColor'
 import getDataSeriesSymbol from '@viewers/helpers/getDataSeriesSymbol'
+import isDataSeriesHighlighted from '@viewers/helpers/isDataSeriesHighlighted/isDataSeriesHighlighted'
 
 const StyledLabel = styled.span`
   align-items: center;
@@ -22,9 +23,10 @@ const StyledLabel = styled.span`
   }
 `
 
-function Label (props) {
-  const { colors, label, seriesIndex, seriesOptions, highlighted } = props
-  const Glyph = getDataSeriesSymbol(seriesIndex)
+function Label (props) {  
+  const { colors, label, seriesIndex, seriesOptions, highlightedSeries } = props
+  const highlighted = isDataSeriesHighlighted({ highlightedSeries, seriesOptions })
+  const Glyph = getDataSeriesSymbol({ seriesOptions, seriesIndex })
   const color = getDataSeriesColor({
     defaultColors: Object.values(colors.drawingTools),
     highlighted,

@@ -183,6 +183,38 @@ describe('Component > Choices', function () {
         })
       })
     })
+
+    describe('with selectedChoiceIds', function () {
+      const selectedIds = ['BBN', 'FR']
+
+      before(function () {
+        wrapper = mount(
+          <Choices
+            autoFocus
+            filteredChoiceIds={mockTask.choicesOrder}
+            selectedChoiceIds={selectedIds}
+            task={task}
+          />, {
+            wrappingComponent: Grommet,
+            wrappingComponentProps: { theme: zooTheme }
+          }
+        )
+      })
+
+      it('should give focus to the last selected choice', function () {
+        const choiceButtons = wrapper.find(ChoiceButton)
+
+        choiceButtons.forEach((choiceButton) => {
+          if (choiceButton.props().choiceId === 'FR') {
+            expect(choiceButton.props().hasFocus).to.be.true()
+            expect(choiceButton.props().tabIndex).to.equal(0)
+          } else {
+            expect(choiceButton.props().hasFocus).to.be.false()
+            expect(choiceButton.props().tabIndex).to.equal(-1)
+          }
+        })
+      })
+    })
   })
 
   describe('when the column count is 3', function () {
