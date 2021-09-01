@@ -1,6 +1,7 @@
 import React from 'react'
 import { withResponsiveContext } from '@zooniverse/react-components'
-import { Box, Button } from 'grommet'
+import { Anchor, Box, Button } from 'grommet'
+import { Chat, Close } from 'grommet-icons'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -16,14 +17,12 @@ const FixedBox = styled(Box)`
   max-width: 80vw;
   max-height: 80vh;
   overflow: auto;
-  border: 1px solid red;
 `
 
 const FixedButton = styled(Button)`
   position: fixed;
   bottom: 1em;
   right: 1em;
-  border: 1px solid red;
 `
 
 const UnorderedList = styled(Box)`
@@ -48,35 +47,50 @@ function QuickTalk ({
   if (!subject) return null
   
   const [_expand, setExpand] = React.useState(expand)
-  const buttonLabel = `${comments.length} comment(s)`
+  const a11yTitle = `Subject has ${comments.length} comment(s). Click to expand.`
+  const badge = (comments.length > 0) ? comments.length : undefined
   
   if (!_expand) {
     return (
       <FixedButton
+        a11yTitle={a11yTitle}
         onClick={() => setExpand(true)}
         data-testid='quicktalk-button'
-        label={buttonLabel}
+        icon={<Chat />}
+        badge={badge}
       />
     )
   }
   
   // TODO:
   // - [ ] add 'external URL' icon for Talk Link
-  // - [ ] Reverse order of comments
   
   return (
     <FixedBox
+      elevation='medium'
       pad='small'
       background={{ dark: 'dark-3', light: 'light-3' }}
       data-testid='quicktalk-panel'
     >
       <Box>
-        <Box flex={false}>
-          <a href={subject.talkURL} target="_blank">[TALK LINK]</a>
-          &nbsp;
-          {comments.length} comment(s)
-          
-          <Button onClick={() => setExpand(false)}>Close</Button>
+        <Box
+          direction='row'
+          flex={false}
+          justify='between'
+        >
+          <Anchor
+            a11yTitle='Go to Subject Discussion on Talk.'
+            label='Subject Discussion'
+            href={subject.talkURL}
+            target='_blank'
+            icon={<Chat />}
+          />
+          <Button
+            a11yTitle='Close comments panel.'
+            icon={<Close size='small' />}
+            onClick={() => setExpand(false)}
+            plain={true}
+          />
         </Box>
         <UnorderedList as='ul' flex={false}>
           {comments.map(comment => {
