@@ -5,7 +5,7 @@ import Classifier from '@zooniverse/classifier'
 
 import ClassifierWrapper from './ClassifierWrapper'
 
-describe('Component > ClassifierWrapper', function () {
+describe.only('Component > ClassifierWrapper', function () {
   let wrapper
 
   before(function () {
@@ -23,7 +23,7 @@ describe('Component > ClassifierWrapper', function () {
     expect(wrapper).to.be.ok()
   })
 
-  describe('with a project and user loaded', function () {
+  describe('with a project, user, user project preferences loaded', function () {
     let recents
     let collections
     let yourStats
@@ -47,6 +47,7 @@ describe('Component > ClassifierWrapper', function () {
       }
       wrapper = shallow(
         <ClassifierWrapper
+          appLoadingState={asyncStates.success}
           collections={collections}
           project={project}
           recents={recents}
