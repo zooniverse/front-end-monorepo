@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Text } from 'grommet'
 
 function roleDisplayName (role) {
   if (
@@ -22,9 +23,9 @@ function UserRole ({ role }) {
   if (!role) return null
   
   return (
-    <span>
+    <Text textAlign='center'>
       [{roleDisplayName(role)}]
-    </span>
+    </Text>
   )
 }
 

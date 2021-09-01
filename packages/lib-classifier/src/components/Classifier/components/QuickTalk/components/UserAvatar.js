@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Box, Image } from 'grommet'
 import styled, { css } from 'styled-components'
 
-const Image = styled('img')`
+const AvatarImage = styled(Image)`
   ${props => css`
     width: ${props.size};
     height: ${props.size};
@@ -28,12 +29,24 @@ function UserAvatar ({
   }
   
   return (
-    <Image
+    /*<AvatarImage
+      alignSelf='center'
       src={imgSrc}
-      alt={`Avatar for ${displayName}`}
+      
       size={size}
       onError={onError}
-    />
+    />*/
+    <Box
+      alignSelf='center'
+      width={size}
+      height={size}
+    >
+      <Image
+        alt={`Avatar for ${displayName}`}
+        src={imgSrc}
+        fallback={DEFAULT_AVATAR}
+      />
+    </Box>
   )
 }
 

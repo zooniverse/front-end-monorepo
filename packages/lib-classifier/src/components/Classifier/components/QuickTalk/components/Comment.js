@@ -6,7 +6,7 @@ TODO:
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Box } from 'grommet'
+import { Box, Text } from 'grommet'
 import { Markdownz } from '@zooniverse/react-components'
 
 import UserAvatar from './UserAvatar'
@@ -33,7 +33,12 @@ function Comment ({
           src={author?.avatar_src}
           displayName={author?.display_name}
         />
-        {author?.display_name} (@{author?.login})
+        <Text textAlign='center' weight='bold'>
+          {author?.display_name}
+        </Text>
+        <Text textAlign='center'>
+          (@{author?.login})
+        </Text>
         {roles?.map(role =>
           <UserRole key={`quicktalk-role-${comment.id}-${role.name}`} role={role} />
         )}
@@ -41,7 +46,7 @@ function Comment ({
       <Box
         flex={true}
         pad='xsmall'
-        width='small'
+        width='medium'
       >
         <Markdownz>
           {comment?.body}

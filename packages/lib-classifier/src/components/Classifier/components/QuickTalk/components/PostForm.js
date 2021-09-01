@@ -1,3 +1,8 @@
+/*
+TODO
+- [ ] Show status visually, e.g. when loading, and when there's an error.
+ */
+
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Button, TextArea } from 'grommet'
