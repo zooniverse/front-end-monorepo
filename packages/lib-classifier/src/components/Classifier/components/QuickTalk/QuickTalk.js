@@ -16,7 +16,6 @@ const FixedBox = styled(Box)`
   right: 1em;
   max-width: 80vw;
   max-height: 80vh;
-  overflow: auto;
 `
 
 const FixedButton = styled(Button)`
@@ -62,17 +61,17 @@ function QuickTalk ({
     )
   }
   
-  // TODO:
-  // - [ ] add 'external URL' icon for Talk Link
-  
   return (
     <FixedBox
       elevation='medium'
       pad='small'
       background={{ dark: 'dark-3', light: 'light-3' }}
       data-testid='quicktalk-panel'
+      overflow='auto'
     >
-      <Box>
+      <Box
+        flex={false}
+      >
         <Box
           direction='row'
           flex={false}
@@ -107,14 +106,11 @@ function QuickTalk ({
             )
           })}
         </UnorderedList>
-        <Box flex={false}>
-          Post Comment Status: {postCommentStatus}
-          [{postCommentStatusMessage}]
-        </Box>
         {userId && (
           <PostForm
             postComment={postComment}
             postCommentStatus={postCommentStatus}
+            postCommentStatusMessage={postCommentStatusMessage}
           />
         )}
       </Box>

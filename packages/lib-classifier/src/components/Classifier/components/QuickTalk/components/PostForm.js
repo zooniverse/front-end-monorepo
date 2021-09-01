@@ -1,8 +1,3 @@
-/*
-TODO:
-- [ ] form should only appear if user is logged in
- */
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Button, TextArea } from 'grommet'
@@ -21,6 +16,7 @@ function stopEvent (e) {
 function PostForm ({
   postComment,
   postCommentStatus,
+  postCommentStatusMessage,
 }) {
   const [text, setText] = React.useState('')
   
@@ -61,6 +57,8 @@ function PostForm ({
 
 PostForm.propTypes = {
   postComment: PropTypes.func,
+  postCommentStatus: PropTypes.string,
+  postCommentStatusMessage: PropTypes.string,
 }
 
 export default PostForm
