@@ -11,6 +11,7 @@ import {
   ClassificationQueue,
   sessionUtils
 } from './utils'
+import { subjectsSeenThisSession } from '@helpers'
 
 const ClassificationStore = types
   .model('ClassificationStore', {
@@ -66,7 +67,7 @@ const ClassificationStore = types
           classifier_version: '2.0',
           source: subject.metadata.intervention ? 'sugar' : 'api',
           subjectSelectionState: {
-            already_seen: subject.already_seen,
+            already_seen: subject.already_seen, // Only record Panoptes' setting of this, not session storage
             finished_workflow: subject.finished_workflow,
             retired: subject.retired,
             selected_at: subject.selected_at,
@@ -148,6 +149,7 @@ const ClassificationStore = types
           // subject advance is observing for this to know when to advance the queue
           self.loadingState = asyncStates.posting
           if (process.browser) console.log('Demo mode enabled. No classification submitted.')
+          self.trackAlreadySeenSubjects(classificationToSubmit.links.workflow, classificationToSubmit.links.subjects)
           return Promise.resolve(true)
         }
 
@@ -160,7 +162,14 @@ const ClassificationStore = types
     }
 
     function onClassificationSaved (savedClassification) {
-      // handle any processing of classificatiions that have been saved to Panoptes.
+      console.log('onClassificationSaved')
+      // handle any processing of classifications that have been saved to Panoptes.
+      const { workflow: workflowID, subjects: subjectIDs } = savedClassification.links
+      self.trackAlreadySeenSubjects(workflowID, subjectIDs)
+    }
+
+    function trackAlreadySeenSubjects (workflowID, subjectIDs) {
+      subjectsSeenThisSession.add(workflowID, subjectIDs)
     }
 
     function * submitClassification (classification) {
@@ -190,7 +199,8 @@ const ClassificationStore = types
       onClassificationSaved,
       setDemoMode,
       setOnComplete,
-      submitClassification: flow(submitClassification)
+      submitClassification: flow(submitClassification),
+      trackAlreadySeenSubjects
     }
   })
 

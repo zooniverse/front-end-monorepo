@@ -41,7 +41,7 @@ describe('Component > AlreadySeenBanner', function () {
     it('should show the banner if the subject has been seen', function () {
       wrapper.setProps({
         subject: {
-          already_seen: true,
+          alreadySeen: true,
           id: '1'
         }
       })
@@ -58,7 +58,7 @@ describe('Component > AlreadySeenBanner', function () {
     it('shouldn\'t show the banner if the subject has been seen, but is also retired', function () {
       wrapper.setProps({
         subject: {
-          already_seen: true,
+          alreadySeen: true,
           id: '1',
           retired: true
         }
@@ -69,7 +69,7 @@ describe('Component > AlreadySeenBanner', function () {
     it('shouldn\'t show the banner when subject hasn\'t already been seen', function () {
       wrapper.setProps({
         subject: {
-          already_seen: false,
+          alreadySeen: false,
           id: '1'
         }
       })
@@ -79,7 +79,7 @@ describe('Component > AlreadySeenBanner', function () {
     it('shouldn\'t show the banner if the subject has been seen, but the workflow is finished', function () {
       wrapper.setProps({
         subject: {
-          already_seen: true,
+          alreadySeen: true,
           finished_workflow: true,
           id: '1',
           retired: true
@@ -91,7 +91,7 @@ describe('Component > AlreadySeenBanner', function () {
     it('shouldn\'t show the banner if the subject has been seen, but the user has finished the workflow', function () {
       wrapper.setProps({
         subject: {
-          already_seen: true,
+          alreadySeen: true,
           id: '1',
           retired: true,
           user_has_finished_workflow: true

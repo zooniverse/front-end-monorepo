@@ -7,7 +7,7 @@ import { SubjectFactory, SubjectSetFactory, WorkflowFactory } from '@test/factor
 import SubjectSetProgressBanner from './SubjectSetProgressBanner'
 import Banner from '../Banner'
 
-describe('Component > SubjectSetProgressBanner', function () {
+describe.only('Component > SubjectSetProgressBanner', function () {
   let wrapper
   let componentWrapper
   const workflow = WorkflowFactory.build({
@@ -17,14 +17,14 @@ describe('Component > SubjectSetProgressBanner', function () {
 
   describe('with #priority metadata', function () {
     const subjectSnapshot = SubjectFactory.build({
+      alreadySeen: false,
       metadata: {
         ['#priority']: 37
       }
     })
 
     before(function () {
-      const subject = Subject.create(subjectSnapshot)
-      wrapper = shallow(<SubjectSetProgressBanner subject={subject} workflow={workflow} />)
+      wrapper = shallow(<SubjectSetProgressBanner subject={subjectSnapshot} workflow={workflow} />)
       componentWrapper = wrapper.find(Banner)
     })
 
@@ -46,9 +46,8 @@ describe('Component > SubjectSetProgressBanner', function () {
 
     describe('when the subject is already seen', function () {
       before(function () {
-        const seenSnapshot = Object.assign({}, subjectSnapshot, { already_seen: true })
-        const subject = Subject.create(seenSnapshot)
-        wrapper.setProps({ subject })
+        const seenSnapshot = Object.assign({}, subjectSnapshot, { alreadySeen: true })
+        wrapper.setProps({ subject: seenSnapshot })
       })
 
       it('should show the Already Seen banner', function () {
@@ -85,8 +84,7 @@ describe('Component > SubjectSetProgressBanner', function () {
     })
 
     before(function () {
-      const subject = Subject.create(subjectSnapshot)
-      wrapper = shallow(<SubjectSetProgressBanner subject={subject} workflow={workflow} />)
+      wrapper = shallow(<SubjectSetProgressBanner subject={subjectSnapshot} workflow={workflow} />)
       componentWrapper = wrapper.find(Banner)
     })
 
@@ -108,9 +106,8 @@ describe('Component > SubjectSetProgressBanner', function () {
 
     describe('when the subject is already seen', function () {
       before(function () {
-        const seenSnapshot = Object.assign({}, subjectSnapshot, { already_seen: true })
-        const subject = Subject.create(seenSnapshot)
-        wrapper.setProps({ subject })
+        const seenSnapshot = Object.assign({}, subjectSnapshot, { alreadySeen: true })
+        wrapper.setProps({ subject: seenSnapshot })
       })
 
       it('should show the Already Seen banner', function () {
@@ -125,8 +122,7 @@ describe('Component > SubjectSetProgressBanner', function () {
     describe('when the subject is retired', function () {
       before(function () {
         const retiredSnapshot = Object.assign({}, subjectSnapshot, { retired: true })
-        const subject = Subject.create(retiredSnapshot)
-        wrapper.setProps({ subject })
+        wrapper.setProps({ subject: retiredSnapshot })
       })
 
       it('should show the Finished banner', function () {
