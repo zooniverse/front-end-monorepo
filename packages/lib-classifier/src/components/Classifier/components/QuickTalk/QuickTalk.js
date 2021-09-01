@@ -81,7 +81,7 @@ function QuickTalk ({
           <Anchor
             a11yTitle='Go to Subject Discussion on Talk.'
             label='Subject Discussion'
-            href={subject.talkURL}
+            href={subject.talkURL.replace('local.zooniverse.org:8080', 'master.pfe-preview.zooniverse.org')}
             target='_blank'
             icon={<Chat />}
           />
