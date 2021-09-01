@@ -43,11 +43,13 @@ function PostForm ({
     >
       <form onSubmit={onSubmit}>
         <TextArea
+          a11yTitle='Write comments'
           value={text}
           onChange={e => setText(e.target.value)}
           disabled={disabled}
         />
         <PrimaryButton
+          a11yTitle='Post comment'
           onClick={onSubmit}
           type='submit'
           label='Post'

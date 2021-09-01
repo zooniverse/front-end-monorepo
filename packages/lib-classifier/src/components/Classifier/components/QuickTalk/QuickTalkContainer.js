@@ -21,7 +21,6 @@ function storeMapper (stores) {
   const {
     active: project
   } = stores.classifierStore.projects
-  console.log('+++ project', project)
   const enabled = project?.experimental_tools.includes('quicktalk')
   
   /*
@@ -63,7 +62,7 @@ class QuickTalkContainer extends React.Component {
     if (!this.props.enabled) return
     
     const props = this.props
-    if (props.subject?.id !== prevProps.subject?.id) {
+    if (props.subject !== prevProps.subject) {  // Note: this high level comparison actually works. Comparing props.subject?.id !== prevProps.subject?.id however causes a crash when getting a new subject, since prevProps.subject would have been removed from memory.
       this.fetchComments()
       this.checkUser()
     }
