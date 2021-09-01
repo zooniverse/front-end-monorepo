@@ -25,6 +25,7 @@ const FixedButton = styled(Button)`
 `
 
 const UnorderedList = styled(Box)`
+  margin: 0;
   padding: 0;
 `
 
@@ -64,55 +65,54 @@ function QuickTalk ({
   return (
     <FixedBox
       elevation='medium'
-      pad='small'
       background={{ dark: 'dark-3', light: 'light-3' }}
       data-testid='quicktalk-panel'
-      overflow='auto'
     >
       <Box
+        direction='row'
         flex={false}
+        justify='between'
+        pad='small'
       >
-        <Box
-          direction='row'
-          flex={false}
-          justify='between'
-        >
-          <Anchor
-            a11yTitle='Go to Subject Discussion on Talk.'
-            label='Subject Discussion'
-            href={subject.talkURL}
-            target='_blank'
-            icon={<Chat />}
-          />
-          <Button
-            a11yTitle='Close comments panel.'
-            icon={<Close size='small' />}
-            onClick={() => setExpand(false)}
-            plain={true}
-          />
-        </Box>
-        <UnorderedList as='ul' flex={false}>
-          {comments.map(comment => {
-            const author = authors[comment.user_id]
-            const roles = authorRoles[comment.user_id]
+        <Anchor
+          a11yTitle='Go to Subject Discussion on Talk.'
+          label='Subject Discussion'
+          href={subject.talkURL}
+          target='_blank'
+          icon={<Chat />}
+        />
+        <Button
+          a11yTitle='Close comments panel.'
+          icon={<Close size='small' />}
+          onClick={() => setExpand(false)}
+          plain={true}
+        />
+      </Box>
+      <Box overflow='auto'>
+        <Box flex={false} pad={{ bottom: 'small', left: 'small', right: 'small' }}>
+          <UnorderedList as='ul' flex={false}>
+            {comments.map(comment => {
+              const author = authors[comment.user_id]
+              const roles = authorRoles[comment.user_id]
 
-            return (
-              <Comment
-                key={`quicktalk-comment-${comment.id}`}
-                comment={comment}
-                author={author}
-                roles={roles}
-              />
-            )
-          })}
-        </UnorderedList>
-        {userId && (
-          <PostForm
-            postComment={postComment}
-            postCommentStatus={postCommentStatus}
-            postCommentStatusMessage={postCommentStatusMessage}
-          />
-        )}
+              return (
+                <Comment
+                  key={`quicktalk-comment-${comment.id}`}
+                  comment={comment}
+                  author={author}
+                  roles={roles}
+                />
+              )
+            })}
+          </UnorderedList>
+          {userId && (
+            <PostForm
+              postComment={postComment}
+              postCommentStatus={postCommentStatus}
+              postCommentStatusMessage={postCommentStatusMessage}
+            />
+          )}
+        </Box>
       </Box>
     </FixedBox>
   )
