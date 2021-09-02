@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 
 import { QuickTalk } from './QuickTalk'
 
@@ -57,9 +57,8 @@ const authorRoles = {
 }
 
 describe('Component > QuickTalk', function () {
-  describe('when collapsed', function () { 
-    
-    it('should render without crashing', function () {
+  describe('when collapsed', function () {
+    beforeEach(function () {
       wrapper = render(
         <QuickTalk
           subject={subject}
@@ -69,22 +68,14 @@ describe('Component > QuickTalk', function () {
           showBadge={false}
         />
       )
-      
+    })
+    
+    it('should render without crashing', function () {
       expect(wrapper.queryByTestId('quicktalk-button')).to.exist()
       expect(wrapper.queryByTestId('quicktalk-panel')).to.not.exist()
     })
     
     it('should expand when clicked', function () {
-      wrapper = render(
-        <QuickTalk
-          subject={subject}
-          comments={comments}
-          authors={authors}
-          authorRoles={authorRoles}
-          showBadge={false}
-        />
-      )
-      
       fireEvent.click(wrapper.queryByTestId('quicktalk-button'))
       
       expect(wrapper.queryByTestId('quicktalk-button')).to.not.exist()
@@ -92,9 +83,8 @@ describe('Component > QuickTalk', function () {
     })
   })
   
-  describe('when expanded', function () { 
-    
-    it('should render without crashing', function () {
+  describe('when expanded', function () {
+    beforeEach(function () {
       wrapper = render(
         <QuickTalk
           subject={subject}
@@ -105,38 +95,18 @@ describe('Component > QuickTalk', function () {
           showBadge={false}
         />
       )
-      
+    })
+    
+    it('should render without crashing', function () {
       expect(wrapper.queryByTestId('quicktalk-button')).to.not.exist()
       expect(wrapper.queryByTestId('quicktalk-panel')).to.exist()
     })
     
     it('should have the correct number of comments', function () {
-      wrapper = render(
-        <QuickTalk
-          subject={subject}
-          comments={comments}
-          authors={authors}
-          authorRoles={authorRoles}
-          expand={true}
-          showBadge={false}
-        />
-      )
-      
       expect(wrapper.queryAllByRole('listitem')).to.have.length(3)
     })
     
     it('should collapse when the close button is clicked', function () {
-      wrapper = render(
-        <QuickTalk
-          subject={subject}
-          comments={comments}
-          authors={authors}
-          authorRoles={authorRoles}
-          expand={true}
-          showBadge={false}
-        />
-      )
-      
       fireEvent.click(wrapper.queryByRole('button'))
       
       expect(wrapper.queryByTestId('quicktalk-button')).to.exist()
