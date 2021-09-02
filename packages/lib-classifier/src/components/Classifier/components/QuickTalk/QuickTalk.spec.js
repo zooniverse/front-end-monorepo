@@ -58,9 +58,9 @@ const authorRoles = {
 
 describe('Component > QuickTalk', function () {
   describe('when collapsed', function () { 
-  
-    before(function () {
-      render(
+    
+    it('should render without crashing', function () {
+      wrapper = render(
         <QuickTalk
           subject={subject}
           comments={comments}
@@ -69,18 +69,33 @@ describe('Component > QuickTalk', function () {
           showBadge={false}
         />
       )
+      
+      expect(wrapper.queryByTestId('quicktalk-button')).to.exist()
+      expect(wrapper.queryByTestId('quicktalk-panel')).to.not.exist()
     })
     
-    it('should render without crashing', function () {
-      expect(screen.queryByTestId('quicktalk-button')).to.exist()
-      expect(screen.queryByTestId('quicktalk-panel')).to.not.exist()
+    it('should expand when clicked', function () {
+      wrapper = render(
+        <QuickTalk
+          subject={subject}
+          comments={comments}
+          authors={authors}
+          authorRoles={authorRoles}
+          showBadge={false}
+        />
+      )
+      
+      fireEvent.click(wrapper.queryByTestId('quicktalk-button'))
+      
+      expect(wrapper.queryByTestId('quicktalk-button')).to.not.exist()
+      expect(wrapper.queryByTestId('quicktalk-panel')).to.exist()
     })
   })
   
   describe('when expanded', function () { 
     
-    before(function () {
-      render(
+    it('should render without crashing', function () {
+      wrapper = render(
         <QuickTalk
           subject={subject}
           comments={comments}
@@ -90,11 +105,27 @@ describe('Component > QuickTalk', function () {
           showBadge={false}
         />
       )
+      
+      expect(wrapper.queryByTestId('quicktalk-button')).to.not.exist()
+      expect(wrapper.queryByTestId('quicktalk-panel')).to.exist()
     })
-
-    it('should render without crashing', function () {
-      expect(screen.queryByTestId('quicktalk-button')).to.not.exist()
-      expect(screen.queryByTestId('quicktalk-panel')).to.exist()
+    
+    it('should collapse when the close button is clicked', function () {
+      wrapper = render(
+        <QuickTalk
+          subject={subject}
+          comments={comments}
+          authors={authors}
+          authorRoles={authorRoles}
+          expand={true}
+          showBadge={false}
+        />
+      )
+      
+      fireEvent.click(wrapper.queryByRole('button'))
+      
+      expect(wrapper.queryByTestId('quicktalk-button')).to.exist()
+      expect(wrapper.queryByTestId('quicktalk-panel')).to.not.exist()
     })
   })
 })
