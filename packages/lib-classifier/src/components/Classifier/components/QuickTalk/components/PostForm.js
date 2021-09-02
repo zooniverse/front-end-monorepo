@@ -5,9 +5,19 @@ TODO
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Box, Button, TextArea } from 'grommet'
+import { Box, Button, Form, Text, TextArea } from 'grommet'
+import styled from 'styled-components'
 import { Markdownz, MarkdownEditor, PrimaryButton } from '@zooniverse/react-components'
 import asyncStates from '@zooniverse/async-states'
+import counterpart from 'counterpart'
+import en from '../locales/en'
+
+counterpart.registerTranslations('en', en)
+
+const SubmitButton = styled(PrimaryButton)`
+  display: block;
+  margin: 0 auto;
+`
 
 function stopEvent (e) {
   if (!e) return false
@@ -37,25 +47,37 @@ function PostForm ({
   
   const disabled = postCommentStatus === asyncStates.loading
   
+  let statusText = undefined
+  if (postCommentStatusMessage) {
+    statusText = postCommentStatusMessage
+  } else if (postCommentStatus === asyncStates.loading) {
+    statusText = counterpart('QuickTalk.status.loading')
+  }
+  
   return (
     <Box
       background={{ dark: 'dark-1', light: 'light-1' }}
       flex={false}
+      pad='small'
     >
-      <form onSubmit={onSubmit}>
+      {statusText && (
+        <Text>{statusText}</Text>
+      )}
+      <Form onSubmit={onSubmit}>
         <TextArea
           a11yTitle='Write comments'
           value={text}
           onChange={e => setText(e.target.value)}
           disabled={disabled}
         />
-        <PrimaryButton
+        <SubmitButton
           a11yTitle='Post comment'
           onClick={onSubmit}
           type='submit'
           label='Post'
+          disabled={disabled}
         />
-      </form>
+      </Form>
     </Box>
   )
 }

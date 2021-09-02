@@ -8,6 +8,11 @@ import QuickTalk from './QuickTalk'
 import apiClient from 'panoptes-client/lib/api-client'
 import talkClient from 'panoptes-client/lib/talk-client'
 
+import counterpart from 'counterpart'
+import en from './locales/en'
+
+counterpart.registerTranslations('en', en)
+
 function storeMapper (stores) {
   const {
     active: subject
@@ -148,6 +153,10 @@ class QuickTalkContainer extends React.Component {
     const authClient = this.props?.authClient
     if (!subject || !project || !authClient) {
       return
+    }
+    
+    if (!text || text.trim().length === 0) {
+      throw new Error(counterpart('QuickTalk.errors.noText'))
     }
     
     const section = `project-${project.id}`

@@ -1,14 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Image } from 'grommet'
-import styled, { css } from 'styled-components'
-
-const AvatarImage = styled(Image)`
-  ${props => css`
-    width: ${props.size};
-    height: ${props.size};
-  `}
-`
 
 // TEMPORARY
 // TODO: find a permanent home for this PNG
@@ -21,21 +13,7 @@ function UserAvatar ({
 }) {
   const imgSrc = (src && src.length > 0) ? src : DEFAULT_AVATAR
   
-  // Note: state isn't working as expected, maybe need to setSrc() as soon as it detects src !== previousSrc ??
-  // const [_src, setSrc] = React.useState(newSrc)
-  
-  function onError () {
-    // setSrc(DEFAULT_AVATAR)
-  }
-  
   return (
-    /*<AvatarImage
-      alignSelf='center'
-      src={imgSrc}
-      
-      size={size}
-      onError={onError}
-    />*/
     <Box
       alignSelf='center'
       width={size}
