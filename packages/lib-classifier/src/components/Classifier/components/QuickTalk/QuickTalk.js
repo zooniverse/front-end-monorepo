@@ -40,7 +40,8 @@ function QuickTalk ({
   userId,
   screenSize,
   expand = false,
-  showBadge = true,  // HACK: Button.badge crashes tests for an undetermined reason. // TODO: debug 
+  fixedPosition = true,
+  showBadge = true,  // HACK: Button.badge crashes tests AND storybook for an undetermined reason. // TODO: debug 
 }) {
   // TODO: figure out if/how the QuickTalk component should/could be displayed on mobile
   // if (screenSize === 'small') return null
@@ -51,9 +52,12 @@ function QuickTalk ({
   const a11yTitle = `Subject has ${comments.length} comment(s). Click to expand.`
   const badge = (showBadge && comments.length > 0) ? comments.length : false
   
+  const QTButton = (fixedPosition) ? FixedButton : Button
+  const QTPanel = (fixedPosition) ? FixedBox : Box
+  
   if (!_expand) {
     return (
-      <FixedButton
+      <QTButton
         a11yTitle={a11yTitle}
         onClick={() => setExpand(true)}
         data-testid='quicktalk-button'
@@ -64,7 +68,7 @@ function QuickTalk ({
   }
   
   return (
-    <FixedBox
+    <QTPanel
       elevation='medium'
       background={{ dark: 'dark-3', light: 'light-3' }}
       data-testid='quicktalk-panel'
@@ -115,7 +119,7 @@ function QuickTalk ({
           )}
         </Box>
       </Box>
-    </FixedBox>
+    </QTPanel>
   )
 }
 
@@ -129,6 +133,7 @@ QuickTalk.propTypes = {
   postComment: PropTypes.func,
   userId: PropTypes.string,
   expand: PropTypes.bool,
+  fixedPosition: PropTypes.bool,
   showBadge: PropTypes.bool,
 }
 
