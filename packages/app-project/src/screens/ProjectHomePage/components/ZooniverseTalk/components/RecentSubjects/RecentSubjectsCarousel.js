@@ -4,8 +4,11 @@ import { Carousel } from 'grommet'
 import SubjectThumbnail from './components/SubjectThumbnail'
 
 // TODO: Use the subject viewers from the classifier
-function RecentSubjectsCarousel (props) {
-  const { className, href, subjects } = props
+function RecentSubjectsCarousel ({
+  className,
+  href,
+  subjects = []
+}) {
   const height = 500
   const width = 700
   return (
@@ -28,15 +31,14 @@ function RecentSubjectsCarousel (props) {
 }
 
 RecentSubjectsCarousel.propTypes = {
+  /** CSS class. */
   className: string,
+  /** Base href for subject links */
   href: string.isRequired,
+  /** Recent subjects from the Talk API. */
   subjects: arrayOf(shape({
     id: string
   })).isRequired
-}
-
-RecentSubjectsCarousel.defaultProps = {
-  className: undefined
 }
 
 export default RecentSubjectsCarousel

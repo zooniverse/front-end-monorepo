@@ -10,6 +10,7 @@ import getDataSeriesColor from '@viewers/helpers/getDataSeriesColor'
 import getDataSeriesSymbol from '@viewers/helpers/getDataSeriesSymbol'
 import isDataSeriesHighlighted from '@viewers/helpers/isDataSeriesHighlighted'
 import getZoomBackgroundColor from '@viewers/helpers/getZoomBackgroundColor'
+import sortDataPointsByHighlight from '@viewers/helpers/sortDataPointsByHighlight'
 
 import {
   getDataPoints,
@@ -78,6 +79,8 @@ function ScatterPlot (props) {
 
   const yScaleTransformed = yScale || transformYScale(data, transformMatrix, rangeParameters)
 
+  const sortedDataPoints = sortDataPointsByHighlight(dataPoints, highlightedSeries)
+
   const axesConfig = {
     color: axisColor,
     xAxis: {
@@ -136,8 +139,8 @@ function ScatterPlot (props) {
             underlayParameters={underlayParameters}
             width={plotWidth}
           />}
-        {dataPoints.map((series, seriesIndex) => {
-          const highlighted = isDataSeriesHighlighted(highlightedSeries, seriesIndex)
+        {sortedDataPoints.map((series, seriesIndex) => {
+          const highlighted = isDataSeriesHighlighted({ highlightedSeries, seriesOptions: series?.seriesOptions })
           const glyphColor = getDataSeriesColor({
             defaultColors: Object.values(colors.drawingTools),
             seriesOptions: series?.seriesOptions,
@@ -227,7 +230,6 @@ ScatterPlot.defaultProps = {
   axisColor: '',
   backgroundColor: '',
   dataPointSize: 25,
-  highlightedSeries: [],
   invertAxes: {
     x: false,
     y: false

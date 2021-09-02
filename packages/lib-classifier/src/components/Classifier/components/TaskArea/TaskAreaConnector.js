@@ -1,8 +1,8 @@
-import * as React from 'react'
-import { MobXProviderContext, observer } from 'mobx-react'
+import React from 'react'
+import { withStores } from '@helpers'
 import TaskArea from './TaskArea'
 
-function useStores(store) {
+function storeMapper(store) {
   const {
     subjects: {
       active: subject
@@ -26,26 +26,4 @@ function useStores(store) {
   }
 }
 
-function TaskAreaConnector(props) {
-  const { classifierStore } = React.useContext(MobXProviderContext)
-  const {
-    disableTutorialTab = true,
-    setActiveTutorial = () => true,
-    subject,
-    tutorial,
-    workflow
-  } = useStores(classifierStore)
-
-  return (
-    <TaskArea
-      disableTutorialTab={disableTutorialTab}
-      setActiveTutorial={setActiveTutorial}
-      subject={subject}
-      tutorial={tutorial}
-      workflow={workflow}
-      {...props}
-    />
-  )
-}
-
-export default observer(TaskAreaConnector)
+export default withStores(TaskArea, storeMapper)

@@ -56,6 +56,7 @@ function ConfusedWith (props) {
           return (
             <StyledDropButton
               key={confusionId}
+              a11yTitle={choices[confusionId].label}
               autoFocus={hasFocus && index === 0}
               backgroundColor={backgroundColor}
               dropAlign={{

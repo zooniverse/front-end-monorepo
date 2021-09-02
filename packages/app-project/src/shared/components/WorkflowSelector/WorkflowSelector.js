@@ -2,9 +2,8 @@ import asyncStates from '@zooniverse/async-states'
 import { Markdownz, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box, Paragraph, Text } from 'grommet'
-import { arrayOf, bool, func, shape, string } from 'prop-types'
-import { withTheme } from 'styled-components'
-import { Bars } from 'svg-loaders-react'
+import { arrayOf, bool, shape, string } from 'prop-types'
+import Loader from '../Loader'
 import WorkflowSelectButtons from './components/WorkflowSelectButtons'
 import en from './locales/en'
 
@@ -23,7 +22,6 @@ function WorkflowSelector (props) {
     workflowDescription = '',
     workflows
   } = props
-  const loaderColor = props.theme.global.colors.brand
   const workflowDescriptionToRender = workflowDescription || counterpart('WorkflowSelector.message')
 
   return (
@@ -71,16 +69,7 @@ function WorkflowSelector (props) {
       )}
 
       {(![asyncStates.success, asyncStates.error].includes(userReadyState)) && (
-        <Box align='center' justify='center' margin={{ top: 'small' }}>
-          <Box height='xxsmall' width='xxsmall'>
-            <Bars
-              fill={loaderColor}
-              height='80%'
-              viewBox='0 0 135 140'
-              width='100%'
-            />
-          </Box>
-        </Box>
+        <Loader margin={{ top: 'small' }} width='100%' />
       )}
     </Box>
   )
@@ -95,5 +84,4 @@ WorkflowSelector.propTypes = {
     }).isRequired).isRequired
 }
 
-export default withTheme(WorkflowSelector)
-export { WorkflowSelector }
+export default WorkflowSelector

@@ -9,9 +9,9 @@ import {
 } from './helpers/mocks'
 import isDataSeriesHighlighted from '../isDataSeriesHighlighted'
 
-const defaultColors = Object.values(zooTheme.global.colors.drawingTools)
-
 describe('Helper > getDataSeriesColor', function () {
+  const defaultColors = Object.values(zooTheme.global.colors.drawingTools)
+
   it('should be a function', function () {
     expect(getDataSeriesColor).to.be.a('function')
   })
@@ -103,7 +103,7 @@ describe('Helper > getDataSeriesColor', function () {
       const colors = []
       const highlightedSeries = [ { foo: true }, { bar: false } ]
       variableStar.data.scatterPlot.data.forEach((series, seriesIndex) => {
-        const highlighted = isDataSeriesHighlighted(highlightedSeries, seriesIndex)
+        const highlighted = isDataSeriesHighlighted({ highlightedSeries, seriesOptions: series.seriesOptions })
         colors[seriesIndex] = getDataSeriesColor({
           defaultColors,
           highlighted,

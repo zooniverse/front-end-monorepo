@@ -1,3 +1,4 @@
+import { expect } from 'chai'
 import { GraphQLClient } from 'graphql-request'
 import sinon from 'sinon'
 import { reducedEmptySubject, reducedSubject } from './mocks'
@@ -6,7 +7,7 @@ import TranscriptionReductions from './TranscriptionReductions'
 
 describe('Models > TranscriptionReductions', function () {
 
-  describe('with transcribed lines', function () {
+  describe('with reductions', function () {
     const caesarClient = new GraphQLClient('https://caesar-staging.zooniverse.org/graphql')
     let reductionsModel
 
@@ -38,42 +39,28 @@ describe('Models > TranscriptionReductions', function () {
 
     it('should have transcribed lines', function () {
       reductionsModel.reductions.forEach(reduction => expect(reduction.data.transcribed_lines).to.equal(10))
-      expect(reductionsModel.consensusLines).not.to.be.empty()
-    })
-
-    it('should default to frame 0', function () {
-      reductionsModel.consensusLines.forEach(function (consensusLine) {
-        expect(consensusLine.frame).to.equal(0)
-      })
+      expect(reductionsModel.consensusLines(0)).not.to.be.empty()
     })
 
     it('should have points', function () {
-      reductionsModel.consensusLines.forEach(function (consensusLine) {
+      reductionsModel.consensusLines(0).forEach(function (consensusLine) {
         expect(consensusLine.points).to.be.a('array')
         expect(consensusLine.points).not.to.be.empty
       })
     })
 
     it('should have text options', function () {
-      reductionsModel.consensusLines.forEach(function (consensusLine) {
+      reductionsModel.consensusLines(0).forEach(function (consensusLine) {
         expect(consensusLine.textOptions).to.be.a('array')
         expect(consensusLine.textOptions).not.to.be.empty
       })
-    })
-
-    it('should update on frame change', function () {
-      reductionsModel.changeFrame(2)
-      reductionsModel.consensusLines.forEach(function (consensusLine) {
-        expect(consensusLine.frame).to.equal(2)
-      })
-      reductionsModel.changeFrame(0)
     })
 
     describe('transcribed lines', function () {
       let consensusLine
 
       before(async function () {
-        consensusLine = reductionsModel.consensusLines[0]
+        consensusLine = reductionsModel.consensusLines(0)[0]
       })
 
       it('should have consensus text', function () {
@@ -103,10 +90,16 @@ describe('Models > TranscriptionReductions', function () {
         const y = 280.3498840332031
         expect(consensusLine.points[1]).to.deep.equal({ x, y })
       })
+
+      it('should filter by frame', function () {
+        expect(consensusLine.frame).to.equal(0)
+        const frameOneLines = reductionsModel.consensusLines(1)
+        expect(frameOneLines[0].frame).to.equal(1)
+      })
     })
   })
 
-  describe('without transcribed lines', function () {
+  describe('without reductions', function () {
     const caesarClient = new GraphQLClient('https://caesar-staging.zooniverse.org/graphql')
     let reductionsModel
 
@@ -138,7 +131,10 @@ describe('Models > TranscriptionReductions', function () {
 
     it('should not have any transcribed lines', function () {
       reductionsModel.reductions.forEach(reduction => expect(reduction.data.transcribed_lines).to.equal(0))
-      expect(reductionsModel.consensusLines).to.be.empty()
+      expect(reductionsModel.consensusLines(0)).to.be.empty()
+      expect(reductionsModel.consensusLines(1)).to.be.empty()
+      expect(reductionsModel.consensusLines(2)).to.be.empty()
+      expect(reductionsModel.consensusLines(3)).to.be.empty()
     })
   })
 
@@ -200,7 +196,10 @@ describe('Models > TranscriptionReductions', function () {
     })
 
     it('should not have any transcribed lines', function () {
-      expect(reductionsModel.consensusLines).to.be.empty()
+      expect(reductionsModel.consensusLines(0)).to.be.empty()
+      expect(reductionsModel.consensusLines(1)).to.be.empty()
+      expect(reductionsModel.consensusLines(2)).to.be.empty()
+      expect(reductionsModel.consensusLines(3)).to.be.empty()
     })
   })
 })

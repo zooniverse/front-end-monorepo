@@ -127,12 +127,15 @@ class VariableStarViewerContainer extends Component {
     } = rawJSON
 
     const { onReady, subject } = this.props
-    const target = this.viewer.current
+    const container = this.viewer.current?.container
     const phasedJSON = this.calculatePhase(scatterPlot)
     const barJSON = this.calculateBarJSON(barCharts)
     const highlightedSeries = this.setupSeriesHighlight(scatterPlot)
     // think about a better way to do this
     const imageLocation = subject.locations[2] || {}
+
+    const { width: clientWidth, height: clientHeight } = container ? container.getBoundingClientRect() : {}
+    const target = { clientWidth, clientHeight, naturalWidth: 0, naturalHeight: 0 }
 
     this.setState({
       barJSON,
@@ -142,8 +145,7 @@ class VariableStarViewerContainer extends Component {
       highlightedSeries
     },
       function () {
-        // temporarily remove ref param
-        onReady({ target: {} })
+        onReady({ target })
       })
   }
 
@@ -222,8 +224,9 @@ class VariableStarViewerContainer extends Component {
     return scatterPlotJSON.data.map((series, index) => {
       if (series?.seriesData.length > 0) {
         const fallbackLabel = counterpart('VariableStarViewer.label', { id: index + 1 })
-        const label = series.seriesOptions?.label || fallbackLabel
-        return { [label]: true }
+        series.seriesOptions.label ??= fallbackLabel
+
+        return series.seriesOptions.label
       }
     })
   }
@@ -238,14 +241,16 @@ class VariableStarViewerContainer extends Component {
   }
 
   setSeriesHighlight (event) {
-    const newHighlightedSeriesState = this.state.highlightedSeries.map((series) => {
-      const [[label, checked]] = Object.entries(series)
-      if (label === event.target.value) {
-        return { [event.target.value]: event.target.checked }
-      } else {
-        return series
-      }
+    const newHighlightedSeriesState = this.state.highlightedSeries
+    const seriesToUnhighlightIndex = this.state.highlightedSeries.findIndex((highlightedLabel) => {
+      return highlightedLabel === event.target.value
     })
+
+    if (seriesToUnhighlightIndex > -1) {
+      newHighlightedSeriesState.splice(seriesToUnhighlightIndex, 1)
+    } else {
+      newHighlightedSeriesState.push(event.target.value)
+    }
 
     this.setState({ highlightedSeries: newHighlightedSeriesState })
   }
