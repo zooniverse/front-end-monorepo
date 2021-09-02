@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 
 import { QuickTalk } from './QuickTalk'
 
@@ -56,35 +56,45 @@ const authorRoles = {
   '300002': [],
 }
 
-describe.only('Component > QuickTalk', function () {
+describe('Component > QuickTalk', function () {
+  describe('when collapsed', function () { 
   
-  it('should render (collapsed) without crashing', function () {
-    render(
-      <QuickTalk
-        subject={subject}
-        comments={comments}
-        authors={authors}
-        authorRoles={authorRoles}
-        showBadge={false}
-      />
-    )
+    before(function () {
+      render(
+        <QuickTalk
+          subject={subject}
+          comments={comments}
+          authors={authors}
+          authorRoles={authorRoles}
+          showBadge={false}
+        />
+      )
+    })
     
-    expect(screen.getByTestId('quicktalk-button')).to.exist()
-    // expect(screen.getByTestId('quicktalk-panel')).to.not.exist()
+    it('should render without crashing', function () {
+      expect(screen.queryByTestId('quicktalk-button')).to.exist()
+      expect(screen.queryByTestId('quicktalk-panel')).to.not.exist()
+    })
   })
   
-  it('should render (expanded) without crashing', function () {
-    render(
-      <QuickTalk
-        subject={subject}
-        comments={comments}
-        authors={authors}
-        authorRoles={authorRoles}
-        expand={true}
-      />
-    )
+  describe('when expanded', function () { 
     
-    // expect(screen.getByTestId('quicktalk-button')).to.not.exist()
-    expect(screen.getByTestId('quicktalk-panel')).to.exist()
+    before(function () {
+      render(
+        <QuickTalk
+          subject={subject}
+          comments={comments}
+          authors={authors}
+          authorRoles={authorRoles}
+          expand={true}
+          showBadge={false}
+        />
+      )
+    })
+
+    it('should render without crashing', function () {
+      expect(screen.queryByTestId('quicktalk-button')).to.not.exist()
+      expect(screen.queryByTestId('quicktalk-panel')).to.exist()
+    })
   })
 })
