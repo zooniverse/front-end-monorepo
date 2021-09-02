@@ -1,15 +1,15 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import AlreadySeenBannerContainer from './AlreadySeenBannerContainer'
+import AlreadySeenBanner from './AlreadySeenBanner'
 import Banner from '../Banner'
 
 let wrapper
 let componentWrapper
 
-describe('Component > AlreadySeenBannerContainer', function () {
+describe('Component > AlreadySeenBanner', function () {
   before(function () {
-    wrapper = shallow(<AlreadySeenBannerContainer.wrappedComponent />)
+    wrapper = shallow(<AlreadySeenBanner />)
     componentWrapper = wrapper.find(Banner)
   })
 

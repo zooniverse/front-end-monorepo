@@ -1,1 +1,1 @@
-export { default } from './WorkflowIsFinishedBannerContainer'
+export { default } from './WorkflowIsFinishedBanner'
