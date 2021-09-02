@@ -155,10 +155,6 @@ class QuickTalkContainer extends React.Component {
       return
     }
     
-    if (!text || text.trim().length === 0) {
-      throw new Error(counterpart('QuickTalk.errors.noText'))
-    }
-    
     const section = `project-${project.id}`
     const discussionTitle = `Subject ${subject.id}`
     
@@ -168,6 +164,10 @@ class QuickTalkContainer extends React.Component {
     })
     
     try {
+      if (!text || text.trim().length === 0) {
+        throw new Error(counterpart('QuickTalk.errors.noText'))
+      }
+
       /*
       Quick Fix: check user before posting
       - this is because we can never be 100% sure when a user has logged out on lib-classifier
