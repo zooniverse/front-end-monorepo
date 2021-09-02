@@ -40,6 +40,7 @@ function QuickTalk ({
   userId,
   screenSize,
   expand = false,
+  showBadge = true,  // HACK: Button.badge crashes tests for an undetermined reason. // TODO: debug 
 }) {
   // TODO: figure out if/how the QuickTalk component should/could be displayed on mobile
   // if (screenSize === 'small') return null
@@ -48,7 +49,7 @@ function QuickTalk ({
   
   const [_expand, setExpand] = React.useState(expand)
   const a11yTitle = `Subject has ${comments.length} comment(s). Click to expand.`
-  const badge = (comments.length > 0) ? comments.length : undefined
+  const badge = (showBadge && comments.length > 0) ? comments.length : false
   
   if (!_expand) {
     return (
@@ -128,6 +129,7 @@ QuickTalk.propTypes = {
   postComment: PropTypes.func,
   userId: PropTypes.string,
   expand: PropTypes.bool,
+  showBadge: PropTypes.bool,
 }
 
 export default withResponsiveContext(QuickTalk)

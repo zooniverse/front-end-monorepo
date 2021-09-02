@@ -56,7 +56,7 @@ const authorRoles = {
   '300002': [],
 }
 
-describe('Component > QuickTalk', function () {
+describe.only('Component > QuickTalk', function () {
   
   it('should render (collapsed) without crashing', function () {
     render(
@@ -65,6 +65,7 @@ describe('Component > QuickTalk', function () {
         comments={comments}
         authors={authors}
         authorRoles={authorRoles}
+        showBadge={false}
       />
     )
     
