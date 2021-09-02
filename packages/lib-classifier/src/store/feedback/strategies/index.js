@@ -3,11 +3,13 @@ import column from './drawing/column'
 import radial from './drawing/radial'
 import dud from './dud'
 import singleAnswerQuestion from './single-answer-question'
+import survey from './survey'
 
 export default {
   column,
   dud,
   graph2drange,
   radial,
-  singleAnswerQuestion
+  singleAnswerQuestion,
+  survey
 }
