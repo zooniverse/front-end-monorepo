@@ -162,7 +162,6 @@ const ClassificationStore = types
     }
 
     function onClassificationSaved (savedClassification) {
-      console.log('onClassificationSaved')
       // handle any processing of classifications that have been saved to Panoptes.
       const { workflow: workflowID, subjects: subjectIDs } = savedClassification.links
       self.trackAlreadySeenSubjects(workflowID, subjectIDs)
