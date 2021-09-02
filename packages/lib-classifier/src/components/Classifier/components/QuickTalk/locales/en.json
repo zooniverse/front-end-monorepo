@@ -1,5 +1,6 @@
 {
   "QuickTalk": {
+    "headerLink": "Subject Discussion",
     "status": {
       "loading": "Posting comment..."
     },

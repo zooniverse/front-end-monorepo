@@ -10,6 +10,11 @@ import asyncStates from '@zooniverse/async-states'
 import Comment from './components/Comment'
 import PostForm from './components/PostForm'
 
+import counterpart from 'counterpart'
+import en from './locales/en'
+
+counterpart.registerTranslations('en', en)
+
 const FixedBox = styled(Box)`
   position: fixed;
   bottom: 1em;
@@ -81,7 +86,7 @@ function QuickTalk ({
       >
         <Anchor
           a11yTitle='Go to Subject Discussion on Talk.'
-          label='Subject Discussion'
+          label={counterpart('QuickTalk.headerLink')}
           href={subject.talkURL}
           target='_blank'
           icon={<Chat />}
