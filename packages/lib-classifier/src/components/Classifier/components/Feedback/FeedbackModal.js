@@ -41,7 +41,7 @@ class FeedbackModal extends React.Component {
       FeedbackViewer = getFeedbackViewer(applicableRules)
     }
 
-    const messageContainerHeight = showViewer ? '400px' : '100%'
+    const messageContainerHeight = (showViewer && !!FeedbackViewer) ? '400px' : '100%'
 
     const reducedMessages = reduceFeedbackMessages(messages)
 
@@ -53,7 +53,7 @@ class FeedbackModal extends React.Component {
           title={label}
         >
           <>
-            {showViewer && (
+            {showViewer && !!FeedbackViewer && (
               <Box
                 height='400px'
                 width='600px'

@@ -12,7 +12,7 @@ describe('Component > TranscribedLinesConnector', function () {
     subjects: {
       active: {
         transcriptionReductions: {
-          consensusLines: []
+          consensusLines: () => []
         }
       }
     },
@@ -61,7 +61,7 @@ describe('Component > TranscribedLinesConnector', function () {
     subjects: {
       active: {
         transcriptionReductions: {
-          consensusLines: []
+          consensusLines: () => []
         }
       }
     },
@@ -134,17 +134,27 @@ describe('Component > TranscribedLinesConnector', function () {
       })
       const wrapper = shallow(<TranscribedLinesConnector />)
       expect(wrapper.find(TranscribedLines)).to.have.lengthOf(1)
-      expect(wrapper.find(TranscribedLines).prop('lines')).to.have.lengthOf(transcriptionReductions.consensusLines.length)
+      expect(wrapper.find(TranscribedLines).prop('lines')).to.have.lengthOf(transcriptionReductions.consensusLines(0).length)
     })
 
-    it('should not render TranscribedLines if no lines per frame', function () {
+    it('should render lines per frame', function () {
       mockUseContext = sinon.stub(React, 'useContext').callsFake(() => {
         return {
           classifierStore: Object.assign({}, mockStoresWithTranscriptionTaskAndConsensusLines, { subjectViewer: { frame: 1 } })
         }
       })
       const wrapper = shallow(<TranscribedLinesConnector />)
-      expect(wrapper.find(TranscribedLines)).to.have.lengthOf(0)
+      expect(wrapper.find(TranscribedLines).prop('lines')).to.have.lengthOf(transcriptionReductions.consensusLines(1).length)
+    })
+
+    it('should not render TranscribedLines if no lines per frame', function () {
+      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => {
+        return {
+          classifierStore: Object.assign({}, mockStoresWithTranscriptionTaskAndConsensusLines, { subjectViewer: { frame: 3 } })
+        }
+      })
+      const wrapper = shallow(<TranscribedLinesConnector />)
+      expect(wrapper.find(TranscribedLines)).to.have.lengthOf(transcriptionReductions.consensusLines(3).length)
     })
 
     it('should not render TranscribedLines if showing only user marks', function () {

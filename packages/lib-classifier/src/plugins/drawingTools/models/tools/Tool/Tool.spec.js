@@ -50,13 +50,6 @@ describe('Model > DrawingTools > Tool', function () {
   })
 
   describe('tool.createTask', function () {
-    before(function () {
-      sinon.stub(console, 'error')
-    })
-
-    after(function () {
-      console.error.restore()
-    })
 
     describe('with valid subtasks', function () {
       let multipleTaskSnapshot
@@ -116,19 +109,36 @@ describe('Model > DrawingTools > Tool', function () {
       })
     })
 
-    it('should error for invalid subtasks', function () {
-      const tasks = [
-        {
-          taskKey: 'drawing',
-          type: 'drawing',
-          question: 'which fruit?',
-          tools: []
-        }
-      ]
-      const tool = Tool.create(toolData)
-      const drawingTaskSnapshot = tasks[0]
-      const drawingTask = tool.createTask(drawingTaskSnapshot)
-      expect(console.error.withArgs('drawing is not a valid drawing subtask')).to.have.been.calledOnce()
+    describe('with invalid subtasks', function () {
+      let consoleStub
+      let tool
+
+      before(function () {
+        consoleStub = sinon.stub(console, 'error')
+        const tasks = [
+          {
+            taskKey: 'drawing',
+            type: 'drawing',
+            question: 'which fruit?',
+            tools: []
+          }
+        ]
+        tool = Tool.create(toolData)
+        const drawingTaskSnapshot = tasks[0]
+        const drawingTask = tool.createTask(drawingTaskSnapshot)
+      })
+
+      after(function () {
+        consoleStub.restore()
+      })
+
+      it('should not create subtasks', function () {
+        expect(tool.tasks).to.be.empty()
+      })
+
+      it('should error', function () {
+        expect(consoleStub.withArgs('drawing is not a valid drawing subtask')).to.have.been.calledOnce()
+      })
     })
   })
 

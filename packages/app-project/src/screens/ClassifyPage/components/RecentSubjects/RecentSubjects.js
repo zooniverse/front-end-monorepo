@@ -9,12 +9,18 @@ import SubjectPreview from '@shared/components/SubjectPreview'
 
 counterpart.registerTranslations('en', en)
 
-function RecentSubjects (props) {
-  const { isLoggedIn, recents, projectName, size, slug } = props
+function RecentSubjects ({
+  isLoggedIn = false,
+  recents = [],
+  projectName,
+  size = 3,
+  slug
+}) {
   const height = (size === 1) ? '40vw' : '200px'
   const { publicRuntimeConfig = {} } = getConfig() || {}
   const assetPrefix = publicRuntimeConfig.assetPrefix || ''
   const placeholderUrl = `${assetPrefix}/subject-placeholder.png`
+  const displayedRecents = recents.slice(0, size)
 
   return (
     <ContentBox title={counterpart('RecentSubjects.title', { projectName })}>
@@ -26,7 +32,7 @@ function RecentSubjects (props) {
         columns={[`repeat(${size}, 1fr)`]}
         gap='small'
       >
-        {recents.map(recent => {
+        {displayedRecents.map(recent => {
           const subject = {
             favorite: recent.favorite,
             id: recent.subjectId,
@@ -45,7 +51,7 @@ function RecentSubjects (props) {
             />
           )
         })}
-        {[...Array(size - recents.length)].map((placeholder, i) => {
+        {[...Array(size - displayedRecents.length)].map((placeholder, i) => {
           return (
             <Box
               align='center'
@@ -65,17 +71,16 @@ function RecentSubjects (props) {
 }
 
 RecentSubjects.propTypes = {
+  /** Is the volunteer logged in, for favourites and collections. */
   isLoggedIn: bool,
+  /** The project name. */
   projectName: string,
+  /** Recent classification subjects from Panoptes. */
   recents: array,
+  /** The number of previews to show. */
   size: number,
+  /** Project URL slug for links. */
   slug: string.isRequired
-}
-
-RecentSubjects.defaultProps = {
-  isLoggedIn: false,
-  recents: [],
-  size: 3
 }
 
 export default RecentSubjects
