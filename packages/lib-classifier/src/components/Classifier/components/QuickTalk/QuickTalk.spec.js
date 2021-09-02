@@ -110,6 +110,21 @@ describe('Component > QuickTalk', function () {
       expect(wrapper.queryByTestId('quicktalk-panel')).to.exist()
     })
     
+    it('should have the correct number of comments', function () {
+      wrapper = render(
+        <QuickTalk
+          subject={subject}
+          comments={comments}
+          authors={authors}
+          authorRoles={authorRoles}
+          expand={true}
+          showBadge={false}
+        />
+      )
+      
+      expect(wrapper.queryAllByRole('listitem')).to.have.length(3)
+    })
+    
     it('should collapse when the close button is clicked', function () {
       wrapper = render(
         <QuickTalk
