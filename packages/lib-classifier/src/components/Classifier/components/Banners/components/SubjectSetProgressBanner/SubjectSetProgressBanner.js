@@ -9,9 +9,9 @@ counterpart.registerTranslations('en', en)
 
 function SubjectSetProgressBanner({ subject, workflow }) {
   const subjectTotal = workflow?.subjectSet.set_member_subjects_count
-  const background = (subject?.already_seen || subject?.retired) ? 'status-critical' : 'status-ok'
-  const color = (subject?.already_seen || subject?.retired) ? 'neutral-6' : 'neutral-7'
-  let statusText = subject?.already_seen ? `${counterpart('SubjectSetProgressBanner.alreadySeen')}` : ''
+  const background = (subject?.alreadySeen || subject?.retired) ? 'status-critical' : 'status-ok'
+  const color = (subject?.alreadySeen || subject?.retired) ? 'neutral-6' : 'neutral-7'
+  let statusText = subject?.alreadySeen ? `${counterpart('SubjectSetProgressBanner.alreadySeen')}` : ''
   statusText = subject?.retired ? `${counterpart('SubjectSetProgressBanner.finished')}` : statusText
   const progressText = counterpart('SubjectSetProgressBanner.bannerText', {
     number: subject?.priority,
@@ -19,7 +19,8 @@ function SubjectSetProgressBanner({ subject, workflow }) {
   })
   const tooltipText = counterpart('SubjectSetProgressBanner.tooltipText')
 
-  const bannerText = statusText ? `${progressText} (${statusText})`: progressText
+  const bannerText = statusText ? `${progressText} (${statusText})` : progressText
+
   return (
     <Banner
       background={background}
@@ -33,7 +34,7 @@ function SubjectSetProgressBanner({ subject, workflow }) {
 
 SubjectSetProgressBanner.propTypes = {
   subject: shape({
-    already_seen: bool,
+    alreadySeen: bool,
     finished_workflow: bool,
     id: string,
     retired: bool,

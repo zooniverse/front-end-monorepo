@@ -10,7 +10,7 @@ counterpart.registerTranslations('en', en)
 export default function AlreadySeenBanner({ subject }) {
   const show = !!subject &&
     subject.id &&
-    subject.already_seen &&
+    subject.alreadySeen &&
     !subject.retired &&
     !subject.finished_workflow &&
     !subject.user_has_finished_workflow
@@ -29,7 +29,7 @@ export default function AlreadySeenBanner({ subject }) {
 AlreadySeenBanner.propTypes = {
   /** The current subject. */
   subject: shape({
-    already_seen: bool,
+    alreadySeen: bool,
     finished_workflow: bool,
     id: string,
     retired: bool,
