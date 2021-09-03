@@ -72,7 +72,7 @@ describe('Component > InputGroup', function () {
             type='checkbox'
           />
         )
-        expect(screen.getByRole('checkbox', { name: 'Resting' })).to.equal(document.activeElement)
+        expect(screen.getByLabelText('Resting')).to.equal(document.activeElement)
       })
     })
   })
@@ -140,7 +140,7 @@ describe('Component > InputGroup', function () {
             type='radio'
           />
         )
-        expect(screen.getByRole('radio', { name: 'Yes' })).to.equal(document.activeElement)
+        expect(screen.getByLabelText('Yes')).to.equal(document.activeElement)
       })
     })
   })

@@ -67,7 +67,7 @@ describe('Component > QuestionInput', function () {
           />
         </Grommet>
       )
-      expect(screen.getByRole('checkbox', { name: 'Eating' })).to.not.equal(document.activeElement)
+      expect(screen.getByLabelText('Eating')).to.not.equal(document.activeElement)
     })
 
     describe('with hasFocus true', function () {
@@ -89,7 +89,7 @@ describe('Component > QuestionInput', function () {
             />
           </Grommet>
         )
-        expect(screen.getByRole('checkbox', { name: 'Eating' })).to.equal(document.activeElement)
+        expect(screen.getByLabelText('Eating')).to.equal(document.activeElement)
       })
     })
 
@@ -114,7 +114,7 @@ describe('Component > QuestionInput', function () {
           </Grommet>
         )
         expect(handleCheckBoxChangeSpy).to.not.have.been.called()
-        userEvent.click(screen.getByRole('checkbox', { name: 'Eating' }))
+        userEvent.click(screen.getByLabelText('Eating'))
         expect(handleCheckBoxChangeSpy).to.have.been.calledWith('TNG', true)
       })
     })
@@ -178,7 +178,7 @@ describe('Component > QuestionInput', function () {
           />
         </Grommet>
       )
-      expect(screen.getByRole('radio', { name: 'Yes' })).to.not.equal(document.activeElement)
+      expect(screen.getByLabelText('Yes')).to.not.equal(document.activeElement)
     })
 
     describe('with hasFocus true', function () {
@@ -200,7 +200,7 @@ describe('Component > QuestionInput', function () {
             />
           </Grommet>
         )
-        expect(screen.getByRole('radio', { name: 'Yes' })).to.equal(document.activeElement)
+        expect(screen.getByLabelText('Yes')).to.equal(document.activeElement)
       })
     })
 
@@ -225,7 +225,7 @@ describe('Component > QuestionInput', function () {
           </Grommet>
         )
         expect(handleRadioChangeSpy).to.not.have.been.called()
-        userEvent.click(screen.getByRole('radio', { name: 'Yes' }))
+        userEvent.click(screen.getByLabelText('Yes'))
         expect(handleRadioChangeSpy).to.have.been.calledWith('S')
       })
     })
@@ -251,7 +251,7 @@ describe('Component > QuestionInput', function () {
           </Grommet>
         )
         expect(handleRadioKeyDownSpy).to.not.have.been.called()
-        userEvent.type(screen.getByRole('radio', { name: 'Yes' }), '{backspace}')
+        userEvent.type(screen.getByLabelText('Yes'), '{backspace}')
         expect(handleRadioKeyDownSpy).to.have.been.calledOnce()
       })
     })
