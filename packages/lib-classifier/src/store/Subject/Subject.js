@@ -3,6 +3,7 @@ import { addDisposer, destroy, getRoot, tryReference, types } from 'mobx-state-t
 import Resource from '../Resource'
 import { createLocationCounts, subjectViewers, validateSubjectLocations } from '@helpers'
 import TranscriptionReductions from '../TranscriptionReductions'
+import { subjectsSeenThisSession } from '@helpers'
 
 const Subject = types
   .model('Subject', {
@@ -17,60 +18,6 @@ const Subject = types
     shouldDiscuss: types.maybe(types.frozen()),
     user_has_finished_workflow: types.optional(types.boolean, false),
     transcriptionReductions: types.maybe(TranscriptionReductions)
-  })
-
-  .views(self => ({
-    get priority() {
-      return self.metadata['#priority'] ?? self.metadata.priority
-    }
-  }))
-
-  .actions(self => {
-    function afterAttach () {
-      fetchTranscriptionReductions()
-    }
-
-    function beforeDestroy () {
-      self.transcriptionReductions && destroy(self.transcriptionReductions)
-    }
-
-    function fetchTranscriptionReductions () {
-      const subjectWorkflowDisposer = autorun(function subjectWorkflowDisposer () {
-        if (self.workflow && self.workflow.usesTranscriptionTask) {
-          self.transcriptionReductions = TranscriptionReductions.create({
-            subjectId: self.id,
-            workflowId: self.workflow.id
-          })
-        }
-      }, { name: 'Subject workflow disposer' })
-      addDisposer(self, subjectWorkflowDisposer)
-    }
-
-    function addToCollection () {
-      const rootStore = getRoot(self)
-      rootStore.onAddToCollection(self.id)
-    }
-
-    function openInTalk (newTab = false) {
-      self.shouldDiscuss = {
-        newTab,
-        url: self.talkURL
-      }
-    }
-
-    function toggleFavorite () {
-      const rootStore = getRoot(self)
-      self.favorite = !self.favorite
-      rootStore.onToggleFavourite(self.id, self.favorite)
-    }
-
-    return {
-      afterAttach,
-      beforeDestroy,
-      addToCollection,
-      openInTalk,
-      toggleFavorite
-    }
   })
 
   .views(self => ({
@@ -131,7 +78,63 @@ const Subject = types
 
     get workflow () {
       return tryReference(() => getRoot(self).workflows?.active)
+    },
+
+    get priority () {
+      return self.metadata['#priority'] ?? self.metadata.priority
+    },
+
+    get alreadySeen () {
+      return self.already_seen || subjectsSeenThisSession.check(self.workflow.id, self.id)
     }
   }))
+
+  .actions(self => {
+    function afterAttach () {
+      fetchTranscriptionReductions()
+    }
+
+    function beforeDestroy () {
+      self.transcriptionReductions && destroy(self.transcriptionReductions)
+    }
+
+    function fetchTranscriptionReductions () {
+      const subjectWorkflowDisposer = autorun(function subjectWorkflowDisposer () {
+        if (self.workflow && self.workflow.usesTranscriptionTask) {
+          self.transcriptionReductions = TranscriptionReductions.create({
+            subjectId: self.id,
+            workflowId: self.workflow.id
+          })
+        }
+      }, { name: 'Subject workflow disposer' })
+      addDisposer(self, subjectWorkflowDisposer)
+    }
+
+    function addToCollection () {
+      const rootStore = getRoot(self)
+      rootStore.onAddToCollection(self.id)
+    }
+
+    function openInTalk (newTab = false) {
+      self.shouldDiscuss = {
+        newTab,
+        url: self.talkURL
+      }
+    }
+
+    function toggleFavorite () {
+      const rootStore = getRoot(self)
+      self.favorite = !self.favorite
+      rootStore.onToggleFavourite(self.id, self.favorite)
+    }
+
+    return {
+      afterAttach,
+      beforeDestroy,
+      addToCollection,
+      openInTalk,
+      toggleFavorite
+    }
+  })
 
 export default types.compose('SubjectResource', Resource, Subject)

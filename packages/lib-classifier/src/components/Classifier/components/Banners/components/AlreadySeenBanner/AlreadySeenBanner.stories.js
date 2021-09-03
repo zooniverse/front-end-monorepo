@@ -6,7 +6,7 @@ import readme from '../../README.md'
 import { SubjectFactory } from '@test/factories'
 
 const subject = SubjectFactory.build({
-  already_seen: true
+  alreadySeen: true
 })
 
 export default {

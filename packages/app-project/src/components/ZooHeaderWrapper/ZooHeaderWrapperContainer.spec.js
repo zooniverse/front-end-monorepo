@@ -33,4 +33,10 @@ xdescribe('Component > ZooHeaderWrapperContainer', function () {
     })
       .then(done, done)
   })
+
+  it('should remove already seen subjects session storage', async function () {
+    window.sessionStorage.setItem("subjectsSeenThisSession", JSON.stringify(["1234/5678"]))
+    await wrapper.instance().signOut()
+    expect(window.sessionStorage.getItem("subjectsSeenThisSession")).to.be.null()
+  })
 })
