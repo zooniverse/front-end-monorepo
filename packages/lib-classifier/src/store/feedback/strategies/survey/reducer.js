@@ -3,7 +3,7 @@ function surveyReducer (rule, choices = []) {
     .split(',')
     .map(idString => idString.replace(/\W/g, '').toUpperCase())
 
-  const chosenIds = choices.map(choice => choice.choice)
+  const chosenIds = choices.map(choiceObject => choiceObject.choice)
 
   let result
 
