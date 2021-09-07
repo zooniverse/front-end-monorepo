@@ -205,7 +205,7 @@ const SubjectStore = types
 
       if (workflow) {
         try {
-          self.reset()
+          self.resources.clear()
           const newSubject = yield self.available.next(workflow)
           if (newSubject) {
             self.append([newSubject])
@@ -240,6 +240,7 @@ const SubjectStore = types
 
     function reset () {
       self.resources.clear()
+      self.available.clear()
     }
 
     function setOnReset(callback) {
