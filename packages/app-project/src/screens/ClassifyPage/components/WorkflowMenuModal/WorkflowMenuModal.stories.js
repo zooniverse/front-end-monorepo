@@ -74,12 +74,6 @@ function StoryContext (props) {
 export default {
   title: 'Project App / Screens / Classify / Workflow Menu Modal',
   component: WorkflowMenuModal,
-  args: {
-    dark: false,
-    headingBackground: zooTheme.global.colors.brand,
-    titleColor: zooTheme.global.colors['neutral-6'],
-    workflows: [ ...WORKFLOWS, mockGroupedWorkflow ]
-  },
   argTypes: {
     headingBackground: {
       control: 'color'
@@ -95,7 +89,7 @@ export default {
   }
 }
 
-export function Default({ dark, headingBackground, titleColor, workflows }) {
+export function ChooseAWorkflow({ dark, headingBackground, titleColor, workflows }) {
   return (
     <StoryContext theme={{ ...zooTheme, dark }}>
       <WorkflowMenuModal
@@ -105,4 +99,58 @@ export function Default({ dark, headingBackground, titleColor, workflows }) {
       />
     </StoryContext>
   )
+}
+
+ChooseAWorkflow.args = {
+  dark: false,
+  headingBackground: zooTheme.global.colors.brand,
+  titleColor: zooTheme.global.colors['neutral-6'],
+  workflows: [ ...WORKFLOWS, mockGroupedWorkflow ]
+}
+
+export function ChooseASubjectSet({ dark, headingBackground, titleColor, workflowFromUrl, workflows }) {
+  return (
+    <StoryContext theme={{ ...zooTheme, dark }}>
+      <WorkflowMenuModal
+        headingBackground={headingBackground}
+        titleColor={titleColor}
+        workflowFromUrl={workflowFromUrl}
+        workflows={workflows}
+      />
+    </StoryContext>
+  )
+}
+
+ChooseASubjectSet.args = {
+  dark: false,
+  headingBackground: zooTheme.global.colors.brand,
+  titleColor: zooTheme.global.colors['neutral-6'],
+  workflowFromUrl: mockGroupedWorkflow,
+  workflows: [ ...WORKFLOWS, mockGroupedWorkflow ]
+}
+
+export function ChooseASubject({ dark, headingBackground, subjectSetFromUrl, titleColor, workflowFromUrl, workflows }) {
+  return (
+    <StoryContext theme={{ ...zooTheme, dark }}>
+      <WorkflowMenuModal
+        headingBackground={headingBackground}
+        titleColor={titleColor}
+        subjectSetFromUrl={subjectSetFromUrl}
+        workflowFromUrl={workflowFromUrl}
+        workflows={workflows}
+      />
+    </StoryContext>
+  )
+}
+
+const indexedSubjectSet = mockGroupedWorkflow.subjectSets[1]
+indexedSubjectSet.metadata.indexFields = 'date,name'
+
+ChooseASubject.args = {
+  dark: false,
+  headingBackground: zooTheme.global.colors.brand,
+  subjectSetFromUrl: indexedSubjectSet,
+  titleColor: zooTheme.global.colors['neutral-6'],
+  workflowFromUrl: mockGroupedWorkflow,
+  workflows: [ ...WORKFLOWS, mockGroupedWorkflow ]
 }
