@@ -222,9 +222,21 @@ describe('Component > VariableStarViewerContainer', function () {
     let cduSpy
     let nockScope
     let wrapper
+    let createRefStub
     const onReadySpy = sinon.spy()
 
     before(function () {
+      createRefStub = sinon.stub(React, 'createRef').callsFake(() => {
+        return { 
+          current: {
+            container: {
+              getBoundingClientRect: () => {
+                return { width: 500, height: 800 }
+              }
+            }
+          }
+        }
+      })
       cdmSpy = sinon.spy(VariableStarViewerContainer.prototype, 'componentDidMount')
       cduSpy = sinon.spy(VariableStarViewerContainer.prototype, 'componentDidUpdate')
       nockScope = nock('http://localhost:8080')
@@ -247,9 +259,11 @@ describe('Component > VariableStarViewerContainer', function () {
     afterEach(function () {
       cdmSpy.resetHistory()
       cduSpy.resetHistory()
+      onReadySpy.resetHistory()
     })
 
     after(function () {
+      createRefStub.restore()
       cdmSpy.restore()
       cduSpy.restore()
       nock.cleanAll()
@@ -270,9 +284,9 @@ describe('Component > VariableStarViewerContainer', function () {
       }).then(done, done)
     })
 
-    xit('should call the onReady prop', function (done) {
+    it('should call the onReady prop', function (done) {
       cdmSpy.returnValues[0].then(() => {
-        expect(onReadySpy).to.have.been.calledOnceWith({ target: wrapper.instance().viewer.current })
+        expect(onReadySpy).to.have.been.calledOnceWith({ target: { clientWidth: 500, clientHeight: 800, naturalWidth: 0, naturalHeight: 0 } })
       }).then(done, done)
     })
 

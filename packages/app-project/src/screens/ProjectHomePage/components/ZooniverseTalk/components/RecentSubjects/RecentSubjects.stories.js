@@ -1,4 +1,3 @@
-import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import counterpart from 'counterpart'
 import { Grommet } from 'grommet'
@@ -14,21 +13,21 @@ const SUBJECTS = [
     favorite: false,
     id: '123',
     locations: [
-      { 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/335/0/2d63944e-f0bc-4fc5-8531-f603886513a1.jpeg' }
+      { 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/6fb5eebf-f0e7-4c45-8a47-5750c9e2a0bc.jpeg' }
     ]
   },
   {
     favorite: true,
     id: '456',
     locations: [
-      { 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/335/0/a2379744-c225-4421-b340-1c5361e29300.jpeg' }
+      { 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/48972f7b-8a4d-4f98-a85b-ed3578db75f0.jpeg' }
     ]
   },
   {
     favorite: false,
     id: '789',
     locations: [
-      { 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/335/0/ed7f9f7f-551f-413c-9107-973544525399.jpeg' }
+      { 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/a7a12f9d-ec79-45d8-b9ed-61886606f5a5.jpeg' }
     ]
   }
 ]
@@ -80,37 +79,62 @@ const VIDEO_SUBJECTS = [
     ]
   }
 ]
-storiesOf('Project App / Screens / Project Home / Recent Subjects', module)
-  .addParameters({ viewport: { defaultViewport: 'responsive' }})
-  .add('plain', () => (
+export default {
+  title: 'Project App / Screens / Project Home / Recent Subjects',
+  component: RecentSubjects,
+  parameters: {
+    viewport: {
+      defaultViewport: 'responsive'
+    }
+  }
+}
+
+export function Plain() {
+  return (
     <Grommet theme={zooTheme}>
       <RecentSubjects
         href='/projects/zooniverse/snapshot-serengeti/talk'
         subjects={SUBJECTS}
       />
     </Grommet>
-  ))
-  .add('carousel view', () => (
+  )
+}
+
+export function CarouselView() {
+  return (
     <Grommet theme={zooTheme}>
       <RecentSubjectsCarousel
         href='/projects/zooniverse/snapshot-serengeti/talk'
         subjects={SUBJECTS}
       />
     </Grommet>
-  ), { viewport: { defaultViewport: 'iphone5' }})
-  .add('transcription', () => (
+  )
+}
+
+CarouselView.parameters = {
+  viewport: {
+    defaultViewport: 'iphone5'
+  }
+}
+
+export function Transcription() {
+  return (
     <Grommet theme={zooTheme}>
       <RecentSubjects
         href='/projects/zooniverse/snapshot-serengeti/talk'
         subjects={PORTRAIT_SUBJECTS}
       />
     </Grommet>
-  ))
-  .add('video', () => (
+  )
+}
+
+export function Video() {
+  return (
     <Grommet theme={zooTheme}>
       <RecentSubjects
         href='/projects/zooniverse/snapshot-serengeti/talk'
         subjects={VIDEO_SUBJECTS}
       />
     </Grommet>
-  ))
+  )
+}

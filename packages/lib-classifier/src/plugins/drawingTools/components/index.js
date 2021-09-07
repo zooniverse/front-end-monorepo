@@ -1,3 +1,4 @@
+export { default as Circle } from './Circle'
 export { default as draggable } from './draggable'
 export { default as DragHandle } from './DragHandle'
 export { default as DeleteButton } from './DeleteButton'

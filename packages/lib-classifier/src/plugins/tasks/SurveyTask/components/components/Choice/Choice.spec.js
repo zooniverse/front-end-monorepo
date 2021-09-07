@@ -19,6 +19,34 @@ describe('Component > Choice', function () {
     expect(screen).to.be.ok()
   })
 
+  it('should call handleDelete when "Not this" button clicked', function () {
+    const handleDeleteSpy = sinon.spy()
+    render(
+      <Choice
+        choiceId='KD'
+        handleDelete={handleDeleteSpy}
+        task={mockTask}
+      />
+    )
+    userEvent.click(screen.getByText(en.Choice.notThis))
+
+    expect(handleDeleteSpy).to.have.been.calledOnceWith('KD')
+  })
+
+  it('should call onIdentify when "Identify" button clicked', function () {
+    const onIdentifySpy = sinon.spy()
+    render(
+      <Choice
+        choiceId='FR'
+        onIdentify={onIdentifySpy}
+        task={mockTask}
+      />
+    )
+    userEvent.click(screen.getByText(en.Choice.identify))
+
+    expect(onIdentifySpy).to.have.been.calledOnce()
+  })
+
   describe('with choice with images, confusions, and questions', function () {
     // choice 'KD' (Kudu) includes images, confusions, and questions
 
@@ -45,12 +73,11 @@ describe('Component > Choice', function () {
     it('should render Questions', function () {
       render(
         <Choice
-          choiceId='KD'
+          choiceId='HMN'
           task={mockTask}
         />
       )
-      expect(screen.queryAllByRole('radio')).to.have.lengthOf(16)
-      expect(screen.queryAllByRole('checkbox')).to.have.lengthOf(5)
+      expect(screen.getByText('Are there any young present?')).to.exist()
     })
   })
 
@@ -74,7 +101,7 @@ describe('Component > Choice', function () {
           task={mockTask}
         />
       )
-      expect(screen.getByRole('button', { name: 'Fire' })).to.equal(document.activeElement)
+      expect(screen.getByText('Fire')).to.equal(document.activeElement)
     })
   })
 
@@ -98,7 +125,7 @@ describe('Component > Choice', function () {
           task={mockTask}
         />
       )
-      expect(screen.getByRole('radio', { name: 'Yes' })).to.equal(document.activeElement)
+      expect(screen.getByLabelText('Yes')).to.equal(document.activeElement)
     })
   })
 
@@ -112,8 +139,8 @@ describe('Component > Choice', function () {
           task={mockTask}
         />
       )
-      expect(screen.queryAllByRole('radio')).to.have.lengthOf(0)
-      expect(screen.queryAllByRole('checkbox')).to.have.lengthOf(0)
+      expect(screen.queryAllByRole('radio', { hidden: true })).to.have.lengthOf(0)
+      expect(screen.queryAllByRole('checkbox', { hidden: true })).to.have.lengthOf(0)
     })
 
     it('should have the "Identify" button as the document active element', function () {
@@ -123,35 +150,7 @@ describe('Component > Choice', function () {
           task={mockTask}
         />
       )
-      expect(screen.getByRole('button', { name: en.Choice.identify })).to.equal(document.activeElement)
+      expect(screen.getByRole('button', { name: en.Choice.identify }, { hidden: true })).to.equal(document.activeElement)
     })
-  })
-
-  it('should call handleDelete when "Not this" button clicked', function () {
-    const handleDeleteSpy = sinon.spy()
-    render(
-      <Choice
-        choiceId='KD'
-        handleDelete={handleDeleteSpy}
-        task={mockTask}
-      />
-    )
-    userEvent.click(screen.getByRole('button', { name: en.Choice.notThis }))
-
-    expect(handleDeleteSpy).to.have.been.calledOnceWith('KD')
-  })
-
-  it('should call onIdentify when "Identify" button clicked', function () {
-    const onIdentifySpy = sinon.spy()
-    render(
-      <Choice
-        choiceId='FR'
-        onIdentify={onIdentifySpy}
-        task={mockTask}
-      />
-    )
-    userEvent.click(screen.getByRole('button', { name: en.Choice.identify }))
-
-    expect(onIdentifySpy).to.have.been.calledOnce()
   })
 })
