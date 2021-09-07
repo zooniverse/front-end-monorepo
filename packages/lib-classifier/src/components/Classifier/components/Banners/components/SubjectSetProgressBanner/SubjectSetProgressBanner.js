@@ -8,7 +8,7 @@ import Banner from '../Banner'
 counterpart.registerTranslations('en', en)
 
 function SubjectSetProgressBanner({ subject, workflow }) {
-  const setName = workflow?.subjectSet.display_name
+  const setName = workflow?.subjectSet?.display_name || ''
   const subjectTotal = workflow?.subjectSet.set_member_subjects_count
   const background = (subject?.alreadySeen || subject?.retired) ? 'status-critical' : 'status-ok'
   const color = (subject?.alreadySeen || subject?.retired) ? 'neutral-6' : 'neutral-7'
