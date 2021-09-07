@@ -33,6 +33,10 @@ export const SubjectDataTable = styled(DataTable)`
   button {
     padding: 0;
   }
+  thead th {
+    background: ${props => props.theme.global.colors[props.background.header]};
+    padding: ${props => props.theme.global.edgeSize[props.pad.header]}
+  }
   th button {
     color: ${props => props.theme.global.colors['dark-1']};
     font-weight: bold;

@@ -13,7 +13,7 @@ describe('TextTask', function () {
   const task = Task.TaskModel.create({
     instruction: 'Type something here',
     taskKey: 'T0',
-    text_tags: ['insertion', 'deletion'],
+    text_tags: ['insertion', 'deletion', '&'],
     type: 'text'
   })
   const annotation = task.defaultAnnotation()
@@ -77,6 +77,49 @@ describe('TextTask', function () {
 
       it('should save the tagged text', function () {
         const expectedText = 'Hello, [insertion]this[/insertion] is some test text.'
+        expect(annotation.update.withArgs(expectedText)).to.have.been.calledOnce()
+      })
+    })
+    
+    describe('text tagging (special case for literal insertions)', function () {
+      beforeEach(function () {
+        sinon.spy(annotation, 'update')
+        annotation.update('Dungeons and Dragons')
+        wrapper = mount(
+          <TextTask
+            annotation={annotation}
+            task={task}
+          />,
+          {
+            wrappingComponent: Grommet,
+            wrappingComponentProps: { theme: zooTheme }
+          }
+        )
+        const ampersandButton = wrapper.find('button').find({ value: '&' })
+        const fakeEvent = {
+          currentTarget: {
+            value: '&'
+          }
+        }
+        const textArea = wrapper.find(TextArea).getDOMNode()
+        textArea.selectionStart = 9
+        textArea.selectionEnd = 12
+        ampersandButton.simulate('click', fakeEvent)
+      })
+
+      afterEach(function () {
+        annotation.update.restore()
+      })
+
+      it('should insert literal tag text', function () {
+        const textArea = wrapper.find(TextArea).getDOMNode()
+        const expectedText = 'Dungeons & Dragons'
+        const updatedText = textArea.value
+        expect(updatedText).to.equal(expectedText)
+      })
+
+      it('should save the modified text', function () {
+        const expectedText = 'Dungeons & Dragons'
         expect(annotation.update.withArgs(expectedText)).to.have.been.calledOnce()
       })
     })

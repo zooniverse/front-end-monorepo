@@ -86,12 +86,15 @@ class ScatterPlotViewerContainer extends Component {
 
   onLoad (JSONData) {
     const { onReady } = this.props
-    const target = this.viewer.current
+    const viewer = this.viewer.current
+    const { width: clientWidth, height: clientHeight } = viewer ? viewer.getBoundingClientRect() : {}
+    const target = { clientWidth, clientHeight, naturalWidth: 0, naturalHeight: 0 }
+
     this.setState({
       JSONData
     },
       function () {
-        onReady({ target: {} })
+        onReady({ target })
       })
   }
 
@@ -111,7 +114,7 @@ class ScatterPlotViewerContainer extends Component {
     const zoomConfiguration = chartOptions?.zoomConfiguration || viewerConfiguration?.zoomConfiguration
 
     return (
-      <Box width='100%' height='500px'>
+      <Box ref={this.viewer} width='100%' height='500px'>
         <ScatterPlotViewer
           data={data}
           margin={chartOptions?.margin}

@@ -18,12 +18,15 @@ function Head (props) {
     zooniverseTwitterUsername
   } = props
 
+  const fullTitle = pageTitle ?
+    `${pageTitle} | ${title} | ${siteName}` :
+    `${title} | ${siteName}`
   return (
     <NextHead>
       <meta charSet='UTF-8' />
 
       <title>
-        {pageTitle && `${pageTitle} |`} {title} | {siteName}
+        {fullTitle}
       </title>
 
       <meta name='description' content={description} />
@@ -35,7 +38,7 @@ function Head (props) {
       <link rel='icon' href='/static/favicon.ico' />
 
       <meta property='og:url' content={url} />
-      <meta property='og:title' content={title} />
+      <meta property='og:title' content={fullTitle} />
       <meta property='og:description' content={description} />
       <meta property='og:image' content={ogImage} />
 

@@ -1,14 +1,15 @@
 import AboutNavLink from '../AboutNavLink'
 import { Nav } from 'grommet'
-import { withRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { arrayOf, object, string } from 'prop-types'
 
-const AboutSidebar = ({ router, aboutNavLinks }) => {
+const AboutSidebar = ({ aboutNavLinks }) => {
+  const router = useRouter()
   const { owner, project } = router.query
   const baseUrl = `/projects/${owner}/${project}/about`
 
   return (
-    <Nav flex direction='column' gap='xsmall'>
+    <Nav flex direction='column' gap='xsmall' data-testid='about-sidebar'>
       <AboutNavLink
         link={{
           href: `${baseUrl}/research`,
@@ -59,5 +60,4 @@ AboutSidebar.propTypes = {
   router: object
 }
 
-export { AboutSidebar }
-export default withRouter(AboutSidebar)
+export default AboutSidebar

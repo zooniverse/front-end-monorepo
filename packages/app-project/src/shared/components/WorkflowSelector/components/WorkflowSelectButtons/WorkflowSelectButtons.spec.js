@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { expect } from 'chai'
-import WorkflowSelectButtons from './WorkflowSelectButtons'
+import { WorkflowSelectButtons } from './WorkflowSelectButtons'
 
 describe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
   const workflows = [
@@ -28,42 +28,41 @@ describe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
     }
   ]
   it('should render without crashing', function () {
-    expect(render(<WorkflowSelectButtons onSelect={() => { }} />)).to.be.ok()
+    expect(render(<WorkflowSelectButtons onSelect={() => { }} workflows={workflows} />)).to.be.ok()
   })
 
   describe('when workflow assignment is not enabled', function () {
     it('should render a workflow link for each workflow', function () {
-      render(<WorkflowSelectButtons onSelect={() => { }} workflows={workflows} />)
-      expect(screen.getAllByRole('link')).to.have.lengthOf(workflows.length)
+      const { getAllByRole } = render(<WorkflowSelectButtons onSelect={() => { }} workflows={workflows} />)
+      expect(getAllByRole('link')).to.have.lengthOf(workflows.length)
     })
   })
 
   describe('when workflow assignment is enabled', function () {
     describe('when there is an assigned workflow', function () {
       it('should only render links for unlocked workflows', function () {
-        render(<WorkflowSelectButtons assignedWorkflowID='2' onSelect={() => { }} workflowAssignmentEnabled workflows={workflows} />)
-        expect(screen.getAllByRole('link')).to.have.lengthOf(2)
-        
+        const { getAllByRole } = render(<WorkflowSelectButtons assignedWorkflowID='2' onSelect={() => { }} workflowAssignmentEnabled workflows={workflows} />)
+        expect(getAllByRole('link')).to.have.lengthOf(2)
       })
 
       it('should render other workflows as just text', function () {
-        render(<WorkflowSelectButtons assignedWorkflowID='2' onSelect={() => { }} workflowAssignmentEnabled workflows={workflows} />)
-        expect(screen.getByText('workflow 3')).to.exist()
+        const { getByText } = render(<WorkflowSelectButtons assignedWorkflowID='2' onSelect={() => { }} workflowAssignmentEnabled workflows={workflows} />)
+        expect(getByText('workflow 3')).to.exist()
       })
     })
 
     describe('when there is not an assigned workflow', function () {
       it('should only render the first level workflow as unlocked', function () {
-        render(<WorkflowSelectButtons assignedWorkflowID='1' onSelect={() => { }} workflowAssignmentEnabled workflows={workflows} />)
-        expect(screen.getByRole('link', { href: '/projects/undefined/undefined/classify/workflow/1' })).to.exist()
-        expect(screen.getAllByRole('link')).to.have.lengthOf(1)
+        const { getAllByRole, getByRole } = render(<WorkflowSelectButtons assignedWorkflowID='1' onSelect={() => { }} workflowAssignmentEnabled workflows={workflows} />)
+        expect(getByRole('link', { href: '/projects/undefined/undefined/classify/workflow/1' })).to.exist()
+        expect(getAllByRole('link')).to.have.lengthOf(1)
 
       })
 
       it('should render other workflows as just text', function () {
-        render(<WorkflowSelectButtons assignedWorkflowID='1' onSelect={() => { }} workflowAssignmentEnabled workflows={workflows} />)
-        expect(screen.getByText('workflow 2')).to.exist()
-        expect(screen.getByText('workflow 3')).to.exist()
+        const { getByText } = render(<WorkflowSelectButtons assignedWorkflowID='1' onSelect={() => { }} workflowAssignmentEnabled workflows={workflows} />)
+        expect(getByText('workflow 2')).to.exist()
+        expect(getByText('workflow 3')).to.exist()
       })
     })
   })

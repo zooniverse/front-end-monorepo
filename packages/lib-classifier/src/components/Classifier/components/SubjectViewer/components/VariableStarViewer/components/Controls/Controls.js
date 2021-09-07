@@ -84,6 +84,7 @@ function Controls(props) {
       <Box justify='between'>
         <PhaseFocusControls
           data={data}
+          highlightedSeries={highlightedSeries}
           phaseFocusedSeries={phaseFocusedSeries}
           setSeriesPhaseFocus={setSeriesPhaseFocus}
         />
