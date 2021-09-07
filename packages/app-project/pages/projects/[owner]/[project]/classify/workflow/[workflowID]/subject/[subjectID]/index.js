@@ -6,7 +6,7 @@ export async function getServerSideProps({ params, query, req, res }) {
   const { subjectID, workflowID } = params
   const { workflows } = defaultProps
   const workflow = workflows.find(workflow => workflow.id === params.workflowID)
-  const pageTitle = workflow?.displayName
+  const pageTitle = workflow?.displayName || null
 
   return ({
     notFound,

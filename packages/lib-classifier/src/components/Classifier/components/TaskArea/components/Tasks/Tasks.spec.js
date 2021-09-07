@@ -37,7 +37,7 @@ describe('Tasks', function () {
         },
         version: '0.0'
       })
-      const rootStore = mockStore(workflowSnapshot)
+      const rootStore = mockStore({ workflow: workflowSnapshot })
       classification = rootStore.classifications.active
       step = rootStore.workflowSteps.active
     })

@@ -7,7 +7,7 @@ export async function getServerSideProps({ params, query, req, res }) {
   const { notFound, props: defaultProps } = await getDefaultPageProps({ params, query, req, res })
   const { workflows } = defaultProps
   const workflow = workflows.find(workflow => workflow.id === params.workflowID)
-  const pageTitle = workflow?.displayName
+  const pageTitle = workflow?.displayName || null
   if (workflow?.grouped) {
     workflow.subjectSets = await fetchSubjectSets(workflow, env)
   }
