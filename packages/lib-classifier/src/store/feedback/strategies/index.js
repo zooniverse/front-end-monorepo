@@ -3,7 +3,7 @@ import column from './drawing/column'
 import radial from './drawing/radial'
 import dud from './dud'
 import singleAnswerQuestion from './single-answer-question'
-import survey from './survey'
+import surveySimple from './survey/simple'
 
 export default {
   column,
@@ -11,5 +11,5 @@ export default {
   graph2drange,
   radial,
   singleAnswerQuestion,
-  survey
+  surveySimple
 }

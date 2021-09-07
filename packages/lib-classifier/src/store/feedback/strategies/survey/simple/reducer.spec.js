@@ -4,7 +4,7 @@ import reducer from './reducer'
 
 const expect = chai.expect
 
-describe('Feedback > Survey > Reducer', function () {
+describe('Feedback > Survey > Simple > Reducer', function () {
   it('should not mutate the original object', function () {
     const original = { choiceIds: 'AARDVARK,HONEYBADGER' }
     const reduced = reducer(original)

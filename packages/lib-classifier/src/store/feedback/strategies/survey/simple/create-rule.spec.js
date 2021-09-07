@@ -4,7 +4,7 @@ import createRule from './create-rule'
 
 const expect = chai.expect
 
-describe('Feedback > Survey > Rule Creator', function () {
+describe('Feedback > Survey > Simple > Rule Creator', function () {
   it('should create a rule with `failureEnabled` and `successEnabled` defaulting to false', function () {
     const subjectRule = { choiceIds: 'AARDVARK,HONEYBADGER', id: '1' }
     const workflowRule = { strategy: '2' }

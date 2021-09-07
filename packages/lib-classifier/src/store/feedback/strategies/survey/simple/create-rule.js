@@ -1,4 +1,4 @@
-import ruleChecker from '../../helpers/rule-checker'
+import ruleChecker from '../../../helpers/rule-checker'
 
 function createRule (subjectRule, workflowRule) {
   const rule = {

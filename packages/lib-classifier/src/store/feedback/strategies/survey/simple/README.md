@@ -1,4 +1,4 @@
-# Feedback Strategy: Survey
+# Feedback Strategy: Simple Survey
 
 Determines whether the user has correctly identified a choice or choices of a survey task.
 

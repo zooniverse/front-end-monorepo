@@ -3,8 +3,8 @@ import createRule from './create-rule'
 
 export default {
   createRule,
-  id: 'survey',
-  title: 'Survey',
+  id: 'surveySimple',
+  title: 'Survey: Simple',
   labComponent: null,
   validations: null,
   reducer

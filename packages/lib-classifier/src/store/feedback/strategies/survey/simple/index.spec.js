@@ -4,17 +4,17 @@ import index from './index'
 
 const expect = chai.expect
 
-describe('Feedback > Survey > Index', function () {
+describe('Feedback > Survey > Simple > Index', function () {
   it('should have a `createRule` property', function () {
     expect(index.createRule).to.be.a('function')
   })
 
   it('should have a `id` property', function () {
-    expect(index.id).to.equal('survey')
+    expect(index.id).to.equal('surveySimple')
   })
 
   it('should have a `title` property', function () {
-    expect(index.title).to.equal('Survey')
+    expect(index.title).to.equal('Survey: Simple')
   })
 
   it('should have a `labComponent` property', function () {
