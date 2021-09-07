@@ -53,6 +53,7 @@ export default function Choice (props) {
       {choice.images?.length > 0 && (
         <Carousel
           controls='arrows'
+          data-testid='choice-images'
         >
           {choice.images.map((filename, index) => (
             <Media
@@ -67,11 +68,11 @@ export default function Choice (props) {
       <Paragraph>{choice.description}</Paragraph>
       {choice.confusionsOrder?.length > 0 && (
         <ConfusedWith
-          hasFocus={hasFocus === 'confusions'}
           choices={choices}
           confusions={choice.confusions}
           confusionsOrder={choice.confusionsOrder}
           handleChoice={handleChoice}
+          hasFocus={hasFocus === 'confusions'}
           images={images}
         />
       )}
@@ -79,7 +80,6 @@ export default function Choice (props) {
         <Questions
           answers={answers}
           hasFocus={hasFocus === 'questions'}
-          choiceId={choiceId}
           questionIds={questionIds}
           questions={questions}
           setAnswers={handleAnswers}

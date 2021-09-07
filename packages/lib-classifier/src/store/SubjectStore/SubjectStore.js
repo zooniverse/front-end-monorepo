@@ -9,6 +9,7 @@ import Subject from '../Subject'
 import SingleImageSubject from '../SingleImageSubject'
 import SingleVideoSubject from '../SingleVideoSubject'
 import SubjectGroup from '../SubjectGroup'
+import AvailableSubjects from './AvailableSubjects'
 
 const MINIMUM_QUEUE_SIZE = 3
 
@@ -43,6 +44,7 @@ function openTalkPage (talkURL, newTab = false) {
 const SubjectStore = types
   .model('SubjectStore', {
     active: types.safeReference(SubjectType),
+    available: types.optional(AvailableSubjects, () => AvailableSubjects.create({})),
     resources: types.map(SubjectType),
     type: types.optional(types.string, 'subjects')
   })
@@ -100,7 +102,10 @@ const SubjectStore = types
       const classificationDisposer = autorun(() => {
         onPatch(getRoot(self), (patch) => {
           const { path, value } = patch
-          if (path === '/classifications/loadingState' && value === 'posting') self.advance()
+          if (path === '/classifications/loadingState' && value === 'posting') {
+            self.clearAvailable()
+            self.advance()
+          }
         })
       }, { name: 'SubjectStore Classification Observer autorun' })
       addDisposer(self, classificationDisposer)
@@ -184,6 +189,10 @@ const SubjectStore = types
       }
     }
 
+    function clearAvailable() {
+      self.available.clear()
+    }
+
     function clearQueue() {
       self.onReset()
       self.reset()
@@ -196,21 +205,10 @@ const SubjectStore = types
 
       if (workflow) {
         try {
-          self.reset()
-          const apiUrl = '/subjects/queued'
-          const params = {
-            page_size: 1,
-            workflow_id: workflow.id
-          }
-          if (workflow.grouped) {
-            params.subject_set_id = workflow.subjectSetId
-          }
-
-          self.loadingState = asyncStates.loading
-          const subjects = yield _fetchSubjects({ apiUrl, params })
-          self.loadingState = asyncStates.success
-          if (subjects?.length > 0) {
-            self.append(subjects)
+          self.resources.clear()
+          const newSubject = yield self.available.next(workflow)
+          if (newSubject) {
+            self.append([newSubject])
           }
         } catch (error) {
           console.error(error)
@@ -242,6 +240,7 @@ const SubjectStore = types
 
     function reset () {
       self.resources.clear()
+      self.available.clear()
     }
 
     function setOnReset(callback) {
@@ -252,6 +251,7 @@ const SubjectStore = types
       advance,
       afterAttach,
       append,
+      clearAvailable,
       clearQueue,
       nextAvailable: flow(nextAvailable),
       populateQueue: flow(populateQueue),

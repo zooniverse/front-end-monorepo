@@ -9,37 +9,39 @@ import { dataSeriesWithXErrors, keplerMockDataWithOptions } from './helpers/mock
 
 import { Factory } from 'rosie'
 
-const subject = Factory.build('subject', {
-  locations: [
-    { 'application/json': 'http://localhost:8080/mockData.json' }
-  ]
-})
 
-const nextSubject = Factory.build('subject', {
-  locations: [
-    { 'application/json': 'http://localhost:8080/nextSubject.json' }
-  ]
-})
-
-const subjectJSON = keplerMockDataWithOptions
-const nextSubjectJSON = dataSeriesWithXErrors
-
-const imageSubject = Factory.build('subject')
-
-const failSubject = Factory.build('subject', {
-  locations: [
-    { 'application/json': 'http://localhost:8080/failure.json' }
-  ]
-})
-
-const mockState = {
-  JSONData: {
-    chartOptions: {},
-    data: []
-  }
-}
 
 describe('Component > ScatterPlotViewerContainer', function () {
+  const subject = Factory.build('subject', {
+    locations: [
+      { 'application/json': 'http://localhost:8080/mockData.json' }
+    ]
+  })
+
+  const nextSubject = Factory.build('subject', {
+    locations: [
+      { 'application/json': 'http://localhost:8080/nextSubject.json' }
+    ]
+  })
+
+  const subjectJSON = keplerMockDataWithOptions
+  const nextSubjectJSON = dataSeriesWithXErrors
+
+  const imageSubject = Factory.build('subject')
+
+  const failSubject = Factory.build('subject', {
+    locations: [
+      { 'application/json': 'http://localhost:8080/failure.json' }
+    ]
+  })
+
+  const mockState = {
+    JSONData: {
+      chartOptions: {},
+      data: []
+    }
+  }
+
   it('should render without crashing', function () {
     const wrapper = shallow(<ScatterPlotViewerContainer />)
     expect(wrapper).to.be.ok()
@@ -159,6 +161,15 @@ describe('Component > ScatterPlotViewerContainer', function () {
     })
 
     it('should call the onReady prop', function (done) {
+      const createRefStub = sinon.stub(React, 'createRef').callsFake(() => {
+        return {
+          current: {
+            getBoundingClientRect: () => {
+              return { width: 500, height: 800 }
+            }
+          }
+        }
+      })
       const onReadySpy = sinon.spy()
       wrapper = shallow(
         <ScatterPlotViewerContainer
@@ -166,9 +177,11 @@ describe('Component > ScatterPlotViewerContainer', function () {
           subject={subject}
         />
       )
+      const target = { clientWidth: 500, clientHeight: 800, naturalWidth: 0, naturalHeight: 0 }
 
       cdmSpy.returnValues[0].then(() => {
-        expect(onReadySpy).to.have.been.calledOnceWith({ target: {} })
+        expect(onReadySpy).to.have.been.calledOnceWith({ target })
+        createRefStub.restore()
       }).then(done, done)
     })
 

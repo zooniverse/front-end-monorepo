@@ -1,59 +1,75 @@
-import { shallow } from 'enzyme'
+import { expect } from 'chai'
 import React from 'react'
-import sinon from 'sinon'
+import { render, screen } from '@testing-library/react'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import Questions from './Questions'
-import CheckBoxInputs from './components/CheckBoxInputs'
-import RadioInputs from './components/RadioInputs'
 
 describe('Component > Questions', function () {
-  let wrapper, setAnswersSpy, checkboxes, radioButtons
   const questionIds = ['HWMN', 'WHTBHVRSDS', 'RTHRNNGPRSNT']
-  before(function () {
-    setAnswersSpy = sinon.spy()
-    wrapper = shallow(
-      <Questions
-        answers={{}}
-        hasFocus
-        questionIds={questionIds}
-        questions={mockTask.questions}
-        setAnswers={setAnswersSpy}
-      />
-    )
-    checkboxes = wrapper.find(CheckBoxInputs)
-    radioButtons = wrapper.find(RadioInputs)
-  })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
+    render(
+      <Questions
+        questionIds={questionIds}
+        questions={mockTask.questions}
+      />
+    )
+    expect(screen).to.be.ok()
   })
 
-  it('should render the appropriate input groups', function () {
-    expect(checkboxes).to.have.lengthOf(1)
-    expect(radioButtons).to.have.lengthOf(2)
+  it('should render the appropriate inputs', function () {
+    // "HWMN" has 12 radio inputs, "WHTBHVRSDS" has 5 checkbox inputs, and "RTHRNNGPRSNT" has 2 radio inputs
+
+    render(
+      <Questions
+        questionIds={questionIds}
+        questions={mockTask.questions}
+      />
+    )
+    expect(screen.queryAllByRole('radio', { hidden: true })).to.have.lengthOf(14)
+    expect(screen.queryAllByRole('checkbox', { hidden: true })).to.have.lengthOf(5)
   })
 
-  it('should pass the chosen answers for each input group', function () {
-    wrapper.setProps({ answers: { WHTBHVRSDS: ['RSTNG', 'TNG'], HWMN: '9' } })
-    checkboxes = wrapper.find(CheckBoxInputs)
-    radioButtons = wrapper.find(RadioInputs)
-
-    expect(checkboxes.find({ questionId: 'WHTBHVRSDS' }).props().questionAnswer).to.deep.equal(['RSTNG', 'TNG'])
-    expect(radioButtons.find({ questionId: 'HWMN' }).props().questionAnswer).to.equal('9')
-    expect(radioButtons.find({ questionId: 'RTHRNNGPRSNT' }).props().questionAnswer).to.be.undefined()
+  it('should show answers provided as checked inputs', function () {
+    render(
+      <Questions
+        answers={{ WHTBHVRSDS: ['RSTNG', 'TNG'], HWMN: '9' }}
+        questionIds={questionIds}
+        questions={mockTask.questions}
+      />
+    )
+    const radioInputs = screen.queryAllByRole('radio', { hidden: true })
+    const checkboxInputs = screen.queryAllByRole('checkbox', { hidden: true })
+    radioInputs.forEach(checkboxInput => {
+      if (checkboxInput.getAttribute('value') === '9') {
+        expect(checkboxInput.getAttribute('checked')).to.not.be.null()
+      } else {
+        expect(checkboxInput.getAttribute('checked')).to.be.null()
+      }
+    })
+    checkboxInputs.forEach(checkboxInput => {
+      if (checkboxInput.getAttribute('value') === 'RSTNG') {
+        expect(checkboxInput.getAttribute('checked')).to.not.be.null()
+      } else if (checkboxInput.getAttribute('value') === 'TNG') {
+        expect(checkboxInput.getAttribute('checked')).to.not.be.null()
+      } else {
+        expect(checkboxInput.getAttribute('checked')).to.be.null()
+      }
+    })
   })
 
   describe('with hasFocus of true', function () {
-    it('should have the first inputs component with hasFocus true', function () {
-      // per the survey task questionsOrder the first inputs component is HWMN (How many?)
-
-      expect(radioButtons.find({ questionId: 'HWMN' }).props().hasFocus).to.be.true()
-    })
-
-    it('should have other inputs components with hasFocus false', function () {
-      expect(checkboxes.find({ questionId: 'WHTBHVRSDS' }).props().hasFocus).to.be.false()
-      expect(radioButtons.find({ questionId: 'RTHRNNGPRSNT' }).props().hasFocus).to.be.false()
+    it('should have the first question\'s first input as the document active element', function () {
+      // per the survey task questionsOrder the first question is HWMN (How many?) and the first input is "1"
+      render(
+        <Questions
+          hasFocus
+          questionIds={questionIds}
+          questions={mockTask.questions}
+        />
+      )
+      expect(screen.getByLabelText('1')).to.equal(document.activeElement)
     })
   })
 })

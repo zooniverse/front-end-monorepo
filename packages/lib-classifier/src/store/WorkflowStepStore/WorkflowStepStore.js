@@ -40,7 +40,6 @@ const WorkflowStepStore = types
         const disableTalk = classification.metadata.subject_flagged
         const lastStep = !step.next
         return lastStep &&
-        workflow.configuration.hide_classification_summaries && // Default in model is to hide
         !disableTalk // &&
         // !completed TODO: implement classification completed validations per task?
       }
