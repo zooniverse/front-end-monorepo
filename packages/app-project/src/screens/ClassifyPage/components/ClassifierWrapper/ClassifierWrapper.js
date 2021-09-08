@@ -5,6 +5,7 @@ import asyncStates from '@zooniverse/async-states'
 
 import { logToSentry } from '@helpers/logger'
 import ErrorMessage from './components/ErrorMessage'
+import Loader from '@shared/components/Loader'
 
 /**
   A wrapper for the Classifier component. Responsible for handling:
@@ -91,7 +92,22 @@ export default function ClassifierWrapper({
   }
 
   return (
-    <div>Loading…</div>
+    <Loader
+      background={{
+        dark: 'dark-3',
+        light: 'neutral-6'
+      }}
+      border={{
+        color: {
+          dark: 'dark-3',
+          light: 'light-3'
+        },
+        side: 'all',
+        size: 'thin'
+      }}
+      height='100%'
+      width='100%'
+    />
   )
 }
 

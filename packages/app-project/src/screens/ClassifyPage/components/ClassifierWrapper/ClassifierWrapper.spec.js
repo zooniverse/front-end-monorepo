@@ -4,29 +4,40 @@ import asyncStates from '@zooniverse/async-states'
 import Classifier from '@zooniverse/classifier'
 
 import ClassifierWrapper from './ClassifierWrapper'
+import Loader from '@shared/components/Loader'
 
-describe.only('Component > ClassifierWrapper', function () {
-  let wrapper
-
-  before(function () {
+describe('Component > ClassifierWrapper', function () {
+  it('should render without crashing', function () {
     const project = {}
     const user = {}
-    wrapper = shallow(
+    const wrapper = shallow(
       <ClassifierWrapper
         project={project}
         user={user}
       />
     )
+    expect(wrapper).to.be.ok()
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
+  describe('without a project, user, and user project preferences loaded', function () {
+    it('should render a Loader component', function () {
+      const wrapper = shallow(
+        <ClassifierWrapper
+          appLoadingState={asyncStates.loading}
+          project={{}}
+          user={{}}
+        />
+      )
+
+      expect(wrapper.find(Loader)).to.have.lengthOf(1)
+    })
   })
 
   describe('with a project, user, user project preferences loaded', function () {
     let recents
     let collections
     let yourStats
+    let wrapper
 
     before(function () {
       const project = {
