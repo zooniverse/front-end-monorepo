@@ -8,13 +8,13 @@ export const statsClient = new GraphQLClient('https://graphql-stats.zooniverse.o
 
 // https://stackoverflow.com/a/51918448/10951669
 function firstDayOfWeek (dateObject, firstDayOfWeekIndex) {
-  const dayOfWeek = dateObject.getDay()
+  const dayOfWeek = dateObject.getUTCDay()
   const firstDayOfWeek = new Date(dateObject)
   const diff = dayOfWeek >= firstDayOfWeekIndex
     ? dayOfWeek - firstDayOfWeekIndex
     : 6 - dayOfWeek
 
-  firstDayOfWeek.setDate(dateObject.getDate() - diff)
+  firstDayOfWeek.setUTCDate(dateObject.getUTCDate() - diff)
 
   return firstDayOfWeek
 }
@@ -42,8 +42,8 @@ const YourStats = types
       const monday = firstDayOfWeek(today, 1) // Monday is day number 1 in JavaScript
       for (let day = 0; day < 7; day++) {
         const weekDay = new Date(monday.toISOString())
-        const newDate = monday.getDate() + day
-        weekDay.setDate(newDate)
+        const newDate = monday.getUTCDate() + day
+        weekDay.setUTCDate(newDate)
         const period = weekDay.toISOString().substring(0, 10)
         const { count } = dailyCounts.find(count => count.period.startsWith(period)) || { count: 0, period }
         weeklyStats.push({
