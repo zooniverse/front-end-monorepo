@@ -1,7 +1,9 @@
 import sinon from 'sinon'
 import nock from 'nock'
 import initStore from './initStore'
-import { statsClient } from './YourStats'
+import YourStats, { statsClient } from './YourStats'
+import asyncStates from '@zooniverse/async-states'
+import { expect } from 'chai'
 
 describe('Stores > YourStats', function () {
   let rootStore, nockScope
@@ -99,6 +101,29 @@ describe('Stores > YourStats', function () {
       it('should end on Sunday', function () {
         expect(rootStore.user.personalization.stats.thisWeek[6]).to.deep.equal({ count: 15, period: '2019-10-06' })
       })
+    })
+  })
+
+  describe('on reset', function () {
+    it('should reset weekly stats and loading state', function () {
+      const MOCK_DAILY_COUNTS = [
+        { count: 12, period: '2019-09-29' },
+        { count: 12, period: '2019-09-30' },
+        { count: 13, period: '2019-10-01' },
+        { count: 14, period: '2019-10-02' },
+        { count: 10, period: '2019-10-03' },
+        { count: 11, period: '2019-10-04' },
+        { count: 8, period: '2019-10-05' },
+        { count: 15, period: '2019-10-06' }
+      ]
+      const yourStatsStore = YourStats.create({
+        loadingState: asyncStates.success,
+        thisWeek: MOCK_DAILY_COUNTS
+      })
+      const signedInStats = yourStatsStore.toJSON()
+      yourStatsStore.reset()
+      const signedOutStats = yourStatsStore.toJSON()
+      expect(signedInStats).to.not.deep.equal(signedOutStats)
     })
   })
 })
