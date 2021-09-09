@@ -25,35 +25,33 @@ const User = types
     }
   }))
 
-  .actions(self => {
-    return {
-      checkCurrent: flow(function * checkCurrent () {
-        self.loadingState = asyncStates.loading
-        try {
-          const userResource = yield auth.checkCurrent()
-          self.loadingState = asyncStates.success
-          if (userResource) {
-            self.set(userResource)
-          }
-        } catch (error) {
-          console.log(error)
-          self.loadingState = asyncStates.error
-          self.error = error
+  .actions(self => ({
+    checkCurrent: flow(function* checkCurrent() {
+      self.loadingState = asyncStates.loading
+      try {
+        const userResource = yield auth.checkCurrent()
+        self.loadingState = asyncStates.success
+        if (userResource) {
+          self.set(userResource)
         }
-      }),
-
-      clear () {
-        self.id = null
-        self.display_name = null
-        self.login = null
-      },
-
-      set (user) {
-        self.id = user.id
-        self.display_name = user.display_name
-        self.login = user.login
+      } catch (error) {
+        console.log(error)
+        self.loadingState = asyncStates.error
+        self.error = error
       }
+    }),
+
+    clear() {
+      self.id = null
+      self.display_name = null
+      self.login = null
+    },
+
+    set(user) {
+      self.id = user.id
+      self.display_name = user.display_name
+      self.login = user.login
     }
-  })
+  }))
 
 export default User

@@ -1,5 +1,4 @@
-import { addDisposer, applySnapshot, flow, getRoot, onAction, types } from 'mobx-state-tree'
-import { autorun } from 'mobx'
+import { applySnapshot, flow, getRoot, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 import asyncStates from '@zooniverse/async-states'
 import numberString from './types/numberString'
