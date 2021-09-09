@@ -1,3 +1,4 @@
+import { SpacedText } from '@zooniverse/react-components'
 import { shallow } from 'enzyme'
 import * as nextRouter from 'next/router'
 import sinon from 'sinon'
@@ -8,6 +9,7 @@ import { expect } from 'chai'
 
 describe('Component > WorkflowSelector > WorkflowSelectButton', function () {
   const WORKFLOW = {
+    completeness: 0.4,
     default: false,
     displayName: 'Workflow name',
     id: '1'
@@ -36,8 +38,8 @@ describe('Component > WorkflowSelector > WorkflowSelectButton', function () {
 
   it('should not add "set selection" to the label', function () {
     const wrapper = shallow(<WorkflowSelectButton theme={zooTheme} workflow={WORKFLOW} />)
-    const label = shallow(wrapper.find(ThemedButton).prop('label'))
-    expect(label.text()).to.satisfy(label => label.endsWith('Workflow name'))
+    const label = shallow(wrapper.find(ThemedButton).prop('label')).render()
+    expect(label.text()).to.equal('40% completeWorkflow name')
   })
 
   describe('when used with a default workflow', function () {
@@ -74,8 +76,8 @@ describe('Component > WorkflowSelector > WorkflowSelectButton', function () {
     })
 
     it('should add "set selection" to the label', function () {
-      const label = shallow(wrapper.find(ThemedButton).prop('label'))
-      expect(label.text()).to.satisfy(label => label.endsWith('Workflow name - set selection'))
+      const label = shallow(wrapper.find(ThemedButton).prop('label')).render()
+      expect(label.text()).to.equal('40% complete·set selectionWorkflow name')
     })
   })
 

@@ -26,15 +26,22 @@ function WorkflowSelectButton ({
 
   const href = addQueryParams(url, router)
   const completeness = parseInt(workflow.completeness * 100, 10)
-  const buttonLabel = workflow.grouped ?
-    `${workflow.displayName} - ${counterpart('WorkflowSelectButton.setSelection')}` :
-    workflow.displayName
+  let workflowStatus = workflow.grouped ? counterpart('WorkflowSelectButton.setSelection') : ''
+  // indexed workflows use subject selection
+  workflowStatus = workflow.hasIndexedSubjects ? counterpart('WorkflowSelectButton.subjectSelection') : workflowStatus
+
   const label = (
     <span>
       <SpacedText size='10px'>
         {counterpart('WorkflowSelectButton.complete', { completeness })}
+        {workflowStatus &&
+          <>
+            &#xB7;
+            {workflowStatus}
+          </>
+        }
       </SpacedText><br />
-      {buttonLabel}
+      {workflow.displayName}
     </span>
   )
 
