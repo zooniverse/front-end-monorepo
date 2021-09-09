@@ -1,5 +1,6 @@
-import { addMiddleware, getEnv, types } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
+import { addDisposer, addMiddleware, getEnv, onAction, types } from 'mobx-state-tree'
+import { autorun } from 'mobx'
 import { logToSentry } from '../src/helpers/logger'
 
 import Collections from './Collections'
@@ -40,21 +41,35 @@ const Store = types
     }
   }))
 
-  .actions(self => ({
-    afterCreate () {
-      addMiddleware(self, (call, next, abort) => {
-        try {
-          next(call)
-        } catch (error) {
-          console.error('Project App MST error:', error)
-          logToSentry(error)
-        }
-      })
-    },
-
-    testError () {
-      throw new Error('Testing errors')
+  .actions(self => {
+    function createSignOutObserver() {
+      const signOutDisposer = autorun(() => {
+        onAction(self, (call) => {
+          if (call.name === 'clear') {
+            self.user.personalization.reset()
+          }
+        })
+      }, { name: 'User clear action Observer autorun' })
+      addDisposer(self, signOutDisposer)
     }
-  }))
+
+    return {
+      afterCreate () {
+        createSignOutObserver()
+        addMiddleware(self, (call, next, abort) => {
+          try {
+            next(call)
+          } catch (error) {
+            console.error('Project App MST error:', error)
+            logToSentry(error)
+          }
+        })
+      },
+
+      testError () {
+        throw new Error('Testing errors')
+      }
+    }
+  })
 
 export default Store

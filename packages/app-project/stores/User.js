@@ -1,6 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { addDisposer, flow, onAction, types } from 'mobx-state-tree'
-import { autorun } from 'mobx'
+import { flow, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 import UserPersonalization from './UserPersonalization'
 import numberString from './types/numberString'
@@ -27,25 +26,7 @@ const User = types
   }))
 
   .actions(self => {
-    function createSignOutObserver() {
-      const signOutDisposer = autorun(() => {
-        onAction(self, (call) => {
-          if (call.name === 'clear') {
-            self.personalization.projectPreferences.reset()
-            self.personalization.projectPreferences.setLoadingState(asyncStates.success)
-            self.personalization.stats.reset()
-            self.personalization.reset()
-          }
-        })
-      }, { name: 'User clear action Observer autorun' })
-      addDisposer(self, signOutDisposer)
-    }
-
     return {
-      afterCreate() {
-        createSignOutObserver()
-      },
-
       checkCurrent: flow(function * checkCurrent () {
         self.loadingState = asyncStates.loading
         try {

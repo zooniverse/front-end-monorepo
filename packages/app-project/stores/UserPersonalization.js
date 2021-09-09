@@ -72,6 +72,7 @@ const UserPersonalization = types
         self.projectPreferences.setLoadingState(asyncStates.success)
         self.stats.reset()
         self.setTotalClassificationCount(0)
+        self.sessionCount = 0
       }
     }
   })
