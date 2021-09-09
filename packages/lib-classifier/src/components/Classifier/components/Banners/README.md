@@ -10,3 +10,7 @@ Precedence of banners to be shown to the user is:
 1. User has finished workflow
 1. Subject is retired
 1. Subject has already been seen
+
+## SubjectSetProgressBanner
+
+A conditional banner is displayed for grouped workflows with ordered subject sets. This banner takes priority of ahead of the above four and handles the display of the already seen or retired state of the subject

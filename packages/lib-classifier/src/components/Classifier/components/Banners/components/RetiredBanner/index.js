@@ -1,1 +1,1 @@
-export { default } from './RetiredBannerContainer'
+export { default } from './RetiredBanner'
