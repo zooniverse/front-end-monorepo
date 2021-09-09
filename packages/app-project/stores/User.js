@@ -1,5 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
-import { flow, types } from 'mobx-state-tree'
+import { addDisposer, flow, onAction, types } from 'mobx-state-tree'
+import { autorun } from 'mobx'
 import auth from 'panoptes-client/lib/auth'
 import UserPersonalization from './UserPersonalization'
 import numberString from './types/numberString'
@@ -25,33 +26,53 @@ const User = types
     }
   }))
 
-  .actions(self => ({
-    checkCurrent: flow(function * checkCurrent () {
-      self.loadingState = asyncStates.loading
-      try {
-        const userResource = yield auth.checkCurrent()
-        self.loadingState = asyncStates.success
-        if (userResource) {
-          self.set(userResource)
-        }
-      } catch (error) {
-        console.log(error)
-        self.loadingState = asyncStates.error
-        self.error = error
-      }
-    }),
-
-    clear () {
-      self.id = null
-      self.display_name = null
-      self.login = null
-    },
-
-    set (user) {
-      self.id = user.id
-      self.display_name = user.display_name
-      self.login = user.login
+  .actions(self => {
+    function createSignOutObserver() {
+      const signOutDisposer = autorun(() => {
+        onAction(self, (call) => {
+          if (call.name === 'clear') {
+            self.personalization.projectPreferences.reset()
+            self.personalization.projectPreferences.setLoadingState(asyncStates.success)
+            self.personalization.stats.reset()
+            self.personalization.reset()
+          }
+        })
+      }, { name: 'User clear action Observer autorun' })
+      addDisposer(self, signOutDisposer)
     }
-  }))
+
+    return {
+      afterCreate() {
+        createSignOutObserver()
+      },
+
+      checkCurrent: flow(function * checkCurrent () {
+        self.loadingState = asyncStates.loading
+        try {
+          const userResource = yield auth.checkCurrent()
+          self.loadingState = asyncStates.success
+          if (userResource) {
+            self.set(userResource)
+          }
+        } catch (error) {
+          console.log(error)
+          self.loadingState = asyncStates.error
+          self.error = error
+        }
+      }),
+
+      clear () {
+        self.id = null
+        self.display_name = null
+        self.login = null
+      },
+
+      set (user) {
+        self.id = user.id
+        self.display_name = user.display_name
+        self.login = user.login
+      }
+    }
+  })
 
 export default User
