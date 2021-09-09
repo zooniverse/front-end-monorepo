@@ -1,1 +1,1 @@
-export { default } from './DailyClassificationsChartContainer'
+export { default } from './DailyClassificationsChartConnector'
