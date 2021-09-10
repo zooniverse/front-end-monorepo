@@ -14,7 +14,6 @@ export default function mockStore({
   subjectSet,
   workflow = branchingWorkflow
 } = {}) {
-  const projectSnapshot = project || ProjectFactory.build()
 
   const subjectSnapshot = subject || SubjectFactory.build({
     metadata: {}
@@ -24,10 +23,16 @@ export default function mockStore({
 
   const workflowSnapshot = workflow || WorkflowFactory.build()
 
+  const projectSnapshot = ProjectFactory.build({}, {
+    activeWorkflowId: workflowSnapshot.id
+  })
+
+  const subjects = [ subjectSnapshot, ...Factory.buildList('subject', 9)]
+
   const { panoptes } = stubPanoptesJs({
     field_guides: [],
     projects: [projectSnapshot],
-    subjects: Factory.buildList('subject', 10),
+    subjects,
     tutorials: [],
     workflows: [workflowSnapshot]
   })

@@ -20,11 +20,62 @@ describe('Component > DailyClassificationsChartContainer', function () {
   const MOCK_TOTALS = {
     today: 25
   }
+  const CHART_DATA = [
+    {
+      alt: 'Monday: 12',
+      count: 12,
+      period: '2019-09-30',
+      label: 'M',
+      longLabel: 'Monday'
+    },
+    {
+      alt: 'Tuesday: 13',
+      count: 13,
+      period: '2019-10-01',
+      label: 'T',
+      longLabel: 'Tuesday'
+    },
+    {
+      alt: 'Wednesday: 14',
+      count: 14,
+      period: '2019-10-02',
+      label: 'W',
+      longLabel: 'Wednesday'
+    },
+    {
+      alt: 'Thursday: 10',
+      count: 10,
+      period: '2019-10-03',
+      label: 'T',
+      longLabel: 'Thursday'
+    },
+    {
+      alt: 'Friday: 11',
+      count: 11,
+      period: '2019-10-04',
+      label: 'F',
+      longLabel: 'Friday'
+    },
+    {
+      alt: 'Saturday: 8',
+      count: 8,
+      period: '2019-10-05',
+      label: 'S',
+      longLabel: 'Saturday'
+    },
+    {
+      alt: 'Sunday: 25',
+      count: 25,
+      period: '2019-10-06',
+      label: 'S',
+      longLabel: 'Sunday'
+    }
+  ]
 
   before(function () {
-    clock = sinon.useFakeTimers({ now: new Date('2019-10-06'), toFake: ['Date'] })
+    clock = sinon.useFakeTimers({ now: new Date('2019-10-06T12:00:00Z'), toFake: ['Date'] })
     wrapper = shallow(
-      <DailyClassificationsChartContainer.wrappedComponent
+      <DailyClassificationsChartContainer
         counts={MOCK_TOTALS}
         projectName='Test Project'
         thisWeek={MOCK_DAILY_COUNTS}
@@ -47,18 +98,6 @@ describe('Component > DailyClassificationsChartContainer', function () {
 
   describe('daily stats counts', function () {
     let stats
-    function mockStat (count, period) {
-      const day = new Date(period)
-      const dayNameShort = day.toLocaleDateString('en', { weekday: 'narrow' })
-      const dayNameFull = day.toLocaleDateString('en', { weekday: 'long' })
-      return {
-        count,
-        period,
-        alt: `${dayNameFull}: ${count}`,
-        label: dayNameShort,
-        longLabel: dayNameFull
-      }
-    }
 
     before(function () {
       stats = componentWrapper.prop('stats')
@@ -74,9 +113,7 @@ describe('Component > DailyClassificationsChartContainer', function () {
 
       before(function () {
         stat = stats[day]
-        expectedStat = stat.period === '2019-10-06'
-          ? mockStat(MOCK_TOTALS.today, stat.period)
-          : mockStat(stat.count, stat.period)
+        expectedStat = CHART_DATA[day]
       })
 
       describe(MOCK_DAILY_COUNTS[day].period, function () {
@@ -92,7 +129,7 @@ describe('Component > DailyClassificationsChartContainer', function () {
           expect(stat.label).to.equal(expectedStat.label)
         })
 
-        it('should have a long label', function () {
+        it(`should be ${CHART_DATA[day].longLabel}`, function () {
           expect(stat.longLabel).to.equal(expectedStat.longLabel)
         })
 
