@@ -69,7 +69,6 @@ export default function ClassifierWrapper({
       return (
         <Classifier
           authClient={authClient}
-          data-testid='classifier'
           key={key}
           mode={mode}
           onAddToCollection={onAddToCollection}
