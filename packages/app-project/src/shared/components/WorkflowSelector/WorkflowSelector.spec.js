@@ -1,33 +1,33 @@
 import asyncStates from '@zooniverse/async-states'
 import { shallow } from 'enzyme'
 
-import { WorkflowSelector } from './WorkflowSelector'
+import WorkflowSelector from './WorkflowSelector'
 import WorkflowSelectButtons from './components/WorkflowSelectButtons'
 import { expect } from 'chai'
 
-const THEME = {
-  global: {
-    colors: {
-      brand: '#000'
+describe('Component > WorkflowSelector', function () {
+  const THEME = {
+    global: {
+      colors: {
+        brand: '#000'
+      }
     }
   }
-}
 
-const WORKFLOWS = [
-  {
-    id: '1234',
-    displayName: 'a test workflow'
-  },
-  {
-    id: '3456',
-    displayName: 'another test workflow'
-  }
-]
+  const WORKFLOWS = [
+    {
+      id: '1234',
+      displayName: 'a test workflow'
+    },
+    {
+      id: '3456',
+      displayName: 'another test workflow'
+    }
+  ]
 
-const WORKFLOW_DESCRIPTION = 'Sit nulla mi metus tellus aenean lobortis litora'
-const DEFAULT_WORKFLOW_DESCRIPTION = 'You can do real research by clicking to get started here!'
+  const WORKFLOW_DESCRIPTION = 'Sit nulla mi metus tellus aenean lobortis litora'
+  const DEFAULT_WORKFLOW_DESCRIPTION = 'You can do real research by clicking to get started here!'
 
-describe('Component > WorkflowSelector', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
       <WorkflowSelector

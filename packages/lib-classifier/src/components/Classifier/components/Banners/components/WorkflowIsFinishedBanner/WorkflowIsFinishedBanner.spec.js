@@ -1,15 +1,15 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import UserHasFinishedWorkflowBannerContainer from './UserHasFinishedWorkflowBannerContainer'
+import WorkflowIsFinishedBanner from './WorkflowIsFinishedBanner'
 import Banner from '../Banner'
 
 let wrapper
 let componentWrapper
 
-describe('Component > UserHasFinishedWorkflowBannerContainer', function () {
+describe('Component > WorkflowIsFinishedBanner', function () {
   before(function () {
-    wrapper = shallow(<UserHasFinishedWorkflowBannerContainer.wrappedComponent />)
+    wrapper = shallow(<WorkflowIsFinishedBanner />)
     componentWrapper = wrapper.find(Banner)
   })
 
@@ -22,28 +22,27 @@ describe('Component > UserHasFinishedWorkflowBannerContainer', function () {
   })
 
   it('should pass a `background` prop to <Banner />', function () {
-    expect(componentWrapper.prop('background')).to.equal('status-warning')
+    expect(componentWrapper.prop('background')).to.equal('status-critical')
   })
 
   it('should pass a `bannerText` prop to <Banner />', function () {
-    expect(componentWrapper.prop('bannerText')).to.equal('Finished: You\'ve seen everything')
+    expect(componentWrapper.prop('bannerText')).to.equal('This workflow is finished')
   })
 
   it('should pass a `tooltipText` prop to <Banner />', function () {
     const expectedText = [
-      'You\'ve already classified everything in this workflow, so further classifications on this subject won\'t be used in its analysis.',
+      'All the subjects in this workflow have been completed, so further classifications on this subject won\'t be used in its analysis.',
       'If you\'re looking to help, try choosing a different workflow or contributing to a different project.'
     ]
     expect(componentWrapper.prop('tooltipText')).to.deep.equal(expectedText)
   })
 
   describe('when the banner should show', function () {
-    it('should show if the user has finished the workflow', function () {
+    it('should show if the workflow is finished', function () {
       wrapper.setProps({
         subject: {
-          finished_workflow: false,
-          id: '1',
-          user_has_finished_workflow: true
+          finished_workflow: true,
+          id: '1'
         }
       })
       expect(wrapper.find(Banner).prop('show')).to.be.true()
@@ -56,22 +55,11 @@ describe('Component > UserHasFinishedWorkflowBannerContainer', function () {
       expect(wrapper.find(Banner).prop('show')).to.be.false()
     })
 
-    it('shouldn\'t show when the user hasn\'t finished the workflow', function () {
+    it('shouldn\'t show when the workflow isn\'t finished', function () {
       wrapper.setProps({
         subject: {
-          id: '1',
-          user_has_finished_workflow: false
-        }
-      })
-      expect(wrapper.find(Banner).prop('show')).to.be.false()
-    })
-
-    it('shouldn\'t show when the workflow is finished', function () {
-      wrapper.setProps({
-        subject: {
-          finished_workflow: true,
-          id: '1',
-          user_has_finished_workflow: true
+          finished_workflow: false,
+          id: '1'
         }
       })
       expect(wrapper.find(Banner).prop('show')).to.be.false()

@@ -2,9 +2,8 @@ import asyncStates from '@zooniverse/async-states'
 import { Markdownz, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box, Paragraph, Text } from 'grommet'
-import { arrayOf, bool, func, shape, string } from 'prop-types'
-import { withTheme } from 'styled-components'
-import { Bars } from 'svg-loaders-react'
+import { arrayOf, bool, shape, string } from 'prop-types'
+import Loader from '../Loader'
 import WorkflowSelectButtons from './components/WorkflowSelectButtons'
 import en from './locales/en'
 
@@ -14,16 +13,14 @@ const markdownzComponents = {
   p: nodeProps => <Paragraph {...nodeProps} margin='none' />
 }
 
-function WorkflowSelector (props) {
-  const {
-    assignedWorkflowID = '',
-    uppLoaded = false,
-    userReadyState,
-    workflowAssignmentEnabled = false,
-    workflowDescription = '',
-    workflows
-  } = props
-  const loaderColor = props.theme.global.colors.brand
+function WorkflowSelector ({
+  assignedWorkflowID = '',
+  uppLoaded = false,
+  userReadyState,
+  workflowAssignmentEnabled = false,
+  workflowDescription = '',
+  workflows
+}) {
   const workflowDescriptionToRender = workflowDescription || counterpart('WorkflowSelector.message')
 
   return (
@@ -71,29 +68,27 @@ function WorkflowSelector (props) {
       )}
 
       {(![asyncStates.success, asyncStates.error].includes(userReadyState)) && (
-        <Box align='center' justify='center' margin={{ top: 'small' }}>
-          <Box height='xxsmall' width='xxsmall'>
-            <Bars
-              fill={loaderColor}
-              height='80%'
-              viewBox='0 0 135 140'
-              width='100%'
-            />
-          </Box>
-        </Box>
+        <Loader margin={{ top: 'small' }} width='100%' />
       )}
     </Box>
   )
 }
 
 WorkflowSelector.propTypes = {
+  /** assigned workflow for projects that use workflow assignment. */
+  assignedWorkflowID: string,
+  /** Have the user project preferences loaded? */
+  uppLoaded: bool,
+  /** User loading state */
   userReadyState: string,
+  /** True if this project assigns workflows to volunteers. */
   workflowAssignmentEnabled: bool,
+  /** Localised workflow description for the project. */
   workflowDescription: string,
+  /** Summaries of active workflows with workflow name, completeness etc. */
   workflows: arrayOf(shape({
       id: string.isRequired
     }).isRequired).isRequired
 }
 
-export default withTheme(WorkflowSelector)
-export { WorkflowSelector }
+export default WorkflowSelector
