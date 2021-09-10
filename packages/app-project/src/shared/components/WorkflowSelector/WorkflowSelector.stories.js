@@ -39,6 +39,7 @@ const WORKFLOWS = [
     },
     default: false,
     displayName: 'Games Without Frontiers',
+    grouped: true,
     id: '7890'
   },
   {
@@ -48,6 +49,8 @@ const WORKFLOWS = [
     },
     default: false,
     displayName: 'Shock The Monkey',
+    grouped: true,
+    prioritized: true,
     id: '5678'
   }
 ]
