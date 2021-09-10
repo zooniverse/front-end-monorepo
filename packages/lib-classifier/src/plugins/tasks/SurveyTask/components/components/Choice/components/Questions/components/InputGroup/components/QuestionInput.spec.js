@@ -48,7 +48,7 @@ describe('Component > QuestionInput', function () {
       expect(screen.getByText('Eating')).to.exist()
     })
 
-    it('should have input not as the document active element', function () {
+    it('should not be the document active element', function () {
       render(
         <Grommet
           theme={zooTheme}
@@ -68,7 +68,7 @@ describe('Component > QuestionInput', function () {
     })
 
     describe('with hasFocus true', function () {
-      it('should have input as the document active element', function () {
+      it('should be the document active element', function () {
         render(
           <Grommet
             theme={zooTheme}
