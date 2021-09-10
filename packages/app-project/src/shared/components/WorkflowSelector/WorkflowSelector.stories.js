@@ -4,6 +4,7 @@ import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 
 import WorkflowSelector from './WorkflowSelector'
+import * as subcomponents from './components'
 
 const store = {
   project: {
@@ -38,6 +39,7 @@ const WORKFLOWS = [
     },
     default: false,
     displayName: 'Games Without Frontiers',
+    grouped: true,
     id: '7890'
   },
   {
@@ -47,6 +49,8 @@ const WORKFLOWS = [
     },
     default: false,
     displayName: 'Shock The Monkey',
+    grouped: true,
+    prioritized: true,
     id: '5678'
   }
 ]
@@ -70,16 +74,17 @@ function StoryContext (props) {
   )
 }
 
-function onSelect(event, workflow) {
-  event.preventDefault()
-  alert(workflow.displayName)
-}
-
 export default {
   title: 'Project App / Shared / Workflow Selector',
   component: WorkflowSelector,
-  args: {
-    dark: false
+  subcomponents,
+  argTypes: {
+    userReadyState: {
+      control: {
+        type: 'select',
+        options: asyncStates
+      }
+    }
   },
   parameters: {
     viewport: {
@@ -88,54 +93,96 @@ export default {
   }
 }
 
-export function Default({ dark }) {
+export function Default({ assignedWorkflowID, dark, uppLoaded, userReadyState, workflowAssignmentEnabled, workflowDescription, workflows }) {
   return (
     <StoryContext theme={{ ...zooTheme, dark }}>
       <WorkflowSelector
-        onSelect={onSelect}
-        uppLoaded
-        userReadyState={asyncStates.success}
-        workflows={WORKFLOWS}
+        assignedWorkflowID={assignedWorkflowID}
+        uppLoaded={uppLoaded}
+        userReadyState={userReadyState}
+        workflowAssignmentEnabled={workflowAssignmentEnabled}
+        workflowDescription={workflowDescription}
+        workflows={workflows}
       />
     </StoryContext>
   )
 }
 
-export function WithLevels({ dark }) {
+Default.args = {
+  assignedWorkflowID: '',
+  dark: false,
+  uppLoaded: true,
+  userReadyState: asyncStates.success,
+  workflowAssignmentEnabled: false,
+  workflowDescription: store.project.workflow_description,
+  workflows: WORKFLOWS
+}
+
+export function WithLevels({ assignedWorkflowID, dark, uppLoaded, userReadyState, workflowAssignmentEnabled, workflowDescription, workflows }) {
   return (
     <StoryContext theme={{ ...zooTheme, dark }}>
       <WorkflowSelector
-        assignedWorkflowID='7890'
-        onSelect={onSelect}
-        uppLoaded
-        workflowAssignmentEnabled
-        userReadyState={asyncStates.success}
-        workflows={WORKFLOWS}
+        assignedWorkflowID={assignedWorkflowID}
+        uppLoaded={uppLoaded}
+        workflowAssignmentEnabled={workflowAssignmentEnabled}
+        workflowDescription={workflowDescription}
+        userReadyState={userReadyState}
+        workflows={workflows}
       />
     </StoryContext>
   )
 }
 
-export function Loading({ dark }) {
+WithLevels.args = {
+  assignedWorkflowID: '7890',
+  dark: false,
+  uppLoaded: true,
+  userReadyState: asyncStates.success,
+  workflowAssignmentEnabled: true,
+  workflowDescription: '',
+  workflows: WORKFLOWS
+}
+
+export function Loading({ dark, uppLoaded, userReadyState, workflowAssignmentEnabled, workflowDescription, workflows }) {
   return (
     <StoryContext theme={{ ...zooTheme, dark }}>
       <WorkflowSelector
-        onSelect={onSelect}
-        userReadyState={asyncStates.loading}
-        workflows={WORKFLOWS}
+        uppLoaded={uppLoaded}
+        userReadyState={userReadyState}
+        workflowDescription={workflowDescription}
+        workflows={workflows}
       />
     </StoryContext>
   )
 }
 
-export function Error({ dark }) {
+Loading.args = {
+  dark: false,
+  uppLoaded: false,
+  userReadyState: asyncStates.loading,
+  workflowAssignmentEnabled: false,
+  workflowDescription: store.project.workflow_description,
+  workflows: WORKFLOWS
+}
+
+export function Error({ dark, uppLoaded, userReadyState, workflowAssignmentEnabled, workflowDescription, workflows }) {
   return (
     <StoryContext theme={{ ...zooTheme, dark }}>
       <WorkflowSelector
-        onSelect={onSelect}
-        userReadyState={asyncStates.error}
-        workflows={WORKFLOWS}
+        uppLoaded={uppLoaded}
+        userReadyState={userReadyState}
+        workflowDescription={workflowDescription}
+        workflows={workflows}
       />
     </StoryContext>
   )
+}
+
+Error.args = {
+  dark: false,
+  uppLoaded: false,
+  userReadyState: asyncStates.error,
+  workflowAssignmentEnabled: false,
+  workflowDescription: store.project.workflow_description,
+  workflows: WORKFLOWS
 }
