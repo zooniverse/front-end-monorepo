@@ -2,6 +2,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 
 import SubjectSetPicker from './'
+import * as subcomponents from './components'
 import { mockWorkflow } from './helpers'
 
 function StoryContext (props) {
@@ -24,6 +25,7 @@ function StoryContext (props) {
 export default {
   title: 'Project App / Shared / Subject Set Picker',
   component: SubjectSetPicker,
+  subcomponents,
   args: {
     dark: false,
     workflow: mockWorkflow
