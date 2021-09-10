@@ -11,7 +11,7 @@ const User = types
     error: types.maybeNull(types.frozen({})),
     id: types.maybeNull(numberString),
     login: types.maybeNull(types.string),
-    loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.loading),
+    loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
     personalization: types.optional(UserPersonalization, {})
   })
 
