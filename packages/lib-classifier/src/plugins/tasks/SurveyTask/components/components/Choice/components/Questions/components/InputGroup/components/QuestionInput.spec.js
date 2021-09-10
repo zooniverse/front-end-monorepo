@@ -6,7 +6,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import zooTheme from '@zooniverse/grommet-theme'
 
-import { QuestionInput } from './QuestionInput'
+import QuestionInput from './QuestionInput'
 
 describe('Component > QuestionInput', function () {
   describe('with checkbox type', function () {
@@ -22,7 +22,6 @@ describe('Component > QuestionInput', function () {
               value: 'TNG'
             }}
             questionId='WHTBHVRSDS'
-            theme={zooTheme}
             type='checkbox'
           />
         </Grommet>
@@ -42,7 +41,6 @@ describe('Component > QuestionInput', function () {
               value: 'TNG'
             }}
             questionId='WHTBHVRSDS'
-            theme={zooTheme}
             type='checkbox'
           />
         </Grommet>
@@ -62,7 +60,6 @@ describe('Component > QuestionInput', function () {
               value: 'TNG'
             }}
             questionId='WHTBHVRSDS'
-            theme={zooTheme}
             type='checkbox'
           />
         </Grommet>
@@ -84,7 +81,6 @@ describe('Component > QuestionInput', function () {
                 value: 'TNG'
               }}
               questionId='WHTBHVRSDS'
-              theme={zooTheme}
               type='checkbox'
             />
           </Grommet>
@@ -108,7 +104,6 @@ describe('Component > QuestionInput', function () {
                 value: 'TNG'
               }}
               questionId='WHTBHVRSDS'
-              theme={zooTheme}
               type='checkbox'
             />
           </Grommet>
@@ -133,7 +128,6 @@ describe('Component > QuestionInput', function () {
               value: 'S'
             }}
             questionId='RTHRNNGPRSNT'
-            theme={zooTheme}
             type='radio'
           />
         </Grommet>
@@ -153,7 +147,6 @@ describe('Component > QuestionInput', function () {
               value: 'S'
             }}
             questionId='RTHRNNGPRSNT'
-            theme={zooTheme}
             type='radio'
           />
         </Grommet>
@@ -173,7 +166,6 @@ describe('Component > QuestionInput', function () {
               value: 'S'
             }}
             questionId='RTHRNNGPRSNT'
-            theme={zooTheme}
             type='radio'
           />
         </Grommet>
@@ -195,7 +187,6 @@ describe('Component > QuestionInput', function () {
                 value: 'S'
               }}
               questionId='RTHRNNGPRSNT'
-              theme={zooTheme}
               type='radio'
             />
           </Grommet>
@@ -219,7 +210,6 @@ describe('Component > QuestionInput', function () {
                 value: 'S'
               }}
               questionId='RTHRNNGPRSNT'
-              theme={zooTheme}
               type='radio'
             />
           </Grommet>
@@ -245,7 +235,6 @@ describe('Component > QuestionInput', function () {
                 value: 'S'
               }}
               questionId='RTHRNNGPRSNT'
-              theme={zooTheme}
               type='radio'
             />
           </Grommet>

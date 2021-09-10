@@ -50,11 +50,11 @@ describe('Component > InputGroup', function () {
 
         checkboxInputs.forEach(checkboxInput => {
           if (checkboxInput.getAttribute('value') === 'RSTNG') {
-            expect(checkboxInput.getAttribute('checked')).to.not.be.null()
+            expect(checkboxInput.checked).to.be.true()
           } else if (checkboxInput.getAttribute('value') === 'TNG') {
-            expect(checkboxInput.getAttribute('checked')).to.not.be.null()
+            expect(checkboxInput.checked).to.be.true()
           } else {
-            expect(checkboxInput.getAttribute('checked')).to.be.null()
+            expect(checkboxInput.checked).to.be.false()
           }
         })
       })
@@ -120,9 +120,9 @@ describe('Component > InputGroup', function () {
         const radioInputs = screen.queryAllByRole('radio')
         radioInputs.forEach(checkboxInput => {
           if (checkboxInput.getAttribute('value') === 'N') {
-            expect(checkboxInput.getAttribute('checked')).to.not.be.null()
+            expect(checkboxInput.checked).to.be.true()
           } else {
-            expect(checkboxInput.getAttribute('checked')).to.be.null()
+            expect(checkboxInput.checked).to.be.false()
           }
         })
       })
