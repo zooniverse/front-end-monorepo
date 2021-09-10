@@ -10,7 +10,7 @@ Currently in PFE, the only feedback related to the survey task is for the Gravit
 
 ## Decision
 
-To implement a simple survey task feedback strategy within [the existing feedback framework](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-classifier/src/store/feedback/strategies). The simple survey task feedback will be titled "Survey: Simple". The initial simple survey task feedback will presume the annotation has one annotation value per survey task choice. The subject metadata will include:
+To implement a simple survey task feedback strategy within [the existing feedback framework](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-classifier/src/store/feedback/strategies). The simple survey task feedback will be titled "Survey: Simple". The simple survey task feedback will presume the annotation has one annotation value per survey task choice. The subject metadata will include:
 
 - #feedback_N_id (required) - ID of the corresponding workflow task rule.
 - #feedback_N_choiceIds (required) - comma separated target choice ID(s) (i.e. "BLIP" or "AARDVARK,ELEPHANT,ZEBRA"). A choice's ID is determined at survey task creation and can be viewed in in the Project Builder from the relevant workflow and survey task editor *Raw task data* section or from the workflow data export. The choice ID is the key for the choice object. For survey tasks created since 2017, the choice ID is the choice name per the provided "Choices" CSV with non-word characters removed and all uppercase (`[choice name per CSV].replace(/\W/g, '').toUpperCase()`).
@@ -19,7 +19,7 @@ To implement a simple survey task feedback strategy within [the existing feedbac
 
 The target choice ID(s) provided must match the choice IDs in the annotation values exactly for the annotation to be considered a success. Any missing target choice or any additional annotation choice will result in failure.
 
-Feedback for annotation value (choice specific question) answers and multiple annotation values of the same choice is to be determined.
+Feedback for annotation value (choice specific question) answers and multiple annotation values of the same choice will be addressed with additional survey task feedback strategies.
 
 ## Status
 
