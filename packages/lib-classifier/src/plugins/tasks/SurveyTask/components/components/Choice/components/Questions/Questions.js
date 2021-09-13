@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { SpacedHeading } from '@zooniverse/react-components'
 
-import CheckBoxInputs from './components/CheckBoxInputs'
-import RadioInputs from './components/RadioInputs'
+import InputGroup from './components/InputGroup'
 
 export default function Questions (props) {
   const {
@@ -18,7 +17,7 @@ export default function Questions (props) {
   function handleAnswer (questionAnswer, questionId) {
     const newAnswers = Object.assign({}, answers, { [questionId]: questionAnswer })
 
-    // if questionAnswer is an empty string (cleared radio input) or an empty array (cleared checkbox inputs) then questionAnswer length is 0
+    // if questionAnswer is an empty string (cleared radio input) or is an empty array (cleared checkbox inputs) then questionAnswer length is 0
     if (questionAnswer.length === 0) {
       delete newAnswers[questionId]
     }
@@ -43,25 +42,14 @@ export default function Questions (props) {
             key={questionId}
           >
             <SpacedHeading>{question.label}</SpacedHeading>
-            {inputType === 'checkbox'
-              ? (
-                <CheckBoxInputs
-                  handleAnswer={handleAnswer}
-                  hasFocus={hasFocus && index === 0}
-                  options={options}
-                  questionId={questionId}
-                  questionAnswer={answers[questionId]}
-                />
-                )
-              : (
-                <RadioInputs
-                  handleAnswer={handleAnswer}
-                  hasFocus={hasFocus && index === 0}
-                  options={options}
-                  questionId={questionId}
-                  questionAnswer={answers[questionId]}
-                />
-                )}
+            <InputGroup
+              handleAnswer={handleAnswer}
+              hasFocus={hasFocus && index === 0}
+              options={options}
+              questionId={questionId}
+              questionAnswer={answers[questionId]}
+              type={inputType}
+            />
           </Box>
         )
       })}
