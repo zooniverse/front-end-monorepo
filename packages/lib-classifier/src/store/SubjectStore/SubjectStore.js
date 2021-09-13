@@ -204,6 +204,22 @@ const SubjectStore = types
       }
     }
 
+    function * buildPreviousQueue(currentPriority) {
+      const workflow = tryReference(() => getRoot(self).workflows.active)
+      if (workflow?.hasIndexedSubjects) {
+        const newSubjects = yield _fetchPreviousSubjects(workflow, self.first.priority)
+        self.prepend(newSubjects)
+        const queue = Array.from(self.resources.values())
+        const activeIndex = queue.findIndex(subject => subject.priority === currentPriority)
+        const previousSubjects = queue.slice(0, activeIndex)
+        // prepend destroys the queue so we need to reset the active subject
+        if (previousSubjects.length > 0) {
+          const previousSubject = previousSubjects[previousSubjects.length - 1]
+          self.setActiveSubject(previousSubject.id)
+        }
+      }
+    }
+
     function clearAvailable() {
       self.available.clear()
     }
@@ -297,7 +313,7 @@ const SubjectStore = types
       }
     }
     /** Get the previous subject, in an indexed, prioritised set, and make it the active subject */
-    function * previous() {
+    function previous() {
       const root = getRoot(self)
       const workflow = tryReference(() => root.workflows.active)
       const activeSubject = tryReference(() => self.active)
@@ -311,17 +327,12 @@ const SubjectStore = types
           const activeIndex = queue.indexOf(activeSubject)
           previousSubjects = queue.slice(0, activeIndex)
         }
-        if (previousSubjects.length <= MINIMUM_QUEUE_SIZE) {
-          const newSubjects = yield _fetchPreviousSubjects(workflow, self.first.priority)
-          self.prepend(newSubjects)
-          const queue = Array.from(self.resources.values())
-          const activeIndex = queue.findIndex(subject => subject.priority === currentPriority)
-          previousSubjects = queue.slice(0, activeIndex)
-        }
-        // previous subjects should be in ascending priority order now
         if (previousSubjects.length > 0) {
           const previousSubject = previousSubjects[previousSubjects.length - 1]
           self.setActiveSubject(previousSubject.id)
+        }
+        if (previousSubjects.length <= MINIMUM_QUEUE_SIZE) {
+          self.buildPreviousQueue(currentPriority)
         }
       }
     }
@@ -359,13 +370,14 @@ const SubjectStore = types
       advance,
       afterAttach,
       append,
+      buildPreviousQueue: flow(buildPreviousQueue),
       clearAvailable,
       clearQueue,
       next,
       nextAvailable: flow(nextAvailable),
       prepend,
       populateQueue: flow(populateQueue),
-      previous: flow(previous),
+      previous: previous,
       reset,
       setActiveSubject,
       setOnReset,

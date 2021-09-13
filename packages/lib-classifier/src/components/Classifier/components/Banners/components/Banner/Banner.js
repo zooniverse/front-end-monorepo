@@ -73,11 +73,9 @@ class Banner extends Component {
         pad={{ vertical: 'xsmall', horizontal: 'small' }}
         show={show}
       >
-
         <SpacedText color={color} weight='bold'>
           {bannerText}
         </SpacedText>
-
         <Button
           aria-label={counterpart('Banner.whyAmISeeingThis')}
           disabled={!tooltipText}
