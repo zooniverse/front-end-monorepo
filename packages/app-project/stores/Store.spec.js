@@ -2,7 +2,6 @@ import { expect } from 'chai'
 import asyncStates from '@zooniverse/async-states'
 import Store from './Store'
 import placeholderEnv from './helpers/placeholderEnv'
-import asyncStates from '@zooniverse/async-states'
 
 describe('Stores > Store', function () {
   it('should export an object', function () {
