@@ -2,16 +2,29 @@ import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import RadioInput from './components/RadioInput'
+import QuestionInput from './components/QuestionInput'
 
-export default function RadioInputs (props) {
+export default function InputGroup (props) {
   const {
     handleAnswer,
     hasFocus,
     options,
     questionAnswer,
-    questionId
+    questionId,
+    type
   } = props
+
+  function handleCheckBoxChange (value, checked) {
+    const newQuestionAnswer = Array.from(questionAnswer)
+
+    if (checked) {
+      newQuestionAnswer.push(value)
+    } else {
+      newQuestionAnswer.splice(newQuestionAnswer.indexOf(value), 1)
+    }
+
+    handleAnswer(newQuestionAnswer, questionId)
+  }
 
   function handleRadioChange (value) {
     if (questionAnswer === value) {
@@ -48,23 +61,30 @@ export default function RadioInputs (props) {
       wrap
     >
       {options.map((option, index) => {
-        const isChecked = questionAnswer === option.value
+        let isChecked
+        if (type === 'checkbox') {
+          isChecked = !!questionAnswer && questionAnswer.indexOf(option.value) > -1
+        } else {
+          isChecked = questionAnswer === option.value
+        }
         let inputHasFocus = false
         if (questionAnswer) {
           inputHasFocus = hasFocus && isChecked
         } else {
-          inputHasFocus = hasFocus && index === 0
+          inputHasFocus = hasFocus && (index === 0)
         }
 
         return (
-          <RadioInput
+          <QuestionInput
             key={option.value}
+            handleCheckBoxChange={handleCheckBoxChange}
             handleRadioChange={handleRadioChange}
             handleRadioKeyDown={handleRadioKeyDown}
             hasFocus={inputHasFocus}
             isChecked={isChecked}
             option={option}
             questionId={questionId}
+            type={type}
           />
         )
       })}
@@ -72,15 +92,15 @@ export default function RadioInputs (props) {
   )
 }
 
-RadioInputs.defaultProps = {
+InputGroup.defaultProps = {
   handleAnswer: () => {},
   hasFocus: false,
   options: [],
-  questionAnswer: undefined,
+  questionAnswer: '',
   questionId: ''
 }
 
-RadioInputs.propTypes = {
+InputGroup.propTypes = {
   handleAnswer: PropTypes.func,
   hasFocus: PropTypes.bool,
   options: PropTypes.arrayOf(
@@ -89,6 +109,10 @@ RadioInputs.propTypes = {
       value: PropTypes.string
     })
   ),
-  questionAnswer: PropTypes.string,
-  questionId: PropTypes.string
+  questionAnswer: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.string
+  ]),
+  questionId: PropTypes.string,
+  type: PropTypes.string.isRequired
 }

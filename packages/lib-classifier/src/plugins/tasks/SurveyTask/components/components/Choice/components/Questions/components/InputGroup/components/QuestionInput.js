@@ -22,18 +22,20 @@ export const StyledBox = styled(Box)`
 
   &:hover:not(:focus-within) {
     box-shadow: 0 0 2px 2px ${props => props.theme.global.colors.brand};
-  }
+  } 
 `
 
-function RadioInput (props) {
+function QuestionInput (props) {
   const {
+    handleCheckBoxChange,
     handleRadioChange,
     handleRadioKeyDown,
     hasFocus,
     isChecked,
     option,
     questionId,
-    theme
+    theme,
+    type
   } = props
 
   let backgroundColor = 'neutral-6'
@@ -43,6 +45,8 @@ function RadioInput (props) {
   if (isChecked) {
     backgroundColor = 'accent-1'
   }
+
+  const handleChange = type === 'checkbox' ? handleCheckBoxChange : handleRadioChange
 
   return (
     <label>
@@ -56,18 +60,18 @@ function RadioInput (props) {
           right: 'xsmall'
         }}
         pad={{ horizontal: 'xsmall' }}
-        round='full'
+        round={type === 'radio' ? 'full' : false}
         width={{ min: '40px' }}
       >
         <input
           autoFocus={hasFocus}
           name={questionId}
           value={option.value}
-          type='radio'
+          type={type}
           checked={isChecked}
-          onChange={({ target }) => (handleRadioChange(target.value))}
-          onClick={({ target }) => (handleRadioChange(target.value))}
-          onKeyDown={(event) => (handleRadioKeyDown(event))}
+          onChange={({ target }) => (handleChange(target.value, target.checked))}
+          onClick={type === 'radio' ? ({ target }) => (handleRadioChange(target.value)) : null}
+          onKeyDown={type === 'radio' ? (event) => (handleRadioKeyDown(event)) : null}
         />
         <Text
           weight={isChecked ? 'bold' : 'normal'}
@@ -79,8 +83,10 @@ function RadioInput (props) {
   )
 }
 
-RadioInput.defaultProps = {
+QuestionInput.defaultProps = {
+  handleCheckBoxChange: () => {},
   handleRadioChange: () => {},
+  handleRadioKeyDown: () => {},
   hasFocus: false,
   isChecked: false,
   option: {
@@ -93,8 +99,10 @@ RadioInput.defaultProps = {
   }
 }
 
-RadioInput.propTypes = {
+QuestionInput.propTypes = {
+  handleCheckBoxChange: PropTypes.func,
   handleRadioChange: PropTypes.func,
+  handleRadioKeyDown: PropTypes.func,
   hasFocus: PropTypes.bool,
   isChecked: PropTypes.bool,
   option: PropTypes.shape({
@@ -103,9 +111,10 @@ RadioInput.propTypes = {
   }),
   questionId: PropTypes.string,
   theme: PropTypes.shape({
-    dark: false
-  })
+    dark: PropTypes.bool
+  }),
+  type: PropTypes.string.isRequired
 }
 
-export default withTheme(RadioInput)
-export { RadioInput }
+export default withTheme(QuestionInput)
+export { QuestionInput }
