@@ -18,6 +18,9 @@ const Annotation = types.model('Annotation', {
     delete newSnapshot.id
     return newSnapshot
   })
+  .volatile(self => ({
+    _inProgress: false
+  }))
   .views(self => ({
     get isComplete () {
       return true
@@ -30,6 +33,7 @@ const Annotation = types.model('Annotation', {
   .actions(self => ({
     update (value) {
       self.value = value
+      self._inProgress = true
     }
   }))
 
