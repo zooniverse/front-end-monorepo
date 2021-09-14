@@ -7,4 +7,7 @@ export { default as Rectangle } from './Rectangle'
 export { default as RotateRectangle } from './RotateRectangle'
 export { default as TemporalPoint } from './TemporalPoint'
 export { default as TemporalRotateRectangle } from './TemporalRotateRectangle'
+
+// Experimental Tools
+export { default as FreehandLine } from '@plugins/drawingTools/experimental/models/marks/FreehandLine'
 export { default as TranscriptionLine } from '@plugins/drawingTools/experimental/models/marks/TranscriptionLine'
