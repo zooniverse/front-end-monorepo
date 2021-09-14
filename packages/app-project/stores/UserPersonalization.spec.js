@@ -311,4 +311,47 @@ describe('Stores > UserPersonalization', function () {
       })
     })
   })
+
+  describe('on reset', function () {
+    it('should reset project preferences, stats, and counts', function () {
+      const MOCK_DAILY_COUNTS = [
+        { count: 12, period: '2019-09-30T00:00:00Z' },
+        { count: 13, period: '2019-10-01T00:00:00Z' },
+        { count: 14, period: '2019-10-02T00:00:00Z' },
+        { count: 10, period: '2019-10-03T00:00:00Z' },
+        { count: 11, period: '2019-10-04T00:00:00Z' },
+        { count: 8, period: '2019-10-05T00:00:00Z' },
+        { count: 15, period: '2019-10-06T00:00:00Z' }
+      ]
+      const personalizationStore = UserPersonalization.create({
+        projectPreferences: {
+          activity_count: 8,
+          activity_count_by_workflow: {
+            1234: 8,
+          },
+          id: '5',
+          links: { project: '5678', user: '1' },
+          loadingState: asyncStates.success,
+          preferences: {
+            tutorials_completed_at: {
+              555: "2021-08-02T16:09:00.468Z"
+            }
+          },
+          settings: { workflow_id: '4444' }
+        },
+        stats: {
+          loadingState: asyncStates.success,
+          thisWeek: MOCK_DAILY_COUNTS
+        },
+        totalClassificationCount: 8
+      })
+      personalizationStore.increment() // increment to have a session count
+      const signedInUserPersonalization = personalizationStore.toJSON()
+      expect(personalizationStore.sessionCount).to.equal(1)
+      personalizationStore.reset()
+      const signedOutUserPersonalization = personalizationStore.toJSON()
+      expect(personalizationStore.sessionCount).to.equal(0)
+      expect(signedOutUserPersonalization).to.not.deep.equal(signedInUserPersonalization)
+    })
+  })
 })

@@ -26,7 +26,7 @@ const User = types
   }))
 
   .actions(self => ({
-    checkCurrent: flow(function * checkCurrent () {
+    checkCurrent: flow(function* checkCurrent() {
       self.loadingState = asyncStates.loading
       try {
         const userResource = yield auth.checkCurrent()
@@ -41,13 +41,13 @@ const User = types
       }
     }),
 
-    clear () {
+    clear() {
       self.id = null
       self.display_name = null
       self.login = null
     },
 
-    set (user) {
+    set(user) {
       self.id = user.id
       self.display_name = user.display_name
       self.login = user.login

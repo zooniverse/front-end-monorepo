@@ -57,7 +57,7 @@ const YourStats = types
     return {
       fetchDailyCounts: flow(function * fetchDailyCounts () {
         const { project, user } = getRoot(self)
-        self.loadingState = asyncStates.loading
+        self.setLoadingState(asyncStates.loading)
         let dailyCounts
         try {
           const token = yield auth.checkBearerToken()
@@ -79,15 +79,29 @@ const YourStats = types
           }`
           const response = yield statsClient.request(query.replace(/\s+/g, ' '))
           dailyCounts = response.statsCount
-          self.loadingState = asyncStates.success
+          self.setLoadingState(asyncStates.success)
         } catch (error) {
-          console.error(error)
-          self.error = error
-          self.loadingState = asyncStates.error
+          self.handleError(error)
           dailyCounts = []
         }
         self.thisWeek = calculateWeeklyStats(dailyCounts)
-      })
+      }),
+
+      handleError(error) {
+        console.error(error)
+        self.error = error
+        self.setLoadingState(asyncStates.error)
+      },
+
+      setLoadingState(state) {
+        self.loadingState = state
+      },
+
+      reset() {
+        const emptyStats = calculateWeeklyStats([])
+        self.thisWeek = emptyStats
+        this.setLoadingState(asyncStates.initialized)
+      }
     }
   })
 
