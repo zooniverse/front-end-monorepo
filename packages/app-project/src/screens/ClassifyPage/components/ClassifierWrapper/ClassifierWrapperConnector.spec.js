@@ -11,24 +11,6 @@ describe('Component > ClassifierWrapperConnector', function () {
   let wrapper
   let store
 
-  describe('while logging in', function () {
-    before(function () {
-      store = initStore()
-      sinon.stub(React, 'useContext')
-        .withArgs(MobXProviderContext)
-        .returns({ store })
-      wrapper = shallow(<ClassifierWrapperConnector />)
-    })
-
-    after(function () {
-      React.useContext.restore()
-    })
-
-    it('should show a signing in message',function () {
-      expect(wrapper.text()).to.equal('Signing in…')
-    })
-  })
-
   describe('after logging in', function () {
     before(function () {
       store = initStore(true, {

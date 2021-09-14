@@ -8,6 +8,7 @@ import ClassifierWrapper from './ClassifierWrapper'
 function useStore() {
   const { store } = React.useContext(MobXProviderContext)
   const {
+    appLoadingState,
     collections,
     project,
     recents,
@@ -17,14 +18,15 @@ function useStore() {
     }
   } = store
 
-  return ({
+  return {
+    appLoadingState,
     collections,
     mode,
     project,
     recents,
     user,
     yourStats: user.personalization
-  })
+  }
 }
 
 /**
@@ -45,6 +47,7 @@ function useStore() {
 */
 function ClassifierWrapperConnector(props) {
   const {
+    appLoadingState,
     collections,
     mode,
     project,
@@ -53,16 +56,9 @@ function ClassifierWrapperConnector(props) {
     yourStats
   } = useStore()
 
-  if (user.loadingState === asyncStates.loading) {
-    return (
-      <p>
-        Signing in…
-      </p>
-    )
-  }
-
   return (
     <ClassifierWrapper
+      appLoadingState={appLoadingState}
       collections={collections}
       mode={mode}
 // We use a POJO here, as the `project` resource is also stored in a

@@ -1,11 +1,11 @@
 import Classifier from '@zooniverse/classifier'
 import auth from 'panoptes-client/lib/auth'
 import { func, string, shape } from 'prop-types'
-import { Component, useContext } from 'react';
 import asyncStates from '@zooniverse/async-states'
 
 import { logToSentry } from '@helpers/logger'
 import ErrorMessage from './components/ErrorMessage'
+import Loader from '@shared/components/Loader'
 
 /**
   A wrapper for the Classifier component. Responsible for handling:
@@ -15,11 +15,12 @@ import ErrorMessage from './components/ErrorMessage'
   - updates to stored collections, when the classification subject is added to a collection.
 */
 export default function ClassifierWrapper({
-  onAddToCollection = () => true,
-  onSubjectReset = () => true,
   authClient = auth,
+  appLoadingState = asyncStates.initialized,
   collections,
   mode,
+  onAddToCollection = () => true,
+  onSubjectReset = () => true,
   project,
   recents,
   subjectID,
@@ -28,7 +29,6 @@ export default function ClassifierWrapper({
   workflowID,
   yourStats
 }) {
-
   function onCompleteClassification(classification, subject) {
     yourStats.increment()
     recents.add({
@@ -51,18 +51,20 @@ export default function ClassifierWrapper({
     }
   }
 
-  const somethingWentWrong = project.loadingState === asyncStates.error
+  const somethingWentWrong = appLoadingState === asyncStates.error
 
   if (somethingWentWrong) {
-    const { error } = project
-    const errorToMessage = error || new Error('Something went wrong')
+    const { error: projectError } = project
+    const { error: userError } = user
+    
+    const errorToMessage = projectError || userError || new Error('Something went wrong')
     return (
       <ErrorMessage error={errorToMessage} />
     )
   }
 
   try {
-    if (project.loadingState === asyncStates.success) {
+    if (appLoadingState === asyncStates.success) {
       const key = user.id || 'no-user'
       return (
         <Classifier
@@ -89,7 +91,22 @@ export default function ClassifierWrapper({
   }
 
   return (
-    <div>Loading…</div>
+    <Loader
+      background={{
+        dark: 'dark-3',
+        light: 'neutral-6'
+      }}
+      border={{
+        color: {
+          dark: 'dark-3',
+          light: 'light-3'
+        },
+        side: 'all',
+        size: 'thin'
+      }}
+      height='100%'
+      width='100%'
+    />
   )
 }
 

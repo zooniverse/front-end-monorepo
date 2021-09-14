@@ -65,7 +65,6 @@ export default function TaskArea({
         flex
       >
         <Tab
-          disabled={disabled}
           title={counterpart('TaskArea.task')}
         >
           <Box

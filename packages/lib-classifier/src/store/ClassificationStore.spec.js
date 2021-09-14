@@ -13,6 +13,7 @@ import {
 import stubPanoptesJs from '@test/stubPanoptesJs'
 import helpers from './feedback/helpers'
 import taskRegistry from '@plugins/tasks'
+import { expect } from 'chai'
 
 describe('Model > ClassificationStore', function () {
   const { AnnotationModel: SingleChoiceAnnotation } = taskRegistry.get('single')
@@ -265,7 +266,7 @@ describe('Model > ClassificationStore', function () {
         const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
         taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
         classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
-        firstClassification = classifications.active
+        firstClassification = classifications.active.toJSON()
         classifications.completeClassification({
           preventDefault: sinon.stub()
         })
@@ -278,9 +279,18 @@ describe('Model > ClassificationStore', function () {
       it('should reset and create a new classification', function () {
         expect(classifications.active).to.not.deep.equal(firstClassification)
       })
+
+      it('should track the already seen subject in session storage', function () {
+        const alreadySeen = window.sessionStorage.getItem('subjectsSeenThisSession')
+        const parsedSeen = JSON.parse(alreadySeen)
+        expect(parsedSeen[0]).to.equal(`${firstClassification.links.workflow}/${firstClassification.links.subjects[0]}`)
+        window.sessionStorage.removeItem('subjectsSeenThisSession')
+      })
     })
 
     describe('without demo mode', function () {
+      let subjectToBeClassified
+      let workflow
       let classifications
       let rootStore
 
@@ -296,13 +306,18 @@ describe('Model > ClassificationStore', function () {
           userProjectPreferences: {}
         })
 
-        sinon.spy(rootStore.classifications, 'submitClassification')
         classifications = rootStore.classifications
         const onComplete = sinon.stub()
         classifications.setOnComplete(onComplete)
 
         // annotate a subject then finish the classification
-        const subjectToBeClassified = rootStore.subjects.active
+        subjectToBeClassified = rootStore.subjects.active
+        workflow = rootStore.workflows.active
+
+        // Stubbing this because tests aren't setup to do the async testing
+        sinon.stub(rootStore.classifications, 'submitClassification')
+          .callsFake(() => rootStore.classifications.trackAlreadySeenSubjects(workflow.id, [subjectToBeClassified.id]))
+
         const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
         taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
         classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
@@ -313,6 +328,13 @@ describe('Model > ClassificationStore', function () {
 
       it('should call submitClassification', function () {
         expect(classifications.submitClassification).to.have.been.calledOnce()
+      })
+
+      it('should track the already seen subject in session storage', function () {
+        const alreadySeen = window.sessionStorage.getItem('subjectsSeenThisSession')
+        const parsedSeen = JSON.parse(alreadySeen)
+        expect(parsedSeen[0]).to.equal(`${workflow.id}/${subjectToBeClassified.id}`)
+        window.sessionStorage.removeItem('subjectsSeenThisSession')
       })
     })
   })

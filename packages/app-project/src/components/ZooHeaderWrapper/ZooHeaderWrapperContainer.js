@@ -63,7 +63,20 @@ class ZooHeaderWrapperContainer extends Component {
 
   signOut () {
     return auth.signOut()
-      .then(() => this.props.user.clear())
+      .then(() => {
+        this.props.user.clear()
+        // resetting the alreay seen subjects during the session tracking should move
+        // once we refactor the UPP and User resource tracking in the classifier
+        // Current implementation in classifier is possibly buggy (see discussion https://github.com/zooniverse/front-end-monorepo/discussions/2362)
+        // likely a user id prop will be passed to the classifier and that will be reacted to with an effect hook
+        /// which would reset the subject already seen tracking
+        // I needed to guarantee that this happened on sign out only so that's why this is here for now
+        const seenThisSession = (window) ? window.sessionStorage.getItem("subjectsSeenThisSession") : null
+
+        if (seenThisSession) {
+          window.sessionStorage.removeItem("subjectsSeenThisSession")
+        }
+      })
   }
 
   render () {
