@@ -36,7 +36,7 @@ describe('Components > Task', function () {
         },
         version: '0.0'
       })
-      const rootStore = mockStore(workflowSnapshot)
+      const rootStore = mockStore({ workflow: workflowSnapshot })
       const step = rootStore.workflowSteps.active
       activeTask = step.tasks[0]
       store = { classifierStore: rootStore }

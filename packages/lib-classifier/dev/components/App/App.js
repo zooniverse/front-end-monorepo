@@ -74,7 +74,15 @@ class App extends React.Component {
 
   logout () {
     oauth.signOut()
-      .then(user => this.setState({ user }))
+      .then(user => {
+        this.setState({ user })
+        // Remove this once the effect hook in the classifier is properly setup with the user id
+        const seenThisSession = (window) ? window.sessionStorage.getItem("subjectsSeenThisSession") : null
+
+        if (seenThisSession) {
+          window.sessionStorage.removeItem("subjectsSeenThisSession")
+        }
+      })
   }
 
   toggleTheme () {

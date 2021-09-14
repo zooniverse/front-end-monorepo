@@ -6,7 +6,7 @@ import DragHandle from '../DragHandle'
 const GUIDE_DASH = [4, 4]
 const GUIDE_WIDTH = 1
 
-function Ellipse ({ active, children, mark, onFinish, scale }) {
+function Ellipse ({ active, mark, onFinish, scale }) {
   const { x, y, rx, ry, angle } = mark
   const guideWidth = GUIDE_WIDTH / scale;
 
@@ -42,7 +42,6 @@ function Ellipse ({ active, children, mark, onFinish, scale }) {
 
 Ellipse.propTypes = {
   active: PropTypes.bool,
-  children: PropTypes.node.isRequired,
   mark: PropTypes.object.isRequired,
   onFinish: PropTypes.func,
   scale: PropTypes.number
