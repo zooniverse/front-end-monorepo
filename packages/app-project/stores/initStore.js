@@ -15,7 +15,6 @@ const defaultClient = {
 }
 
 function initStore (isServer, snapshot = null, client = defaultClient) {
-  console.log('snapshot', snapshot)
   if (isServer) {
     const initialState = snapshot ?? {}
     // Create a new store for the server-side render.
