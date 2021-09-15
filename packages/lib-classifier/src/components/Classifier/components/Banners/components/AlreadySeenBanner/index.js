@@ -1,1 +1,1 @@
-export { default } from './AlreadySeenBannerContainer'
+export { default } from './AlreadySeenBanner'

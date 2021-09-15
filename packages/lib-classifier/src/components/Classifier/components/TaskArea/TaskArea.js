@@ -32,7 +32,7 @@ export default function TaskArea({
   useEffect(function onSubjectChange() {
     // TODO: remove this once testing is complete.
     const URLParams = queryString.parse(window?.location?.search)
-    const finished = (subject && URLParams?.finished) || subject?.retired || subject?.already_seen
+    const finished = (subject && URLParams?.finished) || subject?.retired || subject?.alreadySeen
     setDisabled(finished && workflow.hasIndexedSubjects)
   }, [subject])
 
@@ -65,7 +65,6 @@ export default function TaskArea({
         flex
       >
         <Tab
-          disabled={disabled}
           title={counterpart('TaskArea.task')}
         >
           <Box

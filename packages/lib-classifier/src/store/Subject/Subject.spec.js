@@ -7,7 +7,7 @@ import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories
 import stubPanoptesJs from '@test/stubPanoptesJs'
 import RootStore from '../'
 import subjectViewers from '@helpers/subjectViewers'
-import { expect } from 'chai'
+import { subjectsSeenThisSession } from '@helpers'
 
 describe('Model > Subject', function () {
   const stub = SubjectFactory.build()
@@ -71,6 +71,36 @@ describe('Model > Subject', function () {
 
     it('should load transcription reductions for each subject', function () {
       expect(client.caesar.request).to.have.been.calledThrice()
+    })
+  })
+
+  describe('Views > priority', function () {
+    it('should be undefined by default', function () {
+      expect(subject.priority).to.be.undefined()
+    })
+
+    it('should be a number', function () {
+      const prioritySnapshot = SubjectFactory.build({
+        metadata: {
+          '#priority': '3'
+        }
+      })
+      const prioritySubject = Subject.create(prioritySnapshot)
+      expect(prioritySubject.priority).to.equal(3)
+    })
+
+    /*
+      This might not be supported by prioritised selection in Panoptes
+      but we've come across subject.metadata.priority on Engaging Crowds subjects.
+    */
+    it('should support visible metadata', function () {
+      const prioritySnapshot = SubjectFactory.build({
+        metadata: {
+          priority: '3'
+        }
+      })
+      const prioritySubject = Subject.create(prioritySnapshot)
+      expect(prioritySubject.priority).to.equal(3)
     })
   })
 
@@ -260,6 +290,27 @@ describe('Model > Subject', function () {
         subject.workflows.setActive(workflowWithoutViewerConfiguration.id)
         expect(subject.viewerConfiguration).to.be.undefined()
       })
+    })
+  })
+
+  describe('Views > alreadySeen', function () {
+    it('should return true when true on the resource', function () {
+      const snapshot = SubjectFactory.build({ already_seen: true })
+      const subject = Subject.create(snapshot)
+      expect(subject.alreadySeen).to.be.true()
+    })
+
+    it('should fallback to check session storage when false on the resource', function () {
+      const workflow = WorkflowFactory.build()
+      const snapshot = SubjectFactory.build({ already_seen: false })
+      const subject = Subject.create(snapshot)
+      subject.workflows = WorkflowStore.create()
+      subject.workflows.setResources([workflow])
+      subject.workflows.setActive(workflow.id)
+      expect(subject.alreadySeen).to.be.false()
+      subjectsSeenThisSession.add(workflow.id, [subject.id])
+      expect(subject.alreadySeen).to.be.true()
+      window.sessionStorage.removeItem("subjectsSeenThisSession")
     })
   })
 

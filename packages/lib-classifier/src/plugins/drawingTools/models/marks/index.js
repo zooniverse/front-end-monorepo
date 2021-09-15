@@ -1,3 +1,4 @@
+export { default as Circle } from './Circle'
 export { default as Ellipse } from './Ellipse'
 export { default as Line } from './Line'
 export { default as Mark } from './Mark'

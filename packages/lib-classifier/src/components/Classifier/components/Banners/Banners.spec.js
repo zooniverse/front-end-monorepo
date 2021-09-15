@@ -32,9 +32,11 @@ describe('Component > Banners', function () {
       panoptes,
       tutorials: {
         get: sinon.stub().callsFake(() =>
-          Promise.resolve({ body: {
-            tutorials: []
-          }})
+          Promise.resolve({
+            body: {
+              tutorials: []
+            }
+          })
         )
       }
     }
@@ -56,7 +58,7 @@ describe('Component > Banners', function () {
           [workflowSnapshot.id]: workflowSnapshot
         }
       }
-    },{
+    }, {
       authClient: {
         checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null)),
         checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null))
@@ -109,6 +111,7 @@ describe('Component > Banners', function () {
         id: '1'
       }, {
         grouped: true,
+        prioritized: true,
         subjectSet: '1'
       })
       wrapper = shallow(<Banners stores={stores} />)
@@ -133,6 +136,7 @@ describe('Component > Banners', function () {
         id: '1'
       }, {
         grouped: true,
+        prioritized: true,
         subjectSet: '1'
       })
       wrapper = shallow(<Banners stores={stores} />)
