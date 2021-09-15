@@ -21,14 +21,15 @@ const DrawingCanvas = styled('rect')`
 function InteractionLayer({
   activeMark,
   activeTool,
-  activeToolIndex,
-  disabled,
-  frame,
+  activeToolIndex = 0,
+  annotation,
+  disabled = false,
+  frame = 0,
   height,
-  marks,
+  marks = [],
   move,
-  setActiveMark,
-  scale,
+  setActiveMark = () => {},
+  scale = 1,
   width,
   played,
   duration
@@ -96,6 +97,8 @@ function InteractionLayer({
     mark.setSubTaskVisibility(false)
     // Add a time value for tools that care about time. For most tools, this value is ignored.
     mark.setVideoTime(timeStamp, duration)
+    const markIDs = marks.map(mark => mark.id)
+    annotation.update([ ...markIDs, mark.id ])
   }
 
   function onPointerDown(event) {
@@ -185,6 +188,11 @@ InteractionLayer.propTypes = {
   activeMark: PropTypes.object,
   activeTool: PropTypes.object.isRequired,
   activeToolIndex: PropTypes.number,
+  annotation: PropTypes.shape({
+    task: PropTypes.string,
+    taskType: PropTypes.string,
+    value: PropTypes.array
+  }).isRequired,
   frame: PropTypes.number,
   marks: PropTypes.array,
   setActiveMark: PropTypes.func,
@@ -192,16 +200,6 @@ InteractionLayer.propTypes = {
   disabled: PropTypes.bool,
   scale: PropTypes.number,
   width: PropTypes.number.isRequired
-}
-
-InteractionLayer.defaultProps = {
-  activeMark: undefined,
-  activeToolIndex: 0,
-  frame: 0,
-  marks: [],
-  setActiveMark: () => {},
-  disabled: false,
-  scale: 1
 }
 
 export default InteractionLayer

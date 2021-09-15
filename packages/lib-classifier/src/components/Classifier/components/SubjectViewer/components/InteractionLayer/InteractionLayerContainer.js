@@ -7,15 +7,20 @@ import PreviousMarks from './components/PreviousMarks'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
 function storeMapper(stores) {
+  const activeStepAnnotations = stores.classifierStore.annotatedSteps.latest?.annotations
   const { activeStepTasks } = stores.classifierStore.workflowSteps
   const { frame, move } = stores.classifierStore.subjectViewer
 
   const [activeInteractionTask] = activeStepTasks.filter(
     (task) => task.type === 'drawing' || task.type === 'transcription'
   )
+  const annotation = activeStepAnnotations.find(
+    annotation => annotation.taskType === 'drawing' || annotation.taskType === 'transcription'
+  )
 
   return {
     activeInteractionTask,
+    annotation,
     frame,
     move
   }
@@ -27,6 +32,7 @@ class InteractionLayerContainer extends Component {
   render() {
     const {
       activeInteractionTask,
+      annotation,
       frame,
       height,
       move,
@@ -60,6 +66,7 @@ class InteractionLayerContainer extends Component {
             activeMark={activeMark}
             activeTool={activeTool}
             activeToolIndex={activeToolIndex}
+            annotation={annotation}
             disabled={activeTool.disabled}
             frame={frame}
             height={height}
