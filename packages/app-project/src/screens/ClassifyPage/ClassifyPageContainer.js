@@ -6,8 +6,9 @@ import CollectionsModal from '../../shared/components/CollectionsModal'
 function ClassifyPageContainer({
   assignedWorkflowID = '',
   subjectID: subjectFromURL,
+  workflowAssignmentEnabled = false,
   workflowID,
-  workflows,
+  workflows = [],
   ...props
 }) {
   const [subjectID, setSubjectID] = useState(subjectFromURL)
@@ -25,12 +26,18 @@ function ClassifyPageContainer({
   }, [subjectFromURL])
 
   useEffect(function onAssignedWorkflowIDChange() {
-    console.log('assignedWorkflowID', assignedWorkflowID)
-    if (assignedWorkflow) {
-      const canLoad = assignedWorkflow.configuration.level >= workflowFromUrl.configuration.level
+    const workflowFromURLLevel = parseInt(workflowFromUrl.configuration.level)
+
+    if (workflowAssignmentEnabled && assignedWorkflow) {
+      const assignedWorkflowLevel = parseInt(assignedWorkflow.configuration.level)
+      const canLoad = assignedWorkflowLevel >= workflowFromURLLevel
       setCanLoadWorkflowFromUrl(canLoad)
+    } else if (workflowAssignmentEnabled && workflowFromURLLevel !== 1) {
+      setCanLoadWorkflowFromUrl(false)
+    } else {
+      setCanLoadWorkflowFromUrl(true)
     }
-  }, [assignedWorkflowID])
+  }, [ assignedWorkflowID, workflowAssignmentEnabled, workflowFromUrl ])
 
   function addToCollection(subjectId) {
     collectionsModal.current.open(subjectId)
