@@ -21,7 +21,7 @@ const StyledBox = styled(Box)`
 `
 
 function ProjectHeader (props) {
-  const { className, inBeta, navLinks, screenSize, title } = props
+  const { availableLanguages, className, inBeta, navLinks, screenSize, title } = props
   return (
     <StyledBox as='header' className={className}>
       <Background />
