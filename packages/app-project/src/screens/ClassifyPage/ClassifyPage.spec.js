@@ -8,14 +8,15 @@ import ProjectName from '@components/ProjectName'
 import YourStats from './components/YourStats'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
-import asyncStates from '@zooniverse/async-states'
 import WorkflowAssignmentModal from './components/WorkflowAssignmentModal'
+import asyncStates from '@zooniverse/async-states'
+import { expect } from 'chai'
 
 describe('Component > ClassifyPage', function () {
   describe('default render', function () {
     let wrapper
     before(function () {
-      wrapper = shallow(<ClassifyPage />)
+      wrapper = shallow(<ClassifyPage workflowFromUrl={{ id: '2345' }} />)
     })
 
     it('should render without crashing', function () {
@@ -45,6 +46,10 @@ describe('Component > ClassifyPage', function () {
     it('should render the `ConnectWithProject` component', function () {
       expect(wrapper.find(ConnectWithProject)).to.have.lengthOf(1)
     })
+
+    it('should render the `WorkflowAssignmentModal` component', function () {
+      expect(wrapper.find(WorkflowAssignmentModal)).to.have.lengthOf(1)
+    })
   })
 
   describe('when the app loading state is not successful', function () {
@@ -64,13 +69,17 @@ describe('Component > ClassifyPage', function () {
     it('should show a workflow selector', function () {
       expect(wrapper.find(WorkflowMenuModal)).to.have.lengthOf(1)
     })
+
+    it('should not render a workflow assignment modal', function () {
+      expect(wrapper.find(WorkflowAssignmentModal)).to.have.lengthOf(0)
+    })
   })
 
   describe('with a selected workflow', function () {
     let wrapper
 
     before(function () {
-      wrapper = shallow(<ClassifyPage appLoadingState={asyncStates.success} workflowID='1234' />)
+      wrapper = shallow(<ClassifyPage appLoadingState={asyncStates.success} workflowFromUrl={{ id: '1234' }} />)
     })
 
     it('should not show a workflow selector', function () {
@@ -87,7 +96,7 @@ describe('Component > ClassifyPage', function () {
       }]
 
       before(function () {
-        wrapper = shallow(<ClassifyPage appLoadingState={asyncStates.success} workflowID='1234' workflows={workflows} />)
+        wrapper = shallow(<ClassifyPage appLoadingState={asyncStates.success} workflowFromUrl={workflows[0]} workflows={workflows} />)
       })
 
       it('should show a workflow menu', function () {
@@ -108,7 +117,7 @@ describe('Component > ClassifyPage', function () {
       }]
 
       before(function () {
-        wrapper = shallow(<ClassifyPage appLoadingState={asyncStates.success} subjectSetID='3456' workflowID='1234' workflows={workflows} />)
+        wrapper = shallow(<ClassifyPage appLoadingState={asyncStates.success} subjectSetID='3456' workflowID='1234' workflowFromUrl={workflows[0]} workflows={workflows} />)
       })
 
       it('should not show a workflow menu', function () {
@@ -146,6 +155,7 @@ describe('Component > ClassifyPage', function () {
               appLoadingState={asyncStates.success}
               subjectSetID='3456'
               workflowID='1234'
+              workflowFromUrl={workflows[0]}
               workflows={workflows}
             />
           )
@@ -176,6 +186,7 @@ describe('Component > ClassifyPage', function () {
               subjectID='5678'
               subjectSetID='3456'
               workflowID='1234'
+              workflowFromUrl={workflows[0]}
               workflows={workflows}
             />
           )

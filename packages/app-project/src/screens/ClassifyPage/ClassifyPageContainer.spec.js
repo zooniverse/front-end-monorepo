@@ -8,7 +8,7 @@ import { Provider } from 'mobx-react'
 import * as Router from 'next/router'
 import sinon from 'sinon'
 
-describe.only('Component > ClassifyPageContainer', function () {
+describe('Component > ClassifyPageContainer', function () {
   let wrapper
   let componentWrapper
   before(function () {
@@ -69,6 +69,7 @@ describe.only('Component > ClassifyPageContainer', function () {
           configuration: {
             announcement: '',
           },
+          experimental_tools: ['workflow assignment'],
           inBeta: false,
           toJSON: () => {}, // is this being used in the code somewhere? toJS() should be used instead
           urls: []
@@ -114,7 +115,7 @@ describe.only('Component > ClassifyPageContainer', function () {
   
     describe('when there is a user and thus an assigned workflow', function () {
       describe('when the assigned workflow level is greater than or equal to the workflow from URL level', function () {
-        it.only('should be able to load the workflow from the url', function () {
+        it('should be able to load the workflow from the url', function () {
           const mockStoreWithAssignment = Object.assign({}, mockStore, { 
             user: { 
               personalization: { 
@@ -148,7 +149,7 @@ describe.only('Component > ClassifyPageContainer', function () {
       })
 
       describe('when the assigned workflow level is less than the workflow from URL level', function () {
-        it.only('should not be able to load the workflow from the url', function () {
+        it('should not be able to load the workflow from the url', function () {
           const mockStoreWithAssignment = Object.assign({}, mockStore, { 
             user: { 
               personalization: { 
@@ -185,14 +186,14 @@ describe.only('Component > ClassifyPageContainer', function () {
     })
 
     describe('when there is not a user and thus not an assigned workflow', function () {
-      it.only('should be able to load the first level workflow', function () {
+      it('should be able to load the first level workflow', function () {
         const mockStoreWithoutUser = Object.assign({}, mockStore, {
           user: {
-            projectPreferences: {
-              promptAssignment: () => { },
-              settings: {}
-            },
             personalization: {
+              projectPreferences: {
+                promptAssignment: () => { },
+                settings: {}
+              },
               sessionCount: 0,
               stats: {
                 thisWeek: []
@@ -214,13 +215,31 @@ describe.only('Component > ClassifyPageContainer', function () {
       })
 
       it('should not be able to load other workflow levels', function () {
-        const wrapper = shallow(
-          <ClassifyPageContainer
-            workflowAssignmentEnabled
-            workflowID='5678'
-            workflows={workflows}
-          />
-        )
+        const mockStoreWithoutUser = Object.assign({}, mockStore, {
+          user: {
+            personalization: {
+              projectPreferences: {
+                promptAssignment: () => { },
+                settings: {}
+              },
+              sessionCount: 0,
+              stats: {
+                thisWeek: []
+              }
+            }
+          }
+        })
+        const wrapper = mount(
+          <Provider store={mockStoreWithoutUser}>
+            <ClassifyPageContainer
+              workflowAssignmentEnabled
+              workflowID='5678'
+              workflows={workflows}
+            />
+          </Provider>, {
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        })
         expect(wrapper.find(ClassifyPage).props().workflowFromUrl).to.be.null()
       })
     })
@@ -228,14 +247,74 @@ describe.only('Component > ClassifyPageContainer', function () {
 
   describe('when the project is not workflow assignment enabled', function () {
     it('should be able to load the workflow from the url', function () {
-      const wrapper = shallow(
-        <ClassifyPageContainer
-          workflowID='5678'
-          workflows={workflows}
-        />
-      )
+      const routerStub = sinon.stub(Router, 'useRouter').callsFake((component) => {
+        return {
+          asPath: '',
+          query: {
+            owner: 'zootester1',
+            project: 'my-project'
+          },
+          prefetch: () => Promise.resolve()
+        }
+      })
+
+      const mockStore = {
+        project: {
+          avatar: {
+            src: ''
+          },
+          background: {
+            src: ''
+          },
+          configuration: {
+            announcement: '',
+          },
+          experimental_tools: [],
+          inBeta: false,
+          toJSON: () => { }, // is this being used in the code somewhere? toJS() should be used instead
+          urls: []
+        },
+        recents: {
+          recents: []
+        },
+        ui: {
+          dismissProjectAnnouncementBanner: () => { },
+          showAnnouncement: false
+        },
+        user: {
+          id: '1',
+          personalization: {
+            projectPreferences: {
+              promptAssignment: () => { },
+              settings: {}
+            },
+            sessionCount: 0,
+            stats: {
+              thisWeek: []
+            }
+          }
+        }
+      }
+      let workflows = [{
+        id: '1234',
+        configuration: {}
+      }, {
+        id: '5678',
+        configuration: {}
+      }]
+      const wrapper = mount(
+        <Provider store={mockStore}>
+          <ClassifyPageContainer
+            workflowID='5678'
+            workflows={workflows}
+          />
+        </Provider>, {
+        wrappingComponent: Grommet,
+        wrappingComponentProps: { theme: zooTheme }
+      })
 
       expect(wrapper.find(ClassifyPage).props().workflowFromUrl).to.equal(workflows[1])
+      routerStub.restore()
     })
   })
 })
