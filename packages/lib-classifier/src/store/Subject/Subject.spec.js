@@ -74,6 +74,36 @@ describe('Model > Subject', function () {
     })
   })
 
+  describe('Views > priority', function () {
+    it('should be undefined by default', function () {
+      expect(subject.priority).to.be.undefined()
+    })
+
+    it('should be a number', function () {
+      const prioritySnapshot = SubjectFactory.build({
+        metadata: {
+          '#priority': '3'
+        }
+      })
+      const prioritySubject = Subject.create(prioritySnapshot)
+      expect(prioritySubject.priority).to.equal(3)
+    })
+
+    /*
+      This might not be supported by prioritised selection in Panoptes
+      but we've come across subject.metadata.priority on Engaging Crowds subjects.
+    */
+    it('should support visible metadata', function () {
+      const prioritySnapshot = SubjectFactory.build({
+        metadata: {
+          priority: '3'
+        }
+      })
+      const prioritySubject = Subject.create(prioritySnapshot)
+      expect(prioritySubject.priority).to.equal(3)
+    })
+  })
+
   describe('Views > talkURL', function () {
     before(function () {
       subject.projects = ProjectStore.create({})

@@ -107,6 +107,7 @@ describe('TaskAreaConnector', function () {
       const workflowSnapshot = WorkflowFactory.build({
         first_task: 'T0',
         grouped: true,
+        prioritized: true,
         tasks: {
           T0: {
             answers: [{ label: 'yes', next: 'T1' }, { label: 'no', next: 'T2' }],
