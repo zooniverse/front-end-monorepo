@@ -7,6 +7,7 @@ import CollectionsModal from '../../shared/components/CollectionsModal'
 import { Provider } from 'mobx-react'
 import * as Router from 'next/router'
 import sinon from 'sinon'
+import { expect } from 'chai'
 
 describe('Component > ClassifyPageContainer', function () {
   let wrapper
@@ -26,6 +27,90 @@ describe('Component > ClassifyPageContainer', function () {
 
   it('should render the `CollectionsModal` component', function () {
     expect(wrapper.find(CollectionsModal)).to.have.lengthOf(1)
+  })
+
+  describe('when there is not a workflow selected from the URL', function () {
+    let routerStub
+    let workflows = [{
+      id: '1234',
+      configuration: {
+        level: '1'
+      }
+    }, {
+      id: '5678',
+      configuration: {
+        level: '2'
+      }
+    }]
+
+    const mockStore = {
+      project: {
+        avatar: {
+          src: ''
+        },
+        background: {
+          src: ''
+        },
+        configuration: {
+          announcement: '',
+        },
+        experimental_tools: ['workflow assignment'],
+        inBeta: false,
+        toJSON: () => { }, // is this being used in the code somewhere? toJS() should be used instead
+        urls: []
+      },
+      recents: {
+        recents: []
+      },
+      ui: {
+        dismissProjectAnnouncementBanner: () => { },
+        showAnnouncement: false
+      },
+      user: {
+        id: '1',
+        personalization: {
+          projectPreferences: {
+            promptAssignment: () => { },
+            settings: {}
+          },
+          sessionCount: 0,
+          stats: {
+            thisWeek: []
+          }
+        }
+      }
+    }
+
+    before(function () {
+      routerStub = sinon.stub(Router, 'useRouter').callsFake((component) => {
+        return {
+          asPath: '',
+          query: {
+            owner: 'zootester1',
+            project: 'my-project'
+          },
+          prefetch: () => Promise.resolve()
+        }
+      })
+    })
+
+    after(function () {
+      routerStub.restore()
+    })
+
+    it('should be able to load the classify page without crashing', function () {
+      const wrapper = mount(
+        <Provider store={mockStore}>
+          <ClassifyPageContainer
+            workflows={workflows}
+          />
+        </Provider>, {
+        wrappingComponent: Grommet,
+        wrappingComponentProps: { theme: zooTheme }
+      }
+      )
+      expect(wrapper).to.be.ok()
+    })
   })
 
   describe('on subject reset', function () {
