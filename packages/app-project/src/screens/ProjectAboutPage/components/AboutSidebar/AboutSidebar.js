@@ -6,7 +6,7 @@ import { arrayOf, object, string } from 'prop-types'
 const AboutSidebar = ({ aboutNavLinks }) => {
   const router = useRouter()
   const { owner, project } = router.query
-  const baseUrl = `/projects/${owner}/${project}/preview/about`
+  const baseUrl = `/projects/${owner}/${project}/about`
 
   return (
     <Nav flex direction='column' gap='xsmall' data-testid='about-sidebar'>
