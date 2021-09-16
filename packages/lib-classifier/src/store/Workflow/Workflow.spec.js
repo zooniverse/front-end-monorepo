@@ -27,6 +27,10 @@ describe('Model > Workflow', function () {
       expect(workflow.grouped).to.be.false()
     })
 
+    it('should not be prioritised', function () {
+      expect(workflow.prioritized).to.be.false()
+    })
+
     it('should not use transcription task', function () {
       expect(workflow.usesTranscriptionTask).to.be.false()
     })
@@ -181,6 +185,7 @@ describe('Model > Workflow', function () {
         id: 'workflow1',
         display_name: 'A test workflow',
         grouped: true,
+        prioritized: true,
         links: {
           subject_sets: subjectSets.map(subjectSet => subjectSet.id)
         },

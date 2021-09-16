@@ -1,27 +1,31 @@
 import { shallow } from 'enzyme'
-import { projects } from '@zooniverse/panoptes-js'
-
-import ProjectHeaderContainer from './ProjectHeaderContainer'
+import * as Router from 'next/router'
+import sinon from 'sinon'
+import { ProjectHeaderContainer } from './ProjectHeaderContainer'
 import ProjectHeader from './ProjectHeader'
 
-let wrapper
-let componentWrapper
-
-const PROJECT_DISPLAY_NAME = 'Foobar'
-const ROUTER = {
-  query: {
-    owner: 'Foo',
-    project: 'Bar'
-  }
-}
-
 describe('Component > ProjectHeaderContainer', function () {
+  let wrapper
+  let projectHeader
+  let routerStub
+
+  const PROJECT_DISPLAY_NAME = 'Foobar'
+  const ROUTER = {
+    query: {
+      owner: 'Foo',
+      project: 'Bar'
+    }
+  }
   before(function () {
-    wrapper = shallow(<ProjectHeaderContainer.wrappedComponent
+    routerStub = sinon.stub(Router, 'useRouter').callsFake(() => ROUTER)
+    wrapper = shallow(<ProjectHeaderContainer
       projectName={PROJECT_DISPLAY_NAME}
-      router={ROUTER}
     />)
-    componentWrapper = wrapper.dive().find(ProjectHeader)
+    projectHeader = wrapper.find(ProjectHeader)
+  })
+
+  after(function () {
+    routerStub.restore()
   })
 
   it('should render without crashing', function () {
@@ -29,14 +33,14 @@ describe('Component > ProjectHeaderContainer', function () {
   })
 
   it('should render the `ProjectHeader` component', function () {
-    expect(componentWrapper).to.have.lengthOf(1)
+    expect(projectHeader).to.have.lengthOf(1)
   })
 
   it('should pass down the project title', function () {
-    expect(componentWrapper.prop('title')).to.equal(PROJECT_DISPLAY_NAME)
+    expect(projectHeader.prop('title')).to.equal(PROJECT_DISPLAY_NAME)
   })
 
   it('should pass down the nav links', function () {
-    expect(componentWrapper.prop('navLinks').length).to.be.above(0)
+    expect(projectHeader.prop('navLinks').length).to.be.above(0)
   })
 })

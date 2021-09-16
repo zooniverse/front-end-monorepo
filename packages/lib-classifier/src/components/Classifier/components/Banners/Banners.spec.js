@@ -111,6 +111,7 @@ describe('Component > Banners', function () {
         id: '1'
       }, {
         grouped: true,
+        prioritized: true,
         subjectSet: '1'
       })
       wrapper = shallow(<Banners stores={stores} />)
@@ -135,6 +136,7 @@ describe('Component > Banners', function () {
         id: '1'
       }, {
         grouped: true,
+        prioritized: true,
         subjectSet: '1'
       })
       wrapper = shallow(<Banners stores={stores} />)
