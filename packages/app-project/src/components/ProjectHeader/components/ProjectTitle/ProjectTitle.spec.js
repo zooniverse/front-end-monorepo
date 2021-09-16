@@ -1,32 +1,38 @@
 import { render } from 'enzyme'
-
+import * as Router from 'next/router'
+import sinon from 'sinon'
 import ProjectTitle from './ProjectTitle'
 
-let wrapper
-
-const ROUTER_ON_HOME_PAGE = {
-  asPath: '/projects/foo/bar',
-  pathname: '/projects/[owner]/[project]',
-  query: {
-    owner: 'foo',
-    project: 'bar'
-  }
-}
-
-const ROUTER_ON_OTHER_PAGE = {
-  asPath: '/projects/foo/bar/baz',
-  pathname: '/projects/[owner]/[project]/baz',
-  query: {
-    owner: 'foo',
-    project: 'bar'
-  }
-}
-
-const TITLE = 'Project title'
-
 describe('Component > ProjectTitle', function () {
+  let wrapper, routerStub
+
+  const ROUTER_ON_HOME_PAGE = {
+    asPath: '/projects/foo/bar',
+    pathname: '/projects/[owner]/[project]',
+    query: {
+      owner: 'foo',
+      project: 'bar'
+    }
+  }
+
+  const ROUTER_ON_OTHER_PAGE = {
+    asPath: '/projects/foo/bar/baz',
+    pathname: '/projects/[owner]/[project]/baz',
+    query: {
+      owner: 'foo',
+      project: 'bar'
+    }
+  }
+
+  const TITLE = 'Project title'
+
   before(function () {
-    wrapper = render(<ProjectTitle router={ROUTER_ON_HOME_PAGE} title={TITLE} />)
+    routerStub = sinon.stub(Router, 'useRouter').callsFake(() => ROUTER_ON_HOME_PAGE)
+    wrapper = render(<ProjectTitle title={TITLE} />)
+  })
+
+  after(function () {
+    routerStub.restore()
   })
 
   it('should render without crashing', function () {
@@ -48,7 +54,8 @@ describe('Component > ProjectTitle', function () {
 
   describe('when not on the homepage', function () {
     it('should be wrapped in an anchor with an `href`', function () {
-      wrapper = render(<ProjectTitle router={ROUTER_ON_OTHER_PAGE} title={TITLE} />)
+      routerStub.callsFake(() => ROUTER_ON_OTHER_PAGE)
+      wrapper = render(<ProjectTitle title={TITLE} />)
       expect(wrapper[0].name).to.equal('a')
       expect(wrapper.attr('href')).to.equal('/projects/foo/bar')
     })
