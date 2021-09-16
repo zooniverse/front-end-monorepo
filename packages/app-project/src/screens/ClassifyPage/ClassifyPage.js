@@ -13,35 +13,38 @@ import YourStats from './components/YourStats'
 import StandardLayout from '@shared/components/StandardLayout'
 import WorkflowAssignmentModal from './components/WorkflowAssignmentModal'
 import WorkflowMenuModal from './components/WorkflowMenuModal'
+import asyncStates from '@zooniverse/async-states'
 
 export const ClassifierWrapper = dynamic(() =>
   import('./components/ClassifierWrapper'), { ssr: false }
 )
 
-function ClassifyPage ({
+function ClassifyPage({
   addToCollection,
+  appLoadingState,
   onSubjectReset,
   screenSize,
   subjectID,
   subjectSetID,
   workflowID,
+  workflowFromUrl,
   workflows = []
 }) {
   const responsiveColumns = (screenSize === 'small')
     ? ['auto']
     : ['1em', 'auto', '1em']
 
-  const [ workflowFromUrl ] = workflows.filter(workflow => workflow.id === workflowID)
   let subjectSetFromUrl
   if (workflowFromUrl && workflowFromUrl.subjectSets) {
-    [ subjectSetFromUrl ] = workflowFromUrl.subjectSets.filter(subjectSet => subjectSet.id === subjectSetID)
+    subjectSetFromUrl = workflowFromUrl.subjectSets.find(subjectSet => subjectSet.id === subjectSetID)
   }
+
   // The classifier requires a workflow by default
-  let canClassify = !!workflowID
+  let canClassify = !!workflowFromUrl
   // grouped workflows require a subject set
   canClassify = workflowFromUrl?.grouped ? !!subjectSetID : canClassify
   // indexed subject sets require a subject
-  canClassify = subjectSetFromUrl?.isIndexed ? !!subjectID : canClassify 
+  canClassify = subjectSetFromUrl?.isIndexed ? !!subjectID : canClassify
 
   let classifierProps = {}
   if (canClassify) {
@@ -62,7 +65,7 @@ function ClassifyPage ({
       >
 
         <Box as='main' fill='horizontal'>
-          {!canClassify && (
+          {!canClassify && appLoadingState === asyncStates.success && (
             <WorkflowMenuModal
               subjectSetFromUrl={subjectSetFromUrl}
               workflowFromUrl={workflowFromUrl}
@@ -78,7 +81,8 @@ function ClassifyPage ({
             />
             <ThemeModeToggle />
           </Grid>
-          <WorkflowAssignmentModal currentWorkflowID={workflowID} />
+          {workflowFromUrl &&
+            <WorkflowAssignmentModal currentWorkflowID={workflowID} />}
         </Box>
 
         <Box as='aside' gap='medium' width={{ min: 'none', max: 'xxlarge' }}>

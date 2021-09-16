@@ -1,6 +1,6 @@
 import { Anchor, Heading } from 'grommet'
 import Link from 'next/link'
-import { withRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import styled from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
@@ -23,7 +23,8 @@ const StyledAnchor = styled(Anchor)`
 `
 
 function ProjectTitle (props) {
-  const { router, title } = props
+  const router = useRouter()
+  const { title } = props
   const { owner, project } = router.query
   const linkProps = {
     href: addQueryParams(`/projects/${owner}/${project}`, router)
@@ -53,5 +54,4 @@ function ProjectTitle (props) {
   }
 }
 
-export default withRouter(ProjectTitle)
-export { ProjectTitle }
+export default ProjectTitle
