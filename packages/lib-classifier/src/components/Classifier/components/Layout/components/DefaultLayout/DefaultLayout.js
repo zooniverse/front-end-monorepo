@@ -7,6 +7,7 @@ import Banners from '../../../Banners'
 import FeedbackModal from '../../../Feedback'
 import ImageToolbar from '../../../ImageToolbar'
 import MetaTools from '../../../MetaTools'
+import QuickTalk from '../../../QuickTalk'
 import SubjectViewer from '../../../SubjectViewer'
 import TaskArea from '../../../TaskArea'
 
@@ -78,6 +79,7 @@ function DefaultLayout (props) {
         <StyledTaskArea />
       </StyledTaskAreaContainer>
       <FeedbackModal />
+      <QuickTalk />
     </ContainerGrid>
   )
 }

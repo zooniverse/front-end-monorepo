@@ -1,6 +1,6 @@
 import { inject, observer } from 'mobx-react'
 import { bool, shape, string } from 'prop-types'
-import { withRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 import ProjectHeader from './ProjectHeader'
 import getNavLinks from './helpers/getNavLinks'
@@ -19,7 +19,8 @@ function getBaseUrl (router) {
   return `/projects/${owner}/${project}`
 }
 
-function ProjectHeaderContainer ({ className, defaultWorkflow, inBeta, isLoggedIn, projectName, router }) {
+function ProjectHeaderContainer ({ className, defaultWorkflow, inBeta, isLoggedIn, projectName }) {
+  const router = useRouter()
   const navLinks = getNavLinks(isLoggedIn, getBaseUrl(router), defaultWorkflow)
 
   return (
@@ -49,7 +50,7 @@ ProjectHeaderContainer.propTypes = {
   })
 }
 
-const DecoratedProjectHeaderContainer = inject(storeMapper)(withRouter(observer(ProjectHeaderContainer)))
+const DecoratedProjectHeaderContainer = inject(storeMapper)(observer(ProjectHeaderContainer))
 
 export {
   DecoratedProjectHeaderContainer as default,
