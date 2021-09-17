@@ -1,20 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ExpertOptions from './ExpertOptions'
-import queryString from 'query-string'
 
-function ExpertOptionsContainer (props) {
-  const [ showDemoModeToggle, setShowDemoModeToggle ] = React.useState(false)
+function ExpertOptionsContainer ({ storeDemoMode, setDemoMode, ...rest }) {
+  const showDemoModeToggle = window?.location?.search?.includes('demo=true')
 
-  React.useEffect(function checkForDemoModeEnabling () {
-    const { demo } = (window?.location?.search) ? queryString.parse(window.location.search) : { demo: props.demo }
-    const demoState = (demo === 'true') ? true : false
-    setShowDemoModeToggle(demoState)
-  }, [window?.location?.search, props.demo])
+  if (showDemoModeToggle && storeDemoMode === undefined) {
+    setDemoMode(true)
+  }
 
   if (showDemoModeToggle) {
     return (
-      <ExpertOptions {...props} />
+      <ExpertOptions {...rest} />
     );
   }
 
@@ -22,11 +19,8 @@ function ExpertOptionsContainer (props) {
 }
 
 ExpertOptionsContainer.propTypes = {
-  demo: PropTypes.bool
-}
-
-ExpertOptionsContainer.defaultProps = {
-  demo: false
+  setDemoMode: PropTypes.func,
+  storeDemoMode: PropTypes.bool
 }
 
 export default ExpertOptionsContainer
