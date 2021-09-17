@@ -107,7 +107,7 @@ const SubjectStore = types
         onPatch(getRoot(self), (patch) => {
           const { path, value } = patch
           if (path === '/classifications/loadingState' && value === 'posting') {
-            self.clearAvailable()
+            self.available.clear()
             self.advance()
           }
         })
@@ -225,10 +225,6 @@ const SubjectStore = types
         console.error(error)
         self.loadingState = asyncStates.error
       }
-    }
-
-    function clearAvailable() {
-      self.available.clear()
     }
 
     function clearQueue() {
@@ -390,7 +386,6 @@ const SubjectStore = types
       afterAttach,
       append,
       buildPreviousQueue: flow(buildPreviousQueue),
-      clearAvailable,
       clearQueue,
       nextIndexed,
       nextAvailable: flow(nextAvailable),

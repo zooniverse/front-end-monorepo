@@ -215,28 +215,6 @@ describe('Model > SubjectStore', function () {
       })
     })
 
-    describe('clear available', function () {
-      let subjects
-
-      beforeEach(async function () {
-        const queuedSubjectSnapshots = Factory.buildList('subject', 10)
-        const selectedSubjectSnapshots = Factory.buildList('subject', 10)
-        const subjectMocks = {
-          ['/subjects/grouped']: [],
-          ['/subjects/queued']: queuedSubjectSnapshots,
-          ['/subjects/selection']: selectedSubjectSnapshots
-        }
-        subjects = mockSubjectStore(subjectMocks)
-        await subjects.nextAvailable()
-      })
-
-      it('should clear available subjects', function () {
-        expect(subjects.available.subjects.length).to.equal(9)
-        subjects.clearAvailable()
-        expect(subjects.available.subjects).to.be.empty()
-      })
-    })
-
     describe('next indexed subject', function () {
       let activeSubjectID
       let subjects
