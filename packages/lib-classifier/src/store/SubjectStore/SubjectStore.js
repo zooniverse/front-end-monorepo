@@ -45,6 +45,7 @@ const SubjectStore = types
   .model('SubjectStore', {
     active: types.safeReference(SubjectType),
     available: types.optional(AvailableSubjects, () => AvailableSubjects.create({})),
+    queue: types.array(types.safeReference(SubjectType)),
     resources: types.map(SubjectType),
     type: types.optional(types.string, 'subjects')
   })
@@ -62,15 +63,15 @@ const SubjectStore = types
     },
     /** a helper to get the first subject in the queue */
     get first() {
-      return self.resources.values().next().value
+      const [ first ] = self.queue
+      return first
     },
     /** a helper to get the last subject in the queue */
     get last() {
       let lastSubject
 
-      if ( self.resources.size > 0 ) {
-        const activeSubjects = Array.from(self.resources.values())
-        lastSubject = activeSubjects[self.resources.size - 1]
+      if ( self.queue.length > 0 ) {
+        lastSubject = self.queue[self.queue.length - 1]
       }
       return lastSubject
     }
@@ -144,7 +145,6 @@ const SubjectStore = types
     async function _fetchPreviousSubjects(workflow, priority) {
       const ids = await getIndexedSubjects(workflow.subjectSetId, priority, 'lt', 'desc')
       if (ids.length > 0) {
-        ids.reverse()
         const apiUrl = '/subjects/selection'
         const params = {
           ids: ids.join(','),
@@ -190,16 +190,19 @@ const SubjectStore = types
     function append (newSubjects) {
       newSubjects.forEach(subject => {
         try {
-          const existsInQueue = self.resources.get(subject.id)
-          if (!existsInQueue) self.resources.put(subject)
+          const alreadyStored = self.resources.get(subject.id)
+          if (!alreadyStored) {
+            self.resources.put(subject)
+          }
+          self.queue.push(subject.id)
         } catch (error) {
           console.error(`Subject ${subject.id} is not a valid subject.`)
           console.error(error)
         }
       })
 
-      const validSubjectReference = isValidReference(() => self.active)
-      if (!validSubjectReference && self.resources.size > 0) {
+      const activeSubject = tryReference(() => self.active)
+      if (!activeSubject && self.resources.size > 0) {
         self.advance()
       }
     }
@@ -209,12 +212,9 @@ const SubjectStore = types
       if (workflow?.hasIndexedSubjects) {
         const newSubjects = yield _fetchPreviousSubjects(workflow, self.first.priority)
         self.prepend(newSubjects)
-        const queue = Array.from(self.resources.values())
-        const activeIndex = queue.findIndex(subject => subject.priority === currentPriority)
-        const previousSubjects = queue.slice(0, activeIndex)
-        // prepend destroys the queue so we need to reset the active subject
-        if (previousSubjects.length > 0) {
-          const previousSubject = previousSubjects[previousSubjects.length - 1]
+        const activeIndex = self.queue.findIndex(subject => subject.priority === currentPriority)
+        if (activeIndex > 0) {
+          const previousSubject = self.queue[activeIndex - 1]
           self.setActiveSubject(previousSubject.id)
         }
       }
@@ -232,15 +232,14 @@ const SubjectStore = types
     function nextIndexed() {
       const activeSubject = tryReference(() => self.active)
       const workflow = tryReference(() => getRoot(self).workflows.active)
-      const queue = Array.from(self.resources.values())
 
       // In indexed, prioritised sets, the next subject may not be first in the queue
       if (workflow?.hasIndexedSubjects) {
         self.available.clear()
-        let nextSubjects = queue
+        let nextSubjects = self.queue
         if (activeSubject) {
-          const activeIndex = queue.indexOf(activeSubject)
-          nextSubjects = queue.slice(activeIndex + 1)
+          const activeIndex = self.queue.indexOf(activeSubject)
+          nextSubjects = self.queue.slice(activeIndex + 1)
         }
         const nextSubject = nextSubjects[0]
         if (nextSubject) {
@@ -297,14 +296,10 @@ const SubjectStore = types
     /** Insert new subjects into the queue but maintain priority ordering */
     function prepend(newSubjects = []) {
       if (newSubjects.length > 0) {
-        const priorityQueue = Array.from(self.resources.values())
-        priorityQueue.unshift(...newSubjects)
-
-        priorityQueue.forEach(subject => {
-          const subjectSnapshot = subject.toJSON ? subject.toJSON() : subject
+        newSubjects.forEach(subjectSnapshot => {
           try {
-            self.resources.delete(subjectSnapshot.id)
             self.resources.put(subjectSnapshot)
+            self.queue.unshift(subjectSnapshot.id)
           } catch (error) {
             console.error(`Subject ${subject.id} is not a valid subject.`)
             console.error(error)
@@ -323,9 +318,8 @@ const SubjectStore = types
         self.available.clear()
         let previousSubjects = []
         if (activeSubject) {
-          const queue = Array.from(self.resources.values())
-          const activeIndex = queue.indexOf(activeSubject)
-          previousSubjects = queue.slice(0, activeIndex)
+          const activeIndex = self.queue.indexOf(activeSubject)
+          previousSubjects = self.queue.slice(0, activeIndex)
         }
         if (previousSubjects.length > 0) {
           const previousSubject = previousSubjects[previousSubjects.length - 1]
@@ -349,6 +343,22 @@ const SubjectStore = types
 
     function setOnReset(callback) {
       self.onReset = callback
+    }
+
+    function setResources(subjects = []) {
+      if (subjects.length > 0) {
+        try {
+          subjects.forEach(subject => {
+            if (subject) {
+              self.resources.put(subject)
+              self.queue.push(subject.id)
+            }
+          })
+          self.loadingState = asyncStates.success
+        } catch (error) {
+          console.error(error)
+        }
+      }
     }
     /** Shift the subject queue by one subject, so that the active subject is always the first subject. */
     function shift() {
@@ -381,6 +391,7 @@ const SubjectStore = types
       reset,
       setActiveSubject,
       setOnReset,
+      setResources,
       shift
     }
   })

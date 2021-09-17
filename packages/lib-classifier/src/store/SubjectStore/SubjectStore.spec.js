@@ -442,7 +442,7 @@ describe('Model > SubjectStore', function () {
 
       it('should make the first subject active', function () {
         let activeSubject = store.subjects.active
-        expect(activeSubject.metadata['#priority']).to.equal(1)
+        expect(activeSubject.priority).to.equal(1)
       })
     })
 
@@ -461,7 +461,7 @@ describe('Model > SubjectStore', function () {
 
       it('should move the active subject by one forwards', function () {
         let activeSubject = store.subjects.active
-        expect(activeSubject.metadata['#priority']).to.equal(2)
+        expect(activeSubject.priority).to.equal(2)
       })
     })
 
