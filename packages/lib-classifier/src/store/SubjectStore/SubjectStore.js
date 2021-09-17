@@ -266,7 +266,9 @@ const SubjectStore = types
       if (workflow) {
         try {
           self.resources.clear()
+          self.loadingState = asyncStates.loading
           const newSubject = yield self.available.next(workflow)
+          self.loadingState = asyncStates.success
           if (newSubject) {
             self.append([newSubject])
           }
