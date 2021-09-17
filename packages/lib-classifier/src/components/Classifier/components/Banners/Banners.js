@@ -26,8 +26,8 @@ function Banners({ stores }) {
   if (environment !== 'production' && hasIndexedSubjects && subjectNumber > -1) {
     return (
       <SubjectSetProgressBanner
-        onNext={subjects.next}
-        onPrevious={subjects.previous}
+        onNext={subjects.nextIndexed}
+        onPrevious={subjects.previousIndexed}
         subject={subject}
         workflow={workflow}
       />

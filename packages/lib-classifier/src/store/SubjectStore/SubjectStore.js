@@ -181,7 +181,7 @@ const SubjectStore = types
       const workflow = tryReference(() => getRoot(self).workflows.active)
 
       if (workflow?.hasIndexedSubjects) {
-        self.next()
+        self.nextIndexed()
       } else {
         self.shift()
       }
@@ -229,7 +229,7 @@ const SubjectStore = types
       self.reset()
     }
     /** Get the next subject, in an indexed, prioritised set, and make it the active subject */
-    function next() {
+    function nextIndexed() {
       const activeSubject = tryReference(() => self.active)
       const workflow = tryReference(() => getRoot(self).workflows.active)
       const queue = Array.from(self.resources.values())
@@ -313,7 +313,7 @@ const SubjectStore = types
       }
     }
     /** Get the previous subject, in an indexed, prioritised set, and make it the active subject */
-    function previous() {
+    function previousIndexed() {
       const root = getRoot(self)
       const workflow = tryReference(() => root.workflows.active)
       const activeSubject = tryReference(() => self.active)
@@ -373,11 +373,11 @@ const SubjectStore = types
       buildPreviousQueue: flow(buildPreviousQueue),
       clearAvailable,
       clearQueue,
-      next,
+      nextIndexed,
       nextAvailable: flow(nextAvailable),
       prepend,
       populateQueue: flow(populateQueue),
-      previous: previous,
+      previousIndexed,
       reset,
       setActiveSubject,
       setOnReset,

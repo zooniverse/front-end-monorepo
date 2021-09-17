@@ -237,7 +237,7 @@ describe('Model > SubjectStore', function () {
       })
     })
 
-    describe('next', function () {
+    describe('next indexed subject', function () {
       let activeSubjectID
       let subjects
 
@@ -245,7 +245,7 @@ describe('Model > SubjectStore', function () {
         subjects = mockSubjectStore(Factory.buildList('subject', 10))
         await when(() => subjects.resources.size > 9)
         activeSubjectID = subjects.active.id
-        subjects.next()
+        subjects.nextIndexed()
       })
 
       it('should do nothing', function () {
@@ -254,7 +254,7 @@ describe('Model > SubjectStore', function () {
       })
     })
 
-    describe('next available',function () {
+    describe('next available subject',function () {
       let subjects
       let subjectIDs
 
@@ -271,11 +271,11 @@ describe('Model > SubjectStore', function () {
         await subjects.nextAvailable()
       })
 
-      it('should select the first queued subject', function () {
+      it('should select the first unclassified subject', function () {
         expect(subjects.active.id).to.equal(subjectIDs[0])
       })
 
-      it('should cycle through queued subjects', async function () {
+      it('should cycle through unclassified subjects', async function () {
         await subjects.nextAvailable()
         expect(subjects.active.id).to.equal(subjectIDs[1])
       })
@@ -305,7 +305,7 @@ describe('Model > SubjectStore', function () {
       })
     })
 
-    describe('previous', function () {
+    describe('previous indexed subject', function () {
       let activeSubjectID
       let subjects
 
@@ -313,7 +313,7 @@ describe('Model > SubjectStore', function () {
         subjects = mockSubjectStore(Factory.buildList('subject', 10))
         await when(() => subjects.resources.size > 9)
         activeSubjectID = subjects.active.id
-        subjects.previous()
+        subjects.previousIndexed()
       })
 
       it('should do nothing', function () {
@@ -465,12 +465,12 @@ describe('Model > SubjectStore', function () {
       })
     })
 
-    describe('previous', function () {
+    describe('previous indexed subject', function () {
       before(function () {
         store.subjects.reset()
         store.subjects.setResources(subjects)
         store.subjects.setActive(subjects[5].id)
-        store.subjects.previous()
+        store.subjects.previousIndexed()
       })
 
       it('should preserve the previous active subject', function () {
