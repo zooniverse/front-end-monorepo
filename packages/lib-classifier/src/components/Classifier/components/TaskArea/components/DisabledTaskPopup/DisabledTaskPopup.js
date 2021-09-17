@@ -30,14 +30,22 @@ export default function DisabledTaskPopup({
   const [ active, setActive ] = useState(isOpen)
 
   useEffect(function onLoaded() {
-    if (isOpen) {
-      setActive(true)
-    }
+    setActive(isOpen)
   }, [isOpen])
 
   function closeModal() {
     setActive(false)
     onClose()
+  }
+
+  function onReset() {
+    setActive(false)
+    reset()
+  }
+
+  function onNext() {
+    setActive(false)
+    nextAvailable()
   }
 
   return (
@@ -54,14 +62,14 @@ export default function DisabledTaskPopup({
       </Paragraph>
       <PlainButton
         alignSelf="center"
-        onClick={reset}
+        onClick={onReset}
         text={counterpart('DisabledTaskPopup.options.select')}
       />
       <PrimaryButton
         alignSelf="center"
         color='teal'
         label={counterpart('DisabledTaskPopup.options.next')}
-        onClick={nextAvailable}
+        onClick={onNext}
         margin="xsmall"
       />
       <PlainButton

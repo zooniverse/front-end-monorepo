@@ -92,7 +92,7 @@ export default class DataImageViewerContainer extends React.Component {
   onLoad (JSONData) {
     let imageLocation = {}
     const { onReady, subject } = this.props
-    const target = this.viewer.current
+    const container = this.viewer.current?.container
     const locations = findLocationsByMediaType(subject.locations, 'image')
     if (locations?.length > 0) {
       // Presumably 2 image locations will be found
@@ -101,12 +101,15 @@ export default class DataImageViewerContainer extends React.Component {
       imageLocation = locations.reverse()[0]
     }
 
+    const { width: clientWidth, height: clientHeight } = container ? container.getBoundingClientRect() : {}
+    const target = { clientWidth, clientHeight, naturalWidth: 0, naturalHeight: 0 }
+
     this.setState({
       imageLocation,
       JSONData
     },
       function() {
-        onReady({ target: {} })
+        onReady({ target })
       }
     )
   }

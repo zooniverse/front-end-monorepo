@@ -69,6 +69,11 @@ describe('TaskArea > DisabledTaskPopup', function () {
       it('should call the reset callback', function () {
         expect(reset).to.have.been.calledOnce()
       })
+
+      it('should close the modal', function () {
+        const modal = wrapper.find(Modal)
+        expect(modal.prop('active')).to.be.false()
+      })
     })
 
     describe('Next Available button',function () {
@@ -85,6 +90,11 @@ describe('TaskArea > DisabledTaskPopup', function () {
 
       it('should call the nextAvailable callback', function () {
         expect(nextAvailable).to.have.been.calledOnce()
+      })
+
+      it('should close the modal', function () {
+        const modal = wrapper.find(Modal)
+        expect(modal.prop('active')).to.be.false()
       })
     })
 

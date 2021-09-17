@@ -81,7 +81,11 @@ const Subject = types
     },
 
     get priority () {
-      return self.metadata['#priority'] ?? self.metadata.priority
+      const priority = self.metadata['#priority'] ?? self.metadata.priority
+      if (priority !== undefined) {
+        return parseFloat(priority)
+      }
+      return undefined
     },
 
     get alreadySeen () {
