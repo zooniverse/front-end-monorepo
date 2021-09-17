@@ -209,14 +209,21 @@ const SubjectStore = types
 
     function * buildPreviousQueue(currentPriority) {
       const workflow = tryReference(() => getRoot(self).workflows.active)
-      if (workflow?.hasIndexedSubjects) {
-        const newSubjects = yield _fetchPreviousSubjects(workflow, self.first.priority)
-        self.prepend(newSubjects)
-        const activeIndex = self.queue.findIndex(subject => subject.priority === currentPriority)
-        if (activeIndex > 0) {
-          const previousSubject = self.queue[activeIndex - 1]
-          self.setActiveSubject(previousSubject.id)
+      try {
+        if (workflow?.hasIndexedSubjects) {
+          self.loadingState = asyncStates.loading
+          const newSubjects = yield _fetchPreviousSubjects(workflow, self.first.priority)
+          self.loadingState = asyncStates.success
+          self.prepend(newSubjects)
+          const activeIndex = self.queue.findIndex(subject => subject.priority === currentPriority)
+          if (activeIndex > 0) {
+            const previousSubject = self.queue[activeIndex - 1]
+            self.setActiveSubject(previousSubject.id)
+          }
         }
+      } catch (error) {
+        console.error(error)
+        self.loadingState = asyncStates.error
       }
     }
 
