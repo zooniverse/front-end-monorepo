@@ -9,32 +9,32 @@ import variableStar from '../../helpers/mockLightCurves/variableStar'
 
 import { Factory } from 'rosie'
 
-const subject = Factory.build('subject', {
-  locations: [
-    { 'application/json': 'http://localhost:8080/mockData.json' },
-    { 'image/png': 'http://localhost:8080/image1.png' }
-  ]
-})
-
-const nextSubject = Factory.build('subject', {
-  locations: [
-    { 'application/json': 'http://localhost:8080/nextSubject.json' },
-    { 'image/png': 'http://localhost:8080/image2.png' }
-  ]
-})
-
-const subjectJSON = kepler
-const nextSubjectJSON = variableStar
-
-const imageSubject = Factory.build('subject')
-
-const failSubject = Factory.build('subject', {
-  locations: [
-    { 'application/json': 'http://localhost:8080/failure.json' }
-  ]
-})
-
 describe('Component > DataImageViewerContainer', function () {
+  const subject = Factory.build('subject', {
+    locations: [
+      { 'application/json': 'http://localhost:8080/mockData.json' },
+      { 'image/png': 'http://localhost:8080/image1.png' }
+    ]
+  })
+
+  const nextSubject = Factory.build('subject', {
+    locations: [
+      { 'application/json': 'http://localhost:8080/nextSubject.json' },
+      { 'image/png': 'http://localhost:8080/image2.png' }
+    ]
+  })
+
+  const subjectJSON = kepler
+  const nextSubjectJSON = variableStar
+
+  const imageSubject = Factory.build('subject')
+
+  const failSubject = Factory.build('subject', {
+    locations: [
+      { 'application/json': 'http://localhost:8080/failure.json' }
+    ]
+  })
+
   it('should render without crashing', function () {
     const wrapper = shallow(<DataImageViewerContainer />)
     expect(wrapper).to.be.ok()
@@ -183,6 +183,17 @@ describe('Component > DataImageViewerContainer', function () {
     })
 
     it('should call the onReady prop', function (done) {
+      const createRefStub = sinon.stub(React, 'createRef').callsFake(() => {
+        return {
+          current: {
+            container: {
+              getBoundingClientRect: () => {
+                return { width: 500, height: 800 }
+              }
+            }
+          }
+        }
+      })
       const onReadySpy = sinon.spy()
       wrapper = shallow(
         <DataImageViewerContainer
@@ -190,9 +201,11 @@ describe('Component > DataImageViewerContainer', function () {
           subject={subject}
         />
       )
+      const target = { clientWidth: 500, clientHeight: 800, naturalWidth: 0, naturalHeight: 0 }
 
       cdmSpy.returnValues[0].then(() => {
-        expect(onReadySpy).to.have.been.calledOnceWith({ target: {} })
+        expect(onReadySpy).to.have.been.calledOnceWith({ target })
+        createRefStub.restore()
       }).then(done, done)
     })
 
