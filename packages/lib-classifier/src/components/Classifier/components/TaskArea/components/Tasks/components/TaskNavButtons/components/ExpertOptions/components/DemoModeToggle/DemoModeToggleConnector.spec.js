@@ -1,10 +1,10 @@
 import React from 'react'
 import sinon from 'sinon'
 import { shallow } from 'enzyme'
-import DemoModeToggleContainer from './DemoModeToggleContainer'
+import DemoModeToggleConnector from './DemoModeToggleConnector'
 import { expect } from 'chai'
 
-describe('ExpertOptions > Component > DemoModeToggleContainer', function () {
+describe('ExpertOptions > Component > DemoModeToggleConnector', function () {
   let wrapper, useContextMock
   const mockStore = {
     classifierStore: {
@@ -18,7 +18,7 @@ describe('ExpertOptions > Component > DemoModeToggleContainer', function () {
   beforeEach(function () {
     useContextMock = sinon.stub(React, 'useContext').callsFake(() => mockStore)
     wrapper = shallow(
-      <DemoModeToggleContainer />
+      <DemoModeToggleConnector />
     )
   })
 

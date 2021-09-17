@@ -1,1 +1,1 @@
-export { default } from './ExpertOptionsContainer'
+export { default } from './ExpertOptionsConnector'
