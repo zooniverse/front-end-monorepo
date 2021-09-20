@@ -93,17 +93,18 @@ const WorkflowStepStore = types
     function getNextStepKey () {
       const validStepReference = isValidReference(() => self.active)
       const stepKeys = self.steps.keys()
+      const stepKeysArray = Array.from(stepKeys)
+      const [ firstStep ] = stepKeysArray
       if (validStepReference) {
         if (!!self.active.next) {
           return self.active.next
         } else {
-          const stepKeysArray = Array.from(stepKeys)
           const currentStepIndex = stepKeysArray.indexOf(self.active.stepKey)
           return stepKeysArray[currentStepIndex + 1]
         }
       }
 
-      return stepKeys.next().value
+      return firstStep
     }
 
     function resetSteps () {
