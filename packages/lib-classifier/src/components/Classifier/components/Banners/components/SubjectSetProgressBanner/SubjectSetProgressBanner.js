@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { bool, shape, string } from 'prop-types'
+import { bool, func, shape, string } from 'prop-types'
 import React, { Component } from 'react'
 
 import en from './locales/en'
@@ -7,7 +7,7 @@ import Banner from '../Banner'
 
 counterpart.registerTranslations('en', en)
 
-function SubjectSetProgressBanner({ subject, workflow }) {
+function SubjectSetProgressBanner({ onNext, onPrevious, subject, workflow }) {
   const setName = workflow?.subjectSet?.display_name || ''
   const subjectTotal = workflow?.subjectSet.set_member_subjects_count
   const background = (subject?.alreadySeen || subject?.retired) ? 'status-critical' : 'status-ok'
@@ -28,6 +28,8 @@ function SubjectSetProgressBanner({ subject, workflow }) {
       background={background}
       bannerText={bannerText}
       color={color}
+      onNext={onNext}
+      onPrevious={onPrevious}
       show
       tooltipText={tooltipText}
     />
@@ -35,6 +37,8 @@ function SubjectSetProgressBanner({ subject, workflow }) {
 }
 
 SubjectSetProgressBanner.propTypes = {
+  onNext: func,
+  onPrevious: func,
   subject: shape({
     alreadySeen: bool,
     finished_workflow: bool,
