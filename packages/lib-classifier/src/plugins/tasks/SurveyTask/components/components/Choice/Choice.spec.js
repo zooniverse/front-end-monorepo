@@ -8,7 +8,7 @@ import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import Choice from './Choice'
 import en from './locales/en'
 
-describe('Component > Choice', function () {
+describe.skip('Component > Choice', function () {
   it('should render without crashing', function () {
     render(
       <Choice
