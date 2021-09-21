@@ -86,7 +86,7 @@ const RootStore = types
     function createSubjectObserver () {
       const subjectDisposer = autorun(() => {
         addMiddleware(self, (call, next, abort) => {
-          if (call.name === 'advance') {
+          if (call.name === 'setActiveSubject') {
             const res = next(call)
             onSubjectAdvance()
             return res
