@@ -68,7 +68,7 @@ The state container component should:
   - For images, a preloaded browser `Image` object is created asynchronously as well as client size dimensions retrieved from it by `getBoundingClientRect`
   - For video, an HTML video element is created and client sizes derived from a reference on the SVG rectangle layer wrapping the `InteractionLayer` using `getBoundingClientRect`
   - For JSON, an asynchronous request for the JSON data, parse it, then store it in local component state. Optionally the data can have any required transformations calculated and also stored in component state. The client size dimensions are derived from a wrapper `div` HTML element using a reference and `getBoundingClientRect`.
-- Once `onLoad` is completed successfully, `onReady` is called with a parameter to store teh client sizes which later get added to the classification metadata.
+- Once `onLoad` is completed successfully, `onReady` is called with a parameter to store the client sizes which later get added to the classification metadata.
 - If the `onLoad` event fails, then `onError` should be called with the error message.
 
 The return render should be the child subject viewer that has the needed required props passed to it.
