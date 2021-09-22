@@ -17,7 +17,7 @@ A subject viewer is a component designed to render the media of a subject and an
 
 - [`ScatterPlotViewer`](components/ScatterPlotViewer/README.md) - renders JSON conforming to a particular convention as an interactive scatter plot. Supports pan and zoom as well as several other configurations at per workflow, per subject, or per data series. Used in several complex composite subject viewers.
 - [`BarChartViewer`](components/BarChartViewer/README.md) - renders JSON conforming to a particular convention as an interactive bar chart. Currently only used in the `VariableStarViewer`, but in theory could be used on its own.
-- [`LightCurveViewer`](components/LightCurveViewer/README.md) - renders JSON specifically for the Planet Hunters TESS project and coupled with its particular annotation task. This could be reused with other projects if they want to do exactly what PH TESS does, but going forward, the `ScatterPlotViewer` is preferred and the SPV should enhanced to support a variety of annotation tools.
+- [`LightCurveViewer`](components/LightCurveViewer/README.md) - renders JSON specifically for the Planet Hunters TESS project and coupled with its particular annotation task. This could be reused with other projects if they want to do exactly what PH TESS does, but going forward, the `ScatterPlotViewer` is preferred and the SPV should [enhanced to support a variety of annotation tools](https://github.com/zooniverse/front-end-monorepo/discussions/2421).
 
 ### Complex composites
 
