@@ -26,9 +26,9 @@ function ClassifyPageContainer({
   }, [subjectFromURL])
 
   useEffect(function onAssignedWorkflowIDChange() {
-    const workflowFromURLLevel = parseInt(workflowFromUrl.configuration.level)
+    const workflowFromURLLevel = parseInt(workflowFromUrl?.configuration?.level)
 
-    if (workflowAssignmentEnabled && assignedWorkflow) {
+    if (workflowAssignmentEnabled && assignedWorkflow && workflowFromURLLevel) {
       const assignedWorkflowLevel = parseInt(assignedWorkflow.configuration.level)
       const canLoad = assignedWorkflowLevel >= workflowFromURLLevel
       setCanLoadWorkflowFromUrl(canLoad)

@@ -16,6 +16,7 @@ function buildMocks({ already_seen, metadata = { ['#priority']: 37 }, retired })
   const subjectSetSnapshot = SubjectSetFactory.build()
   const workflowSnapshot = WorkflowFactory.build({
     grouped: true,
+    prioritized: true,
     subjectSet: subjectSetSnapshot.id
   })
   const store = mockStore({ subject: subjectSnapshot, subjectSet: subjectSetSnapshot, workflow: workflowSnapshot })

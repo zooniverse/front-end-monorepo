@@ -1,6 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 import { MobXProviderContext, observer } from 'mobx-react'
-import DemoModeToggle from './DemoModeToggle'
+import ExpertOptionsContainer from './ExpertOptionsContainer'
 
 function useStores() {
   const stores = React.useContext(MobXProviderContext)
@@ -11,24 +11,23 @@ function useStores() {
   } = stores.classifierStore.classifications
 
   return {
-    demoMode,
+    storeDemoMode: demoMode,
     setDemoMode
   }
 }
 
-function DemoModeToggleContainer(props) {
+function ExpertOptionsConnector(props) {
   const {
-    demoMode = false,
+    storeDemoMode,
     setDemoMode
   } = useStores()
 
   return (
-    <DemoModeToggle
-      demoMode={demoMode}
+    <ExpertOptionsContainer
       setDemoMode={setDemoMode}
-      {...props}
+      storeDemoMode={storeDemoMode}
     />
   )
 }
 
-export default observer(DemoModeToggleContainer)
+export default observer(ExpertOptionsConnector)
