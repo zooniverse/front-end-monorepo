@@ -6,6 +6,13 @@ import { func, string } from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
 
 import en from './locales/en'
+import fr from './locales/fr'
+
+counterpart.registerTranslations('en', en)
+counterpart.onLocaleChange((newLocale, oldLocale) => {
+  console.log('New:', newLocale)
+  console.log('Old:', oldLocale)
+}, [])
 
 counterpart.registerTranslations('en', en)
 

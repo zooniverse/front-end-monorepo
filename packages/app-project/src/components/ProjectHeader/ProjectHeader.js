@@ -8,6 +8,7 @@ import ApprovedIcon from './components/ApprovedIcon'
 import Avatar from './components/Avatar'
 import Background from './components/Background'
 import DropdownNav from './components/DropdownNav'
+import LanguageToggle from './components/LanguageToggle'
 import Nav from './components/Nav'
 import ProjectTitle from './components/ProjectTitle'
 import UnderReviewLabel from './components/UnderReviewLabel'
@@ -48,6 +49,7 @@ function ProjectHeader (props) {
                 <UnderReviewLabel />}
             </Box>
             <ApprovedIcon isNarrow={screenSize === 'small'} />
+            <LanguageToggle />
           </Box>
         </Box>
         {screenSize !== 'small' && <Nav navLinks={navLinks} />}
