@@ -4,17 +4,13 @@ import { Box } from 'grommet'
 import { Info } from 'grommet-icons'
 import { func, string } from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
+import useCounterpart from '../../helpers/useCounterpart/useCounterpart'
 
 import en from './locales/en'
 import fr from './locales/fr'
 
 counterpart.registerTranslations('en', en)
-counterpart.onLocaleChange((newLocale, oldLocale) => {
-  console.log('New:', newLocale)
-  console.log('Old:', oldLocale)
-}, [])
-
-counterpart.registerTranslations('en', en)
+counterpart.registerTranslations('fr', fr)
 
 const StyledButton = styled(PlainButton)`
   white-space: nowrap;
@@ -49,6 +45,8 @@ const StyledInfo = styled(Info)`
 `
 
 function ThemeModeToggle (props) {
+  const currentLocale = useCounterpart()
+
   const { onClick, screenSize, theme: { dark } } = props
   const text = dark
     ? counterpart('ThemeModeToggle.switchToLight')

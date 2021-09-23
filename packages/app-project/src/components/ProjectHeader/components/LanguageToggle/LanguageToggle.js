@@ -4,9 +4,10 @@ import { Box, Select } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 import { useState } from 'react'
 
+import languageMenu from '@helpers/languageMenu'
+
 const LanguageToggle = ({ availableLanguages }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [currentLanguage, setCurrentLanguage] = useState(null)
 
   const onClose = () => {
     setIsOpen(false)
@@ -17,12 +18,12 @@ const LanguageToggle = ({ availableLanguages }) => {
   }
 
   const onChange = (option) => {
-    setCurrentLanguage(option.key)
+    counterpart.setLocale(option.key)
   }
 
   const dropContent = availableLanguages.map(language => (
     <Box key={language} as='ul' pad='none' margin='none'>
-      <SpacedText>{language}</SpacedText>
+      <SpacedText>{languageMenu[language]}</SpacedText>
     </Box>
   ))
 
@@ -42,7 +43,7 @@ const LanguageToggle = ({ availableLanguages }) => {
       size='medium'
       value={
         <Box>
-          {currentLanguage ? currentLanguage : 'Language'}
+          {languageMenu[counterpart.getLocale()]}
         </Box>
       }
     />
