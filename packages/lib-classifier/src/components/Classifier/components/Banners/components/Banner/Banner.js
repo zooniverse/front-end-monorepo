@@ -1,7 +1,8 @@
-import { SpacedText } from '@zooniverse/react-components'
+import { PlainButton, SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box, Button, Drop } from 'grommet'
-import { array, bool, oneOf, oneOfType, shape, string } from 'prop-types'
+import { CaretNext, CaretPrevious } from 'grommet-icons'
+import { array, bool, func, oneOf, oneOfType, shape, string } from 'prop-types'
 import React, { Component, createRef } from 'react'
 import styled, { withTheme } from 'styled-components'
 
@@ -57,9 +58,12 @@ class Banner extends Component {
       background,
       bannerText,
       color,
-      theme: { mode },
+      onNext,
+      onPrevious,
       show,
-      tooltipText
+      subjects,
+      theme: { mode },
+      tooltipText,
     } = this.props
 
     return show && (
@@ -73,13 +77,27 @@ class Banner extends Component {
         pad={{ vertical: 'xsmall', horizontal: 'small' }}
         show={show}
       >
-
+        {onPrevious &&
+          <PlainButton
+            color={color}
+            icon={<CaretPrevious color={color} size='15px' />}
+            onClick={onPrevious}
+            text={counterpart('Banner.previous')}
+          />
+        }
         <SpacedText color={color} weight='bold'>
           {bannerText}
         </SpacedText>
-
+        {onNext &&
+          <PlainButton
+            color={color}
+            icon={<CaretNext color={color} size='15px' />}
+            onClick={onNext}
+            reverse
+            text={counterpart('Banner.next')}
+          />
+        }
         <Button
-          aria-label={counterpart('Banner.whyAmISeeingThis')}
           disabled={!tooltipText}
           label={<Label color={color} />}
           onClick={this.toggle}
@@ -109,6 +127,8 @@ Banner.propTypes = {
   background: string.isRequired,
   bannerText: string.isRequired,
   color: string,
+  onNext: func,
+  onPrevious: func,
   show: bool,
   theme: shape({
     mode: oneOf(['dark', 'light'])
@@ -121,7 +141,10 @@ Banner.propTypes = {
 
 Banner.defaultProps = {
   color: 'neutral-6',
-  show: false
+  show: false,
+  theme: {
+    mode: 'light'
+  }
 }
 
 export default withTheme(Banner)

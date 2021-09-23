@@ -46,6 +46,7 @@ describe('Component > InteractionLayer', function () {
         ],
         type: 'drawing'
       })
+      const annotation = mockDrawingTask.createAnnotation()
       const setActiveMarkStub = sinon.stub().callsFake(() => mockMark)
       activeTool = mockDrawingTask.activeTool
       sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
@@ -53,6 +54,7 @@ describe('Component > InteractionLayer', function () {
         <InteractionLayer
           activeMark={mockMark}
           activeTool={activeTool}
+          annotation={annotation}
           frame={2}
           setActiveMark={setActiveMarkStub}
           height={400}
@@ -175,6 +177,7 @@ describe('Component > InteractionLayer', function () {
               type: 'drawing'
             })
             activeTool = mockDrawingTask.activeTool
+            const annotation = mockDrawingTask.createAnnotation()
             sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
             sinon
               .stub(activeTool, 'handlePointerDown')
@@ -184,6 +187,7 @@ describe('Component > InteractionLayer', function () {
               <InteractionLayer
                 activeMark={mockMark}
                 activeTool={activeTool}
+                annotation={annotation}
                 frame={2}
                 height={400}
                 width={600}
@@ -250,6 +254,7 @@ describe('Component > InteractionLayer', function () {
             type: 'drawing'
           })
           activeTool = mockDrawingTask.activeTool
+          const annotation = mockDrawingTask.createAnnotation()
           const setActiveMarkStub = sinon.stub()
           sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
           sinon.stub(activeTool, 'deleteMark').callsFake(() => {})
@@ -261,6 +266,7 @@ describe('Component > InteractionLayer', function () {
             <InteractionLayer
               activeMark={mockMark}
               activeTool={activeTool}
+              annotation={annotation}
               frame={2}
               height={400}
               setActiveMark={setActiveMarkStub}
