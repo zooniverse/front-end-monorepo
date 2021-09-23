@@ -1,33 +1,12 @@
 import { SpacedText } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
-import { Box, DropButton } from 'grommet'
-import { FormDown } from 'grommet-icons'
-import { shape, string } from 'prop-types'
+import { Box, Select } from 'grommet'
+import { arrayOf, shape, string } from 'prop-types'
 import { useState } from 'react'
-import styled, { css, withTheme } from 'styled-components'
 
-const StyledDropButton = styled(DropButton)`
-  padding: 10px 10px 10px 15px;
-  border-radius: 2em;
-  color: white;
-
-  ${props =>
-    props.isOpen &&
-    css`
-      background: ${props.theme.global.colors['accent-1']};
-    `}
-
-  &:focus,
-  &:hover {
-    ${props => css`
-      background: ${props.theme.global.colors['accent-1']};
-      color: ${props.theme.global.colors.brand};
-    `}
-  }
-`
-
-const LanguageToggle = () => {
+const LanguageToggle = ({ availableLanguages }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [currentLanguage, setCurrentLanguage] = useState(null)
 
   const onClose = () => {
     setIsOpen(false)
@@ -37,37 +16,41 @@ const LanguageToggle = () => {
     setIsOpen(true)
   }
 
-  const dropContent = (
-    <Box
-      as='nav'
-      background='brand'
-      elevation='medium'
-      margin={{ top: 'medium ' }}
-    >
-      <Box as='ul'>English</Box>
-      <Box as='ul'>French</Box>
+  const onChange = (option) => {
+    setCurrentLanguage(option.key)
+  }
+
+  const dropContent = availableLanguages.map(language => (
+    <Box key={language} as='ul' pad='none' margin='none'>
+      <SpacedText>{language}</SpacedText>
     </Box>
-  )
+  ))
 
   return (
-    <StyledDropButton
+    <Select
       alignSelf='center'
-      dropContent={dropContent}
       dropAlign={{ top: 'bottom' }}
+      focusIndicator
       isOpen={isOpen}
-      margin={{ top: 'xsmall' }}
+      multiple={false}
+      name='Language Toggle'
+      onChange={({ option }) => onChange(option)}
       onClose={onClose}
       onOpen={onOpen}
-    >
-      <Box align='center' direction='row' gap='xsmall' justify='center'>
-        <SpacedText weight='bold'>Language</SpacedText>
-        <FormDown />
-      </Box>
-    </StyledDropButton>
+      options={dropContent}
+      plain
+      size='medium'
+      value={
+        <Box>
+          {currentLanguage ? currentLanguage : 'Language'}
+        </Box>
+      }
+    />
   )
 }
 
 LanguageToggle.propTypes = {
+  availableLanguages: arrayOf(string),
   theme: shape({
     global: shape({
       colors: shape({
@@ -78,5 +61,4 @@ LanguageToggle.propTypes = {
   })
 }
 
-export default withTheme(LanguageToggle)
-export { LanguageToggle }
+export default LanguageToggle
