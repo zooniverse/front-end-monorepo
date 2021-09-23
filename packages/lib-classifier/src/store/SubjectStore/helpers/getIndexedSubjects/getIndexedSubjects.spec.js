@@ -34,7 +34,7 @@ describe('Store > Helpers > getIndexedSubjects', function () {
     })
 
     it('should return the next subjects from the set', function () {
-      expect(subjectIDs).to.equal('34567,56789')
+      expect(subjectIDs).to.deep.equal(['34567','56789'])
     })
   })
 
@@ -44,7 +44,7 @@ describe('Store > Helpers > getIndexedSubjects', function () {
     })
 
     it('should return the first subjects from the set', function () {
-      expect(subjectIDs).to.equal('12345,34567,56789')
+      expect(subjectIDs).to.deep.equal(['12345','34567','56789'])
     })
   })
 })

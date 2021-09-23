@@ -16,7 +16,7 @@ import { subjectsSeenThisSession } from '@helpers'
 const ClassificationStore = types
   .model('ClassificationStore', {
     active: types.safeReference(Classification),
-    demoMode: types.optional(types.boolean, false),
+    demoMode: types.maybe(types.boolean),
     resources: types.map(Classification),
     type: types.optional(types.string, 'classifications')
   })

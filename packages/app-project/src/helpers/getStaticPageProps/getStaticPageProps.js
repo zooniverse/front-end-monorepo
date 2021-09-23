@@ -34,7 +34,10 @@ export default async function getStaticPageProps({ params, query }) {
   */
   const workflowExists = active_workflows.includes(params.workflowID)
   if (params.workflowID && !workflowExists) {
-    return notFoundError(`Workflow ${params.workflowID} was not found`)
+    const { props } = notFoundError(`Workflow ${params.workflowID} was not found`)
+    props.project = project
+    props.workflows = []
+    return { props }
   }
 
   /*

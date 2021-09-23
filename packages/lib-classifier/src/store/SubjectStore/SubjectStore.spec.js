@@ -1,12 +1,16 @@
+import { when } from 'mobx'
+import { getType } from 'mobx-state-tree'
+import nock from 'nock'
+import { Factory } from 'rosie'
 import sinon from 'sinon'
+
 import RootStore from '../RootStore'
 import SubjectGroup from '../SubjectGroup'
 import SingleImageSubject from '../SingleImageSubject'
 import { openTalkPage, MINIMUM_QUEUE_SIZE } from './SubjectStore'
-import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
-import { Factory } from 'rosie'
+import { ProjectFactory, SubjectFactory, SubjectSetFactory, WorkflowFactory } from '@test/factories'
+import mockStore from '@test/mockStore'
 import stubPanoptesJs from '@test/stubPanoptesJs'
-import { getType } from 'mobx-state-tree'
 
 describe('Model > SubjectStore', function () {
   const longListSubjects = Factory.buildList('subject', 10)
@@ -211,29 +215,24 @@ describe('Model > SubjectStore', function () {
       })
     })
 
-    describe('clear available', function () {
+    describe('next indexed subject', function () {
+      let activeSubjectID
       let subjects
 
-      beforeEach(async function () {
-        const queuedSubjectSnapshots = Factory.buildList('subject', 10)
-        const selectedSubjectSnapshots = Factory.buildList('subject', 10)
-        const subjectMocks = {
-          ['/subjects/grouped']: [],
-          ['/subjects/queued']: queuedSubjectSnapshots,
-          ['/subjects/selection']: selectedSubjectSnapshots
-        }
-        subjects = mockSubjectStore(subjectMocks)
-        await subjects.nextAvailable()
+      before(async function () {
+        subjects = mockSubjectStore(Factory.buildList('subject', 10))
+        await when(() => subjects.resources.size > 9)
+        activeSubjectID = subjects.active.id
+        subjects.nextIndexed()
       })
 
-      it('should clear available subjects', function () {
-        expect(subjects.available.subjects.length).to.equal(9)
-        subjects.clearAvailable()
-        expect(subjects.available.subjects).to.be.empty()
+      it('should do nothing', function () {
+        expect(subjects.resources.size).to.equal(10)
+        expect(subjects.active.id).to.equal(activeSubjectID)
       })
     })
 
-    describe('next available',function () {
+    describe('next available subject',function () {
       let subjects
       let subjectIDs
 
@@ -250,11 +249,11 @@ describe('Model > SubjectStore', function () {
         await subjects.nextAvailable()
       })
 
-      it('should select the first queued subject', function () {
+      it('should select the first unclassified subject', function () {
         expect(subjects.active.id).to.equal(subjectIDs[0])
       })
 
-      it('should cycle through queued subjects', async function () {
+      it('should cycle through unclassified subjects', async function () {
         await subjects.nextAvailable()
         expect(subjects.active.id).to.equal(subjectIDs[1])
       })
@@ -281,6 +280,23 @@ describe('Model > SubjectStore', function () {
           expect(subjects.resources.size).to.equal(5)
           expect(Array.from(subjects.resources.keys())).to.deep.equal(subjectIDs)
         })
+      })
+    })
+
+    describe('previous indexed subject', function () {
+      let activeSubjectID
+      let subjects
+
+      before(async function () {
+        subjects = mockSubjectStore(Factory.buildList('subject', 10))
+        await when(() => subjects.resources.size > 9)
+        activeSubjectID = subjects.active.id
+        subjects.previousIndexed()
+      })
+
+      it('should do nothing', function () {
+        expect(subjects.resources.size).to.equal(10)
+        expect(subjects.active.id).to.equal(activeSubjectID)
       })
     })
   })
@@ -336,6 +352,117 @@ describe('Model > SubjectStore', function () {
     })
   })
 
+  describe('indexed workflows', function () {
+    let store
+    let subjects = []
+
+    before(async function () {
+      const subjectSnapshot = SubjectFactory.build({
+        metadata: {
+          '#priority': 0
+        }
+      })
+      for (let priority = 1; priority <= 10; priority++) {
+        const snapshot = {
+          metadata: {
+            '#priority': priority
+          }
+        }
+        subjects.push(SubjectFactory.build(snapshot))
+      }
+      const subjectSetSnapshot = SubjectSetFactory.build({
+        metadata: {
+          indexFields: 'Date,Creator'
+        }
+      })
+      const workflowSnapshot = WorkflowFactory.build({
+        grouped: true,
+        prioritized: true,
+        subjectSet: subjectSetSnapshot.id
+      })
+      nock('https://subject-set-search-api.zooniverse.org')
+      .persist(true)
+      .get(`/subjects/${subjectSetSnapshot.id}.json`)
+      .query(query => query.priority__gt === '-1')
+      .reply(200, {
+        columns: ['subject_id', 'priority'],
+        rows: [
+          [subjects[0].id, '1'],
+          [subjects[1].id, '2'],
+          [subjects[2].id, '3']
+        ]
+      })
+      .get(`/subjects/${subjectSetSnapshot.id}.json`)
+      .query(query => query.priority__gt === '0')
+      .reply(200, {
+        columns: ['subject_id', 'priority'],
+        rows: [
+          [subjects[0].id, '1'],
+          [subjects[1].id, '2'],
+          [subjects[2].id, '3']
+        ]
+      })
+      store = mockStore({ subject: subjectSnapshot, subjectSet: subjectSetSnapshot, workflow: workflowSnapshot })
+      // wait for initial subject setup to complete
+      await when(() => store.subjects.resources.size > 9)
+    })
+
+    after(function () {
+      nock.cleanAll()
+    })
+
+    describe('advance, with a new queue', function () {
+      before(function () {
+        store.subjects.reset()
+        store.subjects.setResources(subjects)
+        store.subjects.advance()
+      })
+
+      it('should make the first subject active', function () {
+        let activeSubject = store.subjects.active
+        expect(activeSubject.priority).to.equal(1)
+      })
+    })
+
+    describe('advance, with an existing queue', function () {
+      before(function () {
+        store.subjects.reset()
+        store.subjects.setResources(subjects)
+        store.subjects.setActive(subjects[0].id)
+        store.subjects.advance()
+      })
+
+      it('should preserve the previous active subject', function () {
+        const previousSubject = store.subjects.resources.get(subjects[0].id)
+        expect(previousSubject).to.be.ok()
+      })
+
+      it('should move the active subject by one forwards', function () {
+        let activeSubject = store.subjects.active
+        expect(activeSubject.priority).to.equal(2)
+      })
+    })
+
+    describe('previous indexed subject', function () {
+      before(function () {
+        store.subjects.reset()
+        store.subjects.setResources(subjects)
+        store.subjects.setActive(subjects[5].id)
+        store.subjects.previousIndexed()
+      })
+
+      it('should preserve the previous active subject', function () {
+        const previousSubject = store.subjects.resources.get(subjects[5].id)
+        expect(previousSubject).to.be.ok()
+      })
+
+      it('should move the active subject by one backwards', function () {
+        const expectedSubject = store.subjects.resources.get(subjects[4].id)
+        const activeSubject = store.subjects.active
+        expect(activeSubject.priority).to.equal(expectedSubject.priority)
+      })
+    })
+  })
   describe('Views > isThereMetadata', function () {
     it('should return false when there is not an active queue subject', function (done) {
       const subjects = mockSubjectStore([])
