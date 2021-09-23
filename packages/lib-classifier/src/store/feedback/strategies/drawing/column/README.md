@@ -2,6 +2,8 @@
 
 Determines whether a column is within a given tolerance.
 
+**NOTE: Column drawing tool is slated to be deprecated in favor of the Graph 2D X Range tool for scatter plots**
+
 ## Subject metadata fields
 
 - `#feedback_N_id` (**required**) - ID of the corresponding workflow task rule.

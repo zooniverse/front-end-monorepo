@@ -1,1 +1,1 @@
-export { default } from './DemoModeToggleContainer'
+export { default } from './DemoModeToggleConnector'

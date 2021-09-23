@@ -74,6 +74,18 @@ describe('Component > Banners', function () {
     return { classifierStore: store }
   }
 
+  describe('while the subject is loading', function () {
+    before(function () {
+      const stores = buildMocks({})
+      stores.classifierStore.subjects.reset()
+      wrapper = shallow(<Banners stores={stores} />)
+    })
+
+    it('should not render', function () {
+      expect(wrapper.html()).to.be.empty()
+    })
+  })
+
   describe('default banners', function () {
     before(function () {
       const stores = buildMocks({})

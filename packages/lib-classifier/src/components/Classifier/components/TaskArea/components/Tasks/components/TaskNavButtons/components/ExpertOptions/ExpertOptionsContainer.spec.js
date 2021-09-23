@@ -1,6 +1,7 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import ExpertOptionsContainer from './ExpertOptionsContainer'
+import sinon from 'sinon'
 
 describe('TaskNavButtons > Component > ExpertOptionsContainer', function () {
   let wrapper
@@ -17,7 +18,7 @@ describe('TaskNavButtons > Component > ExpertOptionsContainer', function () {
     })
   })
 
-  describe('when not in demo mode', function () {
+  describe('when not in demo mode is not enabled', function () {
     before(function () {
       wrapper = shallow(
         <ExpertOptionsContainer />
@@ -29,19 +30,22 @@ describe('TaskNavButtons > Component > ExpertOptionsContainer', function () {
     })
   })
 
-  describe('when in demo mode by query param', function () {
+  describe('when in demo mode is enabled by query param', function () {
     let originalLocation
+    let setDemoModeSpy
     before(function () {
+      setDemoModeSpy = sinon.spy()
       originalLocation = window.location
       Object.defineProperty(window, 'location', {
         value: {
-          search: { demo: 'true' },
+          search: '?demo=true',
         },
         writable: true
       })
-      wrapper = mount(
-        <ExpertOptionsContainer />
-      )
+    })
+
+    afterEach(function () {
+      setDemoModeSpy.resetHistory()
     })
 
     after(function () {
@@ -52,32 +56,37 @@ describe('TaskNavButtons > Component > ExpertOptionsContainer', function () {
     })
 
     it('should render ExpertOptions', function () {
-      expect(wrapper).to.have.lengthOf(1)
-    })
-  })
-
-  describe('when in demo mode by prop', function () {
-    let originalLocation
-    before(function () {
-      originalLocation = window.location
-      Object.defineProperty(window, 'location', {
-        value: {},
-        writable: true
-      })
-      wrapper = mount(
-        <ExpertOptionsContainer demo />
+      wrapper = shallow(
+        <ExpertOptionsContainer setDemoMode={setDemoModeSpy} />
       )
+      expect(wrapper).to.have.lengthOf(1)
     })
 
-    after(function () {
-      window.location = originalLocation
-      Object.defineProperty(window, 'location', {
-        writable: false
+    describe('when the demo mode state is undefined', function () {
+      it('should call setDemoMode with true', function () {
+        wrapper = shallow(
+          <ExpertOptionsContainer setDemoMode={setDemoModeSpy} />
+        )
+        expect(setDemoModeSpy).to.have.been.calledWith(true)
       })
     })
 
-    it('should render ExpertOptions', function () {
-      expect(wrapper).to.have.lengthOf(1)
+    describe('when the demo mode state is true', function () {
+      it('should not call setDemoMode', function () {
+        wrapper = shallow(
+          <ExpertOptionsContainer setDemoMode={setDemoModeSpy} storeDemoMode />
+        )
+        expect(setDemoModeSpy).to.not.have.been.called()
+      })
+    })
+
+    describe('when the demo mode state is false', function () {
+      it('should not call setDemoMode', function () {
+        wrapper = shallow(
+          <ExpertOptionsContainer setDemoMode={setDemoModeSpy} storeDemoMode={false} />
+        )
+        expect(setDemoModeSpy).to.not.have.been.called()
+      })
     })
   })
 })
