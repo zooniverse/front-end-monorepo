@@ -4,7 +4,7 @@ import { Box } from 'grommet'
 import { Info } from 'grommet-icons'
 import { func, string } from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
-import useCounterpart from '../../helpers/useCounterpart/useCounterpart'
+import useCounterpart from '../../helpers/useCounterpart'
 
 import en from './locales/en'
 import fr from './locales/fr'
