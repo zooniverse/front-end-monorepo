@@ -45,11 +45,11 @@ function ProjectHeader (props) {
           >
             <Box>
               <ProjectTitle title={title} />
-              {inBeta && 
+              {inBeta &&
                 <UnderReviewLabel />}
             </Box>
             <ApprovedIcon isNarrow={screenSize === 'small'} />
-            {availableLanguages.length > 1 && <LanguageToggle availableLanguages={availableLanguages} />}
+            {!!availableLanguages && availableLanguages.length > 1 && <LanguageToggle availableLanguages={availableLanguages} />}
           </Box>
         </Box>
         {screenSize !== 'small' && <Nav navLinks={navLinks} />}
