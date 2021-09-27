@@ -8,8 +8,8 @@ import { propTypes, defaultProps } from '../../helpers/mediaPropTypes'
 const DEFAULT_THUMBNAIL_DIMENSION = 999
 
 const StyledBox = styled(Box)`
-  ${props => props.maxHeight && css`max-height: ${props.maxHeight}px;`}
-  ${props => props.maxWidth && css`max-width: ${props.maxWidth}px;`}
+  ${props => props.maxHeight && css`max-height: ${props.maxHeight};`}
+  ${props => props.maxWidth && css`max-width: ${props.maxWidth};`}
 `
 
 const StyledImage = styled(Image)`
@@ -78,10 +78,8 @@ export default class ThumbnailImage extends React.Component {
               <StyledBox
                 animation={loading ? undefined : "fadeIn"}
                 flex={flex}
-                height='100%'
-                maxWidth={width}
-                maxHeight={height}
-                width='100%'
+                maxWidth={stringWidth}
+                maxHeight={stringHeight}
                 {...rest}
               >
                 <StyledImage
