@@ -2,10 +2,10 @@ import { panoptes } from '@zooniverse/panoptes-js'
 
 import { logToSentry } from '@helpers/logger'
 
-async function fetchWorkflowData (activeWorkflows, env) {
+async function fetchWorkflowData (activeWorkflows, complete, env) {
   try {
     const query = {
-      complete: false,
+      complete,
       env,
       fields: 'completeness,configuration,display_name,grouped',
       id: activeWorkflows.join(',')
@@ -66,8 +66,8 @@ function orderWorkflows(workflows, order) {
   return workflowsInOrder
 }
 
-async function fetchWorkflowsHelper(language = 'en', activeWorkflows, defaultWorkflow, workflowOrder = [], env) {
-  const workflows = await fetchWorkflowData(activeWorkflows, env)
+async function fetchWorkflowsHelper(language = 'en', activeWorkflows, defaultWorkflow, workflowOrder = [], complete = false, env) {
+  const workflows = await fetchWorkflowData(activeWorkflows, complete, env)
   const workflowIds = workflows.map(workflow => workflow.id)
   const displayNames = await fetchDisplayNames(language, workflowIds, env)
 
