@@ -26,7 +26,18 @@ describe('Helpers > fetchWorkflowsHelper', function () {
       links: {
         subject_sets: ['1', '2', '3']
       }
-    }
+    },
+    {
+      id: '3',
+      completeness: 1,
+      configuration: {
+        level: 1
+      },
+      grouped: false,
+      links: {
+        subject_sets: ['1', '2', '3']
+      }
+    },
   ]
 
   // `translated_id` is a number because of a bug in the translations API :(
@@ -41,6 +52,12 @@ describe('Helpers > fetchWorkflowsHelper', function () {
       translated_id: 2,
       strings: {
         display_name: 'Bar'
+      }
+    },
+    {
+      translated_id: 3,
+      strings: {
+        display_name: 'Fizz'
       }
     }
   ]
@@ -80,12 +97,12 @@ describe('Helpers > fetchWorkflowsHelper', function () {
       .get('/translations')
       .query(true)
       .reply(200, {
-        translations: TRANSLATIONS
+        translations: TRANSLATIONS.slice(0, 2)
       })
       .get('/workflows')
       .query(true)
       .reply(200, {
-        workflows: WORKFLOWS
+        workflows: WORKFLOWS.slice(0, 2)
       })
 
     const result = await fetchWorkflowsHelper('en', ['1', '2'])
@@ -121,12 +138,12 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         .get('/translations')
         .query(true)
         .reply(200, {
-          translations: TRANSLATIONS
+          translations: TRANSLATIONS.slice(0, 2)
         })
         .get('/workflows')
         .query(true)
         .reply(200, {
-          workflows: WORKFLOWS
+          workflows: WORKFLOWS.slice(0, 2)
         })
 
       const result = await fetchWorkflowsHelper('en', ['1', '2'], '2')
@@ -157,7 +174,7 @@ describe('Helpers > fetchWorkflowsHelper', function () {
     })
   })
 
-  describe('when all active workflows are complete', function () {
+  describe('when all active workflows are complete, no workflow ID param', function () {
     it('should return an empty array.', async function () {
       const scope = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/translations')
@@ -173,6 +190,37 @@ describe('Helpers > fetchWorkflowsHelper', function () {
 
       const result = await fetchWorkflowsHelper('en', ['1', '2'], '2')
       expect(result).to.be.empty()
+    })
+  })
+
+  describe('when all active workflows are complete, with workflow ID param for a completed workflow', function () {
+    it('should provide the expected workflow', async function () {
+      const scope = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/translations')
+        .query(true)
+        .reply(200, {
+          translations: TRANSLATIONS.slice(2)
+        })
+        .get('/workflows')
+        .query(true)
+        .reply(200, {
+          workflows: WORKFLOWS.slice(2)
+        })
+
+      const result = await fetchWorkflowsHelper('en', ['3'], '3', [], true)
+      expect(result).to.deep.equal([
+        {
+          completeness: 1,
+          configuration: {
+            level: 1
+          },
+          default: true,
+          grouped: false,
+          id: '3',
+          displayName: 'Fizz',
+          subjectSets: []
+        }
+      ])
     })
   })
 
@@ -208,12 +256,12 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         .get('/translations')
         .query(true)
         .reply(200, {
-          translations: TRANSLATIONS
+          translations: TRANSLATIONS.slice(0, 2)
         })
         .get('/workflows')
         .query(true)
         .reply(200, {
-          workflows: WORKFLOWS
+          workflows: WORKFLOWS.slice(0, 2)
         })
       const workflows = await fetchWorkflowsHelper('en', ['1', '2'], '2', ['2', '1'])
       expect(workflows).to.deep.equal([
