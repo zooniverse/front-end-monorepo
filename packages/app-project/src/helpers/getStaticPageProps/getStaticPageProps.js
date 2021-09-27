@@ -42,8 +42,10 @@ export default async function getStaticPageProps({ params, query }) {
 
   /*
     Fetch the active project workflows
+    If params.workflowID is defined, request compete workflow
   */
-  const workflows = await fetchWorkflowsHelper(language, active_workflows, default_workflow, workflowOrder, env)
+  const complete = !!params.workflowID
+  const workflows = await fetchWorkflowsHelper(language, active_workflows, default_workflow, workflowOrder, complete, env)
   const props = {
     project,
     workflows
