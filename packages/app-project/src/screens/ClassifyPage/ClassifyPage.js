@@ -39,8 +39,8 @@ function ClassifyPage({
     subjectSetFromUrl = workflowFromUrl.subjectSets.find(subjectSet => subjectSet.id === subjectSetID)
   }
 
-  // The classifier requires a workflow by default
-  let canClassify = !!workflowFromUrl
+  // The classifier requires a workflow ID by default
+  let canClassify = !!workflowID
   // grouped workflows require a subject set
   canClassify = workflowFromUrl?.grouped ? !!subjectSetID : canClassify
   // indexed subject sets require a subject
