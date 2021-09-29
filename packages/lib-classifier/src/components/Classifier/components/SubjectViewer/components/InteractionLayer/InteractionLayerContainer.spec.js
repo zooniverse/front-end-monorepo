@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import InteractionLayerContainer from './InteractionLayerContainer'
+import { InteractionLayerContainer } from './InteractionLayerContainer'
 import InteractionLayer from './InteractionLayer'
 import PreviousMarks from './components/PreviousMarks'
 import SHOWN_MARKS from '@helpers/shownMarks'
@@ -31,10 +31,27 @@ describe('Component > InteractionLayerContainer', function () {
   }
 
   it('should render without crashing', function () {
+    const {
+      activeMark,
+      activeTool,
+      activeToolIndex,
+      hidingIndex,
+      marks,
+      setActiveMark,
+      shownMarks,
+      taskKey
+    } = drawingTask
     const wrapper = shallow(
-      <InteractionLayerContainer.wrappedComponent
-        activeInteractionTask={drawingTask}
+      <InteractionLayerContainer
+        activeMark={activeMark}
+        activeTool={activeTool}
+        activeToolIndex={activeToolIndex}
         height={height}
+        hidingIndex={hidingIndex}
+        marks={marks}
+        setActiveMark={setActiveMark}
+        shownMarks={shownMarks}
+        taskKey={taskKey}
         width={width}
       />
     )
@@ -42,10 +59,27 @@ describe('Component > InteractionLayerContainer', function () {
   })
 
   it('should render PreviousMarks',  function () {
+    const {
+      activeMark,
+      activeTool,
+      activeToolIndex,
+      hidingIndex,
+      marks,
+      setActiveMark,
+      shownMarks,
+      taskKey
+    } = drawingTask
     const wrapper = shallow(
-      <InteractionLayerContainer.wrappedComponent
-        activeInteractionTask={drawingTask}
+      <InteractionLayerContainer
+        activeMark={activeMark}
+        activeTool={activeTool}
+        activeToolIndex={activeToolIndex}
         height={height}
+        hidingIndex={hidingIndex}
+        marks={marks}
+        setActiveMark={setActiveMark}
+        shownMarks={shownMarks}
+        taskKey={taskKey}
         width={width}
       />
     )
@@ -56,10 +90,27 @@ describe('Component > InteractionLayerContainer', function () {
     let wrapper
 
     before(function () {
+      const {
+        activeMark,
+        activeTool,
+        activeToolIndex,
+        hidingIndex,
+        marks,
+        setActiveMark,
+        shownMarks,
+        taskKey
+      } = drawingTask
       wrapper = shallow(
-        <InteractionLayerContainer.wrappedComponent
-          activeInteractionTask={drawingTask}
+        <InteractionLayerContainer
+          activeMark={activeMark}
+          activeTool={activeTool}
+          activeToolIndex={activeToolIndex}
           height={height}
+          hidingIndex={hidingIndex}
+          marks={marks}
+          setActiveMark={setActiveMark}
+          shownMarks={shownMarks}
+          taskKey={taskKey}
           width={width}
         />
       )
@@ -88,11 +139,28 @@ describe('Component > InteractionLayerContainer', function () {
     }
 
     before(function () {
+      const {
+        activeMark,
+        activeTool,
+        activeToolIndex,
+        hidingIndex,
+        marks,
+        setActiveMark,
+        shownMarks,
+        taskKey
+      } = transcriptionTask
       wrapper = shallow(
-        <InteractionLayerContainer.wrappedComponent
+        <InteractionLayerContainer
+          activeMark={activeMark}
+          activeTool={activeTool}
+          activeToolIndex={activeToolIndex}
           height={height}
+          hidingIndex={hidingIndex}
+          marks={marks}
+          setActiveMark={setActiveMark}
+          shownMarks={shownMarks}
+          taskKey={taskKey}
           width={width}
-          activeInteractionTask={transcriptionTask}
         />
       )
     })
@@ -135,13 +203,29 @@ describe('Component > InteractionLayerContainer', function () {
         ]
       }
       const activeTranscriptionTask = Object.assign({}, activeTask, transcriptionTask)
-
+      const {
+        activeMark,
+        activeTool,
+        activeToolIndex,
+        hidingIndex,
+        marks,
+        setActiveMark,
+        shownMarks,
+        taskKey
+      } = activeTranscriptionTask
       const wrapper = shallow(
-        <InteractionLayerContainer.wrappedComponent
-          height={height}
-          width={width}
+        <InteractionLayerContainer
+          activeMark={activeMark}
+          activeTool={activeTool}
+          activeToolIndex={activeToolIndex}
           frame={0}
-          activeInteractionTask={activeTranscriptionTask}
+          height={height}
+          hidingIndex={hidingIndex}
+          marks={marks}
+          setActiveMark={setActiveMark}
+          shownMarks={shownMarks}
+          taskKey={taskKey}
+          width={width}
         />
       )
 
@@ -162,12 +246,28 @@ describe('Component > InteractionLayerContainer', function () {
           marks: [{ x: 0, y: 0, frame: 0 }, { x: 5, y: 5, frame: 0 }]
         }
         const hidingMarksInteractionTask = Object.assign({}, transcriptionTask, hidingTask)
+        const {
+          activeMark,
+          activeTool,
+          activeToolIndex,
+          hidingIndex,
+          marks,
+          setActiveMark,
+          shownMarks,
+          taskKey
+        } = hidingMarksInteractionTask
         wrapper = shallow(
-          <InteractionLayerContainer.wrappedComponent
+          <InteractionLayerContainer
+            activeMark={activeMark}
+            activeTool={activeTool}
+            activeToolIndex={activeToolIndex}
             height={height}
+            hidingIndex={hidingIndex}
+            marks={marks}
+            setActiveMark={setActiveMark}
+            shownMarks={shownMarks}
+            taskKey={taskKey}
             width={width}
-            activeInteractionTask={hidingMarksInteractionTask}
-            interactionTaskAnnotations={drawingAnnotations}
           />
         )
       })
@@ -183,17 +283,33 @@ describe('Component > InteractionLayerContainer', function () {
         const userHidingTask = Object.assign({}, hidingTask)
         userHidingTask.shownMarks = SHOWN_MARKS.USER
         const hidingUserMarksInteractionTask = Object.assign({}, transcriptionTask, userHidingTask)
+        const {
+          activeMark,
+          activeTool,
+          activeToolIndex,
+          hidingIndex,
+          marks,
+          setActiveMark,
+          shownMarks,
+          taskKey
+        } = hidingUserMarksInteractionTask
         wrapper = shallow(
-          <InteractionLayerContainer.wrappedComponent
+          <InteractionLayerContainer
+            activeMark={activeMark}
+            activeTool={activeTool}
+            activeToolIndex={activeToolIndex}
             height={height}
+            hidingIndex={hidingIndex}
+            marks={marks}
+            setActiveMark={setActiveMark}
+            shownMarks={shownMarks}
+            taskKey={taskKey}
             width={width}
-            activeInteractionTask={hidingUserMarksInteractionTask}
-            interactionTaskAnnotations={drawingAnnotations}
           />
         )
 
-        const marks = wrapper.find(InteractionLayer).props().marks
-        expect(marks).to.have.lengthOf(2)
+        const filteredMarks = wrapper.find(InteractionLayer).props().marks
+        expect(filteredMarks).to.have.lengthOf(2)
       })
     })
   })

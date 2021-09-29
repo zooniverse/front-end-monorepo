@@ -74,7 +74,6 @@ export const Drawing = types.model('Drawing', {
     }
 
     function complete(annotation) {
-      annotation.update(self.marks)
       self.subTaskVisibility = false
     }
 
