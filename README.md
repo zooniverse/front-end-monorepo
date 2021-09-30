@@ -38,7 +38,7 @@ Node, Git, and Yarn can be installed through [Homebrew](https://brew.sh/) on Mac
 
 This monorepo is managed with [Yarn Workspaces](https://yarnpkg.com/lang/en/docs/workspaces/).
 
-Yarn Workspaces allow us to maintain package modularity for javascript projects that have interdependency. Organizationally, they allows us to track issues, pull requests, and progress for all related packages in one place.
+Yarn Workspaces allow us to maintain package modularity for JavaScript projects that have interdependency. Organizationally, they allows us to track issues, pull requests, and progress for all related packages in one place.
 
 ## Getting started
 
