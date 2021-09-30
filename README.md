@@ -87,10 +87,10 @@ See each package's folder for more specific documentation.
 |---|---|---|
 | **@zooniverse/async-states** | `packages/lib-async-states` | Frozen object of async states to use in data stores |
 | **@zooniverse/classifier** | `packages/lib-classifier` | Classifier view components and state which can be exported modularly or altogether as a working classifier |
-| **@zooniverse/fe-content-pages** | `packages/app-content-pages` | Server-side rendered application for documentation / info pages, such as Publications. |
+| **@zooniverse/fe-content-pages** | `packages/app-content-pages` | Server-side rendered application for documentation / info pages, such as Publications |
 | **@zooniverse/fe-project** | `packages/app-project` | Server-side rendered application for a project (anything at `/projects/owner/display_name`) |
 | **@zooniverse/grommet-theme** | `packages/lib-grommet-theme` | The style definitions for a Zooniverse theme to use with Grommet |
-| **@zooniverse/panoptes-js** | `packages/lib-panoptes-js` | Panoptes API javascript client. Functional HTTP request helpers built on top of superagent |
+| **@zooniverse/panoptes-js** | `packages/lib-panoptes-js` | Panoptes API JavaScript client. Functional HTTP request helpers built on top of superagent |
 | **@zooniverse/react-components** | `packages/lib-react-components` | A set of Zooniverse-specific React components, built using Grommet |
 
 ## Conventions
