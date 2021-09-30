@@ -53,6 +53,7 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
   const router = useRouter()
   const [ rows, setRows ] = useState([])
   const [ query, setQuery ] = useState('')
+  const [ isFetching, setIsFetching ] = useState(false)
   const [ sortField, setSortField ] = useState('priority')
   const [ sortOrder, setSortOrder ] = useState('asc')
   const { indexFields } = subjectSet.metadata
@@ -67,11 +68,13 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
     // new set.
     // See https://github.com/zooniverse/front-end-monorepo/pull/2466#issuecomment-931547044
     // for details.
-    setRows([])  // TODO: replace this with a more elegant "state = fetching data" so we can show a "Please wait..." status message.
+    setIsFetching(true)
+    setRows([])
 
     const subjects = await fetchSubjects(subjectSet.id, query, sortField, sortOrder)
     const rows = await fetchRows(subjects, workflow, PAGE_SIZE)
     setRows(rows)
+    setIsFetching(false)
   }
 
   useEffect(function onChange() {
@@ -165,6 +168,9 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
         sortable
         step={PAGE_SIZE}
       />
+      {isFetching && (
+        <Paragraph textAlign="center">{counterpart('SubjectPicker.fetching')}</Paragraph>
+      )}
     </>
   )
 }
