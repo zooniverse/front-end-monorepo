@@ -1,6 +1,6 @@
 const API_HOST = 'https://subject-set-search-api.zooniverse.org/subjects'
-const ASC_SORT = '_sort'
-const DESC_SORT = '_sort_desc'
+const ASCENDING_SORT = '_sort'
+const DESCENDING_SORT = '_sort_desc'
 
 export default async function fetchSubjects(
   subjectSetID,
@@ -8,7 +8,7 @@ export default async function fetchSubjects(
   sortField='priority',
   sortOrder='asc'
 ) {
-  const sortOrderParam = 'asc'.localeCompare(sortOrder) ? ASC_SORT : DESC_SORT
+  const sortOrderParam = 'asc'.localeCompare(sortOrder) ? ASCENDING_SORT : DESCENDING_SORT
   const url = `${API_HOST}/${subjectSetID}.json?${query}&${sortOrderParam}=${sortField}`
   const mode = 'cors'
   const response = await fetch(url, { mode })
