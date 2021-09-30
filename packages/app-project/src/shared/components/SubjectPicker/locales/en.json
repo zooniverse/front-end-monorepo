@@ -5,6 +5,7 @@
     "byline": "Sort the list by clicking column names. You will see subjects sequentially, starting with the one you choose.",
     "alreadySeen": "Already seen",
     "retired": "Retired",
-    "unclassified": "Available"
+    "unclassified": "Available",
+    "fetching": "Please wait..."
   }
 }
