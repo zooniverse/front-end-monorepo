@@ -8,7 +8,7 @@ export default async function fetchSubjects(
   sortField='priority',
   sortOrder='asc'
 ) {
-  const sortOrderParam = 'asc'.localeCompare(sortOrder) ? ASCENDING_SORT : DESCENDING_SORT
+  const sortOrderParam = 'asc'.localeCompare(sortOrder) ? DESCENDING_SORT : ASCENDING_SORT
   const url = `${API_HOST}/${subjectSetID}.json?${query}&${sortOrderParam}=${sortField}`
   const mode = 'cors'
   const response = await fetch(url, { mode })
