@@ -19,7 +19,6 @@
 - [Getting started](#getting-started)
 - [Helpful Guides](#helpful-guides)
 - [Packages](#packages)
-- [Helpers](#helpers)
 - [Conventions](#conventions)
  - [NPM](#npm)
  - [Packages directory](#packages-directory)
@@ -33,7 +32,7 @@
 - Git
 - Yarn
 
-Node, git, and yarn can be installed through [homebrew](https://brew.sh/) on MacOS. If you need to support more than one version of node at the same time, you can consider installing it though [nvm](https://github.com/nvm-sh/nvm) instead of homebrew
+Node, Git, and Yarn can be installed through [Homebrew](https://brew.sh/) on MacOS. If you need to support more than one version of Node at the same time, you can consider installing it though [nvm](https://github.com/nvm-sh/nvm) instead of Homebrew.
 
 ## Monowhat?
 
@@ -44,7 +43,7 @@ Yarn Workspaces allow us to maintain package modularity for javascript projects 
 ## Getting started
 
 ### Docker
-You can run the code locally in Docker, which avoids needing to install Node or yarn.
+You can run the code locally in Docker, which avoids needing to install Node or Yarn.
 
 ```sh
 git clone git@github.com:zooniverse/front-end-monorepo.git
@@ -52,7 +51,7 @@ cd front-end-monorepo
 docker-compose build
 ```
 
-`docker-compose up` runs local production builds of the project app at http://localhost:3000 and the content pages app at http://localhost:3001
+`docker-compose up` runs local production builds of the project app at http://localhost:3000 and the content pages app at http://localhost:3001.
 
 `docker-compose down` stops the running container.
 
@@ -65,8 +64,8 @@ docker-compose up
 ````
 to run a develeopment server for the project app.
 
-### With Node and yarn
-Alternatively, you can install Node 14 and yarn and build the monorepo packages.
+### With Node and Yarn
+Alternatively, you can install Node 14 and Yarn and build the monorepo packages.
 
 ```sh
 git clone git@github.com:zooniverse/front-end-monorepo.git
@@ -112,9 +111,9 @@ Deploys to production and staging are handled by [Jenkins](https://jenkins.zooni
 
 Deployments to a staging Kubernetes instance that uses Panoptes production are triggered by merges to master. This is used for manual end-to-end behavior testing for new code and design reviews. `https://frontend.preview.zooniverse.org/projects/:project-owner/:project-name/` proxy redirects to the new NextJS app while the rest of sub-domain redirects to PFE. Staging projects can be loaded by adding this query param to the URL: `?env=staging`.
 
-Deployments to a production Kubernetes instance are triggered by committing a `production-release` git tag on master. This can either be done using the git CLI or using the lita deploy command on slack. `https://www.zooniverse.org/projects/:project-owner/:project-name/classify` proxy redirects to the new NextJS app while the rest of the domain redirects to PFE. Currently the only project that is configured to do this is Planet Hunters TESS. Eventually more projects will migrate when they migrate to the new classifier.
+Deployments to a production Kubernetes instance are triggered by committing a `production-release` git tag on master. This can either be done using the git CLI or using the lita deploy command on Slack. `https://www.zooniverse.org/projects/:project-owner/:project-name/classify` proxy redirects to the new NextJS app while the rest of the domain redirects to PFE. Currently the only project that is configured to do this is Planet Hunters TESS. Eventually more projects will migrate when they migrate to the new classifier.
 
-More information is available in [ADR 12](docs/arch/adr-12.md) and [ADR 17](docs/arch/adr-17.md)
+More information is available in [ADR 12](docs/arch/adr-12.md) and [ADR 17](docs/arch/adr-17.md).
 
 ### Environment variables
 
@@ -122,8 +121,8 @@ More information is available in [ADR 12](docs/arch/adr-12.md) and [ADR 17](docs
   - `production` will use `https://www.zooniverse.org/api`
   - `staging` will use `https://panoptes-staging.zooniverse.org/api`.
 
-The yarn build scripts default to production for libraries if `PANOPTES_ENV` is not specified. The apps are always built to the production API.
-- `NODE_ENV`: the [webpack build mode](https://webpack.js.org/configuration/mode/) for libraries and the NextJS apps (production, development or undefined.)
+The Yarn build scripts default to production for libraries if `PANOPTES_ENV` is not specified. The apps are always built to the production API.
+- `NODE_ENV`: the [Webpack build mode](https://webpack.js.org/configuration/mode/) for libraries and the NextJS apps (production, development or undefined).
 - `APP_ENV`: sets the [Sentry environment](https://docs.sentry.io/enriching-error-data/environments/?platform=javascript) (development, staging or production) when reporting errors.
 - `CONTENTFUL_ACCESS_TOKEN`: access token for the Contentful API. Should be kept secret.
 - `CONTENTFUL_SPACE_ID`: space ID for Zooniverse About pages in Contentful. Should be kept secret.
