@@ -7,7 +7,7 @@ import Banner from '../Banner'
 
 counterpart.registerTranslations('en', en)
 
-function SubjectSetProgressBanner({ annotations, onNext, onPrevious, subject, workflow }) {
+function SubjectSetProgressBanner({ checkForProgress, onNext, onPrevious, subject, workflow }) {
   const setName = workflow?.subjectSet?.display_name || ''
   const subjectTotal = workflow?.subjectSet.set_member_subjects_count
   const background = (subject?.alreadySeen || subject?.retired) ? 'status-critical' : 'status-ok'
@@ -24,7 +24,7 @@ function SubjectSetProgressBanner({ annotations, onNext, onPrevious, subject, wo
   const bannerText = statusText ? `${progressText} (${statusText})` : progressText
 
   const tryToGoNext = () => {
-    console.log('+++ annotations : ', annotations)
+    console.log('+++ checkForProgress : ', checkForProgress())
     onNext()
   }
 
@@ -48,7 +48,7 @@ function SubjectSetProgressBanner({ annotations, onNext, onPrevious, subject, wo
 }
 
 SubjectSetProgressBanner.propTypes = {
-  // annotations: ???,  // TODO: what is the propTypes for a shape? object?
+  checkForProgress: func,
   onNext: func,
   onPrevious: func,
   subject: shape({

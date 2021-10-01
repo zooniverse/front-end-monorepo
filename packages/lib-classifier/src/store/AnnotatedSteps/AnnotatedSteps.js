@@ -133,11 +133,19 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
     })
   }
 
+  /** Checks if the user has started making any annotations. Returns boolean */
+  function checkForProgress() {
+    // TODO
+    return Math.random() <= 0.5
+  }
+
+
   return {
     back,
     finish,
     next,
-    start
+    start,
+    checkForProgress
   }
 })
 
