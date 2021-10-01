@@ -79,7 +79,7 @@ describe('Component > ClassifyPage', function () {
     let wrapper
 
     before(function () {
-      wrapper = shallow(<ClassifyPage appLoadingState={asyncStates.success} workflowFromUrl={{ id: '1234' }} />)
+      wrapper = shallow(<ClassifyPage appLoadingState={asyncStates.success} workflowID='1234' />)
     })
 
     it('should not show a workflow selector', function () {

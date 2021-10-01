@@ -11,14 +11,29 @@ function useStores(stores) {
   const { classifierStore } = stores ?? React.useContext(MobXProviderContext)
   return {
     subject: classifierStore.subjects.active,
+    subjects: classifierStore.subjects,
     workflow: classifierStore.workflows.active
   }
 }
 
+const environment = process.env.APP_ENV
+
 function Banners({ stores }) {
-  const { subject, workflow } = useStores(stores)
+  const { subject, subjects, workflow } = useStores(stores)
   const subjectNumber = subject?.priority ?? -1
-  if (workflow?.grouped && subjectNumber !== -1) {
+  const hasIndexedSubjects = workflow?.hasIndexedSubjects
+  const hasGroupedOrderedSubjects = workflow?.grouped && workflow?.prioritized
+  if (environment !== 'production' && hasIndexedSubjects && subjectNumber > -1) {
+    return (
+      <SubjectSetProgressBanner
+        onNext={subjects.nextIndexed}
+        onPrevious={subjects.previousIndexed}
+        subject={subject}
+        workflow={workflow}
+      />
+    )
+  }
+  if (hasGroupedOrderedSubjects && subjectNumber > -1) {
     return (
       <SubjectSetProgressBanner
         subject={subject}

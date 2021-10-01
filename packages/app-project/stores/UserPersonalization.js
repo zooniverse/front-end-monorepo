@@ -58,7 +58,8 @@ const UserPersonalization = types
         self.sessionCount = self.sessionCount + 1
         self.totalClassificationCount = self.totalClassificationCount + 1
 
-        if (self.sessionCountIsDivisibleByFive) {
+        const { user } = getRoot(self)
+        if (user?.id && self.sessionCountIsDivisibleByFive) {
           self.projectPreferences.refreshResource()
         }
       },

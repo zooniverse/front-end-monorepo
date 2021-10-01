@@ -163,8 +163,8 @@ describe('Model > TranscriptionTask', function () {
       task.complete(annotation)
     })
 
-    it('should copy marks to the task annotation', function () {
-      expect(annotation.value).to.deep.equal([transcriptionLine])
+    it('should reset the subtask visiblity', function () {
+      expect(task.subTaskVisibility).to.be.false()
     })
   })
 
