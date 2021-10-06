@@ -11,7 +11,13 @@ counterpart.registerTranslations('en', en)
 const INTENT_NEXT = 'next'
 const INTENT_PREVIOUS = 'previous'
 
-function SubjectSetProgressBanner({ checkForProgress, onNext, onPrevious, subject, workflow }) {
+function SubjectSetProgressBanner({
+  checkForProgress = () => { return false },
+  onNext = () => {},
+  onPrevious = () => {},
+  subject,
+  workflow
+}) {
   const [ showModal, setShowModal ] = useState(false)
   const [ intent, setIntent ] = useState(undefined)
 
@@ -31,24 +37,36 @@ function SubjectSetProgressBanner({ checkForProgress, onNext, onPrevious, subjec
   const bannerText = statusText ? `${progressText} (${statusText})` : progressText
 
   const tryToGoNext = () => {
-    console.log('+++ checkForProgress : ', checkForProgress())
-    setShowModal(true)
-    setIntent(INTENT_NEXT)
-    // onNext()
+    // If the user has an annotation in progress, ask for confirmation first.
+    if (checkForProgress()) {
+      setShowModal(true)
+      setIntent(INTENT_NEXT)
+      return
+    }
+
+    // Otherwise, go ahead and navigate to the new Subject.
+    onNext()
   }
 
   const tryToGoPrevious = () => {
-    console.log('+++ checkForProgress : ', checkForProgress())
-    setShowModal(true)
-    setIntent(INTENT_PREVIOUS)
-    // onPrevious()
+    // If the user has an annotation in progress, ask for confirmation first.
+    if (checkForProgress()) {
+      setShowModal(true)
+      setIntent(INTENT_PREVIOUS)
+      return
+    }
+
+    // Otherwise, go ahead and navigate to the new Subject.
+    onPrevious()
   }
 
+  // If user says no on the Confirm Modal, simply close the modal.
   const onCancel = () => {
     setShowModal(false)
     setIntent(false)
   }
 
+  // If user says yes on the Confirm Modal, navigate to the Next/Prev Subject.
   const onConfirm = () => {
     if (intent === INTENT_NEXT) {
       setShowModal(false)
