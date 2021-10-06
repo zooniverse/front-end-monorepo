@@ -8,8 +8,12 @@ import ConfirmModal from './components/ConfirmModal'
 
 counterpart.registerTranslations('en', en)
 
+const INTENT_NEXT = 'next'
+const INTENT_PREVIOUS = 'previous'
+
 function SubjectSetProgressBanner({ checkForProgress, onNext, onPrevious, subject, workflow }) {
   const [ showModal, setShowModal ] = useState(false)
+  const [ intent, setIntent ] = useState(undefined)
 
   const setName = workflow?.subjectSet?.display_name || ''
   const subjectTotal = workflow?.subjectSet.set_member_subjects_count
@@ -29,13 +33,32 @@ function SubjectSetProgressBanner({ checkForProgress, onNext, onPrevious, subjec
   const tryToGoNext = () => {
     console.log('+++ checkForProgress : ', checkForProgress())
     setShowModal(true)
+    setIntent(INTENT_NEXT)
     // onNext()
   }
 
   const tryToGoPrevious = () => {
     console.log('+++ checkForProgress : ', checkForProgress())
     setShowModal(true)
+    setIntent(INTENT_PREVIOUS)
     // onPrevious()
+  }
+
+  const onCancel = () => {
+    setShowModal(false)
+    setIntent(false)
+  }
+
+  const onConfirm = () => {
+    if (intent === INTENT_NEXT) {
+      setShowModal(false)
+      setIntent(false)
+      onNext()
+    } else if (intent === INTENT_PREVIOUS) {
+      setShowModal(false)
+      setIntent(false)
+      onPrevious()
+    }
   }
 
   return (
@@ -51,7 +74,8 @@ function SubjectSetProgressBanner({ checkForProgress, onNext, onPrevious, subjec
       />
       {showModal && (
         <ConfirmModal
-          onCancel={() => { setShowModal(false) }}
+          onCancel={onCancel}
+          onConfirm={onConfirm}
         />
       )}
     </>
