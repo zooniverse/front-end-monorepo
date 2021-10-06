@@ -1,13 +1,16 @@
 import counterpart from 'counterpart'
 import { bool, func, shape, string } from 'prop-types'
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 
 import en from './locales/en'
 import Banner from '../Banner'
+import ConfirmModal from './components/ConfirmModal'
 
 counterpart.registerTranslations('en', en)
 
 function SubjectSetProgressBanner({ checkForProgress, onNext, onPrevious, subject, workflow }) {
+  const [ showModal, setShowModal ] = useState(false)
+
   const setName = workflow?.subjectSet?.display_name || ''
   const subjectTotal = workflow?.subjectSet.set_member_subjects_count
   const background = (subject?.alreadySeen || subject?.retired) ? 'status-critical' : 'status-ok'
@@ -25,11 +28,13 @@ function SubjectSetProgressBanner({ checkForProgress, onNext, onPrevious, subjec
 
   const tryToGoNext = () => {
     console.log('+++ checkForProgress : ', checkForProgress())
+    setShowModal(true)
     // onNext()
   }
 
   const tryToGoPrevious = () => {
     console.log('+++ checkForProgress : ', checkForProgress())
+    setShowModal(true)
     // onPrevious()
   }
 
@@ -44,6 +49,11 @@ function SubjectSetProgressBanner({ checkForProgress, onNext, onPrevious, subjec
         show
         tooltipText={tooltipText}
       />
+      {showModal && (
+        <ConfirmModal
+          onCancel={() => { setShowModal(false) }}
+        />
+      )}
     </>
   )
 }
