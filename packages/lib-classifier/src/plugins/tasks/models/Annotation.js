@@ -26,6 +26,10 @@ const Annotation = types.model('Annotation', {
       return true
     },
 
+    get inProgress () {
+      return self._inProgress
+    },
+
     toSnapshot () {
       return getSnapshot(self)
     }

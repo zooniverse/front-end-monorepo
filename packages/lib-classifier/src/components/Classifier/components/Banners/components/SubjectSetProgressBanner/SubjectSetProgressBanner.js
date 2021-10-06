@@ -25,11 +25,12 @@ function SubjectSetProgressBanner({ checkForProgress, onNext, onPrevious, subjec
 
   const tryToGoNext = () => {
     console.log('+++ checkForProgress : ', checkForProgress())
-    onNext()
+    // onNext()
   }
 
   const tryToGoPrevious = () => {
-    onPrevious()
+    console.log('+++ checkForProgress : ', checkForProgress())
+    // onPrevious()
   }
 
   return (

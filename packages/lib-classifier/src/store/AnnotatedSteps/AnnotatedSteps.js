@@ -135,10 +135,12 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
 
   /** Checks if the user has started making any annotations. Returns boolean */
   function checkForProgress() {
-    // TODO
-    return Math.random() <= 0.5
+    let progressFlag = false
+    self.annotations.forEach(annotation => {
+      progressFlag ||= annotation.inProgress
+    })
+    return progressFlag
   }
-
 
   return {
     back,
