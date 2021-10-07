@@ -53,15 +53,28 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
   const router = useRouter()
   const [ rows, setRows ] = useState([])
   const [ query, setQuery ] = useState('')
+  const [ isFetching, setIsFetching ] = useState(false)
   const [ sortField, setSortField ] = useState('priority')
   const [ sortOrder, setSortOrder ] = useState('asc')
   const { indexFields } = subjectSet.metadata
   const customHeaders = indexFields.split(',')
 
   async function fetchSubjectData() {
+    // Resetting the rows is important when fetchSubjectData() occurs as a
+    // result of changing the sort order, when the number of subjects exceeds
+    // PAGE_SIZE. Otherwise, we see a "visual hiccup" where the SubjectPicker
+    // first sorts the OLD set of subjects (say) 1-100, then fetches the new set
+    // of subjects (say) 899-999 (with the opposite sort logic), then sorts the
+    // new set.
+    // See https://github.com/zooniverse/front-end-monorepo/pull/2466#issuecomment-931547044
+    // for details.
+    setIsFetching(true)
+    setRows([])
+
     const subjects = await fetchSubjects(subjectSet.id, query, sortField, sortOrder)
     const rows = await fetchRows(subjects, workflow, PAGE_SIZE)
     setRows(rows)
+    setIsFetching(false)
   }
 
   useEffect(function onChange() {
@@ -155,6 +168,9 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
         sortable
         step={PAGE_SIZE}
       />
+      {isFetching && (
+        <Paragraph textAlign="center">{counterpart('SubjectPicker.fetching')}</Paragraph>
+      )}
     </>
   )
 }

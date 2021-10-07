@@ -123,7 +123,6 @@ describe('Stores > UserPersonalization', function () {
         rootStore.user.personalization.increment()
       })
 
-
       it('should add 1 to your total count', function () {
         expect(rootStore.user.personalization.totalClassificationCount).to.equal(24)
       })
@@ -210,6 +209,25 @@ describe('Stores > UserPersonalization', function () {
 
       it('should add 1 to your total count', function () {
         expect(rootStore.user.personalization.totalClassificationCount).to.equal(1)
+      })
+    })
+
+    describe('incrementing your classification count to 5', function () {
+      before(function () {
+        rootStore.user.personalization.reset()
+        rootStore.user.personalization.increment()
+        rootStore.user.personalization.increment()
+        rootStore.user.personalization.increment()
+        rootStore.user.personalization.increment()
+        rootStore.user.personalization.increment()
+      })
+
+      it('should add 5 to your total count', function () {
+        expect(rootStore.user.personalization.totalClassificationCount).to.equal(5)
+      })
+
+      it('should not trigger the child UPP store to request user preferences from Panoptes', function () {
+        expect(rootStore.client.panoptes.get).to.have.not.been.called()
       })
     })
   })

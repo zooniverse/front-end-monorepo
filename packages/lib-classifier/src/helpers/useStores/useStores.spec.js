@@ -8,9 +8,10 @@ import useStores from '.'
 describe('Helpers > useStores', function () {
   describe('without storeMapper', function () {
     let current
-    const store = mockStore()
+    let store
 
     before(function () {
+      store = mockStore()
       const wrapper = props => (
         <Provider classifierStore={store}>
           {props.children}
@@ -27,7 +28,7 @@ describe('Helpers > useStores', function () {
 
   describe('with storeMapper', function () {
     let current
-    const store = mockStore()
+    let store
     function storeMapper(store) {
       const {
         workflows: {
@@ -38,6 +39,7 @@ describe('Helpers > useStores', function () {
     }
 
     before(function () {
+      store = mockStore()
       const wrapper = props => (
         <Provider classifierStore={store}>
           {props.children}
