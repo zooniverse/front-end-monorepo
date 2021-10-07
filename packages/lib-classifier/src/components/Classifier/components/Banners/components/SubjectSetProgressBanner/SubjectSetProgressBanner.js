@@ -8,9 +8,6 @@ import ConfirmModal from './components/ConfirmModal'
 
 counterpart.registerTranslations('en', en)
 
-const INTENT_NEXT = 'next'
-const INTENT_PREVIOUS = 'previous'
-
 function SubjectSetProgressBanner({
   checkForProgress = () => { return false },
   onNext = () => {},
@@ -40,7 +37,7 @@ function SubjectSetProgressBanner({
     // If the user has an annotation in progress, ask for confirmation first.
     if (checkForProgress()) {
       setShowModal(true)
-      setIntent(INTENT_NEXT)
+      setIntent(() => onNext)  // This is how you set a function with useState
       return
     }
 
@@ -52,7 +49,7 @@ function SubjectSetProgressBanner({
     // If the user has an annotation in progress, ask for confirmation first.
     if (checkForProgress()) {
       setShowModal(true)
-      setIntent(INTENT_PREVIOUS)
+      setIntent(() => onPrevious)
       return
     }
 
@@ -63,20 +60,14 @@ function SubjectSetProgressBanner({
   // If user says no on the Confirm Modal, simply close the modal.
   const onCancel = () => {
     setShowModal(false)
-    setIntent(false)
+    setIntent(undefined)
   }
 
-  // If user says yes on the Confirm Modal, navigate to the Next/Prev Subject.
+  // If user says yes on the Confirm Modal, close the modal and proceed.
   const onConfirm = () => {
-    if (intent === INTENT_NEXT) {
-      setShowModal(false)
-      setIntent(false)
-      onNext()
-    } else if (intent === INTENT_PREVIOUS) {
-      setShowModal(false)
-      setIntent(false)
-      onPrevious()
-    }
+    intent && intent()
+    setShowModal(false)
+    setIntent(undefined)
   }
 
   return (
@@ -92,6 +83,7 @@ function SubjectSetProgressBanner({
       />
       {showModal && (
         <ConfirmModal
+          active={showModal}
           onCancel={onCancel}
           onConfirm={onConfirm}
         />

@@ -1,6 +1,6 @@
 import counterpart from 'counterpart'
 import { Box, Button, Paragraph } from 'grommet'
-import { func } from 'prop-types'
+import { bool, func } from 'prop-types'
 import React from 'react'
 import { Modal, PrimaryButton } from '@zooniverse/react-components'
 
@@ -13,6 +13,7 @@ An alert which - if you've already started annotation this Subject - asks if
 you really want to navigate to the Next/Previous Subject.
 */
 function ConfirmModal ({
+  active = false,
   /** callback to close the modal and stay on the current Subject */
   onCancel = () => true,
   /** callback to close the modal and move Next/Previous */
@@ -22,7 +23,7 @@ function ConfirmModal ({
   // It might be worth refactoring this into a common component.
   return (
     <Modal
-      active
+      active={active}
       modal={true}
     >
       <Paragraph
@@ -50,6 +51,7 @@ function ConfirmModal ({
 }
 
 ConfirmModal.propTypes = {
+  active: bool,
   onCancel: func,
   onConfirm: func
 }
