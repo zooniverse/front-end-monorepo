@@ -137,7 +137,7 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   function checkForProgress() {
     let progressFlag = false
     self.annotations.forEach(annotation => {
-      progressFlag ||= annotation.inProgress
+      progressFlag ||= annotation._inProgress
     })
     return progressFlag
   }

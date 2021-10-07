@@ -23,7 +23,7 @@ function ConfirmModal ({
   return (
     <Modal
       active
-      modal={false}
+      modal={true}
     >
       <Paragraph
         margin={{ bottom: 'medium' }}
