@@ -1,13 +1,6 @@
-import {
-  addDisposer,
-  getRoot,
-  getParentOfType,
-  isValidReference,
-  types
-} from 'mobx-state-tree'
+import { getParentOfType, types } from 'mobx-state-tree'
 import { Line as LineComponent } from '../../../components/'
 import { LineTool } from '@plugins/drawingTools/models/tools'
-
 import Mark from '../Mark'
 
 const MINIMUM_LENGTH = 5
@@ -53,41 +46,33 @@ const LineModel = types
       return LineComponent
     }
   }))
-  .actions((self) => {
-    function initialDrag({ x, y }) {
-      console.log('initialDragLine', x)
+  .actions((self) => ({
+    initialDrag({ x, y }) {
       self.x2 = x
       self.y2 = y
-    }
+    },
 
-    function initialPosition({ x, y }) {
+    initialPosition({ x, y }) {
       self.x1 = x
       self.y1 = y
       self.x2 = x
       self.y2 = y
-    }
+    },
 
-    function move({ x, y }) {
+    move({ x, y }) {
       self.x1 += x
       self.x2 += x
       self.y1 += y
       self.y2 += y
-    }
+    },
 
-    function setCoordinates({ x1, y1, x2, y2 }) {
+    setCoordinates({ x1, y1, x2, y2 }) {
       self.x1 = x1
       self.y1 = y1
       self.x2 = x2
       self.y2 = y2
     }
-
-    return {
-      initialDrag,
-      initialPosition,
-      move,
-      setCoordinates
-    }
-  })
+  }))
 
 const Line = types.compose('Line', Mark, LineModel)
 

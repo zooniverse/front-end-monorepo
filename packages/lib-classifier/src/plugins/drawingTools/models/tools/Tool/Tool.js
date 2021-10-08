@@ -68,7 +68,6 @@ const Tool = types
     }
 
     function createTask(snapshot) {
-      console.log('C', snapshot)
       try {
         self.tasks.push(snapshot)
         return self.tasks[self.tasks.length - 1]

@@ -5,7 +5,7 @@ import { observer } from 'mobx-react'
 function FreehandLine({ active, mark, onFinish, scale }) {
   console.log('mark', mark)
 
-  const { d } = mark
+  const { x, y } = mark
 
   return (
     <g onPointerUp={active ? onFinish : undefined}>

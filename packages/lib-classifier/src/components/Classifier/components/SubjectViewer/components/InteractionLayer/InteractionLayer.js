@@ -125,8 +125,6 @@ function InteractionLayer({
 
   function onPointerMove(event) {
     if (creating) {
-      console.log('here')
-
       activeTool.handlePointerMove &&
         activeTool.handlePointerMove(convertEvent(event), activeMark)
     }

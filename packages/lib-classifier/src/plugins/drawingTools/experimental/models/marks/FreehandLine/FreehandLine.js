@@ -5,12 +5,14 @@ import { FreehandLineTool } from '@plugins/drawingTools/models/tools'
 
 const FreehandLineModel = types
   .model('FreehandLineModel', {
-    d: types.maybe(types.string)
+    x: types.maybe(types.number),
+    y: types.maybe(types.number)
   })
   .views((self) => ({
     get coords() {
       return {
-        d: 'M 10,30 A 20,20 0,0,1 50,30'
+        x: self.x,
+        y: self.y
       }
     },
 
@@ -32,31 +34,22 @@ const FreehandLineModel = types
       return FreehandLineComponent
     }
   }))
-  .actions((self) => {
-    function initialDrag({ x, y }) {
-      console.log('initialDragX', x)
-      console.log('initialDragY', y)
-      // self.d = d
-    }
+  .actions((self) => ({
+    initialDrag({ x, y }) {
+      self.x = x
+      self.y = y
+    },
 
-    function initialPosition({ x, y }) {
-      console.log('initialPositionX', x)
-      console.log('initialPositionY', y)
-      // self.d = d
-    }
+    initialPosition({ x, y }) {
+      self.x = x
+      self.y = y
+    },
 
-    function setCoordinates({ x, y }) {
-      console.log('setCoordinatesX', x)
-      console.log('setCoordinatesY', y)
-      // self.d = d
+    setCoordinates({ x, y }) {
+      self.x = x
+      self.y = y
     }
-
-    return {
-      initialDrag,
-      initialPosition,
-      setCoordinates
-    }
-  })
+  }))
 
 const FreehandLine = types.compose('FreehandLine', Mark, FreehandLineModel)
 
