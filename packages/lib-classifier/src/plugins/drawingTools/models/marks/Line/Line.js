@@ -1,4 +1,10 @@
-import { addDisposer, getRoot, getParentOfType, isValidReference, types } from 'mobx-state-tree'
+import {
+  addDisposer,
+  getRoot,
+  getParentOfType,
+  isValidReference,
+  types
+} from 'mobx-state-tree'
 import { Line as LineComponent } from '../../../components/'
 import { LineTool } from '@plugins/drawingTools/models/tools'
 
@@ -13,60 +19,62 @@ const LineModel = types
     x2: types.maybe(types.number),
     y2: types.maybe(types.number)
   })
-  .views(self => ({
-    get coords () {
+  .views((self) => ({
+    get coords() {
       return {
         x: self.x1,
         y: self.y1
       }
     },
 
-    deleteButtonPosition (scale) {
+    deleteButtonPosition(scale) {
       const BUFFER = 16
-      const x = self.x1 > self.x2 ? self.x1 + (BUFFER / scale) : self.x1 - (BUFFER / scale)
+      const x =
+        self.x1 > self.x2 ? self.x1 + BUFFER / scale : self.x1 - BUFFER / scale
       const y = self.y1
       // TODO: check for out of bounds coordinates
       return { x, y }
     },
 
-    get length () {
+    get length() {
       const { x1, y1, x2, y2 } = self
       return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
     },
 
-    get isValid () {
+    get isValid() {
       return self.length - MINIMUM_LENGTH > 0
     },
 
-    get tool () {
+    get tool() {
       return getParentOfType(self, LineTool)
     },
 
-    get toolComponent () {
+    get toolComponent() {
       return LineComponent
     }
   }))
-  .actions(self => {
-    function initialDrag ({ x, y }) {
+  .actions((self) => {
+    function initialDrag({ x, y }) {
+      console.log('initialDragLine', x)
       self.x2 = x
       self.y2 = y
     }
 
-    function initialPosition ({ x, y }) {
+    function initialPosition({ x, y }) {
       self.x1 = x
       self.y1 = y
       self.x2 = x
       self.y2 = y
     }
 
-    function move ({ x, y }) {
+    function move({ x, y }) {
       self.x1 += x
       self.x2 += x
       self.y1 += y
       self.y2 += y
     }
 
-    function setCoordinates ({ x1, y1, x2, y2 }) {
+    function setCoordinates({ x1, y1, x2, y2 }) {
       self.x1 = x1
       self.y1 = y1
       self.x2 = x2

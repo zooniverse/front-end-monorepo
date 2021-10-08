@@ -10,14 +10,14 @@ const FreehandLineModel = types
   .views((self) => ({
     get coords() {
       return {
-        d: self.d
+        d: 'M 10,30 A 20,20 0,0,1 50,30'
       }
     },
 
     deleteButtonPosition(scale) {
       const BUFFER = 16
-      const d = self.d + BUFFER / scale
-      return { d }
+      // const d = self.d + BUFFER / scale
+      return { x: 100, y: 100 }
     },
 
     // get isValid () ?
@@ -33,19 +33,28 @@ const FreehandLineModel = types
     }
   }))
   .actions((self) => {
-    function initialDrag({ d }) {
-      self.d = d
+    function initialDrag({ x, y }) {
+      console.log('initialDragX', x)
+      console.log('initialDragY', y)
+      // self.d = d
     }
 
-    function initialPosition({ d }) {
-      self.d = d
+    function initialPosition({ x, y }) {
+      console.log('initialPositionX', x)
+      console.log('initialPositionY', y)
+      // self.d = d
     }
 
-    // function setCoordinates: add condition?
+    function setCoordinates({ x, y }) {
+      console.log('setCoordinatesX', x)
+      console.log('setCoordinatesY', y)
+      // self.d = d
+    }
 
     return {
       initialDrag,
-      initialPosition
+      initialPosition,
+      setCoordinates
     }
   })
 

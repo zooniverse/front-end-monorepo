@@ -22,9 +22,11 @@ const FreehandLineTool = types
     }
 
     function createMark(mark) {
+      console.log('A', mark)
       const newMark = FreehandLine.create(
         Object.assign({}, mark, { toolType: self.type })
       )
+      console.log('B', mark)
       self.marks.put(newMark)
       return newMark
     }
