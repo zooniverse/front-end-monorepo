@@ -1,12 +1,13 @@
 import nock from 'nock'
+import sinon from 'sinon'
 import fetchRows from './fetchRows'
 
 describe('Components > Subject Picker > helpers > fetchRows', function () {
   let data
   const expectedData = [
-    { subject_id: '1', Page: '43', Date: '23 January 1916', status: 'Available' },
-    { subject_id: '2', Page: '44', Date: '24 January 1916', status: 'Already seen' },
-    { subject_id: '3', Page: '45', Date: '25 January 1916', status: 'Retired' },
+    { subject_id: 1, Page: '43', Date: '23 January 1916', status: 'Available' },
+    { subject_id: 2, Page: '44', Date: '24 January 1916', status: 'Already seen' },
+    { subject_id: 3, Page: '45', Date: '25 January 1916', status: 'Retired' },
   ]
 
   before(async function () {
@@ -16,9 +17,9 @@ describe('Components > Subject Picker > helpers > fetchRows', function () {
       'Date'
     ]
     const rows = [
-      ['1', '43', '23 January 1916'],
-      ['2', '44', '24 January 1916'],
-      ['3', '45', '25 January 1916']
+      [1, '43', '23 January 1916'],
+      [2, '44', '24 January 1916'],
+      [3, '45', '25 January 1916']
     ]
     const workflow = {
       id: '1'
@@ -33,7 +34,16 @@ describe('Components > Subject Picker > helpers > fetchRows', function () {
         { id: 3, already_seen: true, retired: true }
       ]
     })
-    data = await fetchRows({ columns, rows }, workflow)
+    data = []
+    const callback = sinon.stub().callsFake(newData => {
+      if (typeof newData === 'function') {
+        data = newData(data)
+        return data
+      }
+      data = newData
+      return data
+    })
+    await fetchRows({ columns, rows }, workflow, 10, callback)
   })
 
   it('should generate subject data table rows with classification statuses', function () {

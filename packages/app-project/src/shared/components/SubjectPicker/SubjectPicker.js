@@ -72,9 +72,8 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
     setRows([])
 
     const subjects = await fetchSubjects(subjectSet.id, query, sortField, sortOrder)
-    const rows = await fetchRows(subjects, workflow, PAGE_SIZE)
-    setRows(rows)
     setIsFetching(false)
+    await fetchRows(subjects, workflow, PAGE_SIZE, setRows)
   }
 
   useEffect(function onChange() {
