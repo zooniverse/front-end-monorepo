@@ -81,13 +81,11 @@ function SubjectSetProgressBanner({
         show
         tooltipText={tooltipText}
       />
-      {showModal && (
-        <ConfirmModal
-          active={showModal}
-          onCancel={onCancel}
-          onConfirm={onConfirm}
-        />
-      )}
+      <ConfirmModal
+        active={showModal}
+        onCancel={onCancel}
+        onConfirm={onConfirm}
+      />
     </>
   )
 }

@@ -25,6 +25,7 @@ function ConfirmModal ({
     <Modal
       active={active}
       modal={true}
+      closeFn={onCancel}
     >
       <Paragraph
         margin={{ bottom: 'medium' }}
