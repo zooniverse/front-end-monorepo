@@ -3,10 +3,14 @@ import { FreehandLine as FreehandLineComponent } from '@plugins/drawingTools/com
 import { Mark } from '@plugins/drawingTools/models/marks'
 import { FreehandLineTool } from '@plugins/drawingTools/models/tools'
 
+const singleCoord = types.model({
+  x: types.maybe(types.number),
+  y: types.maybe(types.number)
+})
+
 const FreehandLineModel = types
   .model('FreehandLineModel', {
-    x: types.maybe(types.number),
-    y: types.maybe(types.number)
+    path: types.maybe(types.array(singleCoord))
   })
   .views((self) => ({
     get coords() {
