@@ -60,6 +60,10 @@ const FreehandLineModel = types
 
     initialDrag({ x, y }) {
       self.points.push({ x: x, y: y })
+    },
+
+    move() {
+      return
     }
   }))
 
