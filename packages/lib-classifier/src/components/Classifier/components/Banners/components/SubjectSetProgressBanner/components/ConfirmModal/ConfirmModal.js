@@ -4,7 +4,7 @@ import { bool, func } from 'prop-types'
 import React from 'react'
 import { Modal, PrimaryButton } from '@zooniverse/react-components'
 
-import en from '../locales/en'
+import en from '../../locales/en'
 
 counterpart.registerTranslations('en', en)
 
