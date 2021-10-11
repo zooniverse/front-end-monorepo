@@ -124,7 +124,6 @@ const Mark = forwardRef(function Mark(
 
     transform = `${transform} ${rotateTransform}`
   }
-  console.log(`transform: (${transform})`)
 
   return (
     <StyledGroup

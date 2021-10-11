@@ -3,6 +3,8 @@ import { FreehandLine as FreehandLineComponent } from '@plugins/drawingTools/com
 import { Mark } from '@plugins/drawingTools/models/marks'
 import { FreehandLineTool } from '@plugins/drawingTools/models/tools'
 
+const MINIMUM_POINTS = 20
+
 const singleCoord = types.model({
   x: types.maybe(types.number),
   y: types.maybe(types.number)
@@ -14,8 +16,6 @@ const FreehandLineModel = types
   })
   .views((self) => ({
     get coords() {
-      console.log(self.points[0]?.x)
-      console.log(self.points[0]?.y)
       return {
         // TODO: check length before returning
         x: self.points[0]?.x,
@@ -24,14 +24,13 @@ const FreehandLineModel = types
     },
 
     deleteButtonPosition(scale) {
-      // every mark expects this, but will be moved into toolbar later
+      // will be moved into toolbar later
       const BUFFER = 16
-      // const d = self.d + BUFFER / scale
       return { x: self.points[0].x + BUFFER, y: self.points[0].y + BUFFER }
     },
 
     get isValid() {
-      return self.points.length > 5
+      return self.points.length > MINIMUM_POINTS
     },
 
     get tool() {
@@ -63,11 +62,6 @@ const FreehandLineModel = types
     initialDrag({ x, y }) {
       self.points.push({ x: x, y: y })
     }
-
-    // setCoordinates({ x, y }) {
-    //   self.x = x
-    //   self.y = y
-    // }
   }))
 
 const FreehandLine = types.compose('FreehandLine', Mark, FreehandLineModel)
