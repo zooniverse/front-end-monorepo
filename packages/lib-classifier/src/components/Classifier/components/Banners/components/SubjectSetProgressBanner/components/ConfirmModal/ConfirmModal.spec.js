@@ -13,7 +13,18 @@ describe('SubjectSetProgressBanner > ConfirmModal', function () {
       </Grommet>
     )
     expect(wrapper).to.be.ok()
-    expect(wrapper.getByText("Cancel")).to.exist()
-    expect(wrapper.getByText("Confirm")).to.exist()
+    expect(wrapper.queryByText('Cancel')).to.exist()
+    expect(wrapper.queryByText('Confirm')).to.exist()
+  })
+
+  it('should be hidden when active=false', function () {
+    const wrapper = render(
+      <Grommet>
+        <ConfirmModal active={true} />
+      </Grommet>
+    )
+    expect(wrapper).to.be.ok()
+    expect(wrapper.queryByText('Cancel')).to.not.null()
+    expect(wrapper.queryByText('Confirm')).to.not.null()
   })
 })
