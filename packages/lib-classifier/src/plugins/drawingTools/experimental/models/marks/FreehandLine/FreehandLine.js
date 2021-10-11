@@ -38,6 +38,18 @@ const FreehandLineModel = types
       return getParentOfType(self, FreehandLineTool)
     },
 
+    get path() {
+      const [firstCoord, ...otherCoords] = self.points
+      if (!firstCoord) {
+        return ''
+      }
+      let path = `M ${firstCoord.x},${firstCoord.y} `
+      otherCoords.forEach(({ x, y }) => {
+        path = path + `L ${x},${y}`
+      })
+      return path
+    },
+
     get toolComponent() {
       return FreehandLineComponent
     }
