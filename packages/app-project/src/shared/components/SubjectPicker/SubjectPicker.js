@@ -10,7 +10,7 @@ import { Box, DataTable, Heading, Paragraph } from 'grommet'
 
 import addQueryParams from '@helpers/addQueryParams'
 
-import { columns, fetchRows, fetchSubjects, searchParams } from './helpers'
+import { columns, fetchStatuses, fetchSubjects, searchParams } from './helpers'
 import en from './locales/en'
 
 counterpart.registerTranslations('en', en)
@@ -73,7 +73,7 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
     const subjects = await fetchSubjects(subjectSet.id, query, sortField, sortOrder)
     setRows(subjects)
     setIsFetching(false)
-    await fetchRows(subjects, workflow, PAGE_SIZE, setRows)
+    await fetchStatuses(subjects, workflow, PAGE_SIZE, setRows)
   }
 
   useEffect(function onChange() {

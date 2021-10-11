@@ -1,6 +1,6 @@
 import { checkRetiredStatus } from './'
 
-export default async function fetchRows(
+export default async function fetchStatuses(
   subjects = [],
   workflow,
   page_size = 10,

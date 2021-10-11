@@ -1,8 +1,8 @@
 import nock from 'nock'
 import sinon from 'sinon'
-import { fetchRows, fetchSubjects } from './'
+import { fetchStatuses, fetchSubjects } from './'
 
-describe('Components > Subject Picker > helpers > fetchRows', function () {
+describe('Components > Subject Picker > helpers > fetchStatuses', function () {
   let subjects
   const expectedData = [
     { subject_id: 1, Page: '43', Date: '23 January 1916', status: 'Available' },
@@ -47,7 +47,7 @@ describe('Components > Subject Picker > helpers > fetchRows', function () {
       subjects = newData
       return subjects
     })
-    await fetchRows(subjects, workflow, 10, callback)
+    await fetchStatuses(subjects, workflow, 10, callback)
   })
 
   it('should generate subject data table rows with classification statuses', function () {
