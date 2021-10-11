@@ -30,7 +30,6 @@ describe('SubjectSetProgressBanner > ConfirmModal', function () {
 
   it('should call onConfirm() when "Confirm" button is clicked', function () {
     const onConfirmSpy = sinon.spy()
-
     const wrapper = render(
       <Grommet>
         <ConfirmModal
@@ -40,8 +39,22 @@ describe('SubjectSetProgressBanner > ConfirmModal', function () {
       </Grommet>
     )
 
-    const confirmButton = wrapper.getByText('Confirm')
-    fireEvent.click(confirmButton)
+    fireEvent.click(wrapper.getByText('Confirm'))
     expect(onConfirmSpy).to.have.been.calledOnce()
+  })
+
+  it('should call onCancel() when "Cancel" button is clicked', function () {
+    const onCancelSpy = sinon.spy()
+    const wrapper = render(
+      <Grommet>
+        <ConfirmModal
+          active={true}
+          onCancel={onCancelSpy}
+        />
+      </Grommet>
+    )
+
+    fireEvent.click(wrapper.getByText('Cancel'))
+    expect(onCancelSpy).to.have.been.calledOnce()
   })
 })
