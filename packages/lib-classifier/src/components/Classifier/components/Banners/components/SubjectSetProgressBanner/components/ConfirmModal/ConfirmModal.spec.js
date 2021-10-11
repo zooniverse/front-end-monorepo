@@ -27,4 +27,21 @@ describe('SubjectSetProgressBanner > ConfirmModal', function () {
     expect(wrapper.queryByText('Cancel')).to.not.null()
     expect(wrapper.queryByText('Confirm')).to.not.null()
   })
+
+  it('should call onConfirm() when "Confirm" button is clicked', function () {
+    const onConfirmSpy = sinon.spy()
+
+    const wrapper = render(
+      <Grommet>
+        <ConfirmModal
+          active={true}
+          onConfirm={onConfirmSpy}
+        />
+      </Grommet>
+    )
+
+    const confirmButton = wrapper.getByText('Confirm')
+    fireEvent.click(confirmButton)
+    expect(onConfirmSpy).to.have.been.calledOnce()
+  })
 })
