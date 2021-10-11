@@ -26,7 +26,7 @@ const FreehandLineModel = types
     deleteButtonPosition(scale) {
       // will be moved into toolbar later
       const BUFFER = 16
-      return { x: self.points[0].x + BUFFER, y: self.points[0].y + BUFFER }
+      return { x: self.points[0].x - BUFFER, y: self.points[0].y - BUFFER }
     },
 
     get isValid() {
@@ -54,7 +54,6 @@ const FreehandLineModel = types
     }
   }))
   .actions((self) => ({
-    // fires 1st
     initialPosition({ x, y }) {
       self.points.push({ x: x, y: y })
     },

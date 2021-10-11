@@ -1,3 +1,0 @@
-// createPathFromCoords
-// filterDupeCoords
-// roundCoords
