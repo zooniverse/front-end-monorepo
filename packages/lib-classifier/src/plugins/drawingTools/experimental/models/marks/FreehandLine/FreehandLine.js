@@ -14,21 +14,25 @@ const FreehandLineModel = types
   })
   .views((self) => ({
     get coords() {
+      console.log(self.points[0]?.x)
+      console.log(self.points[0]?.y)
       return {
+        // TODO: check length before returning
         x: self.points[0]?.x,
         y: self.points[0]?.y
       }
     },
 
     deleteButtonPosition(scale) {
+      // every mark expects this, but will be moved into toolbar later
       const BUFFER = 16
       // const d = self.d + BUFFER / scale
       return { x: 100, y: 100 }
     },
 
-    // get isValid () ?
-
-    // get length () ?
+    get isValid() {
+      return self.points.length > 5
+    },
 
     get tool() {
       return getParentOfType(self, FreehandLineTool)
@@ -39,20 +43,19 @@ const FreehandLineModel = types
     }
   }))
   .actions((self) => ({
-    initialDrag({ x, y }) {
-      self.x = x
-      self.y = y
-    },
-
+    // fires 1st
     initialPosition({ x, y }) {
-      self.x = x
-      self.y = y
+      self.points.push({ x: x, y: y })
     },
 
-    setCoordinates({ x, y }) {
-      self.x = x
-      self.y = y
+    initialDrag({ x, y }) {
+      self.points.push({ x: x, y: y })
     }
+
+    // setCoordinates({ x, y }) {
+    //   self.x = x
+    //   self.y = y
+    // }
   }))
 
 const FreehandLine = types.compose('FreehandLine', Mark, FreehandLineModel)

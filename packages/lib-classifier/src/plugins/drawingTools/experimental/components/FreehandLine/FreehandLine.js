@@ -5,7 +5,8 @@ import { observer } from 'mobx-react'
 const GRAB_STROKE_WIDTH = 6
 
 function FreehandLine({ active, mark, onFinish, scale }) {
-  console.log('mark', mark)
+  // console.log('mark', mark)
+  // console.log('markJSON', mark.points.toJSON())
 
   const { x, y } = mark
 
