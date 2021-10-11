@@ -10,13 +10,13 @@ const singleCoord = types.model({
 
 const FreehandLineModel = types
   .model('FreehandLineModel', {
-    path: types.maybe(types.array(singleCoord))
+    points: types.array(singleCoord)
   })
   .views((self) => ({
     get coords() {
       return {
-        x: self.x,
-        y: self.y
+        x: self.points[0]?.x,
+        y: self.points[0]?.y
       }
     },
 
