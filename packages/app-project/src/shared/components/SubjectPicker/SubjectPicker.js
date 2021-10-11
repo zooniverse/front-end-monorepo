@@ -69,9 +69,9 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
     // See https://github.com/zooniverse/front-end-monorepo/pull/2466#issuecomment-931547044
     // for details.
     setIsFetching(true)
-    setRows([])
 
     const subjects = await fetchSubjects(subjectSet.id, query, sortField, sortOrder)
+    setRows(subjects)
     setIsFetching(false)
     await fetchRows(subjects, workflow, PAGE_SIZE, setRows)
   }
@@ -90,6 +90,7 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
     if (sortField === 'status') {
       return true;
     }
+    setRows([])
     setSortField(sortField)
     setSortOrder(sortOrder)
   }

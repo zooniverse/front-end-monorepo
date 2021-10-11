@@ -1,9 +1,9 @@
 import nock from 'nock'
 import sinon from 'sinon'
-import fetchRows from './fetchRows'
+import { fetchRows, fetchSubjects } from './'
 
 describe('Components > Subject Picker > helpers > fetchRows', function () {
-  let data
+  let subjects
   const expectedData = [
     { subject_id: 1, Page: '43', Date: '23 January 1916', status: 'Available' },
     { subject_id: 2, Page: '44', Date: '24 January 1916', status: 'Already seen' },
@@ -24,6 +24,10 @@ describe('Components > Subject Picker > helpers > fetchRows', function () {
     const workflow = {
       id: '1'
     }
+    const subjectsAPI = nock('https://subject-set-search-api.zooniverse.org/subjects')
+    .get('/1.json')
+    .query(true)
+    .reply(200, { columns, rows })
     const panoptes = nock('https://panoptes-staging.zooniverse.org/api')
     .get('/subjects/selection')
     .query(true)
@@ -34,19 +38,19 @@ describe('Components > Subject Picker > helpers > fetchRows', function () {
         { id: 3, already_seen: true, retired: true }
       ]
     })
-    data = []
+    subjects = await fetchSubjects('1')
     const callback = sinon.stub().callsFake(newData => {
       if (typeof newData === 'function') {
-        data = newData(data)
-        return data
+        subjects = newData(subjects)
+        return subjects
       }
-      data = newData
-      return data
+      subjects = newData
+      return subjects
     })
-    await fetchRows({ columns, rows }, workflow, 10, callback)
+    await fetchRows(subjects, workflow, 10, callback)
   })
 
   it('should generate subject data table rows with classification statuses', function () {
-    expect(data).to.deep.equal(expectedData)
+    expect(subjects).to.deep.equal(expectedData)
   })
 })
