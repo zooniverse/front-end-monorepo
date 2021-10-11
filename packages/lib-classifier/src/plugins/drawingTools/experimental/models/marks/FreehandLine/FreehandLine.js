@@ -27,7 +27,7 @@ const FreehandLineModel = types
       // every mark expects this, but will be moved into toolbar later
       const BUFFER = 16
       // const d = self.d + BUFFER / scale
-      return { x: 100, y: 100 }
+      return { x: self.points[0].x + BUFFER, y: self.points[0].y + BUFFER }
     },
 
     get isValid() {
