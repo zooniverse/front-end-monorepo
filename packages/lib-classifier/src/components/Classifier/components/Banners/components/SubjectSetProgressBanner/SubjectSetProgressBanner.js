@@ -10,8 +10,8 @@ counterpart.registerTranslations('en', en)
 
 function SubjectSetProgressBanner({
   checkForProgress = () => { return false },
-  onNext = () => {},
-  onPrevious = () => {},
+  onNext,
+  onPrevious,
   subject,
   workflow
 }) {
@@ -76,8 +76,8 @@ function SubjectSetProgressBanner({
         background={background}
         bannerText={bannerText}
         color={color}
-        onNext={tryToGoNext}
-        onPrevious={tryToGoPrevious}
+        onNext={(onNext) ? tryToGoNext : undefined}
+        onPrevious={(onPrevious) ? tryToGoPrevious : undefined}
         show
         tooltipText={tooltipText}
       />
