@@ -278,17 +278,21 @@ describe('Model > DrawingTask', function () {
       point1 = task.tools[0].createMark({ id: 'point1' })
       point2 = task.tools[0].createMark({ id: 'point2' })
       line1 = task.tools[1].createMark({ id: 'line1' })
+      annotation.update(task.marks)
       task.complete(annotation)
     })
 
-    it('should copy marks to the task annotation', function () {
-      expect(annotation.value).to.deep.equal([point1, point2, line1])
+    it('should reset the subtask visiblity', function () {
+      expect(task.subTaskVisibility).to.be.false()
     })
 
     describe('on deleting a mark', function () {
       before(function () {
         task.tools[1].deleteMark(line1)
-        task.complete(annotation)
+      })
+
+      it('should remove the mark', function () {
+        expect(task.marks).to.deep.equal([point1, point2])
       })
 
       it('should update the annotation', function () {
@@ -300,11 +304,10 @@ describe('Model > DrawingTask', function () {
       let line2
       before(function () {
         line2 = task.tools[1].createMark({ id: 'line2' })
-        task.complete(annotation)
       })
 
-      it('should update the annotation', function () {
-        expect(annotation.value).to.deep.equal([point1, point2, line2])
+      it('should add a new mark', function () {
+        expect(task.marks).to.deep.equal([point1, point2, line2])
       })
     })
   })

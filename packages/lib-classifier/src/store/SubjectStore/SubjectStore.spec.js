@@ -51,11 +51,13 @@ describe('Model > SubjectStore', function () {
   describe('Actions', function() {
     describe('advance', function () {
       describe('with a full queue', function () {
-        const subjects = mockSubjectStore(longListSubjects)
+        let subjects
         let previousSubjectID
         let initialSize
 
-        before(function () {
+        before(async function () {
+          subjects = mockSubjectStore(longListSubjects)
+          await when(() => subjects.resources.size > 9)
           previousSubjectID = subjects.active && subjects.active.id
           initialSize = subjects.resources.size
           subjects.advance()
@@ -82,7 +84,11 @@ describe('Model > SubjectStore', function () {
 
       describe('with less than three subjects in the queue', function () {
         describe('when the initial response has ten subjects', function () {
-          const subjects = mockSubjectStore(longListSubjects)
+          let subjects
+
+          before(function () {
+            subjects = mockSubjectStore(longListSubjects)
+          })
 
           it('should request more subjects', function () {
             while (subjects.resources.size > MINIMUM_QUEUE_SIZE) {
@@ -95,7 +101,11 @@ describe('Model > SubjectStore', function () {
         })
 
         describe('when the initial response has less than three subjects', function () {
-          const subjects = mockSubjectStore(shortListSubjects)
+          let subjects
+
+          before(function () {
+            subjects = mockSubjectStore(shortListSubjects)
+          })
 
           it('should request more subjects', function () {
             // Once for initialization and again since less than three subjects in initial response
@@ -104,7 +114,11 @@ describe('Model > SubjectStore', function () {
         })
 
         describe('when the initial response has no subjects', function () {
-          const subjects = mockSubjectStore([])
+          let subjects
+
+          before(function () {
+            subjects = mockSubjectStore([])
+          })
 
           it('should request more subjects', function () {
             // Once for initialization
@@ -119,9 +133,10 @@ describe('Model > SubjectStore', function () {
       })
 
       describe('after emptying the queue', function () {
-        const subjects = mockSubjectStore(longListSubjects)
+        let subjects
 
         beforeEach(function () {
+          subjects = mockSubjectStore(longListSubjects)
           while (subjects.resources.size > 0) {
             subjects.advance()
           }
@@ -135,9 +150,10 @@ describe('Model > SubjectStore', function () {
     })
 
     describe('append', function () {
-      const subjects = mockSubjectStore([])
+      let subjects
 
       before(function () {
+        subjects = mockSubjectStore([])
         subjects.append(longListSubjects)
       })
 
