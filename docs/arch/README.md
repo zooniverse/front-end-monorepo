@@ -33,3 +33,4 @@
 - [ADR 31: RotatingRectangle Tool and TemporalRotatingRectangle Tool](adr-31.md)
 - [ADR 32: Subject Viewer Layouts (aka subject viewer sizing/fitting behaviour)](adr-32.md)
 - [ADR 33: Simple Survey Task Feedback](adr-33.md)
+- [ADR 34: Workflow selection](adr-34.md)

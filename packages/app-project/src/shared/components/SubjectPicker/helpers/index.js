@@ -1,5 +1,5 @@
 export { default as checkRetiredStatus } from './checkRetiredStatus'
 export { default as columns } from './columns'
-export { default as fetchRows } from './fetchRows'
+export { default as fetchStatuses } from './fetchStatuses'
 export { default as fetchSubjects } from './fetchSubjects'
 export { default as searchParams } from './searchParams'
