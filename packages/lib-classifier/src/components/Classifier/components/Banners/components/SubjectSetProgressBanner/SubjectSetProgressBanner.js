@@ -10,8 +10,8 @@ counterpart.registerTranslations('en', en)
 
 function SubjectSetProgressBanner({
   checkForProgress = () => { return false },
-  onNext = () => {},
-  onPrevious = () => {},
+  onNext,
+  onPrevious,
   subject,
   workflow
 }) {
