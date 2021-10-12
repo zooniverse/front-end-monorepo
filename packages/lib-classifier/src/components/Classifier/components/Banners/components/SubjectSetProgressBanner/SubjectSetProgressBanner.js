@@ -33,7 +33,7 @@ function SubjectSetProgressBanner({
 
   const bannerText = statusText ? `${progressText} (${statusText})` : progressText
 
-  const tryToGoNext = onNext && () => {
+  const tryToGoNext = () => {
     // If the user has an annotation in progress, ask for confirmation first.
     if (checkForProgress()) {
       setShowModal(true)
@@ -45,7 +45,7 @@ function SubjectSetProgressBanner({
     onNext()
   }
 
-  const tryToGoPrevious = onPrevious && () => {
+  const tryToGoPrevious = () => {
     // If the user has an annotation in progress, ask for confirmation first.
     if (checkForProgress()) {
       setShowModal(true)
@@ -76,8 +76,8 @@ function SubjectSetProgressBanner({
         background={background}
         bannerText={bannerText}
         color={color}
-        onNext={tryToGoNext}
-        onPrevious={tryToGoPrevious}
+        onNext={(onNext) ? tryToGoNext : undefined}
+        onPrevious={(onPrevious) ? tryToGoPrevious : undefined}
         show
         tooltipText={tooltipText}
       />
