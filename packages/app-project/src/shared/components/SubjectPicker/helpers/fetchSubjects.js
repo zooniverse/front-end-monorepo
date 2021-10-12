@@ -12,6 +12,14 @@ export default async function fetchSubjects(
   const url = `${API_HOST}/${subjectSetID}.json?${query}&${sortOrderParam}=${sortField}`
   const mode = 'cors'
   const response = await fetch(url, { mode })
-  const data = await response.json()
-  return data
+  const { columns, rows } = await response.json()
+  const subjects = rows.map(row => {
+    const subject = {}
+    columns.forEach((column, index) => {
+      subject[column] = row[index]
+    })
+    subject.status = 'loading'
+    return subject
+  })
+  return subjects
 }

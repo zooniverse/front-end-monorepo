@@ -1,13 +1,23 @@
 import counterpart from 'counterpart'
 import { bool, func, shape, string } from 'prop-types'
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 
 import en from './locales/en'
 import Banner from '../Banner'
+import ConfirmModal from './components/ConfirmModal'
 
 counterpart.registerTranslations('en', en)
 
-function SubjectSetProgressBanner({ onNext, onPrevious, subject, workflow }) {
+function SubjectSetProgressBanner({
+  checkForProgress = () => { return false },
+  onNext,
+  onPrevious,
+  subject,
+  workflow
+}) {
+  const [ showModal, setShowModal ] = useState(false)
+  const [ intent, setIntent ] = useState(undefined)
+
   const setName = workflow?.subjectSet?.display_name || ''
   const subjectTotal = workflow?.subjectSet.set_member_subjects_count
   const background = (subject?.alreadySeen || subject?.retired) ? 'status-critical' : 'status-ok'
@@ -23,20 +33,65 @@ function SubjectSetProgressBanner({ onNext, onPrevious, subject, workflow }) {
 
   const bannerText = statusText ? `${progressText} (${statusText})` : progressText
 
+  const tryToGoNext = () => {
+    // If the user has an annotation in progress, ask for confirmation first.
+    if (checkForProgress()) {
+      setShowModal(true)
+      setIntent(() => onNext)  // This is how you set a function with useState
+      return
+    }
+
+    // Otherwise, go ahead and navigate to the new Subject.
+    onNext()
+  }
+
+  const tryToGoPrevious = () => {
+    // If the user has an annotation in progress, ask for confirmation first.
+    if (checkForProgress()) {
+      setShowModal(true)
+      setIntent(() => onPrevious)
+      return
+    }
+
+    // Otherwise, go ahead and navigate to the new Subject.
+    onPrevious()
+  }
+
+  // If user says no on the Confirm Modal, simply close the modal.
+  const onCancel = () => {
+    setShowModal(false)
+    setIntent(undefined)
+  }
+
+  // If user says yes on the Confirm Modal, close the modal and proceed.
+  const onConfirm = () => {
+    intent && intent()
+    setShowModal(false)
+    setIntent(undefined)
+  }
+
   return (
-    <Banner
-      background={background}
-      bannerText={bannerText}
-      color={color}
-      onNext={onNext}
-      onPrevious={onPrevious}
-      show
-      tooltipText={tooltipText}
-    />
+    <>
+      <Banner
+        background={background}
+        bannerText={bannerText}
+        color={color}
+        onNext={(onNext) ? tryToGoNext : undefined}
+        onPrevious={(onPrevious) ? tryToGoPrevious : undefined}
+        show
+        tooltipText={tooltipText}
+      />
+      <ConfirmModal
+        active={showModal}
+        onCancel={onCancel}
+        onConfirm={onConfirm}
+      />
+    </>
   )
 }
 
 SubjectSetProgressBanner.propTypes = {
+  checkForProgress: func,
   onNext: func,
   onPrevious: func,
   subject: shape({
