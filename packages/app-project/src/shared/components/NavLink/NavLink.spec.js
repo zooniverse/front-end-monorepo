@@ -29,10 +29,6 @@ describe('Component > NavLink', function () {
     text: 'Foobar'
   }
 
-  const PFE_LINK = {
-    href: '/projects/foo/bar/about/research',
-    text: 'Foobar'
-  }
   describe('default behaviour', function () {
     let wrapper
 
@@ -82,31 +78,6 @@ describe('Component > NavLink', function () {
     })
 
     it('should not have a link', function () {
-      const link = wrapper.find(Link)
-      expect(link).to.be.empty()
-    })
-  })
-
-  describe('production PFE links', function () {
-    let wrapper
-    let panoptesEnv
-
-    before(function () {
-      panoptesEnv = process.env.PANOPTES_ENV
-      process.env.PANOPTES_ENV = 'production'
-      wrapper = shallow(<NavLink router={ROUTER_ON_OTHER_PAGE} link={PFE_LINK} />)
-    })
-
-    after(function () {
-      process.env.PANOPTES_ENV = panoptesEnv
-    })
-
-    it('should use a link anchor', function () {
-      const link = wrapper.find(Anchor)
-      expect(link.prop('href')).to.equal(`https://www.zooniverse.org${PFE_LINK.href}`)
-    })
-
-    it('should not use client-side links', function () {
       const link = wrapper.find(Link)
       expect(link).to.be.empty()
     })
