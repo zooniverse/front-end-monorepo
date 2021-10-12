@@ -34,7 +34,7 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
     return undoManager.canUndo
   },
   /** Checks if the user has started making any annotations. Returns boolean */
-  checkForProgress() {
+  get checkForProgress() {
     let progressFlag = false
     self.annotations.forEach(annotation => {
       progressFlag ||= annotation._inProgress
