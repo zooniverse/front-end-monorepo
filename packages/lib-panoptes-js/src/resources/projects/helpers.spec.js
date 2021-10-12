@@ -9,7 +9,7 @@ const validUrls = [
 
 const invalidUrls = [
   '/foobar/foo/bar',
-  '//projects/foo/bar'
+  '/subjects/foo/bar'
 ]
 
 describe('Projects Helpers', function () {
