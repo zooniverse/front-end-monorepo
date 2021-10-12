@@ -278,7 +278,7 @@ const SubjectStore = types
     function * populateQueue (subjectIDs) {
       const root = getRoot(self)
       const workflow = tryReference(() => root.workflows.active)
-      
+
       if (workflow) {
         try {
           const strategy = yield subjectSelectionStrategy(workflow, subjectIDs, self.last?.priority)
@@ -295,7 +295,7 @@ const SubjectStore = types
         } catch (error) {
           console.error(error)
           self.loadingState = asyncStates.error
-        } 
+        }
       }
     }
     /** Insert new subjects into the queue but maintain priority ordering */
