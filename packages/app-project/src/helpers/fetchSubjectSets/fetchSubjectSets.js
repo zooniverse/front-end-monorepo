@@ -70,5 +70,5 @@ async function hasIndexedSubjects(subjectSet) {
 export default async function fetchSubjectSets(workflow, env) {
   const subjectSetIDs = workflow.links.subject_sets
   const subjectSets = await workflowSubjectSets(subjectSetIDs, env)
-  return subjectSets.filter(subjectSet => subjectSet.completeness[workflow.id] < 1)
+  return subjectSets
 }

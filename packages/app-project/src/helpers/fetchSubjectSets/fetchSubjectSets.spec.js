@@ -89,6 +89,7 @@ describe('Helpers > fetchSubjectSets', function () {
     it('should return incomplete subject sets', function () {
       expect(result).to.deep.equal([
         subjectSet('1'),
+        subjectSet('2'),
         subjectSet('3')
       ])
     })
