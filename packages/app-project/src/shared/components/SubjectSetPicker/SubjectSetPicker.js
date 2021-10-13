@@ -76,6 +76,8 @@ function SubjectSetPicker ({
         >
         {workflow?.subjectSets.map(subjectSet => {
           const href = `${baseUrl}/workflow/${workflow.id}/subject-set/${subjectSet.id}`
+          const panoptesCompleteness = subjectSet.completeness[workflow.id]
+          subjectSet.completeness = panoptesCompleteness
           return (
             <Link
               key={subjectSet.id}
@@ -83,7 +85,7 @@ function SubjectSetPicker ({
               passHref
             >
               <Anchor>
-                <SubjectSetCard {...subjectSet} />
+                <SubjectSetCard {...subjectSet } />
               </Anchor>
             </Link>
           )

@@ -146,6 +146,9 @@ describe('Helpers > getDefaultPageProps', function () {
             grouped: false,
             id: '1',
             displayName: 'Foo',
+            links: {
+              subject_sets: ['1', '2', '3']
+            },
             subjectSets: []
           }
         ])
@@ -251,6 +254,9 @@ describe('Helpers > getDefaultPageProps', function () {
             grouped: false,
             id: '1',
             displayName: 'Foo',
+            links: {
+              subject_sets: ['1', '2', '3']
+            },
             subjectSets: []
           }
         ])
