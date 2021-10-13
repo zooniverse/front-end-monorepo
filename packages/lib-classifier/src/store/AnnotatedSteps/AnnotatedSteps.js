@@ -33,6 +33,14 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   get canUndo() {
     return undoManager.canUndo
   },
+  /** Checks if the user has started making any annotations. Returns boolean */
+  get checkForProgress() {
+    let progressFlag = false
+    self.annotations.forEach(annotation => {
+      progressFlag ||= annotation._inProgress
+    })
+    return progressFlag
+  },
   get hasNextStep() {
     const { nextStepKey } = self.latest
     return !!nextStepKey && nextStepKey !== 'summary'
@@ -133,21 +141,11 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
     })
   }
 
-  /** Checks if the user has started making any annotations. Returns boolean */
-  function checkForProgress() {
-    let progressFlag = false
-    self.annotations.forEach(annotation => {
-      progressFlag ||= annotation._inProgress
-    })
-    return progressFlag
-  }
-
   return {
     back,
     finish,
     next,
-    start,
-    checkForProgress
+    start
   }
 })
 

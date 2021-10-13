@@ -13,7 +13,34 @@ describe('Model > AnnotatedSteps', function () {
     expect(store.annotatedSteps).to.be.an('object')
   })
 
+  describe('check for progress', function () {
+    before(function () {
+      store = mockStore()
+    })
+
+    it('should be false', function () {
+      expect(store.annotatedSteps.checkForProgress).to.be.false()
+    })
+
+    it('should be true after updating an annotation', function () {
+      const { annotations } = store.annotatedSteps.latest
+      const [ annotation ] = annotations
+      annotation.update(0)
+      expect(store.annotatedSteps.checkForProgress).to.be.true()
+    })
+
+    it('should reset on starting a new subject', function () {
+      expect(store.annotatedSteps.checkForProgress).to.be.true()
+      store.subjects.advance()
+      expect(store.annotatedSteps.checkForProgress).to.be.false()
+    })
+  })
+
   describe('when the workflow starts', function () {
+    before(function () {
+      store = mockStore()
+    })
+
     it('should have one step', function () {
       expect(store.annotatedSteps.steps.size).to.equal(1)
     })

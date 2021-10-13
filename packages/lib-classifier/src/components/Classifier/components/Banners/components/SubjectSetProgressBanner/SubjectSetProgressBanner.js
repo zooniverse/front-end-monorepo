@@ -9,7 +9,7 @@ import ConfirmModal from './components/ConfirmModal'
 counterpart.registerTranslations('en', en)
 
 function SubjectSetProgressBanner({
-  checkForProgress = () => { return false },
+  checkForProgress = false,
   onNext,
   onPrevious,
   subject,
@@ -35,7 +35,7 @@ function SubjectSetProgressBanner({
 
   const tryToGoNext = () => {
     // If the user has an annotation in progress, ask for confirmation first.
-    if (checkForProgress()) {
+    if (checkForProgress) {
       setShowModal(true)
       setIntent(() => onNext)  // This is how you set a function with useState
       return
@@ -47,7 +47,7 @@ function SubjectSetProgressBanner({
 
   const tryToGoPrevious = () => {
     // If the user has an annotation in progress, ask for confirmation first.
-    if (checkForProgress()) {
+    if (checkForProgress) {
       setShowModal(true)
       setIntent(() => onPrevious)
       return
@@ -91,7 +91,7 @@ function SubjectSetProgressBanner({
 }
 
 SubjectSetProgressBanner.propTypes = {
-  checkForProgress: func,
+  checkForProgress: bool,
   onNext: func,
   onPrevious: func,
   subject: shape({
