@@ -1,12 +1,10 @@
 import { shallow } from 'enzyme'
-import sinon from 'sinon'
-import * as React from 'react'
 import WorkflowAssignmentModalConnector from './WorkflowAssignmentModalConnector'
 import asyncStates from '@zooniverse/async-states'
 import { expect } from 'chai'
 
 describe('Component > WorkflowAssignmentModalConnector', function () {
-  let stubbedContext, wrapper, mockStore
+  let wrapper, mockStore
   before(function () {
     mockStore = {
       store: {
@@ -24,14 +22,12 @@ describe('Component > WorkflowAssignmentModalConnector', function () {
         }
       }
     }
-    stubbedContext = sinon.stub(React, 'useContext').callsFake(() => mockStore)
-    wrapper = shallow(<WorkflowAssignmentModalConnector currentWorkflowID='555' className='test' />)
+    wrapper = shallow(<WorkflowAssignmentModalConnector currentWorkflowID='555' className='test' store={mockStore.store} />)
   })
 
   after(function () {
     mockStore = null
     wrapper = null
-    stubbedContext.restore()
   })
 
   it('should render without crashing', function () {

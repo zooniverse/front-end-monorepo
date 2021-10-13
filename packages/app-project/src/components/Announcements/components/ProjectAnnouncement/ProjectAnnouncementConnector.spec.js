@@ -1,7 +1,5 @@
 import { shallow } from 'enzyme'
-import * as React from 'react'
 import sinon from 'sinon'
-
 import { ProjectAnnouncementConnector } from './ProjectAnnouncementConnector'
 import GenericAnnouncement from '../GenericAnnouncement'
 
@@ -10,7 +8,6 @@ import GenericAnnouncement from '../GenericAnnouncement'
 describe('Component > ProjectAnnouncementConnector', function () {
   let wrapper
   let componentWrapper
-  let useContextMock
   const announcement = 'Arcu scelerisque curae eu sapien euismod nisl, viverra gravida donec interdum tempor vulputate nec, nam morbi rhoncus porta sollicitudin.'
 
   const mockStore = {
@@ -28,13 +25,8 @@ describe('Component > ProjectAnnouncementConnector', function () {
   }
 
   before(function () {
-    useContextMock = sinon.stub(React, 'useContext').callsFake(() => mockStore)
-    wrapper = shallow(<ProjectAnnouncementConnector />)
+    wrapper = shallow(<ProjectAnnouncementConnector store={mockStore.store} />)
     componentWrapper = wrapper.find(GenericAnnouncement)
-  })
-
-  after(function () {
-    useContextMock.restore()
   })
 
   it('should render without crashing', function () {
@@ -45,7 +37,7 @@ describe('Component > ProjectAnnouncementConnector', function () {
     expect(wrapper.html()).to.be.null()
     expect(componentWrapper).to.have.lengthOf(0)
     mockStore.store.ui.showAnnouncement = true
-    wrapper = shallow(<ProjectAnnouncementConnector />)
+    wrapper = shallow(<ProjectAnnouncementConnector store={mockStore.store} />)
     componentWrapper = wrapper.find(GenericAnnouncement)
     expect(componentWrapper).to.have.lengthOf(1)
   })
