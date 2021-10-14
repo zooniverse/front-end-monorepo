@@ -79,7 +79,7 @@ function FieldGuideItem (props) {
         <Box direction='column' overflow='auto'>
           <FieldGuideItemIcon
             icon={icon}
-            height='140'
+            height='140px'
             margin={{ top: 'small', bottom: '35px' }}
             viewBox='0 0 200 100'
           />
