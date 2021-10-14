@@ -30,7 +30,7 @@ describe('Component > SubjectSetCard', function () {
     expect(displayName.text()).to.equal(subjectSet.display_name)
   })
 
-  it('shouldshow the number of subjects in the set', function () {
+  it('should show the number of subjects in the set', function () {
     const para = wrapper.find(Paragraph)
     const subjectsCount = para.find(Text).children().first()
     expect(subjectsCount.text()).to.equal(`${subjectSet.set_member_subjects_count} subjects`)
