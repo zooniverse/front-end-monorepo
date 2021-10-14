@@ -35,7 +35,7 @@ function Publication (props) {
         {!avatarSrc && Placeholder}
         {avatarSrc && (
           <Media
-            height='50'
+            height={50}
             src={avatarSrc}
             placeholder={Placeholder}
           />
