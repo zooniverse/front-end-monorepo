@@ -70,6 +70,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         grouped: false,
         id: '1',
         displayName: 'Foo',
+        links: {
+          subject_sets: ['1', '2', '3']
+        },
         subjectSets: []
       }
     ])
@@ -99,6 +102,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         grouped: false,
         id: '1',
         displayName: 'Foo',
+        links: {
+          subject_sets: ['1', '2', '3']
+        },
         subjectSets: []
       },
       {
@@ -110,6 +116,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         grouped: true,
         id: '2',
         displayName: 'Bar',
+        links: {
+          subject_sets: ['1', '2', '3']
+        },
         subjectSets: []
       }
     ])
@@ -140,6 +149,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           grouped: false,
           id: '1',
           displayName: 'Foo',
+          links: {
+            subject_sets: ['1', '2', '3']
+          },
           subjectSets: []
         },
         {
@@ -151,6 +163,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           grouped: true,
           id: '2',
           displayName: 'Bar',
+          links: {
+            subject_sets: ['1', '2', '3']
+          },
           subjectSets: []
         }
       ])
@@ -226,6 +241,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           grouped: true,
           id: '2',
           displayName: 'Bar',
+          links: {
+            subject_sets: ['1', '2', '3']
+          },
           subjectSets: []
         },
         {
@@ -237,6 +255,9 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           grouped: false,
           id: '1',
           displayName: 'Foo',
+          links: {
+            subject_sets: ['1', '2', '3']
+          },
           subjectSets: []
         }
       ])
