@@ -34,7 +34,7 @@ function SubjectThumbnail ({ height, href, width, subject }) {
         elevation='small'
         fill
         maxHeight={height}
-        justify='center'
+        justify='top'
         pad='none'
         maxWidth={width}
       >
