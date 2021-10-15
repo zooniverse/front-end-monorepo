@@ -23,7 +23,9 @@ describe('Components > Task', function () {
       // keys that aren't defined on certain task models are ignored
       // but missing keys that aren't an optional or maybe type will throw an error
       const taskSnapshot = {
+        answers: [],
         instruction: `${taskType} instructions`,
+        options: [ '1', '2', '3', '4'],
         question: `${taskType} question`,
         taskKey: 'init',
         type: taskType

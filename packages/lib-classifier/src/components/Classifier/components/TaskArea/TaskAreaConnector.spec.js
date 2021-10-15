@@ -45,6 +45,7 @@ describe('TaskAreaConnector', function () {
 
     before(function () {
       const store = mockStore()
+      store.subjectViewer.onSubjectReady()
     
       render(
         <TaskAreaConnector />,
