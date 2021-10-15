@@ -42,6 +42,21 @@ function SubjectSetPicker ({
 
   const columns = Math.floor(window.innerWidth / 240)
 
+  const sortedSubjectSets = (workflow?.subjectSets)
+    ? [...workflow?.subjectSets]
+    : []
+
+  // Sort the Subject Sets so completed sets appear at the end.
+  sortedSubjectSets.sort((a, b) => {
+    const aCompleteness = a.completeness[workflow.id] || 0
+    const bCompleteness = b.completeness[workflow.id] || 0
+    const aIsComplete = aCompleteness >= 1
+    const bIsComplete = bCompleteness >= 1
+    return (aIsComplete === bIsComplete)
+      ? 0  // We don't change the order if both sets are complete, or both sets are incomplete.
+      : aCompleteness - bCompleteness
+  })
+
   return (
     <>
       <Link
@@ -74,10 +89,9 @@ function SubjectSetPicker ({
           gap='small'
           pad='medium'
         >
-        {workflow?.subjectSets.map(subjectSet => {
+        {sortedSubjectSets.map(subjectSet => {
           const href = `${baseUrl}/workflow/${workflow.id}/subject-set/${subjectSet.id}`
           const panoptesCompleteness = subjectSet.completeness[workflow.id]
-          subjectSet.completeness = panoptesCompleteness
           return (
             <Link
               key={subjectSet.id}
@@ -85,7 +99,10 @@ function SubjectSetPicker ({
               passHref
             >
               <Anchor>
-                <SubjectSetCard {...subjectSet } />
+                <SubjectSetCard
+                  {...subjectSet }
+                  completeness={panoptesCompleteness}  /* This will override subjectSet.completeness */
+                />
               </Anchor>
             </Link>
           )
