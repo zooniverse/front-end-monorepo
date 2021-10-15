@@ -57,11 +57,11 @@ function SubjectSetCard ({
         pad='small'
       >
         {(isComplete) && (
-          <Text
+          <SpacedText
             weight="normal"
           >
             {counterpart('SubjectSetCard.isComplete')}
-          </Text>
+          </SpacedText>
         )}
 
         <SpacedText
