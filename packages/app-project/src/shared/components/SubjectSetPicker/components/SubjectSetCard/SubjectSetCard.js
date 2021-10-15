@@ -56,6 +56,14 @@ function SubjectSetCard ({
         isComplete={isComplete}
         pad='small'
       >
+        {(isComplete) && (
+          <Text
+            weight="normal"
+          >
+            {counterpart('SubjectSetCard.isComplete')}
+          </Text>
+        )}
+
         <SpacedText
           truncate
           weight="bold"
@@ -74,15 +82,16 @@ function SubjectSetCard ({
           >
             {`${set_member_subjects_count} subjects`}
           </Text>
-            <br/>
-          <Text
-            weight="normal"
-          >
-            {(isComplete)
-              ? counterpart('SubjectSetCard.isComplete')
-              : `${percentComplete}% complete`
-            }
-          </Text>
+
+          <br/>
+
+          {(!isComplete) && (
+            <Text
+              weight="normal"
+            >
+              {percentComplete}% complete
+            </Text>
+          )}
         </Paragraph>
       </PossiblyTransparentBox>
     </Box>
