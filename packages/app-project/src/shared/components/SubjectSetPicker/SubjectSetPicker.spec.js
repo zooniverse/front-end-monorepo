@@ -62,9 +62,30 @@ describe('Component > SubjectSetPicker', function () {
     })
   })
 
-  it('should render subject set cards', function () {
-    const cards = wrapper.find(SubjectSetCard)
-    expect(cards.length).to.equal(mockWorkflow.subjectSets.length)
+  describe('subject set cards', function () {
+
+    it('should render the correct amount', function () {
+      const cards = wrapper.find(SubjectSetCard)
+      expect(cards.length).to.equal(mockWorkflow.subjectSets.length)
+    })
+
+    it('should render completed Subject Sets after incomplete Subject Sets', function () {
+      const cards = wrapper.find(SubjectSetCard)
+
+      // Assuming un-sorted array is: [
+      //   { 'Ultraman Series', completeness: 1 },
+      //   { 'Transformers Series', completeness: 0 },
+      //   { 'Overwatch Series', completeness: 0.67 },
+      // ]
+      expect(cards.at(0).props().display_name).to.equal('Transformers Series')
+      expect(cards.at(0).props().completeness).to.equal(0)
+
+      expect(cards.at(1).props().display_name).to.equal('Overwatch Series')
+      expect(cards.at(1).props().completeness).to.equal(0.67)
+
+      expect(cards.at(2).props().display_name).to.equal('Ultraman Series')
+      expect(cards.at(2).props().completeness).to.equal(1)
+    })
   })
 
   describe('Back link', function () {
