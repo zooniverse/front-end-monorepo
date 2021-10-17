@@ -1,4 +1,3 @@
-import { withKnobs } from '@storybook/addon-knobs'
 import React, { Component } from 'react'
 import { Provider } from 'mobx-react'
 import { Box, Grommet } from 'grommet'
@@ -140,7 +139,6 @@ class DrawingStory extends Component {
 export default {
   title: 'Drawing tools / Point',
   component: Point,
-  decorators: [withKnobs],
   parameters: {
     viewport: {
       defaultViewport: 'responsive'

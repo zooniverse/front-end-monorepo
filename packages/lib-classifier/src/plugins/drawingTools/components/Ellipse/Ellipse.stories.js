@@ -1,4 +1,3 @@
-import { withKnobs } from '@storybook/addon-knobs'
 import zooTheme from '@zooniverse/grommet-theme'
 import React, { Component } from 'react'
 import { Box, Grommet } from 'grommet'
@@ -141,7 +140,6 @@ class DrawingStory extends Component {
 export default {
   title: 'Drawing tools / Ellipse',
   component: Ellipse,
-  decorators: [withKnobs],
   parameters: {
     viewport: {
       defaultViewport: 'responsive'
