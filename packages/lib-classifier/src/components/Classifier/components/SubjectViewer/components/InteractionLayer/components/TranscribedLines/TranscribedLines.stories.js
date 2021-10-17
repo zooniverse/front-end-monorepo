@@ -1,5 +1,3 @@
-import { storiesOf } from '@storybook/react'
-import { withKnobs, text, select } from "@storybook/addon-knobs"
 import { GraphQLClient } from 'graphql-request'
 import { Provider } from 'mobx-react'
 import React from 'react'
@@ -14,11 +12,7 @@ import { reducedASMSubject } from '@store/TranscriptionReductions/mocks'
 import MultiFrameViewer from '@viewers/components/MultiFrameViewer'
 import TooltipIcon from './components/TooltipIcon'
 
-const config = {
-  notes: {
-    markdown: readme
-  }
-}
+import TranscribedLines from './TranscribedLines'
 
 const query = '{ workflow(id: 5339) { subject_reductions(subjectId: 13967054, reducerKey:"ext") { data } } }'
 const subjectSnapshot = SubjectFactory.build({
@@ -71,50 +65,43 @@ sinon.stub(client.caesar, 'request').callsFake(() => Promise.resolve(reducedASMS
 const rootStore = mockStore({ client, subject: subjectSnapshot, workflow: workflowSnapshot})
 
 
-class TranscribedLinesStory extends React.Component {
-  constructor() {
-    super()
+function TranscribedLinesStory() {
+  return (
+    <Provider classifierStore={rootStore}>
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={zooTheme}
+        themeMode='light'
+      >
+        <Box width='1000px'>
+          <MultiFrameViewer loadingState={asyncStates.success} subject={subjectSnapshot} />
+        </Box>
+      </Grommet>
+    </Provider>
+  )
+}
 
-    this.state = {
-      loadingState: asyncStates.initialized
+export default {
+  title: 'Drawing Tools / TranscribedLines',
+  component: TranscribedLines,
+  parameters: {
+    docs: {
+      description: {
+        component: readme
+      }
     }
-  }
-
-  componentDidMount() {
-    // what needs this time to make the svg ref to be defined?
-    // 100ms isn't enough time 1000ms is
-    setTimeout(() => this.setState({ loadingState: asyncStates.success }), 1000)
-  }
-
-  render() {
-    return (
-      <Provider classifierStore={rootStore}>
-        <Grommet
-          background={{
-            dark: 'dark-1',
-            light: 'light-1'
-          }}
-          theme={zooTheme}
-          themeMode='light'
-        >
-          <Box width='1000px'>
-            <MultiFrameViewer loadingState={this.state.loadingState} subject={subjectSnapshot} />
-          </Box>
-        </Grommet>
-      </Provider>
-    )
   }
 }
 
-const stories = storiesOf('Drawing Tools / TranscribedLines', module)
+export function Default() {
+  return <TranscribedLinesStory />
+}
 
-stories.addDecorator(withKnobs)
-
-stories
-  .add('default', () => (
-    <TranscribedLinesStory />
-  ), config)
-  .add('Tooltip Icon', () => (
+export function TooltipIconStory({ fill = 'drawing-pink' }) {
+  return (
     <Grommet
       background={{
         dark: 'dark-1',
@@ -123,6 +110,20 @@ stories
       theme={zooTheme}
       themeMode='light'
     >
-      <TooltipIcon fill={select('Fill color', ['drawing-pink', 'light-5'], 'drawing-pink')} />
+      <TooltipIcon fill={fill} />
     </Grommet>
-  ), config)
+  )
+}
+
+TooltipIconStory.args = {
+  fill: 'drawing-pink'
+}
+
+TooltipIconStory.argTypes = {
+  fill: {
+    control: {
+      type: 'select',
+    },
+    options: ['drawing-pink', 'light-5']
+  }
+}
