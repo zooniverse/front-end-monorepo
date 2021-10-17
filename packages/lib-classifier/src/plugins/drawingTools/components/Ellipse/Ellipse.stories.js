@@ -51,17 +51,15 @@ const subTasksSnapshot = [
 
 // should think of a better way to do create bounds for the story
 // this is a rough approximation of what the positioning is like now
-const nodeMock = {
-  getBoundingClientRect: () => ({
-    x: 200,
-    y: 200,
-    width: 0,
-    height: 0,
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0
-  })
+const mockBounds = {
+  x: 200,
+  y: 200,
+  width: 0,
+  height: 0,
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0
 }
 
 function setupStores() {
@@ -91,7 +89,7 @@ function updateStores({ activeMark, finished, subtask }) {
     drawingTask.setActiveMark(mark.id)
     mark.finish && mark.finish()
   }
-  mark.setSubTaskVisibility(subtask, nodeMock)
+  mark.setSubTaskVisibility(subtask, mockBounds)
   if (activeMark) {
     drawingTask.setActiveMark(mark.id)
   } else {
