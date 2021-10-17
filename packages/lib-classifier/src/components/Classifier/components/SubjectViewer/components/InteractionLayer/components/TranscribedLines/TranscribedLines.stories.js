@@ -72,7 +72,7 @@ const rootStore = RootStore.create({}, { client })
 rootStore.workflows.setResources([workflowSnapshot])
 rootStore.workflows.setActive(workflowSnapshot.id)
 rootStore.subjects.setResources([subjectSnapshot])
-rootStore.subjects.setActive(subjectSnapshot.id)
+rootStore.subjects.advance()
 
 class TranscribedLinesStory extends React.Component {
   constructor() {

@@ -6,8 +6,7 @@ import { Provider } from 'mobx-react'
 import asyncStates from '@zooniverse/async-states'
 import cuid from 'cuid'
 import SingleImageViewer from '@viewers/components/SingleImageViewer'
-import ClassificationStore from '@store/ClassificationStore'
-import SubjectViewerStore from '@store/SubjectViewerStore'
+import mockStore from '@test/mockStore'
 import DrawingTask from '@plugins/tasks/DrawingTask/models/DrawingTask'
 import {
   DrawingTaskFactory,
@@ -22,7 +21,6 @@ const subject = SubjectFactory.build({
 })
 
 const project = ProjectFactory.build()
-const workflow = WorkflowFactory.build()
 const drawingTaskSnapshot = DrawingTaskFactory.build({
   instruction: 'Draw a rectangle',
   taskKey: 'T1',
@@ -75,32 +73,17 @@ const nodeMock = {
 function setupStores() {
   drawingTaskSnapshot.tools[0].details = subTasksSnapshot
 
-  const drawingTask = DrawingTask.create(drawingTaskSnapshot)
+  const workflow = WorkflowFactory.build({
+    tasks: {
+      T1: drawingTaskSnapshot
+    }
+  })
+  const mockStores = mockStore({ workflow })
+  const [drawingTask] = mockStores.workflowSteps.active.tasks
   drawingTask.setActiveTool(0)
   const rectangle = drawingTask.activeTool.createMark()
   rectangle.initialPosition({ x: 100, y: 100 })
   rectangle.initialDrag({ x: 150, y: 150 })
-
-  const mockStores = {
-    classifications: ClassificationStore.create(),
-    subjects: {
-      active: subject
-    },
-    subjectViewer: SubjectViewerStore.create(),
-    workflows: {
-      active: { id: cuid() }
-    },
-    workflowSteps: {
-      activeInteractionTask: {},
-      activeStepTasks: [drawingTask],
-      findTasksByType: () => {
-        return []
-      },
-      interactionTask: {}
-    }
-  }
-
-  mockStores.classifications.createClassification(subject, workflow, project)
 
   return mockStores
 }
