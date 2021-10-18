@@ -44,6 +44,7 @@ async function buildWorkflow(workflow, displayName, isDefault, env) {
     displayName,
     grouped: workflow.grouped,
     id: workflow.id,
+    links: workflow.links,
     subjectSets: []
   }
 

@@ -138,6 +138,9 @@ describe('Helpers > getStaticPageProps', function () {
             grouped: false,
             id: '1',
             displayName: 'Foo',
+            links: {
+              subject_sets: ['1', '2', '3']
+            },
             subjectSets: []
           }
         ])
@@ -221,6 +224,9 @@ describe('Helpers > getStaticPageProps', function () {
             grouped: false,
             id: '1',
             displayName: 'Foo',
+            links: {
+              subject_sets: ['1', '2', '3']
+            },
             subjectSets: []
           }
         ])
