@@ -1,39 +1,26 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import React, { Component } from 'react'
-import { Box, Grommet } from 'grommet'
-import { Provider } from 'mobx-react'
-import asyncStates from '@zooniverse/async-states'
+import React from 'react'
 import cuid from 'cuid'
-import SingleImageViewer from '@viewers/components/SingleImageViewer'
 import mockStore from '@test/mockStore'
 import DrawingTask from '@plugins/tasks/DrawingTask/models/DrawingTask'
-import { DrawingTaskFactory, ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
+import { DrawingStory, updateStores } from '@plugins/drawingTools/stories/helpers'
+import { DrawingTaskFactory, WorkflowFactory } from '@test/factories'
 import TranscriptionLine from './'
 
-const subject = SubjectFactory.build({
-  locations: [
-    { 'image/jpeg': 'http://placekitten.com/1000/600' }
-  ]
-})
-
-const project = ProjectFactory.build()
 const drawingTaskSnapshot = DrawingTaskFactory.build({
   instruction: 'Draw a line under the text',
   taskKey: 'T1',
   tools: [{
     color: zooTheme.global.colors['drawing-orange'],
-    type: 'transcriptionLine'
+    type: 'transcriptionLine',
+    details: [{
+      instruction: 'transcribe the text.',
+      taskKey: 'T0.0',
+      type: 'text'
+    }]
   }],
   type: 'drawing'
 })
-
-const subTasksSnapshot = [
-  {
-    instruction: 'transcribe the text.',
-    taskKey: 'T0.0',
-    type: 'text'
-  }
-]
 
 // should think of a better way to do create bounds for the story
 // this is a rough approximation of what the positioning is like now
@@ -49,8 +36,6 @@ const mockBounds = {
 }
 
 function setupStores() {
-  drawingTaskSnapshot.tools[0].details = subTasksSnapshot
-
   const workflow = WorkflowFactory.build({
     tasks: {
       T1: drawingTaskSnapshot
@@ -66,59 +51,6 @@ function setupStores() {
 
 const stores = setupStores()
 
-function updateStores({ activeMark, finished, subtask }) {
-  const [ drawingTask ] = stores.workflowSteps.activeStepTasks
-  const [ transcriptionLine ] = drawingTask.marks
-  if (finished) {
-    drawingTask.setActiveMark(transcriptionLine.id)
-    transcriptionLine.finish()
-  }
-  transcriptionLine.setSubTaskVisibility(subtask, mockBounds)
-  if (activeMark) {
-    drawingTask.setActiveMark(transcriptionLine.id)
-  } else {
-    drawingTask.setActiveMark(undefined)
-  }
-}
-
-class DrawingStory extends Component {
-  constructor() {
-    super()
-
-    this.state = {
-      loadingState: asyncStates.initialized
-    }
-  }
-
-  componentDidMount() {
-    // what needs this time to make the svg ref to be defined?
-    // 100ms isn't enough time 1000ms is
-    setTimeout(() => this.setState({ loadingState: asyncStates.success }), 1000)
-  }
-
-  render() {
-    return (
-      <Provider classifierStore={this.props.stores}>
-        <Grommet
-          background={{
-            dark: 'dark-1',
-            light: 'light-1'
-          }}
-          theme={zooTheme}
-          themeMode='light'
-        >
-          <Box height='medium' width='large'>
-            <SingleImageViewer
-              loadingState={this.state.loadingState}
-              subject={subject}
-            />
-          </Box>
-        </Grommet>
-      </Provider>
-    )
-  }
-}
-
 export default {
   title: 'Drawing tools / Transcription Line',
   component: TranscriptionLine,
@@ -130,7 +62,7 @@ export default {
 }
 
 export function Complete(args) {
-  updateStores(args)
+  updateStores(args, mockBounds, stores)
   return (
     <DrawingStory stores={stores} />
   )
@@ -142,7 +74,7 @@ Complete.args = {
 }
 
 export function Active(args) {
-  updateStores(args)
+  updateStores(args, mockBounds, stores)
   return (
     <DrawingStory stores={stores} />
   )
@@ -154,7 +86,7 @@ Active.args = {
 }
 
 export function Subtask(args) {
-  updateStores(args)
+  updateStores(args, mockBounds, stores)
   return (
     <DrawingStory stores={stores} />
   )
