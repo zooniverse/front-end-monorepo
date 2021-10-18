@@ -3,7 +3,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import cuid from 'cuid'
 import mockStore from '@test/mockStore'
 import DrawingTask from '@plugins/tasks/DrawingTask/models/DrawingTask'
-import { DrawingStory, subTasksSnapshot, updateStores } from '@plugins/drawingTools/stories/helpers'
+import { DrawingStory, subject, subTasksSnapshot, updateStores } from '@plugins/drawingTools/stories/helpers'
 import { DrawingTaskFactory, WorkflowFactory } from '@test/factories'
 import Line from './'
 
@@ -33,19 +33,24 @@ const mockBounds = {
 }
 
 function setupStores() {
-  const workflow = WorkflowFactory.build({
-    tasks: {
-      T1: drawingTaskSnapshot
-    }
-  })
-  const mockStores = mockStore({ workflow })
-  const [drawingTask] = mockStores.workflowSteps.active.tasks
-  drawingTask.setActiveTool(0)
-  const line = drawingTask.activeTool.createMark()
-  line.initialPosition({ x: 100, y: 100 })
-  line.initialDrag({ x: 200, y: 200 })
+  try {
+    const workflow = WorkflowFactory.build({
+      tasks: {
+        T1: drawingTaskSnapshot
+      }
+    })
+    const mockStores = mockStore({ subject, workflow })
+    const [drawingTask] = mockStores.workflowSteps.active.tasks
+    drawingTask.setActiveTool(0)
+    const line = drawingTask.activeTool.createMark()
+    line.initialPosition({ x: 100, y: 100 })
+    line.initialDrag({ x: 200, y: 200 })
 
-  return mockStores
+    return mockStores
+  } catch (error) {
+    console.error(error)
+    return null
+  }
 }
 
 const stores = setupStores()

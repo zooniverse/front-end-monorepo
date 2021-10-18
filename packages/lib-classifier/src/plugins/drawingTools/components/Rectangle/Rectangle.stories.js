@@ -3,7 +3,7 @@ import React from 'react'
 import cuid from 'cuid'
 import mockStore from '@test/mockStore'
 import DrawingTask from '@plugins/tasks/DrawingTask/models/DrawingTask'
-import { DrawingStory, subTasksSnapshot, updateStores } from '@plugins/drawingTools/stories/helpers'
+import { DrawingStory, subject, subTasksSnapshot, updateStores } from '@plugins/drawingTools/stories/helpers'
 import {
   DrawingTaskFactory,
   WorkflowFactory
@@ -38,19 +38,24 @@ const mockBounds = {
 }
 
 function setupStores() {
-  const workflow = WorkflowFactory.build({
-    tasks: {
-      T1: drawingTaskSnapshot
-    }
-  })
-  const mockStores = mockStore({ workflow })
-  const [drawingTask] = mockStores.workflowSteps.active.tasks
-  drawingTask.setActiveTool(0)
-  const rectangle = drawingTask.activeTool.createMark()
-  rectangle.initialPosition({ x: 100, y: 100 })
-  rectangle.initialDrag({ x: 150, y: 150 })
+  try {
+    const workflow = WorkflowFactory.build({
+      tasks: {
+        T1: drawingTaskSnapshot
+      }
+    })
+    const mockStores = mockStore({ subject, workflow })
+    const [drawingTask] = mockStores.workflowSteps.active.tasks
+    drawingTask.setActiveTool(0)
+    const rectangle = drawingTask.activeTool.createMark()
+    rectangle.initialPosition({ x: 100, y: 100 })
+    rectangle.initialDrag({ x: 150, y: 150 })
 
-  return mockStores
+    return mockStores
+  } catch (error) {
+    console.error(error)
+    return null
+  }
 }
 
 const stores = setupStores()

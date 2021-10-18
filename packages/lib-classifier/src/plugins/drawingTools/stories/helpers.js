@@ -9,7 +9,7 @@ import { SubjectFactory } from '@test/factories'
 
 export const subject = SubjectFactory.build({
   locations: [
-    { 'image/jpeg': 'http://placekitten.com/1000/600' }
+    { 'image/jpeg': 'https://panoptes-uploads-staging.zooniverse.org/subject_location/8bcb0fb1-c701-4b9a-aaa0-c414ed478a58.jpeg' }
   ]
 })
 
