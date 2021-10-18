@@ -80,6 +80,10 @@ const FreehandLineModel = types
 
     move() {
       return
+    },
+
+    appendPath({ x, y }) {
+      self.points.push({ x: x, y: y })
     }
   }))
 

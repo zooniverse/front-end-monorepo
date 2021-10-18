@@ -16,6 +16,10 @@ const GRAB_STROKE_WIDTH = 6
 function FreehandLine({ active, mark, onFinish, scale }) {
   const { path, initialPoint, lastPoint, finished } = mark
 
+  function onHandleDrag(coords) {
+    mark.appendPath(coords)
+  }
+
   return (
     <StyledGroup onPointerUp={active ? onFinish : undefined}>
       <path
@@ -44,6 +48,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
           x={lastPoint.x}
           y={lastPoint.y}
           fill='transparent'
+          dragMove={(e) => onHandleDrag(e)}
         />
       )}
     </StyledGroup>
