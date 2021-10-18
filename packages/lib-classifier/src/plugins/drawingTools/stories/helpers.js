@@ -50,40 +50,24 @@ export function updateStores({ activeMark, finished, subtask }, mockBounds, stor
   }
 }
 
-export class DrawingStory extends Component {
-  constructor() {
-    super()
-
-    this.state = {
-      loadingState: asyncStates.initialized
-    }
-  }
-
-  componentDidMount() {
-    // what needs this time to make the svg ref to be defined?
-    // 100ms isn't enough time 1000ms is
-    setTimeout(() => this.setState({ loadingState: asyncStates.success }), 1000)
-  }
-
-  render() {
-    return (
-      <Provider classifierStore={this.props.stores}>
-        <Grommet
-          background={{
-            dark: 'dark-1',
-            light: 'light-1'
-          }}
-          theme={zooTheme}
-          themeMode='light'
-        >
-          <Box height='medium' width='large'>
-            <SingleImageViewer
-              loadingState={this.state.loadingState}
-              subject={subject}
-            />
-          </Box>
-        </Grommet>
-      </Provider>
-    )
-  }
+export function DrawingStory({ stores }) {
+  return (
+    <Provider classifierStore={stores}>
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={zooTheme}
+        themeMode='light'
+      >
+        <Box height='medium' width='large'>
+          <SingleImageViewer
+            loadingState={asyncStates.success}
+            subject={subject}
+          />
+        </Box>
+      </Grommet>
+    </Provider>
+  )
 }
