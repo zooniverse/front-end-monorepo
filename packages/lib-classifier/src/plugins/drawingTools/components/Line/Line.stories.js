@@ -12,7 +12,7 @@ import Line from './'
 
 const subject = SubjectFactory.build({
   locations: [
-    { 'image/jpeg': 'http://placekitten.com/500/300' }
+    { 'image/jpeg': 'http://placekitten.com/1000/600' }
   ]
 })
 
@@ -51,8 +51,8 @@ const subTasksSnapshot = [
 // should think of a better way to do create bounds for the story
 // this is a rough approximation of what the positioning is like now
 const mockBounds = {
-  x: 250,
-  y: 250,
+  x: 125,
+  y: 125,
   width: 0,
   height: 0,
   top: 0,
