@@ -38,12 +38,12 @@ export const subTasksSnapshot = [
 export function updateStores({ activeMark, finished, subtask }, mockBounds, stores) {
   const [ drawingTask ] = stores.workflowSteps.activeStepTasks
   const [ mark ] = drawingTask.marks
-  if (finished) {
+  if (mark && finished) {
     drawingTask.setActiveMark(mark.id)
     mark.finish && mark.finish()
   }
-  mark.setSubTaskVisibility(subtask, mockBounds)
-  if (activeMark) {
+  mark?.setSubTaskVisibility(subtask, mockBounds)
+  if (mark && activeMark) {
     drawingTask.setActiveMark(mark.id)
   } else {
     drawingTask.setActiveMark(undefined)
