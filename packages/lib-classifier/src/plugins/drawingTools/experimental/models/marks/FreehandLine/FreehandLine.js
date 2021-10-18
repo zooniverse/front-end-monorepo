@@ -37,6 +37,22 @@ const FreehandLineModel = types
       return getParentOfType(self, FreehandLineTool)
     },
 
+    get initialPoint() {
+      const [firstCoord] = self.points
+      if (!firstCoord) {
+        return ''
+      }
+      return firstCoord
+    },
+
+    get lastPoint() {
+      const lastCoord = self.points.at(-1)
+      if (!lastCoord) {
+        return ''
+      }
+      return lastCoord
+    },
+
     get path() {
       const [firstCoord, ...otherCoords] = self.points
       if (!firstCoord) {

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import styled from 'styled-components'
+import DragHandle from '../../../components/DragHandle'
 
 const StyledGroup = styled('g')`
   &:hover {
@@ -13,7 +14,7 @@ const STROKE_WIDTH = 2
 const GRAB_STROKE_WIDTH = 6
 
 function FreehandLine({ active, mark, onFinish, scale }) {
-  const { path } = mark
+  const { path, initialPoint, lastPoint, finished } = mark
 
   return (
     <StyledGroup onPointerUp={active ? onFinish : undefined}>
@@ -34,6 +35,17 @@ function FreehandLine({ active, mark, onFinish, scale }) {
           strokeWidth: GRAB_STROKE_WIDTH / scale
         }}
       />
+      {active && (
+        <DragHandle scale={scale} x={initialPoint.x} y={initialPoint.y} />
+      )}
+      {active && finished && (
+        <DragHandle
+          scale={scale}
+          x={lastPoint.x}
+          y={lastPoint.y}
+          fill='transparent'
+        />
+      )}
     </StyledGroup>
   )
 }
