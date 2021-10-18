@@ -65,9 +65,9 @@ sinon.stub(client.caesar, 'request').callsFake(() => Promise.resolve(reducedASMS
 const rootStore = mockStore({ client, subject: subjectSnapshot, workflow: workflowSnapshot})
 
 
-function TranscribedLinesStory() {
+function TranscribedLinesStory({ loadingState, stores, subject }) {
   return (
-    <Provider classifierStore={rootStore}>
+    <Provider classifierStore={stores}>
       <Grommet
         background={{
           dark: 'dark-1',
@@ -77,7 +77,7 @@ function TranscribedLinesStory() {
         themeMode='light'
       >
         <Box width='1000px'>
-          <MultiFrameViewer loadingState={asyncStates.success} subject={subjectSnapshot} />
+          <MultiFrameViewer loadingState={loadingState} subject={subject} />
         </Box>
       </Grommet>
     </Provider>
@@ -96,8 +96,19 @@ export default {
   }
 }
 
-export function Default() {
-  return <TranscribedLinesStory />
+export function Default({ loadingState, stores = rootStore, subject }) {
+  return (
+    <TranscribedLinesStory
+      loadingState={loadingState}
+      stores={stores}
+      subject={subject}
+    />
+  )
+}
+Default.args = {
+  loadingState: rootStore.subjects.loadingState,
+  stores: rootStore,
+  subject: rootStore.subjects.active
 }
 
 export function TooltipIconStory({ fill = 'drawing-pink' }) {
