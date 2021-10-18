@@ -1,8 +1,7 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import React, { Component } from 'react'
+import React from 'react'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
-import asyncStates from '@zooniverse/async-states'
 
 import SingleImageViewer from '@viewers/components/SingleImageViewer'
 import { SubjectFactory } from '@test/factories'
@@ -63,8 +62,8 @@ export function DrawingStory({ stores }) {
       >
         <Box height='medium' width='large'>
           <SingleImageViewer
-            loadingState={asyncStates.success}
-            subject={subject}
+            loadingState={stores.subjects.loadingState}
+            subject={stores.subjects.active}
           />
         </Box>
       </Grommet>
