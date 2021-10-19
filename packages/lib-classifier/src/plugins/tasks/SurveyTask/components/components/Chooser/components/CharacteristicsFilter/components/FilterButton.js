@@ -33,7 +33,7 @@ export default function FilterButton (props) {
   const backgroundColor = checked ? 'accent-1' : 'neutral-6'
   const marginPerSize = buttonSize === 'small' ? 'none' : { bottom: 'xsmall' }
   const containerSize = buttonSize === 'small' ? '30px' : '40px'
-  const mediaSize = buttonSize === 'small' ? '18' : '25'
+  const mediaSize = buttonSize === 'small' ? '18px' : '25px'
 
   return (
     <StyledFilter
