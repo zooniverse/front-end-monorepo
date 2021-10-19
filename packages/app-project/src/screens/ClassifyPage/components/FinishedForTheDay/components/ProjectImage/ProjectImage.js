@@ -12,7 +12,6 @@ function ProjectImage ({ imageSrc, projectName, theme }) {
   return (
     <Media
       alt={alt}
-      height={200}
       src={imageSrc}
       placeholder={
         <ZooniverseLogo
