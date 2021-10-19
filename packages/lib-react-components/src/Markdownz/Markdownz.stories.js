@@ -1,12 +1,13 @@
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet, Box, TableRow } from 'grommet'
+import { Grid, Grommet, Box, TableRow } from 'grommet'
 import styled from 'styled-components'
 import React from 'react'
 
 import Markdownz from './Markdownz'
 import readme from './README.md'
 import markdownExample from '../../.storybook/lib/example.md'
+import markdownInGrid from './markdownGridExample.md'
 
 const TableRowWithBorder = styled(TableRow)`
   border-top: solid thin black;
@@ -60,5 +61,18 @@ storiesOf('Components/Markdownz', module)
           {markdownExample}
         </Markdownz>
       </Box>
+    </Grommet>
+  ), config)
+
+  .add('Grid example', () => (
+    <Grommet theme={zooTheme}>
+      <Grid columns={['small', 'flex']} gap='8%'>
+        <Box>Sidebar Here</Box>
+        <Box>
+          <Markdownz>
+            {markdownInGrid}
+          </Markdownz>
+        </Box>
+      </Grid>
     </Grommet>
   ), config)
