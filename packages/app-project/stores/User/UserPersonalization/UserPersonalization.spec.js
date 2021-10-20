@@ -121,7 +121,6 @@ describe('Stores > UserPersonalization', function () {
           }
         }
         rootStore = initStore(true, { project, user })
-        rootStore.user.personalization.setTotalClassificationCount(23)
         rootStore.user.personalization.increment()
       })
 

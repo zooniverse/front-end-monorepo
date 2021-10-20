@@ -60,7 +60,6 @@ const UserProjectPreferences = types
         const [preferences] = response.body.project_preferences
         if (preferences) {
           self.setResource(preferences)
-          user.personalization.setTotalClassificationCount(preferences.activity_count)
         }
         self.setLoadingState(asyncStates.success)
       } catch (error) {

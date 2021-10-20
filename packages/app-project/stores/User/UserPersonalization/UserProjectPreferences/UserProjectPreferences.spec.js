@@ -119,7 +119,6 @@ describe('Stores > UserProjectPreferences', function () {
 
       after(function () {
         rootStore.user.personalization.projectPreferences.reset()
-        rootStore.user.personalization.setTotalClassificationCount(0)
         nock.cleanAll()
         nockScope = null
       })
