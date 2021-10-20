@@ -1,6 +1,7 @@
+import asyncStates from '@zooniverse/async-states'
 import { addDisposer, getRoot, types } from 'mobx-state-tree'
 import { autorun } from 'mobx'
-import asyncStates from '@zooniverse/async-states'
+
 import UserProjectPreferences from './UserProjectPreferences'
 import YourStats from './YourStats'
 

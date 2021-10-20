@@ -1,7 +1,8 @@
 import { applySnapshot, flow, getRoot, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 import asyncStates from '@zooniverse/async-states'
-import numberString from './types/numberString'
+
+import numberString from '@stores/types/numberString'
 
 const Preferences = types
   .model('Preferences', {

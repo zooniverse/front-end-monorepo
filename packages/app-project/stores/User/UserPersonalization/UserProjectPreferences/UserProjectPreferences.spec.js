@@ -1,8 +1,9 @@
+import asyncStates from '@zooniverse/async-states'
 import sinon from 'sinon'
 import nock from 'nock'
-import initStore from './initStore'
-import asyncStates from '@zooniverse/async-states'
-import { statsClient } from './YourStats'
+
+import initStore from '@stores/initStore'
+import { statsClient } from '../YourStats'
 import UserProjectPreferences from './UserProjectPreferences'
 
 describe('Stores > UserProjectPreferences', function () {

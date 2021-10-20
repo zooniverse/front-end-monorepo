@@ -1,11 +1,13 @@
+import { expect } from 'chai'
 import sinon from 'sinon'
 import auth from 'panoptes-client/lib/auth'
 import nock from 'nock'
 import asyncStates from '@zooniverse/async-states'
-import initStore from './initStore'
+
+import initStore from '@stores/initStore'
 import UserPersonalization from './UserPersonalization'
 import { statsClient } from './YourStats'
-import { expect } from 'chai'
+
 
 describe('Stores > UserPersonalization', function () {
   let rootStore, nockScope
