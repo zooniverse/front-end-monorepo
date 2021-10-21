@@ -68,8 +68,8 @@ describe('ThumbnailImage', function () {
       progressiveImageInstance.onLoad()
       wrapper.update()
       const { maxHeight, maxWidth } = wrapper.find(Box).props()
-      expect(maxHeight).to.equal(200)
-      expect(maxWidth).to.equal(270)
+      expect(maxHeight).to.equal('200px')
+      expect(maxWidth).to.equal('270px')
     })
 
     it('should default to 999', function () {
@@ -78,8 +78,8 @@ describe('ThumbnailImage', function () {
       progressiveImageInstance.onLoad()
       wrapper.update()
       const { maxHeight, maxWidth } = wrapper.find(Box).props()
-      expect(maxHeight).to.equal(999)
-      expect(maxWidth).to.equal(999)
+      expect(maxHeight).to.equal('999px')
+      expect(maxWidth).to.equal('999px')
     })
   })
 })
