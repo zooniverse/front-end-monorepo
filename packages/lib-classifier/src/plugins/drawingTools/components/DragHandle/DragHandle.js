@@ -12,13 +12,13 @@ const StyledCircle = styled('circle')`
 const RADIUS = screen.width > 900 ? 4 : 10
 
 const DragHandle = forwardRef(function DragHandle(
-  { fill, radius, scale, x, y },
+  { fill, radius, scale, x, y, dragging = false },
   ref
 ) {
   const transform = `translate(${x}, ${y}) scale(${1 / scale})`
   const styleProps = {
     fill,
-    stroke: 'currentColor',
+    stroke: dragging ? 'transparent' : 'currentColor',
     strokeWidth: 1
   }
 
