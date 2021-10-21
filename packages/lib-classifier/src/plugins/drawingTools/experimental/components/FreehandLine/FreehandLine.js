@@ -47,6 +47,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
           x={lastPoint.x}
           y={lastPoint.y}
           fill='transparent'
+          invisibleWhenDragging={true}
           dragMove={(e) => onHandleDrag(e)}
         />
       )}
