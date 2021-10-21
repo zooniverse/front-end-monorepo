@@ -44,22 +44,6 @@ async function workflowSubjectSets(subjectSetIDs, env) {
   return workflowSubjectSets
 }
 
-async function fetchWorkflowCellectStatus(workflow) {
-  let groups = {}
-  if (workflow.grouped) {
-    try {
-      const workflowURL = `https://cellect.zooniverse.org/workflows/${workflow.id}/status`
-      const response = await fetch(workflowURL)
-      const body = await response.json()
-      groups = body.groups ?? {}
-    } catch (error) {
-      console.error(error)
-      logToSentry(error)
-    }
-  }
-  return groups
-}
-
 async function fetchPreviewImage (subjectSet, env) {
   try {
     const response = await panoptes
@@ -84,18 +68,7 @@ async function hasIndexedSubjects(subjectSet) {
 }
 
 export default async function fetchSubjectSets(workflow, env) {
-  const subjectSetCounts = await fetchWorkflowCellectStatus(workflow)
-  let subjectSetIDs = Object.keys(subjectSetCounts)
-  if (subjectSetIDs.length === 0) {
-    subjectSetIDs = workflow.links.subject_sets
-  }
+  const subjectSetIDs = workflow.links.subject_sets
   const subjectSets = await workflowSubjectSets(subjectSetIDs, env)
-  if (workflow.grouped) {
-    subjectSets.forEach(subjectSet => {
-      const availableSubjects = subjectSetCounts[subjectSet.id]
-      const totalSubjects = subjectSet.set_member_subjects_count
-      subjectSet.completeness = 1 - (availableSubjects / totalSubjects)
-    })
-  }
   return subjectSets
 }

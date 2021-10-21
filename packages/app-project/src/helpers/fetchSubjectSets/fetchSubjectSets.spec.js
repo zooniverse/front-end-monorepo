@@ -26,13 +26,16 @@ describe('Helpers > fetchSubjectSets', function () {
 
   const completeness = {
     1: 0.6,
-    2: 0,
+    2: 1.0,
     3: 0
   }
 
   function subjectSet(id) {
     return {
       id,
+      completeness: {
+        '2': completeness[id]
+      },
       display_name: `test set ${id}`,
       isIndexed: false,
       set_member_subjects_count: 10,
@@ -41,15 +44,6 @@ describe('Helpers > fetchSubjectSets', function () {
   }
 
   before(function () {
-    const cellect = nock('https://cellect.zooniverse.org')
-    .persist()
-    .get('/workflows/1/status')
-    .reply(200, {})
-    .get('/workflows/2/status')
-    .reply(200, {
-      groups: availableSubjects
-    })
-
     const panoptes = nock('https://panoptes-staging.zooniverse.org/api')
     .persist()
     .get('/subject_sets')
@@ -74,33 +68,6 @@ describe('Helpers > fetchSubjectSets', function () {
     nock.cleanAll()
   })
 
-  describe('without grouped subject selection', function () {
-    let result
-
-    before(async function () {
-      const workflow = {
-        id: '1',
-        completeness: 0.4,
-        configuration: {
-          level: 1
-        },
-        grouped: false,
-        links: {
-          subject_sets: ['1', '2', '3']
-        }
-      }
-      result = await fetchSubjectSets(workflow)
-    })
-
-    it('should return subject sets', function () {
-      expect(result).to.deep.equal([
-        subjectSet('1'),
-        subjectSet('2'),
-        subjectSet('3')
-      ])
-    })
-  })
-
   describe('with grouped subject selection', function () {
     let result
 
@@ -119,11 +86,11 @@ describe('Helpers > fetchSubjectSets', function () {
       result = await fetchSubjectSets(workflow)
     })
 
-    it('should return subject sets with completeness counts', function () {
+    it('should return incomplete subject sets', function () {
       expect(result).to.deep.equal([
-        Object.assign({}, subjectSet('1'), { completeness: completeness['1']}),
-        Object.assign({}, subjectSet('2'), { completeness: completeness['2']}),
-        Object.assign({}, subjectSet('3'), { completeness: completeness['3']})
+        subjectSet('1'),
+        subjectSet('2'),
+        subjectSet('3')
       ])
     })
   })
