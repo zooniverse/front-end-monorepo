@@ -3,9 +3,9 @@ import { expect } from 'chai'
 import { getSnapshot } from 'mobx-state-tree'
 import sinon from 'sinon'
 
-import Store from './Store'
-import initStore from './initStore'
-import placeholderEnv from './helpers/placeholderEnv'
+import Store from '@stores/Store'
+import initStore from '@stores/initStore'
+import placeholderEnv from '@stores/helpers/placeholderEnv'
 
 const user = {
   display_name: 'Jean-Luc Picard',

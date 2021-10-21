@@ -1,14 +1,14 @@
+import asyncStates from '@zooniverse/async-states'
 import { addDisposer, getRoot, types } from 'mobx-state-tree'
 import { autorun } from 'mobx'
-import asyncStates from '@zooniverse/async-states'
+
 import UserProjectPreferences from './UserProjectPreferences'
 import YourStats from './YourStats'
 
 const UserPersonalization = types
   .model('UserPersonalization', {
     projectPreferences: types.optional(UserProjectPreferences, {}),
-    stats: types.optional(YourStats, {}),
-    totalClassificationCount: 0
+    stats: types.optional(YourStats, {})
   })
   .volatile(self => ({
     sessionCount: 0
@@ -34,6 +34,11 @@ const UserPersonalization = types
 
     get sessionCountIsDivisibleByFive() {
       return self.sessionCount % 5 === 0
+    },
+
+    get totalClassificationCount() {
+      const activityCount = self.projectPreferences?.activity_count || 0
+      return  activityCount + self.sessionCount
     }
   }))
   .actions(self => {
@@ -56,7 +61,6 @@ const UserPersonalization = types
 
       increment() {
         self.sessionCount = self.sessionCount + 1
-        self.totalClassificationCount = self.totalClassificationCount + 1
 
         const { user } = getRoot(self)
         if (user?.id && self.sessionCountIsDivisibleByFive) {
@@ -64,15 +68,10 @@ const UserPersonalization = types
         }
       },
 
-      setTotalClassificationCount(count) {
-        self.totalClassificationCount = count
-      },
-
       reset() {
         self.projectPreferences.reset()
         self.projectPreferences.setLoadingState(asyncStates.success)
         self.stats.reset()
-        self.setTotalClassificationCount(0)
         self.sessionCount = 0
       }
     }
