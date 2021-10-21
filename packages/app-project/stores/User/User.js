@@ -2,7 +2,8 @@ import asyncStates from '@zooniverse/async-states'
 import { flow, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 import UserPersonalization from './UserPersonalization'
-import numberString from './types/numberString'
+
+import numberString from '@stores/types/numberString'
 
 const User = types
   .model('User', {
