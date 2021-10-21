@@ -11,7 +11,7 @@ const StyledGroup = styled('g')`
 `
 
 const STROKE_WIDTH = 2
-const GRAB_STROKE_WIDTH = 6
+const GRAB_STROKE_WIDTH = 4
 
 function FreehandLine({ active, mark, onFinish, scale }) {
   const { path, initialPoint, lastPoint, finished } = mark
@@ -25,7 +25,6 @@ function FreehandLine({ active, mark, onFinish, scale }) {
       <path
         d={path}
         style={{
-          stroke: 'black',
           strokeWidth: STROKE_WIDTH,
           strokeLinejoin: 'round',
           strokeLinecap: 'round',
