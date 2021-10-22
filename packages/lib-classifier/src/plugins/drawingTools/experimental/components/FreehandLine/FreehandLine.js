@@ -4,9 +4,14 @@ import { observer } from 'mobx-react'
 import styled from 'styled-components'
 import DragHandle from '../../../components/DragHandle'
 
-const StyledGroup = styled('g')`
+const StyledGroup = styled.g`
   &:hover {
     cursor: pointer;
+  }
+  g:last-of-type {
+    &:hover {
+      cursor: crosshair;
+    }
   }
 `
 
