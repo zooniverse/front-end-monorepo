@@ -1,7 +1,4 @@
 import { shallow } from 'enzyme'
-import { MobXProviderContext } from 'mobx-react'
-import sinon from 'sinon'
-import * as React from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import initStore from '@stores/initStore'
@@ -20,14 +17,7 @@ describe('Component > ClassifierWrapperConnector', function () {
           login: 'testUser'
         }
       })
-      sinon.stub(React, 'useContext')
-        .withArgs(MobXProviderContext)
-        .returns({ store })
-      wrapper = shallow(<ClassifierWrapperConnector />)
-    })
-
-    after(function () {
-      React.useContext.restore()
+      wrapper = shallow(<ClassifierWrapperConnector store={store} />)
     })
 
     describe('classifier wrapper props', function () {
