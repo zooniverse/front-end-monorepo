@@ -7,8 +7,20 @@ import stubPanoptesJs from '@test/stubPanoptesJs'
 
 import branchingWorkflow from './branchingWorkflow'
 
+const defaultClient = {
+  caesar: { request: sinon.stub().callsFake(() => Promise.resolve({})) },
+  tutorials: {
+    get: sinon.stub().callsFake(() =>
+      Promise.resolve({ body: {
+        tutorials: []
+      }})
+    )
+  }
+}
+
 /** build a mock store, with a branching workflow, steps, tasks and subjects. */
 export default function mockStore({
+  client = defaultClient,
   project,
   subject,
   subjectSet,
@@ -36,17 +48,7 @@ export default function mockStore({
     tutorials: [],
     workflows: [workflowSnapshot]
   })
-  const client = {
-    caesar: { request: sinon.stub().callsFake(() => Promise.resolve({})) },
-    panoptes,
-    tutorials: {
-      get: sinon.stub().callsFake(() =>
-        Promise.resolve({ body: {
-          tutorials: []
-        }})
-      )
-    }
-  }
+  
   const rootStore = RootStore.create({
     projects: {
       active: projectSnapshot.id,
@@ -77,7 +79,7 @@ export default function mockStore({
       checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null)),
       checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null))
     },
-    client
+    client: { ...client, panoptes }
   })
   rootStore.workflows.setResources([workflowSnapshot])
   rootStore.workflows.setActive(workflowSnapshot.id)

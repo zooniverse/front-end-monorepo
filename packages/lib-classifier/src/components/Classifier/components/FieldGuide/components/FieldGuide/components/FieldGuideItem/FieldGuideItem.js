@@ -42,7 +42,7 @@ const markdownComponents = {
   h4: (nodeProps) => <SpacedHeading level='4'>{nodeProps.children}</SpacedHeading>,
   h5: (nodeProps) => <SpacedHeading level='5'>{nodeProps.children}</SpacedHeading>,
   h6: (nodeProps) => <SpacedHeading level='6'>{nodeProps.children}</SpacedHeading>,
-  img: (nodeProps) => <Media alt={nodeProps.alt} src={nodeProps.src} height='200px' />,
+  img: (nodeProps) => <Media alt={nodeProps.alt} src={nodeProps.src} />,
   p: (nodeProps) => <Paragraph margin={{ bottom: 'none', top: 'xxsmall' }}>{nodeProps.children}</Paragraph>
 }
 
@@ -79,7 +79,7 @@ function FieldGuideItem (props) {
         <Box direction='column' overflow='auto'>
           <FieldGuideItemIcon
             icon={icon}
-            height='140'
+            height='140px'
             margin={{ top: 'small', bottom: '35px' }}
             viewBox='0 0 200 100'
           />
