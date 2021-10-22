@@ -1,6 +1,7 @@
 import sinon from 'sinon'
 import nock from 'nock'
-import initStore from './initStore'
+
+import initStore from '@stores/initStore'
 import YourStats, { statsClient } from './YourStats'
 import asyncStates from '@zooniverse/async-states'
 import { expect } from 'chai'
