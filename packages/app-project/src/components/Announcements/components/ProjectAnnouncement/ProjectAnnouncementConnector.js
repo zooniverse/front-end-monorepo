@@ -1,15 +1,18 @@
 import { MobXProviderContext, observer } from 'mobx-react'
-import * as React from 'react'
+import { useContext } from 'react'
 
 import GenericAnnouncement from '../GenericAnnouncement'
 
-function useStores () {
-  const stores = React.useContext(MobXProviderContext)
-  const { announcement } = stores.store.project.configuration
+function useStores(store) {
+  const stores = useContext(MobXProviderContext)
+  if (!store) {
+    store = stores.store
+  }
+  const { announcement } = store.project.configuration
   const {
     dismissProjectAnnouncementBanner,
     showAnnouncement
-  } = stores.store.ui
+  } = store.ui
 
   return {
     announcement,
@@ -18,12 +21,12 @@ function useStores () {
   }
 }
 
-function ProjectAnnouncementConnector (props) {
+function ProjectAnnouncementConnector ({ store, ...props }) {
   const { 
     announcement = '',
     dismissBanner,
     isVisible = false
-  } = useStores()
+  } = useStores(store)
 
   return (isVisible && announcement)
     ? <GenericAnnouncement

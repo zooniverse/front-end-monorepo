@@ -46,7 +46,6 @@ export default function Choice (props) {
         dark: 'dark-1',
         light: 'light-1'
       }}
-      data-testid={`choice-${choiceId}`}
       elevation='large'
       flex='grow'
       pad='small'
