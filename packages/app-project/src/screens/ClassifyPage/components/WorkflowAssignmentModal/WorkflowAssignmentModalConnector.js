@@ -1,10 +1,13 @@
-import * as React from 'react'
+import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { MobXProviderContext, observer } from 'mobx-react'
 import WorkflowAssignmentModalContainer from './WorkflowAssignmentModalContainer'
 
-function useStore() {
-  const { store } = React.useContext(MobXProviderContext)
+function useStore(store) {
+  const stores = useContext(MobXProviderContext)
+  if (!store) {
+    store = stores.store
+  }
 
   return {
     assignedWorkflowID: store.user.personalization.projectPreferences.settings?.workflow_id,
@@ -13,12 +16,12 @@ function useStore() {
   }
 }
 
-function WorkflowAssignmentModalConnector({ currentWorkflowID, ...rest }) {
+function WorkflowAssignmentModalConnector({ currentWorkflowID, store, ...rest }) {
   const {
     assignedWorkflowID = '',
     loadingState,
     promptAssignment
-  } = useStore()
+  } = useStore(store)
 
   return (
     <WorkflowAssignmentModalContainer

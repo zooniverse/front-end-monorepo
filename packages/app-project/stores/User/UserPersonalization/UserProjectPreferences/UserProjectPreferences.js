@@ -1,7 +1,8 @@
 import { applySnapshot, flow, getRoot, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 import asyncStates from '@zooniverse/async-states'
-import numberString from './types/numberString'
+
+import numberString from '@stores/types/numberString'
 
 const Preferences = types
   .model('Preferences', {
@@ -59,7 +60,6 @@ const UserProjectPreferences = types
         const [preferences] = response.body.project_preferences
         if (preferences) {
           self.setResource(preferences)
-          user.personalization.setTotalClassificationCount(preferences.activity_count)
         }
         self.setLoadingState(asyncStates.success)
       } catch (error) {

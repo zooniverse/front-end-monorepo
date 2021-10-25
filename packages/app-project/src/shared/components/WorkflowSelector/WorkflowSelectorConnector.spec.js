@@ -1,13 +1,11 @@
 import { shallow } from 'enzyme'
-import * as React from 'react'
-import sinon from 'sinon'
 import WorkflowSelectorConnector from './WorkflowSelectorConnector'
 import WorkflowSelector from './WorkflowSelector'
 import { expect } from 'chai'
 
 describe('Component > Hero > WorkflowSelector > WorkflowSelectorConnector', function () {
   const WORKFLOW_DESCRIPTION = 'Sit nulla mi metus tellus aenean lobortis litora'
-  let wrapper, mockStore, stubbedContext, componentWrapper, workflows
+  let wrapper, mockStore, componentWrapper, workflows
 
   before(function () {
     mockStore = {
@@ -27,18 +25,14 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelectorConnector', func
         }
       }
     }
-    stubbedContext = sinon.stub(React, 'useContext').callsFake(() => mockStore)
     workflows = [{ id: '5' }]
     wrapper = shallow(
       <WorkflowSelectorConnector
+        store={mockStore.store}
         workflows={workflows}
       />
     )
     componentWrapper = wrapper.find(WorkflowSelector)
-  })
-
-  after(function() {
-    stubbedContext.restore()
   })
 
   it('should render without crashing', function () {

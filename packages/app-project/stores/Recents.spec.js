@@ -4,7 +4,7 @@ import { getSnapshot } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 
 import initStore from './initStore'
-import { statsClient } from './YourStats'
+import { statsClient } from './User/UserPersonalization/YourStats'
 
 describe('Stores > Recents', function () {
   let rootStore

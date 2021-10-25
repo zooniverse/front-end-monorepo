@@ -1,13 +1,10 @@
 import { shallow } from 'enzyme'
-import * as React from 'react'
-import sinon from 'sinon'
 
 import AuthenticationInvitationConnector, { DynamicallyImportedAuthenticationInvitationContainer } from './AuthenticationInvitationConnector'
 
 describe('Component > AuthenticationInvitationConnector', function () {
   let wrapper
   let componentWrapper
-  let useContextMock
 
   const mockStore = {
     store: {
@@ -24,15 +21,10 @@ describe('Component > AuthenticationInvitationConnector', function () {
   }
 
   before(function () {
-    useContextMock = sinon.stub(React, 'useContext').callsFake(() => mockStore)
     wrapper = shallow(
-      <AuthenticationInvitationConnector />
+      <AuthenticationInvitationConnector store={mockStore.store} />
     )
     componentWrapper = wrapper.find(DynamicallyImportedAuthenticationInvitationContainer)
-  })
-
-  after(function () {
-    useContextMock.restore()
   })
 
   it('should render without crashing', function () {
@@ -47,7 +39,7 @@ describe('Component > AuthenticationInvitationConnector', function () {
     before(function () {
       mockStore.store.project.isComplete = true
       wrapper = shallow(
-        <AuthenticationInvitationConnector />
+        <AuthenticationInvitationConnector store={mockStore.store} />
       )
       componentWrapper = wrapper.find(DynamicallyImportedAuthenticationInvitationContainer)
     })
@@ -64,7 +56,7 @@ describe('Component > AuthenticationInvitationConnector', function () {
   describe('when the user is logged in', function () {
     before(function () {
       mockStore.store.user.isLoggedIn = true
-      wrapper = shallow(<AuthenticationInvitationConnector />)
+      wrapper = shallow(<AuthenticationInvitationConnector store={mockStore.store} />)
       componentWrapper = wrapper.find(DynamicallyImportedAuthenticationInvitationContainer)
     })
 
@@ -80,7 +72,7 @@ describe('Component > AuthenticationInvitationConnector', function () {
   describe('when the session classification count is less than five', function () {
     before(function () {
       mockStore.store.user.personalization.sessionCount = 3
-      wrapper = shallow(<AuthenticationInvitationConnector />)
+      wrapper = shallow(<AuthenticationInvitationConnector store={mockStore.store} />)
       componentWrapper = wrapper.find(DynamicallyImportedAuthenticationInvitationContainer)
     })
 
