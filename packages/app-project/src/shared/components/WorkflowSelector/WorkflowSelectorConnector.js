@@ -1,10 +1,13 @@
 import { MobXProviderContext, observer } from 'mobx-react'
-import * as React from 'react'
+import { useContext } from 'react'
 
 import WorkflowSelector from './WorkflowSelector'
 
-function useStores() {
-  const { store } = React.useContext(MobXProviderContext)
+function useStores(store) {
+  const stores = useContext(MobXProviderContext)
+  if (!store) {
+    store = stores.store
+  }
 
   return {
     uppLoaded: store.user.personalization.projectPreferences.isLoaded,
@@ -15,14 +18,14 @@ function useStores() {
   }
 }
 
-function WorkflowSelectorConnector(props) {
+function WorkflowSelectorConnector({ store, ...props }) {
   const {
     uppLoaded,
     uppSettings,
     userReadyState,
     workflowAssignmentEnabled = false,
     workflowDescription
-  } = useStores()
+  } = useStores(store)
   const assignedWorkflowID = uppSettings?.workflow_id || ''
   return (
     <WorkflowSelector

@@ -1,5 +1,5 @@
 import { MobXProviderContext, observer } from 'mobx-react'
-import * as React from 'react'
+import { useContext } from 'react'
 import counterpart from 'counterpart'
 
 import NavLink from '@shared/components/NavLink'
@@ -8,10 +8,13 @@ import GenericAnnouncement from '../GenericAnnouncement'
 
 counterpart.registerTranslations('en', en)
 
-function useStores() {
-  const stores = React.useContext(MobXProviderContext)
+function useStores(store) {
+  const stores = useContext(MobXProviderContext)
+  if (!store) {
+    store = stores.store
+  }
   // TODO: Add a boolean that returns the state of the existence of a results page
-  const { baseUrl, isComplete } = stores.store.project
+  const { baseUrl, isComplete } = store.project
 
   return {
     baseUrl,
@@ -19,11 +22,11 @@ function useStores() {
   }
 }
 
-function FinishedAnnouncementConnector () {
+function FinishedAnnouncementConnector ({ store }) {
   const { 
     baseUrl = '',
     isVisible = false
-  } = useStores()
+  } = useStores(store)
   const announcement = counterpart('FinishedAnnouncement.announcement')
   const link = {
     href: `${baseUrl}/about/results`,
