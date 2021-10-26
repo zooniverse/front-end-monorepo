@@ -18,8 +18,6 @@ function useStores(stores) {
   }
 }
 
-const environment = process.env.APP_ENV
-
 function Banners({ stores }) {
   const { annotatedSteps, project, subject, subjects, workflow } = useStores(stores)
   const subjectNumber = subject?.priority ?? -1
@@ -29,10 +27,10 @@ function Banners({ stores }) {
   // Next/Prev buttons are only enabled when Project has the experimental tool enabled AND the Subject Set is indexed.
   const enableIndexedSubjectSetNextPrevButtons =
     project?.experimental_tools?.includes('indexedSubjectSetNextPrevButtons')
-  const onPrevious = enableIndexedSubjectSetNextPrevButtons && subjects.previousIndexed
-  const onNext = enableIndexedSubjectSetNextPrevButtons && subjects.nextIndexed
+  const onPrevious = subjects.previousIndexed
+  const onNext = subjects.nextIndexed
 
-  if (environment !== 'production' && hasIndexedSubjects && subjectNumber > -1) {
+  if (enableIndexedSubjectSetNextPrevButtons && hasIndexedSubjects && subjectNumber > -1) {
     return (
       <SubjectSetProgressBanner
         checkForProgress={annotatedSteps.checkForProgress}
