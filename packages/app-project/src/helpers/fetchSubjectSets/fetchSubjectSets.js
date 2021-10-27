@@ -3,7 +3,14 @@ import fetch from 'node-fetch'
 
 import { logToSentry } from '@helpers/logger'
 
-const subjectSetCache = {}
+function cacheExpiry(ttl = 60) {
+  return Date.now() + ttl * 1000
+}
+
+const subjectSetCache = { expiry: cacheExpiry() }
+console.log('THIS IS THE SUBJECT SET CACHE:')
+console.log(subjectSetCache)
+console.log('--------------')
 
 async function fetchSubjectSetData(subjectSetIDs, env) {
   let subject_sets = []
@@ -26,14 +33,21 @@ async function fetchSubjectSetData(subjectSetIDs, env) {
 async function workflowSubjectSets(subjectSetIDs, env) {
   const workflowSubjectSets = []
   const setsToFetch = []
+  // check if the cache is expired and we should refetch API data
+  const cacheExpired = subjectSetCache.expiry <= Date.now()
   subjectSetIDs.forEach(id => {
-    if (subjectSetCache[id]) {
+    if (!cacheExpired && subjectSetCache[id]) {
       const workflowSubjectSet = Object.assign({}, subjectSetCache[id])
+      console.log('fetching subject set from cache: ' + workflowSubjectSet.id)
       workflowSubjectSets.push(workflowSubjectSet)
     } else {
+      console.log('fetching subject set from API: ' + id)
       setsToFetch.push(id)
     }
   })
+  // reset the caches expiry time for next lookup
+  if (cacheExpired) subjectSetCache.expiry = cacheExpiry()
+
   if (setsToFetch.length > 0) {
     const newSets = await fetchSubjectSetData(setsToFetch, env)
     newSets.forEach(subjectSet => {
