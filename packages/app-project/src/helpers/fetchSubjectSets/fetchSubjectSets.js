@@ -3,15 +3,6 @@ import fetch from 'node-fetch'
 
 import { logToSentry } from '@helpers/logger'
 
-function cacheExpiry(ttl = 60) {
-  return Date.now() + ttl * 1000
-}
-
-const subjectSetCache = { expiry: cacheExpiry() }
-console.log('THIS IS THE SUBJECT SET CACHE:')
-console.log(subjectSetCache)
-console.log('--------------')
-
 async function fetchSubjectSetData(subjectSetIDs, env) {
   let subject_sets = []
   try {
@@ -28,34 +19,6 @@ async function fetchSubjectSetData(subjectSetIDs, env) {
     logToSentry(error)
   }
   return subject_sets
-}
-
-async function workflowSubjectSets(subjectSetIDs, env) {
-  const workflowSubjectSets = []
-  const setsToFetch = []
-  // check if the cache is expired and we should refetch API data
-  const cacheExpired = subjectSetCache.expiry <= Date.now()
-  subjectSetIDs.forEach(id => {
-    if (!cacheExpired && subjectSetCache[id]) {
-      const workflowSubjectSet = Object.assign({}, subjectSetCache[id])
-      console.log('fetching subject set from cache: ' + workflowSubjectSet.id)
-      workflowSubjectSets.push(workflowSubjectSet)
-    } else {
-      console.log('fetching subject set from API: ' + id)
-      setsToFetch.push(id)
-    }
-  })
-  // reset the caches expiry time for next lookup
-  if (cacheExpired) subjectSetCache.expiry = cacheExpiry()
-
-  if (setsToFetch.length > 0) {
-    const newSets = await fetchSubjectSetData(setsToFetch, env)
-    newSets.forEach(subjectSet => {
-      workflowSubjectSets.push(subjectSet)
-      subjectSetCache[subjectSet.id] = subjectSet
-    })
-  }
-  return workflowSubjectSets
 }
 
 async function fetchPreviewImage (subjectSet, env) {
@@ -83,6 +46,9 @@ async function hasIndexedSubjects(subjectSet) {
 
 export default async function fetchSubjectSets(workflow, env) {
   const subjectSetIDs = workflow.links.subject_sets
-  const subjectSets = await workflowSubjectSets(subjectSetIDs, env)
-  return subjectSets
+  let workflowSubjectSets = []
+  if (subjectSetIDs.length > 0) {
+    workflowSubjectSets = await fetchSubjectSetData(subjectSetIDs, env)
+  }
+  return workflowSubjectSets
 }
