@@ -17,7 +17,7 @@ const PossiblyTransparentBox = styled(Box)`
   Summary card for a subject set, showing a preview subject, the set name, total subject count and completeness percentage.
 */
 function SubjectSetCard ({
-  completeness,
+  completeness = 0,
   display_name,
   id,
   set_member_subjects_count,
