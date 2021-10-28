@@ -1,6 +1,13 @@
 import getCookie from '@helpers/getCookie'
 import getStaticPageProps from '@helpers/getStaticPageProps'
 
+const environment = process.env.APP_ENV
+
+const HOSTS = {
+  production: 'https://www.zooniverse.org',
+  staging: 'https://frontend.preview.zooniverse.org'
+}
+
 export default async function getDefaultPageProps({ params, query, req }) {
 
   // cookie is in the next.js context req object
@@ -9,8 +16,7 @@ export default async function getDefaultPageProps({ params, query, req }) {
 
   const { props: staticProps } = await getStaticPageProps({ params, query })
   const { project, notFound, title, workflowID, workflows } = staticProps
-  const { headers, connection } = req
-  const host = generateHostUrl(headers, connection)
+  const host = HOSTS[environment] || 'https://localhost:3000'
   /*
     snapshot for store hydration in the browser
   */
@@ -38,9 +44,4 @@ export default async function getDefaultPageProps({ params, query, req }) {
   }
 
   return { notFound, props }
-}
-
-function generateHostUrl(headers, connection) {
-  const protocol = connection.encrypted ? 'https' : 'http'
-  return `${protocol}://${headers.host}`
 }
