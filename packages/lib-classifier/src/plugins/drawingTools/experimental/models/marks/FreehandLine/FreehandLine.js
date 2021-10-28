@@ -40,7 +40,7 @@ const FreehandLineModel = types
     get initialPoint() {
       const [firstCoord] = self.points
       if (!firstCoord) {
-        return ''
+        return null
       }
       return firstCoord
     },
@@ -48,7 +48,7 @@ const FreehandLineModel = types
     get lastPoint() {
       const lastCoord = self.points.at(-1)
       if (!lastCoord) {
-        return ''
+        return null
       }
       return lastCoord
     },
@@ -62,7 +62,21 @@ const FreehandLineModel = types
       otherCoords.forEach(({ x, y }) => {
         path = path + `L ${x},${y}`
       })
+      // closes the drawing path
+      if (self.isCloseToStart) {
+        path += ' Z'
+      }
       return path
+    },
+
+    // this determines if drawing point is close to initial point
+    get isCloseToStart() {
+      const firstPoint = self.initialPoint
+      const lastPoint = self.lastPoint
+      const distX = lastPoint.x - firstPoint.x
+      const distY = lastPoint.y - firstPoint.y
+      const dist = Math.sqrt(distX * distX + distY * distY)
+      return dist < 10
     },
 
     get toolComponent() {

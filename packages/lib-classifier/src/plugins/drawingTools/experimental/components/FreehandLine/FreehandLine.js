@@ -17,6 +17,7 @@ const StyledGroup = styled.g`
 
 const STROKE_WIDTH = 2
 const GRAB_STROKE_WIDTH = 4
+const FINISHER_RADIUS = 3
 
 function FreehandLine({ active, mark, onFinish, scale }) {
   const { path, initialPoint, lastPoint, finished } = mark
@@ -27,6 +28,14 @@ function FreehandLine({ active, mark, onFinish, scale }) {
 
   return (
     <StyledGroup onPointerUp={active ? onFinish : undefined}>
+      {active && !mark.isCloseToStart && (
+        <circle
+          fill='currentColor'
+          r={FINISHER_RADIUS / scale}
+          cx={initialPoint.x}
+          cy={initialPoint.y}
+        />
+      )}
       <path
         d={path}
         style={{
@@ -43,10 +52,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
           strokeWidth: GRAB_STROKE_WIDTH / scale
         }}
       />
-      {active && (
-        <DragHandle scale={scale} x={initialPoint.x} y={initialPoint.y} />
-      )}
-      {active && finished && (
+      {active && finished && !mark.isCloseToStart && (
         <DragHandle
           scale={scale}
           x={lastPoint.x}
