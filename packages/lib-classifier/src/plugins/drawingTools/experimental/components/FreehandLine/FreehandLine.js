@@ -20,7 +20,7 @@ const GRAB_STROKE_WIDTH = 4
 const FINISHER_RADIUS = 3
 
 function FreehandLine({ active, mark, onFinish, scale }) {
-  const { path, initialPoint, lastPoint, finished } = mark
+  const { path, initialPoint, lastPoint, finished, isCloseToStart } = mark
 
   function onHandleDrag(coords) {
     mark.appendPath(coords)
@@ -28,7 +28,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
 
   return (
     <StyledGroup onPointerUp={active ? onFinish : undefined}>
-      {active && !mark.isCloseToStart && (
+      {active && !isCloseToStart && (
         <circle
           fill='currentColor'
           r={FINISHER_RADIUS / scale}
@@ -52,7 +52,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
           strokeWidth: GRAB_STROKE_WIDTH / scale
         }}
       />
-      {active && finished && !mark.isCloseToStart && (
+      {active && finished && !isCloseToStart && (
         <DragHandle
           scale={scale}
           x={lastPoint.x}
@@ -67,9 +67,33 @@ function FreehandLine({ active, mark, onFinish, scale }) {
 }
 
 FreehandLine.propTypes = {
+  /**
+    Modal active state.
+  */
   active: PropTypes.bool,
-  mark: PropTypes.object.isRequired,
+  /**
+    FreehandLine data: { path, initialPoint, lastPoint, finished, isCloseToStart }
+  */
+  mark: PropTypes.shape({
+    path: PropTypes.string,
+    initialPoint: PropTypes.shape({
+      x: PropTypes.number,
+      y: PropTypes.number
+    }),
+    lastPoint: PropTypes.shape({
+      x: PropTypes.number,
+      y: PropTypes.number
+    }),
+    finished: PropTypes.bool,
+    isCloseToStart: PropTypes.bool
+  }).isRequired,
+  /**
+    Callback to reset the drawing canvas when creation of the rectangle is finished.
+  */
   onFinish: PropTypes.func,
+  /**
+    Image scale factor. Used to keep line widths and sizes constant at all image scales.
+  */
   scale: PropTypes.number
 }
 
