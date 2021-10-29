@@ -17,16 +17,16 @@ const FreehandLineModel = types
   .views((self) => ({
     get coords() {
       return {
-        // TODO: check length before returning
         x: self.points[0]?.x,
         y: self.points[0]?.y
       }
     },
 
     deleteButtonPosition(scale) {
-      // will be moved into toolbar later
       const BUFFER = 16
-      return { x: self.points[0].x - BUFFER, y: self.points[0].y - BUFFER }
+      const x = self.points[0].x - BUFFER / scale
+      const y = self.points[0].y - BUFFER / scale
+      return { x, y }
     },
 
     get isValid() {
