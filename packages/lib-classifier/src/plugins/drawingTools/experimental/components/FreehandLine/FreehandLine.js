@@ -27,6 +27,10 @@ function FreehandLine({ active, mark, onFinish, scale }) {
     mark.appendPath(coords)
   }
 
+  function onUndoDrawing() {
+    mark.shortenPath()
+  }
+
   return (
     <StyledGroup onPointerUp={active ? onFinish : undefined}>
       {active && !isCloseToStart && (
@@ -38,7 +42,12 @@ function FreehandLine({ active, mark, onFinish, scale }) {
         />
       )}
       {active && (
-        <UndoButton scale={scale} x={initialPoint.x} y={initialPoint.y} />
+        <UndoButton
+          scale={scale}
+          x={initialPoint.x}
+          y={initialPoint.y}
+          undoDrawing={onUndoDrawing}
+        />
       )}
       <path
         d={path}

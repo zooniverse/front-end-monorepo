@@ -98,6 +98,13 @@ const FreehandLineModel = types
 
     appendPath({ x, y }) {
       self.points.push({ x: x, y: y })
+    },
+
+    shortenPath() {
+      let lengthToRemove = 20
+      while (lengthToRemove--) {
+        self.points.pop()
+      }
     }
   }))
 

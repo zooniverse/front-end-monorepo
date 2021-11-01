@@ -9,7 +9,10 @@ const StyledGroup = styled('g')`
   }
 `
 
-const UndoButton = forwardRef(function UndoButton({ scale = 1, x, y }, ref) {
+const UndoButton = forwardRef(function UndoButton(
+  { scale = 1, x, y, undoDrawing },
+  ref
+) {
   const ARIA_LABEL = 'Undo'
   const RADIUS = 11
   const STROKE_COLOR = 'black'
@@ -20,11 +23,33 @@ const UndoButton = forwardRef(function UndoButton({ scale = 1, x, y }, ref) {
   const cx = x + 20
   const cy = y - 30
 
+  function onKeyDown(event) {
+    switch (event.key) {
+      case 'Enter':
+      case ' ': {
+        return onPointerDown(event)
+      }
+      default: {
+        return true
+      }
+    }
+  }
+
+  function onPointerDown(event) {
+    event.preventDefault()
+    event.stopPropagation()
+    undoDrawing()
+    return false
+  }
+
   return (
     <StyledGroup
       ref={ref}
       x={cx}
       y={cy}
+      role='button'
+      onKeyDown={onKeyDown}
+      onPointerDown={onPointerDown}
       aria-label={ARIA_LABEL}
       stroke={STROKE_COLOR}
       strokeWidth={STROKE_WIDTH}
