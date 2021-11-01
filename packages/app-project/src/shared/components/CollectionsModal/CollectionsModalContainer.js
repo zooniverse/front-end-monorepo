@@ -8,7 +8,7 @@ import CreateCollection from './components/CreateCollection'
 
 function storeMapper (stores) {
   const store = stores.store || {}
-  const collectionsStore = store.collections || {}
+  const collectionsStore = store.user?.collections || {}
   const {
     addSubjects,
     collections,

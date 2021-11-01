@@ -7,11 +7,11 @@ import RecentSubjects from './RecentSubjects'
 function storeMapper (store) {
   const {
     project,
-    recents: {
-      recents
-    },
     user: {
-      isLoggedIn
+      isLoggedIn,
+      recents : {
+        recents
+      }
     }
   } = store
 
