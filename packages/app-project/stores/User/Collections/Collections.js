@@ -25,21 +25,6 @@ const Collections = types
   .actions(self => {
     let client
 
-    function createProjectObserver () {
-      const projectDisposer = autorun(() => {
-        const project = getRoot(self).project
-        const user = getRoot(self).user
-        if (project.id && user.id) {
-          self.fetchFavourites()
-          self.searchCollections({
-            favorite: false,
-            current_user_roles: 'owner,collaborator,contributor'
-          })
-        }
-      })
-      addDisposer(self, projectDisposer)
-    }
-
     const fetchCollections = flow(function * fetchCollections (query) {
       try {
         self.loadingState = asyncStates.loading
@@ -92,7 +77,6 @@ const Collections = types
     return {
       afterAttach () {
         client = getRoot(self).client
-        createProjectObserver()
       },
 
       createCollection: flow(function * createCollection (

@@ -22,11 +22,11 @@ describe('Component > ClassifierWrapperConnector', function () {
 
     describe('classifier wrapper props', function () {
       it('should include collections', function () {
-        expect(wrapper.props().collections).to.equal(store.collections)
+        expect(wrapper.props().collections).to.equal(store.user.collections)
       })
 
       it('should include recents', function () {
-        expect(wrapper.props().recents).to.equal(store.recents)
+        expect(wrapper.props().recents).to.equal(store.user.recents)
       })
 
       it('should include your personal stats', function () {
