@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import styled from 'styled-components'
+import UndoButton from '../../../components/UndoButton'
 import DragHandle from '../../../components/DragHandle'
 
 const StyledGroup = styled.g`
@@ -35,6 +36,9 @@ function FreehandLine({ active, mark, onFinish, scale }) {
           cx={initialPoint.x}
           cy={initialPoint.y}
         />
+      )}
+      {active && (
+        <UndoButton scale={scale} x={initialPoint.x} y={initialPoint.y} />
       )}
       <path
         d={path}
