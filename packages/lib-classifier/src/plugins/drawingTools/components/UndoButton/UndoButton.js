@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import PropTypes from 'prop-types'
+import { number, func } from 'prop-types'
 import styled from 'styled-components'
 import { Tooltip } from '@zooniverse/react-components'
 
@@ -51,6 +51,7 @@ const UndoButton = forwardRef(function UndoButton(
       onKeyDown={onKeyDown}
       onPointerDown={onPointerDown}
       aria-label={ARIA_LABEL}
+      focusable='true'
       stroke={STROKE_COLOR}
       strokeWidth={STROKE_WIDTH}
     >
@@ -66,5 +67,24 @@ const UndoButton = forwardRef(function UndoButton(
     </StyledGroup>
   )
 })
+
+UndoButton.propTypes = {
+  /**
+    Image scale factor. Used to keep line widths and sizes constant at all image scales.
+  */
+  scale: number,
+  /**
+    x position of the vertex closets to the origin
+  */
+  x: number,
+  /**
+    y position of the vertex closets to the origin
+  */
+  y: number,
+  /**
+    Callback to shorten path array by 20 coordinates
+  */
+  undoDrawing: func
+}
 
 export default UndoButton
