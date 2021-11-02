@@ -9,4 +9,7 @@ export { default as Point } from './Point'
 export { default as Rectangle } from './Rectangle'
 export { default as RotateHandle } from './RotateHandle'
 export { default as RotateRectangle } from './RotateRectangle'
+
+// Experimental Tools
+export { default as FreehandLine } from '@plugins/drawingTools/experimental/components/FreehandLine'
 export { default as TranscriptionLine } from '@plugins/drawingTools/experimental/components/TranscriptionLine'

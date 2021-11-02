@@ -7,4 +7,7 @@ export { default as RotateRectangleTool } from './RotateRectangleTool'
 export { default as TemporalPointTool } from './TemporalPointTool'
 export { default as TemporalRotateRectangleTool } from './TemporalRotateRectangleTool'
 export { default as Tool } from './Tool'
+
+// Experimental Tools
+export { default as FreehandLineTool } from '@plugins/drawingTools/experimental/models/tools/FreehandLineTool'
 export { default as TranscriptionLineTool } from '@plugins/drawingTools/experimental/models/tools/TranscriptionLineTool'
