@@ -4,16 +4,16 @@ import { expect } from 'chai'
 import { getSnapshot } from 'mobx-state-tree'
 import sinon from 'sinon'
 
-import Store from './Store'
-import initStore from './initStore'
-import placeholderEnv from './helpers/placeholderEnv'
+import Store from '@stores/Store'
+import initStore from '@stores/initStore'
+import placeholderEnv from '@stores/helpers/placeholderEnv'
 
 describe('stores > Collections', function () {
   let rootStore = Store.create({}, placeholderEnv)
   let collectionsStore = rootStore.collections
 
   it('should exist', function () {
-    expect(rootStore.collections).to.be.ok()
+    expect(rootStore.user.collections).to.be.ok()
   })
 
   describe('searchCollections', function () {
@@ -31,7 +31,7 @@ describe('stores > Collections', function () {
       sinon.stub(rootStore.client.collections, 'get').callsFake(function () {
         return Promise.resolve({ body: collections.mocks.responses.get.collection })
       })
-      collectionsStore = rootStore.collections
+      collectionsStore = rootStore.user.collections
     })
 
     after(function () {
@@ -67,7 +67,7 @@ describe('stores > Collections', function () {
 
       collectionsStore.searchCollections(query)
         .then(function () {
-          const results = getSnapshot(rootStore.collections.collections)
+          const results = getSnapshot(rootStore.user.collections.collections)
           const expectedResult = collections.mocks.resources.collection
           expect(results).to.have.lengthOf(1)
           expect(results[0].id).to.eql(expectedResult.id)
@@ -99,7 +99,7 @@ describe('stores > Collections', function () {
         const body = Object.assign({}, collections.mocks.responses.get.collection, { collections: [newCollection] })
         return Promise.resolve({ body })
       })
-      collectionsStore = rootStore.collections
+      collectionsStore = rootStore.user.collections
     })
 
     after(function () {
@@ -152,7 +152,7 @@ describe('stores > Collections', function () {
         sinon.stub(rootStore.client.collections, 'get').callsFake(function () {
           return Promise.resolve({ body: collections.mocks.responses.get.collection })
         })
-        collectionsStore = rootStore.collections
+        collectionsStore = rootStore.user.collections
       })
 
       after(function () {
@@ -201,7 +201,7 @@ describe('stores > Collections', function () {
         sinon.stub(rootStore.client.collections, 'get').callsFake(function () {
           return Promise.resolve({ body: { collections: [] } })
         })
-        collectionsStore = rootStore.collections
+        collectionsStore = rootStore.user.collections
       })
 
       after(function () {
@@ -237,15 +237,16 @@ describe('stores > Collections', function () {
         display_name: 'Hello',
         slug: 'test/project'
       }
-      const user = {
-        login: 'test.user'
-      }
       const links = {
         project: '1',
         subjects: []
       }
       const favourites = Object.assign({}, collections.mocks.resources.collection, { links })
-      const snapshot = { project, user, collections: { favourites } }
+      const user = {
+        login: 'test.user',
+        collections: { favourites }
+      }
+      const snapshot = { project, user }
       rootStore = initStore(true, snapshot)
       sinon.stub(rootStore.client.collections, 'addSubjects').callsFake(function (params) {
         const links = {
@@ -255,26 +256,23 @@ describe('stores > Collections', function () {
         const newFavourites = Object.assign({}, favourites, { links })
         return Promise.resolve({ body: { collections: [ newFavourites ] } })
       })
-      collectionsStore = rootStore.collections
+      collectionsStore = rootStore.user.collections
     })
 
     after(function () {
       rootStore.client.collections.addSubjects.restore()
     })
 
-    it('should add subjects to the favourites collection', function (done) {
-      collectionsStore.addFavourites(['1', '2'])
-        .then(function () {
-          const favourites = getSnapshot(collectionsStore.favourites)
-          const params = {
-            authorization: 'Bearer ',
-            id: favourites.id,
-            subjects: ['1', '2']
-          }
-          expect(rootStore.client.collections.addSubjects).to.have.been.calledOnceWith(params)
-          expect(favourites.links.subjects).to.eql(['1', '2'])
-        })
-        .then(done, done)
+    it('should add subjects to the favourites collection', async function () {
+      await collectionsStore.addFavourites(['1', '2'])
+      const favourites = getSnapshot(collectionsStore.favourites)
+      const params = {
+        authorization: 'Bearer ',
+        id: favourites.id,
+        subjects: ['1', '2']
+      }
+      expect(rootStore.client.collections.addSubjects).to.have.been.calledOnceWith(params)
+      expect(favourites.links.subjects).to.eql(['1', '2'])
     })
   })
 
@@ -285,15 +283,16 @@ describe('stores > Collections', function () {
         display_name: 'Hello',
         slug: 'test/project'
       }
-      const user = {
-        login: 'test.user'
-      }
       const links = {
         project: '1',
         subjects: ['1', '2']
       }
       const favourites = Object.assign({}, collections.mocks.resources.collection, { links })
-      const snapshot = { project, user, collections: { favourites } }
+      const user = {
+        login: 'test.user',
+        collections: { favourites }
+      }
+      const snapshot = { project, user }
       rootStore = initStore(true, snapshot)
       sinon.stub(rootStore.client.collections, 'removeSubjects').callsFake(function (params) {
         const links = {
@@ -303,25 +302,22 @@ describe('stores > Collections', function () {
         const newFavourites = Object.assign({}, favourites, { links })
         return Promise.resolve({ body: { collections: [ newFavourites ] } })
       })
-      collectionsStore = rootStore.collections
+      collectionsStore = rootStore.user.collections
     })
 
     after(function () {
       rootStore.client.collections.removeSubjects.restore()
     })
 
-    it('should remove subjects from the favourites collection', function (done) {
-      collectionsStore.removeFavourites(['1', '2'])
-        .then(function () {
-          const favourites = getSnapshot(collectionsStore.favourites)
-          const params = {
-            authorization: 'Bearer ',
-            id: favourites.id,
-            subjects: ['1', '2']
-          }
-          expect(rootStore.client.collections.removeSubjects).to.have.been.calledOnceWith(params)
-        })
-        .then(done, done)
+    it('should remove subjects from the favourites collection', async function () {
+      await collectionsStore.removeFavourites(['1', '2'])
+      const favourites = getSnapshot(collectionsStore.favourites)
+      const params = {
+        authorization: 'Bearer ',
+        id: favourites.id,
+        subjects: ['1', '2']
+      }
+      expect(rootStore.client.collections.removeSubjects).to.have.been.calledOnceWith(params)
     })
   })
 })

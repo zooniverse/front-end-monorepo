@@ -59,9 +59,6 @@ describe('Component > ClassifyPageContainer', function () {
         toJSON: () => { }, // is this being used in the code somewhere? toJS() should be used instead
         urls: []
       },
-      recents: {
-        recents: []
-      },
       ui: {
         dismissProjectAnnouncementBanner: () => { },
         showAnnouncement: false
@@ -77,7 +74,10 @@ describe('Component > ClassifyPageContainer', function () {
           stats: {
             thisWeek: []
           }
-        }
+        },
+        recents: {
+          recents: []
+        },
       }
     }
 
@@ -159,9 +159,6 @@ describe('Component > ClassifyPageContainer', function () {
           toJSON: () => {}, // is this being used in the code somewhere? toJS() should be used instead
           urls: []
         },
-        recents: {
-          recents: []
-        },
         ui: {
           dismissProjectAnnouncementBanner: () => { },
           showAnnouncement: false
@@ -177,6 +174,9 @@ describe('Component > ClassifyPageContainer', function () {
             stats: {
               thisWeek: []
             }
+          },
+          recents: {
+            recents: []
           }
         }
       }
@@ -213,6 +213,9 @@ describe('Component > ClassifyPageContainer', function () {
                 stats: {
                   thisWeek: []
                 }
+              },
+              recents: {
+                recents: []
               }
             }
           })
@@ -248,7 +251,9 @@ describe('Component > ClassifyPageContainer', function () {
                   thisWeek: []
                 }
               },
-
+              recents: {
+                recents: []
+              }
             } 
           })
 
@@ -283,6 +288,9 @@ describe('Component > ClassifyPageContainer', function () {
               stats: {
                 thisWeek: []
               }
+            },
+            recents: {
+              recents: []
             }
           }})
         const wrapper = mount(
@@ -311,6 +319,9 @@ describe('Component > ClassifyPageContainer', function () {
               stats: {
                 thisWeek: []
               }
+            },
+            recents: {
+              recents: []
             }
           }
         })
@@ -359,9 +370,6 @@ describe('Component > ClassifyPageContainer', function () {
           toJSON: () => { }, // is this being used in the code somewhere? toJS() should be used instead
           urls: []
         },
-        recents: {
-          recents: []
-        },
         ui: {
           dismissProjectAnnouncementBanner: () => { },
           showAnnouncement: false
@@ -377,6 +385,9 @@ describe('Component > ClassifyPageContainer', function () {
             stats: {
               thisWeek: []
             }
+          },
+          recents: {
+            recents: []
           }
         }
       }
