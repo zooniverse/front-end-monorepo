@@ -5,6 +5,7 @@ import Avatar from './components/Avatar'
 import ProjectTitle from './components/ProjectTitle'
 import ApprovedIcon from './components/ApprovedIcon'
 import UnderReviewLabel from './components/UnderReviewLabel'
+import LanguageToggle from './components/LanguageToggle'
 
 const TITLE = 'Project title'
 
@@ -35,6 +36,10 @@ describe('Component > ProjectHeader', function () {
     expect(wrapper.find(UnderReviewLabel)).to.have.lengthOf(0)
   })
 
+  it('should not render a `<LanguageToggle />` component', function () {
+    expect(wrapper.find(LanguageToggle)).to.have.length(0)
+  })
+
   describe('when the project is in beta', function () {
     before(function () {
       wrapper = shallow(<ProjectHeader inBeta title={TITLE} />)
@@ -42,6 +47,16 @@ describe('Component > ProjectHeader', function () {
 
     it('should not render a `<UnderReviewLabel />` component', function () {
       expect(wrapper.find(UnderReviewLabel)).to.have.lengthOf(1)
+    })
+  })
+
+  describe('when the project has available transations', function () {
+    before(function () {
+      wrapper = shallow(<ProjectHeader availableLanguages={['en', 'fr']} title={TITLE} />)
+    })
+
+    it('should render the `<LanguageToggle />` component', function () {
+      expect(wrapper.find(LanguageToggle)).to.have.length(1)
     })
   })
 })

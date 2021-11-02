@@ -8,6 +8,7 @@ import ApprovedIcon from './components/ApprovedIcon'
 import Avatar from './components/Avatar'
 import Background from './components/Background'
 import DropdownNav from './components/DropdownNav'
+import LanguageToggle from './components/LanguageToggle'
 import Nav from './components/Nav'
 import ProjectTitle from './components/ProjectTitle'
 import UnderReviewLabel from './components/UnderReviewLabel'
@@ -21,7 +22,7 @@ const StyledBox = styled(Box)`
 `
 
 function ProjectHeader (props) {
-  const { className, inBeta, navLinks, screenSize, title } = props
+  const { availableLanguages, className, inBeta, navLinks, screenSize, title } = props
   return (
     <StyledBox as='header' className={className}>
       <Background />
@@ -48,6 +49,7 @@ function ProjectHeader (props) {
                 <UnderReviewLabel />}
             </Box>
             <ApprovedIcon isNarrow={screenSize === 'small'} />
+            {availableLanguages?.length > 1 && <LanguageToggle availableLanguages={availableLanguages} />}
           </Box>
         </Box>
         {screenSize !== 'small' && <Nav navLinks={navLinks} />}
