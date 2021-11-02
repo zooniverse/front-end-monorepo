@@ -29,7 +29,7 @@ function RecentSubjectsConnector({ size }) {
   return (
     <RecentSubjects
       isLoggedIn={isLoggedIn}
-      recents={recents}
+      recents={recents.slice()}
       projectName={projectName}
       size={size}
       slug={slug}
