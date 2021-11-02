@@ -1,8 +1,8 @@
 import { render, fireEvent } from '@testing-library/react'
-import * as stories from './LanguageToggle.stories'
+import * as stories from './LocaleToggle.stories'
 import sinon from 'sinon'
 
-describe('Component > LanguageToggle', function () {
+describe('Component > LocaleToggle', function () {
   const { Default } = stories
 
   let scrollMock
@@ -16,7 +16,7 @@ describe('Component > LanguageToggle', function () {
     scrollMock.restore()
   })
 
-  it('should render available languages as a dropdown', function () {
+  it('should render available locales as a dropdown', function () {
     const { getByRole, getByText, getAllByText } = render(<Default />)
     fireEvent.click(getByRole('button'))
     expect(getAllByText('English')).to.exist()

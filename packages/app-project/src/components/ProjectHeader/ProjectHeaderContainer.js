@@ -7,7 +7,7 @@ import getNavLinks from './helpers/getNavLinks'
 
 function storeMapper (stores) {
   return {
-    availableLanguages: stores.store.project.configuration.languages,
+    availableLocales: stores.store.project.configuration.languages,
     inBeta: stores.store.project.inBeta,
     isLoggedIn: stores.store.user.isLoggedIn,
     projectName: stores.store.project.display_name,
@@ -20,13 +20,13 @@ function getBaseUrl (router) {
   return `/projects/${owner}/${project}`
 }
 
-function ProjectHeaderContainer ({ availableLanguages, className, defaultWorkflow, inBeta, isLoggedIn, projectName }) {
+function ProjectHeaderContainer ({ availableLocales, className, defaultWorkflow, inBeta, isLoggedIn, projectName }) {
   const router = useRouter()
   const navLinks = getNavLinks(isLoggedIn, getBaseUrl(router), defaultWorkflow)
 
   return (
     <ProjectHeader
-      availableLanguages={availableLanguages}
+      availableLocales={availableLocales}
       className={className}
       inBeta={inBeta}
       navLinks={navLinks}
@@ -36,13 +36,13 @@ function ProjectHeaderContainer ({ availableLanguages, className, defaultWorkflo
 }
 
 ProjectHeaderContainer.defaultProps = {
-  availableLanguages: [],
+  availableLocales: [],
   inBeta: false,
   isLoggedIn: false
 }
 
 ProjectHeaderContainer.propTypes = {
-  availableLanguages: array,
+  availableLocales: array,
   inBeta: bool,
   isLoggedIn: bool,
   projectName: string.isRequired,

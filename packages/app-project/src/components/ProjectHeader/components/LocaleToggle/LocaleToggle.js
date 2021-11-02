@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import counterpart from 'counterpart'
-import languageMenu from '@helpers/languageMenu'
+import localeMenu from '@helpers/localeMenu'
 import { Box, Select } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 import { SpacedText } from '@zooniverse/react-components'
 
-const LanguageToggle = ({ availableLanguages }) => {
+const LocaleToggle = ({ availableLocales }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const onClose = () => {
@@ -20,9 +20,9 @@ const LanguageToggle = ({ availableLanguages }) => {
     counterpart.setLocale(option.key)
   }
 
-  const dropContent = availableLanguages.map(language => (
+  const dropContent = availableLocales.map(language => (
     <Box key={language} as='ul' pad='none' margin='none'>
-      <SpacedText>{languageMenu[language]}</SpacedText>
+      <SpacedText>{localeMenu[language]}</SpacedText>
     </Box>
   ))
 
@@ -33,7 +33,7 @@ const LanguageToggle = ({ availableLanguages }) => {
       focusIndicator
       isOpen={isOpen}
       multiple={false}
-      name='Language Toggle'
+      name='Locale Toggle'
       onChange={({ option }) => onChange(option)}
       onClose={onClose}
       onOpen={onOpen}
@@ -42,14 +42,14 @@ const LanguageToggle = ({ availableLanguages }) => {
       size='medium'
       value={
         <Box>
-          {languageMenu[counterpart.getLocale()]}
+          {localeMenu[counterpart.getLocale()]}
         </Box>
       }
     />
   )
 }
 
-LanguageToggle.propTypes = {
+LocaleToggle.propTypes = {
   availableLanguages: arrayOf(string),
   theme: shape({
     global: shape({
@@ -61,4 +61,4 @@ LanguageToggle.propTypes = {
   })
 }
 
-export default LanguageToggle
+export default LocaleToggle

@@ -1,14 +1,14 @@
 import { withResponsiveContext } from '@zooniverse/react-components'
 import counterpart from 'counterpart'
 import { Box } from 'grommet'
-import { arrayOf, bool, shape, string } from 'prop-types'
+import { array, arrayOf, bool, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 import ApprovedIcon from './components/ApprovedIcon'
 import Avatar from './components/Avatar'
 import Background from './components/Background'
 import DropdownNav from './components/DropdownNav'
-import LanguageToggle from './components/LanguageToggle'
+import LocaleToggle from './components/LocaleToggle'
 import Nav from './components/Nav'
 import ProjectTitle from './components/ProjectTitle'
 import UnderReviewLabel from './components/UnderReviewLabel'
@@ -22,7 +22,7 @@ const StyledBox = styled(Box)`
 `
 
 function ProjectHeader (props) {
-  const { availableLanguages, className, inBeta, navLinks, screenSize, title } = props
+  const { availableLocales, className, inBeta, navLinks, screenSize, title } = props
   return (
     <StyledBox as='header' className={className}>
       <Background />
@@ -49,7 +49,7 @@ function ProjectHeader (props) {
                 <UnderReviewLabel />}
             </Box>
             <ApprovedIcon isNarrow={screenSize === 'small'} />
-            {availableLanguages?.length > 1 && <LanguageToggle availableLanguages={availableLanguages} />}
+            {availableLocales?.length > 1 && <LocaleToggle availableLocales={availableLocales} />}
           </Box>
         </Box>
         {screenSize !== 'small' && <Nav navLinks={navLinks} />}
@@ -60,6 +60,7 @@ function ProjectHeader (props) {
 }
 
 ProjectHeader.defaultProps = {
+  availableLocales: [],
   className: '',
   inBeta: false,
   href: '',
@@ -67,6 +68,7 @@ ProjectHeader.defaultProps = {
 }
 
 ProjectHeader.propTypes = {
+  availableLocales: array,
   className: string,
   inBeta: bool,
   href: string,
