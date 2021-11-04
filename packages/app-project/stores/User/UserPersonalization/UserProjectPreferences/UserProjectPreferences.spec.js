@@ -11,14 +11,17 @@ describe('Stores > UserProjectPreferences', function () {
   const project = {
     id: '2',
     display_name: 'Hello',
+    loadingState: asyncStates.success,
     slug: 'test/project'
   }
   const user = {
     id: '123',
+    loadingState: asyncStates.success,
     login: 'test-user',
     personalization: {
       projectPreferences: {
-        id: '5'
+        id: '5',
+        loadingState: asyncStates.success
       }
     }
   }
@@ -251,6 +254,56 @@ describe('Stores > UserProjectPreferences', function () {
         expect(projectPreferences.error.message).to.equal('Unauthorized')
         expect(projectPreferences.loadingState).to.equal(asyncStates.error)
       })
+    })
+  })
+
+  describe('refreshing your preferences', function () {
+    let rootStore
+
+    beforeEach(function () {
+      const personalization = {
+        projectPreferences: {
+          activity_count: 28,
+          activity_count_by_workflow: {},
+          id: '555',
+          loadingState: asyncStates.success
+        }
+      }
+      const userWithPrefs = { ...user, personalization }
+
+      nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/project_preferences')
+        .query(true)
+        .reply(200, {
+          project_preferences: [
+            upp
+          ]
+        })
+
+      rootStore = initStore(true, {
+        project,
+        user: userWithPrefs
+      })
+      const { projectPreferences } = rootStore.user.personalization
+      projectPreferences.refreshSettings()
+    })
+
+    it('should not change your total classification count', async function () {
+      expect(rootStore.user.personalization.totalClassificationCount).to.equal(28)
+      const { projectPreferences } = rootStore.user.personalization
+      await when(() => projectPreferences.assignedWorkflowID)
+      expect(rootStore.user.personalization.totalClassificationCount).to.equal(28)
+    })
+
+    it('should not change the app loading state', function () {
+      expect(rootStore.appLoadingState).to.equal(asyncStates.success)
+    })
+
+    it('should update your assigned workflow', async function () {
+      const { projectPreferences } = rootStore.user.personalization
+      expect(projectPreferences.assignedWorkflowID).to.be.undefined()
+      await when(() => projectPreferences.assignedWorkflowID)
+      expect(projectPreferences.assignedWorkflowID).to.equal('999')
     })
   })
 
