@@ -1,5 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import sinon from 'sinon'
+import { when } from 'mobx'
 import nock from 'nock'
 
 import initStore from '@stores/initStore'
@@ -7,18 +8,20 @@ import { statsClient } from '../YourStats'
 import UserProjectPreferences from './UserProjectPreferences'
 
 describe('Stores > UserProjectPreferences', function () {
-  let nockScope, rootStore
   const project = {
     id: '2',
     display_name: 'Hello',
+    loadingState: asyncStates.success,
     slug: 'test/project'
   }
   const user = {
     id: '123',
+    loadingState: asyncStates.success,
     login: 'test-user',
     personalization: {
       projectPreferences: {
-        id: '5'
+        id: '5',
+        loadingState: asyncStates.success
       }
     }
   }
@@ -56,48 +59,52 @@ describe('Stores > UserProjectPreferences', function () {
     user_id: '123'
   }
 
-  before(function () {
-    sinon.stub(console, 'error')
-    sinon.stub(statsClient, 'request')
-    nockScope = nock('https://panoptes-staging.zooniverse.org/api')
-      .get('/collections') // This is to prevent the collections store from making real requests
-      .query(true)
-      .reply(200)
-      .post('/collections')
-      .query(true)
-      .reply(200)
-    rootStore = initStore(true, {
-      project,
-      user
-    })
-    sinon.spy(rootStore.client.panoptes, 'get')
-  })
+  function preferencesAreReady(preferences) {
+    return function preferencesAreLoaded() {
+      const { loadingState } = preferences
+      const { error, success } = asyncStates
+      return (loadingState === success) || (loadingState === error)
+    }
+  }
 
-  beforeEach(function () {
-    rootStore.client.panoptes.get.resetHistory()
+  before(function () {
+    sinon.stub(statsClient, 'request')
   })
 
   after(function () {
-    nock.cleanAll()
     statsClient.request.restore()
-    rootStore.client.panoptes.get.restore()
-    console.error.restore()
-    rootStore = null
   })
 
-  it('should exist', function () {
-    expect(UserProjectPreferences).to.be.an('object')
-  })
+  describe('with a snapshot', function () {
+    let rootStore
 
-  it('should not request for the resource if a snapshot has been applied', function () {
-    expect(rootStore.client.panoptes.get.withArgs(endpoint, query, { authorization })).to.not.have.been.called()
+    before(function () {
+      rootStore = initStore(true, {
+        project,
+        user
+      })
+      sinon.spy(rootStore.client.panoptes, 'get')
+    })
+
+    after(function () {
+      rootStore.client.panoptes.get.restore()
+    })
+
+    it('should exist', function () {
+      expect(UserProjectPreferences).to.be.an('object')
+    })
+
+    it('should not request for the resource if a snapshot has been applied', function () {
+      expect(rootStore.client.panoptes.get.withArgs(endpoint, query, { authorization })).to.not.have.been.called()
+    })
   })
 
   describe('fetching the resource', function () {
     describe('when there is a resource in the response', function () {
-      let nockScope
+      let rootStore
+
       before(function () {
-        nockScope = nock('https://panoptes-staging.zooniverse.org/api')
+        nock('https://panoptes-staging.zooniverse.org/api')
           .persist()
           .get('/project_preferences')
           .query(true)
@@ -106,37 +113,38 @@ describe('Stores > UserProjectPreferences', function () {
               upp
             ]
           })
-          .get('/collections') // This is to prevent the collections store from making real requests
-          .query(true)
-          .reply(200)
-          .post('/collections')
-          .query(true)
-          .reply(200)
 
-        // resetting for a clean test from the prior upper scope
-        rootStore.user.personalization.projectPreferences.reset()
+        rootStore = initStore(true, {
+          project,
+          user
+        })
+        sinon.spy(rootStore.client.panoptes, 'get')
       })
 
       after(function () {
-        rootStore.user.personalization.projectPreferences.reset()
         nock.cleanAll()
-        nockScope = null
       })
 
       it('should request the user project preferences resource', async function () {
+        const { projectPreferences } = rootStore.user.personalization
+        projectPreferences.reset()
         expect(rootStore.client.panoptes.get).to.not.have.been.called()
-        expect(rootStore.user.personalization.projectPreferences.loadingState).to.equal(asyncStates.initialized)
-        await rootStore.user.personalization.projectPreferences.fetchResource()
+        expect(projectPreferences.loadingState).to.equal(asyncStates.initialized)
+        projectPreferences.fetchResource()
+        await when(preferencesAreReady(projectPreferences))
         expect(rootStore.client.panoptes.get.withArgs(endpoint, query, { authorization })).to.have.been.calledOnce()
-        expect(rootStore.user.personalization.projectPreferences.loadingState).to.equal(asyncStates.success)
-        rootStore.user.personalization.projectPreferences.reset()
+        expect(projectPreferences.loadingState).to.equal(asyncStates.success)
+        projectPreferences.reset()
       })
 
       it('should store the UPP resource', async function () {
-        expect(rootStore.user.personalization.projectPreferences).to.deep.equal(initialState)
-        await rootStore.user.personalization.projectPreferences.fetchResource()
+        const { projectPreferences } = rootStore.user.personalization
+        projectPreferences.reset()
+        expect(projectPreferences).to.deep.equal(initialState)
+        projectPreferences.fetchResource()
+        await when(preferencesAreReady(projectPreferences))
         const storedUPP = Object.assign({}, upp, { error: undefined, loadingState: asyncStates.success })
-        expect(rootStore.user.personalization.projectPreferences).to.deep.equal(storedUPP)
+        expect(projectPreferences).to.deep.equal(storedUPP)
       })
 
       it('should set the total classification count on the parent node', function () {
@@ -145,34 +153,34 @@ describe('Stores > UserProjectPreferences', function () {
     })
 
     describe('when there are no user project preferences in the response', function () {
-      let nockScope
+      let rootStore
+
       before(function () {
-        nockScope = nock('https://panoptes-staging.zooniverse.org/api')
+        nock('https://panoptes-staging.zooniverse.org/api')
           .persist()
           .get('/project_preferences')
           .query(true)
           .reply(200, {
             project_preferences: []
           })
-          .get('/collections') // This is to prevent the collections store from making real requests
-          .query(true)
-          .reply(200)
-          .post('/collections')
-          .query(true)
-          .reply(200)
+
+        rootStore = initStore(true, {
+          project,
+          user
+        })
       })
 
       after(function () {
         nock.cleanAll()
-        rootStore.user.personalization.projectPreferences.reset()
-        nockScope = null
       })
 
       it('should not apply the UPP resource', async function () {
-        expect(rootStore.user.personalization.projectPreferences.loadingState).to.equal(asyncStates.initialized)
+        const { projectPreferences } = rootStore.user.personalization
+        projectPreferences.reset()
+        expect(projectPreferences.loadingState).to.equal(asyncStates.initialized)
         await rootStore.user.personalization.projectPreferences.fetchResource()
-        expect(rootStore.user.personalization.projectPreferences.loadingState).to.equal(asyncStates.success)
-        expect(rootStore.user.personalization.projectPreferences.id).to.be.undefined()
+        expect(projectPreferences.loadingState).to.equal(asyncStates.success)
+        expect(projectPreferences.id).to.be.undefined()
       })
 
       it('should not set the total classification count on the parent node', function () {
@@ -181,102 +189,139 @@ describe('Stores > UserProjectPreferences', function () {
     })
 
     describe('when the request errors', function () {
-      let nockScope
+      let rootStore
+
       before(function () {
-        nockScope = nock('https://panoptes-staging.zooniverse.org/api')
+        nock('https://panoptes-staging.zooniverse.org/api')
           .persist()
           .get('/project_preferences')
           .query(true)
           .replyWithError('Error!')
-          .get('/collections') // This is to prevent the collections store from making real requests
-          .query(true)
-          .reply(200)
-          .post('/collections')
-          .query(true)
-          .reply(200)
 
+        rootStore = initStore(true, {
+          project,
+          user
+        })
       })
 
       after(function () {
-        rootStore.user.personalization.projectPreferences.reset()
         nock.cleanAll()
-        nockScope = null
       })
 
       it('should store the error', async function () {
-        expect(rootStore.user.personalization.projectPreferences.loadingState).to.equal(asyncStates.initialized)
-        expect(rootStore.user.personalization.projectPreferences.error).to.be.undefined()
-        await rootStore.user.personalization.projectPreferences.fetchResource()
-        expect(rootStore.user.personalization.projectPreferences.error.message).to.equal('Error!')
-        expect(rootStore.user.personalization.projectPreferences.loadingState).to.equal(asyncStates.error)
+        const { projectPreferences } = rootStore.user.personalization
+        projectPreferences.reset()
+        expect(projectPreferences.loadingState).to.equal(asyncStates.initialized)
+        expect(projectPreferences.error).to.be.undefined()
+        projectPreferences.fetchResource()
+        await when(preferencesAreReady(projectPreferences))
+        expect(projectPreferences.error.message).to.equal('Error!')
+        expect(projectPreferences.loadingState).to.equal(asyncStates.error)
       })
     })
 
     describe('when the response errors', function () {
-      let nockScope
+      let rootStore
+
       before(function () {
-        nockScope = nock('https://panoptes-staging.zooniverse.org/api')
+        sinon.stub(console, 'error')
+        nock('https://panoptes-staging.zooniverse.org/api')
           .persist()
           .get('/project_preferences')
           .query(true)
           .reply(401, {
             project_preferences: []
           })
-          .get('/collections') // This is to prevent the collections store from making real requests
-          .query(true)
-          .reply(200)
-          .post('/collections')
-          .query(true)
-          .reply(200)
 
-        rootStore.user.personalization.projectPreferences.reset()
+        rootStore = initStore(true, {
+          project,
+          user
+        })
       })
 
       after(function () {
-        nockScope = null
+        nock.cleanAll()
+        console.error.restore()
       })
 
       it('should store the error', async function () {
-        expect(rootStore.user.personalization.projectPreferences.loadingState).to.equal(asyncStates.initialized)
-        expect(rootStore.user.personalization.projectPreferences.error).to.be.undefined()
-        await rootStore.user.personalization.projectPreferences.fetchResource()
-        expect(rootStore.user.personalization.projectPreferences.error.message).to.equal('Unauthorized')
-        expect(rootStore.user.personalization.projectPreferences.loadingState).to.equal(asyncStates.error)
+        const { projectPreferences } = rootStore.user.personalization
+        projectPreferences.reset()
+        expect(projectPreferences.loadingState).to.equal(asyncStates.initialized)
+        expect(projectPreferences.error).to.be.undefined()
+        projectPreferences.fetchResource()
+        await when(preferencesAreReady(projectPreferences))
+        expect(projectPreferences.error.message).to.equal('Unauthorized')
+        expect(projectPreferences.loadingState).to.equal(asyncStates.error)
       })
     })
   })
 
+  describe('refreshing your preferences', function () {
+    let rootStore
+
+    beforeEach(function () {
+      const personalization = {
+        projectPreferences: {
+          activity_count: 28,
+          activity_count_by_workflow: {},
+          id: '555',
+          loadingState: asyncStates.success
+        }
+      }
+      const userWithPrefs = { ...user, personalization }
+
+      nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/project_preferences')
+        .query(true)
+        .reply(200, {
+          project_preferences: [
+            upp
+          ]
+        })
+
+      rootStore = initStore(true, {
+        project,
+        user: userWithPrefs
+      })
+      const { projectPreferences } = rootStore.user.personalization
+      projectPreferences.refreshSettings()
+    })
+
+    it('should not change your total classification count', async function () {
+      expect(rootStore.user.personalization.totalClassificationCount).to.equal(28)
+      const { projectPreferences } = rootStore.user.personalization
+      await when(() => projectPreferences.assignedWorkflowID)
+      expect(rootStore.user.personalization.totalClassificationCount).to.equal(28)
+    })
+
+    it('should not change the app loading state', function () {
+      expect(rootStore.appLoadingState).to.equal(asyncStates.success)
+    })
+
+    it('should update your assigned workflow', async function () {
+      const { projectPreferences } = rootStore.user.personalization
+      expect(projectPreferences.assignedWorkflowID).to.be.undefined()
+      await when(() => projectPreferences.assignedWorkflowID)
+      expect(projectPreferences.assignedWorkflowID).to.equal('999')
+    })
+  })
+
   describe('Views > promptAssignment', function () {
-    let nockScope
-
-    before(function () {
-      nockScope = nock('https://panoptes-staging.zooniverse.org/api')
-        .get('/collections') // This is to prevent the collections store from making real requests
-        .query(true)
-        .reply(200)
-        .post('/collections')
-        .query(true)
-        .reply(200)
-    })
-
-    after(function () {
-      nockScope = null
-      nock.cleanAll()
-    })
-
-    describe('when a workflow is not currently selected', function () {
-      let rootStore
-      const user = {
-        id: '5',
-        personalization: {
-          projectPreferences: {
-            id: '10',
-            settings: {
-              workflow_id: '555'
-            }
+    const user = {
+      id: '5',
+      personalization: {
+        projectPreferences: {
+          id: '10',
+          settings: {
+            workflow_id: '555'
           }
         }
       }
+    }
+
+    describe('when a workflow is not currently selected', function () {
+      let rootStore
 
       before(function () {
         const project = {
@@ -292,16 +337,16 @@ describe('Stores > UserProjectPreferences', function () {
         })
       })
 
-      after(function () {
-        rootStore = null
-      })
-
       it('should not prompt the user', function () {
-        expect(rootStore.user.personalization.projectPreferences.promptAssignment()).to.be.false()
+        const { projectPreferences } = rootStore.user.personalization
+        expect(projectPreferences.assignedWorkflowID).to.equal('555')
+        expect(projectPreferences.promptAssignment()).to.be.false()
       })
     })
 
     describe('when the assigned workflow is not active', function () {
+      let rootStore
+
       before(function () {
         const project = {
           id: '2',
@@ -317,12 +362,16 @@ describe('Stores > UserProjectPreferences', function () {
       })
 
       it('should not prompt the user', function () {
-        expect(rootStore.user.personalization.projectPreferences.promptAssignment('123')).to.be.false()
-        expect(rootStore.project.links.active_workflows.includes('555')).to.be.false()
+        const { projectPreferences } = rootStore.user.personalization
+        expect(projectPreferences.assignedWorkflowID).to.equal('555')
+        expect(projectPreferences.promptAssignment('123')).to.be.false()
+        expect(rootStore.project.workflowIsActive('555')).to.be.false()
       })
     })
 
     describe('when the assigned workflow is the same as the current workflow', function () {
+      let rootStore
+
       before(function () {
         const project = {
           id: '2',
@@ -338,12 +387,16 @@ describe('Stores > UserProjectPreferences', function () {
       })
 
       it('should not prompt the user', function () {
-        expect(rootStore.user.personalization.projectPreferences.promptAssignment('555')).to.be.false()
-        expect(rootStore.project.links.active_workflows.includes('555')).to.be.true()
+        const { projectPreferences } = rootStore.user.personalization
+        expect(projectPreferences.assignedWorkflowID).to.equal('555')
+        expect(projectPreferences.promptAssignment('555')).to.be.false()
+        expect(rootStore.project.workflowIsActive('555')).to.be.true()
       })
     })
 
     describe('when the assigned workflow is not the same as the current workflow', function () {
+      let rootStore
+
       before(function () {
         const project = {
           id: '2',
@@ -359,9 +412,11 @@ describe('Stores > UserProjectPreferences', function () {
       })
 
       it('should prompt the user', function () {
-        expect(rootStore.user.personalization.projectPreferences.promptAssignment('123')).to.be.false()
-        expect(rootStore.project.links.active_workflows.includes('123')).to.be.true()
-        expect(rootStore.project.links.active_workflows.includes('555')).to.be.true()
+        const { projectPreferences } = rootStore.user.personalization
+        expect(projectPreferences.assignedWorkflowID).to.equal('555')
+        expect(projectPreferences.promptAssignment('123')).to.be.true()
+        expect(rootStore.project.workflowIsActive('123')).to.be.true()
+        expect(rootStore.project.workflowIsActive('555')).to.be.true()
       })
     })
   })
