@@ -64,7 +64,7 @@ const UserPersonalization = types
 
         const { user } = getRoot(self)
         if (user?.id && self.sessionCountIsDivisibleByFive) {
-          self.projectPreferences.refreshResource()
+          self.projectPreferences.refreshSettings()
         }
       },
 

@@ -11,6 +11,11 @@ const Preferences = types
     tutorials_completed_at: types.maybe(types.frozen())
   })
 
+const Settings = types
+  .model('Settings', {
+    workflow_id: types.maybe(types.string)
+  })
+
 const UserProjectPreferences = types
   .model('UserProjectPreferences', {
     activity_count: types.maybe(types.number),
@@ -25,7 +30,7 @@ const UserProjectPreferences = types
     ),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
     preferences: types.maybe(Preferences),
-    settings: types.maybe(types.frozen())
+    settings: types.maybe(Settings)
   })
   .views(self => ({
     promptAssignment(currentWorkflowID) {
@@ -103,11 +108,11 @@ const UserProjectPreferences = types
         }
       }),
 
-      refreshResource: flow(function * refreshResource() {
+      refreshSettings: flow(function * refreshSettings() {
         try {
           const preferences = yield _fetch()
           if (preferences) {
-            self.preferences = preferences.preferences
+            self.settings = preferences.settings
           }
         } catch (error) {
           self.handleError(error)
