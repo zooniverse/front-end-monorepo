@@ -255,19 +255,20 @@ describe('Stores > UserProjectPreferences', function () {
   })
 
   describe('Views > promptAssignment', function () {
-    describe('when a workflow is not currently selected', function () {
-      let rootStore
-      const user = {
-        id: '5',
-        personalization: {
-          projectPreferences: {
-            id: '10',
-            settings: {
-              workflow_id: '555'
-            }
+    const user = {
+      id: '5',
+      personalization: {
+        projectPreferences: {
+          id: '10',
+          settings: {
+            workflow_id: '555'
           }
         }
       }
+    }
+
+    describe('when a workflow is not currently selected', function () {
+      let rootStore
 
       before(function () {
         const project = {
@@ -284,6 +285,7 @@ describe('Stores > UserProjectPreferences', function () {
       })
 
       it('should not prompt the user', function () {
+        expect(rootStore.user.personalization.projectPreferences.settings.workflow_id).to.equal('555')
         expect(rootStore.user.personalization.projectPreferences.promptAssignment()).to.be.false()
       })
     })
@@ -306,6 +308,7 @@ describe('Stores > UserProjectPreferences', function () {
       })
 
       it('should not prompt the user', function () {
+        expect(rootStore.user.personalization.projectPreferences.settings.workflow_id).to.equal('555')
         expect(rootStore.user.personalization.projectPreferences.promptAssignment('123')).to.be.false()
         expect(rootStore.project.workflowIsActive('555')).to.be.false()
       })
@@ -329,6 +332,7 @@ describe('Stores > UserProjectPreferences', function () {
       })
 
       it('should not prompt the user', function () {
+        expect(rootStore.user.personalization.projectPreferences.settings.workflow_id).to.equal('555')
         expect(rootStore.user.personalization.projectPreferences.promptAssignment('555')).to.be.false()
         expect(rootStore.project.workflowIsActive('555')).to.be.true()
       })
@@ -352,7 +356,8 @@ describe('Stores > UserProjectPreferences', function () {
       })
 
       it('should prompt the user', function () {
-        expect(rootStore.user.personalization.projectPreferences.promptAssignment('123')).to.be.false()
+        expect(rootStore.user.personalization.projectPreferences.settings.workflow_id).to.equal('555')
+        expect(rootStore.user.personalization.projectPreferences.promptAssignment('123')).to.be.true()
         expect(rootStore.project.workflowIsActive('123')).to.be.true()
         expect(rootStore.project.workflowIsActive('555')).to.be.true()
       })
