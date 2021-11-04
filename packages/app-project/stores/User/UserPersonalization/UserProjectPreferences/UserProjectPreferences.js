@@ -2,6 +2,7 @@ import { applySnapshot, flow, getRoot, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 import asyncStates from '@zooniverse/async-states'
 
+import { logToSentry } from '@helpers/logger'
 import numberString from '@stores/types/numberString'
 
 const Preferences = types
@@ -83,12 +84,6 @@ const UserProjectPreferences = types
         applySnapshot(self, resource)
       },
 
-      handleError(error) {
-        console.error(error)
-        self.error = error
-        self.setLoadingState(asyncStates.error)
-      },
-
       setLoadingState(state) {
         self.loadingState = state
       },
@@ -104,7 +99,10 @@ const UserProjectPreferences = types
             self.setLoadingState(asyncStates.success)
           }
         } catch (error) {
-          self.handleError(error)
+          console.error(error)
+          logToSentry(error)
+          self.error = error
+          self.setLoadingState(asyncStates.error)
         }
       }),
 
@@ -115,7 +113,7 @@ const UserProjectPreferences = types
             self.settings = preferences.settings
           }
         } catch (error) {
-          self.handleError(error)
+          console.error(error)
         }
       })
     }
