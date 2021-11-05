@@ -3,14 +3,13 @@ import fetch from 'node-fetch'
 
 import { logToSentry } from '@helpers/logger'
 
-const subjectSetCache = {}
-
 async function fetchSubjectSetData(subjectSetIDs, env) {
   let subject_sets = []
   try {
     const query = {
       env,
-      id: subjectSetIDs.join(',')
+      id: subjectSetIDs.join(','),
+      page_size: subjectSetIDs.length
     }
     const response = await panoptes.get('/subject_sets', query)
     subject_sets = response.body.subject_sets
@@ -21,27 +20,6 @@ async function fetchSubjectSetData(subjectSetIDs, env) {
     logToSentry(error)
   }
   return subject_sets
-}
-
-async function workflowSubjectSets(subjectSetIDs, env) {
-  const workflowSubjectSets = []
-  const setsToFetch = []
-  subjectSetIDs.forEach(id => {
-    if (subjectSetCache[id]) {
-      const workflowSubjectSet = Object.assign({}, subjectSetCache[id])
-      workflowSubjectSets.push(workflowSubjectSet)
-    } else {
-      setsToFetch.push(id)
-    }
-  })
-  if (setsToFetch.length > 0) {
-    const newSets = await fetchSubjectSetData(setsToFetch, env)
-    newSets.forEach(subjectSet => {
-      workflowSubjectSets.push(subjectSet)
-      subjectSetCache[subjectSet.id] = subjectSet
-    })
-  }
-  return workflowSubjectSets
 }
 
 async function fetchPreviewImage (subjectSet, env) {
@@ -69,6 +47,9 @@ async function hasIndexedSubjects(subjectSet) {
 
 export default async function fetchSubjectSets(workflow, env) {
   const subjectSetIDs = workflow.links.subject_sets
-  const subjectSets = await workflowSubjectSets(subjectSetIDs, env)
-  return subjectSets
+  let workflowSubjectSets = []
+  if (subjectSetIDs.length > 0) {
+    workflowSubjectSets = await fetchSubjectSetData(subjectSetIDs, env)
+  }
+  return workflowSubjectSets
 }

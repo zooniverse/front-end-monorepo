@@ -3,17 +3,13 @@ import { addDisposer, addMiddleware, getEnv, onAction, types } from 'mobx-state-
 import { autorun } from 'mobx'
 import { logToSentry } from '../src/helpers/logger'
 
-import Collections from './Collections'
 import Project from './Project'
-import Recents from './Recents'
 import UI from './UI'
 import User from './User'
 
 const Store = types
   .model('Store', {
-    collections: types.optional(Collections, {}),
     project: types.optional(Project, {}),
-    recents: types.optional(Recents, {}),
     ui: types.optional(UI, {}),
     user: types.optional(User, {})
   })

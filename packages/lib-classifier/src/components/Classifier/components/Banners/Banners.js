@@ -11,25 +11,31 @@ function useStores(stores) {
   const { classifierStore } = stores ?? React.useContext(MobXProviderContext)
   return {
     annotatedSteps: classifierStore.annotatedSteps,
+    project: classifierStore.projects.active,
     subject: classifierStore.subjects.active,
     subjects: classifierStore.subjects,
     workflow: classifierStore.workflows.active
   }
 }
 
-const environment = process.env.APP_ENV
-
 function Banners({ stores }) {
-  const { annotatedSteps, subject, subjects, workflow } = useStores(stores)
+  const { annotatedSteps, project, subject, subjects, workflow } = useStores(stores)
   const subjectNumber = subject?.priority ?? -1
+
   const hasIndexedSubjects = workflow?.hasIndexedSubjects
   const hasGroupedOrderedSubjects = workflow?.grouped && workflow?.prioritized
-  if (environment !== 'production' && hasIndexedSubjects && subjectNumber > -1) {
+  // Next/Prev buttons are only enabled when Project has the experimental tool enabled AND the Subject Set is indexed.
+  const enableIndexedSubjectSetNextPrevButtons =
+    project?.experimental_tools?.includes('indexedSubjectSetNextPrevButtons')
+  const onPrevious = subjects.previousIndexed
+  const onNext = subjects.nextIndexed
+
+  if (enableIndexedSubjectSetNextPrevButtons && hasIndexedSubjects && subjectNumber > -1) {
     return (
       <SubjectSetProgressBanner
         checkForProgress={annotatedSteps.checkForProgress}
-        onNext={subjects.nextIndexed}
-        onPrevious={subjects.previousIndexed}
+        onNext={onNext}
+        onPrevious={onPrevious}
         subject={subject}
         workflow={workflow}
       />

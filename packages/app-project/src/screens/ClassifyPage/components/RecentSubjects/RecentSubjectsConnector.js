@@ -7,11 +7,11 @@ import RecentSubjects from './RecentSubjects'
 function storeMapper (store) {
   const {
     project,
-    recents: {
-      recents
-    },
     user: {
-      isLoggedIn
+      isLoggedIn,
+      recents : {
+        recents
+      }
     }
   } = store
 
@@ -29,7 +29,7 @@ function RecentSubjectsConnector({ size }) {
   return (
     <RecentSubjects
       isLoggedIn={isLoggedIn}
-      recents={recents}
+      recents={recents.slice()}
       projectName={projectName}
       size={size}
       slug={slug}
