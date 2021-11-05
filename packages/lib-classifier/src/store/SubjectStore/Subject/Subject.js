@@ -2,6 +2,7 @@ import { autorun } from 'mobx'
 import { addDisposer, destroy, getRoot, tryReference, types } from 'mobx-state-tree'
 import Resource from '@store/Resource'
 import { createLocationCounts, subjectViewers, validateSubjectLocations } from '@helpers'
+import StepHistory from './StepHistory'
 import TranscriptionReductions from './TranscriptionReductions'
 import { subjectsSeenThisSession } from '@helpers'
 
@@ -16,6 +17,7 @@ const Subject = types
     selected_at: types.maybe(types.string),
     selection_state: types.maybe(types.string),
     shouldDiscuss: types.maybe(types.frozen()),
+    stepHistory: types.optional(StepHistory, () => StepHistory.create({})),
     user_has_finished_workflow: types.optional(types.boolean, false),
     transcriptionReductions: types.maybe(TranscriptionReductions)
   })

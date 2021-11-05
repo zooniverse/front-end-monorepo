@@ -15,16 +15,18 @@ function withStores(Component) {
     const { classifierStore } = store || useContext(MobXProviderContext)
 
     const {
-      annotatedSteps,
+      subjects: {
+        active: subject
+      },
       subjectViewer
     } = classifierStore
     const { loadingState: subjectReadyState } = subjectViewer
     const disabled = subjectReadyState !== asyncStates.success
 
     let annotation
-    const { annotations } = annotatedSteps.latest
-    if (annotations) {
-      ([ annotation ] = annotations.filter(annotation => annotation.task === task.taskKey))
+    const latest = subject?.stepHistory.latest
+    if (latest) {
+      ([ annotation ] = latest.annotations.filter(annotation => annotation.task === task.taskKey))
     }
     if (!annotation) {
       console.log(`annotation missing for ${task.taskKey}`)

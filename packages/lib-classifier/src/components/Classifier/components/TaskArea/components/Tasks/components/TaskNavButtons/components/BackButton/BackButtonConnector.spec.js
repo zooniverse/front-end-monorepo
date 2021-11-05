@@ -27,10 +27,11 @@ describe('Components > BackButtonConnector', function () {
     before(function() {
       // set an answer to the branching task question, so that step.next is set.
       const classification = classifierStore.classifications.active
+      const subject = classifierStore.subjects.active
       const singleChoiceAnnotation = classification.annotation({ taskKey: 'T0'})
       singleChoiceAnnotation.update(0)
       // push the first task to the history stack
-      classifierStore.annotatedSteps.next()
+      subject.stepHistory.next()
       const store = { classifierStore }
       wrapper = shallow(<BackButtonConnector store={store} />)
     })
@@ -47,7 +48,7 @@ describe('Components > BackButtonConnector', function () {
       })
 
       it('should undo the most recent step', function () {
-        const { latest, steps} = classifierStore.annotatedSteps
+        const { latest, steps} = classifierStore.subjects.active.stepHistory
         expect(steps.size).to.equal(1)
         expect(latest.step.stepKey).to.equal('S0')
       })
@@ -60,7 +61,7 @@ describe('Components > BackButtonConnector', function () {
       })
 
       it('should remove annotations for the current task', function () {
-        const { annotations, steps } = classifierStore.annotatedSteps
+        const { annotations, steps } = classifierStore.subjects.active.stepHistory
         expect(steps.size).to.equal(1)
         const [annotation] = annotations.filter(annotation => annotation.task === 'T1')
         expect(annotation).to.be.undefined()
