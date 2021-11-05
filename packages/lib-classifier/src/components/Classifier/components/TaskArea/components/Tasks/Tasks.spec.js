@@ -24,7 +24,7 @@ describe('Tasks', function () {
       const taskSnapshot = {
         answers: [],
         instruction: `${taskType} instructions`,
-        options: [],
+        options: [ '1', '2', '3', '4'],
         question: `${taskType} question`,
         taskKey: 'init',
         type: taskType
@@ -153,6 +153,42 @@ describe('Tasks', function () {
             step={step}
           />)
         expect(wrapper.contains(en.Tasks.demoMode)).to.be.true()
+      })
+
+      it('should disable the task while the subject loads', function () {
+        const wrapper = shallow(
+          <Tasks
+            classification={classification}
+            loadingState={asyncStates.success}
+            step={step}
+            subjectReadyState={asyncStates.loading}
+          />
+        )
+        expect(wrapper.find(Task).prop('disabled')).to.be.true()
+      })
+
+      it('should enable the task when the subject media is loaded', function () {
+        const wrapper = shallow(
+          <Tasks
+            classification={classification}
+            loadingState={asyncStates.success}
+            step={step}
+            subjectReadyState={asyncStates.success}
+          />
+        )
+        expect(wrapper.find(Task).prop('disabled')).to.be.false()
+      })
+
+      it('should disable the task if the subject media errors', function () {
+        const wrapper = shallow(
+          <Tasks
+            classification={classification}
+            loadingState={asyncStates.success}
+            step={step}
+            subjectReadyState={asyncStates.error}
+          />
+        )
+        expect(wrapper.find(Task).prop('disabled')).to.be.true()
       })
     })
   })
