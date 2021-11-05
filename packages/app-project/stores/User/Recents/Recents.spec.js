@@ -3,8 +3,8 @@ import sinon from 'sinon'
 import { getSnapshot } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 
-import initStore from './initStore'
-import { statsClient } from './User/UserPersonalization/YourStats'
+import initStore from '@stores/initStore'
+import { statsClient } from '../UserPersonalization/YourStats'
 
 describe('Stores > Recents', function () {
   let rootStore
@@ -32,7 +32,7 @@ describe('Stores > Recents', function () {
       }
     }
     rootStore = initStore(true, { project })
-    recentsStore = rootStore.recents
+    recentsStore = rootStore.user.recents
     sinon.stub(rootStore.client.panoptes, 'get').callsFake(() => Promise.resolve(mockResponse))
     sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve(null))
   })
@@ -53,13 +53,13 @@ describe('Stores > Recents', function () {
         id: '123',
         login: 'test.user'
       }
-      sinon.stub(rootStore.collections, 'fetchFavourites')
+      sinon.stub(rootStore.user.collections, 'fetchFavourites')
       rootStore.user.set(user)
     })
 
     after(function () {
       rootStore.client.panoptes.get.resetHistory()
-      rootStore.collections.fetchFavourites.restore()
+      rootStore.user.collections.fetchFavourites.restore()
     })
 
     it('should request recent subjects from Panoptes', function () {
@@ -107,7 +107,7 @@ describe('Stores > Recents', function () {
   describe('with a project and anonymous user', function () {
     before(function () {
       rootStore = initStore(true, { project })
-      recentsStore = rootStore.recents
+      recentsStore = rootStore.user.recents
     })
 
     it('should not request recent subjects from Panoptes', function () {
@@ -151,20 +151,20 @@ describe('Stores > Recents', function () {
 
     before(function () {
       rootStore = initStore(true, { project })
-      recentsStore = rootStore.recents
+      recentsStore = rootStore.user.recents
       const user = {
         id: '123',
         login: 'test.user'
       }
       sinon.stub(auth, 'checkBearerToken').callsFake(() => Promise.reject(new Error('Auth is not available')))
-      sinon.stub(rootStore.collections, 'fetchFavourites')
+      sinon.stub(rootStore.user.collections, 'fetchFavourites')
       rootStore.user.set(user)
       recentsStore.add(mockRecent)
     })
 
     after(function () {
       auth.checkBearerToken.restore()
-      rootStore.collections.fetchFavourites.restore()
+      rootStore.user.collections.fetchFavourites.restore()
     })
 
     it('should record subjects classified this session', function () {
@@ -187,19 +187,19 @@ describe('Stores > Recents', function () {
 
     before(function () {
       rootStore = initStore(true, { project })
-      recentsStore = rootStore.recents
+      recentsStore = rootStore.user.recents
       const user = {
         id: '123',
         login: 'test.user'
       }
       rootStore.client.panoptes.get.callsFake(() => Promise.reject(new Error('Panoptes is not available')))
-      sinon.stub(rootStore.collections, 'fetchFavourites')
+      sinon.stub(rootStore.user.collections, 'fetchFavourites')
       rootStore.user.set(user)
       recentsStore.add(mockRecent)
     })
 
     after(function () {
-      rootStore.collections.fetchFavourites.restore()
+      rootStore.user.collections.fetchFavourites.restore()
     })
 
     it('should record subjects classified this session', function () {

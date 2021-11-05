@@ -12,9 +12,7 @@ function useStore(store) {
   }
   const {
     appLoadingState,
-    collections,
     project,
-    recents,
     user,
     ui: {
       mode
@@ -23,10 +21,10 @@ function useStore(store) {
 
   return {
     appLoadingState,
-    collections,
+    collections : user.collections,
     mode,
     project,
-    recents,
+    recents: user.recents,
     user,
     yourStats: user.personalization
   }
