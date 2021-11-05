@@ -32,21 +32,7 @@ const Recents = types
   })
 
   .actions(self => {
-    function createProjectObserver () {
-      const projectDisposer = autorun(() => {
-        const { project, user } = getRoot(self)
-        if (project.id && user.id) {
-          self.fetch()
-        }
-      })
-      addDisposer(self, projectDisposer)
-    }
-
     return {
-      afterAttach () {
-        createProjectObserver()
-      },
-
       fetch: flow(function * fetch () {
         const { client, project, user } = getRoot(self)
         self.loadingState = asyncStates.loading

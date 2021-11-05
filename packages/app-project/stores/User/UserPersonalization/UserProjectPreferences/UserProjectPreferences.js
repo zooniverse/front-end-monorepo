@@ -2,6 +2,7 @@ import { applySnapshot, flow, getRoot, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 import asyncStates from '@zooniverse/async-states'
 
+import { logToSentry } from '@helpers/logger'
 import numberString from '@stores/types/numberString'
 
 const Preferences = types
@@ -9,6 +10,11 @@ const Preferences = types
     minicourses: types.maybe(types.frozen()),
     selected_workflow: types.maybe(types.string),
     tutorials_completed_at: types.maybe(types.frozen())
+  })
+
+const Settings = types
+  .model('Settings', {
+    workflow_id: types.maybe(types.string)
   })
 
 const UserProjectPreferences = types
@@ -25,15 +31,18 @@ const UserProjectPreferences = types
     ),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
     preferences: types.maybe(Preferences),
-    settings: types.maybe(types.frozen())
+    settings: types.maybe(Settings)
   })
   .views(self => ({
+    get assignedWorkflowID() {
+      return self.settings?.workflow_id
+    },
+
     promptAssignment(currentWorkflowID) {
       const project = getRoot(self).project
-      const assignedWorkflowID = self.settings?.workflow_id
 
-      if (assignedWorkflowID && currentWorkflowID && assignedWorkflowID !== currentWorkflowID) {
-        return project.workflowIsActive(assignedWorkflowID)
+      if (self.assignedWorkflowID && currentWorkflowID && self.assignedWorkflowID !== currentWorkflowID) {
+        return project.workflowIsActive(self.assignedWorkflowID)
       }
 
       return false
@@ -45,27 +54,19 @@ const UserProjectPreferences = types
 
   }))
   .actions(self => {
-    const _fetch = flow(function * _fetch() {
+    async function _fetch() {
       const { client, project, user } = getRoot(self)
-      self.setLoadingState(asyncStates.loading)
-      try {
-        const token = yield auth.checkBearerToken()
-        const authorization = `Bearer ${token}`
-        const query = {
-          project_id: project.id,
-          user_id: user.id
-        }
-
-        const response = yield client.panoptes.get('/project_preferences', query, { authorization })
-        const [preferences] = response.body.project_preferences
-        if (preferences) {
-          self.setResource(preferences)
-        }
-        self.setLoadingState(asyncStates.success)
-      } catch (error) {
-        self.handleError(error)
+      const token = await auth.checkBearerToken()
+      const authorization = `Bearer ${token}`
+      const query = {
+        project_id: project.id,
+        user_id: user.id
       }
-    })
+
+      const response = await client.panoptes.get('/project_preferences', query, { authorization })
+      const [preferences] = response.body.project_preferences
+      return preferences
+    }
 
     return {
       reset() {
@@ -86,24 +87,37 @@ const UserProjectPreferences = types
         applySnapshot(self, resource)
       },
 
-      handleError(error) {
-        console.error(error)
-        self.error = error
-        self.setLoadingState(asyncStates.error)
-      },
-
       setLoadingState(state) {
         self.loadingState = state
       },
 
       fetchResource: flow(function* fetchResource() {
-        if (!self.id) {
-          yield _fetch()
+        try {
+          if (!self.id) {
+            self.setLoadingState(asyncStates.loading)
+            const preferences = yield _fetch()
+            if (preferences) {
+              self.setResource(preferences)
+            }
+            self.setLoadingState(asyncStates.success)
+          }
+        } catch (error) {
+          console.error(error)
+          logToSentry(error)
+          self.error = error
+          self.setLoadingState(asyncStates.error)
         }
       }),
 
-      refreshResource: flow(function * refreshResource() {
-        yield _fetch()
+      refreshSettings: flow(function * refreshSettings() {
+        try {
+          const preferences = yield _fetch()
+          if (preferences) {
+            self.settings = preferences.settings
+          }
+        } catch (error) {
+          console.error(error)
+        }
       })
     }
   })

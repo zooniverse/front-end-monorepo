@@ -8,7 +8,8 @@ async function fetchSubjectSetData(subjectSetIDs, env) {
   try {
     const query = {
       env,
-      id: subjectSetIDs.join(',')
+      id: subjectSetIDs.join(','),
+      page_size: subjectSetIDs.length
     }
     const response = await panoptes.get('/subject_sets', query)
     subject_sets = response.body.subject_sets

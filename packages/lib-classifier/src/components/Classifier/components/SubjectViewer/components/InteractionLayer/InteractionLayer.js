@@ -76,9 +76,9 @@ function InteractionLayer({
 
   function getEventOffset(event) {
     const svgPoint = createPoint(event)
-    const svgEventOffset = svgPoint.matrixTransform ?
-      svgPoint.matrixTransform(canvas.current?.getScreenCTM().inverse()) :
-      svgPoint
+    const svgEventOffset = svgPoint.matrixTransform
+      ? svgPoint.matrixTransform(canvas.current?.getScreenCTM().inverse())
+      : svgPoint
     return svgEventOffset
   }
 
@@ -97,8 +97,8 @@ function InteractionLayer({
     mark.setSubTaskVisibility(false)
     // Add a time value for tools that care about time. For most tools, this value is ignored.
     mark.setVideoTime(timeStamp, duration)
-    const markIDs = marks.map(mark => mark.id)
-    annotation.update([ ...markIDs, mark.id ])
+    const markIDs = marks.map((mark) => mark.id)
+    annotation.update([...markIDs, mark.id])
   }
 
   function onPointerDown(event) {
@@ -179,7 +179,7 @@ function InteractionLayer({
           scale={scale}
           played={played}
         />
-    )}
+      )}
     </>
   )
 }
