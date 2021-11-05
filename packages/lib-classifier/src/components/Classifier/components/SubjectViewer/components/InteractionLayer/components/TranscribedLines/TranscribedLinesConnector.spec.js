@@ -1,8 +1,8 @@
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
-import TranscriptionReductions from '@store/TranscriptionReductions'
-import { reducedSubject } from '@store/TranscriptionReductions/mocks'
+import TranscriptionReductions from '@store/SubjectStore/Subject/TranscriptionReductions'
+import { reducedSubject } from '@store/SubjectStore/Subject/TranscriptionReductions/mocks'
 import TranscribedLinesConnector from './TranscribedLinesConnector'
 import TranscribedLines from './TranscribedLines'
 
