@@ -51,6 +51,12 @@ const SubjectStore = types
   })
 
   .views(self => ({
+    get classification() {
+      const { classifications } = getRoot(self)
+      const classification = tryReference(() => classifications.active)
+      return classification
+    },
+
     get isThereMetadata() {
       const validSubjectReference = isValidReference(() => self.active)
       if (validSubjectReference) {
@@ -104,6 +110,8 @@ const SubjectStore = types
 
     function createClassificationObserver () {
       const classificationDisposer = autorun(() => {
+        onClassificationChange()
+
         onPatch(getRoot(self), (patch) => {
           const { path, value } = patch
           if (path === '/classifications/loadingState' && value === 'posting') {
@@ -113,6 +121,15 @@ const SubjectStore = types
         })
       }, { name: 'SubjectStore Classification Observer autorun' })
       addDisposer(self, classificationDisposer)
+    }
+
+    function onClassificationChange() {
+      const subject = tryReference(() => self.active)
+
+      // start a new history for each new subject and classification.
+      if (self.classification && subject) {
+        subject.stepHistory.start()
+      }
     }
 
     function onSubjectAdvance (call, next, abort) {

@@ -59,7 +59,6 @@ const RootStore = types
         classifications.reset()
         classifications.createClassification(subject, workflow, project)
         feedback.onNewSubject()
-        subject.stepHistory.start()
       }
     }
 
