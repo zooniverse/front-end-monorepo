@@ -2,7 +2,7 @@ import sinon from 'sinon'
 import { Factory } from 'rosie'
 import RootStore from './RootStore'
 import ClassificationStore from './ClassificationStore'
-import { applySnapshot } from 'mobx-state-tree'
+import { applySnapshot, tryReference } from 'mobx-state-tree'
 import {
   FeedbackFactory,
   ProjectFactory,
@@ -175,6 +175,7 @@ describe('Model > ClassificationStore', function () {
         sinon.stub(rootStore.feedback, 'createRules')
         sinon.stub(rootStore.feedback, 'update')
         sinon.stub(rootStore.feedback, 'reset')
+        sinon.stub(rootStore.classifications, 'reset')
         sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
         classifications = rootStore.classifications
         feedback = rootStore.feedback
@@ -183,11 +184,11 @@ describe('Model > ClassificationStore', function () {
         subjectViewer = rootStore.subjectViewer
 
         // annotate a subject then finish the classification
-        subjectToBeClassified = rootStore.subjects.active
+        subjectToBeClassified = tryReference(() => rootStore.subjects.active)
         const taskSnapshot = Object.assign({}, singleChoiceTaskSnapshot, { taskKey: singleChoiceAnnotationSnapshot.task })
         taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
         classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
-        classificationWithAnnotation = classifications.active
+        classificationWithAnnotation = tryReference(() => classifications.active)
         classifications.completeClassification({
           preventDefault: sinon.stub()
         })
@@ -201,6 +202,7 @@ describe('Model > ClassificationStore', function () {
         feedback.createRules.restore()
         feedback.update.restore()
         feedback.reset.restore()
+        classifications.reset.restore()
         helpers.isFeedbackActive.restore()
       })
 
@@ -213,7 +215,9 @@ describe('Model > ClassificationStore', function () {
         The tests for invalid feedback would have to be moved too.
       */
       it('should update feedback', function () {
-        classificationWithAnnotation.annotations.forEach(annotation => {
+        const { annotations } = classificationWithAnnotation
+        expect(annotations.size).to.equal(1)
+        annotations.forEach(annotation => {
           expect(feedback.update.withArgs(annotation)).to.have.been.calledOnce()
         })
       })
@@ -226,7 +230,7 @@ describe('Model > ClassificationStore', function () {
         let metadata
 
         before(function () {
-          metadata = classifications.active.metadata
+          metadata = classificationWithAnnotation.metadata
         })
 
         it('should have a feedback key', function () {
