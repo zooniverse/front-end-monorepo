@@ -54,7 +54,7 @@ export default function Tasks({
             {step.tasks.map((task,index) => (
               <Task
                 autoFocus={index === 0}
-                disabled={disabled}
+                disabled={disabled || !ready}
                 key={task.taskKey}
                 task={task}
               />
