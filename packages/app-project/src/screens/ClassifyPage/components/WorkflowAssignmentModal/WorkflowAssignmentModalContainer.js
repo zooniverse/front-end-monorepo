@@ -1,24 +1,22 @@
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import WorkflowAssignmentModal from './WorkflowAssignmentModal'
-import asyncStates from '@zooniverse/async-states'
 
-function WorkflowAssignmentModalContainer(props) {
+function WorkflowAssignmentModalContainer (props) {
   const {
     assignedWorkflowID = '',
     currentWorkflowID = '',
-    loadingState = asyncStates.initialized,
     promptAssignment = () => { }
   } = props
   const [ active, setActive ] = useState(false)
   const [ dismissedForSession, setDismissed ] = useState(false)
 
   // TODO: integrate session storage
-  function onDismiss(event) {
+  function onDismiss (event) {
     setDismissed(event.target.checked)
   }
 
-  function closeFn() {
+  function closeFn () {
     setActive(false)
   }
 
@@ -28,7 +26,7 @@ function WorkflowAssignmentModalContainer(props) {
     }
 
     return () => setActive(false)
-  }, [loadingState, currentWorkflowID])
+  }, [assignedWorkflowID, currentWorkflowID])
 
   if (assignedWorkflowID) {
     return (
@@ -49,7 +47,6 @@ WorkflowAssignmentModalContainer.propTypes = {
   assignedWorkflowID: PropTypes.string,
   currentWorkflowID: PropTypes.string,
   promptAssignment: PropTypes.func
-
 }
 
 export default WorkflowAssignmentModalContainer
