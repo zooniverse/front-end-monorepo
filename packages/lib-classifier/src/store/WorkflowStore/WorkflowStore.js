@@ -12,7 +12,12 @@ const WorkflowStore = types
   })
 
   .views(self => ({
-    get project () {
+    get defaultWorkflowID() {
+      const { project } = self
+      return project?.defaultWorkflow || ''
+    },
+
+    get project() {
       const activeProject = getRoot(self).projects.active
       return tryReference(() => activeProject)
     }
@@ -20,12 +25,7 @@ const WorkflowStore = types
 
   .actions(self => {
 
-    function getDefaultWorkflowId () {
-      const { project } = self
-      return project?.defaultWorkflow || ''
-    }
-
-    function * selectWorkflow (id = getDefaultWorkflowId(), subjectSetID, subjectID) {
+    function * selectWorkflow (id = self.defaultWorkflowID, subjectSetID, subjectID) {
       if (id) {
         const activeWorkflows = self.project?.links?.active_workflows || []
         const activeSubject = tryReference(() => getRoot(self).subjects.active)
