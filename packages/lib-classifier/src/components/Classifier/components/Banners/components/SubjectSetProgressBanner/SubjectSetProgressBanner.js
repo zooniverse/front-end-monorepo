@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { bool, func, shape, string } from 'prop-types'
+import { bool, func, number, shape, string } from 'prop-types'
 import React, { Component, useState } from 'react'
 
 import en from './locales/en'
@@ -8,6 +8,11 @@ import ConfirmModal from './components/ConfirmModal'
 
 counterpart.registerTranslations('en', en)
 
+/**
+  A banner which shows progress through a prioritised subject set, showing `subject.metadata.priority` to the volunteer.
+
+  Optionally, it can also show Next and Previous subject navigation buttons for indexed workflows.
+*/
 function SubjectSetProgressBanner({
   checkForProgress = false,
   onNext,
@@ -91,15 +96,26 @@ function SubjectSetProgressBanner({
 }
 
 SubjectSetProgressBanner.propTypes = {
+  /** Check for classification work in progress. */
   checkForProgress: bool,
+  /** Callback to load the next subject (indexed workflows only.) */
   onNext: func,
+  /** Callback to load the previous subject (indexed workflows only.) */
   onPrevious: func,
+  /** The active subject */
   subject: shape({
     alreadySeen: bool,
     finished_workflow: bool,
     id: string,
     retired: bool,
     user_has_finished_workflow: bool
+  }),
+  /** The active workflow */
+  workflow: shape({
+    subjectSet: shape({
+      display_name: string,
+      set_member_subjects_count: number
+    })
   })
 }
 
