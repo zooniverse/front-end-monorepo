@@ -16,15 +16,16 @@ const UserPersonalization = types
   .views(self => ({
     get counts() {
       const todaysDate = new Date()
-      let today
+      let todaysCount = 0
       try {
-        const todaysCount = self.stats.thisWeek.length === 7
-          ? self.stats.thisWeek[todaysDate.getDay() - 1].count
-          : 0
-        today = todaysCount + self.sessionCount
+        if (self.stats.thisWeek.length === 7) {
+          const todaysStats = self.stats.thisWeek.find(stat => stat.dayNumber === todaysDate.getDay())
+          todaysCount = todaysStats.count
+        }
       } catch (error) {
-        today = 0
+        todaysCount = 0
       }
+      const today = todaysCount + self.sessionCount
 
       return {
         today,
@@ -64,7 +65,7 @@ const UserPersonalization = types
 
         const { user } = getRoot(self)
         if (user?.id && self.sessionCountIsDivisibleByFive) {
-          self.projectPreferences.refreshResource()
+          self.projectPreferences.refreshSettings()
         }
       },
 

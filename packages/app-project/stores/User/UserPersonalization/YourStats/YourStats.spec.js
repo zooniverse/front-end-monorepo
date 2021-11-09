@@ -96,11 +96,19 @@ describe('Stores > YourStats', function () {
       })
 
       it('should start on Monday', function () {
-        expect(rootStore.user.personalization.stats.thisWeek[0]).to.deep.equal({ count: 12, period: '2019-09-30' })
+        expect(rootStore.user.personalization.stats.thisWeek[0]).to.deep.equal({
+          count: 12,
+          dayNumber: 1,
+          period: '2019-09-30'
+        })
       })
 
       it('should end on Sunday', function () {
-        expect(rootStore.user.personalization.stats.thisWeek[6]).to.deep.equal({ count: 15, period: '2019-10-06' })
+        expect(rootStore.user.personalization.stats.thisWeek[6]).to.deep.equal({
+          count: 15,
+          dayNumber: 0,
+          period: '2019-10-06'
+        })
       })
     })
   })
@@ -108,14 +116,13 @@ describe('Stores > YourStats', function () {
   describe('on reset', function () {
     it('should reset weekly stats and loading state', function () {
       const MOCK_DAILY_COUNTS = [
-        { count: 12, period: '2019-09-29' },
-        { count: 12, period: '2019-09-30' },
-        { count: 13, period: '2019-10-01' },
-        { count: 14, period: '2019-10-02' },
-        { count: 10, period: '2019-10-03' },
-        { count: 11, period: '2019-10-04' },
-        { count: 8, period: '2019-10-05' },
-        { count: 15, period: '2019-10-06' }
+        { count: 12, dayNumber: 1, period: '2019-09-29' },
+        { count: 12, dayNumber: 2, period: '2019-09-30' },
+        { count: 13, dayNumber: 3, period: '2019-10-01' },
+        { count: 14, dayNumber: 4, period: '2019-10-02' },
+        { count: 10, dayNumber: 5, period: '2019-10-03' },
+        { count: 11, dayNumber: 6, period: '2019-10-04' },
+        { count: 8, dayNumber: 0, period: '2019-10-05' },
       ]
       const yourStatsStore = YourStats.create({
         loadingState: asyncStates.success,

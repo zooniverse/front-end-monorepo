@@ -15,6 +15,9 @@
     "nyc": "~15.1.0",
     "snazzy": "~9.0.0"
   },
+  "resolutions": {
+    "**/trim": "~1.0"
+  },
   "scripts": {
     "bootstrap": "./bin/bootstrap.sh",
     "build": "lerna run --parallel build",
