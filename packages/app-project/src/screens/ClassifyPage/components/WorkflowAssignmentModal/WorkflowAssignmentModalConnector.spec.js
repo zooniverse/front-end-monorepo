@@ -47,10 +47,6 @@ describe('Component > WorkflowAssignmentModalConnector', function () {
       expect(wrapper.props().assignedWorkflowID).to.deep.equal(mockStore.store.user.personalization.projectPreferences.settings.workflow_id)
     })
 
-    it('should inject the user project preferences loading state', function () {
-      expect(wrapper.props().loadingState).to.deep.equal(mockStore.store.user.personalization.projectPreferences.loadingState)
-    })
-
     it('should inject the user project preferences promptAssignment function', function () {
       expect(wrapper.props().promptAssignment).to.equal(mockStore.store.user.personalization.projectPreferences.promptAssignment)
     })
