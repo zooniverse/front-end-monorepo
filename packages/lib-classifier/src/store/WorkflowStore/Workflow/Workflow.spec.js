@@ -1,7 +1,7 @@
 import { WorkflowFactory } from '@test/factories'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
-import RootStore from '../RootStore'
+import RootStore from '@store/RootStore'
 import Workflow from './Workflow'
 
 import { MultipleChoiceTaskFactory, SubjectSetFactory } from '@test/factories'

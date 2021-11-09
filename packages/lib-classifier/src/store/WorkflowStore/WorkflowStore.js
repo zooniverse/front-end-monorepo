@@ -1,7 +1,7 @@
 import { autorun } from 'mobx'
 import { addDisposer, flow, getRoot, tryReference, types } from 'mobx-state-tree'
-import ResourceStore from '../ResourceStore'
-import Workflow from '../Workflow'
+import ResourceStore from '@store/ResourceStore'
+import Workflow from './Workflow'
 import queryString from 'query-string'
 
 const WorkflowStore = types
