@@ -39,14 +39,22 @@ spec:
             limits:
               memory: "500Mi"
               cpu: "1000m"
+          startupProbe:
+            httpGet:
+              path: /projects/Index
+              port: 3000
+            failureThreshold: 6
           livenessProbe:
             httpGet:
-              path: /Index
+              path: /projects/Index
               port: 3000
+            timeoutSeconds: 10
           readinessProbe:
             httpGet:
-              path: /Index
+              path: /projects/Index
               port: 3000
+            initialDelaySeconds: 20
+            timeoutSeconds: 10
           ports:
             - containerPort: 3000
           env:
@@ -123,14 +131,22 @@ spec:
             limits:
               memory: "500Mi"
               cpu: "1000m"
+          startupProbe:
+            httpGet:
+              path: /about/Index
+              port: 3000
+            failureThreshold: 6
           livenessProbe:
             httpGet:
-              path: /Index
+              path: /about/Index
               port: 3000
+            timeoutSeconds: 10
           readinessProbe:
             httpGet:
-              path: /Index
+              path: /about/Index
               port: 3000
+            initialDelaySeconds: 20
+            timeoutSeconds: 10
           ports:
             - containerPort: 3000
           env:
