@@ -22,7 +22,8 @@ export async function getStaticProps({ locale, params }) {
       pageTitle,
       subjectSetID,
       workflowID
-    }
+    },
+    revalidate: 60
   })
 }
 

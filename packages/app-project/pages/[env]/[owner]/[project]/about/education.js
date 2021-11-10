@@ -16,7 +16,8 @@ export async function getStaticProps({ locale, params }) {
       pageTitle,
       pageType: 'education',
       ...props
-    }
+    },
+    revalidate: 60
   }
 }
 

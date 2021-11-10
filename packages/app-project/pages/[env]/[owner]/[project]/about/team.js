@@ -63,7 +63,8 @@ export async function getStaticProps({ locale, params }) {
       pageType: 'team',
       ...props,
       teamArray
-    }
+    },
+    revalidate: 60
   }
 }
 
