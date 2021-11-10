@@ -3,9 +3,9 @@ import fetchSubjectSets from '@helpers/fetchSubjectSets'
 export { default } from '@screens/ClassifyPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export async function getServerSideProps({ locale, params, req, res }) {
+export async function getStaticProps({ locale, params }) {
   const { env } = params
-  const { notFound, props: defaultProps } = await getDefaultPageProps({ locale, params, req, res })
+  const { notFound, props: defaultProps } = await getDefaultPageProps({ locale, params })
   const { workflows } = defaultProps
   const workflow = workflows?.find(workflow => workflow.id === params.workflowID)
   const pageTitle = workflow?.displayName || null
@@ -22,4 +22,11 @@ export async function getServerSideProps({ locale, params, req, res }) {
       workflowID : params.workflowID
     }
   })
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking'
+  }
 }

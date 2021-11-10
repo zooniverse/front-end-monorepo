@@ -4,11 +4,11 @@ import getDefaultPageProps from '@helpers/getDefaultPageProps'
 export { default } from '@screens/ProjectAboutPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export async function getServerSideProps({ locale, params, req, res }) {
-  const { notFound, props } = await getDefaultPageProps({ locale, params, req, res })
+export async function getStaticProps({ locale, params }) {
+  const { notFound, props } = await getDefaultPageProps({ locale, params })
   const { project } = props.initialState
-  project.about_pages = await fetchProjectPageTitles(project, 'production')
-  const page = await fetchProjectPage(project, locale, 'education', 'production')
+  project.about_pages = await fetchProjectPageTitles(project, params.env)
+  const page = await fetchProjectPage(project, locale, 'education', params.env)
   const pageTitle = page?.strings?.title ?? 'Education'
 
   return {
@@ -19,5 +19,12 @@ export async function getServerSideProps({ locale, params, req, res }) {
       pageType: 'education',
       ...props
     }
+  }
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking'
   }
 }

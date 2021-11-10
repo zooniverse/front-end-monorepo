@@ -3,12 +3,18 @@ import getDefaultPageProps from '@helpers/getDefaultPageProps'
 
 export { default } from '@screens/ClassifyPage'
 
-export async function getServerSideProps({ defaultLocale, locale, params, req, res, resolvedUrl }) {
-  const { notFound, props } = await getDefaultPageProps({ locale, params, req, res })
+// the default API is staging for local development, production otherwise.
+const defaultEnv = process.env.APP_ENV === 'development' ? 'staging' : 'production'
+
+export async function getStaticProps({ defaultLocale, locale, params }) {
+  const { notFound, props } = await getDefaultPageProps({ locale, params })
+
   if (props.workflowID) {
-    const [requestPath, requestQuery] = resolvedUrl.split('?')
+    const { project } = props.initialState
+    const requestPath = `/${project.slug}/classify`
+    const { env } = params
     const pathname = locale === defaultLocale ? requestPath : `/${locale}${requestPath}`
-    const search = requestQuery ? `?${requestQuery}` : ''
+    const search = env === defaultEnv ? '' : `?env=${env}`
 
     return ({
       redirect: {
@@ -25,4 +31,11 @@ export async function getServerSideProps({ defaultLocale, locale, params, req, r
       ...props
     }
   })
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking'
+  }
 }

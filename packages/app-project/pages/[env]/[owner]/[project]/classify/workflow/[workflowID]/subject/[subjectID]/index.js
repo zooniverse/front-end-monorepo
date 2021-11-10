@@ -2,8 +2,8 @@ import getDefaultPageProps from '@helpers/getDefaultPageProps'
 export { default } from '@screens/ClassifyPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export async function getServerSideProps({ locale, params, query, req, res }) {
-  const { notFound, props: defaultProps } = await getDefaultPageProps({ locale, params, query, req, res })
+export async function getStaticProps({ locale, params }) {
+  const { notFound, props: defaultProps } = await getDefaultPageProps({ locale, params })
   const { subjectID, workflowID } = params
   const { workflows } = defaultProps
   const workflow = workflows?.find(workflow => workflow.id === params.workflowID)
@@ -19,4 +19,11 @@ export async function getServerSideProps({ locale, params, query, req, res }) {
       workflowID
     }
   })
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking'
+  }
 }

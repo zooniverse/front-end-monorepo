@@ -6,13 +6,13 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import fetchTeam from '@helpers/fetchTeam'
 import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 
-export async function getServerSideProps({ locale, params, req, res }) {
+export async function getStaticProps({ locale, params }) {
+  const { notFound, props } = await getDefaultPageProps({ locale, params })
   const { env } = params
   const { headers, host } = getServerSideAPIHost(env)
-  const { notFound, props } = await getDefaultPageProps({ locale, params, req, res })
   const { project } = props.initialState
-  project.about_pages = await fetchProjectPageTitles(project, 'production')
-  const page = await fetchProjectPage(project, locale, 'team', 'production')
+  project.about_pages = await fetchProjectPageTitles(project, env)
+  const page = await fetchProjectPage(project, locale, 'team', env)
   const pageTitle = page?.strings?.title ?? 'Team'
 
   const teamArray = await fetchTeam(project, env)
@@ -26,5 +26,12 @@ export async function getServerSideProps({ locale, params, req, res }) {
       ...props,
       teamArray
     }
+  }
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking'
   }
 }
