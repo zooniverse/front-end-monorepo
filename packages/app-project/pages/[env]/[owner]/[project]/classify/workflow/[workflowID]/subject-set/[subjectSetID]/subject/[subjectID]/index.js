@@ -3,8 +3,8 @@ import fetchSubjectSets from '@helpers/fetchSubjectSets'
 export { default } from '@screens/ClassifyPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export async function getServerSideProps({ locale, params, req, res }) {
-  const { notFound, props: defaultProps } = await getDefaultPageProps({ locale, params, req, res })
+export async function getStaticProps({ locale, params }) {
+  const { notFound, props: defaultProps } = await getDefaultPageProps({ locale, params })
   const { env, subjectID, subjectSetID, workflowID } = params
   const props = { ...defaultProps, subjectID, subjectSetID, workflowID }
   const { workflows } = defaultProps
@@ -26,4 +26,11 @@ export async function getServerSideProps({ locale, params, req, res }) {
       workflowID
     }
   })
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking'
+  }
 }
