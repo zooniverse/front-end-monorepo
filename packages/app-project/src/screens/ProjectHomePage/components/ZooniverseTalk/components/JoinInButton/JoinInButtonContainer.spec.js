@@ -4,7 +4,7 @@ import { JoinInButtonContainer } from './JoinInButtonContainer'
 import JoinInButton from './JoinInButton'
 
 const ROUTER = {
-  asPath: '/projects/foo/bar',
+  asPath: '/foo/bar',
   query: {
     owner: 'foo',
     project: 'bar'
@@ -29,6 +29,6 @@ describe('Component > JoinInButtonContainer', function () {
   })
 
   it('should pass valid link props for Talk', function () {
-    expect(componentWrapper.prop('linkProps')).to.deep.equal({ href: '/projects/foo/bar/talk' })
+    expect(componentWrapper.prop('linkProps')).to.deep.equal({ href: '/foo/bar/talk' })
   })
 })

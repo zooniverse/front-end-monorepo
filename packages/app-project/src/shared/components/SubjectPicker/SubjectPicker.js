@@ -177,7 +177,7 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
 
 SubjectPicker.propTypes = {
   /**
-    Base URL for links eg. `/projects/${owner}/${project}/classify/workflow/${workflow.id}`
+    Base URL for links eg. `/${owner}/${project}/classify/workflow/${workflow.id}`
   */
   baseUrl: string.isRequired,
   /**

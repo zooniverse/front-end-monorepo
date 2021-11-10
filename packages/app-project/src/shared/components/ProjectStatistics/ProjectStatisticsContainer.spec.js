@@ -9,7 +9,7 @@ let projectStatisticsWrapper
 const CLASSIFICATIONS = 1
 const COMPLETED_SUBJECTS = 2
 const ROUTER = {
-  asPath: '/projects/foo/bar',
+  asPath: '/foo/bar',
   query: {
     owner: 'foo',
     project: 'bar'
@@ -48,7 +48,7 @@ describe('Component > ProjectStatisticsContainer', function () {
 
   it('should pass through a `linkProps` prop', function () {
     expect(projectStatisticsWrapper.prop('linkProps')).to.deep.equal({
-      href: `/projects/foo/bar/stats`
+      href: `/foo/bar/stats`
     })
   })
 
