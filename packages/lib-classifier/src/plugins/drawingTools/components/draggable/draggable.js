@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
-function draggable (WrappedComponent) {
+function draggable(WrappedComponent) {
   class Draggable extends PureComponent {
-    constructor (props) {
+    constructor(props) {
       super(props)
       this.dragStart = this.dragStart.bind(this)
       this.dragMove = this.dragMove.bind(this)
@@ -19,7 +19,7 @@ function draggable (WrappedComponent) {
       }
     }
 
-    convertEvent (event) {
+    convertEvent(event) {
       const type = event.type
 
       const svgEventOffset = this.getEventOffset(event)
@@ -34,7 +34,7 @@ function draggable (WrappedComponent) {
       return svgCoordinateEvent
     }
 
-    getBoundingClientRect () {
+    getBoundingClientRect() {
       return this.wrappedComponent.current.getBoundingClientRect()
     }
 
@@ -51,27 +51,28 @@ function draggable (WrappedComponent) {
       }
     }
 
-    getEventOffset (event) {
+    getEventOffset(event) {
       const { clientX, clientY } = event
       const { canvas } = this.context
       const svgPoint = this.createPoint(event)
-      const svgEventOffset = svgPoint.matrixTransform ?
-        svgPoint.matrixTransform(canvas.getScreenCTM().inverse()) :
-        svgPoint
+      const svgEventOffset = svgPoint.matrixTransform
+        ? svgPoint.matrixTransform(canvas.getScreenCTM().inverse())
+        : svgPoint
       return svgEventOffset
     }
 
-    dragStart (event) {
+    dragStart(event) {
       event.stopPropagation()
       event.preventDefault()
       const { setPointerCapture } = this.wrappedComponent.current
       const { x, y, pointerId } = this.convertEvent(event)
       this.setState({ coords: { x, y }, dragging: true, pointerId })
       this.props.dragStart({ x, y, pointerId })
-      setPointerCapture && this.wrappedComponent.current.setPointerCapture(pointerId)
+      setPointerCapture &&
+        this.wrappedComponent.current.setPointerCapture(pointerId)
     }
 
-    dragMove (event) {
+    dragMove(event) {
       const { coords, dragging, pointerId } = this.state
       if (dragging && event.pointerId === pointerId) {
         const { x, y } = this.convertEvent(event)
@@ -85,19 +86,32 @@ function draggable (WrappedComponent) {
       }
     }
 
-    dragEnd (event) {
+    dragEnd(event) {
       const { releasePointerCapture } = this.wrappedComponent.current
       const { x, y, pointerId } = this.convertEvent(event)
       const { currentTarget } = event
       if (pointerId === this.state.pointerId) {
         this.props.dragEnd({ currentTarget, x, y, pointerId })
-        releasePointerCapture && this.wrappedComponent.current.releasePointerCapture(pointerId)
+        releasePointerCapture &&
+          this.wrappedComponent.current.releasePointerCapture(pointerId)
       }
-      this.setState({ coords: { x: null, y: null }, dragging: false, pointerId: -1 })
+      this.setState({
+        coords: { x: null, y: null },
+        dragging: false,
+        pointerId: -1
+      })
     }
 
-    render () {
-      const { children, coords, dragStart, dragMove, dragEnd, ...rest } = this.props
+    render() {
+      const {
+        children,
+        coords,
+        dragStart,
+        dragMove,
+        dragEnd,
+        ...rest
+      } = this.props
+      const { dragging } = this.state
       return (
         <g
           onPointerDown={this.dragStart}
@@ -107,6 +121,7 @@ function draggable (WrappedComponent) {
           <WrappedComponent
             ref={this.wrappedComponent}
             {...rest}
+            dragging={dragging}
           >
             {children}
           </WrappedComponent>
@@ -129,7 +144,7 @@ function draggable (WrappedComponent) {
   const name =
     WrappedComponent.displayName ||
     WrappedComponent.name ||
-    WrappedComponent.render && WrappedComponent.render.name ||
+    (WrappedComponent.render && WrappedComponent.render.name) ||
     WrappedComponent.toString()
   Draggable.displayName = `draggable(${name})`
   Draggable.wrappedComponent = WrappedComponent
