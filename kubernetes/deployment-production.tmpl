@@ -61,7 +61,7 @@ spec:
             - containerPort: 3000
           env:
             - name: PROJECT_ASSET_PREFIX
-              value: https://fe-project.zooniverse.org
+              value: https://fe-project.zooniverse.org/projects
             - name: COMMIT_ID
               value: __IMAGE_TAG__
             - name: NEWRELIC_LICENSE_KEY
@@ -153,7 +153,7 @@ spec:
             - containerPort: 3000
           env:
             - name: CONTENT_ASSET_PREFIX
-              value: https://fe-content-pages.zooniverse.org
+              value: https://fe-content-pages.zooniverse.org/about
             - name: COMMIT_ID
               value: __IMAGE_TAG__
             - name: CONTENTFUL_ACCESS_TOKEN
