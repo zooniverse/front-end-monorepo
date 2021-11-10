@@ -3,12 +3,13 @@ import getDefaultPageProps from '@helpers/getDefaultPageProps'
 
 export { default } from '@screens/ClassifyPage'
 
-export async function getServerSideProps({ defaultLocale, locale, params, query, req, res, resolvedUrl }) {
-  const { notFound, props } = await getDefaultPageProps({ locale, params, query, req, res })
+export async function getServerSideProps({ defaultLocale, locale, params, req, res, resolvedUrl }) {
+  const { notFound, props } = await getDefaultPageProps({ locale, params, req, res })
   if (props.workflowID) {
     const [requestPath, requestQuery] = resolvedUrl.split('?')
     const pathname = locale === defaultLocale ? requestPath : `/${locale}${requestPath}`
     const search = requestQuery ? `?${requestQuery}` : ''
+
     return ({
       redirect: {
         destination: `${pathname}/workflow/${props.workflowID}${search}`,

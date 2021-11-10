@@ -7,12 +7,12 @@ import fetchTranslations from '@helpers/fetchTranslations'
 import fetchWorkflowsHelper from '@helpers/fetchWorkflowsHelper'
 import initStore from '@stores'
 
-export default async function getStaticPageProps({ locale, params, query }) {
+export default async function getStaticPageProps({ locale, params }) {
   const isServer = true
   // create a temporary store.
   // we'll take a snapshot of this later, to pass as a page prop.
   const store = initStore(isServer)
-  const { env } = query
+  const env = 'production'
 
   /*
     Fetch the project

@@ -6,15 +6,16 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import fetchTeam from '@helpers/fetchTeam'
 import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 
-export async function getServerSideProps({ locale, params, query, req, res }) {
-  const { headers, host } = getServerSideAPIHost(query.env)
-  const { notFound, props } = await getDefaultPageProps({ locale, params, query, req, res })
+export async function getServerSideProps({ locale, params, req, res }) {
+  const env = 'production'
+  const { headers, host } = getServerSideAPIHost(env)
+  const { notFound, props } = await getDefaultPageProps({ locale, params, req, res })
   const { project } = props.initialState
-  project.about_pages = await fetchProjectPageTitles(project, query.env)
-  const page = await fetchProjectPage(project, locale, 'team', query.env)
+  project.about_pages = await fetchProjectPageTitles(project, 'production')
+  const page = await fetchProjectPage(project, locale, 'team', 'production')
   const pageTitle = page?.strings?.title ?? 'Team'
 
-  const teamArray = await fetchTeam(project, query.env)
+  const teamArray = await fetchTeam(project, env)
 
   return {
     notFound,
