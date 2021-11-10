@@ -4,10 +4,11 @@ import { panoptes } from '@zooniverse/panoptes-js'
 export { default } from '@screens/ProjectAboutPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export async function getServerSideProps({ locale, params, query, req, res }) {
-  const { notFound, props } = await getDefaultPageProps({ locale, params, query, req, res })
+export async function getServerSideProps({ locale, params, req, res }) {
+  const { notFound, props } = await getDefaultPageProps({ locale, params, req, res })
+  const env = 'production'
   const { project } = props.initialState
-  const page = await fetchProjectPage(project, locale, 'team', query.env)
+  const page = await fetchProjectPage(project, locale, 'team', env)
   const pageTitle = page?.strings?.title ?? 'Team'
 
   const fetchTeam = async () => {
@@ -15,7 +16,7 @@ export async function getServerSideProps({ locale, params, query, req, res }) {
       let allRoles = []
       const getRoles = async (page = 1) => {
         const teamQuery = {
-          env: query.env,
+          env,
           project_id: project.id,
           page: page
         }
@@ -33,7 +34,7 @@ export async function getServerSideProps({ locale, params, query, req, res }) {
       await Promise.all(
         allRoles.map(async role => {
           const response = await panoptes.get(`/users`, {
-            env: query.env,
+            env,
             id: role.links.owner.id
           })
           const userData = response.body.users[0]

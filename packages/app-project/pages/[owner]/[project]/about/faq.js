@@ -3,10 +3,10 @@ import getDefaultPageProps from '@helpers/getDefaultPageProps'
 export { default } from '@screens/ProjectAboutPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export async function getServerSideProps({ locale, params, query, req, res }) {
-  const { notFound, props } = await getDefaultPageProps({ locale, params, query, req, res })
+export async function getServerSideProps({ locale, params, req, res }) {
+  const { notFound, props } = await getDefaultPageProps({ locale, params, req, res })
   const { project } = props.initialState
-  const page = await fetchProjectPage(project, locale, 'faq', query.env)
+  const page = await fetchProjectPage(project, locale, 'faq', 'production')
   const pageTitle = page?.strings?.title ?? 'FAQ'
 
   return {
