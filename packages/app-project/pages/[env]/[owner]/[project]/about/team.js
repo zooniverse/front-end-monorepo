@@ -7,7 +7,7 @@ import fetchTeam from '@helpers/fetchTeam'
 import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 
 export async function getServerSideProps({ locale, params, req, res }) {
-  const env = 'production'
+  const { env } = params
   const { headers, host } = getServerSideAPIHost(env)
   const { notFound, props } = await getDefaultPageProps({ locale, params, req, res })
   const { project } = props.initialState
