@@ -29,7 +29,8 @@ export async function getStaticProps({ defaultLocale, locale, params }) {
       ...(await serverSideTranslations(locale, ['components', 'screens'])),
       pageTitle: 'Classify',
       ...props
-    }
+    },
+    revalidate: 60
   })
 }
 

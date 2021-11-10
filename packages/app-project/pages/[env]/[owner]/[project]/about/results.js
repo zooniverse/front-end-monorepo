@@ -18,7 +18,8 @@ export async function getStaticProps({ locale, params }) {
       pageTitle,
       pageType: 'results',
       ...props
-    }
+    },
+    revalidate: 60
   }
 }
 

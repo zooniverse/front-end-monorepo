@@ -18,7 +18,8 @@ export async function getStaticProps({ locale, params }) {
       pageTitle,
       pageType: 'science_case',
       ...props
-    }
+    },
+    revalidate: 60
   }
 }
 
