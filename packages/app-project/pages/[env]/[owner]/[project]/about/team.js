@@ -6,7 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export async function getServerSideProps({ locale, params, req, res }) {
   const { notFound, props } = await getDefaultPageProps({ locale, params, req, res })
-  const env = 'production'
+  const { env } = params
   const { project } = props.initialState
   const page = await fetchProjectPage(project, locale, 'team', env)
   const pageTitle = page?.strings?.title ?? 'Team'

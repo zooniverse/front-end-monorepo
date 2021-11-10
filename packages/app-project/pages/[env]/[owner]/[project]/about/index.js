@@ -3,7 +3,7 @@ export { default } from '@screens/ProjectAboutPage'
 
 export async function getServerSideProps({ params, req, res }) {
   const { notFound, props } = await getDefaultPageProps({ params, req, res })
-  const env = 'production'
+  const { env } = params
   const { project } = props.initialState
 
   const projectPath = `/${project?.slug}/about/research`

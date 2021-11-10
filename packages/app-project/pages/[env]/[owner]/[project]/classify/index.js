@@ -5,7 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 export async function getServerSideProps({ locale, params, req, res }) {
   const { notFound, props } = await getDefaultPageProps({ locale, params, req, res })
   if (props.workflowID) {
-    const env = 'production'
+    const { env } = params
     const { project } = props.initialState
     const { workflows } = props
     const workflow = workflows?.find(workflow => workflow.id === params.workflowID)
