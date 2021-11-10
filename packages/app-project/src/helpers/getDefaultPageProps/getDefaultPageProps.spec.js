@@ -135,22 +135,11 @@ describe('Helpers > getDefaultPageProps', function () {
     describe('with a valid project slug', function () {
       it('should return the project\'s active workflows', async function () {
         const params = {
+          env: 'staging',
           owner: 'test-owner',
           project: 'test-project'
         }
-        const query = {
-          env: 'staging'
-        }
-        const req = {
-          connection: {
-            encrypted: true
-          },
-          headers: {
-            host: 'www.zooniverse.org'
-          }
-        }
-        const res = {}
-        const { props } = await getDefaultPageProps({ params, query, req, res })
+        const { props } = await getDefaultPageProps({ params })
         expect(props.workflows).to.deep.equal([
           {
             completeness: 0.4,
@@ -173,21 +162,11 @@ describe('Helpers > getDefaultPageProps', function () {
 
       before(async function () {
         const params = {
+          env: 'staging',
           owner: 'test-owner',
           project: 'test-wrong-project'
         }
-        const query = {
-          env: 'staging'
-        }
-        const req = {
-          connection: {
-            encrypted: true
-          },
-          headers: {
-            host: 'www.zooniverse.org'
-          }
-        }
-        response = await getDefaultPageProps({ params, query, req })
+        response = await getDefaultPageProps({ params })
       })
 
       it('should return notFound', function () {
@@ -204,22 +183,12 @@ describe('Helpers > getDefaultPageProps', function () {
 
       before(async function () {
         const params = {
+          env: 'staging',
           owner: 'test-owner',
           project: 'test-project',
           workflowID: '3'
         }
-        const query = {
-          env: 'staging'
-        }
-        const req = {
-          connection: {
-            encrypted: true
-          },
-          headers: {
-            host: 'www.zooniverse.org'
-          }
-        }
-        response = await getDefaultPageProps({ params, query, req })
+        response = await getDefaultPageProps({ params })
       })
 
       it('should return notFound', function () {
@@ -244,21 +213,11 @@ describe('Helpers > getDefaultPageProps', function () {
     describe('with a valid project slug', function () {
       it('should return the project\'s active workflows', async function () {
         const params = {
+          env: 'production',
           owner: 'test-owner',
           project: 'test-project'
         }
-        const query = {
-          env: 'production'
-        }
-        const req = {
-          connection: {
-            encrypted: true
-          },
-          headers: {
-            host: 'www.zooniverse.org'
-          }
-        }
-        const { props } = await getDefaultPageProps({ params, query, req })
+        const { props } = await getDefaultPageProps({ params })
         expect(props.workflows).to.deep.equal([
           {
             completeness: 0.4,
@@ -281,21 +240,11 @@ describe('Helpers > getDefaultPageProps', function () {
 
       before(async function () {
         const params = {
+          env: 'production',
           owner: 'test-owner',
           project: 'test-wrong-project'
         }
-        const query = {
-          env: 'production'
-        }
-        const req = {
-          connection: {
-            encrypted: true
-          },
-          headers: {
-            host: 'www.zooniverse.org'
-          }
-        }
-        response = await getDefaultPageProps({ params, query, req })
+        response = await getDefaultPageProps({ params })
       })
 
       it('should return notFound', function () {
@@ -312,22 +261,12 @@ describe('Helpers > getDefaultPageProps', function () {
 
       before(async function () {
         const params = {
+          env: 'production',
           owner: 'test-owner',
           project: 'test-project',
           workflowID: '3'
         }
-        const query = {
-          env: 'production'
-        }
-        const req = {
-          connection: {
-            encrypted: true
-          },
-          headers: {
-            host: 'www.zooniverse.org'
-          }
-        }
-        response = await getDefaultPageProps({ params, query, req })
+        response = await getDefaultPageProps({ params })
       })
 
       it('should return notFound', function () {
