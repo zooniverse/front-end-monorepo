@@ -15,7 +15,8 @@ export async function getStaticProps({ locale, params }) {
       ...(await serverSideTranslations(locale, ['components', 'screens'])),
       pageTitle,
       pageType: 'results',
-      ...props
+      ...props,
+      revalidate: 60
     }
   }
 }
