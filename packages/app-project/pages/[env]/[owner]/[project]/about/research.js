@@ -3,10 +3,10 @@ import getDefaultPageProps from '@helpers/getDefaultPageProps'
 export { default } from '@screens/ProjectAboutPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export async function getServerSideProps({ locale, params, req, res }) {
-  const { notFound, props } = await getDefaultPageProps({ locale, params, req, res })
+export async function getStaticProps({ locale, params }) {
+  const { notFound, props } = await getDefaultPageProps({ locale, params })
   const { project } = props.initialState
-  const page = await fetchProjectPage(project, locale, 'science_case', 'production')
+  const page = await fetchProjectPage(project, locale, 'science_case', params.env)
   const pageTitle = page?.strings?.title ?? 'Research'
 
   return {
@@ -17,5 +17,12 @@ export async function getServerSideProps({ locale, params, req, res }) {
       pageType: 'science_case',
       ...props
     }
+  }
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking'
   }
 }

@@ -4,8 +4,8 @@ import { panoptes } from '@zooniverse/panoptes-js'
 export { default } from '@screens/ProjectAboutPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export async function getServerSideProps({ locale, params, req, res }) {
-  const { notFound, props } = await getDefaultPageProps({ locale, params, req, res })
+export async function getStaticProps({ locale, params }) {
+  const { notFound, props } = await getDefaultPageProps({ locale, params })
   const { env } = params
   const { project } = props.initialState
   const page = await fetchProjectPage(project, locale, 'team', env)
@@ -64,5 +64,12 @@ export async function getServerSideProps({ locale, params, req, res }) {
       ...props,
       teamArray
     }
+  }
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking'
   }
 }
