@@ -4,22 +4,26 @@ export { default } from '@screens/ClassifyPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export async function getServerSideProps({ locale, params, req, res }) {
-  const env = 'production'
   const { notFound, props: defaultProps } = await getDefaultPageProps({ locale, params, req, res })
+  const { env, subjectID, subjectSetID, workflowID } = params
+  const props = { ...defaultProps, subjectID, subjectSetID, workflowID }
   const { workflows } = defaultProps
   const workflow = workflows?.find(workflow => workflow.id === params.workflowID)
-  const pageTitle = workflow?.displayName || null
+  let pageTitle = workflow?.displayName || null
   if (workflow?.grouped) {
     workflow.subjectSets = await fetchSubjectSets(workflow, env)
+    const subjectSet = workflow.subjectSets?.find(subjectSet => subjectSet.id === subjectSetID)
+    pageTitle = `${subjectSet?.display_name} | ${workflow?.displayName}`
   }
-
   return ({
     notFound,
     props: {
       ...(await serverSideTranslations(locale, ['components', 'screens'])),
       ...defaultProps,
       pageTitle,
-      workflowID : params.workflowID
+      subjectID,
+      subjectSetID,
+      workflowID
     }
   })
 }
