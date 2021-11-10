@@ -16,7 +16,7 @@ function storeMapper (stores) {
 
 function getBaseUrl (router) {
   const { owner, project } = router.query
-  return `/projects/${owner}/${project}`
+  return `/${owner}/${project}`
 }
 
 function ProjectHeaderContainer ({ className, defaultWorkflow, inBeta, isLoggedIn, projectName }) {

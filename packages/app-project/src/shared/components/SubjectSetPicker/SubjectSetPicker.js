@@ -115,7 +115,7 @@ function SubjectSetPicker ({
 
 SubjectSetPicker.propTypes = {
   /**
-    Base URL for links eg. `/projects/${owner}/${project}/classify`
+    Base URL for links eg. `/${owner}/${project}/classify`
   */
   baseUrl: string.isRequired,
   /**

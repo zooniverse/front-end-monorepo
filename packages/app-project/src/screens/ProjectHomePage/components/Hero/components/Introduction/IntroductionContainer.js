@@ -18,7 +18,7 @@ class IntroductionContainer extends Component {
     const { router } = this.props
     const { owner, project } = router?.query || {}
     return {
-      href: `/projects/${owner}/${project}/about/research`
+      href: `/${owner}/${project}/about/research`
     }
   }
 

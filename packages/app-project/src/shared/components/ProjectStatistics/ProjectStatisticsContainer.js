@@ -21,7 +21,7 @@ class ProjectStatisticsContainer extends Component {
     const { router } = this.props
     const { owner, project } = router.query
     return {
-      href: `/projects/${owner}/${project}/stats`
+      href: `/${owner}/${project}/stats`
     }
   }
 
