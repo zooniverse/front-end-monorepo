@@ -8,7 +8,7 @@ let componentWrapper
 
 const DESCRIPTION = 'Ligula vestibulum id natoque mus cursus sociis varius risus nunc'
 const ROUTER = {
-  asPath: '/projects/foo/bar',
+  asPath: '/foo/bar',
   query: {
     owner: 'foo',
     project: 'bar'
@@ -37,7 +37,7 @@ describe('Component > Hero > IntroductionContainer', function () {
   it('should pass down the expected props to the `Introduction` component', function () {
     expect(componentWrapper.prop('description')).to.equal(DESCRIPTION)
     expect(componentWrapper.prop('linkProps')).to.deep.equal({
-      href: '/projects/foo/bar/about/research'
+      href: '/foo/bar/about/research'
     })
     expect(componentWrapper.prop('title')).to.equal(TITLE)
   })

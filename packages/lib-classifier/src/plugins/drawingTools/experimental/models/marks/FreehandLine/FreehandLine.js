@@ -17,16 +17,16 @@ const FreehandLineModel = types
   .views((self) => ({
     get coords() {
       return {
-        // TODO: check length before returning
         x: self.points[0]?.x,
         y: self.points[0]?.y
       }
     },
 
     deleteButtonPosition(scale) {
-      // will be moved into toolbar later
       const BUFFER = 16
-      return { x: self.points[0].x - BUFFER, y: self.points[0].y - BUFFER }
+      const x = self.points[0].x - BUFFER / scale
+      const y = self.points[0].y - BUFFER / scale
+      return { x, y }
     },
 
     get isValid() {
@@ -35,6 +35,22 @@ const FreehandLineModel = types
 
     get tool() {
       return getParentOfType(self, FreehandLineTool)
+    },
+
+    get initialPoint() {
+      const [firstCoord] = self.points
+      if (!firstCoord) {
+        return null
+      }
+      return firstCoord
+    },
+
+    get lastPoint() {
+      const lastCoord = self.points.at(-1)
+      if (!lastCoord) {
+        return null
+      }
+      return lastCoord
     },
 
     get path() {
@@ -46,7 +62,21 @@ const FreehandLineModel = types
       otherCoords.forEach(({ x, y }) => {
         path = path + `L ${x},${y}`
       })
+      // closes the drawing path
+      if (self.isCloseToStart) {
+        path += ' Z'
+      }
       return path
+    },
+
+    // this determines if drawing point is close to initial point
+    get isCloseToStart() {
+      const firstPoint = self.initialPoint
+      const lastPoint = self.lastPoint
+      const distX = lastPoint.x - firstPoint.x
+      const distY = lastPoint.y - firstPoint.y
+      const dist = Math.sqrt(distX * distX + distY * distY)
+      return dist < 10
     },
 
     get toolComponent() {
@@ -64,6 +94,17 @@ const FreehandLineModel = types
 
     move() {
       return
+    },
+
+    appendPath({ x, y }) {
+      self.points.push({ x: x, y: y })
+    },
+
+    shortenPath() {
+      let lengthToRemove = 20
+      while (lengthToRemove--) {
+        self.points.pop()
+      }
     }
   }))
 

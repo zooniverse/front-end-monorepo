@@ -29,6 +29,7 @@ const COMMIT_ID = process.env.COMMIT_ID || commitID()
 
 const nextConfig = {
   assetPrefix,
+  basePath: '/about', 
 
   env: {
     COMMIT_ID,

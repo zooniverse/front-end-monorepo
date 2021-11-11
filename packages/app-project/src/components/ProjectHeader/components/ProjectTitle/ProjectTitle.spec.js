@@ -7,8 +7,8 @@ describe('Component > ProjectTitle', function () {
   let wrapper, routerStub
 
   const ROUTER_ON_HOME_PAGE = {
-    asPath: '/projects/foo/bar',
-    pathname: '/projects/[owner]/[project]',
+    asPath: '/foo/bar',
+    pathname: '/[owner]/[project]',
     query: {
       owner: 'foo',
       project: 'bar'
@@ -16,8 +16,8 @@ describe('Component > ProjectTitle', function () {
   }
 
   const ROUTER_ON_OTHER_PAGE = {
-    asPath: '/projects/foo/bar/baz',
-    pathname: '/projects/[owner]/[project]/baz',
+    asPath: '/foo/bar/baz',
+    pathname: '/[owner]/[project]/baz',
     query: {
       owner: 'foo',
       project: 'bar'
@@ -57,7 +57,7 @@ describe('Component > ProjectTitle', function () {
       routerStub.callsFake(() => ROUTER_ON_OTHER_PAGE)
       wrapper = render(<ProjectTitle title={TITLE} />)
       expect(wrapper[0].name).to.equal('a')
-      expect(wrapper.attr('href')).to.equal('/projects/foo/bar')
+      expect(wrapper.attr('href')).to.equal('/foo/bar')
     })
   })
 })

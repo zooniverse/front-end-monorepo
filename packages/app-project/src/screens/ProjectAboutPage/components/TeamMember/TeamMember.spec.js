@@ -21,7 +21,7 @@ describe('Component > TeamMember', function () {
     const link = getByRole('link')
     expect(link).exists()
     expect(link.href).include(
-      '/projects/zooniverse/snapshot-serengeti/users/mock_user'
+      '/zooniverse/snapshot-serengeti/users/mock_user'
     )
   })
 

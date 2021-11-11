@@ -307,13 +307,13 @@ describe('Stores > UserPersonalization', function () {
 
       it('should get today\'s count from the store\'s counts for this week', function () {
         const MOCK_DAILY_COUNTS = [
-          { count: 12, period: '2019-09-30T00:00:00Z' },
-          { count: 13, period: '2019-10-01T00:00:00Z' },
-          { count: 14, period: '2019-10-02T00:00:00Z' },
-          { count: 10, period: '2019-10-03T00:00:00Z' },
-          { count: 11, period: '2019-10-04T00:00:00Z' },
-          { count: 8, period: '2019-10-05T00:00:00Z' },
-          { count: 15, period: '2019-10-06T00:00:00Z' }
+          { count: 12, dayNumber: 1, period: '2019-09-30T00:00:00Z' },
+          { count: 13, dayNumber: 2, period: '2019-10-01T00:00:00Z' },
+          { count: 14, dayNumber: 3, period: '2019-10-02T00:00:00Z' },
+          { count: 10, dayNumber: 4, period: '2019-10-03T00:00:00Z' },
+          { count: 11, dayNumber: 5, period: '2019-10-04T00:00:00Z' },
+          { count: 8, dayNumber: 6, period: '2019-10-05T00:00:00Z' },
+          { count: 15, dayNumber: 0, period: '2019-10-06T00:00:00Z' }
         ]
         const personalizationStore = UserPersonalization.create({ stats: { thisWeek: MOCK_DAILY_COUNTS } })
         expect(personalizationStore.counts.today).to.equal(MOCK_DAILY_COUNTS[1].count)
@@ -321,9 +321,9 @@ describe('Stores > UserPersonalization', function () {
 
       it('should be `0` if there are no classifications today', function () {
         const MOCK_DAILY_COUNTS = [
-          { count: 12, period: '2019-01-03T00:00:00Z' },
-          { count: 13, period: '2019-01-02T00:00:00Z' },
-          { count: 14, period: '2019-01-01T00:00:00Z' }
+          { count: 12, dayNumber: 2, period: '2019-01-03T00:00:00Z' },
+          { count: 13, dayNumber: 1, period: '2019-01-02T00:00:00Z' },
+          { count: 14, dayNumber: 0, period: '2019-01-01T00:00:00Z' }
         ]
         const personalizationStore = UserPersonalization.create({ stats: { thisWeek: MOCK_DAILY_COUNTS } })
         expect(personalizationStore.counts.today).to.equal(0)
@@ -334,13 +334,13 @@ describe('Stores > UserPersonalization', function () {
   describe('on reset', function () {
     it('should reset project preferences, stats, and counts', function () {
       const MOCK_DAILY_COUNTS = [
-        { count: 12, period: '2019-09-30T00:00:00Z' },
-        { count: 13, period: '2019-10-01T00:00:00Z' },
-        { count: 14, period: '2019-10-02T00:00:00Z' },
-        { count: 10, period: '2019-10-03T00:00:00Z' },
-        { count: 11, period: '2019-10-04T00:00:00Z' },
-        { count: 8, period: '2019-10-05T00:00:00Z' },
-        { count: 15, period: '2019-10-06T00:00:00Z' }
+        { count: 12, dayNumber: 1, period: '2019-09-30T00:00:00Z' },
+        { count: 13, dayNumber: 2, period: '2019-10-01T00:00:00Z' },
+        { count: 14, dayNumber: 3, period: '2019-10-02T00:00:00Z' },
+        { count: 10, dayNumber: 4, period: '2019-10-03T00:00:00Z' },
+        { count: 11, dayNumber: 5, period: '2019-10-04T00:00:00Z' },
+        { count: 8, dayNumber: 6, period: '2019-10-05T00:00:00Z' },
+        { count: 15, dayNumber: 0, period: '2019-10-06T00:00:00Z' }
       ]
       const personalizationStore = UserPersonalization.create({
         projectPreferences: {
