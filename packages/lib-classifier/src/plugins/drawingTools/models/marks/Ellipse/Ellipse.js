@@ -54,40 +54,33 @@ const EllipseModel = types
       return self.y_center
     }
   }))
-  .actions((self) => {
-    function initialDrag({ x, y }) {
+  .actions((self) => ({
+    initialDrag({ x, y }) {
       const rx = self.getDistance(self.x, self.y, x, y)
       const angle = self.getAngle(self.x, self.y, x, y)
       self.rx = rx
       self.ry = rx * 0.0001
       self.angle = angle
-    }
+    },
 
-    function initialPosition({ x, y }) {
+    initialPosition({ x, y }) {
       self.x_center = x
       self.y_center = y
-    }
+    },
 
-    function move({ x, y }) {
+    move({ x, y }) {
       self.x_center += x
       self.y_center += y
-    }
+    },
 
-    function setCoordinates({ x, y, rx, ry, angle }) {
+    setCoordinates({ x, y, rx, ry, angle }) {
       self.x_center = x
       self.y_center = y
       self.rx = rx
       self.ry = ry
       self.angle = angle
     }
-
-    return {
-      initialDrag,
-      initialPosition,
-      move,
-      setCoordinates
-    }
-  })
+  }))
 
 const Ellipse = types.compose('Ellipse', Mark, EllipseModel)
 

@@ -8,18 +8,14 @@ const PointTool = types
     size: types.optional(types.enumeration(['large', 'small']), 'large'),
     type: types.literal('point')
   })
-  .actions((self) => {
-    function createMark(mark) {
+  .actions((self) => ({
+    createMark(mark) {
       const newMark = Point.create(
         Object.assign({}, mark, { toolType: self.type })
       )
       self.marks.put(newMark)
       return newMark
     }
-
-    return {
-      createMark
-    }
-  })
+  }))
 
 export default types.compose('PointTool', Tool, PointTool)

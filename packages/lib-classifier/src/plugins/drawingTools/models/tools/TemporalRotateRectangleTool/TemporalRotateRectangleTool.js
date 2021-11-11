@@ -7,19 +7,15 @@ const TemporalRotateRectangleTool = types
     marks: types.map(TemporalRotateRectangle),
     type: types.literal('temporalRotateRectangle')
   })
-  .actions((self) => {
-    function createMark(mark) {
+  .actions((self) => ({
+    createMark(mark) {
       const newMark = TemporalRotateRectangle.create(
         Object.assign({}, mark, { toolType: self.type })
       )
       self.marks.put(newMark)
       return newMark
     }
-
-    return {
-      createMark
-    }
-  })
+  }))
 
 export default types.compose(
   'TemporalRotateRectangleTool',
