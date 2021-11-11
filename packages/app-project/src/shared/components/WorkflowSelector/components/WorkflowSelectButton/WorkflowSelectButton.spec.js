@@ -16,7 +16,7 @@ describe('Component > WorkflowSelector > WorkflowSelectButton', function () {
   }
 
   const router = {
-    asPath: '/projects/foo/bar',
+    asPath: '/foo/bar',
     query: {
       owner: 'foo',
       project: 'bar'

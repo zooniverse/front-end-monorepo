@@ -22,7 +22,7 @@ function WorkflowSelectButton ({
   const router = useRouter()
   const { owner, project } = router?.query || {}
 
-  const url = `/projects/${owner}/${project}/classify/workflow/${workflow.id}`
+  const url = `/${owner}/${project}/classify/workflow/${workflow.id}`
 
   const href = addQueryParams(url, router)
   const completeness = parseInt(workflow.completeness * 100, 10)

@@ -4,7 +4,6 @@ import WorkflowAssignmentModalContainer from './WorkflowAssignmentModalContainer
 import WorkflowAssignmentModal from './WorkflowAssignmentModal'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
-import asyncStates from '@zooniverse/async-states'
 
 describe('Component > WorkflowAssignmentModalContainer', function() {
   let wrapper
@@ -43,7 +42,7 @@ describe('Component > WorkflowAssignmentModalContainer', function() {
         wrappingComponentProps: { theme: zooTheme }
       })
       expect(wrapper.find(WorkflowAssignmentModal)).to.have.lengthOf(0)
-      wrapper.setProps({ assignedWorkflowID: '555', loadingState: asyncStates.success, currentWorkflowID: '', promptAssignment })
+      wrapper.setProps({ assignedWorkflowID: '555', currentWorkflowID: '', promptAssignment })
       wrapper.update()
       expect(wrapper.find(WorkflowAssignmentModal).props().active).to.be.false()
     })
@@ -53,15 +52,14 @@ describe('Component > WorkflowAssignmentModalContainer', function() {
     describe('when the currently selected workflow is the same as the assigned workflow', function () {
       it('should not display the modal', function () {
         wrapper = mount(
-          <WorkflowAssignmentModalContainer loadingState={asyncStates.initialized} />, {
+          <WorkflowAssignmentModalContainer />, {
           wrappingComponent: Grommet,
           wrappingComponentProps: { theme: zooTheme }
         })
         expect(wrapper.find(WorkflowAssignmentModal)).to.have.lengthOf(0)
         const promptAssignment = sinon.stub().callsFake(() => false)
         const assignedWorkflowID = '555'
-        const loadingState = asyncStates.success
-        wrapper.setProps({ assignedWorkflowID, currentWorkflowID: '555', loadingState, promptAssignment })
+        wrapper.setProps({ assignedWorkflowID, currentWorkflowID: '555', promptAssignment })
         wrapper.update()
         expect(wrapper.find(WorkflowAssignmentModal).props().active).to.be.false()
       })
@@ -70,15 +68,14 @@ describe('Component > WorkflowAssignmentModalContainer', function() {
     describe('when the currently selected workflow is not the same as the assigned workflow', function () {
       it('should display the modal', function () {
         wrapper = mount(
-          <WorkflowAssignmentModalContainer loadingState={asyncStates.initialized} />, {
+          <WorkflowAssignmentModalContainer />, {
           wrappingComponent: Grommet,
           wrappingComponentProps: { theme: zooTheme }
         })
         expect(wrapper.find(WorkflowAssignmentModal)).to.have.lengthOf(0)
         const promptAssignment = sinon.stub().callsFake(() => true)
         const assignedWorkflowID = '555'
-        const loadingState = asyncStates.success
-        wrapper.setProps({ assignedWorkflowID, loadingState, promptAssignment, currentWorkflowID: '123' })
+        wrapper.setProps({ assignedWorkflowID, promptAssignment, currentWorkflowID: '123' })
         wrapper.update()
         expect(wrapper.find(WorkflowAssignmentModal).props().active).to.be.true()
       })
@@ -92,9 +89,7 @@ describe('Component > WorkflowAssignmentModalContainer', function() {
           wrappingComponentProps: { theme: zooTheme }
         })
         expect(wrapper.find(WorkflowAssignmentModal).props().active).to.be.false()
-        const loadingState = asyncStates.success
         wrapper.find(WorkflowAssignmentModal).props().dismiss({ target: { checked: true }})
-        wrapper.setProps({ loadingState })
         wrapper.update()
         expect(wrapper.find(WorkflowAssignmentModal).props().active).to.be.false()
       })
@@ -104,12 +99,10 @@ describe('Component > WorkflowAssignmentModalContainer', function() {
       it('should remove the modal', function () {
         const promptAssignment = sinon.stub().callsFake(() => true)
         const assignedWorkflowID = '555'
-        const loadingState = asyncStates.success
         wrapper = mount(
           <WorkflowAssignmentModalContainer
             assignedWorkflowID={assignedWorkflowID}
             currentWorkflowID='123'
-            loadingState={loadingState}
             promptAssignment={promptAssignment}
           />, {
             wrappingComponent: Grommet,

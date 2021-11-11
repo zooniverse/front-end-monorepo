@@ -12,7 +12,7 @@ import AboutNavLink from '../AboutNavLink'
 export const AboutDropContent = ({ aboutNavLinks }) => {
   const router = useRouter()
   const { owner, project } = router.query
-  const baseUrl = `/projects/${owner}/${project}/about`
+  const baseUrl = `/${owner}/${project}/about`
 
   return (
     <Nav gap='xsmall' background={{ dark: 'dark-5', light: 'neutral-6' }} data-testid='mobile-about-pages-nav'>

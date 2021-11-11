@@ -62,7 +62,7 @@ export const StyledRole = styled(Box)`
 const TeamMember = ({ user }) => {
   const router = useRouter()
   const { owner, project } = router.query
-  const baseUrl = `/projects/${owner}/${project}/users`
+  const baseUrl = `/${owner}/${project}/users`
 
   const { publicRuntimeConfig = {} } = getConfig() || {}
   const assetPrefix = publicRuntimeConfig.assetPrefix || ''

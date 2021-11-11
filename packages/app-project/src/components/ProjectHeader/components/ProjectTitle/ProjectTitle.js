@@ -27,7 +27,7 @@ function ProjectTitle (props) {
   const { title } = props
   const { owner, project } = router.query
   const linkProps = {
-    href: addQueryParams(`/projects/${owner}/${project}`, router)
+    href: addQueryParams(`/${owner}/${project}`, router)
   }
 
   const isCurrentPage = router.pathname === linkProps.href

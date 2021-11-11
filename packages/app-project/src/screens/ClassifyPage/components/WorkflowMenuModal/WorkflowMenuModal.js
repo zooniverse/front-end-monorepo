@@ -25,7 +25,7 @@ export default function WorkflowMenuModal({
       workflows={workflows}
     />
   )
-  let baseUrl = `/projects/${owner}/${project}/classify`
+  let baseUrl = `/${owner}/${project}/classify`
   if (workflowFromUrl) {
     modalContent = (
       <SubjectSetPicker

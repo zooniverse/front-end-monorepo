@@ -81,14 +81,13 @@ describe('Stores > Store', function () {
             stats: {
               loadingState: asyncStates.success,
               thisWeek: [
-                { count: 12, period: '2019-09-29' },
-                { count: 12, period: '2019-09-30' },
-                { count: 13, period: '2019-10-01' },
-                { count: 14, period: '2019-10-02' },
-                { count: 10, period: '2019-10-03' },
-                { count: 11, period: '2019-10-04' },
-                { count: 8, period: '2019-10-05' },
-                { count: 15, period: '2019-10-06' }
+                { count: 12, dayNumber: 1, period: '2019-09-29' },
+                { count: 12, dayNumber: 2, period: '2019-09-30' },
+                { count: 13, dayNumber: 3, period: '2019-10-01' },
+                { count: 14, dayNumber: 4, period: '2019-10-02' },
+                { count: 10, dayNumber: 5, period: '2019-10-03' },
+                { count: 11, dayNumber: 6, period: '2019-10-04' },
+                { count: 8, dayNumber: 0, period: '2019-10-05' }
               ]
             },
             totalClassificationCount: 8
