@@ -3,6 +3,7 @@ import { Anchor } from 'grommet'
 import Link from 'next/link'
 import styled, { css, withTheme } from 'styled-components'
 import localeMenu from '@helpers/localeMenu'
+import { useRouter } from 'next/router'
 
 const StyledAnchor = styled(Anchor)`
   padding: 10px 20px;
@@ -18,6 +19,9 @@ const StyledAnchor = styled(Anchor)`
 `
 
 const LocaleLink = ({ availableLocale }) => {
+  const router = useRouter()
+  const { pathname, query, asPath } = router
+
   const label = (
     <SpacedText>
       {localeMenu[availableLocale]}
@@ -25,7 +29,7 @@ const LocaleLink = ({ availableLocale }) => {
   )
 
   return (
-    <Link href='/'>
+    <Link href={{ pathname, query }} as={asPath} locale={availableLocale}>
       <StyledAnchor label={label} />
     </Link>
   )
