@@ -34,3 +34,4 @@
 - [ADR 32: Subject Viewer Layouts (aka subject viewer sizing/fitting behaviour)](adr-32.md)
 - [ADR 33: Simple Survey Task Feedback](adr-33.md)
 - [ADR 34: Workflow selection](adr-34.md)
+- [ADR 35: Adding undo/redo to workflow steps](adr-35.md)
