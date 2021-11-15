@@ -1,14 +1,14 @@
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
 import { addDisposer, addMiddleware, flow, getRoot, isValidReference, onPatch, tryReference, types } from 'mobx-state-tree'
-import { getBearerToken } from '../utils'
+import { getBearerToken } from '@store/utils'
 import { getIndexedSubjects, subjectSelectionStrategy } from './helpers'
 import { filterByLabel, filters } from '../../components/Classifier/components/MetaTools/components/Metadata/components/MetadataModal'
-import ResourceStore from '../ResourceStore'
-import Subject from '../Subject'
-import SingleImageSubject from '../SingleImageSubject'
-import SingleVideoSubject from '../SingleVideoSubject'
-import SubjectGroup from '../SubjectGroup'
+import ResourceStore from '@store/ResourceStore'
+import Subject from './Subject'
+import SingleImageSubject from './SingleImageSubject'
+import SingleVideoSubject from './SingleVideoSubject'
+import SubjectGroup from './SubjectGroup'
 import AvailableSubjects from './AvailableSubjects'
 
 const MINIMUM_QUEUE_SIZE = 3
@@ -51,6 +51,12 @@ const SubjectStore = types
   })
 
   .views(self => ({
+    get classification() {
+      const { classifications } = getRoot(self)
+      const classification = tryReference(() => classifications.active)
+      return classification
+    },
+
     get isThereMetadata() {
       const validSubjectReference = isValidReference(() => self.active)
       if (validSubjectReference) {
@@ -104,6 +110,8 @@ const SubjectStore = types
 
     function createClassificationObserver () {
       const classificationDisposer = autorun(() => {
+        onClassificationChange()
+
         onPatch(getRoot(self), (patch) => {
           const { path, value } = patch
           if (path === '/classifications/loadingState' && value === 'posting') {
@@ -113,6 +121,15 @@ const SubjectStore = types
         })
       }, { name: 'SubjectStore Classification Observer autorun' })
       addDisposer(self, classificationDisposer)
+    }
+
+    function onClassificationChange() {
+      const subject = tryReference(() => self.active)
+
+      // start a new history for each new subject and classification.
+      if (self.classification && subject) {
+        subject.stepHistory.start()
+      }
     }
 
     function onSubjectAdvance (call, next, abort) {
