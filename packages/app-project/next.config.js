@@ -19,9 +19,10 @@ function commitID () {
   }
 }
 
+const basePath = '/projects'
 const PANOPTES_ENV = process.env.PANOPTES_ENV || 'staging'
 const webpackConfig = require('./webpack.config')
-const assetPrefix = process.env.PROJECT_ASSET_PREFIX || ''
+const assetPrefix = process.env.PROJECT_ASSET_PREFIX || basePath
 const SENTRY_PROJECT_DSN = process.env.SENTRY_PROJECT_DSN
 const APP_ENV = process.env.APP_ENV || 'production'
 const COMMIT_ID = process.env.COMMIT_ID || commitID()
@@ -30,6 +31,7 @@ console.info(PANOPTES_ENV, talkHosts[PANOPTES_ENV])
 
 const nextConfig = {
   assetPrefix,
+  basePath,
 
   env: {
     COMMIT_ID,

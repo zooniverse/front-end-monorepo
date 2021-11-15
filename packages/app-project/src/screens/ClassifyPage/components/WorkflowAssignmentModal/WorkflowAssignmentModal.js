@@ -14,7 +14,7 @@ export default function WorkflowAssignmentModal(props) {
   const router = useRouter()
   const { owner, project } = router?.query || {}
 
-  const url = `/projects/${owner}/${project}/classify/workflow/${assignedWorkflowID}`
+  const url = `/${owner}/${project}/classify/workflow/${assignedWorkflowID}`
 
   return (
     <Modal active={active} closeFn={closeFn} title={counterpart('WorkflowAssignmentModal.title')}>

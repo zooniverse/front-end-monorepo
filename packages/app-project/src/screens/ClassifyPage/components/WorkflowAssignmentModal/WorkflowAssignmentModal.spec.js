@@ -10,7 +10,7 @@ import * as nextRouter from 'next/router'
 describe('Component > WorkflowAssignmentModal', function () {
   let wrapper, closeFnSpy, dismissSpy
   const router = {
-    asPath: '/projects/foo/bar',
+    asPath: '/foo/bar',
     query: {
       owner: 'foo',
       project: 'bar'
@@ -60,7 +60,7 @@ describe('Component > WorkflowAssignmentModal', function () {
   it('should render a confirmation link', function () {
     const button = wrapper.find(NavLink)
     expect(button.props().link.text).to.equal(en.WorkflowAssignmentModal.confirm)
-    expect(button.props().link.href).to.equal('/projects/foo/bar/classify/workflow/1234')
+    expect(button.props().link.href).to.equal('/foo/bar/classify/workflow/1234')
   })
 
   it('should render a cancel button', function () {

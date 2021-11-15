@@ -6,7 +6,7 @@ export async function getServerSideProps({ params, query, req, res }) {
   const { env } = query
   const { project } = props.initialState
 
-  const projectPath = `/projects/${project?.slug}/about/research`
+  const projectPath = `/${project?.slug}/about/research`
   const destination = env ? `${projectPath}?env=${env}` : projectPath
 
   return ({
