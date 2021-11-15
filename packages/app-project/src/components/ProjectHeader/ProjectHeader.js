@@ -22,7 +22,11 @@ const StyledBox = styled(Box)`
 `
 
 function ProjectHeader (props) {
-  const { availableLocales, className, inBeta, navLinks, screenSize, title } = props
+  const { className, inBeta, navLinks, screenSize, title } = props
+
+  // hard-coded for staging project testing, but should be imported as props instead
+  const availableLocales = ['en', 'fr']
+
   return (
     <StyledBox as='header' className={className}>
       <Background />
@@ -45,7 +49,7 @@ function ProjectHeader (props) {
           >
             <Box>
               <ProjectTitle title={title} />
-              {inBeta && 
+              {inBeta &&
                 <UnderReviewLabel />}
             </Box>
             <ApprovedIcon isNarrow={screenSize === 'small'} />
