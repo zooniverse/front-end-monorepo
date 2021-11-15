@@ -7,18 +7,14 @@ const CircleTool = types
     marks: types.map(Circle),
     type: types.literal('circle')
   })
-  .actions((self) => {
-    function createMark(mark) {
+  .actions((self) => ({
+    createMark(mark) {
       const newMark = Circle.create(
         Object.assign({}, mark, { toolType: self.type })
       )
       self.marks.put(newMark)
       return newMark
     }
-
-    return {
-      createMark
-    }
-  })
+  }))
 
 export default types.compose('CircleTool', Tool, CircleTool)
