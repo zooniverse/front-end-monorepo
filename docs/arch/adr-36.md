@@ -17,6 +17,7 @@ https://github.com/zooniverse/front-end-monorepo/pull/2519
 
 - Static assets and compiled JS can be served via `www.zooniverse.org/about/_next` and `www.zooniverse.org/projects/_next`, taking advantage of our CDN.
 - `/about` and `/projects` are removed from the page routes in the NextJS apps, so internal links and redirects have had to be updated throughout the code.
+- The root URLs of the apps, for status checks and so on, change to https://fe-project.zooniverse.org/projects/ and https://fe-content-pages.zooniverse.org/about/. Requests to /, on either domain, will 404.
 - Our nginx routing has to be configured to pass the `/_next` URLs through to the individual apps, running on kubernetes.
 
 
