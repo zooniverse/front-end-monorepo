@@ -77,7 +77,7 @@ const LocaleSwitcher = ({ availableLocales }) => {
 }
 
 LocaleSwitcher.propTypes = {
-  availableLanguages: arrayOf(string),
+  availableLocales: arrayOf(string),
   theme: shape({
     global: shape({
       colors: shape({
