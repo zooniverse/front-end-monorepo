@@ -10,7 +10,7 @@ When we launched the NextJS apps, a single domain could only host one NextJS app
 
 ## Decision
 
-Set base paths of `/about` and `/projects` to the content pages app and project app respectively.
+Set base paths of `/about` and `/projects` for the content pages app and project app respectively.
 https://github.com/zooniverse/front-end-monorepo/pull/2519
 
 ## Consequences
