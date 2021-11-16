@@ -6,6 +6,6 @@ export const useI18n = (locale, useFallback = false) => ({
       throw new Error(`missing translation for ${key} on locale: ${locale}`)
     }
 
-    return !!dictionary[locale][key] ? dictionary[locale][key] : key
-  },
+    return dictionary[locale][key] ? dictionary[locale][key] : key
+  }
 })

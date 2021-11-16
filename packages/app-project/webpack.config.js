@@ -7,7 +7,8 @@ module.exports = {
       '@helpers': path.resolve(__dirname, 'src/helpers'),
       '@screens': path.resolve(__dirname, 'src/screens'),
       '@shared': path.resolve(__dirname, 'src/shared'),
-      '@stores': path.resolve(__dirname, 'stores')
+      '@stores': path.resolve(__dirname, 'stores'),
+      '@translations': path.resolve(__dirname, 'translations')
     }
   }
 }
