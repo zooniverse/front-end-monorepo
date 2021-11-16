@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import counterpart from 'counterpart'
 import localeMenu from '@helpers/localeMenu'
 import { Box, DropButton } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
@@ -7,6 +6,7 @@ import { SpacedText } from '@zooniverse/react-components'
 import { FormDown } from 'grommet-icons'
 import styled, { css, withTheme } from 'styled-components'
 import LocaleLink from './LocaleLink'
+import { useRouter } from 'next/router'
 
 // `tabindex='-1'` is for the button's open state.
 const StyledDropButton = styled(DropButton)`
@@ -30,6 +30,8 @@ const StyledDropButton = styled(DropButton)`
 `
 
 const LocaleSwitcher = ({ availableLocales }) => {
+  const router = useRouter()
+  const { locale } = router
   const [isOpen, setIsOpen] = useState(false)
 
   const onClose = () => {
@@ -38,10 +40,6 @@ const LocaleSwitcher = ({ availableLocales }) => {
 
   const onOpen = () => {
     setIsOpen(true)
-  }
-
-  const onChange = option => {
-    counterpart.setLocale(option.key)
   }
 
   const dropContent = (
@@ -64,11 +62,10 @@ const LocaleSwitcher = ({ availableLocales }) => {
       isOpen={isOpen}
       onClose={onClose}
       onOpen={onOpen}
-      onChange={onChange}
     >
       <Box align='center' direction='row' gap='xsmall' justify='center'>
         <SpacedText weight='bold'>
-          {localeMenu[counterpart.getLocale()]}
+          {localeMenu[locale]}
         </SpacedText>
         <FormDown />
       </Box>
