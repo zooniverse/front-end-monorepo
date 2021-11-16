@@ -10,7 +10,6 @@ import UserHasFinishedWorkflowBanner from './components/UserHasFinishedWorkflowB
 function useStores(stores) {
   const { classifierStore } = stores ?? React.useContext(MobXProviderContext)
   return {
-    annotatedSteps: classifierStore.annotatedSteps,
     project: classifierStore.projects.active,
     subject: classifierStore.subjects.active,
     subjects: classifierStore.subjects,
@@ -19,7 +18,7 @@ function useStores(stores) {
 }
 
 function Banners({ stores }) {
-  const { annotatedSteps, project, subject, subjects, workflow } = useStores(stores)
+  const { project, subject, subjects, workflow } = useStores(stores)
   const subjectNumber = subject?.priority ?? -1
 
   const hasIndexedSubjects = workflow?.hasIndexedSubjects
@@ -33,7 +32,7 @@ function Banners({ stores }) {
   if (enableIndexedSubjectSetNextPrevButtons && hasIndexedSubjects && subjectNumber > -1) {
     return (
       <SubjectSetProgressBanner
-        checkForProgress={annotatedSteps.checkForProgress}
+        checkForProgress={subject.stepHistory.checkForProgress}
         onNext={onNext}
         onPrevious={onPrevious}
         subject={subject}

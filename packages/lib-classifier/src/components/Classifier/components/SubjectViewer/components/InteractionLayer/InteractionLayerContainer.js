@@ -7,7 +7,7 @@ import SHOWN_MARKS from '@helpers/shownMarks'
 import { withStores } from '@helpers'
 
 function storeMapper(classifierStore) {
-  const activeStepAnnotations = classifierStore.annotatedSteps.latest?.annotations
+  const activeStepAnnotations = classifierStore.subjects.active?.stepHistory.latest.annotations
   const { activeStepTasks } = classifierStore.workflowSteps
   const { frame, move } = classifierStore.subjectViewer
 

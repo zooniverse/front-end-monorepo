@@ -1,5 +1,5 @@
 import { getRoot, tryReference, types } from 'mobx-state-tree'
-import Resource from '../Resource'
+import Resource from '@store/Resource'
 import subjectViewers from '@helpers/subjectViewers'
 import SingleImageSubject from '../SingleImageSubject'
 import Subject from '../Subject'
