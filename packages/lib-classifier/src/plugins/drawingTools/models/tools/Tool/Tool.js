@@ -58,41 +58,41 @@ const Tool = types
       return allMarksValid
     }
   }))
-  .actions((self) => {
-    function createMark(mark) {
+  .actions((self) => ({
+    createMark(mark) {
       const newMark = Mark.create(
         Object.assign({}, mark, { toolType: self.type })
       )
       self.marks.put(newMark)
       return newMark
-    }
+    },
 
-    function createTask(snapshot) {
+    createTask(snapshot) {
       try {
         self.tasks.push(snapshot)
         return self.tasks[self.tasks.length - 1]
       } catch (e) {
         console.error(`${snapshot.taskKey} is not a valid drawing subtask`)
       }
-    }
+    },
 
-    function deleteMark(mark) {
+    deleteMark(mark) {
       self.marks.delete(mark.id)
-    }
+    },
 
-    function handlePointerMove(event, mark) {
+    handlePointerMove(event, mark) {
       mark.initialDrag(event)
-    }
+    },
 
-    function handlePointerUp(event, mark) {
+    handlePointerUp(event, mark) {
       mark.finish()
-    }
+    },
 
-    function reset() {
+    reset() {
       self.marks.clear()
-    }
+    },
 
-    function validate() {
+    validate() {
       // if the needed validation action needs to vary,
       // then this can be moved to the tools that should delete on invalid mark
       // transcription line, ellipse
@@ -102,16 +102,6 @@ const Tool = types
         }
       })
     }
-
-    return {
-      createMark,
-      createTask,
-      deleteMark,
-      handlePointerMove,
-      handlePointerUp,
-      reset,
-      validate
-    }
-  })
+  }))
 
 export default Tool

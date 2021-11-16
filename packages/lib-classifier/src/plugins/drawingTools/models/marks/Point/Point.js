@@ -41,34 +41,27 @@ const PointModel = types
       return PointComponent
     }
   }))
-  .actions((self) => {
-    function initialDrag({ x, y }) {
+  .actions((self) => ({
+    initialDrag({ x, y }) {
       self.x = x
       self.y = y
-    }
+    },
 
-    function initialPosition({ x, y }) {
+    initialPosition({ x, y }) {
       self.x = x
       self.y = y
-    }
+    },
 
-    function move({ x, y }) {
+    move({ x, y }) {
       self.x += x
       self.y += y
-    }
+    },
 
-    function setCoordinates({ x, y }) {
+    setCoordinates({ x, y }) {
       self.x = x
       self.y = y
     }
-
-    return {
-      initialDrag,
-      initialPosition,
-      move,
-      setCoordinates
-    }
-  })
+  }))
 
 const Point = types.compose('Point', Mark, PointModel)
 

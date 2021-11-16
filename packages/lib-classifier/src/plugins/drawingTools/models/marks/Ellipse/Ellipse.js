@@ -16,79 +16,71 @@ const EllipseModel = types
     ry: types.optional(types.number, 0),
     angle: types.optional(types.number, 0)
   })
-  .views(self => ({
-    get coords () {
+  .views((self) => ({
+    get coords() {
       return {
         x: self.x_center,
         y: self.y_center
       }
     },
 
-    deleteButtonPosition (scale) {
+    deleteButtonPosition(scale) {
       const theta = DELETE_BUTTON_ANGLE * (Math.PI / 180)
       const dx = ((self.rx + BUFFER) / scale) * Math.cos(theta)
       const dy = ((self.ry + BUFFER) / scale) * Math.sin(theta)
       return {
         x: dx,
         y: dy
-      };
+      }
     },
 
-    get isValid () {
+    get isValid() {
       return self.rx - MINIMUM_RADIUS > 0
     },
 
-    get tool () {
+    get tool() {
       return getParentOfType(self, EllipseTool)
     },
 
-    get toolComponent () {
+    get toolComponent() {
       return EllipseComponent
     },
-    
-    get x () {
+
+    get x() {
       return self.x_center
     },
 
-    get y () {
+    get y() {
       return self.y_center
     }
   }))
-  .actions(self => {
-
-    function initialDrag ({ x, y }) {
+  .actions((self) => ({
+    initialDrag({ x, y }) {
       const rx = self.getDistance(self.x, self.y, x, y)
       const angle = self.getAngle(self.x, self.y, x, y)
       self.rx = rx
       self.ry = rx * 0.0001
       self.angle = angle
-    }
+    },
 
-    function initialPosition ({ x, y }) {
+    initialPosition({ x, y }) {
       self.x_center = x
       self.y_center = y
-    }
+    },
 
-    function move ({ x, y }) {
+    move({ x, y }) {
       self.x_center += x
       self.y_center += y
-    }
+    },
 
-    function setCoordinates ({ x, y, rx, ry, angle }) {
+    setCoordinates({ x, y, rx, ry, angle }) {
       self.x_center = x
       self.y_center = y
       self.rx = rx
       self.ry = ry
       self.angle = angle
     }
-
-    return {
-      initialDrag,
-      initialPosition,
-      move,
-      setCoordinates
-    }
-  })
+  }))
 
 const Ellipse = types.compose('Ellipse', Mark, EllipseModel)
 
