@@ -22,7 +22,7 @@ function getBaseUrl (router) {
 
 function ProjectHeaderContainer ({ availableLocales, className, defaultWorkflow, inBeta, isLoggedIn, projectName }) {
   const router = useRouter()
-  const navLinks = getNavLinks(isLoggedIn, getBaseUrl(router), defaultWorkflow)
+  const navLinks = getNavLinks(isLoggedIn, getBaseUrl(router), defaultWorkflow, router)
 
   return (
     <ProjectHeader
