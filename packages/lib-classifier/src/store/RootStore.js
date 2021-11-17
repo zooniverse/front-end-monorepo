@@ -74,6 +74,15 @@ const RootStore = types
       }
     }
 
+    function _addMiddleware(call, next, abort) {
+      if (call.name === 'setActiveSubject') {
+        const res = next(call)
+        onSubjectAdvance()
+        return res
+      }
+      return next(call)
+    }
+
     function _onAction(call) {
       if (call.name === 'completeClassification') {
         const annotations = self.classifications.currentAnnotations
@@ -104,25 +113,11 @@ const RootStore = types
 
     // Public actions
     function afterCreate () {
-      createSubjectObserver()
       const subjectAnnotationsDisposer = autorun(_observeWorkInProgress)
       addDisposer(self, subjectAnnotationsDisposer)
+      addMiddleware(self, _addMiddleware)
       onAction(self, _onAction)
       onPatch(self, _onPatch)
-    }
-
-    function createSubjectObserver () {
-      const subjectDisposer = autorun(() => {
-        addMiddleware(self, (call, next, abort) => {
-          if (call.name === 'setActiveSubject') {
-            const res = next(call)
-            onSubjectAdvance()
-            return res
-          }
-          return next(call)
-        })
-      }, { name: 'Root Store Subject Observer autorun' })
-      addDisposer(self, subjectDisposer)
     }
 
     function setOnAddToCollection (callback) {
