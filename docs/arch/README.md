@@ -35,3 +35,4 @@
 - [ADR 33: Simple Survey Task Feedback](adr-33.md)
 - [ADR 34: Workflow selection](adr-34.md)
 - [ADR 35: Adding undo/redo to workflow steps](adr-35.md)
+- [ADR 36: NextJS App base paths](adr-36.md)
