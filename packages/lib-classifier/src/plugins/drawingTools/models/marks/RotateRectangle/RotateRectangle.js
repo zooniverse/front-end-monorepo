@@ -25,19 +25,15 @@ const RotateRectangleModel = types
       return self.y_center
     }
   }))
-  .actions((self) => {
-    function setCoordinates({ x_left, x_right, y_top, y_bottom, angle }) {
+  .actions((self) => ({
+    setCoordinates({ x_left, x_right, y_top, y_bottom, angle }) {
       self.x_center = (x_left + x_right) / 2
       self.y_center = (y_top + y_bottom) / 2
       self.width = Math.abs(x_right - x_left)
       self.height = Math.abs(y_bottom - y_top)
       self.angle = angle
     }
-
-    return {
-      setCoordinates
-    }
-  })
+  }))
 
 const RotateRectangle = types.compose(
   'RotateRectangle',

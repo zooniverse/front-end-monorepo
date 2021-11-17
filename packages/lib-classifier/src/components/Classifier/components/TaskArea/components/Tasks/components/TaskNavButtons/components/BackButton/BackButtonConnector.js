@@ -7,9 +7,8 @@ function withStores(Component) {
   function BackButtonConnector(props) {
     const {
       classifierStore: {
-        annotatedSteps: {
-          back,
-          canUndo
+        subjects: {
+          active: subject
         },
         workflows: {
           active: {
@@ -20,6 +19,8 @@ function withStores(Component) {
         }
       }
     } = props.store || useContext(MobXProviderContext)
+
+    const { back, canUndo } = subject.stepHistory
 
     if (!canUndo) {
       return null

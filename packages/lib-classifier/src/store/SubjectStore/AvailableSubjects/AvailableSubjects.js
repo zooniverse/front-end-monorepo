@@ -1,10 +1,10 @@
 import { flow, getRoot, getSnapshot, types } from 'mobx-state-tree'
 
 import { getBearerToken } from '@store/utils'
-import Subject from '@store/Subject'
-import SingleImageSubject from '@store/SingleImageSubject'
-import SingleVideoSubject from '@store/SingleVideoSubject'
-import SubjectGroup from '@store/SubjectGroup'
+import Subject from '../Subject'
+import SingleImageSubject from '../SingleImageSubject'
+import SingleVideoSubject from '../SingleVideoSubject'
+import SubjectGroup from '../SubjectGroup'
 
 const CACHE_SIZE = 10
 

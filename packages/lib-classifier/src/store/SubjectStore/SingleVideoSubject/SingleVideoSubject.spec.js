@@ -1,6 +1,6 @@
 import sinon from 'sinon'
 import SingleVideoSubject from './SingleVideoSubject'
-import RootStore from '../'
+import RootStore from '@store/'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 import subjectViewers from '@helpers/subjectViewers'

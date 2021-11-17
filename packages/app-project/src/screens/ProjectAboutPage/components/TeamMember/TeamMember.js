@@ -66,7 +66,7 @@ const TeamMember = ({ user }) => {
 
   const { publicRuntimeConfig = {} } = getConfig() || {}
   const assetPrefix = publicRuntimeConfig.assetPrefix || ''
-  const placeholderAvatar = `${assetPrefix}/simple-avatar.png`
+  const placeholderAvatar = `${assetPrefix}/assets/simple-avatar.png`
 
   return (
     <StyledTeamMember as='li'>

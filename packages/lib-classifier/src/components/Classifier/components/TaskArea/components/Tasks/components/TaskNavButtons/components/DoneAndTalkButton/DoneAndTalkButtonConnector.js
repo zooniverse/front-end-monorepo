@@ -7,10 +7,6 @@ function withStores(Component) {
   function DoneAndTalkButtonConnector(props) {
     const {
       classifierStore: {
-        annotatedSteps: {
-          finish,
-          hasNextStep
-        },
         classifications: {
           completeClassification
         },
@@ -22,6 +18,8 @@ function withStores(Component) {
         }
       }
     } = props.store || useContext(MobXProviderContext)
+
+    const { finish, hasNextStep } = subject.stepHistory
 
     if (!hasNextStep && shouldWeShowDoneAndTalkButton && subject?.id) {
       function onClick(event) {
