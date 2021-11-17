@@ -7,12 +7,8 @@ function withStores(Component) {
   function DoneButtonConnector(props) {
     const {
       classifierStore: {
-        annotatedSteps: {
-          finish,
-          hasNextStep,
-          latest: {
-            annotations
-          },
+        subjects: {
+          active: subject
         },
         classifications: {
           completeClassification
@@ -22,6 +18,9 @@ function withStores(Component) {
         }
       }
     } = props.store || useContext(MobXProviderContext)
+
+    const { finish, hasNextStep, latest } = subject.stepHistory
+    const annotations = latest?.annotations
 
     if (hasNextStep) {
       return null
