@@ -8,7 +8,6 @@ import styled, { css, withTheme } from 'styled-components'
 import LocaleLink from './LocaleLink'
 import { useRouter } from 'next/router'
 
-// `tabindex='-1'` is for the button's open state.
 const StyledDropButton = styled(DropButton)`
   padding: 10px 10px 10px 15px;
   border-radius: 2em;
