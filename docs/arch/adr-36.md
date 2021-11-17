@@ -14,7 +14,7 @@ Set base paths of `/about` and `/projects` for the content pages app and project
 https://github.com/zooniverse/front-end-monorepo/pull/2519
 
 ## Consequences
-
+ - data requests to `/_next` can now be supported for both apps, at `/about/_next` and `/projects/_next`. 
 - Static assets and compiled JS can be served via `www.zooniverse.org/about/_next` and `www.zooniverse.org/projects/_next`, taking advantage of our CDN.
 - `/about` and `/projects` are removed from the page routes in the NextJS apps, so internal links and redirects have had to be updated throughout the code.
 - The root URLs of the apps, for status checks and so on, change to https://fe-project.zooniverse.org/projects/ and https://fe-content-pages.zooniverse.org/about/. Requests to /, on either domain, will 404.
@@ -23,4 +23,4 @@ https://github.com/zooniverse/front-end-monorepo/pull/2519
 
 ## Status
 
-In progress
+Accepted
