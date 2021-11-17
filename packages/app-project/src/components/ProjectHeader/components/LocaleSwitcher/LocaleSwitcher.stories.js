@@ -5,10 +5,12 @@ import Router from 'next/router'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
 import PropTypes from 'prop-types'
 
-export default {
+const LocaleSwitcherStory = {
   title: 'Project App / Shared / Project Header / LocaleSwitcher',
   component: LocaleSwitcher
 }
+
+export default LocaleSwitcherStory
 
 const availableLocales = ['en', 'fr']
 

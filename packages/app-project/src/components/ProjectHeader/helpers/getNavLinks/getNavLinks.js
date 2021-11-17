@@ -1,10 +1,8 @@
 // import counterpart from 'counterpart'
 
 import { useI18n } from '@translations/i18n'
-import { useRouter } from 'next/router'
 
-function getNavLinks (isLoggedIn, baseUrl, defaultWorkflow) {
-  const router = useRouter()
+function getNavLinks (isLoggedIn, baseUrl, defaultWorkflow, router) {
   const { locale } = router
   const { translate: t } = useI18n(locale, false)
 

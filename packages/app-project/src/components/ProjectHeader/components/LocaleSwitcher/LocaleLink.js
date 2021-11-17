@@ -29,7 +29,7 @@ const LocaleLink = ({ availableLocale }) => {
   )
 
   return (
-    <Link href={{ pathname, query }} as={asPath} locale={availableLocale}>
+    <Link href={{ pathname, query }} as={asPath} locale={availableLocale} passHref>
       <StyledAnchor label={label} />
     </Link>
   )
