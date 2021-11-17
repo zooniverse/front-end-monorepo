@@ -1,14 +1,14 @@
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
 import { addDisposer, addMiddleware, flow, getRoot, isValidReference, onPatch, tryReference, types } from 'mobx-state-tree'
-import { getBearerToken } from '../utils'
+import { getBearerToken } from '@store/utils'
 import { getIndexedSubjects, subjectSelectionStrategy } from './helpers'
 import { filterByLabel, filters } from '../../components/Classifier/components/MetaTools/components/Metadata/components/MetadataModal'
-import ResourceStore from '../ResourceStore'
-import Subject from '../Subject'
-import SingleImageSubject from '../SingleImageSubject'
-import SingleVideoSubject from '../SingleVideoSubject'
-import SubjectGroup from '../SubjectGroup'
+import ResourceStore from '@store/ResourceStore'
+import Subject from './Subject'
+import SingleImageSubject from './SingleImageSubject'
+import SingleVideoSubject from './SingleVideoSubject'
+import SubjectGroup from './SubjectGroup'
 import AvailableSubjects from './AvailableSubjects'
 
 const MINIMUM_QUEUE_SIZE = 3
@@ -51,6 +51,12 @@ const SubjectStore = types
   })
 
   .views(self => ({
+    get classification() {
+      const { classifications } = getRoot(self)
+      const classification = tryReference(() => classifications.active)
+      return classification
+    },
+
     get isThereMetadata() {
       const validSubjectReference = isValidReference(() => self.active)
       if (validSubjectReference) {
@@ -86,7 +92,8 @@ const SubjectStore = types
   .actions(self => {
     function afterAttach () {
       createWorkflowObserver()
-      createClassificationObserver()
+      createClassificationChangeObserver()
+      createClassificationPostObserver()
       createSubjectMiddleware()
     }
 
@@ -102,8 +109,9 @@ const SubjectStore = types
       addDisposer(self, workflowDisposer)
     }
 
-    function createClassificationObserver () {
+    function createClassificationPostObserver () {
       const classificationDisposer = autorun(() => {
+
         onPatch(getRoot(self), (patch) => {
           const { path, value } = patch
           if (path === '/classifications/loadingState' && value === 'posting') {
@@ -111,8 +119,24 @@ const SubjectStore = types
             self.advance()
           }
         })
-      }, { name: 'SubjectStore Classification Observer autorun' })
+      }, { name: 'SubjectStore Classification Post Observer autorun' })
       addDisposer(self, classificationDisposer)
+    }
+
+    function createClassificationChangeObserver () {
+      const classificationDisposer = autorun(() => {
+        onClassificationChange()
+      }, { name: 'SubjectStore Classification Change Observer autorun' })
+      addDisposer(self, classificationDisposer)
+    }
+
+    function onClassificationChange() {
+      const subject = tryReference(() => self.active)
+
+      // start a new history for each new subject and classification.
+      if (self.classification && subject) {
+        subject.stepHistory.start()
+      }
     }
 
     function onSubjectAdvance (call, next, abort) {

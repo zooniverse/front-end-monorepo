@@ -19,7 +19,7 @@ function RecentSubjects ({
   const height = (size === 1) ? '40vw' : '200px'
   const { publicRuntimeConfig = {} } = getConfig() || {}
   const assetPrefix = publicRuntimeConfig.assetPrefix || ''
-  const placeholderUrl = `${assetPrefix}/subject-placeholder.png`
+  const placeholderUrl = `${assetPrefix}/assets/subject-placeholder.png`
   const displayedRecents = recents.slice(0, size)
 
   return (
