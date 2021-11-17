@@ -92,7 +92,8 @@ const SubjectStore = types
   .actions(self => {
     function afterAttach () {
       createWorkflowObserver()
-      createClassificationObserver()
+      createClassificationChangeObserver()
+      createClassificationPostObserver()
       createSubjectMiddleware()
     }
 
@@ -108,9 +109,8 @@ const SubjectStore = types
       addDisposer(self, workflowDisposer)
     }
 
-    function createClassificationObserver () {
+    function createClassificationPostObserver () {
       const classificationDisposer = autorun(() => {
-        onClassificationChange()
 
         onPatch(getRoot(self), (patch) => {
           const { path, value } = patch
@@ -119,7 +119,14 @@ const SubjectStore = types
             self.advance()
           }
         })
-      }, { name: 'SubjectStore Classification Observer autorun' })
+      }, { name: 'SubjectStore Classification Post Observer autorun' })
+      addDisposer(self, classificationDisposer)
+    }
+
+    function createClassificationChangeObserver () {
+      const classificationDisposer = autorun(() => {
+        onClassificationChange()
+      }, { name: 'SubjectStore Classification Change Observer autorun' })
       addDisposer(self, classificationDisposer)
     }
 

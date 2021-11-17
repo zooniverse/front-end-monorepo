@@ -26,7 +26,7 @@ function SubjectSetCard ({
   const [subject] = subjects
   const { publicRuntimeConfig = {} } = getConfig() || {}
   const assetPrefix = publicRuntimeConfig.assetPrefix || ''
-  const placeholderUrl = `${assetPrefix}/subject-placeholder.png`
+  const placeholderUrl = `${assetPrefix}/assets/subject-placeholder.png`
   const subjectURLs = subject ? subject.locations.map(location => Object.values(location)[0]) : []
   const alt = subject ? `Subject ${subject.id}` : 'Loading'
   const percentComplete = parseInt(100 * completeness)
