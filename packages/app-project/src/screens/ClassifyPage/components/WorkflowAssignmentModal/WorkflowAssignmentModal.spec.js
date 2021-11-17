@@ -11,6 +11,7 @@ describe('Component > WorkflowAssignmentModal', function () {
   let wrapper, closeFnSpy, dismissSpy
   const router = {
     asPath: '/foo/bar',
+    locale: 'en',
     query: {
       owner: 'foo',
       project: 'bar'

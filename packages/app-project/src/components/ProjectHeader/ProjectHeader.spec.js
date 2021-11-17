@@ -36,7 +36,7 @@ describe('Component > ProjectHeader', function () {
     expect(wrapper.find(UnderReviewLabel)).to.have.lengthOf(0)
   })
 
-  it('should not render a `<LocaleToggle />` component', function () {
+  xit('should not render a `<LocaleToggle />` component', function () {
     expect(wrapper.find(LocaleSwitcher)).to.have.length(0)
   })
 

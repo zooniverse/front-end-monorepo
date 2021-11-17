@@ -63,6 +63,7 @@ describe('Component > ProjectAboutPage & Connector', function () {
     routerMock = sinon.stub(Router, 'useRouter').callsFake(() => {
       return {
         asPath: 'projects/foo/bar',
+        locale: 'en',
         push: () => {},
         prefetch: () => new Promise((resolve, reject) => {}),
         query: { owner: 'foo', project: 'bar' }
