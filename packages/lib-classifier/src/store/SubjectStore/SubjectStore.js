@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
-import { addDisposer, addMiddleware, flow, getRoot, isValidReference, onPatch, tryReference, types } from 'mobx-state-tree'
+import { addDisposer, addMiddleware, flow, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
 import { getBearerToken } from '@store/utils'
 import { getIndexedSubjects, subjectSelectionStrategy } from './helpers'
 import { filterByLabel, filters } from '../../components/Classifier/components/MetaTools/components/Metadata/components/MetadataModal'
@@ -93,7 +93,6 @@ const SubjectStore = types
     function afterAttach () {
       createWorkflowObserver()
       createClassificationChangeObserver()
-      createClassificationPostObserver()
       createSubjectMiddleware()
     }
 
@@ -107,20 +106,6 @@ const SubjectStore = types
         }
       }, { name: 'SubjectStore Workflow Observer autorun' })
       addDisposer(self, workflowDisposer)
-    }
-
-    function createClassificationPostObserver () {
-      const classificationDisposer = autorun(() => {
-
-        onPatch(getRoot(self), (patch) => {
-          const { path, value } = patch
-          if (path === '/classifications/loadingState' && value === 'posting') {
-            self.available.clear()
-            self.advance()
-          }
-        })
-      }, { name: 'SubjectStore Classification Post Observer autorun' })
-      addDisposer(self, classificationDisposer)
     }
 
     function createClassificationChangeObserver () {

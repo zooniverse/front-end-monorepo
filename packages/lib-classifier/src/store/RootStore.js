@@ -5,6 +5,7 @@ import {
   addMiddleware,
   getEnv,
   onAction,
+  onPatch,
   tryReference,
   types,
   setLivelynessChecking
@@ -72,6 +73,14 @@ const RootStore = types
       }
     }
 
+    function _onPatch(patch) {
+      // TODO: why are we doing this rather than observe classifications.loadingState for changes?
+      const { path, value } = patch
+      if (path === '/classifications/loadingState' && value === 'posting') {
+        self.subjects.advance()
+      }
+    }
+
     function onSubjectAdvance () {
       const { classifications, feedback, projects, subjects, workflows, workflowSteps } = self
       const subject = tryReference(() => subjects?.active)
@@ -91,6 +100,7 @@ const RootStore = types
       createSubjectObserver()
       const subjectAnnotationsDisposer = autorun(_observeWorkInProgress)
       addDisposer(self, subjectAnnotationsDisposer)
+      onPatch(self, _onPatch)
     }
 
     function createClassificationObserver () {
