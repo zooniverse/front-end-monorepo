@@ -1,4 +1,6 @@
 import { render } from 'enzyme'
+import * as Router from 'next/router'
+import sinon from 'sinon'
 
 import Introduction from './Introduction'
 
@@ -10,13 +12,31 @@ const TITLE = 'baz'
 
 describe('Component > Hero > Introduction', function () {
   let wrapper
+  let routerStub
+
+  const ROUTER = {
+    asPath: '/projects/zooniverse/snapshot-serengeti/about',
+    locale: 'en',
+    push: () => {},
+    prefetch: () => new Promise((resolve, reject) => {}),
+    query: {
+      owner: 'zooniverse',
+      project: 'snapshot-serengeti'
+    }
+  }
 
   before(function () {
+    routerStub = sinon.stub(Router, 'useRouter').callsFake(() => ROUTER)
+
     wrapper = render(<Introduction
       description={DESCRIPTION}
       linkProps={LINK_PROPS}
       title={TITLE}
     />)
+  })
+
+  after(function () {
+    routerStub.restore()
   })
 
   it('should render without crashing', function () {
