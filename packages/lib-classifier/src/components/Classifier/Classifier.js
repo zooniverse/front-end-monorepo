@@ -71,6 +71,7 @@ export default function Classifier({
   onAddToCollection = () => true,
   onCompleteClassification = () => true,
   onError = () => true,
+  onSubjectChange = () => true,
   onSubjectReset = () => true,
   onToggleFavourite = () => true,
   project,
@@ -103,6 +104,7 @@ export default function Classifier({
   useEffect(function onMount() {
     classifierStore.setOnAddToCollection(onAddToCollection)
     classifications.setOnComplete(onCompleteClassification)
+    classifierStore.setOnSubjectChange(onSubjectChange)
     subjects.setOnReset(onSubjectReset)
     classifierStore.setOnToggleFavourite(onToggleFavourite)
   }, [])
