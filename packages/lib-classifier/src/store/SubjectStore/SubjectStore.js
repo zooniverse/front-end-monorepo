@@ -90,32 +90,15 @@ const SubjectStore = types
   })
 
   .actions(self => {
-    function afterAttach () {
-      createWorkflowObserver()
-      createClassificationChangeObserver()
-      createSubjectMiddleware()
+    function _addMiddleware(call, next, abort) {
+      if (call.name === 'advance') {
+        _onSubjectAdvance(call, next, abort)
+      } else {
+        next(call)
+      }
     }
 
-    function createWorkflowObserver () {
-      const workflowDisposer = autorun(() => {
-        const workflow = tryReference(() => getRoot(self).workflows.active)
-        const subjectSet = tryReference(() => workflow?.subjectSet)
-        if (workflow || subjectSet) {
-          self.reset()
-          self.populateQueue(workflow.selectedSubjects)
-        }
-      }, { name: 'SubjectStore Workflow Observer autorun' })
-      addDisposer(self, workflowDisposer)
-    }
-
-    function createClassificationChangeObserver () {
-      const classificationDisposer = autorun(() => {
-        onClassificationChange()
-      }, { name: 'SubjectStore Classification Change Observer autorun' })
-      addDisposer(self, classificationDisposer)
-    }
-
-    function onClassificationChange() {
+    function _onClassificationChange() {
       const subject = tryReference(() => self.active)
 
       // start a new history for each new subject and classification.
@@ -124,7 +107,7 @@ const SubjectStore = types
       }
     }
 
-    function onSubjectAdvance (call, next, abort) {
+    function _onSubjectAdvance(call, next, abort) {
       const root = getRoot(self)
       const validSubjectReference = isValidReference(() => self.active)
       if (validSubjectReference) {
@@ -138,17 +121,35 @@ const SubjectStore = types
       next(call)
     }
 
-    function createSubjectMiddleware () {
-      const subjectMiddleware = autorun(() => {
-        addMiddleware(self, (call, next, abort) => {
-          if (call.name === 'advance') {
-            onSubjectAdvance(call, next, abort)
-          } else {
-            next(call)
-          }
-        })
-      }, { name: 'SubjectStore Middleware autorun' })
-      addDisposer(self, subjectMiddleware)
+    function _onWorkflowChange() {
+      const workflow = tryReference(() => getRoot(self).workflows.active)
+      const subjectSet = tryReference(() => workflow?.subjectSet)
+      if (workflow || subjectSet) {
+        self.reset()
+        self.populateQueue(workflow.selectedSubjects)
+      }
+    }
+
+    function afterAttach () {
+      createWorkflowObserver()
+      createClassificationChangeObserver()
+      addMiddleware(self, _addMiddleware)
+    }
+
+    function createWorkflowObserver () {
+      const workflowDisposer = autorun(
+        _onWorkflowChange,
+        { name: 'SubjectStore Workflow Observer autorun' }
+      )
+      addDisposer(self, workflowDisposer)
+    }
+
+    function createClassificationChangeObserver () {
+      const classificationDisposer = autorun(
+        _onClassificationChange,
+        { name: 'SubjectStore Classification Change Observer autorun' }
+      )
+      addDisposer(self, classificationDisposer)
     }
 
     async function _fetchPreviousSubjects(workflow, priority) {
