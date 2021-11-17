@@ -1,9 +1,8 @@
 import { inject, observer } from 'mobx-react'
 import { array, bool, shape, string } from 'prop-types'
 import { useRouter } from 'next/router'
-
 import ProjectHeader from './ProjectHeader'
-import getNavLinks from './helpers/getNavLinks'
+import { useI18n } from '@translations/i18n'
 
 function storeMapper (stores) {
   return {
@@ -15,14 +14,40 @@ function storeMapper (stores) {
   }
 }
 
-function getBaseUrl (router) {
-  const { owner, project } = router.query
-  return `/${owner}/${project}`
-}
-
 function ProjectHeaderContainer ({ availableLocales, className, defaultWorkflow, inBeta, isLoggedIn, projectName }) {
   const router = useRouter()
-  const navLinks = getNavLinks(isLoggedIn, getBaseUrl(router), defaultWorkflow, router)
+  const { locale, query } = router
+  const { owner, project } = query
+  const baseUrl = `/${owner}/${project}`
+
+  const { translate: t } = useI18n(locale, false)
+
+  const classifyHref = defaultWorkflow ? `${baseUrl}/classify/workflow/${defaultWorkflow}` : `${baseUrl}/classify`
+  const navLinks = [
+    {
+      href: `${baseUrl}/about/research`,
+      text: t('about')
+    },
+    {
+      href: classifyHref,
+      text: t('classify')
+    },
+    {
+      href: `${baseUrl}/talk`,
+      text: t('talk')
+    },
+    {
+      href: `${baseUrl}/collections`,
+      text: t('collect')
+    }
+  ]
+
+  if (isLoggedIn) {
+    navLinks.push({
+      href: `${baseUrl}/recents`,
+      text: t('recents')
+    })
+  }
 
   return (
     <ProjectHeader
