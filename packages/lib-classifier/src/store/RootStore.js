@@ -60,6 +60,7 @@ const RootStore = types
 
   .actions(self => {
     // Private methods
+
     /**
       Add or remove a beforeunload listener whenever self.subjects.active?.stepHistory.checkForProgress changes.
     */
@@ -70,6 +71,13 @@ const RootStore = types
         addEventListener && addEventListener("beforeunload", beforeUnloadListener, {capture: true});
       } else {
         removeEventListener && removeEventListener("beforeunload", beforeUnloadListener, {capture: true});
+      }
+    }
+
+    function _onAction(call) {
+      if (call.name === 'completeClassification') {
+        const annotations = self.classifications.currentAnnotations
+        annotations.forEach(annotation => self.feedback.update(annotation))
       }
     }
 
@@ -96,23 +104,11 @@ const RootStore = types
 
     // Public actions
     function afterCreate () {
-      createClassificationObserver()
       createSubjectObserver()
       const subjectAnnotationsDisposer = autorun(_observeWorkInProgress)
       addDisposer(self, subjectAnnotationsDisposer)
+      onAction(self, _onAction)
       onPatch(self, _onPatch)
-    }
-
-    function createClassificationObserver () {
-      const classificationDisposer = autorun(() => {
-        onAction(self, (call) => {
-          if (call.name === 'completeClassification') {
-            const annotations = self.classifications.currentAnnotations
-            annotations.forEach(annotation => self.feedback.update(annotation))
-          }
-        })
-      }, { name: 'Root Store Classification Observer autorun' })
-      addDisposer(self, classificationDisposer)
     }
 
     function createSubjectObserver () {
