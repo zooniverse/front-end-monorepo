@@ -50,7 +50,7 @@ describe('Component > ProjectHeader', function () {
     })
   })
 
-  describe('when the project has available transations', function () {
+  describe('when the project has available translations', function () {
     before(function () {
       wrapper = shallow(<ProjectHeader availableLocales={['en', 'fr']} title={TITLE} />)
     })
