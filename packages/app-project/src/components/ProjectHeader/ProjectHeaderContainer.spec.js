@@ -14,7 +14,8 @@ describe('Component > ProjectHeaderContainer', function () {
     query: {
       owner: 'Foo',
       project: 'Bar'
-    }
+    },
+    locale: 'en'
   }
   before(function () {
     routerStub = sinon.stub(Router, 'useRouter').callsFake(() => ROUTER)
