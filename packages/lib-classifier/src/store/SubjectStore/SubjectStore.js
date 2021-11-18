@@ -112,8 +112,7 @@ const SubjectStore = types
       const validSubjectReference = isValidReference(() => self.active)
       if (validSubjectReference) {
         const subject = self.active
-        const shouldShowFeedback = root.feedback.isActive && root.feedback.messages.length && !root.feedback.showModal
-        if (!shouldShowFeedback && subject && subject.shouldDiscuss) {
+        if (!root.feedback.shouldShowFeedback && subject && subject.shouldDiscuss) {
           const { url, newTab } = subject.shouldDiscuss
           openTalkPage(url, newTab)
         }
