@@ -25,6 +25,11 @@ import UserProjectPreferencesStore from './UserProjectPreferencesStore'
 // See: https://github.com/mobxjs/mobx/blob/72d06f8cd2519ce4dbfb807bc13556ca35866690/docs/configuration.md#isolateglobalstate-boolean
 configure({ isolateGlobalState: true })
 
+function beforeUnloadListener(event) {
+  event.preventDefault()
+  return event.returnValue = "You have unsaved work. Are you sure you want to leave?"
+}
+
 const RootStore = types
   .model('RootStore', {
     classifications: types.optional(ClassificationStore, () => ClassificationStore.create({})),
@@ -49,6 +54,16 @@ const RootStore = types
 
   .actions(self => {
     // Private methods
+    function _observeWorkInProgress() {
+      const subject = tryReference(() => self.subjects.active)
+      const { addEventListener, removeEventListener } = window
+      if (subject?.stepHistory.checkForProgress) {
+        addEventListener && addEventListener("beforeunload", beforeUnloadListener, {capture: true});
+      } else {
+        removeEventListener && removeEventListener("beforeunload", beforeUnloadListener, {capture: true});
+      }
+    }
+
     function onSubjectAdvance () {
       const { classifications, feedback, projects, subjects, workflows, workflowSteps } = self
       const subject = tryReference(() => subjects?.active)
@@ -66,6 +81,8 @@ const RootStore = types
     function afterCreate () {
       createClassificationObserver()
       createSubjectObserver()
+      const subjectAnnotationsDisposer = autorun(_observeWorkInProgress)
+      addDisposer(self, subjectAnnotationsDisposer)
     }
 
     function createClassificationObserver () {
