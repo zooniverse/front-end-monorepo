@@ -5,6 +5,7 @@ import {
   addMiddleware,
   getEnv,
   onAction,
+  onPatch,
   tryReference,
   types,
   setLivelynessChecking
@@ -59,6 +60,7 @@ const RootStore = types
 
   .actions(self => {
     // Private methods
+
     /**
       Add or remove a beforeunload listener whenever self.subjects.active?.stepHistory.checkForProgress changes.
     */
@@ -69,6 +71,30 @@ const RootStore = types
         addEventListener && addEventListener("beforeunload", beforeUnloadListener, {capture: true});
       } else {
         removeEventListener && removeEventListener("beforeunload", beforeUnloadListener, {capture: true});
+      }
+    }
+
+    function _addMiddleware(call, next, abort) {
+      if (call.name === 'setActiveSubject') {
+        const res = next(call)
+        onSubjectAdvance()
+        return res
+      }
+      return next(call)
+    }
+
+    function _onAction(call) {
+      if (call.name === 'completeClassification') {
+        const annotations = self.classifications.currentAnnotations
+        annotations.forEach(annotation => self.feedback.update(annotation))
+      }
+    }
+
+    function _onPatch(patch) {
+      // TODO: why are we doing this rather than observe classifications.loadingState for changes?
+      const { path, value } = patch
+      if (path === '/classifications/loadingState' && value === 'posting') {
+        self.subjects.advance()
       }
     }
 
@@ -87,36 +113,11 @@ const RootStore = types
 
     // Public actions
     function afterCreate () {
-      createClassificationObserver()
-      createSubjectObserver()
       const subjectAnnotationsDisposer = autorun(_observeWorkInProgress)
       addDisposer(self, subjectAnnotationsDisposer)
-    }
-
-    function createClassificationObserver () {
-      const classificationDisposer = autorun(() => {
-        onAction(self, (call) => {
-          if (call.name === 'completeClassification') {
-            const annotations = self.classifications.currentAnnotations
-            annotations.forEach(annotation => self.feedback.update(annotation))
-          }
-        })
-      }, { name: 'Root Store Classification Observer autorun' })
-      addDisposer(self, classificationDisposer)
-    }
-
-    function createSubjectObserver () {
-      const subjectDisposer = autorun(() => {
-        addMiddleware(self, (call, next, abort) => {
-          if (call.name === 'setActiveSubject') {
-            const res = next(call)
-            onSubjectAdvance()
-            return res
-          }
-          return next(call)
-        })
-      }, { name: 'Root Store Subject Observer autorun' })
-      addDisposer(self, subjectDisposer)
+      addMiddleware(self, _addMiddleware)
+      onAction(self, _onAction)
+      onPatch(self, _onPatch)
     }
 
     function setOnAddToCollection (callback) {
