@@ -59,6 +59,9 @@ const RootStore = types
 
   .actions(self => {
     // Private methods
+    /**
+      Add or remove a beforeunload listener whenever self.subjects.active?.stepHistory.checkForProgress changes.
+    */
     function _observeWorkInProgress() {
       const subject = tryReference(() => self.subjects.active)
       const { addEventListener, removeEventListener } = window
