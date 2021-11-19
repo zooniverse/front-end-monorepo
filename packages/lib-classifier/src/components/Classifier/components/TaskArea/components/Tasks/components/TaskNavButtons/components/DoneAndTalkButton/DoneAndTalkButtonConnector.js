@@ -19,7 +19,7 @@ function withStores(Component) {
       }
     } = props.store || useContext(MobXProviderContext)
 
-    const { finish, hasNextStep } = subject.stepHistory
+    const { finish, hasNextStep } = subject?.stepHistory || { finish: () => {}, hasNextStep: false }
 
     if (!hasNextStep && shouldWeShowDoneAndTalkButton && subject?.id) {
       function onClick(event) {

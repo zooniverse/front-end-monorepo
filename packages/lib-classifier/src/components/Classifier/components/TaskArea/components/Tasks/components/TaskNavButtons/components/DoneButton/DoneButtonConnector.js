@@ -19,7 +19,7 @@ function withStores(Component) {
       }
     } = props.store || useContext(MobXProviderContext)
 
-    const { finish, hasNextStep, latest } = subject.stepHistory
+    const { finish, hasNextStep, latest } = subject?.stepHistory || { finish: () => {}, hasNextStep: false, latest: {} }
     const annotations = latest?.annotations
 
     if (hasNextStep) {
