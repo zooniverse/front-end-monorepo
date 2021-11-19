@@ -123,8 +123,6 @@ describe('Model > WorkflowStepStore', function () {
       const firstStep = workflow.steps[0]
       const firstStepKey = firstStep[0]
       const firstStepSnapshot = firstStep[1]
-      const secondStepKey = workflow.steps[1][0]
-      workflowSteps.selectStep()
       const storedStep = workflowSteps.active
 
       expect(storedStep.stepKey).to.equal(firstStepKey)
@@ -180,7 +178,6 @@ describe('Model > WorkflowStepStore', function () {
 
     it('should set the first step to be active', function () {
       const { workflowSteps } = rootStore
-      workflowSteps.selectStep()
       const storedStep = workflowSteps.active
       expect(storedStep.stepKey).to.equal('S0')
       storedStep.taskKeys.forEach(taskKey =>
@@ -247,7 +244,6 @@ describe('Model > WorkflowStepStore', function () {
 
     it('should set the first step to be active', function () {
       const { workflowSteps } = rootStore
-      workflowSteps.selectStep()
       const storedStep = workflowSteps.active
       expect(storedStep.stepKey).to.equal('S0')
       storedStep.taskKeys.forEach(taskKey =>

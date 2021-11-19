@@ -1,3 +1,4 @@
+import counterpart from 'counterpart'
 import { autorun, configure } from 'mobx'
 import {
   addDisposer,
@@ -21,9 +22,18 @@ import WorkflowStore from './WorkflowStore'
 import WorkflowStepStore from './WorkflowStepStore'
 import UserProjectPreferencesStore from './UserProjectPreferencesStore'
 
+import en from './locales/en'
+
 // Isolate mobx globals. 
 // See: https://github.com/mobxjs/mobx/blob/72d06f8cd2519ce4dbfb807bc13556ca35866690/docs/configuration.md#isolateglobalstate-boolean
 configure({ isolateGlobalState: true })
+
+counterpart.registerTranslations('en', en)
+
+function beforeUnloadListener(event) {
+  event.preventDefault()
+  return event.returnValue = counterpart("RootStore.unloadWarning")
+}
 
 const RootStore = types
   .model('RootStore', {
@@ -49,6 +59,19 @@ const RootStore = types
 
   .actions(self => {
     // Private methods
+    /**
+      Add or remove a beforeunload listener whenever self.subjects.active?.stepHistory.checkForProgress changes.
+    */
+    function _observeWorkInProgress() {
+      const subject = tryReference(() => self.subjects.active)
+      const { addEventListener, removeEventListener } = window
+      if (subject?.stepHistory.checkForProgress) {
+        addEventListener && addEventListener("beforeunload", beforeUnloadListener, {capture: true});
+      } else {
+        removeEventListener && removeEventListener("beforeunload", beforeUnloadListener, {capture: true});
+      }
+    }
+
     function onSubjectAdvance () {
       const { classifications, feedback, projects, subjects, workflows, workflowSteps } = self
       const subject = tryReference(() => subjects?.active)
@@ -66,6 +89,8 @@ const RootStore = types
     function afterCreate () {
       createClassificationObserver()
       createSubjectObserver()
+      const subjectAnnotationsDisposer = autorun(_observeWorkInProgress)
+      addDisposer(self, subjectAnnotationsDisposer)
     }
 
     function createClassificationObserver () {
