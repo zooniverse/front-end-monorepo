@@ -1,3 +1,4 @@
+import counterpart from 'counterpart'
 import { autorun, configure } from 'mobx'
 import {
   addDisposer,
@@ -21,13 +22,17 @@ import WorkflowStore from './WorkflowStore'
 import WorkflowStepStore from './WorkflowStepStore'
 import UserProjectPreferencesStore from './UserProjectPreferencesStore'
 
+import en from './locales/en'
+
 // Isolate mobx globals. 
 // See: https://github.com/mobxjs/mobx/blob/72d06f8cd2519ce4dbfb807bc13556ca35866690/docs/configuration.md#isolateglobalstate-boolean
 configure({ isolateGlobalState: true })
 
+counterpart.registerTranslations('en', en)
+
 function beforeUnloadListener(event) {
   event.preventDefault()
-  return event.returnValue = "You have unsaved work. Are you sure you want to leave?"
+  return event.returnValue = counterpart("RootStore.unloadWarning")
 }
 
 const RootStore = types
