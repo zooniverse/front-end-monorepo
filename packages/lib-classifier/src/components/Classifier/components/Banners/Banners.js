@@ -32,7 +32,7 @@ function Banners({ stores }) {
   if (enableIndexedSubjectSetNextPrevButtons && hasIndexedSubjects && subjectNumber > -1) {
     return (
       <SubjectSetProgressBanner
-        checkForProgress={subject.stepHistory.checkForProgress}
+        checkForProgress={subject?.stepHistory.checkForProgress}
         onNext={onNext}
         onPrevious={onPrevious}
         subject={subject}

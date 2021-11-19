@@ -24,7 +24,7 @@ function SubjectSetProgressBanner({
   const [ intent, setIntent ] = useState(undefined)
 
   const setName = workflow?.subjectSet?.display_name || ''
-  const subjectTotal = workflow?.subjectSet.set_member_subjects_count
+  const subjectTotal = workflow?.subjectSet?.set_member_subjects_count
   const background = (subject?.alreadySeen || subject?.retired) ? 'status-critical' : 'status-ok'
   const color = (subject?.alreadySeen || subject?.retired) ? 'neutral-6' : 'neutral-7'
   let statusText = subject?.alreadySeen ? `${counterpart('SubjectSetProgressBanner.alreadySeen')}` : ''
