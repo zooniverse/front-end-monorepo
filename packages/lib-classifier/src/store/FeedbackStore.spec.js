@@ -371,7 +371,7 @@ describe('Model > FeedbackStore', function () {
       beforeEach(function () {
         const feedbackStub = FeedbackFactory.build({ rules: rulesStub })
         feedback = FeedbackStore.create(feedbackStub)
-        feedback.onSubjectAdvance(call, next, abort)
+        feedback._onSubjectAdvance(call, next, abort)
       })
 
       after(function () {
@@ -392,7 +392,7 @@ describe('Model > FeedbackStore', function () {
       beforeEach(function () {
         const feedbackStub = FeedbackFactory.build({ rules: rulesStub, showModal: false })
         feedback = FeedbackStore.create(feedbackStub)
-        feedback.onSubjectAdvance(call, next, abort)
+        feedback._onSubjectAdvance(call, next, abort)
       })
 
       after(function () {
