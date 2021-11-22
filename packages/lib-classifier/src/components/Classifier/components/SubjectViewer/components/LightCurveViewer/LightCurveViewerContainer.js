@@ -12,30 +12,38 @@ import locationValidator from '../../helpers/locationValidator'
 
 function storeMapper (stores) {
   const {
-    enableAnnotate,
-    enableMove,
-    interactionMode,
-    setOnPan,
-    setOnZoom
-  } = stores.classifierStore.subjectViewer
+    subjectViewer: {
+      enableAnnotate,
+      enableMove,
+      interactionMode,
+      setOnPan,
+      setOnZoom
+    },
+    classifications: {
+      addAnnotation
+    },
+    workflowSteps: {
+      activeStepTasks
+    },
+    subjects: {
+      active: subject
+    },
+  } = stores.classifierStore
 
-  const {
-    addAnnotation
-  } = stores.classifierStore.classifications
-  const annotations = stores.classifierStore.classifications.currentAnnotations
-
-  const {
-    activeStepTasks
-  } = stores.classifierStore.workflowSteps
-
-  const [activeDataVisTask] = activeStepTasks.filter(task => task.type === 'dataVisAnnotation')
+  const [ activeDataVisTask ] = activeStepTasks.filter(task => task?.type === 'dataVisAnnotation')
   const { activeToolIndex } = activeDataVisTask || {}
+
+  let annotation
+  const latest = subject?.stepHistory.latest
+  if (latest) {
+    ([ annotation ] = latest.annotations.filter(annotation => activeDataVisTask && annotation.task === activeDataVisTask.taskKey))
+  }
 
   return {
     activeDataVisTask,
     activeToolIndex,
     addAnnotation,
-    annotations,
+    annotation,  // dataVisAnnotation
     enableAnnotate,
     enableMove,
     interactionMode,
@@ -132,7 +140,7 @@ class LightCurveViewerContainer extends Component {
       activeDataVisTask,
       activeToolIndex,
       addAnnotation,
-      annotations,
+      annotation,  // dataVisAnnotation
       drawFeedbackBrushes,
       enableAnnotate,
       enableMove,
@@ -151,7 +159,7 @@ class LightCurveViewerContainer extends Component {
     return (
       <LightCurveViewer
         addAnnotation={addAnnotation}
-        annotations={annotations}
+        annotation={annotation}
         currentTask={activeDataVisTask}
         dataExtent={this.state.dataExtent}
         dataPoints={this.state.dataPoints}
@@ -171,33 +179,48 @@ class LightCurveViewerContainer extends Component {
 }
 
 LightCurveViewerContainer.defaultProps = {
+  activeDataVisTask: undefined,
+  activeToolIndex: undefined,
   addAnnotation: () => {},
+  annotation: undefined,
   drawFeedbackBrushes: () => {},
+  enableAnnotate: () => {},
+  enableMove: () => {},
+  feedback: false,
   interactionMode: 'annotate',
-  loadingState: asyncStates.initialized,
-  onError: () => true,
-  onReady: () => true,
+  onKeyDown: () => {},
+  setOnPan: () => {},
+  setOnZoom: () => {},
   subject: {
     id: '',
     locations: []
-  }
+  },
+
+  loadingState: asyncStates.initialized,
+  onError: () => true,
+  onReady: () => true,
 }
 
 LightCurveViewerContainer.propTypes = {
+  activeDataVisTask: PropTypes.object,
   activeToolIndex: PropTypes.number,
   addAnnotation: PropTypes.func,
   drawFeedbackBrushes: PropTypes.func,
+  enableAnnotate: PropTypes.func,
+  enableMove: PropTypes.func,
+  feedback: PropTypes.bool,
   interactionMode: PropTypes.oneOf(['annotate', 'move']),
-  loadingState: PropTypes.string,
-  onError: PropTypes.func,
   onKeyDown: PropTypes.func.isRequired,
-  onReady: PropTypes.func,
   setOnPan: PropTypes.func.isRequired,
   setOnZoom: PropTypes.func.isRequired,
   subject: PropTypes.shape({
     id: PropTypes.string,
     locations: PropTypes.arrayOf(locationValidator)
-  })
+  }),
+
+  loadingState: PropTypes.string,
+  onError: PropTypes.func,
+  onReady: PropTypes.func,
 }
 
 @inject(storeMapper)
