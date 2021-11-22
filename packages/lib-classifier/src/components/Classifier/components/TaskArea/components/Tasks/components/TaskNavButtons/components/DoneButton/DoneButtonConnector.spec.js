@@ -14,10 +14,9 @@ describe('Components > DoneButtonConnector', function () {
 
   before(function () {
     classifierStore = mockStore()
-    const store = { classifierStore }
     sinon.stub(classifierStore.classifications, 'completeClassification')
 
-    wrapper = shallow(<DoneButtonConnector store={store} />)
+    wrapper = shallow(<DoneButtonConnector store={classifierStore} />)
   })
 
   afterEach(function () {
