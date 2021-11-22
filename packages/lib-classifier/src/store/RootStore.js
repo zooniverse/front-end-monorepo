@@ -1,9 +1,11 @@
+import counterpart from 'counterpart'
 import { autorun, configure } from 'mobx'
 import {
   addDisposer,
   addMiddleware,
   getEnv,
   onAction,
+  onPatch,
   tryReference,
   types,
   setLivelynessChecking
@@ -21,9 +23,18 @@ import WorkflowStore from './WorkflowStore'
 import WorkflowStepStore from './WorkflowStepStore'
 import UserProjectPreferencesStore from './UserProjectPreferencesStore'
 
+import en from './locales/en'
+
 // Isolate mobx globals. 
 // See: https://github.com/mobxjs/mobx/blob/72d06f8cd2519ce4dbfb807bc13556ca35866690/docs/configuration.md#isolateglobalstate-boolean
 configure({ isolateGlobalState: true })
+
+counterpart.registerTranslations('en', en)
+
+function beforeUnloadListener(event) {
+  event.preventDefault()
+  return event.returnValue = counterpart("RootStore.unloadWarning")
+}
 
 const RootStore = types
   .model('RootStore', {
@@ -49,6 +60,44 @@ const RootStore = types
 
   .actions(self => {
     // Private methods
+
+    /**
+      Add or remove a beforeunload listener whenever self.subjects.active?.stepHistory.checkForProgress changes.
+    */
+    function _observeWorkInProgress() {
+      const subject = tryReference(() => self.subjects.active)
+      const { addEventListener, removeEventListener } = window
+      if (subject?.stepHistory.checkForProgress) {
+        addEventListener && addEventListener("beforeunload", beforeUnloadListener, {capture: true});
+      } else {
+        removeEventListener && removeEventListener("beforeunload", beforeUnloadListener, {capture: true});
+      }
+    }
+
+    function _addMiddleware(call, next, abort) {
+      if (call.name === 'setActiveSubject') {
+        const res = next(call)
+        onSubjectAdvance()
+        return res
+      }
+      return next(call)
+    }
+
+    function _onAction(call) {
+      if (call.name === 'completeClassification') {
+        const annotations = self.classifications.currentAnnotations
+        annotations.forEach(annotation => self.feedback.update(annotation))
+      }
+    }
+
+    function _onPatch(patch) {
+      // TODO: why are we doing this rather than observe classifications.loadingState for changes?
+      const { path, value } = patch
+      if (path === '/classifications/loadingState' && value === 'posting') {
+        self.subjects.advance()
+      }
+    }
+
     function onSubjectAdvance () {
       const { classifications, feedback, projects, subjects, workflows, workflowSteps } = self
       const subject = tryReference(() => subjects?.active)
@@ -64,34 +113,11 @@ const RootStore = types
 
     // Public actions
     function afterCreate () {
-      createClassificationObserver()
-      createSubjectObserver()
-    }
-
-    function createClassificationObserver () {
-      const classificationDisposer = autorun(() => {
-        onAction(self, (call) => {
-          if (call.name === 'completeClassification') {
-            const annotations = self.classifications.currentAnnotations
-            annotations.forEach(annotation => self.feedback.update(annotation))
-          }
-        })
-      }, { name: 'Root Store Classification Observer autorun' })
-      addDisposer(self, classificationDisposer)
-    }
-
-    function createSubjectObserver () {
-      const subjectDisposer = autorun(() => {
-        addMiddleware(self, (call, next, abort) => {
-          if (call.name === 'setActiveSubject') {
-            const res = next(call)
-            onSubjectAdvance()
-            return res
-          }
-          return next(call)
-        })
-      }, { name: 'Root Store Subject Observer autorun' })
-      addDisposer(self, subjectDisposer)
+      const subjectAnnotationsDisposer = autorun(_observeWorkInProgress)
+      addDisposer(self, subjectAnnotationsDisposer)
+      addMiddleware(self, _addMiddleware)
+      onAction(self, _onAction)
+      onPatch(self, _onPatch)
     }
 
     function setOnAddToCollection (callback) {

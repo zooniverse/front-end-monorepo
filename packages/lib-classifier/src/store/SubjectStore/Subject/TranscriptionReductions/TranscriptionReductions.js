@@ -95,7 +95,7 @@ const TranscriptionReductions = types
               }
             }
           }`
-          const response = yield caesarClient.request(query.replace(/\s+/g, ' '))
+          const response = yield caesarClient?.request(query.replace(/\s+/g, ' '))
 
           self.reductions = response?.workflow?.subject_reductions
           self.loadingState = asyncStates.success

@@ -20,7 +20,7 @@ function withStores(Component) {
       }
     } = props.store || useContext(MobXProviderContext)
 
-    const { back, canUndo } = subject.stepHistory
+    const { back, canUndo } = subject?.stepHistory || { back: () => {}, canUndo: false }
 
     if (!canUndo) {
       return null
