@@ -179,14 +179,13 @@ class LightCurveViewer extends Component {
    */
   initBrushes () {
     if (!this.annotationBrushes.length) {
-      this.createAnnotationBrush() // Create the initial brush
-
       // Load any existing brushes from the stores. This is ONLY relevant when
       // the user is re-visiting the Classifier after leaving
       // mid-classification. In most normal cases (i.e. the classifier loads, or
       // a new Subject is loaded), there are 0 existing brushes in the stores
       this.loadBrushesFromAnnotations()
 
+      this.createAnnotationBrush() // Create the "default" brush (i.e. the brush that listens for new input)
       this.updateAnnotationBrushes()  // Draw!
     }
 
@@ -208,16 +207,12 @@ class LightCurveViewer extends Component {
   loadBrushesFromAnnotations () {
     const annotationValues = this.getAnnotationValues()
 
-    console.log('+++ loadBrushesFromAnnotations (A) ', annotationValues)
-
     annotationValues?.forEach(data => {
       const brush = this.createAnnotationBrush()
       brush.minX = data.x - data.width / 2
       brush.maxX = data.x + data.width / 2
       brush.zoomLevelOnCreation = data.zoomLevelOnCreation
     })
-
-    console.log('+++ loadBrushesFromAnnotations (B) ', this.annotationBrushes)
   }
 
   /*
