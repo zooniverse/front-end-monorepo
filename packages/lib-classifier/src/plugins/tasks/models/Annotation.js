@@ -1,5 +1,5 @@
 import cuid from 'cuid'
-import { getSnapshot, types } from 'mobx-state-tree'
+import { getRoot, getSnapshot, types } from 'mobx-state-tree'
 
 const Annotation = types.model('Annotation', {
   id: types.identifier,
@@ -34,6 +34,8 @@ const Annotation = types.model('Annotation', {
     update (value) {
       self.value = value
       self._inProgress = true
+      const { authClient } = getRoot(self)
+      authClient?.checkBearerToken()
     }
   }))
 
