@@ -180,11 +180,15 @@ class LightCurveViewer extends Component {
   initBrushes () {
     if (!this.annotationBrushes.length) {
       this.createAnnotationBrush() // Create the initial brush
-      this.updateAnnotationBrushes()
-    }
 
-    // WIP  // TODO
-    // - Create 'loadBrushesFromAnnotations()'
+      // Load any existing brushes from the stores. This is ONLY relevant when
+      // the user is re-visiting the Classifier after leaving
+      // mid-classification. In most normal cases (i.e. the classifier loads, or
+      // a new Subject is loaded), there are 0 existing brushes in the stores
+      this.loadBrushesFromAnnotations()
+
+      this.updateAnnotationBrushes()  // Draw!
+    }
 
     // TODO: Check for the following scenarios:
     // - Change of Subject
@@ -197,7 +201,28 @@ class LightCurveViewer extends Component {
     this.d3annotationsLayer.selectAll('.brush').remove()
   }
 
-  /*  Save data from Annotation-Brushes to our Annotations (for Classification)
+  /*
+  Load data from Annotations (the Classification in the data store) to the D3.js
+  Annotation-Brushes.
+   */
+  loadBrushesFromAnnotations () {
+    const annotationValues = this.getAnnotationValues()
+
+    console.log('+++ loadBrushesFromAnnotations (A) ', annotationValues)
+
+    annotationValues?.forEach(data => {
+      const brush = this.createAnnotationBrush()
+      brush.minX = data.x - data.width / 2
+      brush.maxX = data.x + data.width / 2
+      brush.zoomLevelOnCreation = data.zoomLevelOnCreation
+    })
+
+    console.log('+++ loadBrushesFromAnnotations (B) ', this.annotationBrushes)
+  }
+
+  /*
+  Save data from the D3.js Annotation-Brushes to our Annotations (the
+  Classification in the data store).
    */
   saveBrushesToAnnotations () {
     const props = this.props
@@ -228,13 +253,16 @@ class LightCurveViewer extends Component {
       .on('brush', this.onAnnotationBrushBrushed.bind(this))
       .on('end', this.onAnnotationBrushEnd.bind(this))
 
-    this.annotationBrushes.push({
+    const newAnnotationBrush = {
       id: nextAvailableId,
       brush: brush,
       minX: undefined, // x, relative to the data range (not the SVG dimensions)
       maxX: undefined,
       zoomLevelOnCreation: undefined
-    })
+    }
+
+    this.annotationBrushes.push(newAnnotationBrush)
+    return newAnnotationBrush
   }
 
   removeAnnotationBrush (annotationBrush) {
