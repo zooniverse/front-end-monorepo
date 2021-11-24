@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import sinon from 'sinon'
 import React from 'react'
 import TranscriptionReductions from '@store/SubjectStore/Subject/TranscriptionReductions'
 import { reducedSubject } from '@store/SubjectStore/Subject/TranscriptionReductions/mocks'
@@ -7,9 +6,15 @@ import TranscribedLinesConnector from './TranscribedLinesConnector'
 import TranscribedLines from './TranscribedLines'
 
 describe('Component > TranscribedLinesConnector', function () {
+  const stepHistory = {
+    latest: {
+      annotations: []
+    }
+  }
   const mockStoresWithTranscriptionTask = {
     subjects: {
       active: {
+        stepHistory,
         transcriptionReductions: {
           consensusLines: () => []
         }
@@ -51,6 +56,7 @@ describe('Component > TranscribedLinesConnector', function () {
   const mockStoresWithTranscriptionTaskAndConsensusLines = Object.assign({}, mockStoresWithTranscriptionTask, {
     subjects: {
       active: {
+        stepHistory,
         transcriptionReductions: transcriptionReductions
       }
     }
@@ -59,6 +65,7 @@ describe('Component > TranscribedLinesConnector', function () {
   const mockStoresWithoutTranscriptionTask = {
     subjects: {
       active: {
+        stepHistory,
         transcriptionReductions: {
           consensusLines: () => []
         }
