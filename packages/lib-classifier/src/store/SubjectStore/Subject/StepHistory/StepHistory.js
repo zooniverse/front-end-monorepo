@@ -1,8 +1,18 @@
+import counterpart from 'counterpart'
 import cuid from 'cuid'
-import { getRoot, tryReference, types } from 'mobx-state-tree'
+import { autorun } from 'mobx'
+import { addDisposer, getRoot, tryReference, types } from 'mobx-state-tree'
 import { UndoManager } from 'mst-middlewares'
 
 import AnnotatedStep from './AnnotatedStep'
+import en from './locales/en'
+
+counterpart.registerTranslations('en', en)
+
+function beforeUnloadListener(event) {
+  event.preventDefault()
+  return event.returnValue = counterpart("StepHistory.unloadWarning")
+}
 
 function setUndoManager(targetStore) {
     targetStore.undoManager = UndoManager.create({}, { targetStore })
@@ -93,6 +103,15 @@ const StepHistory = types.model('StepHistory', {
       self.undoManager.clearRedo()
     })
   }
+  /** Add or remove a beforeunload listener whenever checkForProgress changes. */
+  function _observeWorkInProgress() {
+    const { addEventListener, removeEventListener } = window
+    if (self.checkForProgress) {
+      addEventListener && addEventListener("beforeunload", beforeUnloadListener, {capture: true});
+    } else {
+      removeEventListener && removeEventListener("beforeunload", beforeUnloadListener, {capture: true});
+    }
+  }
   /** Redo stepKey,or replace the last step if history has diverged. */
   function _redo(stepKey) {
     self.undoManager.redo()
@@ -112,6 +131,10 @@ const StepHistory = types.model('StepHistory', {
     self.steps.clear()
     self.undoManager.clear()
   }
+  function afterAttach() {
+    const workInProgressDisposer = autorun(_observeWorkInProgress)
+    addDisposer(self, workInProgressDisposer)
+  }
   /** Undo the current step and select the previous step. */
   function back(persistAnnotations = true) {
     if (self.undoManager.canUndo) {
@@ -123,6 +146,8 @@ const StepHistory = types.model('StepHistory', {
   }
   /** Finish the current subject and clear the redo history*/
   function finish(){
+    const { removeEventListener } = window
+    removeEventListener && removeEventListener("beforeunload", beforeUnloadListener, {capture: true});
     self.undoManager.withoutUndo(() => {
       _clearRedo()
     })
@@ -140,12 +165,12 @@ const StepHistory = types.model('StepHistory', {
   function start() {
     // the first step in a workflow can't be undone
     self.undoManager.withoutUndo(() => {
-      _reset()
       _beginStep()
     })
   }
 
   return {
+    afterAttach,
     back,
     finish,
     next,
