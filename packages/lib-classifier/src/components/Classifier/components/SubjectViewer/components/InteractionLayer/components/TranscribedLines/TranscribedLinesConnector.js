@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { MobXProviderContext, observer } from 'mobx-react'
 import SHOWN_MARKS from '@helpers/shownMarks'
+
+import { withStores } from '@helpers'
 import TranscribedLines from './TranscribedLines'
 
-function useStores () {
-  const stores = React.useContext(MobXProviderContext)
+function storeMapper(store) {
   const {
     subjects: {
       active: subject
@@ -20,9 +20,9 @@ function useStores () {
       active: step,
       findTasksByType
     }
-  } = stores.classifierStore
+  } = store
 
-  const consensusLines = subject.transcriptionReductions?.consensusLines(frame) || []
+  const consensusLines = subject.transcriptionReductions?.consensusLines(frame)
 
   // We expect there to only be one
   const [transcriptionTask] = findTasksByType('transcription')
@@ -40,19 +40,19 @@ function useStores () {
   }
 }
 
-function TranscribedLinesConnector ({
-  scale = 1
+const defaultWorkflow = {
+  usesTranscriptionTask: false
+}
+
+function TranscribedLinesContainer ({
+  frame,
+  invalid = false,
+  transcriptionTask = {},
+  consensusLines = [],
+  marks = [],
+  scale = 1,
+  workflow = defaultWorkflow
 }) {
-  const {
-    frame,
-    invalid = false,
-    transcriptionTask = {},
-    consensusLines = [],
-    marks = [],
-    workflow = {
-      usesTranscriptionTask: false
-    }
-  } = useStores()
   const { shownMarks } = transcriptionTask
 
   if (workflow?.usesTranscriptionTask && shownMarks === SHOWN_MARKS.ALL && consensusLines.length > 0) {
@@ -71,8 +71,8 @@ function TranscribedLinesConnector ({
   return null
 }
 
-TranscribedLinesConnector.propTypes = {
+TranscribedLinesContainer.propTypes = {
   scale: PropTypes.number
 }
 
-export default observer(TranscribedLinesConnector)
+export default withStores(TranscribedLinesContainer, storeMapper)

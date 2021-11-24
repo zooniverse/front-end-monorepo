@@ -7,7 +7,6 @@ import TranscribedLinesConnector from './TranscribedLinesConnector'
 import TranscribedLines from './TranscribedLines'
 
 describe('Component > TranscribedLinesConnector', function () {
-  let mockUseContext
   const mockStoresWithTranscriptionTask = {
     subjects: {
       active: {
@@ -87,73 +86,45 @@ describe('Component > TranscribedLinesConnector', function () {
     }
   }
 
-  afterEach(function () {
-    mockUseContext.restore()
-  })
-
   it('should render without crashing', function () {
-    mockUseContext = sinon.stub(React, 'useContext').callsFake(() => {
-      return {
-        classifierStore: mockStoresWithTranscriptionTask
-      }
-    })
-    const wrapper = shallow(<TranscribedLinesConnector />)
+    const store = mockStoresWithTranscriptionTask
+    const wrapper = shallow(<TranscribedLinesConnector store={store} />)
     expect(wrapper).to.be.ok()
   })
 
   describe('when the workflow does not have a transcription task', function () {
     it('should not render TranscribedLines', function () {
-      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => {
-        return {
-          classifierStore: mockStoresWithoutTranscriptionTask
-        }
-      })
-      const wrapper = shallow(<TranscribedLinesConnector />)
+      const store = mockStoresWithoutTranscriptionTask
+      const wrapper = shallow(<TranscribedLinesConnector store={store} />).dive()
       expect(wrapper.find(TranscribedLines)).to.have.lengthOf(0)
     })
   })
 
   describe('when the subject does not have consensus lines', function () {
     it('should not render TranscribedLines', function () {
-      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => {
-        return {
-          classifierStore: mockStoresWithTranscriptionTask
-        }
-      })
-      const wrapper = shallow(<TranscribedLinesConnector />)
+      const store= mockStoresWithTranscriptionTask
+      const wrapper = shallow(<TranscribedLinesConnector store={store} />).dive()
       expect(wrapper.find(TranscribedLines)).to.have.lengthOf(0)
     })
   })
 
   describe('when the workflow does have a transcription task and subject does have consensus lines', function () {
     it('should render TranscribedLines', function () {
-      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => {
-        return {
-          classifierStore: mockStoresWithTranscriptionTaskAndConsensusLines
-        }
-      })
-      const wrapper = shallow(<TranscribedLinesConnector />)
+      const store = mockStoresWithTranscriptionTaskAndConsensusLines
+      const wrapper = shallow(<TranscribedLinesConnector store={store} />).dive()
       expect(wrapper.find(TranscribedLines)).to.have.lengthOf(1)
       expect(wrapper.find(TranscribedLines).prop('lines')).to.have.lengthOf(transcriptionReductions.consensusLines(0).length)
     })
 
     it('should render lines per frame', function () {
-      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => {
-        return {
-          classifierStore: Object.assign({}, mockStoresWithTranscriptionTaskAndConsensusLines, { subjectViewer: { frame: 1 } })
-        }
-      })
-      const wrapper = shallow(<TranscribedLinesConnector />)
+      const store = Object.assign({}, mockStoresWithTranscriptionTaskAndConsensusLines, { subjectViewer: { frame: 1 } })
+      const wrapper = shallow(<TranscribedLinesConnector store={store} />).dive()
       expect(wrapper.find(TranscribedLines).prop('lines')).to.have.lengthOf(transcriptionReductions.consensusLines(1).length)
     })
 
     it('should not render TranscribedLines if no lines per frame', function () {
-      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => {
-        return {
-          classifierStore: Object.assign({}, mockStoresWithTranscriptionTaskAndConsensusLines, { subjectViewer: { frame: 3 } })
-        }
-      })
-      const wrapper = shallow(<TranscribedLinesConnector />)
+      const store = Object.assign({}, mockStoresWithTranscriptionTaskAndConsensusLines, { subjectViewer: { frame: 3 } })
+      const wrapper = shallow(<TranscribedLinesConnector store={store} />).dive()
       expect(wrapper.find(TranscribedLines)).to.have.lengthOf(transcriptionReductions.consensusLines(3).length)
     })
 
@@ -174,12 +145,8 @@ describe('Component > TranscribedLinesConnector', function () {
           }
         }
       }
-      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => {
-        return {
-          classifierStore: Object.assign({}, mockStoresWithTranscriptionTaskAndConsensusLines, taskShowingOnlyUserMarks)
-        }
-      })
-      const wrapper = shallow(<TranscribedLinesConnector />)
+      const store = Object.assign({}, mockStoresWithTranscriptionTaskAndConsensusLines, taskShowingOnlyUserMarks)
+      const wrapper = shallow(<TranscribedLinesConnector store={store} />).dive()
       expect(wrapper.find(TranscribedLines)).to.have.lengthOf(0)
     })
 
@@ -200,49 +167,36 @@ describe('Component > TranscribedLinesConnector', function () {
           }
         }
       }
-      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => {
-        return {
-          classifierStore: Object.assign({}, mockStoresWithTranscriptionTaskAndConsensusLines, taskHidingAllMarks)
-        }
-      })
-      const wrapper = shallow(<TranscribedLinesConnector />)
+      const store = Object.assign({}, mockStoresWithTranscriptionTaskAndConsensusLines, taskHidingAllMarks)
+      const wrapper = shallow(<TranscribedLinesConnector store={store} />).dive()
       expect(wrapper.find(TranscribedLines)).to.have.lengthOf(0)
     })
 
     it('should pass along if the step\'s tasks are in an invalid state', function () {
       let wrapper
-      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => {
-        return {
-          classifierStore: mockStoresWithTranscriptionTaskAndConsensusLines
-        }
-      })
-      wrapper = shallow(<TranscribedLinesConnector />)
+      let store = mockStoresWithTranscriptionTaskAndConsensusLines
+      wrapper = shallow(<TranscribedLinesConnector store={store} />).dive()
       expect(wrapper.props().invalidMark).to.be.false()
-      mockUseContext.restore()
-      mockUseContext = sinon.stub(React, 'useContext').callsFake(() => {
-        return {
-          classifierStore: Object.assign({}, mockStoresWithTranscriptionTaskAndConsensusLines, { 
-            workflowSteps: { 
-              active:  {
-                isValid: false
-              },
-              activeStepTasks: [
-                {
-                  shownMarks: 'ALL',
-                  type: 'transcription'
-                }
-              ],
-              findTasksByType: () => {
-                return [{
-                  shownMarks: 'ALL',
-                  type: 'transcription'
-                }]
-              }
+      store = Object.assign({}, mockStoresWithTranscriptionTaskAndConsensusLines, { 
+        workflowSteps: { 
+          active:  {
+            isValid: false
+          },
+          activeStepTasks: [
+            {
+              shownMarks: 'ALL',
+              type: 'transcription'
             }
-          })
+          ],
+          findTasksByType: () => {
+            return [{
+              shownMarks: 'ALL',
+              type: 'transcription'
+            }]
+          }
         }
       })
-      wrapper = shallow(<TranscribedLinesConnector />)
+      wrapper = shallow(<TranscribedLinesConnector store={store} />).dive()
       expect(wrapper.props().invalidMark).to.be.true()
     })
   })
