@@ -175,10 +175,12 @@ describe('Model > WorkflowStore', function () {
           version: '0.0'
         })
         const workflowWithSubject = Workflow.create(workflowSnapshot)
+        const subjects = Factory.buildList('subject', 10)
+        const [ firstSubject ] = subjects
         workflowID = workflow.id
         subjectID = '1234'
         const panoptesClientStub = stubPanoptesJs({
-          subjects: Factory.buildList('subject', 10),
+          subjects,
           workflows: [workflowWithSubject]
         })
 
@@ -186,6 +188,8 @@ describe('Model > WorkflowStore', function () {
         rootStore.workflows.reset()
         rootStore.workflows.setResources([workflowWithSubject])
         await rootStore.workflows.selectWorkflow(workflowID, subjectSetID, subjectID)
+        rootStore.subjects.setResources(subjects)
+        rootStore.subjects.setActive(firstSubject.id)
       })
 
       after(function () {
@@ -197,6 +201,13 @@ describe('Model > WorkflowStore', function () {
       })
 
       it('should set the selected subject', function () {
+        expect(rootStore.workflows.active.selectedSubjects).to.deep.equal([ subjectID ])
+      })
+
+      it('should ignore subjects that are already active', async function () {
+        const activeSubjectID = rootStore.subjects.active.id
+        expect(rootStore.workflows.active.selectedSubjects).to.deep.equal([ subjectID ])
+        await rootStore.workflows.selectWorkflow(workflowID, subjectSetID, activeSubjectID)
         expect(rootStore.workflows.active.selectedSubjects).to.deep.equal([ subjectID ])
       })
     })
