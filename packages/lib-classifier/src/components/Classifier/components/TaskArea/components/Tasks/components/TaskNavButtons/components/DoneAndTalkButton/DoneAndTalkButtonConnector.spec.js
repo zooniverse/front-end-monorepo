@@ -15,12 +15,11 @@ describe('Components > DoneAndTalkButtonConnector', function () {
 
   before(function () {
     classifierStore = mockStore()
-    const store = { classifierStore }
     subject = classifierStore.subjects.active
     sinon.stub(classifierStore.classifications, 'completeClassification')
     sinon.stub(subject, 'openInTalk')
 
-    wrapper = shallow(<DoneAndTalkButtonConnector store={store} />)
+    wrapper = shallow(<DoneAndTalkButtonConnector store={classifierStore} />)
   })
 
   after(function () {
