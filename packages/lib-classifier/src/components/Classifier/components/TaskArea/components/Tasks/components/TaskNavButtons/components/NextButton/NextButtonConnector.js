@@ -7,18 +7,17 @@ function withStores(Component) {
   function NextButtonConnector(props) {
     const {
       classifierStore: {
-        annotatedSteps: {
-          hasNextStep,
-          latest: {
-            annotations
-          },
-          next
+        subjects: {
+          active: subject
         },
         workflowSteps: {
           active: step
         }
       }
     } = props.store || useContext(MobXProviderContext)
+
+    const { next, hasNextStep, latest } = subject?.stepHistory || { next: () => {}, hasNextStep: false, latest: {} }
+    const annotations = latest?.annotations
 
     if (!hasNextStep) {
       return null

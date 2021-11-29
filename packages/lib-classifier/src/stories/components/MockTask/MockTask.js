@@ -5,7 +5,7 @@ import Tasks from '@components/Classifier/components/TaskArea/components/Tasks'
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { createStore }  from '@store/helpers'
-import { WorkflowFactory } from '@test/factories'
+import { SubjectFactory, WorkflowFactory } from '@test/factories'
 
 /**
   Global store. This should be created only once, otherwise the Provider will error.
@@ -31,7 +31,7 @@ function addStepToStore(taskSnapshots = {}, isThereTaskHelp = true) {
   })
   store.workflowSteps.reset()
   store.workflowSteps.setStepsAndTasks({ steps, tasks })
-  store.annotatedSteps.start()
+  store.subjects.active.stepHistory.start()
 }
 
 /**
@@ -49,6 +49,9 @@ function initStore(tasks) {
   const mockProject = {
     id: 'project'
   }
+  const subject =SubjectFactory.build({ id: 'subject' })
+  store.subjects.setResources([subject])
+  store.subjects.setActive(subject.id)
   store.classifications.createClassification(mockSubject, workflow, mockProject)
 }
 

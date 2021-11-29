@@ -49,18 +49,26 @@ class App extends React.Component {
 
   async fetchProject () {
     let id = '335' // Example project: I Fancy Cats (staging)
+    let slug
 
     // Optional project override, e.g. localhost:8080?project=1862
     if (window.location && window.location.search) {
       const { project } = queryString.parse(window.location.search) // Search the query string for the 'project='
-      if (project) {
+      if (parseInt(project)) {
         id = project
+      } else {
+        slug = project
       }
     }
 
     try {
       const bearerToken = await this.getBearerToken()
-      const response = await panoptes.get(`/projects/${id}`, {}, { authorization: bearerToken })
+      let response
+      if (slug) {
+        response = await panoptes.get(`/projects?slug=${slug}`, {}, { authorization: bearerToken })
+      } else {
+        response = await panoptes.get(`/projects/${id}`, {}, { authorization: bearerToken })
+      }
       const project = response.body.projects[0]
       this.setState({ project })
     } catch (error) {

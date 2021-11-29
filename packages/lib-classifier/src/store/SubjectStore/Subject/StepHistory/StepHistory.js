@@ -1,17 +1,27 @@
+import counterpart from 'counterpart'
 import cuid from 'cuid'
-import { getRoot, tryReference, types } from 'mobx-state-tree'
+import { autorun } from 'mobx'
+import { addDisposer, getRoot, tryReference, types } from 'mobx-state-tree'
 import { UndoManager } from 'mst-middlewares'
 
 import AnnotatedStep from './AnnotatedStep'
+import en from './locales/en'
 
-let undoManager = {}
-function setUndoManager(targetStore) {
-    undoManager = UndoManager.create({}, { targetStore })
+counterpart.registerTranslations('en', en)
+
+function beforeUnloadListener(event) {
+  event.preventDefault()
+  return event.returnValue = counterpart("StepHistory.unloadWarning")
 }
+
+function setUndoManager(targetStore) {
+    targetStore.undoManager = UndoManager.create({}, { targetStore })
+}
+
 /**
   A history manager which records completed steps, from store.workflowSteps, and annotations, from store.classifications.
 */
-const AnnotatedSteps = types.model('AnnotatedSteps', {
+const StepHistory = types.model('StepHistory', {
   /** Completed steps, with their annotations */
   steps: types.map(AnnotatedStep)
 })
@@ -31,19 +41,22 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   },
   /** Boolean flag. True when an undo history exists. */
   get canUndo() {
-    return undoManager.canUndo
+    return self.undoManager.canUndo
   },
   /** Checks if the user has started making any annotations. Returns boolean */
   get checkForProgress() {
     let progressFlag = false
     self.annotations.forEach(annotation => {
-      progressFlag ||= annotation._inProgress
-    })
+        progressFlag ||= annotation._inProgress
+      })
     return progressFlag
   },
   get hasNextStep() {
-    const { nextStepKey } = self.latest
-    return !!nextStepKey && nextStepKey !== 'summary'
+    if (self.latest) {
+      const { nextStepKey } = self.latest
+      return !!nextStepKey && nextStepKey !== 'summary'
+    }
+    return false
   },
   /** The latest step in the workflow, with its annotations. */
   get latest() {
@@ -53,6 +66,7 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   }
 }))
 .actions(self => {
+  self.undoManager = {}
   setUndoManager(self)
 
   /** Create a new history entry from the current active step. **/
@@ -62,7 +76,7 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
     const step = tryReference(() => workflowSteps.active)
     if (self.classification && step) {
       let annotations
-      undoManager.withoutUndo(() => {
+      self.undoManager.withoutUndo(() => {
         annotations = step.tasks.map(task => self.classification.createAnnotation(task))
       })
       const historyStep = {
@@ -84,14 +98,23 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   }
   /** Clear the redo history and delete orphaned annotations. */
   function _clearRedo() {
-    undoManager.withoutUndo(() => {
+    self.undoManager.withoutUndo(() => {
       _clearPendingAnnotations()
-      undoManager.clearRedo()
+      self.undoManager.clearRedo()
     })
+  }
+  /** Add or remove a beforeunload listener whenever checkForProgress changes. */
+  function _observeWorkInProgress() {
+    const { addEventListener, removeEventListener } = window
+    if (self.checkForProgress) {
+      addEventListener && addEventListener("beforeunload", beforeUnloadListener, {capture: true});
+    } else {
+      removeEventListener && removeEventListener("beforeunload", beforeUnloadListener, {capture: true});
+    }
   }
   /** Redo stepKey,or replace the last step if history has diverged. */
   function _redo(stepKey) {
-    undoManager.redo()
+    self.undoManager.redo()
     const storedStepKey = self.latest.step.stepKey
     if (stepKey !== storedStepKey) {
       _replace(stepKey)
@@ -99,19 +122,23 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   }
   /** Clear the redo history and restart history from this point with a new step. */
   function _replace(stepKey) {
-    undoManager.undo()
+    self.undoManager.undo()
     _clearRedo()
     _beginStep(stepKey)
   }
   /** Clear stored steps and history. Should be run before classifying a new subject. */
   function _reset() {
     self.steps.clear()
-    undoManager.clear()
+    self.undoManager.clear()
+  }
+  function afterAttach() {
+    const workInProgressDisposer = autorun(_observeWorkInProgress)
+    addDisposer(self, workInProgressDisposer)
   }
   /** Undo the current step and select the previous step. */
   function back(persistAnnotations = true) {
-    if (undoManager.canUndo) {
-      undoManager.undo()
+    if (self.undoManager.canUndo) {
+      self.undoManager.undo()
       if (!persistAnnotations) {
         _clearRedo()
       }
@@ -119,14 +146,16 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   }
   /** Finish the current subject and clear the redo history*/
   function finish(){
-    undoManager.withoutUndo(() => {
+    const { removeEventListener } = window
+    removeEventListener && removeEventListener("beforeunload", beforeUnloadListener, {capture: true});
+    self.undoManager.withoutUndo(() => {
       _clearRedo()
     })
   }
   /** Redo the next step, or add a new step to history if there is no redo. */
   function next() {
     const { nextStepKey } = self.latest
-    if (undoManager.canRedo) {
+    if (self.undoManager.canRedo) {
       _redo(nextStepKey)
     } else {
       _beginStep(nextStepKey)
@@ -135,13 +164,13 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   /** Start a new history. The first step in a workflow cannot be undone. */
   function start() {
     // the first step in a workflow can't be undone
-    undoManager.withoutUndo(() => {
-      _reset()
+    self.undoManager.withoutUndo(() => {
       _beginStep()
     })
   }
 
   return {
+    afterAttach,
     back,
     finish,
     next,
@@ -149,4 +178,4 @@ const AnnotatedSteps = types.model('AnnotatedSteps', {
   }
 })
 
-export default AnnotatedSteps
+export default StepHistory

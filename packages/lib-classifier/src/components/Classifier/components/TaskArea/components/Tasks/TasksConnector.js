@@ -4,12 +4,12 @@ import Tasks from './Tasks'
 
 function storeMapper(store) {
   const {
-    annotatedSteps: {
-      latest
-    },
     classifications: {
       active: classification,
       demoMode
+    },
+    subjects: {
+      active: subject
     },
     subjectViewer: {
       loadingState: subjectReadyState
@@ -24,8 +24,9 @@ function storeMapper(store) {
   } = store
 
   let isComplete
+  const latest = subject?.stepHistory.latest
   // wait for the step and the classification before calculating isComplete from annotations.
-  if (step && classification) {
+  if (step && latest) {
     isComplete = step.isComplete(latest.annotations)
   }
 
@@ -34,7 +35,6 @@ function storeMapper(store) {
     demoMode,
     isComplete,
     isThereTaskHelp,
-    latest,
     loadingState,
     step,
     subjectReadyState
