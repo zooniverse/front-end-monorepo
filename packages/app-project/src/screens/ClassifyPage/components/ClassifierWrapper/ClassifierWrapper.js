@@ -53,7 +53,7 @@ export default function ClassifierWrapper({
       const newSubjectRoute = `${baseURL}/workflow/${workflowID}/subject-set/${subjectSetID}/subject/${subject.id}`
       const href = addQueryParams(newSubjectRoute, router)
       const as = href
-      router.push(href, as, { shallow: true })
+      router.replace(href, as, { shallow: true })
     }
   }
 
