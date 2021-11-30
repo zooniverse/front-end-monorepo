@@ -96,6 +96,7 @@ const Subject = types
   }))
 
   .actions(self => {
+
     function afterAttach () {
       fetchTranscriptionReductions()
     }
@@ -121,6 +122,10 @@ const Subject = types
       rootStore.onAddToCollection(self.id)
     }
 
+    function markAsSeen() {
+      self.already_seen = true
+    }
+
     function openInTalk (newTab = false) {
       self.shouldDiscuss = {
         newTab,
@@ -138,6 +143,7 @@ const Subject = types
       afterAttach,
       beforeDestroy,
       addToCollection,
+      markAsSeen,
       openInTalk,
       toggleFavorite
     }

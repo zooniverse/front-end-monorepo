@@ -16,9 +16,11 @@ counterpart.registerTranslations('en', en)
 The tabbed tasks area of the classifier, with tabs for the tutorial and active tasks.
 */
 export default function TaskArea({
+  alreadySeen,
   className,
   disableTutorialTab = true,
   setActiveTutorial = () => true,
+  retired,
   subject,
   tutorial = null,
   workflow = {
@@ -32,9 +34,9 @@ export default function TaskArea({
   useEffect(function onSubjectChange() {
     // TODO: remove this once testing is complete.
     const URLParams = queryString.parse(window?.location?.search)
-    const finished = (subject && URLParams?.finished) || subject?.retired || subject?.alreadySeen
+    const finished = (subject && URLParams?.finished) || retired || alreadySeen
     setDisabled(finished && workflow.hasIndexedSubjects)
-  }, [subject])
+  }, [alreadySeen, subject, retired])
 
   function enableTasks() {
     setDisabled(false)
