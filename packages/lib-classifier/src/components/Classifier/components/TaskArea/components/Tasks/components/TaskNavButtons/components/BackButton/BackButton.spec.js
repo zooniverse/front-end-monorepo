@@ -13,7 +13,7 @@ describe('BackButton', function () {
   describe('rendering', function () {
     let wrapper
     before(function () {
-      wrapper = shallow(<BackButton />)
+      wrapper = shallow(<BackButton canUndo />)
     })
 
     it('should render without crashing', function () {
@@ -34,7 +34,7 @@ describe('BackButton', function () {
     let onClickSpy
     before(function () {
       onClickSpy = sinon.spy()
-      wrapper = shallow(<BackButton onClick={onClickSpy} />)
+      wrapper = shallow(<BackButton canUndo onClick={onClickSpy} />)
     })
 
     it('should call onClick', function () {
@@ -47,7 +47,7 @@ describe('BackButton', function () {
     describe('when annotations are not persisted', function () {
       let wrapper
       beforeEach(function () {
-        wrapper = shallow(<BackButton />)
+        wrapper = shallow(<BackButton canUndo />)
       })
 
       it('should not render a StyledBackButtonToolTip', function () {
@@ -82,7 +82,7 @@ describe('BackButton', function () {
     describe('when annotations are persisted', function () {
       let wrapper
       beforeEach(function () {
-        wrapper = shallow(<BackButton persistAnnotations />)
+        wrapper = shallow(<BackButton canUndo persistAnnotations />)
       })
 
       it('should not render a StyledBackButtonToolTip', function () {

@@ -11,9 +11,9 @@ describe('DoneButton', function () {
     expect(wrapper).to.be.ok()
   })
 
-  describe('when props.completed is true', function () {
+  describe('when there is another workflow step', function () {
     it('should render null', function () {
-      const wrapper = shallow(<DoneButton completed />)
+      const wrapper = shallow(<DoneButton hasNextStep />)
       expect(wrapper.html()).to.be.null()
     })
   })

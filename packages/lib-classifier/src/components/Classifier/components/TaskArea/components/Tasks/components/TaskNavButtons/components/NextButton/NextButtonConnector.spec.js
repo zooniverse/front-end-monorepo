@@ -13,8 +13,7 @@ describe('Components > NextButtonConnector', function () {
 
   before(function () {
     classifierStore = mockStore()
-    const store = { classifierStore }
-    wrapper = shallow(<NextButtonConnector store={store} />)
+    wrapper = shallow(<NextButtonConnector store={classifierStore} />)
   })
 
   describe('on the last step of a workflow', function () {
@@ -30,8 +29,7 @@ describe('Components > NextButtonConnector', function () {
       const classification = classifierStore.classifications.active
       const singleChoiceAnnotation = classification.annotation({ taskKey: 'T0'})
       singleChoiceAnnotation.update(0)
-      const store = { classifierStore }
-      wrapper = shallow(<NextButtonConnector store={store} />)
+      wrapper = shallow(<NextButtonConnector store={classifierStore} />)
       const button = wrapper.find(NextButton)
       expect(button).to.have.lengthOf(1)
     })
