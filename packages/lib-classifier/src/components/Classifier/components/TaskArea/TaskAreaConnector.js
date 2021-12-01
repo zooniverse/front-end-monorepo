@@ -18,8 +18,10 @@ function storeMapper(store) {
   } = store
 
   return {
+    alreadySeen: subject?.alreadySeen,
     disableTutorialTab,
     setActiveTutorial,
+    retired: subject?.retired,
     subject,
     tutorial,
     workflow
