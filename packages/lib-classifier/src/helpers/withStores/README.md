@@ -24,3 +24,12 @@ function storeMapper(store) {
 
 export default withStores(DisabledTaskPopup, storeMapper)
 ```
+
+Pass in a `store` prop to mock the store in shallow-rendered tests.
+
+```js
+import mockStore from '@test/mockStore'
+const classifierStore = mockStore()
+
+const wrapper = shallow(<MyConnectedComponent store={classifierStore} />)
+````

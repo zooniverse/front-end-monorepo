@@ -188,8 +188,10 @@ const SubjectStore = types
 
     function advance() {
       const workflow = tryReference(() => getRoot(self).workflows.active)
+      const activeSubject = tryReference(() => self.active)
 
       if (workflow?.hasIndexedSubjects) {
+        activeSubject?.markAsSeen()
         self.nextIndexed()
       } else {
         self.shift()
