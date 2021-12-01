@@ -9,22 +9,27 @@ counterpart.registerTranslations('en', en)
 
 function DoneAndTalkButton ({
   disabled = false,
-  onClick = () => {}
+  onClick = () => {},
+  visible = false
 }) {
-  return (
-    <PrimaryButton
-      color='blue'
-      disabled={disabled}
-      label={counterpart('DoneAndTalkButton.doneAndTalk')}
-      onClick={onClick}
-      style={{ flex: '1 0', marginRight: '1ch' , textTransform: 'capitalize' }}
-    />
-  )
+  if (visible) {
+    return (
+      <PrimaryButton
+        color='blue'
+        disabled={disabled}
+        label={counterpart('DoneAndTalkButton.doneAndTalk')}
+        onClick={onClick}
+        style={{ flex: '1 0', marginRight: '1ch' , textTransform: 'capitalize' }}
+      />
+    )
+  }
+  return null
 }
 
 DoneAndTalkButton.propTypes = {
   disabled: PropTypes.bool,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  visible: PropTypes.bool
 }
 
 export default DoneAndTalkButton

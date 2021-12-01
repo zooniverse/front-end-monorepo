@@ -1,4 +1,5 @@
 import { configure } from 'mobx'
+import { getSnapshot } from 'mobx-state-tree'
 import {
   addMiddleware,
   getEnv,
@@ -43,6 +44,7 @@ const RootStore = types
   .volatile(self => {
     return {
       onAddToCollection: () => true,
+      onSubjectChange: () => true,
       onToggleFavourite: () => true
     }
   })
@@ -84,6 +86,7 @@ const RootStore = types
         classifications.reset()
         classifications.createClassification(subject, workflow, project)
         feedback.onNewSubject()
+        self.onSubjectChange(getSnapshot(subject))
       }
     }
 
@@ -98,6 +101,10 @@ const RootStore = types
       self.onAddToCollection = callback
     }
 
+    function setOnSubjectChange (callback) {
+      self.onSubjectChange = callback
+    }
+
     function setOnToggleFavourite (callback) {
       self.onToggleFavourite = callback
     }
@@ -105,6 +112,7 @@ const RootStore = types
     return {
       afterCreate,
       setOnAddToCollection,
+      setOnSubjectChange,
       setOnToggleFavourite
     }
   })
