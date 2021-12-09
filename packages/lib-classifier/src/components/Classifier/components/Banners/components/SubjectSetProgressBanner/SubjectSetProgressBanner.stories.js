@@ -1,8 +1,7 @@
 import React from 'react'
-import { Provider } from 'mobx-react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
-import Banners from '../../Banners'
+import SubjectSetProgressBanner from './SubjectSetProgressBanner'
 // import readme from '../../README.md'
 import { SubjectFactory, SubjectSetFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
@@ -21,12 +20,14 @@ function buildMocks({ already_seen, metadata = { ['#priority']: 37 }, retired })
   })
   const store = mockStore({ subject: subjectSnapshot, subjectSet: subjectSetSnapshot, workflow: workflowSnapshot })
 
-  return store
+  const subject = store.subjects.active
+  const workflow = store.workflows.resources.get(workflowSnapshot.id)
+  return { subject, workflow }
 }
 
 export default {
   title: 'Banners / Subject Set Progress Banner',
-  component: Banners,
+  component: SubjectSetProgressBanner,
   // parameters: {
   //   docs: {
   //     description: {
@@ -37,18 +38,19 @@ export default {
 }
 
 export function Default({ already_seen, dark, retired }) {
-  const store = buildMocks({ already_seen, retired })
+  const { subject, workflow } = buildMocks({ already_seen, retired })
   return (
     <Grommet
       theme={Object.assign({}, zooTheme, { dark })}
       themeMode={(dark) ? 'dark' : 'light'}
     >
-      <Provider classifierStore={store}>
-        <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
-          <Banners />
-          <img src="https://placekitten.com/800/400" alt='placeholder' />
-        </Box>
-      </Provider>
+      <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
+        <SubjectSetProgressBanner
+          subject={subject}
+          workflow={workflow}
+        />
+        <img src="https://placekitten.com/800/400" alt='placeholder' />
+      </Box>
     </Grommet>
   )
 }
@@ -60,37 +62,39 @@ Default.args = {
 }
 
 export function WithVisiblePriorityMetadata({ already_seen, dark, retired }) {
-  const priority = { priority: 37 }
-  const store = buildMocks({ already_seen, priority, retired })
+  const metadata = { priority: 37 }
+  const { subject, workflow } = buildMocks({ already_seen, metadata, retired })
   return (
     <Grommet
       theme={Object.assign({}, zooTheme, { dark })}
       themeMode={(dark) ? 'dark' : 'light'}
     >
-      <Provider classifierStore={store}>
-        <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
-          <Banners />
-          <img src="https://placekitten.com/800/400" alt='placeholder' />
-        </Box>
-      </Provider>
+      <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
+        <SubjectSetProgressBanner
+          subject={subject}
+          workflow={workflow}
+        />
+        <img src="https://placekitten.com/800/400" alt='placeholder' />
+      </Box>
     </Grommet>
   )
 }
 
 export function WithVisiblePriorityMetadataAndRetired({ already_seen, dark, retired }) {
-  const priority = { priority: 37 }
-  const store = buildMocks({ already_seen, priority, retired })
+  const metadata = { priority: 37 }
+  const { subject, workflow } = buildMocks({ already_seen, metadata, retired })
   return (
     <Grommet
       theme={Object.assign({}, zooTheme, { dark })}
       themeMode={(dark) ? 'dark' : 'light'}
     >
-      <Provider classifierStore={store}>
-        <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
-          <Banners />
-          <img src="https://placekitten.com/800/400" alt='placeholder' />
-        </Box>
-      </Provider>
+      <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
+        <SubjectSetProgressBanner
+          subject={subject}
+          workflow={workflow}
+        />
+        <img src="https://placekitten.com/800/400" alt='placeholder' />
+      </Box>
     </Grommet>
   )
 }
@@ -102,19 +106,20 @@ WithVisiblePriorityMetadataAndRetired.args = {
 }
 
 export function WithVisiblePriorityMetadataAndAlreadySeen({ already_seen, dark, retired }) {
-  const priority = { priority: 37 }
-  const store = buildMocks({ already_seen, priority, retired })
+  const metadata = { priority: 37 }
+  const { subject, workflow } = buildMocks({ already_seen, metadata, retired })
   return (
     <Grommet
       theme={Object.assign({}, zooTheme, { dark })}
       themeMode={(dark) ? 'dark' : 'light'}
     >
-      <Provider classifierStore={store}>
-        <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
-          <Banners />
-          <img src="https://placekitten.com/800/400" alt='placeholder' />
-        </Box>
-      </Provider>
+      <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
+        <SubjectSetProgressBanner
+          subject={subject}
+          workflow={workflow}
+        />
+        <img src="https://placekitten.com/800/400" alt='placeholder' />
+      </Box>
     </Grommet>
   )
 }
@@ -126,18 +131,19 @@ WithVisiblePriorityMetadataAndAlreadySeen.args = {
 }
 
 export function WithRetiredSubject({ already_seen, dark, retired }) {
-  const store = buildMocks({ already_seen, retired })
+  const { subject, workflow } = buildMocks({ already_seen, retired })
   return (
     <Grommet
       theme={Object.assign({}, zooTheme, { dark })}
       themeMode={(dark) ? 'dark' : 'light'}
     >
-      <Provider classifierStore={store}>
-        <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
-          <Banners />
-          <img src="https://placekitten.com/800/400" alt='placeholder' />
-        </Box>
-      </Provider>
+      <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
+        <SubjectSetProgressBanner
+          subject={subject}
+          workflow={workflow}
+        />
+        <img src="https://placekitten.com/800/400" alt='placeholder' />
+      </Box>
     </Grommet>
   )
 }
@@ -149,18 +155,19 @@ WithRetiredSubject.args = {
 }
 
 export function WithAlreadySeenSubject({ already_seen, dark, retired }) {
-  const store = buildMocks({ already_seen, retired })
+  const { subject, workflow } = buildMocks({ already_seen, retired })
   return (
     <Grommet
       theme={Object.assign({}, zooTheme, { dark })}
       themeMode={(dark) ? 'dark' : 'light'}
     >
-      <Provider classifierStore={store}>
-        <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
-          <Banners />
-          <img src="https://placekitten.com/800/400" alt='placeholder' />
-        </Box>
-      </Provider>
+      <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
+        <SubjectSetProgressBanner
+          subject={subject}
+          workflow={workflow}
+        />
+        <img src="https://placekitten.com/800/400" alt='placeholder' />
+      </Box>
     </Grommet>
   )
 }

@@ -52,34 +52,27 @@ const CircleModel = types
       return self.y_center
     }
   }))
-  .actions((self) => {
-    function initialDrag({ x, y }) {
+  .actions((self) => ({
+    initialDrag({ x, y }) {
       self.r = self.getDistance(self.x_center, self.y_center, x, y)
-    }
+    },
 
-    function initialPosition({ x, y }) {
+    initialPosition({ x, y }) {
       self.x_center = x
       self.y_center = y
-    }
+    },
 
-    function move({ x, y }) {
+    move({ x, y }) {
       self.x_center += x
       self.y_center += y
-    }
+    },
 
-    function setCoordinates({ x, y, r }) {
+    setCoordinates({ x, y, r }) {
       self.x_center = x
       self.y_center = y
       self.r = r
     }
-
-    return {
-      initialDrag,
-      initialPosition,
-      move,
-      setCoordinates
-    }
-  })
+  }))
 
 const Circle = types.compose('Circle', Mark, CircleModel)
 

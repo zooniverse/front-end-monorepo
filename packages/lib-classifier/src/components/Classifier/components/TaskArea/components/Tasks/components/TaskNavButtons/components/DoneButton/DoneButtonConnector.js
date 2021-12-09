@@ -1,31 +1,23 @@
-import { MobXProviderContext, observer } from 'mobx-react'
-import React, { useContext } from 'react'
+import { withStores } from '@helpers'
 
 import DoneButton from './DoneButton'
 
-function withStores(Component) {
-  function DoneButtonConnector(props) {
-    const {
-      classifierStore: {
-        annotatedSteps: {
-          finish,
-          hasNextStep,
-          latest: {
-            annotations
-          },
-        },
-        classifications: {
-          completeClassification
-        },
-        workflowSteps: {
-          active: step
-        }
-      }
-    } = props.store || useContext(MobXProviderContext)
-
-    if (hasNextStep) {
-      return null
+function storeMapper(store) {
+  const {
+    subjects: {
+      active: subject
+    },
+    classifications: {
+      completeClassification
+    },
+    workflowSteps: {
+      active: step
     }
+  } = store
+
+  if (subject?.stepHistory) {
+    const { finish, hasNextStep, latest } = subject.stepHistory
+    const annotations = latest?.annotations
 
     function onClick(event) {
       event.preventDefault()
@@ -34,15 +26,14 @@ function withStores(Component) {
       return completeClassification()
     }
 
-    return (
-      <Component
-        hasNextStep={hasNextStep}
-        onClick={onClick}
-        {...props}
-      />
-    )
+    return {
+      hasNextStep,
+      onClick
+    }
   }
-  return observer(DoneButtonConnector)
+
+  return {}
+
 }
 
-export default withStores(DoneButton)
+export default withStores(DoneButton, storeMapper)

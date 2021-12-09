@@ -7,18 +7,14 @@ const RectangleTool = types
     marks: types.map(Rectangle),
     type: types.literal('rectangle')
   })
-  .actions((self) => {
-    function createMark(mark) {
+  .actions((self) => ({
+    createMark(mark) {
       const newMark = Rectangle.create(
         Object.assign({}, mark, { toolType: self.type })
       )
       self.marks.put(newMark)
       return newMark
     }
-
-    return {
-      createMark
-    }
-  })
+  }))
 
 export default types.compose('RectangleTool', Tool, RectangleTool)

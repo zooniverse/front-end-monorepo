@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, addMiddleware, getRoot, isValidReference, types } from 'mobx-state-tree'
+import { addDisposer, addMiddleware, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
 import { flatten } from 'lodash'
 
 import helpers from './feedback/helpers'
@@ -37,29 +37,22 @@ const FeedbackStore = types
     get messages () {
       return self.applicableRules
         .map(rule => rule.success ? rule.successMessage : rule.failureMessage)
+    },
+    get shouldShowFeedback() {
+      return self.isActive && self.messages.length && !self.showModal
     }
   }))
   .actions(self => {
-    function setOnHide (onHide) {
-      self.onHide = onHide
-    }
-
-    function afterAttach () {
-      createSubjectMiddleware()
-    }
-
-    function onNewSubject () {
-      const validSubjectReference = isValidReference(() => getRoot(self).subjects.active)
-      if (validSubjectReference) {
-        const subject = getRoot(self).subjects.active
-        self.reset()
-        self.createRules(subject)
+    function _subjectsMiddleware(call, next, abort) {
+      if (call.name === 'advance') {
+        _onSubjectAdvance(call, next, abort)
+      } else {
+        next(call)
       }
     }
 
-    function onSubjectAdvance (call, next, abort) {
-      const shouldShowFeedback = self.isActive && self.messages.length && !self.showModal
-      if (shouldShowFeedback) {
+    function _onSubjectAdvance(call, next, abort) {
+      if (self.shouldShowFeedback) {
         if (process.browser) {
           console.log('Aborting subject advance and showing feedback')
         }
@@ -70,17 +63,22 @@ const FeedbackStore = types
       }
     }
 
-    function createSubjectMiddleware () {
-      const subjectMiddleware = autorun(() => {
-        addMiddleware(getRoot(self).subjects, (call, next, abort) => {
-          if (call.name === 'advance') {
-            onSubjectAdvance(call, next, abort)
-          } else {
-            next(call)
-          }
-        })
-      }, { name: 'FeedbackStore Subject Middleware autorun' })
-      addDisposer(self, subjectMiddleware)
+    function _createSubjectMiddleware() {
+      const subjects = getRoot(self)?.subjects
+      addMiddleware(subjects, _subjectsMiddleware)
+    }
+
+    function afterAttach () {
+      const subjectMiddlewareDisposer = autorun(_createSubjectMiddleware)
+      addDisposer(self, subjectMiddlewareDisposer)
+    }
+
+    function onNewSubject () {
+      const subject = tryReference(() => getRoot(self).subjects.active)
+      if (subject) {
+        self.reset()
+        self.createRules(subject)
+      }
     }
 
     function createRules (subject) {
@@ -97,6 +95,10 @@ const FeedbackStore = types
           console.error('Cannot create feedback rules without project, workflow, and/or subject')
         }
       }
+    }
+
+    function setOnHide (onHide) {
+      self.onHide = onHide
     }
 
     function showFeedback () {
@@ -128,13 +130,14 @@ const FeedbackStore = types
     }
 
     return {
+      // TODO: this is exported for the tests but should be private.
+      _onSubjectAdvance,
       afterAttach,
       createRules,
       setOnHide,
       showFeedback,
       hideFeedback,
       onNewSubject,
-      onSubjectAdvance,
       update,
       reset
     }

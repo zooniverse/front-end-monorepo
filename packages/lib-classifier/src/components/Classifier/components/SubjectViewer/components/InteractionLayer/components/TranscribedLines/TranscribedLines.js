@@ -1,5 +1,5 @@
 import counterpart from 'counterpart'
-import { arrayOf, bool, number, object, shape, string } from 'prop-types'
+import { array, arrayOf, bool, number, object, shape, string } from 'prop-types'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
@@ -42,7 +42,7 @@ class TranscribedLines extends React.Component {
   }
 
   createMark (line, node) {
-    const { frame } = this.props
+    const { annotation, frame } = this.props
     const { activeTool, activeToolIndex, setActiveMark } = this.props.task
 
     if (activeTool) {
@@ -65,6 +65,8 @@ class TranscribedLines extends React.Component {
       })
       mark.setPreviousAnnotations(previousAnnotationValuesForEachMark)
       mark.finish()
+      const value = annotation.value.slice()
+      annotation.update([ ...value, mark.id ])
     }
   }
 
@@ -208,6 +210,11 @@ class TranscribedLines extends React.Component {
 }
 
 TranscribedLines.propTypes = {
+  annotation: shape({
+    task: string,
+    taskType: string,
+    value: array
+  }),
   frame: number.isRequired,
   invalidMark: bool,
   lines: arrayOf(shape({

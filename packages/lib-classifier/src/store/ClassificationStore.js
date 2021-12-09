@@ -3,7 +3,7 @@ import counterpart from 'counterpart'
 import cuid from 'cuid'
 import _ from 'lodash'
 import { toJS } from 'mobx'
-import { flow, getRoot, isValidReference, types } from 'mobx-state-tree'
+import { flow, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
 
 import Classification, { ClassificationMetadata } from './Classification'
 import ResourceStore from './ResourceStore'
@@ -102,11 +102,10 @@ const ClassificationStore = types
     }
 
     function completeClassification () {
-      const validClassificationReference = isValidReference(() => self.active)
-      const validSubjectReference = isValidReference(() => getRoot(self).subjects.active)
+      const classification = tryReference(() => self.active)
+      const subject = tryReference(() => getRoot(self).subjects.active)
 
-      if (validClassificationReference && validSubjectReference) {
-        const classification = self.active
+      if (classification && subject) {
         const subjectDimensions = toJS(getRoot(self).subjectViewer.dimensions)
 
         const metadata = {
@@ -138,7 +137,6 @@ const ClassificationStore = types
         })
         classificationToSubmit.metadata = convertedMetadata
 
-        const subject = getRoot(self).subjects.active
         self.onComplete(classification.toJSON(), subject.toJSON())
 
         if (process.browser) {

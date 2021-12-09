@@ -4,9 +4,9 @@ import nock from 'nock'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
 
-import RootStore from '../RootStore'
-import SubjectGroup from '../SubjectGroup'
-import SingleImageSubject from '../SingleImageSubject'
+import RootStore from '@store/RootStore'
+import SubjectGroup from './SubjectGroup'
+import SingleImageSubject from './SingleImageSubject'
 import { openTalkPage, MINIMUM_QUEUE_SIZE } from './SubjectStore'
 import { ProjectFactory, SubjectFactory, SubjectSetFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
@@ -380,9 +380,11 @@ describe('Model > SubjectStore', function () {
       })
       for (let priority = 1; priority <= 10; priority++) {
         const snapshot = {
+          already_seen: false,
           metadata: {
             '#priority': priority
-          }
+          },
+          retired: false
         }
         subjects.push(SubjectFactory.build(snapshot))
       }
@@ -446,6 +448,13 @@ describe('Model > SubjectStore', function () {
         store.subjects.setResources(subjects)
         store.subjects.setActive(subjects[0].id)
         store.subjects.advance()
+      })
+
+      it('should mark the previous active subject as seen', function () {
+        let activeSubject = store.subjects.active
+        const previousSubject = store.subjects.resources.get(subjects[0].id)
+        expect(previousSubject.already_seen).to.be.true()
+        expect(activeSubject.already_seen).to.be.false()
       })
 
       it('should preserve the previous active subject', function () {

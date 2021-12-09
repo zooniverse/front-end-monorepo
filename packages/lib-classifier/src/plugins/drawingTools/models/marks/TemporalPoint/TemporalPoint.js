@@ -23,16 +23,12 @@ const TemporalPointModel = types
       return self.displayTime
     }
   }))
-  .actions((self) => {
-    function setVideoTime(displayTime, duration) {
+  .actions((self) => ({
+    setVideoTime(displayTime, duration) {
       self.displayTime = displayTime
       self.displayTimeStamp = formatTimeStamp(displayTime, duration)
     }
-
-    return {
-      setVideoTime
-    }
-  })
+  }))
 
 const TemporalPoint = types.compose('TemporalPoint', Point, TemporalPointModel)
 

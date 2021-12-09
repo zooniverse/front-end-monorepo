@@ -13,9 +13,10 @@ counterpart.registerTranslations('en', en)
 function DoneButton ({
   completed = false,
   disabled = false,
+  hasNextStep = false,
   onClick = () => true
 }) {
-  if (!completed) {
+  if (!hasNextStep) {
     return (
       <PrimaryButton
         color='green'
@@ -34,7 +35,7 @@ DoneButton.propTypes = {
   completed: PropTypes.bool,
   demoMode: PropTypes.bool,
   disabled: PropTypes.bool,
-  goldStandardMode: PropTypes.bool,
+  hasNextStep: PropTypes.bool,
   onClick: PropTypes.func
 }
 

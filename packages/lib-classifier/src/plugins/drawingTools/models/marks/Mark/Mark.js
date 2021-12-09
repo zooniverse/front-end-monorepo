@@ -97,12 +97,12 @@ const BaseMark = types
       return undefined
     }
   }))
-  .actions((self) => {
-    function finish() {
+  .actions((self) => ({
+    finish() {
       self.finished = true
-    }
+    },
 
-    function setPreviousAnnotations(previousAnnotationValues) {
+    setPreviousAnnotations(previousAnnotationValues) {
       if (previousAnnotationValues?.length > 0) {
         previousAnnotationValues.forEach((previousAnnotationValue) => {
           self.subTaskPreviousAnnotationValues.put(previousAnnotationValue)
@@ -110,23 +110,16 @@ const BaseMark = types
       } else {
         self.subTaskPreviousAnnotationValues.clear()
       }
-    }
+    },
 
-    function setSubTaskVisibility(visibility, markBounds) {
+    setSubTaskVisibility(visibility, markBounds) {
       if (self.tasks.length > 0) {
         self.subTaskVisibility = visibility
         self.subTaskMarkBounds = markBounds
       }
-    }
+    },
 
-    function setVideoTime(displayTime) {}
-
-    return {
-      finish,
-      setPreviousAnnotations,
-      setSubTaskVisibility,
-      setVideoTime
-    }
-  })
+    setVideoTime(displayTime) {}
+  }))
 
 export default types.compose('Mark', AnnotationsStore, BaseMark)

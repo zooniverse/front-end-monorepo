@@ -47,8 +47,8 @@ const RectangleModel = types
       return RectangleComponent
     }
   }))
-  .actions((self) => {
-    function initialDrag({ x, y }) {
+  .actions((self) => ({
+    initialDrag({ x, y }) {
       const x_left = x < self.x_center ? x : self.x_center - self.width / 2
       const x_right = x > self.x_center ? x : self.x_center + self.width / 2
       const y_top = y < self.y_center ? y : self.y_center - self.height / 2
@@ -58,34 +58,27 @@ const RectangleModel = types
       self.height = y_bottom - y_top
       self.x_center = (x_left + x_right) / 2
       self.y_center = (y_top + y_bottom) / 2
-    }
+    },
 
-    function initialPosition({ x, y }) {
+    initialPosition({ x, y }) {
       self.x_center = x
       self.y_center = y
       self.width = 0
       self.height = 0
-    }
+    },
 
-    function move({ x, y }) {
+    move({ x, y }) {
       self.x_center += x
       self.y_center += y
-    }
+    },
 
-    function setCoordinates({ x_left, x_right, y_top, y_bottom }) {
+    setCoordinates({ x_left, x_right, y_top, y_bottom }) {
       self.x_center = (x_left + x_right) / 2
       self.y_center = (y_top + y_bottom) / 2
       self.width = Math.abs(x_right - x_left)
       self.height = Math.abs(y_bottom - y_top)
     }
-
-    return {
-      initialDrag,
-      initialPosition,
-      move,
-      setCoordinates
-    }
-  })
+  }))
 
 const Rectangle = types.compose('Rectangle', Mark, RectangleModel)
 

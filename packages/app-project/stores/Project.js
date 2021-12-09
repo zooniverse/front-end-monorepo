@@ -35,7 +35,7 @@ const Project = types
 
   .views(self => ({
     get baseUrl() {
-      return `/projects/${self.slug}`
+      return `/${self.slug}`
     },
 
     get defaultWorkflow() {

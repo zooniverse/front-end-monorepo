@@ -1,10 +1,10 @@
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
-import TranscriptionReductions from '@store/TranscriptionReductions'
+import TranscriptionReductions from '@store/SubjectStore/Subject/TranscriptionReductions'
 import taskRegistry from '@plugins/tasks'
 import { TranscribedLines } from './TranscribedLines'
-import { reducedSubject } from '@store/TranscriptionReductions/mocks'
+import { reducedSubject } from '@store/SubjectStore/Subject/TranscriptionReductions/mocks'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
 import ConsensusPopup from './components/ConsensusPopup'
 import { expect } from 'chai'
@@ -37,7 +37,19 @@ describe('Component > TranscribedLines', function () {
   })
 
   it('should render without crashing', function () {
-    wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} task={task} marks={task.marks} />)
+    const annotation = {
+      taskKey: 'T1',
+      taskType: 'transcription',
+      update: sinon.stub(),
+      value: []
+    }
+    wrapper = shallow(<TranscribedLines
+      annotation={annotation}
+      frame={0}
+      lines={consensusLines}
+      task={task}
+      marks={task.marks}
+    />)
     expect(wrapper).to.be.ok()
   })
 
@@ -98,7 +110,18 @@ describe('Component > TranscribedLines', function () {
         type: 'transcription'
       })
       task.setActiveTool(0)
-      wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} marks={task.marks} task={task} />)
+      const annotation = {
+        taskKey: 'T1',
+        taskType: 'transcription',
+        value: []
+      }
+      wrapper = shallow(<TranscribedLines
+        annotation={annotation}
+        frame={0}
+        lines={consensusLines}
+        marks={task.marks}
+        task={task}
+      />)
       lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
     })
 
@@ -194,7 +217,19 @@ describe('Component > TranscribedLines', function () {
       before(function () {
         task.reset()
         consensusLines = transcriptionReductions.consensusLines(0)
-        wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} marks={task.marks} task={task} />)
+        const annotation = {
+          taskKey: 'T1',
+          taskType: 'transcription',
+          update: sinon.stub(),
+          value: []
+        }
+        wrapper = shallow(<TranscribedLines
+          annotation={annotation}
+          frame={0}
+          lines={consensusLines}
+          marks={task.marks}
+          task={task}
+        />)
         lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
       })
 
@@ -255,7 +290,19 @@ describe('Component > TranscribedLines', function () {
       beforeEach(function () {
         task.reset()
         consensusLines = transcriptionReductions.consensusLines(0)
-        wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} marks={task.marks} task={task} />)
+        const annotation = {
+          taskKey: 'T1',
+          taskType: 'transcription',
+          update: sinon.stub(),
+          value: []
+        }
+        wrapper = shallow(<TranscribedLines
+          annotation={annotation}
+          frame={0}
+          lines={consensusLines}
+          marks={task.marks}
+          task={task}
+        />)
         lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
       })
 
@@ -315,7 +362,19 @@ describe('Component > TranscribedLines', function () {
       beforeEach(function () {
         task.reset()
         consensusLines = transcriptionReductions.consensusLines(0)
-        wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} marks={task.marks} task={task} />)
+        const annotation = {
+          taskKey: 'T1',
+          taskType: 'transcription',
+          update: sinon.stub(),
+          value: []
+        }
+        wrapper = shallow(<TranscribedLines
+          annotation={annotation}
+          frame={0}
+          lines={consensusLines}
+          marks={task.marks}
+          task={task}
+        />)
         lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
       })
 

@@ -1,42 +1,33 @@
-import { MobXProviderContext, observer } from 'mobx-react'
-import React, { useContext } from 'react'
+import { withStores } from '@helpers'
 
 import NextButton from './NextButton'
 
-function withStores(Component) {
-  function NextButtonConnector(props) {
-    const {
-      classifierStore: {
-        annotatedSteps: {
-          hasNextStep,
-          latest: {
-            annotations
-          },
-          next
-        },
-        workflowSteps: {
-          active: step
-        }
-      }
-    } = props.store || useContext(MobXProviderContext)
-
-    if (!hasNextStep) {
-      return null
+function storeMapper(store) {
+  const {
+    subjects: {
+      active: subject
+    },
+    workflowSteps: {
+      active: step
     }
+  } = store
+
+  if (subject?.stepHistory) {
+    const { next, hasNextStep, latest } = subject.stepHistory
+    const annotations = latest?.annotations
 
     function onClick() {
       step.completeAndValidate(annotations)
       next()
     }
 
-    return (
-      <Component
-        onClick={onClick}
-        {...props}
-      />
-    )
+    return {
+      hasNextStep,
+      onClick
+    }
   }
-  return observer(NextButtonConnector)
+
+  return {}
 }
 
-export default withStores(NextButton)
+export default withStores(NextButton, storeMapper)
