@@ -1,6 +1,6 @@
 import { Factory } from 'rosie'
-import RootStore from '../RootStore'
-import Workflow from '../Workflow'
+import RootStore from '@store/RootStore'
+import Workflow from './Workflow'
 import WorkflowStore from './WorkflowStore'
 import {
   SingleChoiceTaskFactory,
