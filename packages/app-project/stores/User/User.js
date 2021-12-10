@@ -39,6 +39,8 @@ const User = types
         self.loadingState = asyncStates.success
         if (userResource) {
           self.set(userResource)
+        } else {
+          self.clear()
         }
       } catch (error) {
         console.log(error)
@@ -51,6 +53,8 @@ const User = types
       self.id = null
       self.display_name = null
       self.login = null
+      self.collections = Collections.create({})
+      self.recents = Recents.create({})
     },
 
     set(user) {
