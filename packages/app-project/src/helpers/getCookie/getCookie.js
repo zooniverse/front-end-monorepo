@@ -1,8 +1,8 @@
 import cookie from 'cookie'
 
-export default function getCookie (req, name) {
-  if (req?.headers?.cookie) {
-    const parsedCookie = cookie.parse(req.headers.cookie)
+export default function getCookie(name) {
+  if (document?.cookie) {
+    const parsedCookie = cookie.parse(document.cookie)
     if (parsedCookie && parsedCookie[name]) {
       return parsedCookie[name]
     }

@@ -8,7 +8,6 @@ import { createGlobalStyle } from 'styled-components'
 import { appWithTranslation } from 'next-i18next'
 
 import AuthModal from '@components/AuthModal'
-import getCookie from '@helpers/getCookie'
 import GrommetWrapper from '@helpers/GrommetWrapper'
 import Head from '@components/Head'
 import { initializeLogger, logToSentry } from '@helpers/logger'
@@ -41,12 +40,16 @@ function MyApp({ Component, pageProps }) {
 
   async function onMount() {
     console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
+      /*
+        Another project may have set the mode cookie, so check it now.
+      */
+    store.ui.readCookies()
     if (window?.localStorage) {
       const key = `project-${initialState.project.id}`
       await persist(key, store)
       console.log('store hydrated from local storage.')
+      store.user.checkCurrent()
     }
-    store.user.checkCurrent()
   }
 
   useEffect(onMount, [])
