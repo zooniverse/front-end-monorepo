@@ -1,7 +1,6 @@
 import { Box } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
-import { persist } from 'mst-persist'
 import Error from 'next/error'
 import { useEffect, useMemo } from 'react'
 import { createGlobalStyle } from 'styled-components'
@@ -38,18 +37,13 @@ function MyApp({ Component, pageProps }) {
   const store = useStore(initialState)
   makeInspectable(store)
 
-  async function onMount() {
+  function onMount() {
     console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
-      /*
-        Another project may have set the mode cookie, so check it now.
-      */
+    /*
+      Another project may have set the mode cookie, so check it now.
+    */
     store.ui.readCookies()
-    if (window?.localStorage) {
-      const key = `project-${initialState.project.id}`
-      await persist(key, store)
-      console.log('store hydrated from local storage.')
-      store.user.checkCurrent()
-    }
+    store.user.checkCurrent()
   }
 
   useEffect(onMount, [])
