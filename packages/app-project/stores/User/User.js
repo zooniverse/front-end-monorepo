@@ -54,19 +54,23 @@ const User = types
       self.display_name = null
       self.login = null
       self.collections = Collections.create({})
+      self.personalization.reset()
       self.recents = Recents.create({})
     },
 
     set(user) {
-      self.id = user.id
-      self.display_name = user.display_name
-      self.login = user.login
-      self.recents.fetch()
-      self.collections.fetchFavourites()
-      self.collections.searchCollections({
-        favorite: false,
-        current_user_roles: 'owner,collaborator,contributor'
-      })
+      if (user.id !== self.id) {
+        self.id = user.id
+        self.display_name = user.display_name
+        self.login = user.login
+        self.personalization.load()
+        self.recents.fetch()
+        self.collections.fetchFavourites()
+        self.collections.searchCollections({
+          favorite: false,
+          current_user_roles: 'owner,collaborator,contributor'
+        })
+      }
     }
   }))
 

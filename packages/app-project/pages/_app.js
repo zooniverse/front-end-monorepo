@@ -43,6 +43,9 @@ function MyApp({ Component, pageProps }) {
       Another project may have set the mode cookie, so check it now.
     */
     store.ui.readCookies()
+    /*
+      Another project may have logged out the stored user, so check that too.
+    */
     store.user.checkCurrent()
   }
 
