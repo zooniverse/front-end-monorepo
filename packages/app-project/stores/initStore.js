@@ -1,5 +1,4 @@
 import { applySnapshot } from 'mobx-state-tree'
-import { persist } from 'mst-persist'
 import {
   collections as collectionsClient,
   panoptes as panoptesClient,
@@ -24,14 +23,8 @@ function initStore (isServer, snapshot = null, client = defaultClient) {
   }
 
   if (store === null) {
-    const initialState = snapshot ?? {}
     // create a new store in the browser .
-    store = Store.create(initialState, { client })
-    if (initialState?.project) {
-      const key = `project-${initialState.project.id}`
-      persist(key, store)
-    }
-    return store
+    store = Store.create({}, { client })
   }
 
   if (snapshot) {
