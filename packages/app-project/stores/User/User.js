@@ -63,14 +63,17 @@ const User = types
         self.id = user.id
         self.display_name = user.display_name
         self.login = user.login
-        self.personalization.load()
         self.recents.fetch()
-        self.collections.fetchFavourites()
-        self.collections.searchCollections({
-          favorite: false,
-          current_user_roles: 'owner,collaborator,contributor'
-        })
       }
+      /*
+        Request preferences, stats, collections and project favourites, which may be stale.
+      */
+      self.collections.fetchFavourites()
+      self.personalization.load()
+      self.collections.searchCollections({
+        favorite: false,
+        current_user_roles: 'owner,collaborator,contributor'
+      })
     }
   }))
 
