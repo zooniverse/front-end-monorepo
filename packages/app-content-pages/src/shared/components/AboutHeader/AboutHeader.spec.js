@@ -45,6 +45,10 @@ describe('Component > AboutHeader', function () {
     expect(wrapper.find('[href="/about/highlights"]')).to.have.lengthOf(1)
   })
 
+  it('should have a `Mobile App` link', function () {
+    expect(wrapper.find('[href="/about/mobile-app"]')).to.have.lengthOf(1)
+  })
+
   it('should have a `Donate` link', function () {
     expect(wrapper.find('[href="/about/donate"]')).to.have.lengthOf(1)
   })
