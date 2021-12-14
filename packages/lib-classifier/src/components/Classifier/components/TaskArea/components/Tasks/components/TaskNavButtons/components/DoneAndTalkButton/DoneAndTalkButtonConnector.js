@@ -1,46 +1,41 @@
-import { MobXProviderContext, observer } from 'mobx-react'
-import React, { useContext } from 'react'
+import { withStores } from '@helpers'
 
 import DoneAndTalkButton from './DoneAndTalkButton'
 
-function withStores(Component) {
-  function DoneAndTalkButtonConnector(props) {
-    const {
-      classifierStore: {
-        classifications: {
-          completeClassification
-        },
-        subjects: {
-          active: subject
-        },
-        workflowSteps: {
-          shouldWeShowDoneAndTalkButton
-        }
-      }
-    } = props.store || useContext(MobXProviderContext)
+function storeMapper(store) {
+  const {
+    classifications: {
+      completeClassification
+    },
+    subjects: {
+      active: subject
+    },
+    workflowSteps: {
+      shouldWeShowDoneAndTalkButton
+    }
+  } = store
 
+  let visible = false
+  if (subject?.stepHistory) {
     const { finish, hasNextStep } = subject.stepHistory
 
-    if (!hasNextStep && shouldWeShowDoneAndTalkButton && subject?.id) {
-      function onClick(event) {
-        event.preventDefault()
-        const isCmdClick = event.metaKey
-        subject.openInTalk(isCmdClick)
-        finish()
-        return completeClassification()
-      }
+    visible = (!hasNextStep && shouldWeShowDoneAndTalkButton)
 
-      return (
-        <Component
-          onClick={onClick}
-          {...props}
-        />
-      )
+    function onClick(event) {
+      event.preventDefault()
+      const isCmdClick = event.metaKey
+      subject.openInTalk(isCmdClick)
+      finish()
+      return completeClassification()
     }
 
-    return null
+    return {
+      onClick,
+      visible
+    }
   }
-  return observer(DoneAndTalkButtonConnector)
+
+  return {}
 }
 
-export default withStores(DoneAndTalkButton)
+export default withStores(DoneAndTalkButton, storeMapper)

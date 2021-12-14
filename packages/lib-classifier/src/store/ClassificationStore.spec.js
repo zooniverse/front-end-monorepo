@@ -175,7 +175,6 @@ describe('Model > ClassificationStore', function () {
         sinon.stub(rootStore.feedback, 'createRules')
         sinon.stub(rootStore.feedback, 'update')
         sinon.stub(rootStore.feedback, 'reset')
-        sinon.stub(rootStore.classifications, 'reset')
         sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
         classifications = rootStore.classifications
         feedback = rootStore.feedback
@@ -202,7 +201,6 @@ describe('Model > ClassificationStore', function () {
         feedback.createRules.restore()
         feedback.update.restore()
         feedback.reset.restore()
-        classifications.reset.restore()
         helpers.isFeedbackActive.restore()
       })
 

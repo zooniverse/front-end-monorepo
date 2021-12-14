@@ -39,6 +39,7 @@ export const StyledBackButtonToolTip = styled.span`
   `
 function BackButton({
   autoFocus = false,
+  canUndo = false,
   disabled = false,
   onClick = () => true,
   persistAnnotations = false,
@@ -47,48 +48,53 @@ function BackButton({
   }
 }) {
   const [ showWarning, setShowWarning ] = useState(false)
-  let tooltipEventHandlers = {}
+  if (canUndo) {
+    let tooltipEventHandlers = {}
 
-  if (!persistAnnotations) {
-    function showTooltip() {
-      if (!persistAnnotations && !showWarning) {
-        setShowWarning(true)
+    if (!persistAnnotations) {
+      function showTooltip() {
+        if (!persistAnnotations && !showWarning) {
+          setShowWarning(true)
+        }
+      }
+
+      function hideTooltip() {
+        if (!persistAnnotations && showWarning) {
+          setShowWarning(false)
+        }
+      }
+
+      tooltipEventHandlers = {
+        onMouseEnter: showTooltip,
+        onFocus: showTooltip,
+        onMouseLeave: hideTooltip,
+        onBlur: hideTooltip
       }
     }
 
-    function hideTooltip() {
-      if (!persistAnnotations && showWarning) {
-        setShowWarning(false)
-      }
-    }
-
-    tooltipEventHandlers = {
-      onMouseEnter: showTooltip,
-      onFocus: showTooltip,
-      onMouseLeave: hideTooltip,
-      onBlur: hideTooltip
-    }
+    // TODO convert to use Grommet Button and Drop for tooltip: https://codesandbox.io/s/rj0y95jr3n
+    const backButtonWarning = counterpart('BackButton.tooltip')
+    return (
+      <StyledBackButtonWrapper theme={theme}>
+        <Button
+          focusIndicator={false}
+          label={<Text size='small'>{counterpart('BackButton.back')}</Text>}
+          onClick={onClick}
+          {...tooltipEventHandlers}
+        />
+        {showWarning &&
+          <StyledBackButtonToolTip>
+            {counterpart('BackButton.tooltip')}
+          </StyledBackButtonToolTip>}
+      </StyledBackButtonWrapper>
+    )
   }
-
-  // TODO convert to use Grommet Button and Drop for tooltip: https://codesandbox.io/s/rj0y95jr3n
-  const backButtonWarning = counterpart('BackButton.tooltip')
-  return (
-    <StyledBackButtonWrapper theme={theme}>
-      <Button
-        focusIndicator={false}
-        label={<Text size='small'>{counterpart('BackButton.back')}</Text>}
-        onClick={onClick}
-        {...tooltipEventHandlers}
-      />
-      {showWarning &&
-        <StyledBackButtonToolTip>
-          {counterpart('BackButton.tooltip')}
-        </StyledBackButtonToolTip>}
-    </StyledBackButtonWrapper>
-  )
+  return null
 }
 
 BackButton.propTypes = {
+  canUndo: PropTypes.bool,
+  onClick: PropTypes.func,
   persistAnnotations: PropTypes.bool,
   theme: PropTypes.object
 }

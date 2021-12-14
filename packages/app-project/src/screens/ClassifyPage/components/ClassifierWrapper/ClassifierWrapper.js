@@ -1,8 +1,10 @@
 import Classifier from '@zooniverse/classifier'
+import { useRouter } from 'next/router'
 import auth from 'panoptes-client/lib/auth'
 import { func, string, shape } from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 
+import addQueryParams from '@helpers/addQueryParams'
 import { logToSentry } from '@helpers/logger'
 import ErrorMessage from './components/ErrorMessage'
 import Loader from '@shared/components/Loader'
@@ -29,6 +31,7 @@ export default function ClassifierWrapper({
   workflowID,
   yourStats
 }) {
+  const router = useRouter()
   function onCompleteClassification(classification, subject) {
     yourStats.increment()
     recents.add({
@@ -41,6 +44,17 @@ export default function ClassifierWrapper({
   function onError(error, errorInfo={}) {
     logToSentry(error, errorInfo)
     console.error('Classifier error', error)
+  }
+
+  function onSubjectChange(subject) {
+    const { query } = router
+    const baseURL = `/${query.owner}/${query.project}/classify`
+    if (query.subjectID && subject.id !== query.subjectID) {
+      const newSubjectRoute = `${baseURL}/workflow/${workflowID}/subject-set/${subjectSetID}/subject/${subject.id}`
+      const href = addQueryParams(newSubjectRoute, router)
+      const as = href
+      router.replace(href, as, { shallow: true })
+    }
   }
 
   function onToggleFavourite(subjectId, isFavourite) {
@@ -74,6 +88,7 @@ export default function ClassifierWrapper({
           onAddToCollection={onAddToCollection}
           onCompleteClassification={onCompleteClassification}
           onError={onError}
+          onSubjectChange={onSubjectChange}
           onSubjectReset={onSubjectReset}
           onToggleFavourite={onToggleFavourite}
           project={project}

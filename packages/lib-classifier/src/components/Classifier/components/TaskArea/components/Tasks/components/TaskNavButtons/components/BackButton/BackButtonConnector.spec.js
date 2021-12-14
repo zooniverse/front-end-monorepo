@@ -12,8 +12,7 @@ describe('Components > BackButtonConnector', function () {
 
   before(function () {
     classifierStore = mockStore()
-    const store = { classifierStore }
-    wrapper = shallow(<BackButtonConnector store={store} />)
+    wrapper = shallow(<BackButtonConnector store={classifierStore} />)
   })
 
   it('should not appear on the first step', function () {
@@ -32,8 +31,7 @@ describe('Components > BackButtonConnector', function () {
       singleChoiceAnnotation.update(0)
       // push the first task to the history stack
       subject.stepHistory.next()
-      const store = { classifierStore }
-      wrapper = shallow(<BackButtonConnector store={store} />)
+      wrapper = shallow(<BackButtonConnector store={classifierStore} />)
     })
 
     it('should be visible', function () {

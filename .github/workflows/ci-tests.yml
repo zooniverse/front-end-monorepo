@@ -1,52 +1,137 @@
-name: CI Tests
+name: Build and test
 
 on:
-  pull_request:
-  push:
-    branches:
-      - master
+  pull_request
 
 jobs:
   build:
-   runs-on: ubuntu-latest
-   env:
-     APP_ENV: production
-     NODE_ENV: production
-     PANOPTES_ENV: production
-     CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
-     CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
-     CONTENT_ASSET_PREFIX: 'https://fe-content-pages.zooniverse.org'
-     PROJECT_ASSET_PREFIX: 'https://fe-project.zooniverse.org'
-
-   steps:
+    runs-on: ubuntu-latest
+    steps:
     # See: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow#using-the-checkout-action
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Use Node.js 14
-      uses: actions/setup-node@v1
-      with:
-        node-version: '14.x'
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
 
-    - name: Get yarn cache directory path
-      id: yarn-cache-dir-path
-      run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
 
-    - name: Cache dependencies
-      uses: actions/cache@v2
-      with:
-        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-yarn-
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
-    - run: yarn install --production=false --frozen-lockfile
-    - run: yarn workspace @zooniverse/react-components build
-    - run: yarn workspace @zooniverse/classifier build
-    - run: yarn workspace @zooniverse/fe-project build
-    - run: yarn workspace @zooniverse/fe-content-pages build
-    - run: PANOPTES_ENV=test yarn test:ci
-    - run: yarn coverage-lcov
-    - name: Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: yarn install --production=false --frozen-lockfile
+      - run: yarn workspace @zooniverse/react-components build
+      - run: yarn workspace @zooniverse/classifier build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: packages/*/dist/main.js
+
+  run_tests:
+    name: Run tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - run: yarn install --production=false --frozen-lockfile
+      - uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: packages/
+      - run: PANOPTES_ENV=test yarn test:ci
+      - run: yarn coverage-lcov
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+    
+  build_apps:
+    name: Build NextJS apps
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      APP_ENV: production
+      NODE_ENV: production
+      PANOPTES_ENV: production
+      CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+      CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+      CONTENT_ASSET_PREFIX: 'https://fe-content-pages.zooniverse.org'
+      PROJECT_ASSET_PREFIX: 'https://fe-project.zooniverse.org'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+         node-version: '14.x'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - run: yarn install --production=false --frozen-lockfile
+      - uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: packages/
+      - run: yarn workspace @zooniverse/fe-project build
+      - run: yarn workspace @zooniverse/fe-content-pages build
+
+  build_storybooks:
+    name: Build storybooks
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+         node-version: '14.x'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - run: yarn install --production=false --frozen-lockfile
+      - uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: packages/
+      - run: yarn deploy-storybook --dry-run

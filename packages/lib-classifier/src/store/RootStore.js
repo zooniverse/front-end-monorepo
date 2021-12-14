@@ -1,9 +1,10 @@
-import { autorun, configure } from 'mobx'
+import { configure } from 'mobx'
+import { getSnapshot } from 'mobx-state-tree'
 import {
-  addDisposer,
   addMiddleware,
   getEnv,
   onAction,
+  onPatch,
   tryReference,
   types,
   setLivelynessChecking
@@ -43,12 +44,38 @@ const RootStore = types
   .volatile(self => {
     return {
       onAddToCollection: () => true,
+      onSubjectChange: () => true,
       onToggleFavourite: () => true
     }
   })
 
   .actions(self => {
     // Private methods
+
+    function _addMiddleware(call, next, abort) {
+      if (call.name === 'setActiveSubject') {
+        const res = next(call)
+        onSubjectAdvance()
+        return res
+      }
+      return next(call)
+    }
+
+    function _onAction(call) {
+      if (call.name === 'completeClassification') {
+        const annotations = self.classifications.currentAnnotations
+        annotations.forEach(annotation => self.feedback.update(annotation))
+      }
+    }
+
+    function _onPatch(patch) {
+      // TODO: why are we doing this rather than observe classifications.loadingState for changes?
+      const { path, value } = patch
+      if (path === '/classifications/loadingState' && value === 'posting') {
+        self.subjects.advance()
+      }
+    }
+
     function onSubjectAdvance () {
       const { classifications, feedback, projects, subjects, workflows, workflowSteps } = self
       const subject = tryReference(() => subjects?.active)
@@ -59,43 +86,23 @@ const RootStore = types
         classifications.reset()
         classifications.createClassification(subject, workflow, project)
         feedback.onNewSubject()
+        self.onSubjectChange(getSnapshot(subject))
       }
     }
 
     // Public actions
     function afterCreate () {
-      createClassificationObserver()
-      createSubjectObserver()
-    }
-
-    function createClassificationObserver () {
-      const classificationDisposer = autorun(() => {
-        onAction(self, (call) => {
-          if (call.name === 'completeClassification') {
-            const annotations = self.classifications.currentAnnotations
-            annotations.forEach(annotation => self.feedback.update(annotation))
-          }
-        })
-      }, { name: 'Root Store Classification Observer autorun' })
-      addDisposer(self, classificationDisposer)
-    }
-
-    function createSubjectObserver () {
-      const subjectDisposer = autorun(() => {
-        addMiddleware(self, (call, next, abort) => {
-          if (call.name === 'setActiveSubject') {
-            const res = next(call)
-            onSubjectAdvance()
-            return res
-          }
-          return next(call)
-        })
-      }, { name: 'Root Store Subject Observer autorun' })
-      addDisposer(self, subjectDisposer)
+      addMiddleware(self, _addMiddleware)
+      onAction(self, _onAction)
+      onPatch(self, _onPatch)
     }
 
     function setOnAddToCollection (callback) {
       self.onAddToCollection = callback
+    }
+
+    function setOnSubjectChange (callback) {
+      self.onSubjectChange = callback
     }
 
     function setOnToggleFavourite (callback) {
@@ -105,6 +112,7 @@ const RootStore = types
     return {
       afterCreate,
       setOnAddToCollection,
+      setOnSubjectChange,
       setOnToggleFavourite
     }
   })
