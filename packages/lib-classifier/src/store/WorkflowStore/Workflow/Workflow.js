@@ -1,6 +1,6 @@
 import { flow, getRoot, tryReference, types } from 'mobx-state-tree'
-import Resource from '../Resource'
-import SubjectSet from '../SubjectSet'
+import Resource from '@store/Resource'
+import SubjectSet from '@store/SubjectSet'
 import WorkflowConfiguration from './WorkflowConfiguration'
 
 import { convertWorkflowToUseSteps } from '@store/helpers'
