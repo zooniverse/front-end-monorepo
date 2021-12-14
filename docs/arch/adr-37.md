@@ -25,6 +25,11 @@ The subjects table in Panoptes is too large to allow for fast querying, so we al
 
 - All subjects linked to an indexed set are expected to have the same metadata fields. This isn't enforced in the code but mixing subjects with different sets of indexed fields isn't possible.
 
+- Components are limited to showing one page of results from the API at the moment. Page sizes are:
+  - Workflows (20.)
+  - Subject sets (50.)
+  - Subjects (100.)
+
 ## Status
 
 Accepted
