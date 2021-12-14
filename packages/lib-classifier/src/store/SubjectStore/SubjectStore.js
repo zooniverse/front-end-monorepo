@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
-import { addDisposer, addMiddleware, flow, getRoot, isValidReference, onPatch, tryReference, types } from 'mobx-state-tree'
+import { addDisposer, addMiddleware, flow, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
 import { getBearerToken } from '@store/utils'
 import { getIndexedSubjects, subjectSelectionStrategy } from './helpers'
 import { filterByLabel, filters } from '../../components/Classifier/components/MetaTools/components/Metadata/components/MetadataModal'
@@ -90,47 +90,15 @@ const SubjectStore = types
   })
 
   .actions(self => {
-    function afterAttach () {
-      createWorkflowObserver()
-      createClassificationChangeObserver()
-      createClassificationPostObserver()
-      createSubjectMiddleware()
+    function _addMiddleware(call, next, abort) {
+      if (call.name === 'advance') {
+        _onSubjectAdvance(call, next, abort)
+      } else {
+        next(call)
+      }
     }
 
-    function createWorkflowObserver () {
-      const workflowDisposer = autorun(() => {
-        const workflow = tryReference(() => getRoot(self).workflows.active)
-        const subjectSet = tryReference(() => workflow?.subjectSet)
-        if (workflow || subjectSet) {
-          self.reset()
-          self.populateQueue(workflow.selectedSubjects)
-        }
-      }, { name: 'SubjectStore Workflow Observer autorun' })
-      addDisposer(self, workflowDisposer)
-    }
-
-    function createClassificationPostObserver () {
-      const classificationDisposer = autorun(() => {
-
-        onPatch(getRoot(self), (patch) => {
-          const { path, value } = patch
-          if (path === '/classifications/loadingState' && value === 'posting') {
-            self.available.clear()
-            self.advance()
-          }
-        })
-      }, { name: 'SubjectStore Classification Post Observer autorun' })
-      addDisposer(self, classificationDisposer)
-    }
-
-    function createClassificationChangeObserver () {
-      const classificationDisposer = autorun(() => {
-        onClassificationChange()
-      }, { name: 'SubjectStore Classification Change Observer autorun' })
-      addDisposer(self, classificationDisposer)
-    }
-
-    function onClassificationChange() {
+    function _onClassificationChange() {
       const subject = tryReference(() => self.active)
 
       // start a new history for each new subject and classification.
@@ -139,13 +107,12 @@ const SubjectStore = types
       }
     }
 
-    function onSubjectAdvance (call, next, abort) {
+    function _onSubjectAdvance(call, next, abort) {
       const root = getRoot(self)
       const validSubjectReference = isValidReference(() => self.active)
       if (validSubjectReference) {
         const subject = self.active
-        const shouldShowFeedback = root.feedback.isActive && root.feedback.messages.length && !root.feedback.showModal
-        if (!shouldShowFeedback && subject && subject.shouldDiscuss) {
+        if (!root.feedback.shouldShowFeedback && subject && subject.shouldDiscuss) {
           const { url, newTab } = subject.shouldDiscuss
           openTalkPage(url, newTab)
         }
@@ -153,17 +120,35 @@ const SubjectStore = types
       next(call)
     }
 
-    function createSubjectMiddleware () {
-      const subjectMiddleware = autorun(() => {
-        addMiddleware(self, (call, next, abort) => {
-          if (call.name === 'advance') {
-            onSubjectAdvance(call, next, abort)
-          } else {
-            next(call)
-          }
-        })
-      }, { name: 'SubjectStore Middleware autorun' })
-      addDisposer(self, subjectMiddleware)
+    function _onWorkflowChange() {
+      const workflow = tryReference(() => getRoot(self).workflows.active)
+      const subjectSet = tryReference(() => workflow?.subjectSet)
+      if (workflow || subjectSet) {
+        self.reset()
+        self.populateQueue(workflow.selectedSubjects)
+      }
+    }
+
+    function afterAttach () {
+      createWorkflowObserver()
+      createClassificationChangeObserver()
+      addMiddleware(self, _addMiddleware)
+    }
+
+    function createWorkflowObserver () {
+      const workflowDisposer = autorun(
+        _onWorkflowChange,
+        { name: 'SubjectStore Workflow Observer autorun' }
+      )
+      addDisposer(self, workflowDisposer)
+    }
+
+    function createClassificationChangeObserver () {
+      const classificationDisposer = autorun(
+        _onClassificationChange,
+        { name: 'SubjectStore Classification Change Observer autorun' }
+      )
+      addDisposer(self, classificationDisposer)
     }
 
     async function _fetchPreviousSubjects(workflow, priority) {
@@ -203,8 +188,10 @@ const SubjectStore = types
 
     function advance() {
       const workflow = tryReference(() => getRoot(self).workflows.active)
+      const activeSubject = tryReference(() => self.active)
 
       if (workflow?.hasIndexedSubjects) {
+        activeSubject?.markAsSeen()
         self.nextIndexed()
       } else {
         self.shift()

@@ -9,8 +9,8 @@ export default function withStores(
   storeMapper = store => store
 ) {
 
-  function ComponentConnector(props) {
-    const storeProps = useStores(storeMapper)
+  function ComponentConnector({ store, ...props }) {
+    const storeProps = store ? storeMapper(store) : useStores(storeMapper)
     return <Component {...storeProps} {...props} />
   }
 

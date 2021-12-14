@@ -2,8 +2,7 @@ import { autorun, toJS } from 'mobx'
 import {
   addDisposer, 
   getRoot, 
-  isValidReference, 
-  onAction,
+  isValidReference,
   tryReference, 
   types 
 } from 'mobx-state-tree'
