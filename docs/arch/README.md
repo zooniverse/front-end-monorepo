@@ -36,3 +36,4 @@
 - [ADR 34: Workflow selection](adr-34.md)
 - [ADR 35: Adding undo/redo to workflow steps](adr-35.md)
 - [ADR 36: NextJS App base paths](adr-36.md)
+- [ADR 39: Text subject viewer](adr-39.md)
