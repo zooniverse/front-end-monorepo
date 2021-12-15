@@ -85,7 +85,6 @@ describe('Component > ClassifyPageContainer', function () {
       routerStub = sinon.stub(Router, 'useRouter').callsFake((component) => {
         return {
           asPath: '',
-          locale: 'en',
           query: {
             owner: 'zootester1',
             project: 'my-project'
@@ -186,7 +185,6 @@ describe('Component > ClassifyPageContainer', function () {
       routerStub = sinon.stub(Router, 'useRouter').callsFake((component) => {
         return {
           asPath: '',
-          locale: 'en',
           query: {
             owner: 'zootester1',
             project: 'my-project'
@@ -348,7 +346,6 @@ describe('Component > ClassifyPageContainer', function () {
       const routerStub = sinon.stub(Router, 'useRouter').callsFake((component) => {
         return {
           asPath: '',
-          locale: 'en',
           query: {
             owner: 'zootester1',
             project: 'my-project'

@@ -28,7 +28,6 @@ function Introduction (props) {
     ...linkProps,
     text: linkText
   }
-
   return (
     <Box>
       <Box margin={{ bottom: 'xsmall' }}>
