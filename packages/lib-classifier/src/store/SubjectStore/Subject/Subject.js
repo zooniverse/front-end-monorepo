@@ -55,6 +55,9 @@ const Subject = types
           if (counts.videos) {
             viewer = subjectViewers.singleVideo
           }
+          if (counts.text) {
+            viewer = subjectViewers.singleText
+          }
         }
 
         if (!viewer && counts.total > 1 && counts.total < 11) {
