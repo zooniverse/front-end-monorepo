@@ -4,6 +4,7 @@ import Subject from './Subject'
 import ProjectStore from '@store/ProjectStore'
 import WorkflowStore from '@store/WorkflowStore'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
+import mockStore from '@test/mockStore'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 import RootStore from '@store/'
 import subjectViewers from '@helpers/subjectViewers'
@@ -17,8 +18,6 @@ describe('Model > Subject', function () {
 
   before(function () {
     subject = Subject.create(stub)
-    subject.onToggleFavourite = sinon.stub()
-    subject.onAddToCollection = sinon.stub()
   })
 
   it('should exist', function () {
@@ -105,10 +104,11 @@ describe('Model > Subject', function () {
   })
 
   describe('Views > talkURL', function () {
+    let subject
+
     before(function () {
-      subject.projects = ProjectStore.create({})
-      subject.projects.setResources([project])
-      subject.projects.setActive(project.id)
+      const store = mockStore({ project, subject: stub })
+      subject = store.subjects.active
     })
 
     it('should have a Talk URL', function () {
@@ -118,9 +118,8 @@ describe('Model > Subject', function () {
 
   describe('Views > viewer', function () {
     it('should return null as default', function () {
-      subject.workflows = WorkflowStore.create({})
-      subject.workflows.setResources([workflow])
-      subject.workflows.setActive(workflow.id)
+      const store = mockStore({ project, workflow, subject: stub })
+      const subject = store.subjects.active
       expect(subject.viewer).to.be.null()
     })
 
@@ -128,11 +127,9 @@ describe('Model > Subject', function () {
       describe('single image', function () {
         it('should return the single image viewer for subjects with a single image location', function () {
           const singleImageSubject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
-          const subjectStore = Subject.create(singleImageSubject)
-          subjectStore.workflows = WorkflowStore.create({})
-          subjectStore.workflows.setResources([workflow])
-          subjectStore.workflows.setActive(workflow.id)
-          expect(subjectStore.viewer).to.equal(subjectViewers.singleImage)
+          const store = mockStore({ project, workflow, subject: singleImageSubject })
+          const subject = store.subjects.active
+          expect(subject.viewer).to.equal(subjectViewers.singleImage)
         })
       })
 
@@ -144,11 +141,9 @@ describe('Model > Subject', function () {
               { 'image/png': 'https://foo.bar/example.png' }
             ]
           })
-          const subjectStore = Subject.create(multiFrameSubject)
-          subjectStore.workflows = WorkflowStore.create({})
-          subjectStore.workflows.setResources([workflow])
-          subjectStore.workflows.setActive(workflow.id)
-          expect(subjectStore.viewer).to.equal(subjectViewers.multiFrame)
+          const store = mockStore({ project, workflow, subject: multiFrameSubject })
+          const subject = store.subjects.active
+          expect(subject.viewer).to.equal(subjectViewers.multiFrame)
         })
 
 
@@ -168,53 +163,59 @@ describe('Model > Subject', function () {
               { 'image/png': 'https://foo.bar/example.png' }
             ]
           })
-          const subjectStore = Subject.create(multiFrameSubject)
-          subjectStore.workflows = WorkflowStore.create({})
-          subjectStore.workflows.setResources([workflow])
-          subjectStore.workflows.setActive(workflow.id)
-          expect(subjectStore.viewer).to.be.null()
+          const store = mockStore({ project, workflow, subject: multiFrameSubject })
+          const subject = store.subjects.active
+          expect(subject.viewer).to.be.null()
         })
 
         it('should return a null viewer when workflow.configuration["multi_image_mode"] === "separate"', function () {
           const multiFrameSubject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }, { 'image/png': 'https://foo.bar/example.png' }] })
-          const subjectStore = Subject.create(multiFrameSubject)
           const workflowWithConfigSeparateMultiImage = WorkflowFactory.build({ configuration: { multi_image_mode: 'separate' } })
-          subjectStore.workflows = WorkflowStore.create({})
-          subjectStore.workflows.setResources([workflowWithConfigSeparateMultiImage])
-          subjectStore.workflows.setActive(workflowWithConfigSeparateMultiImage.id)
-          expect(subjectStore.viewer).to.be.null()
+          const store = mockStore({
+            project,
+            workflow: workflowWithConfigSeparateMultiImage,
+            subject: multiFrameSubject
+          })
+          const subject = store.subjects.active
+          expect(subject.viewer).to.be.null()
         })
 
         it('should return a null viewer when workflow.configuration["enable_switching_flipbook_and_separate"] === "true"', function () {
           const multiFrameSubject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }, { 'image/png': 'https://foo.bar/example.png' }] })
-          const subjectStore = Subject.create(multiFrameSubject)
           const workflowWithConfigEnableSwitching = WorkflowFactory.build({ configuration: { enable_switching_flipbook_and_separate: true } })
-          subjectStore.workflows = WorkflowStore.create({})
-          subjectStore.workflows.setResources([workflowWithConfigEnableSwitching])
-          subjectStore.workflows.setActive(workflowWithConfigEnableSwitching.id)
-          expect(subjectStore.viewer).to.be.null()
+          const store = mockStore({
+            project,
+            workflow: workflowWithConfigEnableSwitching,
+            subject: multiFrameSubject
+          })
+          const subject = store.subjects.active
+          expect(subject.viewer).to.be.null()
         })
 
         it('should return the multi-frame viewer if the workflow configuration for subject_viewer is defined as multiFrame', function () {
           const dataSubject = SubjectFactory.build({ location: [{ 'application/json': 'https://foo.bar/data.json' }] })
-          const subjectResourceStore = Subject.create(dataSubject)
           const workflowWithMultiFrameConfig = WorkflowFactory.build({ configuration: { subject_viewer: 'multiFrame' } })
-          subjectResourceStore.workflows = WorkflowStore.create({})
-          subjectResourceStore.workflows.setResources([workflowWithMultiFrameConfig])
-          subjectResourceStore.workflows.setActive(workflowWithMultiFrameConfig.id)
-          expect(subjectResourceStore.viewer).to.equal(subjectViewers.multiFrame)
+          const store = mockStore({
+            project,
+            workflow: workflowWithMultiFrameConfig,
+            subject: dataSubject
+          })
+          const subject = store.subjects.active
+          expect(subject.viewer).to.equal(subjectViewers.multiFrame)
         })
       })
 
       describe('light curve viewer', function () {
         it('should return the light curve viewer if the workflow configuration is defined', function () {
           const dataSubject = SubjectFactory.build({ location: [{ 'application/json': 'https://foo.bar/data.json' }] })
-          const subjectResourceStore = Subject.create(dataSubject)
           const workflowWithConfig = WorkflowFactory.build({ configuration: { subject_viewer: 'lightcurve' } })
-          subjectResourceStore.workflows = WorkflowStore.create({})
-          subjectResourceStore.workflows.setResources([workflowWithConfig])
-          subjectResourceStore.workflows.setActive(workflowWithConfig.id)
-          expect(subjectResourceStore.viewer).to.equal(subjectViewers.lightCurve)
+          const store = mockStore({
+            project,
+            workflow: workflowWithConfig,
+            subject: dataSubject
+          })
+          const subject = store.subjects.active
+          expect(subject.viewer).to.equal(subjectViewers.lightCurve)
         })
       })
     })
@@ -275,9 +276,12 @@ describe('Model > Subject', function () {
             }
           }
         })
-        subject.workflows = WorkflowStore.create()
-        subject.workflows.setResources([workflowWithViewerConfiguration])
-        subject.workflows.setActive(workflowWithViewerConfiguration.id)
+        const store = mockStore({
+          project,
+          workflow: workflowWithViewerConfiguration,
+          subject: stub
+        })
+        const subject = store.subjects.active
         expect(subject.viewerConfiguration).to.deep.equal(workflowWithViewerConfiguration.configuration.subject_viewer_configuration)
       })
     })
@@ -285,9 +289,12 @@ describe('Model > Subject', function () {
     describe('when there is a workflow and it does not have viewer configuration', function () {
       it('should return undefined', function () {
         const workflowWithoutViewerConfiguration = WorkflowFactory.build()
-        subject.workflows = WorkflowStore.create()
-        subject.workflows.setResources([workflowWithoutViewerConfiguration])
-        subject.workflows.setActive(workflowWithoutViewerConfiguration.id)
+        const store = mockStore({
+          project,
+          workflow: workflowWithoutViewerConfiguration,
+          subject: stub
+        })
+        const subject = store.subjects.active
         expect(subject.viewerConfiguration).to.be.undefined()
       })
     })
@@ -303,10 +310,12 @@ describe('Model > Subject', function () {
     it('should fallback to check session storage when false on the resource', function () {
       const workflow = WorkflowFactory.build()
       const snapshot = SubjectFactory.build({ already_seen: false })
-      const subject = Subject.create(snapshot)
-      subject.workflows = WorkflowStore.create()
-      subject.workflows.setResources([workflow])
-      subject.workflows.setActive(workflow.id)
+      const store = mockStore({
+        project,
+        workflow,
+        subject: snapshot
+      })
+      const subject = store.subjects.active
       expect(subject.alreadySeen).to.be.false()
       subjectsSeenThisSession.add(workflow.id, [subject.id])
       expect(subject.alreadySeen).to.be.true()
@@ -315,7 +324,16 @@ describe('Model > Subject', function () {
   })
 
   describe('Actions > toggleFavorite', function () {
+    let store
+    let subject
+
     before(function () {
+      store = mockStore({
+        project,
+        subject: stub
+      })
+      store.setOnToggleFavourite(sinon.stub())
+      subject = store.subjects.active
       subject.toggleFavorite()
     })
 
@@ -324,17 +342,25 @@ describe('Model > Subject', function () {
     })
 
     it('should call the onToggleFavourite callback', function () {
-      expect(subject.onToggleFavourite.withArgs(subject.id, subject.favorite)).to.have.been.calledOnce()
+      expect(store.onToggleFavourite.withArgs(subject.id, subject.favorite)).to.have.been.calledOnce()
     })
   })
 
   describe('Actions > addToCollection', function () {
+    let store
+
     before(function () {
+      store = mockStore({
+        project,
+        subject: stub
+      })
+      store.setOnAddToCollection(sinon.stub())
+      const subject = store.subjects.active
       subject.addToCollection()
     })
 
     it('should call the onAddToCollection callback', function () {
-      expect(subject.onAddToCollection.withArgs(subject.id)).to.have.been.calledOnce()
+      expect(store.onAddToCollection.withArgs(subject.id)).to.have.been.calledOnce()
     })
   })
 
@@ -346,12 +372,9 @@ describe('Model > Subject', function () {
     })
 
     function testOpenInTalk (newTab) {
-      const subject = Subject.create(stub)
-      subject.projects = ProjectStore.create({})
-      subject.projects.setResources([project])
-      subject.projects.setActive(project.id)
-      subject.openInTalk(newTab)
-      expect(subject.shouldDiscuss).to.eql({ newTab, url })
+      const store = mockStore({ project, subject: stub })
+      store.subjects.active.openInTalk(newTab)
+      expect(store.subjects.active.shouldDiscuss).to.eql({ newTab, url })
     }
 
     describe('in the same tab', function () {
