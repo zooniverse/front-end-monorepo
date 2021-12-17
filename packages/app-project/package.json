@@ -20,8 +20,8 @@
   "dependencies": {
     "@artsy/fresnel": "~1.7.0",
     "@babel/plugin-proposal-decorators": "~7.13.5",
-    "@sentry/browser": "~6.8.0",
-    "@sentry/node": "~6.8.0",
+    "@sentry/browser": "~6.16.1",
+    "@sentry/node": "~6.16.1",
     "@sindresorhus/string-hash": "~1.2.0",
     "@visx/axis": "~1.8.0",
     "@visx/group": "~1.7.0",
