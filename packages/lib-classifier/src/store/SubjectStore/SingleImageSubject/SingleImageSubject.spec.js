@@ -13,8 +13,6 @@ describe('Model > SingleImageSubject', function () {
 
   before(function () {
     subject = SingleImageSubject.create(subjectSnapshot)
-    subject.onToggleFavourite = sinon.stub()
-    subject.onAddToCollection = sinon.stub()
   })
 
   it('should exist', function () {
