@@ -49,7 +49,6 @@ describe('Component > InteractionLayer', function () {
       const annotation = mockDrawingTask.createAnnotation()
       const setActiveMarkStub = sinon.stub().callsFake(() => mockMark)
       activeTool = mockDrawingTask.activeTool
-      sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
       wrapper = shallow(
         <InteractionLayer
           activeMark={mockMark}
@@ -67,7 +66,6 @@ describe('Component > InteractionLayer', function () {
       mockMark.initialDrag.resetHistory()
       mockMark.initialPosition.resetHistory()
       mockMark.setCoordinates.resetHistory()
-      activeTool.createMark.restore()
     })
 
     it('should render without crashing', function () {
@@ -100,7 +98,7 @@ describe('Component > InteractionLayer', function () {
             }
           }
           wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
-          expect(activeTool.createMark).to.have.been.calledOnce()
+          expect(activeTool.marks.size).to.equal(1)
         })
 
         it('should create a mark with current frame', function () {
@@ -113,12 +111,14 @@ describe('Component > InteractionLayer', function () {
             }
           }
           wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
-          const createMarkArgs = activeTool.createMark.args[0][0]
-          expect(createMarkArgs.frame).to.equal(2)
+          const mark = activeTool.marks.values().next().value
+          expect(mark.frame).to.equal(2)
         })
 
         it('should place a new mark', function () {
           const fakeEvent = {
+            clientX: 10,
+            clientY: 20,
             pointerId: 'fakePointer',
             type: 'pointerdown',
             target: {
@@ -127,7 +127,9 @@ describe('Component > InteractionLayer', function () {
             }
           }
           wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
-          expect(mockMark.initialPosition).to.have.been.calledOnce()
+          const mark = activeTool.marks.values().next().value
+          expect(mark.x).to.equal(10)
+          expect(mark.y).to.equal(20)
         })
 
         it('should drag the new mark on pointer down + move', function () {
@@ -161,7 +163,7 @@ describe('Component > InteractionLayer', function () {
         })
 
         describe('with a TranscriptionLine mark already in progress', function () {
-          it('should call the handlePointerDown function once', function () {
+          it('should finish the line', function () {
             const mockDrawingTask = DrawingTask.TaskModel.create({
               activeToolIndex: 0,
               instruction: 'draw a mark',
@@ -178,10 +180,6 @@ describe('Component > InteractionLayer', function () {
             })
             activeTool = mockDrawingTask.activeTool
             const annotation = mockDrawingTask.createAnnotation()
-            sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
-            sinon
-              .stub(activeTool, 'handlePointerDown')
-              .callsFake(() => mockMark)
 
             wrapper = shallow(
               <InteractionLayer
@@ -196,6 +194,7 @@ describe('Component > InteractionLayer', function () {
 
             const fakeEvent = {
               pointerId: 'fakePointer',
+              stopPropagation: sinon.stub(),
               type: 'pointer',
               target: {
                 setPointerCapture: sinon.stub(),
@@ -203,8 +202,11 @@ describe('Component > InteractionLayer', function () {
               }
             }
             wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
+            const mark = activeTool.marks.values().next().value
+            expect(mark.finished).to.be.false()
+            wrapper.setProps({ activeMark: mark })
             wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
-            expect(activeTool.handlePointerDown).to.have.been.calledOnce()
+            expect(mark.finished).to.be.true()
           })
         })
       })
@@ -213,6 +215,7 @@ describe('Component > InteractionLayer', function () {
     describe('onPointerUp', function () {
       describe('when the mark is valid', function () {
         it('should set the mark to finished', function () {
+          mockMark.finish.resetHistory()
           const fakeEvent = {
             pointerId: 'fakePointer',
             type: 'pointer',
@@ -256,11 +259,6 @@ describe('Component > InteractionLayer', function () {
           activeTool = mockDrawingTask.activeTool
           const annotation = mockDrawingTask.createAnnotation()
           const setActiveMarkStub = sinon.stub()
-          sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
-          sinon.stub(activeTool, 'deleteMark').callsFake(() => {})
-          sinon
-            .stub(activeTool, 'handlePointerDown')
-            .callsFake(() => mockMark)
 
           wrapper = shallow(
             <InteractionLayer
@@ -286,7 +284,6 @@ describe('Component > InteractionLayer', function () {
           wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
           setActiveMarkStub.resetHistory()
           wrapper.find(DrawingCanvas).simulate('pointerup', fakeEvent)
-          expect(activeTool.deleteMark).to.have.been.calledOnce()
           expect(setActiveMarkStub).to.have.been.calledOnceWith(undefined)
           expect(fakeEvent.stopPropagation).to.have.been.calledOnce()
         })
@@ -316,8 +313,6 @@ describe('Component > InteractionLayer', function () {
         type: 'drawing'
       })
       activeTool = mockDrawingTask.activeTool
-      sinon.stub(activeTool, 'createMark').callsFake(() => mockMark)
-      activeTool.createMark.resetHistory()
       wrapper = shallow(
         <InteractionLayer
           activeTool={activeTool}
@@ -332,7 +327,6 @@ describe('Component > InteractionLayer', function () {
       mockMark.initialDrag.resetHistory()
       mockMark.initialPosition.resetHistory()
       mockMark.setCoordinates.resetHistory()
-      activeTool.createMark.restore()
     })
 
     it('should not create a mark on pointer down', function () {
@@ -345,7 +339,7 @@ describe('Component > InteractionLayer', function () {
         }
       }
       wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
-      expect(activeTool.createMark).to.have.not.been.called()
+      expect(activeTool.marks).to.be.empty()
     })
   })
 })
