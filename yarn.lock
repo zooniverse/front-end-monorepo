@@ -13052,10 +13052,10 @@ ms@2.1.3, ms@^2.0.0, ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
-mst-middlewares@~3.17.0:
-  version "3.17.3"
-  resolved "https://registry.yarnpkg.com/mst-middlewares/-/mst-middlewares-3.17.3.tgz#e974b397514ae0062ffb653fc172bc651c28a6ee"
-  integrity sha512-FRQKlo9/c8iyMQMVcK0iZy6mrVMDvM2C+ToBLnJoIk80H901dV/h0mvA6b2QO+op8j7CTK1snsTMXCY8b019yQ==
+mst-middlewares@~5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/mst-middlewares/-/mst-middlewares-5.1.0.tgz#9eeed50940fddb69da72587c1101456ce611123e"
+  integrity sha512-rQjRgvaUH2lGQSf+QNLWBKDtJjxsyxz+ve8hZkKap0sAYQ2JLez4UqZrmsfIiR3PTH8zm0OU6ZPG/xmbyR5S9A==
 
 multicast-dns-service-types@^1.1.0:
   version "1.1.0"
