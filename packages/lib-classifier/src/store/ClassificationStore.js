@@ -3,7 +3,7 @@ import counterpart from 'counterpart'
 import cuid from 'cuid'
 import _ from 'lodash'
 import { toJS } from 'mobx'
-import { flow, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
+import { flow, getRoot, getSnapshot, isValidReference, tryReference, types } from 'mobx-state-tree'
 
 import Classification, { ClassificationMetadata } from './Classification'
 import ResourceStore from './ResourceStore'
@@ -106,7 +106,7 @@ const ClassificationStore = types
       const subject = tryReference(() => getRoot(self).subjects.active)
 
       if (classification && subject) {
-        const subjectDimensions = toJS(getRoot(self).subjectViewer.dimensions)
+        const subjectDimensions = getSnapshot(getRoot(self).subjectViewer).dimensions
 
         const metadata = {
           finishedAt: (new Date()).toISOString(),
@@ -120,7 +120,7 @@ const ClassificationStore = types
 
         const feedback = getRoot(self).feedback
         if (feedback.isValid) {
-          metadata.feedback = toJS(feedback.rules)
+          metadata.feedback = getSnapshot(feedback.rules)
         }
 
         // TODO store intervention metadata if we have a user...
@@ -138,6 +138,7 @@ const ClassificationStore = types
         classificationToSubmit.metadata = convertedMetadata
 
         self.onComplete(classification.toJSON(), subject.toJSON())
+        self.trackAlreadySeenSubjects(classificationToSubmit.links.workflow, classificationToSubmit.links.subjects)
 
         if (process.browser) {
           console.log('Completed classification', classificationToSubmit)
@@ -147,7 +148,6 @@ const ClassificationStore = types
           // subject advance is observing for this to know when to advance the queue
           self.loadingState = asyncStates.posting
           if (process.browser) console.log('Demo mode enabled. No classification submitted.')
-          self.trackAlreadySeenSubjects(classificationToSubmit.links.workflow, classificationToSubmit.links.subjects)
           return Promise.resolve(true)
         }
 
@@ -161,8 +161,6 @@ const ClassificationStore = types
 
     function onClassificationSaved (savedClassification) {
       // handle any processing of classifications that have been saved to Panoptes.
-      const { workflow: workflowID, subjects: subjectIDs } = savedClassification.links
-      self.trackAlreadySeenSubjects(workflowID, subjectIDs)
     }
 
     function trackAlreadySeenSubjects (workflowID, subjectIDs) {
