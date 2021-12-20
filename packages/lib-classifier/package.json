@@ -30,8 +30,10 @@
     "cuid": "~2.1.6",
     "d3": "~5.9.7",
     "hash.js": "~1.1.7",
+    "i18next": "~21.6.3",
     "lodash": "~4.17.11",
     "mobx-utils": "~5.0.2",
+    "react-i18next": "~11.15.1",
     "react-player": "~2.7.0",
     "react-resize-detector": "~4.2.0",
     "valid-url": "~1.0.9"

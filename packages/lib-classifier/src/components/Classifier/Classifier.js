@@ -4,7 +4,8 @@ import { Provider } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { useEffect, useMemo } from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
-import counterpart from 'counterpart'
+import '../../translations/i18n'
+import i18n from 'i18next'
 import {
   env,
   panoptes as panoptesClient,
@@ -16,6 +17,7 @@ import { unregisterWorkers } from '../../workers'
 import RootStore from '../../store'
 import Layout from './components/Layout'
 import ModalTutorial from './components/ModalTutorial'
+
 // import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
 function caesarClient (env) {
   switch (env) {
@@ -114,7 +116,7 @@ export default function Classifier({
   useEffect(function onLocaleChange() {
     if (locale) {
       classifierStore.setLocale(locale)
-      counterpart.setLocale(locale)
+      i18n.changeLanguage(locale)
     }
   }, [locale])
 
