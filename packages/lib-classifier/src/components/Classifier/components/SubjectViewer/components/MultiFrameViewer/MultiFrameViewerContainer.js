@@ -1,19 +1,20 @@
 import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
-import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
+import withKeyZoom from '@components/Classifier/components/withKeyZoom'
+import { withStores } from '@helpers'
 import { draggable } from '@plugins/drawingTools/components'
 
 import FrameCarousel from './FrameCarousel'
 import locationValidator from '../../helpers/locationValidator'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
-import withKeyZoom from '../../../withKeyZoom'
 
-function storeMapper (stores) {
+
+function storeMapper(store) {
   const {
     enableRotation,
     frame,
@@ -22,7 +23,7 @@ function storeMapper (stores) {
     setFrame,
     setOnPan,
     setOnZoom
-  } = stores.classifierStore.subjectViewer
+  } = store.subjectViewer
 
   return {
     enableRotation,
@@ -229,10 +230,5 @@ MultiFrameViewerContainer.defaultProps = {
   setOnZoom: () => true
 }
 
-@inject(storeMapper)
-@withKeyZoom
-@observer
-class DecoratedMultiFrameViewerContainer extends MultiFrameViewerContainer { }
-
-export default DecoratedMultiFrameViewerContainer
+export default withStores(withKeyZoom(MultiFrameViewerContainer), storeMapper)
 export { DraggableImage, MultiFrameViewerContainer }
