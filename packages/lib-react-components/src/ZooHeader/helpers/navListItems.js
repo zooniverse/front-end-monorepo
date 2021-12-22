@@ -1,4 +1,5 @@
 import counterpart from 'counterpart'
+import i18n from '../../translations/i18n'
 import en from '../locales/en'
 import getHost from './getHost'
 
@@ -10,7 +11,7 @@ export const adminNavLinkLabel = 'Admin'
 
 export const adminNavLinkURL = `${host}/admin`
 
-export const  mainHeaderNavListURLs = [
+export const mainHeaderNavListURLs = [
   `${host}/projects`,
   `${host}/about`,
   `${host}/get-involved`,
@@ -19,7 +20,7 @@ export const  mainHeaderNavListURLs = [
 ]
 
 export const mainHeaderNavListLabels = [
-  counterpart('ZooHeader.mainHeaderNavListLabels.projects'),
+  i18n.t('ZooHeader.mainHeaderNavListLabels.projects'),
   counterpart('ZooHeader.mainHeaderNavListLabels.about'),
   counterpart('ZooHeader.mainHeaderNavListLabels.getInvolved'),
   counterpart('ZooHeader.mainHeaderNavListLabels.talk'),
