@@ -76,7 +76,6 @@
     "@zooniverse/react-components": "~1.1.0",
     "@zooniverse/standard": "~1.0.0",
     "babel-loader": "~8.2.2",
-    "babel-plugin-i18next-extract": "~0.8.3",
     "babel-plugin-webpack-alias": "~2.1.2",
     "chai": "~4.3.4",
     "chai-dom": "~1.11.0",
