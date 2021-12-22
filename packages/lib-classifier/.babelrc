@@ -1,6 +1,5 @@
 {
   "plugins": [
-    ["i18next-extract", { "locales": ["en"] }],
     ["@babel/plugin-transform-runtime", {
       "helpers": false
     }],
