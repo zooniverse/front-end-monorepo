@@ -1,8 +1,10 @@
 import { Box, Grid, Heading } from 'grommet'
 import { arrayOf, bool, object, shape, string } from 'prop-types'
 import styled, { withTheme } from 'styled-components'
-import counterpart from 'counterpart'
-import en from './locales/en'
+// import counterpart from 'counterpart'
+// import en from './locales/en'
+
+import { useTranslation } from 'next-i18next'
 
 /** Components */
 import StandardLayout from '@shared/components/StandardLayout'
@@ -17,7 +19,7 @@ import TeamMember from './components/TeamMember'
 import AboutMarkdownz from './components/AboutMarkdownz/AboutMarkdownz'
 import ThemeModeToggle from '@components/ThemeModeToggle'
 
-counterpart.registerTranslations('en', en)
+// counterpart.registerTranslations('en', en)
 
 const PageHeading = styled(Heading)`
   font-weight: normal;
@@ -36,10 +38,12 @@ function ProjectAboutPage ({
   teamArray,
   theme: { dark = false }
 }) {
+  const { t } = useTranslation('about') // 'about' is the name of the file containing relevant translations to this component
+
   const { content, title } = aboutPageData
 
   const isTeamPage = title.toLowerCase().includes('team')
-  const pageTitle = counterpart(`PageHeading.title.${title.toLowerCase()}`)
+  const pageTitle = t(`PageHeading.title.${title.toLowerCase()}`)
   // note that for future additional locales, CSS property :lang is available to format strings
 
   return (
