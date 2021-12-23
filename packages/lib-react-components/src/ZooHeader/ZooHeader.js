@@ -2,7 +2,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 // import counterpart from 'counterpart'
 import { Anchor, Box } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
@@ -18,6 +18,7 @@ import {
   mainHeaderNavListURLs
 } from './helpers'
 import '../translations/i18n'
+import i18n from 'i18next'
 
 // counterpart.registerTranslations('en', en)
 
@@ -41,7 +42,6 @@ export const StyledLogoAnchor = styled(Anchor)`
   }
 `
 
-
 export default function ZooHeader (props) {
   const {
     adminNavLinkLabel,
@@ -51,6 +51,7 @@ export default function ZooHeader (props) {
     // mainHeaderNavListLabels,
     mainHeaderNavListURLs,
     register,
+    router,
     signIn,
     signOut,
     unreadMessages,
@@ -67,6 +68,12 @@ export default function ZooHeader (props) {
     t('ZooHeader.mainHeaderNavListLabels.talk'),
     t('ZooHeader.mainHeaderNavListLabels.build')
   ]
+
+  useEffect(() => {
+    if (router.locale) {
+      i18n.changeLanguage(router.locale)
+    }
+  }, [router.locale])
 
   return (
     <StyledHeader
@@ -136,6 +143,9 @@ ZooHeader.defaultProps = {
   // mainHeaderNavListLabels,
   mainHeaderNavListURLs,
   register: () => {},
+  router: {
+    locale: 'en'
+  },
   unreadMessages: 0,
   unreadNotifications: 0
 }

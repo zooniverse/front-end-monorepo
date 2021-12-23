@@ -1,13 +1,13 @@
 {
   "translation": {
     "ZooHeader": {
-      "ariaLabel": "Site",
+      "ariaLabel": "S'impliquer",
       "mainHeaderNavListLabels": {
-        "projects": "Projects",
-        "about": "About",
-        "getInvolved": "Get Involved",
-        "talk": "Talk",
-        "build": "Build"
+        "projects": "Projets",
+        "about": "À propos",
+        "getInvolved": "S'impliquer",
+        "talk": "Discussions",
+        "build": "Construire"
       }
     }
   }
