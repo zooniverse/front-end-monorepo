@@ -4,9 +4,7 @@ import { Button, Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-
 import { useTranslation } from 'react-i18next'
-import { useStores } from '@helpers'
 
 // import en from './locales/en'
 
@@ -19,7 +17,6 @@ export const StyledPlainButton = styled(PlainButton)`
 function TaskHelp (props) {
   const [ showModal, setShowModal ] = useState(false)
 
-  const { locale } = useStores()
   const { t } = useTranslation()
   const label = t('TaskHelp.label')
 

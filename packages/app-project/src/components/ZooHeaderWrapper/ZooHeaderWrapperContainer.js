@@ -80,7 +80,6 @@ class ZooHeaderWrapperContainer extends Component {
   }
 
   render () {
-    console.log(this.props)
     return (
       <ZooHeader
         {...this.props}
