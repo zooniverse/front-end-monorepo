@@ -1,6 +1,6 @@
-import PublicationsAPI from '@api/publications'
-import { logNodeError } from '@helpers/logger'
-export { default } from '@screens/Publications'
+import PublicationsAPI from '../src/api/publications'
+import { logNodeError } from '../src/helpers/logger'
+export { default } from '../src/screens/Publications'
 
 export async function getStaticProps() {
   try {

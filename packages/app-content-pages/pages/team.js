@@ -1,6 +1,6 @@
-import TeamAPI from '@api/team'
-import { logNodeError } from '@helpers/logger'
-export { default } from '@screens/Team'
+import TeamAPI from '../src/api/team'
+import { logNodeError } from '../src/helpers/logger'
+export { default } from '../src/screens/Team'
 
 export async function getStaticProps() {
   try {

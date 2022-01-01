@@ -1,11 +1,11 @@
 import sinon from 'sinon'
-import getStaticProps from './team'
-import TeamAPI from '@api/team'
-import mockData from '@screens/TeamContainer.mock'
+import { getStaticProps } from '../pages/team'
+import TeamAPI from '../src/api/team'
+import mockData from '../src/screens/Team/TeamContainer.mock'
 
 const DATA = mockData
 
-describe('Component > TeamContainer > getStaticProps', function () {
+describe('pages > team > getStaticProps', function () {
 
   describe('populates the "teamData" props from contentful API', function () {
     let getTeamDataStub
@@ -15,7 +15,9 @@ describe('Component > TeamContainer > getStaticProps', function () {
     })
 
     it('should handle valid API data', async () => {
-      getTeamDataStub = sinon.stub(TeamAPI, 'createTeamResponse').returns(Promise.resolve(DATA))
+      getTeamDataStub = sinon.stub(TeamAPI, 'createTeamResponse').callsFake(() => {
+        return Promise.resolve(DATA)
+      })
       const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
         teamData: DATA
@@ -23,7 +25,9 @@ describe('Component > TeamContainer > getStaticProps', function () {
     })
 
     it('should handle empty API reponse', async () => {
-      getTeamDataStub = sinon.stub(TeamAPI, 'createTeamResponse').returns(Promise.resolve([]))
+      getTeamDataStub = sinon.stub(TeamAPI, 'createTeamResponse').callsFake(() => {
+        return Promise.resolve([])
+      })
       const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
         teamData: []

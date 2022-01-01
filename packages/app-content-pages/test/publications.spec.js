@@ -1,11 +1,11 @@
 import sinon from 'sinon'
-import getStaticProps from './publications'
-import PublicationsAPI from '@api/publications'
-import mockData from '@screens/PublicationsContainer.mock'
+import { getStaticProps } from '../pages/publications'
+import PublicationsAPI from '../src/api/publications'
+import mockData from '../src/screens/Publications/PublicationsContainer.mock'
 
 const DATA = mockData
 
-describe('Component > PublicationsContainer > getStaticProps', function () {
+describe('pages > publications > getStaticProps', function () {
 
   describe('populates the "publicationsData" props from contentful API', function () {
     let getpublicationsDataStub
@@ -15,7 +15,9 @@ describe('Component > PublicationsContainer > getStaticProps', function () {
     })
 
     it('should handle valid API data', async () => {
-      getpublicationsDataStub = sinon.stub(PublicationsAPI, 'createPublicationsResponse').returns(Promise.resolve(DATA))
+      getpublicationsDataStub = sinon.stub(PublicationsAPI, 'createPublicationsResponse').callsFake(() => {
+        return Promise.resolve(DATA)
+      })
       const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
         publicationsData: DATA
@@ -23,7 +25,9 @@ describe('Component > PublicationsContainer > getStaticProps', function () {
     })
 
     it('should handle empty API reponse', async () => {
-      getpublicationsDataStub = sinon.stub(PublicationsAPI, 'createPublicationsResponse').returns(Promise.resolve([]))
+      getpublicationsDataStub = sinon.stub(PublicationsAPI, 'createPublicationsResponse').callsFake(() => {
+        return Promise.resolve([])
+      })
       const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
         publicationsData: []
