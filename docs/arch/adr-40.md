@@ -1,4 +1,4 @@
-# ADR 39: Next.js Internationalized Routing
+# ADR 40: Next.js Internationalized Routing
 
 28 December 2021
 
