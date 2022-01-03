@@ -17,6 +17,23 @@ async function fetchWorkflowData (activeWorkflows, env) {
     throw error
   }
 }
+
+async function fetchSingleWorkflow (workflowID, env) {
+  try {
+    const query = {
+      env,
+      fields: 'completeness,configuration,display_name,grouped',
+      id: workflowID
+    }
+    const response = await panoptes.get('/workflows', query)
+    const [ workflow ] = response.body.workflows
+    return workflow
+  } catch (error) {
+    logToSentry(error)
+    throw error
+  }
+}
+
 async function fetchDisplayNames (language, activeWorkflows, env) {
   let displayNames = {}
   try {
@@ -67,13 +84,34 @@ function orderWorkflows(workflows, order) {
   return workflowsInOrder
 }
 
-async function fetchWorkflowsHelper(language = 'en', activeWorkflows, defaultWorkflow, workflowOrder = [], env) {
-  const workflows = await fetchWorkflowData(activeWorkflows, env)
-  const workflowIds = workflows.map(workflow => workflow.id)
+async function fetchWorkflowsHelper(
+    /* the current locale */
+    language = 'en',
+    /* an array of workflow IDs to fetch */
+    activeWorkflowIDs,
+    /* a specific workflow ID to fetch */
+    workflowID,
+    /* display order of workflow IDs, specified by the project owner. */
+    workflowOrder = [],
+    /* API environment, production | staging. */
+    env
+  ) {
+  const activeWorkflows = await fetchWorkflowData(activeWorkflowIDs, env)
+  if (workflowID) {
+    const activeWorkflow = activeWorkflows.find(workflow => workflow.id === workflowID)
+    if (!activeWorkflow) {
+      /*
+        Always fetch specified workflows, even if they're complete.
+      */
+      const workflow = await fetchSingleWorkflow(workflowID, env)
+      activeWorkflows.push(workflow)
+    }
+  }
+  const workflowIds = activeWorkflows.map(workflow => workflow.id)
   const displayNames = await fetchDisplayNames(language, workflowIds, env)
 
-  const awaitWorkflows = workflows.map(workflow => {
-    const isDefault = workflows.length === 1 || workflow.id === defaultWorkflow
+  const awaitWorkflows = activeWorkflows.map(workflow => {
+    const isDefault = activeWorkflows.length === 1
     const displayName = displayNames[workflow.id] || workflow.display_name
     return buildWorkflow(workflow, displayName, isDefault, env)
   })

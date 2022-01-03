@@ -23,8 +23,7 @@ export default async function getStaticPageProps({ params, query }) {
     }
   }
 
-  // snapshots don't include computed values, so cache the default workflow ID.
-  const workflowID = store.project.defaultWorkflow
+  const { workflowID } = params
   const { project } = getSnapshot(store)
   const language = project.primary_language
   const { active_workflows, default_workflow } = project.links
@@ -32,9 +31,9 @@ export default async function getStaticPageProps({ params, query }) {
   /*
     Validate any workflow URLs
   */
-  const workflowExists = active_workflows.includes(params.workflowID)
-  if (params.workflowID && !workflowExists) {
-    const { props } = notFoundError(`Workflow ${params.workflowID} was not found`)
+  const workflowExists = active_workflows.includes(workflowID)
+  if (workflowID && !workflowExists) {
+    const { props } = notFoundError(`Workflow ${workflowID} was not found`)
     props.project = project
     props.workflows = []
     return { props }
@@ -43,7 +42,7 @@ export default async function getStaticPageProps({ params, query }) {
   /*
     Fetch the active project workflows
   */
-  const workflows = await fetchWorkflowsHelper(language, active_workflows, default_workflow, workflowOrder, env)
+  const workflows = await fetchWorkflowsHelper(language, active_workflows, workflowID, workflowOrder, env)
   const props = {
     project,
     workflows
