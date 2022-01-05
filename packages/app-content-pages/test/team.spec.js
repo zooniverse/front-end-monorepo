@@ -1,33 +1,36 @@
 import sinon from 'sinon'
-
-import getStaticProps from './getStaticProps'
-import PublicationsAPI  from '../../api/publications'
-import mockData from './PublicationsContainer.mock'
+import { getStaticProps } from '../pages/team'
+import TeamAPI from '../src/api/team'
+import mockData from '../src/screens/Team/TeamContainer.mock'
 
 const DATA = mockData
 
-describe('Component > PublicationsContainer > getStaticProps', function () {
+describe('pages > team > getStaticProps', function () {
 
-  describe('populates the "publicationsData" props from contentful API', function () {
-    let getpublicationsDataStub
+  describe('populates the "teamData" props from contentful API', function () {
+    let getTeamDataStub
 
     afterEach(function () {
-      getpublicationsDataStub.restore()
+      getTeamDataStub.restore()
     })
 
     it('should handle valid API data', async () => {
-      getpublicationsDataStub = sinon.stub(PublicationsAPI, 'createPublicationsResponse').returns(Promise.resolve(DATA))
+      getTeamDataStub = sinon.stub(TeamAPI, 'createTeamResponse').callsFake(() => {
+        return Promise.resolve(DATA)
+      })
       const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
-        publicationsData: DATA
+        teamData: DATA
       })
     })
 
     it('should handle empty API reponse', async () => {
-      getpublicationsDataStub = sinon.stub(PublicationsAPI, 'createPublicationsResponse').returns(Promise.resolve([]))
+      getTeamDataStub = sinon.stub(TeamAPI, 'createTeamResponse').callsFake(() => {
+        return Promise.resolve([])
+      })
       const { props } = await getStaticProps({})
       expect(props).to.deep.equal({
-        publicationsData: []
+        teamData: []
       })
     })
 
@@ -35,7 +38,7 @@ describe('Component > PublicationsContainer > getStaticProps', function () {
       const errorMsg = 'failed to connect to API'
       const mockError = new Error(errorMsg)
       const errorPromise = Promise.reject(mockError)
-      getpublicationsDataStub = sinon.stub(PublicationsAPI, 'createPublicationsResponse').returns(errorPromise)
+      getTeamDataStub = sinon.stub(TeamAPI, 'createTeamResponse').returns(errorPromise)
       let actualError
       try {
         const { props } = await getStaticProps({})
