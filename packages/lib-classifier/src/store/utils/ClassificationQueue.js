@@ -2,6 +2,7 @@
 // and/or the loading of Google's Workbox fails to load.
 // Also for browsers that do not support Background Sync API
 
+import * as Sentry from '@sentry/browser'
 import { panoptes } from '@zooniverse/panoptes-js'
 import { getBearerToken } from './'
 
@@ -92,6 +93,10 @@ class ClassificationQueue {
         }
       } else {
         console.error('Dropping malformed classification permanently', classificationData)
+        Sentry.withScope((scope) => {
+          scope.setExtra('classification', JSON.stringify(classificationData))
+          Sentry.captureException(error)
+        })
       }
     }
     return response
