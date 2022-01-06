@@ -104,7 +104,7 @@ class TranscribedLines extends React.Component {
   }
 
   render () {
-    const { invalidMark, lines, marks, scale, task, theme } = this.props
+    const { invalidMark, lines, marks, scale, task, theme, visible } = this.props
     const { bounds, line, show } = this.state
     const invalidTranscriptionTask = Object.keys(task).length === 0
     const completedLines = lines.filter(line => line.consensusReached)
@@ -116,6 +116,10 @@ class TranscribedLines extends React.Component {
     }
 
     const focusColor = theme.global.colors[theme.global.colors.focus]
+
+    if (!visible) {
+      return null
+    }
 
     return (
       <g>
@@ -233,7 +237,8 @@ TranscribedLines.propTypes = {
     global: shape({
       colors: object
     })
-  })
+  }),
+  visible: bool
 }
 
 TranscribedLines.defaultProps = {
@@ -246,7 +251,8 @@ TranscribedLines.defaultProps = {
     global: {
       colors: {}
     }
-  }
+  },
+  visible: true
 }
 
 export default withTheme(TranscribedLines)
