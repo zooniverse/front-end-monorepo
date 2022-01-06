@@ -49,6 +49,7 @@ module.exports = {
     rules: [
       {
         test: /\.js?$/,
+        exclude: /\.spec\.js$/,
         include: path.resolve(__dirname, 'src'),
         use: 'babel-loader'
       },
