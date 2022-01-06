@@ -35,6 +35,10 @@ class ClassificationQueue {
       if (process.env.NODE_ENV !== 'test') console.info('Queued classifications:', queue.length)
     } catch (error) {
       if (process.env.NODE_ENV !== 'test') console.error('Failed to queue classification:', error)
+      Sentry.withScope((scope) => {
+        scope.setExtra('classification', JSON.stringify(classification))
+        Sentry.captureException(error)
+      })
     }
   }
 
