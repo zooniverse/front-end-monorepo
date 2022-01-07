@@ -1,13 +1,13 @@
 import { expect } from 'chai'
-import sinon from 'sinon'
-import auth from 'panoptes-client/lib/auth'
 import nock from 'nock'
+import auth from 'panoptes-client/lib/auth'
+import talkClient from 'panoptes-client/lib/talk-client'
+import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
 
 import initStore from '@stores/initStore'
 import UserPersonalization from './UserPersonalization'
 import { statsClient } from './YourStats'
-
 
 describe('Stores > UserPersonalization', function () {
   let rootStore, nockScope
@@ -57,12 +57,14 @@ describe('Stores > UserPersonalization', function () {
     rootStore = initStore(true, { project })
     sinon.spy(rootStore.client.panoptes, 'get')
     sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve({ statsCount: MOCK_DAILY_COUNTS }))
+    sinon.stub(talkClient, 'request').callsFake(() => Promise.resolve([]))
   })
 
   after(function () {
     console.error.restore()
     rootStore.client.panoptes.get.restore()
     statsClient.request.restore()
+    talkClient.request.restore()
     nock.cleanAll()
   })
 
@@ -107,6 +109,18 @@ describe('Stores > UserPersonalization', function () {
         }
       }`
       expect(statsClient.request).to.have.been.calledOnceWith(query.replace(/\s+/g, ' '))
+    })
+
+    it('should trigger the child Notifications store to request unread notifications', function () {
+      expect(talkClient.request).to.have.been.calledOnceWith(
+        'get',
+        '/notifications',
+        { delivered: false, page_size: 1 }
+      )
+    })
+
+    xit('should trigger the child Notifications store to subscribe to Sugar notifications', function () {
+      expect(true).to.be.false()
     })
 
     describe('incrementing your classification count', function () {
@@ -332,7 +346,7 @@ describe('Stores > UserPersonalization', function () {
   })
 
   describe('on reset', function () {
-    it('should reset project preferences, stats, and counts', function () {
+    it('should reset project preferences, stats, counts, and notifications', function () {
       const MOCK_DAILY_COUNTS = [
         { count: 12, dayNumber: 1, period: '2019-09-30T00:00:00Z' },
         { count: 13, dayNumber: 2, period: '2019-10-01T00:00:00Z' },
@@ -343,6 +357,9 @@ describe('Stores > UserPersonalization', function () {
         { count: 15, dayNumber: 0, period: '2019-10-06T00:00:00Z' }
       ]
       const personalizationStore = UserPersonalization.create({
+        notifications: {
+          count: 5
+        },
         projectPreferences: {
           activity_count: 8,
           activity_count_by_workflow: {

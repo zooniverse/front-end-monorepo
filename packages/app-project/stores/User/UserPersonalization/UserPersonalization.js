@@ -48,10 +48,13 @@ const UserPersonalization = types
     function createParentObserver() {
       const parentDisposer = autorun(() => {
         const { project, user } = getRoot(self)
-        if (project.id && user.id) {
+        if (user.id) {
           self.notifications.fetchAndSubscribe()
-          self.projectPreferences.fetchResource()
-          self.stats.fetchDailyCounts()
+          
+          if (project.id) {
+            self.projectPreferences.fetchResource()
+            self.stats.fetchDailyCounts()
+          }
         } else if (user.loadingState === asyncStates.success) {
           self.projectPreferences.setLoadingState(asyncStates.success)
         }
