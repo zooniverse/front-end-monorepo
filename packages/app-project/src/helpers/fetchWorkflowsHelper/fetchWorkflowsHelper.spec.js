@@ -29,6 +29,18 @@ describe('Helpers > fetchWorkflowsHelper', function () {
     }
   ]
 
+  const COMPLETED_WORKFLOW = {
+    id: '2',
+    completeness: 1,
+    configuration: {
+      level: 2
+    },
+    grouped: true,
+    links: {
+      subject_sets: ['1', '2', '3']
+    }
+  }
+
   // `translated_id` is a number because of a bug in the translations API :(
   const TRANSLATIONS = [
     {
@@ -124,7 +136,7 @@ describe('Helpers > fetchWorkflowsHelper', function () {
     ])
   })
 
-  describe('when there is a `defaultWorkflow` provided', function () {
+  describe('with a specific workflow ID', function () {
     it('should provide the expected result with multiple workflows', async function () {
       const scope = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/translations')
@@ -159,7 +171,7 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           configuration: {
             level: 2
           },
-          default: true,
+          default: false,
           grouped: true,
           id: '2',
           displayName: 'Bar',
@@ -186,8 +198,45 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           workflows: []
         })
 
-      const result = await fetchWorkflowsHelper('en', ['1', '2'], '2')
+      const result = await fetchWorkflowsHelper('en', ['1', '2'])
       expect(result).to.be.empty()
+    })
+
+    it('should always return a specified workflow.', async function () {
+      const scope = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/translations')
+        .query(true)
+        .reply(200, {
+          translations: TRANSLATIONS
+        })
+        .get('/workflows')
+        .query(query => query.complete)
+        .reply(200, {
+          workflows: []
+        })
+        .get('/workflows')
+        .query(query => query.id == '2')
+        .reply(200, {
+          workflows: [ COMPLETED_WORKFLOW ]
+        })
+
+      const result = await fetchWorkflowsHelper('en', ['1', '2'], '2')
+      expect(result).to.deep.equal([
+        {
+          completeness: 1,
+          configuration: {
+            level: 2
+          },
+          default: true,
+          grouped: true,
+          id: '2',
+          displayName: 'Bar',
+          links: {
+            subject_sets: ['1', '2', '3']
+          },
+          subjectSets: []
+        }
+      ])
     })
   })
 
@@ -202,13 +251,18 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         .query(true)
         .replyWithError(mockError)
         .get('/workflows')
-        .query(true)
+        .query(query => query.id == '1,2')
         .reply(200, {
           workflows: WORKFLOWS
         })
+        .get('/workflows')
+        .query(query => query.id == '2')
+        .reply(200, {
+          workflows: WORKFLOWS.filter(workflow => workflow.id == '2')
+        })
 
       try {
-        workflows = await fetchWorkflowsHelper('en', ['1', '2'], '2')
+        workflows = await fetchWorkflowsHelper('en', ['1', '2'])
       } catch (error) {
         thrownError = error
       }
@@ -226,18 +280,23 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           translations: TRANSLATIONS
         })
         .get('/workflows')
-        .query(true)
+        .query(query => query.id == '1,2')
         .reply(200, {
           workflows: WORKFLOWS
         })
-      const workflows = await fetchWorkflowsHelper('en', ['1', '2'], '2', ['2', '1'])
+        .get('/workflows')
+        .query(query => query.id == '2')
+        .reply(200, {
+          workflows: WORKFLOWS.filter(workflow => workflow.id == '2')
+        })
+      const workflows = await fetchWorkflowsHelper('en', ['1', '2'], undefined, ['2', '1'])
       expect(workflows).to.deep.equal([
         {
           completeness: 0.7,
           configuration: {
             level: 2
           },
-          default: true,
+          default: false,
           grouped: true,
           id: '2',
           displayName: 'Bar',

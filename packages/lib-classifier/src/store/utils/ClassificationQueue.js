@@ -2,6 +2,7 @@
 // and/or the loading of Google's Workbox fails to load.
 // Also for browsers that do not support Background Sync API
 
+import * as Sentry from '@sentry/browser'
 import { panoptes } from '@zooniverse/panoptes-js'
 import { getBearerToken } from './'
 
@@ -34,6 +35,10 @@ class ClassificationQueue {
       if (process.env.NODE_ENV !== 'test') console.info('Queued classifications:', queue.length)
     } catch (error) {
       if (process.env.NODE_ENV !== 'test') console.error('Failed to queue classification:', error)
+      Sentry.withScope((scope) => {
+        scope.setExtra('classification', JSON.stringify(classification))
+        Sentry.captureException(error)
+      })
     }
   }
 
@@ -50,7 +55,7 @@ class ClassificationQueue {
     this.recents.unshift(classification)
   }
 
-  flushToBackend () {
+  async flushToBackend () {
     const pendingClassifications = this._loadQueue()
     const failedClassifications = []
     this._saveQueue(failedClassifications)
@@ -60,36 +65,45 @@ class ClassificationQueue {
     }
 
     if (process.env.NODE_ENV !== 'test') console.log('Saving queued classifications:', pendingClassifications.length)
-    return getBearerToken(this.authClient)
-      .then((authorization) => {
-        return Promise.all(pendingClassifications.map((classificationData) => {
-          return this.apiClient.post(this.endpoint, { classifications: classificationData }, { authorization })
-            .then((response) => {
-              if (response.ok) {
-                const savedClassification = response.body.classifications[0]
-                if (process.env.NODE_ENV !== 'test') console.log('Saved classification', savedClassification.id)
-                this.onClassificationSaved(savedClassification)
-                this.addRecent(savedClassification)
-              }
-            })
-            .catch((error) => {
-              if (process.env.NODE_ENV !== 'test') console.error('Failed to save a queued classification:', error)
+    const authorization = await getBearerToken(this.authClient)
+    // generate an array of promises, one for each classification
+    const awaitSaveClassifications = pendingClassifications.map((classificationData) => {
+      this._saveClassification(classificationData, authorization)
+    })
+    return Promise.all(awaitSaveClassifications)
+  }
 
-              if (error.status !== 422) {
-                try {
-                  this.store(classificationData)
-                  if (!this.flushTimeout) {
-                    this.flushTimeout = setTimeout(this.flushToBackend.bind(this), RETRY_INTERVAL)
-                  }
-                } catch (saveQueueError) {
-                  console.error('Failed to update classification queue:', saveQueueError)
-                }
-              } else {
-                console.error('Dropping malformed classification permanently', classificationData)
-              }
-            })
-        }))
-      })
+  async _saveClassification(classificationData, authorization) {
+    let response
+    try {
+      response = await this.apiClient.post(this.endpoint, { classifications: classificationData }, { authorization })
+      if (response.ok) {
+        const savedClassification = response.body.classifications[0]
+        if (process.env.NODE_ENV !== 'test') console.log('Saved classification', savedClassification.id)
+        this.onClassificationSaved(savedClassification)
+        this.addRecent(savedClassification)
+      }
+    } catch (error) {
+      if (process.env.NODE_ENV !== 'test') console.error('Failed to save a queued classification:', error)
+
+      if (error.status !== 422) {
+        try {
+          this.store(classificationData)
+          if (!this.flushTimeout) {
+            this.flushTimeout = setTimeout(this.flushToBackend.bind(this), RETRY_INTERVAL)
+          }
+        } catch (saveQueueError) {
+          console.error('Failed to update classification queue:', saveQueueError)
+        }
+      } else {
+        console.error('Dropping malformed classification permanently', classificationData)
+        Sentry.withScope((scope) => {
+          scope.setExtra('classification', JSON.stringify(classificationData))
+          Sentry.captureException(error)
+        })
+      }
+    }
+    return response
   }
 
   _loadQueue () {
