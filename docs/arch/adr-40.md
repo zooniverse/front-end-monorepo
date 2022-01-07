@@ -18,7 +18,7 @@ For example, `www.zooniverse.org/projects/nora-dot-eisner/planet-hunters-tess` w
 
 When a project is migrated to FEM, not all project pages are rendered with FEM. The project's Home, About, and Classify pages use FEM as a frontend, but Talk, Collections, and Recents pages use PFE as a frontend. Eventually, the latter three pages will be migrated to FEM and use Next.js Internationalized Routing, but for now, navigation requires some extra work by the dev team.
 
-To navigate to FEM from PFE, we could add query params to `ProjectHeader` links in PFE, then Next.js middleware could handle conversion of param —> subpath. To navigate to PFE from FEM, we could also add query params to `ProjectHeader` links in FEM because PFE already accepts language as a custom query param.
+To navigate to FEM from PFE, we could add query params to `ProjectHeader` links in PFE (e.g `www.zooniverse.org/projects/nora-dot-eisner/planet-hunters-tess/recents?language=fr`), then Next.js middleware could handle conversion of param —> subpath. To navigate to PFE from FEM, we could also add a `language` query params to `ProjectHeader` links in FEM because PFE already accepts language as a custom query param.
 
 ## Status
 
