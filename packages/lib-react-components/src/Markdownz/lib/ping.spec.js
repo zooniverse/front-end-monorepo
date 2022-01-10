@@ -1,5 +1,5 @@
 import dedent from 'dedent'
-import remark from 'remark'
+import { remark } from 'remark'
 import remark2rehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
 

@@ -13,7 +13,7 @@ import {
   Text
 } from 'grommet'
 
-import remark from 'remark'
+import { remark } from 'remark'
 import remark2react from 'remark-react'
 import emoji from 'remark-emoji'
 import remarkSubSuper from 'remark-sub-super'
