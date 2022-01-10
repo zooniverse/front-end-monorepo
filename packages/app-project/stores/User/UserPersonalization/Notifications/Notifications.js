@@ -1,5 +1,5 @@
 import { flow, getRoot, types } from 'mobx-state-tree'
-// import { sugarClient } from 'panoptes-client/lib/sugar'
+import { sugarClient } from 'panoptes-client/lib/sugar'
 import talkClient from 'panoptes-client/lib/talk-client'
 import asyncStates from '@zooniverse/async-states'
 
@@ -40,8 +40,7 @@ const Notifications = types
       }),
 
       processSugarNotification (notification) {
-        console.log('notification', notification)
-        // sugar data objects of source_type = 'Message' are related to Talk Conversations and the nav item "Messages", not the nav item "Notifications"
+        // sugar data objects of source_type = 'Message' are related to Talk Conversations and the header nav item "Messages", not the header nav item "Notifications"
         // TODO: add nav item "Messages" count
 
         if (notification?.data.source_type !== 'Message' && notification?.data.source_type !== 'Moderation') {
@@ -52,9 +51,8 @@ const Notifications = types
       subscribeToSugarNotifications () {
         const { user } = getRoot(self)
         try {
-          console.log('subscribeToSugarNotifications')
-          // sugarClient.subscribeTo(`user:${user.id}`)
-          // sugarClient.on('notification', notification => self.processSugarNotification(notification))
+          sugarClient.subscribeTo(`user:${user.id}`)
+          sugarClient.on('notification', notification => self.processSugarNotification(notification))
         } catch (error) {
           self.handleError(error)
         }
@@ -62,11 +60,13 @@ const Notifications = types
 
       unsubscribeFromSugarNotifications () {
         const { user } = getRoot(self)
-        try {
-          console.log('unsubscribeFromSugarNotifications')
-          // sugarClient.unsubscribeFrom(`user:${user.id}`)
-        } catch (error) {
-          self.handleError(error)
+        
+        if (user) {
+          try {
+            sugarClient.unsubscribeFrom(`user:${user?.id}`)
+          } catch (error) {
+            self.handleError(error)
+          }
         }
       },
 

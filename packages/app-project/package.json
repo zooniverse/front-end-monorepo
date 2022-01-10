@@ -40,6 +40,7 @@
     "counterpart": "~0.18.6",
     "d3": "~5.9.7",
     "dotenv-webpack": "~1.7.0",
+    "engine.io-client": "~6.1.1",
     "express": "^4.17.1",
     "graphql-request": "~1.8.2",
     "grommet": "~2.17.4",

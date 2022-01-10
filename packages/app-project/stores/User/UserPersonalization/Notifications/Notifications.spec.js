@@ -1,6 +1,5 @@
 import { expect } from 'chai'
-import nock from 'nock'
-// import { sugarClient } from 'panoptes-client/lib/sugar'
+import { sugarClient } from 'panoptes-client/lib/sugar'
 import talkClient from 'panoptes-client/lib/talk-client'
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
@@ -20,10 +19,16 @@ describe('Stores > Notifications', function () {
 
   before(function () {
     sinon.stub(statsClient, 'request')
+    sinon.stub(sugarClient, 'subscribeTo')
+    sinon.stub(sugarClient, 'on')
+    sinon.stub(sugarClient, 'unsubscribeFrom')
   })
 
   after(function () {
     statsClient.request.restore()
+    sugarClient.subscribeTo.restore()
+    sugarClient.on.restore()
+    sugarClient.unsubscribeFrom.restore()
   })
 
   describe('Actions > fetchInitialUnreadNotifications', function () {
@@ -108,21 +113,83 @@ describe('Stores > Notifications', function () {
     })
   })
 
-  xdescribe('Actions > processSugarNotification', function () {
-    it('should ...', function () {
-      expect(true).to.be.false()
-    })
-  })
+  describe('Actions > processSugarNotification', function () {
+    describe('with Sugar event of source_type Comment', function () {
+      const sugarEvent = {
+        channel: 'user:123',
+        data: {
+          delivered: false,
+          id: 72,
+          source_type: 'Comment',
+          type: 'notification',
+          user_id: 123
+        },
+        type: 'notification'
+      }
+      
+      const notificationsStore = Notifications.create({
+        count: 4
+      })
 
-  xdescribe('Actions > subscribeToSugarNotifications', function () {
-    it('should ...', function () {
-      expect(true).to.be.false()
+      it('should increment count', function () {
+        expect(notificationsStore.count).to.equal(4)
+        
+        notificationsStore.processSugarNotification(sugarEvent)
+  
+        expect(notificationsStore.count).to.equal(5)
+      })
     })
-  })
 
-  xdescribe('Actions > unsubscribeFromSugarNotifications', function () {
-    it('should ...', function () {
-      expect(true).to.be.false()
+    describe('with Sugar event of source_type Message', function () {
+      const sugarEvent = {
+        channel: 'user:123',
+        data: {
+          delivered: false,
+          id: 72,
+          source_type: 'Message',
+          type: 'notification',
+          user_id: 123
+        },
+        type: 'notification'
+      }
+      
+      const notificationsStore = Notifications.create({
+        count: 6
+      })
+
+      it('should not increment count', function () {
+        expect(notificationsStore.count).to.equal(6)
+        
+        notificationsStore.processSugarNotification(sugarEvent)
+  
+        expect(notificationsStore.count).to.equal(6)
+      })
+    })
+
+    describe('with Sugar event of source_type Moderation', function () {
+      const sugarEvent = {
+        channel: 'user:123',
+        data: {
+          delivered: false,
+          id: 72,
+          source_type: 'Moderation',
+          type: 'notification',
+          user_id: 123
+        },
+        type: 'notification'
+      }
+      
+      const notificationsStore = Notifications.create({
+        count: 7
+      })
+
+      it('should not increment count', function () {
+        expect(notificationsStore.count).to.equal(7)
+        
+        notificationsStore.processSugarNotification(sugarEvent)
+  
+        expect(notificationsStore.count).to.equal(7)
+      })
     })
   })
 
