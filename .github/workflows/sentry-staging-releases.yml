@@ -13,6 +13,7 @@ jobs:
      SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
      SENTRY_PROJECT_APP: ${{ secrets.SENTRY_PROJECT_APP }}
      SENTRY_CONTENT_APP: ${{ secrets.SENTRY_CONTENT_APP }}
+     SENTRY_CLASSIFIER: ${{ secrets.SENTRY_CLASSIFIER }}
 
    steps: 
     # See: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow#using-the-checkout-action
@@ -26,7 +27,7 @@ jobs:
         # Create a new Sentry release with the commit SHA as the version.
         # Associate all commits since the last finalised release.
         export VERSION=$(sentry-cli releases propose-version)
-        sentry-cli releases new -p $SENTRY_PROJECT_APP -p $SENTRY_CONTENT_APP $VERSION
+        sentry-cli releases new -p $SENTRY_PROJECT_APP -p $SENTRY_CONTENT_APP -p $SENTRY_CLASSIFIER $VERSION
         sentry-cli releases set-commits --auto $VERSION
         
         # Create new staging deploy for this Sentry release
