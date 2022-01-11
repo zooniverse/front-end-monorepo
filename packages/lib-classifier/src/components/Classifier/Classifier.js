@@ -1,6 +1,7 @@
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
 import { GraphQLClient } from 'graphql-request'
+import { Button, Paragraph } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import PropTypes from 'prop-types'
@@ -79,7 +80,7 @@ function useStore({ authClient, client, initialState }) {
   return _store
 }
 
-export default function Classifier({
+function Classifier({
   authClient,
   onAddToCollection = () => true,
   onCompleteClassification = () => true,
@@ -139,22 +140,14 @@ export default function Classifier({
     userProjectPreferences.checkForUser()
   }, [authClient])
 
-  try {
-    return (
-      <Provider classifierStore={classifierStore}>
-          <>
-            <Layout />
-            <ModalTutorial />
-          </>
-      </Provider>
-    )
-  } catch (error) {
-    const info = {
-      package: '@zooniverse/classifier'
-    }
-    onError(error, info);
-  }
-  return null
+  return (
+    <Provider classifierStore={classifierStore}>
+        <>
+          <Layout />
+          <ModalTutorial />
+        </>
+    </Provider>
+  )
 }
 
 Classifier.propTypes = {
@@ -170,3 +163,19 @@ Classifier.propTypes = {
   }).isRequired,
   theme: PropTypes.object
 }
+
+function ErrorFallback({ error, componentStack, resetError }) {
+  return (
+    <>
+      <Paragraph>An error has occurred.</Paragraph>
+      <Paragraph>{ error.message }</Paragraph>
+      <Button
+        label="Restart"
+        onClick={resetError}
+      />
+      <pre>{componentStack}</pre>
+    </>
+  )
+}
+
+export default Sentry.withErrorBoundary(Classifier, { fallback: ErrorFallback })
