@@ -131,9 +131,8 @@ const ClassificationStore = types
         let classificationToSubmit = classification.toSnapshot()
 
         const convertedMetadata = {}
-        Object.entries(classificationToSubmit.metadata).forEach((entry) => {
-          const key = _.snakeCase(entry[0])
-          convertedMetadata[key] = entry[1]
+        Object.entries(classificationToSubmit.metadata).forEach(([key, value]) => {
+          convertedMetadata[_.snakeCase(key)] = value
         })
         classificationToSubmit.metadata = convertedMetadata
 
