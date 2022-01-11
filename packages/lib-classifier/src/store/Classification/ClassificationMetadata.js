@@ -7,7 +7,7 @@ const ClassificationMetadata = types.model('ClassificationMetadata', {
   revision: types.frozen(process.env.COMMIT_ID),
   session: types.maybe(types.string),
   source: types.enumeration(['api', 'sugar']),
-  startedAt: types.optional(types.string, (new Date()).toISOString()),
+  startedAt: types.optional(types.string, ''),
   subjectDimensions: types.array(types.frozen({
     clientHeight: types.integer,
     clientWidth: types.integer,
@@ -33,7 +33,12 @@ const ClassificationMetadata = types.model('ClassificationMetadata', {
   workflowVersion: types.string
 })
   .actions(self => ({
-    update (newMetadata) {
+    afterCreate() {
+      const now = new Date()
+      self.startedAt = now.toISOString()
+    },
+
+    update(newMetadata) {
       Object.keys(newMetadata).forEach(key => {
         self[key] = newMetadata[key]
       })
