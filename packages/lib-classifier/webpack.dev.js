@@ -14,6 +14,7 @@ function gitCommit() {
 }
 
 const EnvironmentWebpackPlugin = new webpack.EnvironmentPlugin({
+  APP_ENV: 'development',
   COMMIT_ID: gitCommit(),
   DEBUG: false,
   NODE_ENV: 'development',
