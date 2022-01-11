@@ -84,7 +84,7 @@ function useStore({ authClient, client, initialState }) {
   return _store
 }
 
-function Classifier({
+export default function Classifier({
   authClient,
   onAddToCollection = () => true,
   onCompleteClassification = () => true,
@@ -144,14 +144,19 @@ function Classifier({
     userProjectPreferences.checkForUser()
   }, [authClient])
 
-  return (
-    <Provider classifierStore={classifierStore}>
-        <>
-          <Layout />
-          <ModalTutorial />
-        </>
-    </Provider>
-  )
+  try {
+    return (
+      <Provider classifierStore={classifierStore}>
+          <Sentry.ErrorBoundary fallback={ErrorFallback}>
+            <Layout />
+            <ModalTutorial />
+          </Sentry.ErrorBoundary>
+      </Provider>
+    )
+  } catch (error) {
+    Sentry.captureException(error)
+    return <p>An error occurred. {error.message}</p>
+  }
 }
 
 Classifier.propTypes = {
@@ -181,5 +186,3 @@ function ErrorFallback({ error, componentStack, resetError }) {
     </>
   )
 }
-
-export default Sentry.withErrorBoundary(Classifier, { fallback: ErrorFallback })
