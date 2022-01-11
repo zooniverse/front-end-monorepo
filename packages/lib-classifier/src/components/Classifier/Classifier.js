@@ -1,3 +1,5 @@
+import * as Sentry from "@sentry/react";
+import { Integrations } from "@sentry/tracing";
 import { GraphQLClient } from 'graphql-request'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
@@ -15,6 +17,17 @@ import { unregisterWorkers } from '../../workers'
 import RootStore from '../../store'
 import Layout from './components/Layout'
 import ModalTutorial from './components/ModalTutorial'
+
+const environment = process.env.APP_ENV
+const release = process.env.COMMIT_ID
+Sentry.init({
+  dsn: "https://4426b5dca74d4d559c69ffce572f2aae@o274434.ingest.sentry.io/6144023",
+  environment,
+  integrations: [new Integrations.BrowserTracing()],
+  release,
+  tracesSampleRate: 0.01,
+})
+
 // import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
 function caesarClient (env) {
   switch (env) {
