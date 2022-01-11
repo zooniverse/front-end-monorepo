@@ -10,6 +10,8 @@ const FAILED_CLASSIFICATION_QUEUE_NAME = 'failed-classifications'
 const MAX_RECENTS = 10
 const RETRY_INTERVAL = 5 * 60 * 1000
 
+const dsn = process.env.SENTRY_CLASSIFIER_DSN
+
 class ClassificationQueue {
   constructor (api, onClassificationSaved, authClient) {
     this.storage = window.localStorage
@@ -35,10 +37,12 @@ class ClassificationQueue {
       if (process.env.NODE_ENV !== 'test') console.info('Queued classifications:', queue.length)
     } catch (error) {
       if (process.env.NODE_ENV !== 'test') console.error('Failed to queue classification:', error)
-      Sentry.withScope((scope) => {
-        scope.setExtra('classification', JSON.stringify(classification))
-        Sentry.captureException(error)
-      })
+      if (dsn) {
+        Sentry.withScope((scope) => {
+          scope.setExtra('classification', JSON.stringify(classification))
+          Sentry.captureException(error)
+        })
+      }
     }
   }
 
@@ -97,10 +101,12 @@ class ClassificationQueue {
         }
       } else {
         console.error('Dropping malformed classification permanently', classificationData)
-        Sentry.withScope((scope) => {
-          scope.setExtra('classification', JSON.stringify(classificationData))
-          Sentry.captureException(error)
-        })
+        if (dsn) {
+          Sentry.withScope((scope) => {
+            scope.setExtra('classification', JSON.stringify(classificationData))
+            Sentry.captureException(error)
+          })
+        }
       }
     }
     return response

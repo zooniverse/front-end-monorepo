@@ -17,7 +17,8 @@ const EnvironmentWebpackPlugin = new webpack.EnvironmentPlugin({
   COMMIT_ID: gitCommit(),
   DEBUG: false,
   NODE_ENV: 'production',
-  PANOPTES_ENV: 'production'
+  PANOPTES_ENV: 'production',
+  SENTRY_CLASSIFIER_DSN: 'https://4426b5dca74d4d559c69ffce572f2aae@o274434.ingest.sentry.io/6144023'
 })
 
 module.exports = {
