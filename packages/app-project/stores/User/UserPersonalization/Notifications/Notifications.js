@@ -3,6 +3,13 @@ import { sugarClient } from 'panoptes-client/lib/sugar'
 import talkClient from 'panoptes-client/lib/talk-client'
 import asyncStates from '@zooniverse/async-states'
 
+// NOTES
+// This store is for a Notifications count displayed in the ZooHeader.
+// The ZooHeader can also display a Messages count.
+// The ZooHeader Notifications count represents unread Talk notifications related to Talk comments and discussions
+// The ZooHeader Messages count represents unread Talk notifications related to Talk messages (per a Talk conversation)
+// Unread Talk notifications related to Talk moderation reports are not included ZooHeader Notifications or ZooHeader Messages
+
 const Notifications = types
   .model('Notifications', {
     count: types.maybeNull(types.number),
@@ -26,7 +33,7 @@ const Notifications = types
             delivered: false,
             page_size: 1
           }
-          
+
           const response = yield talkClient.type('notifications').get(query)
           const [notification] = response
           if (notification) {
@@ -40,8 +47,8 @@ const Notifications = types
       }),
 
       processSugarNotification (notification) {
-        // sugar data objects of source_type = 'Message' are related to Talk Conversations and the header nav item "Messages", not the header nav item "Notifications"
-        // TODO: add nav item "Messages" count
+        // sugar data objects with source_type = 'Message' are related to Talk messages/conversations and included in ZooHeader Messages, not in ZooHeader Notifications
+        // sugar data objects with source_type = 'Moderation' are related to Talk moderation reports and are not included in ZooHeader Notifications or ZooHeader Messages
 
         if (notification?.data.source_type !== 'Message' && notification?.data.source_type !== 'Moderation') {
           self.count = self.count + 1
@@ -60,7 +67,7 @@ const Notifications = types
 
       unsubscribeFromSugarNotifications () {
         const { user } = getRoot(self)
-        
+
         if (user) {
           try {
             sugarClient.unsubscribeFrom(`user:${user?.id}`)
