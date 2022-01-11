@@ -2,7 +2,7 @@
 // and/or the loading of Google's Workbox fails to load.
 // Also for browsers that do not support Background Sync API
 
-import * as Sentry from '@sentry/browser'
+import * as Sentry from '@sentry/react'
 import { panoptes } from '@zooniverse/panoptes-js'
 import { getBearerToken } from './'
 
