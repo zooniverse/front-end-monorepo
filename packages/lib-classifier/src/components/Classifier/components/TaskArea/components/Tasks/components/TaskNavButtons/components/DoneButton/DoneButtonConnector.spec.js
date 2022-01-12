@@ -10,32 +10,30 @@ import DoneButton from './DoneButton'
 describe('Components > DoneButtonConnector', function () {
   let wrapper
   let classifierStore
+  let classification
+  let annotations
+  let step
   const preventDefaultSpy = sinon.spy()
 
-  before(function () {
+  beforeEach(function () {
     classifierStore = mockStore()
-    sinon.stub(classifierStore.classifications, 'completeClassification')
+    classification = classifierStore.classifications.active
+    step = classifierStore.workflowSteps.active
+    annotations = step.tasks.map(task => classification.annotation(task))
 
     wrapper = shallow(<DoneButtonConnector store={classifierStore} />)
   })
 
   afterEach(function () {
-    classifierStore.classifications.completeClassification.resetHistory()
     preventDefaultSpy.resetHistory()
   })
 
-  after(function () {
-    classifierStore.classifications.completeClassification.restore()
-  })
-
   it('should create a default annotation for each task if there is not an annotation for that task', function () {
-    const step = classifierStore.workflowSteps.active
-    const classification = classifierStore.classifications.active
     const button = wrapper.find(DoneButton)
     button.props().onClick({ preventDefault: preventDefaultSpy })
-    step.tasks.forEach((task) => {
+    annotations.forEach((annotation, index) => {
+      const task = step.tasks[index]
       const { task: taskKey, value } = task.defaultAnnotation()
-      const annotation = classification.annotation(task)
       expect(annotation.task).to.equal(taskKey)
       expect(annotation.value).to.deep.equal(value)
     })
@@ -50,13 +48,12 @@ describe('Components > DoneButtonConnector', function () {
   it('should complete the classification', function () {
     const button = wrapper.find(DoneButton)
     button.props().onClick({ preventDefault: preventDefaultSpy })
-    expect(classifierStore.classifications.completeClassification).to.have.been.calledOnce()
+    expect(classification.completed).to.be.true()
   })
 
   describe('when there is another step in the workflow', function () {
-    before(function () {
+    beforeEach(function () {
       // set an answer to the branching task question, so that step.next is set.
-      const classification = classifierStore.classifications.active
       const singleChoiceAnnotation = classification.annotation({ taskKey: 'T0'})
       singleChoiceAnnotation.update(0)
       wrapper.update()

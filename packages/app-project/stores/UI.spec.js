@@ -88,39 +88,35 @@ describe('Stores > UI', function () {
     beforeEach(function () {
       document.cookie = 'mode=; max-age=-99999999;'
       store = UI.create()
-      setModeCookieSpy = sinon.spy(store, 'setModeCookie')
-    })
-
-    afterEach(function () {
-      setModeCookieSpy.restore()
     })
 
     it('should not set the cookie on instantiation', function () {
-      expect(setModeCookieSpy).to.not.have.been.called()
+      const mode = cookie.parse(document.cookie).mode
+      expect(mode).to.be.empty()
     })
 
     it('should default to the stored mode in the cookie', function () {
       store.setDarkMode()
-      expect(setModeCookieSpy).to.have.been.calledOnce()
-      setModeCookieSpy.resetHistory()
       store = UI.create({
         mode: cookie.parse(document.cookie).mode
       })
       expect(store.mode).to.equal('dark')
-      expect(setModeCookieSpy).to.not.have.been.called()
     })
 
     it('should not update the cookie on instantiation if there is already one', function () {
       document.cookie = 'mode=light; path=/; max-age=31536000'
       store = UI.create()
-      expect(setModeCookieSpy).to.not.have.been.called()
+      const mode = cookie.parse(document.cookie).mode
+      expect(mode).to.equal('light')
     })
 
     it('should update the cookie if the store mode does not equal the stored cookie mode', function () {
-      store.setLightMode()
-      expect(setModeCookieSpy).to.not.have.been.called()
       store.setDarkMode()
-      expect(setModeCookieSpy).to.have.been.calledOnce()
+      let mode = cookie.parse(document.cookie).mode
+      expect(mode).to.equal('dark')
+      store.setLightMode()
+      mode = cookie.parse(document.cookie).mode
+      expect(mode).to.equal('light')
     })
   })
 
@@ -185,15 +181,10 @@ describe('Stores > UI', function () {
     beforeEach(function () {
       rootStore = initStore(true, { project: PROJECT })
       store = rootStore.ui
-      setProjectAnnouncementBannerCookieSpy = sinon.spy(store, 'setProjectAnnouncementBannerCookie')
-    })
-
-    afterEach(function () {
-      setProjectAnnouncementBannerCookieSpy.restore()
     })
 
     it('should not set the cookie on instantiation', function () {
-      expect(setProjectAnnouncementBannerCookieSpy).to.not.have.been.called()
+      expect(document.cookie).to.be.undefined()
     })
 
     it('should not update the cookie if it already matches the store value', function () {
@@ -202,7 +193,7 @@ describe('Stores > UI', function () {
       })
 
       store.dismissProjectAnnouncementBanner()
-      expect(setProjectAnnouncementBannerCookieSpy).to.not.have.been.called()
+      expect(document.cookie).to.equal(`dismissedProjectAnnouncementBanner=${ANNOUNCEMENT_HASH}; Path=/projects/${PROJECT.slug}`)
     })
 
     it(`should update the cookie if it doesn't match the store value`, function () {
@@ -210,7 +201,6 @@ describe('Stores > UI', function () {
         path: `/projects/${PROJECT.slug}`
       })
       store.dismissProjectAnnouncementBanner()
-      expect(setProjectAnnouncementBannerCookieSpy).to.have.been.calledOnce()
       const parsedCookie = cookie.parse(document.cookie) || {}
       const cookieHash = parseInt(parsedCookie.dismissedProjectAnnouncementBanner, 10)
       expect(cookieHash).to.equal(ANNOUNCEMENT_HASH)
