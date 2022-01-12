@@ -5,6 +5,7 @@ import RootStore from '@store/RootStore'
 import Workflow from './Workflow'
 
 import { MultipleChoiceTaskFactory, SubjectSetFactory } from '@test/factories'
+import mockStore from '@test/mockStore'
 
 describe('Model > Workflow', function () {
   it('should exist', function () {
@@ -124,9 +125,7 @@ describe('Model > Workflow', function () {
     let workflow
 
     beforeEach(function () {
-      rootStore = RootStore.create();
       const subjectSets = Factory.buildList('subject_set', 5)
-      rootStore.subjectSets.setResources(subjectSets)
       const workflowSnapshot = WorkflowFactory.build({
         id: 'workflow1',
         display_name: 'A test workflow',
@@ -135,8 +134,9 @@ describe('Model > Workflow', function () {
         },
         version: '0.0'
       })
-      workflow = Workflow.create(workflowSnapshot)
-      rootStore.workflows.setResources([workflow])
+      rootStore = mockStore({ workflow: workflowSnapshot });
+      rootStore.subjectSets.setResources(subjectSets)
+      workflow = rootStore.workflows.resources.get('workflow1')
     })
 
     describe('with a valid subject set', function () {
@@ -153,7 +153,7 @@ describe('Model > Workflow', function () {
 
       it('should throw an error', async function () {
         let errorThrown = false
-        sinon.stub(rootStore.subjectSets, 'fetchResource').callsFake(async () => undefined)
+        sinon.stub(rootStore.client.panoptes, 'get').callsFake(async () => { body: {}})
         expect(workflow.subjectSetId).to.be.undefined()
         try {
           const subjectSet = await workflow.selectSubjectSet('abcdefg')
@@ -162,7 +162,7 @@ describe('Model > Workflow', function () {
           expect(e.message).to.equal('No subject set abcdefg for workflow workflow1')
         }
         expect(errorThrown).to.be.true()
-        rootStore.subjectSets.fetchResource.restore()
+        rootStore.client.panoptes.get.restore()
       })
     })
   })
@@ -228,9 +228,7 @@ describe('Model > Workflow', function () {
     let workflow
 
     beforeEach(function () {
-      rootStore = RootStore.create();
       const subjectSets = Factory.buildList('subject_set', 5)
-      rootStore.subjectSets.setResources(subjectSets)
       const workflowSnapshot = WorkflowFactory.build({
         id: 'workflow1',
         display_name: 'A test workflow',
@@ -239,8 +237,9 @@ describe('Model > Workflow', function () {
         },
         version: '0.0'
       })
-      workflow = Workflow.create(workflowSnapshot)
-      rootStore.workflows.setResources([workflow])
+      rootStore = mockStore({ workflow: workflowSnapshot });
+      rootStore.subjectSets.setResources(subjectSets)
+      workflow = rootStore.workflows.resources.get('workflow1')
     })
 
     describe('with no selected subject set', function () {
@@ -264,7 +263,7 @@ describe('Model > Workflow', function () {
 
       it('should error', async function () {
         let errorThrown = false
-        sinon.stub(rootStore.subjectSets, 'fetchResource').callsFake(async () => undefined)
+        sinon.stub(rootStore.client.panoptes, 'get').callsFake(async () => { body: {}})
         expect(workflow.subjectSetId).to.be.undefined()
         try {
           await workflow.selectSubjectSet('abcdefg')
@@ -273,7 +272,7 @@ describe('Model > Workflow', function () {
           expect(e.message).to.equal('No subject set abcdefg for workflow workflow1')
         }
         expect(errorThrown).to.be.true()
-        rootStore.subjectSets.fetchResource.restore()
+        rootStore.client.panoptes.get.restore()
       })
     })
   })

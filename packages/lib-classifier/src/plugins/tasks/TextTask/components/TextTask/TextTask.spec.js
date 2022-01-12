@@ -2,7 +2,6 @@ import { mount, shallow } from 'enzyme'
 import { Grommet, TextArea } from 'grommet'
 import { types } from 'mobx-state-tree'
 import React from 'react'
-import sinon from 'sinon'
 import zooTheme from '@zooniverse/grommet-theme'
 import TextTask from './'
 import { default as Task } from '@plugins/tasks/TextTask'
@@ -40,7 +39,6 @@ describe('TextTask', function () {
 
     describe('text tagging', function () {
       beforeEach(function () {
-        sinon.spy(annotation, 'update')
         annotation.update('Hello, this is some test text.')
         wrapper = mount(
           <TextTask
@@ -64,10 +62,6 @@ describe('TextTask', function () {
         insertionButton.simulate('click', fakeEvent)
       })
 
-      afterEach(function () {
-        annotation.update.restore()
-      })
-
       it('should tag text', function () {
         const textArea = wrapper.find(TextArea).getDOMNode()
         const expectedText = 'Hello, [insertion]this[/insertion] is some test text.'
@@ -77,13 +71,12 @@ describe('TextTask', function () {
 
       it('should save the tagged text', function () {
         const expectedText = 'Hello, [insertion]this[/insertion] is some test text.'
-        expect(annotation.update.withArgs(expectedText)).to.have.been.calledOnce()
+        expect(annotation.value).to.equal(expectedText)
       })
     })
     
     describe('text tagging (special case for literal insertions)', function () {
       beforeEach(function () {
-        sinon.spy(annotation, 'update')
         annotation.update('Dungeons and Dragons')
         wrapper = mount(
           <TextTask
@@ -107,10 +100,6 @@ describe('TextTask', function () {
         ampersandButton.simulate('click', fakeEvent)
       })
 
-      afterEach(function () {
-        annotation.update.restore()
-      })
-
       it('should insert literal tag text', function () {
         const textArea = wrapper.find(TextArea).getDOMNode()
         const expectedText = 'Dungeons & Dragons'
@@ -120,7 +109,7 @@ describe('TextTask', function () {
 
       it('should save the modified text', function () {
         const expectedText = 'Dungeons & Dragons'
-        expect(annotation.update.withArgs(expectedText)).to.have.been.calledOnce()
+        expect(annotation.value).to.equal(expectedText)
       })
     })
 
@@ -147,7 +136,6 @@ describe('TextTask', function () {
 
     describe('on change', function () {
       before(function () {
-        sinon.spy(annotation, 'update')
         annotation.update('Hello, this is an existing annotation')
         wrapper = mount(
           <TextTask
@@ -164,12 +152,8 @@ describe('TextTask', function () {
         wrapper.find(TextArea).simulate('change')
       })
 
-      after(function () {
-        annotation.update.restore()
-      })
-
       it('should save the current text', function () {
-        expect(annotation.update.withArgs('This has been edited.')).to.have.been.calledOnce()
+        expect(annotation.value).to.equal('This has been edited.')
       })
     })
   })
@@ -198,7 +182,6 @@ describe('TextTask', function () {
 
     describe('text tagging', function () {
       beforeEach(function () {
-        sinon.spy(annotation, 'update')
         annotation.update('Hello, this is some test text.')
         wrapper = mount(
           <TextTask
@@ -224,10 +207,6 @@ describe('TextTask', function () {
         insertionButton.simulate('click', fakeEvent)
       })
 
-      afterEach(function () {
-        annotation.update.restore()
-      })
-
       it('should tag text', function () {
         const textInput = wrapper.find('input').getDOMNode()
         const expectedText = 'Hello, [insertion]this[/insertion] is some test text.'
@@ -237,13 +216,12 @@ describe('TextTask', function () {
 
       it('should save the tagged text', function () {
         const expectedText = 'Hello, [insertion]this[/insertion] is some test text.'
-        expect(annotation.update.withArgs(expectedText)).to.have.been.calledOnce()
+        expect(annotation.value).to.equal(expectedText)
       })
     })
 
     describe('on change', function () {
       before(function () {
-        sinon.spy(annotation, 'update')
         annotation.update('Hello, this is an existing annotation')
         wrapper = mount(
           <TextTask
@@ -261,12 +239,8 @@ describe('TextTask', function () {
         wrapper.find('input').simulate('change')
       })
 
-      after(function () {
-        annotation.update.restore()
-      })
-
       it('should save the current text', function () {
-        expect(annotation.update.withArgs('This has been edited.')).to.have.been.calledOnce()
+        expect(annotation.value).to.equal('This has been edited.')
       })
     })
   })
