@@ -34,7 +34,7 @@
     "lodash": "~4.17.11",
     "mobx-utils": "~6.0.4",
     "react-player": "~2.7.0",
-    "react-resize-detector": "~4.2.0",
+    "react-resize-detector": "~7.0.0",
     "valid-url": "~1.0.9"
   },
   "peerDependencies": {
