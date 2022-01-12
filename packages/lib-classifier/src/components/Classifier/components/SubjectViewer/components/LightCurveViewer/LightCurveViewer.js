@@ -61,6 +61,9 @@ class LightCurveViewer extends Component {
 
     // Each Annotation is represented as a single D3 Brush
     this.annotationBrushes = [] // This keeps track of the annotation-brushes in existence, including the DEFAULT brush (the interface brush, for creating new annotations) that exists even when there are no annotations.
+
+    // Bind this for event handlers.
+    this.removeAnnotationBrush = this.removeAnnotationBrush.bind(this)
   }
 
   componentDidMount () {
@@ -260,7 +263,7 @@ class LightCurveViewer extends Component {
     return newAnnotationBrush
   }
 
-  removeAnnotationBrush (annotationBrush) {
+  removeAnnotationBrush (event, annotationBrush) {
     this.annotationBrushes = this.annotationBrushes.filter((ab) => ab.id !== annotationBrush.id)
     this.updateAnnotationBrushes()
     this.saveBrushesToAnnotations()
@@ -296,9 +299,9 @@ class LightCurveViewer extends Component {
 
   onAnnotationBrushBrushed () {}
 
-  onAnnotationBrushEnd (annotationBrush, index, domElements) {
+  onAnnotationBrushEnd ({ selection }, annotationBrush) {
     const props = this.props
-    const brushSelection = d3.event.selection // Returns [xMin, xMax] or null, where x is relative to the SVG (not the data)
+    const brushSelection = selection // Returns [xMin, xMax] or null, where x is relative to the SVG (not the data)
 
     // If the user attempted to make a selection, BUT the current task isn't
     // a valid task, cancel that brush.
@@ -358,9 +361,8 @@ class LightCurveViewer extends Component {
     return []
   }
 
-  getCurrentTransform () {
-    return (d3.event && d3.event.transform) ||
-      (this.d3interfaceLayer && d3.zoomTransform(this.d3interfaceLayer.node())) ||
+  getCurrentTransform() {
+    return (this.d3interfaceLayer && d3.zoomTransform(this.d3interfaceLayer.node())) ||
       d3.zoomIdentity
   }
 
@@ -425,7 +427,7 @@ class LightCurveViewer extends Component {
       .attr('width', '100%')
       .attr('focusable', true)
       .attr('tabindex', 0)
-      .on('keydown', () => onKeyDown(d3.event))
+      .on('keydown', onKeyDown)
       .style('cursor', 'crosshair')
     this.xScale = d3.scaleLinear()
     this.yScale = d3.scaleLinear()
@@ -519,7 +521,7 @@ class LightCurveViewer extends Component {
       .each(function applyBrushLogic (annotationBrush) { // Don't use ()=>{}
         annotationBrush.brush(d3.select(this)) // Apply the brush logic to the <g.brush> element (i.e. 'this')
       })
-      .call(addRemoveAnnotationButton, this.removeAnnotationBrush.bind(this)) // Note: the datum (the Annotation Brush) is passed as an argument to removeAnnotationBrush() due to the way that the data is joined by `.data()` above
+      .call(addRemoveAnnotationButton, this.removeAnnotationBrush) // Note: the datum (the Annotation Brush) is passed as an argument to removeAnnotationBrush() due to the way that the data is joined by `.data()` above
 
     // Modify brushes so that their invisible overlays don't overlap and
     // accidentally block events from the brushes below them. The 'default'
