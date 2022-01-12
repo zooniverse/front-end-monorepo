@@ -23,7 +23,7 @@
     "@visx/glyph": "~1.7.0",
     "@visx/group": "~1.7.0",
     "@visx/responsive": "~1.7.0",
-    "@visx/scale": "~1.7.0",
+    "@visx/scale": "~2.2.2",
     "@visx/shape": "~1.8.0",
     "@visx/zoom": "~1.7.0",
     "@zooniverse/async-states": "~0.0.1",
