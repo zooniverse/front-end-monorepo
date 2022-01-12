@@ -12,8 +12,6 @@ describe('Model > SingleVideoSubject', function () {
 
   before(function () {
     subject = SingleVideoSubject.create(subjectSnapshot)
-    subject.onToggleFavourite = sinon.stub()
-    subject.onAddToCollection = sinon.stub()
   })
 
   it('should exist', function () {

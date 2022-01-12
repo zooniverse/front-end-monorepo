@@ -34,6 +34,11 @@ describe('Stores > Recents', function () {
     rootStore = initStore(true, { project })
     recentsStore = rootStore.user.recents
     sinon.stub(rootStore.client.panoptes, 'get').callsFake(() => Promise.resolve(mockResponse))
+    sinon.stub(rootStore.client.collections, 'get').callsFake(() => Promise.resolve({
+      body: {
+        collections: []
+      }
+    }))
     sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve(null))
   })
 
@@ -53,13 +58,11 @@ describe('Stores > Recents', function () {
         id: '123',
         login: 'test.user'
       }
-      sinon.stub(rootStore.user.collections, 'fetchFavourites')
       rootStore.user.set(user)
     })
 
     after(function () {
       rootStore.client.panoptes.get.resetHistory()
-      rootStore.user.collections.fetchFavourites.restore()
     })
 
     it('should request recent subjects from Panoptes', function () {
@@ -157,14 +160,12 @@ describe('Stores > Recents', function () {
         login: 'test.user'
       }
       sinon.stub(auth, 'checkBearerToken').callsFake(() => Promise.reject(new Error('Auth is not available')))
-      sinon.stub(rootStore.user.collections, 'fetchFavourites')
       rootStore.user.set(user)
       recentsStore.add(mockRecent)
     })
 
     after(function () {
       auth.checkBearerToken.restore()
-      rootStore.user.collections.fetchFavourites.restore()
     })
 
     it('should record subjects classified this session', function () {
@@ -193,13 +194,8 @@ describe('Stores > Recents', function () {
         login: 'test.user'
       }
       rootStore.client.panoptes.get.callsFake(() => Promise.reject(new Error('Panoptes is not available')))
-      sinon.stub(rootStore.user.collections, 'fetchFavourites')
       rootStore.user.set(user)
       recentsStore.add(mockRecent)
-    })
-
-    after(function () {
-      rootStore.user.collections.fetchFavourites.restore()
     })
 
     it('should record subjects classified this session', function () {

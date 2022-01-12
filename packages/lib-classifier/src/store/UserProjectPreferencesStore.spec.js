@@ -137,7 +137,7 @@ describe('Model > UserProjectPreferencesStore', function () {
       expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.error)
     })
 
-    it('should call fetchUPP if there is a user', async function () {
+    it.skip('should call fetchUPP if there is a user', async function () {
       rootStore = setupStores(clientStub, authClientStubWithUser)
       const fetchUPPSpy = sinon.spy(rootStore.userProjectPreferences, 'fetchUPP')
 
@@ -182,7 +182,7 @@ describe('Model > UserProjectPreferencesStore', function () {
       )
     })
 
-    it('should call createUPP action upon successful request and there is not an existing UPP', async function () {
+    it.skip('should call createUPP action upon successful request and there is not an existing UPP', async function () {
       rootStore = setupStores(clientStubWithoutUPP, authClientStubWithUser)
       const createUPPSpy = sinon.spy(rootStore.userProjectPreferences, 'createUPP')
       rootStore.projects.setActive(project.id)
@@ -191,7 +191,7 @@ describe('Model > UserProjectPreferencesStore', function () {
       createUPPSpy.restore()
     })
 
-    it('should call setUPP action upon successful request and there is an existing UPP', async function () {
+    it.skip('should call setUPP action upon successful request and there is an existing UPP', async function () {
       rootStore = setupStores(clientStub, authClientStubWithUser)
       const setUPPSpy = sinon.spy(rootStore.userProjectPreferences, 'setUPP')
       rootStore.projects.setActive(project.id)
