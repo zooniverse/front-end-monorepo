@@ -11,7 +11,7 @@ const fileExtensions = {
   'text/plain': ['.txt'], // Should we also allow .json here?
   'video/mp4': ['.mp4'],
   'video/mpeg': ['.mpeg'],
-  'video/x-m4v':  ['.m4v']
+  'video/x-m4v': ['.m4v']
 }
 
 export default function validateSubjectLocations (locations) {

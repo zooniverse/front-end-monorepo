@@ -1,18 +1,11 @@
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import styled from 'styled-components'
 import request from 'superagent'
 import asyncStates from '@zooniverse/async-states'
 
 import locationValidator from '../../helpers/locationValidator'
-// import SingleTextViewer from './SingleTextViewer'
-
-const StyledBox = styled.div`
-  background-color: #FFC0CB;
-  height: 200px;
-  width: 300px;
-`
+import SingleTextViewer from './SingleTextViewer'
 
 function storeMapper(stores) {
   // TODO connect to get other data / function as needed
@@ -109,7 +102,9 @@ class SingleTextViewerContainer extends Component {
     if (loadingState !== asyncStates.initialized) {
       return (
         <div>
-          <StyledBox>{content}</StyledBox>
+          <SingleTextViewer>
+            {content}
+          </SingleTextViewer>
         </div>
       )
     }
