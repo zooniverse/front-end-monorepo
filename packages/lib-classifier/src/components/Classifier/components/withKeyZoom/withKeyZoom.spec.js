@@ -18,12 +18,10 @@ describe('withKeyZoom', function () {
   const classifierStore = {
     subjectViewer
   }
-  const panLeft = sinon.spy(subjectViewer, 'panLeft')
-  const panRight = sinon.spy(subjectViewer, 'panRight')
-  const panUp = sinon.spy(subjectViewer, 'panUp')
-  const panDown = sinon.spy(subjectViewer, 'panDown')
-  const zoomIn = sinon.spy(subjectViewer, 'zoomIn')
-  const zoomOut = sinon.spy(subjectViewer, 'zoomOut')
+  const onPan = sinon.stub()
+  subjectViewer.setOnPan(onPan)
+  const onZoom = sinon.stub()
+  subjectViewer.setOnZoom(onZoom)
   let wrappedComponent
 
   before(function () {
@@ -44,54 +42,50 @@ describe('withKeyZoom', function () {
       {
         key: '+',
         name: 'zoomIn',
-        handler: zoomIn
+        handler: onZoom.withArgs('zoomin', 1)
       },
       {
         key: '=',
         name: 'zoomIn',
-        handler: zoomIn
+        handler: onZoom.withArgs('zoomin', 1)
       },
       {
         key: '-',
         name: 'zoomOut',
-        handler: zoomOut
+        handler: onZoom.withArgs('zoomout', -1)
       },
       {
         key: '_',
         name: 'zoomOut',
-        handler: zoomOut
+        handler: onZoom.withArgs('zoomout', -1)
       },
       {
         key: 'ArrowRight',
         name: 'pan right',
-        handler: panRight
+        handler: onPan.withArgs(1,0)
       },
       {
         key: 'ArrowLeft',
         name: 'pan left',
-        handler: panLeft
+        handler: onPan.withArgs(-1,0)
       },
       {
         key: 'ArrowUp',
         name: 'pan up',
-        handler: panUp
+        handler: onPan.withArgs(0,-1)
       },
       {
         key: 'ArrowDown',
         name: 'pan down',
-        handler: panDown
+        handler: onPan.withArgs(0,1)
       }
     ]
 
     function testAllowedTag(tagName) {
       describe(`when the event target is ${tagName}`, function () {
         afterEach(function () {
-          panLeft.resetHistory()
-          panRight.resetHistory()
-          panUp.resetHistory()
-          panDown.resetHistory()
-          zoomIn.resetHistory()
-          zoomOut.resetHistory()
+          onPan.resetHistory()
+          onZoom.resetHistory()
         })
 
         bindings.forEach(function ({ key, name, handler }) {
@@ -116,12 +110,8 @@ describe('withKeyZoom', function () {
 
     describe('when the event target is something else', function () {
       afterEach(function () {
-        panLeft.resetHistory()
-        panRight.resetHistory()
-        panUp.resetHistory()
-        panDown.resetHistory()
-        zoomIn.resetHistory()
-        zoomOut.resetHistory()
+        onPan.resetHistory()
+        onZoom.resetHistory()
       })
 
       bindings.forEach(function ({ key, name, handler }) {

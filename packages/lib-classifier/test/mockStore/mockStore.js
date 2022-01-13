@@ -35,7 +35,7 @@ export default function mockStore({
 
   const workflowSnapshot = workflow || WorkflowFactory.build()
 
-  const projectSnapshot = ProjectFactory.build({}, {
+  const projectSnapshot = project || ProjectFactory.build({}, {
     activeWorkflowId: workflowSnapshot.id
   })
 
@@ -79,7 +79,7 @@ export default function mockStore({
       checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null)),
       checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null))
     },
-    client: { ...client, panoptes }
+    client: { ...defaultClient, panoptes, ...client }
   })
   rootStore.workflows.setResources([workflowSnapshot])
   rootStore.workflows.setActive(workflowSnapshot.id)

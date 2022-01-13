@@ -1,4 +1,3 @@
-import sinon from 'sinon'
 import AnnotationsStore from './AnnotationsStore'
 import ClassificationStore from './ClassificationStore'
 import Tool from '@plugins/drawingTools/models/tools/Tool'
@@ -94,13 +93,11 @@ describe('Model > AnnotationsStore', function () {
         active: classificationSnapshot.id,
         resources: { [classificationSnapshot.id]: classificationSnapshot }
       })
-      const resetSpy = sinon.spy(classificationStore.active, 'reset')
 
       expect(classificationStore.active.annotations.size).to.equal(0)
       classificationStore.addAnnotation(task, 2)
       expect(classificationStore.active.annotations.size).to.equal(1)
       classificationStore.reset()
-      expect(resetSpy).to.have.been.calledOnce()
       expect(classificationStore.active).to.be.undefined()
       expect(classificationStore.resources).to.be.empty()
     })
@@ -125,10 +122,8 @@ describe('Model > AnnotationsStore', function () {
       })
       tool.createMark({ id: '1', annotations: { [singleChoiceAnnotation.id]: singleChoiceAnnotation } })
       const mark = tool.marks.get('1')
-      const resetSpy = sinon.spy(mark, 'reset')
       expect(mark.annotations.size).to.equal(1)
       tool.reset()
-      expect(resetSpy).to.have.been.calledOnce()
       expect(tool.marks).to.be.empty()
     })
   })

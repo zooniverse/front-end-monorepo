@@ -65,11 +65,9 @@ describe('Components > DrawingToolMarks', function () {
     let onDeselectMark
     let onDelete
     let onFinish
-    let deleteMark
 
     beforeEach(function () {
       const point = marks[1]
-      deleteMark = sinon.spy(point.tool, 'deleteMark')
       onDeselectMark = sinon.stub()
       onDelete = sinon.stub()
       onFinish = sinon.stub()
@@ -130,8 +128,9 @@ describe('Components > DrawingToolMarks', function () {
         }
         const fakeEvent = { currentTarget }
         dragEnd(fakeEvent)
+        const { tool } = marks[1]
         expect(onDelete).to.have.been.calledOnce()
-        expect(deleteMark).to.have.been.calledOnce()
+        expect(tool.marks).to.be.empty()
       })
     })
   })
