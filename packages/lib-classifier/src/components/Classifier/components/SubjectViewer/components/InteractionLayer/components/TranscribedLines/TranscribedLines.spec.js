@@ -481,7 +481,8 @@ describe('Component > TranscribedLines', function () {
         popup = wrapper.find(ConsensusPopup)
         expect(popup.props().active).to.be.true()
         expect(popup.props().line).to.deep.equal(completeLines[index])
-        wrapper.instance().close()
+        const closeFn = popup.props().closeFn
+        closeFn()
         popup = wrapper.find(ConsensusPopup)
         expect(popup.props().active).to.be.false()
         expect(popup.props().line).to.deep.equal({
@@ -505,7 +506,8 @@ describe('Component > TranscribedLines', function () {
         expect(eventMock.preventDefault).to.have.been.calledOnce()
         expect(popup.props().active).to.be.true()
         expect(popup.props().line).to.deep.equal(completeLines[index])
-        wrapper.instance().close()
+        const closeFn = popup.props().closeFn
+        closeFn()
         popup = wrapper.find(ConsensusPopup)
         expect(popup.props().active).to.be.false()
         expect(popup.props().line).to.deep.equal({
@@ -530,7 +532,8 @@ describe('Component > TranscribedLines', function () {
         expect(eventMock.preventDefault).to.have.been.calledOnce()
         expect(popup.props().active).to.be.true()
         expect(popup.props().line).to.deep.equal(completeLines[index])
-        wrapper.instance().close()
+        const closeFn = popup.props().closeFn
+        closeFn()
         popup = wrapper.find(ConsensusPopup)
         expect(popup.props().active).to.be.false()
         expect(popup.props().line).to.deep.equal({

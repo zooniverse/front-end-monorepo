@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Tasks from '@components/Classifier/components/TaskArea/components/Tasks'
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
-import { createStore }  from '@store/helpers'
+import mockStore  from '@test/mockStore'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 
 /**
@@ -38,10 +38,8 @@ function addStepToStore(taskSnapshots = {}, isThereTaskHelp = true) {
   Initialise the store state on story load.
 */
 function initStore(tasks) {
-  store = store ?? createStore()
   const workflow = WorkflowFactory.build(Object.assign({}, { tasks }))
-  store.workflows.setResources([workflow])
-  store.workflows.setActive(workflow.id)
+  store = store ?? mockStore({ workflow })
   const mockSubject = {
     id: 'subject',
     metadata: {}

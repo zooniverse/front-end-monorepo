@@ -1,5 +1,3 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
 import { withStores } from '@helpers'
@@ -22,65 +20,33 @@ function storeMapper(store) {
     }
   } = store
 
-  const consensusLines = subject.transcriptionReductions?.consensusLines(frame)
+  const lines = subject.transcriptionReductions?.consensusLines(frame)
   const activeStepAnnotations = subject.stepHistory.latest.annotations
 
   // We expect there to only be one
-  const [transcriptionTask] = findTasksByType('transcription')
+  const [task] = findTasksByType('transcription')
   // We want to observe the marks array for changes, so pass that as a separate prop.
-  const marks = transcriptionTask?.marks
+  const marks = task?.marks
   // find the corresponding annotation
   const annotation = activeStepAnnotations.find(
-    annotation => annotation.task === transcriptionTask?.taskKey
+    annotation => annotation.task === task?.taskKey
   )
 
   const valid = step?.isValid
+  const visible = workflow?.usesTranscriptionTask &&
+    task?.shownMarks === SHOWN_MARKS.ALL &&
+    lines.length > 0
+
   return {
     annotation,
     frame,
-    invalid: !valid,
-    transcriptionTask,
-    consensusLines,
+    invalidMark: !valid,
+    lines,
     marks,
+    task,
+    visible,
     workflow
   }
 }
 
-const defaultWorkflow = {
-  usesTranscriptionTask: false
-}
-
-function TranscribedLinesContainer ({
-  annotation,
-  frame,
-  invalid = false,
-  transcriptionTask = {},
-  consensusLines = [],
-  marks = [],
-  scale = 1,
-  workflow = defaultWorkflow
-}) {
-  const { shownMarks } = transcriptionTask
-
-  if (workflow?.usesTranscriptionTask && shownMarks === SHOWN_MARKS.ALL && consensusLines.length > 0) {
-    return (
-      <TranscribedLines
-        annotation={annotation}
-        frame={frame}
-        invalidMark={invalid}
-        lines={consensusLines}
-        marks={marks}
-        scale={scale}
-        task={transcriptionTask}
-      />
-    )
-  }
-
-  return null
-}
-
-TranscribedLinesContainer.propTypes = {
-  scale: PropTypes.number
-}
-
-export default withStores(TranscribedLinesContainer, storeMapper)
+export default withStores(TranscribedLines, storeMapper)

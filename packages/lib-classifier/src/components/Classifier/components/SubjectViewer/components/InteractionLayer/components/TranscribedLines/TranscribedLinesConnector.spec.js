@@ -100,42 +100,42 @@ describe('Component > TranscribedLinesConnector', function () {
   })
 
   describe('when the workflow does not have a transcription task', function () {
-    it('should not render TranscribedLines', function () {
+    it('should hide TranscribedLines', function () {
       const store = mockStoresWithoutTranscriptionTask
-      const wrapper = shallow(<TranscribedLinesConnector store={store} />).dive()
-      expect(wrapper.find(TranscribedLines)).to.have.lengthOf(0)
+      const wrapper = shallow(<TranscribedLinesConnector store={store} />).find(TranscribedLines)
+      expect(wrapper.prop('visible')).to.be.false()
     })
   })
 
   describe('when the subject does not have consensus lines', function () {
-    it('should not render TranscribedLines', function () {
+    it('should hide TranscribedLines', function () {
       const store= mockStoresWithTranscriptionTask
-      const wrapper = shallow(<TranscribedLinesConnector store={store} />).dive()
-      expect(wrapper.find(TranscribedLines)).to.have.lengthOf(0)
+      const wrapper = shallow(<TranscribedLinesConnector store={store} />).find(TranscribedLines)
+      expect(wrapper.prop('visible')).to.be.false()
     })
   })
 
   describe('when the workflow does have a transcription task and subject does have consensus lines', function () {
-    it('should render TranscribedLines', function () {
+    it('should show TranscribedLines', function () {
       const store = mockStoresWithTranscriptionTaskAndConsensusLines
-      const wrapper = shallow(<TranscribedLinesConnector store={store} />).dive()
-      expect(wrapper.find(TranscribedLines)).to.have.lengthOf(1)
-      expect(wrapper.find(TranscribedLines).prop('lines')).to.have.lengthOf(transcriptionReductions.consensusLines(0).length)
+      const wrapper = shallow(<TranscribedLinesConnector store={store} />).find(TranscribedLines)
+      expect(wrapper.prop('visible')).to.be.true()
+      expect(wrapper.prop('lines')).to.have.lengthOf(transcriptionReductions.consensusLines(0).length)
     })
 
     it('should render lines per frame', function () {
       const store = Object.assign({}, mockStoresWithTranscriptionTaskAndConsensusLines, { subjectViewer: { frame: 1 } })
-      const wrapper = shallow(<TranscribedLinesConnector store={store} />).dive()
-      expect(wrapper.find(TranscribedLines).prop('lines')).to.have.lengthOf(transcriptionReductions.consensusLines(1).length)
+      const wrapper = shallow(<TranscribedLinesConnector store={store} />).find(TranscribedLines)
+      expect(wrapper.prop('lines')).to.have.lengthOf(transcriptionReductions.consensusLines(1).length)
     })
 
-    it('should not render TranscribedLines if no lines per frame', function () {
+    it('should hide TranscribedLines if no lines per frame', function () {
       const store = Object.assign({}, mockStoresWithTranscriptionTaskAndConsensusLines, { subjectViewer: { frame: 3 } })
-      const wrapper = shallow(<TranscribedLinesConnector store={store} />).dive()
-      expect(wrapper.find(TranscribedLines)).to.have.lengthOf(transcriptionReductions.consensusLines(3).length)
+      const wrapper = shallow(<TranscribedLinesConnector store={store} />).find(TranscribedLines)
+      expect(wrapper.prop('visible')).to.be.false()
     })
 
-    it('should not render TranscribedLines if showing only user marks', function () {
+    it('should hide TranscribedLines if showing only user marks', function () {
       const taskShowingOnlyUserMarks = {
         workflowSteps: {
           activeStepTasks: [
@@ -153,11 +153,11 @@ describe('Component > TranscribedLinesConnector', function () {
         }
       }
       const store = Object.assign({}, mockStoresWithTranscriptionTaskAndConsensusLines, taskShowingOnlyUserMarks)
-      const wrapper = shallow(<TranscribedLinesConnector store={store} />).dive()
-      expect(wrapper.find(TranscribedLines)).to.have.lengthOf(0)
+      const wrapper = shallow(<TranscribedLinesConnector store={store} />).find(TranscribedLines)
+      expect(wrapper.prop('visible')).to.be.false()
     })
 
-    it('should not render TranscribedLines if hiding all marks', function () {
+    it('should hide TranscribedLines if hiding all marks', function () {
       const taskHidingAllMarks = {
         workflowSteps: {
           activeStepTasks: [
@@ -175,8 +175,8 @@ describe('Component > TranscribedLinesConnector', function () {
         }
       }
       const store = Object.assign({}, mockStoresWithTranscriptionTaskAndConsensusLines, taskHidingAllMarks)
-      const wrapper = shallow(<TranscribedLinesConnector store={store} />).dive()
-      expect(wrapper.find(TranscribedLines)).to.have.lengthOf(0)
+      const wrapper = shallow(<TranscribedLinesConnector store={store} />).find(TranscribedLines)
+      expect(wrapper.prop('visible')).to.be.false()
     })
 
     it('should pass along if the step\'s tasks are in an invalid state', function () {
@@ -203,7 +203,7 @@ describe('Component > TranscribedLinesConnector', function () {
           }
         }
       })
-      wrapper = shallow(<TranscribedLinesConnector store={store} />).dive()
+      wrapper = shallow(<TranscribedLinesConnector store={store} />).find(TranscribedLines)
       expect(wrapper.props().invalidMark).to.be.true()
     })
   })

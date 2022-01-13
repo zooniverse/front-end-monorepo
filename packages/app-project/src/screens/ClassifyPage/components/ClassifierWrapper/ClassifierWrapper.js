@@ -33,7 +33,10 @@ export default function ClassifierWrapper({
 }) {
   const router = useRouter()
   function onCompleteClassification(classification, subject) {
-    yourStats.increment()
+    const finishedSubject = subject.already_seen || subject.retired
+    if (!finishedSubject) {
+      yourStats.increment()
+    }
     recents.add({
       favorite: subject.favorite,
       subjectId: subject.id,

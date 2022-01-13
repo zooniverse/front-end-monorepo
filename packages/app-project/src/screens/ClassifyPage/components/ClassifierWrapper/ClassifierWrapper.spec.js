@@ -73,30 +73,109 @@ describe('Component > ClassifierWrapper', function () {
     })
 
     describe('on classification complete', function () {
-      before(function () {
-        const subject = {
-          id: '1',
-          favorite: false,
-          locations: [
-            { 'image/jpeg': 'thing.jpg' }
-          ]
-        }
-        wrapper.props().onCompleteClassification({}, subject)
+      describe('with a new subject', function () {
+        before(function () {
+          const subject = {
+            id: '1',
+            already_seen: false,
+            favorite: false,
+            retired: false,
+            locations: [
+              { 'image/jpeg': 'thing.jpg' }
+            ]
+          }
+          wrapper.props().onCompleteClassification({}, subject)
+        })
+
+        after(function () {
+          yourStats.increment.resetHistory()
+          recents.add.resetHistory()
+        })
+
+        it('should increment stats', function () {
+          expect(yourStats.increment).to.have.been.calledOnce()
+        })
+
+        it('should add to recents', function () {
+          const recent = {
+            favorite: false,
+            subjectId: '1',
+            locations: [
+              { 'image/jpeg': 'thing.jpg' }
+            ]
+          }
+          expect(recents.add.withArgs(recent)).to.have.been.calledOnce()
+        })
       })
 
-      it('should increment stats', function () {
-        expect(yourStats.increment).to.have.been.calledOnce()
+      describe('with a retired subject', function () {
+        before(function () {
+          const subject = {
+            id: '1',
+            already_seen: false,
+            favorite: false,
+            retired: true,
+            locations: [
+              { 'image/jpeg': 'thing.jpg' }
+            ]
+          }
+          wrapper.props().onCompleteClassification({}, subject)
+        })
+
+        after(function () {
+          yourStats.increment.resetHistory()
+          recents.add.resetHistory()
+        })
+
+        it('should not increment stats', function () {
+          expect(yourStats.increment).to.not.have.been.called()
+        })
+
+        it('should add to recents', function () {
+          const recent = {
+            favorite: false,
+            subjectId: '1',
+            locations: [
+              { 'image/jpeg': 'thing.jpg' }
+            ]
+          }
+          expect(recents.add.withArgs(recent)).to.have.been.calledOnce()
+        })
       })
 
-      it('should add to recents', function () {
-        const recent = {
-          favorite: false,
-          subjectId: '1',
-          locations: [
-            { 'image/jpeg': 'thing.jpg' }
-          ]
-        }
-        expect(recents.add.withArgs(recent)).to.have.been.calledOnce()
+      describe('with a seen subject', function () {
+        before(function () {
+          const subject = {
+            id: '1',
+            already_seen: true,
+            favorite: false,
+            retired: false,
+            locations: [
+              { 'image/jpeg': 'thing.jpg' }
+            ]
+          }
+          wrapper.props().onCompleteClassification({}, subject)
+        })
+
+        after(function () {
+          yourStats.increment.resetHistory()
+          recents.add.resetHistory()
+        })
+
+        it('should not increment stats', function () {
+          expect(yourStats.increment).to.not.have.been.called()
+        })
+
+        it('should add to recents', function () {
+          const recent = {
+            favorite: false,
+            subjectId: '1',
+            locations: [
+              { 'image/jpeg': 'thing.jpg' }
+            ]
+          }
+          expect(recents.add.withArgs(recent)).to.have.been.calledOnce()
+        })
       })
     })
 

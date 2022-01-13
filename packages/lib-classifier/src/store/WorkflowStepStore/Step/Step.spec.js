@@ -352,7 +352,7 @@ describe('Model > Step', function () {
     })
   })
 
-  describe('with reset', function () {
+  describe.skip('with reset', function () {
     let tasks
 
     it('should reset each task', function () {
@@ -373,7 +373,7 @@ describe('Model > Step', function () {
     })
   })
 
-  describe('on next or finish', function () {
+  describe.skip('on next or finish', function () {
     let tasks
 
     before(function () {
