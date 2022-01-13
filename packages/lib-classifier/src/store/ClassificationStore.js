@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import counterpart from 'counterpart'
 import cuid from 'cuid'
-import _ from 'lodash'
+import { snakeCase } from 'lodash'
 import { toJS } from 'mobx'
 import { flow, getRoot, getSnapshot, isValidReference, tryReference, types } from 'mobx-state-tree'
 
@@ -132,11 +132,17 @@ const ClassificationStore = types
 
         const convertedMetadata = {}
         Object.entries(classificationToSubmit.metadata).forEach(([key, value]) => {
-          convertedMetadata[_.snakeCase(key)] = value
+          convertedMetadata[snakeCase(key)] = value
         })
         classificationToSubmit.metadata = convertedMetadata
 
-        self.onComplete(classification.toJSON(), subject.toJSON())
+        /*
+          Subject.alreadySeen is a computed value, so copy it across to a copy of the subject snapshot.
+          Calling apps will expect subject.already_seen, as per the Panoptes API.
+        */
+        const already_seen = subject.alreadySeen
+        const subjectData = Object.assign({}, getSnapshot(subject), { already_seen })
+        self.onComplete(classificationToSubmit, subjectData)
         self.trackAlreadySeenSubjects(classificationToSubmit.links.workflow, classificationToSubmit.links.subjects)
 
         if (process.browser) {
