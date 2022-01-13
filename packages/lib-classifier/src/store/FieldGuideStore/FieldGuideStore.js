@@ -1,9 +1,9 @@
 import { autorun } from 'mobx'
 import { addDisposer, getRoot, tryReference, types, flow } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
-import ResourceStore from './ResourceStore'
+import ResourceStore from '@store/ResourceStore'
 import FieldGuide from './FieldGuide'
-import Medium from './Medium'
+import Medium from '@store/Medium'
 
 const FieldGuideStore = types
   .model('FieldGuideStore', {
@@ -21,14 +21,15 @@ const FieldGuideStore = types
       createProjectObserver()
     }
 
+    function _onProjectChange() {
+      const project = tryReference(() => getRoot(self).projects.active)
+      if (!self.loaded && project) {
+        self.reset()
+        self.fetchFieldGuide(project.id)
+      }
+    }
     function createProjectObserver () {
-      const projectDisposer = autorun(() => {
-        const project = tryReference(() => getRoot(self).projects.active)
-        if (!self.loaded && project) {
-          self.reset()
-          self.fetchFieldGuide(project.id)
-        }
-      }, { name: 'FieldGuideStore Project Observer autorun' })
+      const projectDisposer = autorun(_onProjectChange)
       addDisposer(self, projectDisposer)
     }
 
@@ -94,9 +95,8 @@ const FieldGuideStore = types
     }
 
     function setActiveItemIndex (index) {
-      const validFieldGuide = isValidReference(() => self.active)
-      if (validFieldGuide) {
-        const fieldGuide = self.active
+      const fieldGuide = tryReference(() => self.active)
+      if (fieldGuide) {
         if (fieldGuide && index + 1 <= fieldGuide.items.length && fieldGuide.items[index]) {
           if (fieldGuide.items[index].icon) self.activeMedium = fieldGuide.items[index].icon
           self.activeItemIndex = index
