@@ -31,7 +31,7 @@
     "remark": "~10.0.1",
     "remark-emoji": "~2.0.2",
     "remark-external-links": "~3.1.1",
-    "remark-react": "~5.0.1",
+    "remark-react": "~9.0.1",
     "remark-rehype": "~4.0.0",
     "remark-sub-super": "~1.0.16",
     "remark-toc": "~5.1.1",
