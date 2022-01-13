@@ -16,7 +16,8 @@ const ResourceStore = types
 
   .views( self => ({
     get loaded() {
-      return self.loadingState === asyncStates.success
+      // we want to avoid making duplicate network requests if loading is in progress or finished.
+      return self.loadingState !== asyncStates.initialized
     }
   }))
 
