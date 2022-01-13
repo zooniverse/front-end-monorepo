@@ -1,5 +1,9 @@
 import * as d3 from 'd3'
 
+function cancelEvent(event) {
+  event.stopPropagation
+}
+
 export default function addRemoveAnnotationButton (selection, onClick = null) {
   const size = 20 // Width and height
 
@@ -20,7 +24,7 @@ export default function addRemoveAnnotationButton (selection, onClick = null) {
     .attr('cy', size / 2)
     .style('pointer-events', 'all')
     // Prevent parent's brush events from triggering
-    .on('mousedown touchstart', d3.event && d3.event.stopPropagation)
+    .on('mousedown touchstart', cancelEvent)
     .on('click', onClick)
 
   g.append('path')
