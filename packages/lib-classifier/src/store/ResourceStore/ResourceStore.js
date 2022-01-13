@@ -14,6 +14,12 @@ const ResourceStore = types
     type: types.string
   })
 
+  .views( self => ({
+    get loaded() {
+      return self.loadingState === asyncStates.success
+    }
+  }))
+
   .actions(self => ({
     fetchResource: flow(function * fetchResource (id) {
       const client = getRoot(self).client.panoptes
