@@ -1,16 +1,22 @@
 import { getSnapshot } from 'mobx-state-tree'
+import sinon from 'sinon'
 import ClassificationMetadata from './ClassificationMetadata'
 
 describe('Model > ClassificationMetadata', function () {
-  let model
+  let clock, model
 
   before(function () {
+    clock = sinon.useFakeTimers({ now: new Date(2022, 1, 10, 12), toFake: ['Date'] })
     model = ClassificationMetadata.create({
       classifier_version: '2.0',
       source: 'api',
       userLanguage: 'en',
       workflowVersion: '1.0'
     })
+  })
+
+  after(function () {
+    clock.restore()
   })
 
   it('should exist', function () {
@@ -21,7 +27,14 @@ describe('Model > ClassificationMetadata', function () {
   it('should have a classifier version', function () {
     expect(model.classifier_version).to.equal('2.0')
   })
-  
+
+  describe('startedAt', function () {
+    it('should be the current time', function () {
+      const now = new Date(2022, 1, 10, 12)
+      expect(model.startedAt).to.equal(now.toISOString())
+    })
+  })
+
   describe('update', function() {
     let snapshot
 

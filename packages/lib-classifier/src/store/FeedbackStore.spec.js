@@ -223,7 +223,6 @@ describe('Model > FeedbackStore', function () {
         const feedbackSnapshot = FeedbackFactory.build({ rules: rulesStub, showModal: true })
         rootStore = createRootStore(feedbackSnapshot)
         feedback = rootStore.feedback
-        sinon.stub(rootStore.subjects, 'advance').callsFake(() => { })
       })
 
       after(function () {

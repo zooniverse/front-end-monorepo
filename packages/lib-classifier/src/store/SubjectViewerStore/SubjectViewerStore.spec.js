@@ -92,7 +92,6 @@ describe('Model > SubjectViewerStore', function () {
         ]
       }
       subjectViewerStore = SubjectViewerStore.create(subjectViewerStub)
-      subjectViewerStore.subjects = SubjectStore.create()
     })
 
     it('should reset the loading state and subject dimensions when there is a new active subject', function () {
