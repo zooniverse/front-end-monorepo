@@ -1,3 +1,4 @@
+import { snakeCase } from 'lodash'
 import sinon from 'sinon'
 import { Factory } from 'rosie'
 import RootStore from './RootStore'
@@ -156,7 +157,6 @@ describe('Model > ClassificationStore', function () {
       let subjectToBeClassified
       let feedback
       let subjectViewer
-      let onComplete
       let rootStore
 
       before(function () {
@@ -176,8 +176,6 @@ describe('Model > ClassificationStore', function () {
         sinon.stub(helpers, 'isFeedbackActive').callsFake(() => true)
         classifications = rootStore.classifications
         feedback = rootStore.feedback
-        onComplete = sinon.stub()
-        classifications.setOnComplete(onComplete)
         subjectViewer = rootStore.subjectViewer
 
         // annotate a subject then finish the classification
@@ -186,13 +184,15 @@ describe('Model > ClassificationStore', function () {
         taskSnapshot.createAnnotation = () => SingleChoiceAnnotation.create(singleChoiceAnnotationSnapshot)
         classifications.addAnnotation(taskSnapshot, singleChoiceAnnotationSnapshot.value)
         classificationWithAnnotation = tryReference(() => classifications.active)
+
+        classifications.setOnComplete(sinon.stub())
         classifications.completeClassification({
           preventDefault: sinon.stub()
         })
       })
 
       after(function () {
-        onComplete.resetHistory()
+        classifications.onComplete.resetHistory()
         subjectViewer.resetSubject()
         helpers.isFeedbackActive.restore()
       })
@@ -214,7 +214,15 @@ describe('Model > ClassificationStore', function () {
       })
 
       it('should call the onComplete callback with the classification and subject', function () {
-        expect(onComplete.withArgs(classificationWithAnnotation.toJSON(), subjectToBeClassified.toJSON())).to.have.been.calledOnce()
+        const classificationData = classificationWithAnnotation.toSnapshot()
+        const convertedMetadata = {}
+        Object.entries(classificationData.metadata).forEach(([key, value]) => {
+          convertedMetadata[snakeCase(key)] = value
+        })
+        classificationData.metadata = convertedMetadata
+        const already_seen = subjectToBeClassified.alreadySeen
+        const subjectData = Object.assign({}, getSnapshot(subjectToBeClassified), { already_seen })
+        expect(classifications.onComplete.withArgs(classificationData, subjectData)).to.have.been.calledOnce()
       })
 
       describe('classification metadata', function () {

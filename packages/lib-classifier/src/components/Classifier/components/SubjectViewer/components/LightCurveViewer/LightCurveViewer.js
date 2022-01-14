@@ -61,12 +61,26 @@ class LightCurveViewer extends Component {
 
     // Each Annotation is represented as a single D3 Brush
     this.annotationBrushes = [] // This keeps track of the annotation-brushes in existence, including the DEFAULT brush (the interface brush, for creating new annotations) that exists even when there are no annotations.
+
+    // Bind this for event handlers.
+    this.doZoom = this.doZoom.bind(this)
+    this.drawChart = this.drawChart.bind(this)
+    this.removeAnnotationBrush = this.removeAnnotationBrush.bind(this)
+    this.onAnnotationBrushStart = this.onAnnotationBrushStart.bind(this)
+    this.onAnnotationBrushBrushed = this.onAnnotationBrushBrushed.bind(this)
+    this.onAnnotationBrushEnd = this.onAnnotationBrushEnd.bind(this)
+    this.handleToolbarZoom = this.handleToolbarZoom.bind(this)
+    this.repositionBrush = this.repositionBrush.bind(this)
+    this.pan = this.pan.bind(this)
+    this.zoomIn = this.zoomIn.bind(this)
+    this.zoomOut = this.zoomOut.bind(this)
+    this.zoomTo = this.zoomTo.bind(this)
   }
 
   componentDidMount () {
     this.initChart()
-    this.props.setOnZoom(this.handleToolbarZoom.bind(this))
-    this.props.setOnPan(this.pan.bind(this))
+    this.props.setOnZoom(this.handleToolbarZoom)
+    this.props.setOnPan(this.pan)
   }
 
   componentDidUpdate (prevProps) {
@@ -165,7 +179,7 @@ class LightCurveViewer extends Component {
       if (this.props.feedback) {
         this.updateInteractionMode('move')
         this.disableBrushEvents()
-        this.props.drawFeedbackBrushes(this.d3annotationsLayer, this.repositionBrush.bind(this))
+        this.props.drawFeedbackBrushes(this.d3annotationsLayer, this.repositionBrush)
       } else {
         this.updateAnnotationBrushes()
         this.initBrushes()
@@ -244,9 +258,9 @@ class LightCurveViewer extends Component {
     const nextAvailableId = (defaultBrush && defaultBrush.id + 1) || 0
 
     const brush = d3.brushX()
-      .on('start', this.onAnnotationBrushStart.bind(this))
-      .on('brush', this.onAnnotationBrushBrushed.bind(this))
-      .on('end', this.onAnnotationBrushEnd.bind(this))
+      .on('start', this.onAnnotationBrushStart)
+      .on('brush', this.onAnnotationBrushBrushed)
+      .on('end', this.onAnnotationBrushEnd)
 
     const newAnnotationBrush = {
       id: nextAvailableId,
@@ -260,7 +274,7 @@ class LightCurveViewer extends Component {
     return newAnnotationBrush
   }
 
-  removeAnnotationBrush (annotationBrush) {
+  removeAnnotationBrush (event, annotationBrush) {
     this.annotationBrushes = this.annotationBrushes.filter((ab) => ab.id !== annotationBrush.id)
     this.updateAnnotationBrushes()
     this.saveBrushesToAnnotations()
@@ -279,9 +293,9 @@ class LightCurveViewer extends Component {
   enableBrushEvents () {
     this.annotationBrushes.forEach((annotationBrush) => {
       annotationBrush.brush
-        .on('start', this.onAnnotationBrushStart.bind(this))
-        .on('brush', this.onAnnotationBrushBrushed.bind(this))
-        .on('end', this.onAnnotationBrushEnd.bind(this))
+        .on('start', this.onAnnotationBrushStart)
+        .on('brush', this.onAnnotationBrushBrushed)
+        .on('end', this.onAnnotationBrushEnd)
     })
   }
 
@@ -296,9 +310,9 @@ class LightCurveViewer extends Component {
 
   onAnnotationBrushBrushed () {}
 
-  onAnnotationBrushEnd (annotationBrush, index, domElements) {
+  onAnnotationBrushEnd ({ selection }, annotationBrush) {
     const props = this.props
-    const brushSelection = d3.event.selection // Returns [xMin, xMax] or null, where x is relative to the SVG (not the data)
+    const brushSelection = selection // Returns [xMin, xMax] or null, where x is relative to the SVG (not the data)
 
     // If the user attempted to make a selection, BUT the current task isn't
     // a valid task, cancel that brush.
@@ -358,9 +372,8 @@ class LightCurveViewer extends Component {
     return []
   }
 
-  getCurrentTransform () {
-    return (d3.event && d3.event.transform) ||
-      (this.d3interfaceLayer && d3.zoomTransform(this.d3interfaceLayer.node())) ||
+  getCurrentTransform() {
+    return (this.d3interfaceLayer && d3.zoomTransform(this.d3interfaceLayer.node())) ||
       d3.zoomIdentity
   }
 
@@ -370,9 +383,9 @@ class LightCurveViewer extends Component {
    */
   handleToolbarZoom (type, zoomValue) {
     const doZoom = {
-      'zoomin': this.zoomIn.bind(this),
-      'zoomout': this.zoomOut.bind(this),
-      'zoomto': this.zoomTo.bind(this)
+      'zoomin': this.zoomIn,
+      'zoomout': this.zoomOut,
+      'zoomto': this.zoomTo
     }
 
     if (doZoom[type]) {
@@ -386,7 +399,7 @@ class LightCurveViewer extends Component {
     if (this.props.feedback) {
       this.updateInteractionMode('move')
       this.disableBrushEvents()
-      this.props.drawFeedbackBrushes(this.d3annotationsLayer, this.repositionBrush.bind(this))
+      this.props.drawFeedbackBrushes(this.d3annotationsLayer, this.repositionBrush)
     } else {
       this.updateAnnotationBrushes()
     }
@@ -425,7 +438,7 @@ class LightCurveViewer extends Component {
       .attr('width', '100%')
       .attr('focusable', true)
       .attr('tabindex', 0)
-      .on('keydown', () => onKeyDown(d3.event))
+      .on('keydown', onKeyDown)
       .style('cursor', 'crosshair')
     this.xScale = d3.scaleLinear()
     this.yScale = d3.scaleLinear()
@@ -461,7 +474,7 @@ class LightCurveViewer extends Component {
     // Zoom controller
     this.zoom = d3.zoom()
       .scaleExtent([props.minZoom, props.maxZoom]) // Limit zoom scale
-      .on('zoom', this.doZoom.bind(this))
+      .on('zoom', this.doZoom)
 
     // Annotations/markings layer
     this.d3svg
@@ -519,7 +532,7 @@ class LightCurveViewer extends Component {
       .each(function applyBrushLogic (annotationBrush) { // Don't use ()=>{}
         annotationBrush.brush(d3.select(this)) // Apply the brush logic to the <g.brush> element (i.e. 'this')
       })
-      .call(addRemoveAnnotationButton, this.removeAnnotationBrush.bind(this)) // Note: the datum (the Annotation Brush) is passed as an argument to removeAnnotationBrush() due to the way that the data is joined by `.data()` above
+      .call(addRemoveAnnotationButton, this.removeAnnotationBrush) // Note: the datum (the Annotation Brush) is passed as an argument to removeAnnotationBrush() due to the way that the data is joined by `.data()` above
 
     // Modify brushes so that their invisible overlays don't overlap and
     // accidentally block events from the brushes below them. The 'default'
@@ -650,7 +663,7 @@ class LightCurveViewer extends Component {
         <ReactResizeDetector
           handleWidth
           handleHeight
-          onResize={this.drawChart.bind(this)}
+          onResize={this.drawChart}
           refreshMode='debounce'
           refreshRate={500}
         />
