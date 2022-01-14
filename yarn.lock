@@ -16391,10 +16391,10 @@ request@^2.88.0, request@^2.88.2:
     tunnel-agent "^0.6.0"
     uuid "^3.3.2"
 
-require-control@~2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/require-control/-/require-control-2.1.1.tgz#e8e701908e40c3c49f512083d59da199722c17cc"
-  integrity sha512-NVK9kp9nwNCmugupRfE0vgml/1Z97rq5maqKt0LIMU6BiGJR/tBMiQkSLQ8xdOTS+DuAlOKephJVLyW+FFHMug==
+require-control@~2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/require-control/-/require-control-2.2.0.tgz#ae839530295423bf9373d66d294be67a084721db"
+  integrity sha512-nP22e+TxOMTgemrxmWj3xj6xX9Tl+dXikHZhzz6hO8fIRIkBe3z76VQOXSb3T0NE6IklP8O97Z9hGUTmP53f9Q==
   dependencies:
     babel-core "^6.26.3"
     babel-plugin-transform-es2015-modules-commonjs "^6.26.2"
