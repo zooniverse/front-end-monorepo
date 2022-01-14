@@ -36,6 +36,7 @@ describe('Component > ProjectHeader', function () {
     expect(wrapper.find(UnderReviewLabel)).to.have.lengthOf(0)
   })
 
+  // pending until we're ready to implement translations on live FEM projects
   xit('should not render a `<LocaleToggle />` component', function () {
     expect(wrapper.find(LocaleSwitcher)).to.have.length(0)
   })
@@ -50,7 +51,8 @@ describe('Component > ProjectHeader', function () {
     })
   })
 
-  describe('when the project has available translations', function () {
+  // pending until we're ready to implement translations on live FEM projects
+  xdescribe('when the project has available translations', function () {
     before(function () {
       wrapper = shallow(<ProjectHeader availableLocales={['en', 'fr']} title={TITLE} />)
     })

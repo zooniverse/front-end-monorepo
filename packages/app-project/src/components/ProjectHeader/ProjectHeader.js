@@ -24,7 +24,8 @@ const StyledBox = styled(Box)`
 function ProjectHeader (props) {
   const { className, inBeta, navLinks, screenSize, title } = props
 
-  // hard-coded for staging project testing, but should be imported as props instead
+  // hard-coded for translation feature PR testing, but
+  // should eventually be imported as props instead
   const availableLocales = ['en', 'fr']
 
   return (
@@ -53,7 +54,7 @@ function ProjectHeader (props) {
                 <UnderReviewLabel />}
             </Box>
             <ApprovedIcon isNarrow={screenSize === 'small'} />
-            {availableLocales?.length > 1 && <LocaleSwitcher availableLocales={availableLocales} />}
+            {/* {availableLocales?.length > 1 && <LocaleSwitcher availableLocales={availableLocales} />} */}
           </Box>
         </Box>
         {screenSize !== 'small' && <Nav navLinks={navLinks} />}
