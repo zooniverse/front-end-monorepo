@@ -39,3 +39,4 @@
 - [ADR 37: Engaging Crowds: Indexed subject sets](adr-37.md)
 - [ADR 38: Engaging Crowds: Next/previous subjects](adr-38.md)
 - [ADR 40: Next.js Internationalized Routing](adr-40.md)
+- [ADR 41: Use i18next to Translate Static Strings ](adr-41.md)
