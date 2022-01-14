@@ -1,12 +1,11 @@
 import zooTheme from '@zooniverse/grommet-theme'
-// import counterpart from 'counterpart'
+import counterpart from 'counterpart'
 import { Anchor, Box } from 'grommet'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { useTranslation } from 'react-i18next'
 
-// import en from './locales/en'
+import en from './locales/en'
 import MainNavList from './components/MainNavList'
 import SignedInUserNavigation from './components/SignedInUserNavigation'
 import SignedOutUserNavigation from './components/SignedOutUserNavigation'
@@ -14,13 +13,11 @@ import ZooniverseLogo from '../ZooniverseLogo'
 import {
   adminNavLinkLabel,
   adminNavLinkURL,
-  // mainHeaderNavListLabels,
+  mainHeaderNavListLabels,
   mainHeaderNavListURLs
 } from './helpers'
-import '../translations/i18n'
-import i18n from 'i18next'
 
-// counterpart.registerTranslations('en', en)
+counterpart.registerTranslations('en', en)
 
 export const StyledHeader = styled(Box)`
   color: #B2B2B2;
@@ -48,32 +45,15 @@ export default function ZooHeader (props) {
     adminNavLinkURL,
     isAdmin,
     isNarrow,
-    // mainHeaderNavListLabels,
+    mainHeaderNavListLabels,
     mainHeaderNavListURLs,
     register,
-    router,
     signIn,
     signOut,
     unreadMessages,
     unreadNotifications,
     user
   } = props
-
-  const { t } = useTranslation()
-
-  const mainHeaderNavListLabels = [
-    t('ZooHeader.mainHeaderNavListLabels.projects'),
-    t('ZooHeader.mainHeaderNavListLabels.about'),
-    t('ZooHeader.mainHeaderNavListLabels.getInvolved'),
-    t('ZooHeader.mainHeaderNavListLabels.talk'),
-    t('ZooHeader.mainHeaderNavListLabels.build')
-  ]
-
-  useEffect(() => {
-    if (router.locale) {
-      i18n.changeLanguage(router.locale)
-    }
-  }, [router.locale])
 
   return (
     <StyledHeader
@@ -89,7 +69,7 @@ export default function ZooHeader (props) {
     >
       <Box
         align='center'
-        aria-label={t('ZooHeader.ariaLabel')}
+        aria-label={counterpart('ZooHeader.ariaLabel')}
         direction='row'
         pad={{ horizontal: 'medium' }}
         responsive={false}
@@ -140,12 +120,9 @@ ZooHeader.defaultProps = {
   breakpoint: 960,
   isAdmin: false,
   isNarrow: false,
-  // mainHeaderNavListLabels,
+  mainHeaderNavListLabels,
   mainHeaderNavListURLs,
   register: () => {},
-  router: {
-    locale: 'en'
-  },
   unreadMessages: 0,
   unreadNotifications: 0
 }
@@ -155,7 +132,7 @@ ZooHeader.propTypes = {
   adminNavLinkURL: PropTypes.string,
   isAdmin: PropTypes.bool,
   isNarrow: PropTypes.bool,
-  // mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string),
+  mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string),
   mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string),
   register: PropTypes.func,
   signIn: PropTypes.func.isRequired,
