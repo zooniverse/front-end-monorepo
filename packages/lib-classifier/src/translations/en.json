@@ -1,7 +1,5 @@
 {
   "translation" : {
-    "TaskHelp": {
-      "label": "Need some help with this task?"
-    }
+    "Foo": "bar"
   }
 }
