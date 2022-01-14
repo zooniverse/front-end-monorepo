@@ -4,6 +4,8 @@ import { Provider } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { useEffect, useMemo } from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
+import '../../translations/i18n'
+import i18n from 'i18next'
 import {
   env,
   panoptes as panoptesClient,
@@ -15,11 +17,12 @@ import { unregisterWorkers } from '../../workers'
 import RootStore from '../../store'
 import Layout from './components/Layout'
 import ModalTutorial from './components/ModalTutorial'
+
 // import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
 function caesarClient (env) {
   switch (env) {
     case 'production': {
-       return new GraphQLClient('https://caesar.zooniverse.org/graphql')
+      return new GraphQLClient('https://caesar.zooniverse.org/graphql')
     }
     default: {
       return new GraphQLClient('https://caesar-staging.zooniverse.org/graphql')
@@ -68,6 +71,7 @@ function useStore({ authClient, client, initialState }) {
 
 export default function Classifier({
   authClient,
+  locale,
   onAddToCollection = () => true,
   onCompleteClassification = () => true,
   onError = () => true,
@@ -109,6 +113,13 @@ export default function Classifier({
     classifierStore.setOnToggleFavourite(onToggleFavourite)
   }, [])
 
+  useEffect(function onLocaleChange() {
+    if (locale) {
+      classifierStore.setLocale(locale)
+      i18n.changeLanguage(locale)
+    }
+  }, [locale])
+
   useEffect(function onProjectChange() {
     if (project.id) {
       projects.setResources([project])
@@ -146,6 +157,7 @@ export default function Classifier({
 
 Classifier.propTypes = {
   authClient: PropTypes.object.isRequired,
+  locale: PropTypes.string,
   mode: PropTypes.string,
   onAddToCollection: PropTypes.func,
   onCompleteClassification: PropTypes.func,

@@ -56,8 +56,9 @@ const nextConfig = {
   },
 
   i18n: {
-    locales: ['ar', 'cs', 'de', 'en', 'el', 'es', 'fr', 'he', 'hi', 'hr', 'it', 'ja', 'kn', 'ko', 'nl', 'pl', 'pt', 'ru', 'sv', 'uk', 'ur', 'zh-cn', 'zh-tw'],
-    defaultLocale: 'en'
+    locales: ['en', 'fr'],
+    defaultLocale: 'en',
+    localeDetection: false
   },
 
   publicRuntimeConfig: {

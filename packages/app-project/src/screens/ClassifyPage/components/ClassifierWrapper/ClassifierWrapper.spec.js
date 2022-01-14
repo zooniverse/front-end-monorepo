@@ -5,8 +5,29 @@ import Classifier from '@zooniverse/classifier'
 
 import ClassifierWrapper from './ClassifierWrapper'
 import Loader from '@shared/components/Loader'
+import * as Router from 'next/router'
 
 describe('Component > ClassifierWrapper', function () {
+  let routerStub
+
+  before(function () {
+    routerStub = sinon.stub(Router, 'useRouter').callsFake((component) => {
+      return {
+        asPath: '',
+        locale: 'en',
+        query: {
+          owner: 'zootester1',
+          project: 'my-project'
+        },
+        prefetch: () => Promise.resolve()
+      }
+    })
+  })
+
+  after(function () {
+    routerStub.restore()
+  })
+
   it('should render without crashing', function () {
     const project = {}
     const user = {}
