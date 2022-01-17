@@ -16,7 +16,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@babel/plugin-transform-runtime": "~7.13.10",
+    "@babel/plugin-transform-runtime": "~7.16.8",
     "@sentry/browser": "~6.16.1",
     "@visx/axis": "~2.4.0",
     "@visx/event": "~2.1.2",
@@ -49,13 +49,13 @@
     "styled-components": "~5.x.x"
   },
   "devDependencies": {
-    "@babel/core": "~7.13.14",
-    "@babel/plugin-proposal-decorators": "~7.13.5",
-    "@babel/plugin-proposal-logical-assignment-operators": "~7.13.8",
+    "@babel/core": "~7.16.7",
+    "@babel/plugin-proposal-decorators": "~7.16.7",
+    "@babel/plugin-proposal-logical-assignment-operators": "~7.16.7",
     "@babel/polyfill": "~7.12.1",
     "@babel/preset-env": "~7.16.8",
     "@babel/preset-react": "~7.16.7",
-    "@babel/register": "~7.13.14",
+    "@babel/register": "~7.16.9",
     "@storybook/addon-a11y": "~6.4.9",
     "@storybook/addon-essentials": "~6.4.9",
     "@storybook/addon-knobs": "~6.4.0",
