@@ -1,8 +1,10 @@
 import { GraphQLClient } from 'graphql-request'
+import { Paragraph } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
+import { persist } from 'mst-persist'
 import PropTypes from 'prop-types'
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 import {
   env,
@@ -11,6 +13,7 @@ import {
   tutorials as tutorialsClient
 } from '@zooniverse/panoptes-js'
 
+import { asyncSessionStorage } from '@helpers'
 import { unregisterWorkers } from '../../workers'
 import RootStore from '../../store'
 import Layout from './components/Layout'
@@ -83,50 +86,62 @@ export default function Classifier({
   const classifierStore = useStore({
     authClient,
     client,
-    initialState: {
-      projects: {
-        active: project.id,
-        resources: {
-          [project.id]: project
-        }
-      }
-    }
+    initialState: {}
   })
 
-  const {
-    classifications,
-    projects,
-    subjects,
-    userProjectPreferences,
-    workflows
-  } = classifierStore
+  const [loaded, setLoaded] = useState(false)
 
-  useEffect(function onMount() {
+  async function onMount() {
+    try {
+      const storageKey = `fem-classifier-${project.id}`
+      await persist(storageKey, classifierStore, {
+        storage: asyncSessionStorage,
+        whitelist: ['fieldGuide', 'projects', 'subjectSets', 'tutorials', 'workflows']
+      })
+      console.log('store hydrated from local storage')
+    } catch (error) {
+      console.log('store snapshot error.')
+      console.error(error)
+    }
+    const { classifications, subjects } = classifierStore
     classifierStore.setOnAddToCollection(onAddToCollection)
     classifications.setOnComplete(onCompleteClassification)
     classifierStore.setOnSubjectChange(onSubjectChange)
     subjects.setOnReset(onSubjectReset)
     classifierStore.setOnToggleFavourite(onToggleFavourite)
+    setLoaded(true)
+  }
+
+  useEffect(() => {
+    onMount()
   }, [])
 
   useEffect(function onProjectChange() {
-    if (project.id) {
+    const { projects } = classifierStore
+    if (loaded) {
       projects.setResources([project])
       projects.setActive(project.id)
     }
-  }, [project.id])
+  }, [loaded, project.id])
 
   useEffect(function onURLChange() {
-    if (workflowID) {
+    const { workflows } = classifierStore
+    if (loaded && workflowID) {
       workflows.selectWorkflow(workflowID, subjectSetID, subjectID)
     }
-  }, [subjectID, subjectSetID, workflowID])
+  }, [loaded, subjectID, subjectSetID, workflowID])
 
   useEffect(function onAuthChange() {
-    userProjectPreferences.checkForUser()
-  }, [authClient])
+    if (loaded) {
+      classifierStore.userProjectPreferences.checkForUser()
+    }
+  }, [loaded, authClient])
 
   try {
+    if (!loaded) {
+      return <Paragraph>Loading…</Paragraph>
+    }
+
     return (
       <Provider classifierStore={classifierStore}>
           <>
