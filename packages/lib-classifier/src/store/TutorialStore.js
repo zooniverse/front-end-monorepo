@@ -117,7 +117,7 @@ const TutorialStore = types
     function createWorkflowObserver () {
       const workflowDisposer = autorun(() => {
         const workflow = tryReference(() => getRoot(self).workflows.active)
-        if (workflow) {
+        if (!self.loaded && workflow) {
           self.reset()
           self.resetSeen()
           self.fetchTutorials()
