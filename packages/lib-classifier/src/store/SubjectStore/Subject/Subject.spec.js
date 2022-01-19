@@ -61,6 +61,7 @@ describe('Model > Subject', function () {
       }
       rootStore = mockStore({ workflow: workflowSnapshot, client })
       rootStore.subjects.reset()
+      client.caesar.request.resetHistory()
       await rootStore.subjects.populateQueue()
     })
 
