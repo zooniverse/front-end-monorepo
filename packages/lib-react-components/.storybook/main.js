@@ -9,13 +9,11 @@ function webpackFinal(config, options) {
     ...config.resolve,
     alias: {
       ...webpackConfig.resolve.alias,
-      process: 'process'
     },
     fallback: {
       ...webpackConfig.resolve.fallback,
       crypto: false,
-      path: 'path-browserify',
-      process: 'process'
+      path: 'path-browserify'
     }
   }
 
