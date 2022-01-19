@@ -1,5 +1,5 @@
 import { types } from 'mobx-state-tree'
-import { Tool } from '@plugins/drawingTools/models/tools'
+import Tool from '@plugins/drawingTools/models/tools/Tool'
 import { Polygon } from '@plugins/drawingTools/models/marks'
 
 const PolygonTool = types
