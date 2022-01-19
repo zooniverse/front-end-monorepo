@@ -9460,10 +9460,10 @@ graphql-request@~1.8.2:
   dependencies:
     cross-fetch "2.2.2"
 
-grommet-icons@^4.6.2, grommet-icons@~4.6.0:
-  version "4.6.2"
-  resolved "https://registry.yarnpkg.com/grommet-icons/-/grommet-icons-4.6.2.tgz#56315cdb061895ddf18ad06cb76378b317cbbe56"
-  integrity sha512-3wTRQsmwrSFM7FvruULNWwi5dWp8MtYCimWeJW0zaJxkq35iPHMTZCzBrVfuRL6pOja3KegNC9b8rvdXVMct6Q==
+grommet-icons@^4.6.2, grommet-icons@~4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/grommet-icons/-/grommet-icons-4.7.0.tgz#1d537b2bdc507be07d5643309d433bbe1464c5b6"
+  integrity sha512-ptw8x86Age/Yz6SplCLtJ8q1z/4ZLktMruCOnE6oTgc7hcIV/8ieOucTrLbu+PDi7rKxoP321O3OG3Zo/3qXjw==
   dependencies:
     grommet-styles "^0.2.0"
 
