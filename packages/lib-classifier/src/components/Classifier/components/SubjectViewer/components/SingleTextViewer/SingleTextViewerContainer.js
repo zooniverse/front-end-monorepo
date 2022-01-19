@@ -59,7 +59,7 @@ class SingleTextViewerContainer extends Component {
       return response.text || ''
     } catch (error) {
       onError(error)
-      return {}
+      return ''
     }
   }
 
@@ -70,45 +70,41 @@ class SingleTextViewerContainer extends Component {
       if (rawData) this.onLoad(rawData)
     } catch (error) {
       onError(error)
-      return {}
+      return ''
     }
   }
 
   onLoad (rawData) {
     const { onReady } = this.props
-    
-    const container = this.viewer.current?.container
-    const { width: clientWidth, height: clientHeight } = container ? container.getBoundingClientRect() : {}
-    const target = { clientWidth, clientHeight, naturalWidth: 0, naturalHeight: 0 }
+    const target = this.viewer.current
     
     this.setState({
       content: rawData
     },
-    function () {
-      onReady({ target })
-    })
+      function () {
+        onReady({ target })
+      })
   }
 
   render () {
     const {
-      loadingState
+      subject
     } = this.props
     const { content } = this.state
 
-    if (loadingState === asyncStates.error) {
-      return <div>Something went wrong.</div>
+    if (!subject.id) {
+      return null
     }
 
-    if (loadingState !== asyncStates.initialized) {
-      return (
-        <div>
-          <SingleTextViewer>
-            {content}
-          </SingleTextViewer>
-        </div>
-      )
+    if (!content) {
+      return null
     }
-    return null
+
+    return (
+      <SingleTextViewer
+        content={content}
+      />
+    )
   }
 }
 
