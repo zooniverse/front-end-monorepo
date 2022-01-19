@@ -34,33 +34,34 @@ describe('Model > Subject', function () {
   })
 
   describe('with a transcription workflow', function () {
-    const subjects = Factory.buildList('subject', 3)
-    const workflowSnapshot = WorkflowFactory.build({
-      id: 'transcriptionWorkflow',
-      display_name: 'A test workflow',
-      tasks: {
-        T0: {
-          instruction: 'Transcribe the text',
-          type: 'transcription',
-          tools: [
-            { type: 'transcriptionLine' }
-          ]
-        }
-      },
-      version: '0.0'
-    })
-    const client = stubPanoptesJs({ subjects, workflows: [workflowSnapshot] })
-    client.caesar = {
-      request: sinon.stub().callsFake(() => Promise.resolve({ workflow: { subject_reductions: [] } }))
-    }
-    client.tutorials = {
-      get: sinon.stub().callsFake(() => Promise.resolve({ body: { tutorials: [] } }))
-    }
-    const rootStore = RootStore.create({}, { client })
+    let client, rootStore
 
-    before(function () {
-      rootStore.workflows.setResources([workflowSnapshot])
-      rootStore.workflows.setActive(workflowSnapshot.id)
+    before(async function () {
+      const subjects = Factory.buildList('subject', 3)
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'transcriptionWorkflow',
+        display_name: 'A test workflow',
+        tasks: {
+          T0: {
+            instruction: 'Transcribe the text',
+            type: 'transcription',
+            tools: [
+              { type: 'transcriptionLine' }
+            ]
+          }
+        },
+        version: '0.0'
+      })
+      client = stubPanoptesJs({ subjects, workflows: [workflowSnapshot] })
+      client.caesar = {
+        request: sinon.stub().callsFake(() => Promise.resolve({ workflow: { subject_reductions: [] } }))
+      }
+      client.tutorials = {
+        get: sinon.stub().callsFake(() => Promise.resolve({ body: { tutorials: [] } }))
+      }
+      rootStore = mockStore({ workflow: workflowSnapshot, client })
+      rootStore.subjects.reset()
+      await rootStore.subjects.populateQueue()
     })
 
     it('should have transcription reductions', function () {

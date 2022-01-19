@@ -27,9 +27,11 @@ const WorkflowStore = types
 
     function * selectWorkflow (id = self.defaultWorkflowID, subjectSetID, subjectID) {
       if (id) {
+        const { subjects } = getRoot(self)
         const activeWorkflows = self.project?.links?.active_workflows || []
-        const activeSubject = tryReference(() => getRoot(self).subjects.active)
+        const activeSubject = tryReference(() => subjects.active)
         const projectID = self.project?.id
+        let selectedSubjects
         if (activeWorkflows.indexOf(id) > -1) {
           const workflow = yield self.getResource(id)
           self.resources.put(workflow)
@@ -39,9 +41,11 @@ const WorkflowStore = types
             const subjectSet = yield selectedWorkflow.selectSubjectSet(subjectSetID)
           }
           if (subjectID && subjectID !== activeSubject?.id) {
-            selectedWorkflow.selectSubjects([ subjectID ])
+            selectedSubjects = [ subjectID ]
           }
           self.setActive(id)
+          subjects.reset()
+          subjects.populateQueue(selectedSubjects)
         } else {
           throw new ReferenceError(`unable to load workflow ${id} for project ${projectID}`)
         }
