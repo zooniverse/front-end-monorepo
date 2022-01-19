@@ -1,3 +1,4 @@
+import asyncStates from '@zooniverse/async-states'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
 
@@ -52,6 +53,7 @@ export default function mockStore({
   const rootStore = RootStore.create({
     projects: {
       active: projectSnapshot.id,
+      loadingState: asyncStates.success,
       resources: {
         [projectSnapshot.id]: projectSnapshot
       }
@@ -64,12 +66,14 @@ export default function mockStore({
     },
     subjectSets: {
       active: subjectSetSnapshot.id,
+      loadingState: asyncStates.success,
       resources: {
         [subjectSetSnapshot.id]: subjectSetSnapshot
       }
     },
     workflows: {
       active: workflowSnapshot.id,
+      loadingState: asyncStates.success,
       resources: {
         [workflowSnapshot.id]: workflowSnapshot
       }
@@ -81,8 +85,6 @@ export default function mockStore({
     },
     client: { ...defaultClient, panoptes, ...client }
   })
-  rootStore.workflows.setResources([workflowSnapshot])
-  rootStore.workflows.setActive(workflowSnapshot.id)
   rootStore.subjects.setResources([subjectSnapshot])
   rootStore.subjects.advance()
   return rootStore

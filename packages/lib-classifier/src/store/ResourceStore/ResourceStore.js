@@ -14,6 +14,13 @@ const ResourceStore = types
     type: types.string
   })
 
+  .views( self => ({
+    get loaded() {
+      // we want to avoid making duplicate network requests if loading is in progress or finished.
+      return self.loadingState !== asyncStates.initialized
+    }
+  }))
+
   .actions(self => ({
     fetchResource: flow(function * fetchResource (id) {
       const client = getRoot(self).client.panoptes
