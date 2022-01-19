@@ -1,3 +1,2 @@
-export { default } from './SingleTextViewerConnector'
-export { default as SingleTextViewerContainer } from './SingleTextViewerContainer'
-// export { default as SingleTextViewer } from './SingleTextViewer'
+export { default } from './SingleTextViewerContainer'
+export { default as SingleTextViewer } from './SingleTextViewer'
