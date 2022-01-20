@@ -2,14 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FormDown } from 'grommet-icons'
 import styled from 'styled-components'
-import counterpart from 'counterpart'
+import { useTranslation } from 'react-i18next'
+import '../../../translations/i18n'
 
 import NarrowMenu from '../NarrowMenu'
 import NarrowMenuNavListItem from '../NarrowMenuNavListItem'
-import en from './locales/en'
 import { getHost } from '../../helpers'
-
-counterpart.registerTranslations('en', en)
 
 // The standard xsmall size in the theme isn't small enough
 export const StyledFormDown = styled(FormDown)`
@@ -17,20 +15,22 @@ export const StyledFormDown = styled(FormDown)`
 `
 
 export default function UserMenu ({ signOut, user }) {
+  const { t } = useTranslation()
+
   // Support staging urls...
   const host = getHost()
 
   const userDisplayName = <NarrowMenuNavListItem color='#B2B2B2' text={user.display_name} />
 
-  const profileLabel = <NarrowMenuNavListItem text={counterpart('UserMenu.userNavListLabels.profile')} />
+  const profileLabel = <NarrowMenuNavListItem text={t('ZooHeader.UserMenu.userNavListLabels.profile')} />
 
-  const settingsLabel = <NarrowMenuNavListItem text={counterpart('UserMenu.userNavListLabels.settings')} />
+  const settingsLabel = <NarrowMenuNavListItem text={t('ZooHeader.UserMenu.userNavListLabels.settings')} />
 
-  const collectionsLabel = <NarrowMenuNavListItem text={counterpart('UserMenu.userNavListLabels.collections')} />
+  const collectionsLabel = <NarrowMenuNavListItem text={t('ZooHeader.UserMenu.userNavListLabels.collections')} />
 
-  const favoritesLabel = <NarrowMenuNavListItem text={counterpart('UserMenu.userNavListLabels.favorites')} />
+  const favoritesLabel = <NarrowMenuNavListItem text={t('ZooHeader.UserMenu.userNavListLabels.favorites')} />
 
-  const signOutLabel = <NarrowMenuNavListItem text={counterpart('UserMenu.userNavListLabels.signOut')} />
+  const signOutLabel = <NarrowMenuNavListItem text={t('ZooHeader.UserMenu.userNavListLabels.signOut')} />
 
   const userMenuNavListItems = [
     { label: profileLabel, href: `${host}/users/${user.login}` },
