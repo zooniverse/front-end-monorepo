@@ -111,9 +111,20 @@ export default function Classifier({
           whitelist: ['fieldGuide', 'projects', 'subjects', 'subjectSets', 'tutorials', 'workflows', 'workflowSteps']
         })
         console.log('store hydrated from local storage')
-        const { subjects } = classifierStore
+        const { subjects, workflows } = classifierStore
+        if (!workflows.active?.prioritized) {
+          /*
+          In this case, we delete the saved queue so that
+          refreshing the classifier will load a new, randomised
+          subject queue.
+          */
+          subjects.reset()
+        }
         if (subjects.active) {
-          classifierStore.subjects.setActiveSubject(classifierStore.subjects.active.id)
+          /*
+            This is a hack to start a new classification from a snapshot.
+          */
+          subjects.setActiveSubject(subjects.active.id)
         }
       } catch (error) {
         console.log('store snapshot error.')
