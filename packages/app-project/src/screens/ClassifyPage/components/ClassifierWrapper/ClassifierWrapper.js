@@ -32,6 +32,7 @@ export default function ClassifierWrapper({
   yourStats
 }) {
   const router = useRouter()
+  const { locale } = router
   function onCompleteClassification(classification, subject) {
     const finishedSubject = subject.already_seen || subject.retired
     if (!finishedSubject) {
@@ -87,6 +88,7 @@ export default function ClassifierWrapper({
         <Classifier
           authClient={authClient}
           key={key}
+          locale={locale}
           mode={mode}
           onAddToCollection={onAddToCollection}
           onCompleteClassification={onCompleteClassification}

@@ -39,6 +39,16 @@ describe('Model > RootStore', function () {
     expect(model.client).to.equal(client)
   })
 
+  it('should have a default locale set as en', function () {
+    expect(model.locale).to.equal('en')
+  })
+
+  it('calling setLocale() with a new locale should update model locale', function () {
+    const newLocale = 'fr'
+    model.setLocale(newLocale)
+    expect(model.locale).to.equal(newLocale)
+  })
+
   it('should have an onToggleFavourite callback', function () {
     const onToggleFavourite = sinon.stub()
     model.setOnToggleFavourite(onToggleFavourite)
