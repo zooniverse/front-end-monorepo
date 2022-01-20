@@ -1,32 +1,28 @@
-import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
 
-const StyledBox = styled.div`
-  background-color: #FFC0CB;
-  height: 200px;
-  width: 300px;
-`
-
-function SingleTextViewer(props) {
+function SingleTextViewer (props) {
   const {
-    children,
-    title
+    content
   } = props
 
+  console.log('content', content)
+
   return (
-    <StyledBox>
-      {title?.id && title?.text && (
-        <title id={title.id}>{title.text}</title>
-      )}
-      {children}
-    </StyledBox>
+    <div>
+      <pre>
+        {content}
+      </pre>
+    </div>
   )
 }
 
-SingleTextViewer.defaultProps = {}
+SingleTextViewer.defaultProps = {
+  content: ''
+}
 
-SingleTextViewer.propTypes = {}
+SingleTextViewer.propTypes = {
+  content: PropTypes.string
+}
 
 export default SingleTextViewer
