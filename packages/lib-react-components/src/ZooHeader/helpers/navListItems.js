@@ -10,7 +10,7 @@ export const adminNavLinkLabel = 'Admin'
 
 export const adminNavLinkURL = `${host}/admin`
 
-export const  mainHeaderNavListURLs = [
+export const mainHeaderNavListURLs = [
   `${host}/projects`,
   `${host}/about`,
   `${host}/get-involved`,

@@ -2,8 +2,9 @@ import { Box } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import Error from 'next/error'
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react'
 import { createGlobalStyle } from 'styled-components'
+import { appWithTranslation } from 'next-i18next'
 
 import AuthModal from '@components/AuthModal'
 import getCookie from '@helpers/getCookie'
@@ -31,7 +32,7 @@ function useStore(initialState) {
   return store
 }
 
-export default function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {
   const { initialState } = pageProps
   const store = useStore(initialState)
   makeInspectable(store)
@@ -74,3 +75,4 @@ export default function MyApp({ Component, pageProps }) {
   }
 }
 
+export default appWithTranslation(MyApp)
