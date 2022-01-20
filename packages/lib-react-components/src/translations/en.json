@@ -1,5 +1,10 @@
 {
-  "translation" : {
-    "Foo": "bar"
+  "translation": {
+    "AdminCheckbox": {
+      "label": "Admin Mode"
+    },
+    "CloseButton": {
+      "close": "Close"
+    }
   }
 }
