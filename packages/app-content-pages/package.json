@@ -30,7 +30,7 @@
     "dotenv-webpack": "~7.0.3",
     "express": "^4.17.1",
     "grommet": "~2.17.4",
-    "grommet-icons": "~4.6.0",
+    "grommet-icons": "~4.7.0",
     "lodash": "~4.17.11",
     "mobx": "~6.3.9",
     "mobx-devtools-mst": "~0.9.21",
