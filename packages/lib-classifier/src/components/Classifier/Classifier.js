@@ -108,9 +108,13 @@ export default function Classifier({
         const storageKey = `fem-classifier-${project.id}`
         await persist(storageKey, classifierStore, {
           storage: asyncSessionStorage,
-          whitelist: ['fieldGuide', 'projects', 'subjectSets', 'tutorials', 'workflows']
+          whitelist: ['fieldGuide', 'projects', 'subjects', 'subjectSets', 'tutorials', 'workflows', 'workflowSteps']
         })
         console.log('store hydrated from local storage')
+        const { subjects } = classifierStore
+        if (subjects.active) {
+          classifierStore.subjects.setActiveSubject(classifierStore.subjects.active.id)
+        }
       } catch (error) {
         console.log('store snapshot error.')
         console.error(error)
