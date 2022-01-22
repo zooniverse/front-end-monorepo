@@ -11,6 +11,13 @@
       "next": "Next",
       "previous": "Previous",
       "whyAmISeeingThis": "Why am I seeing this?"
+    },
+    "RetiredBanner": {
+      "bannerText": "Finished: This subject has been retired",
+      "tooltipText": [
+        "This subject already has enough classifications, so yours won't be used in its analysis.",
+        "If you're looking to help, try choosing a different workflow or contributing to a different project."
+      ]
     }
   },
   "FieldGuide": {

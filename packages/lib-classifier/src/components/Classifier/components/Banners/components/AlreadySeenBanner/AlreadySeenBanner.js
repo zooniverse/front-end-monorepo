@@ -20,7 +20,7 @@ export default function AlreadySeenBanner({ subject }) {
       bannerText={t('Banners.AlreadySeenBanner.bannerText')}
       color='neutral-7'
       show={show}
-      tooltipText={t('Banners.AlreadySeenBanner.tooltipText')}
+      tooltipText={t('Banners.AlreadySeenBanner.tooltipText', { returnObjects: true })}
     />
   )
 }
