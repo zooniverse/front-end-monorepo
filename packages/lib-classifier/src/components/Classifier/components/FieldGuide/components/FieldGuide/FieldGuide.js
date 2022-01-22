@@ -19,6 +19,7 @@ function FieldGuide (props) {
     modalProps,
     setActiveItemIndex,
   } = props
+  console.log(modalProps)
   const items = fieldGuide?.items || []
   const item = items[activeItemIndex]
   const ModalComponent = modalComponent

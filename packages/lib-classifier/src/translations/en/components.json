@@ -1,5 +1,5 @@
 {
-  "Banners" : {
+  "Banners": {
     "AlreadySeenBanner": {
       "bannerText": "You've already seen this subject",
       "tooltipText": [
@@ -7,5 +7,8 @@
         "If you're looking to help, try choosing a different workflow or contributing to a different project."
       ]
     }
+  },
+  "FieldGuide": {
+    "title": "Field Guide"
   }
 }

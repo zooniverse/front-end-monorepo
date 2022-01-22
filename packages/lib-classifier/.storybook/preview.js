@@ -1,6 +1,6 @@
 import { addParameters } from '@storybook/react'
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
-import { i18n } from './i18next'
+import { i18n } from './i18n'
 
 import backgrounds from './lib/backgrounds'
 

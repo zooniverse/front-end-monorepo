@@ -16,11 +16,11 @@ i18n.use(initReactI18next).init({
 
 supportedLngs.forEach((lang) => {
   ns.forEach((n) => {
-      i18n.addResourceBundle(
-          lang,
-          n,
-          require(`@translations/${lang}/${n}.json`)
-      )
+    i18n.addResourceBundle(
+      lang,
+      n,
+      require(`@translations/${lang}/${n}.json`)
+    )
   })
 })
 
