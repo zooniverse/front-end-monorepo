@@ -6,6 +6,11 @@
         "You've already seen and classified this subject, so further classifications won't contribute to its analysis.",
         "If you're looking to help, try choosing a different workflow or contributing to a different project."
       ]
+    },
+    "Banner": {
+      "next": "Next",
+      "previous": "Previous",
+      "whyAmISeeingThis": "Why am I seeing this?"
     }
   },
   "FieldGuide": {
