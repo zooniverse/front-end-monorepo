@@ -32,6 +32,13 @@
       "inProgress": "Are you sure you want to navigate to a different Subject? Any annotation you've made for the current Subject will be lost.",
       "cancel": "Cancel",
       "confirm": "Confirm"
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Finished: You've seen everything",
+      "tooltipText": [
+        "You've already classified everything in this workflow, so further classifications on this subject won't be used in its analysis.",
+        "If you're looking to help, try choosing a different workflow or contributing to a different project."
+      ]
     }
   },
   "FieldGuide": {
