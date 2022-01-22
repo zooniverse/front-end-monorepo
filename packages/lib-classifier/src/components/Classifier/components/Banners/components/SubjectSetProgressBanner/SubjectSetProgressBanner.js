@@ -1,12 +1,9 @@
-import counterpart from 'counterpart'
 import { bool, func, number, shape, string } from 'prop-types'
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import en from './locales/en'
 import Banner from '../Banner'
 import ConfirmModal from './components/ConfirmModal'
-
-counterpart.registerTranslations('en', en)
 
 /**
   A banner which shows progress through a prioritised subject set, showing `subject.metadata.priority` to the volunteer.
@@ -20,6 +17,8 @@ function SubjectSetProgressBanner({
   subject,
   workflow
 }) {
+  const { t } = useTranslation('components')
+
   const [ showModal, setShowModal ] = useState(false)
   const [ intent, setIntent ] = useState(undefined)
 
@@ -27,14 +26,10 @@ function SubjectSetProgressBanner({
   const subjectTotal = workflow?.subjectSet?.set_member_subjects_count
   const background = (subject?.alreadySeen || subject?.retired) ? 'status-critical' : 'status-ok'
   const color = (subject?.alreadySeen || subject?.retired) ? 'neutral-6' : 'neutral-7'
-  let statusText = subject?.alreadySeen ? `${counterpart('SubjectSetProgressBanner.alreadySeen')}` : ''
-  statusText = subject?.retired ? `${counterpart('SubjectSetProgressBanner.finished')}` : statusText
-  const progressText = counterpart('SubjectSetProgressBanner.bannerText', {
-    number: subject?.priority,
-    setName,
-    total: subjectTotal
-  })
-  const tooltipText = counterpart('SubjectSetProgressBanner.tooltipText')
+  let statusText = subject?.alreadySeen ? `${t('Banners.SubjectSetProgressBanner.alreadySeen')}` : ''
+  statusText = subject?.retired ? `${t('Banners.SubjectSetProgressBanner.finished')}` : statusText
+  const progressText = `${t('Banners.SubjectSetProgressBanner.bannerText', { setName })} ${subject?.priority}/${subjectTotal}`
+  const tooltipText = t('Banners.SubjectSetProgressBanner.tooltipText', { returnObjects: true })
 
   const bannerText = statusText ? `${progressText} (${statusText})` : progressText
 
@@ -42,7 +37,7 @@ function SubjectSetProgressBanner({
     // If the user has an annotation in progress, ask for confirmation first.
     if (checkForProgress) {
       setShowModal(true)
-      setIntent(() => onNext)  // This is how you set a function with useState
+      setIntent(() => onNext) // This is how you set a function with useState
       return
     }
 

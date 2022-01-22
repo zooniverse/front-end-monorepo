@@ -18,6 +18,20 @@
         "This subject already has enough classifications, so yours won't be used in its analysis.",
         "If you're looking to help, try choosing a different workflow or contributing to a different project."
       ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Already seen",
+      "bannerText": "{{setName}}: Subject",
+      "finished": "Finished",
+      "tooltipText": [
+        "This project allows volunteers to view subjects in sequential order.",
+        "The number shows you the subject’s position within the total group."
+      ]
+    },
+    "InProgressConfirmModal": {
+      "inProgress": "Are you sure you want to navigate to a different Subject? Any annotation you've made for the current Subject will be lost.",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
     }
   },
   "FieldGuide": {
