@@ -1,13 +1,12 @@
-import counterpart from 'counterpart'
 import { bool, shape, string } from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
-import en from './locales/en'
 import Banner from '../Banner'
 
-counterpart.registerTranslations('en', en)
-
 export default function AlreadySeenBanner({ subject }) {
+  const { t } = useTranslation('components')
+
   const show = !!subject &&
     subject.id &&
     subject.alreadySeen &&
@@ -18,10 +17,10 @@ export default function AlreadySeenBanner({ subject }) {
   return (
     <Banner
       background='status-ok'
-      bannerText={counterpart('AlreadySeenBanner.bannerText')}
+      bannerText={t('Banners.AlreadySeenBanner.bannerText')}
       color='neutral-7'
       show={show}
-      tooltipText={counterpart('AlreadySeenBanner.tooltipText')}
+      tooltipText={t('Banners.AlreadySeenBanner.tooltipText')}
     />
   )
 }

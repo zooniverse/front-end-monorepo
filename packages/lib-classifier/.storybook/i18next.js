@@ -1,8 +1,8 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 
-import components from './en/components.json'
-import plugins from './en/plugins.json'
+const supportedLngs = ['en']
+const ns = ['components', 'plugins']
 
 i18n.use(initReactI18next).init({
   fallbackLng: 'en',
@@ -11,15 +11,17 @@ i18n.use(initReactI18next).init({
   },
   react: {
     useSuspense: false
-  },
-  resources: {
-    en: {
-      translation: {
-        components,
-        plugins
-      }
-    }
   }
 })
 
-export default i18n
+supportedLngs.forEach((lang) => {
+  ns.forEach((n) => {
+      i18n.addResourceBundle(
+          lang,
+          n,
+          require(`@translations/${lang}/${n}.json`)
+      )
+  })
+})
+
+export { i18n }
