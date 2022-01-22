@@ -32,14 +32,8 @@ const MyComponent = () => {
 
 FEM is integrated with [Lokalise](https://app.lokalise.com) for translations management. Any dictionary other than [en.json](en.json) should be managed through the Lokalise Dashboard. Instructions on how to import and export dictionary files can be found ________ (A link will be added here when a Lokalise playbook is published on Zooniverse's Github).
 
-New dictionary files must be imported into the `resources` object in [i18n.js](i18n.js).
+New languages must be added into the `supportedLngs` array in [i18n.js](i18n.js).
 
 ```js
-  import en from './en.json'
-  import fr from './fr.json'
-
-  resources: {
-    en: { translation: en },
-    fr: { translation, fr }
-  }
+const supportedLngs = ['en', 'fr']
 ```
