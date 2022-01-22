@@ -1,13 +1,11 @@
-import counterpart from 'counterpart'
 import { bool, shape, string } from 'prop-types'
 import React from 'react'
-
-import en from './locales/en'
+import { useTranslation } from 'react-i18next'
 import Banner from '../Banner'
 
-counterpart.registerTranslations('en', en)
-
 export default function  WorkflowIsFinishedBanner({ subject }) {
+  const { t } = useTranslation('components')
+
   const show = !!subject &&
     subject.id &&
     subject.finished_workflow
@@ -15,9 +13,9 @@ export default function  WorkflowIsFinishedBanner({ subject }) {
   return (
     <Banner
       background='status-critical'
-      bannerText={counterpart('WorkflowIsFinishedBanner.bannerText')}
+      bannerText={t('Banners.WorkflowIsFinishedBanner.bannerText')}
       show={show}
-      tooltipText={counterpart('WorkflowIsFinishedBanner.tooltipText')}
+      tooltipText={t('Banners.WorkflowIsFinishedBanner.tooltipText', { returnObjects: true })}
     />
   )
 }
