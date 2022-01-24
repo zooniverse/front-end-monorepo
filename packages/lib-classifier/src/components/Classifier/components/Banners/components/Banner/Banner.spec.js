@@ -1,7 +1,7 @@
 import { shallow, mount } from 'enzyme'
 import React from 'react'
 import { I18nextProvider } from 'react-i18next'
-import i18n from '../../../../../../../test/i18n/i18n-for-tests'
+import i18n from '@test/i18n/i18n-for-tests'
 import sinon from 'sinon'
 
 import { Banner, Tooltip } from './Banner'
@@ -24,7 +24,7 @@ const COMPONENT = (
   />
 )
 
-describe.only('Component > Banner', function () {
+describe('Component > Banner', function () {
   before(function () {
     wrapper = shallow(COMPONENT)
   })

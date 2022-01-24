@@ -140,6 +140,7 @@ Banner.propTypes = {
 }
 
 Banner.defaultProps = {
+  bannerText: '',
   color: 'neutral-6',
   show: false,
   theme: {
