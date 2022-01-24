@@ -1,9 +1,9 @@
 import { autorun } from 'mobx'
 import { addDisposer, getRoot, isValidReference, tryReference, types, flow } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
-import ResourceStore from './ResourceStore'
+import ResourceStore from '@store/ResourceStore'
 import Tutorial from './Tutorial'
-import Medium from './Medium'
+import Medium from '@store/Medium'
 
 const TutorialStore = types
   .model('TutorialStore', {
@@ -118,7 +118,6 @@ const TutorialStore = types
       const workflowDisposer = autorun(() => {
         const workflow = tryReference(() => getRoot(self).workflows.active)
         if (workflow) {
-          self.reset()
           self.resetSeen()
           self.fetchTutorials()
         }
@@ -199,11 +198,11 @@ const TutorialStore = types
       }
     }
 
-    function setActiveTutorial (tutorial, stepIndex) {
-      if (!tutorial) {
+    function setActiveTutorial (id, stepIndex) {
+      if (!id) {
         self.resetActiveTutorial()
       } else {
-        self.active = tutorial
+        self.active = id
         self.setTutorialStep(stepIndex)
         self.setSeenTime()
       }

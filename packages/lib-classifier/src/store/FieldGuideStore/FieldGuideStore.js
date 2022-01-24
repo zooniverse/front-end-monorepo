@@ -23,8 +23,7 @@ const FieldGuideStore = types
 
     function _onProjectChange() {
       const project = tryReference(() => getRoot(self).projects.active)
-      if (!self.loaded && project) {
-        self.reset()
+      if (project) {
         self.fetchFieldGuide(project.id)
       }
     }

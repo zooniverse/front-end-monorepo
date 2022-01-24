@@ -2,7 +2,7 @@ import { Factory } from 'rosie'
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
 
-import RootStore from './RootStore'
+import RootStore from '@store/RootStore'
 import TutorialStore from './TutorialStore'
 import {
   ProjectFactory,
