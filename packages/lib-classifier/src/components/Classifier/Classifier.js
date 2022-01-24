@@ -74,6 +74,7 @@ function useStore({ authClient, client, initialState }) {
 
 export default function Classifier({
   authClient,
+  cachePanoptesData = false,
   locale,
   onAddToCollection = () => true,
   onCompleteClassification = () => true,
@@ -96,16 +97,18 @@ export default function Classifier({
   const [loaded, setLoaded] = useState(false)
 
   async function onMount() {
-    try {
-      const storageKey = `fem-classifier-${project.id}`
-      await persist(storageKey, classifierStore, {
-        storage: asyncSessionStorage,
-        whitelist: ['fieldGuide', 'projects', 'subjectSets', 'tutorials', 'workflows']
-      })
-      console.log('store hydrated from local storage')
-    } catch (error) {
-      console.log('store snapshot error.')
-      console.error(error)
+    if (cachePanoptesData) {
+      try {
+        const storageKey = `fem-classifier-${project.id}`
+        await persist(storageKey, classifierStore, {
+          storage: asyncSessionStorage,
+          whitelist: ['fieldGuide', 'projects', 'subjectSets', 'tutorials', 'workflows']
+        })
+        console.log('store hydrated from local storage')
+      } catch (error) {
+        console.log('store snapshot error.')
+        console.error(error)
+      }
     }
     const { classifications, subjects } = classifierStore
     classifierStore.setOnAddToCollection(onAddToCollection)
@@ -172,6 +175,7 @@ export default function Classifier({
 
 Classifier.propTypes = {
   authClient: PropTypes.object.isRequired,
+  cachePanoptesData: PropTypes.bool,
   locale: PropTypes.string,
   mode: PropTypes.string,
   onAddToCollection: PropTypes.func,
