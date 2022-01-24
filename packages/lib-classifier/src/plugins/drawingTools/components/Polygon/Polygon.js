@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import styled from 'styled-components'
 import UndoButton from '../UndoButton'
-import DragHandle from '../DragHandle'
+// import DragHandle from '../DragHandle'
 
 const StyledGroup = styled.g`
   &:hover {
@@ -16,16 +16,20 @@ const StyledGroup = styled.g`
   }
 `
 
-const STROKE_WIDTH = 2
-const GRAB_STROKE_WIDTH = 4
-const FINISHER_RADIUS = 3
+const RADIUS = 3
+
+// const STROKE_WIDTH = 2
+// const GRAB_STROKE_WIDTH = 4
+// const FINISHER_RADIUS = 3
 
 function Polygon({ active, mark, onFinish, scale }) {
   const { path, initialPoint, lastPoint, finished, isCloseToStart } = mark
 
-  function onHandleDrag(coords) {
-    mark.appendPath(coords)
-  }
+  const radius = RADIUS / scale
+
+  // function onHandleDrag(coords) {
+  //   mark.appendPath(coords)
+  // }
 
   function onUndoDrawing() {
     mark.shortenPath()
@@ -33,7 +37,13 @@ function Polygon({ active, mark, onFinish, scale }) {
 
   return (
     <StyledGroup onPointerUp={active ? onFinish : undefined}>
-      {active && !isCloseToStart && (
+      <circle
+        r={radius}
+        cx={initialPoint.x}
+        cy={initialPoint.y}
+        fill='currentColor'
+      />
+      {/* {active && !isCloseToStart && (
         <circle
           fill='currentColor'
           r={FINISHER_RADIUS / scale}
@@ -74,7 +84,7 @@ function Polygon({ active, mark, onFinish, scale }) {
           invisibleWhenDragging={true}
           dragMove={(e) => onHandleDrag(e)}
         />
-      )}
+      )} */}
     </StyledGroup>
   )
 }

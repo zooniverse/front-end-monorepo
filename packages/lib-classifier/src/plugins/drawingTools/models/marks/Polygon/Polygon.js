@@ -3,8 +3,6 @@ import { Polygon as PolygonComponent } from '@plugins/drawingTools/components/'
 import { Mark } from '@plugins/drawingTools/models/marks'
 import { PolygonTool } from '@plugins/drawingTools/models/tools'
 
-const MINIMUM_POINTS = 20
-
 const singleCoord = types.model({
   x: types.maybe(types.number),
   y: types.maybe(types.number)
@@ -29,9 +27,9 @@ const PolygonModel = types
       return { x, y }
     },
 
-    get isValid() {
-      return self.points.length > MINIMUM_POINTS
-    },
+    // get isValid() {
+    //   return self.points.length > MINIMUM_POINTS
+    // },
 
     get tool() {
       return getParentOfType(self, PolygonTool)
