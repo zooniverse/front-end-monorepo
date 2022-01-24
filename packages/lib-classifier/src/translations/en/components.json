@@ -26,7 +26,7 @@
     },
     "SubjectSetProgressBanner": {
       "alreadySeen": "Already seen",
-      "bannerText": "{{setName}}: Subject",
+      "bannerText": "{{setName}}: Subject {{number}}/{{total}}",
       "finished": "Finished",
       "tooltipText": [
         "This project allows volunteers to view subjects in sequential order.",

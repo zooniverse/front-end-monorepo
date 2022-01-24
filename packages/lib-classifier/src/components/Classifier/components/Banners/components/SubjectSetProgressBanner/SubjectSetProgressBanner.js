@@ -28,7 +28,11 @@ function SubjectSetProgressBanner({
   const color = (subject?.alreadySeen || subject?.retired) ? 'neutral-6' : 'neutral-7'
   let statusText = subject?.alreadySeen ? `${t('Banners.SubjectSetProgressBanner.alreadySeen')}` : ''
   statusText = subject?.retired ? `${t('Banners.SubjectSetProgressBanner.finished')}` : statusText
-  const progressText = `${t('Banners.SubjectSetProgressBanner.bannerText', { setName })} ${subject?.priority}/${subjectTotal}`
+  const progressText = t('Banners.SubjectSetProgressBanner.bannerText', {
+    number: subject?.priority,
+    setName,
+    total: subjectTotal
+  })
   const tooltipText = t('Banners.SubjectSetProgressBanner.tooltipText', { returnObjects: true })
 
   const bannerText = statusText ? `${progressText} (${statusText})` : progressText
