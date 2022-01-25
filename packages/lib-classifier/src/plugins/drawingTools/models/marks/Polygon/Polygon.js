@@ -10,7 +10,10 @@ const singleCoord = types.model({
 
 const PolygonModel = types
   .model('PolygonModel', {
-    points: types.array(singleCoord)
+    points: types.array(singleCoord),
+    // TODO: Move these to volatile
+    guideLineX: types.maybe(types.number),
+    guideLineY: types.maybe(types.number)
   })
   .views((self) => ({
     get coords() {
@@ -93,6 +96,11 @@ const PolygonModel = types
       while (lengthToRemove--) {
         self.points.pop()
       }
+    },
+
+    setGuideLine(event) {
+      self.guideLineX = event.x
+      self.guideLineY = event.y
     }
   }))
 

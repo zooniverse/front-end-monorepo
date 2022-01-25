@@ -127,6 +127,9 @@ function InteractionLayer({
     if (creating) {
       activeTool.handlePointerMove &&
         activeTool.handlePointerMove(convertEvent(event), activeMark)
+    } else {
+      activeTool.handlePointerMoveHover &&
+        activeTool.handlePointerMoveHover(convertEvent(event), activeMark)
     }
   }
 

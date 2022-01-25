@@ -90,6 +90,8 @@ const Tool = types
       mark.initialDrag(event)
     },
 
+    handlePointerMoveHover(event, mark) {},
+
     handlePointerUp(event, mark) {
       mark.finish()
     },

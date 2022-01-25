@@ -10,10 +10,18 @@ const PolygonTool = types
   .actions((self) => ({
     createMark(mark) {
       const newMark = Polygon.create(
-        Object.assign({}, mark, { toolType: self.type })
+        Object.assign({}, mark, {
+          toolType: self.type
+        })
       )
       self.marks.put(newMark)
       return newMark
+    },
+    handlePointerMoveHover(event, mark) {
+      mark?.setGuideLine(event)
+    },
+    handlePointerMove(event, mark) {
+      mark?.setGuideLine(event)
     }
   }))
 

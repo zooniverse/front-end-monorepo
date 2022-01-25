@@ -24,7 +24,17 @@ const STROKE_WIDTH = 3
 // const FINISHER_RADIUS = 3
 
 function Polygon({ active, mark, onFinish, scale }) {
-  const { path, initialPoint, lastPoint, finished, isCloseToStart } = mark
+  const {
+    path,
+    initialPoint,
+    lastPoint,
+    finished,
+    isCloseToStart,
+    guideLineX,
+    guideLineY
+  } = mark
+
+  // const [mousePos, setMousePos] = useState({})
 
   const radius = RADIUS / scale
   const activePointRadius = ACTIVE_POINT_RADIUS / scale
@@ -33,6 +43,8 @@ function Polygon({ active, mark, onFinish, scale }) {
   // function onHandleDrag(coords) {
   //   mark.appendPath(coords)
   // }
+
+  function onMouseMove() {}
 
   function onUndoDrawing() {
     mark.shortenPath()
@@ -47,6 +59,7 @@ function Polygon({ active, mark, onFinish, scale }) {
         fill='currentColor'
         strokeWidth={strokeWidth}
       />
+
       {/* outer circle to show latest point */}
       <circle
         r={activePointRadius}
@@ -54,6 +67,17 @@ function Polygon({ active, mark, onFinish, scale }) {
         cy={initialPoint.y}
         strokeWidth={strokeWidth}
       />
+
+      {/* Guide Line */}
+      {guideLineX && guideLineY && (
+        <line
+          x1={initialPoint.x}
+          y1={initialPoint.y}
+          x2={guideLineX}
+          y2={guideLineY}
+        />
+      )}
+
       {/* {active && !isCloseToStart && (
         <circle
           fill='currentColor'
