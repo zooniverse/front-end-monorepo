@@ -107,7 +107,7 @@ describe('Component > AlreadySeenBanner', function () {
     it('should translate `bannerText` before passing to <Banner />', function () {
       expect(useTranslationStub).to.have.been.calledWith('Banners.AlreadySeenBanner.bannerText')
     })
-    
+
     it('should translate `tooltipText` before passing to <Banner />', function () {
       expect(useTranslationStub).to.have.been.calledWith('Banners.AlreadySeenBanner.tooltipText')
     })
