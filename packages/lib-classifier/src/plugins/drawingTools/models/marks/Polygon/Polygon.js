@@ -67,16 +67,6 @@ const PolygonModel = types
       return path
     },
 
-    // this determines if drawing point is close to initial point
-    get isCloseToStart() {
-      const firstPoint = self.initialPoint
-      const lastPoint = self.lastPoint
-      const distX = lastPoint.x - firstPoint.x
-      const distY = lastPoint.y - firstPoint.y
-      const dist = Math.sqrt(distX * distX + distY * distY)
-      return dist < 10
-    },
-
     get toolComponent() {
       return PolygonComponent
     }
