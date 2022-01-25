@@ -1,6 +1,7 @@
 // Creates a global document object using jsdom to allow the use of the
 // `mount` method in enzyme.
 import { JSDOM } from 'jsdom'
+import fetch from 'node-fetch'
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://localhost' })
 const { window } = jsdom
@@ -30,6 +31,7 @@ class ResizeObserver {
 window.ResizeObserver = ResizeObserver
 
 global.dom = jsdom
+global.fetch = fetch
 global.window = window
 global.document = window.document
 global.navigator = {
