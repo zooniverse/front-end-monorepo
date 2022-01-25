@@ -59,7 +59,7 @@ describe('Component > Banner', function () {
     })
     
     it('should use a translation function for its label', function () {
-      expect(useTranslationStub).to.have.been.calledOnce()
+      expect(useTranslationStub).to.have.been.calledWith('Banners.Banner.whyAmISeeingThis')
     })
 
     describe('behaviour on click', function () {

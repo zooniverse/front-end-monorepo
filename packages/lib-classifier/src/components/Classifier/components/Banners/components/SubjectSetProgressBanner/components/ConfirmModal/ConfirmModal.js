@@ -23,6 +23,7 @@ function ConfirmModal ({
       active={active}
       modal
       closeFn={onCancel}
+      data-testid='confirm-modal'
     >
       <Paragraph
         margin={{ bottom: 'medium' }}
@@ -37,11 +38,13 @@ function ConfirmModal ({
         <Button
           label={t('Banners.InProgressConfirmModal.cancel')}
           onClick={onCancel}
+          data-testid='confirm-modal-cancel-btn'
         />
         <PrimaryButton
           label={t('Banners.InProgressConfirmModal.confirm')}
           color='teal'
           onClick={onConfirm}
+          data-testid='confirm-modal-confirm-btn'
         />
       </Box>
     </Modal>
