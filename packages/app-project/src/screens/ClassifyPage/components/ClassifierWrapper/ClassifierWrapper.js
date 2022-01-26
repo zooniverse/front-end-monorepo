@@ -32,8 +32,12 @@ export default function ClassifierWrapper({
   yourStats
 }) {
   const router = useRouter()
+  const { locale } = router
   function onCompleteClassification(classification, subject) {
-    yourStats.increment()
+    const finishedSubject = subject.already_seen || subject.retired
+    if (!finishedSubject) {
+      yourStats.increment()
+    }
     recents.add({
       favorite: subject.favorite,
       subjectId: subject.id,
@@ -84,6 +88,7 @@ export default function ClassifierWrapper({
         <Classifier
           authClient={authClient}
           key={key}
+          locale={locale}
           mode={mode}
           onAddToCollection={onAddToCollection}
           onCompleteClassification={onCompleteClassification}

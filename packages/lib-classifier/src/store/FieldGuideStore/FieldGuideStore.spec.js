@@ -3,7 +3,7 @@ import asyncStates from '@zooniverse/async-states'
 import { applySnapshot } from 'mobx-state-tree'
 
 import FieldGuideStore from './FieldGuideStore'
-import ProjectStore from './ProjectStore'
+import ProjectStore from '@store/ProjectStore'
 
 import {
   ProjectFactory,
@@ -12,40 +12,40 @@ import {
 } from '@test/factories'
 import mockStore from '@test/mockStore'
 
-const medium = FieldGuideMediumFactory.build()
-const fieldGuide = FieldGuideFactory.build()
-const fieldGuideWithItems = FieldGuideFactory.build({
-  items: [
-    {
-      content: 'All about cats',
-      icon: medium.id,
-      title: 'Cats'
-    },
-    {
-      content: 'All about dogs',
-      title: 'Dogs'
-    }
-  ]
-})
-
-const fieldGuideWithoutIcon = FieldGuideFactory.build({
-  items: [
-    {
-      content: 'All about cats',
-      title: 'Cats'
-    }
-  ]
-})
-
-const project = ProjectFactory.build()
-
-function setupStores (clientStub) {
-  const store = mockStore({ project, client: clientStub })
-
-  return store.fieldGuide
-}
-
 describe('Model > FieldGuideStore', function () {
+  const medium = FieldGuideMediumFactory.build()
+  const fieldGuide = FieldGuideFactory.build()
+  const fieldGuideWithItems = FieldGuideFactory.build({
+    items: [
+      {
+        content: 'All about cats',
+        icon: medium.id,
+        title: 'Cats'
+      },
+      {
+        content: 'All about dogs',
+        title: 'Dogs'
+      }
+    ]
+  })
+
+  const fieldGuideWithoutIcon = FieldGuideFactory.build({
+    items: [
+      {
+        content: 'All about cats',
+        title: 'Cats'
+      }
+    ]
+  })
+
+  const project = ProjectFactory.build()
+
+  function setupStores (clientStub) {
+    const store = mockStore({ project, client: clientStub })
+
+    return store.fieldGuide
+  }
+
   it('should exist', function () {
     expect(FieldGuideStore).to.be.an('object')
   })
@@ -92,7 +92,7 @@ describe('Model > FieldGuideStore', function () {
           get: sinon.stub().callsFake((url) => {
             if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuide] } })
             if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
-            return Promise.resolve({ body: null })
+            return Promise.resolve({ body: {} })
           })
         }
       }

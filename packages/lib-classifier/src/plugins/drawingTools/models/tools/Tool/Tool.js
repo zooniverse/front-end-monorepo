@@ -26,6 +26,12 @@ const Tool = types
     /*
     Create tasks from details if we have details but no tasks.
     */
+    if (!snapshot.max) {
+      newSnapshot.max = Infinity
+    }
+    if (!snapshot.min) {
+      newSnapshot.min = 0
+    }
     if (snapshot.details && !snapshot.tasks) {
       newSnapshot.tasks = []
       snapshot.details.forEach((detail, detailIndex) => {

@@ -1,5 +1,4 @@
 import { panoptes } from '@zooniverse/panoptes-js'
-import fetch from 'node-fetch'
 
 import { logToSentry } from '@helpers/logger'
 

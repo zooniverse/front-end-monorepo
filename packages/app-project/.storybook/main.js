@@ -1,20 +1,22 @@
 const path = require('path')
+const webpack = require('webpack')
 const Dotenv = require('dotenv-webpack')
+
 const webpackConfig = require('../webpack.config')
 
 function webpackFinal(config, options) {
-  config.plugins.concat([
-    new Dotenv({
-      path: path.join(__dirname, '../.env'),
-      systemvars: true
-    })
-  ])
+  config.plugins.concat(webpackConfig.plugins)
 
   const resolve = {
     ...config.resolve,
     alias: {
       ...webpackConfig.resolve.alias,
       ['@sentry/node']: '@sentry/browser'
+    },
+    fallback: {
+      ...webpackConfig.resolve.fallback,
+      crypto: false,
+      path: 'path-browserify'
     }
   }
 
@@ -22,10 +24,9 @@ function webpackFinal(config, options) {
 }
 
 module.exports = {
-  // uncomment this to build with webpack 5
-  // core: {
-//     builder: 'webpack5'
-//   },
+  core: {
+    builder: 'webpack5'
+  },
   stories: ['../src/**/*.stories.js'],
   addons: [
     '@storybook/addon-essentials',

@@ -1,9 +1,14 @@
 import { GraphQLClient } from 'graphql-request'
+import { Paragraph } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
+import { persist } from 'mst-persist'
+import useSWR from 'swr'
 import PropTypes from 'prop-types'
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
+import '../../translations/i18n'
+import i18n from 'i18next'
 import {
   env,
   panoptes as panoptesClient,
@@ -11,15 +16,17 @@ import {
   tutorials as tutorialsClient
 } from '@zooniverse/panoptes-js'
 
+import { asyncSessionStorage } from '@helpers'
 import { unregisterWorkers } from '../../workers'
 import RootStore from '../../store'
 import Layout from './components/Layout'
 import ModalTutorial from './components/ModalTutorial'
+
 // import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
 function caesarClient (env) {
   switch (env) {
     case 'production': {
-       return new GraphQLClient('https://caesar.zooniverse.org/graphql')
+      return new GraphQLClient('https://caesar.zooniverse.org/graphql')
     }
     default: {
       return new GraphQLClient('https://caesar-staging.zooniverse.org/graphql')
@@ -68,6 +75,8 @@ function useStore({ authClient, client, initialState }) {
 
 export default function Classifier({
   authClient,
+  cachePanoptesData = false,
+  locale,
   onAddToCollection = () => true,
   onCompleteClassification = () => true,
   onError = () => true,
@@ -83,50 +92,86 @@ export default function Classifier({
   const classifierStore = useStore({
     authClient,
     client,
-    initialState: {
-      projects: {
-        active: project.id,
-        resources: {
-          [project.id]: project
-        }
-      }
-    }
+    initialState: {}
   })
 
-  const {
-    classifications,
-    projects,
-    subjects,
-    userProjectPreferences,
-    workflows
-  } = classifierStore
+  const [loaded, setLoaded] = useState(false)
+  const { data } = useSWR(`/workflows/${workflowID}`, client.panoptes.get)
+  let workflowData
+  if (data?.text) {
+    workflowData = data.text
+  }
 
-  useEffect(function onMount() {
+  async function onMount() {
+    if (cachePanoptesData) {
+      try {
+        const storageKey = `fem-classifier-${project.id}`
+        await persist(storageKey, classifierStore, {
+          storage: asyncSessionStorage,
+          whitelist: ['fieldGuide', 'projects', 'subjectSets', 'tutorials', 'workflows']
+        })
+        console.log('store hydrated from local storage')
+      } catch (error) {
+        console.log('store snapshot error.')
+        console.error(error)
+      }
+    }
+    const { classifications, subjects } = classifierStore
     classifierStore.setOnAddToCollection(onAddToCollection)
     classifications.setOnComplete(onCompleteClassification)
     classifierStore.setOnSubjectChange(onSubjectChange)
     subjects.setOnReset(onSubjectReset)
     classifierStore.setOnToggleFavourite(onToggleFavourite)
+    setLoaded(true)
+  }
+
+  useEffect(() => {
+    onMount()
   }, [])
 
+  useEffect(function onLocaleChange() {
+    if (locale) {
+      classifierStore.setLocale(locale)
+      i18n.changeLanguage(locale)
+    }
+  }, [locale])
+
   useEffect(function onProjectChange() {
-    if (project.id) {
+    const { projects } = classifierStore
+    if (loaded) {
       projects.setResources([project])
       projects.setActive(project.id)
     }
-  }, [project.id])
+  }, [loaded, project.id])
 
   useEffect(function onURLChange() {
-    if (workflowID) {
+    const { workflows } = classifierStore
+    if (loaded && workflowID) {
       workflows.selectWorkflow(workflowID, subjectSetID, subjectID)
     }
-  }, [subjectID, subjectSetID, workflowID])
+  }, [loaded, subjectID, subjectSetID, workflowID])
+
+  useEffect(function onWorkflowChange() {
+    const { workflows, subjects } = classifierStore
+    if (loaded && workflowData) {
+      const [ workflowSnapshot ] = JSON.parse(workflowData).workflows
+      workflows.setResources([workflowSnapshot])
+      // TODO: the task area crashes without the following line. Why is that?
+      subjects.setActiveSubject(subjects.active?.id)
+    }
+  }, [loaded, workflowData])
 
   useEffect(function onAuthChange() {
-    userProjectPreferences.checkForUser()
-  }, [authClient])
+    if (loaded) {
+      classifierStore.userProjectPreferences.checkForUser()
+    }
+  }, [loaded, authClient])
 
   try {
+    if (!loaded) {
+      return <Paragraph>Loading…</Paragraph>
+    }
+
     return (
       <Provider classifierStore={classifierStore}>
           <>
@@ -146,6 +191,8 @@ export default function Classifier({
 
 Classifier.propTypes = {
   authClient: PropTypes.object.isRequired,
+  cachePanoptesData: PropTypes.bool,
+  locale: PropTypes.string,
   mode: PropTypes.string,
   onAddToCollection: PropTypes.func,
   onCompleteClassification: PropTypes.func,
