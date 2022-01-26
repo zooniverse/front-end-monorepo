@@ -109,30 +109,24 @@ const TutorialStore = types
   }))
 
   .actions(self => {
+    function _onUPPLoaded() {
+      const upp = getRoot(self).userProjectPreferences
+      if (upp.loadingState === asyncStates.success) {
+        self.showTutorialInModal()
+      }
+    }
+
+    function _onWorkflowChange() {
+      const workflow = tryReference(() => getRoot(self).workflows.active)
+      if (workflow) {
+        self.resetSeen()
+        self.fetchTutorials()
+      }
+    }
+
     function afterAttach () {
-      createWorkflowObserver()
-      createUPPObserver()
-    }
-
-    function createWorkflowObserver () {
-      const workflowDisposer = autorun(() => {
-        const workflow = tryReference(() => getRoot(self).workflows.active)
-        if (workflow) {
-          self.resetSeen()
-          self.fetchTutorials()
-        }
-      }, { name: 'Tutorial Store Workflow Observer autorun' })
-      addDisposer(self, workflowDisposer)
-    }
-
-    function createUPPObserver () {
-      const uppDisposer = autorun(() => {
-        const upp = getRoot(self).userProjectPreferences
-        if (upp.loadingState === asyncStates.success) {
-          self.showTutorialInModal()
-        }
-      }, { name: 'Tutorial Store UPP Observer autorun' })
-      addDisposer(self, uppDisposer)
+      addDisposer(self, autorun(_onWorkflowChange))
+      addDisposer(self, autorun(_onUPPLoaded))
     }
 
     const fetchMedia = flow(function * fetchMedia (tutorial) {
