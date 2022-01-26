@@ -74,19 +74,16 @@ const WorkflowStepStore = types
     }
   }))
   .actions(self => {
-    function afterAttach () {
-      createWorkflowObserver()
+    function _onWorkflowChange() {
+      const workflow = tryReference(() => getRoot(self).workflows?.active)
+      if (workflow) {
+        self.reset()
+        setStepsAndTasks(workflow)
+      }
     }
 
-    function createWorkflowObserver () {
-      const workflowDisposer = autorun(() => {
-        const workflow = tryReference(() => getRoot(self).workflows?.active)
-        if (workflow) {
-          self.reset()
-          setStepsAndTasks(workflow)
-        }
-      }, { name: 'WorkflowStepStore Workflow Observer autorun' })
-      addDisposer(self, workflowDisposer)
+    function afterAttach () {
+      addDisposer(self, autorun(_onWorkflowChange))
     }
 
     function getNextStepKey () {

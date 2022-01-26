@@ -130,25 +130,9 @@ const SubjectStore = types
     }
 
     function afterAttach () {
-      createWorkflowObserver()
-      createClassificationChangeObserver()
+      addDisposer(self, autorun(_onWorkflowChange))
+      addDisposer(self, autorun(_onClassificationChange))
       addMiddleware(self, _addMiddleware)
-    }
-
-    function createWorkflowObserver () {
-      const workflowDisposer = autorun(
-        _onWorkflowChange,
-        { name: 'SubjectStore Workflow Observer autorun' }
-      )
-      addDisposer(self, workflowDisposer)
-    }
-
-    function createClassificationChangeObserver () {
-      const classificationDisposer = autorun(
-        _onClassificationChange,
-        { name: 'SubjectStore Classification Change Observer autorun' }
-      )
-      addDisposer(self, classificationDisposer)
     }
 
     async function _fetchPreviousSubjects(workflow, priority) {

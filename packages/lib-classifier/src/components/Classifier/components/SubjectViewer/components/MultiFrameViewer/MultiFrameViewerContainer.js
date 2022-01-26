@@ -174,6 +174,7 @@ class MultiFrameViewerContainer extends React.Component {
           <SVGPanZoom
             img={this.subjectImage.current}
             maxZoom={5}
+            minZoom={0.1}
             naturalHeight={naturalHeight}
             naturalWidth={naturalWidth}
             setOnDrag={this.setOnDrag}

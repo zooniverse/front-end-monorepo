@@ -1,5 +1,4 @@
-import { autorun } from 'mobx'
-import { addDisposer, destroy, getRoot, tryReference, types } from 'mobx-state-tree'
+import { destroy, getRoot, tryReference, types } from 'mobx-state-tree'
 import Resource from '@store/Resource'
 import { createLocationCounts, subjectViewers, validateSubjectLocations } from '@helpers'
 import StepHistory from './StepHistory'
@@ -101,23 +100,20 @@ const Subject = types
   .actions(self => {
 
     function afterAttach () {
-      fetchTranscriptionReductions()
+      _fetchTranscriptionReductions()
     }
 
     function beforeDestroy () {
       self.transcriptionReductions && destroy(self.transcriptionReductions)
     }
 
-    function fetchTranscriptionReductions () {
-      const subjectWorkflowDisposer = autorun(function subjectWorkflowDisposer () {
-        if (self.workflow && self.workflow.usesTranscriptionTask) {
-          self.transcriptionReductions = TranscriptionReductions.create({
-            subjectId: self.id,
-            workflowId: self.workflow.id
-          })
-        }
-      }, { name: 'Subject workflow disposer' })
-      addDisposer(self, subjectWorkflowDisposer)
+    function _fetchTranscriptionReductions () {
+      if (self.workflow?.usesTranscriptionTask) {
+        self.transcriptionReductions = TranscriptionReductions.create({
+          subjectId: self.id,
+          workflowId: self.workflow.id
+        })
+      }
     }
 
     function addToCollection () {

@@ -1,6 +1,6 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { panoptes } from '@zooniverse/panoptes-js'
-import { Button, Grommet, Box, base as baseTheme } from 'grommet'
+import { Button, CheckBox, Grommet, Box, base as baseTheme } from 'grommet'
 import _ from 'lodash'
 import oauth from 'panoptes-client/lib/oauth'
 import queryString from 'query-string'
@@ -13,6 +13,7 @@ class App extends React.Component {
     super()
 
     this.state = {
+      cachePanoptesData: false,
       dark: false,
       loading: false,
       project: null,
@@ -108,6 +109,7 @@ class App extends React.Component {
     const [singleActiveWorkflow] = (active_workflows.length === 1) ? active_workflows : []
     const workflowID = this.props.workflowID ?? singleActiveWorkflow
     const mergedThemes = _.merge({}, baseTheme, zooTheme, { dark: this.state.dark })
+    const key = this.state.cachePanoptesData ? 'cachedClassifier' : 'classifier'
 
     return (
       <Grommet 
@@ -120,6 +122,11 @@ class App extends React.Component {
       >
         <Box as='main'>
           <Box as='header' pad='medium' justify='end' gap='medium' direction='row'>
+            <CheckBox
+              checked={this.state.cachePanoptesData}
+              label="Cache Panoptes data"
+              onChange={() => this.setState({ cachePanoptesData: !this.state.cachePanoptesData })}
+            />
             <Button onClick={this.toggleTheme.bind(this)} label='Toggle theme' />
             {this.state.user
               ? <Button onClick={this.logout.bind(this)} label='Logout' />
@@ -128,7 +135,9 @@ class App extends React.Component {
           </Box>
           <Box as='section'>
             <Classifier
+              key={key}
               authClient={oauth}
+              cachePanoptesData={this.state.cachePanoptesData}
               onAddToCollection={(subjectId) => console.log(subjectId)}
               onCompleteClassification={(classification, subject) => console.log('onComplete', classification, subject)}
               onError={this.onError}
