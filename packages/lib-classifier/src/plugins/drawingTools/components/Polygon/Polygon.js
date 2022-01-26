@@ -19,6 +19,7 @@ const StyledGroup = styled.g`
 const RADIUS = 3
 const ACTIVE_POINT_RADIUS = 8
 const STROKE_WIDTH = 3
+const GUIDELINE_STROKE_WIDTH = 2
 
 // const GRAB_STROKE_WIDTH = 4
 // const FINISHER_RADIUS = 3
@@ -39,6 +40,7 @@ function Polygon({ active, mark, onFinish, scale }) {
   const radius = RADIUS / scale
   const activePointRadius = ACTIVE_POINT_RADIUS / scale
   const strokeWidth = STROKE_WIDTH / scale
+  const guideLineStrokeWidth = GUIDELINE_STROKE_WIDTH / scale
 
   // function onHandleDrag(coords) {
   //   mark.appendPath(coords)
@@ -75,6 +77,8 @@ function Polygon({ active, mark, onFinish, scale }) {
           y1={initialPoint.y}
           x2={guideLineX}
           y2={guideLineY}
+          strokeWidth={guideLineStrokeWidth}
+          strokeDasharray='2 2'
         />
       )}
 
