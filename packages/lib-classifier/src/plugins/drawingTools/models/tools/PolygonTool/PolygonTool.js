@@ -17,7 +17,7 @@ const PolygonTool = types
       self.marks.put(newMark)
       return newMark
     },
-    handlePointerMoveHover(event, mark) {
+    handlePointerPosition(event, mark) {
       mark?.setGuideLine(event)
     },
     handlePointerMove(event, mark) {
