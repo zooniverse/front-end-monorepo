@@ -1,6 +1,7 @@
 import { flow, getRoot, tryReference, types } from 'mobx-state-tree'
 import Resource from '@store/Resource'
 import SubjectSet from '@store/SubjectSet'
+import Tutorial from '@store/TutorialStore/Tutorial'
 import WorkflowConfiguration from './WorkflowConfiguration'
 
 import { convertWorkflowToUseSteps } from '@store/helpers'
@@ -30,6 +31,7 @@ const Workflow = types
     steps: types.array(WorkflowStep),
     subjectSet: types.safeReference(SubjectSet),
     tasks: types.maybe(types.frozen()),
+    tutorials: types.array(types.safeReference(Tutorial)),
     version: types.string
   })
   .preProcessSnapshot(
@@ -47,9 +49,24 @@ const Workflow = types
       return self.grouped && !!activeSet?.isIndexed
     },
 
+    get miniCourse () {
+      return self.tutorials.find((tutorialRef) => {
+        const tutorial = tryReference(() => tutorialRef)
+        return tutorial.kind === 'mini-course'
+      })
+    },
+
     get subjectSetId () {
       const activeSet = tryReference(() => self.subjectSet)
       return activeSet?.id
+    },
+
+    get tutorial () {
+      // For backwards compatibility, we assume tutorials with a null kind are standard tutorials
+      return self.tutorials.find((tutorialRef) => {
+        const tutorial = tryReference(() => tutorialRef)
+        return tutorial.kind === 'tutorial' || tutorial.kind === null
+      })
     },
 
     get usesTranscriptionTask () {
@@ -74,8 +91,13 @@ const Workflow = types
       throw new Error(`No subject set ${id} for workflow ${self.id}`)
     }
 
+    function setTutorials(tutorials) {
+      self.tutorials = tutorials.map(tutorial => tutorial.id)
+    }
+
     return {
-      selectSubjectSet: flow(selectSubjectSet)
+      selectSubjectSet: flow(selectSubjectSet),
+      setTutorials
     }
   })
 

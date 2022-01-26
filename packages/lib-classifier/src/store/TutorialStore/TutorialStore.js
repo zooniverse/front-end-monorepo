@@ -27,7 +27,8 @@ const TutorialStore = types
     },
 
     get disableTutorialTab () {
-      return self.loadingState !== asyncStates.success || (self.loadingState === asyncStates.success && !self.tutorial)
+      const workflow = tryReference(() => getRoot(self).workflows.active)
+      return self.loadingState !== asyncStates.success || (self.loadingState === asyncStates.success && !workflow?.tutorial)
     },
 
     get stepWithMedium () {
@@ -38,33 +39,10 @@ const TutorialStore = types
       return null
     },
 
-    get tutorial () {
-      const tutorials = Array.from(self.resources.values())
-      // For backwards compatibility, we assume tutorials with a null kind are standard tutorials
-      if (tutorials) {
-        return tutorials.find((tutorial) => {
-          return tutorial.kind === 'tutorial' || tutorial.kind === null
-        })
-      }
-
-      return null
-    },
-
-    get miniCourse () {
-      const tutorials = Array.from(self.resources.values())
-
-      if (tutorials) {
-        return tutorials.find((tutorial) => {
-          return tutorial.kind === 'mini-course'
-        })
-      }
-
-      return null
-    },
-
     get hasNotSeenTutorialBefore () {
+      const workflow = tryReference(() => getRoot(self).workflows.active)
       const upp = tryReference(() => getRoot(self).userProjectPreferences.active)
-      const { tutorial } = self
+      const tutorial = workflow?.tutorial
       if (upp && tutorial) {
         return !(upp.preferences.tutorials_completed_at && upp.preferences.tutorials_completed_at[tutorial.id])
       }
@@ -73,8 +51,9 @@ const TutorialStore = types
     },
 
     get tutorialLastSeen () {
+      const workflow = tryReference(() => getRoot(self).workflows.active)
       const upp = tryReference(() => getRoot(self).userProjectPreferences.active)
-      const { tutorial } = self
+      const tutorial = workflow?.tutorial
       if (upp && upp.preferences.tutorials_completed_at && tutorial) {
         return upp.preferences.tutorials_completed_at[tutorial.id]
       }
@@ -83,7 +62,8 @@ const TutorialStore = types
     },
 
     isMiniCourseCompleted (lastStepSeen) {
-      const { miniCourse } = self
+      const workflow = tryReference(() => getRoot(self).workflows.active)
+      const miniCourse = workflow?.miniCourse
 
       if (miniCourse) return lastStepSeen === miniCourse.steps.length - 1
 
@@ -164,6 +144,7 @@ const TutorialStore = types
           const mediaRequests = tutorials.map(fetchMedia)
           yield Promise.all(mediaRequests)
           self.setTutorials(tutorials)
+          workflow.setTutorials(tutorials)
           self.loadingState = asyncStates.success
           if (upp.loadingState === asyncStates.success) {
             self.showTutorialInModal()
@@ -242,7 +223,8 @@ const TutorialStore = types
     }
 
     function showTutorialInModal () {
-      const { tutorial } = self
+      const workflow = tryReference(() => getRoot(self).workflows.active)
+      const tutorial = workflow?.tutorial
       if (tutorial && self.hasNotSeenTutorialBefore) {
         self.setActiveTutorial(tutorial.id)
         self.setModalVisibility(true)

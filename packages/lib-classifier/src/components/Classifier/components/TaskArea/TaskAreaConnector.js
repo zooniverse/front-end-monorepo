@@ -10,7 +10,6 @@ function storeMapper(store) {
     tutorials: {
       disableTutorialTab,
       setActiveTutorial,
-      tutorial
     },
     workflows: {
       active: workflow
@@ -23,7 +22,7 @@ function storeMapper(store) {
     setActiveTutorial,
     retired: subject?.retired,
     subject,
-    tutorial,
+    tutorial: workflow?.tutorial,
     workflow
   }
 }
