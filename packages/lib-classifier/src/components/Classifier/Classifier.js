@@ -3,6 +3,7 @@ import { Paragraph } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import { persist } from 'mst-persist'
+import useSWR from 'swr'
 import PropTypes from 'prop-types'
 import React, { useEffect, useMemo, useState } from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -95,6 +96,11 @@ export default function Classifier({
   })
 
   const [loaded, setLoaded] = useState(false)
+  const { data } = useSWR(`/workflows/${workflowID}`, client.panoptes.get)
+  let workflowData
+  if (data?.text) {
+    workflowData = data.text
+  }
 
   async function onMount() {
     if (cachePanoptesData) {
@@ -144,6 +150,16 @@ export default function Classifier({
       workflows.selectWorkflow(workflowID, subjectSetID, subjectID)
     }
   }, [loaded, subjectID, subjectSetID, workflowID])
+
+  useEffect(function onWorkflowChange() {
+    const { workflows, subjects } = classifierStore
+    if (loaded && workflowData) {
+      const [ workflowSnapshot ] = JSON.parse(workflowData).workflows
+      workflows.setResources([workflowSnapshot])
+      // TODO: the task area crashes without the following line. Why is that?
+      subjects.setActiveSubject(subjects.active?.id)
+    }
+  }, [loaded, workflowData])
 
   useEffect(function onAuthChange() {
     if (loaded) {
