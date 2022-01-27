@@ -1,7 +1,8 @@
-import asyncStates from '@zooniverse/async-states'
-import sinon from 'sinon'
 import { when } from 'mobx'
 import nock from 'nock'
+import talkClient from 'panoptes-client/lib/talk-client'
+import sinon from 'sinon'
+import asyncStates from '@zooniverse/async-states'
 
 import initStore from '@stores/initStore'
 import { statsClient } from '../YourStats'
@@ -69,10 +70,12 @@ describe('Stores > UserProjectPreferences', function () {
 
   before(function () {
     sinon.stub(statsClient, 'request')
+    sinon.stub(talkClient, 'request')
   })
 
   after(function () {
     statsClient.request.restore()
+    talkClient.request.restore()
   })
 
   describe('with a snapshot', function () {

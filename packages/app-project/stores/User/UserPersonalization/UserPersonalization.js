@@ -2,11 +2,13 @@ import asyncStates from '@zooniverse/async-states'
 import { addDisposer, getRoot, types } from 'mobx-state-tree'
 import { autorun } from 'mobx'
 
+import Notifications from './Notifications'
 import UserProjectPreferences from './UserProjectPreferences'
 import YourStats from './YourStats'
 
 const UserPersonalization = types
   .model('UserPersonalization', {
+    notifications: types.optional(Notifications, {}),
     projectPreferences: types.optional(UserProjectPreferences, {}),
     stats: types.optional(YourStats, {})
   })
@@ -46,9 +48,13 @@ const UserPersonalization = types
     function createParentObserver() {
       const parentDisposer = autorun(() => {
         const { project, user } = getRoot(self)
-        if (project.id && user.id) {
-          self.projectPreferences.fetchResource()
-          self.stats.fetchDailyCounts()
+        if (user.id) {
+          self.notifications.fetchAndSubscribe()
+          
+          if (project.id) {
+            self.projectPreferences.fetchResource()
+            self.stats.fetchDailyCounts()
+          }
         } else if (user.loadingState === asyncStates.success) {
           self.projectPreferences.setLoadingState(asyncStates.success)
         }
@@ -70,6 +76,7 @@ const UserPersonalization = types
       },
 
       reset() {
+        self.notifications.reset()
         self.projectPreferences.reset()
         self.projectPreferences.setLoadingState(asyncStates.success)
         self.stats.reset()
