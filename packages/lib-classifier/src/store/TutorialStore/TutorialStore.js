@@ -101,7 +101,7 @@ const TutorialStore = types
 
     function _onWorkflowChange() {
       const workflow = tryReference(() => getRoot(self).workflows.active)
-      if (workflow) {
+      if (workflow?.tutorials.length === 0) {
         self.resetSeen()
         self.fetchTutorials()
       }
