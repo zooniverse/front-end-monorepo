@@ -8,7 +8,6 @@ function storeMapper(store) {
       active: subject
     },
     tutorials: {
-      disableTutorialTab,
       setActiveTutorial,
     },
     workflows: {
@@ -18,7 +17,6 @@ function storeMapper(store) {
 
   return {
     alreadySeen: subject?.alreadySeen,
-    disableTutorialTab,
     setActiveTutorial,
     retired: subject?.retired,
     subject,

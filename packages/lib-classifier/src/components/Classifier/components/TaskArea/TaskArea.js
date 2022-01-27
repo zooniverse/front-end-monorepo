@@ -18,7 +18,6 @@ The tabbed tasks area of the classifier, with tabs for the tutorial and active t
 export default function TaskArea({
   alreadySeen,
   className,
-  disableTutorialTab = true,
   setActiveTutorial = () => true,
   retired,
   subject,
@@ -83,7 +82,7 @@ export default function TaskArea({
           </Box>
         </Tab>
         <Tab
-          disabled={disabled || disableTutorialTab}
+          disabled={disabled || !tutorial}
           title={counterpart('TaskArea.tutorial')}
         >
           <Box>

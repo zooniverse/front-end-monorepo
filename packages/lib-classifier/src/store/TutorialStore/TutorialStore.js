@@ -26,11 +26,6 @@ const TutorialStore = types
       return self.isActiveReferenceValid && self.activeStep > -1
     },
 
-    get disableTutorialTab () {
-      const workflow = tryReference(() => getRoot(self).workflows.active)
-      return self.loadingState !== asyncStates.success || (self.loadingState === asyncStates.success && !workflow?.tutorial)
-    },
-
     get stepWithMedium () {
       if (self.isActiveStepValid) {
         const step = self.active.steps[self.activeStep]
