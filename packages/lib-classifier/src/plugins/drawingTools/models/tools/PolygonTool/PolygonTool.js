@@ -8,6 +8,7 @@ const PolygonTool = types
     type: types.literal('polygon')
   })
   .actions((self) => ({
+    // 1st click only
     createMark(mark) {
       const newMark = Polygon.create(
         Object.assign({}, mark, {
@@ -17,11 +18,18 @@ const PolygonTool = types
       self.marks.put(newMark)
       return newMark
     },
+    // all additional clicks
+    handlePointerDown(event, mark) {
+      console.log('hello!')
+    },
     handlePointerPosition(event, mark) {
       mark?.setGuideLine(event)
     },
     handlePointerMove(event, mark) {
       mark?.setGuideLine(event)
+    },
+    handlePointerUp(event, mark) {
+      return
     }
   }))
 
