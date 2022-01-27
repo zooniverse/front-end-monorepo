@@ -16096,10 +16096,10 @@ svg-loaders-react@~2.2.1:
   resolved "https://registry.yarnpkg.com/svg-loaders-react/-/svg-loaders-react-2.2.1.tgz#d546cea2a895144cfd652e1bd846166d8a07d2ed"
   integrity sha512-ATfg5pAMOla2GqPcwGRDrNTLlTQzl2fMvfW290j20qH7qpB61C3SQAnu+T9t8Z+V4IKKN2Bm1d/SaCv5IR1DDA==
 
-swr@~1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/swr/-/swr-1.1.2.tgz#9f3de2541931fccf03c48f322f1fc935a7551612"
-  integrity sha512-UsM0eo5T+kRPyWFZtWRx2XR5qzohs/LS4lDC0GCyLpCYFmsfTk28UCVDbOE9+KtoXY4FnwHYiF+ZYEU3hnJ1lQ==
+swr@~1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-1.2.0.tgz#8649f6e9131ce94bbcf7ffd65c21334da3d1ec20"
+  integrity sha512-C3IXeKOREn0jQ1ewXRENE7ED7jjGbFTakwB64eLACkCqkF/A0N2ckvpCTftcaSYi5yV36PzoehgVCOVRmtECcA==
 
 symbol-tree@^3.2.4:
   version "3.2.4"
