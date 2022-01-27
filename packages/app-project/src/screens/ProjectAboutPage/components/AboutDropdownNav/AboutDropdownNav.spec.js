@@ -9,13 +9,13 @@ describe('Component > AboutDropdownNav', function () {
   let scrollMock
   let useTranslationStub
 
-  before(function () {
+  beforeEach(function () {
     // Calling window.scrollTo is a side effect of clicking a Grommet Dropbutton
     scrollMock = sinon.stub(window, 'scrollTo').callsFake(() => {})
     useTranslationStub = sinon.stub(i18n, 't')
   })
 
-  after(function () {
+  afterEach(function () {
     scrollMock.restore()
     useTranslationStub.restore()
   })
