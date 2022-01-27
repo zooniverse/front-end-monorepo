@@ -47,7 +47,7 @@ export default function TaskArea({
   }, [workflow])
 
   function onTabClick(newIndex) {
-    if (newIndex === 1) setActiveTutorial(tutorial)
+    if (newIndex === 1) setActiveTutorial(tutorial?.id)
     if (newIndex === 0) setActiveTutorial()
     setActiveIndex(newIndex)
   }
