@@ -42,6 +42,10 @@ export default function TaskArea({
     setDisabled(false)
   }
 
+  useEffect(function onWorkflowChange() {
+    setActiveIndex(0)
+  }, [workflow])
+
   function onTabClick(newIndex) {
     if (newIndex === 1) setActiveTutorial(tutorial)
     if (newIndex === 0) setActiveTutorial()

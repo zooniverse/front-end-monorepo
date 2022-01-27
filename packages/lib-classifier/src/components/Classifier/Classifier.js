@@ -3,6 +3,7 @@ import { Paragraph } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import { persist } from 'mst-persist'
+import useSWR from 'swr'
 import PropTypes from 'prop-types'
 import React, { useEffect, useMemo, useState } from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -74,6 +75,7 @@ function useStore({ authClient, client, initialState }) {
 
 export default function Classifier({
   authClient,
+  cachePanoptesData = false,
   locale,
   onAddToCollection = () => true,
   onCompleteClassification = () => true,
@@ -94,18 +96,25 @@ export default function Classifier({
   })
 
   const [loaded, setLoaded] = useState(false)
+  const { data } = useSWR(`/workflows/${workflowID}`, client.panoptes.get)
+  let workflowData
+  if (data?.text) {
+    workflowData = data.text
+  }
 
   async function onMount() {
-    try {
-      const storageKey = `fem-classifier-${project.id}`
-      await persist(storageKey, classifierStore, {
-        storage: asyncSessionStorage,
-        whitelist: ['fieldGuide', 'projects', 'subjectSets', 'tutorials', 'workflows']
-      })
-      console.log('store hydrated from local storage')
-    } catch (error) {
-      console.log('store snapshot error.')
-      console.error(error)
+    if (cachePanoptesData) {
+      try {
+        const storageKey = `fem-classifier-${project.id}`
+        await persist(storageKey, classifierStore, {
+          storage: asyncSessionStorage,
+          whitelist: ['fieldGuide', 'projects', 'subjectSets', 'tutorials', 'workflows']
+        })
+        console.log('store hydrated from local storage')
+      } catch (error) {
+        console.log('store snapshot error.')
+        console.error(error)
+      }
     }
     const { classifications, subjects } = classifierStore
     classifierStore.setOnAddToCollection(onAddToCollection)
@@ -142,6 +151,16 @@ export default function Classifier({
     }
   }, [loaded, subjectID, subjectSetID, workflowID])
 
+  useEffect(function onWorkflowChange() {
+    const { workflows, subjects } = classifierStore
+    if (loaded && workflowData) {
+      const [ workflowSnapshot ] = JSON.parse(workflowData).workflows
+      workflows.setResources([workflowSnapshot])
+      // TODO: the task area crashes without the following line. Why is that?
+      subjects.setActiveSubject(subjects.active?.id)
+    }
+  }, [loaded, workflowData])
+
   useEffect(function onAuthChange() {
     if (loaded) {
       classifierStore.userProjectPreferences.checkForUser()
@@ -172,6 +191,7 @@ export default function Classifier({
 
 Classifier.propTypes = {
   authClient: PropTypes.object.isRequired,
+  cachePanoptesData: PropTypes.bool,
   locale: PropTypes.string,
   mode: PropTypes.string,
   onAddToCollection: PropTypes.func,
