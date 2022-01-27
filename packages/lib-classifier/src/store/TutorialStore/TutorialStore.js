@@ -96,6 +96,14 @@ const TutorialStore = types
       }
     }
 
+    function _onTutorialChange() {
+      const workflow = tryReference(() => getRoot(self).workflows.active)
+      if (workflow) {
+        const { tutorial } = workflow
+        self.setActiveTutorial(tutorial?.id)
+      }
+    }
+
     function _onWorkflowChange() {
       const workflow = tryReference(() => getRoot(self).workflows.active)
       if (workflow) {
@@ -105,6 +113,7 @@ const TutorialStore = types
     }
 
     function afterAttach () {
+      addDisposer(self, autorun(_onTutorialChange))
       addDisposer(self, autorun(_onWorkflowChange))
       addDisposer(self, autorun(_onUPPLoaded))
     }
