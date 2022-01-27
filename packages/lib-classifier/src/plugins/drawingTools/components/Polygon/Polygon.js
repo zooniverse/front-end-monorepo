@@ -27,6 +27,7 @@ const GUIDELINE_STROKE_WIDTH = 2
 function Polygon({ active, mark, onFinish, scale }) {
   const {
     path,
+    points,
     initialPoint,
     lastPoint,
     finished,
@@ -57,13 +58,18 @@ function Polygon({ active, mark, onFinish, scale }) {
     <StyledGroup onPointerUp={active ? onFinish : undefined}>
       {/* Initial Point */}
       {/* This should be used for every point in the Polygon */}
-      <circle
-        r={radius}
-        cx={initialPoint.x}
-        cy={initialPoint.y}
-        fill='currentColor'
-        strokeWidth={strokeWidth}
-      />
+      {points.map((point, i) => {
+        return (
+          <circle
+            key={`${mark.id}-${i}`}
+            r={radius}
+            cx={point.x}
+            cy={point.y}
+            fill='currentColor'
+            strokeWidth={strokeWidth}
+          />
+        )
+      })}
 
       {/* Outer circle to show latest point */}
       <circle

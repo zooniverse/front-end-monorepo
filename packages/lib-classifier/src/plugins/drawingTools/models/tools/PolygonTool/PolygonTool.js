@@ -20,7 +20,7 @@ const PolygonTool = types
     },
     // all additional clicks
     handlePointerDown(event, mark) {
-      console.log('hello!')
+      mark.appendPath(event)
     },
     handlePointerPosition(event, mark) {
       mark?.setGuideLine(event)
