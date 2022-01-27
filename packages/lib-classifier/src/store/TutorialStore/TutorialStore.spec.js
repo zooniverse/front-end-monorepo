@@ -338,7 +338,7 @@ describe('Model > TutorialStore', function () {
 
   describe('Actions > resetSeen', function () {
     let rootStore
-    it('should reset the tutorial seen time when a new workflow loads', function (done) {
+    it('should reset the tutorial seen time when a new workflow loads', function () {
       const seen = new Date().toISOString()
       const panoptesClientStub = clientStub()
 
@@ -352,14 +352,17 @@ describe('Model > TutorialStore', function () {
         subjects: {},
         subjectViewer: {},
         tutorials: TutorialStore.create({ tutorialSeenTime: seen }),
+        workflows: {
+          active: workflow.id,
+          resources: {
+            [workflow.id]: workflow
+          }
+        },
         workflowSteps: {},
         userProjectPreferences: {}
       }, { client: panoptesClientStub, authClientStubWithoutUser })
 
-      fetchTutorials(rootStore)
-        .then(() => {
-          expect(rootStore.tutorials.tutorialSeenTime).to.be.undefined()
-        }).then(done, done)
+      expect(rootStore.tutorials.tutorialSeenTime).to.be.undefined()
     })
   })
 
