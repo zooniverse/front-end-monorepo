@@ -7,9 +7,17 @@ import { withStores } from '@helpers'
 import SlideTutorial from './SlideTutorial'
 
 function storeMapper(classifierStore) {
-  const { activeStep, isFirstStep, isLastStep, stepWithMedium } = classifierStore.tutorials
-
-  const { active: project } = classifierStore.projects
+  const {
+    projects: {
+      active: project
+    },
+    tutorials: {
+      activeStep,
+      isFirstStep,
+      isLastStep,
+      stepWithMedium
+    }
+  }
 
   return {
     activeStep,
@@ -28,6 +36,7 @@ function SlideTutorialContainer({
   ...props
 }) {
   const { t } = useTranslation('components')
+
   if (stepWithMedium && Object.keys(stepWithMedium).length > 0) {
     return (
       <ResponsiveContext.Consumer>
@@ -46,13 +55,13 @@ function SlideTutorialContainer({
         }}
       </ResponsiveContext.Consumer>
     )
-  } else {
-    return (
-      <Box height='100%' justify='between' pad={pad}>
-        <Paragraph>{t('SlideTutorial.error')}</Paragraph>
-      </Box>
-    )
   }
+
+  return (
+    <Box height='100%' justify='between' pad={pad}>
+      <Paragraph>{t('SlideTutorial.error')}</Paragraph>
+    </Box>
+  )
 }
 
 SlideTutorialContainer.propTypes = {
