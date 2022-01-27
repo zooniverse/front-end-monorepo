@@ -69,7 +69,7 @@ function ProjectAboutPage ({
           >
             {screenSize !== 'small' ? (
               <Box>
-                <SidebarHeading children='About' />
+                <SidebarHeading children={t('About.SidebarHeading')} />
                 <AboutSidebar aboutNavLinks={aboutNavLinks} />
               </Box>
             ) : (
