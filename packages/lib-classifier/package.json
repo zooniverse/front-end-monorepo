@@ -22,7 +22,7 @@
     "@visx/event": "~2.1.2",
     "@visx/glyph": "~2.1.2",
     "@visx/group": "~2.1.0",
-    "@visx/responsive": "~2.4.1",
+    "@visx/responsive": "~2.8.0",
     "@visx/scale": "~2.2.2",
     "@visx/shape": "~2.4.0",
     "@visx/zoom": "~2.2.2",

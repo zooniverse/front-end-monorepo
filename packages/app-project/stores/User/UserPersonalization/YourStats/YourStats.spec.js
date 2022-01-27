@@ -1,10 +1,11 @@
-import sinon from 'sinon'
+import { expect } from 'chai'
 import nock from 'nock'
+import talkClient from 'panoptes-client/lib/talk-client'
+import sinon from 'sinon'
+import asyncStates from '@zooniverse/async-states'
 
 import initStore from '@stores/initStore'
 import YourStats, { statsClient } from './YourStats'
-import asyncStates from '@zooniverse/async-states'
-import { expect } from 'chai'
 
 describe('Stores > YourStats', function () {
   let rootStore, nockScope
@@ -44,11 +45,13 @@ describe('Stores > YourStats', function () {
       .reply(200)
     rootStore = initStore(true, { project })
     sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve({ statsCount: MOCK_DAILY_COUNTS }))
+    sinon.stub(talkClient, 'request')
   })
 
   after(function () {
     console.error.restore()
     statsClient.request.restore()
+    talkClient.request.restore()
     nock.cleanAll()
   })
 
