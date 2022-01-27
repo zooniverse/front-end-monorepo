@@ -42,9 +42,10 @@ function Polygon({ active, mark, onFinish, scale }) {
   const strokeWidth = STROKE_WIDTH / scale
   const guideLineStrokeWidth = GUIDELINE_STROKE_WIDTH / scale
 
-  // function onHandleDrag(coords) {
-  //   mark.appendPath(coords)
-  // }
+  function onAppendPath(coords) {
+    console.log(coords)
+    mark.appendPath(coords)
+  }
 
   function onMouseMove() {}
 
@@ -54,6 +55,8 @@ function Polygon({ active, mark, onFinish, scale }) {
 
   return (
     <StyledGroup onPointerUp={active ? onFinish : undefined}>
+      {/* Initial Point */}
+      {/* This should be used for every point in the Polygon */}
       <circle
         r={radius}
         cx={initialPoint.x}
@@ -62,7 +65,7 @@ function Polygon({ active, mark, onFinish, scale }) {
         strokeWidth={strokeWidth}
       />
 
-      {/* outer circle to show latest point */}
+      {/* Outer circle to show latest point */}
       <circle
         r={activePointRadius}
         cx={initialPoint.x}
@@ -79,6 +82,27 @@ function Polygon({ active, mark, onFinish, scale }) {
           y2={guideLineY}
           strokeWidth={guideLineStrokeWidth}
           strokeDasharray='2 2'
+        />
+      )}
+
+      {/* Polygon??? or Polygon Lines */}
+      <polyline
+        points={path}
+        style={{
+          strokeWidth: STROKE_WIDTH,
+          strokeLinejoin: 'round',
+          strokeLinecap: 'round',
+          fill: 'none'
+        }}
+      />
+
+      {/* Latest Point */}
+      {active && finished && (
+        <circle
+          scale={scale}
+          x={lastPoint.x}
+          y={lastPoint.y}
+          onClick={(e) => onAppendPath(e)}
         />
       )}
 

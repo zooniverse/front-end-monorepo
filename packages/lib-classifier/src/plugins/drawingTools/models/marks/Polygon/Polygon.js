@@ -59,14 +59,14 @@ const PolygonModel = types
       if (!firstCoord) {
         return ''
       }
-      let path = `M ${firstCoord.x},${firstCoord.y} `
+      let path = `${firstCoord.x},${firstCoord.y} `
       otherCoords.forEach(({ x, y }) => {
-        path = path + `L ${x},${y}`
+        path = path + `${x},${y}`
       })
       // closes the drawing path
-      if (self.isCloseToStart) {
-        path += ' Z'
-      }
+      // if (self.isCloseToStart) {
+      //   path += ' Z'
+      // }
       return path
     },
 
