@@ -3,6 +3,7 @@ import chaiDom from 'chai-dom'
 import sinonChai from 'sinon-chai'
 import dirtyChai from 'dirty-chai'
 import { JSDOM } from 'jsdom'
+import fetch from 'node-fetch'
 
 chai.use(chaiDom)
 chai.use(dirtyChai)
@@ -40,6 +41,7 @@ class ResizeObserver {
 }
 
 window.ResizeObserver = ResizeObserver
+global.fetch = fetch
 global.window = window
 global.document = window.document
 global.navigator = {
