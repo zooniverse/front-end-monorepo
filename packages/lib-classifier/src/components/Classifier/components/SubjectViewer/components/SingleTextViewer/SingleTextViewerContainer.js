@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import request from 'superagent'
-import asyncStates from '@zooniverse/async-states'
 
 import locationValidator from '../../helpers/locationValidator'
 import SingleTextViewer from './SingleTextViewer'
@@ -104,7 +103,6 @@ export default class SingleTextViewerContainer extends Component {
 }
 
 SingleTextViewerContainer.defaultProps = {
-  loadingState: asyncStates.initialized,
   onError: () => true,
   onReady: () => true,
   subject: {
@@ -114,7 +112,6 @@ SingleTextViewerContainer.defaultProps = {
 }
 
 SingleTextViewerContainer.propTypes = {
-  loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,
   subject: PropTypes.shape({
