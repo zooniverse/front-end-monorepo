@@ -4,7 +4,7 @@ import React from 'react'
 import nock from 'nock'
 import sinon from 'sinon'
 
-import { SingleTextViewerContainer } from './SingleTextViewerContainer'
+import SingleTextViewerContainer from './SingleTextViewerContainer'
 import { Factory } from 'rosie'
 
 const subject = Factory.build('subject', {

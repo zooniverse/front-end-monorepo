@@ -1,4 +1,3 @@
-import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import request from 'superagent'
@@ -7,12 +6,8 @@ import asyncStates from '@zooniverse/async-states'
 import locationValidator from '../../helpers/locationValidator'
 import SingleTextViewer from './SingleTextViewer'
 
-function storeMapper(stores) {
-  // TODO connect to get other data / function as needed
-}
-
-class SingleTextViewerContainer extends Component {
-  constructor() {
+export default class SingleTextViewerContainer extends Component {
+  constructor () {
     super()
 
     this.viewer = React.createRef()
@@ -77,7 +72,7 @@ class SingleTextViewerContainer extends Component {
   onLoad (rawData) {
     const { onReady } = this.props
     const target = this.viewer.current
-    
+
     this.setState({
       content: rawData
     },
@@ -127,10 +122,3 @@ SingleTextViewerContainer.propTypes = {
     locations: PropTypes.arrayOf(locationValidator)
   })
 }
-
-@inject(storeMapper)
-@observer
-class DecoratedSingleTextViewerContainer extends SingleTextViewerContainer { }
-
-export default DecoratedSingleTextViewerContainer
-export { SingleTextViewerContainer }

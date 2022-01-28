@@ -6,8 +6,6 @@ function SingleTextViewer (props) {
     content
   } = props
 
-  console.log('content', content)
-
   return (
     <div>
       <pre>
