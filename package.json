@@ -16,7 +16,6 @@
     "snazzy": "~9.0.0"
   },
   "resolutions": {
-    "**/node-fetch": "^2.6.7",
     "**/trim": "~1.0"
   },
   "scripts": {
