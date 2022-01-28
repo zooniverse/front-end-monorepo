@@ -3,13 +3,10 @@ import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import { Button, Box } from 'grommet'
 import { Modal } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
-import en from './locales/en'
+import { useTranslation, withTranslation } from 'react-i18next'
 
 import getFeedbackViewer from './helpers/getFeedbackViewer'
 import reduceFeedbackMessages from './helpers/reduceFeedbackMessages'
-
-counterpart.registerTranslations('en', en)
 
 function storeMapper (stores) {
   const {
@@ -33,7 +30,7 @@ function storeMapper (stores) {
 class FeedbackModal extends React.Component {
   render () {
     const label = counterpart('FeedbackModal.label')
-    const { applicableRules, hideFeedback, hideSubjectViewer, messages, showModal } = this.props
+    const { applicableRules, hideFeedback, hideSubjectViewer, messages, showModal, t } = this.props
     const showViewer = !hideSubjectViewer && applicableRules && applicableRules.length > 0
     let FeedbackViewer = null
 
@@ -72,7 +69,7 @@ class FeedbackModal extends React.Component {
             <Box pad={{ top: 'small' }}>
               <Button
                 onClick={hideFeedback}
-                label={counterpart('FeedbackModal.keepClassifying')}
+                label={t('FeedbackModal.keepClassifying')}
                 primary
               />
             </Box>
@@ -97,4 +94,7 @@ FeedbackModal.wrappedComponent.propTypes = {
   showModal: PropTypes.bool
 }
 
-export default FeedbackModal
+export default withTranslation('components')(FeedbackModal)
+export {
+  FeedbackModal
+}

@@ -47,5 +47,9 @@
         "If you're looking to help, try choosing a different workflow or contributing to a different project."
       ]
     }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Keep Classifying",
+    "label": "Feedback" 
   }
 }
