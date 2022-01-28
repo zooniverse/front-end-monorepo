@@ -4308,7 +4308,15 @@
     "@types/d3-shape" "^1.3.1"
     d3-shape "^1.0.6"
 
-"@visx/event@2.1.2", "@visx/event@~2.1.2":
+"@visx/event@2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@visx/event/-/event-2.6.0.tgz#0718eb1efabd5305cf659a153779c94ba4038996"
+  integrity sha512-WGp91g82s727g3NAnENF1ppC3ZAlvWg+Y+GG0WFg34NmmOZbvPI/PTOqTqZE3x6B8EUn8NJiMxRjxIMbi+IvRw==
+  dependencies:
+    "@types/react" "*"
+    "@visx/point" "2.6.0"
+
+"@visx/event@~2.1.2":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@visx/event/-/event-2.1.2.tgz#f714e705b8702e6bac2c11c4ae667535460e50c1"
   integrity sha512-x3gAQ9DB4zDA6qqGpzlpGacGuOtmzFi/m5Zq7BJ0OJ7PjNfkIazCsznc9epCT/g9IIhwhs+UN/Ijww4YnFHqHw==
@@ -4349,6 +4357,11 @@
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@visx/point/-/point-2.1.0.tgz#b3e263826f28b3a170d6604dea8ffa27a4b9ac3b"
   integrity sha512-vVnfI7oqjjttkn05Xi/ooR0UqQRoGf68lyT3SOl0WPHvIQBGNh3XoVUBHDr15/NUkfErgK6TNlfXY763YncPWg==
+
+"@visx/point@2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@visx/point/-/point-2.6.0.tgz#c4316ca409b5b829c5455f07118d8c14a92cc633"
+  integrity sha512-amBi7yMz4S2VSchlPdliznN41TuES64506ySI22DeKQ+mc1s1+BudlpnY90sM1EIw4xnqbKmrghTTGfy6SVqvQ==
 
 "@visx/responsive@~2.8.0":
   version "2.8.0"
@@ -4403,14 +4416,14 @@
     prop-types "^15.7.2"
     reduce-css-calc "^1.3.0"
 
-"@visx/zoom@~2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@visx/zoom/-/zoom-2.2.2.tgz#6306cb291a4bea7f39a41b19147673bd5cb394bd"
-  integrity sha512-Dpg3KHp2nsKBF4gIHEUUa1gYb6Php5r4B/x1VxHFQO+yVY8bqd3RWo6jdvfP/XHNowrEwM6hLhBVm7U/igPhVw==
+"@visx/zoom@~2.6.1":
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/@visx/zoom/-/zoom-2.6.1.tgz#eaaaadd22945f09d5414b1c122ff0f6c4492cb4e"
+  integrity sha512-s2D3vR/HtNf4bWMWViXXibJEVQPDs564NWr9qh8CZBzyGTYF1PrHKYvEKc02daUUkRo1GcEwZQcnrAibFM+lSg==
   dependencies:
     "@types/react" "*"
     "@use-gesture/react" "^10.0.0-beta.22"
-    "@visx/event" "2.1.2"
+    "@visx/event" "2.6.0"
     prop-types "^15.6.2"
 
 "@webassemblyjs/ast@1.11.1":
