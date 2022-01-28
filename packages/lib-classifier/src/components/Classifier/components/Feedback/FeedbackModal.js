@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import { Button, Box } from 'grommet'
 import { Modal } from '@zooniverse/react-components'
-import { useTranslation, withTranslation } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 import getFeedbackViewer from './helpers/getFeedbackViewer'
 import reduceFeedbackMessages from './helpers/reduceFeedbackMessages'
@@ -25,12 +25,13 @@ function storeMapper (stores) {
   }
 }
 
+// Noting that mobx decorators are outdated https://michel.codes/blogs/mobx6
 @inject(storeMapper)
 @observer
 class FeedbackModal extends React.Component {
   render () {
-    const label = counterpart('FeedbackModal.label')
     const { applicableRules, hideFeedback, hideSubjectViewer, messages, showModal, t } = this.props
+    const label = t('FeedbackModal.label')
     const showViewer = !hideSubjectViewer && applicableRules && applicableRules.length > 0
     let FeedbackViewer = null
 
@@ -95,6 +96,3 @@ FeedbackModal.wrappedComponent.propTypes = {
 }
 
 export default withTranslation('components')(FeedbackModal)
-export {
-  FeedbackModal
-}
