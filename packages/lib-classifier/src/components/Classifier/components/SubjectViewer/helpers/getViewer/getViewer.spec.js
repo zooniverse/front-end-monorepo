@@ -1,15 +1,20 @@
 import getViewer from './getViewer'
 
 import DataImageViewer from '../../components/DataImageViewer'
-import SubjectGroupViewer from '../../components/SubjectGroupViewer'
-import SingleImageViewer from '../../components/SingleImageViewer'
 import LightCurveViewer from '../../components/LightCurveViewer'
 import MultiFrameViewer from '../../components/MultiFrameViewer'
+import SingleImageViewer from '../../components/SingleImageViewer'
+import SingleTextViewer from '../../components/SingleTextViewer'
+import SubjectGroupViewer from '../../components/SubjectGroupViewer'
 import VariableStarViewer from '../../components/VariableStarViewer'
 
 describe('Helpers > getViewer', function () {
   it('should return the `SingleImageViewer` component if passed `singleImage`', function () {
     expect(getViewer('singleImage')).to.equal(SingleImageViewer)
+  })
+
+  it('should return the `SingleTextViewer` component if passed `singleText`', function () {
+    expect(getViewer('singleText')).to.equal(SingleTextViewer)
   })
 
   it('should return the `MultiFrameViewer` component if passed `multiFrame`', function () {
