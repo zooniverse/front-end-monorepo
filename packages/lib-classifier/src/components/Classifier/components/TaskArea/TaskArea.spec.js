@@ -44,28 +44,12 @@ describe('TaskArea', function () {
   })
 
   describe('on Tab Click', function () {
-    let setActiveTutorialSpy
     let wrapper
     let onActive
 
     before(function () {
-      setActiveTutorialSpy = sinon.spy()
-      wrapper = shallow(<TaskArea setActiveTutorial={setActiveTutorialSpy} tutorial={tutorial} />)
+      wrapper = shallow(<TaskArea tutorial={tutorial} />)
       onActive = wrapper.find(Tabs).prop('onActive')
-    })
-    afterEach(function () {
-      setActiveTutorialSpy.resetHistory()
-    })
-
-    it('should set the active tutorial when the tutorial tab is clicked', function () {
-      onActive(1)
-      expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial.id)
-    })
-
-    it('should clear the active tutorial when the tasks Tab is clicked', function () {
-      onActive(0)
-      expect(setActiveTutorialSpy).to.have.been.calledOnce()
-      expect(setActiveTutorialSpy.args[0]).to.have.lengthOf(0)
     })
 
     it('should set the active tab', function () {
@@ -75,20 +59,19 @@ describe('TaskArea', function () {
   })
 
   describe('when the tutorial closes', function () {
-    let setActiveTutorialSpy
+    let setSeenTimeSpy
     let wrapper
     before(function () {
-      setActiveTutorialSpy = sinon.spy()
-      wrapper = shallow(<TaskArea setActiveTutorial={setActiveTutorialSpy} tutorial={tutorial} />)
+      setSeenTimeSpy = sinon.spy()
+      wrapper = shallow(<TaskArea setSeenTime={setSeenTimeSpy} tutorial={tutorial} />)
       wrapper.find(SlideTutorial).simulate('click')
     })
     afterEach(function () {
-      setActiveTutorialSpy.resetHistory()
+      setSeenTimeSpy.resetHistory()
     })
 
-    it('should clear the active tutorial', function () {
-      expect(setActiveTutorialSpy).to.have.been.calledOnce()
-      expect(setActiveTutorialSpy.args[0]).to.have.lengthOf(0)
+    it('should set the tutorial seen time', function () {
+      expect(setSeenTimeSpy.withArgs(tutorial)).to.have.been.calledOnce()
     })
 
     it('should activate the tasks tab', function () {

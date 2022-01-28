@@ -19,19 +19,18 @@ const StyledMarkdownWrapper = styled(Box)`
   }
 `
 
-function SlideTutorial (props) {
-  const {
-    activeStep,
-    className,
-    isFirstStep,
-    isLastStep,
-    projectDisplayName,
-    onClick,
-    height,
-    pad,
-    stepWithMedium,
-    width
-  } = props
+function SlideTutorial ({
+  activeStep = 0,
+  className = '',
+  isFirstStep = true,
+  isLastStep = false,
+  projectDisplayName = '',
+  onClick = () => true,
+  height,
+  pad = 'medium',
+  stepWithMedium,
+  width
+}) {
   const { t } = useTranslation('components')
   const { medium, step } = stepWithMedium
   const isThereMedia = medium && medium.src
@@ -73,16 +72,6 @@ function SlideTutorial (props) {
         />}
     </Box>
   )
-}
-
-SlideTutorial.defaultProps = {
-  activeStep: 0,
-  className: '',
-  isFirstStep: true,
-  isLastStep: false,
-  onClick: () => {},
-  projectDisplayName: '',
-  pad: 'medium'
 }
 
 SlideTutorial.propTypes = {

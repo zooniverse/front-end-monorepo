@@ -8,25 +8,32 @@ import { useTranslation } from 'react-i18next'
 import { withStores } from '@helpers'
 import SlideTutorial from '../SlideTutorial'
 
-function storeMapper (classifierStore) {
+function storeMapper(classifierStore) {
   const {
-    active: tutorial,
-    loadingState,
-    setModalVisibility,
-    showModal
-  } = classifierStore.tutorials
+    tutorials: {
+      loadingState,
+      setModalVisibility,
+      setSeenTime,
+      showModal
+    },
+    workflows: {
+      active: workflow
+    }
+  } = classifierStore
 
   return {
     loadingState,
     setModalVisibility,
+    setSeenTime,
     showModal,
-    tutorial
+    tutorial: workflow?.tutorial
   }
 }
 
-function ModalTutorial ({
+function ModalTutorial({
   loadingState = asyncStates.initialized,
   setModalVisibility = () => true,
+  setSeenTime,
   showModal = false,
   tutorial,
   ...props
@@ -34,10 +41,11 @@ function ModalTutorial ({
   const { t } = useTranslation('components')
 
   function onClose() {
+    setSeenTime(tutorial)
     setModalVisibility(false)
   }
 
-  if (loadingState === asyncStates.success && tutorial) {
+  if (tutorial) {
     return (
       <Modal
         {...props}

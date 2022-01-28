@@ -18,8 +18,8 @@ The tabbed tasks area of the classifier, with tabs for the tutorial and active t
 export default function TaskArea({
   alreadySeen,
   className,
-  setActiveTutorial = () => true,
   retired,
+  setSeenTime,
   subject,
   tutorial = null,
   workflow = {
@@ -46,13 +46,11 @@ export default function TaskArea({
   }, [workflow])
 
   function onTabClick(newIndex) {
-    if (newIndex === 1) setActiveTutorial(tutorial?.id)
-    if (newIndex === 0) setActiveTutorial()
     setActiveIndex(newIndex)
   }
 
   function onClose() {
-    setActiveTutorial()
+    setSeenTime(tutorial)
     setActiveIndex(0)
   }
 
@@ -95,17 +93,23 @@ export default function TaskArea({
 }
 
 TaskArea.propTypes = {
+  /** is the subject already seen? */
+  alreadySeen: bool,
   /** Optional CSS classes */
   className: string,
-  /** disable the tutorial tab */
-  disableTutorialTab: bool,
-  /** select an active tutorial */
-  setActiveTutorial: func,
+  /** is the subject retired? */
+  retired: bool,
+  /** set the tutorial's last seen time */
+  setSeenTime: func,
   /** the current subject. */
   subject: shape({
     already_seen: bool,
     id: string,
     retired: bool
+  }),
+  /** the workflow tutorial */
+  tutorial: shape({
+    id: string
   }),
   /** the active workflow */
   workflow: shape({

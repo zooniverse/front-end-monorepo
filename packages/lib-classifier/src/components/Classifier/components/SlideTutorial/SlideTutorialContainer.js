@@ -17,7 +17,7 @@ function storeMapper(classifierStore) {
       isLastStep,
       stepWithMedium
     }
-  }
+  } = classifierStore
 
   return {
     activeStep,

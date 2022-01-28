@@ -1,4 +1,3 @@
-import React from 'react'
 import { withStores } from '@helpers'
 import TaskArea from './TaskArea'
 
@@ -8,7 +7,7 @@ function storeMapper(store) {
       active: subject
     },
     tutorials: {
-      setActiveTutorial,
+      setSeenTime
     },
     workflows: {
       active: workflow
@@ -17,8 +16,8 @@ function storeMapper(store) {
 
   return {
     alreadySeen: subject?.alreadySeen,
-    setActiveTutorial,
     retired: subject?.retired,
+    setSeenTime,
     subject,
     tutorial: workflow?.tutorial,
     workflow

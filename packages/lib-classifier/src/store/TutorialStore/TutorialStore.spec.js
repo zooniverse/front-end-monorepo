@@ -245,47 +245,6 @@ describe('Model > TutorialStore', function () {
     })
   })
 
-  describe('Actions > setActiveTutorial', function () {
-    let rootStore
-    beforeEach(function () {
-      const panoptesClientStub = clientStub()
-      rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
-    })
-
-    it('should reset the active tutorial if the id parameter is not defined', function () {
-      rootStore.tutorials.setActiveTutorial()
-      expect(rootStore.tutorials.active).to.be.undefined()
-      expect(rootStore.tutorials.activeStep).to.equal(-1)
-      expect(rootStore.tutorials.activeMedium).to.be.undefined()
-    })
-
-    it('should set the active tutorial to the id parameter', function (done) {
-      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
-        rootStore.tutorials.setActiveTutorial(tutorial.id)
-      }).then(() => {
-        expect(rootStore.tutorials.active.toJSON()).to.deep.equal(tutorial)
-      }).then(done, done)
-    })
-
-    it('should set the tutorial step if the id parameter is defined', function (done) {
-
-      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
-        rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
-      }).then(() => {
-        expect(rootStore.tutorials.activeStep).to.equal(1)
-      }).then(done, done)
-    })
-
-    it('should set the seen time if the id parameter is defined', function (done) {
-
-      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
-        rootStore.tutorials.setActiveTutorial(tutorial.id)
-      }).then(() => {
-        expect(rootStore.tutorials.tutorialSeenTime).to.be.a('string')
-      }).then(done, done)
-    })
-  })
-
   describe('Actions > setTutorialStep', function () {
     let rootStore
     beforeEach(function () {
@@ -293,46 +252,35 @@ describe('Model > TutorialStore', function () {
       rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
     })
 
-    it('should not set the active step if there is not an active tutorial', function (done) {
-      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
-        rootStore.tutorials.setTutorialStep(0)
-      }).then(() => {
-        expect(rootStore.tutorials.activeStep).to.equal(-1)
-      }).then(done, done)
+    it('should not set the active step if there is not an active tutorial', function () {
+      rootStore.tutorials.setTutorials([tutorial])
+      rootStore.tutorials.setTutorialStep(undefined, 0)
+      expect(rootStore.tutorials.activeStep).to.equal(-1)
     })
 
-    it('should set not the active step if that stepIndex does not exist in the steps array', function (done) {
-      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
-        rootStore.tutorials.setActiveTutorial(tutorial.id, 2)
-      }).then(() => {
-        expect(rootStore.tutorials.activeStep).to.equal(-1)
-      }).then(done, done)
+    it('should set not the active step if that stepIndex does not exist in the steps array', function () {
+      rootStore.tutorials.setTutorials([tutorial])
+      rootStore.tutorials.setTutorialStep(tutorial, 2)
+      expect(rootStore.tutorials.activeStep).to.equal(-1)
     })
 
-    it('should set the active step with the stepIndex parameter', function (done) {
-      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
-        rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
-      }).then(() => {
-        expect(rootStore.tutorials.activeStep).to.equal(1)
-      }).then(done, done)
+    it('should set the active step with the stepIndex parameter', function () {
+      rootStore.tutorials.setTutorials([tutorial])
+      rootStore.tutorials.setTutorialStep(tutorial, 1)
+      expect(rootStore.tutorials.activeStep).to.equal(1)
     })
 
-    it('should set the active step with the default of 0', function (done) {
-      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
-        rootStore.tutorials.setActiveTutorial(tutorial.id)
-      }).then(() => {
-        expect(rootStore.tutorials.activeStep).to.equal(0)
-      }).then(done, done)
+    it('should set the active step with the default of 0', function () {
+      rootStore.tutorials.setTutorials([tutorial])
+      rootStore.tutorials.setTutorialStep(tutorial)
+      expect(rootStore.tutorials.activeStep).to.equal(0)
     })
 
-    it('should set the activeMedium if it exists for the step', function (done) {
-      fetchTutorials(rootStore)
-        .then(() => {
-          rootStore.tutorials.setActiveTutorial(tutorial.id)
-          rootStore.tutorials.setMediaResources([medium])
-        }).then(() => {
-          expect(rootStore.tutorials.activeMedium).to.deep.equal(medium)
-        }).then(done, done)
+    it('should set the activeMedium if it exists for the step', async function () {
+      await fetchTutorials(rootStore)
+      rootStore.tutorials.setTutorialStep(tutorial)
+      rootStore.tutorials.setMediaResources([medium])
+      expect(rootStore.tutorials.activeMedium).to.deep.equal(medium)
     })
   })
 
@@ -379,28 +327,22 @@ describe('Model > TutorialStore', function () {
       expect(rootStore.tutorials.tutorialSeenTime).to.be.undefined()
     })
 
-    it('should set the seen time for the tutorial kind of tutorial resource', function (done) {
+    it('should set the seen time for the tutorial kind of tutorial resource', async function () {
       const panoptesClientStub = clientStub()
       rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
 
-      fetchTutorials(rootStore)
-        .then(() => {
-          rootStore.tutorials.setActiveTutorial(tutorial.id)
-        }).then(() => {
-          expect(rootStore.tutorials.tutorialSeenTime).to.be.a('string')
-        }).then(done, done)
+      await fetchTutorials(rootStore)
+      rootStore.tutorials.setSeenTime(tutorial)
+      expect(rootStore.tutorials.tutorialSeenTime).to.be.a('string')
     })
 
-    it('should set the seen time for the null kind of tutorial resource', function (done) {
+    it('should set the seen time for the null kind of tutorial resource', async function () {
       const panoptesClientStub = clientStub(tutorialNullKind)
       rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
 
-      fetchTutorials(rootStore)
-        .then(() => {
-          rootStore.tutorials.setActiveTutorial(tutorialNullKind.id)
-        }).then(() => {
-          expect(rootStore.tutorials.tutorialSeenTime).to.be.a('string')
-        }).then(done, done)
+      await fetchTutorials(rootStore)
+      rootStore.tutorials.setSeenTime(tutorialNullKind)
+      expect(rootStore.tutorials.tutorialSeenTime).to.be.a('string')
     })
   })
 
@@ -645,8 +587,7 @@ describe('Model > TutorialStore', function () {
     it('should return false if activeStep is not the first step', function (done) {
       fetchTutorials(rootStore)
         .then(() => {
-          rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
-        }).then(() => {
+          rootStore.tutorials.setTutorialStep(tutorial, 1)
           expect(rootStore.tutorials.activeStep).to.equal(1)
           expect(rootStore.tutorials.isFirstStep).to.be.false()
         }).then(done, done)
@@ -655,8 +596,6 @@ describe('Model > TutorialStore', function () {
     it('should return true if activeStep is the first step', function (done) {
       fetchTutorials(rootStore)
         .then(() => {
-          rootStore.tutorials.setActiveTutorial(tutorial.id, 0)
-        }).then(() => {
           expect(rootStore.tutorials.activeStep).to.equal(0)
           expect(rootStore.tutorials.isFirstStep).to.be.true()
         }).then(done, done)
@@ -678,8 +617,6 @@ describe('Model > TutorialStore', function () {
     it('should return false if activeStep is not the last step', function (done) {
       fetchTutorials(rootStore)
         .then(() => {
-          rootStore.tutorials.setActiveTutorial(tutorial.id, 0)
-        }).then(() => {
           expect(rootStore.tutorials.activeStep).to.equal(0)
           expect(rootStore.tutorials.isLastStep).to.be.false()
         }).then(done, done)
@@ -688,8 +625,7 @@ describe('Model > TutorialStore', function () {
     it('should return true if activeStep is the last step', function (done) {
       fetchTutorials(rootStore)
         .then(() => {
-          rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
-        }).then(() => {
+          rootStore.tutorials.setTutorialStep(tutorial, 1)
           expect(rootStore.tutorials.activeStep).to.equal(1)
           expect(rootStore.tutorials.isLastStep).to.be.true()
         }).then(done, done)

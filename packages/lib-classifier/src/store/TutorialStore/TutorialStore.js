@@ -23,21 +23,22 @@ const TutorialStore = types
     },
 
     get isActiveStepValid () {
-      return self.isActiveReferenceValid && self.activeStep > -1
+      const tutorial = tryReference(() => getRoot(self).workflows.active?.tutorial)
+      return tutorial && self.activeStep > -1
     },
 
     get stepWithMedium () {
+      const tutorial = tryReference(() => getRoot(self).workflows.active?.tutorial)
       if (self.isActiveStepValid) {
-        const step = self.active.steps[self.activeStep]
+        const step = tutorial?.steps[self.activeStep]
         return { step, medium: self.activeMedium }
       }
       return null
     },
 
     get hasNotSeenTutorialBefore () {
-      const workflow = tryReference(() => getRoot(self).workflows.active)
+      const tutorial = tryReference(() => getRoot(self).workflows.active?.tutorial)
       const upp = tryReference(() => getRoot(self).userProjectPreferences.active)
-      const tutorial = workflow?.tutorial
       if (upp && tutorial) {
         return !(upp.preferences.tutorials_completed_at && upp.preferences.tutorials_completed_at[tutorial.id])
       }
@@ -46,9 +47,8 @@ const TutorialStore = types
     },
 
     get tutorialLastSeen () {
-      const workflow = tryReference(() => getRoot(self).workflows.active)
+      const tutorial = tryReference(() => getRoot(self).workflows.active?.tutorial)
       const upp = tryReference(() => getRoot(self).userProjectPreferences.active)
-      const tutorial = workflow?.tutorial
       if (upp && upp.preferences.tutorials_completed_at && tutorial) {
         return upp.preferences.tutorials_completed_at[tutorial.id]
       }
@@ -57,8 +57,7 @@ const TutorialStore = types
     },
 
     isMiniCourseCompleted (lastStepSeen) {
-      const workflow = tryReference(() => getRoot(self).workflows.active)
-      const miniCourse = workflow?.miniCourse
+      const miniCourse = tryReference(() => getRoot(self).workflows.active?.miniCourse)
 
       if (miniCourse) return lastStepSeen === miniCourse.steps.length - 1
 
@@ -74,8 +73,9 @@ const TutorialStore = types
     },
 
     get isLastStep () {
+      const tutorial = tryReference(() => getRoot(self).workflows.active?.tutorial)
       if (self.isActiveStepValid) {
-        const numOfSteps = self.active.steps.length
+        const numOfSteps = tutorial?.steps.length
         return self.activeStep === numOfSteps - 1
       }
 
@@ -92,10 +92,9 @@ const TutorialStore = types
     }
 
     function _onTutorialChange() {
-      const workflow = tryReference(() => getRoot(self).workflows.active)
-      if (workflow) {
-        const { tutorial } = workflow
-        self.setActiveTutorial(tutorial?.id)
+      const tutorial = tryReference(() => getRoot(self).workflows.active?.tutorial)
+      if (tutorial) {
+        self.setTutorialStep(tutorial, 0)
       }
     }
 
@@ -166,9 +165,9 @@ const TutorialStore = types
       tutorials.forEach(tutorial => self.resources.put(tutorial))
     }
 
-    function setTutorialStep (stepIndex = 0) {
-      if (self.isActiveReferenceValid) {
-        const { steps } = self.active
+    function setTutorialStep (tutorial, stepIndex = 0) {
+      if (tutorial) {
+        const { steps } = tutorial
         self.activeMedium = undefined
         if (stepIndex < steps.length) {
           self.activeStep = stepIndex
@@ -177,23 +176,12 @@ const TutorialStore = types
       }
     }
 
-    function setActiveTutorial (id, stepIndex) {
-      if (!id) {
-        self.resetActiveTutorial()
-      } else {
-        self.active = id
-        self.setTutorialStep(stepIndex)
-        self.setSeenTime()
-      }
-    }
-
-    function setSeenTime () {
+    function setSeenTime(tutorial) {
       const uppStore = getRoot(self).userProjectPreferences
       const validUPP = isValidReference(() => uppStore.active)
 
       const seen = new Date().toISOString()
-      if (self.isActiveReferenceValid) {
-        const tutorial = self.active
+      if (tutorial) {
         if (tutorial.kind === 'tutorial' || tutorial.kind === null) {
           self.tutorialSeenTime = seen
           if (validUPP) {
@@ -210,14 +198,6 @@ const TutorialStore = types
       }
     }
 
-    function resetActiveTutorial () {
-      // we manually set active and activeMedium to undefined
-      // because we are not removing the tutorial from the map
-      self.active = undefined
-      self.activeStep = -1
-      self.activeMedium = undefined
-    }
-
     function resetSeen () {
       self.tutorialSeenTime = undefined
     }
@@ -227,10 +207,8 @@ const TutorialStore = types
     }
 
     function showTutorialInModal () {
-      const workflow = tryReference(() => getRoot(self).workflows.active)
-      const tutorial = workflow?.tutorial
+      const tutorial = tryReference(() => getRoot(self).workflows.active?.tutorial)
       if (tutorial && self.hasNotSeenTutorialBefore) {
-        self.setActiveTutorial(tutorial.id)
         self.setModalVisibility(true)
       }
     }
@@ -238,9 +216,7 @@ const TutorialStore = types
     return {
       afterAttach,
       fetchTutorials: flow(fetchTutorials),
-      resetActiveTutorial,
       resetSeen,
-      setActiveTutorial,
       setMediaResources,
       setSeenTime,
       setTutorialStep,

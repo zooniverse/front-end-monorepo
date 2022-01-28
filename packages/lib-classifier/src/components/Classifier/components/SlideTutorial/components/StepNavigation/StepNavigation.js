@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import { Button, Box, RadioButtonGroup } from 'grommet'
 import styled from 'styled-components'
 import { FormNext, FormPrevious } from 'grommet-icons'
-import { withStores } from '@helpers'
 import { useTranslation } from 'react-i18next'
+
+import { withStores } from '@helpers'
 
 const StyledButton = styled(Button)`
   &:first-of-type {
@@ -35,17 +36,22 @@ const StyledRadioButtonGroup = styled(RadioButtonGroup)`
   }
 `
 
-function storeMapper (classifierStore) {
+function storeMapper(classifierStore) {
   const {
-    active: tutorial,
-    activeStep,
-    setTutorialStep
-  } = classifierStore.tutorials
+    tutorials: {
+      activeStep,
+      setTutorialStep
+    },
+    workflows: {
+      active: workflow
+    }
+  } = classifierStore
 
   return {
     activeStep,
     setTutorialStep,
-    steps: tutorial.steps
+    steps: workflow?.tutorial?.steps,
+    tutorial: workflow?.tutorial
   }
 }
 
@@ -53,13 +59,14 @@ function StepNavigation({
   activeStep = 0,
   className = '',
   setTutorialStep = () => {},
-  steps = []
+  steps = [],
+  tutorial
 }) {
   const { t } = useTranslation('components')
 
   function onChange(event) {
     const indexValue = event.target.value.split('-')[1]
-    setTutorialStep(Number(indexValue))
+    setTutorialStep(tutorial, parseInt(indexValue, 10))
   }
 
   if (steps?.length > 1) {
