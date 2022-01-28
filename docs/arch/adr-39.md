@@ -11,7 +11,7 @@ The FEM text viewer will be used to support a project researching OCR verificati
 Create a text subject viewer. The FEM text subject viewer will be similar to the PFE [text-viewer](https://github.com/zooniverse/Panoptes-Front-End/blob/master/app/components/file-viewer/text-viewer.jsx), supporting a file type of "text" and format of "plain", with the text displayed selectable.
 
 ## Status
-Proposed
+Accepted
 
 ## Consequences
 Create a text subject viewer.
