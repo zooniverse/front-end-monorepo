@@ -2,15 +2,15 @@ import asyncStates from '@zooniverse/async-states'
 import * as d3 from 'd3'
 import { zip } from 'lodash'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import request from 'superagent'
-import { inject, observer } from 'mobx-react'
+import React, { useEffect, useRef, useState } from 'react'
+
+import { withStores } from '@helpers'
 import withKeyZoom from '../../../withKeyZoom'
 
 import LightCurveViewer from './LightCurveViewer'
 import locationValidator from '../../helpers/locationValidator'
 
-function storeMapper (stores) {
+function storeMapper (classifierStore) {
   const {
     subjectViewer: {
       enableAnnotate,
@@ -28,7 +28,7 @@ function storeMapper (stores) {
     subjects: {
       active: subject
     },
-  } = stores.classifierStore
+  } = classifierStore
 
   const [ activeDataVisTask ] = activeStepTasks.filter(task => task?.type === 'dataVisAnnotation')
   const { activeToolIndex } = activeDataVisTask || {}
@@ -52,153 +52,108 @@ function storeMapper (stores) {
   }
 }
 
-class LightCurveViewerContainer extends Component {
-  constructor () {
-    super()
-    this.viewer = React.createRef()
-    this.state = {
-      dataExtent: {
-        x: [],
-        y: []
-      },
-      dataPoints: []
-    }
-  }
+const defaultSubject = {
+  id: '',
+  locations: []
+}
 
-  async componentDidMount () {
-    const { subject } = this.props
-    if (subject) {
-      await this.handleSubject()
-    }
-  }
-
-  async componentDidUpdate (prevProps) {
-    const { subject } = this.props
-    const prevSubjectId = prevProps.subject && prevProps.subject.id
-    const subjectChanged = subject && (subject.id !== prevSubjectId)
-
-    if (subjectChanged) {
-      await this.handleSubject()
-    }
-  }
-
-  getSubjectUrl () {
-    // Find the first location that has a JSON MIME type.
-    // NOTE: we also temporarily accept plain text, due to quirks with the
-    // Panoptes CLI uploading wonky MIME types (@shaun 20181024)
-    const jsonLocation = this.props.subject.locations.find(l => l['application/json'] || l['text/plain']) || {}
-    const url = Object.values(jsonLocation)[0]
-    if (url) {
-      return url
-    } else {
-      throw new Error('No JSON url found for this subject')
-    }
-  }
-
-  async requestData () {
-    const { onError } = this.props
-    try {
-      const url = this.getSubjectUrl()
-      const response = await request.get(url)
-
-      // Get the JSON data, or (as a failsafe) parse the JSON data if the
-      // response is returned as a string
-      return response.body || JSON.parse(response.text)
-    } catch (error) {
-      onError(error)
-      return { x: [], y: [] }
-    }
-  }
-
-  async handleSubject () {
-    const { onError } = this.props
-    try {
-      const rawData = await this.requestData()
-      if (rawData) this.onLoad(rawData)
-    } catch (error) {
-      onError(error)
-    }
-  }
-
-  onLoad (rawData) {
-    const { onReady } = this.props
-    const target = this.viewer.current
-    this.setState({
-      dataExtent: {
-        x: d3.extent(rawData.x),
-        y: d3.extent(rawData.y)
-      },
-      dataPoints: zip(rawData.x, rawData.y)
-    },
-    function () {
-      onReady({ target })
-    })
-  }
-
-  render () {
-    const {
-      activeDataVisTask,
-      activeToolIndex,
-      addAnnotation,
-      annotation,  // dataVisAnnotation
-      drawFeedbackBrushes,
-      enableAnnotate,
-      enableMove,
-      feedback,
-      interactionMode,
-      onKeyDown,
-      setOnPan,
-      setOnZoom,
-      subject
-    } = this.props
-
-    if (!subject.id) {
-      return null
-    }
-
-    return (
-      <LightCurveViewer
-        addAnnotation={addAnnotation}
-        annotation={annotation}
-        currentTask={activeDataVisTask}
-        dataExtent={this.state.dataExtent}
-        dataPoints={this.state.dataPoints}
-        drawFeedbackBrushes={drawFeedbackBrushes}
-        enableAnnotate={enableAnnotate}
-        enableMove={enableMove}
-        feedback={feedback}
-        forwardRef={this.viewer}
-        interactionMode={interactionMode}
-        onKeyDown={onKeyDown}
-        setOnPan={setOnPan}
-        setOnZoom={setOnZoom}
-        toolIndex={activeToolIndex}
-      />
-    )
+function getSubjectUrl(subject) {
+  // Find the first location that has a JSON MIME type.
+  // NOTE: we also temporarily accept plain text, due to quirks with the
+  // Panoptes CLI uploading wonky MIME types (@shaun 20181024)
+  const jsonLocation = subject.locations.find(l => l['application/json'] || l['text/plain']) || {}
+  const url = Object.values(jsonLocation)[0]
+  if (url) {
+    return url
+  } else {
+    throw new Error('No JSON url found for this subject')
   }
 }
 
-LightCurveViewerContainer.defaultProps = {
-  activeDataVisTask: undefined,
-  activeToolIndex: undefined,
-  addAnnotation: () => {},
-  annotation: undefined,
-  drawFeedbackBrushes: () => {},
-  enableAnnotate: () => {},
-  enableMove: () => {},
-  feedback: false,
-  interactionMode: 'annotate',
-  onKeyDown: () => {},
-  setOnPan: () => {},
-  setOnZoom: () => {},
-  subject: {
-    id: '',
-    locations: []
-  },
+async function requestData(subject) {
+  const url = getSubjectUrl(subject)
+  const response = await fetch(url)
+  if (!response.ok) {
+    const error = new Error(response.statusText)
+    error.status = response.status
+    throw error
+  }
+  const body = await response.json()
+  return body
+}
 
-  loadingState: asyncStates.initialized,
-  onError: () => true,
-  onReady: () => true,
+export function LightCurveViewerContainer({
+  activeDataVisTask = undefined,
+  activeToolIndex = undefined,
+  addAnnotation = () => {},
+  annotation = undefined,
+  drawFeedbackBrushes = () => {},
+  enableAnnotate = () => {},
+  enableMove = () => {},
+  feedback = false,
+  interactionMode = 'annotate',
+  onKeyDown = () => {},
+  setOnPan = () => {},
+  setOnZoom = () => {},
+  subject = defaultSubject,
+  loadingState = asyncStates.initialized,
+  onError = () => true,
+  onReady = () => true,
+}) {
+  const viewer = useRef()
+  const [dataExtent, setDataExtent] = useState({ x: [], y: [] })
+  const [dataPoints, setDataPoints] = useState([])
+
+  async function onSubjectChange() {
+    if (subject) {
+      await handleSubject()
+    }
+  }
+
+  useEffect(() => onSubjectChange(), [subject])
+
+  async function handleSubject() {
+    try {
+      const rawData = await requestData(subject)
+      if (rawData) onLoad(rawData)
+    } catch (error) {
+      onError(error)
+    }
+  }
+
+  function onLoad(rawData) {
+    const target = viewer.current
+    setDataExtent({
+        x: d3.extent(rawData.x),
+        y: d3.extent(rawData.y)
+    })
+    setDataPoints(zip(rawData.x, rawData.y))
+    onReady(target)
+  }
+
+  if (!subject.id) {
+    return null
+  }
+
+  return (
+    <LightCurveViewer
+      addAnnotation={addAnnotation}
+      annotation={annotation}
+      currentTask={activeDataVisTask}
+      dataExtent={dataExtent}
+      dataPoints={dataPoints}
+      drawFeedbackBrushes={drawFeedbackBrushes}
+      enableAnnotate={enableAnnotate}
+      enableMove={enableMove}
+      feedback={feedback}
+      forwardRef={viewer}
+      interactionMode={interactionMode}
+      onKeyDown={onKeyDown}
+      setOnPan={setOnPan}
+      setOnZoom={setOnZoom}
+      toolIndex={activeToolIndex}
+    />
+  )
 }
 
 LightCurveViewerContainer.propTypes = {
@@ -223,10 +178,4 @@ LightCurveViewerContainer.propTypes = {
   onReady: PropTypes.func,
 }
 
-@inject(storeMapper)
-@withKeyZoom
-@observer
-class DecoratedLightCurveViewerContainer extends LightCurveViewerContainer { }
-
-export default DecoratedLightCurveViewerContainer
-export { LightCurveViewerContainer }
+export default withKeyZoom(withStores(LightCurveViewerContainer, storeMapper))

@@ -1,11 +1,11 @@
 import asyncStates from '@zooniverse/async-states'
 import { toJS } from 'mobx'
-import { inject, observer } from 'mobx-react'
 import { getType } from 'mobx-state-tree'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Paragraph } from 'grommet'
 
+import { withStores } from '@helpers'
 import SubjectGroupViewer from './SubjectGroupViewer'
 import locationValidator from '../../helpers/locationValidator'
 import withKeyZoom from '../../../withKeyZoom'
@@ -30,16 +30,16 @@ const DEFAULT_GRID_ROWS = 3
 const DEFAULT_GRID_MAX_WIDTH = ''
 const DEFAULT_GRID_MAX_HEIGHT = ''
 
-function storeMapper (stores) {
+function storeMapper (classifierStore) {
   const {
     interactionMode,
     setOnPan,
     setOnZoom,
-  } = stores.classifierStore.subjectViewer
+  } = classifierStore.subjectViewer
   
   const {
     active: activeWorkflow
-  } = stores.classifierStore.workflows
+  } = classifierStore.workflows
   
   const viewerConfig = activeWorkflow?.configuration?.subject_viewer_config || {}
   
@@ -53,13 +53,13 @@ function storeMapper (stores) {
   
   const {
     activeStepTasks
-  } = stores.classifierStore.workflowSteps
+  } = classifierStore.workflowSteps
   const [currentTask] = activeStepTasks.filter(task => task.type === 'subjectGroupComparison')
   
   const {
     addAnnotation,
     active: classification,
-  } = stores.classifierStore.classifications
+  } = classifierStore.classifications
   
   const isCurrentTaskValidForAnnotation = !!currentTask
 
@@ -90,42 +90,51 @@ function storeMapper (stores) {
   }
 }
 
-class SubjectGroupViewerContainer extends React.Component {
-  constructor () {
-    super()
-    this.dragMove = this.dragMove.bind(this)
-    this.groupViewer = React.createRef()
-    this.scrollContainer = React.createRef()
+export function SubjectGroupViewerContainer({
+  addAnnotation,
+  annotation,
+  cellWidth,
+  cellHeight,
+  cellStyle,
+  gridColumns,
+  gridRows,
+  gridMaxWidth,
+  gridMaxHeight,
+  ImageObject = window.Image,
+  interactionMode = 'annotate',
+  isCurrentTaskValidForAnnotation,
+  loadingState = asyncStates.initialized,
+  onError = () => true,
+  onKeyDown = () => true,
+  onReady = () => true,
+  setOnPan = () => true,
+  setOnZoom = () => true,
+  subject = undefined
+}) {
+  const groupViewer = useRef()
+  const scrollContainer = useRef()
+  const [images, setImages] = useState([])
+  const [panX, setPanX] = useState(0)
+  const [panY, setPanY] = useState(0)
+  const [zoom, setZoom] = useState(1)
 
-    this.state = {
-      images: [],
-      panX: 0,
-      panY: 0,
-      zoom: 1,
-    }
+  function onUnmount() {
+    setOnPan(() => true)
+    setOnZoom(() => true)
+    scrollContainer.current?.removeEventListener('wheel', onWheel)
   }
 
-  componentDidMount () {
-    this.onLoad()
-
-    // Listen for pan and zoom actions outside of this component.
-    // i.e. zoom in/out actions from the image controls. 
-    this.props.setOnPan(this.onPanViaExternalControls.bind(this))
-    this.props.setOnZoom(this.onZoomViaExternalControls.bind(this))
-    
-    this.scrollContainer.current?.addEventListener('wheel', this.onWheel.bind(this))
-  }
-  
-  componentWillUmount () {
-
-    this.setOnPan(() => true)
-    this.setOnZoom(() => true)
-    
-    this.scrollContainer.current?.removeEventListener('wheel', this.onWheel.bind(this))
+  function onMount() {
+    onLoad()
+    setOnPan(onPanViaExternalControls)
+    setOnZoom(onZoomViaExternalControls)
+    scrollContainer.current?.addEventListener('wheel', onWheel)
+    return onUnmount
   }
 
-  fetchImage (url) {
-    const { ImageObject } = this.props
+  useEffect(onMount, [])
+
+  function fetchImage(url) {
     return new Promise((resolve, reject) => {
       const img = new ImageObject()
       img.onload = () => resolve(img)
@@ -135,29 +144,25 @@ class SubjectGroupViewerContainer extends React.Component {
     })
   }
 
-  dragMove (event, difference) {
-    this.onDrag && this.onDrag(event, difference)
+  function dragMove(event, difference) {
+    onDrag && onDrag(event, difference)
   }
 
-  async preload () {
-    const { subject } = this.props
-    if (subject && subject.locations) {
+  async function preload() {
+    if (subject?.locations) {
       // TODO: Validate for allowed image media mime types
-      
+
       let imageUrls = subject.locations.map(obj => Object.values(obj)[0])
-      const images = await Promise.all(
-        imageUrls.map(url => this.fetchImage(url))
-      )
-      
-      this.setState({ images })
+      const images = await Promise.all(imageUrls.map(fetchImage))
+
+      setImages(images)
     }
     return
   }
 
-  getGridSize () {
-    const svg = this.groupViewer.current || {}
+  function getGridSize() {
+    const svg = groupViewer.current || {}
     const { width: clientWidth, height: clientHeight } = svg.getBoundingClientRect && svg.getBoundingClientRect() || {}
-    const { gridRows, gridColumns, cellWidth, cellHeight } = this.props
     
     const gridWidth = gridColumns * cellWidth
     const gridHeight = gridRows * cellHeight
@@ -170,11 +175,10 @@ class SubjectGroupViewerContainer extends React.Component {
     }
   }
 
-  async onLoad () {
-    const { onError, onReady } = this.props
+  async function onLoad() {
     try {
-      await this.preload()
-      const { clientHeight, clientWidth, gridHeight: naturalHeight, gridWidth: naturalWidth } = this.getGridSize()
+      await preload()
+      const { clientHeight, clientWidth, gridHeight: naturalHeight, gridWidth: naturalWidth } = getGridSize()
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
       onReady({ target })
     } catch (error) {
@@ -183,141 +187,108 @@ class SubjectGroupViewerContainer extends React.Component {
     }
   }
   
-  onDrag (event, difference) {
-    this.doPan(difference.x, difference.y)
+  function onDrag(event, difference) {
+    doPan(difference.x, difference.y)
   }
 
-  onPanViaExternalControls (dx, dy) {
-    const ARBITRARY_FACTOR = Math.min(this.props.cellWidth, this.props.cellHeight) / 20
+  function onPanViaExternalControls(dx, dy) {
+    const ARBITRARY_FACTOR = Math.min(cellWidth, cellHeight) / 20
     
     // TODO: uh, looks like left/right pan is flipped, but that's a separate PR
     
-    this.doPan(dx * ARBITRARY_FACTOR, dy * ARBITRARY_FACTOR)
+    doPan(dx * ARBITRARY_FACTOR, dy * ARBITRARY_FACTOR)
   }
   
-  doPan (dx, dy) {
-    const { panX, panY } = this.state
-    this.setState({
-      panX: panX + dx,
-      panY: panY + dy,
-    })
+  function doPan(dx, dy) {
+    setPanX(panX + dx)
+    setPanY(panY + dy)
   }
 
-  onZoomViaExternalControls (type) {
-    this.doZoom(type)
+  function onZoomViaExternalControls(type) {
+    doZoom(type)
   }
   
-  doZoom (type) {
-    const { zoom } = this.state
-    
+  function doZoom(type) {
     const ARBITRARY_MIN_ZOOM = 1
     const ARBITRARY_MAX_ZOOM = 4
     
     switch (type) {
       case 'zoomin':
-        this.setState({ zoom: Math.min(zoom + 0.1, ARBITRARY_MAX_ZOOM) })
+        setZoom(Math.min(zoom + 0.1, ARBITRARY_MAX_ZOOM))
         break;
       case 'zoomout':
-        this.setState({ zoom: Math.max(zoom - 0.1, ARBITRARY_MIN_ZOOM) })
+        setZoom(Math.max(zoom - 0.1, ARBITRARY_MIN_ZOOM))
         break;
       case 'zoomto': {
-        this.setState({
-          zoom: 1,
-          panX: 0,
-          panY: 0,
-        })
+        setZoom(1)
+        setPanX(0)
+        setPanY(0)
         break;
       }
     }
   }
   
-  onWheel (event) {
+  function onWheel(event) {
     const { deltaY } = event
     if (deltaY < 0) {
-      this.doZoom('zoomout', -1)
+      doZoom('zoomout', -1)
     } else {
-      this.doZoom('zoomin', 1)
+      doZoom('zoomin', 1)
     }
     preventDefault(event)
   }
     
-  render () {
-    const {
-      subject,
-      loadingState,
-      
-      cellHeight,
-      cellWidth,
-      cellStyle,
-      gridColumns,
-      gridRows,
-      gridMaxWidth,
-      gridMaxHeight,
-      
-      interactionMode,
-      onKeyDown,
-      setOnPan,
-      setOnZoom,
-      
-      addAnnotation,
-      annotation,
-      isCurrentTaskValidForAnnotation,
-      
-    } = this.props
-    const { images, panX, panY, zoom } = this.state
+  const gridWidth = gridColumns * cellWidth
+  const gridHeight = gridRows * cellHeight
     
-    const gridWidth = gridColumns * cellWidth
-    const gridHeight = gridRows * cellHeight
-    
-    if (loadingState === asyncStates.error) {
-      return (
-        <div>Something went wrong.</div>
-      )
-    }
-
-    if (!subject
-        || !(subject.locations && subject.locations.length > 0)
-        || !(cellHeight > 0)
-        || !(cellWidth > 0)
-        || !(gridColumns > 0)
-        || !(gridRows > 0)
-    ) {
-      return null
-    }
-    
+  if (loadingState === asyncStates.error) {
     return (
-      <div ref={this.scrollContainer}>
-        <SubjectGroupViewer
-          ref={this.groupViewer}
-          
-          images={images}
-          subjectIds={subject.subjectIds}
-          
-          dragMove={this.dragMove}
-          onKeyDown={onKeyDown}
-          
-          cellWidth={cellWidth}
-          cellHeight={cellHeight}
-          cellStyle={cellStyle}
-          gridRows={gridRows}
-          gridColumns={gridColumns}
-          gridMaxWidth={gridMaxWidth}
-          gridMaxHeight={gridMaxHeight}
-          
-          width={gridWidth}
-          height={gridHeight}
-          
-          panX={panX}
-          panY={panY}
-          zoom={zoom}
-  
-          annotation={annotation}
-          interactionMode={interactionMode}
-          isCurrentTaskValidForAnnotation={isCurrentTaskValidForAnnotation}
-        />
-      </div>
+      <div>Something went wrong.</div>
     )
   }
+
+  if (!subject
+      || !(subject.locations && subject.locations.length > 0)
+      || !(cellHeight > 0)
+      || !(cellWidth > 0)
+      || !(gridColumns > 0)
+      || !(gridRows > 0)
+  ) {
+    return null
+  }
+
+  return (
+    <div ref={scrollContainer}>
+      <SubjectGroupViewer
+        ref={groupViewer}
+        
+        images={images}
+        subjectIds={subject.subjectIds}
+        
+        dragMove={dragMove}
+        onKeyDown={onKeyDown}
+        
+        cellWidth={cellWidth}
+        cellHeight={cellHeight}
+        cellStyle={cellStyle}
+        gridRows={gridRows}
+        gridColumns={gridColumns}
+        gridMaxWidth={gridMaxWidth}
+        gridMaxHeight={gridMaxHeight}
+        
+        width={gridWidth}
+        height={gridHeight}
+        
+        panX={panX}
+        panY={panY}
+        zoom={zoom}
+
+        annotation={annotation}
+        interactionMode={interactionMode}
+        isCurrentTaskValidForAnnotation={isCurrentTaskValidForAnnotation}
+      />
+    </div>
+  )
 }
 
 SubjectGroupViewerContainer.propTypes = {
@@ -334,23 +305,4 @@ SubjectGroupViewerContainer.propTypes = {
   setOnZoom: PropTypes.func,
 }
 
-SubjectGroupViewerContainer.defaultProps = {
-  ImageObject: window.Image,
-  
-  subject: undefined,
-  loadingState: asyncStates.initialized,
-  onError: () => true,
-  onReady: () => true,
-  
-  interactionMode: 'annotate',
-  setOnPan: () => true,
-  setOnZoom: () => true
-}
-
-@inject(storeMapper)
-@withKeyZoom
-@observer
-class DecoratedSubjectGroupViewerContainer extends SubjectGroupViewerContainer { }
-
-export default DecoratedSubjectGroupViewerContainer
-export { SubjectGroupViewerContainer }
+export default withKeyZoom(withStores(SubjectGroupViewerContainer, storeMapper))
