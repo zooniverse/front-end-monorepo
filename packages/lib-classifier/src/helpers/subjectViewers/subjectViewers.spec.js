@@ -7,6 +7,7 @@ describe('Helpers > subjectViewers', function () {
     'multiFrame',
     'scatterPlot',
     'singleImage',
+    'singleText',
     'singleVideo',
     'subjectGroup',
     'variableStar'
