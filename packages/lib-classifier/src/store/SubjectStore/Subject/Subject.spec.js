@@ -133,6 +133,15 @@ describe('Model > Subject', function () {
         })
       })
 
+      describe('single text', function () {
+        it('should return the single text viewer for subjects with a single text location', function () {
+          const singleTextSubject = SubjectFactory.build({ locations: [{ 'text/plain': 'https://foo.bar/example.txt' }] })
+          const store = mockStore({ project, workflow, subject: singleTextSubject })
+          const subject = store.subjects.active
+          expect(subject.viewer).to.equal(subjectViewers.singleText)
+        })
+      })
+
       describe('multi-frame media', function () {
         it('should return the multi-frame viewer for subjects with more than one location', function () {
           const multiFrameSubject = SubjectFactory.build({
@@ -226,6 +235,16 @@ describe('Model > Subject', function () {
           const singleImageSubject = SubjectFactory.build({ locations: [{ 'image/tiff': 'https://foo.bar/example.tiff' }] })
           function subjectStore () {
             return Subject.create(singleImageSubject)
+          }
+          expect(subjectStore).to.throw(Error)
+        })
+      })
+
+      describe('single text', function () {
+        it('should throw an error', function () {
+          const singleTextSubject = SubjectFactory.build({ locations: [{ 'text/javascript': 'https://foo.bar/example.js' }] })
+          function subjectStore () {
+            return Subject.create(singleTextSubject)
           }
           expect(subjectStore).to.throw(Error)
         })

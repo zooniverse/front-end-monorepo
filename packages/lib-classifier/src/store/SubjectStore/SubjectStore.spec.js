@@ -7,6 +7,7 @@ import sinon from 'sinon'
 import RootStore from '@store/RootStore'
 import SubjectGroup from './SubjectGroup'
 import SingleImageSubject from './SingleImageSubject'
+import SingleTextSubject from './SingleTextSubject'
 import { openTalkPage, MINIMUM_QUEUE_SIZE } from './SubjectStore'
 import { ProjectFactory, SubjectFactory, SubjectSetFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
@@ -328,7 +329,25 @@ describe('Model > SubjectStore', function () {
       const expectedSubject = SingleImageSubject.create(imageSubjects[0])
       expect(subjects.active).to.deep.equal(expectedSubject)
     })
-    
+
+    it('should be of the correct subject type', function () {
+      expect(getType(subjects.active).name).to.equal('SubjectResource')
+    })
+  })
+
+  describe('single text subjects', function () {
+    let subjects
+    let textSubjects = Factory.buildList('subject', 10, { locations: [{ 'text/plain': 'https://foo.bar/example.txt' }] })
+
+    before(function () {
+      subjects = mockSubjectStore(textSubjects)
+    })
+
+    it('should be valid subjects', function () {
+      const expectedSubject = SingleTextSubject.create(textSubjects[0])
+      expect(subjects.active).to.deep.equal(expectedSubject)
+    })
+
     it('should be of the correct subject type', function () {
       expect(getType(subjects.active).name).to.equal('SubjectResource')
     })
