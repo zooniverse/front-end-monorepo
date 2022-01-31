@@ -2,6 +2,7 @@ import { getParentOfType, types } from 'mobx-state-tree'
 import { Polygon as PolygonComponent } from '@plugins/drawingTools/components/'
 import { Mark } from '@plugins/drawingTools/models/marks'
 import { PolygonTool } from '@plugins/drawingTools/models/tools'
+import roundCoordinates from '@helpers/roundCoordinates'
 
 const singleCoord = types.model({
   x: types.maybe(types.number),
@@ -78,19 +79,21 @@ const PolygonModel = types
   }))
   .actions((self) => ({
     initialPosition({ x, y }) {
-      self.points.push({ x: x, y: y })
+      const roundedCoords = roundCoordinates({ x: x, y: y })
+      self.points.push({ x: roundedCoords.roundedX, y: roundedCoords.roundedY })
     },
 
-    initialDrag({ x, y }) {
-      self.points.push({ x: x, y: y })
-    },
+    // initialDrag({ x, y }) {
+    //   self.points.push({ x: x, y: y })
+    // },
 
     move() {
       return
     },
 
     appendPath({ x, y }) {
-      self.points.push({ x: x, y: y })
+      const roundedCoords = roundCoordinates({ x: x, y: y })
+      self.points.push({ x: roundedCoords.roundedX, y: roundedCoords.roundedY })
     },
 
     shortenPath() {
