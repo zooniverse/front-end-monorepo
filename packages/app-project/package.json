@@ -22,7 +22,7 @@
     "@babel/plugin-proposal-decorators": "~7.16.7",
     "@sentry/browser": "~6.17.3",
     "@sentry/node": "~6.16.1",
-    "@sindresorhus/string-hash": "~1.2.0",
+    "@sindresorhus/string-hash": "~2.0.0",
     "@visx/axis": "~2.4.0",
     "@visx/group": "~2.1.0",
     "@visx/scale": "~2.2.2",
