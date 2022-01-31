@@ -11517,10 +11517,10 @@ lru_map@^0.3.3:
   resolved "https://registry.yarnpkg.com/lru_map/-/lru_map-0.3.3.tgz#b5c8351b9464cbd750335a79650a0ec0e56118dd"
   integrity sha1-tcg1G5Rky9dQM1p5ZQoOwOVhGN0=
 
-luxon@~1.16.0:
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/luxon/-/luxon-1.16.1.tgz#62568d483989fa108f5c87178a05bcc707f7698b"
-  integrity sha512-3aYYMFpIRdEQJl00ki+NDr2zx/Ulf7ZgohBUb6ifZQuVkP8/KCYJluISl0YNbvZXBdzCbVhpQnS4M6Svjpn7EA==
+luxon@~2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-2.3.0.tgz#bf16a7e642513c2a20a6230a6a41b0ab446d0045"
+  integrity sha512-gv6jZCV+gGIrVKhO90yrsn8qXPKD8HYZJtrUDSfEbow8Tkw84T9OnCyJhWvnJIaIF/tBuiAjZuQHUt1LddX2mg==
 
 lz-string@^1.4.4:
   version "1.4.4"
