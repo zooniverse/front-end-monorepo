@@ -20,8 +20,8 @@ const RADIUS = 3
 const ACTIVE_POINT_RADIUS = 8
 const STROKE_WIDTH = 3
 const GUIDELINE_STROKE_WIDTH = 2
+const GRAB_STROKE_WIDTH = 10
 
-// const GRAB_STROKE_WIDTH = 4
 // const FINISHER_RADIUS = 3
 
 function Polygon({ active, mark, onFinish, scale }) {
@@ -42,6 +42,7 @@ function Polygon({ active, mark, onFinish, scale }) {
   const activePointRadius = ACTIVE_POINT_RADIUS / scale
   const strokeWidth = STROKE_WIDTH / scale
   const guideLineStrokeWidth = GUIDELINE_STROKE_WIDTH / scale
+  const grabStrokeWidth = GRAB_STROKE_WIDTH / scale
 
   function onAppendPath(coords) {
     console.log(coords)
@@ -87,7 +88,7 @@ function Polygon({ active, mark, onFinish, scale }) {
       />
 
       {/* Guide Line */}
-      {guideLineX && guideLineY && (
+      {!finished && guideLineX && guideLineY && (
         <line
           x1={lastPoint.x}
           y1={lastPoint.y}
@@ -102,7 +103,7 @@ function Polygon({ active, mark, onFinish, scale }) {
       <polyline
         points={path}
         style={{
-          strokeWidth: STROKE_WIDTH,
+          strokeWidth: { strokeWidth },
           strokeLinejoin: 'round',
           strokeLinecap: 'round',
           fill: 'none'

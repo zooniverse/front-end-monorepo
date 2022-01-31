@@ -54,6 +54,7 @@ const PolygonModel = types
       return lastCoord
     },
 
+    // path = string. Used to create the <polyline>
     get path() {
       const [firstCoord, ...otherCoords] = self.points
       if (!firstCoord) {
@@ -61,8 +62,9 @@ const PolygonModel = types
       }
       let path = `${firstCoord.x},${firstCoord.y} `
       otherCoords.forEach(({ x, y }) => {
-        path = path + `${x},${y}`
+        path = path + `${x},${y} `
       })
+      console.log(path)
       // closes the drawing path
       // if (self.isCloseToStart) {
       //   path += ' Z'
