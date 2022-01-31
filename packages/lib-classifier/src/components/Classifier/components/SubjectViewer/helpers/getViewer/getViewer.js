@@ -3,19 +3,21 @@ import LightCurveViewer from '../../components/LightCurveViewer'
 import MultiFrameViewer from '../../components/MultiFrameViewer'
 import ScatterPlotViewer from '../../components/ScatterPlotViewer'
 import SingleImageViewer from '../../components/SingleImageViewer'
+import SingleTextViewer from '../../components/SingleTextViewer'
 import SingleVideoViewer from '../../components/SingleVideoViewer'
 import SubjectGroupViewer from '../../components/SubjectGroupViewer'
 import VariableStarViewer from '../../components/VariableStarViewer'
 
 const viewers = {
   dataImage: DataImageViewer,
-  subjectGroup: SubjectGroupViewer,
-  singleImage: SingleImageViewer,
-  scatterPlot: ScatterPlotViewer,
-  singleVideo: SingleVideoViewer,
   lightCurve: LightCurveViewer,
   multiFrame: MultiFrameViewer,
-  variableStar: VariableStarViewer,
+  scatterPlot: ScatterPlotViewer,
+  singleImage: SingleImageViewer,
+  singleText: SingleTextViewer,
+  singleVideo: SingleVideoViewer,
+  subjectGroup: SubjectGroupViewer,
+  variableStar: VariableStarViewer
 }
 
 function getViewer (viewer) {

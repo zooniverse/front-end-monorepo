@@ -24,6 +24,10 @@ const mockLocations5 = [
   { 'image/tiff': 'http://foobar.com/image1.tiff' }
 ]
 
+const mockLocations6 = [
+  { 'text/plain': 'http://foobar.com/text1.txt' }
+]
+
 function mockSubject (locations) {
   return { locations }
 }
@@ -55,6 +59,12 @@ describe('Helpers > createLocationCounts', function () {
       const result4 = createLocationCounts(mockSubject(mockLocations4))
 
       expect(result4.json).to.equal(1)
+    })
+
+    it('should return the number of text files', function () {
+      const result6 = createLocationCounts(mockSubject(mockLocations6))
+
+      expect(result6.text).to.equal(1)
     })
   })
 

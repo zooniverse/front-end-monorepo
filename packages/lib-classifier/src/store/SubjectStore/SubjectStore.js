@@ -7,6 +7,7 @@ import { filterByLabel, filters } from '../../components/Classifier/components/M
 import ResourceStore from '@store/ResourceStore'
 import Subject from './Subject'
 import SingleImageSubject from './SingleImageSubject'
+import SingleTextSubject from './SingleTextSubject'
 import SingleVideoSubject from './SingleVideoSubject'
 import SubjectGroup from './SubjectGroup'
 import AvailableSubjects from './AvailableSubjects'
@@ -18,7 +19,7 @@ const MINIMUM_QUEUE_SIZE = 3
   for advice about using references with types.union.
 */
 
-const SingleSubject = types.union(SingleImageSubject, SingleVideoSubject, Subject)
+const SingleSubject = types.union(SingleImageSubject, SingleTextSubject, SingleVideoSubject, Subject)
 function subjectDispatcher (snapshot) {
   if (snapshot?.metadata?.['#subject_group_id']) {
     return SubjectGroup
@@ -27,7 +28,6 @@ function subjectDispatcher (snapshot) {
 }
 const subjectModels = [ { dispatcher: subjectDispatcher }, SingleSubject, SubjectGroup ]
 const SubjectType = types.union(...subjectModels)
-
 
 function openTalkPage (talkURL, newTab = false) {
   if (newTab) {
