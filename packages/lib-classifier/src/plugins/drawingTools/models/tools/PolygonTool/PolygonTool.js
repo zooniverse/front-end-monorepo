@@ -28,6 +28,7 @@ const PolygonTool = types
     handlePointerMove(event, mark) {
       mark?.setGuideLine(event)
     },
+    // prevents auto finish
     handlePointerUp(event, mark) {
       return
     }

@@ -67,6 +67,13 @@ function Polygon({ active, mark, onFinish, scale }) {
             cy={point.y}
             fill='currentColor'
             strokeWidth={strokeWidth}
+            onClick={
+              i === 0
+                ? () => {
+                    mark.finish()
+                  }
+                : null
+            }
           />
         )
       })}
@@ -74,16 +81,16 @@ function Polygon({ active, mark, onFinish, scale }) {
       {/* Outer circle to show latest point */}
       <circle
         r={activePointRadius}
-        cx={initialPoint.x}
-        cy={initialPoint.y}
+        cx={lastPoint.x}
+        cy={lastPoint.y}
         strokeWidth={strokeWidth}
       />
 
       {/* Guide Line */}
       {guideLineX && guideLineY && (
         <line
-          x1={initialPoint.x}
-          y1={initialPoint.y}
+          x1={lastPoint.x}
+          y1={lastPoint.y}
           x2={guideLineX}
           y2={guideLineY}
           strokeWidth={guideLineStrokeWidth}
@@ -101,16 +108,6 @@ function Polygon({ active, mark, onFinish, scale }) {
           fill: 'none'
         }}
       />
-
-      {/* Latest Point */}
-      {active && finished && (
-        <circle
-          scale={scale}
-          x={lastPoint.x}
-          y={lastPoint.y}
-          onClick={(e) => onAppendPath(e)}
-        />
-      )}
 
       {/* {active && !isCloseToStart && (
         <circle
