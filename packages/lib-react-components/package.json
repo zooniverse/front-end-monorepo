@@ -81,7 +81,7 @@
     "mocha": "~9.2.0",
     "path-browserify": "~1.0.1",
     "peer-deps-externals-webpack-plugin": "~1.0.4",
-    "polished": "~3.6.4",
+    "polished": "~4.1.4",
     "react": "~17.0.2",
     "react-dom": "~17.0.2",
     "sinon": "~12.0.1",
