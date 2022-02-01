@@ -1,15 +1,15 @@
-import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 
+import { withStores } from '@helpers'
 import FullscreenButton from './FullscreenButton'
 
-function storeMapper (stores) {
+function storeMapper(classifierStore) {
   const {
     fullscreen,
     enableFullscreen,
     disableFullscreen
-  } = stores.classifierStore.subjectViewer
+  } = classifierStore.subjectViewer
 
   return {
     fullscreen,
@@ -18,43 +18,34 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
-class FullscreenButtonContainer extends React.Component {
-  constructor () {
-    super()
-    this.onClick = this.onClick.bind(this)
-  }
+function FullscreenButtonContainer({
+  disabled = false,
+  disableFullscreen,
+  enableFullscreen,
+  fullscreen = false
+}) {
 
-  onClick () {
-    const { disableFullscreen, enableFullscreen, fullscreen } = this.props
+  function onClick() {
     return fullscreen ? disableFullscreen() : enableFullscreen()
   }
 
-  render () {
-    const { disabled, fullscreen } = this.props
-    if (disabled) {
-      return null
-    }
-    return (
-      <FullscreenButton
-        active={fullscreen}
-        onClick={this.onClick}
-      />
-    )
+  if (disabled) {
+    return null
   }
+
+  return (
+    <FullscreenButton
+      active={fullscreen}
+      onClick={onClick}
+    />
+  )
 }
 
-FullscreenButtonContainer.wrappedComponent.propTypes = {
+FullscreenButtonContainer.propTypes = {
   disabled: PropTypes.bool,
   disableFullscreen: PropTypes.func,
   enableFullscreen: PropTypes.func,
   fullscreen: PropTypes.bool
 }
 
-FullscreenButtonContainer.wrappedComponent.defaultProps = {
-  disabled: false,
-  fullscreen: false
-}
-
-export default FullscreenButtonContainer
+export default withStores(FullscreenButtonContainer, storeMapper)

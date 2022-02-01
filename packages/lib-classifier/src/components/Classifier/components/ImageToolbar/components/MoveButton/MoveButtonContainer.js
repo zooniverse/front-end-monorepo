@@ -1,43 +1,16 @@
-import { inject, observer } from 'mobx-react'
-import PropTypes from 'prop-types'
-import React from 'react'
-
+import { withStores } from '@helpers'
 import MoveButton from './MoveButton'
 
-function storeMapper (stores) {
+function storeMapper(classifierStore) {
   const {
     move,
     enableMove
-  } = stores.classifierStore.subjectViewer
+  } = classifierStore.subjectViewer
 
   return {
-    move,
-    enableMove
+    active: move,
+    onClick: enableMove
   }
 }
 
-@inject(storeMapper)
-@observer
-class MoveButtonContainer extends React.Component {
-  render () {
-    const { enableMove, move } = this.props
-    return (
-      <MoveButton
-        active={move}
-        onClick={enableMove}
-      />
-    )
-  }
-}
-
-MoveButtonContainer.wrappedComponent.propTypes = {
-  enableMove: PropTypes.func,
-  move: PropTypes.bool
-}
-
-MoveButtonContainer.wrappedComponent.defaultProps = {
-  enableMove: () => console.log('toggle move'),
-  move: false
-}
-
-export default MoveButtonContainer
+export default withStores(MoveButton, storeMapper)
