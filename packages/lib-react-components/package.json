@@ -69,7 +69,7 @@
     "babel-loader": "~8.2.2",
     "chai": "~4.3.4",
     "chai-dom": "~1.11.0",
-    "clean-webpack-plugin": "~3.0.0",
+    "clean-webpack-plugin": "~4.0.0",
     "css-loader": "~6.5.1",
     "dedent": "~0.7.0",
     "dirty-chai": "~2.0.1",
