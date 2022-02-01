@@ -1,5 +1,8 @@
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import React from 'react'
+import { I18nextProvider } from 'react-i18next'
+import i18n from '@test/i18n/i18n-for-tests'
+import sinon from 'sinon'
 
 import WorkflowIsFinishedBanner from './WorkflowIsFinishedBanner'
 import Banner from '../Banner'
@@ -23,18 +26,6 @@ describe('Component > WorkflowIsFinishedBanner', function () {
 
   it('should pass a `background` prop to <Banner />', function () {
     expect(componentWrapper.prop('background')).to.equal('status-critical')
-  })
-
-  it('should pass a `bannerText` prop to <Banner />', function () {
-    expect(componentWrapper.prop('bannerText')).to.equal('This workflow is finished')
-  })
-
-  it('should pass a `tooltipText` prop to <Banner />', function () {
-    const expectedText = [
-      'All the subjects in this workflow have been completed, so further classifications on this subject won\'t be used in its analysis.',
-      'If you\'re looking to help, try choosing a different workflow or contributing to a different project.'
-    ]
-    expect(componentWrapper.prop('tooltipText')).to.deep.equal(expectedText)
   })
 
   describe('when the banner should show', function () {
@@ -63,6 +54,32 @@ describe('Component > WorkflowIsFinishedBanner', function () {
         }
       })
       expect(wrapper.find(Banner).prop('show')).to.be.false()
+    })
+  })
+
+
+  describe('translated text', function () {
+    let useTranslationStub
+
+    before(function () {
+      useTranslationStub = sinon.stub(i18n, 't')
+      wrapper = mount(
+        <I18nextProvider>
+          <WorkflowIsFinishedBanner />
+        </I18nextProvider>
+      )
+    })
+
+    after(function () {
+      useTranslationStub.restore()
+    })
+
+    it('should translate `bannerText` before passing to <Banner />', function () {
+      expect(useTranslationStub).to.have.been.calledWith('Banners.WorkflowIsFinishedBanner.bannerText')
+    })
+
+    it('should translate `tooltipText` before passing to <Banner />', function () {
+      expect(useTranslationStub).to.have.been.calledWith('Banners.WorkflowIsFinishedBanner.tooltipText')
     })
   })
 })
