@@ -1,63 +1,51 @@
-import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 
+import { withStores } from '@helpers'
 import ZoomOutButton from './ZoomOutButton'
 
-function storeMapper (stores) {
+function storeMapper (classifierStore) {
   const {
     zoomOut
-  } = stores.classifierStore.subjectViewer
+  } = classifierStore.subjectViewer
 
   return {
     zoomOut
   }
 }
 
-@inject(storeMapper)
-@observer
-class ZoomOutButtonContainer extends React.Component {
-  constructor () {
-    super()
-    this.onPointerDown = this.onPointerDown.bind(this)
-    this.onPointerUp = this.onPointerUp.bind(this)
-    this.timer = ''
-  }
+function ZoomOutButtonContainer({
+  zoomOut = () => console.log('zoom out')
+}) {
+  const [timer, setTimer] = useState('')
 
-  onPointerDown (event) {
-    const { zoomOut } = this.props
+  function onPointerDown(event) {
     const { currentTarget, pointerId } = event
     zoomOut()
-    clearInterval(this.timer)
-    this.timer = setInterval(zoomOut, 100)
+    clearInterval(timer)
+    const newTimer = setInterval(zoomOut, 100)
+    setTimer(newTimer)
     currentTarget.setPointerCapture(pointerId)
   }
 
-  onPointerUp (event) {
+  function onPointerUp(event) {
     const { currentTarget, pointerId } = event
-    clearInterval(this.timer)
+    clearInterval(timer)
     currentTarget.releasePointerCapture(pointerId)
   }
 
-  render () {
-    const { zoomOut } = this.props
-    return (
-      <span
-        onPointerDown={this.onPointerDown}
-        onPointerUp={this.onPointerUp}
-      >
-        <ZoomOutButton onClick={zoomOut} />
-      </span>
-    )
-  }
+  return (
+    <span
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
+    >
+      <ZoomOutButton onClick={zoomOut} />
+    </span>
+  )
 }
 
-ZoomOutButtonContainer.wrappedComponent.propTypes = {
+ZoomOutButtonContainer.propTypes = {
   zoomOut: PropTypes.func
 }
 
-ZoomOutButtonContainer.wrappedComponent.defaultProps = {
-  zoomOut: () => console.log('zoom out')
-}
-
-export default ZoomOutButtonContainer
+export default withStores(ZoomOutButtonContainer, storeMapper)

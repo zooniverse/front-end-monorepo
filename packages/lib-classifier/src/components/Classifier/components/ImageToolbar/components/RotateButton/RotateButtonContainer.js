@@ -1,44 +1,37 @@
-import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 
+import { withStores } from '@helpers'
 import RotateButton from './RotateButton'
 
-function storeMapper (stores) {
+function storeMapper (classifierStore) {
   const {
     rotate,
     rotationEnabled
-  } = stores.classifierStore.subjectViewer
+  } = classifierStore.subjectViewer
 
   const disabled = !rotationEnabled
   return {
     disabled,
-    rotate
+    onClick: rotate
   }
 }
 
-@inject(storeMapper)
-@observer
-class RotateButtonContainer extends React.Component {
-  render () {
-    const { disabled, rotate } = this.props
-    if (disabled) {
-      return null
-    }
-    return (
-      <RotateButton onClick={rotate} />
-    )
+function RotateButtonContainer({
+  disabled = false,
+  onClick = () => console.log('rotate view')
+}) {
+  if (disabled) {
+    return null
   }
+  return (
+    <RotateButton onClick={onClick} />
+  )
 }
 
-RotateButtonContainer.wrappedComponent.propTypes = {
+RotateButtonContainer.propTypes = {
   disabled: PropTypes.bool,
-  rotate: PropTypes.func
+  onClick: PropTypes.func
 }
 
-RotateButtonContainer.wrappedComponent.defaultProps = {
-  disabled: false,
-  rotate: () => console.log('rotate view')
-}
-
-export default RotateButtonContainer
+export default withStores(RotateButtonContainer, storeMapper)

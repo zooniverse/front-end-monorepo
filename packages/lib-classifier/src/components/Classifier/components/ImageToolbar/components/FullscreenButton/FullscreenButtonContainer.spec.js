@@ -1,11 +1,12 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
+import mockStore from '@test/mockStore'
 import FullscreenButtonContainer from './FullscreenButtonContainer'
 
 describe('Component > FullscreenButtonContainer', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(<FullscreenButtonContainer.wrappedComponent />)
+    const wrapper = shallow(<FullscreenButtonContainer store={mockStore()} />)
     expect(wrapper).to.be.ok()
   })
 })
