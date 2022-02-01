@@ -1,12 +1,13 @@
 import asyncStates from '@zooniverse/async-states'
-import * as d3 from 'd3'
+import { extent } from 'd3'
 import { zip } from 'lodash'
 import PropTypes from 'prop-types'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 
 import { withStores } from '@helpers'
 import withKeyZoom from '../../../withKeyZoom'
 
+import { useJSONData } from '@helpers'
 import LightCurveViewer from './LightCurveViewer'
 import locationValidator from '../../helpers/locationValidator'
 
@@ -57,31 +58,6 @@ const defaultSubject = {
   locations: []
 }
 
-function getSubjectUrl(subject) {
-  // Find the first location that has a JSON MIME type.
-  // NOTE: we also temporarily accept plain text, due to quirks with the
-  // Panoptes CLI uploading wonky MIME types (@shaun 20181024)
-  const jsonLocation = subject.locations.find(l => l['application/json'] || l['text/plain']) || {}
-  const url = Object.values(jsonLocation)[0]
-  if (url) {
-    return url
-  } else {
-    throw new Error('No JSON url found for this subject')
-  }
-}
-
-async function requestData(subject) {
-  const url = getSubjectUrl(subject)
-  const response = await fetch(url)
-  if (!response.ok) {
-    const error = new Error(response.statusText)
-    error.status = response.status
-    throw error
-  }
-  const body = await response.json()
-  return body
-}
-
 export function LightCurveViewerContainer({
   activeDataVisTask = undefined,
   activeToolIndex = undefined,
@@ -101,34 +77,21 @@ export function LightCurveViewerContainer({
   onReady = () => true,
 }) {
   const viewer = useRef()
-  const [dataExtent, setDataExtent] = useState({ x: [], y: [] })
-  const [dataPoints, setDataPoints] = useState([])
+  const JSONdata = useJSONData(
+    subject, 
+    () => onReady(viewer?.current),
+    (error) => onError(error)
+  )
 
-  async function onSubjectChange() {
-    if (subject) {
-      await handleSubject()
+  let dataExtent = { x: [], y: [] }
+  let dataPoints = []
+  
+  if (JSONdata?.x && JSONdata?.y) {
+    dataExtent = {
+      x: extent(JSONdata.x),
+      y: extent(JSONdata.y)
     }
-  }
-
-  useEffect(() => onSubjectChange(), [subject])
-
-  async function handleSubject() {
-    try {
-      const rawData = await requestData(subject)
-      if (rawData) onLoad(rawData)
-    } catch (error) {
-      onError(error)
-    }
-  }
-
-  function onLoad(rawData) {
-    const target = viewer.current
-    setDataExtent({
-        x: d3.extent(rawData.x),
-        y: d3.extent(rawData.y)
-    })
-    setDataPoints(zip(rawData.x, rawData.y))
-    onReady(target)
+    dataPoints = zip(JSONdata.x, JSONdata.y)
   }
 
   if (!subject.id) {
