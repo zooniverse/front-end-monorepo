@@ -10,5 +10,12 @@
       }
     },
     "SidebarHeading": "About"
+  },
+  "Home": {
+    "Hero": {
+      "Introduction": {
+        "link": "Learn more"
+      }
+    }
   }
 }

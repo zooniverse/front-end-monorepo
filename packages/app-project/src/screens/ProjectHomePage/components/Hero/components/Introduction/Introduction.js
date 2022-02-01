@@ -1,14 +1,10 @@
 import { SpacedText } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { Anchor, Box, Paragraph } from 'grommet'
 import { Next } from 'grommet-icons'
 import NavLink from '@shared/components/NavLink'
 import { object, string } from 'prop-types'
 import styled from 'styled-components'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'next-i18next'
 
 // Selecting the div here to resize the gap between label and icon
 const StyledAnchor = styled(Anchor)`
@@ -22,8 +18,9 @@ const StyledParagraph = styled(Paragraph)`
 `
 
 function Introduction (props) {
+  const { t } = useTranslation('screens')
   const { description, linkProps, title } = props
-  const linkText = counterpart('Introduction.link')
+  const linkText = t('Home.Hero.Introduction.link')
   const link = {
     ...linkProps,
     text: linkText
