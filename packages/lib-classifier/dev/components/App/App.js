@@ -56,7 +56,7 @@ class App extends React.Component {
     if (window.location && window.location.search) {
       const { project } = queryString.parse(window.location.search) // Search the query string for the 'project='
       if (parseInt(project)) {
-        id = project
+        id = parseInt(project, 10)
       } else {
         slug = project
       }
