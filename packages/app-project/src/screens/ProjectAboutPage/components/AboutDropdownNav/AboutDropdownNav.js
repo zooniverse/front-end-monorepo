@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { arrayOf, object, string } from 'prop-types'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 /** Components */
 import { Box, DropButton, Nav } from 'grommet'
@@ -14,21 +15,29 @@ export const AboutDropContent = ({ aboutNavLinks }) => {
   const { owner, project } = router.query
   const baseUrl = `/${owner}/${project}/about`
 
+  const { t } = useTranslation('screens')
+
   return (
     <Nav gap='xsmall' background={{ dark: 'dark-5', light: 'neutral-6' }} data-testid='mobile-about-pages-nav'>
       <AboutNavLink
-        link={{ href: `${baseUrl}/research`, text: 'research' }}
+        link={{
+          href: `${baseUrl}/research`,
+          text: t('About.PageHeading.title.research')
+        }}
         router={router}
       />
       <AboutNavLink
-        link={{ href: `${baseUrl}/team`, text: 'the team' }}
+        link={{
+          href: `${baseUrl}/team`,
+          text: t('About.PageHeading.title.team')
+        }}
         router={router}
       />
       {aboutNavLinks.includes('results') && (
         <AboutNavLink
           link={{
             href: `${baseUrl}/results`,
-            text: 'results'
+            text: t('About.PageHeading.title.results')
           }}
           router={router}
         />
@@ -37,7 +46,7 @@ export const AboutDropContent = ({ aboutNavLinks }) => {
         <AboutNavLink
           link={{
             href: `${baseUrl}/education`,
-            text: 'education'
+            text: t('About.PageHeading.title.education')
           }}
           router={router}
         />
@@ -46,7 +55,7 @@ export const AboutDropContent = ({ aboutNavLinks }) => {
         <AboutNavLink
           link={{
             href: `${baseUrl}/faq`,
-            text: 'faq'
+            text: t('About.PageHeading.title.faq')
           }}
           router={router}
         />
@@ -59,6 +68,8 @@ const AboutDropdownNav = ({ aboutNavLinks, router }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleOpen = () => setIsOpen(!isOpen)
+
+  const { t } = useTranslation('screens')
 
   return (
     <DropButton
@@ -73,7 +84,7 @@ const AboutDropdownNav = ({ aboutNavLinks, router }) => {
     >
       <Box align='center' direction='row' gap='xsmall' justify='center'>
         <SpacedText weight='bold' color={{ light: 'black', dark: '' }}>
-          About
+          {t('About.SidebarHeading')}
         </SpacedText>
         <FormDown />
       </Box>

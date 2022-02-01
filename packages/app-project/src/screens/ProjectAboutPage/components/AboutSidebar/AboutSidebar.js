@@ -2,25 +2,28 @@ import AboutNavLink from '../AboutNavLink'
 import { Nav } from 'grommet'
 import { useRouter } from 'next/router'
 import { arrayOf, object, string } from 'prop-types'
+import { useTranslation } from 'next-i18next'
 
 const AboutSidebar = ({ aboutNavLinks }) => {
   const router = useRouter()
   const { owner, project } = router.query
   const baseUrl = `/${owner}/${project}/about`
 
+  const { t } = useTranslation('screens')
+
   return (
     <Nav flex direction='column' gap='xsmall' data-testid='about-sidebar'>
       <AboutNavLink
         link={{
           href: `${baseUrl}/research`,
-          text: 'research'
+          text: t('About.PageHeading.title.research')
         }}
         router={router}
       />
       <AboutNavLink
         link={{
           href: `${baseUrl}/team`,
-          text: 'the team'
+          text: t('About.PageHeading.title.team')
         }}
         router={router}
       />
@@ -28,7 +31,7 @@ const AboutSidebar = ({ aboutNavLinks }) => {
         <AboutNavLink
           link={{
             href: `${baseUrl}/results`,
-            text: 'results'
+            text: t('About.PageHeading.title.results')
           }}
           router={router}
         />
@@ -37,7 +40,7 @@ const AboutSidebar = ({ aboutNavLinks }) => {
         <AboutNavLink
           link={{
             href: `${baseUrl}/education`,
-            text: 'education'
+            text: t('About.PageHeading.title.education')
           }}
           router={router}
         />
@@ -46,7 +49,7 @@ const AboutSidebar = ({ aboutNavLinks }) => {
         <AboutNavLink
           link={{
             href: `${baseUrl}/faq`,
-            text: 'faq'
+            text: t('About.PageHeading.title.faq')
           }}
           router={router}
         />

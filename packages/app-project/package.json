@@ -20,7 +20,7 @@
   "dependencies": {
     "@artsy/fresnel": "~3.2.1",
     "@babel/plugin-proposal-decorators": "~7.16.7",
-    "@sentry/browser": "~6.16.1",
+    "@sentry/browser": "~6.17.3",
     "@sentry/node": "~6.16.1",
     "@sindresorhus/string-hash": "~1.2.0",
     "@visx/axis": "~2.4.0",
@@ -47,7 +47,7 @@
     "grommet": "~2.17.4",
     "grommet-icons": "~4.7.0",
     "lodash": "~4.17.11",
-    "luxon": "~1.16.0",
+    "luxon": "~2.3.0",
     "mobx": "~6.3.9",
     "mobx-devtools-mst": "~0.9.21",
     "mobx-react": "~7.2.1",
@@ -93,7 +93,8 @@
     "mocha": "~9.2.0",
     "nock": "~13.2.1",
     "sinon": "~12.0.1",
-    "sinon-chai": "~3.7.0"
+    "sinon-chai": "~3.7.0",
+    "storybook-react-i18next": "~1.0.16"
   },
   "engines": {
     "node": ">=14"
