@@ -1,12 +1,8 @@
-import counterpart from 'counterpart'
 import { Box, Button, Paragraph } from 'grommet'
 import { bool, func } from 'prop-types'
 import React from 'react'
 import { Modal, PrimaryButton } from '@zooniverse/react-components'
-
-import en from '../../locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'react-i18next'
 
 /**
 An alert which - if you've already started annotation this Subject - asks if
@@ -21,16 +17,18 @@ function ConfirmModal ({
 }) {
   // NOTE: this is a functional duplicate of SubTaskPopup/components/ConfirmModal.js
   // It might be worth refactoring this into a common component.
+  const { t } = useTranslation('components')
   return (
     <Modal
       active={active}
-      modal={true}
+      modal
       closeFn={onCancel}
+      data-testid='confirm-modal'
     >
       <Paragraph
         margin={{ bottom: 'medium' }}
       >
-        {counterpart('InProgressConfirmModal.inProgress')}
+        {t('Banners.InProgressConfirmModal.inProgress')}
       </Paragraph>
       <Box
         direction='row'
@@ -38,13 +36,15 @@ function ConfirmModal ({
         justify='center'
       >
         <Button
-          label={counterpart('InProgressConfirmModal.cancel')}
+          label={t('Banners.InProgressConfirmModal.cancel')}
           onClick={onCancel}
+          data-testid='confirm-modal-cancel-btn'
         />
         <PrimaryButton
-          label={counterpart('InProgressConfirmModal.confirm')}
+          label={t('Banners.InProgressConfirmModal.confirm')}
           color='teal'
           onClick={onConfirm}
+          data-testid='confirm-modal-confirm-btn'
         />
       </Box>
     </Modal>

@@ -1,21 +1,20 @@
 import { PlainButton, SpacedText } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { Box, Button, Drop } from 'grommet'
 import { CaretNext, CaretPrevious } from 'grommet-icons'
 import { array, bool, func, oneOf, oneOfType, shape, string } from 'prop-types'
 import React, { Component, createRef } from 'react'
 import styled, { withTheme } from 'styled-components'
+import { useTranslation, withTranslation } from 'react-i18next'
 
-import en from './locales/en'
 import TooltipText from './components/TooltipText'
 import Triangle from '../../../shared/Triangle'
 
-counterpart.registerTranslations('en', en)
-
 function Label ({ color }) {
+  const { t } = useTranslation('components')
+
   return (
     <SpacedText color={color}>
-      {counterpart('Banner.whyAmISeeingThis')}
+      {t('Banners.Banner.whyAmISeeingThis')}
     </SpacedText>
   )
 }
@@ -62,6 +61,7 @@ class Banner extends Component {
       onPrevious,
       show,
       subjects,
+      t,
       theme: { mode },
       tooltipText,
     } = this.props
@@ -82,7 +82,7 @@ class Banner extends Component {
             color={color}
             icon={<CaretPrevious color={color} size='15px' />}
             onClick={onPrevious}
-            text={counterpart('Banner.previous')}
+            text={t('Banners.Banner.previous')}
           />
         }
         <SpacedText color={color} weight='bold'>
@@ -94,7 +94,7 @@ class Banner extends Component {
             icon={<CaretNext color={color} size='15px' />}
             onClick={onNext}
             reverse
-            text={counterpart('Banner.next')}
+            text={t('Banners.Banner.next')}
           />
         }
         <Button
@@ -140,6 +140,7 @@ Banner.propTypes = {
 }
 
 Banner.defaultProps = {
+  bannerText: '',
   color: 'neutral-6',
   show: false,
   theme: {
@@ -147,7 +148,7 @@ Banner.defaultProps = {
   }
 }
 
-export default withTheme(Banner)
+export default withTranslation('components')(withTheme(Banner))
 export {
   Banner
 }

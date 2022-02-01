@@ -1,0 +1,51 @@
+{
+  "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "You've already seen this subject",
+      "tooltipText": [
+        "You've already seen and classified this subject, so further classifications won't contribute to its analysis.",
+        "If you're looking to help, try choosing a different workflow or contributing to a different project."
+      ]
+    },
+    "Banner": {
+      "next": "Next",
+      "previous": "Previous",
+      "whyAmISeeingThis": "Why am I seeing this?"
+    },
+    "InProgressConfirmModal": {
+      "inProgress": "Are you sure you want to navigate to a different Subject? Any annotation you've made for the current Subject will be lost.",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "RetiredBanner": {
+      "bannerText": "Finished: This subject has been retired",
+      "tooltipText": [
+        "This subject already has enough classifications, so yours won't be used in its analysis.",
+        "If you're looking to help, try choosing a different workflow or contributing to a different project."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Already seen",
+      "bannerText": "{{setName}}: Subject {{number}}/{{total}}",
+      "finished": "Finished",
+      "tooltipText": [
+        "This project allows volunteers to view subjects in sequential order.",
+        "The number shows you the subject’s position within the total group."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Finished: You've seen everything",
+      "tooltipText": [
+        "You've already classified everything in this workflow, so further classifications on this subject won't be used in its analysis.",
+        "If you're looking to help, try choosing a different workflow or contributing to a different project."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "This workflow is finished",
+      "tooltipText": [
+        "All the subjects in this workflow have been completed, so further classifications on this subject won't be used in its analysis.",
+        "If you're looking to help, try choosing a different workflow or contributing to a different project."
+      ]
+    }
+  }
+}
