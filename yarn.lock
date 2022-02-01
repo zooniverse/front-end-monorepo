@@ -4436,14 +4436,14 @@
   dependencies:
     "@use-gesture/core" "10.2.4"
 
-"@visx/axis@~2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@visx/axis/-/axis-2.4.0.tgz#0785a872e1a2706ece2f3e9e350736b04039359e"
-  integrity sha512-5QA1Std1HSfBjVObulMW6gi2ZlBg9zuP8jUpgs1LL5tLWritla4T6cheEGLNa6Yuuy/DKzpHJUmNGBtpBGFEGw==
+"@visx/axis@~2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@visx/axis/-/axis-2.6.0.tgz#33c7713590818705ae4a10bc6ab6d589bdb9ce9c"
+  integrity sha512-Ti8AxclK4m/2SHQPGMMsvotTxZGaLQIMB10C9tyHP9JNBCLWKWtq1XTrGxlySffnfhXML80zLYsEdLPumzxFvw==
   dependencies:
     "@types/react" "*"
     "@visx/group" "2.1.0"
-    "@visx/point" "2.1.0"
+    "@visx/point" "2.6.0"
     "@visx/scale" "2.2.2"
     "@visx/shape" "2.4.0"
     "@visx/text" "2.3.0"
