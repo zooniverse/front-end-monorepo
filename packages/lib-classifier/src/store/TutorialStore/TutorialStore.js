@@ -18,10 +18,6 @@ const TutorialStore = types
   })
 
   .views(self => ({
-    get isActiveReferenceValid () {
-      return isValidReference(() => self.active)
-    },
-
     get isActiveStepValid () {
       const tutorial = tryReference(() => getRoot(self).workflows.active?.tutorial)
       return tutorial && self.activeStep > -1
