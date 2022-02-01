@@ -6864,12 +6864,7 @@ core-js@^2.4.0, core-js@^2.6.5:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
   integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
 
-core-js@^3, core-js@^3.19.0:
-  version "3.20.0"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.20.0.tgz#1c5ac07986b8d15473ab192e45a2e115a4a95b79"
-  integrity sha512-KjbKU7UEfg4YPpskMtMXPhUKn7m/1OdTHTVjy09ScR2LVaoUXe8Jh0UdvN2EKUR6iKTJph52SJP95mAB0MnVLQ==
-
-core-js@^3.0.4, core-js@^3.6.5, core-js@^3.8.2:
+core-js@^3, core-js@^3.0.4, core-js@^3.19.0, core-js@^3.6.5, core-js@^3.8.2:
   version "3.20.3"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.20.3.tgz#c710d0a676e684522f3db4ee84e5e18a9d11d69a"
   integrity sha512-vVl8j8ph6tRS3B8qir40H7yw7voy17xL0piAjlbBUsH7WIfzoedL/ZOr1OV9FyZQLWXsayOJyV4tnRyXR85/ag==
@@ -12370,10 +12365,10 @@ next-absolute-url@~1.2.2:
   resolved "https://registry.yarnpkg.com/next-absolute-url/-/next-absolute-url-1.2.2.tgz#9aba5adcee8effcffd63271d99e13213ad04c23b"
   integrity sha512-Z2+LZXQTthhw2je9u4eq8QWXxXd57a6b54x9exBfQX4Dct6YxaMjcXZWNLHd9AOlCue84EsMpdSGP7wACqUnPg==
 
-next-i18next@~10.0.1:
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-10.0.1.tgz#f42239f276b3c7a3e62b9fd83ac5c21607c2f938"
-  integrity sha512-wcpZDip4Vt89dCHgN2EKeNyA5Ckz6NenPUVpzQMphmuXyTPMqmFkWyWbpMDdg4QuMiYiX98eTeY4RLGhUXzHmQ==
+next-i18next@~10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-10.2.0.tgz#188ba9fb805804227cb36ed59d333d14c2a0adbd"
+  integrity sha512-HTdXy8U8Ko8oxs+VAog0CQC7Ap/XyvRzwm/g5tF/CzqJ4dSCyWuLmvPjA9BpQ3VEIkxzCA43w1W75CnARRn1lw==
   dependencies:
     "@babel/runtime" "^7.13.17"
     "@types/hoist-non-react-statics" "^3.3.1"
@@ -14208,16 +14203,7 @@ react-helmet-async@^1.0.7:
     react-fast-compare "^3.2.0"
     shallowequal "^1.1.0"
 
-react-i18next@^11.8.13, react-i18next@~11.15.1:
-  version "11.15.1"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.15.1.tgz#1dec5f2bf2cf7bc5043e9fcb391c9d6e24bb9bfe"
-  integrity sha512-lnje1uKu5XeM5MLvfbt1oygF+nEIZnpOM4Iu8bkx5ECD4XRYgi3SJDmolrp0EDxDHeK2GgFb+vEEK0hsZ9sjeA==
-  dependencies:
-    "@babel/runtime" "^7.14.5"
-    html-escaper "^2.0.2"
-    html-parse-stringify "^3.0.1"
-
-react-i18next@~11.15.3:
+react-i18next@^11.8.13, react-i18next@~11.15.1, react-i18next@~11.15.3:
   version "11.15.3"
   resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.15.3.tgz#7608fb3cacc02ac75a62fc2d68b579f140b198dd"
   integrity sha512-RSUEM4So3Tu2JHV0JsZ5Yje+4nz66YViMfPZoywxOy0xyn3L7tE2CHvJ7Y9LUsrTU7vGmZ5bwb8PpjnkatdIxg==
