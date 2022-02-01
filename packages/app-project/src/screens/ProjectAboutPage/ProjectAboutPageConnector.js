@@ -40,9 +40,9 @@ const ProjectAboutPageConnector = ({ pageType, teamArray }) => {
     aboutPageData = about_pages.filter(page => page.url_key === pageType)[0]
 
     // Some old project Research pages have default title 'Research Case'
-    // Title is corrected here for /locales translation files
+    // Title is corrected here for translation files
     if (aboutPageData?.title.toLowerCase().includes('research')) {
-      aboutPageData.title = 'Research'
+      aboutPageData.title = 'research'
     }
 
     if (!aboutPageData) {

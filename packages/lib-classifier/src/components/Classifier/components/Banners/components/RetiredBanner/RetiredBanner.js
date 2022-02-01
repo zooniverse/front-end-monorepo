@@ -1,13 +1,12 @@
-import counterpart from 'counterpart'
 import { bool, shape, string } from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
-import en from './locales/en'
 import Banner from '../Banner'
 
-counterpart.registerTranslations('en', en)
-
 export default function RetiredBanner({ subject }) {
+  const { t } = useTranslation('components')
+
   const show = !!subject &&
     subject.id &&
     subject.retired &&
@@ -17,9 +16,9 @@ export default function RetiredBanner({ subject }) {
   return (
     <Banner
       background='status-critical'
-      bannerText={counterpart('RetiredBanner.bannerText')}
+      bannerText={t('Banners.RetiredBanner.bannerText')}
       show={show}
-      tooltipText={counterpart('RetiredBanner.tooltipText')}
+      tooltipText={t('Banners.RetiredBanner.tooltipText', { returnObjects: true })}
     />
   )
 }

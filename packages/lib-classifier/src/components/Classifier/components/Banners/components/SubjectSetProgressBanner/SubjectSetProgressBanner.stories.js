@@ -177,3 +177,29 @@ WithAlreadySeenSubject.args = {
   dark: false,
   retired: false
 }
+
+export function WithArrows({ already_seen, dark, retired }) {
+  const { subject, workflow } = buildMocks({ already_seen, retired })
+  return (
+    <Grommet
+      theme={Object.assign({}, zooTheme, { dark })}
+      themeMode={(dark) ? 'dark' : 'light'}
+    >
+      <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
+        <SubjectSetProgressBanner
+          onNext={() => {}}
+          onPrevious={() => {}}
+          subject={subject}
+          workflow={workflow}
+        />
+        <img src="https://placekitten.com/800/400" alt='placeholder' />
+      </Box>
+    </Grommet>
+  )
+}
+
+WithArrows.args = {
+  already_seen: false,
+  dark: false,
+  retired: false
+}

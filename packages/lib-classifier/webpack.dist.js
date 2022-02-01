@@ -42,6 +42,7 @@ module.exports = {
       '@store': path.resolve(__dirname, 'src/store'),
       '@stories': path.resolve(__dirname, 'src/stories'),
       '@test': path.resolve(__dirname, 'test'),
+      '@translations': path.resolve(__dirname, 'src/translations'),
       '@viewers': path.resolve(__dirname, 'src/components/Classifier/components/SubjectViewer')
     }
   },
