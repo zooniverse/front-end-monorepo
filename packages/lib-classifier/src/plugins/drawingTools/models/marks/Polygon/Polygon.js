@@ -90,6 +90,13 @@ const PolygonModel = types
       return
     },
 
+    setCoordinates({ x, y }, i) {
+      const roundedCoords = roundCoordinates({ x: x, y: y })
+
+      self.points[i].x = roundedCoords.roundedX
+      self.points[i].y = roundedCoords.roundedY
+    },
+
     appendPath({ x, y }) {
       const roundedCoords = roundCoordinates({ x: x, y: y })
       self.points.push({ x: roundedCoords.roundedX, y: roundedCoords.roundedY })

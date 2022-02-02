@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import styled from 'styled-components'
 import UndoButton from '../UndoButton'
-// import DragHandle from '../DragHandle'
+import DragHandle from '../DragHandle'
 
 const StyledGroup = styled.g`
   &:hover {
@@ -51,9 +51,22 @@ function Polygon({ active, mark, onFinish, scale }) {
 
   function onMouseMove() {}
 
+  function onHandleDrag(coords, i) {
+    mark.setCoordinates(coords, i)
+  }
+
   function onUndoDrawing() {
     mark.shortenPath()
   }
+
+  // function handleClosePolygon() {
+  //   console.log('handleClosePolygon')
+  //   i === 0
+  //     ? () => {
+  //         mark.finish()
+  //       }
+  //     : null
+  // }
 
   return (
     <StyledGroup onPointerUp={active ? onFinish : undefined}>
@@ -61,34 +74,38 @@ function Polygon({ active, mark, onFinish, scale }) {
       {/* This should be used for every point in the Polygon */}
       {points.map((point, i) => {
         return (
-          <circle
+          <DragHandle
             key={`${mark.id}-${i}`}
+            scale={scale}
             r={radius}
-            cx={point.x}
-            cy={point.y}
+            x={point.x}
+            y={point.y}
             fill='currentColor'
-            strokeWidth={strokeWidth}
-            onClick={
-              i === 0
-                ? () => {
-                    mark.finish()
-                  }
-                : null
+            dragMove={(_e, d) =>
+              onHandleDrag(
+                {
+                  x: points[i].x + d.x,
+                  y: points[i].y + d.y
+                },
+                i
+              )
             }
           />
         )
       })}
 
       {/* Outer circle to show latest point */}
-      <circle
-        r={activePointRadius}
-        cx={lastPoint.x}
-        cy={lastPoint.y}
-        strokeWidth={strokeWidth}
-      />
+      {active && (
+        <circle
+          r={activePointRadius}
+          cx={lastPoint.x}
+          cy={lastPoint.y}
+          strokeWidth={strokeWidth}
+        />
+      )}
 
       {/* Guide Line */}
-      {!finished && guideLineX && guideLineY && (
+      {!finished && active && guideLineX && guideLineY && (
         <line
           x1={lastPoint.x}
           y1={lastPoint.y}
