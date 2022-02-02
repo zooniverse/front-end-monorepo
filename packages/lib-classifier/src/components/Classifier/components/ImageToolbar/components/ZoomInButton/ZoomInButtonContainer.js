@@ -1,63 +1,51 @@
-import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 
+import { withStores } from '@helpers'
 import ZoomInButton from './ZoomInButton'
 
-function storeMapper (stores) {
+function storeMapper (classifierStore) {
   const {
     zoomIn
-  } = stores.classifierStore.subjectViewer
+  } = classifierStore.subjectViewer
 
   return {
     zoomIn
   }
 }
 
-@inject(storeMapper)
-@observer
-class ZoomInButtonContainer extends React.Component {
-  constructor () {
-    super()
-    this.onPointerDown = this.onPointerDown.bind(this)
-    this.onPointerUp = this.onPointerUp.bind(this)
-    this.timer = ''
-  }
+function ZoomInButtonContainer({
+  zoomIn = () => console.log('zoom in')
+}) {
+  const [timer, setTimer] = useState('')
 
-  onPointerDown (event) {
-    const { zoomIn } = this.props
+  function onPointerDown(event) {
     const { currentTarget, pointerId } = event
     zoomIn()
-    clearInterval(this.timer)
-    this.timer = setInterval(zoomIn, 100)
+    clearInterval(timer)
+    const newTimer = setInterval(zoomIn, 100)
+    setTimer(newTimer)
     currentTarget.setPointerCapture(pointerId)
   }
 
-  onPointerUp (event) {
+  function onPointerUp(event) {
     const { currentTarget, pointerId } = event
-    clearInterval(this.timer)
+    clearInterval(timer)
     currentTarget.releasePointerCapture(pointerId)
   }
 
-  render () {
-    const { zoomIn } = this.props
-    return (
-      <span
-        onPointerDown={this.onPointerDown}
-        onPointerUp={this.onPointerUp}
-      >
-        <ZoomInButton onClick={zoomIn} />
-      </span>
-    )
-  }
+  return (
+    <span
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
+    >
+      <ZoomInButton onClick={zoomIn} />
+    </span>
+  )
 }
 
-ZoomInButtonContainer.wrappedComponent.propTypes = {
+ZoomInButtonContainer.propTypes = {
   zoomIn: PropTypes.func
 }
 
-ZoomInButtonContainer.wrappedComponent.defaultProps = {
-  zoomIn: () => console.log('zoom in')
-}
-
-export default ZoomInButtonContainer
+export default withStores(ZoomInButtonContainer, storeMapper)

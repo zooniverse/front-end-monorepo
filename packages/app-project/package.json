@@ -55,14 +55,14 @@
     "morgan": "^1.10.0",
     "newrelic": "~8.7.0",
     "next": "~12.0.9",
-    "next-i18next": "~10.0.1",
+    "next-i18next": "~10.2.0",
     "panoptes-client": "~3.3.2",
     "path-match": "~1.2.4",
-    "polished": "~3.6.4",
+    "polished": "~4.1.4",
     "query-string": "~7.1.0",
     "react": "~17.0.2",
     "react-dom": "~17.0.2",
-    "styled-components": "~5.1.1",
+    "styled-components": "~5.3.3",
     "svg-loaders-react": "~2.2.1",
     "url-parse": "~1.5.1",
     "validator": "~13.7.0"
@@ -93,7 +93,8 @@
     "mocha": "~9.2.0",
     "nock": "~13.2.1",
     "sinon": "~12.0.1",
-    "sinon-chai": "~3.7.0"
+    "sinon-chai": "~3.7.0",
+    "storybook-react-i18next": "~1.0.16"
   },
   "engines": {
     "node": ">=14"

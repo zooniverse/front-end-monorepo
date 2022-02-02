@@ -1,9 +1,0 @@
-{
-  "UserHasFinishedWorkflowBanner": {
-    "bannerText": "Finished: You've seen everything",
-    "tooltipText": [
-      "You've already classified everything in this workflow, so further classifications on this subject won't be used in its analysis.",
-      "If you're looking to help, try choosing a different workflow or contributing to a different project."
-    ]
-  }
-}

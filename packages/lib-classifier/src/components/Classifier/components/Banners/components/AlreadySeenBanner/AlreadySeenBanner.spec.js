@@ -1,5 +1,8 @@
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import React from 'react'
+import { I18nextProvider } from 'react-i18next'
+import i18n from '@test/i18n/i18n-for-tests'
+import sinon from 'sinon'
 
 import AlreadySeenBanner from './AlreadySeenBanner'
 
@@ -19,18 +22,6 @@ describe('Component > AlreadySeenBanner', function () {
 
   it('should pass a `background` prop to <Banner />', function () {
     expect(wrapper.prop('background')).to.equal('status-ok')
-  })
-
-  it('should pass a `bannerText` prop to <Banner />', function () {
-    expect(wrapper.prop('bannerText')).to.equal('You\'ve already seen this subject')
-  })
-
-  it('should pass a `tooltipText` prop to <Banner />', function () {
-    const expectedText = [
-      'You\'ve already seen and classified this subject, so further classifications won\'t contribute to its analysis.',
-      'If you\'re looking to help, try choosing a different workflow or contributing to a different project.'
-    ]
-    expect(wrapper.prop('tooltipText')).to.deep.equal(expectedText)
   })
 
   describe('when the banner should show', function () {
@@ -94,6 +85,31 @@ describe('Component > AlreadySeenBanner', function () {
         }
       })
       expect(wrapper.prop('show')).to.be.false()
+    })
+  })
+
+  describe('translated text', function () {
+    let useTranslationStub
+
+    before(function () {
+      useTranslationStub = sinon.stub(i18n, 't')
+      wrapper = mount(
+        <I18nextProvider>
+          <AlreadySeenBanner />
+        </I18nextProvider>
+      )
+    })
+
+    after(function () {
+      useTranslationStub.restore()
+    })
+
+    it('should translate `bannerText` before passing to <Banner />', function () {
+      expect(useTranslationStub).to.have.been.calledWith('Banners.AlreadySeenBanner.bannerText')
+    })
+
+    it('should translate `tooltipText` before passing to <Banner />', function () {
+      expect(useTranslationStub).to.have.been.calledWith('Banners.AlreadySeenBanner.tooltipText')
     })
   })
 })
