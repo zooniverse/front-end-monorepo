@@ -3,10 +3,8 @@ import PropTypes from 'prop-types'
 import { Box } from 'grommet'
 import NavButton from './components/NavButton'
 import NarrowMainNavMenu from '../NarrowMainNavMenu'
-import counterpart from 'counterpart'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'react-i18next'
+import '../../../translations/i18n'
 
 export default function SignedOutUserNavigation (props) {
   const {
@@ -21,16 +19,18 @@ export default function SignedOutUserNavigation (props) {
     user
   } = props
 
+  const { t } = useTranslation()
+
   if (Object.keys(user).length === 0 && signIn) {
     return (
-      <React.Fragment>
+      <>
         <Box
           direction='row'
           justify='center'
           pad={{ horizontal: 'medium', vertical: 'small' }}
         >
-          <NavButton label={counterpart('SignedOutUserNavigation.signIn')} onClick={signIn} />
-          <NavButton label={counterpart('SignedOutUserNavigation.register')} onClick={register} />
+          <NavButton label={t('ZooHeader.SignedOutUserNavigation.signIn')} onClick={signIn} />
+          <NavButton label={t('ZooHeader.SignedOutUserNavigation.register')} onClick={register} />
         </Box>
         {isNarrow &&
           <NarrowMainNavMenu
@@ -40,7 +40,7 @@ export default function SignedOutUserNavigation (props) {
             mainHeaderNavListLabels={mainHeaderNavListLabels}
             mainHeaderNavListURLs={mainHeaderNavListURLs}
           />}
-      </React.Fragment>
+      </>
     )
   }
 

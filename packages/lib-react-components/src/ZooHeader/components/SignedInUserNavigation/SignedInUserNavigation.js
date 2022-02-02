@@ -1,22 +1,17 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Box } from 'grommet'
-
-import zooTheme from '@zooniverse/grommet-theme'
+import { useTranslation } from 'react-i18next'
+import '../../../translations/i18n'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell as fasBell, faEnvelope as fasEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { faBell as farBell, faEnvelope as farEnvelope } from '@fortawesome/free-regular-svg-icons'
 
-import counterpart from 'counterpart'
-import en from './locales/en'
-
 import NarrowMainNavMenu from '../NarrowMainNavMenu'
 import NavListItem from '../NavListItem'
 import UserMenu from '../UserMenu'
 import { getHost } from '../../helpers'
-
-counterpart.registerTranslations('en', en)
 
 export default function SignedInUserNavigation (props) {
   const {
@@ -33,11 +28,13 @@ export default function SignedInUserNavigation (props) {
     user
   } = props
 
-  const notificationLabelString = counterpart('SignedInUserNavigation.navListLabels.notifications', {
+  const { t } = useTranslation()
+
+  const notificationLabelString = t('ZooHeader.SignedInUserNavigation.navListLabels.notifications', {
     count: unreadNotifications
   })
 
-  const messagesLabelString = counterpart('SignedInUserNavigation.navListLabels.messages', {
+  const messagesLabelString = t('ZooHeader.SignedInUserNavigation.navListLabels.messages', {
     count: unreadMessages
   })
 
@@ -52,7 +49,7 @@ export default function SignedInUserNavigation (props) {
   if (Object.keys(user).length > 0 && signOut) {
     return (
       <Box
-        aria-label={counterpart('SignedInUserNavigation.ariaLabel')}
+        aria-label={t('ZooHeader.SignedInUserNavigation.ariaLabel')}
         as='nav'
         align='center'
         direction='row'

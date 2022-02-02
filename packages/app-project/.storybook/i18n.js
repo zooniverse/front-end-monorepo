@@ -2,6 +2,7 @@ import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 
 const supportedLngs = ['en']
+const namespaces = ['screens']
 
 i18n.use(initReactI18next).init({
   fallbackLng: 'en',
@@ -10,11 +11,17 @@ i18n.use(initReactI18next).init({
   },
   react: {
     useSuspense: false
-  }
+  },
 })
 
-supportedLngs.forEach(lang => {
-  i18n.addResourceBundle(lang, 'translation', require(`./${lang}.json`))
-})
+  supportedLngs.forEach((lang) => {
+    namespaces.forEach((n) => {
+      i18n.addResourceBundle(
+        lang,
+        n,
+        require(`/public/locales/${lang}/${n}.json`)
+      )
+    })
+  })
 
 export default i18n

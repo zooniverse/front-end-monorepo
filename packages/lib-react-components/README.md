@@ -43,6 +43,7 @@ Components should be added to the `src/components` folder and an export to `src/
   - [Grommet](https://v2.grommet.io/components) - React UI component library
   - [React.js](https://reactjs.org/)  - Component, virtual DOM based javascript library
   - [styled-components](https://www.styled-components.com/) - CSS in JS for styling and theming
+  - [react-i18next](https://react.i18next.com/) - Internationalization framework for React.
 
   Testing is done by
 
