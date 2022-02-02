@@ -149,24 +149,27 @@ export default function ClassifierContainer({
   }, [loaded, authClient])
 
   try {
-    if (!loaded) {
-      return <Paragraph>Loading…</Paragraph>
+    if (loaded && workflowData) {
+      const [ workflowSnapshot ] = JSON.parse(workflowData).workflows
+
+      return (
+        <Provider classifierStore={classifierStore}>
+          <Classifier
+            classifierStore={classifierStore}
+            locale={locale}
+            onError={onError}
+            project={project}
+            subjectSetID={subjectSetID}
+            subjectID={subjectID}
+            workflowSnapshot={workflowSnapshot}
+            workflowVersion={workflowSnapshot?.version}
+            workflowID={workflowSnapshot?.id}
+          />
+        </Provider>
+      )
     }
 
-    return (
-      <Provider classifierStore={classifierStore}>
-        <Classifier
-          classifierStore={classifierStore}
-          locale={locale}
-          onError={onError}
-          project={project}
-          subjectSetID={subjectSetID}
-          subjectID={subjectID}
-          workflowData={workflowData}
-          workflowID={workflowID}
-        />
-      </Provider>
-    )
+    return <Paragraph>Loading…</Paragraph>
   } catch (error) {
     const info = {
       package: '@zooniverse/classifier'
