@@ -1,15 +1,12 @@
 import { SpacedText } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { Button, Box } from 'grommet'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
 import { tint } from 'polished'
+import { useTranslation } from 'react-i18next'
 
-import en from './locales/en'
 import HelpIcon from './HelpIcon'
-
-counterpart.registerTranslations('en', en)
 
 export const StyledButton = styled(Button)`
   ${props => props.theme && css`
@@ -40,13 +37,15 @@ const StyledHelpIcon = styled(HelpIcon)`
 `
 
 export function ButtonLabel () {
+  const { t } = useTranslation('components')
+
   return (
     <Box as='span' align='center' direction='column'>
       <StyledSpacedText size='xsmall' color='white'>
-        {counterpart('FieldGuideButton.buttonLabel.field')}
+        {t('FieldGuide.FieldGuideButton.buttonLabel.field')}
       </StyledSpacedText>
       <StyledSpacedText size='xsmall' color='white'>
-        {counterpart('FieldGuideButton.buttonLabel.guide')}
+        {t('FieldGuide.FieldGuideButton.buttonLabel.guide')}
       </StyledSpacedText>
       <StyledHelpIcon />
     </Box>
@@ -70,7 +69,6 @@ function FieldGuideButton (props) {
       theme={theme}
     />
   )
-
 }
 
 FieldGuideButton.defaultProps = {
