@@ -1,18 +1,16 @@
 import { withResponsiveContext } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { Chat } from 'grommet-icons'
 import { Box, Grid, Paragraph } from 'grommet'
 import { string } from 'prop-types'
+import { useTranslation } from 'next-i18next'
 
-import en from './locales/en'
 import ContentBox from '@shared/components/ContentBox'
 import WidgetHeading from '@shared/components/WidgetHeading'
 import JoinInButton from './components/JoinInButton'
 import RecentSubjects from './components/RecentSubjects'
 
-counterpart.registerTranslations('en', en)
-
 function ZooniverseTalk (props) {
+  const { t } = useTranslation('screens')
   const columns = props.screenSize === 'small' ? ['1fr'] : ['1fr', '3fr']
 
   return (
@@ -28,11 +26,11 @@ function ZooniverseTalk (props) {
             <WidgetHeading>
               <Box direction='row' gap='xsmall' align='center'>
                 <Chat size='20px' />
-                <span>{counterpart('ZooniverseTalk.title')}</span>
+                <span>{t('Home.ZooniverseTalk.title')}</span>
               </Box>
             </WidgetHeading>
             <Paragraph
-              children={counterpart('ZooniverseTalk.message')}
+              children={t('Home.ZooniverseTalk.message')}
               margin='none'
               size='xlarge'
             />

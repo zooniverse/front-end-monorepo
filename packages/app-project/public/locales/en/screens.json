@@ -10,5 +10,17 @@
       }
     },
     "SidebarHeading": "About"
+  },
+  "Home": {
+    "ZooniverseTalk": {
+      "button": "Join in",
+      "message": "Chat with the research team and other volunteers!",
+      "title": "Zooniverse Talk",
+      "RecentSubjects": {
+        "error": "There was an error loading the subjects :(",
+        "noSubjects": "It looks like no-one's commented on a subject yet. Go to Talk and be the first!",
+        "subjectLabel": "Subject {{id}}"
+      }
+    }
   }
 }
