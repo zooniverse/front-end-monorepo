@@ -1,67 +1,66 @@
 import asyncStates from '@zooniverse/async-states'
-import counterpart from 'counterpart'
-import { inject, observer } from 'mobx-react'
+import { MobXProviderContext, observer } from 'mobx-react'
 import { bool } from 'prop-types'
-import { Component } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'next-i18next'
 
 import RecentSubjects from './RecentSubjects'
 import RecentSubjectsCarousel from './RecentSubjectsCarousel'
 import MessageBox from './components/MessageBox'
 import fetchRecentSubjects from './helpers/fetchRecentSubjects'
-import en from './locales/en'
 
-counterpart.registerTranslations('en', en)
+function useStoreContext(stores) {
+  const { store } = stores || useContext(MobXProviderContext)
+  const { id: projectId, slug } = store?.project
 
-function storeMapper (stores) {
   return {
-    projectId: stores.store.project.id,
-    slug: stores.store.project.slug
+    projectId,
+    slug
   }
 }
 
-@inject(storeMapper)
-@observer
-class RecentSubjectsContainer extends Component {
-  constructor () {
-    super()
-    this.state = {
-      loading: asyncStates.initialized,
-      subjects: []
+function RecentSubjectsContainer({ carousel, stores }) {
+  const { t } = useTranslation('screens')
+  const { projectId, slug } = useStoreContext(stores)
+  const [loading, setLoading] = useState(asyncStates.initialized)
+  const [subjects, setSubjects] = useState([])
+
+  async function onMount() {
+    setLoading(asyncStates.loading)
+    try {
+      const fetchedSubjects = await fetchRecentSubjects(projectId)
+      console.log('fetchedSubjects', fetchedSubjects)
+      if (fetchedSubjects) {
+        setLoading(asyncStates.success)
+        setSubjects(fetchedSubjects)
+      }
+    } catch (error) {
+      console.error(error)
+      setLoading(asyncStates.error)
     }
   }
 
-  componentDidMount () {
-    this.setState({ loading: asyncStates.loading })
-    fetchRecentSubjects(this.props.projectId)
-      .then(subjects => this.setState({
-        loading: asyncStates.success,
-        subjects: subjects || []
-      }))
-      .catch(error => {
-        console.error(error)
-        this.setState({
-          loading: asyncStates.error
-        })
-      })
-  }
+  useEffect(() => {
+    onMount()
+  }, [])
 
-  render () {
-    const { carousel } = this.props
-    const { loading, subjects } = this.state
-    const href = `/projects/${this.props.slug}/talk`
-    let result = null
-    const ThumbnailComponent = carousel ? RecentSubjectsCarousel : RecentSubjects
+  const href = `/projects/${slug}/talk`
+  const ThumbnailComponent = carousel ? RecentSubjectsCarousel : RecentSubjects
 
-    if (loading === asyncStates.error) {
-      result = (<MessageBox children={counterpart('RecentSubjects.error')} />)
-    } else {
-      result = (loading === asyncStates.success && subjects.length < 1)
-        ? (<MessageBox children={counterpart('RecentSubjects.noSubjects')} />)
-        : (<ThumbnailComponent href={href} subjects={subjects} />)
-    }
-
-    return result
-  }
+  return (
+    <>
+      {loading === asyncStates.error && (
+        <MessageBox children={t('Home.ZooniverseTalk.RecentSubjects.error')} />
+      )}
+      {loading === asyncStates.success && subjects.length < 1 ? (
+        <MessageBox
+          children={t('Home.ZooniverseTalk.RecentSubjects.noSubjects')}
+        />
+      ) : (
+        <ThumbnailComponent href={href} subjects={subjects} />
+      )}
+    </>
+  )
 }
 
 RecentSubjectsContainer.propTypes = {
@@ -72,4 +71,5 @@ RecentSubjectsContainer.defaultProps = {
   carousel: false
 }
 
-export default RecentSubjectsContainer
+export default observer(RecentSubjectsContainer)
+export { RecentSubjectsContainer }
