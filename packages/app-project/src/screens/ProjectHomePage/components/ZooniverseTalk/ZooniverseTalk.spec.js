@@ -1,15 +1,21 @@
-import { shallow, render } from 'enzyme'
+import { shallow } from 'enzyme'
 import { Grid } from 'grommet'
+import i18n from '@test/i18n-for-tests'
+import sinon from 'sinon'
 
 import { ZooniverseTalk } from './ZooniverseTalk'
-import translations from './locales/en'
-import ContentBox from '@shared/components/ContentBox'
 
 describe('Component > ZooniverseTalk', function () {
   let wrapper
-
+  let useTranslationStub
+  
   before(function () {
+    useTranslationStub = sinon.stub(i18n, 't')
     wrapper = shallow(<ZooniverseTalk />)
+  })
+
+  after(function () {
+    useTranslationStub.restore()
   })
 
   it('should render without crashing', function () {
@@ -17,15 +23,11 @@ describe('Component > ZooniverseTalk', function () {
   })
 
   it('should show the title', function () {
-    const { title } = translations.ZooniverseTalk
-    const titleWrapper = wrapper.find(`[children="${title}"]`)
-    expect(titleWrapper).to.have.lengthOf(1)
+    expect(useTranslationStub).to.have.been.calledWith('Home.ZooniverseTalk.title')
   })
 
   it('should show a message', function () {
-    const { message } = translations.ZooniverseTalk
-    const messageWrapper = wrapper.find(`[children="${message}"]`)
-    expect(messageWrapper).to.have.lengthOf(1)
+    expect(useTranslationStub).to.have.been.calledWith('Home.ZooniverseTalk.message')
   })
 
   it('should use a two-column layout', function () {

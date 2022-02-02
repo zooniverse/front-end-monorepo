@@ -43,6 +43,7 @@ describe('Helpers > getStaticPageProps', function () {
     completeness: 0.4,
     configuration: {},
     grouped: false,
+    prioritized: false,
     links: {
       subject_sets: ['1', '2', '3']
     }
@@ -53,6 +54,7 @@ describe('Helpers > getStaticPageProps', function () {
     completeness: 0.4,
     configuration: {},
     grouped: true,
+    prioritized: false,
     links: {
       subject_sets: ['1', '2', '3']
     }
@@ -136,6 +138,7 @@ describe('Helpers > getStaticPageProps', function () {
             configuration: {},
             default: true,
             grouped: false,
+            prioritized: false,
             id: '1',
             displayName: 'Foo',
             links: {
@@ -222,6 +225,7 @@ describe('Helpers > getStaticPageProps', function () {
             configuration: {},
             default: true,
             grouped: false,
+            prioritized: false,
             id: '1',
             displayName: 'Foo',
             links: {

@@ -1,1 +1,1 @@
-export { default } from './Classifier'
+export { default } from './ClassifierContainer'
