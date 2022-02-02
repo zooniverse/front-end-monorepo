@@ -1,19 +1,14 @@
-import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { withTheme } from 'styled-components'
 import MetaToolsButton from '../MetaToolsButton'
 import HeartIcon from './HeartIcon'
-
-import en from './locales/en-US'
-import enGB from './locales/en-GB'
-
-counterpart.registerTranslations('en', en)
-counterpart.registerTranslations('en-GB', enGB)
+import { useTranslation } from 'react-i18next'
+import '../translations/i18n'
 
 function FavouritesButton (props) {
   const { checked, disabled, onClick } = props
-  const [ isFavourite, setIsFavourite ] = useState(checked)
+  const [isFavourite, setIsFavourite] = useState(checked)
   const label = isFavourite ? 'FavouritesButton.remove' : 'FavouritesButton.add'
   const fill = isFavourite ? props.theme.global.colors.statusColors.error : 'none'
 
@@ -22,13 +17,15 @@ function FavouritesButton (props) {
     onClick()
   }
 
+  const { t } = useTranslation()
+
   return (
     <MetaToolsButton
       aria-checked={isFavourite}
       disabled={disabled}
       icon={<HeartIcon color='dark-5' fill={fill} size='15px' />}
       role='checkbox'
-      text={counterpart(label)}
+      text={t(label)}
       onClick={toggleFavourite}
     />
   )

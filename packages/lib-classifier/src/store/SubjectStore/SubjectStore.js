@@ -120,17 +120,7 @@ const SubjectStore = types
       next(call)
     }
 
-    function _onWorkflowChange() {
-      const workflow = tryReference(() => getRoot(self).workflows.active)
-      const subjectSet = tryReference(() => workflow?.subjectSet)
-      if (workflow || subjectSet) {
-        self.reset()
-        self.populateQueue(workflow.selectedSubjects)
-      }
-    }
-
     function afterAttach () {
-      addDisposer(self, autorun(_onWorkflowChange))
       addDisposer(self, autorun(_onClassificationChange))
       addMiddleware(self, _addMiddleware)
     }

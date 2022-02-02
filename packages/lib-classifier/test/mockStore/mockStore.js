@@ -40,12 +40,15 @@ export default function mockStore({
     activeWorkflowId: workflowSnapshot.id
   })
 
-  const subjects = [ subjectSnapshot, ...Factory.buildList('subject', 9)]
+  const subjectResources = { [subjectSnapshot.id]: subjectSnapshot }
+  Factory
+    .buildList('subject', 9)
+    .forEach(subject => subjectResources[subject.id] = subject)
 
   const { panoptes } = stubPanoptesJs({
     field_guides: [],
     projects: [projectSnapshot],
-    subjects,
+    subjects: Object.values(subjectResources),
     tutorials: [],
     workflows: [workflowSnapshot]
   })
@@ -60,9 +63,9 @@ export default function mockStore({
     },
     subjects: {
       active: subjectSnapshot.id,
-      resources: {
-        [subjectSnapshot.id]: subjectSnapshot
-      }
+      loadingState: asyncStates.success,
+      queue: Object.keys(subjectResources),
+      resources: subjectResources
     },
     subjectSets: {
       active: subjectSetSnapshot.id,
@@ -85,7 +88,6 @@ export default function mockStore({
     },
     client: { ...defaultClient, panoptes, ...client }
   })
-  rootStore.subjects.setResources([subjectSnapshot])
-  rootStore.subjects.advance()
+  rootStore.subjects.setActiveSubject(subjectSnapshot.id)
   return rootStore
 }

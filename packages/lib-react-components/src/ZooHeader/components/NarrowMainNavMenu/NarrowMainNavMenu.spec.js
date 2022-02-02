@@ -2,22 +2,32 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import NarrowMenu from '../NarrowMenu'
 import NarrowMainNavMenu from './NarrowMainNavMenu'
-import {
-  adminNavLinkLabel,
-  adminNavLinkURL,
-  mainHeaderNavListLabels,
-  mainHeaderNavListURLs,
-} from '../../helpers'
+
+const mockMainHeaderNavLabels = [
+  'Projects',
+  'About',
+  'Get Involved',
+  'Talk',
+  'Build'
+]
+
+const mockMainHeaderNavUrls = [
+  '/projects',
+  '/about',
+  '/get-involved',
+  '/talk',
+  '/lab'
+]
 
 describe('NarrowMainNavMenu', function () {
   let wrapper
   before(function () {
     wrapper = shallow(
       <NarrowMainNavMenu
-        adminNavLinkLabel={adminNavLinkLabel}
-        adminNavLinkURL={adminNavLinkURL}
-        mainHeaderNavListLabels={mainHeaderNavListLabels}
-        mainHeaderNavListURLs={mainHeaderNavListURLs}
+        adminNavLinkLabel='Admin'
+        adminNavLinkURL='/admin'
+        mainHeaderNavListLabels={mockMainHeaderNavLabels}
+        mainHeaderNavListURLs={mockMainHeaderNavUrls}
       />
     )
   })
@@ -31,6 +41,6 @@ describe('NarrowMainNavMenu', function () {
   it('adds an admin link to the menu items if props.isAdmin is true', function () {
     wrapper.setProps({ isAdmin: true })
     const menuItems = wrapper.props().items
-    expect(menuItems[menuItems.length - 1].href).to.equal(adminNavLinkURL)
+    expect(menuItems[menuItems.length - 1].href).to.equal('/admin')
   })
 })
