@@ -3,7 +3,6 @@ import {
   fireEvent,
   getAllByRole,
   getAllByText,
-  getByText,
   render
 } from '@testing-library/react'
 import { Grommet } from 'grommet'
@@ -12,6 +11,7 @@ import * as Router from 'next/router'
 import sinon from 'sinon'
 import ProjectAboutPageConnector from './ProjectAboutPageConnector'
 import { ProjectAboutPage } from './ProjectAboutPage'
+import i18n from '@test/i18n-for-tests'
 
 describe('Component > ProjectAboutPage & Connector', function () {
   const mockStore = {
@@ -78,6 +78,16 @@ describe('Component > ProjectAboutPage & Connector', function () {
   })
 
   describe('ProjectAboutPageConnector', function () {
+    let useTranslationStub
+
+    beforeEach(function () {
+      useTranslationStub = sinon.stub(i18n, 't')
+    })
+
+    afterEach(function () {
+      useTranslationStub.restore()
+    })
+
     it('should render without crashing', function () {
       const output = render(
         <Provider store={mockStore}>
@@ -90,7 +100,7 @@ describe('Component > ProjectAboutPage & Connector', function () {
     })
 
     it('should pass correct data to ProjectAboutPage depending on pageType', function () {
-      const { getByText, getByRole, queryByRole } = render(
+      const { getByText } = render(
         <Provider store={mockStore}>
           <Grommet theme={zooTheme} themeMode='light'>
             <ProjectAboutPageConnector pageType='science_case' />
@@ -99,24 +109,22 @@ describe('Component > ProjectAboutPage & Connector', function () {
       )
       const content = getByText(mockStore.project.about_pages[0].content)
       expect(content).to.exist()
-
-      expect(getByRole('heading', { name: 'Research' })).to.exist()
-      expect(queryByRole('heading', { name: 'Research Case' })).to.not.exist()
+      expect(useTranslationStub).to.have.been.calledWith('About.PageHeading.title.research')
     })
 
     it('should pass default content if a page doesnt exist yet', function () {
-      const { getByText, getByRole } = render(
+      const { getByText } = render(
         <Provider store={mockStore}>
           <Grommet theme={zooTheme} themeMode='light'>
             <ProjectAboutPageConnector pageType='team' />
           </Grommet>
         </Provider>
       )
-      expect(getByRole('heading', { name: 'The Team' })).to.exist()
+      expect(useTranslationStub).to.have.been.calledWith('About.PageHeading.title.team')
       expect(getByText('No content yet.')).to.exist()
     })
 
-    it('should pass a navLinks array for pages with content (always Research and Team)', function () {
+    it('should pass a navLinks array for pages with content', function () {
       const { getByTestId } = render(
         <Provider store={mockStore}>
           <Grommet theme={zooTheme} themeMode='light'>
@@ -131,9 +139,6 @@ describe('Component > ProjectAboutPage & Connector', function () {
       const navContainer = getByTestId('mobile-about-pages-nav')
       const links = getAllByRole(navContainer, 'link')
       expect(links).to.have.lengthOf(3)
-      expect(getByText(navContainer, 'research')).to.exist()
-      expect(getByText(navContainer, 'the team')).to.exist()
-      expect(getByText(navContainer, 'results')).to.exist()
     })
   })
 

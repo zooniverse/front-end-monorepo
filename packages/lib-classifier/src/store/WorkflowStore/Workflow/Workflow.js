@@ -41,9 +41,6 @@ const Workflow = types
       return { ...newSnapshot, steps, tasks }
     }
   )
-  .volatile(self => ({
-    selectedSubjects: undefined
-  }))
   .views(self => ({
     get hasIndexedSubjects () {
       const activeSet = tryReference(() => self.subjectSet)
@@ -65,9 +62,6 @@ const Workflow = types
   }))
 
   .actions(self => {
-    function selectSubjects(subjectIDs) {
-      self.selectedSubjects = subjectIDs
-    }
 
     function * selectSubjectSet(id) {
       const validSets = self.links.subject_sets || []
@@ -81,7 +75,6 @@ const Workflow = types
     }
 
     return {
-      selectSubjects,
       selectSubjectSet: flow(selectSubjectSet)
     }
   })

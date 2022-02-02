@@ -1,13 +1,11 @@
-import counterpart from 'counterpart'
 import { CheckBox } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
+import { useTranslation } from 'react-i18next'
+import '../translations/i18n'
 
-import en from './locales/en'
 import SpacedText from '../SpacedText'
-
-counterpart.registerTranslations('en', en)
 
 export default function AdminCheckbox ({ checked, colorTheme, label, onChange }) {
   return (
@@ -39,9 +37,11 @@ AdminCheckbox.propTypes = {
 }
 
 function Label () {
+  const { t } = useTranslation()
+
   return (
     <SpacedText weight='bold'>
-      {counterpart('AdminCheckbox.label')}
+      {t('AdminCheckbox.label')}
     </SpacedText>
   )
 }

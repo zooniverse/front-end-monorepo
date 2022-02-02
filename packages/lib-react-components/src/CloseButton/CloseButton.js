@@ -1,12 +1,10 @@
 import { func, string } from 'prop-types'
-import counterpart from 'counterpart'
 import React from 'react'
 import styled from 'styled-components'
 import { Button } from 'grommet'
 import CloseIcon from './components/CloseIcon'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'react-i18next'
+import '../translations/i18n'
 
 const StyledButton = styled(Button)`
   height: 1rem;
@@ -30,9 +28,11 @@ const StyledButton = styled(Button)`
 function CloseButton ({ as, closeFn, color, disabled, href, ...rest }) {
   // We've destructured href from the props to make sure it's NOT passed along
 
+  const { t } = useTranslation()
+
   return (
     <StyledButton
-      a11yTitle={counterpart('CloseButton.close')}
+      a11yTitle={t('CloseButton.close')}
       disabled={disabled}
       icon={<CloseIcon color={color} size='15px' />}
       onClick={closeFn}
