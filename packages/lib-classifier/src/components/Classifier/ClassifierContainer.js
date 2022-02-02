@@ -149,9 +149,11 @@ export default function ClassifierContainer({
   }, [loaded, authClient])
 
   try {
-    if (!loaded) {
+    if (!loaded && !workflowData) {
       return <Paragraph>Loading…</Paragraph>
     }
+
+    const [ workflowSnapshot ] = JSON.parse(workflowData).workflows
 
     return (
       <Provider classifierStore={classifierStore}>
@@ -162,8 +164,9 @@ export default function ClassifierContainer({
           project={project}
           subjectSetID={subjectSetID}
           subjectID={subjectID}
-          workflowData={workflowData}
-          workflowID={workflowID}
+          workflowSnapshot={workflowSnapshot}
+          workflowVersion={workflowSnapshot?.version}
+          workflowID={workflowSnapshot?.id}
         />
       </Provider>
     )
