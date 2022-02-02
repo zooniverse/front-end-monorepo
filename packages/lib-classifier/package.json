@@ -19,7 +19,7 @@
     "@babel/plugin-transform-runtime": "~7.16.8",
     "@sentry/browser": "~6.17.3",
     "@visx/axis": "~2.6.0",
-    "@visx/event": "~2.1.2",
+    "@visx/event": "~2.6.0",
     "@visx/glyph": "~2.1.2",
     "@visx/group": "~2.1.0",
     "@visx/responsive": "~2.8.0",
