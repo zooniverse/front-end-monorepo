@@ -109,49 +109,6 @@ function Polygon({ active, mark, onFinish, scale }) {
           fill: 'none'
         }}
       />
-
-      {/* {active && !isCloseToStart && (
-        <circle
-          fill='currentColor'
-          r={FINISHER_RADIUS / scale}
-          cx={initialPoint.x}
-          cy={initialPoint.y}
-        />
-      )}
-      {active && (
-        <UndoButton
-          scale={scale}
-          x={initialPoint.x}
-          y={initialPoint.y}
-          undoDrawing={onUndoDrawing}
-        />
-      )}
-      <path
-        d={path}
-        style={{
-          strokeWidth: STROKE_WIDTH,
-          strokeLinejoin: 'round',
-          strokeLinecap: 'round',
-          fill: 'none'
-        }}
-      />
-      <path
-        d={path}
-        style={{
-          strokeOpacity: '0',
-          strokeWidth: GRAB_STROKE_WIDTH / scale
-        }}
-      />
-      {active && finished && !isCloseToStart && (
-        <DragHandle
-          scale={scale}
-          x={lastPoint.x}
-          y={lastPoint.y}
-          fill='transparent'
-          invisibleWhenDragging={true}
-          dragMove={(e) => onHandleDrag(e)}
-        />
-      )} */}
     </StyledGroup>
   )
 }

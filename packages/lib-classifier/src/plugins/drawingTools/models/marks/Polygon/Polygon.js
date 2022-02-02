@@ -65,7 +65,6 @@ const PolygonModel = types
       otherCoords.forEach(({ x, y }) => {
         path = path + `${x},${y} `
       })
-      console.log(path)
       // closes the drawing path
       // if (self.isCloseToStart) {
       //   path += ' Z'
