@@ -49,6 +49,7 @@ function ClassifyPage({
   let classifierProps = {}
   if (canClassify) {
     classifierProps = {
+      cachePanoptesData: workflowFromUrl?.prioritized,
       workflowID,
       subjectSetID,
       subjectID

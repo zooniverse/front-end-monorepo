@@ -26,10 +26,27 @@ const WorkflowStore = types
   .actions(self => {
 
     function * selectWorkflow (id = self.defaultWorkflowID, subjectSetID, subjectID) {
-      if (id) {
+      if (!id) {
+        throw new ReferenceError('No workflow ID available')
+      }
+      const { subjects } = getRoot(self)
+      const activeWorkflow = tryReference(() => self.active)
+      const activeSubjectSet = activeWorkflow?.subjectSet
+      const activeSubject = tryReference(() => subjects.active)
+
+      const workflowChanged = id !== activeWorkflow?.id
+      const subjectSetChanged = !!subjectSetID && (subjectSetID !== activeSubjectSet?.id)
+      const subjectChanged = !!subjectID && (subjectID !== activeSubject?.id)
+
+      const shouldReload = subjects.resources.size === 0 ||
+        workflowChanged ||
+        subjectSetChanged ||
+        subjectChanged
+
+      if (shouldReload) {
         const activeWorkflows = self.project?.links?.active_workflows || []
-        const activeSubject = tryReference(() => getRoot(self).subjects.active)
         const projectID = self.project?.id
+        let selectedSubjects
         if (activeWorkflows.indexOf(id) > -1) {
           const workflow = yield self.getResource(id)
           self.resources.put(workflow)
@@ -38,15 +55,20 @@ const WorkflowStore = types
             // wait for the subject set to load before activating the workflow
             const subjectSet = yield selectedWorkflow.selectSubjectSet(subjectSetID)
           }
-          if (subjectID && subjectID !== activeSubject?.id) {
-            selectedWorkflow.selectSubjects([ subjectID ])
+          if (subjectID && subjectChanged) {
+            selectedSubjects = [ subjectID ]
           }
           self.setActive(id)
+          try {
+            subjects.reset()
+            subjects.populateQueue(selectedSubjects)
+          } catch (error) {
+            console.log('Unable to reset subject store on URL change.')
+            console.error(error)
+          }
         } else {
           throw new ReferenceError(`unable to load workflow ${id} for project ${projectID}`)
         }
-      } else {
-        throw new ReferenceError('No workflow ID available')
       }
     }
 

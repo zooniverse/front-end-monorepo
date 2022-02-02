@@ -7,7 +7,7 @@ async function fetchWorkflowData (activeWorkflows, env) {
     const query = {
       complete: false,
       env,
-      fields: 'completeness,configuration,display_name,grouped',
+      fields: 'completeness,configuration,display_name,grouped,prioritized',
       id: activeWorkflows.join(',')
     }
     const response = await panoptes.get('/workflows', query)
@@ -22,7 +22,7 @@ async function fetchSingleWorkflow (workflowID, env) {
   try {
     const query = {
       env,
-      fields: 'completeness,configuration,display_name,grouped',
+      fields: 'completeness,configuration,display_name,grouped,prioritized',
       id: workflowID
     }
     const response = await panoptes.get('/workflows', query)
@@ -62,6 +62,7 @@ async function buildWorkflow(workflow, displayName, isDefault, env) {
     grouped: workflow.grouped,
     id: workflow.id,
     links: workflow.links,
+    prioritized: workflow.prioritized,
     subjectSets: []
   }
 

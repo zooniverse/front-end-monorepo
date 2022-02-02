@@ -9,21 +9,26 @@ import React from 'react'
 import Classifier from '../../../src/components/Classifier'
 
 class App extends React.Component {
-  constructor () {
-    super()
+  constructor(props) {
+    super(props)
+    this.selectWorkflow = this.selectWorkflow.bind(this)
 
     this.state = {
       cachePanoptesData: false,
       dark: false,
       loading: false,
       project: null,
-      user: null
+      user: null,
+      workflowID: props.workflowID,
+      workflows: []
     }
   }
 
   componentDidMount () {
     this.initAuthorization()
-      .then(() => this.fetchProject())
+      .then(() => {
+        this.fetchProject()
+      })
   }
 
   onError (error, info) {
@@ -56,7 +61,7 @@ class App extends React.Component {
     if (window.location && window.location.search) {
       const { project } = queryString.parse(window.location.search) // Search the query string for the 'project='
       if (parseInt(project)) {
-        id = project
+        id = parseInt(project, 10)
       } else {
         slug = project
       }
@@ -71,10 +76,22 @@ class App extends React.Component {
         response = await panoptes.get(`/projects/${id}`, {}, { authorization: bearerToken })
       }
       const project = response.body.projects[0]
+      this.fetchWorkflows(project)
       this.setState({ project })
     } catch (error) {
       console.error(`Error fetching project ${id}`, error)
     }
+  }
+
+  async fetchWorkflows(project) {
+    const activeWorkflows = project.links.active_workflows
+    const query = {
+      fields: 'completeness,configuration,display_name,grouped',
+      id: activeWorkflows.join(',')
+    }
+    const response = await panoptes.get('/workflows', query)
+    const { workflows } = response.body
+    this.setState({ workflows })
   }
 
   login () {
@@ -94,6 +111,11 @@ class App extends React.Component {
       })
   }
 
+  selectWorkflow(event) {
+    const { value } = event.target
+    this.setState({ workflowID: value })
+  }
+
   toggleTheme () {
     this.setState(state => ({ dark: !state.dark }))
   }
@@ -105,9 +127,10 @@ class App extends React.Component {
       )
     }
 
-    const { active_workflows } = this.state.project.links
+    const { project, workflows } = this.state
+    const { active_workflows } = project.links
     const [singleActiveWorkflow] = (active_workflows.length === 1) ? active_workflows : []
-    const workflowID = this.props.workflowID ?? singleActiveWorkflow
+    const workflowID = this.state.workflowID ?? singleActiveWorkflow
     const mergedThemes = _.merge({}, baseTheme, zooTheme, { dark: this.state.dark })
     const key = this.state.cachePanoptesData ? 'cachedClassifier' : 'classifier'
 
@@ -122,6 +145,10 @@ class App extends React.Component {
       >
         <Box as='main'>
           <Box as='header' pad='medium' justify='end' gap='medium' direction='row'>
+            <label for="workflows">Change workflow</label>
+            <select id="workflows" onChange={this.selectWorkflow}>
+              {workflows.map(workflow => <option selected={workflow.id === workflowID} value={workflow.id}>{workflow.display_name} {workflow.id}</option>)}
+            </select>
             <CheckBox
               checked={this.state.cachePanoptesData}
               label="Cache Panoptes data"
