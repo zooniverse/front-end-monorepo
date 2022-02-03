@@ -159,7 +159,7 @@ export default function ClassifierContainer({
   }, [loaded, authClient])
 
   try {
-    if (loaded && workflowSnapshot) {
+    if (loaded) {
 
       return (
         <Provider classifierStore={classifierStore}>
