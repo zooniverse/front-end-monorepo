@@ -3,15 +3,15 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import ZoomInButton from './ZoomInButton'
 
-const args = {
-  dark: false,
-  onClick: () => console.log('clicked')
-}
-
 export default {
   title: 'Image Toolbar / ZoomInButton',
   component: ZoomInButton,
-  args
+  argTypes: {
+    onClick: {
+      action: 'clicked'
+    }
+  },
+  dark: false
 }
 
 export function Default({ dark, onClick }) {

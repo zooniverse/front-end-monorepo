@@ -6,13 +6,17 @@ import FullscreenButton from './FullscreenButton'
 const args = {
   dark: false,
   active: false,
-  disabled: false,
-  onClick: () => console.log('clicked')
+  disabled: false
 }
 
 export default {
   title: 'Image Toolbar / FullscreenButton',
   component: FullscreenButton,
+  argTypes: {
+    onClick: {
+      action: 'clicked'
+    }
+  },
   args
 }
 

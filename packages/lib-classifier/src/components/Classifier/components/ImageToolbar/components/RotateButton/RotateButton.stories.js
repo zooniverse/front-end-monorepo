@@ -5,13 +5,17 @@ import RotateButton from './RotateButton'
 
 const args = {
   dark: false,
-  disabled: false,
-  onClick: () => console.log('clicked')
+  disabled: false
 }
 
 export default {
   title: 'Image Toolbar / RotateButton',
   component: RotateButton,
+  argTypes: {
+    onClick: {
+      action: 'clicked'
+    }
+  },
   args
 }
 

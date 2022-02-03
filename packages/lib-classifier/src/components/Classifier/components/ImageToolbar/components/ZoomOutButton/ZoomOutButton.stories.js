@@ -3,15 +3,15 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import ZoomOutButton from './ZoomOutButton'
 
-const args = {
-  dark: false,
-  onClick: () => console.log('clicked')
-}
-
 export default {
   title: 'Image Toolbar / ZoomOutButton',
   component: ZoomOutButton,
-  args
+  argTypes: {
+    onClick: {
+      action: 'clicked'
+    }
+  },
+  dark: false
 }
 
 export function Default({ dark, onClick }) {

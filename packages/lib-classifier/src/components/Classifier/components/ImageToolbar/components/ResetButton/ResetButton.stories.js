@@ -5,13 +5,17 @@ import ResetButton from './ResetButton'
 
 const args = {
   dark: false,
-  disabled: false,
-  onClick: () => console.log('clicked')
+  disabled: false
 }
 
 export default {
   title: 'Image Toolbar / ResetButton',
   component: ResetButton,
+  argTypes: {
+    onClick: {
+      action: 'clicked'
+    }
+  },
   args
 }
 

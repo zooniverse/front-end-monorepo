@@ -5,13 +5,17 @@ import MoveButton from './MoveButton'
 
 const args = {
   dark: false,
-  active: false,
-  onClick: () => console.log('clicked')
+  active: false
 }
 
 export default {
   title: 'Image Toolbar / MoveButton',
   component: MoveButton,
+  argTypes: {
+    onClick: {
+      action: 'clicked'
+    }
+  },
   args
 }
 

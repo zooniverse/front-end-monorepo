@@ -5,13 +5,17 @@ import AnnotateButton from './AnnotateButton'
 
 const args = {
   dark: false,
-  active: false,
-  onClick: () => console.log('clicked')
+  active: false
 }
 
 export default {
   title: 'Image Toolbar / AnnotateButton',
   component: AnnotateButton,
+  argTypes: {
+    onClick: {
+      action: 'clicked'
+    }
+  },
   args
 }
 
