@@ -29,7 +29,6 @@ function RecentSubjectsContainer({ carousel, stores }) {
     setLoading(asyncStates.loading)
     try {
       const fetchedSubjects = await fetchRecentSubjects(projectId)
-      console.log('fetchedSubjects', fetchedSubjects)
       if (fetchedSubjects) {
         setLoading(asyncStates.success)
         setSubjects(fetchedSubjects)

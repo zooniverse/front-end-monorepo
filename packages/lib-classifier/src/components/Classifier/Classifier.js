@@ -49,6 +49,8 @@ export default function Classifier({
   useEffect(function onWorkflowVersionChange() {
     const { workflows, subjects } = classifierStore
     if (workflowSnapshot) {
+      // pass the subjectSetID prop into the store as part of the new workflow data
+      workflowSnapshot.subjectSet = subjectSetID
       workflows.setResources([workflowSnapshot])
       // TODO: the task area crashes without the following line. Why is that?
       subjects.setActiveSubject(subjects.active?.id)
