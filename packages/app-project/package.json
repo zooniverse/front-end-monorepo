@@ -21,7 +21,7 @@
     "@artsy/fresnel": "~3.2.1",
     "@babel/plugin-proposal-decorators": "~7.16.7",
     "@sentry/browser": "~6.17.3",
-    "@sentry/node": "~6.16.1",
+    "@sentry/node": "~6.17.4",
     "@sindresorhus/string-hash": "~1.2.0",
     "@visx/axis": "~2.6.0",
     "@visx/group": "~2.1.0",
