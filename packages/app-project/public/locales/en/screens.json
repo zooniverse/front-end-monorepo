@@ -61,16 +61,16 @@
       "content":  "Congratulations! Because you're doing so well, you can now access another workflow. If you prefer to stay with the current workflow, you can choose to stay.",
       "dismiss": "Don't show this again this session",
       "title": "New Workflow Available"
-    }
-  },
-  "YourStats": {
-    "todaysCount": "Classifications today",
-    "totalCount": "Classifications total",
-    "dailyCount": "%(projectName)s daily classification count",
-    "text": "Keep up the great work!",
-    "title": "Your {{projectName}} statistics",
-    "DailyClassificationsChart": {
-      "title": "{{projectName}} daily classification counts"
+    },
+    "YourStats": {
+      "todaysCount": "Classifications today",
+      "totalCount": "Classifications total",
+      "dailyCount": "%(projectName)s daily classification count",
+      "text": "Keep up the great work!",
+      "title": "Your {{projectName}} statistics",
+      "DailyClassificationsChart": {
+        "title": "{{projectName}} daily classification counts"
+      }
     }
   }
 }
