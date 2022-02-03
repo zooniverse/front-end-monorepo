@@ -72,27 +72,29 @@ function Polygon({ active, mark, onFinish, scale }) {
     <g onPointerUp={active ? onFinish : undefined}>
       {/* Initial Point */}
       {/* This should be used for every point in the Polygon */}
-      {points.map((point, i) => {
-        return (
-          <DragHandle
-            key={`${mark.id}-${i}`}
-            scale={scale}
-            r={radius}
-            x={point.x}
-            y={point.y}
-            fill='currentColor'
-            dragMove={(_e, d) =>
-              onHandleDrag(
-                {
-                  x: points[i].x + d.x,
-                  y: points[i].y + d.y
-                },
-                i
-              )
-            }
-          />
-        )
-      })}
+
+      {active &&
+        points.map((point, i) => {
+          return (
+            <DragHandle
+              key={`${mark.id}-${i}`}
+              scale={scale}
+              r={radius}
+              x={point.x}
+              y={point.y}
+              fill='currentColor'
+              dragMove={(_e, d) =>
+                onHandleDrag(
+                  {
+                    x: points[i].x + d.x,
+                    y: points[i].y + d.y
+                  },
+                  i
+                )
+              }
+            />
+          )
+        })}
 
       {/* Outer circle to show latest point */}
       {active && (
