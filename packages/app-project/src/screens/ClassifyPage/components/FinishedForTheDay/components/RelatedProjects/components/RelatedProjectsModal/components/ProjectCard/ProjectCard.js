@@ -35,7 +35,7 @@ function ProjectCard (props) {
           color='neutral-2'
           label={
             <Text size='small'>
-              {t('Classify.FinishedForTheDay.RelatedProjectModal.ProjectCard.viewProject')}
+              {t('Classify.FinishedForTheDay.RelatedProjectsModal.ProjectCard.viewProject')}
             </Text>
           }
           href={url}
