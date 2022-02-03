@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@babel/core": "~7.17.0",
-    "@babel/plugin-proposal-decorators": "~7.16.7",
+    "@babel/plugin-proposal-decorators": "~7.17.0",
     "@babel/plugin-proposal-logical-assignment-operators": "~7.16.7",
     "@babel/polyfill": "~7.12.1",
     "@babel/preset-env": "~7.16.8",
