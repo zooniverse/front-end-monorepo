@@ -71,6 +71,13 @@ function useStore({ authClient, client, initialState }) {
   return _store
 }
 
+async function fetchWorkflow(workflowID) {
+  if (workflowID) {
+    return panoptesClient.get(`/workflows/${workflowID}`)
+  }
+  return null
+}
+
 export default function ClassifierContainer({
   authClient,
   cachePanoptesData = false,
@@ -94,7 +101,7 @@ export default function ClassifierContainer({
   })
 
   const [loaded, setLoaded] = useState(false)
-  const { data } = useSWR(`/workflows/${workflowID}`, client.panoptes.get)
+  const { data } = useSWR(workflowID, fetchWorkflow)
   let workflowData
   if (data?.text) {
     workflowData = data.text
