@@ -71,6 +71,20 @@ function useStore({ authClient, client, initialState }) {
   return _store
 }
 
+async function fetchWorkflow(workflowID) {
+  if (workflowID) {
+    const { body } = await panoptesClient.get(`/workflows/${workflowID}`)
+    const [ workflowSnapshot ] = body.workflows
+    return workflowSnapshot
+  }
+  return null
+}
+
+function useWorkflowSnapshot(workflowID) {
+  const { data } = useSWR(workflowID, fetchWorkflow)
+  return data ?? null
+}
+
 export default function ClassifierContainer({
   authClient,
   cachePanoptesData = false,
@@ -94,11 +108,7 @@ export default function ClassifierContainer({
   })
 
   const [loaded, setLoaded] = useState(false)
-  const { data } = useSWR(`/workflows/${workflowID}`, client.panoptes.get)
-  let workflowData
-  if (data?.text) {
-    workflowData = data.text
-  }
+  const workflowSnapshot = useWorkflowSnapshot(workflowID)
 
   async function onMount() {
     if (cachePanoptesData) {
@@ -149,8 +159,7 @@ export default function ClassifierContainer({
   }, [loaded, authClient])
 
   try {
-    if (loaded && workflowData) {
-      const [ workflowSnapshot ] = JSON.parse(workflowData).workflows
+    if (loaded) {
 
       return (
         <Provider classifierStore={classifierStore}>
