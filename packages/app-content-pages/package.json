@@ -15,7 +15,7 @@
     "test:ci": "BABEL_ENV=test mocha --config ./test/.mocharc.json --reporter=min \"./{src,server,test}/**/*.spec.js\""
   },
   "dependencies": {
-    "@babel/plugin-proposal-decorators": "~7.16.7",
+    "@babel/plugin-proposal-decorators": "~7.17.0",
     "@sentry/browser": "~6.17.3",
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "@zooniverse/async-states": "~0.0.1",
