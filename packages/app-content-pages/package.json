@@ -22,7 +22,6 @@
     "@zooniverse/grommet-theme": "~3.0.0",
     "@zooniverse/panoptes-js": "~0.1.0",
     "@zooniverse/react-components": "~1.1.0",
-    "async": "~2.6.2",
     "babel-plugin-dynamic-import-node": "~2.3.0",
     "babel-plugin-styled-components": "~2.0.2",
     "contentful": "~9.1.6",
