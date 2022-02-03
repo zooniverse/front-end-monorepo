@@ -75,6 +75,22 @@ function Polygon({ active, mark, onFinish, scale }) {
 
       {active &&
         points.map((point, i) => {
+          if (i === 0) {
+            return (
+              <circle
+                key={`${mark.id}-${i}`}
+                r={radius * 5}
+                cx={point.x}
+                cy={point.y}
+                fill='#ff00ff'
+                onClick={() => {
+                  console.log('HELLO WORLD')
+                }}
+                /* onclick={()=>{ console.log('HELLO WORLD') }} */
+              />
+            )
+          }
+
           return (
             <DragHandle
               key={`${mark.id}-${i}`}
@@ -107,7 +123,7 @@ function Polygon({ active, mark, onFinish, scale }) {
       )}
 
       {/* Guide Line */}
-      {!finished && active && guideLineX && guideLineY && (
+      {/* {!finished && active && guideLineX && guideLineY && (
         <line
           x1={lastPoint.x}
           y1={lastPoint.y}
@@ -116,7 +132,7 @@ function Polygon({ active, mark, onFinish, scale }) {
           strokeWidth={guideLineStrokeWidth}
           strokeDasharray='2 2'
         />
-      )}
+      )} */}
 
       {/* Polygon??? or Polygon Lines */}
       <polyline
