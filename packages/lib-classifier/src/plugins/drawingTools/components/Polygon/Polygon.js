@@ -59,14 +59,14 @@ function Polygon({ active, mark, onFinish, scale }) {
     mark.shortenPath()
   }
 
-  // function handleClosePolygon() {
-  //   console.log('handleClosePolygon')
-  //   i === 0
-  //     ? () => {
-  //         mark.finish()
-  //       }
-  //     : null
-  // }
+  function handleClosePolygon() {
+    console.log('HELLO WORLD')
+    // i === 0
+    //   ? () => {
+    //       mark.finish()
+    //     }
+    //   : null
+  }
 
   return (
     <g onPointerUp={active ? onFinish : undefined}>
@@ -98,9 +98,7 @@ function Polygon({ active, mark, onFinish, scale }) {
                 cx={point.x}
                 cy={point.y}
                 fill='#ff00ff'
-                onPointerDown={() => {
-                  console.log('HELLO WORLD')
-                }}
+                onPointerDown={handleClosePolygon}
               />
             )
           }
@@ -127,7 +125,7 @@ function Polygon({ active, mark, onFinish, scale }) {
         })}
 
       {/* Guide Line */}
-      {/* {!finished && active && guideLineX && guideLineY && (
+      {!finished && active && guideLineX && guideLineY && (
         <line
           x1={lastPoint.x}
           y1={lastPoint.y}
@@ -136,7 +134,7 @@ function Polygon({ active, mark, onFinish, scale }) {
           strokeWidth={guideLineStrokeWidth}
           strokeDasharray='2 2'
         />
-      )} */}
+      )}
     </g>
   )
 }
