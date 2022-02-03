@@ -5,22 +5,22 @@ import styled from 'styled-components'
 import UndoButton from '../UndoButton'
 import DragHandle from '../DragHandle'
 
-const StyledGroup = styled.g`
-  &:hover {
-    cursor: pointer;
-  }
-  g:last-of-type {
-    &:hover {
-      cursor: crosshair;
-    }
-  }
-`
+// const StyledGroup = styled.g`
+//   &:hover {
+//     cursor: pointer;
+//   }
+//   g:last-of-type {
+//     &:hover {
+//       cursor: crosshair;
+//     }
+//   }
+// `
 
 const RADIUS = 3
 const ACTIVE_POINT_RADIUS = 8
 const STROKE_WIDTH = 3
 const GUIDELINE_STROKE_WIDTH = 2
-const GRAB_STROKE_WIDTH = 10
+const GRAB_STROKE_WIDTH = 6
 
 // const FINISHER_RADIUS = 3
 
@@ -69,7 +69,7 @@ function Polygon({ active, mark, onFinish, scale }) {
   // }
 
   return (
-    <StyledGroup onPointerUp={active ? onFinish : undefined}>
+    <g onPointerUp={active ? onFinish : undefined}>
       {/* Initial Point */}
       {/* This should be used for every point in the Polygon */}
       {points.map((point, i) => {
@@ -119,14 +119,19 @@ function Polygon({ active, mark, onFinish, scale }) {
       {/* Polygon??? or Polygon Lines */}
       <polyline
         points={path}
-        style={{
-          strokeWidth: { strokeWidth },
-          strokeLinejoin: 'round',
-          strokeLinecap: 'round',
-          fill: 'none'
-        }}
+        strokeWidth={strokeWidth}
+        fill='none'
+        // strokeLinejoin='round'
+        // strokeLinecap='round'
       />
-    </StyledGroup>
+      {/* So users can easily select the polygon */}
+      <polyline
+        points={path}
+        strokeWidth={grabStrokeWidth}
+        strokeOpacity='0'
+        fill='none'
+      />
+    </g>
   )
 }
 
