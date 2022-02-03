@@ -1,17 +1,15 @@
-import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import ZoomOutIcon from './ZoomOutIcon'
-import en from './locales/en'
 import Button from '../Button'
 
-counterpart.registerTranslations('en', en)
-
 function ZoomOutButton ({ onClick }) {
+  const { t } = useTranslation('components')
   return (
     <Button
-      a11yTitle={counterpart('ZoomOutButton.ariaLabel')}
+      a11yTitle={t('ImageToolbar.ZoomOutButton.ariaLabel')}
       icon={<ZoomOutIcon />}
       onClick={onClick}
     />
@@ -23,7 +21,7 @@ ZoomOutButton.propTypes = {
 }
 
 ZoomOutButton.defaultProps = {
-  onClick: () => console.log(counterpart('ZoomOutButton.ariaLabel'))
+  onClick: () => console.log('Zoom out')
 }
 
 export default ZoomOutButton

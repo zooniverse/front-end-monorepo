@@ -1,17 +1,15 @@
-import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import ZoomInIcon from './ZoomInIcon'
-import en from './locales/en'
 import Button from '../Button'
 
-counterpart.registerTranslations('en', en)
-
 function ZoomInButton ({ onClick }) {
+  const { t } = useTranslation('components')
   return (
     <Button
-      a11yTitle={counterpart('ZoomInButton.ariaLabel')}
+      a11yTitle={t('ImageToolbar.ZoomInButton.ariaLabel')}
       icon={<ZoomInIcon />}
       onClick={onClick}
     />
@@ -23,7 +21,7 @@ ZoomInButton.propTypes = {
 }
 
 ZoomInButton.defaultProps = {
-  onClick: () => console.log(counterpart('ZoomInButton.ariaLabel'))
+  onClick: () => console.log('Zoom in')
 }
 
 export default ZoomInButton
