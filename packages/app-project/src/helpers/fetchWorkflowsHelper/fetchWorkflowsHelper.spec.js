@@ -12,6 +12,7 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         level: 1
       },
       grouped: false,
+      prioritized: false,
       links: {
         subject_sets: ['1', '2', '3']
       }
@@ -23,6 +24,7 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         level: 2
       },
       grouped: true,
+      prioritized: true,
       links: {
         subject_sets: ['1', '2', '3']
       }
@@ -36,6 +38,7 @@ describe('Helpers > fetchWorkflowsHelper', function () {
       level: 2
     },
     grouped: true,
+    prioritized: true,
     links: {
       subject_sets: ['1', '2', '3']
     }
@@ -80,6 +83,7 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         },
         default: true,
         grouped: false,
+        prioritized: false,
         id: '1',
         displayName: 'Foo',
         links: {
@@ -112,6 +116,7 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         },
         default: false,
         grouped: false,
+        prioritized: false,
         id: '1',
         displayName: 'Foo',
         links: {
@@ -126,6 +131,7 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         },
         default: false,
         grouped: true,
+        prioritized: true,
         id: '2',
         displayName: 'Bar',
         links: {
@@ -159,6 +165,7 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           },
           default: false,
           grouped: false,
+          prioritized: false,
           id: '1',
           displayName: 'Foo',
           links: {
@@ -173,6 +180,7 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           },
           default: false,
           grouped: true,
+          prioritized: true,
           id: '2',
           displayName: 'Bar',
           links: {
@@ -229,6 +237,7 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           },
           default: true,
           grouped: true,
+          prioritized: true,
           id: '2',
           displayName: 'Bar',
           links: {
@@ -298,6 +307,7 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           },
           default: false,
           grouped: true,
+          prioritized: true,
           id: '2',
           displayName: 'Bar',
           links: {
@@ -312,6 +322,7 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           },
           default: false,
           grouped: false,
+          prioritized: false,
           id: '1',
           displayName: 'Foo',
           links: {
