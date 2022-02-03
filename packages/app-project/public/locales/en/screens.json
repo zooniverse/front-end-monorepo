@@ -54,6 +54,13 @@
     "RecentSubjects": {
       "text": "Discuss a subject on Talk, or add it to your Favourites or a collection.",
       "title": "Your recent classifications"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "No, thanks",
+      "confirm": "Take me to the next workflow!",
+      "content":  "Congratulations! Because you're doing so well, you can now access another workflow. If you prefer to stay with the current workflow, you can choose to stay.",
+      "dismiss": "Don't show this again this session",
+      "title": "New Workflow Available"
     }
   }
 }
