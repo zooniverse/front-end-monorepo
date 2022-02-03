@@ -28,6 +28,28 @@
       "ErrorMessage": {
         "title": "There was an error in the classifier :("
       }    
+    },
+    "FinishedForTheDay": {
+      "buttons": {
+        "anotherProject": "Find another project",
+        "stats": "See the stats"
+      },
+      "text": "Your answers are saved for the research team while you're working. See the project stats and return to the {{projectName}} home page.",
+      "title": "Finished for the day?",
+      "ProjectImage": {
+        "alt": "Image for {{projectName}}"
+      },
+      "RelatedProjectsButton": {
+        "label": "Find another project"
+      },
+      "RelatedProjectsModal": {
+        "hereAreSomeOthers": "Here are some other Zooniverse projects you might enjoy",
+        "relatedProjects": "Related Projects",
+        "title": "Love {{project}}?",
+        "ProjectCard": {
+          "viewProject": "View Project"
+        }
+      }
     }
   }
 }
