@@ -52,7 +52,7 @@
     "validator": "~13.7.0"
   },
   "devDependencies": {
-    "@babel/register": "~7.16.9",
+    "@babel/register": "~7.17.0",
     "@storybook/addon-a11y": "~6.4.9",
     "@storybook/addon-essentials": "~6.4.9",
     "@storybook/addon-knobs": "~6.4.0",

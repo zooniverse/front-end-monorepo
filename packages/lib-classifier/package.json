@@ -60,7 +60,7 @@
     "@babel/polyfill": "~7.12.1",
     "@babel/preset-env": "~7.16.8",
     "@babel/preset-react": "~7.16.7",
-    "@babel/register": "~7.16.9",
+    "@babel/register": "~7.17.0",
     "@storybook/addon-a11y": "~6.4.9",
     "@storybook/addon-essentials": "~6.4.9",
     "@storybook/addon-knobs": "~6.4.0",
