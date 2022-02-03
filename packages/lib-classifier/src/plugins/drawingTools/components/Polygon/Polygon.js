@@ -70,9 +70,24 @@ function Polygon({ active, mark, onFinish, scale }) {
 
   return (
     <g onPointerUp={active ? onFinish : undefined}>
+      {/* Polygon??? or Polygon Lines */}
+      <polyline
+        points={path}
+        strokeWidth={strokeWidth}
+        fill='none'
+        // strokeLinejoin='round'
+        // strokeLinecap='round'
+      />
+      {/* So users can easily select the polygon */}
+      <polyline
+        points={path}
+        strokeWidth={grabStrokeWidth}
+        strokeOpacity='0'
+        fill='none'
+      />
+
       {/* Initial Point */}
       {/* This should be used for every point in the Polygon */}
-
       {active &&
         points.map((point, i) => {
           if (i === 0) {
@@ -83,10 +98,9 @@ function Polygon({ active, mark, onFinish, scale }) {
                 cx={point.x}
                 cy={point.y}
                 fill='#ff00ff'
-                onClick={() => {
+                onPointerDown={() => {
                   console.log('HELLO WORLD')
                 }}
-                /* onclick={()=>{ console.log('HELLO WORLD') }} */
               />
             )
           }
@@ -112,16 +126,6 @@ function Polygon({ active, mark, onFinish, scale }) {
           )
         })}
 
-      {/* Outer circle to show latest point */}
-      {active && (
-        <circle
-          r={activePointRadius}
-          cx={lastPoint.x}
-          cy={lastPoint.y}
-          strokeWidth={strokeWidth}
-        />
-      )}
-
       {/* Guide Line */}
       {/* {!finished && active && guideLineX && guideLineY && (
         <line
@@ -133,22 +137,6 @@ function Polygon({ active, mark, onFinish, scale }) {
           strokeDasharray='2 2'
         />
       )} */}
-
-      {/* Polygon??? or Polygon Lines */}
-      <polyline
-        points={path}
-        strokeWidth={strokeWidth}
-        fill='none'
-        // strokeLinejoin='round'
-        // strokeLinecap='round'
-      />
-      {/* So users can easily select the polygon */}
-      <polyline
-        points={path}
-        strokeWidth={grabStrokeWidth}
-        strokeOpacity='0'
-        fill='none'
-      />
     </g>
   )
 }
