@@ -50,6 +50,10 @@
           "viewProject": "View Project"
         }
       }
+    },
+    "RecentSubjects": {
+      "text": "Discuss a subject on Talk, or add it to your Favourites or a collection.",
+      "title": "Your recent classifications"
     }
   }
 }
