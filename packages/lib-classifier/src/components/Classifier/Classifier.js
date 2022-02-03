@@ -16,7 +16,8 @@ export default function Classifier({
   project,
   subjectID,
   subjectSetID,
-  workflowData,
+  workflowSnapshot,
+  workflowVersion,
   workflowID
 }) {
 
@@ -40,15 +41,21 @@ export default function Classifier({
     }
   }, [subjectID, subjectSetID, workflowID])
 
-  useEffect(function onWorkflowChange() {
+  /*
+    This should run when a project owner edits a workflow, but not when a workflow updates
+    as a result of receiving classifications eg. workflow.completeness.
+    It refreshes the stored workflow then resets any classifications in progress.
+  */
+  useEffect(function onWorkflowVersionChange() {
     const { workflows, subjects } = classifierStore
-    if (workflowData) {
-      const [ workflowSnapshot ] = JSON.parse(workflowData).workflows
+    if (workflowSnapshot) {
+      // pass the subjectSetID prop into the store as part of the new workflow data
+      workflowSnapshot.subjectSet = subjectSetID
       workflows.setResources([workflowSnapshot])
       // TODO: the task area crashes without the following line. Why is that?
       subjects.setActiveSubject(subjects.active?.id)
     }
-  }, [workflowData])
+  }, [workflowVersion])
 
   try {
     return (
@@ -75,5 +82,9 @@ Classifier.propTypes = {
   }).isRequired,
   subjectSetID: PropTypes.string,
   subjectID: PropTypes.string,
+  workflowSnapshot: PropTypes.shape({
+    id: PropTypes.string
+  }),
+  workflowVersion: PropTypes.string,
   workflowID: PropTypes.string.isRequired
 }
