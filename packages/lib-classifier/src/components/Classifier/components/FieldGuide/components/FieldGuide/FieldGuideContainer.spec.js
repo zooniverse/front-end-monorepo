@@ -1,9 +1,10 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import { MovableModal, Modal } from '@zooniverse/react-components'
-import en from './locales/en'
 import FieldGuideContainer from './FieldGuideContainer'
 import { FieldGuideFactory, FieldGuideMediumFactory } from '@test/factories'
+import i18n from '@test/i18n/i18n-for-tests'
+import sinon from 'sinon'
 
 const medium = FieldGuideMediumFactory.build()
 const fieldGuide = FieldGuideFactory.build({
@@ -33,12 +34,19 @@ describe('Component > FieldGuideContainer', function () {
   })
 
   describe('when the window size is not small', function () {
+    let useTranslationStub
     let wrapper
+
     before(function () {
+      useTranslationStub = sinon.stub(i18n, 't')
       wrapper = shallow(
         <FieldGuideContainer
           fieldGuide={fieldGuide}
         />)
+    })
+
+    after(function () {
+      useTranslationStub.restore()
     })
 
     it('should render a MovableModal', function () {
@@ -58,7 +66,7 @@ describe('Component > FieldGuideContainer', function () {
     })
 
     it('should render a title', function () {
-      expect(wrapper.props().modalProps.title).to.equal(en.FieldGuide.title)
+      expect(useTranslationStub).to.have.been.calledWith('FieldGuide.title')
     })
 
     it('should set the boxHeight and boxWidth to their minimum sizes', function () {
@@ -74,8 +82,11 @@ describe('Component > FieldGuideContainer', function () {
   })
 
   describe('when the window size is small', function () {
+    let useTranslationStub
     let wrapper
+
     before(function () {
+      useTranslationStub = sinon.stub(i18n, 't')
       wrapper = shallow(
         <FieldGuideContainer
           fieldGuide={fieldGuide}
@@ -83,12 +94,16 @@ describe('Component > FieldGuideContainer', function () {
         />)
     })
 
+    after(function () {
+      useTranslationStub.restore()
+    })
+
     it('should render a Modal', function () {
       expect(wrapper.props().modalComponent).to.equal(Modal)
     })
 
     it('should render a title', function () {
-      expect(wrapper.props().modalProps.title).to.equal(en.FieldGuide.title)
+      expect(useTranslationStub).to.have.been.calledWith('FieldGuide.title')
     })
 
     it('should set the boxHeight and boxWidth to 100%', function () {
