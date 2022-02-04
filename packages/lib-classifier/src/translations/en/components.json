@@ -47,5 +47,20 @@
         "If you're looking to help, try choosing a different workflow or contributing to a different project."
       ]
     }
+  },
+  "FieldGuide": {
+    "title": "Field Guide",
+    "FieldGuideButton": {
+      "buttonLabel": {
+        "field": "field",
+        "guide": "guide"
+      }
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Go back to Field Guide items list"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Select {{title}}"
+    }
   }
 }

@@ -6,10 +6,7 @@ import PropTypes from 'prop-types'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import { withTheme } from 'styled-components'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
-import counterpart from 'counterpart'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'react-i18next'
 
 export function AnchorLabel ({ className, icons, item }) {
   const icon = icons.get(item.icon)
@@ -38,6 +35,8 @@ function FieldGuideItemAnchor (props) {
     theme
   } = props
 
+  const { t } = useTranslation('components')
+
   function onClick (event, itemIndex) {
     event.preventDefault()
     setActiveItemIndex(itemIndex)
@@ -48,7 +47,7 @@ function FieldGuideItemAnchor (props) {
     const anchorColor = (theme.dark) ? 'light-3' : 'dark-5'
     return (
       <Anchor
-        a11yTitle={counterpart('FieldGuideItemAnchor.ariaTitle', { title: item.title })}
+        a11yTitle={t('FieldGuide.FieldGuideItemAnchor.ariaTitle', { title: item.title })}
         className={className}
         color={anchorColor}
         href={`#field-guide-item-${itemIndex}`}
