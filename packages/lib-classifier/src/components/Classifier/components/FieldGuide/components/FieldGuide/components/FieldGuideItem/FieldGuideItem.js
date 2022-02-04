@@ -1,5 +1,4 @@
-import { Markdownz, Media, SpacedHeading } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
+import { Markdownz, SpacedHeading } from '@zooniverse/react-components'
 import { Button, Box, Paragraph } from 'grommet'
 import { FormPrevious } from 'grommet-icons'
 import { observable } from 'mobx'
@@ -7,11 +6,9 @@ import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
+import { useTranslation } from 'react-i18next'
 
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 const StyledButton = styled(Button)`
   padding: 0;
@@ -54,6 +51,8 @@ function FieldGuideItem (props) {
     } = props
     const icon = icons.get(item.icon)
 
+    const { t } = useTranslation('components')
+
     return (
       <Box className={className}>
         <Box
@@ -64,7 +63,7 @@ function FieldGuideItem (props) {
           pad={{ bottom: 'xsmall' }}
         >
           <StyledButton
-            a11yTitle={counterpart('FieldGuideItem.ariaTitle')}
+            a11yTitle={t('FieldGuide.FieldGuideItem.ariaTitle')}
             icon={<FormPrevious color='light-5' />}
             margin={{ right: 'small' }}
             onClick={() => setActiveItemIndex()}
