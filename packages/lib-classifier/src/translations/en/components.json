@@ -48,6 +48,21 @@
       ]
     }
   },
+  "FieldGuide": {
+    "title": "Field Guide",
+    "FieldGuideButton": {
+      "buttonLabel": {
+        "field": "field",
+        "guide": "guide"
+      }
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Go back to Field Guide items list"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Select {{title}}"
+    }
+  },
   "ImageToolbar": {
     "AnnotateButton": {
       "ariaLabel": "Annotate"
