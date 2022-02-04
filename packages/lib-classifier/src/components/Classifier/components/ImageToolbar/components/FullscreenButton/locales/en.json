@@ -1,8 +1,0 @@
-{
-  "FullscreenButton": {
-    "ariaLabel": {
-      "fullscreen": "View subject in full screen mode",
-      "actualSize": "View subject at normal size"
-    }
-  }
-}
