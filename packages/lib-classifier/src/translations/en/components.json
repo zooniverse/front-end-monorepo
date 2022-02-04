@@ -50,6 +50,21 @@
   },
   "FeedbackModal": {
     "keepClassifying": "Keep Classifying",
-    "label": "Feedback" 
+    "label": "Feedback"
+  },
+  "FieldGuide": {
+    "title": "Field Guide",
+    "FieldGuideButton": {
+      "buttonLabel": {
+        "field": "field",
+        "guide": "guide"
+      }
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Go back to Field Guide items list"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Select {{title}}"
+    }
   }
 }
