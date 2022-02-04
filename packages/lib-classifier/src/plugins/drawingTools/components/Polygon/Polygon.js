@@ -16,6 +16,10 @@ import DragHandle from '../DragHandle'
 //   }
 // `
 
+const GuideLine = styled.line`
+  pointer-events: none;
+`
+
 const RADIUS = 3
 const ACTIVE_POINT_RADIUS = 8
 const STROKE_WIDTH = 3
@@ -126,7 +130,7 @@ function Polygon({ active, mark, onFinish, scale }) {
 
       {/* Guide Line */}
       {!finished && active && guideLineX && guideLineY && (
-        <line
+        <GuideLine
           x1={lastPoint.x}
           y1={lastPoint.y}
           x2={guideLineX}
