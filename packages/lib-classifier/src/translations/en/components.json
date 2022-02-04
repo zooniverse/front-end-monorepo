@@ -51,7 +51,6 @@
   "FieldGuide": {
     "title": "Field Guide",
     "FieldGuideButton": {
-      "ariaLabel": "Open Field Guide",
       "buttonLabel": {
         "field": "field",
         "guide": "guide"
