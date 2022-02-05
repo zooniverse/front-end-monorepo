@@ -81,8 +81,17 @@ async function fetchWorkflow(workflowID) {
 }
 
 function useWorkflowSnapshot(workflowID) {
-  const { data } = useSWR(workflowID, fetchWorkflow)
-  return data ?? null
+  const [prevSnapshot, setPrevSnapshot] = useState(null)
+  const response = useSWR(workflowID, fetchWorkflow)
+  let data = null
+  if (workflowID) {
+    data = response.data
+  }
+  if (data && prevSnapshot?.id !== data.id) {
+    setPrevSnapshot(data)
+    return data
+  }
+  return prevSnapshot
 }
 
 export default function ClassifierContainer({
@@ -107,11 +116,12 @@ export default function ClassifierContainer({
     initialState: {}
   })
 
+  const [hydrated, setHydrated] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const workflowSnapshot = useWorkflowSnapshot(workflowID)
 
-  async function onMount() {
-    if (cachePanoptesData) {
+  async function hydrateStore() {
+    if (cachePanoptesData && !hydrated) {
       try {
         const storageKey = `fem-classifier-${project.id}`
         await persist(storageKey, classifierStore, {
@@ -134,6 +144,7 @@ export default function ClassifierContainer({
           */
           subjects.setActiveSubject(subjects.active.id)
         }
+        setHydrated(true)
       } catch (error) {
         console.log('store snapshot error.')
         console.error(error)
@@ -149,8 +160,11 @@ export default function ClassifierContainer({
   }
 
   useEffect(() => {
-    onMount()
-  }, [])
+    console.log({ cachePanoptesData, hydrated, loaded })
+    if (!hydrated) {
+      hydrateStore()
+    }
+  }, [cachePanoptesData, hydrated])
 
   useEffect(function onAuthChange() {
     if (loaded) {
@@ -159,7 +173,7 @@ export default function ClassifierContainer({
   }, [loaded, authClient])
 
   try {
-    if (loaded) {
+    if (loaded && workflowSnapshot?.id) {
 
       return (
         <Provider classifierStore={classifierStore}>

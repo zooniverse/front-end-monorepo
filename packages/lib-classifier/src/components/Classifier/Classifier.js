@@ -21,6 +21,7 @@ export default function Classifier({
   workflowID
 }) {
 
+  console.log({ workflowID, subjectSetID })
   useEffect(function onLocaleChange() {
     if (locale) {
       classifierStore.setLocale(locale)

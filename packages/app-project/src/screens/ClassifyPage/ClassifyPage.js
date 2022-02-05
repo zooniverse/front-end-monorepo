@@ -30,6 +30,7 @@ function ClassifyPage({
   workflowFromUrl,
   workflows = []
 }) {
+  const cachePanoptesData = workflowFromUrl?.prioritized
   const responsiveColumns = (screenSize === 'small')
     ? ['auto']
     : ['1em', 'auto', '1em']
@@ -49,13 +50,13 @@ function ClassifyPage({
   let classifierProps = {}
   if (canClassify) {
     classifierProps = {
-      cachePanoptesData: workflowFromUrl?.prioritized,
       workflowID,
       subjectSetID,
       subjectID
     }
   }
 
+  console.log({ cachePanoptesData })
   return (
     <StandardLayout>
 
@@ -76,6 +77,7 @@ function ClassifyPage({
           <Grid columns={responsiveColumns} gap='small'>
             <ProjectName />
             <ClassifierWrapper
+              cachePanoptesData={cachePanoptesData}
               onAddToCollection={addToCollection}
               onSubjectReset={onSubjectReset}
               {...classifierProps}
