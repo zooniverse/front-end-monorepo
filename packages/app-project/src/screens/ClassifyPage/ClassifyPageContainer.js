@@ -12,32 +12,23 @@ function ClassifyPageContainer({
   ...props
 }) {
   const [subjectID, setSubjectID] = useState(subjectFromURL)
-  const [canLoadWorkflowFromUrl, setCanLoadWorkflowFromUrl] = useState(true)
-  let workflowFromUrl = workflows.find(workflow => workflow.id === workflowID)
+  const collectionsModal = createRef()
 
   let assignedWorkflow
+  let allowedWorkflows = workflows.slice()
+  let assignedWorkflowLevel = 1
   if (assignedWorkflowID) {
     assignedWorkflow = workflows.find(workflow => workflow.id === assignedWorkflowID)
+    assignedWorkflowLevel = parseInt(assignedWorkflow?.configuration.level, 10)
   }
-  const collectionsModal = createRef()
+  if (workflowAssignmentEnabled) {
+    allowedWorkflows = workflows.filter(workflow => workflow.configuration.level <= assignedWorkflowLevel)
+  }
+  const workflowFromUrl = allowedWorkflows.find(workflow => workflow.id === workflowID) ?? null
 
   useEffect(function onSubjectChange() {
     setSubjectID(subjectFromURL)
   }, [subjectFromURL])
-
-  useEffect(function onAssignedWorkflowIDChange() {
-    const workflowFromURLLevel = parseInt(workflowFromUrl?.configuration?.level)
-
-    if (workflowAssignmentEnabled && assignedWorkflow && workflowFromURLLevel) {
-      const assignedWorkflowLevel = parseInt(assignedWorkflow.configuration.level)
-      const canLoad = assignedWorkflowLevel >= workflowFromURLLevel
-      setCanLoadWorkflowFromUrl(canLoad)
-    } else if (workflowAssignmentEnabled && workflowFromURLLevel !== 1) {
-      setCanLoadWorkflowFromUrl(false)
-    } else {
-      setCanLoadWorkflowFromUrl(true)
-    }
-  }, [ assignedWorkflowID, workflowAssignmentEnabled, workflowFromUrl ])
 
   function addToCollection(subjectId) {
     collectionsModal.current.open(subjectId)
@@ -56,7 +47,7 @@ function ClassifyPageContainer({
         addToCollection={addToCollection}
         onSubjectReset={onSubjectReset}
         subjectID={subjectID}
-        workflowFromUrl={(canLoadWorkflowFromUrl) ? workflowFromUrl : null}
+        workflowFromUrl={workflowFromUrl}
         workflowID={workflowID}
         workflows={workflows}
         {...props}
