@@ -5,13 +5,14 @@ import CollectionsModal from '../../shared/components/CollectionsModal'
 
 function ClassifyPageContainer({
   assignedWorkflowID = '',
-  subjectID: subjectFromURL,
+  subjectID,
   workflowAssignmentEnabled = false,
   workflowID,
   workflows = [],
   ...props
 }) {
-  const [subjectID, setSubjectID] = useState(subjectFromURL)
+  // selected subject state is derived from the page URL, but can be reset by the Classifier component.
+  const [selectedSubjectID, setSelectedSubjectID] = useState(subjectID)
   const collectionsModal = createRef()
 
   let assignedWorkflow
@@ -27,15 +28,15 @@ function ClassifyPageContainer({
   const workflowFromUrl = allowedWorkflows.find(workflow => workflow.id === workflowID) ?? null
 
   useEffect(function onSubjectChange() {
-    setSubjectID(subjectFromURL)
-  }, [subjectFromURL])
+    setSelectedSubjectID(subjectID)
+  }, [subjectID])
 
   function addToCollection(subjectId) {
     collectionsModal.current.open(subjectId)
   }
 
   function onSubjectReset() {
-    setSubjectID(undefined)
+    setSelectedSubjectID(undefined)
   }
 
   return (
@@ -46,7 +47,7 @@ function ClassifyPageContainer({
       <ClassifyPage
         addToCollection={addToCollection}
         onSubjectReset={onSubjectReset}
-        subjectID={subjectID}
+        subjectID={selectedSubjectID}
         workflowFromUrl={workflowFromUrl}
         workflowID={workflowID}
         workflows={workflows}
