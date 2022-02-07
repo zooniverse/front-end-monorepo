@@ -322,6 +322,11 @@ const SubjectStore = types
     }
 
     function reset () {
+      /*
+      This line stops the classifier from crashing when changing workflows.
+      TODO: It's a safeReference, so why is it not being cleared automatically?
+      */
+      self.active = undefined
       self.resources.clear()
       self.available.clear()
     }
