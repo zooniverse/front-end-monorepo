@@ -1,9 +1,8 @@
 import { GraphQLClient } from 'graphql-request'
 import { Paragraph } from 'grommet'
 import { Provider } from 'mobx-react'
-import { persist } from 'mst-persist'
 import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import '../../translations/i18n'
 import i18n from 'i18next'
 import {
@@ -13,8 +12,7 @@ import {
   tutorials as tutorialsClient
 } from '@zooniverse/panoptes-js'
 
-import { asyncSessionStorage } from '@helpers'
-import { useStore, useWorkflowSnapshot } from './hooks'
+import { useHydratedStore, useStore, useWorkflowSnapshot } from './hooks'
 import { unregisterWorkers } from '../../workers'
 import Classifier from './Classifier'
 
@@ -70,50 +68,20 @@ export default function ClassifierContainer({
     initialState: {}
   })
 
-  const [loaded, setLoaded] = useState(false)
   const workflowSnapshot = useWorkflowSnapshot(workflowID)
 
-  async function onMount() {
-    if (cachePanoptesData) {
-      try {
-        const storageKey = `fem-classifier-${project.id}`
-        await persist(storageKey, classifierStore, {
-          storage: asyncSessionStorage,
-          whitelist: ['fieldGuide', 'projects', 'subjects', 'subjectSets', 'tutorials', 'workflows', 'workflowSteps']
-        })
-        console.log('store hydrated from local storage')
-        const { subjects, workflows } = classifierStore
-        if (!workflows.active?.prioritized) {
-          /*
-          In this case, we delete the saved queue so that
-          refreshing the classifier will load a new, randomised
-          subject queue.
-          */
-          subjects.reset()
-        }
-        if (subjects.active) {
-          /*
-            This is a hack to start a new classification from a snapshot.
-          */
-          subjects.setActiveSubject(subjects.active.id)
-        }
-      } catch (error) {
-        console.log('store snapshot error.')
-        console.error(error)
-      }
-    }
-    const { classifications, subjects } = classifierStore
-    classifierStore.setOnAddToCollection(onAddToCollection)
-    classifications.setOnComplete(onCompleteClassification)
-    classifierStore.setOnSubjectChange(onSubjectChange)
-    subjects.setOnReset(onSubjectReset)
-    classifierStore.setOnToggleFavourite(onToggleFavourite)
-    setLoaded(true)
-  }
-
-  useEffect(() => {
-    onMount()
-  }, [])
+  const loaded = useHydratedStore(
+    classifierStore,
+    cachePanoptesData,
+    {
+      onAddToCollection,
+      onCompleteClassification,
+      onSubjectChange,
+      onSubjectReset,
+      onToggleFavourite
+    },
+    `fem-classifier-${project.id}`
+  )
 
   useEffect(function onAuthChange() {
     if (loaded) {
