@@ -1,12 +1,8 @@
-import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import { Anchor, Box } from 'grommet'
 import { Media, SpacedText } from '@zooniverse/react-components'
 import styled, { css } from 'styled-components'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'next-i18next'
 
 const StyledBox = styled(Box)`
   ${props => css`
@@ -24,6 +20,7 @@ const StyledSpacedText = styled(SpacedText)`
 `
 
 function SubjectThumbnail ({ height, href, width, subject }) {
+  const { t } = useTranslation('screens')
   const subjectURLs = subject.locations.map(location => Object.values(location)[0])
   const subjectURL = subjectURLs[0]
   return (
@@ -45,7 +42,7 @@ function SubjectThumbnail ({ height, href, width, subject }) {
           width={700}
         />
         <StyledSpacedText color='white' weight='bold'>
-          {counterpart('RecentSubjects.subjectLabel', { id: subject.id })}
+          {t('Home.ZooniverseTalk.RecentSubjects.subjectLabel', { id: subject.id })}
         </StyledSpacedText>
       </StyledBox>
     </Anchor>

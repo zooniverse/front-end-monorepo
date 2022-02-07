@@ -1,12 +1,8 @@
 import { Media, SpacedText } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { Box, Button, Text } from 'grommet'
 import { string } from 'prop-types'
 import styled from 'styled-components'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'next-i18next'
 
 const StyledButton = styled(Button)`
   border-radius: 4px;
@@ -14,6 +10,7 @@ const StyledButton = styled(Button)`
 `
 
 function ProjectCard (props) {
+  const { t } = useTranslation('screens')
   const { description, image, name, url } = props
   return (
     <Box border={{ color: 'light-4' }} width='300px'>
@@ -38,7 +35,7 @@ function ProjectCard (props) {
           color='neutral-2'
           label={
             <Text size='small'>
-              {counterpart('ProjectCard.viewProject')}
+              {t('Classify.FinishedForTheDay.RelatedProjectsModal.ProjectCard.viewProject')}
             </Text>
           }
           href={url}

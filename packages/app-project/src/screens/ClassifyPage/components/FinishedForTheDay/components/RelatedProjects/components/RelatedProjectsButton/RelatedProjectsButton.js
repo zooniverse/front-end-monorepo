@@ -1,11 +1,7 @@
-import counterpart from 'counterpart'
 import { Button, Text } from 'grommet'
 import { func } from 'prop-types'
 import styled from 'styled-components'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'next-i18next'
 
 const StyledButton = styled(Button)`
   border-width: 1px;
@@ -15,8 +11,9 @@ const StyledButton = styled(Button)`
 `
 
 function RelatedProjectsButton (props) {
+  const { t } = useTranslation('screens')
   const { onClick } = props
-  const buttonText = counterpart('RelatedProjectsButton.label')
+  const buttonText = t('Classify.FinishedForTheDay.RelatedProjectsButton.label')
   return (
     <StyledButton
       a11yTitle={buttonText}

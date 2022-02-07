@@ -1,4 +1,3 @@
-import counterpart from 'counterpart'
 import { array, object, string } from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
 import { AxisBottom, AxisLeft } from '@visx/axis'
@@ -7,10 +6,7 @@ import { Bar } from '@visx/shape'
 import { Text } from '@visx/text'
 import { scaleBand, scaleLinear } from '@visx/scale'
 import WidgetHeading from '@shared/components/WidgetHeading'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'next-i18next'
 
 const StyledBarGroup = styled(Group)`
   text {
@@ -33,6 +29,8 @@ const StyledBarGroup = styled(Group)`
 `
 
 function DailyClassificationsChart ({ stats, projectName, theme }) {
+  const { t } = useTranslation('screens')
+
   const HEIGHT = 200
   const PADDING = 20
   const WIDTH = 300
@@ -71,7 +69,7 @@ function DailyClassificationsChart ({ stats, projectName, theme }) {
   return (
     <>
       <WidgetHeading>
-        {counterpart('DailyClassificationsChart.title', { projectName })}
+        {t('Classify.YourStats.DailyClassificationsChart.title', { projectName })}
       </WidgetHeading>
       <svg
         height={HEIGHT + PADDING}

@@ -1,16 +1,17 @@
-import counterpart from 'counterpart'
 import { Button } from 'grommet'
 import Link from 'next/link'
 import { object } from 'prop-types'
 import styled from 'styled-components'
+import { useTranslation } from 'next-i18next'
 
 const StyledButton = styled(Button)`
   text-align: center;
 `
 
 function JoinInButton (props) {
+  const { t } = useTranslation('screens')
   const { linkProps } = props
-  const label = counterpart('ZooniverseTalk.button')
+  const label = t('Home.ZooniverseTalk.button')
   return (
     <Link {...linkProps} passHref>
       <StyledButton label={label} />

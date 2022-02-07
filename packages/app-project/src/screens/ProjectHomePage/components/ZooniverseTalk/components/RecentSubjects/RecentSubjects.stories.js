@@ -1,12 +1,8 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import counterpart from 'counterpart'
 import { Grommet } from 'grommet'
-import en from './locales/en'
 
 import RecentSubjects from './RecentSubjects'
 import RecentSubjectsCarousel from './RecentSubjectsCarousel'
-
-counterpart.registerTranslations('en', en)
 
 const SUBJECTS = [
   {

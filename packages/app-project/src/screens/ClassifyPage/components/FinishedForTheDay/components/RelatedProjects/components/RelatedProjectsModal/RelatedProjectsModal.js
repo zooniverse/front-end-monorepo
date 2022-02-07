@@ -1,12 +1,9 @@
 import { Modal } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { Box, Heading } from 'grommet'
 import { array, bool, func, string } from 'prop-types'
+import { useTranslation } from 'next-i18next'
 
 import ProjectCard from './components/ProjectCard'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 const DUMMY_PROJECT = {
   name: 'foobar',
@@ -20,18 +17,19 @@ const DUMMY_PROJECT = {
 const PROJECTS = [DUMMY_PROJECT, DUMMY_PROJECT, DUMMY_PROJECT]
 
 function RelatedProjectsModal (props) {
+  const { t } = useTranslation('screens')
   const { active, closeFn, projects, projectTitle } = props
   return (
     <Modal
       active={active}
       closeFn={closeFn}
-      title={counterpart('RelatedProjectsModal.relatedProjects')}
+      title={t('Classify.FinishedForTheDay.RelatedProjectsModal.relatedProjects')}
     >
       <Heading level='3' margin={{ bottom: 'xsmall', top: 'none' }}>
-        {counterpart('RelatedProjectsModal.title', { project: projectTitle })}
+        {t('Classify.FinishedForTheDay.RelatedProjectsModal.title', { project: projectTitle })}
       </Heading>
       <Box as='p' margin={{ bottom: 'small', top: 'none' }}>
-        {counterpart('RelatedProjectsModal.hereAreSomeOthers')}
+        {t('Classify.FinishedForTheDay.RelatedProjectsModal.hereAreSomeOthers')}
       </Box>
       <Box direction='row' gap='small'>
         {projects.map((project, index) => (
