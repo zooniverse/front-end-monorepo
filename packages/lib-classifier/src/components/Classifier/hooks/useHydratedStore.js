@@ -29,29 +29,15 @@ async function hydrateStore(storageKey, classifierStore) {
     console.log('store snapshot error.')
     console.error(error)
   }
-  return classifierStore
 }
 
-export default function useHydratedStore(classifierStore, cachePanoptesData = false, callbacks = {}, storageKey) {
+export default function useHydratedStore(classifierStore, cachePanoptesData = false, storageKey) {
   const [loaded, setLoaded] = useState(false)
-  const {
-    onAddToCollection,
-    onCompleteClassification,
-    onSubjectChange,
-    onSubjectReset,
-    onToggleFavourite
-  } = callbacks
   
   async function onMount() {
     if (cachePanoptesData) {
-      classifierStore = await hydrateStore(storageKey, classifierStore)
+      await hydrateStore(storageKey, classifierStore)
     }
-    const { classifications, subjects } = classifierStore
-    classifierStore.setOnAddToCollection(onAddToCollection)
-    classifications.setOnComplete(onCompleteClassification)
-    classifierStore.setOnSubjectChange(onSubjectChange)
-    subjects.setOnReset(onSubjectReset)
-    classifierStore.setOnToggleFavourite(onToggleFavourite)
     setLoaded(true)
   }
 

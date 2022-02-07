@@ -70,18 +70,24 @@ export default function ClassifierContainer({
 
   const workflowSnapshot = useWorkflowSnapshot(workflowID)
 
-  const loaded = useHydratedStore(
-    classifierStore,
-    cachePanoptesData,
-    {
-      onAddToCollection,
-      onCompleteClassification,
-      onSubjectChange,
-      onSubjectReset,
-      onToggleFavourite
-    },
-    `fem-classifier-${project.id}`
-  )
+  const loaded = useHydratedStore( classifierStore, cachePanoptesData,`fem-classifier-${project.id}`)
+
+  useEffect(function onLoad() {
+    /*
+    This should run after the store is created and hydrated.
+    Otherwise, hydration will overwrite the callbacks with
+    their defaults.
+    */
+    if (loaded) {
+      console.log('setting classifier event callbacks')
+      const { classifications, subjects } = classifierStore
+      classifierStore.setOnAddToCollection(onAddToCollection)
+      classifications.setOnComplete(onCompleteClassification)
+      classifierStore.setOnSubjectChange(onSubjectChange)
+      subjects.setOnReset(onSubjectReset)
+      classifierStore.setOnToggleFavourite(onToggleFavourite)
+    }
+  }, [loaded])
 
   useEffect(function onAuthChange() {
     if (loaded) {
