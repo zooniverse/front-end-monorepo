@@ -80,8 +80,16 @@ async function fetchWorkflow(workflowID) {
   return null
 }
 
+const SWRoptions = {
+  revalidateIfStale: true,
+  revalidateOnMount: true,
+  revalidateOnFocus: true,
+  revalidateOnReconnect: true,
+  refreshInterval: 0
+}
+
 function useWorkflowSnapshot(workflowID) {
-  const { data } = useSWR(workflowID, fetchWorkflow)
+  const { data } = useSWR(workflowID, fetchWorkflow, SWRoptions)
   return data ?? null
 }
 
