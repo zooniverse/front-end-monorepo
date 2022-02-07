@@ -1,11 +1,9 @@
 import { GraphQLClient } from 'graphql-request'
 import { Paragraph } from 'grommet'
-import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
 import { persist } from 'mst-persist'
-import useSWR from 'swr'
 import PropTypes from 'prop-types'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../translations/i18n'
 import i18n from 'i18next'
 import {
@@ -16,8 +14,8 @@ import {
 } from '@zooniverse/panoptes-js'
 
 import { asyncSessionStorage } from '@helpers'
+import { useStore, useWorkflowSnapshot } from './hooks'
 import { unregisterWorkers } from '../../workers'
-import RootStore from '../../store'
 import Classifier from './Classifier'
 
 // import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
@@ -49,41 +47,6 @@ const client = {
 // Once in our store, once in the worker
 // So we'll unregister the worker for now.
 unregisterWorkers('./queue.js')
-
-let store
-
-function initStore({ authClient, client, initialState }) {
-  if (!store) {
-    store = RootStore.create(initialState, {
-      authClient,
-      client
-    })
-    makeInspectable(store)
-  }
-  return store
-}
-/**
-  useStore hook adapted from
-  https://github.com/vercel/next.js/blob/5201cdbaeaa72b54badc8f929ddc73c09f414dc4/examples/with-mobx-state-tree/store.js#L49-L52
-*/
-function useStore({ authClient, client, initialState }) {
-  const _store = useMemo(() => initStore({ authClient, client, initialState }), [authClient, initialState])
-  return _store
-}
-
-async function fetchWorkflow(workflowID) {
-  if (workflowID) {
-    const { body } = await panoptesClient.get(`/workflows/${workflowID}`)
-    const [ workflowSnapshot ] = body.workflows
-    return workflowSnapshot
-  }
-  return null
-}
-
-function useWorkflowSnapshot(workflowID) {
-  const { data } = useSWR(workflowID, fetchWorkflow)
-  return data ?? null
-}
 
 export default function ClassifierContainer({
   authClient,
