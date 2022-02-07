@@ -213,4 +213,28 @@ describe('Component > ClassifyPage', function () {
       })
     })
   })
+
+  describe('classifier session storage', function () {
+    it('should be disabled by default', function () {
+      const workflows = [{
+        id: '1234',
+        grouped: true
+      }]
+      const wrapper = shallow(<ClassifyPage appLoadingState={asyncStates.success} workflows={workflows} />)
+      const classifier = wrapper.find(ClassifierWrapper)
+      expect(classifier.prop('cachePanoptesData')).to.be.false()
+    })
+    it('should be enabled for prioritised workflows', function () {
+      let workflows = [{
+        id: '1234',
+        grouped: true
+      },{
+        id: '3456',
+        prioritized: true
+      }]
+      const wrapper = shallow(<ClassifyPage appLoadingState={asyncStates.success} workflows={workflows} />)
+      const classifier = wrapper.find(ClassifierWrapper)
+      expect(classifier.prop('cachePanoptesData')).to.be.true()
+    })
+  })
 })
