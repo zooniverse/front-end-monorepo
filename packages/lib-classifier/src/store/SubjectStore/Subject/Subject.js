@@ -21,6 +21,12 @@ const Subject = types
     transcriptionReductions: types.maybe(TranscriptionReductions)
   })
 
+  .postProcessSnapshot(snapshot => {
+    const newSnapshot = Object.assign({}, snapshot)
+    delete newSnapshot.stepHistory
+    return newSnapshot
+  })
+
   .views(self => ({
     get talkURL () {
       if (self.project) {
