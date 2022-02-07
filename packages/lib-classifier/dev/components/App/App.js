@@ -95,7 +95,7 @@ class App extends React.Component {
   }
 
   login () {
-    oauth.signIn('http://localhost:8080/')
+    oauth.signIn(window.location.origin)
   }
 
   logout () {
