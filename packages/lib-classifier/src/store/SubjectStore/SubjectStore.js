@@ -103,7 +103,7 @@ const SubjectStore = types
 
       // start a new history for each new subject and classification.
       if (self.classification && subject) {
-        subject.stepHistory.start()
+        subject.startClassification()
       }
     }
 
