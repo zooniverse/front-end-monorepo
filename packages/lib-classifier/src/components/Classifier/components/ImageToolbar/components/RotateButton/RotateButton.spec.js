@@ -2,6 +2,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
 import RotateButton from './RotateButton'
+import i18n from '@test/i18n/i18n-for-tests'
 
 describe('Component > RotateButton', function () {
   it('should render without crashing', function () {
@@ -10,8 +11,11 @@ describe('Component > RotateButton', function () {
   })
 
   it('should have an `a11yTitle` prop', function () {
+    const useTranslationStub = sinon.stub(i18n, 't').callsFake((key) => key)
     const wrapper = shallow(<RotateButton />)
-    expect(wrapper.prop('a11yTitle')).to.equal('Rotate subject')
+    expect(wrapper.prop('a11yTitle')).exists()
+    expect(useTranslationStub).to.have.been.calledWith('ImageToolbar.RotateButton.ariaLabel')
+    useTranslationStub.restore()
   })
 
   it('should call the onClick prop function on click', function () {
