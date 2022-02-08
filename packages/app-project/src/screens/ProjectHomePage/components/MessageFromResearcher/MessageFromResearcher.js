@@ -1,13 +1,10 @@
 import { Markdownz, SpacedText } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { Box, Button, Paragraph, Image } from 'grommet'
 import { string } from 'prop-types'
 import styled from 'styled-components'
+import { useTranslation } from 'next-i18next'
 
-import en from './locales/en'
 import ContentBox from '@shared/components/ContentBox'
-
-counterpart.registerTranslations('en', en)
 
 const StyledParagraph = styled(Paragraph)`
   max-width: 100%;
@@ -19,8 +16,6 @@ const StyledAvatar = styled(Image)`
   object-fit: cover;
   border-radius: 50%;
 `
-
-counterpart.registerTranslations('en', en)
 
 const components = {
   p: (nodeProps) => (
@@ -38,17 +33,19 @@ function MessageFromResearcher ({
   researcher,
   talkLink
 }) {
+  const { t } = useTranslation('screens')
+
   return (
-    <ContentBox title={counterpart('MessageFromResearcher.title')}>
+    <ContentBox title={t('Home.MessageFromResearcher.title')}>
 
       {!message && (
         <>
           <StyledParagraph
-            children={counterpart('MessageFromResearcher.noMessage')}
+            children={t('Home.MessageFromResearcher.noMessage')}
             margin={{ bottom: 'small', top: 'none' }}
           />
           <div>
-            <Button href={talkLink} label={counterpart('MessageFromResearcher.noMessageButton')} />
+            <Button href={talkLink} label={t('Home.MessageFromResearcher.noMessageButton')} />
           </div>
         </>
       )}

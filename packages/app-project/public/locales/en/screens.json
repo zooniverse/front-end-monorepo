@@ -12,6 +12,16 @@
     "SidebarHeading": "About"
   },
   "Home": {
+    "Hero": {
+      "Introduction": {
+        "link": "Learn more"
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Connect with the research team on Talk to learn more about this project!",
+      "noMessageButton": "Go to Talk",
+      "title": "Message from the researcher"
+    },
     "ZooniverseTalk": {
       "button": "Join in",
       "message": "Chat with the research team and other volunteers!",
