@@ -79,8 +79,24 @@ export default function ClassifierContainer({
     their defaults.
     */
     if (loaded) {
+      const { classifications, subjects, workflows } = classifierStore
+      if (!workflows.active?.prioritized) {
+        /*
+        In this case, we delete the saved queue so that
+        refreshing the classifier will load a new, randomised
+        subject queue.
+        */
+        console.log('randomising the subject queue.')
+        subjects.reset()
+      }
+      if (subjects.active) {
+        /*
+          This is a hack to start a new classification from a snapshot.
+        */
+        console.log('store hydrated with active subject', subjects.active.id)
+        subjects.setActiveSubject(subjects.active.id)
+      }
       console.log('setting classifier event callbacks')
-      const { classifications, subjects } = classifierStore
       classifierStore.setOnAddToCollection(onAddToCollection)
       classifications.setOnComplete(onCompleteClassification)
       classifierStore.setOnSubjectChange(onSubjectChange)
