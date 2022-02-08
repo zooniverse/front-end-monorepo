@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
+import i18n from '@test/i18n/i18n-for-tests'
 
 import FullscreenButton from './FullscreenButton'
 
@@ -11,8 +12,11 @@ describe('Component > FullscreenButton', function () {
   })
 
   it('should have an `a11yTitle` label', function () {
+    const useTranslationStub = sinon.stub(i18n, 't').callsFake((key) => key)
     const wrapper = shallow(<FullscreenButton />)
-    expect(wrapper.prop('a11yTitle')).to.equal('View subject in full screen mode')
+    expect(wrapper.prop('a11yTitle')).exists()
+    expect(useTranslationStub).to.have.been.calledWith('ImageToolbar.FullscreenButton.ariaLabel.fullscreen')
+    useTranslationStub.restore()
   })
 
   it('should call the onClick prop function on click', function () {

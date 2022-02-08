@@ -30,6 +30,10 @@ function ClassifyPage({
   workflowFromUrl,
   workflows = []
 }) {
+  /*
+    Enable session caching in the classifier for projects with ordered subject selection.
+  */
+  const cachePanoptesData = workflows.some(workflow => workflow.prioritized)
   const responsiveColumns = (screenSize === 'small')
     ? ['auto']
     : ['1em', 'auto', '1em']
@@ -49,7 +53,6 @@ function ClassifyPage({
   let classifierProps = {}
   if (canClassify) {
     classifierProps = {
-      cachePanoptesData: workflowFromUrl?.prioritized,
       workflowID,
       subjectSetID,
       subjectID
@@ -76,6 +79,7 @@ function ClassifyPage({
           <Grid columns={responsiveColumns} gap='small'>
             <ProjectName />
             <ClassifierWrapper
+              cachePanoptesData={cachePanoptesData}
               onAddToCollection={addToCollection}
               onSubjectReset={onSubjectReset}
               {...classifierProps}

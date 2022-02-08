@@ -32,5 +32,55 @@
         "subjectLabel": "Subject {{id}}"
       }
     }
+  },
+  "Classify" :{
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "There was an error in the classifier :("
+      }    
+    },
+    "FinishedForTheDay": {
+      "buttons": {
+        "anotherProject": "Find another project",
+        "stats": "See the stats"
+      },
+      "text": "Your answers are saved for the research team while you're working. See the project stats and return to the {{projectName}} home page.",
+      "title": "Finished for the day?",
+      "ProjectImage": {
+        "alt": "Image for {{projectName}}"
+      },
+      "RelatedProjectsButton": {
+        "label": "Find another project"
+      },
+      "RelatedProjectsModal": {
+        "hereAreSomeOthers": "Here are some other Zooniverse projects you might enjoy",
+        "relatedProjects": "Related Projects",
+        "title": "Love {{project}}?",
+        "ProjectCard": {
+          "viewProject": "View Project"
+        }
+      }
+    },
+    "RecentSubjects": {
+      "text": "Discuss a subject on Talk, or add it to your Favourites or a collection.",
+      "title": "Your recent classifications"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "No, thanks",
+      "confirm": "Take me to the next workflow!",
+      "content":  "Congratulations! Because you're doing so well, you can now access another workflow. If you prefer to stay with the current workflow, you can choose to stay.",
+      "dismiss": "Don't show this again this session",
+      "title": "New Workflow Available"
+    },
+    "YourStats": {
+      "todaysCount": "Classifications today",
+      "totalCount": "Classifications total",
+      "dailyCount": "%(projectName)s daily classification count",
+      "text": "Keep up the great work!",
+      "title": "Your {{projectName}} statistics",
+      "DailyClassificationsChart": {
+        "title": "{{projectName}} daily classification counts"
+      }
+    }
   }
 }

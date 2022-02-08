@@ -1,8 +1,9 @@
 import getDefaultPageProps from '@helpers/getDefaultPageProps'
 import fetchSubjectSets from '@helpers/fetchSubjectSets'
 export { default } from '@screens/ClassifyPage'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export async function getServerSideProps({ params, query, req, res }) {
+export async function getServerSideProps({ locale, params, query, req, res }) {
   const { env } = query
   const { notFound, props: defaultProps } = await getDefaultPageProps({ params, query, req, res })
   const { subjectSetID, workflowID } = params
@@ -17,6 +18,7 @@ export async function getServerSideProps({ params, query, req, res }) {
   return ({
     notFound,
     props : {
+      ...(await serverSideTranslations(locale, ['screens'])),
       ...defaultProps,
       pageTitle,
       subjectSetID,

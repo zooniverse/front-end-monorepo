@@ -1,16 +1,13 @@
-import counterpart from 'counterpart'
 import { Box, Button, Grid, Heading, Paragraph, Text } from 'grommet'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
 import { withResponsiveContext } from '@zooniverse/react-components'
+import { useTranslation } from 'next-i18next'
 
-import en from './locales/en'
 import ProjectImage from './components/ProjectImage'
 // import RelatedProjects from './components/RelatedProjects'
 import ContentBox from '@shared/components/ContentBox'
-
-counterpart.registerTranslations('en', en)
 
 const StyledButton = styled(Button)`
   border-width: 1px;
@@ -34,6 +31,8 @@ function FinishedForTheDay (props) {
     theme: { dark }
   } = props
 
+  const { t } = useTranslation('screens')
+
   const columns = (imageSrc && screenSize !== 'small') ? ['1/4', 'auto'] : ['auto']
 
   return (
@@ -46,11 +45,11 @@ function FinishedForTheDay (props) {
             margin={{ bottom: 'small', top: 'none' }}
             size='medium'
           >
-            {counterpart('FinishedForTheDay.title')}
+            {t('Classify.FinishedForTheDay.title')}
           </Heading>
 
           <Paragraph margin={{ bottom: 'small', top: 'none' }}>
-            {counterpart('FinishedForTheDay.text', { projectName })}
+            {t('Classify.FinishedForTheDay.text', { projectName })}
           </Paragraph>
 
           <StyledBox direction='row' wrap>
@@ -59,7 +58,7 @@ function FinishedForTheDay (props) {
               href={linkProps.href}
               label={(
                 <Text size='medium'>
-                  {counterpart('FinishedForTheDay.buttons.stats')}
+                  {t('Classify.FinishedForTheDay.buttons.stats')}
                 </Text>
               )}
               primary
