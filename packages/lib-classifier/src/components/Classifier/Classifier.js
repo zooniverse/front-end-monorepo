@@ -53,7 +53,7 @@ export default function Classifier({
       workflowSnapshot.subjectSet = subjectSetID
       workflows.setResources([workflowSnapshot])
       // TODO: the task area crashes without the following line. Why is that?
-      subjects.setActiveSubject(subjects.active?.id)
+      classifierStore.startClassification()
     }
   }, [workflowVersion])
 

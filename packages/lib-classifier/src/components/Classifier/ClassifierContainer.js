@@ -94,7 +94,7 @@ export default function ClassifierContainer({
           This is a hack to start a new classification from a snapshot.
         */
         console.log('store hydrated with active subject', subjects.active.id)
-        subjects.setActiveSubject(subjects.active.id)
+        classifierStore.startClassification()
       }
       console.log('setting classifier event callbacks')
       classifierStore.setOnAddToCollection(onAddToCollection)
