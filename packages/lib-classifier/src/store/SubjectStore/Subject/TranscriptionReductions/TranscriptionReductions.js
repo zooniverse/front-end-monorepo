@@ -79,7 +79,9 @@ const TranscriptionReductions = types
   .actions(self => {
     return {
       afterAttach () {
-        self.fetchCaesarReductions()
+        if (self.reductions.length === 0) {
+          self.fetchCaesarReductions()
+        }
       },
 
       fetchCaesarReductions: flow(function * fetchCaesarReductions () {
