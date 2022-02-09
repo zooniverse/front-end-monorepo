@@ -326,8 +326,8 @@ describe('Model > SubjectStore', function () {
     })
 
     it('should be valid subjects', function () {
-      const expectedSubject = SingleImageSubject.create(imageSubjects[0])
-      expect(subjects.active).to.deep.equal(expectedSubject)
+      const expectedSubject = SingleImageSubject.create(imageSubjects[1])
+      expect(subjects.resources.get(expectedSubject.id)).to.deep.equal(expectedSubject)
     })
 
     it('should be of the correct subject type', function () {
@@ -344,8 +344,8 @@ describe('Model > SubjectStore', function () {
     })
 
     it('should be valid subjects', function () {
-      const expectedSubject = SingleTextSubject.create(textSubjects[0])
-      expect(subjects.active).to.deep.equal(expectedSubject)
+      const expectedSubject = SingleTextSubject.create(textSubjects[1])
+      expect(subjects.resources.get(expectedSubject.id)).to.deep.equal(expectedSubject)
     })
 
     it('should be of the correct subject type', function () {
@@ -359,7 +359,6 @@ describe('Model > SubjectStore', function () {
       'subject',
       10,
       {
-        id: 'testGroup',
         locations: [
           { 'image/png': 'https://foo.bar/example.png' },
           { 'image/png': 'https://foo.bar/example.png' },
@@ -377,8 +376,8 @@ describe('Model > SubjectStore', function () {
     })
 
     it('should be valid subjects', function () {
-      const expectedSubject = SubjectGroup.create(subjectGroups[0])
-      expect(subjects.active).to.deep.equal(expectedSubject)
+      const expectedSubject = SubjectGroup.create(subjectGroups[1])
+      expect(subjects.resources.get(expectedSubject.id)).to.deep.equal(expectedSubject)
     })
     
     it('should be of the correct "subject group" type', function () {
