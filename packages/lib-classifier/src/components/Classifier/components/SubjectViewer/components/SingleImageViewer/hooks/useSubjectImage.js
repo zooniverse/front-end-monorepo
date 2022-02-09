@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react'
 
+const PLACEHOLDER_URL = 'https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png'  // Use this instead of https://www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png to save on network calls
+
+export const placeholder = {
+  naturalHeight: 600,
+  naturalWidth: 800,
+  src: PLACEHOLDER_URL
+}
+
 export default function useSubjectImage(ImageObject = window.Image, url) {
-  const [img, setImg] = useState({})
+  const [img, setImg] = useState(placeholder)
   const [error, setError] = useState()
 
   function fetchImage() {
@@ -16,6 +24,7 @@ export default function useSubjectImage(ImageObject = window.Image, url) {
 
   async function onLoad() {
     try {
+      setImg(placeholder)
       const img = await fetchImage()
       setImg(img)
     } catch (error) {

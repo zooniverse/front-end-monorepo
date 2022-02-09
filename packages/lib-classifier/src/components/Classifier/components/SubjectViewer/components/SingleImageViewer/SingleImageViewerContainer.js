@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 import { draggable } from '@plugins/drawingTools/components'
 
-import useSubjectImage from './hooks/useSubjectImage'
+import useSubjectImage, { placeholder } from './hooks/useSubjectImage'
 import locationValidator from '../../helpers/locationValidator'
 import SingleImageViewer from './SingleImageViewer'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
@@ -16,7 +16,6 @@ const DraggableImage = styled(draggable('image'))`
   cursor: move;
 `
 
-const PLACEHOLDER_URL = 'https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png'  // Use this instead of https://www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png to save on network calls
 function SingleImageViewerContainer({
   enableInteractionLayer = true,
   enableRotation = () => null,
@@ -40,10 +39,10 @@ function SingleImageViewerContainer({
   const imageUrl = subject ? Object.values(subject.locations[0])[0] : null
   const { img, error } = useSubjectImage(ImageObject, imageUrl)
   // default to a placeholder while image is loading.
-  const { naturalHeight = 600, naturalWidth = 800, src = PLACEHOLDER_URL } = img
+  const { naturalHeight, naturalWidth, src } = img
 
   useEffect(function onImageLoad() {
-    if (src !== PLACEHOLDER_URL) {
+    if (src !== placeholder.src) {
       const svgImage = subjectImage.current
       const { width: clientWidth, height: clientHeight } = svgImage
         ? svgImage.getBoundingClientRect()
