@@ -46,7 +46,7 @@ const Classification = types
         annotation.id = annotation.id || cuid()
         annotations[annotation.id] = annotation
       })
-      newSnapshot = Object.assign({}, newSnapshot, { annotations })
+      newSnapshot.annotations = annotations
     }
     return newSnapshot
   })
