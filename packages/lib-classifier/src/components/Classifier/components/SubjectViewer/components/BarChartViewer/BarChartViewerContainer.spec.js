@@ -161,7 +161,7 @@ describe('Component > BarChartViewerContainer', function () {
       )
     })
 
-    it('should update component state when there is a new valid subject', function (done) {
+    it('should update subject data when there is a new valid subject', function (done) {
       const onError = sinon.stub().callsFake(() => {
         expect.fail('should not call onError')
         done()
