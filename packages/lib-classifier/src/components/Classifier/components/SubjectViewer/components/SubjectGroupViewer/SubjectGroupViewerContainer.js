@@ -200,8 +200,8 @@ export function SubjectGroupViewerContainer({
   }
   
   function doPan(dx, dy) {
-    setPanX(panX + dx)
-    setPanY(panY + dy)
+    setPanX(_panX => _panX + dx)
+    setPanY(_panY => _panY + dy)
   }
 
   function onZoomViaExternalControls(type) {
@@ -213,12 +213,14 @@ export function SubjectGroupViewerContainer({
     const ARBITRARY_MAX_ZOOM = 4
     
     switch (type) {
-      case 'zoomin':
-        setZoom(Math.min(zoom + 0.1, ARBITRARY_MAX_ZOOM))
+      case 'zoomin': {
+        setZoom(_zoom => Math.min(_zoom + 0.1, ARBITRARY_MAX_ZOOM))
         break;
-      case 'zoomout':
-        setZoom(Math.max(zoom - 0.1, ARBITRARY_MIN_ZOOM))
+      }
+      case 'zoomout': {
+        setZoom(_zoom => Math.max(_zoom - 0.1, ARBITRARY_MIN_ZOOM))
         break;
+      }
       case 'zoomto': {
         setZoom(1)
         setPanX(0)
@@ -240,7 +242,7 @@ export function SubjectGroupViewerContainer({
     
   const gridWidth = gridColumns * cellWidth
   const gridHeight = gridRows * cellHeight
-    
+
   if (loadingState === asyncStates.error) {
     return (
       <div>Something went wrong.</div>
