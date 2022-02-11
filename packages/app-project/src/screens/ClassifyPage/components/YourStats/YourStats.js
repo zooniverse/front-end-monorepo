@@ -1,38 +1,36 @@
-import counterpart from 'counterpart'
 import { Box, Grid, Paragraph } from 'grommet'
 import { number, shape, string } from 'prop-types'
+import { useTranslation } from 'next-i18next'
 
-import en from './locales/en'
 import DailyClassificationsChart from './components/DailyClassificationsChart'
 import ContentBox from '@shared/components/ContentBox'
 import Stat from '@shared/components/Stat'
 import WidgetHeading from '@shared/components/WidgetHeading'
 
-counterpart.registerTranslations('en', en)
-
 function YourStats (props) {
   const { counts, projectName } = props
+  const { t } = useTranslation('screens')
 
   return (
-    <ContentBox title={counterpart('YourStats.title', { projectName })}>
+    <ContentBox title={t('Classify.YourStats.title', { projectName })}>
       <Paragraph margin={{ top: 'none' }}>
-        {counterpart('YourStats.text')}
+        {t('Classify.YourStats.text')}
       </Paragraph>
       <Box border={{ color: 'light-5', side: 'bottom' }} pad={{ bottom: 'small' }}>
         <Grid columns={['1fr', '1fr']} gap='small'>
           <Stat
-            label={counterpart('YourStats.todaysCount')}
+            label={t('Classify.YourStats.todaysCount')}
             value={counts.today}
           />
           <Stat
-            label={counterpart('YourStats.totalCount')}
+            label={t('Classify.YourStats.totalCount')}
             value={counts.total}
           />
         </Grid>
       </Box>
       <Box pad={{ top: 'small' }}>
         <WidgetHeading
-          text={counterpart('YourStats.dailyCount', { projectName })}
+          text={t('Classify.YourStats.dailyCount', { projectName })}
           level='3'
         />
         <DailyClassificationsChart />

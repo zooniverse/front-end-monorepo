@@ -66,5 +66,31 @@
     "FieldGuideItemAnchor": {
       "ariaTitle": "Select {{title}}"
     }
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Annotate"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "fullscreen": "View subject in full screen mode",
+        "actualSize": "View subject at normal size"
+      }
+    },
+    "MoveButton": {
+      "ariaLabel": "Move subject"
+    },
+    "ResetButton": {
+      "ariaLabel": "Reset subject view"
+    },
+    "RotateButton": {
+      "ariaLabel": "Rotate subject"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Zoom in on subject"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Zoom out from subject"
+    }
   }
 }

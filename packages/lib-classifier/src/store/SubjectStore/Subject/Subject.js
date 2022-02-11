@@ -16,9 +16,15 @@ const Subject = types
     selected_at: types.maybe(types.string),
     selection_state: types.maybe(types.string),
     shouldDiscuss: types.maybe(types.frozen()),
-    stepHistory: types.optional(StepHistory, () => StepHistory.create({})),
+    stepHistory: types.maybe(StepHistory),
     user_has_finished_workflow: types.optional(types.boolean, false),
     transcriptionReductions: types.maybe(TranscriptionReductions)
+  })
+
+  .postProcessSnapshot(snapshot => {
+    const newSnapshot = Object.assign({}, snapshot)
+    delete newSnapshot.stepHistory
+    return newSnapshot
   })
 
   .views(self => ({
@@ -132,6 +138,11 @@ const Subject = types
       }
     }
 
+    function startClassification() {
+      self.stepHistory = StepHistory.create({})
+      self.stepHistory.start()
+    }
+
     function toggleFavorite () {
       const rootStore = getRoot(self)
       self.favorite = !self.favorite
@@ -144,6 +155,7 @@ const Subject = types
       addToCollection,
       markAsSeen,
       openInTalk,
+      startClassification,
       toggleFavorite
     }
   })

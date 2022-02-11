@@ -1,17 +1,14 @@
-import counterpart from 'counterpart'
 import { Box, Heading, Text } from 'grommet'
 import { shape, string } from 'prop-types'
 import styled from 'styled-components'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'next-i18next'
 
 const Pre = styled.pre`
   margin: 0;
 `
 
 function ErrorMessage ({ error }) {
+  const { t } = useTranslation('screens')
   const { message, name } = error
   const errorString = `${name}: ${message}`
 
@@ -26,7 +23,7 @@ function ErrorMessage ({ error }) {
         margin='none'
         size='small'
       >
-        {counterpart('ErrorMessage.title')}
+        {t('Classify.ClassifierWrapper.ErrorMessage.title')}
       </Heading>
 
       <Text size='small' margin={{ top: 'medium' }}>

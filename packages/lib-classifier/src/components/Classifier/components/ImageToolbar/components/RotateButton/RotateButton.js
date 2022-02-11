@@ -1,17 +1,15 @@
-import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import RotateIcon from './RotateIcon'
-import en from './locales/en'
 import Button from '../Button'
 
-counterpart.registerTranslations('en', en)
-
 function RotateButton ({ disabled, onClick }) {
+  const { t } = useTranslation('components')
   return (
     <Button
-      a11yTitle={counterpart('RotateButton.ariaLabel')}
+      a11yTitle={t('ImageToolbar.RotateButton.ariaLabel')}
       disabled={disabled}
       icon={<RotateIcon />}
       onClick={onClick}
@@ -26,7 +24,7 @@ RotateButton.propTypes = {
 
 RotateButton.defaultProps = {
   disabled: false,
-  onClick: () => console.log(counterpart('RotateButton.ariaLabel'))
+  onClick: () => console.log('Rotate Button')
 }
 
 export default RotateButton

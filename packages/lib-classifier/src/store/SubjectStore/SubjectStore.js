@@ -103,7 +103,7 @@ const SubjectStore = types
 
       // start a new history for each new subject and classification.
       if (self.classification && subject) {
-        subject.stepHistory.start()
+        subject.startClassification()
       }
     }
 
@@ -322,6 +322,11 @@ const SubjectStore = types
     }
 
     function reset () {
+      /*
+      This line stops the classifier from crashing when changing workflows.
+      TODO: It's a safeReference, so why is it not being cleared automatically?
+      */
+      self.active = undefined
       self.resources.clear()
       self.available.clear()
     }
