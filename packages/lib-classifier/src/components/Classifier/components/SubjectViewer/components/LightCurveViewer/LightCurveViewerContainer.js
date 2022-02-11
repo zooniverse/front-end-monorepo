@@ -114,6 +114,7 @@ export function LightCurveViewerContainer({
       onKeyDown={onKeyDown}
       setOnPan={setOnPan}
       setOnZoom={setOnZoom}
+      subjectID={subject.id}
       toolIndex={activeToolIndex}
     />
   )
