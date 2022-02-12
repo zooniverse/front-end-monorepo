@@ -105,6 +105,16 @@
       "hide": "Hide All Marks",
       "show": "Show All Marks",
       "showUser": "Show Your Marks"
+    },
+    "MetadataButton": {
+      "label": "Subject Info"
+    },
+    "MetadataModal": {
+      "title": "Subject Metadata",
+      "table": {
+        "label": "Label",
+        "value": "Value"
+      }
     }
   }
 }
