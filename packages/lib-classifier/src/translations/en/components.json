@@ -92,5 +92,10 @@
     "ZoomOutButton": {
       "ariaLabel": "Zoom out from subject"
     }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Add to collections"
+    }
   }
 }
