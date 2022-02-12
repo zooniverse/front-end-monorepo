@@ -1,0 +1,13 @@
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "Please sign in or sign up to track your contributions.",
+      "register": "register",
+      "signIn": "sign in"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "Finished! Looks like this project is out of data at the moment!",
+      "seeResults": "See Results"
+    }
+  }
+}
