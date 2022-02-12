@@ -8,7 +8,7 @@ export async function getServerSideProps({ locale, params, query, req, res }) {
   return {
     notFound,
     props: {
-      ...(await serverSideTranslations(locale, ['screens'])),
+      ...(await serverSideTranslations(locale, ['components', 'screens'])),
       pageTitle: 'Research',
       pageType: 'science_case',
       ...props
