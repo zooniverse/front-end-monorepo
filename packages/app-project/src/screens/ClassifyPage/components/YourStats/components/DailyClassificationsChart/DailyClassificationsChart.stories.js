@@ -1,5 +1,7 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
+import { RouterContext } from 'next/dist/shared/lib/router-context'
+import Router from 'next/router'
 
 import DailyClassificationsChartContainer from './DailyClassificationsChartContainer'
 const MOCK_DAILY_COUNTS = [
@@ -16,6 +18,26 @@ const MOCK_TOTALS = {
   today: 25
 }
 
+function RouterMock({ children }) {
+  const mockRouter = {
+    asPath: '/projects/zooniverse/snapshot-serengeti/about/research',
+    push: () => {},
+    prefetch: () => new Promise((resolve, reject) => {}),
+    query: {
+      owner: 'zooniverse',
+      project: 'snapshot-serengeti'
+    }
+  }
+
+  Router.router = mockRouter
+
+  return (
+    <RouterContext.Provider value={mockRouter}>
+      {children}
+    </RouterContext.Provider>
+  )
+}
+
 export default {
   title: 'Project App / Screens / Classify / Daily Classifications Chart',
   component: DailyClassificationsChartContainer,
@@ -28,13 +50,14 @@ export default {
 
 export function Plain({ counts, projectName, thisWeek }) {
   return (
-    <Grommet theme={zooTheme}>
-      <DailyClassificationsChartContainer
-        counts={counts}
-        thisWeek={thisWeek}
-        projectName={projectName}
-      />
-    </Grommet>
+    <RouterMock>
+      <Grommet theme={zooTheme}>
+        <DailyClassificationsChartContainer
+          counts={counts}
+          thisWeek={thisWeek}
+          projectName={projectName}
+        />
+      </Grommet>
+    </RouterMock>
   )
 }
-

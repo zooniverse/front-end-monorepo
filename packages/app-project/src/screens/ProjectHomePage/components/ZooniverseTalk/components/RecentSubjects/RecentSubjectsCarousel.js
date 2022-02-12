@@ -1,4 +1,3 @@
-import counterpart from 'counterpart'
 import { arrayOf, shape, string } from 'prop-types'
 import { Carousel } from 'grommet'
 import SubjectThumbnail from './components/SubjectThumbnail'
