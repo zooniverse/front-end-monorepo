@@ -96,6 +96,15 @@
   "MetaTools": {
     "CollectionsButton": {
       "add": "Add to collections"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Hide Previous Marks",
+      "show": "Show Previous Marks"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Hide All Marks",
+      "show": "Show All Marks",
+      "showUser": "Show Your Marks"
     }
   }
 }
