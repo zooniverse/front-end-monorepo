@@ -1,5 +1,6 @@
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
+import * as Router from 'next/router'
 
 import DailyClassificationsChartContainer from './DailyClassificationsChartContainer'
 import DailyClassificationsChart from './DailyClassificationsChart'
@@ -8,6 +9,7 @@ describe('Component > DailyClassificationsChartContainer', function () {
   let clock
   let wrapper
   let componentWrapper
+  let routerStub
   const MOCK_DAILY_COUNTS = [
     { count: 12, period: '2019-09-30' },
     { count: 13, period: '2019-10-01' },
@@ -74,6 +76,17 @@ describe('Component > DailyClassificationsChartContainer', function () {
 
   before(function () {
     clock = sinon.useFakeTimers({ now: new Date('2019-10-06T12:00:00Z'), toFake: ['Date'] })
+    routerStub = sinon.stub(Router, 'useRouter').callsFake((component) => {
+      return {
+        asPath: '',
+        locale: 'en',
+        query: {
+          owner: 'zootester1',
+          project: 'my-project'
+        },
+        prefetch: () => Promise.resolve()
+      }
+    })
     wrapper = shallow(
       <DailyClassificationsChartContainer
         counts={MOCK_TOTALS}
@@ -86,6 +99,7 @@ describe('Component > DailyClassificationsChartContainer', function () {
 
   after(function () {
     clock.restore()
+    routerStub.restore()
   })
 
   it('should render without crashing', function () {
