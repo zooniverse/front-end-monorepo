@@ -1,31 +1,30 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import styled from 'styled-components'
+import { useTranslation } from 'next-i18next'
+
 import { Anchor } from 'grommet'
 import NavLink from '@shared/components/NavLink'
 import GenericAnnouncement from '../GenericAnnouncement'
-import en from './locales/en'
-import counterpart from 'counterpart'
-
-counterpart.registerTranslations('en', en)
 
 const StyledAnchor = styled(Anchor)`
   line-height: 19px;
 `
 
 export default function AuthenticationInvitationContainer({ isVisible }) {
+  const { t } = useTranslation('components')
   const [dismissed, setDismissed] = useState(false)
   const { pathname } = window.location
   const signInLink = {
     href: `${pathname}?login=true`,
-    text: counterpart('AuthenticationInvitation.signIn')
+    text: t('Announcements.AuthenticationInvitation.signIn')
   }
   const registerLink = {
     href: `${pathname}?register=true`,
-    text: counterpart('AuthenticationInvitation.register')
+    text: t('Announcements.AuthenticationInvitation.register')
   }
 
   // TODO: maybe show project specific message here. Then fallback on generic.
-  const announcement = counterpart('AuthenticationInvitation.announcement')
+  const announcement = t('Announcements.AuthenticationInvitation.announcement')
 
   function dismissBanner() {
     setDismissed(true)
