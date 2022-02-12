@@ -21,6 +21,7 @@ const MOCK_TOTALS = {
 function RouterMock({ children }) {
   const mockRouter = {
     asPath: '/projects/zooniverse/snapshot-serengeti/about/research',
+    locale: 'en',
     push: () => {},
     prefetch: () => new Promise((resolve, reject) => {}),
     query: {
