@@ -1,7 +1,6 @@
 import { MediaContextProvider } from '@shared/components/Media'
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
-import counterpart from 'counterpart'
 import { Grommet } from 'grommet'
 import { Provider } from "mobx-react";
 import PropTypes from 'prop-types'
