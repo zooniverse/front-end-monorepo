@@ -9,5 +9,17 @@
       "announcement": "Finished! Looks like this project is out of data at the moment!",
       "seeResults": "See Results"
     }
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "Username or password is incorrect",
+      "forgot": "Forgot your password?",
+      "heading": "Welcome back!",
+      "instruction": "We're glad you're back! Sign in to pick up where you left off.",
+      "login": "Username or email address",
+      "password": "Password",
+      "placeholder": "e.g. ZooniverseFan123",
+      "signIn": "Sign in"
+    }
   }
 }
