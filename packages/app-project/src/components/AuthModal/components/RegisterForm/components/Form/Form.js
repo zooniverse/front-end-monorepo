@@ -1,13 +1,10 @@
-import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import { Anchor, Box, Button, CheckBox, Grid, Text, FormField, TextInput } from 'grommet'
 import styled from 'styled-components'
 import Link from 'next/link'
 import FieldLabel from '../../../../shared/components/FieldLabel'
 import { withCustomFormik } from '@zooniverse/react-components'
-import en from '../../locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'next-i18next'
 
 export const userNameFieldId = 'RegisterForm_username'
 export const passwordFieldId = 'RegisterForm_password'
@@ -20,11 +17,14 @@ export const emailListSignUpFieldId = 'RegisterForm_email_list_sign_up'
 export const betaListSignUpFieldId = 'RegisterForm_beta_list_sign_up'
 export const underageWithParentFieldId = 'RegisterForm_underage_with_parent'
 
-const PrivacyPolicyLink = () => (
-  <Link href='/privacy' passHref>
-    <Anchor size='small'>{counterpart('RegisterForm.privacyLink')}</Anchor>
-  </Link>
-)
+const PrivacyPolicyLink = () => {
+  const { t } = useTranslation('components')
+  return (
+    <Link href='/privacy' passHref>
+      <Anchor size='small'>{t('AuthModal.RegisterForm.privacyLink')}</Anchor>
+    </Link>
+  )
+}
 
 const CheckBoxFormField = styled(FormField)`
   > div {
@@ -33,18 +33,19 @@ const CheckBoxFormField = styled(FormField)`
 `
 
 function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, values }) {
+  const { t } = useTranslation('components')
   const userNameFieldHelp = (values.underageWithParent)
-    ? counterpart('RegisterForm.underageNotRealName')
-    : counterpart('RegisterForm.usernameHelp')
+    ? t('AuthModal.RegisterForm.underageNotRealName')
+    : t('AuthModal.RegisterForm.usernameHelp')
   const privacyAgreementLabel = (values.underageWithParent)
-    ? <Text>{counterpart('RegisterForm.underageConsent')}{' '}(<PrivacyPolicyLink />)</Text>
-    : <Text>{counterpart('RegisterForm.privacyAgreement')}{' '}(<PrivacyPolicyLink />)</Text>
+    ? <Text>{t('AuthModal.RegisterForm.underageConsent')}{' '}(<PrivacyPolicyLink />)</Text>
+    : <Text>{t('AuthModal.RegisterForm.privacyAgreement')}{' '}(<PrivacyPolicyLink />)</Text>
   const emailListSignUpLabel = (values.underageWithParent)
-    ? <Text>{counterpart('RegisterForm.underageEmailSignUp')}</Text>
-    : <Text>{counterpart('RegisterForm.emailListSignUp')}</Text>
+    ? <Text>{t('AuthModal.RegisterForm.underageEmailSignUp')}</Text>
+    : <Text>{t('AuthModal.RegisterForm.emailListSignUp')}</Text>
   const emailInputLabel = (values.underageWithParent)
-    ? <FieldLabel>{counterpart('RegisterForm.underageEmail')}</FieldLabel>
-    : <FieldLabel>{counterpart('RegisterForm.email')}</FieldLabel>
+    ? <FieldLabel>{t('AuthModal.RegisterForm.underageEmail')}</FieldLabel>
+    : <FieldLabel>{t('AuthModal.RegisterForm.email')}</FieldLabel>
 
   return (
     <Box as='form' onSubmit={handleSubmit} margin={{ top: 'small' }}>
@@ -56,7 +57,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
             checked={values.underageWithParent}
             disabled={isSubmitting}
             id={underageWithParentFieldId}
-            label={<Text>{counterpart('RegisterForm.underageWithParent')}</Text>}
+            label={<Text>{t('AuthModal.RegisterForm.underageWithParent')}</Text>}
             name='underageWithParent'
             onChange={handleChange}
             onBlur={handleBlur}
@@ -69,7 +70,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
             error={errors.username}
             help={userNameFieldHelp}
             htmlFor={userNameFieldId}
-            label={<FieldLabel>{counterpart('RegisterForm.username')}</FieldLabel>}
+            label={<FieldLabel>{t('AuthModal.RegisterForm.username')}</FieldLabel>}
             required
           >
             <TextInput
@@ -80,9 +81,9 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
               onBlur={handleBlur}
               onChange={handleChange}
               pattern='[a-zA-Z0-9_\-.]+'
-              placeholder={counterpart('RegisterForm.usernamePlaceholder')}
+              placeholder={t('AuthModal.RegisterForm.usernamePlaceholder')}
               required
-              title={counterpart('RegisterForm.usernamePatternHelp')}
+              title={t('AuthModal.RegisterForm.usernamePatternHelp')}
               type='text'
               value={values.username}
             />
@@ -90,7 +91,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
 
           <FormField
             htmlFor={passwordFieldId}
-            label={<FieldLabel>{counterpart('RegisterForm.password')}</FieldLabel>}
+            label={<FieldLabel>{t('AuthModal.RegisterForm.password')}</FieldLabel>}
             required
           >
             <TextInput
@@ -109,7 +110,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
           <FormField
             error={errors.passwordConfirm}
             htmlFor={passwordConfirmFieldId}
-            label={<FieldLabel>{counterpart('RegisterForm.passwordConfirm')}</FieldLabel>}
+            label={<FieldLabel>{t('AuthModal.RegisterForm.passwordConfirm')}</FieldLabel>}
             required
           >
             <TextInput
@@ -139,7 +140,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
               name='email'
               onChange={handleChange}
               onBlur={handleBlur}
-              placeholder={counterpart('RegisterForm.emailPlaceholder')}
+              placeholder={t('AuthModal.RegisterForm.emailPlaceholder')}
               required
               type='email'
               value={values.email}
@@ -149,7 +150,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
           <FormField
             error={errors.emailConfirm}
             htmlFor={emailConfirmFieldId}
-            label={<FieldLabel>{counterpart('RegisterForm.emailConfirm')}</FieldLabel>}
+            label={<FieldLabel>{t('AuthModal.RegisterForm.emailConfirm')}</FieldLabel>}
             required
           >
             <TextInput
@@ -158,7 +159,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
               name='emailConfirm'
               onChange={handleChange}
               onBlur={handleBlur}
-              placeholder={counterpart('RegisterForm.emailPlaceholder')}
+              placeholder={t('AuthModal.RegisterForm.emailPlaceholder')}
               required
               type='email'
               value={values.emailConfirm}
@@ -166,9 +167,9 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
           </FormField>
 
           <FormField
-            help={counterpart('RegisterForm.realNameHelp')}
+            help={t('AuthModal.RegisterForm.realNameHelp')}
             htmlFor={realNameFieldId}
-            label={<FieldLabel>{counterpart('RegisterForm.realName')}</FieldLabel>}
+            label={<FieldLabel>{t('AuthModal.RegisterForm.realName')}</FieldLabel>}
           >
             <TextInput
               disabled={isSubmitting}
@@ -177,8 +178,8 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
               onChange={handleChange}
               onBlur={handleBlur}
               pattern='[^@]+'
-              placeholder={counterpart('RegisterForm.realNamePlaceholder')}
-              title={counterpart('RegisterForm.realNamePatternHelp')}
+              placeholder={t('AuthModal.RegisterForm.realNamePlaceholder')}
+              title={t('AuthModal.RegisterForm.realNamePatternHelp')}
               type='text'
               value={values.realName}
             />
@@ -225,7 +226,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
             checked={values.betaListSignUp}
             disabled={isSubmitting}
             id={betaListSignUpFieldId}
-            label={<Text>{counterpart('RegisterForm.betaListSignUp')}</Text>}
+            label={<Text>{t('AuthModal.RegisterForm.betaListSignUp')}</Text>}
             name='betaListSignUp'
             onChange={handleChange}
             onBlur={handleBlur}
@@ -235,7 +236,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
 
       <Button
         disabled={isSubmitting}
-        label={(isSubmitting) ? counterpart('RegisterForm.registering') : counterpart('RegisterForm.register')}
+        label={(isSubmitting) ? t('AuthModal.RegisterForm.registering') : t('AuthModal.RegisterForm.register')}
         primary
         type='submit'
       />

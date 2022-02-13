@@ -98,7 +98,7 @@ describe('Component > LoginFormContainer', function () {
         expect.fail()
       } catch (error) {
         expect(INVALID_SIGN_IN).to.have.been.calledWith(MOCK_FORM_VALUES)
-        // The translation function t is set to simply return keys in a testing environment
+        /** The translation function t is set to simply return keys in a testing environment **/
         expect(MOCK_FORMIK.setFieldError).to.have.been.calledWith('login', 'AuthModal.LoginForm.error')
         expect(MOCK_FORMIK.setFieldError).to.have.been.calledWith('password', 'AuthModal.LoginForm.error')
         expect(MOCK_FORMIK.setSubmitting).to.have.been.calledWith(false)
