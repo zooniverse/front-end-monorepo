@@ -4,7 +4,14 @@ Package:
 
 Closes # .
 
-Describe your changes:
+
+## Describe your changes:
+
+<em>Helpful explanations that will make your reviewer happy:</em>
+- What Zooniverse project should my reviewer use to review UX?
+- What user actions should my reviewer step through to review this PR?
+- Which stories should be reviewed?
+- Are there plans for follow up PR’s to further fix this bug or develop this feature?
 
 
 # Review Checklist
