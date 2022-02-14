@@ -11,11 +11,11 @@ const StyledAvatar = styled.img`
 `
 
 function Avatar (props) {
+  const { t } = useTranslation('components')
+
   if (!props.src) {
     return null
   }
-
-  const { t } = useTranslation('components')
 
   const { projectTitle, ...rest } = props
   const alt = t('ProjectHeader.Avatar.alt', { project: projectTitle })
