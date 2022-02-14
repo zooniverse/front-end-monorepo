@@ -4,7 +4,6 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import ProjectHeader from './ProjectHeader'
-// import getNavLinks from './helpers/getNavLinks'
 
 function storeMapper (stores) {
   return {
@@ -21,40 +20,41 @@ function getBaseUrl (router) {
   return `/${owner}/${project}`
 }
 
-function getNavLinks (isLoggedIn, baseUrl, defaultWorkflow) {
-  const { t } = useTranslation('components')
-  const classifyHref = defaultWorkflow ? `${baseUrl}/classify/workflow/${defaultWorkflow}` : `${baseUrl}/classify`
-  const links = [
-    {
-      href: `${baseUrl}/about/research`,
-      text: t('ProjectHeader.about')
-    },
-    {
-      href: classifyHref,
-      text: t('ProjectHeader.classify')
-    },
-    {
-      href: `${baseUrl}/talk`,
-      text: t('ProjectHeader.talk')
-    },
-    {
-      href: `${baseUrl}/collections`,
-      text: t('ProjectHeader.collect')
-    }
-  ]
-
-  if (isLoggedIn) {
-    links.push({
-      href: `${baseUrl}/recents`,
-      text: t('ProjectHeader.recents')
-    })
-  }
-
-  return links
-}
-
 function ProjectHeaderContainer ({ availableLocales, className, defaultWorkflow, inBeta, isLoggedIn, projectName }) {
   const router = useRouter()
+  const { t } = useTranslation('components')
+
+  function getNavLinks (isLoggedIn, baseUrl, defaultWorkflow) {
+    const classifyHref = defaultWorkflow ? `${baseUrl}/classify/workflow/${defaultWorkflow}` : `${baseUrl}/classify`
+    const links = [
+      {
+        href: `${baseUrl}/about/research`,
+        text: t('ProjectHeader.about')
+      },
+      {
+        href: classifyHref,
+        text: t('ProjectHeader.classify')
+      },
+      {
+        href: `${baseUrl}/talk`,
+        text: t('ProjectHeader.talk')
+      },
+      {
+        href: `${baseUrl}/collections`,
+        text: t('ProjectHeader.collect')
+      }
+    ]
+
+    if (isLoggedIn) {
+      links.push({
+        href: `${baseUrl}/recents`,
+        text: t('ProjectHeader.recents')
+      })
+    }
+
+    return links
+  }
+
   const navLinks = getNavLinks(isLoggedIn, getBaseUrl(router), defaultWorkflow)
 
   return (
