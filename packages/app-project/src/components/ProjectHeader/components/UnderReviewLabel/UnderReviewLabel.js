@@ -1,13 +1,11 @@
 import { SpacedText } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'next-i18next'
 
 export default function UnderReviewLabel () {
+  const { t } = useTranslation('components')
   return (
     <SpacedText color='accent-1' size='small'>
-      {counterpart('UnderReviewLabel.underReview')}
+      {t('ProjectHeader.UnderReviewLabel.underReview')}
     </SpacedText>
   )
 }
