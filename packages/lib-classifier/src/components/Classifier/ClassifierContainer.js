@@ -69,7 +69,7 @@ export default function ClassifierContainer({
 
   const workflowSnapshot = useWorkflowSnapshot(workflowID)
 
-  const loaded = useHydratedStore( classifierStore, cachePanoptesData,`fem-classifier-${project.id}`)
+  const loaded = useHydratedStore(classifierStore, cachePanoptesData, `fem-classifier-${project.id}`)
 
   useEffect(function onLoad() {
     /*
