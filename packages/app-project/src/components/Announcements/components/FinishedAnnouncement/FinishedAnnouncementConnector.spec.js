@@ -3,7 +3,6 @@ import zooTheme from '@zooniverse/grommet-theme'
 
 import { FinishedAnnouncementConnector } from './FinishedAnnouncementConnector'
 import GenericAnnouncement from '../GenericAnnouncement'
-import en from './locales/en'
 
 describe('Component > FinishedAnnouncementConnector', function () {
   let wrapper
@@ -37,9 +36,5 @@ describe('Component > FinishedAnnouncementConnector', function () {
     )
     componentWrapper = wrapper.find(GenericAnnouncement)
     expect(componentWrapper).to.have.lengthOf(1)
-  })
-
-  it('should pass down the required props', function () {
-    expect(componentWrapper.props().announcement).to.equal(en.FinishedAnnouncement.announcement)
   })
 })

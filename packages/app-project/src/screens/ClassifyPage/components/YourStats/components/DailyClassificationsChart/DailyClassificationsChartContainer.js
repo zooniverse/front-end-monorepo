@@ -1,5 +1,5 @@
-import counterpart from 'counterpart'
 import { array, number, shape, string } from 'prop-types'
+import { useRouter } from 'next/router'
 
 import DailyClassificationsChart from './DailyClassificationsChart'
 
@@ -12,8 +12,9 @@ function DailyClassificationsChartContainer({
   projectName,
   thisWeek = []
 }) {
+  const router = useRouter()
+  const { locale } = router
   const TODAY = new Date()
-  const locale = counterpart.getLocale()
   const stats = thisWeek.map(({ count: statsCount, period }) => {
     const day = new Date(period)
     const isToday = day.getUTCDay() === TODAY.getDay()
