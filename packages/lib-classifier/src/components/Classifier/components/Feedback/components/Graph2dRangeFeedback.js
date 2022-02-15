@@ -23,6 +23,7 @@ function storeMapper (stores) {
   }
 }
 
+// Noting that mobx decorators are outdated https://michel.codes/blogs/mobx6
 @inject(storeMapper)
 @observer
 class Graph2dRangeFeedback extends Component {
