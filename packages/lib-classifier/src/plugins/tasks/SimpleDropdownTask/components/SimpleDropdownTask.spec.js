@@ -53,6 +53,12 @@ describe('SimpleDropdownTask', function () {
       const renderedOptions = grommetSelect.props()['options'] || []
       expect(renderedOptions).to.have.length(6)
     })
+
+    it('should not trap focus', function () {
+      const grommetSelect = wrapper.find('Select')
+      const dropProps = grommetSelect.props().dropProps || {}
+      expect(dropProps.trapFocus).to.be.false()
+    })
   })
 
   describe('with an annotation', function () {

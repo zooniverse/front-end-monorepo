@@ -24,13 +24,12 @@ const StyledText = styled(Text)`
 // artificially disabled. Please refer to the README. (@shaunanoordin 20200820)
 const ENABLE_OTHER_OPTION = false
 
-function SimpleDropdownTask (props) {
-  const {
-    annotation,
-    className,
-    disabled,
-    task,
-  } = props
+function SimpleDropdownTask ({
+  annotation,
+  className = '',
+  disabled = false,
+  task,
+}) {
   const { value } = annotation
   
   // Decide what kind of options to display.
@@ -86,7 +85,10 @@ function SimpleDropdownTask (props) {
     setAnnotation(ele.value, false)
     setCustomValue(ele.value)
   }
-  
+
+  const dropProps = {
+    trapFocus: false
+  }
   return (
     <Box
       className={className}
@@ -102,6 +104,7 @@ function SimpleDropdownTask (props) {
       >
         <Select
           disabled={disabled}
+          dropProps={dropProps}
           icon={<Down size='small' />}
           labelKey='text'
           onChange={onSelectChange}
@@ -123,11 +126,6 @@ function SimpleDropdownTask (props) {
       </Box>
     </Box>
   )
-}
-
-SimpleDropdownTask.defaultProps = {
-  className: '',
-  disabled: false,
 }
 
 SimpleDropdownTask.propTypes = {
