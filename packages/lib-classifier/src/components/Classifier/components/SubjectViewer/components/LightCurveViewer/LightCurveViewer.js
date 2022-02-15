@@ -84,9 +84,9 @@ class LightCurveViewer extends Component {
   }
 
   componentDidUpdate (prevProps) {
-    const points = this.props.dataPoints
-    const prevPoints = prevProps.dataPoints
-    const sameSubject = (points === prevPoints)
+    const subject = this.props.subjectID
+    const prevSubject = prevProps.subjectID
+    const sameSubject = (subject === prevSubject)
 
     const currentTaskKey = (this.props.currentTask && this.props.currentTask.taskKey) || ''
     const prevTaskKey = (prevProps.currentTask && prevProps.currentTask.taskKey) || ''
