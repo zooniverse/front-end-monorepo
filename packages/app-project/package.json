@@ -18,7 +18,7 @@
     "test:ci": "BABEL_ENV=test mocha --config test/.mocharc.json --reporter=min \"./{src,pages,stores}/**/*.spec.js\""
   },
   "dependencies": {
-    "@artsy/fresnel": "~3.2.1",
+    "@artsy/fresnel": "~3.3.0",
     "@babel/plugin-proposal-decorators": "~7.17.0",
     "@sentry/browser": "~6.17.3",
     "@sentry/node": "~6.17.4",
