@@ -4,7 +4,6 @@ import { Provider } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import '../../translations/i18n'
-import i18n from 'i18next'
 import {
   env,
   panoptes as panoptesClient,
