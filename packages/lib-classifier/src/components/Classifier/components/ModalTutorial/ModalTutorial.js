@@ -1,17 +1,21 @@
-import counterpart from 'counterpart'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
 import { ResponsiveContext } from 'grommet'
 import { Modal } from '@zooniverse/react-components'
 import asyncStates from '@zooniverse/async-states'
+import { withStores } from '@helpers'
+import { useTranslation } from 'react-i18next'
+
 import SlideTutorial from '../SlideTutorial'
-import en from './locales/en'
 
-counterpart.registerTranslations('en', en)
+function storeMapper (classifierStore) {
+  const {
+    active: tutorial,
+    loadingState,
+    setModalVisibility,
+    showModal
+  } = classifierStore.tutorials
 
-function storeMapper (stores) {
-  const { active: tutorial, loadingState, setModalVisibility, showModal } = stores.classifierStore.tutorials
   return {
     loadingState,
     setModalVisibility,
@@ -20,61 +24,52 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
-class ModalTutorial extends React.Component {
-  constructor () {
-    super()
+function ModalTutorial ({
+  loadingState = asyncStates.initialized,
+  setModalVisibility = () => true,
+  showModal = false,
+  tutorial,
+  ...props
+}) {
+  const { t } = useTranslation('components')
 
-    this.onClose = this.onClose.bind(this)
-  }
-
-  onClose () {
-    const { setModalVisibility } = this.props
+  function onClose() {
     setModalVisibility(false)
   }
 
-  render () {
-    const { loadingState, showModal, tutorial } = this.props
-    if (loadingState === asyncStates.success && tutorial) {
-      return (
-        <Modal
-          {...this.props}
-          active={showModal}
-          closeFn={this.onClose.bind(this)}
-          title={counterpart('ModalTutorial.title')}
-        >
-          <ResponsiveContext.Consumer>
-            {size => {
-              const width = (size === 'small') ? '100%' : '330px'
-              return (
-                <SlideTutorial
-                  onClick={this.onClose}
-                  pad='none'
-                  width={width}
-                />
-              )
-            }}
-          </ResponsiveContext.Consumer>
-        </Modal>
-      )
-    }
-
-    return null
+  if (loadingState === asyncStates.success && tutorial) {
+    return (
+      <Modal
+        {...props}
+        active={showModal}
+        closeFn={onClose}
+        title={t('ModalTutorial.title')}
+      >
+        <ResponsiveContext.Consumer>
+          {size => {
+            const width = (size === 'small') ? '100%' : '330px'
+            return (
+              <SlideTutorial
+                onClick={onClose}
+                pad='none'
+                width={width}
+              />
+            )
+          }}
+        </ResponsiveContext.Consumer>
+      </Modal>
+    )
   }
+
+  return null
 }
 
-ModalTutorial.wrappedComponent.defaultProps = {
-  loadingState: asyncStates.initialized,
-  showModal: false,
-  tutorial: {}
-}
-
-ModalTutorial.wrappedComponent.propTypes = {
+ModalTutorial.propTypes = {
   loadingState: PropTypes.string,
   showModal: PropTypes.bool,
   setModalVisibility: PropTypes.func.isRequired,
   tutorial: PropTypes.object
 }
 
-export default ModalTutorial
+export default withStores(ModalTutorial, storeMapper)
+export { ModalTutorial }

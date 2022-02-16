@@ -92,5 +92,19 @@
     "ZoomOutButton": {
       "ariaLabel": "Zoom out from subject"
     }
+  },
+  "ModalTutorial": {
+    "title": "Tutorial"
+  },
+  "SlideTutorial": {
+    "alt": "Tutorial step {{activeStep}}",
+    "error": "Tutorial step could not be loaded.",
+    "getStarted": "Get Started",
+    "heading": "{{projectDisplayName}} Tutorial",
+    "StepNavigation": {
+      "go": "Go to step {{index}}",
+      "next": "Go to next step",
+      "previous": "Go to previous step"
+    }
   }
 }

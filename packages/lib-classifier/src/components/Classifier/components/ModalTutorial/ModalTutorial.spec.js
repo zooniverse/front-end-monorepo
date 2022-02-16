@@ -9,18 +9,18 @@ const tutorial = TutorialFactory.build()
 
 describe('ModalTutorial', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(<ModalTutorial.wrappedComponent setModalVisibility={() => {}} />)
+    const wrapper = shallow(<ModalTutorial setModalVisibility={() => {}} />)
     expect(wrapper).to.be.ok()
   })
 
   it('should render null if a tutorial has not been successfully loaded', function () {
-    const wrapper = shallow(<ModalTutorial.wrappedComponent setModalVisibility={() => { }} />)
+    const wrapper = shallow(<ModalTutorial setModalVisibility={() => { }} />)
     expect(wrapper.html()).to.be.null()
   })
 
   it('should render a Modal when a tutorial is successfully loaded', function () {
     const wrapper = shallow(
-      <ModalTutorial.wrappedComponent
+      <ModalTutorial
         loadingState={asyncStates.success}
         setModalVisibility={() => { }}
         tutorial={tutorial}
