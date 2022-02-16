@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import { Button } from 'grommet'
 import { FormNext, FormPrevious } from 'grommet-icons'
-import StepNavigation from './StepNavigation'
+import { StepNavigation } from './StepNavigation'
 
 const steps = [
   { content: '# Welcome' },
@@ -12,75 +12,59 @@ const steps = [
 
 describe('StepNavigation', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(<StepNavigation.wrappedComponent />)
+    const wrapper = shallow(<StepNavigation />)
     expect(wrapper).to.be.ok()
   })
 
   it('should render null if there are no steps', function () {
-    const wrapper = shallow(<StepNavigation.wrappedComponent />)
+    const wrapper = shallow(<StepNavigation />)
     expect(wrapper.html()).to.be.null()
   })
 
   it('should render null if there is not more than one step', function () {
-    const wrapper = shallow(<StepNavigation.wrappedComponent steps={[{ content: '# Welcome' }]} />)
+    const wrapper = shallow(<StepNavigation steps={[{ content: '# Welcome' }]} />)
     expect(wrapper.html()).to.be.null()
   })
 
   it('should render a previous button', function () {
-    const wrapper = shallow(<StepNavigation.wrappedComponent steps={steps} />)
+    const wrapper = shallow(<StepNavigation steps={steps} />)
     expect(wrapper.find({ icon: <FormPrevious /> })).to.have.lengthOf(1)
   })
 
   it('should render a next button', function () {
-    const wrapper = shallow(<StepNavigation.wrappedComponent steps={steps} />)
+    const wrapper = shallow(<StepNavigation steps={steps} />)
     expect(wrapper.find({ icon: <FormNext /> })).to.have.lengthOf(1)
   })
 
   it('should render a radio button group', function () {
-    const wrapper = shallow(<StepNavigation.wrappedComponent steps={steps} />)
+    const wrapper = shallow(<StepNavigation steps={steps} />)
 
     expect(wrapper.find('Styled(RadioButtonGroup)')).to.have.lengthOf(1)
   })
 
   it('should use the steps to set the options on RadioButtonGroup', function () {
-    const wrapper = shallow(<StepNavigation.wrappedComponent steps={steps} />)
+    const wrapper = shallow(<StepNavigation steps={steps} />)
     const options = wrapper.find('Styled(RadioButtonGroup)').props().options
     expect(Object.keys(options)).to.have.lengthOf(steps.length)
   })
 
   it('should set the active value of the RadioButtonGroup', function () {
     const activeStep = 1
-    const wrapper = shallow(<StepNavigation.wrappedComponent activeStep={activeStep} steps={steps} />)
+    const wrapper = shallow(<StepNavigation activeStep={activeStep} steps={steps} />)
     const activeValue = wrapper.find('Styled(RadioButtonGroup)').props().value
     expect(activeValue).to.equal(`step-${activeStep}`)
   })
 
   it('should disable the previous step button when props.activeStep is 0', function () {
-    const wrapper = shallow(<StepNavigation.wrappedComponent steps={steps} />)
+    const wrapper = shallow(<StepNavigation steps={steps} />)
     expect(wrapper.find({ icon: <FormPrevious /> }).props().disabled).to.be.true()
     expect(wrapper.find({ icon: <FormNext /> }).props().disabled).to.be.false()
   })
 
   it('should disable the next step button when props.activeStep is the last step', function () {
-    const wrapper = shallow(<StepNavigation.wrappedComponent activeStep={1} steps={steps} />)
+    const wrapper = shallow(<StepNavigation activeStep={1} steps={steps} />)
     expect(wrapper.find({ icon: <FormPrevious /> }).props().disabled).to.be.false()
     expect(wrapper.find({ icon: <FormNext /> }).props().disabled).to.be.true()
-  })
-
-  describe('#onChange', function () {
-    let setTutorialStepSpy
-    let wrapper
-    const step = 1
-
-    before(function () {
-      setTutorialStepSpy = sinon.spy()
-      wrapper = shallow(<StepNavigation.wrappedComponent setTutorialStep={setTutorialStepSpy} steps={steps} />)
-    })
-
-    it('should call setTutorialStep with the value index as a number', function () {
-      wrapper.instance().onChange({ target: { value: `step-${step}` } })
-      expect(setTutorialStepSpy).to.be.calledOnceWith(step)
-    })
   })
 
   describe('props.setTutorialStep', function () {
@@ -88,7 +72,7 @@ describe('StepNavigation', function () {
     let wrapper
     before(function () {
       setTutorialStepSpy = sinon.spy()
-      wrapper = shallow(<StepNavigation.wrappedComponent setTutorialStep={setTutorialStepSpy} steps={steps} />)
+      wrapper = shallow(<StepNavigation setTutorialStep={setTutorialStepSpy} steps={steps} />)
     })
 
     afterEach(function () {

@@ -1,13 +1,10 @@
 import { SpacedText } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { Anchor, Box } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
+import { useTranslation } from 'next-i18next'
 
 import NavLink from '@shared/components/NavLink'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 /**
   Link text styles
@@ -40,8 +37,9 @@ const StyledAnchor = styled(Anchor)`
 function Nav({
   navLinks = []
 }) {
+  const { t } = useTranslation('components')
   return (
-    <Box aria-label={counterpart('ProjectNav.ariaLabel')} as='nav'>
+    <Box aria-label={t('ProjectHeader.ProjectNav.ariaLabel')} as='nav'>
       <Box as='ul' direction='row'>
         {navLinks.map(navLink => (
           <Box as='li' key={navLink.href} pad={{ left: 'medium' }}>

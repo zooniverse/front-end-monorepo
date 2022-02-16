@@ -1,10 +1,7 @@
-import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import { Box, Heading, Text } from 'grommet'
-import en from './locales/en'
 import Form from './components/Form'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'next-i18next'
 
 function RegisterForm ({ generalError, validate, onSubmit }) {
   const initialValues = {
@@ -20,13 +17,15 @@ function RegisterForm ({ generalError, validate, onSubmit }) {
     underageWithParent: false
   }
 
+  const { t } = useTranslation('components')
+
   return (
     <Box width='large'>
       <Heading size='small' margin={{ bottom: 'xsmall', top: 'none' }}>
-        {counterpart('RegisterForm.heading')}
+        {t('AuthModal.RegisterForm.heading')}
       </Heading>
       <Text>
-        {counterpart('RegisterForm.instruction')}
+        {t('AuthModal.RegisterForm.instruction')}
       </Text>
 
       {generalError &&

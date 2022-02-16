@@ -92,5 +92,43 @@
     "ZoomOutButton": {
       "ariaLabel": "Zoom out from subject"
     }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Add to collections"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Hide Previous Marks",
+      "show": "Show Previous Marks"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Hide All Marks",
+      "show": "Show All Marks",
+      "showUser": "Show Your Marks"
+    },
+    "MetadataButton": {
+      "label": "Subject Info"
+    },
+    "MetadataModal": {
+      "title": "Subject Metadata",
+      "table": {
+        "label": "Label",
+        "value": "Value"
+      }
+    }
+  },
+  "ModalTutorial": {
+    "title": "Tutorial"
+  },
+  "SlideTutorial": {
+    "alt": "Tutorial step {{activeStep}}",
+    "error": "Tutorial step could not be loaded.",
+    "getStarted": "Get Started",
+    "heading": "{{projectDisplayName}} Tutorial",
+    "StepNavigation": {
+      "go": "Go to step {{index}}",
+      "next": "Go to next step",
+      "previous": "Go to previous step"
+    }
   }
 }
