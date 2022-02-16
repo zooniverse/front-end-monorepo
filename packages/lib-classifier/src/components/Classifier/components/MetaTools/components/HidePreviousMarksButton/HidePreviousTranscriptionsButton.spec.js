@@ -1,19 +1,25 @@
-import { mount, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
+import sinon from 'sinon'
+import i18n from '@test/i18n/i18n-for-tests'
 
-import { Grommet, Menu } from 'grommet'
-import zooTheme from '@zooniverse/grommet-theme'
 import { HidePreviousTranscriptionsButton, StyledDrop } from './HidePreviousTranscriptionsButton'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
-let wrapper
 
 describe('Component > HidePreviousTranscriptionsButton', function () {
-  before(function () {
-    wrapper = shallow(<HidePreviousTranscriptionsButton />)
+  let wrapper, useTranslationStub
+
+  beforeEach(function () {
+    useTranslationStub = sinon.stub(i18n, 't').callsFake((key) => key)
+  })
+
+  afterEach(function () {
+    useTranslationStub.restore()
   })
 
   it('should render without crashing', function () {
+    wrapper = shallow(<HidePreviousTranscriptionsButton />)
     expect(wrapper).to.be.ok()
   })
 
@@ -24,7 +30,8 @@ describe('Component > HidePreviousTranscriptionsButton', function () {
       />)
     const drop = wrapper.find(StyledDrop).first()
     const { a11yTitle } = drop.props()
-    expect(a11yTitle).to.equal("Show All Marks")
+    expect(a11yTitle).exists()
+    expect(useTranslationStub).to.have.been.calledWith('MetaTools.HidePreviousTranscriptionsButton.show')
   })
 
   describe('and showing user marks', function () {
@@ -35,7 +42,8 @@ describe('Component > HidePreviousTranscriptionsButton', function () {
         />)
       const drop = wrapper.find(StyledDrop).first()
       const { a11yTitle } = drop.props()
-      expect(a11yTitle).to.equal("Show Your Marks")
+      expect(a11yTitle).exists()
+      expect(useTranslationStub).to.have.been.calledWith('MetaTools.HidePreviousTranscriptionsButton.showUser')
     })
   })
 
@@ -47,11 +55,16 @@ describe('Component > HidePreviousTranscriptionsButton', function () {
         />)
       const drop = wrapper.find(StyledDrop).first()
       const { a11yTitle } = drop.props()
-      expect(a11yTitle).to.equal("Hide All Marks")
+      expect(a11yTitle).exists()
+      expect(useTranslationStub).to.have.been.calledWith('MetaTools.HidePreviousTranscriptionsButton.hide')
     })
   })
 
   describe('isOpen state', function () {
+    before(function () {
+      wrapper = shallow(<HidePreviousTranscriptionsButton />)
+    })
+
     it('should default to false', function () {
       const drop = wrapper.find(StyledDrop).first()
       const { open } = drop.props()

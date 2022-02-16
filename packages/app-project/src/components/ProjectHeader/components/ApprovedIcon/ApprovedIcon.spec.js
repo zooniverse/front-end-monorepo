@@ -1,10 +1,11 @@
 import { shallow } from 'enzyme'
+import sinon from 'sinon'
+import i18n from '@test/i18n-for-tests'
 
 import ApprovedIcon from './ApprovedIcon'
 
-let wrapper
-
 describe('Component > ApprovedIcon', function () {
+  let wrapper
   before(function () {
     wrapper = shallow(<ApprovedIcon />)
   })
@@ -20,8 +21,15 @@ describe('Component > ApprovedIcon', function () {
   })
 
   describe('for approved projects', function () {
+    let useTranslationStub
+
     before(function () {
+      useTranslationStub = sinon.stub(i18n, 't').callsFake((key) => key)
       wrapper = shallow(<ApprovedIcon approved />)
+    })
+
+    after(function () {
+      useTranslationStub.restore()
     })
 
     it('should render an icon if `approved` is true', function () {
@@ -29,7 +37,8 @@ describe('Component > ApprovedIcon', function () {
     })
 
     it('should have a text equivalent for screen readers', function () {
-      expect(wrapper.find('FormCheckmark').prop('aria-label')).to.equal('Zooniverse Approved')
+      expect(wrapper.find('FormCheckmark').prop('aria-label')).exists()
+      expect(useTranslationStub).to.have.been.calledWith('ProjectHeader.ApprovedIcon.title')
     })
   })
 })

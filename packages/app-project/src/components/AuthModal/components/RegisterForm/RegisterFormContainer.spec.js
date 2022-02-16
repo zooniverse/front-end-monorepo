@@ -77,11 +77,12 @@ describe('Component > RegisterFormContainer', function () {
       expect(Object.keys(errors)).to.have.lengthOf(0)
     })
 
-    it('should return an errors when there are invalid values', function () {
+    it('should return an error when there are invalid values', function () {
       const errors = wrapper.instance().validate(MOCK_INVALID_FORM_VALUES)
-      expect(errors.passwordConfirm).to.equal('The passwords do not match, please try again.')
-      expect(errors.emailConfirm).to.equal('The email addresses do not match, please try again.')
-      expect(errors.privacyAgreement).to.equal('Agreeing to the privacy policy is required.')
+      /** The translation function t is set to simply return keys in a testing environment **/
+      expect(errors.passwordConfirm).to.equal('AuthModal.RegisterForm.passwordConfirmError')
+      expect(errors.emailConfirm).to.equal('AuthModal.RegisterForm.emailConfirmError')
+      expect(errors.privacyAgreement).to.equal('AuthModal.RegisterForm.privacyAgreementError')
     })
   })
 
@@ -152,8 +153,9 @@ describe('Component > RegisterFormContainer', function () {
           await validWrapper.instance().onSubmit(MOCK_FORM_VALUES, MOCK_FORMIK)
           expect(Object.keys(synchronousErrors)).to.have.lengthOf(0)
           expect(INVALID_REGISTRATION).to.have.been.calledOnceWith(MOCK_SUBMISSION_VALUES)
-          expect(MOCK_FORMIK.setFieldError.withArgs('username', INVALID_USERNAME_MESSAGE)).to.have.been.calledOnce()
-          expect(MOCK_FORMIK.setFieldError.withArgs('email', INVALID_EMAIL_MESSAGE)).to.have.been.calledOnce()
+          /** The translation function t is set to simply return keys in a testing environment **/
+          expect(MOCK_FORMIK.setFieldError.withArgs('username', 'AuthModal.RegisterForm.usernameConflict')).to.have.been.calledOnce()
+          expect(MOCK_FORMIK.setFieldError.withArgs('email', 'AuthModal.RegisterForm.emailConflict')).to.have.been.calledOnce()
           expect(MOCK_FORMIK.setSubmitting).to.have.been.calledOnceWith(false)
           expect(CLOSE_MODAL).to.not.have.been.called()
         } catch (error) {
