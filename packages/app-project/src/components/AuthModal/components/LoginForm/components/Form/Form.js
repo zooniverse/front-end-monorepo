@@ -1,26 +1,24 @@
 /* eslint-disable jsx-a11y/no-autofocus */
-import { SpacedText } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
+import { SpacedText, withCustomFormik } from '@zooniverse/react-components'
 import { Anchor, Box, Button, FormField, TextInput } from 'grommet'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
-import { withCustomFormik } from '@zooniverse/react-components'
+import { useTranslation } from 'next-i18next'
 
-import en from '../../locales/en'
 import FieldLabel from '../../../../shared/components/FieldLabel'
 
-counterpart.registerTranslations('en', en)
 export const userNameFieldId = 'LoginForm_login'
 export const passwordFieldId = 'LoginForm_password'
 
 function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) {
+  const { t } = useTranslation('components')
   return (
     <Box as='form' onSubmit={handleSubmit} margin={{ top: 'small' }}>
 
       <FormField
         error={errors.login && touched.login && errors.login}
         htmlFor={userNameFieldId}
-        label={<FieldLabel>{counterpart('LoginForm.login')}</FieldLabel>}
+        label={<FieldLabel>{t('AuthModal.LoginForm.login')}</FieldLabel>}
       >
         <TextInput
           autoFocus
@@ -29,7 +27,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, t
           name='login'
           onBlur={handleBlur}
           onChange={handleChange}
-          placeholder={counterpart('LoginForm.placeholder')}
+          placeholder={t('AuthModal.LoginForm.placeholder')}
           required
           type='text'
           value={values.login}
@@ -39,7 +37,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, t
       <FormField
         error={errors.password && touched.password && errors.password}
         htmlFor={passwordFieldId}
-        label={<FieldLabel>{counterpart('LoginForm.password')}</FieldLabel>}
+        label={<FieldLabel>{t('AuthModal.LoginForm.password')}</FieldLabel>}
       >
         <TextInput
           disabled={isSubmitting}
@@ -57,7 +55,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, t
         <Link href='/reset-password' passHref>
           <Anchor size='small'>
             <SpacedText>
-              {counterpart('LoginForm.forgot')}
+              {t('AuthModal.LoginForm.forgot')}
             </SpacedText>
           </Anchor>
         </Link>
@@ -65,7 +63,7 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, t
 
       <Button
         disabled={isSubmitting}
-        label={counterpart('LoginForm.signIn')}
+        label={t('AuthModal.LoginForm.signIn')}
         primary
         type='submit'
       />

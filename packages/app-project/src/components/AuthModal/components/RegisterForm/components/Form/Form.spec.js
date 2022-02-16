@@ -1,6 +1,6 @@
 import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
-import { CheckBox, Grommet, TextInput, Text } from 'grommet'
+import { CheckBox, Grommet, TextInput } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 import {
   userNameFieldId,
@@ -15,7 +15,6 @@ import {
   underageWithParentFieldId,
   Form
 } from './Form'
-import en from '../../locales/en'
 
 describe('RegisterForm > Component > Form', function () {
   const shallowOptions = { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
@@ -218,11 +217,11 @@ describe('RegisterForm > Component > Form', function () {
         <Form />,
         shallowOptions
       )
-
-      expect(wrapper.find({ htmlFor: userNameFieldId }).props().help).equal(en.RegisterForm.usernameHelp)
-      expect(wrapper.find({ id: privacyAgreementFieldId }).props().label.props.children[0]).equal(en.RegisterForm.privacyAgreement)
-      expect(wrapper.find({ id: emailListSignUpFieldId }).props().label.props.children).equal(en.RegisterForm.emailListSignUp)
-      expect(wrapper.find({ htmlFor: emailFieldId }).props().label.props.children).equal(en.RegisterForm.email)
+      /** The translation function t is set to simply return keys in a testing environment **/
+      expect(wrapper.find({ htmlFor: userNameFieldId }).props().help).equal('AuthModal.RegisterForm.usernameHelp')
+      expect(wrapper.find({ id: privacyAgreementFieldId }).props().label.props.children[0]).equal('AuthModal.RegisterForm.privacyAgreement')
+      expect(wrapper.find({ id: emailListSignUpFieldId }).props().label.props.children).equal('AuthModal.RegisterForm.emailListSignUp')
+      expect(wrapper.find({ htmlFor: emailFieldId }).props().label.props.children).equal('AuthModal.RegisterForm.email')
     })
 
     it('should show field labels for under 16 registrants when the checkbox is checked', function () {
@@ -232,10 +231,11 @@ describe('RegisterForm > Component > Form', function () {
       )
       wrapper.setProps({ values: { underageWithParent: true } })
 
-      expect(wrapper.find({ htmlFor: userNameFieldId }).props().help).equal(en.RegisterForm.underageNotRealName)
-      expect(wrapper.find({ id: privacyAgreementFieldId }).props().label.props.children[0]).equal(en.RegisterForm.underageConsent)
-      expect(wrapper.find({ id: emailListSignUpFieldId }).props().label.props.children).equal(en.RegisterForm.underageEmailSignUp)
-      expect(wrapper.find({ htmlFor: emailFieldId }).props().label.props.children).equal(en.RegisterForm.underageEmail)
+      /** The translation function t is set to simply return keys in a testing environment **/
+      expect(wrapper.find({ htmlFor: userNameFieldId }).props().help).equal('AuthModal.RegisterForm.underageNotRealName')
+      expect(wrapper.find({ id: privacyAgreementFieldId }).props().label.props.children[0]).equal('AuthModal.RegisterForm.underageConsent')
+      expect(wrapper.find({ id: emailListSignUpFieldId }).props().label.props.children).equal('AuthModal.RegisterForm.underageEmailSignUp')
+      expect(wrapper.find({ htmlFor: emailFieldId }).props().label.props.children).equal('AuthModal.RegisterForm.underageEmail')
     })
   })
 

@@ -1,21 +1,18 @@
-import counterpart from 'counterpart'
 import { Box, Heading, Text } from 'grommet'
 import { func, string } from 'prop-types'
 import Form from './components/Form'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'next-i18next'
 
 function LoginForm (props) {
+  const { t } = useTranslation('components')
   const { generalError, onSubmit, validate } = props
   return (
     <Box width='medium'>
       <Heading size='small' margin={{ bottom: 'xsmall', top: 'none' }}>
-        {counterpart('LoginForm.heading')}
+        {t('AuthModal.LoginForm.heading')}
       </Heading>
       <Text>
-        {counterpart('LoginForm.instruction')}
+        {t('AuthModal.LoginForm.instruction')}
       </Text>
 
       {generalError &&
