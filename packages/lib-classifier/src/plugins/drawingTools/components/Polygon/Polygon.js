@@ -40,8 +40,6 @@ function Polygon({ active, mark, onFinish, scale }) {
     guideLineY
   } = mark
 
-  // const [mousePos, setMousePos] = useState({})
-
   const radius = RADIUS / scale
   const activePointRadius = ACTIVE_POINT_RADIUS / scale
   const strokeWidth = STROKE_WIDTH / scale
@@ -64,15 +62,15 @@ function Polygon({ active, mark, onFinish, scale }) {
   }
 
   function handleClosePolygon(i) {
-    console.log('HELLO WORLD')
     if (i === 0) {
-      console.log(i)
       return () => {
+        // mark.closePath()
         mark.finish()
       }
     } else {
       return null
     }
+
     // i === 0
     //   ? () => {
     //       mark.finish()
@@ -91,6 +89,16 @@ function Polygon({ active, mark, onFinish, scale }) {
         strokeOpacity='0'
         fill='none'
       />
+      {/* To visibly show a closed polygon */}
+      {finished && (
+        <line
+          x1={lastPoint.x}
+          y1={lastPoint.y}
+          x2={initialPoint.x}
+          y2={initialPoint.y}
+          strokeWidth={strokeWidth}
+        />
+      )}
 
       {active &&
         points.map((point, i) => {
