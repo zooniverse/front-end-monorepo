@@ -1,126 +1,46 @@
 import asyncStates from '@zooniverse/async-states'
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import request from 'superagent'
-import { inject, observer } from 'mobx-react'
+import React, { useRef } from 'react'
 
+import { useJSONData } from '@helpers'
 import BarChartViewer from './BarChartViewer'
 import locationValidator from '../../helpers/locationValidator'
 
-function storeMapper(stores) {
-  // TODO connect to get other data / function as needed
+const defaultSubject = {
+  id: '',
+  locations: []
 }
 
-class BarChartViewerContainer extends Component {
-  constructor() {
-    super()
-    this.viewer = React.createRef()
-    this.state = {
-      JSONdata: {}
-    }
+export function BarChartViewerContainer({
+  loadingState = asyncStates.initialized,
+  onError = () => true,
+  onReady = () => true,
+  subject = defaultSubject
+}) {
+  const viewer = useRef()
+  const { data, chartOptions } = useJSONData(
+    subject, 
+    () => onReady(viewer?.current),
+    (error) => onError(error)
+  )
+
+  if (!subject.id) {
+    return null
   }
 
-  async componentDidMount() {
-    const { subject } = this.props
-    if (subject) {
-      await this.handleSubject()
-    }
+  if (!data && !chartOptions) {
+    return null
   }
 
-  async componentDidUpdate(prevProps) {
-    const { subject } = this.props
-    const prevSubjectId = prevProps.subject && prevProps.subject.id
-    const subjectChanged = subject && (subject.id !== prevSubjectId)
-
-    if (subjectChanged) {
-      await this.handleSubject()
-    }
-  }
-
-  getSubjectUrl() {
-    // Find the first location that has a JSON MIME type.
-    const jsonLocation = this.props.subject.locations.find(l => l['application/json']) || {}
-    const url = Object.values(jsonLocation)[0]
-    if (url) {
-      return url
-    } else {
-      throw new Error('No JSON url found for this subject')
-    }
-  }
-
-  async requestData() {
-    const { onError } = this.props
-    try {
-      const url = this.getSubjectUrl()
-      const response = await request.get(url)
-
-      // Get the JSON data, or (as a failsafe) parse the JSON data if the
-      // response is returned as a string
-      return response.body || JSON.parse(response.text)
-    } catch (error) {
-      onError(error)
-      return {}
-    }
-  }
-
-  async handleSubject() {
-    const { onError } = this.props
-    try {
-      const rawData = await this.requestData()
-      if (rawData) this.onLoad(rawData)
-    } catch (error) {
-      onError(error)
-      return {}
-    }
-  }
-
-  onLoad(JSONdata) {
-    const { onReady } = this.props
-    const target = this.viewer.current
-    this.setState({
-      JSONdata: JSONdata
-    },
-      function () {
-        onReady({ target })
-      })
-  }
-
-  render() {
-    const {
-      subject
-    } = this.props
-    const {
-      data,
-      chartOptions
-    } = this.state.JSONdata
-
-    if (!subject.id) {
-      return null
-    }
-
-    if (!data && !chartOptions) {
-      return null
-    }
-
-    return (
-      <BarChartViewer
-        data={data}
-        margin={chartOptions.margin}
-        xAxisLabel={chartOptions.xAxisLabel}
-        yAxisLabel={chartOptions.yAxisLabel}
-      />
-    )
-  }
-}
-
-BarChartViewerContainer.defaultProps = {
-  loadingState: asyncStates.initialized,
-  onError: () => true,
-  onReady: () => true,
-  subject: {
-    id: '',
-    locations: []
-  }
+  return (
+    <BarChartViewer
+      data={data}
+      margin={chartOptions.margin}
+      xAxisLabel={chartOptions.xAxisLabel}
+      yAxisLabel={chartOptions.yAxisLabel}
+    />
+  )
 }
 
 BarChartViewerContainer.propTypes = {
@@ -133,9 +53,4 @@ BarChartViewerContainer.propTypes = {
   })
 }
 
-@inject(storeMapper)
-@observer
-class DecoratedBarChartViewerContainer extends BarChartViewerContainer { }
-
-export default DecoratedBarChartViewerContainer
-export { BarChartViewerContainer }
+export default observer(BarChartViewerContainer)
