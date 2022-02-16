@@ -1,13 +1,16 @@
-import counterpart from 'counterpart'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
 import { Box, Paragraph, ResponsiveContext } from 'grommet'
+import { useTranslation } from 'react-i18next'
+
+import { withStores } from '@helpers'
 import SlideTutorial from './SlideTutorial'
 
-function storeMapper (stores) {
-  const { activeStep, isFirstStep, isLastStep, stepWithMedium } = stores.classifierStore.tutorials
-  const { active: project } = stores.classifierStore.projects
+function storeMapper(classifierStore) {
+  const { activeStep, isFirstStep, isLastStep, stepWithMedium } = classifierStore.tutorials
+
+  const { active: project } = classifierStore.projects
+
   return {
     activeStep,
     isFirstStep,
@@ -17,44 +20,42 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
-class SlideTutorialContainer extends React.Component {
-  render () {
-    const { stepWithMedium } = this.props
-    if (stepWithMedium && Object.keys(stepWithMedium).length > 0) {
-      return (
-        <ResponsiveContext.Consumer>
-          {size => {
-            const height = (size === 'small') ? '100%' : '53vh'
-            return (
-              <SlideTutorial height={height} {...this.props} />
-            )
-          }
-          }
-        </ResponsiveContext.Consumer>
-      )
-    }
-
+function SlideTutorialContainer({
+  activeStep = 0,
+  pad = 'medium',
+  projectDisplayName = '',
+  stepWithMedium,
+  ...props
+}) {
+  const { t } = useTranslation('components')
+  if (stepWithMedium && Object.keys(stepWithMedium).length > 0) {
     return (
-      <Box
-        height='100%'
-        justify='between'
-        {...this.props}
-      >
-        <Paragraph>{counterpart('SlideTutorial.error')}</Paragraph>
+      <ResponsiveContext.Consumer>
+        {size => {
+          const height = (size === 'small') ? '100%' : '53vh'
+          return (
+            <SlideTutorial
+              activeStep={activeStep}
+              height={height}
+              pad={pad}
+              projectDisplayName={projectDisplayName}
+              stepWithMedium={stepWithMedium}
+              {...props}
+            />
+          )
+        }}
+      </ResponsiveContext.Consumer>
+    )
+  } else {
+    return (
+      <Box height='100%' justify='between' pad={pad}>
+        <Paragraph>{t('SlideTutorial.error')}</Paragraph>
       </Box>
     )
   }
 }
 
-SlideTutorialContainer.wrappedComponent.defaultProps = {
-  activeStep: 0,
-  projectDisplayName: '',
-  pad: 'medium'
-}
-
-SlideTutorialContainer.wrappedComponent.propTypes = {
+SlideTutorialContainer.propTypes = {
   activeStep: PropTypes.number,
   projectDisplayName: PropTypes.string,
   stepWithMedium: PropTypes.shape({
@@ -74,4 +75,5 @@ SlideTutorialContainer.wrappedComponent.propTypes = {
   }).isRequired
 }
 
-export default SlideTutorialContainer
+export default withStores(SlideTutorialContainer, storeMapper)
+export { SlideTutorialContainer }
