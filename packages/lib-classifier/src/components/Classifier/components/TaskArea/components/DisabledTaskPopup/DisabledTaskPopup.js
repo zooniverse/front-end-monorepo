@@ -1,11 +1,8 @@
 import { Modal, PlainButton, PrimaryButton } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { Paragraph } from 'grommet'
 import { bool, func } from 'prop-types'
 import React, { useEffect, useState } from 'react'
-
-import en from './locales/en'
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'react-i18next'
 
 /**
  A popup which interrupts classification for subjects that are retired or already seen.
@@ -27,6 +24,7 @@ export default function DisabledTaskPopup({
   reset,
   target
 }) {
+  const { t } = useTranslation('components')
   const [ active, setActive ] = useState(isOpen)
 
   useEffect(function onLoaded() {
@@ -55,26 +53,26 @@ export default function DisabledTaskPopup({
       modal={false}
       position='top'
       target={target}
-      title={counterpart('DisabledTaskPopup.title')}
+      title={t('TaskArea.DisabledTaskPopup.title')}
     >
       <Paragraph>
-        {counterpart('DisabledTaskPopup.body')}
+        {t('TaskArea.DisabledTaskPopup.body')}
       </Paragraph>
       <PlainButton
-        alignSelf="center"
+        alignSelf='center'
         onClick={onReset}
-        text={counterpart('DisabledTaskPopup.options.select')}
+        text={t('TaskArea.DisabledTaskPopup.options.select')}
       />
       <PrimaryButton
-        alignSelf="center"
+        alignSelf='center'
         color='teal'
-        label={counterpart('DisabledTaskPopup.options.next')}
+        label={t('TaskArea.DisabledTaskPopup.options.next')}
         onClick={onNext}
-        margin="xsmall"
+        margin='xsmall'
       />
       <PlainButton
-        alignSelf="center"
-        text={counterpart('DisabledTaskPopup.options.dismiss')}
+        alignSelf='center'
+        text={t('TaskArea.DisabledTaskPopup.options.dismiss')}
         onClick={closeModal}
       />
     </Modal>
@@ -82,7 +80,7 @@ export default function DisabledTaskPopup({
 }
 
 DisabledTaskPopup.propTypes = {
-  /** open the poup on mount. */
+  /** open the popup on mount. */
   isOpen: bool,
   /** load the next unclassified subject */
   nextAvailable: func,

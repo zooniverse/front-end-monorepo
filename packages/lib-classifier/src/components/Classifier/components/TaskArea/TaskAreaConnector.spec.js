@@ -12,8 +12,8 @@ import { SubjectFactory, SubjectSetFactory, WorkflowFactory } from '@test/factor
 import mockStore from '@test/mockStore'
 import TaskAreaConnector from './TaskAreaConnector'
 
-import DisabledTaskPopupLocale from './components/DisabledTaskPopup/locales/en'
-const { DisabledTaskPopup: popupText } = DisabledTaskPopupLocale
+// import DisabledTaskPopupLocale from './components/DisabledTaskPopup/locales/en'
+// const { DisabledTaskPopup: popupText } = DisabledTaskPopupLocale
 
 describe('TaskAreaConnector', function () {
 
