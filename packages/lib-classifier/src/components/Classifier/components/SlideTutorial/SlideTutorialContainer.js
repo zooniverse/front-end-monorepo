@@ -6,13 +6,8 @@ import { useTranslation } from 'react-i18next'
 import { withStores } from '@helpers'
 import SlideTutorial from './SlideTutorial'
 
-function storeMapper (classifierStore) {
-  const {
-    activeStep,
-    isFirstStep,
-    isLastStep,
-    stepWithMedium
-  } = classifierStore.tutorials
+function storeMapper(classifierStore) {
+  const { activeStep, isFirstStep, isLastStep, stepWithMedium } = classifierStore.tutorials
 
   const { active: project } = classifierStore.projects
 
@@ -39,22 +34,25 @@ function SlideTutorialContainer({
         {size => {
           const height = (size === 'small') ? '100%' : '53vh'
           return (
-            <SlideTutorial height={height} {...props} />
+            <SlideTutorial
+              activeStep={activeStep}
+              height={height}
+              pad={pad}
+              projectDisplayName={projectDisplayName}
+              stepWithMedium={stepWithMedium}
+              {...props}
+            />
           )
         }}
       </ResponsiveContext.Consumer>
     )
+  } else {
+    return (
+      <Box height='100%' justify='between' pad={pad}>
+        <Paragraph>{t('SlideTutorial.error')}</Paragraph>
+      </Box>
+    )
   }
-
-  return (
-    <Box
-      height='100%'
-      justify='between'
-      {...props}
-    >
-      <Paragraph>{t('SlideTutorial.error')}</Paragraph>
-    </Box>
-  )
 }
 
 SlideTutorialContainer.propTypes = {
