@@ -4,19 +4,13 @@ import { expect } from 'chai'
 import { Grommet } from 'grommet'
 import { when } from 'mobx'
 import { Provider } from 'mobx-react'
-import nock from 'nock'
 import React from 'react'
-import { Factory } from 'rosie'
 
 import { SubjectFactory, SubjectSetFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 import TaskAreaConnector from './TaskAreaConnector'
 
-// import DisabledTaskPopupLocale from './components/DisabledTaskPopup/locales/en'
-// const { DisabledTaskPopup: popupText } = DisabledTaskPopupLocale
-
-describe('TaskAreaConnector', function () {
-
+describe.only('TaskAreaConnector', function () {
   function withStore(store) {
     return function Wrapper({ children }) {
       return (
@@ -46,17 +40,18 @@ describe('TaskAreaConnector', function () {
     before(function () {
       const store = mockStore()
       store.subjectViewer.onSubjectReady()
-    
+
       render(
         <TaskAreaConnector />,
         {
           wrapper: withStore(store)
         }
       )
-      finishedMessage = screen.queryByText(popupText.body)
-      selectButton = screen.queryByText(popupText.options.select)
-      nextButton = screen.queryByText(popupText.options.next)
-      dismissButton = screen.queryByText(popupText.options.dismiss)
+      /** The translation function will simply return keys in a testing environment */
+      finishedMessage = screen.queryByText('TaskArea.DisabledTaskPopup.body')
+      selectButton = screen.queryByText('TaskArea.DisabledTaskPopup.select')
+      nextButton = screen.queryByText('TaskArea.DisabledTaskPopup.next')
+      dismissButton = screen.queryByText('TaskArea.DisabledTaskPopup.dismiss')
       inputs = screen.queryAllByRole('radio')
     })
 
@@ -85,20 +80,6 @@ describe('TaskAreaConnector', function () {
   })
 
   describe('with an indexed subject set', function () {
-
-    function mockSubjectSetAPI(subjectSetSnapshot) {
-      const response = {
-        columns: ['subject_id'],
-        rows: [
-          ['1', '2', '3', '4', '5']
-        ]
-      }
-      return nock('https://subject-set-search-api.zooniverse.org')
-        .get(`/subjects/${subjectSetSnapshot.id}.json`)
-        .query(true)
-        .reply(200, response)
-    }
-
     async function buildStore(subject) {
       const subjectSetSnapshot = SubjectSetFactory.build({
         metadata: {
@@ -119,10 +100,9 @@ describe('TaskAreaConnector', function () {
           }
         },
         links: {
-          subject_sets: [subjectSetSnapshot.id] 
+          subject_sets: [subjectSetSnapshot.id]
         }
       })
-      const subjectSetAPI = mockSubjectSetAPI(subjectSetSnapshot)
 
       const store = mockStore({ subject, workflow: workflowSnapshot })
       store.subjectSets.setResources([subjectSetSnapshot])
@@ -151,10 +131,11 @@ describe('TaskAreaConnector', function () {
             wrapper: withStore(store)
           }
         )
-        finishedMessage = screen.queryByText(popupText.body)
-        selectButton = screen.queryByText(popupText.options.select)
-        nextButton = screen.queryByText(popupText.options.next)
-        dismissButton = screen.queryByText(popupText.options.dismiss)
+        /** The translation function will simply return keys in a testing environment */
+        finishedMessage = screen.queryByText('TaskArea.DisabledTaskPopup.body')
+        selectButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.select')
+        nextButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.next')
+        dismissButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.dismiss')
         inputs = screen.queryAllByRole('radio')
       })
 
@@ -200,10 +181,11 @@ describe('TaskAreaConnector', function () {
             wrapper: withStore(store)
           }
         )
-        finishedMessage = screen.queryByText(popupText.body)
-        selectButton = screen.queryByText(popupText.options.select)
-        nextButton = screen.queryByText(popupText.options.next)
-        dismissButton = screen.queryByText(popupText.options.dismiss)
+        /** The translation function will simply return keys in a testing environment */
+        finishedMessage = screen.queryByText('TaskArea.DisabledTaskPopup.body')
+        selectButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.select')
+        nextButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.next')
+        dismissButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.dismiss')
         inputs = screen.queryAllByRole('radio')
       })
 
@@ -247,10 +229,11 @@ describe('TaskAreaConnector', function () {
             wrapper: withStore(store)
           }
         )
-        finishedMessage = screen.queryByText(popupText.body)
-        selectButton = screen.queryByText(popupText.options.select)
-        nextButton = screen.queryByText(popupText.options.next)
-        dismissButton = screen.queryByText(popupText.options.dismiss)
+        /** The translation function will simply return keys in a testing environment */
+        finishedMessage = screen.queryByText('TaskArea.DisabledTaskPopup.body')
+        selectButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.select')
+        nextButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.next')
+        dismissButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.dismiss')
         inputs = screen.queryAllByRole('radio')
       })
 
