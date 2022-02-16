@@ -1,5 +1,4 @@
 import { withResponsiveContext } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { Box } from 'grommet'
 import { array, arrayOf, bool, shape, string } from 'prop-types'
 import styled from 'styled-components'
@@ -12,10 +11,6 @@ import LocaleSwitcher from './components/LocaleSwitcher'
 import Nav from './components/Nav'
 import ProjectTitle from './components/ProjectTitle'
 import UnderReviewLabel from './components/UnderReviewLabel'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 const StyledBox = styled(Box)`
   position: relative;

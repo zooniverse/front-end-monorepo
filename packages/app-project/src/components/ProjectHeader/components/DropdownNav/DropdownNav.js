@@ -1,11 +1,11 @@
 import { SpacedText } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { Anchor, Box, DropButton } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import NavLink from '@shared/components/NavLink'
 import { arrayOf, shape, string } from 'prop-types'
 import { useState } from 'react';
 import styled, { css, withTheme } from 'styled-components'
+import { useTranslation } from 'next-i18next'
 
 import addQueryParams from '@helpers/addQueryParams'
 
@@ -42,6 +42,7 @@ function DropdownNav({
   className,
   navLinks = [],
 }) {
+  const { t } = useTranslation('components')
   const [ isOpen, setIsOpen ] = useState(false)
 
   function onClose() {
@@ -93,7 +94,7 @@ function DropdownNav({
     >
       <Box align='center' direction='row' gap='xsmall' justify='center'>
         <SpacedText weight='bold'>
-          {counterpart('ProjectHeader.nav.exploreProject')}
+          {t('ProjectHeader.exploreProject')}
         </SpacedText>
         <FormDown />
       </Box>
