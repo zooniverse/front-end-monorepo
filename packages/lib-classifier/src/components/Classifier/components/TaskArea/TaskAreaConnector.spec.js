@@ -10,7 +10,7 @@ import { SubjectFactory, SubjectSetFactory, WorkflowFactory } from '@test/factor
 import mockStore from '@test/mockStore'
 import TaskAreaConnector from './TaskAreaConnector'
 
-describe.only('TaskAreaConnector', function () {
+describe('TaskAreaConnector', function () {
   function withStore(store) {
     return function Wrapper({ children }) {
       return (
