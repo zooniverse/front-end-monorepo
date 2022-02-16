@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
 
@@ -43,7 +43,7 @@ describe('Component > SubjectGroupViewerContainer', function () {
     const onError = sinon.stub()
 
     before(function () {
-      wrapper = shallow(<SubjectGroupViewerContainer onError={onError} />)
+      wrapper = mount(<SubjectGroupViewerContainer onError={onError} />)
     })
 
     it('should render without crashing', function () {
@@ -56,7 +56,6 @@ describe('Component > SubjectGroupViewerContainer', function () {
   })
 
   describe('with a valid subject', function () {
-    let groupWrapper
     const onReady = sinon.stub()
     const onError = sinon.stub()
 
@@ -77,7 +76,7 @@ describe('Component > SubjectGroupViewerContainer', function () {
           default_frame: "0"
         }
       }
-      wrapper = shallow(
+      wrapper = mount(
         <SubjectGroupViewerContainer
           ImageObject={ValidImage}
           subject={subject}
@@ -90,16 +89,6 @@ describe('Component > SubjectGroupViewerContainer', function () {
           gridRows={gridRows}
         />
       )
-      groupWrapper = wrapper.find(SubjectGroupViewer)
-      wrapper.instance().groupViewer = {
-        current: {
-          clientHeight: 50,
-          clientWidth: 100,
-          addEventListener: sinon.stub(),
-          getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
-          removeEventListener: sinon.stub()
-        }
-      }
     })
 
     afterEach(function () {
@@ -115,12 +104,12 @@ describe('Component > SubjectGroupViewerContainer', function () {
     })
     
     it('should pass the correct number of images to the SubjectGroupViewer', function () {
+      wrapper.update()
       expect(wrapper.find(SubjectGroupViewer).prop('images')).to.have.lengthOf(6)
     })
   })
 
   describe('with an invalid subject', function () {
-    let groupWrapper
     const onReady = sinon.stub()
     const onError = sinon.stub()
 
@@ -137,7 +126,7 @@ describe('Component > SubjectGroupViewerContainer', function () {
           { 'image/jpeg': '' }
         ]
       }
-      wrapper = shallow(
+      wrapper = mount(
         <SubjectGroupViewerContainer
           ImageObject={InvalidImage}
           subject={subject}
@@ -145,16 +134,6 @@ describe('Component > SubjectGroupViewerContainer', function () {
           onReady={onReady}
         />
       )
-      groupWrapper = wrapper.find(SubjectGroupViewer)
-      wrapper.instance().groupViewer = {
-        current: {
-          clientHeight: 50,
-          clientWidth: 100,
-          addEventListener: sinon.stub(),
-          getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
-          removeEventListener: sinon.stub()
-        }
-      }
     })
 
     afterEach(function () {

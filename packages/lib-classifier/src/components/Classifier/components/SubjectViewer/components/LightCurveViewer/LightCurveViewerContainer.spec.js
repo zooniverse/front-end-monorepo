@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import React from 'react'
 import nock from 'nock'
 import sinon from 'sinon'
@@ -6,6 +6,7 @@ import * as d3 from 'd3'
 import { zip } from 'lodash'
 
 import { LightCurveViewerContainer } from './LightCurveViewerContainer'
+import LightCurveViewer from './LightCurveViewer'
 import kepler from '../../helpers/mockLightCurves/kepler'
 import { Factory } from 'rosie'
 
@@ -33,87 +34,74 @@ const failSubject = Factory.build('subject', {
 
 describe('Component > LightCurveViewerContainer', function () {
   it('should render without crashing', function () {
-    wrapper = shallow(<LightCurveViewerContainer onKeyDown={() => {}} setOnPan={() => {}} setOnZoom={() => {}} />)
+    wrapper = mount(<LightCurveViewerContainer onKeyDown={() => {}} setOnPan={() => {}} setOnZoom={() => {}} />)
     expect(wrapper).to.be.ok()
-  })
-
-  it('should mount with an initialized state', function () {
-    wrapper = shallow(
-      <LightCurveViewerContainer onKeyDown={() => { }} setOnPan={() => { }} setOnZoom={() => { }} />,
-      { disableLifecycleMethods: true }
-    )
-    const mockState = {
-      dataExtent: { x: [], y: [] },
-      dataPoints: []
-    }
-    expect(wrapper.state()).to.eql(mockState)
   })
 
   describe('without a subject', function () {
     it('should render null with the default props', function () {
-      wrapper = shallow(<LightCurveViewerContainer onKeyDown={() => { }} setOnPan={() => { }} setOnZoom={() => { }} />)
+      wrapper = mount(<LightCurveViewerContainer onKeyDown={() => { }} setOnPan={() => { }} setOnZoom={() => { }} />)
       expect(wrapper.html()).to.be.null()
     })
   })
 
   describe('with an invalid subject', function () {
-    let cdmSpy
-    let onErrorSpy
     let nockScope
     before(function () {
       sinon.stub(console, 'error')
-      cdmSpy = sinon.spy(LightCurveViewerContainer.prototype, 'componentDidMount')
-      onErrorSpy = sinon.spy()
       nockScope = nock('http://localhost:8080')
         .persist(true)
         .get('/failure.json')
         .reply(404)
     })
 
-    afterEach(function () {
-      cdmSpy.resetHistory()
-      onErrorSpy.resetHistory()
-    })
-
     after(function () {
       console.error.restore()
-      cdmSpy.restore()
       nock.cleanAll()
       nockScope.persist(false)
     })
 
     it('should error if a json or text subject location file can\'t be found', function (done) {
-      wrapper = shallow(
+      const onError = sinon.stub().callsFake((error) => {
+        expect(error.message).to.equal('No JSON url found for this subject')
+        done()
+      })
+      const onReady = sinon.stub().callsFake(() => {
+        expect.fail('should not call onReady')
+        done()
+      })
+      wrapper = mount(
         <LightCurveViewerContainer
-          onError={onErrorSpy}
+          onError={onError}
+          onReady={onReady}
           subject={imageSubject}
           onKeyDown={() => { }}
           setOnPan={() => { }}
           setOnZoom={() => { }}
         />
       )
-
-      cdmSpy.returnValues[0].then(() => {
-        expect(onErrorSpy).to.have.been.calledOnce()
-        expect(onErrorSpy.args[0][0].message).to.equal('No JSON url found for this subject')
-      }).then(done, done)
     })
 
     it('should error if the location request response fails', function (done) {
-      wrapper = shallow(
+      const onError = sinon.stub().callsFake((error) => {
+        expect(error.message).to.equal('Not Found')
+        expect(error.status).to.equal(404)
+        done()
+      })
+      const onReady = sinon.stub().callsFake(() => {
+        expect.fail('should not call onReady')
+        done()
+      })
+      wrapper = mount(
         <LightCurveViewerContainer
-          onError={onErrorSpy}
+          onError={onError}
+          onReady={onReady}
           subject={failSubject}
           onKeyDown={() => { }}
           setOnPan={() => { }}
           setOnZoom={() => { }}
         />
       )
-
-      cdmSpy.returnValues[0].then(() => {
-        expect(onErrorSpy).to.have.been.calledOnce()
-        expect(onErrorSpy.args[0][0].message).to.equal('Not Found')
-      }).then(done, done)
     })
   })
 
@@ -122,12 +110,8 @@ describe('Component > LightCurveViewerContainer', function () {
     const mockD3YExtent = d3.extent(mockData.y)
     const mockZipData = zip(mockData.x, mockData.y)
     let nockScope
-    let cdmSpy
-    let cduSpy
 
     before(function () {
-      cdmSpy = sinon.spy(LightCurveViewerContainer.prototype, 'componentDidMount')
-      cduSpy = sinon.spy(LightCurveViewerContainer.prototype, 'componentDidUpdate')
       nockScope = nock('http://localhost:8080')
         .persist(true)
         .get('/mockData.json')
@@ -136,56 +120,42 @@ describe('Component > LightCurveViewerContainer', function () {
         .reply(200, nextSubjectJSON)
     })
 
-    afterEach(function () {
-      cdmSpy.resetHistory()
-      cduSpy.resetHistory()
-    })
-
     after(function () {
-      cdmSpy.restore()
-      cduSpy.restore()
       nock.cleanAll()
       nockScope.persist(false)
     })
 
     it('should set the component state with the json data', function (done) {
-      wrapper = shallow(
-        <LightCurveViewerContainer
-          subject={subject}
-          onKeyDown={() => { }}
-          setOnPan={() => { }}
-          setOnZoom={() => { }}
-        />
-      )
+      const onReady = sinon.stub().callsFake(() => {
+        wrapper.update()
+        const lcv = wrapper.find(LightCurveViewer)
+        const { dataExtent, dataPoints } = lcv.props()
 
-      cdmSpy.returnValues[0].then(() => {
-        wrapper.state().dataExtent.x.forEach((xDataPoint, index) => {
+        dataExtent.x.forEach((xDataPoint, index) => {
           expect(xDataPoint).to.equal(mockD3XExtent[index])
         })
 
-        wrapper.state().dataExtent.y.forEach((yDataPoint, index) => {
+        dataExtent.y.forEach((yDataPoint, index) => {
           expect(yDataPoint).to.equal(mockD3YExtent[index])
         })
 
-        expect(wrapper.state().dataPoints).to.have.lengthOf(mockZipData.length)
-      }).then(done, done)
-    })
-
-    it('should call the onReady prop', function (done) {
-      const onReadySpy = sinon.spy()
-      wrapper = shallow(
+        expect(dataPoints).to.have.lengthOf(mockZipData.length)
+        done()
+      })
+      const onError = sinon.stub().callsFake(() => {
+        expect.fail('should not call onError')
+        done()
+      })
+      const wrapper = mount(
         <LightCurveViewerContainer
-          onReady={onReadySpy}
           subject={subject}
+          onError={onError}
           onKeyDown={() => { }}
+          onReady={onReady}
           setOnPan={() => { }}
           setOnZoom={() => { }}
         />
       )
-
-      cdmSpy.returnValues[0].then(() => {
-        expect(onReadySpy).to.have.been.calledOnceWith({ target: wrapper.instance().viewer.current })
-      }).then(done, done)
     })
 
     it('should update component state when there is a new valid subject', function (done) {
@@ -193,27 +163,36 @@ describe('Component > LightCurveViewerContainer', function () {
       const nextSubjectD3XExtent = d3.extent(nextSubjectJSON.x)
       const nextSubjectD3YExtent = d3.extent(nextSubjectJSON.y)
 
-      wrapper = shallow(
+      const onError = sinon.stub().callsFake(() => {
+        expect.fail('should not call onError')
+        done()
+      })
+      const wrapper = mount(
         <LightCurveViewerContainer
           subject={subject}
+          onError={onError}
           onKeyDown={() => { }}
           setOnPan={() => { }}
           setOnZoom={() => { }}
         />
       )
-      wrapper.setProps({ subject: nextSubject })
+      const onReady = sinon.stub().callsFake(() => {
+        wrapper.update()
+        const lcv = wrapper.find(LightCurveViewer)
+        const { dataExtent, dataPoints } = lcv.props()
 
-      cduSpy.returnValues[0].then(() => {
-        wrapper.state().dataExtent.x.forEach((xDataPoint, index) => {
+        dataExtent.x.forEach((xDataPoint, index) => {
           expect(xDataPoint).to.equal(nextSubjectD3XExtent[index])
         })
 
-        wrapper.state().dataExtent.y.forEach((yDataPoint, index) => {
+        dataExtent.y.forEach((yDataPoint, index) => {
           expect(yDataPoint).to.equal(nextSubjectD3YExtent[index])
         })
 
-        expect(wrapper.state().dataPoints).to.have.lengthOf(nextSubjectJSONZip.length)
-      }).then(done, done)
+        expect(dataPoints).to.have.lengthOf(nextSubjectJSONZip.length)
+        done()
+      })
+      wrapper.setProps({ onReady, subject: nextSubject })
     })
   })
 })

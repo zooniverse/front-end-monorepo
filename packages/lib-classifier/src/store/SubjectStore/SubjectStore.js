@@ -178,8 +178,8 @@ const SubjectStore = types
           const alreadyStored = self.resources.get(subject.id)
           if (!alreadyStored) {
             self.resources.put(subject)
+            self.queue.push(subject.id)
           }
-          self.queue.push(subject.id)
         } catch (error) {
           console.error(`Subject ${subject.id} is not a valid subject.`)
           console.error(error)
