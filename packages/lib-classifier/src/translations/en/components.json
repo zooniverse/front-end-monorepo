@@ -168,10 +168,8 @@
         "done": "done"
       },
       "ExpertOptions": {
-        "label": "Expert Options",
-        "DemoModeToggle": {
-          "label": "Demo Mode"
-        }
+        "demoToggle": "Demo Mode",
+        "label": "Expert Options"
       },
       "NextButton": {
         "next": "next"
