@@ -1,16 +1,12 @@
-import { SpacedText } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
+import { MetaToolsButton, SpacedText } from '@zooniverse/react-components'
 import PropTypes from 'prop-types'
 import { Box, DropButton } from 'grommet'
 import { FormDown, FormView, FormViewHide, Hide } from 'grommet-icons'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
-import { MetaToolsButton } from '@zooniverse/react-components'
+import { useTranslation } from 'react-i18next'
 
 import SHOWN_MARKS from '@helpers/shownMarks'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 const StyledDrop = styled(DropButton)`
   div {
@@ -23,13 +19,14 @@ const StyledDrop = styled(DropButton)`
 `
 
 function HidePreviousTranscriptionsButton (props) {
+  const { t } = useTranslation('components')
   const { disabled, onClick, shownMarks } = props
   const [isOpen, setOpen] = React.useState(false)
 
   const titles = {
-    ALL: counterpart('HidePreviousTranscriptionsButton.show'),
-    USER: counterpart('HidePreviousTranscriptionsButton.showUser'),
-    NONE: counterpart('HidePreviousTranscriptionsButton.hide')
+    ALL: t('MetaTools.HidePreviousTranscriptionsButton.show'),
+    USER: t('MetaTools.HidePreviousTranscriptionsButton.showUser'),
+    NONE: t('MetaTools.HidePreviousTranscriptionsButton.hide')
   }
   const currentTitle = titles[shownMarks]
 
@@ -39,7 +36,7 @@ function HidePreviousTranscriptionsButton (props) {
       dropContent={
         <Box role='radiogroup'>
           <MetaToolsButton
-            a11yTitle={counterpart('HidePreviousTranscriptionsButton.show')}
+            a11yTitle={t('MetaTools.HidePreviousTranscriptionsButton.show')}
             active={shownMarks === SHOWN_MARKS.ALL}
             aria-checked={shownMarks === SHOWN_MARKS.ALL}
             icon={<FormView />}
@@ -50,10 +47,10 @@ function HidePreviousTranscriptionsButton (props) {
             }}
             padding='0.5em'
             role='radio'
-            text={counterpart('HidePreviousTranscriptionsButton.show')}
+            text={t('MetaTools.HidePreviousTranscriptionsButton.show')}
           />
           <MetaToolsButton
-            a11yTitle={counterpart('HidePreviousTranscriptionsButton.showUser')}
+            a11yTitle={t('MetaTools.HidePreviousTranscriptionsButton.showUser')}
             active={shownMarks === SHOWN_MARKS.USER}
             aria-checked={shownMarks === SHOWN_MARKS.USER}
             disabled={disabled}
@@ -65,10 +62,10 @@ function HidePreviousTranscriptionsButton (props) {
             }}
             padding='0.5em'
             role='radio'
-            text={counterpart('HidePreviousTranscriptionsButton.showUser')}
+            text={t('MetaTools.HidePreviousTranscriptionsButton.showUser')}
           />
           <MetaToolsButton
-            a11yTitle={counterpart('HidePreviousTranscriptionsButton.hide')}
+            a11yTitle={t('MetaTools.HidePreviousTranscriptionsButton.hide')}
             active={shownMarks === SHOWN_MARKS.NONE}
             aria-checked={shownMarks === SHOWN_MARKS.NONE}
             icon={<Hide />}
@@ -79,7 +76,7 @@ function HidePreviousTranscriptionsButton (props) {
             }}
             padding='0.5em'
             role='radio'
-            text={counterpart('HidePreviousTranscriptionsButton.hide')}
+            text={t('MetaTools.HidePreviousTranscriptionsButton.hide')}
           />
         </Box>
       }

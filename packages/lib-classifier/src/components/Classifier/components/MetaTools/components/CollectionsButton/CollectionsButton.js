@@ -1,20 +1,18 @@
 import { MetaToolsButton } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
+import { useTranslation } from 'react-i18next'
+
 import React from 'react'
 import CollectionsIcon from './CollectionsIcon'
 
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
-
 export default function CollectionsButton (props) {
+  const { t } = useTranslation('components')
   const { disabled, onClick } = props
   return (
     <MetaToolsButton
       disabled={disabled}
       icon={<CollectionsIcon color='dark-5' size='15px' />}
-      text={counterpart('CollectionsButton.add')}
+      text={t('MetaTools.CollectionsButton.add')}
       onClick={onClick}
     />
   )
