@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { ResponsiveContext } from 'grommet'
 import { Modal } from '@zooniverse/react-components'
 import asyncStates from '@zooniverse/async-states'
-import { withStores } from '@helpers'
 import { useTranslation } from 'react-i18next'
 
+import { withStores } from '@helpers'
 import SlideTutorial from '../SlideTutorial'
 
 function storeMapper (classifierStore) {

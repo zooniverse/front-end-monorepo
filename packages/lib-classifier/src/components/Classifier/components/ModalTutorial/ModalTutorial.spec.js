@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import ModalTutorial from './ModalTutorial'
+import { ModalTutorial } from './ModalTutorial'
 import { Modal } from '@zooniverse/react-components'
 import asyncStates from '@zooniverse/async-states'
 import { TutorialFactory } from '@test/factories'
@@ -34,7 +34,7 @@ describe('ModalTutorial', function () {
   // So these tests will be broken until they support that.
   // it('should render a SlideTutorial as the child of the Modal', function () {
   //   const wrapper = shallow(
-  //     <ModalTutorial.wrappedComponent
+  //     <ModalTutorial
   //       loadingState={asyncStates.success}
   //       setModalVisibility={() => { }}
   //       tutorial={tutorial}

@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import { Button } from 'grommet'
 import { FormNext, FormPrevious } from 'grommet-icons'
-import StepNavigation from './StepNavigation'
+import { StepNavigation } from './StepNavigation'
 
 const steps = [
   { content: '# Welcome' },
@@ -65,22 +65,6 @@ describe('StepNavigation', function () {
     const wrapper = shallow(<StepNavigation activeStep={1} steps={steps} />)
     expect(wrapper.find({ icon: <FormPrevious /> }).props().disabled).to.be.false()
     expect(wrapper.find({ icon: <FormNext /> }).props().disabled).to.be.true()
-  })
-
-  describe('#onChange', function () {
-    let setTutorialStepSpy
-    let wrapper
-    const step = 1
-
-    before(function () {
-      setTutorialStepSpy = sinon.spy()
-      wrapper = shallow(<StepNavigation setTutorialStep={setTutorialStepSpy} steps={steps} />)
-    })
-
-    it('should call setTutorialStep with the value index as a number', function () {
-      wrapper.instance().onChange({ target: { value: `step-${step}` } })
-      expect(setTutorialStepSpy).to.be.calledOnceWith(step)
-    })
   })
 
   describe('props.setTutorialStep', function () {

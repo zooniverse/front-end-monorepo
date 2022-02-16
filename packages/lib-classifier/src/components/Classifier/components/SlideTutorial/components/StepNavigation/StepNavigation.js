@@ -117,3 +117,4 @@ StepNavigation.propTypes = {
 }
 
 export default withStores(StepNavigation, storeMapper)
+export { StepNavigation }

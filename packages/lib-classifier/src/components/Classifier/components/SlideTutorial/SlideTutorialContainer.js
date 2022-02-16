@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Paragraph, ResponsiveContext } from 'grommet'
-import { withStores } from '@helpers'
 import { useTranslation } from 'react-i18next'
 
+import { withStores } from '@helpers'
 import SlideTutorial from './SlideTutorial'
 
 function storeMapper (classifierStore) {
@@ -27,8 +27,8 @@ function storeMapper (classifierStore) {
 
 function SlideTutorialContainer({
   activeStep = 0,
-  projectDisplayName = '',
   pad = 'medium',
+  projectDisplayName = '',
   stepWithMedium,
   ...props
 }) {
@@ -57,7 +57,7 @@ function SlideTutorialContainer({
   )
 }
 
-SlideTutorialContainer.wrappedComponent.propTypes = {
+SlideTutorialContainer.propTypes = {
   activeStep: PropTypes.number,
   projectDisplayName: PropTypes.string,
   stepWithMedium: PropTypes.shape({
@@ -78,3 +78,4 @@ SlideTutorialContainer.wrappedComponent.propTypes = {
 }
 
 export default withStores(SlideTutorialContainer, storeMapper)
+export { SlideTutorialContainer }
