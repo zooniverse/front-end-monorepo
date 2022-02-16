@@ -63,8 +63,16 @@ function Polygon({ active, mark, onFinish, scale }) {
     mark.shortenPath()
   }
 
-  function handleClosePolygon() {
+  function handleClosePolygon(i) {
     console.log('HELLO WORLD')
+    if (i === 0) {
+      console.log(i)
+      return () => {
+        mark.finish()
+      }
+    } else {
+      return null
+    }
     // i === 0
     //   ? () => {
     //       mark.finish()
@@ -75,13 +83,7 @@ function Polygon({ active, mark, onFinish, scale }) {
   return (
     <g onPointerUp={active ? onFinish : undefined}>
       {/* Polygon??? or Polygon Lines */}
-      <polyline
-        points={path}
-        strokeWidth={strokeWidth}
-        fill='none'
-        // strokeLinejoin='round'
-        // strokeLinecap='round'
-      />
+      <polyline points={path} strokeWidth={strokeWidth} fill='none' />
       {/* So users can easily select the polygon */}
       <polyline
         points={path}
@@ -90,23 +92,27 @@ function Polygon({ active, mark, onFinish, scale }) {
         fill='none'
       />
 
-      {/* Initial Point */}
-      {/* This should be used for every point in the Polygon */}
       {active &&
         points.map((point, i) => {
           if (i === 0) {
+            {
+              /* Initial Point */
+            }
             return (
               <circle
                 key={`${mark.id}-${i}`}
-                r={radius * 5}
+                r={radius}
                 cx={point.x}
                 cy={point.y}
-                fill='#ff00ff'
-                onPointerDown={handleClosePolygon}
+                fill='currentColor'
+                onPointerDown={handleClosePolygon(i)}
               />
             )
           }
 
+          {
+            /* All other points in the Polygon */
+          }
           return (
             <DragHandle
               key={`${mark.id}-${i}`}
