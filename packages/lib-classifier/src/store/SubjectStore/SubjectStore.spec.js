@@ -186,18 +186,23 @@ describe('Model > SubjectStore', function () {
         })
 
         it('should increase the size of the queue', function () {
-          expect(subjects.resources.size).to.equal(shortListSubjects.length + longListSubjects.length)
+          expect(subjects.queue.length).to.equal(shortListSubjects.length + longListSubjects.length)
         })
 
         it('should add new subjects to the end of the queue', function () {
           const initialSubjectIDs = longListSubjects.map(subject => subject.id)
           const newSubjectIDs = shortListSubjects.map(subject => subject.id)
-          const queue = Array.from(subjects.resources.keys())
-          expect(queue).to.deep.equal([...initialSubjectIDs, ...newSubjectIDs])
+          const queuedIDs = subjects.queue.map(subject => subject.id)
+          expect(queuedIDs).to.deep.equal([...initialSubjectIDs, ...newSubjectIDs])
         })
 
         it('should not change the active subject', function () {
           expect(subjects.active.id).to.equal(longListSubjects[0].id)
+        })
+
+        it('should not duplicate existing subjects', function () {
+          subjects.append(shortListSubjects)
+          expect(subjects.queue.length).to.equal(shortListSubjects.length + longListSubjects.length)
         })
       })
     })
@@ -222,8 +227,10 @@ describe('Model > SubjectStore', function () {
 
       it('should empty the queue', function () {
         expect(subjects.resources.size).to.equal(5)
+        expect(subjects.queue.length).to.equal(5)
         subjects.clearQueue()
         expect(subjects.resources.size).to.equal(0)
+        expect(subjects.queue.length).to.equal(0)
       })
 
       it('should call onReset', function () {
@@ -294,7 +301,9 @@ describe('Model > SubjectStore', function () {
 
         it('should select those subjects', function () {
           expect(subjects.resources.size).to.equal(5)
-          expect(Array.from(subjects.resources.keys())).to.deep.equal(subjectIDs)
+          expect(subjects.queue.length).to.equal(5)
+          const queuedIDs = subjects.queue.map(subject => subject.id)
+          expect(queuedIDs).to.deep.equal(subjectIDs)
         })
       })
     })
