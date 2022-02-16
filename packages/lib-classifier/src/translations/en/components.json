@@ -120,6 +120,15 @@
   "ModalTutorial": {
     "title": "Tutorial"
   },
+  "QuickTalk": {
+    "headerLink": "Subject Discussion",
+    "status": {
+      "loading": "Posting comment..."
+    },
+    "errors": {
+      "noText": "Can't post an empty comment."
+    }
+  },
   "SlideTutorial": {
     "alt": "Tutorial step {{activeStep}}",
     "error": "Tutorial step could not be loaded.",
