@@ -1,23 +1,20 @@
-import counterpart from 'counterpart'
 import { Box } from 'grommet'
 import { FormCheckmark } from 'grommet-icons'
 import { bool } from 'prop-types'
 import styled from 'styled-components'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'next-i18next'
 
 const StyledBox = styled(Box)`
   border-radius: 100%;
 `
 
 function ApprovedIcon ({ approved, isNarrow }) {
+  const { t } = useTranslation('components')
   if (approved) {
     return (
       <StyledBox background='white'>
         <FormCheckmark
-          aria-label={counterpart('ApprovedIcon.title')}
+          aria-label={t('ProjectHeader.ApprovedIcon.title')}
           color='brand'
           size={isNarrow ? '20px' : 'medium'}
         />

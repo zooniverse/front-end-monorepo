@@ -55,5 +55,30 @@
       "usernamePatternHelp": "Usernames can only contain letters, numbers, '.','-', and '_'",
       "usernamePlaceholder": "e.g. ZooniverseFan123"
     }
+  },
+  "Head": {
+    "defaultDescription": "The Zooniverse is the world’s largest and most popular platform for people-powered research.",
+    "defaultTitle": "Projects",
+    "siteName": "Zooniverse - People-powered research"
+  },
+  "ProjectHeader": {
+    "about": "About",
+    "classify": "Classify",
+    "exploreProject": "Explore Project",
+    "talk": "Talk",
+    "collect": "Collect",
+    "recents": "Recents",
+    "ApprovedIcon": {
+      "title": "Zooniverse Approved"
+    },
+    "Avatar": {
+      "alt": "Project avatar for {{project}}"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Project"
+    },
+    "UnderReviewLabel": {
+      "underReview": "under review"
+    }
   }
 }

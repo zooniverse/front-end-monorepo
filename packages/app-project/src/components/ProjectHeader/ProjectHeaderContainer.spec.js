@@ -18,9 +18,9 @@ describe('Component > ProjectHeaderContainer', function () {
   }
   before(function () {
     routerStub = sinon.stub(Router, 'useRouter').callsFake(() => ROUTER)
-    wrapper = shallow(<ProjectHeaderContainer
-      projectName={PROJECT_DISPLAY_NAME}
-    />)
+    wrapper = shallow(
+      <ProjectHeaderContainer projectName={PROJECT_DISPLAY_NAME} />
+    )
     projectHeader = wrapper.find(ProjectHeader)
   })
 
@@ -40,7 +40,44 @@ describe('Component > ProjectHeaderContainer', function () {
     expect(projectHeader.prop('title')).to.equal(PROJECT_DISPLAY_NAME)
   })
 
-  it('should pass down the nav links', function () {
-    expect(projectHeader.prop('navLinks').length).to.be.above(0)
+  describe('when not logged in', function () {
+    it('should pass down the default nav links', function () {
+      const navLinks = projectHeader.prop('navLinks')
+      expect(navLinks.length).to.be.above(0)
+      expect(navLinks[0].href).to.equal('/Foo/Bar/about/research')
+      expect(navLinks[navLinks.length - 1].href).to.equal(
+        '/Foo/Bar/collections'
+      )
+    })
+  })
+
+  describe('when logged in', function () {
+    it('should pass nav links including recents', function () {
+      wrapper = shallow(
+        <ProjectHeaderContainer isLoggedIn projectName={PROJECT_DISPLAY_NAME} />
+      )
+      const projectHeader = wrapper.find(ProjectHeader)
+
+      const navLinks = projectHeader.prop('navLinks')
+      expect(navLinks.length).to.be.above(0)
+      expect(navLinks[navLinks.length - 1].href).to.equal('/Foo/Bar/recents')
+    })
+  })
+
+  describe('with a default workflow', function () {
+    it('should pass a workflow-specific classify link', function () {
+      wrapper = shallow(
+        <ProjectHeaderContainer
+          defaultWorkflow='1234'
+          isLoggedIn
+          projectName={PROJECT_DISPLAY_NAME}
+        />
+      )
+      const projectHeader = wrapper.find(ProjectHeader)
+
+      const navLinks = projectHeader.prop('navLinks')
+      expect(navLinks.length).to.be.above(0)
+      expect(navLinks[1].href).to.equal('/Foo/Bar/classify/workflow/1234')
+    })
   })
 })
