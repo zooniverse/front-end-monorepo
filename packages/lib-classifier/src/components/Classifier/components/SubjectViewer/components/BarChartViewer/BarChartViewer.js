@@ -6,11 +6,11 @@ import { AxisBottom, AxisLeft } from '@visx/axis'
 import { scaleBand, scaleLinear } from '@visx/scale'
 import { extent } from 'd3'
 import { withParentSize } from '@visx/responsive'
-import counterpart from 'counterpart'
+import { useTranslation } from 'react-i18next'
+
 import Chart from '../SVGComponents/Chart'
 import Background from '../SVGComponents/Background'
 import Bars from './components/Bars'
-import en from './locales/en'
 
 export const StyledGroup = styled(Group)`
   .Axis__label {
@@ -19,8 +19,6 @@ export const StyledGroup = styled(Group)`
     letter-spacing: 1px;
   }
 `
-
-counterpart.registerTranslations('en', en)
 
 const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
   const {
@@ -42,7 +40,9 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
     yAxisLabel
   } = props
 
-  let backgroundColor = (dark) ? colors['dark-3'] : 'white'
+  const { t } = useTranslation('components')
+
+  const backgroundColor = (dark) ? colors['dark-3'] : 'white'
   const xMax = parentWidth - left - right
   const yMax = parentHeight - bottom - top
 
@@ -70,7 +70,7 @@ const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
     <Chart height={parentHeight + top} ref={ref} width={parentWidth}>
       <Background fill={backgroundColor} />
       <Group
-        aria-label={counterpart('BarChartViewer.chartLabel')}
+        aria-label={t('SubjectViewer.BarChartViewer.chartLabel')}
         focusable
         left={left}
         role='list'

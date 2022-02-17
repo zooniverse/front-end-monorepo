@@ -130,5 +130,10 @@
       "next": "Go to next step",
       "previous": "Go to previous step"
     }
+  },
+  "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Bar chart"
+    }
   }
 }
