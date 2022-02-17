@@ -89,6 +89,14 @@ function Polygon({ active, mark, onFinish, scale }) {
         strokeOpacity='0'
         fill='none'
       />
+      {active && (
+        <UndoButton
+          scale={scale}
+          x={initialPoint.x}
+          y={initialPoint.y}
+          undoDrawing={onUndoDrawing}
+        />
+      )}
       {/* To visibly show a closed polygon */}
       {finished && (
         <line

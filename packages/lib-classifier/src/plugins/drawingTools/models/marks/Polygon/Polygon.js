@@ -103,11 +103,16 @@ const PolygonModel = types
     },
 
     shortenPath() {
-      let lengthToRemove = 20
+      let lengthToRemove = 1
       while (lengthToRemove--) {
         self.points.pop()
       }
     },
+
+    // closePath() {
+    //   console.log(self.path)
+    //   console.log(self.points)
+    // },
 
     setGuideLine(event) {
       self.guideLineX = event.x
