@@ -102,6 +102,10 @@ const BaseMark = types
       self.finished = true
     },
 
+    continueDrawing() {
+      self.finished = false
+    },
+
     setPreviousAnnotations(previousAnnotationValues) {
       if (previousAnnotationValues?.length > 0) {
         previousAnnotationValues.forEach((previousAnnotationValue) => {

@@ -4,6 +4,8 @@ import { Mark } from '@plugins/drawingTools/models/marks'
 import { PolygonTool } from '@plugins/drawingTools/models/tools'
 import roundCoordinates from '@helpers/roundCoordinates'
 
+const MINIMUM_POINTS = 3
+
 const singleCoord = types.model({
   x: types.maybe(types.number),
   y: types.maybe(types.number)
@@ -31,9 +33,9 @@ const PolygonModel = types
       return { x, y }
     },
 
-    // get isValid() {
-    //   return self.points.length > MINIMUM_POINTS
-    // },
+    get isValid() {
+      return self.points.length >= MINIMUM_POINTS
+    },
 
     get tool() {
       return getParentOfType(self, PolygonTool)
@@ -65,10 +67,6 @@ const PolygonModel = types
       otherCoords.forEach(({ x, y }) => {
         path = path + `${x},${y} `
       })
-      // closes the drawing path
-      // if (self.isCloseToStart) {
-      //   path += ' Z'
-      // }
       return path
     },
 

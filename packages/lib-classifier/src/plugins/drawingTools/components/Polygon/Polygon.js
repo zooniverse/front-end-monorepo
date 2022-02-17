@@ -35,7 +35,6 @@ function Polygon({ active, mark, onFinish, scale }) {
     initialPoint,
     lastPoint,
     finished,
-    isCloseToStart,
     guideLineX,
     guideLineY
   } = mark
@@ -58,6 +57,7 @@ function Polygon({ active, mark, onFinish, scale }) {
   }
 
   function onUndoDrawing() {
+    mark.continueDrawing()
     mark.shortenPath()
   }
 
@@ -80,6 +80,14 @@ function Polygon({ active, mark, onFinish, scale }) {
 
   return (
     <g onPointerUp={active ? onFinish : undefined}>
+      {active && points.length > 1 && (
+        <UndoButton
+          scale={scale}
+          x={initialPoint.x}
+          y={initialPoint.y}
+          undoDrawing={onUndoDrawing}
+        />
+      )}
       {/* Polygon??? or Polygon Lines */}
       <polyline points={path} strokeWidth={strokeWidth} fill='none' />
       {/* So users can easily select the polygon */}
@@ -89,14 +97,6 @@ function Polygon({ active, mark, onFinish, scale }) {
         strokeOpacity='0'
         fill='none'
       />
-      {active && (
-        <UndoButton
-          scale={scale}
-          x={initialPoint.x}
-          y={initialPoint.y}
-          undoDrawing={onUndoDrawing}
-        />
-      )}
       {/* To visibly show a closed polygon */}
       {finished && (
         <line
@@ -171,7 +171,7 @@ Polygon.propTypes = {
   */
   active: PropTypes.bool,
   /**
-    Polygon data: { path, initialPoint, lastPoint, finished, isCloseToStart }
+    Polygon data: { path, initialPoint, lastPoint, finished }
   */
   mark: PropTypes.shape({
     path: PropTypes.string,
@@ -183,8 +183,7 @@ Polygon.propTypes = {
       x: PropTypes.number,
       y: PropTypes.number
     }),
-    finished: PropTypes.bool,
-    isCloseToStart: PropTypes.bool
+    finished: PropTypes.bool
   }).isRequired,
   /**
     Callback to reset the drawing canvas when creation of the rectangle is finished.
