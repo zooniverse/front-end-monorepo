@@ -155,6 +155,18 @@
         "previousFrameLabel": "Previous",
         "nextFrameLabel": "Next"
       }
+    },
+    "VariableStarViewer": {
+      "controls": "controls",
+      "figCaption": "HR Diagram",
+      "flip": "flip",
+      "focus": "focus",
+      "highlight": "highlight",
+      "imageTitle": "HR Diagram: Luminosity vs Temperature",
+      "label": "Filter {{id}}",
+      "periodMultiple": "period multiple",
+      "phase": "phase",
+      "phaseFocus": "phase focus"
     }
   }
 }
