@@ -11,6 +11,11 @@
     "selectPlaceholder": "Choose an answer"
   },
   "SurveyTask":{
+    "CharacteristicsFilter": {
+      "clearFilters": "Clear filters",
+      "filter": "Filter",
+      "showing": "Showing {{showing}} of {{total}}"
+    },
     "Choice": {
       "identify": "Identify",
       "notThis": "Not this"
