@@ -81,8 +81,11 @@ const PolygonModel = types
       self.points.push({ x: roundedCoords.roundedX, y: roundedCoords.roundedY })
     },
 
-    move() {
-      return
+    move({ x, y }) {
+      return self.points.map((coord) => {
+        coord.x += x
+        coord.y += y
+      })
     },
 
     setCoordinates({ x, y }, i) {
