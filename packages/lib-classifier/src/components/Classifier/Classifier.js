@@ -37,6 +37,7 @@ export default function Classifier({
   useEffect(function onURLChange() {
     const { workflows } = classifierStore
     if (workflowID) {
+      console.log('starting new subject queue', { workflowID, subjectSetID, subjectID })
       workflows.selectWorkflow(workflowID, subjectSetID, subjectID)
     }
   }, [subjectID, subjectSetID, workflowID])
@@ -51,9 +52,10 @@ export default function Classifier({
     if (workflowSnapshot) {
       // pass the subjectSetID prop into the store as part of the new workflow data
       workflowSnapshot.subjectSet = subjectSetID
+      console.log('Refreshing workflow snapshot', workflowSnapshot.id)
       workflows.setResources([workflowSnapshot])
       // TODO: the task area crashes without the following line. Why is that?
-      subjects.setActiveSubject(subjects.active?.id)
+      classifierStore.startClassification()
     }
   }, [workflowVersion])
 

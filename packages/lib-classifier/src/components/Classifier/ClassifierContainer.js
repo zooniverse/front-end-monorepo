@@ -1,13 +1,9 @@
 import { GraphQLClient } from 'graphql-request'
 import { Paragraph } from 'grommet'
-import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
-import { persist } from 'mst-persist'
-import useSWR from 'swr'
 import PropTypes from 'prop-types'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect } from 'react'
 import '../../translations/i18n'
-import i18n from 'i18next'
 import {
   env,
   panoptes as panoptesClient,
@@ -15,9 +11,8 @@ import {
   tutorials as tutorialsClient
 } from '@zooniverse/panoptes-js'
 
-import { asyncSessionStorage } from '@helpers'
+import { useHydratedStore, useStore, useWorkflowSnapshot } from './hooks'
 import { unregisterWorkers } from '../../workers'
-import RootStore from '../../store'
 import Classifier from './Classifier'
 
 // import { isBackgroundSyncAvailable } from '../../helpers/featureDetection'
@@ -50,41 +45,6 @@ const client = {
 // So we'll unregister the worker for now.
 unregisterWorkers('./queue.js')
 
-let store
-
-function initStore({ authClient, client, initialState }) {
-  if (!store) {
-    store = RootStore.create(initialState, {
-      authClient,
-      client
-    })
-    makeInspectable(store)
-  }
-  return store
-}
-/**
-  useStore hook adapted from
-  https://github.com/vercel/next.js/blob/5201cdbaeaa72b54badc8f929ddc73c09f414dc4/examples/with-mobx-state-tree/store.js#L49-L52
-*/
-function useStore({ authClient, client, initialState }) {
-  const _store = useMemo(() => initStore({ authClient, client, initialState }), [authClient, initialState])
-  return _store
-}
-
-async function fetchWorkflow(workflowID) {
-  if (workflowID) {
-    const { body } = await panoptesClient.get(`/workflows/${workflowID}`)
-    const [ workflowSnapshot ] = body.workflows
-    return workflowSnapshot
-  }
-  return null
-}
-
-function useWorkflowSnapshot(workflowID) {
-  const { data } = useSWR(workflowID, fetchWorkflow)
-  return data ?? null
-}
-
 export default function ClassifierContainer({
   authClient,
   cachePanoptesData = false,
@@ -107,50 +67,42 @@ export default function ClassifierContainer({
     initialState: {}
   })
 
-  const [loaded, setLoaded] = useState(false)
   const workflowSnapshot = useWorkflowSnapshot(workflowID)
 
-  async function onMount() {
-    if (cachePanoptesData) {
-      try {
-        const storageKey = `fem-classifier-${project.id}`
-        await persist(storageKey, classifierStore, {
-          storage: asyncSessionStorage,
-          whitelist: ['fieldGuide', 'projects', 'subjects', 'subjectSets', 'tutorials', 'workflows', 'workflowSteps']
-        })
-        console.log('store hydrated from local storage')
-        const { subjects, workflows } = classifierStore
-        if (!workflows.active?.prioritized) {
-          /*
-          In this case, we delete the saved queue so that
-          refreshing the classifier will load a new, randomised
-          subject queue.
-          */
-          subjects.reset()
-        }
-        if (subjects.active) {
-          /*
-            This is a hack to start a new classification from a snapshot.
-          */
-          subjects.setActiveSubject(subjects.active.id)
-        }
-      } catch (error) {
-        console.log('store snapshot error.')
-        console.error(error)
-      }
-    }
-    const { classifications, subjects } = classifierStore
-    classifierStore.setOnAddToCollection(onAddToCollection)
-    classifications.setOnComplete(onCompleteClassification)
-    classifierStore.setOnSubjectChange(onSubjectChange)
-    subjects.setOnReset(onSubjectReset)
-    classifierStore.setOnToggleFavourite(onToggleFavourite)
-    setLoaded(true)
-  }
+  const loaded = useHydratedStore(classifierStore, cachePanoptesData, `fem-classifier-${project.id}`)
 
-  useEffect(() => {
-    onMount()
-  }, [])
+  useEffect(function onLoad() {
+    /*
+    This should run after the store is created and hydrated.
+    Otherwise, hydration will overwrite the callbacks with
+    their defaults.
+    */
+    if (loaded) {
+      const { classifications, subjects, workflows } = classifierStore
+      if (!workflows.active?.prioritized) {
+        /*
+        In this case, we delete the saved queue so that
+        refreshing the classifier will load a new, randomised
+        subject queue.
+        */
+        console.log('randomising the subject queue.')
+        subjects.reset()
+      }
+      if (subjects.active) {
+        /*
+          This is a hack to start a new classification from a snapshot.
+        */
+        console.log('store hydrated with active subject', subjects.active.id)
+        classifierStore.startClassification()
+      }
+      console.log('setting classifier event callbacks')
+      classifierStore.setOnAddToCollection(onAddToCollection)
+      classifications.setOnComplete(onCompleteClassification)
+      classifierStore.setOnSubjectChange(onSubjectChange)
+      subjects.setOnReset(onSubjectReset)
+      classifierStore.setOnToggleFavourite(onToggleFavourite)
+    }
+  }, [loaded])
 
   useEffect(function onAuthChange() {
     if (loaded) {

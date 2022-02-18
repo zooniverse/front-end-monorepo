@@ -56,7 +56,7 @@ const RootStore = types
     function _addMiddleware(call, next, abort) {
       if (call.name === 'setActiveSubject') {
         const res = next(call)
-        onSubjectAdvance()
+        self.startClassification()
         return res
       }
       return next(call)
@@ -74,20 +74,6 @@ const RootStore = types
       const { path, value } = patch
       if (path === '/classifications/loadingState' && value === 'posting') {
         self.subjects.advance()
-      }
-    }
-
-    function onSubjectAdvance () {
-      const { classifications, feedback, projects, subjects, workflows, workflowSteps } = self
-      const subject = tryReference(() => subjects?.active)
-      const workflow = tryReference(() => workflows?.active)
-      const project = tryReference(() => projects?.active)
-      if (subject && workflow && project) {
-        workflowSteps.resetSteps()
-        classifications.reset()
-        classifications.createClassification(subject, workflow, project)
-        feedback.onNewSubject()
-        self.onSubjectChange(getSnapshot(subject))
       }
     }
 
@@ -114,12 +100,27 @@ const RootStore = types
       self.onToggleFavourite = callback
     }
 
+    function startClassification() {
+      const { classifications, feedback, projects, subjects, workflows, workflowSteps } = self
+      const subject = tryReference(() => subjects?.active)
+      const workflow = tryReference(() => workflows?.active)
+      const project = tryReference(() => projects?.active)
+      if (subject && workflow && project) {
+        workflowSteps.resetSteps()
+        classifications.reset()
+        classifications.createClassification(subject, workflow, project)
+        feedback.onNewSubject()
+        self.onSubjectChange(getSnapshot(subject))
+      }
+    }
+
     return {
       afterCreate,
       setLocale,
       setOnAddToCollection,
       setOnSubjectChange,
-      setOnToggleFavourite
+      setOnToggleFavourite,
+      startClassification
     }
   })
 
