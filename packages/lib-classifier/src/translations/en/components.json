@@ -167,6 +167,12 @@
       "periodMultiple": "period multiple",
       "phase": "phase",
       "phaseFocus": "phase focus"
+    },
+    "VideoController": {
+      "scrubber": "Video player scrubber",
+      "playbackSpeed": "Video playback speed selection",
+      "play": "Play video",
+      "pause": "Pause video"
     }
   }
 }

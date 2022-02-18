@@ -2,12 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Button, Select, ThemeContext } from 'grommet'
 import { CirclePlay, PauseFill } from 'grommet-icons'
-import counterpart from 'counterpart'
-import en from './locales/en.json'
+import { useTranslation } from 'react-i18next'
+
 import FormattedTime from './components/FormattedTime/FormattedTime'
 import Slider from './components/Slider/Slider'
-
-counterpart.registerTranslations('en', en)
 
 const customSelectTheme = {
   textInput: {
@@ -31,9 +29,10 @@ const VideoController = ({
   onSliderMouseDown,
   onSliderChange
 }) => {
-  let playPauseLabel = isPlaying
-    ? 'VideoController.pause'
-    : 'VideoController.play'
+  const { t } = useTranslation('components')
+  const playPauseLabel = isPlaying
+    ? 'SubjectViewer.VideoController.pause'
+    : 'SubjectViewer.VideoController.play'
 
   return (
     <Box
@@ -55,11 +54,11 @@ const VideoController = ({
         <Box direction='row'>
           <Box alignSelf='center' pad={{ horizontal: 'small' }}>
             <Button
-              a11yTitle={counterpart(playPauseLabel)}
+              a11yTitle={t(playPauseLabel)}
               onClick={onPlayPause}
               icon={isPlaying ? <PauseFill /> : <CirclePlay />}
               plain
-            ></Button>
+            />
           </Box>
 
           <Box direction='row' alignSelf='center'>
@@ -72,7 +71,7 @@ const VideoController = ({
         <Box direction='row' alignSelf='center' pad={{ right: 'small' }}>
           <ThemeContext.Extend value={customSelectTheme}>
             <Select
-              a11yTitle={counterpart('VideoController.playbackSpeed')}
+              a11yTitle={t('SubjectViewer.VideoController.playbackSpeed')}
               options={[0.25, 0.5, 1]}
               value={playbackRate}
               onChange={({ option }) => onSpeedChange(option)}
