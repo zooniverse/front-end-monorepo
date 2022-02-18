@@ -5,6 +5,11 @@
     "min": "{{count}} of {{min}} required drawn",
     "maxAndMin": "{{count}} of {{min}} required, {{max}} maximum drawn"
   },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Input something",
+    "otherLabel": "Other...",
+    "selectPlaceholder": "Choose an answer"
+  },
   "TranscriptionLine": {
     "editing": "Editing transcription",
     "created": "Created transcription"
