@@ -13,11 +13,12 @@ const singleCoord = types.model({
 
 const PolygonModel = types
   .model('PolygonModel', {
-    points: types.array(singleCoord),
-    // TODO: Move these to volatile
+    points: types.array(singleCoord)
+  })
+  .volatile((self) => ({
     guideLineX: types.maybe(types.number),
     guideLineY: types.maybe(types.number)
-  })
+  }))
   .views((self) => ({
     get coords() {
       return {

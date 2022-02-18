@@ -5,17 +5,6 @@ import styled from 'styled-components'
 import UndoButton from '../UndoButton'
 import DragHandle from '../DragHandle'
 
-// const StyledGroup = styled.g`
-//   &:hover {
-//     cursor: pointer;
-//   }
-//   g:last-of-type {
-//     &:hover {
-//       cursor: crosshair;
-//     }
-//   }
-// `
-
 const GuideLine = styled.line`
   pointer-events: none;
 `
@@ -25,9 +14,7 @@ const STROKE_WIDTH = 3
 const GUIDELINE_STROKE_WIDTH = 2
 const GRAB_STROKE_WIDTH = 6
 
-// const FINISHER_RADIUS = 3
-
-function Polygon({ active, mark, onFinish, scale }) {
+function Polygon({ active, mark, scale }) {
   const {
     path,
     points,
@@ -42,11 +29,6 @@ function Polygon({ active, mark, onFinish, scale }) {
   const strokeWidth = STROKE_WIDTH / scale
   const guideLineStrokeWidth = GUIDELINE_STROKE_WIDTH / scale
   const grabStrokeWidth = GRAB_STROKE_WIDTH / scale
-
-  function onAppendPath(coords) {
-    console.log(coords)
-    mark.appendPath(coords)
-  }
 
   function onMouseMove() {}
 
@@ -143,16 +125,19 @@ function Polygon({ active, mark, onFinish, scale }) {
         })}
 
       {/* Guide Line */}
-      {!finished && active && guideLineX && guideLineY && (
-        <GuideLine
-          x1={lastPoint.x}
-          y1={lastPoint.y}
-          x2={guideLineX}
-          y2={guideLineY}
-          strokeWidth={guideLineStrokeWidth}
-          strokeDasharray='2 2'
-        />
-      )}
+      {!finished &&
+        active &&
+        typeof guideLineX === 'number' &&
+        typeof guideLineY === 'number' && (
+          <GuideLine
+            x1={lastPoint.x}
+            y1={lastPoint.y}
+            x2={guideLineX}
+            y2={guideLineY}
+            strokeWidth={guideLineStrokeWidth}
+            strokeDasharray='2 2'
+          />
+        )}
     </g>
   )
 }
@@ -178,10 +163,6 @@ Polygon.propTypes = {
     finished: PropTypes.bool
   }).isRequired,
   /**
-    Callback to reset the drawing canvas when creation of the rectangle is finished.
-  */
-  onFinish: PropTypes.func,
-  /**
     Image scale factor. Used to keep line widths and sizes constant at all image scales.
   */
   scale: PropTypes.number
@@ -189,7 +170,6 @@ Polygon.propTypes = {
 
 Polygon.defaultProps = {
   active: false,
-  onFinish: () => true,
   scale: 1
 }
 
