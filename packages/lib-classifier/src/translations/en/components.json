@@ -134,6 +134,20 @@
   "SubjectViewer": {
     "BarChartViewer": {
       "chartLabel": "Bar chart"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Close without saving",
+        "confirm": "Are you sure you want to close? This mark will be deleted.",
+        "keepWorking": "Keep working"
+      },
+      "SaveButton": {
+        "save": "Save and Close"
+      },
+      "SubTaskPopup": {
+        "notRender": "Task component could not be rendered.",
+        "required": "This task is required."
+      }
     }
   }
 }
