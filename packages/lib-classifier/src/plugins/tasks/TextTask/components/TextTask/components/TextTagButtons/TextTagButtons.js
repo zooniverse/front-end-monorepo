@@ -2,12 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Text } from 'grommet'
 import { PlainButton } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'react-i18next'
 
 export default function TextTagButtons ({ disabled, tags, taskKey, onClick }) {
+  const { t } = useTranslation('plugins')
   if (tags.length > 0) {
     return (
       <>
@@ -15,7 +13,7 @@ export default function TextTagButtons ({ disabled, tags, taskKey, onClick }) {
           id={`textModifiers-${taskKey}`}
           weight='bold'
         >
-          {counterpart('TextTask.modifiers')}
+          {t('TextTask.TextTagButtons.modifiers')}
         </Text>
         <Box
           gap='small'

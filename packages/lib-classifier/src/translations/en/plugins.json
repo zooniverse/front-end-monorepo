@@ -26,6 +26,11 @@
       "itsThis": "I think it's this"
     }
   },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Text modifiers"
+    }
+  },
   "TranscriptionLine": {
     "editing": "Editing transcription",
     "created": "Created transcription"
