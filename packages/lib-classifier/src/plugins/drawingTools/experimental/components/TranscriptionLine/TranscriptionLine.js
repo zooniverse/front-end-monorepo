@@ -2,14 +2,12 @@ import PropTypes from 'prop-types'
 import React, { useContext, useState } from 'react'
 import { ThemeContext } from 'styled-components'
 import { MobXProviderContext } from 'mobx-react'
-import counterpart from 'counterpart'
 import { Tooltip } from '@zooniverse/react-components'
+import { useTranslation } from 'react-i18next'
+
 import TooltipIcon from './components/TooltipIcon'
 import { HANDLE_RADIUS } from './helpers/constants'
 import TranscriptionLineMark from './components/TranscriptionLineMark'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 function storeMapper(stores) {
   return stores.classifierStore.workflows.active?.usesTranscriptionTask || false
@@ -22,6 +20,7 @@ function TranscriptionLine(props) {
   const [allowFinish, setAllowFinish] = useState(false)
   const usesTranscriptionTask = storeMapper(stores)
   const { active, color, mark, onFinish, scale, state } = props
+  const { t } = useTranslation('plugins')
   if (theme) {
     transcriptionTaskColors = {
       active: theme.global.colors.drawingTools.green,
@@ -56,7 +55,7 @@ function TranscriptionLine(props) {
   }
 
   if (usesTranscriptionTask && lineState === 'active' || lineState === 'default') {
-    const tooltipLabel = (lineState === 'active') ? counterpart('TranscriptionLine.editing') : counterpart('TranscriptionLine.created')
+    const tooltipLabel = (lineState === 'active') ? t('TranscriptionLine.editing') : t('TranscriptionLine.created')
     return (
       <Tooltip
         icon={<TooltipIcon fill={colorToRender} />}
