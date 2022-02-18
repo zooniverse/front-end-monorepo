@@ -56,7 +56,7 @@ export default function ConsensusPopup ({
         minWidth: MIN_POPUP_WIDTH,
         position
       }}
-      title={t('ConsensusPopup.title')}
+      title={t('SubjectViewer.InteractionLayer.TranscribedLines.ConsensusPopup.title')}
       titleColor=''
     >
       <Paragraph>
