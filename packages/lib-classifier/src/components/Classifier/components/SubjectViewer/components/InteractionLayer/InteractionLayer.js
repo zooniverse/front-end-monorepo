@@ -136,7 +136,6 @@ function InteractionLayer({
 
   function onFinish(event) {
     if (event.preventDefault) event.preventDefault()
-    console.log(creating)
     setCreating(false)
     if (activeMark && !activeMark.isValid) {
       activeTool.deleteMark(activeMark)
@@ -146,7 +145,6 @@ function InteractionLayer({
   }
 
   function onPointerUp(event) {
-    console.log(creating, activeMark.finished, activeMark.id)
     if (creating) {
       activeTool.handlePointerUp &&
         activeTool.handlePointerUp(convertEvent(event), activeMark)

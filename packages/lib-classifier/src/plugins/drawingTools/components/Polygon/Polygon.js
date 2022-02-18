@@ -77,8 +77,8 @@ function Polygon({ active, mark, onFinish, scale }) {
   }
 
   return (
-    <g onPointerUp={active ? onFinish : undefined}>
-      {active && points.length > 1 && (
+    <g>
+      {active && !finished && points.length > 1 && (
         <UndoButton
           scale={scale}
           x={initialPoint.x}

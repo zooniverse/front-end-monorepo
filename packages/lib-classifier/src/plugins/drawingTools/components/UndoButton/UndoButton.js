@@ -82,7 +82,7 @@ UndoButton.propTypes = {
   */
   y: number,
   /**
-    Callback to shorten path array by 20 coordinates
+    Callback to shorten path array
   */
   undoDrawing: func
 }

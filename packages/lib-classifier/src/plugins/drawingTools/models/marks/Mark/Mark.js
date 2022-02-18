@@ -99,7 +99,6 @@ const BaseMark = types
   }))
   .actions((self) => ({
     finish() {
-      console.log('Finished!')
       self.finished = true
     },
 
