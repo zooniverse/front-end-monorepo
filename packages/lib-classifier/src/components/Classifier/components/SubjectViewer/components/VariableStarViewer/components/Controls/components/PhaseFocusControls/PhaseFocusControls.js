@@ -2,11 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, RadioButton } from 'grommet'
 import { withTheme } from 'styled-components'
-import Label from '../Label'
-import counterpart from 'counterpart'
-import en from '../../../../locales/en'
+import { useTranslation } from 'react-i18next'
 
-counterpart.registerTranslations('en', en)
+import Label from '../Label'
 
 function PhaseFocusControls(props) {
   const {
@@ -21,12 +19,14 @@ function PhaseFocusControls(props) {
     }
   } = props
 
+  const { t } = useTranslation('components')
+
   return (
-    <Box direction='column'  pad='none'>
+    <Box direction='column' pad='none'>
       {data.map((series, seriesIndex) => {
         const { seriesOptions } = series
         const checked = phaseFocusedSeries === seriesIndex
-        const label = seriesOptions?.label || counterpart('VariableStarViewer.label', { id: seriesIndex + 1 })
+        const label = seriesOptions?.label || t('SubjectViewer.VariableStarViewer.label', { id: seriesIndex + 1 })
 
         return (
           <RadioButton

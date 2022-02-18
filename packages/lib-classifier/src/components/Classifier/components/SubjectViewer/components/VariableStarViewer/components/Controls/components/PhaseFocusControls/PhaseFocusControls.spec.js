@@ -79,13 +79,13 @@ describe('Controls > Components > PhaseFocusControls', function () {
 
   it('should use the fallback label if series option label is missing', function () {
     const dataWithoutLabel = data.map((series) => {
-      const seriesWithoutLabel = Object.assign({}, series, { seriesOptions: {}})
+      const seriesWithoutLabel = Object.assign({}, series, { seriesOptions: {} })
       return seriesWithoutLabel
     })
     wrapper.setProps({ data: dataWithoutLabel })
     dataWithoutLabel.forEach((series, seriesIndex) => {
       const radioButton = wrapper.find(RadioButton).at(seriesIndex)
-      const label = `Filter ${seriesIndex + 1}`
+      const label = 'SubjectViewer.VariableStarViewer.label' // Translation function simply returns the key in a testing env
 
       expect(radioButton.props().label).to.deep.equal(
         <Label

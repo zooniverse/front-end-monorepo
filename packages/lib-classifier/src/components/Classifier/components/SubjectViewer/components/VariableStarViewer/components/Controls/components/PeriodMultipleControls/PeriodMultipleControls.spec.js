@@ -4,7 +4,6 @@ import sinon from 'sinon'
 import { SpacedText } from '@zooniverse/react-components'
 import { FormField } from 'grommet'
 import { PeriodMultipleControls, StyledRadioButtonGroup } from './PeriodMultipleControls'
-import en from '../../../../locales/en'
 
 const options = ['0.5', '1', '2', '3'].map((option) => {
   return {
@@ -41,8 +40,7 @@ describe('Controls > Components > PeriodMultipleControls', function () {
     })
 
     it('should have a label for the FormField', function () {
-      const label = <SpacedText size='10px' weight='bold'>{en.VariableStarViewer.periodMultiple}</SpacedText>
-      expect(formField.props().label).to.deep.equal(label)
+      expect(formField.props().label).exists()
     })
   })
 

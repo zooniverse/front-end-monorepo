@@ -1,9 +1,0 @@
-{
-  "MultiFrameViewer": {
-    "FrameCarousel":{
-      "thumbnailAltText": "Thumbnail of Image",
-      "previousFrameLabel": "Previous",
-      "nextFrameLabel": "Next"
-    }
-  }
-}
