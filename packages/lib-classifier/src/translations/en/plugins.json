@@ -1,4 +1,10 @@
 {
+  "InputStatus": {
+    "drawn": "{{count}} drawn",
+    "max": "{{count}} of {{max}} maximum drawn",
+    "min": "{{count}} of {{min}} required drawn",
+    "maxAndMin": "{{count}} of {{min}} required, {{max}} maximum drawn"
+  },
   "TranscriptionLine": {
     "editing": "Editing transcription",
     "created": "Created transcription"
