@@ -67,7 +67,7 @@ describe('Component > Choice', function () {
           task={mockTask}
         />
       )
-      expect(screen.getByText('Sometimes confused with')).to.exist()
+      expect(screen.getByText('SurveyTask.ConfusedWith.confused')).to.exist()
     })
 
     it('should render Questions', function () {

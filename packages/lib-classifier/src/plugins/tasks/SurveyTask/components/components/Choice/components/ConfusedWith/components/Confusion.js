@@ -2,11 +2,8 @@ import { Box, Button, Carousel, Paragraph } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Media, PrimaryButton, SpacedHeading } from '@zooniverse/react-components'
+import { useTranslation } from 'react-i18next'
 
-import counterpart from 'counterpart'
-import en from '../locales/en'
-
-counterpart.registerTranslations('en', en)
 export default function Confusion (props) {
   const {
     confusion,
@@ -16,6 +13,8 @@ export default function Confusion (props) {
     images,
     onClose
   } = props
+
+  const { t } = useTranslation('plugins')
 
   return (
     <Box
@@ -56,12 +55,12 @@ export default function Confusion (props) {
       >
         <Button
           fill='horizontal'
-          label={counterpart('ConfusedWith.cancel')}
+          label={t('SurveyTask.ConfusedWith.cancel')}
           onClick={() => onClose()}
         />
         <PrimaryButton
           fill='horizontal'
-          label={counterpart('ConfusedWith.itsThis')}
+          label={t('SurveyTask.ConfusedWith.itsThis')}
           onClick={() => handleChoice(confusionId)}
         />
       </Box>

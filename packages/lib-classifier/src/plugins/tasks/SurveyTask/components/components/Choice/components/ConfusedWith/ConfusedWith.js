@@ -3,13 +3,9 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
 import { SpacedHeading } from '@zooniverse/react-components'
+import { useTranslation } from 'react-i18next'
 
 import Confusion from './components/Confusion'
-
-import counterpart from 'counterpart'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 export const StyledDropButton = styled(DropButton)`
   background-color: ${props => props.theme.global.colors[props.backgroundColor]};
@@ -29,6 +25,8 @@ function ConfusedWith (props) {
     theme
   } = props
 
+  const { t } = useTranslation('plugins')
+
   const [open, setOpen] = React.useState(false)
   function onClose () {
     setOpen(false)
@@ -39,7 +37,7 @@ function ConfusedWith (props) {
 
   return (
     <Box>
-      <SpacedHeading>{counterpart('ConfusedWith.confused')}</SpacedHeading>
+      <SpacedHeading>{t('SurveyTask.ConfusedWith.confused')}</SpacedHeading>
       <Box
         direction='row'
         wrap
