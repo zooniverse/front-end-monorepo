@@ -15,7 +15,7 @@ const PolygonModel = types
   .model('PolygonModel', {
     points: types.array(singleCoord)
   })
-  .volatile((self) => ({
+  .volatile(() => ({
     guideLineX: types.maybe(types.number),
     guideLineY: types.maybe(types.number)
   }))

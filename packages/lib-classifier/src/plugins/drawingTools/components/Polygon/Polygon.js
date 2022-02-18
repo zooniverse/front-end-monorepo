@@ -30,8 +30,6 @@ function Polygon({ active, mark, scale }) {
   const guideLineStrokeWidth = GUIDELINE_STROKE_WIDTH / scale
   const grabStrokeWidth = GRAB_STROKE_WIDTH / scale
 
-  function onMouseMove() {}
-
   function onHandleDrag(coords, i) {
     mark.setCoordinates(coords, i)
   }
