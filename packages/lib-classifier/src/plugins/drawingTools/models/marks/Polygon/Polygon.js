@@ -80,10 +80,6 @@ const PolygonModel = types
       self.points.push({ x: roundedCoords.roundedX, y: roundedCoords.roundedY })
     },
 
-    // initialDrag({ x, y }) {
-    //   self.points.push({ x: x, y: y })
-    // },
-
     move() {
       return
     },

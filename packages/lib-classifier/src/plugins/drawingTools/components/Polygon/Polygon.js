@@ -21,7 +21,6 @@ const GuideLine = styled.line`
 `
 
 const RADIUS = 3
-const ACTIVE_POINT_RADIUS = 8
 const STROKE_WIDTH = 3
 const GUIDELINE_STROKE_WIDTH = 2
 const GRAB_STROKE_WIDTH = 6
@@ -40,7 +39,6 @@ function Polygon({ active, mark, onFinish, scale }) {
   } = mark
 
   const radius = RADIUS / scale
-  const activePointRadius = ACTIVE_POINT_RADIUS / scale
   const strokeWidth = STROKE_WIDTH / scale
   const guideLineStrokeWidth = GUIDELINE_STROKE_WIDTH / scale
   const grabStrokeWidth = GRAB_STROKE_WIDTH / scale
