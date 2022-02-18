@@ -10,6 +10,12 @@
     "otherLabel": "Other...",
     "selectPlaceholder": "Choose an answer"
   },
+  "SurveyTask":{
+    "Choice": {
+      "identify": "Identify",
+      "notThis": "Not this"
+    }
+  },
   "TranscriptionLine": {
     "editing": "Editing transcription",
     "created": "Created transcription"
