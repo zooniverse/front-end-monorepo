@@ -103,11 +103,6 @@ const PolygonModel = types
       }
     },
 
-    // closePath() {
-    //   console.log(self.path)
-    //   console.log(self.points)
-    // },
-
     setGuideLine(event) {
       self.guideLineX = event.x
       self.guideLineY = event.y

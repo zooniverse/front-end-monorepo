@@ -60,20 +60,11 @@ function Polygon({ active, mark, onFinish, scale }) {
   }
 
   function handleClosePolygon(i) {
-    if (i === 0) {
-      return () => {
-        // mark.closePath()
-        mark.finish()
-      }
-    } else {
-      return null
-    }
-
-    // i === 0
-    //   ? () => {
-    //       mark.finish()
-    //     }
-    //   : null
+    return i === 0
+      ? () => {
+          mark.finish()
+        }
+      : null
   }
 
   return (
@@ -86,8 +77,10 @@ function Polygon({ active, mark, onFinish, scale }) {
           undoDrawing={onUndoDrawing}
         />
       )}
-      {/* Polygon??? or Polygon Lines */}
+
+      {/* Visible lines */}
       <polyline points={path} strokeWidth={strokeWidth} fill='none' />
+
       {/* So users can easily select the polygon */}
       <polyline
         points={path}
@@ -95,6 +88,7 @@ function Polygon({ active, mark, onFinish, scale }) {
         strokeOpacity='0'
         fill='none'
       />
+
       {/* To visibly show a closed polygon */}
       {finished && (
         <line
