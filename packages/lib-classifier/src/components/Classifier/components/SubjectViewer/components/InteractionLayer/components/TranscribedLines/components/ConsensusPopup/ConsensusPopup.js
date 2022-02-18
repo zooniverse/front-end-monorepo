@@ -1,14 +1,12 @@
 import React from 'react'
-import counterpart from 'counterpart'
 import { array, bool, func, object, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import { Box, List, Paragraph, Text } from 'grommet'
 import { MovableModal } from '@zooniverse/react-components'
-import en from './locales/en'
+import { useTranslation } from 'react-i18next'
+
 import getDefaultPosition from '../../../../helpers/getDefaultPosition'
 import { MIN_POPUP_HEIGHT, MIN_POPUP_WIDTH } from './helpers/constants'
-
-counterpart.registerTranslations('en', en)
 
 const StyledBox = styled(Box)`
   font-family: "Roboto Mono Regular", monospace;
@@ -29,6 +27,7 @@ export default function ConsensusPopup ({
     textOptions: []
   }
 }) {
+  const { t } = useTranslation('components')
   const itemProps = {}
   const position = getDefaultPosition(bounds, MIN_POPUP_HEIGHT, MIN_POPUP_WIDTH)
 
@@ -57,28 +56,28 @@ export default function ConsensusPopup ({
         minWidth: MIN_POPUP_WIDTH,
         position
       }}
-      title={counterpart('ConsensusPopup.title')}
+      title={t('ConsensusPopup.title')}
       titleColor=''
     >
       <Paragraph>
-        {counterpart('ConsensusPopup.explanation', { count: line.textOptions.length })}
+        {t('SubjectViewer.InteractionLayer.TranscribedLines.ConsensusPopup.explanation', { count: line.textOptions.length })}
       </Paragraph>
       <StyledBox>
         {line.consensusText &&
           <Paragraph>
             {line.consensusText}
             <br />
-            <Text><em>{counterpart('ConsensusPopup.aggregatedTranscription')}</em></Text>
+            <Text><em>{t('SubjectViewer.InteractionLayer.TranscribedLines.ConsensusPopup.aggregatedTranscription')}</em></Text>
           </Paragraph>}
         {!line.consensusText &&
-          <Paragraph>{counterpart('ConsensusPopup.noAggregation')}</Paragraph>}
+          <Paragraph>{t('SubjectViewer.InteractionLayer.TranscribedLines.ConsensusPopup.noAggregation')}</Paragraph>}
         {line.textOptions.length > 0 &&
           <List
             data={line.textOptions}
             itemProps={itemProps}
           />}
         {line.textOptions.length === 0 &&
-          <Paragraph>{counterpart('ConsensusPopup.transcriptionsUnavailable')}</Paragraph>}
+          <Paragraph>{t('SubjectViewer.InteractionLayer.TranscribedLines.ConsensusPopup.transcriptionsUnavailable')}</Paragraph>}
       </StyledBox>
     </MovableModal>
   )
@@ -100,7 +99,7 @@ ConsensusPopup.propTypes = {
   /**
     Consensus options for the current line.
   */
-  line:shape({
+  line: shape({
     consensusText: string,
     textOptions: array
   })

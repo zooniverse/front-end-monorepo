@@ -147,6 +147,17 @@
       "SubTaskPopup": {
         "notRender": "Task component could not be rendered.",
         "required": "This task is required."
+      },
+      "TranscribedLines": {
+        "complete": "Transcription completed",
+        "transcribed": "Has transcriptions",
+        "ConsensusPopup": {
+          "aggregatedTranscription": "aggregated transcription",
+          "explanation": "These {{count}} transcriptions have been submitted by previous volunteers and cannot be modified.",
+          "noAggregation": "No aggregation available.",
+          "title": "Previous Transcriptions",
+          "transcriptionsUnavailable": "Transcriptions unavailable."
+        }
       }
     },
     "MultiFrameViewer": {
@@ -173,6 +184,10 @@
       "playbackSpeed": "Video playback speed selection",
       "play": "Play video",
       "pause": "Pause video"
+    },
+    "ZoomControlButton": {
+      "enable": "enable zoom",
+      "disable": "disable zoom"
     }
   }
 }
