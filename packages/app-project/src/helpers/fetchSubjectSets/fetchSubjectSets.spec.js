@@ -37,7 +37,7 @@ describe('Helpers > fetchSubjectSets', function () {
         '2': completeness[id]
       },
       display_name: `test set ${id}`,
-      isIndexed: false,
+      metadata: {},
       set_member_subjects_count: 10,
       subjects: mockSetSubjects
     }
