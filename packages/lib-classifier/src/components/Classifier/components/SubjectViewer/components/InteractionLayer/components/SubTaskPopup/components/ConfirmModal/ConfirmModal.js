@@ -1,12 +1,8 @@
-import counterpart from 'counterpart'
 import { Box, Button, Paragraph } from 'grommet'
 import { func } from 'prop-types'
 import React from 'react'
 import { Modal, PrimaryButton } from '@zooniverse/react-components'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'react-i18next'
 
 /**
  An alert which confirms 'keep working' or 'delete' for incomplete annotations. Incomplete annotations must be either completed or deleted.
@@ -17,6 +13,8 @@ function ConfirmModal ({
   /** callback to close the modal and delete the active mark. */
   onDelete = () => true
 }) {
+  const { t } = useTranslation('components')
+
   return (
     <Modal
       active
@@ -25,7 +23,7 @@ function ConfirmModal ({
       <Paragraph
         margin={{ bottom: 'medium' }}
       >
-        {counterpart('Confirm.confirm')}
+        {t('SubjectViewer.InteractionLayer.ConfirmModal.confirm')}
       </Paragraph>
       <Box
         direction='row'
@@ -33,11 +31,11 @@ function ConfirmModal ({
         justify='center'
       >
         <Button
-          label={counterpart('Confirm.keepWorking')}
+          label={t('SubjectViewer.InteractionLayer.ConfirmModal.keepWorking')}
           onClick={onClose}
         />
         <PrimaryButton
-          label={counterpart('Confirm.close')}
+          label={t('SubjectViewer.InteractionLayer.ConfirmModal.close')}
           color='teal'
           onClick={onDelete}
         />

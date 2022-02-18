@@ -1,17 +1,14 @@
-import counterpart from 'counterpart'
 import { Box, Paragraph } from 'grommet'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { MovableModal } from '@zooniverse/react-components'
+import { useTranslation } from 'react-i18next'
 
 import taskRegistry from '@plugins/tasks'
 import getDefaultPosition from '../../helpers/getDefaultPosition'
 import ConfirmModal from './components/ConfirmModal'
 import SaveButton from './components/SaveButton'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 const MIN_POPUP_WIDTH = 350
 const MIN_POPUP_HEIGHT = 100
@@ -25,6 +22,8 @@ function SubTaskPopup({
   /** A callback that is called if the active mark is deleted. */
   onDelete
 }) {
+  const { t } = useTranslation('components')
+
   const {
     subTaskMarkBounds,
     subTaskVisibility,
@@ -104,7 +103,7 @@ function SubTaskPopup({
                 // horizontal pad for the space for the box-shadow focus style
                 // is there a better way?
                 <Box
-                  border={requiredEmphasis ? { size: 'small', color: 'tomato' }: false}
+                  border={requiredEmphasis ? { size: 'small', color: 'tomato' } : false}
                   className='subtaskpopup-element-that-ignores-drag-actions'
                   key={annotation.id}
                   overflow='auto'
@@ -119,7 +118,7 @@ function SubTaskPopup({
                   />
                   {requiredEmphasis && (
                     <Paragraph>
-                      <strong>{counterpart('Task.required')}</strong>
+                      <strong>{t('SubjectViewer.InteractionLayer.SubTaskPopup.required')}</strong>
                     </Paragraph>
                   )}
                 </Box>
@@ -127,8 +126,8 @@ function SubTaskPopup({
             }
 
             return (
-              <Box pad='none'>
-                <Paragraph>{counterpart('Task.notRender')}</Paragraph>
+              <Box pad='none' key={`${index}-${task?.type}`}>
+                <Paragraph>{t('SubjectViewer.InteractionLayer.SubTaskPopup.notRender')}</Paragraph>
               </Box>
             )
           })}
@@ -166,7 +165,7 @@ SubTaskPopup.defaultProps = {
     subTaskVisibility: false,
     setSubTaskVisibility: () => { }
   },
-  onDelete: () => true,
+  onDelete: () => true
 }
 
 export default SubTaskPopup

@@ -140,6 +140,65 @@
       "previous": "Go to previous step"
     }
   },
+  "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Bar chart"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Close without saving",
+        "confirm": "Are you sure you want to close? This mark will be deleted.",
+        "keepWorking": "Keep working"
+      },
+      "SaveButton": {
+        "save": "Save and Close"
+      },
+      "SubTaskPopup": {
+        "notRender": "Task component could not be rendered.",
+        "required": "This task is required."
+      },
+      "TranscribedLines": {
+        "complete": "Transcription completed",
+        "transcribed": "Has transcriptions",
+        "ConsensusPopup": {
+          "aggregatedTranscription": "aggregated transcription",
+          "explanation": "These {{count}} transcriptions have been submitted by previous volunteers and cannot be modified.",
+          "noAggregation": "No aggregation available.",
+          "title": "Previous Transcriptions",
+          "transcriptionsUnavailable": "Transcriptions unavailable."
+        }
+      }
+    },
+    "MultiFrameViewer": {
+      "FrameCarousel":{
+        "thumbnailAltText": "Thumbnail of Image",
+        "previousFrameLabel": "Previous",
+        "nextFrameLabel": "Next"
+      }
+    },
+    "VariableStarViewer": {
+      "controls": "controls",
+      "figCaption": "HR Diagram",
+      "flip": "flip",
+      "focus": "focus",
+      "highlight": "highlight",
+      "imageTitle": "HR Diagram: Luminosity vs Temperature",
+      "label": "Filter {{id}}",
+      "periodMultiple": "period multiple",
+      "phase": "phase",
+      "phaseFocus": "phase focus"
+    },
+    "VideoController": {
+      "scrubber": "Video player scrubber",
+      "playbackSpeed": "Video playback speed selection",
+      "play": "Play video",
+      "pause": "Pause video"
+    },
+    "ZoomControlButton": {
+      "enable": "enable zoom",
+      "disable": "disable zoom"
+    }
+  },
   "TaskArea": {
     "task": "Task",
     "tutorial": "Tutorial",

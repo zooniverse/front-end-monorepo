@@ -1,16 +1,14 @@
 import { PrimaryButton, withThemeContext } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { bool, func } from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import saveButtonTheme from './theme'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 function SaveButton (props) {
   const { autoFocus, disabled, onClick } = props
-  const label = counterpart('SaveButton.save')
+  const { t } = useTranslation('components')
+  const label = t('SubjectViewer.InteractionLayer.SaveButton.save')
   return (
     <PrimaryButton
       autoFocus={autoFocus}

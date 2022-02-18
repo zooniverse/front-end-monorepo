@@ -1,14 +1,12 @@
-import counterpart from 'counterpart'
 import { array, arrayOf, bool, number, object, shape, string } from 'prop-types'
 import React, { useState } from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
 import { Tooltip } from '@zooniverse/react-components'
+import { useTranslation } from 'react-i18next'
+
 import TooltipIcon from './components/TooltipIcon'
 import ConsensusPopup from './components/ConsensusPopup'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 export const ConsensusLine = styled('g')`
   cursor: pointer;
@@ -68,6 +66,8 @@ function TranscribedLines({
   const [ bounds, setBounds ] = useState({})
   const [ line, setLine ] = useState(defaultLine)
   const [ show, setShow ] = useState(false)
+
+  const { t } = useTranslation('components')
 
   if (!visible) {
     return null
@@ -143,7 +143,7 @@ function TranscribedLines({
               id={id}
               key={line.id}
               icon={<TooltipIcon fill={fills.complete} />}
-              label={counterpart('TranscribedLines.complete')}
+              label={t('SubjectViewer.InteractionLayer.TranscribedLines.complete')}
             >
               <ConsensusLine
                 role='button'
@@ -184,7 +184,7 @@ function TranscribedLines({
               id={id}
               key={line.id}
               icon={<TooltipIcon fill={fills.transcribed} />}
-              label={counterpart('TranscribedLines.transcribed')}
+              label={t('SubjectViewer.InteractionLayer.TranscribedLines.transcribed')}
             >
               <ConsensusLine
                 role='button'

@@ -3,7 +3,6 @@ import sinon from 'sinon'
 import React from 'react'
 import ZoomControlButton from './ZoomControlButton'
 import { MetaToolsButton } from '@zooniverse/react-components'
-import en from './locales/en'
 
 describe('Component > ZoomControlButton', function () {
   let wrapper, onClickSpy
@@ -18,9 +17,10 @@ describe('Component > ZoomControlButton', function () {
   })
 
   it('should label text the button according to the zooming prop', function () {
-    expect(wrapper.find(MetaToolsButton).props().text).to.equal(en.ZoomControlButton.enable)
+    /** The translation function simply return keys in a testing env */
+    expect(wrapper.find(MetaToolsButton).props().text).to.equal('SubjectViewer.ZoomControlButton.enable')
     wrapper.setProps({ zooming: true })
-    expect(wrapper.find(MetaToolsButton).props().text).to.equal(en.ZoomControlButton.disable)
+    expect(wrapper.find(MetaToolsButton).props().text).to.equal('SubjectViewer.ZoomControlButton.disable')
   })
 
   it('should set the aria-checked state according to the zooming prop', function () {

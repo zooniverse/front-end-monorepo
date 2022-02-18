@@ -5,16 +5,14 @@ import {
   Box,
   Grid
 } from 'grommet'
-import counterpart from 'counterpart'
 import { withParentSize } from '@visx/responsive'
 import { SpacedText } from '@zooniverse/react-components'
+import { useTranslation } from 'react-i18next'
+
 import { ScatterPlotViewer } from '../ScatterPlotViewer'
 import { SingleImageViewerContainer } from '../SingleImageViewer'
 import { BarChartViewer } from '../BarChartViewer'
 import Controls from './components/Controls'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 const VariableStarViewer = React.forwardRef((props, ref) => {
   const {
@@ -44,6 +42,8 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
     setYAxisInversion,
     theme,
   } = props
+
+  const { t } = useTranslation('components')
 
   const underlays = [
     { fill: (theme.dark) ? theme.global.colors['light-5'] : theme.global.colors['light-3'],
@@ -76,7 +76,7 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
       { name: 'HRDiagram', start: [1, 3], end: [1, 7] }
     ]
   const columns = (parentWidth <= 768) ? ['full'] : ['2/3', '1/3']
-  const rows = (parentWidth <= 768)  ?
+  const rows = (parentWidth <= 768) ?
     ['80px', '590px', '330px', '620px' ] :
     ['80px', '80px', '80px', '80px', '80px', '80px', '80px', '50px']
 
@@ -135,7 +135,7 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
               setOnPan={setOnPan}
               setOnZoom={setOnZoom}
               underlays={underlays}
-              xAxisLabel={counterpart('VariableStarViewer.phase')}
+              xAxisLabel={t('SubjectViewer.VariableStarViewer.phase')}
               xAxisNumTicks={8}
               yAxisLabel={phasedJSON.chartOptions.yAxisLabel}
               yAxisNumTicks={8}
@@ -215,12 +215,12 @@ const VariableStarViewer = React.forwardRef((props, ref) => {
             }}
             title={{
               id: 'imageId',
-              text: counterpart('VariableStarViewer.imageTitle')
+              text: t('SubjectViewer.VariableStarViewer.imageTitle')
             }}
           >
           </SingleImageViewerContainer>
           <figcaption>
-            <SpacedText color={{ light: 'dark-5', dark: 'light-1' }} weight='bold'>{counterpart('VariableStarViewer.figCaption')}</SpacedText>
+            <SpacedText color={{ light: 'dark-5', dark: 'light-1' }} weight='bold'>{t('SubjectViewer.VariableStarViewer.figCaption')}</SpacedText>
           </figcaption>
         </Box>}
     </Grid>

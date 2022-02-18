@@ -3,19 +3,17 @@ import PropTypes from 'prop-types'
 import { Box } from 'grommet'
 import { ZoomIn } from 'grommet-icons'
 import { MetaToolsButton } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'react-i18next'
 
 function ZoomControlButton (props) {
+  const { t } = useTranslation('components')
   const {
     onClick = () => {},
     position,
     zooming = false
   } = props
   let style
-  const label = (zooming) ? counterpart('ZoomControlButton.disable') : counterpart('ZoomControlButton.enable')
+  const label = (zooming) ? t('SubjectViewer.ZoomControlButton.disable') : t('SubjectViewer.ZoomControlButton.enable')
 
   if (position) {
     style = { position, top: 0 }
