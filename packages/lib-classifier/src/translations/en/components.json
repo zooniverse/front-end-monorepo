@@ -148,6 +148,13 @@
         "notRender": "Task component could not be rendered.",
         "required": "This task is required."
       }
+    },
+    "MultiFrameViewer": {
+      "FrameCarousel":{
+        "thumbnailAltText": "Thumbnail of Image",
+        "previousFrameLabel": "Previous",
+        "nextFrameLabel": "Next"
+      }
     }
   }
 }

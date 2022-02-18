@@ -29,6 +29,7 @@ describe('Component > FrameCarousel', function () {
         frame={2}
         onFrameChange={onFrameChangeSpy}
         locations={multiFrameSubjectLocations}
+        t={(key) => key}
       />
     )
   })
