@@ -10,11 +10,10 @@ const TutorialStore = types
   .model('TutorialStore', {
     active: types.safeReference(Tutorial),
     activeMedium: types.safeReference(Medium),
-    activeStep: types.optional(types.integer, -1),
+    activeStep: types.optional(types.integer, 0),
     attachedMedia: types.map(Medium),
     resources: types.map(Tutorial),
     tutorialSeenTime: types.maybe(types.string),
-    showModal: types.optional(types.boolean, false),
     type: types.optional(types.string, 'tutorials')
   })
 
@@ -32,12 +31,12 @@ const TutorialStore = types
     },
 
     stepWithMedium(index) {
-      if (self.isActiveStepValid) {
-        const step = self.active.steps[index]
+      const step = self.active.steps[index]
+      if (step) {
         const medium = self.attachedMedia.get(step.media)
         return { step, medium }
       }
-      return null
+      return {}
     },
 
     get tutorial () {
@@ -68,7 +67,7 @@ const TutorialStore = types
       const upp = tryReference(() => getRoot(self).userProjectPreferences.active)
       const { tutorial } = self
       if (upp && tutorial) {
-        return !(upp.preferences.tutorials_completed_at && upp.preferences.tutorials_completed_at[tutorial.id])
+        return !(upp.preferences.tutorials_completed_at?.[tutorial.id])
       }
 
       return true
@@ -173,23 +172,11 @@ const TutorialStore = types
       tutorials.forEach(tutorial => self.resources.put(tutorial))
     }
 
-    function setTutorialStep (stepIndex = 0) {
-      if (self.isActiveReferenceValid) {
-        const { steps } = self.active
-        self.activeMedium = undefined
-        if (stepIndex < steps.length) {
-          self.activeStep = stepIndex
-          if (steps[stepIndex].media) self.activeMedium = steps[stepIndex].media
-        }
-      }
-    }
-
-    function setActiveTutorial (tutorial, stepIndex) {
+    function setActiveTutorial (tutorial) {
       if (!tutorial) {
         self.resetActiveTutorial()
       } else {
         self.active = tutorial
-        self.setTutorialStep(stepIndex)
         self.setSeenTime()
       }
     }
@@ -229,15 +216,10 @@ const TutorialStore = types
       self.tutorialSeenTime = undefined
     }
 
-    function setModalVisibility (boolean) {
-      self.showModal = boolean
-    }
-
     function showTutorialInModal () {
       const { tutorial } = self
       if (tutorial && self.hasNotSeenTutorialBefore) {
         self.setActiveTutorial(tutorial.id)
-        self.setModalVisibility(true)
       }
     }
 
@@ -249,9 +231,7 @@ const TutorialStore = types
       setActiveTutorial,
       setMediaResources,
       setSeenTime,
-      setTutorialStep,
       setTutorials,
-      setModalVisibility,
       showTutorialInModal
     }
   })

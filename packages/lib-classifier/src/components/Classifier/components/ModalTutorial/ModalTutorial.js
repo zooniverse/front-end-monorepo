@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { ResponsiveContext } from 'grommet'
 import { Modal } from '@zooniverse/react-components'
@@ -11,37 +11,38 @@ import SlideTutorial from '../SlideTutorial'
 function storeMapper (classifierStore) {
   const {
     active: tutorial,
-    loadingState,
-    setModalVisibility,
-    showModal
+    hasNotSeenTutorialBefore
   } = classifierStore.tutorials
 
   return {
-    loadingState,
-    setModalVisibility,
-    showModal,
+    hasNotSeenTutorialBefore,
     tutorial
   }
 }
 
 function ModalTutorial ({
-  loadingState = asyncStates.initialized,
-  setModalVisibility = () => true,
-  showModal = false,
+  hasNotSeenTutorialBefore = false,
   tutorial,
   ...props
 }) {
+  const [active, setActive] = useState(hasNotSeenTutorialBefore)
   const { t } = useTranslation('components')
 
+  useEffect(() => {
+    if (hasNotSeenTutorialBefore) {
+      setActive(true)
+    }
+  }, [hasNotSeenTutorialBefore])
+
   function onClose() {
-    setModalVisibility(false)
+    setActive(false)
   }
 
-  if (loadingState === asyncStates.success && tutorial) {
+  if (tutorial) {
     return (
       <Modal
         {...props}
-        active={showModal}
+        active={active}
         closeFn={onClose}
         title={t('ModalTutorial.title')}
       >

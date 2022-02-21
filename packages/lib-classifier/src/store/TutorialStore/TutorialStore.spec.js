@@ -267,15 +267,6 @@ describe('Model > TutorialStore', function () {
       }).then(done, done)
     })
 
-    it('should set the tutorial step if the id parameter is defined', function (done) {
-
-      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
-        rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
-      }).then(() => {
-        expect(rootStore.tutorials.activeStep).to.equal(1)
-      }).then(done, done)
-    })
-
     it('should set the seen time if the id parameter is defined', function (done) {
 
       Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
@@ -283,56 +274,6 @@ describe('Model > TutorialStore', function () {
       }).then(() => {
         expect(rootStore.tutorials.tutorialSeenTime).to.be.a('string')
       }).then(done, done)
-    })
-  })
-
-  describe('Actions > setTutorialStep', function () {
-    let rootStore
-    beforeEach(function () {
-      const panoptesClientStub = clientStub()
-      rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
-    })
-
-    it('should not set the active step if there is not an active tutorial', function (done) {
-      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
-        rootStore.tutorials.setTutorialStep(0)
-      }).then(() => {
-        expect(rootStore.tutorials.activeStep).to.equal(-1)
-      }).then(done, done)
-    })
-
-    it('should set not the active step if that stepIndex does not exist in the steps array', function (done) {
-      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
-        rootStore.tutorials.setActiveTutorial(tutorial.id, 2)
-      }).then(() => {
-        expect(rootStore.tutorials.activeStep).to.equal(-1)
-      }).then(done, done)
-    })
-
-    it('should set the active step with the stepIndex parameter', function (done) {
-      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
-        rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
-      }).then(() => {
-        expect(rootStore.tutorials.activeStep).to.equal(1)
-      }).then(done, done)
-    })
-
-    it('should set the active step with the default of 0', function (done) {
-      Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
-        rootStore.tutorials.setActiveTutorial(tutorial.id)
-      }).then(() => {
-        expect(rootStore.tutorials.activeStep).to.equal(0)
-      }).then(done, done)
-    })
-
-    it('should set the activeMedium if it exists for the step', function (done) {
-      fetchTutorials(rootStore)
-        .then(() => {
-          rootStore.tutorials.setActiveTutorial(tutorial.id)
-          rootStore.tutorials.setMediaResources([medium])
-        }).then(() => {
-          expect(rootStore.tutorials.activeMedium).to.deep.equal(medium)
-        }).then(done, done)
     })
   })
 
@@ -398,18 +339,6 @@ describe('Model > TutorialStore', function () {
         }).then(() => {
           expect(rootStore.tutorials.tutorialSeenTime).to.be.a('string')
         }).then(done, done)
-    })
-  })
-
-  describe('Actions > setModalVisibility', function () {
-    it('should set the modal visibility', function () {
-      const panoptesClientStub = clientStub()
-      const rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
-
-      rootStore.tutorials.setModalVisibility(true)
-      expect(rootStore.tutorials.showModal).to.be.true()
-      rootStore.tutorials.setModalVisibility(false)
-      expect(rootStore.tutorials.showModal).to.be.false()
     })
   })
 
@@ -624,72 +553,6 @@ describe('Model > TutorialStore', function () {
           })
         })
       })
-    })
-  })
-
-  describe('Views > isFirstStep', function () {
-    let rootStore
-    beforeEach(function () {
-      const panoptesClientStub = clientStub()
-      rootStore = setupStores(panoptesClientStub, authClientStubWithUser)
-    })
-
-    it('should return false if no active tutorial', function () {
-      expect(rootStore.tutorials.active).to.be.undefined()
-      expect(rootStore.tutorials.isFirstStep).to.be.false()
-    })
-
-    it('should return false if activeStep is not the first step', function (done) {
-      fetchTutorials(rootStore)
-        .then(() => {
-          rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
-        }).then(() => {
-          expect(rootStore.tutorials.activeStep).to.equal(1)
-          expect(rootStore.tutorials.isFirstStep).to.be.false()
-        }).then(done, done)
-    })
-
-    it('should return true if activeStep is the first step', function (done) {
-      fetchTutorials(rootStore)
-        .then(() => {
-          rootStore.tutorials.setActiveTutorial(tutorial.id, 0)
-        }).then(() => {
-          expect(rootStore.tutorials.activeStep).to.equal(0)
-          expect(rootStore.tutorials.isFirstStep).to.be.true()
-        }).then(done, done)
-    })
-  })
-
-  describe('Views > isLastStep', function () {
-    let rootStore
-    beforeEach(function () {
-      const panoptesClientStub = clientStub()
-      rootStore = setupStores(panoptesClientStub, authClientStubWithUser)
-    })
-
-    it('should return false if no active tutorial', function () {
-      expect(rootStore.tutorials.active).to.be.undefined()
-      expect(rootStore.tutorials.isLastStep).to.be.false()
-    })
-
-    it('should return false if activeStep is not the last step', function (done) {
-      fetchTutorials(rootStore)
-        .then(() => {
-          rootStore.tutorials.setActiveTutorial(tutorial.id, 0)
-        }).then(() => {
-          expect(rootStore.tutorials.activeStep).to.equal(0)
-          expect(rootStore.tutorials.isLastStep).to.be.false()
-        }).then(done, done)
-    })
-
-    it('should return true if activeStep is the last step', function (done) {
-      fetchTutorials(rootStore)
-        .then(() => {
-          rootStore.tutorials.setActiveTutorial(tutorial.id, 1)
-        }).then(() => {
-          expect(rootStore.tutorials.activeStep).to.equal(1)
-          expect(rootStore.tutorials.isLastStep).to.be.true()
-        }).then(done, done)
     })
   })
 })
