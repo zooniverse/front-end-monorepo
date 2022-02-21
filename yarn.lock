@@ -11939,9 +11939,9 @@ mobx-utils@~6.0.4:
   integrity sha512-CcTgFcCWN78eyRXU7OiKfhIVDEWFFoKdpfj49GIVcWykIQ4deXnaRnnKHElbVYFFgz1TOs8a3bDAq7qsSe864A==
 
 mobx@~6.4.0:
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/mobx/-/mobx-6.4.0.tgz#71beda560230527f75ad150638f061af9d9f5312"
-  integrity sha512-HluTl14lJjL1xeUfXekDstHT/RqdxtmgIQ+75eMXsy9zAwt5vOWMdrbYD/sLS3CAKTo7ctIZi6cI2aX47Fk05g==
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-6.4.1.tgz#c1d0eeb37ceb31bb2020a85f6bf856782d47fe60"
+  integrity sha512-NFXx0uMbGBgsa0uxhH099L8cMuoRQWh01q6Sf0ZX/3hFU7svJ7yfTD+1LnLMa5wzY/b7gImAeMsR1p0wordDnA==
 
 mocha@~9.2.0:
   version "9.2.1"
