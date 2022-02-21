@@ -1,9 +1,10 @@
 import { autorun } from 'mobx'
 import { addDisposer, getRoot, isValidReference, tryReference, types, flow } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
-import ResourceStore from './ResourceStore'
+
+import ResourceStore from '@store/ResourceStore'
+import Medium from '@store/Medium'
 import Tutorial from './Tutorial'
-import Medium from './Medium'
 
 const TutorialStore = types
   .model('TutorialStore', {
@@ -30,10 +31,11 @@ const TutorialStore = types
       return self.loadingState !== asyncStates.success || (self.loadingState === asyncStates.success && !self.tutorial)
     },
 
-    get stepWithMedium () {
+    stepWithMedium(index) {
       if (self.isActiveStepValid) {
-        const step = self.active.steps[self.activeStep]
-        return { step, medium: self.activeMedium }
+        const step = self.active.steps[index]
+        const medium = self.attachedMedia.get(step.media)
+        return { step, medium }
       }
       return null
     },
@@ -86,23 +88,6 @@ const TutorialStore = types
       const { miniCourse } = self
 
       if (miniCourse) return lastStepSeen === miniCourse.steps.length - 1
-
-      return false
-    },
-
-    get isFirstStep () {
-      if (self.isActiveStepValid) {
-        return self.activeStep === 0
-      }
-
-      return false
-    },
-
-    get isLastStep () {
-      if (self.isActiveStepValid) {
-        const numOfSteps = self.active.steps.length
-        return self.activeStep === numOfSteps - 1
-      }
 
       return false
     }
