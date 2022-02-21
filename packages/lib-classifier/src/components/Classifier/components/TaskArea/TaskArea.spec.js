@@ -59,7 +59,7 @@ describe('TaskArea', function () {
 
     it('should set the active tutorial when the tutorial tab is clicked', function () {
       onActive(1)
-      expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial)
+      expect(setActiveTutorialSpy).to.have.been.calledOnceWith(tutorial.id)
     })
 
     it('should clear the active tutorial when the tasks Tab is clicked', function () {

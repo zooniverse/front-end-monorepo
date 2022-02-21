@@ -255,7 +255,7 @@ describe('Model > TutorialStore', function () {
     it('should reset the active tutorial if the id parameter is not defined', function () {
       rootStore.tutorials.setActiveTutorial()
       expect(rootStore.tutorials.active).to.be.undefined()
-      expect(rootStore.tutorials.activeStep).to.equal(-1)
+      expect(rootStore.tutorials.activeStep).to.equal(0)
       expect(rootStore.tutorials.activeMedium).to.be.undefined()
     })
 
@@ -267,9 +267,10 @@ describe('Model > TutorialStore', function () {
       }).then(done, done)
     })
 
-    it('should set the seen time if the id parameter is defined', function (done) {
+    it('should set the seen time for a new tutorial', function (done) {
 
       Promise.resolve(rootStore.tutorials.setTutorials([tutorial])).then(() => {
+        rootStore.tutorials.setActiveTutorial()
         rootStore.tutorials.setActiveTutorial(tutorial.id)
       }).then(() => {
         expect(rootStore.tutorials.tutorialSeenTime).to.be.a('string')
@@ -323,6 +324,7 @@ describe('Model > TutorialStore', function () {
 
       fetchTutorials(rootStore)
         .then(() => {
+          rootStore.tutorials.setActiveTutorial()
           rootStore.tutorials.setActiveTutorial(tutorial.id)
         }).then(() => {
           expect(rootStore.tutorials.tutorialSeenTime).to.be.a('string')
@@ -335,224 +337,11 @@ describe('Model > TutorialStore', function () {
 
       fetchTutorials(rootStore)
         .then(() => {
+          rootStore.tutorials.setActiveTutorial()
           rootStore.tutorials.setActiveTutorial(tutorialNullKind.id)
         }).then(() => {
           expect(rootStore.tutorials.tutorialSeenTime).to.be.a('string')
         }).then(done, done)
-    })
-  })
-
-  describe.skip('Actions > showTutorialInModal', function () {
-    let clientStubWithUPP
-    let clientStubWithUPPTimestamp
-    let tutorialsClient
-
-    before(function () {
-      const panoptesClientWithUPP = stubPanoptesJs({
-        project_preferences: upp,
-        subjects: Factory.buildList('subject', 10),
-        workflows: workflow
-      })
-      const panoptesClientWithUPPTimestamp = stubPanoptesJs({
-        project_preferences: uppWithTutorialTimeStamp,
-        subjects: Factory.buildList('subject', 10),
-        workflows: workflow
-      })
-      tutorialsClient = {
-        tutorials: {
-          get: sinon.stub().callsFake(() => {
-            return Promise.resolve({
-              body: {
-                tutorials: [tutorial]
-              }
-            })
-          })
-        }
-      }
-      clientStubWithUPP = Object.assign({}, tutorialsClient, panoptesClientWithUPP)
-      clientStubWithUPPTimestamp = Object.assign({}, tutorialsClient, panoptesClientWithUPPTimestamp)
-    })
-
-    describe('loading attached media', function () {
-      let awaitTutorials
-      let awaitMedia
-      let rootStore
-      function defer () {
-        // http://lea.verou.me/2016/12/resolve-promises-externally-with-this-one-weird-trick/
-        let res
-        let rej
-
-        const promise = new Promise((resolve, reject) => {
-          res = resolve
-          rej = reject
-        })
-
-        promise.resolve = res
-        promise.reject = rej
-
-        return promise
-      }
-
-      beforeEach(function () {
-        rootStore = setupStores(clientStubWithUPP, authClientStubWithoutUser)
-
-        awaitTutorials = defer()
-        awaitMedia = defer()
-        tutorialsClient.tutorials.get = sinon.stub().callsFake(() => awaitTutorials)
-        tutorialsClient.tutorials.getAttachedImages = sinon.stub().callsFake(() => awaitMedia)
-      })
-
-      describe('while media are loading', function () {
-        it('should wait for media to load', function (done) {
-          let awaitFetch
-
-          rootStore.projects.setResources([project])
-          rootStore.projects.setActive(project.id)
-          rootStore.workflows.setActive(workflow.id)
-            .then(() => {
-              awaitFetch = rootStore.tutorials.fetchTutorials()
-              return awaitTutorials.resolve({
-                body: {
-                  tutorials: [tutorial]
-                }
-              })
-            })
-            .then(() => {
-              expect(rootStore.tutorials.active).to.be.undefined()
-              expect(rootStore.tutorials.showModal).to.be.false()
-            })
-            .then(() => {
-              return awaitMedia.resolve({
-                body: {
-                  media: [medium]
-                }
-              })
-            })
-            .then(() => {
-              // awaitFetch should have resolved now so let's test it
-              return awaitFetch
-            })
-            .then(() => {
-              expect(rootStore.tutorials.active).to.deep.equal(tutorial)
-              expect(rootStore.tutorials.showModal).to.be.true()
-            }).then(done, done)
-        })
-      })
-
-      describe('when tutorial media fail to load', function () {
-        it('should show the tutorial', function (done) {
-
-          rootStore.projects.setResources([project])
-          rootStore.projects.setActive(project.id)
-          rootStore.workflows.setActive(workflow.id)
-            .then(() => {
-              const awaitFetch = rootStore.tutorials.fetchTutorials()
-              awaitTutorials.resolve({
-                body: {
-                  tutorials: [tutorial]
-                }
-              })
-              awaitMedia.reject('Media failed to load!')
-              return awaitFetch
-            })
-            .then(() => {
-              expect(rootStore.tutorials.active).to.deep.equal(tutorial)
-              expect(rootStore.tutorials.showModal).to.be.true()
-            }).then(done, done)
-        })
-      })
-
-      describe('when media have loaded', function () {
-        let rootStore
-        beforeEach(function () {
-          rootStore = null
-        })
-
-        describe('for logged-out users', function () {
-          it('should show the tutorial', function (done) {
-            const panoptesClientStub = clientStub()
-            rootStore = setupStores(panoptesClientStub, authClientStubWithoutUser)
-
-            rootStore.projects.setResources([project])
-            rootStore.projects.setActive(project.id)
-            rootStore.workflows.setActive(workflow.id)
-              .then(() => {
-                const awaitFetch = rootStore.tutorials.fetchTutorials()
-                awaitTutorials.resolve({
-                  body: {
-                    tutorials: [tutorial]
-                  }
-                })
-                awaitMedia.resolve({
-                  body: {
-                    media: [medium]
-                  }
-                })
-                return awaitFetch
-              })
-              .then(() => {
-                expect(rootStore.tutorials.active).to.deep.equal(tutorial)
-                expect(rootStore.tutorials.showModal).to.be.true()
-              }).then(done, done)
-          })
-        })
-
-        describe('for logged-in users', function () {
-          it('should show the tutorial if it has not been seen', function (done) {
-            rootStore = setupStores(clientStubWithUPP, authClientStubWithUser)
-
-            rootStore.projects.setResources([project])
-            rootStore.projects.setActive(project.id)
-            rootStore.workflows.setActive(workflow.id)
-              .then(() => {
-                const awaitFetch = rootStore.tutorials.fetchTutorials()
-                awaitTutorials.resolve({
-                  body: {
-                    tutorials: [tutorial]
-                  }
-                })
-                awaitMedia.resolve({
-                  body: {
-                    media: [medium]
-                  }
-                })
-                return awaitFetch
-              })
-              .then(() => {
-                expect(rootStore.tutorials.active).to.deep.equal(tutorial)
-                expect(rootStore.tutorials.showModal).to.be.true()
-              })
-              .then(done, done)
-          })
-
-          it('should not show the tutorial if it has been seen', function (done) {
-            rootStore = setupStores(clientStubWithUPPTimestamp, authClientStubWithUser)
-
-            rootStore.projects.setResources([project])
-            rootStore.projects.setActive(project.id)
-            rootStore.workflows.setActive(workflow.id)
-              .then(() => {
-                const awaitFetch = rootStore.tutorials.fetchTutorials()
-                awaitTutorials.resolve({
-                  body: {
-                    tutorials: [tutorial]
-                  }
-                })
-                awaitMedia.resolve({
-                  body: {
-                    media: [medium]
-                  }
-                })
-                return awaitFetch
-              })
-              .then(() => {
-                expect(rootStore.tutorials.active).to.be.undefined()
-                expect(rootStore.tutorials.showModal).to.be.false()
-              })
-              .then(done, done)
-          })
-        })
-      })
     })
   })
 })
