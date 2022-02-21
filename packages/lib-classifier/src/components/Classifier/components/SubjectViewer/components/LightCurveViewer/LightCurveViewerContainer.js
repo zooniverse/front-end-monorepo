@@ -94,7 +94,7 @@ export function LightCurveViewerContainer({
     dataPoints = zip(JSONdata.x, JSONdata.y)
   }
 
-  if (!subject.id) {
+  if (!subject.id || !dataPoints.length) {
     return null
   }
 
