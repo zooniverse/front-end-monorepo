@@ -1,7 +1,4 @@
 {
-  "AboutProject": {
-    "title": "About {{projectName}}"
-  },
   "Announcements": {
     "AuthenticationInvitation": {
       "announcement": "Please sign in or sign up to track your contributions.",

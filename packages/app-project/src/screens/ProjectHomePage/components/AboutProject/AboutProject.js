@@ -3,16 +3,16 @@ import { string } from 'prop-types'
 import { Paragraph } from 'grommet'
 import { useTranslation } from 'next-i18next'
 
-import ContentBox from '../ContentBox'
+import ContentBox from '@shared/components/ContentBox'
 
 const components = {
   p: (nodeProps) => <Paragraph children={nodeProps.children} margin={{ top: 'none' }} />
 }
 
 function AboutProject ({ description, projectName }) {
-  const { t } = useTranslation('components')
+  const { t } = useTranslation('screens')
   return (
-    <ContentBox title={t('AboutProject.title', { projectName })}>
+    <ContentBox title={t('Home.AboutProject.title', { projectName })}>
       <Markdownz children={description} components={components} />
     </ContentBox>
   )
