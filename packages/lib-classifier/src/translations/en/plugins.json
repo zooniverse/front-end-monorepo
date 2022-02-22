@@ -1,3 +1,38 @@
 {
-  "Foo": "bar"
+  "InputStatus": {
+    "drawn": "{{count}} drawn",
+    "max": "{{count}} of {{max}} maximum drawn",
+    "min": "{{count}} of {{min}} required drawn",
+    "maxAndMin": "{{count}} of {{min}} required, {{max}} maximum drawn"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Input something",
+    "otherLabel": "Other...",
+    "selectPlaceholder": "Choose an answer"
+  },
+  "SurveyTask":{
+    "CharacteristicsFilter": {
+      "clearFilters": "Clear filters",
+      "filter": "Filter",
+      "showing": "Showing {{showing}} of {{total}}"
+    },
+    "Choice": {
+      "identify": "Identify",
+      "notThis": "Not this"
+    },
+    "ConfusedWith": {
+      "cancel": "Cancel",
+      "confused": "Sometimes confused with",
+      "itsThis": "I think it's this"
+    }
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Text modifiers"
+    }
+  },
+  "TranscriptionLine": {
+    "editing": "Editing transcription",
+    "created": "Created transcription"
+  }
 }
