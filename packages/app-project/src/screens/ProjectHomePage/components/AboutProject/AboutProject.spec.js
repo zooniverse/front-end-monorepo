@@ -18,7 +18,8 @@ describe('Component > AboutProject', function () {
 
   it('should show the title', function () {
     const titleWrapper = wrapper.find('h2')
-    expect(titleWrapper.text()).to.equal(`About ${PROJECT_NAME}`)
+    expect(titleWrapper.text()).to.equal('Home.AboutProject.title')
+    /** The translation function will simply return keys in a testing env */
   })
 
   it('should show the description', function () {
