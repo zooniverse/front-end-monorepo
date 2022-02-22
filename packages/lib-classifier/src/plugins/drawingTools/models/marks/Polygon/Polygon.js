@@ -51,7 +51,7 @@ const PolygonModel = types
     },
 
     get lastPoint() {
-      const lastCoord = self.points.at(-1)
+      const lastCoord = [...self.points].pop()
       if (!lastCoord) {
         return null
       }
