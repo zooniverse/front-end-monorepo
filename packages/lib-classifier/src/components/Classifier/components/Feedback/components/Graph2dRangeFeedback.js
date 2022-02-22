@@ -76,26 +76,21 @@ function Graph2dRangeFeedback({
         feedbackBrush.brush(select(this)) // Apply the brush logic to the <g.brush> element (i.e. 'this')
       })
 
-    // Modify brush fill color...
-    brushSelection
-      .each(function fill(feedbackBrush) { // Don't use ()=>{}
-        select(this)
-          .attr('class', 'brush')
-          .selectAll('.selection')
-          .style('fill', () => {
-            if (feedbackBrush.success === true) {
-              return 'green'
-            } else if (feedbackBrush.success === false) {
-              return 'red'
-            } else {
-              return 'white'
-            }
-          })
-      })
-
     // Reposition/re-draw brushes
     feedbackBrushes.forEach((feedbackBrush) => {
       const d3brush = d3annotationsLayer.select(`#brush-${feedbackBrush.id}`)
+      d3brush
+        .attr('class', 'brush')
+        .selectAll('.selection')
+        .style('fill', () => {
+          if (feedbackBrush.success === true) {
+            return 'green'
+          } else if (feedbackBrush.success === false) {
+            return 'red'
+          } else {
+            return 'white'
+          }
+        })
 
       repositionBrush(feedbackBrush, d3brush)
     })
