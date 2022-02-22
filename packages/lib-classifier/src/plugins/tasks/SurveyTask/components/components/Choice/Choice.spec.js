@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event'
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import Choice from './Choice'
 
-describe('Component > Choice', function () {
+describe.skip('Component > Choice', function () {
   it('should render without crashing', function () {
     render(
       <Choice
