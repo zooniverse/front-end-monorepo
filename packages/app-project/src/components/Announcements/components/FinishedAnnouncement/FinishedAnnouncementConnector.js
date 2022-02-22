@@ -1,12 +1,9 @@
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext } from 'react'
-import counterpart from 'counterpart'
+import { useTranslation } from 'next-i18next'
 
 import NavLink from '@shared/components/NavLink'
-import en from './locales/en'
 import GenericAnnouncement from '../GenericAnnouncement'
-
-counterpart.registerTranslations('en', en)
 
 function useStores(store) {
   const stores = useContext(MobXProviderContext)
@@ -23,14 +20,15 @@ function useStores(store) {
 }
 
 function FinishedAnnouncementConnector ({ store }) {
+  const { t } = useTranslation('components')
   const { 
     baseUrl = '',
     isVisible = false
   } = useStores(store)
-  const announcement = counterpart('FinishedAnnouncement.announcement')
+  const announcement = t('Announcements.FinishedAnnouncement.announcement')
   const link = {
     href: `${baseUrl}/about/results`,
-    text: counterpart('FinishedAnnouncement.seeResults')
+    text: t('Announcements.FinishedAnnouncement.seeResults')
   }
 
   if (isVisible) {

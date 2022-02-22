@@ -1,0 +1,193 @@
+{
+  "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "You've already seen this subject",
+      "tooltipText": [
+        "You've already seen and classified this subject, so further classifications won't contribute to its analysis.",
+        "If you're looking to help, try choosing a different workflow or contributing to a different project."
+      ]
+    },
+    "Banner": {
+      "next": "Next",
+      "previous": "Previous",
+      "whyAmISeeingThis": "Why am I seeing this?"
+    },
+    "InProgressConfirmModal": {
+      "inProgress": "Are you sure you want to navigate to a different Subject? Any annotation you've made for the current Subject will be lost.",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "RetiredBanner": {
+      "bannerText": "Finished: This subject has been retired",
+      "tooltipText": [
+        "This subject already has enough classifications, so yours won't be used in its analysis.",
+        "If you're looking to help, try choosing a different workflow or contributing to a different project."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Already seen",
+      "bannerText": "{{setName}}: Subject {{number}}/{{total}}",
+      "finished": "Finished",
+      "tooltipText": [
+        "This project allows volunteers to view subjects in sequential order.",
+        "The number shows you the subject’s position within the total group."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Finished: You've seen everything",
+      "tooltipText": [
+        "You've already classified everything in this workflow, so further classifications on this subject won't be used in its analysis.",
+        "If you're looking to help, try choosing a different workflow or contributing to a different project."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "This workflow is finished",
+      "tooltipText": [
+        "All the subjects in this workflow have been completed, so further classifications on this subject won't be used in its analysis.",
+        "If you're looking to help, try choosing a different workflow or contributing to a different project."
+      ]
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Keep Classifying",
+    "label": "Feedback"
+  },
+  "FieldGuide": {
+    "title": "Field Guide",
+    "FieldGuideButton": {
+      "buttonLabel": {
+        "field": "field",
+        "guide": "guide"
+      }
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Go back to Field Guide items list"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Select {{title}}"
+    }
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Annotate"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "fullscreen": "View subject in full screen mode",
+        "actualSize": "View subject at normal size"
+      }
+    },
+    "MoveButton": {
+      "ariaLabel": "Move subject"
+    },
+    "ResetButton": {
+      "ariaLabel": "Reset subject view"
+    },
+    "RotateButton": {
+      "ariaLabel": "Rotate subject"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Zoom in on subject"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Zoom out from subject"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Add to collections"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Hide Previous Marks",
+      "show": "Show Previous Marks"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Hide All Marks",
+      "show": "Show All Marks",
+      "showUser": "Show Your Marks"
+    },
+    "MetadataButton": {
+      "label": "Subject Info"
+    },
+    "MetadataModal": {
+      "title": "Subject Metadata",
+      "table": {
+        "label": "Label",
+        "value": "Value"
+      }
+    }
+  },
+  "ModalTutorial": {
+    "title": "Tutorial"
+  },
+  "SlideTutorial": {
+    "alt": "Tutorial step {{activeStep}}",
+    "error": "Tutorial step could not be loaded.",
+    "getStarted": "Get Started",
+    "heading": "{{projectDisplayName}} Tutorial",
+    "StepNavigation": {
+      "go": "Go to step {{index}}",
+      "next": "Go to next step",
+      "previous": "Go to previous step"
+    }
+  },
+  "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Bar chart"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Close without saving",
+        "confirm": "Are you sure you want to close? This mark will be deleted.",
+        "keepWorking": "Keep working"
+      },
+      "SaveButton": {
+        "save": "Save and Close"
+      },
+      "SubTaskPopup": {
+        "notRender": "Task component could not be rendered.",
+        "required": "This task is required."
+      },
+      "TranscribedLines": {
+        "complete": "Transcription completed",
+        "transcribed": "Has transcriptions",
+        "ConsensusPopup": {
+          "aggregatedTranscription": "aggregated transcription",
+          "explanation": "These {{count}} transcriptions have been submitted by previous volunteers and cannot be modified.",
+          "noAggregation": "No aggregation available.",
+          "title": "Previous Transcriptions",
+          "transcriptionsUnavailable": "Transcriptions unavailable."
+        }
+      }
+    },
+    "MultiFrameViewer": {
+      "FrameCarousel":{
+        "thumbnailAltText": "Thumbnail of Image",
+        "previousFrameLabel": "Previous",
+        "nextFrameLabel": "Next"
+      }
+    },
+    "VariableStarViewer": {
+      "controls": "controls",
+      "figCaption": "HR Diagram",
+      "flip": "flip",
+      "focus": "focus",
+      "highlight": "highlight",
+      "imageTitle": "HR Diagram: Luminosity vs Temperature",
+      "label": "Filter {{id}}",
+      "periodMultiple": "period multiple",
+      "phase": "phase",
+      "phaseFocus": "phase focus"
+    },
+    "VideoController": {
+      "scrubber": "Video player scrubber",
+      "playbackSpeed": "Video playback speed selection",
+      "play": "Play video",
+      "pause": "Pause video"
+    },
+    "ZoomControlButton": {
+      "enable": "enable zoom",
+      "disable": "disable zoom"
+    }
+  }
+}

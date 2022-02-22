@@ -2,17 +2,22 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
 import { MetaToolsButton } from '@zooniverse/react-components'
+import i18n from '@test/i18n/i18n-for-tests'
 
-import { FormView, FormViewHide, Hide } from 'grommet-icons'
-import en from './locales/en'
+import { FormView, FormViewHide } from 'grommet-icons'
 import HidePreviousMarksButton from './HidePreviousMarksButton'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
-let wrapper
-
 describe('Component > HidePreviousMarksButton', function () {
+  let wrapper, useTranslationStub
+
   before(function () {
+    useTranslationStub = sinon.stub(i18n, 't').callsFake((key) => key)
     wrapper = shallow(<HidePreviousMarksButton />)
+  })
+
+  after(function () {
+    useTranslationStub.restore()
   })
 
   it('should render without crashing', function () {
@@ -26,9 +31,7 @@ describe('Component > HidePreviousMarksButton', function () {
   })
 
   it('should display text to hide the marks', function () {
-    const button = wrapper.find(MetaToolsButton)
-    const { text } = button.props()
-    expect(text).to.deep.equal(en.HidePreviousMarksDrawingButton.hide)
+    expect(useTranslationStub).to.have.been.calledWith('MetaTools.HidePreviousMarksDrawingButton.hide')
   })
 
   it('should call props.onClick on click', function () {
@@ -55,9 +58,7 @@ describe('Component > HidePreviousMarksButton', function () {
     })
 
     it('should display text to hide the marks', function () {
-      const button = wrapper.find(MetaToolsButton)
-      const { text } = button.props()
-      expect(text).to.deep.equal(en.HidePreviousMarksDrawingButton.show)
+      expect(useTranslationStub).to.have.been.calledWith('MetaTools.HidePreviousMarksDrawingButton.show')
     })
   })
 

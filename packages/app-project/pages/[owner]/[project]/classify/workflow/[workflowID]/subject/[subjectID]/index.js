@@ -1,7 +1,8 @@
 import getDefaultPageProps from '@helpers/getDefaultPageProps'
 export { default } from '@screens/ClassifyPage'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export async function getServerSideProps({ params, query, req, res }) {
+export async function getServerSideProps({ locale, params, query, req, res }) {
   const { notFound, props: defaultProps } = await getDefaultPageProps({ params, query, req, res })
   const { subjectID, workflowID } = params
   const { workflows } = defaultProps
@@ -11,6 +12,7 @@ export async function getServerSideProps({ params, query, req, res }) {
   return ({
     notFound,
     props: {
+      ...(await serverSideTranslations(locale, ['components', 'screens'])),
       ...defaultProps,
       pageTitle,
       subjectID,

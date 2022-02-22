@@ -1,24 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
 import { Button, Box } from 'grommet'
 import { Modal } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
-import en from './locales/en'
+import { withTranslation } from 'react-i18next'
 
+import { withStores } from '@helpers'
 import getFeedbackViewer from './helpers/getFeedbackViewer'
 import reduceFeedbackMessages from './helpers/reduceFeedbackMessages'
 
-counterpart.registerTranslations('en', en)
-
-function storeMapper (stores) {
+function storeMapper(classifierStore) {
   const {
     applicableRules,
     hideFeedback,
     hideSubjectViewer,
     messages,
     showModal
-  } = stores.classifierStore.feedback
+  } = classifierStore.feedback
+
   return {
     applicableRules,
     hideFeedback,
@@ -28,64 +26,60 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
-class FeedbackModal extends React.Component {
-  render () {
-    const label = counterpart('FeedbackModal.label')
-    const { applicableRules, hideFeedback, hideSubjectViewer, messages, showModal } = this.props
-    const showViewer = !hideSubjectViewer && applicableRules && applicableRules.length > 0
-    let FeedbackViewer = null
+function FeedbackModal({
+  applicableRules,
+  hideFeedback,
+  hideSubjectViewer,
+  messages,
+  showModal,
+  t = key => key
+}) {
+  const label = t('FeedbackModal.label')
+  const showViewer = !hideSubjectViewer && applicableRules?.length > 0
+  const FeedbackViewer = showViewer ? getFeedbackViewer(applicableRules) : null
+  const messageContainerHeight = (showViewer && !!FeedbackViewer) ? '400px' : '100%'
+  const reducedMessages = reduceFeedbackMessages(messages)
 
-    if (showViewer) {
-      FeedbackViewer = getFeedbackViewer(applicableRules)
-    }
-
-    const messageContainerHeight = (showViewer && !!FeedbackViewer) ? '400px' : '100%'
-
-    const reducedMessages = reduceFeedbackMessages(messages)
-
-    if (showModal) {
-      return (
-        <Modal
-          active={showModal}
-          closeFn={hideFeedback}
-          title={label}
-        >
-          <>
-            {showViewer && !!FeedbackViewer && (
-              <Box
-                height='400px'
-                width='600px'
-              >
-                <FeedbackViewer />
-              </Box>)}
-            <Box height={messageContainerHeight} overflow='scroll'>
-              <ul>
-                {reducedMessages.map(message =>
-                  <li key={Math.random()}>
-                    {message.text} <small>({message.count} { message.count === 1 ? 'match' : 'matches' })</small>
-                  </li>
-                )}
-              </ul>
-            </Box>
-            <Box pad={{ top: 'small' }}>
-              <Button
-                onClick={hideFeedback}
-                label={counterpart('FeedbackModal.keepClassifying')}
-                primary
-              />
-            </Box>
-          </>
-        </Modal>
-      )
-    }
-
-    return null
+  if (showModal) {
+    return (
+      <Modal
+        active
+        closeFn={hideFeedback}
+        title={label}
+      >
+        <>
+          {showViewer && !!FeedbackViewer && (
+            <Box
+              height='400px'
+              width='600px'
+            >
+              <FeedbackViewer />
+            </Box>)}
+          <Box height={messageContainerHeight} overflow='scroll'>
+            <ul>
+              {reducedMessages.map(message =>
+                <li key={Math.random()}>
+                  {message.text} <small>({message.count} { message.count === 1 ? 'match' : 'matches' })</small>
+                </li>
+              )}
+            </ul>
+          </Box>
+          <Box pad={{ top: 'small' }}>
+            <Button
+              onClick={hideFeedback}
+              label={t('FeedbackModal.keepClassifying')}
+              primary
+            />
+          </Box>
+        </>
+      </Modal>
+    )
   }
+
+  return null
 }
 
-FeedbackModal.wrappedComponent.propTypes = {
+FeedbackModal.propTypes = {
   applicableRules: PropTypes.arrayOf(
     PropTypes.shape({
       strategy: PropTypes.string
@@ -97,4 +91,6 @@ FeedbackModal.wrappedComponent.propTypes = {
   showModal: PropTypes.bool
 }
 
-export default FeedbackModal
+const TranslatedFeedbackModal = withTranslation('components')(FeedbackModal)
+export default withStores(TranslatedFeedbackModal, storeMapper)
+export { FeedbackModal }

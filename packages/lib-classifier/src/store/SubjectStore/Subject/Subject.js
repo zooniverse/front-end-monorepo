@@ -1,5 +1,4 @@
-import { autorun } from 'mobx'
-import { addDisposer, destroy, getRoot, tryReference, types } from 'mobx-state-tree'
+import { destroy, getRoot, tryReference, types } from 'mobx-state-tree'
 import Resource from '@store/Resource'
 import { createLocationCounts, subjectViewers, validateSubjectLocations } from '@helpers'
 import StepHistory from './StepHistory'
@@ -17,9 +16,15 @@ const Subject = types
     selected_at: types.maybe(types.string),
     selection_state: types.maybe(types.string),
     shouldDiscuss: types.maybe(types.frozen()),
-    stepHistory: types.optional(StepHistory, () => StepHistory.create({})),
+    stepHistory: types.maybe(StepHistory),
     user_has_finished_workflow: types.optional(types.boolean, false),
     transcriptionReductions: types.maybe(TranscriptionReductions)
+  })
+
+  .postProcessSnapshot(snapshot => {
+    const newSnapshot = Object.assign({}, snapshot)
+    delete newSnapshot.stepHistory
+    return newSnapshot
   })
 
   .views(self => ({
@@ -54,6 +59,9 @@ const Subject = types
           }
           if (counts.videos) {
             viewer = subjectViewers.singleVideo
+          }
+          if (counts.text) {
+            viewer = subjectViewers.singleText
           }
         }
 
@@ -98,23 +106,20 @@ const Subject = types
   .actions(self => {
 
     function afterAttach () {
-      fetchTranscriptionReductions()
+      _fetchTranscriptionReductions()
     }
 
     function beforeDestroy () {
       self.transcriptionReductions && destroy(self.transcriptionReductions)
     }
 
-    function fetchTranscriptionReductions () {
-      const subjectWorkflowDisposer = autorun(function subjectWorkflowDisposer () {
-        if (self.workflow && self.workflow.usesTranscriptionTask) {
-          self.transcriptionReductions = TranscriptionReductions.create({
-            subjectId: self.id,
-            workflowId: self.workflow.id
-          })
-        }
-      }, { name: 'Subject workflow disposer' })
-      addDisposer(self, subjectWorkflowDisposer)
+    function _fetchTranscriptionReductions () {
+      if (self.workflow?.usesTranscriptionTask) {
+        self.transcriptionReductions = TranscriptionReductions.create({
+          subjectId: self.id,
+          workflowId: self.workflow.id
+        })
+      }
     }
 
     function addToCollection () {
@@ -133,6 +138,11 @@ const Subject = types
       }
     }
 
+    function startClassification() {
+      self.stepHistory = StepHistory.create({})
+      self.stepHistory.start()
+    }
+
     function toggleFavorite () {
       const rootStore = getRoot(self)
       self.favorite = !self.favorite
@@ -145,6 +155,7 @@ const Subject = types
       addToCollection,
       markAsSeen,
       openInTalk,
+      startClassification,
       toggleFavorite
     }
   })

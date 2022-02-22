@@ -42,6 +42,7 @@ describe('Helpers > getDefaultPageProps', function () {
     completeness: 0.4,
     configuration: {},
     grouped: false,
+    prioritized: false,
     links: {
       subject_sets: ['1', '2', '3']
     }
@@ -52,6 +53,7 @@ describe('Helpers > getDefaultPageProps', function () {
     completeness: 0.4,
     configuration: {},
     grouped: true,
+    prioritized: false,
     links: {
       subject_sets: ['1', '2', '3']
     }
@@ -144,6 +146,7 @@ describe('Helpers > getDefaultPageProps', function () {
             configuration: {},
             default: true,
             grouped: false,
+            prioritized: false,
             id: '1',
             displayName: 'Foo',
             links: {
@@ -252,6 +255,7 @@ describe('Helpers > getDefaultPageProps', function () {
             configuration: {},
             default: true,
             grouped: false,
+            prioritized: false,
             id: '1',
             displayName: 'Foo',
             links: {

@@ -5,7 +5,6 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { VariableStarViewer } from './VariableStarViewer'
 import { SingleImageViewerContainer } from '../SingleImageViewer'
 import { ScatterPlotViewer } from '../ScatterPlotViewer'
-import en from './locales/en'
 import { expect } from 'chai'
 
 describe('Component > VariableStarViewer', function () {
@@ -98,7 +97,8 @@ describe('Component > VariableStarViewer', function () {
     })
 
     it('should set the x-axis and y-axis labels', function () {
-      expect(phasedScatterPlot.props().xAxisLabel).to.equal(en.VariableStarViewer.phase)
+      /** The translation function will simply return keys in a testing environment */
+      expect(phasedScatterPlot.props().xAxisLabel).to.equal('SubjectViewer.VariableStarViewer.phase')
       expect(phasedScatterPlot.props().yAxisLabel).to.equal(phasedJSONMock.chartOptions.yAxisLabel)
     })
 

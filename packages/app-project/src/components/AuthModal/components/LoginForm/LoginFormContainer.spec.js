@@ -3,7 +3,6 @@ import sinon from 'sinon'
 
 import { LoginFormContainer } from './LoginFormContainer'
 import LoginForm from './LoginForm'
-import en from './locales/en'
 
 let wrapper
 let componentWrapper
@@ -99,8 +98,9 @@ describe('Component > LoginFormContainer', function () {
         expect.fail()
       } catch (error) {
         expect(INVALID_SIGN_IN).to.have.been.calledWith(MOCK_FORM_VALUES)
-        expect(MOCK_FORMIK.setFieldError).to.have.been.calledWith('login', en.LoginForm.error)
-        expect(MOCK_FORMIK.setFieldError).to.have.been.calledWith('password', en.LoginForm.error)
+        /** The translation function t is set to simply return keys in a testing environment **/
+        expect(MOCK_FORMIK.setFieldError).to.have.been.calledWith('login', 'AuthModal.LoginForm.error')
+        expect(MOCK_FORMIK.setFieldError).to.have.been.calledWith('password', 'AuthModal.LoginForm.error')
         expect(MOCK_FORMIK.setSubmitting).to.have.been.calledWith(false)
         expect(CLOSE_MODAL).to.not.have.been.called()
       }

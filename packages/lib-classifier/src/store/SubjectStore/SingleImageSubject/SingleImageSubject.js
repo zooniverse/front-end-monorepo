@@ -8,6 +8,4 @@ const SingleImageSubject = types
     return subject.locations.length === 1 && counts.images === 1
   })
 
-  
-
 export default SingleImageSubject

@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Grommet, Box, RangeInput } from 'grommet'
-import counterpart from 'counterpart'
-import en from '../../locales/en.json'
+import { useTranslation } from 'react-i18next'
 
 const customThemeRangeInput = {
   global: {
@@ -26,25 +25,26 @@ const customThemeRangeInput = {
   }
 }
 
-counterpart.registerTranslations('en', en)
-
-const Slider = ({ played, onMouseUp, onMouseDown, onChange }) => (
-  <Grommet theme={customThemeRangeInput}>
-    <Box>
-      <RangeInput
-        a11yTitle={counterpart('VideoController.scrubber')}
-        min={0}
-        max={1}
-        step={0.0001}
-        value={played}
-        onMouseUp={onMouseUp}
-        onMouseDown={onMouseDown}
-        onChange={onChange}
-        onInput={onChange}
-      />
-    </Box>
-  </Grommet>
-)
+const Slider = ({ played, onMouseUp, onMouseDown, onChange }) => {
+  const { t } = useTranslation('components')
+  return (
+    <Grommet theme={customThemeRangeInput}>
+      <Box>
+        <RangeInput
+          a11yTitle={t('SubjectViewer.VideoController.scrubber')}
+          min={0}
+          max={1}
+          step={0.0001}
+          value={played}
+          onMouseUp={onMouseUp}
+          onMouseDown={onMouseDown}
+          onChange={onChange}
+          onInput={onChange}
+        />
+      </Box>
+    </Grommet>
+  )
+}
 
 Slider.propTypes = {
   className: PropTypes.string,

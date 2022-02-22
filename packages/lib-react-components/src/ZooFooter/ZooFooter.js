@@ -1,16 +1,14 @@
-import counterpart from 'counterpart'
 import { Box, Grid, Image } from 'grommet'
 import { arrayOf, node, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
+import '../translations/i18n'
 
 import LinkList from './components/LinkList'
 import PolicyLinkSection from './components/PolicyLinkSection'
 import LogoAndTagline from './components/LogoAndTagline'
 import SocialAnchor from './components/SocialAnchor'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 export const StyledEasterEgg = styled(Image)`
   bottom: 100%;
@@ -32,24 +30,63 @@ export const StyledEasterEgg = styled(Image)`
 
 export default function ZooFooter (props) {
   const {
-    aboutNavListLabels,
     aboutNavListURLs,
     adminContainer,
-    buildNavListLabels,
     buildNavListURLs,
     className,
-    getInvolvedNavListLabels,
     getInvolvedNavListURLs,
-    newsNavListLabels,
     newsNavListURLs,
-    policyNavListLabels,
     policyNavListURLs,
-    projectNavListLabels,
     projectNavListURLs,
-    talkNavListLabels,
     talkNavListURLs,
-    zooTagline
   } = props
+
+  const { t } = useTranslation()
+
+  const aboutNavListLabels = [
+    t('ZooFooter.aboutLabels.about'),
+    t('ZooFooter.aboutLabels.publications'),
+    t('ZooFooter.aboutLabels.team'),
+    t('ZooFooter.aboutLabels.acknowledgements'),
+    t('ZooFooter.aboutLabels.contact'),
+    t('ZooFooter.aboutLabels.faq')
+  ]
+
+  const buildNavListLabels = [
+    t('ZooFooter.buildLabels.buildAProject'),
+    t('ZooFooter.buildLabels.tutorial'),
+    t('ZooFooter.buildLabels.glossary'),
+    t('ZooFooter.buildLabels.policies'),
+    t('ZooFooter.buildLabels.bestPractices')
+  ]
+
+  const getInvolvedNavListLabels = [
+    t('ZooFooter.getInvolvedLabels.getInvolved'),
+    t('ZooFooter.getInvolvedLabels.education'),
+    t('ZooFooter.getInvolvedLabels.callForProjects'),
+    t('ZooFooter.getInvolvedLabels.collections')
+  ]
+
+  const newsNavListLabels = [
+    t('ZooFooter.newsLabels.news'),
+    t('ZooFooter.newsLabels.dailyZooniverse'),
+    t('ZooFooter.newsLabels.blog')
+  ]
+
+  const policyNavListLabels = [
+    t('ZooFooter.policyLabels.privacyPolicy'),
+    t('ZooFooter.policyLabels.jobs'),
+    t('ZooFooter.policyLabels.systemStatus'),
+    t('ZooFooter.policyLabels.security')
+  ]
+
+  const projectNavListLabels = [
+    t('ZooFooter.projectLabels.projects')
+  ]
+
+  const talkNavListLabels = [
+    t('ZooFooter.talkLabels.talk')
+  ]
 
   return (
     <Box
@@ -86,7 +123,7 @@ export default function ZooFooter (props) {
           margin={{ bottom: 'medium' }}
           pad={{ bottom: 'medium' }}
         >
-          <LogoAndTagline tagLine={zooTagline} />
+          <LogoAndTagline tagLine={t('ZooFooter.tagLine')} />
           <Box
             align='end'
             direction='row'
@@ -173,14 +210,6 @@ ZooFooter.defaultProps = {
     'https://www.zooniverse.org/about/contact',
     'https://www.zooniverse.org/about/faq'
   ],
-  aboutNavListLabels: [
-    counterpart('ZooFooter.aboutLabels.about'),
-    counterpart('ZooFooter.aboutLabels.publications'),
-    counterpart('ZooFooter.aboutLabels.team'),
-    counterpart('ZooFooter.aboutLabels.acknowledgements'),
-    counterpart('ZooFooter.aboutLabels.contact'),
-    counterpart('ZooFooter.aboutLabels.faq')
-  ],
   adminContainer: null,
   buildNavListURLs: [
     'https://www.zooniverse.org/lab',
@@ -189,34 +218,16 @@ ZooFooter.defaultProps = {
     'https://www.zooniverse.org/help/lab-policies',
     'https://www.zooniverse.org/lab-best-practices/introduction'
   ],
-  buildNavListLabels: [
-    counterpart('ZooFooter.buildLabels.buildAProject'),
-    counterpart('ZooFooter.buildLabels.tutorial'),
-    counterpart('ZooFooter.buildLabels.glossary'),
-    counterpart('ZooFooter.buildLabels.policies'),
-    counterpart('ZooFooter.buildLabels.bestPractices')
-  ],
   getInvolvedNavListURLs: [
     'https://www.zooniverse.org/get-involved',
     'https://www.zooniverse.org/get-involved/education',
     'https://www.zooniverse.org/get-involved/call-for-projects',
     'https://www.zooniverse.org/collections'
   ],
-  getInvolvedNavListLabels: [
-    counterpart('ZooFooter.getInvolvedLabels.getInvolved'),
-    counterpart('ZooFooter.getInvolvedLabels.education'),
-    counterpart('ZooFooter.getInvolvedLabels.callForProjects'),
-    counterpart('ZooFooter.getInvolvedLabels.collections')
-  ],
   newsNavListURLs: [
     '#',
     'https://daily.zooniverse.org/',
     'https://blog.zooniverse.org/projects'
-  ],
-  newsNavListLabels: [
-    counterpart('ZooFooter.newsLabels.news'),
-    counterpart('ZooFooter.newsLabels.dailyZooniverse'),
-    counterpart('ZooFooter.newsLabels.blog')
   ],
   policyNavListURLs: [
     'https://www.zooniverse.org/privacy',
@@ -224,42 +235,21 @@ ZooFooter.defaultProps = {
     'https://status.zooniverse.org/',
     'https://www.zooniverse.org/security'
   ],
-  policyNavListLabels: [
-    counterpart('ZooFooter.policyLabels.privacyPolicy'),
-    counterpart('ZooFooter.policyLabels.jobs'),
-    counterpart('ZooFooter.policyLabels.systemStatus'),
-    counterpart('ZooFooter.policyLabels.security')
-  ],
   projectNavListURLs: [
     'https://www.zooniverse.org/projects'
   ],
-  projectNavListLabels: [
-    counterpart('ZooFooter.projectLabels.projects')
-  ],
   talkNavListURLs: [
     'https://www.zooniverse.org/talk'
-  ],
-  talkNavListLabels: [
-    counterpart('ZooFooter.talkLabels.talk')
-  ],
-  zooTagline: counterpart('ZooFooter.tagLine')
+  ]
 }
 
 ZooFooter.propTypes = {
   aboutNavListURLs: arrayOf(string),
-  aboutNavListLabels: arrayOf(string),
   adminContainer: node,
   buildNavListURLs: arrayOf(string),
-  buildNavListLabels: arrayOf(string),
   getInvolvedNavListURLs: arrayOf(string),
-  getInvolvedNavListLabels: arrayOf(string),
   newsNavListURLs: arrayOf(string),
-  newsNavListLabels: arrayOf(string),
   policyNavListURLs: arrayOf(string),
-  policyNavListLabels: arrayOf(string),
   projectNavListURLs: arrayOf(string),
-  projectNavListLabels: arrayOf(string),
-  talkNavListURLs: arrayOf(string),
-  talkNavListLabels: arrayOf(string),
-  zooTagline: string
+  talkNavListURLs: arrayOf(string)
 }

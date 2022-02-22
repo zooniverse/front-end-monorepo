@@ -113,7 +113,8 @@ describe('SubTaskPopup', function () {
         const requiredSubtask = taskWrappers.first()
         expect(requiredSubtask.prop('border').size).to.equal('small')
         expect(requiredSubtask.prop('border').color).to.equal('tomato')
-        expect(requiredSubtask.find('strong').text()).to.equal('This task is required.')
+        expect(requiredSubtask.find('strong').text()).to.equal('SubjectViewer.InteractionLayer.SubTaskPopup.required')
+        /** The translation function will simply return keys in a testing environment */
       })
     })
   })

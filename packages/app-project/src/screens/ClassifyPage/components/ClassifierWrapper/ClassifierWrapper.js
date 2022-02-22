@@ -1,7 +1,7 @@
 import Classifier from '@zooniverse/classifier'
 import { useRouter } from 'next/router'
 import auth from 'panoptes-client/lib/auth'
-import { func, string, shape } from 'prop-types'
+import { bool, func, string, shape } from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 
 import addQueryParams from '@helpers/addQueryParams'
@@ -19,6 +19,7 @@ import Loader from '@shared/components/Loader'
 export default function ClassifierWrapper({
   authClient = auth,
   appLoadingState = asyncStates.initialized,
+  cachePanoptesData = false,
   collections,
   mode,
   onAddToCollection = () => true,
@@ -32,6 +33,7 @@ export default function ClassifierWrapper({
   yourStats
 }) {
   const router = useRouter()
+  const { locale } = router
   function onCompleteClassification(classification, subject) {
     const finishedSubject = subject.already_seen || subject.retired
     if (!finishedSubject) {
@@ -86,7 +88,9 @@ export default function ClassifierWrapper({
       return (
         <Classifier
           authClient={authClient}
+          cachePanoptesData={cachePanoptesData}
           key={key}
+          locale={locale}
           mode={mode}
           onAddToCollection={onAddToCollection}
           onCompleteClassification={onCompleteClassification}
@@ -129,6 +133,8 @@ export default function ClassifierWrapper({
 }
 
 ClassifierWrapper.propTypes = {
+  /** Cache Panoptes API data in session storage */
+  cachePanoptesData: bool,
   /** Callback that will be called with a subject ID when the classification subject is added to a collection. */
   onAddToCollection: func,
   /** Panoptes Auth client */

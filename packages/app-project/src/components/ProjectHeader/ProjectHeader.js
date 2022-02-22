@@ -1,20 +1,16 @@
 import { withResponsiveContext } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { Box } from 'grommet'
-import { arrayOf, bool, shape, string } from 'prop-types'
+import { array, arrayOf, bool, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 import ApprovedIcon from './components/ApprovedIcon'
 import Avatar from './components/Avatar'
 import Background from './components/Background'
 import DropdownNav from './components/DropdownNav'
+import LocaleSwitcher from './components/LocaleSwitcher'
 import Nav from './components/Nav'
 import ProjectTitle from './components/ProjectTitle'
 import UnderReviewLabel from './components/UnderReviewLabel'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 const StyledBox = styled(Box)`
   position: relative;
@@ -22,6 +18,11 @@ const StyledBox = styled(Box)`
 
 function ProjectHeader (props) {
   const { className, inBeta, navLinks, screenSize, title } = props
+
+  // hard-coded for translation feature PR testing, but
+  // should eventually be imported as props instead
+  const availableLocales = ['en', 'fr']
+
   return (
     <StyledBox as='header' className={className}>
       <Background />
@@ -44,10 +45,11 @@ function ProjectHeader (props) {
           >
             <Box>
               <ProjectTitle title={title} />
-              {inBeta && 
+              {inBeta &&
                 <UnderReviewLabel />}
             </Box>
             <ApprovedIcon isNarrow={screenSize === 'small'} />
+            {/* {availableLocales?.length > 1 && <LocaleSwitcher availableLocales={availableLocales} />} */}
           </Box>
         </Box>
         {screenSize !== 'small' && <Nav navLinks={navLinks} />}
@@ -58,6 +60,7 @@ function ProjectHeader (props) {
 }
 
 ProjectHeader.defaultProps = {
+  availableLocales: [],
   className: '',
   inBeta: false,
   href: '',
@@ -65,6 +68,7 @@ ProjectHeader.defaultProps = {
 }
 
 ProjectHeader.propTypes = {
+  availableLocales: array,
   className: string,
   inBeta: bool,
   href: string,

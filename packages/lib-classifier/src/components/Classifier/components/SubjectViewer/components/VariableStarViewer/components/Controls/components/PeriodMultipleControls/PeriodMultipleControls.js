@@ -3,11 +3,8 @@ import PropTypes from 'prop-types'
 import { FormField, RadioButtonGroup } from 'grommet'
 import styled, { css } from 'styled-components'
 import { SpacedText, withThemeContext } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
-import en from '../../../../locales/en'
 import theme from './theme'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'react-i18next'
 
 export const StyledRadioButtonGroup = styled(RadioButtonGroup)`
   label {
@@ -33,10 +30,11 @@ export const StyledRadioButtonGroup = styled(RadioButtonGroup)`
 
 export function PeriodMultipleControls (props) {
   const { periodMultiple, options, setPeriodMultiple, theme } = props
+  const { t } = useTranslation('components')
   return (
     <FormField
       htmlFor='periodMultiple'
-      label={<SpacedText size='10px' weight='bold'>{counterpart('VariableStarViewer.periodMultiple')}</SpacedText>}
+      label={<SpacedText size='10px' weight='bold'>{t('SubjectViewer.VariableStarViewer.periodMultiple')}</SpacedText>}
     >
       <StyledRadioButtonGroup
         color={theme.global.colors['light-6']}

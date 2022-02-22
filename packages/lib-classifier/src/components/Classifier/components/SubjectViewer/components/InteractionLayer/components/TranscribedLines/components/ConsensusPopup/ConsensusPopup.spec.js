@@ -5,7 +5,6 @@ import sinon from 'sinon'
 import { MovableModal } from '@zooniverse/react-components'
 import ConsensusPopup from './ConsensusPopup'
 import setupMock from './helpers/setupMock'
-import en from './locales/en'
 
 describe('TranscribedLines > Component > ConsensusPopup', function () {
   const completedLines = setupMock()
@@ -57,14 +56,14 @@ describe('TranscribedLines > Component > ConsensusPopup', function () {
 
     it('should render an explanatory text with the number of textOptions from the line data', function () {
       const firstParagraph = wrapper.find(Paragraph).first()
-      expect(firstParagraph.contains(`These ${completedLines[0].textOptions.length} transcriptions have been submitted by previous volunteers and cannot be modified.`)).to.be.true()
+      expect(firstParagraph.contains('SubjectViewer.InteractionLayer.TranscribedLines.ConsensusPopup.explanation')).to.be.true()
+      /** The translation function will simply return keys in a testing env */
     })
 
     it('should render the consensus text with explanation', function () {
       const consensusText = wrapper.find(Paragraph).at(1)
       expect(consensusText.contains(completedLines[0].consensusText)).to.be.true()
       expect(consensusText.find(Text)).to.have.lengthOf(1)
-      expect(consensusText.find(Text).contains(en.ConsensusPopup.aggregatedTranscription)).to.be.true()
     })
 
     it('should a List of transcriptions that contributed to the consensus text', function () {
@@ -81,12 +80,12 @@ describe('TranscribedLines > Component > ConsensusPopup', function () {
 
       it('should render an explanation when there is no consensus text', function () {
         const explanation = wrapper.find(Paragraph).at(1)
-        expect(explanation.contains(en.ConsensusPopup.noAggregation)).to.be.true()
+        expect(explanation.contains('SubjectViewer.InteractionLayer.TranscribedLines.ConsensusPopup.noAggregation')).to.be.true()
         expect(wrapper.find(Text)).to.have.lengthOf(0)
       })
 
       it('should render an explanation when there are no contributing transcriptions', function () {
-        expect(wrapper.find(Paragraph).at(2).contains(en.ConsensusPopup.transcriptionsUnavailable)).to.be.true()
+        expect(wrapper.find(Paragraph).at(2).contains('SubjectViewer.InteractionLayer.TranscribedLines.ConsensusPopup.transcriptionsUnavailable')).to.be.true()
         expect(wrapper.find(List)).to.have.lengthOf(0)
       })
     })

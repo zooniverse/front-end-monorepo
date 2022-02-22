@@ -1,13 +1,10 @@
-import counterpart from 'counterpart'
 import { Box, Grid, Paragraph } from 'grommet'
 import getConfig from 'next/config'
 import { array, bool, number, string } from 'prop-types'
+import { useTranslation } from 'next-i18next'
 
-import en from './locales/en'
 import ContentBox from '@shared/components/ContentBox'
 import SubjectPreview from '@shared/components/SubjectPreview'
-
-counterpart.registerTranslations('en', en)
 
 function RecentSubjects ({
   isLoggedIn = false,
@@ -16,6 +13,7 @@ function RecentSubjects ({
   size = 3,
   slug
 }) {
+  const { t } = useTranslation('screens')
   const height = (size === 1) ? '40vw' : '200px'
   const { publicRuntimeConfig = {} } = getConfig() || {}
   const assetPrefix = publicRuntimeConfig.assetPrefix || ''
@@ -23,9 +21,9 @@ function RecentSubjects ({
   const displayedRecents = recents.slice(0, size)
 
   return (
-    <ContentBox title={counterpart('RecentSubjects.title', { projectName })}>
+    <ContentBox title={t('Classify.RecentSubjects.title', { projectName })}>
       <Paragraph margin={{ top: 'none' }}>
-        {counterpart('RecentSubjects.text')}
+        {t('Classify.RecentSubjects.text')}
       </Paragraph>
       <Grid
         alignContent='stretch'

@@ -2,16 +2,12 @@ import { Box, Button, Carousel, Heading, Paragraph } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { PrimaryButton, Media } from '@zooniverse/react-components'
+import { useTranslation } from 'react-i18next'
 
 import ConfusedWith from './components/ConfusedWith'
 import Questions from './components/Questions'
 import allowIdentification from './helpers/allowIdentification'
 import getQuestionIds from './helpers/getQuestionIds'
-
-import counterpart from 'counterpart'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 export default function Choice (props) {
   const {
@@ -28,6 +24,8 @@ export default function Choice (props) {
     images,
     questions
   } = task
+
+  const { t } = useTranslation('plugins')
 
   const choice = choices?.[choiceId] || {}
   const questionIds = getQuestionIds(choiceId, task)
@@ -100,14 +98,14 @@ export default function Choice (props) {
       >
         <Button
           fill='horizontal'
-          label={counterpart('Choice.notThis')}
+          label={t('SurveyTask.Choice.notThis')}
           onClick={() => handleDelete(choiceId)}
         />
         <PrimaryButton
           autoFocus={hasFocus === 'identify'}
           disabled={!allowIdentify}
           fill='horizontal'
-          label={counterpart('Choice.identify')}
+          label={t('SurveyTask.Choice.identify')}
           onClick={() => onIdentify()}
         />
       </Box>

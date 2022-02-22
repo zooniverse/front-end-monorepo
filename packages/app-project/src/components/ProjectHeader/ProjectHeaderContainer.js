@@ -1,12 +1,13 @@
 import { inject, observer } from 'mobx-react'
-import { bool, shape, string } from 'prop-types'
+import { array, bool, shape, string } from 'prop-types'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 import ProjectHeader from './ProjectHeader'
-import getNavLinks from './helpers/getNavLinks'
 
 function storeMapper (stores) {
   return {
+    availableLocales: stores.store.project.configuration.languages,
     inBeta: stores.store.project.inBeta,
     isLoggedIn: stores.store.user.isLoggedIn,
     projectName: stores.store.project.display_name,
@@ -19,12 +20,46 @@ function getBaseUrl (router) {
   return `/${owner}/${project}`
 }
 
-function ProjectHeaderContainer ({ className, defaultWorkflow, inBeta, isLoggedIn, projectName }) {
+function ProjectHeaderContainer ({ availableLocales, className, defaultWorkflow, inBeta, isLoggedIn, projectName }) {
   const router = useRouter()
+  const { t } = useTranslation('components')
+
+  function getNavLinks (isLoggedIn, baseUrl, defaultWorkflow) {
+    const classifyHref = defaultWorkflow ? `${baseUrl}/classify/workflow/${defaultWorkflow}` : `${baseUrl}/classify`
+    const links = [
+      {
+        href: `${baseUrl}/about/research`,
+        text: t('ProjectHeader.about')
+      },
+      {
+        href: classifyHref,
+        text: t('ProjectHeader.classify')
+      },
+      {
+        href: `${baseUrl}/talk`,
+        text: t('ProjectHeader.talk')
+      },
+      {
+        href: `${baseUrl}/collections`,
+        text: t('ProjectHeader.collect')
+      }
+    ]
+
+    if (isLoggedIn) {
+      links.push({
+        href: `${baseUrl}/recents`,
+        text: t('ProjectHeader.recents')
+      })
+    }
+
+    return links
+  }
+
   const navLinks = getNavLinks(isLoggedIn, getBaseUrl(router), defaultWorkflow)
 
   return (
     <ProjectHeader
+      availableLocales={availableLocales}
       className={className}
       inBeta={inBeta}
       navLinks={navLinks}
@@ -34,11 +69,13 @@ function ProjectHeaderContainer ({ className, defaultWorkflow, inBeta, isLoggedI
 }
 
 ProjectHeaderContainer.defaultProps = {
+  availableLocales: [],
   inBeta: false,
   isLoggedIn: false
 }
 
 ProjectHeaderContainer.propTypes = {
+  availableLocales: array,
   inBeta: bool,
   isLoggedIn: bool,
   projectName: string.isRequired,

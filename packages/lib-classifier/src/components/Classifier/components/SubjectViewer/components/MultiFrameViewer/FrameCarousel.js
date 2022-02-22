@@ -1,4 +1,3 @@
-import counterpart from 'counterpart'
 import { Button, Box } from 'grommet'
 import { FormUp, FormDown, More } from 'grommet-icons'
 import { tint } from 'polished'
@@ -6,11 +5,9 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import { Media } from '@zooniverse/react-components'
+import { useTranslation, withTranslation } from 'react-i18next'
 
 import locationValidator from '../../helpers/locationValidator'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 export const StyledControlButton = styled(Button)`
   ${props => props.theme && css`
@@ -25,6 +22,7 @@ export const StyledControlButton = styled(Button)`
 `
 
 export function PreviousLabel () {
+  const { t } = useTranslation('components')
   return (
     <Box
       as='span'
@@ -32,19 +30,20 @@ export function PreviousLabel () {
       direction='column'
     >
       <FormUp color='neutral-6' />
-      {counterpart('MultiFrameViewer.FrameCarousel.previousFrameLabel')}
+      {t('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel')}
     </Box>
   )
 }
 
 export function NextLabel () {
+  const { t } = useTranslation('components')
   return (
     <Box
       as='span'
       align='center'
       direction='column'
     >
-      {counterpart('MultiFrameViewer.FrameCarousel.nextFrameLabel')}
+      {t('SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel')}
       <FormDown color='neutral-6' />
     </Box>
   )
@@ -153,7 +152,7 @@ class FrameCarousel extends React.Component {
   }
 
   render () {
-    const { frame, locations } = this.props
+    const { frame, locations, t } = this.props
     const locationElements = locations.map((location, index) => {
       const mimeType = Object.keys(location)[0]
       const url = location[mimeType]
@@ -171,7 +170,7 @@ class FrameCarousel extends React.Component {
             type='radio'
           />
           <StyledMedia
-            alt={counterpart('MultiFrameViewer.FrameCarousel.thumbnailAltText')}
+            alt={t('SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText')}
             background='accent-1'
             fit='cover'
             height={40}
@@ -232,5 +231,6 @@ FrameCarousel.defaultProps = {
   }
 }
 
-export default withTheme(FrameCarousel)
+const ThemedFrameCarousel = withTheme(FrameCarousel)
+export default withTranslation('components')(ThemedFrameCarousel)
 export { FrameCarousel }

@@ -1,11 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { MovableModal, Modal } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
-import en from './locales/en'
 import FieldGuide from './FieldGuide'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'react-i18next'
 
 function FieldGuideContainer (props) {
   const {
@@ -13,6 +10,8 @@ function FieldGuideContainer (props) {
     size,
     ...rest
   } = props
+  const { t } = useTranslation('components')
+
   const modalComponent = (size === 'small') ? Modal : MovableModal
   const minHeight = 415
   const minWidth = 490
@@ -25,14 +24,14 @@ function FieldGuideContainer (props) {
 
   const boxHeight = (size === 'small') ? '100%' : `${minHeight}px`
   const boxWidth = (size === 'small') ? '100%' : `${minWidth}px`
-  
+
   const modalProps = {
     active: true,
     closeFn: onClose,
     modal: false,
     pad: 'medium',
     position: 'right',
-    title: counterpart('FieldGuide.title')
+    title: t('FieldGuide.title')
   }
   const rndProps = {
     minHeight,

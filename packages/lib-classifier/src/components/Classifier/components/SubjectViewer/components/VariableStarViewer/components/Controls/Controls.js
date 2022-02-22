@@ -3,15 +3,13 @@ import PropTypes from 'prop-types'
 import { Box } from 'grommet'
 import styled from 'styled-components'
 import { PlainButton, SpacedText, withThemeContext } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
+import { useTranslation } from 'react-i18next'
+
 import FlipIcon from '../FlipIcon'
-import en from '../../locales/en'
 import theme from './theme'
 import HighlightSeriesCheckBoxes from './components/HighlightSeriesCheckBoxes'
 import PhaseFocusControls from './components/PhaseFocusControls'
 import PeriodMultipleControls from './components/PeriodMultipleControls'
-
-counterpart.registerTranslations('en', en)
 
 export const FlipButton = styled(PlainButton)`
   &:enabled:hover, &:focus {
@@ -41,7 +39,7 @@ function Controls(props) {
     setPeriodMultiple,
     setYAxisInversion,
   } = props
-
+  const { t } = useTranslation('components')
   const radioButtonOptions = periodMultipleOptions.map((option) => {
     return {
       label: <SpacedText size='10px' style={{ width: '1ch' }} weight='bold'>{option}</SpacedText>,
@@ -64,13 +62,13 @@ function Controls(props) {
       <SpacedText
         style={{ fontSize: '0.5em', textAlign: 'center', transform: 'rotate(180deg)', writingMode: 'vertical-lr' }}
       >
-        {counterpart('VariableStarViewer.controls')}
+        {t('SubjectViewer.VariableStarViewer.controls')}
       </SpacedText>
       <FlipButton
         icon={<FlipIcon />}
         label={
           <SpacedText margin={{ top: '5px' }} size='10px' weight='bold'>
-            {counterpart('VariableStarViewer.flip')}
+            {t('SubjectViewer.VariableStarViewer.flip')}
           </SpacedText>
         }
         onClick={event => setYAxisInversion(event)}
@@ -89,7 +87,7 @@ function Controls(props) {
           setSeriesPhaseFocus={setSeriesPhaseFocus}
         />
         <SpacedText size='10px' weight='bold'>
-          {counterpart('VariableStarViewer.phaseFocus')}
+          {t('SubjectViewer.VariableStarViewer.phaseFocus')}
         </SpacedText>
       </Box>
       <Box justify='between'>
@@ -99,7 +97,7 @@ function Controls(props) {
           setSeriesHighlight={setSeriesHighlight}
         />
         <SpacedText size='10px' weight='bold'>
-          {counterpart('VariableStarViewer.highlight')}
+          {t('SubjectViewer.VariableStarViewer.highlight')}
         </SpacedText>
       </Box>
     </Box>

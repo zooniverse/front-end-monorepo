@@ -34,33 +34,35 @@ describe('Model > Subject', function () {
   })
 
   describe('with a transcription workflow', function () {
-    const subjects = Factory.buildList('subject', 3)
-    const workflowSnapshot = WorkflowFactory.build({
-      id: 'transcriptionWorkflow',
-      display_name: 'A test workflow',
-      tasks: {
-        T0: {
-          instruction: 'Transcribe the text',
-          type: 'transcription',
-          tools: [
-            { type: 'transcriptionLine' }
-          ]
-        }
-      },
-      version: '0.0'
-    })
-    const client = stubPanoptesJs({ subjects, workflows: [workflowSnapshot] })
-    client.caesar = {
-      request: sinon.stub().callsFake(() => Promise.resolve({ workflow: { subject_reductions: [] } }))
-    }
-    client.tutorials = {
-      get: sinon.stub().callsFake(() => Promise.resolve({ body: { tutorials: [] } }))
-    }
-    const rootStore = RootStore.create({}, { client })
+    let client, rootStore
 
-    before(function () {
-      rootStore.workflows.setResources([workflowSnapshot])
-      rootStore.workflows.setActive(workflowSnapshot.id)
+    before(async function () {
+      const subjects = Factory.buildList('subject', 3)
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'transcriptionWorkflow',
+        display_name: 'A test workflow',
+        tasks: {
+          T0: {
+            instruction: 'Transcribe the text',
+            type: 'transcription',
+            tools: [
+              { type: 'transcriptionLine' }
+            ]
+          }
+        },
+        version: '0.0'
+      })
+      client = stubPanoptesJs({ subjects, workflows: [workflowSnapshot] })
+      client.caesar = {
+        request: sinon.stub().callsFake(() => Promise.resolve({ workflow: { subject_reductions: [] } }))
+      }
+      client.tutorials = {
+        get: sinon.stub().callsFake(() => Promise.resolve({ body: { tutorials: [] } }))
+      }
+      rootStore = mockStore({ workflow: workflowSnapshot, client })
+      rootStore.subjects.reset()
+      client.caesar.request.resetHistory()
+      await rootStore.subjects.populateQueue()
     })
 
     it('should have transcription reductions', function () {
@@ -130,6 +132,15 @@ describe('Model > Subject', function () {
           const store = mockStore({ project, workflow, subject: singleImageSubject })
           const subject = store.subjects.active
           expect(subject.viewer).to.equal(subjectViewers.singleImage)
+        })
+      })
+
+      describe('single text', function () {
+        it('should return the single text viewer for subjects with a single text location', function () {
+          const singleTextSubject = SubjectFactory.build({ locations: [{ 'text/plain': 'https://foo.bar/example.txt' }] })
+          const store = mockStore({ project, workflow, subject: singleTextSubject })
+          const subject = store.subjects.active
+          expect(subject.viewer).to.equal(subjectViewers.singleText)
         })
       })
 
@@ -226,6 +237,16 @@ describe('Model > Subject', function () {
           const singleImageSubject = SubjectFactory.build({ locations: [{ 'image/tiff': 'https://foo.bar/example.tiff' }] })
           function subjectStore () {
             return Subject.create(singleImageSubject)
+          }
+          expect(subjectStore).to.throw(Error)
+        })
+      })
+
+      describe('single text', function () {
+        it('should throw an error', function () {
+          const singleTextSubject = SubjectFactory.build({ locations: [{ 'text/javascript': 'https://foo.bar/example.js' }] })
+          function subjectStore () {
+            return Subject.create(singleTextSubject)
           }
           expect(subjectStore).to.throw(Error)
         })

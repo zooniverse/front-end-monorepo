@@ -2,12 +2,9 @@ import auth from 'panoptes-client/lib/auth'
 import { inject, observer } from 'mobx-react'
 import { func, shape } from 'prop-types'
 import { Component } from 'react'
-import counterpart from 'counterpart'
+import { withTranslation } from 'next-i18next'
 
 import LoginForm from './LoginForm'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 class LoginFormContainer extends Component {
   constructor () {
@@ -31,7 +28,7 @@ class LoginFormContainer extends Component {
       .catch(error => {
         console.error(error)
         if (error && error.message === 'Invalid email or password.') {
-          const errorMessage = counterpart('LoginForm.error')
+          const errorMessage = this.props.t('AuthModal.LoginForm.error')
           setFieldError('login', errorMessage)
           setFieldError('password', errorMessage)
         } else {
@@ -58,17 +55,20 @@ LoginFormContainer.propTypes = {
     user: shape({
       set: func
     })
-  })
+  }),
+  t: func
 }
 
 LoginFormContainer.defaultProps = {
   authClient: auth,
-  closeModal: () => {}
+  closeModal: () => {},
+  t: (key) => key
 }
 
+// Noting that mobx decorators are outdated https://michel.codes/blogs/mobx6
 @inject('store')
 @observer
 class DecoratedLoginFormContainer extends LoginFormContainer { }
 
-export default DecoratedLoginFormContainer
+export default withTranslation('components')(DecoratedLoginFormContainer)
 export { LoginFormContainer }

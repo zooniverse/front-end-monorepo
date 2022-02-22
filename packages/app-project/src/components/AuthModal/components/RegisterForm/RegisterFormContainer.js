@@ -1,13 +1,10 @@
-import counterpart from 'counterpart'
 import { inject, observer } from 'mobx-react'
 import auth from 'panoptes-client/lib/auth'
 import { func, shape } from 'prop-types'
 import { Component } from 'react'
-import en from './locales/en'
+import { withTranslation } from 'next-i18next'
 
 import RegisterForm from './RegisterForm'
-
-counterpart.registerTranslations('en', en)
 
 class RegisterFormContainer extends Component {
   constructor () {
@@ -20,17 +17,19 @@ class RegisterFormContainer extends Component {
     }
   }
 
+  
   validate (values) {
+    const { t } = this.props
     const { email, emailConfirm, password, passwordConfirm, privacyAgreement } = values
     let errors = {}
     if (email !== emailConfirm) {
-      errors.emailConfirm = counterpart('RegisterForm.emailConfirmError')
+      errors.emailConfirm = t('AuthModal.RegisterForm.emailConfirmError')
     }
     if (password !== passwordConfirm) {
-      errors.passwordConfirm = counterpart('RegisterForm.passwordConfirmError')
+      errors.passwordConfirm = t('AuthModal.RegisterForm.passwordConfirmError')
     }
     if (!privacyAgreement) {
-      errors.privacyAgreement = counterpart('RegisterForm.privacyAgreementError')
+      errors.privacyAgreement = t('AuthModal.RegisterForm.privacyAgreementError')
     }
     return errors
   }
@@ -44,7 +43,7 @@ class RegisterFormContainer extends Component {
   onSubmit (values, { setFieldError, setSubmitting }) {
     console.log('submitting...')
     // TODO add log event for google analytics
-    const { authClient, store } = this.props
+    const { authClient, store, t } = this.props
     const { betaListSignUp, email, emailListSignUp, password, realName, username } = values
     const emailErrorRegex = /email(.+)taken/mi
     const usernameErrorRegex = /login(.+)taken/mi
@@ -72,10 +71,10 @@ class RegisterFormContainer extends Component {
         const usernameConflict = this.errorTest(error.message, emailErrorRegex)
         const emailConflict = this.errorTest(error.message, usernameErrorRegex)
         if (usernameConflict) {
-          setFieldError('email', counterpart('RegisterForm.emailConflict'))
+          setFieldError('email', t('AuthModal.RegisterForm.emailConflict'))
         }
         if (emailConflict) {
-          setFieldError('username', counterpart('RegisterForm.usernameConflict'))
+          setFieldError('username', t('AuthModal.RegisterForm.usernameConflict'))
         }
         if (error.message && !usernameConflict && !emailConflict) {
           this.setState({ error: error.message })
@@ -104,17 +103,19 @@ RegisterFormContainer.propTypes = {
     user: shape({
       set: func
     })
-  })
+  }),
+  t: func
 }
 
 RegisterFormContainer.defaultProps = {
   authClient: auth,
-  closeModal: () => { }
+  closeModal: () => { },
+  t: (key) => key
 }
 
 @inject('store')
 @observer
 class DecoratedRegisterFormContainer extends RegisterFormContainer { }
 
-export default DecoratedRegisterFormContainer
+export default withTranslation('components')(DecoratedRegisterFormContainer)
 export { RegisterFormContainer }

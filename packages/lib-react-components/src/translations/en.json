@@ -1,0 +1,87 @@
+{
+  "AdminCheckbox": {
+    "label": "Admin Mode"
+  },
+  "CloseButton": {
+    "close": "Close"
+  },
+  "FavouritesButton": {
+    "add": "Add to favorites",
+    "remove": "Added to favorites"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "About",
+      "publications": "Publications",
+      "team": "Team",
+      "acknowledgements": "Acknowledgements",
+      "contact": "Contact",
+      "faq": "FAQ"
+    },
+    "buildLabels": {
+      "buildAProject": "Build a Project",
+      "tutorial": "Tutorial",
+      "glossary": "Glossary",
+      "policies" :"Policies",
+      "bestPractices": "Best Practices"
+    },
+    "getInvolvedLabels": {
+      "getInvolved": "Get Involved",
+      "education": "Education",
+      "callForProjects": "Call for Projects",
+      "collections": "Collections"
+    },
+    "newsLabels": {
+      "news": "News",
+      "dailyZooniverse": "Daily Zooniverse",
+      "blog": "Blog"
+    },
+    "policyLabels": {
+      "privacyPolicy": "Privacy Policy",
+      "jobs": "Jobs",
+      "systemStatus": "System Status",
+      "security": "Security"
+    },
+    "projectLabels": {
+      "projects": "Projects"
+    },
+    "talkLabels": {
+      "talk": "Talk"
+    },
+    "tagLine": "People-Powered Research"
+  },
+  "ZooHeader": {
+    "ariaLabel": "Site",
+    "mainHeaderNavListLabels": {
+      "projects": "Projects",
+      "about": "About",
+      "getInvolved": "Get Involved",
+      "talk": "Talk",
+      "build": "Build"
+    },
+    "SignedInUserNavigation": {
+      "ariaLabel": "User account",
+      "navListLabels": {
+        "messages_zero": "Messages",
+        "messages_one": "Messages ({{count}})",
+        "messages_other": "Messages ({{count}})",
+        "notifications_zero": "Notifications",
+        "notifications_one": "Notifications ({{count}})",
+        "notifications_other": "Notifications ({{count}})"
+      }
+    },
+    "SignedOutUserNavigation": {
+      "register": "Register",
+      "signIn": "Sign In"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "profile": "Profile",
+        "settings": "Settings",
+        "collections": "Collections",
+        "favorites": "Favorites",
+        "signOut": "Sign out"
+      }
+    }
+  }
+}

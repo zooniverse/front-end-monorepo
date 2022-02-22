@@ -1,0 +1,84 @@
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "Please sign in or sign up to track your contributions.",
+      "register": "register",
+      "signIn": "sign in"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "Finished! Looks like this project is out of data at the moment!",
+      "seeResults": "See Results"
+    }
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "Username or password is incorrect",
+      "forgot": "Forgot your password?",
+      "heading": "Welcome back!",
+      "instruction": "We're glad you're back! Sign in to pick up where you left off.",
+      "login": "Username or email address",
+      "password": "Password",
+      "placeholder": "e.g. ZooniverseFan123",
+      "signIn": "Sign in"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "I'd like to help test new projects and be emailed when they're available (optional)",
+      "email": "Email Address (Required)",
+      "emailConfirm": "Confirm Email Address (Required)",
+      "emailConfirmError": "The email addresses do not match, please try again.",
+      "emailConflict": "An account with this address already exists",
+      "emailPlaceholder": "e.g. zoofan31@gmail.com",
+      "emailListSignUp": "It's ok to send me an email every once in a while (optional)",
+      "forgot": "Forgot your password?",
+      "heading": "Welcome back!",
+      "instruction": "Please create an account to start doing real research.",
+      "password": "Password (Required)",
+      "passwordConfirm": "Confirm Password (Required)",
+      "passwordConfirmError": "The passwords do not match, please try again.",
+      "privacyAgreement": "You agree to our privacy policy (required)",
+      "privacyAgreementError": "Agreeing to the privacy policy is required.",
+      "privacyLink": "Read our privacy policy",
+      "realName": "Real Name (Optional)",
+      "realNameHelp": "We'll use this to give you credit in scientific papers, posters, etc.",
+      "realNamePatternHelp": "Enter a name, not an email address", 
+      "realNamePlaceholder": "e.g. Maggie Smith",
+      "register": "Register",
+      "registering": "Registering...",
+      "underageConsent": "I confirm I am the parent/guardian and give permission for my child to register by providing my email address as the main contact address. Both I and my child understand and agree to the privacy policy (required)",
+      "underageEmail": "Parent/Guardian’s email address (Required)",
+      "underageEmailSignUp": "If you agree, we will periodically send email promoting new research-related projects or other information relating to our research. We will not use your contact information for commercial purposes. (optional)",
+      "underageNotRealName": "You’ll use this name to log in. It will be shown publicly. Don’t use your real name.",
+      "underageWithParent": "If you are under 16 years old, tick this box to confirm that you've completed the form with your parent or guardian",
+      "username": "Username (Required)",
+      "usernameConflict": "That username is taken",
+      "usernameHelp": "This will be shown publicly on message boards, etc.",
+      "usernamePatternHelp": "Usernames can only contain letters, numbers, '.','-', and '_'",
+      "usernamePlaceholder": "e.g. ZooniverseFan123"
+    }
+  },
+  "Head": {
+    "defaultDescription": "The Zooniverse is the world’s largest and most popular platform for people-powered research.",
+    "defaultTitle": "Projects",
+    "siteName": "Zooniverse - People-powered research"
+  },
+  "ProjectHeader": {
+    "about": "About",
+    "classify": "Classify",
+    "exploreProject": "Explore Project",
+    "talk": "Talk",
+    "collect": "Collect",
+    "recents": "Recents",
+    "ApprovedIcon": {
+      "title": "Zooniverse Approved"
+    },
+    "Avatar": {
+      "alt": "Project avatar for {{project}}"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Project"
+    },
+    "UnderReviewLabel": {
+      "underReview": "under review"
+    }
+  }
+}

@@ -7,7 +7,6 @@ function webpackFinal(config, options) {
     ...config.resolve,
     alias: {
       ...webpackConfig.resolve.alias,
-      process: 'process'
     },
     fallback: {
       ...webpackConfig.resolve.fallback,
@@ -29,7 +28,8 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-knobs',
     '@storybook/addon-links',
-    '@storybook/addon-a11y'
+    '@storybook/addon-a11y',
+    'storybook-react-i18next'
   ],
   webpackFinal
 };

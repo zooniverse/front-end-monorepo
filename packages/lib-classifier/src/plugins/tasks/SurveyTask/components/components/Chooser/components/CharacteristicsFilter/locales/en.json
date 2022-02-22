@@ -1,7 +1,0 @@
-{
-  "CharacteristicsFilter": {
-    "clearFilters": "Clear filters",
-    "filter": "Filter",
-    "showing": "Showing %(showing)s of %(total)s"
-  }
-}

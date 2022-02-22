@@ -1,10 +1,6 @@
-import counterpart from 'counterpart'
 import { bool, string } from 'prop-types'
 import styled, { css } from 'styled-components'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'next-i18next'
 
 const StyledAvatar = styled.img`
   border-radius: 100%;
@@ -15,12 +11,14 @@ const StyledAvatar = styled.img`
 `
 
 function Avatar (props) {
+  const { t } = useTranslation('components')
+
   if (!props.src) {
     return null
   }
 
   const { projectTitle, ...rest } = props
-  const alt = counterpart('Avatar.alt', { project: projectTitle })
+  const alt = t('ProjectHeader.Avatar.alt', { project: projectTitle })
   const width = props.isNarrow ? '40px' : '80px'
   return (
     <StyledAvatar alt={alt} width={width} {...rest} />

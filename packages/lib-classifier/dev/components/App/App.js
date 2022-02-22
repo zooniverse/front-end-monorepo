@@ -1,6 +1,6 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { panoptes } from '@zooniverse/panoptes-js'
-import { Button, Grommet, Box, base as baseTheme } from 'grommet'
+import { Button, CheckBox, Grommet, Box, base as baseTheme } from 'grommet'
 import _ from 'lodash'
 import oauth from 'panoptes-client/lib/oauth'
 import queryString from 'query-string'
@@ -9,20 +9,26 @@ import React from 'react'
 import Classifier from '../../../src/components/Classifier'
 
 class App extends React.Component {
-  constructor () {
-    super()
+  constructor(props) {
+    super(props)
+    this.selectWorkflow = this.selectWorkflow.bind(this)
 
     this.state = {
+      cachePanoptesData: false,
       dark: false,
       loading: false,
       project: null,
-      user: null
+      user: null,
+      workflowID: props.workflowID,
+      workflows: []
     }
   }
 
   componentDidMount () {
     this.initAuthorization()
-      .then(() => this.fetchProject())
+      .then(() => {
+        this.fetchProject()
+      })
   }
 
   onError (error, info) {
@@ -55,7 +61,7 @@ class App extends React.Component {
     if (window.location && window.location.search) {
       const { project } = queryString.parse(window.location.search) // Search the query string for the 'project='
       if (parseInt(project)) {
-        id = project
+        id = parseInt(project, 10)
       } else {
         slug = project
       }
@@ -70,14 +76,26 @@ class App extends React.Component {
         response = await panoptes.get(`/projects/${id}`, {}, { authorization: bearerToken })
       }
       const project = response.body.projects[0]
+      this.fetchWorkflows(project)
       this.setState({ project })
     } catch (error) {
       console.error(`Error fetching project ${id}`, error)
     }
   }
 
+  async fetchWorkflows(project) {
+    const activeWorkflows = project.links.active_workflows
+    const query = {
+      fields: 'completeness,configuration,display_name,grouped',
+      id: activeWorkflows.join(',')
+    }
+    const response = await panoptes.get('/workflows', query)
+    const { workflows } = response.body
+    this.setState({ workflows })
+  }
+
   login () {
-    oauth.signIn('http://localhost:8080/')
+    oauth.signIn(window.location.origin)
   }
 
   logout () {
@@ -93,6 +111,11 @@ class App extends React.Component {
       })
   }
 
+  selectWorkflow(event) {
+    const { value } = event.target
+    this.setState({ workflowID: value })
+  }
+
   toggleTheme () {
     this.setState(state => ({ dark: !state.dark }))
   }
@@ -104,10 +127,12 @@ class App extends React.Component {
       )
     }
 
-    const { active_workflows } = this.state.project.links
+    const { project, workflows } = this.state
+    const { active_workflows } = project.links
     const [singleActiveWorkflow] = (active_workflows.length === 1) ? active_workflows : []
-    const workflowID = this.props.workflowID ?? singleActiveWorkflow
+    const workflowID = this.state.workflowID ?? singleActiveWorkflow
     const mergedThemes = _.merge({}, baseTheme, zooTheme, { dark: this.state.dark })
+    const key = this.state.cachePanoptesData ? 'cachedClassifier' : 'classifier'
 
     return (
       <Grommet 
@@ -120,6 +145,16 @@ class App extends React.Component {
       >
         <Box as='main'>
           <Box as='header' pad='medium' justify='end' gap='medium' direction='row'>
+            <label for="workflows">Change workflow</label>
+            <select id="workflows" onChange={this.selectWorkflow}>
+              <option selected={!workflowID} value=''>None</option>
+              {workflows.map(workflow => <option selected={workflow.id === workflowID} value={workflow.id}>{workflow.display_name} {workflow.id}</option>)}
+            </select>
+            <CheckBox
+              checked={this.state.cachePanoptesData}
+              label="Cache Panoptes data"
+              onChange={() => this.setState({ cachePanoptesData: !this.state.cachePanoptesData })}
+            />
             <Button onClick={this.toggleTheme.bind(this)} label='Toggle theme' />
             {this.state.user
               ? <Button onClick={this.logout.bind(this)} label='Logout' />
@@ -128,7 +163,9 @@ class App extends React.Component {
           </Box>
           <Box as='section'>
             <Classifier
+              key={key}
               authClient={oauth}
+              cachePanoptesData={this.state.cachePanoptesData}
               onAddToCollection={(subjectId) => console.log(subjectId)}
               onCompleteClassification={(classification, subject) => console.log('onComplete', classification, subject)}
               onError={this.onError}

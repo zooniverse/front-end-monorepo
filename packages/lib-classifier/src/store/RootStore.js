@@ -1,8 +1,8 @@
 import { configure } from 'mobx'
-import { getSnapshot } from 'mobx-state-tree'
 import {
   addMiddleware,
   getEnv,
+  getSnapshot,
   onAction,
   onPatch,
   tryReference,
@@ -22,7 +22,7 @@ import WorkflowStore from './WorkflowStore'
 import WorkflowStepStore from './WorkflowStepStore'
 import UserProjectPreferencesStore from './UserProjectPreferencesStore'
 
-// Isolate mobx globals. 
+// Isolate mobx globals.
 // See: https://github.com/mobxjs/mobx/blob/72d06f8cd2519ce4dbfb807bc13556ca35866690/docs/configuration.md#isolateglobalstate-boolean
 configure({ isolateGlobalState: true })
 
@@ -31,6 +31,7 @@ const RootStore = types
     classifications: types.optional(ClassificationStore, () => ClassificationStore.create({})),
     feedback: types.optional(FeedbackStore, () => FeedbackStore.create({})),
     fieldGuide: types.optional(FieldGuideStore, () => FieldGuideStore.create({})),
+    locale: types.optional(types.string, 'en'),
     projects: types.optional(ProjectStore, () => ProjectStore.create({})),
     subjects: types.optional(SubjectStore, () => SubjectStore.create({})),
     subjectSets: types.optional(SubjectSetStore, () => SubjectSetStore.create({})),
@@ -55,7 +56,7 @@ const RootStore = types
     function _addMiddleware(call, next, abort) {
       if (call.name === 'setActiveSubject') {
         const res = next(call)
-        onSubjectAdvance()
+        self.startClassification()
         return res
       }
       return next(call)
@@ -76,25 +77,15 @@ const RootStore = types
       }
     }
 
-    function onSubjectAdvance () {
-      const { classifications, feedback, projects, subjects, workflows, workflowSteps } = self
-      const subject = tryReference(() => subjects?.active)
-      const workflow = tryReference(() => workflows?.active)
-      const project = tryReference(() => projects?.active)
-      if (subject && workflow && project) {
-        workflowSteps.resetSteps()
-        classifications.reset()
-        classifications.createClassification(subject, workflow, project)
-        feedback.onNewSubject()
-        self.onSubjectChange(getSnapshot(subject))
-      }
-    }
-
     // Public actions
     function afterCreate () {
       addMiddleware(self, _addMiddleware)
       onAction(self, _onAction)
       onPatch(self, _onPatch)
+    }
+
+    function setLocale (newLocale) {
+      self.locale = newLocale
     }
 
     function setOnAddToCollection (callback) {
@@ -109,11 +100,27 @@ const RootStore = types
       self.onToggleFavourite = callback
     }
 
+    function startClassification() {
+      const { classifications, feedback, projects, subjects, workflows, workflowSteps } = self
+      const subject = tryReference(() => subjects?.active)
+      const workflow = tryReference(() => workflows?.active)
+      const project = tryReference(() => projects?.active)
+      if (subject && workflow && project) {
+        workflowSteps.resetSteps()
+        classifications.reset()
+        classifications.createClassification(subject, workflow, project)
+        feedback.onNewSubject()
+        self.onSubjectChange(getSnapshot(subject))
+      }
+    }
+
     return {
       afterCreate,
+      setLocale,
       setOnAddToCollection,
       setOnSubjectChange,
-      setOnToggleFavourite
+      setOnToggleFavourite,
+      startClassification
     }
   })
 

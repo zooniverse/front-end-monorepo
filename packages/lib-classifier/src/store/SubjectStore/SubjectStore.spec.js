@@ -7,6 +7,7 @@ import sinon from 'sinon'
 import RootStore from '@store/RootStore'
 import SubjectGroup from './SubjectGroup'
 import SingleImageSubject from './SingleImageSubject'
+import SingleTextSubject from './SingleTextSubject'
 import { openTalkPage, MINIMUM_QUEUE_SIZE } from './SubjectStore'
 import { ProjectFactory, SubjectFactory, SubjectSetFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
@@ -16,7 +17,7 @@ describe('Model > SubjectStore', function () {
   const longListSubjects = Factory.buildList('subject', 10)
   const shortListSubjects = Factory.buildList('subject', 2)
 
-  function mockSubjectStore (subjects) {
+  async function mockSubjectStore (subjects) {
     const project = ProjectFactory.build()
     const workflow = WorkflowFactory.build({ id: project.configuration.default_workflow })
     const subjectMocks = {
@@ -43,7 +44,7 @@ describe('Model > SubjectStore', function () {
     store.projects.setResources([project])
     store.projects.setActive(project.id)
     store.workflows.setResources([workflow])
-    store.workflows.setActive(workflow.id)
+    await store.workflows.selectWorkflow(workflow.id)
     return store.subjects
   }
 
@@ -55,7 +56,7 @@ describe('Model > SubjectStore', function () {
         let initialSize
 
         before(async function () {
-          subjects = mockSubjectStore(longListSubjects)
+          subjects = await mockSubjectStore(longListSubjects)
           await when(() => subjects.resources.size > 9)
           previousSubjectID = subjects.active && subjects.active.id
           initialSize = subjects.resources.size
@@ -115,8 +116,8 @@ describe('Model > SubjectStore', function () {
         describe('when the initial response has no subjects', function () {
           let subjects
 
-          before(function () {
-            subjects = mockSubjectStore([])
+          before(async function () {
+            subjects = await mockSubjectStore([])
           })
 
           it.skip('should request more subjects', function () {
@@ -134,8 +135,8 @@ describe('Model > SubjectStore', function () {
       describe('after emptying the queue', function () {
         let subjects
 
-        beforeEach(function () {
-          subjects = mockSubjectStore(longListSubjects)
+        beforeEach(async function () {
+          subjects = await mockSubjectStore(longListSubjects)
           while (subjects.resources.size > 0) {
             subjects.advance()
           }
@@ -151,8 +152,8 @@ describe('Model > SubjectStore', function () {
     describe('append', function () {
       let subjects
 
-      before(function () {
-        subjects = mockSubjectStore([])
+      before(async function () {
+        subjects = await mockSubjectStore([])
         subjects.append(longListSubjects)
       })
 
@@ -185,18 +186,23 @@ describe('Model > SubjectStore', function () {
         })
 
         it('should increase the size of the queue', function () {
-          expect(subjects.resources.size).to.equal(shortListSubjects.length + longListSubjects.length)
+          expect(subjects.queue.length).to.equal(shortListSubjects.length + longListSubjects.length)
         })
 
         it('should add new subjects to the end of the queue', function () {
           const initialSubjectIDs = longListSubjects.map(subject => subject.id)
           const newSubjectIDs = shortListSubjects.map(subject => subject.id)
-          const queue = Array.from(subjects.resources.keys())
-          expect(queue).to.deep.equal([...initialSubjectIDs, ...newSubjectIDs])
+          const queuedIDs = subjects.queue.map(subject => subject.id)
+          expect(queuedIDs).to.deep.equal([...initialSubjectIDs, ...newSubjectIDs])
         })
 
         it('should not change the active subject', function () {
           expect(subjects.active.id).to.equal(longListSubjects[0].id)
+        })
+
+        it('should not duplicate existing subjects', function () {
+          subjects.append(shortListSubjects)
+          expect(subjects.queue.length).to.equal(shortListSubjects.length + longListSubjects.length)
         })
       })
     })
@@ -205,7 +211,7 @@ describe('Model > SubjectStore', function () {
       let subjects
       let onReset
 
-      before(function () {
+      before(async function () {
         const subjectSnapshots = Factory.buildList('subject', 5)
         const subjectMocks = {
           ['/subjects/grouped']: [],
@@ -213,7 +219,7 @@ describe('Model > SubjectStore', function () {
           ['/subjects/selection']: subjectSnapshots
         }
         const subjectIDs = subjectSnapshots.map(subject => subject.id)
-        subjects = mockSubjectStore(subjectMocks)
+        subjects = await mockSubjectStore(subjectMocks)
         subjects.populateQueue(subjectIDs)
         onReset = sinon.stub()
         subjects.setOnReset(onReset)
@@ -221,8 +227,10 @@ describe('Model > SubjectStore', function () {
 
       it('should empty the queue', function () {
         expect(subjects.resources.size).to.equal(5)
+        expect(subjects.queue.length).to.equal(5)
         subjects.clearQueue()
         expect(subjects.resources.size).to.equal(0)
+        expect(subjects.queue.length).to.equal(0)
       })
 
       it('should call onReset', function () {
@@ -235,7 +243,7 @@ describe('Model > SubjectStore', function () {
       let subjects
 
       before(async function () {
-        subjects = mockSubjectStore(Factory.buildList('subject', 10))
+        subjects = await mockSubjectStore(Factory.buildList('subject', 10))
         await when(() => subjects.resources.size > 9)
         activeSubjectID = subjects.active.id
         subjects.nextIndexed()
@@ -260,7 +268,7 @@ describe('Model > SubjectStore', function () {
           ['/subjects/selection']: selectedSubjectSnapshots
         }
         subjectIDs = queuedSubjectSnapshots.map(subject => subject.id)
-        subjects = mockSubjectStore(subjectMocks)
+        subjects = await mockSubjectStore(subjectMocks)
         await subjects.nextAvailable()
       })
 
@@ -279,7 +287,7 @@ describe('Model > SubjectStore', function () {
         let subjects
         let subjectIDs
 
-        before(function () {
+        before(async function () {
           const subjectSnapshots = Factory.buildList('subject', 5)
           const subjectMocks = {
             ['/subjects/grouped']: [],
@@ -287,13 +295,15 @@ describe('Model > SubjectStore', function () {
             ['/subjects/selection']: subjectSnapshots
           }
           subjectIDs = subjectSnapshots.map(subject => subject.id)
-          subjects = mockSubjectStore(subjectMocks)
-          subjects.populateQueue(subjectIDs)
+          subjects = await mockSubjectStore(subjectMocks)
+          await subjects.populateQueue(subjectIDs)
         })
 
         it('should select those subjects', function () {
           expect(subjects.resources.size).to.equal(5)
-          expect(Array.from(subjects.resources.keys())).to.deep.equal(subjectIDs)
+          expect(subjects.queue.length).to.equal(5)
+          const queuedIDs = subjects.queue.map(subject => subject.id)
+          expect(queuedIDs).to.deep.equal(subjectIDs)
         })
       })
     })
@@ -303,7 +313,7 @@ describe('Model > SubjectStore', function () {
       let subjects
 
       before(async function () {
-        subjects = mockSubjectStore(Factory.buildList('subject', 10))
+        subjects = await mockSubjectStore(Factory.buildList('subject', 10))
         await when(() => subjects.resources.size > 9)
         activeSubjectID = subjects.active.id
         subjects.previousIndexed()
@@ -320,15 +330,33 @@ describe('Model > SubjectStore', function () {
     let subjects
     let imageSubjects = Factory.buildList('subject', 10, { locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
 
-    before(function () {
-      subjects = mockSubjectStore(imageSubjects)
+    before(async function () {
+      subjects = await mockSubjectStore(imageSubjects)
     })
 
     it('should be valid subjects', function () {
-      const expectedSubject = SingleImageSubject.create(imageSubjects[0])
-      expect(subjects.active).to.deep.equal(expectedSubject)
+      const expectedSubject = SingleImageSubject.create(imageSubjects[1])
+      expect(subjects.resources.get(expectedSubject.id)).to.deep.equal(expectedSubject)
     })
-    
+
+    it('should be of the correct subject type', function () {
+      expect(getType(subjects.active).name).to.equal('SubjectResource')
+    })
+  })
+
+  describe('single text subjects', function () {
+    let subjects
+    let textSubjects = Factory.buildList('subject', 10, { locations: [{ 'text/plain': 'https://foo.bar/example.txt' }] })
+
+    before(async function () {
+      subjects = await mockSubjectStore(textSubjects)
+    })
+
+    it('should be valid subjects', function () {
+      const expectedSubject = SingleTextSubject.create(textSubjects[1])
+      expect(subjects.resources.get(expectedSubject.id)).to.deep.equal(expectedSubject)
+    })
+
     it('should be of the correct subject type', function () {
       expect(getType(subjects.active).name).to.equal('SubjectResource')
     })
@@ -340,7 +368,6 @@ describe('Model > SubjectStore', function () {
       'subject',
       10,
       {
-        id: 'testGroup',
         locations: [
           { 'image/png': 'https://foo.bar/example.png' },
           { 'image/png': 'https://foo.bar/example.png' },
@@ -353,13 +380,13 @@ describe('Model > SubjectStore', function () {
       }
     })
 
-    before(function () {
-      subjects = mockSubjectStore(subjectGroups)
+    before(async function () {
+      subjects = await mockSubjectStore(subjectGroups)
     })
 
     it('should be valid subjects', function () {
-      const expectedSubject = SubjectGroup.create(subjectGroups[0])
-      expect(subjects.active).to.deep.equal(expectedSubject)
+      const expectedSubject = SubjectGroup.create(subjectGroups[1])
+      expect(subjects.resources.get(expectedSubject.id)).to.deep.equal(expectedSubject)
     })
     
     it('should be of the correct "subject group" type', function () {
@@ -488,41 +515,37 @@ describe('Model > SubjectStore', function () {
     })
   })
   describe('Views > isThereMetadata', function () {
-    it('should return false when there is not an active queue subject', function (done) {
-      const subjects = mockSubjectStore([])
-      subjects.populateQueue().then(() => {
-        expect(subjects.isThereMetadata).to.be.false()
-      }).then(done, done)
+    it('should return false when there is not an active queue subject', async function () {
+      const subjects = await mockSubjectStore([])
+      await subjects.populateQueue()
+      expect(subjects.isThereMetadata).to.be.false()
     })
 
-    it('should return false if the active subject does not have metadata', function (done) {
-      const subjects = mockSubjectStore(longListSubjects)
-      subjects.populateQueue().then(() => {
-        expect(Object.keys(subjects.active.metadata)).to.have.lengthOf(0)
-        expect(subjects.isThereMetadata).to.be.false()
-      }).then(done, done)
+    it('should return false if the active subject does not have metadata', async function () {
+      const subjects = await mockSubjectStore(longListSubjects)
+      await subjects.populateQueue()
+      expect(Object.keys(subjects.active.metadata)).to.have.lengthOf(0)
+      expect(subjects.isThereMetadata).to.be.false()
     })
 
-    it('should return false if the active subject only has hidden metadata', function (done) {
+    it('should return false if the active subject only has hidden metadata', async function () {
       const subjectWithHiddenMetadata = SubjectFactory.build({ metadata: { '#foo': 'bar' } })
 
-      const subjects = mockSubjectStore(subjectWithHiddenMetadata)
-      subjects.populateQueue().then(() => {
-        const metadataKeys = Object.keys(subjects.active.metadata)
-        expect(metadataKeys).to.have.lengthOf(1)
-        expect(metadataKeys[0]).to.equal('#foo')
-        expect(subjects.isThereMetadata).to.be.false()
-      }).then(done, done)
+      const subjects = await mockSubjectStore(subjectWithHiddenMetadata)
+      await subjects.populateQueue()
+      const metadataKeys = Object.keys(subjects.active.metadata)
+      expect(metadataKeys).to.have.lengthOf(1)
+      expect(metadataKeys[0]).to.equal('#foo')
+      expect(subjects.isThereMetadata).to.be.false()
     })
 
-    it('should return true if the active subject has metadata', function (done) {
+    it('should return true if the active subject has metadata', async function () {
       const subjectWithMetadata = SubjectFactory.build({ metadata: { foo: 'bar' } })
 
-      const subjects = mockSubjectStore(subjectWithMetadata)
-      subjects.populateQueue().then(() => {
-        expect(Object.keys(subjects.active.metadata)).to.have.lengthOf(1)
-        expect(subjects.isThereMetadata).to.be.true()
-      }).then(done, done)
+      const subjects = await mockSubjectStore(subjectWithMetadata)
+      await subjects.populateQueue()
+      expect(Object.keys(subjects.active.metadata)).to.have.lengthOf(1)
+      expect(subjects.isThereMetadata).to.be.true()
     })
   })
 

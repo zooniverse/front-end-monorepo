@@ -1,13 +1,11 @@
-import counterpart from 'counterpart'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Box, Button, Heading } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
-import StepNavigation from './components/StepNavigation'
-import en from './locales/en'
+import { useTranslation } from 'react-i18next'
 
-counterpart.registerTranslations('en', en)
+import StepNavigation from './components/StepNavigation'
 
 const StyledMarkdownWrapper = styled(Box)`
   > h1, h2 {
@@ -34,6 +32,7 @@ function SlideTutorial (props) {
     stepWithMedium,
     width
   } = props
+  const { t } = useTranslation('components')
   const { medium, step } = stepWithMedium
   const isThereMedia = medium && medium.src
   return (
@@ -52,14 +51,14 @@ function SlideTutorial (props) {
       >
         {isThereMedia &&
           <Media
-            alt={counterpart('SlideTutorial.alt', { activeStep })}
+            alt={t('SlideTutorial.alt', { activeStep })}
             fit='cover'
             height={200}
             src={medium.src}
           />}
         {isFirstStep &&
           <Heading level='3' margin={{ bottom: 'xsmall', top: 'small' }}>
-            {counterpart('SlideTutorial.heading', { projectDisplayName })}
+            {t('SlideTutorial.heading', { projectDisplayName })}
           </Heading>}
         {/* TODO: translation */}
         <Markdownz>{step.content}</Markdownz>
@@ -67,7 +66,7 @@ function SlideTutorial (props) {
       <StepNavigation />
       {isLastStep &&
         <Button
-          label={counterpart('SlideTutorial.getStarted')}
+          label={t('SlideTutorial.getStarted')}
           onClick={onClick}
           margin={{ top: 'medium' }}
           primary

@@ -1,17 +1,15 @@
-import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import ResetIcon from './ResetIcon'
-import en from './locales/en'
 import Button from '../Button'
 
-counterpart.registerTranslations('en', en)
-
 function ResetButton ({ disabled, onClick }) {
+  const { t } = useTranslation('components')
   return (
     <Button
-      a11yTitle={counterpart('ResetButton.ariaLabel')}
+      a11yTitle={t('ImageToolbar.ResetButton.ariaLabel')}
       disabled={disabled}
       icon={<ResetIcon />}
       onClick={onClick}
@@ -26,7 +24,7 @@ ResetButton.propTypes = {
 
 ResetButton.defaultProps = {
   disabled: false,
-  onClick: () => console.log(counterpart('ResetButton.ariaLabel'))
+  onClick: () => console.log('Reset Button')
 }
 
 export default ResetButton

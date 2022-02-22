@@ -3,12 +3,12 @@ import { Modal } from '@zooniverse/react-components'
 import { Button, CheckBox } from 'grommet'
 import sinon from 'sinon'
 import WorkflowAssignmentModal from './WorkflowAssignmentModal'
-import en from './locales/en'
 import NavLink from '@shared/components/NavLink'
 import * as nextRouter from 'next/router'
+import i18n from '@test/i18n-for-tests'
 
 describe('Component > WorkflowAssignmentModal', function () {
-  let wrapper, closeFnSpy, dismissSpy
+  let wrapper, closeFnSpy, dismissSpy, useTranslationStub
   const router = {
     asPath: '/foo/bar',
     query: {
@@ -21,6 +21,7 @@ describe('Component > WorkflowAssignmentModal', function () {
     closeFnSpy = sinon.spy()
     dismissSpy = sinon.spy()
     sinon.stub(nextRouter, 'useRouter').callsFake(() => router)
+    useTranslationStub = sinon.stub(i18n, 't').callsFake((key) => key)
     wrapper = shallow(<WorkflowAssignmentModal closeFn={closeFnSpy} dismiss={dismissSpy} assignedWorkflowID='1234' />)
   })
 
@@ -28,6 +29,7 @@ describe('Component > WorkflowAssignmentModal', function () {
     nextRouter.useRouter.restore()
     closeFnSpy = null
     dismissSpy = null
+    useTranslationStub.restore()
     wrapper = null
   })
 
@@ -50,22 +52,22 @@ describe('Component > WorkflowAssignmentModal', function () {
   })
 
   it('should render rendering messaging', function () {
-    expect(wrapper.contains(en.WorkflowAssignmentModal.content)).to.be.true()
+    expect(useTranslationStub).to.have.been.calledWith('Classify.WorkflowAssignmentModal.content')
   })
 
   it('should set the modal title', function () {
-    expect(wrapper.find(Modal).props().title).to.equal(en.WorkflowAssignmentModal.title)
+    expect(useTranslationStub).to.have.been.calledWith('Classify.WorkflowAssignmentModal.title')
   })
 
   it('should render a confirmation link', function () {
     const button = wrapper.find(NavLink)
-    expect(button.props().link.text).to.equal(en.WorkflowAssignmentModal.confirm)
+    expect(useTranslationStub).to.have.been.calledWith('Classify.WorkflowAssignmentModal.confirm')
     expect(button.props().link.href).to.equal('/foo/bar/classify/workflow/1234')
   })
 
   it('should render a cancel button', function () {
     const button = wrapper.find(Button)
-    expect(button.props().label).to.equal(en.WorkflowAssignmentModal.cancel)
+    expect(useTranslationStub).to.have.been.calledWith('Classify.WorkflowAssignmentModal.cancel')
   })
 
   it('should call the cancel handler on cancel', function () {
@@ -76,7 +78,7 @@ describe('Component > WorkflowAssignmentModal', function () {
 
   it('should render a dismissal checkbox', function () {
     const checkbox = wrapper.find(CheckBox)
-    expect(checkbox.dive().contains(en.WorkflowAssignmentModal.dismiss)).to.be.true()
+    expect(useTranslationStub).to.have.been.calledWith('Classify.WorkflowAssignmentModal.dismiss')
   })
 
   it('should call the dismiss function on change', function () {

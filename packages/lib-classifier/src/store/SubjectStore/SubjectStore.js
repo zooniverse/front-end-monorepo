@@ -7,6 +7,7 @@ import { filterByLabel, filters } from '../../components/Classifier/components/M
 import ResourceStore from '@store/ResourceStore'
 import Subject from './Subject'
 import SingleImageSubject from './SingleImageSubject'
+import SingleTextSubject from './SingleTextSubject'
 import SingleVideoSubject from './SingleVideoSubject'
 import SubjectGroup from './SubjectGroup'
 import AvailableSubjects from './AvailableSubjects'
@@ -18,7 +19,7 @@ const MINIMUM_QUEUE_SIZE = 3
   for advice about using references with types.union.
 */
 
-const SingleSubject = types.union(SingleImageSubject, SingleVideoSubject, Subject)
+const SingleSubject = types.union(SingleImageSubject, SingleTextSubject, SingleVideoSubject, Subject)
 function subjectDispatcher (snapshot) {
   if (snapshot?.metadata?.['#subject_group_id']) {
     return SubjectGroup
@@ -27,7 +28,6 @@ function subjectDispatcher (snapshot) {
 }
 const subjectModels = [ { dispatcher: subjectDispatcher }, SingleSubject, SubjectGroup ]
 const SubjectType = types.union(...subjectModels)
-
 
 function openTalkPage (talkURL, newTab = false) {
   if (newTab) {
@@ -103,7 +103,7 @@ const SubjectStore = types
 
       // start a new history for each new subject and classification.
       if (self.classification && subject) {
-        subject.stepHistory.start()
+        subject.startClassification()
       }
     }
 
@@ -120,35 +120,9 @@ const SubjectStore = types
       next(call)
     }
 
-    function _onWorkflowChange() {
-      const workflow = tryReference(() => getRoot(self).workflows.active)
-      const subjectSet = tryReference(() => workflow?.subjectSet)
-      if (workflow || subjectSet) {
-        self.reset()
-        self.populateQueue(workflow.selectedSubjects)
-      }
-    }
-
     function afterAttach () {
-      createWorkflowObserver()
-      createClassificationChangeObserver()
+      addDisposer(self, autorun(_onClassificationChange))
       addMiddleware(self, _addMiddleware)
-    }
-
-    function createWorkflowObserver () {
-      const workflowDisposer = autorun(
-        _onWorkflowChange,
-        { name: 'SubjectStore Workflow Observer autorun' }
-      )
-      addDisposer(self, workflowDisposer)
-    }
-
-    function createClassificationChangeObserver () {
-      const classificationDisposer = autorun(
-        _onClassificationChange,
-        { name: 'SubjectStore Classification Change Observer autorun' }
-      )
-      addDisposer(self, classificationDisposer)
     }
 
     async function _fetchPreviousSubjects(workflow, priority) {
@@ -204,8 +178,8 @@ const SubjectStore = types
           const alreadyStored = self.resources.get(subject.id)
           if (!alreadyStored) {
             self.resources.put(subject)
+            self.queue.push(subject.id)
           }
-          self.queue.push(subject.id)
         } catch (error) {
           console.error(`Subject ${subject.id} is not a valid subject.`)
           console.error(error)
@@ -348,6 +322,11 @@ const SubjectStore = types
     }
 
     function reset () {
+      /*
+      This line stops the classifier from crashing when changing workflows.
+      TODO: It's a safeReference, so why is it not being cleared automatically?
+      */
+      self.active = undefined
       self.resources.clear()
       self.available.clear()
     }

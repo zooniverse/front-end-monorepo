@@ -5,10 +5,7 @@ import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css } from 'styled-components'
-
-import counterpart from 'counterpart'
-import en from './locales/en'
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'react-i18next'
 
 const StyledText = styled(Text)`
   margin: 0;
@@ -31,28 +28,29 @@ function SimpleDropdownTask (props) {
     disabled,
     task,
   } = props
+  const { t } = useTranslation('plugins')
   const { value } = annotation
-  
+
   // Decide what kind of options to display.
   // Use an array of objects instead of an array of text.
   // This solves issues of duplicate text.
   const optionsToDisplay = task.options.map(opt => ({
     text: opt,
   }))
-  
+
   // If the Other option is enabled, we allow users to type in any text.
   const otherOption = {
-    text: counterpart('Dropdown.otherLabel')
+    text: t('SimpleDropdownTask.otherLabel')
   }
   if (task.allowCreate && ENABLE_OTHER_OPTION) {
     optionsToDisplay.push(otherOption)
   }
-  
+
   // Determine which option is selected.
   let selectedOption = undefined
   if (value?.option === true) {
     selectedOption = optionsToDisplay[value?.selection]
-  } else if (value?.option === false) {  // Note: this distinguishes between value = undefined
+  } else if (value?.option === false) { // Note: this distinguishes between value = undefined
     selectedOption = otherOption
   }
 
@@ -60,7 +58,7 @@ function SimpleDropdownTask (props) {
   const [customValue, setCustomValue] = React.useState((selectedOption === otherOption) ? value?.selection : '')
   const showCustomInput = (selectedOption === otherOption)
   const customInput = React.useRef()
-  
+
   // 'selection' indicates the index of the selected answer. (number)
   // If the Other option is enabled, selection can be a string.
   function setAnnotation (selection, isPresetOption = false) {
@@ -69,24 +67,24 @@ function SimpleDropdownTask (props) {
       option: isPresetOption,
     })
   }
-  
+
   function onSelectChange ({ option, selected: selectionIndex }) {
     const isPresetOption = option !== otherOption
     setCustomValue('')
-    
+
     if (isPresetOption) {
       setAnnotation(selectionIndex, true)
     } else {
       setAnnotation('', false)
     }
   }
-  
+
   function onTextInputChange () {
     const ele = customInput && customInput.current || { value: '' }
     setAnnotation(ele.value, false)
     setCustomValue(ele.value)
   }
-  
+
   return (
     <Box
       className={className}
@@ -96,7 +94,7 @@ function SimpleDropdownTask (props) {
           {task.instruction}
         </Markdownz>
       </StyledText>
-        
+
       <Box
         gap='xsmall'
       >
@@ -106,15 +104,15 @@ function SimpleDropdownTask (props) {
           labelKey='text'
           onChange={onSelectChange}
           options={optionsToDisplay}
-          placeholder={counterpart('Dropdown.selectPlaceholder')}
+          placeholder={t('SimpleDropdownTask.selectPlaceholder')}
           size='small'
           value={selectedOption}
         />
-        
+
         {(showCustomInput) &&
           <TextInput
             onChange={onTextInputChange}
-            placeholder={counterpart('Dropdown.customInputPlaceholder')}
+            placeholder={t('SimpleDropdownTask.customInputPlaceholder')}
             ref={customInput}
             size='small'
             value={customValue}

@@ -11,14 +11,13 @@ function webpackFinal(config, options) {
     ...config.resolve,
     alias: {
       ...webpackConfig.resolve.alias,
-      process: 'process',
-      ['@sentry/node']: '@sentry/browser'
+      ['@sentry/node']: '@sentry/browser',
+      'next-i18next': 'react-i18next'
     },
     fallback: {
       ...webpackConfig.resolve.fallback,
       crypto: false,
-      path: 'path-browserify',
-      process: 'process'
+      path: 'path-browserify'
     }
   }
 
@@ -35,7 +34,8 @@ module.exports = {
     '@storybook/addon-knobs',
     '@storybook/addon-links',
     '@storybook/addon-a11y',
-    '@storybook/addon-storysource'
+    '@storybook/addon-storysource',
+    'storybook-react-i18next'
   ],
   webpackFinal
 };
