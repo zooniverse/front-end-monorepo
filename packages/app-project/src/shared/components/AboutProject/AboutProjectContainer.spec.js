@@ -12,7 +12,7 @@ const PROJECT_NAME = 'A test project'
 describe('Component > CompletionBarContainer', function () {
   before(function () {
     wrapper = shallow(
-      <AboutProjectContainer.wrappedComponent
+      <AboutProjectContainer
         description={PROJECT_DESCRIPTION}
         projectName={PROJECT_NAME}
       />

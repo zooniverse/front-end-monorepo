@@ -1,34 +1,39 @@
-import { inject, observer } from 'mobx-react'
-import { string } from 'prop-types'
-import { Component } from 'react'
+import { MobXProviderContext, observer } from 'mobx-react'
+import { shape, string } from 'prop-types'
+import { useContext } from 'react'
 
 import AboutProject from './AboutProject'
 
-function storeMapper (stores) {
-  const { project } = stores.store
+function useStoreContext(stores) {
+  const { store } = stores || useContext(MobXProviderContext)
+  const { introduction, display_name } = store?.project
+
   return {
-    description: project.introduction,
-    projectName: project.display_name
+    description: introduction,
+    projectName: display_name
   }
 }
 
-@inject(storeMapper)
-@observer
-class AboutProjectContainer extends Component {
-  render () {
-    const { description, projectName } = this.props
-    return (
-      <AboutProject
-        description={description}
-        projectName={projectName}
-      />
-    )
-  }
+function AboutProjectContainer({ stores }) {
+  const { description, projectName } = useStoreContext(stores)
+  return (
+    <AboutProject
+      description={description}
+      projectName={projectName}
+    />
+  )
 }
 
 AboutProjectContainer.propTypes = {
-  description: string,
-  projectName: string
+  stores: shape({
+    store: shape({
+      project: shape({
+        introduction: string,
+        display_name: string
+      })
+    })
+  })
 }
 
-export default AboutProjectContainer
+export default observer(AboutProjectContainer)
+export { AboutProjectContainer }
