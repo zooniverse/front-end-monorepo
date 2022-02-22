@@ -87,12 +87,13 @@ class LightCurveViewer extends Component {
     const subject = this.props.subjectID
     const prevSubject = prevProps.subjectID
     const sameSubject = (subject === prevSubject)
+    const dataChanged = this.props.dataPoints !== prevProps.dataPoints
 
     const currentTaskKey = (this.props.currentTask && this.props.currentTask.taskKey) || ''
     const prevTaskKey = (prevProps.currentTask && prevProps.currentTask.taskKey) || ''
     const sameTask = (currentTaskKey === prevTaskKey)
 
-    if (!sameSubject) { // Triggers when changing between Subjects
+    if (dataChanged) { // Triggers when changing between Subjects
       this.clearChart()
 
       const container = this.svgContainer.current
