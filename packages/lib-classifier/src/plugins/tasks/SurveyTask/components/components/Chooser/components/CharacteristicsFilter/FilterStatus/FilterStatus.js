@@ -3,15 +3,11 @@ import PropTypes from 'prop-types'
 import React, { useRef } from 'react'
 import styled from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
+import { useTranslation } from 'react-i18next'
 
 import Characteristics from '../Characteristics'
 import FilterButton from '../components/FilterButton'
 import FilterIcon from './FilterIcon'
-
-import counterpart from 'counterpart'
-import en from '../locales/en'
-
-counterpart.registerTranslations('en', en)
 
 const StyledDropButton = styled(DropButton)`
   border: none;
@@ -44,6 +40,8 @@ export default function FilterStatus (props) {
     characteristicsOrder,
     images
   } = task
+
+  const { t } = useTranslation('plugins')
 
   const filterStatusRef = useRef()
 
@@ -92,7 +90,7 @@ export default function FilterStatus (props) {
               light: 'neutral-1'
             }}
           >
-            {counterpart('CharacteristicsFilter.filter')}
+            {t('SurveyTask.CharacteristicsFilter.filter')}
           </StyledLabel>
         }
       />

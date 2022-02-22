@@ -4,7 +4,6 @@ import { render, screen } from '@testing-library/react'
 import zooTheme from '@zooniverse/grommet-theme'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
-import en from './locales/en'
 import { ConfusedWith } from './ConfusedWith'
 
 const KUDU = mockTask.choices.KD
@@ -33,7 +32,8 @@ describe('Component > ConfusedWith', function () {
         theme={zooTheme}
       />
     )
-    expect(screen.getByText(en.ConfusedWith.confused)).to.exist()
+    /** The translation function will simply return keys in a testing env */
+    expect(screen.getByText('SurveyTask.ConfusedWith.confused')).to.exist()
   })
 
   it('should render the appropriate confused with buttons', function () {

@@ -7,7 +7,6 @@ import { TranscriptionLine as TranscriptionLineMarkModel } from '../../models/ma
 import { DragHandle } from '@plugins/drawingTools/components'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Tooltip } from '@zooniverse/react-components'
-import en from './locales/en'
 
 describe('Components > Drawing marks > Transcription line', function () {
   let mark
@@ -270,7 +269,6 @@ describe('Components > Drawing marks > Transcription line', function () {
       expect(mark.finished).to.be.true()
       dragMove({}, { x: 10, y: 20 })
       expect(mark.finished).to.be.true()
-
     })
   })
 
@@ -467,10 +465,11 @@ describe('Components > Drawing marks > Transcription line', function () {
           }
         }
       )
-      
+
       const tooltip = wrapper.find(Tooltip)
       expect(tooltip).to.have.lengthOf(1)
-      expect(tooltip.props().label).to.equal(en.TranscriptionLine.created)
+      /** The translation function will simply return keys in a testing env */
+      expect(tooltip.props().label).to.equal('TranscriptionLine.created')
       expect(tooltip.props().icon.props.fill).to.equal(blue)
     })
 
@@ -503,7 +502,8 @@ describe('Components > Drawing marks > Transcription line', function () {
 
       const tooltip = wrapper.find(Tooltip)
       expect(tooltip).to.have.lengthOf(1)
-      expect(tooltip.props().label).to.equal(en.TranscriptionLine.editing)
+      /** The translation function will simply return keys in a testing env */
+      expect(tooltip.props().label).to.equal('TranscriptionLine.editing')
       expect(tooltip.props().icon.props.fill).to.equal(green)
     })
   })

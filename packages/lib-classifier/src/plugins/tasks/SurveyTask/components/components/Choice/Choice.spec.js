@@ -6,9 +6,8 @@ import userEvent from '@testing-library/user-event'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
 import Choice from './Choice'
-import en from './locales/en'
 
-describe.skip('Component > Choice', function () {
+describe('Component > Choice', function () {
   it('should render without crashing', function () {
     render(
       <Choice
@@ -28,7 +27,8 @@ describe.skip('Component > Choice', function () {
         task={mockTask}
       />
     )
-    userEvent.click(screen.getByText(en.Choice.notThis))
+    const button = screen.getByRole('button', { name: 'SurveyTask.Choice.notThis' })
+    userEvent.click(button)
 
     expect(handleDeleteSpy).to.have.been.calledOnceWith('KD')
   })
@@ -42,7 +42,7 @@ describe.skip('Component > Choice', function () {
         task={mockTask}
       />
     )
-    userEvent.click(screen.getByText(en.Choice.identify))
+    userEvent.click(screen.getByText('SurveyTask.Choice.identify'))
 
     expect(onIdentifySpy).to.have.been.calledOnce()
   })
@@ -67,7 +67,7 @@ describe.skip('Component > Choice', function () {
           task={mockTask}
         />
       )
-      expect(screen.getByText('Sometimes confused with')).to.exist()
+      expect(screen.getByText('SurveyTask.ConfusedWith.confused')).to.exist()
     })
 
     it('should render Questions', function () {
@@ -150,7 +150,7 @@ describe.skip('Component > Choice', function () {
           task={mockTask}
         />
       )
-      expect(screen.getByRole('button', { name: en.Choice.identify }, { hidden: true })).to.equal(document.activeElement)
+      expect(screen.getByRole('button', { name: 'SurveyTask.Choice.identify' }, { hidden: true })).to.equal(document.activeElement)
     })
   })
 })
