@@ -80,6 +80,12 @@ const SubjectStore = types
         lastSubject = self.queue[self.queue.length - 1]
       }
       return lastSubject
+    },
+    /** are subjects sorted in priority order */
+    get prioritized() {
+      const { workflows } = getRoot(self)
+      const workflow = tryReference(() => workflows?.active)
+      return workflow?.prioritized
     }
   }))
 
@@ -176,7 +182,15 @@ const SubjectStore = types
       newSubjects.forEach(subject => {
         try {
           const alreadyStored = self.resources.get(subject.id)
-          if (!alreadyStored) {
+          // assume all subjects from Panoptes are unseen by default
+          let notSeen = true
+          if (self.prioritized) {
+            const metadataPriority = subject.metadata['#priority'] ?? subject.metadata.priority
+            // subject metadata in the API response are strings, not numbers.
+            const priority = metadataPriority ? parseFloat(metadataPriority) : -1
+            notSeen = priority > self.last.priority
+          }
+          if (notSeen && !alreadyStored) {
             self.resources.put(subject)
             self.queue.push(subject.id)
           }
