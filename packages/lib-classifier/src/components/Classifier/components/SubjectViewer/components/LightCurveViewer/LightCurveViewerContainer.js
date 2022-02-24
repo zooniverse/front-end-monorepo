@@ -2,7 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import { extent } from 'd3'
 import { zip } from 'lodash'
 import PropTypes from 'prop-types'
-import React, { useRef } from 'react'
+import React, { useMemo, useRef } from 'react'
 
 import { withStores } from '@helpers'
 import withKeyZoom from '../../../withKeyZoom'
@@ -78,23 +78,27 @@ export function LightCurveViewerContainer({
 }) {
   const viewer = useRef()
   const JSONdata = useJSONData(
-    subject, 
+    subject,
     () => onReady(viewer?.current),
     (error) => onError(error)
   )
 
-  let dataExtent = { x: [], y: [] }
-  let dataPoints = []
-  
-  if (JSONdata?.x && JSONdata?.y) {
-    dataExtent = {
-      x: extent(JSONdata.x),
-      y: extent(JSONdata.y)
-    }
-    dataPoints = zip(JSONdata.x, JSONdata.y)
-  }
+  const { dataExtent, dataPoints } = useMemo(() => {
+    let dataExtent = { x: [], y: [] }
+    let dataPoints = []
 
-  if (!subject.id || !dataPoints.length) {
+    if (JSONdata?.x && JSONdata?.y) {
+      dataExtent = {
+        x: extent(JSONdata.x),
+        y: extent(JSONdata.y)
+      }
+      dataPoints = zip(JSONdata.x, JSONdata.y)
+    }
+
+    return { dataExtent, dataPoints }
+  }, [JSONdata])
+
+  if (!subject.id) {
     return null
   }
 
@@ -114,7 +118,6 @@ export function LightCurveViewerContainer({
       onKeyDown={onKeyDown}
       setOnPan={setOnPan}
       setOnZoom={setOnZoom}
-      subjectID={subject.id}
       toolIndex={activeToolIndex}
     />
   )
