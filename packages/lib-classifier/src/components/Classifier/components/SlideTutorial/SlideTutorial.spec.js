@@ -22,48 +22,85 @@ const medium = {
 
 describe('SlideTutorial', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(<SlideTutorial stepWithMedium={{ step }} />)
+    const wrapper = shallow(<SlideTutorial stepWithMedium={() => ({ step })} />)
     expect(wrapper).to.be.ok()
   })
 
   it('should render markdown from the step content', function () {
-    const wrapper = shallow(<SlideTutorial stepWithMedium={{ step }} />)
+    const wrapper = shallow(<SlideTutorial stepWithMedium={() => ({ step })} />)
     expect(wrapper.find(Markdownz)).to.have.lengthOf(1)
   })
 
   it('should render StepNavigation component', function () {
-    const wrapper = shallow(<SlideTutorial stepWithMedium={{ step }} />)
+    const wrapper = shallow(<SlideTutorial stepWithMedium={() => ({ step })} />)
     expect(wrapper.find(StepNavigation)).to.have.lengthOf(1)
   })
 
   it('should not render Media if there is not an attached medium', function () {
-    const wrapper = shallow(<SlideTutorial stepWithMedium={{ step }} />)
+    const wrapper = shallow(<SlideTutorial stepWithMedium={() => ({ step })} />)
     expect(wrapper.find(Media)).to.have.lengthOf(0)
   })
 
   it('should render Media if an attached medium exists', function () {
     step.medium = medium.id
-    const wrapper = shallow(<SlideTutorial stepWithMedium={{ step, medium }} />)
+    const wrapper = shallow(<SlideTutorial stepWithMedium={() => ({ step, medium })} />)
     expect(wrapper.find(Media)).to.have.lengthOf(1)
   })
 
-  it('should only render the Heading on the first step', function () {
-    const wrapper = shallow(<SlideTutorial activeStep={0} stepWithMedium={{ step, medium }} isFirstStep />)
+  it('should render the Heading on the first step', function () {
+    const wrapper = shallow(
+      <SlideTutorial
+        activeStep={0}
+        stepWithMedium={() => ({ step, medium })}
+        steps={[{ step, medium }, { step, medium }]}
+      />
+    )
     expect(wrapper.find(Heading)).to.have.lengthOf(1)
-    wrapper.setProps({ activeStep: 1, isFirstStep: false })
+  })
+
+  it('should not render the Heading on the second step', function () {
+    const wrapper = shallow(
+      <SlideTutorial
+        activeStep={1}
+        stepWithMedium={() => ({ step, medium })}
+        steps={[{ step, medium }, { step, medium }]}
+      />
+    )
     expect(wrapper.find(Heading)).to.have.lengthOf(0)
   })
 
-  it('should only render the get started button on the last step', function () {
-    const wrapper = shallow(<SlideTutorial activeStep={1} stepWithMedium={{ step, medium }} isLastStep />)
+  it('should render the Get Started button on the last step', function () {
+    const wrapper = shallow(
+      <SlideTutorial
+        activeStep={1}
+        stepWithMedium={() => ({ step, medium })}
+        steps={[{ step, medium }, { step, medium }]}
+      />
+    )
     expect(wrapper.find(Button)).to.have.lengthOf(1)
-    wrapper.setProps({ activeStep: 0, isLastStep: false })
+  })
+
+  it('should not render the Get Started button on the first step', function () {
+    const wrapper = shallow(
+      <SlideTutorial
+        activeStep={0}
+        stepWithMedium={() => ({ step, medium })}
+        steps={[{ step, medium }, { step, medium }]}
+      />
+    )
     expect(wrapper.find(Button)).to.have.lengthOf(0)
   })
 
-  it('should call props.onClick for the click event of the get started button', function () {
+  it('should call props.onClick when Get Started is clicked', function () {
     const onClick = sinon.spy()
-    const wrapper = shallow(<SlideTutorial activeStep={1} onClick={onClick} stepWithMedium={{ step, medium }} isLastStep />)
+    const wrapper = shallow(
+      <SlideTutorial
+        activeStep={1}
+        onClick={onClick}
+        stepWithMedium={() => ({ step, medium })}
+        steps={[{ step, medium }, { step, medium }]}
+      />
+    )
     wrapper.find(Button).simulate('click')
     expect(onClick).to.have.been.calledOnce()
   })
