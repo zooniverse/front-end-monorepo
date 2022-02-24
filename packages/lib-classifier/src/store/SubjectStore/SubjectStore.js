@@ -184,7 +184,9 @@ const SubjectStore = types
           const alreadyStored = self.resources.get(subject.id)
           // assume all subjects from Panoptes are unseen by default
           let notSeen = true
-          if (self.prioritized) {
+          // completed workflows fall back to random selection
+          const { user_has_finished_workflow } = subject
+          if (!user_has_finished_workflow && self.prioritized) {
             const metadataPriority = subject.metadata['#priority'] ?? subject.metadata.priority
             // subject metadata in the API response are strings, not numbers.
             const priority = metadataPriority ? parseFloat(metadataPriority) : -1
