@@ -188,7 +188,8 @@ const SubjectStore = types
             const metadataPriority = subject.metadata['#priority'] ?? subject.metadata.priority
             // subject metadata in the API response are strings, not numbers.
             const priority = metadataPriority ? parseFloat(metadataPriority) : -1
-            notSeen = priority > self.last.priority
+            const lastPriority = self.last?.priority || -1
+            notSeen = priority > lastPriority
           }
           if (notSeen && !alreadyStored) {
             self.resources.put(subject)
