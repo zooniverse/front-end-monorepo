@@ -1,21 +1,17 @@
-import counterpart from 'counterpart'
 import cuid from 'cuid'
 import { autorun } from 'mobx'
 import { addDisposer, getRoot, tryReference, types } from 'mobx-state-tree'
 import { UndoManager } from 'mst-middlewares'
 
 import AnnotatedStep from './AnnotatedStep'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 function beforeUnloadListener(event) {
   event.preventDefault()
-  return event.returnValue = counterpart("StepHistory.unloadWarning")
+  return event.returnValue = 'You have unsaved work. Are you sure you want to leave?'
 }
 
 function setUndoManager(targetStore) {
-    targetStore.undoManager = UndoManager.create({}, { targetStore })
+  targetStore.undoManager = UndoManager.create({}, { targetStore })
 }
 
 /**
