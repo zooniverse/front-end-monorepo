@@ -65,7 +65,7 @@ const TutorialStore = types
     },
 
     get hasNotSeenTutorialBefore () {
-      const uppStore = tryReference(() => getRoot(self).userProjectPreferences)
+      const uppStore = getRoot(self).userProjectPreferences
       const upp = tryReference(() => getRoot(self).userProjectPreferences.active)
       const tutorial = tryReference(() => self.active)
 
