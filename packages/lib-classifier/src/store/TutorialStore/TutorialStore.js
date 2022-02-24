@@ -31,7 +31,8 @@ const TutorialStore = types
     },
 
     stepWithMedium(index) {
-      const step = self.active.steps[index]
+      const tutorial = tryReference(() => self.active)
+      const step = tutorial?.steps[index]
       if (step) {
         const medium = self.attachedMedia.get(step.media)
         return { step, medium }

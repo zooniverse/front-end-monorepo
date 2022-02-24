@@ -86,9 +86,8 @@ describe('TaskArea', function () {
       setActiveTutorialSpy.resetHistory()
     })
 
-    it('should clear the active tutorial', function () {
-      expect(setActiveTutorialSpy).to.have.been.calledOnce()
-      expect(setActiveTutorialSpy.args[0]).to.have.lengthOf(0)
+    it('should not clear the active tutorial', function () {
+      expect(setActiveTutorialSpy).to.not.have.been.called()
     })
 
     it('should activate the tasks tab', function () {

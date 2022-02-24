@@ -53,7 +53,6 @@ export default function TaskArea({
   }
 
   function onClose() {
-    setActiveTutorial()
     setActiveIndex(0)
   }
 
