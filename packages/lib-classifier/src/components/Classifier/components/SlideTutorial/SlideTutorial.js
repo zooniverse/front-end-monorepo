@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Box, Button, Heading } from 'grommet'
+import { Box, Button, Heading, Paragraph } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
 import { useTranslation } from 'react-i18next'
 
@@ -19,22 +19,32 @@ const StyledMarkdownWrapper = styled(Box)`
   }
 `
 
-function SlideTutorial (props) {
-  const {
-    activeStep,
-    className,
-    isFirstStep,
-    isLastStep,
-    projectDisplayName,
-    onClick,
-    height,
-    pad,
-    stepWithMedium,
-    width
-  } = props
+function SlideTutorial({
+  activeStep = 0,
+  className = '',
+  projectDisplayName = '',
+  onClick = () => true,
+  height,
+  pad = 'medium',
+  steps = [],
+  stepWithMedium,
+  width
+}) {
+  const [stepIndex, setStepIndex] = useState(activeStep)
   const { t } = useTranslation('components')
-  const { medium, step } = stepWithMedium
-  const isThereMedia = medium && medium.src
+  const { medium, step } = stepWithMedium(stepIndex)
+  const isThereMedia = medium?.src
+  const isFirstStep = stepIndex === 0
+  const isLastStep = stepIndex === steps.length - 1
+
+  if (!step) {
+    return (
+      <Box height='100%' justify='between' pad={pad}>
+        <Paragraph>{t('SlideTutorial.error')}</Paragraph>
+      </Box>
+    )
+  }
+
   return (
     <Box
       className={className}
@@ -63,7 +73,10 @@ function SlideTutorial (props) {
         {/* TODO: translation */}
         <Markdownz>{step.content}</Markdownz>
       </StyledMarkdownWrapper>
-      <StepNavigation />
+        <StepNavigation
+          stepIndex={stepIndex}
+          onChange={setStepIndex}
+        />
       {isLastStep &&
         <Button
           label={t('SlideTutorial.getStarted')}
@@ -75,38 +88,12 @@ function SlideTutorial (props) {
   )
 }
 
-SlideTutorial.defaultProps = {
-  activeStep: 0,
-  className: '',
-  isFirstStep: true,
-  isLastStep: false,
-  onClick: () => {},
-  projectDisplayName: '',
-  pad: 'medium'
-}
-
 SlideTutorial.propTypes = {
   activeStep: PropTypes.number,
   className: PropTypes.string,
-  isFirstStep: PropTypes.bool,
-  isLastStep: PropTypes.bool,
   projectDisplayName: PropTypes.string,
   onClick: PropTypes.func,
-  stepWithMedium: PropTypes.shape({
-    medium: PropTypes.shape({
-      content_type: PropTypes.string,
-      external_link: PropTypes.bool,
-      href: PropTypes.string,
-      id: PropTypes.string,
-      media_type: PropTypes.string,
-      metadata: PropTypes.object,
-      src: PropTypes.string
-    }),
-    step: PropTypes.shape({
-      content: PropTypes.string.isRequired,
-      medium: PropTypes.string
-    })
-  }).isRequired
+  stepWithMedium: PropTypes.func.isRequired
 }
 
 export default SlideTutorial

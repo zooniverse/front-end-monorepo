@@ -394,7 +394,7 @@ describe('Model > SubjectStore', function () {
     })
   })
 
-  describe('indexed workflows', function () {
+  describe('prioritised, grouped workflows', function () {
     let store
     let subjects = []
 
@@ -404,7 +404,113 @@ describe('Model > SubjectStore', function () {
           '#priority': 0
         }
       })
-      for (let priority = 1; priority <= 10; priority++) {
+      for (let priority = 11; priority <= 20; priority++) {
+        const snapshot = {
+          already_seen: false,
+          metadata: {
+            '#priority': priority
+          },
+          retired: false
+        }
+        subjects.push(SubjectFactory.build(snapshot))
+      }
+      const subjectSetSnapshot = SubjectSetFactory.build()
+      const workflowSnapshot = WorkflowFactory.build({
+        grouped: true,
+        prioritized: true,
+        subjectSet: subjectSetSnapshot.id
+      })
+      store = mockStore({ subject: subjectSnapshot, subjectSet: subjectSetSnapshot, workflow: workflowSnapshot })
+      // wait for initial subject setup to complete
+      await when(() => store.subjects.resources.size > 9)
+    })
+
+    after(function () {
+      nock.cleanAll()
+    })
+
+    describe('advance, with a new queue', function () {
+      before(function () {
+        store.subjects.reset()
+        store.subjects.setResources(subjects)
+        store.subjects.advance()
+      })
+
+      it('should make the first subject active', function () {
+        let activeSubject = store.subjects.active
+        expect(activeSubject.priority).to.equal(11)
+      })
+    })
+
+    describe('advance, with an existing queue', function () {
+      before(function () {
+        store.subjects.reset()
+        store.subjects.setResources(subjects)
+        store.subjects.setActive(subjects[0].id)
+        store.subjects.advance()
+      })
+
+      it('should not preserve the previous active subject', function () {
+        const previousSubject = store.subjects.resources.get(subjects[0].id)
+        expect(previousSubject).to.be.undefined()
+      })
+
+      it('should move the active subject by one forwards', function () {
+        let activeSubject = store.subjects.active
+        expect(activeSubject.priority).to.equal(12)
+      })
+    })
+
+    describe('append ordered subjects', function () {
+      before(function () {
+        store.subjects.reset()
+        store.subjects.setResources(subjects)
+        store.subjects.advance()
+      })
+
+      it('should ignore subjects before the first in the queue', function () {
+        const seenSubject = SubjectFactory.build({
+          already_seen: false,
+          metadata: {
+            ['#priority']: 10
+          },
+          retired: false
+        })
+        expect(store.subjects.queue.length).to.equal(10)
+        store.subjects.append([seenSubject])
+        expect(store.subjects.queue.length).to.equal(10)
+        expect(store.subjects.first.priority).to.equal(11)
+        expect(store.subjects.last.priority).to.equal(20)
+      })
+
+      it('should append subjects after the last in the queue', function () {
+        const newSubject = SubjectFactory.build({
+          already_seen: false,
+          metadata: {
+            ['#priority']: 21
+          },
+          retired: false
+        })
+        expect(store.subjects.queue.length).to.equal(10)
+        store.subjects.append([newSubject])
+        expect(store.subjects.queue.length).to.equal(11)
+        expect(store.subjects.first.priority).to.equal(11)
+        expect(store.subjects.last.priority).to.equal(21)
+      })
+    })
+  })
+
+  describe('prioritised, indexed workflows', function () {
+    let store
+    let subjects = []
+
+    before(async function () {
+      const subjectSnapshot = SubjectFactory.build({
+        metadata: {
+          '#priority': 0
+        }
+      })
+      for (let priority = 11; priority <= 20; priority++) {
         const snapshot = {
           already_seen: false,
           metadata: {
@@ -464,7 +570,7 @@ describe('Model > SubjectStore', function () {
 
       it('should make the first subject active', function () {
         let activeSubject = store.subjects.active
-        expect(activeSubject.priority).to.equal(1)
+        expect(activeSubject.priority).to.equal(11)
       })
     })
 
@@ -490,7 +596,7 @@ describe('Model > SubjectStore', function () {
 
       it('should move the active subject by one forwards', function () {
         let activeSubject = store.subjects.active
-        expect(activeSubject.priority).to.equal(2)
+        expect(activeSubject.priority).to.equal(12)
       })
     })
 
@@ -513,7 +619,46 @@ describe('Model > SubjectStore', function () {
         expect(activeSubject.priority).to.equal(expectedSubject.priority)
       })
     })
+
+    describe('append ordered subjects', function () {
+      before(function () {
+        store.subjects.reset()
+        store.subjects.setResources(subjects)
+        store.subjects.advance()
+      })
+
+      it('should ignore subjects before the first in the queue', function () {
+        const seenSubject = SubjectFactory.build({
+          already_seen: false,
+          metadata: {
+            ['#priority']: 10
+          },
+          retired: false
+        })
+        expect(store.subjects.queue.length).to.equal(10)
+        store.subjects.append([seenSubject])
+        expect(store.subjects.queue.length).to.equal(10)
+        expect(store.subjects.first.priority).to.equal(11)
+        expect(store.subjects.last.priority).to.equal(20)
+      })
+
+      it('should append subjects after the last in the queue', function () {
+        const newSubject = SubjectFactory.build({
+          already_seen: false,
+          metadata: {
+            ['#priority']: 21
+          },
+          retired: false
+        })
+        expect(store.subjects.queue.length).to.equal(10)
+        store.subjects.append([newSubject])
+        expect(store.subjects.queue.length).to.equal(11)
+        expect(store.subjects.first.priority).to.equal(11)
+        expect(store.subjects.last.priority).to.equal(21)
+      })
+    })
   })
+
   describe('Views > isThereMetadata', function () {
     it('should return false when there is not an active queue subject', async function () {
       const subjects = await mockSubjectStore([])

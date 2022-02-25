@@ -4,7 +4,7 @@ import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
 import merge from 'lodash/merge'
 
-import RootStore from './RootStore'
+import RootStore from '@store/RootStore'
 import UserProjectPreferencesStore from './UserProjectPreferencesStore'
 import {
   ProjectFactory,
