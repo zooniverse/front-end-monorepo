@@ -50,7 +50,7 @@ describe('StepNavigation', function () {
 
   it('should set the active value of the RadioButtonGroup', function () {
     const activeStep = 1
-    const wrapper = shallow(<StepNavigation activeStep={activeStep} steps={steps} />)
+    const wrapper = shallow(<StepNavigation stepIndex={activeStep} steps={steps} />)
     const activeValue = wrapper.find('Styled(RadioButtonGroup)').props().value
     expect(activeValue).to.equal(`step-${activeStep}`)
   })
@@ -62,48 +62,48 @@ describe('StepNavigation', function () {
   })
 
   it('should disable the next step button when props.activeStep is the last step', function () {
-    const wrapper = shallow(<StepNavigation activeStep={1} steps={steps} />)
+    const wrapper = shallow(<StepNavigation stepIndex={1} steps={steps} />)
     expect(wrapper.find({ icon: <FormPrevious /> }).props().disabled).to.be.false()
     expect(wrapper.find({ icon: <FormNext /> }).props().disabled).to.be.true()
   })
 
-  describe('props.setTutorialStep', function () {
-    let setTutorialStepSpy
+  describe('props.onChange', function () {
+    let onChangeSpy
     let wrapper
     before(function () {
-      setTutorialStepSpy = sinon.spy()
-      wrapper = shallow(<StepNavigation setTutorialStep={setTutorialStepSpy} steps={steps} />)
+      onChangeSpy = sinon.spy()
+      wrapper = shallow(<StepNavigation onChange={onChangeSpy} steps={steps} />)
     })
 
     afterEach(function () {
-      setTutorialStepSpy.resetHistory()
+      onChangeSpy.resetHistory()
     })
 
-    it('should call props.setTutorialStep on click for each button that is not disabled', function () {
+    it('should call props.onChange on click for each button that is not disabled', function () {
       const buttons = wrapper.find(Button).filterWhere(node => {
         return !node.props().disabled
       })
 
       buttons.forEach(button => {
         button.simulate('click')
-        expect(setTutorialStepSpy).to.have.been.calledOnce()
-        setTutorialStepSpy.resetHistory()
+        expect(onChangeSpy).to.have.been.calledOnce()
+        onChangeSpy.resetHistory()
       })
     })
 
-    it('should call setTutorialStep when the previous step button is clicked with props.activeStep - 1', function () {
-      wrapper.setProps({ activeStep: 1 })
+    it('should call onChange when the previous step button is clicked with props.activeStep - 1', function () {
+      wrapper.setProps({ stepIndex: 1 })
       const prevButton = wrapper.find({ icon: <FormPrevious /> })
       prevButton.simulate('click')
-      expect(setTutorialStepSpy).to.have.been.calledOnce()
-      expect(setTutorialStepSpy).to.have.been.calledWith(prevButton.props()['data-index'])
+      expect(onChangeSpy).to.have.been.calledOnce()
+      expect(onChangeSpy).to.have.been.calledWith(prevButton.props()['data-index'])
     })
 
-    it('should call setTutorialStep when the next step button is clicked with props.activeStep + 1', function () {
+    it('should call onChange when the next step button is clicked with props.activeStep + 1', function () {
       const nextButton = wrapper.find({ icon: <FormNext /> })
       nextButton.simulate('click')
-      expect(setTutorialStepSpy).to.have.been.calledOnce()
-      expect(setTutorialStepSpy).to.have.been.calledWith(nextButton.props()['data-index'])
+      expect(onChangeSpy).to.have.been.calledOnce()
+      expect(onChangeSpy).to.have.been.calledWith(nextButton.props()['data-index'])
     })
   })
 })
