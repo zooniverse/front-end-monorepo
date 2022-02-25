@@ -78,7 +78,7 @@ export function LightCurveViewerContainer({
 }) {
   const viewer = useRef()
   const JSONdata = useJSONData(
-    subject, 
+    subject,
     () => onReady(viewer?.current),
     (error) => onError(error)
   )
@@ -86,7 +86,7 @@ export function LightCurveViewerContainer({
   const { dataExtent, dataPoints } = useMemo(() => {
     let dataExtent = { x: [], y: [] }
     let dataPoints = []
-  
+
     if (JSONdata?.x && JSONdata?.y) {
       dataExtent = {
         x: extent(JSONdata.x),
@@ -98,7 +98,7 @@ export function LightCurveViewerContainer({
     return { dataExtent, dataPoints }
   }, [JSONdata])
 
-  if (!subject.id || !dataPoints.length) {
+  if (!subject.id) {
     return null
   }
 
@@ -118,7 +118,6 @@ export function LightCurveViewerContainer({
       onKeyDown={onKeyDown}
       setOnPan={setOnPan}
       setOnZoom={setOnZoom}
-      subjectID={subject.id}
       toolIndex={activeToolIndex}
     />
   )

@@ -142,7 +142,9 @@ describe('Component > ClassifyPage', function () {
         subjectSets: [{
           id: '3456',
           displayName: 'indexed set',
-          isIndexed: true
+          metadata: {
+            indexFields: 'title,author,date'
+          }
         }]
       }]
 

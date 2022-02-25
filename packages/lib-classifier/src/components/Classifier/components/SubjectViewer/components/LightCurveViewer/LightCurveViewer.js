@@ -84,9 +84,6 @@ class LightCurveViewer extends Component {
   }
 
   componentDidUpdate (prevProps) {
-    const subject = this.props.subjectID
-    const prevSubject = prevProps.subjectID
-    const sameSubject = (subject === prevSubject)
     const dataChanged = this.props.dataPoints !== prevProps.dataPoints
 
     const currentTaskKey = (this.props.currentTask && this.props.currentTask.taskKey) || ''
@@ -99,7 +96,7 @@ class LightCurveViewer extends Component {
       const container = this.svgContainer.current
       const height = container.offsetHeight || 0
       const width = container.offsetWidth || 0
-      this.drawChart(width, height, sameSubject)
+      this.drawChart(width, height, false)
     } else if (!sameTask) { // Triggers when changing between Workflow tasks.
       // TODO: load annotations when changing tasks.
       // If invalid task, blank out all annotaitons
