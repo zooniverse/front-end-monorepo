@@ -52,22 +52,26 @@ function Task ({
   ...props
 }) {
   const { TaskComponent } = taskRegistry.get(task.type)
-
-  if (annotation && TaskComponent) {
-    return (
-      <Box key={annotation.id} basis='auto'>
-        <TaskComponent
-          {...props}
-          autoFocus={autoFocus}
-          disabled={disabled}
-          annotation={annotation}
-          task={task}
-        />
-      </Box>
-    )
+  
+  if (!annotation) {
+    return <Paragraph>Annotation missing for task <code>{task.taskKey}</code></Paragraph>
   }
 
-  return (<Paragraph>Task component could not be rendered.</Paragraph>)
+  if (!TaskComponent) {
+    return (<Paragraph>Task component could not be rendered.</Paragraph>)
+  }
+
+  return (
+    <Box key={annotation.id} basis='auto'>
+      <TaskComponent
+        {...props}
+        autoFocus={autoFocus}
+        disabled={disabled}
+        annotation={annotation}
+        task={task}
+      />
+    </Box>
+  )
 }
 
 Task.propTypes = {
