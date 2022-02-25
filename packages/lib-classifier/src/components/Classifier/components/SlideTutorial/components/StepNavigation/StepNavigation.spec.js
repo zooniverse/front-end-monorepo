@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import { Button } from 'grommet'
 import { FormNext, FormPrevious } from 'grommet-icons'
-import { StepNavigation } from './StepNavigation'
+import StepNavigation from './StepNavigation'
 
 const steps = [
   { content: '# Welcome' },

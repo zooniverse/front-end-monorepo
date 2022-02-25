@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Button, Box, RadioButtonGroup } from 'grommet'
 import styled from 'styled-components'
 import { FormNext, FormPrevious } from 'grommet-icons'
-import { withStores } from '@helpers'
 import { useTranslation } from 'react-i18next'
 
 const StyledButton = styled(Button)`
@@ -34,16 +33,6 @@ const StyledRadioButtonGroup = styled(RadioButtonGroup)`
     }
   }
 `
-
-function storeMapper (classifierStore) {
-  const {
-    active: tutorial
-  } = classifierStore.tutorials
-
-  return {
-    steps: tutorial?.steps
-  }
-}
 
 function StepNavigation({
   className = '',
@@ -113,5 +102,4 @@ StepNavigation.propTypes = {
   steps: PropTypes.array
 }
 
-export default withStores(StepNavigation, storeMapper)
-export { StepNavigation }
+export default StepNavigation

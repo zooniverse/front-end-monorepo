@@ -80,8 +80,9 @@ function SlideTutorial({
         <Markdownz>{step.content}</Markdownz>
       </StyledMarkdownWrapper>
         <StepNavigation
-          stepIndex={stepIndex}
           onChange={setStepIndex}
+          stepIndex={stepIndex}
+          steps={steps}
         />
       {isLastStep &&
         <Button
