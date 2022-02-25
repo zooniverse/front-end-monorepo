@@ -56,6 +56,18 @@
       "usernamePlaceholder": "e.g. ZooniverseFan123"
     }
   },
+  "CollectionsModal": {
+    "title": "Add to collection",
+    "CreateCollection": {
+      "label": "Create a new collection",
+      "createButton": "Create and add",
+      "private": "Private collection"
+    },
+    "SelectCollection": {
+      "label": "Add to an existing collection",
+      "addButton": "Add"
+    }
+  },
   "Head": {
     "defaultDescription": "The Zooniverse is the world’s largest and most popular platform for people-powered research.",
     "defaultTitle": "Projects",
