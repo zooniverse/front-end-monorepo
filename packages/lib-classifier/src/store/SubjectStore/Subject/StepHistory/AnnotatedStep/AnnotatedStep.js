@@ -1,8 +1,9 @@
 import { types } from 'mobx-state-tree'
 
 import Step from '@store/WorkflowStepStore/Step'
-import { annotationModels } from '@plugins/tasks'
+import * as tasks from '@plugins/tasks'
 
+const annotationModels = Object.values(tasks).map(task => task.AnnotationModel)
 const TaskAnnotation = types.union(...annotationModels)
 
 const AnnotatedStep = types.model('AnnotatedStep', {

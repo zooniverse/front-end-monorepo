@@ -6,15 +6,17 @@ import {
   DrawingTaskFactory,
   TranscriptionTaskFactory
 } from '@test/factories'
-import taskRegistry from '@plugins/tasks'
+import * as tasks from '@plugins/tasks'
 import { expect } from 'chai'
 
 describe('Model > Step', function () {
   let step
-  const SingleChoiceTask = taskRegistry.get('single')
-  const MultipleChoiceTask = taskRegistry.get('multiple')
-  const DrawingTask = taskRegistry.get('drawing')
-  const TranscriptionTask = taskRegistry.get('transcription')
+  const {
+    single: SingleChoiceTask,
+    multiple: MultipleChoiceTask,
+    drawing: DrawingTask,
+    transcription: TranscriptionTask
+  } = tasks
 
   before(function () {
     step = Step.create({ stepKey: 'S1', taskKeys: ['T1'] })

@@ -2,7 +2,7 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
 import TranscriptionReductions from '@store/SubjectStore/Subject/TranscriptionReductions'
-import taskRegistry from '@plugins/tasks'
+import * as tasks from '@plugins/tasks'
 import { TranscribedLines } from './TranscribedLines'
 import { reducedSubject } from '@store/SubjectStore/Subject/TranscriptionReductions/mocks'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
@@ -10,7 +10,7 @@ import ConsensusPopup from './components/ConsensusPopup'
 import { expect } from 'chai'
 
 describe('Component > TranscribedLines', function () {
-  const transcriptionModels = taskRegistry.get('transcription')
+  const { TaskModel } = tasks.transcription
 
   let wrapper, task, consensusLines, transcriptionReductions
   before(function () {
@@ -20,7 +20,7 @@ describe('Component > TranscribedLines', function () {
       workflowId: '5678'
     })
     consensusLines = transcriptionReductions.consensusLines(0)
-    task = transcriptionModels.TaskModel.create({
+    task = TaskModel.create({
       tools: [{
         type: 'transcriptionLine',
         tasks: [{
@@ -96,7 +96,7 @@ describe('Component > TranscribedLines', function () {
     let wrapper
 
     before(function () {
-      task = transcriptionModels.TaskModel.create({
+      task = TaskModel.create({
         tools: [{
           type: 'transcriptionLine',
           tasks: [{
@@ -172,7 +172,7 @@ describe('Component > TranscribedLines', function () {
           workflowId: '5678'
         })
         const consensusLines = transcriptionReductions.consensusLines(0)
-        const task = transcriptionModels.TaskModel.create({
+        const task = TaskModel.create({
           tools: [{
             type: 'transcriptionLine',
             tasks: [{

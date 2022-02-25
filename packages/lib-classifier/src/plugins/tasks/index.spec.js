@@ -1,20 +1,21 @@
-import taskRegistry from './'
+import * as tasks from './'
 
 describe('Task models', function () {
-  const taskTypes = Object.keys(taskRegistry.register)
+    const taskTypes = Object.keys(tasks)
   taskTypes.forEach(function (taskType) {
-    let task
+    let type, task
     describe(taskType, function () {
       before(function () {
+                type = taskType === 'dropdownSimple' ? 'dropdown-simple' : taskType
         const taskSnapshot = {
           answers: [],
           instruction: `${taskType} instructions`,
           options: [ '1', '2', '3', '4' ],
           question: `${taskType} question`,
           taskKey: 'init',
-          type: taskType
+          type
         }
-        const { TaskModel } = taskRegistry.get(taskType)
+        const { TaskModel } = tasks[taskType]
         task = TaskModel.create(taskSnapshot)
       })
 
@@ -38,7 +39,7 @@ describe('Task models', function () {
         })
 
         it('should store the task type', function () {
-          expect(annotation.taskType).to.equal(taskType)
+          expect(annotation.taskType).to.equal(type)
         })
 
         it('should not be in progress', function () {

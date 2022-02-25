@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import Task from './Task'
-import taskRegistry from '@plugins/tasks'
+import * as tasks from '@plugins/tasks'
 import { WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 import { Grommet } from 'grommet'
@@ -12,23 +12,22 @@ describe('Components > Task', function () {
   let TaskComponent
   let store
 
-  const taskTypes = Object.keys(taskRegistry.register)
-
-  taskTypes.forEach(function (taskType) {
+  Object.keys(tasks).forEach(function (taskType) {
     before(function () {
-      const task = taskRegistry.get(taskType)
+      const task = tasks[taskType]
       TaskComponent = task.TaskComponent
       // DrawingTask, TranscriptionTask, DataVisAnnotationTask, TextTask all use instruction
       // SingleChoiceTask, MultipleChoiceTask use question
       // keys that aren't defined on certain task models are ignored
       // but missing keys that aren't an optional or maybe type will throw an error
+      const type = taskType === 'dropdownSimple' ? 'dropdown-simple' : taskType
       const taskSnapshot = {
         answers: [],
         instruction: `${taskType} instructions`,
         options: [ '1', '2', '3', '4'],
         question: `${taskType} question`,
         taskKey: 'init',
-        type: taskType
+        type
       }
       const workflowSnapshot = WorkflowFactory.build({
         id: 'tasksWorkflow',

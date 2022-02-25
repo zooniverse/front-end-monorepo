@@ -1,8 +1,8 @@
 import cuid from 'cuid'
 import { getParent, types } from 'mobx-state-tree'
-import SingleChoiceTask from '@plugins/tasks/SingleChoiceTask'
-import MultipleChoiceTask from '@plugins/tasks/MultipleChoiceTask'
-import TextTask from '@plugins/tasks/TextTask'
+import SingleChoiceTask from '@plugins/tasks/single'
+import MultipleChoiceTask from '@plugins/tasks/multiple'
+import TextTask from '@plugins/tasks/text'
 import AnnotationsStore from '@store/AnnotationsStore'
 
 const BaseMark = types

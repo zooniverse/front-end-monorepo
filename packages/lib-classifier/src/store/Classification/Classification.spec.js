@@ -1,4 +1,4 @@
-import taskRegistry from '@plugins/tasks'
+import * as tasks from '@plugins/tasks'
 import TranscriptionLine from '@plugins/drawingTools/experimental/models/marks/TranscriptionLine'
 import Point from '@plugins/drawingTools/models/marks/Point'
 import Line from '@plugins/drawingTools/models/marks/Line'
@@ -103,10 +103,12 @@ describe('Model > Classification', function () {
     let singleChoice, text, drawingOne, transcription, drawingTwo
 
     beforeEach(function () {
-      const singleChoiceTask = taskRegistry.get('single')
-      const textTask = taskRegistry.get('text')
-      const drawingTask = taskRegistry.get('drawing')
-      const transcriptionTask = taskRegistry.get('transcription')
+      const {
+        single: singleChoiceTask,
+        text: textTask,
+        drawing: drawingTask,
+        transcription: transcriptionTask
+      } = tasks
 
       model = Classification.create({
         annotations: [],
