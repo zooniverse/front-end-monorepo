@@ -3,19 +3,21 @@ import { shallow } from 'enzyme'
 import AboutProject from './AboutProject'
 import AboutProjectContainer from './AboutProjectContainer'
 
-let wrapper
-let AboutProjectWrapper
+describe('Component > AboutProjectContainer', function () {
+  let wrapper
+  let AboutProjectWrapper
+  const stores = {
+    store: {
+      project: {
+        introduction: 'This is a test project',
+        display_name: 'A test project'
+      }
+    }
+  }
 
-const PROJECT_DESCRIPTION = 'This is a test project'
-const PROJECT_NAME = 'A test project'
-
-describe('Component > CompletionBarContainer', function () {
   before(function () {
     wrapper = shallow(
-      <AboutProjectContainer.wrappedComponent
-        description={PROJECT_DESCRIPTION}
-        projectName={PROJECT_NAME}
-      />
+      <AboutProjectContainer stores={stores} />
     )
     AboutProjectWrapper = wrapper.find(AboutProject)
   })
@@ -29,10 +31,10 @@ describe('Component > CompletionBarContainer', function () {
   })
 
   it('should pass through a `description` prop', function () {
-    expect(AboutProjectWrapper.prop('description')).to.equal(PROJECT_DESCRIPTION)
+    expect(AboutProjectWrapper.prop('description')).to.equal(stores.store.project.introduction)
   })
 
   it('should pass through a `projectName` prop', function () {
-    expect(AboutProjectWrapper.prop('projectName')).to.equal(PROJECT_NAME)
+    expect(AboutProjectWrapper.prop('projectName')).to.equal(stores.store.project.display_name)
   })
 })

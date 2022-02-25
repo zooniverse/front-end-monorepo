@@ -1,5 +1,6 @@
 import { types } from 'mobx-state-tree'
-import Resource from './Resource'
+
+import Resource from '@store/Resource'
 
 const Medium = types
   .model('Medium', {

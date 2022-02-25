@@ -1,10 +1,11 @@
-import { autorun } from 'mobx'
-import { addDisposer, getRoot, isValidReference, types, flow } from 'mobx-state-tree'
-import asyncStates from '@zooniverse/async-states'
-import ResourceStore from './ResourceStore'
-import UserProjectPreferences from './UserProjectPreferences'
-import { getBearerToken } from './utils'
 import merge from 'lodash/merge'
+import { autorun } from 'mobx'
+import { addDisposer, getRoot, isValidReference, tryReference, types, flow } from 'mobx-state-tree'
+import asyncStates from '@zooniverse/async-states'
+
+import ResourceStore from '@store/ResourceStore'
+import UserProjectPreferences from './UserProjectPreferences'
+import { getBearerToken } from '@store/utils'
 
 const UserProjectPreferencesStore = types
   .model('UserProjectPreferencesStore', {
@@ -121,7 +122,7 @@ const UserProjectPreferencesStore = types
     }
 
     function * updateUPP (changes) {
-      const upp = self.active
+      const upp = tryReference(() => self.active)
       if (upp) {
         self.loadingState = asyncStates.putting
         try {

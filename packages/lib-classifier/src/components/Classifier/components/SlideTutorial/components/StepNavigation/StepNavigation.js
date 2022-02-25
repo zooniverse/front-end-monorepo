@@ -37,34 +37,31 @@ const StyledRadioButtonGroup = styled(RadioButtonGroup)`
 
 function storeMapper (classifierStore) {
   const {
-    active: tutorial,
-    activeStep,
-    setTutorialStep
+    active: tutorial
   } = classifierStore.tutorials
 
   return {
-    activeStep,
-    setTutorialStep,
-    steps: tutorial.steps
+    steps: tutorial?.steps
   }
 }
 
 function StepNavigation({
-  activeStep = 0,
   className = '',
-  setTutorialStep = () => {},
+  onChange = () => true,
+  stepIndex = 0,
   steps = []
 }) {
   const { t } = useTranslation('components')
 
-  function onChange(event) {
-    const indexValue = event.target.value.split('-')[1]
-    setTutorialStep(Number(indexValue))
+  function onRadioChange(event) {
+    const [key, value] = event.target.value.split('-')
+    const indexValue = parseInt(value)
+    onChange(indexValue)
   }
 
   if (steps?.length > 1) {
-    const nextStep = activeStep + 1
-    const prevStep = activeStep - 1
+    const nextStep = stepIndex + 1
+    const prevStep = stepIndex - 1
     const options = steps.map((step, index) => {
       const label = t('SlideTutorial.StepNavigation.go', { index: index + 1 })
       // We can't just use index for the value
@@ -81,25 +78,25 @@ function StepNavigation({
         <StyledButton
           a11yTitle={t('SlideTutorial.StepNavigation.previous')}
           data-index={prevStep}
-          disabled={activeStep === 0}
+          disabled={stepIndex === 0}
           icon={<FormPrevious />}
-          onClick={() => setTutorialStep(prevStep)}
+          onClick={() => onChange(prevStep)}
           plain
         />
         <StyledRadioButtonGroup
           direction='row'
           gap='none'
           name='step-selectors'
-          onChange={onChange}
+          onChange={onRadioChange}
           options={options}
-          value={`step-${activeStep}`}
+          value={`step-${stepIndex}`}
         />
         <StyledButton
           a11yTitle={t('SlideTutorial.StepNavigation.next')}
           data-index={nextStep}
-          disabled={activeStep === steps.length - 1}
+          disabled={stepIndex === steps.length - 1}
           icon={<FormNext />}
-          onClick={() => setTutorialStep(nextStep)}
+          onClick={() => onChange(nextStep)}
           plain
         />
       </Box>
@@ -110,9 +107,9 @@ function StepNavigation({
 }
 
 StepNavigation.propTypes = {
-  activeStep: PropTypes.number,
   className: PropTypes.string,
-  setTutorialStep: PropTypes.func,
+  onChange: PropTypes.func,
+  stepIndex: PropTypes.number,
   steps: PropTypes.array
 }
 
