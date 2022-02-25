@@ -4,7 +4,7 @@ import { expect } from 'chai'
 import { Polygon as PolygonModel } from '../../models/marks'
 import Polygon from './Polygon'
 
-describe.only('Polygon tool', function () {
+describe('Polygon tool', function () {
   it('should render without crashing', function () {
     const mark = PolygonModel.create({
       id: 'polygon01',
