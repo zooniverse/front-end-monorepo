@@ -38,10 +38,9 @@ describe('Components > Task', function () {
         },
         version: '0.0'
       })
-      const rootStore = mockStore({ workflow: workflowSnapshot })
-      const step = rootStore.workflowSteps.active
+      store = mockStore({ workflow: workflowSnapshot })
+      const step = store.workflowSteps.active
       activeTask = step.tasks[0]
-      store = { classifierStore: rootStore }
     })
 
     describe(`Task ${taskType}`, function () {
@@ -80,8 +79,7 @@ describe('Components > Task', function () {
           wrappingComponent: Grommet,
           wrappingComponentProps: { theme: zooTheme }
         })
-        const { classifierStore } = store
-        const classification = classifierStore.classifications.active
+        const classification = store.classifications.active
         const activeAnnotation = classification.annotation(activeTask)
         const taskComponent = wrapper.find(TaskComponent)
         expect(taskComponent.prop('annotation')).to.deep.equal(activeAnnotation)
@@ -92,7 +90,7 @@ describe('Components > Task', function () {
 
         describe('while the subject is loading', function () {
           before(function () {
-            store.classifierStore.subjectViewer.resetSubject()
+            store.subjectViewer.resetSubject()
             const wrapper = mount(
               <Task
                 store={store}
@@ -111,7 +109,7 @@ describe('Components > Task', function () {
 
         describe('when the subject viewer is ready', function () {
           before(function () {
-            store.classifierStore.subjectViewer.onSubjectReady()
+            store.subjectViewer.onSubjectReady()
             const wrapper = mount(
               <Task
                 store={store}

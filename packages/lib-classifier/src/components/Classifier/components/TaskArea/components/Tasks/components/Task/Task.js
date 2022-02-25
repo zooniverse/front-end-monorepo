@@ -1,57 +1,43 @@
 import asyncStates from '@zooniverse/async-states'
 import { Box, Paragraph } from 'grommet'
-import { MobXProviderContext, observer } from 'mobx-react'
-import { shape, string } from 'prop-types'
+import { array, bool, shape, string } from 'prop-types'
 import React, { useContext } from 'react'
 
+import { withStores } from '@helpers'
 import taskRegistry from '@plugins/tasks'
 
-function withStores(Component) {
-  function TaskConnector({
-    store,
-    task,
-    ...props
-  }) {
-    const { classifierStore } = store || useContext(MobXProviderContext)
-
-    const {
-      subjects: {
-        active: subject
-      },
-      subjectViewer
-    } = classifierStore
-    const { loadingState: subjectReadyState } = subjectViewer
-    const disabled = subjectReadyState !== asyncStates.success
-
-    let annotation
-    const latest = subject?.stepHistory.latest
-    if (latest) {
-      ([ annotation ] = latest.annotations.filter(annotation => annotation.task === task.taskKey))
+function storeMapper(classifierStore) {
+  const {
+    subjects: {
+      active: subject
+    },
+    subjectViewer: {
+      loadingState: subjectReadyState
     }
-    if (!annotation) {
-      console.log(`annotation missing for ${task.taskKey}`)
-    }
+  } = classifierStore
 
-    return (
-      <Component
-        annotation={annotation}
-        disabled={disabled}
-        task={task}
-        {...props}
-      />
-    )
+  const disabled = subjectReadyState !== asyncStates.success
+  const latest = subject?.stepHistory.latest
+
+  return {
+    disabled,
+    latest
   }
-  return observer(TaskConnector)
 }
 
 function Task ({
-  annotation,
   autoFocus = false,
-  disabled,
+  disabled = false,
+  latest,
   task,
   ...props
 }) {
   const { TaskComponent } = taskRegistry.get(task.type)
+  let annotation
+
+  if (latest) {
+    ([ annotation ] = latest.annotations.filter(annotation => annotation.task === task.taskKey))
+  }
   
   if (!annotation) {
     return <Paragraph>Annotation missing for task <code>{task.taskKey}</code></Paragraph>
@@ -75,10 +61,15 @@ function Task ({
 }
 
 Task.propTypes = {
+  autoFocus: bool,
+  disabled: bool,
+  latest: shape({
+    annotations: array
+  }),
   task: shape({
     taskKey: string.isRequired
   }).isRequired
 }
 
-export default withStores(Task)
+export default withStores(Task, storeMapper)
 
