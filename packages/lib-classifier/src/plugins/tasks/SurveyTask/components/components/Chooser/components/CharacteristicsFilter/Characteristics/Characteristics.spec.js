@@ -36,14 +36,15 @@ describe('Component > Characteristics', function () {
     })
   })
 
+  /** The translation function will simply return keys in a testing env */
   it('should render a "Clear filters" button', function () {
-    expect(wrapper.find('Button').props().label).to.equal('Clear filters')
+    expect(wrapper.find('Button').props().label).to.equal('SurveyTask.CharacteristicsFilter.clearFilters')
   })
 
   it('should call onFilter when the "Clear filters" button is clicked', function () {
     expect(onFilterSpy).to.have.not.been.called()
 
-    wrapper.find('Button').filterWhere((button) => button.props().label === 'Clear filters').at(0).simulate('click')
+    wrapper.find('Button').filterWhere((button) => button.props().label === 'SurveyTask.CharacteristicsFilter.clearFilters').at(0).simulate('click')
 
     expect(onFilterSpy).to.have.been.calledOnceWith()
   })

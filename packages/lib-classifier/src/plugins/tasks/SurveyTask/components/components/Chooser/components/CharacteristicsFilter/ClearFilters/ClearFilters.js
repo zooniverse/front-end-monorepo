@@ -3,12 +3,7 @@ import { Clear } from 'grommet-icons'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { PlainButton, SpacedText } from '@zooniverse/react-components'
-
-import counterpart from 'counterpart'
-import en from '../locales/en'
-
-counterpart.registerTranslations('en', en)
-
+import { useTranslation } from 'react-i18next'
 
 export default function ClearFilters (props) {
   const {
@@ -16,6 +11,8 @@ export default function ClearFilters (props) {
     showingChoices,
     totalChoices
   } = props
+
+  const { t } = useTranslation('plugins')
 
   return (
     <Box
@@ -27,13 +24,13 @@ export default function ClearFilters (props) {
       pad={{ top: 'xsmall' }}
     >
       <SpacedText>
-        {counterpart('CharacteristicsFilter.showing', { showing: showingChoices, total: totalChoices })}
+        {t('SurveyTask.CharacteristicsFilter.showing', { showing: showingChoices, total: totalChoices })}
       </SpacedText>
       <PlainButton
         disabled={showingChoices === totalChoices}
         icon={<Clear />}
         onClick={() => handleFilter()}
-        text={counterpart('CharacteristicsFilter.clearFilters')}
+        text={t('SurveyTask.CharacteristicsFilter.clearFilters')}
       />
     </Box>
   )

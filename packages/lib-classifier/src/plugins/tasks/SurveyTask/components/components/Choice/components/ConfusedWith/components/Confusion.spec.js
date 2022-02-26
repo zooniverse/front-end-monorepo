@@ -5,7 +5,6 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { task as mockTask } from '@plugins/tasks/SurveyTask/mock-data'
-import en from '../locales/en'
 import Confusion from './Confusion'
 
 const ELAND = mockTask.choices.LND
@@ -81,7 +80,8 @@ describe('Component > Confusion', function () {
         images={mockTask.images}
       />
     )
-    expect(screen.getByRole('button', { name: en.ConfusedWith.cancel })).to.exist()
+    /** The translation function will simply return keys in a testing env */
+    expect(screen.getByRole('button', { name: 'SurveyTask.ConfusedWith.cancel' })).to.exist()
   })
 
   it('should call onClose when the Cancel button is clicked', function () {
@@ -96,7 +96,8 @@ describe('Component > Confusion', function () {
         onClose={onCloseSpy}
       />
     )
-    userEvent.click(screen.getByRole('button', { name: en.ConfusedWith.cancel }))
+    /** The translation function will simply return keys in a testing env */
+    userEvent.click(screen.getByRole('button', { name: 'SurveyTask.ConfusedWith.cancel' }))
     expect(onCloseSpy).to.have.been.calledOnce()
   })
 
@@ -109,7 +110,8 @@ describe('Component > Confusion', function () {
         images={mockTask.images}
       />
     )
-    expect(screen.getByRole('button', { name: en.ConfusedWith.itsThis })).to.exist()
+    /** The translation function will simply return keys in a testing env */
+    expect(screen.getByRole('button', { name: 'SurveyTask.ConfusedWith.itsThis' })).to.exist()
   })
 
   it('should call handleChoice with confusion ID when the "I think it\'s this" button is clicked', function () {
@@ -124,7 +126,8 @@ describe('Component > Confusion', function () {
         images={mockTask.images}
       />
     )
-    userEvent.click(screen.getByRole('button', { name: en.ConfusedWith.itsThis }))
+    /** The translation function will simply return keys in a testing env */
+    userEvent.click(screen.getByRole('button', { name: 'SurveyTask.ConfusedWith.itsThis' }))
     expect(handleChoiceSpy).to.have.been.calledOnceWith('LND')
   })
 })

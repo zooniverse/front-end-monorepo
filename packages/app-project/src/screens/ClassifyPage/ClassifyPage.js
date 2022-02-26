@@ -48,7 +48,8 @@ function ClassifyPage({
   // grouped workflows require a subject set ID
   canClassify = workflowFromUrl?.grouped ? !!subjectSetID : canClassify
   // indexed subject sets require a subject ID
-  canClassify = subjectSetFromUrl?.isIndexed ? !!subjectID : canClassify
+  const isIndexed = subjectSetFromUrl?.metadata.indexFields
+  canClassify = isIndexed ? !!subjectID : canClassify
 
   let classifierProps = {}
   if (canClassify) {

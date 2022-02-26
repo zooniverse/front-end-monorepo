@@ -1,16 +1,13 @@
-import counterpart from 'counterpart'
 import { Box, Text } from 'grommet'
 import { observer } from 'mobx-react'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Markdownz } from '@zooniverse/react-components'
+
 import TaskInput from '../../components/TaskInput'
 import InputIcon from '../../components/InputIcon'
 import Graph2dRangeXIcon from './components/Graph2dRangeXIcon'
-
-import en from './locales/en'
-counterpart.registerTranslations('en', en)
 
 const StyledText = styled(Text)`
   margin: 0;

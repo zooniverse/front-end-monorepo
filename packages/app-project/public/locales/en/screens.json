@@ -12,6 +12,9 @@
     "SidebarHeading": "About"
   },
   "Home": {
+    "AboutProject": {
+      "title": "About {{projectName}}"
+    },
     "Hero": {
       "Introduction": {
         "link": "Learn more"

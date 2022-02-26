@@ -1,13 +1,9 @@
 import { Box, Button } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import CharacteristicSection from './components/CharacteristicSection'
-
-import counterpart from 'counterpart'
-import en from '../locales/en'
-
-counterpart.registerTranslations('en', en)
 
 export default function Characteristics (props) {
   const {
@@ -17,6 +13,8 @@ export default function Characteristics (props) {
     images,
     onFilter
   } = props
+
+  const { t } = useTranslation('plugins')
 
   return (
     <Box
@@ -42,7 +40,7 @@ export default function Characteristics (props) {
         pad='small'
       >
         <Button
-          label={counterpart('CharacteristicsFilter.clearFilters')}
+          label={t('SurveyTask.CharacteristicsFilter.clearFilters')}
           onClick={() => onFilter()}
         />
       </Box>
