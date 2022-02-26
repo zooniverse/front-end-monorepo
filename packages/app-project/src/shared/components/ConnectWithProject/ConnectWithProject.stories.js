@@ -6,80 +6,67 @@ const mockUrls = [
   {
     label: '',
     path: 'test-project',
-    site: 'bitbucket.com',
-    url: 'www.zooniverse.org'
+    site: 'bitbucket.com'
   },
   {
     label: '',
     path: 'test-project',
-    site: 'facebook.com',
-    url: 'www.zooniverse.org'
+    site: 'facebook.com'
   },
   {
     label: '',
     path: 'test-project',
-    site: 'github.com',
-    url: 'www.zooniverse.org'
+    site: 'github.com'
   },
   {
     label: '',
     path: 'test-project',
-    site: 'instagram.com',
-    url: 'www.zooniverse.org'
+    site: 'instagram.com'
   },
   {
     label: '',
     path: 'test-project',
-    site: 'medium.com',
-    url: 'www.zooniverse.org'
+    site: 'medium.com'
   },
   {
     label: '',
     path: 'test-project',
-    site: 'pinterest.com',
-    url: 'www.zooniverse.org'
+    site: 'pinterest.com'
   },
   {
     label: '',
     path: 'test-project',
-    site: 'plus.google.com',
-    url: 'www.zooniverse.org'
+    site: 'plus.google.com'
   },
   {
     label: '',
     path: 'test-project',
-    site: 'reddit.com',
-    url: 'www.zooniverse.org'
+    site: 'reddit.com'
   },
   {
     label: '',
     path: 'test-project',
-    site: 'tumblr.com',
-    url: 'www.zooniverse.org'
+    site: 'tumblr.com'
   },
   {
     label: '',
     path: 'test-project',
-    site: 'twitter.com',
-    url: 'www.zooniverse.org'
+    site: 'twitter.com'
   },
   {
     label: '',
     path: 'test-project',
-    site: 'weibo.com',
-    url: 'www.zooniverse.org'
+    site: 'weibo.com'
   },
   {
     label: '',
     path: 'test-project',
-    site: 'wordpress.com',
-    url: 'www.zooniverse.org'
+    site: 'wordpress.com'
   },
   {
     label: '',
     path: 'test-project',
-    site: 'youtube.com',
-    url: 'www.zooniverse.org'
+    site: 'youtube.com'
   }
 ]
 
@@ -90,7 +77,7 @@ const args = {
 }
 
 export default {
-  title: 'App Project / Shared / ConnectWithProject',
+  title: 'Project App / Shared / ConnectWithProject',
   component: ConnectWithProject,
   args
 }
