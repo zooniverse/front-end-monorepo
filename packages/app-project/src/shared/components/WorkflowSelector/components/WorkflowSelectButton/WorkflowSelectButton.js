@@ -1,16 +1,13 @@
 import { SpacedText, withThemeContext } from '@zooniverse/react-components'
 import { Button } from 'grommet'
-import counterpart from 'counterpart'
 import { Next } from 'grommet-icons'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { bool, func, number, object, shape, string } from 'prop-types'
+import { bool, number, object, shape, string } from 'prop-types'
+import { useTranslation } from 'next-i18next'
+
 import addQueryParams from '@helpers/addQueryParams'
 import theme from './theme'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 export const ThemedButton = withThemeContext(Button, theme)
 
@@ -19,6 +16,7 @@ function WorkflowSelectButton ({
   workflow,
   ...rest }
 ) {
+  const { t } = useTranslation('components')
   const router = useRouter()
   const { owner, project } = router?.query || {}
 
@@ -26,14 +24,14 @@ function WorkflowSelectButton ({
 
   const href = addQueryParams(url, router)
   const completeness = parseInt(workflow.completeness * 100, 10)
-  let workflowStatus = workflow.grouped ? counterpart('WorkflowSelectButton.setSelection') : ''
+  let workflowStatus = workflow.grouped ? t('WorkflowSelector.WorkflowSelectButton.setSelection') : ''
   // indexed workflows use subject selection
-  workflowStatus = workflow.hasIndexedSubjects ? counterpart('WorkflowSelectButton.subjectSelection') : workflowStatus
+  workflowStatus = workflow.hasIndexedSubjects ? t('WorkflowSelector.WorkflowSelectButton.subjectSelection') : workflowStatus
 
   const label = (
     <span>
       <SpacedText size='10px'>
-        {counterpart('WorkflowSelectButton.complete', { completeness })}
+        {t('WorkflowSelector.WorkflowSelectButton.complete', { completeness })}
         {workflowStatus &&
           <>
             &#xB7;
@@ -62,7 +60,7 @@ function WorkflowSelectButton ({
     <Link href={href} passHref>
       <ThemedButton
         completeness={completeness}
-        icon={<Next  size='15px' />}
+        icon={<Next size='15px' />}
         reverse
         label={label}
         primary

@@ -99,7 +99,7 @@
     "message": "You can do real research by clicking to get started here!",
     "noWorkflows": "Nothing to classify",
     "WorkflowSelectButton": {
-      "complete": "%(completeness)s%% complete",
+      "complete": "{{completeness}}% complete",
       "setSelection": "set selection",
       "subjectSelection": "subject selection"
     },

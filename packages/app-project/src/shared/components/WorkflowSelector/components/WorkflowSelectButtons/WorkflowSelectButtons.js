@@ -1,12 +1,10 @@
 import { Box } from 'grommet'
 import { SpacedText } from '@zooniverse/react-components'
-import WorkflowSelectButton from '../WorkflowSelectButton'
-import en from './locales/en'
-import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
+import { useTranslation } from 'next-i18next'
 
-counterpart.registerTranslations('en', en)
+import WorkflowSelectButton from '../WorkflowSelectButton'
 
 function WorkflowSelectButtons ({
   assignedWorkflowID = '',
@@ -20,6 +18,8 @@ function WorkflowSelectButtons ({
   },
   workflows = []
 }) {
+  const { t } = useTranslation('components')
+
   const listStyle = {
     gap: theme.global.edgeSize[gap],
     listStyle: 'none'
@@ -65,7 +65,7 @@ function WorkflowSelectButtons ({
           margin={{ top: 'small' }}
           width={{ max: 'medium' }}
         >
-          <SpacedText>{counterpart('WorkflowSelectButtons.unlocked')}</SpacedText>
+          <SpacedText>{t('WorkflowSelector.WorkflowSelectButtons.unlocked')}</SpacedText>
           <Box
             as="ul"
             pad='none'
@@ -88,7 +88,7 @@ function WorkflowSelectButtons ({
           margin={{ top: 'small' }}
           width={{ max: 'medium' }}
         >
-          <SpacedText>{counterpart('WorkflowSelectButtons.locked')}</SpacedText>
+          <SpacedText>{t('WorkflowSelector.WorkflowSelectButtons.locked')}</SpacedText>
           <Box
             as="ul"
             pad='none'
@@ -108,7 +108,6 @@ function WorkflowSelectButtons ({
       </>
     )
   }
-
 
   return (
     <Box
