@@ -1,19 +1,15 @@
-import { Modal, PlainButton, SpacedText } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
+import { PlainButton, SpacedText } from '@zooniverse/react-components'
 import { debounce } from 'lodash'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { array, bool, func, number, shape, string } from 'prop-types'
+import { array, bool, number, shape, string } from 'prop-types'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Box, DataTable, Heading, Paragraph } from 'grommet'
+import { useTranslation } from 'next-i18next'
 
 import addQueryParams from '@helpers/addQueryParams'
-
 import { columns, fetchStatuses, fetchSubjects, searchParams } from './helpers'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 /*
   Grommet is opinionated about line-height and links it to font-size.
@@ -50,6 +46,7 @@ export const SubjectDataTable = styled(DataTable)`
 const PAGE_SIZE = 10
 
 export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
+  const { t } = useTranslation('components')
   const router = useRouter()
   const [ rows, setRows ] = useState([])
   const [ query, setQuery ] = useState('')
@@ -73,7 +70,7 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
     const subjects = await fetchSubjects(subjectSet.id, query, sortField, sortOrder)
     setRows(subjects)
     setIsFetching(false)
-    await fetchStatuses(subjects, workflow, PAGE_SIZE, setRows)
+    await fetchStatuses(setRows, PAGE_SIZE, subjects, t, workflow)
   }
 
   useEffect(function onChange() {
@@ -119,19 +116,19 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
         passHref
       >
         <PlainButton
-          text={counterpart('SubjectPicker.back')}
+          text={t('SubjectPicker.back')}
         />
       </Link>
       <StyledHeading
         level={3}
         margin={{ top: 'xsmall', bottom: 'none' }}
       >
-        {counterpart('SubjectPicker.heading')}
+        {t('SubjectPicker.heading')}
       </StyledHeading>
       <Paragraph
         margin={textMargin}
       >
-        {counterpart('SubjectPicker.byline')}
+        {t('SubjectPicker.byline')}
       </Paragraph>
       <StyledBox
         background='brand'
@@ -169,7 +166,7 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
         step={PAGE_SIZE}
       />
       {isFetching && (
-        <Paragraph textAlign="center">{counterpart('SubjectPicker.fetching')}</Paragraph>
+        <Paragraph textAlign="center">{t('SubjectPicker.fetching')}</Paragraph>
       )}
     </>
   )

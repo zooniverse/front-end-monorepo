@@ -81,6 +81,23 @@
       "underReview": "under review"
     }
   },
+  "SubjectPicker": {
+    "back": "Choose a different subject set",
+    "heading": "Choose a subject to get started",
+    "byline": "Sort the list by clicking column names. You will see subjects sequentially, starting with the one you choose.",
+    "alreadySeen": "Already seen",
+    "retired": "Retired",
+    "unclassified": "Available",
+    "fetching": "Please wait..."
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "Add to collections"
+    },
+    "TalkLink": {
+      "label": "Discuss on Talk"
+    }
+  },
   "ThemeModeToggle": {
     "switchToDark": "Switch to dark theme",
     "switchToLight": "Switch to light theme"
