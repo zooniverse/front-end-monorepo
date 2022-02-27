@@ -1,14 +1,8 @@
-import counterpart from 'counterpart'
-import { array, bool, func, node, number, shape, string } from 'prop-types'
-import { createRef } from 'react';
+import { array, bool, func, node, shape, string } from 'prop-types'
+import { createRef } from 'react'
 import { Anchor, Box } from 'grommet'
 import { FavouritesButton, Media } from '@zooniverse/react-components'
 import { CollectionsButton, TalkLink } from './components'
-
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 const defaultSubject = {
   favorite: false,
