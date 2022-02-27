@@ -1,16 +1,12 @@
-import { panoptes } from '@zooniverse/panoptes-js'
 import { Media, SpacedText } from '@zooniverse/react-components'
 import { Box, Paragraph, Text } from 'grommet'
 import getConfig from 'next/config'
 import { array, number, string } from 'prop-types'
 import styled, { css } from 'styled-components'
-
-import counterpart from 'counterpart'
-import en from './locales/en'
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'next-i18next'
 
 const PossiblyTransparentBox = styled(Box)`
-  ${props => css`opacity: ${(props.isComplete) ? '0.5' : '1.0' };`}
+  ${props => css`opacity: ${(props.isComplete) ? '0.5' : '1.0'};`}
 `
 
 /**
@@ -23,6 +19,7 @@ function SubjectSetCard ({
   set_member_subjects_count,
   subjects = []
 }) {
+  const { t } = useTranslation('components')
   const [subject] = subjects
   const { publicRuntimeConfig = {} } = getConfig() || {}
   const assetPrefix = publicRuntimeConfig.assetPrefix || ''
@@ -60,7 +57,7 @@ function SubjectSetCard ({
           <SpacedText
             weight="normal"
           >
-            {counterpart('SubjectSetCard.isComplete')}
+            {t('SubjectSetPicker.SubjectSetCard.isComplete')}
           </SpacedText>
         )}
 
@@ -83,7 +80,7 @@ function SubjectSetCard ({
             {`${set_member_subjects_count} subjects`}
           </Text>
 
-          <br/>
+          <br />
 
           {(!isComplete) && (
             <Text
