@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "superagent": "~7.1.1",
-    "url-parse": "~1.5.1"
+    "url-parse": "1.5.10"
   },
   "devDependencies": {
     "@zooniverse/standard": "~1.0.0",
