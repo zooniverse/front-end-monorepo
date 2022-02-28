@@ -4,7 +4,7 @@
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "repository": "github:zooniverse/front-end-monorepo",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "src/index.js",
   "scripts": {
     "lint": "zoo-standard --fix | snazzy",
