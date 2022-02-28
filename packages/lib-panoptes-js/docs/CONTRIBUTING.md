@@ -27,4 +27,4 @@ This project adheres to [Semantic Versioning](http://semver.org/), and follows t
 
  ## Publishing
 
- TODO: write docs about publishing to NPM 
+Instructions on publishing to npm can be found [here](https://github.com/zooniverse/front-end-monorepo/README.md).
