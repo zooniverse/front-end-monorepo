@@ -1,12 +1,6 @@
-import counterpart from 'counterpart'
 import { Box, Stack } from 'grommet'
 import { inject } from 'mobx-react'
-import { func, shape, string } from 'prop-types'
 import { Component } from 'react'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 function storeMapper (stores) {
   const { isLoggedIn } = stores.store.user
@@ -29,7 +23,8 @@ function withRequireUser (WrappedComponent) {
               justify='center'
             >
               <Box background='white' elevation='small' pad='medium'>
-                {counterpart('RequireUser.text')}
+                {/* {counterpart('RequireUser.text')} */}
+                Text
               </Box>
             </Box>
           )}

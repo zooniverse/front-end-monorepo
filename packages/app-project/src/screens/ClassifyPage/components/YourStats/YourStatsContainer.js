@@ -1,40 +1,27 @@
-import { inject, observer } from 'mobx-react'
-import { object, string } from 'prop-types'
-import { Component } from 'react'
+import { MobXProviderContext, observer } from 'mobx-react'
+import { useContext } from 'react'
 
 import YourStats from './YourStats'
 import withRequireUser from '@shared/components/withRequireUser'
 
-function storeMapper (stores) {
-  const { project, user: { personalization: { counts } } } = stores.store
+function useStoreContext(stores) {
+  const { store } = stores || useContext(MobXProviderContext)
+  const {
+    project,
+    user: {
+      personalization: { counts }
+    }
+  } = store
   return {
     counts,
     projectName: project['display_name']
   }
 }
 
-class YourStatsContainer extends Component {
-  render () {
-    const { counts, projectName } = this.props
-    return (
-      <YourStats
-        counts={counts}
-        projectName={projectName}
-      />
-    )
-  }
+function YourStatsContainer({ stores }) {
+  const { counts, projectName } = useStoreContext(stores)
+  return <YourStats counts={counts} projectName={projectName} />
 }
 
-YourStatsContainer.propTypes = {
-  counts: object,
-  projectName: string
-}
-
-@inject(storeMapper)
-@withRequireUser
-@observer
-class DecoratedYourStatsContainer extends YourStatsContainer { }
-
-export default DecoratedYourStatsContainer
-
+export default withRequireUser(observer(YourStatsContainer))
 export { YourStatsContainer }
