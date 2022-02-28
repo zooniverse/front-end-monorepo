@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { getRoot, tryReference, types } from 'mobx-state-tree'
 import Resource from '@store/Resource'
 
 const Tutorial = types
@@ -10,6 +10,29 @@ const Tutorial = types
       content: types.maybe(types.string),
       media: types.maybe(types.string)
     }))
+  })
+
+  .actions(self => {
+    return {
+      setSeenTime() {
+        const uppStore = getRoot(self).userProjectPreferences
+        const upp = tryReference(() => uppStore.active)
+
+        const seen = new Date().toISOString()
+        if (self.kind === 'tutorial' || self.kind === null) {
+          if (upp) {
+            const changes = {
+              preferences: {
+                tutorials_completed_at: {
+                  [self.id]: seen
+                }
+              }
+            }
+            uppStore.updateUPP(changes)
+          }
+        }
+      }
+    }
   })
 
 export default types.compose('TutorialResource', Resource, Tutorial)
