@@ -23,10 +23,18 @@ export default async function getStaticPageProps({ params, query }) {
     }
   }
 
-  const { workflowID } = params
+  let { workflowID } = params
   const { project } = getSnapshot(store)
   const language = project.primary_language
-  const { active_workflows, default_workflow } = project.links
+  const { active_workflows } = project.links
+
+  /*
+  if workflowID is not defined in the URL params, but there is only one active workflow, then set the single active workflow as the workflowID
+  */
+  if (!workflowID && active_workflows?.length === 1) {
+    workflowID = active_workflows[0]
+  }
+
   const workflowOrder = project.configuration?.workflow_order || []
   /*
     Validate any workflow URLs
