@@ -12994,13 +12994,13 @@ pako@~1.0.5:
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
 panoptes-client@~3.3.2, panoptes-client@~3.3.4:
-  version "3.3.4"
-  resolved "https://registry.yarnpkg.com/panoptes-client/-/panoptes-client-3.3.4.tgz#a06068487f9adde640ea3ff7a28f047e284e89eb"
-  integrity sha512-37ZxdLBUkTBmo/eoCyVYijvsnvnCXt9lzKfwbVKFmYlMCSujlDBmHIb4lKSiaKd3Jg3r19NqGiqTQF1ZO4U5pg==
+  version "3.3.5"
+  resolved "https://registry.yarnpkg.com/panoptes-client/-/panoptes-client-3.3.5.tgz#d6153ed0e71237f1e0a80c1016733613fc9e629c"
+  integrity sha512-G4TC/1Xma/7LvVABsFJGL1BfPm5CVKlCG/e7ZAKGyljrFl9CcUphU2AcoOsAWm6G7n2npMaGdeznzmElD8oETw==
   dependencies:
     json-api-client "~5.0.0"
     local-storage "^1.4.2"
-    sugar-client "^1.1.0"
+    sugar-client "^2.0.0"
 
 parallel-transform@^1.1.0:
   version "1.2.0"
@@ -15867,10 +15867,10 @@ sudo-prompt@^8.2.0:
   resolved "https://registry.yarnpkg.com/sudo-prompt/-/sudo-prompt-8.2.5.tgz#cc5ef3769a134bb94b24a631cc09628d4d53603e"
   integrity sha512-rlBo3HU/1zAJUrkY6jNxDOC9eVYliG6nS4JA8u8KAshITd07tafMc/Br7xQwCSseXwJ2iCcHCE8SNWX3q8Z+kw==
 
-sugar-client@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/sugar-client/-/sugar-client-1.1.0.tgz#58ce90cecb1aa226dbe9a34acb434b96d8341e15"
-  integrity sha512-/1fgJcTUQPUw4hrT/AXpI4iVdsoXIIgVrbj3mPGMJWD00JHtWna5KmKyeoqNKSCO672UK+5Cc9/B53UfzthbwA==
+sugar-client@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/sugar-client/-/sugar-client-2.0.0.tgz#2dd8158a331c54c08307d14b8abb4b0012d90d1c"
+  integrity sha512-87RfgwzyiQrA77lsBGYFPjHbDVzkcSl5aiubz3n7qPOwf9LLNKe+PvtlNf0bnFS63+gGWe6r8A18iaKLBthw1w==
 
 superagent@^3.8.3:
   version "3.8.3"
