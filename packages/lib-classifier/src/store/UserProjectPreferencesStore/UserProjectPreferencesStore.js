@@ -124,7 +124,6 @@ const UserProjectPreferencesStore = types
     function * updateUPP (changes) {
       const upp = tryReference(() => self.active)
       if (upp) {
-        self.loadingState = asyncStates.putting
         const uppSnapshot = getSnapshot(upp)
         try {
           if (self.headers.etag) {
@@ -158,6 +157,7 @@ const UserProjectPreferencesStore = types
         }
         const { id, preferences } = upp
         try {
+          self.loadingState = asyncStates.putting
           const response = yield client.put(`/${type}/${id}`, { [type]: { preferences } }, headers)
           if (response.body[type][0]) {
             self.headers = response.headers
