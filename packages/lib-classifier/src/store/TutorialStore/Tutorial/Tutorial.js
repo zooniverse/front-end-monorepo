@@ -1,3 +1,4 @@
+import asyncStates from '@zooniverse/async-states'
 import { getRoot, tryReference, types } from 'mobx-state-tree'
 import Resource from '@store/Resource'
 
@@ -11,6 +12,24 @@ const Tutorial = types
       media: types.maybe(types.string)
     }))
   })
+
+  .views( self => ({
+    get hasNotBeenSeen() {
+      const uppStore = getRoot(self).userProjectPreferences
+      const upp = tryReference(() => getRoot(self).userProjectPreferences.active)
+
+      if (uppStore?.loadingState !== asyncStates.success) {
+        return false
+      }
+
+      if (upp) {
+        const seenTime = upp.preferences.tutorials_completed_at?.[self.id]
+        return !(seenTime)
+      }
+
+      return true
+    },
+  }))
 
   .actions(self => {
     return {
