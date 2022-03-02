@@ -1,15 +1,12 @@
 import { Tab, Tabs } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { Box } from 'grommet'
-import { bool, func, object, shape, string } from 'prop-types'
+import { bool, func, shape, string } from 'prop-types'
 import queryString from 'query-string'
 import React, { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { DisabledTaskPopup, Tasks } from './components'
-import en from './locales/en'
 import SlideTutorial from '../SlideTutorial'
-
-counterpart.registerTranslations('en', en)
 
 // TODO: add autofocus for the first tab/task area
 /**
@@ -27,6 +24,7 @@ export default function TaskArea({
     hasIndexedSubjects: false
   }
 }) {
+  const { t } = useTranslation('components')
   const [ activeIndex, setActiveIndex ] = useState(0)
   const [ disabled, setDisabled ] = useState(false)
   const taskArea = useRef(null)
@@ -70,7 +68,7 @@ export default function TaskArea({
         flex
       >
         <Tab
-          title={counterpart('TaskArea.task')}
+          title={t('TaskArea.task')}
         >
           <Box
             ref={taskArea}
@@ -83,7 +81,7 @@ export default function TaskArea({
         </Tab>
         <Tab
           disabled={disabled || disableTutorialTab}
-          title={counterpart('TaskArea.tutorial')}
+          title={t('TaskArea.tutorial')}
         >
           <Box>
             <SlideTutorial onClick={onClose} pad='none' />
