@@ -23,17 +23,22 @@ export default async function getStaticPageProps({ params, query }) {
     }
   }
 
-  let { workflowID } = params
+  /*
+    workflowID is defined:
+      1. per URL param, or if no URL param...
+      2. as a project's single active workflow,
+        or if multiple active workflows,
+        or if no active workflows...
+      3. as undefined
+  */
+  const workflowID = params?.workflowID || store?.project?.defaultWorkflow
+  /*
+     snapshots don't include computed values, like defaultWorkflow,
+     which is why when determining workflowID, defaultWorkflow is not determined from the following project snapshot
+  */
   const { project } = getSnapshot(store)
   const language = project.primary_language
   const { active_workflows } = project.links
-
-  /*
-  if workflowID is not defined in the URL params, but there is only one active workflow, then set the single active workflow as the workflowID
-  */
-  if (!workflowID && active_workflows?.length === 1) {
-    workflowID = active_workflows[0]
-  }
 
   const workflowOrder = project.configuration?.workflow_order || []
   /*
