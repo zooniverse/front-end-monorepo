@@ -53,11 +53,10 @@ async function fetchDisplayNames (language, activeWorkflows, env) {
   return displayNames
 }
 
-async function buildWorkflow(workflow, displayName, isDefault, env) {
+async function buildWorkflow(workflow, displayName, env) {
   const workflowData = {
     completeness: workflow.completeness || 0,
     configuration: workflow.configuration,
-    default: isDefault,
     displayName,
     grouped: workflow.grouped,
     id: workflow.id,
@@ -112,9 +111,8 @@ async function fetchWorkflowsHelper(
   const displayNames = await fetchDisplayNames(language, workflowIds, env)
 
   const awaitWorkflows = activeWorkflows.map(workflow => {
-    const isDefault = activeWorkflows.length === 1
     const displayName = displayNames[workflow.id] || workflow.display_name
-    return buildWorkflow(workflow, displayName, isDefault, env)
+    return buildWorkflow(workflow, displayName, env)
   })
   const workflowStatuses = await Promise.allSettled(awaitWorkflows)
   const workflowsWithSubjectSets = workflowStatuses.map(result => result.value || result.reason)
