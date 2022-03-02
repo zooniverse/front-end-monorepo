@@ -31,6 +31,12 @@ export default async function getStaticPageProps({ params, query }) {
         or if no active workflows...
       3. as undefined
   */
+
+  /*
+    project?.defaultWorkflow = project's single active workflow, if applicable,
+      NOT a project's default workflow as defined by project.configuration.default_workflow
+  */
+
   const workflowID = params?.workflowID || store?.project?.defaultWorkflow
   /*
      snapshots don't include computed values, like defaultWorkflow,
