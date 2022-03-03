@@ -129,6 +129,9 @@
     "viewMoreStats": "View more stats",
     "volunteers": "Volunteers"
   },
+  "RequireUser": {
+    "text": "You need to be signed in!"
+  },
   "ThemeModeToggle": {
     "switchToDark": "Switch to dark theme",
     "switchToLight": "Switch to light theme"
