@@ -1,10 +1,6 @@
-import counterpart from 'counterpart'
 import { Box, Button, FormField, Grid, Select } from 'grommet'
 import PropTypes from 'prop-types'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'next-i18next'
 
 function SelectCollection ({
   collections,
@@ -14,6 +10,7 @@ function SelectCollection ({
   onSubmit,
   selected
 }) {
+  const { t } = useTranslation('components')
   const dropProps = {
     trapFocus: false
   }
@@ -29,7 +26,7 @@ function SelectCollection ({
     >
       <FormField
         htmlFor='collectionsSearch'
-        label={counterpart('SelectCollection.label')}
+        label={t('CollectionsModal.SelectCollection.label')}
       >
         <Select
           dropHeight='medium'
@@ -55,7 +52,7 @@ function SelectCollection ({
       >
         <Button
           disabled={disabled}
-          label={counterpart('SelectCollection.addButton')}
+          label={t('CollectionsModal.SelectCollection.addButton')}
           type='submit'
         />
       </Box>
