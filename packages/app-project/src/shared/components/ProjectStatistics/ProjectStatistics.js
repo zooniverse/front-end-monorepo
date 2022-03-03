@@ -1,16 +1,13 @@
-import counterpart from 'counterpart'
 import { Text, Paragraph } from 'grommet'
 import { number, object, string } from 'prop-types'
 import styled from 'styled-components'
+import { useTranslation } from 'next-i18next'
 
-import en from './locales/en'
 import CompletionBar from './components/CompletionBar'
 import MainGrid from './components/MainGrid'
 import Subtitle from './components/Subtitle'
 import ContentBox from '../ContentBox'
 import Stat from '../Stat'
-
-counterpart.registerTranslations('en', en)
 
 const NumbersGrid = styled.div`
   display: grid;
@@ -25,6 +22,7 @@ const StyledParagraph = styled(Paragraph)`
 `
 
 function ProjectStatistics (props) {
+  const { t } = useTranslation('components')
   const {
     className,
     classifications,
@@ -38,45 +36,45 @@ function ProjectStatistics (props) {
   return (
     <ContentBox
       className={className}
-      linkLabel={counterpart('ProjectStatistics.viewMoreStats')}
+      linkLabel={t('ProjectStatistics.viewMoreStats')}
       linkProps={linkProps}
-      title={counterpart('ProjectStatistics.title', { projectName })}
+      title={t('ProjectStatistics.title', { projectName })}
     >
       <MainGrid>
         <section>
-          <Subtitle text={counterpart('ProjectStatistics.subtitle')} />
+          <Subtitle text={t('ProjectStatistics.subtitle')} />
           <StyledParagraph
             margin={{ bottom: 'small', top: 'none' }}
             size='medium'
           >
-            {counterpart('ProjectStatistics.text', { projectName })}
+            {t('ProjectStatistics.text', { projectName })}
           </StyledParagraph>
           <CompletionBar />
           <Text margin={{ top: 'small' }} size='small' weight='bold'>
-            {counterpart('ProjectStatistics.percentComplete')}
+            {t('ProjectStatistics.percentComplete')}
           </Text>
         </section>
         <section>
           <Subtitle
-            text={counterpart('ProjectStatistics.byTheNumbers')}
+            text={t('ProjectStatistics.byTheNumbers')}
             margin={{ bottom: 'small', top: 'none' }}
           />
           <NumbersGrid>
             <Stat
               value={volunteers}
-              label={counterpart('ProjectStatistics.volunteers')}
+              label={t('ProjectStatistics.volunteers')}
             />
             <Stat
               value={classifications}
-              label={counterpart('ProjectStatistics.classifications')}
+              label={t('ProjectStatistics.classifications')}
             />
             <Stat
               value={subjects}
-              label={counterpart('ProjectStatistics.subjects')}
+              label={t('ProjectStatistics.subjects')}
             />
             <Stat
               value={completedSubjects}
-              label={counterpart('ProjectStatistics.completedSubjects')}
+              label={t('ProjectStatistics.completedSubjects')}
             />
           </NumbersGrid>
         </section>

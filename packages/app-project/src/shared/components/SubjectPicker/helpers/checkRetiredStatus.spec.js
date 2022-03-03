@@ -6,6 +6,7 @@ describe('Components > Subject Picker > helpers > checkRetiredStatus', function 
 
   before(async function () {
     const subject_ids = ['1', '2', '3']
+    const t = (key) => key
     const workflow = {
       id: '1'
     }
@@ -19,18 +20,18 @@ describe('Components > Subject Picker > helpers > checkRetiredStatus', function 
         { id: 3, already_seen: true, retired: true }
       ]
     })
-    retirementStatuses = await checkRetiredStatus(subject_ids, workflow)
+    retirementStatuses = await checkRetiredStatus(subject_ids, t, workflow)
   })
 
   it('should set the status of unclassified subjects', function () {
-    expect(retirementStatuses['1']).to.equal('Available')
+    expect(retirementStatuses['1']).to.equal('SubjectPicker.unclassified')
   })
 
   it('should set the status of seen subjects', function () {
-    expect(retirementStatuses['2']).to.equal('Already seen')
+    expect(retirementStatuses['2']).to.equal('SubjectPicker.alreadySeen')
   })
 
   it('should set the status of retired subjects', function () {
-    expect(retirementStatuses['3']).to.equal('Retired')
+    expect(retirementStatuses['3']).to.equal('SubjectPicker.retired')
   })
 })

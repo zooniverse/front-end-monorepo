@@ -1,13 +1,11 @@
 import asyncStates from '@zooniverse/async-states'
 import { Markdownz, SpacedText } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { Box, Paragraph, Text } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
+import { useTranslation } from 'next-i18next'
+
 import Loader from '../Loader'
 import WorkflowSelectButtons from './components/WorkflowSelectButtons'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 const markdownzComponents = {
   p: nodeProps => <Paragraph {...nodeProps} margin='none' />
@@ -21,12 +19,13 @@ function WorkflowSelector ({
   workflowDescription = '',
   workflows
 }) {
-  const workflowDescriptionToRender = workflowDescription || counterpart('WorkflowSelector.message')
+  const { t } = useTranslation('components')
+  const workflowDescriptionToRender = workflowDescription || t('WorkflowSelector.message')
 
   return (
     <Box>
       <SpacedText weight='bold' margin={{ bottom: 'xsmall' }}>
-        {counterpart('WorkflowSelector.getStarted')}
+        {t('WorkflowSelector.getStarted')}
       </SpacedText>
       <Markdownz components={markdownzComponents}>
         {workflowDescriptionToRender}
@@ -38,7 +37,7 @@ function WorkflowSelector ({
           justify='center'
           margin={{ top: 'small' }}
         >
-          {counterpart('WorkflowSelector.error')}
+          {t('WorkflowSelector.error')}
         </Box>
       )}
 
@@ -59,7 +58,7 @@ function WorkflowSelector ({
           {(workflows.length === 0) && (
             <Box background='accent-2' pad='xsmall' width={{ max: 'medium' }}>
               <Text size='small' textAlign='center'>
-                {counterpart('WorkflowSelector.noWorkflows')}
+                {t('WorkflowSelector.noWorkflows')}
               </Text>
             </Box>
           )}
@@ -87,8 +86,8 @@ WorkflowSelector.propTypes = {
   workflowDescription: string,
   /** Summaries of active workflows with workflow name, completeness etc. */
   workflows: arrayOf(shape({
-      id: string.isRequired
-    }).isRequired).isRequired
+    id: string.isRequired
+  }).isRequired).isRequired
 }
 
 export default WorkflowSelector

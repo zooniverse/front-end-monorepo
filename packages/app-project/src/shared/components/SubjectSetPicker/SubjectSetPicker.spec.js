@@ -1,12 +1,9 @@
-import { SpacedText } from '@zooniverse/react-components'
 import { shallow } from 'enzyme'
-import { Button, Paragraph } from 'grommet'
+import { Paragraph } from 'grommet'
 import Link from 'next/link'
-import sinon from 'sinon'
 
-import SubjectSetPicker, { BackButton, StyledHeading } from './SubjectSetPicker'
+import SubjectSetPicker, { StyledHeading } from './SubjectSetPicker'
 import SubjectSetCard from './components/SubjectSetCard'
-import en from './locales/en'
 import { mockWorkflow } from './helpers'
 
 describe('Component > SubjectSetPicker', function () {
@@ -30,7 +27,8 @@ describe('Component > SubjectSetPicker', function () {
     })
 
     it('should contain the heading text', function () {
-      expect(heading.children().first().text()).to.equal(en.SubjectSetPicker.heading)
+      expect(heading.children().first().text()).to.equal('SubjectSetPicker.heading')
+      /** The translation function will simply return keys in a testing env */
     })
 
     it('should have an xsmall top margin', function () {
@@ -50,7 +48,8 @@ describe('Component > SubjectSetPicker', function () {
     })
 
     it('should contain the byline text', function () {
-      expect(description.children().first().text()).to.equal(en.SubjectSetPicker.byline)
+      expect(description.children().first().text()).to.equal('SubjectSetPicker.byline')
+      /** The translation function will simply return keys in a testing env */
     })
 
     it('should have a small top margin', function () {
