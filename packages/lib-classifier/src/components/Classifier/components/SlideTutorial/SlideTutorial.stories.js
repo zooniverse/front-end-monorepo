@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 
@@ -16,7 +15,6 @@ const config = {
   }
 }
 
-const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault })
 
 const media = [
   TutorialMediumFactory.build({
@@ -92,12 +90,12 @@ export function Tablet({ dark, onClick, projectDisplayName, steps, stepWithMediu
     <Grommet theme={theme}>
       <Box height='medium' width='large'>
         <SlideTutorial
-          height={'100%'}
+          height='100%'
           onClick={onClick}
           projectDisplayName={projectDisplayName}
           steps={steps}
           stepWithMedium={stepWithMedium}
-          width={'100%'}
+          width='100%'
         />
       </Box>
     </Grommet>
