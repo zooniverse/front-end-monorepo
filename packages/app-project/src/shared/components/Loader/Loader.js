@@ -2,17 +2,15 @@ import PropTypes from 'prop-types'
 import { Bars } from 'svg-loaders-react'
 import { Box } from 'grommet'
 import { withTheme } from 'styled-components'
-import counterpart from 'counterpart'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'next-i18next'
 
 function Loader(props) {
+  const { t } = useTranslation('components')
   const {
     background = '',
     color = '',
     height = 'xxsmall',
-    loadingMessage = counterpart('Loader.loading'),
+    loadingMessage = t('Loader.loading'),
     margin = '',
     pad = '',
     theme: {

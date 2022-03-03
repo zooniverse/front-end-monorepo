@@ -56,10 +56,46 @@
       "usernamePlaceholder": "e.g. ZooniverseFan123"
     }
   },
+  "CollectionsModal": {
+    "title": "Add to collection",
+    "CreateCollection": {
+      "label": "Create a new collection",
+      "createButton": "Create and add",
+      "private": "Private collection"
+    },
+    "SelectCollection": {
+      "label": "Add to an existing collection",
+      "addButton": "Add"
+    }
+  },
+  "ConnectWithProject": {
+    "title": "Connect with {{projectName}}",
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "instagram": "Instagram",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "googleplus": "Google+",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "Website",
+        "weibo": "Weibo",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    }
+  },
   "Head": {
     "defaultDescription": "The Zooniverse is the world’s largest and most popular platform for people-powered research.",
     "defaultTitle": "Projects",
     "siteName": "Zooniverse - People-powered research"
+  },
+  "Loader": {
+    "loading": "Loading"
   },
   "ProjectHeader": {
     "about": "About",
@@ -80,6 +116,21 @@
     "UnderReviewLabel": {
       "underReview": "under review"
     }
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "By the numbers",
+    "classifications": "Classifications",
+    "completedSubjects": "Completed subjects",
+    "percentComplete": "Percent complete",
+    "subjects": "Subjects",
+    "subtitle": "Keep track of the progress you and your fellow volunteers have made on this project.",
+    "text": "Every click counts! Join {{projectName}}'s community to complete this project and help researchers produce important results. Click \"View more stats\" to see even more stats.",
+    "title": "{{projectName}} Statistics",
+    "viewMoreStats": "View more stats",
+    "volunteers": "Volunteers"
+  },
+  "RequireUser": {
+    "text": "You need to be signed in!"
   },
   "SubjectPicker": {
     "back": "Choose a different subject set",

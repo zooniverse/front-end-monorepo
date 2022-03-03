@@ -2,14 +2,11 @@ import asyncStates from '@zooniverse/async-states'
 import { Box, Paragraph } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import Task from './components/Task'
 import TaskHelp from './components/TaskHelp'
 import TaskNavButtons from './components/TaskNavButtons'
-import en from './locales/en'
-import counterpart from 'counterpart'
-
-counterpart.registerTranslations('en', en)
 
 /**
 The classifier tasks area. It displays tasks for the active step, along with task help (if any) and navigation buttons to go to the next/previous step, or submit the classification.
@@ -24,16 +21,18 @@ export default function Tasks({
   subjectReadyState,
   step
 }) {
+  const { t } = useTranslation('components')
+
   switch (loadingState) {
     case asyncStates.initialized: {
       return null
     }
     case asyncStates.loading: {
-      return (<Paragraph>{counterpart('Tasks.loading')}</Paragraph>)
+      return (<Paragraph>{t('TaskArea.Tasks.loading')}</Paragraph>)
     }
     case asyncStates.error: {
       console.error('There was an error loading the workflow steps and tasks.')
-      return (<Paragraph>{counterpart('Tasks.error')}</Paragraph>)
+      return (<Paragraph>{t('TaskArea.Tasks.error')}</Paragraph>)
     }
     case asyncStates.success: {
       const ready = subjectReadyState === asyncStates.success
@@ -51,7 +50,7 @@ export default function Tasks({
             justify='between'
             fill
           >
-            {step.tasks.map((task,index) => (
+            {step.tasks.map((task, index) => (
               <Task
                 autoFocus={index === 0}
                 disabled={disabled || !ready}
@@ -63,7 +62,7 @@ export default function Tasks({
             <TaskNavButtons disabled={disabled || !ready || !isComplete} />
             {demoMode &&
               <Paragraph>
-                {counterpart('Tasks.demoMode')}
+                {t('TaskArea.Tasks.demoMode')}
               </Paragraph>}
           </Box>
         )
@@ -84,7 +83,7 @@ Tasks.propTypes = {
   disabled: PropTypes.bool,
   /** Are these tasks complete, so that we can go to the next step. */
   isComplete: PropTypes.bool,
-   /** show a help button for these tasks */
+  /** show a help button for these tasks */
   isThereTaskHelp: PropTypes.bool,
   /** The workflow loading state */
   loadingState: PropTypes.oneOf(asyncStates.values),
