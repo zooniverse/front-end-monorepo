@@ -13,7 +13,6 @@ const TutorialStore = types
     activeStep: types.optional(types.integer, 0),
     attachedMedia: types.map(Medium),
     resources: types.map(Tutorial),
-    tutorialSeenTime: types.maybe(types.string),
     type: types.optional(types.string, 'tutorials')
   })
 
@@ -64,32 +63,6 @@ const TutorialStore = types
       return null
     },
 
-    get hasNotSeenTutorialBefore () {
-      const uppStore = getRoot(self).userProjectPreferences
-      const upp = tryReference(() => getRoot(self).userProjectPreferences.active)
-      const tutorial = tryReference(() => self.active)
-
-      if (uppStore?.loadingState !== asyncStates.success || !tutorial) {
-        return false
-      }
-
-      if (upp && tutorial) {
-        return !(upp.preferences.tutorials_completed_at?.[tutorial.id])
-      }
-
-      return true
-    },
-
-    get tutorialLastSeen () {
-      const upp = tryReference(() => getRoot(self).userProjectPreferences.active)
-      const { tutorial } = self
-      if (upp && upp.preferences.tutorials_completed_at && tutorial) {
-        return upp.preferences.tutorials_completed_at[tutorial.id]
-      }
-
-      return null
-    },
-
     isMiniCourseCompleted (lastStepSeen) {
       const { miniCourse } = self
 
@@ -100,20 +73,16 @@ const TutorialStore = types
   }))
 
   .actions(self => {
-    function afterAttach () {
-      createWorkflowObserver()
+    function _onWorkflowChange() {
+      const workflow = tryReference(() => getRoot(self).workflows.active)
+      if (workflow) {
+        self.reset()
+        self.fetchTutorials()
+      }
     }
 
-    function createWorkflowObserver () {
-      const workflowDisposer = autorun(() => {
-        const workflow = tryReference(() => getRoot(self).workflows.active)
-        if (workflow) {
-          self.reset()
-          self.resetSeen()
-          self.fetchTutorials()
-        }
-      }, { name: 'Tutorial Store Workflow Observer autorun' })
-      addDisposer(self, workflowDisposer)
+    function afterAttach () {
+      addDisposer(self, autorun(_onWorkflowChange))
     }
 
     const fetchMedia = flow(function * fetchMedia (tutorial) {
@@ -177,29 +146,7 @@ const TutorialStore = types
 
       if (tutorialID !== tutorial?.id){
         self.active = tutorialID
-        self.setSeenTime()
         return
-      }
-    }
-
-    function setSeenTime () {
-      const uppStore = getRoot(self).userProjectPreferences
-      const upp = tryReference(() => uppStore.active)
-      const tutorial = tryReference(() => self.active)
-
-      const seen = new Date().toISOString()
-      if (tutorial?.kind === 'tutorial' || tutorial?.kind === null) {
-        self.tutorialSeenTime = seen
-        if (upp) {
-          const changes = {
-            preferences: {
-              tutorials_completed_at: {
-                [tutorial.id]: seen
-              }
-            }
-          }
-          uppStore.updateUPP(changes)
-        }
       }
     }
 
@@ -211,18 +158,12 @@ const TutorialStore = types
       self.activeMedium = undefined
     }
 
-    function resetSeen () {
-      self.tutorialSeenTime = undefined
-    }
-
     return {
       afterAttach,
       fetchTutorials: flow(fetchTutorials),
       resetActiveTutorial,
-      resetSeen,
       setActiveTutorial,
       setMediaResources,
-      setSeenTime,
       setTutorials
     }
   })
