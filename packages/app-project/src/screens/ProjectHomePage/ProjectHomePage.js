@@ -5,7 +5,7 @@ import { ZooFooter } from '@zooniverse/react-components'
 
 import Hero from './components/Hero'
 import MessageFromResearcher from './components/MessageFromResearcher'
-import AboutProject from '@shared/components/AboutProject'
+import AboutProject from './components/AboutProject'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
 import ZooniverseTalk from './components/ZooniverseTalk'

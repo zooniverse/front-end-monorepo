@@ -65,8 +65,14 @@ const TutorialStore = types
     },
 
     get hasNotSeenTutorialBefore () {
+      const uppStore = getRoot(self).userProjectPreferences
       const upp = tryReference(() => getRoot(self).userProjectPreferences.active)
       const tutorial = tryReference(() => self.active)
+
+      if (uppStore?.loadingState !== asyncStates.success || !tutorial) {
+        return false
+      }
+
       if (upp && tutorial) {
         return !(upp.preferences.tutorials_completed_at?.[tutorial.id])
       }

@@ -81,7 +81,6 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         configuration: {
           level: 1
         },
-        default: true,
         grouped: false,
         prioritized: false,
         id: '1',
@@ -114,7 +113,6 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         configuration: {
           level: 1
         },
-        default: false,
         grouped: false,
         prioritized: false,
         id: '1',
@@ -129,7 +127,6 @@ describe('Helpers > fetchWorkflowsHelper', function () {
         configuration: {
           level: 2
         },
-        default: false,
         grouped: true,
         prioritized: true,
         id: '2',
@@ -163,7 +160,6 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           configuration: {
             level: 1
           },
-          default: false,
           grouped: false,
           prioritized: false,
           id: '1',
@@ -178,7 +174,6 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           configuration: {
             level: 2
           },
-          default: false,
           grouped: true,
           prioritized: true,
           id: '2',
@@ -235,7 +230,6 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           configuration: {
             level: 2
           },
-          default: true,
           grouped: true,
           prioritized: true,
           id: '2',
@@ -305,7 +299,6 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           configuration: {
             level: 2
           },
-          default: false,
           grouped: true,
           prioritized: true,
           id: '2',
@@ -320,7 +313,6 @@ describe('Helpers > fetchWorkflowsHelper', function () {
           configuration: {
             level: 1
           },
-          default: false,
           grouped: false,
           prioritized: false,
           id: '1',

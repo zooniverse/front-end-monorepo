@@ -1,16 +1,15 @@
 import React from 'react'
 import { Box, DropButton } from 'grommet'
 import { SettingsOption } from 'grommet-icons'
-import counterpart from 'counterpart'
-import en from './locales/en'
+import { useTranslation } from 'react-i18next'
+
 import DemoModeToggle from './components/DemoModeToggle'
 
-counterpart.registerTranslations('en', en)
-
 function ExpertOptions (props) {
+  const { t } = useTranslation('components')
   return (
     <DropButton
-      a11yTitle={counterpart('ExpertOptions.label')}
+      a11yTitle={t('TaskArea.Tasks.ExpertOptions.label')}
       dropAlign={{ top: 'bottom', right: 'right' }}
       dropContent={
         <Box pad='small'>
@@ -21,7 +20,7 @@ function ExpertOptions (props) {
       plain
       {...props}
     />
-  );
+  )
 }
 
 export default ExpertOptions

@@ -72,13 +72,12 @@ export default function ClassifierContainer({
   const loaded = useHydratedStore(classifierStore, cachePanoptesData, `fem-classifier-${project.id}`)
 
   useEffect(function onLoad() {
+    const { classifications, subjects, workflows } = classifierStore
     /*
-    This should run after the store is created and hydrated.
-    Otherwise, hydration will overwrite the callbacks with
-    their defaults.
+    If the project uses session storage, we need to do some
+    processing of the store after it loads.
     */
-    if (loaded) {
-      const { classifications, subjects, workflows } = classifierStore
+    if (cachePanoptesData && loaded) {
       if (!workflows.active?.prioritized) {
         /*
         In this case, we delete the saved queue so that
@@ -87,6 +86,7 @@ export default function ClassifierContainer({
         */
         console.log('randomising the subject queue.')
         subjects.reset()
+        subjects.advance()
       }
       if (subjects.active) {
         /*
@@ -95,6 +95,13 @@ export default function ClassifierContainer({
         console.log('store hydrated with active subject', subjects.active.id)
         classifierStore.startClassification()
       }
+    }
+    /*
+    This should run after the store is created and hydrated.
+    Otherwise, hydration will overwrite the callbacks with
+    their defaults.
+    */
+    if (loaded) {
       console.log('setting classifier event callbacks')
       classifierStore.setOnAddToCollection(onAddToCollection)
       classifications.setOnComplete(onCompleteClassification)
@@ -102,7 +109,7 @@ export default function ClassifierContainer({
       subjects.setOnReset(onSubjectReset)
       classifierStore.setOnToggleFavourite(onToggleFavourite)
     }
-  }, [loaded])
+  }, [cachePanoptesData, loaded])
 
   useEffect(function onAuthChange() {
     if (loaded) {

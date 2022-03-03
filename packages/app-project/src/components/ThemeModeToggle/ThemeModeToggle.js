@@ -1,13 +1,9 @@
 import { PlainButton, withResponsiveContext } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { Box } from 'grommet'
 import { Info } from 'grommet-icons'
 import { func, string } from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'next-i18next'
 
 const StyledButton = styled(PlainButton)`
   white-space: nowrap;
@@ -42,10 +38,11 @@ const StyledInfo = styled(Info)`
 `
 
 function ThemeModeToggle (props) {
+  const { t } = useTranslation('components')
   const { onClick, screenSize, theme: { dark } } = props
   const text = dark
-    ? counterpart('ThemeModeToggle.switchToLight')
-    : counterpart('ThemeModeToggle.switchToDark')
+    ? t('ThemeModeToggle.switchToLight')
+    : t('ThemeModeToggle.switchToDark')
 
   return (
     <Box justify='center'>
