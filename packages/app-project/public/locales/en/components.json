@@ -94,6 +94,9 @@
     "defaultTitle": "Projects",
     "siteName": "Zooniverse - People-powered research"
   },
+  "Loader": {
+    "loading": "Loading"
+  },
   "ProjectHeader": {
     "about": "About",
     "classify": "Classify",
@@ -113,6 +116,18 @@
     "UnderReviewLabel": {
       "underReview": "under review"
     }
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "By the numbers",
+    "classifications": "Classifications",
+    "completedSubjects": "Completed subjects",
+    "percentComplete": "Percent complete",
+    "subjects": "Subjects",
+    "subtitle": "Keep track of the progress you and your fellow volunteers have made on this project.",
+    "text": "Every click counts! Join {{projectName}}'s community to complete this project and help researchers produce important results. Click \"View more stats\" to see even more stats.",
+    "title": "{{projectName}} Statistics",
+    "viewMoreStats": "View more stats",
+    "volunteers": "Volunteers"
   },
   "ThemeModeToggle": {
     "switchToDark": "Switch to dark theme",
