@@ -149,8 +149,31 @@
       "label": "Discuss on Talk"
     }
   },
+  "SubjectSetPicker": {
+    "back": "Choose a different workflow",
+    "heading": "Choose where to start",
+    "byline": "Choose a subject set to start transcribing.",
+    "SubjectSetCard": {
+      "isComplete": "Finished"
+    }
+  },
   "ThemeModeToggle": {
     "switchToDark": "Switch to dark theme",
     "switchToLight": "Switch to light theme"
+  },
+  "WorkflowSelector": {
+    "getStarted": "Get Started!",
+    "error": "There was an error fetching the workflows :(",
+    "message": "You can do real research by clicking to get started here!",
+    "noWorkflows": "Nothing to classify",
+    "WorkflowSelectButton": {
+      "complete": "{{completeness}}% complete",
+      "setSelection": "set selection",
+      "subjectSelection": "subject selection"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "locked",
+      "unlocked": "unlocked"
+    }
   }
 }
