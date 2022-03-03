@@ -1,15 +1,13 @@
 import CollectionsModal from '@shared/components/CollectionsModal'
 import { MetaToolsButton } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { array, bool, func, shape, string } from 'prop-types'
-import { createRef } from 'react';
+import { createRef } from 'react'
+import { useTranslation } from 'next-i18next'
+
 import CollectionsIcon from './CollectionsIcon'
 
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
-
 export default function CollectionsButton (props) {
+  const { t } = useTranslation('components')
   const { disabled, onClick, subject } = props
   const collectionsModal = createRef()
 
@@ -26,7 +24,7 @@ export default function CollectionsButton (props) {
       <MetaToolsButton
         disabled={disabled}
         icon={<CollectionsIcon color='dark-5' size='15px' />}
-        text={counterpart('CollectionsButton.add')}
+        text={t('SubjectPreview.CollectionsButton.add')}
         onClick={addToCollections}
       />
     </>
