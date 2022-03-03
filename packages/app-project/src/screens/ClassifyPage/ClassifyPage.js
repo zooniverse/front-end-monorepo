@@ -83,6 +83,7 @@ function ClassifyPage({
               cachePanoptesData={cachePanoptesData}
               onAddToCollection={addToCollection}
               onSubjectReset={onSubjectReset}
+              showTutorial={canClassify}
               {...classifierProps}
             />
             <ThemeModeToggle />
