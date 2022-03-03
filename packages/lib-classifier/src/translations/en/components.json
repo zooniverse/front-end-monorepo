@@ -120,6 +120,15 @@
   "ModalTutorial": {
     "title": "Tutorial"
   },
+  "QuickTalk": {
+    "headerLink": "Subject Discussion",
+    "status": {
+      "loading": "Posting comment..."
+    },
+    "errors": {
+      "noText": "Can't post an empty comment."
+    }
+  },
   "SlideTutorial": {
     "alt": "Tutorial step {{activeStep}}",
     "error": "Tutorial step could not be loaded.",
@@ -188,6 +197,46 @@
     "ZoomControlButton": {
       "enable": "enable zoom",
       "disable": "disable zoom"
+    }
+  },
+  "TaskArea": {
+    "task": "Task",
+    "tutorial": "Tutorial",
+    "DisabledTaskPopup": {
+      "title": "Finished",
+      "body": "This subject has enough classifications, so any additional classifications submitted will not be used in its analysis. You can still view this subject for reference.",
+      "options": {
+        "dismiss": "Dismiss",
+        "next": "Next available subject",
+        "select": "Choose a new subject"
+      }
+    },
+    "Tasks": {
+      "demoMode": "In demo mode, classifications will not be saved. Use this for quick, inaccurate demos of the classification interface.",
+      "error": "Something went wrong",
+      "loading": "Loading",
+      "renderFallback": "Task component could not be rendered.",
+      "BackButton": {
+        "back": "back",
+        "tooltip": "Going back will clear your work for the current task."
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "done & talk"
+      },
+      "DoneButton": {
+        "done": "done"
+      },
+      "ExpertOptions": {
+        "demoToggle": "Demo Mode",
+        "label": "Expert Options"
+      },
+      "NextButton": {
+        "next": "next"
+      },
+      "TaskHelp": {
+        "close": "Close",
+        "label": "Need some help with this task?" 
+      }
     }
   }
 }

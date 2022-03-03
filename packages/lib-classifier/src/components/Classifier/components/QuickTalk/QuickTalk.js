@@ -4,16 +4,11 @@ import { Anchor, Box, Button } from 'grommet'
 import { Chat, Close } from 'grommet-icons'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import zooTheme from '@zooniverse/grommet-theme'
 import asyncStates from '@zooniverse/async-states'
+import { useTranslation } from 'react-i18next'
 
 import Comment from './components/Comment'
 import PostForm from './components/PostForm'
-
-import counterpart from 'counterpart'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 const FixedBox = styled(Box)`
   position: fixed;
@@ -46,20 +41,21 @@ function QuickTalk ({
   screenSize,
   expand = false,
   fixedPosition = true,
-  showBadge = true,  // HACK: Button.badge crashes tests AND storybook for an undetermined reason. // TODO: debug 
+  showBadge = true // HACK: Button.badge crashes tests AND storybook for an undetermined reason. // TODO: debug 
 }) {
+  const { t } = useTranslation('components')
   // TODO: figure out if/how the QuickTalk component should/could be displayed on mobile
   // if (screenSize === 'small') return null
-  
+
   if (!subject) return null
-  
+
   const [_expand, setExpand] = React.useState(expand)
   const a11yTitle = `Subject has ${comments.length} comment(s). Click to expand.`
   const badge = (showBadge && comments.length > 0) ? comments.length : false
-  
+
   const QTButton = (fixedPosition) ? FixedButton : Button
   const QTPanel = (fixedPosition) ? FixedBox : Box
-  
+
   if (!_expand) {
     return (
       <QTButton
@@ -71,7 +67,7 @@ function QuickTalk ({
       />
     )
   }
-  
+
   return (
     <QTPanel
       elevation='medium'
@@ -86,7 +82,7 @@ function QuickTalk ({
       >
         <Anchor
           a11yTitle='Go to Subject Discussion on Talk.'
-          label={counterpart('QuickTalk.headerLink')}
+          label={t('QuickTalk.headerLink')}
           href={subject.talkURL}
           target='_blank'
           icon={<Chat />}
@@ -95,7 +91,7 @@ function QuickTalk ({
           a11yTitle='Close comments panel.'
           icon={<Close size='small' />}
           onClick={() => setExpand(false)}
-          plain={true}
+          plain
         />
       </Box>
       <Box overflow='auto'>
@@ -139,7 +135,7 @@ QuickTalk.propTypes = {
   userId: PropTypes.string,
   expand: PropTypes.bool,
   fixedPosition: PropTypes.bool,
-  showBadge: PropTypes.bool,
+  showBadge: PropTypes.bool
 }
 
 export default withResponsiveContext(QuickTalk)

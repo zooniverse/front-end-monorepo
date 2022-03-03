@@ -1,11 +1,7 @@
 import { PrimaryButton } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import React from 'react'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'react-i18next'
 
 // TODO add back gold standard and demo buttons using grommet Button icon prop
 // {props.demoMode && <i className="fa fa-trash fa-fw" />}
@@ -16,12 +12,13 @@ function DoneButton ({
   hasNextStep = false,
   onClick = () => true
 }) {
+  const { t } = useTranslation('components')
   if (!hasNextStep) {
     return (
       <PrimaryButton
         color='green'
         disabled={disabled}
-        label={counterpart('DoneButton.done')}
+        label={t('TaskArea.Tasks.DoneButton.done')}
         onClick={onClick}
         style={{ flex: '1 0', textTransform: 'capitalize' }}
       />

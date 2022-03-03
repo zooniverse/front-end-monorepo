@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
-import sinon from 'sinon'
 
 import withRequireUser from './withRequireUser'
 
@@ -11,13 +10,25 @@ describe('withRequireUser', function () {
   const WithRequireUser = withRequireUser(StubComponent)
   let wrapper
 
-  before(function () {
-    wrapper = shallow(<WithRequireUser.wrappedComponent />)
-  })
+  const loggedOutStores = {
+    store: {
+      user: {
+        isLoggedIn: false
+      }
+    }
+  }
+
+  const loggedInStores = {
+    store: {
+      user: {
+        isLoggedIn: true
+      }
+    }
+  }
 
   describe('behavior when not logged in', function () {
     before(function () {
-      wrapper.setProps({ isLoggedIn: false })
+      wrapper = shallow(<WithRequireUser stores={loggedOutStores} />)
     })
 
     it('should render the wrapped component', function () {
@@ -25,13 +36,13 @@ describe('withRequireUser', function () {
     })
 
     it('should include a message to login', function () {
-      expect(wrapper.html()).to.include('You need to be signed in!')
+      expect(wrapper.html()).to.include('RequireUser.text')
     })
   })
 
   describe('behavior when logged in', function () {
     before(function () {
-      wrapper.setProps({ isLoggedIn: true })
+      wrapper = shallow(<WithRequireUser stores={loggedInStores} />)
     })
 
     it('should render the wrapped component', function () {

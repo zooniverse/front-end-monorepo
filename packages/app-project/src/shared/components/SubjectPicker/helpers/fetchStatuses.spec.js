@@ -5,9 +5,9 @@ import { fetchStatuses, fetchSubjects } from './'
 describe('Components > Subject Picker > helpers > fetchStatuses', function () {
   let subjects
   const expectedData = [
-    { subject_id: 1, Page: '43', Date: '23 January 1916', status: 'Available' },
-    { subject_id: 2, Page: '44', Date: '24 January 1916', status: 'Already seen' },
-    { subject_id: 3, Page: '45', Date: '25 January 1916', status: 'Retired' },
+    { subject_id: 1, Page: '43', Date: '23 January 1916', status: 'SubjectPicker.unclassified' },
+    { subject_id: 2, Page: '44', Date: '24 January 1916', status: 'SubjectPicker.alreadySeen' },
+    { subject_id: 3, Page: '45', Date: '25 January 1916', status: 'SubjectPicker.retired' },
   ]
 
   before(async function () {
@@ -47,7 +47,8 @@ describe('Components > Subject Picker > helpers > fetchStatuses', function () {
       subjects = newData
       return subjects
     })
-    await fetchStatuses(subjects, workflow, 10, callback)
+    const t = (key) => key
+    await fetchStatuses(callback, 10, subjects, t, workflow)
   })
 
   it('should generate subject data table rows with classification statuses', function () {
