@@ -26,7 +26,8 @@ describe('Component > WorkflowSelector', function () {
   ]
 
   const WORKFLOW_DESCRIPTION = 'Sit nulla mi metus tellus aenean lobortis litora'
-  const DEFAULT_WORKFLOW_DESCRIPTION = 'You can do real research by clicking to get started here!'
+  const DEFAULT_WORKFLOW_DESCRIPTION = 'WorkflowSelector.message'
+  /** The translation function will simply return keys in a testing env */
 
   it('should render without crashing', function () {
     const wrapper = shallow(

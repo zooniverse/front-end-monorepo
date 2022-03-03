@@ -1,13 +1,10 @@
-import counterpart from 'counterpart'
 import { Box, Button, CheckBox, FormField, Grid, TextInput } from 'grommet'
 import PropTypes from 'prop-types'
-import { createRef } from 'react';
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { createRef } from 'react'
+import { useTranslation } from 'next-i18next'
 
 function CreateCollection ({ collection, disabled, onChange, onSubmit }) {
+  const { t } = useTranslation('components')
   const checkbox = createRef()
   const textInput = createRef()
   const { display_name, private: isPrivate } = collection // eslint-disable-line
@@ -31,7 +28,7 @@ function CreateCollection ({ collection, disabled, onChange, onSubmit }) {
     >
       <FormField
         htmlFor='collectionName'
-        label={counterpart('CreateCollection.label')}
+        label={t('CollectionsModal.CreateCollection.label')}
       >
         <TextInput
           id='collectionName'
@@ -43,13 +40,13 @@ function CreateCollection ({ collection, disabled, onChange, onSubmit }) {
       <Box align='center' margin={{ top: 'medium' }} pad={{ top: 'small' }}>
         <Button
           disabled={disabled}
-          label={counterpart('CreateCollection.createButton')}
+          label={t('CollectionsModal.CreateCollection.createButton')}
           type='submit'
         />
       </Box>
       <CheckBox
         checked={isPrivate}
-        label={counterpart('CreateCollection.private')}
+        label={t('CollectionsModal.CreateCollection.private')}
         onChange={updateCollection}
         ref={checkbox}
       />

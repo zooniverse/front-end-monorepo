@@ -5,7 +5,6 @@ import asyncStates from '@zooniverse/async-states'
 import taskRegistry from '@plugins/tasks'
 import { WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
-import en from './locales/en'
 
 import Task from './components/Task'
 
@@ -24,7 +23,7 @@ describe('Tasks', function () {
       const taskSnapshot = {
         answers: [],
         instruction: `${taskType} instructions`,
-        options: [ '1', '2', '3', '4'],
+        options: ['1', '2', '3', '4'],
         question: `${taskType} question`,
         taskKey: 'init',
         type: taskType
@@ -55,12 +54,13 @@ describe('Tasks', function () {
 
       it('should render a loading UI when the workflow loading', function () {
         const wrapper = shallow(<Tasks loadingState={asyncStates.loading} />)
-        expect(wrapper.contains(en.Tasks.loading)).to.be.true()
+        expect(wrapper.contains('TaskArea.Tasks.loading')).to.be.true()
       })
 
       it('should render an error message when there is a loading error', function () {
         const wrapper = shallow(<Tasks loadingState={asyncStates.error} />)
-        expect(wrapper.contains(en.Tasks.error)).to.be.true()
+        expect(wrapper.contains('TaskArea.Tasks.error')).to.be.true()
+        /** The translation function will simply return keys in a testing environment */
       })
 
       it('should render null if the workflow is loaded but has no tasks', function () {
@@ -140,7 +140,8 @@ describe('Tasks', function () {
 
       it('should not render the demo mode messaging', function () {
         const wrapper = shallow(<Tasks />)
-        expect(wrapper.contains(en.Tasks.demoMode)).to.be.false()
+        expect(wrapper.contains('TaskArea.Tasks.demoMode')).to.be.false()
+        /** The translation function will simply return keys in a testing environment */
       })
 
       it('should render the demo mode messaging when enabled', function () {
@@ -152,7 +153,7 @@ describe('Tasks', function () {
             subjectReadyState={asyncStates.success}
             step={step}
           />)
-        expect(wrapper.contains(en.Tasks.demoMode)).to.be.true()
+        expect(wrapper.contains('TaskArea.Tasks.demoMode')).to.be.true()
       })
 
       it('should disable the task while the subject loads', function () {

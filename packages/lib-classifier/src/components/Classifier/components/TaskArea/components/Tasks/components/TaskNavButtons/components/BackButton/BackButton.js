@@ -3,11 +3,8 @@ import PropTypes from 'prop-types'
 import { Button, Text } from 'grommet'
 import styled, { css } from 'styled-components'
 import { withThemeContext } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
-import en from './locales/en'
 import theme from './theme'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'react-i18next'
 
 export const StyledBackButtonWrapper = styled.div`
   margin-right: 1ch;
@@ -47,6 +44,7 @@ function BackButton({
     dark: false
   }
 }) {
+  const { t } = useTranslation('components')
   const [ showWarning, setShowWarning ] = useState(false)
   if (canUndo) {
     let tooltipEventHandlers = {}
@@ -73,18 +71,18 @@ function BackButton({
     }
 
     // TODO convert to use Grommet Button and Drop for tooltip: https://codesandbox.io/s/rj0y95jr3n
-    const backButtonWarning = counterpart('BackButton.tooltip')
+    const backButtonWarning = t('TaskArea.Tasks.BackButton.tooltip')
     return (
       <StyledBackButtonWrapper theme={theme}>
         <Button
           focusIndicator={false}
-          label={<Text size='small'>{counterpart('BackButton.back')}</Text>}
+          label={<Text size='small'>{t('TaskArea.Tasks.BackButton.back')}</Text>}
           onClick={onClick}
           {...tooltipEventHandlers}
         />
         {showWarning &&
           <StyledBackButtonToolTip>
-            {counterpart('BackButton.tooltip')}
+            {t('TaskArea.Tasks.BackButton.tooltip')}
           </StyledBackButtonToolTip>}
       </StyledBackButtonWrapper>
     )

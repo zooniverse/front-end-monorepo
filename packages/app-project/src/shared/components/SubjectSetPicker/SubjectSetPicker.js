@@ -1,17 +1,13 @@
 import { PlainButton } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { Anchor, Box, Grid, Heading, Paragraph } from 'grommet'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { array, bool, func, number, shape, string } from 'prop-types'
+import { array, bool, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
+import { useTranslation } from 'next-i18next'
 
 import addQueryParams from '@helpers/addQueryParams'
-
 import SubjectSetCard from './components/SubjectSetCard'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 /*
   Grommet is opinionated about line-height and links it to font-size.
@@ -30,6 +26,7 @@ function SubjectSetPicker ({
   baseUrl,
   workflow
 }) {
+  const { t } = useTranslation('components')
   const router = useRouter()
   /*
     Vertical spacing for the picker instructions.
@@ -64,23 +61,23 @@ function SubjectSetPicker ({
         passHref
       >
         <PlainButton
-          text={counterpart('SubjectSetPicker.back')}
+          text={t('SubjectSetPicker.back')}
         />
       </Link>
       <StyledHeading
         level={3}
         margin={{ top: 'xsmall', bottom: 'none' }}
       >
-        {counterpart('SubjectSetPicker.heading')}
+        {t('SubjectSetPicker.heading')}
       </StyledHeading>
       <Paragraph
         margin={textMargin}
       >
-        {counterpart('SubjectSetPicker.byline')}
+        {t('SubjectSetPicker.byline')}
       </Paragraph>
       <Box
         background='light-1'
-        border= {{ color: 'light-5', size: 'xsmall'}}
+        border={{ color: 'light-5', size: 'xsmall' }}
         overflow="scroll"
       >
         <Grid
@@ -89,24 +86,24 @@ function SubjectSetPicker ({
           gap='small'
           pad='medium'
         >
-        {sortedSubjectSets.map(subjectSet => {
-          const href = `${baseUrl}/workflow/${workflow.id}/subject-set/${subjectSet.id}`
-          const panoptesCompleteness = subjectSet.completeness[workflow.id]
-          return (
-            <Link
-              key={subjectSet.id}
-              href={addQueryParams(href, router)}
-              passHref
-            >
-              <Anchor>
-                <SubjectSetCard
-                  {...subjectSet }
-                  completeness={panoptesCompleteness}  /* This will override subjectSet.completeness */
-                />
-              </Anchor>
-            </Link>
-          )
-        })}
+          {sortedSubjectSets.map(subjectSet => {
+            const href = `${baseUrl}/workflow/${workflow.id}/subject-set/${subjectSet.id}`
+            const panoptesCompleteness = subjectSet.completeness[workflow.id]
+            return (
+              <Link
+                key={subjectSet.id}
+                href={addQueryParams(href, router)}
+                passHref
+              >
+                <Anchor>
+                  <SubjectSetCard
+                    {...subjectSet}
+                    completeness={panoptesCompleteness}  /* This will override subjectSet.completeness */
+                  />
+                </Anchor>
+              </Link>
+            )
+          })}
         </Grid>
       </Box>
     </>

@@ -1,22 +1,31 @@
+import { expect } from 'chai'
 import nock from 'nock'
 
 import getStaticPageProps from './'
 
 describe('Helpers > getStaticPageProps', function () {
-  const PROJECT = {
+  const PROJECT_SINGLE_ACTIVE_WORKFLOW = {
     id: '1',
-    default_workflow: '1',
     primary_language: 'en',
     researcher_quote: null,
-    slug: 'test-owner/test-project',
+    slug: 'test-owner/test-project-single-active-workflow',
     links: {
       active_workflows: ['1']
     }
   }
 
+  const PROJECT_MULTIPLE_ACTIVE_WORKFLOWS = {
+    id: '1',
+    primary_language: 'en',
+    researcher_quote: null,
+    slug: 'test-owner/test-project-multiple-active-workflows',
+    links: {
+      active_workflows: ['1', '2']
+    }
+  }
+
   const GROUPED_PROJECT = {
     id: '2',
-    default_workflow: '2',
     primary_language: 'en',
     slug: 'test-owner/grouped-project',
     links: {
@@ -64,9 +73,14 @@ describe('Helpers > getStaticPageProps', function () {
     const scope = nock(panoptesHost)
       .persist()
       .get('/projects')
-      .query(query => query.slug === 'test-owner/test-project')
+      .query(query => query.slug === 'test-owner/test-project-single-active-workflow')
       .reply(200, {
-        projects: [PROJECT]
+        projects: [PROJECT_SINGLE_ACTIVE_WORKFLOW]
+      })
+      .get('/projects')
+      .query(query => query.slug === 'test-owner/test-project-multiple-active-workflows')
+      .reply(200, {
+        projects: [PROJECT_MULTIPLE_ACTIVE_WORKFLOWS]
       })
       .get('/projects')
       .query(query => query.slug === 'test-owner/grouped-project')
@@ -96,6 +110,15 @@ describe('Helpers > getStaticPageProps', function () {
       .reply(200, {
         translations: [GROUPED_TRANSLATION]
       })
+      .get('/translations')
+      .query(query => {
+        return query.translated_type === 'workflow'
+        && query.translated_id === '1,2'
+        && query.language === 'en'
+      })
+      .reply(200, {
+        translations: [TRANSLATION, GROUPED_TRANSLATION]
+      })
       .get('/workflows')
       .query(query => query.id === '1')
       .reply(200, {
@@ -105,6 +128,11 @@ describe('Helpers > getStaticPageProps', function () {
       .query(query => query.id === '2')
       .reply(200, {
         workflows: [GROUPED_WORKFLOW]
+      })
+      .get('/workflows')
+      .query(query => query.id === '1,2')
+      .reply(200, {
+        workflows: [WORKFLOW, GROUPED_WORKFLOW]
       })
       .get('/workflows')
       .query(query => parseInt(query.id) > 2)
@@ -122,21 +150,26 @@ describe('Helpers > getStaticPageProps', function () {
       nock.cleanAll()
     })
 
-    describe('with a valid project slug', function () {
-      it('should return the project\'s active workflows', async function () {
+    describe('with a valid project slug, single active workflow', function () {
+      let props
+
+      before(async function () {
         const params = {
           owner: 'test-owner',
-          project: 'test-project'
+          project: 'test-project-single-active-workflow'
         }
         const query = {
           env: 'staging'
         }
-        const { props } = await getStaticPageProps({ params, query })
+        const response = await getStaticPageProps({ params, query })
+        props = response.props
+      })
+
+      it('should return the project\'s active workflows', async function () {
         expect(props.workflows).to.deep.equal([
           {
             completeness: 0.4,
             configuration: {},
-            default: true,
             grouped: false,
             prioritized: false,
             id: '1',
@@ -147,6 +180,34 @@ describe('Helpers > getStaticPageProps', function () {
             subjectSets: []
           }
         ])
+      })
+
+      it('should return the workflowID as the single active workflow ID', function () {
+        expect(props.workflowID).to.equal('1')
+      })
+    })
+
+    describe('with a valid project slug, multiple active workflows', function () {
+      let props
+
+      before(async function () {
+        const params = {
+          owner: 'test-owner',
+          project: 'test-project-multiple-active-workflows'
+        }
+        const query = {
+          env: 'staging'
+        }
+        const response = await getStaticPageProps({ params, query })
+        props = response.props
+      })
+
+      it('should return the project\'s active workflows', async function () {
+        expect(props.workflows).to.have.lengthOf(2)
+      })
+
+      it('should return workflowID undefined', function () {
+        expect(props.workflowID).to.be.undefined()
       })
     })
 
@@ -180,7 +241,7 @@ describe('Helpers > getStaticPageProps', function () {
       before(async function () {
         const params = {
           owner: 'test-owner',
-          project: 'test-project',
+          project: 'test-project-single-active-workflow',
           workflowID: '3'
         }
         const query = {
@@ -209,21 +270,26 @@ describe('Helpers > getStaticPageProps', function () {
       nock.cleanAll()
     })
 
-    describe('with a valid project slug', function () {
-      it('should return the project\'s active workflows', async function () {
+    describe('with a valid project slug, single active workflow', function () {
+      let props
+
+      before(async function () {
         const params = {
           owner: 'test-owner',
-          project: 'test-project'
+          project: 'test-project-single-active-workflow'
         }
         const query = {
           env: 'production'
         }
-        const { props } = await getStaticPageProps({ params, query })
+        const response = await getStaticPageProps({ params, query })
+        props = response.props
+      })
+
+      it('should return the project\'s active workflows', async function () {
         expect(props.workflows).to.deep.equal([
           {
             completeness: 0.4,
             configuration: {},
-            default: true,
             grouped: false,
             prioritized: false,
             id: '1',
@@ -234,6 +300,34 @@ describe('Helpers > getStaticPageProps', function () {
             subjectSets: []
           }
         ])
+      })
+
+      it('should return the workflowID as the single active workflow ID', function () {
+        expect(props.workflowID).to.equal('1')
+      })
+    })
+
+    describe('with a valid project slug, multiple active workflows', function () {
+      let props
+
+      before(async function () {
+        const params = {
+          owner: 'test-owner',
+          project: 'test-project-multiple-active-workflows'
+        }
+        const query = {
+          env: 'production'
+        }
+        const response = await getStaticPageProps({ params, query })
+        props = response.props
+      })
+
+      it('should return the project\'s active workflows', async function () {
+        expect(props.workflows).to.have.lengthOf(2)
+      })
+
+      it('should return workflowID undefined', function () {
+        expect(props.workflowID).to.be.undefined()
       })
     })
 
@@ -275,7 +369,7 @@ describe('Helpers > getStaticPageProps', function () {
       before(async function () {
         const params = {
           owner: 'test-owner',
-          project: 'test-project',
+          project: 'test-project-single-active-workflow',
           workflowID: '2'
         }
         const query = {

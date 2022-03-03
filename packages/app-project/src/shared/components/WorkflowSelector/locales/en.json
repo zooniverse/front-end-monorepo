@@ -1,8 +1,0 @@
-{
-  "WorkflowSelector": {
-    "getStarted": "Get Started!",
-    "error": "There was an error fetching the workflows :(",
-    "message": "You can do real research by clicking to get started here!",
-    "noWorkflows": "Nothing to classify"
-  }
-}

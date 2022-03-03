@@ -1,18 +1,26 @@
 import { shallow } from 'enzyme'
-
 import { YourStatsContainer } from './YourStatsContainer'
 import YourStats from './YourStats'
 
-let wrapper
-let componentWrapper
-const COUNTS = {
-  foo: 'bar'
-}
-const PROJECT_NAME = 'Foobar'
-
 describe('Component > YourStatsContainer', function () {
+  let wrapper
+  let componentWrapper
+
+  const stores = {
+    store: {
+      project: {
+        display_name: 'Test Project'
+      },
+      user: {
+        personalization: {
+          counts: 10
+        }
+      }
+    }
+  }
+
   before(function () {
-    wrapper = shallow(<YourStatsContainer counts={COUNTS} projectName={PROJECT_NAME} />)
+    wrapper = shallow(<YourStatsContainer stores={stores} />)
     componentWrapper = wrapper.find(YourStats)
   })
 
@@ -25,10 +33,10 @@ describe('Component > YourStatsContainer', function () {
   })
 
   it('should pass down the `projectName` prop', function () {
-    expect(componentWrapper.prop('projectName')).to.equal(PROJECT_NAME)
+    expect(componentWrapper.prop('projectName')).to.equal('Test Project')
   })
 
   it('should pass down the `counts` prop', function () {
-    expect(componentWrapper.prop('counts')).to.equal(COUNTS)
+    expect(componentWrapper.prop('counts')).to.equal(10)
   })
 })
