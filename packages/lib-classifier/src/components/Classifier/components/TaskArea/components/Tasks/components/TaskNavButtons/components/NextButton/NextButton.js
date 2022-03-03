@@ -1,12 +1,9 @@
 import { PrimaryButton, withThemeContext } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
-import { bool, func } from 'prop-types'
+import { bool } from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import nextButtonTheme from './theme'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 function NextButton ({
   autoFocus = false,
@@ -14,7 +11,8 @@ function NextButton ({
   hasNextStep = false,
   onClick = () => true
 }) {
-  const label = counterpart('NextButton.next')
+  const { t } = useTranslation('components')
+  const label = t('TaskArea.Tasks.NextButton.next')
 
   if (hasNextStep) {
     return (
@@ -23,7 +21,7 @@ function NextButton ({
         disabled={disabled}
         label={label}
         onClick={onClick}
-        style={{ flex: '1 0'}}
+        style={{ flex: '1 0' }}
       />
     )
   }
