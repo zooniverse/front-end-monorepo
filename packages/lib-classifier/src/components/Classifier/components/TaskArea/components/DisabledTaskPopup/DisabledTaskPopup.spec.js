@@ -4,10 +4,8 @@ import React from 'react'
 import sinon from 'sinon'
 
 import DisabledTaskPopup from './DisabledTaskPopup'
-import en from './locales/en'
 
 describe('TaskArea > DisabledTaskPopup', function () {
-  const { options } = en.DisabledTaskPopup
   let wrapper
 
   describe('without isOpen', function () {
@@ -54,11 +52,12 @@ describe('TaskArea > DisabledTaskPopup', function () {
       expect(modal.prop('active')).to.be.true()
     })
 
-    describe('Choose Another Subject button',function () {
+    describe('Choose Another Subject button', function () {
       let button
 
       before(function () {
-        button = wrapper.find(`[text="${options.select}"]`)
+        /** The translation function will simply return keys in a testing environment */
+        button = wrapper.find({ text: 'TaskArea.DisabledTaskPopup.options.select' })
         button.simulate('click')
       })
 
@@ -76,11 +75,11 @@ describe('TaskArea > DisabledTaskPopup', function () {
       })
     })
 
-    describe('Next Available button',function () {
+    describe('Next Available button', function () {
       let button
 
       before(function () {
-        button = wrapper.find(`[label="${options.next}"]`)
+        button = wrapper.find({ label: 'TaskArea.DisabledTaskPopup.options.next' })
         button.simulate('click')
       })
 
@@ -98,11 +97,11 @@ describe('TaskArea > DisabledTaskPopup', function () {
       })
     })
 
-    describe('Dismiss button',function () {
+    describe('Dismiss button', function () {
       let button
 
       before(function () {
-        button = wrapper.find(`[text="${options.dismiss}"]`)
+        button = wrapper.find({ text: 'TaskArea.DisabledTaskPopup.options.dismiss' })
         button.simulate('click')
       })
 

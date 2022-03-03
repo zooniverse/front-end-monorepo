@@ -1,22 +1,19 @@
 import { Markdownz, Modal, PlainButton } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { Button, Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'react-i18next'
 
 export const StyledPlainButton = styled(PlainButton)`
   text-align: center;
 `
 
 function TaskHelp (props) {
+  const { t } = useTranslation('components')
   const [ showModal, setShowModal ] = useState(false)
 
-  const label = counterpart('TaskHelp.label')
+  const label = t('TaskArea.Tasks.TaskHelp.label')
   const { tasks } = props
 
   return (
@@ -56,7 +53,7 @@ function TaskHelp (props) {
           <Box pad={{ top: 'small' }}>
             <Button
               onClick={() => setShowModal(false)}
-              label={counterpart('TaskHelp.close')}
+              label={t('TaskArea.Tasks.TaskHelp.close')}
               primary
             />
           </Box>

@@ -1,16 +1,13 @@
 import { SpacedText } from '@zooniverse/react-components'
-import counterpart from 'counterpart'
 import { Anchor, Box, Text } from 'grommet'
 import { shape, string } from 'prop-types'
-import styled from 'styled-components'
+import { useTranslation } from 'next-i18next'
 
-import en from './locales/en'
 import formatUrlObject from './helpers/formatUrlObject'
 
-counterpart.registerTranslations('en', en)
-
 function ProjectLink ({ className, urlObject }) {
-  const { IconComponent, label, type, url } = formatUrlObject(urlObject)
+  const { t } = useTranslation('components')
+  const { IconComponent, label, type, url } = formatUrlObject(urlObject, t)
   return (
     <Box className={className} direction='row'>
       <Box margin={{ right: '15px' }}>

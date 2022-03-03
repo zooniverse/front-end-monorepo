@@ -144,7 +144,6 @@ describe('Helpers > getDefaultPageProps', function () {
           {
             completeness: 0.4,
             configuration: {},
-            default: true,
             grouped: false,
             prioritized: false,
             id: '1',
@@ -253,7 +252,6 @@ describe('Helpers > getDefaultPageProps', function () {
           {
             completeness: 0.4,
             configuration: {},
-            default: true,
             grouped: false,
             prioritized: false,
             id: '1',

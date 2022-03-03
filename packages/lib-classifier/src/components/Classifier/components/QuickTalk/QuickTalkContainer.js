@@ -3,15 +3,11 @@ import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 import { getBearerToken } from '../../../../store/utils'
+import { withTranslation } from 'react-i18next'
 
 import QuickTalk from './QuickTalk'
 import apiClient from 'panoptes-client/lib/api-client'
 import talkClient from 'panoptes-client/lib/talk-client'
-
-import counterpart from 'counterpart'
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
 
 function storeMapper (stores) {
   const {
@@ -148,6 +144,7 @@ class QuickTalkContainer extends React.Component {
   }
   
   async postComment (text) {
+    const { t } = this.props
     const subject = this.props?.subject
     const project = subject?.project
     const authClient = this.props?.authClient
@@ -165,7 +162,7 @@ class QuickTalkContainer extends React.Component {
     
     try {
       if (!text || text.trim().length === 0) {
-        throw new Error(counterpart('QuickTalk.errors.noText'))
+        throw new Error(t('QuickTalk.errors.noText'))
       }
 
       /*
@@ -287,9 +284,10 @@ QuickTalkContainer.defaultProps = {
   subject: undefined,
 }
 
+// Noting that mobx decorators are outdated and should be refactored
 @inject(storeMapper)
 @observer
 class DecoratedQuickTalkContainer extends QuickTalkContainer { }
 
-export default DecoratedQuickTalkContainer
+export default withTranslation('components')(DecoratedQuickTalkContainer)
 export { QuickTalkContainer }
