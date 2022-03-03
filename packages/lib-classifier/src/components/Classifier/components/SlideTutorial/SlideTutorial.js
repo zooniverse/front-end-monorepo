@@ -26,6 +26,7 @@ function SlideTutorial({
   onClick = () => true,
   height,
   pad = 'medium',
+  setSeenTime = () => true,
   steps = [],
   stepWithMedium,
   width
@@ -43,6 +44,11 @@ function SlideTutorial({
         <Paragraph>{t('SlideTutorial.error')}</Paragraph>
       </Box>
     )
+  }
+
+  function getStarted() {
+    setSeenTime()
+    onClick()
   }
 
   return (
@@ -80,7 +86,7 @@ function SlideTutorial({
       {isLastStep &&
         <Button
           label={t('SlideTutorial.getStarted')}
-          onClick={onClick}
+          onClick={getStarted}
           margin={{ top: 'medium' }}
           primary
         />}

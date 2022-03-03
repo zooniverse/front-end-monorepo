@@ -10,9 +10,10 @@ import SlideTutorial from '../SlideTutorial'
 
 function storeMapper (classifierStore) {
   const {
-    active: tutorial,
-    hasNotSeenTutorialBefore
+    active: tutorial
   } = classifierStore.tutorials
+
+  const hasNotSeenTutorialBefore = tutorial?.hasNotBeenSeen
 
   return {
     hasNotSeenTutorialBefore,
@@ -25,7 +26,7 @@ function ModalTutorial ({
   tutorial,
   ...props
 }) {
-  const [active, setActive] = useState(hasNotSeenTutorialBefore)
+  const [active, setActive] = useState(false)
   const { t } = useTranslation('components')
 
   useEffect(() => {
