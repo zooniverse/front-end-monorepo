@@ -19,6 +19,19 @@ const StyledMarkdownWrapper = styled(Box)`
   }
 `
 
+/**
+A workflow slide tutorial which can be embedded directly into the classifier or shown in a popup.
+
+```
+<SlideTutorial
+  activeStep={0}
+  height='100%'
+  steps={[...steps]}
+  stepwithMedium={index => steps[index]}
+  width='40vw'
+/>
+```
+*/
 function SlideTutorial({
   activeStep = 0,
   className = '',
@@ -80,8 +93,9 @@ function SlideTutorial({
         <Markdownz>{step.content}</Markdownz>
       </StyledMarkdownWrapper>
         <StepNavigation
-          stepIndex={stepIndex}
           onChange={setStepIndex}
+          stepIndex={stepIndex}
+          steps={steps}
         />
       {isLastStep &&
         <Button
@@ -94,12 +108,31 @@ function SlideTutorial({
   )
 }
 
+const tutorialStep = PropTypes.shape({
+  content: PropTypes.string,
+  medium: PropTypes.string
+})
+
 SlideTutorial.propTypes = {
+  /** Array index of the current tutorial step. */
   activeStep: PropTypes.number,
+  /** Optional CSS classes */
   className: PropTypes.string,
+  /** Tutorial height (CSS units). */
+  height: PropTypes.string,
+  /** The project name */
   projectDisplayName: PropTypes.string,
+  /** Callback for the Get Started button. */
   onClick: PropTypes.func,
-  stepWithMedium: PropTypes.func.isRequired
+  /**
+    Array of tutorial steps.
+    A step is a string of markdown content and an optional reference to a media file (image/audio/video.)
+  */
+  steps: PropTypes.arrayOf(tutorialStep),
+  /** A function which should return the step and media file for a given step index. */
+  stepWithMedium: PropTypes.func.isRequired,
+  /** Tutorial width (CSS units). */
+  width: PropTypes.string,
 }
 
 export default SlideTutorial
