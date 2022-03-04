@@ -37,7 +37,6 @@
     "babel-plugin-dynamic-import-node": "~2.3.0",
     "babel-plugin-styled-components": "~2.0.2",
     "cookie": "~0.4.0",
-    "counterpart": "~0.18.6",
     "d3": "~6.7.0",
     "dotenv-webpack": "~7.1.0",
     "engine.io-client": "~6.1.1",
