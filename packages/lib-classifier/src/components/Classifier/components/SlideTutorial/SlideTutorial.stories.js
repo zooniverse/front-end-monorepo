@@ -7,8 +7,8 @@ import * as subcomponents from './components'
 import { TutorialMediumFactory } from '@test/factories'
 
 const background = {
-  dark: 'dark-3',
-  light: 'white'
+  dark: 'dark-1',
+  light: 'light-1'
 }
 
 const media = [
@@ -62,9 +62,13 @@ export default {
 }
 
 export function Default({ dark, height, onClick, projectDisplayName, steps, stepWithMedium, width }) {
-  const theme = {...zooTheme, dark }
+  const themeMode = dark ? 'dark' : 'light'
   return (
-    <Grommet background={background} theme={theme}>
+    <Grommet
+      background={background}
+      theme={zooTheme}
+      themeMode={themeMode}
+    >
       <Box height='medium' width='large'>
         <SlideTutorial
           height={height}
@@ -80,9 +84,13 @@ export function Default({ dark, height, onClick, projectDisplayName, steps, step
 }
 
 export function Tablet({ dark, onClick, projectDisplayName, steps, stepWithMedium }) {
-  const theme = {...zooTheme, dark }
+  const themeMode = dark ? 'dark' : 'light'
   return (
-    <Grommet background={background} theme={theme}>
+    <Grommet
+      background={background}
+      theme={zooTheme}
+      themeMode={themeMode}
+    >
       <Box height='medium' width='large'>
         <SlideTutorial
           height='100%'
