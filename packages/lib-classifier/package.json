@@ -82,7 +82,7 @@
     "babel-plugin-webpack-alias": "~2.1.2",
     "chai": "~4.3.4",
     "chai-dom": "~1.11.0",
-    "css-loader": "~6.6.0",
+    "css-loader": "~6.7.0",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.11.0",
     "grommet": "~2.20.1",
