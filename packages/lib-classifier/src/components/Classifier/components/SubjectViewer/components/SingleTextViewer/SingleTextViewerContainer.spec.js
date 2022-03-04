@@ -1,11 +1,13 @@
 import { expect } from 'chai'
-import { shallow } from 'enzyme'
-import React from 'react'
+import { mount } from 'enzyme'
 import nock from 'nock'
+import React from 'react'
+import { Factory } from 'rosie'
 import sinon from 'sinon'
 
 import SingleTextViewerContainer from './SingleTextViewerContainer'
-import { Factory } from 'rosie'
+import SingleTextViewer from './SingleTextViewer'
+
 
 const subject = Factory.build('subject', {
   locations: [
@@ -29,108 +31,89 @@ const failSubject = Factory.build('subject', {
 
 describe('Component > SingleTextViewerContainer', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(<SingleTextViewerContainer />, { disableLifecycleMethods: true })
+    const wrapper = mount(<SingleTextViewerContainer />)
     expect(wrapper).to.be.ok()
-  })
-
-  it('should initialize with the default state', function () {
-    const wrapper = shallow(
-      <SingleTextViewerContainer />,
-      { disableLifecycleMethods: true }
-    )
-    const mockState = {
-      content: ''
-    }
-    expect(wrapper.state()).to.eql(mockState)
   })
 
   describe('without a subject', function () {
     it('should render null with the default props', function () {
-      const wrapper = shallow(<SingleTextViewerContainer />)
+      const wrapper = mount(<SingleTextViewerContainer />)
       expect(wrapper.html()).to.be.null()
     })
   })
 
   describe('with an invalid subject', function () {
-    let cdmSpy
-    let onErrorSpy
-    let nockScope
-    let wrapper
-    before(function () {
+    beforeEach(function () {
       sinon.stub(console, 'error')
-      cdmSpy = sinon.spy(SingleTextViewerContainer.prototype, 'componentDidMount')
-      onErrorSpy = sinon.spy()
-      nockScope = nock('http://localhost:8080')
-        .persist(true)
+      const nockScope = nock('http://localhost:8080')
         .get('/failure.txt')
         .reply(404)
     })
 
     afterEach(function () {
-      cdmSpy.resetHistory()
-      onErrorSpy.resetHistory()
-    })
-
-    after(function () {
       console.error.restore()
-      cdmSpy.restore()
       nock.cleanAll()
-      nockScope.persist(false)
     })
 
     it('should error if a text subject location file can\'t be found', function (done) {
-      wrapper = shallow(
+      const onError = sinon.stub().callsFake((error) => {
+        expect(error.message).to.equal('No text url found for this subject')
+        done()
+      })
+      const onReady = sinon.stub().callsFake(() => {
+        expect.fail('should not call onReady')
+        done()
+      })
+      const wrapper = mount(
         <SingleTextViewerContainer
-          onError={onErrorSpy}
+          onError={onError}
+          onReady={onReady}
           subject={imageSubject}
         />
       )
-
-      cdmSpy.returnValues[0].then(() => {
-        expect(onErrorSpy).to.have.been.calledOnce()
-        expect(onErrorSpy.args[0][0].message).to.equal('No text url found for this subject')
-      }).then(done, done)
     })
 
     it('should error if the location request response fails', function (done) {
-      wrapper = shallow(
+      const onError = sinon.stub().callsFake((error) => {
+        expect(error.message).to.equal('Not Found')
+        done()
+      })
+      const onReady = sinon.stub().callsFake(() => {
+        expect.fail('should not call onReady')
+        done()
+      })
+      const wrapper = mount(
         <SingleTextViewerContainer
-          onError={onErrorSpy}
+          onError={onError}
+          onReady={onReady}
           subject={failSubject}
         />
       )
-
-      cdmSpy.returnValues[0].then(() => {
-        expect(onErrorSpy).to.have.been.calledOnce()
-        expect(onErrorSpy.args[0][0].message).to.equal('Not Found')
-      }).then(done, done)
     })
 
     it('should render null', function (done) {
-      wrapper = shallow(
+      let wrapper
+      const onError = sinon.stub().callsFake((error) => {
+        expect(wrapper.html()).to.be.null()
+        done()
+      })
+      const onReady = sinon.stub().callsFake(() => {
+        expect.fail('should not call onReady')
+        done()
+      })
+      wrapper = mount(
         <SingleTextViewerContainer
-          onError={onErrorSpy}
+          onError={onError}
+          onReady={onReady}
           subject={failSubject}
         />
       )
-
-      cdmSpy.returnValues[0].then(() => {
-        expect(wrapper.html()).to.be.null()
-      }).then(done, done)
     })
   })
 
   describe('with a subject', function () {
-    let nockScope
-    let cdmSpy
-    let cduSpy
-    let wrapper
-
-    before(function () {
-      cdmSpy = sinon.spy(SingleTextViewerContainer.prototype, 'componentDidMount')
-      cduSpy = sinon.spy(SingleTextViewerContainer.prototype, 'componentDidUpdate')
-      nockScope = nock('http://localhost:8080')
-        .persist(true)
+    beforeEach(function () {
+      const nockScope = nock('http://localhost:8080')
         .get('/subject.txt')
         .reply(200, 'subject text')
         .get('/nextSubject.txt')
@@ -138,59 +121,79 @@ describe('Component > SingleTextViewerContainer', function () {
     })
 
     afterEach(function () {
-      cdmSpy.resetHistory()
-      cduSpy.resetHistory()
-    })
-
-    after(function () {
-      cdmSpy.restore()
-      cduSpy.restore()
       nock.cleanAll()
-      nockScope.persist(false)
     })
 
-    it('should set the component state with the text content', function (done) {
-      wrapper = shallow(
+    it('should display the text content', function (done) {
+      let wrapper
+      const onError = sinon.stub().callsFake(() => {
+        expect.fail('should not error.')
+        done()
+      })
+      const onReady = sinon.stub().callsFake(event => {
+        wrapper.update()
+        const stv = wrapper.find(SingleTextViewer)
+        expect(stv.prop('content')).to.equal('subject text')
+        done()
+      })
+      wrapper = mount(
         <SingleTextViewerContainer
+          onError={onError}
+          onReady={onReady}
           subject={subject}
         />
       )
-
-      expect(wrapper.state().content).to.be.empty()
-      cdmSpy.returnValues[0].then(() => {
-        expect(wrapper.state().content).to.deep.equal('subject text')
-      }).then(done, done)
     })
 
     it('should call the onReady prop', function (done) {
-      const onReadySpy = sinon.spy()
-      wrapper = shallow(
+      const onError = sinon.stub().callsFake(() => {
+        expect.fail('should not error.')
+        done()
+      })
+      const onReady = sinon.stub().callsFake(event => {
+        expect(event.target).to.equal(null)
+        done()
+      })
+      const wrapper = mount(
         <SingleTextViewerContainer
-          onReady={onReadySpy}
+          onError={onError}
+          onReady={onReady}
           subject={subject}
         />
       )
-
-      cdmSpy.returnValues[0].then(() => {
-        expect(onReadySpy).to.have.been.calledOnceWith({ target: wrapper.instance().viewer.current })
-      }).then(done, done)
     })
 
-    it('should update component state when there is a new valid subject', function (done) {
-      wrapper = shallow(
+    it('should update text content when there is a new valid subject', function (done) {
+      const onReady = sinon.stub()
+      const onError = sinon.stub().callsFake(() => {
+        expect.fail('should not error.')
+        done()
+      })
+
+      function onFirstSubject(event) {
+        wrapper.update()
+        const stv = wrapper.find(SingleTextViewer)
+        expect(stv.prop('content')).to.equal('subject text')
+        wrapper.setProps({
+          onReady: onReady.callsFake(onSecondSubject),
+          subject: nextSubject
+        })
+      }
+
+      function onSecondSubject(event) {
+        wrapper.update()
+        const stv = wrapper.find(SingleTextViewer)
+        expect(stv.prop('content')).to.equal('next subject text')
+        done()
+      }
+
+      const wrapper = mount(
         <SingleTextViewerContainer
+          onError={onError}
+          onReady={onReady.callsFake(onFirstSubject)}
           subject={subject}
         />
       )
-
-      cdmSpy.returnValues[0].then(() => {
-        expect(wrapper.state().content).to.deep.equal('subject text')
-      })
-      wrapper.setProps({ subject: nextSubject })
-
-      cduSpy.returnValues[0].then(() => {
-        expect(wrapper.state().content).to.deep.equal('next subject text')
-      }).then(done, done)
     })
   })
 })
