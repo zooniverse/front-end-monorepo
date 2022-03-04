@@ -52,7 +52,7 @@ export default {
     projectDisplayName: 'Snapshot Guinea Pig',
     steps,
     stepWithMedium,
-    width: '50vw'
+    width: '40vw'
   },
   parameters: {
     viewport: {
@@ -69,7 +69,7 @@ export function Default({ dark, height, onClick, projectDisplayName, steps, step
       theme={zooTheme}
       themeMode={themeMode}
     >
-      <Box height='medium' width='large'>
+      <Box height='medium' width={width}>
         <SlideTutorial
           height={height}
           onClick={onClick}
