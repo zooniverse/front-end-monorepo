@@ -5,7 +5,7 @@ import sinon from 'sinon'
 import InteractionLayer, { DrawingCanvas } from './InteractionLayer'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
-import DrawingTask from '@plugins/tasks/DrawingTask'
+import DrawingTask from '@plugins/tasks/drawing'
 import {
   Line,
   Point,

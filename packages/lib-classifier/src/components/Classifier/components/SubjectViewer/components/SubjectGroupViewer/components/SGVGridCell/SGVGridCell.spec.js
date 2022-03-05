@@ -2,7 +2,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 
 import SGVGridCell from './SGVGridCell'
-import { default as Task } from '@plugins/tasks/SubjectGroupComparisonTask'
+import { default as Task } from '@plugins/tasks/subjectGroupComparison'
 
 const exampleImage = {
   src: 'https://foo.bar/example.png',

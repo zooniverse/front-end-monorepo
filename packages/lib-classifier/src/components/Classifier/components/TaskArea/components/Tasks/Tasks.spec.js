@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import Tasks from './Tasks'
 import asyncStates from '@zooniverse/async-states'
-import taskRegistry from '@plugins/tasks'
+import * as tasks from '@plugins/tasks'
 import { WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 
@@ -12,21 +12,20 @@ describe('Tasks', function () {
   let classification
   let step
 
-  const taskTypes = Object.keys(taskRegistry.register)
-
-  taskTypes.forEach(function (taskType) {
+  Object.keys(tasks).forEach(function (taskType) {
     before(function () {
       // DrawingTask, TranscriptionTask, DataVisAnnotationTask, TextTask all use instruction
       // SingleChoiceTask, MultipleChoiceTask use question
       // keys that aren't defined on certain task models are ignored
       // but missing keys that aren't an optional or maybe type will throw an error
+      const type = taskType === 'dropdownSimple' ? 'dropdown-simple' : taskType
       const taskSnapshot = {
         answers: [],
         instruction: `${taskType} instructions`,
         options: ['1', '2', '3', '4'],
         question: `${taskType} question`,
         taskKey: 'init',
-        type: taskType
+        type
       }
       const workflowSnapshot = WorkflowFactory.build({
         id: 'tasksWorkflow',

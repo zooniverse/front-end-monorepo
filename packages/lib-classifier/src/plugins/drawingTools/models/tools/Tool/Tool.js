@@ -1,8 +1,8 @@
 import { types } from 'mobx-state-tree'
 import { Mark } from '../../marks'
-import SingleChoiceTask from '@plugins/tasks/SingleChoiceTask'
-import MultipleChoiceTask from '@plugins/tasks/MultipleChoiceTask'
-import TextTask from '@plugins/tasks/TextTask'
+import SingleChoiceTask from '@plugins/tasks/single'
+import MultipleChoiceTask from '@plugins/tasks/multiple'
+import TextTask from '@plugins/tasks/text'
 
 const Tool = types
   .model('Tool', {

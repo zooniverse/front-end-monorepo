@@ -1,11 +1,14 @@
 # Classifier tasks
-## Task registry
+## Importing tasks
 
 ```js
-import taskRegistry from '@plugins/tasks'
+import * as tasks from '@plugins/tasks'
+const multipleChoiceTask = tasks.multiple
+const type = 'drawing'
+const dynamicTask = tasks[type]
 ```
 
-The registry is a simple map of unique task types (`single`, `multiple`, `text`, `drawing` etc.) to Task objects, which have the shape `{ TaskComponent, TaskModel, AnnotationModel }`.
+The default tasks export is a simple map of unique task types (`single`, `multiple`, `text`, `drawing` etc.) to Task objects, each of which has the shape `{ TaskComponent, TaskModel, AnnotationModel }`.
 
 ### API
   - `taskRegistry.add(type (string), Task (object))`: registers `Task` as `type` or errors if `type` is already registered.
@@ -27,18 +30,17 @@ The registry is a simple map of unique task types (`single`, `multiple`, `text`,
     AnnotationModel
   }
   ```
-  - import your task into `tasks/index.js` and add it to the list of registered tasks.
+  - export your task from `tasks/index.js`, using the task type as the named export.
   ```js
-  import MyNewTask from './MyNewTask'
-  …
-  taskRegistry.add('newTask', MyNewTask)
+    export { default as myNewTask } from './myNewTask'
   ```
 
 ## React Components
 
 A React component for a task takes a Task model and renders it as HTML. The basic shape is:
 ```jsx
-const SingleChoiceTask = taskRegistry.get('single').TaskComponent
+import * as tasks from '@plugins/tasks'
+const SingleChoiceTask = tasks.single.TaskComponent
 <SingleChoiceTask disabled annotation={annotation} task={task} />
 ```
 
@@ -48,7 +50,10 @@ const SingleChoiceTask = taskRegistry.get('single').TaskComponent
 
 ## Task models
 
-`const SingleChoiceTask = taskRegistry.get('single').TaskModel`
+```js
+import * as tasks from '@plugins/tasks'
+const SingleChoiceTask = tasks.single.TaskModel
+```
 
 The [base Task model](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-classifier/src/plugins/tasks/models/Task.js) defines the following common properties and actions for all tasks.
 
@@ -72,7 +77,10 @@ Tasks may implement the following actions to hook into the workflow classificati
 
 ## Annotation models
 
-`const SingleChoiceAnnotation = taskRegistry.get('single').AnnotationModel`
+```js
+import * as tasks from '@plugins/tasks'
+const SingleChoiceAnnotation = tasks.single.AnnotationModel
+```
 
 The [base Annotation model](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-classifier/src/plugins/tasks/models/Annotation.js) defines the following common properties and actions for all annotations.
 

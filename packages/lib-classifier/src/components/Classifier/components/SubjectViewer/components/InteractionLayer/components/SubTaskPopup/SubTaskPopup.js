@@ -5,7 +5,7 @@ import React from 'react'
 import { MovableModal } from '@zooniverse/react-components'
 import { useTranslation } from 'react-i18next'
 
-import taskRegistry from '@plugins/tasks'
+import * as taskRegister from '@plugins/tasks'
 import getDefaultPosition from '../../helpers/getDefaultPosition'
 import ConfirmModal from './components/ConfirmModal'
 import SaveButton from './components/SaveButton'
@@ -95,7 +95,7 @@ function SubTaskPopup({
             if (!annotation) {
               annotation = activeMark.addAnnotation(task)
             }
-            const { TaskComponent } = taskRegistry.get(task.type)
+            const { TaskComponent } = taskRegister[task.type]
 
             if (annotation && TaskComponent) {
               const requiredEmphasis = task.required && !task.isComplete(annotation) && confirmationState === 'closed'

@@ -4,7 +4,7 @@ import { array, bool, shape, string } from 'prop-types'
 import React, { useContext } from 'react'
 
 import { withStores } from '@helpers'
-import taskRegistry from '@plugins/tasks'
+import * as tasks from '@plugins/tasks'
 
 function storeMapper(classifierStore) {
   const {
@@ -32,7 +32,7 @@ function Task ({
   task,
   ...props
 }) {
-  const { TaskComponent } = taskRegistry.get(task.type)
+  const { TaskComponent } = task.type === 'dropdown-simple'? tasks.dropdownSimple : tasks[task.type]
   let annotation
 
   if (latest) {
