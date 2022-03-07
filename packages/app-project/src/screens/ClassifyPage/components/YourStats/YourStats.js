@@ -5,7 +5,6 @@ import { useTranslation } from 'next-i18next'
 import DailyClassificationsChart from './components/DailyClassificationsChart'
 import ContentBox from '@shared/components/ContentBox'
 import Stat from '@shared/components/Stat'
-import WidgetHeading from '@shared/components/WidgetHeading'
 
 function YourStats (props) {
   const { counts, projectName } = props
@@ -29,10 +28,6 @@ function YourStats (props) {
         </Grid>
       </Box>
       <Box pad={{ top: 'small' }}>
-        <WidgetHeading
-          text={t('Classify.YourStats.dailyCount', { projectName })}
-          level='3'
-        />
         <DailyClassificationsChart />
       </Box>
     </ContentBox>
