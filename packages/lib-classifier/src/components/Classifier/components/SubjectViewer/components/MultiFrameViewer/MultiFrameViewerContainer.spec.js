@@ -140,7 +140,30 @@ describe('Component > MultiFrameViewerContainer', function () {
         expect(image).to.have.lengthOf(1)
         expect(image.prop('xlinkHref')).to.equal('https://some.domain/image.jpg')
       })
-    })  
+    })
+
+    describe('with marks from an active drawing or transcription task tool', function () {
+      const validateSpy = sinon.spy()
+
+      // testMarks is a generic Map, does not represent actual marks from a task tool
+      const testMarks = new Map([
+        [1, 'one'],
+        [2, 'two'],
+        [3, 'three']
+      ])
+
+      // mock an active drawing or transcription task tool:
+      const activeTool = {
+        marks: testMarks,
+        validate: validateSpy
+      }
+
+      it('should validate active tool marks on frame change', function () {
+        wrapper.setProps({ activeTool })
+        wrapper.instance().onFrameChange(2)
+        expect(validateSpy).to.have.been.calledOnce()
+      })
+    })
   })
 
   describe('with an invalid subject', function () {
