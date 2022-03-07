@@ -10,6 +10,7 @@ const StyledHeading = styled(Heading)`
 
 function WidgetHeading (props) {
   const { children, level } = props
+  console.log(children, level)
   return (
     <StyledHeading level={level} margin='none'>
       <SpacedText
