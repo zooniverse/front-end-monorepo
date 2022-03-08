@@ -5,6 +5,7 @@ import React from 'react'
 import { DraggableImage, MultiFrameViewerContainer } from './MultiFrameViewerContainer'
 import FrameCarousel from './FrameCarousel'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
+import TranscriptionLineTool from '../../../../../../plugins/drawingTools/experimental/models/tools/TranscriptionLineTool/TranscriptionLineTool'
 import asyncStates from '@zooniverse/async-states'
 
 describe('Component > MultiFrameViewerContainer', function () {
@@ -142,26 +143,27 @@ describe('Component > MultiFrameViewerContainer', function () {
       })
     })
 
-    describe('with marks from an active drawing or transcription task tool', function () {
-      const validateSpy = sinon.spy()
+    describe('with invalid marks', function () {
+      // mock an active transcription task tool:
+      const activeTool = TranscriptionLineTool.create({
+        color: '#ff0000',
+        type: 'transcriptionLine'
+      })
 
-      // testMarks is a generic Map, does not represent actual marks from a task tool
-      const testMarks = new Map([
-        [1, 'one'],
-        [2, 'two'],
-        [3, 'three']
-      ])
+      // add a valid first mark:
+      const pointerEvent = { x: 10, y: 10 }
+      const validMark = activeTool.createMark({ x: 0, y: 0 })
+      activeTool.handlePointerDown(pointerEvent, validMark)
 
-      // mock an active drawing or transcription task tool:
-      const activeTool = {
-        marks: testMarks,
-        validate: validateSpy
-      }
+      // add an invalid second mark (start, but don't finish a line):
+      activeTool.createMark({ x: 15, y: 15 })
 
-      it('should validate active tool marks on frame change', function () {
+      it('should delete invalid marks on frame change', function () {
         wrapper.setProps({ activeTool })
+        expect(activeTool.marks.size).to.equal(2)
+
         wrapper.instance().onFrameChange(2)
-        expect(validateSpy).to.have.been.calledOnce()
+        expect(activeTool.marks.size).to.equal(1)
       })
     })
   })
