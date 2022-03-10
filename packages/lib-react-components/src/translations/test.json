@@ -1,0 +1,87 @@
+{
+  "AdminCheckbox": {
+    "label": "Translated"
+  },
+  "CloseButton": {
+    "close": "Translated"
+  },
+  "FavouritesButton": {
+    "add": "Translated",
+    "remove": "Translated"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "Translated",
+      "publications": "Translated",
+      "team": "Translated",
+      "acknowledgements": "Translated",
+      "contact": "Translated",
+      "faq": "Translated"
+    },
+    "buildLabels": {
+      "buildAProject": "Translated",
+      "tutorial": "Translated",
+      "glossary": "Translated",
+      "policies": "Translated",
+      "bestPractices": "Translated"
+    },
+    "getInvolvedLabels": {
+      "getInvolved": "Translated",
+      "education": "Translated",
+      "callForProjects": "Translated",
+      "collections": "Translated"
+    },
+    "newsLabels": {
+      "news": "Translated",
+      "dailyZooniverse": "Translated",
+      "blog": "Translated"
+    },
+    "policyLabels": {
+      "privacyPolicy": "Translated",
+      "jobs": "Translated",
+      "systemStatus": "Translated",
+      "security": "Translated"
+    },
+    "projectLabels": {
+      "projects": "Translated"
+    },
+    "talkLabels": {
+      "talk": "Translated"
+    },
+    "tagLine": "Translated"
+  },
+  "ZooHeader": {
+    "ariaLabel": "Translated",
+    "mainHeaderNavListLabels": {
+      "projects": "Translated",
+      "about": "Translated",
+      "getInvolved": "Translated",
+      "talk": "Translated",
+      "build": "Translated"
+    },
+    "SignedInUserNavigation": {
+      "ariaLabel": "Translated",
+      "navListLabels": {
+        "messages_zero": "Translated",
+        "messages_one": "Translated {{count}}",
+        "messages_other": "Translated {{count}}",
+        "notifications_zero": "Translated",
+        "notifications_one": "Translated {{count}}",
+        "notifications_other": "Translated {{count}}"
+      }
+    },
+    "SignedOutUserNavigation": {
+      "register": "Translated",
+      "signIn": "Translated"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "profile": "Translated",
+        "settings": "Translated",
+        "collections": "Translated",
+        "favorites": "Translated",
+        "signOut": "Translated"
+      }
+    }
+  }
+}
