@@ -1,7 +1,9 @@
+/** next-i18next has { useSuspense: false } by default */
+
 module.exports = {
   i18n: {
-    fallbackLng: 'en',
-    locales: ['en', 'fr'],
-    defaultLocale: 'en'
+    defaultLocale: 'en',
+    defaultNS: 'components',
+    locales: ['en', 'test']
   }
 }
