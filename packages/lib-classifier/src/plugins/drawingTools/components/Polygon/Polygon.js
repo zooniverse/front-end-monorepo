@@ -83,9 +83,7 @@ function Polygon({ active, mark, scale }) {
       {active &&
         points.map((point, i) => {
           if (i === 0) {
-            {
-              /* Initial Point */
-            }
+            /* Initial Point */
             return (
               <circle
                 key={`${mark.id}-${i}`}
@@ -98,9 +96,7 @@ function Polygon({ active, mark, scale }) {
             )
           }
 
-          {
-            /* All other points in the Polygon */
-          }
+          /* All other points in the Polygon */
           return (
             <DragHandle
               key={`${mark.id}-${i}`}
