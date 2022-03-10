@@ -3,6 +3,7 @@ import { createRef } from 'react'
 import { Anchor, Box } from 'grommet'
 import { FavouritesButton, Media } from '@zooniverse/react-components'
 import { CollectionsButton, TalkLink } from './components'
+import { useRouter } from 'next/router'
 
 const defaultSubject = {
   favorite: false,
@@ -22,6 +23,7 @@ function SubjectPreview ({
   const subjectURL = subjectURLs[0]
   const collectionsModal = createRef()
   const href = `/projects/${slug}/talk/subjects/${subject.id}`
+  const { locale } = useRouter()
 
   return (
     <Box
@@ -52,6 +54,7 @@ function SubjectPreview ({
         <FavouritesButton
           checked={subject.favorite}
           disabled={!isLoggedIn}
+          locale={locale}
           onClick={subject.toggleFavourite}
         />
         <CollectionsButton
