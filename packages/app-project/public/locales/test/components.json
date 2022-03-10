@@ -1,0 +1,179 @@
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "Translated",
+      "register": "Translated",
+      "signIn": "Translated"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "Translated",
+      "seeResults": "Translated"
+    }
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "error": "Translated",
+      "forgot": "Translated",
+      "heading": "Translated",
+      "instruction": "Translated",
+      "login": "Translated",
+      "password": "Translated",
+      "placeholder": "Translated",
+      "signIn": "Translated"
+    },
+    "RegisterForm": {
+      "betaListSignUp": "Translated",
+      "email": "Translated",
+      "emailConfirm": "Translated",
+      "emailConfirmError": "Translated",
+      "emailConflict": "Translated",
+      "emailPlaceholder": "Translated",
+      "emailListSignUp": "Translated",
+      "forgot": "Translated",
+      "heading": "Translated",
+      "instruction": "Translated",
+      "password": "Translated",
+      "passwordConfirm": "Translated",
+      "passwordConfirmError": "Translated",
+      "privacyAgreement": "Translated",
+      "privacyAgreementError": "Translated",
+      "privacyLink": "Translated",
+      "realName": "Translated",
+      "realNameHelp": "Translated",
+      "realNamePatternHelp": "Translated",
+      "realNamePlaceholder": "Translated",
+      "register": "Translated",
+      "registering": "Translated",
+      "underageConsent": "Translated",
+      "underageEmail": "Translated",
+      "underageEmailSignUp": "Translated",
+      "underageNotRealName": "Translated",
+      "underageWithParent": "Translated",
+      "username": "Translated",
+      "usernameConflict": "Translated",
+      "usernameHelp": "Translated",
+      "usernamePatternHelp": "Translated",
+      "usernamePlaceholder": "Translated"
+    }
+  },
+  "CollectionsModal": {
+    "title": "Translated",
+    "CreateCollection": {
+      "label": "Translated",
+      "createButton": "Translated",
+      "private": "Translated"
+    },
+    "SelectCollection": {
+      "label": "Translated",
+      "addButton": "Translated"
+    }
+  },
+  "ConnectWithProject": {
+    "title": "Translated {{projectName}}",
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Translated",
+        "facebook": "Translated",
+        "github": "Translated",
+        "instagram": "Translated",
+        "medium": "Translated",
+        "pinterest": "Translated",
+        "googleplus": "Translated",
+        "reddit": "Translated",
+        "tumblr": "Translated",
+        "twitter": "Translated",
+        "website": "Translated",
+        "weibo": "Translated",
+        "wordpress": "Translated",
+        "youtube": "Translated"
+      }
+    }
+  },
+  "Head": {
+    "defaultDescription": "Translated",
+    "defaultTitle": "Translated",
+    "siteName": "Translated"
+  },
+  "Loader": {
+    "loading": "Translated"
+  },
+  "ProjectHeader": {
+    "about": "Translated",
+    "classify": "Translated",
+    "exploreProject": "Translated",
+    "talk": "Translated",
+    "collect": "Translated",
+    "recents": "Translated",
+    "ApprovedIcon": {
+      "title": "Translated"
+    },
+    "Avatar": {
+      "alt": "Translated {{project}}"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Translated"
+    },
+    "UnderReviewLabel": {
+      "underReview": "Translated"
+    }
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "Translated",
+    "classifications": "Translated",
+    "completedSubjects": "Translated",
+    "percentComplete": "Translated",
+    "subjects": "Translated",
+    "subtitle": "Translated",
+    "text": "Translated {{projectName}} Translated",
+    "title": "{{projectName}} Translated",
+    "viewMoreStats": "Translated",
+    "volunteers": "Translated"
+  },
+  "RequireUser": {
+    "text": "Translated"
+  },
+  "SubjectPicker": {
+    "back": "Translated",
+    "heading": "Translated",
+    "byline": "Translated",
+    "alreadySeen": "Translated",
+    "retired": "Translated",
+    "unclassified": "Translated",
+    "fetching": "Translated"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "Translated"
+    },
+    "TalkLink": {
+      "label": "Translated"
+    }
+  },
+  "SubjectSetPicker": {
+    "back": "Translated",
+    "heading": "Translated",
+    "byline": "Translated",
+    "SubjectSetCard": {
+      "isComplete": "Translated"
+    }
+  },
+  "ThemeModeToggle": {
+    "switchToDark": "Translated",
+    "switchToLight": "Translated"
+  },
+  "WorkflowSelector": {
+    "getStarted": "Translated",
+    "error": "Translated",
+    "message": "Translated",
+    "noWorkflows": "Translated",
+    "WorkflowSelectButton": {
+      "complete": "{{completeness}}% Translated",
+      "setSelection": "Translated",
+      "subjectSelection": "Translated"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "Translated",
+      "unlocked": "Translated"
+    }
+  }
+}
