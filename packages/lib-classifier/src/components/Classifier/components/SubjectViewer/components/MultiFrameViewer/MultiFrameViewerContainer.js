@@ -13,7 +13,6 @@ import locationValidator from '../../helpers/locationValidator'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 
-
 function storeMapper(store) {
   const {
     enableRotation,
@@ -25,7 +24,17 @@ function storeMapper(store) {
     setOnZoom
   } = store.subjectViewer
 
+  const { activeStepTasks } = store.workflowSteps
+
+  const [activeInteractionTask] = activeStepTasks.filter(
+    (task) => task.type === 'drawing' || task.type === 'transcription'
+  )
+  const {
+    activeTool
+  } = activeInteractionTask || {}
+
   return {
+    activeTool,
     enableRotation,
     frame,
     move,
@@ -48,7 +57,7 @@ class MultiFrameViewerContainer extends React.Component {
     this.setOnDrag = this.setOnDrag.bind(this)
 
     this.subjectImage = React.createRef()
-    
+
     this.state = {
       img: {}
     }
@@ -86,7 +95,15 @@ class MultiFrameViewerContainer extends React.Component {
   }
 
   onFrameChange(frame) {
-    const { setFrame } = this.props
+    const {
+      activeTool,
+      setFrame
+    } = this.props
+
+    if (activeTool?.marks?.size > 0) {
+      activeTool.validate()
+    }
+
     setFrame(frame)
   }
 
@@ -139,7 +156,7 @@ class MultiFrameViewerContainer extends React.Component {
       subject
     } = this.props
     const { img } = this.state
-    
+
     // If image hasn't been fully retrieved, use a placeholder
     const src = img?.src || 'https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png'  // Use this instead of https://www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png to save on network calls
     const naturalWidth = img?.naturalWidth || 800
@@ -204,6 +221,9 @@ class MultiFrameViewerContainer extends React.Component {
 }
 
 MultiFrameViewerContainer.propTypes = {
+  activeTool: PropTypes.shape({
+    validate: PropTypes.func
+  }),
   enableInteractionLayer: PropTypes.bool,
   enableRotation: PropTypes.func,
   frame: PropTypes.number,
@@ -219,6 +239,9 @@ MultiFrameViewerContainer.propTypes = {
 }
 
 MultiFrameViewerContainer.defaultProps = {
+  activeTool: {
+    validate: () => {}
+  },
   enableInteractionLayer: true,
   enableRotation: () => null,
   frame: 0,

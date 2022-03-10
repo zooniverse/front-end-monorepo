@@ -5,6 +5,7 @@ import React from 'react'
 import { DraggableImage, MultiFrameViewerContainer } from './MultiFrameViewerContainer'
 import FrameCarousel from './FrameCarousel'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
+import TranscriptionLineTool from '../../../../../../plugins/drawingTools/experimental/models/tools/TranscriptionLineTool/TranscriptionLineTool'
 import asyncStates from '@zooniverse/async-states'
 
 describe('Component > MultiFrameViewerContainer', function () {
@@ -140,7 +141,31 @@ describe('Component > MultiFrameViewerContainer', function () {
         expect(image).to.have.lengthOf(1)
         expect(image.prop('xlinkHref')).to.equal('https://some.domain/image.jpg')
       })
-    })  
+    })
+
+    describe('with invalid marks', function () {
+      // mock an active transcription task tool:
+      const activeTool = TranscriptionLineTool.create({
+        color: '#ff0000',
+        type: 'transcriptionLine'
+      })
+
+      // add a valid first mark:
+      const pointerEvent = { x: 10, y: 10 }
+      const validMark = activeTool.createMark({ x: 0, y: 0 })
+      activeTool.handlePointerDown(pointerEvent, validMark)
+
+      // add an invalid second mark (start, but don't finish a line):
+      activeTool.createMark({ x: 15, y: 15 })
+
+      it('should delete invalid marks on frame change', function () {
+        wrapper.setProps({ activeTool })
+        expect(activeTool.marks.size).to.equal(2)
+
+        wrapper.instance().onFrameChange(2)
+        expect(activeTool.marks.size).to.equal(1)
+      })
+    })
   })
 
   describe('with an invalid subject', function () {

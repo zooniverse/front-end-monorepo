@@ -1,0 +1,38 @@
+{
+  "InputStatus": {
+    "drawn": "{{count}} Translated",
+    "max": "{{count}} Translated {{max}} Translated",
+    "min": "{{count}} Translated {{min}} Translated",
+    "maxAndMin": "{{count}} Translated {{min}} Translated {{max}}"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Translated",
+    "otherLabel": "Translated",
+    "selectPlaceholder": "Translated"
+  },
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Translated",
+      "filter": "Translated",
+      "showing": "Translated  {{total}} Translated {{showing}}"
+    },
+    "Choice": {
+      "identify": "Translated",
+      "notThis": "Translated"
+    },
+    "ConfusedWith": {
+      "cancel": "Translated",
+      "confused": "Translated",
+      "itsThis": "Translated"
+    }
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Translated"
+    }
+  },
+  "TranscriptionLine": {
+    "editing": "Translated",
+    "created": "Translated"
+  }
+}
