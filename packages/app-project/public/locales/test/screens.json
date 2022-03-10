@@ -1,0 +1,88 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "Translated",
+        "team": "Translated",
+        "results": "Translated",
+        "education": "Translated",
+        "faq": "Translated"
+      }
+    },
+    "SidebarHeading": "Translated"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Translated {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Translated"
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Translated",
+      "noMessageButton": "Translated",
+      "title": "Translated"
+    },
+    "ZooniverseTalk": {
+      "button": "Translated",
+      "message": "Translated",
+      "title": "Translated",
+      "RecentSubjects": {
+        "error": "Translated",
+        "noSubjects": "Translated",
+        "subjectLabel": "Translated {{id}}"
+      }
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Translated"
+      }
+    },
+    "FinishedForTheDay": {
+      "buttons": {
+        "anotherProject": "Translated",
+        "stats": "Translated"
+      },
+      "text": "Translated {{projectName}} Translated",
+      "title": "Translated",
+      "ProjectImage": {
+        "alt": "Translated {{projectName}}"
+      },
+      "RelatedProjectsButton": {
+        "label": "Translated"
+      },
+      "RelatedProjectsModal": {
+        "hereAreSomeOthers": "Translated",
+        "relatedProjects": "Translated",
+        "title": "Translated {{project}}",
+        "ProjectCard": {
+          "viewProject": "Translated"
+        }
+      }
+    },
+    "RecentSubjects": {
+      "text": "Translated",
+      "title": "Translated"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Translated",
+      "confirm": "Translated",
+      "content": "Translated",
+      "dismiss": "Translated",
+      "title": "Translated"
+    },
+    "YourStats": {
+      "todaysCount": "Translated",
+      "totalCount": "Translated",
+      "text": "Translated",
+      "title": "Translated {{projectName}} Translated",
+      "DailyClassificationsChart": {
+        "title": "{{projectName}} Translated"
+      }
+    }
+  }
+}
