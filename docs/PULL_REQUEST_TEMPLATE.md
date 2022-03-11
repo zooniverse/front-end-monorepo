@@ -7,7 +7,6 @@ _Please request review from `@zooniverse/frontend` team or an individual member 
 ## Describe your changes:
 
 ## How to Review
-
 _Helpful explanations that will make your reviewer happy:_
 - What Zooniverse project should my reviewer use to review UX?
 - What user actions should my reviewer step through to review this PR?
@@ -19,7 +18,6 @@ _PR Creator - Please cater the checklist to fit the review needed for your code 
 _PR Reviewer - Use the checklist during your review. Each point should be checkmarked or discussed before PR approval._
 
 ## General
-
 - [ ] Tests are passing locally and on Github.
 - [ ] Documentation is up to date. Changelog has been updated if appropriate.
 - [ ] You can `yarn panic && yarn bootstrap` or `docker-compose up --build` and FEM works as expected.
