@@ -42,7 +42,7 @@
     "engine.io-client": "~6.1.1",
     "express": "^4.17.1",
     "graphql": "~16.3.0",
-    "graphql-request": "~4.0.0",
+    "graphql-request": "~4.1.0",
     "grommet": "~2.20.1",
     "grommet-icons": "~4.7.0",
     "lodash": "~4.17.11",
