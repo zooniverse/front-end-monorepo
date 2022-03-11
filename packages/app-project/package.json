@@ -43,7 +43,7 @@
     "express": "^4.17.1",
     "graphql": "~16.3.0",
     "graphql-request": "~4.1.0",
-    "grommet": "~2.20.1",
+    "grommet": "~2.21.0",
     "grommet-icons": "~4.7.0",
     "lodash": "~4.17.11",
     "luxon": "~2.3.0",
