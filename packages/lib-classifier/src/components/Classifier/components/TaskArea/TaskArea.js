@@ -52,6 +52,7 @@ export default function TaskArea({
 
   function onClose() {
     setActiveIndex(0)
+    tutorial?.setSeenTime()
   }
 
   return (
