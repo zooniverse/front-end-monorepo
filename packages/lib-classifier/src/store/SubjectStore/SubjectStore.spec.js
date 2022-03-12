@@ -3,6 +3,7 @@ import { getType } from 'mobx-state-tree'
 import nock from 'nock'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
+import asyncStates from '@zooniverse/async-states'
 
 import RootStore from '@store/RootStore'
 import SubjectGroup from './SubjectGroup'
@@ -346,7 +347,14 @@ describe('Model > SubjectStore', function () {
 
   describe('single text subjects', function () {
     let subjects
-    let textSubjects = Factory.buildList('subject', 10, { locations: [{ 'text/plain': 'https://foo.bar/example.txt' }] })
+    const textSubjects = Factory.buildList(
+      'subject',
+      10,
+      {
+        content: 'This is test subject content',
+        contentLoadingState: asyncStates.success,
+        locations: [{ 'text/plain': 'https://foo.bar/example.txt' }]
+      })
 
     before(async function () {
       subjects = await mockSubjectStore(textSubjects)
@@ -358,7 +366,7 @@ describe('Model > SubjectStore', function () {
     })
 
     it('should be of the correct subject type', function () {
-      expect(getType(subjects.active).name).to.equal('SubjectResource')
+      expect(getType(subjects.active).name).to.equal('SingleTextSubject')
     })
   })
 
