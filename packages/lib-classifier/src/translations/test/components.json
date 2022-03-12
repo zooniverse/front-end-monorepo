@@ -1,0 +1,242 @@
+{
+  "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "Translated",
+      "tooltipText": [
+        "Translated",
+        "Translated"
+      ]
+    },
+    "Banner": {
+      "next": "Translated",
+      "previous": "Translated",
+      "whyAmISeeingThis": "Translated"
+    },
+    "InProgressConfirmModal": {
+      "inProgress": "Translated",
+      "cancel": "Translated",
+      "confirm": "Translated"
+    },
+    "RetiredBanner": {
+      "bannerText": "Translated",
+      "tooltipText": [
+        "Translated",
+        "Translated"
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Translated",
+      "bannerText": "{{setName}}: Translated {{number}}/{{total}}",
+      "finished": "Translated",
+      "tooltipText": [
+        "Translated",
+        "Translated"
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Translated",
+      "tooltipText": [
+        "Translated",
+        "Translated"
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Translated",
+      "tooltipText": [
+        "Translated",
+        "Translated"
+      ]
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Translated",
+    "label": "Translated"
+  },
+  "FieldGuide": {
+    "title": "Translated",
+    "FieldGuideButton": {
+      "buttonLabel": {
+        "field": "Translated",
+        "guide": "Translated"
+      }
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Translated"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "Translated {{title}}"
+    }
+  },
+  "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Translated"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "fullscreen": "Translated",
+        "actualSize": "Translated"
+      }
+    },
+    "MoveButton": {
+      "ariaLabel": "Translated"
+    },
+    "ResetButton": {
+      "ariaLabel": "Translated"
+    },
+    "RotateButton": {
+      "ariaLabel": "Translated"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Translated"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Translated"
+    }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Translated"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Translated",
+      "show": "Translated"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Translated",
+      "show": "Translated",
+      "showUser": "Translated"
+    },
+    "MetadataButton": {
+      "label": "Translated"
+    },
+    "MetadataModal": {
+      "title": "Translated",
+      "table": {
+        "label": "Translated",
+        "value": "Translated"
+      }
+    }
+  },
+  "ModalTutorial": {
+    "title": "Translated"
+  },
+  "QuickTalk": {
+    "headerLink": "Translated",
+    "status": {
+      "loading": "Translated"
+    },
+    "errors": {
+      "noText": "Translated"
+    }
+  },
+  "SlideTutorial": {
+    "alt": "Translated {{activeStep}}",
+    "error": "Translated",
+    "getStarted": "Translated",
+    "heading": "{{projectDisplayName}} Translated",
+    "StepNavigation": {
+      "go": "Translated {{index}}",
+      "next": "Translated",
+      "previous": "Translated"
+    }
+  },
+  "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Translated"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Translated",
+        "confirm": "Translated",
+        "keepWorking": "Translated"
+      },
+      "SaveButton": {
+        "save": "Translated"
+      },
+      "SubTaskPopup": {
+        "notRender": "Translated",
+        "required": "Translated"
+      },
+      "TranscribedLines": {
+        "complete": "Translated",
+        "transcribed": "Translated",
+        "ConsensusPopup": {
+          "aggregatedTranscription": "Translated",
+          "explanation": "Translated {{count}} Translated",
+          "noAggregation": "Translated",
+          "title": "Translated",
+          "transcriptionsUnavailable": "Translated"
+        }
+      }
+    },
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "thumbnailAltText": "Translated",
+        "previousFrameLabel": "Translated",
+        "nextFrameLabel": "Translated"
+      }
+    },
+    "VariableStarViewer": {
+      "controls": "Translated",
+      "figCaption": "Translated",
+      "flip": "Translated",
+      "focus": "Translated",
+      "highlight": "Translated",
+      "imageTitle": "Translated",
+      "label": "Translated {{id}} Translated",
+      "periodMultiple": "Translated",
+      "phase": "Translated",
+      "phaseFocus": "Translated"
+    },
+    "VideoController": {
+      "scrubber": "Translated",
+      "playbackSpeed": "Translated",
+      "play": "Translated",
+      "pause": "Translated"
+    },
+    "ZoomControlButton": {
+      "enable": "Translated",
+      "disable": "Translated"
+    }
+  },
+  "TaskArea": {
+    "task": "Translated",
+    "tutorial": "Translated",
+    "DisabledTaskPopup": {
+      "title": "Translated",
+      "body": "Translated",
+      "options": {
+        "dismiss": "Translated",
+        "next": "Translated",
+        "select": "Translated"
+      }
+    },
+    "Tasks": {
+      "demoMode": "Translated",
+      "error": "Translated",
+      "loading": "Translated",
+      "renderFallback": "Translated",
+      "BackButton": {
+        "back": "Translated",
+        "tooltip": "Translated"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Translated"
+      },
+      "DoneButton": {
+        "done": "Translated"
+      },
+      "ExpertOptions": {
+        "demoToggle": "Translated",
+        "label": "Translated"
+      },
+      "NextButton": {
+        "next": "Translated"
+      },
+      "TaskHelp": {
+        "close": "Translated",
+        "label": "Translated"
+      }
+    }
+  }
+}

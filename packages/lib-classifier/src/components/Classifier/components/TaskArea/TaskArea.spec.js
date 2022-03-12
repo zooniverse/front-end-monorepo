@@ -77,11 +77,14 @@ describe('TaskArea', function () {
   describe('when the tutorial closes', function () {
     let setActiveTutorialSpy
     let wrapper
+
     before(function () {
       setActiveTutorialSpy = sinon.spy()
+      tutorial.setSeenTime = sinon.stub()
       wrapper = shallow(<TaskArea setActiveTutorial={setActiveTutorialSpy} tutorial={tutorial} />)
       wrapper.find(SlideTutorial).simulate('click')
     })
+
     afterEach(function () {
       setActiveTutorialSpy.resetHistory()
     })
@@ -92,6 +95,10 @@ describe('TaskArea', function () {
 
     it('should activate the tasks tab', function () {
       expect(wrapper.find(Tabs).props().activeIndex).to.equal(0)
+    })
+
+    it('should mark the tutorial as complete', function () {
+      expect(tutorial.setSeenTime).to.have.been.calledOnce()
     })
   })
 })
