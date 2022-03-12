@@ -9,12 +9,14 @@ import HidePreviousMarksButton from './components/HidePreviousMarksButton'
 import SHOWN_MARKS from '@helpers/shownMarks'
 
 function storeMapper (stores) {
+  const { locale } = stores.classifierStore
   const { active: subject, isThereMetadata } = stores.classifierStore.subjects
   const { interactionTask } = stores.classifierStore.workflowSteps
   const upp = stores.classifierStore.userProjectPreferences.active
   return {
     interactionTask,
     isThereMetadata,
+    locale,
     subject,
     upp
   }
@@ -40,6 +42,7 @@ class MetaTools extends React.Component {
       className,
       interactionTask,
       isThereMetadata,
+      locale,
       screenSize,
       subject,
       upp
@@ -60,6 +63,7 @@ class MetaTools extends React.Component {
         <FavouritesButton
           checked={subject && subject.favorite}
           disabled={!subject || !upp}
+          locale={locale}
           onClick={subject && subject.toggleFavorite}
         />
         <CollectionsButton
@@ -95,6 +99,7 @@ MetaTools.wrappedComponent.propTypes = {
     type: PropTypes.string
   }),
   isThereMetadata: PropTypes.bool,
+  locale: PropTypes.string,
   screenSize: PropTypes.string,
   subject: PropTypes.object,
   upp: PropTypes.object

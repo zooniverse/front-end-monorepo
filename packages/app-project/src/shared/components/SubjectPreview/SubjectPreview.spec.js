@@ -1,12 +1,24 @@
 import { shallow } from 'enzyme'
 import { Anchor } from 'grommet'
 import { FavouritesButton, Media } from '@zooniverse/react-components'
+import * as Router from 'next/router'
+import sinon from 'sinon'
 
 import SubjectPreview from './SubjectPreview'
 import { CollectionsButton, TalkLink } from './components'
 
 describe('Component > SubjectPreview', function () {
+  let routerStub
   let wrapper
+
+  const ROUTER = {
+    locale: 'test',
+    query: {
+      owner: 'Foo',
+      project: 'Bar'
+    }
+  }
+
   const subject = {
     favorite: false,
     id: '12345',
@@ -18,6 +30,7 @@ describe('Component > SubjectPreview', function () {
   const slug = 'owner/projectName'
 
   before(function () {
+    routerStub = sinon.stub(Router, 'useRouter').callsFake(() => ROUTER)
     wrapper = shallow(
       <SubjectPreview
         isLoggedIn
@@ -25,6 +38,10 @@ describe('Component > SubjectPreview', function () {
         slug={slug}
       />
     )
+  })
+
+  after(function () {
+    routerStub.restore()
   })
 
   it('should render without crashing', function () {

@@ -48,6 +48,11 @@ describe('Component > MetaTools', function () {
       expect(wrapper.find(FavouritesButton)).to.have.lengthOf(1)
     })
 
+    it('should pass locale to FavouritesButton', function () {
+      const wrapper = shallow(<MetaTools.wrappedComponent locale='test' />)
+      expect(wrapper.find(FavouritesButton).props().locale).to.equal('test')
+    })
+
     it('should call toggle favourites on click of the FavouritesButton', function () {
       const subjectMethod = { toggleFavorite: sinon.spy() }
       const wrapper = shallow(<MetaTools.wrappedComponent subject={subjectMethod} />)

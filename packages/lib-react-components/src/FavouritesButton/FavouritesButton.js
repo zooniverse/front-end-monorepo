@@ -53,7 +53,6 @@ FavouritesButton.propTypes = {
 FavouritesButton.defaultProps = {
   checked: false,
   disabled: false,
-  // locale: 'en',
   onClick: () => false
 }
 
