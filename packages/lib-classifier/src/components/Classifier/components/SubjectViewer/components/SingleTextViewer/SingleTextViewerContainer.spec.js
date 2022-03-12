@@ -1,199 +1,186 @@
 import { expect } from 'chai'
-import { mount } from 'enzyme'
-import nock from 'nock'
+import { shallow } from 'enzyme'
 import React from 'react'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
+import asyncStates from '@zooniverse/async-states'
 
 import SingleTextViewerContainer from './SingleTextViewerContainer'
 import SingleTextViewer from './SingleTextViewer'
 
-
 const subject = Factory.build('subject', {
+  content: 'subject text',
+  contentLoadingState: asyncStates.success,
   locations: [
-    { 'text/plain': 'http://localhost:8080/subject.txt' }
+    { 'text/plain': 'http://localhost:8080/subjectContent.txt' }
   ]
 })
 
 const nextSubject = Factory.build('subject', {
+  content: 'next subject text',
+  contentLoadingState: asyncStates.success,
   locations: [
-    { 'text/plain': 'http://localhost:8080/nextSubject.txt' }
+    { 'text/plain': 'http://localhost:8080/subjectContent.txt' }
   ]
 })
 
-const imageSubject = Factory.build('subject')
-
-const failSubject = Factory.build('subject', {
+const errorSubject = Factory.build('subject', {
+  contentLoadingState: asyncStates.error,
+  error: new Error('Error loading subject'),
   locations: [
-    { 'text/plain': 'http://localhost:8080/failure.txt' }
+    { 'text/plain': 'http://localhost:8080/subjectContent.txt' }
+  ]
+})
+
+const initializedSubject = Factory.build('subject', {
+  contentLoadingState: asyncStates.initialized,
+  locations: [
+    { 'text/plain': 'http://localhost:8080/subjectContent.txt' }
+  ]
+})
+
+const loadingSubject = Factory.build('subject', {
+  contentLoadingState: asyncStates.loading,
+  locations: [
+    { 'text/plain': 'http://localhost:8080/subjectContent.txt' }
   ]
 })
 
 describe('Component > SingleTextViewerContainer', function () {
   it('should render without crashing', function () {
-    const wrapper = mount(<SingleTextViewerContainer />)
+    const wrapper = shallow(<SingleTextViewerContainer />)
     expect(wrapper).to.be.ok()
   })
 
   describe('without a subject', function () {
     it('should render null with the default props', function () {
-      const wrapper = mount(<SingleTextViewerContainer />)
+      const wrapper = shallow(<SingleTextViewerContainer />)
       expect(wrapper.html()).to.be.null()
     })
   })
 
-  describe('with an invalid subject', function () {
-    beforeEach(function () {
-      sinon.stub(console, 'error')
-      const nockScope = nock('http://localhost:8080')
-        .get('/failure.txt')
-        .reply(404)
-    })
+  describe('with content loading state of error', function () {
+    let wrapper, onErrorSpy, onReadySpy
 
-    afterEach(function () {
-      console.error.restore()
-      nock.cleanAll()
-    })
+    before(function () {
+      onErrorSpy = sinon.spy()
+      onReadySpy = sinon.spy()
 
-    it('should error if a text subject location file can\'t be found', function (done) {
-      const onError = sinon.stub().callsFake((error) => {
-        expect(error.message).to.equal('No text url found for this subject')
-        done()
-      })
-      const onReady = sinon.stub().callsFake(() => {
-        expect.fail('should not call onReady')
-        done()
-      })
-      const wrapper = mount(
+      wrapper = shallow(
         <SingleTextViewerContainer
-          onError={onError}
-          onReady={onReady}
-          subject={imageSubject}
-        />
-      )
+          onError={onErrorSpy}
+          onReady={onReadySpy}
+          subject={errorSubject}
+        />)
     })
 
-    it('should error if the location request response fails', function (done) {
-      const onError = sinon.stub().callsFake((error) => {
-        expect(error.message).to.equal('Not Found')
-        done()
-      })
-      const onReady = sinon.stub().callsFake(() => {
-        expect.fail('should not call onReady')
-        done()
-      })
-      const wrapper = mount(
-        <SingleTextViewerContainer
-          onError={onError}
-          onReady={onReady}
-          subject={failSubject}
-        />
-      )
+    it('should render null', function () {
+      expect(wrapper.html()).to.be.null()
     })
 
-    it('should render null', function (done) {
-      let wrapper
-      const onError = sinon.stub().callsFake((error) => {
-        expect(wrapper.html()).to.be.null()
-        done()
-      })
-      const onReady = sinon.stub().callsFake(() => {
-        expect.fail('should not call onReady')
-        done()
-      })
-      wrapper = mount(
-        <SingleTextViewerContainer
-          onError={onError}
-          onReady={onReady}
-          subject={failSubject}
-        />
-      )
+    it('should call the onError prop', function () {
+      expect(onErrorSpy).to.have.been.calledOnceWith(errorSubject.error)
+    })
+
+    it('should not call the onReady prop', function () {
+      expect(onReadySpy).to.not.have.been.called()
     })
   })
 
-  describe('with a subject', function () {
-    beforeEach(function () {
-      const nockScope = nock('http://localhost:8080')
-        .get('/subject.txt')
-        .reply(200, 'subject text')
-        .get('/nextSubject.txt')
-        .reply(200, 'next subject text')
-    })
+  describe('with content loading state of success', function () {
+    let wrapper, onErrorSpy, onReadySpy
 
-    afterEach(function () {
-      nock.cleanAll()
-    })
+    before(function () {
+      onErrorSpy = sinon.spy()
+      onReadySpy = sinon.spy()
 
-    it('should display the text content', function (done) {
-      let wrapper
-      const onError = sinon.stub().callsFake(() => {
-        expect.fail('should not error.')
-        done()
-      })
-      const onReady = sinon.stub().callsFake(event => {
-        wrapper.update()
-        const stv = wrapper.find(SingleTextViewer)
-        expect(stv.prop('content')).to.equal('subject text')
-        done()
-      })
-      wrapper = mount(
+      wrapper = shallow(
         <SingleTextViewerContainer
-          onError={onError}
-          onReady={onReady}
+          onError={onErrorSpy}
+          onReady={onReadySpy}
           subject={subject}
-        />
-      )
+        />)
     })
 
-    it('should call the onReady prop', function (done) {
-      const onError = sinon.stub().callsFake(() => {
-        expect.fail('should not error.')
-        done()
-      })
-      const onReady = sinon.stub().callsFake(event => {
-        expect(event.target).to.equal(null)
-        done()
-      })
-      const wrapper = mount(
-        <SingleTextViewerContainer
-          onError={onError}
-          onReady={onReady}
-          subject={subject}
-        />
-      )
+    it('should display the text subject content', function () {
+      const stv = wrapper.find(SingleTextViewer)
+      expect(stv.prop('content')).to.equal(subject.content)
     })
 
-    it('should update text content when there is a new valid subject', function (done) {
-      const onReady = sinon.stub()
-      const onError = sinon.stub().callsFake(() => {
-        expect.fail('should not error.')
-        done()
-      })
+    it('should call the onReady prop', function () {
+      expect(onReadySpy).to.have.been.calledOnce()
+    })
 
-      function onFirstSubject(event) {
-        wrapper.update()
-        const stv = wrapper.find(SingleTextViewer)
-        expect(stv.prop('content')).to.equal('subject text')
-        wrapper.setProps({
-          onReady: onReady.callsFake(onSecondSubject),
-          subject: nextSubject
-        })
-      }
+    it('should not call the onError prop', function () {
+      expect(onErrorSpy).to.not.have.been.called()
+    })
 
-      function onSecondSubject(event) {
-        wrapper.update()
-        const stv = wrapper.find(SingleTextViewer)
-        expect(stv.prop('content')).to.equal('next subject text')
-        done()
-      }
+    it('should update text subject content when there is a new subject', function () {
+      wrapper.setProps({ subject: nextSubject })
+      const stv = wrapper.find(SingleTextViewer)
+      expect(stv.prop('content')).to.equal(nextSubject.content)
+    })
+  })
 
-      const wrapper = mount(
+  describe('with content loading state of initialized', function () {
+    let wrapper, onErrorSpy, onReadySpy
+
+    before(function () {
+      onErrorSpy = sinon.spy()
+      onReadySpy = sinon.spy()
+
+      wrapper = shallow(
         <SingleTextViewerContainer
-          onError={onError}
-          onReady={onReady.callsFake(onFirstSubject)}
-          subject={subject}
-        />
-      )
+          onError={onErrorSpy}
+          onReady={onReadySpy}
+          subject={initializedSubject}
+        />)
+    })
+
+    it('should render null', function () {
+      expect(wrapper.html()).to.be.null()
+    })
+
+    it('should not call the onError prop', function () {
+      expect(onErrorSpy).to.not.have.been.called()
+    })
+
+    it('should not call the onReady prop', function () {
+      expect(onReadySpy).to.not.have.been.called()
+    })
+  })
+
+  describe('with content loading state of loading', function () {
+    let wrapper, onErrorSpy, onReadySpy
+
+    before(function () {
+      onErrorSpy = sinon.spy()
+      onReadySpy = sinon.spy()
+
+      wrapper = shallow(
+        <SingleTextViewerContainer
+          onError={onErrorSpy}
+          onReady={onReadySpy}
+          subject={loadingSubject}
+        />)
+    })
+
+    it('should render null', function () {
+      expect(wrapper.html()).to.be.null()
+    })
+
+    it('should not call the onError prop', function () {
+      expect(onErrorSpy).to.not.have.been.called()
+    })
+
+    it('should not call the onReady prop', function () {
+      expect(onReadySpy).to.not.have.been.called()
+    })
+
+    it('should update text subject content when the subject loads successfully', function () {
+      wrapper.setProps({ subject: subject })
+      const stv = wrapper.find(SingleTextViewer)
+      expect(stv.prop('content')).to.equal(subject.content)
     })
   })
 })
