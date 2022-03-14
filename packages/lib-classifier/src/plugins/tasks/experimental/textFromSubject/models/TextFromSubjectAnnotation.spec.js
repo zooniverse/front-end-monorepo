@@ -1,11 +1,17 @@
 import TextFromSubjectAnnotation from './TextFromSubjectAnnotation'
 
 describe('Model > TextFromSubjectAnnotation', function () {
-  describe('with an answer', function () {
+  describe('with initial update from subject content', function () {
     let textFromSubjectAnnotation
 
     before(function () {
-      textFromSubjectAnnotation = TextFromSubjectAnnotation.create({ id: 'text1', task: 'T4', taskType: 'textFromSubject', value: 'test' })
+      textFromSubjectAnnotation = TextFromSubjectAnnotation.create({
+        id: 'text1',
+        task: 'T1',
+        taskType: 'textFromSubject'
+      })
+
+      textFromSubjectAnnotation.updateFromSubject('Initial subject content')
     })
 
     it('should exist', function () {
@@ -13,14 +19,27 @@ describe('Model > TextFromSubjectAnnotation', function () {
       expect(textFromSubjectAnnotation).to.be.an('object')
     })
 
+    it('should have the expected value', function () {
+      expect(textFromSubjectAnnotation.value).to.equal('Initial subject content')
+    })
+
     it('should be complete', function () {
       expect(textFromSubjectAnnotation.isComplete).to.be.true()
+    })
+
+    it('should have initializedFromSubject of true', function () {
+      expect(textFromSubjectAnnotation.initializedFromSubject).to.be.true()
     })
 
     it('should error for invalid annotations', function () {
       let errorThrown = false
       try {
-        TextFromSubjectAnnotation.create({ id: 'text1', task: 'T4', taskType: 'textFromSubject', value: 5 })
+        TextFromSubjectAnnotation.create({
+          id: 'text1',
+          task: 'T1',
+          taskType: 'textFromSubject',
+          value: 5
+        })
       } catch (e) {
         errorThrown = true
       }
@@ -28,11 +47,42 @@ describe('Model > TextFromSubjectAnnotation', function () {
     })
   })
 
-  describe('without an answer', function () {
+  describe('with initial update from subject content and valid update from user', function () {
     let textFromSubjectAnnotation
 
     before(function () {
-      textFromSubjectAnnotation = TextFromSubjectAnnotation.create({ id: 'text1', task: 'T4', taskType: 'textFromSubject' })
+      textFromSubjectAnnotation = TextFromSubjectAnnotation.create({
+        id: 'text1',
+        task: 'T1',
+        taskType: 'textFromSubject'
+      })
+
+      textFromSubjectAnnotation.updateFromSubject('Initial subject content')
+      textFromSubjectAnnotation.update('Updated subject content')
+    })
+
+    it('should have the expected value', function () {
+      expect(textFromSubjectAnnotation.value).to.equal('Updated subject content')
+    })
+
+    it('should be complete', function () {
+      expect(textFromSubjectAnnotation.isComplete).to.be.true()
+    })
+
+    it('should have initializedFromSubject of true', function () {
+      expect(textFromSubjectAnnotation.initializedFromSubject).to.be.true()
+    })
+  })
+
+  describe('without an initial update from subject content', function () {
+    let textFromSubjectAnnotation
+
+    before(function () {
+      textFromSubjectAnnotation = TextFromSubjectAnnotation.create({
+        id: 'text1',
+        task: 'T1',
+        taskType: 'textFromSubject'
+      })
     })
 
     it('should exist', function () {
@@ -46,6 +96,10 @@ describe('Model > TextFromSubjectAnnotation', function () {
 
     it('should be incomplete', function () {
       expect(textFromSubjectAnnotation.isComplete).to.be.false()
+    })
+
+    it('should have initializedFromSubject of false', function () {
+      expect(textFromSubjectAnnotation.initializedFromSubject).to.be.false()
     })
   })
 })
