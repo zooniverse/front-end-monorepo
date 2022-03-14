@@ -39,12 +39,8 @@ function Polygon({ active, mark, scale }) {
     mark.shortenPath()
   }
 
-  function handleClosePolygon(i) {
-    return i === 0
-      ? () => {
-          mark.finish()
-        }
-      : null
+  function handleClosePolygon() {
+    mark.finish()
   }
 
   return (
@@ -91,7 +87,7 @@ function Polygon({ active, mark, scale }) {
                 cx={point.x}
                 cy={point.y}
                 fill='currentColor'
-                onPointerDown={handleClosePolygon(i)}
+                onPointerDown={handleClosePolygon}
               />
             )
           }
