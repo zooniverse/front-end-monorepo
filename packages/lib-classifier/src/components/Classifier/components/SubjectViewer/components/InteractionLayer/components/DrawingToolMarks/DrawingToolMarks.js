@@ -5,9 +5,9 @@ import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 function DrawingToolMarks({
   activeMark = {
-      id: '',
-      setSubTaskVisibility: () => {}
-    },
+    id: '',
+    setSubTaskVisibility: () => {}
+  },
   marks = [],
   onDelete = () => true,
   onDeselectMark = () => true,
@@ -44,7 +44,7 @@ function DrawingToolMarks({
       onDelete(mark)
     }
 
-    function moveMark(event, difference) {
+    function moveMark(_event, difference) {
       onMove(mark, difference)
     }
 
@@ -59,8 +59,6 @@ function DrawingToolMarks({
     function endMoveMark(event) {
       if (event?.currentTarget && !isInBounds(event.currentTarget)) {
         deleteMark()
-      } else {
-        onFinish(event)
       }
     }
 
