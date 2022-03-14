@@ -9,7 +9,10 @@ function TextFromSubjectContainer ({
   disabled,
   task
 }) {
-  const { value } = annotation
+  const {
+    initializedFromSubject,
+    value
+  } = annotation
 
   function updateAnnotation (ref) {
     const currentRef = ref.current
@@ -22,7 +25,7 @@ function TextFromSubjectContainer ({
   return (
     <TextFromSubjectTask
       autoFocus={autoFocus}
-      disabled={disabled}
+      disabled={disabled || !initializedFromSubject}
       task={task}
       updateAnnotation={updateAnnotation}
       value={value}

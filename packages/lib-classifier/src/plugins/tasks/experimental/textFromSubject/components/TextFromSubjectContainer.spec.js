@@ -37,7 +37,6 @@ describe('TextFromSubjectContainer', function () {
 
   describe('on mount', function () {
     before(function () {
-      annotation.update('Hello, this is an existing annotation')
       wrapper = mount(
         <TextFromSubjectContainer
           annotation={annotation}
@@ -50,15 +49,28 @@ describe('TextFromSubjectContainer', function () {
       )
     })
 
-    it('should preserve an existing annotation', function () {
-      const textArea = wrapper.find(TextArea).getDOMNode()
-      expect(textArea.value).to.equal('Hello, this is an existing annotation')
+    describe('with an annotation not initialized from subject', function () {
+      it('should have a TextArea with prop of disabled equal to true', function () {
+        const textArea = wrapper.find(TextArea).getDOMNode()
+        expect(textArea.disabled).to.be.true()
+      })
+    })
+
+    describe('with an annotation initialized from subject', function () {
+      before(function () {
+        annotation.updateFromSubject('Initial content from subject.')
+      })
+
+      it('should include the initial content from subject', function () {
+        const textArea = wrapper.find(TextArea).getDOMNode()
+        expect(textArea.value).to.equal('Initial content from subject.')
+      })
     })
   })
 
   describe('on change', function () {
     before(function () {
-      annotation.update('Hello, this is an existing annotation')
+      annotation.updateFromSubject('Initial content from subject.')
       wrapper = mount(
         <TextFromSubjectContainer
           annotation={annotation}

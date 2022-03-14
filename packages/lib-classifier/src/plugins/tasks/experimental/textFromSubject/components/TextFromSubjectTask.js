@@ -49,6 +49,7 @@ export default function TextFromSubjectTask (props) {
           autoFocus={autoFocus}
           disabled={disabled}
           id={`${task.taskKey}-${task.type}`}
+          rows={value?.split(/\r\n|\r|\n/).length + 1}
           value={value}
           onChange={onChange}
         />
@@ -56,9 +57,6 @@ export default function TextFromSubjectTask (props) {
     </Box>
   )
 }
-
-// TODO: add rows prop as follows to expand rows based on provided text
-// rows={value?.split(/\r\n|\r|\n/).length + 1}
 
 TextFromSubjectTask.defaultProps = {
   autoFocus: false,
