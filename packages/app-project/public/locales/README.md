@@ -7,9 +7,7 @@ The `/locales` folder contains json dictionary files for translatable strings in
 
 `/en` contains the primary dictionaries for translated strings in this app. Dictionaries in this folder are the only ones that should be edited manually in a local dev environment. An example of how to translate a component can be found below.
 
-`/en/screens.json` contains translations for and is organized in the same manner as each component in `/src/screens`. 
-
-`/en/common.json` is simply a file required by `next-i18next`.
+`/en/screens.json` contains translations for and is organized in the same manner as each component in `/src/screens`.
 
 
 ## Translating a Component
@@ -36,9 +34,9 @@ New languages files must be added in the `locales` array in [next-i18next.js](ne
 ```js
 module.exports = {
   i18n: {
-    fallbackLng: 'en',
-    locales: ['en', 'fr'],
-    defaultLocale: 'en'
+    defaultLocale: 'en',
+    defaultNS: 'components',
+    locales: ['en', 'test']
   }
 }
 ```
