@@ -68,6 +68,7 @@ function ClassifierWrapperConnector({ store, ...props }) {
       project={project.toJSON()}
       recents={recents}
       user={user}
+      userID={user.id}
       yourStats={yourStats}
       {...props}
     />

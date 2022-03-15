@@ -29,6 +29,7 @@ export default function ClassifierWrapper({
   subjectID,
   subjectSetID,
   user,
+  userID,
   workflowID,
   yourStats
 }) {
@@ -84,7 +85,7 @@ export default function ClassifierWrapper({
 
   try {
     if (appLoadingState === asyncStates.success) {
-      const key = user.id || 'no-user'
+      const key = userID || 'no-user'
       return (
         <Classifier
           authClient={authClient}
@@ -147,6 +148,12 @@ ClassifierWrapper.propTypes = {
   subjectID: string,
   /** optional subject set ID (from the page URL.) */
   subjectSetID: string,
+  /** Current logged-in user */
+  user: shape({
+    error: string
+  }),
+  /** Logged-in user ID */
+  userID: string,
   /** required workflow ID (from the page URL.) */
   workflowID: string
 }
