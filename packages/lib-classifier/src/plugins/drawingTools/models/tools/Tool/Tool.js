@@ -87,7 +87,7 @@ const Tool = types
     },
 
     handlePointerMove(event, mark) {
-      mark.initialDrag(event)
+      mark.initialDrag?.(event)
     },
 
     handlePointerUp(event, mark) {
