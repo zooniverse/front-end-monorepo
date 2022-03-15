@@ -33,7 +33,7 @@
     "lodash": "~4.17.11",
     "mobx": "~6.4.0",
     "mobx-devtools-mst": "~0.9.21",
-    "mobx-react": "~7.2.1",
+    "mobx-react": "~7.3.0",
     "mobx-state-tree": "~5.1.0",
     "morgan": "^1.10.0",
     "newrelic": "^8.7.0",
