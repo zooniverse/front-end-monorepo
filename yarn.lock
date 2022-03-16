@@ -2170,10 +2170,10 @@
   dependencies:
     semver "^7.3.5"
 
-"@newrelic/koa@^6.1.0":
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/@newrelic/koa/-/koa-6.1.1.tgz#64f9895850a86c0bf1159660a16dc3e9e873bf44"
-  integrity sha512-vWwMMuaU5qDualtIPYssrIcjA4Jfq2qWJ5LZ4VJL/BNU/xvFmKBNTdJU9UeKd7S2VAwXHqczEdPVcestdg5x/A==
+"@newrelic/koa@^6.1.1":
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/@newrelic/koa/-/koa-6.1.2.tgz#98e8e24ea0bee97197f02030e3ad09912dadacf2"
+  integrity sha512-nmjr5hv+nRDC2NaRF4+iex41K6iJ/UCujgnj8oyht1grazJXQHq0dJZdMxUVNMMO+m4ukTeisSlI4d/H/W9JUw==
 
 "@newrelic/native-metrics@^7.1.1":
   version "7.1.2"
@@ -12145,15 +12145,15 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0:
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.0.tgz#0fbdcf3e13fe4994781280524f8b96b0cdff9c61"
   integrity sha512-AO81vsIO1k1sM4Zrd6Hu7regmJN1NSiAja10gc4bX3F0wd+9rQmcuHQaHVQCYIEC8iFXnE+mavh23GOt7wBgug==
 
-newrelic@^8.7.0, newrelic@~8.8.0:
-  version "8.8.0"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-8.8.0.tgz#bb8aa8915ec402709be300d1ba4a19a23f0176fa"
-  integrity sha512-1aaI7WigG2drbNWWfPITdwKWfVCbjdlHfsNa3AWk4mt9KahU/O0iS0R/OvWNInYIQNQ1hwMTGue5N2PfPKGxBw==
+newrelic@^8.7.0, newrelic@~8.9.0:
+  version "8.9.0"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-8.9.0.tgz#a3156e3a1f9bb82d6ab8cc7b968d5ec5fbb2b8ab"
+  integrity sha512-faHbzQ3cRz/wL8xCmLF+9eku3j6wM/ebNrjrwWJAGDbAj5r3Ka/frf1EmXvXbgnBaqer5SRm150nhRFOzdoM8w==
   dependencies:
     "@grpc/grpc-js" "^1.5.5"
     "@grpc/proto-loader" "^0.6.9"
     "@newrelic/aws-sdk" "^4.1.1"
-    "@newrelic/koa" "^6.1.0"
+    "@newrelic/koa" "^6.1.1"
     "@newrelic/superagent" "^5.1.0"
     "@tyriar/fibonacci-heap" "^2.0.7"
     async "^3.2.3"
