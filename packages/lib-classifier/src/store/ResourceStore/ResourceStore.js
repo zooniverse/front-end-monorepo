@@ -60,6 +60,7 @@ const ResourceStore = types
     reset () {
       self.headers = undefined
       self.active = undefined
+      self.loadingState = asyncStates.initialized
       self.resources.clear()
     },
 

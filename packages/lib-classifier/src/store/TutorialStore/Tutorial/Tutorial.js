@@ -18,16 +18,18 @@ const Tutorial = types
       const uppStore = getRoot(self).userProjectPreferences
       const upp = tryReference(() => getRoot(self).userProjectPreferences.active)
 
-      if (uppStore?.loadingState !== asyncStates.success) {
-        return false
-      }
-
+      /*
+        If there's a logged-in user, check their tutorial preferences for this tutorial.
+      */
       if (upp) {
         const seenTime = upp.preferences.tutorials_completed_at?.[self.id]
         return !(seenTime)
       }
 
-      return true
+      /*
+        Otherwise, wait for UPP to load, then return true for anonymous users.
+      */
+      return (uppStore?.loadingState === asyncStates.success)
     },
   }))
 
