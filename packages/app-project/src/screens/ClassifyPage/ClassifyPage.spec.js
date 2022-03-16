@@ -91,6 +91,12 @@ describe('Component > ClassifyPage', function () {
     it('should show classifier popup tutorials', function () {
       expect(classifier.prop('showTutorial')).to.be.true()
     })
+
+    it('should update the classifier when the workflow changes', function () {
+      wrapper.setProps({ workflowID: '3456' })
+      classifier = wrapper.find(ClassifierWrapper)
+      expect(classifier.prop('workflowID')).to.equal('3456')
+    })
   })
 
   describe('with a grouped workflow', function () {
@@ -147,6 +153,12 @@ describe('Component > ClassifyPage', function () {
 
       it('should show classifier popup tutorials', function () {
         expect(classifier.prop('showTutorial')).to.be.true()
+      })
+
+      it('should update the classifier when the subject set changes', function () {
+        wrapper.setProps({ subjectSetID: '5678' })
+        classifier = wrapper.find(ClassifierWrapper)
+        expect(classifier.prop('subjectSetID')).to.equal('5678')
       })
     })
 
@@ -233,6 +245,12 @@ describe('Component > ClassifyPage', function () {
 
         it('should show classifier popup tutorials', function () {
           expect(classifier.prop('showTutorial')).to.be.true()
+        })
+
+        it('should update the classifier when the subject changes', function () {
+          wrapper.setProps({ subjectID: '8901' })
+          classifier = wrapper.find(ClassifierWrapper)
+          expect(classifier.prop('subjectID')).to.equal('8901')
         })
       })
     })
