@@ -9,15 +9,13 @@ const StyledText = styled(Text)`
   margin: 10px 0;
 `
 
-export default function TextFromSubjectTask (props) {
-  const {
-    autoFocus,
-    disabled,
-    task,
-    value,
-    updateAnnotation
-  } = props
-
+export default function TextFromSubjectTask ({
+  autoFocus = false,
+  disabled = false,
+  task,
+  value,
+  updateAnnotation = () => true
+}) {
   const textArea = React.useRef()
 
   function onChange () {
@@ -56,12 +54,6 @@ export default function TextFromSubjectTask (props) {
       </label>
     </Box>
   )
-}
-
-TextFromSubjectTask.defaultProps = {
-  autoFocus: false,
-  disabled: false,
-  updateAnnotation: () => {}
 }
 
 TextFromSubjectTask.propTypes = {

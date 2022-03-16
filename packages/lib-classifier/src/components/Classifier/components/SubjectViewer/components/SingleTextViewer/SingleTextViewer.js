@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-function SingleTextViewer (props) {
-  const {
-    content
-  } = props
-
+function SingleTextViewer ({
+  content = ''
+}) {
   return (
     <div>
       <pre>
@@ -13,10 +11,6 @@ function SingleTextViewer (props) {
       </pre>
     </div>
   )
-}
-
-SingleTextViewer.defaultProps = {
-  content: ''
 }
 
 SingleTextViewer.propTypes = {
