@@ -39,6 +39,7 @@ function ClassifyPage({
     ? ['auto']
     : ['1em', 'auto', '1em']
   const [classifierProps, setClassifierProps]  = useState({})
+  const [showTutorial, setShowTutorial] = useState(false)
 
   let subjectSetFromUrl
   if (workflowFromUrl && workflowFromUrl.subjectSets) {
@@ -54,15 +55,20 @@ function ClassifyPage({
   canClassify = isIndexed ? !!subjectID : canClassify
 
   /*
-    Derive classifier state from the workflow in the URL, when the workflow changes.
-    Remember the previous classifier state if there's no workflow ID in the URL.
+    Derive classifier state from the URL, when the URL changes.
+    Use the previous classifier state if there's no workflow ID in the URL.
   */
-  if (canClassify && classifierProps.workflowID !== workflowID) {
+  const workflowChanged = classifierProps.workflowID !== workflowID
+  const subjectSetChanged = classifierProps.subjectSetID !== subjectSetID
+  const subjectChanged = classifierProps.subjectID !== subjectID
+  const URLChanged = workflowChanged || subjectSetChanged || subjectChanged
+  if (canClassify && URLChanged) {
     setClassifierProps({
       workflowID,
       subjectSetID,
       subjectID
     })
+    setShowTutorial(true)
   }
 
   return (
@@ -88,7 +94,7 @@ function ClassifyPage({
               cachePanoptesData={cachePanoptesData}
               onAddToCollection={addToCollection}
               onSubjectReset={onSubjectReset}
-              showTutorial={canClassify}
+              showTutorial={showTutorial}
               {...classifierProps}
             />
             <ThemeModeToggle />
