@@ -37,19 +37,19 @@ function addStepToStore(taskSnapshots = {}, isThereTaskHelp = true) {
 /**
   Initialise the store state on story load.
 */
-function initStore(tasks) {
+function initStore (subject, tasks) {
   const workflow = WorkflowFactory.build(Object.assign({}, { tasks }))
   store = store ?? mockStore({ workflow })
-  const mockSubject = {
+  const mockSubject = Object.assign({}, subject, {
     id: 'subject',
     metadata: {}
-  }
+  })
   const mockProject = {
     id: 'project'
   }
-  const subject =SubjectFactory.build({ id: 'subject' })
-  store.subjects.setResources([subject])
-  store.subjects.setActive(subject.id)
+  const storeSubject = SubjectFactory.build(mockSubject)
+  store.subjects.setResources([storeSubject])
+  store.subjects.setActive(storeSubject.id)
   store.classifications.createClassification(mockSubject, workflow, mockProject)
 }
 
@@ -63,6 +63,8 @@ export default function MockTask({
   isThereTaskHelp = true,
   /** workflow loading state */
   loadingState = asyncStates.success,
+  /** mock subject, pass props for the subject store */
+  subject = {},
   /** subject loading state */
   subjectReadyState = asyncStates.success,
   /** a workflow tasks object */
@@ -73,9 +75,9 @@ export default function MockTask({
   const [ loaded, setLoaded ] = useState(false)
 
   useEffect(function init() {
-    initStore(tasks)
+    initStore(subject, tasks)
     setLoaded(true)
-  }, [tasks])
+  }, [subject, tasks])
 
   useEffect(function onTasksChange() {
     addStepToStore(tasks, isThereTaskHelp)
