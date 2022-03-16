@@ -95,7 +95,7 @@ const UI = types
       const { slug } = getRoot(self).project
       document.cookie = cookie.serialize('dismissedProjectAnnouncementBanner', self.dismissedProjectAnnouncementBanner, {
         domain: getCookieDomain(),
-        path: `/${slug}`,
+        path: `/projects/${slug}`,
       })
     },
 
