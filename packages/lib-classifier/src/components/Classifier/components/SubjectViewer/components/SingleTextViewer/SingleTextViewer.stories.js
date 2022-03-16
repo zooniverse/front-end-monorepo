@@ -1,5 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
+import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
@@ -16,9 +17,8 @@ const config = {
 }
 
 const subject = Factory.build('subject', {
-  locations: [
-    { 'text/plain': 'https://panoptes-uploads-staging.zooniverse.org/subject_location/9cd82380-5c44-40ef-a0da-dcafb01195e1.txt' }
-  ]
+  content: 'Herbarium of the University of North Carolina\nSOUTH CAROLINA\nCharleston County\nGnaphalium peregrinum Fern,\nrailroad right-of-way, Johns Island Station on\nCounty Rt. 20 (wes t of Charleston.\nHarry E. Ahles 22002 April 2, 1957\nwith John G. Haesloop\nCollected for the “Flora of the Carolinas"',
+  contentLoadingState: asyncStates.success
 })
 
 const mockStore = {
