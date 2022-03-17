@@ -28,9 +28,12 @@ _PR Reviewer - Use the checklist during your review. Each point should be checkm
 - [ ] All pages of a FEM project load: Home Page, Classify Page, and About Pages
 - [ ] Can submit a classification
 - [ ] Can sign-in and sign-out
+- [ ] The component is accessible.
+  - Can be used with a screen reader [BBC guide to VoiceOver](https://bbc.github.io/accessibility-news-and-you/accessibility-and-testing-with-voiceover-os.html)
+  - Can be used from the keyboard [WebAIM guide to keyboard testing](https://webaim.org/techniques/keyboard/#testing)
+  - It is passing accessibility checks in the storybook.
 - Example Staging Projects
     - [i-fancy-cats](https://local.zooniverse.org:3000/projects/brooke/i-fancy-cats)
-    - [Transformers](https://local.zooniverse.org:3000/projects/darkeshard/test-project-2022)
 
 ## Bug Fix
 - [ ] The PR creator has listed user actions to use when testing if bug is fixed.
@@ -41,10 +44,6 @@ _PR Reviewer - Use the checklist during your review. Each point should be checkm
 - [ ] The PR creator has listed user actions to use when testing the new feature.
 - [ ] Unit tests are included for the new feature.
 - [ ] A storybook story been created or updated.
-- [ ] The component is accessible.
-  - Can be used with a screen reader [BBC guide to VoiceOver](https://bbc.github.io/accessibility-news-and-you/accessibility-and-testing-with-voiceover-os.html)
-  - Can be used from the keyboard [WebAIM guide to keyboard testing](https://webaim.org/techniques/keyboard/#testing)
-  - It is passing accessibility checks in the storybook.
 
 ## Refactoring
 - [ ] The PR creator has described the reason for refactoring.
