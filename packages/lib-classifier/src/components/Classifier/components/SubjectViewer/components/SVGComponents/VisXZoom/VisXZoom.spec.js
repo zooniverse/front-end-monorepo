@@ -59,20 +59,6 @@ describe('Component > VisXZoom', function () {
   })
 
   describe('VisX Zoom wrapping component', function () {
-    xit('should set the zoom static variable with the Zoom component child function return value', function () {
-      const wrapper = mount(
-        <VisXZoom
-          data={mockData}
-          height={height}
-          width={width}
-          zoomingComponent={StubComponent}
-        />
-      )
-
-      expect(wrapper.instance().zoom).to.be.an('object')
-      expect(wrapper.instance().zoom).to.not.be.null()
-    })
-
     it('should set scale min and max using props', function () {
       const zoomConfiguration = {
         direction: 'both',
@@ -226,15 +212,15 @@ describe('Component > VisXZoom', function () {
 
     describe('when zooming is disabled', function () {
       function testEventPrevention ({ wrapper, type, event }) {
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+        const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
         wrapper.find(ZoomEventLayer).simulate(type, event)
         if (event) expect(event.preventDefault).to.have.been.called()
-        const currentTransformMatrix = wrapper.instance().zoom.transformMatrix
+        const currentTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
         testNoZoom(currentTransformMatrix, initialTransformMatrix)
       }
 
-      xit('should not scale the transform matrix on mouse wheel', function () {
+      it('should not scale the transform matrix on mouse wheel', function () {
         const wrapper = mount(
           <VisXZoom
             data={mockData}
@@ -247,7 +233,7 @@ describe('Component > VisXZoom', function () {
         testEventPrevention({ wrapper, type: 'wheel' })
       })
 
-      xit('should not scale the transform matrix on double click', function () {
+      it('should not scale the transform matrix on double click', function () {
         const wrapper = mount(
           <VisXZoom
             data={mockData}
@@ -259,7 +245,7 @@ describe('Component > VisXZoom', function () {
         testEventPrevention({ wrapper, type: 'dblclick', event: { preventDefault: sinon.spy() } })
       })
 
-      xit('should not scale the transform matrix on key down', function () {
+      it('should not scale the transform matrix on key down', function () {
         const wrapper = mount(
           <VisXZoom
             data={mockData}
@@ -271,7 +257,7 @@ describe('Component > VisXZoom', function () {
         testEventPrevention({ wrapper, type: 'keydown' })
       })
 
-      xit('should not scale the transform matrix when zoom callback is called', function () {
+      it('should not scale the transform matrix when zoom callback is called', function () {
         const wrapper = mount(
           <VisXZoom
             data={mockData}
@@ -281,18 +267,17 @@ describe('Component > VisXZoom', function () {
             zoomingComponent={StubComponent}
           />
         )
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+        const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         const zoomTypes = ['zoomin', 'zoomout', 'zoomto']
 
         zoomTypes.forEach((type) => {
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
           zoomCallback(type)
-          const transformMatrixAfterZoomInCall = wrapper.instance().zoom.transformMatrix
+          const transformMatrixAfterZoomInCall = wrapper.find(StubComponent).props().transformMatrix
           testNoZoom({
             currentTransformMatrix: transformMatrixAfterZoomInCall,
             previousTransformMatrix: initialTransformMatrix
           })
-          wrapper.instance().zoom.reset()
         })
         zoomCallback.resetHistory()
       })
@@ -311,20 +296,18 @@ describe('Component > VisXZoom', function () {
           deltaY: -1,
           preventDefault: sinon.spy()
         }
-
-        const { zoomInValue, zoomOutValue } = wrapper.props().zoomConfiguration
-        const zoomValue = (-eventMock.deltaY > 0) ? zoomInValue : zoomOutValue
+        // these are defaults set in the VisXZoom component
+        const zoomValue = (eventMock.deltaY < 0) ? 1.2 : 0.8
         wrapper.find(ZoomEventLayer).simulate(type, eventMock)
-        const currentTransformMatrix = wrapper.instance().zoom.transformMatrix
+        const currentTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
         testTransformations({ currentTransformMatrix, previousTransformMatrix, zoomValue })
       }
 
       function testZoomCallback ({ wrapper, zoomType }) {
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
-        const { zoomInValue, zoomOutValue } = wrapper.props().zoomConfiguration
+        const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         const zoomValues = {
-          'zoomin': zoomInValue,
-          'zoomout': zoomOutValue,
+          'zoomin': 1.2,
+          'zoomout': 0.8,
           'zoomto': 1
         }
         const zoomValue = zoomValues[zoomType]
@@ -338,7 +321,7 @@ describe('Component > VisXZoom', function () {
 
         const previousTransformMatrix = (zoomType !== 'zoomto') ? transformMatrix : initialTransformMatrix
         zoomCallback(zoomType)
-        const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
+        const zoomedTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
         testTransformations({
           currentTransformMatrix: zoomedTransformMatrix,
           previousTransformMatrix,
@@ -365,7 +348,7 @@ describe('Component > VisXZoom', function () {
         expect(document.body.style.overflow).to.be.empty()
       })
 
-      xit('should scale in the transform matrix on mouse wheel', function () {
+      it('should scale in the transform matrix on mouse wheel', function () {
         const wrapper = mount(
           <VisXZoom
             data={mockData}
@@ -376,13 +359,13 @@ describe('Component > VisXZoom', function () {
           />
         )
 
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+        const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
         testEvent({ wrapper, type: 'wheel', previousTransformMatrix: initialTransformMatrix })
       })
 
-      xit('should scale out the transform matrix on mouse wheel', function () {
+      it('should scale out the transform matrix on mouse wheel', function () {
         const wrapper = mount(
           <VisXZoom
             data={mockData}
@@ -392,7 +375,7 @@ describe('Component > VisXZoom', function () {
             zooming
           />
         )
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+        const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
         const zoomInEvent = {
@@ -405,7 +388,7 @@ describe('Component > VisXZoom', function () {
         // zooming in first
         wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEvent)
         wrapper.find(ZoomEventLayer).simulate('wheel', zoomInEvent)
-        const zoomedInTransformMatrix = wrapper.instance().zoom.transformMatrix
+        const zoomedInTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
 
         const zoomOutEvent = {
           clientX: 50,
@@ -417,7 +400,7 @@ describe('Component > VisXZoom', function () {
         testEvent({ wrapper, type: 'wheel', event: zoomOutEvent, previousTransformMatrix: zoomedInTransformMatrix })
       })
 
-      xit('should scale in the transform matrix on double click', function () {
+      it('should scale in the transform matrix on double click', function () {
         const wrapper = mount(
           <VisXZoom
             data={mockData}
@@ -427,12 +410,16 @@ describe('Component > VisXZoom', function () {
             zooming
           />
         )
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+        const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
         testEvent({ wrapper, type: 'dblclick', previousTransformMatrix: initialTransformMatrix })
       })
 
+      /*
+        These tests should be testing the wrapped component, which uses withKeyZoom to handle
+        keyboard events.
+      */
       xit('should scale in the transform matrix on key down with =', function () {
         const keyDownEvent = {
           key: '=',
@@ -446,14 +433,14 @@ describe('Component > VisXZoom', function () {
           <VisXZoom
             data={mockData}
             height={height}
-            onKeyDown={sinon.stub().callsFake(() => wrapper.instance().zoomIn())}
+            onKeyDown={sinon.stub()}
             width={width}
             zoomingComponent={StubComponent}
             zooming
           />
         )
 
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+        const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
         testEvent({ wrapper, type: 'keydown', event: keyDownEvent, previousTransformMatrix: initialTransformMatrix })
@@ -472,13 +459,13 @@ describe('Component > VisXZoom', function () {
           <VisXZoom
             data={mockData}
             height={height}
-            onKeyDown={sinon.stub().callsFake(() => wrapper.instance().zoomIn())}
+            onKeyDown={sinon.stub()}
             width={width}
             zoomingComponent={StubComponent}
             zooming
           />
         )
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+        const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
         testEvent({ wrapper, type: 'keydown', event: keyDownEvent, previousTransformMatrix: initialTransformMatrix })
@@ -504,22 +491,19 @@ describe('Component > VisXZoom', function () {
           <VisXZoom
             data={mockData}
             height={height}
-            onKeyDown={sinon.stub().callsFake((event) => {
-              if (event.key === '+') wrapper.instance().zoomIn()
-              if (event.key === '-') wrapper.instance().zoomOut()
-            })}
+            onKeyDown={sinon.stub()}
             width={width}
             zoomingComponent={StubComponent}
             zooming
           />
         )
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+        const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
         // zooming in first so we don't hit the minimum constraint
         wrapper.find(ZoomEventLayer).simulate('keydown', zoomInEvent)
         wrapper.find(ZoomEventLayer).simulate('keydown', zoomInEvent)
-        const previousTransformMatrix = wrapper.instance().zoom.transformMatrix
+        const previousTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
 
         testEvent({ wrapper, type: 'keydown', event: keyDownEvent, previousTransformMatrix })
       })
@@ -544,28 +528,25 @@ describe('Component > VisXZoom', function () {
           <VisXZoom
             data={mockData}
             height={height}
-            onKeyDown={sinon.stub().callsFake((event) => {
-              if (event.key === '+') wrapper.instance().zoomIn()
-              if (event.key === '_') wrapper.instance().zoomOut()
-            })}
+            onKeyDown={sinon.stub()}
             width={width}
             zoomingComponent={StubComponent}
             zooming
           />
         )
-        const { initialTransformMatrix, transformMatrix } = wrapper.instance().zoom
+        const { initialTransformMatrix, transformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
         // zooming in first so we don't hit the minimum constraint
         wrapper.find(ZoomEventLayer).simulate('keydown', zoomInEvent)
         wrapper.find(ZoomEventLayer).simulate('keydown', zoomInEvent)
-        const previousTransformMatrix = wrapper.instance().zoom.transformMatrix
+        const previousTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
 
         testEvent({ wrapper, type: 'keydown', event: keyDownEvent, previousTransformMatrix })
       })
 
       describe('when zoom callback is called', function () {
-        xit('should scale transform matrix when zooming in', function () {
+        it('should scale transform matrix when zooming in', function () {
           const wrapper = mount(
             <VisXZoom
               data={mockData}
@@ -580,7 +561,7 @@ describe('Component > VisXZoom', function () {
           testZoomCallback({ wrapper, zoomType: 'zoomin' })
         })
 
-        xit('should scale transform matrix when zooming out', function () {
+        it('should scale transform matrix when zooming out', function () {
           const wrapper = mount(
             <VisXZoom
               data={mockData}
@@ -598,7 +579,7 @@ describe('Component > VisXZoom', function () {
           testZoomCallback({ wrapper, zoomType: 'zoomout' })
         })
 
-        xit('should scale transform matrix when resetting zoom', function () {
+        it('should scale transform matrix when resetting zoom', function () {
           const wrapper = mount(
             <VisXZoom
               data={mockData}
@@ -620,7 +601,7 @@ describe('Component > VisXZoom', function () {
 
   describe('panning', function () {
     describe('when panning is disabled', function () {
-      xit('should not translate the SVG position', function () {
+      it('should not translate the SVG position', function () {
         const wrapper = mount(
           <VisXZoom
             data={mockData}
@@ -638,14 +619,14 @@ describe('Component > VisXZoom', function () {
 
         events.forEach((event) => {
           wrapper.find(ZoomEventLayer).simulate(event, eventMock)
-          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          const { transformMatrix, initialTransformMatrix } = wrapper.find(StubComponent).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
         })
       })
     })
 
     describe('when panning is enabled', function () {
-      xit('should translate the SVG position using mouse events', function () {
+      it('should translate the SVG position using mouse events', function () {
         const wrapper = mount(
           <VisXZoom
             data={mockData}
@@ -658,7 +639,7 @@ describe('Component > VisXZoom', function () {
         )
         const eventLayer = wrapper.find(ZoomEventLayer)
 
-        const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+        const { transformMatrix, initialTransformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
         // We enable zooming and zoom in a bit so we don't run into the data boundary constraints
@@ -668,7 +649,7 @@ describe('Component > VisXZoom', function () {
           deltaY: -1,
           preventDefault: sinon.spy()
         })
-        const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
+        const zoomedTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
         // Now to simulate the panning
         // visx switched to typescript and are type checking the event
         // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
@@ -686,7 +667,7 @@ describe('Component > VisXZoom', function () {
           nativeEvent: new Event('test')
         })
 
-        const pannedTransformMatrix = wrapper.instance().zoom.transformMatrix
+        const pannedTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
         expect(pannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
         expect(pannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
         expect(pannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX + 5)
@@ -701,12 +682,7 @@ describe('Component > VisXZoom', function () {
               data={mockData}
               panning
               height={height}
-              onKeyDown={sinon.stub().callsFake((event) => {
-                if (event.key === 'ArrowRight') wrapper.instance().onPan(1, 0)
-                if (event.key === 'ArrowLeft') wrapper.instance().onPan(-1, 0)
-                if (event.key === 'ArrowUp') wrapper.instance().onPan(0, -1)
-                if (event.key === 'ArrowDown') wrapper.instance().onPan(0, 1)
-              })}
+              onKeyDown={sinon.stub()}
               width={width}
               zoomingComponent={StubComponent}
               zooming
@@ -717,7 +693,7 @@ describe('Component > VisXZoom', function () {
         xit('should translate the SVG position using ArrowRight', function () {
           const eventLayer = wrapper.find(ZoomEventLayer)
 
-          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          const { transformMatrix, initialTransformMatrix } = wrapper.find(StubComponent).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
           // We enable zooming and zoom in a bit so we don't run into the zoom boundary constraints
@@ -727,12 +703,12 @@ describe('Component > VisXZoom', function () {
             deltaY: -1,
             preventDefault: sinon.spy()
           })
-          const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          const zoomedTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
           // Now to simulate the panning
           eventLayer.simulate('keydown', {
             key: 'ArrowRight'
           })
-          const rightPannedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          const rightPannedTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
           expect(rightPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
           expect(rightPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
           expect(rightPannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX - 20)
@@ -742,7 +718,7 @@ describe('Component > VisXZoom', function () {
         xit('should translate the SVG position using ArrowDown', function () {
           const eventLayer = wrapper.find(ZoomEventLayer)
 
-          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          const { transformMatrix, initialTransformMatrix } = wrapper.find(StubComponent).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
           // We enable zooming and zoom in a bit so we don't run into the zoom boundary constraints
@@ -752,12 +728,12 @@ describe('Component > VisXZoom', function () {
             deltaY: -1,
             preventDefault: sinon.spy()
           })
-          const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          const zoomedTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
 
           eventLayer.simulate('keydown', {
             key: 'ArrowDown'
           })
-          const downPannedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          const downPannedTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
           expect(downPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
           expect(downPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
           expect(downPannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX)
@@ -767,7 +743,7 @@ describe('Component > VisXZoom', function () {
         xit('should translate the SVG position using ArrowLeft', function () {
           const eventLayer = wrapper.find(ZoomEventLayer)
 
-          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          const { transformMatrix, initialTransformMatrix } = wrapper.find(StubComponent).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
           // We enable zooming and zoom in a bit so we don't run into the zoom boundary constraints
@@ -777,12 +753,12 @@ describe('Component > VisXZoom', function () {
             deltaY: -1,
             preventDefault: sinon.spy()
           })
-          const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          const zoomedTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
 
           eventLayer.simulate('keydown', {
             key: 'ArrowLeft'
           })
-          const leftPannedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          const leftPannedTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
           expect(leftPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
           expect(leftPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
           expect(leftPannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX + 20)
@@ -792,7 +768,7 @@ describe('Component > VisXZoom', function () {
         xit('should translate the SVG position using ArrowUp', function () {
           const eventLayer = wrapper.find(ZoomEventLayer)
 
-          const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+          const { transformMatrix, initialTransformMatrix } = wrapper.find(StubComponent).props()
           expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
           // We enable zooming and zoom in a bit so we don't run into the zoom boundary constraints
@@ -802,13 +778,13 @@ describe('Component > VisXZoom', function () {
             deltaY: -1,
             preventDefault: sinon.spy()
           })
-          const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          const zoomedTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
 
           eventLayer.simulate('keydown', {
             key: 'ArrowUp',
           })
 
-          const upPannedTransformMatrix = wrapper.instance().zoom.transformMatrix
+          const upPannedTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
           expect(upPannedTransformMatrix).to.not.deep.equal(initialTransformMatrix)
           expect(upPannedTransformMatrix).to.not.deep.equal(zoomedTransformMatrix)
           expect(upPannedTransformMatrix.translateX).to.equal(zoomedTransformMatrix.translateX)
@@ -820,7 +796,7 @@ describe('Component > VisXZoom', function () {
 
   describe('data boundary constraints', function () {
     describe('when zooming', function () {
-      xit('should not zoom in beyond maximum zoom configuration', function () {
+      it('should not zoom in beyond maximum zoom configuration', function () {
         const zoomConfiguration = {
           direction: 'both',
           minZoom: 1,
@@ -839,7 +815,7 @@ describe('Component > VisXZoom', function () {
             zooming
           />
         )
-        const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+        const { transformMatrix, initialTransformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
         // multiplying the scale 1.2 nine times is 5.159780352,
@@ -848,10 +824,10 @@ describe('Component > VisXZoom', function () {
         for (let i = 0; i < 10; i++) {
           wrapper.find(ZoomEventLayer).simulate('dblclick', zoomInEventMock)
           if (i === 8) { // eighth event
-            eightTimesZoomedMatrix = wrapper.instance().zoom.transformMatrix
+            eightTimesZoomedMatrix = wrapper.find(StubComponent).props().transformMatrix
           }
         }
-        const zoomedTransformMatrix = wrapper.instance().zoom.transformMatrix
+        const zoomedTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
 
         expect(zoomedTransformMatrix).to.not.deep.equal(transformMatrix)
         expect(zoomedTransformMatrix.scaleX).to.be.below(zoomConfiguration.maxZoom)
@@ -862,7 +838,7 @@ describe('Component > VisXZoom', function () {
         expect(zoomedTransformMatrix.translateY).to.equal(eightTimesZoomedMatrix.translateY)
       })
 
-      xit('should not zoom out beyond the minimum zoom configuration and reset the zoom', function () {
+      it('should not zoom out beyond the minimum zoom configuration and reset the zoom', function () {
         const zoomConfiguration = {
           direction: 'both',
           minZoom: 1,
@@ -881,13 +857,13 @@ describe('Component > VisXZoom', function () {
             zooming
           />
         )
-        const { transformMatrix, initialTransformMatrix } = wrapper.instance().zoom
+        const { transformMatrix, initialTransformMatrix } = wrapper.find(StubComponent).props()
         expect(transformMatrix).to.deep.equal(initialTransformMatrix)
 
         // zoom in first
         wrapper.find(ZoomEventLayer).simulate('dblclick', zoomInEventMock)
         wrapper.find(ZoomEventLayer).simulate('dblclick', zoomInEventMock)
-        const zoomedInTransformMatrix = wrapper.instance().zoom.transformMatrix
+        const zoomedInTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
         expect(zoomedInTransformMatrix).to.not.deep.equal(initialTransformMatrix)
 
         // zoom out by mouse wheel
@@ -898,14 +874,14 @@ describe('Component > VisXZoom', function () {
           deltaY: 10,
           preventDefault: sinon.spy()
         })
-        const firstZoomedOutTransformMatrix = wrapper.instance().zoom.transformMatrix
+        const firstZoomedOutTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
         wrapper.find(ZoomEventLayer).simulate('wheel', {
           clientX: 50,
           clientY: 50,
           deltaY: 10,
           preventDefault: sinon.spy()
         })
-        const secondZoomedOutTransformMatrix = wrapper.instance().zoom.transformMatrix
+        const secondZoomedOutTransformMatrix = wrapper.find(StubComponent).props().transformMatrix
 
         expect(secondZoomedOutTransformMatrix.scaleX).to.be.above(zoomConfiguration.minZoom)
         expect(secondZoomedOutTransformMatrix.scaleY).to.be.above(zoomConfiguration.minZoom)
