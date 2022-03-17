@@ -1,5 +1,5 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import sinon from 'sinon'
 import { Zoom } from '@visx/zoom'
 import {
@@ -31,7 +31,7 @@ const zoomInEventMock = {
 
 describe('Component > VisXZoom', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(
+    const wrapper = mount(
       <VisXZoom
         data={mockData}
         height={height}
@@ -45,7 +45,7 @@ describe('Component > VisXZoom', function () {
   describe('instantiation', function () {
     it('should call props.setOnZoom callback', function () {
       const setOnZoomSpy = sinon.spy()
-      shallow(
+      mount(
         <VisXZoom
           data={mockData}
           height={height}
@@ -82,7 +82,7 @@ describe('Component > VisXZoom', function () {
         zoomOutValue: 0.8
       }
 
-      const wrapper = shallow(
+      const wrapper = mount(
         <VisXZoom
           data={mockData}
           height={height}
@@ -99,7 +99,7 @@ describe('Component > VisXZoom', function () {
     })
 
     it('should set the height and width using props', function () {
-      const wrapper = shallow(
+      const wrapper = mount(
         <VisXZoom
           data={mockData}
           height={height}
@@ -112,7 +112,7 @@ describe('Component > VisXZoom', function () {
     })
 
     it('should set the left and top position using props', function () {
-      const wrapper = shallow(
+      const wrapper = mount(
         <VisXZoom
           data={mockData}
           height={height}
@@ -128,7 +128,7 @@ describe('Component > VisXZoom', function () {
 
     it('should pass along the constrain function set in props', function () {
       const constrainSpy = sinon.spy()
-      const wrapper = shallow(
+      const wrapper = mount(
         <VisXZoom
           constrain={constrainSpy}
           data={mockData}
