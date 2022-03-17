@@ -21,7 +21,7 @@ _PR Reviewer - Use the checklist during your review. Each point should be checkm
 - [ ] Tests are passing locally and on Github.
 - [ ] Documentation is up to date. Changelog has been updated if appropriate.
 - [ ] You can `yarn panic && yarn bootstrap` or `docker-compose up --build` and FEM works as expected.
-- [ ] FEM works in all major desktop browsers: Firefox, Chrome, Edge, Safari.
+- [ ] FEM works in all major desktop browsers: Firefox, Chrome, Edge, Safari (Use Browserstack account as needed).
 - [ ] FEM works in a mobile browser.
 
 ## General UX
