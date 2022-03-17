@@ -1,10 +1,10 @@
 _Please request review from `@zooniverse/frontend` team or an individual member of that team._ 
 
-## Package:
+## Package
 
-## Linked Issue and/or Talk Post:
+## Linked Issue and/or Talk Post
 
-## Describe your changes:
+## Describe your changes
 
 ## How to Review
 _Helpful explanations that will make your reviewer happy:_
@@ -19,12 +19,13 @@ _PR Reviewer - Use the checklist during your review. Each point should be checkm
 
 ## General
 - [ ] Tests are passing locally and on Github
-- [ ] Documentation is up to date. Changelog has been updated if appropriate
+- [ ] Documentation is up to date anc dhangelog has been updated if appropriate
 - [ ] You can `yarn panic && yarn bootstrap` or `docker-compose up --build` and FEM works as expected
 - [ ] FEM works in all major desktop browsers: Firefox, Chrome, Edge, Safari (Use Browserstack account as needed)
 - [ ] FEM works in a mobile browser
 
 ## General UX
+Example Staging Project: [i-fancy-cats](https://local.zooniverse.org:3000/projects/brooke/i-fancy-cats)
 - [ ] All pages of a FEM project load: Home Page, Classify Page, and About Pages
 - [ ] Can submit a classification
 - [ ] Can sign-in and sign-out
@@ -32,8 +33,7 @@ _PR Reviewer - Use the checklist during your review. Each point should be checkm
   - Can be used with a screen reader [BBC guide to VoiceOver](https://bbc.github.io/accessibility-news-and-you/accessibility-and-testing-with-voiceover-os.html)
   - Can be used from the keyboard [WebAIM guide to keyboard testing](https://webaim.org/techniques/keyboard/#testing)
   - It is passing accessibility checks in the storybook
-- Example Staging Projects
-    - [i-fancy-cats](https://local.zooniverse.org:3000/projects/brooke/i-fancy-cats)
+
 
 ## Bug Fix
 - [ ] The PR creator has listed user actions to use when testing if bug is fixed
