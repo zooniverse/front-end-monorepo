@@ -43,11 +43,12 @@ _PR Reviewer - Use the checklist during your review. Each point should be checkm
 ## New Feature
 - [ ] The PR creator has listed user actions to use when testing the new feature.
 - [ ] Unit tests are included for the new feature.
-- [ ] A storybook story been created or updated.
+- [ ] A storybook story has been created or updated.
+  - Example of SlideTutorial [component](https://github.com/zooniverse/front-end-monorepo/blob/master/packages/lib-classifier/src/components/Classifier/components/SlideTutorial/SlideTutorial.js) with docgen comments, and its [story](https://zooniverse.github.io/front-end-monorepo/@zooniverse/classifier/index.html?path=/docs/other-slidetutorial--default)
 
 ## Refactoring
 - [ ] The PR creator has described the reason for refactoring.
 - [ ] The refactored component(s) continue to work as expected.
 
 ## Maintenance
-- [ ] If not from dependabot, the PR creator has described the update including if it's a major, minor, or patch version.
+- [ ] If not from dependabot, the PR creator has described the update (major, minor, or patch version, changelog)
