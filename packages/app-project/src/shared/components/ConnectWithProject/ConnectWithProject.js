@@ -1,18 +1,16 @@
-import counterpart from 'counterpart'
 import { Grid } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
+import { useTranslation } from 'next-i18next'
 
 import ProjectLink from './components/ProjectLink'
-import en from './locales/en'
 import ContentBox from '../ContentBox'
 
-counterpart.registerTranslations('en', en)
-
 function ConnectWithProject (props) {
+  const { t } = useTranslation('components')
   const { projectName, urls } = props
   return (
     <ContentBox
-      title={counterpart('ConnectWithProject.title', { projectName })}
+      title={t('ConnectWithProject.title', { projectName })}
     >
       <Grid columns={['repeat(auto-fill, minmax(280px, 1fr))']} gap='medium'>
         {urls.map(urlObject =>

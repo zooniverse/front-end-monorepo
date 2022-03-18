@@ -1,48 +1,41 @@
-import counterpart from 'counterpart'
 import { Box, Stack } from 'grommet'
-import { inject } from 'mobx-react'
-import { func, shape, string } from 'prop-types'
-import { Component } from 'react'
+import { observer, MobXProviderContext } from 'mobx-react'
+import { useContext } from 'react'
+import { useTranslation } from 'next-i18next'
 
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
-
-function storeMapper (stores) {
-  const { isLoggedIn } = stores.store.user
-  return { isLoggedIn }
+function useStoreContext(stores) {
+  const { store } = stores || useContext(MobXProviderContext)
+  const {
+    user: { isLoggedIn }
+  } = store
+  return {
+    isLoggedIn
+  }
 }
 
-function withRequireUser (WrappedComponent) {
-  @inject(storeMapper)
-  class RequireUser extends Component {
-    render () {
-      const { isLoggedIn, ...rest } = this.props
-      return (
-        <Stack>
-          <WrappedComponent {...rest} />
-          {!isLoggedIn && (
-            <Box
-              align='center'
-              background='rgba(255,255,255,0.7)'
-              fill
-              justify='center'
-            >
-              <Box background='white' elevation='small' pad='medium'>
-                {counterpart('RequireUser.text')}
-              </Box>
+export default function withRequireUser(WrappedComponent) {
+  function ComponentConnector({ stores, ...props }) {
+    const { t } = useTranslation('components')
+    const { isLoggedIn } = useStoreContext(stores)
+
+    return (
+      <Stack>
+        <WrappedComponent {...props} />
+        {!isLoggedIn && (
+          <Box
+            align='center'
+            background='rgba(255,255,255,0.7)'
+            fill
+            justify='center'
+          >
+            <Box background='white' elevation='small' pad='medium'>
+              {t('RequireUser.text')}
             </Box>
-          )}
-        </Stack>
-      )
-    }
+          </Box>
+        )}
+      </Stack>
+    )
   }
 
-  RequireUser.defaultProps = {
-    isLoggedIn: false
-  }
-
-  return RequireUser
+  return observer(ComponentConnector)
 }
-
-export default withRequireUser

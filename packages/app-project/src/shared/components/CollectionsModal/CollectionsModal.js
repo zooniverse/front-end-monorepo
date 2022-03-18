@@ -1,21 +1,18 @@
-import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import { Modal } from '@zooniverse/react-components'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'next-i18next'
 
 function CollectionsModal ({
   active,
   children,
   closeFn
 }) {
+  const { t } = useTranslation('components')
   return (
     <Modal
       active={active}
       closeFn={closeFn}
-      title={counterpart('CollectionsModal.title')}
+      title={t('CollectionsModal.title')}
     >
       {children}
     </Modal>

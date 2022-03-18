@@ -1,9 +1,11 @@
 import cuid from 'cuid'
 import { types, getSnapshot, getType } from 'mobx-state-tree'
-import { annotationModels } from '@plugins/tasks'
+import * as tasks from '@plugins/tasks'
 import AnnotationsStore from '@store/AnnotationsStore'
 import Resource from '@store/Resource'
 import ClassificationMetadata  from './ClassificationMetadata'
+
+const annotationModels = Object.values(tasks).map(task => task.AnnotationModel)
 
 const Classification = types
   .model('Classification', {

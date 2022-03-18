@@ -1,8 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
-import counterpart from 'counterpart'
 import cuid from 'cuid'
 import { snakeCase } from 'lodash'
-import { toJS } from 'mobx'
 import { flow, getRoot, getSnapshot, isValidReference, tryReference, types } from 'mobx-state-tree'
 
 import Classification, { ClassificationMetadata } from './Classification'
@@ -49,11 +47,12 @@ const ClassificationStore = types
     }
   })
   .actions(self => {
-
     function createClassification (subject, workflow, project) {
       if (!subject || !workflow || !project) {
         throw new Error('Cannot create a classification without a subject, workflow, project')
       }
+
+      const { locale } = getRoot(self)
 
       const tempID = cuid()
       const newClassification = Classification.create({
@@ -74,7 +73,7 @@ const ClassificationStore = types
             selection_state: subject.selection_state,
             user_has_finished_workflow: subject.user_has_finished_workflow
           },
-          userLanguage: counterpart.getLocale(),
+          userLanguage: locale,
           workflowVersion: workflow.version
         })
       })

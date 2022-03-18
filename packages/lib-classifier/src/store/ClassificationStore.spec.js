@@ -13,11 +13,11 @@ import {
 } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 import helpers from './feedback/helpers'
-import taskRegistry from '@plugins/tasks'
+import * as tasks from '@plugins/tasks'
 import { expect } from 'chai'
 
 describe('Model > ClassificationStore', function () {
-  const { AnnotationModel: SingleChoiceAnnotation } = taskRegistry.get('single')
+    const { AnnotationModel: SingleChoiceAnnotation } = tasks.single
 
   const feedbackRulesSnapshot = {
     T0: [{

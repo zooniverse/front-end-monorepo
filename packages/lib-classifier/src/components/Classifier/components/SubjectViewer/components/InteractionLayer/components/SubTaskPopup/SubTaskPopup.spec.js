@@ -9,7 +9,7 @@ import ConfirmModal from './components/ConfirmModal'
 import SaveButton from './components/SaveButton'
 import { CloseButton, MovableModal, PrimaryButton } from '@zooniverse/react-components'
 import * as Tools from '@plugins/drawingTools/models/tools'
-import taskRegistry from '@plugins/tasks'
+import * as tasks from '@plugins/tasks'
 import { SingleChoiceTaskFactory } from '@test/factories'
 
 describe('SubTaskPopup', function () {
@@ -88,7 +88,7 @@ describe('SubTaskPopup', function () {
         function checkTask(wrapper) {
           expect(wrapper.prop('disabled')).to.be.true()
         }
-        const { TaskComponent } = taskRegistry.get('single')
+        const { TaskComponent } = tasks.single
         const taskWrappers = wrapper.find(TaskComponent)
         taskWrappers.forEach(checkTask)
       })

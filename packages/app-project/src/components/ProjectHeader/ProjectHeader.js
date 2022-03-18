@@ -21,7 +21,7 @@ function ProjectHeader (props) {
 
   // hard-coded for translation feature PR testing, but
   // should eventually be imported as props instead
-  const availableLocales = ['en', 'fr']
+  const availableLocales = ['en', 'test']
 
   return (
     <StyledBox as='header' className={className}>

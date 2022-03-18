@@ -35,5 +35,5 @@ FEM is integrated with [Lokalise](https://app.lokalise.com) for translations man
 New languages files must be added in the `supportedLngs` array in [i18n.js](i18n.js).
 
 ```js
-  const supportedLngs = ['en', 'fr']
+  const supportedLngs = ['en', 'test']
 ```

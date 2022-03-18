@@ -1,13 +1,18 @@
 import { types } from 'mobx-state-tree'
-import taskRegistry, { taskModels } from '@plugins/tasks'
+import * as tasks from '@plugins/tasks'
+
+const taskModels = Object.values(tasks).map(task => task.TaskModel)
 
 function taskDispatcher (snapshot) {
   switch (snapshot.type) {
     case 'dropdown': {
-      return taskRegistry.get('dropdown-simple').TaskModel
+      return tasks.dropdownSimple.TaskModel
+    }
+    case 'dropdown-simple': {
+      return tasks.dropdownSimple.TaskModel
     }
     default: {
-      return taskRegistry.get(snapshot.type).TaskModel
+      return tasks[snapshot.type].TaskModel
     }
   }
 }

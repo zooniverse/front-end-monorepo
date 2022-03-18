@@ -2,7 +2,7 @@ import AnnotationsStore from './AnnotationsStore'
 import ClassificationStore from './ClassificationStore'
 import Tool from '@plugins/drawingTools/models/tools/Tool'
 import Task from '@plugins/tasks/models/Task'
-import SingleChoiceTask from '@plugins/tasks/SingleChoiceTask/models/SingleChoiceTask'
+import SingleChoiceTask from '@plugins/tasks/single/models/SingleChoiceTask'
 import {
   ClassificationFactory,
   SingleChoiceTaskFactory,

@@ -112,11 +112,11 @@ describe('Stores > UI', function () {
 
     it('should update the cookie if the store mode does not equal the stored cookie mode', function () {
       store.setDarkMode()
-      let mode = cookie.parse(document.cookie).mode
-      expect(mode).to.equal('dark')
+      store.readCookies()
+      expect(store.mode).to.equal('dark')
       store.setLightMode()
-      mode = cookie.parse(document.cookie).mode
-      expect(mode).to.equal('light')
+      store.readCookies()
+      expect(store.mode).to.equal('light')
     })
   })
 
@@ -200,10 +200,11 @@ describe('Stores > UI', function () {
       document.cookie = cookie.serialize('dismissedProjectAnnouncementBanner', 1234567890, {
         path: `/projects/${PROJECT.slug}`
       })
+      store.readCookies()
+      expect(store.dismissedProjectAnnouncementBanner).to.equal(1234567890)
       store.dismissProjectAnnouncementBanner()
-      const parsedCookie = cookie.parse(document.cookie) || {}
-      const cookieHash = parseInt(parsedCookie.dismissedProjectAnnouncementBanner, 10)
-      expect(cookieHash).to.equal(ANNOUNCEMENT_HASH)
+      store.readCookies()
+      expect(store.dismissedProjectAnnouncementBanner).to.equal(ANNOUNCEMENT_HASH)
     })
   })
 })

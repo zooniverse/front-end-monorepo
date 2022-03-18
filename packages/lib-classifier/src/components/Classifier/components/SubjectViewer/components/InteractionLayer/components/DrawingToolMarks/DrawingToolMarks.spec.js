@@ -47,20 +47,21 @@ describe('Components > DrawingToolMarks', function () {
 
   it('should render a line', function () {
     const wrapper = shallow(<DrawingToolMarks marks={marks} />)
-    expect(wrapper.find('Line').prop('mark')).to.equal(line)
+    const Line = line.toolComponent
+    expect(wrapper.find(Line).prop('mark')).to.equal(line)
   })
 
   it('should render a point', function () {
     const wrapper = shallow(<DrawingToolMarks marks={marks} />)
-    expect(wrapper.find('Point').prop('mark')).to.equal(point)
+    const Point = point.toolComponent
+    expect(wrapper.find(Point).prop('mark')).to.equal(point)
   })
 
   describe('with an active mark', function () {
     it('should show that mark as active', function () {
-      const wrapper = shallow(
-        <DrawingToolMarks activeMark={{ id: 'point1' }} marks={marks} />
-      )
-      expect(wrapper.find('Point').prop('active')).to.be.true()
+      const wrapper = shallow(<DrawingToolMarks activeMark={{ id: 'point1' }} marks={marks} />)
+      const Point = point.toolComponent
+      expect(wrapper.find(Point).prop('active')).to.be.true()
     })
 
     it('should render a delete button', function () {
