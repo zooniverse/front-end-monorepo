@@ -3,6 +3,7 @@ import { addDisposer, getRoot, onPatch, types } from 'mobx-state-tree'
 import cookie from 'cookie'
 import stringHash from '@sindresorhus/string-hash'
 
+import getCookie from '@helpers/getCookie'
 // process.browser doesn't exist in the jsdom test environment
 const canSetCookie = process.browser || process.env.BABEL_ENV === 'test'
 
@@ -83,11 +84,18 @@ const UI = types
       self.dismissedProjectAnnouncementBanner = announcementHash
     },
 
+    readCookies() {
+      if (canSetCookie) {
+        self.mode = getCookie('mode') || 'light'
+        self.dismissedProjectAnnouncementBanner = parseInt(getCookie('dismissedProjectAnnouncementBanner'), 10) || null
+      }
+    },
+
     setProjectAnnouncementBannerCookie() {
       const { slug } = getRoot(self).project
       document.cookie = cookie.serialize('dismissedProjectAnnouncementBanner', self.dismissedProjectAnnouncementBanner, {
         domain: getCookieDomain(),
-        path: `/${slug}`,
+        path: `/projects/${slug}`,
       })
     },
 
