@@ -77,19 +77,32 @@ describe('Component > ClassifyPage', function () {
 
   describe('with a selected workflow', function () {
     let wrapper
+    let classifier
 
     before(function () {
       wrapper = shallow(<ClassifyPage appLoadingState={asyncStates.success} workflowID='1234' />)
+      classifier = wrapper.find(ClassifierWrapper)
     })
 
     it('should not show a workflow selector', function () {
       expect(wrapper.find(WorkflowMenuModal)).to.have.lengthOf(0)
+    })
+
+    it('should show classifier popup tutorials', function () {
+      expect(classifier.prop('showTutorial')).to.be.true()
+    })
+
+    it('should update the classifier when the workflow changes', function () {
+      wrapper.setProps({ workflowID: '3456' })
+      classifier = wrapper.find(ClassifierWrapper)
+      expect(classifier.prop('workflowID')).to.equal('3456')
     })
   })
 
   describe('with a grouped workflow', function () {
     describe('without a subject set', function () {
       let wrapper
+      let classifier
       let workflows = [{
         id: '1234',
         grouped: true
@@ -97,6 +110,7 @@ describe('Component > ClassifyPage', function () {
 
       before(function () {
         wrapper = shallow(<ClassifyPage appLoadingState={asyncStates.success} workflowFromUrl={workflows[0]} workflows={workflows} />)
+        classifier = wrapper.find(ClassifierWrapper)
       })
 
       it('should show a workflow menu', function () {
@@ -104,13 +118,17 @@ describe('Component > ClassifyPage', function () {
       })
 
       it('should not pass the workflow ID to the classifier', function () {
-        const classifier = wrapper.find(ClassifierWrapper)
         expect(classifier.prop('workflowID')).to.be.undefined()
+      })
+
+      it('should not show classifier popup tutorials', function () {
+        expect(classifier.prop('showTutorial')).to.be.false()
       })
     })
 
     describe('with a subject set', function () {
       let wrapper
+      let classifier
       let workflows = [{
         id: '1234',
         grouped: true
@@ -118,6 +136,7 @@ describe('Component > ClassifyPage', function () {
 
       before(function () {
         wrapper = shallow(<ClassifyPage appLoadingState={asyncStates.success} subjectSetID='3456' workflowID='1234' workflowFromUrl={workflows[0]} workflows={workflows} />)
+        classifier = wrapper.find(ClassifierWrapper)
       })
 
       it('should not show a workflow menu', function () {
@@ -125,13 +144,21 @@ describe('Component > ClassifyPage', function () {
       })
 
       it('should pass the workflow ID to the classifier', function () {
-        const classifier = wrapper.find(ClassifierWrapper)
         expect(classifier.prop('workflowID')).to.equal('1234')
       })
 
       it('should pass the subject set ID to the classifier', function () {
-        const classifier = wrapper.find(ClassifierWrapper)
         expect(classifier.prop('subjectSetID')).to.equal('3456')
+      })
+
+      it('should show classifier popup tutorials', function () {
+        expect(classifier.prop('showTutorial')).to.be.true()
+      })
+
+      it('should update the classifier when the subject set changes', function () {
+        wrapper.setProps({ subjectSetID: '5678' })
+        classifier = wrapper.find(ClassifierWrapper)
+        expect(classifier.prop('subjectSetID')).to.equal('5678')
       })
     })
 
@@ -150,6 +177,7 @@ describe('Component > ClassifyPage', function () {
 
       describe('without a subject', function () {
         let wrapper
+        let classifier
 
         before(function () {
           wrapper = shallow(
@@ -161,6 +189,7 @@ describe('Component > ClassifyPage', function () {
               workflows={workflows}
             />
           )
+          classifier = wrapper.find(ClassifierWrapper)
         })
 
         it('should show a workflow menu', function () {
@@ -168,18 +197,21 @@ describe('Component > ClassifyPage', function () {
         })
 
         it('should not pass the workflow ID to the classifier', function () {
-          const classifier = wrapper.find(ClassifierWrapper)
           expect(classifier.prop('workflowID')).to.be.undefined()
         })
 
         it('should not pass the subject set ID to the classifier', function () {
-          const classifier = wrapper.find(ClassifierWrapper)
           expect(classifier.prop('subjectSetID')).to.be.undefined()
+        })
+
+        it('should not show classifier popup tutorials', function () {
+          expect(classifier.prop('showTutorial')).to.be.false()
         })
       })
 
       describe('with a subject', function () {
         let wrapper
+        let classifier
 
         before(function () {
           wrapper = shallow(
@@ -192,6 +224,7 @@ describe('Component > ClassifyPage', function () {
               workflows={workflows}
             />
           )
+          classifier = wrapper.find(ClassifierWrapper)
         })
 
         it('should not show a workflow menu', function () {
@@ -199,18 +232,25 @@ describe('Component > ClassifyPage', function () {
         })
 
         it('should pass the workflow ID to the classifier', function () {
-          const classifier = wrapper.find(ClassifierWrapper)
           expect(classifier.prop('workflowID')).to.equal('1234')
         })
 
         it('should pass the subject set ID to the classifier', function () {
-          const classifier = wrapper.find(ClassifierWrapper)
           expect(classifier.prop('subjectSetID')).to.equal('3456')
         })
 
         it('should pass the subject ID to the classifier', function () {
-          const classifier = wrapper.find(ClassifierWrapper)
           expect(classifier.prop('subjectID')).to.equal('5678')
+        })
+
+        it('should show classifier popup tutorials', function () {
+          expect(classifier.prop('showTutorial')).to.be.true()
+        })
+
+        it('should update the classifier when the subject changes', function () {
+          wrapper.setProps({ subjectID: '8901' })
+          classifier = wrapper.find(ClassifierWrapper)
+          expect(classifier.prop('subjectID')).to.equal('8901')
         })
       })
     })

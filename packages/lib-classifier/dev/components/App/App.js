@@ -170,6 +170,7 @@ class App extends React.Component {
               onCompleteClassification={(classification, subject) => console.log('onComplete', classification, subject)}
               onError={this.onError}
               project={this.state.project}
+              showTutorial
               subjectID={this.props.subjectID}
               subjectSetID={this.props.subjectSetID}
               workflowID={workflowID}

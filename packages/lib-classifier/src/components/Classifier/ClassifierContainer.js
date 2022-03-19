@@ -56,6 +56,7 @@ export default function ClassifierContainer({
   onSubjectReset = () => true,
   onToggleFavourite = () => true,
   project,
+  showTutorial=false,
   subjectID,
   subjectSetID,
   workflowID
@@ -133,6 +134,7 @@ export default function ClassifierContainer({
             locale={locale}
             onError={onError}
             project={project}
+            showTutorial={showTutorial}
             subjectSetID={subjectSetID}
             subjectID={subjectID}
             workflowSnapshot={workflowSnapshot}
@@ -166,5 +168,6 @@ ClassifierContainer.propTypes = {
   project: PropTypes.shape({
     id: PropTypes.string.isRequired
   }).isRequired,
+  showTutorial: PropTypes.bool,
   theme: PropTypes.object
 }
