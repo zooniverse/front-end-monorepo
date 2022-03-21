@@ -76,6 +76,8 @@ const PolygonModel = types
     }
   }))
   .actions((self) => ({
+    initialDrag() {},
+
     initialPosition({ x, y }) {
       const roundedCoords = roundCoordinates({ x: x, y: y })
       self.points.push({ x: roundedCoords.roundedX, y: roundedCoords.roundedY })
