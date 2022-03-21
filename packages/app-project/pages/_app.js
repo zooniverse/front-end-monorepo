@@ -11,6 +11,7 @@ import getCookie from '@helpers/getCookie'
 import GrommetWrapper from '@helpers/GrommetWrapper'
 import Head from '@components/Head'
 import { initializeLogger, logToSentry } from '@helpers/logger'
+import { usePanoptesUser } from '@hooks'
 import { MediaContextProvider } from '@shared/components/Media'
 import initStore from '@stores'
 
@@ -40,9 +41,20 @@ function MyApp({ Component, pageProps }) {
   function onMount() {
     console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
     store.ui.readCookies()
-    store.user.checkCurrent()
   }
   useEffect(onMount, [])
+
+  const userKey = store.user?.id || 'no-user'
+  const user = usePanoptesUser(userKey)
+  useEffect( function onUserChange() {
+    if (user?.id) {
+      store.user.set(user)
+    }
+    // logged-out users are null
+    if (user === null) {
+      store.user.clear()
+    }
+  }, [user])
 
   try {
     if (pageProps.statusCode) {

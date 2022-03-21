@@ -32,37 +32,27 @@ const User = types
   }))
 
   .actions(self => ({
-    checkCurrent: flow(function* checkCurrent() {
-      self.loadingState = asyncStates.loading
-      try {
-        const userResource = yield auth.checkCurrent()
-        self.loadingState = asyncStates.success
-        if (userResource) {
-          self.set(userResource)
-        }
-      } catch (error) {
-        console.log(error)
-        self.loadingState = asyncStates.error
-        self.error = error
-      }
-    }),
-
     clear() {
       self.id = null
       self.display_name = null
       self.login = null
+      self.loadingState = asyncStates.success
     },
 
     set(user) {
       self.id = user.id
       self.display_name = user.display_name
       self.login = user.login
+      self.loadingState = asyncStates.success
       self.recents.fetch()
       self.collections.fetchFavourites()
       self.collections.searchCollections({
         favorite: false,
         current_user_roles: 'owner,collaborator,contributor'
       })
+      if (self.id) {
+        self.personalization.load()
+      }
     }
   }))
 
