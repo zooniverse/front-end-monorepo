@@ -11,10 +11,10 @@ jobs:
     # See: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow#using-the-checkout-action
       - uses: actions/checkout@v2
 
-      - name: Use Node.js 14
+      - name: Use Node.js 16
         uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
+          node-version: '16.x'
           cache: 'yarn'
 
       - run: yarn install --production=false --frozen-lockfile
@@ -33,10 +33,10 @@ jobs:
       PANOPTES_ENV: test
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 14
+      - name: Use Node.js 16
         uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
+          node-version: '16.x'
           cache: 'yarn'
 
       - run: yarn install --production=false --frozen-lockfile
@@ -65,10 +65,10 @@ jobs:
       PROJECT_ASSET_PREFIX: 'https://fe-project.zooniverse.org'
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 14
+      - name: Use Node.js 16
         uses: actions/setup-node@v2
         with:
-         node-version: '14.x'
+         node-version: '16.x'
          cache: 'yarn'
 
       - run: yarn install --production=false --frozen-lockfile
@@ -85,10 +85,10 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 14
+      - name: Use Node.js 16
         uses: actions/setup-node@v2
         with:
-         node-version: '14.x'
+         node-version: '16.x'
          cache: 'yarn'
 
       - run: yarn install --production=false --frozen-lockfile

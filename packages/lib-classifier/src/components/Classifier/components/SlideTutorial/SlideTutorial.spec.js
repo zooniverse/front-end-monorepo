@@ -104,18 +104,4 @@ describe('SlideTutorial', function () {
     wrapper.find(Button).simulate('click')
     expect(onClick).to.have.been.calledOnce()
   })
-
-  it('should set the tutorial as seen when Get Started is clicked', function () {
-    const setSeenTime = sinon.spy()
-    const wrapper = shallow(
-      <SlideTutorial
-        activeStep={1}
-        setSeenTime={setSeenTime}
-        stepWithMedium={() => ({ step, medium })}
-        steps={[{ step, medium }, { step, medium }]}
-      />
-    )
-    wrapper.find(Button).simulate('click')
-    expect(setSeenTime).to.have.been.calledOnce()
-  })
 })

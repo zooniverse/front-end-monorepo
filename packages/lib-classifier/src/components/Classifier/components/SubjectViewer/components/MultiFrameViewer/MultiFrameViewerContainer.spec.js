@@ -1,7 +1,9 @@
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
+import { Provider } from 'mobx-react'
 import sinon from 'sinon'
 import React from 'react'
 
+import mockStore from '@test/mockStore'
 import { DraggableImage, MultiFrameViewerContainer } from './MultiFrameViewerContainer'
 import FrameCarousel from './FrameCarousel'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
@@ -39,7 +41,7 @@ describe('Component > MultiFrameViewerContainer', function () {
     const onError = sinon.stub()
 
     before(function () {
-      wrapper = shallow(<MultiFrameViewerContainer onError={onError} />)
+      wrapper = mount(<MultiFrameViewerContainer onError={onError} />)
     })
 
     it('should render without crashing', function () {
@@ -47,7 +49,7 @@ describe('Component > MultiFrameViewerContainer', function () {
     })
 
     it('should render null', function () {
-      expect(wrapper.type()).to.be.null()
+      expect(wrapper.html()).to.be.null()
     })
   })
 
@@ -57,8 +59,14 @@ describe('Component > MultiFrameViewerContainer', function () {
     const onError = sinon.stub()
 
     beforeEach(function (done) {
-      onReady.callsFake(() => done())
-      onError.callsFake(() => done())
+      onReady.callsFake(() => {
+        imageWrapper = wrapper.find(SingleImageViewer)
+        done()
+      })
+      onError.callsFake(() => {
+        imageWrapper = wrapper.find(SingleImageViewer)
+        done()
+      })
       const subject = {
         id: 'test',
         locations: [
@@ -69,25 +77,21 @@ describe('Component > MultiFrameViewerContainer', function () {
           default_frame: 1
         }
       }
-      wrapper = shallow(
+      const classifierStore = mockStore({ subject })
+      wrapper = mount(
         <MultiFrameViewerContainer
+          enableInteractionLayer={false}
           ImageObject={ValidImage}
           loadingState={asyncStates.success}
           subject={subject}
           onError={onError}
           onReady={onReady}
-        />
-      )
-      imageWrapper = wrapper.find(SingleImageViewer)
-      wrapper.instance().subjectImage = {
-        current: {
-          clientHeight: 50,
-          clientWidth: 100,
-          addEventListener: sinon.stub(),
-          getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
-          removeEventListener: sinon.stub()
+        />,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: classifierStore
         }
-      }
+      )
     })
 
     afterEach(function () {
@@ -103,17 +107,10 @@ describe('Component > MultiFrameViewerContainer', function () {
     })
 
     it('should record the original image dimensions on load', function () {
-      const svg = wrapper.instance().subjectImage.current
-      const fakeEvent = {
-        target: {
-          clientHeight: 0,
-          clientWidth: 0
-        }
-      }
       const expectedEvent = {
         target: {
-          clientHeight: svg.clientHeight,
-          clientWidth: svg.clientWidth,
+          clientHeight: 0,
+          clientWidth: 0,
           naturalHeight: height,
           naturalWidth: width
         }
@@ -129,6 +126,7 @@ describe('Component > MultiFrameViewerContainer', function () {
     })
 
     it('should render an svg image', function () {
+      wrapper.update()
       const image = wrapper.find('image')
       expect(image).to.have.lengthOf(1)
       expect(image.prop('xlinkHref')).to.equal('https://some.domain/image.jpg')
@@ -162,7 +160,7 @@ describe('Component > MultiFrameViewerContainer', function () {
         wrapper.setProps({ activeTool })
         expect(activeTool.marks.size).to.equal(2)
 
-        wrapper.instance().onFrameChange(2)
+        wrapper.setProps({ frame: 1 })
         expect(activeTool.marks.size).to.equal(1)
       })
     })
@@ -178,16 +176,23 @@ describe('Component > MultiFrameViewerContainer', function () {
     })
 
     beforeEach(function (done) {
-      onReady.callsFake(() => done())
-      onError.callsFake(() => done())
+      onReady.callsFake(() => {
+        imageWrapper = wrapper.find(SingleImageViewer)
+        done()
+      })
+      onError.callsFake(() => {
+        imageWrapper = wrapper.find(SingleImageViewer)
+        done()
+      })
       const subject = {
         id: 'test',
         locations: [
-          { 'image/jpeg': '' }
+          { 'image/jpeg': 'this is not an image URL' }
         ]
       }
-      wrapper = shallow(
+      wrapper = mount(
         <MultiFrameViewerContainer
+          enableInteractionLayer={false}
           ImageObject={InvalidImage}
           loadingState={asyncStates.success}
           subject={subject}
@@ -195,16 +200,6 @@ describe('Component > MultiFrameViewerContainer', function () {
           onReady={onReady}
         />
       )
-      imageWrapper = wrapper.find(SingleImageViewer)
-      wrapper.instance().imageViewer = {
-        current: {
-          clientHeight: 50,
-          clientWidth: 100,
-          addEventListener: sinon.stub(),
-          getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
-          removeEventListener: sinon.stub()
-        }
-      }
     })
 
     afterEach(function () {

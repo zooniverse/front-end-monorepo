@@ -1,13 +1,14 @@
 import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import withKeyZoom from '@components/Classifier/components/withKeyZoom'
 import { withStores } from '@helpers'
 import { draggable } from '@plugins/drawingTools/components'
 
+import useSubjectImage, { placeholder } from '../SingleImageViewer/hooks/useSubjectImage'
 import FrameCarousel from './FrameCarousel'
 import locationValidator from '../../helpers/locationValidator'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
@@ -49,175 +50,123 @@ const DraggableImage = styled(draggable('image'))`
   cursor: move;
 `
 
-class MultiFrameViewerContainer extends React.Component {
-  constructor () {
-    super()
-    this.dragMove = this.dragMove.bind(this)
-    this.onFrameChange = this.onFrameChange.bind(this)
-    this.setOnDrag = this.setOnDrag.bind(this)
+const defaultTool = {
+  validate: () => {}
+}
 
-    this.subjectImage = React.createRef()
+function MultiFrameViewerContainer({
+  activeTool = defaultTool,
+  enableInteractionLayer = true,
+  enableRotation = () => null,
+  frame = 0,
+  ImageObject = window.Image,
+  loadingState = asyncStates.initialized,
+  move,
+  onError = () => true,
+  onKeyDown = () => true,
+  onReady = () => true,
+  rotation,
+  setFrame = () => true,
+  setOnPan = () => true,
+  setOnZoom = () => true,
+  subject
+}) {
 
-    this.state = {
-      img: {}
-    }
-  }
+  const subjectImage = useRef()
+  const [dragMove, setDragMove] = useState()
+  // TODO: replace this with a better function to parse the image location from a subject.
+  const imageUrl = subject ? Object.values(subject.locations[frame])[0] : null
+  const { img, error } = useSubjectImage(ImageObject, imageUrl)
+  // default to a placeholder while image is loading.
+  const { naturalHeight, naturalWidth, src } = img
 
-  componentDidMount () {
-    this.props.enableRotation()
-    this.onLoad()
-  }
-
-  componentDidUpdate (prevProps) {
-    const { frame } = this.props
-    if (prevProps.frame !== frame) {
-      this.onLoad()
-    }
-  }
-
-  fetchImage (url) {
-    const { ImageObject } = this.props
-    return new Promise((resolve, reject) => {
-      const img = new ImageObject()
-      img.onload = () => resolve(img)
-      img.onerror = reject
-      img.src = url
-      return img
-    })
-  }
-
-  dragMove (event, difference) {
-    this.onDrag && this.onDrag(event, difference)
-  }
-
-  setOnDrag (callback) {
-    this.onDrag = callback
-  }
-
-  onFrameChange(frame) {
-    const {
-      activeTool,
-      setFrame
-    } = this.props
-
-    if (activeTool?.marks?.size > 0) {
-      activeTool.validate()
-    }
-
-    setFrame(frame)
-  }
-
-  async preload () {
-    const { frame, subject } = this.props
-    if (subject && subject.locations) {
-      // TODO: Validate for allowed image media mime types
-      const imageUrl = Object.values(subject.locations[frame])[0]
-      const img = await this.fetchImage(imageUrl)
-      this.setState({ img })
-      return img
-    }
-    return {}
-  }
-
-  async getImageSize () {
-    const img = await this.preload()
-    const svgImage = this.subjectImage.current
-    const { width: clientWidth, height: clientHeight } = svgImage ? svgImage.getBoundingClientRect() : {}
-    return {
-      clientHeight,
-      clientWidth,
-      naturalHeight: img.naturalHeight,
-      naturalWidth: img.naturalWidth
-    }
-  }
-
-  async onLoad () {
-    const { onError, onReady } = this.props
-    try {
-      const { clientHeight, clientWidth, naturalHeight, naturalWidth } = await this.getImageSize()
+  useEffect(function onImageLoad() {
+    if (src !== placeholder.src) {
+      const svgImage = subjectImage.current
+      const { width: clientWidth, height: clientHeight } = svgImage
+        ? svgImage.getBoundingClientRect()
+        : {}
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
       onReady({ target })
-    } catch (error) {
-      console.error(error)
-      onError(error)
     }
+  }, [src])
+
+  useEffect(function onMount() {
+    enableRotation()
+  }, [])
+
+  useEffect(function onFrameChange() {
+    activeTool?.validate()
+  }, [frame])
+
+  if (error) {
+    console.error(error)
+    onError(error)
   }
 
-  render () {
-    const {
-      enableInteractionLayer,
-      frame,
-      loadingState,
-      move,
-      onKeyDown,
-      rotation,
-      setOnPan,
-      setOnZoom,
-      subject
-    } = this.props
-    const { img } = this.state
+  function setOnDrag(callback) {
+    setDragMove(() => callback)
+  }
 
-    // If image hasn't been fully retrieved, use a placeholder
-    const src = img?.src || 'https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png'  // Use this instead of https://www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png to save on network calls
-    const naturalWidth = img?.naturalWidth || 800
-    const naturalHeight = img?.naturalHeight || 600
+  function onDrag(event, difference) {
+    dragMove?.(event, difference)
+  }
 
-    if (loadingState === asyncStates.error) {
-      return (
-        <div>Something went wrong.</div>
-      )
-    }
+  if (loadingState === asyncStates.error) {
+    return (
+      <div>Something went wrong.</div>
+    )
+  }
 
-    const enableDrawing = (loadingState === asyncStates.success) && enableInteractionLayer
-    const SubjectImage = move ? DraggableImage : 'image'
-    const subjectImageProps = {
-      height: naturalHeight,
-      width: naturalWidth,
-      xlinkHref: src,
-      ...(move && { dragMove: this.dragMove })
-    }
+  const enableDrawing = (loadingState === asyncStates.success) && enableInteractionLayer
+  const SubjectImage = move ? DraggableImage : 'image'
+  const subjectImageProps = {
+    height: naturalHeight,
+    width: naturalWidth,
+    xlinkHref: src,
+    ...(move && { dragMove: onDrag })
+  }
 
-    if (loadingState !== asyncStates.initialized) {
-      return (
-        <Box
-          direction='row'
-          fill='horizontal'
+  if (loadingState !== asyncStates.initialized) {
+    return (
+      <Box
+        direction='row'
+        fill='horizontal'
+      >
+        <FrameCarousel
+          frame={frame}
+          onFrameChange={setFrame}
+          locations={subject.locations}
+        />
+        <SVGPanZoom
+          img={subjectImage.current}
+          maxZoom={5}
+          minZoom={0.1}
+          naturalHeight={naturalHeight}
+          naturalWidth={naturalWidth}
+          setOnDrag={setOnDrag}
+          setOnPan={setOnPan}
+          setOnZoom={setOnZoom}
+          src={src}
         >
-          <FrameCarousel
-            frame={frame}
-            onFrameChange={this.onFrameChange}
-            locations={subject.locations}
-          />
-          <SVGPanZoom
-            img={this.subjectImage.current}
-            maxZoom={5}
-            minZoom={0.1}
-            naturalHeight={naturalHeight}
-            naturalWidth={naturalWidth}
-            setOnDrag={this.setOnDrag}
-            setOnPan={setOnPan}
-            setOnZoom={setOnZoom}
-            src={src}
+          <SingleImageViewer
+            enableInteractionLayer={enableDrawing}
+            height={naturalHeight}
+            onKeyDown={onKeyDown}
+            rotate={rotation}
+            width={naturalWidth}
           >
-            <SingleImageViewer
-              enableInteractionLayer={enableDrawing}
-              height={naturalHeight}
-              onKeyDown={onKeyDown}
-              rotate={rotation}
-              width={naturalWidth}
-            >
-              <g ref={this.subjectImage}>
-                <SubjectImage
-                  {...subjectImageProps}
-                />
-              </g>
-            </SingleImageViewer>
-          </SVGPanZoom>
-        </Box>
-      )
-    }
-    return null
+            <g ref={subjectImage}>
+              <SubjectImage
+                {...subjectImageProps}
+              />
+            </g>
+          </SingleImageViewer>
+        </SVGPanZoom>
+      </Box>
+    )
   }
+  return null
 }
 
 MultiFrameViewerContainer.propTypes = {
@@ -236,22 +185,6 @@ MultiFrameViewerContainer.propTypes = {
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
   }).isRequired
-}
-
-MultiFrameViewerContainer.defaultProps = {
-  activeTool: {
-    validate: () => {}
-  },
-  enableInteractionLayer: true,
-  enableRotation: () => null,
-  frame: 0,
-  ImageObject: window.Image,
-  loadingState: asyncStates.initialized,
-  onError: () => true,
-  onReady: () => true,
-  setFrame: () => {},
-  setOnPan: () => true,
-  setOnZoom: () => true
 }
 
 export default withStores(withKeyZoom(MultiFrameViewerContainer), storeMapper)

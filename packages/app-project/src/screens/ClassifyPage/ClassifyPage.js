@@ -1,6 +1,7 @@
 import { Box, Grid } from 'grommet'
 import dynamic from 'next/dynamic'
 import { arrayOf, func, shape, string } from 'prop-types'
+import { useState } from 'react'
 import { withResponsiveContext } from '@zooniverse/react-components'
 
 import ThemeModeToggle from '@components/ThemeModeToggle'
@@ -37,6 +38,8 @@ function ClassifyPage({
   const responsiveColumns = (screenSize === 'small')
     ? ['auto']
     : ['1em', 'auto', '1em']
+  const [classifierProps, setClassifierProps]  = useState({})
+  const [showTutorial, setShowTutorial] = useState(false)
 
   let subjectSetFromUrl
   if (workflowFromUrl && workflowFromUrl.subjectSets) {
@@ -51,13 +54,21 @@ function ClassifyPage({
   const isIndexed = subjectSetFromUrl?.metadata.indexFields
   canClassify = isIndexed ? !!subjectID : canClassify
 
-  let classifierProps = {}
-  if (canClassify) {
-    classifierProps = {
+  /*
+    Derive classifier state from the URL, when the URL changes.
+    Use the previous classifier state if there's no workflow ID in the URL.
+  */
+  const workflowChanged = classifierProps.workflowID !== workflowID
+  const subjectSetChanged = classifierProps.subjectSetID !== subjectSetID
+  const subjectChanged = classifierProps.subjectID !== subjectID
+  const URLChanged = workflowChanged || subjectSetChanged || subjectChanged
+  if (canClassify && URLChanged) {
+    setClassifierProps({
       workflowID,
       subjectSetID,
       subjectID
-    }
+    })
+    setShowTutorial(true)
   }
 
   return (
@@ -83,6 +94,7 @@ function ClassifyPage({
               cachePanoptesData={cachePanoptesData}
               onAddToCollection={addToCollection}
               onSubjectReset={onSubjectReset}
+              showTutorial={showTutorial}
               {...classifierProps}
             />
             <ThemeModeToggle />

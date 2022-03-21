@@ -56,6 +56,7 @@ export default function ClassifierContainer({
   onSubjectReset = () => true,
   onToggleFavourite = () => true,
   project,
+  showTutorial=false,
   subjectID,
   subjectSetID,
   workflowID
@@ -71,13 +72,18 @@ export default function ClassifierContainer({
 
   const loaded = useHydratedStore(classifierStore, cachePanoptesData, `fem-classifier-${project.id}`)
 
+  useEffect(function onMount() {
+    console.log('resetting stale user data')
+    classifierStore?.userProjectPreferences.reset()
+  }, [])
+
   useEffect(function onLoad() {
-    const { classifications, subjects, workflows } = classifierStore
     /*
     If the project uses session storage, we need to do some
     processing of the store after it loads.
     */
     if (cachePanoptesData && loaded) {
+      const { subjects, workflows } = classifierStore
       if (!workflows.active?.prioritized) {
         /*
         In this case, we delete the saved queue so that
@@ -102,11 +108,12 @@ export default function ClassifierContainer({
     their defaults.
     */
     if (loaded) {
+      const { classifications, subjects } = classifierStore
       console.log('setting classifier event callbacks')
-      classifierStore.setOnAddToCollection(onAddToCollection)
       classifications.setOnComplete(onCompleteClassification)
-      classifierStore.setOnSubjectChange(onSubjectChange)
       subjects.setOnReset(onSubjectReset)
+      classifierStore.setOnAddToCollection(onAddToCollection)
+      classifierStore.setOnSubjectChange(onSubjectChange)
       classifierStore.setOnToggleFavourite(onToggleFavourite)
     }
   }, [cachePanoptesData, loaded])
@@ -127,6 +134,7 @@ export default function ClassifierContainer({
             locale={locale}
             onError={onError}
             project={project}
+            showTutorial={showTutorial}
             subjectSetID={subjectSetID}
             subjectID={subjectID}
             workflowSnapshot={workflowSnapshot}
@@ -160,5 +168,6 @@ ClassifierContainer.propTypes = {
   project: PropTypes.shape({
     id: PropTypes.string.isRequired
   }).isRequired,
+  showTutorial: PropTypes.bool,
   theme: PropTypes.object
 }

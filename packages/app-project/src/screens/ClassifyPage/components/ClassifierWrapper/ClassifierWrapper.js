@@ -26,9 +26,11 @@ export default function ClassifierWrapper({
   onSubjectReset = () => true,
   project,
   recents,
+  showTutorial = false,
   subjectID,
   subjectSetID,
   user,
+  userID,
   workflowID,
   yourStats
 }) {
@@ -84,7 +86,7 @@ export default function ClassifierWrapper({
 
   try {
     if (appLoadingState === asyncStates.success) {
-      const key = user.id || 'no-user'
+      const key = userID || 'no-user'
       return (
         <Classifier
           authClient={authClient}
@@ -99,6 +101,7 @@ export default function ClassifierWrapper({
           onSubjectReset={onSubjectReset}
           onToggleFavourite={onToggleFavourite}
           project={project}
+          showTutorial={showTutorial}
           subjectID={subjectID}
           subjectSetID={subjectSetID}
           workflowID={workflowID}
@@ -143,10 +146,18 @@ ClassifierWrapper.propTypes = {
   onSubjectReset: func,
   /** JSON snapshot of the active Panoptes project */
   project: shape({}),
+  /** Allow the classifier to open a popup tutorial, if necessary. */
+  showTutorial: bool,
   /** optional subjectID (from the page URL.) */
   subjectID: string,
   /** optional subject set ID (from the page URL.) */
   subjectSetID: string,
+  /** Current logged-in user */
+  user: shape({
+    error: string
+  }),
+  /** Logged-in user ID */
+  userID: string,
   /** required workflow ID (from the page URL.) */
   workflowID: string
 }
