@@ -14,7 +14,7 @@ const STROKE_WIDTH = 3
 const GUIDELINE_STROKE_WIDTH = 2
 const GRAB_STROKE_WIDTH = 6
 
-function Polygon({ active, mark, scale }) {
+function Polygon({ active, mark, scale, onFinish }) {
   const {
     path,
     points,
@@ -40,6 +40,7 @@ function Polygon({ active, mark, scale }) {
   }
 
   function handleClosePolygon() {
+    onFinish()
     mark.finish()
   }
 
