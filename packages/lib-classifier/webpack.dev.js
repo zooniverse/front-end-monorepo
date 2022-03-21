@@ -34,7 +34,7 @@ module.exports = {
       '.zooniverse.org'
     ],
     host: process.env.HOST || 'localhost',
-    https: true
+    server: 'https'
   },
   entry: [
     '@babel/polyfill',
