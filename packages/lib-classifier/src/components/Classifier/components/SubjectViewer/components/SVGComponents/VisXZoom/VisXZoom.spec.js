@@ -696,17 +696,17 @@ describe('Component > VisXZoom', function () {
         // Now to simulate the panning
         // visx switched to typescript and are type checking the event
         // We have to add `nativeEvent: new Event('test)` to make sure these test pass the type check
-        eventLayer.simulate('mousedown', {
+        eventLayer.simulate('pointerdown', {
           clientX: 55,
           clientY: 55,
           nativeEvent: new Event('test')
         })
-        eventLayer.simulate('mousemove', {
+        eventLayer.simulate('pointermove', {
           clientX: 60,
           clientY: 60,
           nativeEvent: new Event('test')
         })
-        eventLayer.simulate('mouseup', {
+        eventLayer.simulate('pointerup', {
           nativeEvent: new Event('test')
         })
 
