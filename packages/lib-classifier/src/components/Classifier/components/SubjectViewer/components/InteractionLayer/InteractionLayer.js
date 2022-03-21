@@ -46,6 +46,15 @@ function InteractionLayer({
     [activeMark]
   )
 
+  useEffect(
+    function onActiveToolChange() {
+      onFinish()
+      activeMark?.finish()
+      setActiveMark(undefined)
+    },
+    [activeTool]
+  )
+
   function convertEvent(event) {
     const type = event.type
 
@@ -131,12 +140,12 @@ function InteractionLayer({
   }
 
   function onFinish(event) {
-    if (event.preventDefault) event.preventDefault()
+    if (event?.preventDefault) event.preventDefault()
     setCreating(false)
     if (activeMark && !activeMark.isValid) {
       activeTool.deleteMark(activeMark)
       setActiveMark(undefined)
-      event.stopPropagation()
+      event?.stopPropagation()
     }
   }
 
