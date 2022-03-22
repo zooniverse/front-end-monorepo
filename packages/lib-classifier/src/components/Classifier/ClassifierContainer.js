@@ -11,7 +11,7 @@ import {
   tutorials as tutorialsClient
 } from '@zooniverse/panoptes-js'
 
-import { useHydratedStore, useStore, useWorkflowSnapshot } from './hooks'
+import { useHydratedStore, useWorkflowSnapshot } from '@hooks'
 import { unregisterWorkers } from '../../workers'
 import Classifier from './Classifier'
 
@@ -62,15 +62,12 @@ export default function ClassifierContainer({
   workflowID
 }) {
 
-  const classifierStore = useStore({
-    authClient,
-    client,
-    initialState: {}
-  })
+  const storeEnvironment = { authClient, client }
 
   const workflowSnapshot = useWorkflowSnapshot(workflowID)
 
-  const loaded = useHydratedStore(classifierStore, cachePanoptesData, `fem-classifier-${project.id}`)
+  const classifierStore = useHydratedStore(storeEnvironment, cachePanoptesData, `fem-classifier-${project.id}`)
+  const loaded = !!classifierStore
 
   useEffect(function onMount() {
     console.log('resetting stale user data')
