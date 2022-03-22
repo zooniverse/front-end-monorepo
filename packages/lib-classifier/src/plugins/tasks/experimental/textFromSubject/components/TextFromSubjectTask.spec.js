@@ -3,7 +3,7 @@ import React from 'react'
 import { Markdownz } from '@zooniverse/react-components'
 
 import TextFromSubjectTask from './TextFromSubjectTask'
-import { default as Task } from '@plugins/tasks/experimental/textFromSubject'
+import { textFromSubject as Task } from '@plugins/tasks'
 
 describe('TextFromSubjectTask', function () {
   let wrapper

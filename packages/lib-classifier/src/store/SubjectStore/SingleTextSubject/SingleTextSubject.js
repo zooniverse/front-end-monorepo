@@ -34,11 +34,13 @@ const TextSubject = types
 
       try {
         const url = getSubjectUrl()
-        const response = yield request.get(url)
-
-        if (response.text) {
-          self.content = response.text
+        const response = yield fetch(url)
+        if (!response.ok) {
+          const error = new Error(response.statusText)
+          error.status = response.status
+          throw error
         }
+        self.content = yield response.text()
 
         self.contentLoadingState = asyncStates.success
       } catch (error) {

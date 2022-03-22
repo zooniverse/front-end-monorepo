@@ -2,7 +2,7 @@ import { autorun } from 'mobx'
 import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 
-import Annotation from '../../../models/Annotation'
+import Annotation from '@plugins/tasks/models/Annotation'
 
 const TextFromSubject = types
   .model('TextFromSubject', {

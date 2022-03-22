@@ -26,7 +26,7 @@ export default function SingleTextViewerContainer ({
     )
   }
 
-  if (contentLoadingState === asyncStates.error) {
+  if (subject?.error) {
     onError(subject.error)
   }
 
