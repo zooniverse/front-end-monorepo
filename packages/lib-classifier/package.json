@@ -35,7 +35,7 @@
     "i18next": "~21.6.3",
     "lodash": "~4.17.11",
     "mobx-utils": "~6.0.4",
-    "react-i18next": "~11.15.1",
+    "react-i18next": "~11.16.1",
     "react-player": "~2.9.0",
     "react-resize-detector": "~7.0.0",
     "swr": "~1.2.0",
