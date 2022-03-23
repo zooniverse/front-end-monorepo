@@ -113,7 +113,6 @@ describe('Model > UserProjectPreferencesStore', function () {
     it('should check for a user upon initialization when there is a project', async function () {
       rootStore = setupStores(clientStub, authClientStubWithoutUser)
       await rootStore.projects.setActive(project.id)
-      expect(authClientStubWithoutUser.checkBearerToken).to.have.been.called()
       expect(authClientStubWithoutUser.checkCurrent).to.have.been.called()
     })
 
