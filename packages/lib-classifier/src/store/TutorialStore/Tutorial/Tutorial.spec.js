@@ -21,21 +21,19 @@ describe('Model > Tutorial', function () {
     })
 
     it('should be false while UPP loads', function () {
-      store.userProjectPreferences.fetchUPP({ id: 'test' })
       const tutorial = store.tutorials.active
       expect(tutorial.hasNotBeenSeen).to.be.false()
     })
 
     it('should be true for anonymous users', async function () {
       let tutorial = store.tutorials.active
-      await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
+      store.userProjectPreferences.clear()
       tutorial = store.tutorials.active
       expect(tutorial.hasNotBeenSeen).to.be.true()
     })
 
     it('should be true after the user has loaded', async function () {
       let tutorial = store.tutorials.active
-      await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
       const upp = UPPFactory.build()
       store.userProjectPreferences.setUPP(upp)
       tutorial = store.tutorials.active
@@ -44,7 +42,6 @@ describe('Model > Tutorial', function () {
 
     it('should be false after a user has seen the tutorial', async function () {
       let tutorial = store.tutorials.active
-      await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
       const upp = UPPFactory.build()
       store.userProjectPreferences.setUPP(upp)
       store.userProjectPreferences.setHeaders({
@@ -63,7 +60,6 @@ describe('Model > Tutorial', function () {
       store = mockStore()
       const tutorialSnapshot = TutorialFactory.build()
       store.tutorials.setTutorials([tutorialSnapshot])
-      await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
       const upp = UPPFactory.build()
       store.userProjectPreferences.setUPP(upp)
       store.userProjectPreferences.setHeaders({
