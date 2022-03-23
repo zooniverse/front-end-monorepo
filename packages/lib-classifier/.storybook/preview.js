@@ -8,6 +8,10 @@ export const parameters = {
   backgrounds: backgrounds.lightDefault,
   i18n,
   locale: 'en',
+  locales: {
+    en: 'English',
+    test: 'Test Language'
+  },
   viewport: {
     viewports: INITIAL_VIEWPORTS
   }

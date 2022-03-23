@@ -37,6 +37,7 @@ function ModalTutorial ({
 
   function onClose() {
     setActive(false)
+    tutorial.setSeenTime()
   }
 
   if (tutorial) {

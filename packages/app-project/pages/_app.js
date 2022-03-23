@@ -39,6 +39,7 @@ function MyApp({ Component, pageProps }) {
 
   function onMount() {
     console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
+    store.ui.readCookies()
     store.user.checkCurrent()
   }
   useEffect(onMount, [])

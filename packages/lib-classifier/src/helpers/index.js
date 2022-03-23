@@ -1,5 +1,4 @@
 import * as featureDetection from './featureDetection'
-export { default as asyncSessionStorage } from './asyncSessionStorage'
 export { default as createLocationCounts } from './createLocationCounts'
 export { featureDetection }
 export { default as findLocationsByMediaType } from './findLocationsByMediaType'

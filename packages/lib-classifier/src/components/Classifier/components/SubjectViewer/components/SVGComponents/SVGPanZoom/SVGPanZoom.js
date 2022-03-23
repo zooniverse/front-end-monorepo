@@ -4,15 +4,15 @@ import React, { cloneElement, useRef, useEffect, useState } from 'react'
 function SVGPanZoom({
   children,
   img,
-  maxZoom,
-  minZoom,
+  maxZoom = 2,
+  minZoom = 1,
   naturalHeight,
   naturalWidth,
-  setOnDrag,
-  setOnPan,
-  setOnZoom,
+  setOnDrag = () => true,
+  setOnPan = () => true,
+  setOnZoom = () => true,
   src,
-  zooming
+  zooming = true
 }) {
   const scrollContainer = useRef()
   const defaultViewBox = {
@@ -135,15 +135,11 @@ SVGPanZoom.propTypes = {
   minZoom: PropTypes.number,
   naturalHeight: PropTypes.number.isRequired,
   naturalWidth: PropTypes.number.isRequired,
+  setOnDrag: PropTypes.func,
   setOnPan: PropTypes.func,
   setOnZoom: PropTypes.func,
   src: PropTypes.string.isRequired,
   zooming: PropTypes.bool
 }
 
-SVGPanZoom.defaultProps = {
-  maxZoom: 2,
-  minZoom: 1,
-  zooming: true
-}
 export default SVGPanZoom

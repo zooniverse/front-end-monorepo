@@ -2,7 +2,7 @@ import { GraphQLClient } from 'graphql-request'
 import { Paragraph } from 'grommet'
 import { Provider } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../translations/i18n'
 import {
   env,
@@ -11,7 +11,7 @@ import {
   tutorials as tutorialsClient
 } from '@zooniverse/panoptes-js'
 
-import { useHydratedStore, useStore, useWorkflowSnapshot } from './hooks'
+import { useHydratedStore, useWorkflowSnapshot } from '@hooks'
 import { unregisterWorkers } from '../../workers'
 import Classifier from './Classifier'
 
@@ -56,28 +56,26 @@ export default function ClassifierContainer({
   onSubjectReset = () => true,
   onToggleFavourite = () => true,
   project,
+  showTutorial=false,
   subjectID,
   subjectSetID,
   workflowID
 }) {
 
-  const classifierStore = useStore({
-    authClient,
-    client,
-    initialState: {}
-  })
+  const [loaded, setLoaded] = useState(false)
+  const storeEnvironment = { authClient, client }
 
   const workflowSnapshot = useWorkflowSnapshot(workflowID)
 
-  const loaded = useHydratedStore(classifierStore, cachePanoptesData, `fem-classifier-${project.id}`)
+  const classifierStore = useHydratedStore(storeEnvironment, cachePanoptesData, `fem-classifier-${project.id}`)
 
-  useEffect(function onLoad() {
-    const { classifications, subjects, workflows } = classifierStore
+  useEffect(function onMount() {
     /*
     If the project uses session storage, we need to do some
     processing of the store after it loads.
     */
-    if (cachePanoptesData && loaded) {
+    if (cachePanoptesData) {
+      const { subjects, workflows } = classifierStore
       if (!workflows.active?.prioritized) {
         /*
         In this case, we delete the saved queue so that
@@ -101,15 +99,17 @@ export default function ClassifierContainer({
     Otherwise, hydration will overwrite the callbacks with
     their defaults.
     */
-    if (loaded) {
-      console.log('setting classifier event callbacks')
-      classifierStore.setOnAddToCollection(onAddToCollection)
-      classifications.setOnComplete(onCompleteClassification)
-      classifierStore.setOnSubjectChange(onSubjectChange)
-      subjects.setOnReset(onSubjectReset)
-      classifierStore.setOnToggleFavourite(onToggleFavourite)
-    }
-  }, [cachePanoptesData, loaded])
+    const { classifications, subjects, userProjectPreferences } = classifierStore
+    console.log('resetting stale user data')
+    userProjectPreferences.reset()
+    console.log('setting classifier event callbacks')
+    classifications.setOnComplete(onCompleteClassification)
+    subjects.setOnReset(onSubjectReset)
+    classifierStore.setOnAddToCollection(onAddToCollection)
+    classifierStore.setOnSubjectChange(onSubjectChange)
+    classifierStore.setOnToggleFavourite(onToggleFavourite)
+    setLoaded(true)
+  }, [])
 
   useEffect(function onAuthChange() {
     if (loaded) {
@@ -127,6 +127,7 @@ export default function ClassifierContainer({
             locale={locale}
             onError={onError}
             project={project}
+            showTutorial={showTutorial}
             subjectSetID={subjectSetID}
             subjectID={subjectID}
             workflowSnapshot={workflowSnapshot}
@@ -160,5 +161,6 @@ ClassifierContainer.propTypes = {
   project: PropTypes.shape({
     id: PropTypes.string.isRequired
   }).isRequired,
+  showTutorial: PropTypes.bool,
   theme: PropTypes.object
 }

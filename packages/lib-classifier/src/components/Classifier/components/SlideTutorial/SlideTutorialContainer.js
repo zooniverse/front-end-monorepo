@@ -19,12 +19,10 @@ function storeMapper(classifierStore) {
   } = classifierStore
 
   const steps = tutorial?.steps
-  const setSeenTime = tutorial?.setSeenTime
 
   return {
     activeStep,
     projectDisplayName: project.display_name,
-    setSeenTime,
     steps,
     stepWithMedium
   }
@@ -34,7 +32,6 @@ function SlideTutorialContainer({
   activeStep = 0,
   pad = 'medium',
   projectDisplayName = '',
-  setSeenTime = () => true,
   steps = [],
   stepWithMedium,
   ...props
@@ -49,7 +46,6 @@ function SlideTutorialContainer({
             height={height}
             pad={pad}
             projectDisplayName={projectDisplayName}
-            setSeenTime={setSeenTime}
             steps={steps}
             stepWithMedium={stepWithMedium}
             {...props}
@@ -63,7 +59,6 @@ function SlideTutorialContainer({
 SlideTutorialContainer.propTypes = {
   activeStep: PropTypes.number,
   projectDisplayName: PropTypes.string,
-  setSeenTime: PropTypes.func,
   steps: PropTypes.array,
   stepWithMedium: PropTypes.func.isRequired
 }

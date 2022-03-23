@@ -1,7 +1,9 @@
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
+import { Provider } from 'mobx-react'
 import sinon from 'sinon'
 import React from 'react'
 
+import mockStore from '@test/mockStore'
 import { DraggableImage, SingleImageViewerContainer } from './SingleImageViewerContainer'
 import SingleImageViewer from './SingleImageViewer'
 import asyncStates from '@zooniverse/async-states'
@@ -37,7 +39,7 @@ describe('Component > SingleImageViewerContainer', function () {
     const onError = sinon.stub()
 
     before(function () {
-      wrapper = shallow(<SingleImageViewerContainer onError={onError} />)
+      wrapper = mount(<SingleImageViewerContainer onError={onError} />)
     })
 
     it('should render without crashing', function () {
@@ -45,7 +47,7 @@ describe('Component > SingleImageViewerContainer', function () {
     })
 
     it('should render null', function () {
-      expect(wrapper.type()).to.be.null()
+      expect(wrapper.html()).to.be.null()
     })
   })
 
@@ -55,8 +57,14 @@ describe('Component > SingleImageViewerContainer', function () {
     const onError = sinon.stub()
 
     beforeEach(function (done) {
-      onReady.callsFake(() => done())
-      onError.callsFake(() => done())
+      onReady.callsFake(() => {
+        imageWrapper = wrapper.find(SingleImageViewer)
+        done()
+      })
+      onError.callsFake(() => {
+        imageWrapper = wrapper.find(SingleImageViewer)
+        done()
+      })
       const subject = {
         id: 'test',
         locations: [
@@ -66,25 +74,21 @@ describe('Component > SingleImageViewerContainer', function () {
           default_frame: "0"
         }
       }
-      wrapper = shallow(
+      const classifierStore = mockStore({ subject })
+      wrapper = mount(
         <SingleImageViewerContainer
+          enableInteractionLayer={false}
           ImageObject={ValidImage}
           loadingState={asyncStates.success}
           subject={subject}
           onError={onError}
           onReady={onReady}
-        />
-      )
-      imageWrapper = wrapper.find(SingleImageViewer)
-      wrapper.instance().subjectImage = {
-        current: {
-          clientHeight: 50,
-          clientWidth: 100,
-          addEventListener: sinon.stub(),
-          getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
-          removeEventListener: sinon.stub()
+        />,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: classifierStore
         }
-      }
+      )
     })
 
     afterEach(function () {
@@ -96,17 +100,10 @@ describe('Component > SingleImageViewerContainer', function () {
     })
 
     it('should record the original image dimensions on load', function () {
-      const svg = wrapper.instance().subjectImage.current
-      const fakeEvent = {
-        target: {
-          clientHeight: 0,
-          clientWidth: 0
-        }
-      }
       const expectedEvent = {
         target: {
-          clientHeight: svg.clientHeight,
-          clientWidth: svg.clientWidth,
+          clientHeight: 0,
+          clientWidth: 0,
           naturalHeight: height,
           naturalWidth: width
         }
@@ -122,6 +119,7 @@ describe('Component > SingleImageViewerContainer', function () {
     })
 
     it('should render an svg image', function () {
+      wrapper.update()
       const image = wrapper.find('image')
       expect(image).to.have.lengthOf(1)
       expect(image.prop('xlinkHref')).to.equal('https://some.domain/image.jpg')
@@ -147,15 +145,21 @@ describe('Component > SingleImageViewerContainer', function () {
     })
 
     beforeEach(function (done) {
-      onReady.callsFake(() => done())
-      onError.callsFake(() => done())
+      onReady.callsFake(() => {
+        imageWrapper = wrapper.find(SingleImageViewer)
+        done()
+      })
+      onError.callsFake(() => {
+        imageWrapper = wrapper.find(SingleImageViewer)
+        done()
+      })
       const subject = {
         id: 'test',
         locations: [
-          { 'image/jpeg': '' }
+          { 'image/jpeg': 'this is not a URL' }
         ]
       }
-      wrapper = shallow(
+      wrapper = mount(
         <SingleImageViewerContainer
           ImageObject={InvalidImage}
           subject={subject}
@@ -163,16 +167,6 @@ describe('Component > SingleImageViewerContainer', function () {
           onReady={onReady}
         />
       )
-      imageWrapper = wrapper.find(SingleImageViewer)
-      wrapper.instance().imageViewer = {
-        current: {
-          clientHeight: 50,
-          clientWidth: 100,
-          addEventListener: sinon.stub(),
-          getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
-          removeEventListener: sinon.stub()
-        }
-      }
     })
 
     afterEach(function () {
@@ -189,12 +183,6 @@ describe('Component > SingleImageViewerContainer', function () {
     })
 
     it('should log an error from an invalid image', function () {
-      const fakeEvent = {
-        target: {
-          clientHeight: 0,
-          clientWidth: 0
-        }
-      }
       expect(onError.withArgs(HTMLImgError)).to.have.been.calledOnce()
     })
 
