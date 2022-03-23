@@ -1,27 +1,58 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { shallow, mount } from 'enzyme'
 import { expect } from 'chai'
 import Circle from './Circle'
 import { default as CircleMark } from '../../models/marks/Circle'
 import DragHandle from '../DragHandle'
 
-/*
-TODO
-- [x] Draw Circle
-- [ ] Import Mark.js to test for x_center and y_center
-- [ ] Move Circle
-- [ ] Resize with handle
-- [ ] Is active
-- [ ] Is not active
-- [ ] Delete Circle
-*/
-
 describe('Circle tool', function () {
-  it('should render a Circle with the coordinates provided', function () {
-    render(<Circle mark={{ x_center: 200, y_center: 200, r: 100 }} scale={1} />)
+  it('should render without crashing', function () {
+    const wrapper = shallow(
+      <Circle mark={{ x_center: 200, y_center: 200, r: 50 }} />
+    )
+    expect(wrapper).to.be.ok()
+  })
 
-    expect(screen.getByTestId('circle-element'))
-      .to.have.attr('r')
-      .to.equal('100')
+  it('should render a circle with the coordinates provided', function () {
+    const wrapper = shallow(
+      <Circle mark={{ x_center: 200, y_center: 200, r: 50 }} scale={1} />
+    )
+    expect(wrapper.containsMatchingElement(<circle r={50} />)).to.be.true()
+  })
+
+  it('should render an active circle with one drag handle', function () {
+    const wrapper = shallow(
+      <Circle active mark={{ x_center: 200, y_center: 200, r: 50 }} scale={1} />
+    )
+    expect(wrapper.find(DragHandle)).to.have.lengthOf(1)
+  })
+
+  it('should change the radius when drag handle is moved', function () {
+    const mark = CircleMark.create({
+      id: 'circle1',
+      toolType: 'circle',
+      x_center: 200,
+      y_center: 200,
+      r: 50
+    })
+
+    const wrapper = mount(<Circle active mark={mark} scale={1} />)
+
+    const dragMove = wrapper
+      .find(DragHandle)
+      .find('[x=50][y=0][dragMove]')
+      .prop('dragMove')
+    expect(mark.x_center).to.equal(200)
+    expect(mark.y_center).to.equal(200)
+    expect(mark.r).to.equal(50)
+
+    console.log('mark.r: ', mark.r)
+    dragMove({ x: 300, y: 200 })
+
+    console.log('mark.r: ', typeof mark.r)
+
+    expect(mark.x_center).to.equal(200)
+    expect(mark.y_center).to.equal(200)
+    expect(mark.r).to.equal(100)
   })
 })
