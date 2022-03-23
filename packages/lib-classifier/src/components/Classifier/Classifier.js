@@ -14,6 +14,7 @@ export default function Classifier({
   locale,
   onError = () => true,
   project,
+  showTutorial = false,
   subjectID,
   subjectSetID,
   workflowSnapshot,
@@ -63,7 +64,7 @@ export default function Classifier({
     return (
       <>
         <Layout />
-        <ModalTutorial />
+        {showTutorial && <ModalTutorial />}
       </>
     )
   } catch (error) {
@@ -82,6 +83,7 @@ Classifier.propTypes = {
   project: PropTypes.shape({
     id: PropTypes.string.isRequired
   }).isRequired,
+  showTutorial: PropTypes.bool,
   subjectSetID: PropTypes.string,
   subjectID: PropTypes.string,
   workflowSnapshot: PropTypes.shape({

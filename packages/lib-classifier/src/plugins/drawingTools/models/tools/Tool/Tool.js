@@ -87,7 +87,7 @@ const Tool = types
     },
 
     handlePointerMove(event, mark) {
-      mark.initialDrag(event)
+      mark.initialDrag?.(event)
     },
 
     // this outputs the mouse coords when not creating (ig: guideline for Polygon)
