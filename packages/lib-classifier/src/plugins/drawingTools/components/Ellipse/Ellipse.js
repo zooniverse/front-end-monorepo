@@ -7,19 +7,19 @@ const GUIDE_DASH = [4, 4]
 const GUIDE_WIDTH = 1
 
 function Ellipse({ active, mark, onFinish, scale }) {
-  const { x, y, rx, ry, angle } = mark
+  const { x_center, y_center, rx, ry } = mark
   const guideWidth = GUIDE_WIDTH / scale
 
-  function onXHandleDrag(e, d) {
-    const r = mark.getDistance(x, y, e.x, e.y)
-    const angle = mark.getAngle(x, y, e.x, e.y)
-    mark.setCoordinates({ x, y, rx: r, ry, angle })
+  function onXHandleDrag(e) {
+    const r = mark.getDistance(x_center, y_center, e.x, e.y)
+    const angle = mark.getAngle(x_center, y_center, e.x, e.y)
+    mark.setCoordinates({ x: x_center, y: y_center, rx: r, ry, angle })
   }
 
-  function onYHandleDrag(e, d) {
-    const r = mark.getDistance(x, y, e.x, e.y)
-    const angle = mark.getAngle(x, y, e.x, e.y) + 90
-    mark.setCoordinates({ x, y, rx, ry: r, angle })
+  function onYHandleDrag(e) {
+    const r = mark.getDistance(x_center, y_center, e.x, e.y)
+    const angle = mark.getAngle(x_center, y_center, e.x, e.y) + 90
+    mark.setCoordinates({ x: x_center, y: y_center, rx, ry: r, angle })
   }
 
   return (
