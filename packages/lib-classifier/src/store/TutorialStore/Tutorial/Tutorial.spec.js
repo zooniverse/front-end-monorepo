@@ -20,14 +20,14 @@ describe('Model > Tutorial', function () {
       store.tutorials.setTutorials([tutorialSnapshot])
     })
 
-    it('should be false when the store first loads', function () {
+    it('should be false while UPP loads', function () {
+      store.userProjectPreferences.fetchUPP({ id: 'test' })
       const tutorial = store.tutorials.active
       expect(tutorial.hasNotBeenSeen).to.be.false()
     })
 
     it('should be true for anonymous users', async function () {
       let tutorial = store.tutorials.active
-      expect(tutorial.hasNotBeenSeen).to.be.false()
       await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
       tutorial = store.tutorials.active
       expect(tutorial.hasNotBeenSeen).to.be.true()
@@ -35,7 +35,6 @@ describe('Model > Tutorial', function () {
 
     it('should be true after the user has loaded', async function () {
       let tutorial = store.tutorials.active
-      expect(tutorial.hasNotBeenSeen).to.be.false()
       await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
       const upp = UPPFactory.build()
       store.userProjectPreferences.setUPP(upp)
@@ -45,7 +44,6 @@ describe('Model > Tutorial', function () {
 
     it('should be false after a user has seen the tutorial', async function () {
       let tutorial = store.tutorials.active
-      expect(tutorial.hasNotBeenSeen).to.be.false()
       await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
       const upp = UPPFactory.build()
       store.userProjectPreferences.setUPP(upp)
