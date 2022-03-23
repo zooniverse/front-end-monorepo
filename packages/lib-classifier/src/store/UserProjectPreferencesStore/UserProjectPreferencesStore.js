@@ -56,11 +56,10 @@ const UserProjectPreferencesStore = types
       const { authClient } = getRoot(self)
 
       try {
-        const authorization = yield getBearerToken(authClient)
         const user = yield authClient.checkCurrent()
 
-        if (authorization && user) {
-          self.fetchUPP(authorization, user)
+        if (user) {
+          self.fetchUPP(user)
         } else {
           self.reset()
           self.loadingState = asyncStates.success
@@ -71,14 +70,16 @@ const UserProjectPreferencesStore = types
       }
     }
 
-    function * fetchUPP (authorization, user) {
+    function * fetchUPP (user) {
       let resource
       const { type } = self
+      const { authClient } = getRoot(self)
       const client = getRoot(self).client.panoptes
       const project = getRoot(self).projects.active
 
       self.loadingState = asyncStates.loading
       try {
+        const authorization = yield getBearerToken(authClient)
         const response = yield client.get(`/${type}`, { project_id: project.id, user_id: user.id }, { authorization })
         if (response.body[type][0]) {
           // We don't store the headers from this get response because it's by query params
