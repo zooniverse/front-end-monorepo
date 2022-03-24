@@ -37,6 +37,7 @@ module.exports = {
   resolve: {
     alias: {
       '@components': path.resolve(__dirname, 'src/components'),
+      '@hooks': path.resolve(__dirname, 'src/hooks'),
       '@helpers': path.resolve(__dirname, 'src/helpers'),
       '@plugins': path.resolve(__dirname, 'src/plugins'),
       '@store': path.resolve(__dirname, 'src/store'),
