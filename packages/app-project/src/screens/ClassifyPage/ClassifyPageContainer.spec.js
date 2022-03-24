@@ -233,6 +233,7 @@ describe('Component > ClassifyPageContainer', function () {
             }
           )
           expect(wrapper.find(ClassifyPage).props().workflowFromUrl).to.equal(workflows[0])
+          expect(wrapper.find(ClassifyPage).props().workflowID).to.equal(workflows[0].id)
         })
       })
 
@@ -271,6 +272,7 @@ describe('Component > ClassifyPageContainer', function () {
           })
 
           expect(wrapper.find(ClassifyPage).props().workflowFromUrl).to.be.null()
+          expect(wrapper.find(ClassifyPage).props().workflowID).to.be.undefined()
         })
       })
     })
@@ -305,6 +307,7 @@ describe('Component > ClassifyPageContainer', function () {
           wrappingComponentProps: { theme: zooTheme }
         })
         expect(wrapper.find(ClassifyPage).props().workflowFromUrl).to.equal(workflows[0])
+        expect(wrapper.find(ClassifyPage).props().workflowID).to.equal(workflows[0].id)
       })
 
       it('should not be able to load other workflow levels', function () {
@@ -337,13 +340,53 @@ describe('Component > ClassifyPageContainer', function () {
           wrappingComponentProps: { theme: zooTheme }
         })
         expect(wrapper.find(ClassifyPage).props().workflowFromUrl).to.be.null()
+        expect(wrapper.find(ClassifyPage).props().workflowID).to.be.undefined()
       })
     })
   })
 
   describe('when the project is not workflow assignment enabled', function () {
-    it('should be able to load the workflow from the url', function () {
-      const routerStub = sinon.stub(Router, 'useRouter').callsFake((component) => {
+    let routerStub
+    const mockStore = {
+      project: {
+        avatar: {
+          src: ''
+        },
+        background: {
+          src: ''
+        },
+        configuration: {
+          announcement: '',
+        },
+        experimental_tools: [],
+        inBeta: false,
+        toJSON: () => { }, // is this being used in the code somewhere? toJS() should be used instead
+        urls: []
+      },
+      ui: {
+        dismissProjectAnnouncementBanner: () => { },
+        showAnnouncement: false
+      },
+      user: {
+        id: '1',
+        personalization: {
+          projectPreferences: {
+            promptAssignment: () => { },
+            settings: {}
+          },
+          sessionCount: 0,
+          stats: {
+            thisWeek: []
+          }
+        },
+        recents: {
+          recents: []
+        }
+      }
+    }
+    
+    beforeEach(function () {
+      routerStub = sinon.stub(Router, 'useRouter').callsFake((component) => {
         return {
           asPath: '',
           query: {
@@ -353,44 +396,13 @@ describe('Component > ClassifyPageContainer', function () {
           prefetch: () => Promise.resolve()
         }
       })
+    })
 
-      const mockStore = {
-        project: {
-          avatar: {
-            src: ''
-          },
-          background: {
-            src: ''
-          },
-          configuration: {
-            announcement: '',
-          },
-          experimental_tools: [],
-          inBeta: false,
-          toJSON: () => { }, // is this being used in the code somewhere? toJS() should be used instead
-          urls: []
-        },
-        ui: {
-          dismissProjectAnnouncementBanner: () => { },
-          showAnnouncement: false
-        },
-        user: {
-          id: '1',
-          personalization: {
-            projectPreferences: {
-              promptAssignment: () => { },
-              settings: {}
-            },
-            sessionCount: 0,
-            stats: {
-              thisWeek: []
-            }
-          },
-          recents: {
-            recents: []
-          }
-        }
-      }
+    afterEach(function () {
+      routerStub.restore()
+    })
+    
+    it('should be able to load the workflow from the url', function () {
       let workflows = [{
         id: '1234',
         configuration: {}
@@ -410,7 +422,24 @@ describe('Component > ClassifyPageContainer', function () {
       })
 
       expect(wrapper.find(ClassifyPage).props().workflowFromUrl).to.equal(workflows[1])
-      routerStub.restore()
+      expect(wrapper.find(ClassifyPage).props().workflowID).to.equal(workflows[1].id)
+    })
+
+    it('should be able to load a completed workflow from the url', function () {
+      // note the workflow prop is an empty array, which is what fetchWorkflowHelper would return if the workflow is complete
+      const wrapper = mount(
+        <Provider store={mockStore}>
+          <ClassifyPageContainer
+            workflowID='1234'
+            workflows={[]}
+          />
+        </Provider>, {
+        wrappingComponent: Grommet,
+        wrappingComponentProps: { theme: zooTheme }
+      })
+  
+      expect(wrapper.find(ClassifyPage).props().workflowFromUrl).to.be.null()
+      expect(wrapper.find(ClassifyPage).props().workflowID).to.equal('1234')
     })
   })
 })
