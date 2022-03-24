@@ -59,6 +59,8 @@ function DrawingToolMarks({
     function endMoveMark(event) {
       if (event?.currentTarget && !isInBounds(event.currentTarget)) {
         deleteMark()
+      } else {
+        onFinish(event)
       }
     }
 
