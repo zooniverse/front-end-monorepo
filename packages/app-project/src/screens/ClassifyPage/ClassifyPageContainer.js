@@ -16,6 +16,7 @@ function ClassifyPageContainer({
   const collectionsModal = createRef()
 
   let assignedWorkflow
+  let allowedWorkflowID = workflowID
   let allowedWorkflows = workflows.slice()
   let assignedWorkflowLevel = 1
   if (assignedWorkflowID) {
@@ -24,6 +25,7 @@ function ClassifyPageContainer({
   }
   if (workflowAssignmentEnabled) {
     allowedWorkflows = workflows.filter(workflow => workflow.configuration.level <= assignedWorkflowLevel)
+    allowedWorkflowID = allowedWorkflows.filter(workflow => workflow.id === workflowID)[0]?.id
   }
   const workflowFromUrl = allowedWorkflows.find(workflow => workflow.id === workflowID) ?? null
 
@@ -49,7 +51,7 @@ function ClassifyPageContainer({
         onSubjectReset={onSubjectReset}
         subjectID={selectedSubjectID}
         workflowFromUrl={workflowFromUrl}
-        workflowID={workflowID}
+        workflowID={allowedWorkflowID}
         workflows={workflows}
         {...props}
       />
