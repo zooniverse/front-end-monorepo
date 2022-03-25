@@ -56,8 +56,8 @@ const EllipseModel = types
   }))
   .actions((self) => ({
     initialDrag({ x, y }) {
-      const rx = self.getDistance(self.x, self.y, x, y)
-      const angle = self.getAngle(self.x, self.y, x, y)
+      const rx = self.getDistance(self.x_center, self.y_center, x, y)
+      const angle = self.getAngle(self.x_center, self.y_center, x, y)
       self.rx = rx
       self.ry = rx * 0.0001
       self.angle = angle
