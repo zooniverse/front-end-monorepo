@@ -125,12 +125,10 @@ function InteractionLayer({
 
   function onPointerMove(event) {
     if (creating) {
-      activeTool.handlePointerMove &&
-        activeTool.handlePointerMove(convertEvent(event), activeMark)
+      activeTool?.handlePointerMove?.(convertEvent(event), activeMark)
     } else {
       // this outputs the mouse coords when not creating (ig: guideline for Polygon)
-      activeTool.handlePointerPosition &&
-        activeTool.handlePointerPosition(convertEvent(event), activeMark)
+      activeTool?.handlePointerPosition?.(convertEvent(event), activeMark)
     }
   }
 
