@@ -5,46 +5,38 @@ import CollectionsModal from '../../shared/components/CollectionsModal'
 
 function ClassifyPageContainer({
   assignedWorkflowID = '',
-  subjectID: subjectFromURL,
+  subjectID,
   workflowAssignmentEnabled = false,
   workflowID,
   workflows = [],
   ...props
 }) {
-  const [subjectID, setSubjectID] = useState(subjectFromURL)
-  const [canLoadWorkflowFromUrl, setCanLoadWorkflowFromUrl] = useState(true)
-  let workflowFromUrl = workflows.find(workflow => workflow.id === workflowID)
-
-  let assignedWorkflow
-  if (assignedWorkflowID) {
-    assignedWorkflow = workflows.find(workflow => workflow.id === assignedWorkflowID)
-  }
+  // selected subject state is derived from the page URL, but can be reset by the Classifier component.
+  const [selectedSubjectID, setSelectedSubjectID] = useState(subjectID)
   const collectionsModal = createRef()
 
+  let assignedWorkflow
+  let allowedWorkflows = workflows.slice()
+  let assignedWorkflowLevel = 1
+  if (assignedWorkflowID) {
+    assignedWorkflow = workflows.find(workflow => workflow.id === assignedWorkflowID)
+    assignedWorkflowLevel = parseInt(assignedWorkflow?.configuration.level, 10)
+  }
+  if (workflowAssignmentEnabled) {
+    allowedWorkflows = workflows.filter(workflow => workflow.configuration.level <= assignedWorkflowLevel)
+  }
+  const workflowFromUrl = allowedWorkflows.find(workflow => workflow.id === workflowID) ?? null
+
   useEffect(function onSubjectChange() {
-    setSubjectID(subjectFromURL)
-  }, [subjectFromURL])
-
-  useEffect(function onAssignedWorkflowIDChange() {
-    const workflowFromURLLevel = parseInt(workflowFromUrl?.configuration?.level)
-
-    if (workflowAssignmentEnabled && assignedWorkflow && workflowFromURLLevel) {
-      const assignedWorkflowLevel = parseInt(assignedWorkflow.configuration.level)
-      const canLoad = assignedWorkflowLevel >= workflowFromURLLevel
-      setCanLoadWorkflowFromUrl(canLoad)
-    } else if (workflowAssignmentEnabled && workflowFromURLLevel !== 1) {
-      setCanLoadWorkflowFromUrl(false)
-    } else {
-      setCanLoadWorkflowFromUrl(true)
-    }
-  }, [ assignedWorkflowID, workflowAssignmentEnabled, workflowFromUrl ])
+    setSelectedSubjectID(subjectID)
+  }, [subjectID])
 
   function addToCollection(subjectId) {
     collectionsModal.current.open(subjectId)
   }
 
   function onSubjectReset() {
-    setSubjectID(undefined)
+    setSelectedSubjectID(undefined)
   }
 
   return (
@@ -55,8 +47,8 @@ function ClassifyPageContainer({
       <ClassifyPage
         addToCollection={addToCollection}
         onSubjectReset={onSubjectReset}
-        subjectID={subjectID}
-        workflowFromUrl={(canLoadWorkflowFromUrl) ? workflowFromUrl : null}
+        subjectID={selectedSubjectID}
+        workflowFromUrl={workflowFromUrl}
         workflowID={workflowID}
         workflows={workflows}
         {...props}
