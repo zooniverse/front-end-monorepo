@@ -59,7 +59,9 @@ describe('Components > DrawingToolMarks', function () {
 
   describe('with an active mark', function () {
     it('should show that mark as active', function () {
-      const wrapper = shallow(<DrawingToolMarks activeMark={{ id: 'point1' }} marks={marks} />)
+      const wrapper = shallow(
+        <DrawingToolMarks activeMark={{ id: 'point1' }} marks={marks} />
+      )
       const Point = point.toolComponent
       expect(wrapper.find(Point).prop('active')).to.be.true()
     })
@@ -104,8 +106,8 @@ describe('Components > DrawingToolMarks', function () {
       onFinish.resetHistory()
     })
 
-    describe('when the mark is being created', function () {
-      it('should not call onFinish', function () {
+    describe('when the mark is inside the SVG element', function () {
+      it('should call onFinish, not onDelete', function () {
         const mockBounds = {
           left: 0,
           top: 0,
@@ -121,7 +123,30 @@ describe('Components > DrawingToolMarks', function () {
         dragEnd(fakeEvent)
         const { tool } = marks[1]
         expect(tool.marks.size).to.equal(1)
-        expect(onFinish).to.not.have.been.called()
+        expect(onFinish).to.have.been.calledOnce()
+        expect(onDelete).to.not.have.been.called()
+      })
+    })
+
+    describe('when the mark overlaps the SVG element', function () {
+      it('should call onFinish, not onDelete', function () {
+        const mockBounds = {
+          left: 1990,
+          top: 20,
+          right: 2090,
+          bottom: 120,
+          width: 100,
+          height: 100
+        }
+        const currentTarget = {
+          getBoundingClientRect: () => mockBounds
+        }
+        const fakeEvent = { currentTarget }
+        dragEnd(fakeEvent)
+        const { tool } = marks[1]
+        expect(tool.marks.size).to.equal(1)
+        expect(onFinish).to.have.been.calledOnce()
+        expect(onDelete).to.not.have.been.called()
       })
     })
 
