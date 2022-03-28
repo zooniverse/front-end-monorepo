@@ -105,9 +105,9 @@ describe('Component > ClassifyPageContainer', function () {
             workflows={workflows}
           />
         </Provider>, {
-        wrappingComponent: Grommet,
-        wrappingComponentProps: { theme: zooTheme }
-      }
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        }
       )
       expect(wrapper).to.be.ok()
     })
@@ -117,7 +117,7 @@ describe('Component > ClassifyPageContainer', function () {
     let wrapper
 
     before(function () {
-      wrapper = shallow(<ClassifyPageContainer subjectID="12345" />)
+      wrapper = shallow(<ClassifyPageContainer subjectID='12345' />)
     })
 
     it('should clear the active subject', function () {
@@ -144,42 +144,42 @@ describe('Component > ClassifyPageContainer', function () {
     }]
 
     const mockStore = {
-        project: {
-          avatar: {
-            src: ''
-          },
-          background: {
-            src: ''
-          },
-          configuration: {
-            announcement: '',
-          },
-          experimental_tools: ['workflow assignment'],
-          inBeta: false,
-          toJSON: () => {}, // is this being used in the code somewhere? toJS() should be used instead
-          urls: []
+      project: {
+        avatar: {
+          src: ''
         },
-        ui: {
-          dismissProjectAnnouncementBanner: () => { },
-          showAnnouncement: false
+        background: {
+          src: ''
         },
-        user: {
-          id: '1',
-          personalization: {
-            projectPreferences: {
-              promptAssignment: () => { },
-              settings: {}
-            },
-            sessionCount: 0,
-            stats: {
-              thisWeek: []
-            }
+        configuration: {
+          announcement: ''
+        },
+        experimental_tools: ['workflow assignment'],
+        inBeta: false,
+        toJSON: () => {}, // is this being used in the code somewhere? toJS() should be used instead
+        urls: []
+      },
+      ui: {
+        dismissProjectAnnouncementBanner: () => { },
+        showAnnouncement: false
+      },
+      user: {
+        id: '1',
+        personalization: {
+          projectPreferences: {
+            promptAssignment: () => { },
+            settings: {}
           },
-          recents: {
-            recents: []
+          sessionCount: 0,
+          stats: {
+            thisWeek: []
           }
+        },
+        recents: {
+          recents: []
         }
       }
+    }
 
     before(function () {
       routerStub = sinon.stub(Router, 'useRouter').callsFake((component) => {
@@ -197,16 +197,16 @@ describe('Component > ClassifyPageContainer', function () {
     after(function () {
       routerStub.restore()
     })
-  
+
     describe('when there is a user and thus an assigned workflow', function () {
       describe('when the assigned workflow level is greater than or equal to the workflow from URL level', function () {
         it('should be able to load the workflow from the url', function () {
-          const mockStoreWithAssignment = Object.assign({}, mockStore, { 
-            user: { 
-              personalization: { 
-                projectPreferences: { 
-                  settings: { 
-                    workflow_id: '5678' 
+          const mockStoreWithAssignment = Object.assign({}, mockStore, {
+            user: {
+              personalization: {
+                projectPreferences: {
+                  settings: {
+                    workflow_id: '5678'
                   }
                 },
                 sessionCount: 0,
@@ -239,13 +239,13 @@ describe('Component > ClassifyPageContainer', function () {
 
       describe('when the assigned workflow level is less than the workflow from URL level', function () {
         it('should not be able to load the workflow from the url', function () {
-          const mockStoreWithAssignment = Object.assign({}, mockStore, { 
-            user: { 
-              personalization: { 
-                projectPreferences: { 
-                  settings: { 
+          const mockStoreWithAssignment = Object.assign({}, mockStore, {
+            user: {
+              personalization: {
+                projectPreferences: {
+                  settings: {
                     workflow_id: '1234'
-                  } 
+                  }
                 },
                 sessionCount: 0,
                 stats: {
@@ -255,7 +255,7 @@ describe('Component > ClassifyPageContainer', function () {
               recents: {
                 recents: []
               }
-            } 
+            }
           })
 
           const wrapper = mount(
@@ -267,9 +267,9 @@ describe('Component > ClassifyPageContainer', function () {
                 workflows={workflows}
               />
             </Provider>, {
-            wrappingComponent: Grommet,
-            wrappingComponentProps: { theme: zooTheme }
-          })
+              wrappingComponent: Grommet,
+              wrappingComponentProps: { theme: zooTheme }
+            })
 
           expect(wrapper.find(ClassifyPage).props().workflowFromUrl).to.be.null()
           expect(wrapper.find(ClassifyPage).props().workflowID).to.be.undefined()
@@ -303,9 +303,9 @@ describe('Component > ClassifyPageContainer', function () {
               workflows={workflows}
             />
           </Provider>, {
-          wrappingComponent: Grommet,
-          wrappingComponentProps: { theme: zooTheme }
-        })
+            wrappingComponent: Grommet,
+            wrappingComponentProps: { theme: zooTheme }
+          })
         expect(wrapper.find(ClassifyPage).props().workflowFromUrl).to.equal(workflows[0])
         expect(wrapper.find(ClassifyPage).props().workflowID).to.equal(workflows[0].id)
       })
@@ -336,9 +336,9 @@ describe('Component > ClassifyPageContainer', function () {
               workflows={workflows}
             />
           </Provider>, {
-          wrappingComponent: Grommet,
-          wrappingComponentProps: { theme: zooTheme }
-        })
+            wrappingComponent: Grommet,
+            wrappingComponentProps: { theme: zooTheme }
+          })
         expect(wrapper.find(ClassifyPage).props().workflowFromUrl).to.be.null()
         expect(wrapper.find(ClassifyPage).props().workflowID).to.be.undefined()
       })
@@ -356,7 +356,7 @@ describe('Component > ClassifyPageContainer', function () {
           src: ''
         },
         configuration: {
-          announcement: '',
+          announcement: ''
         },
         experimental_tools: [],
         inBeta: false,
@@ -384,7 +384,7 @@ describe('Component > ClassifyPageContainer', function () {
         }
       }
     }
-    
+
     beforeEach(function () {
       routerStub = sinon.stub(Router, 'useRouter').callsFake((component) => {
         return {
@@ -401,7 +401,7 @@ describe('Component > ClassifyPageContainer', function () {
     afterEach(function () {
       routerStub.restore()
     })
-    
+
     it('should be able to load the workflow from the url', function () {
       let workflows = [{
         id: '1234',
@@ -417,28 +417,41 @@ describe('Component > ClassifyPageContainer', function () {
             workflows={workflows}
           />
         </Provider>, {
-        wrappingComponent: Grommet,
-        wrappingComponentProps: { theme: zooTheme }
-      })
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        })
 
       expect(wrapper.find(ClassifyPage).props().workflowFromUrl).to.equal(workflows[1])
-      expect(wrapper.find(ClassifyPage).props().workflowID).to.equal(workflows[1].id)
+      expect(wrapper.find(ClassifyPage).props().workflowID).to.equal('5678')
     })
 
     it('should be able to load a completed workflow from the url', function () {
-      // note the workflow prop is an empty array, which is what fetchWorkflowHelper would return if the workflow is complete
+      let incompleteWorkflows = [{
+        id: '91011',
+        configuration: {}
+      }, {
+        id: '5678',
+        configuration: {}
+      }]
+
+      let completeWorkflow = {
+        completeness: 1,
+        id: '1234',
+        configuration: {}
+      }
+
       const wrapper = mount(
         <Provider store={mockStore}>
           <ClassifyPageContainer
             workflowID='1234'
-            workflows={[]}
+            workflows={[...incompleteWorkflows, completeWorkflow]}
           />
         </Provider>, {
-        wrappingComponent: Grommet,
-        wrappingComponentProps: { theme: zooTheme }
-      })
-  
-      expect(wrapper.find(ClassifyPage).props().workflowFromUrl).to.be.null()
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        })
+
+      expect(wrapper.find(ClassifyPage).props().workflowFromUrl).to.equal(completeWorkflow)
       expect(wrapper.find(ClassifyPage).props().workflowID).to.equal('1234')
     })
   })
