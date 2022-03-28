@@ -3,7 +3,7 @@ import { createRef, useEffect, useState } from 'react'
 import ClassifyPage from './ClassifyPage'
 import CollectionsModal from '../../shared/components/CollectionsModal'
 
-function ClassifyPageContainer({
+function ClassifyPageContainer ({
   assignedWorkflowID = '',
   subjectID,
   workflowAssignmentEnabled = false,
@@ -27,15 +27,15 @@ function ClassifyPageContainer({
   }
   const workflowFromUrl = allowedWorkflows.find(workflow => workflow.id === workflowID) ?? null
 
-  useEffect(function onSubjectChange() {
+  useEffect(function onSubjectChange () {
     setSelectedSubjectID(subjectID)
   }, [subjectID])
 
-  function addToCollection(subjectId) {
+  function addToCollection (subjectId) {
     collectionsModal.current.open(subjectId)
   }
 
-  function onSubjectReset() {
+  function onSubjectReset () {
     setSelectedSubjectID(undefined)
   }
 
@@ -49,7 +49,7 @@ function ClassifyPageContainer({
         onSubjectReset={onSubjectReset}
         subjectID={selectedSubjectID}
         workflowFromUrl={workflowFromUrl}
-        workflowID={workflowID}
+        workflowID={workflowFromUrl?.id}
         workflows={workflows}
         {...props}
       />
