@@ -1,20 +1,25 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import React from 'react'
-import cuid from 'cuid'
 import mockStore from '@test/mockStore'
-import DrawingTask from '@plugins/tasks/drawing/models/DrawingTask'
-import { DrawingStory, subject, subTasksSnapshot, updateStores } from '@plugins/drawingTools/stories/helpers'
+import {
+  DrawingStory,
+  subject,
+  subTasksSnapshot,
+  updateStores
+} from '@plugins/drawingTools/stories/helpers'
 import { DrawingTaskFactory, WorkflowFactory } from '@test/factories'
 import Ellipse from './'
 
 const drawingTaskSnapshot = DrawingTaskFactory.build({
   instruction: 'Draw an ellipse',
   taskKey: 'T1',
-  tools: [{
-    color: zooTheme.global.colors['drawing-red'],
-    type: 'ellipse',
-    details: subTasksSnapshot
-  }],
+  tools: [
+    {
+      color: zooTheme.global.colors['drawing-red'],
+      type: 'ellipse',
+      details: subTasksSnapshot
+    }
+  ],
   type: 'drawing'
 })
 
@@ -66,9 +71,7 @@ export default {
 
 export function Complete(args) {
   updateStores(args, mockBounds, stores)
-  return (
-    <DrawingStory stores={stores} />
-  )
+  return <DrawingStory stores={stores} />
 }
 Complete.args = {
   activeMark: false,
@@ -78,9 +81,7 @@ Complete.args = {
 
 export function Active(args) {
   updateStores(args, mockBounds, stores)
-  return (
-    <DrawingStory stores={stores} />
-  )
+  return <DrawingStory stores={stores} />
 }
 Active.args = {
   activeMark: true,
@@ -90,9 +91,7 @@ Active.args = {
 
 export function Subtask(args) {
   updateStores(args, mockBounds, stores)
-  return (
-    <DrawingStory stores={stores} />
-  )
+  return <DrawingStory stores={stores} />
 }
 Subtask.args = {
   activeMark: true,
