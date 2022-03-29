@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import React from 'react'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
@@ -48,13 +48,13 @@ const loadingSubject = Factory.build('subject', {
 
 describe('Component > SingleTextViewerContainer', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(<SingleTextViewerContainer />)
+    const wrapper = mount(<SingleTextViewerContainer />)
     expect(wrapper).to.be.ok()
   })
 
   describe('without a subject', function () {
     it('should render null with the default props', function () {
-      const wrapper = shallow(<SingleTextViewerContainer />)
+      const wrapper = mount(<SingleTextViewerContainer />)
       expect(wrapper.html()).to.be.null()
     })
   })
@@ -66,7 +66,7 @@ describe('Component > SingleTextViewerContainer', function () {
       onErrorSpy = sinon.spy()
       onReadySpy = sinon.spy()
 
-      wrapper = shallow(
+      wrapper = mount(
         <SingleTextViewerContainer
           onError={onErrorSpy}
           onReady={onReadySpy}
@@ -94,7 +94,7 @@ describe('Component > SingleTextViewerContainer', function () {
       onErrorSpy = sinon.spy()
       onReadySpy = sinon.spy()
 
-      wrapper = shallow(
+      wrapper = mount(
         <SingleTextViewerContainer
           onError={onErrorSpy}
           onReady={onReadySpy}
@@ -129,7 +129,7 @@ describe('Component > SingleTextViewerContainer', function () {
       onErrorSpy = sinon.spy()
       onReadySpy = sinon.spy()
 
-      wrapper = shallow(
+      wrapper = mount(
         <SingleTextViewerContainer
           onError={onErrorSpy}
           onReady={onReadySpy}
@@ -157,7 +157,7 @@ describe('Component > SingleTextViewerContainer', function () {
       onErrorSpy = sinon.spy()
       onReadySpy = sinon.spy()
 
-      wrapper = shallow(
+      wrapper = mount(
         <SingleTextViewerContainer
           onError={onErrorSpy}
           onReady={onReadySpy}

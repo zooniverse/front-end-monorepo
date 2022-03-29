@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import React from 'react'
 import { Markdownz } from '@zooniverse/react-components'
 
@@ -14,11 +14,12 @@ describe('TextFromSubjectTask', function () {
     type: 'textFromSubject'
   })
   const annotation = task.defaultAnnotation()
+  annotation.update('This is a test.')
   const value = annotation.value
 
   describe('when it renders', function () {
     before(function () {
-      wrapper = shallow(
+      wrapper = mount(
         <TextFromSubjectTask
           task={task}
           value={value}
@@ -33,6 +34,11 @@ describe('TextFromSubjectTask', function () {
     it('should have a labelled textarea', function () {
       const label = wrapper.find('label')
       expect(label.find(Markdownz).prop('children')).to.equal(task.instruction)
+    })
+
+    it('should have a textarea with the correct value', function () {
+      const textarea = wrapper.find('textarea')
+      expect(textarea.prop('value')).to.equal(value)
     })
   })
 })
