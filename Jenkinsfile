@@ -17,7 +17,7 @@ pipeline {
 
   // enable BUILDKIT https://docs.docker.com/develop/develop-images/build_enhancements/#to-enable-buildkit-builds
   // for all build stages
-  environment { 
+  environment {
     DOCKER_BUILDKIT = 1
   }
 
@@ -92,7 +92,6 @@ pipeline {
     stage('Dry run deployments') {
        agent any
        steps {
-         sh "sed 's/__IMAGE_TAG__/${GIT_COMMIT}/g' kubernetes/deployment-staging.tmpl | kubectl --context azure apply --dry-run=client --record -f -"
          sh "sed 's/__IMAGE_TAG__/${GIT_COMMIT}/g' kubernetes/deployment-production.tmpl | kubectl --context azure apply --dry-run=client --record -f -"
        }
      }
@@ -102,14 +101,6 @@ pipeline {
       agent any
       steps {
         sh "sed 's/__IMAGE_TAG__/${GIT_COMMIT}/g' kubernetes/deployment-production.tmpl | kubectl --context azure apply --record -f -"
-      }
-    }
-
-    stage('Deploy staging to Kubernetes') {
-      when { branch 'master' }
-      agent any
-      steps {
-        sh "sed 's/__IMAGE_TAG__/${GIT_COMMIT}/g' kubernetes/deployment-staging.tmpl | kubectl --context azure apply --record -f -"
       }
     }
   }
