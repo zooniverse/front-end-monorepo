@@ -40,10 +40,11 @@ function addStepToStore(taskSnapshots = {}, isThereTaskHelp = true) {
 function initStore (subject, tasks) {
   const workflow = WorkflowFactory.build(Object.assign({}, { tasks }))
   store = store ?? mockStore({ workflow })
-  const mockSubject = Object.assign({}, subject, {
+  const defaultSubject = {
     id: 'subject',
     metadata: {}
-  })
+  }
+  const mockSubject = Object.assign({}, defaultSubject, subject)
   const mockProject = {
     id: 'project'
   }
