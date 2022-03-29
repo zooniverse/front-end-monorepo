@@ -25,10 +25,18 @@ class App extends React.Component {
   }
 
   componentDidMount () {
+    addEventListener('popstate', this.onPopState.bind(this))
     this.initAuthorization()
       .then(() => {
         this.fetchProject()
       })
+  }
+
+  onPopState({ state }) {
+    const url = new URL(window.location)
+    const { searchParams } = url
+    const workflowID = searchParams.get('workflow')
+    this.setState({ workflowID })
   }
 
   onError (error, info) {
@@ -125,7 +133,7 @@ class App extends React.Component {
     } else {
       newParams.set('workflow', workflowID)
     }
-    history.pushState(null, '', `/?${newParams.toString()}`)
+    history.pushState({ workflowID }, '', `/?${newParams.toString()}`)
   }
 
   toggleTheme () {
