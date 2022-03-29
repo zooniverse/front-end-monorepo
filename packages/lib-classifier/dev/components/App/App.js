@@ -112,8 +112,20 @@ class App extends React.Component {
   }
 
   selectWorkflow(event) {
-    const { value } = event.target
-    this.setState({ workflowID: value })
+    const { value: workflowID } = event.target
+    this.setState({ workflowID })
+    const url = new URL(window.location)
+    const { searchParams } = url
+    const newParams = new URLSearchParams()
+    for (const [key, value] of searchParams.entries()) {
+      newParams.set(key, value)
+    }
+    if (!workflowID) {
+      newParams.delete('workflow')
+    } else {
+      newParams.set('workflow', workflowID)
+    }
+    history.pushState(null, '', `/?${newParams.toString()}`)
   }
 
   toggleTheme () {
