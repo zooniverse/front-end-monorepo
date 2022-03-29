@@ -1,5 +1,4 @@
 import { flow, types } from 'mobx-state-tree'
-import request from 'superagent'
 import asyncStates from '@zooniverse/async-states'
 
 import { createLocationCounts } from '@helpers'

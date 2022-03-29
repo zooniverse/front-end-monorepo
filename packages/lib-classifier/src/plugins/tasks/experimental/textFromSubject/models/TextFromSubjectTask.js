@@ -8,7 +8,6 @@ const TextFromSubject = types.model('TextFromSubject', {
   annotation: types.safeReference(TextFromSubjectAnnotation),
   help: types.optional(types.string, ''),
   instruction: types.string,
-  required: types.maybe(types.union(types.string, types.boolean)),
   type: types.literal('textFromSubject')
 })
   .views(self => ({
