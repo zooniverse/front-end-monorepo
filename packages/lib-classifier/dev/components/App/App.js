@@ -165,10 +165,10 @@ class App extends React.Component {
       >
         <Box as='main'>
           <Box as='header' pad='medium' justify='end' gap='medium' direction='row'>
-            <label for="workflows">Change workflow</label>
-            <select id="workflows" onChange={this.selectWorkflow}>
-              <option selected={!workflowID} value=''>None</option>
-              {workflows.map(workflow => <option selected={workflow.id === workflowID} value={workflow.id}>{workflow.display_name} {workflow.id}</option>)}
+            <label htmlFor="workflows">Change workflow</label>
+            <select id="workflows" defaultValue={workflowID} onChange={this.selectWorkflow}>
+              <option value=''>None</option>
+              {workflows.map(workflow => <option key={workflow.id} value={workflow.id}>{workflow.display_name} {workflow.id}</option>)}
             </select>
             <CheckBox
               checked={this.state.cachePanoptesData}
