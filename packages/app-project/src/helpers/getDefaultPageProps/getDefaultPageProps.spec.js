@@ -9,7 +9,8 @@ describe('Helpers > getDefaultPageProps', function () {
     primary_language: 'en',
     slug: 'test-owner/test-project',
     links: {
-      active_workflows: ['1']
+      active_workflows: ['1'],
+      workflows: ['1', '2']
     }
   }
 
@@ -19,7 +20,8 @@ describe('Helpers > getDefaultPageProps', function () {
     primary_language: 'en',
     slug: 'test-owner/grouped-project',
     links: {
-      active_workflows: ['2']
+      active_workflows: ['2'],
+      workflows: ['1', '2']
     }
   }
 

@@ -5,7 +5,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import '../../translations/i18n'
 import i18n from 'i18next'
 
-
+import { usePanoptesUser, useProjectRoles } from '@hooks'
 import Layout from './components/Layout'
 import ModalTutorial from './components/ModalTutorial'
 
@@ -21,6 +21,13 @@ export default function Classifier({
   workflowVersion,
   workflowID
 }) {
+
+  const user = usePanoptesUser()
+  const projectRoles = useProjectRoles(project?.id, user?.id)
+
+  const canPreviewWorkflows = projectRoles.indexOf('owner') > -1 ||
+    projectRoles.indexOf('collaborator') > -1 ||
+    projectRoles.indexOf('tester') > -1
 
   useEffect(function onLocaleChange() {
     if (locale) {
@@ -39,9 +46,9 @@ export default function Classifier({
     const { workflows } = classifierStore
     if (workflowID) {
       console.log('starting new subject queue', { workflowID, subjectSetID, subjectID })
-      workflows.selectWorkflow(workflowID, subjectSetID, subjectID)
+      workflows.selectWorkflow(workflowID, subjectSetID, subjectID, canPreviewWorkflows)
     }
-  }, [subjectID, subjectSetID, workflowID])
+  }, [canPreviewWorkflows, subjectID, subjectSetID, workflowID])
 
   /*
     This should run when a project owner edits a workflow, but not when a workflow updates
