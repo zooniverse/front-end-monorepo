@@ -25,10 +25,18 @@ class App extends React.Component {
   }
 
   componentDidMount () {
+    addEventListener('popstate', this.onPopState.bind(this))
     this.initAuthorization()
       .then(() => {
         this.fetchProject()
       })
+  }
+
+  onPopState({ state }) {
+    const url = new URL(window.location)
+    const { searchParams } = url
+    const workflowID = searchParams.get('workflow')
+    this.setState({ workflowID })
   }
 
   onError (error, info) {
@@ -112,8 +120,20 @@ class App extends React.Component {
   }
 
   selectWorkflow(event) {
-    const { value } = event.target
-    this.setState({ workflowID: value })
+    const { value: workflowID } = event.target
+    this.setState({ workflowID })
+    const url = new URL(window.location)
+    const { searchParams } = url
+    const newParams = new URLSearchParams()
+    for (const [key, value] of searchParams.entries()) {
+      newParams.set(key, value)
+    }
+    if (!workflowID) {
+      newParams.delete('workflow')
+    } else {
+      newParams.set('workflow', workflowID)
+    }
+    history.pushState({ workflowID }, '', `/?${newParams.toString()}`)
   }
 
   toggleTheme () {
@@ -145,10 +165,10 @@ class App extends React.Component {
       >
         <Box as='main'>
           <Box as='header' pad='medium' justify='end' gap='medium' direction='row'>
-            <label for="workflows">Change workflow</label>
-            <select id="workflows" onChange={this.selectWorkflow}>
-              <option selected={!workflowID} value=''>None</option>
-              {workflows.map(workflow => <option selected={workflow.id === workflowID} value={workflow.id}>{workflow.display_name} {workflow.id}</option>)}
+            <label htmlFor="workflows">Change workflow</label>
+            <select id="workflows" defaultValue={workflowID} onChange={this.selectWorkflow}>
+              <option value=''>None</option>
+              {workflows.map(workflow => <option key={workflow.id} value={workflow.id}>{workflow.display_name} {workflow.id}</option>)}
             </select>
             <CheckBox
               checked={this.state.cachePanoptesData}
