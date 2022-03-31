@@ -10,7 +10,8 @@ describe('Helpers > getStaticPageProps', function () {
     researcher_quote: null,
     slug: 'test-owner/test-project-single-active-workflow',
     links: {
-      active_workflows: ['1']
+      active_workflows: ['1'],
+      workflows: ['1', '2']
     }
   }
 
@@ -20,7 +21,8 @@ describe('Helpers > getStaticPageProps', function () {
     researcher_quote: null,
     slug: 'test-owner/test-project-multiple-active-workflows',
     links: {
-      active_workflows: ['1', '2']
+      active_workflows: ['1', '2'],
+      workflows: ['1', '2']
     }
   }
 
@@ -29,7 +31,8 @@ describe('Helpers > getStaticPageProps', function () {
     primary_language: 'en',
     slug: 'test-owner/grouped-project',
     links: {
-      active_workflows: ['2']
+      active_workflows: ['2'],
+      workflows: ['1', '2']
     }
   }
 
@@ -370,7 +373,7 @@ describe('Helpers > getStaticPageProps', function () {
         const params = {
           owner: 'test-owner',
           project: 'test-project-single-active-workflow',
-          workflowID: '2'
+          workflowID: '3'
         }
         const query = {
           env: 'production'
@@ -384,7 +387,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return a workflow error message', function () {
-        expect(props.title).to.equal('Workflow 2 was not found')
+        expect(props.title).to.equal('Workflow 3 was not found')
       })
     })
   })
