@@ -9,8 +9,13 @@ Special case: literal insertion tags
  */
 const literalInsertionTags = ['&']
 
-function TextTask (props) {
-  const { annotation, autoFocus, disabled, subTaskPreviousAnnotationValues, task } = props
+function TextTask ({
+  annotation,
+  autoFocus = false,
+  disabled = false,
+  subTaskPreviousAnnotationValues = [],
+  task
+}) {
   const { value } = annotation
 
   function updateAnnotation (ref) {
@@ -87,7 +92,7 @@ function TextTask (props) {
     updateAnnotation(ref)
   }
 
-  if (subTaskPreviousAnnotationValues && subTaskPreviousAnnotationValues.length > 0) {
+  if (subTaskPreviousAnnotationValues?.length > 0) {
     return (
       <TextTaskWithSuggestions
         autoFocus={autoFocus}
@@ -112,12 +117,6 @@ function TextTask (props) {
       updateAnnotation={updateAnnotation}
     />
   )
-}
-
-TextTask.defaultProps = {
-  autoFocus: false,
-  disabled: false,
-  subTaskPreviousAnnotationValues: []
 }
 
 TextTask.propTypes = {

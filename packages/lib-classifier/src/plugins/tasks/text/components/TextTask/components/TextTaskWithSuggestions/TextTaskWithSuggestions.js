@@ -10,18 +10,16 @@ const StyledText = styled(Text)`
   margin: 10px 0;
 `
 
-export default function TextTaskWithSuggestions (props) {
-  const {
-    autoFocus,
-    disabled,
-    onSelectSuggestion,
-    setTagSelection,
-    suggestions,
-    task,
-    value,
-    updateAnnotation
-  } = props
-
+export default function TextTaskWithSuggestions ({
+  autoFocus = false,
+  disabled = false,
+  onSelectSuggestion = () => true,
+  setTagSelection = () => true,
+  suggestions = [],
+  task,
+  value,
+  updateAnnotation = () => true
+}) {
   const textInput = React.useRef()
   const dropProps = {
     trapFocus: false
@@ -71,15 +69,6 @@ export default function TextTaskWithSuggestions (props) {
       </label>
     </Box>
   )
-}
-
-TextTaskWithSuggestions.defaultProps = {
-  autoFocus: false,
-  disabled: false,
-  onSelectSuggestion: () => {},
-  setTagSelection: () => {},
-  suggestions: [],
-  updateAnnotation: () => {}
 }
 
 TextTaskWithSuggestions.propTypes = {

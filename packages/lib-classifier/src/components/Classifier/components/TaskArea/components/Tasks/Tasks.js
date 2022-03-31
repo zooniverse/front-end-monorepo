@@ -18,6 +18,7 @@ export default function Tasks({
   isComplete = false,
   isThereTaskHelp = false,
   loadingState = asyncStates.initialized,
+  previousAnnotationValues = null,
   subjectReadyState,
   step
 }) {
@@ -55,6 +56,7 @@ export default function Tasks({
                 autoFocus={index === 0}
                 disabled={disabled || !ready}
                 key={task.taskKey}
+                previousAnnotationValues={previousAnnotationValues}
                 task={task}
               />
             ))}
@@ -87,6 +89,8 @@ Tasks.propTypes = {
   isThereTaskHelp: PropTypes.bool,
   /** The workflow loading state */
   loadingState: PropTypes.oneOf(asyncStates.values),
+  /** A map of previous annotation values for the step's tasks. */
+  previousAnnotationValues: PropTypes.object,
   /** Subject loading state. */
   subjectReadyState: PropTypes.oneOf(asyncStates.values),
   /** The active workflow step. */
