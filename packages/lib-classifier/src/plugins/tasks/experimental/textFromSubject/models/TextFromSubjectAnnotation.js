@@ -6,15 +6,12 @@ import Annotation from '@plugins/tasks/models/Annotation'
 
 const TextFromSubject = types
   .model('TextFromSubject', {
-    initializedFromSubject: types.optional(types.boolean, false),
     taskType: types.literal('textFromSubject'),
     value: types.optional(types.string, '')
   })
-  .postProcessSnapshot(snapshot => {
-    const newSnapshot = Object.assign({}, snapshot)
-    delete newSnapshot.initializedFromSubject
-    return newSnapshot
-  })
+  .volatile((self) => ({
+    initializedFromSubject: false
+  }))
   .views(self => ({
     get isComplete () {
       return self.initializedFromSubject && self.value !== ''
