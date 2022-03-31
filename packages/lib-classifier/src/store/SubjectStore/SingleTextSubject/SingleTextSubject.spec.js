@@ -1,12 +1,10 @@
 import { expect } from 'chai'
 import { when } from 'mobx'
 import nock from 'nock'
-import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
 
-import RootStore from '@store/'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
-import stubPanoptesJs from '@test/stubPanoptesJs'
+import mockStore from '@test/mockStore'
 import subjectViewers from '@helpers/subjectViewers'
 
 import SingleTextSubject from './SingleTextSubject'
@@ -91,24 +89,11 @@ describe('Model > SingleTextSubject', function () {
 
       subject = SingleTextSubject.create(failureSubjectSnapshot)
 
-      const { panoptes } = stubPanoptesJs({
-        subjects: [subject],
-        workflows: [workflowSnapshot]
-      })
-      const client = {
-        caesar: {
-          request: sinon.stub().callsFake(() => Promise.resolve({}))
-        },
-        panoptes,
-        tutorials: {
-          get: sinon.stub().callsFake(() => Promise.resolve({ body: { tutorials: [] } }))
-        }
-      }
-      const rootStore = RootStore.create({}, { client })
-      rootStore.workflows.setResources([workflowSnapshot])
-      rootStore.workflows.setActive(workflowSnapshot.id)
-      rootStore.subjects.setResources([subject])
-      rootStore.subjects.setActive(subject.id)
+      const store = mockStore()
+      store.workflows.setResources([workflowSnapshot])
+      store.workflows.setActive(workflowSnapshot.id)
+      store.subjects.setResources([subject])
+      store.subjects.setActive(subject.id)
 
       await when(() => subject.contentLoadingState === asyncStates.error)
     })
@@ -136,24 +121,11 @@ describe('Model > SingleTextSubject', function () {
 
       subject = SingleTextSubject.create(successSubjectSnapshot)
 
-      const { panoptes } = stubPanoptesJs({
-        subjects: [subject],
-        workflows: [workflowSnapshot]
-      })
-      const client = {
-        caesar: {
-          request: sinon.stub().callsFake(() => Promise.resolve({}))
-        },
-        panoptes,
-        tutorials: {
-          get: sinon.stub().callsFake(() => Promise.resolve({ body: { tutorials: [] } }))
-        }
-      }
-      const rootStore = RootStore.create({}, { client })
-      rootStore.workflows.setResources([workflowSnapshot])
-      rootStore.workflows.setActive(workflowSnapshot.id)
-      rootStore.subjects.setResources([subject])
-      rootStore.subjects.setActive(subject.id)
+      const store = mockStore()
+      store.workflows.setResources([workflowSnapshot])
+      store.workflows.setActive(workflowSnapshot.id)
+      store.subjects.setResources([subject])
+      store.subjects.setActive(subject.id)
 
       await when(() => subject.contentLoadingState === asyncStates.success)
     })
@@ -173,24 +145,11 @@ describe('Model > SingleTextSubject', function () {
 
   describe('Views > viewer', function () {
     before(function () {
-      const { panoptes } = stubPanoptesJs({
-        subjects: [subject],
-        workflows: [workflowSnapshot]
-      })
-      const client = {
-        caesar: {
-          request: sinon.stub().callsFake(() => Promise.resolve({}))
-        },
-        panoptes,
-        tutorials: {
-          get: sinon.stub().callsFake(() => Promise.resolve({ body: { tutorials: [] } }))
-        }
-      }
-      const rootStore = RootStore.create({}, { client })
-      rootStore.workflows.setResources([workflowSnapshot])
-      rootStore.workflows.setActive(workflowSnapshot.id)
-      rootStore.subjects.setResources([subject])
-      rootStore.subjects.setActive(subject.id)
+      const store = mockStore()
+      store.workflows.setResources([workflowSnapshot])
+      store.workflows.setActive(workflowSnapshot.id)
+      store.subjects.setResources([subject])
+      store.subjects.setActive(subject.id)
     })
 
     it('should return the single text viewer', function () {
