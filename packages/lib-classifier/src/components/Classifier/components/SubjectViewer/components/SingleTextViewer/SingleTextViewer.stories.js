@@ -2,7 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
+import { Box, Grommet, Text } from 'grommet'
 import { Provider } from 'mobx-react'
 import { Factory } from 'rosie'
 import SubjectViewerStore from '@store/SubjectViewerStore'
@@ -68,7 +68,9 @@ storiesOf('Subject Viewers / SingleTextViewer', module)
     return (
       <ViewerContext theme={darkZooTheme}>
         <Box height='500px' width='large'>
-          <SingleTextViewer />
+          <Text color='light-3' size='18px' style={{ lineHeight: '24px' }}>
+            <SingleTextViewer />
+          </Text>
         </Box>
       </ViewerContext>
     )
