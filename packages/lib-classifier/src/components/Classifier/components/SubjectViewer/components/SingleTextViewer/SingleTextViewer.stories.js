@@ -1,18 +1,21 @@
+import { Box, Grommet } from 'grommet'
+import { Provider } from 'mobx-react'
 import React from 'react'
-import { storiesOf } from '@storybook/react'
+import { Factory } from 'rosie'
+
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet, Text } from 'grommet'
-import { Provider } from 'mobx-react'
-import { Factory } from 'rosie'
+
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import SingleTextViewer from '@viewers/components/SingleTextViewer'
-import readme from './README.md'
-import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
 
-const config = {
-  notes: {
-    markdown: readme
+export default {
+  title: 'Subject Viewers / SingleTextViewer',
+  component: SingleTextViewer,
+  parameters: {
+    viewport: {
+      defaultViewport: 'responsive'
+    }
   }
 }
 
@@ -39,39 +42,39 @@ const mockStore = {
   }
 }
 
-function ViewerContext (props) {
-  const { children, theme } = props
+const background = {
+  dark: 'dark-1',
+  light: 'light-1'
+}
+
+export const LightTheme = () => {
   return (
     <Provider classifierStore={mockStore}>
-      <Grommet theme={theme}>
-        {children}
+      <Grommet
+        background={background}
+        theme={zooTheme}
+        themeMode='light'
+      >
+        <Box height='500px' width='large'>
+          <SingleTextViewer />
+        </Box>
       </Grommet>
     </Provider>
   )
 }
 
-const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault })
-
-storiesOf('Subject Viewers / SingleTextViewer', module)
-  .addParameters({ component: SingleTextViewer })
-  .add('light theme', () => {
-    return (
-      <ViewerContext theme={zooTheme}>
+export const DarkTheme = () => {
+  return (
+    <Provider classifierStore={mockStore}>
+      <Grommet
+        background={background}
+        theme={zooTheme}
+        themeMode='dark'
+      >
         <Box height='500px' width='large'>
           <SingleTextViewer />
         </Box>
-      </ViewerContext>
-    )
-  }, config)
-  .add('dark theme', () => {
-    const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
-    return (
-      <ViewerContext theme={darkZooTheme}>
-        <Box height='500px' width='large'>
-          <Text color='light-3' size='18px' style={{ lineHeight: '24px' }}>
-            <SingleTextViewer />
-          </Text>
-        </Box>
-      </ViewerContext>
-    )
-  }, darkThemeConfig)
+      </Grommet>
+    </Provider>
+  )
+}

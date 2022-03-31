@@ -1,3 +1,4 @@
+import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -5,11 +6,13 @@ function SingleTextViewer ({
   content = ''
 }) {
   return (
-    <div>
-      <pre>
+    <Box
+      pad='xsmall'
+    >
+      <pre style={{ whiteSpace: 'pre-wrap' }}>
         {content}
       </pre>
-    </div>
+    </Box>
   )
 }
 
