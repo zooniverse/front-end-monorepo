@@ -8,7 +8,7 @@ const TextSubject = types
   .model('TextSubject', {
     content: types.maybeNull(types.string),
     contentLoadingState: types.optional(types.enumeration('contentLoadingState', asyncStates.values), asyncStates.initialized),
-    error: types.maybeNull(types.frozen({}))
+    error: types.optional(types.maybeNull(types.frozen({})), null)
   })
   .actions(self => {
     function afterAttach () {
