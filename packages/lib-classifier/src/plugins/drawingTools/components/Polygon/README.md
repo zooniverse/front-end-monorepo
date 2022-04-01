@@ -41,15 +41,12 @@ By continuing to click, a user can create as many points as desired to form the 
 ### Methods
 
 - `onUndoDrawing()` in `./components/Polygon`
-- `continueDrawing()` in `./marks/Mark`
 - `shortenPath()` in `./marks/Polygon`
 
 A user can Undo (remove) the last point if:
 
 1. At least two points have been created
 2. The polygon is not closed
-
-`continueDrawing` is called and sets `finished = false` because if a user clicks on the drawing surface, the default behavior is to set `finished = true` and `creating = false`. This method prevents the default behavior so the user can continue drawing.
 
 The last set of coordinates in the `points` array is removed.
 

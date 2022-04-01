@@ -35,7 +35,6 @@ function Polygon({ active, mark, scale, onFinish }) {
   }
 
   function onUndoDrawing() {
-    mark.continueDrawing()
     mark.shortenPath()
   }
 
