@@ -1,44 +1,22 @@
 import { Box, Grommet } from 'grommet'
-import { Provider } from 'mobx-react'
 import React from 'react'
-import { Factory } from 'rosie'
 
-import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 
-import SubjectViewerStore from '@store/SubjectViewerStore'
-import SingleTextViewer from '@viewers/components/SingleTextViewer'
+import SingleTextViewer from './SingleTextViewer'
+
+const content = 'Herbarium of the University of North Carolina\nSOUTH CAROLINA\nCharleston County\nGnaphalium peregrinum Fern,\nrailroad right-of-way, Johns Island Station on\nCounty Rt. 20 (wes t of Charleston.\nHarry E. Ahles 22002 April 2, 1957\nwith John G. Haesloop\nCollected for the “Flora of the Carolinas"'
 
 export default {
   title: 'Subject Viewers / SingleTextViewer',
   component: SingleTextViewer,
+  args: {
+    content
+  },
   parameters: {
     viewport: {
       defaultViewport: 'responsive'
     }
-  }
-}
-
-const subject = Factory.build('subject', {
-  content: 'Herbarium of the University of North Carolina\nSOUTH CAROLINA\nCharleston County\nGnaphalium peregrinum Fern,\nrailroad right-of-way, Johns Island Station on\nCounty Rt. 20 (wes t of Charleston.\nHarry E. Ahles 22002 April 2, 1957\nwith John G. Haesloop\nCollected for the “Flora of the Carolinas"',
-  contentLoadingState: asyncStates.success
-})
-
-const mockStore = {
-  classifications: {
-    active: {
-      annotations: new Map()
-    }
-  },
-  fieldGuide: {
-    setModalVisibility: () => {}
-  },
-  subjects: {
-    active: subject
-  },
-  subjectViewer: SubjectViewerStore.create({}),
-  workflowSteps: {
-    activeStepTasks: []
   }
 }
 
@@ -47,34 +25,30 @@ const background = {
   light: 'light-1'
 }
 
-export const LightTheme = () => {
+export const LightTheme = ({ content }) => {
   return (
-    <Provider classifierStore={mockStore}>
-      <Grommet
-        background={background}
-        theme={zooTheme}
-        themeMode='light'
-      >
-        <Box height='500px' width='large'>
-          <SingleTextViewer />
-        </Box>
-      </Grommet>
-    </Provider>
+    <Grommet
+      background={background}
+      theme={zooTheme}
+      themeMode='light'
+    >
+      <Box height='500px' width='large'>
+        <SingleTextViewer content={content} />
+      </Box>
+    </Grommet>
   )
 }
 
-export const DarkTheme = () => {
+export const DarkTheme = ({ content }) => {
   return (
-    <Provider classifierStore={mockStore}>
-      <Grommet
-        background={background}
-        theme={zooTheme}
-        themeMode='dark'
-      >
-        <Box height='500px' width='large'>
-          <SingleTextViewer />
-        </Box>
-      </Grommet>
-    </Provider>
+    <Grommet
+      background={background}
+      theme={zooTheme}
+      themeMode='dark'
+    >
+      <Box height='500px' width='large'>
+        <SingleTextViewer content={content} />
+      </Box>
+    </Grommet>
   )
 }
