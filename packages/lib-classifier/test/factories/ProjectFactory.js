@@ -12,7 +12,7 @@ export default new Factory()
   .attr('links', ['activeWorkflowId', 'workflowId'], (activeWorkflowId, workflowId) => {
     return {
       active_workflows: [activeWorkflowId],
-      workflows: [workflowId]
+      workflows: [activeWorkflowId, workflowId]
     }
   })
   .attr('slug', 'zooniverse/example')

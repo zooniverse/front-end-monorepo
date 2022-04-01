@@ -9372,7 +9372,7 @@ graphql@~16.3.0:
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.3.0.tgz#a91e24d10babf9e60c706919bb182b53ccdffc05"
   integrity sha512-xm+ANmA16BzCT5pLjuXySbQVFwH3oJctUVdy81w1sV0vBU0KgDdBGtxQOUd5zqOBk/JayAFeG8Dlmeq74rjm/A==
 
-grommet-icons@^4.6.2, grommet-icons@~4.7.0:
+grommet-icons@^4.7.0, grommet-icons@~4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/grommet-icons/-/grommet-icons-4.7.0.tgz#1d537b2bdc507be07d5643309d433bbe1464c5b6"
   integrity sha512-ptw8x86Age/Yz6SplCLtJ8q1z/4ZLktMruCOnE6oTgc7hcIV/8ieOucTrLbu+PDi7rKxoP321O3OG3Zo/3qXjw==
@@ -9384,15 +9384,15 @@ grommet-styles@^0.2.0:
   resolved "https://registry.yarnpkg.com/grommet-styles/-/grommet-styles-0.2.0.tgz#b2eac2b7e2747cb523434d21728ce5234f8ce4f4"
   integrity sha512-0OMSYuGeyifYKpg4Gv2HzL8rUdd0ddnJ5LbCBKgDuloC71XIwr9g/Fxa6rs737MbPV7OZ4pEm4wvrjH4epzf1A==
 
-grommet@~2.19.0:
-  version "2.19.1"
-  resolved "https://registry.yarnpkg.com/grommet/-/grommet-2.19.1.tgz#50b706a87cb6289abd10322c256b00336d86a1b1"
-  integrity sha512-tnFLACh0+eaHGUia79C8SFctsQBce9kQcNjOEM8WemlSFv8/0hUJLuaEvgdcGw9ZL22i8g/0s6m+tuJAqvQmYg==
+grommet@~2.22.0:
+  version "2.22.0"
+  resolved "https://registry.yarnpkg.com/grommet/-/grommet-2.22.0.tgz#65463ab1d81ad56b9f56c00513630dfbb8b52715"
+  integrity sha512-R15s222QL7kIDAtvNw1McbzhGLGTQrzzu3WHw/ITSFS6SV+rCIEEf/5/azrKP9X9+E6BbLGQCI0dJvboiy0hQg==
   dependencies:
-    grommet-icons "^4.6.2"
+    grommet-icons "^4.7.0"
     hoist-non-react-statics "^3.2.0"
-    markdown-to-jsx "^7.1.3"
-    prop-types "^15.7.2"
+    markdown-to-jsx "^7.1.5"
+    prop-types "^15.8.1"
 
 growl@1.10.5:
   version "1.10.5"
@@ -11487,10 +11487,10 @@ markdown-table@^1.1.0:
   resolved "https://registry.yarnpkg.com/markdown-table/-/markdown-table-1.1.3.tgz#9fcb69bcfdb8717bfd0398c6ec2d93036ef8de60"
   integrity sha512-1RUZVgQlpJSPWYbFSpmudq5nHY1doEIv89gBtF0s4gW1GF2XorxcA/70M5vq7rLv0a6mhOUccRsqkwhwLCIQ2Q==
 
-markdown-to-jsx@^7.1.3:
-  version "7.1.6"
-  resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-7.1.6.tgz#421487df2a66fe4231d94db653a34da033691e62"
-  integrity sha512-1wrIGZYwIG2gR3yfRmbr4FlQmhaAKoKTpRo4wur4fp9p0njU1Hi7vR8fj0AUKKIcPduiJmPprzmCB5B/GvlC7g==
+markdown-to-jsx@^7.1.3, markdown-to-jsx@^7.1.5:
+  version "7.1.7"
+  resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-7.1.7.tgz#a5f22102fb12241c8cea1ca6a4050bb76b23a25d"
+  integrity sha512-VI3TyyHlGkO8uFle0IOibzpO1c1iJDcXcS/zBrQrXQQvJ2tpdwVzVZ7XdKsyRz1NdRmre4dqQkMZzUHaKIG/1w==
 
 math-expression-evaluator@^1.2.14:
   version "1.3.8"
@@ -14031,10 +14031,10 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-player@~2.9.0:
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/react-player/-/react-player-2.9.0.tgz#ef7fe7073434087565f00ff219824e1e02c4b046"
-  integrity sha512-jNUkTfMmUhwPPAktAdIqiBcVUKsFKrVGH6Ocutj6535CNfM91yrvWxHg6fvIX8Y/fjYUPoejddwh7qboNV9vGA==
+react-player@~2.10.0:
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/react-player/-/react-player-2.10.0.tgz#bd3e0f10ae756cc644efb14177a515d455d97e20"
+  integrity sha512-PccIqea9nxSHAdai6R+Yj9lp6tb2lyXWbaF6YVHi5uO4FiXYMKKr9rMXJrivwV5vXwQa65rYKBmwebsBmRTT3w==
   dependencies:
     deepmerge "^4.0.0"
     load-script "^1.0.0"
