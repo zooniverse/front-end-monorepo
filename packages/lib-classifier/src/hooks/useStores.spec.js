@@ -3,9 +3,9 @@ import { renderHook } from '@testing-library/react-hooks/pure'
 import { Provider } from 'mobx-react'
 
 import mockStore from '@test/mockStore'
-import useStores from '.'
+import { useStores } from '.'
 
-describe('Helpers > useStores', function () {
+describe('Hooks > useStores', function () {
   describe('without storeMapper', function () {
     let current
     let store

@@ -42,3 +42,4 @@
 - [ADR 40: Next.js Internationalized Routing](adr-40.md)
 - [ADR 41: Use i18next to Translate Static Strings ](adr-41.md)
 - [ADR 42: record classifier store snapshots in session storage ](adr-42.md)
+- [ADR 43: TextFromSubject Task ](adr-43.md)

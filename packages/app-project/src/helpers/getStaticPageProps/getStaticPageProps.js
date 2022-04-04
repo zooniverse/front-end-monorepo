@@ -44,13 +44,12 @@ export default async function getStaticPageProps({ params, query }) {
   */
   const { project } = getSnapshot(store)
   const language = project.primary_language
-  const { active_workflows } = project.links
 
   const workflowOrder = project.configuration?.workflow_order || []
   /*
-    Validate any workflow URLs
+    Validate any workflow URLs against a project's linked workflows
   */
-  const workflowExists = active_workflows.includes(workflowID)
+  const workflowExists = project.links.workflows.includes(workflowID)
   if (workflowID && !workflowExists) {
     const { props } = notFoundError(`Workflow ${workflowID} was not found`)
     props.project = project
@@ -61,7 +60,7 @@ export default async function getStaticPageProps({ params, query }) {
   /*
     Fetch the active project workflows
   */
-  const workflows = await fetchWorkflowsHelper(language, active_workflows, workflowID, workflowOrder, env)
+  const workflows = await fetchWorkflowsHelper(language, project.links.active_workflows, workflowID, workflowOrder, env)
   const props = {
     project,
     workflows
