@@ -49,7 +49,7 @@ function ProjectHeader (props) {
                 <UnderReviewLabel />}
             </Box>
             <ApprovedIcon isNarrow={screenSize === 'small'} />
-            {availableLocales?.length > 1 && <LocaleSwitcher availableLocales={availableLocales} />}
+            {/* {availableLocales?.length > 1 && <LocaleSwitcher availableLocales={availableLocales} />} */}
           </Box>
         </Box>
         {screenSize !== 'small' && <Nav navLinks={navLinks} />}
