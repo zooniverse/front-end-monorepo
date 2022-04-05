@@ -55,3 +55,19 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
   })
 })
 
+/**
+UI to test in lib-classifier storybook:
+- ?path=/story/tasks-text--with-suggestions
+- ?path=/story/drawing-tools-transcribedlines--default
+
+The TextTaskWithSuggestions component
+  without an annotation value and suggestions
+    should show suggestions
+      with a blank or empty text input
+      the suggestions should be shown
+
+  with an annotation value and suggestions
+    should not show suggestions
+      type in the text input box to create an annotation value,
+      the suggestions should not be shown
+*/
