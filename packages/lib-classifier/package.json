@@ -36,7 +36,7 @@
     "lodash": "~4.17.11",
     "mobx-utils": "~6.0.4",
     "react-i18next": "~11.16.1",
-    "react-player": "~2.9.0",
+    "react-player": "~2.10.0",
     "react-resize-detector": "~7.0.0",
     "swr": "~1.2.0",
     "valid-url": "~1.0.9"
@@ -84,7 +84,7 @@
     "css-loader": "~6.7.0",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.11.0",
-    "grommet": "~2.19.0",
+    "grommet": "~2.22.0",
     "grommet-icons": "~4.7.0",
     "html-webpack-plugin": "~5.5.0",
     "ignore-styles": "~5.0.1",
