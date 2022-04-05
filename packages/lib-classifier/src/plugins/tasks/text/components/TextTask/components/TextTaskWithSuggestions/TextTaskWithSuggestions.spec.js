@@ -1,34 +1,57 @@
+import { expect } from 'chai'
 import React from 'react'
-import { shallow } from 'enzyme'
-import { TextInput } from 'grommet'
 import { default as Task } from '@plugins/tasks/text'
-import { Markdownz } from '@zooniverse/react-components'
+import { render, screen } from '@testing-library/react'
 import TextTaskWithSuggestions from './TextTaskWithSuggestions'
 
 describe('TextTask > Components > TextTaskWithSuggestions', function () {
-  let wrapper
   const task = Task.TaskModel.create({
     instruction: 'Type something here',
     taskKey: 'T0',
     text_tags: ['insertion', 'deletion'],
     type: 'text'
   })
+  // default text annotation value = ''
   const annotation = task.defaultAnnotation()
 
-  before(function () {
-    wrapper = shallow(
+  it('should render without crashing', function () {
+    render(
       <TextTaskWithSuggestions
-        suggestions={['one', 'two', 'three']}
         task={task}
         value={annotation.value}
       />
     )
+
+    expect(screen).to.be.ok()
   })
 
   it('should have a labelled TextInput', function () {
-    const label = wrapper.find('label')
-    expect(label.find(Markdownz).prop('children')).to.equal(task.instruction)
-    const textInput = label.find(TextInput)
-    expect(textInput.prop('value')).to.equal(annotation.value)
+    render(
+      <TextTaskWithSuggestions
+        task={task}
+        value={annotation.value}
+      />
+    )
+
+    expect(screen.getByText(task.instruction)).to.exist()
+  })
+
+  describe('with value and suggestions', function () {
+    before(function () {
+      annotation.update('This is an updated annotation value.')
+    })
+
+    it('should render the value', function () {
+      render(
+        <TextTaskWithSuggestions
+          suggestions={['one', 'two', 'three']}
+          task={task}
+          value={annotation.value}
+        />
+      )
+
+      expect(screen.getByDisplayValue(annotation.value)).to.exist()
+    })
   })
 })
+
