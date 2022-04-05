@@ -60,13 +60,13 @@ UI to test in lib-classifier storybook:
 - ?path=/story/tasks-text--with-suggestions
 - ?path=/story/drawing-tools-transcribedlines--default
 
-The TextTaskWithSuggestions component
-  without an annotation value and suggestions
+The TextTaskWithSuggestions component with suggestions
+  without an annotation value
     should show suggestions
       with a blank or empty text input
       the suggestions should be shown
 
-  with an annotation value and suggestions
+  with an annotation value
     should not show suggestions
       type in the text input box to create an annotation value,
       the suggestions should not be shown
