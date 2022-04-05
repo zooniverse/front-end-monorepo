@@ -59,12 +59,18 @@ export function withSuggestions({ dark, isThereTaskHelp, required, subjectReadyS
       type: 'text'
     }
   }
+  const previousTextAnnotations = [
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    'Duis risus turpis, porttitor sit amet leo at, placerat malesuada augue.',
+    'Nunc enim risus, interdum id efficitur sed, luctus in orci.'
+  ]
+  const previousAnnotationValues = new Map([[ 'T0', previousTextAnnotations]])
   return (
     <MockTask
       dark={dark}
       isThereTaskHelp={isThereTaskHelp}
       subjectReadyState={subjectReadyState}
-      subTaskPreviousAnnotationValues={['a', 'b', 'c']}
+      previousAnnotationValues={previousAnnotationValues}
       tasks={tasks}
     />
   )
