@@ -25,6 +25,8 @@ export default function TextTaskWithSuggestions ({
     trapFocus: false
   }
 
+  const displayedSuggestions = value ? [] : suggestions
+
   function onChange() {
     updateAnnotation(textInput)
   }
@@ -62,7 +64,7 @@ export default function TextTaskWithSuggestions ({
           id={`${task.taskKey}-${task.type}`}
           onChange={onChange}
           onSelect={(event) => onSelectSuggestion(event, textInput)}
-          suggestions={suggestions}
+          suggestions={displayedSuggestions}
           ref={textInput}
           value={value}
         />
