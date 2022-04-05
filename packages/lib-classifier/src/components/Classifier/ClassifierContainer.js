@@ -61,7 +61,6 @@ export default function ClassifierContainer({
   subjectSetID,
   workflowID
 }) {
-
   const [loaded, setLoaded] = useState(false)
   const storeEnvironment = { authClient, client }
 

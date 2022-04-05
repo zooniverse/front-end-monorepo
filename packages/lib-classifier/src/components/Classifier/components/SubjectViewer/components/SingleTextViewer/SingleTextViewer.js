@@ -1,25 +1,33 @@
+import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-function SingleTextViewer (props) {
-  const {
-    content
-  } = props
+/**
+The Single Text Viewer is a variant of the Subject Viewer that's used to display text media.
+The `content` is defined by a subject's text mime type location.
+```
+<SingleTextViewer
+  content={content}
+/>
+```
+*/
 
+function SingleTextViewer ({
+  content = ''
+}) {
   return (
-    <div>
-      <pre>
+    <Box
+      pad='xsmall'
+    >
+      <pre style={{ whiteSpace: 'pre-wrap' }}>
         {content}
       </pre>
-    </div>
+    </Box>
   )
 }
 
-SingleTextViewer.defaultProps = {
-  content: ''
-}
-
 SingleTextViewer.propTypes = {
+  /** String defined by a subject's text mime type location */
   content: PropTypes.string
 }
 
