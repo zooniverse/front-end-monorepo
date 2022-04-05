@@ -15,7 +15,14 @@ describe('Components > DrawingToolMarks', function () {
 
   beforeEach(function () {
     canvas = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-    const svgBounds = { left: 0, top: 0, right: 2000, bottom: 1000, width: 2000, height: 1000 }
+    const svgBounds = {
+      left: 0,
+      top: 0,
+      right: 2000,
+      bottom: 1000,
+      width: 2000,
+      height: 1000
+    }
     sinon.stub(canvas, 'getBoundingClientRect').callsFake(() => svgBounds)
     const lineTool = LineTool.create({
       help: '',
@@ -29,7 +36,7 @@ describe('Components > DrawingToolMarks', function () {
     })
     line = lineTool.createMark({ id: 'line1' })
     point = pointTool.createMark({ id: 'point1' })
-    marks = [ line, point ]
+    marks = [line, point]
     mockContext = { canvas }
   })
 
@@ -52,14 +59,20 @@ describe('Components > DrawingToolMarks', function () {
 
   describe('with an active mark', function () {
     it('should show that mark as active', function () {
-      const wrapper = shallow(<DrawingToolMarks activeMark={{ id: 'point1' }} marks={marks} />)
+      const wrapper = shallow(
+        <DrawingToolMarks activeMark={{ id: 'point1' }} marks={marks} />
+      )
       const Point = point.toolComponent
       expect(wrapper.find(Point).prop('active')).to.be.true()
     })
 
     it('should render a delete button', function () {
-      const wrapper = shallow(<DrawingToolMarks activeMark={{ id: 'point1' }} marks={marks} />)
-      expect(wrapper.find({ label: 'Delete point' }).prop('mark')).to.equal(point)
+      const wrapper = shallow(
+        <DrawingToolMarks activeMark={{ id: 'point1' }} marks={marks} />
+      )
+      expect(wrapper.find({ label: 'Delete point' }).prop('mark')).to.equal(
+        point
+      )
     })
   })
 
@@ -95,7 +108,14 @@ describe('Components > DrawingToolMarks', function () {
 
     describe('when the mark is inside the SVG element', function () {
       it('should call onFinish, not onDelete', function () {
-        const mockBounds = { left: 0, top: 0, right: 100, bottom: 100, width: 100, height: 100 }
+        const mockBounds = {
+          left: 0,
+          top: 0,
+          right: 100,
+          bottom: 100,
+          width: 100,
+          height: 100
+        }
         const currentTarget = {
           getBoundingClientRect: () => mockBounds
         }
@@ -110,7 +130,14 @@ describe('Components > DrawingToolMarks', function () {
 
     describe('when the mark overlaps the SVG element', function () {
       it('should call onFinish, not onDelete', function () {
-        const mockBounds = { left: 1990, top: 20, right: 2090, bottom: 120, width: 100, height: 100 }
+        const mockBounds = {
+          left: 1990,
+          top: 20,
+          right: 2090,
+          bottom: 120,
+          width: 100,
+          height: 100
+        }
         const currentTarget = {
           getBoundingClientRect: () => mockBounds
         }
@@ -125,7 +152,14 @@ describe('Components > DrawingToolMarks', function () {
 
     describe('when the mark is outside the SVG element', function () {
       it('should delete the mark', function () {
-        const mockBounds = { left: 2090, top: 20, right: 2190, bottom: 120, width: 100, height: 100 }
+        const mockBounds = {
+          left: 2090,
+          top: 20,
+          right: 2190,
+          bottom: 120,
+          width: 100,
+          height: 100
+        }
         const currentTarget = {
           getBoundingClientRect: () => mockBounds
         }

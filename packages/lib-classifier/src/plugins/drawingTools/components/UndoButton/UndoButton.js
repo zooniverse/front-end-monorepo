@@ -14,12 +14,12 @@ const UndoButton = forwardRef(function UndoButton(
   ref
 ) {
   const ARIA_LABEL = 'Undo'
-  const RADIUS = 11
   const STROKE_COLOR = 'black'
+  const ARROW_STROKE_COLOR = 'white'
   const FILL_COLOR = 'black'
   const STROKE_WIDTH = 1.5
-  const circleTransform = `translate(${x + 20}, ${y - 30}) scale(${1 / scale})`
-  const undoTransform = `translate(${x + 15}, ${y - 35}) scale(${0.5 / scale})`
+  const ARROW_STROKE_WIDTH = 0.5
+  const undoTransform = `translate(${x + 15}, ${y - 35}) scale(${1 / scale})`
   const cx = x + 20
   const cy = y - 30
 
@@ -56,14 +56,14 @@ const UndoButton = forwardRef(function UndoButton(
       strokeWidth={STROKE_WIDTH}
     >
       <Tooltip label='Undo'>
-        <circle transform={circleTransform} fill={FILL_COLOR} r={RADIUS} />
+        <path
+          d='M24 12c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 6.628 5.372 12 12 12s12-5.372 12-12zM6 12l6-6v4.5h6v3h-6v4.5l-6-6z'
+          transform={undoTransform}
+          fill={FILL_COLOR}
+          stroke={ARROW_STROKE_COLOR}
+          strokeWidth={ARROW_STROKE_WIDTH}
+        ></path>
       </Tooltip>
-      <path
-        d='M9.439 20.561l-7.5-7.5c-0.586-0.586-0.586-1.536 0-2.121l7.5-7.5c0.586-0.586 1.536-0.586 2.121 0s0.586 1.536 0 2.121l-4.939 4.939h14.379c0.828 0 1.5 0.672 1.5 1.5s-0.672 1.5-1.5 1.5h-14.379l4.939 4.939c0.293 0.293 0.439 0.677 0.439 1.061s-0.146 0.768-0.439 1.061c-0.586 0.586-1.536 0.586-2.121 0z'
-        transform={undoTransform}
-        fill='white'
-        stroke='white'
-      ></path>
     </StyledGroup>
   )
 })
@@ -82,7 +82,7 @@ UndoButton.propTypes = {
   */
   y: number,
   /**
-    Callback to shorten path array by 20 coordinates
+    Callback to shorten path array
   */
   undoDrawing: func
 }
