@@ -4,18 +4,13 @@ import asyncStates from '@zooniverse/async-states'
 
 import SingleTextViewer from './SingleTextViewer'
 
-const defaultSubject = {
-  content: '',
-  contentLoadingState: asyncStates.initialized
-}
-
 export default function SingleTextViewerContainer ({
+  content = '',
+  contentLoadingState = asyncStates.initialized,
+  error = null,
   onError = () => true,
-  onReady = () => true,
-  subject = defaultSubject
+  onReady = () => true
 }) {
-  const { content, contentLoadingState } = subject
-
   if (contentLoadingState === asyncStates.success) {
     onReady()
 
@@ -26,18 +21,16 @@ export default function SingleTextViewerContainer ({
     )
   }
 
-  if (subject?.error) {
-    onError(subject.error)
+  if (error) {
+    onError(error)
   }
 
   return null
 }
 
 SingleTextViewerContainer.propTypes = {
+  content: PropTypes.string,
+  contentLoadingState: PropTypes.oneOf(asyncStates.values),
   onError: PropTypes.func,
-  onReady: PropTypes.func,
-  subject: PropTypes.shape({
-    content: PropTypes.string,
-    contentLoadingState: PropTypes.oneOf(asyncStates.values)
-  })
+  onReady: PropTypes.func
 }
