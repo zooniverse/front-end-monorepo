@@ -9,6 +9,10 @@ A subject viewer is a component designed to render the media of a subject and an
 - [`SingleImageViewer`](components/SingleImageViewer/README.md) - renders a single image subject. Supports the `InteractionLayer` and pan and zoom.
 - [`MultiFrameViewer`](components/MultiFrameViewer/README.md) - renders multi-image subjects up to 10 frames. The currently selected frame is rendered with the `SingleImageViewer` with a sidebar to select the others. Because the selected frame renders with the `SingleImageViewer`, this then supports the `InteractionLayer` as well as pan and zoom for images, too. This has the capacity to be extended to support other media times to render image, video, and text in a flipbook UI style. This should be the standard fallback viewer for multi-media subjects. (Extending to render other media times is TBD).
 
+### Text
+
+- [`SingleTextViewer`](components/SingleTextViewer/README.md) - renders a single text subject.
+
 ### Video
 
 - [`SingleVideoViewer`](components/SingleVideoViewer/README.md) - renders a single mp4 video. Supports the `InteractionLayer`.
