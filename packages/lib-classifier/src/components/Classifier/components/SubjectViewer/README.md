@@ -28,6 +28,7 @@ A subject viewer is a component designed to render the media of a subject and an
 - [`VariableStarViewer`](components/VariableStarViewer/README.md) - renders JSON and an image media file for a composite of two scatter plots, two bar charts, and an image. Supports pan and zoom for each scatter plot independently as well as project specific interactive tools for the scatter plots.
 - [`DataImageViewer`](components/DataImageViewer/README.md) - renders JSON as a scatter plot and an image media file side by side. Supports pan and zoom for the scatter plot and image independently.
 - [`SubjectGroupViewer`](components/SubjectGroupViewer/README.md) - renders a group of subjects each with their own single image media file. This is meant to only work with the subject group comparison task. Supports pan and zoom for all subjects simultaneously as well as some configurations for rendering.
+- [`ImageAndTextViewer`](components/ImageAndTextViewer/README.md) - renders a single image or a single text media file, with a toggle to switch between which media file is displayed.
 
 ## Helper components
 
@@ -83,7 +84,6 @@ The container components for the complex subject viewers like the `VariableStarV
 
 Some immediate enhancements can be:
 
-- A text media viewer
 - An audio media viewer
 - A spectrogram viewer containing audio, an image, and additional controller functionality.
 - Media support to the `MultiFrameViewer` beyond images
