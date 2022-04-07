@@ -50,13 +50,7 @@ describe('Component > SingleTextViewerContainer', function () {
   it('should render without crashing', function () {
     const wrapper = mount(<SingleTextViewerContainer />)
     expect(wrapper).to.be.ok()
-  })
-
-  describe('without a subject', function () {
-    it('should render null with the default props', function () {
-      const wrapper = mount(<SingleTextViewerContainer />)
-      expect(wrapper.html()).to.be.null()
-    })
+    expect(wrapper.html()).to.be.null()
   })
 
   describe('with content loading state of error', function () {
@@ -68,9 +62,11 @@ describe('Component > SingleTextViewerContainer', function () {
 
       wrapper = mount(
         <SingleTextViewerContainer
+          content={errorSubject.content}
+          contentLoadingState={errorSubject.contentLoadingState}
+          error={errorSubject.error}
           onError={onErrorSpy}
           onReady={onReadySpy}
-          subject={errorSubject}
         />)
     })
 
@@ -96,13 +92,15 @@ describe('Component > SingleTextViewerContainer', function () {
 
       wrapper = mount(
         <SingleTextViewerContainer
+          content={subject.content}
+          contentLoadingState={subject.contentLoadingState}
+          error={subject.error}
           onError={onErrorSpy}
           onReady={onReadySpy}
-          subject={subject}
         />)
     })
 
-    it('should display the text subject content', function () {
+    it('should render the text subject content', function () {
       const stv = wrapper.find(SingleTextViewer)
       expect(stv.prop('content')).to.equal(subject.content)
     })
@@ -116,7 +114,11 @@ describe('Component > SingleTextViewerContainer', function () {
     })
 
     it('should update text subject content when there is a new subject', function () {
-      wrapper.setProps({ subject: nextSubject })
+      wrapper.setProps({
+        content: nextSubject.content,
+        contentLoadingState: nextSubject.contentLoadingState,
+        error: nextSubject.error
+      })
       const stv = wrapper.find(SingleTextViewer)
       expect(stv.prop('content')).to.equal(nextSubject.content)
     })
@@ -131,9 +133,11 @@ describe('Component > SingleTextViewerContainer', function () {
 
       wrapper = mount(
         <SingleTextViewerContainer
+          content={initializedSubject.content}
+          contentLoadingState={initializedSubject.contentLoadingState}
+          error={initializedSubject.error}
           onError={onErrorSpy}
           onReady={onReadySpy}
-          subject={initializedSubject}
         />)
     })
 
@@ -159,9 +163,11 @@ describe('Component > SingleTextViewerContainer', function () {
 
       wrapper = mount(
         <SingleTextViewerContainer
+          content={loadingSubject.content}
+          contentLoadingState={loadingSubject.contentLoadingState}
+          error={loadingSubject.error}
           onError={onErrorSpy}
           onReady={onReadySpy}
-          subject={loadingSubject}
         />)
     })
 
@@ -177,10 +183,17 @@ describe('Component > SingleTextViewerContainer', function () {
       expect(onReadySpy).to.not.have.been.called()
     })
 
-    it('should update text subject content when the subject loads successfully', function () {
-      wrapper.setProps({ subject: subject })
-      const stv = wrapper.find(SingleTextViewer)
-      expect(stv.prop('content')).to.equal(subject.content)
+    describe('when content loading state changes to success', function () {
+      it('should render the text subject content', function () {
+        wrapper.setProps({
+          content: 'text content loaded',
+          contentLoadingState: asyncStates.success
+        })
+
+        const stv = wrapper.find(SingleTextViewer)
+        expect(stv.prop('content')).to.equal('text content loaded')
+        expect(onReadySpy).to.have.been.calledOnce()
+      })
     })
   })
 })

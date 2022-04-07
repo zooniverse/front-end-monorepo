@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { Box, Paragraph } from 'grommet'
-import { array, bool, shape, string } from 'prop-types'
+import { array, bool, object, shape, string } from 'prop-types'
 import React, { useContext } from 'react'
 
 import { withStores } from '@helpers'
@@ -29,14 +29,20 @@ function Task ({
   autoFocus = false,
   disabled = false,
   latest,
+  previousAnnotationValues = null,
   task,
   ...props
 }) {
   const { TaskComponent } = task.type === 'dropdown-simple'? tasks.dropdownSimple : tasks[task.type]
   let annotation
+  let subTaskPreviousAnnotationValues
 
   if (latest) {
     ([ annotation ] = latest.annotations.filter(annotation => annotation.task === task.taskKey))
+  }
+
+  if (previousAnnotationValues) {
+    subTaskPreviousAnnotationValues = previousAnnotationValues.get(task.taskKey)
   }
   
   if (!annotation) {
@@ -54,6 +60,7 @@ function Task ({
         autoFocus={autoFocus}
         disabled={disabled}
         annotation={annotation}
+        subTaskPreviousAnnotationValues={subTaskPreviousAnnotationValues}
         task={task}
       />
     </Box>
@@ -66,6 +73,7 @@ Task.propTypes = {
   latest: shape({
     annotations: array
   }),
+  previousAnnotationValues: object,
   task: shape({
     taskKey: string.isRequired
   }).isRequired
