@@ -1,9 +1,8 @@
 import { destroy, getRoot, tryReference, types } from 'mobx-state-tree'
 import Resource from '@store/Resource'
-import { createLocationCounts, subjectViewers, validateSubjectLocations } from '@helpers'
+import { createLocationCounts, subjectsSeenThisSession, subjectViewers, validateSubjectLocations } from '@helpers'
 import StepHistory from './StepHistory'
 import TranscriptionReductions from './TranscriptionReductions'
-import { subjectsSeenThisSession } from '@helpers'
 
 const Subject = types
   .model('Subject', {
@@ -67,7 +66,16 @@ const Subject = types
 
         if (!viewer && counts.total > 1 && counts.total < 11) {
           if (!nullViewer) {
-            viewer = subjectViewers.multiFrame
+            if (counts.total === counts.images) {
+              viewer = subjectViewers.multiFrame
+            }
+            if (
+              counts.total === 2 &&
+              counts.images === 1 &&
+              counts.text === 1
+            ) {
+              viewer = subjectViewers.imageAndText
+            }
           }
         }
       }
