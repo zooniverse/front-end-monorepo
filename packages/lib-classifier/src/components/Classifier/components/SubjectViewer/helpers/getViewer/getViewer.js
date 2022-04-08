@@ -1,4 +1,5 @@
 import DataImageViewer from '../../components/DataImageViewer'
+import ImageAndTextViewer from '../../components/ImageAndTextViewer'
 import LightCurveViewer from '../../components/LightCurveViewer'
 import MultiFrameViewer from '../../components/MultiFrameViewer'
 import ScatterPlotViewer from '../../components/ScatterPlotViewer'
@@ -10,6 +11,7 @@ import VariableStarViewer from '../../components/VariableStarViewer'
 
 const viewers = {
   dataImage: DataImageViewer,
+  imageAndText: ImageAndTextViewer,
   lightCurve: LightCurveViewer,
   multiFrame: MultiFrameViewer,
   scatterPlot: ScatterPlotViewer,
