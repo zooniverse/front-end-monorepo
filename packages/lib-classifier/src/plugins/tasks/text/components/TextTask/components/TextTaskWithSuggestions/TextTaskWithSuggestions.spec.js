@@ -1,16 +1,27 @@
-import { expect } from 'chai'
-import React from 'react'
-import { default as Task } from '@plugins/tasks/text'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { expect } from 'chai'
+import React from 'react'
+import sinon from 'sinon'
+
+import { default as Task } from '@plugins/tasks/text'
 import TextTaskWithSuggestions from './TextTaskWithSuggestions'
 
 describe('TextTask > Components > TextTaskWithSuggestions', function () {
-  const task = Task.TaskModel.create({
-    instruction: 'Type something here',
-    taskKey: 'T0',
-    text_tags: ['insertion', 'deletion'],
-    type: 'text'
+  let task
+
+  before(function () {
+    sinon.stub(window, 'scrollTo')
+    task = Task.TaskModel.create({
+      instruction: 'Type something here',
+      taskKey: 'T0',
+      text_tags: ['insertion', 'deletion'],
+      type: 'text'
+    })
+  })
+
+  after(function () {
+    window.scrollTo.restore()
   })
 
   it('should have a labelled TextInput', function () {
