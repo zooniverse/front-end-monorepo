@@ -2,6 +2,7 @@ import { expect } from 'chai'
 import React from 'react'
 import { default as Task } from '@plugins/tasks/text'
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import TextTaskWithSuggestions from './TextTaskWithSuggestions'
 
 describe('TextTask > Components > TextTaskWithSuggestions', function () {
@@ -14,26 +15,38 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
   // default text annotation value = ''
   const annotation = task.defaultAnnotation()
 
-  it('should render without crashing', function () {
-    render(
-      <TextTaskWithSuggestions
-        task={task}
-        value={annotation.value}
-      />
-    )
-
-    expect(screen).to.be.ok()
-  })
-
   it('should have a labelled TextInput', function () {
     render(
       <TextTaskWithSuggestions
+        suggestions={['one', 'two', 'three']}
         task={task}
         value={annotation.value}
       />
     )
 
-    expect(screen.getByText(task.instruction)).to.exist()
+    expect(screen.getByLabelText(task.instruction)).to.exist()
+  })
+
+  it('should show text suggestions', async function () {
+    const user = userEvent.setup()
+    const suggestions = ['one', 'two', 'three']
+    render(
+      <TextTaskWithSuggestions
+        suggestions={suggestions}
+        task={task}
+        value={annotation.value}
+      />
+    )
+
+    const textInput = screen.getByLabelText(task.instruction)
+    await user.pointer({
+      keys: '[MouseLeft]',
+      target: textInput
+    })
+    suggestions.forEach(suggestion => {
+      const option = screen.getByRole('button', { name: suggestion })
+      expect(option).to.exist()
+    })
   })
 
   describe('with value and suggestions', function () {
@@ -51,6 +64,28 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
       )
 
       expect(screen.getByDisplayValue(annotation.value)).to.exist()
+    })
+
+    it('should not show text suggestions', async function () {
+      const user = userEvent.setup()
+      const suggestions = ['one', 'two', 'three']
+      render(
+        <TextTaskWithSuggestions
+          suggestions={suggestions}
+          task={task}
+          value={annotation.value}
+        />
+      )
+
+      const textInput = screen.getByLabelText(task.instruction)
+      await user.pointer({
+        keys: '[MouseLeft]',
+        target: textInput
+      })
+      suggestions.forEach(suggestion => {
+        const option = screen.queryByRole('button', { name: suggestion })
+        expect(option).to.be.null()
+      })
     })
   })
 })
