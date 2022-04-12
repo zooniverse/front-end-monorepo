@@ -18,8 +18,9 @@ describe.skip('Component > Choice', function () {
     expect(screen).to.be.ok()
   })
 
-  it('should call handleDelete when "Not this" button clicked', function () {
+  it('should call handleDelete when "Not this" button clicked', async function () {
     const handleDeleteSpy = sinon.spy()
+    const user = userEvent.setup()
     render(
       <Choice
         choiceId='KD'
@@ -28,13 +29,14 @@ describe.skip('Component > Choice', function () {
       />
     )
     const button = screen.getByRole('button', { name: 'SurveyTask.Choice.notThis' })
-    userEvent.click(button)
+    await user.click(button)
 
     expect(handleDeleteSpy).to.have.been.calledOnceWith('KD')
   })
 
-  it('should call onIdentify when "Identify" button clicked', function () {
+  it('should call onIdentify when "Identify" button clicked', async function () {
     const onIdentifySpy = sinon.spy()
+    const user = userEvent.setup()
     render(
       <Choice
         choiceId='FR'
@@ -42,7 +44,7 @@ describe.skip('Component > Choice', function () {
         task={mockTask}
       />
     )
-    userEvent.click(screen.getByText('SurveyTask.Choice.identify'))
+    await user.click(screen.getByText('SurveyTask.Choice.identify'))
 
     expect(onIdentifySpy).to.have.been.calledOnce()
   })

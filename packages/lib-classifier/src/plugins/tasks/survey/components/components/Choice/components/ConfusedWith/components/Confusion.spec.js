@@ -84,8 +84,9 @@ describe('Component > Confusion', function () {
     expect(screen.getByRole('button', { name: 'SurveyTask.ConfusedWith.cancel' })).to.exist()
   })
 
-  it('should call onClose when the Cancel button is clicked', function () {
+  it('should call onClose when the Cancel button is clicked', async function () {
     const onCloseSpy = sinon.spy()
+    const user = userEvent.setup()
 
     render(
       <Confusion
@@ -97,7 +98,7 @@ describe('Component > Confusion', function () {
       />
     )
     /** The translation function will simply return keys in a testing env */
-    userEvent.click(screen.getByRole('button', { name: 'SurveyTask.ConfusedWith.cancel' }))
+    await user.click(screen.getByRole('button', { name: 'SurveyTask.ConfusedWith.cancel' }))
     expect(onCloseSpy).to.have.been.calledOnce()
   })
 
@@ -114,8 +115,9 @@ describe('Component > Confusion', function () {
     expect(screen.getByRole('button', { name: 'SurveyTask.ConfusedWith.itsThis' })).to.exist()
   })
 
-  it('should call handleChoice with confusion ID when the "I think it\'s this" button is clicked', function () {
+  it('should call handleChoice with confusion ID when the "I think it\'s this" button is clicked', async function () {
     const handleChoiceSpy = sinon.spy()
+    const user = userEvent.setup()
 
     render(
       <Confusion
@@ -127,7 +129,7 @@ describe('Component > Confusion', function () {
       />
     )
     /** The translation function will simply return keys in a testing env */
-    userEvent.click(screen.getByRole('button', { name: 'SurveyTask.ConfusedWith.itsThis' }))
+    await user.click(screen.getByRole('button', { name: 'SurveyTask.ConfusedWith.itsThis' }))
     expect(handleChoiceSpy).to.have.been.calledOnceWith('LND')
   })
 })

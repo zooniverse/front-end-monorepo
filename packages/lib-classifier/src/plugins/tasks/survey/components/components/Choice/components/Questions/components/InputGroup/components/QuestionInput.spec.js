@@ -90,8 +90,9 @@ describe('Component > QuestionInput', function () {
     })
 
     describe('onChange', function () {
-      it('should call handleCheckBoxChange with checked and value', function () {
+      it('should call handleCheckBoxChange with checked and value', async function () {
         const handleCheckBoxChangeSpy = sinon.spy()
+        const user = userEvent.setup()
         render(
           <Grommet
             theme={zooTheme}
@@ -109,7 +110,7 @@ describe('Component > QuestionInput', function () {
           </Grommet>
         )
         expect(handleCheckBoxChangeSpy).to.not.have.been.called()
-        userEvent.click(screen.getByLabelText('Eating'))
+        await user.click(screen.getByLabelText('Eating'))
         expect(handleCheckBoxChangeSpy).to.have.been.calledWith('TNG', true)
       })
     })
@@ -196,8 +197,9 @@ describe('Component > QuestionInput', function () {
     })
 
     describe('onClick', function () {
-      it('should call handleRadioChange with value and checked', function () {
+      it('should call handleRadioChange with value and checked', async function () {
         const handleRadioChangeSpy = sinon.spy()
+        const user = userEvent.setup()
         render(
           <Grommet
             theme={zooTheme}
@@ -215,14 +217,15 @@ describe('Component > QuestionInput', function () {
           </Grommet>
         )
         expect(handleRadioChangeSpy).to.not.have.been.called()
-        userEvent.click(screen.getByLabelText('Yes'))
+        await user.click(screen.getByLabelText('Yes'))
         expect(handleRadioChangeSpy).to.have.been.calledWith('S')
       })
     })
 
     describe('onKeyDown', function () {
-      it('should call handleRadioKeyDown on keyDown of the input', function () {
+      it('should call handleRadioKeyDown on keyDown of the input', async function () {
         const handleRadioKeyDownSpy = sinon.spy()
+        const user = userEvent.setup()
         render(
           <Grommet
             theme={zooTheme}
@@ -240,7 +243,7 @@ describe('Component > QuestionInput', function () {
           </Grommet>
         )
         expect(handleRadioKeyDownSpy).to.not.have.been.called()
-        userEvent.type(screen.getByLabelText('Yes'), '{backspace}')
+        await user.type(screen.getByLabelText('Yes'), '{backspace}')
         expect(handleRadioKeyDownSpy).to.have.been.calledOnce()
       })
     })
