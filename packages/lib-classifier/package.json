@@ -10,8 +10,8 @@
     "dev": "webpack serve --config webpack.dev.js",
     "lint": "zoo-standard --fix | snazzy",
     "start": "PANOPTES_ENV=production npm run dev",
-    "test": "NODE_PATH=. NODE_ENV=test mocha --config ./test/.mocharc.json \"./{src,test}/**/*.spec.js\"",
-    "test:ci": "NODE_PATH=. NODE_ENV=test mocha --config ./test/.mocharc.json --reporter=min \"./{src,test}/**/*.spec.js\"",
+    "test": "NODE_PATH=. NODE_ENV=test mocha --exit --config ./test/.mocharc.json \"./{src,test}/**/*.spec.js\"",
+    "test:ci": "NODE_PATH=. NODE_ENV=test mocha --exit --config ./test/.mocharc.json --reporter=min \"./{src,test}/**/*.spec.js\"",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
