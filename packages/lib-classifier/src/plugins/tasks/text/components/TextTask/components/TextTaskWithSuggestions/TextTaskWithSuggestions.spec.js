@@ -12,15 +12,13 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
     text_tags: ['insertion', 'deletion'],
     type: 'text'
   })
-  // default text annotation value = ''
-  const annotation = task.defaultAnnotation()
 
   it('should have a labelled TextInput', function () {
     render(
       <TextTaskWithSuggestions
         suggestions={['one', 'two', 'three']}
         task={task}
-        value={annotation.value}
+        value=''
       />
     )
 
@@ -34,7 +32,7 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
       <TextTaskWithSuggestions
         suggestions={suggestions}
         task={task}
-        value={annotation.value}
+        value=''
       />
     )
 
@@ -50,20 +48,16 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
   })
 
   describe('with value and suggestions', function () {
-    before(function () {
-      annotation.update('This is an updated annotation value.')
-    })
-
     it('should render the value', function () {
       render(
         <TextTaskWithSuggestions
           suggestions={['one', 'two', 'three']}
           task={task}
-          value={annotation.value}
+          value='This is an updated annotation value.'
         />
       )
 
-      expect(screen.getByDisplayValue(annotation.value)).to.exist()
+      expect(screen.getByDisplayValue('This is an updated annotation value.')).to.exist()
     })
 
     it('should not show text suggestions', async function () {
@@ -73,7 +67,7 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
         <TextTaskWithSuggestions
           suggestions={suggestions}
           task={task}
-          value={annotation.value}
+          value='This is an updated annotation value.'
         />
       )
 
