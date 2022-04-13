@@ -37,6 +37,11 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
   })
 
   it('should show text suggestions', async function () {
+    /*
+      This test takes 4s to run. The workaround is to disable the default mocha timeout.
+      TODO: figure out why these tests are so slow.
+    */
+    this.timeout(0)
     const user = userEvent.setup({ delay: null })
     const suggestions = ['one', 'two', 'three']
     render(

@@ -7,7 +7,13 @@ import userEvent from '@testing-library/user-event'
 import { task as mockTask } from '@plugins/tasks/survey/mock-data'
 import Choice from './Choice'
 
-describe.skip('Component > Choice', function () {
+describe('Component > Choice', function () {
+  /*
+    Disable the default mocha timeout.
+    TODO: figure out why these tests are so slow.
+  */
+  this.timeout(0)
+
   it('should render without crashing', function () {
     render(
       <Choice
