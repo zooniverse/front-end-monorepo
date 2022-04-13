@@ -1,5 +1,7 @@
+import zooTheme from '@zooniverse/grommet-theme'
+import { Grommet } from 'grommet'
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { when } from 'mobx'
 import { Provider } from 'mobx-react'
 import sinon from 'sinon'
@@ -10,27 +12,81 @@ import asyncStates from '@zooniverse/async-states'
 import { TutorialFactory, UPPFactory } from '@test/factories'
 import mockStore  from '@test/mockStore'
 
-const tutorial = TutorialFactory.build()
-
 describe('ModalTutorial', function () {
-  it('should render without crashing', function () {
-    const wrapper = shallow(<ModalTutorial setModalVisibility={() => {}} />)
-    expect(wrapper).to.be.ok()
-  })
+  function withStore(store) {
+    return function Wrapper({ children }) {
+      return (
+        <Grommet theme={zooTheme}>
+          <Provider classifierStore={store}>
+            {children}
+          </Provider>
+        </Grommet>
+      )
+    }
+  }
+
+  const steps = [
+    { content: "Hello" },
+    { content: "Step 2" }
+  ]
 
   it('should render null if a tutorial has not been successfully loaded', function () {
-    const wrapper = shallow(<ModalTutorial setModalVisibility={() => { }} />)
-    expect(wrapper.html()).to.be.null()
+    const store = mockStore()
+    render(
+      <ModalTutorial />,
+      {
+        wrapper: withStore(store)
+      }
+    )
+    const tutorialTitle = screen.queryByRole('heading', { level: 2, name: 'ModalTutorial.title' })
+    expect(tutorialTitle).to.be.null()
   })
 
-  it('should render a Modal when a tutorial is successfully loaded', function () {
-    const wrapper = shallow(
+  it('should not show the tutorial if it has been seen before', async function () {
+    const store = mockStore()
+    const tutorialSnapshot = TutorialFactory.build({ steps })
+    store.tutorials.setTutorials([tutorialSnapshot])
+    await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
+    const upp = UPPFactory.build()
+    store.userProjectPreferences.setUPP(upp)
+    store.userProjectPreferences.setHeaders({
+      etag: 'mockETagForTests'
+    })
+    const tutorial = store.tutorials.active
+    render(
       <ModalTutorial
         tutorial={tutorial}
-      />
+      />,
+      {
+        wrapper: withStore(store)
+      }
     )
+    const tutorialTitle = screen.queryByRole('heading', { level: 2, name: 'ModalTutorial.title' })
+    expect(tutorialTitle).to.be.null()
+  })
 
-    expect(wrapper.find(Modal)).to.have.lengthOf(1)
+  it('should show the tutorial if it hasn\'t been seen before', async function () {
+    const store = mockStore()
+    const tutorialSnapshot = TutorialFactory.build({ steps })
+    store.tutorials.setTutorials([tutorialSnapshot])
+    await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
+    const upp = UPPFactory.build()
+    store.userProjectPreferences.setUPP(upp)
+    store.userProjectPreferences.setHeaders({
+      etag: 'mockETagForTests'
+    })
+    const tutorial = store.tutorials.active
+    render(
+      <ModalTutorial
+        hasNotSeenTutorialBefore
+        tutorial={tutorial}
+      />,
+      {
+        wrapper: withStore(store)
+      }
+    )
+    const tutorialTitle = screen.getByRole('heading', { level: 2, name: 'ModalTutorial.title' })
+    expect(tutorialTitle).to.be.ok()
   })
 
   describe('on close', function () {
@@ -38,7 +94,7 @@ describe('ModalTutorial', function () {
 
     beforeEach(async function () {
       store = mockStore()
-      const tutorialSnapshot = TutorialFactory.build()
+      const tutorialSnapshot = TutorialFactory.build({ steps })
       store.tutorials.setTutorials([tutorialSnapshot])
       await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
       const upp = UPPFactory.build()
@@ -52,21 +108,17 @@ describe('ModalTutorial', function () {
       const clock = sinon.useFakeTimers({ now: new Date('2022-03-01T12:00:00Z'), toFake: ['Date'] })
       const tutorial = store.tutorials.active
       const seen = new Date().toISOString()
-      const wrapper = mount(
+      const wrapper = render(
         <ModalTutorial
+          hasNotSeenTutorialBefore
           tutorial={tutorial}
         />,
         {
-          wrappingComponent: Provider,
-          wrappingComponentProps: { classifierStore: store }
+          wrapper: withStore(store)
         }
       )
-      // open a tutorial
-      wrapper.setProps({ hasNotSeenTutorialBefore: true })
-      wrapper.update()
-      const closeFn = wrapper.find(Modal).prop('closeFn')
-      closeFn()
-      wrapper.update()
+      const closeButton = screen.getByRole('button', { name: 'Close' })
+      fireEvent.click(closeButton)
       const upp = store.userProjectPreferences.active
       expect(upp?.preferences.tutorials_completed_at[tutorial.id]).to.equal(seen)
       clock.restore()
@@ -74,39 +126,21 @@ describe('ModalTutorial', function () {
 
     it('should close the tutorial', function () {
       const tutorial = store.tutorials.active
-      const wrapper = mount(
+      const wrapper = render(
         <ModalTutorial
+          hasNotSeenTutorialBefore
           tutorial={tutorial}
         />,
         {
-          wrappingComponent: Provider,
-          wrappingComponentProps: { classifierStore: store }
+          wrapper: withStore(store)
         }
       )
-      // open a tutorial
-      wrapper.setProps({ hasNotSeenTutorialBefore: true })
-      wrapper.update()
-      let active = wrapper.find(Modal).prop('active')
-      expect(active).to.be.true()
-      const closeFn = wrapper.find(Modal).prop('closeFn')
-      closeFn()
-      wrapper.update()
-      active = wrapper.find(Modal).prop('active')
-      expect(active).to.be.false()
+      let tutorialTitle = screen.getByRole('heading', { level: 2, name: 'ModalTutorial.title' })
+      expect(tutorialTitle).to.be.ok()
+      const closeButton = screen.getByRole('button', { name: 'Close' })
+      fireEvent.click(closeButton)
+      tutorialTitle = screen.queryByRole('heading', { level: 2, name: 'ModalTutorial.title' })
+      expect(tutorialTitle).to.be.null()
     })
   })
-
-  // TODO: Enzyme doesn't support React `createContext` yet which Grommet uses
-  // So these tests will be broken until they support that.
-  // it('should render a SlideTutorial as the child of the Modal', function () {
-  //   const wrapper = shallow(
-  //     <ModalTutorial
-  //       loadingState={asyncStates.success}
-  //       setModalVisibility={() => { }}
-  //       tutorial={tutorial}
-  //     />
-  //   )
-
-  //   expect(wrapper.find(SlideTutorial)).to.have.lengthOf(1)
-  // })
 })
