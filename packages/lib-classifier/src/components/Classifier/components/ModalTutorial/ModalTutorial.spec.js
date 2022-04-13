@@ -96,7 +96,7 @@ describe('ModalTutorial', function () {
 
     beforeEach(async function () {
       store = mockStore()
-      user = userEvent.setup()
+      user = userEvent.setup({ delay: null })
       const tutorialSnapshot = TutorialFactory.build({ steps })
       store.tutorials.setTutorials([tutorialSnapshot])
       await when(() => store.userProjectPreferences.loadingState === asyncStates.success)

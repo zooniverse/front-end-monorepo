@@ -92,7 +92,7 @@ describe('Component > QuestionInput', function () {
     describe('onChange', function () {
       it('should call handleCheckBoxChange with checked and value', async function () {
         const handleCheckBoxChangeSpy = sinon.spy()
-        const user = userEvent.setup()
+        const user = userEvent.setup({ delay: null })
         render(
           <Grommet
             theme={zooTheme}
@@ -199,7 +199,7 @@ describe('Component > QuestionInput', function () {
     describe('onClick', function () {
       it('should call handleRadioChange with value and checked', async function () {
         const handleRadioChangeSpy = sinon.spy()
-        const user = userEvent.setup()
+        const user = userEvent.setup({ delay: null })
         render(
           <Grommet
             theme={zooTheme}
@@ -225,7 +225,7 @@ describe('Component > QuestionInput', function () {
     describe('onKeyDown', function () {
       it('should call handleRadioKeyDown on keyDown of the input', async function () {
         const handleRadioKeyDownSpy = sinon.spy()
-        const user = userEvent.setup()
+        const user = userEvent.setup({ delay: null })
         render(
           <Grommet
             theme={zooTheme}

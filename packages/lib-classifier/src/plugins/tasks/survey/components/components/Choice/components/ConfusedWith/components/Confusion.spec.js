@@ -86,7 +86,7 @@ describe('Component > Confusion', function () {
 
   it('should call onClose when the Cancel button is clicked', async function () {
     const onCloseSpy = sinon.spy()
-    const user = userEvent.setup()
+    const user = userEvent.setup({ delay: null })
 
     render(
       <Confusion
@@ -117,7 +117,7 @@ describe('Component > Confusion', function () {
 
   it('should call handleChoice with confusion ID when the "I think it\'s this" button is clicked', async function () {
     const handleChoiceSpy = sinon.spy()
-    const user = userEvent.setup()
+    const user = userEvent.setup({ delay: null })
 
     render(
       <Confusion

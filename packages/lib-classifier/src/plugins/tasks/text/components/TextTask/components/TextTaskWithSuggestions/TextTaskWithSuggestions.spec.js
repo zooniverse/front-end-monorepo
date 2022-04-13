@@ -37,7 +37,7 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
   })
 
   it('should show text suggestions', async function () {
-    const user = userEvent.setup()
+    const user = userEvent.setup({ delay: null })
     const suggestions = ['one', 'two', 'three']
     render(
       <TextTaskWithSuggestions
@@ -72,7 +72,7 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
     })
 
     it('should not show text suggestions', async function () {
-      const user = userEvent.setup()
+      const user = userEvent.setup({ delay: null })
       const suggestions = ['one', 'two', 'three']
       render(
         <TextTaskWithSuggestions

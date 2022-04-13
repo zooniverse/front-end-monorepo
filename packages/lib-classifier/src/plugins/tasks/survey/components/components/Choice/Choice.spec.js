@@ -20,7 +20,7 @@ describe.skip('Component > Choice', function () {
 
   it('should call handleDelete when "Not this" button clicked', async function () {
     const handleDeleteSpy = sinon.spy()
-    const user = userEvent.setup()
+    const user = userEvent.setup({ delay: null })
     render(
       <Choice
         choiceId='KD'
@@ -36,7 +36,7 @@ describe.skip('Component > Choice', function () {
 
   it('should call onIdentify when "Identify" button clicked', async function () {
     const onIdentifySpy = sinon.spy()
-    const user = userEvent.setup()
+    const user = userEvent.setup({ delay: null })
     render(
       <Choice
         choiceId='FR'
