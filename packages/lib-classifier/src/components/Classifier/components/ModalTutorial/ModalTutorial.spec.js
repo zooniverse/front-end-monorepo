@@ -1,7 +1,8 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import React from 'react'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { when } from 'mobx'
 import { Provider } from 'mobx-react'
 import sinon from 'sinon'
@@ -91,9 +92,11 @@ describe('ModalTutorial', function () {
 
   describe('on close', function () {
     let store
+    let user
 
     beforeEach(async function () {
       store = mockStore()
+      user = userEvent.setup({ delay: null })
       const tutorialSnapshot = TutorialFactory.build({ steps })
       store.tutorials.setTutorials([tutorialSnapshot])
       await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
@@ -104,7 +107,7 @@ describe('ModalTutorial', function () {
       })
     })
 
-    it('should record the active tutorial as complete', function () {
+    it('should record the active tutorial as complete', async function () {
       const clock = sinon.useFakeTimers({ now: new Date('2022-03-01T12:00:00Z'), toFake: ['Date'] })
       const tutorial = store.tutorials.active
       const seen = new Date().toISOString()
@@ -118,13 +121,13 @@ describe('ModalTutorial', function () {
         }
       )
       const closeButton = screen.getByRole('button', { name: 'Close' })
-      fireEvent.click(closeButton)
+      await user.click(closeButton)
       const upp = store.userProjectPreferences.active
       expect(upp?.preferences.tutorials_completed_at[tutorial.id]).to.equal(seen)
       clock.restore()
     })
 
-    it('should close the tutorial', function () {
+    it('should close the tutorial', async function () {
       const tutorial = store.tutorials.active
       const wrapper = render(
         <ModalTutorial
@@ -138,7 +141,7 @@ describe('ModalTutorial', function () {
       let tutorialTitle = screen.getByRole('heading', { level: 2, name: 'ModalTutorial.title' })
       expect(tutorialTitle).to.be.ok()
       const closeButton = screen.getByRole('button', { name: 'Close' })
-      fireEvent.click(closeButton)
+      await user.click(closeButton)
       tutorialTitle = screen.queryByRole('heading', { level: 2, name: 'ModalTutorial.title' })
       expect(tutorialTitle).to.be.null()
     })

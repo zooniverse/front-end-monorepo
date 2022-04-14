@@ -11,8 +11,8 @@
     "ignore-styles"
   ],
   "file": [
-    "./test/enzyme-config.js",
-    "./test/setup.js"
+    "./test/setup.js",
+    "./test/enzyme-config.js"
   ],
   "reporter": "spec",
   "ui": "bdd"
