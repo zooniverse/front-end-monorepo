@@ -138,6 +138,11 @@ const SubjectViewer = types
         self.rotation = (self.rotation + 270) % 360
       },
 
+      rotateFreely (angle) {
+        console.log('rotating subject to ', angle)
+        self.rotation = (angle) % 360
+      },
+
       setFrame (index) {
         self.frame = index
       },

@@ -2,29 +2,30 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import RotateIcon from '../RotateButton/RotateIcon'
-import Button from '../Button'
+import { RangeInput } from 'grommet'
 
-function RotationSlider ({ disabled, onClick }) {
+function RotationSlider ({ disabled, onChange, rotation }) {
   const { t } = useTranslation('components')
   return (
-    <Button
+    <RangeInput
       a11yTitle={t('ImageToolbar.RotationSlider.ariaLabel')}
       disabled={disabled}
-      icon={<RotateIcon />}
-      onClick={onClick}
+      min={0}
+      max={359}
+      value={rotation}
+      onChange={onChange}
     />
   )
 }
 
 RotationSlider.propTypes = {
   disabled: PropTypes.bool,
-  onClick: PropTypes.func
+  onChange: PropTypes.func
 }
 
 RotationSlider.defaultProps = {
   disabled: false,
-  onClick: () => console.log('Rotation Slider')
+  onChange: () => console.log('Rotation Slider')
 }
 
 export default RotationSlider

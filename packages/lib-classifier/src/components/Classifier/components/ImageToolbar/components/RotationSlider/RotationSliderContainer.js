@@ -6,26 +6,33 @@ import RotationSlider from './RotationSlider'
 
 function storeMapper (classifierStore) {
   const {
-    rotate,
+    rotateFreely,
+    rotation,
     rotationEnabled
   } = classifierStore.subjectViewer
 
   const disabled = !rotationEnabled
+  const onChange = function handleRotation (e) {
+    rotateFreely(e?.target?.value || 0)
+  }
+
   return {
     disabled,
-    onClick: rotate
+    onChange,
+    rotation
   }
 }
 
 function RotationSliderContainer({
   disabled = false,
-  onClick = () => console.log('rotate view')
+  onChange = () => console.log('rotate view'),
+  rotation = 0
 }) {
   if (disabled) {
     return null
   }
   return (
-    <RotationSlider onClick={onClick} />
+    <RotationSlider onChange={onChange} rotation={rotation} />
   )
 }
 
