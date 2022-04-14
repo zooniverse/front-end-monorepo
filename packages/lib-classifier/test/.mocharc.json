@@ -9,8 +9,8 @@
     "chai/register-expect",
     "chai/register-should",
     "ignore-styles",
-    "./test/enzyme-config.js",
-    "./test/setup.js"
+    "./test/setup.js",
+    "./test/enzyme-config.js"
   ],
   "reporter": "spec",
   "ui": "bdd"

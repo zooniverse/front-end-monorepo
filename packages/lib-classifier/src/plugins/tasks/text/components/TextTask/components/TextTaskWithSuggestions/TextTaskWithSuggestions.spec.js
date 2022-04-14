@@ -1,56 +1,101 @@
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { expect } from 'chai'
 import React from 'react'
+import sinon from 'sinon'
+
 import { default as Task } from '@plugins/tasks/text'
-import { render, screen } from '@testing-library/react'
 import TextTaskWithSuggestions from './TextTaskWithSuggestions'
 
 describe('TextTask > Components > TextTaskWithSuggestions', function () {
-  const task = Task.TaskModel.create({
-    instruction: 'Type something here',
-    taskKey: 'T0',
-    text_tags: ['insertion', 'deletion'],
-    type: 'text'
+  let task
+
+  before(function () {
+    sinon.stub(window, 'scrollTo')
+    task = Task.TaskModel.create({
+      instruction: 'Type something here',
+      taskKey: 'T0',
+      text_tags: ['insertion', 'deletion'],
+      type: 'text'
+    })
   })
-  // default text annotation value = ''
-  const annotation = task.defaultAnnotation()
 
-  it('should render without crashing', function () {
-    render(
-      <TextTaskWithSuggestions
-        task={task}
-        value={annotation.value}
-      />
-    )
-
-    expect(screen).to.be.ok()
+  after(function () {
+    window.scrollTo.restore()
   })
 
   it('should have a labelled TextInput', function () {
     render(
       <TextTaskWithSuggestions
+        suggestions={['one', 'two', 'three']}
         task={task}
-        value={annotation.value}
+        value=''
       />
     )
 
-    expect(screen.getByText(task.instruction)).to.exist()
+    expect(screen.getByLabelText(task.instruction)).to.exist()
+  })
+
+  it('should show text suggestions', async function () {
+    /*
+      This test takes 4s to run. The workaround is to disable the default mocha timeout.
+      TODO: figure out why these tests are so slow.
+    */
+    this.timeout(0)
+    const user = userEvent.setup({ delay: null })
+    const suggestions = ['one', 'two', 'three']
+    render(
+      <TextTaskWithSuggestions
+        suggestions={suggestions}
+        task={task}
+        value=''
+      />
+    )
+
+    const textInput = screen.getByLabelText(task.instruction)
+    await user.pointer({
+      keys: '[MouseLeft]',
+      target: textInput
+    })
+    suggestions.forEach(suggestion => {
+      const option = screen.getByRole('button', { name: suggestion })
+      expect(option).to.exist()
+    })
   })
 
   describe('with value and suggestions', function () {
-    before(function () {
-      annotation.update('This is an updated annotation value.')
-    })
-
     it('should render the value', function () {
       render(
         <TextTaskWithSuggestions
           suggestions={['one', 'two', 'three']}
           task={task}
-          value={annotation.value}
+          value='This is an updated annotation value.'
         />
       )
 
-      expect(screen.getByDisplayValue(annotation.value)).to.exist()
+      expect(screen.getByDisplayValue('This is an updated annotation value.')).to.exist()
+    })
+
+    it('should not show text suggestions', async function () {
+      const user = userEvent.setup({ delay: null })
+      const suggestions = ['one', 'two', 'three']
+      render(
+        <TextTaskWithSuggestions
+          suggestions={suggestions}
+          task={task}
+          value='This is an updated annotation value.'
+        />
+      )
+
+      const textInput = screen.getByLabelText(task.instruction)
+      await user.pointer({
+        keys: '[MouseLeft]',
+        target: textInput
+      })
+      suggestions.forEach(suggestion => {
+        const option = screen.queryByRole('button', { name: suggestion })
+        expect(option).to.be.null()
+      })
     })
   })
 })
