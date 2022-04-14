@@ -84,7 +84,10 @@
       "ariaLabel": "Reset subject view"
     },
     "RotateButton": {
-      "ariaLabel": "Rotate subject"
+      "ariaLabel": "Rotate subject by 90 degrees"
+    },
+    "RotationSlider": {
+      "ariaLabel": "Rotate subject freely"
     },
     "ZoomInButton": {
       "ariaLabel": "Zoom in on subject"
@@ -235,7 +238,7 @@
       },
       "TaskHelp": {
         "close": "Close",
-        "label": "Need some help with this task?" 
+        "label": "Need some help with this task?"
       }
     }
   }
