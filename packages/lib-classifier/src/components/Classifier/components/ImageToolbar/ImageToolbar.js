@@ -7,6 +7,7 @@ import FullscreenButton from './components/FullscreenButton'
 import MoveButton from './components/MoveButton'
 import ResetButton from './components/ResetButton'
 import RotateButton from './components/RotateButton'
+import RotationSlider from './components/RotationSlider'
 import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 import withKeyZoom from '../withKeyZoom'
@@ -37,6 +38,7 @@ class ImageToolbar extends Component {
           <ZoomInButton />
           <ZoomOutButton />
           <RotateButton />
+          <RotationSlider />
           <FullscreenButton disabled />
           <ResetButton />
         </Box>
