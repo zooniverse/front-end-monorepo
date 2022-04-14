@@ -10,7 +10,7 @@ const SingleTextSubject = types
     types.compose('SingleTextSubject', Subject, TextSubject),
     subject => {
       const counts = createLocationCounts(subject)
-      return counts.length === 1 && counts.text === 1
+      return counts.total === 1 && counts.text === 1
     })
 
 export default SingleTextSubject
