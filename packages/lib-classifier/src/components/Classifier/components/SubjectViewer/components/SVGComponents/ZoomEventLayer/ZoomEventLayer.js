@@ -26,11 +26,11 @@ function ZoomEventLayer (props) {
     left,
     onDoubleClick,
     onKeyDown,
-    onMouseDown,
-    onMouseEnter,
-    onMouseMove,
-    onMouseUp,
-    onMouseLeave,
+    onPointerDown,
+    onPointerEnter,
+    onPointerMove,
+    onPointerUp,
+    onPointerLeave,
     onWheel,
     panning,
     theme,
@@ -48,11 +48,11 @@ function ZoomEventLayer (props) {
       height={height}
       onDoubleClick={onDoubleClick}
       onKeyDown={onKeyDown}
-      onMouseDown={onMouseDown}
-      onMouseEnter={onMouseEnter}
-      onMouseMove={onMouseMove}
-      onMouseUp={onMouseUp}
-      onMouseLeave={onMouseLeave}
+      onPointerDown={onPointerDown}
+      onPointerEnter={onPointerEnter}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerLeave={onPointerLeave}
       onWheel={onWheel}
       panning={(panning) ? 'true' : undefined}
       transform={`translate(${left}, ${top})`}
@@ -66,7 +66,7 @@ ZoomEventLayer.defaultProps = {
   left: 0,
   onDoubleClick: () => {},
   onKeyDown: () => {},
-  onMouseEnter: () => {},
+  onPointerEnter: () => {},
   onWheel: () => {},
   panning: false,
   theme: {
@@ -82,11 +82,11 @@ ZoomEventLayer.propTypes = {
   left: PropTypes.number,
   onDoubleClick: PropTypes.func,
   onKeyDown: PropTypes.func,
-  onMouseDown: PropTypes.func.isRequired,
-  onMouseEnter: PropTypes.func,
-  onMouseMove: PropTypes.func.isRequired,
-  onMouseUp: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired,
+  onPointerDown: PropTypes.func.isRequired,
+  onPointerEnter: PropTypes.func,
+  onPointerMove: PropTypes.func.isRequired,
+  onPointerUp: PropTypes.func.isRequired,
+  onPointerLeave: PropTypes.func.isRequired,
   onWheel: PropTypes.func,
   panning: PropTypes.bool,
   theme: PropTypes.object,
