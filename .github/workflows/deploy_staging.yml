@@ -62,7 +62,7 @@ jobs:
     if: always()
     with:
       commit_id: ${{ github.sha }}
-      job_name: Build Staging Image / build_and_push_image
+      job_name: Build Staging Image
       status: ${{ needs.build_and_push_image.result }}
       title: "FEM Staging deploy complete"
       title_link: "https://frontend.preview.zooniverse.org/projects"
