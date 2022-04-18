@@ -10,22 +10,22 @@ const StyledText = styled(Text)`
   margin: 10px 0;
 `
 
-export default function TextTaskWithSuggestions (props) {
-  const {
-    autoFocus,
-    disabled,
-    onSelectSuggestion,
-    setTagSelection,
-    suggestions,
-    task,
-    value,
-    updateAnnotation
-  } = props
-
+export default function TextTaskWithSuggestions ({
+  autoFocus = false,
+  disabled = false,
+  onSelectSuggestion = () => true,
+  setTagSelection = () => true,
+  suggestions = [],
+  task,
+  value,
+  updateAnnotation = () => true
+}) {
   const textInput = React.useRef()
   const dropProps = {
     trapFocus: false
   }
+
+  const displayedSuggestions = value ? [] : suggestions
 
   function onChange() {
     updateAnnotation(textInput)
@@ -64,22 +64,13 @@ export default function TextTaskWithSuggestions (props) {
           id={`${task.taskKey}-${task.type}`}
           onChange={onChange}
           onSelect={(event) => onSelectSuggestion(event, textInput)}
-          suggestions={suggestions}
+          suggestions={displayedSuggestions}
           ref={textInput}
           value={value}
         />
       </label>
     </Box>
   )
-}
-
-TextTaskWithSuggestions.defaultProps = {
-  autoFocus: false,
-  disabled: false,
-  onSelectSuggestion: () => {},
-  setTagSelection: () => {},
-  suggestions: [],
-  updateAnnotation: () => {}
 }
 
 TextTaskWithSuggestions.propTypes = {

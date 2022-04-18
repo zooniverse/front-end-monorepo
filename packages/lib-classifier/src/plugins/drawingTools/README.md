@@ -9,21 +9,23 @@ Experimental tools should be added to `drawingTools/experimental`.
 `import { Point } from '@plugins/drawingTools/components'`
 
 A React component for a mark takes a Mark model and renders it as SVG. The basic shape is:
+
 ```jsx
 const MarkComponent = mark.toolComponent
 <MarkComponent active mark={mark} scale={scale} onFinish={onFinish} />
 ```
 
- - _mark_ is the mark model to render.
- - _scale_ is the linear scale of the subject image (_clientWidth_ / _naturalWidth_).
- - _active_ is a boolean attribute indicating whether the mark is currently editable.
- - _onFinish_ is a callback that should be called when initial creation of the mark is complete. It resets the drawing canvas and tells it to start listening to clicks to create new marks again.
+- _mark_ is the mark model to render.
+- _scale_ is the linear scale of the subject image (_clientWidth_ / _naturalWidth_).
+- _active_ is a boolean attribute indicating whether the mark is currently editable.
+- _onFinish_ is a callback that should be called when initial creation of the mark is complete. It resets the drawing canvas and tells it to start listening to clicks to create new marks again.
 
 ## Tool models
 
 `import { PointTool } from '@plugins/drawingTools/models/tools'`
 
 The [base Tool model](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-classifier/src/plugins/drawingTools/models/tools/Tool) defines the following common properties and actions for all drawing tools.
+
 - _color (string)_
 - _label (string)_
 - _max (number = Infinity)_
@@ -37,18 +39,21 @@ The [base Tool model](https://github.com/zooniverse/front-end-monorepo/tree/mast
 - _deleteMark(mark)_ Removes the specified mark from this tool.
 
 All tools should extend the Tool model by implementing the following:
+
 - _marks_: a map of mark types for this particular tool eg. `types.map(Line)` for the Line tool.
 - _type_: a string uniquely identifying this type of tool.
 - _createMark(snapshot)_: an action which creates a new mark from the supplied snapshot, then stores it in `self.marks`.
 - _handlePointerDown(event, mark)_: handle pointer down events when creating `mark`. `event.x` and `event.y` contain the pointer coordinates on the SVG canvas. Implement this action to handle custom mark validation for marks that require complex gestures to create.
 - _handlePointerMove(event, mark)_: handle pointer move events when creating `mark`. `event.x` and `event.y` contain the pointer coordinates on the SVG canvas. Implement this action to handle custom mark validation for marks that require complex gestures to create.
 - _handlePointerUp(event, mark)_: handle pointer up events when creating `mark`. `event.x` and `event.y` contain the pointer coordinates on the SVG canvas. Implement this action to handle custom mark validation for marks that require complex gestures to create.
+- _handlePointerPosition(event, mark)_: outputs the pointer coordinates on the SVG canvas when not creating an annotation. Implement this action if a guideline is needed. See `polygonTool` as an example.
 
 ## Mark models
 
 `import { Point } from '@plugins/drawingTools/models/marks'`
 
 The [base Mark model](https://github.com/zooniverse/front-end-monorepo/tree/master/packages/lib-classifier/src/plugins/drawingTools/models/marks/Mark) defines common properties and actions for all marks.
+
 - _id (string)_ Mark identifier. Automatically generated when a mark is created by a tool.
 - _annotations (Map)_ A map of annotations created on this mark by tool tasks.
 - _frame (number = 0)_ The subject frame that this mark was made on.
@@ -57,11 +62,12 @@ The [base Mark model](https://github.com/zooniverse/front-end-monorepo/tree/mast
 - _isValid (boolean)_ Read only. True if any required validations pass for this mark (eg. minimum length for a line.)
 - _tasks (array)_ Read only. An array of any sub-tasks linked to this mark eg. a text task for a transcription line.
 - _tool (Tool)_ Read only. A reference to the tool that created this mark.
-- _videoTime (number = undefined)_ For certain drawing tools (e.g. Temporal Point), we need to know WHEN the mark was created. For other drawing tools, videoTime will always return undefined. 
+- _videoTime (number = undefined)_ For certain drawing tools (e.g. Temporal Point), we need to know WHEN the mark was created. For other drawing tools, videoTime will always return undefined.
 - _addAnnotation(task, value)_ Add `value` to the annotation for `task`, which should be a valid task for this mark.
 - _setVideoTime(number)_ For most drawing tools, this does nothing. For certain drawing tools (e.g. Temporal Point), this function must be customised to set a time value for the mark.
 
 All marks should extend the Mark model by implementing the following views and actions:
+
 - _coords (Object { x, y })_ Read only. Returns the `{ x, y }` coords for this mark.
 - _deleteButtonPosition(scale) (Object { x, y })_ Given the image scale, return the `{ x, y }` position for this mark's delete button.
 - _toolComponent (React.Component)_ Read only. Returns the React component used to render this mark.
@@ -77,6 +83,7 @@ In addition, mark models should extend the base Mark model with any properties s
 - _y (number)_ y position of the mark's centre of rotation, in SVG coordinates relative to the subject image.
 
 ## Working with tools and marks
+
 ```js
 // Create a new drawing tool.
 const tool = TranscriptionLine.create({

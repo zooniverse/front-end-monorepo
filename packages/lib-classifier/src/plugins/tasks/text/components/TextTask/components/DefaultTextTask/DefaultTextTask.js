@@ -10,16 +10,14 @@ const StyledText = styled(Text)`
   margin: 10px 0;
 `
 
-export default function DefaultTextTask (props) {
-  const {
-    autoFocus,
-    disabled,
-    setTagSelection,
-    task,
-    value,
-    updateAnnotation
-  } = props
-
+export default function DefaultTextTask ({
+  autoFocus = false,
+  disabled = false,
+  setTagSelection = () => true,
+  task,
+  value,
+  updateAnnotation = () => true
+}) {
   const textArea = React.useRef()
 
   function onChange() {
@@ -63,14 +61,6 @@ export default function DefaultTextTask (props) {
       />
     </Box>
   )
-}
-
-DefaultTextTask.defaultProps = {
-  autoFocus: false,
-  disabled: false,
-  onSelectSuggestion: () => {},
-  setTagSelection: () => {},
-  updateAnnotation: () => {}
 }
 
 DefaultTextTask.propTypes = {
