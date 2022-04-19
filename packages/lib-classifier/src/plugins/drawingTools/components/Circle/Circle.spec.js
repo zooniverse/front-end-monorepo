@@ -1,11 +1,11 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { expect } from 'chai'
 import Circle from './Circle'
 import { default as CircleMark } from '../../models/marks/Circle'
-import DragHandle from '../DragHandle'
 
-describe('Circle tool', function () {
+describe.only('Circle tool', function () {
   let mark
   beforeEach(function () {
     mark = CircleMark.create({
@@ -17,36 +17,32 @@ describe('Circle tool', function () {
     })
   })
 
-  it('should render without crashing', function () {
-    const wrapper = shallow(<Circle mark={mark} />)
-    expect(wrapper).to.be.ok()
+  it('should render a Circle with the coordinates provided', () => {
+    render(<Circle active mark={mark} scale={1} />)
+
+    expect(screen.getByTestId('circle-element'))
+      .to.have.attr('r')
+      .to.equal('50')
   })
 
-  it('should render a circle with the coordinates provided', function () {
-    const wrapper = shallow(<Circle mark={mark} scale={1} />)
-    expect(wrapper.containsMatchingElement(<circle r={50} />)).to.be.true()
-  })
+  it('should change the radius when drag handle is moved', async () => {
+    const user = userEvent.setup()
 
-  it('should render an active circle with one drag handle', function () {
-    const wrapper = shallow(<Circle active mark={mark} scale={1} />)
-    expect(wrapper.find(DragHandle)).to.have.lengthOf(1)
-  })
+    render(<Circle active mark={mark} scale={1} />)
 
-  it('should change the radius when drag handle is moved', function () {
-    const wrapper = mount(<Circle active mark={mark} scale={1} />)
-
-    const dragMove = wrapper
-      .find(DragHandle)
-      .find('[x=50][y=0][dragMove]')
-      .prop('dragMove')
     expect(mark.x_center).to.equal(200)
     expect(mark.y_center).to.equal(200)
     expect(mark.r).to.equal(50)
 
-    console.log('mark.r: ', mark.r)
-    dragMove({ x: 300, y: 200 })
-
-    console.log('mark.r: ', typeof mark.r)
+    // click on dragHandle
+    // move dragHandle
+    // release mouse button
+    const circleDragHandle = screen.getByTestId('draghandle')
+    await user.pointer([
+      { keys: '[MouseLeft>]', target: circleDragHandle },
+      { coords: { x: 300, y: 200 } },
+      { keys: '[/MouseLeft]' }
+    ])
 
     expect(mark.x_center).to.equal(200)
     expect(mark.y_center).to.equal(200)
