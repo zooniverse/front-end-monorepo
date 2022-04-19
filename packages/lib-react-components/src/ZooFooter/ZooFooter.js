@@ -1,9 +1,10 @@
 import { Box, Grid, Image } from 'grommet'
 import { arrayOf, node, string } from 'prop-types'
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import '../translations/i18n'
+import i18n from 'i18next'
 
 import LinkList from './components/LinkList'
 import PolicyLinkSection from './components/PolicyLinkSection'
@@ -28,20 +29,25 @@ export const StyledEasterEgg = styled(Image)`
   }
 `
 
-export default function ZooFooter (props) {
-  const {
-    aboutNavListURLs,
-    adminContainer,
-    buildNavListURLs,
-    className,
-    getInvolvedNavListURLs,
-    newsNavListURLs,
-    policyNavListURLs,
-    projectNavListURLs,
-    talkNavListURLs,
-  } = props
-
+export default function ZooFooter ({
+  aboutNavListURLs,
+  adminContainer,
+  buildNavListURLs,
+  className,
+  getInvolvedNavListURLs,
+  locale,
+  newsNavListURLs,
+  policyNavListURLs,
+  projectNavListURLs,
+  talkNavListURLs
+}) {
   const { t } = useTranslation()
+
+  useEffect(() => {
+    if (locale) {
+      i18n.changeLanguage(locale)
+    }
+  }, [locale])
 
   const aboutNavListLabels = [
     t('ZooFooter.aboutLabels.about'),
@@ -248,6 +254,7 @@ ZooFooter.propTypes = {
   adminContainer: node,
   buildNavListURLs: arrayOf(string),
   getInvolvedNavListURLs: arrayOf(string),
+  locale: string,
   newsNavListURLs: arrayOf(string),
   policyNavListURLs: arrayOf(string),
   projectNavListURLs: arrayOf(string),
