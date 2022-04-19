@@ -1,5 +1,4 @@
 import useSWR from 'swr'
-
 import { panoptes } from '@zooniverse/panoptes-js'
 
 const SWRoptions = {

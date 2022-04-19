@@ -8,8 +8,12 @@ function storeMapper (store) {
     }
   } = store
 
+  const { content, contentLoadingState, error } = subject
+
   return {
-    subject
+    content,
+    contentLoadingState,
+    error
   }
 }
 

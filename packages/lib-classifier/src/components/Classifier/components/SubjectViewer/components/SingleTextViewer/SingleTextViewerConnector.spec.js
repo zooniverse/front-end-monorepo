@@ -8,7 +8,12 @@ import SingleTextViewerContainer from './SingleTextViewerContainer'
 const mockStore = {
   classifierStore: {
     subjects: {
-      active: { id: '1' }
+      active: {
+        id: '1',
+        content: 'subject text',
+        contentLoadingState: 'success',
+        error: null
+      }
     }
   }
 }
@@ -30,9 +35,9 @@ describe('SingleTextViewerConnector', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should pass the active subject as a prop', function () {
-    expect(containerProps.subject).to.deep.equal(
-      mockStore.classifierStore.subjects.active
-    )
+  it('should pass the subject content, contentLoadingState, and error as props', function () {
+    expect(containerProps.content).to.equal('subject text')
+    expect(containerProps.contentLoadingState).to.equal('success')
+    expect(containerProps.error).to.be.null()
   })
 })

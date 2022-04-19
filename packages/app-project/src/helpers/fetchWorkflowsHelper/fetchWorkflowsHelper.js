@@ -2,13 +2,13 @@ import { panoptes } from '@zooniverse/panoptes-js'
 
 import { logToSentry } from '@helpers/logger'
 
-async function fetchWorkflowData (activeWorkflows, env) {
+async function fetchWorkflowData(workflows, env) {
   try {
     const query = {
       complete: false,
       env,
       fields: 'completeness,configuration,display_name,grouped,prioritized',
-      id: activeWorkflows.join(',')
+      id: workflows.join(',')
     }
     const response = await panoptes.get('/workflows', query)
     return response.body.workflows
@@ -18,7 +18,7 @@ async function fetchWorkflowData (activeWorkflows, env) {
   }
 }
 
-async function fetchSingleWorkflow (workflowID, env) {
+async function fetchSingleWorkflow(workflowID, env) {
   try {
     const query = {
       env,
@@ -34,14 +34,14 @@ async function fetchSingleWorkflow (workflowID, env) {
   }
 }
 
-async function fetchDisplayNames (language, activeWorkflows, env) {
+async function fetchDisplayNames(language, workflows, env) {
   let displayNames = {}
   try {
     const response = await panoptes.get('/translations', {
       env,
       fields: 'strings,translated_id',
       language,
-      'translated_id': activeWorkflows.join(','),
+      'translated_id': workflows.join(','),
       'translated_type': 'workflow'
     })
     const { translations } = response.body
@@ -88,7 +88,7 @@ async function fetchWorkflowsHelper(
     /* the current locale */
     language = 'en',
     /* an array of workflow IDs to fetch */
-    activeWorkflowIDs,
+    workflowIDs,
     /* a specific workflow ID to fetch */
     workflowID,
     /* display order of workflow IDs, specified by the project owner. */
@@ -96,21 +96,21 @@ async function fetchWorkflowsHelper(
     /* API environment, production | staging. */
     env
   ) {
-  const activeWorkflows = await fetchWorkflowData(activeWorkflowIDs, env)
+  const workflows = await fetchWorkflowData(workflowIDs, env)
   if (workflowID) {
-    const activeWorkflow = activeWorkflows.find(workflow => workflow.id === workflowID)
+    const activeWorkflow = workflows.find(workflow => workflow.id === workflowID)
     if (!activeWorkflow) {
       /*
         Always fetch specified workflows, even if they're complete.
       */
       const workflow = await fetchSingleWorkflow(workflowID, env)
-      activeWorkflows.push(workflow)
+      workflows.push(workflow)
     }
   }
-  const workflowIds = activeWorkflows.map(workflow => workflow.id)
+  const workflowIds = workflows.map(workflow => workflow.id)
   const displayNames = await fetchDisplayNames(language, workflowIds, env)
 
-  const awaitWorkflows = activeWorkflows.map(workflow => {
+  const awaitWorkflows = workflows.map(workflow => {
     const displayName = displayNames[workflow.id] || workflow.display_name
     return buildWorkflow(workflow, displayName, env)
   })
@@ -120,7 +120,7 @@ async function fetchWorkflowsHelper(
   return orderedWorkflows
 }
 
-function createDisplayNamesMap (translations) {
+function createDisplayNamesMap(translations) {
   const map = {}
   translations.forEach(translation => {
     const workflowId = translation.translated_id.toString()
