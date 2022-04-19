@@ -1,0 +1,70 @@
+name: Deploy Staging
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_and_push_image:
+    name: Build Staging Image
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: |
+          ghcr.io/zooniverse/front-end-monorepo-staging:latest
+          ghcr.io/zooniverse/front-end-monorepo-staging:${{ github.sha }}
+        build-args: |
+          APP_ENV="staging"
+          COMMIT_ID=${{ github.sha }}
+          CONTENTFUL_ACCESS_TOKEN=${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+          CONTENTFUL_SPACE_ID=${{ secrets.CONTENTFUL_SPACE_ID }}
+          CONTENT_ASSET_PREFIX=https://frontend.preview.zooniverse.org/about
+          SENTRY_CONTENT_DSN=https://1f0126a750244108be76957b989081e8@sentry.io/1492498
+          PROJECT_ASSET_PREFIX=https://frontend.preview.zooniverse.org/projects
+          SENTRY_PROJECT_DSN=https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691
+
+  deploy_staging:
+    runs-on: ubuntu-latest
+    needs: build_and_push_image
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set the target AKS cluster
+      uses: Azure/aks-set-context@v1
+      with:
+        creds: ${{ secrets.AZURE_AKS }}
+        cluster-name: microservices
+        resource-group: kubernetes
+
+    - name: Modify & apply template
+      run: |
+        sed 's/__IMAGE_TAG__/${{ github.sha }}/g' kubernetes/deployment-staging.tmpl | kubectl apply -f -
+
+  slack_notification:
+    name: Slack notification
+    uses: zooniverse/ci-cd/.github/workflows/slack_notification.yaml@main
+    needs: [build_and_push_image, deploy_staging]
+    if: always()
+    with:
+      commit_id: ${{ github.sha }}
+      job_name: Build Staging Image
+      status: ${{ needs.build_and_push_image.result }}
+      title: "FEM Staging deploy complete"
+      title_link: "https://frontend.preview.zooniverse.org/projects"
+    secrets:
+      slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
