@@ -37,7 +37,7 @@ describe.only('Circle tool', function () {
     // click on dragHandle
     // move dragHandle
     // release mouse button
-    const circleDragHandle = screen.getByTestId('draghandle')
+    const circleDragHandle = screen.getByTestId('circle-dragHandle')
     await user.pointer([
       { keys: '[MouseLeft>]', target: circleDragHandle },
       { coords: { x: 300, y: 200 } },

@@ -39,6 +39,7 @@ function Circle({ active, mark, onFinish, scale }) {
             x={handleX}
             y={handleY}
             dragMove={onHandleDrag}
+            testid='circle-dragHandle'
           />
         </g>
       )}
