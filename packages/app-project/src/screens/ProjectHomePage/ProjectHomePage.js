@@ -2,6 +2,7 @@ import { Box, Grid } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import { ZooFooter } from '@zooniverse/react-components'
+import { useRouter } from 'next/router'
 
 import Hero from './components/Hero'
 import MessageFromResearcher from './components/MessageFromResearcher'
@@ -27,6 +28,7 @@ function ProjectHomePage ({
   inBeta,
   workflows
 }) {
+  const { locale } = useRouter()
   return (
     <Box border={(inBeta) ? { color: 'brand', size: 'medium' } : false}>
       <Media at='default'>
@@ -73,7 +75,7 @@ function ProjectHomePage ({
           </Box>
         </Box>
       </Media>
-      <ZooFooter />
+      <ZooFooter locale={locale} />
     </Box>
   )
 }
