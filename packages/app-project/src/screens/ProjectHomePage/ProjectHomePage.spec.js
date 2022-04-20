@@ -1,11 +1,24 @@
 import { shallow } from 'enzyme'
+import * as Router from 'next/router'
+import sinon from 'sinon'
 
 import ProjectHomePage from './ProjectHomePage'
 
 describe('Component > ProjectHomePage', function () {
+  let routerMock
   let wrapper
+
   before(function () {
+    routerMock = sinon.stub(Router, 'useRouter').callsFake(() => {
+      return {
+        locale: 'en'
+      }
+    })
     wrapper = shallow(<ProjectHomePage />)
+  })
+
+  after(function () {
+    routerMock.restore()
   })
 
   it('should render without crashing', function () {
