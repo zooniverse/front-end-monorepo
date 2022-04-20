@@ -5,7 +5,7 @@ import { expect } from 'chai'
 import Circle from './Circle'
 import { default as CircleMark } from '../../models/marks/Circle'
 
-describe.only('Circle tool', function () {
+describe('Circle tool', function () {
   let mark
   beforeEach(function () {
     mark = CircleMark.create({
