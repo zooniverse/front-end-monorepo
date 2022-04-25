@@ -19,15 +19,6 @@ const config = {
   }
 }
 
-const stories = storiesOf('Subject Viewers / VariableStarViewer', module)
-  .addDecorator(withKnobs)
-  .addParameters({
-    component: VariableStarViewer,
-    viewPort: {
-      defaultViewport: 'responsive'
-    }
-  })
-
 const { colors } = zooTheme.global
 
 const subject = Factory.build('subject', {
@@ -77,53 +68,96 @@ function ViewerContext (props) {
   )
 }
 
-stories
-  .add('light theme', () => {
-    return (
-      <ViewerContext theme={zooTheme} mode='light'>
-        <Box height='640px' width={{ max: '900px' }}>
-          <VariableStarViewer
-            loadingState={asyncStates.success}
-            subject={subject}
-          />
-        </Box>
-      </ViewerContext>
-    )
-  }, config)
-  .add('dark theme', () => {
-    const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
-    return (
-      <ViewerContext theme={darkZooTheme} mode='dark'>
-        <Box height='640px' width={{ max: '900px' }}>
-          <VariableStarViewer
-            loadingState={asyncStates.success}
-            subject={subject}
-          />
-        </Box>
-      </ViewerContext>
-    )
-  }, { backgrounds: backgrounds.darkDefault, viewport: { defaultViewport: 'responsive' }, ...config })
-  .add('narrow view', () => {
-    return (
-      <ViewerContext theme={zooTheme} mode='light'>
-        <Box height='640px' width={{ max: '900px' }}>
-          <VariableStarViewer
-            loadingState={asyncStates.success}
-            subject={subject}
-          />
-        </Box>
-      </ViewerContext>
-    )
-  }, { viewport: { defaultViewport: 'iphone5' }, ...config })
-  .add('pan/zoom', () => {
-    return (
-      <ViewerContext theme={zooTheme} mode='light'>
-        <Box direction='row' height='640px' width={{ max: '900px' }}>
-          <VariableStarViewerConnector
-            loadingState={asyncStates.success}
-          />
-          <ImageToolbar />
-        </Box>
-      </ViewerContext>
-    )
-  }, config)
+export default {
+  title: 'Subject Viewers / VariableStarViewer',
+  component: VariableStarViewer,
+  parameters: {
+    viewPort: {
+      defaultViewport: 'responsive'
+    }
+  }
+}
+
+export function LightTheme() {
+  return (
+    <ViewerContext theme={zooTheme} mode='light'>
+      <Box height='640px' width={{ max: '900px' }}>
+        <VariableStarViewer
+          loadingState={asyncStates.success}
+          subject={subject}
+        />
+      </Box>
+    </ViewerContext>
+  )
+}
+
+LightTheme.story = {
+  name: 'light theme',
+  parameters: config
+}
+
+export function DarkTheme() {
+  const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
+  return (
+    <ViewerContext theme={darkZooTheme} mode='dark'>
+      <Box height='640px' width={{ max: '900px' }}>
+        <VariableStarViewer
+          loadingState={asyncStates.success}
+          subject={subject}
+        />
+      </Box>
+    </ViewerContext>
+  )
+}
+
+DarkTheme.story = {
+  name: 'dark theme',
+  parameters: {
+    backgrounds: backgrounds.darkDefault,
+    viewport: {
+      defaultViewport: 'responsive'
+    },
+    ...config
+  }
+}
+
+export function NarrowView() {
+  return (
+    <ViewerContext theme={zooTheme} mode='light'>
+      <Box height='640px' width={{ max: '900px' }}>
+        <VariableStarViewer
+          loadingState={asyncStates.success}
+          subject={subject}
+        />
+      </Box>
+    </ViewerContext>
+  )
+}
+
+NarrowView.story = {
+  name: 'narrow view',
+  parameters: {
+    viewport: {
+      defaultViewport: 'iphone5'
+    },
+    ...config
+  }
+}
+
+export function PanZoom() {
+  return (
+    <ViewerContext theme={zooTheme} mode='light'>
+      <Box direction='row' height='640px' width={{ max: '900px' }}>
+        <VariableStarViewerConnector
+          loadingState={asyncStates.success}
+        />
+        <ImageToolbar />
+      </Box>
+    </ViewerContext>
+  )
+}
+
+PanZoom.story = {
+  name: 'pan/zoom',
+  parameters: config
+}

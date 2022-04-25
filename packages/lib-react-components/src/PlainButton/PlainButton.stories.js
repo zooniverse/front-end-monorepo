@@ -1,79 +1,105 @@
-import { storiesOf } from '@storybook/react'
-import { withActions } from '@storybook/addon-actions'
-import { withKnobs, text } from '@storybook/addon-knobs'
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
-import { Add } from 'grommet-icons'
-import React from 'react'
+import { withActions } from '@storybook/addon-actions';
+import { withKnobs, text } from '@storybook/addon-knobs';
+import zooTheme from '@zooniverse/grommet-theme';
+import { Box, Grommet } from 'grommet';
+import { Add } from 'grommet-icons';
+import React from 'react';
 
-import PlainButton from './PlainButton'
-import readme from './README.md'
+import PlainButton from './PlainButton';
+import readme from './README.md';
 
 const config = {
   docs: {
     description: {
-      component: readme
-    }
-  }
-}
+      component: readme,
+    },
+  },
+};
 
-storiesOf('Components/PlainButton', module)
-  .addDecorator(withActions('click button'))
-  .addDecorator(withKnobs)
+export default {
+  title: 'Components/PlainButton',
+  decorators: [withActions('click button'), withKnobs],
+};
 
-  .add('Light theme (default)', () => (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode='light'
-    >
-      <Box align='center' justify='center' height='small' width='small'>
-        <PlainButton text={text('Text', 'Click me')} />
-      </Box>
-    </Grommet>
-  ), config)
+export const LightThemeDefault = () => (
+  <Grommet
+    background={{
+      dark: 'dark-1',
+      light: 'light-1',
+    }}
+    theme={zooTheme}
+    themeMode="light"
+  >
+    <Box align="center" justify="center" height="small" width="small">
+      <PlainButton text={text('Text', 'Click me')} />
+    </Box>
+  </Grommet>
+);
 
-  .add('Dark theme', () => (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={Object.assign({}, zooTheme, { dark: true })}
-      themeMode='dark'
-    >
-      <Box align='center' justify='center' height='small' width='small'>
-        <PlainButton text={text('Text', 'Click me')} />
-      </Box>
-    </Grommet>
-  ), config)
+LightThemeDefault.story = {
+  name: 'Light theme (default)',
+  parameters: config,
+};
 
-  .add('With icon', () => (
-    <Grommet theme={zooTheme}>
-      <PlainButton icon={<Add size='1em' />} text={text('Text', 'Click me')} />
-    </Grommet>
-  ), config)
+export const DarkTheme = () => (
+  <Grommet
+    background={{
+      dark: 'dark-1',
+      light: 'light-1',
+    }}
+    theme={Object.assign({}, zooTheme, { dark: true })}
+    themeMode="dark"
+  >
+    <Box align="center" justify="center" height="small" width="small">
+      <PlainButton text={text('Text', 'Click me')} />
+    </Box>
+  </Grommet>
+);
 
-  .add('Disabled', () => (
-    <Grommet theme={zooTheme}>
-      <PlainButton href={text('href', '')} disabled text={text('Text', 'Click me')} />
-    </Grommet>
-  ), config)
+DarkTheme.story = {
+  name: 'Dark theme',
+  parameters: config,
+};
 
-  .add('Custom label size', () => (
-    <Grommet theme={zooTheme}>
-      <PlainButton labelSize={text('label size', 'xsmall')} text={text('Text', 'Click me')} />
-    </Grommet>
-  ), config)
+export const WithIcon = () => (
+  <Grommet theme={zooTheme}>
+    <PlainButton icon={<Add size="1em" />} text={text('Text', 'Click me')} />
+  </Grommet>
+);
 
-  .add('Custom color', () => (
-    <Grommet theme={zooTheme}>
-      <PlainButton
-        color={text('Color:', '#FF0000')}
-        text={text('Text', 'Click me')}
-      />
-    </Grommet>
-  ), config)
+WithIcon.story = {
+  name: 'With icon',
+  parameters: config,
+};
+
+export const Disabled = () => (
+  <Grommet theme={zooTheme}>
+    <PlainButton href={text('href', '')} disabled text={text('Text', 'Click me')} />
+  </Grommet>
+);
+
+Disabled.story = {
+  parameters: config,
+};
+
+export const CustomLabelSize = () => (
+  <Grommet theme={zooTheme}>
+    <PlainButton labelSize={text('label size', 'xsmall')} text={text('Text', 'Click me')} />
+  </Grommet>
+);
+
+CustomLabelSize.story = {
+  name: 'Custom label size',
+  parameters: config,
+};
+
+export const CustomColor = () => (
+  <Grommet theme={zooTheme}>
+    <PlainButton color={text('Color:', '#FF0000')} text={text('Text', 'Click me')} />
+  </Grommet>
+);
+
+CustomColor.story = {
+  name: 'Custom color',
+  parameters: config,
+};
