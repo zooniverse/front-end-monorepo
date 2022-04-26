@@ -8,11 +8,9 @@
     "@babel/polyfill",
     "chai/register-expect",
     "chai/register-should",
-    "ignore-styles"
-  ],
-  "file": [
-    "./test/enzyme-config.js",
-    "./test/setup.js"
+    "ignore-styles",
+    "./test/setup.js",
+    "./test/enzyme-config.js"
   ],
   "reporter": "spec",
   "ui": "bdd"

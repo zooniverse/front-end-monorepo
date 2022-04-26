@@ -39,6 +39,7 @@ function Circle({ active, mark, onFinish, scale }) {
             x={handleX}
             y={handleY}
             dragMove={onHandleDrag}
+            testid='circle-dragHandle'
           />
         </g>
       )}
@@ -47,9 +48,27 @@ function Circle({ active, mark, onFinish, scale }) {
 }
 
 Circle.propTypes = {
+  /**
+    Modal active state.
+  */
   active: PropTypes.bool,
-  mark: PropTypes.object.isRequired,
+  /**
+    Circle Attributes:
+  */
+  mark: PropTypes.shape({
+    r: PropTypes.number,
+    x_center: PropTypes.number,
+    y_center: PropTypes.number
+  }).isRequired,
+
+  /**
+    Callback to reset the drawing canvas when creation of the rectangle is finished.
+  */
   onFinish: PropTypes.func,
+
+  /**
+    Image scale factor. Used to keep line widths and sizes constant at all image scales.
+  */
   scale: PropTypes.number
 }
 

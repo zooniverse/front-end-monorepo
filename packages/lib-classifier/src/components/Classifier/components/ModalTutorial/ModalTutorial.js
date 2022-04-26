@@ -68,9 +68,7 @@ function ModalTutorial ({
 }
 
 ModalTutorial.propTypes = {
-  loadingState: PropTypes.string,
-  showModal: PropTypes.bool,
-  setModalVisibility: PropTypes.func.isRequired,
+  hasNotSeenTutorialBefore: PropTypes.bool,
   tutorial: PropTypes.object
 }
 

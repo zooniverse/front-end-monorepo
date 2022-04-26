@@ -1,27 +1,51 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { expect } from 'chai'
 import Circle from './Circle'
 import { default as CircleMark } from '../../models/marks/Circle'
-import DragHandle from '../DragHandle'
-
-/*
-TODO
-- [x] Draw Circle
-- [ ] Import Mark.js to test for x_center and y_center
-- [ ] Move Circle
-- [ ] Resize with handle
-- [ ] Is active
-- [ ] Is not active
-- [ ] Delete Circle
-*/
 
 describe('Circle tool', function () {
-  it('should render a Circle with the coordinates provided', function () {
-    render(<Circle mark={{ x_center: 200, y_center: 200, r: 100 }} scale={1} />)
+  let mark
+  beforeEach(function () {
+    mark = CircleMark.create({
+      id: 'circle1',
+      toolType: 'circle',
+      x_center: 200,
+      y_center: 200,
+      r: 50
+    })
+  })
+
+  it('should render a Circle with the coordinates provided', () => {
+    render(<Circle active mark={mark} scale={1} />)
 
     expect(screen.getByTestId('circle-element'))
       .to.have.attr('r')
-      .to.equal('100')
+      .to.equal('50')
+  })
+
+  it('should change the radius when drag handle is moved', async () => {
+    const user = userEvent.setup()
+
+    render(<Circle active mark={mark} scale={1} />)
+
+    expect(mark.x_center).to.equal(200)
+    expect(mark.y_center).to.equal(200)
+    expect(mark.r).to.equal(50)
+
+    // click on dragHandle
+    // move dragHandle
+    // release mouse button
+    const circleDragHandle = screen.getByTestId('circle-dragHandle')
+    await user.pointer([
+      { keys: '[MouseLeft>]', target: circleDragHandle },
+      { coords: { x: 300, y: 200 } },
+      { keys: '[/MouseLeft]' }
+    ])
+
+    expect(mark.x_center).to.equal(200)
+    expect(mark.y_center).to.equal(200)
+    expect(mark.r).to.equal(100)
   })
 })
