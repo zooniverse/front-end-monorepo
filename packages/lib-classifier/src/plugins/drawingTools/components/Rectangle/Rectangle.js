@@ -25,7 +25,13 @@ function Rectangle({ active, mark, onFinish, scale }) {
 
   return (
     <g onPointerUp={active ? _onFinish : undefined}>
-      <rect x={x_left} y={y_top} width={width} height={height} />
+      <rect
+        x={x_left}
+        y={y_top}
+        width={width}
+        height={height}
+        data-testid='rectangle-element'
+      />
       <rect
         x={x_left}
         y={y_top}
@@ -39,6 +45,7 @@ function Rectangle({ active, mark, onFinish, scale }) {
           scale={scale}
           x={x_left}
           y={y_top}
+          testid='rect-dragHandle1'
           dragMove={(e, d) =>
             onHandleDrag({
               x_left: x_left + d.x,
@@ -54,6 +61,7 @@ function Rectangle({ active, mark, onFinish, scale }) {
           scale={scale}
           x={x_right}
           y={y_bottom}
+          testid='rect-dragHandle2'
           dragMove={(e, d) =>
             onHandleDrag({
               x_left: x_left,
@@ -69,6 +77,7 @@ function Rectangle({ active, mark, onFinish, scale }) {
           scale={scale}
           x={x_left}
           y={y_bottom}
+          testid='rect-dragHandle3'
           dragMove={(e, d) =>
             onHandleDrag({
               x_left: x_left + d.x,
@@ -84,6 +93,7 @@ function Rectangle({ active, mark, onFinish, scale }) {
           scale={scale}
           x={x_right}
           y={y_top}
+          testid='rect-dragHandle4'
           dragMove={(e, d) =>
             onHandleDrag({
               x_left: x_left,
