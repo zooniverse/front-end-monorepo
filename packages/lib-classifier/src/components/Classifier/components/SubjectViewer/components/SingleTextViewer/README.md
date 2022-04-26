@@ -14,7 +14,7 @@ The Workflow of the project can be configured that the Single Text Viewer should
 
 `workflow.configuration = { subject_viewer: 'singleText' }`
 
-There is a fall back to assume rendering the Single Text Viewer if the subject has a single location with an text mime type.
+There is a fall back to assume rendering the Single Text Viewer if the subject has a single location with a text mime type.
 
 ### Subject
 
