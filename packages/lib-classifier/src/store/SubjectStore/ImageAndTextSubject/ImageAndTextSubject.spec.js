@@ -82,13 +82,10 @@ describe('Model > ImageAndTextSubject', function () {
         .get('/failure.txt')
         .reply(404)
 
-      subject = ImageAndTextSubject.create(failureSubjectSnapshot)
-
-      const store = mockStore()
-      store.workflows.setResources([workflowSnapshot])
-      store.workflows.setActive(workflowSnapshot.id)
-      store.subjects.setResources([subject])
-      store.subjects.setActive(subject.id)
+      const store = mockStore({
+        subject: failureSubjectSnapshot,
+        workflow: workflowSnapshot
+      })
 
       await when(() => subject.contentLoadingState === asyncStates.error)
     })
@@ -140,11 +137,10 @@ describe('Model > ImageAndTextSubject', function () {
 
   describe('Views > viewer', function () {
     before(function () {
-      const store = mockStore()
-      store.workflows.setResources([workflowSnapshot])
-      store.workflows.setActive(workflowSnapshot.id)
-      store.subjects.setResources([subject])
-      store.subjects.setActive(subject.id)
+      const store = mockStore({
+        subject: subjectSnapshot,
+        workflow: workflowSnapshot
+      })
     })
 
     it('should return the single text viewer', function () {

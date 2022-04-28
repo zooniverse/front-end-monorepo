@@ -81,13 +81,10 @@ describe('Model > TextSubject', function () {
         .get('/failure.txt')
         .reply(404)
 
-      subject = ImageAndTextSubject.create(failureSubjectSnapshot)
-
-      const store = mockStore()
-      store.workflows.setResources([workflowSnapshot])
-      store.workflows.setActive(workflowSnapshot.id)
-      store.subjects.setResources([subject])
-      store.subjects.setActive(subject.id)
+      const store = mockStore({
+        subject: failureSubjectSnapshot,
+        workflow: workflowSnapshot
+      })
 
       await when(() => subject.contentLoadingState === asyncStates.error)
     })
@@ -113,13 +110,10 @@ describe('Model > TextSubject', function () {
         .get('/success.txt')
         .reply(200, 'This is test subject content')
 
-      subject = ImageAndTextSubject.create(imageAndTextSubjectSnapshot)
-
-      const store = mockStore()
-      store.workflows.setResources([workflowSnapshot])
-      store.workflows.setActive(workflowSnapshot.id)
-      store.subjects.setResources([subject])
-      store.subjects.setActive(subject.id)
+      const store = mockStore({
+        subject: imageAndTextSubjectSnapshot,
+        workflow: workflowSnapshot
+      })
 
       await when(() => subject.contentLoadingState === asyncStates.success)
     })
