@@ -1,12 +1,9 @@
 import { Factory } from 'rosie'
 import sinon from 'sinon'
 import Subject from './Subject'
-import ProjectStore from '@store/ProjectStore'
-import WorkflowStore from '@store/WorkflowStore'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 import stubPanoptesJs from '@test/stubPanoptesJs'
-import RootStore from '@store/'
 import subjectViewers from '@helpers/subjectViewers'
 import { subjectsSeenThisSession } from '@helpers'
 
@@ -141,6 +138,20 @@ describe('Model > Subject', function () {
           const store = mockStore({ project, workflow, subject: singleTextSubject })
           const subject = store.subjects.active
           expect(subject.viewer).to.equal(subjectViewers.singleText)
+        })
+      })
+
+      describe('image and text', function () {
+        it('should return the image and text viewer for subjects with a single image and single text location', function () {
+          const imageAndTextSubject = SubjectFactory.build({
+            locations: [
+              { 'image/png': 'https://foo.bar/example.png' },
+              { 'text/plain': 'https://foo.bar/example.txt' }
+            ]
+          })
+          const store = mockStore({ project, workflow, subject: imageAndTextSubject })
+          const subject = store.subjects.active
+          expect(subject.viewer).to.equal(subjectViewers.imageAndText)
         })
       })
 

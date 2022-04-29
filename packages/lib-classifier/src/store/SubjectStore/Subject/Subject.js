@@ -1,4 +1,4 @@
-import { destroy, getRoot, tryReference, types } from 'mobx-state-tree'
+import { destroy, getRoot, getType, tryReference, types } from 'mobx-state-tree'
 import Resource from '@store/Resource'
 import { createLocationCounts, subjectsSeenThisSession, subjectViewers, validateSubjectLocations } from '@helpers'
 import StepHistory from './StepHistory'
@@ -69,11 +69,7 @@ const Subject = types
             if (counts.total === counts.images) {
               viewer = subjectViewers.multiFrame
             }
-            if (
-              counts.total === 2 &&
-              counts.images === 1 &&
-              counts.text === 1
-            ) {
+            if (getType(self).name === 'ImageAndTextSubject') {
               viewer = subjectViewers.imageAndText
             }
           }
