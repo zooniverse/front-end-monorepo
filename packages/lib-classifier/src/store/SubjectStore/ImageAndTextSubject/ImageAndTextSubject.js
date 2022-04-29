@@ -4,13 +4,13 @@ import { createLocationCounts } from '@helpers'
 import Subject from '../Subject'
 import { Text } from '../TextSubject/TextSubject'
 
-const SingleTextSubject = types
+const ImageAndTextSubject = types
   .refinement(
-    'SingleTextSubject',
-    types.compose('SingleTextSubject', Subject, Text),
+    'ImageAndTextSubject',
+    types.compose('ImageAndTextSubject', Subject, Text),
     subject => {
       const counts = createLocationCounts(subject)
-      return counts.total === 1 && counts.text === 1
+      return counts.total === 2 && counts.images === 1 && counts.text === 1
     })
 
-export default SingleTextSubject
+export default ImageAndTextSubject

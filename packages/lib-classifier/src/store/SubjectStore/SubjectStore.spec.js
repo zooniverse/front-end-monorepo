@@ -7,6 +7,7 @@ import asyncStates from '@zooniverse/async-states'
 
 import RootStore from '@store/RootStore'
 import SubjectGroup from './SubjectGroup'
+import ImageAndTextSubject from './ImageAndTextSubject'
 import SingleImageSubject from './SingleImageSubject'
 import SingleTextSubject from './SingleTextSubject'
 import { openTalkPage, MINIMUM_QUEUE_SIZE } from './SubjectStore'
@@ -167,7 +168,7 @@ describe('Model > SubjectStore', function () {
         const queue = Array.from(subjects.resources.keys())
         expect(queue).to.deep.equal(initialSubjectIDs)
       })
-    
+
       it('should preserve the subject order', function () {
         let index = 0
         subjects.resources.forEach(function (resource, key) {
@@ -367,6 +368,34 @@ describe('Model > SubjectStore', function () {
 
     it('should be of the correct subject type', function () {
       expect(getType(subjects.active).name).to.equal('SingleTextSubject')
+    })
+  })
+
+  describe('imange and text subjects', function () {
+    let subjects
+    const imageAndTextSubjects = Factory.buildList(
+      'subject',
+      10,
+      {
+        content: 'This is test subject content',
+        contentLoadingState: asyncStates.success,
+        locations: [
+          { 'image/png': 'https://foo.bar/example.png' },
+          { 'text/plain': 'https://foo.bar/example.txt' }
+        ]
+      })
+
+    before(async function () {
+      subjects = await mockSubjectStore(imageAndTextSubjects)
+    })
+
+    it('should be valid subjects', function () {
+      const expectedSubject = ImageAndTextSubject.create(imageAndTextSubjects[1])
+      expect(subjects.resources.get(expectedSubject.id)).to.deep.equal(expectedSubject)
+    })
+
+    it('should be of the correct subject type', function () {
+      expect(getType(subjects.active).name).to.equal('ImageAndTextSubject')
     })
   })
 

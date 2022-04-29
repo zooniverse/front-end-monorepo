@@ -6,6 +6,7 @@ import { getIndexedSubjects, subjectSelectionStrategy } from './helpers'
 import { filterByLabel, filters } from '../../components/Classifier/components/MetaTools/components/Metadata/components/MetadataModal'
 import ResourceStore from '@store/ResourceStore'
 import Subject from './Subject'
+import ImageAndTextSubject from './ImageAndTextSubject'
 import SingleImageSubject from './SingleImageSubject'
 import SingleTextSubject from './SingleTextSubject'
 import SingleVideoSubject from './SingleVideoSubject'
@@ -19,7 +20,7 @@ const MINIMUM_QUEUE_SIZE = 3
   for advice about using references with types.union.
 */
 
-const SingleSubject = types.union(SingleImageSubject, SingleTextSubject, SingleVideoSubject, Subject)
+const SingleSubject = types.union(ImageAndTextSubject, SingleImageSubject, SingleTextSubject, SingleVideoSubject, Subject)
 function subjectDispatcher (snapshot) {
   if (snapshot?.metadata?.['#subject_group_id']) {
     return SubjectGroup
