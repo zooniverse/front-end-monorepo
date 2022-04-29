@@ -1,5 +1,6 @@
 import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import { QuickTalk } from './QuickTalk'
 
@@ -54,7 +55,7 @@ const authorRoles = {
   '300002': [],
 }
 
-describe.only('Component > QuickTalk', function () {
+describe('Component > QuickTalk', function () {
   describe('when collapsed', function () {
     beforeEach(function () {
       render(
@@ -73,8 +74,9 @@ describe.only('Component > QuickTalk', function () {
       expect(screen.queryByTestId('quicktalk-panel')).to.not.exist()
     })
 
-    it('should expand when clicked', function () {
-      fireEvent.click(screen.queryByTestId('quicktalk-button'))
+    it('should expand when clicked', async function () {
+      const user = userEvent.setup({ delay: null })
+      await user.click(screen.queryByTestId('quicktalk-button'))
 
       expect(screen.queryByTestId('quicktalk-button')).to.not.exist()
       expect(screen.queryByTestId('quicktalk-panel')).to.exist()
@@ -104,8 +106,9 @@ describe.only('Component > QuickTalk', function () {
       expect(screen.queryAllByRole('listitem')).to.have.length(3)
     })
 
-    it('should collapse when the close button is clicked', function () {
-      fireEvent.click(screen.queryByRole('button'))
+    it('should collapse when the close button is clicked', async function () {
+      const user = userEvent.setup({ delay: null })
+      await user.click(screen.queryByTestId('quicktalk-close-button'))
 
       expect(screen.queryByTestId('quicktalk-button')).to.exist()
       expect(screen.queryByTestId('quicktalk-panel')).to.not.exist()

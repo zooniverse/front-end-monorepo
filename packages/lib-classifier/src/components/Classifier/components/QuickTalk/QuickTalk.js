@@ -41,7 +41,7 @@ function QuickTalk ({
   screenSize,
   expand = false,
   fixedPosition = true,
-  showBadge = true // HACK: Button.badge crashes tests AND storybook for an undetermined reason. // TODO: debug 
+  showBadge = true // HACK: Button.badge crashes tests AND storybook for an undetermined reason. // TODO: debug
 }) {
   const { t } = useTranslation('components')
   // TODO: figure out if/how the QuickTalk component should/could be displayed on mobile
@@ -89,6 +89,7 @@ function QuickTalk ({
         />
         <Button
           a11yTitle='Close comments panel.'
+          data-testid='quicktalk-close-button'
           icon={<Close size='small' />}
           onClick={() => setExpand(false)}
           plain
