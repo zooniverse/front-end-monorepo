@@ -1,7 +1,10 @@
 import { flow, types } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 
-const TextSubject = types
+import { createLocationCounts } from '@helpers'
+import Subject from '../Subject'
+
+export const Text = types
   .model('TextSubject', {
     content: types.maybeNull(types.string),
     contentLoadingState: types.optional(types.enumeration('contentLoadingState', asyncStates.values), asyncStates.initialized),
@@ -49,5 +52,14 @@ const TextSubject = types
       fetchContent: flow(fetchContent)
     }
   })
+
+const TextSubject = types
+  .refinement(
+    'TextSubject',
+    types.compose('TextSubject', Subject, Text),
+    subject => {
+      const counts = createLocationCounts(subject)
+      return counts.text > 0
+    })
 
 export default TextSubject

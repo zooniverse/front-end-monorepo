@@ -7,8 +7,6 @@ import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 
 import TextSubject from './TextSubject'
-import ImageAndTextSubject from '../ImageAndTextSubject'
-import SingleTextSubject from '../SingleTextSubject'
 
 describe('Model > TextSubject', function () {
   const textSubjectSnapshot = SubjectFactory.build({
@@ -40,10 +38,10 @@ describe('Model > TextSubject', function () {
   })
 
   const workflowSnapshot = WorkflowFactory.build()
-  let subject
+  let textSubject
 
   before(function () {
-    subject = SingleTextSubject.create(textSubjectSnapshot)
+    textSubject = TextSubject.create(textSubjectSnapshot)
   })
 
   it('should exist', function () {
@@ -52,29 +50,29 @@ describe('Model > TextSubject', function () {
   })
 
   it('should have a `locations` property', function () {
-    expect(subject.locations).to.deep.equal(textSubjectSnapshot.locations)
+    expect(textSubject.locations).to.deep.equal(textSubjectSnapshot.locations)
   })
 
   it('should have one location', function () {
-    expect(subject.locations).to.have.lengthOf(1)
+    expect(textSubject.locations).to.have.lengthOf(1)
   })
 
   it('should have content as expected', function () {
-    expect(subject.content).to.equal(textSubjectSnapshot.content)
+    expect(textSubject.content).to.equal(textSubjectSnapshot.content)
   })
 
   it('should have contentLoadingState as expected', function () {
-    expect(subject.contentLoadingState).to.equal(textSubjectSnapshot.contentLoadingState)
+    expect(textSubject.contentLoadingState).to.equal(textSubjectSnapshot.contentLoadingState)
   })
 
   describe('with an invalid subject location', function () {
     it('should throw an error', function () {
-      expect(() => SingleTextSubject.create(invalidLocationsSubjectSnapshot)).to.throw()
+      expect(() => TextSubject.create(invalidLocationsSubjectSnapshot)).to.throw()
     })
   })
 
   describe('with location request response that fails', function () {
-    let subject
+    let subjectWithRequestFailure
 
     before(async function () {
       nock('http://localhost:8080')
@@ -86,24 +84,22 @@ describe('Model > TextSubject', function () {
         workflow: workflowSnapshot
       })
 
-      await when(() => subject.contentLoadingState === asyncStates.error)
-    })
+      subjectWithRequestFailure = store.subjects.active
 
-    after(function () {
-      nock.cleanAll()
+      await when(() => subjectWithRequestFailure.contentLoadingState === asyncStates.error)
     })
 
     it('should have contentLoadingState as expected', function () {
-      expect(subject.contentLoadingState).to.equal(asyncStates.error)
+      expect(subjectWithRequestFailure.contentLoadingState).to.equal(asyncStates.error)
     })
 
     it('should have error as expected', function () {
-      expect(subject.error.message).to.equal('Not Found')
+      expect(subjectWithRequestFailure.error.message).to.equal('Not Found')
     })
   })
 
   describe('with location request response that succeeds', function () {
-    let subject
+    let subjectWithRequestSuccess
 
     before(async function () {
       nock('http://localhost:8080')
@@ -115,19 +111,17 @@ describe('Model > TextSubject', function () {
         workflow: workflowSnapshot
       })
 
-      await when(() => subject.contentLoadingState === asyncStates.success)
-    })
+      subjectWithRequestSuccess = store.subjects.active
 
-    after(function () {
-      nock.cleanAll()
+      await when(() => subjectWithRequestSuccess.contentLoadingState === asyncStates.success)
     })
 
     it('should have contentLoadingState as expected', function () {
-      expect(subject.contentLoadingState).to.equal(asyncStates.success)
+      expect(subjectWithRequestSuccess.contentLoadingState).to.equal(asyncStates.success)
     })
 
     it('should have content as expected', function () {
-      expect(subject.content).to.equal('This is test subject content')
+      expect(subjectWithRequestSuccess.content).to.equal('This is test subject content')
     })
   })
 })
