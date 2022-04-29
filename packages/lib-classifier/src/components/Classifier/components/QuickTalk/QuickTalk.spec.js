@@ -1,9 +1,7 @@
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 
 import { QuickTalk } from './QuickTalk'
-
-let wrapper
 
 const subject = {
   id: '100001',
@@ -56,10 +54,10 @@ const authorRoles = {
   '300002': [],
 }
 
-describe('Component > QuickTalk', function () {
+describe.only('Component > QuickTalk', function () {
   describe('when collapsed', function () {
     beforeEach(function () {
-      wrapper = render(
+      render(
         <QuickTalk
           subject={subject}
           comments={comments}
@@ -69,23 +67,23 @@ describe('Component > QuickTalk', function () {
         />
       )
     })
-    
+
     it('should render without crashing', function () {
-      expect(wrapper.queryByTestId('quicktalk-button')).to.exist()
-      expect(wrapper.queryByTestId('quicktalk-panel')).to.not.exist()
+      expect(screen.queryByTestId('quicktalk-button')).to.exist()
+      expect(screen.queryByTestId('quicktalk-panel')).to.not.exist()
     })
-    
+
     it('should expand when clicked', function () {
-      fireEvent.click(wrapper.queryByTestId('quicktalk-button'))
-      
-      expect(wrapper.queryByTestId('quicktalk-button')).to.not.exist()
-      expect(wrapper.queryByTestId('quicktalk-panel')).to.exist()
+      fireEvent.click(screen.queryByTestId('quicktalk-button'))
+
+      expect(screen.queryByTestId('quicktalk-button')).to.not.exist()
+      expect(screen.queryByTestId('quicktalk-panel')).to.exist()
     })
   })
-  
+
   describe('when expanded', function () {
     beforeEach(function () {
-      wrapper = render(
+      render(
         <QuickTalk
           subject={subject}
           comments={comments}
@@ -96,21 +94,21 @@ describe('Component > QuickTalk', function () {
         />
       )
     })
-    
+
     it('should render without crashing', function () {
-      expect(wrapper.queryByTestId('quicktalk-button')).to.not.exist()
-      expect(wrapper.queryByTestId('quicktalk-panel')).to.exist()
+      expect(screen.queryByTestId('quicktalk-button')).to.not.exist()
+      expect(screen.queryByTestId('quicktalk-panel')).to.exist()
     })
-    
+
     it('should have the correct number of comments', function () {
-      expect(wrapper.queryAllByRole('listitem')).to.have.length(3)
+      expect(screen.queryAllByRole('listitem')).to.have.length(3)
     })
-    
+
     it('should collapse when the close button is clicked', function () {
-      fireEvent.click(wrapper.queryByRole('button'))
-      
-      expect(wrapper.queryByTestId('quicktalk-button')).to.exist()
-      expect(wrapper.queryByTestId('quicktalk-panel')).to.not.exist()
+      fireEvent.click(screen.queryByRole('button'))
+
+      expect(screen.queryByTestId('quicktalk-button')).to.exist()
+      expect(screen.queryByTestId('quicktalk-panel')).to.not.exist()
     })
   })
 })
