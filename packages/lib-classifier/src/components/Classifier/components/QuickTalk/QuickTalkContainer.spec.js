@@ -11,7 +11,7 @@ const subject = {
 
 const authClient = {}
 
-describe.only('Component > QuickTalkContainer', function () {
+describe('Component > QuickTalkContainer', function () {
   describe('when collapsed', function () {
     beforeEach(function () {
       render(
