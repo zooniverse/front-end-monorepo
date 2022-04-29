@@ -41,10 +41,10 @@ describe('Model > ImageAndTextSubject', function () {
   })
 
   const workflowSnapshot = WorkflowFactory.build()
-  let subject
+  let imageAndTextSubject
 
   before(function () {
-    subject = ImageAndTextSubject.create(subjectSnapshot)
+    imageAndTextSubject = ImageAndTextSubject.create(subjectSnapshot)
   })
 
   it('should exist', function () {
@@ -53,19 +53,19 @@ describe('Model > ImageAndTextSubject', function () {
   })
 
   it('should have a `locations` property', function () {
-    expect(subject.locations).to.deep.equal(subjectSnapshot.locations)
+    expect(imageAndTextSubject.locations).to.deep.equal(subjectSnapshot.locations)
   })
 
   it('should have two locations', function () {
-    expect(subject.locations).to.have.lengthOf(2)
+    expect(imageAndTextSubject.locations).to.have.lengthOf(2)
   })
 
   it('should have content as expected', function () {
-    expect(subject.content).to.equal(subjectSnapshot.content)
+    expect(imageAndTextSubject.content).to.equal(subjectSnapshot.content)
   })
 
   it('should have contentLoadingState as expected', function () {
-    expect(subject.contentLoadingState).to.equal(subjectSnapshot.contentLoadingState)
+    expect(imageAndTextSubject.contentLoadingState).to.equal(subjectSnapshot.contentLoadingState)
   })
 
   describe('with invalid subject locations', function () {
@@ -75,7 +75,7 @@ describe('Model > ImageAndTextSubject', function () {
   })
 
   describe('with location request response that fails', function () {
-    let subject
+    let subjectWithRequestFailure
 
     before(async function () {
       nock('http://localhost:8080')
@@ -87,64 +87,61 @@ describe('Model > ImageAndTextSubject', function () {
         workflow: workflowSnapshot
       })
 
-      await when(() => subject.contentLoadingState === asyncStates.error)
-    })
+      subjectWithRequestFailure = store.subjects.active
 
-    after(function () {
-      nock.cleanAll()
+      await when(() => subjectWithRequestFailure.contentLoadingState === asyncStates.error)
     })
 
     it('should have contentLoadingState as expected', function () {
-      expect(subject.contentLoadingState).to.equal(asyncStates.error)
+      expect(subjectWithRequestFailure.contentLoadingState).to.equal(asyncStates.error)
     })
 
     it('should have error as expected', function () {
-      expect(subject.error.message).to.equal('Not Found')
+      expect(subjectWithRequestFailure.error.message).to.equal('Not Found')
     })
   })
 
   describe('with location request response that succeeds', function () {
-    let subject
+    let subjectWithRequestSuccess
 
     before(async function () {
       nock('http://localhost:8080')
         .get('/success.txt')
         .reply(200, 'This is test subject content')
 
-      subject = ImageAndTextSubject.create(successSubjectSnapshot)
+      const store = mockStore({
+        subject: successSubjectSnapshot,
+        workflow: workflowSnapshot
+      })
 
-      const store = mockStore()
-      store.workflows.setResources([workflowSnapshot])
-      store.workflows.setActive(workflowSnapshot.id)
-      store.subjects.setResources([subject])
-      store.subjects.setActive(subject.id)
+      subjectWithRequestSuccess = store.subjects.active
 
-      await when(() => subject.contentLoadingState === asyncStates.success)
-    })
-
-    after(function () {
-      nock.cleanAll()
+      await when(() => subjectWithRequestSuccess.contentLoadingState === asyncStates.success)
     })
 
     it('should have contentLoadingState as expected', function () {
-      expect(subject.contentLoadingState).to.equal(asyncStates.success)
+      expect(subjectWithRequestSuccess.contentLoadingState).to.equal(asyncStates.success)
     })
 
     it('should have content as expected', function () {
-      expect(subject.content).to.equal('This is test subject content')
+      expect(subjectWithRequestSuccess.content).to.equal('This is test subject content')
     })
   })
 
   describe('Views > viewer', function () {
+    let subjectWithImageAndTextViewer
+
     before(function () {
       const store = mockStore({
         subject: subjectSnapshot,
         workflow: workflowSnapshot
       })
+
+      subjectWithImageAndTextViewer = store.subjects.active
     })
 
     it('should return the single text viewer', function () {
-      expect(subject.viewer).to.equal(subjectViewers.imageAndText)
+      expect(subjectWithImageAndTextViewer.viewer).to.equal(subjectViewers.imageAndText)
     })
   })
 })
