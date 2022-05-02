@@ -63,81 +63,115 @@ function ViewerContext (props) {
   )
 }
 
-const stories = storiesOf('Subject Viewers / DataImageViewer', module)
-  .addDecorator(withKnobs)
-  .addParameters({ component: DataImageViewerContainer })
-// stories.addParameters({ viewport: { defaultViewport: 'responsive' } })
-
 const { colors } = zooTheme.global
 
-stories
-  .add('light theme', () => {
-    return (
-      <Grommet
-        background={{
-          dark: 'dark-1',
-          light: 'light-1'
-        }}
-        theme={zooTheme}
-        themeMode='light'
-      >
-        <Box width='large'>
-          <DataImageViewerContainer
-            loadingState={asyncStates.success}
-            subject={subject}
-          />
-        </Box>
-      </Grommet>
-    )
-  }, config)
-  .add('dark theme', () => {
-    const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
-    return (
-      <Grommet
-        background={{
-          dark: 'dark-1',
-          light: 'light-1'
-        }}
-        theme={darkZooTheme}
-        themeMode='dark'
-      >
-        <Box width='large'>
-          <DataImageViewerContainer
-            loadingState={asyncStates.success}
-            subject={subject}
-          />
-        </Box>
-      </Grommet>
-    )
-  }, { backgrounds: backgrounds.darkDefault, viewport: { defaultViewport: 'responsive' }, ...config })
-  .add('narrow view', () => {
-    return (
-      <Grommet
-        background={{
-          dark: 'dark-1',
-          light: 'light-1'
-        }}
-        theme={zooTheme}
-        themeMode='light'
-      >
-        <Box width='large'>
-          <DataImageViewerContainer
-            loadingState={asyncStates.success}
-            subject={subject}
-          />
-        </Box>
-      </Grommet>
-    )
-  }, { viewport: { defaultViewport: 'iphone5' }, ...config })
-  .add('pan / zoom', () => {
-    return (
-      <ViewerContext mode='light' theme={zooTheme}>
-        <Box direction='row' width='large'>
-          <DataImageViewerConnector
-            loadingState={asyncStates.success}
-          />
-          <ImageToolbar />
-        </Box>
-      </ViewerContext>
-    )
-  }, config)
+export default {
+  title: 'Subject Viewers / DataImageViewer',
+  component: DataImageViewerContainer,
+  decorators: [withKnobs]
+}
+
+export function LightTheme() {
+  return (
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={zooTheme}
+      themeMode='light'
+    >
+      <Box width='large'>
+        <DataImageViewerContainer
+          loadingState={asyncStates.success}
+          subject={subject}
+        />
+      </Box>
+    </Grommet>
+  )
+}
+
+LightTheme.story = {
+  name: 'light theme',
+  parameters: config,
+}
+
+export function DarkTheme() {
+  const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
+  return (
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={darkZooTheme}
+      themeMode='dark'
+    >
+      <Box width='large'>
+        <DataImageViewerContainer
+          loadingState={asyncStates.success}
+          subject={subject}
+        />
+      </Box>
+    </Grommet>
+  )
+}
+
+DarkTheme.story = {
+  name: 'dark theme',
+  parameters: {
+    backgrounds: backgrounds.darkDefault,
+    viewport: {
+      defaultViewport: 'responsive'
+    },
+    ...config
+  }
+}
+
+export function NarrowView() {
+  return (
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={zooTheme}
+      themeMode='light'
+    >
+      <Box width='large'>
+        <DataImageViewerContainer
+          loadingState={asyncStates.success}
+          subject={subject}
+        />
+      </Box>
+    </Grommet>
+  )
+}
+
+NarrowView.story = {
+  name: 'narrow view',
+  parameters: {
+    viewport: {
+      defaultViewport: 'iphone5'
+    },
+    ...config
+  }
+}
+
+export function PanZoom() {
+  return (
+    <ViewerContext mode='light' theme={zooTheme}>
+      <Box direction='row' width='large'>
+        <DataImageViewerConnector
+          loadingState={asyncStates.success}
+        />
+        <ImageToolbar />
+      </Box>
+    </ViewerContext>
+  )
+}
+
+PanZoom.story = {
+  name: 'pan / zoom',
+  parameters: config
+}

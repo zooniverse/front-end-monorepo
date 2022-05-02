@@ -1,65 +1,69 @@
-import { withActions } from '@storybook/addon-actions'
-import { storiesOf } from '@storybook/react'
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
-import React from 'react'
+import { withActions } from '@storybook/addon-actions';
+import zooTheme from '@zooniverse/grommet-theme';
+import { Box, Grommet } from 'grommet';
+import React from 'react';
 
-import AdminCheckbox from './AdminCheckbox'
-import readme from './README.md'
+import AdminCheckbox from './AdminCheckbox';
+import readme from './README.md';
 
 const config = {
   docs: {
     description: {
-      component: readme
-    }
-  }
-}
+      component: readme,
+    },
+  },
+};
 
-storiesOf('Components/AdminCheckbox', module)
-  .addDecorator(withActions('change #admin-checkbox'))
+export default {
+  title: 'Components/AdminCheckbox',
+  decorators: [withActions('change #admin-checkbox')],
+};
 
-  .add('Light theme (default)', () => (
-    <AdminCheckboxStoryExample />
-  ), config)
+export const LightThemeDefault = () => <AdminCheckboxStoryExample />;
 
-  .add('Dark theme', () => (
-    <AdminCheckboxStoryExample colorTheme='dark' />
-  ), config)
+LightThemeDefault.story = {
+  name: 'Light theme (default)',
+  parameters: config,
+};
+
+export const DarkTheme = () => <AdminCheckboxStoryExample colorTheme="dark" />;
+
+DarkTheme.story = {
+  name: 'Dark theme',
+  parameters: config,
+};
 
 class AdminCheckboxStoryExample extends React.Component {
-  constructor () {
-    super()
-    this.onChange = this.onChange.bind(this)
+  constructor() {
+    super();
+    this.onChange = this.onChange.bind(this);
     this.state = {
-      checked: false
-    }
+      checked: false,
+    };
   }
 
-  onChange (event) {
-    this.setState(prevState => ({
-      checked: !prevState.checked
-    }))
+  onChange(event) {
+    this.setState((prevState) => ({
+      checked: !prevState.checked,
+    }));
   }
 
-  render () {
-    const mergedThemes = Object.assign({}, zooTheme, { dark: this.props.colorTheme === 'dark' })
+  render() {
+    const mergedThemes = Object.assign({}, zooTheme, { dark: this.props.colorTheme === 'dark' });
 
     return (
       <Grommet
         background={{
           dark: 'dark-1',
-          light: 'light-1'
+          light: 'light-1',
         }}
         theme={mergedThemes}
-        themeMode={(this.props.colorTheme === 'dark') ? 'dark' : 'light'}
+        themeMode={this.props.colorTheme === 'dark' ? 'dark' : 'light'}
       >
-        <Box align='center' justify='center' height='medium'>
-          <AdminCheckbox
-            checked={this.state.checked}
-            onChange={this.onChange}
-          />
+        <Box align="center" justify="center" height="medium">
+          <AdminCheckbox checked={this.state.checked} onChange={this.onChange} />
         </Box>
       </Grommet>
-    )
+    );
   }
 }

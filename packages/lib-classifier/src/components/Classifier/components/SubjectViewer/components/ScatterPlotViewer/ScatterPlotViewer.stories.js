@@ -35,15 +35,6 @@ function setZoomCallback (callback) {
   zoomCallback = callback
 }
 
-const stories = storiesOf('Subject Viewers / ScatterPlotViewer', module)
-  .addDecorator(withKnobs)
-  .addParameters({
-    component: ScatterPlotViewer,
-    viewport: {
-      defaultViewport: 'responsive'
-    }
-  })
-
 const { colors } = zooTheme.global
 
 const keplerSubject = Factory.build('subject', {
@@ -98,194 +89,255 @@ function ViewerContext(props) {
   )
 }
 
-stories
-  .add('light theme', () => {
-    return (
-      <Grommet
-        background={{
-          dark: 'dark-1',
-          light: 'light-1'
-        }}
-        theme={zooTheme}
-        themeMode='light'
-      >
-        <Box height='medium' width='large'>
-          <ScatterPlotViewer
-            data={object('data', data)}
-            panning={boolean('panning', false)}
-            xAxisLabel={text('x axis label', 'x-axis')}
-            xAxisLabelOffset={number('x axis label offset', undefined)}
-            yAxisLabel={text('y axis label', 'y-axis')}
-            yAxisLabelOffset={number('y axis label offset', undefined)}
-            zooming={boolean('zooming', false)}
-          />
-        </Box>
-      </Grommet>
-    )
-  }, config)
-  .add('dark theme', () => {
-    const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
-
-    return (
-      <Grommet
-        background={{
-          dark: 'dark-1',
-          light: 'light-1'
-        }}
-        theme={darkZooTheme}
-        themeMode='dark'
-      >
-        <Box height='medium' width='large'>
-          <ScatterPlotViewer
-            data={object('data', data)}
-            panning={boolean('panning', false)}
-            xAxisLabel={text('x axis label', 'x-axis')}
-            xAxisLabelOffset={number('x axis label offset', undefined)}
-            yAxisLabel={text('y axis label', 'y-axis')}
-            yAxisLabelOffset={number('y axis label offset', undefined)}
-            zooming={boolean('zooming', false)}
-          />
-        </Box>
-      </Grommet>
-    )
-  }, { backgrounds: backgrounds.darkDefault, viewport: { defaultViewport: 'responsive' }, ...config })
-  .add('narrow view', () => {
-    const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
-    return (
-      <Grommet
-        background={{
-          dark: 'dark-1',
-          light: 'light-1'
-        }}
-        theme={zooTheme}
-        themeMode='light'
-      >
-        <Box height='medium' width='large'>
-          <ScatterPlotViewer
-            data={object('data', data)}
-            panning={boolean('panning', false)}
-            xAxisLabel={text('x axis label', 'x-axis')}
-            xAxisLabelOffset={number('x axis label offset', undefined)}
-            yAxisLabel={text('y axis label', 'y-axis')}
-            yAxisLabelOffset={number('y axis label offset', undefined)}
-            zooming={boolean('zooming', false)}
-          />
-        </Box>
-      </Grommet>
-    )
-  }, { viewport: { defaultViewport: 'iphone5' }, ...config })
-  .add('data with error bars', () => {
-    function constructData () {
-      return [...Array(60)].map((number, index) => {
-        const coords = {
-          x: Math.floor(Math.random() * 10) + 1,
-          y: Math.floor(Math.random() * 10) + 1,
-        }
-
-        if (index % 2 == 0) coords.x_error = Math.random()
-        if (index % 5 == 0) coords.y_error = Math.random()
-        return coords
-      })
+export default {
+  title: 'Subject Viewers / ScatterPlotViewer',
+  component: ScatterPlotViewer,
+  decorators: [withKnobs],
+  parameters: {
+    viewport: {
+      defaultViewport: 'responsive'
     }
+  }
+}
 
-    const data = [{
-      seriesData: constructData(),
-      seriesOptions: {
-        label: 'data'
+export function LightTheme() {
+  return (
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={zooTheme}
+      themeMode='light'
+    >
+      <Box height='medium' width='large'>
+        <ScatterPlotViewer
+          data={object('data', data)}
+          panning={boolean('panning', false)}
+          xAxisLabel={text('x axis label', 'x-axis')}
+          xAxisLabelOffset={number('x axis label offset', undefined)}
+          yAxisLabel={text('y axis label', 'y-axis')}
+          yAxisLabelOffset={number('y axis label offset', undefined)}
+          zooming={boolean('zooming', false)}
+        />
+      </Box>
+    </Grommet>
+  )
+}
+
+LightTheme.story = {
+  name: 'light theme',
+  parameters: config
+}
+
+export function DarkTheme() {
+  const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
+
+  return (
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={darkZooTheme}
+      themeMode='dark'
+    >
+      <Box height='medium' width='large'>
+        <ScatterPlotViewer
+          data={object('data', data)}
+          panning={boolean('panning', false)}
+          xAxisLabel={text('x axis label', 'x-axis')}
+          xAxisLabelOffset={number('x axis label offset', undefined)}
+          yAxisLabel={text('y axis label', 'y-axis')}
+          yAxisLabelOffset={number('y axis label offset', undefined)}
+          zooming={boolean('zooming', false)}
+        />
+      </Box>
+    </Grommet>
+  )
+}
+
+DarkTheme.story = {
+  name: 'dark theme',
+  parameters: {
+    backgrounds: backgrounds.darkDefault,
+    viewport: {
+      defaultViewport: 'responsive'
+    },
+    ...config
+  }
+}
+
+export function NarrowView() {
+  const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
+  return (
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={zooTheme}
+      themeMode='light'
+    >
+      <Box height='medium' width='large'>
+        <ScatterPlotViewer
+          data={object('data', data)}
+          panning={boolean('panning', false)}
+          xAxisLabel={text('x axis label', 'x-axis')}
+          xAxisLabelOffset={number('x axis label offset', undefined)}
+          yAxisLabel={text('y axis label', 'y-axis')}
+          yAxisLabelOffset={number('y axis label offset', undefined)}
+          zooming={boolean('zooming', false)}
+        />
+      </Box>
+    </Grommet>
+  )
+}
+
+NarrowView.story = {
+  name: 'narrow view',
+  parameters: {
+    viewport: {
+      defaultViewport: 'iphone5'
+    },
+    ...config
+  }
+}
+
+export function ErrorBars() {
+  function constructData () {
+    return [...Array(60)].map((number, index) => {
+      const coords = {
+        x: Math.floor(Math.random() * 10) + 1,
+        y: Math.floor(Math.random() * 10) + 1,
       }
-    }]
 
-    return (
-      <Grommet
-        background={{
-          dark: 'dark-1',
-          light: 'light-1'
-        }}
-        theme={zooTheme}
-        themeMode='light'
-      >
-        <Box direction='row' height='medium' width='large'>
-          <ScatterPlotViewer
-            data={object('data', data)}
-            panning={boolean('panning', true)}
-            setOnZoom={setZoomCallback}
-            xAxisLabel={text('x axis label', 'x-axis')}
-            xAxisLabelOffset={number('x axis label offset', undefined)}
-            yAxisLabelOffset={number('y axis label offset', undefined)}
-            yAxisLabel={text('y axis label', 'y-axis')}
-            zooming={boolean('zooming', true)}
-            zoomConfiguration={{
-              direction: text('zoom direction', 'both'),
-              minZoom: number('min zoom', 1),
-              maxZoom: number('max zoom', 10),
-              zoomInValue: number('zoom in scale', 1.2),
-              zoomOutValue: number('zoom out scale', 0.8)
-            }}
-          />
-        </Box>
-      </Grommet>
-    )
-  })
-  .add('kepler light curve data with inner facing axes', () => {
-    return (
-      <Grommet
-        background={{
-          dark: 'dark-1',
-          light: 'light-1'
-        }}
-        theme={zooTheme}
-        themeMode='light'
-      >
-        <Box height='medium' width='large'>
-          <ScatterPlotViewer
-            axisColor={text('axis color', colors['light-1'])}
-            backgroundColor={text('background color', darken(0.08, colors['neutral-1']))}
-            data={object('data', keplerMockDataWithOptions.data)}
-            glyphColors={[colors['light-1']]}
-            margin={keplerMockDataWithOptions.chartOptions.margin}
-            padding={keplerMockDataWithOptions.chartOptions.padding}
-            panning={boolean('panning', false)}
-            tickDirection='inner'
-            xAxisLabel={text('x axis label', keplerMockDataWithOptions.chartOptions.xAxisLabel)}
-            yAxisLabel={text('y axis label', keplerMockDataWithOptions.chartOptions.yAxisLabel)}
-            zooming={boolean('zooming', false)}
-            zoomConfiguration={{
-              direction: text('zoom direction', 'both'),
-              minZoom: number('min zoom', 1),
-              maxZoom: number('max zoom', 10),
-              zoomInValue: number('zoom in scale', 1.2),
-              zoomOutValue: number('zoom out scale', 0.8)
-            }}
-          />
-        </Box>
-      </Grommet>
-    )
-  }, config)
-  .add('pan and zoom', () => {
-    return (
-      <ViewerContext theme={zooTheme}>
-        <Box direction='row' height='medium' width='large'>
-          <ScatterPlotViewerConnector
-            zoomConfiguration={{
-              direction: text('zoom direction', 'both'),
-              minZoom: number('min zoom', 1),
-              maxZoom: number('max zoom', 10),
-              zoomInValue: number('zoom in scale', 1.2),
-              zoomOutValue: number('zoom out scale', 0.8)
-            }}
-          />
-          <ImageToolbar />
-        </Box>
-      </ViewerContext>
-    )
-  }, config)
-  .add('multiple series data (transient object)', () => {
-    return (
-      <ViewerContext theme={zooTheme}>
-        <Box direction='row' height='medium' width='large'>
-          <ScatterPlotViewerConnector />
-          <ImageToolbar />
-        </Box>
-      </ViewerContext>
-    )
-  }, config)
+      if (index % 2 == 0) coords.x_error = Math.random()
+      if (index % 5 == 0) coords.y_error = Math.random()
+      return coords
+    })
+  }
+
+  const data = [{
+    seriesData: constructData(),
+    seriesOptions: {
+      label: 'data'
+    }
+  }]
+
+  return (
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={zooTheme}
+      themeMode='light'
+    >
+      <Box direction='row' height='medium' width='large'>
+        <ScatterPlotViewer
+          data={object('data', data)}
+          panning={boolean('panning', true)}
+          setOnZoom={setZoomCallback}
+          xAxisLabel={text('x axis label', 'x-axis')}
+          xAxisLabelOffset={number('x axis label offset', undefined)}
+          yAxisLabelOffset={number('y axis label offset', undefined)}
+          yAxisLabel={text('y axis label', 'y-axis')}
+          zooming={boolean('zooming', true)}
+          zoomConfiguration={{
+            direction: text('zoom direction', 'both'),
+            minZoom: number('min zoom', 1),
+            maxZoom: number('max zoom', 10),
+            zoomInValue: number('zoom in scale', 1.2),
+            zoomOutValue: number('zoom out scale', 0.8)
+          }}
+        />
+      </Box>
+    </Grommet>
+  )
+}
+
+ErrorBars.story = {
+  name: 'data with error bars'
+}
+
+export function KeplerLightCurve() {
+  return (
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={zooTheme}
+      themeMode='light'
+    >
+      <Box height='medium' width='large'>
+        <ScatterPlotViewer
+          axisColor={text('axis color', colors['light-1'])}
+          backgroundColor={text('background color', darken(0.08, colors['neutral-1']))}
+          data={object('data', keplerMockDataWithOptions.data)}
+          glyphColors={[colors['light-1']]}
+          margin={keplerMockDataWithOptions.chartOptions.margin}
+          padding={keplerMockDataWithOptions.chartOptions.padding}
+          panning={boolean('panning', false)}
+          tickDirection='inner'
+          xAxisLabel={text('x axis label', keplerMockDataWithOptions.chartOptions.xAxisLabel)}
+          yAxisLabel={text('y axis label', keplerMockDataWithOptions.chartOptions.yAxisLabel)}
+          zooming={boolean('zooming', false)}
+          zoomConfiguration={{
+            direction: text('zoom direction', 'both'),
+            minZoom: number('min zoom', 1),
+            maxZoom: number('max zoom', 10),
+            zoomInValue: number('zoom in scale', 1.2),
+            zoomOutValue: number('zoom out scale', 0.8)
+          }}
+        />
+      </Box>
+    </Grommet>
+  )
+}
+
+KeplerLightCurve.story = {
+  name: 'kepler light curve data with inner facing axes',
+  parameters: config
+}
+
+export function PanAndZoom() {
+  return (
+    <ViewerContext theme={zooTheme}>
+      <Box direction='row' height='medium' width='large'>
+        <ScatterPlotViewerConnector
+          zoomConfiguration={{
+            direction: text('zoom direction', 'both'),
+            minZoom: number('min zoom', 1),
+            maxZoom: number('max zoom', 10),
+            zoomInValue: number('zoom in scale', 1.2),
+            zoomOutValue: number('zoom out scale', 0.8)
+          }}
+        />
+        <ImageToolbar />
+      </Box>
+    </ViewerContext>
+  )
+}
+
+PanAndZoom.story = {
+  name: 'pan and zoom',
+  parameters: config
+}
+
+export function MultipleSeries() {
+  return (
+    <ViewerContext theme={zooTheme}>
+      <Box direction='row' height='medium' width='large'>
+        <ScatterPlotViewerConnector />
+        <ImageToolbar />
+      </Box>
+    </ViewerContext>
+  )
+}
+
+MultipleSeries.story = {
+  name: 'multiple series data (transient object)',
+  parameters: config
+}
