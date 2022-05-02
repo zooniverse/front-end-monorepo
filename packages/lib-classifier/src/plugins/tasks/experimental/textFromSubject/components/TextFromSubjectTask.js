@@ -1,6 +1,7 @@
 import { Box, Text, TextArea } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { Markdownz, PrimaryButton } from '@zooniverse/react-components'
 
@@ -19,6 +20,7 @@ export default function TextFromSubjectTask ({
   updateAnnotation = () => true
 }) {
   const textArea = React.useRef()
+  const { t } = useTranslation('plugins')
 
   function onChange () {
     updateAnnotation(textArea)
@@ -57,7 +59,7 @@ export default function TextFromSubjectTask ({
       <PrimaryButton
         color='teal'
         disabled={disabled || !isChanged}
-        label='Reset'
+        label={t('TextFromSubjectTask.reset')}
         onClick={() => resetToSubject()}
       />
     </Box>
