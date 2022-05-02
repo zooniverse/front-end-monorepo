@@ -17,9 +17,12 @@ const TextFromSubject = types
       return self.initializedFromSubject && self.value !== ''
     },
     get isChanged () {
-      const subject = getRoot(self).subjects.active
-      const { content } = subject
-      return !!content && content !== self.value
+      const subject = getRoot(self).subjects?.active
+      if (subject) {
+        const { content } = subject
+        return !!content && content !== self.value
+      }
+      return false
     }
   }))
   .actions(self => {

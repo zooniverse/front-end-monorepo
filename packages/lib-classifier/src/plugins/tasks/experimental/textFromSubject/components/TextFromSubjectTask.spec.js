@@ -1,5 +1,6 @@
 import { mount } from 'enzyme'
 import React from 'react'
+import sinon from 'sinon'
 import { Markdownz } from '@zooniverse/react-components'
 
 import TextFromSubjectTask from './TextFromSubjectTask'
@@ -39,6 +40,41 @@ describe('TextFromSubjectTask', function () {
     it('should have a textarea with the correct value', function () {
       const textarea = wrapper.find('textarea')
       expect(textarea.prop('value')).to.equal(value)
+    })
+
+    describe('with isChanged false', function () {
+      let resetButton
+
+      before(function () {
+        wrapper.setProps({ isChanged: false })
+        resetButton = wrapper.find('button')
+      })
+
+      it('should have a disabled reset button', function () {
+        expect(resetButton).to.have.lengthOf(1)
+        expect(resetButton.prop('disabled')).to.be.true()
+      })
+    })
+
+    describe('with isChanged true', function () {
+      let resetButton
+
+      before(function () {
+        wrapper.setProps({ isChanged: true })
+        resetButton = wrapper.find('button')
+      })
+
+      it('should have an enabled reset button', function () {
+        expect(resetButton).to.have.lengthOf(1)
+        expect(resetButton.prop('disabled')).to.be.false()
+      })
+
+      it('should call resetSubject on click', function () {
+        const resetToSubject = sinon.spy()
+        wrapper.setProps({ resetToSubject })
+        resetButton.simulate('click')
+        expect(resetToSubject).to.have.been.calledOnce()
+      })
     })
   })
 })

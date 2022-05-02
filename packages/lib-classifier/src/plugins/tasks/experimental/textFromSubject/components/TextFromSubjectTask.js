@@ -2,7 +2,7 @@ import { Box, Text, TextArea } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-import { Markdownz } from '@zooniverse/react-components'
+import { Markdownz, PrimaryButton } from '@zooniverse/react-components'
 
 const StyledText = styled(Text)`
   display: block;
@@ -12,6 +12,8 @@ const StyledText = styled(Text)`
 export default function TextFromSubjectTask ({
   autoFocus = false,
   disabled = false,
+  isChanged = false,
+  resetToSubject = () => true,
   task,
   value,
   updateAnnotation = () => true
@@ -52,6 +54,12 @@ export default function TextFromSubjectTask ({
           onChange={onChange}
         />
       </label>
+      <PrimaryButton
+        color='teal'
+        disabled={disabled || !isChanged}
+        label='Reset'
+        onClick={() => resetToSubject()}
+      />
     </Box>
   )
 }
