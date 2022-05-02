@@ -5,6 +5,11 @@ Object.defineProperty(subjectViewers, 'dataImage', {
   enumerable: true
 })
 
+Object.defineProperty(subjectViewers, 'imageAndText', {
+  value: 'imageAndText',
+  enumerable: true
+})
+
 Object.defineProperty(subjectViewers, 'lightCurve', {
   value: 'lightCurve',
   enumerable: true

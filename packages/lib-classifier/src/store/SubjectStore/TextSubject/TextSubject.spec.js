@@ -5,77 +5,69 @@ import asyncStates from '@zooniverse/async-states'
 
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
-import subjectViewers from '@helpers/subjectViewers'
 
-import SingleTextSubject from './SingleTextSubject'
+import TextSubject from './TextSubject'
 
-describe('Model > SingleTextSubject', function () {
-  const subjectSnapshot = SubjectFactory.build({
+describe('Model > TextSubject', function () {
+  const textSubjectSnapshot = SubjectFactory.build({
     content: 'This is test subject content',
     contentLoadingState: asyncStates.success,
     locations: [
-      { 'text/plain': 'http://localhost:8080/subjectContent.txt' }
+      { 'text/plain': 'http://localhost:8080/subjectText.txt' }
     ]
   })
 
-  const successSubjectSnapshot = SubjectFactory.build({
+  const imageAndTextSubjectSnapshot = SubjectFactory.build({
     locations: [
+      { 'image/jpeg': 'http://localhost:8080/subjectImage.jpg' },
       { 'text/plain': 'http://localhost:8080/success.txt' }
     ]
   })
 
-  const multipleLocationsSubjectSnapshot = SubjectFactory.build({
+  const invalidLocationsSubjectSnapshot = SubjectFactory.build({
     locations: [
-      { 'text/plain': 'http://localhost:8080/success.txt' },
       { 'audio/mpeg': 'http://localhost:8080/example.mp3' }
     ]
   })
 
-  const imageSubjectSnapshot = SubjectFactory.build()
-
   const failureSubjectSnapshot = SubjectFactory.build({
     locations: [
+      { 'image/png': 'http://localhost:8080/subjectImage.png' },
       { 'text/plain': 'http://localhost:8080/failure.txt' }
     ]
   })
 
   const workflowSnapshot = WorkflowFactory.build()
-  let singleTextSubject
+  let textSubject
 
   before(function () {
-    singleTextSubject = SingleTextSubject.create(subjectSnapshot)
+    textSubject = TextSubject.create(textSubjectSnapshot)
   })
 
   it('should exist', function () {
-    expect(SingleTextSubject).to.be.ok()
-    expect(SingleTextSubject).to.be.an('object')
+    expect(TextSubject).to.be.ok()
+    expect(TextSubject).to.be.an('object')
   })
 
   it('should have a `locations` property', function () {
-    expect(singleTextSubject.locations).to.deep.equal(subjectSnapshot.locations)
+    expect(textSubject.locations).to.deep.equal(textSubjectSnapshot.locations)
   })
 
   it('should have one location', function () {
-    expect(singleTextSubject.locations).to.have.lengthOf(1)
+    expect(textSubject.locations).to.have.lengthOf(1)
   })
 
   it('should have content as expected', function () {
-    expect(singleTextSubject.content).to.equal(subjectSnapshot.content)
+    expect(textSubject.content).to.equal(textSubjectSnapshot.content)
   })
 
   it('should have contentLoadingState as expected', function () {
-    expect(singleTextSubject.contentLoadingState).to.equal(subjectSnapshot.contentLoadingState)
+    expect(textSubject.contentLoadingState).to.equal(textSubjectSnapshot.contentLoadingState)
   })
 
-  describe('with multiple subject locations', function () {
+  describe('with an invalid subject location', function () {
     it('should throw an error', function () {
-      expect(() => SingleTextSubject.create(multipleLocationsSubjectSnapshot)).to.throw()
-    })
-  })
-
-  describe('with an invalid (not .txt) subject location', function () {
-    it('should throw an error', function () {
-      expect(() => SingleTextSubject.create(imageSubjectSnapshot)).to.throw()
+      expect(() => TextSubject.create(invalidLocationsSubjectSnapshot)).to.throw()
     })
   })
 
@@ -115,7 +107,7 @@ describe('Model > SingleTextSubject', function () {
         .reply(200, 'This is test subject content')
 
       const store = mockStore({
-        subject: successSubjectSnapshot,
+        subject: imageAndTextSubjectSnapshot,
         workflow: workflowSnapshot
       })
 
@@ -130,23 +122,6 @@ describe('Model > SingleTextSubject', function () {
 
     it('should have content as expected', function () {
       expect(subjectWithRequestSuccess.content).to.equal('This is test subject content')
-    })
-  })
-
-  describe('Views > viewer', function () {
-    let subjectWithSingleTextViewer
-
-    before(function () {
-      const store = mockStore({
-        subject: subjectSnapshot,
-        workflow: workflowSnapshot
-      })
-
-      subjectWithSingleTextViewer = store.subjects.active
-    })
-
-    it('should return the single text viewer', function () {
-      expect(subjectWithSingleTextViewer.viewer).to.equal(subjectViewers.singleText)
     })
   })
 })

@@ -3,6 +3,7 @@ import subjectViewers from './subjectViewers'
 describe('Helpers > subjectViewers', function () {
   const viewers = [
     'dataImage',
+    'imageAndText',
     'lightCurve',
     'multiFrame',
     'scatterPlot',
