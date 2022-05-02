@@ -1,19 +1,44 @@
+import asyncStates from '@zooniverse/async-states'
+
+import { SubjectFactory, WorkflowFactory } from '@test/factories'
+import mockStore from '@test/mockStore'
+import { textFromSubject as Task } from '@plugins/tasks'
 import TextFromSubjectAnnotation from './TextFromSubjectAnnotation'
 
 describe('Model > TextFromSubjectAnnotation', function () {
-  describe('with initial update from subject content', function () {
-    let textFromSubjectAnnotation
+  const subjectSnapshot = SubjectFactory.build({
+    content: 'Initial subject content',
+    contentLoadingState: asyncStates.success,
+    locations: [
+      { 'text/plain': 'http://localhost:8080/subjectContent.txt' }
+    ]
+  })
 
-    before(function () {
-      textFromSubjectAnnotation = TextFromSubjectAnnotation.create({
-        id: 'text1',
-        task: 'T1',
-        taskType: 'textFromSubject'
-      })
+  const taskSnapshot = Task.TaskModel.create({
+    instruction: 'Correct the text',
+    taskKey: 'T0',
+    type: 'textFromSubject'
+  })
 
-      textFromSubjectAnnotation.updateFromSubject('Initial subject content')
+  const workflowSnapshot = WorkflowFactory.build({
+    tasks: [taskSnapshot]
+  })
+
+  let textFromSubjectAnnotation
+
+  before(function () {
+    const store = mockStore({
+      subject: subjectSnapshot,
+      workflow: workflowSnapshot
     })
 
+    const classification = store.classifications.active
+    const step = store.workflowSteps.active
+    const annotations = step.tasks.map(task => classification.annotation(task))
+    textFromSubjectAnnotation = annotations[0]
+  })
+
+  describe('with initial update from subject content', function () {
     it('should exist', function () {
       expect(textFromSubjectAnnotation).to.be.ok()
       expect(textFromSubjectAnnotation).to.be.an('object')
@@ -25,6 +50,10 @@ describe('Model > TextFromSubjectAnnotation', function () {
 
     it('should be complete', function () {
       expect(textFromSubjectAnnotation.isComplete).to.be.true()
+    })
+
+    it('should have isChanged return false', function () {
+      expect(textFromSubjectAnnotation.isChanged).to.be.false()
     })
 
     it('should have initializedFromSubject of true', function () {
@@ -48,16 +77,7 @@ describe('Model > TextFromSubjectAnnotation', function () {
   })
 
   describe('with initial update from subject content and valid update from user', function () {
-    let textFromSubjectAnnotation
-
     before(function () {
-      textFromSubjectAnnotation = TextFromSubjectAnnotation.create({
-        id: 'text1',
-        task: 'T1',
-        taskType: 'textFromSubject'
-      })
-
-      textFromSubjectAnnotation.updateFromSubject('Initial subject content')
       textFromSubjectAnnotation.update('Updated subject content')
     })
 
@@ -69,20 +89,56 @@ describe('Model > TextFromSubjectAnnotation', function () {
       expect(textFromSubjectAnnotation.isComplete).to.be.true()
     })
 
+    it('should have isChanged return true', function () {
+      expect(textFromSubjectAnnotation.isChanged).to.be.true()
+    })
+
+    it('should have initializedFromSubject of true', function () {
+      expect(textFromSubjectAnnotation.initializedFromSubject).to.be.true()
+    })
+  })
+
+  describe('with initial update from subject content, valid update from user, and reset to original content', function () {
+    before(function () {
+      textFromSubjectAnnotation.update('Updated subject content')
+      textFromSubjectAnnotation.resetToSubject()
+    })
+
+    it('should have the expected value', function () {
+      expect(textFromSubjectAnnotation.value).to.equal('Initial subject content')
+    })
+
+    it('should be complete', function () {
+      expect(textFromSubjectAnnotation.isComplete).to.be.true()
+    })
+
+    it('should have isChanged return false', function () {
+      expect(textFromSubjectAnnotation.isChanged).to.be.false()
+    })
+
     it('should have initializedFromSubject of true', function () {
       expect(textFromSubjectAnnotation.initializedFromSubject).to.be.true()
     })
   })
 
   describe('without an initial update from subject content', function () {
-    let textFromSubjectAnnotation
+    const errorSubjectSnapshot = SubjectFactory.build({
+      contentLoadingState: asyncStates.error,
+      locations: [
+        { 'text/plain': 'http://localhost:8080/subjectContent.txt' }
+      ]
+    })
 
     before(function () {
-      textFromSubjectAnnotation = TextFromSubjectAnnotation.create({
-        id: 'text1',
-        task: 'T1',
-        taskType: 'textFromSubject'
+      const store = mockStore({
+        subject: errorSubjectSnapshot,
+        workflow: workflowSnapshot
       })
+
+      const classification = store.classifications.active
+      const step = store.workflowSteps.active
+      const annotations = step.tasks.map(task => classification.annotation(task))
+      textFromSubjectAnnotation = annotations[0]
     })
 
     it('should exist', function () {
@@ -96,6 +152,10 @@ describe('Model > TextFromSubjectAnnotation', function () {
 
     it('should be incomplete', function () {
       expect(textFromSubjectAnnotation.isComplete).to.be.false()
+    })
+
+    it('should have isChanged return false', function () {
+      expect(textFromSubjectAnnotation.isChanged).to.be.false()
     })
 
     it('should have initializedFromSubject of false', function () {
