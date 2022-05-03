@@ -31,6 +31,15 @@ const StyledButton = styled(GrommetButton)`
 
     > svg {
       fill: white;
+
+      > circle {
+        fill: ${props => props.theme.dark ? 'white' : 'black'};
+        stroke: ${props => props.theme.dark ? 'black' : 'white'};
+      }
+
+      > path {
+        fill: ${props => props.theme.dark ? 'black' : 'white'};
+      }
     }
   }
 
