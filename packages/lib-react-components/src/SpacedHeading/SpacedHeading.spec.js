@@ -23,6 +23,8 @@ describe('Component > SpacedHeading', function () {
     expect(wrapper.find(Heading)).to.have.lengthOf(1)
   })
 
+  // What's really being tested here? props are an implementation detail
+  // This looks like styling that could be tested in storybook instead
   it('should set the expected props on the Heading component', function () {
     let headingProps = wrapper.props()
     expect(headingProps.level).to.equal(1)
@@ -39,6 +41,7 @@ describe('Component > SpacedHeading', function () {
     expect(wrapper.find(SpacedText)).to.have.lengthOf(1)
   })
 
+  // Same here, this looks like styling testing not meant as a unit test
   it('should set the expected props for the SpacedText component', function () {
     let textProps = wrapper.find(SpacedText).props()
     expect(textProps.color).to.deep.equal({
