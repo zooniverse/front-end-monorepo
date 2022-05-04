@@ -1,1 +1,1 @@
-export { default } from './ImageToolbar'
+export { default } from './ImageToolbarConnector'
