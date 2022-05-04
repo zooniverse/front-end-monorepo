@@ -24,7 +24,6 @@ describe('Component > QuickTalkContainer', function () {
     })
 
     it('should render without crashing', function () {
-      screen.debug()
       expect(screen.queryByTestId('quicktalk-button')).to.exist()
     })
   })
