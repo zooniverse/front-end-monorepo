@@ -6,8 +6,8 @@ describe('Component > SpacedHeading', function () {
   const { Default } = composeStories(stories)
 
   it('should render children as text', function () {
-    const { getByText } = render(<Default />)
-    const item = getByText(Default.args.children)
+    const { getByRole } = render(<Default />)
+    const item = getByRole('heading')
     expect(item).exists()
   })
 })
