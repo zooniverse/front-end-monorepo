@@ -14,6 +14,7 @@ export default {
     },
     dark: false,
     disabled: false,
+    href: 'zooniverse.org',
     icon: false,
     labelSize: 'medium',
     text: 'Click me'
@@ -29,7 +30,16 @@ export default {
   }
 }
 
-export function Default({ color, dark, disabled, labelSize, icon, onClick, text }) {
+export function Default({
+  color,
+  dark,
+  disabled,
+  href,
+  labelSize,
+  icon,
+  onClick,
+  text
+}) {
   return (
     <Grommet
       background={{
@@ -43,6 +53,7 @@ export function Default({ color, dark, disabled, labelSize, icon, onClick, text 
         <PlainButton
           color={color}
           disabled={disabled}
+          href={href}
           labelSize={labelSize}
           icon={icon ? <Add size='16px' /> : null}
           onClick={onClick}

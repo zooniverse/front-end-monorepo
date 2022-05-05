@@ -1,6 +1,5 @@
 import { Button } from 'grommet'
 import { bool, func, shape, string, oneOfType } from 'prop-types'
-import React from 'react'
 import styled, { withTheme } from 'styled-components'
 
 import SpacedText from '../SpacedText'
@@ -20,7 +19,7 @@ function PlainButton (props) {
   const {
     as = '',
     className = '',
-    disabled,
+    disabled = false,
     href = '',
     onClick = () => {},
     labelSize = 'medium',
@@ -31,14 +30,13 @@ function PlainButton (props) {
     },
     ...rest
   } = props
-  const renderAs = (href && disabled) ? 'span' : as
 
   return (
     <StyledPlainButton
-      as={renderAs}
+      as={as}
       className={className}
       disabled={disabled}
-      href={href}
+      href={disabled ? '' : href}
       gap='xxsmall'
       label={(
         <SpacedText
