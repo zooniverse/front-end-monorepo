@@ -52,7 +52,9 @@ describe('Components > Classifier', function () {
       tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
       subjectImage = screen.getByRole('img', { name: `Subject ${subject.id}` })
       tabPanel = screen.getByRole('tabpanel', { name: '1 Tab Contents'})
-      taskAnswers = within(tabPanel).getAllByRole('radio')
+      const task = workflowSnapshot.tasks.T0
+      const getAnswerInput = answer => within(tabPanel).getByRole('radio', { name: answer.label })
+      taskAnswers = task.answers.map(getAnswerInput)
     })
 
     it('should have a task tab', function () {
@@ -112,7 +114,9 @@ describe('Components > Classifier', function () {
       tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
       subjectImage = screen.getByRole('img', { name: `Subject ${subject.id}` })
       tabPanel = screen.getByRole('tabpanel', { name: '1 Tab Contents'})
-      taskAnswers = within(tabPanel).getAllByRole('radio')
+      const task = workflowSnapshot.tasks.T0
+      const getAnswerInput = answer => within(tabPanel).getByRole('radio', { name: answer.label })
+      taskAnswers = task.answers.map(getAnswerInput)
     })
 
     it('should have a task tab', function () {
