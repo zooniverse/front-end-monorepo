@@ -1,8 +1,6 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
-import React from 'react'
 
-import readme from './README.md'
 import SpacedHeading from './SpacedHeading'
 
 export default {
@@ -28,13 +26,6 @@ export default {
     weight: {
       options: ['normal', 'bold'],
       control: { type: 'radio' }
-    }
-  },
-  parameters: {
-    docs: {
-      description: {
-        component: readme
-      }
     }
   }
 }

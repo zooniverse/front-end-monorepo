@@ -1,8 +1,6 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
-import React from 'react'
+import { Box, Grommet } from 'grommet'
 
-import readme from './README.md'
 import SpacedText from './SpacedText'
 
 export default {
@@ -24,13 +22,6 @@ export default {
       options: ['normal', 'bold'],
       control: { type: 'radio' }
     }
-  },
-  parameters: {
-    docs: {
-      description: {
-        component: readme
-      }
-    }
   }
 }
 
@@ -43,8 +34,10 @@ export const Default = ({ children, dark, size, uppercase, weight }) => (
     theme={zooTheme}
     themeMode={dark ? 'dark' : 'light'}
   >
-    <SpacedText size={size} uppercase={uppercase} weight={weight}>
-      {children}
-    </SpacedText>
+    <Box pad='medium'>
+      <SpacedText size={size} uppercase={uppercase} weight={weight}>
+        {children}
+      </SpacedText>
+    </Box>
   </Grommet>
 )

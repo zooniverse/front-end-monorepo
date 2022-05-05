@@ -2,7 +2,6 @@ import SpacedText from '../SpacedText'
 import { Heading } from 'grommet'
 import { node, number, object, oneOfType, string } from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
 
 function SpacedHeading(props) {
   const { 
