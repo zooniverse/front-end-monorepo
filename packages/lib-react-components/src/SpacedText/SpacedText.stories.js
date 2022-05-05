@@ -1,6 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
-
 import SpacedText from './SpacedText'
 
 export default {
@@ -17,6 +16,10 @@ export default {
     size: {
       options: ['small', 'medium', 'large', 'xlarge'],
       control: { type: 'select' }
+    },
+    uppercase: {
+      options: [true, false],
+      control: { type: 'radio' }
     },
     weight: {
       options: ['normal', 'bold'],
