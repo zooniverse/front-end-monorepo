@@ -9,12 +9,8 @@ const StyledText = styled(Text)`
   letter-spacing: ${letterSpacing};
   ${props =>
     props.uppercase
-      ? css`
-          text-transform: uppercase;
-        `
-      : css`
-          text-transform: normal;
-        `}
+      ? css`text-transform: uppercase;`
+      : css`text-transform: normal;`}
 `
 
 export default function SpacedText(props) {
