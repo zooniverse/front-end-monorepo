@@ -1,17 +1,13 @@
-import React from 'react'
-import { shallow } from 'enzyme'
-import SpacedText from './SpacedText'
+import * as stories from './SpacedText.stories'
+import { render } from '@testing-library/react'
+import { composeStories } from '@storybook/testing-react'
 
-// Just a basic test, anything else?
-// This component takes children, which should be strings? Test that children are rendered
+describe('Component > SpacedText', function () {
+  const { Default } = composeStories(stories)
 
-describe('<SpacedText />', function () {
-  let wrapper
-  before(function () {
-    wrapper = shallow(<SpacedText>Zooniverse</SpacedText>)
-  })
-
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
+  it('should render children as text', function () {
+    const { getByText } = render(<Default />)
+    const item = getByText(Default.args.children)
+    expect(item).exists()
   })
 })
