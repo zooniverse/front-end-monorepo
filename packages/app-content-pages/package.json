@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-decorators": "~7.17.0",
-    "@sentry/browser": "~6.18.0",
+    "@sentry/browser": "~6.19.7",
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/grommet-theme": "~3.0.0",
