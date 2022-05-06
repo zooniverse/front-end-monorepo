@@ -6695,10 +6695,15 @@ cookie-signature@1.0.6:
   resolved "https://registry.yarnpkg.com/cookie-signature/-/cookie-signature-1.0.6.tgz#e303a882b342cc3ee8ca513a79999734dab3ae2c"
   integrity sha1-4wOogrNCzD7oylE6eZmXNNqzriw=
 
-cookie@0.4.2, cookie@^0.4.1, cookie@~0.4.0:
+cookie@0.4.2, cookie@^0.4.1:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.4.2.tgz#0e41f24de5ecf317947c82fc789e06a884824432"
   integrity sha512-aSWTXFzaKWkvHO1Ny/s+ePFpvKsPnjc551iI41v3ny/ow6tBG5Vd+FuqGNhh1LxOmVzOlGUriIlOaokOvhaStA==
+
+cookie@~0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.5.0.tgz#d1f5d71adec6558c58f389987c366aa47e994f8b"
+  integrity sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==
 
 cookiejar@^2.1.0, cookiejar@^2.1.3:
   version "2.1.3"
@@ -7959,9 +7964,9 @@ endent@^2.0.1:
     objectorarray "^1.0.5"
 
 engine.io-client@~6.2.1:
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/engine.io-client/-/engine.io-client-6.2.1.tgz#b6d0be614c3f194faf6ab5505eba7eb456f56b0d"
-  integrity sha512-5cu7xubVxEwoB6O9hJ6Zfu990yBVjXfyMlE1ZvfO5L8if3Kvc9bgDNEapV0C5pMp+5Om1UZFnljxoOuFm6dBKA==
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/engine.io-client/-/engine.io-client-6.2.2.tgz#c6c5243167f5943dcd9c4abee1bfc634aa2cbdd0"
+  integrity sha512-8ZQmx0LQGRTYkHuogVZuGSpDqYZtCM/nv8zQ68VZ+JkOpazJ7ICdsSpaO6iXwvaU30oFg5QJOJWj8zWqhbKjkQ==
   dependencies:
     "@socket.io/component-emitter" "~3.1.0"
     debug "~4.3.1"
@@ -12077,9 +12082,9 @@ mobx-react@~7.3.0:
     mobx-react-lite "^3.3.0"
 
 mobx-state-tree@~5.1.0:
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/mobx-state-tree/-/mobx-state-tree-5.1.3.tgz#457271818c265359c92186d2e4264ccf8d3fbf66"
-  integrity sha512-noS6f0OG1T94Nlgq7Ex9k2JBGkoFclEdNLE5rlfOy5CUTzcHNJ18fu8t2TmGXDNzH/jdwc8xAR/w36A2XAUmwA==
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/mobx-state-tree/-/mobx-state-tree-5.1.4.tgz#37bf0e393b3fa9c0f5dfd718f450c30de151d5bb"
+  integrity sha512-AaQplqZCqXQsH1T/cf1jVGnup3l4jnFTSTjFrRB0hFQq+CuiHcIl/x38FzIO0hYLq8dwvwR3RW2G2tVXJTHKyA==
 
 mobx-utils@~6.0.4:
   version "6.0.4"
