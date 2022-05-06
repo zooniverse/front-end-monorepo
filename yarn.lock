@@ -4448,10 +4448,10 @@
     prop-types "^15.7.2"
     reduce-css-calc "^1.3.0"
 
-"@visx/zoom@~2.6.1":
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/@visx/zoom/-/zoom-2.6.1.tgz#eaaaadd22945f09d5414b1c122ff0f6c4492cb4e"
-  integrity sha512-s2D3vR/HtNf4bWMWViXXibJEVQPDs564NWr9qh8CZBzyGTYF1PrHKYvEKc02daUUkRo1GcEwZQcnrAibFM+lSg==
+"@visx/zoom@~2.10.0":
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/@visx/zoom/-/zoom-2.10.0.tgz#143248813a35d2057eaf1a6336011d8650955533"
+  integrity sha512-sId1kuO3NvlzQTOorjeMWXRR3J44zQm8sofwKEt3O9IgaBZ49WzuPUm/owSdVT+YGsXnvxEr2qAdt26GRMzS7Q==
   dependencies:
     "@types/react" "*"
     "@use-gesture/react" "^10.0.0-beta.22"
