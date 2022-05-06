@@ -11949,27 +11949,27 @@ mobx-devtools-mst@~0.9.21:
   resolved "https://registry.yarnpkg.com/mobx-devtools-mst/-/mobx-devtools-mst-0.9.30.tgz#0d1cad8b3d97e1f3f94bb9afb701cd9c8b5b164d"
   integrity sha512-6fIYeFG4xT4syIeKddmK55zQbc3ZZZr/272/cCbfaAAM5YiuFdteGZGUgdsz8wxf/mGxWZbFOM3WmASAnpwrbw==
 
-mobx-react-lite@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/mobx-react-lite/-/mobx-react-lite-3.3.0.tgz#7174e807201943beff6f9d3701492314c9fc0db3"
-  integrity sha512-U/kMSFtV/bNVgY01FuiGWpRkaQVHozBq5CEBZltFvPt4FcV111hEWkgwqVg9GPPZSEuEdV438PEz8mk8mKpYlA==
+mobx-react-lite@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/mobx-react-lite/-/mobx-react-lite-3.4.0.tgz#d59156a96889cdadad751e5e4dab95f28926dfff"
+  integrity sha512-bRuZp3C0itgLKHu/VNxi66DN/XVkQG7xtoBVWxpvC5FhAqbOCP21+nPhULjnzEqd7xBMybp6KwytdUpZKEgpIQ==
 
-mobx-react@~7.3.0:
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-7.3.0.tgz#a17dedb71b75dad2337e3f95eb753179f6cfe732"
-  integrity sha512-RGEcwZokopqyJE5JPwXKB9FWMSqFM9NJVO2QPI+z6laJTJeBHqvPicjnKgY5mvihxTeXB1+72TnooqUePeGV1g==
+mobx-react@~7.4.0:
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-7.4.0.tgz#29bbdc609c7f6c43e5af6c8e984c8b93a7fe08e8"
+  integrity sha512-gbUwaKZK09SiAleTMxNMKs1MYKTpoIEWJLTLRIR/xnALuuHET8wkL8j1nbc1/6cDkOWVyKz/ReftILx0Pdh2PQ==
   dependencies:
-    mobx-react-lite "^3.3.0"
+    mobx-react-lite "^3.4.0"
 
 mobx-state-tree@~5.1.0:
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/mobx-state-tree/-/mobx-state-tree-5.1.3.tgz#457271818c265359c92186d2e4264ccf8d3fbf66"
-  integrity sha512-noS6f0OG1T94Nlgq7Ex9k2JBGkoFclEdNLE5rlfOy5CUTzcHNJ18fu8t2TmGXDNzH/jdwc8xAR/w36A2XAUmwA==
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/mobx-state-tree/-/mobx-state-tree-5.1.4.tgz#37bf0e393b3fa9c0f5dfd718f450c30de151d5bb"
+  integrity sha512-AaQplqZCqXQsH1T/cf1jVGnup3l4jnFTSTjFrRB0hFQq+CuiHcIl/x38FzIO0hYLq8dwvwR3RW2G2tVXJTHKyA==
 
 mobx-utils@~6.0.4:
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/mobx-utils/-/mobx-utils-6.0.4.tgz#5283a466ece8de0ac36ae3cfa1b1c032ec302b37"
-  integrity sha512-CcTgFcCWN78eyRXU7OiKfhIVDEWFFoKdpfj49GIVcWykIQ4deXnaRnnKHElbVYFFgz1TOs8a3bDAq7qsSe864A==
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/mobx-utils/-/mobx-utils-6.0.5.tgz#0cce9afb07fbba1fb559f959f8cea1f44baa7252"
+  integrity sha512-QOduwicYedD4mwYZRl8+c3BalljFDcubg+PUGqBkn8tOuBoj2q7GhjXBP6JXM9J+Zh+2mePK8IoToeLfqr3Z/w==
 
 mobx@~6.5.0:
   version "6.5.0"
@@ -12071,9 +12071,9 @@ ms@2.1.3, ms@^2.0.0, ms@^2.1.1:
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
 mst-middlewares@~5.1.0:
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/mst-middlewares/-/mst-middlewares-5.1.3.tgz#059a2cf4e44cdb44ae92eb4a4e8ce47f6c117c66"
-  integrity sha512-zVPxLO6kQFMTU0S7xYoyiSml8nUP5Ekto3CY4Ra7cGwbuLOwIDBgCyNIEEtLpq95KFbhAEl9oIchg4RW13iCZg==
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/mst-middlewares/-/mst-middlewares-5.1.4.tgz#8886288dc7509d65a85800c9499873b44c71d1a7"
+  integrity sha512-AINdCEVHZY0uDDx3HZBgk3GBaGFqn0BCj0LfmJC3r1lzXXroUZKYYpTdoyBMinJ9Ch/Poz8KWwWS/29/j6d54w==
 
 multicast-dns@^7.2.4:
   version "7.2.4"
