@@ -1,4 +1,4 @@
-name: Build and test
+name: test build
 
 on:
   pull_request
@@ -25,32 +25,6 @@ jobs:
           name: build
           path: packages/*/dist/main.js
 
-  run_tests:
-    name: Run tests
-    runs-on: ubuntu-latest
-    needs: build
-    env:
-      PANOPTES_ENV: test
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 16
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-          cache: 'yarn'
-
-      - run: yarn install --production=false --frozen-lockfile
-      - uses: actions/download-artifact@v2
-        with:
-          name: build
-          path: packages/
-      - run: yarn test:ci
-      - run: yarn coverage-lcov
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-    
   build_apps:
     name: Build NextJS apps
     runs-on: ubuntu-latest
