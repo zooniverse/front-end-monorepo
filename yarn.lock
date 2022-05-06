@@ -6727,12 +6727,7 @@ core-js@^2.4.0, core-js@^2.6.5:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
   integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
 
-core-js@^3, core-js@^3.19.0:
-  version "3.20.3"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.20.3.tgz#c710d0a676e684522f3db4ee84e5e18a9d11d69a"
-  integrity sha512-vVl8j8ph6tRS3B8qir40H7yw7voy17xL0piAjlbBUsH7WIfzoedL/ZOr1OV9FyZQLWXsayOJyV4tnRyXR85/ag==
-
-core-js@^3.0.4, core-js@^3.6.5, core-js@^3.8.2:
+core-js@^3, core-js@^3.0.4, core-js@^3.19.0, core-js@^3.6.5, core-js@^3.8.2:
   version "3.21.1"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.21.1.tgz#f2e0ddc1fc43da6f904706e8e955bc19d06a0d94"
   integrity sha512-FRq5b/VMrWlrmCzwRrpDYNxyHP9BcAZC+xHJaqTgIE5091ZV1NTmyh0sGOg5XqpnHvR0svdy0sv1gWA1zmhxig==
@@ -10026,12 +10021,19 @@ humanize-ms@^1.2.1:
   dependencies:
     ms "^2.0.0"
 
-i18next-fs-backend@^1.0.7:
+i18next-fs-backend@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-1.1.4.tgz#d0e9b9ed2fa7a0f11002d82b9fa69c3c3d6482da"
   integrity sha512-/MfAGMP0jHonV966uFf9PkWWuDjPYLIcsipnSO3NxpNtAgRUKLTwvm85fEmsF6hGeu0zbZiCQ3W74jwO6K9uXA==
 
-i18next@^21.6.12, i18next@~21.6.3:
+i18next@^21.6.14:
+  version "21.7.1"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-21.7.1.tgz#3b63390fa7c2eb22440f80ef8c7f4d7e4f8187e8"
+  integrity sha512-uNt0BM+HV7wgWrrTE+Z4qinQFTONB21hK3I5V/LayhquPv78WchnO4hjF2PWY/OZocahHBDbzbe0/o1rp/RcWQ==
+  dependencies:
+    "@babel/runtime" "^7.17.2"
+
+i18next@~21.6.3:
   version "21.6.14"
   resolved "https://registry.yarnpkg.com/i18next/-/i18next-21.6.14.tgz#2bc199fba7f4da44b5952d7df0a3814a6e5c3943"
   integrity sha512-XL6WyD+xlwQwbieXRlXhKWoLb/rkch50/rA+vl6untHnJ+aYnkQ0YDZciTWE78PPhOpbi2gR0LTJCJpiAhA+uQ==
@@ -12262,18 +12264,18 @@ next-absolute-url@~1.2.2:
   resolved "https://registry.yarnpkg.com/next-absolute-url/-/next-absolute-url-1.2.2.tgz#9aba5adcee8effcffd63271d99e13213ad04c23b"
   integrity sha512-Z2+LZXQTthhw2je9u4eq8QWXxXd57a6b54x9exBfQX4Dct6YxaMjcXZWNLHd9AOlCue84EsMpdSGP7wACqUnPg==
 
-next-i18next@~10.5.0:
-  version "10.5.0"
-  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-10.5.0.tgz#cf9f5f1cb01cc5e900807630bcf01ac3b3d58f28"
-  integrity sha512-+Xj/v5gqpEUBKKAaFCZ76+Ps6OGAaIgGowJTF67wTcmIQbHrcHMPjHwPTbnpXy7uHrH8os7i4eAfRENAv/6xwg==
+next-i18next@~11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-11.0.0.tgz#2857d13c58a5ed976fe57c44286f1520b07f7c96"
+  integrity sha512-phxbQiZGSJTTBE2FI4+BnqFZl88AI2V+6MrEQnT9aPFAXq/fATQ/F0pOUM3J7kU4nEeCfn3hjISq+ygGHlEz0g==
   dependencies:
     "@babel/runtime" "^7.13.17"
     "@types/hoist-non-react-statics" "^3.3.1"
     core-js "^3"
     hoist-non-react-statics "^3.2.0"
-    i18next "^21.6.12"
-    i18next-fs-backend "^1.0.7"
-    react-i18next "^11.15.5"
+    i18next "^21.6.14"
+    i18next-fs-backend "^1.1.4"
+    react-i18next "^11.16.2"
 
 next@~12.1.0:
   version "12.1.0"
@@ -14088,7 +14090,7 @@ react-helmet-async@^1.0.7:
     react-fast-compare "^3.2.0"
     shallowequal "^1.1.0"
 
-react-i18next@^11.15.5, react-i18next@~11.16.1:
+react-i18next@^11.16.2, react-i18next@~11.16.1:
   version "11.16.9"
   resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.16.9.tgz#890cdac0c49120e075d6c520b43dbad3f91bd2df"
   integrity sha512-euXxWvcEAvsY7ZVkwx9ztCq4butqtsGHEkpkuo0RMj8Ru09IF9o2KxCyN+zyv51Nr0aBh/elaTIiR6fMb8YfVg==
