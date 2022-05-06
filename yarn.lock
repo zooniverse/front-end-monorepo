@@ -2205,10 +2205,10 @@
   resolved "https://registry.yarnpkg.com/@newrelic/koa/-/koa-6.1.2.tgz#98e8e24ea0bee97197f02030e3ad09912dadacf2"
   integrity sha512-nmjr5hv+nRDC2NaRF4+iex41K6iJ/UCujgnj8oyht1grazJXQHq0dJZdMxUVNMMO+m4ukTeisSlI4d/H/W9JUw==
 
-"@newrelic/native-metrics@^7.1.1":
-  version "7.1.2"
-  resolved "https://registry.yarnpkg.com/@newrelic/native-metrics/-/native-metrics-7.1.2.tgz#e18af9447894d3f637c85bca19474cb81dc71d99"
-  integrity sha512-Ay0iLiwb/TIlbxxuWqxhrW1FxOSokKS09NKcRi1VXsMCMmvJiVhq6wvJcFvpoGLzvkTLLMFrJAHP0eJBKUpZfQ==
+"@newrelic/native-metrics@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@newrelic/native-metrics/-/native-metrics-8.0.0.tgz#6f5d31b57301ad97cbfa047e65ed7cb6c62a1aec"
+  integrity sha512-df/V1P6dxpX09PaA6Jx9pmkPbRrue5hDyRCc4w3bnqMbnybvwVwS+q1/QEPvjBPQJ5abTRlBcJ7UZ3sfGW1hzg==
   dependencies:
     https-proxy-agent "^5.0.0"
     nan "^2.15.0"
@@ -12335,10 +12335,10 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0:
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz#26c8a3cee6cc05fbcf1e333cd2fc3e003326c0b5"
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
-newrelic@^8.7.0, newrelic@~8.9.0:
-  version "8.9.1"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-8.9.1.tgz#64c0afa05e9e8e21915b13659de288e08a2d912f"
-  integrity sha512-t11Maq7kCdn5DziSS84m9+OcTeWKHImk/942FC1/8gbcQwLrkiFLdAI6pRkSi+RXZ5JsnZ+iEiL4ungiEVO71A==
+newrelic@^8.7.0, newrelic@~8.10.0:
+  version "8.10.0"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-8.10.0.tgz#b3e9531e0690cc241588c953601ea6cd1634318c"
+  integrity sha512-7gBtVsdblR074M262zuyMIrkOCIzJ+uJsmKrRfqkoqFos0ck/SpnahNSp+Q5LDiVq3Q+03G3sBVErK2yShv6iQ==
   dependencies:
     "@grpc/grpc-js" "^1.5.5"
     "@grpc/proto-loader" "^0.6.9"
@@ -12353,7 +12353,7 @@ newrelic@^8.7.0, newrelic@~8.9.0:
     readable-stream "^3.6.0"
     semver "^5.3.0"
   optionalDependencies:
-    "@newrelic/native-metrics" "^7.1.1"
+    "@newrelic/native-metrics" "^8.0.0"
 
 next-absolute-url@~1.2.2:
   version "1.2.2"
