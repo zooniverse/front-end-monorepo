@@ -24,7 +24,7 @@
     "@sentry/node": "~6.18.1",
     "@sindresorhus/string-hash": "~1.2.0",
     "@visx/axis": "~2.6.0",
-    "@visx/group": "~2.1.0",
+    "@visx/group": "~2.10.0",
     "@visx/scale": "~2.2.2",
     "@visx/shape": "~2.4.0",
     "@visx/text": "~2.3.0",
