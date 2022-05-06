@@ -2,7 +2,7 @@ import { Text } from 'grommet'
 import styled, { css } from 'styled-components'
 import React from 'react'
 import pxToRem from '../helpers/pxToRem'
-import { boolean, node, string } from 'prop-types'
+import { bool, node, string } from 'prop-types'
 
 const letterSpacing = pxToRem(1)
 const StyledText = styled(Text)`
@@ -43,7 +43,7 @@ SpacedText.propTypes = {
   /** (string): Defaults to `small`. Maps to preset sizes defined in the grommet theme. */
   size: string,
   /** (boolean): Defaults to true. Handled by styled-components. */
-  uppercase: boolean,
+  uppercase: bool,
   /** (string): Defaults to `normal`. Same as the `weight` prop for Grommet's `Text` component and used by the inner `SpacedText` component. */
   weight: string
 }
