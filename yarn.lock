@@ -5354,12 +5354,13 @@ axe-core@^4.3.5:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.3.5.tgz#78d6911ba317a8262bfee292aeafcc1e04b49cc5"
   integrity sha512-WKTW1+xAzhMS5dJsxWkliixlO/PqC4VhmO9T4juNYcaTg9jzWiJsou6m5pxWYGfigWbwzJWeFY6z47a+4neRXA==
 
-axios@^0.26.0:
-  version "0.26.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.0.tgz#9a318f1c69ec108f8cd5f3c3d390366635e13928"
-  integrity sha512-lKoGLMYtHvFrPVt3r+RBMp9nh34N0M8zEfCWqdWZx6phynIEhQqAdydpyBAAG211zlhX9Rgu08cOamy6XjE5Og==
+axios@^0.27.0:
+  version "0.27.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.27.2.tgz#207658cc8621606e586c85db4b41a750e756d972"
+  integrity sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==
   dependencies:
-    follow-redirects "^1.14.8"
+    follow-redirects "^1.14.9"
+    form-data "^4.0.0"
 
 axobject-query@^2.2.0:
   version "2.2.0"
@@ -6577,11 +6578,11 @@ contentful-sdk-core@^7.0.1:
     qs "^6.9.4"
 
 contentful@~9.1.6:
-  version "9.1.18"
-  resolved "https://registry.yarnpkg.com/contentful/-/contentful-9.1.18.tgz#81eeb30b28b5e578f13fdf9459dd57d09089efba"
-  integrity sha512-Hi4IyW2EIfypSgICYZcDUvn0dqAFhwp64h+VpWUsiEULdtxnyBdHxxh9utlgpv4sW0sj74SU3ChNgYAMxaH2+g==
+  version "9.1.28"
+  resolved "https://registry.yarnpkg.com/contentful/-/contentful-9.1.28.tgz#1dfdc9205fbf898a98448cfa87551e9807831c06"
+  integrity sha512-8ivYmT+DsATrtSUo0WjldNrXwQPHxs/0PuFjpWH3NwsLoUDi1dshyry9AQtnEpbhWGv4B3LsX50+/BsHQptseg==
   dependencies:
-    axios "^0.26.0"
+    axios "^0.27.0"
     contentful-resolve-response "^1.3.0"
     contentful-sdk-core "^7.0.1"
     fast-copy "^2.1.0"
@@ -8933,10 +8934,15 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
-follow-redirects@^1.0.0, follow-redirects@^1.14.8:
+follow-redirects@^1.0.0:
   version "1.14.8"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.8.tgz#016996fb9a11a100566398b1c6839337d7bfa8fc"
   integrity sha512-1x0S9UVJHsQprFcEC/qnNzBLcIxsjAV905f/UkQxbclCsoTWlacCNOpQa/anodLl2uaEKFhfWOvM2Qg77+15zA==
+
+follow-redirects@^1.14.9:
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.0.tgz#06441868281c86d0dda4ad8bdaead2d02dca89d4"
+  integrity sha512-aExlJShTV4qOUOL7yF1U5tvLCB0xQuudbf6toyYA0E/acBNw71mvjFTnLaRp50aQaYocMR0a/RMMBIHeZnGyjQ==
 
 for-in@^1.0.2:
   version "1.0.2"
