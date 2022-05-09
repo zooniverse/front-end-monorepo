@@ -13,14 +13,14 @@ const StyledText = styled(Text)`
       : css`text-transform: normal;`}
 `
 
-export default function SpacedText(props) {
-  const {
-    children,
-    margin = 'none',
-    size = 'small',
-    uppercase = true,
-    weight = 'normal'
-  } = props
+export default function SpacedText({
+  children,
+  margin = 'none',
+  size = 'small',
+  uppercase = true,
+  weight = 'normal',
+  ...props
+}) {
 
   return (
     <StyledText
