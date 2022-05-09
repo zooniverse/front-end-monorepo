@@ -91,7 +91,7 @@
     "jsdom": "~19.0.0",
     "mocha": "~10.0.0",
     "nock": "~13.2.1",
-    "sinon": "~13.0.1",
+    "sinon": "~14.0.0",
     "sinon-chai": "~3.7.0",
     "storybook-react-i18next": "~1.0.16"
   },
