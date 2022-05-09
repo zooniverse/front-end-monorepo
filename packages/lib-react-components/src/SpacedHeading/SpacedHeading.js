@@ -15,17 +15,6 @@ function SpacedHeading({
   weight = 'bold',
   ...props
 }) {
-  const {
-    children,
-    className = '',
-    color = {
-      dark: 'neutral-6',
-      light: 'black'
-    },
-    level = 2,
-    size = 'medium',
-    weight = 'bold'
-  } = props
   return (
     <Heading className={className} level={level} size={size} {...props}>
       <SpacedText color={color} weight={weight}>

@@ -21,7 +21,6 @@ export default function SpacedText({
   weight = 'normal',
   ...props
 }) {
-
   return (
     <StyledText
       margin={margin}
