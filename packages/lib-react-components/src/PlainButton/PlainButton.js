@@ -21,19 +21,17 @@ const defaultColor = {
   light: 'neutral-1'
 }
 
-function PlainButton(props) {
-  const {
-    as = '',
-    className = '',
-    disabled = false,
-    href = '',
-    onClick = () => {},
-    labelSize = 'medium',
-    text = '',
-    color = defaultColor,
-    ...rest
-  } = props
-
+function PlainButton({
+  as = '',
+  className = '',
+  disabled = false,
+  href = '',
+  onClick = () => {},
+  labelSize = 'medium',
+  text = '',
+  color = defaultColor,
+  ...rest
+}) {
   return (
     <StyledPlainButton
       as={as}
