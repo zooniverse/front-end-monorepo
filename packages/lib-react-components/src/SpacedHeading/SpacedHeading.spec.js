@@ -7,7 +7,7 @@ describe('Component > SpacedHeading', function () {
 
   it('should render children as text', function () {
     const { getByRole } = render(<Default />)
-    const item = getByRole('heading')
+    const item = getByRole('heading', { name: Default.args.children })
     expect(item).exists()
   })
 })
