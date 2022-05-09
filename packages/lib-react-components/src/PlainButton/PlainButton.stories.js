@@ -15,7 +15,7 @@ export default {
     },
     dark: false,
     disabled: false,
-    href: 'zooniverse.org',
+    href: 'https://www.zooniverse.org',
     icon: false,
     labelSize: 'medium',
     text: 'Click me'
