@@ -16,7 +16,12 @@ export const StyledPlainButton = styled(Button)`
   }
 `
 
-function PlainButton (props) {
+const defaultColor = {
+  dark: 'accent-1',
+  light: 'neutral-1'
+}
+
+function PlainButton(props) {
   const {
     as = '',
     className = '',
@@ -25,10 +30,7 @@ function PlainButton (props) {
     onClick = () => {},
     labelSize = 'medium',
     text = '',
-    color = {
-      dark: 'accent-1',
-      light: 'neutral-1'
-    },
+    color = defaultColor,
     ...rest
   } = props
 
@@ -39,14 +41,11 @@ function PlainButton (props) {
       disabled={disabled}
       href={disabled ? '' : href}
       gap='xxsmall'
-      label={(
-        <SpacedText
-          color={color}
-          size={labelSize}
-        >
+      label={
+        <SpacedText color={color} size={labelSize}>
           {text}
         </SpacedText>
-      )}
+      }
       onClick={onClick}
       plain
       {...rest}
