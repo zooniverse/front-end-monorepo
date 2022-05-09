@@ -3,7 +3,18 @@ import { Heading } from 'grommet'
 import { node, number, object, oneOfType, string } from 'prop-types'
 import React from 'react'
 
-function SpacedHeading(props) {
+function SpacedHeading({
+  children,
+  className = '',
+  color = {
+    dark: 'neutral-6',
+    light: 'black'
+  },
+  level = 2,
+  size = 'medium',
+  weight = 'bold',
+  ...props
+}) {
   const {
     children,
     className = '',
