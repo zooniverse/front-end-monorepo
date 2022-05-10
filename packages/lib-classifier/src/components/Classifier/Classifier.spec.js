@@ -244,7 +244,7 @@ describe('Components > Classifier', function () {
     allowedRoles.forEach(function (role) {
       describe(role, function () {
         before(async function () {
-          const roles = ['owner']
+          const roles = [role]
           const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
           const workflowSnapshot = branchingWorkflow
           const projectSnapshot = ProjectFactory.build({
