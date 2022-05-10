@@ -24,9 +24,10 @@ export function middleware(req, event) {
     return
   }
 
+  const url = req.nextUrl.clone()
+
   if (searchParams.has('language')) {
     const locale = searchParams.get('language')
-    const url = req.nextUrl.clone()
     url.searchParams.delete('language')
     try {
       url.locale = locale
@@ -40,5 +41,6 @@ export function middleware(req, event) {
     Project pages are served from /projects/staging/[owner]/[project]
     and /projects/production/[owner]/[project]
   */
-  return NextResponse.rewrite(`/${env}${pathname}`)
+  url.pathname = `/${env}${pathname}`
+  return NextResponse.rewrite(url)
 }
