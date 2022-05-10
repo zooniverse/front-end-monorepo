@@ -14,5 +14,7 @@ export function middleware(req, event) {
     Project pages are served from /projects/staging/[owner]/[project]
     and /projects/production/[owner]/[project]
   */
-  return NextResponse.rewrite(`/${env}${pathname}`)
+  const url = req.nextUrl.clone()
+  url.pathname = `/${env}${pathname}`
+  return NextResponse.rewrite(url)
 }
