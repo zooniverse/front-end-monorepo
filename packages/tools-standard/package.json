@@ -21,7 +21,7 @@
     "babel-eslint": "~10.1.0",
     "eslint-plugin-jsx-a11y": "~6.5.1",
     "standard": "~16.0.3",
-    "standard-engine": "^14.0.1"
+    "standard-engine": "^15.0.0"
   },
   "publishConfig": {
     "access": "public"

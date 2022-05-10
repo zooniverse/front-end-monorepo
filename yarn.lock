@@ -15534,6 +15534,16 @@ standard-engine@^14.0.1:
     pkg-conf "^3.1.0"
     xdg-basedir "^4.0.0"
 
+standard-engine@^15.0.0:
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/standard-engine/-/standard-engine-15.0.0.tgz#e37ca2e1a589ef85431043a3e87cb9ce95a4ca4e"
+  integrity sha512-4xwUhJNo1g/L2cleysUqUv7/btn7GEbYJvmgKrQ2vd/8pkTmN8cpqAZg+BT8Z1hNeEH787iWUdOpL8fmApLtxA==
+  dependencies:
+    get-stdin "^8.0.0"
+    minimist "^1.2.6"
+    pkg-conf "^3.1.0"
+    xdg-basedir "^4.0.0"
+
 standard-json@^1.0.0, standard-json@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/standard-json/-/standard-json-1.1.0.tgz#33ac0d2eccaddb0556f5ae28c43a35624cf1fb25"
