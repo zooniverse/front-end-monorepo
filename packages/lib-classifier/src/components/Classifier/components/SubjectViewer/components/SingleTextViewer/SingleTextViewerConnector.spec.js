@@ -1,43 +1,49 @@
 import { expect } from 'chai'
-import { shallow } from 'enzyme'
+import { Grommet } from 'grommet'
+import { Provider } from 'mobx-react'
 import React from 'react'
-import sinon from 'sinon'
-import SingleTextViewerConnector from './SingleTextViewerConnector'
-import SingleTextViewerContainer from './SingleTextViewerContainer'
+import { render, screen } from '@testing-library/react'
+import asyncStates from '@zooniverse/async-states'
+import zooTheme from '@zooniverse/grommet-theme'
 
-const mockStore = {
-  classifierStore: {
-    subjects: {
-      active: {
-        id: '1',
-        content: 'subject text',
-        contentLoadingState: 'success',
-        error: null
-      }
-    }
-  }
-}
+import { SubjectFactory } from '@test/factories'
+import mockStore from '@test/mockStore'
+
+import SingleTextViewerConnector from './SingleTextViewerConnector'
 
 describe('SingleTextViewerConnector', function () {
-  let wrapper, useContextMock, containerProps
-
-  before(function () {
-    useContextMock = sinon.stub(React, 'useContext').callsFake(() => mockStore)
-    wrapper = shallow(<SingleTextViewerConnector />)
-    containerProps = wrapper.find(SingleTextViewerContainer).props()
+  const subjectSnapshot = SubjectFactory.build({
+    content: 'This is test subject content',
+    contentLoadingState: asyncStates.success,
+    locations: [
+      { 'text/plain': 'http://localhost:8080/subjectContent.txt' }
+    ]
   })
 
-  after(function () {
-    useContextMock.restore()
+  const store = mockStore({
+    subject: subjectSnapshot
   })
+
+  function withStore (store) {
+    return function Wrapper ({ children }) {
+      return (
+        <Grommet theme={zooTheme}>
+          <Provider classifierStore={store}>
+            {children}
+          </Provider>
+        </Grommet>
+      )
+    }
+  }
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
-
-  it('should pass the subject content, contentLoadingState, and error as props', function () {
-    expect(containerProps.content).to.equal('subject text')
-    expect(containerProps.contentLoadingState).to.equal('success')
-    expect(containerProps.error).to.be.null()
+    render(
+      <SingleTextViewerConnector />,
+      {
+        wrapper: withStore(store)
+      }
+    )
+    expect(screen).to.be.ok()
+    expect(screen.getByText('This is test subject content')).to.exist()
   })
 })
