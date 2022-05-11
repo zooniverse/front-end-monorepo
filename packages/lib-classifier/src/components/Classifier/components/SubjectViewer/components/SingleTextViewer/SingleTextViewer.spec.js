@@ -1,23 +1,16 @@
-import { expect } from 'chai'
-import { shallow } from 'enzyme'
 import React from 'react'
+import { render, screen } from '@testing-library/react'
 
 import SingleTextViewer from './SingleTextViewer'
 
-const mockContent = 'test string'
-
-let wrapper
-
 describe('Component > SingleTextViewer', function () {
-  beforeEach(function () {
-    wrapper = shallow(<SingleTextViewer content={mockContent} />)
-  })
-
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
+    render(<SingleTextViewer />)
+    expect(screen).to.be.ok()
   })
 
   it('should render content', function () {
-    expect(wrapper.text()).to.equal(mockContent)
+    render(<SingleTextViewer content='test subject content' />)
+    expect(screen.getByText('test subject content')).to.exist()
   })
 })

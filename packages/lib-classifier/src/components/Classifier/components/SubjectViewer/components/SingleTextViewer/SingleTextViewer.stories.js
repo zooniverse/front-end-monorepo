@@ -1,6 +1,5 @@
 import { Box, Grommet } from 'grommet'
 import React from 'react'
-
 import zooTheme from '@zooniverse/grommet-theme'
 
 import SingleTextViewer from './SingleTextViewer'
@@ -11,7 +10,8 @@ export default {
   title: 'Subject Viewers / SingleTextViewer',
   component: SingleTextViewer,
   args: {
-    content
+    content,
+    dark: false
   },
   parameters: {
     viewport: {
@@ -20,31 +20,15 @@ export default {
   }
 }
 
-const background = {
-  dark: 'dark-1',
-  light: 'light-1'
-}
-
-export const LightTheme = ({ content }) => {
+export function Default ({ content, dark }) {
   return (
     <Grommet
-      background={background}
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
       theme={zooTheme}
-      themeMode='light'
-    >
-      <Box height='500px' width='large'>
-        <SingleTextViewer content={content} />
-      </Box>
-    </Grommet>
-  )
-}
-
-export const DarkTheme = ({ content }) => {
-  return (
-    <Grommet
-      background={background}
-      theme={zooTheme}
-      themeMode='dark'
+      themeMode={dark ? 'dark' : 'light'}
     >
       <Box height='500px' width='large'>
         <SingleTextViewer content={content} />
