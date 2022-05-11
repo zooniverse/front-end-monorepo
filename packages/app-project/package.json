@@ -46,7 +46,7 @@
     "grommet": "~2.23.0",
     "grommet-icons": "~4.7.0",
     "lodash": "~4.17.11",
-    "luxon": "~2.3.0",
+    "luxon": "~2.4.0",
     "mobx": "~6.5.0",
     "mobx-devtools-mst": "~0.9.21",
     "mobx-react": "~7.3.0",
