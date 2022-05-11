@@ -20,6 +20,7 @@ function PrimaryButton ({
   disabled = false,
   href = '',
   label,
+  onClick = () => {},
   ...rest
 }) {
   const theme = themeMap[color] || themeMap['gold']
@@ -52,7 +53,9 @@ PrimaryButton.propTypes = {
   /** (string): Attribute of the button's anchor element. */
   href: PropTypes.string,
   /** (element or string): Required. Becomes children of SpacedText. */
-  label: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired
+  label: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
+  /** (func): Called when button is clicked */
+  onClick: PropTypes.func
 }
 
 export default PrimaryButton

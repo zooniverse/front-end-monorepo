@@ -1,78 +1,47 @@
-import zooTheme from '@zooniverse/grommet-theme';
-import { Box, Grommet } from 'grommet';
-import React from 'react';
-import { withActions } from '@storybook/addon-actions';
-import { boolean, select, text, withKnobs } from '@storybook/addon-knobs';
+import zooTheme from '@zooniverse/grommet-theme'
+import { Box, Grommet } from 'grommet'
+import React from 'react'
 
-import { backgrounds } from '../../.storybook/lib/';
-import readme from './README.md';
-import PrimaryButton from './PrimaryButton';
-
-const config = {
-  docs: {
-    description: {
-      component: readme,
-    },
-  },
-};
-
-const darkTheme = Object.assign({}, zooTheme, { dark: true });
-const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault });
-const colors = ['blue', 'gold', 'green', 'teal'];
+import PrimaryButton from './PrimaryButton'
 
 export default {
-  title: 'Components/PrimaryButton',
-  decorators: [withActions('click button'), withKnobs],
-};
+  title: 'Components / PrimaryButton',
+  component: PrimaryButton,
+  args: {
+    color: 'gold',
+    dark: false,
+    disabled: false,
+    href: 'https://www.zooniverse.org',
+    label: 'Click me'
+  },
+  argTypes: {
+    color: {
+      options: ['blue', 'gold', 'green', 'teal'],
+      control: { type: 'select' }
+    },
+    onClick: {
+      action: 'clicked'
+    }
+  }
+}
 
-export const LightThemeDefault = () => (
+export const Default = ({ color, dark, disabled, href, label, onClick }) => (
   <Grommet
     background={{
       dark: 'dark-1',
-      light: 'light-1',
+      light: 'light-1'
     }}
     theme={zooTheme}
-    themeMode="light"
+    themeMode={dark ? 'dark' : 'light'}
   >
-    <Box align="center" height="medium" justify="center" width="medium">
+    <Box pad='medium'>
       <PrimaryButton
-        color={select('Color', colors, colors[1])}
-        disabled={boolean('Disabled', false)}
-        label={text('Label', 'Click me')}
-        href={text('href', '')}
-        onClick={() => {}}
+        color={color}
+        disabled={disabled}
+        href={href}
+        label={label}
+        onClick={onClick}
       />
     </Box>
   </Grommet>
-);
-
-LightThemeDefault.story = {
-  name: 'Light theme (default)',
-  parameters: config,
-};
-
-export const DarkTheme = () => (
-  <Grommet
-    background={{
-      dark: 'dark-1',
-      light: 'light-1',
-    }}
-    theme={darkTheme}
-    themeMode="dark"
-  >
-    <Box align="center" height="medium" justify="center" width="medium">
-      <PrimaryButton
-        color={select('Color', colors, colors[1])}
-        disabled={boolean('Disabled', false)}
-        label={text('Label', 'Click me')}
-        href={text('href', '')}
-        onClick={() => {}}
-      />
-    </Box>
-  </Grommet>
-);
-
-DarkTheme.story = {
-  name: 'Dark theme',
-  parameters: darkThemeConfig,
-};
+)
