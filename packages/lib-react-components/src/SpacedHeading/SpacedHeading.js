@@ -27,15 +27,15 @@ function SpacedHeading({
 SpacedHeading.propTypes = {
   /** (node) Required. The child of the component. Usually text. */
   children: node.isRequired,
-  /** (string): Defaults to `''`. A class name to give to the component. */
+  /** (string): A class name to give to the component. */
   className: string,
-  /** (string or object) Defaults to `{ dark: 'neutral-6', light: 'black' }` (white and black). The color of the text for the inner `SpacedText` component. Uses the same values accepted by Grommet's `Text` component and accepts the variable names for colors from Zooniverse's grommet theme. */
+  /** (string or object): The color of the text for the inner `SpacedText` component. Uses the same values accepted by Grommet's `Text` component and accepts the variable names for colors from Zooniverse's grommet theme. */
   color: oneOfType([ object, string ]),
-  /** (number): Defaults to `2`. Same as Grommet's `Heading` `level` prop. Maps to h1, h2, h3, h4, h5, h6. */
+  /** (number): Same as Grommet's `Heading` `level` prop. Maps to h1, h2, h3, h4, h5, h6. */
   level: number,
-  /** (string): Defaults to `medium`. Maps to preset sizes defined in the grommet theme. */
+  /** (string): Maps to preset sizes defined in the grommet theme. */
   size: string,
-  /** (string): Defaults to `bold`. Same as the `weight` prop for Grommet's `Text` component and used by the inner `SpacedText` component. */
+  /** (string): Same as the `weight` prop for Grommet's `Text` component and used by the inner `SpacedText` component. */
   weight: string
 }
 

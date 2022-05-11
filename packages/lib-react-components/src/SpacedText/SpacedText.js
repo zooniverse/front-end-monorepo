@@ -35,14 +35,14 @@ export default function SpacedText({
 }
 
 SpacedText.propTypes = {
-  /** (node) Required. The child of the component. Usually text. */
+  /** (node): Required. The child of the component. Usually text. */
   children: node.isRequired,
-  /** (string): Defaults to `none`. */
+  /** (string): */
   margin: string,
-  /** (string): Defaults to `small`. Maps to preset sizes defined in the grommet theme. */
+  /** (string): Maps to preset sizes defined in the grommet theme. */
   size: string,
-  /** (boolean): Defaults to true. Handled by styled-components. */
+  /** (boolean): Handled by styled-components. */
   uppercase: bool,
-  /** (string): Defaults to `normal`. Same as the `weight` prop for Grommet's `Text` component and used by the inner `SpacedText` component. */
+  /** (string): Same as the `weight` prop for Grommet's `Text` component and used by the inner `SpacedText` component. */
   weight: string
 }
