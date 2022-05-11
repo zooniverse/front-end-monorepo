@@ -55,6 +55,9 @@ const authorRoles = {
   '300002': [],
 }
 
+const quickTalkButton_target = { name: /Subject has \d+ comment\(s\). Click to expand./ }
+const quickTalkCloseButton_target = { name: 'Close comments panel.' }
+
 describe('Component > QuickTalk', function () {
   describe('when collapsed', function () {
     beforeEach(function () {
@@ -70,15 +73,17 @@ describe('Component > QuickTalk', function () {
     })
 
     it('should render without crashing', function () {
-      expect(screen.queryByTestId('quicktalk-button')).to.exist()
+      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist()
       expect(screen.queryByTestId('quicktalk-panel')).to.not.exist()
     })
 
     it('should expand when clicked', async function () {
       const user = userEvent.setup({ delay: null })
-      await user.click(screen.queryByTestId('quicktalk-button'))
 
-      expect(screen.queryByTestId('quicktalk-button')).to.not.exist()
+      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist()
+      await user.click(screen.queryByRole('button', quickTalkButton_target))
+
+      expect(screen.queryByRole('button', quickTalkButton_target)).to.not.exist()
       expect(screen.queryByTestId('quicktalk-panel')).to.exist()
     })
   })
@@ -98,7 +103,7 @@ describe('Component > QuickTalk', function () {
     })
 
     it('should render without crashing', function () {
-      expect(screen.queryByTestId('quicktalk-button')).to.not.exist()
+      expect(screen.queryByRole('button', quickTalkButton_target)).to.not.exist()
       expect(screen.queryByTestId('quicktalk-panel')).to.exist()
     })
 
@@ -108,9 +113,9 @@ describe('Component > QuickTalk', function () {
 
     it('should collapse when the close button is clicked', async function () {
       const user = userEvent.setup({ delay: null })
-      await user.click(screen.queryByTestId('quicktalk-close-button'))
+      await user.click(screen.queryByRole('button', quickTalkCloseButton_target))
 
-      expect(screen.queryByTestId('quicktalk-button')).to.exist()
+      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist()
       expect(screen.queryByTestId('quicktalk-panel')).to.not.exist()
     })
   })

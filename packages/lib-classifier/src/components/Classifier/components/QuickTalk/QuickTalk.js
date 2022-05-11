@@ -61,7 +61,6 @@ function QuickTalk ({
       <QTButton
         a11yTitle={a11yTitle}
         onClick={() => setExpand(true)}
-        data-testid='quicktalk-button'
         icon={<Chat />}
         badge={badge}
       />
@@ -89,7 +88,6 @@ function QuickTalk ({
         />
         <Button
           a11yTitle='Close comments panel.'
-          data-testid='quicktalk-close-button'
           icon={<Close size='small' />}
           onClick={() => setExpand(false)}
           plain
