@@ -11,15 +11,21 @@ const themeMap = {
   blue: blueTheme,
   gold: goldTheme,
   green: greenTheme,
-  teal: tealTheme,
+  teal: tealTheme
 }
 
-function PrimaryButton (props) {
-  const { as, color, disabled, href, label, ...rest } = props
+function PrimaryButton ({
+  as = '',
+  color = 'gold',
+  disabled = false,
+  href = '',
+  label,
+  ...rest
+}) {
   const theme = themeMap[color] || themeMap['gold']
   const wrappedLabel = React.isValidElement(label)
     ? label
-    : <Text children={label} size='medium' />
+    : <Text size='medium'>{label}</Text>
   const renderAs = (href && disabled) ? 'span' : as
 
   return (
@@ -37,18 +43,16 @@ function PrimaryButton (props) {
 }
 
 PrimaryButton.propTypes = {
+  /** (string): The DOM tag or react component to use for the Grommet button element. */
   as: PropTypes.string,
+  /** (string): Determines the theme. One of: blue, gold, green, teal. */
   color: PropTypes.oneOf(['blue', 'gold', 'green', 'teal']),
+  /** (bool): Applied to button element */
   disabled: PropTypes.bool,
+  /** (string): Attribute of the button's anchor element. */
   href: PropTypes.string,
+  /** (element or string): Required. Becomes children of SpacedText. */
   label: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired
-}
-
-PrimaryButton.defaultProps = {
-  as: '',
-  color: 'gold',
-  disabled: false,
-  href: ''
 }
 
 export default PrimaryButton
