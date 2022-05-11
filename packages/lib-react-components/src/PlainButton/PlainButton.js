@@ -55,7 +55,7 @@ PlainButton.propTypes = {
   /** (string) The DOM tag or react component to use for the Grommet button element. */
   as: string,
   className: string,
-  /** ({ dark: string, light: string}): Defaults to { dark: 'accent-1', light: 'neutral-1' } */
+  /** ({ dark: string, light: string}) */
   color: oneOfType([
     shape({
       dark: string,
@@ -67,7 +67,7 @@ PlainButton.propTypes = {
   disabled: bool,
   /** (string) Attribute of the button's anchor element. */
   href: string,
-  /** (string): Determines size of SpacedText child. Defaults to 'medium'. */
+  /** (string): Determines size of SpacedText child. */
   labelSize: string,
   /** (func): Called when button is clicked */
   onClick: func,
