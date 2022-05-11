@@ -55,7 +55,7 @@
     "newrelic": "~8.10.0",
     "next": "~12.1.0",
     "next-i18next": "~11.0.0",
-    "panoptes-client": "~3.3.2",
+    "panoptes-client": "~3.4.0",
     "path-match": "~1.2.4",
     "polished": "~4.2.2",
     "query-string": "~7.1.0",
