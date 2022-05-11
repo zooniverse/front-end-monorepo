@@ -36,6 +36,7 @@ function PrimaryButton ({
         href={disabled ? '' : href}
         label={wrappedLabel}
         primary
+        onClick={onClick}
         {...rest}
       />
     </ThemeContext.Extend>

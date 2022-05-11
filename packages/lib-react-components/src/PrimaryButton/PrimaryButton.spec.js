@@ -3,7 +3,7 @@ import * as stories from './PrimaryButton.stories'
 import { render } from '@testing-library/react'
 import { composeStories } from '@storybook/testing-react'
 
-describe.only('Component > PrimaryButton', function () {
+describe('Component > PrimaryButton', function () {
   const { Default } = composeStories(stories)
   const mockHref = 'www.zooniverse.org'
 
