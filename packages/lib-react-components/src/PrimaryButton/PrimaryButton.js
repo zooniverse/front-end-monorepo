@@ -27,14 +27,13 @@ function PrimaryButton ({
   const wrappedLabel = React.isValidElement(label)
     ? label
     : <Text size='medium'>{label}</Text>
-  const renderAs = (href && disabled) ? 'span' : as
 
   return (
     <ThemeContext.Extend value={theme}>
       <Button
-        as={renderAs}
+        as={as}
         disabled={disabled}
-        href={href}
+        href={disabled ? '' : href}
         label={wrappedLabel}
         primary
         {...rest}
