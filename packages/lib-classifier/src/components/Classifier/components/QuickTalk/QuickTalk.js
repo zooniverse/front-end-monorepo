@@ -69,9 +69,10 @@ function QuickTalk ({
 
   return (
     <QTPanel
+      a11yTitle='QuickTalk Comments Panel'
       elevation='medium'
+      role='dialog'
       background={{ dark: 'dark-3', light: 'light-3' }}
-      data-testid='quicktalk-panel'
     >
       <Box
         direction='row'
