@@ -1,5 +1,4 @@
 import asyncStates from '@zooniverse/async-states'
-import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
