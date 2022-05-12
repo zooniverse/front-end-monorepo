@@ -10,6 +10,7 @@ const subject = {
 }
 
 const authClient = {}
+const quickTalkButton_target = { name: /Subject has \d+ comment\(s\). Click to expand./ }
 
 describe('Component > QuickTalkContainer', function () {
   describe('when collapsed', function () {
@@ -24,7 +25,7 @@ describe('Component > QuickTalkContainer', function () {
     })
 
     it('should render without crashing', function () {
-      expect(screen.queryByTestId('quicktalk-button')).to.exist()
+      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist()
     })
   })
 })
