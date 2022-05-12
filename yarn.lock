@@ -9963,10 +9963,10 @@ i18next-fs-backend@^1.1.4:
   resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-1.1.4.tgz#d0e9b9ed2fa7a0f11002d82b9fa69c3c3d6482da"
   integrity sha512-/MfAGMP0jHonV966uFf9PkWWuDjPYLIcsipnSO3NxpNtAgRUKLTwvm85fEmsF6hGeu0zbZiCQ3W74jwO6K9uXA==
 
-i18next@^21.6.14, i18next@~21.7.1:
-  version "21.7.1"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-21.7.1.tgz#3b63390fa7c2eb22440f80ef8c7f4d7e4f8187e8"
-  integrity sha512-uNt0BM+HV7wgWrrTE+Z4qinQFTONB21hK3I5V/LayhquPv78WchnO4hjF2PWY/OZocahHBDbzbe0/o1rp/RcWQ==
+i18next@^21.6.14, i18next@~21.8.1:
+  version "21.8.1"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-21.8.1.tgz#44e083ade3dfe08c8099882c560d3c7294cdf679"
+  integrity sha512-uulZBD5kLME7Ucz8pFwpC7jXDjq4BHkio3b6GBw1ykXNHA8rIAk1S2t6zb2Ripf9OMetMkysiDRlPlCVqjvQeg==
   dependencies:
     "@babel/runtime" "^7.17.2"
 
@@ -12062,9 +12062,9 @@ ms@2.1.3, ms@^2.0.0, ms@^2.1.1:
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
 mst-middlewares@~5.1.0:
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/mst-middlewares/-/mst-middlewares-5.1.3.tgz#059a2cf4e44cdb44ae92eb4a4e8ce47f6c117c66"
-  integrity sha512-zVPxLO6kQFMTU0S7xYoyiSml8nUP5Ekto3CY4Ra7cGwbuLOwIDBgCyNIEEtLpq95KFbhAEl9oIchg4RW13iCZg==
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/mst-middlewares/-/mst-middlewares-5.1.5.tgz#1826fb9b6edc84b42fb9f63f17e0207b4b0e6ce9"
+  integrity sha512-tKVoEGUAw99nagI/ewanPi5UUh5hbXLJV/ehYWdIMkMoz4+jKZzrbjXYXvRf6t3novhoFti64G4SPhINMXQIqg==
 
 multicast-dns@^7.2.4:
   version "7.2.4"
