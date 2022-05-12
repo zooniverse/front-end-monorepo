@@ -59,7 +59,7 @@ const quickTalkButton_target = { name: /Subject has \d+ comment\(s\). Click to e
 const quickTalkCloseButton_target = { name: 'Close comments panel.' }
 const quickTalkPanel_target = { name: 'QuickTalk Comments Panel' }
 
-describe.only('Component > QuickTalk', function () {
+describe('Component > QuickTalk', function () {
   describe('when collapsed', function () {
     beforeEach(function () {
       render(
