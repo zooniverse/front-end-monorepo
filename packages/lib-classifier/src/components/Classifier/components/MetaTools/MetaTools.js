@@ -1,17 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from 'grommet'
-import { inject, observer } from 'mobx-react'
 import { FavouritesButton, withResponsiveContext } from '@zooniverse/react-components'
+
 import Metadata from './components/Metadata'
 import CollectionsButton from './components/CollectionsButton'
 import HidePreviousMarksButton from './components/HidePreviousMarksButton'
 import SHOWN_MARKS from '@helpers/shownMarks'
+import { withStores } from '@helpers'
 
-function storeMapper (stores) {
-  const { active: subject, isThereMetadata } = stores.classifierStore.subjects
-  const { interactionTask } = stores.classifierStore.workflowSteps
-  const upp = stores.classifierStore.userProjectPreferences.active
+function storeMapper(store) {
+  const {
+    subjects: {
+      active: subject,
+      isThereMetadata
+    },
+    userProjectPreferences: {
+      active: upp
+    },
+    workflowSteps: {
+      interactionTask
+    }
+  } = store
+
   return {
     interactionTask,
     isThereMetadata,
@@ -20,8 +31,6 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
 class MetaTools extends React.Component {
   constructor () {
     super()
@@ -79,7 +88,7 @@ class MetaTools extends React.Component {
   }
 }
 
-MetaTools.wrappedComponent.defaultProps = {
+MetaTools.defaultProps = {
   className: '',
   interactionTask: {},
   isThereMetadata: false,
@@ -87,7 +96,7 @@ MetaTools.wrappedComponent.defaultProps = {
   upp: null
 }
 
-MetaTools.wrappedComponent.propTypes = {
+MetaTools.propTypes = {
   className: PropTypes.string,
   interactionTask: PropTypes.shape({
     shownMarks: PropTypes.string,
@@ -100,5 +109,5 @@ MetaTools.wrappedComponent.propTypes = {
   upp: PropTypes.object
 }
 
-export default withResponsiveContext(MetaTools)
+export default withStores(withResponsiveContext(MetaTools), storeMapper)
 export { MetaTools }
