@@ -169,4 +169,56 @@ describe('Components > MetaTools', function () {
       expect(hidePreviousMarks).to.be.null()
     })
   })
+
+  describe('with a logged-in user and a favourited subject', function () {
+    let addToCollections, favourite, hidePreviousMarks, metadata
+
+    before(async function () {
+      const store = mockStore()
+      await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
+      const upp = UPPFactory.build()
+      store.userProjectPreferences.setUPP(upp)
+      store.userProjectPreferences.setHeaders({
+        etag: 'mockETagForTests'
+      })
+      store.subjects.active.toggleFavorite()
+      render(
+        <MetaTools />,
+        {
+          wrapper: withStore(store)
+        }
+      )
+      addToCollections = screen.getByRole('button', {
+        name: 'MetaTools.CollectionsButton.add'
+      })
+      metadata = screen.getByRole('button', {
+        name: 'MetaTools.MetadataButton.label'
+      })
+      favourite = screen.getByRole('checkbox', {
+        name: 'Added to favorites'
+      })
+      hidePreviousMarks = screen.queryByRole('checkbox', {
+        name: 'FormView MetaTools.HidePreviousMarksDrawingButton.hide'
+      })
+    })
+
+    it('should have a metadata button', function () {
+      expect(metadata).to.be.ok()
+    })
+
+    it('should have an enabled Collections button', function () {
+      expect(addToCollections).to.be.ok()
+      expect(addToCollections.disabled).to.be.false()
+    })
+
+    it('should have an enabled, checked Favourites checkbox', function () {
+      expect(favourite).to.be.ok()
+      expect(favourite.disabled).to.be.false()
+      expect(favourite.getAttribute('aria-checked')).to.equal('true')
+    })
+
+    it('should not have a Hide Previous Marks checkbox', function () {
+      expect(hidePreviousMarks).to.be.null()
+    })
+  })
 })
