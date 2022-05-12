@@ -12062,9 +12062,9 @@ ms@2.1.3, ms@^2.0.0, ms@^2.1.1:
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
 mst-middlewares@~5.1.0:
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/mst-middlewares/-/mst-middlewares-5.1.3.tgz#059a2cf4e44cdb44ae92eb4a4e8ce47f6c117c66"
-  integrity sha512-zVPxLO6kQFMTU0S7xYoyiSml8nUP5Ekto3CY4Ra7cGwbuLOwIDBgCyNIEEtLpq95KFbhAEl9oIchg4RW13iCZg==
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/mst-middlewares/-/mst-middlewares-5.1.5.tgz#1826fb9b6edc84b42fb9f63f17e0207b4b0e6ce9"
+  integrity sha512-tKVoEGUAw99nagI/ewanPi5UUh5hbXLJV/ehYWdIMkMoz4+jKZzrbjXYXvRf6t3novhoFti64G4SPhINMXQIqg==
 
 multicast-dns@^7.2.4:
   version "7.2.4"
