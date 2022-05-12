@@ -432,7 +432,7 @@ class LightCurveViewer extends Component {
     this.d3svg = d3.select(container)
       .append('svg')
       .attr('class', 'light-curve-viewer')
-      .attr('height', '100%')
+      .attr('height', '80vh')  // height=100% was used to fill available Subject image space, but doesn't work on Safari 15. This locks LCV to a height relative to the viewport
       .attr('width', '100%')
       .attr('focusable', true)
       .attr('tabindex', 0)
