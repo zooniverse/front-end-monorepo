@@ -1,130 +1,224 @@
-import { FavouritesButton } from '@zooniverse/react-components'
 import React from 'react'
-import { shallow } from 'enzyme'
-import sinon from 'sinon'
-import { MetaTools } from './MetaTools'
-import Metadata from './components/Metadata'
-import CollectionsButton from './components/CollectionsButton'
-import HidePreviousMarksButton from './components/HidePreviousMarksButton'
-import { Factory } from 'rosie'
-import SHOWN_MARKS from '@helpers/shownMarks'
+import { render, screen } from '@testing-library/react'
+import asyncStates from '@zooniverse/async-states'
+import zooTheme from '@zooniverse/grommet-theme'
+import { Grommet } from 'grommet'
+import { when } from 'mobx'
+import { Provider } from 'mobx-react'
 
-const subjectWithMetadata = Factory.build('subject', { metadata: { foo: 'bar' } })
+import { DrawingTaskFactory, UPPFactory, WorkflowFactory } from '@test/factories'
+import mockStore from '@test/mockStore'
+import MetaTools from './'
 
-const favoriteSubject = Factory.build('subject', { favorite: true })
+describe('Components > MetaTools', function () {
+  function withStore(store) {
+    return function Wrapper({ children }) {
+      return (
+        <Grommet theme={zooTheme}>
+          <Provider classifierStore={store}>
+            {children}
+          </Provider>
+        </Grommet>
+      )
+    }
+  }
 
-const spy = sinon.spy()
+  this.timeout(0)
 
-const interactionTask = {
-  hidePreviousMarks: false,
-  marks: [{ x: 0, y: 0 }],
-  shownMarks: SHOWN_MARKS.ALL,
-  togglePreviousMarks: spy
-}
+  describe('defaults', function () {
+    let addToCollections, favourite, hidePreviousMarks, metadata
 
-describe('Component > MetaTools', function () {
-  it('should render without crashing', function () {
-    const wrapper = shallow(<MetaTools />)
-    expect(wrapper).to.be.ok()
-  })
-
-  describe('Metadata', function () {
-    it('should render a Metadata component', function () {
-      const wrapper = shallow(<MetaTools />)
-      expect(wrapper.find(Metadata)).to.have.lengthOf(1)
-    })
-
-    it('should pass along the isThereMetadata and subject resource metadata props', function () {
-      const wrapper = shallow(<MetaTools isThereMetadata subject={subjectWithMetadata} />)
-      const metadataComponentProps = wrapper.find(Metadata).props()
-      expect(metadataComponentProps.isThereMetadata).to.be.true()
-      expect(metadataComponentProps.metadata).to.equal(subjectWithMetadata.metadata)
-    })
-  })
-
-  describe('FavouritesButton', function () {
-    it('should render a FavouritesButton component', function () {
-      const wrapper = shallow(<MetaTools />)
-      expect(wrapper.find(FavouritesButton)).to.have.lengthOf(1)
-    })
-
-    it('should call toggle favourites on click of the FavouritesButton', function () {
-      const subjectMethod = { toggleFavorite: sinon.spy() }
-      const wrapper = shallow(<MetaTools subject={subjectMethod} />)
-      wrapper.find(FavouritesButton).simulate('click')
-      expect(subjectMethod.toggleFavorite).to.have.been.calledOnce()
-    })
-
-    it('should disable the FavouritesButton if there is no user project preferences', function () {
-      const wrapper = shallow(<MetaTools subject={favoriteSubject} />)
-      expect(wrapper.find(FavouritesButton).props().disabled).to.be.true()
-    })
-
-    it('should enable the FavouritesButton if there is user project preferences', function () {
-      const wrapper = shallow(<MetaTools subject={favoriteSubject} upp={{ id: '1' }} />)
-      expect(wrapper.find(FavouritesButton).props().disabled).to.be.false()
-    })
-
-    it('should check the FavouritesButton if the subject is a favorite', function () {
-      const wrapper = shallow(<MetaTools subject={favoriteSubject} upp={{ id: '1' }} />)
-      expect(wrapper.find(FavouritesButton).props().checked).to.be.true()
-    })
-
-    it('should not check the FavouritesButton if the subject is not a favorite', function () {
-      const wrapper = shallow(<MetaTools subject={subjectWithMetadata} upp={{ id: '1' }} />)
-      expect(wrapper.find(FavouritesButton).props().checked).to.be.false()
-    })
-  })
-
-  describe('CollectionsButton', function () {
-    it('should render a CollectionsButton component', function () {
-      const wrapper = shallow(<MetaTools />)
-      expect(wrapper.find(CollectionsButton)).to.have.lengthOf(1)
-    })
-
-    it('should call to add to collection on click of the CollectionsButton', function () {
-      const subjectMethod = { addToCollection: sinon.spy() }
-      const addToCollectionSpy = sinon.spy(MetaTools.prototype, 'addToCollection')
-      const wrapper = shallow(<MetaTools subject={subjectMethod} />)
-      wrapper.find(CollectionsButton).simulate('click')
-      expect(addToCollectionSpy).to.have.been.calledOnce()
-      expect(subjectMethod.addToCollection).to.have.been.calledOnce()
-    })
-
-    it('should disable the CollectionsButton if there is no user project preferences', function () {
-      const wrapper = shallow(<MetaTools subject={favoriteSubject} />)
-      expect(wrapper.find(CollectionsButton).props().disabled).to.be.true()
-    })
-
-    it('should enable the CollectionsButton if there is user project preferences', function () {
-      const wrapper = shallow(<MetaTools subject={favoriteSubject} upp={{ id: '1' }} />)
-      expect(wrapper.find(CollectionsButton).props().disabled).to.be.false()
-    })
-  })
-
-  describe('HidePreviousMarksButton', function () {
-    describe('without an interaction task', function () {
-      it('should not render', function () {
-        const wrapper = shallow(<MetaTools />)
-        expect(wrapper.find(HidePreviousMarksButton)).to.have.lengthOf(0)
+    before(function () {
+      const store = mockStore()
+      render(
+        <MetaTools />,
+        {
+          wrapper: withStore(store)
+        }
+      )
+      addToCollections = screen.getByRole('button', {
+        name: 'MetaTools.CollectionsButton.add'
+      })
+      metadata = screen.getByRole('button', {
+        name: 'MetaTools.MetadataButton.label'
+      })
+      favourite = screen.getByRole('checkbox', {
+        name: 'Add to favorites'
+      })
+      hidePreviousMarks = screen.queryByRole('checkbox', {
+        name: 'FormView MetaTools.HidePreviousMarksDrawingButton.hide'
       })
     })
 
-    describe('with an interaction task', function () {
-      let wrapper
+    it('should have a metadata button', function () {
+      expect(metadata).to.be.ok()
+    })
 
-      beforeEach(function () {
-        wrapper = shallow(<MetaTools interactionTask={interactionTask} />)
-      })
+    it('should have a disabled Collections button', function () {
+      expect(addToCollections).to.be.ok()
+      expect(addToCollections.disabled).to.be.true()
+    })
 
-      it('should render', function () {
-        expect(wrapper.find(HidePreviousMarksButton)).to.have.lengthOf(1)
-      })
+    it('should have a disabled Favourites checkbox', function () {
+      expect(favourite).to.be.ok()
+      expect(favourite.disabled).to.be.true()
+    })
 
-      it('should toggle previout marks on click of the PreviousMarks button', function () {
-        wrapper.find(HidePreviousMarksButton).simulate('click')
-        expect(spy).to.have.been.calledOnce()
+    it('should not have a Hide Previous Marks checkbox', function () {
+      expect(hidePreviousMarks).to.be.null()
+    })
+  })
+
+  describe('with a drawing task', function () {
+    let addToCollections, favourite, hidePreviousMarks, metadata
+
+    before(function () {
+      const workflow = WorkflowFactory.build({
+        tasks: {
+          T0: DrawingTaskFactory.build()
+        }
       })
+      const store = mockStore({ workflow })
+      render(
+        <MetaTools />,
+        {
+          wrapper: withStore(store)
+        }
+      )
+      addToCollections = screen.getByRole('button', {
+        name: 'MetaTools.CollectionsButton.add'
+      })
+      metadata = screen.getByRole('button', {
+        name: 'MetaTools.MetadataButton.label'
+      })
+      favourite = screen.getByRole('checkbox', {
+        name: 'Add to favorites'
+      })
+      hidePreviousMarks = screen.getByRole('checkbox', {
+        name: 'FormView MetaTools.HidePreviousMarksDrawingButton.hide'
+      })
+    })
+
+    it('should have a metadata button', function () {
+      expect(metadata).to.be.ok()
+    })
+
+    it('should have a disabled Collections button', function () {
+      expect(addToCollections).to.be.ok()
+      expect(addToCollections.disabled).to.be.true()
+    })
+
+    it('should have a disabled Favourites checkbox', function () {
+      expect(favourite).to.be.ok()
+      expect(favourite.disabled).to.be.true()
+    })
+
+    it('should have an unchecked Hide Previous Marks checkbox', function () {
+      expect(hidePreviousMarks).to.be.ok()
+      expect(hidePreviousMarks.getAttribute('aria-checked')).to.equal('false')
+    })
+  })
+
+  describe('with a logged-in user', function () {
+    let addToCollections, favourite, hidePreviousMarks, metadata
+
+    before(async function () {
+      const store = mockStore()
+      await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
+      const upp = UPPFactory.build()
+      store.userProjectPreferences.setUPP(upp)
+      store.userProjectPreferences.setHeaders({
+        etag: 'mockETagForTests'
+      })
+      render(
+        <MetaTools />,
+        {
+          wrapper: withStore(store)
+        }
+      )
+      addToCollections = screen.getByRole('button', {
+        name: 'MetaTools.CollectionsButton.add'
+      })
+      metadata = screen.getByRole('button', {
+        name: 'MetaTools.MetadataButton.label'
+      })
+      favourite = screen.getByRole('checkbox', {
+        name: 'Add to favorites'
+      })
+      hidePreviousMarks = screen.queryByRole('checkbox', {
+        name: 'FormView MetaTools.HidePreviousMarksDrawingButton.hide'
+      })
+    })
+
+    it('should have a metadata button', function () {
+      expect(metadata).to.be.ok()
+    })
+
+    it('should have an enabled Collections button', function () {
+      expect(addToCollections).to.be.ok()
+      expect(addToCollections.disabled).to.be.false()
+    })
+
+    it('should have an enabled, unchecked Favourites checkbox', function () {
+      expect(favourite).to.be.ok()
+      expect(favourite.disabled).to.be.false()
+      expect(favourite.getAttribute('aria-checked')).to.equal('false')
+    })
+
+    it('should not have a Hide Previous Marks checkbox', function () {
+      expect(hidePreviousMarks).to.be.null()
+    })
+  })
+
+  describe('with a logged-in user and a favourited subject', function () {
+    let addToCollections, favourite, hidePreviousMarks, metadata
+
+    before(async function () {
+      const store = mockStore()
+      await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
+      const upp = UPPFactory.build()
+      store.userProjectPreferences.setUPP(upp)
+      store.userProjectPreferences.setHeaders({
+        etag: 'mockETagForTests'
+      })
+      store.subjects.active.toggleFavorite()
+      render(
+        <MetaTools />,
+        {
+          wrapper: withStore(store)
+        }
+      )
+      addToCollections = screen.getByRole('button', {
+        name: 'MetaTools.CollectionsButton.add'
+      })
+      metadata = screen.getByRole('button', {
+        name: 'MetaTools.MetadataButton.label'
+      })
+      favourite = screen.getByRole('checkbox', {
+        name: 'Added to favorites'
+      })
+      hidePreviousMarks = screen.queryByRole('checkbox', {
+        name: 'FormView MetaTools.HidePreviousMarksDrawingButton.hide'
+      })
+    })
+
+    it('should have a metadata button', function () {
+      expect(metadata).to.be.ok()
+    })
+
+    it('should have an enabled Collections button', function () {
+      expect(addToCollections).to.be.ok()
+      expect(addToCollections.disabled).to.be.false()
+    })
+
+    it('should have an enabled, checked Favourites checkbox', function () {
+      expect(favourite).to.be.ok()
+      expect(favourite.disabled).to.be.false()
+      expect(favourite.getAttribute('aria-checked')).to.equal('true')
+    })
+
+    it('should not have a Hide Previous Marks checkbox', function () {
+      expect(hidePreviousMarks).to.be.null()
     })
   })
 })
