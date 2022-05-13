@@ -1,247 +1,232 @@
-import { mount, shallow } from 'enzyme'
-import { Grommet, TextArea } from 'grommet'
-import { types } from 'mobx-state-tree'
 import React from 'react'
+import { within } from '@testing-library/dom'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import zooTheme from '@zooniverse/grommet-theme'
+import { Grommet } from 'grommet'
+
 import TextTask from './'
 import { default as Task } from '@plugins/tasks/text'
-import DefaultTextTask from './components/DefaultTextTask'
-import TextTaskWithSuggestions from './components/TextTaskWithSuggestions'
 
-describe('TextTask', function () {
-  const task = Task.TaskModel.create({
-    instruction: 'Type something here',
-    taskKey: 'T0',
-    text_tags: ['insertion', 'deletion', '&'],
-    type: 'text'
-  })
-  const annotation = task.defaultAnnotation()
+describe('Text Task', function () {
 
-  describe('default task', function () {
-    let wrapper
-    before(function () {
-      const shallowOptions = {
-        wrappingComponent: <Grommet />,
-        wrappingComponentProps: { theme: zooTheme }
-      }
-      wrapper = shallow(
+  this.timeout(0)
+
+  function withGrommet({ children }) {
+    return (
+      <Grommet theme={zooTheme}>
+        {children}
+      </Grommet>
+    )
+  }
+
+  describe('without suggestions', async function () {
+    let buttons, modifiers, textInput
+
+    const task = Task.TaskModel.create({
+      instruction: 'Type something here',
+      taskKey: 'T0',
+      text_tags: ['insertion', 'deletion', '&'],
+      type: 'text'
+    })
+    const annotation = task.defaultAnnotation()
+
+    before(async function () {
+      render(
         <TextTask
           annotation={annotation}
           task={task}
         />,
-        shallowOptions
+        {
+          wrapper: withGrommet
+        }
       )
+      modifiers = screen.getByRole('group', {
+        name: 'TextTask.TextTagButtons.modifiers'
+      })
+      buttons = task.text_tags.map(tag => within(modifiers).getByRole('button', {
+        name: `TextTask.TextTagButtons.modifiers ${tag}`
+      }))
+      textInput = screen.getByRole('textbox', {
+        name: task.instruction
+      })
+      await userEvent.type(textInput, 'Hello world!')
     })
 
-    it('should render a DefaultTextTask', function () {
-      expect(wrapper.find(DefaultTextTask)).to.have.lengthOf(1)
+    it('should have a labelled text input', function () {
+      expect(textInput).to.exist()
     })
 
-    describe('text tagging', function () {
-      beforeEach(function () {
-        annotation.update('Hello, this is some test text.')
-        wrapper = mount(
-          <TextTask
-            annotation={annotation}
-            task={task}
-          />,
-          {
-            wrappingComponent: Grommet,
-            wrappingComponentProps: { theme: zooTheme }
-          }
-        )
-        const insertionButton = wrapper.find('button').find({ value: 'insertion' })
-        const fakeEvent = {
-          currentTarget: {
-            value: 'insertion'
-          }
-        }
-        const textArea = wrapper.find(TextArea).getDOMNode()
-        textArea.selectionStart = 7
-        textArea.selectionEnd = 11
-        insertionButton.simulate('click', fakeEvent)
-      })
-
-      it('should tag text', function () {
-        const textArea = wrapper.find(TextArea).getDOMNode()
-        const expectedText = 'Hello, [insertion]this[/insertion] is some test text.'
-        const updatedText = textArea.value
-        expect(updatedText).to.equal(expectedText)
-      })
-
-      it('should save the tagged text', function () {
-        const expectedText = 'Hello, [insertion]this[/insertion] is some test text.'
-        expect(annotation.value).to.equal(expectedText)
-      })
-    })
-    
-    describe('text tagging (special case for literal insertions)', function () {
-      beforeEach(function () {
-        annotation.update('Dungeons and Dragons')
-        wrapper = mount(
-          <TextTask
-            annotation={annotation}
-            task={task}
-          />,
-          {
-            wrappingComponent: Grommet,
-            wrappingComponentProps: { theme: zooTheme }
-          }
-        )
-        const ampersandButton = wrapper.find('button').find({ value: '&' })
-        const fakeEvent = {
-          currentTarget: {
-            value: '&'
-          }
-        }
-        const textArea = wrapper.find(TextArea).getDOMNode()
-        textArea.selectionStart = 9
-        textArea.selectionEnd = 12
-        ampersandButton.simulate('click', fakeEvent)
-      })
-
-      it('should insert literal tag text', function () {
-        const textArea = wrapper.find(TextArea).getDOMNode()
-        const expectedText = 'Dungeons & Dragons'
-        const updatedText = textArea.value
-        expect(updatedText).to.equal(expectedText)
-      })
-
-      it('should save the modified text', function () {
-        const expectedText = 'Dungeons & Dragons'
-        expect(annotation.value).to.equal(expectedText)
-      })
+    it('should save typed text', function () {
+      expect(annotation.value).to.equal('Hello world!')
     })
 
-    describe('on mount', function () {
-      before(function () {
-        annotation.update('Hello, this is an existing annotation')
-        wrapper = mount(
-          <TextTask
-            annotation={annotation}
-            task={task}
-          />,
-          {
-            wrappingComponent: Grommet,
-            wrappingComponentProps: { theme: zooTheme }
-          }
-        )
-      })
-
-      it('should preserve an existing annotation', function () {
-        const textArea = wrapper.find(TextArea).getDOMNode()
-        expect(textArea.value).to.equal('Hello, this is an existing annotation')
-      })
+    it('should display the current annotation', function () {
+      expect(textInput.value).to.equal(annotation.value)
     })
 
-    describe('on change', function () {
-      before(function () {
-        annotation.update('Hello, this is an existing annotation')
-        wrapper = mount(
-          <TextTask
-            annotation={annotation}
-            task={task}
-          />,
-          {
-            wrappingComponent: Grommet,
-            wrappingComponentProps: { theme: zooTheme }
-          }
-        )
-        const textArea = wrapper.find(TextArea).getDOMNode()
-        textArea.value = 'This has been edited.'
-        wrapper.find(TextArea).simulate('change')
-      })
+    it('should have text modifier buttons', function () {
+      expect(modifiers).to.exist()
+    })
 
-      it('should save the current text', function () {
-        expect(annotation.value).to.equal('This has been edited.')
-      })
+    it('should have a modifier button for each text tag', function () {
+      expect(buttons).to.have.lengthOf(task.text_tags.length)
     })
   })
-  
-  describe('task with suggestions', function () {
-    let wrapper
+
+  describe('tagging text', function () {
+    let buttons, modifiers, textInput
+
+    const task = Task.TaskModel.create({
+      instruction: 'Type something here',
+      taskKey: 'T0',
+      text_tags: ['insertion', 'deletion', '&'],
+      type: 'text'
+    })
+    const annotation = task.defaultAnnotation()
+
+    before(async function () {
+      render(
+        <TextTask
+          annotation={annotation}
+          task={task}
+        />,
+        {
+          wrapper: withGrommet
+        }
+      )
+      modifiers = screen.getByRole('group', {
+        name: 'TextTask.TextTagButtons.modifiers'
+      })
+      const insertion = within(modifiers).getByRole('button', {
+        name: 'TextTask.TextTagButtons.modifiers insertion'
+      })
+      textInput = screen.getByRole('textbox', {
+        name: task.instruction
+      })
+      await userEvent.type(textInput, 'Hello, this is some test text.')
+      textInput.selectionStart = 7
+      textInput.selectionEnd = 11
+      await userEvent.click(insertion)
+    })
+
+    it('should wrap selected text', function () {
+      expect(annotation.value).to.equal('Hello, [insertion]this[/insertion] is some test text.')
+    })
+
+    it('should display the edited annotation', function () {
+      expect(textInput.value).to.equal(annotation.value)
+    })
+  })
+
+  describe('literal insertion tags', function () {
+    let buttons, modifiers, textInput
+
+    const task = Task.TaskModel.create({
+      instruction: 'Type something here',
+      taskKey: 'T0',
+      text_tags: ['insertion', 'deletion', '&'],
+      type: 'text'
+    })
+    const annotation = task.defaultAnnotation()
+
+    before(async function () {
+      render(
+        <TextTask
+          annotation={annotation}
+          task={task}
+        />,
+        {
+          wrapper: withGrommet
+        }
+      )
+      modifiers = screen.getByRole('group', {
+        name: 'TextTask.TextTagButtons.modifiers'
+      })
+      const ampersand = within(modifiers).getByRole('button', {
+        name: 'TextTask.TextTagButtons.modifiers &'
+      })
+      textInput = screen.getByRole('textbox', {
+        name: task.instruction
+      })
+      await userEvent.type(textInput, 'Dungeons and Dragons')
+      textInput.selectionStart = 9
+      textInput.selectionEnd = 12
+      await userEvent.click(ampersand)
+    })
+
+    it('should replace selected text', function () {
+      expect(annotation.value).to.equal('Dungeons & Dragons')
+    })
+
+    it('should display the edited annotation', function () {
+      expect(textInput.value).to.equal(annotation.value)
+    })
+  })
+
+  describe('with suggestions', function () {
+    let buttons, modifiers, textInput
+
+    const task = Task.TaskModel.create({
+      instruction: 'Type something here',
+      taskKey: 'T0',
+      text_tags: ['insertion', 'deletion', '&'],
+      type: 'text'
+    })
+    const annotation = task.defaultAnnotation()
     const suggestions = [
       'a transcribed sentence',
       'a transcribed sentience',
       'a transribed sentence',
       'a conscripted sentience'
     ]
-    before(function () {
-      wrapper = shallow(
+
+    before(async function () {
+      render(
         <TextTask
           annotation={annotation}
-          subTaskPreviousAnnotationValues={suggestions}
+          suggestions={suggestions}
           task={task}
-        />
-      )
-    })
-
-    it('should render a TextTaskWithSuggestions', function () {
-      expect(wrapper.find(TextTaskWithSuggestions)).to.have.lengthOf(1)
-    })
-
-    describe('text tagging', function () {
-      beforeEach(function () {
-        annotation.update('Hello, this is some test text.')
-        wrapper = mount(
-          <TextTask
-            annotation={annotation}
-            subTaskPreviousAnnotationValues={suggestions}
-            task={task}
-          />,
-          {
-            wrappingComponent: Grommet,
-            wrappingComponentProps: { theme: zooTheme }
-          }
-        )
-        const insertionButton = wrapper.find('button').find({ value: 'insertion' })
-        const fakeEvent = {
-          currentTarget: {
-            value: 'insertion'
-          }
+        />,
+        {
+          wrapper: withGrommet
         }
-        const textInput = wrapper.find('input').getDOMNode()
-
-        textInput.selectionStart = 7
-        textInput.selectionEnd = 11
-        insertionButton.simulate('click', fakeEvent)
+      )
+      modifiers = screen.getByRole('group', {
+        name: 'TextTask.TextTagButtons.modifiers'
       })
-
-      it('should tag text', function () {
-        const textInput = wrapper.find('input').getDOMNode()
-        const expectedText = 'Hello, [insertion]this[/insertion] is some test text.'
-        const updatedText = textInput.value
-        expect(updatedText).to.equal(expectedText)
+      buttons = task.text_tags.map(tag => within(modifiers).getByRole('button', {
+        name: `TextTask.TextTagButtons.modifiers ${tag}`
+      }))
+      textInput = screen.getByRole('textbox', {
+        name: task.instruction
       })
-
-      it('should save the tagged text', function () {
-        const expectedText = 'Hello, [insertion]this[/insertion] is some test text.'
-        expect(annotation.value).to.equal(expectedText)
+      await userEvent.pointer({
+        keys: '[MouseLeft]',
+        target: textInput
       })
+      const options = suggestions.map(suggestion => screen.getByRole('button', { name: suggestion }))
+      await userEvent.click(options[1])
     })
 
-    describe('on change', function () {
-      before(function () {
-        annotation.update('Hello, this is an existing annotation')
-        wrapper = mount(
-          <TextTask
-            annotation={annotation}
-            subTaskPreviousAnnotationValues={suggestions}
-            task={task}
-          />,
-          {
-            wrappingComponent: Grommet,
-            wrappingComponentProps: { theme: zooTheme }
-          }
-        )
-        const textInput = wrapper.find('input').getDOMNode()
-        textInput.value = 'This has been edited.'
-        wrapper.find('input').simulate('change')
-      })
+    it('should have a labelled text input', function () {
+      expect(textInput).to.exist()
+    })
 
-      it('should save the current text', function () {
-        expect(annotation.value).to.equal('This has been edited.')
-      })
+    it('should save the selected suggestion', function () {
+      expect(annotation.value).to.equal(suggestions[1])
+    })
+
+    it('should display the selected suggeston', function () {
+      expect(textInput.value).to.equal(annotation.value)
+    })
+
+    it('should have text modifier buttons', function () {
+      expect(modifiers).to.exist()
+    })
+
+    it('should have a modifier button for each text tag', function () {
+      expect(buttons).to.have.lengthOf(task.text_tags.length)
     })
   })
 })
