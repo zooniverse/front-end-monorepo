@@ -32,6 +32,7 @@ describe('Text Task', function () {
     const annotation = task.defaultAnnotation()
 
     before(async function () {
+      const user = userEvent.setup()
       render(
         <TextTask
           annotation={annotation}
@@ -50,7 +51,7 @@ describe('Text Task', function () {
       textInput = screen.getByRole('textbox', {
         name: task.instruction
       })
-      await userEvent.type(textInput, 'Hello world!')
+      await user.type(textInput, 'Hello world!')
     })
 
     it('should have a labelled text input', function () {
@@ -86,6 +87,7 @@ describe('Text Task', function () {
     const annotation = task.defaultAnnotation()
 
     before(async function () {
+      const user = userEvent.setup()
       render(
         <TextTask
           annotation={annotation}
@@ -104,8 +106,8 @@ describe('Text Task', function () {
       textInput = screen.getByRole('textbox', {
         name: task.instruction
       })
-      await userEvent.type(textInput, 'Hello, this is some test text.')
-      await userEvent.pointer([
+      await user.type(textInput, 'Hello, this is some test text.')
+      await user.pointer([
         {
           target: textInput,
           offset: 7,
@@ -115,7 +117,7 @@ describe('Text Task', function () {
           offset: 11
         }
       ])
-      await userEvent.click(insertion)
+      await user.click(insertion)
     })
 
     it('should wrap selected text', function () {
@@ -139,6 +141,7 @@ describe('Text Task', function () {
     const annotation = task.defaultAnnotation()
 
     before(async function () {
+      const user = userEvent.setup()
       render(
         <TextTask
           annotation={annotation}
@@ -157,8 +160,8 @@ describe('Text Task', function () {
       textInput = screen.getByRole('textbox', {
         name: task.instruction
       })
-      await userEvent.type(textInput, 'Dungeons and Dragons')
-      await userEvent.pointer([
+      await user.type(textInput, 'Dungeons and Dragons')
+      await user.pointer([
         {
           target: textInput,
           offset: 9,
@@ -168,7 +171,7 @@ describe('Text Task', function () {
           offset: 12
         }
       ])
-      await userEvent.click(ampersand)
+      await user.click(ampersand)
     })
 
     it('should replace selected text', function () {
@@ -198,6 +201,7 @@ describe('Text Task', function () {
     ]
 
     before(async function () {
+      const user = userEvent.setup()
       render(
         <TextTask
           annotation={annotation}
@@ -217,12 +221,12 @@ describe('Text Task', function () {
       textInput = screen.getByRole('textbox', {
         name: task.instruction
       })
-      await userEvent.pointer({
+      await user.pointer({
         keys: '[MouseLeft]',
         target: textInput
       })
       const options = suggestions.map(suggestion => screen.getByRole('button', { name: suggestion }))
-      await userEvent.click(options[1])
+      await user.click(options[1])
     })
 
     it('should have a labelled text input', function () {
@@ -233,7 +237,7 @@ describe('Text Task', function () {
       expect(annotation.value).to.equal(suggestions[1])
     })
 
-    it('should display the selected suggeston', function () {
+    it('should display the selected suggestion', function () {
       expect(textInput.value).to.equal(annotation.value)
     })
 
