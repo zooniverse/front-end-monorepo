@@ -121,6 +121,12 @@
     "title": "Tutorial"
   },
   "QuickTalk": {
+    "aria": {
+      "openButton": "Subject has {{count}} comment(s). Click to expand.",
+      "mainPanel": "QuickTalk Comments Panel",
+      "closeButton": "Close comments panel",
+      "goToTalk": "Go to Subject Discussion on Talk"
+    },
     "headerLink": "Subject Discussion",
     "status": {
       "loading": "Posting comment..."
@@ -235,7 +241,7 @@
       },
       "TaskHelp": {
         "close": "Close",
-        "label": "Need some help with this task?" 
+        "label": "Need some help with this task?"
       }
     }
   }
