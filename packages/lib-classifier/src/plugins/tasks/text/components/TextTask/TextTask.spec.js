@@ -105,8 +105,16 @@ describe('Text Task', function () {
         name: task.instruction
       })
       await userEvent.type(textInput, 'Hello, this is some test text.')
-      textInput.selectionStart = 7
-      textInput.selectionEnd = 11
+      await userEvent.pointer([
+        {
+          target: textInput,
+          offset: 7,
+          keys: '[MouseLeft>]'
+        },
+        {
+          offset: 11
+        }
+      ])
       await userEvent.click(insertion)
     })
 
@@ -150,8 +158,16 @@ describe('Text Task', function () {
         name: task.instruction
       })
       await userEvent.type(textInput, 'Dungeons and Dragons')
-      textInput.selectionStart = 9
-      textInput.selectionEnd = 12
+      await userEvent.pointer([
+        {
+          target: textInput,
+          offset: 9,
+          keys: '[MouseLeft>]'
+        },
+        {
+          offset: 12
+        }
+      ])
       await userEvent.click(ampersand)
     })
 
