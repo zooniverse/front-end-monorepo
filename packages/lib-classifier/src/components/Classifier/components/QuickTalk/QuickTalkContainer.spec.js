@@ -10,7 +10,7 @@ const subject = {
 }
 
 const authClient = {}
-const quickTalkButton_target = { name: /Subject has \d+ comment\(s\). Click to expand./ }
+const quickTalkButton_target = { name: 'QuickTalk.aria.openButton' }
 
 describe('Component > QuickTalkContainer', function () {
   describe('when collapsed', function () {

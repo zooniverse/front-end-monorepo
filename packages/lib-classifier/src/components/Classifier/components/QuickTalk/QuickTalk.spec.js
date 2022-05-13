@@ -55,9 +55,9 @@ const authorRoles = {
   '300002': [],
 }
 
-const quickTalkButton_target = { name: /Subject has \d+ comment\(s\). Click to expand./ }
-const quickTalkCloseButton_target = { name: 'Close comments panel.' }
-const quickTalkPanel_target = { name: 'QuickTalk Comments Panel' }
+const quickTalkButton_target = { name: 'QuickTalk.aria.openButton' }
+const quickTalkCloseButton_target = { name: 'QuickTalk.aria.closeButton' }
+const quickTalkPanel_target = { name: 'QuickTalk.aria.mainPanel' }
 
 describe('Component > QuickTalk', function () {
   describe('when collapsed', function () {

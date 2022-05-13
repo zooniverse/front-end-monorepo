@@ -31,8 +31,8 @@ describe('Component > QuickTalk > UserAvatar', function () {
     })
 
     it('should render the default avatar', function () {
-      expect(screen.getByAltText('Avatar for Zooniverse Tester')).to.exist()
-      expect(screen.getByAltText('Avatar for Zooniverse Tester')).to.have.property('src', 'https://static.zooniverse.org/www.zooniverse.org/assets/simple-avatar.png')
+      expect(screen.getByAltText('QuickTalk.aria.userAvatar')).to.exist()
+      expect(screen.getByAltText('QuickTalk.aria.userAvatar')).to.have.property('src', 'https://static.zooniverse.org/www.zooniverse.org/assets/simple-avatar.png')
     })
   })
 
@@ -47,8 +47,8 @@ describe('Component > QuickTalk > UserAvatar', function () {
     })
 
     it('should render the default avatar', function () {
-      expect(screen.getByAltText('Avatar for Random Dude')).to.exist()
-      expect(screen.getByAltText('Avatar for Random Dude')).to.have.property('src', 'https://example.zooniverse.org/avatar/randomDude.png')
+      expect(screen.getByAltText('QuickTalk.aria.userAvatar')).to.exist()
+      expect(screen.getByAltText('QuickTalk.aria.userAvatar')).to.have.property('src', 'https://example.zooniverse.org/avatar/randomDude.png')
     })
   })
 })
