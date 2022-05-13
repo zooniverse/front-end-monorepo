@@ -20,6 +20,53 @@ describe('Text Task', function () {
     )
   }
 
+  describe('without tags', async function () {
+    let modifiers, textInput
+
+    const task = Task.TaskModel.create({
+      instruction: 'Type something here',
+      taskKey: 'T0',
+      type: 'text'
+    })
+    const annotation = task.defaultAnnotation()
+
+    before(async function () {
+      const user = userEvent.setup()
+      render(
+        <TextTask
+          annotation={annotation}
+          task={task}
+        />,
+        {
+          wrapper: withGrommet
+        }
+      )
+      modifiers = screen.queryByRole('group', {
+        name: 'TextTask.TextTagButtons.modifiers'
+      })
+      textInput = screen.getByRole('textbox', {
+        name: task.instruction
+      })
+      await user.type(textInput, 'Hello world!')
+    })
+
+    it('should have a labelled text input', function () {
+      expect(textInput).to.exist()
+    })
+
+    it('should save typed text', function () {
+      expect(annotation.value).to.equal('Hello world!')
+    })
+
+    it('should display the current annotation', function () {
+      expect(textInput.value).to.equal(annotation.value)
+    })
+
+    it('should not have text modifier buttons', function () {
+      expect(modifiers).to.be.null()
+    })
+  })
+
   describe('without suggestions', async function () {
     let buttons, modifiers, textInput
 
