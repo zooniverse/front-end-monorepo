@@ -12157,9 +12157,9 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0:
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 newrelic@^8.7.0, newrelic@~8.11.0:
-  version "8.11.0"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-8.11.0.tgz#3b2f22d20ba1fbe1a17215777d3d3aa5069e4626"
-  integrity sha512-9A7g9BZS+NYqGS2qLZCvR3Rj3c7K7KkjlrOLn1hj1eVYCBJcmXW4tlIaKvaHVvmsR4q7XtE9Og3gogBGJaR4ng==
+  version "8.11.1"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-8.11.1.tgz#dca90da33539b51a3037872e0542e6e9f2ddc91e"
+  integrity sha512-AWXYdOHuzT58k4/q5QdWPzaLVz4IdEjjJ78aGnU4w3PV4uV909HxiszGd/t23BWrIVlDQrHVrsY+k5VOTzNr0A==
   dependencies:
     "@grpc/grpc-js" "^1.5.5"
     "@grpc/proto-loader" "^0.6.9"
