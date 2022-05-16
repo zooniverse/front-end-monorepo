@@ -11,6 +11,8 @@ import mockStore from '@test/mockStore'
 import TaskAreaConnector from './TaskAreaConnector'
 
 describe('TaskAreaConnector', function () {
+  this.timeout(0)
+
   function withStore(store) {
     return function Wrapper({ children }) {
       return (
