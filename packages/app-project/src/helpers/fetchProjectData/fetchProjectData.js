@@ -26,20 +26,16 @@ export default async function fetchProjectData(slug, params) {
       'classifiers_count',
       'completeness',
       'configuration',
-      'description',
-      'display_name',
       'experimental_tools',
       'id',
-      'introduction',
       'launch_approved',
       'links',
       'live',
-      'researcher_quote',
+      'primary_language',
       'retired_subjects_count',
       'slug',
       'subjects_count',
-      'urls',
-      'workflow_description'
+      'urls'
     ]
     properties.forEach(property => {
       try {

@@ -1,11 +1,20 @@
+import fetchTranslations from '@helpers/fetchTranslations'
 import getDefaultPageProps from '@helpers/getDefaultPageProps'
 import { panoptes } from '@zooniverse/panoptes-js'
 export { default } from '@screens/ProjectAboutPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export async function getServerSideProps({ locale, params, query, req, res }) {
-  const { notFound, props } = await getDefaultPageProps({ params, query, req, res })
+  const { notFound, props } = await getDefaultPageProps({ locale, params, query, req, res })
   const { project } = props.initialState
+  const page = props.initialState.project.about_pages.find(page => page.url_key === 'team')
+  const { strings } = await fetchTranslations({
+    translated_id: page.id,
+    translated_type: 'project_page',
+    language: locale,
+    env: query.env
+  })
+  page.strings =  strings
 
   const fetchTeam = async () => {
     try {
@@ -55,7 +64,7 @@ export async function getServerSideProps({ locale, params, query, req, res }) {
     notFound,
     props: {
       ...(await serverSideTranslations(locale, ['components', 'screens'])),
-      pageTitle: 'The Team',
+      pageTitle: strings.title,
       pageType: 'team',
       ...props,
       teamArray

@@ -1,5 +1,5 @@
 import { observer, MobXProviderContext } from 'mobx-react'
-import * as React from 'react'
+import { useContext } from 'react'
 import { arrayOf, bool, shape, string } from 'prop-types'
 
 import ProjectAboutPage from './ProjectAboutPage'
@@ -14,7 +14,10 @@ const ProjectAboutPageConnector = ({ pageType, teamArray }) => {
 
     return {
       title: pageTitle,
-      content: 'No content yet.'
+      strings: {
+        title: pageTitle,
+        content: 'No content yet.'
+      }
     }
   }
 
@@ -22,7 +25,7 @@ const ProjectAboutPageConnector = ({ pageType, teamArray }) => {
     store: {
       project: { inBeta = false, about_pages = [], display_name = '' }
     }
-  } = React.useContext(MobXProviderContext)
+  } = useContext(MobXProviderContext)
 
   let aboutPageData
 

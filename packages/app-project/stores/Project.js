@@ -14,23 +14,20 @@ const Project = types
     classifiers_count: types.optional(types.number, 0),
     configuration: types.frozen({}),
     completeness: types.optional(types.number, 0),
-    description: types.optional(types.string, ''),
-    display_name: types.maybeNull(types.string),
     error: types.frozen({}),
     experimental_tools: types.frozen([]),
     id: types.maybeNull(numberString),
-    introduction: types.maybeNull(types.string),
     launch_approved: types.optional(types.boolean, false),
     links: types.maybeNull(types.frozen({})),
     live: types.optional(types.boolean, false),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
-    researcher_quote: types.optional(types.string, ''),
+    primary_language: types.optional(types.string, 'en'),
     owners: types.frozen([]),
     retired_subjects_count: types.optional(types.number, 0),
     slug: types.optional(types.string, ''),
+    strings: types.frozen({}),
     subjects_count: types.optional(types.number, 0),
-    urls: types.frozen([]),
-    workflow_description: types.maybeNull(types.string)
+    urls: types.frozen([])
   })
 
   .views(self => ({
@@ -47,8 +44,20 @@ const Project = types
       return singleActiveWorkflow
     },
 
+    get description () {
+      return self.strings?.description
+    },
+
+    get display_name () {
+      return self.strings?.display_name
+    },
+
     get displayName () {
       return self.display_name
+    },
+
+    get introduction () {
+      return self.strings?.introduction
     },
 
     get isComplete () {
@@ -57,6 +66,18 @@ const Project = types
 
     get inBeta () {
       return !self.launch_approved && self.beta_approved
+    },
+
+    get researcher_quote () {
+      return self.strings?.researcher_quote
+    },
+
+    get title () {
+      return self.strings?.title
+    },
+
+    get workflow_description () {
+      return self.strings.workflow_description
     },
 
     workflowIsActive(workflowId) {

@@ -21,13 +21,19 @@ describe('Component > ProjectAboutPage & Connector', function () {
           id: '1234',
           title: 'Research Case',
           url_key: 'science_case',
-          content: 'This is content of a science_case page.'
+          strings: {
+            title: 'Research Case',
+            content: 'This is content of a science_case page.'
+          }
         },
         {
           id: '1234',
           title: 'Results',
           url_key: 'results',
-          content: 'This is content of a results page.'
+          strings: {
+            title: 'Results',
+            content: 'This is content of a results page.'
+          }
         }
       ],
       avatar: {
@@ -107,7 +113,7 @@ describe('Component > ProjectAboutPage & Connector', function () {
           </Grommet>
         </Provider>
       )
-      const content = getByText(mockStore.project.about_pages[0].content)
+      const content = getByText(mockStore.project.about_pages[0].strings.content)
       expect(content).to.exist()
       expect(useTranslationStub).to.have.been.calledWith('About.PageHeading.title.research')
     })
@@ -138,14 +144,17 @@ describe('Component > ProjectAboutPage & Connector', function () {
       fireEvent.click(dropdown)
       const navContainer = getByTestId('mobile-about-pages-nav')
       const links = getAllByRole(navContainer, 'link')
-      expect(links).to.have.lengthOf(3)
+      expect(links).to.have.lengthOf(2)
     })
   })
 
   describe('ProjectAboutPage', function () {
     const aboutPageData = {
       title: 'Title',
-      content: 'This is some content.'
+      strings: {
+        title: 'Title',
+        content: 'This is some content.'
+      }
     }
 
     it('should render the dropdown nav on mobile screen sizes', function () {
@@ -181,7 +190,10 @@ describe('Component > ProjectAboutPage & Connector', function () {
     describe('Team page specific components', function () {
       const aboutTeamPageData = {
         title: 'team',
-        content: 'This is some content.'
+        strings: {
+          title: 'The Team',
+          content: 'This is some content.'
+        }
       }
 
       const mockTeamArray = [

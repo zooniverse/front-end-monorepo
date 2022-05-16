@@ -1,10 +1,13 @@
-import notFoundError from '@helpers/notFoundError'
-import fetchProjectData from '@helpers/fetchProjectData'
-import fetchWorkflowsHelper from '@helpers/fetchWorkflowsHelper'
-import initStore from '@stores'
+import { panoptes } from '@zooniverse/panoptes-js'
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 
-export default async function getStaticPageProps({ params, query }) {
+import notFoundError from '@helpers/notFoundError'
+import fetchProjectData from '@helpers/fetchProjectData'
+import fetchTranslations from '@helpers/fetchTranslations'
+import fetchWorkflowsHelper from '@helpers/fetchWorkflowsHelper'
+import initStore from '@stores'
+
+export default async function getStaticPageProps({ locale, params, query }) {
   const isServer = true
   // create a temporary store.
   // we'll take a snapshot of this later, to pass as a page prop.
@@ -43,7 +46,13 @@ export default async function getStaticPageProps({ params, query }) {
      which is why when determining workflowID, defaultWorkflow is not determined from the following project snapshot
   */
   const { project } = getSnapshot(store)
-  const language = project.primary_language
+  const language = locale || project.primary_language
+  const { strings } = await fetchTranslations({
+    translated_id: project.id,
+    translated_type: 'project',
+    language,
+    env
+  })
 
   const workflowOrder = project.configuration?.workflow_order || []
   /*
@@ -62,7 +71,10 @@ export default async function getStaticPageProps({ params, query }) {
   */
   const workflows = await fetchWorkflowsHelper(language, project.links.active_workflows, workflowID, workflowOrder, env)
   const props = {
-    project,
+    project: {
+      ...project,
+      strings
+    },
     workflows
   }
 
