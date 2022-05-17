@@ -18,7 +18,7 @@ export const AboutDropContent = ({ aboutNavLinks }) => {
   const { t } = useTranslation('screens')
 
   return (
-    <Nav gap='xsmall' background={{ dark: 'dark-5', light: 'neutral-6' }} data-testid='mobile-about-pages-nav'>
+    <Nav aria-label={t('About.PageNav.title')} gap='xsmall' background={{ dark: 'dark-5', light: 'neutral-6' }}>
       <AboutNavLink
         link={{
           href: `${baseUrl}/research`,
@@ -73,7 +73,7 @@ const AboutDropdownNav = ({ aboutNavLinks, router }) => {
 
   return (
     <DropButton
-      data-testid='about-pages-dropdown'
+      aria-label={t('About.SidebarHeading')}
       isOpen={isOpen}
       alignSelf='center'
       dropContent={
