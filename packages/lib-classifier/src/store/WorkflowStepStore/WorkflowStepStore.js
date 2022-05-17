@@ -1,7 +1,8 @@
 import { autorun, toJS } from 'mobx'
 import {
-  addDisposer, 
-  getRoot, 
+  addDisposer,
+  applySnapshot,
+  getRoot,
   isValidReference,
   tryReference, 
   types 
@@ -71,19 +72,33 @@ const WorkflowStepStore = types
       const [activeInteractionTask] = self.activeStepTasks.filter(task => task.type === 'drawing' || task.type === 'transcription')
 
       return activeInteractionTask || {}
+    },
+
+    get locale() {
+      return getRoot(self).locale
+    },
+
+    get workflow() {
+      return tryReference(() => getRoot(self).workflows?.active)
     }
   }))
   .actions(self => {
     function _onWorkflowChange() {
-      const workflow = tryReference(() => getRoot(self).workflows?.active)
-      if (workflow) {
+      if (self.workflow) {
         self.reset()
-        setStepsAndTasks(workflow)
+        self.setStepsAndTasks()
+      }
+    }
+
+    function _onLocaleChange() {
+      if (self.locale && self.workflow?.strings) {
+        self.setTaskStrings()
       }
     }
 
     function afterAttach () {
       addDisposer(self, autorun(_onWorkflowChange))
+      addDisposer(self, autorun(_onLocaleChange))
     }
 
     function getNextStepKey () {
@@ -120,7 +135,8 @@ const WorkflowStepStore = types
       }
     }
 
-    function setStepsAndTasks ({ steps, tasks }) {
+    function setStepsAndTasks () {
+      const { steps, tasks } = self.workflow
       self.setSteps(steps)
       self.setTasks(tasks)
     }
@@ -135,14 +151,34 @@ const WorkflowStepStore = types
     function setTasks (tasks) {
       self.steps.forEach(function (step) {
         step.taskKeys.forEach((taskKey) => {
-          // Set tasks object as a MobX observable JS map in the store
-          // put is a MST method, not native to ES Map
-          // the key is inferred from the identifier type of the target model
-          const taskToStore = Object.assign({}, tasks[taskKey], { taskKey })
+          const taskToStore = { ...tasks[taskKey], taskKey }
           try {
             step.tasks.push(taskToStore)
           } catch (error) {
             console.error(`${taskKey} ${taskToStore.type} is not a supported task type`)
+            console.error(error)
+          }
+        })
+      })
+    }
+
+    function setTaskStrings() {
+      const workflowStrings = self.workflow?.strings
+      self.steps.forEach(function (step) {
+        step.tasks.forEach((task) => {
+          const prefix = `tasks.${task.taskKey}.`
+          const strings = {}
+          Object.entries(workflowStrings).forEach(([key, value]) => {
+            if (key.startsWith(prefix)) {
+              const newKey = key.slice(prefix.length)
+              strings[newKey] = value
+            }
+          })
+          try {
+            const taskSnapshot = getSnapshot(task)
+            applySnapshot(task, { ...taskSnapshot, strings })
+          } catch (error) {
+            console.error(`${taskKey} ${task.type}: could not apply language strings`)
             console.error(error)
           }
         })
@@ -157,7 +193,8 @@ const WorkflowStepStore = types
       selectStep,
       setStepsAndTasks,
       setSteps,
-      setTasks
+      setTasks,
+      setTaskStrings
     }
   })
 

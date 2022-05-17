@@ -28,6 +28,7 @@ const Workflow = types
     links: types.frozen({}),
     prioritized: types.optional(types.boolean, false),
     steps: types.array(WorkflowStep),
+    strings: types.maybe(types.frozen()),
     subjectSet: types.safeReference(SubjectSet),
     tasks: types.maybe(types.frozen()),
     version: types.string

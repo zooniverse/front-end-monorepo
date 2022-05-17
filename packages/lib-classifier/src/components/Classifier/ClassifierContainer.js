@@ -11,7 +11,7 @@ import {
   tutorials as tutorialsClient
 } from '@zooniverse/panoptes-js'
 
-import { useHydratedStore, useWorkflowSnapshot } from '@hooks'
+import { useHydratedStore, usePanoptesTranslations, useWorkflowSnapshot } from '@hooks'
 import { unregisterWorkers } from '../../workers'
 import Classifier from './Classifier'
 
@@ -65,6 +65,14 @@ export default function ClassifierContainer({
   const storeEnvironment = { authClient, client }
 
   const workflowSnapshot = useWorkflowSnapshot(workflowID)
+  const workflowTranslation = usePanoptesTranslations({
+    translated_id: workflowID,
+    translated_type: 'workflow',
+    language: locale
+  })
+  if (workflowSnapshot && workflowTranslation) {
+    workflowSnapshot.strings = workflowTranslation.strings
+  }
 
   const classifierStore = useHydratedStore(storeEnvironment, cachePanoptesData, `fem-classifier-${project.id}`)
 

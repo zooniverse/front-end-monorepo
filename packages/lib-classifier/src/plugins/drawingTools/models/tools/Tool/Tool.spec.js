@@ -65,7 +65,8 @@ describe('Model > DrawingTools > Tool', function () {
             question: 'which fruit?',
             answers: ['apples', 'oranges', 'pears'],
             help: '',
-            required: ''
+            required: '',
+            strings: {}
           },
           {
             taskKey: 'single',
@@ -73,7 +74,8 @@ describe('Model > DrawingTools > Tool', function () {
             question: 'how many?',
             answers: ['one', 'two', 'three'],
             help: '',
-            required: ''
+            required: '',
+            strings: {}
           },
           {
             taskKey: 'text',
@@ -81,6 +83,7 @@ describe('Model > DrawingTools > Tool', function () {
             instruction: 'Transcribe something',
             help: '',
             required: '',
+            strings: {},
             text_tags: []
           }
         ]

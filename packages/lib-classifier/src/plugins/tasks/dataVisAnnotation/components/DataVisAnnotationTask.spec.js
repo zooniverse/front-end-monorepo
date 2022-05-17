@@ -9,6 +9,11 @@ const task = {
   activeToolIndex: 0,
   instruction: 'Mark an area of the graph that is interesting.',
   taskKey: 'T101',
+  strings: {
+    help: '',
+    instruction: 'Mark an area of the graph that is interesting.',
+    'tools.0.label': 'Transit?'
+  },
   tools: [{
     help: '',
     label: 'Transit?',

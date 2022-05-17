@@ -7,8 +7,6 @@ import DataVisAnnotation from './DataVisAnnotation'
 const DataVisTaskModel = types.model('DataVisTaskModel', {
   activeToolIndex: types.optional(types.number, 0),
   annotation: types.safeReference(DataVisAnnotation),
-  help: types.optional(types.string, ''),
-  instruction: types.maybe(types.string),
   tools: types.array(types.union({
     dispatcher: (snapshot) => {
       if (snapshot.type === 'graph2dRangeX') return Graph2dRangeXTool
@@ -28,6 +26,14 @@ const DataVisTaskModel = types.model('DataVisTaskModel', {
         task: self.taskKey,
         taskType: self.type
       })
+    },
+
+    get help () {
+      return self.strings?.help
+    },
+
+    get instruction () {
+      return self.strings?.instruction
     }
   }))
 
