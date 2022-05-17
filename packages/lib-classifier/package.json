@@ -57,7 +57,7 @@
     "@babel/plugin-proposal-logical-assignment-operators": "~7.16.7",
     "@babel/polyfill": "~7.12.1",
     "@babel/preset-env": "~7.17.10",
-    "@babel/preset-react": "~7.16.7",
+    "@babel/preset-react": "~7.17.12",
     "@babel/register": "~7.17.0",
     "@storybook/addon-a11y": "~6.4.18",
     "@storybook/addon-essentials": "~6.4.18",
