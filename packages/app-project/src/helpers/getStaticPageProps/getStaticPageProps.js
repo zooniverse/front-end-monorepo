@@ -51,6 +51,7 @@ export default async function getStaticPageProps({ locale, params, query }) {
     translated_id: project.id,
     translated_type: 'project',
     language,
+    fallback: project.primary_language,
     env
   })
   const strings = translations?.strings ?? project.strings

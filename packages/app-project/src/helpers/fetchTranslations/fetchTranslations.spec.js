@@ -10,6 +10,25 @@ describe('helpers > fetchTranslations', function () {
     .reply(200, {
       translations: [
         {
+          language: 'fr',
+          strings: {
+            display_name: 'Le project'
+          }
+        },
+        {
+          language: 'en',
+          strings: {
+            display_name: 'test project'
+          }
+        }
+      ]
+    })
+    .get('/translations')
+    .query(query => query.translated_type === 'project' && query.language === 'fr,en')
+    .reply(200, {
+      translations: [
+        {
+          language: 'en',
           strings: {
             display_name: 'test project'
           }
@@ -21,6 +40,7 @@ describe('helpers > fetchTranslations', function () {
     .reply(200, {
       translations: [
         {
+          language: 'en',
           strings: {
             content: 'test project page'
           }
@@ -38,10 +58,11 @@ describe('helpers > fetchTranslations', function () {
     const translation = await fetchTranslations({
       translated_id: 1234,
       translated_type: 'project',
-      language: 'en',
+      language: 'fr',
+      fallback: 'en',
       env: 'staging'
     })
-    expect(translation?.strings?.display_name).to.equal('test project')
+    expect(translation?.strings?.display_name).to.equal('Le project')
   })
 
   it('should fetch project page translations', async function () {
@@ -52,6 +73,17 @@ describe('helpers > fetchTranslations', function () {
       env: 'staging'
     })
     expect(translation?.strings?.content).to.equal('test project page')
+  })
+
+  it('should use the fallback language when translations don\'t exist', async function () {
+    const translation = await fetchTranslations({
+      translated_id: 1234,
+      translated_type: 'project',
+      language: 'fr',
+      fallback: 'en',
+      env: 'staging'
+    })
+    expect(translation?.strings?.display_name).to.equal('test project')
   })
 
   it('should be undefined when the search query has no results', async function () {

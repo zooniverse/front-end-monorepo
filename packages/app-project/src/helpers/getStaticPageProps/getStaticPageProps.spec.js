@@ -38,6 +38,7 @@ describe('Helpers > getStaticPageProps', function () {
 
   const TRANSLATION = {
     translated_id: 1,
+    language: 'en',
     strings: {
       display_name: 'Foo'
     }
@@ -45,6 +46,7 @@ describe('Helpers > getStaticPageProps', function () {
 
   const GROUPED_TRANSLATION = {
     translated_id: 2,
+    language: 'en',
     strings: {
       display_name: 'Bar'
     }

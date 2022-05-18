@@ -1,4 +1,4 @@
-import fetchTranslations from '@helpers/fetchTranslations'
+import fetchProjectPage from '@helpers/fetchProjectPage'
 import getDefaultPageProps from '@helpers/getDefaultPageProps'
 import { panoptes } from '@zooniverse/panoptes-js'
 export { default } from '@screens/ProjectAboutPage'
@@ -7,16 +7,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 export async function getServerSideProps({ locale, params, query, req, res }) {
   const { notFound, props } = await getDefaultPageProps({ locale, params, query, req, res })
   const { project } = props.initialState
-  const page = props.initialState.project.about_pages.find(page => page.url_key === 'team')
-  const translations = await fetchTranslations({
-    translated_id: page?.id,
-    translated_type: 'project_page',
-    language: locale,
-    env: query.env
-  })
-  if (translations?.strings) {
-    page.strings = translations.strings
-  }
+  const page = await fetchProjectPage(project, locale, 'team', query.env)
   const pageTitle = page?.strings?.title ?? 'Team'
 
   const fetchTeam = async () => {
