@@ -6,9 +6,9 @@ import * as Sentry from '@sentry/browser'
 import { panoptes } from '@zooniverse/panoptes-js'
 import { getBearerToken } from './'
 
-const FAILED_CLASSIFICATION_QUEUE_NAME = 'failed-classifications'
-const MAX_RECENTS = 10
-const RETRY_INTERVAL = 5 * 60 * 1000
+export const FAILED_CLASSIFICATION_QUEUE_NAME = 'failed-classifications'
+export const MAX_RECENTS = 10
+export const RETRY_INTERVAL = 5 * 60 * 1000
 
 class ClassificationQueue {
   constructor (api, onClassificationSaved, authClient) {
@@ -19,6 +19,7 @@ class ClassificationQueue {
     this.flushTimeout = null
     this.onClassificationSaved = onClassificationSaved || function () { return true }
     this.endpoint = '/classifications'
+    this.flushToBackend = this.flushToBackend.bind(this)
   }
 
   add (classification) {
@@ -90,7 +91,7 @@ class ClassificationQueue {
         try {
           this.store(classificationData)
           if (!this.flushTimeout) {
-            this.flushTimeout = setTimeout(this.flushToBackend.bind(this), RETRY_INTERVAL)
+            this.flushTimeout = setTimeout(this.flushToBackend, RETRY_INTERVAL)
           }
         } catch (saveQueueError) {
           console.error('Failed to update classification queue:', saveQueueError)

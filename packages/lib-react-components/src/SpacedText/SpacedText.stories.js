@@ -1,35 +1,46 @@
-import { storiesOf } from '@storybook/react'
-import { withKnobs, text } from '@storybook/addon-knobs'
 import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
-import React from 'react'
-
-import readme from './README.md'
+import { Box, Grommet } from 'grommet'
 import SpacedText from './SpacedText'
 
-const config = {
-  docs: {
-    description: {
-      component: readme
+export default {
+  title: 'Components / SpacedText',
+  component: SpacedText,
+  args: {
+    children: 'Zooniverse Spaced Text',
+    dark: false,
+    size: 'medium',
+    uppercase: true,
+    weight: 'normal'
+  },
+  argTypes: {
+    size: {
+      options: ['small', 'medium', 'large', 'xlarge'],
+      control: { type: 'select' }
+    },
+    uppercase: {
+      options: [true, false],
+      control: { type: 'radio' }
+    },
+    weight: {
+      options: ['normal', 'bold'],
+      control: { type: 'radio' }
     }
   }
 }
 
-storiesOf('Components/SpacedText', module)
-  .addDecorator(withKnobs)
-
-  .add('default', () => (
-    <Grommet theme={zooTheme}>
-      <SpacedText>
-        {text('Text', 'Zooniverse spaced text')}
+export const Default = ({ children, dark, size, uppercase, weight }) => (
+  <Grommet
+    background={{
+      dark: 'dark-1',
+      light: 'light-1'
+    }}
+    theme={zooTheme}
+    themeMode={dark ? 'dark' : 'light'}
+  >
+    <Box pad='medium'>
+      <SpacedText size={size} uppercase={uppercase} weight={weight}>
+        {children}
       </SpacedText>
-    </Grommet>
-  ), config)
-
-  .add('bold', () => (
-    <Grommet theme={zooTheme}>
-      <SpacedText weight='bold'>
-        {text('Text', 'Zooniverse spaced text')}
-      </SpacedText>
-    </Grommet>
-  ), config)
+    </Box>
+  </Grommet>
+)

@@ -6,12 +6,7 @@ import { Box, Button } from 'grommet'
 import { FeedbackModal } from './FeedbackModal'
 import getFeedbackViewer from './helpers/getFeedbackViewer'
 
-// .WrappedComponent unwraps withTranslation()
-// .wrappedComponent unwraps mobx
 // shallow rendering like this is a quick fix to get around FeedbackModal's HOC's
-// but FeedbackModal should be refactored to a functional component
-// to remove deprecated @inject @observer decorators
-
 const applicableRules = [
   { id: '1', strategy: 'graph2drange' },
   { id: '2', strategy: 'graph2drange' }

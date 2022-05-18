@@ -1,94 +1,105 @@
-import { linkTo } from '@storybook/addon-links'
-import { storiesOf } from '@storybook/react'
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
-import { merge } from 'lodash'
-import React from 'react'
+import { linkTo } from '@storybook/addon-links';
+import zooTheme from '@zooniverse/grommet-theme';
+import { Box, Grommet } from 'grommet';
+import { merge } from 'lodash';
+import React from 'react';
 
-import ZooFooter from './ZooFooter'
-import readme from './README.md'
-import AdminCheckbox from '../AdminCheckbox'
+import ZooFooter from './ZooFooter';
+import readme from './README.md';
+import AdminCheckbox from '../AdminCheckbox';
 
 const config = {
   docs: {
     description: {
-      component: readme
-    }
-  }
-}
+      component: readme,
+    },
+  },
+};
 
-storiesOf('Components/ZooFooter', module)
+export default {
+  title: 'Components/ZooFooter',
+};
 
-  .add('Light theme (default)', () => (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={mergeThemes({ dark: false })}
-      themeMode='light'
-    >
-      <Box fill>
-        <ZooFooter />
-      </Box>
-    </Grommet>
-  ), config)
+export const LightThemeDefault = () => (
+  <Grommet
+    background={{
+      dark: 'dark-1',
+      light: 'light-1',
+    }}
+    theme={mergeThemes({ dark: false })}
+    themeMode="light"
+  >
+    <Box fill>
+      <ZooFooter />
+    </Box>
+  </Grommet>
+);
 
-  .add('Dark theme', () => (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={mergeThemes({ dark: true })}
-      themeMode='dark'
-    >
-      <Box fill>
-        <ZooFooter />
-      </Box>
-    </Grommet>
-  ), config)
+LightThemeDefault.story = {
+  name: 'Light theme (default)',
+  parameters: config,
+};
 
-  .add('Light with admin', () => (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={mergeThemes({ dark: false })}
-      themeMode='light'
-    >
-      <Box fill>
-        <ZooFooter
-          adminContainer={(
-            <AdminCheckbox onChange={linkTo('ZooFooter/AdminCheckbox')} />
-          )}
-        />
-      </Box>
-    </Grommet>
-  ), config)
+export const DarkTheme = () => (
+  <Grommet
+    background={{
+      dark: 'dark-1',
+      light: 'light-1',
+    }}
+    theme={mergeThemes({ dark: true })}
+    themeMode="dark"
+  >
+    <Box fill>
+      <ZooFooter />
+    </Box>
+  </Grommet>
+);
 
-  .add('Dark with admin', () => (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={mergeThemes({ dark: true })}
-      themeMode='dark'
-    >
-      <Box fill>
-        <ZooFooter
-          adminContainer={(
-            <AdminCheckbox
-              onChange={linkTo('ZooFooter/AdminCheckbox')}
-            />
-          )}
-        />
-      </Box>
-    </Grommet>
-  ), config)
+DarkTheme.story = {
+  name: 'Dark theme',
+  parameters: config,
+};
 
-function mergeThemes (customTheme) {
-  return merge({}, zooTheme, customTheme)
+export const LightWithAdmin = () => (
+  <Grommet
+    background={{
+      dark: 'dark-1',
+      light: 'light-1',
+    }}
+    theme={mergeThemes({ dark: false })}
+    themeMode="light"
+  >
+    <Box fill>
+      <ZooFooter adminContainer={<AdminCheckbox onChange={linkTo('ZooFooter/AdminCheckbox')} />} />
+    </Box>
+  </Grommet>
+);
+
+LightWithAdmin.story = {
+  name: 'Light with admin',
+  parameters: config,
+};
+
+export const DarkWithAdmin = () => (
+  <Grommet
+    background={{
+      dark: 'dark-1',
+      light: 'light-1',
+    }}
+    theme={mergeThemes({ dark: true })}
+    themeMode="dark"
+  >
+    <Box fill>
+      <ZooFooter adminContainer={<AdminCheckbox onChange={linkTo('ZooFooter/AdminCheckbox')} />} />
+    </Box>
+  </Grommet>
+);
+
+DarkWithAdmin.story = {
+  name: 'Dark with admin',
+  parameters: config,
+};
+
+function mergeThemes(customTheme) {
+  return merge({}, zooTheme, customTheme);
 }
