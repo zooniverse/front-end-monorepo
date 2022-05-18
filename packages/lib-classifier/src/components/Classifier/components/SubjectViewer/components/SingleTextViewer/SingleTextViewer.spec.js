@@ -25,44 +25,6 @@ describe('SingleTextViewerConnector', function () {
     }
   }
 
-  describe('with content loading state of initialized', function () {
-    let onErrorSpy, onReadySpy
-
-    const initializedSubjectSnapshot = SubjectFactory.build({
-      content: 'This is test subject content',
-      contentLoadingState: asyncStates.initialized,
-      locations: [
-        { 'text/plain': 'http://localhost:8080/subjectContent.txt' }
-      ]
-    })
-
-    const store = mockStore({
-      subject: initializedSubjectSnapshot
-    })
-
-    before(function () {
-      onErrorSpy = sinon.spy()
-      onReadySpy = sinon.spy()
-
-      render(
-        <SingleTextViewerConnector
-          onError={onErrorSpy}
-          onReady={onReadySpy}
-        />, {
-          wrapper: withStore(store)
-        }
-      )
-    })
-
-    it('should not render the text subject content', function () {
-      expect(screen.queryByText('This is test subject content')).to.be.null()
-    })
-
-    it('should not call onReady', function () {
-      expect(onReadySpy).to.not.have.been.called()
-    })
-  })
-
   describe('with content loading state of loading', function () {
     let onErrorSpy, onReadySpy
 
