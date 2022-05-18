@@ -40,8 +40,9 @@ function ProjectAboutPage ({
     content: aboutPageData.content
   }
   const { strings, title: pageType } = aboutPageData
-  const { content, title } = strings ?? defaultContent
+  const { content } = strings ?? defaultContent
 
+  const pageTitle = t(`About.PageHeading.title.${pageType.toLowerCase()}`)
   const isTeamPage = pageType.toLowerCase().includes('team')
   // note that for future additional locales, CSS property :lang is available to format strings
 
@@ -81,7 +82,7 @@ function ProjectAboutPage ({
             )}
             <Box>
               <PageHeading
-                children={title}
+                children={pageTitle}
                 level='2'
                 weight='normal'
                 size='40px'
