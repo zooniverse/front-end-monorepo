@@ -8,13 +8,16 @@ export async function getServerSideProps({ locale, params, query, req, res }) {
   const { notFound, props } = await getDefaultPageProps({ locale, params, query, req, res })
   const { project } = props.initialState
   const page = props.initialState.project.about_pages.find(page => page.url_key === 'team')
-  const { strings } = await fetchTranslations({
-    translated_id: page.id,
+  const translations = await fetchTranslations({
+    translated_id: page?.id,
     translated_type: 'project_page',
     language: locale,
     env: query.env
   })
-  page.strings =  strings
+  if (translations?.strings) {
+    page.strings = translations.strings
+  }
+  const pageTitle = page?.strings?.title ?? 'Team'
 
   const fetchTeam = async () => {
     try {
@@ -64,7 +67,7 @@ export async function getServerSideProps({ locale, params, query, req, res }) {
     notFound,
     props: {
       ...(await serverSideTranslations(locale, ['components', 'screens'])),
-      pageTitle: strings.title,
+      pageTitle,
       pageType: 'team',
       ...props,
       teamArray

@@ -35,8 +35,12 @@ function ProjectAboutPage ({
 }) {
   const { t } = useTranslation('screens')
 
-  const { strings = {}, title: pageType } = aboutPageData
-  const { content, title } = strings
+  const defaultContent = {
+    title: aboutPageData.title,
+    content: aboutPageData.content
+  }
+  const { strings, title: pageType } = aboutPageData
+  const { content, title } = strings ?? defaultContent
 
   const isTeamPage = pageType.toLowerCase().includes('team')
   // note that for future additional locales, CSS property :lang is available to format strings
