@@ -47,12 +47,13 @@ export default async function getStaticPageProps({ locale, params, query }) {
   */
   const { project } = getSnapshot(store)
   const language = locale || project.primary_language
-  const { strings } = await fetchTranslations({
+  const translations = await fetchTranslations({
     translated_id: project.id,
     translated_type: 'project',
     language,
     env
   })
+  const strings = translations?.strings ?? project.strings
 
   const workflowOrder = project.configuration?.workflow_order || []
   /*

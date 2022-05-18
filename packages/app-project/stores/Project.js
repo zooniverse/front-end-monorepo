@@ -77,7 +77,7 @@ const Project = types
     },
 
     get workflow_description () {
-      return self.strings.workflow_description
+      return self.strings?.workflow_description
     },
 
     workflowIsActive(workflowId) {

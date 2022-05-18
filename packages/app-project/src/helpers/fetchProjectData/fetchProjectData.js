@@ -19,6 +19,14 @@ export default async function fetchProjectData(slug, params) {
     projectData.owners = get(linked, 'owners', [])
     projectData.about_pages = get(linked, 'project_pages', [])
 
+    projectData.strings = {
+      description: project.description,
+      display_name: project.display_name,
+      introduction: project.introduction,
+      researcher_quote: project.researcher_quote,
+      title: project.title,
+      workflow_description: project.workflow_description
+    }
     const properties = [
       'beta_approved',
       'beta_requested',
