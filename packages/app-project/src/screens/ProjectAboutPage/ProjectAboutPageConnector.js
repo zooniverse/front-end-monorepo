@@ -33,14 +33,11 @@ const ProjectAboutPageConnector = ({ pageType, teamArray }) => {
   if (about_pages.length) {
     about_pages.forEach(page => {
       const type = page.url_key === 'science_case' ? 'research' : page.url_key
-      if (
-        page.content?.length &&
-        !aboutNavLinks.includes(type)
-      ) {
+      if (!aboutNavLinks.includes(type)) {
         aboutNavLinks.push(type)
       }
     })
-    aboutPageData = about_pages.filter(page => page.url_key === pageType)[0]
+    aboutPageData = about_pages.find(page => page.url_key === pageType)
 
     // Some old project Research pages have default title 'Research Case'
     // Title is corrected here for translation files

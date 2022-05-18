@@ -48,8 +48,10 @@ describe('Component > ProjectAboutPage & Connector', function () {
         announcement: ''
       },
       description: 'This is a description',
-      display_name: 'Display Name',
-      inBeta: false
+      inBeta: false,
+      strings: {
+        display_name: 'Display Name'
+      }
     },
     ui: {
       mode: 'light'
@@ -144,7 +146,7 @@ describe('Component > ProjectAboutPage & Connector', function () {
       fireEvent.click(dropdown)
       const navContainer = getByTestId('mobile-about-pages-nav')
       const links = getAllByRole(navContainer, 'link')
-      expect(links).to.have.lengthOf(2)
+      expect(links).to.have.lengthOf(3)
     })
   })
 
