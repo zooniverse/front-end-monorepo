@@ -6,9 +6,9 @@ import * as tools from '@plugins/drawingTools/models/tools'
 import * as markTypes from '@plugins/drawingTools/models/marks'
 import DrawingAnnotation from './DrawingAnnotation'
 
-const markModels = Object.values(markTypes)
+const markModels = Object.values(markTypes).filter(markType => markType.isType)
 const GenericMark = types.union(...markModels)
-const toolModels = Object.values(tools)
+const toolModels = Object.values(tools).filter(toolType => toolType.isType)
 const GenericTool = types.union(...toolModels)
 
 export const Drawing = types.model('Drawing', {

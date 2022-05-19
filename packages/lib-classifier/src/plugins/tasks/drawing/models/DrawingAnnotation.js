@@ -3,7 +3,7 @@ import DrawingTask from './DrawingTask'
 import Annotation from '../../models/Annotation'
 import * as markTypes from '@plugins/drawingTools/models/marks'
 
-const allDrawingMarks = Object.values(markTypes)
+const allDrawingMarks = Object.values(markTypes).filter(markType => markType.isType)
 const GenericMark = types.union(...allDrawingMarks)
 
 const Drawing = types.model('Drawing', {

@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree'
 import * as tasks from '@plugins/tasks'
 
-const taskModels = Object.values(tasks).map(task => task.TaskModel)
+const taskModels = Object.values(tasks).map(task => task.TaskModel).filter(Boolean)
 
 function taskDispatcher (snapshot) {
   switch (snapshot.type) {
