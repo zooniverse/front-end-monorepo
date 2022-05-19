@@ -2881,24 +2881,23 @@
     regenerator-runtime "^0.13.7"
     ts-dedent "^2.0.0"
 
-"@storybook/addon-storysource@~6.4.18":
-  version "6.4.21"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-storysource/-/addon-storysource-6.4.21.tgz#d1acf3a332eb845dcd2c2ce95ee4585413ba874a"
-  integrity sha512-CFfpq7PfoRCbrTVhmWZLPtubTmGNDPJLavmNuiAs0unwVV+nLQwV0md+4jf4LxIMw5NNqK8weAYbNAAwyiQSmQ==
+"@storybook/addon-storysource@~6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-storysource/-/addon-storysource-6.5.0.tgz#37804e950509ad6801da230614f7b2e09dc0a0ed"
+  integrity sha512-4VJDBsH8iPp9/TXv73lqbm0qD5oj/t+J6lM3RFG1HRLQ7ORMKmPKLM/HiWXTdyXi32Vb3B4dU14TyEgySzFNTg==
   dependencies:
-    "@storybook/addons" "6.4.21"
-    "@storybook/api" "6.4.21"
-    "@storybook/client-logger" "6.4.21"
-    "@storybook/components" "6.4.21"
-    "@storybook/router" "6.4.21"
-    "@storybook/source-loader" "6.4.21"
-    "@storybook/theming" "6.4.21"
+    "@storybook/addons" "6.5.0"
+    "@storybook/api" "6.5.0"
+    "@storybook/client-logger" "6.5.0"
+    "@storybook/components" "6.5.0"
+    "@storybook/router" "6.5.0"
+    "@storybook/source-loader" "6.5.0"
+    "@storybook/theming" "6.5.0"
     core-js "^3.8.2"
     estraverse "^5.2.0"
     loader-utils "^2.0.0"
-    prettier ">=2.2.1 <=2.3.0"
     prop-types "^15.7.2"
-    react-syntax-highlighter "^13.5.3"
+    react-syntax-highlighter "^15.4.5"
     regenerator-runtime "^0.13.7"
 
 "@storybook/addon-toolbars@6.5.0":
@@ -3827,22 +3826,6 @@
   dependencies:
     core-js "^3.6.5"
     find-up "^4.1.0"
-
-"@storybook/source-loader@6.4.21":
-  version "6.4.21"
-  resolved "https://registry.yarnpkg.com/@storybook/source-loader/-/source-loader-6.4.21.tgz#6145c3dcede3bfbd1159755c6aad8722cadd0b5f"
-  integrity sha512-rRu3uWla1c73F5FKl7mdkIKcj+Of4jzIT7aHycS0j6rYKwbGpsptLgxbpMUaEdNHjSDyAzSM6Mj5XcnE5rC8nQ==
-  dependencies:
-    "@storybook/addons" "6.4.21"
-    "@storybook/client-logger" "6.4.21"
-    "@storybook/csf" "0.0.2--canary.87bc651.0"
-    core-js "^3.8.2"
-    estraverse "^5.2.0"
-    global "^4.4.0"
-    loader-utils "^2.0.0"
-    lodash "^4.17.21"
-    prettier ">=2.2.1 <=2.3.0"
-    regenerator-runtime "^0.13.7"
 
 "@storybook/source-loader@6.5.0":
   version "6.5.0"
