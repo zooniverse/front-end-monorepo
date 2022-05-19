@@ -29,11 +29,11 @@ const DataVisTaskModel = types.model('DataVisTaskModel', {
     },
 
     get help () {
-      return self.strings?.help
+      return self.strings.get('help')
     },
 
     get instruction () {
-      return self.strings?.instruction
+      return self.strings.get('instruction')
     }
   }))
 

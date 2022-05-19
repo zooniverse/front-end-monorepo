@@ -9,6 +9,7 @@ import {
   TranscriptionTaskFactory,
   WorkflowFactory
 } from '@test/factories'
+import { getSnapshot } from 'mobx-state-tree'
 import { Factory } from 'rosie'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 
@@ -114,7 +115,7 @@ describe('Model > WorkflowStepStore', function () {
           const { taskKey } = task
           const strings = {}
           const originalTask = { ...workflow.tasks[taskKey], annotation, strings, taskKey }
-          expect(task).to.eql(originalTask)
+          expect(getSnapshot(task)).to.eql(originalTask)
         })
       })
     })
@@ -173,7 +174,7 @@ describe('Model > WorkflowStepStore', function () {
           const { taskKey } = task
           const strings = {}
           const originalTask = { ...workflow.tasks[taskKey], annotation, strings, taskKey }
-          expect(task).to.eql(originalTask)
+          expect(getSnapshot(task)).to.eql(originalTask)
         })
       })
     })
@@ -240,7 +241,7 @@ describe('Model > WorkflowStepStore', function () {
           const { taskKey } = task
           const strings = {}
           const originalTask = { ...workflow.tasks[taskKey], annotation, strings, taskKey }
-          expect(task).to.eql(originalTask)
+          expect(getSnapshot(task)).to.eql(originalTask)
         })
       })
     })

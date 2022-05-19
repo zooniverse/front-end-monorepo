@@ -175,8 +175,7 @@ const WorkflowStepStore = types
             }
           })
           try {
-            const taskSnapshot = getSnapshot(task)
-            applySnapshot(task, { ...taskSnapshot, strings })
+            applySnapshot(task.strings, strings)
           } catch (error) {
             console.error(`${taskKey} ${task.type}: could not apply language strings`)
             console.error(error)
