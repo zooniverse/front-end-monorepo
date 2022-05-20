@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Image } from 'grommet'
+import { useTranslation } from 'react-i18next'
 
 // TEMPORARY
 // TODO: find a permanent home for this PNG
@@ -11,8 +12,9 @@ function UserAvatar ({
   displayName = '',
   size = '3em',
 }) {
+  const { t } = useTranslation('components')
   const imgSrc = (src && src.length > 0) ? src : DEFAULT_AVATAR
-  
+
   return (
     <Box
       alignSelf='center'
@@ -20,7 +22,7 @@ function UserAvatar ({
       height={size}
     >
       <Image
-        alt={`Avatar for ${displayName}`}
+        alt={t('QuickTalk.aria.userAvatar', { name: displayName })}
         src={imgSrc}
         fallback={DEFAULT_AVATAR}
       />

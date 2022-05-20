@@ -1,60 +1,63 @@
-import { storiesOf } from '@storybook/react'
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
-import React from 'react'
+import zooTheme from '@zooniverse/grommet-theme';
+import { Grommet } from 'grommet';
+import React from 'react';
 
-import Tabs from './Tabs'
-import Tab from '../Tab'
-import readme from './README.md'
+import Tabs from './Tabs';
+import Tab from '../Tab';
+import readme from './README.md';
 
 const config = {
   docs: {
     description: {
-      component: readme
-    }
-  }
-}
+      component: readme,
+    },
+  },
+};
 
-const darkZooTheme = { ...zooTheme, dark: true }
+const darkZooTheme = { ...zooTheme, dark: true };
 
-storiesOf('Components/Tabs', module)
+export default {
+  title: 'Components/Tabs',
+};
 
-  .add('Light theme (default)', () => (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode='light'
-    >
-      <Tabs>
-        <Tab title='foo'>
-          Foo
-        </Tab>
-        <Tab title='bar'>
-          Bar
-        </Tab>
-      </Tabs>
-    </Grommet>
-  ), config)
+export const LightThemeDefault = () => (
+  <Grommet
+    background={{
+      dark: 'dark-1',
+      light: 'light-1',
+    }}
+    theme={zooTheme}
+    themeMode="light"
+  >
+    <Tabs>
+      <Tab title="foo">Foo</Tab>
+      <Tab title="bar">Bar</Tab>
+    </Tabs>
+  </Grommet>
+);
 
-  .add('Dark theme', () => (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={darkZooTheme}
-      themeMode='dark'
-    >
-      <Tabs>
-        <Tab title='foo'>
-          Foo
-        </Tab>
-        <Tab title='bar'>
-          Bar
-        </Tab>
-      </Tabs>
-    </Grommet>
-  ), config)
+LightThemeDefault.story = {
+  name: 'Light theme (default)',
+  parameters: config,
+};
+
+export const DarkTheme = () => (
+  <Grommet
+    background={{
+      dark: 'dark-1',
+      light: 'light-1',
+    }}
+    theme={darkZooTheme}
+    themeMode="dark"
+  >
+    <Tabs>
+      <Tab title="foo">Foo</Tab>
+      <Tab title="bar">Bar</Tab>
+    </Tabs>
+  </Grommet>
+);
+
+DarkTheme.story = {
+  name: 'Dark theme',
+  parameters: config,
+};

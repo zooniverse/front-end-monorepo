@@ -1,36 +1,36 @@
 import React from 'react'
-import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
-import { getBearerToken } from '../../../../store/utils'
 import { withTranslation } from 'react-i18next'
 
+import { withStores } from '@helpers'
+import { getBearerToken } from '@store/utils'
 import QuickTalk from './QuickTalk'
 import apiClient from 'panoptes-client/lib/api-client'
 import talkClient from 'panoptes-client/lib/talk-client'
 
-function storeMapper (stores) {
-  const {
-    active: subject
-  } = stores.classifierStore.subjects
-  
-  /*
-  Experimental Check
-  - As of Aug 2021, this component is experimental.
-  - Only show this component when explicitly enabled.
-   */
-  const {
-    active: project
-  } = stores.classifierStore.projects
-  const enabled = project?.experimental_tools.includes('quicktalk')
-  
+function storeMapper (store) {
   /*
   Quick Fix: use authClient to check User resource within the QuickTalk component itself
   - Long-term, app-project should be responsible for managing the User resource.
   - see https://github.com/zooniverse/front-end-monorepo/discussions/2362
    */
-  const authClient = stores.classifierStore.authClient
-  
+  const {
+    authClient,
+    projects: {
+      active: project
+    },
+    subjects: {
+      active: subject
+    }
+  } = store
+  /*
+  Experimental Check
+  - As of Aug 2021, this component is experimental.
+  - Only show this component when explicitly enabled.
+   */
+  const enabled = project?.experimental_tools.includes('quicktalk')
+
   return {
     authClient,
     enabled,
@@ -284,10 +284,6 @@ QuickTalkContainer.defaultProps = {
   subject: undefined,
 }
 
-// Noting that mobx decorators are outdated and should be refactored
-@inject(storeMapper)
-@observer
-class DecoratedQuickTalkContainer extends QuickTalkContainer { }
-
-export default withTranslation('components')(DecoratedQuickTalkContainer)
+const TranslatedQuickTalkContainer = withTranslation('components')(QuickTalkContainer)
+export default withStores(TranslatedQuickTalkContainer, storeMapper)
 export { QuickTalkContainer }

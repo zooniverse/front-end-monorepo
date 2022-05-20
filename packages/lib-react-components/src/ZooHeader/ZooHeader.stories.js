@@ -18,9 +18,19 @@ const config = {
   }
 }
 
-storiesOf('Components/ZooHeader', module)
+export default {
+  title: 'Components / ZooHeader',
+  component: ZooHeader,
+  parameters: {
+    viewport: {
+      defaultViewport: 'responsive'
+    },
+    ...config
+  }
+}
 
-  .add('Signed out', () => (
+export function SignedOut() {
+  return (
     <Grommet theme={zooTheme} full>
       <ZooHeader
         signIn={signIn}
@@ -28,9 +38,11 @@ storiesOf('Components/ZooHeader', module)
         user={{}}
       />
     </Grommet>
-  ), { viewport: { defaultViewport: 'responsive' }, ...config })
+  )
+}
 
-  .add('Signed out narrow window view', () => (
+export function SignedOutNarrowWindowView() {
+  return (
     <Grommet theme={zooTheme} full>
       <ZooHeader
         isNarrow
@@ -39,9 +51,18 @@ storiesOf('Components/ZooHeader', module)
         user={{}}
       />
     </Grommet>
-  ), { viewport: { defaultViewport: 'iphone5' }, ...config })
+  )
+}
 
-  .add('Signed in', () => (
+SignedOutNarrowWindowView.parameters = {
+  viewport: {
+    defaultViewport: 'iphone5'
+  },
+  ...config
+}
+
+export function SignedIn() {
+  return (
     <Grommet theme={zooTheme} full>
       <ZooHeader
         signIn={signIn}
@@ -52,9 +73,11 @@ storiesOf('Components/ZooHeader', module)
         }}
       />
     </Grommet>
-  ), { viewport: { defaultViewport: 'responsive' }, ...config })
+  )
+}
 
-  .add('Signed in narrow window view', () => (
+export function SignedInNarrowWindowView() {
+  return(
     <Grommet theme={zooTheme} full>
       <ZooHeader
         isNarrow
@@ -67,9 +90,18 @@ storiesOf('Components/ZooHeader', module)
         }}
       />
     </Grommet>
-  ), { viewport: { defaultViewport: 'iphone5' }, ...config })
+  )
+}
 
-  .add('Signed in as admin', () => (
+SignedInNarrowWindowView.parameters = {
+  viewport: {
+    defaultViewport: 'iphone5'
+  },
+  ...config
+}
+
+export function SignedInAsAdmin() {
+  return(
     <Grommet theme={zooTheme} full>
       <ZooHeader
         isAdmin
@@ -82,9 +114,11 @@ storiesOf('Components/ZooHeader', module)
         }}
       />
     </Grommet>
-  ), { viewport: { defaultViewport: 'responsive' }, ...config })
+  )
+}
 
-  .add('Signed in with notifications', () => (
+export function SignedInWithNotifications() {
+  return(
     <Grommet theme={zooTheme} full>
       <ZooHeader
         signIn={signIn}
@@ -97,9 +131,11 @@ storiesOf('Components/ZooHeader', module)
         }}
       />
     </Grommet>
-  ), { viewport: { defaultViewport: 'responsive' }, ...config })
+  )
+}
 
-  .add('Signed in with messages', () => (
+export function SignedInWithMessages() {
+  return (
     <Grommet theme={zooTheme} full>
       <ZooHeader
         signIn={signIn}
@@ -112,4 +148,5 @@ storiesOf('Components/ZooHeader', module)
         }}
       />
     </Grommet>
-  ), { viewport: { defaultViewport: 'responsive' }, ...config })
+  )
+}

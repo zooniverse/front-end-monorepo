@@ -433,7 +433,6 @@ class LightCurveViewer extends Component {
       .append('svg')
       .attr('class', 'light-curve-viewer')
       .attr('height', '100%')
-      .attr('width', '100%')
       .attr('focusable', true)
       .attr('tabindex', 0)
       .on('keydown', onKeyDown)
