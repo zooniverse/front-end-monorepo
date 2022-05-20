@@ -1,1 +1,1 @@
-export { default } from './ImageAndTextViewerContainer.js'
+export { default } from './ImageAndTextViewerConnector.js'

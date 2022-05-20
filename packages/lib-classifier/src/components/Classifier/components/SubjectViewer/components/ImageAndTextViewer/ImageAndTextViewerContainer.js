@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import asyncStates from '@zooniverse/async-states'
 
 import withKeyZoom from '@components/Classifier/components/withKeyZoom'
-import { withStores } from '@helpers'
 import { draggable } from '@plugins/drawingTools/components'
 
 import useSubjectImage, { placeholder } from '../SingleImageViewer/hooks/useSubjectImage'
@@ -14,38 +13,6 @@ import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import SingleTextViewer from '../SingleTextViewer'
 import StepNavigation from '@components/Classifier/components/SlideTutorial/components/StepNavigation'
-
-function storeMapper (store) {
-  const {
-    enableRotation,
-    frame,
-    move,
-    rotation,
-    setFrame,
-    setOnPan,
-    setOnZoom
-  } = store.subjectViewer
-
-  const { activeStepTasks } = store.workflowSteps
-
-  const [activeInteractionTask] = activeStepTasks.filter(
-    (task) => task.type === 'drawing' || task.type === 'transcription'
-  )
-  const {
-    activeTool
-  } = activeInteractionTask || {}
-
-  return {
-    activeTool,
-    enableRotation,
-    frame,
-    move,
-    rotation,
-    setFrame,
-    setOnPan,
-    setOnZoom
-  }
-}
 
 const DraggableImage = styled(draggable('image'))`
   cursor: move;
@@ -62,15 +29,18 @@ function ImageAndTextViewerContainer ({
   frame = 0,
   ImageObject = window.Image,
   loadingState = asyncStates.initialized,
-  move,
+  move = false,
   onError = () => true,
   onKeyDown = () => true,
   onReady = () => true,
-  rotation,
+  rotation = 0,
   setFrame = () => true,
   setOnPan = () => true,
   setOnZoom = () => true,
-  subject
+  subject,
+  title = {},
+  zoomControlFn,
+  zooming = true
 }) {
   const subjectImage = useRef()
   const [dragMove, setDragMove] = useState()
@@ -195,8 +165,14 @@ ImageAndTextViewerContainer.propTypes = {
   setOnZoom: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
-  }).isRequired
+  }),
+  title: PropTypes.shape({
+    id: PropTypes.string,
+    text: PropTypes.string
+  }),
+  zoomControlFn: PropTypes.func,
+  zooming: PropTypes.bool
 }
 
-export default withStores(withKeyZoom(ImageAndTextViewerContainer), storeMapper)
+export default withKeyZoom(ImageAndTextViewerContainer)
 export { DraggableImage, ImageAndTextViewerContainer }
