@@ -47,7 +47,7 @@
     "styled-components": "5.x.x"
   },
   "devDependencies": {
-    "@babel/core": "~7.17.0",
+    "@babel/core": "~7.18.0",
     "@babel/preset-env": "~7.18.0",
     "@babel/preset-react": "~7.17.12",
     "@babel/register": "~7.17.0",
