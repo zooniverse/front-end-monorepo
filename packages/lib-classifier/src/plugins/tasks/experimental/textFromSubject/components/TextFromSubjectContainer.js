@@ -11,6 +11,8 @@ function TextFromSubjectContainer ({
 }) {
   const {
     initializedFromSubject,
+    isChanged,
+    resetToSubject,
     value
   } = annotation
 
@@ -26,6 +28,8 @@ function TextFromSubjectContainer ({
     <TextFromSubjectTask
       autoFocus={autoFocus}
       disabled={disabled || !initializedFromSubject}
+      isChanged={isChanged}
+      resetToSubject={resetToSubject}
       task={task}
       updateAnnotation={updateAnnotation}
       value={value}

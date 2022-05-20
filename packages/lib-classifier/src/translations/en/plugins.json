@@ -31,6 +31,9 @@
       "modifiers": "Text modifiers"
     }
   },
+  "TextFromSubjectTask": {
+    "reset": "Reset"
+  },
   "TranscriptionLine": {
     "editing": "Editing transcription",
     "created": "Created transcription"
