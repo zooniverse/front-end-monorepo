@@ -18,13 +18,7 @@ const DraggableImage = styled(draggable('image'))`
   cursor: move;
 `
 
-const defaultTool = {
-  validate: () => {}
-}
-
 function ImageAndTextViewerContainer ({
-  activeTool = defaultTool,
-  enableInteractionLayer = true,
   enableRotation = () => null,
   frame = 0,
   ImageObject = window.Image,
@@ -42,52 +36,8 @@ function ImageAndTextViewerContainer ({
   zoomControlFn,
   zooming = true
 }) {
-  const subjectImage = useRef()
-  const [dragMove, setDragMove] = useState()
-
-  // TODO: refactor with frame
-  const [location, setLocation] = useState(0)
-
-  // TODO: replace this with a better function to parse the image location from a subject.
-  const imageUrl = subject ? Object.values(subject.locations[frame])[0] : null
-  const { img, error } = useSubjectImage(ImageObject, imageUrl)
-  // default to a placeholder while image is loading.
-  const { naturalHeight, naturalWidth, src } = img
-
-  useEffect(function onImageLoad () {
-    if (src !== placeholder.src) {
-      const svgImage = subjectImage.current
-      const { width: clientWidth, height: clientHeight } = svgImage
-        ? svgImage.getBoundingClientRect()
-        : {}
-      const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
-      onReady({ target })
-    }
-  }, [src])
-
-  useEffect(function onMount () {
-    enableRotation()
-  }, [])
-
-  useEffect(function onFrameChange () {
-    activeTool?.validate()
-  }, [frame])
-
-  if (error) {
-    console.error(error)
-    onError(error)
-  }
-
-  function setOnDrag (callback) {
-    setDragMove(() => callback)
-  }
-
-  function onDrag (event, difference) {
-    dragMove?.(event, difference)
-  }
-
-  function onLocationChange () {
-    setLocation(Math.abs(location - 1))
+  function handleFrameChange (newFrame) {
+    setFrame(newFrame)
   }
 
   if (loadingState === asyncStates.error) {
@@ -96,38 +46,84 @@ function ImageAndTextViewerContainer ({
     )
   }
 
-  const enableDrawing = (loadingState === asyncStates.success) && enableInteractionLayer
-  const SubjectImage = move ? DraggableImage : 'image'
-  const subjectImageProps = {
-    height: naturalHeight,
-    width: naturalWidth,
-    xlinkHref: src,
-    ...(move && { dragMove: onDrag })
-  }
+  const [mimeType] = Object.keys(subject.locations[frame])
+  const imageTypes = [
+    'image/png',
+    'image/jpeg',
+    'image/gif'
+  ]
 
   if (loadingState !== asyncStates.initialized) {
-    return (
-      <Box
-        fill='horizontal'
-      >
-        <SVGPanZoom
-          img={subjectImage.current}
-          maxZoom={5}
-          minZoom={0.1}
-          naturalHeight={naturalHeight}
-          naturalWidth={naturalWidth}
-          setOnDrag={setOnDrag}
-          setOnPan={setOnPan}
-          setOnZoom={setOnZoom}
-          src={src}
+    if (imageTypes.includes(mimeType)) {
+      const subjectImage = useRef()
+      const [dragMove, setDragMove] = useState()
+
+      const imageUrl = subject ? Object.values(subject.locations[frame])[0] : null
+      const { img, error } = useSubjectImage(ImageObject, imageUrl)
+      // default to a placeholder while image is loading.
+      const { naturalHeight, naturalWidth, src } = img
+
+      useEffect(function onImageLoad () {
+        if (src !== placeholder.src) {
+          const svgImage = subjectImage.current
+          const { width: clientWidth, height: clientHeight } = svgImage
+            ? svgImage.getBoundingClientRect()
+            : {}
+          const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
+          onReady({ target })
+        }
+      }, [src])
+
+      useEffect(function onMount () {
+        enableRotation()
+      }, [])
+
+      if (error) {
+        console.error(error)
+        onError(error)
+      }
+
+      function setOnDrag (callback) {
+        setDragMove(() => callback)
+      }
+
+      function onDrag (event, difference) {
+        dragMove?.(event, difference)
+      }
+
+      const SubjectImage = move ? DraggableImage : 'image'
+      const subjectImageProps = {
+        height: naturalHeight,
+        width: naturalWidth,
+        xlinkHref: src,
+        ...(move && { dragMove: onDrag })
+      }
+
+      return (
+        <Box
+          fill='horizontal'
         >
-          {location === 0 ? (
+          <SVGPanZoom
+            img={subjectImage.current}
+            maxZoom={5}
+            minZoom={0.1}
+            naturalHeight={naturalHeight}
+            naturalWidth={naturalWidth}
+            setOnDrag={setOnDrag}
+            setOnPan={setOnPan}
+            setOnZoom={setOnZoom}
+            zooming={zooming}
+            src={src}
+          >
             <SingleImageViewer
-              enableInteractionLayer={enableDrawing}
+              enableInteractionLayer={false}
               height={naturalHeight}
               onKeyDown={onKeyDown}
               rotate={rotation}
+              title={title}
               width={naturalWidth}
+              zoomControlFn={zoomControlFn}
+              zooming={zooming}
             >
               <g ref={subjectImage}>
                 <SubjectImage
@@ -135,26 +131,34 @@ function ImageAndTextViewerContainer ({
                 />
               </g>
             </SingleImageViewer>
-          ) : (
-            <SingleTextViewer />
-          )}
-        </SVGPanZoom>
-        <StepNavigation
-          onChange={onLocationChange}
-          stepIndex={location}
-          steps={[0, 1]}
-        />
-      </Box>
-    )
+          </SVGPanZoom>
+          <StepNavigation
+            onChange={handleFrameChange}
+            stepIndex={frame}
+            steps={[0, 1]}
+          />
+        </Box>
+      )
+    }
+    if (mimeType === 'text/plain') {
+      return (
+        <Box
+          fill='horizontal'
+        >
+          <SingleTextViewer />
+          <StepNavigation
+            onChange={handleFrameChange}
+            stepIndex={frame}
+            steps={[0, 1]}
+          />
+        </Box>
+      )
+    }
   }
   return null
 }
 
 ImageAndTextViewerContainer.propTypes = {
-  activeTool: PropTypes.shape({
-    validate: PropTypes.func
-  }),
-  enableInteractionLayer: PropTypes.bool,
   enableRotation: PropTypes.func,
   frame: PropTypes.number,
   loadingState: PropTypes.string,
