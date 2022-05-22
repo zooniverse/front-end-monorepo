@@ -14,14 +14,13 @@ describe('Model > TextFromSubjectAnnotation', function () {
     ]
   })
 
-  const taskSnapshot = Task.TaskModel.create({
-    instruction: 'Correct the text',
-    taskKey: 'T0',
-    type: 'textFromSubject'
-  })
-
   const workflowSnapshot = WorkflowFactory.build({
-    tasks: [taskSnapshot]
+    tasks: {
+      T0: {
+        instruction: 'Correct the text',
+        type: 'textFromSubject'
+      }
+    }
   })
 
   let textFromSubjectAnnotation
