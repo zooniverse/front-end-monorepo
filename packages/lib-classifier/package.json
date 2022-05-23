@@ -52,11 +52,11 @@
     "styled-components": "~5.x.x"
   },
   "devDependencies": {
-    "@babel/core": "~7.17.0",
+    "@babel/core": "~7.18.0",
     "@babel/plugin-proposal-decorators": "~7.17.0",
     "@babel/plugin-proposal-logical-assignment-operators": "~7.17.12",
     "@babel/polyfill": "~7.12.1",
-    "@babel/preset-env": "~7.17.10",
+    "@babel/preset-env": "~7.18.0",
     "@babel/preset-react": "~7.17.12",
     "@babel/register": "~7.17.0",
     "@storybook/addon-a11y": "~6.5.0",
