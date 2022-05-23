@@ -41,6 +41,7 @@ function SlideTutorial({
   pad = 'medium',
   steps = [],
   stepWithMedium,
+  strings = {},
   width
 }) {
   const [stepIndex, setStepIndex] = useState(activeStep)
@@ -83,8 +84,7 @@ function SlideTutorial({
           <Heading level='3' margin={{ bottom: 'xsmall', top: 'small' }}>
             {t('SlideTutorial.heading', { projectDisplayName })}
           </Heading>}
-        {/* TODO: translation */}
-        <Markdownz>{step.content}</Markdownz>
+        <Markdownz>{strings[`steps.${activeStep}.content`]}</Markdownz>
       </StyledMarkdownWrapper>
         <StepNavigation
           onChange={setStepIndex}
@@ -125,6 +125,8 @@ SlideTutorial.propTypes = {
   steps: PropTypes.arrayOf(tutorialStep),
   /** A function which should return the step and media file for a given step index. */
   stepWithMedium: PropTypes.func.isRequired,
+  /** Translated strings for the tutorial content */
+  strings: PropTypes.object,
   /** Tutorial width (CSS units). */
   width: PropTypes.string,
 }
