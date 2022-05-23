@@ -9,6 +9,7 @@ function storeMapper (store) {
     subjectViewer: {
       enableRotation,
       frame,
+      loadingState,
       move,
       rotation,
       setFrame,
@@ -20,6 +21,7 @@ function storeMapper (store) {
   return {
     enableRotation,
     frame,
+    loadingState,
     move,
     rotation,
     setFrame,
