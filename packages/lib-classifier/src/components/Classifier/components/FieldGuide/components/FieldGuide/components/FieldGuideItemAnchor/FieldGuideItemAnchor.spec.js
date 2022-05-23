@@ -27,7 +27,8 @@ describe('Component > FieldGuideItemAnchor', function () {
         icons={attachedMedia}
         item={item}
         itemIndex={itemIndex}
-        setActiveItemIndex={() => {}}
+        onClick={() => {}}
+        title='Cat'
       />)
     expect(wrapper).to.be.ok()
   })
@@ -38,7 +39,8 @@ describe('Component > FieldGuideItemAnchor', function () {
         icons={attachedMedia}
         item={item}
         itemIndex={itemIndex}
-        setActiveItemIndex={() => { }}
+        onClick={() => { }}
+        title='Cat'
       />, {
       wrappingComponent: Grommet,
       wrappingComponentProps: { theme: zooTheme }
@@ -53,7 +55,8 @@ describe('Component > FieldGuideItemAnchor', function () {
         icons={attachedMedia}
         item={item}
         itemIndex={itemIndex}
-        setActiveItemIndex={setActiveItemIndexSpy}
+        onClick={setActiveItemIndexSpy}
+        title='Cat'
       />, {
       wrappingComponent: Grommet,
       wrappingComponentProps: { theme: zooTheme }
@@ -69,6 +72,7 @@ describe('Component > FieldGuideItemAnchor', function () {
         <AnchorLabel
           icons={attachedMedia}
           item={item}
+          title='Cat'
         />)
       expect(wrapper).to.be.ok()
     })
@@ -78,6 +82,7 @@ describe('Component > FieldGuideItemAnchor', function () {
         <AnchorLabel
           icons={attachedMedia}
           item={item}
+          title='Cat'
         />)
       expect(wrapper.find(Paragraph).contains(item.title)).to.be.true()
     })
@@ -87,6 +92,7 @@ describe('Component > FieldGuideItemAnchor', function () {
         <AnchorLabel
           icons={attachedMedia}
           item={item}
+          title='Cat'
         />)
 
       expect(wrapper.find(FieldGuideItemIcon)).to.have.lengthOf(1)
@@ -97,6 +103,7 @@ describe('Component > FieldGuideItemAnchor', function () {
         <AnchorLabel
           icons={attachedMedia}
           item={item}
+          title='Cat'
         />)
       const icon = wrapper.find(FieldGuideItemIcon)
       expect(icon.props().alt).to.equal(item.title)

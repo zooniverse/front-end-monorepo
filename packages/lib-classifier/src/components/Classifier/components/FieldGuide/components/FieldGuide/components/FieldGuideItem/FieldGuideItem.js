@@ -42,69 +42,64 @@ const markdownComponents = {
   p: (nodeProps) => <Paragraph margin={{ bottom: 'none', top: 'xxsmall' }}>{nodeProps.children}</Paragraph>
 }
 
-function FieldGuideItem (props) {
-    const {
-      className,
-      icons,
-      item,
-      setActiveItemIndex
-    } = props
-    const icon = icons.get(item.icon)
+const defaultIcons = observable.map()
+function FieldGuideItem ({
+  className = '',
+  content = '',
+  icons = defaultIcons,
+  item,
+  setActiveItemIndex,
+  title = ''
+} ) {
+  const icon = icons.get(item.icon)
 
-    const { t } = useTranslation('components')
+  const { t } = useTranslation('components')
 
-    return (
-      <Box className={className}>
-        <Box
-          align='center'
-          border={{ color: 'light-5', side: 'bottom' }}
-          direction='row'
-          flex={{ grow: 1, shrink: 0 }}
-          pad={{ bottom: 'xsmall' }}
-        >
-          <StyledButton
-            a11yTitle={t('FieldGuide.FieldGuideItem.ariaTitle')}
-            icon={<FormPrevious color='light-5' />}
-            margin={{ right: 'small' }}
-            onClick={() => setActiveItemIndex()}
-            plain
-          />
-          <Markdownz components={markdownTitleComponent}>
-            {`### ${item.title}`}
-          </Markdownz>
-        </Box>
-
-        <Box direction='column' overflow='auto'>
-          <FieldGuideItemIcon
-            icon={icon}
-            height='140px'
-            margin={{ top: 'small', bottom: '35px' }}
-            viewBox='0 0 200 100'
-          />
-          <Markdownz components={markdownComponents}>
-            {item.content}
-          </Markdownz>
-        </Box>
+  return (
+    <Box className={className}>
+      <Box
+        align='center'
+        border={{ color: 'light-5', side: 'bottom' }}
+        direction='row'
+        flex={{ grow: 1, shrink: 0 }}
+        pad={{ bottom: 'xsmall' }}
+      >
+        <StyledButton
+          a11yTitle={t('FieldGuide.FieldGuideItem.ariaTitle')}
+          icon={<FormPrevious color='light-5' />}
+          margin={{ right: 'small' }}
+          onClick={() => setActiveItemIndex()}
+          plain
+        />
+        <Markdownz components={markdownTitleComponent}>
+          {`### ${title}`}
+        </Markdownz>
       </Box>
-    )
-}
 
-FieldGuideItem.defaultProps = {
-  className: '',
-  icons: observable.map(),
-  theme: {
-    global: {
-      colors: {}
-    }
-  }
+      <Box direction='column' overflow='auto'>
+        <FieldGuideItemIcon
+          icon={icon}
+          height='140px'
+          margin={{ top: 'small', bottom: '35px' }}
+          viewBox='0 0 200 100'
+        />
+        <Markdownz components={markdownComponents}>
+          {content}
+        </Markdownz>
+      </Box>
+    </Box>
+  )
 }
 
 FieldGuideItem.propTypes = {
   className: PropTypes.string,
+  content: PropTypes.string,
   icons: MobXPropTypes.observableMap,
   item: PropTypes.object.isRequired,
   setActiveItemIndex: PropTypes.func.isRequired,
-  theme: PropTypes.object
+  strings: PropTypes.string,
+  theme: PropTypes.object,
+  title: PropTypes.string
 }
 
 export default withTheme(FieldGuideItem)

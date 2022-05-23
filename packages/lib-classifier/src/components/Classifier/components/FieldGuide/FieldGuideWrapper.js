@@ -1,27 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { observable } from 'mobx'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import { ResponsiveContext } from 'grommet'
+
+import { usePanoptesTranslations } from '@hooks'
 import FieldGuideButton from './components/FieldGuideButton'
 import FieldGuide from './components/FieldGuide'
 
-function FieldGuideWrapper (props) {
-  const {
-    fieldGuide,
-    setModalVisibility,
-    showModal
-  } = props
+function FieldGuideWrapper ({
+  fieldGuide = null,
+  locale,
+  ...props
+}) {
+  const [showModal, setModalVisibility]  = useState(false)
+  const translation = usePanoptesTranslations({
+    translated_type: 'field_guide',
+    translated_id: fieldGuide?.id,
+    language: locale
+  })
+  const strings = translation?.strings
 
   return (
     <>
-      <FieldGuideButton fieldGuide={fieldGuide} onOpen={() => setModalVisibility(true)} />
+      <FieldGuideButton fieldGuide={fieldGuide} onClick={() => setModalVisibility(true)} />
       {showModal &&
         <ResponsiveContext.Consumer>
           {size => (
             <FieldGuide
+              fieldGuide={fieldGuide}
               onClose={() => setModalVisibility(false)}
               size={size}
+              strings={strings}
               {...props}
             />
           )}
@@ -31,20 +41,10 @@ function FieldGuideWrapper (props) {
   )
 }
 
-FieldGuideWrapper.defaultProps = {
-  activeItemIndex: -1,
-  fieldGuide: null,
-  icons: observable.map(),
-  showModal: false
-}
-
 FieldGuideWrapper.propTypes = {
-  activeItemIndex: PropTypes.number,
   fieldGuide: PropTypes.object,
   icons: MobXPropTypes.observableMap,
-  setActiveItemIndex: PropTypes.func.isRequired,
-  setModalVisibility: PropTypes.func.isRequired,
-  showModal: PropTypes.bool
+  locale: PropTypes.string
 }
 
 export default FieldGuideWrapper

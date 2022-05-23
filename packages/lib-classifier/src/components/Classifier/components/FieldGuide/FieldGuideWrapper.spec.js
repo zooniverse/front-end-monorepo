@@ -2,26 +2,40 @@ import { mount, shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
 import { observable } from 'mobx'
+import nock from 'nock'
 import { Grommet } from 'grommet'
 import { zooTheme } from '@zooniverse/grommet-theme'
 import FieldGuideWrapper from './FieldGuideWrapper'
 import FieldGuide from './components/FieldGuide'
 import FieldGuideButton from './components/FieldGuideButton'
-import { FieldGuideFactory } from '@test/factories'
+import { FieldGuideFactory, FieldGuideMediumFactory } from '@test/factories'
 
 describe('Component > FieldGuideWrapper', function () {
-  const fieldGuide = FieldGuideFactory.build()
+  const medium = FieldGuideMediumFactory.build()
+  const fieldGuide = FieldGuideFactory.build({
+    items: [
+      {
+        title: 'Cat',
+        icon: medium.id,
+        content: 'lorem ipsum'
+      },
+      {
+        title: 'Dog',
+        content: 'Foo bar'
+      },
+      { title: 'Iguana', content: 'hello' },
+      { title: 'Koala', content: '' },
+      { title: 'Dragon', content: 'Why is this here?' }
+    ]
+  })
   const icons = observable.map()
 
   it('should render without crashing', function () {
     const wrapper = shallow(
       <FieldGuideWrapper
-        activeItemIndex={-1}
         fieldGuide={fieldGuide}
         icons={icons}
-        setActiveItemIndex={() => { }}
-        setModalVisibility={() => { }}
-        showModal={false}
+        locale='en'
       />
     )
     expect(wrapper).to.be.ok()
@@ -30,77 +44,46 @@ describe('Component > FieldGuideWrapper', function () {
   it('should not show the field guide', function () {
     const wrapper = shallow(
       <FieldGuideWrapper
-        activeItemIndex={-1}
         fieldGuide={fieldGuide}
         icons={icons}
-        setActiveItemIndex={() => { }}
-        setModalVisibility={() => { }}
-        showModal={false}
+        locale='en'
       />
     )
     expect(wrapper.find(FieldGuide)).to.have.lengthOf(0)
-  })
-
-  describe('when the field guide is shown', function () {
-    let wrapper
-    let showModal = true
-    const setActiveItemIndexSpy = sinon.spy()
-    const setModalVisibilityStub = sinon.stub().callsFake((boolean) => { showModal = boolean })
-    beforeEach(function () {
-      wrapper = mount(
-        <FieldGuideWrapper
-          activeItemIndex={-1}
-          fieldGuide={fieldGuide}
-          icons={icons}
-          setActiveItemIndex={setActiveItemIndexSpy}
-          setModalVisibility={setModalVisibilityStub}
-          showModal={showModal}
-        />, {
-          wrappingComponent: Grommet,
-          wrappingComponentProps: { theme: zooTheme }
-        }
-      )
-    })
-
-    afterEach(function () {
-      wrapper.unmount()
-    })
-
-    it('should display the FieldGuide based on the showModal prop', function () {
-      expect(wrapper.find(FieldGuide)).to.have.lengthOf(1)
-    })
-
-    it('should pass the expected props', function () {
-      const props = wrapper.find(FieldGuide).props()
-      expect(props.activeItemIndex).to.equal(-1)
-      expect(props.fieldGuide).to.equal(fieldGuide)
-      expect(props.icons).to.equal(icons)
-      expect(props.onClose).to.be.a('function')
-      expect(props.setActiveItemIndex).to.equal(setActiveItemIndexSpy)
-    })
-
-    it('should set the modal visibility to be false with onClose', function () {
-      expect(wrapper.find(FieldGuide)).to.have.lengthOf(1)
-      wrapper.find(FieldGuide).prop('onClose')()
-      expect(setModalVisibilityStub).to.have.been.calledOnceWith(false)
-      wrapper.setProps({ showModal })
-      expect(wrapper.find(FieldGuide)).to.have.lengthOf(0)
-    })
   })
 
   describe('FieldGuideButton', function () {
     let wrapper
     let showModal = false
     const setModalVisibilityStub = sinon.stub().callsFake((boolean) => { showModal = boolean })
+    const translation = {
+      language: 'en',
+      translated_id: fieldGuide.id,
+      translated_type: 'field_guide',
+      strings: {
+        'items.0.title': 'Cat',
+        'items.0.content': 'lorem ipsum',
+        'items.1.title': 'Dog',
+        'items.1.content': 'Foo bar',
+        'items.2.title': 'Iguana',
+        'items.2.content': 'hello',
+        'items.3.title': 'Koala',
+        'items.3.content': '',
+        'items.4.title': 'Dragon',
+        'items.4.content': 'Why is this here?'
+      }
+    }
+
     beforeEach(function () {
+      nock('https://panoptes-staging.zooniverse.org/api')
+      .get('/translations')
+      .query(query => query.translated_type === 'field_guide')
+      .reply(200, [translation])
       wrapper = mount(
         <FieldGuideWrapper
-          activeItemIndex={-1}
           fieldGuide={fieldGuide}
           icons={icons}
-          setActiveItemIndex={() => {}}
-          setModalVisibility={setModalVisibilityStub}
-          showModal={showModal}
+          locale='en'
         />, {
           wrappingComponent: Grommet,
           wrappingComponentProps: { theme: zooTheme }
@@ -119,14 +102,12 @@ describe('Component > FieldGuideWrapper', function () {
     it('should pass the expected props', function () {
       const props = wrapper.find(FieldGuideButton).props()
       expect(props.fieldGuide).to.equal(fieldGuide)
-      expect(props.onOpen).to.be.a('function')
+      expect(props.onClick).to.be.a('function')
     })
 
-    it('should set the modal visibility to be true with onOpen', function () {
+    it('should open the field guide when clicked', function () {
       expect(wrapper.find(FieldGuide)).to.have.lengthOf(0)
-      wrapper.find(FieldGuideButton).prop('onOpen')()
-      expect(setModalVisibilityStub).to.have.been.calledOnceWith(true)
-      wrapper.setProps({ showModal })
+      wrapper.find(FieldGuideButton).simulate('click')
       expect(wrapper.find(FieldGuide)).to.have.lengthOf(1)
     })
   })
