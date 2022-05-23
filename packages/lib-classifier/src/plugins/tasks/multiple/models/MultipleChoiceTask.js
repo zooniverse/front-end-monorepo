@@ -11,7 +11,6 @@ const MultipleChoice = types.model('MultipleChoice', {
   answers: types.array(types.frozen({
     label: types.string
   })),
-  help: types.optional(types.string, ''),
   question: types.string,
   type: types.literal('multiple')
 })

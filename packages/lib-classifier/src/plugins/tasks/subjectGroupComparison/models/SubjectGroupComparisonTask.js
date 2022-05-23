@@ -8,7 +8,6 @@ import SubjectGroupComparisonAnnotation from './SubjectGroupComparisonAnnotation
 
 const SubjectGroupComparison = types.model('SubjectGroupComparison', {
   annotation: types.safeReference(SubjectGroupComparisonAnnotation),
-  help: types.optional(types.string, ''),
   question: types.string,
   type: types.literal('subjectGroupComparison')
 })
