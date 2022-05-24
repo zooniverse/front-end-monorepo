@@ -2,7 +2,9 @@ import TextFromSubjectTask from '@plugins/tasks/experimental/textFromSubject'
 
 describe('Model > TextFromSubjectTask', function () {
   const textFromSubjectTask = {
-    instruction: 'Type something here',
+    strings: {
+      instruction: 'Type something here'
+    },
     taskKey: 'T0',
     type: 'textFromSubject'
   }

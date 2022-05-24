@@ -18,7 +18,6 @@ const MenuOptions = types.refinement('MenuOptions',
 const SimpleDropdown = types.model('SimpleDropdown', {
   allowCreate: types.optional(types.boolean, false),
   annotation: types.safeReference(SimpleDropdownAnnotation),
-  instruction: types.optional(types.string, ''),
   options: MenuOptions,
   type: types.literal('dropdown-simple'),
 })

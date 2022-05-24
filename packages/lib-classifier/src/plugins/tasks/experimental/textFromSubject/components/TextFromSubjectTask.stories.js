@@ -38,9 +38,11 @@ export default {
 export function Default ({ contentLoadingState, dark, isThereTaskHelp, required, subjectReadyState }) {
   const tasks = {
     T0: {
-      help: 'Edit the text in the box.',
-      instruction: 'Correct the text',
       required,
+      strings: {
+        help: 'Edit the text in the box.',
+        instruction: 'Correct the text'
+      },
       taskKey: 'T0',
       type: 'textFromSubject'
     }

@@ -79,9 +79,10 @@ describe('Model > DrawingTools > Tool', function () {
           {
             taskKey: 'text',
             type: 'text',
-            instruction: 'Transcribe something',
             required: '',
-            strings: {},
+            strings: {
+              instruction: 'Transcribe something'
+            },
             text_tags: []
           }
         ]

@@ -30,7 +30,6 @@ export default {
 export function Default({ dark, isThereTaskHelp, required, subjectReadyState }) {
   const tasks = {
     T0: {
-      instruction: 'Type something here',
       required,
       strings: {
         help: isThereTaskHelp ? 'Type something into the text box.' : '',

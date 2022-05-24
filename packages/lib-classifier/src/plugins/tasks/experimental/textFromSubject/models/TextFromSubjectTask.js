@@ -6,7 +6,6 @@ import TextFromSubjectAnnotation from './TextFromSubjectAnnotation'
 
 const TextFromSubject = types.model('TextFromSubject', {
   annotation: types.safeReference(TextFromSubjectAnnotation),
-  instruction: types.string,
   type: types.literal('textFromSubject')
 })
   .views(self => ({

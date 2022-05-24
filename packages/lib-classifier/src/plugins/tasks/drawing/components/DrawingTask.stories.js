@@ -31,7 +31,6 @@ export default {
 export function Drawing({ dark, isThereTaskHelp, required, subjectReadyState }) {
   const tasks = {
     T2: {
-      instruction: 'Draw something',
       required,
       strings: {
         help: isThereTaskHelp ? 'Draw on the image.' : '',

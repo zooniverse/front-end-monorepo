@@ -39,7 +39,9 @@ describe('Model > DrawingTask', function () {
   }
 
   const drawingTaskSnapshot = {
-    instruction: "Mark each cat's face and tail. Draw an ellipse around each cat's face (not including the ears), and mark the tail tip with a point.",
+    strings: {
+      instruction: "Mark each cat's face and tail. Draw an ellipse around each cat's face (not including the ears), and mark the tail tip with a point."
+    },
     taskKey: 'T3',
     tools: [pointTool, lineTool],
     type: 'drawing'
@@ -61,7 +63,9 @@ describe('Model > DrawingTask', function () {
   }
 
   const drawingTaskRequiredSubtaskSnapshot = {
-    instruction: "Mark each cat's face and tail. Draw an ellipse around each cat's face (not including the ears), and mark the tail tip with a point.",
+    strings: {
+      instruction: "Mark each cat's face and tail. Draw an ellipse around each cat's face (not including the ears), and mark the tail tip with a point."
+    },
     taskKey: 'T4',
     tools: [pointToolWithRequiredSubtask],
     type: 'drawing'

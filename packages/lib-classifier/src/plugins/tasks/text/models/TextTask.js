@@ -5,7 +5,6 @@ import TextAnnotation from './TextAnnotation'
 
 const Text = types.model('Text', {
   annotation: types.safeReference(TextAnnotation),
-  instruction: types.string,
   required: types.maybe(types.union(types.string, types.boolean)),
   text_tags: types.array(types.string),
   type: types.literal('text')
