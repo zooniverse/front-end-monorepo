@@ -20,6 +20,7 @@ import remarkSubSuper from 'remark-sub-super'
 import externalLinks from 'remark-external-links'
 import toc from 'remark-toc'
 import ping from './lib/ping'
+import footnotes from 'remark-footnotes'
 import Media from '../Media'
 import withThemeContext from '../helpers/withThemeContext'
 import theme from './theme'
@@ -115,6 +116,7 @@ class Markdownz extends React.Component {
       .use(emoji)
       .use(remarkSubSuper)
       .use(externalLinks)
+      .use(footnotes, { inlineNotes: true })
       .use(ping, {
         ping: (resource, symbol) => this.shouldResourceBeLinkable(resource, symbol), // We could support passing in a prop to call a function here
         pingSymbols: [at, hashtag, subjectSymbol],
