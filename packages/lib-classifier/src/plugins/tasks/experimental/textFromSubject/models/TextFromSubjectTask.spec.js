@@ -14,7 +14,9 @@ describe('Model > TextFromSubjectTask', function () {
       { label: 'yes', next: 'S2' },
       { label: 'no', next: 'S3' }
     ],
-    question: 'Do you exist?',
+    strings: {
+      question: 'Do you exist?'
+    },
     required: '',
     taskKey: 'T1',
     type: 'single'

@@ -2,8 +2,10 @@ import { types } from 'mobx-state-tree'
 import SubjectGroupComparisonTask from '@plugins/tasks/subjectGroupComparison'
 
 const subjectGroupTask = {
-  question: 'Which of these cells look weird?',
   required: false,
+  strings: {
+    question: 'Which of these cells look weird?'
+  },
   taskKey: 'T2',
   type: 'subjectGroupComparison'
 }

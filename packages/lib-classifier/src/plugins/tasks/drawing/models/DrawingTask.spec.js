@@ -7,20 +7,26 @@ describe('Model > DrawingTask', function () {
   const details = [
     {
       type: 'multiple',
-      question: 'which fruit?',
       answers: ['apples', 'oranges', 'pears'],
-      required: ''
+      required: '',
+      strings: {
+        question: 'which fruit?'
+      }
     },
     {
       type: 'single',
-      question: 'how many?',
       answers: ['one', 'two', 'three'],
-      required: ''
+      required: '',
+      strings: {
+        question: 'how many?'
+      }
     },
     {
       type: 'text',
-      instruction: 'Transcribe something',
-      required: ''
+      required: '',
+      strings: {
+        instruction: 'Transcribe something'
+      }
     }
   ]
 
@@ -50,9 +56,11 @@ describe('Model > DrawingTask', function () {
   const singleRequiredSubtask = {
     taskKey: 'T4.0.0',
     type: 'single',
-    question: 'how many?',
     answers: ['one', 'two', 'three'],
-    required: true
+    required: true,
+    strings: {
+      question: 'how many?'
+    }
   }
 
   const pointToolWithRequiredSubtask = {

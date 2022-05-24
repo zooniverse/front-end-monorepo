@@ -29,6 +29,10 @@ describe('Model > WorkflowStepStore', function () {
           ['S1', { taskKeys: ['T1'] }],
           ['S2', { taskKeys: ['T2'] }]
         ],
+        strings: {
+          'tasks.T1.question': 'Is there a galaxy?',
+          'tasks.T2.question': 'Check all of the colors that apply'
+        },
         tasks: {
           T1: SingleChoiceTaskFactory.build(),
           T2: MultipleChoiceTaskFactory.build()
@@ -90,8 +94,7 @@ describe('Model > WorkflowStepStore', function () {
         step.tasks.forEach(task => {
           const annotation = undefined
           const { taskKey } = task
-          const strings = {}
-          const originalTask = { ...workflow.tasks[taskKey], annotation, strings, taskKey }
+          const originalTask = { ...workflow.tasks[taskKey], annotation, taskKey }
           expect(getSnapshot(task)).to.eql(originalTask)
         })
       })
@@ -118,6 +121,12 @@ describe('Model > WorkflowStepStore', function () {
     before(async function () {
       workflow = WorkflowFactory.build({
         first_task: 'T1',
+        strings: {
+          display_name: 'test workflow',
+          'tasks.T1.question': 'Is there a galaxy?',
+          'tasks.T2.question': 'Check all of the colors that apply',
+          'tasks.T3.question': 'Check all of the colors that apply'
+        },
         tasks: {
           T1: SingleChoiceTaskFactory.build(),
           T2: MultipleChoiceTaskFactory.build(),
@@ -149,8 +158,7 @@ describe('Model > WorkflowStepStore', function () {
         step.tasks.forEach(task => {
           const annotation = undefined
           const { taskKey } = task
-          const strings = {}
-          const originalTask = { ...workflow.tasks[taskKey], annotation, strings, taskKey }
+          const originalTask = { ...workflow.tasks[taskKey], annotation, taskKey }
           expect(getSnapshot(task)).to.eql(originalTask)
         })
       })
@@ -178,6 +186,13 @@ describe('Model > WorkflowStepStore', function () {
     before(async function () {
       workflow = WorkflowFactory.build({
         first_task: 'T1',
+        strings: {
+          display_name: 'test workflow',
+          'tasks.T1.question': 'Is there a galaxy?',
+          'tasks.T2.question': 'Check all of the colors that apply',
+          'tasks.T3.question': 'Check all of the colors that apply',
+          'tasks.T5.question': 'Check all of the colors that apply'
+        },
         tasks: {
           T1: SingleChoiceTaskFactory.build({
             answers: [
@@ -216,8 +231,7 @@ describe('Model > WorkflowStepStore', function () {
         step.tasks.forEach(task => {
           const annotation = undefined
           const { taskKey } = task
-          const strings = {}
-          const originalTask = { ...workflow.tasks[taskKey], annotation, strings, taskKey }
+          const originalTask = { ...workflow.tasks[taskKey], annotation, taskKey }
           expect(getSnapshot(task)).to.eql(originalTask)
         })
       })

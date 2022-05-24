@@ -55,7 +55,6 @@ export function MultipleTasks({ dark, isThereTaskHelp, required, subjectReadySta
   const tasks = {
     init: {
       answers: [{ label: 'yes' }, { label: 'no' }],
-      question: 'Is there a cat?',
       required,
       strings: {
         help: isThereTaskHelp ? 'Choose an answer from the choices given, then press Done.' : '',
@@ -66,7 +65,6 @@ export function MultipleTasks({ dark, isThereTaskHelp, required, subjectReadySta
     },
     T1: {
       answers: [{ label: 'sleeping' }, { label: 'playing' }, { label: 'looking indifferent' }],
-      question: 'What is it doing?',
       required,
       strings: {
         help: isThereTaskHelp ? 'Pick as many answers as apply, then press Done.' : '',

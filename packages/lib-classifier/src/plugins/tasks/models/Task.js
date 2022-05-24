@@ -29,6 +29,10 @@ const Task = types.model('Task', {
       return self.strings.get('instruction')
     },
 
+    get question() {
+      return self.strings.get('question')
+    },
+
     isComplete(annotation) {
       return !self.required || !!annotation?.isComplete
     },

@@ -31,7 +31,6 @@ export function LightTheme({ dark, isThereTaskHelp, required, subjectReadyState 
   const tasks = {
     T1: {
       answers: [{ label: 'sleeping' }, { label: 'playing' }, { label: 'looking indifferent' }],
-      question: 'What is it doing?',
       required,
       strings: {
         help: isThereTaskHelp ? 'Pick as many answers as apply, then press Done.' : '',
