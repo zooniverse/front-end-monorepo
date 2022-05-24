@@ -66,6 +66,16 @@ const nextConfig = {
     assetPrefix
   },
 
+  async redirects() {
+    return [
+      {
+        source: '/:owner/:project/about',
+        destination: '/:owner/:project/about/research',
+        permanent: true
+      }
+    ]
+  },
+
   webpack: (config, options) => {
     if (!options.isServer) {
       config.resolve.alias['@sentry/node'] = '@sentry/browser'
