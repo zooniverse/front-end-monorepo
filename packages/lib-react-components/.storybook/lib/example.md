@@ -58,7 +58,7 @@ Here is a footnote reference,[^1] and another.[^longnote]
 
 [^longnote]: Here's one with multiple blocks.
 
-  Another note.
+    Another note.
 
 ## Testing for vulnerabilities
 

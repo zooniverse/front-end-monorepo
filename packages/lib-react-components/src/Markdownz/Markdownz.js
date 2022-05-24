@@ -109,7 +109,7 @@ class Markdownz extends React.Component {
     }
 
     const remarkReactComponents = Object.assign({}, componentMappings, components)
-    const remarkSettings = Object.assign({}, { footnotes: true }, settings)
+    const remarkSettings = Object.assign({}, settings)
 
     const markdown = remark()
       .data('settings', remarkSettings)
