@@ -25,13 +25,29 @@ describe('ImageAndTextViewer', function () {
     }
   }
 
-  describe('with loading state of error', function () {
-    const store = mockStore()
+  const imageAndTextSubjectSnapshot = SubjectFactory.build({
+    content: 'This is test subject content.',
+    contentLoadingState: asyncStates.success,
+    locations: [
+      {
+        'image/jpeg': 'https://some.domain/image.jpg'
+      },
+      {
+        'text/plain': 'https://some.domain/text.txt'
+      }
+    ]
+  })
 
+  const store = mockStore({
+    subject: imageAndTextSubjectSnapshot
+  })
+
+  describe('with loading state of error', function () {
     it('should render something went wrong', function () {
       render(
         <ImageAndTextViewerConnector
           loadingState={asyncStates.error}
+          subject={imageAndTextSubjectSnapshot}
         />, {
           wrapper: withStore(store)
         }
@@ -42,12 +58,11 @@ describe('ImageAndTextViewer', function () {
   })
 
   describe('with loading state of initialized', function () {
-    const store = mockStore()
-
     it('should render null', function () {
       render(
         <ImageAndTextViewerConnector
           loadingState={asyncStates.initialized}
+          subject={imageAndTextSubjectSnapshot}
         />, {
           wrapper: withStore(store)
         }
@@ -63,27 +78,12 @@ describe('ImageAndTextViewer', function () {
 
   describe('with a valid subject, image type location first', function () {
     const user = userEvent.setup({ delay: null })
-    const imageAndTextSubjectSnapshot = SubjectFactory.build({
-      content: 'This is test subject content.',
-      contentLoadingState: asyncStates.success,
-      locations: [
-        {
-          'image/jpeg': 'https://some.domain/image.jpg'
-        },
-        {
-          'text/plain': 'https://some.domain/text.txt'
-        }
-      ]
-    })
-
-    const store = mockStore({
-      subject: imageAndTextSubjectSnapshot
-    })
 
     it('should render the image viewer', function () {
       render(
         <ImageAndTextViewerConnector
           loadingState={asyncStates.success}
+          subject={imageAndTextSubjectSnapshot}
         />, {
           wrapper: withStore(store)
         }
@@ -100,6 +100,7 @@ describe('ImageAndTextViewer', function () {
       render(
         <ImageAndTextViewerConnector
           loadingState={asyncStates.success}
+          subject={imageAndTextSubjectSnapshot}
         />, {
           wrapper: withStore(store)
         }
@@ -115,6 +116,7 @@ describe('ImageAndTextViewer', function () {
         render(
           <ImageAndTextViewerConnector
             loadingState={asyncStates.success}
+            subject={imageAndTextSubjectSnapshot}
           />, {
             wrapper: withStore(store)
           }
@@ -140,7 +142,6 @@ describe('ImageAndTextViewer', function () {
         }
       ]
     })
-
     const store = mockStore({
       subject: textAndImageSubjectSnapshot
     })
@@ -149,6 +150,7 @@ describe('ImageAndTextViewer', function () {
       render(
         <ImageAndTextViewerConnector
           loadingState={asyncStates.success}
+          subject={textAndImageSubjectSnapshot}
         />, {
           wrapper: withStore(store)
         }
@@ -161,6 +163,7 @@ describe('ImageAndTextViewer', function () {
       render(
         <ImageAndTextViewerConnector
           loadingState={asyncStates.success}
+          subject={textAndImageSubjectSnapshot}
         />, {
           wrapper: withStore(store)
         }
@@ -176,6 +179,7 @@ describe('ImageAndTextViewer', function () {
         render(
           <ImageAndTextViewerConnector
             loadingState={asyncStates.success}
+            subject={textAndImageSubjectSnapshot}
           />, {
             wrapper: withStore(store)
           }

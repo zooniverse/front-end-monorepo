@@ -3,9 +3,6 @@ import ImageAndTextViewerContainer from './ImageAndTextViewerContainer'
 
 function storeMapper (store) {
   const {
-    subjects: {
-      active: subject
-    },
     subjectViewer: {
       frame,
       setFrame
@@ -14,8 +11,7 @@ function storeMapper (store) {
 
   return {
     frame,
-    setFrame,
-    subject
+    setFrame
   }
 }
 
