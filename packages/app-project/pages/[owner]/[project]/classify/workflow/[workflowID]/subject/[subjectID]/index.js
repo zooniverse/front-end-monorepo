@@ -3,7 +3,7 @@ export { default } from '@screens/ClassifyPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export async function getServerSideProps({ locale, params, query, req, res }) {
-  const { notFound, props: defaultProps } = await getDefaultPageProps({ params, query, req, res })
+  const { notFound, props: defaultProps } = await getDefaultPageProps({ locale, params, query, req, res })
   const { subjectID, workflowID } = params
   const { workflows } = defaultProps
   const workflow = workflows.find(workflow => workflow.id === params.workflowID)

@@ -43,7 +43,7 @@ export default class MyDocument extends Document {
 
   render () {
     return (
-      <Html lang="en">
+      <Html>
         <Head>
           <style type='text/css'>${mediaStyle}</style>
           {isProduction && (

@@ -7,8 +7,8 @@ const HOSTS = {
   staging: 'https://frontend.preview.zooniverse.org'
 }
 
-export default async function getDefaultPageProps({ params, query }) {
-  const { props: staticProps } = await getStaticPageProps({ params, query })
+export default async function getDefaultPageProps({ locale, params, query }) {
+  const { props: staticProps } = await getStaticPageProps({ locale, params, query })
   const { project, notFound, title, workflowID, workflows } = staticProps
   const host = HOSTS[environment] || 'https://localhost:3000'
   /*
