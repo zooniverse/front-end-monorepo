@@ -7,24 +7,14 @@ function storeMapper (store) {
       active: subject
     },
     subjectViewer: {
-      enableRotation,
       frame,
-      move,
-      rotation,
-      setFrame,
-      setOnZoom,
-      setOnPan
+      setFrame
     }
   } = store
 
   return {
-    enableRotation,
     frame,
-    move,
-    rotation,
     setFrame,
-    setOnZoom,
-    setOnPan,
     subject
   }
 }

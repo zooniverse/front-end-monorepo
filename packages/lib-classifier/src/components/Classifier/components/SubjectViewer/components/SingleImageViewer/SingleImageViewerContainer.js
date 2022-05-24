@@ -18,6 +18,7 @@ const DraggableImage = styled(draggable('image'))`
 function SingleImageViewerContainer({
   enableInteractionLayer = true,
   enableRotation = () => null,
+  frame = 0,
   ImageObject = window.Image,
   loadingState = asyncStates.initialized,
   move = false,
@@ -35,7 +36,7 @@ function SingleImageViewerContainer({
   const subjectImage = useRef()
   const [dragMove, setDragMove] = useState()
   // TODO: replace this with a better function to parse the image location from a subject.
-  const imageUrl = subject ? Object.values(subject.locations[0])[0] : null
+  const imageUrl = subject ? Object.values(subject.locations[frame])[0] : null
   const { img, error } = useSubjectImage(ImageObject, imageUrl)
   // default to a placeholder while image is loading.
   const { naturalHeight, naturalWidth, src } = img
@@ -119,6 +120,7 @@ function SingleImageViewerContainer({
 SingleImageViewerContainer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   enableRotation: PropTypes.func,
+  frame: PropTypes.number,
   loadingState: PropTypes.string,
   move: PropTypes.bool,
   onError: PropTypes.func,
