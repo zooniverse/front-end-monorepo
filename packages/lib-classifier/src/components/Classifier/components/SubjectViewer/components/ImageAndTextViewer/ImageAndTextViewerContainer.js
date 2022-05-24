@@ -53,6 +53,8 @@ function ImageAndTextViewerContainer ({
       return (
         <Box
           fill='horizontal'
+          flex='grow'
+          justify='between'
         >
           <SingleTextViewer />
           <StepNavigation
