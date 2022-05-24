@@ -38,6 +38,7 @@ describe('Helpers > getStaticPageProps', function () {
 
   const TRANSLATION = {
     translated_id: 1,
+    language: 'en',
     strings: {
       display_name: 'Foo'
     }
@@ -45,6 +46,7 @@ describe('Helpers > getStaticPageProps', function () {
 
   const GROUPED_TRANSLATION = {
     translated_id: 2,
+    language: 'en',
     strings: {
       display_name: 'Bar'
     }
@@ -94,6 +96,15 @@ describe('Helpers > getStaticPageProps', function () {
       .query(query => query.slug === 'test-owner/test-wrong-project')
       .reply(200, {
         projects: []
+      })
+      .get('/translations')
+      .query(query => {
+        return query.translated_type === 'project'
+        && query.translated_id === '1'
+        && query.language === 'en'
+      })
+      .reply(200, {
+        translations: [TRANSLATION]
       })
       .get('/translations')
       .query(query => {
@@ -151,6 +162,29 @@ describe('Helpers > getStaticPageProps', function () {
 
     after(function () {
       nock.cleanAll()
+    })
+
+    describe('with a valid project slug', function () {
+      let props
+
+      before(async function () {
+        const params = {
+          owner: 'test-owner',
+          project: 'test-project-single-active-workflow'
+        }
+        const query = {
+          env: 'staging'
+        }
+        const locale = 'en'
+        const response = await getStaticPageProps({ locale, params, query })
+        props = response.props
+      })
+
+      it('should return the project', function () {
+        const { project } = props
+        expect(project?.slug).to.equal('test-owner/test-project-single-active-workflow')
+        expect(project?.strings?.display_name).to.equal('Foo')
+      })
     })
 
     describe('with a valid project slug, single active workflow', function () {
@@ -271,6 +305,29 @@ describe('Helpers > getStaticPageProps', function () {
 
     after(function () {
       nock.cleanAll()
+    })
+
+    describe('with a valid project slug', function () {
+      let props
+
+      before(async function () {
+        const params = {
+          owner: 'test-owner',
+          project: 'test-project-single-active-workflow'
+        }
+        const query = {
+          env: 'production'
+        }
+        const locale = 'en'
+        const response = await getStaticPageProps({ locale, params, query })
+        props = response.props
+      })
+
+      it('should return the project', function () {
+        const { project } = props
+        expect(project?.slug).to.equal('test-owner/test-project-single-active-workflow')
+        expect(project?.strings?.display_name).to.equal('Foo')
+      })
     })
 
     describe('with a valid project slug, single active workflow', function () {

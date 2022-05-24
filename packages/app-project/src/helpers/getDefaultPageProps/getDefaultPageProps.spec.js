@@ -81,6 +81,15 @@ describe('Helpers > getDefaultPageProps', function () {
       })
       .get('/translations')
       .query(query => {
+        return query.translated_type === 'project'
+        && query.translated_id === '1'
+        && query.language === 'en'
+      })
+      .reply(200, {
+        translations: [TRANSLATION]
+      })
+      .get('/translations')
+      .query(query => {
         return query.translated_type === 'workflow'
         && query.translated_id === '1'
         && query.language === 'en'

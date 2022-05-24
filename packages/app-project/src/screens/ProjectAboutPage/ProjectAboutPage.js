@@ -26,19 +26,24 @@ const SidebarHeading = styled(SpacedHeading)`
 
 function ProjectAboutPage ({
   aboutNavLinks,
-  aboutPageData,
-  inBeta,
+  aboutPageData = {},
+  inBeta = false,
   projectDisplayName,
   screenSize,
-  teamArray,
+  teamArray = [],
   theme: { dark = false }
 }) {
   const { t } = useTranslation('screens')
 
-  const { content, title } = aboutPageData
+  const defaultContent = {
+    title: aboutPageData.title,
+    content: aboutPageData.content
+  }
+  const { strings, title: pageType } = aboutPageData
+  const { content } = strings ?? defaultContent
 
-  const isTeamPage = title.toLowerCase().includes('team')
-  const pageTitle = t(`About.PageHeading.title.${title.toLowerCase()}`)
+  const pageTitle = t(`About.PageHeading.title.${pageType.toLowerCase()}`)
+  const isTeamPage = pageType.toLowerCase().includes('team')
   // note that for future additional locales, CSS property :lang is available to format strings
 
   return (
@@ -117,12 +122,6 @@ function ProjectAboutPage ({
       </Grid>
     </StandardLayout>
   )
-}
-
-ProjectAboutPage.defaultProps = {
-  aboutPageData: {},
-  inBeta: false,
-  teamArray: []
 }
 
 ProjectAboutPage.propTypes = {
