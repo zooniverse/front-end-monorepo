@@ -30,9 +30,12 @@ export default {
 export function Default({ dark, isThereTaskHelp, required, subjectReadyState }) {
   const tasks = {
     T0: {
-      help: 'Type something into the text box.',
       instruction: 'Type something here',
       required,
+      strings: {
+        help: isThereTaskHelp ? 'Type something into the text box.' : '',
+        instruction: 'Type something here'
+      },
       taskKey: 'T0',
       text_tags: ['insertion', 'deletion', '&'],
       type: 'text'
