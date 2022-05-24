@@ -102,7 +102,9 @@ class Markdownz extends React.Component {
       thead: TableHeader,
       tbody: TableBody,
       td: TableCell,
-      tr: TableRow
+      tr: TableRow,
+      ol: (nodeProps) => <ol>{nodeProps.children}</ol>,
+      ul: (nodeProps) => <ul>{nodeProps.children}</ul>
     }
 
     const remarkReactComponents = Object.assign({}, componentMappings, components)
@@ -120,7 +122,7 @@ class Markdownz extends React.Component {
       })
       .use(toc)
       .use(remark2react, { remarkReactComponents })
-      .processSync(newChildren).contents
+      .processSync(newChildren).result
 
     return (
       <React.Fragment>
