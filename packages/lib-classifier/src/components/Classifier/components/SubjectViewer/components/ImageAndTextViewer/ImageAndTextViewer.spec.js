@@ -25,6 +25,42 @@ describe('ImageAndTextViewer', function () {
     }
   }
 
+  describe('with loading state of error', function () {
+    const store = mockStore()
+
+    it('should render something went wrong', function () {
+      render(
+        <ImageAndTextViewerConnector
+          loadingState={asyncStates.error}
+        />, {
+          wrapper: withStore(store)
+        }
+      )
+
+      expect(screen.getByText('Something went wrong.')).to.exist()
+    })
+  })
+
+  describe('with loading state of initialized', function () {
+    const store = mockStore()
+
+    it('should render null', function () {
+      render(
+        <ImageAndTextViewerConnector
+          loadingState={asyncStates.initialized}
+        />, {
+          wrapper: withStore(store)
+        }
+      )
+
+      expect(screen.queryByText('Something went wrong.')).to.be.null()
+      const image = document.querySelector('image')
+      expect(image).to.be.null()
+      const pre = document.querySelector('pre')
+      expect(pre).to.be.null()
+    })
+  })
+
   describe('with a valid subject, image type location first', function () {
     const user = userEvent.setup({ delay: null })
     const imageAndTextSubjectSnapshot = SubjectFactory.build({
@@ -41,15 +77,14 @@ describe('ImageAndTextViewer', function () {
     })
 
     const store = mockStore({
-      subject: imageAndTextSubjectSnapshot,
-      subjectViewer: {
-        loadingState: asyncStates.success
-      }
+      subject: imageAndTextSubjectSnapshot
     })
 
     it('should render the image viewer', function () {
       render(
-        <ImageAndTextViewerConnector />, {
+        <ImageAndTextViewerConnector
+          loadingState={asyncStates.success}
+        />, {
           wrapper: withStore(store)
         }
       )
@@ -63,7 +98,9 @@ describe('ImageAndTextViewer', function () {
 
     it('should render the frame change buttons', function () {
       render(
-        <ImageAndTextViewerConnector />, {
+        <ImageAndTextViewerConnector
+          loadingState={asyncStates.success}
+        />, {
           wrapper: withStore(store)
         }
       )
@@ -76,7 +113,9 @@ describe('ImageAndTextViewer', function () {
     describe('when the frame is changed', function () {
       it('should render the text viewer', async function () {
         render(
-          <ImageAndTextViewerConnector />, {
+          <ImageAndTextViewerConnector
+            loadingState={asyncStates.success}
+          />, {
             wrapper: withStore(store)
           }
         )
@@ -103,15 +142,14 @@ describe('ImageAndTextViewer', function () {
     })
 
     const store = mockStore({
-      subject: textAndImageSubjectSnapshot,
-      subjectViewer: {
-        loadingState: asyncStates.success
-      }
+      subject: textAndImageSubjectSnapshot
     })
 
     it('should render the text viewer', function () {
       render(
-        <ImageAndTextViewerConnector />, {
+        <ImageAndTextViewerConnector
+          loadingState={asyncStates.success}
+        />, {
           wrapper: withStore(store)
         }
       )
@@ -121,7 +159,9 @@ describe('ImageAndTextViewer', function () {
 
     it('should render the frame change buttons', function () {
       render(
-        <ImageAndTextViewerConnector />, {
+        <ImageAndTextViewerConnector
+          loadingState={asyncStates.success}
+        />, {
           wrapper: withStore(store)
         }
       )
@@ -134,7 +174,9 @@ describe('ImageAndTextViewer', function () {
     describe('when the frame is changed', function () {
       it('should render the image viewer', async function () {
         render(
-          <ImageAndTextViewerConnector />, {
+          <ImageAndTextViewerConnector
+            loadingState={asyncStates.success}
+          />, {
             wrapper: withStore(store)
           }
         )
