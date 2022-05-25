@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@artsy/fresnel": "~3.5.0",
-    "@babel/plugin-proposal-decorators": "~7.17.0",
+    "@babel/plugin-proposal-decorators": "~7.18.2",
     "@sentry/browser": "~6.19.7",
     "@sentry/node": "~6.19.7",
     "@sindresorhus/string-hash": "~1.2.0",
