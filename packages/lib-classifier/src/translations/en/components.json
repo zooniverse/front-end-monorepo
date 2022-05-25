@@ -132,7 +132,9 @@
       "loading": "Posting comment..."
     },
     "errors": {
-      "noText": "Can't post an empty comment."
+      "noBoard": "A board for subject comments has not been setup for this project yet.",
+      "noText": "Can't post an empty comment.",
+      "noUser": "User not logged in."
     }
   },
   "SlideTutorial": {

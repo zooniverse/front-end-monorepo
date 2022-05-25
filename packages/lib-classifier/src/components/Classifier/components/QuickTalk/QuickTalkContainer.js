@@ -148,12 +148,12 @@ function QuickTalkContainer ({
 
       const authorization = await getBearerToken(authClient)  // Check bearer token to ensure session hasn't timed out
       const user = await authClient.checkCurrent()
-      if (!authorization || !user) throw('User not logged in')
+      if (!authorization || !user) throw new Error(t('QuickTalk.errors.noUser'))
 
       // First, get default board
       const boards = await talkClient.type('boards').get({ section, subject_default: true })
       const defaultBoard = boards && boards[0]
-      if (!defaultBoard) throw('A board for subject comments has not been setup for this project yet.')
+      if (!defaultBoard) throw new Error(t('QuickTalk.errors.noBoard'))
 
       // Next, attempt to find if the Subject already has a discussion attached to it.
       const discussions = await talkClient.type('discussions').get({
