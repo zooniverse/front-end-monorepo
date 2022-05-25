@@ -42,6 +42,7 @@ function QuickTalkContainer ({
   authClient,
   enabled = false,
   subject,
+  t = () => '',  // Translations
 }) {
 
   const [comments, setComments] = useState([])
@@ -58,25 +59,6 @@ function QuickTalkContainer ({
   }
 
   useEffect(onMount, [subject])
-
-  /*
-  componentDidMount () {
-    if (!this.props.enabled) return
-
-    this.fetchComments()
-    this.checkUser()
-  }
-
-  componentDidUpdate (prevProps) {
-    if (!this.props.enabled) return
-
-    const props = this.props
-    if (props.subject !== prevProps.subject) {  // Note: this high level comparison actually works. Comparing props.subject?.id !== prevProps.subject?.id however causes a crash when getting a new subject, since prevProps.subject would have been removed from memory.
-      this.fetchComments()
-      this.checkUser()
-    }
-  }
-  */
 
   /*
   Quick Fix: use authClient to check User resource within the QuickTalk component itself
@@ -145,26 +127,17 @@ function QuickTalkContainer ({
   }
 
   async function postComment (text) {
-    const { t } = this.props
-    const subject = this.props?.subject
     const project = subject?.project
-    const authClient = this.props?.authClient
-    if (!subject || !project || !authClient) {
-      return
-    }
+    if (!subject || !project || !authClient) return
 
     const section = `project-${project.id}`
     const discussionTitle = `Subject ${subject.id}`
 
-    this.setState({
-      postCommentStatus: asyncStates.loading,
-      postCommentStatusMessage: '',
-    })
+    setPostCommentStatus(asyncStates.loading)
+    setPostCommentStatusMessage('')
 
     try {
-      if (!text || text.trim().length === 0) {
-        throw new Error(t('QuickTalk.errors.noText'))
-      }
+      if (!text || text.trim().length === 0) throw new Error(t('QuickTalk.errors.noText'))
 
       /*
       Quick Fix: check user before posting
@@ -199,11 +172,10 @@ function QuickTalkContainer ({
         }
 
         await talkClient.type('comments').create(comment).save()
-        this.setState({
-          postCommentStatus: asyncStates.success,
-          postCommentStatusMessage: '',
-        })
-        this.fetchComments()
+
+        setPostCommentStatus(asyncStates.success)
+        setPostCommentStatusMessage('')
+        fetchComments()
 
       } else {  // Create a new discussion
 
@@ -223,19 +195,16 @@ function QuickTalkContainer ({
         }
 
         await talkClient.type('discussions').create(discussion).save()
-        this.setState({
-          postCommentStatus: asyncStates.success,
-          postCommentStatusMessage: '',
-        })
-        this.fetchComments()
+
+        setPostCommentStatus(asyncStates.success)
+        setPostCommentStatusMessage('')
+        fetchComments()
       }
 
     } catch (err) {
       console.error(err)
-      this.setState({
-        postCommentStatus: asyncStates.error,
-        postCommentStatusMessage: err?.message || err,
-      })
+      setPostCommentStatus(asyncStates.error)
+      setPostCommentStatusMessage(err?.message || err)
     }
   }
 
