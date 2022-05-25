@@ -104,8 +104,8 @@ class Markdownz extends React.Component {
       tbody: TableBody,
       td: TableCell,
       tr: TableRow,
-      ol: (nodeProps) => <ol>{nodeProps.children}</ol>,
-      ul: (nodeProps) => <ul>{nodeProps.children}</ul>
+      ol: (nodeProps) => <ol style={{ fontSize: '14px', marginTop: 0 }}>{nodeProps.children}</ol>,
+      ul: (nodeProps) => <ul style={{ fontSize: '14px', marginTop: 0 }}>{nodeProps.children}</ul>
     }
 
     const remarkReactComponents = Object.assign({}, componentMappings, components)
