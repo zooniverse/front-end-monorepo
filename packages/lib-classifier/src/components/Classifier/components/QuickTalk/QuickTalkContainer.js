@@ -93,15 +93,8 @@ function QuickTalkContainer ({
   function fetchComments () {
     resetComments()
 
-    console.log('+++ DEBUG')
-    return
-
-    /*
-    const subject = this.props?.subject
     const project = subject?.project
-    if (!subject || !project) {
-      return
-    }
+    if (!subject || !project) return
 
     const section = 'project-' + project.id
     const query = {
@@ -113,20 +106,20 @@ function QuickTalkContainer ({
     }
 
     talkClient.type('comments').get(query)
-      .then (comments =>{
-        this.setState({ comments })
+      .then (allComments =>{
+        setComments(allComments)
 
         let author_ids = []
         let authors = {}
         let authorRoles = {}
 
-        author_ids = comments.map(comment => comment.user_id)
+        author_ids = allComments.map(comment => comment.user_id)
         author_ids = author_ids.filter((id, i) => author_ids.indexOf(id) === i)
 
         apiClient.type('users').get({ id: author_ids })
           .then(users => {
             users.forEach(user => authors[user.id] = user)
-            this.setState({ authors })
+            setAuthors(authors)
           })
 
         talkClient.type('roles')
@@ -140,10 +133,9 @@ function QuickTalkContainer ({
               if (!authorRoles[role.user_id]) authorRoles[role.user_id] = []
               authorRoles[role.user_id].push(role)
             })
-            this.setState({ authorRoles })
+            setAuthorRoles(authorRoles)
           })
       })
-    */
   }
 
   function resetComments () {
