@@ -34,6 +34,7 @@ export function LightTheme({ dark, isThereTaskHelp, required, subjectReadyState 
       strings: {
         help: 'Underline the line to transcribe with two clicks, then enter in the text transcription.',
         instruction: 'Underline and transcribe',
+        'tools.0.label': 'Draw under the text'
       },
       taskKey: 'T3',
       tools: [

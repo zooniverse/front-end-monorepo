@@ -34,36 +34,36 @@ export function Drawing({ dark, isThereTaskHelp, required, subjectReadyState }) 
       required,
       strings: {
         help: isThereTaskHelp ? 'Draw on the image.' : '',
-        instruction: 'Draw something'
+        instruction: 'Draw something',
+        'tools.0.label': 'Draw a line',
+        'tools.1.label': 'Point please.',
+        'tools.2.label': 'Draw under the text',
+        'tools.3.label': 'Draw a rectangle',
+        'tools.4.label': 'Draw an ellipse'
       },
       taskKey: 'T2',
       tools: [
         {
           color: zooTheme.global.colors['drawing-red'],
           help: '',
-          label: 'Draw a line',
           type: 'line'
         }, {
           color: zooTheme.global.colors['drawing-blue'],
           help: '',
-          label: 'Point please.',
           min: 1,
           max: 2,
           type: 'point',
         }, {
           color: zooTheme.global.colors['drawing-green'],
           help: '',
-          label: 'Draw under the text',
           type: 'transcriptionLine'
         }, {
           color: zooTheme.global.colors['drawing-orange'],
           help: '',
-          label: 'Draw a rectangle',
           type: 'rectangle',
         }, {
           color: zooTheme.global.colors['drawing-yellow'],
           help: '',
-          label: 'Draw an ellipse',
           type: 'ellipse',
         }
       ],

@@ -51,7 +51,7 @@ function DrawingTask(props) {
             disabled={tool.disabled}
             index={index}
             key={`${task.taskKey}_${index}`}
-            label={tool.label}
+            label={task.strings.get(`tools.${index}.label`)}
             labelIcon={
               <InputIcon
                 icon={<ToolIcon type={tool.type} />}
