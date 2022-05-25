@@ -58,7 +58,9 @@ export function MultipleTasks({ dark, isThereTaskHelp, required, subjectReadySta
       required,
       strings: {
         help: isThereTaskHelp ? 'Choose an answer from the choices given, then press Done.' : '',
-        question: 'Is there a cat?'
+        question: 'Is there a cat?',
+        'answers.0.label': 'yes',
+        'answers.1.label': 'no'
       },
       taskKey: 'init',
       type: 'single'
@@ -68,7 +70,10 @@ export function MultipleTasks({ dark, isThereTaskHelp, required, subjectReadySta
       required,
       strings: {
         help: isThereTaskHelp ? 'Pick as many answers as apply, then press Done.' : '',
-        question: 'What is it doing?'
+        question: 'What is it doing?',
+        'answers.0.label': 'sleeping',
+        'answers.1.label': 'playing',
+        'answers.2.label': 'looking indifferent'
       },
       taskKey: 'T1',
       type: 'multiple'

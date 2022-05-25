@@ -34,7 +34,9 @@ export function LightTheme({ dark, isThereTaskHelp, required, subjectReadyState 
       required,
       strings: {
         help: isThereTaskHelp ? 'Choose an answer from the choices given, then press Done.' : '',
-        question: 'Is there a cat?'
+        question: 'Is there a cat?',
+        'answers.0.label': 'yes',
+        'answers.1.label': 'no'
       },
       taskKey: 'init',
       type: 'single'
