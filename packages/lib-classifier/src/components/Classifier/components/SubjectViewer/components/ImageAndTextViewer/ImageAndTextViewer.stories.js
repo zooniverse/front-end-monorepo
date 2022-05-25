@@ -46,7 +46,7 @@ export function Default ({ dark }) {
         <Box height='800px' width='large'>
           <ImageAndTextViewerConnector
             loadingState={asyncStates.success}
-            subject={subjectSnapshot}
+            subject={store.subjects.active}
           />
         </Box>
       </Provider>

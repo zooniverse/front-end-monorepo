@@ -47,7 +47,7 @@ describe('ImageAndTextViewer', function () {
       render(
         <ImageAndTextViewerConnector
           loadingState={asyncStates.error}
-          subject={imageAndTextSubjectSnapshot}
+          subject={store.subjects.active}
         />, {
           wrapper: withStore(store)
         }
@@ -62,7 +62,7 @@ describe('ImageAndTextViewer', function () {
       render(
         <ImageAndTextViewerConnector
           loadingState={asyncStates.initialized}
-          subject={imageAndTextSubjectSnapshot}
+          subject={store.subjects.active}
         />, {
           wrapper: withStore(store)
         }
@@ -83,7 +83,7 @@ describe('ImageAndTextViewer', function () {
       render(
         <ImageAndTextViewerConnector
           loadingState={asyncStates.success}
-          subject={imageAndTextSubjectSnapshot}
+          subject={store.subjects.active}
         />, {
           wrapper: withStore(store)
         }
@@ -100,7 +100,7 @@ describe('ImageAndTextViewer', function () {
       render(
         <ImageAndTextViewerConnector
           loadingState={asyncStates.success}
-          subject={imageAndTextSubjectSnapshot}
+          subject={store.subjects.active}
         />, {
           wrapper: withStore(store)
         }
@@ -116,7 +116,7 @@ describe('ImageAndTextViewer', function () {
         render(
           <ImageAndTextViewerConnector
             loadingState={asyncStates.success}
-            subject={imageAndTextSubjectSnapshot}
+            subject={store.subjects.active}
           />, {
             wrapper: withStore(store)
           }
@@ -150,7 +150,7 @@ describe('ImageAndTextViewer', function () {
       render(
         <ImageAndTextViewerConnector
           loadingState={asyncStates.success}
-          subject={textAndImageSubjectSnapshot}
+          subject={store.subjects.active}
         />, {
           wrapper: withStore(store)
         }
@@ -163,7 +163,7 @@ describe('ImageAndTextViewer', function () {
       render(
         <ImageAndTextViewerConnector
           loadingState={asyncStates.success}
-          subject={textAndImageSubjectSnapshot}
+          subject={store.subjects.active}
         />, {
           wrapper: withStore(store)
         }
@@ -179,7 +179,7 @@ describe('ImageAndTextViewer', function () {
         render(
           <ImageAndTextViewerConnector
             loadingState={asyncStates.success}
-            subject={textAndImageSubjectSnapshot}
+            subject={store.subjects.active}
           />, {
             wrapper: withStore(store)
           }
