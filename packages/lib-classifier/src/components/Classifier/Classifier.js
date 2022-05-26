@@ -44,12 +44,23 @@ export default function Classifier({
 
   useEffect(function onURLChange() {
     const { workflows } = classifierStore
-    if (workflowID) {
+    if (workflowID && workflowSnapshot) {
       console.log('starting new subject queue', { workflowID, subjectSetID, subjectID })
+      workflowSnapshot.subjectSet = subjectSetID
+      workflows.setResources([workflowSnapshot])
       workflows.selectWorkflow(workflowID, subjectSetID, subjectID, canPreviewWorkflows)
     }
-  }, [canPreviewWorkflows, subjectID, subjectSetID, workflowID])
+  }, [canPreviewWorkflows, subjectID, subjectSetID, workflowID, workflowSnapshot])
 
+  useEffect(function onWorkflowStringsChange() {
+    const { workflows, subjects } = classifierStore
+    if (workflowSnapshot) {
+      // pass the subjectSetID prop into the store as part of the new workflow data
+      workflowSnapshot.subjectSet = subjectSetID
+      console.log('Refreshing workflow strings', workflowSnapshot.id)
+      workflows.setResources([workflowSnapshot])
+    }
+  }, [workflowSnapshot?.strings])
   /*
     This should run when a project owner edits a workflow, but not when a workflow updates
     as a result of receiving classifications eg. workflow.completeness.

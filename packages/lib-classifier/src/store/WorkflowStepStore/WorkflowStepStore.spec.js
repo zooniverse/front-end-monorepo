@@ -9,6 +9,7 @@ import {
   TranscriptionTaskFactory,
   WorkflowFactory
 } from '@test/factories'
+import { getSnapshot } from 'mobx-state-tree'
 import { Factory } from 'rosie'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 
@@ -112,8 +113,9 @@ describe('Model > WorkflowStepStore', function () {
         step.tasks.forEach(task => {
           const annotation = undefined
           const { taskKey } = task
-          const originalTask = Object.assign({}, workflow.tasks[taskKey], { annotation, taskKey })
-          expect(task).to.eql(originalTask)
+          const strings = {}
+          const originalTask = { ...workflow.tasks[taskKey], annotation, strings, taskKey }
+          expect(getSnapshot(task)).to.eql(originalTask)
         })
       })
     })
@@ -170,8 +172,9 @@ describe('Model > WorkflowStepStore', function () {
         step.tasks.forEach(task => {
           const annotation = undefined
           const { taskKey } = task
-          const originalTask = Object.assign({}, workflow.tasks[taskKey], { annotation, taskKey })
-          expect(task).to.eql(originalTask)
+          const strings = {}
+          const originalTask = { ...workflow.tasks[taskKey], annotation, strings, taskKey }
+          expect(getSnapshot(task)).to.eql(originalTask)
         })
       })
     })
@@ -236,8 +239,9 @@ describe('Model > WorkflowStepStore', function () {
         step.tasks.forEach(task => {
           const annotation = undefined
           const { taskKey } = task
-          const originalTask = Object.assign({}, workflow.tasks[taskKey], { annotation, taskKey })
-          expect(task).to.eql(originalTask)
+          const strings = {}
+          const originalTask = { ...workflow.tasks[taskKey], annotation, strings, taskKey }
+          expect(getSnapshot(task)).to.eql(originalTask)
         })
       })
     })
