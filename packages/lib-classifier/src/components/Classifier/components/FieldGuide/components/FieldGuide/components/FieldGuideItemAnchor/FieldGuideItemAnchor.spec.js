@@ -2,12 +2,10 @@ import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
 import { observable } from 'mobx'
-import { Markdownz } from '@zooniverse/react-components'
-import { Anchor } from 'grommet'
+import { Anchor, Grommet, Paragraph } from 'grommet'
 import { FieldGuideItemAnchor, AnchorLabel } from './FieldGuideItemAnchor'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
 import { FieldGuideMediumFactory } from '@test/factories'
-import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 
 const mediumOne = FieldGuideMediumFactory.build()
@@ -75,13 +73,13 @@ describe('Component > FieldGuideItemAnchor', function () {
       expect(wrapper).to.be.ok()
     })
 
-    it('should render the item title as markdown', function () {
+    it('should render the item title', function () {
       const wrapper = shallow(
         <AnchorLabel
           icons={attachedMedia}
           item={item}
         />)
-      expect(wrapper.find(Markdownz).contains(item.title)).to.be.true()
+      expect(wrapper.find(Paragraph).contains(item.title)).to.be.true()
     })
 
     it('should render an FieldGuideItemIcon component', function () {
