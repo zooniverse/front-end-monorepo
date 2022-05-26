@@ -113,7 +113,7 @@ function SubTaskPopup({
                     annotation={annotation}
                     autoFocus={(index === 0)}
                     disabled={disabled}
-                    subTaskPreviousAnnotationValues={subTaskPreviousAnnotationValues?.get(task.taskKey)?.values}
+                    suggestions={subTaskPreviousAnnotationValues?.get(task.taskKey)?.values}
                     task={task}
                   />
                   {requiredEmphasis && (
