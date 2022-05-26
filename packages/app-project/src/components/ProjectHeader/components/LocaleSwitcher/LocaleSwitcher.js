@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import localeMenu from '@helpers/localeMenu'
 import { Box, Menu } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
