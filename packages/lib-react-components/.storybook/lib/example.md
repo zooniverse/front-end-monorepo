@@ -25,13 +25,11 @@
 > blockquote
 
 Unordered list:
-
 - item one
 - item two
 - item three
 
 Ordered list:
-
 1. item one
 2. item two
 3. item three
@@ -60,7 +58,7 @@ Here is a footnote reference,[^1] and another.[^longnote]
 
 [^longnote]: Here's one with multiple blocks.
 
-  Another note.
+    Another note.
 
 ## Testing for vulnerabilities
 
