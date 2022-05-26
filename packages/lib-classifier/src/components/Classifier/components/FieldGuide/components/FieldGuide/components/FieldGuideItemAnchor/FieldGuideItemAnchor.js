@@ -1,7 +1,6 @@
-import { Anchor, Box } from 'grommet'
+import { Anchor, Box, Paragraph } from 'grommet'
 import React from 'react'
 import { observable } from 'mobx'
-import { Markdownz } from '@zooniverse/react-components'
 import PropTypes from 'prop-types'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import { withTheme } from 'styled-components'
@@ -18,9 +17,9 @@ export function AnchorLabel ({ className, icons, item }) {
       width='100px'
     >
       <FieldGuideItemIcon alt={item.title} fit='cover' height='100px' icon={icon} width='100px' />
-      <Markdownz>
+      <Paragraph>
         {item.title}
-      </Markdownz>
+      </Paragraph>
     </Box>
   )
 }
