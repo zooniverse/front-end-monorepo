@@ -26,7 +26,7 @@
     "prop-types": "~15.8.1",
     "react-i18next": "~11.16.1",
     "react-progressive-image": "~0.6.0",
-    "react-resize-detector": "~7.0.0",
+    "react-resize-detector": "~7.1.1",
     "react-rnd": "10.3.7",
     "rehype-stringify": "~8.0.0",
     "remark": "~11.0.2",
