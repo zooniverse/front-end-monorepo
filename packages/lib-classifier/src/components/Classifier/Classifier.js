@@ -18,12 +18,18 @@ export default function Classifier({
   subjectID,
   subjectSetID,
   workflowSnapshot,
-  workflowVersion,
   workflowID
 }) {
 
   const user = usePanoptesUser()
   const projectRoles = useProjectRoles(project?.id, user?.id)
+  const activeWorkflow = classifierStore.workflows.active
+  let workflowVersionChanged = false
+  if (workflowSnapshot) {
+    // pass the subjectSetID prop into the store as part of the new workflow data
+    workflowSnapshot.subjectSet = subjectSetID
+    workflowVersionChanged = workflowSnapshot.version !== activeWorkflow?.version
+  }
 
   const canPreviewWorkflows = projectRoles.indexOf('owner') > -1 ||
     projectRoles.indexOf('collaborator') > -1 ||
@@ -46,17 +52,14 @@ export default function Classifier({
     const { workflows } = classifierStore
     if (workflowID && workflowSnapshot) {
       console.log('starting new subject queue', { workflowID, subjectSetID, subjectID })
-      workflowSnapshot.subjectSet = subjectSetID
       workflows.setResources([workflowSnapshot])
       workflows.selectWorkflow(workflowID, subjectSetID, subjectID, canPreviewWorkflows)
     }
   }, [canPreviewWorkflows, subjectID, subjectSetID, workflowID, workflowSnapshot])
 
   useEffect(function onWorkflowStringsChange() {
-    const { workflows, subjects } = classifierStore
+    const { workflows } = classifierStore
     if (workflowSnapshot) {
-      // pass the subjectSetID prop into the store as part of the new workflow data
-      workflowSnapshot.subjectSet = subjectSetID
       console.log('Refreshing workflow strings', workflowSnapshot.id)
       workflows.setResources([workflowSnapshot])
     }
@@ -67,16 +70,14 @@ export default function Classifier({
     It refreshes the stored workflow then resets any classifications in progress.
   */
   useEffect(function onWorkflowVersionChange() {
-    const { workflows, subjects } = classifierStore
-    if (workflowSnapshot) {
-      // pass the subjectSetID prop into the store as part of the new workflow data
-      workflowSnapshot.subjectSet = subjectSetID
+    const { workflows } = classifierStore
+    if (workflowVersionChanged) {
       console.log('Refreshing workflow snapshot', workflowSnapshot.id)
       workflows.setResources([workflowSnapshot])
       // TODO: the task area crashes without the following line. Why is that?
       classifierStore.startClassification()
     }
-  }, [workflowVersion])
+  }, [workflowVersionChanged])
 
   try {
     return (
@@ -107,6 +108,5 @@ Classifier.propTypes = {
   workflowSnapshot: PropTypes.shape({
     id: PropTypes.string
   }),
-  workflowVersion: PropTypes.string,
   workflowID: PropTypes.string.isRequired
 }
