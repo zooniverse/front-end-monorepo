@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 import { withTranslation } from 'react-i18next'
@@ -38,61 +38,46 @@ function storeMapper (store) {
   }
 }
 
-class QuickTalkContainer extends React.Component {
-  constructor () {
-    super()
-    
-    this.state = {
-      comments: [],
-      authors: {},
-      authorRoles: {},
-      postCommentStatus: asyncStates.initialized,
-      postCommentStatusMessage: '',
-      userId: '',
-    }
+function QuickTalkContainer ({
+  authClient,
+  enabled = false,
+  subject,
+  t = () => '',  // Translations
+}) {
+
+  const [comments, setComments] = useState([])
+  const [authors, setAuthors] = useState({})
+  const [authorRoles, setAuthorRoles] = useState({})
+  const [postCommentStatus, setPostCommentStatus] = useState(asyncStates.initialized)
+  const [postCommentStatusMessage, setPostCommentStatusMessage] = useState('')
+  const [userId, setUserId] = useState('')
+
+  function onMount () {
+    fetchComments()
+    checkUser()
+    return () => {}
   }
-  
-  componentDidMount () {
-    if (!this.props.enabled) return
-    
-    this.fetchComments()
-    this.checkUser()
-  }
-  
-  componentDidUpdate (prevProps) {
-    if (!this.props.enabled) return
-    
-    const props = this.props
-    if (props.subject !== prevProps.subject) {  // Note: this high level comparison actually works. Comparing props.subject?.id !== prevProps.subject?.id however causes a crash when getting a new subject, since prevProps.subject would have been removed from memory.
-      this.fetchComments()
-      this.checkUser()
-    }
-  }
-  
+
+  useEffect(onMount, [subject])
+
   /*
   Quick Fix: use authClient to check User resource within the QuickTalk component itself
   - see https://github.com/zooniverse/front-end-monorepo/discussions/2362
    */
-  async checkUser () {
-    const authClient = this.props?.authClient
+  async function checkUser () {
     if (!authClient) return
-    
+
     const authorization = await getBearerToken(authClient)  // Check bearer token to ensure session hasn't timed out
     const user = await authClient.checkCurrent()
-    this.setState({
-      userId: (authorization && user) ? user.id : undefined
-    })
+    setUserId((authorization && user) ? user.id : undefined)
   }
-  
-  fetchComments () {
-    this.resetComments()
-    
-    const subject = this.props?.subject
+
+  function fetchComments () {
+    resetComments()
+
     const project = subject?.project
-    if (!subject || !project) {
-      return
-    }
-    
+    if (!subject || !project) return
+
     const section = 'project-' + project.id
     const query = {
       section: section,
@@ -101,24 +86,24 @@ class QuickTalkContainer extends React.Component {
       page: 1,
       sort: 'created_at',  // PFE used '-created_at' to sort in reverse order, and I have no idea why.
     }
-        
+
     talkClient.type('comments').get(query)
-      .then (comments =>{
-        this.setState({ comments })
-        
+      .then (allComments =>{
+        setComments(allComments)
+
         let author_ids = []
         let authors = {}
         let authorRoles = {}
 
-        author_ids = comments.map(comment => comment.user_id)
+        author_ids = allComments.map(comment => comment.user_id)
         author_ids = author_ids.filter((id, i) => author_ids.indexOf(id) === i)
-        
+
         apiClient.type('users').get({ id: author_ids })
           .then(users => {
             users.forEach(user => authors[user.id] = user)
-            this.setState({ authors })
+            setAuthors(authors)
           })
-        
+
         talkClient.type('roles')
           .get({
             user_id: author_ids,
@@ -130,40 +115,29 @@ class QuickTalkContainer extends React.Component {
               if (!authorRoles[role.user_id]) authorRoles[role.user_id] = []
               authorRoles[role.user_id].push(role)
             })
-            this.setState({ authorRoles })
+            setAuthorRoles(authorRoles)
           })
       })
   }
-  
-  resetComments () {
-    this.setState({
-      comments: [],
-      authors: {},
-      authorRoles: {},
-    })
+
+  function resetComments () {
+    setComments([])
+    setAuthors({})
+    setAuthorRoles({})
   }
-  
-  async postComment (text) {
-    const { t } = this.props
-    const subject = this.props?.subject
+
+  async function postComment (text) {
     const project = subject?.project
-    const authClient = this.props?.authClient
-    if (!subject || !project || !authClient) {
-      return
-    }
-    
+    if (!subject || !project || !authClient) return
+
     const section = `project-${project.id}`
     const discussionTitle = `Subject ${subject.id}`
-    
-    this.setState({
-      postCommentStatus: asyncStates.loading,
-      postCommentStatusMessage: '',
-    })
-    
+
+    setPostCommentStatus(asyncStates.loading)
+    setPostCommentStatusMessage('')
+
     try {
-      if (!text || text.trim().length === 0) {
-        throw new Error(t('QuickTalk.errors.noText'))
-      }
+      if (!text || text.trim().length === 0) throw new Error(t('QuickTalk.errors.noText'))
 
       /*
       Quick Fix: check user before posting
@@ -174,13 +148,13 @@ class QuickTalkContainer extends React.Component {
 
       const authorization = await getBearerToken(authClient)  // Check bearer token to ensure session hasn't timed out
       const user = await authClient.checkCurrent()
-      if (!authorization || !user) throw('User not logged in')
+      if (!authorization || !user) throw new Error(t('QuickTalk.errors.noUser'))
 
       // First, get default board
       const boards = await talkClient.type('boards').get({ section, subject_default: true })
       const defaultBoard = boards && boards[0]
-      if (!defaultBoard) throw('A board for subject comments has not been setup for this project yet.')
-      
+      if (!defaultBoard) throw new Error(t('QuickTalk.errors.noBoard'))
+
       // Next, attempt to find if the Subject already has a discussion attached to it.
       const discussions = await talkClient.type('discussions').get({
         board_id: defaultBoard.id,
@@ -188,7 +162,7 @@ class QuickTalkContainer extends React.Component {
         subject_default: true,
       })
       const existingDiscussion = discussions && discussions[0]
-      
+
       if (existingDiscussion) { // Add to the existing discussion
 
         const comment = {
@@ -198,11 +172,10 @@ class QuickTalkContainer extends React.Component {
         }
 
         await talkClient.type('comments').create(comment).save()
-        this.setState({
-          postCommentStatus: asyncStates.success,
-          postCommentStatusMessage: '',
-        })
-        this.fetchComments()
+
+        setPostCommentStatus(asyncStates.success)
+        setPostCommentStatusMessage('')
+        fetchComments()
 
       } else {  // Create a new discussion
 
@@ -222,54 +195,33 @@ class QuickTalkContainer extends React.Component {
         }
 
         await talkClient.type('discussions').create(discussion).save()
-        this.setState({
-          postCommentStatus: asyncStates.success,
-          postCommentStatusMessage: '',
-        })
-        this.fetchComments()
+
+        setPostCommentStatus(asyncStates.success)
+        setPostCommentStatusMessage('')
+        fetchComments()
       }
 
     } catch (err) {
       console.error(err)
-      this.setState({
-        postCommentStatus: asyncStates.error,
-        postCommentStatusMessage: err?.message || err,
-      })
+      setPostCommentStatus(asyncStates.error)
+      setPostCommentStatusMessage(err?.message || err)
     }
   }
-    
-  render () {
-    const {
-      subject,
-      enabled,
-    } = this.props
-    
-    const {
-      comments,
-      authors,
-      authorRoles,
-      postCommentStatus,
-      postCommentStatusMessage,
-      userId,
-    } = this.state
 
-    if (!subject || !enabled) {
-      return null
-    }
-    
-    return (
-      <QuickTalk
-        subject={subject}
-        comments={comments}
-        authors={authors}
-        authorRoles={authorRoles}
-        postCommentStatus={postCommentStatus}
-        postCommentStatusMessage={postCommentStatusMessage}
-        postComment={this.postComment.bind(this)}
-        userId={userId}
-      />
-    )
-  }
+  if (!enabled || !subject) return null
+
+  return (
+    <QuickTalk
+      subject={subject}
+      comments={comments}
+      authors={authors}
+      authorRoles={authorRoles}
+      postCommentStatus={postCommentStatus}
+      postCommentStatusMessage={postCommentStatusMessage}
+      postComment={postComment}
+      userId={userId}
+    />
+  )
 }
 
 QuickTalkContainer.propTypes = {

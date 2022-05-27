@@ -88,6 +88,7 @@ function QuickTalk ({
         />
         <Button
           a11yTitle={t('QuickTalk.aria.closeButton')}
+          autoFocus={true}
           icon={<Close size='small' />}
           onClick={() => setExpand(false)}
           plain
