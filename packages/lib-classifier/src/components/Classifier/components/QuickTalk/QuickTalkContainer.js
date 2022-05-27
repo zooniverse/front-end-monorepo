@@ -67,8 +67,8 @@ function QuickTalkContainer ({
   async function checkUser () {
     if (!authClient) return
 
-    const authorization = await getBearerToken(authClient)  // Check bearer token to ensure session hasn't timed out
     const user = await authClient.checkCurrent()
+    const authorization = await getBearerToken(authClient)  // Check bearer token to ensure session hasn't timed out
     setUserId((authorization && user) ? user.id : undefined)
   }
 
@@ -146,8 +146,8 @@ function QuickTalkContainer ({
       - see https://github.com/zooniverse/front-end-monorepo/discussions/2362
        */
 
-      const authorization = await getBearerToken(authClient)  // Check bearer token to ensure session hasn't timed out
       const user = await authClient.checkCurrent()
+      const authorization = await getBearerToken(authClient)  // Check bearer token to ensure session hasn't timed out
       if (!authorization || !user) throw new Error(t('QuickTalk.errors.noUser'))
 
       // First, get default board
