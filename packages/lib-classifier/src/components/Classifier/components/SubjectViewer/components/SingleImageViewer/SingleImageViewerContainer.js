@@ -20,6 +20,7 @@ function SingleImageViewerContainer({
   enableRotation = () => null,
   frame = 0,
   ImageObject = window.Image,
+  invert = false,
   loadingState = asyncStates.initialized,
   move = false,
   onError = () => true,
@@ -100,6 +101,7 @@ function SingleImageViewerContainer({
         <SingleImageViewer
           enableInteractionLayer={enableDrawing}
           height={naturalHeight}
+          invert={invert}
           onKeyDown={onKeyDown}
           rotate={rotation}
           title={title}
@@ -121,6 +123,7 @@ SingleImageViewerContainer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   enableRotation: PropTypes.func,
   frame: PropTypes.number,
+  invert: PropTypes.bool,
   loadingState: PropTypes.string,
   move: PropTypes.bool,
   onError: PropTypes.func,

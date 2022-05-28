@@ -1,23 +1,32 @@
+import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React, { useRef } from 'react'
+import styled from 'styled-components'
+
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
-import { Box } from 'grommet'
 import InteractionLayer from '../InteractionLayer'
 import ZoomControlButton from '../ZoomControlButton'
 
-function SingleImageViewer(props) {
+const StyledBox = styled(Box)`
+  image {
+    filter: ${({ invert }) => invert ? 'invert(100%)' : 'invert(0%)'};
+  }
+`
+
+function SingleImageViewer (props) {
   const {
     children,
-    enableInteractionLayer,
+    enableInteractionLayer = true,
     height,
-    onKeyDown,
-    rotate,
-    scale,
-    title,
+    invert = false,
+    onKeyDown = () => true,
+    rotate = 0,
+    scale = 1,
+    title = {},
     viewBox,
     width,
-    zoomControlFn,
-    zooming
+    zoomControlFn = null,
+    zooming = false
   } = props
 
   const transformLayer = useRef()
@@ -27,15 +36,22 @@ function SingleImageViewer(props) {
   return (
     <SVGContext.Provider value={{ canvas }}>
       {zoomControlFn && (
-        <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />
+        <ZoomControlButton
+          onClick={zoomControlFn}
+          zooming={zooming}
+        />
       )}
-      <Box animation='fadeIn' overflow='hidden'>
+      <StyledBox
+        animation='fadeIn'
+        invert={invert}
+        overflow='hidden'
+      >
         <svg
           focusable
           onKeyDown={onKeyDown}
           tabIndex={0}
           viewBox={viewBox}
-          xmlns="http://www.w3.org/2000/svg"
+          xmlns='http://www.w3.org/2000/svg'
         >
           {title?.id && title?.text && (
             <title id={title.id}>{title.text}</title>
@@ -46,11 +62,15 @@ function SingleImageViewer(props) {
           >
             {children}
             {enableInteractionLayer && (
-              <InteractionLayer scale={scale} height={height} width={width} />
+              <InteractionLayer
+                scale={scale}
+                height={height}
+                width={width}
+              />
             )}
           </g>
         </svg>
-      </Box>
+      </StyledBox>
     </SVGContext.Provider>
   )
 }
@@ -58,6 +78,7 @@ function SingleImageViewer(props) {
 SingleImageViewer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   height: PropTypes.number.isRequired,
+  invert: PropTypes.bool,
   onKeyDown: PropTypes.func,
   rotate: PropTypes.number,
   scale: PropTypes.number,
@@ -69,16 +90,6 @@ SingleImageViewer.propTypes = {
   width: PropTypes.number.isRequired,
   zoomControlFn: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   zooming: PropTypes.bool
-}
-
-SingleImageViewer.defaultProps = {
-  enableInteractionLayer: true,
-  onKeyDown: () => true,
-  rotate: 0,
-  scale: 1,
-  title: {},
-  zoomControlFn: null,
-  zooming: false
 }
 
 export default SingleImageViewer
