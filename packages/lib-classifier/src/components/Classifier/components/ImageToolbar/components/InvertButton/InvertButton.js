@@ -5,12 +5,15 @@ import { useTranslation } from 'react-i18next'
 import InvertIcon from './InvertIcon'
 import Button from '../Button'
 
-function InvertButton ({ disabled, onClick }) {
+function InvertButton ({
+  active = false,
+  onClick = () => console.log('Invert Button')
+}) {
   const { t } = useTranslation('components')
   return (
     <Button
+      active={active}
       a11yTitle={t('ImageToolbar.InvertButton.ariaLabel')}
-      disabled={disabled}
       icon={<InvertIcon />}
       onClick={onClick}
     />
@@ -18,13 +21,8 @@ function InvertButton ({ disabled, onClick }) {
 }
 
 InvertButton.propTypes = {
-  disabled: PropTypes.bool,
+  active: PropTypes.bool,
   onClick: PropTypes.func
-}
-
-InvertButton.defaultProps = {
-  disabled: false,
-  onClick: () => console.log('Invert Button')
 }
 
 export default InvertButton

@@ -6,6 +6,7 @@ import InvertButton from './InvertButton'
 function storeMapper(classifierStore) {
   const {
     subjectViewer: {
+      invert,
       invertView
     },
     workflows: {
@@ -13,14 +14,17 @@ function storeMapper(classifierStore) {
     }
   } = classifierStore
 
+  const active = invert
   const disabled = !workflow?.configuration?.invert_subject
   return {
+    active,
     disabled,
     onClick: invertView
   }
 }
 
 function InvertButtonContainer ({
+  active = false,
   disabled = false,
   onClick = () => console.log('invert view')
 }) {
@@ -28,7 +32,10 @@ function InvertButtonContainer ({
     return null
   }
   return (
-    <InvertButton onClick={onClick} />
+    <InvertButton
+      active={active}
+      onClick={onClick}
+    />
   )
 }
 
