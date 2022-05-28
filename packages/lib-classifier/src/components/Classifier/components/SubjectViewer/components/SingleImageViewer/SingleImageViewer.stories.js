@@ -5,7 +5,7 @@ import { Provider } from 'mobx-react';
 import { Factory } from 'rosie';
 import SubjectViewerStore from '@store/SubjectViewerStore';
 import SingleImageViewer from '@viewers/components/SingleImageViewer';
-import ImageToolbar from '../../../ImageToolbar/ImageToolbar';
+import ImageToolbar from '../../../ImageToolbar';
 import readme from './README.md';
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds';
 import asyncStates from '@zooniverse/async-states';
@@ -88,12 +88,12 @@ DarkTheme.story = {
   parameters: darkThemeConfig,
 };
 
-export const WithZoomControls = ({ invert }) => {
+export const WithZoomControls = () => {
   return (
     <ViewerContext theme={zooTheme}>
       <Box direction="row" height="500px" width="large">
         <SingleImageViewer loadingState={asyncStates.success} enableInteractionLayer={false} />
-        <ImageToolbar invert={invert} />
+        <ImageToolbar />
       </Box>
     </ViewerContext>
   );
@@ -101,8 +101,5 @@ export const WithZoomControls = ({ invert }) => {
 
 WithZoomControls.story = {
   name: 'with zoom controls',
-  parameters: config,
-  args: {
-    invert: false
-  }
+  parameters: config
 };

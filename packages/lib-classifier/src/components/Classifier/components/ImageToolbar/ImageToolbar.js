@@ -1,5 +1,4 @@
 import { Box } from 'grommet'
-import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import FieldGuide from '../FieldGuide'
@@ -41,20 +40,12 @@ class ImageToolbar extends Component {
           <RotateButton />
           <FullscreenButton disabled />
           <ResetButton />
-          {this.props.invert ? <InvertButton /> : null}
+          <InvertButton />
         </Box>
         <FieldGuide />
       </Box>
     )
   }
-}
-
-ImageToolbar.defaultProps = {
-  invert: false
-}
-
-ImageToolbar.propTypes = {
-  invert: PropTypes.bool
 }
 
 export default ImageToolbar
