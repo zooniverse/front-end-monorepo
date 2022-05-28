@@ -10,14 +10,32 @@ describe('Stores > Project', function () {
   let rootStore
 
   it('should exist', function () {
-    rootStore = Store.create({}, placeholderEnv)
+    rootStore = Store.create({
+      project: {
+        strings: {
+          display_name: 'foobar',
+          description: 'some text',
+          researcher_quote: 'A quote.',
+          workflow_description: 'The workflow description.'
+        }
+      }
+    }, placeholderEnv)
     projectStore = rootStore.project
     expect(projectStore).to.be.ok()
   })
 
   describe('default model properties', function () {
     before(function () {
-      rootStore = Store.create({}, placeholderEnv)
+      rootStore = Store.create({
+        project: {
+          strings: {
+            display_name: 'foobar',
+            description: 'some text',
+            researcher_quote: 'A quote.',
+            workflow_description: 'The workflow description.'
+          }
+        }
+      }, placeholderEnv)
       projectStore = rootStore.project
     })
 
@@ -38,7 +56,7 @@ describe('Stores > Project', function () {
     })
 
     it('should have a `displayName` property', function () {
-      expect(projectStore.displayName).to.be.null()
+      expect(projectStore.displayName).to.be.a('string')
     })
 
     it('should have a `description` property', function () {
@@ -82,7 +100,7 @@ describe('Stores > Project', function () {
     })
 
     it('should have a `workflow_description` property', function () {
-      expect(projectStore.workflow_description).to.be.null()
+      expect(projectStore.workflow_description).to.be.a('string')
     })
 
     after(function () {

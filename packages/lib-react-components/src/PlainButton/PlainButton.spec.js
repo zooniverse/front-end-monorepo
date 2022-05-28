@@ -1,25 +1,40 @@
+import * as stories from './PlainButton.stories'
+import { render } from '@testing-library/react'
+import { composeStories } from '@storybook/testing-react'
 import React from 'react'
-import { shallow } from 'enzyme'
-import { PlainButton } from './PlainButton'
-import { expect } from 'chai'
-import { Grommet } from 'grommet'
 
-describe('<PlainButton />', function () {
-  let wrapper
-  before(function () {
-    wrapper = shallow(<PlainButton text='Click me' />, { wrappingComponent: <Grommet /> })
+describe('Components > PlainButton', function () {
+  const { Default } = composeStories(stories)
+  const mockHref = 'www.zooniverse.org'
+
+  it('should render text prop as a label', function () {
+    const { getByText } = render(<Default />)
+    const item = getByText(Default.args.text)
+    expect(item).exists()
   })
 
-  it('renders without crashing', function () {
-    expect(wrapper).to.be.ok()
+  it('should render a button element when not disabled and href is empty', function () {
+    const { getByRole, queryByRole } = render(<Default href='' />)
+    const button = getByRole('button')
+    const link = queryByRole('link')
+    expect(link).to.be.null()
+    expect(button).exists()
   })
 
-  it('should render a plain Grommet Button', function () {
-    expect(wrapper.props().plain).to.be.true()
+  it('should render an anchor element when not disabled and href is defined', function () {
+    const { getByRole, queryByRole } = render(<Default href={mockHref} />)
+    const link = getByRole('link')
+    const button = queryByRole('button')
+    expect(link).exists()
+    expect(link.href).include(mockHref)
+    expect(button).to.be.null()
   })
 
-  it('should render a span when the button is disabled and href is defined', function () {
-    wrapper.setProps({ disabled: true, href: 'www.google.com' })
-    expect(wrapper.props().as).to.equal('span')
+  it('should render a button element when disabled and href is defined', function () {
+    const { getByRole, queryByRole } = render(<Default disabled href={mockHref} />)
+    const button = getByRole('button')
+    const link = queryByRole('link')
+    expect(button).exists()
+    expect(link).to.be.null()
   })
 })

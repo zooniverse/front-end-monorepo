@@ -28,10 +28,17 @@ export default {
 }
 
 export function LightTheme({ dark, isThereTaskHelp, required, subjectReadyState }) {
+  const help = isThereTaskHelp ?
+    'Use the drawing tool to mark any dips in the light curve that look like planetary transits.' :
+    ''
   const tasks = {
     T4: {
-      instruction: 'Do you spot a transit?',
       required,
+      strings: {
+        help,
+        instruction: 'Do you spot a transit?',
+        'tools.0.label': 'Transit?'
+      },
       taskKey: 'T4',
       tools: [
         {

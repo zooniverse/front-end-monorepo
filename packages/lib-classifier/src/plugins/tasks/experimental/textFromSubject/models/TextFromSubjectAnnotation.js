@@ -15,6 +15,14 @@ const TextFromSubject = types
   .views(self => ({
     get isComplete () {
       return self.initializedFromSubject && self.value !== ''
+    },
+    get isChanged () {
+      const subject = getRoot(self).subjects?.active
+      if (subject) {
+        const { content } = subject
+        return !!content && content !== self.value
+      }
+      return false
     }
   }))
   .actions(self => {
@@ -37,6 +45,13 @@ const TextFromSubject = types
     return {
       afterAttach () {
         createSubjectObserver()
+      },
+
+      resetToSubject () {
+        const subject = getRoot(self).subjects.active
+        const { content } = subject
+
+        self.update(content)
       },
 
       updateFromSubject (value) {

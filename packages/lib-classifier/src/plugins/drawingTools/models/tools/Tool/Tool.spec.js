@@ -1,3 +1,4 @@
+import { getSnapshot } from 'mobx-state-tree'
 import sinon from 'sinon'
 import Tool from './Tool'
 
@@ -65,7 +66,8 @@ describe('Model > DrawingTools > Tool', function () {
             question: 'which fruit?',
             answers: ['apples', 'oranges', 'pears'],
             help: '',
-            required: ''
+            required: '',
+            strings: {}
           },
           {
             taskKey: 'single',
@@ -73,7 +75,8 @@ describe('Model > DrawingTools > Tool', function () {
             question: 'how many?',
             answers: ['one', 'two', 'three'],
             help: '',
-            required: ''
+            required: '',
+            strings: {}
           },
           {
             taskKey: 'text',
@@ -81,6 +84,7 @@ describe('Model > DrawingTools > Tool', function () {
             instruction: 'Transcribe something',
             help: '',
             required: '',
+            strings: {},
             text_tags: []
           }
         ]
@@ -94,17 +98,17 @@ describe('Model > DrawingTools > Tool', function () {
       })
 
       it('should create multiple choice tasks', function () {
-        const {annotation, ...snapshot} = tool.tasks[0]
+        const {annotation, ...snapshot} = getSnapshot(tool.tasks[0])
         expect(snapshot).to.deep.equal(multipleTaskSnapshot)
       })
 
       it('should create single choice tasks', function () {
-        const {annotation, ...snapshot} = tool.tasks[1]
+        const {annotation, ...snapshot} = getSnapshot(tool.tasks[1])
         expect(snapshot).to.deep.equal(singleTaskSnapshot)
       })
 
       it('should create text tasks', function () {
-        const {annotation, ...snapshot} = tool.tasks[2]
+        const {annotation, ...snapshot} = getSnapshot(tool.tasks[2])
         expect(snapshot).to.deep.equal(textTaskSnapshot)
       })
     })

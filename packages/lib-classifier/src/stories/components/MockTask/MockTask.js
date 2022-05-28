@@ -1,5 +1,6 @@
 import { Box, Grommet } from 'grommet'
 import { Provider, observer } from 'mobx-react'
+import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 import React, { useEffect, useState } from 'react'
 import Tasks from '@components/Classifier/components/TaskArea/components/Tasks'
 import asyncStates from '@zooniverse/async-states'
@@ -8,14 +9,17 @@ import mockStore  from '@test/mockStore'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 
 /**
-  Global store. This should be created only once, otherwise the Provider will error.
-*/
-let store
-
-/**
   Takes a workflow tasks object and sets up the active workflow step and classification annotations.
 */
 function addStepToStore(taskSnapshots = {}, isThereTaskHelp = true) {
+  const strings = {}
+  Object.entries(taskSnapshots).forEach(([taskKey, task]) => {
+    if (task.strings) {
+      Object.entries(task.strings).forEach(([key, value]) => {
+        strings[`tasks.${taskKey}.${key}`] = value
+      })
+    }
+  })
   const stepKey = 'S1'
   const taskKeys = Object.values(taskSnapshots).map(task => task.taskKey)
   const step = {
@@ -29,29 +33,37 @@ function addStepToStore(taskSnapshots = {}, isThereTaskHelp = true) {
     task.help = isThereTaskHelp ? task.help : undefined
     tasks[task.taskKey] = task
   })
-  store.workflowSteps.reset()
-  store.workflowSteps.setStepsAndTasks({ steps, tasks })
-  store.subjects.active.stepHistory.start()
+  const workflowSnapshot = { ...getSnapshot(MockTask.store.workflows.active), steps, strings, tasks }
+  const workflow = MockTask.store.workflows.resources.get(workflowSnapshot.id)
+  applySnapshot(workflow, workflowSnapshot)
+  MockTask.store.workflowSteps.setStepsAndTasks(workflowSnapshot)
+  MockTask.store.workflowSteps.setTaskStrings()
+  MockTask.store.subjects.active.stepHistory.start()
 }
 
 /**
   Initialise the store state on story load.
 */
-function initStore (subject, tasks) {
-  const workflow = WorkflowFactory.build(Object.assign({}, { tasks }))
-  store = store ?? mockStore({ workflow })
+function initStore (subject, tasks = {}) {
+  const strings = {}
+  Object.entries(tasks).forEach(([taskKey, task]) => {
+    if (task.strings) {
+      Object.entries(task.strings).forEach(([key, value]) => {
+        strings[`tasks.${taskKey}.${key}`] = value
+      })
+    }
+  })
+  const workflow = WorkflowFactory.build({ strings, tasks })
   const defaultSubject = {
     id: 'subject',
     metadata: {}
   }
-  const mockSubject = Object.assign({}, defaultSubject, subject)
+  const mockSubject = { ...defaultSubject, ...subject }
   const mockProject = {
     id: 'project'
   }
   const storeSubject = SubjectFactory.build(mockSubject)
-  store.subjects.setResources([storeSubject])
-  store.subjects.setActive(storeSubject.id)
-  store.classifications.createClassification(mockSubject, workflow, mockProject)
+  MockTask.store = MockTask.store ?? mockStore({ subject: storeSubject, workflow })
 }
 
 /**
@@ -85,7 +97,7 @@ export default function MockTask({
   }, [isThereTaskHelp, tasks])
 
   useEffect(function onLoadingStateChange() {
-    const { workflows } = store
+    const { workflows } = MockTask.store
     switch (loadingState) {
       case asyncStates.error: {
         workflows.onError()
@@ -103,7 +115,7 @@ export default function MockTask({
   }, [loadingState])
 
   useEffect(function onSubjectReadyStateChange() {
-    const { subjectViewer } = store
+    const { subjectViewer } = MockTask.store
     switch (subjectReadyState) {
       case asyncStates.error: {
         subjectViewer.onError()
@@ -125,7 +137,7 @@ export default function MockTask({
   }
 
   return (
-    <Provider classifierStore={store}>
+    <Provider classifierStore={MockTask.store}>
       <Grommet
         background={{
           dark: 'dark-1',

@@ -45,7 +45,7 @@ function DataVisAnnotationTask (props) {
             checked={checked}
             index={index}
             key={`${task.taskKey}_${index}`}
-            label={tool.label}
+            label={task.strings.get(`tools.${index}.label`)}
             labelIcon={<InputIcon icon={<Graph2dRangeXIcon />} color='white' />}
             name='data-vis-annotation-tool'
             onChange={event => onChange(index, event)}

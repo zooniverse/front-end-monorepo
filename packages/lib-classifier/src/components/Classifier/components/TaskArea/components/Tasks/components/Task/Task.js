@@ -35,14 +35,14 @@ function Task ({
 }) {
   const { TaskComponent } = task.type === 'dropdown-simple'? tasks.dropdownSimple : tasks[task.type]
   let annotation
-  let subTaskPreviousAnnotationValues
+  let suggestions
 
   if (latest) {
     ([ annotation ] = latest.annotations.filter(annotation => annotation.task === task.taskKey))
   }
 
   if (previousAnnotationValues) {
-    subTaskPreviousAnnotationValues = previousAnnotationValues.get(task.taskKey)
+    suggestions = previousAnnotationValues.get(task.taskKey)
   }
   
   if (!annotation) {
@@ -60,7 +60,7 @@ function Task ({
         autoFocus={autoFocus}
         disabled={disabled}
         annotation={annotation}
-        subTaskPreviousAnnotationValues={subTaskPreviousAnnotationValues}
+        suggestions={suggestions}
         task={task}
       />
     </Box>

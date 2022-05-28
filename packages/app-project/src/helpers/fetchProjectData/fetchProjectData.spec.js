@@ -30,11 +30,6 @@ describe('Helpers > fetchProjectData', function () {
       expect(project.background).to.eql(projectBackground)
     })
 
-    it('should have a display name', function () {
-      const { projectTwo } = mocks.resources
-      expect(project.display_name).to.equal(projectTwo.display_name)
-    })
-
     it('should have an ID', function () {
       const { projectTwo } = mocks.resources
       expect(project.id).to.equal(projectTwo.id)
