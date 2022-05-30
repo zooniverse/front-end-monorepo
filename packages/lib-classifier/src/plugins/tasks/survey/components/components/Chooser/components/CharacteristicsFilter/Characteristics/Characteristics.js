@@ -5,15 +5,14 @@ import { useTranslation } from 'react-i18next'
 
 import CharacteristicSection from './components/CharacteristicSection'
 
-export default function Characteristics (props) {
-  const {
-    characteristics,
-    characteristicsOrder,
-    filters,
-    images,
-    onFilter
-  } = props
-
+export default function Characteristics({
+  characteristics = {},
+  characteristicsOrder = [],
+  filters  = {},
+  images = {},
+  onFilter = () => true,
+  strings
+}) {
   const { t } = useTranslation('plugins')
 
   return (
@@ -31,8 +30,10 @@ export default function Characteristics (props) {
             characteristic={characteristic}
             characteristicId={characteristicId}
             images={images}
+            label={strings.get(`characteristics.${characteristicId}.label`)}
             onFilter={onFilter}
             selectedValueId={selectedValueId}
+            strings={strings}
           />
         )
       })}
@@ -46,14 +47,6 @@ export default function Characteristics (props) {
       </Box>
     </Box>
   )
-}
-
-Characteristics.defaultProps = {
-  characteristics: {},
-  characteristicsOrder: [],
-  filters: {},
-  images: {},
-  onFilter: () => {}
 }
 
 Characteristics.propTypes = {

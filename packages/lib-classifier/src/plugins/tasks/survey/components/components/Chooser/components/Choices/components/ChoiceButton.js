@@ -11,19 +11,18 @@ import theme from './theme'
 
 export const THUMBNAIL_ASPECT_RATIO = 1.25
 
-function ChoiceButton (props) {
-  const {
-    choiceId,
-    choiceLabel,
-    disabled,
-    hasFocus,
-    onKeyDown,
-    onChoose,
-    selected,
-    src,
-    tabIndex,
-    thumbnailSize
-  } = props
+function ChoiceButton({
+  choiceId = '',
+  choiceLabel = '',
+  disabled = false,
+  hasFocus = false,
+  onKeyDown = () => true,
+  onChoose = () => true,
+  selected = false,
+  src = '',
+  tabIndex = -1,
+  thumbnailSize = 'none'
+}) {
 
   const choiceButton = useRef(null)
   useEffect(() => {
@@ -74,19 +73,6 @@ function ChoiceButton (props) {
       tabIndex={tabIndex}
     />
   )
-}
-
-ChoiceButton.defaultProps = {
-  choiceId: '',
-  choiceLabel: '',
-  disabled: false,
-  hasFocus: false,
-  onChoose: () => {},
-  onKeyDown: () => {},
-  selected: false,
-  src: '',
-  tabIndex: -1,
-  thumbnailSize: 'none'
 }
 
 ChoiceButton.propTypes = {

@@ -18,16 +18,22 @@ const StyledGrid = styled.div`
   width: 100%;
 `
 
-export function Choices (props) {
-  const {
-    autoFocus,
-    disabled,
-    filteredChoiceIds,
-    handleDelete,
-    onChoose,
-    selectedChoiceIds,
-    task
-  } = props
+const defaultTheme = {
+  dark: false,
+  global: {
+    colors: {}
+  }
+}
+export function Choices({
+  autoFocus = false,
+  disabled = false,
+  filteredChoiceIds = [],
+  handleDelete = () => {},
+  onChoose = () => true,
+  selectedChoiceIds = [],
+  task,
+  theme = defaultTheme
+}) {
   const [focusIndex, setFocusIndex] = useState(0)
 
   useEffect(() => {
@@ -99,7 +105,7 @@ export function Choices (props) {
           <ChoiceButton
             key={choiceId}
             choiceId={choiceId}
-            choiceLabel={choice.label}
+            choiceLabel={task.strings.get(`choices.${choiceId}.label`)}
             disabled={disabled}
             hasFocus={hasFocus}
             onChoose={onChoose}
@@ -113,21 +119,6 @@ export function Choices (props) {
       })}
     </StyledGrid>
   )
-}
-
-Choices.defaultProps = {
-  autoFocus: false,
-  disabled: false,
-  filteredChoiceIds: [],
-  handleDelete: () => {},
-  onChoose: () => {},
-  selectedChoiceIds: [],
-  theme: {
-    dark: false,
-    global: {
-      colors: {}
-    }
-  }
 }
 
 Choices.propTypes = {
