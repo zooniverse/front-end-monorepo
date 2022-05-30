@@ -68,7 +68,7 @@
     "@storybook/manager-webpack5": "~6.5.0",
     "@storybook/react": "~6.5.0",
     "@testing-library/dom": "~8.13.0",
-    "@testing-library/react": "~12.1.2",
+    "@testing-library/react": "~13.3.0",
     "@testing-library/react-hooks": "~8.0.0",
     "@testing-library/user-event": "~14.2.0",
     "@visx/mock-data": "~2.1.2",
