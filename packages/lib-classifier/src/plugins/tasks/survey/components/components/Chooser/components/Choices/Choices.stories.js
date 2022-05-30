@@ -3,8 +3,10 @@ import { Box, Grommet } from 'grommet'
 import React from 'react'
 
 import Choices from './Choices'
-import { task as mockTask } from '@plugins/tasks/survey/mock-data'
+import SurveyTask from '@plugins/tasks/survey'
+import { task } from '@plugins/tasks/survey/mock-data'
 
+const mockTask = SurveyTask.TaskModel.create(task)
 const filteredChoiceIds = Array.from(mockTask.choicesOrder)
 
 function StoryContext (props) {

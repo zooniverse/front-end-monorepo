@@ -2,7 +2,9 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import React from 'react'
 
-import { task as mockTask } from '@plugins/tasks/survey/mock-data'
+import SurveyTask from '@plugins/tasks/survey'
+import { task } from '@plugins/tasks/survey/mock-data'
+const mockTask = SurveyTask.TaskModel.create(task)
 
 import FilterStatus from './FilterStatus'
 

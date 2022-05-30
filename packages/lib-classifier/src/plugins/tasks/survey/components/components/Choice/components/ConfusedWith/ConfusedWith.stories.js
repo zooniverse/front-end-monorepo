@@ -3,7 +3,9 @@ import { Box, Grommet } from 'grommet'
 import React from 'react'
 
 import ConfusedWith from './ConfusedWith'
-import { task as mockTask } from '@plugins/tasks/survey/mock-data'
+import SurveyTask from '@plugins/tasks/survey'
+import { task } from '@plugins/tasks/survey/mock-data'
+const mockTask = SurveyTask.TaskModel.create(task)
 
 const KUDU = mockTask.choices.KD
 
@@ -40,15 +42,17 @@ export default {
   component: ConfusedWith
 }
 
-const Template = ({ choices, confusions, confusionsOrder, dark, images }) => (
+const Template = ({ choices, choiceId, confusions, confusionsOrder, dark, images, strings }) => (
   <StoryContext
     theme={{ ...zooTheme, dark }}
   >
     <ConfusedWith
       choices={choices}
+      choiceId={choiceId}
       confusions={confusions}
       confusionsOrder={confusionsOrder}
       images={images}
+      strings={strings}
     />
   </StoryContext>
 )
@@ -56,8 +60,10 @@ const Template = ({ choices, confusions, confusionsOrder, dark, images }) => (
 export const Default = Template.bind({})
 Default.args = {
   choices: mockTask.choices,
+  choiceId: 'KD',
   confusions: KUDU.confusions,
   confusionsOrder: KUDU.confusionsOrder,
   dark: false,
-  images: mockTask.images
+  images: mockTask.images,
+  strings: mockTask.strings
 }
