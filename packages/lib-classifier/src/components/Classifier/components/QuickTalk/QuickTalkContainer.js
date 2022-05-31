@@ -81,15 +81,6 @@ function QuickTalkContainer ({
     const project = subject?.project
     if (!subject || !project) return
 
-    const section = 'project-' + project.id
-    const query = {
-      section: section,
-      focus_id: subject.id,
-      focus_type: 'Subject',
-      page: 1,
-      sort: 'created_at',  // PFE used '-created_at' to sort in reverse order, and I have no idea why.
-    }
-
     const allComments = await getTalkComments(subject, project)
     setComments(allComments)
 
