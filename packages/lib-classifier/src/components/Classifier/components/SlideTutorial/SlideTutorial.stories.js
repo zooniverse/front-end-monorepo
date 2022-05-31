@@ -31,6 +31,12 @@ const steps = [
   }
 ]
 
+const strings = {
+  display_name: 'A slide tutorial',
+  'steps.0.content': steps[0].content,
+  'steps.1.content': steps[1].content
+}
+
 function stepWithMedium(index) {
   const medium = media[index]
   const step = steps[index]
@@ -76,6 +82,7 @@ export function Default({ dark, height, onClick, projectDisplayName, steps, step
           projectDisplayName={projectDisplayName}
           steps={steps}
           stepWithMedium={stepWithMedium}
+          strings={strings}
           width={width}
         />
       </Box>
