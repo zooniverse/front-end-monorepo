@@ -3,6 +3,7 @@ import {
   addDisposer,
   applySnapshot,
   getRoot,
+  getSnapshot,
   isValidReference,
   tryReference, 
   types 
@@ -92,7 +93,7 @@ const WorkflowStepStore = types
 
     function _onLocaleChange() {
       if (self.locale && self.workflow?.strings) {
-        self.setTaskStrings()
+        self.setTaskStrings(getSnapshot(self.workflow.strings))
       }
     }
 
@@ -162,20 +163,19 @@ const WorkflowStepStore = types
       })
     }
 
-    function setTaskStrings() {
-      const workflowStrings = self.workflow?.strings
+    function setTaskStrings(stringsSnapshot) {
+      const workflowStrings = Object.entries(stringsSnapshot)
       self.steps.forEach(function (step) {
         step.tasks.forEach((task) => {
           const prefix = `tasks.${task.taskKey}.`
-          const strings = {}
-          Object.entries(workflowStrings).forEach(([key, value]) => {
-            if (key.startsWith(prefix)) {
-              const newKey = key.slice(prefix.length)
-              strings[newKey] = value
-            }
+          const taskStrings = workflowStrings.filter(([key, value]) => key.startsWith(prefix))
+          const taskStringsSnapshot = {}
+          taskStrings.forEach(([key, value]) => {
+            const newKey = key.slice(prefix.length)
+            taskStringsSnapshot[newKey] = value
           })
           try {
-            applySnapshot(task.strings, strings)
+            applySnapshot(task.strings, taskStringsSnapshot)
           } catch (error) {
             console.error(`${taskKey} ${task.type}: could not apply language strings`)
             console.error(error)

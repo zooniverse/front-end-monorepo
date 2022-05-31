@@ -1,5 +1,5 @@
 import { Provider } from 'mobx-react'
-import { getSnapshot } from 'mobx-state-tree'
+import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -65,8 +65,9 @@ export default function Classifier({
   useEffect(function onWorkflowStringsChange() {
     const { workflows } = classifierStore
     if (workflowSnapshot) {
+      const workflow = workflows.resources.get(workflowSnapshot.id)
       console.log('Refreshing workflow strings', workflowSnapshot.id)
-      workflows.setResources([workflowSnapshot])
+      applySnapshot(workflow.strings, workflowSnapshot.strings)
     }
   }, [workflowSnapshot?.strings])
   /*
