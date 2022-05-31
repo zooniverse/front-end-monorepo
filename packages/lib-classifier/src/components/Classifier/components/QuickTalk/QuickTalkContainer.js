@@ -8,7 +8,9 @@ import { getBearerToken } from '@store/utils'
 import QuickTalk from './QuickTalk'
 import apiClient from 'panoptes-client/lib/api-client'
 import talkClient from 'panoptes-client/lib/talk-client'
+
 import getUsersByID from './helpers/getUsersByID'
+import getRolesByID from './helpers/getRolesByID'
 
 function storeMapper (store) {
   /*
@@ -102,29 +104,13 @@ function QuickTalkContainer ({
         const allUsers = await getUsersByID(author_ids)
         allUsers.forEach(user => authors[user.id] = user)
         setAuthors(authors)
-        console.log('+++ allUsers: ', allUsers)
 
-        /*
-        apiClient.type('users').get({ id: author_ids })
-          .then(users => {
-            console.log('+++ users: ', users)
-            users.forEach(user => authors[user.id] = user)
-            setAuthors(authors)
-          })*/
-
-        talkClient.type('roles')
-          .get({
-            user_id: author_ids,
-            section: ['zooniverse', section],
-            is_shown: true,
-          })
-          .then(roles => {
-            roles.forEach(role => {
-              if (!authorRoles[role.user_id]) authorRoles[role.user_id] = []
-              authorRoles[role.user_id].push(role)
-            })
-            setAuthorRoles(authorRoles)
-          })
+        const allRoles = await getRolesByID(author_ids, section)
+        allRoles.forEach(role => {
+          if (!authorRoles[role.user_id]) authorRoles[role.user_id] = []
+          authorRoles[role.user_id].push(role)
+        })
+        setAuthorRoles(authorRoles)
       })
   }
 
