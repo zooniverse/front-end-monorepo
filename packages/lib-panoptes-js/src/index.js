@@ -1,5 +1,6 @@
 const { config, env } = require('./config')
 const panoptes = require('./panoptes')
+const talkAPI = require('./talkAPI')
 
 const collections = require('./resources/collections')
 const media = require('./resources/media')
@@ -16,6 +17,7 @@ module.exports = {
   panoptes,
   projects,
   subjects,
+  talkAPI,
   tutorials,
   users
 }
