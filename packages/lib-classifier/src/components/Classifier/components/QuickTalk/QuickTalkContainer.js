@@ -8,6 +8,7 @@ import { getBearerToken } from '@store/utils'
 import QuickTalk from './QuickTalk'
 import talkClient from 'panoptes-client/lib/talk-client'
 
+import getDefaultTalkBoard from './helpers/getDefaultTalkBoard'
 import getTalkComments from './helpers/getTalkComments'
 import getTalkRoles from './helpers/getTalkRoles'
 import getUsersByID from './helpers/getUsersByID'
@@ -81,21 +82,23 @@ function QuickTalkContainer ({
     const project = subject?.project
     if (!subject || !project) return
 
+    // Get all Comments
     const allComments = await getTalkComments(subject, project)
     setComments(allComments)
 
+    // Comments don't have User data embedded, so we'll fetch them separately.
     let author_ids = []
     let authors = {}
     let authorRoles = {}
 
     author_ids = allComments.map(comment => comment.user_id)
-    author_ids = author_ids.filter((id, i) => author_ids.indexOf(id) === i)
+    author_ids = author_ids.filter((id, i) => author_ids.indexOf(id) === i)  // Remove duplicates
 
     const allUsers = await getUsersByID(author_ids)
     allUsers.forEach(user => authors[user.id] = user)
     setAuthors(authors)
 
-    const allRoles = await getTalkRoles(author_ids, section)
+    const allRoles = await getTalkRoles(author_ids, project)
     allRoles.forEach(role => {
       if (!authorRoles[role.user_id]) authorRoles[role.user_id] = []
       authorRoles[role.user_id].push(role)
@@ -134,8 +137,7 @@ function QuickTalkContainer ({
       if (!authorization || !user) throw new Error(t('QuickTalk.errors.noUser'))
 
       // First, get default board
-      const boards = await talkClient.type('boards').get({ section, subject_default: true })
-      const defaultBoard = boards && boards[0]
+      const defaultBoard = await getDefaultTalkBoard(project)
       if (!defaultBoard) throw new Error(t('QuickTalk.errors.noBoard'))
 
       // Next, attempt to find if the Subject already has a discussion attached to it.
