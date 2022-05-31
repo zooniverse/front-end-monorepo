@@ -1,6 +1,6 @@
 import { talkAPI } from '@zooniverse/panoptes-js'
 
-async function getRolesByID (userIds = [], section = '') {
+export default async function getRolesByID (userIds = [], section = '') {
   if (userIds.length === 0 || section === '') return []
 
   const query = {
@@ -9,8 +9,6 @@ async function getRolesByID (userIds = [], section = '') {
     is_shown: true,
   }
 
-  return talkAPI.get('/roles', query, {})
+  return talkAPI.get('/roles', query)
     .then(response => response?.body?.roles || [])
 }
-
-export default getRolesByID

@@ -1,6 +1,6 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 
-async function getUsersByID (userIds = []) {
+export default async function getUsersByID (userIds = []) {
   if (userIds.length === 0) return []
 
   const query = {
@@ -9,8 +9,6 @@ async function getUsersByID (userIds = []) {
     // If we pass an array, this will become ?id=111&id=222
   }
 
-  return panoptes.get('/users', query, {})
+  return panoptes.get('/users', query)
     .then(response => response?.body?.users || [])
 }
-
-export default getUsersByID

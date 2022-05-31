@@ -6,11 +6,11 @@ import { withTranslation } from 'react-i18next'
 import { withStores } from '@helpers'
 import { getBearerToken } from '@store/utils'
 import QuickTalk from './QuickTalk'
-import apiClient from 'panoptes-client/lib/api-client'
 import talkClient from 'panoptes-client/lib/talk-client'
 
-import getUsersByID from './helpers/getUsersByID'
+import getCommentsBySubject from './helpers/getCommentsBySubject'
 import getRolesByID from './helpers/getRolesByID'
+import getUsersByID from './helpers/getUsersByID'
 
 function storeMapper (store) {
   /*
@@ -75,7 +75,7 @@ function QuickTalkContainer ({
     setUserId((authorization && user) ? user.id : undefined)
   }
 
-  function fetchComments () {
+  async function fetchComments () {
     resetComments()
 
     const project = subject?.project
@@ -90,28 +90,26 @@ function QuickTalkContainer ({
       sort: 'created_at',  // PFE used '-created_at' to sort in reverse order, and I have no idea why.
     }
 
-    talkClient.type('comments').get(query)
-      .then (async allComments => {  // Temporarily turn this into async until we swap out talkClient
-        setComments(allComments)
+    const allComments = await getCommentsBySubject(subject, project)
+    setComments(allComments)
 
-        let author_ids = []
-        let authors = {}
-        let authorRoles = {}
+    let author_ids = []
+    let authors = {}
+    let authorRoles = {}
 
-        author_ids = allComments.map(comment => comment.user_id)
-        author_ids = author_ids.filter((id, i) => author_ids.indexOf(id) === i)
+    author_ids = allComments.map(comment => comment.user_id)
+    author_ids = author_ids.filter((id, i) => author_ids.indexOf(id) === i)
 
-        const allUsers = await getUsersByID(author_ids)
-        allUsers.forEach(user => authors[user.id] = user)
-        setAuthors(authors)
+    const allUsers = await getUsersByID(author_ids)
+    allUsers.forEach(user => authors[user.id] = user)
+    setAuthors(authors)
 
-        const allRoles = await getRolesByID(author_ids, section)
-        allRoles.forEach(role => {
-          if (!authorRoles[role.user_id]) authorRoles[role.user_id] = []
-          authorRoles[role.user_id].push(role)
-        })
-        setAuthorRoles(authorRoles)
-      })
+    const allRoles = await getRolesByID(author_ids, section)
+    allRoles.forEach(role => {
+      if (!authorRoles[role.user_id]) authorRoles[role.user_id] = []
+      authorRoles[role.user_id].push(role)
+    })
+    setAuthorRoles(authorRoles)
   }
 
   function resetComments () {
