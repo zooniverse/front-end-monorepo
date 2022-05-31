@@ -8,6 +8,7 @@ import { getBearerToken } from '@store/utils'
 import QuickTalk from './QuickTalk'
 import apiClient from 'panoptes-client/lib/api-client'
 import talkClient from 'panoptes-client/lib/talk-client'
+import getUsersByID from './helpers/getUsersByID'
 
 function storeMapper (store) {
   /*
@@ -88,7 +89,7 @@ function QuickTalkContainer ({
     }
 
     talkClient.type('comments').get(query)
-      .then (allComments =>{
+      .then (async allComments => {  // Temporarily turn this into async until we swap out talkClient
         setComments(allComments)
 
         let author_ids = []
@@ -98,11 +99,18 @@ function QuickTalkContainer ({
         author_ids = allComments.map(comment => comment.user_id)
         author_ids = author_ids.filter((id, i) => author_ids.indexOf(id) === i)
 
+        const allUsers = await getUsersByID(author_ids)
+        allUsers.forEach(user => authors[user.id] = user)
+        setAuthors(authors)
+        console.log('+++ allUsers: ', allUsers)
+
+        /*
         apiClient.type('users').get({ id: author_ids })
           .then(users => {
+            console.log('+++ users: ', users)
             users.forEach(user => authors[user.id] = user)
             setAuthors(authors)
-          })
+          })*/
 
         talkClient.type('roles')
           .get({
