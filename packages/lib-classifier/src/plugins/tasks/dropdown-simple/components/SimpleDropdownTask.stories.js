@@ -40,7 +40,14 @@ export function LightTheme({ dark, isThereTaskHelp, required, subjectReadyState 
     ],
     required,
     strings: {
-      instruction: 'Choose your favourite colour'
+      help: 'Choose an option from the list of options.',
+      instruction: 'Select your favourite colour.',
+      'selects.0.options.*.0.label': 'Red',
+      'selects.0.options.*.1.label': 'Blue',
+      'selects.0.options.*.2.label': 'Yellow',
+      'selects.0.options.*.3.label': 'Green',
+      'selects.0.options.*.4.label': 'White',
+      'selects.0.options.*.5.label': 'Black'
     },
     taskKey: 'init',
     type: 'dropdown-simple',

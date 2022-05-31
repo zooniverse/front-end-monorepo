@@ -5,25 +5,30 @@ import { Select } from 'grommet'
 import SimpleDropdownTask from './SimpleDropdownTask'
 import { default as Task } from '@plugins/tasks/dropdown-simple'
 
-const simpleDropdownTask = {
-  allowCreate: false,
-  options: [
-    'Red',
-    'Blue',
-    'Yellow',
-    'Green',
-    'White',
-    'Black',
-  ],
-  required: false,
-  strings: {
-    instruction: 'Choose your favourite colour'
-  },
-  taskKey: 'T1',
-  type: 'dropdown-simple'
-}
-
 describe('SimpleDropdownTask', function () {
+  const simpleDropdownTask = {
+    allowCreate: false,
+    options: [
+      'Red',
+      'Blue',
+      'Yellow',
+      'Green',
+      'White',
+      'Black',
+    ],
+    required: false,
+    strings: {
+      instruction: 'Choisissez votre couleur préférée',
+      'selects.0.options.*.0.label': 'Rouge',
+      'selects.0.options.*.1.label': 'Bleu',
+      'selects.0.options.*.2.label': 'Jaunde',
+      'selects.0.options.*.3.label': 'Vert',
+      'selects.0.options.*.4.label': 'Blanc',
+      'selects.0.options.*.5.label': 'Noire'
+    },
+    taskKey: 'T1',
+    type: 'dropdown-simple'
+  }
   const task = Task.TaskModel.create(simpleDropdownTask)
   const annotation = task.defaultAnnotation()
 
@@ -62,7 +67,7 @@ describe('SimpleDropdownTask', function () {
 
     before(function () {
       annotation.update({
-        selection: 2,  // Corresponds to "Yellow"
+        selection: 2,  // Corresponds to "Jaunde"
         option: true,
       })
       wrapper = shallow(
@@ -75,7 +80,7 @@ describe('SimpleDropdownTask', function () {
 
     it('should pass the selected annotation to the Select sub-element', function () {
       const grommetSelect = wrapper.find('Select').first()
-      expect(grommetSelect.prop('value')['text']).to.equal('Yellow')
+      expect(grommetSelect.prop('value')['text']).to.equal('Jaunde')
     })
   })
 
