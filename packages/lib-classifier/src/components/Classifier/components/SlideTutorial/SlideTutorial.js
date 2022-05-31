@@ -75,7 +75,7 @@ function SlideTutorial({
       >
         {isThereMedia &&
           <Media
-            alt={t('SlideTutorial.alt', { activeStep })}
+            alt={t('SlideTutorial.alt', { activeStep: stepIndex })}
             fit='cover'
             height={200}
             src={medium.src}
@@ -84,7 +84,7 @@ function SlideTutorial({
           <Heading level='3' margin={{ bottom: 'xsmall', top: 'small' }}>
             {t('SlideTutorial.heading', { projectDisplayName })}
           </Heading>}
-        <Markdownz>{strings[`steps.${activeStep}.content`]}</Markdownz>
+        <Markdownz>{strings[`steps.${stepIndex}.content`]}</Markdownz>
       </StyledMarkdownWrapper>
         <StepNavigation
           onChange={setStepIndex}
