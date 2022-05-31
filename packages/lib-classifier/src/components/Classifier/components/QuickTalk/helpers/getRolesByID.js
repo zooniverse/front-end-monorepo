@@ -1,5 +1,4 @@
-import { env, panoptes } from '@zooniverse/panoptes-js'
-import getTalkHost from './getTalkHost'
+import { talkAPI } from '@zooniverse/panoptes-js'
 
 async function getRolesByID (userIds = [], section = '') {
   if (userIds.length === 0 || section === '') return []
@@ -10,7 +9,7 @@ async function getRolesByID (userIds = [], section = '') {
     is_shown: true,
   }
 
-  return panoptes.get('/roles', query, {}, getTalkHost(env))
+  return talkAPI.get('/roles', query, {})
     .then(response => response?.body?.roles || [])
 }
 
