@@ -8,8 +8,8 @@ import { getBearerToken } from '@store/utils'
 import QuickTalk from './QuickTalk'
 import talkClient from 'panoptes-client/lib/talk-client'
 
-import getCommentsBySubject from './helpers/getCommentsBySubject'
-import getRolesByID from './helpers/getRolesByID'
+import getTalkComments from './helpers/getTalkComments'
+import getTalkRoles from './helpers/getTalkRoles'
 import getUsersByID from './helpers/getUsersByID'
 
 function storeMapper (store) {
@@ -90,7 +90,7 @@ function QuickTalkContainer ({
       sort: 'created_at',  // PFE used '-created_at' to sort in reverse order, and I have no idea why.
     }
 
-    const allComments = await getCommentsBySubject(subject, project)
+    const allComments = await getTalkComments(subject, project)
     setComments(allComments)
 
     let author_ids = []
@@ -104,7 +104,7 @@ function QuickTalkContainer ({
     allUsers.forEach(user => authors[user.id] = user)
     setAuthors(authors)
 
-    const allRoles = await getRolesByID(author_ids, section)
+    const allRoles = await getTalkRoles(author_ids, section)
     allRoles.forEach(role => {
       if (!authorRoles[role.user_id]) authorRoles[role.user_id] = []
       authorRoles[role.user_id].push(role)

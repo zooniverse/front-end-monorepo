@@ -1,6 +1,6 @@
 import { talkAPI } from '@zooniverse/panoptes-js'
 
-export default async function getCommentsBySubject (subject, project) {
+export default async function getTalkComments (subject, project) {
   if (!subject || !project) return []
 
   const section = `project-${project.id}`
