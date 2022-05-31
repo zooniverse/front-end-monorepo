@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "~7.18.0",
-    "@sentry/browser": "~6.19.7",
+    "@sentry/browser": "~7.0.0",
     "@visx/axis": "~2.10.0",
     "@visx/event": "~2.6.0",
     "@visx/glyph": "~2.10.0",
