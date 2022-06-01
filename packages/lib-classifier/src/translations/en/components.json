@@ -132,6 +132,8 @@
       "loading": "Posting comment..."
     },
     "errors": {
+      "failPostComment": "Couldn't add comments to existing discussion.",
+      "failPostDiscussion": "Couldn't add comments to new discussion.",
       "noBoard": "A board for subject comments has not been setup for this project yet.",
       "noText": "Can't post an empty comment.",
       "noUser": "User not logged in."
