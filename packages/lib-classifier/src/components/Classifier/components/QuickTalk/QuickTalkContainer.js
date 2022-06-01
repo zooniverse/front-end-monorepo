@@ -6,7 +6,6 @@ import { withTranslation } from 'react-i18next'
 import { withStores } from '@helpers'
 import { getBearerToken } from '@store/utils'
 import QuickTalk from './QuickTalk'
-import talkClient from 'panoptes-client/lib/talk-client'
 
 import getDefaultTalkBoard from './helpers/getDefaultTalkBoard'
 import getTalkComments from './helpers/getTalkComments'
@@ -118,8 +117,6 @@ function QuickTalkContainer ({
   async function postComment (text) {
     const project = subject?.project
     if (!subject || !project || !authClient) return
-
-    const section = `project-${project.id}`
 
     setPostCommentStatus(asyncStates.loading)
     setPostCommentStatusMessage('')
