@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ResponsiveContext } from 'grommet'
-import { useTranslation } from 'react-i18next'
 
 import { withStores } from '@helpers'
+import { usePanoptesTranslations } from '@hooks'
 import SlideTutorial from './SlideTutorial'
 
 function storeMapper(classifierStore) {
   const {
+    locale,
     projects: {
       active: project
     },
@@ -22,20 +23,33 @@ function storeMapper(classifierStore) {
 
   return {
     activeStep,
+    locale,
     projectDisplayName: project.display_name,
     steps,
-    stepWithMedium
+    stepWithMedium,
+    tutorial
   }
 }
 
+const defaultTutorial = {
+  activeStep: 0,
+  steps: []
+}
+
 function SlideTutorialContainer({
-  activeStep = 0,
+  locale,
   pad = 'medium',
   projectDisplayName = '',
-  steps = [],
-  stepWithMedium,
+  tutorial = defaultTutorial,
   ...props
 }) {
+  const tutorialTranslation = usePanoptesTranslations({
+    translated_type: 'tutorial',
+    translated_id: tutorial?.id,
+    language: locale
+  })
+  const strings = tutorialTranslation?.strings
+  const { activeStep, steps, stepWithMedium } = tutorial
   return (
     <ResponsiveContext.Consumer>
       {size => {
@@ -48,6 +62,7 @@ function SlideTutorialContainer({
             projectDisplayName={projectDisplayName}
             steps={steps}
             stepWithMedium={stepWithMedium}
+            strings={strings}
             {...props}
           />
         )
@@ -57,10 +72,13 @@ function SlideTutorialContainer({
 }
 
 SlideTutorialContainer.propTypes = {
-  activeStep: PropTypes.number,
+  locale: PropTypes.string,
   projectDisplayName: PropTypes.string,
-  steps: PropTypes.array,
-  stepWithMedium: PropTypes.func.isRequired
+  tutorial: PropTypes.shape({
+    activeStep: PropTypes.number,
+    steps: PropTypes.array,
+    stepWithMedium: PropTypes.func.isRequired
+  })
 }
 
 export default withStores(SlideTutorialContainer, storeMapper)
