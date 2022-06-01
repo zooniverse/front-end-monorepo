@@ -1,50 +1,40 @@
-import { expect } from 'chai'
-import { shallow, render } from 'enzyme'
-import { Grommet, Button } from 'grommet'
 import React from 'react'
-
-import PrimaryButton from './PrimaryButton'
-
-const LABEL = 'Foobar'
+import * as stories from './PrimaryButton.stories'
+import { render } from '@testing-library/react'
+import { composeStories } from '@storybook/testing-react'
 
 describe('Component > PrimaryButton', function () {
-  it('should render without crashing', function () {
-    const wrapper = shallow(<PrimaryButton label={LABEL} />)
-    expect(wrapper).to.be.ok()
-  })
+  const { Default } = composeStories(stories)
+  const mockHref = 'www.zooniverse.org'
 
   it('should render the label', function () {
-    const wrapper = render(
-      <Grommet>
-        <PrimaryButton label={LABEL} />
-      </Grommet>
-    )
-    expect(wrapper.text()).to.equal(LABEL)
+    const { getByText } = render(<Default />)
+    const item = getByText(Default.args.label)
+    expect(item).exists()
   })
 
-  it('should pass down extra props to `Button`', function () {
-    const TEST_PROPS = {
-      disabled: true
-    }
-
-    const wrapper = shallow(
-        <PrimaryButton label={LABEL} {...TEST_PROPS} />, {
-        wrappingComponent: <Grommet />
-      }
-    )
-
-    expect(wrapper.find(Button).props()).to.deep.include(TEST_PROPS)
+  it('should render a button element when not disabled and href is empty', function () {
+    const { getByRole, queryByRole } = render(<Default href='' />)
+    const button = getByRole('button')
+    const link = queryByRole('link')
+    expect(link).to.be.null()
+    expect(button).exists()
   })
 
-  describe('when href is defined and disabled is true', function () {
-    it('should render as a span', function () {
-      const wrapper = render(
-        <Grommet>
-          <PrimaryButton disabled href='www.google.com' label={LABEL} />
-        </Grommet>
-      )
+  it('should render an anchor element when not disabled and href is defined', function () {
+    const { getByRole, queryByRole } = render(<Default href={mockHref} />)
+    const link = getByRole('link')
+    const button = queryByRole('button')
+    expect(link).exists()
+    expect(link.href).include(mockHref)
+    expect(button).to.be.null()
+  })
 
-      expect(wrapper.children()[0].name).to.equal('span')
-    })
+  it('should render a button element when disabled and href is defined', function () {
+    const { getByRole, queryByRole } = render(<Default disabled href={mockHref} />)
+    const button = getByRole('button')
+    const link = queryByRole('link')
+    expect(button).exists()
+    expect(link).to.be.null()
   })
 })
