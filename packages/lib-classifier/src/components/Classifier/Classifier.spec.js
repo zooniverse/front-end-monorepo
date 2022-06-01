@@ -46,7 +46,6 @@ describe('Components > Classifier', function () {
         <Classifier
           classifierStore={store}
           project={projectSnapshot}
-          subjectID={subject?.id}
           workflowID={workflowSnapshot?.id}
           workflowSnapshot={workflowSnapshot}
           workflowVersion={workflowSnapshot?.version}
@@ -107,7 +106,6 @@ describe('Components > Classifier', function () {
         <Classifier
           classifierStore={store}
           project={projectSnapshot}
-          subjectID={subject?.id}
           workflowID={workflowSnapshot?.id}
           workflowSnapshot={workflowSnapshot}
           workflowVersion={workflowSnapshot?.version}
@@ -172,7 +170,6 @@ describe('Components > Classifier', function () {
           classifierStore={store}
           locale='en'
           project={projectSnapshot}
-          subjectID={subject?.id}
           workflowID={workflowSnapshot?.id}
           workflowSnapshot={workflowSnapshot}
           workflowVersion={workflowSnapshot?.version}
@@ -187,7 +184,6 @@ describe('Components > Classifier', function () {
           classifierStore={store}
           locale='fr'
           project={projectSnapshot}
-          subjectID={subject?.id}
           workflowID={workflowSnapshot?.id}
           workflowSnapshot={workflowSnapshot}
           workflowVersion={workflowSnapshot?.version}
