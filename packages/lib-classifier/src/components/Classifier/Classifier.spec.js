@@ -12,14 +12,12 @@ import { Factory } from 'rosie'
 import sinon from 'sinon'
 
 import RootStore from '@store'
-import { ProjectFactory, SubjectFactory } from '@test/factories'
+import { ProjectFactory, SubjectFactory, TutorialFactory } from '@test/factories'
 import mockStore, { defaultAuthClient, defaultClient } from '@test/mockStore/mockStore'
 import branchingWorkflow from '@test/mockStore/branchingWorkflow'
 import Classifier from './Classifier'
 
 describe('Components > Classifier', function () {
-  let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
-
   this.timeout(0)
 
   function withStore(store) {
@@ -35,6 +33,8 @@ describe('Components > Classifier', function () {
   }
 
   describe('while the subject is loading', function () {
+    let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
+
     before(function () {
       const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const store = mockStore({ subject })
@@ -95,6 +95,8 @@ describe('Components > Classifier', function () {
   })
 
   describe('after the subject has loaded', function () {
+    let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
+
     before(function () {
       const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const store = mockStore({ subject })
@@ -156,7 +158,7 @@ describe('Components > Classifier', function () {
   })
 
   describe('when the locale changes', function () {
-    let locale
+    let locale, subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
 
     before(function () {
       const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
@@ -238,6 +240,8 @@ describe('Components > Classifier', function () {
     const allowedRoles = ['owner', 'collaborator', 'tester']
     allowedRoles.forEach(function (role) {
       describe(role, function () {
+        let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
+
         before(async function () {
           const roles = [role]
           const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
@@ -289,6 +293,7 @@ describe('Components > Classifier', function () {
             }
           )
           await when(() => store.subjects.loadingState === asyncStates.success)
+          workflow = store.workflows.active
           store.subjectViewer.onSubjectReady()
           taskTab = screen.getByRole('tab', { name: 'TaskArea.task'})
           tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
@@ -338,6 +343,8 @@ describe('Components > Classifier', function () {
   })
 
   describe('without permission to view an inactive workflow', function () {
+    let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
+
     before(async function () {
       const roles = []
       const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
@@ -421,6 +428,80 @@ describe('Components > Classifier', function () {
           expect(radioButton).to.be.null()
         })
       })
+    })
+  })
+
+  describe('with showTutorial', function () {
+    let tutorialHeading
+
+    before(async function () {
+      const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
+      const steps = [
+        { content: "Hello" },
+        { content: "Step 2" }
+      ]
+      const workflowTutorial = TutorialFactory.build({ steps })
+      const store = mockStore({ subject })
+      store.tutorials.setResources([workflowTutorial])
+      store.tutorials.setActive(workflowTutorial.id)
+      const projectSnapshot = { ...getSnapshot(store.projects.active) }
+      const workflowSnapshot = { ...getSnapshot(store.workflows.active) }
+      render(
+        <Classifier
+          classifierStore={store}
+          locale='en'
+          project={projectSnapshot}
+          showTutorial
+          workflowID={workflowSnapshot?.id}
+          workflowSnapshot={workflowSnapshot}
+          workflowVersion={workflowSnapshot?.version}
+        />,
+        {
+          wrapper: withStore(store)
+        }
+      )
+      tutorialHeading = await screen.findByRole('heading', { name: 'ModalTutorial.title' })
+    })
+
+    it('should show the popup tutorial', function () {
+      expect(tutorialHeading).to.exist()
+    })
+  })
+
+  describe('without showTutorial', function () {
+    let tutorialHeading
+
+    before(async function () {
+      const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
+      const steps = [
+        { content: "Hello" },
+        { content: "Step 2" }
+      ]
+      const workflowTutorial = TutorialFactory.build({ steps })
+      const store = mockStore({ subject })
+      store.tutorials.setResources([workflowTutorial])
+      store.tutorials.setActive(workflowTutorial.id)
+      const projectSnapshot = { ...getSnapshot(store.projects.active) }
+      const workflowSnapshot = { ...getSnapshot(store.workflows.active) }
+      render(
+        <Classifier
+          classifierStore={store}
+          locale='en'
+          project={projectSnapshot}
+          workflowID={workflowSnapshot?.id}
+          workflowSnapshot={workflowSnapshot}
+          workflowVersion={workflowSnapshot?.version}
+        />,
+        {
+          wrapper: withStore(store)
+        }
+      )
+      await when(() => store.tutorials.active.hasNotBeenSeen)
+      tutorialHeading = screen.queryByRole('heading', { name: 'ModalTutorial.title' })
+    })
+
+    it('should not show the popup tutorial', function () {
+      expect(tutorialHeading).to.be.null()
     })
   })
 })
