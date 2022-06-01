@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { observable } from 'mobx'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import { ResponsiveContext } from 'grommet'
 
