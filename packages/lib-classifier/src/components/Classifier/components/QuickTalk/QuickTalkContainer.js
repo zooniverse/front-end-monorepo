@@ -10,6 +10,7 @@ import talkClient from 'panoptes-client/lib/talk-client'
 
 import getDefaultTalkBoard from './helpers/getDefaultTalkBoard'
 import getTalkComments from './helpers/getTalkComments'
+import getTalkDiscussion from './helpers/getTalkDiscussion'
 import getTalkRoles from './helpers/getTalkRoles'
 import getUsersByID from './helpers/getUsersByID'
 
@@ -117,7 +118,6 @@ function QuickTalkContainer ({
     if (!subject || !project || !authClient) return
 
     const section = `project-${project.id}`
-    const discussionTitle = `Subject ${subject.id}`
 
     setPostCommentStatus(asyncStates.loading)
     setPostCommentStatusMessage('')
@@ -141,12 +141,9 @@ function QuickTalkContainer ({
       if (!defaultBoard) throw new Error(t('QuickTalk.errors.noBoard'))
 
       // Next, attempt to find if the Subject already has a discussion attached to it.
-      const discussions = await talkClient.type('discussions').get({
-        board_id: defaultBoard.id,
-        title: discussionTitle,
-        subject_default: true,
-      })
-      const existingDiscussion = discussions && discussions[0]
+      const discussionTitle = `Subject ${subject.id}`
+      const existingDiscussion = await getTalkDiscussion(defaultBoard, discussionTitle)
+      return
 
       if (existingDiscussion) { // Add to the existing discussion
 
