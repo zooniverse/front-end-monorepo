@@ -14,6 +14,7 @@ import getTalkDiscussion from './helpers/getTalkDiscussion'
 import getTalkRoles from './helpers/getTalkRoles'
 import getUsersByID from './helpers/getUsersByID'
 import postTalkComment from './helpers/postTalkComment'
+import postTalkDiscussion from './helpers/postTalkDiscussion'
 
 function storeMapper (store) {
   /*
@@ -146,7 +147,7 @@ function QuickTalkContainer ({
       const existingDiscussion = await getTalkDiscussion(defaultBoard, discussionTitle)
 
       if (existingDiscussion) { // Add to the existing discussion
-        
+
         const response = await postTalkComment(text, existingDiscussion, user, authorization)
         if (!response?.ok) throw new Error(t('QuickTalk.errors.failPostComment'))
 
@@ -156,22 +157,8 @@ function QuickTalkContainer ({
 
       } else {  // Create a new discussion
 
-        const comments = [{
-          user_id: user.id,
-          body: text,
-          focus_id: +subject.id,
-          focus_type: 'Subject',
-        }]
-
-        const discussion = {
-          title: discussionTitle,
-          user_id: user.id,
-          subject_default: true,
-          board_id: defaultBoard.id,
-          comments: comments,
-        }
-
-        await talkClient.type('discussions').create(discussion).save()
+        const response = await postTalkDiscussion (text, discussionTitle, subject, defaultBoard, user, authorization)
+        if (!response?.ok) throw new Error(t('QuickTalk.errors.failPostDiscussion'))
 
         setPostCommentStatus(asyncStates.success)
         setPostCommentStatusMessage('')
