@@ -41,7 +41,7 @@ function QuickTalk ({
   screenSize,
   expand = false,
   fixedPosition = true,
-  showBadge = true // HACK: Button.badge crashes tests AND storybook for an undetermined reason. // TODO: debug 
+  showBadge = true // HACK: Button.badge crashes tests AND storybook for an undetermined reason. // TODO: debug
 }) {
   const { t } = useTranslation('components')
   // TODO: figure out if/how the QuickTalk component should/could be displayed on mobile
@@ -50,7 +50,6 @@ function QuickTalk ({
   if (!subject) return null
 
   const [_expand, setExpand] = React.useState(expand)
-  const a11yTitle = `Subject has ${comments.length} comment(s). Click to expand.`
   const badge = (showBadge && comments.length > 0) ? comments.length : false
 
   const QTButton = (fixedPosition) ? FixedButton : Button
@@ -59,9 +58,8 @@ function QuickTalk ({
   if (!_expand) {
     return (
       <QTButton
-        a11yTitle={a11yTitle}
+        a11yTitle={t('QuickTalk.aria.openButton', { count: comments.length })}
         onClick={() => setExpand(true)}
-        data-testid='quicktalk-button'
         icon={<Chat />}
         badge={badge}
       />
@@ -70,9 +68,10 @@ function QuickTalk ({
 
   return (
     <QTPanel
+      a11yTitle={t('QuickTalk.aria.mainPanel')}
       elevation='medium'
+      role='dialog'
       background={{ dark: 'dark-3', light: 'light-3' }}
-      data-testid='quicktalk-panel'
     >
       <Box
         direction='row'
@@ -81,14 +80,15 @@ function QuickTalk ({
         pad='small'
       >
         <Anchor
-          a11yTitle='Go to Subject Discussion on Talk.'
+          a11yTitle={t('QuickTalk.aria.goToTalk')}
           label={t('QuickTalk.headerLink')}
           href={subject.talkURL}
           target='_blank'
           icon={<Chat />}
         />
         <Button
-          a11yTitle='Close comments panel.'
+          a11yTitle={t('QuickTalk.aria.closeButton')}
+          autoFocus={true}
           icon={<Close size='small' />}
           onClick={() => setExpand(false)}
           plain

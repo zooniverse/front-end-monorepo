@@ -1,29 +1,37 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
+import { default as Task } from '@plugins/tasks/dataVisAnnotation'
 import DataVisAnnotationTask from './DataVisAnnotationTask'
 import TaskInput from '../../components/TaskInput'
 
-// TODO: move this into a factory
-const task = {
-  activeToolIndex: 0,
-  instruction: 'Mark an area of the graph that is interesting.',
-  taskKey: 'T101',
-  tools: [{
-    help: '',
-    label: 'Transit?',
-    max: 20,
-    type: 'graph2dRangeX'
-  }, {
-    help: '',
-    label: 'Transit?',
-    max: 20,
-    type: 'graph2dRangeX'
-  }],
-  type: 'dataVisAnnotation'
-}
-
 describe('DataVisAnnotationTask', function () {
+  // TODO: move this into a factory
+  const taskSnapshot = {
+    activeToolIndex: 0,
+    instruction: 'Mark an area of the graph that is interesting.',
+    taskKey: 'T101',
+    strings: {
+      help: '',
+      instruction: 'Mark an area of the graph that is interesting.',
+      'tools.0.label': 'Transit?'
+    },
+    tools: [{
+      help: '',
+      label: 'Transit?',
+      max: 20,
+      type: 'graph2dRangeX'
+    }, {
+      help: '',
+      label: 'Transit?',
+      max: 20,
+      type: 'graph2dRangeX'
+    }],
+    type: 'dataVisAnnotation'
+  }
+
+  const task = Task.TaskModel.create(taskSnapshot)
+
   describe('when it renders', function () {
     let wrapper
     before(function () {

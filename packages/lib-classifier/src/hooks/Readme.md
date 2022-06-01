@@ -17,6 +17,14 @@ Asynchronously fetch an auth token, for a given user ID. A wrapper for `authClie
   const authorization = usePanoptesAuth(user.id)
 ```
 
+## usePanoptesTranslations
+
+A wrapper for [`useSWR`](https://swr.vercel.app/), which fetches resource translations, using the default SWR options. The translations will refresh on visibility change (eg. waking from sleep), or when the classifier receives focus.
+
+```js
+const translations = usePanoptesTranslations({ translated_id, translated_type, language })
+```
+
 ## usePanoptesUser
 
 Get the logged-in user, or null if no one is logged in.

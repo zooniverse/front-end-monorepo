@@ -20,6 +20,7 @@ import remarkSubSuper from 'remark-sub-super'
 import externalLinks from 'remark-external-links'
 import toc from 'remark-toc'
 import ping from './lib/ping'
+import footnotes from 'remark-footnotes'
 import Media from '../Media'
 import withThemeContext from '../helpers/withThemeContext'
 import theme from './theme'
@@ -102,17 +103,20 @@ class Markdownz extends React.Component {
       thead: TableHeader,
       tbody: TableBody,
       td: TableCell,
-      tr: TableRow
+      tr: TableRow,
+      ol: (nodeProps) => <ol style={{ fontSize: '14px', marginTop: 0 }}>{nodeProps.children}</ol>,
+      ul: (nodeProps) => <ul style={{ fontSize: '14px', marginTop: 0 }}>{nodeProps.children}</ul>
     }
 
     const remarkReactComponents = Object.assign({}, componentMappings, components)
-    const remarkSettings = Object.assign({}, { footnotes: true }, settings)
+    const remarkSettings = Object.assign({}, settings)
 
     const markdown = remark()
       .data('settings', remarkSettings)
       .use(emoji)
       .use(remarkSubSuper)
       .use(externalLinks)
+      .use(footnotes, { inlineNotes: true })
       .use(ping, {
         ping: (resource, symbol) => this.shouldResourceBeLinkable(resource, symbol), // We could support passing in a prop to call a function here
         pingSymbols: [at, hashtag, subjectSymbol],
@@ -120,7 +124,7 @@ class Markdownz extends React.Component {
       })
       .use(toc)
       .use(remark2react, { remarkReactComponents })
-      .processSync(newChildren).contents
+      .processSync(newChildren).result
 
     return (
       <React.Fragment>

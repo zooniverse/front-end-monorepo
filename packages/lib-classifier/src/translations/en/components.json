@@ -121,12 +121,20 @@
     "title": "Tutorial"
   },
   "QuickTalk": {
+    "aria": {
+      "openButton": "Subject has {{count}} comment(s). Click to expand.",
+      "mainPanel": "QuickTalk Comments Panel",
+      "closeButton": "Close comments panel",
+      "goToTalk": "Go to Subject Discussion on Talk"
+    },
     "headerLink": "Subject Discussion",
     "status": {
       "loading": "Posting comment..."
     },
     "errors": {
-      "noText": "Can't post an empty comment."
+      "noBoard": "A board for subject comments has not been setup for this project yet.",
+      "noText": "Can't post an empty comment.",
+      "noUser": "User not logged in."
     }
   },
   "SlideTutorial": {
@@ -235,7 +243,7 @@
       },
       "TaskHelp": {
         "close": "Close",
-        "label": "Need some help with this task?" 
+        "label": "Need some help with this task?"
       }
     }
   }

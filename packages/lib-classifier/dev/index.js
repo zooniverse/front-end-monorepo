@@ -5,12 +5,12 @@ import App from './components/App'
 
 function getQueryParams() {
   if (window.location && window.location.search) {
-    const { subject, subjectSet, workflow } = queryString.parse(window.location.search)
-    return { subject, subjectSet, workflow }
+    const { language, subject, subjectSet, workflow } = queryString.parse(window.location.search)
+    return { language, subject, subjectSet, workflow }
   }
 
   return {}
 }
 
-const { subject, subjectSet, workflow } = getQueryParams()
-ReactDOM.render(<App subjectID={subject} subjectSetID={subjectSet} workflowID={workflow} />, document.getElementById('root'))
+const { language, subject, subjectSet, workflow } = getQueryParams()
+ReactDOM.render(<App locale={language} subjectID={subject} subjectSetID={subjectSet} workflowID={workflow} />, document.getElementById('root'))

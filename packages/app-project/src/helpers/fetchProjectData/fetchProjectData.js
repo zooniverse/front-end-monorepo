@@ -17,7 +17,28 @@ export default async function fetchProjectData(slug, params) {
     projectData.avatar = get(linked, 'avatars[0]', {})
     projectData.background = get(linked, 'backgrounds[0]', {})
     projectData.owners = get(linked, 'owners', [])
-    projectData.about_pages = get(linked, 'project_pages', [])
+    const about_pages = get(linked, 'project_pages', [])
+
+    projectData.strings = {
+      description: project.description,
+      display_name: project.display_name,
+      introduction: project.introduction,
+      researcher_quote: project.researcher_quote,
+      title: project.title,
+      workflow_description: project.workflow_description
+    }
+
+    /* Only the page titles and URL keys are needed
+    to build the navigation menu */
+    projectData.about_pages = about_pages.map(page =>{
+      if (page.content?.length) {
+        return ({
+          id: page.id,
+          title: page.title,
+          url_key: page.url_key
+        })
+      }
+    }).filter(Boolean)
 
     const properties = [
       'beta_approved',
@@ -26,20 +47,16 @@ export default async function fetchProjectData(slug, params) {
       'classifiers_count',
       'completeness',
       'configuration',
-      'description',
-      'display_name',
       'experimental_tools',
       'id',
-      'introduction',
       'launch_approved',
       'links',
       'live',
-      'researcher_quote',
+      'primary_language',
       'retired_subjects_count',
       'slug',
       'subjects_count',
-      'urls',
-      'workflow_description'
+      'urls'
     ]
     properties.forEach(property => {
       try {

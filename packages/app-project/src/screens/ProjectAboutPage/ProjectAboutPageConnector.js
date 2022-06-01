@@ -1,5 +1,5 @@
 import { observer, MobXProviderContext } from 'mobx-react'
-import * as React from 'react'
+import { useContext } from 'react'
 import { arrayOf, bool, shape, string } from 'prop-types'
 
 import ProjectAboutPage from './ProjectAboutPage'
@@ -14,7 +14,10 @@ const ProjectAboutPageConnector = ({ pageType, teamArray }) => {
 
     return {
       title: pageTitle,
-      content: 'No content yet.'
+      strings: {
+        title: pageTitle,
+        content: 'No content yet.'
+      }
     }
   }
 
@@ -22,7 +25,7 @@ const ProjectAboutPageConnector = ({ pageType, teamArray }) => {
     store: {
       project: { inBeta = false, about_pages = [], display_name = '' }
     }
-  } = React.useContext(MobXProviderContext)
+  } = useContext(MobXProviderContext)
 
   let aboutPageData
 
@@ -30,14 +33,11 @@ const ProjectAboutPageConnector = ({ pageType, teamArray }) => {
   if (about_pages.length) {
     about_pages.forEach(page => {
       const type = page.url_key === 'science_case' ? 'research' : page.url_key
-      if (
-        page.content?.length &&
-        !aboutNavLinks.includes(type)
-      ) {
+      if (!aboutNavLinks.includes(type)) {
         aboutNavLinks.push(type)
       }
     })
-    aboutPageData = about_pages.filter(page => page.url_key === pageType)[0]
+    aboutPageData = about_pages.find(page => page.url_key === pageType)
 
     // Some old project Research pages have default title 'Research Case'
     // Title is corrected here for translation files

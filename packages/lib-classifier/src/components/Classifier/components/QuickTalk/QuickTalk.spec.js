@@ -1,9 +1,8 @@
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import { QuickTalk } from './QuickTalk'
-
-let wrapper
 
 const subject = {
   id: '100001',
@@ -56,10 +55,14 @@ const authorRoles = {
   '300002': [],
 }
 
+const quickTalkButton_target = { name: 'QuickTalk.aria.openButton' }
+const quickTalkCloseButton_target = { name: 'QuickTalk.aria.closeButton' }
+const quickTalkPanel_target = { name: 'QuickTalk.aria.mainPanel' }
+
 describe('Component > QuickTalk', function () {
   describe('when collapsed', function () {
     beforeEach(function () {
-      wrapper = render(
+      render(
         <QuickTalk
           subject={subject}
           comments={comments}
@@ -69,23 +72,26 @@ describe('Component > QuickTalk', function () {
         />
       )
     })
-    
+
     it('should render without crashing', function () {
-      expect(wrapper.queryByTestId('quicktalk-button')).to.exist()
-      expect(wrapper.queryByTestId('quicktalk-panel')).to.not.exist()
+      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist()
+      expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.not.exist()
     })
-    
-    it('should expand when clicked', function () {
-      fireEvent.click(wrapper.queryByTestId('quicktalk-button'))
-      
-      expect(wrapper.queryByTestId('quicktalk-button')).to.not.exist()
-      expect(wrapper.queryByTestId('quicktalk-panel')).to.exist()
+
+    it('should expand when clicked', async function () {
+      const user = userEvent.setup({ delay: null })
+
+      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist()
+      await user.click(screen.queryByRole('button', quickTalkButton_target))
+
+      expect(screen.queryByRole('button', quickTalkButton_target)).to.not.exist()
+      expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.exist()
     })
   })
-  
+
   describe('when expanded', function () {
     beforeEach(function () {
-      wrapper = render(
+      render(
         <QuickTalk
           subject={subject}
           comments={comments}
@@ -96,21 +102,22 @@ describe('Component > QuickTalk', function () {
         />
       )
     })
-    
+
     it('should render without crashing', function () {
-      expect(wrapper.queryByTestId('quicktalk-button')).to.not.exist()
-      expect(wrapper.queryByTestId('quicktalk-panel')).to.exist()
+      expect(screen.queryByRole('button', quickTalkButton_target)).to.not.exist()
+      expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.exist()
     })
-    
+
     it('should have the correct number of comments', function () {
-      expect(wrapper.queryAllByRole('listitem')).to.have.length(3)
+      expect(screen.queryAllByRole('listitem')).to.have.length(3)
     })
-    
-    it('should collapse when the close button is clicked', function () {
-      fireEvent.click(wrapper.queryByRole('button'))
-      
-      expect(wrapper.queryByTestId('quicktalk-button')).to.exist()
-      expect(wrapper.queryByTestId('quicktalk-panel')).to.not.exist()
+
+    it('should collapse when the close button is clicked', async function () {
+      const user = userEvent.setup({ delay: null })
+      await user.click(screen.queryByRole('button', quickTalkCloseButton_target))
+
+      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist()
+      expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.not.exist()
     })
   })
 })

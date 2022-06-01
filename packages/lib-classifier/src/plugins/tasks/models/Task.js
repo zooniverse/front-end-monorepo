@@ -7,6 +7,7 @@ const Task = types.model('Task', {
   annotation: types.safeReference(Annotation),
   taskKey: types.identifier,
   required: types.maybe(types.union(types.string, types.boolean)), // text task required default = false
+  strings: types.map(types.string),
   type: types.literal('default')
 })
   .views(self => ({

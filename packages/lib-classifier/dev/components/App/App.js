@@ -3,7 +3,6 @@ import { panoptes } from '@zooniverse/panoptes-js'
 import { Button, CheckBox, Grommet, Box, base as baseTheme } from 'grommet'
 import _ from 'lodash'
 import oauth from 'panoptes-client/lib/oauth'
-import queryString from 'query-string'
 import React from 'react'
 
 import Classifier from '../../../src/components/Classifier'
@@ -11,12 +10,14 @@ import Classifier from '../../../src/components/Classifier'
 class App extends React.Component {
   constructor(props) {
     super(props)
+    this.selectLocale = this.selectLocale.bind(this)
     this.selectWorkflow = this.selectWorkflow.bind(this)
 
     this.state = {
       cachePanoptesData: false,
       dark: false,
       loading: false,
+      locale: props.locale,
       project: null,
       user: null,
       workflowID: props.workflowID,
@@ -66,8 +67,9 @@ class App extends React.Component {
     let slug
 
     // Optional project override, e.g. localhost:8080?project=1862
-    if (window.location && window.location.search) {
-      const { project } = queryString.parse(window.location.search) // Search the query string for the 'project='
+    if (window.location?.search) {
+      const searchParams = new URLSearchParams(window.location.search)
+      const project = searchParams.get('project') // Search the query string for the 'project='
       if (parseInt(project)) {
         id = parseInt(project, 10)
       } else {
@@ -119,6 +121,22 @@ class App extends React.Component {
       })
   }
 
+  selectLocale(event) {
+    const { value: locale } = event.target
+    this.setState({ locale })
+    const searchParams = new URLSearchParams(window.location.search)
+    const newParams = new URLSearchParams()
+    for (const [key, value] of searchParams.entries()) {
+      newParams.set(key, value)
+    }
+    if (!locale) {
+      newParams.delete('language')
+    } else {
+      newParams.set('language', locale)
+    }
+    history.pushState({ locale }, '', `/?${newParams.toString()}`)
+  }
+
   selectWorkflow(event) {
     const { value: workflowID } = event.target
     this.setState({ workflowID })
@@ -147,7 +165,7 @@ class App extends React.Component {
       )
     }
 
-    const { project, workflows } = this.state
+    const { locale, project, workflows } = this.state
     const { active_workflows } = project.links
     const [singleActiveWorkflow] = (active_workflows.length === 1) ? active_workflows : []
     const workflowID = this.state.workflowID ?? singleActiveWorkflow
@@ -165,7 +183,13 @@ class App extends React.Component {
       >
         <Box as='main'>
           <Box as='header' pad='medium' justify='end' gap='medium' direction='row'>
-            <label htmlFor="workflows">Change workflow</label>
+            <label htmlFor="locale">Language</label>
+            <select id="locale" defaultValue={locale} onChange={this.selectLocale}>
+              <option value='en'>English</option>
+              <option value='es'>Español</option>
+              <option value='fr'>Français</option>
+            </select>
+            <label htmlFor="workflows">Workflow</label>
             <select id="workflows" defaultValue={workflowID} onChange={this.selectWorkflow}>
               <option value=''>None</option>
               {workflows.map(workflow => <option key={workflow.id} value={workflow.id}>{workflow.display_name} {workflow.id}</option>)}
@@ -186,6 +210,7 @@ class App extends React.Component {
               key={key}
               authClient={oauth}
               cachePanoptesData={this.state.cachePanoptesData}
+              locale={locale}
               onAddToCollection={(subjectId) => console.log(subjectId)}
               onCompleteClassification={(classification, subject) => console.log('onComplete', classification, subject)}
               onError={this.onError}

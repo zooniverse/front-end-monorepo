@@ -30,9 +30,11 @@ describe('Stores > initStore', function () {
     const snapshot = {
       project: {
         loadingState: asyncStates.initialized,
-        display_name: 'foobar',
         error: null,
-        id: '12345'
+        id: '12345',
+        strings: {
+          display_name: 'foobar'
+        }
       }
     }
     const store = initStore(true, snapshot)

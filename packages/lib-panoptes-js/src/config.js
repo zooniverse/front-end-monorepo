@@ -36,19 +36,23 @@ if (!env.match(/^(production|staging|development|test)$/)) {
 const baseConfig = {
   test: {
     host: 'https://panoptes-staging.zooniverse.org/api',
-    oauth: 'https://panoptes-staging.zooniverse.org'
+    oauth: 'https://panoptes-staging.zooniverse.org',
+    talkHost: 'https://talk-staging.zooniverse.org'
   },
   development: {
     host: 'https://panoptes-staging.zooniverse.org/api',
-    oauth: 'https://panoptes-staging.zooniverse.org'
+    oauth: 'https://panoptes-staging.zooniverse.org',
+    talkHost: 'https://talk-staging.zooniverse.org'
   },
   staging: {
     host: 'https://panoptes-staging.zooniverse.org/api',
-    oauth: 'https://panoptes-staging.zooniverse.org'
+    oauth: 'https://panoptes-staging.zooniverse.org',
+    talkHost: 'https://talk-staging.zooniverse.org'
   },
   production: {
     host: 'https://www.zooniverse.org/api',
-    oauth: 'https://panoptes.zooniverse.org'
+    oauth: 'https://panoptes.zooniverse.org',
+    talkHost: 'https://talk.zooniverse.org'
   }
 }
 

@@ -13,7 +13,7 @@ function TextTask ({
   annotation,
   autoFocus = false,
   disabled = false,
-  subTaskPreviousAnnotationValues = [],
+  suggestions = [],
   task
 }) {
   const { value } = annotation
@@ -92,14 +92,14 @@ function TextTask ({
     updateAnnotation(ref)
   }
 
-  if (subTaskPreviousAnnotationValues?.length > 0) {
+  if (suggestions?.length > 0) {
     return (
       <TextTaskWithSuggestions
         autoFocus={autoFocus}
         disabled={disabled}
         onSelectSuggestion={onSelectSuggestion}
         setTagSelection={setTagSelection}
-        suggestions={subTaskPreviousAnnotationValues}
+        suggestions={suggestions}
         task={task}
         value={value}
         updateAnnotation={updateAnnotation}
@@ -122,7 +122,7 @@ function TextTask ({
 TextTask.propTypes = {
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
-  subTaskPreviousAnnotationValues: PropTypes.array,
+  suggestions: PropTypes.array,
   task: PropTypes.shape({
     help: PropTypes.string,
     instruction: PropTypes.string,
