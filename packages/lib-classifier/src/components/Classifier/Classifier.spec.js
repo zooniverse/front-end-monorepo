@@ -15,7 +15,6 @@ import RootStore from '@store'
 import { ProjectFactory, SubjectFactory } from '@test/factories'
 import mockStore, { defaultAuthClient, defaultClient } from '@test/mockStore/mockStore'
 import branchingWorkflow from '@test/mockStore/branchingWorkflow'
-import stubPanoptesJs from '@test/stubPanoptesJs'
 import Classifier from './Classifier'
 
 describe('Components > Classifier', function () {
