@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 import { withTranslation } from 'react-i18next'
+import useSWR from 'swr'
 
 import { withStores } from '@helpers'
 import { getBearerToken } from '@store/utils'
@@ -51,20 +52,29 @@ function QuickTalkContainer ({
   t = () => '',  // Translations
 }) {
 
-  const [comments, setComments] = useState([])
-  const [authors, setAuthors] = useState({})
-  const [authorRoles, setAuthorRoles] = useState({})
+  const { data: comments } = useSWR([subject, subject?.project], getTalkComments)
+  let author_ids = comments?.map(comment => comment.user_id)
+  author_ids = author_ids?.filter((id, i) => author_ids.indexOf(id) === i)  // Remove duplicates
+  const authors = {}
+  const authorRoles = {}
+  const { data: allUsers } = useSWR([author_ids], getUsersByID)
+  allUsers?.forEach(user => authors[user.id] = user)
+  const { data: allRoles } = useSWR([author_ids, subject?.project], getTalkRoles)
+  allRoles?.forEach(role => {
+    if (!authorRoles[role.user_id]) authorRoles[role.user_id] = []
+    authorRoles[role.user_id].push(role)
+  })
+
   const [postCommentStatus, setPostCommentStatus] = useState(asyncStates.initialized)
   const [postCommentStatusMessage, setPostCommentStatusMessage] = useState('')
   const [userId, setUserId] = useState('')
 
   function onMount () {
-    fetchComments()
     checkUser()
     return () => {}
   }
 
-  useEffect(onMount, [subject])
+  useEffect(onMount, [])
 
   /*
   Quick Fix: use authClient to check User resource within the QuickTalk component itself
@@ -75,42 +85,6 @@ function QuickTalkContainer ({
 
     const user = await authClient.checkCurrent()
     setUserId(user?.id)
-  }
-
-  async function fetchComments () {
-    resetComments()
-
-    const project = subject?.project
-    if (!subject || !project) return
-
-    // Get all Comments
-    const allComments = await getTalkComments(subject, project)
-    setComments(allComments)
-
-    // Comments don't have User data embedded, so we'll fetch them separately.
-    let author_ids = []
-    let authors = {}
-    let authorRoles = {}
-
-    author_ids = allComments.map(comment => comment.user_id)
-    author_ids = author_ids.filter((id, i) => author_ids.indexOf(id) === i)  // Remove duplicates
-
-    const allUsers = await getUsersByID(author_ids)
-    allUsers.forEach(user => authors[user.id] = user)
-    setAuthors(authors)
-
-    const allRoles = await getTalkRoles(author_ids, project)
-    allRoles.forEach(role => {
-      if (!authorRoles[role.user_id]) authorRoles[role.user_id] = []
-      authorRoles[role.user_id].push(role)
-    })
-    setAuthorRoles(authorRoles)
-  }
-
-  function resetComments () {
-    setComments([])
-    setAuthors({})
-    setAuthorRoles({})
   }
 
   async function postComment (text) {
@@ -149,7 +123,6 @@ function QuickTalkContainer ({
 
         setPostCommentStatus(asyncStates.success)
         setPostCommentStatusMessage('')
-        fetchComments()
 
       } else {  // Create a new discussion
 
@@ -158,7 +131,6 @@ function QuickTalkContainer ({
 
         setPostCommentStatus(asyncStates.success)
         setPostCommentStatusMessage('')
-        fetchComments()
       }
 
     } catch (err) {
