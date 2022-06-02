@@ -3,13 +3,14 @@ import styled from 'styled-components'
 import { pxToRem } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 
-import Banners from '../../../Banners'
-import FeedbackModal from '../../../Feedback'
-import ImageToolbar from '../../../ImageToolbar'
-import MetaTools from '../../../MetaTools'
-import QuickTalk from '../../../QuickTalk'
-import SubjectViewer from '../../../SubjectViewer'
-import TaskArea from '../../../TaskArea'
+import { withStores } from '@helpers'
+import Banners from '@components/Classifier/components/Banners'
+import FeedbackModal from '@components/Classifier/components/Feedback'
+import ImageToolbar from '@components/Classifier/components/ImageToolbar'
+import MetaTools from '@components/Classifier/components/MetaTools'
+import QuickTalk from '@components/Classifier/components/QuickTalk'
+import SubjectViewer from '@components/Classifier/components/SubjectViewer'
+import TaskArea from '@components/Classifier/components/TaskArea'
 
 const columnSize = pxToRem(380)
 
@@ -62,9 +63,18 @@ const StyledMetaTools = styled(MetaTools)`
   margin-top: 10px;
 `
 
-function DefaultLayout (props) {
+function storeMapper(classifierStore) {
+  const project = classifierStore?.projects.active
+  return { project }
+}
+
+function DefaultLayout ({
+  className = '',
+  project
+}) {
+  const showQuickTalk = project?.experimental_tools.includes('quicktalk')
   return (
-    <ContainerGrid className={props.className}>
+    <ContainerGrid className={className}>
       <ViewerGrid>
         <Box gridArea='subject'>
           <Banners />
@@ -79,9 +89,9 @@ function DefaultLayout (props) {
         <StyledTaskArea />
       </StyledTaskAreaContainer>
       <FeedbackModal />
-      <QuickTalk />
+      {showQuickTalk && <QuickTalk />}
     </ContainerGrid>
   )
 }
 
-export default DefaultLayout
+export default withStores(DefaultLayout, storeMapper)
