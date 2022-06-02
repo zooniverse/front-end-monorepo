@@ -11,6 +11,8 @@ import StepNavigation from '@components/Classifier/components/SlideTutorial/comp
 function ImageAndTextViewerContainer ({
   frame = 0,
   loadingState = asyncStates.initialized,
+  onError = () => true,
+  onReady = () => true,
   setFrame = () => true,
   subject
 }) {
@@ -40,6 +42,8 @@ function ImageAndTextViewerContainer ({
           <SingleImageViewer
             enableInteractionLayer={false}
             loadingState={loadingState}
+            onError={onError}
+            onReady={onReady}
           />
           <StepNavigation
             onChange={handleFrameChange}
@@ -56,7 +60,10 @@ function ImageAndTextViewerContainer ({
           flex='grow'
           justify='between'
         >
-          <SingleTextViewer />
+          <SingleTextViewer
+            onError={onError}
+            onReady={onReady}
+          />
           <StepNavigation
             onChange={handleFrameChange}
             stepIndex={frame}
