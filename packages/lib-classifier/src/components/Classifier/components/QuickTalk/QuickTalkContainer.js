@@ -5,6 +5,7 @@ import { withTranslation } from 'react-i18next'
 import useSWR from 'swr'
 
 import { withStores } from '@helpers'
+import { usePanoptesUser } from '@hooks'
 import { getBearerToken } from '@store/utils'
 import QuickTalk from './QuickTalk'
 
@@ -52,6 +53,8 @@ function QuickTalkContainer ({
   t = () => '',  // Translations
 }) {
 
+  const user = usePanoptesUser()
+  const userId = user?.id
   const { data: comments } = useSWR([subject, subject?.project], getTalkComments)
   let author_ids = comments?.map(comment => comment.user_id)
   author_ids = author_ids?.filter((id, i) => author_ids.indexOf(id) === i)  // Remove duplicates
@@ -67,25 +70,6 @@ function QuickTalkContainer ({
 
   const [postCommentStatus, setPostCommentStatus] = useState(asyncStates.initialized)
   const [postCommentStatusMessage, setPostCommentStatusMessage] = useState('')
-  const [userId, setUserId] = useState('')
-
-  function onMount () {
-    checkUser()
-    return () => {}
-  }
-
-  useEffect(onMount, [])
-
-  /*
-  Quick Fix: use authClient to check User resource within the QuickTalk component itself
-  - see https://github.com/zooniverse/front-end-monorepo/discussions/2362
-   */
-  async function checkUser () {
-    if (!authClient) return
-
-    const user = await authClient.checkCurrent()
-    setUserId(user?.id)
-  }
 
   async function postComment (text) {
     const project = subject?.project
@@ -104,9 +88,8 @@ function QuickTalkContainer ({
       - see https://github.com/zooniverse/front-end-monorepo/discussions/2362
        */
 
-      const user = await authClient.checkCurrent()
       const authorization = await getBearerToken(authClient)  // Check bearer token to ensure session hasn't timed out
-      if (!authorization || !user) throw new Error(t('QuickTalk.errors.noUser'))
+      if (!authorization) throw new Error(t('QuickTalk.errors.noUser'))
 
       // First, get default board
       const defaultBoard = await getDefaultTalkBoard(project)
