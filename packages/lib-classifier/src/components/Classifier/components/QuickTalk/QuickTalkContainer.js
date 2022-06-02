@@ -74,7 +74,6 @@ function QuickTalkContainer ({
     if (!authClient) return
 
     const user = await authClient.checkCurrent()
-    const authorization = await getBearerToken(authClient)  // Check bearer token to ensure session hasn't timed out
     setUserId(user?.id)
   }
 
