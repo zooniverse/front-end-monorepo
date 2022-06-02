@@ -101,8 +101,9 @@ function QuickTalkContainer ({
 
       if (existingDiscussion) { // Add to the existing discussion
 
-        const response = await postTalkComment(text, existingDiscussion, user, authorization)
-        if (!response?.ok) throw new Error(t('QuickTalk.errors.failPostComment'))
+        const newComment = await postTalkComment(text, existingDiscussion, user, authorization)
+        if (!newComment) throw new Error(t('QuickTalk.errors.failPostComment'))
+        comments.push(newComment)
 
         setPostCommentStatus(asyncStates.success)
         setPostCommentStatusMessage('')
