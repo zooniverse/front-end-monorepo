@@ -6,8 +6,14 @@ import { withTranslation } from 'react-i18next'
 import { withStores } from '@helpers'
 import { getBearerToken } from '@store/utils'
 import QuickTalk from './QuickTalk'
-import apiClient from 'panoptes-client/lib/api-client'
-import talkClient from 'panoptes-client/lib/talk-client'
+
+import getDefaultTalkBoard from './helpers/getDefaultTalkBoard'
+import getTalkComments from './helpers/getTalkComments'
+import getTalkDiscussion from './helpers/getTalkDiscussion'
+import getTalkRoles from './helpers/getTalkRoles'
+import getUsersByID from './helpers/getUsersByID'
+import postTalkComment from './helpers/postTalkComment'
+import postTalkDiscussion from './helpers/postTalkDiscussion'
 
 function storeMapper (store) {
   /*
@@ -69,55 +75,37 @@ function QuickTalkContainer ({
 
     const user = await authClient.checkCurrent()
     const authorization = await getBearerToken(authClient)  // Check bearer token to ensure session hasn't timed out
-    setUserId((authorization && user) ? user.id : undefined)
+    setUserId(user?.id)
   }
 
-  function fetchComments () {
+  async function fetchComments () {
     resetComments()
 
     const project = subject?.project
     if (!subject || !project) return
 
-    const section = 'project-' + project.id
-    const query = {
-      section: section,
-      focus_id: subject.id,
-      focus_type: 'Subject',
-      page: 1,
-      sort: 'created_at',  // PFE used '-created_at' to sort in reverse order, and I have no idea why.
-    }
+    // Get all Comments
+    const allComments = await getTalkComments(subject, project)
+    setComments(allComments)
 
-    talkClient.type('comments').get(query)
-      .then (allComments =>{
-        setComments(allComments)
+    // Comments don't have User data embedded, so we'll fetch them separately.
+    let author_ids = []
+    let authors = {}
+    let authorRoles = {}
 
-        let author_ids = []
-        let authors = {}
-        let authorRoles = {}
+    author_ids = allComments.map(comment => comment.user_id)
+    author_ids = author_ids.filter((id, i) => author_ids.indexOf(id) === i)  // Remove duplicates
 
-        author_ids = allComments.map(comment => comment.user_id)
-        author_ids = author_ids.filter((id, i) => author_ids.indexOf(id) === i)
+    const allUsers = await getUsersByID(author_ids)
+    allUsers.forEach(user => authors[user.id] = user)
+    setAuthors(authors)
 
-        apiClient.type('users').get({ id: author_ids })
-          .then(users => {
-            users.forEach(user => authors[user.id] = user)
-            setAuthors(authors)
-          })
-
-        talkClient.type('roles')
-          .get({
-            user_id: author_ids,
-            section: ['zooniverse', section],
-            is_shown: true,
-          })
-          .then(roles => {
-            roles.forEach(role => {
-              if (!authorRoles[role.user_id]) authorRoles[role.user_id] = []
-              authorRoles[role.user_id].push(role)
-            })
-            setAuthorRoles(authorRoles)
-          })
-      })
+    const allRoles = await getTalkRoles(author_ids, project)
+    allRoles.forEach(role => {
+      if (!authorRoles[role.user_id]) authorRoles[role.user_id] = []
+      authorRoles[role.user_id].push(role)
+    })
+    setAuthorRoles(authorRoles)
   }
 
   function resetComments () {
@@ -129,9 +117,6 @@ function QuickTalkContainer ({
   async function postComment (text) {
     const project = subject?.project
     if (!subject || !project || !authClient) return
-
-    const section = `project-${project.id}`
-    const discussionTitle = `Subject ${subject.id}`
 
     setPostCommentStatus(asyncStates.loading)
     setPostCommentStatusMessage('')
@@ -151,27 +136,17 @@ function QuickTalkContainer ({
       if (!authorization || !user) throw new Error(t('QuickTalk.errors.noUser'))
 
       // First, get default board
-      const boards = await talkClient.type('boards').get({ section, subject_default: true })
-      const defaultBoard = boards && boards[0]
+      const defaultBoard = await getDefaultTalkBoard(project)
       if (!defaultBoard) throw new Error(t('QuickTalk.errors.noBoard'))
 
       // Next, attempt to find if the Subject already has a discussion attached to it.
-      const discussions = await talkClient.type('discussions').get({
-        board_id: defaultBoard.id,
-        title: discussionTitle,
-        subject_default: true,
-      })
-      const existingDiscussion = discussions && discussions[0]
+      const discussionTitle = `Subject ${subject.id}`
+      const existingDiscussion = await getTalkDiscussion(defaultBoard, discussionTitle)
 
       if (existingDiscussion) { // Add to the existing discussion
 
-        const comment = {
-          user_id: user.id,
-          body: text,
-          discussion_id: +existingDiscussion.id,
-        }
-
-        await talkClient.type('comments').create(comment).save()
+        const response = await postTalkComment(text, existingDiscussion, user, authorization)
+        if (!response?.ok) throw new Error(t('QuickTalk.errors.failPostComment'))
 
         setPostCommentStatus(asyncStates.success)
         setPostCommentStatusMessage('')
@@ -179,22 +154,8 @@ function QuickTalkContainer ({
 
       } else {  // Create a new discussion
 
-        const comments = [{
-          user_id: user.id,
-          body: text,
-          focus_id: +subject.id,
-          focus_type: 'Subject',
-        }]
-
-        const discussion = {
-          title: discussionTitle,
-          user_id: user.id,
-          subject_default: true,
-          board_id: defaultBoard.id,
-          comments: comments,
-        }
-
-        await talkClient.type('discussions').create(discussion).save()
+        const response = await postTalkDiscussion (text, discussionTitle, subject, defaultBoard, user, authorization)
+        if (!response?.ok) throw new Error(t('QuickTalk.errors.failPostDiscussion'))
 
         setPostCommentStatus(asyncStates.success)
         setPostCommentStatusMessage('')

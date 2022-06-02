@@ -18,12 +18,12 @@ function get(endpoint, query = {}, headers = {}, host) {
 
 function post(endpoint, data, headers = {}, query = {}, host) {
   const talkHost = determineHost(query, host)
-  return panoptes.post(endpoint, query, headers, talkHost)
+  return panoptes.post(endpoint, data, headers, query, talkHost)
 }
 
 function put(endpoint, data, headers = {}, query = {}, host) {
   const talkHost = determineHost(query, host)
-  return panoptes.put(endpoint, query, headers, talkHost)
+  return panoptes.put(endpoint, data, headers, query, talkHost)
 }
 
 function del(endpoint, query = {}, headers = {}, host) {
