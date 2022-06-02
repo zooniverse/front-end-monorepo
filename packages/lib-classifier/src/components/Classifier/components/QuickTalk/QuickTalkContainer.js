@@ -81,14 +81,7 @@ function QuickTalkContainer ({
     try {
       if (!text || text.trim().length === 0) throw new Error(t('QuickTalk.errors.noText'))
 
-      /*
-      Quick Fix: check user before posting
-      - this is because we can never be 100% sure when a user has logged out on lib-classifier
-      - long-term, we want to pass down the User resource from app-project
-      - see https://github.com/zooniverse/front-end-monorepo/discussions/2362
-       */
-
-      const authorization = await getBearerToken(authClient)  // Check bearer token to ensure session hasn't timed out
+      const authorization = await getBearerToken(authClient)  // Get a refreshed auth token for posting comments.
       if (!authorization) throw new Error(t('QuickTalk.errors.noUser'))
 
       // First, get default board
