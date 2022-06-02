@@ -18,6 +18,10 @@ export default async function postTalkDiscussion (text, title, subject, board, u
     comments: comments,
   }
 
-  return talkAPI.post('/discussions', { discussions }, { authorization })
-    .then(response => response)
+  const response = await talkAPI.post('/discussions', { discussions }, { authorization })
+  if (response?.body?.discussions) {
+    const [discussion] = response.body.discussions
+    return discussion
+  }
+  return null
 }
