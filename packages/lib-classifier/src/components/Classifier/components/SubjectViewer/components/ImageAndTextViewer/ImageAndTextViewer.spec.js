@@ -2,6 +2,7 @@ import { expect } from 'chai'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import React from 'react'
+import sinon from 'sinon'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import asyncStates from '@zooniverse/async-states'
@@ -172,6 +173,22 @@ describe('ImageAndTextViewer', function () {
       expect(screen.getByRole('button', { name: 'SlideTutorial.StepNavigation.previous' })).to.exist()
       expect(screen.getAllByRole('radio', { name: 'SlideTutorial.StepNavigation.go' })).to.have.lengthOf(2)
       expect(screen.getByRole('button', { name: 'SlideTutorial.StepNavigation.next' })).to.exist()
+    })
+
+    it('should call the onReady prop', function () {
+      const onReadySpy = sinon.spy()
+
+      render(
+        <ImageAndTextViewerConnector
+          loadingState={asyncStates.success}
+          onReady={onReadySpy}
+          subject={store.subjects.active}
+        />, {
+          wrapper: withStore(store)
+        }
+      )
+
+      expect(onReadySpy).to.have.been.calledOnce()
     })
 
     describe('when the frame is changed', function () {
