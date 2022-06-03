@@ -8,7 +8,12 @@ import SingleImageViewer from '../SingleImageViewer'
 import SingleTextViewer from '../SingleTextViewer'
 import StepNavigation from '@components/Classifier/components/SlideTutorial/components/StepNavigation'
 
+const defaultDimensions = [{
+  clientHeight: 400
+}]
+
 function ImageAndTextViewerContainer ({
+  dimensions = defaultDimensions,
   frame = 0,
   loadingState = asyncStates.initialized,
   onError = () => true,
@@ -27,56 +32,43 @@ function ImageAndTextViewerContainer ({
   }
 
   const [mimeType] = Object.keys(subject.locations[frame])
-  const imageTypes = [
-    'image/png',
-    'image/jpeg',
-    'image/gif'
-  ]
 
   if (loadingState !== asyncStates.initialized) {
-    if (imageTypes.includes(mimeType)) {
-      return (
-        <Box
-          fill='horizontal'
-        >
-          <SingleImageViewer
-            enableInteractionLayer={false}
-            loadingState={loadingState}
-            onError={onError}
-            onReady={onReady}
-          />
-          <StepNavigation
-            onChange={handleFrameChange}
-            stepIndex={frame}
-            steps={[0, 1]}
-          />
-        </Box>
-      )
-    }
-    if (mimeType === 'text/plain') {
-      return (
-        <Box
-          fill='horizontal'
-          flex='grow'
-          justify='between'
-        >
-          <SingleTextViewer
-            onError={onError}
-            onReady={onReady}
-          />
-          <StepNavigation
-            onChange={handleFrameChange}
-            stepIndex={frame}
-            steps={[0, 1]}
-          />
-        </Box>
-      )
-    }
+    return (
+      <Box
+        fill='horizontal'
+      >
+        {(mimeType === 'text/plain')
+          ? (
+            <SingleTextViewer
+              height={`${dimensions[0]?.clientHeight}px`}
+              onError={onError}
+              onReady={onReady}
+            />)
+          : (
+            <SingleImageViewer
+              enableInteractionLayer={false}
+              loadingState={loadingState}
+              onError={onError}
+              onReady={onReady}
+            />)}
+        <StepNavigation
+          onChange={handleFrameChange}
+          stepIndex={frame}
+          steps={[0, 1]}
+        />
+      </Box>
+    )
   }
   return null
 }
 
 ImageAndTextViewerContainer.propTypes = {
+  dimensions: PropTypes.arrayOf(
+    PropTypes.shape({
+      clientHeight: PropTypes.number
+    })
+  ),
   frame: PropTypes.number,
   loadingState: PropTypes.string,
   setFrame: PropTypes.func,
