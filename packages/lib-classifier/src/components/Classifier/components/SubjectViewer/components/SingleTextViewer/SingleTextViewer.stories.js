@@ -11,12 +11,8 @@ export default {
   title: 'Subject Viewers / SingleTextViewer',
   component: SingleTextViewer,
   args: {
-    content
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
+    content,
+    height: '400px'
   }
 }
 
@@ -25,7 +21,7 @@ const background = {
   light: 'light-1'
 }
 
-export const LightTheme = ({ content }) => {
+export const LightTheme = ({ content, height }) => {
   return (
     <Grommet
       background={background}
@@ -33,13 +29,16 @@ export const LightTheme = ({ content }) => {
       themeMode='light'
     >
       <Box height='500px' width='large'>
-        <SingleTextViewer content={content} />
+        <SingleTextViewer
+          content={content}
+          height={height}
+        />
       </Box>
     </Grommet>
   )
 }
 
-export const DarkTheme = ({ content }) => {
+export const DarkTheme = ({ content, height }) => {
   return (
     <Grommet
       background={background}
@@ -47,7 +46,10 @@ export const DarkTheme = ({ content }) => {
       themeMode='dark'
     >
       <Box height='500px' width='large'>
-        <SingleTextViewer content={content} />
+        <SingleTextViewer
+          content={content}
+          height={height}
+        />
       </Box>
     </Grommet>
   )
