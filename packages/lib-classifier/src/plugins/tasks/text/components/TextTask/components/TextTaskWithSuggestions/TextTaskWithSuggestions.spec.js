@@ -58,7 +58,7 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
       target: textInput
     })
     suggestions.forEach(suggestion => {
-      const option = screen.getByRole('button', { name: suggestion })
+      const option = screen.getByRole('option', { name: suggestion })
       expect(option).to.exist()
     })
   })
@@ -93,7 +93,7 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
         target: textInput
       })
       suggestions.forEach(suggestion => {
-        const option = screen.queryByRole('button', { name: suggestion })
+        const option = screen.queryByRole('option', { name: suggestion })
         expect(option).to.be.null()
       })
     })
