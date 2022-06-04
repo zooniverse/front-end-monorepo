@@ -73,7 +73,7 @@
     "dedent": "~0.7.0",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.11.0",
-    "grommet": "~2.23.0",
+    "grommet": "~2.24.0",
     "grommet-icons": "~4.7.0",
     "jsdom": "~19.0.0",
     "lodash": "~4.17.11",
