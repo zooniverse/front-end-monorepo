@@ -36,6 +36,13 @@ describe('Components > Classifier', function () {
     let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
 
     before(function () {
+      sinon.replace(window, 'Image', class MockImage {
+        constructor () {
+          this.naturalHeight = 1000
+          this.naturalWidth = 500
+          setTimeout(() => this.onload(), 5000)
+        }
+      })
       const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const store = mockStore({ subject })
       const project = store.projects.active
@@ -60,6 +67,10 @@ describe('Components > Classifier', function () {
       const task = workflowSnapshot.tasks.T0
       const getAnswerInput = answer => within(tabPanel).getByRole('radio', { name: answer.label })
       taskAnswers = task.answers.map(getAnswerInput)
+    })
+
+    after(function () {
+      sinon.restore()
     })
 
     it('should have a task tab', function () {
@@ -96,7 +107,14 @@ describe('Components > Classifier', function () {
   describe('after the subject has loaded', function () {
     let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
 
-    before(function () {
+    before(async function () {
+      sinon.replace(window, 'Image', class MockImage {
+        constructor () {
+          this.naturalHeight = 1000
+          this.naturalWidth = 500
+          setTimeout(() => this.onload(), 500)
+        }
+      })
       const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const store = mockStore({ subject })
       const project = store.projects.active
@@ -114,7 +132,7 @@ describe('Components > Classifier', function () {
           wrapper: withStore(store)
         }
       )
-      store.subjectViewer.onSubjectReady()
+      await when(() => store.subjectViewer.loadingState === asyncStates.success)
       taskTab = screen.getByRole('tab', { name: 'TaskArea.task'})
       tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
       subjectImage = screen.getByRole('img', { name: `Subject ${subject.id}` })
@@ -122,6 +140,10 @@ describe('Components > Classifier', function () {
       const task = workflowSnapshot.tasks.T0
       const getAnswerInput = answer => within(tabPanel).getByRole('radio', { name: answer.label })
       taskAnswers = task.answers.map(getAnswerInput)
+    })
+
+    after(function () {
+      sinon.restore()
     })
 
     it('should have a task tab', function () {
@@ -158,7 +180,14 @@ describe('Components > Classifier', function () {
   describe('when the locale changes', function () {
     let locale, subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
 
-    before(function () {
+    before(async function () {
+      sinon.replace(window, 'Image', class MockImage {
+        constructor () {
+          this.naturalHeight = 1000
+          this.naturalWidth = 500
+          setTimeout(() => this.onload(), 500)
+        }
+      })
       const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const store = mockStore({ subject })
       const project = store.projects.active
@@ -177,7 +206,7 @@ describe('Components > Classifier', function () {
           wrapper: withStore(store)
         }
       )
-      store.subjectViewer.onSubjectReady()
+      await when(() => store.subjectViewer.loadingState === asyncStates.success)
       rerender(
         <Classifier
           classifierStore={store}
@@ -196,6 +225,10 @@ describe('Components > Classifier', function () {
       const task = workflowSnapshot.tasks.T0
       const getAnswerInput = answer => within(tabPanel).getByRole('radio', { name: answer.label })
       taskAnswers = task.answers.map(getAnswerInput)
+    })
+
+    after(function () {
+      sinon.restore()
     })
 
     it('should update the global locale', function () {
@@ -237,6 +270,13 @@ describe('Components > Classifier', function () {
     let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
 
     before(async function () {
+      sinon.replace(window, 'Image', class MockImage {
+        constructor () {
+          this.naturalHeight = 1000
+          this.naturalWidth = 500
+          setTimeout(() => this.onload(), 500)
+        }
+      })
       const roles = []
       const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const workflowSnapshot = branchingWorkflow
@@ -286,8 +326,7 @@ describe('Components > Classifier', function () {
           wrapper: withStore(store)
         }
       )
-      await when(() => store.subjects.loadingState === asyncStates.success)
-      store.subjectViewer.onSubjectReady()
+      await when(() => store.subjectViewer.loadingState === asyncStates.success)
       const newSnapshot = {
         ...workflowSnapshot,
         version: '0.1',
@@ -316,7 +355,7 @@ describe('Components > Classifier', function () {
         }
       )
       workflow = store.workflows.active
-      store.subjectViewer.onSubjectReady()
+      await when(() => store.subjectViewer.loadingState === asyncStates.success)
       taskTab = screen.getByRole('tab', { name: 'TaskArea.task'})
       tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
       subjectImage = screen.getByRole('img', { name: `Subject ${subjectSnapshot.id}` })
@@ -327,8 +366,7 @@ describe('Components > Classifier', function () {
     })
 
     after(function () {
-      panoptes.get.restore()
-      panoptes.post.restore()
+      sinon.restore()
     })
 
     it('should have a task tab', function () {
@@ -369,6 +407,13 @@ describe('Components > Classifier', function () {
         let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
 
         before(async function () {
+          sinon.replace(window, 'Image', class MockImage {
+            constructor () {
+              this.naturalHeight = 1000
+              this.naturalWidth = 500
+              setTimeout(() => this.onload(), 500)
+            }
+          })
           const roles = [role]
           const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
           const workflowSnapshot = branchingWorkflow
@@ -418,9 +463,8 @@ describe('Components > Classifier', function () {
               wrapper: withStore(store)
             }
           )
-          await when(() => store.subjects.loadingState === asyncStates.success)
+          await when(() => store.subjectViewer.loadingState === asyncStates.success)
           workflow = store.workflows.active
-          store.subjectViewer.onSubjectReady()
           taskTab = screen.getByRole('tab', { name: 'TaskArea.task'})
           tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
           subjectImage = screen.queryByRole('img', { name: `Subject ${subjectSnapshot.id}` })
@@ -431,8 +475,7 @@ describe('Components > Classifier', function () {
         })
 
         after(function () {
-          panoptes.get.restore()
-          panoptes.post.restore()
+          sinon.restore()
         })
 
         it('should have a task tab', function () {
@@ -472,6 +515,13 @@ describe('Components > Classifier', function () {
     let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
 
     before(async function () {
+      sinon.replace(window, 'Image', class MockImage {
+        constructor () {
+          this.naturalHeight = 1000
+          this.naturalWidth = 500
+          setTimeout(() => this.onload(), 500)
+        }
+      })
       const roles = []
       const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const workflowSnapshot = branchingWorkflow
@@ -532,8 +582,7 @@ describe('Components > Classifier', function () {
     })
 
     after(function () {
-      panoptes.get.restore()
-      panoptes.post.restore()
+      sinon.restore()
     })
 
     it('should have a task tab', function () {
@@ -561,6 +610,13 @@ describe('Components > Classifier', function () {
     let tutorialHeading
 
     before(async function () {
+      sinon.replace(window, 'Image', class MockImage {
+        constructor () {
+          this.naturalHeight = 1000
+          this.naturalWidth = 500
+          setTimeout(() => this.onload(), 500)
+        }
+      })
       const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const steps = [
         { content: "Hello" },
@@ -588,6 +644,10 @@ describe('Components > Classifier', function () {
       tutorialHeading = await screen.findByRole('heading', { name: 'ModalTutorial.title' })
     })
 
+    after(function () {
+      sinon.restore()
+    })
+
     it('should show the popup tutorial', function () {
       expect(tutorialHeading).to.exist()
     })
@@ -597,6 +657,13 @@ describe('Components > Classifier', function () {
     let tutorialHeading
 
     before(async function () {
+      sinon.replace(window, 'Image', class MockImage {
+        constructor () {
+          this.naturalHeight = 1000
+          this.naturalWidth = 500
+          setTimeout(() => this.onload(), 500)
+        }
+      })
       const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const steps = [
         { content: "Hello" },
@@ -622,6 +689,10 @@ describe('Components > Classifier', function () {
       )
       await when(() => store.tutorials.active.hasNotBeenSeen)
       tutorialHeading = screen.queryByRole('heading', { name: 'ModalTutorial.title' })
+    })
+
+    after(function () {
+      sinon.restore()
     })
 
     it('should not show the popup tutorial', function () {
