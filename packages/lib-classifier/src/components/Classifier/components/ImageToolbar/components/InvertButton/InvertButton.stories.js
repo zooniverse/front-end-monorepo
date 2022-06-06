@@ -4,8 +4,8 @@ import { Box, Grommet } from 'grommet'
 import InvertButton from './InvertButton'
 
 const args = {
-  dark: false,
-  disabled: false
+  active: false,
+  dark: false
 }
 
 export default {
@@ -19,7 +19,7 @@ export default {
   args
 }
 
-export function Default({ dark, disabled, onClick }) {
+export function Default ({ active, dark, onClick }) {
   const theme = { ...zooTheme, dark }
   return (
     <Box width='72px'>
@@ -32,7 +32,10 @@ export function Default({ dark, disabled, onClick }) {
         themeMode={dark ? 'dark' : 'light'}
       >
         <Box pad='12px'>
-          <InvertButton disabled={disabled} onClick={onClick} />
+          <InvertButton
+            active={active}
+            onClick={onClick}
+          />
         </Box>
       </Grommet>
     </Box>

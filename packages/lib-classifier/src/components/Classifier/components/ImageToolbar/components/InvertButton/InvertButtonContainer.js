@@ -3,7 +3,7 @@ import React from 'react'
 
 import InvertButton from './InvertButton'
 
-function storeMapper(classifierStore) {
+function storeMapper (classifierStore) {
   const {
     subjectViewer: {
       invert,

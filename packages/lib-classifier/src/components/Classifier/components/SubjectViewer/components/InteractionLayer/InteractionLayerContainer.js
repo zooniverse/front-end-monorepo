@@ -7,14 +7,14 @@ import SHOWN_MARKS from '@helpers/shownMarks'
 import { withStores } from '@helpers'
 
 function storeMapper(classifierStore) {
-  const activeStepAnnotations = classifierStore.subjects.active?.stepHistory.latest.annotations
+  const activeStepAnnotations = classifierStore.subjects.active?.stepHistory?.latest?.annotations
   const { activeStepTasks } = classifierStore.workflowSteps
   const { frame, move } = classifierStore.subjectViewer
 
   const [activeInteractionTask] = activeStepTasks.filter(
     (task) => task.type === 'drawing' || task.type === 'transcription'
   )
-  const annotation = activeStepAnnotations.find(
+  const annotation = activeStepAnnotations?.find(
     annotation => annotation.taskType === 'drawing' || annotation.taskType === 'transcription'
   )
 
