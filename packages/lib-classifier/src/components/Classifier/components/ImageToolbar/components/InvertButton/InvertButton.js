@@ -21,7 +21,9 @@ function InvertButton ({
 }
 
 InvertButton.propTypes = {
+  /** (bool): Show invert button as active */
   active: PropTypes.bool,
+  /** (func): Called when the button is clicked */
   onClick: PropTypes.func
 }
 

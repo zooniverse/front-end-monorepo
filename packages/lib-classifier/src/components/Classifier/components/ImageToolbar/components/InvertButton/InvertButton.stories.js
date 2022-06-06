@@ -1,6 +1,7 @@
 import React from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
+
 import InvertButton from './InvertButton'
 
 const args = {
