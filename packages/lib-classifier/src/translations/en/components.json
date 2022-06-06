@@ -78,7 +78,7 @@
       }
     },
     "InvertButton": {
-      "ariaLabel": "Invert"
+      "ariaLabel": "Invert subject"
     },
     "MoveButton": {
       "ariaLabel": "Move subject"
