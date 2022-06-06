@@ -14,7 +14,7 @@ import sinon from 'sinon'
 import RootStore from '@store'
 import { ProjectFactory, SubjectFactory, TutorialFactory } from '@test/factories'
 import mockStore, { defaultAuthClient, defaultClient } from '@test/mockStore/mockStore'
-import branchingWorkflow from '@test/mockStore/branchingWorkflow'
+import branchingWorkflow, { workflowStrings } from '@test/mockStore/branchingWorkflow'
 import Classifier from './Classifier'
 
 describe('Components > Classifier', function () {
@@ -246,6 +246,7 @@ describe('Components > Classifier', function () {
           const roles = [role]
           const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
           const workflowSnapshot = branchingWorkflow
+          workflowSnapshot.strings = workflowStrings
           const projectSnapshot = ProjectFactory.build({
             links: {
               active_workflows: [],
@@ -349,6 +350,7 @@ describe('Components > Classifier', function () {
       const roles = []
       const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const workflowSnapshot = branchingWorkflow
+      workflowSnapshot.strings = workflowStrings
       const projectSnapshot = ProjectFactory.build({
         links: {
           active_workflows: [],
