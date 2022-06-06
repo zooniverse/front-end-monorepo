@@ -10,6 +10,12 @@ const step = {
   content: '# Welcome'
 }
 
+const strings = {
+  display_name: 'A test tutorial',
+  'steps.0.content': step.content,
+  'steps.1.content': step.content
+}
+
 const medium = {
   content_type: 'image/gif',
   external_link: false,
@@ -53,6 +59,7 @@ describe('SlideTutorial', function () {
         activeStep={0}
         stepWithMedium={() => ({ step, medium })}
         steps={[{ step, medium }, { step, medium }]}
+        strings={strings}
       />
     )
     expect(wrapper.find(Heading)).to.have.lengthOf(1)
@@ -64,6 +71,7 @@ describe('SlideTutorial', function () {
         activeStep={1}
         stepWithMedium={() => ({ step, medium })}
         steps={[{ step, medium }, { step, medium }]}
+        strings={strings}
       />
     )
     expect(wrapper.find(Heading)).to.have.lengthOf(0)
@@ -75,6 +83,7 @@ describe('SlideTutorial', function () {
         activeStep={1}
         stepWithMedium={() => ({ step, medium })}
         steps={[{ step, medium }, { step, medium }]}
+        strings={strings}
       />
     )
     expect(wrapper.find(Button)).to.have.lengthOf(1)
@@ -86,6 +95,7 @@ describe('SlideTutorial', function () {
         activeStep={0}
         stepWithMedium={() => ({ step, medium })}
         steps={[{ step, medium }, { step, medium }]}
+        strings={strings}
       />
     )
     expect(wrapper.find(Button)).to.have.lengthOf(0)
@@ -99,6 +109,7 @@ describe('SlideTutorial', function () {
         onClick={onClick}
         stepWithMedium={() => ({ step, medium })}
         steps={[{ step, medium }, { step, medium }]}
+        strings={strings}
       />
     )
     wrapper.find(Button).simulate('click')

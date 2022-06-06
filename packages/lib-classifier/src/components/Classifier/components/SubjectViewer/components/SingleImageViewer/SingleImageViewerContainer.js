@@ -85,6 +85,7 @@ function SingleImageViewerContainer({
   }
 
   if (loadingState !== asyncStates.initialized) {
+    const subjectID = subject?.id || 'unknown'
     return (
       <SVGPanZoom
         img={subjectImage.current}
@@ -110,7 +111,11 @@ function SingleImageViewerContainer({
           zooming={zooming}
         >
           <g ref={subjectImage}>
-            <SubjectImage {...subjectImageProps} />
+            <SubjectImage
+              role='img'
+              aria-label={`Subject ${subjectID}`}
+              {...subjectImageProps}
+            />
           </g>
         </SingleImageViewer>
       </SVGPanZoom>

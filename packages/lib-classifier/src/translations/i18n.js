@@ -19,7 +19,7 @@ supportedLngs.forEach((lang) => {
     i18n.addResourceBundle(
       lang,
       n,
-      require(`@translations/${lang}/${n}.json`)
+      require(`./${lang}/${n}.json`)
     )
   })
 })
