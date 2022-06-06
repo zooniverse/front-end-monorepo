@@ -2,16 +2,20 @@ import sinon from 'sinon'
 
 import addInterfaceLayer from './addInterfaceLayer'
 
-const selectionFixture = { append: Function.prototype }
-const attrStub = sinon.stub().returnsThis()
-const styleStub = sinon.stub().returnsThis()
-const appendStub = sinon.stub(selectionFixture, 'append')
-  .returns({
-    attr: attrStub,
-    style: styleStub
+describe('LightCurveViewer > d3 > addInterfaceLayer', function () {
+  let attrStub, appendStub, styleStub
+  const selectionFixture = { append: Function.prototype }
+
+  before(function () {
+    attrStub = sinon.stub().returnsThis()
+    styleStub = sinon.stub().returnsThis()
+    appendStub = sinon.stub(selectionFixture, 'append')
+      .returns({
+        attr: attrStub,
+        style: styleStub
+      })
   })
 
-describe('LightCurveViewer > d3 > addInterfaceLayer', function () {
   afterEach(function () {
     appendStub.resetHistory()
     attrStub.resetHistory()

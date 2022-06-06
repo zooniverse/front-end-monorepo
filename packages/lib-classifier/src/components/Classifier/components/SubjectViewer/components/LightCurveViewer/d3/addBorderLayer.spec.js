@@ -2,12 +2,16 @@ import sinon from 'sinon'
 
 import addBorderLayer from './addBorderLayer'
 
-const selectionFixture = { append: Function.prototype }
-const attrStub = sinon.stub().returnsThis()
-const appendStub = sinon.stub(selectionFixture, 'append')
-  .returns({ attr: attrStub })
-
 describe('LightCurveViewer > d3 > addBorderLayer', function () {
+  let attrStub, appendStub
+  const selectionFixture = { append: Function.prototype }
+
+  before(function () {
+    attrStub = sinon.stub().returnsThis()
+    appendStub = sinon.stub(selectionFixture, 'append')
+      .returns({ attr: attrStub })
+  })
+
   afterEach(function () {
     appendStub.resetHistory()
     attrStub.resetHistory()
