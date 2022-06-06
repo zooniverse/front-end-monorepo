@@ -2,12 +2,16 @@ import sinon from 'sinon'
 
 import addDataLayer from './addDataLayer'
 
-const selectionFixture = { append: Function.prototype }
-const attrStub = sinon.stub().returnsThis()
-const appendStub = sinon.stub(selectionFixture, 'append')
-  .returns({ attr: attrStub })
-
 describe('LightCurveViewer > d3 > addDataLayer', function () {
+  let attrStub, appendStub
+  const selectionFixture = { append: Function.prototype }
+
+  before(function () {
+    attrStub = sinon.stub().returnsThis()
+    appendStub = sinon.stub(selectionFixture, 'append')
+      .returns({ attr: attrStub })
+  })
+
   afterEach(function () {
     appendStub.resetHistory()
     attrStub.resetHistory()
