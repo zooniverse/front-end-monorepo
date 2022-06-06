@@ -8,11 +8,12 @@ import { Grommet } from 'grommet'
 import { when } from 'mobx'
 import { Provider } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
+import nock from 'nock'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
 
 import RootStore from '@store'
-import { ProjectFactory, SubjectFactory, TutorialFactory } from '@test/factories'
+import { ProjectFactory, SubjectFactory, SubjectSetFactory, TutorialFactory } from '@test/factories'
 import mockStore, { defaultAuthClient, defaultClient } from '@test/mockStore/mockStore'
 import branchingWorkflow, { workflowStrings } from '@test/mockStore/branchingWorkflow'
 import Classifier from './Classifier'
@@ -155,7 +156,7 @@ describe('Components > Classifier', function () {
     })
 
     it('should have a subject image', function () {
-      expect(subjectImage).to.be.ok()
+      expect(subjectImage.getAttribute('xlink:href')).to.equal('https://foo.bar/example.png')
     })
 
     describe('task answers', function () {
@@ -244,7 +245,7 @@ describe('Components > Classifier', function () {
     })
 
     it('should have a subject image', function () {
-      expect(subjectImage).to.be.ok()
+      expect(subjectImage.getAttribute('xlink:href')).to.equal('https://foo.bar/example.png')
     })
 
     describe('task answers', function () {
@@ -378,7 +379,7 @@ describe('Components > Classifier', function () {
     })
 
     it('should have a subject image', function () {
-      expect(subjectImage).to.exist()
+      expect(subjectImage.getAttribute('xlink:href')).to.equal('https://foo.bar/example.png')
     })
 
     describe('task answers', function () {
@@ -487,7 +488,7 @@ describe('Components > Classifier', function () {
         })
 
         it('should have a subject image', function () {
-          expect(subjectImage).to.be.ok()
+          expect(subjectImage.getAttribute('xlink:href')).to.equal('https://foo.bar/example.png')
         })
 
         describe('task answers', function () {
@@ -697,6 +698,134 @@ describe('Components > Classifier', function () {
 
     it('should not show the popup tutorial', function () {
       expect(tutorialHeading).to.be.null()
+    })
+  })
+
+  describe('when the subject set changes', function () {
+    let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
+
+    before(async function () {
+      sinon.replace(window, 'Image', class MockImage {
+        constructor () {
+          this.naturalHeight = 1000
+          this.naturalWidth = 500
+          setTimeout(() => this.onload(), 500)
+        }
+      })
+
+      const roles = []
+      const subjectOneSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example1.png' }] })
+      const subjectTwoSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example2.png' }] })
+      const workflowSnapshot = branchingWorkflow
+      workflowSnapshot.strings = workflowStrings
+      workflowSnapshot.grouped = true
+      const projectSnapshot = ProjectFactory.build({
+        links: {
+          active_workflows: [workflowSnapshot.id],
+          workflows: [workflowSnapshot.id]
+        }
+      })
+
+      nock('https://panoptes-staging.zooniverse.org/api')
+      .persist()
+      .get('/field_guides')
+      .reply(200, { field_guides: [] })
+      .get('/project_preferences')
+      .query(true)
+      .reply(200, { project_preferences: [] })
+      .get('/project_roles')
+      .reply(200, { project_roles: [{ roles }]})
+      .get('/subjects/queued')
+      .query(query => query.subject_set_id === '1')
+      .reply(200, { subjects: [subjectOneSnapshot, ...Factory.buildList('subject', 9)] })
+      .get('/subjects/queued')
+      .query(query => query.subject_set_id === '2')
+      .reply(200, { subjects: [subjectTwoSnapshot, ...Factory.buildList('subject', 9)] })
+      .get('/subject_sets/1')
+      .query(true)
+      .reply(200, { subject_sets: [SubjectSetFactory.build({ id: '1' })] })
+      .get('/subject_sets/2')
+      .query(true)
+      .reply(200, { subject_sets: [SubjectSetFactory.build({ id: '2' })] })
+      .post('/project_preferences')
+      .query(true)
+      .reply(200, { project_preferences: [] })
+
+      const checkBearerToken = sinon.stub().callsFake(() => Promise.resolve('mockAuth'))
+      const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockUser' }))
+      const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
+      const client = { ...defaultClient, panoptes }
+      const store = RootStore.create({}, { authClient, client })
+      const { rerender } = render(
+        <Classifier
+          classifierStore={store}
+          project={projectSnapshot}
+          subjectSetID='1'
+          workflowID={workflowSnapshot.id}
+          workflowSnapshot={workflowSnapshot}
+        />,
+        {
+          wrapper: withStore(store)
+        }
+      )
+      await when(() => store.subjectViewer.loadingState === asyncStates.success)
+      rerender(
+        <Classifier
+          classifierStore={store}
+          project={projectSnapshot}
+          subjectSetID='2'
+          workflowID={workflowSnapshot.id}
+          workflowSnapshot={workflowSnapshot}
+        />,
+        {
+          wrapper: withStore(store)
+        }
+      )
+      workflow = store.workflows.active
+      await when(() => store.subjectViewer.loadingState === asyncStates.loading)
+      await when(() => store.subjectViewer.loadingState === asyncStates.success)
+      taskTab = screen.getByRole('tab', { name: 'TaskArea.task'})
+      tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
+      subjectImage = screen.getByRole('img', { name: `Subject ${subjectTwoSnapshot.id}` })
+      tabPanel = screen.getByRole('tabpanel', { name: '1 Tab Contents'})
+      const task = workflowSnapshot.tasks.T0
+      const getAnswerInput = answer => within(tabPanel).queryByRole('radio', { name: answer.label })
+      taskAnswers = task.answers.map(getAnswerInput)
+    })
+
+    after(function () {
+      sinon.restore()
+      nock.cleanAll()
+    })
+
+    it('should have a task tab', function () {
+      expect(taskTab).to.be.ok()
+    })
+
+    it('should have a tutorial tab', function () {
+      expect(tutorialTab).to.be.ok()
+    })
+
+    it('should show a subject image from the selected set', function () {
+      expect(subjectImage.getAttribute('xlink:href')).to.equal('https://foo.bar/example2.png')
+    })
+
+    describe('task answers', function () {
+      it('should be displayed', function () {
+        expect(taskAnswers).to.have.lengthOf(workflow.tasks.T0.answers.length)
+      })
+
+      it('should be linked to the task', function () {
+        taskAnswers.forEach(radioButton => {
+          expect(radioButton.name).to.equal('T0')
+        })
+      })
+
+      it('should be enabled', function () {
+        taskAnswers.forEach(radioButton => {
+          expect(radioButton.disabled).to.be.false()
+        })
+      })
     })
   })
 })
