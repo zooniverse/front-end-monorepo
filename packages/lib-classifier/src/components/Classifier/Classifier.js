@@ -1,4 +1,5 @@
 import { Provider } from 'mobx-react'
+import { getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
@@ -23,12 +24,16 @@ export default function Classifier({
 
   const user = usePanoptesUser()
   const projectRoles = useProjectRoles(project?.id, user?.id)
-  const activeWorkflow = classifierStore.workflows.active
   let workflowVersionChanged = false
   if (workflowSnapshot) {
-    // pass the subjectSetID prop into the store as part of the new workflow data
-    workflowSnapshot.subjectSet = subjectSetID
-    workflowVersionChanged = workflowSnapshot.version !== activeWorkflow?.version
+    const storedWorkflow = classifierStore.workflows.resources.get(workflowSnapshot.id)
+    workflowVersionChanged = workflowSnapshot.version !== storedWorkflow?.version
+    /*
+      Merge the new snapshot into the existing workflow,
+      to preserve properties, such as workflow.subjectSet,
+      that aren't in the Panoptes data.
+    */
+    workflowSnapshot = storedWorkflow ? { ...getSnapshot(storedWorkflow), ...workflowSnapshot } : workflowSnapshot
   }
 
   const canPreviewWorkflows = projectRoles.indexOf('owner') > -1 ||
