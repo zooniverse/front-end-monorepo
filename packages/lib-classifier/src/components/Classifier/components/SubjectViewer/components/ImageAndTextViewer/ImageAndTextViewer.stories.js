@@ -6,11 +6,11 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { SubjectFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 
-import SubjectViewer from '../../SubjectViewer'
+import ImageAndTextViewer from '../ImageAndTextViewer'
 
 export default {
   title: 'Subject Viewers / ImageAndTextViewer',
-  component: SubjectViewer,
+  component: ImageAndTextViewer,
   args: {
     dark: false
   }
@@ -43,7 +43,12 @@ export function Default ({ dark }) {
     >
       <Provider classifierStore={store}>
         <Box width='large'>
-          <SubjectViewer />
+          <ImageAndTextViewer
+            subject={store.subjects.active}
+            loadingState={store.subjectViewer.loadingState}
+            onError={store.subjectViewer.onError}
+            onReady={store.subjectViewer.onSubjectReady}
+          />
         </Box>
       </Provider>
     </Grommet>
