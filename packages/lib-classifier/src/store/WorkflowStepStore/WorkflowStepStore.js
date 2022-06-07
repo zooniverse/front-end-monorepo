@@ -85,15 +85,16 @@ const WorkflowStepStore = types
   }))
   .actions(self => {
     function _onWorkflowChange() {
+      // Reset steps and tasks when the workflow ID or version change.
       if (self.workflow?.id && self.workflow?.version) {
         self.reset()
         self.setStepsAndTasks()
-        self.setTaskStrings(getSnapshot(self.workflow.strings))
       }
     }
 
     function _onLocaleChange() {
-      if (self.locale && self.workflow?.strings) {
+      // Update task language strings when the workflow language changes.
+      if (self.workflow?.strings) {
         self.setTaskStrings(getSnapshot(self.workflow.strings))
       }
     }
@@ -138,9 +139,10 @@ const WorkflowStepStore = types
     }
 
     function setStepsAndTasks () {
-      const { steps, tasks } = self.workflow
+      const { steps, strings, tasks } = self.workflow
       self.setSteps(steps)
       self.setTasks(tasks)
+      self.setTaskStrings(getSnapshot(strings))
     }
 
     function setSteps (steps) {
