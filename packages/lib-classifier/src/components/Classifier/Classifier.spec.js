@@ -54,7 +54,6 @@ describe('Components > Classifier', function () {
         <Classifier
           classifierStore={store}
           project={projectSnapshot}
-          workflowID={workflowSnapshot?.id}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -126,7 +125,6 @@ describe('Components > Classifier', function () {
         <Classifier
           classifierStore={store}
           project={projectSnapshot}
-          workflowID={workflowSnapshot?.id}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -200,7 +198,6 @@ describe('Components > Classifier', function () {
           classifierStore={store}
           locale='en'
           project={projectSnapshot}
-          workflowID={workflowSnapshot?.id}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -213,7 +210,6 @@ describe('Components > Classifier', function () {
           classifierStore={store}
           locale='fr'
           project={projectSnapshot}
-          workflowID={workflowSnapshot?.id}
           workflowSnapshot={workflowSnapshot}
           workflowVersion={workflowSnapshot?.version}
         />,
@@ -320,7 +316,6 @@ describe('Components > Classifier', function () {
         <Classifier
           classifierStore={store}
           project={projectSnapshot}
-          workflowID={workflowSnapshot.id}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -348,7 +343,6 @@ describe('Components > Classifier', function () {
         <Classifier
           classifierStore={store}
           project={projectSnapshot}
-          workflowID={newSnapshot.id}
           workflowSnapshot={newSnapshot}
         />,
         {
@@ -457,7 +451,6 @@ describe('Components > Classifier', function () {
             <Classifier
               classifierStore={store}
               project={projectSnapshot}
-              workflowID={workflowSnapshot.id}
               workflowSnapshot={workflowSnapshot}
             />,
             {
@@ -565,7 +558,6 @@ describe('Components > Classifier', function () {
         <Classifier
           classifierStore={store}
           project={projectSnapshot}
-          workflowID={workflowSnapshot.id}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -635,7 +627,6 @@ describe('Components > Classifier', function () {
           locale='en'
           project={projectSnapshot}
           showTutorial
-          workflowID={workflowSnapshot?.id}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -681,7 +672,6 @@ describe('Components > Classifier', function () {
           classifierStore={store}
           locale='en'
           project={projectSnapshot}
-          workflowID={workflowSnapshot?.id}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -761,7 +751,6 @@ describe('Components > Classifier', function () {
           classifierStore={store}
           project={projectSnapshot}
           subjectSetID='1'
-          workflowID={workflowSnapshot.id}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -774,7 +763,6 @@ describe('Components > Classifier', function () {
           classifierStore={store}
           project={projectSnapshot}
           subjectSetID='2'
-          workflowID={workflowSnapshot.id}
           workflowSnapshot={workflowSnapshot}
         />,
         {
