@@ -2,15 +2,19 @@ import sinon from 'sinon'
 
 import setDataPointStyle from './setDataPointStyle'
 
-const selectionFixture = { attr: Function.prototype }
-const attrStub = sinon.stub(selectionFixture, 'attr').returnsThis()
-
-const chartStyle = {
-  color: '#eff2f5', // Zooniverse Light Grey
-  dataPointSize: '1.5'
-}
-
 describe('LightCurveViewer > d3 > setDataPointStyle', function () {
+  let attrStub
+
+  const selectionFixture = { attr: Function.prototype }
+  const chartStyle = {
+    color: '#eff2f5', // Zooniverse Light Grey
+    dataPointSize: '1.5'
+  }
+
+  before(function () {
+    attrStub = sinon.stub(selectionFixture, 'attr').returnsThis()
+  })
+
   afterEach(function () {
     attrStub.resetHistory()
   })

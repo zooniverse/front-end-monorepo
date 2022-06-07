@@ -24,7 +24,7 @@
     "i18next": "~21.8.1",
     "mime-types": "~2.1.21",
     "prop-types": "~15.8.1",
-    "react-i18next": "~11.16.1",
+    "react-i18next": "~11.17.0",
     "react-progressive-image": "~0.6.0",
     "react-resize-detector": "~7.1.1",
     "react-rnd": "10.3.7",
@@ -73,7 +73,7 @@
     "dedent": "~0.7.0",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.11.0",
-    "grommet": "~2.23.0",
+    "grommet": "~2.24.0",
     "grommet-icons": "~4.7.0",
     "jsdom": "~19.0.0",
     "lodash": "~4.17.11",
@@ -91,7 +91,7 @@
     "storybook-react-i18next": "~1.0.17",
     "style-loader": "~3.3.1",
     "styled-components": "~5.3.3",
-    "webpack": "~5.72.0",
+    "webpack": "~5.73.0",
     "webpack-cli": "~4.9.1"
   },
   "engines": {

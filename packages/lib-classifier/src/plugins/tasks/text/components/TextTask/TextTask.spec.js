@@ -265,14 +265,14 @@ describe('Text Task', function () {
       buttons = task.text_tags.map(tag => within(modifiers).getByRole('button', {
         name: `TextTask.TextTagButtons.modifiers ${tag}`
       }))
-      textInput = screen.getByRole('textbox', {
+      textInput = screen.getByRole('combobox', {
         name: task.instruction
       })
       await user.pointer({
         keys: '[MouseLeft]',
         target: textInput
       })
-      const options = suggestions.map(suggestion => screen.getByRole('button', { name: suggestion }))
+      const options = suggestions.map(suggestion => screen.getByRole('option', { name: suggestion }))
       await user.click(options[1])
     })
 
