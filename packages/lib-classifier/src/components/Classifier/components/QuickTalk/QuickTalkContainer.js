@@ -46,6 +46,14 @@ function storeMapper (store) {
   }
 }
 
+const SWROptions = {
+  revalidateIfStale: true,
+  revalidateOnMount: true,
+  revalidateOnFocus: true,
+  revalidateOnReconnect: true,
+  refreshInterval: 0
+}
+
 function QuickTalkContainer ({
   authClient,
   enabled = false,
@@ -55,23 +63,30 @@ function QuickTalkContainer ({
 
   const user = usePanoptesUser()
   const userId = user?.id
-  const { data: comments } = useSWR([subject, subject?.project], getTalkComments)
+  const { data: comments } = useSWR([subject, subject?.project], getTalkComments, SWROptions)
+
   let author_ids = comments?.map(comment => comment.user_id)
   author_ids = author_ids?.filter((id, i) => author_ids.indexOf(id) === i)  // Remove duplicates
+
   const authors = {}
   const authorRoles = {}
-  const { data: allUsers } = useSWR([author_ids], getUsersByID)
-  allUsers?.forEach(user => authors[user.id] = user)
-  const { data: allRoles } = useSWR([author_ids, subject?.project], getTalkRoles)
+  const { data: allUsers } = useSWR([author_ids], getUsersByID, SWROptions)
+  allUsers?.forEach(user => {
+    authors[user.id] = user
+    authorRoles[user.id] = []
+  })
+
+  const { data: allRoles } = useSWR([author_ids, subject?.project], getTalkRoles, SWROptions)
   allRoles?.forEach(role => {
-    if (!authorRoles[role.user_id]) authorRoles[role.user_id] = []
-    authorRoles[role.user_id].push(role)
+    authorRoles[role.user_id]?.push(role)
   })
 
   const [postCommentStatus, setPostCommentStatus] = useState(asyncStates.initialized)
   const [postCommentStatusMessage, setPostCommentStatusMessage] = useState('')
 
-  async function postComment (text) {
+  if (!enabled || !subject) return null
+
+  async function postComment(text) {
     const project = subject?.project
     if (!subject || !project || !authClient) return
 
@@ -103,7 +118,7 @@ function QuickTalkContainer ({
 
       } else {  // Create a new discussion
 
-        const discussion = await postTalkDiscussion (text, discussionTitle, subject, defaultBoard, user, authorization)
+        const discussion = await postTalkDiscussion(text, discussionTitle, subject, defaultBoard, user, authorization)
         if (!discussion) throw new Error(t('QuickTalk.errors.failPostDiscussion'))
         comments.push(discussion.latest_comment)
 
@@ -117,8 +132,6 @@ function QuickTalkContainer ({
       setPostCommentStatusMessage(err?.message || err)
     }
   }
-
-  if (!enabled || !subject) return null
 
   return (
     <QuickTalk
