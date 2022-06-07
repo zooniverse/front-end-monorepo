@@ -85,9 +85,10 @@ const WorkflowStepStore = types
   }))
   .actions(self => {
     function _onWorkflowChange() {
-      if (self.workflow) {
+      if (self.workflow?.id && self.workflow?.version) {
         self.reset()
         self.setStepsAndTasks()
+        self.setTaskStrings(getSnapshot(self.workflow.strings))
       }
     }
 

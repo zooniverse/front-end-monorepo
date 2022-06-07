@@ -361,7 +361,7 @@ describe('Components > Classifier', function () {
       tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
       subjectImage = screen.getByRole('img', { name: `Subject ${subjectSnapshot.id}` })
       tabPanel = screen.getByRole('tabpanel', { name: '1 Tab Contents'})
-      const task = workflowSnapshot.tasks.T0
+      const task = newSnapshot.tasks.T0
       const getAnswerInput = answer => within(tabPanel).queryByRole('radio', { name: answer.label })
       taskAnswers = task.answers.map(getAnswerInput)
     })
