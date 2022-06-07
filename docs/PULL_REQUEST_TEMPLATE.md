@@ -30,7 +30,7 @@ Example Staging Project: [i-fancy-cats](https://local.zooniverse.org:3000/projec
 - [ ] Can submit a classification
 - [ ] Can sign-in and sign-out
 - [ ] The component is accessible
-  - Can be used with a screen reader [BBC guide to VoiceOver](https://bbc.github.io/accessibility-news-and-you/accessibility-and-testing-with-voiceover-os.html)
+  - Can be used with a screen reader [BBC guide to VoiceOver](https://bbc.github.io/accessibility-news-and-you/assistive-technology/testing-steps/voiceover-mac.html)
   - Can be used from the keyboard [WebAIM guide to keyboard testing](https://webaim.org/techniques/keyboard/#testing)
   - It is passing accessibility checks in the storybook
 
