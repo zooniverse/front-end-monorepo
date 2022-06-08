@@ -2655,16 +2655,6 @@
     "@sentry/utils" "7.1.1"
     tslib "^1.9.3"
 
-"@sentry/core@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-7.1.0.tgz#bf161a503ad085a3c71c68d0233075419f6513f2"
-  integrity sha512-ibFmXhDdTQ3LgpbtqPn2xSTgujMU8TqmplI9LbAyWYM2ZTij+ZvOPK2KRaSKvLDO8cm8iAuJ1/ExQdLfF43q1w==
-  dependencies:
-    "@sentry/hub" "7.1.0"
-    "@sentry/types" "7.1.0"
-    "@sentry/utils" "7.1.0"
-    tslib "^1.9.3"
-
 "@sentry/core@7.1.1":
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/@sentry/core/-/core-7.1.1.tgz#85f73f8037eec61e37549998de03a6d3d3c635b5"
@@ -2673,15 +2663,6 @@
     "@sentry/hub" "7.1.1"
     "@sentry/types" "7.1.1"
     "@sentry/utils" "7.1.1"
-    tslib "^1.9.3"
-
-"@sentry/hub@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-7.1.0.tgz#874637f6f742a355ee53391766253da2c750e877"
-  integrity sha512-LO+HsxcusnygFI93iyJ32mKbIAKSKq8haaMNTgtKGYH193UHkVCS3M51xJssEhfY+sW9Xs0V+ALt7FR0P/bwPg==
-  dependencies:
-    "@sentry/types" "7.1.0"
-    "@sentry/utils" "7.1.0"
     tslib "^1.9.3"
 
 "@sentry/hub@7.1.1":
@@ -2707,23 +2688,10 @@
     lru_map "^0.3.3"
     tslib "^1.9.3"
 
-"@sentry/types@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.1.0.tgz#dfe273df97acfec984c610a0e2ef00dea1918c7b"
-  integrity sha512-nsOJgpltnshJchBDr6H+QaL32nTtt13prbIsdgXghB4ty59H99XAj/nZ2z/nDC0sQhmuvpm8GOG/u5rpBDBuig==
-
 "@sentry/types@7.1.1":
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.1.1.tgz#63aa68e7be36d63cc305d01af9119a4cdb186ae3"
   integrity sha512-5N1UMd2SqvUXprcIUMyDEju3H9lJY2oWfWQBGo0lG6Amn/lGAPAYlchg+4vQCLutDQMyd8K9zPwcbKn4u6gHdw==
-
-"@sentry/utils@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-7.1.0.tgz#02ac124ff2d31687c21c2914f4ba60f57e698697"
-  integrity sha512-kDsijHp3TmBvO4HKzuGz8bgHJm5TsCihoPZt67LI+UNm1bVssYhNOTnTE9iIXMWsH4JY9f8feLzhofnnkz8wzA==
-  dependencies:
-    "@sentry/types" "7.1.0"
-    tslib "^1.9.3"
 
 "@sentry/utils@7.1.1":
   version "7.1.1"
@@ -4190,7 +4158,7 @@
   dependencies:
     "@types/express" "*"
 
-"@types/serve-static@*":
+"@types/serve-static@*", "@types/serve-static@^1.13.10":
   version "1.13.10"
   resolved "https://registry.yarnpkg.com/@types/serve-static/-/serve-static-1.13.10.tgz#f5e0ce8797d2d7cc5ebeda48a52c96c4fa47a8d9"
   integrity sha512-nCkHGI4w7ZgAdNkrEu0bv+4xNV/XDqW+DydknebMOQwkpDGx8G+HTlj7R7ABI8i8nKxVw0wtKPi1D+lPOkh4YQ==
@@ -17258,14 +17226,15 @@ webpack-dev-middleware@^5.3.1:
     schema-utils "^4.0.0"
 
 webpack-dev-server@~4.9.0:
-  version "4.9.1"
-  resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-4.9.1.tgz#184607b0287c791aeaa45e58e8fe75fcb4d7e2a8"
-  integrity sha512-CTMfu2UMdR/4OOZVHRpdy84pNopOuigVIsRbGX3LVDMWNP8EUgC5mUBMErbwBlHTEX99ejZJpVqrir6EXAEajA==
+  version "4.9.2"
+  resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-4.9.2.tgz#c188db28c7bff12f87deda2a5595679ebbc3c9bc"
+  integrity sha512-H95Ns95dP24ZsEzO6G9iT+PNw4Q7ltll1GfJHV4fKphuHWgKFzGHWi4alTlTnpk1SPPk41X+l2RB7rLfIhnB9Q==
   dependencies:
     "@types/bonjour" "^3.5.9"
     "@types/connect-history-api-fallback" "^1.3.5"
     "@types/express" "^4.17.13"
     "@types/serve-index" "^1.9.1"
+    "@types/serve-static" "^1.13.10"
     "@types/sockjs" "^0.3.33"
     "@types/ws" "^8.5.1"
     ansi-html-community "^0.0.8"
