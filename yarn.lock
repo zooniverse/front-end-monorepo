@@ -2655,16 +2655,6 @@
     "@sentry/utils" "7.1.1"
     tslib "^1.9.3"
 
-"@sentry/core@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-7.1.0.tgz#bf161a503ad085a3c71c68d0233075419f6513f2"
-  integrity sha512-ibFmXhDdTQ3LgpbtqPn2xSTgujMU8TqmplI9LbAyWYM2ZTij+ZvOPK2KRaSKvLDO8cm8iAuJ1/ExQdLfF43q1w==
-  dependencies:
-    "@sentry/hub" "7.1.0"
-    "@sentry/types" "7.1.0"
-    "@sentry/utils" "7.1.0"
-    tslib "^1.9.3"
-
 "@sentry/core@7.1.1":
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/@sentry/core/-/core-7.1.1.tgz#85f73f8037eec61e37549998de03a6d3d3c635b5"
@@ -2673,15 +2663,6 @@
     "@sentry/hub" "7.1.1"
     "@sentry/types" "7.1.1"
     "@sentry/utils" "7.1.1"
-    tslib "^1.9.3"
-
-"@sentry/hub@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-7.1.0.tgz#874637f6f742a355ee53391766253da2c750e877"
-  integrity sha512-LO+HsxcusnygFI93iyJ32mKbIAKSKq8haaMNTgtKGYH193UHkVCS3M51xJssEhfY+sW9Xs0V+ALt7FR0P/bwPg==
-  dependencies:
-    "@sentry/types" "7.1.0"
-    "@sentry/utils" "7.1.0"
     tslib "^1.9.3"
 
 "@sentry/hub@7.1.1":
@@ -2707,23 +2688,10 @@
     lru_map "^0.3.3"
     tslib "^1.9.3"
 
-"@sentry/types@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.1.0.tgz#dfe273df97acfec984c610a0e2ef00dea1918c7b"
-  integrity sha512-nsOJgpltnshJchBDr6H+QaL32nTtt13prbIsdgXghB4ty59H99XAj/nZ2z/nDC0sQhmuvpm8GOG/u5rpBDBuig==
-
 "@sentry/types@7.1.1":
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.1.1.tgz#63aa68e7be36d63cc305d01af9119a4cdb186ae3"
   integrity sha512-5N1UMd2SqvUXprcIUMyDEju3H9lJY2oWfWQBGo0lG6Amn/lGAPAYlchg+4vQCLutDQMyd8K9zPwcbKn4u6gHdw==
-
-"@sentry/utils@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-7.1.0.tgz#02ac124ff2d31687c21c2914f4ba60f57e698697"
-  integrity sha512-kDsijHp3TmBvO4HKzuGz8bgHJm5TsCihoPZt67LI+UNm1bVssYhNOTnTE9iIXMWsH4JY9f8feLzhofnnkz8wzA==
-  dependencies:
-    "@sentry/types" "7.1.0"
-    tslib "^1.9.3"
 
 "@sentry/utils@7.1.1":
   version "7.1.1"
@@ -6690,9 +6658,9 @@ contentful-sdk-core@^7.0.1:
     qs "^6.9.4"
 
 contentful@~9.1.6:
-  version "9.1.31"
-  resolved "https://registry.yarnpkg.com/contentful/-/contentful-9.1.31.tgz#a2c5692c0f5d41aae5a21bc3c4a90dd2a176b5e1"
-  integrity sha512-jLlEWH6xl76zaU0x/z9qDX+SkSSjhxYiABf2nLewYSOWKu63UI+9y7rnU5DdfJbRsmbs0BqA7Psm21+Ry9aOmg==
+  version "9.1.32"
+  resolved "https://registry.yarnpkg.com/contentful/-/contentful-9.1.32.tgz#1ae88ee52a7b2f84d4ddd77f4095776ce4862142"
+  integrity sha512-tMnqogNYtEhCWQWXGA4lyEQj2sNuFcCCEmU4DNOO20CoZjx0ah4tHVVLzvw8bn1dav1/nVlJBk33DpYTEAgTZw==
   dependencies:
     axios "^0.27.0"
     contentful-resolve-response "^1.3.0"
