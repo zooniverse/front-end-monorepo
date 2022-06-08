@@ -1,5 +1,8 @@
 {
   "About": {
+    "PageNav": {
+      "title": "About the project"
+    },
     "PageHeading": {
       "title": {
         "research": "Research",

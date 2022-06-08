@@ -73,14 +73,14 @@ function ProjectAboutPage ({
             gap={screenSize === 'small' ? '' : '8%'}
           >
             {screenSize !== 'small' ? (
-              <Box>
+              <Box as='aside'>
                 <SidebarHeading children={t('About.SidebarHeading')} />
                 <AboutSidebar aboutNavLinks={aboutNavLinks} />
               </Box>
             ) : (
               <AboutDropdownNav aboutNavLinks={aboutNavLinks} />
             )}
-            <Box>
+            <Box as='main'>
               <PageHeading
                 children={pageTitle}
                 level='2'
@@ -95,14 +95,21 @@ function ProjectAboutPage ({
                 >
                   <AboutMarkdownz content={content} />
                   <Box>
-                    <SpacedText
-                      margin={{ bottom: '14px' }}
-                      children={`${projectDisplayName} TEAM`}
-                      weight='bold'
-                      color={{ light: 'black', dark: '' }}
-                    />
+                    <Heading
+                      id='team-sidebar-heading'
+                      level={3}
+                      margin={{ top: '0', bottom: '14px' }}
+                      pad='none'
+                      size='small'
+                    >
+                      <SpacedText
+                        children={`${projectDisplayName} TEAM`}
+                        weight='bold'
+                        color={{ light: 'black', dark: '' }}
+                      />
+                    </Heading>
                     {teamArray.length && (
-                      <Box as='ul' margin='none' pad='none' data-testid='about-team-members-list'>
+                      <Box aria-labelledby='team-sidebar-heading' as='ul' margin='none' pad='none'>
                         {teamArray.map(user => (
                           <TeamMember key={user.id} user={user} />
                         ))}
