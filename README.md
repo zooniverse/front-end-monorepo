@@ -124,7 +124,10 @@ More information is available in [ADR 12](docs/arch/adr-12.md) and [ADR 17](docs
 
 The yarn build scripts default to production for libraries if `PANOPTES_ENV` is not specified. The apps are always built to the production API.
 - `NODE_ENV`: the [webpack build mode](https://webpack.js.org/configuration/mode/) for libraries and the NextJS apps (production, development or undefined.)
-- `APP_ENV`: sets the [Sentry environment](https://docs.sentry.io/enriching-error-data/environments/?platform=javascript) (development, staging or production) when reporting errors.
+- `APP_ENV`: the deployment environment, logged as the [Sentry environment](https://docs.sentry.io/product/sentry-basics/environments/) with errors:
+  - `development`: local development on `localhost` or `local.zooniverse.org`.
+  - `staging`: staging on `frontend.preview.zooniverse.org`.
+  - `production`: the Zooniverse web site, `www.zooniverse.org`.
 - `CONTENTFUL_ACCESS_TOKEN`: access token for the Contentful API. Should be kept secret.
 - `CONTENTFUL_SPACE_ID`: space ID for Zooniverse About pages in Contentful. Should be kept secret.
 - `CONTENT_ASSET_PREFIX`: [NextJS asset prefix](https://nextjs.org/docs/api-reference/next.config.js/cdn-support-with-asset-prefix) for `app-content-pages`.
