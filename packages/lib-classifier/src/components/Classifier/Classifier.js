@@ -1,7 +1,6 @@
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
-import zooTheme from '@zooniverse/grommet-theme'
 import '../../translations/i18n'
 import i18n from 'i18next'
 
