@@ -6,10 +6,10 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "build": "PANOPTES_ENV=${PANOPTES_ENV:-production} next build",
+    "build": "APP_ENV=${APP_ENV:-development} PANOPTES_ENV=${PANOPTES_ENV:-production} next build",
     "build-storybook": "build-storybook -s public",
-    "dev": "PANOPTES_ENV=${PANOPTES_ENV:-staging} node server/dev-server.js",
-    "dev:inspect": "PANOPTES_ENV=${PANOPTES_ENV:-staging} NODE_OPTIONS='--inspect' node server/dev-server.js",
+    "dev": "APP_ENV=${APP_ENV:-development} PANOPTES_ENV=${PANOPTES_ENV:-staging} node server/dev-server.js",
+    "dev:inspect": "APP_ENV=${APP_ENV:-development} PANOPTES_ENV=${PANOPTES_ENV:-staging} NODE_OPTIONS='--inspect' node server/dev-server.js",
     "lint": "next lint",
     "start": "NODE_ENV=${NODE_ENV:-production} node server/server.js",
     "start:dev": "NODE_ENV=${NODE_ENV:-production} node server/dev-server.js",

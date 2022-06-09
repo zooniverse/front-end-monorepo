@@ -6,8 +6,8 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "build": "PANOPTES_ENV=${PANOPTES_ENV:-production} next build",
-    "dev": "PANOPTES_ENV=${PANOPTES_ENV:-production} node server/server.js",
+    "build": "APP_ENV=${APP_ENV:-development} PANOPTES_ENV=${PANOPTES_ENV:-production} next build",
+    "dev": "APP_ENV=${APP_ENV:-development} PANOPTES_ENV=${PANOPTES_ENV:-production} node server/server.js",
     "lint": "next lint",
     "start": "NODE_ENV=${NODE_ENV:-production} node server/server.js",
     "storybook": "start-storybook -p 9002 -c .storybook",
