@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 import { withTranslation } from 'react-i18next'
 
-import { withStores } from '@helpers'
+import { withFeatureFlag, withStores } from '@helpers'
 import { getBearerToken } from '@store/utils'
 import QuickTalk from './QuickTalk'
 
@@ -197,5 +197,6 @@ QuickTalkContainer.defaultProps = {
 }
 
 const TranslatedQuickTalkContainer = withTranslation('components')(QuickTalkContainer)
-export default withStores(TranslatedQuickTalkContainer, storeMapper)
+const ConnectedQuickTalkContainer = withStores(TranslatedQuickTalkContainer, storeMapper)
+export default withFeatureFlag(ConnectedQuickTalkContainer, 'quicktalk')
 export { QuickTalkContainer }
