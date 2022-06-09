@@ -180,7 +180,7 @@ const WorkflowStepStore = types
           try {
             applySnapshot(task.strings, taskStringsSnapshot)
           } catch (error) {
-            console.error(`${taskKey} ${task.type}: could not apply language strings`)
+            console.error(`${task.taskKey} ${task.type}: could not apply language strings`)
             console.error(error)
           }
         })
