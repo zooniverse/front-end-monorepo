@@ -92,8 +92,8 @@ const WorkflowStepStore = types
       }
     }
 
-    function _onLocaleChange() {
-      // Update task language strings when the workflow language changes.
+    function _onWorkflowStringsChange() {
+      // Pass workflow strings down to task strings when they change.
       if (self.workflow?.strings) {
         self.setTaskStrings(getSnapshot(self.workflow.strings))
       }
@@ -101,7 +101,7 @@ const WorkflowStepStore = types
 
     function afterAttach () {
       addDisposer(self, autorun(_onWorkflowChange))
-      addDisposer(self, autorun(_onLocaleChange))
+      addDisposer(self, autorun(_onWorkflowStringsChange))
     }
 
     function getNextStepKey () {
