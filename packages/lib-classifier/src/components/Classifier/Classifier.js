@@ -1,4 +1,3 @@
-import { Provider } from 'mobx-react'
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
