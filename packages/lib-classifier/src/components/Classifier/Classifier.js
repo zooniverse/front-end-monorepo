@@ -1,8 +1,6 @@
-import { Provider } from 'mobx-react'
-import { getSnapshot } from 'mobx-state-tree'
+import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
-import zooTheme from '@zooniverse/grommet-theme'
 import '../../translations/i18n'
 import i18n from 'i18next'
 
@@ -19,9 +17,10 @@ export default function Classifier({
   subjectID,
   subjectSetID,
   workflowSnapshot,
-  workflowID
 }) {
 
+  const workflowID = workflowSnapshot?.id
+  const workflowStrings = workflowSnapshot?.strings
   const user = usePanoptesUser()
   const projectRoles = useProjectRoles(project?.id, user?.id)
   let workflowVersionChanged = false
@@ -55,20 +54,21 @@ export default function Classifier({
 
   useEffect(function onURLChange() {
     const { workflows } = classifierStore
-    if (workflowID && workflowSnapshot) {
+    if (workflowID) {
       console.log('starting new subject queue', { workflowID, subjectSetID, subjectID })
       workflows.setResources([workflowSnapshot])
       workflows.selectWorkflow(workflowID, subjectSetID, subjectID, canPreviewWorkflows)
     }
-  }, [canPreviewWorkflows, subjectID, subjectSetID, workflowID, workflowSnapshot])
+  }, [canPreviewWorkflows, subjectID, subjectSetID, workflowID])
 
   useEffect(function onWorkflowStringsChange() {
     const { workflows } = classifierStore
-    if (workflowSnapshot) {
-      console.log('Refreshing workflow strings', workflowSnapshot.id)
-      workflows.setResources([workflowSnapshot])
+    if (workflowStrings) {
+      const workflow = workflows.resources.get(workflowID)
+      console.log('Refreshing workflow strings', workflowID)
+      applySnapshot(workflow.strings, workflowStrings)
     }
-  }, [workflowSnapshot?.strings])
+  }, [workflowID, workflowStrings])
   /*
     This should run when a project owner edits a workflow, but not when a workflow updates
     as a result of receiving classifications eg. workflow.completeness.

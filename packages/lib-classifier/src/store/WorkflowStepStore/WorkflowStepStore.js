@@ -3,6 +3,7 @@ import {
   addDisposer,
   applySnapshot,
   getRoot,
+  getSnapshot,
   isValidReference,
   tryReference, 
   types 
@@ -84,21 +85,23 @@ const WorkflowStepStore = types
   }))
   .actions(self => {
     function _onWorkflowChange() {
-      if (self.workflow) {
+      // Reset steps and tasks when the workflow ID or version change.
+      if (self.workflow?.id && self.workflow?.version) {
         self.reset()
         self.setStepsAndTasks()
       }
     }
 
-    function _onLocaleChange() {
-      if (self.locale && self.workflow?.strings) {
-        self.setTaskStrings()
+    function _onWorkflowStringsChange() {
+      // Pass workflow strings down to task strings when they change.
+      if (self.workflow?.strings) {
+        self.setTaskStrings(getSnapshot(self.workflow.strings))
       }
     }
 
     function afterAttach () {
       addDisposer(self, autorun(_onWorkflowChange))
-      addDisposer(self, autorun(_onLocaleChange))
+      addDisposer(self, autorun(_onWorkflowStringsChange))
     }
 
     function getNextStepKey () {
@@ -136,9 +139,10 @@ const WorkflowStepStore = types
     }
 
     function setStepsAndTasks () {
-      const { steps, tasks } = self.workflow
+      const { steps, strings, tasks } = self.workflow
       self.setSteps(steps)
       self.setTasks(tasks)
+      self.setTaskStrings(getSnapshot(strings))
     }
 
     function setSteps (steps) {
@@ -162,22 +166,21 @@ const WorkflowStepStore = types
       })
     }
 
-    function setTaskStrings() {
-      const workflowStrings = self.workflow?.strings
+    function setTaskStrings(stringsSnapshot) {
+      const workflowStrings = Object.entries(stringsSnapshot)
       self.steps.forEach(function (step) {
         step.tasks.forEach((task) => {
           const prefix = `tasks.${task.taskKey}.`
-          const strings = {}
-          Object.entries(workflowStrings).forEach(([key, value]) => {
-            if (key.startsWith(prefix)) {
-              const newKey = key.slice(prefix.length)
-              strings[newKey] = value
-            }
+          const taskStrings = workflowStrings.filter(([key, value]) => key.startsWith(prefix))
+          const taskStringsSnapshot = {}
+          taskStrings.forEach(([key, value]) => {
+            const newKey = key.slice(prefix.length)
+            taskStringsSnapshot[newKey] = value
           })
           try {
-            applySnapshot(task.strings, strings)
+            applySnapshot(task.strings, taskStringsSnapshot)
           } catch (error) {
-            console.error(`${taskKey} ${task.type}: could not apply language strings`)
+            console.error(`${task.taskKey} ${task.type}: could not apply language strings`)
             console.error(error)
           }
         })

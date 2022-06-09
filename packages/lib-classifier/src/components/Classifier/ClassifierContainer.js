@@ -138,7 +138,6 @@ export default function ClassifierContainer({
             subjectSetID={subjectSetID}
             subjectID={subjectID}
             workflowSnapshot={workflowSnapshot}
-            workflowID={workflowSnapshot?.id}
           />
         </Provider>
       )
