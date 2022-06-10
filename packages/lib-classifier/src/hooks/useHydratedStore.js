@@ -29,7 +29,13 @@ function initStore({ cachePanoptesData, storageKey, storeEnv }) {
       initialState = loadSnapshot(storageKey)
     }
 
-    store = RootStore.create(initialState, storeEnv)
+    try {
+      store = RootStore.create(initialState, storeEnv)
+    } catch (error) {
+      console.error('Unable to hydrate store from session storage.')
+      console.error(error)
+      store = RootStore.create({}, storeEnv)
+    }
 
     if (cachePanoptesData) {
       persist(storageKey, store)

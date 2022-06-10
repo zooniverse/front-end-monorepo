@@ -127,4 +127,35 @@ describe('Components > Task', function () {
       })
     })
   })
+
+  describe('invalid tasks', function () {
+    it('should display an error message', function () {
+      const task = {
+        taskKey: 'init',
+        type: 'dropdown',
+        instruction: '',
+        options: []
+      }
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'tasksWorkflow',
+        display_name: 'A test workflow',
+        tasks: {
+          init: task
+        },
+        version: '0.0'
+      })
+      const store = mockStore({ workflow: workflowSnapshot })
+      const wrapper = mount(
+        <Task
+          store={store}
+          task={task}
+        />, {
+          wrappingComponent: Grommet,
+          wrappingComponentProps: { theme: zooTheme }
+        }
+      )
+      const errorMessage = wrapper.find('p').text()
+      expect(errorMessage).to.equal('init dropdown is not a supported task type.')
+    })
+  })
 })
