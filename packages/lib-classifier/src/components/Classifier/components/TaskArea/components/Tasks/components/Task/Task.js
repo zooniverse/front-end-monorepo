@@ -33,9 +33,18 @@ function Task ({
   task,
   ...props
 }) {
-  const { TaskComponent } = task.type === 'dropdown-simple'? tasks.dropdownSimple : tasks[task.type]
+  const TaskPlugin = task.type === 'dropdown-simple'? tasks.dropdownSimple : tasks[task.type]
+  const TaskComponent = TaskPlugin?.TaskComponent
   let annotation
   let suggestions
+
+  if (!TaskComponent) {
+    return (
+      <Paragraph>
+        <code>{task.taskKey} {task.type}</code> is not a supported task type.
+      </Paragraph>
+    )
+  }
 
   if (latest) {
     ([ annotation ] = latest.annotations.filter(annotation => annotation.task === task.taskKey))
@@ -47,10 +56,6 @@ function Task ({
   
   if (!annotation) {
     return <Paragraph>Annotation missing for task <code>{task.taskKey}</code></Paragraph>
-  }
-
-  if (!TaskComponent) {
-    return (<Paragraph>Task component could not be rendered.</Paragraph>)
   }
 
   return (
