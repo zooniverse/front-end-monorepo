@@ -8,7 +8,7 @@ import FieldGuideItemIcon from '../FieldGuideItemIcon'
 import { useTranslation } from 'react-i18next'
 
 const defaultIcons = observable.map()
-export function AnchorLabel ({
+export function AnchorLabel({
   className = '',
   icons = defaultIcons,
   item,
@@ -22,7 +22,7 @@ export function AnchorLabel ({
       direction='column'
       width='100px'
     >
-      <FieldGuideItemIcon alt={item.title} fit='cover' height='100px' icon={icon} width='100px' />
+      <FieldGuideItemIcon alt={title} fit='cover' height='100px' icon={icon} width='100px' />
       <Paragraph>
         {title}
       </Paragraph>
@@ -31,7 +31,7 @@ export function AnchorLabel ({
 }
 
 const defaultTheme = { dark: false }
-function FieldGuideItemAnchor ({
+function FieldGuideItemAnchor({
   className = '',
   icons = defaultIcons,
   item,
@@ -44,8 +44,8 @@ function FieldGuideItemAnchor ({
   const { t } = useTranslation('components')
 
   function selectItem(event, itemIndex) {
-    event.preventDefault()
     onClick(itemIndex)
+    event.preventDefault()
   }
 
 
@@ -53,7 +53,6 @@ function FieldGuideItemAnchor ({
     const anchorColor = (theme.dark) ? 'light-3' : 'dark-5'
     return (
       <Anchor
-        a11yTitle={t('FieldGuide.FieldGuideItemAnchor.ariaTitle', { title })}
         className={className}
         color={anchorColor}
         href={`#field-guide-item-${itemIndex}`}

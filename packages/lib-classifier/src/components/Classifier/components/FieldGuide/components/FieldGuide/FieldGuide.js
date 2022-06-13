@@ -24,6 +24,7 @@ function FieldGuide ({
   const title = strings[`items.${activeItemIndex}.title`]
   const content = strings[`items.${activeItemIndex}.content`]
   const ModalComponent = modalComponent
+  const id = activeItemIndex ? `field-guide-item-${activeItemIndex}` : 'field-guide-menu'
   return (
     <ModalComponent
       {...modalProps}
@@ -34,8 +35,8 @@ function FieldGuide ({
         width={{ min: boxWidth }}
       >
         {item
-          ? <FieldGuideItem icons={icons} item={item} setActiveItemIndex={setActiveItemIndex} content={content} title={title} />
-          : <FieldGuideItems icons={icons} items={items} onChange={setActiveItemIndex} strings={strings} />
+          ? <FieldGuideItem id={id} icons={icons} item={item} setActiveItemIndex={setActiveItemIndex} content={content} title={title} />
+          : <FieldGuideItems id={id} icons={icons} items={items} onChange={setActiveItemIndex} strings={strings} />
         }
       </Box>
     </ModalComponent>

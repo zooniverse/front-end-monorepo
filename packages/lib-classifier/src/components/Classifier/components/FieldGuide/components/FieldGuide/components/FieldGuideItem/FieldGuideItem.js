@@ -47,6 +47,7 @@ function FieldGuideItem ({
   className = '',
   content = '',
   icons = defaultIcons,
+  id,
   item,
   setActiveItemIndex,
   title = ''
@@ -56,7 +57,7 @@ function FieldGuideItem ({
   const { t } = useTranslation('components')
 
   return (
-    <Box className={className}>
+    <Box id={id} className={className}>
       <Box
         align='center'
         border={{ color: 'light-5', side: 'bottom' }}
@@ -95,6 +96,7 @@ FieldGuideItem.propTypes = {
   className: PropTypes.string,
   content: PropTypes.string,
   icons: MobXPropTypes.observableMap,
+  id: PropTypes.string,
   item: PropTypes.object.isRequired,
   setActiveItemIndex: PropTypes.func.isRequired,
   strings: PropTypes.string,
