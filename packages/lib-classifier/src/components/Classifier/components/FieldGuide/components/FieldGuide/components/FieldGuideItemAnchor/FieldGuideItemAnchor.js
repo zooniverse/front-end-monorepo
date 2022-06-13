@@ -7,7 +7,13 @@ import { withTheme } from 'styled-components'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
 import { useTranslation } from 'react-i18next'
 
-export function AnchorLabel ({ className, icons, item }) {
+const defaultIcons = observable.map()
+export function AnchorLabel({
+  className = '',
+  icons = defaultIcons,
+  item,
+  title
+}) {
   const icon = icons.get(item.icon)
   return (
     <Box
@@ -16,58 +22,51 @@ export function AnchorLabel ({ className, icons, item }) {
       direction='column'
       width='100px'
     >
-      <FieldGuideItemIcon alt={item.title} fit='cover' height='100px' icon={icon} width='100px' />
+      <FieldGuideItemIcon alt={title} fit='cover' height='100px' icon={icon} width='100px' />
       <Paragraph>
-        {item.title}
+        {title}
       </Paragraph>
     </Box>
   )
 }
 
-function FieldGuideItemAnchor (props) {
-  const {
-    className,
-    icons,
-    item,
-    itemIndex,
-    setActiveItemIndex,
-    theme
-  } = props
+const defaultTheme = { dark: false }
+function FieldGuideItemAnchor({
+  className = '',
+  icons = defaultIcons,
+  item,
+  itemIndex,
+  onClick,
+  theme = defaultTheme,
+  title
+}) {
 
   const { t } = useTranslation('components')
 
-  function onClick (event, itemIndex) {
+  function selectItem(event, itemIndex) {
+    onClick(itemIndex)
     event.preventDefault()
-    setActiveItemIndex(itemIndex)
   }
 
 
-    const label = <AnchorLabel icons={icons} item={item} />
+    const label = <AnchorLabel icons={icons} item={item} title={title} />
     const anchorColor = (theme.dark) ? 'light-3' : 'dark-5'
     return (
       <Anchor
-        a11yTitle={t('FieldGuide.FieldGuideItemAnchor.ariaTitle', { title: item.title })}
         className={className}
         color={anchorColor}
         href={`#field-guide-item-${itemIndex}`}
         label={label}
-        onClick={(event) => onClick(event, itemIndex)}
+        onClick={(event) => selectItem(event, itemIndex)}
       />
     )
-}
-
-FieldGuideItemAnchor.defaultProps = {
-  className: '',
-  icons: observable.map(),
-  theme: {
-    dark: false
-  }
 }
 
 FieldGuideItemAnchor.propTypes = {
   className: PropTypes.string,
   icons: MobXPropTypes.observableMap,
   item: PropTypes.object.isRequired,
+  label: PropTypes.string,
   setActiveItemIndex: PropTypes.func.isRequired,
   theme: PropTypes.shape({
     dark: PropTypes.bool
