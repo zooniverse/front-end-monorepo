@@ -7,56 +7,71 @@ import FieldGuideItem from './components/FieldGuideItem'
 import FieldGuideItems from './components/FieldGuideItems'
 import { FieldGuideFactory, FieldGuideMediumFactory } from '@test/factories'
 
-const medium = FieldGuideMediumFactory.build()
-const fieldGuide = FieldGuideFactory.build({
-  items: [
-    {
-      title: 'Cat',
-      icon: medium.id,
-      content: 'lorem ipsum'
-    },
-    {
-      title: 'Dog',
-      content: 'Foo bar'
-    },
-    { title: 'Iguana', content: 'hello' },
-    { title: 'Koala', content: '' },
-    { title: 'Dragon', content: 'Why is this here?' }
-  ]
-})
-const icons = observable.map({
-  [medium.id]: medium
-})
-
-const minHeight = 415
-const minWidth = 490
-
-const modalProps = {
-  active: true,
-  closeFn: () => {},
-  modal: false,
-  pad: 'medium',
-  position: 'right',
-  rndProps: {
-    minHeight,
-    minWidth,
-    onResize: () => {},
-    position: {
-      height: minHeight,
-      x: 0 - (minWidth + 60), // width plus margins
-      y: 0 - (minHeight + 60) * 0.5 // centers vertically
-    }
-  },
-  title: 'Field Guide'
-}
-
 describe('Component > FieldGuide', function () {
+  const medium = FieldGuideMediumFactory.build()
+  const fieldGuide = FieldGuideFactory.build({
+    items: [
+      {
+        title: 'Cat',
+        icon: medium.id,
+        content: 'lorem ipsum'
+      },
+      {
+        title: 'Dog',
+        content: 'Foo bar'
+      },
+      { title: 'Iguana', content: 'hello' },
+      { title: 'Koala', content: '' },
+      { title: 'Dragon', content: 'Why is this here?' }
+    ]
+  })
+
+  const strings = {
+    'items.0.title': 'Cat',
+    'items.0.content': 'lorem ipsum',
+    'items.1.title': 'Dog',
+    'items.1.content': 'Foo bar',
+    'items.2.title': 'Iguana',
+    'items.2.content': 'hello',
+    'items.3.title': 'Koala',
+    'items.3.content': '',
+    'items.4.title': 'Dragon',
+    'items.4.content': 'Why is this here?'
+  }
+
+  const icons = observable.map({
+    [medium.id]: medium
+  })
+
+  const minHeight = 415
+  const minWidth = 490
+
+  const modalProps = {
+    active: true,
+    closeFn: () => {},
+    modal: false,
+    pad: 'medium',
+    position: 'right',
+    rndProps: {
+      minHeight,
+      minWidth,
+      onResize: () => {},
+      position: {
+        height: minHeight,
+        x: 0 - (minWidth + 60), // width plus margins
+        y: 0 - (minHeight + 60) * 0.5 // centers vertically
+      }
+    },
+    title: 'Field Guide'
+  }
+
   it('should render without crashing', function () {
     const wrapper = shallow(
       <FieldGuide
         fieldGuide={fieldGuide}
         modalComponent={MovableModal}
         modalProps={modalProps}
+        strings={strings}
       />)
     expect(wrapper).to.be.ok()
   })
@@ -70,7 +85,7 @@ describe('Component > FieldGuide', function () {
           icons={icons}
           modalComponent={MovableModal}
           modalProps={modalProps}
-          setActiveItemIndex={() => {}}
+          strings={strings}
         />)
     })
 
@@ -83,7 +98,7 @@ describe('Component > FieldGuide', function () {
       const props = wrapper.find(FieldGuideItems).props()
       expect(props.items).to.equal(fieldGuide.items)
       expect(props.icons).to.equal(icons)
-      expect(props.setActiveItemIndex).to.be.a('function')
+      expect(props.onChange).to.be.a('function')
     })
   })
 
@@ -92,13 +107,13 @@ describe('Component > FieldGuide', function () {
     before(function () {
       wrapper = shallow(
         <FieldGuide
-          activeItemIndex={0}
           fieldGuide={fieldGuide}
           icons={icons}
           modalComponent={MovableModal}
           modalProps={modalProps}
-          setActiveItemIndex={() => { }}
+          strings={strings}
         />)
+        wrapper.find(FieldGuideItems).simulate('change', 0)
     })
 
     it('should render FieldGuideItem if there is an active item', function () {

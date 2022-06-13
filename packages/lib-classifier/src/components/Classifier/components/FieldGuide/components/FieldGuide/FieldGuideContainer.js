@@ -4,12 +4,11 @@ import { MovableModal, Modal } from '@zooniverse/react-components'
 import FieldGuide from './FieldGuide'
 import { useTranslation } from 'react-i18next'
 
-function FieldGuideContainer (props) {
-  const {
-    onClose,
-    size,
-    ...rest
-  } = props
+function FieldGuideContainer ({
+  onClose = () => true,
+  size = 'large',
+  ...rest
+}) {
   const { t } = useTranslation('components')
 
   const modalComponent = (size === 'small') ? Modal : MovableModal
@@ -55,18 +54,8 @@ function FieldGuideContainer (props) {
   )
 }
 
-FieldGuideContainer.defaultProps = {
-  className: '',
-  onClose: () => { },
-  setActiveItemIndex: () => { },
-  size: 'large'
-}
-
 FieldGuideContainer.propTypes = {
-  className: PropTypes.string,
-  fieldGuide: PropTypes.object.isRequired,
   onClose: PropTypes.func,
-  setActiveItemIndex: PropTypes.func,
   size: PropTypes.string
 }
 
