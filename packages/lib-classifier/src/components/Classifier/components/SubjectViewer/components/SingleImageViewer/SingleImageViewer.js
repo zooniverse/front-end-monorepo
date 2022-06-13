@@ -7,11 +7,6 @@ import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import InteractionLayer from '../InteractionLayer'
 import ZoomControlButton from '../ZoomControlButton'
 
-const StyledBox = styled(Box)`
-  image {
-    filter: ${({ invert }) => invert ? 'invert(100%)' : 'invert(0%)'};
-  }
-`
 
 function SingleImageViewer (props) {
   const {
@@ -41,12 +36,12 @@ function SingleImageViewer (props) {
           zooming={zooming}
         />
       )}
-      <StyledBox
+      <Box
         animation='fadeIn'
-        invert={invert}
         overflow='hidden'
       >
         <svg
+          filter={invert ? 'invert(100%)' : 'invert(0)'}
           focusable
           onKeyDown={onKeyDown}
           tabIndex={0}
@@ -70,7 +65,7 @@ function SingleImageViewer (props) {
             )}
           </g>
         </svg>
-      </StyledBox>
+      </Box>
     </SVGContext.Provider>
   )
 }
