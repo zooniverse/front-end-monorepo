@@ -9,7 +9,6 @@ describe('DataVisAnnotationTask', function () {
   // TODO: move this into a factory
   const taskSnapshot = {
     activeToolIndex: 0,
-    instruction: 'Mark an area of the graph that is interesting.',
     taskKey: 'T101',
     strings: {
       help: '',

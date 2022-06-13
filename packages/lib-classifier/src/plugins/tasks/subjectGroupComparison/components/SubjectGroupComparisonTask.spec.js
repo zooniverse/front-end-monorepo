@@ -6,8 +6,10 @@ import { default as Task } from '@plugins/tasks/subjectGroupComparison'
 
 describe('SubjectGroupComparisonTask', function () {
   const task = Task.TaskModel.create({
-    question: 'Please select the cells that look weird.',
     required: true,
+    strings: {
+      question: 'Please select the cells that look weird.'
+    },
     taskKey: 'init',
     type: 'subjectGroupComparison'
   })

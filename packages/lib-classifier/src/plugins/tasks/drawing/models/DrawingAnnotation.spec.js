@@ -108,7 +108,9 @@ describe('Model > DrawingAnnotation', function () {
                 type: 'point',
                 details: [{
                   type: 'single',
-                  question: 'Yes or no?',
+                  strings: {
+                    question: 'Yes or no?'
+                  },
                   answers: [ 'yes', 'no' ]
                 }]
               }

@@ -14,21 +14,33 @@ export const subject = SubjectFactory.build({
 
 export const subTasksSnapshot = [
   {
-    instruction: 'Name your favourite fruit.',
+    strings: {
+      help: 'Do drawing sub-tasks show help? Should they?',
+      instruction: 'Name your favourite fruit.'
+    },
     taskKey: 'T0.0',
     type: 'text'
   },
   {
     answers: [{ label: "yes" }, { label: "no" }],
-    help: "",
-    question: "Is it tasty?",
+    strings: {
+      'answers.0.label': 'yes',
+      'answers.1.label': 'no',
+      help: '',
+      question: 'Is it tasty?',
+    },
     taskKey: 'T0.1',
     type: 'single'
   },
   {
     answers: [{ label: "cat" }, { label: "dog" }, { label: "bird" }],
-    help: "",
-    question: "Select your favourite animals.",
+    strings: {
+      'answers.0.label': 'cat',
+      'answers.1.label': 'dog',
+      'answers.2.label': 'bird',
+      help: '',
+      question: 'Select your favourite animals.'
+    },
     taskKey: 'T0.2',
     type: 'multiple'
   }

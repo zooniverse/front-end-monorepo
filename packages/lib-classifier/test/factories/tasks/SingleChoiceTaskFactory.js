@@ -5,8 +5,9 @@ export default new Factory()
     { label: 'Yes' },
     { label: 'No' }
   ])
-  .attr('help', '')
   .attr('required', 'true')
-  .attr('question', 'Is there a galaxy?')
+  .attr('strings', {
+    question: 'Is there a galaxy?'
+  })
   .attr('taskKey', '')
   .attr('type', 'single')

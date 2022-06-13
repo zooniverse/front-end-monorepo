@@ -1,18 +1,20 @@
 import { types } from 'mobx-state-tree'
 import MultipleChoiceTask from '@plugins/tasks/multiple'
 
-const multipleChoiceTask = {
-  answers: [
-    { label: 'leaves', _key: Math.random() },
-    { label: 'flowers', _key: Math.random() }
-  ],
-  question: 'What do you see?',
-  required: '',
-  taskKey: 'T2',
-  type: 'multiple'
-}
-
 describe('Model > MultipleChoiceTask', function () {
+  const multipleChoiceTask = {
+    answers: [
+      { label: 'leaves', _key: Math.random() },
+      { label: 'flowers', _key: Math.random() }
+    ],
+    required: '',
+    strings: {
+      question: 'What do you see?'
+    },
+    taskKey: 'T2',
+    type: 'multiple'
+  }
+
   it('should exist', function () {
     const multipleChoiceTaskInstance = MultipleChoiceTask.TaskModel.create(multipleChoiceTask)
     expect(multipleChoiceTaskInstance).to.be.ok()

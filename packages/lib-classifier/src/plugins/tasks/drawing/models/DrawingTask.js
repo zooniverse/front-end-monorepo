@@ -15,10 +15,8 @@ export const Drawing = types.model('Drawing', {
   activeMark: types.safeReference(GenericMark),
   activeToolIndex: types.optional(types.number, 0),
   annotation: types.safeReference(DrawingAnnotation),
-  help: types.optional(types.string, ''),
   shownMarks: types.optional(types.enumeration(Object.keys(SHOWN_MARKS)), SHOWN_MARKS.ALL),
   hidingIndex: types.maybeNull(types.number),
-  instruction: types.string,
   tools: types.array(GenericTool),
   type: types.literal('drawing')
 })
