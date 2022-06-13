@@ -6,9 +6,9 @@ import zooTheme from '@zooniverse/grommet-theme'
 
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
-import ImageToolbar from './ImageToolbar'
-
+import { StyledImageToolbarContainer, StyledImageToolbar, ViewerGrid } from '../Layout/components/DefaultLayout/DefaultLayout'
 import SingleImageViewer from '../SubjectViewer/components/SingleImageViewer'
+import ImageToolbar from './ImageToolbar'
 
 export default {
   title: 'Image Toolbar / Image Toolbar',
@@ -50,17 +50,17 @@ export function Default ({ dark }) {
       <Provider
         classifierStore={store}
       >
-        <Box
-          direction='row'
-          height='800px'
-          width='large'
-        >
-          <SingleImageViewer
-            loadingState={asyncStates.success}
-            subject={store.subjects.active}
-          />
-          <ImageToolbar />
-        </Box>
+        <ViewerGrid>
+          <Box gridArea='subject'>
+            <SingleImageViewer
+              loadingState={asyncStates.success}
+              subject={store.subjects.active}
+            />
+          </Box>
+          <StyledImageToolbarContainer>
+            <StyledImageToolbar />
+          </StyledImageToolbarContainer>
+        </ViewerGrid>
       </Provider>
     </Grommet>
   )
