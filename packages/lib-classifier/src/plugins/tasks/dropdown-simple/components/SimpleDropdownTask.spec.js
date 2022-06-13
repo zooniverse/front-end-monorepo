@@ -6,7 +6,6 @@ import SimpleDropdownTask from './SimpleDropdownTask'
 import { default as Task } from '@plugins/tasks/dropdown-simple'
 
 const simpleDropdownTask = {
-  instruction: 'Choose your favourite colour',
   allowCreate: false,
   options: [
     'Red',
@@ -17,6 +16,9 @@ const simpleDropdownTask = {
     'Black',
   ],
   required: false,
+  strings: {
+    instruction: 'Choose your favourite colour'
+  },
   taskKey: 'T1',
   type: 'dropdown-simple'
 }

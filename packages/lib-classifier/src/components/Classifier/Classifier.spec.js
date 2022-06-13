@@ -177,7 +177,7 @@ describe('Components > Classifier', function () {
   })
 
   describe('when the locale changes', function () {
-    let locale, subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
+    let locale, subjectImage, tabPanel, taskInstruction, taskAnswers, taskTab, tutorialTab, workflow
 
     before(async function () {
       sinon.replace(window, 'Image', class MockImage {
@@ -187,12 +187,43 @@ describe('Components > Classifier', function () {
           setTimeout(() => this.onload(), 500)
         }
       })
-      const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
-      const store = mockStore({ subject })
-      const project = store.projects.active
-      const projectSnapshot = { ...getSnapshot(project) }
-      workflow = store.workflows.active
-      const workflowSnapshot = { ...getSnapshot(workflow) }
+
+      const roles = []
+      const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
+
+      nock('https://panoptes-staging.zooniverse.org/api')
+          .persist()
+          .get('/field_guides')
+          .reply(200, { field_guides: [] })
+          .get('/project_preferences')
+          .query(true)
+          .reply(200, { project_preferences: [] })
+          .get('/project_roles')
+          .reply(200, { project_roles: [{ roles }]})
+          .get('/subjects/queued')
+          .query(true)
+          .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
+          .post('/project_preferences')
+          .query(true)
+          .reply(200, { project_preferences: [] })
+
+      const checkBearerToken = sinon.stub().callsFake(() => Promise.resolve('mockAuth'))
+      const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockUser' }))
+      const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
+      const client = { ...defaultClient, panoptes }
+
+      const workflowSnapshot = branchingWorkflow
+      workflowSnapshot.strings = workflowStrings
+
+      const projectSnapshot = ProjectFactory.build({
+        links: {
+          active_workflows: [workflowSnapshot.id],
+          workflows: [workflowSnapshot.id]
+        }
+      })
+
+      const store = RootStore.create({}, { authClient, client })
+
       const { rerender } = render(
         <Classifier
           classifierStore={store}
@@ -204,28 +235,56 @@ describe('Components > Classifier', function () {
           wrapper: withStore(store)
         }
       )
+
       await when(() => store.subjectViewer.loadingState === asyncStates.success)
+
+      // locale changes when the language menu changes.
       rerender(
         <Classifier
           classifierStore={store}
           locale='fr'
           project={projectSnapshot}
           workflowSnapshot={workflowSnapshot}
-          workflowVersion={workflowSnapshot?.version}
         />,
       )
+      // workflow strings update after the translations API request resolves.
+      const frenchStrings = { ...workflowStrings }
+      Object.entries(frenchStrings).forEach(([key, value]) => {
+        const frenchValue = `${value} - French translation.`
+        frenchStrings[key] = frenchValue
+      })
+      const frenchSnapshot = { ...workflowSnapshot, strings: frenchStrings }
+      rerender(
+        <Classifier
+          classifierStore={store}
+          locale='fr'
+          project={projectSnapshot}
+          workflowSnapshot={frenchSnapshot}
+        />,
+      )
+      // wait for task strings to be updated in the store.
+      await when(() => {
+        const [task] = store.workflowSteps.active?.tasks
+        return (task.question === 'Is there a cat? - French translation.')
+      })
+      workflow = store.workflows.active
       locale = store.locale
       taskTab = screen.getByRole('tab', { name: 'TaskArea.task'})
       tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
-      subjectImage = screen.getByRole('img', { name: `Subject ${subject.id}` })
+      subjectImage = screen.getByRole('img', { name: `Subject ${subjectSnapshot.id}` })
       tabPanel = screen.getByRole('tabpanel', { name: '1 Tab Contents'})
-      const task = workflowSnapshot.tasks.T0
-      const getAnswerInput = answer => within(tabPanel).getByRole('radio', { name: answer.label })
+      const task = frenchSnapshot.tasks.T0
+      taskInstruction = within(tabPanel).getByText('Is there a cat? - French translation.')
+      function getAnswerInput(answer) {
+        const label = answer.label
+        return within(tabPanel).getByRole('radio', { name: label })
+      }
       taskAnswers = task.answers.map(getAnswerInput)
     })
 
     after(function () {
       sinon.restore()
+      nock.cleanAll()
     })
 
     it('should update the global locale', function () {
@@ -242,6 +301,10 @@ describe('Components > Classifier', function () {
 
     it('should have a subject image', function () {
       expect(subjectImage.getAttribute('xlink:href')).to.equal('https://foo.bar/example.png')
+    })
+
+    it('should show the translated task instruction', function () {
+      expect(taskInstruction).to.exist()
     })
 
     describe('task answers', function () {

@@ -21,20 +21,26 @@ describe('Model > DrawingTools > Tool', function () {
     const details = [
       {
         type: 'multiple',
-        question: 'which fruit?',
         answers: ['apples', 'oranges', 'pears'],
-        required: ''
+        required: '',
+        strings: {
+          question: 'which fruit?'
+        }
       },
       {
         type: 'single',
-        question: 'how many?',
         answers: ['one', 'two', 'three'],
-        required: ''
+        required: '',
+        strings: {
+          question: 'how many?'
+        }
       },
       {
         type: 'text',
-        instruction: 'Transcribe something',
-        required: ''
+        required: '',
+        strings: {
+          instruction: 'Transcribe something'
+        }
       }
     ]
     const tool = Tool.create(Object.assign({}, toolData, { details }))
@@ -63,28 +69,28 @@ describe('Model > DrawingTools > Tool', function () {
           {
             taskKey: 'multiple',
             type: 'multiple',
-            question: 'which fruit?',
             answers: ['apples', 'oranges', 'pears'],
-            help: '',
             required: '',
-            strings: {}
+            strings: {
+              question: 'which fruit?'
+            }
           },
           {
             taskKey: 'single',
             type: 'single',
-            question: 'how many?',
             answers: ['one', 'two', 'three'],
-            help: '',
             required: '',
-            strings: {}
+            strings: {
+              question: 'how many?'
+            }
           },
           {
             taskKey: 'text',
             type: 'text',
-            instruction: 'Transcribe something',
-            help: '',
             required: '',
-            strings: {},
+            strings: {
+              instruction: 'Transcribe something'
+            },
             text_tags: []
           }
         ]
@@ -123,7 +129,9 @@ describe('Model > DrawingTools > Tool', function () {
           {
             taskKey: 'drawing',
             type: 'drawing',
-            question: 'which fruit?',
+            strings: {
+              question: 'which fruit?'
+            },
             tools: []
           }
         ]

@@ -5,7 +5,6 @@ import { MIN_OPTIONS, MAX_OPTIONS } from './SimpleDropdownTask'
 describe('Model > SimpleDropdownTask', function () {
   const { TaskModel, AnnotationModel } = SimpleDropdownTask
   const simpleDropdownTask = {
-    instruction: 'Choose your favourite colour',
     allowCreate: false,
     options: [
       'Red',
@@ -16,6 +15,9 @@ describe('Model > SimpleDropdownTask', function () {
       'Black',
     ],
     required: false,
+    strings: {
+      instruction: 'Choose your favourite colour'
+    },
     taskKey: 'T1',
     type: 'dropdown-simple'
   }

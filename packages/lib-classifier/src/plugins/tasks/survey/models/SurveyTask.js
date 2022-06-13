@@ -35,7 +35,6 @@ const Survey = types.model('Survey', {
   choices: types.frozen({}),
   choicesOrder: types.array(types.string),
   exclusions: types.array(types.string),
-  help: types.optional(types.string, ''),
   images: types.frozen({}),
   inclusions: types.array(types.string),
   questions: types.frozen({}),
