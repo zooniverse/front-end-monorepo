@@ -13,7 +13,9 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
   before(function () {
     sinon.stub(window, 'scrollTo')
     task = Task.TaskModel.create({
-      instruction: 'Type something here',
+      strings: {
+        instruction: 'Type something here',
+      },
       taskKey: 'T0',
       text_tags: ['insertion', 'deletion'],
       type: 'text'

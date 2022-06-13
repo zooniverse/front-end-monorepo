@@ -1,7 +1,6 @@
 import { Factory } from 'rosie'
 
 export default new Factory()
-  .attr('help', '')
   .attr('instruction', 'Please transcribe the text')
   .attr('tools', [{
     details: [{

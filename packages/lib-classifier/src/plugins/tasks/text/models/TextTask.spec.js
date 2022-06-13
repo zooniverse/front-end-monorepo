@@ -3,7 +3,9 @@ import TextTask from '@plugins/tasks/text'
 
 describe('Model > TextTask', function () {
   const textTask = {
-    instruction: 'Type something here',
+    strings: {
+      instruction: 'Type something here'
+    },
     taskKey: 'T0',
     text_tags: ['insertion', 'deletion', '&'],
     type: 'text'
