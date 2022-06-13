@@ -8,11 +8,8 @@ import Medium from '@store/Medium'
 const FieldGuideStore = types
   .model('FieldGuideStore', {
     active: types.safeReference(FieldGuide),
-    activeMedium: types.safeReference(Medium),
-    activeItemIndex: types.maybe(types.integer),
     attachedMedia: types.map(Medium),
     resources: types.map(FieldGuide),
-    showModal: types.optional(types.boolean, false),
     type: types.optional(types.string, 'field_guides')
   })
 
@@ -36,8 +33,6 @@ const FieldGuideStore = types
     function reset () {
       self.resources.clear()
       self.attachedMedia.clear()
-      self.activeItemIndex = undefined
-      self.showModal = false
     }
 
     // TODO: this might need to paginate for field guides that have 20+ items
@@ -90,29 +85,11 @@ const FieldGuideStore = types
       }
     }
 
-    function setModalVisibility (boolean) {
-      self.showModal = boolean
-    }
-
-    function setActiveItemIndex (index) {
-      const fieldGuide = tryReference(() => self.active)
-      if (fieldGuide) {
-        if (fieldGuide && index + 1 <= fieldGuide.items.length && fieldGuide.items[index]) {
-          if (fieldGuide.items[index].icon) self.activeMedium = fieldGuide.items[index].icon
-          self.activeItemIndex = index
-        } else {
-          self.activeItemIndex = undefined
-        }
-      }
-    }
-
     return {
       afterAttach,
       fetchFieldGuide: flow(fetchFieldGuide),
       reset,
-      setActiveItemIndex,
-      setMediaResources,
-      setModalVisibility
+      setMediaResources
     }
   })
 
