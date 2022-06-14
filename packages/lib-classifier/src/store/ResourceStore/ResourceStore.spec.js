@@ -47,7 +47,14 @@ describe('Model > ResourceStore', function () {
       }
     }
   }
-  sinon.spy(clientStub.panoptes, 'get')
+
+  before(function () {
+    sinon.spy(clientStub.panoptes, 'get')
+  })
+
+  after(function () {
+    clientStub.panoptes.get.restore()
+  })
 
   beforeEach(function () {
     resourceStore = ResourceStore.create(resourcesStub)

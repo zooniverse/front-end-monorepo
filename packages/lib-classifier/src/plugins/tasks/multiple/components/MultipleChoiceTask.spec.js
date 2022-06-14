@@ -7,8 +7,10 @@ import Task from '@plugins/tasks/multiple'
 describe('MultipleChoiceTask', function () {
   const task = Task.TaskModel.create({
     answers: [{ label: 'napping' }, { label: 'standing' }, { label: 'playing' }],
-    question: 'What is/are the cat(s) doing?',
     required: '',
+    strings: {
+      question: 'What is/are the cat(s) doing?'
+    },
     taskKey: 'T1',
     type: 'multiple'
   })

@@ -12,8 +12,6 @@ const SingleChoice = types.model('SingleChoice', {
     label: types.string,
     next: types.maybe(types.string)
   })),
-  help: types.optional(types.string, ''),
-  question: types.string,
   type: types.literal('single')
 })
   .views(self => ({

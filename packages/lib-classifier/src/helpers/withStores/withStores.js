@@ -9,10 +9,9 @@ export default function withStores(
   storeMapper = store => store
 ) {
 
-  function ComponentConnector({ store, ...props }) {
+  function WithStores({ store, ...props }) {
     const storeProps = store ? storeMapper(store) : useStores(storeMapper)
     return <Component {...storeProps} {...props} />
   }
-
-  return observer(ComponentConnector)
+  return observer(WithStores)
 }

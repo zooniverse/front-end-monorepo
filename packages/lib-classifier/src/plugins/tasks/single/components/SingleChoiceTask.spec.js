@@ -7,8 +7,10 @@ import Task from '@plugins/tasks/single'
 describe('SingleChoiceTask', function () {
   const task = Task.TaskModel.create({
     answers: [{ label: 'yes' }, { label: 'no' }],
-    question: 'Is there a cat?',
     required: 'true',
+    strings: {
+      question: 'Is there a cat?'
+    },
     taskKey: 'init',
     type: 'single'
   })

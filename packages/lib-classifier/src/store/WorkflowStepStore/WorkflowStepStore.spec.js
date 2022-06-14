@@ -9,34 +9,11 @@ import {
   TranscriptionTaskFactory,
   WorkflowFactory
 } from '@test/factories'
-import { getSnapshot } from 'mobx-state-tree'
+import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 import { Factory } from 'rosie'
+
+import mockStore from '@test/mockStore'
 import stubPanoptesJs from '@test/stubPanoptesJs'
-
-async function setupStores (clientStub, project, workflow) {
-  const store = RootStore.create({
-    classifications: {},
-    dataVisAnnotating: {},
-    drawing: {},
-    feedback: {},
-    fieldGuide: {},
-    subjects: {},
-    subjectViewer: {},
-    tutorials: {},
-    userProjectPreferences: {}
-  }, {
-    client: clientStub,
-    authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
-  })
-
-  store.projects.setResources([project])
-  store.projects.setActive(project.id)
-  if (workflow) {
-    store.workflows.setResources([workflow])
-    await store.workflows.selectWorkflow(workflow.id)
-  }
-  return store
-}
 
 describe('Model > WorkflowStepStore', function () {
   it('should exist', function () {
@@ -52,6 +29,10 @@ describe('Model > WorkflowStepStore', function () {
           ['S1', { taskKeys: ['T1'] }],
           ['S2', { taskKeys: ['T2'] }]
         ],
+        strings: {
+          'tasks.T1.question': 'Is there a galaxy?',
+          'tasks.T2.question': 'Check all of the colors that apply'
+        },
         tasks: {
           T1: SingleChoiceTaskFactory.build(),
           T2: MultipleChoiceTaskFactory.build()
@@ -64,7 +45,7 @@ describe('Model > WorkflowStepStore', function () {
         subjects: Factory.buildList('subject', 10),
         workflows: workflow
       })
-      rootStore = await setupStores(panoptesClientStub, project, workflow)
+      rootStore = mockStore({ client: panoptesClientStub, project, workflow })
     })
 
     describe('should set the steps', function () {
@@ -113,8 +94,7 @@ describe('Model > WorkflowStepStore', function () {
         step.tasks.forEach(task => {
           const annotation = undefined
           const { taskKey } = task
-          const strings = {}
-          const originalTask = { ...workflow.tasks[taskKey], annotation, strings, taskKey }
+          const originalTask = { ...workflow.tasks[taskKey], annotation, taskKey }
           expect(getSnapshot(task)).to.eql(originalTask)
         })
       })
@@ -141,6 +121,12 @@ describe('Model > WorkflowStepStore', function () {
     before(async function () {
       workflow = WorkflowFactory.build({
         first_task: 'T1',
+        strings: {
+          display_name: 'test workflow',
+          'tasks.T1.question': 'Is there a galaxy?',
+          'tasks.T2.question': 'Check all of the colors that apply',
+          'tasks.T3.question': 'Check all of the colors that apply'
+        },
         tasks: {
           T1: SingleChoiceTaskFactory.build(),
           T2: MultipleChoiceTaskFactory.build(),
@@ -157,7 +143,7 @@ describe('Model > WorkflowStepStore', function () {
         subjects: Factory.buildList('subject', 10),
         workflows: workflow
       })
-      rootStore = await setupStores(panoptesClientStub, project, workflow)
+      rootStore = mockStore({ client: panoptesClientStub, project, workflow })
     })
 
     it('should convert the tasks to steps and set the steps', function () {
@@ -172,8 +158,7 @@ describe('Model > WorkflowStepStore', function () {
         step.tasks.forEach(task => {
           const annotation = undefined
           const { taskKey } = task
-          const strings = {}
-          const originalTask = { ...workflow.tasks[taskKey], annotation, strings, taskKey }
+          const originalTask = { ...workflow.tasks[taskKey], annotation, taskKey }
           expect(getSnapshot(task)).to.eql(originalTask)
         })
       })
@@ -201,6 +186,13 @@ describe('Model > WorkflowStepStore', function () {
     before(async function () {
       workflow = WorkflowFactory.build({
         first_task: 'T1',
+        strings: {
+          display_name: 'test workflow',
+          'tasks.T1.question': 'Is there a galaxy?',
+          'tasks.T2.question': 'Check all of the colors that apply',
+          'tasks.T3.question': 'Check all of the colors that apply',
+          'tasks.T5.question': 'Check all of the colors that apply'
+        },
         tasks: {
           T1: SingleChoiceTaskFactory.build({
             answers: [
@@ -224,7 +216,7 @@ describe('Model > WorkflowStepStore', function () {
         subjects: Factory.buildList('subject', 10),
         workflows: workflow
       })
-      rootStore = await setupStores(panoptesClientStub, project, workflow)
+      rootStore = mockStore({ client: panoptesClientStub, project, workflow })
     })
 
     it('should convert the tasks to steps and set the steps', function () {
@@ -239,8 +231,7 @@ describe('Model > WorkflowStepStore', function () {
         step.tasks.forEach(task => {
           const annotation = undefined
           const { taskKey } = task
-          const strings = {}
-          const originalTask = { ...workflow.tasks[taskKey], annotation, strings, taskKey }
+          const originalTask = { ...workflow.tasks[taskKey], annotation, taskKey }
           expect(getSnapshot(task)).to.eql(originalTask)
         })
       })
@@ -272,6 +263,200 @@ describe('Model > WorkflowStepStore', function () {
     })
   })
 
+  describe('with localised text strings', function () {
+    let rootStore
+
+    before(function () {
+      const workflow = WorkflowFactory.build({
+        steps: [
+          ['S1', { taskKeys: ['T1'] }],
+          ['S2', { taskKeys: ['T2'] }]
+        ],
+        strings: {
+          'tasks.T1.question': 'T1: Translated question',
+          'tasks.T1.answers.0.label': 'T1: Translated answer 1',
+          'tasks.T1.answers.1.label': 'T1: Translated answer 2',
+          'tasks.T2.question': 'T2: Translated question',
+          'tasks.T2.answers.0.label': 'T2: Translated answer 1',
+          'tasks.T2.answers.1.label': 'T2: Translated answer 2',
+          'tasks.T2.answers.2.label': 'T2: Translated answer 3',
+        },
+        tasks: {
+          T1: SingleChoiceTaskFactory.build(),
+          T2: MultipleChoiceTaskFactory.build()
+        }
+      })
+
+      const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
+      const panoptesClientStub = stubPanoptesJs({
+        projects: project,
+        subjects: Factory.buildList('subject', 10),
+        workflows: workflow
+      })
+      rootStore = mockStore({ client: panoptesClientStub, project, workflow })
+    })
+
+    it('should localise task text', function() {
+      expect(rootStore.workflowSteps.steps.size).to.equal(2)
+      rootStore.workflowSteps.steps.forEach(step => {
+        step.tasks.forEach(({ taskKey, strings, answers }) => {
+          expect(strings).to.exist()
+          expect(strings.get('question')).to.equal(`${taskKey}: Translated question`)
+          answers.forEach((answer, index) => {
+            expect(strings.get(`answers.${index}.label`)).to.equal(`${taskKey}: Translated answer ${index + 1}`)
+          })
+        })
+      })
+    })
+  })
+
+  describe('when the store locale changes', function () {
+    let rootStore
+
+    before(function () {
+      const workflow = WorkflowFactory.build({
+        steps: [
+          ['S1', { taskKeys: ['T1'] }],
+          ['S2', { taskKeys: ['T2'] }]
+        ],
+        strings: {
+          'tasks.T1.question': 'T1: Translated question',
+          'tasks.T1.answers.0.label': 'T1: Translated answer 1',
+          'tasks.T1.answers.1.label': 'T1: Translated answer 2',
+          'tasks.T2.question': 'T2: Translated question',
+          'tasks.T2.answers.0.label': 'T2: Translated answer 1',
+          'tasks.T2.answers.1.label': 'T2: Translated answer 2',
+          'tasks.T2.answers.2.label': 'T2: Translated answer 3',
+        },
+        tasks: {
+          T1: SingleChoiceTaskFactory.build(),
+          T2: MultipleChoiceTaskFactory.build()
+        }
+      })
+
+      const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
+      const panoptesClientStub = stubPanoptesJs({
+        projects: project,
+        subjects: Factory.buildList('subject', 10),
+        workflows: workflow
+      })
+      rootStore = mockStore({ client: panoptesClientStub, project, workflow })
+    })
+
+    it('should update task text', function() {
+      expect(rootStore.workflowSteps.steps.size).to.equal(2)
+      expect(rootStore.workflowSteps.active.stepKey).to.equal('S1')
+      rootStore.workflowSteps.steps.forEach(step => {
+        step.tasks.forEach(({ taskKey, strings, answers }) => {
+          expect(strings).to.exist()
+          expect(strings.get('question')).to.equal(`${taskKey}: Translated question`)
+          answers.forEach((answer, index) => {
+            expect(strings.get(`answers.${index}.label`)).to.equal(`${taskKey}: Translated answer ${index + 1}`)
+          })
+        })
+      })
+      const strings = {
+        'tasks.T1.question': 'T1: Translated question. French',
+        'tasks.T1.answers.0.label': 'T1: Translated answer 1. French',
+        'tasks.T1.answers.1.label': 'T1: Translated answer 2. French',
+        'tasks.T2.question': 'T2: Translated question. French',
+        'tasks.T2.answers.0.label': 'T2: Translated answer 1. French',
+        'tasks.T2.answers.1.label': 'T2: Translated answer 2. French',
+        'tasks.T2.answers.2.label': 'T2: Translated answer 3. French',
+      }
+      rootStore.setLocale('fr')
+      applySnapshot(rootStore.workflows.active.strings, strings)
+      rootStore.workflowSteps.steps.forEach(step => {
+        step.tasks.forEach(({ taskKey, strings, answers }) => {
+          expect(strings).to.exist()
+          expect(strings.get('question')).to.equal(`${taskKey}: Translated question. French`)
+          answers.forEach((answer, index) => {
+            expect(strings.get(`answers.${index}.label`)).to.equal(`${taskKey}: Translated answer ${index + 1}. French`)
+          })
+        })
+      })
+    })
+
+    it('should not reset the active step', function () {
+      expect(rootStore.workflowSteps.active.stepKey).to.equal('S1')
+    })
+  })
+
+  describe('when the workflow version changes', function () {
+    let rootStore
+
+    before(function () {
+      const workflow = WorkflowFactory.build({
+        steps: [
+          ['S1', { taskKeys: ['T1'] }],
+          ['S2', { taskKeys: ['T2'] }]
+        ],
+        strings: {
+          'tasks.T1.question': 'T1: Translated question',
+          'tasks.T1.answers.0.label': 'T1: Translated answer 1',
+          'tasks.T1.answers.1.label': 'T1: Translated answer 2',
+          'tasks.T2.question': 'T2: Translated question',
+          'tasks.T2.answers.0.label': 'T2: Translated answer 1',
+          'tasks.T2.answers.1.label': 'T2: Translated answer 2',
+          'tasks.T2.answers.2.label': 'T2: Translated answer 3',
+        },
+        tasks: {
+          T1: SingleChoiceTaskFactory.build(),
+          T2: MultipleChoiceTaskFactory.build()
+        }
+      })
+
+      const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
+      const panoptesClientStub = stubPanoptesJs({
+        projects: project,
+        subjects: Factory.buildList('subject', 10),
+        workflows: workflow
+      })
+      rootStore = mockStore({ client: panoptesClientStub, project, workflow })
+    })
+
+    it('should update task text', function() {
+      expect(rootStore.workflowSteps.steps.size).to.equal(2)
+      expect(rootStore.workflowSteps.active.stepKey).to.equal('S1')
+      rootStore.workflowSteps.steps.forEach(step => {
+        step.tasks.forEach(({ taskKey, strings, answers }) => {
+          expect(strings).to.exist()
+          expect(strings.get('question')).to.equal(`${taskKey}: Translated question`)
+          answers.forEach((answer, index) => {
+            expect(strings.get(`answers.${index}.label`)).to.equal(`${taskKey}: Translated answer ${index + 1}`)
+          })
+        })
+      })
+      const newWorkflow = {
+        ...getSnapshot(rootStore.workflows.active),
+        strings: {
+          'tasks.T1.question': 'T1: Translated question. Version 2',
+          'tasks.T1.answers.0.label': 'T1: Translated answer 1. Version 2',
+          'tasks.T1.answers.1.label': 'T1: Translated answer 2. Version 2',
+          'tasks.T2.question': 'T2: Translated question. Version 2',
+          'tasks.T2.answers.0.label': 'T2: Translated answer 1. Version 2',
+          'tasks.T2.answers.1.label': 'T2: Translated answer 2. Version 2',
+          'tasks.T2.answers.2.label': 'T2: Translated answer 3. Version 2',
+        },
+        version: '0.1'
+      }
+      rootStore.workflows.setResources([newWorkflow])
+      rootStore.workflowSteps.steps.forEach(step => {
+        step.tasks.forEach(({ taskKey, strings, answers }) => {
+          expect(strings).to.exist()
+          expect(strings.get('question')).to.equal(`${taskKey}: Translated question. Version 2`)
+          answers.forEach((answer, index) => {
+            expect(strings.get(`answers.${index}.label`)).to.equal(`${taskKey}: Translated answer ${index + 1}. Version 2`)
+          })
+        })
+      })
+    })
+
+    it('should reset the active step', function () {
+      expect(rootStore.workflowSteps.active).to.be.undefined()
+    })
+  })
+
   describe('Views > shouldWeShowDoneAndTalkButton', function () {
     let subjects
     let subject
@@ -281,7 +466,7 @@ describe('Model > WorkflowStepStore', function () {
     before(function () {
       workflow = WorkflowFactory.build({
         steps: [
-          ['S1', { taskKeys: ['T1'] }],
+          ['S1', { taskKeys: ['T1'], next: 'S2' }],
           ['S2', { taskKeys: ['T2'] }]
         ],
         tasks: {
@@ -322,25 +507,27 @@ describe('Model > WorkflowStepStore', function () {
       subject = subjects[0]
     })
 
-    it('should return false if there is not an active workflow', async function () {
+    it('should be false if there is not an active workflow', async function () {
       const project = ProjectFactory.build({})
       const panoptesClientStub = stubPanoptesJs({ workflows: [], subjects })
-      const rootStore = await setupStores(panoptesClientStub, project)
+      const rootStore = mockStore({ client: panoptesClientStub, project })
+      rootStore.workflows.reset()
       expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
-    it('should return false if there is not an active classification', async function () {
+    it('should be false if there is not an active classification', async function () {
       const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
       const panoptesClientStub = stubPanoptesJs({ workflows: workflow, subjects })
-      const rootStore = await setupStores(panoptesClientStub, project, workflow)
+      const rootStore = mockStore({ client: panoptesClientStub, project, workflow })
+      rootStore.classifications.reset()
       expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
-    it('should return false if not on the last step', async function () {
+    it('should be false if there is a next step', async function () {
       const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
       const panoptesClientStub = stubPanoptesJs({ workflows: workflow, subjects })
-      const rootStore = await setupStores(panoptesClientStub, project, workflow)
-      rootStore.classifications.createClassification(subject, workflow, project)
+      const rootStore = mockStore({ client: panoptesClientStub, project, workflow })
+      rootStore.workflowSteps.selectStep('S1')
       expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.false()
     })
 
@@ -355,7 +542,7 @@ describe('Model > WorkflowStepStore', function () {
         const awaitWorkflows = workflows.map(async function (testWorkflow) {
           const project = ProjectFactory.build({}, { activeWorkflowId: testWorkflow.id })
           const panoptesClientStub = stubPanoptesJs({ workflows: testWorkflow, subjects })
-          const rootStore = await setupStores(panoptesClientStub, project, testWorkflow)
+          const rootStore = mockStore({ client: panoptesClientStub, project, workflow: testWorkflow })
           rootStore.classifications.createClassification(subject, testWorkflow, project)
           rootStore.workflowSteps.selectStep('S2')
           expect(rootStore.workflowSteps.shouldWeShowDoneAndTalkButton).to.be.true()
@@ -367,7 +554,7 @@ describe('Model > WorkflowStepStore', function () {
         const awaitWorkflows = workflows.map(async function (testWorkflow) {
           const project = ProjectFactory.build({}, { activeWorkflowId: testWorkflow.id })
           const panoptesClientStub = stubPanoptesJs({ workflows: testWorkflow, subjects })
-          const rootStore = await setupStores(panoptesClientStub, project, testWorkflow)
+          const rootStore = mockStore({ client: panoptesClientStub, project, workflow: testWorkflow })
           rootStore.classifications.createClassification(subject, testWorkflow, project)
           rootStore.classifications.active.metadata.update({ subject_flagged: true })
           rootStore.workflowSteps.selectStep('S2')
@@ -403,7 +590,7 @@ describe('Model > WorkflowStepStore', function () {
         subjects: Factory.buildList('subject', 10),
         workflows: workflow
       })
-      rootStore = await setupStores(panoptesClientStub, project, workflow)
+      rootStore = mockStore({ client: panoptesClientStub, project, workflow })
     })
 
     it('should return tasks that equal the task type argument given', function () {
@@ -420,19 +607,25 @@ describe('Model > WorkflowStepStore', function () {
   })
 
   describe('Views > interactionTask', function () {
-    let transcriptionWorkflow, manyStepWorkflow, drawingWorkflow, singleChoiceWorkflow
-
-    before(function () {
-      transcriptionWorkflow = WorkflowFactory.build({
+    it('should be empty if the workflow does not have either an active drawing or transcription task', async function ()  {
+      const singleChoiceWorkflow = WorkflowFactory.build({
         steps: [
           ['S1', { taskKeys: ['T1'] }]
         ],
         tasks: {
-          T1: TranscriptionTaskFactory.build()
+          T1: SingleChoiceTaskFactory.build()
         }
       })
+      const project = ProjectFactory.build({}, { activeWorkflowId: singleChoiceWorkflow.id })
+      const subjects = Factory.buildList('subject', 10)
+      const panoptesClientStub = stubPanoptesJs({ workflows: singleChoiceWorkflow, subjects })
+      const rootStore = mockStore({ client: panoptesClientStub, project, workflow: singleChoiceWorkflow })
+      rootStore.workflowSteps.selectStep('S1')
+      expect(rootStore.workflowSteps.interactionTask).to.be.empty()
+    })
 
-      manyStepWorkflow = WorkflowFactory.build({
+    it('should be empty if the workflow drawing task is not part of the active step', async function () {
+      const manyStepWorkflow = WorkflowFactory.build({
         steps: [
           ['S1', { taskKeys: ['T0'] }],
           ['S2',  { taskKeys: ['T1'] }]
@@ -442,8 +635,16 @@ describe('Model > WorkflowStepStore', function () {
           T1: DrawingTaskFactory.build()
         }
       })
+      const project = ProjectFactory.build({}, { activeWorkflowId: manyStepWorkflow.id })
+      const subjects = Factory.buildList('subject', 10)
+      const panoptesClientStub = stubPanoptesJs({ workflows: manyStepWorkflow, subjects })
+      const rootStore = mockStore({ client: panoptesClientStub, project, workflow: manyStepWorkflow })
+      rootStore.workflowSteps.selectStep('S1')
+      expect(rootStore.workflowSteps.interactionTask).to.be.empty()
+    })
 
-      drawingWorkflow = WorkflowFactory.build({
+    it('should be the active step drawing task', async function () {
+      const drawingWorkflow = WorkflowFactory.build({
         steps: [
           ['S1', { taskKeys: ['T1'] }]
         ],
@@ -451,99 +652,35 @@ describe('Model > WorkflowStepStore', function () {
           T1: DrawingTaskFactory.build()
         }
       })
-
-      singleChoiceWorkflow = WorkflowFactory.build({
-        steps: [
-          ['S1', { taskKeys: ['T1'] }]
-        ],
-        tasks: {
-          T1: SingleChoiceTaskFactory.build()
-        }
-      })
-    })
-
-    it('should return an empty object if the workflow does not have either an active drawing or transcription task', async function ()  {
-      const project = ProjectFactory.build({}, { activeWorkflowId: singleChoiceWorkflow.id })
-      const subjects = Factory.buildList('subject', 10)
-      const panoptesClientStub = stubPanoptesJs({ workflows: singleChoiceWorkflow, subjects })
-      const rootStore = await setupStores(panoptesClientStub, project, singleChoiceWorkflow)
-      rootStore.workflowSteps.selectStep()
-      expect(rootStore.workflowSteps.interactionTask).to.be.empty()
-    })
-
-    it('should return an empty object if the workflow drawing task is not part of the active step', async function () {
-      const project = ProjectFactory.build({}, { activeWorkflowId: manyStepWorkflow.id })
-      const subjects = Factory.buildList('subject', 10)
-      const panoptesClientStub = stubPanoptesJs({ workflows: manyStepWorkflow, subjects })
-      const rootStore = await setupStores(panoptesClientStub, project, manyStepWorkflow)
-      rootStore.workflowSteps.selectStep()
-      expect(rootStore.workflowSteps.interactionTask).to.be.empty()
-    })
-
-    it('should return the active step drawing task', async function () {
       const project = ProjectFactory.build({}, { activeWorkflowId: drawingWorkflow.id })
       const subjects = Factory.buildList('subject', 10)
       const panoptesClientStub = stubPanoptesJs({ workflows: drawingWorkflow, subjects })
-      const rootStore = await setupStores(panoptesClientStub, project, drawingWorkflow)
+      const rootStore = mockStore({ client: panoptesClientStub, project, workflow: drawingWorkflow })
       rootStore.workflowSteps.selectStep()
       expect(rootStore.workflowSteps.interactionTask.type).to.equal('drawing')
     })
 
-    it('should return the transcription task', async function () {
+    it('should be the transcription task', async function () {
+      const transcriptionWorkflow = WorkflowFactory.build({
+        steps: [
+          ['S1', { taskKeys: ['T1'] }]
+        ],
+        tasks: {
+          T1: TranscriptionTaskFactory.build()
+        }
+      })
       const project = ProjectFactory.build({}, { activeWorkflowId: transcriptionWorkflow.id })
       const subjects = Factory.buildList('subject', 10)
       const panoptesClientStub = stubPanoptesJs({ workflows: transcriptionWorkflow, subjects })
-      const rootStore = await setupStores(panoptesClientStub, project, transcriptionWorkflow)
+      const rootStore = mockStore({ client: panoptesClientStub, project, workflow: transcriptionWorkflow })
       rootStore.workflowSteps.selectStep()
       expect(rootStore.workflowSteps.interactionTask.type).to.equal('transcription')
     })
   })
 
   describe('Views > activeInteractionTask', function () {
-    let transcriptionWorkflow, manyStepDrawingWorkflow, manyStepTranscriptionWorkflow, drawingWorkflow, singleChoiceWorkflow
-
-    before(function () {
-      transcriptionWorkflow = WorkflowFactory.build({
-        steps: [
-          ['S1', { taskKeys: ['T1'] }]
-        ],
-        tasks: {
-          T1: TranscriptionTaskFactory.build()
-        }
-      })
-
-      manyStepDrawingWorkflow = WorkflowFactory.build({
-        steps: [
-          ['S1', { taskKeys: ['T0'] }],
-          ['S2', { taskKeys: ['T1'] }]
-        ],
-        tasks: {
-          T0: SingleChoiceTaskFactory.build(),
-          T1: DrawingTaskFactory.build()
-        }
-      })
-
-      manyStepTranscriptionWorkflow = WorkflowFactory.build({
-        steps: [
-          ['S1', { taskKeys: ['T0'] }],
-          ['S2', { taskKeys: ['T1'] }]
-        ],
-        tasks: {
-          T0: SingleChoiceTaskFactory.build(),
-          T1: TranscriptionTaskFactory.build()
-        }
-      })
-
-      drawingWorkflow = WorkflowFactory.build({
-        steps: [
-          ['S1', { taskKeys: ['T1'] }]
-        ],
-        tasks: {
-          T1: DrawingTaskFactory.build()
-        }
-      })
-
-      singleChoiceWorkflow = WorkflowFactory.build({
+    it('should be empty if the workflow does not have either an active drawing or transcription task', async function () {
+      const singleChoiceWorkflow = WorkflowFactory.build({
         steps: [
           ['S1', { taskKeys: ['T1'] }]
         ],
@@ -551,49 +688,82 @@ describe('Model > WorkflowStepStore', function () {
           T1: SingleChoiceTaskFactory.build()
         }
       })
-    })
-
-    it('should return an empty object if the workflow does not have either an active drawing or transcription task', async function () {
       const project = ProjectFactory.build({}, { activeWorkflowId: singleChoiceWorkflow.id })
       const subjects = Factory.buildList('subject', 10)
       const panoptesClientStub = stubPanoptesJs({ workflows: singleChoiceWorkflow, subjects })
-      const rootStore = await setupStores(panoptesClientStub, project, singleChoiceWorkflow)
+      const rootStore = mockStore({ client: panoptesClientStub, project, workflow: singleChoiceWorkflow })
       rootStore.workflowSteps.selectStep()
       expect(rootStore.workflowSteps.activeInteractionTask).to.be.empty()
     })
 
-    it('should return an empty object if the workflow drawing task is not part of the active step', async function () {
+    it('should be empty if the workflow drawing task is not part of the active step', async function () {
+      const manyStepDrawingWorkflow = WorkflowFactory.build({
+        steps: [
+          ['S1', { taskKeys: ['T0'] }],
+          ['S2', { taskKeys: ['T1'] }]
+        ],
+        tasks: {
+          T0: SingleChoiceTaskFactory.build(),
+          T1: DrawingTaskFactory.build()
+        }
+      })
       const project = ProjectFactory.build({}, { activeWorkflowId: manyStepDrawingWorkflow.id })
       const subjects = Factory.buildList('subject', 10)
       const panoptesClientStub = stubPanoptesJs({ workflows: manyStepDrawingWorkflow, subjects })
-      const rootStore = await setupStores(panoptesClientStub, project, manyStepDrawingWorkflow)
-      rootStore.workflowSteps.selectStep()
+      const rootStore = mockStore({ client: panoptesClientStub, project, workflow: manyStepDrawingWorkflow })
+      rootStore.workflowSteps.selectStep('S1')
       expect(rootStore.workflowSteps.activeInteractionTask).to.be.empty()
     })
 
-    it('should return an empty object if the workflow transcription task is not part of the active step', async function () {
+    it('should be empty if the workflow transcription task is not part of the active step', async function () {
+      const manyStepTranscriptionWorkflow = WorkflowFactory.build({
+        steps: [
+          ['S1', { taskKeys: ['T0'] }],
+          ['S2', { taskKeys: ['T1'] }]
+        ],
+        tasks: {
+          T0: SingleChoiceTaskFactory.build(),
+          T1: TranscriptionTaskFactory.build()
+        }
+      })
       const project = ProjectFactory.build({}, { activeWorkflowId: manyStepTranscriptionWorkflow.id })
       const subjects = Factory.buildList('subject', 10)
       const panoptesClientStub = stubPanoptesJs({ workflows: manyStepTranscriptionWorkflow, subjects })
-      const rootStore = await setupStores(panoptesClientStub, project, manyStepTranscriptionWorkflow)
-      rootStore.workflowSteps.selectStep()
+      const rootStore = mockStore({ client: panoptesClientStub, project, workflow: manyStepTranscriptionWorkflow })
+      rootStore.workflowSteps.selectStep('S1')
       expect(rootStore.workflowSteps.activeInteractionTask).to.be.empty()
     })
 
-    it('should return the active step drawing task', async function () {
+    it('should be the active step drawing task', async function () {
+      const drawingWorkflow = WorkflowFactory.build({
+        steps: [
+          ['S1', { taskKeys: ['T1'] }]
+        ],
+        tasks: {
+          T1: DrawingTaskFactory.build()
+        }
+      })
       const project = ProjectFactory.build({}, { activeWorkflowId: drawingWorkflow.id })
       const subjects = Factory.buildList('subject', 10)
       const panoptesClientStub = stubPanoptesJs({ workflows: drawingWorkflow, subjects })
-      const rootStore = await setupStores(panoptesClientStub, project, drawingWorkflow)
+      const rootStore = mockStore({ client: panoptesClientStub, project, workflow: drawingWorkflow })
       rootStore.workflowSteps.selectStep()
       expect(rootStore.workflowSteps.activeInteractionTask.type).to.equal('drawing')
     })
 
-    it('should return the active transcription task', async function () {
+    it('should be the active transcription task', async function () {
+      const transcriptionWorkflow = WorkflowFactory.build({
+        steps: [
+          ['S1', { taskKeys: ['T1'] }]
+        ],
+        tasks: {
+          T1: TranscriptionTaskFactory.build()
+        }
+      })
       const project = ProjectFactory.build({}, { activeWorkflowId: transcriptionWorkflow.id })
       const subjects = Factory.buildList('subject', 10)
       const panoptesClientStub = stubPanoptesJs({ workflows: transcriptionWorkflow, subjects })
-      const rootStore = await setupStores(panoptesClientStub, project, transcriptionWorkflow)
+      const rootStore = mockStore({ client: panoptesClientStub, project, workflow: transcriptionWorkflow })
       rootStore.workflowSteps.selectStep()
       expect(rootStore.workflowSteps.activeInteractionTask.type).to.equal('transcription')
     })

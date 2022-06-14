@@ -63,16 +63,10 @@ const StyledMetaTools = styled(MetaTools)`
   margin-top: 10px;
 `
 
-function storeMapper(classifierStore) {
-  const project = classifierStore?.projects.active
-  return { project }
-}
-
-function DefaultLayout ({
+export default function DefaultLayout({
   className = '',
   project
 }) {
-  const showQuickTalk = project?.experimental_tools.includes('quicktalk')
   return (
     <ContainerGrid className={className}>
       <ViewerGrid>
@@ -89,9 +83,7 @@ function DefaultLayout ({
         <StyledTaskArea />
       </StyledTaskAreaContainer>
       <FeedbackModal />
-      {showQuickTalk && <QuickTalk />}
+      <QuickTalk />
     </ContainerGrid>
   )
 }
-
-export default withStores(DefaultLayout, storeMapper)

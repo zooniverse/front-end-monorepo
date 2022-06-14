@@ -17,7 +17,7 @@ const PANOPTES_ENV = process.env.PANOPTES_ENV || 'staging'
 const webpackConfig = require('./webpack.config')
 const assetPrefix = process.env.CONTENT_ASSET_PREFIX || ''
 const SENTRY_CONTENT_DSN = process.env.SENTRY_CONTENT_DSN
-const APP_ENV = process.env.APP_ENV || 'production'
+const APP_ENV = process.env.APP_ENV || 'development'
 const COMMIT_ID = process.env.COMMIT_ID || commitID()
 
 const nextConfig = {

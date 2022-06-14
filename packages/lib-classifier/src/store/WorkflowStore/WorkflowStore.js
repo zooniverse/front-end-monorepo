@@ -1,4 +1,3 @@
-import { autorun } from 'mobx'
 import { addDisposer, flow, getRoot, tryReference, types } from 'mobx-state-tree'
 import ResourceStore from '@store/ResourceStore'
 import Workflow from './Workflow'

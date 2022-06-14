@@ -29,7 +29,6 @@ export default {
 
 export function LightTheme({ dark, isThereTaskHelp, required, subjectReadyState }) {
   const simpleDropdownTask = {
-    instruction: 'Choose your favourite colour',
     allowCreate: false,
     options: [
       'Red',
@@ -40,6 +39,9 @@ export function LightTheme({ dark, isThereTaskHelp, required, subjectReadyState 
       'Black',
     ],
     required,
+    strings: {
+      instruction: 'Choose your favourite colour'
+    },
     taskKey: 'init',
     type: 'dropdown-simple',
   }

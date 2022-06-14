@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FieldGuideItemAnchor from '../FieldGuideItemAnchor'
 
-function FieldGuideItems ({ icons, items, setActiveItemIndex }) {
+function FieldGuideItems ({ icons, items, onChange, strings }) {
   return (
     <Box overflow='auto'>
       <Grid
@@ -18,7 +18,8 @@ function FieldGuideItems ({ icons, items, setActiveItemIndex }) {
             icons={icons}
             item={item}
             itemIndex={index}
-            setActiveItemIndex={setActiveItemIndex}
+            onClick={onChange}
+            title={strings[`items.${index}.title`]}
           />
         ))}
 

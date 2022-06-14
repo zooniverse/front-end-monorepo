@@ -55,7 +55,7 @@ export function ButtonLabel () {
 function FieldGuideButton (props) {
   const {
     fieldGuide,
-    onOpen,
+    onClick,
     theme
   } = props
   const disabled = !fieldGuide || fieldGuide.items.length === 0
@@ -64,7 +64,7 @@ function FieldGuideButton (props) {
     <StyledButton
       label={<ButtonLabel />}
       disabled={disabled}
-      onClick={onOpen}
+      onClick={onClick}
       plain
       theme={theme}
     />
@@ -82,7 +82,7 @@ FieldGuideButton.defaultProps = {
 
 FieldGuideButton.propTypes = {
   fieldGuide: PropTypes.object,
-  onOpen: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   theme: PropTypes.object
 }
 
