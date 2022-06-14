@@ -77,6 +77,9 @@
         "actualSize": "View subject at normal size"
       }
     },
+    "InvertButton": {
+      "ariaLabel": "Invert subject"
+    },
     "MoveButton": {
       "ariaLabel": "Move subject"
     },
