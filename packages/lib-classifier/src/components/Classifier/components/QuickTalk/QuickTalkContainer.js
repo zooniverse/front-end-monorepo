@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 import { withTranslation } from 'react-i18next'
+import useSWR from 'swr'
 
 import { withFeatureFlag, withStores } from '@helpers'
+import { usePanoptesUser } from '@hooks'
 import { getBearerToken } from '@store/utils'
 import QuickTalk from './QuickTalk'
 
@@ -44,6 +46,14 @@ function storeMapper (store) {
   }
 }
 
+const SWROptions = {
+  revalidateIfStale: true,
+  revalidateOnMount: true,
+  revalidateOnFocus: true,
+  revalidateOnReconnect: true,
+  refreshInterval: 0
+}
+
 function QuickTalkContainer ({
   authClient,
   enabled = false,
@@ -51,69 +61,32 @@ function QuickTalkContainer ({
   t = () => '',  // Translations
 }) {
 
-  const [comments, setComments] = useState([])
-  const [authors, setAuthors] = useState({})
-  const [authorRoles, setAuthorRoles] = useState({})
+  const user = usePanoptesUser()
+  const userId = user?.id
+  const { data: comments } = useSWR([subject, subject?.project], getTalkComments, SWROptions)
+
+  let author_ids = comments?.map(comment => comment.user_id)
+  author_ids = author_ids?.filter((id, i) => author_ids.indexOf(id) === i)  // Remove duplicates
+
+  const authors = {}
+  const authorRoles = {}
+  const { data: allUsers } = useSWR([author_ids], getUsersByID, SWROptions)
+  allUsers?.forEach(user => {
+    authors[user.id] = user
+    authorRoles[user.id] = []
+  })
+
+  const { data: allRoles } = useSWR([author_ids, subject?.project], getTalkRoles, SWROptions)
+  allRoles?.forEach(role => {
+    authorRoles[role.user_id]?.push(role)
+  })
+
   const [postCommentStatus, setPostCommentStatus] = useState(asyncStates.initialized)
   const [postCommentStatusMessage, setPostCommentStatusMessage] = useState('')
-  const [userId, setUserId] = useState('')
 
-  function onMount () {
-    fetchComments()
-    checkUser()
-    return () => {}
-  }
+  if (!enabled || !subject) return null
 
-  useEffect(onMount, [subject])
-
-  /*
-  Quick Fix: use authClient to check User resource within the QuickTalk component itself
-  - see https://github.com/zooniverse/front-end-monorepo/discussions/2362
-   */
-  async function checkUser () {
-    if (!authClient) return
-
-    const user = await authClient.checkCurrent()
-    setUserId(user?.id)
-  }
-
-  async function fetchComments () {
-    resetComments()
-
-    const project = subject?.project
-    if (!subject || !project) return
-
-    // Get all Comments
-    const allComments = await getTalkComments(subject, project)
-    setComments(allComments)
-
-    // Comments don't have User data embedded, so we'll fetch them separately.
-    let author_ids = []
-    let authors = {}
-    let authorRoles = {}
-
-    author_ids = allComments.map(comment => comment.user_id)
-    author_ids = author_ids.filter((id, i) => author_ids.indexOf(id) === i)  // Remove duplicates
-
-    const allUsers = await getUsersByID(author_ids)
-    allUsers.forEach(user => authors[user.id] = user)
-    setAuthors(authors)
-
-    const allRoles = await getTalkRoles(author_ids, project)
-    allRoles.forEach(role => {
-      if (!authorRoles[role.user_id]) authorRoles[role.user_id] = []
-      authorRoles[role.user_id].push(role)
-    })
-    setAuthorRoles(authorRoles)
-  }
-
-  function resetComments () {
-    setComments([])
-    setAuthors({})
-    setAuthorRoles({})
-  }
-
-  async function postComment (text) {
+  async function postComment(text) {
     const project = subject?.project
     if (!subject || !project || !authClient) return
 
@@ -123,16 +96,8 @@ function QuickTalkContainer ({
     try {
       if (!text || text.trim().length === 0) throw new Error(t('QuickTalk.errors.noText'))
 
-      /*
-      Quick Fix: check user before posting
-      - this is because we can never be 100% sure when a user has logged out on lib-classifier
-      - long-term, we want to pass down the User resource from app-project
-      - see https://github.com/zooniverse/front-end-monorepo/discussions/2362
-       */
-
-      const user = await authClient.checkCurrent()
-      const authorization = await getBearerToken(authClient)  // Check bearer token to ensure session hasn't timed out
-      if (!authorization || !user) throw new Error(t('QuickTalk.errors.noUser'))
+      const authorization = await getBearerToken(authClient)  // Get a refreshed auth token for posting comments.
+      if (!authorization) throw new Error(t('QuickTalk.errors.noUser'))
 
       // First, get default board
       const defaultBoard = await getDefaultTalkBoard(project)
@@ -144,21 +109,21 @@ function QuickTalkContainer ({
 
       if (existingDiscussion) { // Add to the existing discussion
 
-        const response = await postTalkComment(text, existingDiscussion, user, authorization)
-        if (!response?.ok) throw new Error(t('QuickTalk.errors.failPostComment'))
+        const newComment = await postTalkComment(text, existingDiscussion, user, authorization)
+        if (!newComment) throw new Error(t('QuickTalk.errors.failPostComment'))
+        comments.push(newComment)
 
         setPostCommentStatus(asyncStates.success)
         setPostCommentStatusMessage('')
-        fetchComments()
 
       } else {  // Create a new discussion
 
-        const response = await postTalkDiscussion (text, discussionTitle, subject, defaultBoard, user, authorization)
-        if (!response?.ok) throw new Error(t('QuickTalk.errors.failPostDiscussion'))
+        const discussion = await postTalkDiscussion(text, discussionTitle, subject, defaultBoard, user, authorization)
+        if (!discussion) throw new Error(t('QuickTalk.errors.failPostDiscussion'))
+        comments.push(discussion.latest_comment)
 
         setPostCommentStatus(asyncStates.success)
         setPostCommentStatusMessage('')
-        fetchComments()
       }
 
     } catch (err) {
@@ -167,8 +132,6 @@ function QuickTalkContainer ({
       setPostCommentStatusMessage(err?.message || err)
     }
   }
-
-  if (!enabled || !subject) return null
 
   return (
     <QuickTalk
