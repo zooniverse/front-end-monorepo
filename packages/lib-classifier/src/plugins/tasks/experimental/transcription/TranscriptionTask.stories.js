@@ -30,9 +30,11 @@ export default {
 export function LightTheme({ dark, isThereTaskHelp, required, subjectReadyState }) {
   const tasks = {
     T3: {
-      help: 'Underline the line to transcribe with two clicks, then enter in the text transcription.',
-      instruction: 'Underline and transcribe',
       required,
+      strings: {
+        help: 'Underline the line to transcribe with two clicks, then enter in the text transcription.',
+        instruction: 'Underline and transcribe',
+      },
       taskKey: 'T3',
       tools: [
         {

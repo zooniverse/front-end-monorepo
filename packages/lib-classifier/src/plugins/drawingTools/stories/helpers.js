@@ -46,6 +46,20 @@ export const subTasksSnapshot = [
   }
 ]
 
+export const subtaskStrings = {
+  'details.0.help': 'Do drawing sub-tasks show help? Should they?',
+  'details.0.instruction': 'Name your favourite fruit.',
+  'details.1.help': '',
+  'details.1.question': 'Is it tasty?',
+  'details.1.answers.0.label': 'yes',
+  'details.1.answers.1.label': 'no',
+  'details.2.help': '',
+  'details.2.question': 'Select your favourite animals.',
+  'details.2.answers.0.label': 'cat',
+  'details.2.answers.1.label': 'dog',
+  'details.2.answers.2.label': 'bird'
+}
+
 export function updateStores({ activeMark, finished, subtask }, mockBounds, stores) {
   const [ drawingTask ] = stores.workflowSteps.activeStepTasks
   const [ mark ] = drawingTask.marks
