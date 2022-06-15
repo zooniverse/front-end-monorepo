@@ -11,7 +11,7 @@ import ConfirmModal from './components/ConfirmModal'
 import SaveButton from './components/SaveButton'
 
 const MIN_POPUP_WIDTH = 350
-const MIN_POPUP_HEIGHT = 100
+const MIN_POPUP_HEIGHT = 200
 
 /**
   A popup that renders activeMark.tasks for the active mark. Incomplete task annotations are confirmed, on save or close, for required tasks.

@@ -1,7 +1,11 @@
-const MIN_HEIGHT = 100
+const MIN_HEIGHT = 200
 const MIN_WIDTH = 350
 
 export default function getDefaultPosition (bounds = {}, minHeight = MIN_HEIGHT, minWidth = MIN_WIDTH) {
+  const viewport = {
+    height: window?.innerHeight,
+    width: window?.innerWidth
+  }
   // Calculate default position
   let x = 0
   let y = 0
@@ -19,8 +23,18 @@ export default function getDefaultPosition (bounds = {}, minHeight = MIN_HEIGHT,
     const markWidth = bounds.width || 0
     const markHeight = bounds.height || 0
 
-    x = markX + markWidth * 0.5
-    y = markY + markHeight * 0.5
+    const xOffset = markWidth * 0.5
+    let yOffset = markHeight
+
+    // Get the distance from the bottom of the mark to the bottom of the viewport.
+    const verticalSpace = viewport.height - (markY + markHeight)
+    // If the available space is too small, push the popup upwards.
+    if (verticalSpace < minHeight) {
+      yOffset = 0 - (minHeight + markHeight)
+    }
+
+    x = markX + xOffset
+    y = markY + yOffset
   }
 
   // Keep within bounds of the viewport
