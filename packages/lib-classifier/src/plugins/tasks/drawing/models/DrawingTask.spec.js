@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { applySnapshot, getSnapshot, types } from 'mobx-state-tree'
 import DrawingTask from '@plugins/tasks/drawing'
 import SHOWN_MARKS from '@helpers/shownMarks'
 import sinon from 'sinon'
@@ -8,25 +8,16 @@ describe('Model > DrawingTask', function () {
     {
       type: 'multiple',
       answers: ['apples', 'oranges', 'pears'],
-      required: '',
-      strings: {
-        question: 'which fruit?'
-      }
+      required: ''
     },
     {
       type: 'single',
       answers: ['one', 'two', 'three'],
-      required: '',
-      strings: {
-        question: 'how many?'
-      }
+      required: ''
     },
     {
       type: 'text',
-      required: '',
-      strings: {
-        instruction: 'Transcribe something'
-      }
+      required: ''
     }
   ]
 
@@ -46,7 +37,18 @@ describe('Model > DrawingTask', function () {
 
   const drawingTaskSnapshot = {
     strings: {
-      instruction: "Mark each cat's face and tail. Draw an ellipse around each cat's face (not including the ears), and mark the tail tip with a point."
+      instruction: "Mark each cat's face and tail. Draw an ellipse around each cat's face (not including the ears), and mark the tail tip with a point.",
+      'tools.0.label': 'Point please.',
+      'tools.0.details.0.question': 'which fruit?',
+      'tools.0.details.0.answers.0.label': 'apples',
+      'tools.0.details.0.answers.1.label': 'oranges',
+      'tools.0.details.0.answers.2.label': 'pears',
+      'tools.0.details.1.question': 'how many?',
+      'tools.0.details.1.answers.0.label': 'one',
+      'tools.0.details.1.answers.1.label': 'two',
+      'tools.0.details.1.answers.2.label': 'three',
+      'tools.0.details.2.instruction': 'Transcribe something',
+      'tools.1.label': 'Draw a line'
     },
     taskKey: 'T3',
     tools: [pointTool, lineTool],
@@ -72,7 +74,12 @@ describe('Model > DrawingTask', function () {
 
   const drawingTaskRequiredSubtaskSnapshot = {
     strings: {
-      instruction: "Mark each cat's face and tail. Draw an ellipse around each cat's face (not including the ears), and mark the tail tip with a point."
+      instruction: "Mark each cat's face and tail. Draw an ellipse around each cat's face (not including the ears), and mark the tail tip with a point.",
+      'tools.0.label': 'Point please.',
+      'tools.0.details.0.question': 'how many?',
+      'tools.0.details.0.answers.0.label': 'one',
+      'tools.0.details.0.answers.1.label': 'two',
+      'tools.0.details.0.answers.2.label': 'three'
     },
     taskKey: 'T4',
     tools: [pointToolWithRequiredSubtask],
@@ -104,6 +111,74 @@ describe('Model > DrawingTask', function () {
     const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
     const subtasks = drawingTask.tools[0].tasks
     subtasks.forEach((task, i) => expect(task.taskKey).to.equal(`T3.0.${i}`))
+  })
+
+  it('should assign language strings to subtasks.', function () {
+    const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
+    const subtasks = drawingTask.tools[0].tasks
+    const expectedTaskStrings = [
+      {
+        question: 'which fruit?',
+        'answers.0.label': 'apples',
+        'answers.1.label': 'oranges',
+        'answers.2.label': 'pears'
+      },
+      {
+        question: 'how many?',
+        'answers.0.label': 'one',
+        'answers.1.label': 'two',
+        'answers.2.label': 'three'
+      },
+      {
+        instruction: 'Transcribe something'
+      }
+    ]
+    subtasks.forEach((task, i) => {
+      const strings = getSnapshot(task.strings)
+      expect(strings).to.deep.equal(expectedTaskStrings[i])
+    })
+  })
+
+  describe('on locale change', function () {
+    it('should update sub-task language strings', function () {
+      const drawingTask = DrawingTask.TaskModel.create(drawingTaskSnapshot)
+      applySnapshot(drawingTask.strings, {
+        instruction: "Translated instruction",
+        'tools.0.label': 'Tool 0: Translated label.',
+        'tools.0.details.0.question': 'Tool 0: Task 0: question',
+        'tools.0.details.0.answers.0.label': 'Tool 0: Task 0: answer 0',
+        'tools.0.details.0.answers.1.label': 'Tool 0: Task 0: answer 1',
+        'tools.0.details.0.answers.2.label': 'Tool 0: Task 0: answer 2',
+        'tools.0.details.1.question': 'Tool 0: Task 1: question',
+        'tools.0.details.1.answers.0.label': 'Tool 0: Task 1: answer 0',
+        'tools.0.details.1.answers.1.label': 'Tool 0: Task 1: answer 1',
+        'tools.0.details.1.answers.2.label': 'Tool 0: Task 1: answer 2',
+        'tools.0.details.2.instruction': 'Tool 0: Task 2: instruction',
+        'tools.1.label': 'Draw a line'
+      })
+      const expectedTaskStrings = [
+        {
+          question: 'Tool 0: Task 0: question',
+          'answers.0.label': 'Tool 0: Task 0: answer 0',
+          'answers.1.label': 'Tool 0: Task 0: answer 1',
+          'answers.2.label': 'Tool 0: Task 0: answer 2'
+        },
+        {
+          question: 'Tool 0: Task 1: question',
+          'answers.0.label': 'Tool 0: Task 1: answer 0',
+          'answers.1.label': 'Tool 0: Task 1: answer 1',
+          'answers.2.label': 'Tool 0: Task 1: answer 2'
+        },
+        {
+          instruction: 'Tool 0: Task 2: instruction'
+        }
+      ]
+      const subtasks = drawingTask.tools[0].tasks
+      subtasks.forEach((task, i) => {
+        const strings = getSnapshot(task.strings)
+        expect(strings).to.deep.equal(expectedTaskStrings[i])
+      })
+    })
   })
 
   describe('Views > defaultAnnotation', function () {

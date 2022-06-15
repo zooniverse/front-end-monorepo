@@ -5,8 +5,9 @@ import {
   DrawingStory,
   subject,
   subTasksSnapshot,
+  subtaskStrings,
   updateStores
-} from '@plugins/drawingTools/stories/helpers'
+} from '@plugins/drawingTools/stories/helpers.js'
 import { DrawingTaskFactory, WorkflowFactory } from '@test/factories'
 import Circle from './'
 
@@ -23,6 +24,16 @@ const drawingTaskSnapshot = DrawingTaskFactory.build({
   type: 'drawing'
 })
 
+const taskSubtaskStrings = {}
+Object.entries(subtaskStrings).forEach(([key, value]) => {
+  taskSubtaskStrings[`tools.0.${key}`] = value
+})
+
+drawingTaskSnapshot.strings = {
+  instruction: drawingTaskSnapshot.instruction,
+  ...taskSubtaskStrings
+}
+
 const mockBounds = {
   x: 200,
   y: 200,
@@ -36,7 +47,17 @@ const mockBounds = {
 
 function setupStores() {
   try {
+    const workflowSubtaskStrings = {}
+    Object.entries(drawingTaskSnapshot.strings).forEach(([key, value]) => {
+      workflowSubtaskStrings[`tasks.T1.${key}`] = value
+    })
+    const strings = {
+      display_name: 'Circle workflow',
+      'tasks.T1.instruction': 'Draw a circle',
+      ...workflowSubtaskStrings
+    }
     const workflow = WorkflowFactory.build({
+      strings,
       tasks: {
         T1: drawingTaskSnapshot
       }

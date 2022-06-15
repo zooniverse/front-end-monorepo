@@ -26,6 +26,11 @@ const workflowSnapshot = WorkflowFactory.build({
   steps: [
     ['S1', { stepKey: 'S1', taskKeys: ['T0']}]
   ],
+  strings: {
+    display_name: 'a test workflow',
+    'tasks.T0.instruction': 'Transcribe a line',
+    'tasks.T0.tools.0.details.0.instruction': 'Transcribe the text'
+  },
   tasks: {
     T0: {
       instruction: 'Transcribe a line',
