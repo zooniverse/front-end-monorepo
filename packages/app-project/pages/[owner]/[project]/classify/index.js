@@ -8,7 +8,7 @@ export async function getServerSideProps({ locale, params, query, req, res }) {
     const { env } = query
     const { project } = props.initialState
     const { workflows } = props
-    const workflow = workflows.find(workflow => workflow.id === params.workflowID)
+    const workflow = workflows?.find(workflow => workflow.id === params.workflowID)
     const workflowPath = `/${project?.slug}/classify/workflow/${props.workflowID}`
     const destination = env ? `${workflowPath}?env=${env}` : workflowPath
     return ({
