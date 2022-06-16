@@ -50,6 +50,7 @@ describe('Components > Classifier', function () {
       const projectSnapshot = { ...getSnapshot(project) }
       workflow = store.workflows.active
       const workflowSnapshot = { ...getSnapshot(workflow) }
+      workflowSnapshot.strings = workflowStrings
       render(
         <Classifier
           classifierStore={store}
@@ -121,6 +122,7 @@ describe('Components > Classifier', function () {
       const projectSnapshot = { ...getSnapshot(project) }
       workflow = store.workflows.active
       const workflowSnapshot = { ...getSnapshot(workflow) }
+      workflowSnapshot.strings = workflowStrings
       render(
         <Classifier
           classifierStore={store}
@@ -275,8 +277,8 @@ describe('Components > Classifier', function () {
       tabPanel = screen.getByRole('tabpanel', { name: '1 Tab Contents'})
       const task = frenchSnapshot.tasks.T0
       taskInstruction = within(tabPanel).getByText('Is there a cat? - French translation.')
-      function getAnswerInput(answer) {
-        const label = answer.label
+      function getAnswerInput(answer, index) {
+        const label = frenchStrings[`tasks.T0.answers.${index}.label`]
         return within(tabPanel).getByRole('radio', { name: label })
       }
       taskAnswers = task.answers.map(getAnswerInput)
@@ -684,6 +686,7 @@ describe('Components > Classifier', function () {
       store.tutorials.setActive(workflowTutorial.id)
       const projectSnapshot = { ...getSnapshot(store.projects.active) }
       const workflowSnapshot = { ...getSnapshot(store.workflows.active) }
+      workflowSnapshot.strings = workflowStrings
       render(
         <Classifier
           classifierStore={store}
@@ -730,6 +733,7 @@ describe('Components > Classifier', function () {
       store.tutorials.setActive(workflowTutorial.id)
       const projectSnapshot = { ...getSnapshot(store.projects.active) }
       const workflowSnapshot = { ...getSnapshot(store.workflows.active) }
+      workflowSnapshot.strings = workflowStrings
       render(
         <Classifier
           classifierStore={store}
