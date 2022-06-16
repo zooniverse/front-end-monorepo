@@ -18,6 +18,7 @@ function storeMapper(store) {
   const {
     enableRotation,
     frame,
+    invert,
     move,
     rotation,
     setFrame,
@@ -38,6 +39,7 @@ function storeMapper(store) {
     activeTool,
     enableRotation,
     frame,
+    invert,
     move,
     rotation,
     setFrame,
@@ -60,6 +62,7 @@ function MultiFrameViewerContainer({
   enableRotation = () => null,
   frame = 0,
   ImageObject = window.Image,
+  invert = false,
   loadingState = asyncStates.initialized,
   move,
   onError = () => true,
@@ -152,6 +155,7 @@ function MultiFrameViewerContainer({
           <SingleImageViewer
             enableInteractionLayer={enableDrawing}
             height={naturalHeight}
+            invert={invert}
             onKeyDown={onKeyDown}
             rotate={rotation}
             width={naturalWidth}
@@ -176,6 +180,7 @@ MultiFrameViewerContainer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   enableRotation: PropTypes.func,
   frame: PropTypes.number,
+  invert: PropTypes.bool,
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,
