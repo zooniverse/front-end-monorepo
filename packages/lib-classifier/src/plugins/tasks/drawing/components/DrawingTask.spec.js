@@ -14,14 +14,14 @@ describe('DrawingTask', function () {
     help: 'Help content.',
     strings: {
       instruction: 'Draw something.',
+      'tools.0.label': 'Line',
+      'tools.1.label': 'Point'
     },
     taskKey: 'T0',
     tools: [{
-      label: 'Line',
       max: 3,
       type: 'line'
     }, {
-      label: 'Point',
       min: 1,
       type: 'point'
     }],
