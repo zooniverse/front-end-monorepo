@@ -114,6 +114,7 @@ function SingleImageViewerContainer({
             <SubjectImage
               role='img'
               aria-label={`Subject ${subjectID}`}
+              filter={invert ? 'invert(100%)' : 'invert(0)'}
               {...subjectImageProps}
             />
           </g>

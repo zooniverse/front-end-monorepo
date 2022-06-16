@@ -1,19 +1,16 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React, { useRef } from 'react'
-import styled from 'styled-components'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import InteractionLayer from '../InteractionLayer'
 import ZoomControlButton from '../ZoomControlButton'
-
 
 function SingleImageViewer (props) {
   const {
     children,
     enableInteractionLayer = true,
     height,
-    invert = false,
     onKeyDown = () => true,
     rotate = 0,
     scale = 1,
@@ -41,7 +38,6 @@ function SingleImageViewer (props) {
         overflow='hidden'
       >
         <svg
-          filter={invert ? 'invert(100%)' : 'invert(0)'}
           focusable
           onKeyDown={onKeyDown}
           tabIndex={0}
@@ -73,7 +69,6 @@ function SingleImageViewer (props) {
 SingleImageViewer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   height: PropTypes.number.isRequired,
-  invert: PropTypes.bool,
   onKeyDown: PropTypes.func,
   rotate: PropTypes.number,
   scale: PropTypes.number,

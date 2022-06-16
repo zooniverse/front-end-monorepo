@@ -155,13 +155,13 @@ function MultiFrameViewerContainer({
           <SingleImageViewer
             enableInteractionLayer={enableDrawing}
             height={naturalHeight}
-            invert={invert}
             onKeyDown={onKeyDown}
             rotate={rotation}
             width={naturalWidth}
           >
             <g ref={subjectImage}>
               <SubjectImage
+                filter={invert ? 'invert(100%)' : 'invert(0)'}
                 {...subjectImageProps}
               />
             </g>
