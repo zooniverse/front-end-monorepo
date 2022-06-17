@@ -4,7 +4,7 @@ import {
   Text
 } from 'grommet'
 import PropTypes from 'prop-types'
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { Media, withThemeContext } from '@zooniverse/react-components'
 
 import theme from './theme'
@@ -25,6 +25,13 @@ function ChoiceButton({
 }) {
 
   const choiceButton = useRef(null)
+  const handleClick = useCallback(() => {
+    onChoose(choiceId)
+  }, [choiceId, onChoose])
+  const handleKeyDown = useCallback((event) => {
+    onKeyDown(choiceId, event)
+  }, [choiceId, onKeyDown])
+
   useEffect(() => {
     if (choiceButton && hasFocus) {
       choiceButton.current.focus()
@@ -66,8 +73,8 @@ function ChoiceButton({
           </Text>
         </Box>
       }
-      onClick={() => onChoose(choiceId)}
-      onKeyDown={(event) => onKeyDown(choiceId, event)}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
       selected={selected}
       size='small'
       tabIndex={tabIndex}
