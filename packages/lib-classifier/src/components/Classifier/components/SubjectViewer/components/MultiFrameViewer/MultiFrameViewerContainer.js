@@ -2,17 +2,16 @@ import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
 
 import withKeyZoom from '@components/Classifier/components/withKeyZoom'
 import { withStores } from '@helpers'
-import { draggable } from '@plugins/drawingTools/components'
 
-import useSubjectImage, { placeholder } from '../SingleImageViewer/hooks/useSubjectImage'
-import FrameCarousel from './FrameCarousel'
 import locationValidator from '../../helpers/locationValidator'
+import useSubjectImage, { placeholder } from '../SingleImageViewer/hooks/useSubjectImage'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
+import SVGImage from '../SVGComponents/SVGImage'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
+import FrameCarousel from './FrameCarousel'
 
 function storeMapper(store) {
   const {
@@ -48,10 +47,6 @@ function storeMapper(store) {
   }
 }
 
-const DraggableImage = styled(draggable('image'))`
-  cursor: move;
-`
-
 const defaultTool = {
   validate: () => {}
 }
@@ -74,7 +69,6 @@ function MultiFrameViewerContainer({
   setOnZoom = () => true,
   subject
 }) {
-
   const subjectImage = useRef()
   const [dragMove, setDragMove] = useState()
   // TODO: replace this with a better function to parse the image location from a subject.
@@ -121,16 +115,11 @@ function MultiFrameViewerContainer({
     )
   }
 
-  const enableDrawing = (loadingState === asyncStates.success) && enableInteractionLayer
-  const SubjectImage = move ? DraggableImage : 'image'
-  const subjectImageProps = {
-    height: naturalHeight,
-    width: naturalWidth,
-    xlinkHref: src,
-    ...(move && { dragMove: onDrag })
-  }
+  const enableDrawing =
+    loadingState === asyncStates.success && enableInteractionLayer
 
   if (loadingState !== asyncStates.initialized) {
+    const subjectID = subject?.id || 'unknown'
     return (
       <Box
         direction='row'
@@ -160,9 +149,14 @@ function MultiFrameViewerContainer({
             width={naturalWidth}
           >
             <g ref={subjectImage}>
-              <SubjectImage
-                filter={invert ? 'invert(100%)' : 'invert(0)'}
-                {...subjectImageProps}
+              <SVGImage
+                invert={invert}
+                move={move}
+                naturalHeight={naturalHeight}
+                naturalWidth={naturalWidth}
+                onDrag={onDrag}
+                src={src}
+                subjectID={subjectID}
               />
             </g>
           </SingleImageViewer>
@@ -193,4 +187,4 @@ MultiFrameViewerContainer.propTypes = {
 }
 
 export default withStores(withKeyZoom(MultiFrameViewerContainer), storeMapper)
-export { DraggableImage, MultiFrameViewerContainer }
+export { MultiFrameViewerContainer }
