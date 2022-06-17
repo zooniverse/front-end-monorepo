@@ -1,4 +1,5 @@
 import { Box } from 'grommet'
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -7,7 +8,7 @@ import Choices from './components/Choices'
 import ClearFilters from './components/CharacteristicsFilter/ClearFilters'
 import getFilteredChoiceIds from './helpers/getFilteredChoiceIds'
 
-export default function Chooser({
+function Chooser({
   autoFocus = false,
   disabled = false,
   filters = {},
@@ -60,3 +61,5 @@ Chooser.propTypes = {
     type: PropTypes.string
   }).isRequired
 }
+
+export default observer(Chooser)

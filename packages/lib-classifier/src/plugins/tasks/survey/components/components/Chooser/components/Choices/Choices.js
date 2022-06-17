@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import styled, { css, withTheme } from 'styled-components'
@@ -144,4 +145,4 @@ Choices.propTypes = {
   })
 }
 
-export default withTheme(Choices)
+export default withTheme(observer(Choices))
