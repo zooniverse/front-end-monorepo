@@ -6,6 +6,7 @@ import oauth from 'panoptes-client/lib/oauth'
 import React from 'react'
 
 import Classifier from '../../../src/components/Classifier'
+import localeMenu from './localeMenu'
 
 class App extends React.Component {
   constructor(props) {
@@ -185,9 +186,8 @@ class App extends React.Component {
           <Box as='header' pad='medium' justify='end' gap='medium' direction='row'>
             <label htmlFor="locale">Language</label>
             <select id="locale" defaultValue={locale} onChange={this.selectLocale}>
-              <option value='en'>English</option>
-              <option value='es'>Español</option>
-              <option value='fr'>Français</option>
+              {project?.available_languages?.map(locale => <option key={locale} value={locale}>{localeMenu[locale]}</option>)}
+              <option value='test'>Test Language</option>
             </select>
             <label htmlFor="workflows">Workflow</label>
             <select id="workflows" defaultValue={workflowID} onChange={this.selectWorkflow}>

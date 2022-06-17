@@ -1,4 +1,5 @@
 /** next-i18next has { useSuspense: false } by default */
+
 /** locales array matches /helpers/localeMenu.js and PFE's app/locales */
 
 const locales = [

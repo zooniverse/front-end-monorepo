@@ -29,14 +29,14 @@ const MyComponent = () => {
 
 FEM is integrated with [Lokalise](https://app.lokalise.com) for translations management. Any dictionary other than `/en` should be managed through the Lokalise Dashboard. Instructions on how to import and export dictionary files can be found ________ (A link will be added here when a Lokalise playbook is published on Zooniverse's Github).
 
-New languages files must be added in the `locales` array in [next-i18next.js](next-i18next.js).
+Check that any added language is in the `locales` array in [next-i18next.js](next-i18next.js).
 
 ```js
 module.exports = {
   i18n: {
     defaultLocale: 'en',
     defaultNS: 'components',
-    locales: ['en', 'test']
+    locales: ['en', 'fr', 'test']
   }
 }
 ```
