@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { draggable } from '@plugins/drawingTools/components'
 
-const DraggableImage = styled(draggable('image'))`
+export const DraggableImage = styled(draggable('image'))`
   cursor: move;
 `
 
