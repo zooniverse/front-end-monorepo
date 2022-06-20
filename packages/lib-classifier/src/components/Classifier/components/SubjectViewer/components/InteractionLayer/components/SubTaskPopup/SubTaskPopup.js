@@ -1,10 +1,11 @@
 import { Box, Paragraph } from 'grommet'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { MovableModal } from '@zooniverse/react-components'
 import { useTranslation } from 'react-i18next'
 
+import { useClientRect } from '@hooks'
 import * as taskRegister from '@plugins/tasks'
 import getDefaultPosition from '../../helpers/getDefaultPosition'
 import ConfirmModal from './components/ConfirmModal'
@@ -30,12 +31,7 @@ function SubTaskPopup({
   } = activeMark
 
   const { t } = useTranslation('components')
-  const [dimensions, setDimensions] = useState({})
-  const measuredContent = useCallback(node => {
-    if (node !== null) {
-      setDimensions(node.getBoundingClientRect())
-    }
-  },[])
+  const [dimensions, measuredContentRef] = useClientRect()
   const [confirmationState, setConfirm] = useState('pending')
 
   if (!subTaskVisibility) return null
@@ -96,7 +92,7 @@ function SubTaskPopup({
         }}
         titleColor=''
       >
-        <Box gap='small' ref={measuredContent}>
+        <Box gap='small' ref={measuredContentRef}>
           {tasks.map((task, index) => {
             // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
             // or creates a new one if one doesn't exist.
