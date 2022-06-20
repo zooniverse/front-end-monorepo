@@ -1,7 +1,7 @@
 import { Box, Paragraph } from 'grommet'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { MovableModal } from '@zooniverse/react-components'
 import { useTranslation } from 'react-i18next'
 
@@ -22,17 +22,24 @@ function SubTaskPopup({
   /** A callback that is called if the active mark is deleted. */
   onDelete
 }) {
-  const { t } = useTranslation('components')
-
   const {
     subTaskMarkBounds,
     subTaskVisibility,
     subTaskPreviousAnnotationValues,
     setSubTaskVisibility
   } = activeMark
+
+  const { t } = useTranslation('components')
+  const [dimensions, setDimensions] = useState({})
+  const measuredContent = useCallback(node => {
+    if (node !== null) {
+      setDimensions(node.getBoundingClientRect())
+    }
+  },[])
+  const [confirmationState, setConfirm] = useState('pending')
+
   if (!subTaskVisibility) return null
 
-  const [confirmationState, setConfirm] = React.useState('pending')
   function onOpenConfirm() {
     setConfirm('confirming')
   }
@@ -65,7 +72,10 @@ function SubTaskPopup({
     event.stopPropagation()
   }
 
-  const defaultPosition = getDefaultPosition(subTaskMarkBounds, MIN_POPUP_HEIGHT, MIN_POPUP_WIDTH)
+  // modal content has 30px padding top and bottom, adding 60px to the total height.
+  const minHeight = (dimensions?.height + 60) || MIN_POPUP_HEIGHT
+  const minWidth = dimensions?.width || MIN_POPUP_WIDTH
+  const defaultPosition = getDefaultPosition(subTaskMarkBounds, minHeight, minWidth)
   const disabled = !ready || confirmationState === 'confirming'
 
   return (
@@ -80,13 +90,13 @@ function SubTaskPopup({
         position='top-left'
         rndProps={{
           cancel: '.subtaskpopup-element-that-ignores-drag-actions',
-          minHeight: MIN_POPUP_HEIGHT,
-          minWidth: MIN_POPUP_WIDTH,
+          minHeight,
+          minWidth,
           position: defaultPosition
         }}
         titleColor=''
       >
-        <Box gap='small'>
+        <Box gap='small' ref={measuredContent}>
           {tasks.map((task, index) => {
             // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
             // or creates a new one if one doesn't exist.
