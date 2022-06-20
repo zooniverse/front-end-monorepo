@@ -46,7 +46,7 @@ describe('MovableModal', function () {
       expect(rnd.props().minHeight).to.equal(wrapper.props().minHeight)
       expect(rnd.props().minWidth).to.equal(wrapper.props().minWidth)
       expect(rnd.props().default).to.deep.equal({ x: 0, y: 0})
-      wrapper.setProps({ rndProps: { minHeight, minWidth, position }})
+      wrapper.setProps({ rndProps: { minHeight, minWidth, default: position }})
       rnd = wrapper.find(Rnd)
       expect(rnd.props().minHeight).to.equal(minHeight)
       expect(rnd.props().minWidth).to.equal(minWidth)
