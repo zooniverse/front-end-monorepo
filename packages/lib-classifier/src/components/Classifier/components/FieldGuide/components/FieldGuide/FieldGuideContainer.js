@@ -33,14 +33,14 @@ function FieldGuideContainer ({
     title: t('FieldGuide.title')
   }
   const rndProps = {
-    minHeight,
-    minWidth,
-    onResize,
-    position: {
+    default: {
       height,
       x: 0 - (minWidth + 60), // width plus margins
       y: 0 - (minHeight + 60) * 0.5 // centers vertically
-    }
+    },
+    minHeight,
+    minWidth,
+    onResize
   }
   const modalPropsToUse = (size === 'small') ? modalProps : Object.assign({}, modalProps, { rndProps })
   return (
