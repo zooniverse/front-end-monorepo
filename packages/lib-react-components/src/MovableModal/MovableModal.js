@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import { Rnd } from 'react-rnd'
 import ResizeIcon from './components/ResizeIcon'
@@ -14,7 +14,7 @@ const defaultRndProps = {
   minWidth: 350
 }
 
-function MovableModal({
+const MovableModal = forwardRef(function ({
   children,
   closeFn,
   headingBackground,
@@ -24,7 +24,8 @@ function MovableModal({
   title = '',
   titleColor,
   ...rest
-}) {
+},
+ref) {
 
   const {
     cancel,
@@ -72,6 +73,7 @@ function MovableModal({
       {...restRndProps}
     >
       <Modal
+        ref={ref}
         closeFn={closeFn}
         headingBackground={headingBackground}
         overflow={overflow}
@@ -84,7 +86,7 @@ function MovableModal({
       </Modal>
     </Rnd>
   )
-}
+})
 
 MovableModal.propTypes = {
   children: PropTypes.node,

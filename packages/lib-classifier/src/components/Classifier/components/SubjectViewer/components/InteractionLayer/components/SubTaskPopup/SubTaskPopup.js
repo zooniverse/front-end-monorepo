@@ -68,18 +68,13 @@ function SubTaskPopup({
     event.stopPropagation()
   }
 
-  /* 
-    Modal content has 30px padding all round, plus a title bar.
-    Adjust for these by padding the content height and width to estimate
-    the total height and width.
-  */
-  const minHeight = (dimensions?.height + 70) || MIN_POPUP_HEIGHT
-  const minWidth = (dimensions?.width + 60) || MIN_POPUP_WIDTH
+  const minHeight = dimensions?.height || MIN_POPUP_HEIGHT
+  const minWidth = dimensions?.width || MIN_POPUP_WIDTH
   const defaultPosition = getDefaultPosition(subTaskMarkBounds, minHeight, minWidth)
   const disabled = !ready || confirmationState === 'confirming'
   const size = {
-    height: dimensions?.height + 70,
-    width: dimensions?.width + 60
+    height: dimensions?.height,
+    width: dimensions?.width
   }
 
   const rndProps = {
@@ -92,6 +87,7 @@ function SubTaskPopup({
   return (
     <>
       <MovableModal
+        ref={measuredContentRef}
         active
         closeFn={close}
         headingBackground='transparent'
@@ -102,7 +98,7 @@ function SubTaskPopup({
         rndProps={rndProps}
         titleColor=''
       >
-        <Box gap='small' ref={measuredContentRef}>
+        <Box gap='small'>
           {tasks.map((task, index) => {
             // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
             // or creates a new one if one doesn't exist.
