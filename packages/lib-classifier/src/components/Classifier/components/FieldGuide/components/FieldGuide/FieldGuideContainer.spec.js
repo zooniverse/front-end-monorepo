@@ -90,9 +90,9 @@ describe('Component > FieldGuideContainer', function () {
     })
 
     it('should set the movable modal height to auto on resize', function () {
-      expect(wrapper.props().modalProps.rndProps.position.height).to.equal(415)
+      expect(wrapper.props().modalProps.rndProps.default.height).to.equal(415)
       wrapper.props().modalProps.rndProps.onResize()
-      expect(wrapper.props().modalProps.rndProps.position.height).to.equal('auto')
+      expect(wrapper.props().modalProps.rndProps.default.height).to.equal('auto')
     })
   })
 

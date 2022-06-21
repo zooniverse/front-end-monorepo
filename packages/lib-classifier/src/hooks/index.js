@@ -1,3 +1,4 @@
+export { default as useClientRect } from './useClientRect'
 export { default as useHydratedStore } from './useHydratedStore'
 export { default as usePanoptesAuth } from './usePanoptesAuth'
 export { default as usePanoptesTranslations } from './usePanoptesTranslations'
