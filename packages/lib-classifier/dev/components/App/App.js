@@ -6,7 +6,7 @@ import oauth from 'panoptes-client/lib/oauth'
 import React from 'react'
 
 import Classifier from '../../../src/components/Classifier'
-import localeMenu from './localeMenu'
+import localeMenu from './localeMenu.js'
 
 class App extends React.Component {
   constructor(props) {
