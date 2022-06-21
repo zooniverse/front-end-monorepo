@@ -1,7 +1,7 @@
 const MIN_HEIGHT = 200
 const MIN_WIDTH = 350
 
-export default function getDefaultPosition (bounds = {}, minHeight = MIN_HEIGHT, minWidth = MIN_WIDTH) {
+export default function getDefaultPosition(bounds = {}, minHeight = MIN_HEIGHT, minWidth = MIN_WIDTH) {
   const viewport = {
     height: window?.innerHeight,
     width: window?.innerWidth
@@ -40,8 +40,8 @@ export default function getDefaultPosition (bounds = {}, minHeight = MIN_HEIGHT,
   // Keep within bounds of the viewport
   const leftLimit = 0
   const topLimit = 0
-  const rightLimit = (window && window.innerWidth || 0) - (minWidth || MIN_WIDTH)
-  const bottomLimit = (window && window.innerHeight || 0) - (minHeight || MIN_HEIGHT)
+  const rightLimit = viewport.width - minWidth || 0
+  const bottomLimit = viewport.height - minHeight || 0
 
   x = Math.max(x, leftLimit)
   y = Math.max(y, topLimit)

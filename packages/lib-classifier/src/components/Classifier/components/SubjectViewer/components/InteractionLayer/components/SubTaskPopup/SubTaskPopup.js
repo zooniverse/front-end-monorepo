@@ -1,10 +1,11 @@
 import { Box, Paragraph } from 'grommet'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 import { MovableModal } from '@zooniverse/react-components'
 import { useTranslation } from 'react-i18next'
 
+import { useClientRect } from '@hooks'
 import * as taskRegister from '@plugins/tasks'
 import getDefaultPosition from '../../helpers/getDefaultPosition'
 import ConfirmModal from './components/ConfirmModal'
@@ -22,17 +23,19 @@ function SubTaskPopup({
   /** A callback that is called if the active mark is deleted. */
   onDelete
 }) {
-  const { t } = useTranslation('components')
-
   const {
     subTaskMarkBounds,
     subTaskVisibility,
     subTaskPreviousAnnotationValues,
     setSubTaskVisibility
   } = activeMark
+
+  const { t } = useTranslation('components')
+  const [dimensions, measuredContentRef] = useClientRect()
+  const [confirmationState, setConfirm] = useState('pending')
+
   if (!subTaskVisibility) return null
 
-  const [confirmationState, setConfirm] = React.useState('pending')
   function onOpenConfirm() {
     setConfirm('confirming')
   }
@@ -65,9 +68,27 @@ function SubTaskPopup({
     event.stopPropagation()
   }
 
-  const defaultPosition = getDefaultPosition(subTaskMarkBounds, MIN_POPUP_HEIGHT, MIN_POPUP_WIDTH)
+  /* 
+    Modal content has 30px padding all round, plus a title bar.
+    Adjust for these by padding the content height and width to estimate
+    the total height and width.
+  */
+  const minHeight = (dimensions?.height + 70) || MIN_POPUP_HEIGHT
+  const minWidth = (dimensions?.width + 60) || MIN_POPUP_WIDTH
+  const defaultPosition = getDefaultPosition(subTaskMarkBounds, minHeight, minWidth)
   const disabled = !ready || confirmationState === 'confirming'
+  const size = {
+    height: dimensions?.height + 70,
+    width: dimensions?.width + 60
+  }
 
+  const rndProps = {
+    cancel: '.subtaskpopup-element-that-ignores-drag-actions',
+    minHeight,
+    minWidth,
+    position: defaultPosition,
+    size
+  }
   return (
     <>
       <MovableModal
@@ -78,15 +99,10 @@ function SubTaskPopup({
         pad={{ bottom: 'medium', left: 'medium', right: 'medium' }}
         plain
         position='top-left'
-        rndProps={{
-          cancel: '.subtaskpopup-element-that-ignores-drag-actions',
-          minHeight: MIN_POPUP_HEIGHT,
-          minWidth: MIN_POPUP_WIDTH,
-          position: defaultPosition
-        }}
+        rndProps={rndProps}
         titleColor=''
       >
-        <Box gap='small'>
+        <Box gap='small' ref={measuredContentRef}>
           {tasks.map((task, index) => {
             // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
             // or creates a new one if one doesn't exist.
