@@ -33,6 +33,6 @@ module.exports = {
   i18n: {
     defaultLocale: 'en',
     defaultNS: 'components',
-    locales: locales
+    locales
   }
 }
