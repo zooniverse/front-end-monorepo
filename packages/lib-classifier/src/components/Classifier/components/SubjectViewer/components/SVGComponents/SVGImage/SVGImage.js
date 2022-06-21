@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types'
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 import { draggable } from '@plugins/drawingTools/components'
@@ -22,17 +22,17 @@ const INVERT =
   </svg>`
 
 export default function SVGImage ({
-  invert,
-  move,
+  invert = false,
+  move = false,
   naturalHeight,
   naturalWidth,
-  onDrag,
+  onDrag = () => true,
   src,
   subjectID
 }) {
- if (!document.getElementById('svg-invert-filter')) {
-   document.body.insertAdjacentHTML('afterbegin', INVERT)
-}
+  if (!document.getElementById('svg-invert-filter')) {
+    document.body.insertAdjacentHTML('afterbegin', INVERT)
+  }
 
   const SubjectImage = move ? DraggableImage : 'image'
 
@@ -47,4 +47,14 @@ export default function SVGImage ({
       xlinkHref={src}
     />
   )
+}
+
+SVGImage.propTypes = {
+  invert: PropTypes.bool,
+  move: PropTypes.bool,
+  naturalHeight: PropTypes.number.isRequired,
+  naturalWidth: PropTypes.number.isRequired,
+  onDrag: PropTypes.func,
+  src: PropTypes.string.isRequired,
+  subjectID: PropTypes.string.isRequired
 }
