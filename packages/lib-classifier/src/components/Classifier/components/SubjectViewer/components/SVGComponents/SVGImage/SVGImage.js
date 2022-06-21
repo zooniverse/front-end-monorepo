@@ -30,13 +30,9 @@ export default function SVGImage ({
   src,
   subjectID
 }) {
-  useEffect(function onInvert () {
-    if (invert) {
-      if (!document.getElementById('svg-invert-filter')) {
-        document.body.insertAdjacentHTML('afterbegin', INVERT)
-      }
-    }
-  }, [invert])
+ if (!document.getElementById('svg-invert-filter')) {
+   document.body.insertAdjacentHTML('afterbegin', INVERT)
+}
 
   const SubjectImage = move ? DraggableImage : 'image'
 
