@@ -42,7 +42,7 @@ export default function SVGImage ({
       dragMove={move ? onDrag : () => null}
       height={naturalHeight}
       role='img'
-      style={invert ? { filter: 'url("#svg-invert-filter")' } : {}}
+      filter={invert ? 'url("#svg-invert-filter")' : undefined}
       width={naturalWidth}
       xlinkHref={src}
     />
