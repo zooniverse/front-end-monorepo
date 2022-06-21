@@ -12,7 +12,8 @@ import QuickTalk from '@components/Classifier/components/QuickTalk'
 import SubjectViewer from '@components/Classifier/components/SubjectViewer'
 import TaskArea from '@components/Classifier/components/TaskArea'
 
-const columnSize = pxToRem(380)
+const subjectSize = pxToRem(680)
+const taskSize = pxToRem(380)
 
 const ContainerGrid = styled.div`
   display: grid;
@@ -21,7 +22,7 @@ const ContainerGrid = styled.div`
   position: relative;
 
   @media (min-width: 701px) {
-    grid-template-columns: 8fr ${columnSize};
+    grid-template-columns: minmax(${subjectSize}, auto) ${taskSize};
   }
 
   @media screen and (max-width: 700px) {
