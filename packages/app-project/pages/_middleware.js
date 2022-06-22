@@ -10,6 +10,11 @@ export function middleware(req, event) {
   if (pathname.startsWith('/assets')) {
     return
   }
+
+  if (pathname === '/Index') {
+    return
+  }
+
   /*
     Project pages are served from /projects/staging/[owner]/[project]
     and /projects/production/[owner]/[project]
