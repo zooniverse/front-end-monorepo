@@ -14,6 +14,7 @@ describe('Component > Choices', function () {
   let task = Task.TaskModel.create({
     choices: mockTask.choices,
     images: mockTask.images,
+    strings: mockTask.strings,
     taskKey: 'T0',
     type: 'survey'
   })
