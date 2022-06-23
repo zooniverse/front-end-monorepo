@@ -5,6 +5,7 @@ import notFoundError from '@helpers/notFoundError'
 import fetchProjectData from '@helpers/fetchProjectData'
 import fetchTranslations from '@helpers/fetchTranslations'
 import fetchWorkflowsHelper from '@helpers/fetchWorkflowsHelper'
+import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 import initStore from '@stores'
 
 export default async function getStaticPageProps({ locale, params }) {
@@ -13,13 +14,14 @@ export default async function getStaticPageProps({ locale, params }) {
   // we'll take a snapshot of this later, to pass as a page prop.
   const store = initStore(isServer)
   const { env } = params
+  const host = getServerSideAPIHost(env)
 
   /*
     Fetch the project
   */
   if (params.owner && params.project) {
     const projectSlug = `${params.owner}/${params.project}`
-    const project = await fetchProjectData(projectSlug, { env })
+    const project = await fetchProjectData(projectSlug, { env }, host)
     applySnapshot(store.project, project)
     if (!store.project.id) {
       return notFoundError(`Project ${params.owner}/${params.project} was not found`)
@@ -52,7 +54,8 @@ export default async function getStaticPageProps({ locale, params }) {
     translated_type: 'project',
     language,
     fallback: project.primary_language,
-    env
+    env,
+    host
   })
   const strings = translations?.strings ?? project.strings
 
@@ -71,7 +74,7 @@ export default async function getStaticPageProps({ locale, params }) {
   /*
     Fetch the active project workflows
   */
-  const workflows = await fetchWorkflowsHelper(language, project.links.active_workflows, workflowID, workflowOrder, env)
+  const workflows = await fetchWorkflowsHelper(language, project.links.active_workflows, workflowID, workflowOrder, env, host)
   const props = {
     project: {
       ...project,

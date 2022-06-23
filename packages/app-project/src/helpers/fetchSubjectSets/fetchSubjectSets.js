@@ -1,8 +1,10 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 
+import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 import { logToSentry } from '@helpers/logger'
 
 async function fetchSubjectSetData(subjectSetIDs, env) {
+  const host = getServerSideAPIHost(env)
   let subject_sets = []
   try {
     const query = {
@@ -10,7 +12,7 @@ async function fetchSubjectSetData(subjectSetIDs, env) {
       id: subjectSetIDs.join(','),
       page_size: subjectSetIDs.length
     }
-    const response = await panoptes.get('/subject_sets', query)
+    const response = await panoptes.get('/subject_sets', query, {}, host)
     subject_sets = response.body.subject_sets
     await Promise.allSettled(subject_sets.map(subjectSet => fetchPreviewImage(subjectSet, env)))
   } catch (error) {
@@ -21,14 +23,15 @@ async function fetchSubjectSetData(subjectSetIDs, env) {
 }
 
 async function fetchPreviewImage (subjectSet, env) {
+  const host = getServerSideAPIHost(env)
   try {
-    const response = await panoptes
-      .get('/set_member_subjects', {
-        env,
-        subject_set_id: subjectSet.id,
-        include: 'subject',
-        page_size: 1
-      })
+    const query = {
+      env,
+      subject_set_id: subjectSet.id,
+      include: 'subject',
+      page_size: 1
+    }
+    const response = await panoptes.get('/set_member_subjects', query, {}, host)
     const { linked } = response.body
     subjectSet.subjects = linked.subjects
   } catch (error) {

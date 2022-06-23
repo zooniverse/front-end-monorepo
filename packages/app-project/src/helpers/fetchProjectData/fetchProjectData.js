@@ -2,13 +2,13 @@ import { get } from 'lodash'
 import asyncStates from '@zooniverse/async-states'
 import { projects } from '@zooniverse/panoptes-js'
 
-export default async function fetchProjectData(slug, params) {
+export default async function fetchProjectData(slug, params, host) {
   const projectData = {
     loadingState: asyncStates.loading
   }
   try {
     const query = { ...params, slug }
-    const response = await projects.getWithLinkedResources({ query })
+    const response = await projects.getWithLinkedResources({ query }, host)
     const project = response.body.projects[0]
     if (!project) throw new Error(`${slug} could not be found`)
 

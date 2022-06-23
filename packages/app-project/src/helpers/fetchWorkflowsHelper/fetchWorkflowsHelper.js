@@ -2,7 +2,7 @@ import { panoptes } from '@zooniverse/panoptes-js'
 
 import { logToSentry } from '@helpers/logger'
 
-async function fetchWorkflowData(workflows, env) {
+async function fetchWorkflowData(workflows, env, host) {
   try {
     const query = {
       complete: false,
@@ -10,7 +10,7 @@ async function fetchWorkflowData(workflows, env) {
       fields: 'completeness,configuration,display_name,grouped,prioritized',
       id: workflows.join(',')
     }
-    const response = await panoptes.get('/workflows', query)
+    const response = await panoptes.get('/workflows', query, {}, host)
     return response.body.workflows
   } catch (error) {
     logToSentry(error)
@@ -18,14 +18,14 @@ async function fetchWorkflowData(workflows, env) {
   }
 }
 
-async function fetchSingleWorkflow(workflowID, env) {
+async function fetchSingleWorkflow(workflowID, env, host) {
   try {
     const query = {
       env,
       fields: 'completeness,configuration,display_name,grouped,prioritized',
       id: workflowID
     }
-    const response = await panoptes.get('/workflows', query)
+    const response = await panoptes.get('/workflows', query, {}, host)
     const [ workflow ] = response.body.workflows
     return workflow
   } catch (error) {
@@ -34,16 +34,17 @@ async function fetchSingleWorkflow(workflowID, env) {
   }
 }
 
-async function fetchDisplayNames(language, workflows, env) {
+async function fetchDisplayNames(language, workflows, env, host) {
   let displayNames = {}
   try {
-    const response = await panoptes.get('/translations', {
+    const query = {
       env,
       fields: 'strings,translated_id',
       language,
       'translated_id': workflows.join(','),
       'translated_type': 'workflow'
-    })
+    }
+    const response = await panoptes.get('/translations', query, {}, host)
     const { translations } = response.body
     displayNames = createDisplayNamesMap(translations)
   } catch (error) {
@@ -94,21 +95,23 @@ async function fetchWorkflowsHelper(
     /* display order of workflow IDs, specified by the project owner. */
     workflowOrder = [],
     /* API environment, production | staging. */
-    env
+    env,
+    /* Override the configured API host */
+    host
   ) {
-  const workflows = await fetchWorkflowData(workflowIDs, env)
+  const workflows = await fetchWorkflowData(workflowIDs, env, host)
   if (workflowID) {
     const activeWorkflow = workflows.find(workflow => workflow.id === workflowID)
     if (!activeWorkflow) {
       /*
         Always fetch specified workflows, even if they're complete.
       */
-      const workflow = await fetchSingleWorkflow(workflowID, env)
+      const workflow = await fetchSingleWorkflow(workflowID, env, host)
       workflows.push(workflow)
     }
   }
   const workflowIds = workflows.map(workflow => workflow.id)
-  const displayNames = await fetchDisplayNames(language, workflowIds, env)
+  const displayNames = await fetchDisplayNames(language, workflowIds, env, host)
 
   const awaitWorkflows = workflows.map(workflow => {
     const displayName = displayNames[workflow.id] || workflow.display_name
