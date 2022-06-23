@@ -4,28 +4,34 @@ import {
   Text
 } from 'grommet'
 import PropTypes from 'prop-types'
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { Media, withThemeContext } from '@zooniverse/react-components'
 
 import theme from './theme'
 
 export const THUMBNAIL_ASPECT_RATIO = 1.25
 
-function ChoiceButton (props) {
-  const {
-    choiceId,
-    choiceLabel,
-    disabled,
-    hasFocus,
-    onKeyDown,
-    onChoose,
-    selected,
-    src,
-    tabIndex,
-    thumbnailSize
-  } = props
+function ChoiceButton({
+  choiceId = '',
+  choiceLabel = '',
+  disabled = false,
+  hasFocus = false,
+  onKeyDown = () => true,
+  onChoose = () => true,
+  selected = false,
+  src = '',
+  tabIndex = -1,
+  thumbnailSize = 'none'
+}) {
 
   const choiceButton = useRef(null)
+  const handleClick = useCallback(() => {
+    onChoose(choiceId)
+  }, [choiceId, onChoose])
+  const handleKeyDown = useCallback((event) => {
+    onKeyDown(choiceId, event)
+  }, [choiceId, onKeyDown])
+
   useEffect(() => {
     if (choiceButton && hasFocus) {
       choiceButton.current.focus()
@@ -67,26 +73,13 @@ function ChoiceButton (props) {
           </Text>
         </Box>
       }
-      onClick={() => onChoose(choiceId)}
-      onKeyDown={(event) => onKeyDown(choiceId, event)}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
       selected={selected}
       size='small'
       tabIndex={tabIndex}
     />
   )
-}
-
-ChoiceButton.defaultProps = {
-  choiceId: '',
-  choiceLabel: '',
-  disabled: false,
-  hasFocus: false,
-  onChoose: () => {},
-  onKeyDown: () => {},
-  selected: false,
-  src: '',
-  tabIndex: -1,
-  thumbnailSize: 'none'
 }
 
 ChoiceButton.propTypes = {

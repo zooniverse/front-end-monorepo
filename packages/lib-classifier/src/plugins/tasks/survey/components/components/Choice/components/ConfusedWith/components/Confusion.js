@@ -4,16 +4,15 @@ import React from 'react'
 import { Media, PrimaryButton, SpacedHeading } from '@zooniverse/react-components'
 import { useTranslation } from 'react-i18next'
 
-export default function Confusion (props) {
-  const {
-    confusion,
-    confusionId,
-    confusionText,
-    handleChoice,
-    images,
-    onClose
-  } = props
-
+export default function Confusion({
+  confusion = {},
+  confusionId = '',
+  confusionText = '',
+  handleChoice = () => {},
+  images = {},
+  label,
+  onClose = () => true
+}) {
   const { t } = useTranslation('plugins')
 
   return (
@@ -29,7 +28,7 @@ export default function Confusion (props) {
       }}
       width='medium'
     >
-      <SpacedHeading>{confusion.label}</SpacedHeading>
+      <SpacedHeading>{label}</SpacedHeading>
       {confusion.images?.length > 0 && (
         <Carousel
           data-testid='confusion-images'
@@ -66,15 +65,6 @@ export default function Confusion (props) {
       </Box>
     </Box>
   )
-}
-
-Confusion.defaultProps = {
-  confusion: {},
-  confusionId: '',
-  confusionText: '',
-  handleChoice: () => {},
-  images: {},
-  onClose: () => {}
 }
 
 Confusion.propTypes = {

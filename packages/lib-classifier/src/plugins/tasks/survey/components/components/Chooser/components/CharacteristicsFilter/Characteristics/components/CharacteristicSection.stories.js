@@ -2,7 +2,9 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import React from 'react'
 
-import { task as mockTask } from '@plugins/tasks/survey/mock-data'
+import SurveyTask from '@plugins/tasks/survey'
+import { task } from '@plugins/tasks/survey/mock-data'
+const mockTask = SurveyTask.TaskModel.create(task)
 
 import CharacteristicSection from './CharacteristicSection'
 
@@ -35,7 +37,8 @@ const Template = ({
   characteristicId,
   dark,
   images,
-  selectedValueId
+  selectedValueId,
+  strings
 }) => (
   <StoryContext
     theme={{ ...zooTheme, dark }}
@@ -44,7 +47,9 @@ const Template = ({
       characteristic={characteristic}
       characteristicId={characteristicId}
       images={images}
+      label={strings.get(`characteristics.${characteristicId}.label`)}
       selectedValueId={selectedValueId}
+      strings={strings}
     />
   </StoryContext>
 )
@@ -55,5 +60,6 @@ Default.args = {
   characteristicId: 'LK',
   dark: false,
   images: mockTask.images,
-  selectedValueId: ''
+  selectedValueId: '',
+  strings: mockTask.strings
 }

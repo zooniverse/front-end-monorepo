@@ -4,7 +4,8 @@ import sinon from 'sinon'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { task as mockTask } from '@plugins/tasks/survey/mock-data'
+import { task } from '@plugins/tasks/survey/mock-data'
+import SurveyTask from '@plugins/tasks/survey'
 import Choice from './Choice'
 
 describe('Component > Choice', function () {
@@ -13,6 +14,8 @@ describe('Component > Choice', function () {
     TODO: figure out why these tests are so slow.
   */
   this.timeout(0)
+
+  const mockTask = SurveyTask.TaskModel.create(task)
 
   it('should render without crashing', function () {
     render(

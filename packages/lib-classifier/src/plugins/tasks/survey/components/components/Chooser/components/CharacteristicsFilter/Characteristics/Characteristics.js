@@ -1,19 +1,19 @@
 import { Box, Button } from 'grommet'
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import CharacteristicSection from './components/CharacteristicSection'
 
-export default function Characteristics (props) {
-  const {
-    characteristics,
-    characteristicsOrder,
-    filters,
-    images,
-    onFilter
-  } = props
-
+function Characteristics({
+  characteristics = {},
+  characteristicsOrder = [],
+  filters  = {},
+  images = {},
+  onFilter = () => true,
+  strings
+}) {
   const { t } = useTranslation('plugins')
 
   return (
@@ -31,8 +31,10 @@ export default function Characteristics (props) {
             characteristic={characteristic}
             characteristicId={characteristicId}
             images={images}
+            label={strings.get(`characteristics.${characteristicId}.label`)}
             onFilter={onFilter}
             selectedValueId={selectedValueId}
+            strings={strings}
           />
         )
       })}
@@ -46,14 +48,6 @@ export default function Characteristics (props) {
       </Box>
     </Box>
   )
-}
-
-Characteristics.defaultProps = {
-  characteristics: {},
-  characteristicsOrder: [],
-  filters: {},
-  images: {},
-  onFilter: () => {}
 }
 
 Characteristics.propTypes = {
@@ -74,3 +68,5 @@ Characteristics.propTypes = {
   images: PropTypes.objectOf(PropTypes.string),
   onFilter: PropTypes.func
 }
+
+export default observer(Characteristics)

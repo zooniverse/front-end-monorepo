@@ -5,17 +5,16 @@ import { SpacedHeading } from '@zooniverse/react-components'
 
 import InputGroup from './components/InputGroup'
 
-export default function Questions (props) {
-  const {
-    answers,
-    hasFocus,
-    questionIds,
-    questions,
-    setAnswers
-  } = props
-
+export default function Questions({
+  answers = {},
+  hasFocus = false,
+  questionIds = [],
+  questions = {},
+  setAnswers = () => {},
+  strings
+}) {
   function handleAnswer (questionAnswer, questionId) {
-    const newAnswers = Object.assign({}, answers, { [questionId]: questionAnswer })
+    const newAnswers = { ...answers, [questionId]: questionAnswer }
 
     // if questionAnswer is an empty string (cleared radio input) or is an empty array (cleared checkbox inputs) then questionAnswer length is 0
     if (questionAnswer.length === 0) {
@@ -41,7 +40,7 @@ export default function Questions (props) {
           <Box
             key={questionId}
           >
-            <SpacedHeading>{question.label}</SpacedHeading>
+            <SpacedHeading>{strings.get(`questions.${questionId}.label`)}</SpacedHeading>
             <InputGroup
               handleAnswer={handleAnswer}
               hasFocus={hasFocus && index === 0}
@@ -55,14 +54,6 @@ export default function Questions (props) {
       })}
     </Box>
   )
-}
-
-Questions.defaultProps = {
-  answers: {},
-  hasFocus: false,
-  questionIds: [],
-  questions: {},
-  setAnswers: () => {}
 }
 
 Questions.propTypes = {
