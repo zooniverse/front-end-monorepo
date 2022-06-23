@@ -1,7 +1,7 @@
 import { Box, Paragraph } from 'grommet'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { MovableModal } from '@zooniverse/react-components'
 import { useTranslation } from 'react-i18next'
 
@@ -33,6 +33,7 @@ function SubTaskPopup({
   const { t } = useTranslation('components')
   const [dimensions, measuredContentRef] = useClientRect()
   const [confirmationState, setConfirm] = useState('pending')
+  const [position, setPosition] = useState(null)
 
   if (!subTaskVisibility) return null
 
@@ -68,30 +69,33 @@ function SubTaskPopup({
     event.stopPropagation()
   }
 
-  /* 
-    Modal content has 30px padding all round, plus a title bar.
-    Adjust for these by padding the content height and width to estimate
-    the total height and width.
-  */
-  const minHeight = (dimensions?.height + 70) || MIN_POPUP_HEIGHT
-  const minWidth = (dimensions?.width + 60) || MIN_POPUP_WIDTH
+  const minHeight = dimensions?.height || MIN_POPUP_HEIGHT
+  const minWidth = dimensions?.width || MIN_POPUP_WIDTH
   const defaultPosition = getDefaultPosition(subTaskMarkBounds, minHeight, minWidth)
   const disabled = !ready || confirmationState === 'confirming'
-  const size = {
-    height: dimensions?.height + 70,
-    width: dimensions?.width + 60
-  }
+
+  const onDragStop = useCallback(function (event, data) {
+    const { x, y } = data
+    setPosition({ x, y })
+  })
+
+  const onResize = useCallback(function (event, direction, ref, delta, position) {
+    setPosition(position)
+  })
 
   const rndProps = {
     cancel: '.subtaskpopup-element-that-ignores-drag-actions',
     minHeight,
     minWidth,
-    position: defaultPosition,
-    size
+    onDragStop,
+    onResize,
+    position: position || defaultPosition
   }
+
   return (
     <>
       <MovableModal
+        ref={measuredContentRef}
         active
         closeFn={close}
         headingBackground='transparent'
@@ -102,7 +106,7 @@ function SubTaskPopup({
         rndProps={rndProps}
         titleColor=''
       >
-        <Box gap='small' ref={measuredContentRef}>
+        <Box gap='small'>
           {tasks.map((task, index) => {
             // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
             // or creates a new one if one doesn't exist.
