@@ -1,7 +1,7 @@
 import { Box, Paragraph } from 'grommet'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { MovableModal } from '@zooniverse/react-components'
 import { useTranslation } from 'react-i18next'
 
@@ -33,6 +33,7 @@ function SubTaskPopup({
   const { t } = useTranslation('components')
   const [dimensions, measuredContentRef] = useClientRect()
   const [confirmationState, setConfirm] = useState('pending')
+  const [position, setPosition] = useState(null)
 
   if (!subTaskVisibility) return null
 
@@ -72,18 +73,25 @@ function SubTaskPopup({
   const minWidth = dimensions?.width || MIN_POPUP_WIDTH
   const defaultPosition = getDefaultPosition(subTaskMarkBounds, minHeight, minWidth)
   const disabled = !ready || confirmationState === 'confirming'
-  const size = {
-    height: dimensions?.height,
-    width: dimensions?.width
-  }
+
+  const onDragStop = useCallback(function (event, data) {
+    const { x, y } = data
+    setPosition({ x, y })
+  })
+
+  const onResize = useCallback(function (event, direction, ref, delta, position) {
+    setPosition(position)
+  })
 
   const rndProps = {
     cancel: '.subtaskpopup-element-that-ignores-drag-actions',
     minHeight,
     minWidth,
-    position: defaultPosition,
-    size
+    onDragStop,
+    onResize,
+    position: position || defaultPosition
   }
+
   return (
     <>
       <MovableModal
