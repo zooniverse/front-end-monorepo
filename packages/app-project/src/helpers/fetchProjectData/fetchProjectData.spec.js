@@ -58,13 +58,14 @@ describe('Helpers > fetchProjectData', function () {
   })
 
   it('should request with params if defined', async function () {
+    let host
     sinon.stub(projects, 'getWithLinkedResources').callsFake(() => {
       return Promise.resolve({ body: mocks.responses.get.projectWithLinkedResources })
     })
 
     await fetchProjectData('foo/bar', { env: 'staging' })
     expect(projects.getWithLinkedResources).to.be.calledOnceWith(
-      { query: { slug: 'foo/bar', env: 'staging' } }
+      { query: { slug: 'foo/bar', env: 'staging' }, headers: {}, host }
     )
     projects.getWithLinkedResources.restore()
   })
