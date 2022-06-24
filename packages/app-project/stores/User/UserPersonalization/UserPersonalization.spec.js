@@ -1,9 +1,9 @@
 import { expect } from 'chai'
 import nock from 'nock'
 import auth from 'panoptes-client/lib/auth'
-import talkClient from 'panoptes-client/lib/talk-client'
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
+import { talkAPI } from '@zooniverse/panoptes-js'
 
 import initStore from '@stores/initStore'
 import UserPersonalization from './UserPersonalization'
@@ -57,14 +57,14 @@ describe('Stores > UserPersonalization', function () {
     rootStore = initStore(true, { project })
     sinon.spy(rootStore.client.panoptes, 'get')
     sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve({ statsCount: MOCK_DAILY_COUNTS }))
-    sinon.stub(talkClient, 'request').callsFake(() => Promise.resolve([]))
+    sinon.stub(talkAPI, 'get').callsFake(() => Promise.resolve(undefined))
   })
 
   after(function () {
     console.error.restore()
     rootStore.client.panoptes.get.restore()
     statsClient.request.restore()
-    talkClient.request.restore()
+    talkAPI.get.restore()
     nock.cleanAll()
   })
 
@@ -112,10 +112,10 @@ describe('Stores > UserPersonalization', function () {
     })
 
     it('should trigger the child Notifications store to request unread notifications', function () {
-      expect(talkClient.request).to.have.been.calledOnceWith(
-        'get',
+      expect(talkAPI.get).to.have.been.calledOnceWith(
         '/notifications',
-        { delivered: false, page_size: 1 }
+        { delivered: false, page_size: 1 },
+        { authorization: 'Bearer ' }
       )
     })
 
