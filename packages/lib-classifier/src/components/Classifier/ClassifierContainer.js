@@ -2,7 +2,7 @@ import { GraphQLClient } from 'graphql-request'
 import { Paragraph } from 'grommet'
 import { Provider } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import React, { StrictMode, useEffect, useState } from 'react'
 import '../../translations/i18n'
 import {
   env,
@@ -128,18 +128,20 @@ export default function ClassifierContainer({
     if (loaded) {
 
       return (
-        <Provider classifierStore={classifierStore}>
-          <Classifier
-            classifierStore={classifierStore}
-            locale={locale}
-            onError={onError}
-            project={project}
-            showTutorial={showTutorial}
-            subjectSetID={subjectSetID}
-            subjectID={subjectID}
-            workflowSnapshot={workflowSnapshot}
-          />
-        </Provider>
+        <StrictMode>
+          <Provider classifierStore={classifierStore}>
+            <Classifier
+              classifierStore={classifierStore}
+              locale={locale}
+              onError={onError}
+              project={project}
+              showTutorial={showTutorial}
+              subjectSetID={subjectSetID}
+              subjectID={subjectID}
+              workflowSnapshot={workflowSnapshot}
+            />
+          </Provider>
+        </StrictMode>
       )
     }
 
