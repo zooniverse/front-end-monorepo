@@ -5,7 +5,7 @@ import React from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import mockStore from '@test/mockStore'
-import TranscriptionLineTool from '../../../../../../plugins/drawingTools/experimental/models/tools/TranscriptionLineTool/TranscriptionLineTool'
+import TranscriptionLineTool from '@plugins/drawingTools/experimental/models/tools/TranscriptionLineTool/TranscriptionLineTool'
 import { DraggableImage } from '../SVGComponents/SVGImage'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
 import FrameCarousel from './FrameCarousel'

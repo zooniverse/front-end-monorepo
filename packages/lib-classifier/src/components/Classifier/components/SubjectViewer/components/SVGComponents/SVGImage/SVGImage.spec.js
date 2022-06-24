@@ -15,7 +15,7 @@ describe('SVGImage', function () {
       />
     )
 
-    const image = screen.getByRole('img')
+    const image = screen.getByRole('img', { name: 'Subject 1234' })
     expect(image).to.exist()
     expect(image.getAttribute('xlink:href')).to.equal('https://some.domain/image.jpg')
     expect(image.getAttribute('aria-label')).to.equal('Subject 1234')
@@ -38,7 +38,7 @@ describe('SVGImage', function () {
       expect(filter).to.exist()
       expect(filter.getAttribute('id')).to.equal('svg-invert-filter')
 
-      const image = screen.getByRole('img')
+      const image = screen.getByRole('img', { name: 'Subject 1234' })
       expect(image).to.exist()
       expect(image.getAttribute('filter')).to.equal('url("#svg-invert-filter")')
     })
