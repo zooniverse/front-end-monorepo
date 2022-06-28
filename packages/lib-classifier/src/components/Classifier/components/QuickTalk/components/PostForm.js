@@ -56,7 +56,7 @@ function PostForm ({
     <Box
       background={{ dark: 'dark-1', light: 'light-1' }}
       flex={false}
-      pad='small'
+      pad='xsmall'
     >
       {statusText && (
         <Text role='status'>{statusText}</Text>

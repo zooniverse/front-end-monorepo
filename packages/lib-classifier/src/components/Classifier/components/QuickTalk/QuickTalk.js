@@ -105,7 +105,7 @@ function QuickTalk ({
             plain
           />
         </Box>
-        <Box overflow='auto'>
+        <Box overflow='auto' tabIndex='0'>
           <Box flex={false} pad={{ bottom: 'small', left: 'small', right: 'small' }}>
             {comments.length > 0 && (
               <UnorderedList as='ul' flex={false}>
@@ -135,25 +135,30 @@ function QuickTalk ({
                 </Paragraph>
               </Box>
             )}
-            {userId && (
-              <PostForm
-                postComment={postComment}
-                postCommentStatus={postCommentStatus}
-                postCommentStatusMessage={postCommentStatusMessage}
-              />
-            )}
-            {!userId && (
-              <Box
-                background={{ dark: 'dark-1', light: 'light-1' }}
-                margin={{ horizontal: 'none', 'vertical': 'xsmall' }}
-                pad='xsmall'
-              >
-                <Paragraph textAlign='center'>
-                  {t('QuickTalk.loginToPost')}
-                </Paragraph>
-              </Box>
-            )}
           </Box>
+        </Box>
+        <Box
+          flex={false}
+          pad={{ horizontal: 'small', vertical: 'xsmall' }}
+        >
+          {userId && (
+            <PostForm
+              postComment={postComment}
+              postCommentStatus={postCommentStatus}
+              postCommentStatusMessage={postCommentStatusMessage}
+            />
+          )}
+          {!userId && (
+            <Box
+              background={{ dark: 'dark-1', light: 'light-1' }}
+              margin={{ horizontal: 'none', 'vertical': 'xsmall' }}
+              pad='xsmall'
+            >
+              <Paragraph textAlign='center'>
+                {t('QuickTalk.loginToPost')}
+              </Paragraph>
+            </Box>
+          )}
         </Box>
       </QTPanel>
     </Keyboard>
