@@ -1,8 +1,3 @@
-/*
-TODO
-- [ ] Show status visually, e.g. when loading, and when there's an error.
- */
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Form, Text, TextArea } from 'grommet'
@@ -49,6 +44,8 @@ function PostForm ({
   let statusText
   if (postCommentStatusMessage) {
     statusText = postCommentStatusMessage
+  } else if (postCommentStatus === asyncStates.initialized) {
+    statusText = t('QuickTalk.status.initialized')
   } else if (postCommentStatus === asyncStates.loading) {
     statusText = t('QuickTalk.status.loading')
   }

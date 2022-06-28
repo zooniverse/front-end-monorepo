@@ -134,6 +134,7 @@
     "loginToPost": "Please login to post a comment.",
     "subjectHasNoComments": "This Subject doesn't have any comments yet.",
     "status": {
+      "initialized": "Leave a note about this subject",
       "loading": "Posting comment..."
     },
     "errors": {
