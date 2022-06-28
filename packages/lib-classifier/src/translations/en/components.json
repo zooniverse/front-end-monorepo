@@ -132,6 +132,7 @@
     },
     "headerLink": "Subject Discussion",
     "loginToPost": "Please login to post a comment.",
+    "subjectHasNoComments": "This Subject doesn't have any comments yet.",
     "status": {
       "loading": "Posting comment..."
     },

@@ -96,21 +96,34 @@ function QuickTalk ({
       </Box>
       <Box overflow='auto'>
         <Box flex={false} pad={{ bottom: 'small', left: 'small', right: 'small' }}>
-          <UnorderedList as='ul' flex={false}>
-            {comments.map(comment => {
-              const author = authors[comment.user_id]
-              const roles = authorRoles[comment.user_id]
+          {comments.length > 0 && (
+            <UnorderedList as='ul' flex={false}>
+              {comments.map(comment => {
+                const author = authors[comment.user_id]
+                const roles = authorRoles[comment.user_id]
 
-              return (
-                <Comment
-                  key={`quicktalk-comment-${comment.id}`}
-                  comment={comment}
-                  author={author}
-                  roles={roles}
-                />
-              )
-            })}
-          </UnorderedList>
+                return (
+                  <Comment
+                    key={`quicktalk-comment-${comment.id}`}
+                    comment={comment}
+                    author={author}
+                    roles={roles}
+                  />
+                )
+              })}
+            </UnorderedList>
+          )}
+          {!comments.length && (
+            <Box
+              background={{ dark: 'dark-1', light: 'light-1' }}
+              margin={{ horizontal: 'none', 'vertical': 'xsmall' }}
+              pad='xsmall'
+            >
+              <Paragraph textAlign='center'>
+                {t('QuickTalk.subjectHasNoComments')}
+              </Paragraph>
+            </Box>
+          )}
           {userId && (
             <PostForm
               postComment={postComment}
@@ -122,8 +135,11 @@ function QuickTalk ({
             <Box
               background={{ dark: 'dark-1', light: 'light-1' }}
               margin={{ horizontal: 'none', 'vertical': 'xsmall' }}
+              pad='xsmall'
             >
-              <Paragraph textAlign="center">{t('QuickTalk.loginToPost')}</Paragraph>
+              <Paragraph textAlign='center'>
+                {t('QuickTalk.loginToPost')}
+              </Paragraph>
             </Box>
           )}
         </Box>
