@@ -13,7 +13,7 @@ import PostForm from './components/PostForm'
 const FixedBox = styled(Box)`
   position: fixed;
   bottom: 1em;
-  right: 1em;
+  right: 2.5em;
   max-width: 80vw;
   max-height: 80vh;
 `
@@ -26,7 +26,7 @@ const FixedButtonContainer = styled(Box)`
   border-radius: 1em;
   position: fixed;
   bottom: 1em;
-  right: 1em;
+  right: 2.5em;
 `
 
 const UnorderedList = styled(Box)`
