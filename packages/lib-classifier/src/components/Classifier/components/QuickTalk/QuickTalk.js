@@ -1,6 +1,6 @@
 import React from 'react'
 import { withResponsiveContext } from '@zooniverse/react-components'
-import { Anchor, Box, Button } from 'grommet'
+import { Anchor, Box, Button, Paragraph } from 'grommet'
 import { Chat, Close } from 'grommet-icons'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
@@ -117,6 +117,14 @@ function QuickTalk ({
               postCommentStatus={postCommentStatus}
               postCommentStatusMessage={postCommentStatusMessage}
             />
+          )}
+          {!userId && (
+            <Box
+              background={{ dark: 'dark-1', light: 'light-1' }}
+              margin={{ horizontal: 'none', 'vertical': 'xsmall' }}
+            >
+              <Paragraph textAlign="center">{t('QuickTalk.loginToPost')}</Paragraph>
+            </Box>
           )}
         </Box>
       </Box>

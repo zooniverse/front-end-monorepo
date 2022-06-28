@@ -131,6 +131,7 @@
       "goToTalk": "Go to Subject Discussion on Talk"
     },
     "headerLink": "Subject Discussion",
+    "loginToPost": "Please login to post a comment.",
     "status": {
       "loading": "Posting comment..."
     },
