@@ -135,7 +135,8 @@
     "subjectHasNoComments": "This Subject doesn't have any comments yet.",
     "status": {
       "initialized": "Leave a note about this subject",
-      "loading": "Posting comment..."
+      "loading": "Posting comment...",
+      "success": "Comment posted!"
     },
     "errors": {
       "failPostComment": "Couldn't add comments to existing discussion.",

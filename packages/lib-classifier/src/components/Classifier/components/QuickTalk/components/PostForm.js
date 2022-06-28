@@ -48,6 +48,8 @@ function PostForm ({
     statusText = t('QuickTalk.status.initialized')
   } else if (postCommentStatus === asyncStates.loading) {
     statusText = t('QuickTalk.status.loading')
+  } else if (postCommentStatus === asyncStates.success) {
+    statusText = t('QuickTalk.status.success')
   }
 
   return (
