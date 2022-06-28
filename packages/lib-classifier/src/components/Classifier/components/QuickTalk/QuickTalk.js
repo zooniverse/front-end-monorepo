@@ -1,6 +1,6 @@
 import React from 'react'
 import { withResponsiveContext } from '@zooniverse/react-components'
-import { Anchor, Box, Button, Paragraph } from 'grommet'
+import { Anchor, Box, Button, Keyboard, Paragraph } from 'grommet'
 import { Chat, Close } from 'grommet-icons'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
@@ -67,84 +67,86 @@ function QuickTalk ({
   }
 
   return (
-    <QTPanel
-      a11yTitle={t('QuickTalk.aria.mainPanel')}
-      elevation='medium'
-      role='dialog'
-      background={{ dark: 'dark-3', light: 'light-3' }}
-    >
-      <Box
-        direction='row'
-        flex={false}
-        justify='between'
-        pad='small'
+    <Keyboard onEsc={() => setExpand(false)}>
+      <QTPanel
+        a11yTitle={t('QuickTalk.aria.mainPanel')}
+        elevation='medium'
+        role='dialog'
+        background={{ dark: 'dark-3', light: 'light-3' }}
       >
-        <Anchor
-          a11yTitle={t('QuickTalk.aria.goToTalk')}
-          label={t('QuickTalk.headerLink')}
-          href={subject.talkURL}
-          target='_blank'
-          icon={<Chat />}
-        />
-        <Button
-          a11yTitle={t('QuickTalk.aria.closeButton')}
-          autoFocus={true}
-          icon={<Close size='small' />}
-          onClick={() => setExpand(false)}
-          plain
-        />
-      </Box>
-      <Box overflow='auto'>
-        <Box flex={false} pad={{ bottom: 'small', left: 'small', right: 'small' }}>
-          {comments.length > 0 && (
-            <UnorderedList as='ul' flex={false}>
-              {comments.map(comment => {
-                const author = authors[comment.user_id]
-                const roles = authorRoles[comment.user_id]
-
-                return (
-                  <Comment
-                    key={`quicktalk-comment-${comment.id}`}
-                    comment={comment}
-                    author={author}
-                    roles={roles}
-                  />
-                )
-              })}
-            </UnorderedList>
-          )}
-          {!comments.length && (
-            <Box
-              background={{ dark: 'dark-1', light: 'light-1' }}
-              margin={{ horizontal: 'none', 'vertical': 'xsmall' }}
-              pad='xsmall'
-            >
-              <Paragraph textAlign='center'>
-                {t('QuickTalk.subjectHasNoComments')}
-              </Paragraph>
-            </Box>
-          )}
-          {userId && (
-            <PostForm
-              postComment={postComment}
-              postCommentStatus={postCommentStatus}
-              postCommentStatusMessage={postCommentStatusMessage}
-            />
-          )}
-          {!userId && (
-            <Box
-              background={{ dark: 'dark-1', light: 'light-1' }}
-              margin={{ horizontal: 'none', 'vertical': 'xsmall' }}
-              pad='xsmall'
-            >
-              <Paragraph textAlign='center'>
-                {t('QuickTalk.loginToPost')}
-              </Paragraph>
-            </Box>
-          )}
+        <Box
+          direction='row'
+          flex={false}
+          justify='between'
+          pad='small'
+        >
+          <Anchor
+            a11yTitle={t('QuickTalk.aria.goToTalk')}
+            label={t('QuickTalk.headerLink')}
+            href={subject.talkURL}
+            target='_blank'
+            icon={<Chat />}
+          />
+          <Button
+            a11yTitle={t('QuickTalk.aria.closeButton')}
+            autoFocus={true}
+            icon={<Close size='small' />}
+            onClick={() => setExpand(false)}
+            plain
+          />
         </Box>
-      </Box>
-    </QTPanel>
+        <Box overflow='auto'>
+          <Box flex={false} pad={{ bottom: 'small', left: 'small', right: 'small' }}>
+            {comments.length > 0 && (
+              <UnorderedList as='ul' flex={false}>
+                {comments.map(comment => {
+                  const author = authors[comment.user_id]
+                  const roles = authorRoles[comment.user_id]
+
+                  return (
+                    <Comment
+                      key={`quicktalk-comment-${comment.id}`}
+                      comment={comment}
+                      author={author}
+                      roles={roles}
+                    />
+                  )
+                })}
+              </UnorderedList>
+            )}
+            {!comments.length && (
+              <Box
+                background={{ dark: 'dark-1', light: 'light-1' }}
+                margin={{ horizontal: 'none', 'vertical': 'xsmall' }}
+                pad='xsmall'
+              >
+                <Paragraph textAlign='center'>
+                  {t('QuickTalk.subjectHasNoComments')}
+                </Paragraph>
+              </Box>
+            )}
+            {userId && (
+              <PostForm
+                postComment={postComment}
+                postCommentStatus={postCommentStatus}
+                postCommentStatusMessage={postCommentStatusMessage}
+              />
+            )}
+            {!userId && (
+              <Box
+                background={{ dark: 'dark-1', light: 'light-1' }}
+                margin={{ horizontal: 'none', 'vertical': 'xsmall' }}
+                pad='xsmall'
+              >
+                <Paragraph textAlign='center'>
+                  {t('QuickTalk.loginToPost')}
+                </Paragraph>
+              </Box>
+            )}
+          </Box>
+        </Box>
+      </QTPanel>
+    </Keyboard>
   )
 }
 
