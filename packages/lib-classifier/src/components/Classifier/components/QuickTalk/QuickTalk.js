@@ -18,7 +18,12 @@ const FixedBox = styled(Box)`
   max-height: 80vh;
 `
 
-const FixedButton = styled(Button)`
+const ButtonContainer = styled(Box)`
+  border-radius: 1em;
+`
+
+const FixedButtonContainer = styled(Box)`
+  border-radius: 1em;
   position: fixed;
   bottom: 1em;
   right: 1em;
@@ -52,17 +57,22 @@ function QuickTalk ({
   const [_expand, setExpand] = React.useState(expand)
   const badge = (showBadge && comments.length > 0) ? comments.length : false
 
-  const QTButton = (fixedPosition) ? FixedButton : Button
+  const QTButtonContainer = (fixedPosition) ? FixedButtonContainer : ButtonContainer
   const QTPanel = (fixedPosition) ? FixedBox : Box
 
   if (!_expand) {
     return (
-      <QTButton
-        a11yTitle={t('QuickTalk.aria.openButton', { count: comments.length })}
-        onClick={() => setExpand(true)}
-        icon={<Chat />}
-        badge={badge}
-      />
+      <QTButtonContainer
+        background={{ dark: 'dark-3', light: 'light-3' }}
+        elevation='small'
+      >
+        <Button
+          a11yTitle={t('QuickTalk.aria.openButton', { count: comments.length })}
+          onClick={() => setExpand(true)}
+          icon={<Chat />}
+          badge={badge}
+        />
+      </QTButtonContainer>
     )
   }
 
