@@ -59,7 +59,7 @@ function PostForm ({
       pad='small'
     >
       {statusText && (
-        <Text>{statusText}</Text>
+        <Text role='status'>{statusText}</Text>
       )}
       <Form onSubmit={onSubmit}>
         <TextArea
