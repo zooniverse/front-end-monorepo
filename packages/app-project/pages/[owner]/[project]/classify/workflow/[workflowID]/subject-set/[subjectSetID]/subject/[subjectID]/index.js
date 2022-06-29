@@ -9,11 +9,11 @@ export async function getServerSideProps({ locale, params, query, req, res }) {
   const { subjectID, subjectSetID, workflowID } = params
   const props = { ...defaultProps, subjectID, subjectSetID, workflowID }
   const { workflows } = defaultProps
-  const workflow = workflows.find(workflow => workflow.id === params.workflowID)
+  const workflow = workflows?.find(workflow => workflow.id === params.workflowID)
   let pageTitle = workflow?.displayName || null
   if (workflow?.grouped) {
     workflow.subjectSets = await fetchSubjectSets(workflow, env)
-    const subjectSet = workflow.subjectSets.find(subjectSet => subjectSet.id === subjectSetID)
+    const subjectSet = workflow.subjectSets?.find(subjectSet => subjectSet.id === subjectSetID)
     pageTitle = `${subjectSet?.display_name} | ${workflow?.displayName}`
   }
   return ({

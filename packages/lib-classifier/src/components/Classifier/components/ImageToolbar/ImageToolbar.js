@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import FieldGuide from '../FieldGuide'
 import AnnotateButton from './components/AnnotateButton'
 import FullscreenButton from './components/FullscreenButton'
+import InvertButton from './components/InvertButton'
 import MoveButton from './components/MoveButton'
 import ResetButton from './components/ResetButton'
 import RotateButton from './components/RotateButton'
@@ -39,6 +40,7 @@ class ImageToolbar extends Component {
           <RotateButton />
           <FullscreenButton disabled />
           <ResetButton />
+          <InvertButton />
         </Box>
         <FieldGuide />
       </Box>

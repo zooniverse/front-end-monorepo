@@ -9,7 +9,7 @@ import {
   TranscriptionTaskFactory,
   WorkflowFactory
 } from '@test/factories'
-import { getSnapshot } from 'mobx-state-tree'
+import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 import { Factory } from 'rosie'
 
 import mockStore from '@test/mockStore'
@@ -29,6 +29,10 @@ describe('Model > WorkflowStepStore', function () {
           ['S1', { taskKeys: ['T1'] }],
           ['S2', { taskKeys: ['T2'] }]
         ],
+        strings: {
+          'tasks.T1.question': 'Is there a galaxy?',
+          'tasks.T2.question': 'Check all of the colors that apply'
+        },
         tasks: {
           T1: SingleChoiceTaskFactory.build(),
           T2: MultipleChoiceTaskFactory.build()
@@ -90,8 +94,7 @@ describe('Model > WorkflowStepStore', function () {
         step.tasks.forEach(task => {
           const annotation = undefined
           const { taskKey } = task
-          const strings = {}
-          const originalTask = { ...workflow.tasks[taskKey], annotation, strings, taskKey }
+          const originalTask = { ...workflow.tasks[taskKey], annotation, taskKey }
           expect(getSnapshot(task)).to.eql(originalTask)
         })
       })
@@ -118,6 +121,12 @@ describe('Model > WorkflowStepStore', function () {
     before(async function () {
       workflow = WorkflowFactory.build({
         first_task: 'T1',
+        strings: {
+          display_name: 'test workflow',
+          'tasks.T1.question': 'Is there a galaxy?',
+          'tasks.T2.question': 'Check all of the colors that apply',
+          'tasks.T3.question': 'Check all of the colors that apply'
+        },
         tasks: {
           T1: SingleChoiceTaskFactory.build(),
           T2: MultipleChoiceTaskFactory.build(),
@@ -149,8 +158,7 @@ describe('Model > WorkflowStepStore', function () {
         step.tasks.forEach(task => {
           const annotation = undefined
           const { taskKey } = task
-          const strings = {}
-          const originalTask = { ...workflow.tasks[taskKey], annotation, strings, taskKey }
+          const originalTask = { ...workflow.tasks[taskKey], annotation, taskKey }
           expect(getSnapshot(task)).to.eql(originalTask)
         })
       })
@@ -178,6 +186,13 @@ describe('Model > WorkflowStepStore', function () {
     before(async function () {
       workflow = WorkflowFactory.build({
         first_task: 'T1',
+        strings: {
+          display_name: 'test workflow',
+          'tasks.T1.question': 'Is there a galaxy?',
+          'tasks.T2.question': 'Check all of the colors that apply',
+          'tasks.T3.question': 'Check all of the colors that apply',
+          'tasks.T5.question': 'Check all of the colors that apply'
+        },
         tasks: {
           T1: SingleChoiceTaskFactory.build({
             answers: [
@@ -216,8 +231,7 @@ describe('Model > WorkflowStepStore', function () {
         step.tasks.forEach(task => {
           const annotation = undefined
           const { taskKey } = task
-          const strings = {}
-          const originalTask = { ...workflow.tasks[taskKey], annotation, strings, taskKey }
+          const originalTask = { ...workflow.tasks[taskKey], annotation, taskKey }
           expect(getSnapshot(task)).to.eql(originalTask)
         })
       })
@@ -293,6 +307,153 @@ describe('Model > WorkflowStepStore', function () {
           })
         })
       })
+    })
+  })
+
+  describe('when the store locale changes', function () {
+    let rootStore
+
+    before(function () {
+      const workflow = WorkflowFactory.build({
+        steps: [
+          ['S1', { taskKeys: ['T1'] }],
+          ['S2', { taskKeys: ['T2'] }]
+        ],
+        strings: {
+          'tasks.T1.question': 'T1: Translated question',
+          'tasks.T1.answers.0.label': 'T1: Translated answer 1',
+          'tasks.T1.answers.1.label': 'T1: Translated answer 2',
+          'tasks.T2.question': 'T2: Translated question',
+          'tasks.T2.answers.0.label': 'T2: Translated answer 1',
+          'tasks.T2.answers.1.label': 'T2: Translated answer 2',
+          'tasks.T2.answers.2.label': 'T2: Translated answer 3',
+        },
+        tasks: {
+          T1: SingleChoiceTaskFactory.build(),
+          T2: MultipleChoiceTaskFactory.build()
+        }
+      })
+
+      const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
+      const panoptesClientStub = stubPanoptesJs({
+        projects: project,
+        subjects: Factory.buildList('subject', 10),
+        workflows: workflow
+      })
+      rootStore = mockStore({ client: panoptesClientStub, project, workflow })
+    })
+
+    it('should update task text', function() {
+      expect(rootStore.workflowSteps.steps.size).to.equal(2)
+      expect(rootStore.workflowSteps.active.stepKey).to.equal('S1')
+      rootStore.workflowSteps.steps.forEach(step => {
+        step.tasks.forEach(({ taskKey, strings, answers }) => {
+          expect(strings).to.exist()
+          expect(strings.get('question')).to.equal(`${taskKey}: Translated question`)
+          answers.forEach((answer, index) => {
+            expect(strings.get(`answers.${index}.label`)).to.equal(`${taskKey}: Translated answer ${index + 1}`)
+          })
+        })
+      })
+      const strings = {
+        'tasks.T1.question': 'T1: Translated question. French',
+        'tasks.T1.answers.0.label': 'T1: Translated answer 1. French',
+        'tasks.T1.answers.1.label': 'T1: Translated answer 2. French',
+        'tasks.T2.question': 'T2: Translated question. French',
+        'tasks.T2.answers.0.label': 'T2: Translated answer 1. French',
+        'tasks.T2.answers.1.label': 'T2: Translated answer 2. French',
+        'tasks.T2.answers.2.label': 'T2: Translated answer 3. French',
+      }
+      rootStore.setLocale('fr')
+      applySnapshot(rootStore.workflows.active.strings, strings)
+      rootStore.workflowSteps.steps.forEach(step => {
+        step.tasks.forEach(({ taskKey, strings, answers }) => {
+          expect(strings).to.exist()
+          expect(strings.get('question')).to.equal(`${taskKey}: Translated question. French`)
+          answers.forEach((answer, index) => {
+            expect(strings.get(`answers.${index}.label`)).to.equal(`${taskKey}: Translated answer ${index + 1}. French`)
+          })
+        })
+      })
+    })
+
+    it('should not reset the active step', function () {
+      expect(rootStore.workflowSteps.active.stepKey).to.equal('S1')
+    })
+  })
+
+  describe('when the workflow version changes', function () {
+    let rootStore
+
+    before(function () {
+      const workflow = WorkflowFactory.build({
+        steps: [
+          ['S1', { taskKeys: ['T1'] }],
+          ['S2', { taskKeys: ['T2'] }]
+        ],
+        strings: {
+          'tasks.T1.question': 'T1: Translated question',
+          'tasks.T1.answers.0.label': 'T1: Translated answer 1',
+          'tasks.T1.answers.1.label': 'T1: Translated answer 2',
+          'tasks.T2.question': 'T2: Translated question',
+          'tasks.T2.answers.0.label': 'T2: Translated answer 1',
+          'tasks.T2.answers.1.label': 'T2: Translated answer 2',
+          'tasks.T2.answers.2.label': 'T2: Translated answer 3',
+        },
+        tasks: {
+          T1: SingleChoiceTaskFactory.build(),
+          T2: MultipleChoiceTaskFactory.build()
+        }
+      })
+
+      const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
+      const panoptesClientStub = stubPanoptesJs({
+        projects: project,
+        subjects: Factory.buildList('subject', 10),
+        workflows: workflow
+      })
+      rootStore = mockStore({ client: panoptesClientStub, project, workflow })
+    })
+
+    it('should update task text', function() {
+      expect(rootStore.workflowSteps.steps.size).to.equal(2)
+      expect(rootStore.workflowSteps.active.stepKey).to.equal('S1')
+      rootStore.workflowSteps.steps.forEach(step => {
+        step.tasks.forEach(({ taskKey, strings, answers }) => {
+          expect(strings).to.exist()
+          expect(strings.get('question')).to.equal(`${taskKey}: Translated question`)
+          answers.forEach((answer, index) => {
+            expect(strings.get(`answers.${index}.label`)).to.equal(`${taskKey}: Translated answer ${index + 1}`)
+          })
+        })
+      })
+      const newWorkflow = {
+        ...getSnapshot(rootStore.workflows.active),
+        strings: {
+          'tasks.T1.question': 'T1: Translated question. Version 2',
+          'tasks.T1.answers.0.label': 'T1: Translated answer 1. Version 2',
+          'tasks.T1.answers.1.label': 'T1: Translated answer 2. Version 2',
+          'tasks.T2.question': 'T2: Translated question. Version 2',
+          'tasks.T2.answers.0.label': 'T2: Translated answer 1. Version 2',
+          'tasks.T2.answers.1.label': 'T2: Translated answer 2. Version 2',
+          'tasks.T2.answers.2.label': 'T2: Translated answer 3. Version 2',
+        },
+        version: '0.1'
+      }
+      rootStore.workflows.setResources([newWorkflow])
+      rootStore.workflowSteps.steps.forEach(step => {
+        step.tasks.forEach(({ taskKey, strings, answers }) => {
+          expect(strings).to.exist()
+          expect(strings.get('question')).to.equal(`${taskKey}: Translated question. Version 2`)
+          answers.forEach((answer, index) => {
+            expect(strings.get(`answers.${index}.label`)).to.equal(`${taskKey}: Translated answer ${index + 1}. Version 2`)
+          })
+        })
+      })
+    })
+
+    it('should reset the active step', function () {
+      expect(rootStore.workflowSteps.active).to.be.undefined()
     })
   })
 

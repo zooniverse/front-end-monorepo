@@ -3,7 +3,7 @@ import React from 'react'
 import cuid from 'cuid'
 import mockStore from '@test/mockStore'
 import DrawingTask from '@plugins/tasks/drawing/models/DrawingTask'
-import { DrawingStory, subject, updateStores } from '@plugins/drawingTools/stories/helpers'
+import { DrawingStory, subject, updateStores } from '@plugins/drawingTools/stories/helpers.js'
 import { DrawingTaskFactory, WorkflowFactory } from '@test/factories'
 import TranscriptionLine from './'
 
@@ -37,7 +37,13 @@ const mockBounds = {
 
 function setupStores() {
   try {
+    const strings = {
+      display_name: 'Transcription line workflow',
+      'tasks.T1.instruction': 'Draw a line under the text',
+      'tasks.T1.tools.0.details.0.instruction': 'transcribe the text.'
+    }
     const workflow = WorkflowFactory.build({
+      strings,
       tasks: {
         T1: drawingTaskSnapshot
       }

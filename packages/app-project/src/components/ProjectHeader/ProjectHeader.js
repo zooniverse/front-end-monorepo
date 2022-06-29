@@ -15,14 +15,18 @@ import UnderReviewLabel from './components/UnderReviewLabel'
 const StyledBox = styled(Box)`
   position: relative;
 `
+const environment = process.env.APP_ENV
 
-function ProjectHeader (props) {
-  const { className, inBeta, navLinks, screenSize, title } = props
+function ProjectHeader ({
+  availableLocales = [],
+  className = '',
+  inBeta = false,
+  navLinks = [],
+  screenSize = '',
+  title
+}) {
 
-  // hard-coded for translation feature PR testing, but
-  // should eventually be imported as props instead
-  const availableLocales = ['en', 'test']
-
+  const hasTranslations = environment === 'development' && availableLocales?.length > 1
   return (
     <StyledBox as='header' className={className}>
       <Background />
@@ -49,7 +53,7 @@ function ProjectHeader (props) {
                 <UnderReviewLabel />}
             </Box>
             <ApprovedIcon isNarrow={screenSize === 'small'} />
-            {/* {availableLocales?.length > 1 && <LocaleSwitcher availableLocales={availableLocales} />} */}
+            {hasTranslations && <LocaleSwitcher availableLocales={availableLocales} />}
           </Box>
         </Box>
         {screenSize !== 'small' && <Nav navLinks={navLinks} />}
@@ -59,19 +63,10 @@ function ProjectHeader (props) {
   )
 }
 
-ProjectHeader.defaultProps = {
-  availableLocales: [],
-  className: '',
-  inBeta: false,
-  href: '',
-  screenSize: ''
-}
-
 ProjectHeader.propTypes = {
   availableLocales: array,
   className: string,
   inBeta: bool,
-  href: string,
   navLinks: arrayOf(shape({
     href: string,
     text: string

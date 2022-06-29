@@ -5,24 +5,30 @@ import { SpacedHeading } from '@zooniverse/react-components'
 
 import FilterButton from '../../components/FilterButton'
 
-export default function CharacteristicSection (props) {
-  const {
-    characteristic,
-    characteristicId,
-    images,
-    onFilter,
-    selectedValueId
-  } = props
+const defaultCharacteristic = {
+  values: {},
+  valuesOrder: []
+}
 
+export default function CharacteristicSection({
+  characteristic = defaultCharacteristic,
+  characteristicId = '',
+  images = {},
+  label = '',
+  onFilter = () => true,
+  selectedValueId = '',
+  strings
+}) {
   const characteristicOptions = characteristic.valuesOrder.map(valueId => {
     const value = characteristic?.values?.[valueId] || {}
     const valueImageSrc = images?.[value.image] || ''
+    const label = strings.get(`characteristics.${characteristicId}.values.${valueId}.label`)
 
     return ({
       disabled: false,
       id: `${characteristicId}-${valueId}`,
       imageSrc: valueImageSrc,
-      label: value.label,
+      label,
       value: valueId
     })
   })
@@ -42,7 +48,7 @@ export default function CharacteristicSection (props) {
       <SpacedHeading
         margin='none'
       >
-        {characteristic.label}
+        {label}
       </SpacedHeading>
       <RadioButtonGroup
         direction='row'
@@ -67,18 +73,6 @@ export default function CharacteristicSection (props) {
       </RadioButtonGroup>
     </Box>
   )
-}
-
-CharacteristicSection.defaultProps = {
-  characteristic: {
-    label: '',
-    values: {},
-    valuesOrder: []
-  },
-  characteristicId: '',
-  images: {},
-  onFilter: () => {},
-  selectedValueId: ''
 }
 
 CharacteristicSection.propTypes = {

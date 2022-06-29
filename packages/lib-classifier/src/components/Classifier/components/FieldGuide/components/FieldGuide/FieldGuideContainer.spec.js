@@ -24,11 +24,25 @@ const fieldGuide = FieldGuideFactory.build({
   ]
 })
 
+const strings = {
+  'items.0.title': 'Cat',
+  'items.0.content': 'lorem ipsum',
+  'items.1.title': 'Dog',
+  'items.1.content': 'Foo bar',
+  'items.2.title': 'Iguana',
+  'items.2.content': 'hello',
+  'items.3.title': 'Koala',
+  'items.3.content': '',
+  'items.4.title': 'Dragon',
+  'items.4.content': 'Why is this here?'
+}
+
 describe('Component > FieldGuideContainer', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
       <FieldGuideContainer
         fieldGuide={fieldGuide}
+        strings={strings}
       />)
     expect(wrapper).to.be.ok()
   })
@@ -42,6 +56,7 @@ describe('Component > FieldGuideContainer', function () {
       wrapper = shallow(
         <FieldGuideContainer
           fieldGuide={fieldGuide}
+          strings={strings}
         />)
     })
 
@@ -75,9 +90,9 @@ describe('Component > FieldGuideContainer', function () {
     })
 
     it('should set the movable modal height to auto on resize', function () {
-      expect(wrapper.props().modalProps.rndProps.position.height).to.equal(415)
+      expect(wrapper.props().modalProps.rndProps.default.height).to.equal(415)
       wrapper.props().modalProps.rndProps.onResize()
-      expect(wrapper.props().modalProps.rndProps.position.height).to.equal('auto')
+      expect(wrapper.props().modalProps.rndProps.default.height).to.equal('auto')
     })
   })
 
@@ -91,6 +106,7 @@ describe('Component > FieldGuideContainer', function () {
         <FieldGuideContainer
           fieldGuide={fieldGuide}
           size='small'
+          strings={strings}
         />)
     })
 

@@ -1,29 +1,38 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import { Rnd } from 'react-rnd'
 import ResizeIcon from './components/ResizeIcon'
 import withLayer from '../helpers/withLayer'
 import { Modal } from '../Modal'
 
-function MovableModal (props) {
-  const {
-    children,
-    closeFn,
-    headingBackground,
-    overflow,
-    pad,
-    rndProps: {
-      cancel,
-      minHeight,
-      minWidth,
-      position,
-      ...restRndProps
-    },
-    title,
-    titleColor,
-    ...rest
-  } = props
+const defaultRndProps = {
+  default: {
+    x: 0,
+    y: 0
+  },
+  minHeight: 100,
+  minWidth: 350
+}
 
+const MovableModal = forwardRef(function ({
+  children,
+  closeFn,
+  headingBackground,
+  overflow = 'auto',
+  pad,
+  rndProps = defaultRndProps,
+  title = '',
+  titleColor,
+  ...rest
+},
+ref) {
+
+  const {
+    cancel,
+    minHeight,
+    minWidth,
+    ...restRndProps
+  } = rndProps
   // Change handleComponent prop to resizeHandleComponent when react-rnd gets upgraded
   return (
     <Rnd
@@ -38,7 +47,6 @@ function MovableModal (props) {
         topLeft: false,
         topRight: false
       }}
-      default={position}
       minHeight={minHeight}
       minWidth={minWidth}
       handleComponent={{ bottomRight: <ResizeIcon /> }}
@@ -65,6 +73,7 @@ function MovableModal (props) {
       {...restRndProps}
     >
       <Modal
+        ref={ref}
         closeFn={closeFn}
         headingBackground={headingBackground}
         overflow={overflow}
@@ -77,21 +86,7 @@ function MovableModal (props) {
       </Modal>
     </Rnd>
   )
-}
-
-MovableModal.defaultProps = {
-  closeFn: undefined,
-  overflow: 'auto',
-  rndProps: {
-    minHeight: 100,
-    minWidth: 350,
-    position: {
-      x: 0,
-      y: 0
-    }
-  },
-  title: ''
-}
+})
 
 MovableModal.propTypes = {
   children: PropTypes.node,

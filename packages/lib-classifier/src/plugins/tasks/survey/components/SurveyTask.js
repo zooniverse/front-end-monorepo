@@ -5,22 +5,20 @@ import React from 'react'
 import Choice from './components/Choice'
 import Chooser from './components/Chooser'
 
-function SurveyTask (props) {
-  const {
-    answers,
-    autoFocus,
-    disabled,
-    filters,
-    handleAnswers,
-    handleChoice,
-    handleDelete,
-    handleFilter,
-    handleIdentify,
-    selectedChoice,
-    selectedChoiceIds,
-    task
-  } = props
-
+function SurveyTask({
+  answers = {},
+  autoFocus = false,
+  disabled = false,
+  filters = {},
+  handleAnswers = () => {},
+  handleChoice = () => {},
+  handleDelete = () => {},
+  handleFilter = () => {},
+  handleIdentify = () => {},
+  selectedChoice = '',
+  selectedChoiceIds = [],
+  task
+}) {
   return (
     <Box
       fill
@@ -47,20 +45,6 @@ function SurveyTask (props) {
           />}
     </Box>
   )
-}
-
-SurveyTask.defaultProps = {
-  answers: {},
-  autoFocus: false,
-  disabled: false,
-  filters: {},
-  handleAnswers: () => {},
-  handleChoice: () => {},
-  handleDelete: () => {},
-  handleFilter: () => {},
-  handleIdentify: () => {},
-  selectedChoice: '',
-  selectedChoiceIds: []
 }
 
 SurveyTask.propTypes = {

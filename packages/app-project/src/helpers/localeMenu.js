@@ -1,8 +1,10 @@
+/** This locale menu matches next-18next.config.js and PFE's app/locales */
+
 export default {
-  en: 'English',
   ar: 'العربية',
   cs: 'Čeština',
   de: 'Deutsch',
+  en: 'English',
   es: 'Español',
   el: 'Ελληνικά',
   fr: 'Français',

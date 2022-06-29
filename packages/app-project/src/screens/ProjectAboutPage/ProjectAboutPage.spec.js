@@ -1,4 +1,5 @@
 import { Provider } from 'mobx-react'
+import { within } from '@testing-library/dom'
 import {
   fireEvent,
   getAllByRole,
@@ -86,16 +87,6 @@ describe('Component > ProjectAboutPage & Connector', function () {
   })
 
   describe('ProjectAboutPageConnector', function () {
-    let useTranslationStub
-
-    beforeEach(function () {
-      useTranslationStub = sinon.stub(i18n, 't')
-    })
-
-    afterEach(function () {
-      useTranslationStub.restore()
-    })
-
     it('should render without crashing', function () {
       const output = render(
         <Provider store={mockStore}>
@@ -108,7 +99,7 @@ describe('Component > ProjectAboutPage & Connector', function () {
     })
 
     it('should pass correct data to ProjectAboutPage depending on pageType', function () {
-      const { getByText } = render(
+      const { getByRole, getByText } = render(
         <Provider store={mockStore}>
           <Grommet theme={zooTheme} themeMode='light'>
             <ProjectAboutPageConnector pageType='science_case' />
@@ -117,23 +108,25 @@ describe('Component > ProjectAboutPage & Connector', function () {
       )
       const content = getByText(mockStore.project.about_pages[0].strings.content)
       expect(content).to.exist()
-      expect(useTranslationStub).to.have.been.calledWith('About.PageHeading.title.research')
+      const heading = getByRole('heading', { name: 'About.PageHeading.title.research' })
+      expect(heading).to.exist()
     })
 
     it('should pass default content if a page doesnt exist yet', function () {
-      const { getByText } = render(
+      const { getByRole, getByText } = render(
         <Provider store={mockStore}>
           <Grommet theme={zooTheme} themeMode='light'>
             <ProjectAboutPageConnector pageType='team' />
           </Grommet>
         </Provider>
       )
-      expect(useTranslationStub).to.have.been.calledWith('About.PageHeading.title.team')
+      const heading = getByRole('heading', { name: 'About.PageHeading.title.team' })
+      expect(heading).to.exist()
       expect(getByText('No content yet.')).to.exist()
     })
 
     it('should pass a navLinks array for pages with content', function () {
-      const { getByTestId } = render(
+      const { getByRole } = render(
         <Provider store={mockStore}>
           <Grommet theme={zooTheme} themeMode='light'>
             <ProjectAboutPageConnector pageType='team' />
@@ -141,10 +134,10 @@ describe('Component > ProjectAboutPage & Connector', function () {
         </Provider>
       )
       // AboutDropdown exists because default screen size is small
-      const dropdown = getByTestId('about-pages-dropdown')
+      const dropdown = getByRole('button', { name: 'About.SidebarHeading' })
       expect(dropdown).to.exist()
       fireEvent.click(dropdown)
-      const navContainer = getByTestId('mobile-about-pages-nav')
+      const navContainer = getByRole('navigation', { name: 'About.PageNav.title' })
       const links = getAllByRole(navContainer, 'link')
       expect(links).to.have.lengthOf(3)
     })
@@ -160,7 +153,7 @@ describe('Component > ProjectAboutPage & Connector', function () {
     }
 
     it('should render the dropdown nav on mobile screen sizes', function () {
-      const { getByTestId, queryByTestId } = render(
+      const { getByRole, queryByRole } = render(
         <Provider store={mockStore}>
           <ProjectAboutPage
             aboutNavLinks={[]}
@@ -170,12 +163,12 @@ describe('Component > ProjectAboutPage & Connector', function () {
           />
         </Provider>
       )
-      expect(getByTestId('about-pages-dropdown')).to.exist()
-      expect(queryByTestId('about-sidebar')).to.not.exist()
+      expect(getByRole('button', { name: 'About.SidebarHeading' })).to.exist()
+      expect(queryByRole('navigation', { name: 'About.PageNav.title' })).to.be.null()
     })
 
     it('should render the sidebar nav on desktop screen sizes', function () {
-      const { getByTestId, queryByTestId } = render(
+      const { getByRole, queryByRole } = render(
         <Provider store={mockStore}>
           <ProjectAboutPage
             aboutNavLinks={[]}
@@ -185,8 +178,8 @@ describe('Component > ProjectAboutPage & Connector', function () {
           />
         </Provider>
       )
-      expect(queryByTestId('about-pages-dropdown')).to.not.exist()
-      expect(getByTestId('about-sidebar')).to.exist()
+      expect(queryByRole('button', { name: 'About.SidebarHeading' })).to.be.null()
+      expect(getByRole('navigation', { name: 'About.PageNav.title' })).to.exist()
     })
 
     describe('Team page specific components', function () {
@@ -214,20 +207,23 @@ describe('Component > ProjectAboutPage & Connector', function () {
       ]
 
       it('should render a list of Team Members', function () {
-        const { getByTestId } = render(
+        const { getByRole } = render(
           <Provider store={mockStore}>
             <ProjectAboutPage
               aboutNavLinks={[]}
               aboutPageData={aboutTeamPageData}
+              projectDisplayName='Display name'
               screenSize='medium'
               teamArray={mockTeamArray}
               theme={{ ...zooTheme, dark: false }}
             />
           </Provider>
         )
-        const teamList = getByTestId('about-team-members-list')
+        const teamHeading = getByRole('heading', { name: 'Display name TEAM' })
+        expect(teamHeading).to.exist()
+        const teamList = getByRole('list', { name: 'Display name TEAM' })
         expect(teamList).to.exist()
-        const teamMembers = getAllByText(teamList, 'Mock Name')
+        const teamMembers = within(teamList).getAllByText('Mock Name')
         expect(teamMembers).to.have.lengthOf(2)
       })
     })

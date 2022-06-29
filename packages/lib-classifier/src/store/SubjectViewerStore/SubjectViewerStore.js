@@ -14,6 +14,7 @@ const SubjectViewer = types
     })),
     frame: types.optional(types.integer, 0),
     fullscreen: types.optional(types.boolean, false),
+    invert: types.optional(types.boolean, false),
     layout: types.optional(types.enumeration('layout', layouts.values), layouts.default),
     loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized),
     move: types.optional(types.boolean, false),
@@ -82,6 +83,11 @@ const SubjectViewer = types
         self.fullscreen = false
       },
 
+      invertView () {
+        console.log('invert view')
+        self.invert = !self.invert
+      },
+
       onError (error) {
         if (process.browser || process.env.NODE_ENV === 'test') console.error(error)
         self.loadingState = asyncStates.error
@@ -123,12 +129,14 @@ const SubjectViewer = types
         }
         self.dimensions = []
         self.frame = frame
+        self.invert = false
         self.loadingState = asyncStates.loading
         self.rotation = 0
       },
 
       resetView () {
         console.log('resetting view')
+        self.invert = false
         self.onZoom && self.onZoom('zoomto', 1.0)
         self.rotation = 0
       },

@@ -12,7 +12,7 @@ const AboutSidebar = ({ aboutNavLinks }) => {
   const { t } = useTranslation('screens')
 
   return (
-    <Nav flex direction='column' gap='xsmall' data-testid='about-sidebar'>
+    <Nav aria-label={t('About.PageNav.title')} flex direction='column' gap='xsmall'>
       <AboutNavLink
         link={{
           href: `${baseUrl}/research`,

@@ -14,17 +14,17 @@ export const StyledDropButton = styled(DropButton)`
   padding: 5px;
 `
 
-function ConfusedWith (props) {
-  const {
-    choices,
-    confusions,
-    confusionsOrder,
-    handleChoice,
-    hasFocus,
-    images,
-    theme
-  } = props
-
+function ConfusedWith({
+  choices = {},
+  choiceId,
+  confusions = {},
+  confusionsOrder = [],
+  handleChoice = () => {},
+  hasFocus = false,
+  images = {},
+  strings,
+  theme
+} ) {
   const { t } = useTranslation('plugins')
 
   const [open, setOpen] = React.useState(false)
@@ -54,7 +54,7 @@ function ConfusedWith (props) {
           return (
             <StyledDropButton
               key={confusionId}
-              a11yTitle={choices[confusionId].label}
+              a11yTitle={strings.get(`choices.${confusionId}.label`)}
               autoFocus={hasFocus && index === 0}
               backgroundColor={backgroundColor}
               dropAlign={{
@@ -64,13 +64,14 @@ function ConfusedWith (props) {
                 <Confusion
                   confusion={choices[confusionId]}
                   confusionId={confusionId}
-                  confusionText={confusions[confusionId]}
+                  confusionText={strings.get(`choices.${choiceId}.confusions.${confusionId}`)}
                   handleChoice={handleChoice}
                   images={images}
+                  label={strings.get(`choices.${confusionId}.label`)}
                   onClose={onClose}
                 />
               }
-              label={choices[confusionId].label}
+              label={strings.get(`choices.${confusionId}.label`)}
               open={open === confusionId}
               onClose={() => onClose()}
               onOpen={() => onOpen(confusionId)}
@@ -80,15 +81,6 @@ function ConfusedWith (props) {
       </Box>
     </Box>
   )
-}
-
-ConfusedWith.defaultProps = {
-  choices: {},
-  confusions: {},
-  confusionsOrder: [],
-  handleChoice: () => {},
-  hasFocus: false,
-  images: {}
 }
 
 ConfusedWith.propTypes = {

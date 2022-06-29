@@ -37,7 +37,7 @@ function addStepToStore(taskSnapshots = {}, isThereTaskHelp = true) {
   const workflow = MockTask.store.workflows.resources.get(workflowSnapshot.id)
   applySnapshot(workflow, workflowSnapshot)
   MockTask.store.workflowSteps.setStepsAndTasks(workflowSnapshot)
-  MockTask.store.workflowSteps.setTaskStrings()
+  MockTask.store.workflowSteps.setTaskStrings(strings)
   MockTask.store.subjects.active.stepHistory.start()
 }
 

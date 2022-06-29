@@ -67,7 +67,7 @@ function MultipleChoiceTask (props) {
             disabled={disabled}
             index={index}
             key={`${task.taskKey}_${index}`}
-            label={answer.label}
+            label={task.strings.get(`answers.${index}.label`)}
             name={task.taskKey}
             onChange={onChange.bind(this, index)}
             required={task.required}

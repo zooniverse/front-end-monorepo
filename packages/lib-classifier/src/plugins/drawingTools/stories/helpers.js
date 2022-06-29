@@ -14,25 +14,51 @@ export const subject = SubjectFactory.build({
 
 export const subTasksSnapshot = [
   {
-    instruction: 'Name your favourite fruit.',
+    strings: {
+      help: 'Do drawing sub-tasks show help? Should they?',
+      instruction: 'Name your favourite fruit.'
+    },
     taskKey: 'T0.0',
     type: 'text'
   },
   {
     answers: [{ label: "yes" }, { label: "no" }],
-    help: "",
-    question: "Is it tasty?",
+    strings: {
+      'answers.0.label': 'yes',
+      'answers.1.label': 'no',
+      help: '',
+      question: 'Is it tasty?',
+    },
     taskKey: 'T0.1',
     type: 'single'
   },
   {
     answers: [{ label: "cat" }, { label: "dog" }, { label: "bird" }],
-    help: "",
-    question: "Select your favourite animals.",
+    strings: {
+      'answers.0.label': 'cat',
+      'answers.1.label': 'dog',
+      'answers.2.label': 'bird',
+      help: '',
+      question: 'Select your favourite animals.'
+    },
     taskKey: 'T0.2',
     type: 'multiple'
   }
 ]
+
+export const subtaskStrings = {
+  'details.0.help': 'Do drawing sub-tasks show help? Should they?',
+  'details.0.instruction': 'Name your favourite fruit.',
+  'details.1.help': '',
+  'details.1.question': 'Is it tasty?',
+  'details.1.answers.0.label': 'yes',
+  'details.1.answers.1.label': 'no',
+  'details.2.help': '',
+  'details.2.question': 'Select your favourite animals.',
+  'details.2.answers.0.label': 'cat',
+  'details.2.answers.1.label': 'dog',
+  'details.2.answers.2.label': 'bird'
+}
 
 export function updateStores({ activeMark, finished, subtask }, mockBounds, stores) {
   const [ drawingTask ] = stores.workflowSteps.activeStepTasks

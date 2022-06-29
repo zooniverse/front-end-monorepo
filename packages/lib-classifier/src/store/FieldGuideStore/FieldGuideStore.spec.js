@@ -1,3 +1,4 @@
+import { when } from 'mobx'
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
 import { applySnapshot } from 'mobx-state-tree'
@@ -227,163 +228,8 @@ describe('Model > FieldGuideStore', function () {
     })
   })
 
-  describe('Actions > setModalVisibility', function () {
-    it('should set the modal visibility', function () {
-      const panoptesClientStub = {
-        panoptes: {
-          get: sinon.stub().callsFake((url) => {
-            if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
-            if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
-            return Promise.resolve({ body: null })
-          })
-        }
-      }
-
-      const fieldGuideStore = setupStores(panoptesClientStub)
-      expect(fieldGuideStore.showModal).to.be.false()
-      fieldGuideStore.setModalVisibility(true)
-      expect(fieldGuideStore.showModal).to.be.true()
-      fieldGuideStore.setModalVisibility(false)
-      expect(fieldGuideStore.showModal).to.be.false()
-    })
-  })
-
-  describe('Actions > setActiveItemIndex', function () {
-    it('should not set the active item if there is no field guide', function (done) {
-      const panoptesClientStub = {
-        panoptes: {
-          get: sinon.stub().callsFake((url) => {
-            if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [] } })
-            if (url === `/field_guides/${fieldGuide.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
-            return Promise.resolve({ body: null })
-          })
-        }
-      }
-      const fieldGuideStore = setupStores(panoptesClientStub)
-
-      expect(fieldGuideStore.activeItemIndex).to.be.undefined()
-      expect(fieldGuideStore.activeMedium).to.be.undefined()
-
-      fieldGuideStore.fetchFieldGuide(project.id).then(() => {
-        fieldGuideStore.setActiveItemIndex(0)
-        expect(fieldGuideStore.activeItemIndex).to.be.undefined()
-        expect(fieldGuideStore.activeMedium).to.be.undefined()
-      }).then(done, done)
-    })
-
-    it('should not set the active item if not called with an item index', function (done) {
-      const panoptesClientStub = {
-        panoptes: {
-          get: sinon.stub().callsFake((url) => {
-            if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
-            if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
-            return Promise.resolve({ body: null })
-          })
-        }
-      }
-      const fieldGuideStore = setupStores(panoptesClientStub)
-
-      expect(fieldGuideStore.activeItemIndex).to.be.undefined()
-      expect(fieldGuideStore.activeMedium).to.be.undefined()
-
-      fieldGuideStore.fetchFieldGuide(project.id).then(() => {
-        fieldGuideStore.setActiveItemIndex()
-        expect(fieldGuideStore.activeItemIndex).to.be.undefined()
-        expect(fieldGuideStore.activeMedium).to.be.undefined()
-      }).then(done, done)
-    })
-
-    it('should not set the active item if the item does not exist', function (done) {
-      const panoptesClientStub = {
-        panoptes: {
-          get: sinon.stub().callsFake((url) => {
-            if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
-            if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
-            return Promise.resolve({ body: null })
-          })
-        }
-      }
-      const fieldGuideStore = setupStores(panoptesClientStub)
-
-      expect(fieldGuideStore.activeItemIndex).to.be.undefined()
-      expect(fieldGuideStore.activeMedium).to.be.undefined()
-
-      fieldGuideStore.fetchFieldGuide(project.id).then(() => {
-        fieldGuideStore.setActiveItemIndex(2)
-        expect(fieldGuideStore.activeItemIndex).to.be.undefined()
-        expect(fieldGuideStore.activeMedium).to.be.undefined()
-      }).then(done, done)
-    })
-
-    it('should set the active item', function (done) {
-      const panoptesClientStub = {
-        panoptes: {
-          get: sinon.stub().callsFake((url) => {
-            if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
-            if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
-            return Promise.resolve({ body: null })
-          })
-        }
-      }
-      const fieldGuideStore = setupStores(panoptesClientStub)
-
-      expect(fieldGuideStore.activeItemIndex).to.be.undefined()
-
-      fieldGuideStore.fetchFieldGuide(project.id)
-        .then(() => {
-          fieldGuideWithItems.items.forEach((item, index) => {
-            fieldGuideStore.setActiveItemIndex(index)
-            expect(fieldGuideStore.activeItemIndex).to.equal(index)
-          })
-        }).then(done, done)
-    })
-
-    it('should set the active medium if the item has an icon', function (done) {
-      const panoptesClientStub = {
-        panoptes: {
-          get: sinon.stub().callsFake((url) => {
-            if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithItems] } })
-            if (url === `/field_guides/${fieldGuideWithItems.id}/attached_images`) return Promise.resolve({ body: { media: [medium] } })
-            return Promise.resolve({ body: null })
-          })
-        }
-      }
-      const fieldGuideStore = setupStores(panoptesClientStub)
-
-      expect(fieldGuideStore.activeMedium).to.be.undefined()
-
-      fieldGuideStore.fetchFieldGuide(project.id)
-        .then(() => {
-          fieldGuideStore.setActiveItemIndex(0)
-          expect(fieldGuideStore.activeMedium.toJSON()).to.deep.equal(medium)
-        }).then(done, done)
-    })
-
-    it('should not set the active medium if the item does not have an icon', function (done) {
-      const panoptesClientStub = {
-        panoptes: {
-          get: sinon.stub().callsFake((url) => {
-            if (url === '/field_guides') return Promise.resolve({ body: { field_guides: [fieldGuideWithoutIcon] } })
-            if (url === `/field_guides/${fieldGuideWithoutIcon.id}/attached_images`) return Promise.resolve({ body: { media: [] } })
-            return Promise.resolve({ body: null })
-          })
-        }
-      }
-      const fieldGuideStore = setupStores(panoptesClientStub)
-
-      expect(fieldGuideStore.activeItemIndex).to.be.undefined()
-      expect(fieldGuideStore.activeMedium).to.be.undefined()
-
-      fieldGuideStore.fetchFieldGuide(project.id).then(() => {
-        fieldGuideStore.setActiveItemIndex(0)
-        expect(fieldGuideStore.activeItemIndex).to.equal(0)
-        expect(fieldGuideStore.activeMedium).to.be.undefined()
-      }).then(done, done)
-    })
-  })
-
   describe('Actions > reset', function () {
-    it('should reset the store', function (done) {
+    it('should reset the store', async function () {
       const panoptesClientStub = {
         panoptes: {
           get: sinon.stub().callsFake((url) => {
@@ -396,26 +242,15 @@ describe('Model > FieldGuideStore', function () {
       const fieldGuideStore = setupStores(panoptesClientStub)
 
       fieldGuideStore.fetchFieldGuide(project.id)
-        .then(() => {
-          fieldGuideStore.setActiveItemIndex(0)
-          fieldGuideStore.setModalVisibility(true)
-        })
-        .then(() => {
-          expect(fieldGuideStore.active.id).to.equal(fieldGuideWithItems.id)
-          expect(fieldGuideStore.resources.size).to.equal(1)
-          expect(fieldGuideStore.attachedMedia.size).to.equal(1)
-          expect(fieldGuideStore.activeMedium.id).to.equal(medium.id)
-          expect(fieldGuideStore.activeItemIndex).to.equal(0)
-          expect(fieldGuideStore.showModal).to.be.true()
-          return fieldGuideStore.reset()
-        }).then(() => {
-          expect(fieldGuideStore.active).to.be.undefined()
-          expect(fieldGuideStore.resources.size).to.equal(0)
-          expect(fieldGuideStore.attachedMedia.size).to.equal(0)
-          expect(fieldGuideStore.activeMedium).to.be.undefined()
-          expect(fieldGuideStore.activeItemIndex).to.be.undefined()
-          expect(fieldGuideStore.showModal).to.be.false()
-        }).then(done, done)
+      await when(() => fieldGuideStore.loadingState === asyncStates.success)
+      expect(fieldGuideStore.active.id).to.equal(fieldGuideWithItems.id)
+      expect(fieldGuideStore.resources.size).to.equal(1)
+      expect(fieldGuideStore.attachedMedia.size).to.equal(1)
+
+      fieldGuideStore.reset()
+      expect(fieldGuideStore.active).to.be.undefined()
+      expect(fieldGuideStore.resources.size).to.equal(0)
+      expect(fieldGuideStore.attachedMedia.size).to.equal(0)
     })
   })
 })

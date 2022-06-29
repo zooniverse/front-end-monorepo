@@ -3,7 +3,10 @@ import { Box, Grommet } from 'grommet'
 import React from 'react'
 
 import Chooser from './Chooser'
-import { task as mockTask } from '@plugins/tasks/survey/mock-data'
+import SurveyTask from '@plugins/tasks/survey'
+import { task } from '@plugins/tasks/survey/mock-data'
+
+const mockTask = SurveyTask.TaskModel.create(task)
 
 function StoryContext (props) {
   const { children, theme } = props

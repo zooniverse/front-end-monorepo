@@ -5,8 +5,9 @@ import {
   DrawingStory,
   subject,
   subTasksSnapshot,
+  subtaskStrings,
   updateStores
-} from '@plugins/drawingTools/stories/helpers'
+} from '@plugins/drawingTools/stories/helpers.js'
 import { DrawingTaskFactory, WorkflowFactory } from '@test/factories'
 import Ellipse from './'
 
@@ -23,6 +24,16 @@ const drawingTaskSnapshot = DrawingTaskFactory.build({
   type: 'drawing'
 })
 
+const taskSubtaskStrings = {}
+Object.entries(subtaskStrings).forEach(([key, value]) => {
+  taskSubtaskStrings[`tools.0.${key}`] = value
+})
+
+drawingTaskSnapshot.strings = {
+  instruction: drawingTaskSnapshot.instruction,
+  ...taskSubtaskStrings
+}
+
 // should think of a better way to do create bounds for the story
 // this is a rough approximation of what the positioning is like now
 const mockBounds = {
@@ -38,7 +49,17 @@ const mockBounds = {
 
 function setupStores() {
   try {
+    const workflowSubtaskStrings = {}
+    Object.entries(drawingTaskSnapshot.strings).forEach(([key, value]) => {
+      workflowSubtaskStrings[`tasks.T1.${key}`] = value
+    })
+    const strings = {
+      display_name: 'Ellipse workflow',
+      'tasks.T1.instruction': 'Draw a circle',
+      ...workflowSubtaskStrings
+    }
     const workflow = WorkflowFactory.build({
+      strings,
       tasks: {
         T1: drawingTaskSnapshot
       }

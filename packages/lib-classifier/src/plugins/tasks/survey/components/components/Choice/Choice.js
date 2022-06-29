@@ -9,20 +9,20 @@ import Questions from './components/Questions'
 import allowIdentification from './helpers/allowIdentification'
 import getQuestionIds from './helpers/getQuestionIds'
 
-export default function Choice (props) {
-  const {
-    answers,
-    choiceId,
-    handleAnswers,
-    handleChoice,
-    handleDelete,
-    onIdentify,
-    task
-  } = props
+export default function Choice({
+  answers = {},
+  choiceId = '',
+  handleAnswers = () => {},
+  handleChoice = () => {},
+  handleDelete = () => {},
+  onIdentify = () => {},
+  task
+}) {
   const {
     choices,
     images,
-    questions
+    questions,
+    strings
   } = task
 
   const { t } = useTranslation('plugins')
@@ -62,16 +62,18 @@ export default function Choice (props) {
           ))}
         </Carousel>
       )}
-      <Heading>{choice.label}</Heading>
-      <Paragraph>{choice.description}</Paragraph>
+      <Heading>{strings.get(`choices.${choiceId}.label`)}</Heading>
+      <Paragraph>{strings.get(`choices.${choiceId}.description`)}</Paragraph>
       {choice.confusionsOrder?.length > 0 && (
         <ConfusedWith
           choices={choices}
+          choiceId={choiceId}
           confusions={choice.confusions}
           confusionsOrder={choice.confusionsOrder}
           handleChoice={handleChoice}
           hasFocus={hasFocus === 'confusions'}
           images={images}
+          strings={strings}
         />
       )}
       {questionIds.length > 0 && (
@@ -81,6 +83,7 @@ export default function Choice (props) {
           questionIds={questionIds}
           questions={questions}
           setAnswers={handleAnswers}
+          strings={strings}
         />
       )}
       <Box
@@ -111,15 +114,6 @@ export default function Choice (props) {
       </Box>
     </Box>
   )
-}
-
-Choice.defaultProps = {
-  answers: {},
-  choiceId: '',
-  handleAnswers: () => {},
-  handleChoice: () => {},
-  handleDelete: () => {},
-  onIdentify: () => {}
 }
 
 Choice.propTypes = {

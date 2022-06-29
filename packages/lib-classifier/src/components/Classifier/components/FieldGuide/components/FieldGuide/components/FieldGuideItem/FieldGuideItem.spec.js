@@ -22,9 +22,11 @@ describe('Component > FieldGuideItem', function () {
   it('should render without crashing', function () {
     const wrapper = shallow(
       <FieldGuideItem
+        content='lorem ipsum'
         icons={attachedMedia}
         item={item}
         setActiveItemIndex={() => { }}
+        title='Cat'
       />,
       { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } })
     expect(wrapper).to.be.ok()
@@ -34,9 +36,11 @@ describe('Component > FieldGuideItem', function () {
     const setActiveItemIndexSpy = sinon.spy()
     const wrapper = mount(
       <FieldGuideItem
+        content='lorem ipsum'
         icons={attachedMedia}
         item={item}
         setActiveItemIndex={setActiveItemIndexSpy}
+        title='Cat'
       />,
       { wrappingComponent: Grommet, wrappingComponentProps: { theme: zooTheme } })
     wrapper.find(Button).simulate('click')
@@ -46,9 +50,11 @@ describe('Component > FieldGuideItem', function () {
   it('should render the item title as markdown', function () {
     const wrapper = shallow(
       <FieldGuideItem
+        content='lorem ipsum'
         icons={attachedMedia}
         item={item}
         setActiveItemIndex={() => {}}
+        title='Cat'
       />,
       { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } })
 
@@ -58,9 +64,11 @@ describe('Component > FieldGuideItem', function () {
   it('should render the item content as markdown', function () {
     const wrapper = shallow(
       <FieldGuideItem
+        content='lorem ipsum'
         icons={attachedMedia}
         item={item}
         setActiveItemIndex={() => { }}
+        title='Cat'
       />,
       { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } })
 
@@ -70,9 +78,11 @@ describe('Component > FieldGuideItem', function () {
   it('should render a FieldGuideItemIcon component for the icon', function () {
     const wrapper = shallow(
       <FieldGuideItem
+        content='lorem ipsum'
         icons={attachedMedia}
         item={item}
         setActiveItemIndex={() => { }}
+        title='Cat'
       />,
       { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } })
 

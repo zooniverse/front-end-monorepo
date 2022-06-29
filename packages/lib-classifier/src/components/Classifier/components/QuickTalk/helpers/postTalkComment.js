@@ -9,6 +9,10 @@ export default async function postTalkComment (text, discussion, user, authoriza
     discussion_id: +discussion.id,
   }
 
-  return talkAPI.post('/comments', { comments }, { authorization })
-    .then(response => response)
+  const response = await talkAPI.post('/comments', { comments }, { authorization })
+  if (response?.body?.comments) {
+    const [comment] = response.body.comments
+    return comment
+  }
+  return null
 }

@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, TextInput, Text } from 'grommet'
@@ -10,7 +11,7 @@ const StyledText = styled(Text)`
   margin: 10px 0;
 `
 
-export default function TextTaskWithSuggestions ({
+function TextTaskWithSuggestions ({
   autoFocus = false,
   disabled = false,
   onSelectSuggestion = () => true,
@@ -90,3 +91,5 @@ TextTaskWithSuggestions.propTypes = {
   value: PropTypes.string.isRequired,
   updateAnnotation: PropTypes.func
 }
+
+export default observer(TextTaskWithSuggestions)

@@ -26,14 +26,6 @@ const DataVisTaskModel = types.model('DataVisTaskModel', {
         task: self.taskKey,
         taskType: self.type
       })
-    },
-
-    get help () {
-      return self.strings.get('help')
-    },
-
-    get instruction () {
-      return self.strings.get('instruction')
     }
   }))
 

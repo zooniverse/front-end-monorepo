@@ -28,19 +28,18 @@ const StyledLabel = styled(SpacedText)`
   text-transform: uppercase;
 `
 
-export default function FilterStatus (props) {
-  const {
-    disabled,
-    filters,
-    handleFilter,
-    task
-  } = props
+export default function FilterStatus({
+  disabled = false,
+  filters = {},
+  handleFilter = () => {},
+  task
+}) {
   const {
     characteristics,
     characteristicsOrder,
-    images
+    images,
+    strings
   } = task
-
   const { t } = useTranslation('plugins')
 
   const filterStatusRef = useRef()
@@ -75,6 +74,7 @@ export default function FilterStatus (props) {
             filters={filters}
             images={images}
             onFilter={handleFilter}
+            strings={strings}
           />
         }
         dropProps={{
@@ -99,6 +99,7 @@ export default function FilterStatus (props) {
         const selectedValueId = filters?.[characteristicId] || ''
         const value = characteristic.values?.[selectedValueId] || {}
         const valueImageSrc = images?.[value.image] || ''
+        const label = strings.get(`characteristics.${characteristicId}.values.${selectedValueId}.label`)
 
         return (
           <FilterButton
@@ -108,18 +109,12 @@ export default function FilterStatus (props) {
             onFilter={handleFilter}
             buttonSize='small'
             valueImageSrc={valueImageSrc}
-            valueLabel={value.label}
+            valueLabel={label}
           />
         )
       })}
     </Box>
   )
-}
-
-FilterStatus.defaultProps = {
-  disabled: false,
-  filters: {},
-  handleFilter: () => {}
 }
 
 FilterStatus.propTypes = {

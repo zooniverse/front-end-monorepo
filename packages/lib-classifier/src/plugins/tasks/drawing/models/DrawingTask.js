@@ -1,5 +1,6 @@
 import cuid from 'cuid'
-import { types } from 'mobx-state-tree'
+import { autorun } from 'mobx'
+import { addDisposer, applySnapshot, getSnapshot, types } from 'mobx-state-tree'
 import Task from '../../models/Task'
 import SHOWN_MARKS from '@helpers/shownMarks'
 import * as tools from '@plugins/drawingTools/models/tools'
@@ -15,10 +16,8 @@ export const Drawing = types.model('Drawing', {
   activeMark: types.safeReference(GenericMark),
   activeToolIndex: types.optional(types.number, 0),
   annotation: types.safeReference(DrawingAnnotation),
-  help: types.optional(types.string, ''),
   shownMarks: types.optional(types.enumeration(Object.keys(SHOWN_MARKS)), SHOWN_MARKS.ALL),
   hidingIndex: types.maybeNull(types.number),
-  instruction: types.string,
   tools: types.array(GenericTool),
   type: types.literal('drawing')
 })
@@ -30,7 +29,7 @@ export const Drawing = types.model('Drawing', {
     newSnapshot.tools = []
     snapshot.tools?.forEach((tool, toolIndex) => {
       const toolKey = `${snapshot.taskKey}.${toolIndex}`
-      const toolSnapshot = Object.assign({}, tool, { key: toolKey })
+      const toolSnapshot = { ...tool, key: toolKey }
       newSnapshot.tools.push(toolSnapshot)
     })
     return newSnapshot
@@ -65,41 +64,65 @@ export const Drawing = types.model('Drawing', {
   }))
   .actions(self => {
 
-    function setActiveMark (mark) {
-      self.activeMark = mark
+    function _onLocaleChange() {
+      const stringsSnapshot = getSnapshot(self.strings)
+      self.setToolTaskStrings(stringsSnapshot)
     }
 
-    function setActiveTool (toolIndex) {
-      self.activeToolIndex = toolIndex
-    }
+    return ({
+      afterCreate() {
+        addDisposer(self, autorun(_onLocaleChange))
+      },
 
-    function complete(annotation) {
-      self.subTaskVisibility = false
-    }
+      setActiveMark(mark) {
+        self.activeMark = mark
+      },
 
-    function reset () {
-      self.tools.forEach(tool => tool.reset())
-      self.activeToolIndex = 0
-      self.subTaskVisibility = false
-    }
+      setActiveTool(toolIndex) {
+        self.activeToolIndex = toolIndex
+      },
 
-    function togglePreviousMarks () {
-      self.shownMarks = self.shownMarks === SHOWN_MARKS.ALL ? SHOWN_MARKS.NONE : SHOWN_MARKS.ALL
-      self.hidingIndex = self.shownMarks === SHOWN_MARKS.NONE ? self.marks.length : 0
-    }
+      complete(annotation) {
+        self.subTaskVisibility = false
+      },
 
-    function validate () {
-      self.tools.forEach(tool => tool.validate())
-    }
+      reset() {
+        self.tools.forEach(tool => tool.reset())
+        self.activeToolIndex = 0
+        self.subTaskVisibility = false
+      },
 
-    return {
-      complete,
-      reset,
-      setActiveMark,
-      setActiveTool,
-      togglePreviousMarks,
-      validate
-    }
+      setToolTaskStrings(stringsSnapshot) {
+        const stringEntries = Object.entries(stringsSnapshot)
+        self.tools.forEach((tool, toolIndex) => {
+          const toolPrefix = `tools.${toolIndex}`
+          tool.tasks.forEach((task, taskIndex) => {
+            const prefix = `${toolPrefix}.details.${taskIndex}.`
+            const taskStrings = stringEntries.filter(([key, value]) => key.startsWith(prefix))
+            const taskStringsSnapshot = {}
+            taskStrings.forEach(([key, value]) => {
+              const newKey = key.slice(prefix.length)
+              taskStringsSnapshot[newKey] = value
+            })
+            try {
+              applySnapshot(task.strings, taskStringsSnapshot)
+            } catch (error) {
+              console.error(`${task.taskKey} ${task.type}: could not apply language strings`)
+              console.error(error)
+            }
+          })
+        })
+      },
+
+      togglePreviousMarks() {
+        self.shownMarks = self.shownMarks === SHOWN_MARKS.ALL ? SHOWN_MARKS.NONE : SHOWN_MARKS.ALL
+        self.hidingIndex = self.shownMarks === SHOWN_MARKS.NONE ? self.marks.length : 0
+      },
+
+      validate() {
+        self.tools.forEach(tool => tool.validate())
+      }
+    })
   })
 
 const DrawingTask = types.compose('DrawingTask', Task, Drawing)

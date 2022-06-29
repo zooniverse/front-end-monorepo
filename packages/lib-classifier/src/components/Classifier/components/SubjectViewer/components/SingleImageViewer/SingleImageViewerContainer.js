@@ -1,25 +1,20 @@
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
 
-import { draggable } from '@plugins/drawingTools/components'
-
-import useSubjectImage, { placeholder } from './hooks/useSubjectImage'
-import locationValidator from '../../helpers/locationValidator'
-import SingleImageViewer from './SingleImageViewer'
-import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import withKeyZoom from '../../../withKeyZoom'
+import locationValidator from '../../helpers/locationValidator'
+import useSubjectImage, { placeholder } from './hooks/useSubjectImage'
+import SVGImage from '../SVGComponents/SVGImage'
+import SVGPanZoom from '../SVGComponents/SVGPanZoom'
+import SingleImageViewer from './SingleImageViewer'
 
-const DraggableImage = styled(draggable('image'))`
-  cursor: move;
-`
-
-function SingleImageViewerContainer({
+function SingleImageViewerContainer ({
   enableInteractionLayer = true,
   enableRotation = () => null,
   frame = 0,
   ImageObject = window.Image,
+  invert = false,
   loadingState = asyncStates.initialized,
   move = false,
   onError = () => true,
@@ -41,7 +36,7 @@ function SingleImageViewerContainer({
   // default to a placeholder while image is loading.
   const { naturalHeight, naturalWidth, src } = img
 
-  useEffect(function onImageLoad() {
+  useEffect(function onImageLoad () {
     if (src !== placeholder.src) {
       const svgImage = subjectImage.current
       const { width: clientWidth, height: clientHeight } = svgImage
@@ -52,7 +47,7 @@ function SingleImageViewerContainer({
     }
   }, [src])
 
-  useEffect(function onMount() {
+  useEffect(function onMount () {
     enableRotation()
   }, [])
 
@@ -61,11 +56,11 @@ function SingleImageViewerContainer({
     onError(error)
   }
 
-  function setOnDrag(callback) {
+  function setOnDrag (callback) {
     setDragMove(() => callback)
   }
 
-  function onDrag(event, difference) {
+  function onDrag (event, difference) {
     dragMove?.(event, difference)
   }
 
@@ -75,13 +70,6 @@ function SingleImageViewerContainer({
 
   const enableDrawing =
     loadingState === asyncStates.success && enableInteractionLayer
-  const SubjectImage = move ? DraggableImage : 'image'
-  const subjectImageProps = {
-    height: naturalHeight,
-    width: naturalWidth,
-    xlinkHref: src,
-    ...(move && { dragMove: onDrag })
-  }
 
   if (loadingState !== asyncStates.initialized) {
     const subjectID = subject?.id || 'unknown'
@@ -101,6 +89,7 @@ function SingleImageViewerContainer({
         <SingleImageViewer
           enableInteractionLayer={enableDrawing}
           height={naturalHeight}
+          invert={invert}
           onKeyDown={onKeyDown}
           rotate={rotation}
           title={title}
@@ -109,10 +98,14 @@ function SingleImageViewerContainer({
           zooming={zooming}
         >
           <g ref={subjectImage}>
-            <SubjectImage
-              role='img'
-              aria-label={`Subject ${subjectID}`}
-              {...subjectImageProps}
+            <SVGImage
+              invert={invert}
+              move={move}
+              naturalHeight={naturalHeight}
+              naturalWidth={naturalWidth}
+              onDrag={onDrag}
+              src={src}
+              subjectID={subjectID}
             />
           </g>
         </SingleImageViewer>
@@ -126,6 +119,7 @@ SingleImageViewerContainer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   enableRotation: PropTypes.func,
   frame: PropTypes.number,
+  invert: PropTypes.bool,
   loadingState: PropTypes.string,
   move: PropTypes.bool,
   onError: PropTypes.func,
@@ -145,4 +139,4 @@ SingleImageViewerContainer.propTypes = {
 }
 
 export default withKeyZoom(SingleImageViewerContainer)
-export { DraggableImage, SingleImageViewerContainer }
+export { SingleImageViewerContainer }

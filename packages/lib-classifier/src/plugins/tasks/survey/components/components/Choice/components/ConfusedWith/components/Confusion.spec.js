@@ -4,13 +4,15 @@ import sinon from 'sinon'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { task as mockTask } from '@plugins/tasks/survey/mock-data'
+import SurveyTask from '@plugins/tasks/survey'
+import { task } from '@plugins/tasks/survey/mock-data'
 import Confusion from './Confusion'
 
-const ELAND = mockTask.choices.LND
-const HUMAN = mockTask.choices.HMN
-
 describe('Component > Confusion', function () {
+  const mockTask = SurveyTask.TaskModel.create(task)
+  const ELAND = mockTask.choices.LND
+  const HUMAN = mockTask.choices.HMN
+
   it('should render without crashing', function () {
     render(
       <Confusion
@@ -30,6 +32,7 @@ describe('Component > Confusion', function () {
         confusionId='LND'
         confusionText='Test confusion text.'
         images={mockTask.images}
+        label={mockTask.strings.get('choices.LND.label')}
       />
     )
     expect(screen.getByText(ELAND.label)).to.be.exist()
@@ -42,6 +45,7 @@ describe('Component > Confusion', function () {
         confusionId='LND'
         confusionText='Test confusion text.'
         images={mockTask.images}
+        label={mockTask.strings.get('choices.LND.label')}
       />
     )
     expect(screen.getByTestId('confusion-images')).to.exist()
@@ -54,6 +58,7 @@ describe('Component > Confusion', function () {
         confusionId='HMN'
         confusionText='Test confusion text.'
         images={mockTask.images}
+        label={mockTask.strings.get('choices.HMN.label')}
       />
     )
     expect(screen.queryByTestId('confusion-images')).to.be.null()
@@ -66,6 +71,7 @@ describe('Component > Confusion', function () {
         confusionId='LND'
         confusionText='Test confusion text.'
         images={mockTask.images}
+        label={mockTask.strings.get('choices.LND.label')}
       />
     )
     expect(screen.getByText('Test confusion text.')).to.exist()
@@ -78,6 +84,7 @@ describe('Component > Confusion', function () {
         confusionId='LND'
         confusionText='Test confusion text.'
         images={mockTask.images}
+        label={mockTask.strings.get('choices.LND.label')}
       />
     )
     /** The translation function will simply return keys in a testing env */
@@ -95,6 +102,7 @@ describe('Component > Confusion', function () {
         confusionText='Test confusion text.'
         images={mockTask.images}
         onClose={onCloseSpy}
+        label={mockTask.strings.get('choices.LND.label')}
       />
     )
     /** The translation function will simply return keys in a testing env */
@@ -109,6 +117,7 @@ describe('Component > Confusion', function () {
         confusionId='LND'
         confusionText='Test confusion text.'
         images={mockTask.images}
+        label={mockTask.strings.get('choices.LND.label')}
       />
     )
     /** The translation function will simply return keys in a testing env */
@@ -126,6 +135,7 @@ describe('Component > Confusion', function () {
         confusionText='Test confusion text.'
         handleChoice={handleChoiceSpy}
         images={mockTask.images}
+        label={mockTask.strings.get('choices.LND.label')}
       />
     )
     /** The translation function will simply return keys in a testing env */

@@ -1,23 +1,24 @@
+import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React, { useRef } from 'react'
+
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
-import { Box } from 'grommet'
 import InteractionLayer from '../InteractionLayer'
 import ZoomControlButton from '../ZoomControlButton'
 
-function SingleImageViewer(props) {
+function SingleImageViewer (props) {
   const {
     children,
-    enableInteractionLayer,
+    enableInteractionLayer = true,
     height,
-    onKeyDown,
-    rotate,
-    scale,
-    title,
+    onKeyDown = () => true,
+    rotate = 0,
+    scale = 1,
+    title = {},
     viewBox,
     width,
-    zoomControlFn,
-    zooming
+    zoomControlFn = null,
+    zooming = false
   } = props
 
   const transformLayer = useRef()
@@ -27,15 +28,21 @@ function SingleImageViewer(props) {
   return (
     <SVGContext.Provider value={{ canvas }}>
       {zoomControlFn && (
-        <ZoomControlButton onClick={zoomControlFn} zooming={zooming} />
+        <ZoomControlButton
+          onClick={zoomControlFn}
+          zooming={zooming}
+        />
       )}
-      <Box animation='fadeIn' overflow='hidden'>
+      <Box
+        animation='fadeIn'
+        overflow='hidden'
+      >
         <svg
           focusable
           onKeyDown={onKeyDown}
           tabIndex={0}
           viewBox={viewBox}
-          xmlns="http://www.w3.org/2000/svg"
+          xmlns='http://www.w3.org/2000/svg'
         >
           {title?.id && title?.text && (
             <title id={title.id}>{title.text}</title>
@@ -46,7 +53,11 @@ function SingleImageViewer(props) {
           >
             {children}
             {enableInteractionLayer && (
-              <InteractionLayer scale={scale} height={height} width={width} />
+              <InteractionLayer
+                scale={scale}
+                height={height}
+                width={width}
+              />
             )}
           </g>
         </svg>
@@ -69,16 +80,6 @@ SingleImageViewer.propTypes = {
   width: PropTypes.number.isRequired,
   zoomControlFn: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   zooming: PropTypes.bool
-}
-
-SingleImageViewer.defaultProps = {
-  enableInteractionLayer: true,
-  onKeyDown: () => true,
-  rotate: 0,
-  scale: 1,
-  title: {},
-  zoomControlFn: null,
-  zooming: false
 }
 
 export default SingleImageViewer
