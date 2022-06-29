@@ -129,6 +129,7 @@ const SubjectViewer = types
         }
         self.dimensions = []
         self.frame = frame
+        self.invert = false
         self.loadingState = asyncStates.loading
         self.rotation = 0
       },
