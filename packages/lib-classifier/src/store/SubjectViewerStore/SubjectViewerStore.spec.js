@@ -101,12 +101,12 @@ describe('Model > SubjectViewerStore', function () {
       expect(subjectViewerStore.loadingState).to.equal(asyncStates.loading)
       expect(subjectViewerStore.dimensions).to.have.lengthOf(0)
     })
-    
-    it('should reset the rotation angle when there is a new active subject', function () {
+
+    it('should reset the invert when there is a new active subject', function () {
       subjectViewerStore.invertView()
       expect(subjectViewerStore.invert).to.be.true()
       subjectViewerStore.resetSubject()
-      expect(subjectViewerStore.rotation).to.be.false()
+      expect(subjectViewerStore.invert).to.be.false()
     })
 
     it('should reset the rotation angle when there is a new active subject', function () {
