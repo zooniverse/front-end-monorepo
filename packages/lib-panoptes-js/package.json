@@ -13,7 +13,7 @@
     "test:ci": "NODE_ENV=test mocha --config ./test/.mocharc.json --reporter=min \"./src/**/*.spec.js\""
   },
   "dependencies": {
-    "superagent": "~7.1.1",
+    "superagent": "~8.0.0",
     "url-parse": "~1.5.10"
   },
   "devDependencies": {
