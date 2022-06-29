@@ -11,7 +11,7 @@ import mockStore from '@test/mockStore'
 
 import InvertButtonContainer from './InvertButtonContainer'
 
-describe.skip('Component > InvertButton', function () {
+describe('Component > InvertButton', function () {
   function withStore (store) {
     return function Wrapper ({ children }) {
       return (

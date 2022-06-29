@@ -28,20 +28,15 @@ function InvertButtonContainer ({
   disabled = false,
   onClick = () => console.log('invert view')
 }) {
-  // NOTE: there are bugs with the invert button for multiframe subjects and for line color consistency.
-  // The invert button will not be shown until those bugs can be fixed, therefore will return null as follows:
-
-  return null
-
-  // if (disabled) {
-  //   return null
-  // }
-  // return (
-  //   <InvertButton
-  //     active={active}
-  //     onClick={onClick}
-  //   />
-  // )
+  if (disabled) {
+    return null
+  }
+  return (
+    <InvertButton
+      active={active}
+      onClick={onClick}
+    />
+  )
 }
 
 export default withStores(InvertButtonContainer, storeMapper)
