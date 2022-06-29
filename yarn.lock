@@ -4332,16 +4332,16 @@
   dependencies:
     "@use-gesture/core" "10.2.4"
 
-"@visx/axis@~2.10.0":
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/@visx/axis/-/axis-2.10.0.tgz#613fde76653edbefb795cafe2e11fc4c2294db46"
-  integrity sha512-myEcXPzD7ZmKiXuhue2lpiuTDgl3Glhe1LB+xoUDS8ZAW76Asd6PwurjoxSnq3tHCz0EDBh7YlgApeFy3Bw38A==
+"@visx/axis@~2.11.1":
+  version "2.11.1"
+  resolved "https://registry.yarnpkg.com/@visx/axis/-/axis-2.11.1.tgz#e1cc978ede9cce197cd7712183301e9e89c519e2"
+  integrity sha512-RZdT+yhAEOXtcLc3PgD14Xh5bJh5B64IG+zvHe3YVMkiFWGT1phy0sGTRRxritHke16ErB9vndx+pwVIGSkxAw==
   dependencies:
     "@types/react" "*"
     "@visx/group" "2.10.0"
     "@visx/point" "2.6.0"
     "@visx/scale" "2.2.2"
-    "@visx/shape" "2.10.0"
+    "@visx/shape" "2.11.1"
     "@visx/text" "2.10.0"
     classnames "^2.3.1"
     prop-types "^15.6.0"
@@ -4419,7 +4419,25 @@
     d3-scale "^3.3.0"
     d3-time "^2.1.1"
 
-"@visx/shape@2.10.0", "@visx/shape@~2.10.0":
+"@visx/shape@2.11.1":
+  version "2.11.1"
+  resolved "https://registry.yarnpkg.com/@visx/shape/-/shape-2.11.1.tgz#ff41d839ad689fea53504597bd4bfbc8b7c20bbb"
+  integrity sha512-0ak3wTkXjExH7kzU62yXPu+RtuG35G1sNL58Ax4NBr4yKh2nTHcLRsMZ7k6yUG+wSjb8DgG/ywZ0bBGWXJYGbg==
+  dependencies:
+    "@types/d3-path" "^1.0.8"
+    "@types/d3-shape" "^1.3.1"
+    "@types/lodash" "^4.14.172"
+    "@types/react" "*"
+    "@visx/curve" "2.1.0"
+    "@visx/group" "2.10.0"
+    "@visx/scale" "2.2.2"
+    classnames "^2.3.1"
+    d3-path "^1.0.5"
+    d3-shape "^1.2.0"
+    lodash "^4.17.21"
+    prop-types "^15.5.10"
+
+"@visx/shape@~2.10.0":
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/@visx/shape/-/shape-2.10.0.tgz#126ba8029f30569847f652673dc003821c57d884"
   integrity sha512-aRQBfclEWEPDmQmnB+BGN9Issg7u9lLrZ5LUSI3gfR9WAAHoNldxjpHRcYx8Y16A3YlCFVgWIBBL7pH0XUYcCA==
