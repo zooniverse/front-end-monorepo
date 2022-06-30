@@ -78,30 +78,6 @@ export default function ClassifierContainer({
 
   useEffect(function onMount() {
     /*
-    If the project uses session storage, we need to do some
-    processing of the store after it loads.
-    */
-    if (cachePanoptesData) {
-      const { subjects, workflows } = classifierStore
-      if (!workflows.active?.prioritized) {
-        /*
-        In this case, we delete the saved queue so that
-        refreshing the classifier will load a new, randomised
-        subject queue.
-        */
-        console.log('randomising the subject queue.')
-        subjects.reset()
-        subjects.advance()
-      }
-      if (subjects.active) {
-        /*
-          This is a hack to start a new classification from a snapshot.
-        */
-        console.log('store hydrated with active subject', subjects.active.id)
-        classifierStore.startClassification()
-      }
-    }
-    /*
     This should run after the store is created and hydrated.
     Otherwise, hydration will overwrite the callbacks with
     their defaults.
