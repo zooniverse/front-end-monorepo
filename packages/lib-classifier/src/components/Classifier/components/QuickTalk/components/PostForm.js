@@ -59,7 +59,7 @@ function PostForm ({
       pad='xsmall'
     >
       {statusText && (
-        <Text role='status'>{statusText}</Text>
+        <Text role='status' aria-live="polite">{statusText}</Text>
       )}
       <Form onSubmit={onSubmit}>
         <TextArea
