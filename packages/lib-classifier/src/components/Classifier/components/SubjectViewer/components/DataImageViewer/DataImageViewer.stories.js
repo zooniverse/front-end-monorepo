@@ -39,11 +39,13 @@ const mockStore = {
     active: subject
   },
   subjectViewer: SubjectViewerStore.create({}),
+  workflows: {
+    active: {}
+  },
   workflowSteps: {
     activeStepTasks: []
   }
 }
-
 
 function ViewerContext (props) {
   const { children, theme, mode } = props

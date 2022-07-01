@@ -30,8 +30,10 @@ export const LightThemeDefault = () => (
     themeMode="light"
   >
     <Tabs>
-      <Tab title="foo">Foo</Tab>
-      <Tab title="bar">Bar</Tab>
+      <Tab title="one">One</Tab>
+      <Tab title="two">Two</Tab>
+      <Tab title="three">Three</Tab>
+      <Tab title="four">Four</Tab>
     </Tabs>
   </Grommet>
 );
