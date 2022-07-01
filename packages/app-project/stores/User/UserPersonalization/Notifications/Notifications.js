@@ -4,15 +4,15 @@ import talkClient from 'panoptes-client/lib/talk-client'
 import asyncStates from '@zooniverse/async-states'
 
 // NOTES
-// This store is for a Notifications count displayed in the ZooHeader.
-// The ZooHeader can also display a Messages count.
-// The ZooHeader Notifications count represents unread Talk notifications related to Talk comments and discussions
-// The ZooHeader Messages count represents unread Talk notifications related to Talk messages (per a Talk conversation)
+// This store is for the Notifications and Messages count displayed in ZooHeader.
+// The ZooHeader Notifications count represents unread Talk notifications related to Talk comments, discussions, and messages.
+// The ZooHeader Messages count represents unread Talk conversations.
 // Unread Talk notifications related to Talk moderation reports are not included ZooHeader Notifications or ZooHeader Messages
 
 const Notifications = types
   .model('Notifications', {
-    count: types.maybeNull(types.number),
+    messagesCount: types.maybeNull(types.number),
+    notificationsCount: types.maybeNull(types.number),
     error: types.maybeNull(types.frozen({})),
     loadingState: types.optional(
       types.enumeration('state', asyncStates.values),
@@ -24,6 +24,7 @@ const Notifications = types
       fetchAndSubscribe () {
         self.fetchInitialUnreadNotifications()
         self.subscribeToSugarNotifications()
+        self.fetchInitialUnreadMessages()
       },
 
       fetchInitialUnreadNotifications: flow(function * fetchInitialUnreadNotifications () {
@@ -37,7 +38,27 @@ const Notifications = types
           const response = yield talkClient.type('notifications').get(query)
           const [notification] = response
           if (notification) {
-            self.count = notification.getMeta()?.count
+            self.notificationsCount = notification.getMeta()?.count
+          }
+
+          self.setLoadingState(asyncStates.success)
+        } catch (error) {
+          self.handleError(error)
+        }
+      }),
+
+      fetchInitialUnreadMessages: flow(function * fetchInitialUnreadMessages () {
+        self.setLoadingState(asyncStates.loading)
+        try {
+          const query = {
+            delivered: false,
+            page_size: 1
+          }
+
+          const response = yield talkClient.type('conversations').get(query)
+          const [message] = response
+          if (message) {
+            self.messagesCount = message.getMeta()?.count
           }
 
           self.setLoadingState(asyncStates.success)
@@ -47,11 +68,11 @@ const Notifications = types
       }),
 
       processSugarNotification (notification) {
-        // sugar data objects with source_type = 'Message' are related to Talk messages/conversations and included in ZooHeader Messages, not in ZooHeader Notifications
+        // sugar data objects with source_type = 'Message' are related to Talk messages, a subset of Talk conversations, and are included in ZooHeader Notifications
         // sugar data objects with source_type = 'Moderation' are related to Talk moderation reports and are not included in ZooHeader Notifications or ZooHeader Messages
 
-        if (notification?.data.source_type !== 'Message' && notification?.data.source_type !== 'Moderation') {
-          self.count = self.count + 1
+        if (notification?.data.source_type !== 'Moderation') {
+          self.notificationsCount = self.notificationsCount + 1
         }
       },
 
@@ -89,7 +110,8 @@ const Notifications = types
 
       reset () {
         this.unsubscribeFromSugarNotifications()
-        self.count = undefined
+        self.messagesCount = null
+        self.notificationsCount = null
         self.error = undefined
         this.setLoadingState(asyncStates.initialized)
       }

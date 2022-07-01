@@ -79,11 +79,19 @@ class ZooHeaderWrapperContainer extends Component {
       })
   }
 
+  unreadMessages () {
+    const { user } = this.props
+
+    return (user.isLoggedIn && user.personalization.notifications.messagesCount)
+      ? user.personalization.notifications.messagesCount
+      : 0
+  }
+
   unreadNotifications () {
     const { user } = this.props
     
-    return (user.isLoggedIn && user.personalization.notifications.count)
-      ? user.personalization.notifications.count
+    return (user.isLoggedIn && user.personalization.notifications.notificationsCount)
+      ? user.personalization.notifications.notificationsCount
       : 0
   }
 
@@ -94,6 +102,7 @@ class ZooHeaderWrapperContainer extends Component {
         register={this.openRegisterModal}
         signIn={this.openSignInModal}
         signOut={this.signOut}
+        unreadMessages={this.unreadMessages()}
         unreadNotifications={this.unreadNotifications()}
         user={this.createUserProp()}
       />
