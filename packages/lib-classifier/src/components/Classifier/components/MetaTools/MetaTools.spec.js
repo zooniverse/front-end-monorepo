@@ -23,6 +23,7 @@ describe('Components > MetaTools', function () {
     }
   }
 
+// this turns off Mocha's time limit for slow tests
   this.timeout(0)
 
   describe('defaults', function () {
