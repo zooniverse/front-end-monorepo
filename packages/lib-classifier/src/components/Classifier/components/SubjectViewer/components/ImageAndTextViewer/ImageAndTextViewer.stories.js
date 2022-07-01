@@ -1,17 +1,16 @@
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import React from 'react'
-import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 
 import { SubjectFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 
-import ImageAndTextViewerConnector from './ImageAndTextViewerConnector'
+import ImageAndTextViewer from './'
 
 export default {
   title: 'Subject Viewers / ImageAndTextViewer',
-  component: ImageAndTextViewerConnector,
+  component: ImageAndTextViewer,
   args: {
     dark: false
   }
@@ -43,10 +42,12 @@ export function Default ({ dark }) {
       themeMode={dark ? 'dark' : 'light'}
     >
       <Provider classifierStore={store}>
-        <Box height='800px' width='large'>
-          <ImageAndTextViewerConnector
-            loadingState={asyncStates.success}
+        <Box width='large'>
+          <ImageAndTextViewer
             subject={store.subjects.active}
+            loadingState={store.subjectViewer.loadingState}
+            onError={store.subjectViewer.onError}
+            onReady={store.subjectViewer.onSubjectReady}
           />
         </Box>
       </Provider>
