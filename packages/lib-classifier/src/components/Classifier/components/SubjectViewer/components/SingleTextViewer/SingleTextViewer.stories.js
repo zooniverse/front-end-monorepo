@@ -26,11 +26,6 @@ export default {
       },
       options: Object.values(asyncStates)
     }
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
   }
 }
 

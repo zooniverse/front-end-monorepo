@@ -5,18 +5,23 @@ import React from 'react'
 /**
 The Single Text Viewer is a variant of the Subject Viewer that's used to display text media.
 The `content` is defined by a subject's text mime type location.
+The `height` is defined in the ImageAndTextViewerContainer as the clientHeight per the Subject Viewer store dimensions. The Subject Viewer store dimensions are defined by the dimensions of the subject image location and image viewer.
 ```
 <SingleTextViewer
   content={content}
+  height={height}
 />
 ```
 */
 
 function SingleTextViewer ({
-  content = ''
+  content = '',
+  height = ''
 }) {
   return (
     <Box
+      flex='grow'
+      height={{ min: height }}
       pad='xsmall'
     >
       <pre style={{ whiteSpace: 'pre-wrap' }}>
@@ -28,7 +33,9 @@ function SingleTextViewer ({
 
 SingleTextViewer.propTypes = {
   /** String defined by a subject's text mime type location */
-  content: PropTypes.string
+  content: PropTypes.string,
+  /** Minimum height of the text viewer in CSS units eg. '400px', '0.25vh', '20rem' etc. */
+  height: PropTypes.string
 }
 
 export default SingleTextViewer
