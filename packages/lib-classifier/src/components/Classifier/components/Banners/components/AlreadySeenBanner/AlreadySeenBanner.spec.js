@@ -21,7 +21,7 @@ describe('Component > AlreadySeenBanner', function () {
   })
 
   it('should pass a `background` prop to <Banner />', function () {
-    expect(wrapper.prop('background')).to.equal('status-ok')
+    expect(wrapper.prop('background')).to.equal('status-critical')
   })
 
   describe('when the banner should show', function () {
