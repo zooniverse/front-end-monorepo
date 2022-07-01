@@ -32,6 +32,9 @@ const mockStore = {
     active: subject,
   },
   subjectViewer: SubjectViewerStore.create({}),
+  workflows: {
+    active: {}
+  },
   workflowSteps: {
     activeStepTasks: [],
   },
