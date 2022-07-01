@@ -41,7 +41,7 @@ function ImageAndTextViewerContainer ({
         {(mimeType === 'text/plain')
           ? (
             <SingleTextViewer
-              height={`${dimensions[0]?.clientHeight}px`}
+              height={dimensions[0]?.clientHeight ? `${dimensions[0]?.clientHeight}px` : ''}
               onError={onError}
               onReady={onReady}
             />)

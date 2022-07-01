@@ -34,7 +34,7 @@ function SingleTextViewer ({
 SingleTextViewer.propTypes = {
   /** String defined by a subject's text mime type location */
   content: PropTypes.string,
-  /** Minimum height of the text viewer */
+  /** Minimum height of the text viewer in CSS units eg. '400px', '0.25vh', '20rem' etc. */
   height: PropTypes.string
 }
 

@@ -6,7 +6,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { SubjectFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 
-import ImageAndTextViewer from '../ImageAndTextViewer'
+import ImageAndTextViewer from './'
 
 export default {
   title: 'Subject Viewers / ImageAndTextViewer',
