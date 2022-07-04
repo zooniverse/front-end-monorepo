@@ -1,19 +1,27 @@
 import { getParentOfType, types } from 'mobx-state-tree'
 import { Polygon as PolygonComponent } from '@plugins/drawingTools/components/'
+import { FixedNumber } from '@plugins/drawingTools/types/'
 import { Mark } from '@plugins/drawingTools/models/marks'
 import { PolygonTool } from '@plugins/drawingTools/models/tools'
-import roundCoordinates from '@helpers/roundCoordinates'
 
 const MINIMUM_POINTS = 3
 
-const singleCoord = types.model({
-  x: types.maybe(types.number),
-  y: types.maybe(types.number)
-})
+const SingleCoord = types
+  .model({
+    x: FixedNumber,
+    y: FixedNumber
+  })
+  .actions(self => ({
+    moveTo({ x, y }) {
+      self.x = x
+      self.y = y
+    }
+  }))
+
 
 const PolygonModel = types
   .model('PolygonModel', {
-    points: types.array(singleCoord)
+    points: types.array(SingleCoord)
   })
   .volatile(() => ({
     guideLineX: types.maybe(types.number),
@@ -22,8 +30,8 @@ const PolygonModel = types
   .views((self) => ({
     get coords() {
       return {
-        x: self.points[0]?.x,
-        y: self.points[0]?.y
+        x: self.initialPoint?.x,
+        y: self.initialPoint?.y
       }
     },
 
@@ -51,7 +59,7 @@ const PolygonModel = types
     },
 
     get lastPoint() {
-      const lastCoord = [...self.points].pop()
+      const lastCoord = self.points[self.points.length - 1]
       if (!lastCoord) {
         return null
       }
@@ -64,11 +72,8 @@ const PolygonModel = types
       if (!firstCoord) {
         return ''
       }
-      let path = `${firstCoord.x},${firstCoord.y} `
-      otherCoords.forEach(({ x, y }) => {
-        path = path + `${x},${y} `
-      })
-      return path
+      const path = self.points.map(({ x, y }) => `${x},${y}`)
+      return path.join(' ')
     },
 
     get toolComponent() {
@@ -76,11 +81,16 @@ const PolygonModel = types
     }
   }))
   .actions((self) => ({
-    initialDrag() {},
+    initialDrag({ x, y }) {
+      const newPoint = SingleCoord.create({ x, y })
+      const { initialPoint } = self
+      if (newPoint.x !== initialPoint.x && newPoint.y !== initialPoint.y) {
+        self.points[1] = newPoint
+      }
+    },
 
     initialPosition({ x, y }) {
-      const roundedCoords = roundCoordinates({ x: x, y: y })
-      self.points.push({ x: roundedCoords.roundedX, y: roundedCoords.roundedY })
+      self.points[0] = { x, y }
     },
 
     move({ x, y }) {
@@ -90,16 +100,12 @@ const PolygonModel = types
       })
     },
 
-    setCoordinates({ x, y }, i) {
-      const roundedCoords = roundCoordinates({ x: x, y: y })
-
-      self.points[i].x = roundedCoords.roundedX
-      self.points[i].y = roundedCoords.roundedY
+    setCoordinates(points) {
+      self.points = points
     },
 
     appendPath({ x, y }) {
-      const roundedCoords = roundCoordinates({ x: x, y: y })
-      self.points.push({ x: roundedCoords.roundedX, y: roundedCoords.roundedY })
+      self.points.push({ x, y })
     },
 
     shortenPath() {
