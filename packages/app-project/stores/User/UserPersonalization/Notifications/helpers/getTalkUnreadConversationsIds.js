@@ -7,7 +7,7 @@ export default async function getUnreadConversationsIds (authorization) {
 
   const getUnreadConversationsIds = async (page = 1) => {
     const query = {
-      is_unread: true,
+      unread: true,
       page: page
     }
 
@@ -15,9 +15,7 @@ export default async function getUnreadConversationsIds (authorization) {
     const { meta, conversations } = response.body
 
     unreadConversationsIds = unreadConversationsIds.concat(
-      conversations
-        .filter(conversation => conversation.is_unread)
-        .map(conversation => conversation.id)
+      conversations.map(conversation => conversation.id)
     )
 
     if (meta.next_page) {
