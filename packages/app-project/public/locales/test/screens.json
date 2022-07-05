@@ -9,7 +9,17 @@
         "faq": "Translated"
       }
     },
-    "SidebarHeading": "Translated"
+    "SidebarHeading": "Translated",
+    "TeamMember": {
+      "owner": "Translated",
+      "collaborator": "Translated",
+      "translator": "Translated",
+      "researcher": "Translated",
+      "moderator": "Translated",
+      "tester": "Translated",
+      "expert": "Translated",
+      "museum": "Translated"
+    }
   },
   "Home": {
     "AboutProject": {
