@@ -179,8 +179,8 @@ describe('panoptes.js', function () {
       // Nock calls it 'delete', panoptes-js calls it 'del'
       const nockMethod = isDel ? 'delete' : method
       const methodArgs = (isPost || isPut)
-        ? [endpoint, update, null, query, mockAPIHost]
-        : [endpoint, update, null, mockAPIHost]
+        ? [endpoint, update, {}, query, mockAPIHost]
+        : [endpoint, update, {}, mockAPIHost]
 
       nock(mockAPIHost)[nockMethod](uri => uri.includes(endpoint))
         .query(true)

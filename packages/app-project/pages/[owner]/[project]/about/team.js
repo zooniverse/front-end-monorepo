@@ -3,8 +3,10 @@ import getDefaultPageProps from '@helpers/getDefaultPageProps'
 import { panoptes } from '@zooniverse/panoptes-js'
 export { default } from '@screens/ProjectAboutPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 
 export async function getServerSideProps({ locale, params, query, req, res }) {
+  const { headers, host } = getServerSideAPIHost(query.env)
   const { notFound, props } = await getDefaultPageProps({ locale, params, query, req, res })
   const { project } = props.initialState
   const page = await fetchProjectPage(project, locale, 'team', query.env)
@@ -19,7 +21,7 @@ export async function getServerSideProps({ locale, params, query, req, res }) {
           project_id: project.id,
           page: page
         }
-        const response = await panoptes.get(`/project_roles`, teamQuery)
+        const response = await panoptes.get(`/project_roles`, teamQuery, { ...headers }, host)
         const { meta, project_roles: projectRoles } = response.body
         allRoles = allRoles.concat(projectRoles)
         if (meta.project_roles && meta.project_roles.next_page) {

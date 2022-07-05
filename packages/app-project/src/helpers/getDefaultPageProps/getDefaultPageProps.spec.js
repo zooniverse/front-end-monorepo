@@ -61,8 +61,8 @@ describe('Helpers > getDefaultPageProps', function () {
     }
   }
 
-  function mockAPI(panoptesHost) {
-    const scope = nock(panoptesHost)
+  function mockAPI(panoptesHost, options) {
+    const scope = nock(panoptesHost, options)
       .persist()
       .get('/projects')
       .query(query => query.slug === 'test-owner/test-project')
@@ -336,6 +336,246 @@ describe('Helpers > getDefaultPageProps', function () {
 
       it('should pass an error message to the error page', function () {
         expect(response.props.title).to.equal('Workflow 3 was not found')
+      })
+    })
+  })
+
+  describe('deployed to kubernetes (production API)', function () {
+    const deployEnvs = ['staging', 'production']
+    
+    deployEnvs.forEach(function testDeploy(deployEnv) {
+      describe(`deployed to ${deployEnv}`, function () {
+        before(function () {
+          process.env.APP_ENV = deployEnv
+          mockAPI(`http://panoptes-production-app/api`, {
+            reqheaders: {
+              ['X-Forwarded-Proto']: 'https'
+            }
+          })
+        })
+
+        after(function () {
+          delete process.env.APP_ENV
+          nock.cleanAll()
+        })
+
+        describe('with a valid project slug', function () {
+          it('should return the project\'s active workflows', async function () {
+            const params = {
+              owner: 'test-owner',
+              project: 'test-project'
+            }
+            const query = {
+              env: 'production'
+            }
+            const req = {
+              connection: {
+                encrypted: true
+              },
+              headers: {
+                host: 'www.zooniverse.org'
+              }
+            }
+            const { props } = await getDefaultPageProps({ params, query, req })
+            expect(props.workflows).to.deep.equal([
+              {
+                completeness: 0.4,
+                configuration: {},
+                grouped: false,
+                prioritized: false,
+                id: '1',
+                displayName: 'Foo',
+                links: {
+                  subject_sets: ['1', '2', '3']
+                },
+                subjectSets: []
+              }
+            ])
+          })
+        })
+
+        describe('with an invalid project slug', function () {
+          let response
+
+          before(async function () {
+            const params = {
+              owner: 'test-owner',
+              project: 'test-wrong-project'
+            }
+            const query = {
+              env: 'production'
+            }
+            const req = {
+              connection: {
+                encrypted: true
+              },
+              headers: {
+                host: 'www.zooniverse.org'
+              }
+            }
+            response = await getDefaultPageProps({ params, query, req })
+          })
+
+          it('should return notFound', function () {
+            expect(response.notFound).to.be.true()
+          })
+
+          it('should pass an error message to the error page', function () {
+            expect(response.props.title).to.equal('Project test-owner/test-wrong-project was not found')
+          })
+        })
+
+        describe('with an invalid workflow ID', function () {
+          let response
+
+          before(async function () {
+            const params = {
+              owner: 'test-owner',
+              project: 'test-project',
+              workflowID: '3'
+            }
+            const query = {
+              env: 'production'
+            }
+            const req = {
+              connection: {
+                encrypted: true
+              },
+              headers: {
+                host: 'www.zooniverse.org'
+              }
+            }
+            response = await getDefaultPageProps({ params, query, req })
+          })
+
+          it('should return notFound', function () {
+            expect(response.notFound).to.be.true()
+          })
+
+          it('should pass an error message to the error page', function () {
+            expect(response.props.title).to.equal('Workflow 3 was not found')
+          })
+        })
+      })
+    })
+  })
+
+  describe('deployed to kubernetes (staging API)', function () {
+    const deployEnvs = ['staging', 'production']
+    
+    deployEnvs.forEach(function testDeploy(deployEnv) {
+      describe(`deployed to ${deployEnv}`, function () {
+        before(function () {
+          process.env.APP_ENV = deployEnv
+          mockAPI(`http://panoptes-staging-app/api`, {
+            reqheaders: {
+              ['X-Forwarded-Proto']: 'https'
+            }
+          })
+        })
+
+        after(function () {
+          delete process.env.APP_ENV
+          nock.cleanAll()
+        })
+
+        describe('with a valid project slug', function () {
+          it('should return the project\'s active workflows', async function () {
+            const params = {
+              owner: 'test-owner',
+              project: 'test-project'
+            }
+            const query = {
+              env: 'staging'
+            }
+            const req = {
+              connection: {
+                encrypted: true
+              },
+              headers: {
+                host: 'www.zooniverse.org'
+              }
+            }
+            const { props } = await getDefaultPageProps({ params, query, req })
+            expect(props.workflows).to.deep.equal([
+              {
+                completeness: 0.4,
+                configuration: {},
+                grouped: false,
+                prioritized: false,
+                id: '1',
+                displayName: 'Foo',
+                links: {
+                  subject_sets: ['1', '2', '3']
+                },
+                subjectSets: []
+              }
+            ])
+          })
+        })
+
+        describe('with an invalid project slug', function () {
+          let response
+
+          before(async function () {
+            const params = {
+              owner: 'test-owner',
+              project: 'test-wrong-project'
+            }
+            const query = {
+              env: 'staging'
+            }
+            const req = {
+              connection: {
+                encrypted: true
+              },
+              headers: {
+                host: 'www.zooniverse.org'
+              }
+            }
+            response = await getDefaultPageProps({ params, query, req })
+          })
+
+          it('should return notFound', function () {
+            expect(response.notFound).to.be.true()
+          })
+
+          it('should pass an error message to the error page', function () {
+            expect(response.props.title).to.equal('Project test-owner/test-wrong-project was not found')
+          })
+        })
+
+        describe('with an invalid workflow ID', function () {
+          let response
+
+          before(async function () {
+            const params = {
+              owner: 'test-owner',
+              project: 'test-project',
+              workflowID: '3'
+            }
+            const query = {
+              env: 'staging'
+            }
+            const req = {
+              connection: {
+                encrypted: true
+              },
+              headers: {
+                host: 'www.zooniverse.org'
+              }
+            }
+            response = await getDefaultPageProps({ params, query, req })
+          })
+
+          it('should return notFound', function () {
+            expect(response.notFound).to.be.true()
+          })
+
+          it('should pass an error message to the error page', function () {
+            expect(response.props.title).to.equal('Workflow 3 was not found')
+          })
+        })
       })
     })
   })
