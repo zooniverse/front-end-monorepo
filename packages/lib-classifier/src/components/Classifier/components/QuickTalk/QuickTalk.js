@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { withResponsiveContext } from '@zooniverse/react-components'
 import { Anchor, Box, Button, Heading, Keyboard, Paragraph } from 'grommet'
 import { Chat, Close, FormNextLink } from 'grommet-icons'
@@ -48,9 +48,22 @@ function QuickTalk ({
   fixedPosition = true,
   showBadge = true // HACK: Button.badge crashes tests AND storybook for an undetermined reason. // TODO: debug
 }) {
+  const panelContent = useRef()
   const { t } = useTranslation('components')
   // TODO: figure out if/how the QuickTalk component should/could be displayed on mobile
   // if (screenSize === 'small') return null
+
+  useEffect(function scrollToLatestComment () {
+    if (postCommentStatus === asyncStates.success) {
+      // Comments appear at the bottom, so scroll to the bottom
+      const newYCoord = panelContent.current?.scrollHeight
+      panelContent.current?.scrollTo({
+        top: newYCoord,
+        left: 0,
+        behavior: 'smooth'
+      })
+    }
+  }, [ postCommentStatus ])
 
   if (!subject) return null
 
@@ -102,6 +115,7 @@ function QuickTalk ({
           />
         </Box>
         <Box
+          ref={panelContent}
           aria-label={t('QuickTalk.aria.panelContent')}
           overflow={{ vertical: 'auto', horizontal: 'hidden' }}
           role='group'
