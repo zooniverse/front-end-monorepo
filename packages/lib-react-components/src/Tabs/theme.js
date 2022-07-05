@@ -28,10 +28,14 @@ const theme = {
       const borderColor = getBorderColor(props)
       const activeTabHeaderColor = getActiveTabHeaderColor(props)
       const hoverBackgroundColor = getHoverBackground(props)
+      const tabChildren = props.children?.[0]?.props?.children
+      const flexBasis = tabChildren
+        ? `${100 / tabChildren.length}%`
+        : 'auto'
       return css`
         button[role="tab"] {
           color: ${tabHeaderColor};
-          flex: 1 1 ${100 / props.children.length}%;
+          flex: 1 1 ${flexBasis};
           > div {
             border-bottom: 1px solid ${borderColor};
             border-right: 1px solid ${borderColor};
@@ -78,7 +82,7 @@ const theme = {
       }
     },
     panel: {
-      extend: props => { 
+      extend: props => {
         const backgroundColor = getBackgroundColor(props)
         const borderColor = getBorderColor(props)
         return css`

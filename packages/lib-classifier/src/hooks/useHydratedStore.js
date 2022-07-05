@@ -37,7 +37,31 @@ function initStore({ cachePanoptesData, storageKey, storeEnv }) {
       store = RootStore.create({}, storeEnv)
     }
 
+    /*
+    If the project uses session storage, we need to do some
+    processing of the store after it loads.
+    */
     if (cachePanoptesData) {
+      if (!store.workflows.active?.prioritized) {
+        /*
+        In this case, we delete the saved queue so that
+        refreshing the classifier will load a new, randomised
+        subject queue.
+        */
+        console.log('randomising the subject queue.')
+        store.subjects.reset()
+        store.subjects.advance()
+      }
+      if (store.subjects.active) {
+        /*
+          This is a hack to start a new classification from a snapshot.
+        */
+        console.log('store hydrated with active subject', store.subjects.active.id)
+        store.startClassification()
+      }
+      /*
+        Save snapshots to storage whenever the store changes.
+      */
       persist(storageKey, store)
     }
     makeInspectable(store)
