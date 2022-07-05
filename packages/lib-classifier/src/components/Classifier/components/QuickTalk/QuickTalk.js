@@ -105,7 +105,12 @@ function QuickTalk ({
             plain
           />
         </Box>
-        <Box overflow='auto' tabIndex='0'>
+        <Box
+          aria-label={t('QuickTalk.panelContent')}
+          overflow={{ vertical: 'auto', horizontal: 'hidden' }}
+          role='group'
+          tabIndex='0'
+        >
           <Box flex={false} pad={{ bottom: 'small', left: 'small', right: 'small' }}>
             {comments.length > 0 && (
               <UnorderedList as='ul' flex={false}>

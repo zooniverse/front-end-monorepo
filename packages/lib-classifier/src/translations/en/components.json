@@ -131,6 +131,7 @@
       "goToTalk": "Go to Subject Discussion on Talk"
     },
     "headerLink": "Subject Discussion",
+    "panelContent": "Subject Discussion comments",
     "loginToPost": "Please login to post a comment.",
     "subjectHasNoComments": "This Subject doesn't have any comments yet.",
     "status": {
