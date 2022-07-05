@@ -82,16 +82,16 @@ class ZooHeaderWrapperContainer extends Component {
   unreadMessages () {
     const { user } = this.props
 
-    return (user.isLoggedIn && user.personalization.notifications.messagesCount)
-      ? user.personalization.notifications.messagesCount
+    return (user.isLoggedIn && user.personalization.notifications.unreadConversationsIds.length)
+      ? user.personalization.notifications.unreadConversationsIds.length
       : 0
   }
 
   unreadNotifications () {
     const { user } = this.props
     
-    return (user.isLoggedIn && user.personalization.notifications.notificationsCount)
-      ? user.personalization.notifications.notificationsCount
+    return (user.isLoggedIn && user.personalization.notifications.unreadNotificationsCount)
+      ? user.personalization.notifications.unreadNotificationsCount
       : 0
   }
 
