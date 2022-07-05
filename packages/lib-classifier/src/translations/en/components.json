@@ -128,10 +128,10 @@
       "openButton": "Subject has {{count}} comment(s). Click to expand.",
       "mainPanel": "QuickTalk Comments Panel",
       "closeButton": "Close comments panel",
-      "goToTalk": "Go to Subject Discussion on Talk"
+      "goToTalk": "Or, view this Subject Discussion on Talk (opens new window)",
+      "panelContent": "Subject Discussion comments",
+      "panelHeading": "Subject Discussion"
     },
-    "headerLink": "Subject Discussion",
-    "panelContent": "Subject Discussion comments",
     "loginToPost": "Please login to post a comment.",
     "subjectHasNoComments": "This Subject doesn't have any comments yet.",
     "status": {

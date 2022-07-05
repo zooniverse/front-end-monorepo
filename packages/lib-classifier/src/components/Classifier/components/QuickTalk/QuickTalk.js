@@ -1,7 +1,7 @@
 import React from 'react'
 import { withResponsiveContext } from '@zooniverse/react-components'
-import { Anchor, Box, Button, Keyboard, Paragraph } from 'grommet'
-import { Chat, Close } from 'grommet-icons'
+import { Anchor, Box, Button, Heading, Keyboard, Paragraph } from 'grommet'
+import { Chat, Close, FormNextLink } from 'grommet-icons'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
@@ -88,15 +88,11 @@ function QuickTalk ({
           direction='row'
           flex={false}
           justify='between'
-          pad='small'
+          pad={{ vertical: 'none', horizontal: 'small'}}
         >
-          <Anchor
-            a11yTitle={t('QuickTalk.aria.goToTalk')}
-            label={t('QuickTalk.headerLink')}
-            href={subject.talkURL}
-            target='_blank'
-            icon={<Chat />}
-          />
+          <Heading level='4' margin={{ top: 'small', bottom: 'none' }} pad='none'>
+            {t('QuickTalk.aria.panelHeading')}
+          </Heading>
           <Button
             a11yTitle={t('QuickTalk.aria.closeButton')}
             autoFocus={true}
@@ -106,7 +102,7 @@ function QuickTalk ({
           />
         </Box>
         <Box
-          aria-label={t('QuickTalk.panelContent')}
+          aria-label={t('QuickTalk.aria.panelContent')}
           overflow={{ vertical: 'auto', horizontal: 'hidden' }}
           role='group'
           tabIndex='0'
@@ -164,6 +160,17 @@ function QuickTalk ({
               </Paragraph>
             </Box>
           )}
+          <Anchor
+            alignSelf='center'
+            label={t('QuickTalk.aria.goToTalk')}
+            href={subject.talkURL}
+            icon={<FormNextLink size='small' />}
+            margin='xsmall'
+            target='_blank'
+            rel='nofollow noopener noreferrer'
+            reverse={true}
+            size='xsmall'
+          />
         </Box>
       </QTPanel>
     </Keyboard>
