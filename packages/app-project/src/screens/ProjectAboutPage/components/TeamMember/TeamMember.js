@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components'
 import NavLink from '@shared/components/NavLink'
 import getConfig from 'next/config'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 const StyledTeamMember = styled(Box)`
   margin-bottom: 30px;
@@ -68,6 +69,8 @@ const TeamMember = ({ user }) => {
   const assetPrefix = publicRuntimeConfig.assetPrefix || ''
   const placeholderAvatar = `${assetPrefix}/assets/simple-avatar.png`
 
+  const { t } = useTranslation('screens')
+
   return (
     <StyledTeamMember as='li'>
       <StyledAvatar>
@@ -92,7 +95,7 @@ const TeamMember = ({ user }) => {
             round='xxsmall'
             background={role === 'owner' ? 'neutral-2' : 'accent-1'}
           >
-            {role === 'scientist' ? 'researcher' : role}
+            {role === 'scientist' ? t('About.TeamMember.researcher') : t(`About.TeamMember.${role}`)}
           </StyledRole>
         ))}
       </Box>
