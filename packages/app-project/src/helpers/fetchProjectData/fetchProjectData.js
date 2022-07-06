@@ -2,13 +2,17 @@ import { get } from 'lodash'
 import asyncStates from '@zooniverse/async-states'
 import { projects } from '@zooniverse/panoptes-js'
 
+import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
+import { logToSentry } from '@helpers/logger'
+
 export default async function fetchProjectData(slug, params) {
+  const { headers, host } = getServerSideAPIHost(params?.env)
   const projectData = {
     loadingState: asyncStates.loading
   }
+  const query = { ...params, slug }
   try {
-    const query = { ...params, slug }
-    const response = await projects.getWithLinkedResources({ query })
+    const response = await projects.getWithLinkedResources({ query, headers, host })
     const project = response.body.projects[0]
     if (!project) throw new Error(`${slug} could not be found`)
 
@@ -71,6 +75,7 @@ export default async function fetchProjectData(slug, params) {
     console.error('Error loading project:', error)
     projectData.error = error
     projectData.loadingState = asyncStates.error
+    logToSentry(error, { query, host })
   }
   return projectData
 }
