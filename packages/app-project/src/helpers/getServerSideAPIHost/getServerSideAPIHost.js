@@ -8,7 +8,7 @@ const deploymentEnvironments = ['staging', 'production', 'static']
   Return the internal service name for our API hosts when the app is deployed in our kubernetes cluster.
   Return undefined to use the default hostname in local development.
 */
-export default function getServerSideAPIHost(env) {
+export default function getServerSideAPIHost(env = 'production') {
   let host
   const headers = {}
   const deployEnvironment = process.env.APP_ENV
