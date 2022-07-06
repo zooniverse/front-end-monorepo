@@ -4,6 +4,7 @@ import { panoptes } from '@zooniverse/panoptes-js'
 export { default } from '@screens/ProjectAboutPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
+import { logToSentry } from '@helpers/logger'
 
 export async function getServerSideProps({ locale, params, query, req, res }) {
   const { headers, host } = getServerSideAPIHost(query.env)
@@ -12,7 +13,8 @@ export async function getServerSideProps({ locale, params, query, req, res }) {
   const page = await fetchProjectPage(project, locale, 'team', query.env)
   const pageTitle = page?.strings?.title ?? 'Team'
 
-  const fetchTeam = async () => {
+  async function fetchTeam() {
+    let teamArray = []
     try {
       let allRoles = []
       const getRoles = async (page = 1) => {
@@ -30,28 +32,21 @@ export async function getServerSideProps({ locale, params, query, req, res }) {
       }
       await getRoles(1)
 
-      let teamArray = []
-
-      await Promise.all(
-        allRoles.map(async role => {
-          const response = await panoptes.get(`/users`, {
-            env: query.env,
-            id: role.links.owner.id
-          })
-          const userData = response.body.users[0]
-          return {
-            ...userData,
-            roles: role.roles
-          }
-        })
-      )
-        .then(users => (teamArray = users))
-        .catch(error => console.error('Error retrieving team users', error))
-
-      return teamArray
+      const userIDs = allRoles.map(role => role.links.owner.id)
+      const response = await panoptes.get(`/users`, {
+        env: query.env,
+        id: userIDs.join(',')
+      })
+      const users = response?.body?.users || []
+      teamArray = allRoles.map(role => {
+        const user = users.find(u => u.id === role.links.owner.id)
+        return { ...user, roles: role.roles }
+      })
     } catch (error) {
       console.error('Error loading project roles:', error)
+      logToSentry(error)
     }
+    return teamArray
   }
 
   const teamArray = await fetchTeam()
