@@ -27,6 +27,7 @@ export const StyledButton = styled(Button)`
 
 const StyledSpacedText = styled(SpacedText)`
   line-height: 1.2;
+  word-break: break-all;
 `
 
 const StyledHelpIcon = styled(HelpIcon)`
@@ -42,22 +43,18 @@ export function ButtonLabel () {
   return (
     <Box as='span' align='center' direction='column'>
       <StyledSpacedText size='xsmall' color='white'>
-        {t('FieldGuide.FieldGuideButton.buttonLabel.field')}
-      </StyledSpacedText>
-      <StyledSpacedText size='xsmall' color='white'>
-        {t('FieldGuide.FieldGuideButton.buttonLabel.guide')}
+        {t('FieldGuide.FieldGuideButton.buttonLabel')}
       </StyledSpacedText>
       <StyledHelpIcon />
     </Box>
   )
 }
 
-function FieldGuideButton (props) {
-  const {
-    fieldGuide,
-    onClick,
-    theme
-  } = props
+function FieldGuideButton ({
+  fieldGuide = null,
+  onClick,
+  theme
+}) {
   const disabled = !fieldGuide || fieldGuide.items.length === 0
 
   return (
@@ -69,15 +66,6 @@ function FieldGuideButton (props) {
       theme={theme}
     />
   )
-}
-
-FieldGuideButton.defaultProps = {
-  fieldGuide: null,
-  theme: {
-    global: {
-      colors: {}
-    }
-  }
 }
 
 FieldGuideButton.propTypes = {
