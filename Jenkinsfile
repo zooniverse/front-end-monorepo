@@ -27,39 +27,6 @@ pipeline {
   }
 
   stages {
-
-    // Right now, we're *only* building and deploying on the `master` branch;
-    // longer-term, we'll want to deploy feature branches as well.
-
-    stage('Build staging Docker image') {
-      when {
-        branch 'master'
-      }
-      agent any
-
-      environment {
-        APP_ENV = "staging"
-        COMMIT_ID = "${GIT_COMMIT}"
-        CONTENTFUL_ACCESS_TOKEN = credentials('contentful-access-token')
-        CONTENTFUL_SPACE_ID = credentials('contentful-space-ID')
-        CONTENT_ASSET_PREFIX = "https://fe-content-pages.preview.zooniverse.org"
-        SENTRY_CONTENT_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
-        PROJECT_ASSET_PREFIX = "https://fe-project.preview.zooniverse.org"
-        SENTRY_PROJECT_DSN = 'https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691'
-      }
-
-      steps {
-        script {
-          def dockerRepoName = 'zooniverse/front-end-monorepo-staging'
-          def dockerImageName = "${dockerRepoName}:${GIT_COMMIT}"
-          def buildArgs = "--build-arg APP_ENV --build-arg COMMIT_ID --build-arg CONTENTFUL_ACCESS_TOKEN --build-arg CONTENTFUL_SPACE_ID --build-arg CONTENT_ASSET_PREFIX --build-arg SENTRY_CONTENT_DSN --build-arg PROJECT_ASSET_PREFIX --build-arg SENTRY_PROJECT_DSN ."
-          def newImage = docker.build(dockerImageName, buildArgs)
-          newImage.push()
-          newImage.push('latest')
-        }
-      }
-    }
-
     stage('Build production Docker image') {
       when {
         tag 'production-release'
@@ -109,7 +76,7 @@ pipeline {
     // Notify about valid builds AND deploys
     success {
       script {
-        if (env.BRANCH_NAME == 'master' || env.TAG_NAME == 'production-release') {
+        if (env.TAG_NAME == 'production-release') {
           slackSend (
             color: '#00FF00',
             message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
@@ -121,7 +88,7 @@ pipeline {
     // Notify about failed builds OR deploys
     failure {
       script {
-        if (env.BRANCH_NAME == 'master' || env.TAG_NAME == 'production-release') {
+        if (env.TAG_NAME == 'production-release') {
           slackSend (
             color: '#FF0000',
             message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
@@ -133,7 +100,7 @@ pipeline {
     // Notify about broken builds on non-deploy branches only
     unsuccessful {
       script {
-        if (env.BRANCH_NAME != 'master' || env.TAG_NAME != 'production-release') {
+        if (env.TAG_NAME != 'production-release') {
           slackSend (
             color: '#FF0000',
             message: "BUILD FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",

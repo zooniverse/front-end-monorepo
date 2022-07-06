@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 import { withTranslation } from 'react-i18next'

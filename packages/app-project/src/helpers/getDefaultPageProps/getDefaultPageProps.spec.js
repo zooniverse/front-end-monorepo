@@ -365,9 +365,7 @@ describe('Helpers > getDefaultPageProps', function () {
               owner: 'test-owner',
               project: 'test-project'
             }
-            const query = {
-              env: 'production'
-            }
+            const query = {}
             const req = {
               connection: {
                 encrypted: true
