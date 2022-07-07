@@ -8,7 +8,6 @@ import Banners from '@components/Classifier/components/Banners'
 import FeedbackModal from '@components/Classifier/components/Feedback'
 import ImageToolbar from '@components/Classifier/components/ImageToolbar'
 import MetaTools from '@components/Classifier/components/MetaTools'
-import QuickTalk from '@components/Classifier/components/QuickTalk'
 import SubjectViewer from '@components/Classifier/components/SubjectViewer'
 import TaskArea from '@components/Classifier/components/TaskArea'
 
@@ -83,7 +82,6 @@ export default function DefaultLayout({
         <StyledTaskArea />
       </StyledTaskAreaContainer>
       <FeedbackModal />
-      <QuickTalk />
     </ContainerGrid>
   )
 }

@@ -122,13 +122,12 @@
   },
   "QuickTalk": {
     "aria": {
-      "openButton": "Subject has {{count}} comment(s). Click to expand.",
       "mainPanel": "QuickTalk Comments Panel",
-      "closeButton": "Close comments panel",
-      "goToTalk": "Or, view this Subject Discussion on Talk (opens new window)",
       "panelContent": "Subject Discussion comments",
       "panelHeading": "Subject Discussion"
     },
+    "tabTitle": "Discuss",
+    "goToTalk": "Or, view this Subject Discussion on Talk (opens new window)",
     "loginToPost": "Please login to post a comment.",
     "subjectHasNoComments": "This Subject doesn't have any comments yet.",
     "status": {

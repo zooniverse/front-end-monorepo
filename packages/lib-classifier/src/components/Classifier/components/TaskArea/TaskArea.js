@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 
 import { DisabledTaskPopup, Tasks } from './components'
 import SlideTutorial from '../SlideTutorial'
+import QuickTalk from '@components/Classifier/components/QuickTalk'
 
 // TODO: add autofocus for the first tab/task area
 /**
@@ -88,6 +89,7 @@ export default function TaskArea({
             <SlideTutorial onClick={onClose} pad='none' />
           </Box>
         </Tab>
+        <QuickTalk />
       </Tabs>
     </>
   )
