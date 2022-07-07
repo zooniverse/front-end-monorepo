@@ -10,6 +10,8 @@ import { useTranslation } from 'react-i18next'
 import Comment from './components/Comment'
 import PostForm from './components/PostForm'
 
+const COMMENTS_PER_PAGE = 10
+
 function QuickTalk ({
   subject,
   comments = [],
@@ -76,6 +78,11 @@ function QuickTalk ({
                   )
                 })}
               </Box>
+            )}
+            {comments.length >= COMMENTS_PER_PAGE && (
+              <Paragraph textAlign='center'>
+                {t('QuickTalk.subjectHasMoreComments', { commentsPerPage: COMMENTS_PER_PAGE })}
+              </Paragraph>
             )}
             {!comments.length && (
               <Box
