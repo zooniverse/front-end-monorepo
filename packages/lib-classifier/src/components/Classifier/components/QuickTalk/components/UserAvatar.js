@@ -17,7 +17,8 @@ function UserAvatar ({
 
   return (
     <Box
-      alignSelf='center'
+      flex={false}
+      margin={{ top: 'xxsmall' }}
       width={size}
       height={size}
     >

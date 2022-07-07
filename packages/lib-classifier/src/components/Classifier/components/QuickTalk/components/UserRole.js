@@ -8,22 +8,22 @@ function roleDisplayName (role) {
     && ['admin', 'team'].indexOf(role.name) >= 0
   ) {
     return 'Zooniverse Team'
-    
+
   } else if (
     role.section !== 'zooniverse'
     && ['admin', 'scientist', 'owner'].indexOf(role.name) >= 0
   ) {
     return 'Researcher'
   }
-  
+
   return role.name
 }
 
 function UserRole ({ role }) {
   if (!role) return null
-  
+
   return (
-    <Text textAlign='center'>
+    <Text size='xsmall'>
       [{roleDisplayName(role)}]
     </Text>
   )

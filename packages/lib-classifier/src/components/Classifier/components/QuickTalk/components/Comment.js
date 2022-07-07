@@ -1,6 +1,5 @@
 /*
 TODO:
-- [ ] add avatar-side style
 - [ ] add isDeleted style
  */
 
@@ -11,6 +10,7 @@ import { Markdownz } from '@zooniverse/react-components'
 
 import UserAvatar from './UserAvatar'
 import UserRole from './UserRole'
+import getFormattedTimestamp from '../helpers/getFormattedTimestamp'
 
 function Comment ({
   author,
@@ -23,21 +23,26 @@ function Comment ({
       background={{ dark: 'dark-1', light: 'light-1' }}
       margin={{ horizontal: 'none', 'vertical': 'xsmall' }}
     >
-      <Box pad='xsmall' direction='row' pad={{ vertical: 'none', horizontal: 'xsmall' }}>
+      <Box
+        direction='row'
+        justify='start'
+        pad={{ top: 'xsmall', bottom: 'none', horizontal: 'xsmall' }}
+      >
         <UserAvatar
           src={author?.avatar_src}
           displayName={author?.display_name}
         />
-        <Box align='start' pad='xsmall'>
-          <Text textAlign='center' weight='bold'>
+        <Box pad={{ vertical: 'none', horizontal: 'xsmall' }}>
+          <Text weight='bold'>
             {author?.display_name}
           </Text>
-          <Text textAlign='center'>
+          <Text size='small'>
             (@{author?.login})
           </Text>
           {roles?.map(role =>
             <UserRole key={`quicktalk-role-${comment.id}-${role.name}`} role={role} />
           )}
+          <Text size='xsmall'>{getFormattedTimestamp(comment?.created_at)}</Text>
         </Box>
       </Box>
       <Box pad='xsmall'>
