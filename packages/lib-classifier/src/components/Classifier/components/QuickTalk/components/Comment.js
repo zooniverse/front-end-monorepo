@@ -25,29 +25,26 @@ function Comment ({
       margin={{ horizontal: 'none', 'vertical': 'xsmall' }}
     >
       <Box
-        margin='xsmall'
+        flex={false}
         pad='xsmall'
-        width='small'
       >
         <UserAvatar
           src={author?.avatar_src}
           displayName={author?.display_name}
         />
-        <Text textAlign='center' weight='bold'>
-          {author?.display_name}
-        </Text>
-        <Text textAlign='center'>
-          (@{author?.login})
-        </Text>
-        {roles?.map(role =>
-          <UserRole key={`quicktalk-role-${comment.id}-${role.name}`} role={role} />
-        )}
       </Box>
-      <Box
-        flex={true}
-        pad='xsmall'
-        width='medium'
-      >
+      <Box pad='xsmall'>
+        <Box align='start'>
+          <Text textAlign='center' weight='bold'>
+            {author?.display_name}
+          </Text>
+          <Text textAlign='center'>
+            (@{author?.login})
+          </Text>
+          {roles?.map(role =>
+            <UserRole key={`quicktalk-role-${comment.id}-${role.name}`} role={role} />
+          )}
+        </Box>
         <Markdownz>
           {comment?.body}
         </Markdownz>
