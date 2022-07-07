@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { withResponsiveContext, Tab } from '@zooniverse/react-components'
 import { Anchor, Box, Button, Heading, Paragraph } from 'grommet'
-import { FormNextLink } from 'grommet-icons'
+import { FormNextLink, ShareRounded } from 'grommet-icons'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
@@ -125,7 +125,7 @@ function QuickTalk ({
             alignSelf='center'
             label={t('QuickTalk.goToTalk')}
             href={subject.talkURL}
-            icon={<FormNextLink size='small' />}
+            icon={<ShareRounded size='small' />}
             margin='xsmall'
             target='_blank'
             rel='nofollow noopener noreferrer'
