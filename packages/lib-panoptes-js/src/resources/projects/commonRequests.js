@@ -12,7 +12,7 @@ function getBySlug (params) {
   }
 
   if (queryParams.slug) {
-    return panoptes.get(endpoint, queryParams, { authorization })
+    return panoptes.get(endpoint, queryParams, { authorization }, params.host)
   }
 
   return raiseError('Projects: Get by slug request missing required parameter: slug string.', 'error')
@@ -35,7 +35,7 @@ function getWithLinkedResources (params) {
     queryParams.slug = getProjectSlugFromURL(queryParams.slug)
   }
 
-  return panoptes.get(endpoint, queryParams, { authorization })
+  return panoptes.get(endpoint, queryParams, { ...params.headers, authorization }, params.host)
 }
 
 module.exports = { getBySlug, getWithLinkedResources }

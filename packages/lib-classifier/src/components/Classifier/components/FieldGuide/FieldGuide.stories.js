@@ -97,7 +97,7 @@ function FieldGuideStoryContext (props) {
         theme={zooTheme}
         themeMode={(props.darkMode) ? 'dark' : 'light'}
       >
-        <Box height='60px' width='60px'>
+        <Box width='60px'>
           {ready && <FieldGuideConnector />}
         </Box>
       </Grommet>

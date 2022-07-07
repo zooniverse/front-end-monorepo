@@ -8,6 +8,7 @@ export default function SingleTextViewerContainer ({
   content = '',
   contentLoadingState = asyncStates.initialized,
   error = null,
+  height = '',
   onError = () => true,
   onReady = () => true
 }) {
@@ -17,6 +18,7 @@ export default function SingleTextViewerContainer ({
     return (
       <SingleTextViewer
         content={content}
+        height={height}
       />
     )
   }
@@ -31,6 +33,7 @@ export default function SingleTextViewerContainer ({
 SingleTextViewerContainer.propTypes = {
   content: PropTypes.string,
   contentLoadingState: PropTypes.oneOf(asyncStates.values),
+  height: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func
 }

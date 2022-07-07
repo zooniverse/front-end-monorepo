@@ -55,10 +55,7 @@
   "FieldGuide": {
     "title": "Translated",
     "FieldGuideButton": {
-      "buttonLabel": {
-        "field": "Translated",
-        "guide": "Translated"
-      }
+      "buttonLabel": "Translated"
     },
     "FieldGuideItem": {
       "ariaTitle": "Translated"
