@@ -1,7 +1,7 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 
-const supportedLngs = ['en', 'test']
+const supportedLngs = ['en', 'fr', 'test']
 const namespaces = ['components', 'plugins']
 
 i18n.use(initReactI18next).init({

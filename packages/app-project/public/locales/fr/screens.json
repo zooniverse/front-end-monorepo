@@ -1,1 +1,54 @@
-{}
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "Recherche",
+        "team": "Équipe",
+        "results": "Résultats",
+        "education": "Éducation",
+        "faq": "FAQ"
+      }
+    },
+    "SidebarHeading": "À propos",
+    "TeamMember": {
+      "owner": "Administrateur/trice",
+      "collaborator": "Collaborateur/trice",
+      "translator": "Traducteur/trice",
+      "researcher": "Chercheur/e",
+      "moderator": "Modérateur/trice",
+      "tester": "Testeur/e",
+      "expert": "Expert/èrte",
+      "museum": "Musée"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "À propos de {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "En savoir plus"
+      }
+    },
+    "MessageFromResearcher": {
+      "title": "Quelques mots de l'équipe de recherche"
+    },
+    "ZooniverseTalk": {
+      "button": "Les rejoindre",
+      "title": "Discussions"
+    }
+  },
+  "Classify": {
+    "RecentSubjects": {
+      "title": "Vos classifications récentes"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Non, merci",
+      "confirm": "Passer au prochain module!",
+      "content": "Bravo! Vous avez débloqué le prochain module. Si vous préférez rester dans ce module, vous pouvez choisir de rester."
+    },
+    "YourStats": {
+      "title": "Statistiques de {{projectName}}"
+    }
+  }
+}
