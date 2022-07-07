@@ -2674,14 +2674,14 @@
     tslib "^1.9.3"
 
 "@sentry/node@~7.5.0":
-  version "7.5.0"
-  resolved "https://registry.yarnpkg.com/@sentry/node/-/node-7.5.0.tgz#e22b27cfb19157aea5019daf6241615887e64321"
-  integrity sha512-lcHIgzcOjKnBeXf9CPbHOwFTuRf+huYMwhF3IVz5Ewbpm4eZn3LPk838ypqtspD7UtFbAdaTGXs/w3Y9P3Zi4g==
+  version "7.5.1"
+  resolved "https://registry.yarnpkg.com/@sentry/node/-/node-7.5.1.tgz#b0c94ed4bc24891c51809e75199e6d1f8de284f2"
+  integrity sha512-XSpNbxBVIpcklLpk9NtQSkTZM0/mEj0TYMnzQmE2UR7UChpGhZyc19nbQWceSsaLMrrAgOX4Zzo28ENk/QY5FA==
   dependencies:
-    "@sentry/core" "7.5.0"
-    "@sentry/hub" "7.5.0"
-    "@sentry/types" "7.5.0"
-    "@sentry/utils" "7.5.0"
+    "@sentry/core" "7.5.1"
+    "@sentry/hub" "7.5.1"
+    "@sentry/types" "7.5.1"
+    "@sentry/utils" "7.5.1"
     cookie "^0.4.1"
     https-proxy-agent "^5.0.0"
     lru_map "^0.3.3"
@@ -10137,9 +10137,9 @@ i18next-fs-backend@^1.1.4:
   integrity sha512-/MfAGMP0jHonV966uFf9PkWWuDjPYLIcsipnSO3NxpNtAgRUKLTwvm85fEmsF6hGeu0zbZiCQ3W74jwO6K9uXA==
 
 i18next@^21.6.14, i18next@~21.8.1:
-  version "21.8.12"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-21.8.12.tgz#30a1ca4a9556d9d523c9dad0fa3c01f81aa5ee72"
-  integrity sha512-BCJsQq9DtmLb88ksPZgpjbXhPAhFmDTNrY2Jh8VvgwnTHvL8xbuSribdTsi2WPRk1kbhjtbkoqyCVr12w2XTCA==
+  version "21.8.13"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-21.8.13.tgz#e5583bfe333bc41716b5a14693615d94a3dfd2cf"
+  integrity sha512-DpzwrJq7Y8tjUHxx6ByOkUIjrGYdQI5Mfv4XEI7q2RWdknQ7TaO9bKi8hS/LqYD6pBV5YGxJLReyLkOCxIpouA==
   dependencies:
     "@babel/runtime" "^7.17.2"
 
