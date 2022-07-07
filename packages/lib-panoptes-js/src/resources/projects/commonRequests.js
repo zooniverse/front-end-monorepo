@@ -19,7 +19,7 @@ function getBySlug (params) {
 }
 
 function getWithLinkedResources (params) {
-  const include = { include: 'avatar,background,owners,pages' }
+  const include = { include: 'avatar,background,owners' }
   const projectId = (params && params.id) ? params.id : ''
   const authorization = (params && params.authorization) ? params.authorization : ''
 
