@@ -10,11 +10,6 @@ import { useTranslation } from 'react-i18next'
 import Comment from './components/Comment'
 import PostForm from './components/PostForm'
 
-const UnorderedList = styled(Box)`
-  margin: 0;
-  padding: 0;
-`
-
 function QuickTalk ({
   subject,
   comments = [],
@@ -45,7 +40,6 @@ function QuickTalk ({
   }, [ postCommentStatus ])
 
   if (!subject) return null
-  console.log('+++ comments: ', comments)
 
   return (
     <Tab
@@ -53,10 +47,9 @@ function QuickTalk ({
     >
       <Box
         a11yTitle={t('QuickTalk.aria.mainPanel')}
-        background={{ dark: 'dark-3', light: 'light-3' }}
         fill
       >
-        <Heading level='5' margin='small' pad='none'>
+        <Heading level='4' margin='none' pad='none'>
           {t('QuickTalk.aria.panelHeading')}
         </Heading>
         <Box
@@ -66,9 +59,9 @@ function QuickTalk ({
           role='group'
           tabIndex='0'
         >
-          <Box flex={false} pad={{ bottom: 'small', left: 'small', right: 'small' }}>
+          <Box flex={false} pad='none'>
             {comments.length > 0 && (
-              <UnorderedList as='ul' flex={false}>
+              <Box as='ul' flex={false} pad='none' margin='none'>
                 {comments.map(comment => {
                   const author = authors[comment.user_id]
                   const roles = authorRoles[comment.user_id]
@@ -82,11 +75,10 @@ function QuickTalk ({
                     />
                   )
                 })}
-              </UnorderedList>
+              </Box>
             )}
             {!comments.length && (
               <Box
-                background={{ dark: 'dark-1', light: 'light-1' }}
                 margin={{ horizontal: 'none', 'vertical': 'xsmall' }}
                 pad='xsmall'
               >
@@ -99,7 +91,7 @@ function QuickTalk ({
         </Box>
         <Box
           flex={false}
-          pad={{ horizontal: 'small', vertical: 'xsmall' }}
+          pad='none'
         >
           {userId && (
             <PostForm
