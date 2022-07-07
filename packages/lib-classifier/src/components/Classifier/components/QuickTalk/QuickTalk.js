@@ -26,7 +26,6 @@ function QuickTalk ({
   userId,
   screenSize,
   fixedPosition = true,
-  showBadge = true // HACK: Button.badge crashes tests AND storybook for an undetermined reason. // TODO: debug
 }) {
   const panelContent = useRef()
   const { t } = useTranslation('components')
@@ -46,8 +45,7 @@ function QuickTalk ({
   }, [ postCommentStatus ])
 
   if (!subject) return null
-
-  const badge = (showBadge && comments.length > 0) ? comments.length : false
+  console.log('+++ comments: ', comments)
 
   return (
     <Tab
@@ -148,7 +146,6 @@ QuickTalk.propTypes = {
   postComment: PropTypes.func,
   userId: PropTypes.string,
   fixedPosition: PropTypes.bool,
-  showBadge: PropTypes.bool
 }
 
 export default withResponsiveContext(QuickTalk)

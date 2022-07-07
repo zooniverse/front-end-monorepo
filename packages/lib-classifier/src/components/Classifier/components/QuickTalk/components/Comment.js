@@ -21,20 +21,14 @@ function Comment ({
     <Box
       as='li'
       background={{ dark: 'dark-1', light: 'light-1' }}
-      direction='row'
       margin={{ horizontal: 'none', 'vertical': 'xsmall' }}
     >
-      <Box
-        flex={false}
-        pad='xsmall'
-      >
+      <Box pad='xsmall' direction='row' pad={{ vertical: 'none', horizontal: 'xsmall' }}>
         <UserAvatar
           src={author?.avatar_src}
           displayName={author?.display_name}
         />
-      </Box>
-      <Box pad='xsmall'>
-        <Box align='start'>
+        <Box align='start' pad='xsmall'>
           <Text textAlign='center' weight='bold'>
             {author?.display_name}
           </Text>
@@ -45,6 +39,8 @@ function Comment ({
             <UserRole key={`quicktalk-role-${comment.id}-${role.name}`} role={role} />
           )}
         </Box>
+      </Box>
+      <Box pad='xsmall'>
         <Markdownz>
           {comment?.body}
         </Markdownz>
