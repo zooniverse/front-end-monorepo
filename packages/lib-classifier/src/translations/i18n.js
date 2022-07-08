@@ -23,7 +23,6 @@ const supportedLngs = [
   'ru',
   'sv',
   'test',
-  'uk',
   'ur',
   'zh-cn',
   'zh-tw'
