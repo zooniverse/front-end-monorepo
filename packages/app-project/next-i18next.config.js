@@ -6,7 +6,6 @@ const locales = [
   'ar',
   'cs',
   'de',
-  'el',
   'en',
   'es',
   'fr',

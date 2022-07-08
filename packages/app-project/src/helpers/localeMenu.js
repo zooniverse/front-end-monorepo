@@ -6,7 +6,6 @@ export default {
   de: 'Deutsch',
   en: 'English',
   es: 'Español',
-  el: 'Ελληνικά',
   fr: 'Français',
   he: 'עברית',
   hi: 'हिन्दी',

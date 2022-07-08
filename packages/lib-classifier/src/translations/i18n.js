@@ -8,7 +8,6 @@ const supportedLngs = [
   'ar',
   'cs',
   'de',
-  'el',
   'en',
   'es',
   'fr',
