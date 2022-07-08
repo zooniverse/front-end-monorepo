@@ -1,1 +1,36 @@
-{}
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "מחקר",
+        "team": "צוות",
+        "results": "תוצאות",
+        "education": "מידע חינוכי",
+        "faq": "שאלות נפוצות"
+      }
+    },
+    "SidebarHeading": "אודות"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "על הפרויקט {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "למידע נוסף"
+      }
+    },
+    "ZooniverseTalk": {
+      "button": "הצטרפו לשיחה",
+      "title": "שיחה"
+    }
+  },
+  "Classify": {
+    "RecentSubjects": {
+      "title": "הקיטלוגים האחרונים שלך"
+    },
+    "YourStats": {
+      "title": "סטטיסטיקות"
+    }
+  }
+}
