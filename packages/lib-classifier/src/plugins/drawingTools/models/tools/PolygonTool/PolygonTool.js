@@ -22,15 +22,14 @@ const PolygonTool = types
     handlePointerDown(event, mark) {
       mark.appendPath(event)
     },
-    handlePointerPosition(event, mark) {
-      mark?.setGuideLine(event)
-    },
     handlePointerMove(event, mark) {
       mark?.setGuideLine(event)
     },
-    // prevents auto finish
+    // allows drag to create the first segment
     handlePointerUp(event, mark) {
-      return
+      if (mark?.points.length === 1) {
+        mark.initialDrag(event)
+      }
     }
   }))
 
