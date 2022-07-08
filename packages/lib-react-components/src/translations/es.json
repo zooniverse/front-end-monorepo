@@ -1,0 +1,22 @@
+{
+  "CloseButton": {
+    "close": "Cerrar"
+  },
+  "ZooFooter": {
+    "buildLabels": {
+      "tutorial": "Tutorial"
+    },
+    "talkLabels": {
+      "talk": "Hablemos"
+    }
+  },
+  "ZooHeader": {
+    "mainHeaderNavListLabels": {
+      "talk": "Hablemos"
+    },
+    "SignedOutUserNavigation": {
+      "register": "Registrarse",
+      "signIn": "Iniciar sesión"
+    }
+  }
+}

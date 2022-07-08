@@ -1,0 +1,72 @@
+{
+  "Banners": {
+    "Banner": {
+      "next": "Siguiente"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Cancelar",
+      "confirm": "OK",
+      "inProgress": "Al regresar se borrará su trabajo para la tarea actual."
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Continuar"
+  },
+  "FieldGuide": {
+    "title": "Guía Práctica",
+    "FieldGuideButton": {
+      "buttonLabel": "Guía Práctica"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Atrás"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Tutorial"
+  },
+  "QuickTalk": {
+    "status": {
+      "loading": "(Cargando)"
+    }
+  },
+  "SlideTutorial": {
+    "getStarted": "Comenzar",
+    "heading": "{{projectDisplayName}} Tutorial"
+  },
+  "SubjectViewer": {
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Siguiente"
+      }
+    }
+  },
+  "TaskArea": {
+    "task": "Tarea",
+    "tutorial": "Tutorial",
+    "DisabledTaskPopup": {
+      "options": {
+        "dismiss": "Descartar"
+      }
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Atrás",
+        "tooltip": "Al regresar se borrará su trabajo para la tarea actual."
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Listo & Hablemos"
+      },
+      "DoneButton": {
+        "done": "Listo"
+      },
+      "loading": "(Cargando)",
+      "NextButton": {
+        "next": "Siguiente"
+      },
+      "TaskHelp": {
+        "close": "Cerrar",
+        "label": "¿Necesitas ayuda con esta tarea?"
+      }
+    }
+  }
+}
