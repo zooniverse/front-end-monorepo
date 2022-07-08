@@ -13,7 +13,6 @@ export default {
   hr: 'Hrvatski',
   it: 'Italiano',
   ja: '日本語',
-  kn: 'ಕನ್ನಡ',
   ko: '한국어',
   nl: 'Nederlands',
   pl: 'Polski',

@@ -15,7 +15,6 @@ const locales = [
   'hr',
   'it',
   'ja',
-  'kn',
   'ko',
   'nl',
   'pl',

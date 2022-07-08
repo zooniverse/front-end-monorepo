@@ -17,7 +17,6 @@ const supportedLngs = [
   'hr',
   'it',
   'ja',
-  'kn',
   'ko',
   'nl',
   'pl',
