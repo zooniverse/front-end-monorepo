@@ -10,30 +10,39 @@ async function fetchTeam(project, env) {
   const { headers, host } = getServerSideAPIHost(env)
   let teamArray = []
   try {
-    let allRoles = []
-
-    async function getRoles(page = 1) {
+    async function getRoles(allRoles = [], page = 1) {
       const teamQuery = {
         env,
         project_id: project.id,
-        page: page
+        page
       }
       const response = await panoptes.get(`/project_roles`, teamQuery, { ...headers }, host)
       const { meta, project_roles: projectRoles } = response.body
-      allRoles = allRoles.concat(projectRoles)
-      if (meta.project_roles && meta.project_roles.next_page) {
-        return getRoles(meta.project_roles.next_page)
+      if (meta.project_roles?.next_page) {
+        return await getRoles(allRoles.concat(projectRoles), meta.project_roles.next_page)
       }
+      return allRoles.concat(projectRoles)
     }
-    await getRoles()
 
-    const userIDs = allRoles.map(role => role.links.owner.id)
-    const response = await panoptes.get(`/users`, {
-      env,
-      id: userIDs.join(',')
-    })
-    const users = response?.body?.users || []
-    teamArray = allRoles.map(role => {
+    const roles = await getRoles()
+    const userIDs = roles.map(role => role.links.owner.id)
+
+    async function getUsers(allUsers = [], page = 1) {
+      const userQuery = {
+        env,
+        id: userIDs.join(','),
+        page
+      }
+      const response = await panoptes.get(`/users`, userQuery, { ...headers }, host)
+      const { meta, users = [] } = response.body || {}
+      if (meta.users?.next_page) {
+        return await getUsers(allUsers.concat(users), meta.users.next_page)
+      }
+      return allUsers.concat(users)
+    }
+
+    const users = await getUsers()
+    teamArray = roles.map(role => {
       const user = users.find(u => u.id === role.links.owner.id)
       return { ...user, roles: role.roles }
     })
