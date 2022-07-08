@@ -1,0 +1,47 @@
+{
+  "CloseButton": {
+    "close": "Schließen"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "Über",
+      "publications": "Publikationen",
+      "team": "Unser Team",
+      "acknowledgements": "Acknowledgements / Kreditierung",
+      "contact": "Kontaktiere uns",
+      "faq": "FAQ"
+    },
+    "buildLabels": {
+      "tutorial": "Tutorial"
+    },
+    "getInvolvedLabels": {
+      "getInvolved": "Beteilige Dich",
+      "education": "Bildung",
+      "callForProjects": "Call for Projects"
+    },
+    "projectLabels": {
+      "projects": "Projekte"
+    },
+    "talkLabels": {
+      "talk": "Diskutieren"
+    }
+  },
+  "ZooHeader": {
+    "mainHeaderNavListLabels": {
+      "projects": "Projekte",
+      "about": "Über",
+      "getInvolved": "Beteilige Dich",
+      "talk": "Diskutieren"
+    },
+    "SignedOutUserNavigation": {
+      "register": "Registrierung",
+      "signIn": "Anmeldung"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Sammlungen",
+        "favorites": "Favoriten"
+      }
+    }
+  }
+}
