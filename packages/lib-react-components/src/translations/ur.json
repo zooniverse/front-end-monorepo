@@ -1,0 +1,47 @@
+{
+  "CloseButton": {
+    "close": "بند کریں"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "کے متعلق",
+      "publications": "اشاعات",
+      "team": "ہماری ٹیم",
+      "acknowledgements": "اعتراف",
+      "contact": "ہم سے رابطہ کریں",
+      "faq": "اکثر پوچھے جانے والے سوالات"
+    },
+    "buildLabels": {
+      "tutorial": " درس"
+    },
+    "getInvolvedLabels": {
+      "getInvolved": "شامل ہوں",
+      "education": "تعلیم",
+      "callForProjects": "پروجیکٹس کے لئے درخواست کریں"
+    },
+    "projectLabels": {
+      "projects": "پروجیکٹ"
+    },
+    "talkLabels": {
+      "talk": "بات (کریں)"
+    }
+  },
+  "ZooHeader": {
+    "mainHeaderNavListLabels": {
+      "projects": "پروجیکٹ",
+      "about": "کے متعلق",
+      "getInvolved": "شامل ہوں",
+      "talk": "بات (کریں)"
+    },
+    "SignedOutUserNavigation": {
+      "register": "اندراج ",
+      "signIn": "سائن ان"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "مجموعہ",
+        "favorites": "پسندیدہ"
+      }
+    }
+  }
+}

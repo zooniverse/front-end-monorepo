@@ -1,0 +1,19 @@
+{
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": " فلٹر صاف ​ کریں ​ ",
+      "showing": "{{showing}} کے {{total}} دکھایا جا رہا ہے"
+    },
+    "Choice": {
+      "identify": "شناخت"
+    },
+    "ConfusedWith": {
+      "cancel": "منسوخ ",
+      "confused": "اکثر غیر واضح ",
+      "itsThis": "میرے خیال میں یہی ہے"
+    }
+  },
+  "TextFromSubjectTasks": {
+    "reset": "بصری معائنہ کو ترتیب دیں۔ "
+  }
+}

@@ -1,1 +1,63 @@
-{}
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "register": "اندراج ",
+      "signIn": "سائن ان"
+    }
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "signIn": "سائن ان"
+    },
+    "RegisterForm": {
+      "passwordConfirmError": "پاس ورڈ مماثل نہیں ہے ، براہ کرم دوبارہ کوشش کریں۔",
+      "realName": "اصل نام (اختیاری)",
+      "realNameHelp": "عوام؛ ہم اس کا استعمال کاغذات ، پوسٹروں وغیرہ پر اعتراف کرنے کیلئے کریں گے۔",
+      "register": "اندراج "
+    }
+  },
+  "ConnectWithProject": {
+    "title": "عنوان کے ساتھ جڑیں"
+  },
+  "Head": {
+    "defaultTitle": "پروجیکٹ"
+  },
+  "Loader": {
+    "loading": "لوڈنگ"
+  },
+  "ProjectHeader": {
+    "about": "کے متعلق",
+    "classify": "درجہ بندی",
+    "exploreProject": "پروجیکٹ کے متعلق مزید جانیں",
+    "talk": "بات (کریں)",
+    "collect": "جمع(کریں) ",
+    "recents": "حالیہ",
+    "ApprovedIcon": {
+      "title": "زونیورس سے منظورشدہ "
+    },
+    "ProjectNav": {
+      "ariaLabel": "پروجیکٹ"
+    },
+    "UnderReviewLabel": {
+      "underReview": "زیر جائزہ"
+    }
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "اعداد کے ذریعہ",
+    "classifications": "درجہ بندیاں",
+    "completedSubjects": "مکمل مضامین",
+    "percentComplete": "مکمل فیصد ",
+    "subjects": " مضامین",
+    "subtitle": "آپ اور آپ کے ساتھی رضاکاروں نے اس پروجیکٹ میں جو پیش رفت کی ہے اس پر نظر رکھیں۔",
+    "text": "ہر کلک معنی رکھتا ہے! اس پروجیکٹ کو مکمل کرنے کے لئےعنوان کی برادری میں شامل ہوں اور محققین کو اہم نتائج فراہم کرنے میں مدد کریں۔",
+    "title": "(عنوان) کے اعدادوشمار",
+    "volunteers": "والنٹیر"
+  },
+  "RequireUser": {
+    "text": "آپ سائن ان نیہں ہیں"
+  },
+  "ThemeModeToggle": {
+    "switchToDark": "موضوع تبدیل کریں",
+    "switchToLight": "موضوع تبدیل کریں"
+  }
+}

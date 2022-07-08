@@ -19,7 +19,7 @@ export default {
   ru: 'русский',
   sv: 'Svenska',
   test: 'Test Language',
-  ur: 'اردو',
+  ur: 'اُردُو',
   'zh-cn': '简体中文',
   'zh-tw': '繁體中文'
 }
