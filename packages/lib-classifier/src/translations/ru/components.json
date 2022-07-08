@@ -1,0 +1,76 @@
+{
+  "Banners": {
+    "Banner": {
+      "next": "Следующий"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Отменить",
+      "inProgress": "Если Вы нажмете \"назад\", Ваша работа по текущему заданию не сохранится"
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Продолжить"
+  },
+  "FieldGuide": {
+    "title": "Field Guide",
+    "FieldGuideButton": {
+      "buttonLabel": "Field Guide"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "назад"
+    }
+  },
+  "ImageToolbar": {
+    "ResetButton": {
+      "ariaLabel": "Reset view"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Посмотреть инструкции и примеры"
+  },
+  "QuickTalk": {
+    "status": {
+      "loading": "Идет загрузка"
+    }
+  },
+  "SlideTutorial": {
+    "getStarted": "Начать",
+    "heading": "{{projectDisplayName}} Посмотреть инструкции и примеры"
+  },
+  "SubjectViewer": {
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Следующий"
+      }
+    }
+  },
+  "TaskArea": {
+    "task": "Задание",
+    "tutorial": "Посмотреть инструкции и примеры",
+    "DisabledTaskPopup": {
+      "options": {
+        "dismiss": "Отклонить"
+      }
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "назад",
+        "tooltip": "Если Вы нажмете \"назад\", Ваша работа по текущему заданию не сохранится"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Готово. Обсудить"
+      },
+      "DoneButton": {
+        "done": "Готово"
+      },
+      "loading": "Идет загрузка",
+      "NextButton": {
+        "next": "Следующий"
+      },
+      "TaskHelp": {
+        "close": "Закрыть",
+        "label": "Помочь?"
+      }
+    }
+  }
+}
