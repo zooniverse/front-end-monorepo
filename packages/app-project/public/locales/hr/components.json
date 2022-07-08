@@ -1,1 +1,48 @@
-{}
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "register": "Registrirajte se",
+      "signIn": "Prijavite se"
+    }
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "signIn": "Prijavite se"
+    },
+    "RegisterForm": {
+      "passwordConfirmError": "Lozinke se ne podudaraju, pokušajte ponovo.",
+      "register": "Registrirajte se"
+    }
+  },
+  "ConnectWithProject": {
+    "title": "Poveznice"
+  },
+  "Head": {
+    "defaultTitle": "Projekti",
+    "siteName": "Zooniverse"
+  },
+  "Loader": {
+    "loading": "(Učitava se)"
+  },
+  "ProjectHeader": {
+    "about": "O projektu",
+    "classify": "Klasificiraj",
+    "exploreProject": "Istraži projekt",
+    "talk": "Pričaj ",
+    "collect": "Prikupi",
+    "recents": "Nedavno",
+    "ApprovedIcon": {
+      "title": "Odobrio Zooniverse"
+    },
+    "UnderReviewLabel": {
+      "underReview": "Recenzija u tijeku"
+    }
+  },
+  "ProjectStatistics": {
+    "volunteers": "Volonteri"
+  },
+  "ThemeModeToggle": {
+    "switchToDark": "Prebaci na tamno temu",
+    "switchToLight": "Prebaci na svijetlo temu"
+  }
+}

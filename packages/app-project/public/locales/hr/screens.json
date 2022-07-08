@@ -1,1 +1,45 @@
-{}
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "Istraživanje",
+        "team": "Tim",
+        "results": "Rezultati",
+        "education": "Edukacija",
+        "faq": "Često postavljana pitanja"
+      }
+    },
+    "SidebarHeading": "O projektu"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "O {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Saznaj više"
+      }
+    },
+    "MessageFromResearcher": {
+      "title": "Riječi istraživača"
+    },
+    "ZooniverseTalk": {
+      "button": "Priduži se",
+      "title": "Pričaj "
+    }
+  },
+  "Classify": {
+    "RecentSubjects": {
+      "title": "Vaše nedavne klasifikacije"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Ne, hvala.",
+      "confirm": "Odvedi me na sljedeću razinu.",
+      "content": "Čestitamo! Otključali ste sljedeću skupinu zadataka. Ukoliko želite ostati na ovim zadacima, možete odabrati da ostanete. ",
+      "dismiss": "Ne pokazuj mi ove poruke u budućnosti."
+    },
+    "YourStats": {
+      "title": "{{projectName}} statistika"
+    }
+  }
+}

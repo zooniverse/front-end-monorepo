@@ -1,0 +1,68 @@
+{
+  "Banners": {
+    "Banner": {
+      "next": "Sljedeće"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Otkaži",
+      "confirm": "OK",
+      "inProgress": "Vraćanje natrag će obrisati Vaš rad za trenutni zadatak"
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Nastavi"
+  },
+  "FieldGuide": {
+    "FieldGuideItem": {
+      "ariaTitle": "Natrag"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Uputstva"
+  },
+  "QuickTalk": {
+    "status": {
+      "loading": "(Učitava se)"
+    }
+  },
+  "SlideTutorial": {
+    "getStarted": "Započnite",
+    "heading": "{{projectDisplayName}} Uputstva"
+  },
+  "SubjectViewer": {
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Sljedeće"
+      }
+    }
+  },
+  "TaskArea": {
+    "task": "Zadatak",
+    "tutorial": "Uputstva",
+    "DisabledTaskPopup": {
+      "options": {
+        "dismiss": "Odbaci"
+      }
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Natrag",
+        "tooltip": "Vraćanje natrag će obrisati Vaš rad za trenutni zadatak"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Završi i pričaj"
+      },
+      "DoneButton": {
+        "done": "Završi"
+      },
+      "loading": "(Učitava se)",
+      "NextButton": {
+        "next": "Sljedeće"
+      },
+      "TaskHelp": {
+        "close": "Zatvori",
+        "label": "Trebate li pomoć s ovim zadatkom?"
+      }
+    }
+  }
+}
