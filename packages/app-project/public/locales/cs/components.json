@@ -1,1 +1,57 @@
-{}
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "register": "Zaregistrovat se",
+      "signIn": "Přihlásit se"
+    }
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "signIn": "Přihlásit se"
+    },
+    "RegisterForm": {
+      "passwordConfirmError": "Heslo neodpovídá, zkuste jej prosím zadat znovu.",
+      "realName": "Skutečné jméno (nepovinné)",
+      "realNameHelp": "Veřejné; bude použito v odborných publikacích, apod.",
+      "register": "Zaregistrovat se"
+    }
+  },
+  "ConnectWithProject": {
+    "title": "Odkazy"
+  },
+  "Head": {
+    "defaultDescription": "",
+    "defaultTitle": "Projekty",
+    "siteName": "Zooniverse"
+  },
+  "Loader": {
+    "loading": "(načítá se)"
+  },
+  "ProjectHeader": {
+    "about": "O projektu",
+    "classify": "Klasifikovat",
+    "exploreProject": "Prozkoumat Projekt",
+    "talk": "Diskuze",
+    "collect": "Alba",
+    "recents": "Nedávno zobrazené",
+    "ApprovedIcon": {
+      "title": "Schváleno Zooniverse"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Projekt"
+    },
+    "UnderReviewLabel": {
+      "underReview": "Probíhá revize"
+    }
+  },
+  "ProjectStatistics": {
+    "volunteers": "Dobrovolníků"
+  },
+  "RequireUser": {
+    "text": "Nejste přihlášeni"
+  },
+  "ThemeModeToggle": {
+    "switchToDark": "Přepnout do tmavého prostředí",
+    "switchToLight": "Přepnout do světlého prostředí"
+  }
+}
