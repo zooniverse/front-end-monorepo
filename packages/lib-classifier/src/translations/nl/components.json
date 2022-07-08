@@ -1,0 +1,68 @@
+{
+  "Banners": {
+    "Banner": {
+      "next": "Volgende"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Annuleren",
+      "confirm": "OK",
+      "inProgress": "Let op! Niet opgeslagen gegevens gaan verloren."
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Doorgaan"
+  },
+  "FieldGuide": {
+    "FieldGuideItem": {
+      "ariaTitle": "Terug"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Uitleg"
+  },
+  "QuickTalk": {
+    "status": {
+      "loading": "(Laden)"
+    }
+  },
+  "SlideTutorial": {
+    "getStarted": "Beginnen",
+    "heading": "{{projectDisplayName}} Uitleg"
+  },
+  "SubjectViewer": {
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Volgende"
+      }
+    }
+  },
+  "TaskArea": {
+    "task": "Taak",
+    "tutorial": "Uitleg",
+    "DisabledTaskPopup": {
+      "options": {
+        "dismiss": "Sluiten"
+      }
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Terug",
+        "tooltip": "Let op! Niet opgeslagen gegevens gaan verloren."
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Afronden & Bespreken"
+      },
+      "DoneButton": {
+        "done": "Afronden"
+      },
+      "loading": "(Laden)",
+      "NextButton": {
+        "next": "Volgende"
+      },
+      "TaskHelp": {
+        "close": "Sluiten",
+        "label": "Hulp nodig met deze taak?"
+      }
+    }
+  }
+}
