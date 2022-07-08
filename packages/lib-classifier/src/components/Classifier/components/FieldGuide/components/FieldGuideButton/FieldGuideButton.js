@@ -27,7 +27,6 @@ export const StyledButton = styled(Button)`
 
 const StyledSpacedText = styled(SpacedText)`
   line-height: 1.2;
-  word-break: break-all;
 `
 
 const StyledHelpIcon = styled(HelpIcon)`
@@ -42,7 +41,7 @@ export function ButtonLabel () {
 
   return (
     <Box as='span' align='center' direction='column'>
-      <StyledSpacedText size='xsmall' color='white'>
+      <StyledSpacedText size='xsmall' color='white' textAlign='center'>
         {t('FieldGuide.FieldGuideButton.buttonLabel')}
       </StyledSpacedText>
       <StyledHelpIcon />
