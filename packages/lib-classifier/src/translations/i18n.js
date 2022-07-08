@@ -1,8 +1,35 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 
-const supportedLngs = ['en', 'fr', 'test']
 const namespaces = ['components', 'plugins']
+
+/** supportedLngs array matches app-project's next-i18next.config.js */
+const supportedLngs = [
+  'ar',
+  'cs',
+  'de',
+  'el',
+  'en',
+  'es',
+  'fr',
+  'he',
+  'hi',
+  'hr',
+  'it',
+  'ja',
+  'kn',
+  'ko',
+  'nl',
+  'pl',
+  'pt',
+  'ru',
+  'sv',
+  'test',
+  'uk',
+  'ur',
+  'zh-cn',
+  'zh-tw'
+]
 
 i18n.use(initReactI18next).init({
   fallbackLng: 'en',
