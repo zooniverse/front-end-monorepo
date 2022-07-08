@@ -1,1 +1,30 @@
-{}
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "Badania",
+        "team": "Zespół",
+        "results": "Results",
+        "education": "Edukacja",
+        "faq": "Pytania i odpowiedzi"
+      }
+    },
+    "SidebarHeading": "Opis"
+  },
+  "Home": {
+    "Hero": {
+      "Introduction": {
+        "link": "Dowiedz się więcej"
+      }
+    },
+    "ZooniverseTalk": {
+      "button": "Dołącz",
+      "title": "Dyskutowanie"
+    }
+  },
+  "Classify": {
+    "YourStats": {
+      "title": "{{projectName}} statystyka"
+    }
+  }
+}

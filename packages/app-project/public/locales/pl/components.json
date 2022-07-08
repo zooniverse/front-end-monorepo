@@ -1,1 +1,17 @@
-{}
+{
+  "ProjectHeader": {
+    "about": "Opis",
+    "classify": "Klasyfikowanie",
+    "talk": "Dyskutowanie",
+    "collect": "Kolekcjonowanie"
+  },
+  "ProjectStatistics": {
+    "percentComplete": "Percent Kompletność",
+    "title": "{{projectName}} statystyka",
+    "volunteers": "Wolontariusze"
+  },
+  "ThemeModeToggle": {
+    "switchToDark": "Przełącz do ciemnego trybu",
+    "switchToLight": "Przełącz do jasnego trybu"
+  }
+}
