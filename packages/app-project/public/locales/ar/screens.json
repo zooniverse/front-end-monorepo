@@ -1,1 +1,36 @@
-{}
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "البحث",
+        "team": "الطاقم",
+        "results": "المُخرَجات",
+        "education": "معلومات تربويّة",
+        "faq": "أسئلة مُتكرّرة"
+      }
+    },
+    "SidebarHeading": "من نحن"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "عن المشروع {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "لمعلومات إضافيّة"
+      }
+    },
+    "ZooniverseTalk": {
+      "button": "انضمّوا إلى المحادثة",
+      "title": "محادثة"
+    }
+  },
+  "Classify": {
+    "RecentSubjects": {
+      "title": "فهرَساتك الأخيرة"
+    },
+    "YourStats": {
+      "title": "إحصائيّات"
+    }
+  }
+}

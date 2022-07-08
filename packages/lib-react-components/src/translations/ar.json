@@ -1,0 +1,18 @@
+{
+  "CloseButton": {
+    "close": "أغلِق"
+  },
+  "ZooFooter": {
+    "buildLabels": {
+      "tutorial": "إرشاد"
+    },
+    "talkLabels": {
+      "talk": "محادثة"
+    }
+  },
+  "ZooHeader": {
+    "mainHeaderNavListLabels": {
+      "talk": "محادثة"
+    }
+  }
+}

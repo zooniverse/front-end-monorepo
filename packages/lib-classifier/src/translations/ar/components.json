@@ -1,0 +1,68 @@
+{
+  "Banners": {
+    "Banner": {
+      "next": "التالي"
+    },
+    "InProgressConfirmModal": {
+      "inProgress": "العودة إلى الخلف ستُلغي الجواب الذي أشرتم/نّ إليه"
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "واصل"
+  },
+  "FieldGuide": {
+    "title": "الدليل العمليّ",
+    "FieldGuideButton": {
+      "buttonLabel": "الدليل العمليّ"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "إلى الخلف"
+    }
+  },
+  "ImageToolbar": {
+    "ResetButton": {}
+  },
+  "ModalTutorial": {
+    "title": "إرشاد"
+  },
+  "QuickTalk": {
+    "status": {
+      "loading": "(قيد التحميل)"
+    }
+  },
+  "SlideTutorial": {
+    "getStarted": "هيّا نبدأ",
+    "heading": "{{projectDisplayName}} إرشاد"
+  },
+  "SubjectViewer": {
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "التالي"
+      }
+    }
+  },
+  "TaskArea": {
+    "task": "مهمّة",
+    "tutorial": "إرشاد",
+    "Tasks": {
+      "BackButton": {
+        "back": "إلى الخلف",
+        "tooltip": "العودة إلى الخلف ستُلغي الجواب الذي أشرتم/نّ إليه"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "احفظ وانتقل إلى المحادثة"
+      },
+      "DoneButton": {
+        "done": "حفظ"
+      },
+      "loading": "(قيد التحميل)",
+      "NextButton": {
+        "next": "التالي"
+      },
+      "TaskHelp": {
+        "close": "أغلِق",
+        "label": "بحاجة إلى مساعدة في هذه المهمّة؟"
+      }
+    }
+  }
+}
