@@ -1,0 +1,72 @@
+{
+  "Banners": {
+    "Banner": {
+      "next": "अगला"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "रद्द करें",
+      "confirm": "ठीक",
+      "inProgress": "अगर आप वापस होंगे, तो आपके चल रहे कार्य की प्रगति समाप्त हो जाएगी"
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "जारी रखें"
+  },
+  "FieldGuide": {
+    "title": "फील्ड गाईड",
+    "FieldGuideButton": {
+      "buttonLabel": "फील्ड गाईड"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "वापस जाएं"
+    }
+  },
+  "ModalTutorial": {
+    "title": "ट्यूटोरियल"
+  },
+  "QuickTalk": {
+    "status": {
+      "loading": "लोडिंग / लोड हो रहा है"
+    }
+  },
+  "SlideTutorial": {
+    "getStarted": "शुरू करें",
+    "heading": "{{projectDisplayName}} ट्यूटोरियल"
+  },
+  "SubjectViewer": {
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "अगला"
+      }
+    }
+  },
+  "TaskArea": {
+    "task": "टास्क",
+    "tutorial": "ट्यूटोरियल",
+    "DisabledTaskPopup": {
+      "options": {
+        "dismiss": "खारिज करें"
+      }
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "वापस जाएं",
+        "tooltip": "अगर आप वापस होंगे, तो आपके चल रहे कार्य की प्रगति समाप्त हो जाएगी"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "पूरा करें और बात करें"
+      },
+      "DoneButton": {
+        "done": "धन्यवाद"
+      },
+      "loading": "लोडिंग / लोड हो रहा है",
+      "NextButton": {
+        "next": "अगला"
+      },
+      "TaskHelp": {
+        "close": "बन्द करें",
+        "label": "क्या आपको यह टास्क करने में किसी प्रकार की मदद चाहिए ?"
+      }
+    }
+  }
+}
