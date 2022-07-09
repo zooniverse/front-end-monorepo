@@ -133,7 +133,7 @@ function InteractionLayer({
   }
 
   function onFinish(event) {
-    if (event?.preventDefault) event.preventDefault()
+    event?.preventDefault?.()
     setCreating(false)
     if (activeMark && !activeMark.isValid) {
       activeTool.deleteMark(activeMark)
@@ -148,6 +148,12 @@ function InteractionLayer({
         activeTool.handlePointerUp(convertEvent(event), activeMark)
       if (activeMark.finished) onFinish(event)
     }
+  }
+
+  function onSelectMark(mark) {
+    // TODO: can we stop marks from being selected while creating is true?
+    activeMark?.finish()
+    setActiveMark(mark)
   }
 
   function inactivateMark() {
@@ -176,7 +182,7 @@ function InteractionLayer({
           onDelete={inactivateMark}
           onDeselectMark={inactivateMark}
           onFinish={onFinish}
-          onSelectMark={(mark) => setActiveMark(mark)}
+          onSelectMark={onSelectMark}
           onMove={(mark, difference) => mark.move(difference)}
           scale={scale}
           played={played}

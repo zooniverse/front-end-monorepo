@@ -69,9 +69,17 @@ export const Drawing = types.model('Drawing', {
       self.setToolTaskStrings(stringsSnapshot)
     }
 
+    function _onToolChange() {
+      if (self.activeToolIndex > -1) {
+        self.validate()
+        self.setActiveMark(undefined)
+      }
+    }
+
     return ({
       afterCreate() {
         addDisposer(self, autorun(_onLocaleChange))
+        addDisposer(self, autorun(_onToolChange))
       },
 
       setActiveMark(mark) {

@@ -107,9 +107,7 @@ const Tool = types
       // then this can be moved to the tools that should delete on invalid mark
       // transcription line, ellipse
       self.marks.forEach((mark) => {
-        if (!mark.isValid) {
-          self.deleteMark(mark)
-        }
+        mark.finish()
       })
     }
   }))
