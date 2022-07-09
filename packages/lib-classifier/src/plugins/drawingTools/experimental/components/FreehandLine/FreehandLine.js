@@ -16,7 +16,7 @@ const StyledGroup = styled.g`
   }
 `
 
-const STROKE_WIDTH = 2
+const STROKE_WIDTH = 1
 const GRAB_STROKE_WIDTH = 4
 const FINISHER_RADIUS = 3
 
@@ -64,6 +64,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
           strokeOpacity: '0',
           strokeWidth: GRAB_STROKE_WIDTH / scale
         }}
+        fill='none'
       />
       {active && finished && !isCloseToStart && (
         <DragHandle
