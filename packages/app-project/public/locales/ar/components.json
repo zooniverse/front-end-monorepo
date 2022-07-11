@@ -1,1 +1,19 @@
-{}
+{
+  "Loader": {
+    "loading": "(قيد التحميل)"
+  },
+  "ProjectHeader": {
+    "about": "من نحن",
+    "classify": "فَهرَسَة",
+    "talk": "محادثة",
+    "collect": "مجموعات",
+    "recents": "مؤخّرًا"
+  },
+  "ProjectStatistics": {
+    "volunteers": "مشاركون"
+  },
+  "ThemeModeToggle": {
+    "switchToDark": "استبدل الخلفيّة غامق",
+    "switchToLight": "استبدل الخلفيّة فاتح"
+  }
+}

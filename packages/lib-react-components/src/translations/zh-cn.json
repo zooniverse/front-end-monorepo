@@ -1,0 +1,19 @@
+{
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "关于"
+    },
+    "buildLabels": {
+      "tutorial": "教程"
+    },
+    "talkLabels": {
+      "talk": "讨论"
+    }
+  },
+  "ZooHeader": {
+    "mainHeaderNavListLabels": {
+      "about": "关于",
+      "talk": "讨论"
+    }
+  }
+}

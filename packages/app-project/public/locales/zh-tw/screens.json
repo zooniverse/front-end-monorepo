@@ -1,1 +1,36 @@
-{}
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "研究項目",
+        "team": "研究團隊",
+        "results": "成果",
+        "education": "教育應用",
+        "faq": "常見問題"
+      }
+    },
+    "SidebarHeading": "關於"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "關於 {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "瞭解更多"
+      }
+    },
+    "ZooniverseTalk": {
+      "button": "加入",
+      "title": "討論"
+    }
+  },
+  "Classify": {
+    "RecentSubjects": {
+      "title": "這些是你最近完成的分類"
+    },
+    "YourStats": {
+      "title": "{{projectName}} 數據"
+    }
+  }
+}

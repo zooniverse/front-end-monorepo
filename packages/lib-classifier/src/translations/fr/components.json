@@ -1,0 +1,75 @@
+{
+  "Banners": {
+    "Banner": {
+      "next": "Suivant"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Annuler",
+      "confirm": "OK",
+      "inProgress": "Retourner en arrière va effacer le travail fait sur cette tâche."
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Continuer"
+  },
+  "FieldGuide": {
+    "title": "Guide Pratique",
+    "FieldGuideButton": {
+      "buttonLabel": "Guide Pratique"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Retour"
+    }
+  },
+  "ImageToolbar": {
+    "ResetButton": {}
+  },
+  "ModalTutorial": {
+    "title": "Tutoriel"
+  },
+  "QuickTalk": {
+    "status": {
+      "loading": "(Chargement)"
+    }
+  },
+  "SlideTutorial": {
+    "getStarted": "À vos marques, prêts, partez!",
+    "heading": "{{projectDisplayName}} Tutoriel"
+  },
+  "SubjectViewer": {
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Suivant"
+      }
+    }
+  },
+  "TaskArea": {
+    "task": "Tache",
+    "tutorial": "Tutoriel",
+    "DisabledTaskPopup": {
+      "options": {
+        "dismiss": "Rejeter"
+      }
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Retour",
+        "tooltip": "Retourner en arrière va effacer le travail fait sur cette tâche."
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Valider & Discussion"
+      },
+      "DoneButton": {
+        "done": "Valider"
+      },
+      "loading": "(Chargement)",
+      "NextButton": {
+        "next": "Suivant"
+      },
+      "TaskHelp": {
+        "close": "Fermer",
+        "label": "Avez-vous besoin d'aide?"
+      }
+    }
+  }
+}

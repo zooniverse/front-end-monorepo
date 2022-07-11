@@ -1,0 +1,68 @@
+{
+  "Banners": {
+    "Banner": {
+      "next": "Další"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Zrušit",
+      "confirm": "OK",
+      "inProgress": "Krokem zpět ztratíte započatou práci na tomto úkolu."
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Pokračovat"
+  },
+  "FieldGuide": {
+    "FieldGuideItem": {
+      "ariaTitle": "Zpět"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Návod"
+  },
+  "QuickTalk": {
+    "status": {
+      "loading": "(načítá se)"
+    }
+  },
+  "SlideTutorial": {
+    "getStarted": "Začít",
+    "heading": "{{projectDisplayName}} Návod"
+  },
+  "SubjectViewer": {
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Další"
+      }
+    }
+  },
+  "TaskArea": {
+    "task": "Úkol",
+    "tutorial": "Návod",
+    "DisabledTaskPopup": {
+      "options": {
+        "dismiss": "Zamítnout možnost"
+      }
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Zpět",
+        "tooltip": "Krokem zpět ztratíte započatou práci na tomto úkolu."
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Dokončit & Komentovat"
+      },
+      "DoneButton": {
+        "done": "Dokončit"
+      },
+      "loading": "(načítá se)",
+      "NextButton": {
+        "next": "Další"
+      },
+      "TaskHelp": {
+        "close": "Zavřít",
+        "label": "Potřebuješ pomoct s tímto úkolem?"
+      }
+    }
+  }
+}

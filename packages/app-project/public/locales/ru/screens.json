@@ -1,1 +1,55 @@
-{}
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "Исследование",
+        "team": "Команда",
+        "results": "Результаты",
+        "education": "Образование",
+        "faq": "Часто задаваемые вопросы"
+      }
+    },
+    "SidebarHeading": "Узнать о",
+    "TeamMember": {
+      "owner": "Owner",
+      "collaborator": "Collaborator",
+      "translator": "Translator",
+      "researcher": "Researcher",
+      "moderator": "Moderator",
+      "tester": "Tester",
+      "expert": "Expert",
+      "museum": "Museum"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Узнать о {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Подробнее"
+      }
+    },
+    "MessageFromResearcher": {
+      "title": "Слова от исследователя"
+    },
+    "ZooniverseTalk": {
+      "button": "Присоединиться",
+      "title": "Дискуссия"
+    }
+  },
+  "Classify": {
+    "RecentSubjects": {
+      "title": "Ваши последние разметки/классификации"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Нет, спасибо",
+      "confirm": "На следующий уровень",
+      "content": "Поздравляем! Вы открыли следующий уровень. Если Вы предпочитаете оставаться на этом уровне, можно выбрать \"остаться\"",
+      "dismiss": "Не показывать больше"
+    },
+    "YourStats": {
+      "title": "{{projectName}} Статистика"
+    }
+  }
+}

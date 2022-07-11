@@ -1,1 +1,46 @@
-{}
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "تحقیق",
+        "team": "ٹیم",
+        "results": "نتائج",
+        "education": "تعلیم",
+        "faq": "اکثر پوچھے جانے والے سوالات "
+      }
+    },
+    "SidebarHeading": "کے متعلق"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": " عنوان کے متعلق"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "مزید جانیں"
+      }
+    },
+    "MessageFromResearcher": {
+      "title": "محقق کا پیغام"
+    },
+    "ZooniverseTalk": {
+      "button": "شامل ہوں",
+      "message": "اپنے جیسے دوسرے رضاکاروں سے بات کریں",
+      "title": "بات (کریں)"
+    }
+  },
+  "Classify": {
+    "RecentSubjects": {
+      "title": " آپ کی حالیہ درجہ بندی"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "جی نہیں ، شکریہ",
+      "confirm": "مجھے اگلے درجے پر لے چلیں ​",
+      "content": "مبارک ہو !آپ نے اگلا ورک فلو کھول لیا ہے۔ اگر آپ اس ورک فلو کو جاری رکھنا چاہتے ہیں تو آپ اسٹے کا انتخاب کر سکتے ہیں۔",
+      "dismiss": "مزید پیغامات نہ دکھائیں"
+    },
+    "YourStats": {
+      "title": "عنوان کے اعداد و شمار"
+    }
+  }
+}

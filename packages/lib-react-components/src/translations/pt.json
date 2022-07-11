@@ -1,0 +1,47 @@
+{
+  "CloseButton": {
+    "close": "Fechar"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "Sobre",
+      "publications": "Publicações",
+      "team": "A Nossa Equipa",
+      "acknowledgements": "Reconhecimentos",
+      "contact": "Contacte-nos",
+      "faq": "FAQ"
+    },
+    "buildLabels": {
+      "tutorial": "Tutorial"
+    },
+    "getInvolvedLabels": {
+      "getInvolved": "Faça parte",
+      "education": "Educação",
+      "callForProjects": "Solicitação de Projectos"
+    },
+    "projectLabels": {
+      "projects": "Projectos"
+    },
+    "talkLabels": {
+      "talk": "Debater"
+    }
+  },
+  "ZooHeader": {
+    "mainHeaderNavListLabels": {
+      "projects": "Projectos",
+      "about": "Sobre",
+      "getInvolved": "Faça parte",
+      "talk": "Debater"
+    },
+    "SignedOutUserNavigation": {
+      "register": "Registar-se",
+      "signIn": "Entrar"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Colecções",
+        "favorites": "Favoritos"
+      }
+    }
+  }
+}

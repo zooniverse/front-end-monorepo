@@ -1,1 +1,27 @@
-{}
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "register": "註冊",
+      "signIn": "登入"
+    }
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "signIn": "登入"
+    },
+    "RegisterForm": {
+      "register": "註冊"
+    }
+  },
+  "ProjectHeader": {
+    "about": "關於",
+    "classify": "分類",
+    "exploreProject": "探索項目",
+    "talk": "討論",
+    "collect": "收藏",
+    "recents": "最近"
+  },
+  "ProjectStatistics": {
+    "volunteers": "志願者"
+  }
+}

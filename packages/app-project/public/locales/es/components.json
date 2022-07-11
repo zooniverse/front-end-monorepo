@@ -1,1 +1,47 @@
-{}
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "register": "Registrarse",
+      "signIn": "Iniciar sesión"
+    }
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "signIn": "Iniciar sesión"
+    },
+    "RegisterForm": {
+      "passwordConfirmError": "Las contraseñas son diferentes, por favor intente de nuevo.",
+      "realNameHelp": "Public; we’ll use this to give acknowledgement in papers, on posters, etc.",
+      "register": "Registrarse"
+    }
+  },
+  "ConnectWithProject": {
+    "title": "Enlaces"
+  },
+  "Loader": {
+    "loading": "(Cargando)"
+  },
+  "ProjectHeader": {
+    "about": "Acerca de",
+    "classify": "Clasificar",
+    "talk": "Hablemos",
+    "collect": "Colecciones",
+    "recents": "Recientes",
+    "ApprovedIcon": {
+      "title": "Aprobado por Zooniverse"
+    },
+    "UnderReviewLabel": {
+      "underReview": "Bajo Revisión"
+    }
+  },
+  "ProjectStatistics": {
+    "volunteers": "Voluntarios"
+  },
+  "RequireUser": {
+    "text": "Usted no ha iniciado una sesión"
+  },
+  "ThemeModeToggle": {
+    "switchToDark": "Cambiar a diseño oscuro",
+    "switchToLight": "Cambiar a diseño claro"
+  }
+}

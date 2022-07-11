@@ -1,0 +1,16 @@
+{
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "फिल्टर साफ करें",
+      "showing": "{{showing}}) में से {{total}} जाहिर है "
+    },
+    "Choice": {
+      "identify": "पहचानें / पहचान करें"
+    },
+    "ConfusedWith": {
+      "cancel": "रद्द करें",
+      "confused": "अक्सर भूल से ...",
+      "itsThis": "मेरे विचार में यह है "
+    }
+  }
+}

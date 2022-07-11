@@ -1,0 +1,61 @@
+{
+  "Banners": {
+    "Banner": {
+      "next": "Avanti"
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Continua"
+  },
+  "FieldGuide": {
+    "title": "Guida Pratica",
+    "FieldGuideButton": {
+      "buttonLabel": "Guida Pratica"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Indietro"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Tutorial"
+  },
+  "QuickTalk": {
+    "status": {
+      "loading": "(Caricamento in corso)"
+    }
+  },
+  "SlideTutorial": {
+    "getStarted": "Inizia ora",
+    "heading": "{{projectDisplayName}} Tutorial"
+  },
+  "SubjectViewer": {
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Avanti"
+      }
+    }
+  },
+  "TaskArea": {
+    "task": "Task",
+    "tutorial": "Tutorial",
+    "Tasks": {
+      "BackButton": {
+        "back": "Indietro"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Concludi e Commenta"
+      },
+      "DoneButton": {
+        "done": "Completato"
+      },
+      "loading": "(Caricamento in corso)",
+      "NextButton": {
+        "next": "Avanti"
+      },
+      "TaskHelp": {
+        "close": "Chiudi",
+        "label": "Hai bisogno di aiuto?"
+      }
+    }
+  }
+}

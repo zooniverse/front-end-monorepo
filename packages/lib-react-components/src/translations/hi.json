@@ -1,0 +1,26 @@
+{
+  "CloseButton": {
+    "close": "बन्द करें"
+  },
+  "ZooFooter": {
+    "buildLabels": {
+      "tutorial": "ट्यूटोरियल"
+    },
+    "projectLabels": {
+      "projects": "परियोजनाओं"
+    },
+    "talkLabels": {
+      "talk": "बात करें"
+    }
+  },
+  "ZooHeader": {
+    "mainHeaderNavListLabels": {
+      "projects": "परियोजनाओं",
+      "talk": "बात करें"
+    },
+    "SignedOutUserNavigation": {
+      "register": "रजिस्टर",
+      "signIn": "साइन इन"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "CloseButton": {
+    "close": "Закрыть"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "Узнать о ",
+      "publications": "Публикации",
+      "team": "Наша команда",
+      "acknowledgements": "Благодарности",
+      "contact": "Контакты",
+      "faq": "Часто задаваемые вопросы"
+    },
+    "buildLabels": {
+      "tutorial": "Посмотреть инструкции и примеры"
+    },
+    "getInvolvedLabels": {
+      "getInvolved": "Принять участие",
+      "education": "Образование",
+      "callForProjects": "Приглашение к участию в конкурсе проектов "
+    },
+    "projectLabels": {
+      "projects": "Проекты"
+    },
+    "talkLabels": {
+      "talk": "Дискуссия"
+    }
+  },
+  "ZooHeader": {
+    "mainHeaderNavListLabels": {
+      "projects": "Проекты",
+      "about": "Узнать о ",
+      "getInvolved": "Принять участие",
+      "talk": "Дискуссия"
+    },
+    "SignedOutUserNavigation": {
+      "register": "Зарегистрироваться",
+      "signIn": "Войти"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Коллекции",
+        "favorites": "Избранное"
+      }
+    }
+  }
+}

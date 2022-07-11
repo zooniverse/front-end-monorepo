@@ -1,0 +1,61 @@
+{
+  "Banners": {
+    "Banner": {
+      "next": "次へ"
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "次へ"
+  },
+  "FieldGuide": {
+    "title": "フィールドガイド",
+    "FieldGuideButton": {
+      "buttonLabel": "フィールドガイド"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "戻る"
+    }
+  },
+  "ModalTutorial": {
+    "title": "チュートリアル"
+  },
+  "QuickTalk": {
+    "status": {
+      "loading": "読み込み中"
+    }
+  },
+  "SlideTutorial": {
+    "getStarted": "はじめる",
+    "heading": "{{projectDisplayName}} チュートリアル"
+  },
+  "SubjectViewer": {
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "次へ"
+      }
+    }
+  },
+  "TaskArea": {
+    "task": "タスク",
+    "tutorial": "チュートリアル",
+    "Tasks": {
+      "BackButton": {
+        "back": "戻る"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "完了とトーク"
+      },
+      "DoneButton": {
+        "done": "完了"
+      },
+      "loading": "読み込み中",
+      "NextButton": {
+        "next": "次へ"
+      },
+      "TaskHelp": {
+        "close": "閉じる",
+        "label": "このタスクに関するヘルプが必要ですか?"
+      }
+    }
+  }
+}

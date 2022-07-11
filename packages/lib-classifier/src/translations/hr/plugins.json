@@ -1,0 +1,16 @@
+{
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Očisti filtre",
+      "showing": "Pokazuje se {{showing}} od {{total}}"
+    },
+    "Choice": {
+      "identify": "Identificiraj"
+    },
+    "ConfusedWith": {
+      "cancel": "Otkaži",
+      "confused": "Često zamijenjen sa",
+      "itsThis": "Mislim da je ovo"
+    }
+  }
+}

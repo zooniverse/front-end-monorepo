@@ -1,0 +1,47 @@
+{
+  "CloseButton": {
+    "close": "Zatvori"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "O Zooniversu",
+      "publications": "Publikacije",
+      "team": "Naš tim",
+      "acknowledgements": "Citiranje",
+      "contact": "Kontaktirajte nas",
+      "faq": "Često postavljana pitanja"
+    },
+    "buildLabels": {
+      "tutorial": "Uputstva"
+    },
+    "getInvolvedLabels": {
+      "getInvolved": "Uključi se",
+      "education": "Edukacija",
+      "callForProjects": "Poziv za projekte"
+    },
+    "projectLabels": {
+      "projects": "Projekti"
+    },
+    "talkLabels": {
+      "talk": "Pričaj "
+    }
+  },
+  "ZooHeader": {
+    "mainHeaderNavListLabels": {
+      "projects": "Projekti",
+      "about": "O Zooniversu",
+      "getInvolved": "Uključi se",
+      "talk": "Pričaj "
+    },
+    "SignedOutUserNavigation": {
+      "register": "Registrirajte se",
+      "signIn": "Prijavite se"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Zbirke",
+        "favorites": "Omiljeno"
+      }
+    }
+  }
+}

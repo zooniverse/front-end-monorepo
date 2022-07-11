@@ -1,1 +1,63 @@
-{}
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "register": "Registrera dig",
+      "signIn": "Logga in"
+    }
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "signIn": "Logga in"
+    },
+    "RegisterForm": {
+      "passwordConfirmError": "Lösenorden stämmer inte överens. Försök igen.",
+      "realName": "Ditt riktiga namn (frivilligt)",
+      "realNameHelp": "Här kan du uppge ditt riktiga namn som vi använder om vi behöver tacka dig i forskningsartiklar, planscher, med mera.",
+      "register": "Registrera dig"
+    }
+  },
+  "ConnectWithProject": {
+    "title": "Ta kontakt med {{projectName}}"
+  },
+  "Head": {
+    "defaultTitle": "Projekt"
+  },
+  "Loader": {
+    "loading": "(Laddar)"
+  },
+  "ProjectHeader": {
+    "about": "Om",
+    "classify": "Klassificera",
+    "exploreProject": "Utforska projektet",
+    "talk": "Prata",
+    "collect": "Samla",
+    "recents": "Senaste",
+    "ApprovedIcon": {
+      "title": "Zooniverse-godkänt"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Projekt"
+    },
+    "UnderReviewLabel": {
+      "underReview": "Under granskning"
+    }
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "I siffror",
+    "classifications": "Klassificeringar",
+    "completedSubjects": "Avslutade ämnen",
+    "percentComplete": "Andel klart (procent)",
+    "subjects": "Ämnen",
+    "subtitle": "Håll koll på hur långt du och andra frivilliga har kommit med projektet.",
+    "text": "Varje klick räknas! Gå med i {{projectName}}-communityt för att göra klart projektet och hjälpa forskarna att få fram viktiga resultat.",
+    "title": "{{projectName}} statistik",
+    "volunteers": "Frivilliga"
+  },
+  "RequireUser": {
+    "text": "Du är inte inloggad"
+  },
+  "ThemeModeToggle": {
+    "switchToDark": "Byt till mörkt tema",
+    "switchToLight": "Byt till ljust tema"
+  }
+}

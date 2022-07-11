@@ -1,0 +1,72 @@
+{
+  "Banners": {
+    "Banner": {
+      "next": "Weiter"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Zurückziehen",
+      "confirm": "OK",
+      "inProgress": "Das Zurückgehen wird Deine Arbeit in der derzeitigen Aufgabe löschen!"
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Weiter"
+  },
+  "FieldGuide": {
+    "title": "Benutzerhandbuch",
+    "FieldGuideButton": {
+      "buttonLabel": "Benutzerhandbuch"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Zurück"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Lernprogramm"
+  },
+  "QuickTalk": {
+    "status": {
+      "loading": "(Laden)"
+    }
+  },
+  "SlideTutorial": {
+    "getStarted": "Fang an",
+    "heading": "{{projectDisplayName}} Lernprogramm"
+  },
+  "SubjectViewer": {
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Weiter"
+      }
+    }
+  },
+  "TaskArea": {
+    "task": "Aufgabe",
+    "tutorial": "Lernprogramm",
+    "DisabledTaskPopup": {
+      "options": {
+        "dismiss": "Verwerfen"
+      }
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Zurück",
+        "tooltip": "Das Zurückgehen wird Deine Arbeit in der derzeitigen Aufgabe löschen!"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Fertig & Diskutieren"
+      },
+      "DoneButton": {
+        "done": "Fertig"
+      },
+      "loading": "(Laden)",
+      "NextButton": {
+        "next": "Weiter"
+      },
+      "TaskHelp": {
+        "close": "Schließen",
+        "label": "Brauchst Du Hilfe?"
+      }
+    }
+  }
+}
