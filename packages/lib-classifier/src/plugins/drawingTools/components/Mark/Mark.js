@@ -37,6 +37,7 @@ const Mark = forwardRef(function Mark(
     onDelete,
     onFinish,
     onSelect,
+    pointerEvents = 'painted',
     scale,
     theme
   },
@@ -135,6 +136,7 @@ const Mark = forwardRef(function Mark(
       onFocus={select}
       onKeyDown={onKeyDown}
       onPointerUp={openSubTaskPopup}
+      pointerEvents={pointerEvents}
       ref={markRoot}
       role='button'
       strokeWidth={

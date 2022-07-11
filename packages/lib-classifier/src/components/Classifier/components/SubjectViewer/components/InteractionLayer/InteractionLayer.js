@@ -181,6 +181,7 @@ function InteractionLayer({
           onFinish={onFinish}
           onSelectMark={onSelectMark}
           onMove={(mark, difference) => mark.move(difference)}
+          pointerEvents={creating ? 'none' : 'painted'}
           scale={scale}
           played={played}
         />

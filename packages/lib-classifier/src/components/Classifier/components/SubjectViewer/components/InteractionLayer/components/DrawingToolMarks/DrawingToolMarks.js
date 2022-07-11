@@ -14,6 +14,7 @@ function DrawingToolMarks({
   onFinish = () => true,
   onMove = () => true,
   onSelectMark = () => true,
+  pointerEvents='painted',
   scale = 1,
   played
 }) {
@@ -83,6 +84,7 @@ function DrawingToolMarks({
         onDelete={deleteMark}
         onFinish={onFinish}
         onSelect={selectMark}
+        pointerEvents={isActive ? 'painted' : pointerEvents}
         scale={scale}
       >
         <MarkingComponent
