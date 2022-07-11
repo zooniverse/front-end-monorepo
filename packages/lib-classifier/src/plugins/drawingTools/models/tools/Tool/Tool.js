@@ -90,10 +90,6 @@ const Tool = types
       mark.initialDrag?.(event)
     },
 
-    // this outputs the mouse coords when not creating (ig: guideline for Polygon)
-    // By default, this does nothing. Must be implemented in model/tool file (polygonTool.js)
-    handlePointerPosition(event, mark) {},
-
     handlePointerUp(event, mark) {
       mark.finish()
     },
