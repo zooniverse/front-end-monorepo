@@ -27,19 +27,27 @@ const StyledGroup = styled('g')`
   }
 `
 
+function defaultHandler() {
+  return true
+}
+const defaultTheme = {
+  global: {
+    colors: {}
+  }
+}
 const Mark = forwardRef(function Mark(
   {
     children,
-    dragging,
-    isActive,
+    dragging = false,
+    isActive = false,
     label,
     mark,
-    onDelete,
-    onFinish,
-    onSelect,
+    onDelete = defaultHandler,
+    onFinish = defaultHandler,
+    onSelect = defaultHandler,
     pointerEvents = 'painted',
-    scale,
-    theme
+    scale = 1,
+    theme = defaultTheme
   },
   ref
 ) {
@@ -163,23 +171,6 @@ Mark.propTypes = {
   tool: PropTypes.shape({
     color: PropTypes.string
   })
-}
-
-Mark.defaultProps = {
-  dragging: false,
-  isActive: false,
-  onDelete: () => true,
-  onDeselect: () => true,
-  onSelect: () => true,
-  scale: 1,
-  theme: {
-    global: {
-      colors: {}
-    }
-  },
-  tool: {
-    color: 'green'
-  }
 }
 
 const ObservedMark = observer(Mark)
