@@ -2,12 +2,14 @@ import { getParentOfType, types } from 'mobx-state-tree'
 import { FreehandLine as FreehandLineComponent } from '@plugins/drawingTools/components/'
 import { Mark } from '@plugins/drawingTools/models/marks'
 import { FreehandLineTool } from '@plugins/drawingTools/models/tools'
+import { FixedNumber } from '@plugins/drawingTools/types/'
+
 
 const MINIMUM_POINTS = 20
 
 const singleCoord = types.model({
-  x: types.maybe(types.number),
-  y: types.maybe(types.number)
+  x: FixedNumber,
+  y: FixedNumber
 })
 
 const FreehandLineModel = types
@@ -58,15 +60,15 @@ const FreehandLineModel = types
       if (!firstCoord) {
         return ''
       }
-      let path = `M ${firstCoord.x},${firstCoord.y} `
+      const path = [`M ${firstCoord.x},${firstCoord.y}`]
       otherCoords.forEach(({ x, y }) => {
-        path = path + `L ${x},${y}`
+        path.push(`L ${x},${y}`)
       })
       // closes the drawing path
       if (self.isCloseToStart) {
-        path += ' Z'
+        path.push('Z')
       }
-      return path
+      return path.join(' ')
     },
 
     // this determines if drawing point is close to initial point
@@ -90,6 +92,10 @@ const FreehandLineModel = types
 
     initialDrag({ x, y }) {
       self.points.push({ x: x, y: y })
+    },
+
+    setCoordinates(points) {
+      self.points = points
     },
 
     move() {
