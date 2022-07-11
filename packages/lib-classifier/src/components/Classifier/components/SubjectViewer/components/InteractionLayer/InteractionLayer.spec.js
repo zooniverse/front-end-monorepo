@@ -285,7 +285,6 @@ describe('Component > InteractionLayer', function () {
           setActiveMarkStub.resetHistory()
           wrapper.find(DrawingCanvas).simulate('pointerup', fakeEvent)
           expect(setActiveMarkStub).to.have.been.calledOnceWith(undefined)
-          expect(fakeEvent.stopPropagation).to.have.been.calledOnce()
         })
       })
     })

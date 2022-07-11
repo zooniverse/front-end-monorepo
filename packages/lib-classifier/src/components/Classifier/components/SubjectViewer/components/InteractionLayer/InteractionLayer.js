@@ -37,14 +37,14 @@ function InteractionLayer({
   const [creating, setCreating] = useState(false)
   const canvas = useRef()
 
-  useEffect(
-    function onDeleteMark() {
-      if (creating && !activeMark) {
-        setCreating(false)
-      }
-    },
-    [activeMark]
-  )
+  if (creating && !activeMark) {
+    setCreating(false)
+  }
+
+  if(activeMark?.finished && !activeMark.isValid) {
+    activeTool.deleteMark(activeMark)
+    setActiveMark(undefined)
+  }
 
   function convertEvent(event) {
     const type = event.type
@@ -132,11 +132,6 @@ function InteractionLayer({
   function onFinish(event) {
     event?.preventDefault?.()
     setCreating(false)
-    if (activeMark && !activeMark.isValid) {
-      activeTool.deleteMark(activeMark)
-      setActiveMark(undefined)
-      event?.stopPropagation()
-    }
   }
 
   function onPointerUp(event) {
@@ -171,7 +166,10 @@ function InteractionLayer({
         onPointerUp={onPointerUp}
       />
       <TranscribedLines scale={scale} />
-      <SubTaskPopup onDelete={inactivateMark} />
+      <SubTaskPopup
+        activeMark={activeMark}
+        onDelete={inactivateMark}
+      />
       {marks && (
         <DrawingToolMarks
           activeMark={activeMark}
