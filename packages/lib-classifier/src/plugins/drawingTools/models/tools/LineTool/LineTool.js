@@ -14,7 +14,15 @@ const LineTool = types
       )
       self.marks.put(newMark)
       return newMark
-    }
+    },
+
+    handlePointerMove(event, mark) {
+      mark.initialDrag(event)
+    },
+
+    handlePointerUp(event, mark) {
+      mark.finish()
+    },
   }))
 
 export default types.compose('LineTool', Tool, LineTool)

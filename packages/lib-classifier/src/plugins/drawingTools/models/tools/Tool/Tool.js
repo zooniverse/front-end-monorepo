@@ -85,13 +85,17 @@ const Tool = types
     deleteMark(mark) {
       self.marks.delete(mark.id)
     },
+    
+    handlePointerDown(event, mark) {
+      // override this action in individual drawing tools.
+    },
 
     handlePointerMove(event, mark) {
-      mark.initialDrag?.(event)
+      // override this action in individual drawing tools.
     },
 
     handlePointerUp(event, mark) {
-      mark.finish()
+      // override this action in individual drawing tools.
     },
 
     reset() {
