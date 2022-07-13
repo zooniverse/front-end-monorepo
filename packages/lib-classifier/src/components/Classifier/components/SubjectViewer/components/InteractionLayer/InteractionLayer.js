@@ -113,8 +113,7 @@ function InteractionLayer({
     }
 
     if (creating) {
-      activeTool.handlePointerDown &&
-        activeTool.handlePointerDown(convertEvent(event), activeMark)
+        activeTool?.handlePointerDown?.(convertEvent(event), activeMark)
       if (activeMark.finished) onFinish(event)
       return true
     }
@@ -136,8 +135,7 @@ function InteractionLayer({
 
   function onPointerUp(event) {
     if (creating) {
-      activeTool.handlePointerUp &&
-        activeTool.handlePointerUp(convertEvent(event), activeMark)
+        activeTool?.handlePointerUp?.(convertEvent(event), activeMark)
       if (activeMark.finished) onFinish(event)
     }
   }
