@@ -1,13 +1,13 @@
 name: Deploy branch builds
 
 on:
-  # possible we can deploy on specific branch events
+  # possible we can deploy on specific branches using prefix and wildcard matches
+  # e.g. - 'deploy-branch-*'
   # https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#example-excluding-branches
-  # push:
-  #   branches:
-  #     - '!master'
-  #     - 'deploy-branch-*'
-  #
+  push:
+    branches:
+      - '!master'
+      - 'branch-deploy-k8s-setup'
   # or we can deploy via dispatch which has a ref (branch / tag) passed to it for checkout actions
   # https://docs.github.com/en/rest/actions/workflows#create-a-workflow-dispatch-event
   workflow_dispatch:
