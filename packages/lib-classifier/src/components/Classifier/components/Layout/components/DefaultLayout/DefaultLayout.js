@@ -12,17 +12,16 @@ import QuickTalk from '@components/Classifier/components/QuickTalk'
 import SubjectViewer from '@components/Classifier/components/SubjectViewer'
 import TaskArea from '@components/Classifier/components/TaskArea'
 
-const subjectSize = '45.333rem'
-const taskSize = '25.333rem'
-
 const ContainerGrid = styled.div`
   display: grid;
   grid-gap: 30px;
   grid-template-areas: "viewer task";
+  grid-template-columns: auto 25.333rem;
   position: relative;
 
-  @media (min-width: 701px) {
-    grid-template-columns: minmax(${subjectSize}, auto) ${taskSize};
+  @media screen and (max-width: 1160px) {
+    grid-gap: 1.75rem;
+    grid-template-columns: 45.333fr 25.333fr;
   }
 
   @media screen and (max-width: 700px) {
