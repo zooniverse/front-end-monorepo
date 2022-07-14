@@ -1,0 +1,79 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zooniverse-org-project-branch
+spec:
+  selector:
+    app: zooniverse-org-project-branch
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zooniverse-org-project-branch
+  labels:
+    app: zooniverse-org-project-branch
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zooniverse-org-project-branch
+  template:
+    metadata:
+      labels:
+        app: zooniverse-org-project-branch
+    spec:
+      containers:
+        - name: fe-project-branch
+          image: ghcr.io/zooniverse/front-end-monorepo-branch:__IMAGE_TAG__
+          command: ["yarn", "workspace", "@zooniverse/fe-project"]
+          args: ["start"]
+          resources:
+            requests:
+              memory: "250Mi"
+              cpu: "100m"
+            limits:
+              memory: "500Mi"
+              cpu: "1000m"
+          startupProbe:
+            httpGet:
+              path: /projects/Index
+              port: 3000
+            failureThreshold: 6
+          livenessProbe:
+            httpGet:
+              path: /projects/Index
+              port: 3000
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /projects/Index
+              port: 3000
+            initialDelaySeconds: 20
+            timeoutSeconds: 10
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PROJECT_ASSET_PREFIX
+              value: https://fe-project-branch.preview.zooniverse.org/projects
+            - name: COMMIT_ID
+              value: __IMAGE_TAG__
+            - name: NEWRELIC_LICENSE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: newrelic-license-key
+                  key: key
+            - name: NODE_ENV
+              value: production
+            - name: PANOPTES_ENV
+              value: production
+            - name: APP_ENV
+              value: static
+            - name: SENTRY_PROJECT_DSN
+              value: https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691
+            - name: ENABLE_CACHE_HEADERS
+              value: "true"
