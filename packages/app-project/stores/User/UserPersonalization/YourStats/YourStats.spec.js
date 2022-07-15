@@ -1,8 +1,8 @@
 import { expect } from 'chai'
 import nock from 'nock'
-import talkClient from 'panoptes-client/lib/talk-client'
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
+import { talkAPI } from '@zooniverse/panoptes-js'
 
 import initStore from '@stores/initStore'
 import YourStats, { statsClient } from './YourStats'
@@ -45,13 +45,13 @@ describe('Stores > YourStats', function () {
       .reply(200)
     rootStore = initStore(true, { project })
     sinon.stub(statsClient, 'request').callsFake(() => Promise.resolve({ statsCount: MOCK_DAILY_COUNTS }))
-    sinon.stub(talkClient, 'request')
+    sinon.stub(talkAPI, 'get')
   })
 
   after(function () {
     console.error.restore()
     statsClient.request.restore()
-    talkClient.request.restore()
+    talkAPI.get.restore()
     nock.cleanAll()
   })
 
@@ -125,7 +125,7 @@ describe('Stores > YourStats', function () {
         { count: 14, dayNumber: 4, period: '2019-10-02' },
         { count: 10, dayNumber: 5, period: '2019-10-03' },
         { count: 11, dayNumber: 6, period: '2019-10-04' },
-        { count: 8, dayNumber: 0, period: '2019-10-05' },
+        { count: 8, dayNumber: 0, period: '2019-10-05' }
       ]
       const yourStatsStore = YourStats.create({
         loadingState: asyncStates.success,
