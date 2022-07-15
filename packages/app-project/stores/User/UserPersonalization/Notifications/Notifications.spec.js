@@ -1,8 +1,8 @@
 import { expect } from 'chai'
 import { sugarClient } from 'panoptes-client/lib/sugar'
-import talkClient from 'panoptes-client/lib/talk-client'
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
+import { talkAPI } from '@zooniverse/panoptes-js'
 
 import initStore from '@stores/initStore'
 import { statsClient } from '../YourStats'
@@ -33,22 +33,18 @@ describe('Stores > Notifications', function () {
 
   describe('Actions > fetchInitialUnreadNotifications', function () {
     describe('when there is a resource in the response', function () {
-      const mockResponse = [
-        {
-          href: '/notifications/7',
-          delivered: false,
-          id: '7',
-          message: 'other user has sent you a message',
-          project_id: '',
-          section: 'zooniverse',
-          source_type: 'Message',
-          user_id: '123',
-          getMeta: () => ({ count: 5 })
+      const mockResponse = {
+        body: {
+          meta: {
+            notifications: {
+              count: 5
+            }
+          }
         }
-      ]
+      }
 
-      before(function() {
-        sinon.stub(talkClient, 'request').callsFake(() => Promise.resolve(mockResponse))
+      before(function () {
+        sinon.stub(talkAPI, 'get').callsFake(() => Promise.resolve(mockResponse))
 
         rootStore = initStore(true, {
           user
@@ -56,7 +52,7 @@ describe('Stores > Notifications', function () {
       })
 
       after(function () {
-        talkClient.request.restore()
+        talkAPI.get.restore()
       })
 
       it('should exist', function () {
@@ -69,8 +65,8 @@ describe('Stores > Notifications', function () {
     })
 
     describe('when there is not a resource in the response', function () {
-      before(function() {
-        sinon.stub(talkClient, 'request').callsFake(() => Promise.resolve([]))
+      before(function () {
+        sinon.stub(talkAPI, 'get').callsFake(() => Promise.resolve(undefined))
 
         rootStore = initStore(true, {
           user
@@ -78,18 +74,18 @@ describe('Stores > Notifications', function () {
       })
 
       after(function () {
-        talkClient.request.restore()
+        talkAPI.get.restore()
       })
-      
+
       it('should keep the unread notifications count as null', function () {
         expect(rootStore.user.personalization.notifications.count).to.be.null()
       })
     })
 
     describe('when the request errors', function () {
-      before(function() {
+      before(function () {
         sinon.stub(console, 'error')
-        sinon.stub(talkClient, 'request').callsFake(() => Promise.reject(new Error('Error!')))
+        sinon.stub(talkAPI, 'get').callsFake(() => Promise.reject(new Error('Error!')))
 
         rootStore = initStore(true, {
           user
@@ -98,9 +94,9 @@ describe('Stores > Notifications', function () {
 
       after(function () {
         console.error.restore()
-        talkClient.request.restore()
+        talkAPI.get.restore()
       })
-      
+
       it('should keep the unread notifications count as null', function () {
         expect(rootStore.user.personalization.notifications.count).to.be.null()
       })
@@ -126,16 +122,16 @@ describe('Stores > Notifications', function () {
         },
         type: 'notification'
       }
-      
+
       const notificationsStore = Notifications.create({
         count: 4
       })
 
       it('should increment count', function () {
         expect(notificationsStore.count).to.equal(4)
-        
+
         notificationsStore.processSugarNotification(sugarEvent)
-  
+
         expect(notificationsStore.count).to.equal(5)
       })
     })
@@ -152,16 +148,16 @@ describe('Stores > Notifications', function () {
         },
         type: 'notification'
       }
-      
+
       const notificationsStore = Notifications.create({
         count: 6
       })
 
       it('should not increment count', function () {
         expect(notificationsStore.count).to.equal(6)
-        
+
         notificationsStore.processSugarNotification(sugarEvent)
-  
+
         expect(notificationsStore.count).to.equal(6)
       })
     })
@@ -178,16 +174,16 @@ describe('Stores > Notifications', function () {
         },
         type: 'notification'
       }
-      
+
       const notificationsStore = Notifications.create({
         count: 7
       })
 
       it('should not increment count', function () {
         expect(notificationsStore.count).to.equal(7)
-        
+
         notificationsStore.processSugarNotification(sugarEvent)
-  
+
         expect(notificationsStore.count).to.equal(7)
       })
     })
@@ -197,7 +193,7 @@ describe('Stores > Notifications', function () {
     it('should reset the count and loadingState', function () {
       const notificationsStore = Notifications.create({
         count: 9,
-        loadingState: asyncStates.success,
+        loadingState: asyncStates.success
       })
 
       expect(notificationsStore.count).to.equal(9)
