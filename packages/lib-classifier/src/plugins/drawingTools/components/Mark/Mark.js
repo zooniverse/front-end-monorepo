@@ -27,18 +27,27 @@ const StyledGroup = styled('g')`
   }
 `
 
+function defaultHandler() {
+  return true
+}
+const defaultTheme = {
+  global: {
+    colors: {}
+  }
+}
 const Mark = forwardRef(function Mark(
   {
     children,
-    dragging,
-    isActive,
+    dragging = false,
+    isActive = false,
     label,
     mark,
-    onDelete,
-    onFinish,
-    onSelect,
-    scale,
-    theme
+    onDelete = defaultHandler,
+    onFinish = defaultHandler,
+    onSelect = defaultHandler,
+    pointerEvents = 'painted',
+    scale = 1,
+    theme = defaultTheme
   },
   ref
 ) {
@@ -135,6 +144,7 @@ const Mark = forwardRef(function Mark(
       onFocus={select}
       onKeyDown={onKeyDown}
       onPointerUp={openSubTaskPopup}
+      pointerEvents={pointerEvents}
       ref={markRoot}
       role='button'
       strokeWidth={
@@ -161,23 +171,6 @@ Mark.propTypes = {
   tool: PropTypes.shape({
     color: PropTypes.string
   })
-}
-
-Mark.defaultProps = {
-  dragging: false,
-  isActive: false,
-  onDelete: () => true,
-  onDeselect: () => true,
-  onSelect: () => true,
-  scale: 1,
-  theme: {
-    global: {
-      colors: {}
-    }
-  },
-  tool: {
-    color: 'green'
-  }
 }
 
 const ObservedMark = observer(Mark)

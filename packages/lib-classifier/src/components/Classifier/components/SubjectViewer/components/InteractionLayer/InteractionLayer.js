@@ -37,14 +37,14 @@ function InteractionLayer({
   const [creating, setCreating] = useState(false)
   const canvas = useRef()
 
-  useEffect(
-    function onDeleteMark() {
-      if (creating && !activeMark) {
-        setCreating(false)
-      }
-    },
-    [activeMark]
-  )
+  if (creating && !activeMark) {
+    setCreating(false)
+  }
+
+  if(activeMark?.finished && !activeMark.isValid) {
+    activeTool.deleteMark(activeMark)
+    setActiveMark(undefined)
+  }
 
   function convertEvent(event) {
     const type = event.type
@@ -126,20 +126,12 @@ function InteractionLayer({
   function onPointerMove(event) {
     if (creating) {
       activeTool?.handlePointerMove?.(convertEvent(event), activeMark)
-    } else {
-      // this outputs the mouse coords when not creating (ig: guideline for Polygon)
-      activeTool?.handlePointerPosition?.(convertEvent(event), activeMark)
     }
   }
 
   function onFinish(event) {
-    if (event?.preventDefault) event.preventDefault()
+    event?.preventDefault?.()
     setCreating(false)
-    if (activeMark && !activeMark.isValid) {
-      activeTool.deleteMark(activeMark)
-      setActiveMark(undefined)
-      event?.stopPropagation()
-    }
   }
 
   function onPointerUp(event) {
@@ -148,6 +140,12 @@ function InteractionLayer({
         activeTool.handlePointerUp(convertEvent(event), activeMark)
       if (activeMark.finished) onFinish(event)
     }
+  }
+
+  function onSelectMark(mark) {
+    // TODO: can we stop marks from being selected while creating is true?
+    activeMark?.finish()
+    setActiveMark(mark)
   }
 
   function inactivateMark() {
@@ -168,7 +166,10 @@ function InteractionLayer({
         onPointerUp={onPointerUp}
       />
       <TranscribedLines scale={scale} />
-      <SubTaskPopup onDelete={inactivateMark} />
+      <SubTaskPopup
+        activeMark={activeMark}
+        onDelete={inactivateMark}
+      />
       {marks && (
         <DrawingToolMarks
           activeMark={activeMark}
@@ -176,8 +177,9 @@ function InteractionLayer({
           onDelete={inactivateMark}
           onDeselectMark={inactivateMark}
           onFinish={onFinish}
-          onSelectMark={(mark) => setActiveMark(mark)}
+          onSelectMark={onSelectMark}
           onMove={(mark, difference) => mark.move(difference)}
+          pointerEvents={creating ? 'none' : 'painted'}
           scale={scale}
           played={played}
         />

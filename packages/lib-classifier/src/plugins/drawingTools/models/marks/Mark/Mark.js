@@ -100,6 +100,9 @@ const BaseMark = types
   .actions((self) => ({
     finish() {
       self.finished = true
+      if (!self.isValid) {
+        self.tool.deleteMark(self)
+      }
     },
 
     setPreviousAnnotations(previousAnnotationValues) {
