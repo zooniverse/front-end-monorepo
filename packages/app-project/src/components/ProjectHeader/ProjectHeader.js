@@ -1,7 +1,7 @@
-import { withResponsiveContext } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { array, arrayOf, bool, shape, string } from 'prop-types'
 import styled from 'styled-components'
+import { withResizeDetector } from 'react-resize-detector'
 
 import ApprovedIcon from './components/ApprovedIcon'
 import Avatar from './components/Avatar'
@@ -15,49 +15,50 @@ import UnderReviewLabel from './components/UnderReviewLabel'
 const StyledBox = styled(Box)`
   position: relative;
 `
-const environment = process.env.APP_ENV
 
 function ProjectHeader ({
   availableLocales = [],
   className = '',
   inBeta = false,
   navLinks = [],
-  screenSize = '',
-  title
+  title,
+  width
 }) {
+  const hasTranslations = availableLocales?.length > 1
+  const showDropdown = (hasTranslations && width < 1000) || (!hasTranslations && width < 800)
 
-  const hasTranslations = environment === 'development' && availableLocales?.length > 1
   return (
     <StyledBox as='header' className={className}>
       <Background />
       <StyledBox
         align='center'
-        direction={screenSize === 'small' ? 'column' : 'row'}
+        direction={showDropdown ? 'column' : 'row'}
         justify='between'
         pad='medium'
       >
         <Box
           align='center'
-          direction={screenSize === 'small' ? 'column' : 'row'}
-          gap={screenSize === 'small' ? 'xsmall' : 'medium'}
+          direction={showDropdown ? 'column' : 'row'}
+          gap={showDropdown ? 'xsmall' : 'medium'}
         >
-          <Avatar isNarrow={screenSize === 'small'} />
+          <Avatar isNarrow={showDropdown} />
           <Box
             align='center'
             direction='row'
-            gap={screenSize === 'small' ? 'small' : 'medium'}
+            gap={showDropdown ? 'small' : 'medium'}
           >
             <Box>
               <ProjectTitle title={title} />
               {inBeta &&
                 <UnderReviewLabel />}
             </Box>
-            <ApprovedIcon isNarrow={screenSize === 'small'} />
+            <ApprovedIcon isNarrow={showDropdown} />
             {hasTranslations && <LocaleSwitcher availableLocales={availableLocales} />}
           </Box>
         </Box>
-        {screenSize !== 'small' && <Nav navLinks={navLinks} />}
-        {screenSize === 'small' && <DropdownNav navLinks={navLinks} />}
+        {!showDropdown
+          ? <Nav navLinks={navLinks} />
+          : <DropdownNav navLinks={navLinks} />}
       </StyledBox>
     </StyledBox>
   )
@@ -75,5 +76,5 @@ ProjectHeader.propTypes = {
   title: string.isRequired
 }
 
-export default withResponsiveContext(ProjectHeader)
+export default withResizeDetector(ProjectHeader)
 export { ProjectHeader }
