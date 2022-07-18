@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import styled from 'styled-components'
@@ -14,16 +14,64 @@ const StyledGroup = styled.g`
       cursor: crosshair;
     }
   }
+  &.editing {
+    cursor: grabbing;
+  }
 `
 
 const STROKE_WIDTH = 1
 const GRAB_STROKE_WIDTH = 4
 const FINISHER_RADIUS = 3
 
-function FreehandLine({ active, mark, onFinish, scale }) {
-  const { path, initialPoint, lastPoint, finished, isCloseToStart } = mark
+function createPoint(event) {
+  const { clientX, clientY } = event
+  // SVG 2 uses DOMPoint
+  if (window.DOMPointReadOnly) {
+    return new DOMPointReadOnly(clientX, clientY)
+  }
+  // jsdom doesn't support SVG
+  return {
+    x: clientX,
+    y: clientY
+  }
+}
 
-  function onHandleDrag(coords) {
+function FreehandLine({ active, mark, onFinish, scale }) {
+  const { path, initialPoint, lastPoint, finished, isClosed, isCloseToStart } = mark
+  const lineRef = useRef()
+  const [editing, setEditing] = useState(false)
+
+  function onDoubleClick(event) {
+    const svgPoint = createPoint(event)
+    const { x, y } = svgPoint.matrixTransform
+      ? svgPoint.matrixTransform(lineRef.current?.getScreenCTM().inverse())
+      : svgPoint
+    mark.setDragPoint(mark.selectPoint({ x, y }))
+    setEditing(true)
+  }
+
+  function onClick(event) {
+    if (!editing) {
+      return true
+    }
+    const svgPoint = createPoint(event)
+    const { x, y } = svgPoint.matrixTransform
+      ? svgPoint.matrixTransform(lineRef.current?.getScreenCTM().inverse())
+      : svgPoint
+    mark.cutSegment(mark.selectPoint({ x, y }))
+  }
+
+  function cancelEditing() {
+    mark.setTargetPoint(null)
+    mark.setDragPoint(null)
+    setEditing(false)
+  }
+
+  function spliceLine(coords) {
+    mark.splicePath(coords)
+  }
+
+  function continueLine(coords) {
     mark.appendPath(coords)
   }
 
@@ -31,9 +79,18 @@ function FreehandLine({ active, mark, onFinish, scale }) {
     mark.shortenPath()
   }
 
+  const dragPoint = !isCloseToStart && mark.dragPoint
+  const targetPoint = !isCloseToStart && mark.targetPoint
+  if (editing && !dragPoint) {
+    cancelEditing()
+  }
   return (
-    <StyledGroup onPointerUp={active ? onFinish : undefined}>
-      {active && !isCloseToStart && (
+    <StyledGroup
+      className={ editing ? 'editing' : undefined}
+      ref={lineRef}
+      onPointerUp={active ? onFinish : undefined}
+    >
+      {active && !editing && !isClosed && (
         <circle
           fill='currentColor'
           r={FINISHER_RADIUS / scale}
@@ -60,22 +117,43 @@ function FreehandLine({ active, mark, onFinish, scale }) {
       />
       <path
         d={path}
+        onClick={onClick}
+        onDoubleClick={onDoubleClick}
         style={{
           strokeOpacity: '0',
           strokeWidth: GRAB_STROKE_WIDTH / scale
         }}
         fill='none'
       />
-      {active && finished && !isCloseToStart && (
+      {active && finished && !editing && !isClosed &&
         <DragHandle
           scale={scale}
           x={lastPoint.x}
           y={lastPoint.y}
           fill='transparent'
           invisibleWhenDragging={true}
-          dragMove={(e) => onHandleDrag(e)}
+          dragMove={continueLine}
+        />
+      }
+      {active && targetPoint && (
+        <circle
+          fill='currentColor'
+          r={FINISHER_RADIUS / scale}
+          cx={targetPoint.x}
+          cy={targetPoint.y}
         />
       )}
+      {active && dragPoint &&
+        <DragHandle
+          scale={scale}
+          x={dragPoint.x}
+          y={dragPoint.y}
+          fill='transparent'
+          invisibleWhenDragging={true}
+          onClick={!targetPoint ? cancelEditing : undefined}
+          dragMove={spliceLine}
+        />
+      }
     </StyledGroup>
   )
 }
