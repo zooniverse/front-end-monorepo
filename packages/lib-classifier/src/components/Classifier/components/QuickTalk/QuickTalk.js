@@ -24,20 +24,13 @@ function QuickTalk ({
   screenSize,
   fixedPosition = true,
 }) {
-  const panelContent = useRef()
   const { t } = useTranslation('components')
   // TODO: figure out if/how the QuickTalk component should/could be displayed on mobile
   // if (screenSize === 'small') return null
 
   useEffect(function scrollToLatestComment () {
     if (postCommentStatus === asyncStates.success) {
-      // Comments appear at the bottom, so scroll to the bottom
-      const newYCoord = panelContent.current?.scrollHeight
-      panelContent.current?.scrollTo({
-        top: newYCoord,
-        left: 0,
-        behavior: 'smooth'
-      })
+      console.log('+++ TODO: scroll latest comment to view')
     }
   }, [ postCommentStatus ])
 
@@ -54,47 +47,39 @@ function QuickTalk ({
         <Heading level='4' margin='none' pad='none'>
           {t('QuickTalk.aria.panelHeading')}
         </Heading>
-        <Box
-          ref={panelContent}
-          aria-label={t('QuickTalk.aria.panelContent')}
-          overflow={{ vertical: 'auto', horizontal: 'hidden' }}
-          role='group'
-          tabIndex='0'
-        >
-          <Box flex={false} pad='none'>
-            {comments.length > 0 && (
-              <Box as='ul' flex={false} pad='none' margin='none'>
-                {comments.map(comment => {
-                  const author = authors[comment.user_id]
-                  const roles = authorRoles[comment.user_id]
+        <Box flex={false} pad='none'>
+          {comments.length > 0 && (
+            <Box as='ul' flex={false} pad='none' margin='none'>
+              {comments.map(comment => {
+                const author = authors[comment.user_id]
+                const roles = authorRoles[comment.user_id]
 
-                  return (
-                    <Comment
-                      key={`quicktalk-comment-${comment.id}`}
-                      comment={comment}
-                      author={author}
-                      roles={roles}
-                    />
-                  )
-                })}
-              </Box>
-            )}
-            {comments.length >= COMMENTS_PER_PAGE && (
+                return (
+                  <Comment
+                    key={`quicktalk-comment-${comment.id}`}
+                    comment={comment}
+                    author={author}
+                    roles={roles}
+                  />
+                )
+              })}
+            </Box>
+          )}
+          {comments.length >= COMMENTS_PER_PAGE && (
+            <Paragraph textAlign='center'>
+              {t('QuickTalk.subjectHasMoreComments', { commentsPerPage: COMMENTS_PER_PAGE })}
+            </Paragraph>
+          )}
+          {!comments.length && (
+            <Box
+              margin={{ horizontal: 'none', 'vertical': 'xsmall' }}
+              pad='xsmall'
+            >
               <Paragraph textAlign='center'>
-                {t('QuickTalk.subjectHasMoreComments', { commentsPerPage: COMMENTS_PER_PAGE })}
+                {t('QuickTalk.subjectHasNoComments')}
               </Paragraph>
-            )}
-            {!comments.length && (
-              <Box
-                margin={{ horizontal: 'none', 'vertical': 'xsmall' }}
-                pad='xsmall'
-              >
-                <Paragraph textAlign='center'>
-                  {t('QuickTalk.subjectHasNoComments')}
-                </Paragraph>
-              </Box>
-            )}
-          </Box>
+            </Box>
+          )}
         </Box>
         <Box
           flex={false}
