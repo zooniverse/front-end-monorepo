@@ -16,7 +16,7 @@ const StyledBox = styled(Box)`
   position: relative;
 `
 
-function ProjectHeader ({
+function ProjectHeader({
   availableLocales = [],
   className = '',
   inBeta = false,
@@ -25,7 +25,8 @@ function ProjectHeader ({
   width
 }) {
   const hasTranslations = availableLocales?.length > 1
-  const showDropdown = (hasTranslations && width < 1000) || (!hasTranslations && width < 800)
+  // const hasTranslations = true
+  const showDropdown = (hasTranslations && width < 1200) || (!hasTranslations && width < 768)
 
   return (
     <StyledBox as='header' className={className}>
@@ -36,29 +37,40 @@ function ProjectHeader ({
         justify='between'
         pad='medium'
       >
-        <Box
-          align='center'
-          direction={showDropdown ? 'column' : 'row'}
-          gap={showDropdown ? 'xsmall' : 'medium'}
-        >
-          <Avatar isNarrow={showDropdown} />
+        <Box direction={showDropdown ? 'column' : 'row'} gap='small'>
           <Box
             align='center'
             direction='row'
             gap={showDropdown ? 'small' : 'medium'}
           >
-            <Box>
-              <ProjectTitle title={title} />
-              {inBeta &&
-                <UnderReviewLabel />}
+            <Box
+              align='center'
+              direction={width < 600 ? 'column' : 'row'}
+              gap='medium'
+            >
+              <Avatar isNarrow={showDropdown} />
+              <Box>
+                <Box
+                  direction='row'
+                  gap='small'
+                  align='center'
+                >
+                  <ProjectTitle hasTranslations={hasTranslations} title={title} />
+                  <ApprovedIcon isNarrow={showDropdown} />
+                </Box>
+                {inBeta && <UnderReviewLabel />}
+              </Box>
             </Box>
-            <ApprovedIcon isNarrow={showDropdown} />
-            {hasTranslations && <LocaleSwitcher availableLocales={availableLocales} />}
           </Box>
+          {hasTranslations && (
+            <LocaleSwitcher availableLocales={availableLocales} />
+          )}
         </Box>
-        {!showDropdown
-          ? <Nav navLinks={navLinks} />
-          : <DropdownNav navLinks={navLinks} />}
+        {!showDropdown ? (
+          <Nav navLinks={navLinks} />
+        ) : (
+          <DropdownNav navLinks={navLinks} />
+        )}
       </StyledBox>
     </StyledBox>
   )
@@ -68,10 +80,12 @@ ProjectHeader.propTypes = {
   availableLocales: array,
   className: string,
   inBeta: bool,
-  navLinks: arrayOf(shape({
-    href: string,
-    text: string
-  })),
+  navLinks: arrayOf(
+    shape({
+      href: string,
+      text: string
+    })
+  ),
   screenSize: string,
   title: string.isRequired
 }
