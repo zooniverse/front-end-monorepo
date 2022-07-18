@@ -24,6 +24,7 @@ function QuickTalk ({
   screenSize,
   fixedPosition = true,
 }) {
+  const latestComment = useRef()
   const { t } = useTranslation('components')
   // TODO: figure out if/how the QuickTalk component should/could be displayed on mobile
   // if (screenSize === 'small') return null
@@ -47,15 +48,22 @@ function QuickTalk ({
         <Heading level='4' margin='none' pad='none'>
           {t('QuickTalk.aria.panelHeading')}
         </Heading>
+        <Button
+          onClick={()=>{
+            latestComment.current?.scrollIntoView?.({behavior: 'smooth' })
+          }}
+          label="SCROLL TO LATEST COMMENT"
+        />
         <Box flex={false} pad='none'>
           {comments.length > 0 && (
             <Box as='ul' flex={false} pad='none' margin='none'>
-              {comments.map(comment => {
+              {comments.map((comment, index) => {
                 const author = authors[comment.user_id]
                 const roles = authorRoles[comment.user_id]
 
                 return (
                   <Comment
+                    ref={(index === comments.length - 1) ? latestComment : undefined}
                     key={`quicktalk-comment-${comment.id}`}
                     comment={comment}
                     author={author}

@@ -3,7 +3,7 @@ TODO:
 - [ ] add isDeleted style
  */
 
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import { Box, Text } from 'grommet'
 import { Markdownz } from '@zooniverse/react-components'
@@ -16,12 +16,13 @@ function Comment ({
   author,
   comment,
   roles,
-}) {
+}, ref) {
   return (
     <Box
       as='li'
       background={{ dark: 'dark-1', light: 'light-1' }}
       margin={{ horizontal: 'none', 'vertical': 'xsmall' }}
+      ref={ref}
     >
       <Box
         direction='row'
@@ -60,4 +61,4 @@ Comment.propTypes = {
   role: PropTypes.object,
 }
 
-export default Comment
+export default forwardRef(Comment)
