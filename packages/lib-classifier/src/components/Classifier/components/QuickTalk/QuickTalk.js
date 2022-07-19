@@ -22,7 +22,6 @@ function QuickTalk ({
   postComment = () => {},
   userId,
   screenSize,
-  fixedPosition = true,
 }) {
   const latestComment = useRef()
   const { t } = useTranslation('components')
@@ -129,7 +128,6 @@ QuickTalk.propTypes = {
   postCommentStatusMessage: PropTypes.string,
   postComment: PropTypes.func,
   userId: PropTypes.string,
-  fixedPosition: PropTypes.bool,
 }
 
 export default withResponsiveContext(QuickTalk)

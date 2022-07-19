@@ -2,6 +2,10 @@ import asyncStates from '@zooniverse/async-states'
 import React from 'react'
 import QuickTalk from './QuickTalk'
 
+import zooTheme from '@zooniverse/grommet-theme'
+import { Tabs } from '@zooniverse/react-components'
+import { Grommet } from 'grommet'
+
 export default {
   title: 'Other / QuickTalk',
   component: QuickTalk,
@@ -10,6 +14,11 @@ export default {
       defaultViewport: 'responsive'
     }
   }
+}
+
+const background = {
+  dark: 'dark-1',
+  light: 'light-1'
 }
 
 const subject = {
@@ -63,29 +72,22 @@ const authorRoles = {
   '300002': [],
 }
 
-export function Default() {
+export function Default({ dark }) {
+  const themeMode = dark ? 'dark' : 'light'
   return (
-    <QuickTalk
-      subject={subject}
-      comments={comments}
-      authors={authors}
-      authorRoles={authorRoles}
-      fixedPosition={false}
-      showBadge={false}
-    />
-  )
-}
-
-export function expanded() {
-  return (
-    <QuickTalk
-      subject={subject}
-      comments={comments}
-      authors={authors}
-      authorRoles={authorRoles}
-      expand={true}
-      fixedPosition={false}
-      showBadge={false}
-    />
+    <Grommet
+      background={background}
+      theme={zooTheme}
+      themeMode={themeMode}
+    >
+      <Tabs>
+        <QuickTalk
+          subject={subject}
+          comments={comments}
+          authors={authors}
+          authorRoles={authorRoles}
+        />
+      </Tabs>
+    </Grommet>
   )
 }
