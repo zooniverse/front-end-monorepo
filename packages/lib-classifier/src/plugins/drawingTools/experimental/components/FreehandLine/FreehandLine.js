@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import styled from 'styled-components'
@@ -27,7 +27,11 @@ function createPoint(event) {
   const { clientX, clientY } = event
   // SVG 2 uses DOMPoint
   if (window.DOMPointReadOnly) {
-    return new DOMPointReadOnly(clientX, clientY)
+    const svgPoint = new DOMPointReadOnly(clientX, clientY)
+    const { x, y } = svgPoint.matrixTransform
+      ? svgPoint.matrixTransform(event.target?.getScreenCTM().inverse())
+      : svgPoint
+    return { x, y }
   }
   // jsdom doesn't support SVG
   return {
@@ -38,7 +42,6 @@ function createPoint(event) {
 
 function FreehandLine({ active, mark, onFinish, scale }) {
   const { path, initialPoint, lastPoint, finished, isClosed } = mark
-  const lineRef = useRef()
   const [editing, setEditing] = useState(false)
 
   const dragPoint = !mark.isCloseToStart && mark.dragPoint
@@ -56,10 +59,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
   }
 
   function onDoubleClick(event) {
-    const svgPoint = createPoint(event)
-    const { x, y } = svgPoint.matrixTransform
-      ? svgPoint.matrixTransform(lineRef.current?.getScreenCTM().inverse())
-      : svgPoint
+    const { x, y } = createPoint(event)
     mark.setDragPoint(mark.selectPoint({ x, y }))
     setEditing(true)
   }
@@ -68,10 +68,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
     if (!editing) {
       return true
     }
-    const svgPoint = createPoint(event)
-    const { x, y } = svgPoint.matrixTransform
-      ? svgPoint.matrixTransform(lineRef.current?.getScreenCTM().inverse())
-      : svgPoint
+    const { x, y } = createPoint(event)
     mark.cutSegment(mark.selectPoint({ x, y }))
   }
 
@@ -83,7 +80,6 @@ function FreehandLine({ active, mark, onFinish, scale }) {
   return (
     <StyledGroup
       className={ editing ? 'editing' : undefined}
-      ref={lineRef}
       onPointerUp={active ? onFinish : undefined}
     >
       {active && !editing && !isClosed && (
