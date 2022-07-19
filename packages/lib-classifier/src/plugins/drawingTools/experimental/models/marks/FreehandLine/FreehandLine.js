@@ -105,6 +105,7 @@ const FreehandLineModel = types
     }
   }))
   .volatile(self => ({
+    clipPath: types.array(SingleCoord),
     dragPoint: types.maybeNull(SingleCoord),
     targetPoint: types.maybeNull(SingleCoord)
   }))
@@ -113,6 +114,7 @@ const FreehandLineModel = types
       self.points.push({ x, y })
       self.dragPoint = null
       self.targetPoint = null
+      self.clipPath = []
     },
 
     initialDrag({ x, y }) {
@@ -130,6 +132,8 @@ const FreehandLineModel = types
     appendPath({ x, y }) {
       if (!self.isClosed) {
         self.points.push({ x, y})
+      } else {
+        self.clipPath = []
       }
     },
 
@@ -141,6 +145,9 @@ const FreehandLineModel = types
       const nextPoint = dragIndex + 1
       self.points.splice(nextPoint, 0, { x, y })
       self.dragPoint = self.points[nextPoint]
+      if (self.isCloseToStart) {
+        self.clipPath = []
+      }
     },
 
     cutSegment(point) {
@@ -172,6 +179,10 @@ const FreehandLineModel = types
       }
     },
 
+    setClipPath(points = []) {
+      self.clipPath = points
+    },
+
     setDragPoint(point) {
       self.dragPoint = point
     },
@@ -189,11 +200,15 @@ const FreehandLineModel = types
 
     splice(startIndex, endIndex) {
       const deleteCount = endIndex - startIndex - 1
+      const clippedPoints = self.points.slice(startIndex, endIndex + 1)
+      self.clipPath = clippedPoints.map(({ x, y }) => ({ x, y }))
       self.points.splice(startIndex + 1, deleteCount)
     },
 
     trim(startIndex, endIndex) {
-      self.points.splice(0, startIndex)
+      const clippedPoints = [ ...self.points.slice(endIndex), ...self.points.slice(0, startIndex + 1)]
+      self.clipPath = clippedPoints.map(({ x, y }) => ({ x, y }))
+      self.points.splice(0, startIndex + 1)
       self.points.splice(endIndex)
     }
   }))

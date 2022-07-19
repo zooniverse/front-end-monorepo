@@ -41,6 +41,20 @@ function FreehandLine({ active, mark, onFinish, scale }) {
   const lineRef = useRef()
   const [editing, setEditing] = useState(false)
 
+  const dragPoint = !mark.isCloseToStart && mark.dragPoint
+  const targetPoint = !mark.isCloseToStart && mark.targetPoint
+  let clippedPath = mark.clipPath.map(
+    (point, index) => index === 0 ? `M ${point.x},${point.y}` : `L ${point.x},${point.y}`
+  ).join(' ')
+
+  if (editing && !dragPoint) {
+    cancelEditing()
+  }
+
+  if (!editing && isClosed) {
+    clippedPath = ''
+  }
+
   function onDoubleClick(event) {
     const svgPoint = createPoint(event)
     const { x, y } = svgPoint.matrixTransform
@@ -65,12 +79,6 @@ function FreehandLine({ active, mark, onFinish, scale }) {
     mark.setTargetPoint(null)
     mark.setDragPoint(null)
     setEditing(false)
-  }
-
-  const dragPoint = !mark.isCloseToStart && mark.dragPoint
-  const targetPoint = !mark.isCloseToStart && mark.targetPoint
-  if (editing && !dragPoint) {
-    cancelEditing()
   }
   return (
     <StyledGroup
@@ -113,6 +121,13 @@ function FreehandLine({ active, mark, onFinish, scale }) {
         }}
         fill='none'
       />
+      {active && clippedPath &&
+        <path
+          d={clippedPath}
+          strokeDasharray='2 2'
+          strokeWidth={STROKE_WIDTH}
+        />
+      }
       {active && finished && !editing && !isClosed &&
         <DragHandle
           scale={scale}
