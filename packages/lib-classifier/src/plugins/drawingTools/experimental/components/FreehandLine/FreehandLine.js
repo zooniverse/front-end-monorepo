@@ -67,18 +67,6 @@ function FreehandLine({ active, mark, onFinish, scale }) {
     setEditing(false)
   }
 
-  function spliceLine(coords) {
-    mark.splicePath(coords)
-  }
-
-  function continueLine(coords) {
-    mark.appendPath(coords)
-  }
-
-  function onUndoDrawing() {
-    mark.shortenPath()
-  }
-
   const dragPoint = !mark.isCloseToStart && mark.dragPoint
   const targetPoint = !mark.isCloseToStart && mark.targetPoint
   if (editing && !dragPoint) {
@@ -103,7 +91,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
           scale={scale}
           x={initialPoint.x}
           y={initialPoint.y}
-          undoDrawing={onUndoDrawing}
+          undoDrawing={mark.shortenPath}
         />
       )}
       <path
@@ -132,7 +120,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
           y={lastPoint.y}
           fill='transparent'
           invisibleWhenDragging={true}
-          dragMove={continueLine}
+          dragMove={mark.appendPath}
         />
       }
       {active && targetPoint && (
@@ -151,7 +139,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
           fill='transparent'
           invisibleWhenDragging={true}
           onClick={!targetPoint ? cancelEditing : undefined}
-          dragMove={spliceLine}
+          dragMove={mark.splicePath}
         />
       }
     </StyledGroup>
