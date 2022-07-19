@@ -23,7 +23,7 @@ const StyledAnchor = styled(Anchor)`
   }
 `
 
-function ProjectTitle (props) {
+function ProjectTitle(props) {
   const router = useRouter()
   const { title } = props
   const { owner, project } = router.query
@@ -33,15 +33,13 @@ function ProjectTitle (props) {
 
   const isCurrentPage = router.pathname === linkProps.href
 
-  const label = (
-    <StyledHeading
-      color='white'
-      margin='none'
-    >
-      {title}
-    </StyledHeading>
+  const anchor = (
+    <StyledAnchor>
+      <StyledHeading color='white' margin='none'>
+        {title}
+      </StyledHeading>
+    </StyledAnchor>
   )
-  const anchor = <StyledAnchor label={label} />
 
   if (isCurrentPage) {
     return anchor

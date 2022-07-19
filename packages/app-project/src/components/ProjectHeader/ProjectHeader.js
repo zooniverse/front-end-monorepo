@@ -24,8 +24,8 @@ function ProjectHeader({
   title,
   width
 }) {
-  const hasTranslations = availableLocales?.length > 1
-  // const hasTranslations = true
+  // const hasTranslations = availableLocales?.length > 1
+  const hasTranslations = true
   const showDropdown = width < 1200
 
   const calcMaxWidth = () => {
@@ -55,7 +55,7 @@ function ProjectHeader({
           >
             <Box
               align='center'
-              direction={width < 600 ? 'column' : 'row'}
+              direction={showDropdown ? 'column' : 'row'}
               gap='medium'
             >
               <Avatar isNarrow={showDropdown} />
