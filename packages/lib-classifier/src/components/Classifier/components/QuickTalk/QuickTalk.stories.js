@@ -3,7 +3,7 @@ import React from 'react'
 import QuickTalk from './QuickTalk'
 
 import zooTheme from '@zooniverse/grommet-theme'
-import { Tabs } from '@zooniverse/react-components'
+import { Tab, Tabs } from '@zooniverse/react-components'
 import { Box, Grommet } from 'grommet'
 
 export default {
@@ -99,6 +99,9 @@ export function Default({ dark, loggedIn, containerWidth }) {
             authorRoles={authorRoles}
             userId={(loggedIn) ? loggedInUserId : undefined}
           />
+          <Tab title='Other'>
+            Nothing here! The 'Other' tab was just added to show how the grouped tabs look like visually.
+          </Tab>
         </Tabs>
       </Box>
     </Grommet>
