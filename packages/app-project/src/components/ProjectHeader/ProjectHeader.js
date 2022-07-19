@@ -16,6 +16,8 @@ const StyledBox = styled(Box)`
   position: relative;
 `
 
+const environment = process.env.APP_ENV
+
 function ProjectHeader({
   availableLocales = [],
   className = '',
@@ -24,8 +26,7 @@ function ProjectHeader({
   title,
   width
 }) {
-  // const hasTranslations = availableLocales?.length > 1
-  const hasTranslations = true
+  const hasTranslations = environment === 'development' && availableLocales?.length > 1
   const showDropdown = width < 1200
 
   const calcMaxWidth = () => {
@@ -66,7 +67,7 @@ function ProjectHeader({
                   align='center'
                   style={{ maxWidth: calcMaxWidth() }}
                 >
-                  <ProjectTitle title={title} />
+                  <ProjectTitle showDropdown={showDropdown} title={title} />
                   <ApprovedIcon isNarrow={showDropdown} />
                 </Box>
                 {inBeta && <UnderReviewLabel />}

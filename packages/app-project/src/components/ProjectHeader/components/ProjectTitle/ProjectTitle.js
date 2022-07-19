@@ -6,7 +6,6 @@ import styled from 'styled-components'
 import addQueryParams from '@helpers/addQueryParams'
 
 const StyledHeading = styled(Heading)`
-  display: inline;
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
 `
 
@@ -25,7 +24,7 @@ const StyledAnchor = styled(Anchor)`
 
 function ProjectTitle(props) {
   const router = useRouter()
-  const { title } = props
+  const { showDropdown, title } = props
   const { owner, project } = router.query
   const linkProps = {
     href: addQueryParams(`/${owner}/${project}`, router)
@@ -35,7 +34,7 @@ function ProjectTitle(props) {
 
   const anchor = (
     <StyledAnchor>
-      <StyledHeading color='white' margin='none'>
+      <StyledHeading color='white' margin='none' textAlign={showDropdown ? 'center' : 'start'}>
         {title}
       </StyledHeading>
     </StyledAnchor>
