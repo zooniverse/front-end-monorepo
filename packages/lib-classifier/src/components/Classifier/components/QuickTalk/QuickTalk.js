@@ -26,12 +26,10 @@ function QuickTalk ({
 }) {
   const latestComment = useRef()
   const { t } = useTranslation('components')
-  // TODO: figure out if/how the QuickTalk component should/could be displayed on mobile
-  // if (screenSize === 'small') return null
 
   useEffect(function scrollToLatestComment () {
     if (postCommentStatus === asyncStates.success) {
-      console.log('+++ TODO: scroll latest comment to view')
+      latestComment.current?.scrollIntoView?.({behavior: 'smooth' })
     }
   }, [ postCommentStatus ])
 
@@ -48,12 +46,6 @@ function QuickTalk ({
         <Heading level='4' margin='none' pad='none'>
           {t('QuickTalk.aria.panelHeading')}
         </Heading>
-        <Button
-          onClick={()=>{
-            latestComment.current?.scrollIntoView?.({behavior: 'smooth' })
-          }}
-          label="SCROLL TO LATEST COMMENT"
-        />
         <Box flex={false} pad='none'>
           {comments.length > 0 && (
             <Box as='ul' flex={false} pad='none' margin='none'>
