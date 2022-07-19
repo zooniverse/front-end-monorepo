@@ -67,16 +67,13 @@ const FreehandLineModel = types
         path.push(pointPath)
       })
       // closes the drawing path
-      if (self.isClosed) {
-        path.push('Z')
+      if (!self.dragPoint && self.isClosed) {
+        path.push(`Z`)
       }
       return path.join(' ')
     },
 
     get isClosed() {
-      if (self.dragPoint) {
-        return false
-      }
       const firstPoint = self.initialPoint
       const lastPoint = self.lastPoint
       if (firstPoint && lastPoint) {
@@ -147,17 +144,31 @@ const FreehandLineModel = types
     },
 
     cutSegment(point) {
-      const dragIndex = self.points.indexOf(self.dragPoint)
-      const targetIndex = self.points.indexOf(point)
-      if ( targetIndex > dragIndex ) {
-        const deleteCount = targetIndex - dragIndex
-        self.points.splice(dragIndex + 1, deleteCount)
+      let dragIndex = self.points.indexOf(self.dragPoint)
+      let targetIndex = self.points.indexOf(point)
+      if (targetIndex < dragIndex) {
+        dragIndex = self.points.indexOf(point)
+        targetIndex = self.points.indexOf(self.dragPoint)
+      }
+      const deleteCount = targetIndex - dragIndex - 1
+      const distFromEnd = self.points.length - targetIndex - 1
+      const spansStartPoint = self.isClosed && (distFromEnd + dragIndex) < deleteCount
+      if (!spansStartPoint) {
+        /*
+        Segment lies entirely within the line path, so splice points
+        from dragIndex to targetIndex.
+        */
+        self.splice(dragIndex, targetIndex)
+        self.dragPoint = self.points[dragIndex]
         self.targetPoint = self.points[dragIndex + 1]
       } else {
-        const deleteCount = dragIndex - targetIndex
-        self.points.splice(targetIndex + 1, deleteCount)
-        self.dragPoint = self.points[targetIndex]
-        self.targetPoint = self.points[targetIndex + 1]
+        /*
+        Segment spans the start point of a closed loop, so
+        trim the ends of the line back to dragIndex and targetIndex.
+        */
+        self.trim(dragIndex, targetIndex)
+        self.dragPoint = null
+        self.targetPoint = null
       }
     },
 
@@ -174,6 +185,16 @@ const FreehandLineModel = types
       while (lengthToRemove--) {
         self.points.pop()
       }
+    },
+
+    splice(startIndex, endIndex) {
+      const deleteCount = endIndex - startIndex - 1
+      self.points.splice(startIndex + 1, deleteCount)
+    },
+
+    trim(startIndex, endIndex) {
+      self.points.splice(0, startIndex)
+      self.points.splice(endIndex)
     }
   }))
 

@@ -37,7 +37,7 @@ function createPoint(event) {
 }
 
 function FreehandLine({ active, mark, onFinish, scale }) {
-  const { path, initialPoint, lastPoint, finished, isClosed, isCloseToStart } = mark
+  const { path, initialPoint, lastPoint, finished, isClosed } = mark
   const lineRef = useRef()
   const [editing, setEditing] = useState(false)
 
@@ -79,8 +79,8 @@ function FreehandLine({ active, mark, onFinish, scale }) {
     mark.shortenPath()
   }
 
-  const dragPoint = !isCloseToStart && mark.dragPoint
-  const targetPoint = !isCloseToStart && mark.targetPoint
+  const dragPoint = !mark.isCloseToStart && mark.dragPoint
+  const targetPoint = !mark.isCloseToStart && mark.targetPoint
   if (editing && !dragPoint) {
     cancelEditing()
   }
