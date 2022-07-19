@@ -26,7 +26,17 @@ function ProjectHeader({
 }) {
   const hasTranslations = availableLocales?.length > 1
   // const hasTranslations = true
-  const showDropdown = (hasTranslations && width < 1200) || (!hasTranslations && width < 768)
+  const showDropdown = width < 1200
+
+  const calcMaxWidth = () => {
+    if (showDropdown) {
+      return '800px'
+    } else if (hasTranslations && !showDropdown) {
+      return '500px'
+    } else {
+      return '600px'
+    }
+  }
 
   return (
     <StyledBox as='header' className={className}>
@@ -54,8 +64,9 @@ function ProjectHeader({
                   direction='row'
                   gap='small'
                   align='center'
+                  style={{ maxWidth: calcMaxWidth() }}
                 >
-                  <ProjectTitle hasTranslations={hasTranslations} title={title} />
+                  <ProjectTitle title={title} />
                   <ApprovedIcon isNarrow={showDropdown} />
                 </Box>
                 {inBeta && <UnderReviewLabel />}

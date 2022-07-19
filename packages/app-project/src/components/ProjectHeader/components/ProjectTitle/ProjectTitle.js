@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import addQueryParams from '@helpers/addQueryParams'
 
 const StyledHeading = styled(Heading)`
+  display: inline;
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
 `
 
@@ -24,7 +25,7 @@ const StyledAnchor = styled(Anchor)`
 
 function ProjectTitle (props) {
   const router = useRouter()
-  const { hasTranslations, title } = props
+  const { title } = props
   const { owner, project } = router.query
   const linkProps = {
     href: addQueryParams(`/${owner}/${project}`, router)
@@ -36,7 +37,6 @@ function ProjectTitle (props) {
     <StyledHeading
       color='white'
       margin='none'
-      style={{ maxWidth: hasTranslations ? '500px' : '600px' }}
     >
       {title}
     </StyledHeading>
