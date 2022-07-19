@@ -10,7 +10,7 @@ export default async function fetchProjectPages(project, env) {
     const projectPages = response?.body?.project_pages || []
     /* Only the page titles and URL keys are needed
     to build the navigation menu */
-    return projectPages.map(page =>{
+    return projectPages.map(page => {
       if (page.content?.length) {
         return ({
           id: page.id,
