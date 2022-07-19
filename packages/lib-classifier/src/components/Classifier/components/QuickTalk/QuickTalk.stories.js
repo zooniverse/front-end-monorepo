@@ -4,7 +4,7 @@ import QuickTalk from './QuickTalk'
 
 import zooTheme from '@zooniverse/grommet-theme'
 import { Tabs } from '@zooniverse/react-components'
-import { Grommet } from 'grommet'
+import { Box, Grommet } from 'grommet'
 
 export default {
   title: 'Other / QuickTalk',
@@ -12,6 +12,7 @@ export default {
   args: {
     dark: false,
     loggedIn: false,
+    containerWidth: '400px',
   },
   parameters: {
     viewport: {
@@ -34,6 +35,7 @@ const comments = [
   {
     id: '200001',
     body: 'This is the first comment',
+    created_at: '2022-07-19T13:00:00.000Z',
     is_deleted: false,
     user_id: '300001',
     user_login: 'zootester',
@@ -41,6 +43,7 @@ const comments = [
   {
     id: '200002',
     body: 'This is the second comment',
+    created_at: '2022-07-20T15:30:00.000Z',
     is_deleted: false,
     user_id: '300001',
     user_login: 'zootester',
@@ -48,6 +51,7 @@ const comments = [
   {
     id: '200003',
     body: 'This is the third comment',
+    created_at: '2022-07-20T16:00:00.000Z',
     is_deleted: false,
     user_id: '300002',
     user_login: 'randomdude',
@@ -78,7 +82,7 @@ const authorRoles = {
 
 const loggedInUserId = '300001'
 
-export function Default({ dark, loggedIn }) {
+export function Default({ dark, loggedIn, containerWidth }) {
   const themeMode = dark ? 'dark' : 'light'
   return (
     <Grommet
@@ -86,15 +90,17 @@ export function Default({ dark, loggedIn }) {
       theme={zooTheme}
       themeMode={themeMode}
     >
-      <Tabs>
-        <QuickTalk
-          subject={subject}
-          comments={comments}
-          authors={authors}
-          authorRoles={authorRoles}
-          userId={(loggedIn) ? loggedInUserId : undefined}
-        />
-      </Tabs>
+      <Box border={true} width={containerWidth}>
+        <Tabs>
+          <QuickTalk
+            subject={subject}
+            comments={comments}
+            authors={authors}
+            authorRoles={authorRoles}
+            userId={(loggedIn) ? loggedInUserId : undefined}
+          />
+        </Tabs>
+      </Box>
     </Grommet>
   )
 }
