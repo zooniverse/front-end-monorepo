@@ -9,6 +9,10 @@ import { Grommet } from 'grommet'
 export default {
   title: 'Other / QuickTalk',
   component: QuickTalk,
+  args: {
+    dark: false,
+    loggedIn: false,
+  },
   parameters: {
     viewport: {
       defaultViewport: 'responsive'
@@ -72,7 +76,9 @@ const authorRoles = {
   '300002': [],
 }
 
-export function Default({ dark }) {
+const loggedInUserId = '300001'
+
+export function Default({ dark, loggedIn }) {
   const themeMode = dark ? 'dark' : 'light'
   return (
     <Grommet
@@ -86,6 +92,7 @@ export function Default({ dark }) {
           comments={comments}
           authors={authors}
           authorRoles={authorRoles}
+          userId={(loggedIn) ? loggedInUserId : undefined}
         />
       </Tabs>
     </Grommet>
