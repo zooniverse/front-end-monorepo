@@ -121,11 +121,7 @@
     "title": "Tutorial"
   },
   "QuickTalk": {
-    "aria": {
-      "mainPanel": "QuickTalk Comments Panel",
-      "panelContent": "Subject Discussion comments",
-      "panelHeading": "Subject Discussion"
-    },
+    "panelHeading": "Subject Discussion",
     "tabTitle": "Discuss",
     "goToTalk": "Or, view this Subject Discussion on Talk",
     "loginToPost": "Please login to post a comment.",

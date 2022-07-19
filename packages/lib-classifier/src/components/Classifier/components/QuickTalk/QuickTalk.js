@@ -38,12 +38,9 @@ function QuickTalk ({
     <Tab
       title={t('QuickTalk.tabTitle')}
     >
-      <Box
-        a11yTitle={t('QuickTalk.aria.mainPanel')}
-        fill
-      >
+      <Box fill>
         <Heading level='4' margin='none' pad='none'>
-          {t('QuickTalk.aria.panelHeading')}
+          {t('QuickTalk.panelHeading')}
         </Heading>
         <Box flex={false} pad='none'>
           {comments.length > 0 && (
