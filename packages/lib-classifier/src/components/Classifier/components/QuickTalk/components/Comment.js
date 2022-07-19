@@ -55,10 +55,4 @@ function Comment ({
   )
 }
 
-Comment.propTypes = {
-  author: PropTypes.object,
-  comment: PropTypes.object,
-  role: PropTypes.object,
-}
-
 export default forwardRef(Comment)
