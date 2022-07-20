@@ -6,6 +6,15 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Tab, Tabs } from '@zooniverse/react-components'
 import { Box, Grommet } from 'grommet'
 
+/*
+Workaround: prevent "infinite rendering Tabs" in Grommet 2.25
+If a Grommet <Tab> is defined in a separate function than the parent Grommet
+<Tabs>, it may cause an "infinite rendering loop" with the error message:
+"Warning: Maximum update depth exceeded". One solution is to wrap the child
+<Tab> in a React.memo.
+*/
+const QuickTalkForStorybook = React.memo(QuickTalk)
+
 export default {
   title: 'Other / QuickTalk',
   component: QuickTalk,
@@ -92,7 +101,7 @@ export function Default({ dark, loggedIn, containerWidth }) {
     >
       <Box border={true} width={containerWidth}>
         <Tabs>
-          <QuickTalk
+          <QuickTalkForStorybook
             subject={subject}
             comments={comments}
             authors={authors}
