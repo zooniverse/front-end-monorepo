@@ -2,7 +2,7 @@ import { panoptes } from '@zooniverse/panoptes-js'
 import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 import { logToSentry } from '@helpers/logger'
 
-export default async function fetchProjectPages(project, env) {
+export default async function fetchProjectPageTitles(project, env) {
   try {
     const { headers, host } = getServerSideAPIHost(env)
     // the endpoint is /project/{project.id}/pages but the returned array is project_pages.

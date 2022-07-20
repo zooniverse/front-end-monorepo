@@ -1,5 +1,5 @@
 import fetchProjectPage from '@helpers/fetchProjectPage'
-import fetchProjectPages from '@helpers/fetchProjectPages'
+import fetchProjectPageTitles from '@helpers/fetchProjectPageTitles'
 import getDefaultPageProps from '@helpers/getDefaultPageProps'
 export { default } from '@screens/ProjectAboutPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -10,7 +10,7 @@ export async function getServerSideProps({ locale, params, query, req, res }) {
   const { headers, host } = getServerSideAPIHost(query.env)
   const { notFound, props } = await getDefaultPageProps({ locale, params, query, req, res })
   const { project } = props.initialState
-  project.about_pages = await fetchProjectPages(project, query.env)
+  project.about_pages = await fetchProjectPageTitles(project, query.env)
   const page = await fetchProjectPage(project, locale, 'team', query.env)
   const pageTitle = page?.strings?.title ?? 'Team'
 
