@@ -7,6 +7,16 @@ import userEvent from '@testing-library/user-event'
 
 import mockStore from '@test/mockStore'
 import { QuickTalkContainer } from './QuickTalkContainer'
+import { Tabs } from '@zooniverse/react-components'
+
+/*
+Workaround: prevent "infinite rendering Tabs" in Grommet 2.25
+If a Grommet <Tab> is defined in a separate function than the parent Grommet
+<Tabs>, it may cause an "infinite rendering loop" with the error message:
+"Warning: Maximum update depth exceeded". One solution is to wrap the child
+<Tab> in a React.memo.
+*/
+const QuickTalkContainerForTesting = React.memo(QuickTalkContainer)
 
 const subject = {
   id: '100001',
@@ -14,15 +24,16 @@ const subject = {
 }
 
 const authClient = {}
-const quickTalkButton_target = { name: 'QuickTalk.aria.openButton' }
 
-describe('Component > QuickTalkContainer', function () {
+describe.only('Component > QuickTalkContainer', function () {
   function withStore(store) {
     return function Wrapper({ children }) {
       return (
         <Grommet theme={zooTheme}>
           <Provider classifierStore={store}>
-            {children}
+            <Tabs>
+              {children}
+            </Tabs>
           </Provider>
         </Grommet>
       )
@@ -33,7 +44,7 @@ describe('Component > QuickTalkContainer', function () {
     beforeEach(function () {
       const store = mockStore()
       render(
-        <QuickTalkContainer
+        <QuickTalkContainerForTesting
           authClient={authClient}
           enabled={true}
           subject={subject}
@@ -45,7 +56,8 @@ describe('Component > QuickTalkContainer', function () {
     })
 
     it('should render without crashing', function () {
-      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist()
+      expect(screen.queryByRole('tab')).to.have.text('QuickTalk.tabTitle')
+      expect(screen.queryByRole('link')).to.have.text('QuickTalk.goToTalk')
     })
   })
 })
