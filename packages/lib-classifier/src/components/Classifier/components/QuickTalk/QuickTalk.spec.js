@@ -3,6 +3,18 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { QuickTalk } from './QuickTalk'
+import { Tabs } from '@zooniverse/react-components'
+import zooTheme from '@zooniverse/grommet-theme'
+import { Grommet } from 'grommet'
+
+/*
+Workaround: prevent "infinite rendering Tabs" in Grommet 2.25
+If a Grommet <Tab> is defined in a separate function than the parent Grommet
+<Tabs>, it may cause an "infinite rendering loop" with the error message:
+"Warning: Maximum update depth exceeded". One solution is to wrap the child
+<Tab> in a React.memo.
+*/
+const QuickTalkForTesting = React.memo(QuickTalk)
 
 const subject = {
   id: '100001',
@@ -55,69 +67,59 @@ const authorRoles = {
   '300002': [],
 }
 
-const quickTalkButton_target = { name: 'QuickTalk.aria.openButton' }
-const quickTalkCloseButton_target = { name: 'QuickTalk.aria.closeButton' }
-const quickTalkPanel_target = { name: 'QuickTalk.aria.mainPanel' }
+const loggedInUserId = '300001'
 
 describe('Component > QuickTalk', function () {
-  describe('when collapsed', function () {
+  describe('when user is not logged in', function () {
     beforeEach(function () {
       render(
-        <QuickTalk
-          subject={subject}
-          comments={comments}
-          authors={authors}
-          authorRoles={authorRoles}
-          showBadge={false}
-        />
+        <Grommet theme={zooTheme}>
+          <Tabs>
+            <QuickTalkForTesting
+              subject={subject}
+              comments={comments}
+              authors={authors}
+              authorRoles={authorRoles}
+              userId={undefined}
+            />
+          </Tabs>
+        </Grommet>
       )
     })
 
     it('should render without crashing', function () {
-      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist()
-      expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.not.exist()
-    })
-
-    it('should expand when clicked', async function () {
-      const user = userEvent.setup({ delay: null })
-
-      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist()
-      await user.click(screen.queryByRole('button', quickTalkButton_target))
-
-      expect(screen.queryByRole('button', quickTalkButton_target)).to.not.exist()
-      expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.exist()
-    })
-  })
-
-  describe('when expanded', function () {
-    beforeEach(function () {
-      render(
-        <QuickTalk
-          subject={subject}
-          comments={comments}
-          authors={authors}
-          authorRoles={authorRoles}
-          expand={true}
-          showBadge={false}
-        />
-      )
-    })
-
-    it('should render without crashing', function () {
-      expect(screen.queryByRole('button', quickTalkButton_target)).to.not.exist()
-      expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.exist()
+      expect(screen.queryByRole('tab')).to.have.text('QuickTalk.tabTitle')
+      expect(screen.queryByRole('link')).to.have.text('QuickTalk.goToTalk')
     })
 
     it('should have the correct number of comments', function () {
       expect(screen.queryAllByRole('listitem')).to.have.length(3)
     })
 
-    it('should collapse when the close button is clicked', async function () {
-      const user = userEvent.setup({ delay: null })
-      await user.click(screen.queryByRole('button', quickTalkCloseButton_target))
+    it('should prompt users to login', function () {
+      expect(screen.queryByText('QuickTalk.loginToPost')).to.exist()
+    })
+  })
 
-      expect(screen.queryByRole('button', quickTalkButton_target)).to.exist()
-      expect(screen.queryByRole('dialog', quickTalkPanel_target)).to.not.exist()
+  describe('when user is logged in', function () {
+    beforeEach(function () {
+      render(
+        <Grommet theme={zooTheme}>
+          <Tabs>
+            <QuickTalkForTesting
+              subject={subject}
+              comments={comments}
+              authors={authors}
+              authorRoles={authorRoles}
+              userId={loggedInUserId}
+            />
+          </Tabs>
+        </Grommet>
+      )
+    })
+
+    it('should prompt users to login', function () {
+      expect(screen.queryByRole('button')).to.have.text('Post')
     })
   })
 })

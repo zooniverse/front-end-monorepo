@@ -25,7 +25,7 @@ const subject = {
 
 const authClient = {}
 
-describe.only('Component > QuickTalkContainer', function () {
+describe('Component > QuickTalkContainer', function () {
   function withStore(store) {
     return function Wrapper({ children }) {
       return (
@@ -40,24 +40,22 @@ describe.only('Component > QuickTalkContainer', function () {
     }
   }
 
-  describe('when collapsed', function () {
-    beforeEach(function () {
-      const store = mockStore()
-      render(
-        <QuickTalkContainerForTesting
-          authClient={authClient}
-          enabled={true}
-          subject={subject}
-        />,
-        {
-          wrapper: withStore(store)
-        }
-      )
-    })
+  beforeEach(function () {
+    const store = mockStore()
+    render(
+      <QuickTalkContainerForTesting
+        authClient={authClient}
+        enabled={true}
+        subject={subject}
+      />,
+      {
+        wrapper: withStore(store)
+      }
+    )
+  })
 
-    it('should render without crashing', function () {
-      expect(screen.queryByRole('tab')).to.have.text('QuickTalk.tabTitle')
-      expect(screen.queryByRole('link')).to.have.text('QuickTalk.goToTalk')
-    })
+  it('should render without crashing', function () {
+    expect(screen.queryByRole('tab')).to.have.text('QuickTalk.tabTitle')
+    expect(screen.queryByRole('link')).to.have.text('QuickTalk.goToTalk')
   })
 })
