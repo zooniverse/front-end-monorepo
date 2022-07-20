@@ -63,16 +63,15 @@ function PostForm ({
       )}
       <Form onSubmit={onSubmit}>
         <TextArea
-          a11yTitle='Write comments'
+          a11yTitle={t('QuickTalk.textAreaForComments')}
           value={text}
           onChange={e => setText(e.target.value)}
           disabled={disabled}
         />
         <SubmitButton
-          a11yTitle='Post comment'
           onClick={onSubmit}
           type='submit'
-          label='Post'
+          label={t('QuickTalk.buttonForPostingComments')}
           disabled={disabled}
         />
       </Form>

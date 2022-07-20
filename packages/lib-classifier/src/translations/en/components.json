@@ -127,6 +127,8 @@
     "loginToPost": "Please login to post a comment.",
     "subjectHasMoreComments": "Showing up to {{commentsPerPage}} comments. This Subject may have more comments on its Talk page.",
     "subjectHasNoComments": "This Subject doesn't have any comments yet.",
+    "textAreaForComments": "Write comment",
+    "buttonForPostingComments": "Post comment",
     "status": {
       "initialized": "Leave a note about this subject",
       "loading": "Posting comment...",

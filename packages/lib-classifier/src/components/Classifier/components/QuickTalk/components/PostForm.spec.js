@@ -25,8 +25,8 @@ describe('Component > QuickTalk > PostForm', function () {
     })
 
     it('should render without crashing', function () {
-      expect(screen.getByRole('textbox', { name: 'Write comments' })).to.exist()
-      expect(screen.getByRole('button', { name: 'Post comment' })).to.exist()
+      expect(screen.getByRole('textbox', { name: 'QuickTalk.textAreaForComments' })).to.exist()
+      expect(screen.getByRole('button', { name: 'QuickTalk.buttonForPostingComments' })).to.exist()
     })
 
     it('should have a "ready to post" status message', function () {
@@ -35,7 +35,7 @@ describe('Component > QuickTalk > PostForm', function () {
 
     it('should call post comments when the "Post" button is clicked', async function () {
       const user = userEvent.setup({ delay: null })
-      await user.click(screen.getByRole('button', { name: 'Post comment' }))
+      await user.click(screen.getByRole('button', { name: 'QuickTalk.buttonForPostingComments' }))
       expect(postCommentSpy).to.have.been.calledOnce()
     })
   })
