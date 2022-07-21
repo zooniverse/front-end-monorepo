@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { observer } from 'mobx-react'
 import { useStores } from '@hooks'
 /**
@@ -9,9 +9,9 @@ export default function withStores(
   storeMapper = store => store
 ) {
 
-  function WithStores({ store, ...props }) {
+  function WithStores({ store, ...props }, ref) {
     const storeProps = store ? storeMapper(store) : useStores(storeMapper)
-    return <Component {...storeProps} {...props} />
+    return <Component ref={ref} {...storeProps} {...props} />
   }
-  return observer(WithStores)
+  return observer(forwardRef(WithStores))
 }
