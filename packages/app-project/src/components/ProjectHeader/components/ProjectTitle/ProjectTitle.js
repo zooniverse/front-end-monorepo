@@ -11,6 +11,7 @@ const StyledHeading = styled(Heading)`
 
 const StyledAnchor = styled(Anchor)`
   border-bottom: 3px solid transparent;
+
   &:hover {
     text-decoration: none;
   }

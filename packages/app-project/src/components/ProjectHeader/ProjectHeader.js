@@ -27,13 +27,12 @@ function ProjectHeader({
   width
 }) {
   const hasTranslations = environment === 'development' && availableLocales?.length > 1
-  const showDropdown = width < 1200
+  const showDropdownWithRow = (hasTranslations && width < 1200) || (!hasTranslations && width < 1100)
+  const showDropdownWithColumn = (hasTranslations && width < 1000) || (!hasTranslations && width < 900)
 
   const calcMaxWidth = () => {
-    if (showDropdown) {
-      return '800px'
-    } else if (hasTranslations && !showDropdown) {
-      return '500px'
+    if (hasTranslations && width >= 1200) {
+      return '560px'
     } else {
       return '600px'
     }
@@ -44,22 +43,22 @@ function ProjectHeader({
       <Background />
       <StyledBox
         align='center'
-        direction={showDropdown ? 'column' : 'row'}
+        direction={showDropdownWithColumn ? 'column' : 'row'}
         justify='between'
         pad='medium'
       >
-        <Box direction={showDropdown ? 'column' : 'row'} gap='small'>
+        <Box direction={showDropdownWithColumn ? 'column' : 'row'} gap='small'>
           <Box
             align='center'
             direction='row'
-            gap={showDropdown ? 'small' : 'medium'}
+            gap={showDropdownWithColumn ? 'small' : 'medium'}
           >
             <Box
               align='center'
-              direction={showDropdown ? 'column' : 'row'}
+              direction={showDropdownWithColumn ? 'column' : 'row'}
               gap='medium'
             >
-              <Avatar isNarrow={showDropdown} />
+              <Avatar isNarrow={showDropdownWithColumn} />
               <Box>
                 <Box
                   direction='row'
@@ -67,8 +66,8 @@ function ProjectHeader({
                   align='center'
                   style={{ maxWidth: calcMaxWidth() }}
                 >
-                  <ProjectTitle showDropdown={showDropdown} title={title} />
-                  <ApprovedIcon isNarrow={showDropdown} />
+                  <ProjectTitle showDropdown={showDropdownWithColumn} title={title} />
+                  <ApprovedIcon isNarrow={showDropdownWithColumn} />
                 </Box>
                 {inBeta && <UnderReviewLabel />}
               </Box>
@@ -78,10 +77,10 @@ function ProjectHeader({
             <LocaleSwitcher availableLocales={availableLocales} />
           )}
         </Box>
-        {!showDropdown ? (
-          <Nav navLinks={navLinks} />
+        {showDropdownWithRow || showDropdownWithColumn ? (
+          <DropdownNav navLinks={navLinks} showDropdownWithColumn={showDropdownWithColumn} />
         ) : (
-          <DropdownNav navLinks={navLinks} />
+          <Nav navLinks={navLinks} />
         )}
       </StyledBox>
     </StyledBox>
