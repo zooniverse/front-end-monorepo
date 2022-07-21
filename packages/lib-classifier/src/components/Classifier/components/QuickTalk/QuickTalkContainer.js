@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import useSWR from 'swr'
 
 import { withFeatureFlag } from '@helpers'
-import { usePanoptesUser, useStores } from '@hooks'
+import { usePanoptesAuth, usePanoptesUser, useStores } from '@hooks'
 import { getBearerToken } from '@store/utils'
 import QuickTalk from './QuickTalk'
 
@@ -19,21 +19,14 @@ import postTalkComment from './helpers/postTalkComment'
 import postTalkDiscussion from './helpers/postTalkDiscussion'
 
 function storeMapper(store) {
-  /*
-  Quick Fix: use authClient to check User resource within the QuickTalk component itself
-  - Long-term, app-project should be responsible for managing the User resource.
-  - see https://github.com/zooniverse/front-end-monorepo/discussions/2362
-   */
   const {
-    authClient,
     subjects: {
       active: subject
     }
   } = store
 
   return {
-    authClient,
-    subject,
+    subject
   }
 }
 
@@ -48,9 +41,10 @@ const SWROptions = {
 function QuickTalkContainer () {
 
   const { t } = useTranslation()
-  const { authClient, subject } = useStores(storeMapper)
+  const { subject } = useStores(storeMapper)
   const user = usePanoptesUser()
   const userId = user?.id
+  const authorization = usePanoptesAuth(userId)
   const { data: comments } = useSWR([subject, subject?.project], getTalkComments, SWROptions)
 
   let author_ids = comments?.map(comment => comment.user_id)
@@ -76,7 +70,7 @@ function QuickTalkContainer () {
 
   async function postComment(text) {
     const project = subject?.project
-    if (!subject || !project || !authClient) return
+    if (!subject || !project) return
 
     setPostCommentStatus(asyncStates.loading)
     setPostCommentStatusMessage('')
@@ -84,7 +78,6 @@ function QuickTalkContainer () {
     try {
       if (!text || text.trim().length === 0) throw new Error(t('QuickTalk.errors.noText'))
 
-      const authorization = await getBearerToken(authClient)  // Get a refreshed auth token for posting comments.
       if (!authorization) throw new Error(t('QuickTalk.errors.noUser'))
 
       // First, get default board
