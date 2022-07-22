@@ -12,12 +12,8 @@ function DailyClassificationsChartContainer({
   projectName,
   thisWeek = []
 }) {
-  const router = useRouter()
-  const { locale } = router
-  let sanitizedLocale = router
-  if (locale === 'test') {
-    sanitizedLocale = 'en'
-  }
+  const { locale } = useRouter()
+  const sanitizedLocale = locale === 'test' ? 'en' : locale
 
   const TODAY = new Date()
   const stats = thisWeek.map(({ count: statsCount, period }) => {
