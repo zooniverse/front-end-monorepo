@@ -47,6 +47,7 @@ function Ellipse({ active, mark, onFinish, scale }) {
           <DragHandle dragMove={onXHandleDrag} x={rx} y={0} scale={scale} />
           <DragHandle
             dragMove={onYHandleDrag}
+            dragEnd={mark.finish}
             x={0}
             y={-1 * ry}
             scale={scale}

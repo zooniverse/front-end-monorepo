@@ -86,14 +86,6 @@ const Tool = types
       self.marks.delete(mark.id)
     },
 
-    handlePointerMove(event, mark) {
-      mark.initialDrag?.(event)
-    },
-
-    handlePointerUp(event, mark) {
-      mark.finish()
-    },
-
     reset() {
       self.marks.clear()
     },

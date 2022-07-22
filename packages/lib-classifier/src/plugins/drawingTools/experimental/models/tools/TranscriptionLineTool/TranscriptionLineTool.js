@@ -13,14 +13,6 @@ const TranscriptionLineTool = types
       mark.finish()
     },
 
-    handlePointerMove(event, mark) {
-      return
-    },
-
-    handlePointerUp(event, mark) {
-      return
-    },
-
     createMark(mark) {
       const newMark = TranscriptionLine.create(
         Object.assign({}, mark, { toolType: self.type })
