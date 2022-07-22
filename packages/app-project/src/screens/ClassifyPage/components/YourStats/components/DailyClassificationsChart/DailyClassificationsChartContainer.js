@@ -1,5 +1,4 @@
 import { array, number, shape, string } from 'prop-types'
-import { useRouter } from 'next/router'
 
 import DailyClassificationsChart from './DailyClassificationsChart'
 
@@ -9,20 +8,18 @@ const defaultCounts = {
 
 function DailyClassificationsChartContainer({
   counts = defaultCounts,
+  locale='en',
   projectName,
   thisWeek = []
 }) {
-  const { locale } = useRouter()
-  const sanitizedLocale = locale === 'test' ? 'en' : locale
-
   const TODAY = new Date()
   const stats = thisWeek.map(({ count: statsCount, period }) => {
     const day = new Date(period)
     const isToday = day.getUTCDay() === TODAY.getDay()
     const count = isToday ? counts.today : statsCount
-    const longLabel = day.toLocaleDateString(sanitizedLocale, { timeZone: 'UTC', weekday: 'long' })
+    const longLabel = day.toLocaleDateString(locale, { timeZone: 'UTC', weekday: 'long' })
     const alt = `${longLabel}: ${count}`
-    const label = day.toLocaleDateString(sanitizedLocale, { timeZone: 'UTC', weekday: 'narrow' })
+    const label = day.toLocaleDateString(locale, { timeZone: 'UTC', weekday: 'narrow' })
     return { alt, count, label, longLabel, period }
   })
   return (
@@ -38,6 +35,8 @@ DailyClassificationsChartContainer.propTypes = {
   counts: shape({
     today: number
   }),
+  /** The current locale. */
+  locale: string,
   /** Project name */
   projectName: string.isRequired,
   /** Array of daily stats from the stats server */
