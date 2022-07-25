@@ -15,7 +15,6 @@ import UnderReviewLabel from './components/UnderReviewLabel'
 const StyledBox = styled(Box)`
   position: relative;
 `
-const environment = process.env.APP_ENV
 
 function ProjectHeader ({
   availableLocales = [],
@@ -25,8 +24,7 @@ function ProjectHeader ({
   screenSize = '',
   title
 }) {
-
-  const hasTranslations = environment === 'development' && availableLocales?.length > 1
+  const hasTranslations = availableLocales?.length > 1
   return (
     <StyledBox as='header' className={className}>
       <Background />
