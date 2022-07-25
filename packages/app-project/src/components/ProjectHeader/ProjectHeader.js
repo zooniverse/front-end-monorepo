@@ -97,7 +97,6 @@ ProjectHeader.propTypes = {
       text: string
     })
   ),
-  screenSize: string,
   title: string.isRequired
 }
 
