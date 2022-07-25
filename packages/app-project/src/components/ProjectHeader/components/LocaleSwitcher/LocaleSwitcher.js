@@ -21,14 +21,14 @@ const StyledBox = styled(Box)`
   &:hover {
     ${props => css`
       background: ${props.theme.global.colors['accent-1']};
-      color: ${props.theme.global.colors['brand']};
+      color: ${props.theme.global.colors.brand};
     `}
   }
 `
 
 const LocaleSwitcher = ({ availableLocales }) => {
   const router = useRouter()
-  const { asPath, basePath, locale, pathname, query } = router
+  const { asPath, basePath, locale } = router
 
   const items = availableLocales.map(availableLocale => ({
     href: `${basePath}/${availableLocale}${asPath}`,

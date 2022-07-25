@@ -33,7 +33,7 @@ const StyledDropButton = styled(DropButton)`
   &:hover {
     ${props => css`
       background: ${props.theme.global.colors['accent-1']};
-      color: ${props.theme.global.colors['brand']};
+      color: ${props.theme.global.colors.brand};
     `}
   }
 `
@@ -41,6 +41,7 @@ const StyledDropButton = styled(DropButton)`
 function DropdownNav({
   className,
   navLinks = [],
+  showDropdownWithColumn = false
 }) {
   const { t } = useTranslation('components')
   const [ isOpen, setIsOpen ] = useState(false)
@@ -62,7 +63,7 @@ function DropdownNav({
     >
       <Box
         as='ul'
-        pad="none"
+        pad='0px'
       >
         {navLinks.map(navLink => (
           <Box
@@ -88,12 +89,12 @@ function DropdownNav({
       dropContent={dropContent}
       dropAlign={{ top: 'bottom' }}
       isOpen={isOpen}
-      margin={{ top: 'xsmall' }}
+      margin={{ top: showDropdownWithColumn ? 'xsmall' : '0px' }}
       onClose={onClose}
       onOpen={onOpen}
     >
       <Box align='center' direction='row' gap='xsmall' justify='center'>
-        <SpacedText weight='bold'>
+        <SpacedText weight='bold' style={{ width: 'max-content' }}>
           {t('ProjectHeader.exploreProject')}
         </SpacedText>
         <FormDown />
