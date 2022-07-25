@@ -37,18 +37,21 @@ function ProjectHeaderContainer ({ availableLocales, className, defaultWorkflow,
       },
       {
         href: `${baseUrl}/talk`,
-        text: t('ProjectHeader.talk')
+        text: t('ProjectHeader.talk'),
+        pfe: true
       },
       {
         href: `${baseUrl}/collections`,
-        text: t('ProjectHeader.collect')
+        text: t('ProjectHeader.collect'),
+        pfe: true
       }
     ]
 
     if (isLoggedIn) {
       links.push({
         href: `${baseUrl}/recents`,
-        text: t('ProjectHeader.recents')
+        text: t('ProjectHeader.recents'),
+        pfe: true
       })
     }
 

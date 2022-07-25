@@ -12,6 +12,7 @@ describe('Component > ProjectHeaderContainer', function () {
   const PROJECT_DISPLAY_NAME = 'Foobar'
   const ROUTER = {
     query: {
+      locale: 'en',
       owner: 'Foo',
       project: 'Bar'
     }

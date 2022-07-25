@@ -16,7 +16,7 @@ function NavLink ({
   weight,
   ...anchorProps
 }) {
-  const { href, text } = link
+  const { href, pfe, text } = link
   const isCurrentPage = router?.asPath === addQueryParams(href, router)
 
   const label = <StyledSpacedText children={text} color={color} weight={weight} />
@@ -39,9 +39,9 @@ function NavLink ({
     // We also do not wrap it with next.js's Link
     return <StyledAnchor as='span' color={color} disabled label={label} {...anchorProps} />
   }
-  
+
   return (
-    <Link href={addQueryParams(href, router)} color={color} passHref>
+    <Link href={addQueryParams(href, router, pfe)} color={color} passHref>
       <StyledAnchor color={color} label={label} {...anchorProps} />
     </Link>
   )
