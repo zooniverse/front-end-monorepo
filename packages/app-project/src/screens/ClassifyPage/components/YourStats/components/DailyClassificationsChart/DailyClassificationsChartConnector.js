@@ -1,4 +1,5 @@
 import { MobXProviderContext, observer } from 'mobx-react'
+import { useRouter } from 'next/router'
 import { useContext } from 'react'
 
 import DailyClassificationsChartContainer from './DailyClassificationsChartContainer'
@@ -26,9 +27,13 @@ function storeMapper(store) {
 function DailyClassificationsChartConnector() {
   const { store } = useContext(MobXProviderContext)
   const { counts, thisWeek, projectName } = storeMapper(store)
+  const { locale } = useRouter()
+  const sanitizedLocale = locale === 'test' ? 'en' : locale
+
   return (
     <DailyClassificationsChartContainer
       counts={counts}
+      locale={sanitizedLocale}
       projectName={projectName}
       thisWeek={thisWeek}
     />
