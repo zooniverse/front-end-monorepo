@@ -30,6 +30,7 @@ function ProjectHeader({
   const showDropdownWithRow = (hasTranslations && width < 1200) || (!hasTranslations && width < 1100)
   const showDropdownWithColumn = (hasTranslations && width < 1000) || (!hasTranslations && width < 900)
 
+  /** Widths were determined visually and can be updated as needed if ProjectHeader components are refactored */
   const calcMaxWidth = () => {
     if (hasTranslations && width >= 1200) {
       return '560px'
