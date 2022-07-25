@@ -8,7 +8,7 @@ const defaultCounts = {
 
 function DailyClassificationsChartContainer({
   counts = defaultCounts,
-  locale='en',
+  locale = 'en',
   projectName,
   thisWeek = []
 }) {
