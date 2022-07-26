@@ -16,8 +16,6 @@ const StyledBox = styled(Box)`
   position: relative;
 `
 
-const environment = process.env.APP_ENV
-
 function ProjectHeader({
   availableLocales = [],
   className = '',
@@ -26,7 +24,7 @@ function ProjectHeader({
   title,
   width
 }) {
-  const hasTranslations = environment === 'development' && availableLocales?.length > 1
+  const hasTranslations = availableLocales?.length > 1
   const showDropdownWithRow = (hasTranslations && width < 1200) || (!hasTranslations && width < 1100)
   const showDropdownWithColumn = (hasTranslations && width < 1000) || (!hasTranslations && width < 900)
 
