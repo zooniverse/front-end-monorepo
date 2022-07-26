@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/browser'
+import * as Sentry from '@sentry/node'
 
 export default function initializeSentry () {
   const dsn = process.env.SENTRY_CONTENT_DSN
