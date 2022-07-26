@@ -1,1 +1,57 @@
-{}
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "register": "S'inscrire",
+      "signIn": "Se connecter"
+    }
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "signIn": "Se connecter"
+    },
+    "RegisterForm": {
+      "passwordConfirmError": "Les mots de passe ne correspondent pas, merci d'essayer à nouveau.",
+      "realName": "Prénom et Nom (optionnel)",
+      "realNameHelp": "Publique; nous utiliserons ce nom dans les remerciements des articles scientifiques, sur des posters, etc.",
+      "register": "S'inscrire"
+    }
+  },
+  "ConnectWithProject": {
+    "title": "Liens"
+  },
+  "Head": {
+    "defaultDescription": "",
+    "defaultTitle": "Projets",
+    "siteName": "Zooniverse"
+  },
+  "Loader": {
+    "loading": "(Chargement)"
+  },
+  "ProjectHeader": {
+    "about": "À propos",
+    "classify": "Classifier",
+    "exploreProject": "Explorer le project",
+    "talk": "Discussions",
+    "collect": "Collectionner",
+    "recents": "Récents",
+    "ApprovedIcon": {
+      "title": "Approuvé par Zooniverse"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Projet"
+    },
+    "UnderReviewLabel": {
+      "underReview": "En cours de révision"
+    }
+  },
+  "ProjectStatistics": {
+    "volunteers": "Volontaires"
+  },
+  "RequireUser": {
+    "text": "Vous n'êtes pas connecté"
+  },
+  "ThemeModeToggle": {
+    "switchToDark": "Passer au thème foncé",
+    "switchToLight": "Passer au thème clair"
+  }
+}

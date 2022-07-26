@@ -834,4 +834,32 @@ const task = {
   'questionsOrder': ['HWMN', 'WHTBHVRSDS', 'RTHRNNGPRSNT']
 }
 
+const strings = {}
+
+Object.entries(task.characteristics).forEach(([characteristicID, characteristic]) => {
+  const prefix = `characteristics.${characteristicID}`
+  strings[`${prefix}.label`] = characteristic.label
+  Object.entries(characteristic.values).forEach(([valueID, value]) => {
+    strings[`${prefix}.values.${valueID}.label`] = value.label
+  })
+})
+
+Object.entries(task.choices).forEach(([choiceID, choice]) => {
+  const prefix = `choices.${choiceID}`
+  strings[`${prefix}.label`] = choice.label
+  strings[`${prefix}.description`] = choice.description
+  Object.entries(choice.confusions).forEach(([confusionID, value]) => {
+    strings[`${prefix}.confusions.${confusionID}`] = value
+  })
+})
+
+Object.entries(task.questions).forEach(([questionID, question]) => {
+  const prefix = `questions.${questionID}`
+  strings[`${prefix}.label`] = question.label
+  Object.entries(question.answers).forEach(([answerID, answer]) => {
+    strings[`${prefix}.answers.${answerID}.label`] = answer.label
+  })
+})
+
+task.strings = strings
 export default task

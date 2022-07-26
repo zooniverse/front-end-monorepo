@@ -13,14 +13,14 @@
     "test:ci": "NODE_ENV=test mocha --config ./test/.mocharc.json --reporter=min \"./src/**/*.spec.js\""
   },
   "dependencies": {
-    "superagent": "~7.1.1",
+    "superagent": "~8.0.0",
     "url-parse": "~1.5.10"
   },
   "devDependencies": {
     "@zooniverse/standard": "~1.0.0",
     "chai": "~4.3.4",
     "dirty-chai": "~2.0.1",
-    "jsdom": "~19.0.0",
+    "jsdom": "~20.0.0",
     "mocha": "~10.0.0",
     "mock-local-storage": "~1.1.19",
     "nock": "~13.2.1",

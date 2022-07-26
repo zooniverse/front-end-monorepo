@@ -1,0 +1,30 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "研究项目",
+        "team": "研究团队"
+      }
+    },
+    "SidebarHeading": "关于"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "关于 {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "了解更多"
+      }
+    },
+    "ZooniverseTalk": {
+      "button": "Join in",
+      "title": "讨论"
+    }
+  },
+  "Classify": {
+    "YourStats": {
+      "title": "{{projectName}} 数据"
+    }
+  }
+}

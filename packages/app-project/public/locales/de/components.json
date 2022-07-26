@@ -1,0 +1,55 @@
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "register": "Registrierung",
+      "signIn": "Anmeldung"
+    }
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "signIn": "Anmeldung"
+    },
+    "RegisterForm": {
+      "passwordConfirmError": "Die Passwörter stimmen nicht überein. Bitte versuch es nochmal.",
+      "realName": "Richtiger Name (optional)",
+      "realNameHelp": "Öffentlich. Wir werden diesen Namen in wissenschaftlichen Veröffentlichungen und auf Postern etc. für Anerkennung der Mithilfe nutzen.",
+      "register": "Registrierung"
+    }
+  },
+  "ConnectWithProject": {
+    "title": "Links"
+  },
+  "Head": {
+    "defaultTitle": "Projekte"
+  },
+  "Loader": {
+    "loading": "(Laden)"
+  },
+  "ProjectHeader": {
+    "about": "Über",
+    "classify": "Klassifizieren",
+    "exploreProject": "Erkunde das Projekt",
+    "talk": "Diskutieren",
+    "collect": "Sammeln",
+    "recents": "Neueste",
+    "ApprovedIcon": {
+      "title": "Genehmigt von Zooniverse"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Projekt"
+    },
+    "UnderReviewLabel": {
+      "underReview": "In Begutachtung"
+    }
+  },
+  "ProjectStatistics": {
+    "volunteers": "Freiwillige"
+  },
+  "RequireUser": {
+    "text": "Du bist nicht angemeldet."
+  },
+  "ThemeModeToggle": {
+    "switchToDark": "Klicken für dunklen Hintergrund",
+    "switchToLight": "Klicken für hellen Hintergrund"
+  }
+}

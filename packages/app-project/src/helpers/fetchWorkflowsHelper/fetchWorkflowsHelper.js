@@ -1,8 +1,10 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 
+import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 import { logToSentry } from '@helpers/logger'
 
 async function fetchWorkflowData(workflows, env) {
+  const { headers, host } = getServerSideAPIHost(env)
   try {
     const query = {
       complete: false,
@@ -10,7 +12,7 @@ async function fetchWorkflowData(workflows, env) {
       fields: 'completeness,configuration,display_name,grouped,prioritized',
       id: workflows.join(',')
     }
-    const response = await panoptes.get('/workflows', query)
+    const response = await panoptes.get('/workflows', query, { ...headers }, host)
     return response.body.workflows
   } catch (error) {
     logToSentry(error)
@@ -19,13 +21,14 @@ async function fetchWorkflowData(workflows, env) {
 }
 
 async function fetchSingleWorkflow(workflowID, env) {
+  const { headers, host } = getServerSideAPIHost(env)
   try {
     const query = {
       env,
       fields: 'completeness,configuration,display_name,grouped,prioritized',
       id: workflowID
     }
-    const response = await panoptes.get('/workflows', query)
+    const response = await panoptes.get('/workflows', query, { ...headers }, host)
     const [ workflow ] = response.body.workflows
     return workflow
   } catch (error) {
@@ -35,15 +38,17 @@ async function fetchSingleWorkflow(workflowID, env) {
 }
 
 async function fetchDisplayNames(language, workflows, env) {
+  const { headers, host } = getServerSideAPIHost(env)
   let displayNames = {}
   try {
-    const response = await panoptes.get('/translations', {
+    const query = {
       env,
       fields: 'strings,translated_id',
       language,
       'translated_id': workflows.join(','),
       'translated_type': 'workflow'
-    })
+    }
+    const response = await panoptes.get('/translations', query, { ...headers }, host)
     const { translations } = response.body
     displayNames = createDisplayNamesMap(translations)
   } catch (error) {

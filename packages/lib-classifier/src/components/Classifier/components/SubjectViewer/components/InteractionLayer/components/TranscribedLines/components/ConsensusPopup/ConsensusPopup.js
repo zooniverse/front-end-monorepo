@@ -51,10 +51,10 @@ export default function ConsensusPopup ({
       position='top-left'
       plain
       rndProps={{
+        default: position,
         maxHeight: 350,
         minHeight: MIN_POPUP_HEIGHT,
-        minWidth: MIN_POPUP_WIDTH,
-        position
+        minWidth: MIN_POPUP_WIDTH
       }}
       title={t('SubjectViewer.InteractionLayer.TranscribedLines.ConsensusPopup.title')}
       titleColor=''

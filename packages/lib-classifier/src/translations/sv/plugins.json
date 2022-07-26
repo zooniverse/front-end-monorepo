@@ -1,0 +1,19 @@
+{
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Rensa filter",
+      "showing": "Visar {{showing}} av {{total}}"
+    },
+    "Choice": {
+      "identify": "Identifiera"
+    },
+    "ConfusedWith": {
+      "cancel": "Avbryt",
+      "confused": "Förväxlas ofta med",
+      "itsThis": "Jag tror att det är det här"
+    }
+  },
+  "TextFromSubjectTasks": {
+    "reset": "Återställ"
+  }
+}

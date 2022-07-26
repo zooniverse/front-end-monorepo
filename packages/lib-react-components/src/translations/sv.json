@@ -1,0 +1,35 @@
+{
+  "CloseButton": {
+    "close": "Stäng"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "Om",
+      "publications": "Publikationer",
+      "team": "Vårt team",
+      "acknowledgements": "Tack till",
+      "contact": "Kontakta oss",
+      "faq": "Vanliga frågor"
+    },
+    "buildLabels": {
+      "tutorial": "Snabbkurs"
+    },
+    "projectLabels": {
+      "projects": "Projekt"
+    },
+    "talkLabels": {
+      "talk": "Prata"
+    }
+  },
+  "ZooHeader": {
+    "mainHeaderNavListLabels": {
+      "projects": "Projekt",
+      "about": "Om",
+      "talk": "Prata"
+    },
+    "SignedOutUserNavigation": {
+      "register": "Registrera dig",
+      "signIn": "Logga in"
+    }
+  }
+}

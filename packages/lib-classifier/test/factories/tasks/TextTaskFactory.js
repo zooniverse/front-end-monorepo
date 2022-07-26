@@ -5,7 +5,6 @@ export default new Factory()
     'insertion',
     'deletion'
   ])
-  .attr('help', '')
   .attr('required', false)
   .attr('instruction', 'Enter some text')
   .attr('taskKey', '')

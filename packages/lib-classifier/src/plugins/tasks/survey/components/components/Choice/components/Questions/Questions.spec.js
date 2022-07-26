@@ -2,10 +2,12 @@ import { expect } from 'chai'
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 
-import { task as mockTask } from '@plugins/tasks/survey/mock-data'
+import SurveyTask from '@plugins/tasks/survey'
+import { task } from '@plugins/tasks/survey/mock-data'
 import Questions from './Questions'
 
 describe('Component > Questions', function () {
+  const mockTask = SurveyTask.TaskModel.create(task)
   const questionIds = ['HWMN', 'WHTBHVRSDS', 'RTHRNNGPRSNT']
 
   it('should render without crashing', function () {
@@ -13,6 +15,7 @@ describe('Component > Questions', function () {
       <Questions
         questionIds={questionIds}
         questions={mockTask.questions}
+        strings={mockTask.strings}
       />
     )
     expect(screen).to.be.ok()
@@ -25,6 +28,7 @@ describe('Component > Questions', function () {
       <Questions
         questionIds={questionIds}
         questions={mockTask.questions}
+        strings={mockTask.strings}
       />
     )
     expect(screen.queryAllByRole('radio', { hidden: true })).to.have.lengthOf(14)
@@ -37,6 +41,7 @@ describe('Component > Questions', function () {
         answers={{ WHTBHVRSDS: ['RSTNG', 'TNG'], HWMN: '9' }}
         questionIds={questionIds}
         questions={mockTask.questions}
+        strings={mockTask.strings}
       />
     )
     const radioInputs = screen.queryAllByRole('radio', { hidden: true })
@@ -67,6 +72,7 @@ describe('Component > Questions', function () {
           hasFocus
           questionIds={questionIds}
           questions={mockTask.questions}
+          strings={mockTask.strings}
         />
       )
       expect(screen.getByLabelText('1')).to.equal(document.activeElement)

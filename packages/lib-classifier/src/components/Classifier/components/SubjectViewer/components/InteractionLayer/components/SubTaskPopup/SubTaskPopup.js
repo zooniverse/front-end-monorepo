@@ -1,17 +1,18 @@
 import { Box, Paragraph } from 'grommet'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { MovableModal } from '@zooniverse/react-components'
 import { useTranslation } from 'react-i18next'
 
+import { useClientRect } from '@hooks'
 import * as taskRegister from '@plugins/tasks'
 import getDefaultPosition from '../../helpers/getDefaultPosition'
 import ConfirmModal from './components/ConfirmModal'
 import SaveButton from './components/SaveButton'
 
 const MIN_POPUP_WIDTH = 350
-const MIN_POPUP_HEIGHT = 100
+const MIN_POPUP_HEIGHT = 200
 
 /**
   A popup that renders activeMark.tasks for the active mark. Incomplete task annotations are confirmed, on save or close, for required tasks.
@@ -22,17 +23,20 @@ function SubTaskPopup({
   /** A callback that is called if the active mark is deleted. */
   onDelete
 }) {
-  const { t } = useTranslation('components')
-
   const {
     subTaskMarkBounds,
     subTaskVisibility,
     subTaskPreviousAnnotationValues,
     setSubTaskVisibility
   } = activeMark
+
+  const { t } = useTranslation('components')
+  const [dimensions, measuredContentRef] = useClientRect()
+  const [confirmationState, setConfirm] = useState('pending')
+  const [position, setPosition] = useState(null)
+
   if (!subTaskVisibility) return null
 
-  const [confirmationState, setConfirm] = React.useState('pending')
   function onOpenConfirm() {
     setConfirm('confirming')
   }
@@ -65,12 +69,33 @@ function SubTaskPopup({
     event.stopPropagation()
   }
 
-  const defaultPosition = getDefaultPosition(subTaskMarkBounds, MIN_POPUP_HEIGHT, MIN_POPUP_WIDTH)
+  const minHeight = dimensions?.height || MIN_POPUP_HEIGHT
+  const minWidth = dimensions?.width || MIN_POPUP_WIDTH
+  const defaultPosition = getDefaultPosition(subTaskMarkBounds, minHeight, minWidth)
   const disabled = !ready || confirmationState === 'confirming'
+
+  const onDragStop = useCallback(function (event, data) {
+    const { x, y } = data
+    setPosition({ x, y })
+  })
+
+  const onResize = useCallback(function (event, direction, ref, delta, position) {
+    setPosition(position)
+  })
+
+  const rndProps = {
+    cancel: '.subtaskpopup-element-that-ignores-drag-actions',
+    minHeight,
+    minWidth,
+    onDragStop,
+    onResize,
+    position: position || defaultPosition
+  }
 
   return (
     <>
       <MovableModal
+        ref={measuredContentRef}
         active
         closeFn={close}
         headingBackground='transparent'
@@ -78,12 +103,7 @@ function SubTaskPopup({
         pad={{ bottom: 'medium', left: 'medium', right: 'medium' }}
         plain
         position='top-left'
-        rndProps={{
-          cancel: '.subtaskpopup-element-that-ignores-drag-actions',
-          minHeight: MIN_POPUP_HEIGHT,
-          minWidth: MIN_POPUP_WIDTH,
-          position: defaultPosition
-        }}
+        rndProps={rndProps}
         titleColor=''
       >
         <Box gap='small'>

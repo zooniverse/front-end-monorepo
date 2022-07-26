@@ -2,6 +2,7 @@ import { Markdownz, pxToRem } from '@zooniverse/react-components'
 import { Box, Select, Text, TextInput } from 'grommet'
 import { Down } from 'grommet-icons'
 import { observer } from 'mobx-react'
+import { getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css } from 'styled-components'
@@ -21,21 +22,24 @@ const StyledText = styled(Text)`
 // artificially disabled. Please refer to the README. (@shaunanoordin 20200820)
 const ENABLE_OTHER_OPTION = false
 
-function SimpleDropdownTask (props) {
-  const {
-    annotation,
-    className,
-    disabled,
-    task,
-  } = props
+function SimpleDropdownTask({
+  annotation,
+  className = '',
+  disabled = false,
+  task,
+}) {
   const { t } = useTranslation('plugins')
   const { value } = annotation
+  const stringsSnapshot = getSnapshot(task.strings)
+  const optionsPrefix = 'selects.0.options.*.'
 
   // Decide what kind of options to display.
   // Use an array of objects instead of an array of text.
   // This solves issues of duplicate text.
-  const optionsToDisplay = task.options.map(opt => ({
-    text: opt,
+  const optionsToDisplay = Object.entries(stringsSnapshot)
+  .filter(([key, value]) => key.startsWith(optionsPrefix))
+  .map(([key, value]) => ({
+    text: value
   }))
 
   // If the Other option is enabled, we allow users to type in any text.
@@ -121,11 +125,6 @@ function SimpleDropdownTask (props) {
       </Box>
     </Box>
   )
-}
-
-SimpleDropdownTask.defaultProps = {
-  className: '',
-  disabled: false,
 }
 
 SimpleDropdownTask.propTypes = {

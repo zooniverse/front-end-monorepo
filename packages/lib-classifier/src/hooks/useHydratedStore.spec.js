@@ -2,6 +2,7 @@ import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 import React from 'react'
 import { renderHook } from '@testing-library/react-hooks/pure'
 
+import branchingWorkflow from '@test/mockStore/branchingWorkflow'
 import mockStore from '@test/mockStore'
 import RootStore from '@store/RootStore'
 import { cleanStore } from './useHydratedStore'
@@ -93,6 +94,48 @@ describe('Hooks > useHydratedStore', function () {
     it('should load the snapshot into the store', function () {
       const snapshot = getSnapshot(store)
       expect(snapshot.projects).to.deep.equal(mockSnapshot.projects)
+    })
+
+    it('should restart the subject queue', function () {
+      const snapshot = getSnapshot(store)
+      expect(snapshot.subjects.queue).to.be.empty()
+    })
+
+    it('should reset the active subject', function () {
+      const snapshot = getSnapshot(store)
+      expect(snapshot.subjects.active).to.be.undefined()
+    })
+  })
+
+  describe('with a prioritised workflow', function () {
+    let store
+    let mockSnapshot
+    let activeSubject
+
+    beforeEach(function () {
+      const workflow = { ...branchingWorkflow, prioritized: true }
+      const expectedStore = mockStore({ workflow })
+      mockSnapshot = getSnapshot(expectedStore)
+      activeSubject = mockSnapshot.subjects.active
+      window.sessionStorage.setItem('test-key', JSON.stringify(mockSnapshot))
+
+      const { authClient, client } = expectedStore
+      const { result } = renderHook(() => useHydratedStore({ authClient, client }, true, 'test-key'))
+      store = result.current
+    })
+
+    afterEach(function () {
+      cleanStore()
+    })
+
+    it('should preserve the subject queue across page loads', function () {
+      const snapshot = getSnapshot(store)
+      expect(snapshot.subjects.queue).not.to.be.empty()
+    })
+
+    it('should preserve the active subject across page loads', function () {
+      const snapshot = getSnapshot(store)
+      expect(snapshot.subjects.active).equal(activeSubject)
     })
   })
 })

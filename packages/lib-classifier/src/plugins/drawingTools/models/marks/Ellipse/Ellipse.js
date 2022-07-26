@@ -16,6 +16,9 @@ const EllipseModel = types
     ry: types.optional(types.number, 0),
     angle: types.optional(types.number, 0)
   })
+  .volatile(self => ({
+    dragging: false,
+  }))
   .views((self) => ({
     get coords() {
       return {
@@ -56,16 +59,19 @@ const EllipseModel = types
   }))
   .actions((self) => ({
     initialDrag({ x, y }) {
-      const rx = self.getDistance(self.x_center, self.y_center, x, y)
-      const angle = self.getAngle(self.x_center, self.y_center, x, y)
-      self.rx = rx
-      self.ry = rx * 0.0001
-      self.angle = angle
+      if (self.dragging) {
+        const rx = self.getDistance(self.x_center, self.y_center, x, y)
+        const angle = self.getAngle(self.x_center, self.y_center, x, y)
+        self.rx = rx
+        self.ry = rx * 0.0001
+        self.angle = angle
+      }
     },
 
     initialPosition({ x, y }) {
       self.x_center = x
       self.y_center = y
+      self.dragging = true
     },
 
     move({ x, y }) {
@@ -79,6 +85,10 @@ const EllipseModel = types
       self.rx = rx
       self.ry = ry
       self.angle = angle
+    },
+
+    setDragging(dragging) {
+      self.dragging = dragging
     }
   }))
 

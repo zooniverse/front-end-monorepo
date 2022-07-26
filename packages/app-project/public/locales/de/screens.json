@@ -1,0 +1,44 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "Forschung",
+        "team": "Das Team",
+        "results": "Ergebnisse",
+        "education": "Bildung",
+        "faq": "FAQ"
+      }
+    },
+    "SidebarHeading": "Über"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Über {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Erfahre mehr"
+      }
+    },
+    "MessageFromResearcher": {
+      "title": "Vom Forscherteam"
+    },
+    "ZooniverseTalk": {
+      "button": "Mach mit",
+      "title": "Diskutieren"
+    }
+  },
+  "Classify": {
+    "RecentSubjects": {
+      "title": "Deine kürzlichen Klassifikationen"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Nein, danke!",
+      "confirm": "Bring mich zum nächsten Level!",
+      "content": "Glückwunsch! Du hast den nächsten Workflow freigeschalten. Wenn Du lieber in diesem Workflow bleiben möchtest, kannst Du auswählen hier zu bleiben."
+    },
+    "YourStats": {
+      "title": "{{projectName}} Statistik"
+    }
+  }
+}

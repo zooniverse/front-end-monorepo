@@ -12,7 +12,7 @@ describe('Component > TeamMember', function () {
     const username = getByText('@mock_user')
     expect(username).exists()
 
-    const firstRole = getByText('collaborator')
+    const firstRole = getByText('About.TeamMember.collaborator')
     expect(firstRole).exists()
   })
 
@@ -27,7 +27,7 @@ describe('Component > TeamMember', function () {
 
   it('should display scientist role as researcher', function () {
     const { getByText } = render(<Default />)
-    const secondRole = getByText('researcher')
+    const secondRole = getByText('About.TeamMember.researcher')
     expect(secondRole).exists()
   })
 

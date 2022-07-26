@@ -46,7 +46,6 @@ All tools should extend the Tool model by implementing the following:
 - _handlePointerDown(event, mark)_: handle pointer down events when creating `mark`. `event.x` and `event.y` contain the pointer coordinates on the SVG canvas. Implement this action to handle custom mark validation for marks that require complex gestures to create.
 - _handlePointerMove(event, mark)_: handle pointer move events when creating `mark`. `event.x` and `event.y` contain the pointer coordinates on the SVG canvas. Implement this action to handle custom mark validation for marks that require complex gestures to create.
 - _handlePointerUp(event, mark)_: handle pointer up events when creating `mark`. `event.x` and `event.y` contain the pointer coordinates on the SVG canvas. Implement this action to handle custom mark validation for marks that require complex gestures to create.
-- _handlePointerPosition(event, mark)_: outputs the pointer coordinates on the SVG canvas when not creating an annotation. Implement this action if a guideline is needed. See `polygonTool` as an example.
 
 ## Mark models
 

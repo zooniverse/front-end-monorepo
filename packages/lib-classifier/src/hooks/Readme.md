@@ -1,5 +1,13 @@
 # Classifier hooks
 
+## useClientRect
+
+Get the bounding client rectangle (`rect`) for a referenced DOM node (`ref`.)
+
+```js
+const [rect, ref] = useClientRect()
+```
+
 ## useHydratedStore
 
 Create a `mobx-state-tree` store from an optional stored [snapshot](https://mobx-state-tree.js.org/concepts/snapshots). Adds an `onSnapshot` handler to keep the stored snapshot updated when the store changes.

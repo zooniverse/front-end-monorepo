@@ -3,13 +3,15 @@ import { RadioButtonGroup } from 'grommet'
 import React from 'react'
 import sinon from 'sinon'
 
-import { task as mockTask } from '@plugins/tasks/survey/mock-data'
+import SurveyTask from '@plugins/tasks/survey'
+import { task } from '@plugins/tasks/survey/mock-data'
 import CharacteristicSection from './CharacteristicSection'
 import FilterButton from '../../components/FilterButton'
 
-const characteristicTail = mockTask.characteristics.TL
-
 describe('Component > CharacteristicSection', function () {
+  const mockTask = SurveyTask.TaskModel.create(task)
+  const characteristicTail = mockTask.characteristics.TL
+  
   let wrapper, onFilterSpy
 
   before(function () {
@@ -21,6 +23,7 @@ describe('Component > CharacteristicSection', function () {
         images={mockTask.images}
         onFilter={onFilterSpy}
         selectedValueId=''
+        strings={mockTask.strings}
       />
     )
   })
@@ -55,6 +58,7 @@ describe('Component > CharacteristicSection', function () {
           images={mockTask.images}
           onFilter={onFilterSpy}
           selectedValueId=''
+          strings={mockTask.strings}
         />
       )
 

@@ -1,0 +1,16 @@
+{
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Filter löschen",
+      "showing": "Zeigt {{showing}} von {{total}}"
+    },
+    "Choice": {
+      "identify": "Identifizieren"
+    },
+    "ConfusedWith": {
+      "cancel": "Zurückziehen",
+      "confused": "Oft verwechselt mit",
+      "itsThis": "Ich denke, das ist es."
+    }
+  }
+}

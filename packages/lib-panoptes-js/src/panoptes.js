@@ -24,6 +24,22 @@ function determineHost (query, host) {
   return config.host
 }
 
+function parseHeaders(headers = {}) {
+  let httpHeaders = {}
+
+  Object.entries(headers).forEach(([key, value]) => {
+    let header = key
+    if (key === 'authorization') {
+      header = 'Authorization'
+    }
+    if (key === 'etag') {
+      header = 'If-Match'
+    }
+    httpHeaders[header] = value
+  })
+  return httpHeaders
+}
+
 function getQueryParams (query) {
   const defaultParams = { admin: checkForAdminFlag(), http_cache: true }
 
@@ -46,7 +62,9 @@ function get (endpoint, query = {}, headers = {}, host) {
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
 
-  if (headers && headers.authorization) request.set('Authorization', headers.authorization)
+  if (headers){
+    request.set(parseHeaders(headers))
+  }
   const queryParams = getQueryParams(query)
 
   return request.query(queryParams).then(response => response)
@@ -61,7 +79,9 @@ function post (endpoint, data, headers = {}, query = {}, host) {
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
 
-  if (headers && headers.authorization) request.set('Authorization', headers.authorization)
+  if (headers){
+    request.set(parseHeaders(headers))
+  }
   const queryParams = getQueryParams(query)
 
   return request.query(queryParams)
@@ -79,8 +99,9 @@ function put (endpoint, data, headers = {}, query = {}, host) {
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
 
-  if (headers && headers.authorization) request.set('Authorization', headers.authorization)
-  if (headers && headers.etag) request.set('If-Match', headers.etag)
+  if (headers){
+    request.set(parseHeaders(headers))
+  }
   const queryParams = getQueryParams(query)
 
   return request.query(queryParams)
@@ -97,7 +118,9 @@ function del (endpoint, query = {}, headers = {}, host) {
     .set('Content-Type', 'application/json')
     .set('Accept', 'application/vnd.api+json; version=1')
 
-  if (headers && headers.authorization) request.set('Authorization', headers.authorization)
+  if (headers){
+    request.set(parseHeaders(headers))
+  }
   const queryParams = getQueryParams(query)
 
   return request.query(queryParams)

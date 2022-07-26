@@ -16,9 +16,8 @@ export default function AlreadySeenBanner({ subject }) {
 
   return (
     <Banner
-      background='status-ok'
+      background='status-critical'
       bannerText={t('Banners.AlreadySeenBanner.bannerText')}
-      color='neutral-7'
       show={show}
       tooltipText={t('Banners.AlreadySeenBanner.tooltipText', { returnObjects: true })}
     />

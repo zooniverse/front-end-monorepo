@@ -2,35 +2,33 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
+
+import { default as Task } from '@plugins/tasks/drawing'
 import DrawingTask from './DrawingTask'
 import TaskInput from '../../components/TaskInput'
 
-// TODO: move to factory
-const task = {
-  activeToolIndex: 0,
-  help: 'Help content.',
-  instruction: 'Draw something.',
-  taskKey: 'T0',
-  tools: [{
-    label: 'Line',
-    max: 3,
-    type: 'line',
-    marks: {
-      size: 0
-    }
-  }, {
-    label: 'Point',
-    min: 1,
-    type: 'point',
-    marks: {
-      size: 0
-    }
-  }],
-  type: 'drawing',
-  setActiveTool: sinon.stub()
-}
-
 describe('DrawingTask', function () {
+  // TODO: move to factory
+  const task = Task.TaskModel.create({
+    activeToolIndex: 0,
+    help: 'Help content.',
+    strings: {
+      instruction: 'Draw something.',
+      'tools.0.label': 'Line',
+      'tools.1.label': 'Point'
+    },
+    taskKey: 'T0',
+    tools: [{
+      max: 3,
+      type: 'line'
+    }, {
+      min: 1,
+      type: 'point'
+    }],
+    type: 'drawing',
+    setActiveTool: sinon.stub()
+  })
+
   describe('when it renders', function () {
     let wrapper
     before(function () {

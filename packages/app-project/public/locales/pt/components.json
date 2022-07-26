@@ -1,0 +1,58 @@
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "register": "Registar-se",
+      "signIn": "Entrar"
+    }
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "signIn": "Entrar"
+    },
+    "RegisterForm": {
+      "passwordConfirmError": "As senhas não coincidem. Tente novamente.",
+      "realName": "Nome verdadeiro (opcional)",
+      "realNameHelp": "Público; será usado para o reconhecermos em documentos, cartazes, etc.",
+      "register": "Registar-se"
+    }
+  },
+  "ConnectWithProject": {
+    "title": "Ligações"
+  },
+  "Head": {
+    "defaultTitle": "Projectos"
+  },
+  "Loader": {
+    "loading": "(A carregar)"
+  },
+  "ProjectHeader": {
+    "about": "Sobre",
+    "classify": "Classificar",
+    "exploreProject": "Explorar o Projecto",
+    "talk": "Debater",
+    "collect": "Coleccionar",
+    "recents": "Recentes",
+    "ApprovedIcon": {
+      "title": "Aprovado pelo Zooniverse"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Projecto "
+    },
+    "UnderReviewLabel": {
+      "underReview": "Em  Revisã"
+    }
+  },
+  "ProjectStatistics": {
+    "percentComplete": "Percentagem completada",
+    "subtitle": "Mantenha-se a par do progresso alcançado por si e pelos seus colegas voluntários do projecto.",
+    "text": "Todos os toques contam! Junte-se à comunidade do projecto {{projectName}} para o completar e ajudar os investigadores a produzir resultados importantes.",
+    "volunteers": "Voluntários"
+  },
+  "RequireUser": {
+    "text": "Não tem uma sessão activa"
+  },
+  "ThemeModeToggle": {
+    "switchToDark": "Mudar para escuro tema",
+    "switchToLight": "Mudar para claro tema"
+  }
+}

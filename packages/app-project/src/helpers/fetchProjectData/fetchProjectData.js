@@ -2,13 +2,17 @@ import { get } from 'lodash'
 import asyncStates from '@zooniverse/async-states'
 import { projects } from '@zooniverse/panoptes-js'
 
+import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
+import { logToSentry } from '@helpers/logger'
+
 export default async function fetchProjectData(slug, params) {
+  const { headers, host } = getServerSideAPIHost(params?.env)
   const projectData = {
     loadingState: asyncStates.loading
   }
+  const query = { ...params, slug }
   try {
-    const query = { ...params, slug }
-    const response = await projects.getWithLinkedResources({ query })
+    const response = await projects.getWithLinkedResources({ query, headers, host })
     const project = response.body.projects[0]
     if (!project) throw new Error(`${slug} could not be found`)
 
@@ -17,7 +21,6 @@ export default async function fetchProjectData(slug, params) {
     projectData.avatar = get(linked, 'avatars[0]', {})
     projectData.background = get(linked, 'backgrounds[0]', {})
     projectData.owners = get(linked, 'owners', [])
-    const about_pages = get(linked, 'project_pages', [])
 
     projectData.strings = {
       description: project.description,
@@ -27,18 +30,6 @@ export default async function fetchProjectData(slug, params) {
       title: project.title,
       workflow_description: project.workflow_description
     }
-
-    /* Only the page titles and URL keys are needed
-    to build the navigation menu */
-    projectData.about_pages = about_pages.map(page =>{
-      if (page.content?.length) {
-        return ({
-          id: page.id,
-          title: page.title,
-          url_key: page.url_key
-        })
-      }
-    }).filter(Boolean)
 
     const properties = [
       'beta_approved',
@@ -71,6 +62,7 @@ export default async function fetchProjectData(slug, params) {
     console.error('Error loading project:', error)
     projectData.error = error
     projectData.loadingState = asyncStates.error
+    logToSentry(error, { query, host })
   }
   return projectData
 }

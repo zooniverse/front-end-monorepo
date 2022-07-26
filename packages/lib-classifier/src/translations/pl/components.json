@@ -1,0 +1,54 @@
+{
+  "Banners": {
+    "Banner": {
+      "next": "Następny"
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Dalej"
+  },
+  "FieldGuide": {
+    "title": "Przewodnik",
+    "FieldGuideButton": {
+      "buttonLabel": "Przewodnik"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Wstecz"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Samouczek"
+  },
+  "SlideTutorial": {
+    "getStarted": "Zaczynaj",
+    "heading": "{{projectDisplayName}} Samouczek"
+  },
+  "SubjectViewer": {
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Następny"
+      }
+    }
+  },
+  "TaskArea": {
+    "task": "Zadanie",
+    "tutorial": "Samouczek",
+    "Tasks": {
+      "BackButton": {
+        "back": "Wstecz"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Gotowe & Lista dyskusyjna"
+      },
+      "DoneButton": {
+        "done": "Gotowe"
+      },
+      "NextButton": {
+        "next": "Następny"
+      },
+      "TaskHelp": {
+        "label": "Potrzebujesz pomocy?"
+      }
+    }
+  }
+}

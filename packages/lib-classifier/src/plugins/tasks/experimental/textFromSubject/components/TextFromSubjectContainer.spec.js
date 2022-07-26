@@ -11,7 +11,9 @@ describe('TextFromSubjectContainer', function () {
   let wrapper
 
   const task = Task.TaskModel.create({
-    instruction: 'Correct the text',
+    strings: {
+      instruction: 'Correct the text'
+    },
     taskKey: 'T0',
     type: 'textFromSubject'
   })

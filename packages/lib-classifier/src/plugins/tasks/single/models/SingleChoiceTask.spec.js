@@ -1,18 +1,20 @@
 import { types } from 'mobx-state-tree'
 import SingleChoiceTask from '@plugins/tasks/single'
 
-const singleChoiceTask = {
-  answers: [
-    { label: 'yes', next: 'S2' },
-    { label: 'no', next: 'S3' }
-  ],
-  question: 'Do you exist?',
-  required: '',
-  taskKey: 'T1',
-  type: 'single'
-}
-
 describe('Model > SingleChoiceTask', function () {
+  const singleChoiceTask = {
+    answers: [
+      { label: 'yes', next: 'S2' },
+      { label: 'no', next: 'S3' }
+    ],
+    required: '',
+    strings: {
+      question: 'Do you exist?'
+    },
+    taskKey: 'T1',
+    type: 'single'
+  }
+
   it('should exist', function () {
     const singleChoiceTaskInstance = SingleChoiceTask.TaskModel.create(singleChoiceTask)
     expect(singleChoiceTaskInstance).to.be.ok()

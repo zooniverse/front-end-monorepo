@@ -2,13 +2,14 @@ import { mount } from 'enzyme'
 import { Provider } from 'mobx-react'
 import sinon from 'sinon'
 import React from 'react'
+import asyncStates from '@zooniverse/async-states'
 
 import mockStore from '@test/mockStore'
-import { DraggableImage, MultiFrameViewerContainer } from './MultiFrameViewerContainer'
-import FrameCarousel from './FrameCarousel'
+import TranscriptionLineTool from '@plugins/drawingTools/experimental/models/tools/TranscriptionLineTool/TranscriptionLineTool'
+import { DraggableImage } from '../SVGComponents/SVGImage'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
-import TranscriptionLineTool from '../../../../../../plugins/drawingTools/experimental/models/tools/TranscriptionLineTool/TranscriptionLineTool'
-import asyncStates from '@zooniverse/async-states'
+import FrameCarousel from './FrameCarousel'
+import { MultiFrameViewerContainer } from './MultiFrameViewerContainer'
 
 describe('Component > MultiFrameViewerContainer', function () {
   let wrapper

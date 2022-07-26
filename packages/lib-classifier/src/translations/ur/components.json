@@ -1,0 +1,77 @@
+{
+  "Banners": {
+    "Banner": {
+      "next": "اگلا"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "منسوخ ",
+      "confirm": "ٹھیک ہے",
+      "inProgress": " واپس جانے سے آپ کا موجودہ کام ختم ہو جائےگا۔"
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "جاری رکھیں"
+  },
+  "FieldGuide": {
+    "title": "فیلڈ گائیڈ",
+    "FieldGuideButton": {
+      "buttonLabel": "فیلڈ گائیڈ"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "واپس"
+    }
+  },
+  "ImageToolbar": {
+    "ResetButton": {
+      "ariaLabel": "بصری معائنہ کو ترتیب دیں۔ "
+    }
+  },
+  "ModalTutorial": {
+    "title": " درس"
+  },
+  "QuickTalk": {
+    "status": {
+      "loading": "لوڈنگ"
+    }
+  },
+  "SlideTutorial": {
+    "getStarted": "شروع کریں",
+    "heading": "{{projectDisplayName}}  درس"
+  },
+  "SubjectViewer": {
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "اگلا"
+      }
+    }
+  },
+  "TaskArea": {
+    "task": "کام",
+    "tutorial": " درس",
+    "DisabledTaskPopup": {
+      "options": {
+        "dismiss": "خارج کریں"
+      }
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "واپس",
+        "tooltip": " واپس جانے سے آپ کا موجودہ کام ختم ہو جائےگا۔"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "ختم ہو گیا اور بات کریں"
+      },
+      "DoneButton": {
+        "done": "ختم ہو گیا"
+      },
+      "loading": "لوڈنگ",
+      "NextButton": {
+        "next": "اگلا"
+      },
+      "TaskHelp": {
+        "close": "بند کریں",
+        "label": "اس کام میں کوئی مدد درکار ہے؟"
+      }
+    }
+  }
+}

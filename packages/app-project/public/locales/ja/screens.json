@@ -1,0 +1,39 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "研究",
+        "team": "チームメンバー",
+        "results": "結果",
+        "education": "教育",
+        "faq": "よくある質問"
+      }
+    },
+    "SidebarHeading": "プロジェクト概要"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "{{projectName}} について"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "このプロジェクトについて"
+      }
+    },
+    "ZooniverseTalk": {
+      "button": "参加する",
+      "title": "トーク"
+    }
+  },
+  "Classify": {
+    "RecentSubjects": {
+      "title": "最近行った分類"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "結構です"
+    },
+    "YourStats": {
+      "title": "{{projectName}} 統計"
+    }
+  }
+}

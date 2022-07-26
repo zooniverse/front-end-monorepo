@@ -1,0 +1,68 @@
+{
+  "Banners": {
+    "Banner": {
+      "next": "הלאה"
+    },
+    "InProgressConfirmModal": {
+      "inProgress": "חזרה אחורה תבטל את התשובה שסימנתם/ן"
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "המשך"
+  },
+  "FieldGuide": {
+    "title": "מדריך מעשי",
+    "FieldGuideButton": {
+      "buttonLabel": "מדריך מעשי"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "אחורה"
+    }
+  },
+  "ImageToolbar": {
+    "ResetButton": {}
+  },
+  "ModalTutorial": {
+    "title": "הדרכה"
+  },
+  "QuickTalk": {
+    "status": {
+      "loading": "(בטעינה)"
+    }
+  },
+  "SlideTutorial": {
+    "getStarted": "בואו נתחיל",
+    "heading": "{{projectDisplayName}} הדרכה"
+  },
+  "SubjectViewer": {
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "הלאה"
+      }
+    }
+  },
+  "TaskArea": {
+    "task": "משימה",
+    "tutorial": "הדרכה",
+    "Tasks": {
+      "BackButton": {
+        "back": "אחורה",
+        "tooltip": "חזרה אחורה תבטל את התשובה שסימנתם/ן"
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "שמור ועבור לשיחה"
+      },
+      "DoneButton": {
+        "done": "שמור"
+      },
+      "loading": "(בטעינה)",
+      "NextButton": {
+        "next": "הלאה"
+      },
+      "TaskHelp": {
+        "close": "סגור",
+        "label": "?זקוק/ה לעזרה עם המשימה הזו"
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "CloseButton": {
+    "close": "閉じる"
+  },
+  "ZooFooter": {
+    "buildLabels": {
+      "tutorial": "チュートリアル"
+    },
+    "talkLabels": {
+      "talk": "トーク"
+    }
+  },
+  "ZooHeader": {
+    "mainHeaderNavListLabels": {
+      "talk": "トーク"
+    }
+  }
+}

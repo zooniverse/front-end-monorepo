@@ -1,19 +1,17 @@
-import getDefaultPageProps from '@helpers/getDefaultPageProps'
-export { default } from '@screens/ClassifyPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import getDefaultPageProps from '@helpers/getDefaultPageProps'
 
-export async function getServerSideProps({ locale, params, query, req, res }) {
+export { default } from '@screens/ClassifyPage'
+
+export async function getServerSideProps({ defaultLocale, locale, params, query, req, res, resolvedUrl }) {
   const { notFound, props } = await getDefaultPageProps({ locale, params, query, req, res })
   if (props.workflowID) {
-    const { env } = query
-    const { project } = props.initialState
-    const { workflows } = props
-    const workflow = workflows.find(workflow => workflow.id === params.workflowID)
-    const workflowPath = `/${project?.slug}/classify/workflow/${props.workflowID}`
-    const destination = env ? `${workflowPath}?env=${env}` : workflowPath
+    const [requestPath, requestQuery] = resolvedUrl.split('?')
+    const pathname = locale === defaultLocale ? requestPath : `/${locale}${requestPath}`
+    const search = requestQuery ? `?${requestQuery}` : ''
     return ({
       redirect: {
-        destination,
+        destination: `${pathname}/workflow/${props.workflowID}${search}`,
         permanent: true
       }
     })

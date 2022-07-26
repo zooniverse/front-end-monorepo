@@ -2,11 +2,13 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
 
-import { task as mockTask } from '@plugins/tasks/survey/mock-data'
+import SurveyTask from '@plugins/tasks/survey'
+import { task } from '@plugins/tasks/survey/mock-data'
 import Characteristics from './Characteristics'
 import CharacteristicSection from './components/CharacteristicSection'
 
 describe('Component > Characteristics', function () {
+  const mockTask = SurveyTask.TaskModel.create(task)
   let wrapper, onFilterSpy
 
   before(function () {
@@ -17,6 +19,7 @@ describe('Component > Characteristics', function () {
         characteristicsOrder={mockTask.characteristicsOrder}
         images={mockTask.images}
         onFilter={onFilterSpy}
+        strings={mockTask.strings}
       />
     )
   })

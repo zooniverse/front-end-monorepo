@@ -1,0 +1,16 @@
+{
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Wis filters",
+      "showing": "Toont {{showing}} van {{total}}"
+    },
+    "Choice": {
+      "identify": "Selecteren"
+    },
+    "ConfusedWith": {
+      "cancel": "Annuleren",
+      "confused": "Word vaak verward met",
+      "itsThis": "Volgens mij het deze"
+    }
+  }
+}

@@ -25,14 +25,14 @@ Additional props for the `Rnd` component:
 {
   minHeight: 100,
   minWidth: 350,
-  position: {
+  default: {
     x: 0,
     y: 0
   }
 }
 ```
 
-The props `minHeight` and `minWidth` in the object get applied to the `Rnd` `minHeight` and `minWidth` props. The `position` prop is applied to `Rnd`'s `default` prop. The object can accept any other additional props allowed by `Rnd`.
+The props `minHeight` and `minWidth` in the object get applied to the `Rnd` `minHeight` and `minWidth` props. The `default` prop is applied to `Rnd`'s `default` prop. The object can accept any other additional props allowed by `Rnd`.
 
 ## Example
 

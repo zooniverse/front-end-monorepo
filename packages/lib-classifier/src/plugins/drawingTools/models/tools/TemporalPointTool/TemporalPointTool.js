@@ -14,6 +14,14 @@ const TemporalPointTool = types
       )
       self.marks.put(newMark)
       return newMark
+    },
+
+    handlePointerMove(event, mark) {
+      mark.initialDrag(event)
+    },
+
+    handlePointerUp(event, mark) {
+      mark.finish()
     }
   }))
 

@@ -41,48 +41,35 @@ export function ButtonLabel () {
 
   return (
     <Box as='span' align='center' direction='column'>
-      <StyledSpacedText size='xsmall' color='white'>
-        {t('FieldGuide.FieldGuideButton.buttonLabel.field')}
-      </StyledSpacedText>
-      <StyledSpacedText size='xsmall' color='white'>
-        {t('FieldGuide.FieldGuideButton.buttonLabel.guide')}
+      <StyledSpacedText size='xsmall' color='white' textAlign='center'>
+        {t('FieldGuide.FieldGuideButton.buttonLabel')}
       </StyledSpacedText>
       <StyledHelpIcon />
     </Box>
   )
 }
 
-function FieldGuideButton (props) {
-  const {
-    fieldGuide,
-    onOpen,
-    theme
-  } = props
+function FieldGuideButton ({
+  fieldGuide = null,
+  onClick,
+  theme
+}) {
   const disabled = !fieldGuide || fieldGuide.items.length === 0
 
   return (
     <StyledButton
       label={<ButtonLabel />}
       disabled={disabled}
-      onClick={onOpen}
+      onClick={onClick}
       plain
       theme={theme}
     />
   )
 }
 
-FieldGuideButton.defaultProps = {
-  fieldGuide: null,
-  theme: {
-    global: {
-      colors: {}
-    }
-  }
-}
-
 FieldGuideButton.propTypes = {
   fieldGuide: PropTypes.object,
-  onOpen: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   theme: PropTypes.object
 }
 

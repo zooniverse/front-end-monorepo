@@ -1,0 +1,13 @@
+{
+  "ProjectHeader": {
+    "about": "关于",
+    "classify": "分类",
+    "exploreProject": "探索项目",
+    "talk": "讨论",
+    "collect": "收藏",
+    "recents": "最近"
+  },
+  "ProjectStatistics": {
+    "volunteers": "志愿者"
+  }
+}

@@ -24,7 +24,9 @@ describe('Text Task', function () {
     let modifiers, textInput
 
     const task = Task.TaskModel.create({
-      instruction: 'Type something here',
+      strings: {
+        instruction: 'Type something here'
+      },
       taskKey: 'T0',
       type: 'text'
     })

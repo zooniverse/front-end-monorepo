@@ -31,7 +31,10 @@ const nextConfig = {
     APP_ENV
   },
 
-  webpack: (config) => {
+  webpack: (config, options) => {
+    if (!options.isServer) {
+      config.resolve.alias['@sentry/node'] = '@sentry/browser'
+    }
     config.plugins.concat([
       new Dotenv({
         path: path.join(__dirname, '.env'),

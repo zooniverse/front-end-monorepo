@@ -1,6 +1,6 @@
 import { Layer } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { forwardRef } from 'react'
 
 function withLayer (WrappedComponent) {
   function HOC ({
@@ -14,7 +14,8 @@ function withLayer (WrappedComponent) {
     position = 'center',
     target,
     ...rest
-  }) {
+  },
+  ref) {
     if (!active) {
       return null
     }
@@ -31,12 +32,13 @@ function withLayer (WrappedComponent) {
         onEsc={closeFn}
         target={target}
       >
-        <WrappedComponent closeFn={closeFn} {...rest} />
+        <WrappedComponent ref={ref} closeFn={closeFn} {...rest} />
       </Layer>
     )
   }
 
-  HOC.propTypes = {
+  const WithLayer = forwardRef(HOC)
+  WithLayer.propTypes = {
     active: PropTypes.bool,
     animate: PropTypes.bool,
     className: PropTypes.string,
@@ -49,7 +51,7 @@ function withLayer (WrappedComponent) {
     })
   }
 
-  return HOC
+  return WithLayer
 }
 
 export default withLayer

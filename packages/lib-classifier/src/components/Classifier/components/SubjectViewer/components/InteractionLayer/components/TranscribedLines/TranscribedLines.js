@@ -151,6 +151,7 @@ function TranscribedLines({
                 aria-describedby={id}
                 aria-label={line.consensusText}
                 focusColor={focusColor}
+                pointerEvents={disabled ? 'none' : 'painted'}
                 tabIndex={disabled ? -1 : 0}
                 {...lineProps}
               >
@@ -192,6 +193,7 @@ function TranscribedLines({
                 aria-disabled={disabled.toString()}
                 aria-label={line.consensusText}
                 focusColor={focusColor}
+                pointerEvents={disabled ? 'none' : 'painted'}
                 tabIndex={disabled ? -1 : 0}
                 {...lineProps}
               >

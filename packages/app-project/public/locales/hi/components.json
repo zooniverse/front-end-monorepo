@@ -1,0 +1,56 @@
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "register": "रजिस्टर",
+      "signIn": "साइन इन"
+    }
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "signIn": "साइन इन"
+    },
+    "RegisterForm": {
+      "passwordConfirmError": "दिए गए पासवर्ड एक दूसरे से नहीं मिलते। कृपया दोबारा प्रयास करें। ",
+      "register": "रजिस्टर"
+    }
+  },
+  "ConnectWithProject": {
+    "title": "{{projectName}} से जुड़ें"
+  },
+  "Head": {
+    "defaultTitle": "परियोजनाओं"
+  },
+  "Loader": {
+    "loading": "लोडिंग / लोड हो रहा है"
+  },
+  "ProjectHeader": {
+    "about": "प्रोजेक्ट के बारे में",
+    "classify": "वर्गीकरण करें",
+    "exploreProject": "परियोजना के बारे में और जानें",
+    "talk": "बात करें",
+    "collect": "संग्रह",
+    "recents": "हाल ही में देखा गया / ताज़ा ",
+    "ApprovedIcon": {
+      "title": "ज़ूनीवर्स​ द्वारा स्वीकृत"
+    },
+    "ProjectNav": {},
+    "UnderReviewLabel": {
+      "underReview": "समीक्षाधीन"
+    }
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "अंकों के अनुसार",
+    "classifications": "श्रेणियां",
+    "completedSubjects": "पूर्ण विषय",
+    "percentComplete": "प्रतिशत पूर्ण",
+    "subjects": "विषय",
+    "subtitle": "आप और आपके साथी स्वयंसेवक / वालंटियरों के द्वारा की गई प्रगति की पूरी जानकारी देखें",
+    "text": "हर क्लिक महत्वूर्ण है! {{projectName}} कम्यूनिटी से इस परियोजना को पूरा करने के लिए जुड़ें और शोधकर्ताओं को महत्वपूर्ण शोध पूरा करने में सहायता करें ",
+    "title": "{{projectName}} के आँकड़े",
+    "volunteers": "स्वयंसेवक / वालंटियर "
+  },
+  "ThemeModeToggle": {
+    "switchToDark": "थीम से बदलें गहरा",
+    "switchToLight": "थीम से बदलें हल्का"
+  }
+}

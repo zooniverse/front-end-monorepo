@@ -1,0 +1,46 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "Forskning",
+        "team": "Teamet",
+        "results": "Resultat",
+        "education": "Bakgrund",
+        "faq": "Vanliga frågor"
+      }
+    },
+    "SidebarHeading": "Om"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Om {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Lär dig mer"
+      }
+    },
+    "MessageFromResearcher": {
+      "title": "Meddelande från forskaren"
+    },
+    "ZooniverseTalk": {
+      "button": "Gå med",
+      "message": "Se till att kolla in [Prata](/talk) där du kan chatta med andra likasinnade frivilliga.",
+      "title": "Prata"
+    }
+  },
+  "Classify": {
+    "RecentSubjects": {
+      "title": "Dina senaste klassificeringar"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Nej tack",
+      "confirm": "Ta mig till nästa nivå!",
+      "content": "Grattis! Du har låst upp nästa arbetsflöde. Om du hellre vill fortsätta med detta arbetsflöde kan du välja att stanna kvar.",
+      "dismiss": "Visa inte fler meddelanden."
+    },
+    "YourStats": {
+      "title": "{{projectName}} statistik"
+    }
+  }
+}

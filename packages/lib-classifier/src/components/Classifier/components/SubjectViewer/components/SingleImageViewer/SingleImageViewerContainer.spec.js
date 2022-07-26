@@ -2,11 +2,12 @@ import { mount } from 'enzyme'
 import { Provider } from 'mobx-react'
 import sinon from 'sinon'
 import React from 'react'
+import asyncStates from '@zooniverse/async-states'
 
 import mockStore from '@test/mockStore'
-import { DraggableImage, SingleImageViewerContainer } from './SingleImageViewerContainer'
+import { DraggableImage } from '../SVGComponents/SVGImage'
 import SingleImageViewer from './SingleImageViewer'
-import asyncStates from '@zooniverse/async-states'
+import { SingleImageViewerContainer } from './SingleImageViewerContainer'
 
 describe('Component > SingleImageViewerContainer', function () {
   let wrapper

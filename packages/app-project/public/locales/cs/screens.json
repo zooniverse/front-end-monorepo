@@ -1,0 +1,45 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "Výzkum",
+        "team": "Tým",
+        "results": "Výsledky",
+        "education": "Výuka",
+        "faq": "FAQ - Často kladené dotazy"
+      }
+    },
+    "SidebarHeading": "O projektu"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "O projektu {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Dozvědět se více"
+      }
+    },
+    "MessageFromResearcher": {
+      "title": "Slovy vědců"
+    },
+    "ZooniverseTalk": {
+      "button": "Zapojit se",
+      "title": "Diskuze"
+    }
+  },
+  "Classify": {
+    "RecentSubjects": {
+      "title": "Tvé nedávné klasifikace"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Ne, děkuji",
+      "confirm": "Jít do další úrovně!",
+      "content": "Gratulujeme! Otevřela se ti další úroveň s úkoly. Pokud si přeješ zůstat v té současné, můžeš.",
+      "dismiss": "Tyto zprávy již nezobrazovat."
+    },
+    "YourStats": {
+      "title": "Statistiky projektu {{projectName}}"
+    }
+  }
+}

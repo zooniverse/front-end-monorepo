@@ -1,0 +1,72 @@
+{
+  "Banners": {
+    "Banner": {
+      "next": "Próximo"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Cancelar",
+      "confirm": "OK",
+      "inProgress": "Voltar limpará o seu trabalho na tarefa actual."
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Continuar"
+  },
+  "FieldGuide": {
+    "title": "Guia de Campo",
+    "FieldGuideButton": {
+      "buttonLabel": "Guia de Campo"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Voltar"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Tutorial"
+  },
+  "QuickTalk": {
+    "status": {
+      "loading": "(A carregar)"
+    }
+  },
+  "SlideTutorial": {
+    "getStarted": "Iniciar",
+    "heading": "{{projectDisplayName}} Tutorial"
+  },
+  "SubjectViewer": {
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Próximo"
+      }
+    }
+  },
+  "TaskArea": {
+    "task": "Tarefa",
+    "tutorial": "Tutorial",
+    "DisabledTaskPopup": {
+      "options": {
+        "dismiss": "Ignorar"
+      }
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Voltar",
+        "tooltip": "Voltar limpará o seu trabalho na tarefa actual."
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Concluir e Debater"
+      },
+      "DoneButton": {
+        "done": "Concluir"
+      },
+      "loading": "(A carregar)",
+      "NextButton": {
+        "next": "Próximo"
+      },
+      "TaskHelp": {
+        "close": "Fechar",
+        "label": "Precisa de ajuda com esta tarefa?"
+      }
+    }
+  }
+}

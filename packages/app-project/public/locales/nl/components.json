@@ -1,0 +1,51 @@
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "register": "Registreren",
+      "signIn": "Inloggen"
+    }
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "signIn": "Inloggen"
+    },
+    "RegisterForm": {
+      "passwordConfirmError": "De wachtwoorden komen niet overeen, probeer het alstublieft opnieuw.",
+      "realName": "Real name (optional)",
+      "realNameHelp": "Public; we’ll use this to give acknowledgement in papers, on posters, etc.",
+      "register": "Registreren"
+    }
+  },
+  "ConnectWithProject": {
+    "title": "Links"
+  },
+  "Head": {
+    "siteName": "Zooniverse"
+  },
+  "Loader": {
+    "loading": "(Laden)"
+  },
+  "ProjectHeader": {
+    "about": "Over",
+    "classify": "Classificeren",
+    "talk": "Forum",
+    "collect": "Verzamelingen",
+    "recents": "Mijn waarnemingen",
+    "ApprovedIcon": {
+      "title": "Goedgekeurd door Zooniverse"
+    },
+    "UnderReviewLabel": {
+      "underReview": "Wacht op controle"
+    }
+  },
+  "ProjectStatistics": {
+    "volunteers": "Vrijwilligers"
+  },
+  "RequireUser": {
+    "text": "Je bent niet ingelogd"
+  },
+  "ThemeModeToggle": {
+    "switchToDark": "Wissel naar donker thema",
+    "switchToLight": "Wissel naar licht thema"
+  }
+}

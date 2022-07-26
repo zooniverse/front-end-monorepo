@@ -65,6 +65,9 @@ const mockStore = {
     active: transientObjectSubject
   },
   subjectViewer: SubjectViewerStore.create({}),
+  workflows: {
+    active: {}
+  },
   workflowSteps: {
     activeStepTasks: []
   }

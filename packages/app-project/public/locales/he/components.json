@@ -1,0 +1,19 @@
+{
+  "Loader": {
+    "loading": "(בטעינה)"
+  },
+  "ProjectHeader": {
+    "about": "אודות",
+    "classify": "קיטלוג",
+    "talk": "שיחה",
+    "collect": "אוספים",
+    "recents": "לאחרונה"
+  },
+  "ProjectStatistics": {
+    "volunteers": "משתתפים"
+  },
+  "ThemeModeToggle": {
+    "switchToDark": "החלף לרקע כהה",
+    "switchToLight": "החלף לרקע בהיר"
+  }
+}

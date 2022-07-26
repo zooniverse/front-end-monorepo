@@ -3,12 +3,14 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import zooTheme from '@zooniverse/grommet-theme'
 
-import { task as mockTask } from '@plugins/tasks/survey/mock-data'
+import SurveyTask from '@plugins/tasks/survey'
+import { task } from '@plugins/tasks/survey/mock-data'
 import { ConfusedWith } from './ConfusedWith'
 
-const KUDU = mockTask.choices.KD
-
 describe('Component > ConfusedWith', function () {
+  const mockTask = SurveyTask.TaskModel.create(task)
+  const KUDU = mockTask.choices.KD
+
   it('should render without crashing', function () {
     render(
       <ConfusedWith
@@ -16,6 +18,7 @@ describe('Component > ConfusedWith', function () {
         confusions={KUDU.confusions}
         confusionsOrder={KUDU.confusionsOrder}
         images={mockTask.images}
+        strings={mockTask.strings}
         theme={zooTheme}
       />
     )
@@ -29,6 +32,7 @@ describe('Component > ConfusedWith', function () {
         confusions={KUDU.confusions}
         confusionsOrder={KUDU.confusionsOrder}
         images={mockTask.images}
+        strings={mockTask.strings}
         theme={zooTheme}
       />
     )
@@ -43,6 +47,7 @@ describe('Component > ConfusedWith', function () {
         confusions={KUDU.confusions}
         confusionsOrder={KUDU.confusionsOrder}
         images={mockTask.images}
+        strings={mockTask.strings}
         theme={zooTheme}
       />
     )
@@ -61,6 +66,7 @@ describe('Component > ConfusedWith', function () {
           confusionsOrder={KUDU.confusionsOrder}
           hasFocus
           images={mockTask.images}
+          strings={mockTask.strings}
           theme={zooTheme}
         />
       )
@@ -75,6 +81,7 @@ describe('Component > ConfusedWith', function () {
           confusionsOrder={KUDU.confusionsOrder}
           hasFocus
           images={mockTask.images}
+          strings={mockTask.strings}
           theme={zooTheme}
         />
       )

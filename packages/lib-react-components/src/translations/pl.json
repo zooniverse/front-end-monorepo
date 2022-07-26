@@ -1,0 +1,20 @@
+{
+  "ZooFooter": {
+    "buildLabels": {
+      "tutorial": "Samouczek"
+    },
+    "talkLabels": {
+      "talk": "Dyskutowanie"
+    }
+  },
+  "ZooHeader": {
+    "mainHeaderNavListLabels": {
+      "talk": "Dyskutowanie"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Kolekcje"
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "अनुसंधान",
+        "team": "टीम",
+        "results": "परिणाम",
+        "education": "शिक्षा",
+        "faq": "अक्सर पूछे जाने वाले प्रश्न"
+      }
+    },
+    "SidebarHeading": "प्रोजेक्ट के बारे में",
+    "TeamMember": {}
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "{{projectName}} के बारे में"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "अधिक जानकारी "
+      }
+    },
+    "MessageFromResearcher": {
+      "title": "शोधकर्ता की ओर से संदेश"
+    },
+    "ZooniverseTalk": {
+      "button": "चर्चा में शामिल हों",
+      "message": "यह भी सुनिश्चित करें कि [Talk](/talk) की जाँच करें जहाँ आप अन्य समान विचारधारा वाले स्वयंसेवकों से चैट कर सकते हैं।",
+      "title": "बात करें"
+    }
+  },
+  "Classify": {
+    "RecentSubjects": {
+      "title": "आपके हाल की श्रेणियां"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "नहीं, धन्यवाद",
+      "confirm": "मुझे अगले चरण पर ले जाएं",
+      "content": "बधाईयां! आपने अगला वर्क फ्लो शुरू कर लिया है। अगर आप इस ही वर्क फ्लो पर आगे काम करना चाहते हैं, तो जारी रखें",
+      "dismiss": "मुझे आगे से संदेश ना दिखाएं"
+    },
+    "YourStats": {
+      "title": "{{projectName}} के आँकड़े"
+    }
+  }
+}

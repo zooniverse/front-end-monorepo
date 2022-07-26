@@ -111,7 +111,7 @@ Classifier.propTypes = {
   subjectSetID: PropTypes.string,
   subjectID: PropTypes.string,
   workflowSnapshot: PropTypes.shape({
-    id: PropTypes.string
-  }),
-  workflowID: PropTypes.string.isRequired
+    id: PropTypes.string,
+    version: PropTypes.string
+  })
 }

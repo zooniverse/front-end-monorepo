@@ -1,10 +1,10 @@
 import { flow, getRoot, types } from 'mobx-state-tree'
 import { sugarClient } from 'panoptes-client/lib/sugar'
 import auth from 'panoptes-client/lib/auth'
-import talkClient from 'panoptes-client/lib/talk-client'
 import asyncStates from '@zooniverse/async-states'
 
 import getUnreadConversationsIds from './helpers/getTalkUnreadConversationsIds'
+import getUnreadNotificationsCount from './helpers/getTalkUnreadNotificationsCount'
 
 // NOTES
 // This store is for the Notifications and Messages count displayed in ZooHeader.
@@ -25,23 +25,21 @@ const Notifications = types
   .actions(self => {
     return {
       fetchAndSubscribe () {
-        self.fetchInitialUnreadNotifications()
+        self.fetchInitialUnreadNotificationsCount()
         self.subscribeToSugarNotifications()
         self.fetchInitialUnreadConversationsIds()
       },
 
-      fetchInitialUnreadNotifications: flow(function * fetchInitialUnreadNotifications () {
+      fetchInitialUnreadNotificationsCount: flow(function * fetchInitialUnreadNotificationsCount () {
         self.setLoadingState(asyncStates.loading)
         try {
-          const query = {
-            delivered: false,
-            page_size: 1
-          }
+          const token = yield auth.checkBearerToken()
+          const authorization = `Bearer ${token}`
 
-          const response = yield talkClient.type('notifications').get(query)
-          const [notification] = response
-          if (notification) {
-            self.unreadNotificationsCount = notification.getMeta()?.count
+          const unreadNotificationsCount = yield getUnreadNotificationsCount(authorization)
+          
+          if (unreadNotificationsCount) {
+            self.count = unreadNotificationsCount
           }
 
           self.setLoadingState(asyncStates.success)

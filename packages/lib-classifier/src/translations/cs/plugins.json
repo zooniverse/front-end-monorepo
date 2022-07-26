@@ -1,0 +1,16 @@
+{
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Zrušit filtry",
+      "showing": "Zobrazuje {{showing}} kategorií z {{total}}"
+    },
+    "Choice": {
+      "identify": "Identifikovat"
+    },
+    "ConfusedWith": {
+      "cancel": "Zrušit",
+      "confused": "Někdy zaměněno za",
+      "itsThis": "Myslím, že to je ono"
+    }
+  }
+}

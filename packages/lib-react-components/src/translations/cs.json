@@ -1,0 +1,47 @@
+{
+  "CloseButton": {
+    "close": "Zavřít"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "O Zooniverse",
+      "publications": "Publikace",
+      "team": "Náš tým",
+      "acknowledgements": "Acknowledgements",
+      "contact": "Kontaktujte nás",
+      "faq": "FAQ - Často kladené dotazy"
+    },
+    "buildLabels": {
+      "tutorial": "Tutorial/Návod"
+    },
+    "getInvolvedLabels": {
+      "getInvolved": "Zapojte se",
+      "education": "Výuka",
+      "callForProjects": "Žádosti o návrhy projektů"
+    },
+    "projectLabels": {
+      "projects": "Projekty"
+    },
+    "talkLabels": {
+      "talk": "Diskuze"
+    }
+  },
+  "ZooHeader": {
+    "mainHeaderNavListLabels": {
+      "projects": "Projekty",
+      "about": "O Zooniverse",
+      "getInvolved": "Zapojte se",
+      "talk": "Diskuze"
+    },
+    "SignedOutUserNavigation": {
+      "register": "Zaregistrovat se",
+      "signIn": "Přihlásit se"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Alba",
+        "favorites": "Oblíbené"
+      }
+    }
+  }
+}

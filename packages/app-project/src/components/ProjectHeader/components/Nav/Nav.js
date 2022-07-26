@@ -40,9 +40,9 @@ function Nav({
   const { t } = useTranslation('components')
   return (
     <Box aria-label={t('ProjectHeader.ProjectNav.ariaLabel')} as='nav'>
-      <Box as='ul' direction='row'>
+      <Box as='ul' direction='row' style={{ paddingInlineStart: 0 }}>
         {navLinks.map(navLink => (
-          <Box as='li' key={navLink.href} pad={{ left: 'medium' }}>
+          <Box as='li' key={navLink.href} flex='grow' pad={{ left: 'small' }}>
             <NavLink
               color='white'
               link={navLink}

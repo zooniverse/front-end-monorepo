@@ -1,0 +1,37 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "Onderzoek",
+        "team": "Het team",
+        "results": "Resultaten",
+        "education": "Onderwijs",
+        "faq": "Veelgestelde vragen"
+      }
+    },
+    "SidebarHeading": "Over"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Over {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Lees meer"
+      }
+    },
+    "MessageFromResearcher": {},
+    "ZooniverseTalk": {
+      "button": "Doe mee!",
+      "title": "Forum"
+    }
+  },
+  "Classify": {
+    "RecentSubjects": {
+      "title": "Je recente waarnemingen"
+    },
+    "YourStats": {
+      "title": "{{projectName}} statistieken"
+    }
+  }
+}

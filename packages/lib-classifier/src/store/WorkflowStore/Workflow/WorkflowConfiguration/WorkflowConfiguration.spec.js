@@ -20,6 +20,10 @@ describe('Model > Workflow > WorkflowConfiguration', function () {
       expect(model.hide_classification_summaries).to.be.undefined()
     })
 
+    it('should have invert_subject as false', function () {
+      expect(model.invert_subject).to.be.false()
+    })
+
     it('should persist annotations', function () {
       expect(model.persist_annotations).to.be.true()
     })

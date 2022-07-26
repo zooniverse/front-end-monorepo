@@ -1,1 +1,41 @@
-{}
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "Investigación",
+        "team": "El Equipo",
+        "results": "Resultados",
+        "education": "Educación",
+        "faq": "Preguntas Frecuentes"
+      }
+    },
+    "SidebarHeading": "Acerca de"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Acerca de {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Aprende más"
+      }
+    },
+    "ZooniverseTalk": {
+      "button": "Unirse",
+      "title": "Hablemos"
+    }
+  },
+  "Classify": {
+    "RecentSubjects": {
+      "title": "Tus clasificaciones recientes"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "No, gracias",
+      "confirm": "¡Ir al siguiente nivel!",
+      "content": "¡Felicitaciones! Has desbloqueado la próxima secuencia de trabajo. Si prefieres seguir en la secuencia actual, puedes escoger permanecer."
+    },
+    "YourStats": {
+      "title": "Estadística de {{projectName}}"
+    }
+  }
+}

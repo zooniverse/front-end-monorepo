@@ -12,16 +12,16 @@ import QuickTalk from '@components/Classifier/components/QuickTalk'
 import SubjectViewer from '@components/Classifier/components/SubjectViewer'
 import TaskArea from '@components/Classifier/components/TaskArea'
 
-const columnSize = pxToRem(380)
-
 const ContainerGrid = styled.div`
   display: grid;
   grid-gap: 30px;
   grid-template-areas: "viewer task";
+  grid-template-columns: auto 25.333rem;
   position: relative;
 
-  @media (min-width: 701px) {
-    grid-template-columns: 8fr ${columnSize};
+  @media screen and (max-width: 1160px) {
+    grid-gap: 1.75rem;
+    grid-template-columns: 45.333fr 25.333fr;
   }
 
   @media screen and (max-width: 700px) {
@@ -42,18 +42,18 @@ const StyledTaskArea = styled(TaskArea)`
   top: 10px;
 `
 
-const ViewerGrid = styled.section`
+export const ViewerGrid = styled.section`
   display: grid;
   grid-area: viewer;
   grid-template-columns: auto 4.5rem;
   grid-template-areas: "subject toolbar" "metatools ...";
 `
 
-const StyledImageToolbarContainer = styled.div`
+export const StyledImageToolbarContainer = styled.div`
   grid-area: toolbar;
 `
 
-const StyledImageToolbar = styled(ImageToolbar)`
+export const StyledImageToolbar = styled(ImageToolbar)`
   position: sticky;
   top: 10px;
 `
@@ -63,16 +63,10 @@ const StyledMetaTools = styled(MetaTools)`
   margin-top: 10px;
 `
 
-function storeMapper(classifierStore) {
-  const project = classifierStore?.projects.active
-  return { project }
-}
-
-function DefaultLayout ({
+export default function DefaultLayout({
   className = '',
   project
 }) {
-  const showQuickTalk = project?.experimental_tools.includes('quicktalk')
   return (
     <ContainerGrid className={className}>
       <ViewerGrid>
@@ -89,9 +83,7 @@ function DefaultLayout ({
         <StyledTaskArea />
       </StyledTaskAreaContainer>
       <FeedbackModal />
-      {showQuickTalk && <QuickTalk />}
+      <QuickTalk />
     </ContainerGrid>
   )
 }
-
-export default withStores(DefaultLayout, storeMapper)

@@ -1,0 +1,57 @@
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "register": "Зарегистрироваться",
+      "signIn": "Войти"
+    }
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "signIn": "Войти"
+    },
+    "RegisterForm": {
+      "passwordConfirmError": "Пароль не совпадает, пожалуйста, повторите",
+      "realName": "Настоящее имя (указать по желанию)",
+      "realNameHelp": "Публичное пространство; мы используем это пространство, чтобы сделать ссылки на проект в статьях, постерах и других материалах",
+      "register": "Зарегистрироваться"
+    }
+  },
+  "ConnectWithProject": {
+    "title": "Ссылки"
+  },
+  "Head": {
+    "defaultDescription": "",
+    "defaultTitle": "Проекты",
+    "siteName": "Zooniverse"
+  },
+  "Loader": {
+    "loading": "Идет загрузка"
+  },
+  "ProjectHeader": {
+    "about": "Узнать о",
+    "classify": "Классифицировать",
+    "exploreProject": "Узнать больше о проекте",
+    "talk": "Дискуссия",
+    "collect": "Собрать",
+    "recents": "Последнее",
+    "ApprovedIcon": {
+      "title": "Подтверждено Zooniverse"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Проект"
+    },
+    "UnderReviewLabel": {
+      "underReview": "На рассмотрении"
+    }
+  },
+  "ProjectStatistics": {
+    "volunteers": "Волонтеры"
+  },
+  "RequireUser": {
+    "text": "Вы не активировались "
+  },
+  "ThemeModeToggle": {
+    "switchToDark": "Переключиться на Темный тему",
+    "switchToLight": "Переключиться на Светный тему"
+  }
+}

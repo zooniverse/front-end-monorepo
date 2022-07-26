@@ -67,9 +67,9 @@ class MetaTools extends React.Component {
       >
         <Metadata isThereMetadata={isThereMetadata} metadata={subject && subject.metadata} />
         <FavouritesButton
-          checked={subject && subject.favorite}
+          checked={subject?.favorite}
           disabled={!subject || !upp}
-          onClick={subject && subject.toggleFavorite}
+          onClick={subject?.toggleFavorite}
         />
         <CollectionsButton
           disabled={!subject || !upp}

@@ -1,0 +1,22 @@
+{
+  "CloseButton": {
+    "close": "Sluiten"
+  },
+  "ZooFooter": {
+    "buildLabels": {
+      "tutorial": "Uitleg"
+    },
+    "talkLabels": {
+      "talk": "Forum"
+    }
+  },
+  "ZooHeader": {
+    "mainHeaderNavListLabels": {
+      "talk": "Forum"
+    },
+    "SignedOutUserNavigation": {
+      "register": "Registreren",
+      "signIn": "Inloggen"
+    }
+  }
+}

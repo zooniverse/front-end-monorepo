@@ -1,5 +1,6 @@
 export { default as AnnotateButton } from './AnnotateButton'
 export { default as FullscreenButton } from './FullscreenButton'
+export { default as InvertButton } from './InvertButton'
 export { default as MoveButton } from './MoveButton'
 export { default as ResetButton } from './ResetButton'
 export { default as RotateButton } from './RotateButton'

@@ -1,0 +1,37 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "Ricerca",
+        "team": "Il Team",
+        "results": "Risultati",
+        "education": "Approfondimento",
+        "faq": "FAQ"
+      }
+    },
+    "SidebarHeading": "About"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "A proposito di {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Per saperne di piu"
+      }
+    },
+    "ZooniverseTalk": {
+      "button": "Partecipa",
+      "title": "Forum"
+    }
+  },
+  "Classify": {
+    "WorkflowAssignmentModal": {
+      "cancel": "No, grazie",
+      "dismiss": "Non mostrare più questi messaggi."
+    },
+    "YourStats": {
+      "title": "Statistiche {{projectName}}"
+    }
+  }
+}

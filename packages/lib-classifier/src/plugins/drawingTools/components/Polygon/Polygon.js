@@ -30,18 +30,17 @@ function Polygon({ active, mark, scale, onFinish }) {
   const guideLineStrokeWidth = GUIDELINE_STROKE_WIDTH / scale
   const grabStrokeWidth = GRAB_STROKE_WIDTH / scale
 
-  function onHandleDrag(coords, i) {
-    mark.setCoordinates(coords, i)
-  }
-
   function onUndoDrawing() {
     mark.shortenPath()
   }
 
   function handleClosePolygon() {
-    onFinish()
     mark.finish()
+    onFinish()
   }
+
+  const fill = finished ? 'transparent' : 'none'
+  const strokeDasharray = finished ? undefined : '2 2'
 
   return (
     <g>
@@ -54,46 +53,30 @@ function Polygon({ active, mark, scale, onFinish }) {
         />
       )}
 
-      {/* Visible lines */}
+      /* Visible lines */
       <polyline points={path} strokeWidth={strokeWidth} fill='none' />
 
-      {/* So users can easily select the polygon */}
+      /* So users can easily select the polygon */
       <polyline
         points={path}
         strokeWidth={grabStrokeWidth}
         strokeOpacity='0'
-        fill='none'
+        fill={fill}
       />
 
-      {/* To visibly show a closed polygon */}
-      {finished && (
+      /* To visibly show a closed polygon */
         <line
           x1={lastPoint.x}
           y1={lastPoint.y}
           x2={initialPoint.x}
           y2={initialPoint.y}
           strokeWidth={strokeWidth}
+          strokeDasharray={strokeDasharray}
         />
       )}
 
       {active &&
-        points.map((point, i) => {
-          if (i === 0) {
-            /* Initial Point */
-            return (
-              <circle
-                key={`${mark.id}-${i}`}
-                r={radius}
-                cx={point.x}
-                cy={point.y}
-                fill='currentColor'
-                onPointerDown={handleClosePolygon}
-              />
-            )
-          }
-
-          /* All other points in the Polygon */
-          return (
+        points.map((point, i) => (
             <DragHandle
               key={`${mark.id}-${i}`}
               scale={scale}
@@ -101,18 +84,11 @@ function Polygon({ active, mark, scale, onFinish }) {
               x={point.x}
               y={point.y}
               fill='currentColor'
-              dragMove={(_e, d) =>
-                onHandleDrag(
-                  {
-                    x: points[i].x + d.x,
-                    y: points[i].y + d.y
-                  },
-                  i
-                )
-              }
+              dragMove={point.moveTo}
+              onPointerDown={handleClosePolygon}
             />
-          )
-        })}
+          ))
+        }
 
       {/* Guide Line */}
       {!finished &&

@@ -1,0 +1,73 @@
+{
+  "Banners": {
+    "Banner": {
+      "next": "Nästa"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "Avbryt",
+      "confirm": "OK",
+      "inProgress": "Om du går tillbaka sparas inte ditt arbete med den aktuella uppgiften."
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Fortsätt"
+  },
+  "FieldGuide": {
+    "FieldGuideItem": {
+      "ariaTitle": "Tillbaka"
+    }
+  },
+  "ImageToolbar": {
+    "ResetButton": {
+      "ariaLabel": "Återställ"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Snabbkurs"
+  },
+  "QuickTalk": {
+    "status": {
+      "loading": "(Laddar)"
+    }
+  },
+  "SlideTutorial": {
+    "getStarted": "Kom igång",
+    "heading": "{{projectDisplayName}} Snabbkurs"
+  },
+  "SubjectViewer": {
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Nästa"
+      }
+    }
+  },
+  "TaskArea": {
+    "task": "Uppgift",
+    "tutorial": "Snabbkurs",
+    "DisabledTaskPopup": {
+      "options": {
+        "dismiss": "Stäng"
+      }
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Tillbaka",
+        "tooltip": "Om du går tillbaka sparas inte ditt arbete med den aktuella uppgiften."
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Klart & diskutera"
+      },
+      "DoneButton": {
+        "done": "Klart"
+      },
+      "loading": "(Laddar)",
+      "NextButton": {
+        "next": "Nästa"
+      },
+      "TaskHelp": {
+        "close": "Stäng",
+        "label": "Behöver du hjälp med den här uppgiften?"
+      }
+    }
+  }
+}
