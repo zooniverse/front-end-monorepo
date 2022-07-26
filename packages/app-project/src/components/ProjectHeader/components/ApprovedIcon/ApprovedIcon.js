@@ -6,6 +6,7 @@ import { useTranslation } from 'next-i18next'
 
 const StyledBox = styled(Box)`
   border-radius: 100%;
+  flex-shrink: 0;
 `
 
 function ApprovedIcon ({ approved, isNarrow }) {

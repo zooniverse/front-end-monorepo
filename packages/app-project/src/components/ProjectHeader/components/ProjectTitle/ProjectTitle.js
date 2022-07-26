@@ -11,6 +11,7 @@ const StyledHeading = styled(Heading)`
 
 const StyledAnchor = styled(Anchor)`
   border-bottom: 3px solid transparent;
+
   &:hover {
     text-decoration: none;
   }
@@ -22,9 +23,9 @@ const StyledAnchor = styled(Anchor)`
   }
 `
 
-function ProjectTitle (props) {
+function ProjectTitle(props) {
   const router = useRouter()
-  const { title } = props
+  const { showDropdown, title } = props
   const { owner, project } = router.query
   const linkProps = {
     href: addQueryParams(`/${owner}/${project}`, router)
@@ -32,16 +33,13 @@ function ProjectTitle (props) {
 
   const isCurrentPage = router.pathname === linkProps.href
 
-  const label = (
-    <StyledHeading
-      color='white'
-      margin='none'
-      size='small'
-    >
-      {title}
-    </StyledHeading>
+  const anchor = (
+    <StyledAnchor>
+      <StyledHeading color='white' margin='none' textAlign={showDropdown ? 'center' : 'start'}>
+        {title}
+      </StyledHeading>
+    </StyledAnchor>
   )
-  const anchor = <StyledAnchor label={label} />
 
   if (isCurrentPage) {
     return anchor

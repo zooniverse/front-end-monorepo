@@ -1,7 +1,7 @@
-import { withResponsiveContext } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { array, arrayOf, bool, shape, string } from 'prop-types'
 import styled from 'styled-components'
+import { withResizeDetector } from 'react-resize-detector'
 
 import ApprovedIcon from './components/ApprovedIcon'
 import Avatar from './components/Avatar'
@@ -15,49 +15,72 @@ import UnderReviewLabel from './components/UnderReviewLabel'
 const StyledBox = styled(Box)`
   position: relative;
 `
-const environment = process.env.APP_ENV
 
-function ProjectHeader ({
+function ProjectHeader({
   availableLocales = [],
   className = '',
   inBeta = false,
   navLinks = [],
-  screenSize = '',
-  title
+  title,
+  width
 }) {
+  const hasTranslations = availableLocales?.length > 1
+  const showDropdownWithRow = (hasTranslations && width < 1200) || (!hasTranslations && width < 1100)
+  const showDropdownWithColumn = (hasTranslations && width < 1000) || (!hasTranslations && width < 900)
 
-  const hasTranslations = environment === 'development' && availableLocales?.length > 1
+  /** Widths were determined visually and can be updated as needed if ProjectHeader components are refactored */
+  const calcMaxWidth = () => {
+    if (hasTranslations && width >= 1200) {
+      return '560px'
+    } else {
+      return '600px'
+    }
+  }
+
   return (
     <StyledBox as='header' className={className}>
       <Background />
       <StyledBox
         align='center'
-        direction={screenSize === 'small' ? 'column' : 'row'}
+        direction={showDropdownWithColumn ? 'column' : 'row'}
         justify='between'
         pad='medium'
       >
-        <Box
-          align='center'
-          direction={screenSize === 'small' ? 'column' : 'row'}
-          gap={screenSize === 'small' ? 'xsmall' : 'medium'}
-        >
-          <Avatar isNarrow={screenSize === 'small'} />
+        <Box direction={showDropdownWithColumn ? 'column' : 'row'} gap='small'>
           <Box
             align='center'
             direction='row'
-            gap={screenSize === 'small' ? 'small' : 'medium'}
+            gap={showDropdownWithColumn ? 'small' : 'medium'}
           >
-            <Box>
-              <ProjectTitle title={title} />
-              {inBeta &&
-                <UnderReviewLabel />}
+            <Box
+              align='center'
+              direction={showDropdownWithColumn ? 'column' : 'row'}
+              gap='medium'
+            >
+              <Avatar isNarrow={showDropdownWithColumn} />
+              <Box>
+                <Box
+                  direction='row'
+                  gap='small'
+                  align='center'
+                  style={{ maxWidth: calcMaxWidth() }}
+                >
+                  <ProjectTitle showDropdown={showDropdownWithColumn} title={title} />
+                  <ApprovedIcon isNarrow={showDropdownWithColumn} />
+                </Box>
+                {inBeta && <UnderReviewLabel />}
+              </Box>
             </Box>
-            <ApprovedIcon isNarrow={screenSize === 'small'} />
-            {hasTranslations && <LocaleSwitcher availableLocales={availableLocales} />}
           </Box>
+          {hasTranslations && (
+            <LocaleSwitcher availableLocales={availableLocales} />
+          )}
         </Box>
-        {screenSize !== 'small' && <Nav navLinks={navLinks} />}
-        {screenSize === 'small' && <DropdownNav navLinks={navLinks} />}
+        {showDropdownWithRow || showDropdownWithColumn ? (
+          <DropdownNav navLinks={navLinks} showDropdownWithColumn={showDropdownWithColumn} />
+        ) : (
+          <Nav navLinks={navLinks} />
+        )}
       </StyledBox>
     </StyledBox>
   )
@@ -67,13 +90,14 @@ ProjectHeader.propTypes = {
   availableLocales: array,
   className: string,
   inBeta: bool,
-  navLinks: arrayOf(shape({
-    href: string,
-    text: string
-  })),
-  screenSize: string,
+  navLinks: arrayOf(
+    shape({
+      href: string,
+      text: string
+    })
+  ),
   title: string.isRequired
 }
 
-export default withResponsiveContext(ProjectHeader)
+export default withResizeDetector(ProjectHeader)
 export { ProjectHeader }
