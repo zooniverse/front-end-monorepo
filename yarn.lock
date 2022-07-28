@@ -12293,9 +12293,9 @@ mocha@~10.0.0:
     yargs-unparser "2.0.0"
 
 mock-local-storage@~1.1.19:
-  version "1.1.20"
-  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.1.20.tgz#9642db1cee1110dfa241ef9972940f9d8044d9c5"
-  integrity sha512-JsV1bVnHA0lhdoGeJDBrOtC1X8j2ZJ5ZttoyZMp3cZCgbnh2MuQaQGpHwfwha+Jczhmd40lOmzYmBKExvsbBaA==
+  version "1.1.23"
+  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.1.23.tgz#a4d431536b0d56f77f2d60fa63f75a614795f5f6"
+  integrity sha512-G1qWl7Ik017sqB3omvWzazrWC69najuLL8Q4ROnr2clOmwCP/d7HTEHH8v29S+YYouh1mq7wmybrrTbzAf7P6A==
   dependencies:
     core-js "^3.19.0"
     global "^4.3.2"
