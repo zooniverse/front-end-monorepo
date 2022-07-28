@@ -2,10 +2,7 @@ if (process.env.NEWRELIC_LICENSE_KEY) {
   require('newrelic')
 }
 
-require('dotenv').config()
-
 const { execSync } = require('child_process')
-const Dotenv = require('dotenv-webpack')
 const path = require('path')
 const withSourceMaps = require('@zeit/next-source-maps')()
 const { i18n } = require('./next-i18next.config')
@@ -80,12 +77,6 @@ const nextConfig = {
     if (!options.isServer) {
       config.resolve.alias['@sentry/node'] = '@sentry/browser'
     }
-    config.plugins.concat([
-      new Dotenv({
-        path: path.join(__dirname, '.env'),
-        systemvars: true
-      })
-    ])
 
     const newAliases = webpackConfig.resolve.alias
     const alias = Object.assign({}, config.resolve.alias, newAliases)
