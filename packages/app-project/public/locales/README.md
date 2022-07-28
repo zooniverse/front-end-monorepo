@@ -27,7 +27,7 @@ const MyComponent = () => {
 
 ## Adding a Language
 
-FEM is integrated with [Lokalise](https://app.lokalise.com) for translations management. Any dictionary other than `/en` should be managed through the Lokalise Dashboard. Instructions on how to import and export dictionary files can be found ________ (A link will be added here when a Lokalise playbook is published on Zooniverse's Github).
+FEM is integrated with [Lokalise](https://app.lokalise.com) for translations management. Any dictionary other than `/en` should be managed through the Lokalise Dashboard. Instructions on how to import and export dictionary files can be found in the how-to-zooniverse [Translations](https://github.com/zooniverse/how-to-zooniverse/tree/master/Translations) folder.
 
 Check that any added language is in the `locales` array in [next-i18next.config.js](/zooniverse/front-end-monorepo/blob/master/packages/app-project/next-i18next.config.js).
 
