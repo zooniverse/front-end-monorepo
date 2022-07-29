@@ -45,25 +45,18 @@ const UserPersonalization = types
     }
   }))
   .actions(self => {
-    function createParentObserver() {
-      const parentDisposer = autorun(() => {
-        const { project, user } = getRoot(self)
-        if (user.id) {
-          self.notifications.fetchAndSubscribe()
-          
-          if (project.id) {
-            self.projectPreferences.fetchResource()
-            self.stats.fetchDailyCounts()
-          }
-        } else if (user.loadingState === asyncStates.success) {
-          self.projectPreferences.setLoadingState(asyncStates.success)
-        }
-      })
-      addDisposer(self, parentDisposer)
+    function _onUserChange() {
+      const { project, user } = getRoot(self)
+      if (user.id) {
+        self.notifications.fetchAndSubscribe()
+      } else if (user.loadingState === asyncStates.success) {
+        self.projectPreferences.setLoadingState(asyncStates.success)
+      }
     }
+
     return {
       afterAttach() {
-        createParentObserver()
+        addDisposer(self, autorun(_onUserChange))
       },
 
       increment() {
@@ -73,6 +66,11 @@ const UserPersonalization = types
         if (user?.id && self.sessionCountIsDivisibleByFive) {
           self.projectPreferences.refreshSettings()
         }
+      },
+
+      load() {
+        self.projectPreferences.fetchResource()
+        self.stats.fetchDailyCounts()
       },
 
       reset() {
