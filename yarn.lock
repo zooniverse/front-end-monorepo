@@ -3022,17 +3022,17 @@
     ts-dedent "^2.0.0"
 
 "@storybook/addon-storysource@~6.5.0":
-  version "6.5.9"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-storysource/-/addon-storysource-6.5.9.tgz#8e5fb76b9314a69831a3b5e08e8570407c39de75"
-  integrity sha512-7KLw03mE1JJSJQrqNDftoVVp2BBq8wltd0qo7WHkpRVfir9dMO3g7Wy6S6UPsrb9th47ZjonwBJEc28GwAq0yg==
+  version "6.5.10"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-storysource/-/addon-storysource-6.5.10.tgz#620619088657f247023d454dbaff3a2e1ccd7537"
+  integrity sha512-DM3UcbdqPfTBcpXr1AuzAs0DDTBnXMpXvOEkdoTTtGpbPIyA+J5KWeW1pAWqZlzI4k0UemJrAm2G6n/gGGBUiQ==
   dependencies:
-    "@storybook/addons" "6.5.9"
-    "@storybook/api" "6.5.9"
-    "@storybook/client-logger" "6.5.9"
-    "@storybook/components" "6.5.9"
-    "@storybook/router" "6.5.9"
-    "@storybook/source-loader" "6.5.9"
-    "@storybook/theming" "6.5.9"
+    "@storybook/addons" "6.5.10"
+    "@storybook/api" "6.5.10"
+    "@storybook/client-logger" "6.5.10"
+    "@storybook/components" "6.5.10"
+    "@storybook/router" "6.5.10"
+    "@storybook/source-loader" "6.5.10"
+    "@storybook/theming" "6.5.10"
     core-js "^3.8.2"
     estraverse "^5.2.0"
     loader-utils "^2.0.0"
@@ -3284,17 +3284,6 @@
     global "^4.4.0"
     telejson "^6.0.8"
 
-"@storybook/channel-websocket@6.5.9":
-  version "6.5.9"
-  resolved "https://registry.yarnpkg.com/@storybook/channel-websocket/-/channel-websocket-6.5.9.tgz#6b7a0127fec58ee5be4f6aebcf460adc564f2f34"
-  integrity sha512-xtHvSNwuOhkgALwVshKWsoFhDmuvcosdYfxcfFGEiYKXIu46tRS5ZXmpmgEC/0JAVkVoFj5nL8bV7IY5np6oaA==
-  dependencies:
-    "@storybook/channels" "6.5.9"
-    "@storybook/client-logger" "6.5.9"
-    core-js "^3.8.2"
-    global "^4.4.0"
-    telejson "^6.0.8"
-
 "@storybook/channels@6.5.10":
   version "6.5.10"
   resolved "https://registry.yarnpkg.com/@storybook/channels/-/channels-6.5.10.tgz#fca5b0d1ea8d30b022e805301ed436407c867ac4"
@@ -3426,32 +3415,6 @@
     "@storybook/preview-web" "6.5.10"
     "@storybook/store" "6.5.10"
     "@storybook/ui" "6.5.10"
-    airbnb-js-shims "^2.2.1"
-    ansi-to-html "^0.6.11"
-    core-js "^3.8.2"
-    global "^4.4.0"
-    lodash "^4.17.21"
-    qs "^6.10.0"
-    regenerator-runtime "^0.13.7"
-    ts-dedent "^2.0.0"
-    unfetch "^4.2.0"
-    util-deprecate "^1.0.2"
-
-"@storybook/core-client@6.5.9":
-  version "6.5.9"
-  resolved "https://registry.yarnpkg.com/@storybook/core-client/-/core-client-6.5.9.tgz#ea6035d1c90d2c68e860e3cf629979491856cd88"
-  integrity sha512-LY0QbhShowO+PQx3gao3wdVjpKMH1AaSLmuI95FrcjoMmSXGf96jVLKQp9mJRGeHIsAa93EQBYuCihZycM3Kbg==
-  dependencies:
-    "@storybook/addons" "6.5.9"
-    "@storybook/channel-postmessage" "6.5.9"
-    "@storybook/channel-websocket" "6.5.9"
-    "@storybook/client-api" "6.5.9"
-    "@storybook/client-logger" "6.5.9"
-    "@storybook/core-events" "6.5.9"
-    "@storybook/csf" "0.0.2--canary.4566f4d.1"
-    "@storybook/preview-web" "6.5.9"
-    "@storybook/store" "6.5.9"
-    "@storybook/ui" "6.5.9"
     airbnb-js-shims "^2.2.1"
     ansi-to-html "^0.6.11"
     core-js "^3.8.2"
@@ -3961,6 +3924,22 @@
     core-js "^3.6.5"
     find-up "^4.1.0"
 
+"@storybook/source-loader@6.5.10":
+  version "6.5.10"
+  resolved "https://registry.yarnpkg.com/@storybook/source-loader/-/source-loader-6.5.10.tgz#f62b4c7b1933976a20913ddc149d55026ef4c872"
+  integrity sha512-1RxxRumpjs8VUUwES9LId+cuNQnixhZAcwCxd6jaKkTZbjiQCtAhXX6DBTjJGV1u/JnCsqEp5b1wB8j/EioNHw==
+  dependencies:
+    "@storybook/addons" "6.5.10"
+    "@storybook/client-logger" "6.5.10"
+    "@storybook/csf" "0.0.2--canary.4566f4d.1"
+    core-js "^3.8.2"
+    estraverse "^5.2.0"
+    global "^4.4.0"
+    loader-utils "^2.0.0"
+    lodash "^4.17.21"
+    prettier ">=2.2.1 <=2.3.0"
+    regenerator-runtime "^0.13.7"
+
 "@storybook/source-loader@6.5.9":
   version "6.5.9"
   resolved "https://registry.yarnpkg.com/@storybook/source-loader/-/source-loader-6.5.9.tgz#7b6f065c6a6108c4b4ca7e45bfd78707373d84ac"
@@ -4089,26 +4068,6 @@
     "@storybook/router" "6.5.10"
     "@storybook/semver" "^7.3.2"
     "@storybook/theming" "6.5.10"
-    core-js "^3.8.2"
-    memoizerific "^1.11.3"
-    qs "^6.10.0"
-    regenerator-runtime "^0.13.7"
-    resolve-from "^5.0.0"
-
-"@storybook/ui@6.5.9":
-  version "6.5.9"
-  resolved "https://registry.yarnpkg.com/@storybook/ui/-/ui-6.5.9.tgz#41e59279323cccc0d613974ec9782d797220c8a7"
-  integrity sha512-ryuPxJgtbb0gPXKGgGAUC+Z185xGAd1IvQ0jM5fJ0SisHXI8jteG3RaWhntOehi9qCg+64Vv6eH/cj9QYNHt1Q==
-  dependencies:
-    "@storybook/addons" "6.5.9"
-    "@storybook/api" "6.5.9"
-    "@storybook/channels" "6.5.9"
-    "@storybook/client-logger" "6.5.9"
-    "@storybook/components" "6.5.9"
-    "@storybook/core-events" "6.5.9"
-    "@storybook/router" "6.5.9"
-    "@storybook/semver" "^7.3.2"
-    "@storybook/theming" "6.5.9"
     core-js "^3.8.2"
     memoizerific "^1.11.3"
     qs "^6.10.0"
