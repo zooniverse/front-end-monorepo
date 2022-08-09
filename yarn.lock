@@ -12369,9 +12369,9 @@ mobx-react@~7.5.0:
     mobx-react-lite "^3.4.0"
 
 mobx-state-tree@~5.1.0:
-  version "5.1.5"
-  resolved "https://registry.yarnpkg.com/mobx-state-tree/-/mobx-state-tree-5.1.5.tgz#7344d61072705747abb98d23ad21302e38200105"
-  integrity sha512-jugIic0PYWW+nzzYfp4RUy9dec002Z778OC6KzoOyBHnqxupK9iPCsUJYkHjmNRHjZ8E4Z7qQpsKV3At/ntGVw==
+  version "5.1.6"
+  resolved "https://registry.yarnpkg.com/mobx-state-tree/-/mobx-state-tree-5.1.6.tgz#b4c444d1c385ae736440739a93c8e6e1169eecee"
+  integrity sha512-t4YNI3taTvDTMCyjA/bmX90HpPUMJEHX1OvyJqbfR6iOIWkJk+JbWc1aozIZxh2M5VA8xtHGnzu/2YGzSPUpJQ==
 
 mobx-utils@~6.0.4:
   version "6.0.5"
