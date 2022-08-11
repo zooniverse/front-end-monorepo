@@ -25,28 +25,10 @@ const Notifications = types
   .actions(self => {
     return {
       fetchAndSubscribe () {
+        self.fetchInitialUnreadConversationsIds()
         self.fetchInitialUnreadNotificationsCount()
         self.subscribeToSugarNotifications()
-        self.fetchInitialUnreadConversationsIds()
       },
-
-      fetchInitialUnreadNotificationsCount: flow(function * fetchInitialUnreadNotificationsCount () {
-        self.setLoadingState(asyncStates.loading)
-        try {
-          const token = yield auth.checkBearerToken()
-          const authorization = `Bearer ${token}`
-
-          const unreadNotificationsCount = yield getUnreadNotificationsCount(authorization)
-          
-          if (unreadNotificationsCount) {
-            self.count = unreadNotificationsCount
-          }
-
-          self.setLoadingState(asyncStates.success)
-        } catch (error) {
-          self.handleError(error)
-        }
-      }),
 
       fetchInitialUnreadConversationsIds: flow(function * fetchInitialUnreadConversationsIds () {
         self.setLoadingState(asyncStates.loading)
@@ -58,6 +40,24 @@ const Notifications = types
 
           if (unreadConversationsIds?.length) {
             self.unreadConversationsIds = unreadConversationsIds
+          }
+
+          self.setLoadingState(asyncStates.success)
+        } catch (error) {
+          self.handleError(error)
+        }
+      }),
+
+      fetchInitialUnreadNotificationsCount: flow(function * fetchInitialUnreadNotificationsCount () {
+        self.setLoadingState(asyncStates.loading)
+        try {
+          const token = yield auth.checkBearerToken()
+          const authorization = `Bearer ${token}`
+
+          const unreadNotificationsCount = yield getUnreadNotificationsCount(authorization)
+
+          if (unreadNotificationsCount) {
+            self.unreadNotificationsCount = unreadNotificationsCount
           }
 
           self.setLoadingState(asyncStates.success)
@@ -116,7 +116,7 @@ const Notifications = types
 
       reset () {
         this.unsubscribeFromSugarNotifications()
-        self.messagesCount = null
+        self.unreadConversationsIds = []
         self.unreadNotificationsCount = null
         self.error = undefined
         this.setLoadingState(asyncStates.initialized)

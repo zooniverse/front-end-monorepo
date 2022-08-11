@@ -12,13 +12,15 @@ export default async function getUnreadConversationsIds (authorization) {
     }
 
     const response = await talkAPI.get('/conversations', query, { authorization })
-    const { meta, conversations } = response.body
+    const { meta, conversations } = response?.body || {}
 
-    unreadConversationsIds = unreadConversationsIds.concat(
-      conversations.map(conversation => conversation.id)
-    )
+    if (conversations && conversations.length > 0) {
+      unreadConversationsIds = unreadConversationsIds.concat(
+        conversations.map(conversation => conversation.id)
+      )
+    }
 
-    if (meta.next_page) {
+    if (meta?.next_page) {
       return getUnreadConversationsIds(meta.next_page)
     }
 
