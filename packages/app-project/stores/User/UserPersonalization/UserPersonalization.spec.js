@@ -206,8 +206,8 @@ describe('Stores > UserPersonalization', function () {
     })
 
     describe('when we successfully know there is an anonymous user', function () {
-      before(async function () {
-        await rootStore.user.checkCurrent()
+      before(function () {
+        rootStore.user.set({})
       })
 
       it('should set the user project preferences load to success', function () {
@@ -229,6 +229,7 @@ describe('Stores > UserPersonalization', function () {
 
     describe('incrementing your classification count to 5', function () {
       before(function () {
+        rootStore.client.panoptes.get.resetHistory()
         rootStore.user.personalization.reset()
         rootStore.user.personalization.increment()
         rootStore.user.personalization.increment()

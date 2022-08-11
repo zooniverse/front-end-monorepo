@@ -1,8 +1,10 @@
 import { expect } from 'chai'
 import asyncStates from '@zooniverse/async-states'
 import { panoptes, projects } from '@zooniverse/panoptes-js'
+import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 
-import initStore from './initStore'
+import initStore, { cleanStore } from './initStore'
+import User from './User'
 
 describe('Stores > initStore', function () {
   it('should export a function', function () {
@@ -52,5 +54,67 @@ describe('Stores > initStore', function () {
     const client = {}
     const store = initStore({}, {}, client)
     expect(store.client).to.equal(client)
+  })
+
+  describe('with a logged-in user', function () {
+    before(function () {
+      const pageProps = {
+        project: {
+          loadingState: asyncStates.initialized,
+          display_name: 'foobar',
+          error: null,
+          id: '12345'
+        }
+      }
+      cleanStore()
+      const store=initStore(false, pageProps)
+      const user = User.create({
+        id: '12345',
+        display_name: 'test user',
+        loadingState: asyncStates.success
+      })
+      applySnapshot(store.user, getSnapshot(user))
+    })
+
+    it('should store a user snapshot in session storage', function () {
+      const storedUserData = window.sessionStorage.getItem('panoptes-user')
+      const storedUser = JSON.parse(storedUserData)
+      expect(storedUser.id).to.equal('12345')
+      expect(storedUser.display_name).to.equal('test user')
+      expect(storedUser.loadingState).to.equal(asyncStates.success)
+    })
+  })
+
+  describe('with a stored user', function () {
+    let store
+
+    before(function () {
+      const user = User.create({
+        id: '12345',
+        display_name: 'test user',
+        loadingState: asyncStates.success
+      })
+      const pageProps = {
+        project: {
+          loadingState: asyncStates.initialized,
+          display_name: 'foobar',
+          error: null,
+          id: '12345'
+        }
+      }
+      const storedUser = JSON.stringify(getSnapshot(user))
+      window.sessionStorage.setItem('panoptes-user', storedUser)
+      cleanStore()
+      store=initStore(false, pageProps)
+    })
+
+    it('should contain a user', function () {
+      expect(store.user.id).to.equal('12345')
+      expect(store.user.display_name).to.equal('test user')
+    })
+
+    it('should already be loaded', function () {
+      expect(store.user.loadingState).to.equal(asyncStates.success)
+    })
   })
 })
