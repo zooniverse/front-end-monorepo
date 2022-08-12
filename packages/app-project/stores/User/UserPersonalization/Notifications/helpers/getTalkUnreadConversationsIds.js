@@ -5,7 +5,7 @@ export default async function getUnreadConversationsIds (authorization) {
 
   let unreadConversationsIds = []
 
-  const getUnreadConversationsIds = async (page = 1) => {
+  const getConversations = async (page = 1) => {
     const query = {
       unread: true,
       page: page
@@ -27,5 +27,5 @@ export default async function getUnreadConversationsIds (authorization) {
     return unreadConversationsIds
   }
 
-  return getUnreadConversationsIds(1)
+  return getConversations(1)
 }
