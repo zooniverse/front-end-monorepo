@@ -86,11 +86,12 @@ function SlideTutorial({
           </Heading>}
         <Markdownz>{strings[`steps.${stepIndex}.content`]}</Markdownz>
       </StyledMarkdownWrapper>
-        <StepNavigation
-          onChange={setStepIndex}
-          stepIndex={stepIndex}
-          steps={steps}
-        />
+      <StepNavigation
+        name='TutorialStepNavigation'
+        onChange={setStepIndex}
+        stepIndex={stepIndex}
+        steps={steps}
+      />
       {isLastStep &&
         <Button
           label={t('SlideTutorial.getStarted')}

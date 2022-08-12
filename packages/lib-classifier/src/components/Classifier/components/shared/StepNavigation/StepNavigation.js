@@ -36,6 +36,7 @@ const StyledRadioButtonGroup = styled(RadioButtonGroup)`
 
 function StepNavigation({
   className = '',
+  name = 'step-selectors',
   onChange = () => true,
   stepIndex = 0,
   steps = []
@@ -57,6 +58,7 @@ function StepNavigation({
       // because Grommet is using indexes internally as keys and this will error with a duplicate key
       const value = `step-${index}`
       return {
+        id: `${name}-${value}`,
         label,
         value
       }
@@ -74,6 +76,7 @@ function StepNavigation({
         <StyledRadioButtonGroup
           direction='row'
           gap='none'
+          name={name}
           onChange={onRadioChange}
           options={options}
           value={`step-${stepIndex}`}
@@ -95,6 +98,7 @@ function StepNavigation({
 
 StepNavigation.propTypes = {
   className: PropTypes.string,
+  name: PropTypes.string,
   onChange: PropTypes.func,
   stepIndex: PropTypes.number,
   steps: PropTypes.array

@@ -53,6 +53,7 @@ function ImageAndTextViewerContainer ({
               onReady={onReady}
             />)}
         <StepNavigation
+          name='ImageAndTextViewerStepNavigation'
           onChange={handleFrameChange}
           stepIndex={frame}
           steps={[0, 1]}
