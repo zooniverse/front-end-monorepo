@@ -107,9 +107,9 @@ describe('ImageAndTextViewer', function () {
         }
       )
 
-      expect(screen.getByRole('button', { name: 'SlideTutorial.StepNavigation.previous' })).to.exist()
-      expect(screen.getAllByRole('radio', { name: 'SlideTutorial.StepNavigation.go' })).to.have.lengthOf(2)
-      expect(screen.getByRole('button', { name: 'SlideTutorial.StepNavigation.next' })).to.exist()
+      expect(screen.getByRole('button', { name: 'StepNavigation.previous' })).to.exist()
+      expect(screen.getAllByRole('radio', { name: 'StepNavigation.go' })).to.have.lengthOf(2)
+      expect(screen.getByRole('button', { name: 'StepNavigation.next' })).to.exist()
     })
 
     describe('when the frame is changed', function () {
@@ -123,7 +123,7 @@ describe('ImageAndTextViewer', function () {
           }
         )
 
-        await user.click(screen.getByRole('button', { name: 'SlideTutorial.StepNavigation.next' }))
+        await user.click(screen.getByRole('button', { name: 'StepNavigation.next' }))
         expect(screen.getByText('This is test subject content.')).to.exist()
       })
     })
@@ -170,9 +170,9 @@ describe('ImageAndTextViewer', function () {
         }
       )
 
-      expect(screen.getByRole('button', { name: 'SlideTutorial.StepNavigation.previous' })).to.exist()
-      expect(screen.getAllByRole('radio', { name: 'SlideTutorial.StepNavigation.go' })).to.have.lengthOf(2)
-      expect(screen.getByRole('button', { name: 'SlideTutorial.StepNavigation.next' })).to.exist()
+      expect(screen.getByRole('button', { name: 'StepNavigation.previous' })).to.exist()
+      expect(screen.getAllByRole('radio', { name: 'StepNavigation.go' })).to.have.lengthOf(2)
+      expect(screen.getByRole('button', { name: 'StepNavigation.next' })).to.exist()
     })
 
     it('should call the onReady prop', function () {
@@ -202,7 +202,7 @@ describe('ImageAndTextViewer', function () {
           }
         )
 
-        await user.click(screen.getByRole('button', { name: 'SlideTutorial.StepNavigation.next' }))
+        await user.click(screen.getByRole('button', { name: 'StepNavigation.next' }))
         const image = document.querySelector('image')
         expect(image).to.exist()
 

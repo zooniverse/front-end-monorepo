@@ -5,7 +5,7 @@ import { Box, Button, Heading, Paragraph } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
 import { useTranslation } from 'react-i18next'
 
-import StepNavigation from './components/StepNavigation'
+import StepNavigation from '@shared/StepNavigation'
 
 const StyledMarkdownWrapper = styled(Box)`
   > h1, h2 {
