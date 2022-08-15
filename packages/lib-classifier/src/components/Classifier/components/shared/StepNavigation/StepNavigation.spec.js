@@ -1,109 +1,104 @@
 import React from 'react'
-import { shallow } from 'enzyme'
 import sinon from 'sinon'
-import { Button } from 'grommet'
-import { FormNext, FormPrevious } from 'grommet-icons'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+
 import StepNavigation from './StepNavigation'
 
 const steps = [
   { content: '# Welcome' },
-  { content: '# Thank you' }
+  { content: '# Thank you' },
+  { content: '# Goodbye' }
 ]
 
 describe('StepNavigation', function () {
-  it('should render without crashing', function () {
-    const wrapper = shallow(<StepNavigation />)
-    expect(wrapper).to.be.ok()
+  it('should render no buttons and no inputs if there are no steps', function () {
+    render(<StepNavigation />)
+    expect(screen.queryByRole('button', { name: 'StepNavigation.previous' })).to.be.null()
+    expect(screen.queryByRole('button', { name: 'StepNavigation.next' })).to.be.null()
+    expect(screen.queryByRole('radiogroup')).to.be.null()
   })
 
-  it('should render null if there are no steps', function () {
-    const wrapper = shallow(<StepNavigation />)
-    expect(wrapper.html()).to.be.null()
-  })
-
-  it('should render null if there is not more than one step', function () {
-    const wrapper = shallow(<StepNavigation steps={[{ content: '# Welcome' }]} />)
-    expect(wrapper.html()).to.be.null()
+  it('should render no buttons and no inputs if there is not more than one step', function () {
+    render(<StepNavigation steps={[{ content: '# Welcome' }]} />)
+    expect(screen.queryByRole('button', { name: 'StepNavigation.previous' })).to.be.null()
+    expect(screen.queryByRole('button', { name: 'StepNavigation.next' })).to.be.null()
+    expect(screen.queryByRole('radiogroup')).to.be.null()
   })
 
   it('should render a previous button', function () {
-    const wrapper = shallow(<StepNavigation steps={steps} />)
-    expect(wrapper.find({ icon: <FormPrevious /> })).to.have.lengthOf(1)
+    render(<StepNavigation steps={steps} />)
+    expect(screen.getByRole('button', { name: 'StepNavigation.previous' })).to.exist()
   })
 
   it('should render a next button', function () {
-    const wrapper = shallow(<StepNavigation steps={steps} />)
-    expect(wrapper.find({ icon: <FormNext /> })).to.have.lengthOf(1)
+    render(<StepNavigation steps={steps} />)
+    expect(screen.getByRole('button', { name: 'StepNavigation.next' })).to.exist()
   })
 
   it('should render a radio button group', function () {
-    const wrapper = shallow(<StepNavigation steps={steps} />)
-
-    expect(wrapper.find('Styled(RadioButtonGroup)')).to.have.lengthOf(1)
+    render(<StepNavigation steps={steps} />)
+    expect(screen.getByRole('radiogroup')).to.exist()
   })
 
   it('should use the steps to set the options on RadioButtonGroup', function () {
-    const wrapper = shallow(<StepNavigation steps={steps} />)
-    const options = wrapper.find('Styled(RadioButtonGroup)').props().options
-    expect(Object.keys(options)).to.have.lengthOf(steps.length)
+    render(<StepNavigation steps={steps} />)
+    expect(screen.getByDisplayValue('step-0')).to.exist()
+    expect(screen.getByDisplayValue('step-1')).to.exist()
+    expect(screen.getByDisplayValue('step-2')).to.exist()
   })
 
   it('should set the active value of the RadioButtonGroup', function () {
-    const activeStep = 1
-    const wrapper = shallow(<StepNavigation stepIndex={activeStep} steps={steps} />)
-    const activeValue = wrapper.find('Styled(RadioButtonGroup)').props().value
-    expect(activeValue).to.equal(`step-${activeStep}`)
+    render(<StepNavigation stepIndex={1} steps={steps} />)
+    expect(screen.getByDisplayValue('step-0').checked).to.be.false()
+    expect(screen.getByDisplayValue('step-1').checked).to.be.true()
+    expect(screen.getByDisplayValue('step-2').checked).to.be.false()
   })
 
-  it('should disable the previous step button when props.activeStep is 0', function () {
-    const wrapper = shallow(<StepNavigation steps={steps} />)
-    expect(wrapper.find({ icon: <FormPrevious /> }).props().disabled).to.be.true()
-    expect(wrapper.find({ icon: <FormNext /> }).props().disabled).to.be.false()
+  it('should disable the previous step button when stepIndex is 0', function () {
+    render(<StepNavigation steps={steps} />)
+    expect(screen.getByRole('button', { name: 'StepNavigation.previous' })).to.have.attribute('disabled')
   })
 
-  it('should disable the next step button when props.activeStep is the last step', function () {
-    const wrapper = shallow(<StepNavigation stepIndex={1} steps={steps} />)
-    expect(wrapper.find({ icon: <FormPrevious /> }).props().disabled).to.be.false()
-    expect(wrapper.find({ icon: <FormNext /> }).props().disabled).to.be.true()
+  it('should disable the next step button when stepIndex is the last step', function () {
+    render(<StepNavigation stepIndex={2} steps={steps} />)
+    expect(screen.getByRole('button', { name: 'StepNavigation.next' })).to.have.attribute('disabled')
   })
 
   describe('props.onChange', function () {
     let onChangeSpy
-    let wrapper
+    const user = userEvent.setup({ delay: null })
+
     before(function () {
       onChangeSpy = sinon.spy()
-      wrapper = shallow(<StepNavigation onChange={onChangeSpy} steps={steps} />)
     })
 
     afterEach(function () {
       onChangeSpy.resetHistory()
     })
 
-    it('should call props.onChange on click for each button that is not disabled', function () {
-      const buttons = wrapper.find(Button).filterWhere(node => {
-        return !node.props().disabled
-      })
-
-      buttons.forEach(button => {
-        button.simulate('click')
-        expect(onChangeSpy).to.have.been.calledOnce()
-        onChangeSpy.resetHistory()
-      })
+    it('should call onChange with the next step index when the next button is clicked', async function () {
+      render(<StepNavigation onChange={onChangeSpy} steps={steps} />)
+      await user.click(screen.getByRole('button', { name: 'StepNavigation.next' }))
+      expect(onChangeSpy).to.have.been.calledOnceWith(1)
     })
 
-    it('should call onChange when the previous step button is clicked with props.activeStep - 1', function () {
-      wrapper.setProps({ stepIndex: 1 })
-      const prevButton = wrapper.find({ icon: <FormPrevious /> })
-      prevButton.simulate('click')
-      expect(onChangeSpy).to.have.been.calledOnce()
-      expect(onChangeSpy).to.have.been.calledWith(prevButton.props()['data-index'])
+    it('should call onChange with the appropriate step index when the last radio input is clicked', async function () {
+      render(<StepNavigation onChange={onChangeSpy} steps={steps} />)
+      await user.click(screen.getByDisplayValue('step-2'))
+      expect(onChangeSpy).to.have.been.calledOnceWith(2)
     })
 
-    it('should call onChange when the next step button is clicked with props.activeStep + 1', function () {
-      const nextButton = wrapper.find({ icon: <FormNext /> })
-      nextButton.simulate('click')
-      expect(onChangeSpy).to.have.been.calledOnce()
-      expect(onChangeSpy).to.have.been.calledWith(nextButton.props()['data-index'])
+    it('should call onChange with the previous step index when the previous step button is clicked', async function () {
+      render(<StepNavigation onChange={onChangeSpy} stepIndex={1} steps={steps} />)
+      await user.click(screen.getByRole('button', { name: 'StepNavigation.previous' }))
+      expect(onChangeSpy).to.have.been.calledOnceWith(0)
+    })
+
+    it('should call onChange with the appropriate step index when the first radio button is clicked, given initial stepIndex of the last option', async function () {
+      render(<StepNavigation onChange={onChangeSpy} stepIndex={2} steps={steps} />)
+      await user.click(screen.getByDisplayValue('step-0'))
+      expect(onChangeSpy).to.have.been.calledOnceWith(0)
     })
   })
 })
