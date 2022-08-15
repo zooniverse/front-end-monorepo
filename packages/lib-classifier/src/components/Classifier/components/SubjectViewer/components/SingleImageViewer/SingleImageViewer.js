@@ -24,6 +24,10 @@ function SingleImageViewer (props) {
   const transformLayer = useRef()
   const canvas = transformLayer.current
   const transform = `rotate(${rotate} ${width / 2} ${height / 2})`
+  const svgStyle = {}
+  if (enableInteractionLayer) {
+    svgStyle.touchAction = 'pinch-zoom'
+  }
 
   return (
     <SVGContext.Provider value={{ canvas }}>
@@ -40,6 +44,7 @@ function SingleImageViewer (props) {
         <svg
           focusable
           onKeyDown={onKeyDown}
+          style={svgStyle}
           tabIndex={0}
           viewBox={viewBox}
           xmlns='http://www.w3.org/2000/svg'
