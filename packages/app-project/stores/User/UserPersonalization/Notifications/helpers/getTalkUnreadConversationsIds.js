@@ -1,11 +1,11 @@
 import { talkAPI } from '@zooniverse/panoptes-js'
 
 export default async function getUnreadConversationsIds (authorization) {
-  if (!authorization) return undefined
+  if (!authorization) return []
 
   let unreadConversationsIds = []
 
-  const getConversations = async (page = 1) => {
+  async function getConversations (page = 1) {
     const query = {
       unread: true,
       page: page
@@ -21,7 +21,7 @@ export default async function getUnreadConversationsIds (authorization) {
     }
 
     if (meta?.next_page) {
-      return getUnreadConversationsIds(meta.next_page)
+      return getConversations(meta.next_page)
     }
 
     return unreadConversationsIds
