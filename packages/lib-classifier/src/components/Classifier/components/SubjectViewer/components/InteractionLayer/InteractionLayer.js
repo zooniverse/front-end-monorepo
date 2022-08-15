@@ -130,6 +130,7 @@ function InteractionLayer({
 
   function onFinish(event) {
     event?.preventDefault?.()
+    event?.stopPropagation?.()
     setCreating(false)
   }
 
@@ -141,8 +142,6 @@ function InteractionLayer({
   }
 
   function onSelectMark(mark) {
-    // TODO: can we stop marks from being selected while creating is true?
-    activeMark?.finish()
     setActiveMark(mark)
   }
 

@@ -1,3 +1,4 @@
+import { tryReference } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -19,7 +20,6 @@ function storeMapper(classifierStore) {
   )
 
   const {
-    activeMark,
     activeTool,
     activeToolIndex,
     hidingIndex,
@@ -29,7 +29,7 @@ function storeMapper(classifierStore) {
     taskKey
   } = activeInteractionTask || {}
 
-  const disabled = activeTool?.disabled
+  const activeMark = tryReference(() => activeInteractionTask?.activeMark)
 
   return {
     activeMark,
