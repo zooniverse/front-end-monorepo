@@ -4,29 +4,34 @@ import { Box } from 'grommet'
 import { withTheme } from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
-function Loader(props) {
+const isServer = typeof window === 'undefined'
+
+function Loader({
+  background = '',
+  color = '',
+  height = 'xxsmall',
+  loadingMessage = '',
+  margin = '',
+  pad = '',
+  theme: {
+    global: {
+      colors
+    }
+  },
+  width = 'xxsmall',
+  ...rest
+}) {
   const { t } = useTranslation('components')
-  const {
-    background = '',
-    color = '',
-    height = 'xxsmall',
-    loadingMessage = t('Loader.loading'),
-    margin = '',
-    pad = '',
-    theme: {
-      global: {
-        colors
-      }
-    },
-    width = 'xxsmall',
-    ...rest
-  } = props
   const loaderColor = color || colors.brand
+
+  if (isServer) {
+    return null
+  }
 
   return (
     <Box
       align='center'
-      a11yTitle={loadingMessage}
+      a11yTitle={loadingMessage || t('Loader.loading')}
       role='status'
       background={background}
       justify='center'
