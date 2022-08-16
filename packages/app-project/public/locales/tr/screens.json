@@ -1,0 +1,56 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "research": "Araştırma",
+        "team": "Ekip",
+        "results": "Sonuçlar",
+        "education": "Eğitim",
+        "faq": "SSS"
+      }
+    },
+    "SidebarHeading": "Hakkımızda",
+    "TeamMember": {
+      "owner": "Proje Yürütücüsü",
+      "collaborator": "Proje Ortakları",
+      "translator": "Çevirmen",
+      "researcher": "Araştırmacı",
+      "moderator": "Moderatör",
+      "tester": "Test edici",
+      "expert": "Uzman",
+      "museum": "Müze"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "{{projectName}} hakkında"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Daha fazla bilgi edin"
+      }
+    },
+    "MessageFromResearcher": {
+      "title": "Araştırmacının Mesajı"
+    },
+    "ZooniverseTalk": {
+      "button": "Katıl",
+      "message": "Diğer gönüllülerle sohbet edebileceğiniz [Talk](/talk) sayfasına da göz atmayı unutmayın.",
+      "title": "Sohbet"
+    }
+  },
+  "Classify": {
+    "RecentSubjects": {
+      "title": "En son çalışmalarınız"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Hayır, teşekkürler",
+      "confirm": "Beni bir sonraki seviyeye ilerlet!",
+      "content": "Tebrikler! Bir sonraki iş akışının kilidini açtınız. Eğer istersenizö bu iş akışında kalmayı tercih edebilirsiniz.",
+      "dismiss": "Bana daha fazla mesaj göstermeç"
+    },
+    "YourStats": {
+      "title": "{{projectName}} İstatistikler"
+    }
+  }
+}
