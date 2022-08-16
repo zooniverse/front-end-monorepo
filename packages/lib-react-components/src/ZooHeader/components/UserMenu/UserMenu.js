@@ -20,7 +20,7 @@ export default function UserMenu ({ signOut, user }) {
   // Support staging urls...
   const host = getHost()
 
-  const userDisplayName = <NarrowMenuNavListItem color='#B2B2B2' text={user.display_name} />
+  const userDisplayName = <NarrowMenuNavListItem color='#B2B2B2' text={user.display_name} overrideLang />
 
   const profileLabel = <NarrowMenuNavListItem text={t('ZooHeader.UserMenu.userNavListLabels.profile')} />
 
