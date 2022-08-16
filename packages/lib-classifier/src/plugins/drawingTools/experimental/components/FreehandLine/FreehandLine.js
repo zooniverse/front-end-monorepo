@@ -20,7 +20,7 @@ const StyledGroup = styled.g`
 `
 
 const STROKE_WIDTH = 1
-const GRAB_STROKE_WIDTH = 4
+const GRAB_STROKE_WIDTH = 10
 const FINISHER_RADIUS = 3
 
 function createPoint(event) {
