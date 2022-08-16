@@ -52,7 +52,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
 
   const dragPoint = !mark.isCloseToStart && mark.dragPoint
   const targetPoint = !mark.isCloseToStart && mark.targetPoint
-  let clippedPath = mark.clipPath.map(
+  const clippedPath = mark.clipPath.map(
     (point, index) => index === 0 ? `M ${point.x},${point.y}` : `L ${point.x},${point.y}`
   ).join(' ')
 
@@ -61,7 +61,9 @@ function FreehandLine({ active, mark, onFinish, scale }) {
   }
 
   if (!editing && isClosed) {
-    clippedPath = ''
+    if (mark.clipPath.length > 0) {
+      mark.setClipPath([])
+    }
   }
 
   function onDoubleClick(event) {
