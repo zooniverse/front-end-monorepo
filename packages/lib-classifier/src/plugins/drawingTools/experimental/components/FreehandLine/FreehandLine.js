@@ -40,6 +40,12 @@ function createPoint(event) {
   }
 }
 
+function cancelEvent(event) {
+  event.preventDefault()
+  event.stopPropagation()
+  return false
+}
+
 function FreehandLine({ active, mark, onFinish, scale }) {
   const { path, initialPoint, lastPoint, finished, isClosed } = mark
   const [editing, setEditing] = useState(false)
@@ -59,17 +65,25 @@ function FreehandLine({ active, mark, onFinish, scale }) {
   }
 
   function onDoubleClick(event) {
-    const { x, y } = createPoint(event)
-    mark.setDragPoint(mark.selectPoint({ x, y }))
-    setEditing(true)
+    if (active) {
+      const { x, y } = createPoint(event)
+      mark.setDragPoint(mark.selectPoint({ x, y }))
+      setEditing(true)
+      return cancelEvent(event)
+    }
+    return true
   }
 
-  function onClick(event) {
-    if (!editing) {
-      return true
+  function onPointerDown(event) {
+    if (active && editing) {
+      const { x, y } = createPoint(event)
+      mark.cutSegment(mark.selectPoint({ x, y }))
+      return cancelEvent(event)
     }
-    const { x, y } = createPoint(event)
-    mark.cutSegment(mark.selectPoint({ x, y }))
+    if (active) {
+      return cancelEvent(event)
+    }
+    return true
   }
 
   function cancelEditing() {
@@ -77,6 +91,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
     mark.setDragPoint(null)
     setEditing(false)
   }
+
   return (
     <StyledGroup
       className={ editing ? 'editing' : undefined}
@@ -109,8 +124,8 @@ function FreehandLine({ active, mark, onFinish, scale }) {
       />
       <path
         d={path}
-        onClick={onClick}
         onDoubleClick={onDoubleClick}
+        onPointerDown={onPointerDown}
         style={{
           strokeOpacity: '0',
           strokeWidth: GRAB_STROKE_WIDTH / scale
