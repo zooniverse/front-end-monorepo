@@ -1,0 +1,73 @@
+{
+  "Banners": {
+    "Banner": {
+      "next": "Sonraki"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "İptal et",
+      "confirm": "Tamam",
+      "inProgress": "Geri gitmek, mevcut çalışmanızı silecektir."
+    }
+  },
+  "FeedbackModal": {
+    "keepClassifying": "Devam et"
+  },
+  "FieldGuide": {
+    "title": "Kullanım Kılavuzu",
+    "FieldGuideButton": {
+      "buttonLabel": "Kullanım Kılavuzu"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "Geri dön"
+    }
+  },
+  "ImageToolbar": {
+    "ResetButton": {
+      "ariaLabel": "Görünümü sıfırla"
+    }
+  },
+  "QuickTalk": {
+    "status": {
+      "loading": "(Yükleniyor)"
+    }
+  },
+  "SlideTutorial": {
+    "getStarted": "Başla",
+    "heading": "{{projectDisplayName}} Tutorial"
+  },
+  "SubjectViewer": {
+    "MultiFrameViewer": {
+      "FrameCarousel": {
+        "nextFrameLabel": "Sonraki"
+      }
+    }
+  },
+  "TaskArea": {
+    "task": "Transkripsiyon  işlemi",
+    "DisabledTaskPopup": {
+      "options": {
+        "dismiss": "Reddet"
+      }
+    },
+    "Tasks": {
+      "BackButton": {
+        "back": "Geri dön",
+        "tooltip": "Geri gitmek, mevcut çalışmanızı silecektir."
+      },
+      "DoneAndTalkButton": {
+        "doneAndTalk": "Bitti & Sohbet Et"
+      },
+      "DoneButton": {
+        "done": "Bitti"
+      },
+      "loading": "(Yükleniyor)",
+      "NextButton": {
+        "next": "Sonraki"
+      },
+      "TaskHelp": {
+        "close": "Kapat",
+        "label": "Bu işlemle ilgili yardıma mı ihtiyacınız var?"
+      }
+    }
+  }
+}

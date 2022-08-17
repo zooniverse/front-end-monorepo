@@ -1,0 +1,19 @@
+{
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "Filtreleri sil",
+      "showing": "{{total}} / {{showing}} gösteriliyor"
+    },
+    "Choice": {
+      "identify": "Tanımla"
+    },
+    "ConfusedWith": {
+      "cancel": "İptal et",
+      "confused": "Sıklıkla karıştırılan",
+      "itsThis": "Bence bu"
+    }
+  },
+  "TextFromSubjectTasks": {
+    "reset": "Görünümü sıfırla"
+  }
+}

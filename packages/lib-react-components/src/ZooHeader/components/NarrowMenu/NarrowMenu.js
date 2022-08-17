@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Menu } from 'grommet'
-import zooTheme from '@zooniverse/grommet-theme'
 
 export default function NarrowMenu (props) {
   const { dropBackground, icon, items, label, size } = props

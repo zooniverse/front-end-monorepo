@@ -1,0 +1,44 @@
+{
+  "CloseButton": {
+    "close": "Kapat"
+  },
+  "ZooFooter": {
+    "aboutLabels": {
+      "about": "Hakkımızda",
+      "publications": "Yayınlar",
+      "team": "Ekibimiz",
+      "acknowledgements": "Teşekkürler",
+      "contact": "Bize Ulaşın",
+      "faq": "SSS"
+    },
+    "getInvolvedLabels": {
+      "getInvolved": "Katıl",
+      "education": "Eğitim",
+      "callForProjects": "Proje Çağrıları"
+    },
+    "projectLabels": {
+      "projects": "Projeler"
+    },
+    "talkLabels": {
+      "talk": "Sohbet"
+    }
+  },
+  "ZooHeader": {
+    "mainHeaderNavListLabels": {
+      "projects": "Projeler",
+      "about": "Hakkımızda",
+      "getInvolved": "Katıl",
+      "talk": "Sohbet"
+    },
+    "SignedOutUserNavigation": {
+      "register": "Kayıt ol",
+      "signIn": "Giriş yap"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Koleksiyonlar",
+        "favorites": "Favoriler"
+      }
+    }
+  }
+}

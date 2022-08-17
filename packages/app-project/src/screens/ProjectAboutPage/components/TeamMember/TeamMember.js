@@ -78,7 +78,7 @@ const TeamMember = ({ user }) => {
           <Image 
             alt='Placeholder Avatar'
             fit='cover' 
-            src={placeholderAvatar} 
+            src={placeholderAvatar}
           />
         ) : (
           <Image alt={user.display_name} fit='cover' src={user.avatar_src} />
@@ -87,6 +87,7 @@ const TeamMember = ({ user }) => {
       <Box flex direction='column'>
         <StyledDisplayName color={{ light: 'neutral-7', dark: '' }}>{user.display_name}</StyledDisplayName>
         <StyledUsername
+          lang='en'
           link={{ href: `${baseUrl}/${user.login}`, text: `@${user.login}` }}
         />
         {user?.roles?.map(role => (
