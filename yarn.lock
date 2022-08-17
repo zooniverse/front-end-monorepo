@@ -4374,17 +4374,17 @@
   dependencies:
     "@use-gesture/core" "10.2.4"
 
-"@visx/axis@~2.11.1":
-  version "2.11.1"
-  resolved "https://registry.yarnpkg.com/@visx/axis/-/axis-2.11.1.tgz#e1cc978ede9cce197cd7712183301e9e89c519e2"
-  integrity sha512-RZdT+yhAEOXtcLc3PgD14Xh5bJh5B64IG+zvHe3YVMkiFWGT1phy0sGTRRxritHke16ErB9vndx+pwVIGSkxAw==
+"@visx/axis@~2.12.2":
+  version "2.12.2"
+  resolved "https://registry.yarnpkg.com/@visx/axis/-/axis-2.12.2.tgz#0aa50ae35d0cd6d8a11c59ad0d874cfeea9e3b89"
+  integrity sha512-nE+DGNwRzXOmp6ZwMQ1yUhbF7uR2wd3j6Xja/kVgGA7wSbqUeCZzqKZvhRsCqyay6PtHVlRRAhHP31Ob39+jtw==
   dependencies:
     "@types/react" "*"
     "@visx/group" "2.10.0"
     "@visx/point" "2.6.0"
     "@visx/scale" "2.2.2"
-    "@visx/shape" "2.11.1"
-    "@visx/text" "2.10.0"
+    "@visx/shape" "2.12.2"
+    "@visx/text" "2.12.2"
     classnames "^2.3.1"
     prop-types "^15.6.0"
 
@@ -4461,25 +4461,7 @@
     d3-scale "^3.3.0"
     d3-time "^2.1.1"
 
-"@visx/shape@2.11.1":
-  version "2.11.1"
-  resolved "https://registry.yarnpkg.com/@visx/shape/-/shape-2.11.1.tgz#ff41d839ad689fea53504597bd4bfbc8b7c20bbb"
-  integrity sha512-0ak3wTkXjExH7kzU62yXPu+RtuG35G1sNL58Ax4NBr4yKh2nTHcLRsMZ7k6yUG+wSjb8DgG/ywZ0bBGWXJYGbg==
-  dependencies:
-    "@types/d3-path" "^1.0.8"
-    "@types/d3-shape" "^1.3.1"
-    "@types/lodash" "^4.14.172"
-    "@types/react" "*"
-    "@visx/curve" "2.1.0"
-    "@visx/group" "2.10.0"
-    "@visx/scale" "2.2.2"
-    classnames "^2.3.1"
-    d3-path "^1.0.5"
-    d3-shape "^1.2.0"
-    lodash "^4.17.21"
-    prop-types "^15.5.10"
-
-"@visx/shape@~2.12.2":
+"@visx/shape@2.12.2", "@visx/shape@~2.12.2":
   version "2.12.2"
   resolved "https://registry.yarnpkg.com/@visx/shape/-/shape-2.12.2.tgz#81ed88bf823aa84a4f5f32a9c9daf8371a606897"
   integrity sha512-4gN0fyHWYXiJ+Ck8VAazXX0i8TOnLJvOc5jZBnaJDVxgnSIfCjJn0+Nsy96l9Dy/bCMTh4DBYUBv9k+YICBUOA==
@@ -4497,7 +4479,19 @@
     lodash "^4.17.21"
     prop-types "^15.5.10"
 
-"@visx/text@2.10.0", "@visx/text@~2.10.0":
+"@visx/text@2.12.2":
+  version "2.12.2"
+  resolved "https://registry.yarnpkg.com/@visx/text/-/text-2.12.2.tgz#f4cd32424b1866d8a7f26bdc7cc8396727da06f0"
+  integrity sha512-Sv9YEolggfv2Nf6+l28ESG3VXVR1+s4u/Cz17QpgOxygcbOM8LfLtriWtBsBMKdMbYKeUpoUro0clx55TUwzew==
+  dependencies:
+    "@types/lodash" "^4.14.172"
+    "@types/react" "*"
+    classnames "^2.3.1"
+    lodash "^4.17.21"
+    prop-types "^15.7.2"
+    reduce-css-calc "^1.3.0"
+
+"@visx/text@~2.10.0":
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/@visx/text/-/text-2.10.0.tgz#2ff413f4dd35617e45b24d6082d7b856358afe4c"
   integrity sha512-Wbt0Mq130akOahaby2Ziwkr62LuK6td9RcIWI9o4xsLE7GCIkxeUiVci0YUo2yewgwOLwR9F1guPuHPqYd+eYg==
