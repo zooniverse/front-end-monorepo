@@ -3,7 +3,6 @@ import { array, arrayOf, bool, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import { withResizeDetector } from 'react-resize-detector'
 
-import ApprovedIcon from './components/ApprovedIcon'
 import Avatar from './components/Avatar'
 import Background from './components/Background'
 import DropdownNav from './components/DropdownNav'
@@ -66,7 +65,6 @@ function ProjectHeader({
                   style={{ maxWidth: calcMaxWidth() }}
                 >
                   <ProjectTitle showDropdown={showDropdownWithColumn} title={title} />
-                  <ApprovedIcon isNarrow={showDropdownWithColumn} />
                 </Box>
                 {inBeta && <UnderReviewLabel />}
               </Box>
