@@ -16,14 +16,14 @@ const TranscriptionReductions = types
   })
 
   .views(self => {
-    function constructCoordinates (line) {
+    function constructCoordinates(line) {
       if (line && line.clusters_x && line.clusters_y) {
         return line.clusters_x.map((point, i) => ({ x: line.clusters_x[i], y: line.clusters_y[i] }))
       }
       return []
     }
 
-    function constructText (line) {
+    function constructText(line) {
       const sentences = []
       if (line && line.clusters_text) {
         line.clusters_text.forEach(value => {
@@ -40,7 +40,7 @@ const TranscriptionReductions = types
       return sentences.map(value => value.join(' '));
     }
 
-    function constructLine (reduction, options) {
+    function constructLine(reduction, options) {
       const { frame, minimumViews, threshold } = options
       const consensusText = reduction.consensus_text
       const points = constructCoordinates(reduction)
@@ -51,14 +51,14 @@ const TranscriptionReductions = types
           reduction.number_views >= minimumViews,
         consensusText,
         frame,
-        id: cuid(),
+        id: reduction.id,
         points,
         textOptions
       }
     }
 
     return {
-      consensusLines (frame) {
+      consensusLines(frame) {
         const { reductions } = self
         let consensusLines = []
         reductions.forEach(reduction => {
@@ -67,6 +67,9 @@ const TranscriptionReductions = types
           const minimumViews = parameters?.minimum_views || DEFAULT_VIEWS_TO_RETIRE
           const currentFrameReductions = reduction.data[`frame${frame}`] || []
           const currentFrameConsensus = currentFrameReductions.map(reduction => {
+            if (!reduction.id) {
+              reduction.id = cuid()
+            }
             return constructLine(reduction, { frame, minimumViews, threshold })
           })
           consensusLines = consensusLines.concat(currentFrameConsensus)
