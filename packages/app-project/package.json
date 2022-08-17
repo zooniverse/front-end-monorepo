@@ -26,7 +26,7 @@
     "@visx/axis": "~2.11.1",
     "@visx/group": "~2.10.0",
     "@visx/scale": "~2.2.2",
-    "@visx/shape": "~2.11.1",
+    "@visx/shape": "~2.12.2",
     "@visx/text": "~2.10.0",
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "@zooniverse/async-states": "~0.0.1",
