@@ -1,15 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useTranslation } from 'react-i18next'
 
 import SpacedText from '../../../SpacedText'
 
-export default function NarrowMenuNavListItem ({ color, text, overrideLang }) {
-  const { i18n } = useTranslation()
+export default function NarrowMenuNavListItem ({ color, text, lang }) {
   return (
     <SpacedText
       color={color}
-      lang={overrideLang ? 'en' : i18n.language}
+      lang={lang}
       size='xsmall'
       weight='bold'
     >
