@@ -18,6 +18,7 @@ export default {
   ru: 'русский',
   sv: 'Svenska',
   test: 'Test Language',
+  tr: 'Türkçe',
   ur: 'اُردُو',
   'zh-cn': '简体中文',
   'zh-tw': '繁體中文'

@@ -66,7 +66,7 @@ function WorkflowSelector ({
         </Box>
       )}
 
-      {(![asyncStates.success, asyncStates.error].includes(userReadyState)) && (
+      {([asyncStates.initialized, asyncStates.loading].includes(userReadyState)) && (
         <Loader margin={{ top: 'small' }} width='100%' />
       )}
     </Box>

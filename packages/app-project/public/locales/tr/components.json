@@ -1,0 +1,65 @@
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "register": "Kayıt ol",
+      "signIn": "Giriş yap"
+    }
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "signIn": "Giriş yap"
+    },
+    "RegisterForm": {
+      "passwordConfirmError": "Şifreler uyuşmuyor, lütfen tekrar deneyin.",
+      "realName": "Gerçek ad (isteğe bağlı)",
+      "realNameHelp": "Herkese açık; bunu bildirilerde, posterlerde vs. katkıda bulunanlara teşekkür etmek için kullanacağız.",
+      "register": "Kayıt ol"
+    }
+  },
+  "ConnectWithProject": {
+    "title": "{{projectName}} ile bağlan"
+  },
+  "Head": {
+    "defaultDescription": "",
+    "defaultTitle": "Projeler",
+    "siteName": "Zooniverse"
+  },
+  "Loader": {
+    "loading": "(Yükleniyor)"
+  },
+  "ProjectHeader": {
+    "about": "Hakkımızda",
+    "classify": "Sınıflandırma",
+    "exploreProject": "Projeyi Keşfet",
+    "talk": "Sohbet",
+    "collect": "Toplamak",
+    "recents": "Son bilgiler",
+    "ApprovedIcon": {
+      "title": "Zooniverse Onaylı"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Proje"
+    },
+    "UnderReviewLabel": {
+      "underReview": "İnceleme altında"
+    }
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "Sayılara göre",
+    "classifications": "Sınıflandırmalar",
+    "completedSubjects": "Tamamlanan Temalar",
+    "percentComplete": "yüzde tamamlandı",
+    "subjects": "Temalar",
+    "subtitle": "Sizin ve gönüllü arkadaşlarınızın bu projede kaydettiği ilerlemeyi takip edin.",
+    "text": "Her tıklama önemlidir! Bu projeyi tamamlamak ve araştırmacıların önemli sonuçlar üretmesine yardımcı olmak için {{projectName}} topluluğuna katılın.",
+    "title": "{{projectName}} İstatistikler",
+    "volunteers": "Gönüllüler"
+  },
+  "RequireUser": {
+    "text": "Oturum açmadınız"
+  },
+  "ThemeModeToggle": {
+    "switchToDark": "koyu temasına geç",
+    "switchToLight": "açık temasına geç"
+  }
+}
