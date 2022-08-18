@@ -1,47 +1,179 @@
 {
   "Announcements": {
     "AuthenticationInvitation": {
+      "announcement": "Inicia sesión o regístrate para hacer un seguimiento de tus contribuciones.",
       "register": "Registrarse",
       "signIn": "Iniciar sesión"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "¡Terminado! Parece que este proyecto no tiene datos por el momento.",
+      "seeResults": "Ver resultados"
     }
   },
   "AuthModal": {
     "LoginForm": {
+      "error": "El nombre de usuario o la contraseña son incorrectos",
+      "forgot": "¿Olvidaste tu contraseña?",
+      "heading": "¡Bienvenido\/a de nuevo!",
+      "instruction": "¡Nos alegra que hayas vuelto! Inicia sesión para continuar donde lo dejaste.",
+      "login": "Nombre de usuario o dirección de correo electrónico",
+      "password": "Contraseña",
+      "placeholder": "por ejemplo, ZooniverseFan123",
       "signIn": "Iniciar sesión"
     },
     "RegisterForm": {
+      "betaListSignUp": "Me gustaría ayudar a evaluar nuevos proyectos y recibir correos electrónicos cuando estén disponibles (opcional)",
+      "email": "Dirección de correo electrónico (obligatorio)",
+      "emailConfirm": "Confirmar dirección de correo electrónico (obligatorio)",
+      "emailConfirmError": "Las direcciones de correo electrónico no coinciden, inténtalo de nuevo.",
+      "emailConflict": "Ya existe una cuenta con esta dirección",
+      "emailListSignUp": "Me parece bien que me enviéis un correo electrónico de vez en cuando (opcional)",
+      "emailPlaceholder": "por ejemplo zoofan31@gmail.com",
+      "forgot": "¿Olvidaste tu contraseña?",
+      "heading": "¡Bienvenido\/a de nuevo!",
+      "instruction": "Crea una cuenta para empezar a hacer una investigación real.",
+      "password": "Contraseña (obligatorio)",
+      "passwordConfirm": "Confirmar contraseña (obligatorio)",
       "passwordConfirmError": "Las contraseñas son diferentes, por favor intente de nuevo.",
+      "privacyAgreement": "Aceptas nuestra política de privacidad (obligatorio)",
+      "privacyAgreementError": "La aceptación de la política de privacidad es obligatoria.",
+      "privacyLink": "Lee nuestra política de privacidad",
+      "realName": "Nombre real (opcional)",
       "realNameHelp": "Public; we’ll use this to give acknowledgement in papers, on posters, etc.",
-      "register": "Registrarse"
+      "realNamePatternHelp": "Introduzca un nombre, no una dirección de correo electrónico",
+      "realNamePlaceholder": "por ejemplo, Patricia Pérez",
+      "register": "Registrarse",
+      "registering": "Registrándose...",
+      "underageConsent": "Confirmo que soy madre\/padre\/tutor y doy permiso a mi hijo\/hija para registrarse, facilitando mi dirección de correo electrónico como principal dirección de contacto. Tanto yo como mi hijo\/hija entendemos y aceptamos la política de privacidad (obligatorio)",
+      "underageEmail": "Dirección de correo electrónico de la madre, padre o tutor (obligatorio)",
+      "underageEmailSignUp": "Si estás de acuerdo, te enviaremos periódicamente correos electrónicos para promocionar nuevos proyectos u otra información relacionada con nuestra investigación. No utilizaremos tu información de contacto con fines comerciales. (opcional)",
+      "underageNotRealName": "Utilizarás este nombre para iniciar sesión. Se mostrará públicamente. No utilices tu nombre real.",
+      "underageWithParent": "Si eres menor de 16 años, marca esta casilla para confirmar que has completado el formulario con tu madre, padre o tutor",
+      "username": "Nombre de usuario (obligatorio)",
+      "usernameConflict": "Ese nombre de usuario ya está cogido",
+      "usernameHelp": "Esto se mostrará públicamente en los paneles de mensajes, etc.",
+      "usernamePatternHelp": "Los nombres de los usuarios solo pueden tener letras, números, \".\", \"-\", y \"_\"",
+      "usernamePlaceholder": "por ejemplo, ZooniverseFan123"
     }
   },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "Crear y añadir",
+      "label": "Crear una nueva colección",
+      "private": "Colección privada"
+    },
+    "SelectCollection": {
+      "addButton": "Añadir",
+      "label": "Añadir a una colección existente"
+    },
+    "title": "Añadir a la colección"
+  },
   "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "googleplus": "Google+",
+        "instagram": "Instagram",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "Sitio web",
+        "weibo": "Weibo",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    },
     "title": "Enlaces"
+  },
+  "Head": {
+    "defaultDescription": "Zooniverse es la plataforma más grande y popular del mundo para la investigación desarrollada por la gente.",
+    "defaultTitle": "Proyectos",
+    "siteName": "Zooniverse: investigación desarrollada por la gente"
   },
   "Loader": {
     "loading": "(Cargando)"
   },
   "ProjectHeader": {
-    "about": "Acerca de",
-    "classify": "Clasificar",
-    "talk": "Hablemos",
-    "collect": "Colecciones",
-    "recents": "Recientes",
     "ApprovedIcon": {
       "title": "Aprobado por Zooniverse"
     },
+    "Avatar": {
+      "alt": "Avatar de proyecto para{{project}}"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Proyecto"
+    },
     "UnderReviewLabel": {
       "underReview": "Bajo Revisión"
-    }
+    },
+    "about": "Acerca de",
+    "classify": "Clasificar",
+    "collect": "Colecciones",
+    "exploreProject": "Explorar el proyecto",
+    "recents": "Recientes",
+    "talk": "Hablemos"
   },
   "ProjectStatistics": {
+    "byTheNumbers": "Por los números",
+    "classifications": "Clasificaciones",
+    "completedSubjects": "Objetos completados",
+    "percentComplete": "Porcentaje completo",
+    "subjects": "Objetos",
+    "subtitle": "Haz un seguimiento del progreso que tus compañeros voluntarios y tú habéis hecho en este proyecto.",
+    "text": "¡Cada clic cuenta! Únete a la comunidad de {{projectName}} para completar este proyecto y ayudar a los investigadores a conseguir importantes resultados. Haz clic en \"Ver más estadísticas\" para ver aún más estadísticas.",
+    "title": "Estadísticas de {{projectName}}",
+    "viewMoreStats": "Ver más estadísticas",
     "volunteers": "Voluntarios"
   },
   "RequireUser": {
     "text": "Usted no ha iniciado una sesión"
   },
+  "SubjectPicker": {
+    "alreadySeen": "Ya se ha visto",
+    "back": "Elige un conjunto de objetos distinto",
+    "byline": "Ordena la lista haciendo clic en los nombres de las columnas. Verás los objetos de forma secuencial, empezando por el que elijas.",
+    "fetching": "Espera...",
+    "heading": "Elige un objeto para empezar",
+    "retired": "Retirado",
+    "unclassified": "Disponible"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "Añadir a las colecciones"
+    },
+    "TalkLink": {
+      "label": "Debatir en Hablemos"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "Terminado"
+    },
+    "back": "Elige un flujo de trabajo distinto",
+    "byline": "Elige un conjunto de objetos para empezar a transcribir.",
+    "heading": "Elige por dónde empezar"
+  },
   "ThemeModeToggle": {
     "switchToDark": "Cambiar a diseño oscuro",
     "switchToLight": "Cambiar a diseño claro"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "{{completeness}} % completado",
+      "setSelection": "establecer selección",
+      "subjectSelection": "selección de objetos"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "bloqueado",
+      "unlocked": "desbloqueado"
+    },
+    "error": "Se ha producido un error al obtener los flujos de trabajo :(",
+    "getStarted": "¡Empieza!",
+    "message": "Puedes hacer una investigación real haciendo clic aquí para empezar.",
+    "noWorkflows": "Nada para clasificar"
   }
 }
