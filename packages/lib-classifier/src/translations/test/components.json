@@ -130,12 +130,12 @@
     "alt": "Translated {{activeStep}}",
     "error": "Translated",
     "getStarted": "Translated",
-    "heading": "{{projectDisplayName}} Translated",
-    "StepNavigation": {
-      "go": "Translated {{index}}",
-      "next": "Translated",
-      "previous": "Translated"
-    }
+    "heading": "{{projectDisplayName}} Translated"
+  },
+  "StepNavigation": {
+    "go": "Translated {{index}}",
+    "next": "Translated",
+    "previous": "Translated"
   },
   "SubjectViewer": {
     "BarChartViewer": {
