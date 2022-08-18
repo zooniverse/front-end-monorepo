@@ -10,10 +10,10 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@artsy/fresnel@~4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@artsy/fresnel/-/fresnel-4.0.1.tgz#45271000ffca7513c0a113fd003cc3544f09107c"
-  integrity sha512-BJhB/iuum0GcP3VKeLJKAN+p1lS7LAGMmle9YHnxwej/XtXRFQTrowYq2/AL7CRj4b0RedTjYrUNz/QnaFJ1wg==
+"@artsy/fresnel@~6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@artsy/fresnel/-/fresnel-6.1.0.tgz#fac8aeb6a01cbd7791351dce523f5ab5e2fc8679"
+  integrity sha512-PexfFmf3Un3C752SFpryYROgahfdSsHhNETSZlJcO0W3MJ14hyw/MbLQl3DnNdQGIJZE6y1MbnH7ntEt8PWB0Q==
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.18.6", "@babel/code-frame@^7.5.5", "@babel/code-frame@^7.8.3":
   version "7.18.6"
