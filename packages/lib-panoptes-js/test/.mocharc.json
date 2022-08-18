@@ -4,8 +4,8 @@
     "js"
   ],
   "require": [
-    "chai/register-expect",
-    "chai/register-should",
+    "chai/register-expect.js",
+    "chai/register-should.js",
     "mock-local-storage"
   ] ,
   "reporter": "spec",

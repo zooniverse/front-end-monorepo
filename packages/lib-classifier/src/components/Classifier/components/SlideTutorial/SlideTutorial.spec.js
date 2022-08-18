@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import { Button, Heading } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
-import StepNavigation from './components/StepNavigation'
+import StepNavigation from '@shared/StepNavigation'
 import SlideTutorial from './SlideTutorial'
 
 const step = {

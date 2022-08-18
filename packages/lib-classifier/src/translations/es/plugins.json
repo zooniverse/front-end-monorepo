@@ -1,16 +1,44 @@
 {
+  "InputStatus": {
+    "drawn": "{{count}} dibujados",
+    "max": "{{count}} de {{max}} dibujados como máximo",
+    "maxAndMin": "Se necesitan {{count}} de {{min}} dibujados, {{max}} como máximo",
+    "min": "Se necesitan {{count}} de {{min}} dibujados"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Introduce algo",
+    "otherLabel": "Otra...",
+    "selectPlaceholder": "Elige una respuesta"
+  },
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "Borrar filtros",
+      "filter": "Filtrar",
       "showing": "Mostrando {{showing}} de {{total}}"
     },
     "Choice": {
-      "identify": "Identificar"
+      "identify": "Identificar",
+      "notThis": "Esto no"
     },
     "ConfusedWith": {
       "cancel": "Cancelar",
       "confused": "Frecuentemente confundido con",
       "itsThis": "Pienso que es esto"
     }
+  },
+  "TextFromSubjectTask": {
+    "reset": "Restablecer"
+  },
+  "TextFromSubjectTasks": {
+    "reset": "Restablecer"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Modificadores de texto"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Transcripción creada",
+    "editing": "Edición de la transcripción"
   }
 }

@@ -5,7 +5,7 @@ import { Box, Button, Heading, Paragraph } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
 import { useTranslation } from 'react-i18next'
 
-import StepNavigation from './components/StepNavigation'
+import StepNavigation from '@shared/StepNavigation'
 
 const StyledMarkdownWrapper = styled(Box)`
   > h1, h2 {
@@ -86,11 +86,12 @@ function SlideTutorial({
           </Heading>}
         <Markdownz>{strings[`steps.${stepIndex}.content`]}</Markdownz>
       </StyledMarkdownWrapper>
-        <StepNavigation
-          onChange={setStepIndex}
-          stepIndex={stepIndex}
-          steps={steps}
-        />
+      <StepNavigation
+        name='TutorialStepNavigation'
+        onChange={setStepIndex}
+        stepIndex={stepIndex}
+        steps={steps}
+      />
       {isLastStep &&
         <Button
           label={t('SlideTutorial.getStarted')}
