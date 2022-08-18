@@ -1,22 +1,87 @@
 {
+  "AdminCheckbox": {
+    "label": "Modo de administración"
+  },
   "CloseButton": {
     "close": "Cerrar"
   },
+  "FavouritesButton": {
+    "add": "Agregar a favoritos",
+    "remove": "Agregado a favoritos"
+  },
   "ZooFooter": {
+    "aboutLabels": {
+      "about": "Información",
+      "acknowledgements": "Agradecimientos",
+      "contact": "Contacto",
+      "faq": "Preguntas frecuentes",
+      "publications": "Publicaciones",
+      "team": "Equipo"
+    },
     "buildLabels": {
+      "bestPractices": "Prácticas recomendadas",
+      "buildAProject": "Crea un proyecto",
+      "glossary": "Glosario",
+      "policies": "Políticas",
       "tutorial": "Tutorial"
     },
+    "getInvolvedLabels": {
+      "callForProjects": "Solicitud de proyectos",
+      "collections": "Colecciones",
+      "education": "Educación",
+      "getInvolved": "Involucrarse"
+    },
+    "newsLabels": {
+      "blog": "Blog",
+      "dailyZooniverse": "Zooniverse diario",
+      "news": "Noticias"
+    },
+    "policyLabels": {
+      "jobs": "Trabajos",
+      "privacyPolicy": "Política de privacidad",
+      "security": "Seguridad",
+      "systemStatus": "Estado del sistema"
+    },
+    "projectLabels": {
+      "projects": "Proyectos"
+    },
+    "tagLine": "Investigación impulsada por personas",
     "talkLabels": {
       "talk": "Hablemos"
     }
   },
   "ZooHeader": {
-    "mainHeaderNavListLabels": {
-      "talk": "Hablemos"
+    "SignedInUserNavigation": {
+      "ariaLabel": "Cuenta de usuario",
+      "navListLabels": {
+        "messages_one": "Mensajes ({{count}})",
+        "messages_other": "Mensajes ({{count}})",
+        "messages_zero": "Mensajes",
+        "notifications_one": "Notificaciones ({{count}})",
+        "notifications_other": "Notificaciones ({{count}})",
+        "notifications_zero": "Notificaciones"
+      }
     },
     "SignedOutUserNavigation": {
       "register": "Registrarse",
       "signIn": "Iniciar sesión"
+    },
+    "UserMenu": {
+      "userNavListLabels": {
+        "collections": "Colecciones",
+        "favorites": "Favoritos",
+        "profile": "Perfil",
+        "settings": "Ajustes",
+        "signOut": "Cerrar sesión"
+      }
+    },
+    "ariaLabel": "Sitio",
+    "mainHeaderNavListLabels": {
+      "about": "Información",
+      "build": "Crear",
+      "getInvolved": "Involucrarse",
+      "projects": "Proyectos",
+      "talk": "Hablemos"
     }
   }
 }
