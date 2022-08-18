@@ -2,14 +2,76 @@
   "About": {
     "PageHeading": {
       "title": {
-        "research": "Investigación",
-        "team": "El Equipo",
-        "results": "Resultados",
         "education": "Educación",
-        "faq": "Preguntas Frecuentes"
+        "faq": "Preguntas Frecuentes",
+        "research": "Investigación",
+        "results": "Resultados",
+        "team": "El Equipo"
       }
     },
-    "SidebarHeading": "Acerca de"
+    "PageNav": {
+      "title": "Acerca del proyecto"
+    },
+    "SidebarHeading": "Acerca de",
+    "TeamMember": {
+      "collaborator": "Colaborador",
+      "expert": "Experto",
+      "moderator": "Moderador",
+      "museum": "Museo",
+      "owner": "Propietario",
+      "researcher": "Investigador",
+      "tester": "Evaluador",
+      "translator": "Traductor"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Se ha producido un error en el clasificador :("
+      }
+    },
+    "FinishedForTheDay": {
+      "ProjectImage": {
+        "alt": "Imagen para {{projectName}}"
+      },
+      "RelatedProjectsButton": {
+        "label": "Buscar otro proyecto"
+      },
+      "RelatedProjectsModal": {
+        "ProjectCard": {
+          "viewProject": "Ver proyecto"
+        },
+        "hereAreSomeOthers": "Aquí tienes algunos proyectos de Zooniverse que te pueden gustar",
+        "relatedProjects": "Proyectos relacionados",
+        "title": "¿Te encanta {{project}}?"
+      },
+      "buttons": {
+        "anotherProject": "Buscar otro proyecto",
+        "stats": "Ver las estadísticas"
+      },
+      "text": "Mientras estás trabajando, tus respuestas se guardan para el equipo de investigación. Mira las estadísticas del proyecto y vuelve a la página de inicio de {{projectName}}.",
+      "title": "¿Has terminado por hoy?"
+    },
+    "RecentSubjects": {
+      "text": "Comenta un objeto en Hablemos o añádelo a tus Favoritos o a una colección.",
+      "title": "Tus clasificaciones recientes"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "No, gracias",
+      "confirm": "¡Ir al siguiente nivel!",
+      "content": "¡Felicitaciones! Has desbloqueado la próxima secuencia de trabajo. Si prefieres seguir en la secuencia actual, puedes escoger permanecer.",
+      "dismiss": "No volver a mostrar de nuevo esta sesión",
+      "title": "Nuevo flujo de trabajo disponible"
+    },
+    "YourStats": {
+      "DailyClassificationsChart": {
+        "title": "Recuentos diarios de la clasificación de {{projectName}}"
+      },
+      "text": "¡Sigue con ese gran trabajo!",
+      "title": "Estadística de {{projectName}}",
+      "todaysCount": "Las clasificaciones de hoy",
+      "totalCount": "Total de clasificaciones"
+    }
   },
   "Home": {
     "AboutProject": {
@@ -20,22 +82,20 @@
         "link": "Aprende más"
       }
     },
+    "MessageFromResearcher": {
+      "noMessage": "Conéctate con el equipo de investigación en Hablemos para saber más sobre este proyecto.",
+      "noMessageButton": "Ir a Hablemos",
+      "title": "Mensaje del investigador"
+    },
     "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Se ha producido un error al cargar los objetos :(",
+        "noSubjects": "Parece que nadie ha comentado un objeto todavía. Ve a Hablemos y ¡sé el primero en comentar!",
+        "subjectLabel": "Objeto {{id}}"
+      },
       "button": "Unirse",
+      "message": "Charla con el equipo de investigación y con otros voluntarios.",
       "title": "Hablemos"
-    }
-  },
-  "Classify": {
-    "RecentSubjects": {
-      "title": "Tus clasificaciones recientes"
-    },
-    "WorkflowAssignmentModal": {
-      "cancel": "No, gracias",
-      "confirm": "¡Ir al siguiente nivel!",
-      "content": "¡Felicitaciones! Has desbloqueado la próxima secuencia de trabajo. Si prefieres seguir en la secuencia actual, puedes escoger permanecer."
-    },
-    "YourStats": {
-      "title": "Estadística de {{projectName}}"
     }
   }
 }
