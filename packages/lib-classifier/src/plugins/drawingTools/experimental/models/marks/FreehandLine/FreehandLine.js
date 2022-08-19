@@ -67,8 +67,13 @@ const FreehandLineModel = types
         path.push(pointPath)
       })
       // closes the drawing path
-      if (!self.dragPoint && self.isClosed) {
-        path.push(`Z`)
+      if (self.isClosed) {
+        if (self.dragPoint) {
+          const { x, y } = self.initialPoint
+          path.push(`L ${x},${y}`)
+        } else {
+          path.push(`Z`)
+        }
       }
       return path.join(' ')
     },
@@ -151,17 +156,42 @@ const FreehandLineModel = types
       }
     },
 
-    cutSegment(point) {
-      let dragIndex = self.points.indexOf(self.dragPoint)
-      let targetIndex = self.points.indexOf(point)
+    cancelClipPath() {
+      self.setCoordinates(self.originalPath)
+      self.setClipPath([])
+    },
+
+    cutSegment({ x, y }) {
+      /*
+        Copy the index of the drag handle before making any changes to the line path.
+      */
+      let dragIndex
+      // The last point is always draggable for open lines.
+      if (!self.isClosed) {
+        dragIndex = self.points.length - 1
+      }
+      // If editing has already started, store the existing drag point.
+      if (self.dragPoint) {
+        dragIndex = self.points.indexOf(self.dragPoint)
+      }
+      /*
+        If the line has already been cut into subpaths, restore the original path.
+        Note that this will overwrite both dragPoint and targetPoint.
+      */
+      if (self.clipPath.length > 0) {
+        self.setCoordinates(self.originalPath)
+      } else {
+        self.originalPath = self.points.map(({ x, y }) => ({ x, y }))
+      }
+      const targetPoint = self.selectPoint({ x, y })
+      let targetIndex = self.points.indexOf(targetPoint)
       if (targetIndex < dragIndex) {
-        dragIndex = self.points.indexOf(point)
-        targetIndex = self.points.indexOf(self.dragPoint)
+        targetIndex = dragIndex
+        dragIndex = self.points.indexOf(targetPoint)
       }
       const deleteCount = targetIndex - dragIndex - 1
       const distFromEnd = self.points.length - targetIndex - 1
       const spansStartPoint = self.isClosed && (distFromEnd + dragIndex) < deleteCount
-      self.originalPath = self.points.map(({ x, y }) => ({ x, y }))
       if (!spansStartPoint) {
         /*
         Segment lies entirely within the line path, so splice points
@@ -181,16 +211,22 @@ const FreehandLineModel = types
       }
     },
 
+    revertEdits() {
+      self.cancelClipPath()
+      self.dragPoint = null
+      self.targetPoint = null
+    },
+
     setClipPath(points = []) {
       self.clipPath = points
     },
 
     setDragPoint(point) {
-      self.dragPoint = point
+      self.dragPoint = point ? self.selectPoint(point) : null
     },
 
     setTargetPoint(point) {
-      self.targetPoint = point
+      self.targetPoint = point ? self.selectPoint(point) : null
     },
 
     shortenPath() {
@@ -210,8 +246,10 @@ const FreehandLineModel = types
     trim(startIndex, endIndex) {
       const clippedPoints = [ ...self.points.slice(endIndex), ...self.points.slice(0, startIndex + 1)]
       self.clipPath = clippedPoints.map(({ x, y }) => ({ x, y }))
-      self.points.splice(0, startIndex + 1)
-      self.points.splice(endIndex)
+      // Move the end of the line back to endIndex
+      self.points.splice(endIndex + 1)
+      // Move the start of the line forward to startIndex 
+      self.points.splice(0, startIndex)
     }
   }))
 

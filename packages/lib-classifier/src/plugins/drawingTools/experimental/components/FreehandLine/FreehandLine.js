@@ -57,8 +57,11 @@ function FreehandLine({ active, mark, onFinish, scale }) {
   ).join(' ')
 
   if (clippedPath && !active) {
-    mark.setCoordinates(mark.originalPath)
-    mark.setClipPath([])
+    mark.revertEdits()
+    setEditing(false)
+  }
+
+  if (dragPoint && !active) {
     cancelEditing()
   }
 
@@ -75,7 +78,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
   function onDoubleClick(event) {
     if (active) {
       const { x, y } = createPoint(event)
-      mark.setDragPoint(mark.selectPoint({ x, y }))
+      mark.setDragPoint({ x, y })
       setEditing(true)
       return cancelEvent(event)
     }
@@ -83,9 +86,9 @@ function FreehandLine({ active, mark, onFinish, scale }) {
   }
 
   function onPointerDown(event) {
-    if (active && editing) {
+    if (active && (editing || clippedPath)) {
       const { x, y } = createPoint(event)
-      mark.cutSegment(mark.selectPoint({ x, y }))
+      mark.cutSegment({ x, y })
       return cancelEvent(event)
     }
     if (active) {
@@ -141,11 +144,22 @@ function FreehandLine({ active, mark, onFinish, scale }) {
         fill='none'
       />
       {active && clippedPath &&
-        <path
-          d={clippedPath}
-          strokeDasharray='2 2'
-          strokeWidth={STROKE_WIDTH}
-        />
+        <>
+          <path
+            d={clippedPath}
+            strokeDasharray='2 2'
+            strokeWidth={STROKE_WIDTH}
+          />
+          <path
+            d={clippedPath}
+            onPointerDown={onPointerDown}
+            style={{
+              strokeOpacity: '0',
+              strokeWidth: GRAB_STROKE_WIDTH / scale
+            }}
+            fill='none'
+          />
+        </>
       }
       {active && finished && !editing && !isClosed &&
         <DragHandle
