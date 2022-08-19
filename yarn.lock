@@ -5380,11 +5380,6 @@ async-each@^1.0.1:
   resolved "https://registry.yarnpkg.com/async-each/-/async-each-1.0.3.tgz#b727dbf87d7651602f06f4d4ac387f47d91b0cbf"
   integrity sha512-z/WhQ5FPySLdvREByI2vZiTWwCnF0moMJ1hK9YQwDTHKh6I7/uSckMetoRGb5UBZPC1z0jlw+n/XCgjeH7y1AQ==
 
-async@^3.2.3:
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/async/-/async-3.2.3.tgz#ac53dafd3f4720ee9e8a160628f18ea91df196c9"
-  integrity sha512-spZRyzKL5l5BZQrr/6m/SqFdBN0q3OCI0f9rjfBzCMBIP4p75P620rR3gTmaksNOhmzgdxcaxdNfMy6anrbM0g==
-
 asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
@@ -12582,9 +12577,9 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0:
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 newrelic@^9.0.0, newrelic@~9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-9.0.0.tgz#fc6db5f8e428e9cb204c9169bf5d69501d8737e7"
-  integrity sha512-5k4rlOdCWBp0/OVuf5l1ZYclA1J/Q5i0hV7POUbNEVYfyXCCwZKGh6y7y8364W5CQQ7v6jECPeTS6R8fuyL8vg==
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-9.0.1.tgz#0280dbbe993517b22868256d87f4e5470cb09f54"
+  integrity sha512-s/0RQV679ISZjdICF81a4QoW+A/Q9p+4y2OFkYiBu4vtUXu3PHz9REiD+Ta2GTq4c0wIvI1s65eDkY83cHGy8A==
   dependencies:
     "@grpc/grpc-js" "^1.5.5"
     "@grpc/proto-loader" "^0.6.13"
@@ -12592,7 +12587,6 @@ newrelic@^9.0.0, newrelic@~9.0.0:
     "@newrelic/koa" "^7.0.0"
     "@newrelic/superagent" "^6.0.0"
     "@tyriar/fibonacci-heap" "^2.0.7"
-    async "^3.2.3"
     concat-stream "^2.0.0"
     https-proxy-agent "^5.0.0"
     json-stringify-safe "^5.0.0"
