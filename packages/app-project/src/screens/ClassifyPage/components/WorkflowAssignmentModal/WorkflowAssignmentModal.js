@@ -6,10 +6,17 @@ import { useTranslation } from 'next-i18next'
 
 import NavLink from '@shared/components/NavLink'
 
-export default function WorkflowAssignmentModal(props) {
+export default function WorkflowAssignmentModal({
+  active = false,
+  assignedWorkflowID,
+  closeFn,
+  dismiss,
+  dismissedForSession = false,
+  router
+}) {
   const { t } = useTranslation('screens')
-  const { active = false, assignedWorkflowID, closeFn, dismiss, dismissedForSession = false } = props
-  const router = useRouter()
+  const nextRouter = useRouter()
+  router = router || nextRouter
   const { owner, project } = router?.query || {}
 
   const url = `/${owner}/${project}/classify/workflow/${assignedWorkflowID}`

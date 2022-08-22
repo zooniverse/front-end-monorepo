@@ -26,9 +26,12 @@ const RemainingHeightBox = styled(Box)`
 
 function ProjectHomePage ({
   inBeta,
+  router,
   workflows
 }) {
-  const { locale } = useRouter()
+  const nextRouter = useRouter()
+  router = router || nextRouter
+  const { locale } = router
   return (
     <Box border={(inBeta) ? { color: 'brand', size: 'medium' } : false}>
       <Media at='default'>

@@ -25,9 +25,11 @@ const StyledAnchor = styled(Anchor)`
 
 function ProjectTitle({
   showDropdown = false,
+  router,
   title = ''
 }) {
-  const router = useRouter()
+  const nextRouter = useRouter()
+  router = router || nextRouter
   const { owner, project } = router.query
   const linkProps = {
     href: addQueryParams(`/${owner}/${project}`)

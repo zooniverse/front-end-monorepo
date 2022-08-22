@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import * as Router from 'next/router'
 import sinon from 'sinon'
 import { ProjectHeaderContainer } from './ProjectHeaderContainer'
 import ProjectHeader from './ProjectHeader'
@@ -17,15 +16,10 @@ describe('Component > ProjectHeaderContainer', function () {
     }
   }
   before(function () {
-    routerStub = sinon.stub(Router, 'useRouter').callsFake(() => ROUTER)
     wrapper = shallow(
-      <ProjectHeaderContainer projectName={PROJECT_DISPLAY_NAME} />
+      <ProjectHeaderContainer projectName={PROJECT_DISPLAY_NAME} router={ROUTER} />
     )
     projectHeader = wrapper.find(ProjectHeader)
-  })
-
-  after(function () {
-    routerStub.restore()
   })
 
   it('should render without crashing', function () {
@@ -54,7 +48,7 @@ describe('Component > ProjectHeaderContainer', function () {
   describe('when logged in', function () {
     it('should pass nav links including recents', function () {
       wrapper = shallow(
-        <ProjectHeaderContainer isLoggedIn projectName={PROJECT_DISPLAY_NAME} />
+        <ProjectHeaderContainer isLoggedIn projectName={PROJECT_DISPLAY_NAME} router={ROUTER} />
       )
       const projectHeader = wrapper.find(ProjectHeader)
 
@@ -71,6 +65,7 @@ describe('Component > ProjectHeaderContainer', function () {
           defaultWorkflow='1234'
           isLoggedIn
           projectName={PROJECT_DISPLAY_NAME}
+          router={ROUTER}
         />
       )
       const projectHeader = wrapper.find(ProjectHeader)

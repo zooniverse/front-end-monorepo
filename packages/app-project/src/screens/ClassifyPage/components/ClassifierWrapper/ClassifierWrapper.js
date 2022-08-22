@@ -26,6 +26,7 @@ export default function ClassifierWrapper({
   onSubjectReset = () => true,
   project,
   recents,
+  router,
   showTutorial = false,
   subjectID,
   subjectSetID,
@@ -34,8 +35,10 @@ export default function ClassifierWrapper({
   workflowID,
   yourStats
 }) {
-  const router = useRouter()
+  const nextRouter = useRouter()
+  router = router || nextRouter
   const { locale } = router
+
   function onCompleteClassification(classification, subject) {
     const finishedSubject = subject.already_seen || subject.retired
     if (!finishedSubject) {

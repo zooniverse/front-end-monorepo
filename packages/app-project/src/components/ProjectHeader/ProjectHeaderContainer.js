@@ -20,8 +20,9 @@ function getBaseUrl (router) {
   return `/${owner}/${project}`
 }
 
-function ProjectHeaderContainer ({ availableLocales, className, defaultWorkflow, inBeta, isLoggedIn, projectName }) {
-  const router = useRouter()
+function ProjectHeaderContainer ({ availableLocales, className, defaultWorkflow, inBeta, isLoggedIn, projectName, router }) {
+  const nextRouter = useRouter()
+  router = router || nextRouter
   const { t } = useTranslation('components')
 
   function getNavLinks (isLoggedIn, baseUrl, defaultWorkflow) {

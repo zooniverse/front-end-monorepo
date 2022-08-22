@@ -9,16 +9,10 @@ describe('Component > StandardLayout', function () {
   let wrapper
 
   before(function () {
-    routerMock = sinon.stub(Router, 'useRouter').callsFake(() => {
-      return {
-        locale: 'en'
-      }
-    })
-    wrapper = shallow(<StandardLayout />)
-  })
-
-  after(function () {
-    routerMock.restore()
+    routerMock = {
+      locale: 'en'
+    }
+    wrapper = shallow(<StandardLayout router={routerMock} />)
   })
 
   it('should render without crashing', function () {
