@@ -17,7 +17,7 @@ function NavLink ({
   ...anchorProps
 }) {
   const { href, text } = link
-  const isCurrentPage = router?.asPath === addQueryParams(href, router)
+  const isCurrentPage = router?.asPath === addQueryParams(href)
 
   const label = <StyledSpacedText children={text} color={color} weight={weight} />
 
@@ -41,7 +41,7 @@ function NavLink ({
   }
   
   return (
-    <Link href={addQueryParams(href, router)} color={color} passHref>
+    <Link href={addQueryParams(href)} color={color} passHref>
       <StyledAnchor color={color} label={label} {...anchorProps} />
     </Link>
   )

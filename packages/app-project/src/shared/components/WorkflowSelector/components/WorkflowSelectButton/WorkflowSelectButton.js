@@ -14,15 +14,15 @@ export const ThemedButton = withThemeContext(Button, theme)
 function WorkflowSelectButton ({
   disabled = false,
   workflow,
-  ...rest }
-) {
+  ...rest
+}) {
   const { t } = useTranslation('components')
   const router = useRouter()
   const { owner, project } = router?.query || {}
 
   const url = `/${owner}/${project}/classify/workflow/${workflow.id}`
 
-  const href = addQueryParams(url, router)
+  const href = addQueryParams(url)
   const completeness = parseInt(workflow.completeness * 100, 10)
   let workflowStatus = workflow.grouped ? t('WorkflowSelector.WorkflowSelectButton.setSelection') : ''
   // indexed workflows use subject selection

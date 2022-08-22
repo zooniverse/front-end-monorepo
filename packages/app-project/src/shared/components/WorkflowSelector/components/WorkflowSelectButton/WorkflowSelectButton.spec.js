@@ -22,14 +22,6 @@ describe('Component > WorkflowSelector > WorkflowSelectButton', function () {
     }
   }
 
-  before(function () {
-    sinon.stub(nextRouter, 'useRouter').callsFake(() => router)
-  })
-
-  after(function () {
-    nextRouter.useRouter.restore()
-  })
-
   it('should render without crashing', function () {
     const wrapper = shallow(<WorkflowSelectButton theme={zooTheme} workflow={WORKFLOW} />)
     expect(wrapper).to.be.ok()

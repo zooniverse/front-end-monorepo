@@ -23,12 +23,14 @@ const StyledAnchor = styled(Anchor)`
   }
 `
 
-function ProjectTitle(props) {
+function ProjectTitle({
+  showDropdown = false,
+  title = ''
+}) {
   const router = useRouter()
-  const { showDropdown, title } = props
   const { owner, project } = router.query
   const linkProps = {
-    href: addQueryParams(`/${owner}/${project}`, router)
+    href: addQueryParams(`/${owner}/${project}`)
   }
 
   const isCurrentPage = router.pathname === linkProps.href
