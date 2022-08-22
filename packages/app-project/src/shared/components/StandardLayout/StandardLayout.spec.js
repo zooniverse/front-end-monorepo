@@ -5,14 +5,10 @@ import sinon from 'sinon'
 import StandardLayout from './StandardLayout'
 
 describe('Component > StandardLayout', function () {
-  let routerMock
   let wrapper
 
   before(function () {
-    routerMock = {
-      locale: 'en'
-    }
-    wrapper = shallow(<StandardLayout router={routerMock} />)
+    wrapper = shallow(<StandardLayout />)
   })
 
   it('should render without crashing', function () {

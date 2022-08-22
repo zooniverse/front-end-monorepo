@@ -37,7 +37,7 @@ export default function ClassifierWrapper({
 }) {
   const nextRouter = useRouter()
   router = router || nextRouter
-  const { locale } = router
+  const locale = router?.locale
 
   function onCompleteClassification(classification, subject) {
     const finishedSubject = subject.already_seen || subject.retired

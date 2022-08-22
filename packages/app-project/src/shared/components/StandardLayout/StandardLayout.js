@@ -10,11 +10,10 @@ import ZooHeaderWrapper from '@components/ZooHeaderWrapper'
 function StandardLayout ({
   children,
   inBeta,
-  router
 }) {
-  const nextRouter = useRouter()
-  router = router || nextRouter
-  const { locale } = router
+  const router = useRouter()
+  const locale = router?.locale
+
   return (
     <Box border={(inBeta) ? { color: 'brand', size: 'medium' } : false}>
       <ZooHeaderWrapper />

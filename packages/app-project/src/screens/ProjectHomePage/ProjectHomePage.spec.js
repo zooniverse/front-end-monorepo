@@ -4,14 +4,10 @@ import sinon from 'sinon'
 import ProjectHomePage from './ProjectHomePage'
 
 describe('Component > ProjectHomePage', function () {
-  let routerMock
   let wrapper
 
   before(function () {
-    routerMock = {
-      locale: 'en'
-    }
-    wrapper = shallow(<ProjectHomePage router={routerMock} />)
+    wrapper = shallow(<ProjectHomePage />)
   })
 
   it('should render without crashing', function () {
@@ -24,7 +20,7 @@ describe('Component > ProjectHomePage', function () {
 
   describe('with a project in beta', function () {
     before(function () {
-      wrapper = shallow(<ProjectHomePage inBeta router={routerMock} />)
+      wrapper = shallow(<ProjectHomePage inBeta />)
     })
 
     it('should render a border for the wrapping Box container', function () {
