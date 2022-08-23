@@ -102,7 +102,7 @@ const Collections = types
         self.collections = yield fetchCollections(query)
       }),
 
-      fetchFavourites: flow(function * fetchFavourites () {
+      fetchFavourites: flow(function * fetchFavourites() {
         const { project, user } = getRoot(self)
         const query = {
           favorite: true,
@@ -110,13 +110,23 @@ const Collections = types
           owner: user.login
         }
         let [favourites] = yield fetchCollections(query)
+        return favourites
+      }),
+
+      fetchOrCreateFavourites: flow(function * fetchOrCreateFavourites() {
+        let favouritesData = yield self.fetchFavourites()
+        if (!favouritesData) {
+          favouritesData = yield self.createFavourites()
+        }
+        self.setFavourites(favouritesData)
+        return self.favourites
+      }),
+
+      setFavourites(favourites) {
         if (favourites) {
           self.favourites = Collection.create(favourites)
-        } else {
-          favourites = yield self.createFavourites()
-          self.favourites = Collection.create(favourites)
         }
-      }),
+      },
 
       addSubjects: flow(function * addSubjects (id, subjectIds) {
         const token = yield auth.checkBearerToken()
@@ -132,11 +142,14 @@ const Collections = types
       }),
 
       addFavourites: flow(function * addFavourites (subjectIds) {
-        const favourites = yield self.addSubjects(
+        if (!self.favourites?.id) {
+          yield self.fetchOrCreateFavourites()
+        }
+        const favouritesData = yield self.addSubjects(
           self.favourites.id,
           subjectIds
         )
-        self.favourites = Collection.create(favourites)
+        self.setFavourites(favouritesData)
       }),
 
       removeSubjects: flow(function * removeSubjects (id, subjectIds) {

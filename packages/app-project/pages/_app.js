@@ -11,7 +11,7 @@ import getCookie from '@helpers/getCookie'
 import GrommetWrapper from '@helpers/GrommetWrapper'
 import Head from '@components/Head'
 import { initializeLogger, logToSentry } from '@helpers/logger'
-import { usePanoptesUser } from '@hooks'
+import { usePanoptesUser, useUserFavourites } from '@hooks'
 import { MediaContextProvider } from '@shared/components/Media'
 import initStore from '@stores'
 
@@ -46,6 +46,9 @@ function MyApp({ Component, pageProps }) {
 
   const userKey = store.user?.id || 'no-user'
   const user = usePanoptesUser(userKey)
+  const project = store.project
+  const favourites = useUserFavourites({ user, project })
+
   useEffect( function onUserChange() {
     if (user?.id) {
       store.user.set(user)
@@ -55,6 +58,12 @@ function MyApp({ Component, pageProps }) {
       store.user.clear()
     }
   }, [user])
+
+  useEffect( function onFavouritesChange() {
+    if (favourites?.id) {
+      store.user.collections.setFavourites(favourites)
+    }
+  }, [favourites])
 
   try {
     if (pageProps.statusCode) {
