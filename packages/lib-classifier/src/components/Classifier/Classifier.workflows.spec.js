@@ -7,18 +7,18 @@ import { panoptes } from '@zooniverse/panoptes-js'
 import { Grommet } from 'grommet'
 import { when } from 'mobx'
 import { Provider } from 'mobx-react'
-import { getSnapshot } from 'mobx-state-tree'
 import nock from 'nock'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
 
 import RootStore from '@store'
-import { ProjectFactory, SubjectFactory, TutorialFactory, WorkflowFactory } from '@test/factories'
+import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 import { defaultAuthClient, defaultClient } from '@test/mockStore/mockStore'
 import branchingWorkflow, { workflowStrings } from '@test/mockStore/branchingWorkflow'
 import Classifier from './Classifier'
 
 describe('Classifier > workflow types', function () {
+  // this turns off Mocha's time limit for slow tests
   this.timeout(0)
 
   const cases = [
