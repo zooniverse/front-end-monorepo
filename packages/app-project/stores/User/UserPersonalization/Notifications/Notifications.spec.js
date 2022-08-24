@@ -67,6 +67,62 @@ describe('Stores > Notifications', function () {
       })
     })
 
+    describe('when there is a resource and additional pages in the response', function () {
+      const firstMockResponse = {
+        body: {
+          conversations: [
+            { id: '1' },
+            { id: '2' },
+            { id: '3' }
+          ],
+          meta: {
+            next_page: 2
+          }
+        }
+      }
+
+      const secondMockResponse = {
+        body: {
+          conversations: [
+            { id: '4' },
+            { id: '5' }
+          ],
+          meta: {
+            next_page: undefined
+          }
+        }
+      }
+
+      before(function () {
+        sinon.stub(talkAPI, 'get')
+          .callsFake((url, query, authorization) => {
+            if (query.page === 1) {
+              return Promise.resolve(firstMockResponse)
+            }
+            if (query.page === 2) {
+              return Promise.resolve(secondMockResponse)
+            }
+            return Promise.resolve(new Error('Something went wrong'))
+          })
+
+        rootStore = initStore(true, {
+          user
+        })
+      })
+
+      after(function () {
+        talkAPI.get.restore()
+      })
+
+      it('should exist', function () {
+        expect(rootStore.user.personalization.notifications).to.be.ok()
+      })
+
+      it('should set the initial unreadConversationsIds', function () {
+        expect(rootStore.user.personalization.notifications.unreadConversationsIds.length).to.equal(5)
+      })
+    })
+
     describe('when there is not a resource in the response', function () {
       before(function () {
         sinon.stub(talkAPI, 'get').callsFake(() => Promise.resolve(undefined))
