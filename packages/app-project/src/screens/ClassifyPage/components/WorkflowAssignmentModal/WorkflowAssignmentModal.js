@@ -17,7 +17,8 @@ export default function WorkflowAssignmentModal({
   const { t } = useTranslation('screens')
   const nextRouter = useRouter()
   router = router || nextRouter
-  const { owner, project } = router?.query || {}
+  const owner = router?.query?.owner
+  const project = router?.query?.project
 
   const url = `/${owner}/${project}/classify/workflow/${assignedWorkflowID}`
 

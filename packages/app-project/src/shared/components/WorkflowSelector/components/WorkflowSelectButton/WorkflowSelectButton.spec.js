@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import * as nextRouter from 'next/router'
 import sinon from 'sinon'
 import zooTheme from '@zooniverse/grommet-theme'
 import WorkflowSelectButton, { ThemedButton } from './WorkflowSelectButton'
@@ -23,7 +22,7 @@ describe('Component > WorkflowSelector > WorkflowSelectButton', function () {
   }
 
   it('should render without crashing', function () {
-    const wrapper = shallow(<WorkflowSelectButton theme={zooTheme} workflow={WORKFLOW} />)
+    const wrapper = shallow(<WorkflowSelectButton router={router} theme={zooTheme} workflow={WORKFLOW} />)
     expect(wrapper).to.be.ok()
   })
 
@@ -38,6 +37,7 @@ describe('Component > WorkflowSelector > WorkflowSelectButton', function () {
     it('should be a link pointing to `/classify/workflow/:workflow_id`', function () {
       const wrapper = shallow(
           <WorkflowSelectButton
+            router={router}
             theme={zooTheme}
             workflow={{
               ...WORKFLOW,
@@ -51,7 +51,7 @@ describe('Component > WorkflowSelector > WorkflowSelectButton', function () {
 
   describe('when used with a non-default workflow', function () {
     it('should be a link pointing to `/classify/workflow/:workflow_id`', function () {
-      const wrapper = shallow(<WorkflowSelectButton theme={zooTheme} workflow={WORKFLOW} />)
+      const wrapper = shallow(<WorkflowSelectButton router={router} theme={zooTheme} workflow={WORKFLOW} />)
       expect(wrapper.prop('href')).to.equal(`${router.asPath}/classify/workflow/${WORKFLOW.id}`)
     })
   })
@@ -64,7 +64,7 @@ describe('Component > WorkflowSelector > WorkflowSelectButton', function () {
         ...WORKFLOW,
         grouped: true
       }
-      wrapper = shallow(<WorkflowSelectButton theme={zooTheme} workflow={groupedWorkflow} />)
+      wrapper = shallow(<WorkflowSelectButton router={router} theme={zooTheme} workflow={groupedWorkflow} />)
     })
 
     it('should add "set selection" to the label', function () {
@@ -76,12 +76,12 @@ describe('Component > WorkflowSelector > WorkflowSelectButton', function () {
 
   describe('when disabled', function () {
     it('should not have an href', function () {
-      const wrapper = shallow(<WorkflowSelectButton disabled theme={zooTheme} workflow={WORKFLOW} />)
+      const wrapper = shallow(<WorkflowSelectButton disabled router={router} theme={zooTheme} workflow={WORKFLOW} />)
       expect(wrapper.prop('href')).to.be.undefined()
     })
 
     it('should not wrap the button with Link', function () {
-      const wrapper = shallow(<WorkflowSelectButton disabled theme={zooTheme} workflow={WORKFLOW} />)
+      const wrapper = shallow(<WorkflowSelectButton disabled router={router} theme={zooTheme} workflow={WORKFLOW} />)
       expect(wrapper.find(Link)).to.have.lengthOf(0)
     })
   })

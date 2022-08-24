@@ -30,12 +30,13 @@ function ProjectTitle({
 }) {
   const nextRouter = useRouter()
   router = router || nextRouter
-  const { owner, project } = router.query
+  const owner = router?.query?.owner
+  const project = router?.query?.project
   const linkProps = {
     href: addQueryParams(`/${owner}/${project}`)
   }
 
-  const isCurrentPage = router.pathname === linkProps.href
+  const isCurrentPage = router?.pathname === linkProps.href
 
   const anchor = (
     <StyledAnchor>

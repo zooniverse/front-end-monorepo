@@ -13,12 +13,15 @@ export const ThemedButton = withThemeContext(Button, theme)
 
 function WorkflowSelectButton ({
   disabled = false,
+  router,
   workflow,
   ...rest
 }) {
   const { t } = useTranslation('components')
-  const router = useRouter()
-  const { owner, project } = router?.query || {}
+  const nextRouter = useRouter()
+  router = router || nextRouter
+  const owner = router?.query?.owner
+  const project = router?.query?.project
 
   const url = `/${owner}/${project}/classify/workflow/${workflow.id}`
 
