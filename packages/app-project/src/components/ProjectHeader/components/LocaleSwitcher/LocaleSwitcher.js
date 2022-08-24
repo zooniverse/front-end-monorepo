@@ -1,10 +1,11 @@
-import localeMenu from '@helpers/localeMenu'
 import { Box, Menu } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 import { SpacedText } from '@zooniverse/react-components'
 import { FormDown } from 'grommet-icons'
 import styled, { css, withTheme } from 'styled-components'
 import { useRouter } from 'next/router'
+
+import { localeMenu } from '@helpers'
 
 const StyledBox = styled(Box)`
   padding: 10px 10px 10px 15px;
