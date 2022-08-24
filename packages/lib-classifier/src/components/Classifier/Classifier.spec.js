@@ -14,8 +14,8 @@ import sinon from 'sinon'
 
 import RootStore from '@store'
 import { ProjectFactory, SubjectFactory, SubjectSetFactory, TutorialFactory } from '@test/factories'
-import mockStore, { defaultAuthClient, defaultClient } from '@test/mockStore/mockStore'
-import branchingWorkflow, { workflowStrings } from '@test/mockStore/branchingWorkflow'
+import mockStore, { defaultAuthClient, defaultClient } from '@test/mockStore/mockStore.js'
+import branchingWorkflow, { workflowStrings } from '@test/mockStore/branchingWorkflow.js'
 import Classifier from './Classifier'
 
 describe('Components > Classifier', function () {

@@ -88,172 +88,10 @@ describe('Model > UserProjectPreferencesStore', function () {
       expect(UserProjectPreferencesStore).to.be.an('object')
     })
 
-    it('should remain in an initialized state if there is no project', function () {
+    it('should be in an initialized state', function () {
       rootStore = setupStores(clientStub, authClientStubWithoutUser)
       expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.initialized)
       rootStore = null
-    })
-
-    it('should set project preferences if there is a user and a project', async function () {
-      rootStore = setupStores(clientStub, authClientStubWithUser)
-      rootStore.projects.setActive(project.id)
-      await when(preferencesAreReady(rootStore.userProjectPreferences))
-      const uppInStore = rootStore.userProjectPreferences.active
-      expect(uppInStore.toJSON()).to.deep.equal(upp)
-      rootStore = null
-    })
-  })
-
-  describe('Actions > checkForUser', function () {
-    let rootStore
-    beforeEach(function () {
-      rootStore = null
-    })
-
-    it('should check for a user upon initialization when there is a project', async function () {
-      rootStore = setupStores(clientStub, authClientStubWithoutUser)
-      await rootStore.projects.setActive(project.id)
-      expect(authClientStubWithoutUser.checkCurrent).to.have.been.called()
-    })
-
-    it('should set to a successful state if there is no user', async function () {
-      rootStore = setupStores(clientStub, authClientStubWithoutUser)
-      rootStore.projects.setActive(project.id)
-      await when(preferencesAreReady(rootStore.userProjectPreferences))
-      expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.success)
-      expect(rootStore.userProjectPreferences.active).to.be.undefined()
-    })
-
-    it('should set state to error upon error', async function () {
-      const errorAuthClientStub = {
-        checkBearerToken: () => Promise.reject(new Error('testing error handling')),
-        checkCurrent: () => Promise.reject(new Error('testing error handling'))
-      }
-
-      rootStore = setupStores(clientStub, errorAuthClientStub)
-      rootStore.projects.setActive(project.id)
-      await when(preferencesAreReady(rootStore.userProjectPreferences))
-      expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.error)
-    })
-
-    it.skip('should call fetchUPP if there is a user', async function () {
-      rootStore = setupStores(clientStub, authClientStubWithUser)
-      const fetchUPPSpy = sinon.spy(rootStore.userProjectPreferences, 'fetchUPP')
-
-      rootStore.projects.setActive(project.id)
-      await when(preferencesAreReady(rootStore.userProjectPreferences))
-      expect(fetchUPPSpy).to.have.been.called()
-    })
-  })
-
-  describe('Actions > fetchUPP', function () {
-    let getSpy
-    let rootStore
-    before(function () {
-      getSpy = sinon.spy(clientStub.panoptes, 'get')
-    })
-
-    afterEach(function () {
-      getSpy.resetHistory()
-      rootStore = null
-    })
-
-    after(function () {
-      getSpy.restore()
-    })
-
-    it('should set the loading state to loading then to success upon successful request', async function () {
-      rootStore = setupStores(clientStub, authClientStubWithUser)
-      rootStore.projects.setActive(project.id)
-      expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.initialized)
-      await when(preferencesAreReady(rootStore.userProjectPreferences))
-      expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.success)
-    })
-
-    it('should request for the user project preferences', async function () {
-      rootStore = setupStores(clientStub, authClientStubWithUser)
-      rootStore.projects.setActive(project.id)
-      await when(preferencesAreReady(rootStore.userProjectPreferences))
-      expect(getSpy).to.have.been.calledWith(
-        '/project_preferences',
-        { project_id: project.id, user_id: user.id },
-        { authorization: 'Bearer 1234' }
-      )
-    })
-
-    it.skip('should call createUPP action upon successful request and there is not an existing UPP', async function () {
-      rootStore = setupStores(clientStubWithoutUPP, authClientStubWithUser)
-      const createUPPSpy = sinon.spy(rootStore.userProjectPreferences, 'createUPP')
-      rootStore.projects.setActive(project.id)
-      await when(preferencesAreReady(rootStore.userProjectPreferences))
-      expect(createUPPSpy).to.have.been.calledOnceWith(`Bearer ${token}`)
-      createUPPSpy.restore()
-    })
-
-    it.skip('should call setUPP action upon successful request and there is an existing UPP', async function () {
-      rootStore = setupStores(clientStub, authClientStubWithUser)
-      const setUPPSpy = sinon.spy(rootStore.userProjectPreferences, 'setUPP')
-      rootStore.projects.setActive(project.id)
-      await when(preferencesAreReady(rootStore.userProjectPreferences))
-      expect(setUPPSpy).to.have.been.calledOnceWith(upp)
-      setUPPSpy.restore()
-    })
-  })
-
-  describe('Actions > createUPP', function () {
-    let rootStore
-    beforeEach(function () {
-      rootStore = null
-    })
-
-    it('should create new user project preferences', async function () {
-      const postStub = sinon.stub().callsFake(() => Promise.resolve({ body: { project_preferences: [upp] } }))
-      const panoptesClientStub = {
-        panoptes: {
-          get: (url) => {
-            if (url === `/projects/${project.id}`) return Promise.resolve({ body: { projects: [project] } })
-            return Promise.resolve({ body: {
-              subjects: Factory.buildList('subject', 10),
-              project_preferences: [],
-              workflows: [workflow]
-            } })
-          },
-          post: postStub
-        }
-      }
-
-      rootStore = setupStores(panoptesClientStub, authClientStubWithUser)
-      rootStore.projects.setActive(project.id)
-      await when(preferencesAreReady(rootStore.userProjectPreferences))
-      expect(postStub).to.have.been.calledOnceWith(
-        '/project_preferences',
-        { project_preferences: {
-          links: { project: project.id },
-          preferences: {}
-        } },
-        { authorization: `Bearer ${token}` }
-      )
-    })
-
-    it('should set the loading state to error upon error', async function () {
-      const panoptesClientStub = {
-        panoptes: {
-          get: (url) => {
-            if (url === `/projects/${project.id}`) return Promise.resolve({ body: { projects: [project] } })
-            return Promise.resolve({ body: {
-              subjects: Factory.buildList('subject', 10),
-              project_preferences: [],
-              workflows: [workflow]
-            } })
-          },
-          post: () => Promise.reject(new Error('testing error handling'))
-        }
-      }
-
-      rootStore = setupStores(panoptesClientStub, authClientStubWithUser)
-      rootStore.projects.setActive(project.id)
-      await when(preferencesAreReady(rootStore.userProjectPreferences))
-      expect(rootStore.userProjectPreferences.loadingState).to.equal(asyncStates.error)
     })
   })
 
@@ -296,6 +134,7 @@ describe('Model > UserProjectPreferencesStore', function () {
 
       rootStore = setupStores(panoptesClientStub, authClientStubWithUser)
       rootStore.projects.setActive(project.id)
+      rootStore.userProjectPreferences.setUPP(upp)
     })
 
     afterEach(function () {

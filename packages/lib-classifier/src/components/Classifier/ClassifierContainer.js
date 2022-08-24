@@ -2,7 +2,7 @@ import { GraphQLClient } from 'graphql-request'
 import { Paragraph } from 'grommet'
 import { Provider } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { StrictMode, useEffect, useState } from 'react'
+import React, { StrictMode, useEffect } from 'react'
 import '../../translations/i18n'
 import {
   env,
@@ -61,7 +61,6 @@ export default function ClassifierContainer({
   subjectSetID,
   workflowID
 }) {
-  const [loaded, setLoaded] = useState(false)
   const storeEnvironment = { authClient, client }
 
   const workflowSnapshot = useWorkflowSnapshot(workflowID)
@@ -82,26 +81,17 @@ export default function ClassifierContainer({
     Otherwise, hydration will overwrite the callbacks with
     their defaults.
     */
-    const { classifications, subjects, userProjectPreferences } = classifierStore
-    console.log('resetting stale user data')
-    userProjectPreferences.reset()
+    const { classifications, subjects } = classifierStore
     console.log('setting classifier event callbacks')
     classifications.setOnComplete(onCompleteClassification)
     subjects.setOnReset(onSubjectReset)
     classifierStore.setOnAddToCollection(onAddToCollection)
     classifierStore.setOnSubjectChange(onSubjectChange)
     classifierStore.setOnToggleFavourite(onToggleFavourite)
-    setLoaded(true)
   }, [])
 
-  useEffect(function onAuthChange() {
-    if (loaded) {
-      classifierStore.userProjectPreferences.checkForUser()
-    }
-  }, [loaded, authClient])
-
   try {
-    if (loaded) {
+    if (classifierStore) {
 
       return (
         <StrictMode>

@@ -1,5 +1,6 @@
-import React from 'react'
-import { withStores } from '@helpers'
+import React, { forwardRef } from 'react'
+import { observer } from 'mobx-react'
+import { useStores } from '@hooks'
 
 function storeMapper(classifierStore) {
   const project = classifierStore?.projects.active
@@ -14,14 +15,12 @@ export default function withFeatureFlag(
   featureFlag
 ) {
 
-  function WithFeatureFlag({
-    project,
-    ...props
-  }) {
+  function WithFeatureFlag(props, ref) {
+    const { project } = useStores(storeMapper)
     if (project?.experimental_tools.includes(featureFlag)) {
-      return <Component {...props} />
+      return <Component ref={ref} {...props} />
     }
     return null
   }
-  return withStores(WithFeatureFlag, storeMapper)
+  return observer(forwardRef(WithFeatureFlag))
 }
