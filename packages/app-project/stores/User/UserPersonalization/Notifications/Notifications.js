@@ -15,7 +15,7 @@ import getUnreadNotificationsCount from './helpers/getTalkUnreadNotificationsCou
 const Notifications = types
   .model('Notifications', {
     unreadConversationsIds: types.array(types.string),
-    unreadNotificationsCount: types.maybeNull(types.number),
+    unreadNotificationsCount: types.optional(types.number, 0),
     error: types.maybeNull(types.frozen({})),
     loadingState: types.optional(
       types.enumeration('state', asyncStates.values),
@@ -117,7 +117,7 @@ const Notifications = types
       reset () {
         this.unsubscribeFromSugarNotifications()
         self.unreadConversationsIds = []
-        self.unreadNotificationsCount = null
+        self.unreadNotificationsCount = 0
         self.error = undefined
         this.setLoadingState(asyncStates.initialized)
       }

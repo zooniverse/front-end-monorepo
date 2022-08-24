@@ -31,7 +31,7 @@ describe('Stores > Notifications', function () {
     sugarClient.unsubscribeFrom.restore()
   })
 
-  describe('Actions > fetchInitialunreadConversationsIds', function () {
+  describe('Actions > fetchInitialUnreadConversationsIds', function () {
     describe('when there is a resource in the response', function () {
       const mockResponse = {
         body: {
@@ -158,8 +158,8 @@ describe('Stores > Notifications', function () {
         talkAPI.get.restore()
       })
 
-      it('should keep the unreadNotificationsCount as null', function () {
-        expect(rootStore.user.personalization.notifications.unreadNotificationsCount).to.be.null()
+      it('should keep the unreadNotificationsCount as zero', function () {
+        expect(rootStore.user.personalization.notifications.unreadNotificationsCount).to.equal(0)
       })
     })
 
@@ -178,8 +178,8 @@ describe('Stores > Notifications', function () {
         talkAPI.get.restore()
       })
 
-      it('should keep the unreadNotificationsCount as null', function () {
-        expect(rootStore.user.personalization.notifications.unreadNotificationsCount).to.be.null()
+      it('should keep the unreadNotificationsCount as zero', function () {
+        expect(rootStore.user.personalization.notifications.unreadNotificationsCount).to.equal(0)
       })
 
       it('should store the error', function () {
@@ -319,7 +319,7 @@ describe('Stores > Notifications', function () {
       notificationsStore.reset()
 
       expect(notificationsStore.unreadConversationsIds.length).to.equal(0)
-      expect(notificationsStore.unreadNotificationsCount).to.be.null()
+      expect(notificationsStore.unreadNotificationsCount).to.equal(0)
       expect(notificationsStore.loadingState).to.equal(asyncStates.initialized)
     })
   })
