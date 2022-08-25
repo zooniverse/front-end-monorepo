@@ -106,7 +106,10 @@ function SubTaskPopup({
         rndProps={rndProps}
         titleColor=''
       >
-        <Box gap='small'>
+        <Box 
+          className='subtaskpopup-element-that-ignores-drag-actions'
+          gap='small'
+        >
           {tasks.map((task, index) => {
             // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
             // or creates a new one if one doesn't exist.
@@ -123,8 +126,8 @@ function SubTaskPopup({
                 // horizontal pad for the space for the box-shadow focus style
                 // is there a better way?
                 <Box
+                  className="subtaskpopup-task"
                   border={requiredEmphasis ? { size: 'small', color: 'tomato' } : false}
-                  className='subtaskpopup-element-that-ignores-drag-actions'
                   key={annotation.id}
                   overflow='auto'
                   pad={{ horizontal: '2px' }}
