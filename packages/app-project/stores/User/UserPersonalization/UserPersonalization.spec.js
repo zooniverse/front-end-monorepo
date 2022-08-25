@@ -112,9 +112,17 @@ describe('Stores > UserPersonalization', function () {
     })
 
     it('should trigger the child Notifications store to request unread notifications', function () {
-      expect(talkAPI.get).to.have.been.calledOnceWith(
+      expect(talkAPI.get).to.have.been.calledWith(
         '/notifications',
         { delivered: false, page_size: 1 },
+        { authorization: 'Bearer ' }
+      )
+    })
+
+    it('should trigger the child Notifications store to request unread conversations', function () {
+      expect(talkAPI.get).to.have.been.calledWith(
+        '/conversations',
+        { unread: true, page: 1 },
         { authorization: 'Bearer ' }
       )
     })
