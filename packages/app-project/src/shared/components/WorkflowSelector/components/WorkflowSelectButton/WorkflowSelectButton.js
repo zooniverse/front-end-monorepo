@@ -79,10 +79,10 @@ WorkflowSelectButton.propTypes = {
     Optional custom router. Overrides the default NextJS.
     Useful for mocking the router in stories and shallow tests.
   */
-  router: PropTypes.shape({
-    query: PropTypes.shape({
-      owner: PropTypes.string,
-      project: PropTypes.string
+  router: shape({
+    query: shape({
+      owner: string,
+      project: string
     })
   }),
   theme: object,
