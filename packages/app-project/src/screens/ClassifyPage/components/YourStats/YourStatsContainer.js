@@ -4,20 +4,6 @@ import { useContext } from 'react'
 import YourStats from './YourStats'
 import withRequireUser from '@shared/components/withRequireUser'
 
-// function useStoreContext(stores) {
-//   const { store } = stores || useContext(MobXProviderContext)
-//   const {
-//     project,
-//     user: {
-//       personalization: { counts }
-//     }
-//   } = store
-//   return {
-//     counts,
-//     projectName: project['display_name']
-//   }
-// }
-
 function useStores(store) {
   const stores = useContext(MobXProviderContext)
   store = store || stores.store

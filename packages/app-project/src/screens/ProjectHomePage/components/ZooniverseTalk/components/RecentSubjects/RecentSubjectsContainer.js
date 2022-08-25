@@ -9,16 +9,6 @@ import RecentSubjectsCarousel from './RecentSubjectsCarousel'
 import MessageBox from './components/MessageBox'
 import fetchRecentSubjects from './helpers/fetchRecentSubjects'
 
-// function useStoreContext(stores) {
-//   const { store } = stores || useContext(MobXProviderContext)
-//   const { id: projectId, slug } = store?.project
-
-//   return {
-//     projectId,
-//     slug
-//   }
-// }
-
 function useStores(store) {
   const stores = useContext(MobXProviderContext)
   store = store || stores.store
