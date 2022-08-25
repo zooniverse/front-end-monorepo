@@ -75,6 +75,16 @@ function WorkflowSelectButton ({
 
 WorkflowSelectButton.propTypes = {
   disabled: bool,
+  /** 
+    Optional custom router. Overrides the default NextJS.
+    Useful for mocking the router in stories and shallow tests.
+  */
+  router: PropTypes.shape({
+    query: PropTypes.shape({
+      owner: PropTypes.string,
+      project: PropTypes.string
+    })
+  }),
   theme: object,
   workflow: shape({
     completeness: number,

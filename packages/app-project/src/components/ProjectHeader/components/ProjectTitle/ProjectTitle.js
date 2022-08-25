@@ -25,6 +25,10 @@ const StyledAnchor = styled(Anchor)`
 
 function ProjectTitle({
   showDropdown = false,
+  /** 
+    Optional custom router. Overrides the default NextJS.
+    Useful for mocking the router in stories and shallow tests.
+  */
   router,
   title = ''
 }) {

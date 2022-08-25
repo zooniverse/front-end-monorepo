@@ -49,5 +49,15 @@ WorkflowAssignmentModal.propTypes = {
   assignedWorkflowID: PropTypes.string.isRequired,
   closeFn: PropTypes.func.isRequired,
   dismiss: PropTypes.func.isRequired,
-  dismissedForSession: PropTypes.bool
+  dismissedForSession: PropTypes.bool,
+  /** 
+    Optional custom router. Overrides the default NextJS.
+    Useful for mocking the router in stories and shallow tests.
+  */
+  router: PropTypes.shape({
+    query: PropTypes.shape({
+      owner: PropTypes.string,
+      project: PropTypes.string
+    })
+  })
 }

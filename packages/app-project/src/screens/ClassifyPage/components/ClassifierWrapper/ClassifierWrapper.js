@@ -149,6 +149,13 @@ ClassifierWrapper.propTypes = {
   onSubjectReset: func,
   /** JSON snapshot of the active Panoptes project */
   project: shape({}),
+  /** 
+    Optional custom router. Overrides the default NextJS.
+    Useful for mocking the router in stories and shallow tests.
+  */
+  router: shape({
+    locale: string
+  }),
   /** Allow the classifier to open a popup tutorial, if necessary. */
   showTutorial: bool,
   /** optional subjectID (from the page URL.) */
