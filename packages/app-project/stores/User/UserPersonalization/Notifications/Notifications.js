@@ -3,18 +3,19 @@ import { sugarClient } from 'panoptes-client/lib/sugar'
 import auth from 'panoptes-client/lib/auth'
 import asyncStates from '@zooniverse/async-states'
 
+import getUnreadConversationsIds from './helpers/getTalkUnreadConversationsIds'
 import getUnreadNotificationsCount from './helpers/getTalkUnreadNotificationsCount'
 
 // NOTES
-// This store is for a Notifications count displayed in the ZooHeader.
-// The ZooHeader can also display a Messages count.
-// The ZooHeader Notifications count represents unread Talk notifications related to Talk comments and discussions
-// The ZooHeader Messages count represents unread Talk notifications related to Talk messages (per a Talk conversation)
+// This store is for the Notifications and Messages count displayed in ZooHeader.
+// The ZooHeader Notifications count represents unread Talk notifications related to Talk comments, discussions, and messages.
+// The ZooHeader Messages count represents unread Talk conversations.
 // Unread Talk notifications related to Talk moderation reports are not included ZooHeader Notifications or ZooHeader Messages
 
 const Notifications = types
   .model('Notifications', {
-    count: types.maybeNull(types.number),
+    unreadConversationsIds: types.array(types.string),
+    unreadNotificationsCount: types.optional(types.number, 0),
     error: types.maybeNull(types.frozen({})),
     loadingState: types.optional(
       types.enumeration('state', asyncStates.values),
@@ -24,9 +25,28 @@ const Notifications = types
   .actions(self => {
     return {
       fetchAndSubscribe () {
+        self.fetchInitialUnreadConversationsIds()
         self.fetchInitialUnreadNotificationsCount()
         self.subscribeToSugarNotifications()
       },
+
+      fetchInitialUnreadConversationsIds: flow(function * fetchInitialUnreadConversationsIds () {
+        self.setLoadingState(asyncStates.loading)
+        try {
+          const token = yield auth.checkBearerToken()
+          const authorization = `Bearer ${token}`
+
+          const unreadConversationsIds = yield getUnreadConversationsIds(authorization)
+
+          if (unreadConversationsIds?.length) {
+            self.unreadConversationsIds = unreadConversationsIds
+          }
+
+          self.setLoadingState(asyncStates.success)
+        } catch (error) {
+          self.handleError(error)
+        }
+      }),
 
       fetchInitialUnreadNotificationsCount: flow(function * fetchInitialUnreadNotificationsCount () {
         self.setLoadingState(asyncStates.loading)
@@ -37,7 +57,7 @@ const Notifications = types
           const unreadNotificationsCount = yield getUnreadNotificationsCount(authorization)
 
           if (unreadNotificationsCount) {
-            self.count = unreadNotificationsCount
+            self.unreadNotificationsCount = unreadNotificationsCount
           }
 
           self.setLoadingState(asyncStates.success)
@@ -47,11 +67,18 @@ const Notifications = types
       }),
 
       processSugarNotification (notification) {
-        // sugar data objects with source_type = 'Message' are related to Talk messages/conversations and included in ZooHeader Messages, not in ZooHeader Notifications
+        // sugar data objects with source_type = 'Message' are related to Talk messages, a subset of Talk conversations, and are included in ZooHeader Notifications
         // sugar data objects with source_type = 'Moderation' are related to Talk moderation reports and are not included in ZooHeader Notifications or ZooHeader Messages
 
-        if (notification?.data.source_type !== 'Message' && notification?.data.source_type !== 'Moderation') {
-          self.count = self.count + 1
+        if (notification?.data.source_type !== 'Moderation') {
+          self.unreadNotificationsCount = self.unreadNotificationsCount + 1
+        }
+
+        if (notification?.data.source_type === 'Message') {
+          const conversationId = notification.data.url.split('/').pop()
+          if (!self.unreadConversationsIds.includes(conversationId)) {
+            self.unreadConversationsIds.push(conversationId)
+          }
         }
       },
 
@@ -89,7 +116,8 @@ const Notifications = types
 
       reset () {
         this.unsubscribeFromSugarNotifications()
-        self.count = undefined
+        self.unreadConversationsIds = []
+        self.unreadNotificationsCount = 0
         self.error = undefined
         this.setLoadingState(asyncStates.initialized)
       }

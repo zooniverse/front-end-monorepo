@@ -2,13 +2,26 @@ import { MediaContextProvider } from '@shared/components/Media'
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
-import { Provider } from "mobx-react";
+import { Provider } from "mobx-react"
+import { applySnapshot } from 'mobx-state-tree'
+import { RouterContext } from 'next/dist/shared/lib/router-context'
 import PropTypes from 'prop-types'
-import { Component } from 'react';
+import { Component } from 'react'
 import sinon from 'sinon'
 
 import initStore from '@stores'
 import Hero from './'
+
+const router = {
+  locale: 'en',
+  query: {
+    owner: 'test-owner',
+    project: 'test-project'
+  },
+  prefetch() {
+    return Promise.resolve()
+  }
+}
 
 const snapshot = {
   project: {
@@ -27,29 +40,34 @@ const snapshot = {
   user: {
     loadingState: asyncStates.success,
     personalization: {
-      projectPreferences: {}
+      projectPreferences: {
+        loadingState: asyncStates.success
+      }
     }
   }
 }
 
 const store = initStore(false, snapshot)
+applySnapshot(store.user, snapshot.user)
 
 function MockProjectContext({ children, theme }) {
   return (
-    <MediaContextProvider>
-      <Provider store={store}>
-        <Grommet
-          background={{
-            dark: 'dark-1',
-            light: 'light-1'
-          }}
-          theme={theme}
-          themeMode={(theme.dark) ? 'dark' : 'light'}
-        >
-          {children}
-        </Grommet>
-      </Provider>
-    </MediaContextProvider>
+    <RouterContext.Provider value={router}>
+      <MediaContextProvider>
+        <Provider store={store}>
+          <Grommet
+            background={{
+              dark: 'dark-1',
+              light: 'light-1'
+            }}
+            theme={theme}
+            themeMode={(theme.dark) ? 'dark' : 'light'}
+          >
+            {children}
+          </Grommet>
+        </Provider>
+      </MediaContextProvider>
+    </RouterContext.Provider>
   )
 }
 const WORKFLOWS = [
