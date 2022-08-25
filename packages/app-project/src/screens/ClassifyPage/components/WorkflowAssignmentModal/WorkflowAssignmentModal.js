@@ -6,11 +6,19 @@ import { useTranslation } from 'next-i18next'
 
 import NavLink from '@shared/components/NavLink'
 
-export default function WorkflowAssignmentModal(props) {
+export default function WorkflowAssignmentModal({
+  active = false,
+  assignedWorkflowID,
+  closeFn,
+  dismiss,
+  dismissedForSession = false,
+  router
+}) {
   const { t } = useTranslation('screens')
-  const { active = false, assignedWorkflowID, closeFn, dismiss, dismissedForSession = false } = props
-  const router = useRouter()
-  const { owner, project } = router?.query || {}
+  const nextRouter = useRouter()
+  router = router || nextRouter
+  const owner = router?.query?.owner
+  const project = router?.query?.project
 
   const url = `/${owner}/${project}/classify/workflow/${assignedWorkflowID}`
 
@@ -41,5 +49,15 @@ WorkflowAssignmentModal.propTypes = {
   assignedWorkflowID: PropTypes.string.isRequired,
   closeFn: PropTypes.func.isRequired,
   dismiss: PropTypes.func.isRequired,
-  dismissedForSession: PropTypes.bool
+  dismissedForSession: PropTypes.bool,
+  /** 
+    Optional custom router. Overrides the default NextJS.
+    Useful for mocking the router in stories and shallow tests.
+  */
+  router: PropTypes.shape({
+    query: PropTypes.shape({
+      owner: PropTypes.string,
+      project: PropTypes.string
+    })
+  })
 }

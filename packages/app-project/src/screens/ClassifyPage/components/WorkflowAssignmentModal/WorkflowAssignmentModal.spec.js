@@ -4,7 +4,6 @@ import { Button, CheckBox } from 'grommet'
 import sinon from 'sinon'
 import WorkflowAssignmentModal from './WorkflowAssignmentModal'
 import NavLink from '@shared/components/NavLink'
-import * as nextRouter from 'next/router'
 import i18n from '@test/i18n-for-tests'
 
 describe('Component > WorkflowAssignmentModal', function () {
@@ -20,13 +19,18 @@ describe('Component > WorkflowAssignmentModal', function () {
   before(function() {
     closeFnSpy = sinon.spy()
     dismissSpy = sinon.spy()
-    sinon.stub(nextRouter, 'useRouter').callsFake(() => router)
     useTranslationStub = sinon.stub(i18n, 't').callsFake((key) => key)
-    wrapper = shallow(<WorkflowAssignmentModal closeFn={closeFnSpy} dismiss={dismissSpy} assignedWorkflowID='1234' />)
+    wrapper = shallow(
+      <WorkflowAssignmentModal
+        closeFn={closeFnSpy}
+        dismiss={dismissSpy}
+        assignedWorkflowID='1234'
+        router={router}
+      />
+    )
   })
 
   after(function () {
-    nextRouter.useRouter.restore()
     closeFnSpy = null
     dismissSpy = null
     useTranslationStub.restore()

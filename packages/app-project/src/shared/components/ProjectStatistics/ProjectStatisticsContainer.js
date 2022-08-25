@@ -19,7 +19,8 @@ function storeMapper (stores) {
 class ProjectStatisticsContainer extends Component {
   getLinkProps () {
     const { router } = this.props
-    const { owner, project } = router.query
+    const owner = router?.query?.owner
+    const project = router?.query?.project
     return {
       href: `/${owner}/${project}/stats`
     }

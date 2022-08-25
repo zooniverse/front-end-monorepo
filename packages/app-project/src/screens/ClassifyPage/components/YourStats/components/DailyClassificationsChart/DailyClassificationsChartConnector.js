@@ -27,7 +27,8 @@ function storeMapper(store) {
 function DailyClassificationsChartConnector() {
   const { store } = useContext(MobXProviderContext)
   const { counts, thisWeek, projectName } = storeMapper(store)
-  const { locale } = useRouter()
+  const router = useRouter()
+  const locale = router?.locale
   const sanitizedLocale = locale === 'test' ? 'en' : locale
 
   return (

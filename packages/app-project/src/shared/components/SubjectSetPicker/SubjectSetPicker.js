@@ -1,7 +1,6 @@
 import { PlainButton } from '@zooniverse/react-components'
 import { Anchor, Box, Grid, Heading, Paragraph } from 'grommet'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { array, bool, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import { useTranslation } from 'next-i18next'
@@ -27,7 +26,6 @@ function SubjectSetPicker ({
   workflow
 }) {
   const { t } = useTranslation('components')
-  const router = useRouter()
   /*
     Vertical spacing for the picker instructions.
     The theme's named margins are set in multiples of 10px, so set 15px explicitly.
@@ -57,7 +55,7 @@ function SubjectSetPicker ({
   return (
     <>
       <Link
-        href={addQueryParams(baseUrl, router)}
+        href={addQueryParams(baseUrl)}
         passHref
       >
         <PlainButton
@@ -92,7 +90,7 @@ function SubjectSetPicker ({
             return (
               <Link
                 key={subjectSet.id}
-                href={addQueryParams(href, router)}
+                href={addQueryParams(href)}
                 passHref
               >
                 <Anchor>
