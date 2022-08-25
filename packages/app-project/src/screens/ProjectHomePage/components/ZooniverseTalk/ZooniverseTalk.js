@@ -30,10 +30,11 @@ function ZooniverseTalk (props) {
               </Box>
             </WidgetHeading>
             <Paragraph
-              children={t('Home.ZooniverseTalk.message')}
               margin='none'
               size='xlarge'
-            />
+            >
+              {t('Home.ZooniverseTalk.message')}
+            </Paragraph>
           </Box>
           <JoinInButton />
         </Box>

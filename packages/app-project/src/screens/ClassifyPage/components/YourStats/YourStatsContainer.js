@@ -4,8 +4,23 @@ import { useContext } from 'react'
 import YourStats from './YourStats'
 import withRequireUser from '@shared/components/withRequireUser'
 
-function useStoreContext(stores) {
-  const { store } = stores || useContext(MobXProviderContext)
+// function useStoreContext(stores) {
+//   const { store } = stores || useContext(MobXProviderContext)
+//   const {
+//     project,
+//     user: {
+//       personalization: { counts }
+//     }
+//   } = store
+//   return {
+//     counts,
+//     projectName: project['display_name']
+//   }
+// }
+
+function useStores(store) {
+  const stores = useContext(MobXProviderContext)
+  store = store || stores.store
   const {
     project,
     user: {
@@ -19,7 +34,7 @@ function useStoreContext(stores) {
 }
 
 function YourStatsContainer({ stores }) {
-  const { counts, projectName } = useStoreContext(stores)
+  const { counts, projectName } = useStores(stores)
   return <YourStats counts={counts} projectName={projectName} />
 }
 

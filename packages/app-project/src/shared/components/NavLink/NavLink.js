@@ -19,7 +19,7 @@ function NavLink ({
   const { href, text } = link
   const isCurrentPage = router?.asPath === addQueryParams(href)
 
-  const label = <StyledSpacedText children={text} color={color} weight={weight} />
+  const label = <StyledSpacedText color={color} weight={weight}>{text}</StyledSpacedText>
 
   if (isCurrentPage) {
     return (

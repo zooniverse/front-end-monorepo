@@ -74,7 +74,7 @@ function ProjectAboutPage ({
           >
             {screenSize !== 'small' ? (
               <Box as='aside'>
-                <SidebarHeading children={t('About.SidebarHeading')} />
+                <SidebarHeading>{t('About.SidebarHeading')}</SidebarHeading>
                 <AboutSidebar aboutNavLinks={aboutNavLinks} />
               </Box>
             ) : (
@@ -82,12 +82,13 @@ function ProjectAboutPage ({
             )}
             <Box as='main'>
               <PageHeading
-                children={pageTitle}
                 level='2'
                 weight='normal'
                 size='40px'
                 margin={{ bottom: '30px' }}
-              />
+              >
+                {pageTitle}
+              </PageHeading>
               {isTeamPage ? (
                 <Grid
                   columns={screenSize === 'small' ? ['auto'] : ['flex', 'small']}
@@ -103,10 +104,11 @@ function ProjectAboutPage ({
                       size='small'
                     >
                       <SpacedText
-                        children={`${projectDisplayName} TEAM`}
                         weight='bold'
                         color={{ light: 'black', dark: '' }}
-                      />
+                      >
+                        {`${projectDisplayName} TEAM`}
+                      </SpacedText>
                     </Heading>
                     {teamArray.length && (
                       <Box aria-labelledby='team-sidebar-heading' as='ul' margin='none' pad='none'>

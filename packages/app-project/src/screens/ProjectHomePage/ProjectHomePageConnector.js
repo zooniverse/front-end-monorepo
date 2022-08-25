@@ -1,11 +1,20 @@
 import { observer, MobXProviderContext } from 'mobx-react'
 import { arrayOf, bool, shape, string } from 'prop-types'
-import { useContext } from 'react';
+import { useContext } from 'react'
 
 import ProjectHomePage from './ProjectHomePage'
 
-function useStoreContext(stores) {
-  const { store } = stores || useContext(MobXProviderContext)
+// function useStoreContext(stores) {
+//   const { store } = stores || useContext(MobXProviderContext)
+//   const { inBeta } = store.project
+//   return {
+//     inBeta
+//   }
+// }
+
+function useStores(store) {
+  const stores = useContext(MobXProviderContext)
+  store = store || stores.store
   const { inBeta } = store.project
   return {
     inBeta
@@ -19,7 +28,7 @@ function ProjectHomePageConnector({
   stores,
   workflows = []
 }) {
-  const { inBeta } = useStoreContext(stores)
+  const { inBeta } = useStores(stores)
   return <ProjectHomePage inBeta={inBeta} workflows={workflows} />
 }
 

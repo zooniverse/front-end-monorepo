@@ -1,6 +1,6 @@
 import { Grid, Heading } from 'grommet'
 import Error from 'next/error'
-import { Component } from 'react';
+import { Component } from 'react'
 
 class StubComponent extends Component {
   static async getInitialProps ({ res }) {
@@ -23,10 +23,10 @@ class StubComponent extends Component {
       return (
         <Grid gap='medium' margin='medium'>
           <Heading>
-            This page isn't built yet!
+            This page isn&apos;t built yet!
           </Heading>
           <div>
-            You're in development mode (<code>NODE_ENV !== 'production'</code>), so you're seeing this message. In production, this route will 404, so make sure you check the CloudFront config so it's picked up by PFE.
+            You&apos;re in development mode (<code>NODE_ENV !== production</code>), so you&apos;re seeing this message. In production, this route will 404, so make sure you check the CloudFront config so it&apos;s picked up by PFE.
           </div>
         </Grid>
       )
