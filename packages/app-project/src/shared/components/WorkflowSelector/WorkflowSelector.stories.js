@@ -2,6 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
+import { RouterContext } from 'next/dist/shared/lib/router-context'
 
 import WorkflowSelector from './WorkflowSelector'
 import * as subcomponents from './components'
@@ -19,6 +20,17 @@ const store = {
       2) "Location": Smartphone-friendly, series of questions on the geographic location of the nest.  
       3) "Nest Attempt: Smartphone-friendly, for data-entry lovers to record nest attempt data on cards.  
       4) "Comments": For transcription lovers, we ask you to transcribe all the written comments on the cards.`
+  }
+}
+
+const router = {
+  locale: 'en',
+  query: {
+    owner: 'test-owner',
+    project: 'test-project'
+  },
+  prefetch() {
+    return Promise.resolve()
   }
 }
 
@@ -59,18 +71,20 @@ function StoryContext (props) {
   const { children, theme } = props
 
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={theme}
-      themeMode={(theme.dark) ? 'dark' : 'light'}
-    >
-      <Provider store={store}>
-        {children}
-      </Provider>
-    </Grommet>
+    <RouterContext.Provider value={router}>
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={theme}
+        themeMode={(theme.dark) ? 'dark' : 'light'}
+      >
+        <Provider store={store}>
+          {children}
+        </Provider>
+      </Grommet>
+    </RouterContext.Provider>
   )
 }
 
