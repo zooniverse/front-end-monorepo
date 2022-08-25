@@ -5,7 +5,7 @@
   ],
   "require": [
     "@babel/register",
-    "chai/register-expect",
+    "chai/register-expect.js",
     "ignore-styles"
   ],
   "reporter": "spec",

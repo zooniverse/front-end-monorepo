@@ -1,7 +1,6 @@
 import { PlainButton, SpacedText } from '@zooniverse/react-components'
 import { debounce } from 'lodash'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { array, bool, number, shape, string } from 'prop-types'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
@@ -47,7 +46,6 @@ const PAGE_SIZE = 10
 
 export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
   const { t } = useTranslation('components')
-  const router = useRouter()
   const [ rows, setRows ] = useState([])
   const [ query, setQuery ] = useState('')
   const [ isFetching, setIsFetching ] = useState(false)
@@ -112,7 +110,7 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
   return (
     <>
       <Link
-        href={addQueryParams(baseUrl, router)}
+        href={addQueryParams(baseUrl)}
         passHref
       >
         <PlainButton

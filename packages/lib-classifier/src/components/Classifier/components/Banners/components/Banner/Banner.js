@@ -6,8 +6,8 @@ import React, { Component, createRef } from 'react'
 import styled, { withTheme } from 'styled-components'
 import { useTranslation, withTranslation } from 'react-i18next'
 
+import Triangle from '@shared/Triangle'
 import TooltipText from './components/TooltipText'
-import Triangle from '../../../shared/Triangle'
 
 function Label ({ color }) {
   const { t } = useTranslation('components')

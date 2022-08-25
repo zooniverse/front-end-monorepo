@@ -5,28 +5,17 @@ import Classifier from '@zooniverse/classifier'
 
 import ClassifierWrapper from './ClassifierWrapper'
 import Loader from '@shared/components/Loader'
-import * as Router from 'next/router'
 
 describe('Component > ClassifierWrapper', function () {
-  let routerStub
-
-  before(function () {
-    routerStub = sinon.stub(Router, 'useRouter').callsFake((component) => {
-      return {
-        asPath: '',
-        locale: 'en',
-        query: {
-          owner: 'zootester1',
-          project: 'my-project'
-        },
-        prefetch: () => Promise.resolve()
-      }
-    })
-  })
-
-  after(function () {
-    routerStub.restore()
-  })
+  const router = {
+    asPath: '',
+    locale: 'en',
+    query: {
+      owner: 'zootester1',
+      project: 'my-project'
+    },
+    prefetch: () => Promise.resolve()
+  }
 
   it('should render without crashing', function () {
     const project = {}
@@ -34,6 +23,7 @@ describe('Component > ClassifierWrapper', function () {
     const wrapper = shallow(
       <ClassifierWrapper
         project={project}
+        router={router}
         user={user}
       />
     )
@@ -46,6 +36,7 @@ describe('Component > ClassifierWrapper', function () {
         <ClassifierWrapper
           appLoadingState={asyncStates.loading}
           project={{}}
+          router={router}
           user={{}}
         />
       )
@@ -83,6 +74,7 @@ describe('Component > ClassifierWrapper', function () {
           collections={collections}
           project={project}
           recents={recents}
+          router={router}
           user={user}
           yourStats={yourStats}
         />

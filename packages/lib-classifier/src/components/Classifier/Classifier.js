@@ -1,10 +1,11 @@
+import asyncStates from '@zooniverse/async-states'
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import '../../translations/i18n'
 import i18n from 'i18next'
 
-import { usePanoptesUser, useProjectRoles } from '@hooks'
+import { usePanoptesUser, useProjectPreferences, useProjectRoles } from '@hooks'
 import Layout from './components/Layout'
 import ModalTutorial from './components/ModalTutorial'
 
@@ -24,6 +25,7 @@ export default function Classifier({
   const user = usePanoptesUser()
   const projectRoles = useProjectRoles(project?.id, user?.id)
   let workflowVersionChanged = false
+
   if (workflowSnapshot) {
     const storedWorkflow = classifierStore.workflows.resources.get(workflowSnapshot.id)
     workflowVersionChanged = workflowSnapshot.version !== storedWorkflow?.version
@@ -33,6 +35,25 @@ export default function Classifier({
       that aren't in the Panoptes data.
     */
     workflowSnapshot = storedWorkflow ? { ...getSnapshot(storedWorkflow), ...workflowSnapshot } : workflowSnapshot
+  }
+
+  const upp = useProjectPreferences(project?.id, user?.id)
+
+  const uppLoading = upp === undefined
+  const { userProjectPreferences } = classifierStore
+  // are we replacing a stored UPP?
+  if (uppLoading && userProjectPreferences.loadingState === asyncStates.success) {
+    console.log('resetting stale user data')
+    userProjectPreferences.reset()
+  }
+  // store a new UPP
+  if (userProjectPreferences.loadingState !== asyncStates.success) {
+    if (upp === null) {
+      userProjectPreferences.clear()
+    }
+    if (upp?.id) {
+      userProjectPreferences.setUPP(upp)
+    }
   }
 
   const canPreviewWorkflows = projectRoles.indexOf('owner') > -1 ||

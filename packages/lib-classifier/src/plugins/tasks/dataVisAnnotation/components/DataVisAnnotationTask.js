@@ -47,7 +47,7 @@ function DataVisAnnotationTask (props) {
             key={`${task.taskKey}_${index}`}
             label={task.strings.get(`tools.${index}.label`)}
             labelIcon={<InputIcon icon={<Graph2dRangeXIcon />} color='white' />}
-            name='data-vis-annotation-tool'
+            name={task.taskKey}
             onChange={event => onChange(index, event)}
             required={task.required}
             type='radio'

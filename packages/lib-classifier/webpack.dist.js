@@ -40,6 +40,7 @@ module.exports = {
       '@helpers': path.resolve(__dirname, 'src/helpers'),
       '@hooks': path.resolve(__dirname, 'src/hooks'),
       '@plugins': path.resolve(__dirname, 'src/plugins'),
+      '@shared': path.resolve(__dirname, 'src/components/Classifier/components/shared'),
       '@store': path.resolve(__dirname, 'src/store'),
       '@stories': path.resolve(__dirname, 'src/stories'),
       '@test': path.resolve(__dirname, 'test'),

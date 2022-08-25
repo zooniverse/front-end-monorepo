@@ -7,8 +7,9 @@ const setLogging = require('./set-logging')
 const setCacheHeaders = require('./set-cache-headers')
 
 const port = parseInt(process.env.PORT, 10) || 3000
+const hostname = process.env.HOST || 'localhost'
 const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
+const app = next({ dev, hostname, port })
 const handle = app.getRequestHandler()
 
 app.prepare().then(() => {

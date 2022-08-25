@@ -28,7 +28,8 @@ function ProjectHomePage ({
   inBeta,
   workflows
 }) {
-  const { locale } = useRouter()
+  const router = useRouter()
+  const locale = router?.locale
   return (
     <Box border={(inBeta) ? { color: 'brand', size: 'medium' } : false}>
       <Media at='default'>
