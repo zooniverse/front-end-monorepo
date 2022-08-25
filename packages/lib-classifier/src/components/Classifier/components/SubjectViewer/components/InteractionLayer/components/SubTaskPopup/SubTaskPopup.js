@@ -126,6 +126,7 @@ function SubTaskPopup({
                 // horizontal pad for the space for the box-shadow focus style
                 // is there a better way?
                 <Box
+                  className="subtaskpopup-task"
                   border={requiredEmphasis ? { size: 'small', color: 'tomato' } : false}
                   key={annotation.id}
                   overflow='auto'

@@ -68,8 +68,8 @@ describe('SubTaskPopup', function () {
 
     describe('on initial render', function () {
       it('should not show required subtask emphasis', function () {
-        expect(wrapper.find('.subtaskpopup-element-that-ignores-drag-actions')).to.have.lengthOf(2)
-        const requiredSubtask = wrapper.find('.subtaskpopup-element-that-ignores-drag-actions').first()
+        expect(wrapper.find('.subtaskpopup-task')).to.have.lengthOf(2)
+        const requiredSubtask = wrapper.find('.subtaskpopup-task').first()
         expect(requiredSubtask.prop('border')).to.be.false()
         expect(requiredSubtask.find('strong')).to.have.lengthOf(0)
       })
@@ -105,7 +105,7 @@ describe('SubTaskPopup', function () {
       before(function () {
         wrapper.find(SaveButton).simulate('click')
         wrapper.find(ConfirmModal).dive().find(PrimaryButton).simulate('click')
-        taskWrappers = wrapper.find('.subtaskpopup-element-that-ignores-drag-actions')
+        taskWrappers = wrapper.find('.subtaskpopup-task')
       })
 
       it('should emphasize the required subtask', function () {
@@ -245,7 +245,7 @@ describe('SubTaskPopup', function () {
               activeMark={mark}
             />
           )
-          expect(wrapper.find('.subtaskpopup-element-that-ignores-drag-actions')).to.have.lengthOf(3)
+          expect(wrapper.find('.subtaskpopup-task')).to.have.lengthOf(3)
         })
 
         describe('on close', function () {
