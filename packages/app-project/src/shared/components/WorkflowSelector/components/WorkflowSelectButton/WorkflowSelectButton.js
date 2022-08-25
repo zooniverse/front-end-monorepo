@@ -13,16 +13,19 @@ export const ThemedButton = withThemeContext(Button, theme)
 
 function WorkflowSelectButton ({
   disabled = false,
+  router,
   workflow,
-  ...rest }
-) {
+  ...rest
+}) {
   const { t } = useTranslation('components')
-  const router = useRouter()
-  const { owner, project } = router?.query || {}
+  const nextRouter = useRouter()
+  router = router || nextRouter
+  const owner = router?.query?.owner
+  const project = router?.query?.project
 
   const url = `/${owner}/${project}/classify/workflow/${workflow.id}`
 
-  const href = addQueryParams(url, router)
+  const href = addQueryParams(url)
   const completeness = parseInt(workflow.completeness * 100, 10)
   let workflowStatus = workflow.grouped ? t('WorkflowSelector.WorkflowSelectButton.setSelection') : ''
   // indexed workflows use subject selection
@@ -72,6 +75,16 @@ function WorkflowSelectButton ({
 
 WorkflowSelectButton.propTypes = {
   disabled: bool,
+  /** 
+    Optional custom router. Overrides the default NextJS.
+    Useful for mocking the router in stories and shallow tests.
+  */
+  router: PropTypes.shape({
+    query: PropTypes.shape({
+      owner: PropTypes.string,
+      project: PropTypes.string
+    })
+  }),
   theme: object,
   workflow: shape({
     completeness: number,

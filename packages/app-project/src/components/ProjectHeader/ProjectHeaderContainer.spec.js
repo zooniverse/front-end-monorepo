@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import * as Router from 'next/router'
 import sinon from 'sinon'
 import { ProjectHeaderContainer } from './ProjectHeaderContainer'
 import ProjectHeader from './ProjectHeader'
@@ -10,22 +9,23 @@ describe('Component > ProjectHeaderContainer', function () {
   let routerStub
 
   const PROJECT_DISPLAY_NAME = 'Foobar'
-  const ROUTER = {
-    query: {
-      owner: 'Foo',
-      project: 'Bar'
-    }
-  }
   before(function () {
-    routerStub = sinon.stub(Router, 'useRouter').callsFake(() => ROUTER)
+    const mockStore = {
+      project: {
+        configuration: {
+          languages: ['en']
+        },
+        display_name: PROJECT_DISPLAY_NAME,
+        slug: 'Foo/Bar'
+      },
+      user: {
+        isLoggedIn: false
+      }
+    }
     wrapper = shallow(
-      <ProjectHeaderContainer projectName={PROJECT_DISPLAY_NAME} />
+      <ProjectHeaderContainer store={mockStore} />
     )
     projectHeader = wrapper.find(ProjectHeader)
-  })
-
-  after(function () {
-    routerStub.restore()
   })
 
   it('should render without crashing', function () {
@@ -53,8 +53,20 @@ describe('Component > ProjectHeaderContainer', function () {
 
   describe('when logged in', function () {
     it('should pass nav links including recents', function () {
+      const mockStore = {
+        project: {
+          configuration: {
+            languages: ['en']
+          },
+          display_name: PROJECT_DISPLAY_NAME,
+          slug: 'Foo/Bar'
+        },
+        user: {
+          isLoggedIn: true
+        }
+      }
       wrapper = shallow(
-        <ProjectHeaderContainer isLoggedIn projectName={PROJECT_DISPLAY_NAME} />
+        <ProjectHeaderContainer store={mockStore} />
       )
       const projectHeader = wrapper.find(ProjectHeader)
 
@@ -66,11 +78,22 @@ describe('Component > ProjectHeaderContainer', function () {
 
   describe('with a default workflow', function () {
     it('should pass a workflow-specific classify link', function () {
+      const mockStore = {
+        project: {
+          configuration: {
+            languages: ['en']
+          },
+          defaultWorkflow: '1234',
+          display_name: PROJECT_DISPLAY_NAME,
+          slug: 'Foo/Bar'
+        },
+        user: {
+          isLoggedIn: true
+        }
+      }
       wrapper = shallow(
         <ProjectHeaderContainer
-          defaultWorkflow='1234'
-          isLoggedIn
-          projectName={PROJECT_DISPLAY_NAME}
+          store={mockStore}
         />
       )
       const projectHeader = wrapper.find(ProjectHeader)
