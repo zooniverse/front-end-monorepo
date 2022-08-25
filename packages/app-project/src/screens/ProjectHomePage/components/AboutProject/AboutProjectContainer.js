@@ -4,16 +4,6 @@ import { useContext } from 'react'
 
 import AboutProject from './AboutProject'
 
-// function useStoreContext(stores) {
-//   const { store } = stores || useContext(MobXProviderContext)
-//   const { introduction, display_name } = store?.project
-
-//   return {
-//     description: introduction,
-//     projectName: display_name
-//   }
-// }
-
 function useStores(store) {
   const stores = useContext(MobXProviderContext)
   store = store || stores.store

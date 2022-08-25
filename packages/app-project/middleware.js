@@ -32,5 +32,4 @@ export function middleware(req, event) {
     }
     return NextResponse.redirect(url)
   }
-  return
 }
