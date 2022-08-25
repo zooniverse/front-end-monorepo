@@ -107,8 +107,8 @@ function SubTaskPopup({
         titleColor=''
       >
         <Box 
-        className='subtaskpopup-element-that-ignores-drag-actions'
-        gap='small'
+          className='subtaskpopup-element-that-ignores-drag-actions'
+          gap='small'
         >
           {tasks.map((task, index) => {
             // classifications.addAnnotation(task, value) retrieves any existing task annotation from the store
