@@ -1,35 +1,38 @@
-import { NextResponse } from 'next/server'
+/** This middleware is designed to handle legacy links to FEM projects when the url includes ?language=es */
+/** The upgrade to NextJS 12.2 caused router.query to be an empty object after client-side navigation when app-project has middleware */
 
-export function middleware(req, event) {
-  const { pathname, searchParams } = req.nextUrl
-  /*
-    Images etc. are served from /projects/assets.
-  */
-  if (pathname.startsWith('/assets')) {
-    return
-  }
-  /*
-    Bypass internal NextJS requests.
-  */
-  if (pathname.startsWith('/_next')) {
-    return
-  }
-  /*
-    Don't redirect or rewrite the health check.
-  */
-  if (pathname === '/Index') {
-    return
-  }
+// import { NextResponse } from 'next/server'
 
-  if (searchParams.has('language')) {
-    const locale = searchParams.get('language')
-    const url = req.nextUrl.clone()
-    url.searchParams.delete('language')
-    try {
-      url.locale = locale
-    } catch (error) {
-      url.pathname = `/${locale}${pathname}`
-    }
-    return NextResponse.redirect(url)
-  }
-}
+// export function middleware(req, event) {
+//   const { pathname, searchParams } = req.nextUrl
+//   /*
+//     Images etc. are served from /projects/assets.
+//   */
+//   if (pathname.startsWith('/assets')) {
+//     return
+//   }
+//   /*
+//     Bypass internal NextJS requests.
+//   */
+//   if (pathname.startsWith('/_next')) {
+//     return
+//   }
+//   /*
+//     Don't redirect or rewrite the health check.
+//   */
+//   if (pathname === '/Index') {
+//     return
+//   }
+
+//   if (searchParams.has('language')) {
+//     const locale = searchParams.get('language')
+//     const url = req.nextUrl.clone()
+//     url.searchParams.delete('language')
+//     try {
+//       url.locale = locale
+//     } catch (error) {
+//       url.pathname = `/${locale}${pathname}`
+//     }
+//     return NextResponse.redirect(url)
+//   }
+// }
