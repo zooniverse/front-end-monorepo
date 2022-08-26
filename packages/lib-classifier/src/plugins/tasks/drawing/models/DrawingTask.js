@@ -83,7 +83,7 @@ export const Drawing = types.model('Drawing', {
       },
 
       setActiveMark(mark) {
-        self.activeMark = mark
+        self.activeMark = mark?.id
       },
 
       setActiveTool(toolIndex) {
