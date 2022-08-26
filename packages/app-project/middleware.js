@@ -37,6 +37,13 @@ export function middleware(req, event) {
     return NextResponse.redirect(url)
   }
 
+  if (pathname.startsWith('/production')) {
+    return
+  }
+
+  if (pathname.startsWith('/staging')) {
+    return
+  }
   /*
     Project pages are served from /projects/staging/[owner]/[project]
     and /projects/production/[owner]/[project]
