@@ -6,14 +6,14 @@ import ProjectHomePage from './ProjectHomePage'
 describe('Component > ProjectHomePageConnector', function () {
   describe('with a project not in beta', function () {
     let wrapper
-    const store = {
+    const mockStore = {
       project: {
         inBeta: false
       }
     }
 
     before(function () {
-      wrapper = shallow(<ProjectHomePageConnector store={store} />)
+      wrapper = shallow(<ProjectHomePageConnector mockStore={mockStore} />)
     })
 
     it('should render without crashing', function () {

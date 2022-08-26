@@ -9,9 +9,9 @@ import RecentSubjectsCarousel from './RecentSubjectsCarousel'
 import MessageBox from './components/MessageBox'
 import fetchRecentSubjects from './helpers/fetchRecentSubjects'
 
-function useStores(store) {
+function useStores(mockStore) {
   const stores = useContext(MobXProviderContext)
-  store = store || stores.store
+  const store = mockStore || stores.store
   const { id: projectId, slug } = store?.project
 
   return {
@@ -20,9 +20,9 @@ function useStores(store) {
   }
 }
 
-function RecentSubjectsContainer({ carousel = false, store }) {
+function RecentSubjectsContainer({ carousel = false, mockStore }) {
   const { t } = useTranslation('screens')
-  const { projectId, slug } = useStores(store)
+  const { projectId, slug } = useStores(mockStore)
   const [loading, setLoading] = useState(asyncStates.initialized)
   const [subjects, setSubjects] = useState([])
 

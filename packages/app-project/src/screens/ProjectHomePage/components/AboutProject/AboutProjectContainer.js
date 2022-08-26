@@ -4,9 +4,9 @@ import { useContext } from 'react'
 
 import AboutProject from './AboutProject'
 
-function useStores(store) {
+function useStores(mockStore) {
   const stores = useContext(MobXProviderContext)
-  store = store || stores.store
+  const store = mockStore || stores.store
   const { introduction, display_name } = store?.project
 
   return {
@@ -15,8 +15,8 @@ function useStores(store) {
   }
 }
 
-function AboutProjectContainer({ store }) {
-  const { description, projectName } = useStores(store)
+function AboutProjectContainer({ mockStore }) {
+  const { description, projectName } = useStores(mockStore)
   return (
     <AboutProject
       description={description}

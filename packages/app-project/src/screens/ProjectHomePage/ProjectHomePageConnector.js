@@ -4,9 +4,9 @@ import { useContext } from 'react'
 
 import ProjectHomePage from './ProjectHomePage'
 
-function useStores(store) {
+function useStores(mockStore) {
   const stores = useContext(MobXProviderContext)
-  store = store || stores.store
+  const store = mockStore || stores.store
   const { inBeta } = store.project
   return {
     inBeta
@@ -17,10 +17,10 @@ function useStores(store) {
   Connect the home page to the store. Pass down the project beta status and active workflows.
 */
 function ProjectHomePageConnector({
-  store,
+  mockStore,
   workflows = []
 }) {
-  const { inBeta } = useStores(store)
+  const { inBeta } = useStores(mockStore)
   return <ProjectHomePage inBeta={inBeta} workflows={workflows} />
 }
 

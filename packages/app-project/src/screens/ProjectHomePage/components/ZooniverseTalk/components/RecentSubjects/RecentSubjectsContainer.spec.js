@@ -5,7 +5,7 @@ import RecentSubjectsContainer from './RecentSubjectsContainer'
 
 describe('Component > RecentSubjectsContainer', function () {
   let wrapper
-  const store = {
+  const mockStore = {
     project: {
       id: '1234',
       slug: '/test-owner/test-project'
@@ -37,7 +37,7 @@ describe('Component > RecentSubjectsContainer', function () {
       .get('/subjects')
       .query(true)
       .reply(200, { subjects: MOCK_SUBJECTS })
-    wrapper = shallow(<RecentSubjectsContainer store={store} />)
+    wrapper = shallow(<RecentSubjectsContainer mockStore={mockStore} />)
   })
 
   after(function () {

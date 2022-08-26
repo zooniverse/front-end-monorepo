@@ -24,7 +24,7 @@ describe('withRequireUser', function () {
 
   describe('behavior when not logged in', function () {
     before(function () {
-      wrapper = shallow(<WithRequireUser store={loggedOutStore} />)
+      wrapper = shallow(<WithRequireUser mockStore={loggedOutStore} />)
     })
 
     it('should render the wrapped component', function () {
@@ -38,7 +38,7 @@ describe('withRequireUser', function () {
 
   describe('behavior when logged in', function () {
     before(function () {
-      wrapper = shallow(<WithRequireUser store={loggedInStore} />)
+      wrapper = shallow(<WithRequireUser mockStore={loggedInStore} />)
     })
 
     it('should render the wrapped component', function () {

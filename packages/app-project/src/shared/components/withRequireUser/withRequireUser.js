@@ -3,9 +3,9 @@ import { observer, MobXProviderContext } from 'mobx-react'
 import { useContext } from 'react'
 import { useTranslation } from 'next-i18next'
 
-function useStores(store) {
+function useStores(mockStore) {
   const stores = useContext(MobXProviderContext)
-  store = store || stores.store
+  const store = mockStore || stores.store
   const {
     user: { isLoggedIn }
   } = store
@@ -15,9 +15,9 @@ function useStores(store) {
 }
 
 export default function withRequireUser(WrappedComponent) {
-  function ComponentConnector({ store, ...props }) {
+  function ComponentConnector({ mockStore, ...props }) {
     const { t } = useTranslation('components')
-    const { isLoggedIn } = useStores(store)
+    const { isLoggedIn } = useStores(mockStore)
 
     return (
       <Stack>
