@@ -20,9 +20,9 @@ function useStores(store) {
   }
 }
 
-function RecentSubjectsContainer({ carousel = false, stores }) {
+function RecentSubjectsContainer({ carousel = false, store }) {
   const { t } = useTranslation('screens')
-  const { projectId, slug } = useStores(stores)
+  const { projectId, slug } = useStores(store)
   const [loading, setLoading] = useState(asyncStates.initialized)
   const [subjects, setSubjects] = useState([])
 

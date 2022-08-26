@@ -15,14 +15,14 @@ export default async function fetchStatuses(
     const statuses = await checkRetiredStatus(subject_ids, t, workflow)
     function updateSeenStatus(rows) {
       const newRows = rows.slice()
-      Object.entries(statuses).forEach(([ subjectID, subjectStatus ]) => {
-        const subject = newRows.find(subject => subject.subject_id === parseInt(subjectID))
-        if (subject) {
-          subject.status = subjectStatus
-        }
-      })
+      // Object.entries(statuses).forEach(([ subjectID, subjectStatus ]) => {
+        // const subject = newRows.find(subject => subject.subject_id === parseInt(subjectID))
+        // if (subject) {
+        //   subject.status = subjectStatus
+        // }
+      // })
       return newRows
     }
-    callback(updateSeenStatus)
+    // callback(updateSeenStatus)
   }
 }

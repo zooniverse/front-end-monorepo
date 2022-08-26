@@ -6,18 +6,16 @@ import AboutProjectContainer from './AboutProjectContainer'
 describe('Component > AboutProjectContainer', function () {
   let wrapper
   let AboutProjectWrapper
-  const stores = {
-    store: {
-      project: {
-        introduction: 'This is a test project',
-        display_name: 'A test project'
-      }
+  const store = {
+    project: {
+      introduction: 'This is a test project',
+      display_name: 'A test project'
     }
   }
 
   before(function () {
     wrapper = shallow(
-      <AboutProjectContainer stores={stores} />
+      <AboutProjectContainer store={store} />
     )
     AboutProjectWrapper = wrapper.find(AboutProject)
   })
@@ -31,10 +29,10 @@ describe('Component > AboutProjectContainer', function () {
   })
 
   it('should pass through a `description` prop', function () {
-    expect(AboutProjectWrapper.prop('description')).to.equal(stores.store.project.introduction)
+    expect(AboutProjectWrapper.prop('description')).to.equal(store.project.introduction)
   })
 
   it('should pass through a `projectName` prop', function () {
-    expect(AboutProjectWrapper.prop('projectName')).to.equal(stores.store.project.display_name)
+    expect(AboutProjectWrapper.prop('projectName')).to.equal(store.project.display_name)
   })
 })

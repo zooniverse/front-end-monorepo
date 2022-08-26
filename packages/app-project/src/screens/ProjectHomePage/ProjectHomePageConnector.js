@@ -17,10 +17,10 @@ function useStores(store) {
   Connect the home page to the store. Pass down the project beta status and active workflows.
 */
 function ProjectHomePageConnector({
-  stores,
+  store,
   workflows = []
 }) {
-  const { inBeta } = useStores(stores)
+  const { inBeta } = useStores(store)
   return <ProjectHomePage inBeta={inBeta} workflows={workflows} />
 }
 

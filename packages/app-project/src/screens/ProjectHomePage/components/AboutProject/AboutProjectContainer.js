@@ -15,8 +15,8 @@ function useStores(store) {
   }
 }
 
-function AboutProjectContainer({ stores }) {
-  const { description, projectName } = useStores(stores)
+function AboutProjectContainer({ store }) {
+  const { description, projectName } = useStores(store)
   return (
     <AboutProject
       description={description}

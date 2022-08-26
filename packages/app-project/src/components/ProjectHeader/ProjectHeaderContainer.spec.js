@@ -1,12 +1,10 @@
 import { shallow } from 'enzyme'
-import sinon from 'sinon'
 import { ProjectHeaderContainer } from './ProjectHeaderContainer'
 import ProjectHeader from './ProjectHeader'
 
 describe('Component > ProjectHeaderContainer', function () {
   let wrapper
   let projectHeader
-  let routerStub
 
   const PROJECT_DISPLAY_NAME = 'Foobar'
   before(function () {

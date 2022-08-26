@@ -7,6 +7,7 @@ import withRequireUser from '@shared/components/withRequireUser'
 function useStores(store) {
   const stores = useContext(MobXProviderContext)
   store = store || stores.store
+  console.log(store)
   const {
     project,
     user: {
