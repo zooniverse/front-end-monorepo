@@ -28,14 +28,14 @@ describe('Component > ProjectHomePageConnector', function () {
 
   describe('with a project in beta', function () {
     let wrapper
-    const store = {
+    const mockStore = {
       project: {
         inBeta: true
       }
     }
 
     before(function () {
-      wrapper = shallow(<ProjectHomePageConnector store={store} />)
+      wrapper = shallow(<ProjectHomePageConnector mockStore={mockStore} />)
     })
 
     it('should render without crashing', function () {
