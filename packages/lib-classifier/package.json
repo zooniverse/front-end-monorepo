@@ -30,7 +30,7 @@
     "cuid": "~2.1.6",
     "d3": "~6.7.0",
     "graphql": "~16.6.0",
-    "graphql-request": "~4.3.0",
+    "graphql-request": "~5.0.0",
     "hash.js": "~1.1.7",
     "i18next": "~21.9.0",
     "lodash": "~4.17.11",
