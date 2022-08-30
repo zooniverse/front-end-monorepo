@@ -18,6 +18,11 @@ const DrawingCanvas = styled('rect')`
         `}
 `
 
+function cancelEvent(event) {
+  event.preventDefault()
+  event.stopPropagation()
+}
+
 function InteractionLayer({
   activeMark,
   activeTool,
@@ -102,6 +107,9 @@ function InteractionLayer({
   }
 
   function onPointerDown(event) {
+    if (!disabled) {
+      cancelEvent(event)
+    }
     if (disabled || move) {
       return true
     }
@@ -123,6 +131,7 @@ function InteractionLayer({
   }
 
   function onPointerMove(event) {
+    cancelEvent(event)
     if (creating) {
       activeTool?.handlePointerMove?.(convertEvent(event), activeMark)
     }
@@ -135,6 +144,7 @@ function InteractionLayer({
   }
 
   function onPointerUp(event) {
+    cancelEvent(event)
     if (creating) {
       activeTool?.handlePointerUp?.(convertEvent(event), activeMark)
       if (activeMark.finished) onFinish(event)
