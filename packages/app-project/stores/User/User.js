@@ -45,7 +45,6 @@ const User = types
       self.login = user.login
       self.loadingState = asyncStates.success
       self.recents.fetch()
-      self.collections.fetchFavourites()
       self.collections.searchCollections({
         favorite: false,
         current_user_roles: 'owner,collaborator,contributor'
