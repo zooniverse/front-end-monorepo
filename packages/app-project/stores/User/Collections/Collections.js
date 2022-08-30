@@ -125,6 +125,8 @@ const Collections = types
       setFavourites(favourites) {
         if (favourites) {
           self.favourites = Collection.create(favourites)
+        } else {
+          self.favourites = null
         }
       },
 

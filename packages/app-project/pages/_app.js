@@ -63,6 +63,10 @@ function MyApp({ Component, pageProps }) {
     if (favourites?.id) {
       store.user.collections.setFavourites(favourites)
     }
+    // favourites are null by default.
+    if (favourites === null) {
+      store.user.collections.setFavourites(null)
+    }
   }, [favourites])
 
   try {

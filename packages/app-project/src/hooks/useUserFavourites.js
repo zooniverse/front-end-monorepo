@@ -27,11 +27,11 @@ export default function useUserFavourites({ user, project }) {
   const { data, error } = useSWR(key, fetchUserFavourites, SWRoptions)
   if (data) {
     const [favourites] = data
-    return favourites
+    return favourites ?? null
   }
   if (error) {
     console.error(error)
     return null
   }
-  return undefined
+  return data
 }
