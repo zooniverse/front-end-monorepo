@@ -48,9 +48,9 @@ describe('Components > Subject Picker', function () {
         'Date'
       ]
       const rows = [
-        ['1', '43', '23 January 1916'],
-        ['2', '44', '24 January 1916'],
-        ['3', '45', '25 January 1916']
+        [1, '43', '23 January 1916'],
+        [2, '44', '24 January 1916'],
+        [3, '45', '25 January 1916']
       ]
       nock('https://subject-set-search-api.zooniverse.org/subjects')
       .get('/4567.json')

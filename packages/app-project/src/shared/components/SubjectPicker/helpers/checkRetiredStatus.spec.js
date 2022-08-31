@@ -6,7 +6,6 @@ describe('Components > Subject Picker > helpers > checkRetiredStatus', function 
 
   before(async function () {
     const subject_ids = ['1', '2', '3']
-    const t = (key) => key
     const workflow = {
       id: '1'
     }
@@ -20,7 +19,7 @@ describe('Components > Subject Picker > helpers > checkRetiredStatus', function 
         { id: 3, already_seen: true, retired: true }
       ]
     })
-    retirementStatuses = await checkRetiredStatus(subject_ids, t, workflow)
+    retirementStatuses = await checkRetiredStatus(subject_ids, workflow)
   })
 
   it('should set the status of unclassified subjects', function () {
