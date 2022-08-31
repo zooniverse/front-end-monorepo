@@ -38,9 +38,9 @@ pipeline {
         COMMIT_ID = "${GIT_COMMIT}"
         CONTENTFUL_ACCESS_TOKEN = credentials('contentful-access-token')
         CONTENTFUL_SPACE_ID = credentials('contentful-space-ID')
-        CONTENT_ASSET_PREFIX = "https://fe-content-pages.zooniverse.org"
+        CONTENT_ASSET_PREFIX = "https://www.zooniverse.org/about"
         SENTRY_CONTENT_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
-        PROJECT_ASSET_PREFIX = "https://fe-project.zooniverse.org"
+        PROJECT_ASSET_PREFIX = "https://www.zooniverse.org/projects"
         SENTRY_PROJECT_DSN = 'https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691'
       }
 
