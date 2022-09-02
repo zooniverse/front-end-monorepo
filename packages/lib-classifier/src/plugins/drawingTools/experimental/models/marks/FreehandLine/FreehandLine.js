@@ -107,6 +107,7 @@ const FreehandLineModel = types
   .volatile(self => ({
     clipPath: types.array(SingleCoord),
     dragPoint: types.maybeNull(SingleCoord),
+    originalPath: types.array(SingleCoord),
     targetPoint: types.maybeNull(SingleCoord)
   }))
   .actions((self) => ({
@@ -122,7 +123,7 @@ const FreehandLineModel = types
     },
 
     setCoordinates(points) {
-      self.points = points
+      self.points = points.map(({ x, y }) => ({ x, y }))
     },
 
     move() {
@@ -160,6 +161,7 @@ const FreehandLineModel = types
       const deleteCount = targetIndex - dragIndex - 1
       const distFromEnd = self.points.length - targetIndex - 1
       const spansStartPoint = self.isClosed && (distFromEnd + dragIndex) < deleteCount
+      self.originalPath = self.points.map(({ x, y }) => ({ x, y }))
       if (!spansStartPoint) {
         /*
         Segment lies entirely within the line path, so splice points

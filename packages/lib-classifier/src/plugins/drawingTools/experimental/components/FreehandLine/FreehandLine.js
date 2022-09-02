@@ -56,6 +56,12 @@ function FreehandLine({ active, mark, onFinish, scale }) {
     (point, index) => index === 0 ? `M ${point.x},${point.y}` : `L ${point.x},${point.y}`
   ).join(' ')
 
+  if (clippedPath && !active) {
+    mark.setCoordinates(mark.originalPath)
+    mark.setClipPath([])
+    cancelEditing()
+  }
+
   if (editing && !dragPoint) {
     cancelEditing()
   }
