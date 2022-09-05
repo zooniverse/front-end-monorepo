@@ -18,8 +18,8 @@ const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdbAKVT2tGs1WfBqWNrMe
 function Publications (props) {
   const { className, data, filters } = props
 
-  const main = (
-    <article>
+  const heading = (
+    <section>
       <Heading margin={{ top: 'none' }} size='small'>
         Publications
       </Heading>
@@ -27,6 +27,11 @@ function Publications (props) {
       <Paragraph>
         To submit a new publication or update an existing one, <Anchor href={FORM_URL}>please use this form</Anchor>. We aim to post links to published papers that can be accessed by the public. Articles accepted for publication but not yet published are also fine.
       </Paragraph>
+    </section>
+  )
+
+  const main = (
+    <article>
 
       {data.map(category => (
         <Category
@@ -60,6 +65,7 @@ function Publications (props) {
         title={counterpart('Publications.title')}
       />
       <TwoColumnLayout
+        heading={heading}
         className={className}
         main={main}
         sidebar={sidebar}
