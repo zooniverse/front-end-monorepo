@@ -38,8 +38,6 @@ pipeline {
         COMMIT_ID = "${GIT_COMMIT}"
         CONTENTFUL_ACCESS_TOKEN = credentials('contentful-access-token')
         CONTENTFUL_SPACE_ID = credentials('contentful-space-ID')
-        CONTENT_ASSET_PREFIX = "https://www.zooniverse.org/about"
-        PROJECT_ASSET_PREFIX = "https://www.zooniverse.org/projects"
       }
 
       steps {

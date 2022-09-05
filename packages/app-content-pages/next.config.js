@@ -5,6 +5,13 @@ const Dotenv = require('dotenv-webpack')
 const path = require('path')
 const withSourceMaps = require('@zeit/next-source-maps')()
 
+const assetPrefixes = {
+  branch: 'https://fe-project-branch.preview.zooniverse.org/about',
+  staging: 'https://frontend.preview.zooniverse.org/about',
+  static: 'https://fe-static.zooniverse.org/about',
+  production : 'https://www.zooniverse.org/about'
+}
+
 function commitID () {
   try {
     return execSync('git rev-parse HEAD').toString('utf8').trim()
@@ -15,10 +22,12 @@ function commitID () {
 
 const PANOPTES_ENV = process.env.PANOPTES_ENV || 'staging'
 const webpackConfig = require('./webpack.config')
-const assetPrefix = process.env.CONTENT_ASSET_PREFIX || ''
 const SENTRY_CONTENT_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
 const APP_ENV = process.env.APP_ENV || 'development'
 const COMMIT_ID = process.env.COMMIT_ID || commitID()
+const assetPrefix = assetPrefixes[APP_ENV] || ''
+
+console.info({ APP_ENV, PANOPTES_ENV, assetPrefix })
 
 const nextConfig = {
   assetPrefix,

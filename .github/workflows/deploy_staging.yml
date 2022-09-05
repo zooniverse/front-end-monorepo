@@ -30,8 +30,6 @@ jobs:
           COMMIT_ID=${{ github.sha }}
           CONTENTFUL_ACCESS_TOKEN=${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
           CONTENTFUL_SPACE_ID=${{ secrets.CONTENTFUL_SPACE_ID }}
-          CONTENT_ASSET_PREFIX=https://frontend.preview.zooniverse.org/about
-          PROJECT_ASSET_PREFIX=https://frontend.preview.zooniverse.org/projects
 
   deploy_staging:
     runs-on: ubuntu-latest
