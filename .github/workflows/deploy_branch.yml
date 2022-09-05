@@ -36,9 +36,7 @@ jobs:
           CONTENTFUL_ACCESS_TOKEN=${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
           CONTENTFUL_SPACE_ID=${{ secrets.CONTENTFUL_SPACE_ID }}
           CONTENT_ASSET_PREFIX=https://frontend.preview.zooniverse.org/about
-          SENTRY_CONTENT_DSN=https://1f0126a750244108be76957b989081e8@sentry.io/1492498
           PROJECT_ASSET_PREFIX=https://fe-project-branch.preview.zooniverse.org/projects
-          SENTRY_PROJECT_DSN=https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691
 
   deploy_branch:
     runs-on: ubuntu-latest

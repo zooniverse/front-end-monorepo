@@ -21,7 +21,7 @@ const basePath = '/projects'
 const PANOPTES_ENV = process.env.PANOPTES_ENV || 'staging'
 const webpackConfig = require('./webpack.config')
 const assetPrefix = process.env.PROJECT_ASSET_PREFIX || basePath
-const SENTRY_PROJECT_DSN = process.env.SENTRY_PROJECT_DSN
+const SENTRY_PROJECT_DSN = 'https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691'
 const APP_ENV = process.env.APP_ENV || 'development'
 const COMMIT_ID = process.env.COMMIT_ID || commitID()
 
