@@ -31,6 +31,8 @@ const nextConfig = {
     APP_ENV
   },
 
+  reactStrictMode: true,
+
   webpack: (config, options) => {
     if (!options.isServer) {
       config.resolve.alias['@sentry/node'] = '@sentry/browser'

@@ -63,6 +63,8 @@ const nextConfig = {
     assetPrefix
   },
 
+  reactStrictMode: true,
+
   async redirects() {
     return [
       {
