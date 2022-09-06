@@ -1,9 +1,14 @@
 import { NextResponse } from 'next/server'
 
 export function middleware(req, event) {
+  const url = req.nextUrl.clone()
   const defaultEnv = process.env.PANOPTES_ENV ?? 'staging'
-  const { pathname, searchParams } = req.nextUrl
-  const env = searchParams.get('env') ?? defaultEnv
+  const env = url.searchParams.get('env') ?? defaultEnv
+  /*
+    NextJS 12.2.5 includes the base path and locale in req.nextUrl.pathname.
+    This might be a bug, but remove those for now.
+  */
+  const pathname = url.pathname.replace(`/projects/${url.locale}`, '')
 
   /*
     Images etc. are served from /projects/assets.
@@ -24,10 +29,8 @@ export function middleware(req, event) {
     return
   }
 
-  const url = req.nextUrl.clone()
-
-  if (searchParams.has('language')) {
-    const locale = searchParams.get('language')
+  if (url.searchParams.has('language')) {
+    const locale = url.searchParams.get('language')
     url.searchParams.delete('language')
     try {
       url.locale = locale
@@ -44,6 +47,7 @@ export function middleware(req, event) {
   if (pathname.startsWith('/staging')) {
     return
   }
+
   /*
     Project pages are served from /projects/staging/[owner]/[project]
     and /projects/production/[owner]/[project]
