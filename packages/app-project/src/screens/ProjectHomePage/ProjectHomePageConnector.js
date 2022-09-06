@@ -1,11 +1,12 @@
 import { observer, MobXProviderContext } from 'mobx-react'
 import { arrayOf, bool, shape, string } from 'prop-types'
-import { useContext } from 'react';
+import { useContext } from 'react'
 
 import ProjectHomePage from './ProjectHomePage'
 
-function useStoreContext(stores) {
-  const { store } = stores || useContext(MobXProviderContext)
+function useStores(mockStore) {
+  const stores = useContext(MobXProviderContext)
+  const store = mockStore || stores.store
   const { inBeta } = store.project
   return {
     inBeta
@@ -16,10 +17,10 @@ function useStoreContext(stores) {
   Connect the home page to the store. Pass down the project beta status and active workflows.
 */
 function ProjectHomePageConnector({
-  stores,
+  mockStore,
   workflows = []
 }) {
-  const { inBeta } = useStoreContext(stores)
+  const { inBeta } = useStores(mockStore)
   return <ProjectHomePage inBeta={inBeta} workflows={workflows} />
 }
 
