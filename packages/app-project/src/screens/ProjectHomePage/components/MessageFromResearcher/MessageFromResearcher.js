@@ -55,7 +55,7 @@ function MessageFromResearcher ({
           <StyledAvatar src={avatar} />
           <Box>
             <Markdownz components={components}>{message}</Markdownz>
-            <SpacedText lang='en' color='light-5' size='small'>{researcher}</SpacedText>
+            <SpacedText color='light-5' size='small'>{researcher}</SpacedText>
           </Box>
         </Box>
       )}
