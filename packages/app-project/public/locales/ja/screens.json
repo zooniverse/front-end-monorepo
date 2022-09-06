@@ -9,7 +9,17 @@
         "faq": "よくある質問"
       }
     },
-    "SidebarHeading": "プロジェクト概要"
+    "SidebarHeading": "プロジェクト概要",
+    "TeamMember": {
+      "owner": "オーナー",
+      "collaborator": "協力者",
+      "translator": "翻訳者",
+      "researcher": "研究者",
+      "moderator": "モデレーター",
+      "tester": "試行者",
+      "expert": "エキスパート",
+      "museum": "博物館"
+    }
   },
   "Home": {
     "AboutProject": {
@@ -20,8 +30,12 @@
         "link": "このプロジェクトについて"
       }
     },
+    "MessageFromResearcher": {
+      "title": "研究者からのメッセージ"
+    },
     "ZooniverseTalk": {
       "button": "参加する",
+      "message": "志を同じくする他のボランティアと会話ができる [Talk](/talk) もチェックしてください。",
       "title": "トーク"
     }
   },
@@ -30,7 +44,10 @@
       "title": "最近行った分類"
     },
     "WorkflowAssignmentModal": {
-      "cancel": "結構です"
+      "cancel": "結構です",
+      "confirm": "次のレベルに進みます",
+      "content": "おめでとうございます！ 次のワークフローのロックを解除しました。 このワークフローを継続したい場合は、継続を選択することも可能です。",
+      "dismiss": "今後メッセージを表示しない"
     },
     "YourStats": {
       "title": "{{projectName}} 統計"
