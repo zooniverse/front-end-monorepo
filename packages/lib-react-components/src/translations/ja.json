@@ -6,13 +6,21 @@
     "buildLabels": {
       "tutorial": "チュートリアル"
     },
+    "projectLabels": {
+      "projects": "プロジェクト"
+    },
     "talkLabels": {
       "talk": "トーク"
     }
   },
   "ZooHeader": {
     "mainHeaderNavListLabels": {
+      "projects": "プロジェクト",
       "talk": "トーク"
+    },
+    "SignedOutUserNavigation": {
+      "register": "新規登録",
+      "signIn": "サインイン"
     }
   }
 }
