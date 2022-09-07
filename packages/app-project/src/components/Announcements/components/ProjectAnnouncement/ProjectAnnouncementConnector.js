@@ -3,11 +3,9 @@ import { useContext } from 'react'
 
 import GenericAnnouncement from '../GenericAnnouncement'
 
-function useStores(store) {
+function useStores(mockStore) {
   const stores = useContext(MobXProviderContext)
-  if (!store) {
-    store = stores.store
-  }
+  const store = mockStore || stores.store
   const { announcement } = store.project.configuration
   const {
     dismissProjectAnnouncementBanner,
@@ -21,12 +19,12 @@ function useStores(store) {
   }
 }
 
-function ProjectAnnouncementConnector ({ store, ...props }) {
+function ProjectAnnouncementConnector ({ mockStore, ...props }) {
   const { 
     announcement = '',
     dismissBanner,
     isVisible = false
-  } = useStores(store)
+  } = useStores(mockStore)
 
   return (isVisible && announcement)
     ? <GenericAnnouncement

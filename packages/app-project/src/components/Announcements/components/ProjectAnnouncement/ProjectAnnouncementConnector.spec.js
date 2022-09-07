@@ -3,8 +3,6 @@ import sinon from 'sinon'
 import { ProjectAnnouncementConnector } from './ProjectAnnouncementConnector'
 import GenericAnnouncement from '../GenericAnnouncement'
 
-
-
 describe('Component > ProjectAnnouncementConnector', function () {
   let wrapper
   let componentWrapper
@@ -25,7 +23,7 @@ describe('Component > ProjectAnnouncementConnector', function () {
   }
 
   before(function () {
-    wrapper = shallow(<ProjectAnnouncementConnector store={mockStore.store} />)
+    wrapper = shallow(<ProjectAnnouncementConnector mockStore={mockStore.store} />)
     componentWrapper = wrapper.find(GenericAnnouncement)
   })
 
@@ -37,7 +35,7 @@ describe('Component > ProjectAnnouncementConnector', function () {
     expect(wrapper.html()).to.be.null()
     expect(componentWrapper).to.have.lengthOf(0)
     mockStore.store.ui.showAnnouncement = true
-    wrapper = shallow(<ProjectAnnouncementConnector store={mockStore.store} />)
+    wrapper = shallow(<ProjectAnnouncementConnector mockStore={mockStore.store} />)
     componentWrapper = wrapper.find(GenericAnnouncement)
     expect(componentWrapper).to.have.lengthOf(1)
   })

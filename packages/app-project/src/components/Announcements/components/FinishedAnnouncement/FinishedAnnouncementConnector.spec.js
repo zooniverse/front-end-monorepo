@@ -19,7 +19,7 @@ describe('Component > FinishedAnnouncementConnector', function () {
 
   before(function () {
     wrapper = shallow(
-      <FinishedAnnouncementConnector store={mockStore.store} theme={zooTheme} />
+      <FinishedAnnouncementConnector mockStore={mockStore.store} theme={zooTheme} />
     )
     componentWrapper = wrapper.find(GenericAnnouncement)
   })
@@ -32,7 +32,7 @@ describe('Component > FinishedAnnouncementConnector', function () {
     expect(componentWrapper).to.have.lengthOf(0)
     mockStore.store.project.isComplete = true
     wrapper = shallow(
-      <FinishedAnnouncementConnector store={mockStore.store} theme={zooTheme} />
+      <FinishedAnnouncementConnector mockStore={mockStore.store} theme={zooTheme} />
     )
     componentWrapper = wrapper.find(GenericAnnouncement)
     expect(componentWrapper).to.have.lengthOf(1)
