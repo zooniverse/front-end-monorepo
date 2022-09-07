@@ -5,11 +5,10 @@ import { useTranslation } from 'next-i18next'
 import NavLink from '@shared/components/NavLink'
 import GenericAnnouncement from '../GenericAnnouncement'
 
-function useStores(store) {
+function useStores(mockStore) {
   const stores = useContext(MobXProviderContext)
-  if (!store) {
-    store = stores.store
-  }
+  const store = mockStore || stores.store
+
   // TODO: Add a boolean that returns the state of the existence of a results page
   const { baseUrl, isComplete } = store.project
 
@@ -19,12 +18,12 @@ function useStores(store) {
   }
 }
 
-function FinishedAnnouncementConnector ({ store }) {
+function FinishedAnnouncementConnector ({ mockStore }) {
   const { t } = useTranslation('components')
   const { 
     baseUrl = '',
     isVisible = false
-  } = useStores(store)
+  } = useStores(mockStore)
   const announcement = t('Announcements.FinishedAnnouncement.announcement')
   const link = {
     href: `${baseUrl}/about/results`,

@@ -31,15 +31,15 @@ function storeMapper(store) {
   }
 }
 
-function useStores(store) {
+function useStores(mockStore) {
   const stores = useContext(MobXProviderContext)
-  store = store || stores.store
+  const store = mockStore || stores.store
   return storeMapper(store)
 }
 
 function ProjectHeaderContainer({
   className = '',
-  store
+  mockStore
 }) {
   const {
     availableLocales,
@@ -48,7 +48,7 @@ function ProjectHeaderContainer({
     isLoggedIn,
     projectName,
     slug
-  } = useStores(store)
+  } = useStores(mockStore)
   const { t } = useTranslation('components')
 
   function getNavLinks (isLoggedIn, baseUrl, defaultWorkflow) {

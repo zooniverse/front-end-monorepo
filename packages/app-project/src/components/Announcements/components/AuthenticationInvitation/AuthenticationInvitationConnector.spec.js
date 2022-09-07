@@ -22,7 +22,7 @@ describe('Component > AuthenticationInvitationConnector', function () {
 
   before(function () {
     wrapper = shallow(
-      <AuthenticationInvitationConnector store={mockStore.store} />
+      <AuthenticationInvitationConnector mockStore={mockStore.store} />
     )
     componentWrapper = wrapper.find(DynamicallyImportedAuthenticationInvitationContainer)
   })
@@ -39,7 +39,7 @@ describe('Component > AuthenticationInvitationConnector', function () {
     before(function () {
       mockStore.store.project.isComplete = true
       wrapper = shallow(
-        <AuthenticationInvitationConnector store={mockStore.store} />
+        <AuthenticationInvitationConnector mockStore={mockStore.store} />
       )
       componentWrapper = wrapper.find(DynamicallyImportedAuthenticationInvitationContainer)
     })
@@ -56,7 +56,7 @@ describe('Component > AuthenticationInvitationConnector', function () {
   describe('when the user is logged in', function () {
     before(function () {
       mockStore.store.user.isLoggedIn = true
-      wrapper = shallow(<AuthenticationInvitationConnector store={mockStore.store} />)
+      wrapper = shallow(<AuthenticationInvitationConnector mockStore={mockStore.store} />)
       componentWrapper = wrapper.find(DynamicallyImportedAuthenticationInvitationContainer)
     })
 
@@ -72,7 +72,7 @@ describe('Component > AuthenticationInvitationConnector', function () {
   describe('when the session classification count is less than five', function () {
     before(function () {
       mockStore.store.user.personalization.sessionCount = 3
-      wrapper = shallow(<AuthenticationInvitationConnector store={mockStore.store} />)
+      wrapper = shallow(<AuthenticationInvitationConnector mockStore={mockStore.store} />)
       componentWrapper = wrapper.find(DynamicallyImportedAuthenticationInvitationContainer)
     })
 
