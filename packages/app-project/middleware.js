@@ -14,19 +14,19 @@ export function middleware(req, event) {
     Images etc. are served from /projects/assets.
   */
   if (pathname.startsWith('/assets')) {
-    return
+    return NextResponse.next()
   }
   /*
     Bypass internal NextJS requests.
   */
   if (pathname.startsWith('/_next')) {
-    return
+    return NextResponse.next()
   }
   /*
     Don't redirect or rewrite the health check.
   */
   if (pathname === '/Index') {
-    return
+    return NextResponse.next()
   }
 
   if (url.searchParams.has('language')) {
@@ -41,11 +41,11 @@ export function middleware(req, event) {
   }
 
   if (pathname.startsWith('/production')) {
-    return
+    return NextResponse.next()
   }
 
   if (pathname.startsWith('/staging')) {
-    return
+    return NextResponse.next()
   }
 
   /*
