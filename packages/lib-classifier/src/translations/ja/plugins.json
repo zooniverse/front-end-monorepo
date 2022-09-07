@@ -1,1 +1,14 @@
-{}
+{
+  "SurveyTask": {
+    "CharacteristicsFilter": {
+      "clearFilters": "フィルターを消去",
+      "showing": "{{total}}のうち{{showing}}件を表示"
+    },
+    "ConfusedWith": {
+      "cancel": "キャンセル"
+    }
+  },
+  "TextFromSubjectTasks": {
+    "reset": "表示をリセット"
+  }
+}

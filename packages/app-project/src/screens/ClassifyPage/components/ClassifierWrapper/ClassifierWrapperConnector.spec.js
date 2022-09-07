@@ -6,43 +6,43 @@ import ClassifierWrapperConnector from './ClassifierWrapperConnector'
 
 describe('Component > ClassifierWrapperConnector', function () {
   let wrapper
-  let store
+  let mockStore
 
   describe('after logging in', function () {
     before(function () {
-      store = initStore(true, {
+      mockStore = initStore(true, {
         user: {
           id: '1',
           loadingState: asyncStates.success,
           login: 'testUser'
         }
       })
-      wrapper = shallow(<ClassifierWrapperConnector store={store} />)
+      wrapper = shallow(<ClassifierWrapperConnector mockStore={mockStore} />)
     })
 
     describe('classifier wrapper props', function () {
       it('should include collections', function () {
-        expect(wrapper.props().collections).to.equal(store.user.collections)
+        expect(wrapper.props().collections).to.equal(mockStore.user.collections)
       })
 
       it('should include recents', function () {
-        expect(wrapper.props().recents).to.equal(store.user.recents)
+        expect(wrapper.props().recents).to.equal(mockStore.user.recents)
       })
 
       it('should include your personal stats', function () {
-        expect(wrapper.props().yourStats).to.equal(store.user.personalization)
+        expect(wrapper.props().yourStats).to.equal(mockStore.user.personalization)
       })
 
       it('should include the project', function () {
-        expect(wrapper.props().project).to.deep.equal(store.project)
+        expect(wrapper.props().project).to.deep.equal(mockStore.project)
       })
 
       it('should include the logged-in user', function () {
-        expect(wrapper.props().user).to.equal(store.user)
+        expect(wrapper.props().user).to.equal(mockStore.user)
       })
 
       it('should include the theme mode', function () {
-        expect(wrapper.props().mode).to.equal(store.ui.mode)
+        expect(wrapper.props().mode).to.equal(mockStore.ui.mode)
       })
     })
   })
