@@ -22,7 +22,7 @@ describe('Component > WorkflowAssignmentModalConnector', function () {
         }
       }
     }
-    wrapper = shallow(<WorkflowAssignmentModalConnector currentWorkflowID='555' className='test' store={mockStore.store} />)
+    wrapper = shallow(<WorkflowAssignmentModalConnector currentWorkflowID='555' className='test' mockStore={mockStore.store} />)
   })
 
   after(function () {

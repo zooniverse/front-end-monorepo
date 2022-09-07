@@ -7,8 +7,8 @@ import SubjectSetProgressBanner from './components/SubjectSetProgressBanner'
 import WorkflowIsFinishedBanner from './components/WorkflowIsFinishedBanner'
 import UserHasFinishedWorkflowBanner from './components/UserHasFinishedWorkflowBanner'
 
-function useStores(stores) {
-  const { classifierStore } = stores ?? React.useContext(MobXProviderContext)
+function useStores(mockStores) {
+  const { classifierStore } = mockStores ?? React.useContext(MobXProviderContext)
   return {
     project: classifierStore.projects.active,
     subject: classifierStore.subjects.active,
@@ -17,8 +17,8 @@ function useStores(stores) {
   }
 }
 
-function Banners({ stores }) {
-  const { project, subject, subjects, workflow } = useStores(stores)
+function Banners({ mockStores }) {
+  const { project, subject, subjects, workflow } = useStores(mockStores)
   const subjectNumber = subject?.priority ?? -1
 
   const hasIndexedSubjects = workflow?.hasIndexedSubjects

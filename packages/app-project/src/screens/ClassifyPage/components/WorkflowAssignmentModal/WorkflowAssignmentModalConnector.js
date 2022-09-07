@@ -3,11 +3,9 @@ import PropTypes from 'prop-types'
 import { MobXProviderContext, observer } from 'mobx-react'
 import WorkflowAssignmentModalContainer from './WorkflowAssignmentModalContainer'
 
-function useStore (store) {
+function useStore (mockStore) {
   const stores = useContext(MobXProviderContext)
-  if (!store) {
-    store = stores.store
-  }
+  const store = mockStore || stores.store
 
   return {
     assignedWorkflowID: store.user.personalization.projectPreferences.settings?.workflow_id,
@@ -15,11 +13,11 @@ function useStore (store) {
   }
 }
 
-function WorkflowAssignmentModalConnector ({ currentWorkflowID, store, ...rest }) {
+function WorkflowAssignmentModalConnector ({ currentWorkflowID, mockStore, ...rest }) {
   const {
     assignedWorkflowID = '',
     promptAssignment
-  } = useStore(store)
+  } = useStore(mockStore)
 
   return (
     <WorkflowAssignmentModalContainer
