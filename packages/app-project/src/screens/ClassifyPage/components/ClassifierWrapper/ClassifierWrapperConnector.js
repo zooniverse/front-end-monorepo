@@ -1,15 +1,12 @@
 import { MobXProviderContext, observer } from 'mobx-react'
-import { func, string, shape } from 'prop-types'
+import { func, string } from 'prop-types'
 import { useContext } from 'react'
-import asyncStates from '@zooniverse/async-states'
 
 import ClassifierWrapper from './ClassifierWrapper'
 
-function useStore(store) {
+function useStore(mockStore) {
   const stores = useContext(MobXProviderContext)
-  if (!store) {
-    store = stores.store
-  }
+  const store = mockStore || stores.store
   const {
     appLoadingState,
     project,
@@ -46,7 +43,7 @@ function useStore(store) {
   />
   ```
 */
-function ClassifierWrapperConnector({ store, ...props }) {
+function ClassifierWrapperConnector({ mockStore, ...props }) {
   const {
     appLoadingState,
     collections,
@@ -55,7 +52,7 @@ function ClassifierWrapperConnector({ store, ...props }) {
     recents,
     user,
     yourStats
-  } = useStore(store)
+  } = useStore(mockStore)
 
   return (
     <ClassifierWrapper

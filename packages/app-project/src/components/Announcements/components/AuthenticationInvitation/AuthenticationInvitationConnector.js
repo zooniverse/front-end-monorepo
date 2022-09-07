@@ -7,11 +7,10 @@ export const DynamicallyImportedAuthenticationInvitationContainer = dynamic(
   { ssr: false }
 )
 
-function useStores(store) {
+function useStores(mockStore) {
   const stores = useContext(MobXProviderContext)
-  if (!store) {
-    store = stores.store
-  }
+  const store = mockStore || stores.store
+
   const { isLoggedIn } = store.user
   const { sessionCount } = store.user.personalization
   const { isComplete } = store.project
@@ -22,8 +21,8 @@ function useStores(store) {
   }
 }
 
-function AuthenticationInvitationConnector ({ store }) {
-  const { isVisible = false } = useStores(store)
+function AuthenticationInvitationConnector ({ mockStore }) {
+  const { isVisible = false } = useStores(mockStore)
 
   return (
     <DynamicallyImportedAuthenticationInvitationContainer isVisible={isVisible} />

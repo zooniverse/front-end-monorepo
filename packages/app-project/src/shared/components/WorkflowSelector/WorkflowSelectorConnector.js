@@ -3,11 +3,9 @@ import { useContext } from 'react'
 
 import WorkflowSelector from './WorkflowSelector'
 
-function useStores(store) {
+function useStores(mockStore) {
   const stores = useContext(MobXProviderContext)
-  if (!store) {
-    store = stores.store
-  }
+  const store = mockStore || stores.store
 
   return {
     uppLoaded: store.user.personalization.projectPreferences.isLoaded,
@@ -18,14 +16,14 @@ function useStores(store) {
   }
 }
 
-function WorkflowSelectorConnector({ store, ...props }) {
+function WorkflowSelectorConnector({ mockStore, ...props }) {
   const {
     uppLoaded,
     uppSettings,
     userReadyState,
     workflowAssignmentEnabled = false,
     workflowDescription
-  } = useStores(store)
+  } = useStores(mockStore)
   const assignedWorkflowID = uppSettings?.workflow_id || ''
   return (
     <WorkflowSelector

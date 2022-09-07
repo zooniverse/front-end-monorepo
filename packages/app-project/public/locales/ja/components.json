@@ -1,15 +1,53 @@
 {
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "register": "新規登録",
+      "signIn": "サインイン"
+    }
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "signIn": "サインイン"
+    },
+    "RegisterForm": {
+      "passwordConfirmError": "パスワードが一致しません。再入力してください。",
+      "realName": "本名（任意）",
+      "realNameHelp": "論文やポスターなどの謝辞に使われます。",
+      "register": "新規登録"
+    }
+  },
+  "ConnectWithProject": {
+    "title": "{{projectName}}とつながる"
+  },
+  "Head": {
+    "defaultTitle": "プロジェクト",
+    "siteName": "Zooniverse"
+  },
   "Loader": {
     "loading": "読み込み中"
   },
   "ProjectHeader": {
     "about": "このプロジェクトについて",
     "classify": "分類",
+    "exploreProject": "プロジェクトを見る",
     "talk": "トーク",
     "collect": "コレクション",
-    "recents": "最近"
+    "recents": "最近",
+    "ApprovedIcon": {
+      "title": "Zooniverse承認済み"
+    },
+    "UnderReviewLabel": {
+      "underReview": "審査中"
+    }
   },
   "ProjectStatistics": {
+    "classifications": "分類",
+    "completedSubjects": "完了した画像",
+    "percentComplete": "進捗率",
+    "subjects": "画像",
+    "subtitle": "あなたと仲間のボランティアがこのプロジェクトで行った進捗を追跡します。",
+    "text": "すべてのクリックがカウントされます。 {{projectName}}のコミュニティに参加して、このプロジェクトを完了させ、研究者が重要な結果を生み出すのを手伝ってください。",
+    "title": "{{projectName}} 統計",
     "volunteers": "ボランティア数"
   },
   "ThemeModeToggle": {

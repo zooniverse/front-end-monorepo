@@ -21,7 +21,7 @@ describe('Component > ProjectHeaderContainer', function () {
       }
     }
     wrapper = shallow(
-      <ProjectHeaderContainer store={mockStore} />
+      <ProjectHeaderContainer mockStore={mockStore} />
     )
     projectHeader = wrapper.find(ProjectHeader)
   })
@@ -64,7 +64,7 @@ describe('Component > ProjectHeaderContainer', function () {
         }
       }
       wrapper = shallow(
-        <ProjectHeaderContainer store={mockStore} />
+        <ProjectHeaderContainer mockStore={mockStore} />
       )
       const projectHeader = wrapper.find(ProjectHeader)
 
@@ -91,7 +91,7 @@ describe('Component > ProjectHeaderContainer', function () {
       }
       wrapper = shallow(
         <ProjectHeaderContainer
-          store={mockStore}
+          mockStore={mockStore}
         />
       )
       const projectHeader = wrapper.find(ProjectHeader)

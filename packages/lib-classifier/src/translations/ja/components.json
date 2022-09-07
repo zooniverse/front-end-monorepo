@@ -2,6 +2,10 @@
   "Banners": {
     "Banner": {
       "next": "次へ"
+    },
+    "InProgressConfirmModal": {
+      "cancel": "キャンセル",
+      "inProgress": "「戻る」を押すと現在のタスクで入力した情報が消去されます。"
     }
   },
   "FeedbackModal": {
@@ -14,6 +18,11 @@
     },
     "FieldGuideItem": {
       "ariaTitle": "戻る"
+    }
+  },
+  "ImageToolbar": {
+    "ResetButton": {
+      "ariaLabel": "表示をリセット"
     }
   },
   "ModalTutorial": {
@@ -40,7 +49,8 @@
     "tutorial": "チュートリアル",
     "Tasks": {
       "BackButton": {
-        "back": "戻る"
+        "back": "戻る",
+        "tooltip": "「戻る」を押すと現在のタスクで入力した情報が消去されます。"
       },
       "DoneAndTalkButton": {
         "doneAndTalk": "完了とトーク"
