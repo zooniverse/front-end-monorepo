@@ -1,6 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { observer, MobXProviderContext } from 'mobx-react'
+import { observer } from 'mobx-react'
 import SubTaskPopup from './SubTaskPopup'
 
 export default observer(function SubTaskPopupContainer ({

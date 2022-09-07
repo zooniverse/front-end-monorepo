@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 import { observer } from 'mobx-react'
-import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 import { useTranslation } from 'react-i18next'
 import useSWR from 'swr'
 
 import { withFeatureFlag } from '@helpers'
 import { usePanoptesAuth, usePanoptesUser, useStores } from '@hooks'
-import { getBearerToken } from '@store/utils'
 import QuickTalk from './QuickTalk'
 
 import getDefaultTalkBoard from './helpers/getDefaultTalkBoard'

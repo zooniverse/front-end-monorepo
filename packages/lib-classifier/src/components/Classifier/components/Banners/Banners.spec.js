@@ -76,9 +76,9 @@ describe('Component > Banners', function () {
 
   describe('while the subject is loading', function () {
     before(function () {
-      const stores = buildMocks({})
-      stores.classifierStore.subjects.reset()
-      wrapper = shallow(<Banners stores={stores} />)
+      const mockStores = buildMocks({})
+      mockStores.classifierStore.subjects.reset()
+      wrapper = shallow(<Banners mockStores={mockStores} />)
     })
 
     it('should not render', function () {
@@ -88,8 +88,8 @@ describe('Component > Banners', function () {
 
   describe('default banners', function () {
     before(function () {
-      const stores = buildMocks({})
-      wrapper = shallow(<Banners stores={stores} />)
+      const mockStores = buildMocks({})
+      wrapper = shallow(<Banners mockStores={mockStores} />)
     })
 
     it('should render without crashing', function () {
@@ -115,7 +115,7 @@ describe('Component > Banners', function () {
 
   describe('with #priority metadata', function () {
     before(function () {
-      const stores = buildMocks({
+      const mockStores = buildMocks({
         metadata: {
           ['#priority']: 37
         }
@@ -126,7 +126,7 @@ describe('Component > Banners', function () {
         prioritized: true,
         subjectSet: '1'
       })
-      wrapper = shallow(<Banners stores={stores} />)
+      wrapper = shallow(<Banners mockStores={mockStores} />)
     })
 
     it('should render without crashing', function () {
@@ -140,7 +140,7 @@ describe('Component > Banners', function () {
 
   describe('with priority metadata', function () {
     before(function () {
-      const stores = buildMocks({
+      const mockStores = buildMocks({
         metadata: {
           priority: 37
         }
@@ -151,7 +151,7 @@ describe('Component > Banners', function () {
         prioritized: true,
         subjectSet: '1'
       })
-      wrapper = shallow(<Banners stores={stores} />)
+      wrapper = shallow(<Banners mockStores={mockStores} />)
     })
 
     it('should render without crashing', function () {
