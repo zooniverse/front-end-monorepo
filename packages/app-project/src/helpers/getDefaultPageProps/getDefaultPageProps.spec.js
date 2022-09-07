@@ -135,7 +135,7 @@ describe('Helpers > getDefaultPageProps', function () {
     describe('with a valid project slug', function () {
       it('should return the project\'s active workflows', async function () {
         const params = {
-          env: 'staging',
+          panoptesEnv: 'staging',
           owner: 'test-owner',
           project: 'test-project'
         }
@@ -162,7 +162,7 @@ describe('Helpers > getDefaultPageProps', function () {
 
       before(async function () {
         const params = {
-          env: 'staging',
+          panoptesEnv: 'staging',
           owner: 'test-owner',
           project: 'test-wrong-project'
         }
@@ -183,7 +183,7 @@ describe('Helpers > getDefaultPageProps', function () {
 
       before(async function () {
         const params = {
-          env: 'staging',
+          panoptesEnv: 'staging',
           owner: 'test-owner',
           project: 'test-project',
           workflowID: '3'
@@ -213,7 +213,7 @@ describe('Helpers > getDefaultPageProps', function () {
     describe('with a valid project slug', function () {
       it('should return the project\'s active workflows', async function () {
         const params = {
-          env: 'production',
+          panoptesEnv: 'production',
           owner: 'test-owner',
           project: 'test-project'
         }
@@ -240,7 +240,7 @@ describe('Helpers > getDefaultPageProps', function () {
 
       before(async function () {
         const params = {
-          env: 'production',
+          panoptesEnv: 'production',
           owner: 'test-owner',
           project: 'test-wrong-project'
         }
@@ -261,7 +261,7 @@ describe('Helpers > getDefaultPageProps', function () {
 
       before(async function () {
         const params = {
-          env: 'production',
+          panoptesEnv: 'production',
           owner: 'test-owner',
           project: 'test-project',
           workflowID: '3'
@@ -301,7 +301,7 @@ describe('Helpers > getDefaultPageProps', function () {
         describe('with a valid project slug', function () {
           it('should return the project\'s active workflows', async function () {
             const params = {
-              env: 'production',
+              panoptesEnv: 'production',
               owner: 'test-owner',
               project: 'test-project'
             }
@@ -328,7 +328,7 @@ describe('Helpers > getDefaultPageProps', function () {
 
           before(async function () {
             const params = {
-              env: 'production',
+              panoptesEnv: 'production',
               owner: 'test-owner',
               project: 'test-wrong-project'
             }
@@ -349,7 +349,7 @@ describe('Helpers > getDefaultPageProps', function () {
 
           before(async function () {
             const params = {
-              env: 'production',
+              panoptesEnv: 'production',
               owner: 'test-owner',
               project: 'test-project',
               workflowID: '3'
@@ -391,7 +391,7 @@ describe('Helpers > getDefaultPageProps', function () {
         describe('with a valid project slug', function () {
           it('should return the project\'s active workflows', async function () {
             const params = {
-              env: 'staging',
+              panoptesEnv: 'staging',
               owner: 'test-owner',
               project: 'test-project'
             }
@@ -439,7 +439,7 @@ describe('Helpers > getDefaultPageProps', function () {
 
           before(async function () {
             const params = {
-              env: 'staging',
+              panoptesEnv: 'staging',
               owner: 'test-owner',
               project: 'test-project',
               workflowID: '3'

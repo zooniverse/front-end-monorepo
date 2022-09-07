@@ -3,28 +3,21 @@ import fetchProjectPageTitles from '@helpers/fetchProjectPageTitles'
 import getDefaultPageProps from '@helpers/getDefaultPageProps'
 export { default } from '@screens/ProjectAboutPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import fetchTeam from '@helpers/fetchTeam'
-import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 
 export async function getStaticProps({ locale, params }) {
   const { notFound, props } = await getDefaultPageProps({ locale, params })
-  const { env } = params
-  const { headers, host } = getServerSideAPIHost(env)
   const { project } = props.initialState
-  project.about_pages = await fetchProjectPageTitles(project, env)
-  const page = await fetchProjectPage(project, locale, 'team', env)
-  const pageTitle = page?.strings?.title ?? 'Team'
-
-  const teamArray = await fetchTeam(project, env)
+  project.about_pages = await fetchProjectPageTitles(project, params.panoptesEnv)
+  const page = await fetchProjectPage(project, locale, 'science_case', params.panoptesEnv)
+  const pageTitle = page?.strings?.title ?? 'Research'
 
   return {
     notFound,
     props: {
       ...(await serverSideTranslations(locale, ['components', 'screens'])),
       pageTitle,
-      pageType: 'team',
-      ...props,
-      teamArray
+      pageType: 'science_case',
+      ...props
     },
     revalidate: 60
   }

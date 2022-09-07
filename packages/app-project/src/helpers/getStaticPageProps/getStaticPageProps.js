@@ -12,7 +12,7 @@ export default async function getStaticPageProps({ locale, params }) {
   // create a temporary store.
   // we'll take a snapshot of this later, to pass as a page prop.
   const store = initStore(isServer)
-  const { env } = params
+  const env = params.panoptesEnv
 
   /*
     Fetch the project

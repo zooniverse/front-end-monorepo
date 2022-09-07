@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 export function middleware(req, event) {
   const url = req.nextUrl.clone()
   const defaultEnv = process.env.PANOPTES_ENV ?? 'staging'
-  const env = url.searchParams.get('env') ?? defaultEnv
+  const panoptesEnv = url.searchParams.get('env') ?? defaultEnv
   /*
     NextJS 12.2.5 includes the base path and locale in req.nextUrl.pathname.
     This might be a bug, but remove those for now.
@@ -52,6 +52,6 @@ export function middleware(req, event) {
     Project pages are served from /projects/staging/[owner]/[project]
     and /projects/production/[owner]/[project]
   */
-  url.pathname = `/${env}${pathname}`
+  url.pathname = `/${panoptesEnv}${pathname}`
   return NextResponse.rewrite(url)
 }

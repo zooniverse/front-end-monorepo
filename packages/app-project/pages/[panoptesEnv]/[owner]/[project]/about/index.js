@@ -3,11 +3,11 @@ export { default } from '@screens/ProjectAboutPage'
 
 export async function getServerSideProps({ params, req, res }) {
   const { notFound, props } = await getDefaultPageProps({ params, req, res })
-  const { env } = params
+  const { panoptesEnv } = params
   const { project } = props.initialState
 
   const projectPath = `/${project?.slug}/about/research`
-  const destination = env ? `${projectPath}?env=${env}` : projectPath
+  const destination = panoptesEnv ? `${projectPath}?env=${panoptesEnv}` : projectPath
 
   return ({
     redirect: {

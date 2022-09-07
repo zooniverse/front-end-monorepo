@@ -12,9 +12,9 @@ export async function getStaticProps({ defaultLocale, locale, params }) {
   if (props.workflowID) {
     const { project } = props.initialState
     const requestPath = `/${project.slug}/classify`
-    const { env } = params
+    const { panoptesEnv } = params
     const pathname = locale === defaultLocale ? requestPath : `/${locale}${requestPath}`
-    const search = env === defaultEnv ? '' : `?env=${env}`
+    const search = panoptesEnv === defaultEnv ? '' : `?env=${panoptesEnv}`
 
     return ({
       redirect: {

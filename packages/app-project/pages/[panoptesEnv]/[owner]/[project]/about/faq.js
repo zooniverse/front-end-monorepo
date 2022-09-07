@@ -7,8 +7,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 export async function getStaticProps({ locale, params }) {
   const { notFound, props } = await getDefaultPageProps({ locale, params })
   const { project } = props.initialState
-  project.about_pages = await fetchProjectPageTitles(project, params.env)
-  const page = await fetchProjectPage(project, locale, 'faq', params.env)
+  project.about_pages = await fetchProjectPageTitles(project, params.panoptesEnv)
+  const page = await fetchProjectPage(project, locale, 'faq', params.panoptesEnv)
   const pageTitle = page?.strings?.title ?? 'FAQ'
 
   return {

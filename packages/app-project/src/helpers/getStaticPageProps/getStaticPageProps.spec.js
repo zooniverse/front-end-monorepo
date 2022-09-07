@@ -170,13 +170,11 @@ describe('Helpers > getStaticPageProps', function () {
       before(async function () {
         const params = {
           owner: 'test-owner',
-          project: 'test-project-single-active-workflow'
-        }
-        const query = {
-          env: 'staging'
+          project: 'test-project-single-active-workflow',
+          panoptesEnv: 'staging'
         }
         const locale = 'en'
-        const response = await getStaticPageProps({ locale, params, query })
+        const response = await getStaticPageProps({ locale, params })
         props = response.props
       })
 
@@ -192,7 +190,7 @@ describe('Helpers > getStaticPageProps', function () {
 
       before(async function () {
         const params = {
-          env: 'staging',
+          panoptesEnv: 'staging',
           owner: 'test-owner',
           project: 'test-project-single-active-workflow'
         }
@@ -227,7 +225,7 @@ describe('Helpers > getStaticPageProps', function () {
 
       before(async function () {
         const params = {
-          env: 'staging',
+          panoptesEnv: 'staging',
           owner: 'test-owner',
           project: 'test-project-multiple-active-workflows'
         }
@@ -249,7 +247,7 @@ describe('Helpers > getStaticPageProps', function () {
 
       before(async function () {
         const params = {
-          env: 'staging',
+          panoptesEnv: 'staging',
           owner: 'test-owner',
           project: 'test-wrong-project'
         }
@@ -271,7 +269,7 @@ describe('Helpers > getStaticPageProps', function () {
 
       before(async function () {
         const params = {
-          env: 'staging',
+          panoptesEnv: 'staging',
           owner: 'test-owner',
           project: 'test-project-single-active-workflow',
           workflowID: '3'
@@ -304,7 +302,7 @@ describe('Helpers > getStaticPageProps', function () {
 
       before(async function () {
         const params = {
-          env: 'production',
+          panoptesEnv: 'production',
           owner: 'test-owner',
           project: 'test-project-single-active-workflow'
         }
@@ -325,7 +323,7 @@ describe('Helpers > getStaticPageProps', function () {
 
       before(async function () {
         const params = {
-          env: 'production',
+          panoptesEnv: 'production',
           owner: 'test-owner',
           project: 'test-project-single-active-workflow'
         }
@@ -360,7 +358,7 @@ describe('Helpers > getStaticPageProps', function () {
 
       before(async function () {
         const params = {
-          env: 'production',
+          panoptesEnv: 'production',
           owner: 'test-owner',
           project: 'test-project-multiple-active-workflows'
         }
@@ -382,7 +380,7 @@ describe('Helpers > getStaticPageProps', function () {
 
       before(async function () {
         const params = {
-          env: 'production',
+          panoptesEnv: 'production',
           owner: 'test-owner',
           project: 'test-wrong-project'
         }
@@ -404,7 +402,7 @@ describe('Helpers > getStaticPageProps', function () {
 
       before(async function () {
         const params = {
-          env: 'production',
+          panoptesEnv: 'production',
           owner: 'test-owner',
           project: 'test-project-single-active-workflow',
           workflowID: '3'
