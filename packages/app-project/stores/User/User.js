@@ -1,5 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { flow, types } from 'mobx-state-tree'
+import { applySnapshot, flow, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 
 import Collections from './Collections'
@@ -33,10 +33,18 @@ const User = types
 
   .actions(self => ({
     clear() {
-      self.id = null
-      self.display_name = null
-      self.login = null
-      self.loadingState = asyncStates.success
+      const loggedOutUser = {
+        id: null,
+        display_name: null,
+        login: null,
+        loadingState: asyncStates.success,
+        personalization: {
+          projectPreferences: {
+            loadingState: asyncStates.success
+          }
+        }
+      }
+      applySnapshot(self, loggedOutUser)
     },
 
     set(user) {
