@@ -65,14 +65,13 @@ function FreehandLine({ active, mark, onFinish, scale }) {
     cancelEditing()
   }
 
-  if (editing && !dragPoint) {
+  if (active && editing && !dragPoint) {
     cancelEditing()
   }
 
-  if (!dragPoint && isClosed) {
-    if (mark.clipPath.length > 0) {
-      mark.setClipPath([])
-    }
+  if (active && !dragPoint && isClosed && clippedPath) {
+    // clear the dashed guide line when an open line is closed.
+    mark.setClipPath([])
   }
 
   function onDoubleClick(event) {
