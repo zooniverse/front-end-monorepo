@@ -55,22 +55,29 @@ function FreehandLine({ active, mark, onFinish, scale }) {
   const clippedPath = mark.clipPath.map(
     (point, index) => index === 0 ? `M ${point.x},${point.y}` : `L ${point.x},${point.y}`
   ).join(' ')
+  /*
+    Line segmentation has begun if either:
+    - a drag point has been created to cut the path internally.
+    - the path is open but has a clipped path joining the open ends.
+  */
+  const segmentationInProgress = dragPoint || (!isClosed && clippedPath)
 
-  if (clippedPath && !active) {
+  if (segmentationInProgress && !editing) {
+    setEditing(true)
+  }
+
+  // cancel editing when lines become inactive
+  if (segmentationInProgress && !active) {
     mark.revertEdits()
     setEditing(false)
   }
 
-  if (dragPoint && !active) {
+  if (active && editing && mark.isCloseToStart) {
     cancelEditing()
   }
 
-  if (active && editing && !dragPoint) {
-    cancelEditing()
-  }
-
-  if (active && !dragPoint && isClosed && clippedPath) {
-    // clear the dashed guide line when an open line is closed.
+  if (active && !segmentationInProgress && clippedPath) {
+    // clear the dashed guide line when segmentation ends.
     mark.setClipPath([])
   }
 
@@ -78,7 +85,6 @@ function FreehandLine({ active, mark, onFinish, scale }) {
     if (active) {
       const { x, y } = createPoint(event)
       mark.setDragPoint({ x, y })
-      setEditing(true)
       return cancelEvent(event)
     }
     return true
