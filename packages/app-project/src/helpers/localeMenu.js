@@ -1,6 +1,6 @@
 /** This locale menu matches next-18next.config.js and PFE's app/locales */
 
-export default {
+const localeMenu = {
   ar: 'العربية',
   cs: 'Čeština',
   de: 'Deutsch',
@@ -23,3 +23,5 @@ export default {
   'zh-cn': '简体中文',
   'zh-tw': '繁體中文'
 }
+
+export default localeMenu
