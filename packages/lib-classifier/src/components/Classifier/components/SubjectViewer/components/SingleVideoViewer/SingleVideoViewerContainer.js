@@ -140,31 +140,32 @@ class SingleVideoViewerContainer extends React.Component {
     this.setState({ isPlaying: false, isSeeking: true })
   }
 
-  // Why is this a setState call?
+  /* When VideoController > Slider is clicked or scrubbed */
   handleSliderChange = (e) => {
     const played = getFixedNumber(e.target.value, 5)
-    this.setState(
-      (prevState) => {
-        // what are entities? what is this for loop doing?
-        let { focusing } = prevState
-        if (focusing) {
-          const { incidents } = prevState?.entities?.annotations?.focusing
-          for (let i = 0; i < incidents?.length; i += 1) {
-            if (played >= incidents[i].time) {
-              if (i !== incidents.length - 1 && played >= incidents[i + 1].time)
-                continue
-              if (incidents[i].status !== SHOW) focusing = ''
-              break
-            } else if (i === incidents.length - 1) focusing = ''
-          }
-        }
-        return { played, focusing }
-      },
-      // Updates VideoController > Slider as video plays
-      () => {
-        this.player?.current.seekTo(played)
-      }
-    )
+    this.player?.current.seekTo(played)
+
+    /* Can't find a use case for this code, not sure of its purpose */
+    
+    // this.setState(
+    //   (prevState) => {
+    //     console.log(prevState)
+    //     // what are entities? what is this for loop doing?
+    //     let { focusing } = prevState
+    //     if (focusing) {
+    //       const { incidents } = prevState?.entities?.annotations?.focusing
+    //       for (let i = 0; i < incidents?.length; i += 1) {
+    //         if (played >= incidents[i].time) {
+    //           if (i !== incidents.length - 1 && played >= incidents[i + 1].time)
+    //             continue
+    //           if (incidents[i].status !== SHOW) focusing = ''
+    //           break
+    //         } else if (i === incidents.length - 1) focusing = ''
+    //       }
+    //     }
+    //     return { played, focusing }
+    //   }
+    // )
   }
 
   render() {
@@ -189,7 +190,7 @@ class SingleVideoViewerContainer extends React.Component {
       return <div>Something went wrong.</div>
     }
 
-    const canvas = this.transformLayer?.current // why do this here instead of in <g>?
+    const canvas = this.transformLayer?.current
     const interactionLayerScale = clientWidth / naturalWidth
 
     return (
