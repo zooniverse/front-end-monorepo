@@ -176,9 +176,9 @@ const FreehandLineModel = types
       const targetPoint = self.selectPoint(endPoint)
       let endIndex = self.points.indexOf(targetPoint)
       let spansStartPoint = false
-      let firstPoint = Math.min(startIndex, endIndex)
-      let lastPoint = Math.max(startIndex, endIndex)
       if (self.isClosed) {
+        const firstPoint = Math.min(startIndex, endIndex)
+        const lastPoint = Math.max(startIndex, endIndex)
         const deleteCount = lastPoint - firstPoint - 1
         const distFromEnd = self.points.length - lastPoint - 1
         const distFromStart = firstPoint
@@ -186,35 +186,16 @@ const FreehandLineModel = types
       }
       if (!spansStartPoint) {
         /*
-          Reverse the path, if necessary, so that the first point clicked
-          is always the draggable point.
-        */
-        if (firstPoint === endIndex) {
-          self.points.reverse()
-          firstPoint = self.points.indexOf(dragPoint)
-          lastPoint = self.points.indexOf(targetPoint)
-        }
-        /*
         Segment lies entirely within the line path, so splice points
         from dragIndex to targetIndex.
         */
-        self.splice(firstPoint, lastPoint)
+        self.splice(startIndex, endIndex)
       } else {
-        /*
-          Reverse the path, if necessary, so that the first point clicked
-          is always at the end of the new line. The end of an open line
-          is the draggable point.
-        */
-        if (lastPoint === endIndex) {
-          self.points.reverse()
-          lastPoint = self.points.indexOf(dragPoint)
-          firstPoint = self.points.indexOf(targetPoint)
-        }
         /*
         Segment spans the start point of a closed loop, so
         trim the ends of the line back to dragIndex and targetIndex.
         */
-        self.trim(firstPoint, lastPoint)
+        self.trim(startIndex, endIndex)
       }
     },
 
@@ -244,22 +225,47 @@ const FreehandLineModel = types
     },
 
     splice(startIndex, endIndex) {
-      const deleteCount = endIndex - startIndex - 1
-      const clippedPoints = self.points.slice(startIndex, endIndex + 1)
+      let firstPoint = Math.min(startIndex, endIndex)
+      let lastPoint = Math.max(startIndex, endIndex)
+      /*
+        Reverse the path, if necessary, so that the first point clicked
+        is always the draggable point.
+      */
+      if (firstPoint === endIndex) {
+        const lastIndex = self.points.length - 1
+        self.points.reverse()
+        firstPoint = lastIndex - startIndex
+        lastPoint = lastIndex - endIndex
+      }
+      const deleteCount = lastPoint - firstPoint - 1
+      const clippedPoints = self.points.slice(firstPoint, lastPoint + 1)
       self.clipPath = clippedPoints.map(({ x, y }) => ({ x, y }))
-      self.points.splice(startIndex + 1, deleteCount)
+      self.points.splice(firstPoint + 1, deleteCount)
       // Make the ends of the spliced section draggable.
-      self.dragPoint = self.points[startIndex]
-      self.targetPoint = self.points[startIndex + 1]
+      self.dragPoint = self.points[firstPoint]
+      self.targetPoint = self.points[firstPoint + 1]
     },
 
     trim(startIndex, endIndex) {
-      const clippedPoints = [ ...self.points.slice(endIndex), ...self.points.slice(0, startIndex + 1)]
+      let firstPoint = Math.min(startIndex, endIndex)
+      let lastPoint = Math.max(startIndex, endIndex)
+      /*
+        Reverse the path, if necessary, so that the first point clicked
+        is always at the end of the new line. The end of an open line
+        is the draggable point.
+      */
+      if (lastPoint === endIndex) {
+        const lastIndex = self.points.length - 1
+        self.points.reverse()
+        lastPoint = lastIndex - startIndex
+        firstPoint = lastIndex - endIndex
+      }
+      const clippedPoints = [ ...self.points.slice(lastPoint), ...self.points.slice(0, firstPoint + 1)]
       self.clipPath = clippedPoints.map(({ x, y }) => ({ x, y }))
-      // Move the end of the line back to endIndex
-      self.points.splice(endIndex + 1)
-      // Move the start of the line forward to startIndex 
-      self.points.splice(0, startIndex)
+      // Move the end of the line back to lastPoint.
+      self.points.splice(lastPoint + 1)
+      // Move the start of the line forward to firstPoint.
+      self.points.splice(0, firstPoint)
       // Make the ends of the new, open line draggable.
       self.dragPoint = null
       self.targetPoint = null
