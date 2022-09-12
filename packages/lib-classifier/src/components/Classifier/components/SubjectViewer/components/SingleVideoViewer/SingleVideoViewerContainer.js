@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
 
@@ -27,19 +27,20 @@ class SingleVideoViewerContainer extends React.Component {
   constructor() {
     super()
 
-    this.videoViewer = React.createRef()
+    this.interactionLayerSVG = React.createRef()
+    this.player = React.createRef()
     this.transformLayer = React.createRef()
 
     this.state = {
-      vid: '',
-      isPlaying: false,
-      playbackRate: 1,
-      played: 0,
-      duration: 0,
-      isSeeking: false,
       clientWidth: 0,
+      duration: 0,
+      isPlaying: false,
+      played: 0,
+      playbackRate: 1,
+      isSeeking: false,
+      naturalHeight: 0,
       naturalWidth: 0,
-      naturalHeight: 0
+      vid: null
     }
   }
 
@@ -59,8 +60,9 @@ class SingleVideoViewerContainer extends React.Component {
       } = await this.getVideoSize()
       const target = { clientHeight, clientWidth, naturalWidth, naturalHeight }
       this.setState({
-        naturalWidth: naturalWidth,
-        naturalHeight: naturalHeight
+        clientWidth: clientWidth,
+        naturalHeight: naturalHeight,
+        naturalWidth: naturalWidth
       })
       onReady({ target })
     } catch (error) {
@@ -70,14 +72,10 @@ class SingleVideoViewerContainer extends React.Component {
 
   async getVideoSize() {
     const vid = await this.preload()
-    const svg = this.videoViewer.current
+    const svg = this.interactionLayerSVG.current
     const { width: clientWidth, height: clientHeight } = svg
       ? svg.getBoundingClientRect()
       : {}
-
-    this.setState({
-      clientWidth: clientWidth
-    })
 
     return {
       clientHeight,
@@ -91,14 +89,14 @@ class SingleVideoViewerContainer extends React.Component {
     const { subject } = this.props
     if (subject && subject.locations) {
       const videoUrl = Object.values(subject.locations[0])[0]
-      const vid = await this.fetchVideo(videoUrl)
+      const vid = await this.createVideoElement(videoUrl)
       this.setState({ vid })
       return vid
     }
     return {}
   }
 
-  fetchVideo(url) {
+  createVideoElement(url) {
     return new Promise((resolve, reject) => {
       const video = document.createElement('video')
       video.onloadedmetadata = () => resolve(video)
@@ -108,13 +106,9 @@ class SingleVideoViewerContainer extends React.Component {
     })
   }
 
-  /* ==================== video player ==================== */
-  handlePlayerRef = (player) => {
-    this.player = player
-  }
-
-  handleVideoProgress = (state) => {
-    const { played } = state
+  /* ==================== SingleVideoViewer react-player ==================== */
+  handleVideoProgress = (reactPlayerState) => {
+    const { played } = reactPlayerState
     const fixedNumber = getFixedNumber(played, 5)
     this.setState((prevState) => {
       if (prevState.isSeeking) return null
@@ -134,8 +128,8 @@ class SingleVideoViewerContainer extends React.Component {
     this.setState((prevState) => ({ isPlaying: !prevState.isPlaying }))
   }
 
-  handleSpeedChange = (s) => {
-    this.setState({ playbackRate: s })
+  handleSpeedChange = (rate) => {
+    this.setState({ playbackRate: rate })
   }
 
   handleSliderMouseUp = () => {
@@ -146,17 +140,16 @@ class SingleVideoViewerContainer extends React.Component {
     this.setState({ isPlaying: false, isSeeking: true })
   }
 
-  // Updates slider as video plays
-  // Slider is clickable; video jumps to time where user clicks
+  // Why is this a setState call?
   handleSliderChange = (e) => {
     const played = getFixedNumber(e.target.value, 5)
     this.setState(
       (prevState) => {
-        const { entities } = prevState
+        // what are entities? what is this for loop doing?
         let { focusing } = prevState
         if (focusing) {
-          const { incidents } = entities.annotations[focusing]
-          for (let i = 0; i < incidents.length; i += 1) {
+          const { incidents } = prevState?.entities?.annotations?.focusing
+          for (let i = 0; i < incidents?.length; i += 1) {
             if (played >= incidents[i].time) {
               if (i !== incidents.length - 1 && played >= incidents[i + 1].time)
                 continue
@@ -167,84 +160,72 @@ class SingleVideoViewerContainer extends React.Component {
         }
         return { played, focusing }
       },
+      // Updates VideoController > Slider as video plays
       () => {
-        this.player.seekTo(played)
+        this.player?.current.seekTo(played)
       }
     )
   }
 
   render() {
-    const { loadingState, enableInteractionLayer, onKeyDown } = this.props
-    const {
-      vid,
-      isPlaying,
-      playbackRate,
-      played,
-      duration,
-      clientWidth,
-      naturalWidth,
-      naturalHeight
-    } = this.state
+    const { 
+      enableInteractionLayer = true,
+      loadingState = asyncStates.initialized,
+      onKeyDown 
+    } = this.props
 
-    // Erik Todo
-    // const { naturalHeight, naturalWidth, src } = vid
+    const {
+      clientWidth,
+      duration,
+      isPlaying,
+      played,
+      playbackRate,
+      naturalHeight,
+      naturalWidth,
+      vid
+    } = this.state
 
     if (loadingState === asyncStates.error) {
       return <div>Something went wrong.</div>
     }
 
-    // Erik Todo
-    // if (!src) {
-    //   return null
-    // }
-
-    // if (!naturalWidth) {
-    //   return null
-    // }
-
-    const canvas = this.transformLayer.current
-    const transform = ``
-    const scale = clientWidth / naturalWidth
-
-    const enableDrawing =
-      loadingState === asyncStates.success && enableInteractionLayer
+    const canvas = this.transformLayer?.current // why do this here instead of in <g>?
+    const interactionLayerScale = clientWidth / naturalWidth
 
     return (
       <>
         <ScreenContainer>
           <SingleVideoViewer
-            playerRef={this.handlePlayerRef}
-            url={vid.src}
             isPlaying={isPlaying}
-            playbackRate={playbackRate}
-            onProgress={this.handleVideoProgress}
             onDuration={this.handleVideoDuration}
             onEnded={this.handleVideoEnded}
+            onProgress={this.handleVideoProgress}
+            playbackRate={playbackRate}
+            playerRef={this.player}
+            url={vid?.src}
           />
 
-          {/* Drawing Layer */}
+          {/* Drawing Layer */
+          /* Could this be moved to its own component file and why does it have an animation? */}
           <DrawingLayer>
             <Box animation='fadeIn' overflow='hidden'>
               <SVGContext.Provider value={{ canvas }}>
                 <svg
-                  ref={this.videoViewer}
+                  ref={this.interactionLayerSVG}
                   focusable
                   onKeyDown={onKeyDown}
                   tabIndex={0}
                   viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
                   xmlns='http://www.w3.org/2000/svg'
                 >
-                  {/* {title?.id && title?.text && (
-                  <title id={title.id}>{title.text}</title>
-                )} */}
-                  <g ref={this.transformLayer} transform={transform}>
+                  <g ref={this.transformLayer} transform=''>
                     {enableInteractionLayer && (
                       <InteractionLayer
-                        scale={scale}
-                        played={played}
+                        scale={interactionLayerScale}
                         duration={duration}
-                        width={naturalWidth}
                         height={naturalHeight}
+                        played={played}
+                        width={naturalWidth}
                       />
                     )}
                   </g>
@@ -270,23 +251,14 @@ class SingleVideoViewerContainer extends React.Component {
 }
 
 SingleVideoViewerContainer.propTypes = {
-  loadingState: PropTypes.string,
   enableInteractionLayer: PropTypes.bool,
+  loadingState: PropTypes.string,
   onError: PropTypes.func,
-  onReady: PropTypes.func,
   onKeyDown: PropTypes.func,
-  // viewBox: PropTypes.string.isRequired,
+  onReady: PropTypes.func,
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
   })
-}
-
-SingleVideoViewerContainer.defaultProps = {
-  loadingState: asyncStates.initialized,
-  enableInteractionLayer: true,
-  onKeyDown: () => true,
-  onError: () => true,
-  onReady: () => true
 }
 
 export default SingleVideoViewerContainer

@@ -18,14 +18,14 @@ const Container = styled.div`
 `
 
 const SingleVideoViewer = ({
-  url,
-  isPlaying,
-  playbackRate,
-  progressInterval,
-  onProgress,
-  playerRef,
-  onDuration,
-  onEnded
+  url = '',
+  isPlaying = false,
+  playbackRate = 1,
+  progressInterval = 100,
+  onProgress = () => {},
+  playerRef = () => {},
+  onDuration = () => {},
+  onEnded = () => {}
 }) => {
   return (
     <Container>
@@ -55,17 +55,6 @@ SingleVideoViewer.propTypes = {
   onProgress: PropTypes.func,
   onDuration: PropTypes.func,
   onEnded: PropTypes.func
-}
-
-SingleVideoViewer.defaultProps = {
-  playerRef: () => {},
-  url: '',
-  isPlaying: false,
-  playbackRate: 1,
-  progressInterval: 100,
-  onProgress: () => {},
-  onDuration: () => {},
-  onEnded: () => {}
 }
 
 export default SingleVideoViewer
