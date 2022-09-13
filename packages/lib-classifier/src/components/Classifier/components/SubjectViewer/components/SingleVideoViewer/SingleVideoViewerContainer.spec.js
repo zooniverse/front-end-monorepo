@@ -7,7 +7,7 @@ import { Provider } from 'mobx-react'
 import mockStore from '@test/mockStore'
 import SingleVideoViewerContainer from './SingleVideoViewerContainer'
 
-describe.only('Component > SingleVideoViewerContainer', function () {
+describe('Component > SingleVideoViewerContainer', function () {
   describe('with a video subject src', function () {
     const mockSubject = Factory.build('subject', {
       locations: [
