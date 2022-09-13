@@ -33,6 +33,7 @@ describe('SimpleDropdownTask > panoptesAdapter', function () {
         selects: [
           {
             allowCreate: false,
+            required: true,
             options: {
               '*': [
                 { label: 'One', value: 1 },
@@ -52,6 +53,7 @@ describe('SimpleDropdownTask > panoptesAdapter', function () {
         type: 'dropdown-simple',
         help: 'This is some task help',
         instruction: 'This is the task instruction',
+        required: true,
         options: [ 'One', 'Two' ]
       })
     })
@@ -69,6 +71,7 @@ describe('SimpleDropdownTask > panoptesAdapter', function () {
         selects: [
           {
             allowCreate: false,
+            required: true,
             options: {
               '*': [
                 { label: 'One', value: 1 },
@@ -79,6 +82,7 @@ describe('SimpleDropdownTask > panoptesAdapter', function () {
           },
           {
             allowCreate: false,
+            required: false,
             options: {
               '*': [
                 { label: 'Red', value: 1 },
