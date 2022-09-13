@@ -126,6 +126,10 @@ function SingleVideoViewerContainer({
 
   const canvas = transformLayer?.current
   const interactionLayerScale = clientWidth / videoWidth
+  const svgStyle = {}
+  if (enableDrawing) {
+    svgStyle.touchAction = 'pinch-zoom'
+  }
 
   return (
     <>
@@ -151,6 +155,7 @@ function SingleVideoViewerContainer({
                       ref={interactionLayerSVG}
                       focusable
                       onKeyDown={onKeyDown}
+                      style={svgStyle}
                       tabIndex={0}
                       viewBox={`0 0 ${videoWidth} ${videoHeight}`}
                       xmlns='http://www.w3.org/2000/svg'
