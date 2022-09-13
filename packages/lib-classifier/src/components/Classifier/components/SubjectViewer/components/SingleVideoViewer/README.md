@@ -7,36 +7,30 @@ The only allowed video media type is mp4.
 
 ## Features
 
-SingleVideoViewerContainer handles state for SingleVideoViewer and VideoController. It's also contains an svg and InteractionLayer for drawing on a video subject. The svg layer is displayed regardless of whether a project has drawing tools enabled?
-
-When SingleVideoViewerContainer mounts, it creates a <video> HTML element in `preload()` and sets the `src` as the subject's url.
-
-Then, `getVideoSize()` returns the following dimensions:
-- `clientHeight` and `clientWidth` are the dimensions of the SVG placed on top of the video player for drawing tool interactions.
-- `naturalHeight` and `naturalWidth` are the dimensions of the <video> displaying the subject.
+SingleVideoViewerContainer handles state for SingleVideoViewer and VideoController. It's also contains an svg and InteractionLayer for drawing on a video subject.
 
 Refs
 - `interactionLayerSVG`: Reference to svg element displayed on top of video subject. Needed for drawing tools' InteractionLayer.
-- `player`: Reference to `react-player` components.
+- `playerRef`: Reference to `react-player` component.
 - `transformLayer`: Needed for drawing tools' InteractionLayer.
 
 Props
 - `enableInteractionLayer`: (boolean) When `true`, the <InteractionLayer> is rendered on top of the video subject.
-= `loadingState`: (asyncStates) Passed from SubjectViewer. This is the viewer's loading state, not the subject's loading state.
 - `onError`: (function) Passed from SubjectViewer and called if `onLoad()` fails.
-- `onKeyDown`: (function) Used for drawing tools components.
 - `onReady`: (function) Called after component mounts with dimensions of <video> and svg interaction layer. Function is passed from SubjectViewer and  dimensions are added to classification metatdata.
+- `onKeyDown`: (function) Used for drawing tools components.
 - `subject`: (object) Passed from mobx store via SubjectViewer.
 
 State Variables
 - `clientWidth`: (number) Returned from `getBoundingClientRect()` on the svg element that belongs to InteractionLayer for drawing tools.
 - `duration`: (number) Duration of the video subject. Seconds rounded to 3 decimal places.
-= `isPlaying`: (boolean) Whether or not the video subject is playing.
-- `isSeeking`: (boolean) Whether or not a user is interacting with the VideoController > Slider
-= `naturalHeight`: (number) Height of <video> displaying the subject.
-= `naturalWidth`: (number) Width of the <video> displaying the subject.
-- `played`: (number) Current played timestamp of video subject.
-- `vid`: (html element) <video> displaying the subject.
+- `isPlaying`: (boolean) Whether or not the video subject is playing.
+- `isSeeking`: (boolean) Whether or not a user is interacting with the VideoController > Slider.
+- `playbackRate`: (number) 1, 0.5, or 0.25 ratio determines the speed of video playback.
+- `timeStamp`: (number) Current played timestamp of video subject.
+- `videoHeight`: (number) Height of <video> displaying the subject.
+- `videoWidth`: (number) Width of the <video> displaying the subject.
+- `videoSrc`: (string) Source string of the video subject.
 
 ## External Setup: Workflows and Subjects
 

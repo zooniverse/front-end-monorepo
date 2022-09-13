@@ -33,9 +33,9 @@ function SingleVideoViewerContainer({
   const [clientWidth, setClientWidth] = useState(0)
   const [duration, setDuration] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [timeStamp, setTimeStamp] = useState(0)
-  const [playbackRate, setPlaybackRate] = useState(1)
   const [isSeeking, setIsSeeking] = useState(false)
+  const [playbackRate, setPlaybackRate] = useState(1)
+  const [timeStamp, setTimeStamp] = useState(0)
   const [videoHeight, setVideoHeight] = useState(0)
   const [videoWidth, setVideoWidth] = useState(0)
   const [videoSrc, setVideoSrc] = useState('')
@@ -143,8 +143,7 @@ function SingleVideoViewerContainer({
               playerRef={playerRef}
               url={videoSrc}
             />
-            {/* Drawing Layer */
-            /* Could this be moved to its own component file? */}
+            {/* Drawing Layer */}
             <DrawingLayer>
               <Box overflow='hidden'>
                 <SVGContext.Provider value={{ canvas }}>
