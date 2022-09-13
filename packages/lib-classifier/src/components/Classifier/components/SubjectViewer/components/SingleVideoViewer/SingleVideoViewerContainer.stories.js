@@ -10,6 +10,7 @@ const background = {
   light: 'light-1'
 }
 
+// Can't use { SubjectFactory } from '@test/factories because video locations isn't handled yet
 const subject = Factory.build('subject', {
   locations: [
     {
@@ -26,8 +27,7 @@ export default {
     dark: false,
     onError: () => {},
     onReady: () => {},
-    onKeyDown: () => {},
-    subject: subject
+    onKeyDown: () => {}
   },
   parameters: {
     viewport: {
@@ -40,8 +40,7 @@ export const Default = ({
   enableInteractionLayer,
   dark,
   onError,
-  onReady,
-  subject
+  onReady
 }) => {
   const themeMode = dark ? 'dark' : 'light'
   return (
@@ -49,9 +48,53 @@ export const Default = ({
       <Box width='large'>
         <SingleVideoViewerContainer
           enableInteractionLayer={enableInteractionLayer}
+          loadingState='success'
           onError={onError}
           onReady={onReady}
           subject={subject}
+        />
+      </Box>
+    </Grommet>
+  )
+}
+
+export const Loading = ({
+  enableInteractionLayer,
+  dark,
+  onError,
+  onReady
+}) => {
+  const themeMode = dark ? 'dark' : 'light'
+  return (
+    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
+      <Box width='large'>
+        <SingleVideoViewerContainer
+          enableInteractionLayer={enableInteractionLayer}
+          loadingState='loading'
+          onError={onError}
+          onReady={onReady}
+          subject={subject}
+        />
+      </Box>
+    </Grommet>
+  )
+}
+
+export const NoSubject = ({
+  enableInteractionLayer,
+  dark,
+  onError,
+  onReady
+}) => {
+  const themeMode = dark ? 'dark' : 'light'
+  return (
+    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
+      <Box width='large'>
+        <SingleVideoViewerContainer
+          enableInteractionLayer={enableInteractionLayer}
+          loadingState='error'
+          onError={onError}
+          onReady={onReady}
         />
       </Box>
     </Grommet>

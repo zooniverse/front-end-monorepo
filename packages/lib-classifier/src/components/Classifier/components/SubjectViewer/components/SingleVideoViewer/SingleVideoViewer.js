@@ -47,7 +47,7 @@ const SingleVideoViewer = ({
 }
 
 SingleVideoViewer.propTypes = {
-  playerRef: PropTypes.func,
+  playerRef: PropTypes.object,
   url: PropTypes.string,
   isPlaying: PropTypes.bool,
   playbackRate: PropTypes.number,
