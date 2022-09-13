@@ -3,7 +3,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { Factory } from 'rosie'
 
-import SingleVideoViewerContainer from './SingleVideoViewerContainer'
+import SingleVideoViewerContainer from './'
 
 const background = {
   dark: 'dark-1',

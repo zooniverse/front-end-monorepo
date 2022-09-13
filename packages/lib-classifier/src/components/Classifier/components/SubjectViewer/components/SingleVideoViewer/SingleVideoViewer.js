@@ -23,6 +23,7 @@ const SingleVideoViewer = ({
   onDuration = () => {},
   onEnded = () => {},
   onProgress = () => {},
+  onReactPlayerReady = () => {},
   playbackRate = 1,
   progressInterval = 100,
   playerRef = null
@@ -30,17 +31,18 @@ const SingleVideoViewer = ({
   return (
     <Container>
       <ReactPlayer
-        ref={playerRef}
         controls={false}
-        url={url}
+        height='100%'
+        onDuration={onDuration}
+        onEnded={onEnded}
+        onReady={onReactPlayerReady}
+        onProgress={onProgress}
         playing={isPlaying}
         playbackRate={playbackRate}
         progressInterval={progressInterval}
-        onProgress={onProgress}
-        onDuration={onDuration}
-        onEnded={onEnded}
+        ref={playerRef}
         width='100%'
-        height='100%'
+        url={url}
       />
     </Container>
   )
