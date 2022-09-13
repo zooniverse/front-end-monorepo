@@ -2794,18 +2794,18 @@
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
 
 "@storybook/addon-a11y@~6.5.0":
-  version "6.5.10"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-6.5.10.tgz#a907cbd3f1889ba367828435a58ecc9dac42f6ba"
-  integrity sha512-BnDbLg7YEAX1aEyiB+gDFYMXIbiSFH/M0CdwPCq7T7o8cqULKOHtQkndMja1soMxsqHAVH8AGvVVZ8VlaxaJ3Q==
+  version "6.5.11"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-6.5.11.tgz#01130488ceb977e90a14dc93a778e2ab47cec9f6"
+  integrity sha512-C8THPj0hlU6RW1diidP4K5RmD8oFZC1F8cAoTHrIU55TvyAT+okDG+5bfVSb44uOV2M8ZuAREHHus/SiV2b3bQ==
   dependencies:
-    "@storybook/addons" "6.5.10"
-    "@storybook/api" "6.5.10"
-    "@storybook/channels" "6.5.10"
-    "@storybook/client-logger" "6.5.10"
-    "@storybook/components" "6.5.10"
-    "@storybook/core-events" "6.5.10"
+    "@storybook/addons" "6.5.11"
+    "@storybook/api" "6.5.11"
+    "@storybook/channels" "6.5.11"
+    "@storybook/client-logger" "6.5.11"
+    "@storybook/components" "6.5.11"
+    "@storybook/core-events" "6.5.11"
     "@storybook/csf" "0.0.2--canary.4566f4d.1"
-    "@storybook/theming" "6.5.10"
+    "@storybook/theming" "6.5.11"
     axe-core "^4.2.0"
     core-js "^3.8.2"
     global "^4.4.0"
@@ -2950,15 +2950,15 @@
     react-select "^3.2.0"
 
 "@storybook/addon-links@~6.5.0":
-  version "6.5.10"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-6.5.10.tgz#f66568fbc84b942032ac2de85f799d69fcf77922"
-  integrity sha512-r3WzYIPz7WjHiaPObC2Tg6bHuZRBb/Kt/X+Eitw+jTqBel7ksvkO36tn81q8Eyj61qIdNQmUWAaX/0aewT0kLA==
+  version "6.5.11"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-6.5.11.tgz#f67a8e5bea21d970403f32eebb8e6142cd50b515"
+  integrity sha512-gl5owlIyN7o54Ww0s5eJBcdln1miUIj+AEKMNgJliWLsVHZhbgChaANS0FSJ4evDjJ9aPcJT7ht3hJxFouEWkg==
   dependencies:
-    "@storybook/addons" "6.5.10"
-    "@storybook/client-logger" "6.5.10"
-    "@storybook/core-events" "6.5.10"
+    "@storybook/addons" "6.5.11"
+    "@storybook/client-logger" "6.5.11"
+    "@storybook/core-events" "6.5.11"
     "@storybook/csf" "0.0.2--canary.4566f4d.1"
-    "@storybook/router" "6.5.10"
+    "@storybook/router" "6.5.11"
     "@types/qs" "^6.9.5"
     core-js "^3.8.2"
     global "^4.4.0"
@@ -2998,17 +2998,17 @@
     ts-dedent "^2.0.0"
 
 "@storybook/addon-storysource@~6.5.0":
-  version "6.5.10"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-storysource/-/addon-storysource-6.5.10.tgz#620619088657f247023d454dbaff3a2e1ccd7537"
-  integrity sha512-DM3UcbdqPfTBcpXr1AuzAs0DDTBnXMpXvOEkdoTTtGpbPIyA+J5KWeW1pAWqZlzI4k0UemJrAm2G6n/gGGBUiQ==
+  version "6.5.11"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-storysource/-/addon-storysource-6.5.11.tgz#b941359372ecf70df5acb7e6b7e0ecfdd3863866"
+  integrity sha512-BzGKXNKekvHzPwVS3oQBhTq5QSFvlA2LdPchdmv+hpFRXZfDr+xs3gOvz3S4MidbHaBmRnTcgq772W1l3qwODw==
   dependencies:
-    "@storybook/addons" "6.5.10"
-    "@storybook/api" "6.5.10"
-    "@storybook/client-logger" "6.5.10"
-    "@storybook/components" "6.5.10"
-    "@storybook/router" "6.5.10"
-    "@storybook/source-loader" "6.5.10"
-    "@storybook/theming" "6.5.10"
+    "@storybook/addons" "6.5.11"
+    "@storybook/api" "6.5.11"
+    "@storybook/client-logger" "6.5.11"
+    "@storybook/components" "6.5.11"
+    "@storybook/router" "6.5.11"
+    "@storybook/source-loader" "6.5.11"
+    "@storybook/theming" "6.5.11"
     core-js "^3.8.2"
     estraverse "^5.2.0"
     loader-utils "^2.0.0"
