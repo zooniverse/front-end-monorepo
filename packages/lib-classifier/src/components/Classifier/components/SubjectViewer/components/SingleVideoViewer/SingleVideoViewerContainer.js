@@ -12,7 +12,7 @@ import SingleVideoViewer from './SingleVideoViewer'
 import VideoController from '../VideoController/VideoController'
 import getFixedNumber from '../../helpers/getFixedNumber'
 
-const ScreenContainer = styled.div`
+const SubjectContainer = styled.div`
   position: relative;
 `
 
@@ -171,7 +171,7 @@ class SingleVideoViewerContainer extends React.Component {
   render() {
     const { 
       enableInteractionLayer = true,
-      loadingState = asyncStates.initialized,
+      loadingState: viewerLoadingState = asyncStates.initialized,
       onKeyDown 
     } = this.props
 
@@ -186,8 +186,8 @@ class SingleVideoViewerContainer extends React.Component {
       vid
     } = this.state
 
-    if (loadingState === asyncStates.error) {
-      return <div>Something went wrong.</div>
+    if (viewerLoadingState === asyncStates.error) {
+      return <div>There was an error loading the viewer</div>
     }
 
     const canvas = this.transformLayer?.current
@@ -195,7 +195,7 @@ class SingleVideoViewerContainer extends React.Component {
 
     return (
       <>
-        <ScreenContainer>
+        <SubjectContainer>
           <SingleVideoViewer
             isPlaying={isPlaying}
             onDuration={this.handleVideoDuration}
@@ -234,7 +234,7 @@ class SingleVideoViewerContainer extends React.Component {
               </SVGContext.Provider>
             </Box>
           </DrawingLayer>
-        </ScreenContainer>
+        </SubjectContainer>
         <VideoController
           isPlaying={isPlaying}
           played={played}
