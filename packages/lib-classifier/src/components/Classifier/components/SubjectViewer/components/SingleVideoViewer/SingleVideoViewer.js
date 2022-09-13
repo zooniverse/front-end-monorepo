@@ -22,6 +22,7 @@ const SingleVideoViewer = ({
   isPlaying = false,
   onDuration = () => {},
   onEnded = () => {},
+  onError = () => {},
   onProgress = () => {},
   onReactPlayerReady = () => {},
   playbackRate = 1,
@@ -35,6 +36,7 @@ const SingleVideoViewer = ({
         height='100%'
         onDuration={onDuration}
         onEnded={onEnded}
+        onError={onError}
         onReady={onReactPlayerReady}
         onProgress={onProgress}
         playing={isPlaying}

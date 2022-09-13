@@ -10,7 +10,6 @@ const background = {
   light: 'light-1'
 }
 
-// Can't use { SubjectFactory } from '@test/factories because video locations isn't handled yet
 const subject = Factory.build('subject', {
   locations: [
     {
@@ -24,10 +23,7 @@ export default {
   component: SingleVideoViewerContainer,
   args: {
     enableInteractionLayer: false,
-    dark: false,
-    onError: () => {},
-    onReady: () => {},
-    onKeyDown: () => {}
+    dark: false
   },
   parameters: {
     viewport: {
@@ -48,29 +44,6 @@ export const Default = ({
       <Box width='large'>
         <SingleVideoViewerContainer
           enableInteractionLayer={enableInteractionLayer}
-          loadingState='success'
-          onError={onError}
-          onReady={onReady}
-          subject={subject}
-        />
-      </Box>
-    </Grommet>
-  )
-}
-
-export const Loading = ({
-  enableInteractionLayer,
-  dark,
-  onError,
-  onReady
-}) => {
-  const themeMode = dark ? 'dark' : 'light'
-  return (
-    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
-      <Box width='large'>
-        <SingleVideoViewerContainer
-          enableInteractionLayer={enableInteractionLayer}
-          loadingState='loading'
           onError={onError}
           onReady={onReady}
           subject={subject}
@@ -92,7 +65,6 @@ export const NoSubject = ({
       <Box width='large'>
         <SingleVideoViewerContainer
           enableInteractionLayer={enableInteractionLayer}
-          loadingState='error'
           onError={onError}
           onReady={onReady}
         />

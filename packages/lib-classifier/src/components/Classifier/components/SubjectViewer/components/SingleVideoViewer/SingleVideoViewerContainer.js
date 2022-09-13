@@ -1,8 +1,8 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
+import React, { useEffect, useState, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
@@ -23,232 +23,172 @@ const DrawingLayer = styled.div`
   cursor: default;
 `
 
-class SingleVideoViewerContainer extends React.Component {
-  constructor() {
-    super()
+function SingleVideoViewerContainer({
+  enableInteractionLayer = true,
+  onError = () => true,
+  onReady = () => true,
+  onKeyDown = () => true,
+  subject
+}) {
+  const [clientWidth, setClientWidth] = useState(0)
+  const [duration, setDuration] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [timeStamp, setTimeStamp] = useState(0)
+  const [playbackRate, setPlaybackRate] = useState(1)
+  const [isSeeking, setIsSeeking] = useState(false)
+  const [videoHeight, setVideoHeight] = useState(0)
+  const [videoWidth, setVideoWidth] = useState(0)
+  const [videoSrc, setVideoSrc] = useState('')
 
-    this.interactionLayerSVG = React.createRef()
-    this.player = React.createRef()
-    this.transformLayer = React.createRef()
+  const interactionLayerSVG = useRef()
+  const playerRef = useRef()
+  const transformLayer = useRef()
 
-    this.state = {
-      clientWidth: 0,
-      duration: 0,
-      isPlaying: false,
-      played: 0,
-      playbackRate: 1,
-      isSeeking: false,
-      naturalHeight: 0,
-      naturalWidth: 0,
-      vid: null
+  const { t } = useTranslation('components')
+
+  /* ==================== load subject ==================== */
+
+  useEffect(() => {
+    if (subject) {
+      setVideoSrc(Object.values(subject.locations[0])[0])
     }
-  }
+  }, [subject])
 
-  componentDidMount() {
-    this.onLoad()
-  }
-
-  /* ==================== get subject ==================== */
-  async onLoad() {
-    const { onError, onReady } = this.props
+  const onReactPlayerReady = () => {
     try {
-      const {
-        clientHeight,
-        clientWidth,
-        naturalHeight,
-        naturalWidth
-      } = await this.getVideoSize()
-      const target = { clientHeight, clientWidth, naturalWidth, naturalHeight }
-      this.setState({
-        clientWidth: clientWidth,
-        naturalHeight: naturalHeight,
-        naturalWidth: naturalWidth
-      })
+      const reactPlayerVideoHeight = playerRef.current?.getInternalPlayer().videoHeight
+      const reactPlayerVideoWidth = playerRef.current?.getInternalPlayer().videoWidth
+      setVideoHeight(reactPlayerVideoHeight)
+      setVideoWidth(reactPlayerVideoWidth)
+
+      const { width: svgClientWidth, height: svgClientHeight } = interactionLayerSVG.current?.getBoundingClientRect()
+      setClientWidth(svgClientWidth)
+
+      const target = {
+        clientHeight: svgClientHeight,
+        clientWidth: svgClientWidth,
+        naturalHeight: reactPlayerVideoHeight,
+        naturalWidth: reactPlayerVideoWidth
+      }
       onReady({ target })
+      console.log('HERE')
     } catch (error) {
       onError(error)
     }
   }
 
-  async getVideoSize() {
-    const vid = await this.preload()
-    const svg = this.interactionLayerSVG.current
-    const { width: clientWidth, height: clientHeight } = svg
-      ? svg.getBoundingClientRect()
-      : {}
-
-    return {
-      clientHeight,
-      clientWidth,
-      naturalHeight: vid.videoHeight,
-      naturalWidth: vid.videoWidth
-    }
-  }
-
-  async preload() {
-    const { subject } = this.props
-    if (subject && subject.locations) {
-      const videoUrl = Object.values(subject.locations[0])[0]
-      const vid = await this.createVideoElement(videoUrl)
-      this.setState({ vid })
-      return vid
-    }
-    return {}
-  }
-
-  createVideoElement(url) {
-    return new Promise((resolve, reject) => {
-      const video = document.createElement('video')
-      video.onloadedmetadata = () => resolve(video)
-      video.onerror = reject
-      video.src = url
-      return video
-    })
-  }
-
   /* ==================== SingleVideoViewer react-player ==================== */
-  handleVideoProgress = (reactPlayerState) => {
+
+  const handleVideoProgress = reactPlayerState => {
     const { played } = reactPlayerState
     const fixedNumber = getFixedNumber(played, 5)
-    this.setState((prevState) => {
-      if (prevState.isSeeking) return null
-      return { played: fixedNumber }
-    })
+    // TO DO: Why wouldn't you set timestamp when seeking?
+    if (!isSeeking) {
+      setTimeStamp(fixedNumber)
+    }
   }
 
-  handleVideoDuration = (duration) => {
-    this.setState({ duration })
+  const handleVideoDuration = duration => {
+    setDuration(duration)
   }
 
-  handleVideoEnded = () => {
-    this.setState({ isPlaying: false })
+  const handleVideoEnded = () => {
+    setIsPlaying(false)
   }
 
-  handlePlayPause = () => {
-    this.setState((prevState) => ({ isPlaying: !prevState.isPlaying }))
+  const handlePlayPause = () => {
+    const prevStatePlaying = isPlaying
+    setIsPlaying(!prevStatePlaying)
   }
 
-  handleSpeedChange = (rate) => {
-    this.setState({ playbackRate: rate })
+  const handleSpeedChange = rate => {
+    setPlaybackRate(rate)
   }
 
-  handleSliderMouseUp = () => {
-    this.setState({ isSeeking: false })
+  const handleSliderMouseUp = () => {
+    setIsSeeking(false)
   }
 
-  handleSliderMouseDown = () => {
-    this.setState({ isPlaying: false, isSeeking: true })
+  const handleSliderMouseDown = () => {
+    setIsPlaying(false)
+    setIsSeeking(true)
   }
 
   /* When VideoController > Slider is clicked or scrubbed */
-  handleSliderChange = (e) => {
+  const handleSliderChange = e => {
     const played = getFixedNumber(e.target.value, 5)
-    this.player?.current.seekTo(played)
-
-    /* Can't find a use case for this code, not sure of its purpose */
-    
-    // this.setState(
-    //   (prevState) => {
-    //     console.log(prevState)
-    //     // what are entities? what is this for loop doing?
-    //     let { focusing } = prevState
-    //     if (focusing) {
-    //       const { incidents } = prevState?.entities?.annotations?.focusing
-    //       for (let i = 0; i < incidents?.length; i += 1) {
-    //         if (played >= incidents[i].time) {
-    //           if (i !== incidents.length - 1 && played >= incidents[i + 1].time)
-    //             continue
-    //           if (incidents[i].status !== SHOW) focusing = ''
-    //           break
-    //         } else if (i === incidents.length - 1) focusing = ''
-    //       }
-    //     }
-    //     return { played, focusing }
-    //   }
-    // )
+    playerRef?.current.seekTo(played)
   }
 
-  render() {
-    const { 
-      enableInteractionLayer = true,
-      loadingState: viewerLoadingState = asyncStates.initialized,
-      onKeyDown 
-    } = this.props
-
-    const {
-      clientWidth,
-      duration,
-      isPlaying,
-      played,
-      playbackRate,
-      naturalHeight,
-      naturalWidth,
-      vid
-    } = this.state
-
-    if (viewerLoadingState === asyncStates.error) {
-      return <div>There was an error loading the viewer</div>
-    }
-
-    const canvas = this.transformLayer?.current
-    const interactionLayerScale = clientWidth / naturalWidth
-
-    return (
-      <>
-        <SubjectContainer>
-          <SingleVideoViewer
-            isPlaying={isPlaying}
-            onDuration={this.handleVideoDuration}
-            onEnded={this.handleVideoEnded}
-            onProgress={this.handleVideoProgress}
-            playbackRate={playbackRate}
-            playerRef={this.player}
-            url={vid?.src}
-          />
-
-          {/* Drawing Layer */
-          /* Could this be moved to its own component file and why does it have an animation? */}
-          <DrawingLayer>
-            <Box animation='fadeIn' overflow='hidden'>
-              <SVGContext.Provider value={{ canvas }}>
-                <svg
-                  ref={this.interactionLayerSVG}
-                  focusable
-                  onKeyDown={onKeyDown}
-                  tabIndex={0}
-                  viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <g ref={this.transformLayer} transform=''>
-                    {enableInteractionLayer && (
-                      <InteractionLayer
-                        scale={interactionLayerScale}
-                        duration={duration}
-                        height={naturalHeight}
-                        played={played}
-                        width={naturalWidth}
-                      />
-                    )}
-                  </g>
-                </svg>
-              </SVGContext.Provider>
-            </Box>
-          </DrawingLayer>
-        </SubjectContainer>
-        <VideoController
-          isPlaying={isPlaying}
-          played={played}
-          playbackRate={playbackRate}
-          duration={duration}
-          onPlayPause={this.handlePlayPause}
-          onSpeedChange={this.handleSpeedChange}
-          onSliderMouseUp={this.handleSliderMouseUp}
-          onSliderMouseDown={this.handleSliderMouseDown}
-          onSliderChange={this.handleSliderChange}
-        />
-      </>
-    )
+  const handlePlayerError = (error) => {
+    onError(error)
   }
+
+  const canvas = transformLayer?.current
+  const interactionLayerScale = clientWidth / videoWidth
+
+  return (
+    <>
+      {videoSrc
+        ? (
+          <SubjectContainer>
+            <SingleVideoViewer
+              isPlaying={isPlaying}
+              onDuration={handleVideoDuration}
+              onEnded={handleVideoEnded}
+              onError={handlePlayerError}
+              onReactPlayerReady={onReactPlayerReady}
+              onProgress={handleVideoProgress}
+              playbackRate={playbackRate}
+              playerRef={playerRef}
+              url={videoSrc}
+            />
+            {/* Drawing Layer */
+            /* Could this be moved to its own component file? */}
+            <DrawingLayer>
+              <Box overflow='hidden'>
+                <SVGContext.Provider value={{ canvas }}>
+                  <svg
+                    ref={interactionLayerSVG}
+                    focusable
+                    onKeyDown={onKeyDown}
+                    tabIndex={0}
+                    viewBox={`0 0 ${videoWidth} ${videoHeight}`}
+                    xmlns='http://www.w3.org/2000/svg'
+                  >
+                    <g ref={transformLayer} transform=''>
+                      {enableInteractionLayer && (
+                        <InteractionLayer
+                          scale={interactionLayerScale}
+                          duration={duration}
+                          height={videoHeight}
+                          played={timeStamp}
+                          width={videoWidth}
+                        />
+                      )}
+                    </g>
+                  </svg>
+                </SVGContext.Provider>
+              </Box>
+            </DrawingLayer>
+          </SubjectContainer>
+          )
+        : (
+          <Box>{t('SubjectViewer.SingleVideoViewerContainer.error')}</Box>
+          )}
+      <VideoController
+        isPlaying={isPlaying}
+        played={timeStamp}
+        playbackRate={playbackRate}
+        duration={duration}
+        onPlayPause={handlePlayPause}
+        onSpeedChange={handleSpeedChange}
+        onSliderMouseUp={handleSliderMouseUp}
+        onSliderMouseDown={handleSliderMouseDown}
+        onSliderChange={handleSliderChange}
+      />
+    </>
+  )
 }
 
 SingleVideoViewerContainer.propTypes = {
