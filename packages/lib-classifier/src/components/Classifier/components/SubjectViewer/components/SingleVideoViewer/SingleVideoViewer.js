@@ -20,12 +20,12 @@ const Container = styled.div`
 const SingleVideoViewer = ({
   url = '',
   isPlaying = false,
+  onDuration = () => {},
+  onEnded = () => {},
+  onProgress = () => {},
   playbackRate = 1,
   progressInterval = 100,
-  onProgress = () => {},
-  playerRef = () => {},
-  onDuration = () => {},
-  onEnded = () => {}
+  playerRef = null
 }) => {
   return (
     <Container>

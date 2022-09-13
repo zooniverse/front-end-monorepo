@@ -1,109 +1,59 @@
-import React from 'react';
-import zooTheme from '@zooniverse/grommet-theme';
-import { Box, Grommet } from 'grommet';
-import { Provider } from 'mobx-react';
-import { Factory } from 'rosie';
-import SubjectViewerStore from '@store/SubjectViewerStore';
-import SingleImageViewer from '@viewers/components/SingleImageViewer';
-import ImageToolbar from '../../../ImageToolbar';
-import readme from './README.md';
-import backgrounds from '../../../../../../../.storybook/lib/backgrounds';
+import React from 'react'
+import zooTheme from '@zooniverse/grommet-theme'
+import { Box, Grommet } from 'grommet'
+import { Factory } from 'rosie'
 
-const config = {
-  notes: {
-    markdown: readme,
-  },
-};
+import SingleVideoViewerContainer from './SingleVideoViewerContainer'
 
-const subject = Factory.build('subject', {
-  locations: [{ 'image/jpeg': 'http://placekitten.com/500/300' }],
-});
-
-const mockStore = {
-  classifications: {
-    active: {
-      annotations: new Map(),
-    },
-  },
-  fieldGuide: {
-    setModalVisibility: () => {},
-  },
-  subjects: {
-    active: subject,
-  },
-  subjectViewer: SubjectViewerStore.create({}),
-  workflows: {
-    active: {}
-  },
-  workflowSteps: {
-    activeStepTasks: [],
-  },
-};
-
-function ViewerContext(props) {
-  const { children, theme } = props;
-  return (
-    <Provider classifierStore={mockStore}>
-      <Grommet theme={theme}>{children}</Grommet>
-    </Provider>
-  );
+const background = {
+  dark: 'dark-1',
+  light: 'light-1'
 }
 
-const darkThemeConfig = Object.assign({}, config, {
-  backgrounds: backgrounds.darkDefault,
-});
+const subject = Factory.build('subject', {
+  locations: [
+    {
+      'video/mp4': 'https://panoptes-uploads.zooniverse.org/subject_location/239f17f7-acf9-49f1-9873-266a80d29c33.mp4'
+    }
+  ]
+})
 
 export default {
   title: 'Subject Viewers / SingleVideoViewer',
-
-  parameters: {
-    component: SingleImageViewer,
+  component: SingleVideoViewerContainer,
+  args: {
+    enableInteractionLayer: false,
+    dark: false,
+    onError: () => {},
+    onReady: () => {},
+    onKeyDown: () => {},
+    subject: subject
   },
-};
+  parameters: {
+    viewport: {
+      defaultViewport: 'responsive'
+    }
+  }
+}
 
-export const LightTheme = () => {
+export const Default = ({
+  enableInteractionLayer,
+  dark,
+  onError,
+  onReady,
+  subject
+}) => {
+  const themeMode = dark ? 'dark' : 'light'
   return (
-    <ViewerContext theme={zooTheme}>
-      <Box height="medium" width="large">
-        <SingleImageViewer />
+    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
+      <Box width='large'>
+        <SingleVideoViewerContainer
+          enableInteractionLayer={enableInteractionLayer}
+          onError={onError}
+          onReady={onReady}
+          subject={subject}
+        />
       </Box>
-    </ViewerContext>
-  );
-};
-
-LightTheme.story = {
-  name: 'light theme',
-  parameters: config,
-};
-
-export const DarkTheme = () => {
-  const darkZooTheme = Object.assign({}, zooTheme, { dark: true });
-  return (
-    <ViewerContext theme={darkZooTheme}>
-      <Box height="medium" width="large">
-        <SingleImageViewer />
-      </Box>
-    </ViewerContext>
-  );
-};
-
-DarkTheme.story = {
-  name: 'dark theme',
-  parameters: darkThemeConfig,
-};
-
-export const WithZoomControls = () => {
-  return (
-    <ViewerContext theme={zooTheme}>
-      <Box direction="row" height="500px" width="large">
-        <SingleImageViewer />
-        <ImageToolbar />
-      </Box>
-    </ViewerContext>
-  );
-};
-
-WithZoomControls.story = {
-  name: 'with zoom controls',
-  parameters: config,
-};
+    </Grommet>
+  )
+}
