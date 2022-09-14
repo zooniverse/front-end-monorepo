@@ -429,10 +429,12 @@ class LightCurveViewer extends Component {
     const { onKeyDown } = props
 
     const container = this.svgContainer.current
+    const containerHeight = `${container.clientHeight}px`
+
     this.d3svg = d3.select(container)
       .append('svg')
       .attr('class', 'light-curve-viewer')
-      .attr('height', '100%')
+      .attr('height', containerHeight)
       .attr('focusable', true)
       .attr('tabindex', 0)
       .on('keydown', onKeyDown)
