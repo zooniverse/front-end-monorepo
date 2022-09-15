@@ -1,8 +1,8 @@
 import * as d3 from 'd3'
-import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import ReactResizeDetector from 'react-resize-detector'
+
+import { Chart } from '@viewers/components/SVGComponents'
 
 import addAxisLayer from './d3/addAxisLayer'
 import addRemoveAnnotationButton from './d3/addRemoveAnnotationButton'
@@ -55,10 +55,6 @@ class LightCurveViewer extends Component {
     this.xAxis = null
     this.yAxis = null
 
-    // Chart dimensions, updated on drawChart()
-    this.chartWidth = 100
-    this.chartHeight = 100
-
     // Each Annotation is represented as a single D3 Brush
     this.annotationBrushes = [] // This keeps track of the annotation-brushes in existence, including the DEFAULT brush (the interface brush, for creating new annotations) that exists even when there are no annotations.
 
@@ -81,6 +77,7 @@ class LightCurveViewer extends Component {
     this.initChart()
     this.props.setOnZoom(this.handleToolbarZoom)
     this.props.setOnPan(this.pan)
+    this.drawChart()
   }
 
   componentDidUpdate (prevProps) {
@@ -92,11 +89,7 @@ class LightCurveViewer extends Component {
 
     if (dataChanged) { // Triggers when changing between Subjects
       this.clearChart()
-
-      const container = this.svgContainer.current
-      const height = container.offsetHeight || 0
-      const width = container.offsetWidth || 0
-      this.drawChart(width, height, false)
+      this.drawChart(false)
     } else if (!sameTask) { // Triggers when changing between Workflow tasks.
       // TODO: load annotations when changing tasks.
       // If invalid task, blank out all annotaitons
@@ -128,12 +121,18 @@ class LightCurveViewer extends Component {
   data points.
   Called when new data (points) is received, and when chart is resized.
    */
-  drawChart (width, height, shouldAnimate = true) {
-    const props = this.props
+  drawChart (shouldAnimate = true) {
+    const {
+      chartStyle,
+      dataExtent,
+      dataPoints,
+      drawFeedbackBrushes,
+      innerMargin,
+      outerMargin
+    } = this.props
+    const container = this.svgContainer.current
+    const { height, width } = container?.getBoundingClientRect()
     if (height && width) {
-      this.chartWidth = width
-      this.chartHeight = height
-
       /*
       Limit zoom panning to x-direction (yMin=0, yMax=0), and don't allow panning
       beyond the start-ish (xMin=0-margin) or end-ish (xMax=width+margin) of the
@@ -146,26 +145,26 @@ class LightCurveViewer extends Component {
       margins if we can find a better way to communicate when a user is in Move
       Mode but cannot actually pan the image.
       */
-      this.zoom.translateExtent([[-props.outerMargin, 0], [width + props.outerMargin, 0]])
+      this.zoom.translateExtent([[-outerMargin, 0], [width + outerMargin, 0]])
 
       // Update x-y scales to fit current size of container
       this.xScale
-        .domain(this.props.dataExtent.x)
-        .range([0 + props.innerMargin, width - props.innerMargin])
+        .domain(dataExtent.x)
+        .range([0 + innerMargin, width - innerMargin])
       this.yScale
         .domain(this.props.dataExtent.y)
-        .range([height - props.innerMargin, 0 + props.innerMargin]) // Note that this is reversed
+        .range([height - innerMargin, 0 + innerMargin]) // Note that this is reversed
 
       this.updatePresentation(width, height)
 
       // Add the data points
       const points = this.d3dataLayer.selectAll('.data-point')
-        .data(this.props.dataPoints)
+        .data(dataPoints)
 
       // For each new and existing data point, add (append) a new SVG circle.
       points.enter()
         .append('circle') // Note: all circles are of class '.data-point'
-        .call(setDataPointStyle, props.chartStyle)
+        .call(setDataPointStyle, chartStyle)
 
       // For each SVG circle old/deleted data point, remove the corresponding SVG circle.
       points.exit().remove()
@@ -177,7 +176,7 @@ class LightCurveViewer extends Component {
       if (this.props.feedback) {
         this.updateInteractionMode('move')
         this.disableBrushEvents()
-        this.props.drawFeedbackBrushes(this.d3annotationsLayer, this.repositionBrush)
+        drawFeedbackBrushes?.(this.d3annotationsLayer, this.repositionBrush)
       } else {
         this.updateAnnotationBrushes()
         this.initBrushes()
@@ -232,7 +231,10 @@ class LightCurveViewer extends Component {
   Classification in the data store).
    */
   saveBrushesToAnnotations () {
-    const props = this.props
+    const {
+      currentTask,
+      toolIndex
+    } = this.props
     if (!this.isCurrentTaskValidForAnnotation()) return // Sanity check
 
     const annotations = this.annotationBrushes
@@ -240,11 +242,11 @@ class LightCurveViewer extends Component {
       .map((raw) => {
         const x = (raw.minX + raw.maxX) / 2
         const width = Math.abs(raw.maxX - raw.minX)
-        const toolType = props.currentTask.tools[props.toolIndex].type
-        return { x, width, tool: props.toolIndex, zoomLevelOnCreation: raw.zoomLevelOnCreation, toolType }
+        const toolType = props.currentTask.tools[toolIndex].type
+        return { x, width, tool: toolIndex, zoomLevelOnCreation: raw.zoomLevelOnCreation, toolType }
       })
 
-    props.addAnnotation(props.currentTask, annotations)
+    props.addAnnotation(currentTask, annotations)
   }
 
   /*
@@ -309,7 +311,9 @@ class LightCurveViewer extends Component {
   onAnnotationBrushBrushed () {}
 
   onAnnotationBrushEnd ({ selection }, annotationBrush) {
-    const props = this.props
+    const {
+      enableMove
+    } = this.props
     const brushSelection = selection // Returns [xMin, xMax] or null, where x is relative to the SVG (not the data)
 
     // If the user attempted to make a selection, BUT the current task isn't
@@ -325,7 +329,7 @@ class LightCurveViewer extends Component {
       // IDEA: reset the position of the brush.
 
       this.enableBrushEvents()
-      props.enableMove && props.enableMove()
+      enableMove?.()
       return
     }
 
@@ -425,23 +429,24 @@ class LightCurveViewer extends Component {
   IMPORTANT: layers are added in z-index order, lowest first.
    */
   initChart () {
-    const props = this.props
-    const { onKeyDown } = props
-
+    const {
+      axisXLabel,
+      axisYLabel,
+      chartStyle,
+      id,
+      interactionMode,
+      minZoom,
+      maxZoom,
+      outerMargin
+    } = this.props
     const container = this.svgContainer.current
     this.d3svg = d3.select(container)
-      .append('svg')
-      .attr('class', 'light-curve-viewer')
-      .attr('height', '100%')
-      .attr('focusable', true)
-      .attr('tabindex', 0)
-      .on('keydown', onKeyDown)
       .style('cursor', 'crosshair')
     this.xScale = d3.scaleLinear()
     this.yScale = d3.scaleLinear()
 
     // Deco layer
-    this.d3svg.call(addBackgroundLayer, props.chartStyle)
+    this.d3svg.call(addBackgroundLayer, chartStyle)
 
     /*
     Data layer
@@ -450,10 +455,10 @@ class LightCurveViewer extends Component {
     data points from appearing outside of the 'middle' of the chart, i.e.
     prevents <circle>s from appearing in the margins of the container.
     */
-    const uniqueId = props.id || Math.floor(Math.random() * 1000000)
+    const uniqueId = id || Math.floor(Math.random() * 1000000)
     this.d3svg.call(addDataLayer, uniqueId)
     this.d3dataLayer = this.d3svg.select('.data-layer')
-    this.d3svg.call(addDataMask, props.outerMargin, uniqueId)
+    this.d3svg.call(addDataMask, outerMargin, uniqueId)
     this.d3dataMask = this.d3svg.select('.data-mask')
 
     /*
@@ -462,7 +467,7 @@ class LightCurveViewer extends Component {
      */
     this.xAxis = d3.axisTop(this.yScale)
     this.yAxis = d3.axisRight(this.yScale)
-    addAxisLayer(this.d3svg, props.chartStyle, this.xAxis, this.yAxis, props.axisXLabel, props.axisYLabel)
+    addAxisLayer(this.d3svg, chartStyle, this.xAxis, this.yAxis, axisXLabel, axisYLabel)
     // Adds: g.axis-layer, g.x-axis, g.y-axis, text.x-axis-label, text.y-axis-label
 
     // Deco layer
@@ -470,7 +475,7 @@ class LightCurveViewer extends Component {
 
     // Zoom controller
     this.zoom = d3.zoom()
-      .scaleExtent([props.minZoom, props.maxZoom]) // Limit zoom scale
+      .scaleExtent([minZoom, maxZoom]) // Limit zoom scale
       .on('zoom', this.doZoom)
 
     // Annotations/markings layer
@@ -487,7 +492,7 @@ class LightCurveViewer extends Component {
     this.d3svg.call(addInterfaceLayer)
     this.d3interfaceLayer = this.d3svg.select('.interface-layer')
     this.d3interfaceLayer.call(this.zoom)
-    this.updateInteractionMode(props.interactionMode)
+    this.updateInteractionMode(interactionMode)
   }
 
   /*
@@ -610,15 +615,18 @@ class LightCurveViewer extends Component {
   width and height are only defined if the container size changes.
    */
   updatePresentation (width, height) {
-    const props = this.props
+    const {
+      chartStyle,
+      outerMargin
+    } = this.props
     const currentTransform = this.getCurrentTransform()
 
     this.updateScales(currentTransform)
 
     if (width && height) { // Update if container size changes.
       this.repositionAxes(width, height)
-      this.repositionAxisLabels(width, height, props.chartStyle)
-      this.resizeDataMask(width, height, props.outerMargin)
+      this.repositionAxisLabels(width, height, chartStyle)
+      this.resizeDataMask(width, height, outerMargin)
     }
   }
 
@@ -636,11 +644,16 @@ class LightCurveViewer extends Component {
   }
 
   repositionAxisLabels (width, height, chartStyle) {
-    const props = this.props
+    const {
+      axisXOffsetX,
+      axisXOffsetY,
+      axisYOffsetX,
+      axisYOffsetY
+    } = this.props
     this.d3svg.select('.x-axis-label')
-      .attr('transform', `translate(${width + props.axisXOffsetX}, ${height + props.axisXOffsetY})`)
+      .attr('transform', `translate(${width + axisXOffsetX}, ${height + axisXOffsetY})`)
     this.d3svg.select('.y-axis-label')
-      .attr('transform', `translate(${props.axisYOffsetX}, ${props.axisYOffsetY})`)
+      .attr('transform', `translate(${axisYOffsetX}, ${axisYOffsetY})`)
   }
 
   // Resize the data mask, so data-points remain in view
@@ -652,19 +665,13 @@ class LightCurveViewer extends Component {
 
   render () {
     return (
-      <Box
+      <Chart
         className='light-curve-viewer'
-        fill
+        focusable
+        onKeyDown={this.props.onKeyDown}
+        tabIndex={0}
         ref={this.svgContainer}
-      >
-        <ReactResizeDetector
-          handleWidth
-          handleHeight
-          onResize={this.drawChart}
-          refreshMode='debounce'
-          refreshRate={500}
-        />
-      </Box>
+      />
     )
   }
 }
