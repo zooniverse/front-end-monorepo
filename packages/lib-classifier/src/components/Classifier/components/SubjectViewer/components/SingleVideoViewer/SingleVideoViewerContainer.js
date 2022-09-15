@@ -38,7 +38,6 @@ function SingleVideoViewerContainer({
   const [timeStamp, setTimeStamp] = useState(0)
   const [videoHeight, setVideoHeight] = useState(0)
   const [videoWidth, setVideoWidth] = useState(0)
-  const [videoSrc, setVideoSrc] = useState('')
 
   const interactionLayerSVG = useRef()
   const playerRef = useRef()
@@ -48,11 +47,7 @@ function SingleVideoViewerContainer({
 
   /* ==================== load subject ==================== */
 
-  useEffect(() => {
-    if (subject) {
-      setVideoSrc(Object.values(subject.locations[0])[0])
-    }
-  }, [subject])
+  const videoSrc = subject ? Object.values(subject.locations[0])[0] : null
 
   const onReactPlayerReady = () => {
     try {
@@ -71,7 +66,6 @@ function SingleVideoViewerContainer({
         naturalWidth: reactPlayerVideoWidth
       }
       onReady({ target })
-      console.log('HERE')
     } catch (error) {
       onError(error)
     }

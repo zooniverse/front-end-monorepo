@@ -30,7 +30,6 @@ State Variables
 - `timeStamp`: (number) Current played timestamp of video subject.
 - `videoHeight`: (number) Height of <video> displaying the subject.
 - `videoWidth`: (number) Width of the <video> displaying the subject.
-- `videoSrc`: (string) Source string of the video subject.
 
 ## External Setup: Workflows and Subjects
 
