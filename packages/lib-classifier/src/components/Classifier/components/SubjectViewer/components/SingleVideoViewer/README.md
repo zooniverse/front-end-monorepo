@@ -22,14 +22,14 @@ Props
 - `subject`: (object) Passed from mobx store via SubjectViewer.
 
 State Variables
-- `clientWidth`: (number) Returned from `getBoundingClientRect()` on the svg element that belongs to InteractionLayer for drawing tools.
+- `clientWidth`: (number) Returned from `getBoundingClientRect()` on the <video> element in `react-player`.
 - `duration`: (number) Duration of the video subject. Seconds rounded to 3 decimal places.
 - `isPlaying`: (boolean) Whether or not the video subject is playing.
 - `isSeeking`: (boolean) Whether or not a user is interacting with the VideoController > Slider.
 - `playbackRate`: (number) 1, 0.5, or 0.25 ratio determines the speed of video playback.
 - `timeStamp`: (number) Current played timestamp of video subject.
-- `videoHeight`: (number) Height of <video> displaying the subject.
-- `videoWidth`: (number) Width of the <video> displaying the subject.
+- `videoHeight`: (number) Natural height of video subject file.
+- `videoWidth`: (number) Natural width of the video subject file.
 
 ## External Setup: Workflows and Subjects
 

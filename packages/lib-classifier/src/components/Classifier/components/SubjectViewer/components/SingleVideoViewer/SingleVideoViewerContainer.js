@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Box } from 'grommet'
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import asyncStates from '@zooniverse/async-states'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
@@ -24,7 +25,8 @@ const DrawingLayer = styled.div`
 `
 
 function SingleVideoViewerContainer({
-  enableInteractionLayer = true,
+  enableInteractionLayer = false,
+  loadingState = asyncStates.initialized,
   onError = () => true,
   onReady = () => true,
   onKeyDown = () => true,
@@ -53,15 +55,17 @@ function SingleVideoViewerContainer({
     try {
       const reactPlayerVideoHeight = playerRef.current?.getInternalPlayer().videoHeight
       const reactPlayerVideoWidth = playerRef.current?.getInternalPlayer().videoWidth
+
+      const reactPlayerClientHeight = playerRef.current?.getInternalPlayer().getBoundingClientRect().height
+      const reactPlayerClientWidth = playerRef.current?.getInternalPlayer().getBoundingClientRect().width
+
       setVideoHeight(reactPlayerVideoHeight)
       setVideoWidth(reactPlayerVideoWidth)
-
-      const { width: svgClientWidth, height: svgClientHeight } = interactionLayerSVG.current?.getBoundingClientRect()
-      setClientWidth(svgClientWidth)
+      setClientWidth(reactPlayerClientWidth)
 
       const target = {
-        clientHeight: svgClientHeight,
-        clientWidth: svgClientWidth,
+        clientHeight: reactPlayerClientHeight,
+        clientWidth: reactPlayerClientWidth,
         naturalHeight: reactPlayerVideoHeight,
         naturalWidth: reactPlayerVideoWidth
       }
@@ -70,6 +74,8 @@ function SingleVideoViewerContainer({
       onError(error)
     }
   }
+
+  const enableDrawing = loadingState === asyncStates.success && enableInteractionLayer
 
   /* ==================== SingleVideoViewer react-player ==================== */
 
@@ -137,20 +143,19 @@ function SingleVideoViewerContainer({
               playerRef={playerRef}
               url={videoSrc}
             />
-            {/* Drawing Layer */}
-            <DrawingLayer>
-              <Box overflow='hidden'>
-                <SVGContext.Provider value={{ canvas }}>
-                  <svg
-                    ref={interactionLayerSVG}
-                    focusable
-                    onKeyDown={onKeyDown}
-                    tabIndex={0}
-                    viewBox={`0 0 ${videoWidth} ${videoHeight}`}
-                    xmlns='http://www.w3.org/2000/svg'
-                  >
-                    <g ref={transformLayer} transform=''>
-                      {enableInteractionLayer && (
+            {enableDrawing && (
+              <DrawingLayer>
+                <Box overflow='hidden'>
+                  <SVGContext.Provider value={{ canvas }}>
+                    <svg
+                      ref={interactionLayerSVG}
+                      focusable
+                      onKeyDown={onKeyDown}
+                      tabIndex={0}
+                      viewBox={`0 0 ${videoWidth} ${videoHeight}`}
+                      xmlns='http://www.w3.org/2000/svg'
+                    >
+                      <g ref={transformLayer} transform=''>
                         <InteractionLayer
                           scale={interactionLayerScale}
                           duration={duration}
@@ -158,12 +163,12 @@ function SingleVideoViewerContainer({
                           played={timeStamp}
                           width={videoWidth}
                         />
-                      )}
-                    </g>
-                  </svg>
-                </SVGContext.Provider>
-              </Box>
-            </DrawingLayer>
+                      </g>
+                    </svg>
+                  </SVGContext.Provider>
+                </Box>
+              </DrawingLayer>
+            )}
           </SubjectContainer>
           )
         : (
