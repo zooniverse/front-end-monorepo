@@ -232,6 +232,7 @@ class LightCurveViewer extends Component {
    */
   saveBrushesToAnnotations () {
     const {
+      addAnnotation,
       currentTask,
       toolIndex
     } = this.props
