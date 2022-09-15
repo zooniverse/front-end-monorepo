@@ -1,8 +1,8 @@
 import * as d3 from 'd3'
-import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import ReactResizeDetector from 'react-resize-detector'
+
+import { Chart } from '@viewers/components/SVGComponents'
 
 import addAxisLayer from './d3/addAxisLayer'
 import addRemoveAnnotationButton from './d3/addRemoveAnnotationButton'
@@ -81,6 +81,7 @@ class LightCurveViewer extends Component {
     this.initChart()
     this.props.setOnZoom(this.handleToolbarZoom)
     this.props.setOnPan(this.pan)
+    this.drawChart()
   }
 
   componentDidUpdate (prevProps) {
@@ -92,11 +93,7 @@ class LightCurveViewer extends Component {
 
     if (dataChanged) { // Triggers when changing between Subjects
       this.clearChart()
-
-      const container = this.svgContainer.current
-      const height = container.offsetHeight || 0
-      const width = container.offsetWidth || 0
-      this.drawChart(width, height, false)
+      this.drawChart(false)
     } else if (!sameTask) { // Triggers when changing between Workflow tasks.
       // TODO: load annotations when changing tasks.
       // If invalid task, blank out all annotaitons
@@ -128,8 +125,16 @@ class LightCurveViewer extends Component {
   data points.
   Called when new data (points) is received, and when chart is resized.
    */
-  drawChart (width, height, shouldAnimate = true) {
-    const props = this.props
+  drawChart (shouldAnimate = true) {
+    const {
+      chartStyle,
+      dataExtent,
+      dataPoints,
+      innerMargin,
+      outerMargin
+    } = this.props
+    const container = this.svgContainer.current
+    const { height, width } = container?.getBoundingClientRect()
     if (height && width) {
       this.chartWidth = width
       this.chartHeight = height
@@ -146,26 +151,26 @@ class LightCurveViewer extends Component {
       margins if we can find a better way to communicate when a user is in Move
       Mode but cannot actually pan the image.
       */
-      this.zoom.translateExtent([[-props.outerMargin, 0], [width + props.outerMargin, 0]])
+      this.zoom.translateExtent([[-outerMargin, 0], [width + outerMargin, 0]])
 
       // Update x-y scales to fit current size of container
       this.xScale
-        .domain(this.props.dataExtent.x)
-        .range([0 + props.innerMargin, width - props.innerMargin])
+        .domain(dataExtent.x)
+        .range([0 + innerMargin, width - innerMargin])
       this.yScale
         .domain(this.props.dataExtent.y)
-        .range([height - props.innerMargin, 0 + props.innerMargin]) // Note that this is reversed
+        .range([height - innerMargin, 0 + innerMargin]) // Note that this is reversed
 
       this.updatePresentation(width, height)
 
       // Add the data points
       const points = this.d3dataLayer.selectAll('.data-point')
-        .data(this.props.dataPoints)
+        .data(dataPoints)
 
       // For each new and existing data point, add (append) a new SVG circle.
       points.enter()
         .append('circle') // Note: all circles are of class '.data-point'
-        .call(setDataPointStyle, props.chartStyle)
+        .call(setDataPointStyle, chartStyle)
 
       // For each SVG circle old/deleted data point, remove the corresponding SVG circle.
       points.exit().remove()
@@ -425,23 +430,24 @@ class LightCurveViewer extends Component {
   IMPORTANT: layers are added in z-index order, lowest first.
    */
   initChart () {
-    const props = this.props
-    const { onKeyDown } = props
-
+    const {
+      axisXLabel,
+      axisYLabel,
+      chartStyle,
+      id,
+      interactionMode,
+      minZoom,
+      maxZoom,
+      outerMargin
+    } = this.props
     const container = this.svgContainer.current
     this.d3svg = d3.select(container)
-      .append('svg')
-      .attr('class', 'light-curve-viewer')
-      .attr('height', '100%')
-      .attr('focusable', true)
-      .attr('tabindex', 0)
-      .on('keydown', onKeyDown)
       .style('cursor', 'crosshair')
     this.xScale = d3.scaleLinear()
     this.yScale = d3.scaleLinear()
 
     // Deco layer
-    this.d3svg.call(addBackgroundLayer, props.chartStyle)
+    this.d3svg.call(addBackgroundLayer, chartStyle)
 
     /*
     Data layer
@@ -450,10 +456,10 @@ class LightCurveViewer extends Component {
     data points from appearing outside of the 'middle' of the chart, i.e.
     prevents <circle>s from appearing in the margins of the container.
     */
-    const uniqueId = props.id || Math.floor(Math.random() * 1000000)
+    const uniqueId = id || Math.floor(Math.random() * 1000000)
     this.d3svg.call(addDataLayer, uniqueId)
     this.d3dataLayer = this.d3svg.select('.data-layer')
-    this.d3svg.call(addDataMask, props.outerMargin, uniqueId)
+    this.d3svg.call(addDataMask, outerMargin, uniqueId)
     this.d3dataMask = this.d3svg.select('.data-mask')
 
     /*
@@ -462,7 +468,7 @@ class LightCurveViewer extends Component {
      */
     this.xAxis = d3.axisTop(this.yScale)
     this.yAxis = d3.axisRight(this.yScale)
-    addAxisLayer(this.d3svg, props.chartStyle, this.xAxis, this.yAxis, props.axisXLabel, props.axisYLabel)
+    addAxisLayer(this.d3svg, chartStyle, this.xAxis, this.yAxis, axisXLabel, axisYLabel)
     // Adds: g.axis-layer, g.x-axis, g.y-axis, text.x-axis-label, text.y-axis-label
 
     // Deco layer
@@ -470,7 +476,7 @@ class LightCurveViewer extends Component {
 
     // Zoom controller
     this.zoom = d3.zoom()
-      .scaleExtent([props.minZoom, props.maxZoom]) // Limit zoom scale
+      .scaleExtent([minZoom, maxZoom]) // Limit zoom scale
       .on('zoom', this.doZoom)
 
     // Annotations/markings layer
@@ -487,7 +493,7 @@ class LightCurveViewer extends Component {
     this.d3svg.call(addInterfaceLayer)
     this.d3interfaceLayer = this.d3svg.select('.interface-layer')
     this.d3interfaceLayer.call(this.zoom)
-    this.updateInteractionMode(props.interactionMode)
+    this.updateInteractionMode(interactionMode)
   }
 
   /*
@@ -652,19 +658,13 @@ class LightCurveViewer extends Component {
 
   render () {
     return (
-      <Box
+      <Chart
         className='light-curve-viewer'
-        fill
+        focusable
+        onKeyDown={this.props.onKeyDown}
+        tabIndex={0}
         ref={this.svgContainer}
-      >
-        <ReactResizeDetector
-          handleWidth
-          handleHeight
-          onResize={this.drawChart}
-          refreshMode='debounce'
-          refreshRate={500}
-        />
-      </Box>
+      />
     )
   }
 }
