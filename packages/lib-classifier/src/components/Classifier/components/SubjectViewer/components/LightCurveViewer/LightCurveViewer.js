@@ -242,11 +242,11 @@ class LightCurveViewer extends Component {
       .map((raw) => {
         const x = (raw.minX + raw.maxX) / 2
         const width = Math.abs(raw.maxX - raw.minX)
-        const toolType = props.currentTask.tools[toolIndex].type
+        const toolType = this.props.currentTask.tools[toolIndex].type
         return { x, width, tool: toolIndex, zoomLevelOnCreation: raw.zoomLevelOnCreation, toolType }
       })
 
-    props.addAnnotation(currentTask, annotations)
+    this.props.addAnnotation(currentTask, annotations)
   }
 
   /*
