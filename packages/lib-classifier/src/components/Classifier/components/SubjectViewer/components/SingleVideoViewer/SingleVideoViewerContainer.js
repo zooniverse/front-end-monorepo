@@ -176,7 +176,7 @@ function SingleVideoViewerContainer({
           )}
       <VideoController
         isPlaying={isPlaying}
-        played={timeStamp}
+        timeStamp={timeStamp}
         playbackRate={playbackRate}
         duration={duration}
         onPlayPause={handlePlayPause}

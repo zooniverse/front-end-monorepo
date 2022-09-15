@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import { Box, Button, Select, ThemeContext } from 'grommet'
 import { CirclePlay, PauseFill } from 'grommet-icons'
 import { useTranslation } from 'react-i18next'
-
-import FormattedTime from './components/FormattedTime/FormattedTime'
+import formatTimeStamp from '@helpers/formatTimeStamp'
 import Slider from './components/Slider/Slider'
 
 const customSelectTheme = {
@@ -19,15 +18,15 @@ const customSelectTheme = {
 }
 
 const VideoController = ({
-  isPlaying,
-  onPlayPause,
-  onSpeedChange,
-  played,
-  playbackRate,
-  duration,
-  onSliderMouseUp,
-  onSliderMouseDown,
-  onSliderChange
+  duration = 0,
+  isPlaying = false,
+  onPlayPause = () => true,
+  onSpeedChange = () => true,
+  onSliderChange = () => true,
+  onSliderMouseDown = () => true,
+  onSliderMouseUp = () => true,
+  playbackRate = 1,
+  timeStamp = 0
 }) => {
   const { t } = useTranslation('components')
   const playPauseLabel = isPlaying
@@ -43,7 +42,7 @@ const VideoController = ({
     >
       <Box pad={{ horizontal: 'xsmall', top: 'xsmall' }}>
         <Slider
-          played={played}
+          timeStamp={timeStamp}
           onMouseUp={onSliderMouseUp}
           onMouseDown={onSliderMouseDown}
           onChange={onSliderChange}
@@ -62,9 +61,13 @@ const VideoController = ({
           </Box>
 
           <Box direction='row' alignSelf='center'>
-            <FormattedTime displayTime={played * duration} />
+            <time dateTime={`P${Math.round(timeStamp * duration)}S`}>
+              {formatTimeStamp(timeStamp * duration)}
+            </time>
             {' / '}
-            <FormattedTime displayTime={duration} />
+            <time dateTime={`P${Math.round(duration)}S`}>
+              {formatTimeStamp(duration)}
+            </time>
           </Box>
         </Box>
 
@@ -85,26 +88,15 @@ const VideoController = ({
 }
 
 VideoController.propTypes = {
-  isPlaying: PropTypes.bool,
-  played: PropTypes.number,
-  playbackRate: PropTypes.number,
   duration: PropTypes.number,
+  isPlaying: PropTypes.bool,
   onPlayPause: PropTypes.func,
   onSpeedChange: PropTypes.func,
-  onSliderMouseUp: PropTypes.func,
   onSliderMouseDown: PropTypes.func,
-  onSliderChange: PropTypes.func
-}
-VideoController.defaultProps = {
-  isPlaying: false,
-  played: 0,
-  playbackRate: 1,
-  duration: 0,
-  onPlayPause: () => {},
-  onSpeedChange: () => {},
-  onSliderMouseUp: () => {},
-  onSliderMouseDown: () => {},
-  onSliderChange: () => {}
+  onSliderMouseUp: PropTypes.func,
+  onSliderChange: PropTypes.func,
+  playbackRate: PropTypes.number,
+  timeStamp: PropTypes.number
 }
 
 export default VideoController
