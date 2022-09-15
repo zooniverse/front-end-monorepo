@@ -55,10 +55,6 @@ class LightCurveViewer extends Component {
     this.xAxis = null
     this.yAxis = null
 
-    // Chart dimensions, updated on drawChart()
-    this.chartWidth = 100
-    this.chartHeight = 100
-
     // Each Annotation is represented as a single D3 Brush
     this.annotationBrushes = [] // This keeps track of the annotation-brushes in existence, including the DEFAULT brush (the interface brush, for creating new annotations) that exists even when there are no annotations.
 
@@ -136,9 +132,6 @@ class LightCurveViewer extends Component {
     const container = this.svgContainer.current
     const { height, width } = container?.getBoundingClientRect()
     if (height && width) {
-      this.chartWidth = width
-      this.chartHeight = height
-
       /*
       Limit zoom panning to x-direction (yMin=0, yMax=0), and don't allow panning
       beyond the start-ish (xMin=0-margin) or end-ish (xMax=width+margin) of the
