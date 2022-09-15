@@ -2950,15 +2950,15 @@
     react-select "^3.2.0"
 
 "@storybook/addon-links@~6.5.0":
-  version "6.5.11"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-6.5.11.tgz#f67a8e5bea21d970403f32eebb8e6142cd50b515"
-  integrity sha512-gl5owlIyN7o54Ww0s5eJBcdln1miUIj+AEKMNgJliWLsVHZhbgChaANS0FSJ4evDjJ9aPcJT7ht3hJxFouEWkg==
+  version "6.5.12"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-6.5.12.tgz#57ec0c651ef29f9d969a2d715f85a69d5ce29e60"
+  integrity sha512-Dyt922J5nTBwM/9KtuuDIt3sX8xdTkKh+aXSoOX6OzT04Xwm5NumFOvuQ2YA00EM+3Ihn7Ayc3urvxnHTixmKg==
   dependencies:
-    "@storybook/addons" "6.5.11"
-    "@storybook/client-logger" "6.5.11"
-    "@storybook/core-events" "6.5.11"
+    "@storybook/addons" "6.5.12"
+    "@storybook/client-logger" "6.5.12"
+    "@storybook/core-events" "6.5.12"
     "@storybook/csf" "0.0.2--canary.4566f4d.1"
-    "@storybook/router" "6.5.11"
+    "@storybook/router" "6.5.12"
     "@types/qs" "^6.9.5"
     core-js "^3.8.2"
     global "^4.4.0"
@@ -2998,17 +2998,17 @@
     ts-dedent "^2.0.0"
 
 "@storybook/addon-storysource@~6.5.0":
-  version "6.5.11"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-storysource/-/addon-storysource-6.5.11.tgz#b941359372ecf70df5acb7e6b7e0ecfdd3863866"
-  integrity sha512-BzGKXNKekvHzPwVS3oQBhTq5QSFvlA2LdPchdmv+hpFRXZfDr+xs3gOvz3S4MidbHaBmRnTcgq772W1l3qwODw==
+  version "6.5.12"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-storysource/-/addon-storysource-6.5.12.tgz#5ac35909bcaf813e7ebd64b190545e0eb5d94e4c"
+  integrity sha512-FpqEbBET2buZ3tzf0I902zokf0zhbeUWmkq8wUxygn4SKhog8yVbvzTIjG7l0kh53t+y/udirzjjAt66LgR2hA==
   dependencies:
-    "@storybook/addons" "6.5.11"
-    "@storybook/api" "6.5.11"
-    "@storybook/client-logger" "6.5.11"
-    "@storybook/components" "6.5.11"
-    "@storybook/router" "6.5.11"
-    "@storybook/source-loader" "6.5.11"
-    "@storybook/theming" "6.5.11"
+    "@storybook/addons" "6.5.12"
+    "@storybook/api" "6.5.12"
+    "@storybook/client-logger" "6.5.12"
+    "@storybook/components" "6.5.12"
+    "@storybook/router" "6.5.12"
+    "@storybook/source-loader" "6.5.12"
+    "@storybook/theming" "6.5.12"
     core-js "^3.8.2"
     estraverse "^5.2.0"
     loader-utils "^2.0.0"
