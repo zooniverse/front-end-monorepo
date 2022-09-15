@@ -655,6 +655,7 @@ class LightCurveViewer extends Component {
       <Box
         className='light-curve-viewer'
         fill
+        height={{ max: '500px' }}
         ref={this.svgContainer}
       >
         <ReactResizeDetector
