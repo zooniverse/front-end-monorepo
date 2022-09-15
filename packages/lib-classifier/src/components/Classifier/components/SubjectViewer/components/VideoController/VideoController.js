@@ -1,10 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Box, Button, Select, ThemeContext } from 'grommet'
+import { Box, Button, Grommet, RangeInput, Select, ThemeContext } from 'grommet'
 import { CirclePlay, PauseFill } from 'grommet-icons'
 import { useTranslation } from 'react-i18next'
 import formatTimeStamp from '@helpers/formatTimeStamp'
-import Slider from './components/Slider/Slider'
 
 const customSelectTheme = {
   textInput: {
@@ -13,6 +12,28 @@ const customSelectTheme = {
   select: {
     icons: {
       margin: 'xxsmall'
+    }
+  }
+}
+
+const customThemeRangeInput = {
+  global: {
+    spacing: '16px'
+  },
+  rangeInput: {
+    track: {
+      color: 'accent-1',
+      height: '6px',
+      extend: () => 'border-radius: 10px',
+      lower: {
+        color: '#F0B200'
+      },
+      upper: {
+        color: 'dark-4'
+      }
+    },
+    thumb: {
+      color: '#F0B200'
     }
   }
 }
@@ -41,12 +62,21 @@ const VideoController = ({
       }}
     >
       <Box pad={{ horizontal: 'xsmall', top: 'xsmall' }}>
-        <Slider
-          timeStamp={timeStamp}
-          onMouseUp={onSliderMouseUp}
-          onMouseDown={onSliderMouseDown}
-          onChange={onSliderChange}
-        />
+        <Grommet theme={customThemeRangeInput}>
+          <Box>
+            <RangeInput
+              a11yTitle={t('SubjectViewer.VideoController.scrubber')}
+              min={0}
+              max={1}
+              step={0.0001}
+              value={timeStamp}
+              onMouseUp={onSliderMouseUp}
+              onMouseDown={onSliderMouseDown}
+              onChange={onSliderChange}
+              onInput={onSliderChange}
+            />
+          </Box>
+        </Grommet>
       </Box>
 
       <Box direction='row' justify='between'>
