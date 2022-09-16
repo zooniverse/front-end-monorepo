@@ -20,19 +20,19 @@ const Container = styled.div`
 const SingleVideoViewer = ({
   url = '',
   isPlaying = false,
-  onDuration = () => {},
-  onEnded = () => {},
-  onError = () => {},
-  onProgress = () => {},
-  onReactPlayerReady = () => {},
+  onDuration = () => true,
+  onEnded = () => true,
+  onError = () => true,
+  onProgress = () => true,
+  onReactPlayerReady = () => true,
   playbackRate = 1,
-  progressInterval = 100,
+  progressInterval = 100, // milliseconds
   playerRef = null
 }) => {
   return (
     <Container>
       <ReactPlayer
-        controls={false}
+        controls
         height='100%'
         onDuration={onDuration}
         onEnded={onEnded}

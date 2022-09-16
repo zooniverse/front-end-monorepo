@@ -1,17 +1,18 @@
 function formatTimeStamp(displayTime, duration) {
-  const currentVideoTime = duration ? displayTime * duration : displayTime
+  // timeStamp is in seconds
+  const timeStamp = duration ? displayTime * duration : displayTime
 
-  const pad = (string, digits) =>
-    ('0'.repeat(digits - 1) + string).slice(-digits)
+  let date
 
-  const date = new Date(currentVideoTime * 1000)
-  const mm = pad(date.getUTCMinutes(), 2)
-  const ss = pad(date.getUTCSeconds(), 2)
-  const ms = pad(date.getUTCMilliseconds(), 3)
-  if (mm > 0) {
-    return `${mm}:${ss}:${ms}`
+  if (timeStamp < 60) {
+    // timestamp is less than 1 minute (mm.ss)
+    date = new Date(timeStamp * 1000).toISOString().substring(14, 19)
+  } else if (timeStamp < 3600) {
+    // or timestamp is less than 1 hour (hh.mm)
+    date = new Date(timeStamp * 1000).toISOString().substring(11, 16)
   }
-  return `${ss}:${ms}`
+  const formattedTimeStamp = date.replace('.', ':')
+  return formattedTimeStamp
 }
 
 export default formatTimeStamp

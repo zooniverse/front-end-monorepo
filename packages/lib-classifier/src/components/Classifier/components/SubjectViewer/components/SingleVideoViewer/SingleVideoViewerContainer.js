@@ -10,8 +10,7 @@ import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import InteractionLayer from '../InteractionLayer'
 import locationValidator from '../../helpers/locationValidator'
 import SingleVideoViewer from './SingleVideoViewer'
-import VideoController from '../VideoController/VideoController'
-import getFixedNumber from '../../helpers/getFixedNumber'
+import VideoController from './components/VideoController'
 
 const SubjectContainer = styled.div`
   position: relative;
@@ -32,10 +31,10 @@ function SingleVideoViewerContainer({
   onKeyDown = () => true,
   subject
 }) {
+  console.log('** render **')
   const [clientWidth, setClientWidth] = useState(0)
   const [duration, setDuration] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [isSeeking, setIsSeeking] = useState(false)
   const [playbackRate, setPlaybackRate] = useState(1)
   const [timeStamp, setTimeStamp] = useState(0)
   const [videoHeight, setVideoHeight] = useState(0)
@@ -80,12 +79,12 @@ function SingleVideoViewerContainer({
   /* ==================== SingleVideoViewer react-player ==================== */
 
   const handleVideoProgress = reactPlayerState => {
+    console.log('on progress')
+    // played is the percentage of video played as determined by react-player (0 to 1)
     const { played } = reactPlayerState
-    const fixedNumber = getFixedNumber(played, 5)
-    // TO DO: Why wouldn't you set timestamp when seeking?
-    if (!isSeeking) {
-      setTimeStamp(fixedNumber)
-    }
+    // fixedNumber is played fixed to 3 decimal places (0 to 1)
+    const fixedNumber = parseFloat(played.toFixed(3))
+    // setTimeStamp(fixedNumber) // This function causes this component to lag, is there something to memoize?
   }
 
   const handleVideoDuration = duration => {
@@ -105,19 +104,11 @@ function SingleVideoViewerContainer({
     setPlaybackRate(rate)
   }
 
-  const handleSliderMouseUp = () => {
-    setIsSeeking(false)
-  }
-
-  const handleSliderMouseDown = () => {
-    setIsPlaying(false)
-    setIsSeeking(true)
-  }
-
   /* When VideoController > Slider is clicked or scrubbed */
   const handleSliderChange = e => {
-    const played = getFixedNumber(e.target.value, 5)
-    playerRef?.current.seekTo(played)
+    console.log('slider change')
+    const newTimeStamp = e.target.value // This is in seconds, not percentage
+    playerRef?.current.seekTo(newTimeStamp, 'seconds')
   }
 
   const handlePlayerError = (error) => {
@@ -175,15 +166,13 @@ function SingleVideoViewerContainer({
           <Box>{t('SubjectViewer.SingleVideoViewerContainer.error')}</Box>
           )}
       <VideoController
-        isPlaying={isPlaying}
-        timeStamp={timeStamp}
-        playbackRate={playbackRate}
         duration={duration}
+        isPlaying={isPlaying}
         onPlayPause={handlePlayPause}
-        onSpeedChange={handleSpeedChange}
-        onSliderMouseUp={handleSliderMouseUp}
-        onSliderMouseDown={handleSliderMouseDown}
         onSliderChange={handleSliderChange}
+        onSpeedChange={handleSpeedChange}
+        playbackRate={playbackRate}
+        timeStamp={timeStamp}
       />
     </>
   )

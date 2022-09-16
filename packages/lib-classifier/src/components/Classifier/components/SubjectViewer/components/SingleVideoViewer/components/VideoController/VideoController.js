@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { Box, Button, Grommet, RangeInput, Select, ThemeContext } from 'grommet'
 import { CirclePlay, PauseFill } from 'grommet-icons'
@@ -44,15 +44,17 @@ const VideoController = ({
   onPlayPause = () => true,
   onSpeedChange = () => true,
   onSliderChange = () => true,
-  onSliderMouseDown = () => true,
-  onSliderMouseUp = () => true,
   playbackRate = 1,
-  timeStamp = 0
+  timeStamp = 0 // A percentage between 0 and 1
 }) => {
   const { t } = useTranslation('components')
-  const playPauseLabel = isPlaying
-    ? 'SubjectViewer.VideoController.pause'
-    : 'SubjectViewer.VideoController.play'
+  const playPauseLabel = isPlaying ? 'SubjectViewer.VideoController.pause' : 'SubjectViewer.VideoController.play'
+
+  const sliderValue = timeStamp * duration
+
+  const displayedDuration = useMemo(() => {
+    return formatTimeStamp(duration)
+  }, [duration])
 
   return (
     <Box
@@ -61,24 +63,22 @@ const VideoController = ({
         light: 'light-3'
       }}
     >
+
+      {/* Slider */}
       <Box pad={{ horizontal: 'xsmall', top: 'xsmall' }}>
         <Grommet theme={customThemeRangeInput}>
-          <Box>
-            <RangeInput
-              a11yTitle={t('SubjectViewer.VideoController.scrubber')}
-              min={0}
-              max={1}
-              step={0.0001}
-              value={timeStamp}
-              onMouseUp={onSliderMouseUp}
-              onMouseDown={onSliderMouseDown}
-              onChange={onSliderChange}
-              onInput={onSliderChange}
-            />
-          </Box>
+          <RangeInput
+            a11yTitle={t('SubjectViewer.VideoController.scrubber')}
+            min={0}
+            max={duration}
+            step={0.1}
+            value={sliderValue}
+            onChange={onSliderChange}
+          />
         </Grommet>
       </Box>
 
+      {/* Play/Pause */}
       <Box direction='row' justify='between'>
         <Box direction='row'>
           <Box alignSelf='center' pad={{ horizontal: 'small' }}>
@@ -90,17 +90,19 @@ const VideoController = ({
             />
           </Box>
 
+          {/* Time */}
           <Box direction='row' alignSelf='center'>
-            <time dateTime={`P${Math.round(timeStamp * duration)}S`}>
+            <time dateTime={`P${Math.round(sliderValue)}S`}>
               {formatTimeStamp(timeStamp * duration)}
             </time>
             {' / '}
             <time dateTime={`P${Math.round(duration)}S`}>
-              {formatTimeStamp(duration)}
+              {displayedDuration}
             </time>
           </Box>
         </Box>
 
+        {/* Rate */}
         <Box direction='row' alignSelf='center' pad={{ right: 'small' }}>
           <ThemeContext.Extend value={customSelectTheme}>
             <Select
@@ -122,8 +124,6 @@ VideoController.propTypes = {
   isPlaying: PropTypes.bool,
   onPlayPause: PropTypes.func,
   onSpeedChange: PropTypes.func,
-  onSliderMouseDown: PropTypes.func,
-  onSliderMouseUp: PropTypes.func,
   onSliderChange: PropTypes.func,
   playbackRate: PropTypes.number,
   timeStamp: PropTypes.number
