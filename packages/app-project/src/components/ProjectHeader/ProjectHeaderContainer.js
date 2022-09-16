@@ -33,16 +33,14 @@ function storeMapper(store) {
   }
 }
 
-function useStores(mockStore) {
+function useStores() {
   const stores = useContext(MobXProviderContext)
-  const store = mockStore || stores.store
-  return storeMapper(store)
+  return storeMapper(stores.store)
 }
 
 function ProjectHeaderContainer({
   adminMode = false,
-  className = '',
-  mockStore
+  className = ''
 }) {
   const {
     availableLocales,
@@ -52,7 +50,7 @@ function ProjectHeaderContainer({
     isLoggedIn,
     projectName,
     slug
-  } = useStores(mockStore)
+  } = useStores()
   const { t } = useTranslation('components')
 
   function getNavLinks (isLoggedIn, baseUrl, defaultWorkflow) {
@@ -107,6 +105,9 @@ function ProjectHeaderContainer({
 }
 
 ProjectHeaderContainer.propTypes = {
+  /** Zooniverse admin mode */
+  adminMode: boolean,
+  /** Optional CSS classes */
   className: string
 }
 

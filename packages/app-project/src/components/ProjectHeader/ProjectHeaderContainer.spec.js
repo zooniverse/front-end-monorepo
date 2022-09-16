@@ -1,104 +1,161 @@
-import { shallow } from 'enzyme'
-import { ProjectHeaderContainer } from './ProjectHeaderContainer'
-import ProjectHeader from './ProjectHeader'
+import zooTheme from '@zooniverse/grommet-theme'
+import { within } from '@testing-library/dom'
+import { render, screen } from '@testing-library/react'
+import { Grommet } from 'grommet'
+import { Provider } from 'mobx-react'
+import { applySnapshot } from 'mobx-state-tree'
+
+import initStore from '@stores'
+import { ProjectHeaderContainer } from './ProjectHeaderContainer.js'
 
 describe('Component > ProjectHeaderContainer', function () {
-  let wrapper
   let projectHeader
 
+  function withStore(snapshot) {
+    const store = initStore(false)
+    applySnapshot(store, snapshot)
+
+    return function Wrapper({ children }) {
+      return (
+        <Grommet theme={zooTheme}>
+          <Provider store={store}>
+            {children}
+          </Provider>
+        </Grommet>
+      )
+    }
+  }
+
   const PROJECT_DISPLAY_NAME = 'Foobar'
+
   before(function () {
-    const mockStore = {
+    const snapshot = {
       project: {
         configuration: {
           languages: ['en']
         },
-        display_name: PROJECT_DISPLAY_NAME,
-        slug: 'Foo/Bar'
-      },
-      user: {
-        isLoggedIn: false
+        slug: 'Foo/Bar',
+        strings: {
+          display_name: PROJECT_DISPLAY_NAME
+        },
+        links: {
+          active_workflows: ['1']
+        }
       }
     }
-    wrapper = shallow(
-      <ProjectHeaderContainer mockStore={mockStore} />
-    )
-    projectHeader = wrapper.find(ProjectHeader)
-  })
-
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
+    render(<ProjectHeaderContainer />, { wrapper: withStore(snapshot)})
+    projectHeader = screen.getByRole('banner')
   })
 
   it('should render the `ProjectHeader` component', function () {
-    expect(projectHeader).to.have.lengthOf(1)
+    expect(projectHeader).to.be.ok()
   })
 
-  it('should pass down the project title', function () {
-    expect(projectHeader.prop('title')).to.equal(PROJECT_DISPLAY_NAME)
+  it('should display the project title', function () {
+    const title = within(projectHeader).getByRole('heading', { level: 1, name: PROJECT_DISPLAY_NAME })
+    expect(title).to.be.ok()
   })
 
   describe('when not logged in', function () {
     it('should pass down the default nav links', function () {
-      const navLinks = projectHeader.prop('navLinks')
+      const navMenu = within(projectHeader).getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+      const navLinks = within(navMenu).getAllByRole('link')
       expect(navLinks.length).to.be.above(0)
-      expect(navLinks[0].href).to.equal('/Foo/Bar/about/research')
+      expect(navLinks[0].href).to.equal('https://localhost/Foo/Bar/about/research')
       expect(navLinks[navLinks.length - 1].href).to.equal(
-        '/Foo/Bar/collections'
+        'https://localhost/Foo/Bar/collections'
       )
     })
   })
 
   describe('when logged in', function () {
     it('should pass nav links including recents', function () {
-      const mockStore = {
+      const snapshot = {
         project: {
           configuration: {
             languages: ['en']
           },
-          display_name: PROJECT_DISPLAY_NAME,
-          slug: 'Foo/Bar'
+          slug: 'Foo/Bar',
+          strings: {
+            display_name: PROJECT_DISPLAY_NAME
+          },
+          links: {
+            active_workflows: ['1']
+          }
         },
         user: {
-          isLoggedIn: true
+          id: '1',
+          login: 'zooVolunteer'
         }
       }
-      wrapper = shallow(
-        <ProjectHeaderContainer mockStore={mockStore} />
-      )
-      const projectHeader = wrapper.find(ProjectHeader)
+      render(<ProjectHeaderContainer />, { wrapper: withStore(snapshot)})
+      const projectHeader = screen.getByRole('banner')
+      const navMenu = within(projectHeader).getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+      const navLinks = within(navMenu).getAllByRole('link')
 
-      const navLinks = projectHeader.prop('navLinks')
       expect(navLinks.length).to.be.above(0)
-      expect(navLinks[navLinks.length - 1].href).to.equal('/Foo/Bar/recents')
+      expect(navLinks[navLinks.length - 1].href).to.equal('https://localhost/Foo/Bar/recents')
+    })
+  })
+
+  describe('in admin mode', function () {
+    it('should show the admin page link', function () {
+      const snapshot = {
+        project: {
+          configuration: {
+            languages: ['en']
+          },
+          slug: 'Foo/Bar',
+          strings: {
+            display_name: PROJECT_DISPLAY_NAME
+          },
+          links: {
+            active_workflows: ['1']
+          }
+        },
+        user: {
+          id: '1',
+          admin: true,
+          login: 'zooVolunteer'
+        }
+      }
+      render(<ProjectHeaderContainer adminMode />, { wrapper: withStore(snapshot)})
+      const projectHeader = screen.getByRole('banner')
+      const navMenu = within(projectHeader).getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+      const navLinks = within(navMenu).getAllByRole('link')
+
+      expect(navLinks.length).to.be.above(0)
+      expect(navLinks[navLinks.length - 1].href).to.equal('https://localhost/admin/project_status/Foo/Bar')
     })
   })
 
   describe('with a default workflow', function () {
     it('should pass a workflow-specific classify link', function () {
-      const mockStore = {
+      const snapshot = {
         project: {
           configuration: {
             languages: ['en']
           },
-          defaultWorkflow: '1234',
-          display_name: PROJECT_DISPLAY_NAME,
-          slug: 'Foo/Bar'
+          slug: 'Foo/Bar',
+          strings: {
+            display_name: PROJECT_DISPLAY_NAME
+          },
+          links: {
+            active_workflows: ['1234']
+          }
         },
         user: {
-          isLoggedIn: true
+          id: '1',
+          login: 'zooVolunteer'
         }
       }
-      wrapper = shallow(
-        <ProjectHeaderContainer
-          mockStore={mockStore}
-        />
-      )
-      const projectHeader = wrapper.find(ProjectHeader)
+      render(<ProjectHeaderContainer />, { wrapper: withStore(snapshot)})
+      const projectHeader = screen.getByRole('banner')
+      const navMenu = within(projectHeader).getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+      const navLinks = within(navMenu).getAllByRole('link')
 
-      const navLinks = projectHeader.prop('navLinks')
       expect(navLinks.length).to.be.above(0)
-      expect(navLinks[1].href).to.equal('/Foo/Bar/classify/workflow/1234')
+      expect(navLinks[1].href).to.equal('https://localhost/Foo/Bar/classify/workflow/1234')
     })
   })
 })

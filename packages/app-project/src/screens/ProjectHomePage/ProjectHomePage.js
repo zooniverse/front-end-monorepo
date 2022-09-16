@@ -37,7 +37,7 @@ function ProjectHomePage ({
   const locale = router?.locale
 
   return (
-    <Box border={(inBeta) ? { color: 'brand', size: 'medium' } : false}>
+    <Box data-testid='project-home-page' border={(inBeta) ? { color: 'brand', size: 'medium' } : false}>
       <Media at='default'>
         <ZooHeaderWrapper />
         <ProjectHeader adminMode={adminMode} />
