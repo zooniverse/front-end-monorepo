@@ -10,6 +10,7 @@ import numberString from '@stores/types/numberString'
 
 const User = types
   .model('User', {
+    admin: types.optional(types.boolean, false),
     avatar_src: types.maybeNull(types.string),
     collections: types.optional(Collections, {}),
     display_name: types.maybeNull(types.string),
@@ -24,6 +25,10 @@ const User = types
   .views(self => ({
     get displayName () {
       return self.display_name
+    },
+
+    get isAdmin() {
+      return self.admin
     },
 
     get isLoggedIn () {
@@ -48,10 +53,11 @@ const User = types
     },
 
     set(user) {
-      self.id = user.id
-      self.display_name = user.display_name
-      self.login = user.login
-      self.loadingState = asyncStates.success
+      const userSnapshot = {
+        ...user,
+        loadingState: asyncStates.success
+      }
+      applySnapshot(self, userSnapshot)
       self.recents.fetch()
       self.collections.searchCollections({
         favorite: false,

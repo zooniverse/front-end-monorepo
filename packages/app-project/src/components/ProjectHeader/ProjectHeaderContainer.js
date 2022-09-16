@@ -17,6 +17,7 @@ function storeMapper(store) {
       slug
     },
     user: {
+      isAdmin,
       isLoggedIn
     }
   } = store
@@ -25,6 +26,7 @@ function storeMapper(store) {
     availableLocales,
     defaultWorkflow,
     inBeta,
+    isAdmin,
     isLoggedIn,
     projectName,
     slug
@@ -38,6 +40,7 @@ function useStores(mockStore) {
 }
 
 function ProjectHeaderContainer({
+  adminMode = false,
   className = '',
   mockStore
 }) {
@@ -45,6 +48,7 @@ function ProjectHeaderContainer({
     availableLocales,
     defaultWorkflow,
     inBeta,
+    isAdmin,
     isLoggedIn,
     projectName,
     slug
@@ -76,6 +80,13 @@ function ProjectHeaderContainer({
       links.push({
         href: `${baseUrl}/recents`,
         text: t('ProjectHeader.recents')
+      })
+    }
+
+    if (isLoggedIn && isAdmin && adminMode) {
+      links.push({
+        href: `/admin/project_status/${slug}`,
+        text: t('ProjectHeader.admin')
       })
     }
 
