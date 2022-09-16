@@ -31,7 +31,7 @@ const SingleVideoViewer = ({
   return (
     <Container>
       <ReactPlayer
-        controls
+        controls={false}
         height='100%'
         onDuration={onDuration}
         onEnded={onEnded}
