@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Box } from 'grommet'
-import React, { useState, useRef } from 'react'
+import React, { useMemo, useState, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import asyncStates from '@zooniverse/async-states'
 
@@ -31,7 +31,6 @@ function SingleVideoViewerContainer({
   onKeyDown = () => true,
   subject
 }) {
-  console.log('** render **')
   const [clientWidth, setClientWidth] = useState(0)
   const [duration, setDuration] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -79,12 +78,10 @@ function SingleVideoViewerContainer({
   /* ==================== SingleVideoViewer react-player ==================== */
 
   const handleVideoProgress = reactPlayerState => {
-    console.log('on progress')
     // played is the percentage of video played as determined by react-player (0 to 1)
     const { played } = reactPlayerState
-    // fixedNumber is played fixed to 3 decimal places (0 to 1)
     const fixedNumber = parseFloat(played.toFixed(3))
-    // setTimeStamp(fixedNumber) // This function causes this component to lag, is there something to memoize?
+    setTimeStamp(fixedNumber)
   }
 
   const handleVideoDuration = duration => {
@@ -118,22 +115,27 @@ function SingleVideoViewerContainer({
   const canvas = transformLayer?.current
   const interactionLayerScale = clientWidth / videoWidth
 
+  /* Memoized so onProgress() and setTimeStamp() don't trigger each other */
+  const memoizedViewer = useMemo(() => (
+    <SingleVideoViewer
+      isPlaying={isPlaying}
+      onDuration={handleVideoDuration}
+      onEnded={handleVideoEnded}
+      onError={handlePlayerError}
+      onReactPlayerReady={onReactPlayerReady}
+      onProgress={handleVideoProgress}
+      playbackRate={playbackRate}
+      playerRef={playerRef}
+      url={videoSrc}
+    />
+  ), [isPlaying, playbackRate, videoSrc])
+
   return (
     <>
       {videoSrc
         ? (
           <SubjectContainer>
-            <SingleVideoViewer
-              isPlaying={isPlaying}
-              onDuration={handleVideoDuration}
-              onEnded={handleVideoEnded}
-              onError={handlePlayerError}
-              onReactPlayerReady={onReactPlayerReady}
-              onProgress={handleVideoProgress}
-              playbackRate={playbackRate}
-              playerRef={playerRef}
-              url={videoSrc}
-            />
+            {memoizedViewer}
             {enableDrawing && (
               <DrawingLayer>
                 <Box overflow='hidden'>

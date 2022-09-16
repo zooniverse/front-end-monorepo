@@ -26,7 +26,6 @@ const SingleVideoViewer = ({
   onProgress = () => true,
   onReactPlayerReady = () => true,
   playbackRate = 1,
-  progressInterval = 100, // milliseconds
   playerRef = null
 }) => {
   return (
@@ -41,7 +40,7 @@ const SingleVideoViewer = ({
         onProgress={onProgress}
         playing={isPlaying}
         playbackRate={playbackRate}
-        progressInterval={progressInterval}
+        progressInterval={100} // milliseconds
         ref={playerRef}
         width='100%'
         url={url}
@@ -55,7 +54,6 @@ SingleVideoViewer.propTypes = {
   url: PropTypes.string,
   isPlaying: PropTypes.bool,
   playbackRate: PropTypes.number,
-  progressInterval: PropTypes.number,
   onProgress: PropTypes.func,
   onDuration: PropTypes.func,
   onEnded: PropTypes.func
