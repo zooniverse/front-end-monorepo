@@ -35,7 +35,7 @@ function SingleVideoViewerContainer({
   const [clientWidth, setClientWidth] = useState(0)
   const [duration, setDuration] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [playbackRate, setPlaybackRate] = useState(1)
+  const [playbackRate, setPlaybackRate] = useState('1x')
   const [timeStamp, setTimeStamp] = useState(0)
   const [videoHeight, setVideoHeight] = useState(0)
   const [videoWidth, setVideoWidth] = useState(0)

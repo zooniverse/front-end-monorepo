@@ -44,7 +44,7 @@ const VideoController = ({
   onPlayPause = () => true,
   onSpeedChange = () => true,
   onSliderChange = () => true,
-  playbackRate = 1,
+  playbackRate = '1x',
   timeStamp = 0 // A percentage between 0 and 1
 }) => {
   const { t } = useTranslation('components')
@@ -107,7 +107,7 @@ const VideoController = ({
           <ThemeContext.Extend value={customSelectTheme}>
             <Select
               a11yTitle={t('SubjectViewer.VideoController.playbackSpeed')}
-              options={[0.25, 0.5, 1]}
+              options={['0.25x', '0.5x', '1x']}
               value={playbackRate}
               onChange={({ option }) => onSpeedChange(option)}
               plain

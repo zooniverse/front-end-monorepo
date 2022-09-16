@@ -25,9 +25,11 @@ const SingleVideoViewer = ({
   onError = () => true,
   onProgress = () => true,
   onReactPlayerReady = () => true,
-  playbackRate = 1,
+  playbackRate = '1x',
   playerRef = null
 }) => {
+  const sanitizedRate = Number(playbackRate.slice(0, -1))
+
   return (
     <Container>
       <ReactPlayer
@@ -39,7 +41,7 @@ const SingleVideoViewer = ({
         onReady={onReactPlayerReady}
         onProgress={onProgress}
         playing={isPlaying}
-        playbackRate={playbackRate}
+        playbackRate={sanitizedRate}
         progressInterval={100} // milliseconds
         ref={playerRef}
         width='100%'
