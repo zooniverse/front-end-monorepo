@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { observer, MobXProviderContext } from 'mobx-react'
-import { string } from 'prop-types'
+import { bool, string } from 'prop-types'
 import { useTranslation } from 'next-i18next'
 
 import ProjectHeader from './ProjectHeader'
@@ -106,7 +106,7 @@ function ProjectHeaderContainer({
 
 ProjectHeaderContainer.propTypes = {
   /** Zooniverse admin mode */
-  adminMode: boolean,
+  adminMode: bool,
   /** Optional CSS classes */
   className: string
 }
