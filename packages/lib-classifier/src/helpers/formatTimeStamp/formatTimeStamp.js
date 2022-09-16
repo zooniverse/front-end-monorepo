@@ -2,6 +2,10 @@ function formatTimeStamp(displayTime, duration) {
   // timeStamp is in seconds
   const timeStamp = duration ? displayTime * duration : displayTime
 
+  if (typeof timeStamp !== 'number' || isNaN(timeStamp)) {
+    return 'NaN'
+  }
+
   if (timeStamp < 1) {
     return '0:00'
   }

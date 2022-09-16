@@ -7,6 +7,7 @@ import asyncStates from '@zooniverse/async-states'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
+import getFixedNumber from '../../helpers/getFixedNumber'
 import InteractionLayer from '../InteractionLayer'
 import locationValidator from '../../helpers/locationValidator'
 import SingleVideoViewer from './SingleVideoViewer'
@@ -80,7 +81,7 @@ function SingleVideoViewerContainer({
   const handleVideoProgress = reactPlayerState => {
     // played is the percentage of video played as determined by react-player (0 to 1)
     const { played } = reactPlayerState
-    const fixedNumber = parseFloat(played.toFixed(3))
+    const fixedNumber = getFixedNumber(played)
     setTimeStamp(fixedNumber)
   }
 

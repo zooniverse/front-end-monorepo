@@ -1,6 +1,16 @@
 import getFixedNumber from './'
 
-describe.only('Helper > getFixedNumber', function () {
+describe('Helper > getFixedNumber', function () {
+  it('if number === 0, it should return 0', function () {
+    const test = getFixedNumber(0, 3)
+    expect(test).to.equal(0)
+  })
+
+  it('if number is negative, it should return a negative number', function () {
+    const test = getFixedNumber(-123.123456789, 2)
+    expect(test).to.equal(-123.12)
+  })
+
   it('should round the input `number` to the `digits` decimal places', function () {
     const test1 = getFixedNumber(0.12345678, 3)
     expect(test1).to.equal(0.123)
