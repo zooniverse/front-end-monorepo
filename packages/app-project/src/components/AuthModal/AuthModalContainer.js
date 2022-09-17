@@ -57,8 +57,7 @@ class AuthModalContainer extends Component {
 
   redirect(urlObject) {
     const { push } = this.props.router
-    const urlString = urlObject.toString()
-    push(urlString, urlString, { shallow: true })
+    push(urlObject, urlObject, { shallow: true })
   }
 
   addUrlQuery(urlObject, paramToAdd) {
