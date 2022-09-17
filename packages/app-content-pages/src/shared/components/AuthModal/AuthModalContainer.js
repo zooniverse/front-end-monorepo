@@ -2,18 +2,17 @@ import { inject, observer } from 'mobx-react'
 import { withRouter } from 'next/router'
 import { func, shape, string } from 'prop-types'
 import { Component } from 'react'
-import Url from 'url-parse'
 
 import AuthModal from './AuthModal'
 
 class AuthModalContainer extends Component {
-  constructor () {
+  constructor() {
     super()
     this.closeModal = this.closeModal.bind(this)
     this.onActive = this.onActive.bind(this)
   }
 
-  onActive (activeIndex) {
+  onActive(activeIndex) {
     const url = this.getUrlObject()
 
     if (activeIndex === 0) {
@@ -27,53 +26,50 @@ class AuthModalContainer extends Component {
     this.redirect(url)
   }
 
-  closeModal () {
+  closeModal() {
     const url = this.getUrlObject()
     this.removeUrlQuery(url, 'login')
     this.removeUrlQuery(url, 'register')
     return this.redirect(url)
   }
 
-  getActiveIndexFromUrl () {
-    const { query } = this.getUrlObject()
-    const params = {
-      login: query.login === 'true',
-      register: query.register === 'true'
-    }
+  getActiveIndexFromUrl() {
+    const url = this.getUrlObject()
 
     let activeIndex = -1
 
-    if (params.login) {
+    if (url.searchParams?.has('login')) {
       activeIndex = 0
-    } else if (params.register) {
+    } else if (url.searchParams?.has('register')) {
       activeIndex = 1
     }
 
     return activeIndex
   }
 
-  getUrlObject () {
-    const { asPath } = this.props.router
-    return new Url(asPath, true)
+  getUrlObject() {
+    const isBrowser = typeof window !== 'undefined'
+    if (isBrowser) {
+      return new URL(window.location)
+    }
+    return ''
   }
 
-  redirect (urlObject) {
-    const { pathname, push } = this.props.router
-    const urlString = urlObject.toString().substr(urlObject.origin.length)
-    push(pathname, urlString, { shallow: true })
+  redirect(urlObject) {
+    const { push } = this.props.router
+    const urlString = urlObject.toString()
+    push(urlString, urlString, { shallow: true })
   }
 
-  addUrlQuery (urlObject, paramToAdd) {
-    urlObject.set('query', { [paramToAdd]: true, ...urlObject.query })
+  addUrlQuery(urlObject, paramToAdd) {
+    urlObject.searchParams.set(paramToAdd, true)
   }
 
-  removeUrlQuery (urlObject, paramToRemove) {
-    const query = { ...urlObject.query }
-    delete query[paramToRemove]
-    urlObject.set('query', query)
+  removeUrlQuery(urlObject, paramToRemove) {
+    urlObject.searchParams.delete(paramToRemove)
   }
 
-  render () {
+  render() {
     const activeIndex = this.getActiveIndexFromUrl()
     return (
       <AuthModal
