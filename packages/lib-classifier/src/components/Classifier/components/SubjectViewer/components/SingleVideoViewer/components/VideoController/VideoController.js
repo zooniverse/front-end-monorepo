@@ -1,42 +1,12 @@
 import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { Box, Button, Grommet, RangeInput, Select, ThemeContext } from 'grommet'
-import { CirclePlay, PauseFill } from 'grommet-icons'
+import { Box, Button, RangeInput, Select, Text, ThemeContext } from 'grommet'
+import { CirclePlay, Volume, PauseFill } from 'grommet-icons'
 import { useTranslation } from 'react-i18next'
+import { withThemeContext } from '@zooniverse/react-components'
+
+import controlsTheme from './theme'
 import formatTimeStamp from '@helpers/formatTimeStamp'
-
-const customSelectTheme = {
-  textInput: {
-    extend: 'text-align: center; padding: 0; width: 40px;'
-  },
-  select: {
-    icons: {
-      margin: 'xxsmall'
-    }
-  }
-}
-
-const customThemeRangeInput = {
-  global: {
-    spacing: '16px'
-  },
-  rangeInput: {
-    track: {
-      color: 'accent-1',
-      height: '6px',
-      extend: () => 'border-radius: 10px',
-      lower: {
-        color: '#F0B200'
-      },
-      upper: {
-        color: 'dark-4'
-      }
-    },
-    thumb: {
-      color: '#F0B200'
-    }
-  }
-}
 
 const VideoController = ({
   duration = 0,
@@ -48,7 +18,9 @@ const VideoController = ({
   timeStamp = 0 // A percentage between 0 and 1
 }) => {
   const { t } = useTranslation('components')
-  const playPauseLabel = isPlaying ? 'SubjectViewer.VideoController.pause' : 'SubjectViewer.VideoController.play'
+  const playPauseLabel = isPlaying
+    ? 'SubjectViewer.VideoController.pause'
+    : 'SubjectViewer.VideoController.play'
 
   const sliderValue = timeStamp * duration
 
@@ -57,41 +29,32 @@ const VideoController = ({
   }, [duration])
 
   return (
-    <Box
-      background={{
-        dark: 'dark-3',
-        light: 'light-3'
-      }}
-    >
+    <ThemeContext.Extend value={controlsTheme}>
+      <Box
+        background='neutral-7'
+        direction='row'
+        gap='small'
+        pad='xsmall'
+        style={{ border: 'solid 1px red' }}
+      >
+        {/* Play/Pause */}
+        <Button
+          a11yTitle={t(playPauseLabel)}
+          onClick={onPlayPause}
+          icon={
+            isPlaying ? (
+              <PauseFill color='white' size='small' />
+            ) : (
+              <CirclePlay color='white' size='medium' />
+            )
+          }
+          plain
+          margin={isPlaying ? '6px' : '0'}
+        />
 
-      {/* Slider */}
-      <Box pad={{ horizontal: 'xsmall', top: 'xsmall' }}>
-        <Grommet theme={customThemeRangeInput}>
-          <RangeInput
-            a11yTitle={t('SubjectViewer.VideoController.scrubber')}
-            min={0}
-            max={duration}
-            step={0.1}
-            value={sliderValue}
-            onChange={onSliderChange}
-          />
-        </Grommet>
-      </Box>
-
-      {/* Play/Pause */}
-      <Box direction='row' justify='between'>
-        <Box direction='row'>
-          <Box alignSelf='center' pad={{ horizontal: 'small' }}>
-            <Button
-              a11yTitle={t(playPauseLabel)}
-              onClick={onPlayPause}
-              icon={isPlaying ? <PauseFill /> : <CirclePlay />}
-              plain
-            />
-          </Box>
-
-          {/* Time */}
-          <Box direction='row' alignSelf='center'>
+        {/* Time */}
+        <Box direction='row' align='center'>
+          <Text size='small'>
             <time dateTime={`P${Math.round(sliderValue)}S`}>
               {formatTimeStamp(sliderValue)}
             </time>
@@ -99,23 +62,46 @@ const VideoController = ({
             <time dateTime={`P${Math.round(duration)}S`}>
               {displayedDuration}
             </time>
-          </Box>
+          </Text>
+        </Box>
+
+        {/* Slider */}
+        <Box
+          basis='1/2'
+          direction='row'
+          align='center'
+          pad={{ right: 'xsmall' }}
+        >
+          <RangeInput
+            a11yTitle={t('SubjectViewer.VideoController.scrubber')}
+            min={0}
+            max={duration}
+            step={0.1}
+            value={sliderValue}
+            onChange={onSliderChange}
+            style={{
+              display: 'block',
+              width: '100%'
+            }}
+          />
         </Box>
 
         {/* Rate */}
-        <Box direction='row' alignSelf='center' pad={{ right: 'small' }}>
-          <ThemeContext.Extend value={customSelectTheme}>
-            <Select
-              a11yTitle={t('SubjectViewer.VideoController.playbackSpeed')}
-              options={['0.25x', '0.5x', '1x']}
-              value={playbackRate}
-              onChange={({ option }) => onSpeedChange(option)}
-              plain
-            />
-          </ThemeContext.Extend>
-        </Box>
+        <Select
+          a11yTitle={t('SubjectViewer.VideoController.playbackSpeed')}
+          options={['0.25x', '0.5x', '1x']}
+          value={playbackRate}
+          onChange={({ option }) => onSpeedChange(option)}
+          plain
+          size='small'
+          style={{
+            color: 'white',
+            display: 'block',
+            width: '36px'
+          }}
+        />
       </Box>
-    </Box>
+    </ThemeContext.Extend>
   )
 }
 
@@ -129,4 +115,5 @@ VideoController.propTypes = {
   timeStamp: PropTypes.number
 }
 
-export default VideoController
+export default withThemeContext(VideoController)
+export { VideoController }

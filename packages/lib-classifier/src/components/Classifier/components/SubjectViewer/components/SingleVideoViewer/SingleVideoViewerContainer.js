@@ -4,13 +4,13 @@ import { Box } from 'grommet'
 import React, { useMemo, useState, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import asyncStates from '@zooniverse/async-states'
+import ReactPlayer from 'react-player'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 import getFixedNumber from '../../helpers/getFixedNumber'
 import InteractionLayer from '../InteractionLayer'
 import locationValidator from '../../helpers/locationValidator'
-import SingleVideoViewer from './SingleVideoViewer'
 import VideoController from './components/VideoController'
 
 const SubjectContainer = styled.div`
@@ -76,11 +76,10 @@ function SingleVideoViewerContainer({
 
   const enableDrawing = loadingState === asyncStates.success && enableInteractionLayer
 
-  /* ==================== SingleVideoViewer react-player ==================== */
+  /* ==================== react-player ==================== */
 
   const handleVideoProgress = reactPlayerState => {
-    // played is the percentage of video played as determined by react-player (0 to 1)
-    const { played } = reactPlayerState
+    const { played } = reactPlayerState // percentage of video played (0 to 1)
     const fixedNumber = getFixedNumber(played, 3)
     setTimeStamp(fixedNumber)
   }
@@ -102,7 +101,6 @@ function SingleVideoViewerContainer({
     setPlaybackRate(rate)
   }
 
-  /* When VideoController > Slider is clicked or scrubbed */
   const handleSliderChange = e => {
     const newTimeStamp = e.target.value
     playerRef?.current.seekTo(newTimeStamp, 'seconds')
@@ -112,23 +110,40 @@ function SingleVideoViewerContainer({
     onError(error)
   }
 
-  const canvas = transformLayer?.current
-  const interactionLayerScale = clientWidth / videoWidth
+  const sanitizedRate = Number(playbackRate.slice(0, -1))
 
   /* Memoized so onProgress() and setTimeStamp() don't trigger each other */
   const memoizedViewer = useMemo(() => (
-    <SingleVideoViewer
-      isPlaying={isPlaying}
+    <ReactPlayer
+      controls={false}
+      height='100%'
       onDuration={handleVideoDuration}
       onEnded={handleVideoEnded}
       onError={handlePlayerError}
-      onReactPlayerReady={onReactPlayerReady}
+      onReady={onReactPlayerReady}
       onProgress={handleVideoProgress}
-      playbackRate={playbackRate}
-      playerRef={playerRef}
+      playing={isPlaying}
+      playbackRate={sanitizedRate}
+      progressInterval={100} // milliseconds
+      ref={playerRef}
+      width='100%'
       url={videoSrc}
+      config={{
+        file: { // styling the <video> element
+          attributes: {
+            style: {
+              display: 'block',
+              height: '100%',
+              width: '100%'
+            }
+          }
+        }
+      }}
     />
   ), [isPlaying, playbackRate, videoSrc])
+
+  const canvas = transformLayer?.current
+  const interactionLayerScale = clientWidth / videoWidth
 
   return (
     <>
