@@ -1,21 +1,31 @@
 import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { Box, Button, RangeInput, Select, Text, ThemeContext } from 'grommet'
-import { CirclePlay, Volume, PauseFill } from 'grommet-icons'
+import {
+  CirclePlay,
+  Expand,
+  Volume,
+  VolumeMute,
+  PauseFill
+} from 'grommet-icons'
 import { useTranslation } from 'react-i18next'
 import { withThemeContext } from '@zooniverse/react-components'
 
+// add custom icon sizing here
 import controlsTheme from './theme'
 import formatTimeStamp from '@helpers/formatTimeStamp'
 
 const VideoController = ({
   duration = 0,
   isPlaying = false,
+  handleFullScreen = () => true,
   onPlayPause = () => true,
   onSpeedChange = () => true,
   onSliderChange = () => true,
+  onVolumeChange = () => true,
   playbackRate = '1x',
-  timeStamp = 0 // A percentage between 0 and 1
+  timeStamp = 0, // A percentage between 0 and 1
+  volume = 1
 }) => {
   const { t } = useTranslation('components')
   const playPauseLabel = isPlaying
@@ -100,6 +110,41 @@ const VideoController = ({
             width: '36px'
           }}
         />
+
+        {/* Volume */}
+        <Box
+          // overflow='visible'
+          style={{
+            position: 'relative'
+          }}
+        >
+          <Button icon={<Volume size='medium' color='white' />} plain />
+          <RangeInput
+            a11yTitle={''}
+            min={0}
+            max={1}
+            step={0.25}
+            onChange={onVolumeChange}
+            style={{
+              background: 'black',
+              border: 'solid 1px green',
+              position: 'absolute',
+              right: 0,
+              top: '-30px',
+              width: '120px',
+              height: '30px',
+              padding: '8px'
+            }}
+            value={volume}
+          />
+        </Box>
+
+        {/* Full Screen */}
+        <Button
+          icon={<Expand size='medium' color='white' />}
+          plain
+          onClick={handleFullScreen}
+        />
       </Box>
     </ThemeContext.Extend>
   )
@@ -111,6 +156,7 @@ VideoController.propTypes = {
   onPlayPause: PropTypes.func,
   onSpeedChange: PropTypes.func,
   onSliderChange: PropTypes.func,
+  onVolumeChange: PropTypes.func,
   playbackRate: PropTypes.string,
   timeStamp: PropTypes.number
 }

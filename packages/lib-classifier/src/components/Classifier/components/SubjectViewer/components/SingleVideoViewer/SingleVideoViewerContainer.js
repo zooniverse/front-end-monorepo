@@ -34,11 +34,13 @@ function SingleVideoViewerContainer({
 }) {
   const [clientWidth, setClientWidth] = useState(0)
   const [duration, setDuration] = useState(0)
+  const [fullscreen, setFullscreen] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const [playbackRate, setPlaybackRate] = useState('1x')
   const [timeStamp, setTimeStamp] = useState(0)
   const [videoHeight, setVideoHeight] = useState(0)
   const [videoWidth, setVideoWidth] = useState(0)
+  const [volume, setVolume] = useState(1)
 
   const interactionLayerSVG = useRef()
   const playerRef = useRef()
@@ -106,6 +108,28 @@ function SingleVideoViewerContainer({
     playerRef?.current.seekTo(newTimeStamp, 'seconds')
   }
 
+  const handleVolume = e => {
+    setVolume(e.target.value)
+  }
+
+  const handleFullScreen = () => {
+    if (fullscreen) {
+      try {
+        document.exitFullscreen()
+        setFullscreen(false)
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      try {
+        playerRef.current?.getInternalPlayer().requestFullscreen()
+        setFullscreen(true)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+
   const handlePlayerError = (error) => {
     onError(error)
   }
@@ -127,6 +151,7 @@ function SingleVideoViewerContainer({
       progressInterval={100} // milliseconds
       ref={playerRef}
       width='100%'
+      volume={volume}
       url={videoSrc}
       config={{
         file: { // styling the <video> element
@@ -185,11 +210,14 @@ function SingleVideoViewerContainer({
       <VideoController
         duration={duration}
         isPlaying={isPlaying}
+        handleFullScreen={handleFullScreen}
         onPlayPause={handlePlayPause}
         onSliderChange={handleSliderChange}
         onSpeedChange={handleSpeedChange}
+        onVolumeChange={handleVolume}
         playbackRate={playbackRate}
         timeStamp={timeStamp}
+        volume={volume}
       />
     </>
   )
