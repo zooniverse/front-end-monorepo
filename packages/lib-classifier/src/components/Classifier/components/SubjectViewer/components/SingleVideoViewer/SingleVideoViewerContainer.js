@@ -81,7 +81,7 @@ function SingleVideoViewerContainer({
   const handleVideoProgress = reactPlayerState => {
     // played is the percentage of video played as determined by react-player (0 to 1)
     const { played } = reactPlayerState
-    const fixedNumber = getFixedNumber(played)
+    const fixedNumber = getFixedNumber(played, 3)
     setTimeStamp(fixedNumber)
   }
 
@@ -104,8 +104,7 @@ function SingleVideoViewerContainer({
 
   /* When VideoController > Slider is clicked or scrubbed */
   const handleSliderChange = e => {
-    console.log('slider change')
-    const newTimeStamp = e.target.value // This is in seconds, not percentage
+    const newTimeStamp = e.target.value
     playerRef?.current.seekTo(newTimeStamp, 'seconds')
   }
 

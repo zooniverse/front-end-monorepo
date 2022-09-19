@@ -93,7 +93,7 @@ const VideoController = ({
           {/* Time */}
           <Box direction='row' alignSelf='center'>
             <time dateTime={`P${Math.round(sliderValue)}S`}>
-              {formatTimeStamp(timeStamp * duration)}
+              {formatTimeStamp(sliderValue)}
             </time>
             {' / '}
             <time dateTime={`P${Math.round(duration)}S`}>
@@ -125,7 +125,7 @@ VideoController.propTypes = {
   onPlayPause: PropTypes.func,
   onSpeedChange: PropTypes.func,
   onSliderChange: PropTypes.func,
-  playbackRate: PropTypes.number,
+  playbackRate: PropTypes.string,
   timeStamp: PropTypes.number
 }
 
