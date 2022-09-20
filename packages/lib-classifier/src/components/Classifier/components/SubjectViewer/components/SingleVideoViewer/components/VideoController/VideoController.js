@@ -52,7 +52,7 @@ const VideoController = ({
       <Grid
         columns={['100px', 'flex', '120px']}
         pad='10px' // xsmall regardless of screen size
-        style={{ background: '#000000' }
+        style={{ background: '#000000' }}
       >
         <Box background='neutral-7' direction='row' gap='small'>
           {/* Play/Pause */}
