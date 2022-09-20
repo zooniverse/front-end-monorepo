@@ -111,26 +111,32 @@ class Markdownz extends React.Component {
     const remarkReactComponents = Object.assign({}, componentMappings, components)
     const remarkSettings = Object.assign({}, settings)
 
-    const markdown = remark()
-      .data('settings', remarkSettings)
-      .use(emoji)
-      .use(remarkSubSuper)
-      .use(externalLinks)
-      .use(footnotes, { inlineNotes: true })
-      .use(ping, {
-        ping: (resource, symbol) => this.shouldResourceBeLinkable(resource, symbol), // We could support passing in a prop to call a function here
-        pingSymbols: [at, hashtag, subjectSymbol],
-        resourceURL: (resource, symbol) => this.buildResourceURL(resource, symbol)
-      })
-      .use(toc)
-      .use(remark2react, { remarkReactComponents })
-      .processSync(newChildren).result
+    try {
+      const markdown = remark()
+        .data('settings', remarkSettings)
+        .use(emoji)
+        .use(remarkSubSuper)
+        .use(externalLinks)
+        .use(footnotes, { inlineNotes: true })
+        .use(ping, {
+          ping: (resource, symbol) => this.shouldResourceBeLinkable(resource, symbol), // We could support passing in a prop to call a function here
+          pingSymbols: [at, hashtag, subjectSymbol],
+          resourceURL: (resource, symbol) => this.buildResourceURL(resource, symbol)
+        })
+        .use(toc)
+        .use(remark2react, { remarkReactComponents })
+        .processSync(newChildren).result
 
-    return (
-      <React.Fragment>
-        {markdown}
-      </React.Fragment>
-    )
+      return (
+        <React.Fragment>
+          {markdown}
+        </React.Fragment>
+      )
+    } catch (error) {
+      console.error(error)
+      return <p>{error.message}</p>
+    }
+    
   }
 }
 
