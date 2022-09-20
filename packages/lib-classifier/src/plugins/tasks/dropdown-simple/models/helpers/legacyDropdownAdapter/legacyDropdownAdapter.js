@@ -6,6 +6,7 @@ export function legacyDropdownAdapter(snapshot) {
     newSnapshot.allowCreate = menu.allowCreate
     newSnapshot.help = snapshot.help
     newSnapshot.instruction = snapshot.instruction
+    newSnapshot.required = menu.required
     newSnapshot.taskKey = snapshot.taskKey
     newSnapshot.type = 'dropdown-simple'
     const options = menu.options['*']

@@ -1,20 +1,24 @@
 import { Box, Grid } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import styled from 'styled-components'
-import { ZooFooter } from '@zooniverse/react-components'
+import { AdminCheckbox, ZooFooter } from '@zooniverse/react-components'
 import { useRouter } from 'next/router'
 
+import { useAdminMode } from '@hooks'
+import {
+  AdminContainer,
+  Announcements,
+  ProjectHeader,
+  ThemeModeToggle,
+  ZooHeaderWrapper,
+} from '@components'
 import Hero from './components/Hero'
 import MessageFromResearcher from './components/MessageFromResearcher'
 import AboutProject from './components/AboutProject'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
 import ZooniverseTalk from './components/ZooniverseTalk'
-import ThemeModeToggle from '@components/ThemeModeToggle'
-import { Media } from '../../shared/components/Media'
-import Announcements from '@components/Announcements'
-import ProjectHeader from '@components/ProjectHeader'
-import ZooHeaderWrapper from '@components/ZooHeaderWrapper'
+import { Media } from '@shared/components/Media'
 
 const FullHeightBox = styled(Box)`
   min-height: 98vh;
@@ -28,13 +32,15 @@ function ProjectHomePage ({
   inBeta,
   workflows
 }) {
+  const { adminMode, toggleAdmin } = useAdminMode()
   const router = useRouter()
   const locale = router?.locale
+
   return (
-    <Box border={(inBeta) ? { color: 'brand', size: 'medium' } : false}>
+    <Box data-testid='project-home-page' border={(inBeta) ? { color: 'brand', size: 'medium' } : false}>
       <Media at='default'>
         <ZooHeaderWrapper />
-        <ProjectHeader />
+        <ProjectHeader adminMode={adminMode} />
         <Announcements />
         <Hero workflows={workflows} />
         <Box margin='small' gap='small'>
@@ -50,7 +56,7 @@ function ProjectHomePage ({
       <Media greaterThan='default'>
         <FullHeightBox margin={{ bottom: 'large' }}>
           <ZooHeaderWrapper />
-          <ProjectHeader />
+          <ProjectHeader adminMode={adminMode} />
           <Announcements />
           <RemainingHeightBox>
             <Hero workflows={workflows} isWide={true} />
@@ -76,7 +82,10 @@ function ProjectHomePage ({
           </Box>
         </Box>
       </Media>
-      <ZooFooter locale={locale} />
+      <ZooFooter
+        adminContainer={<AdminContainer onChange={toggleAdmin} checked={adminMode} />}
+        locale={locale}
+      />
     </Box>
   )
 }
