@@ -1,19 +1,23 @@
 import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { Box, Button, RangeInput, Select, Text, ThemeContext } from 'grommet'
 import {
-  CirclePlay,
-  Expand,
-  Volume,
-  VolumeMute,
-  PauseFill
-} from 'grommet-icons'
+  Box,
+  Button,
+  Grid,
+  RangeInput,
+  Select,
+  Text,
+  ThemeContext
+} from 'grommet'
+import { CirclePlay, Expand, Volume, VolumeMute, Pause } from 'grommet-icons'
 import { useTranslation } from 'react-i18next'
 import { withThemeContext } from '@zooniverse/react-components'
 
 // add custom icon sizing here ?
 import controlsTheme from './theme'
 import formatTimeStamp from '@helpers/formatTimeStamp'
+
+const iconSize = '16px'
 
 const VideoController = ({
   duration = 0,
@@ -42,48 +46,42 @@ const VideoController = ({
 
   return (
     <ThemeContext.Extend value={controlsTheme}>
-      <Box
-        background='neutral-7'
-        direction='row'
-        gap='small'
-        pad='xsmall'
-        style={{ borderTop: 'solid 1px white' }}
+      <Grid
+        columns={['100px', 'flex', '120px']}
+        pad='10px' // xsmall regardless of screen size
+        style={{ background: '#000000', borderTop: 'solid 1px white' }}
       >
-        {/* Play/Pause */}
-        <Button
-          a11yTitle={t(playPauseLabel)}
-          onClick={onPlayPause}
-          icon={
-            isPlaying ? (
-              <PauseFill color='white' size='small' />
-            ) : (
-              <CirclePlay color='white' size='medium' />
-            )
-          }
-          plain
-          margin={isPlaying ? '6px' : '0'}
-        />
+        <Box background='neutral-7' direction='row' gap='small'>
+          {/* Play/Pause */}
+          <Button
+            a11yTitle={t(playPauseLabel)}
+            onClick={onPlayPause}
+            icon={
+              isPlaying ? (
+                <Pause color='white' size={iconSize} />
+              ) : (
+                <CirclePlay color='white' size={iconSize} />
+              )
+            }
+            plain
+          />
 
-        {/* Time */}
-        <Box direction='row' align='center'>
-          <Text size='small'>
-            <time dateTime={`P${Math.round(sliderValue)}S`}>
-              {formatTimeStamp(sliderValue)}
-            </time>
-            {' / '}
-            <time dateTime={`P${Math.round(duration)}S`}>
-              {displayedDuration}
-            </time>
-          </Text>
+          {/* Time */}
+          <Box direction='row' align='center' style={{ minWidth: '66px' }}>
+            <Text size='small'>
+              <time dateTime={`P${Math.round(sliderValue)}S`}>
+                {formatTimeStamp(sliderValue)}
+              </time>
+              {' / '}
+              <time dateTime={`P${Math.round(duration)}S`}>
+                {displayedDuration}
+              </time>
+            </Text>
+          </Box>
         </Box>
 
         {/* Slider */}
-        <Box
-          basis='1/2'
-          direction='row'
-          align='center'
-          pad={{ right: 'xsmall' }}
-        >
+        <Box direction='row' align='center' pad={{ left: 'xsmall' }}>
           <RangeInput
             a11yTitle={t('SubjectViewer.VideoController.scrubber')}
             min={0}
@@ -98,71 +96,75 @@ const VideoController = ({
           />
         </Box>
 
-        {/* Rate */}
-        <Select
-          a11yTitle={t('SubjectViewer.VideoController.playbackSpeed')}
-          options={['0.25x', '0.5x', '1x']}
-          value={playbackRate}
-          onChange={({ option }) => onSpeedChange(option)}
-          plain
-          size='small'
-          style={{
-            color: 'white',
-            display: 'block',
-            width: '36px'
-          }}
-        />
-
-        {/* Volume */}
-        <Box
-          align='center'
-          direction='row'
-          style={{
-            position: 'relative'
-          }}
-        >
-          <Button
-            icon={
-              volume > 0 ? (
-                <Volume size='small' color='white' />
-              ) : (
-                <VolumeMute size='small' color='white' />
-              )
-            }
+        <Box direction='row' gap='small'>
+          {/* Rate */}
+          <Select
+            a11yTitle={t('SubjectViewer.VideoController.playbackSpeed')}
+            options={['0.25x', '0.5x', '1x']}
+            value={playbackRate}
+            onChange={({ option }) => onSpeedChange(option)}
             plain
-            onClick={handleVolumeOpen}
+            size='small'
+            style={{
+              color: 'white',
+              display: 'block',
+              textAlign: 'right',
+              width: '36px'
+            }}
           />
-          {volumeOpen && (
-            <RangeInput
-              a11yTitle={t('SubjectViewer.VideoController.volume')}
-              min={0}
-              max={1}
-              step={0.25}
-              onChange={onVolumeChange}
-              style={{
-                background: 'black',
-                display: 'block',
-                transform: 'rotate(-90deg)',
-                transformOrigin: 'top left',
-                position: 'absolute',
-                left: '-100%',
-                bottom: 0,
-                width: '120px',
-                height: '30px',
-                padding: '8px'
-              }}
-              value={volume}
-            />
-          )}
-        </Box>
 
-        {/* Full Screen */}
-        <Button
-          icon={<Expand size='small' color='white' />}
-          plain
-          onClick={handleFullScreen}
-        />
-      </Box>
+          {/* Volume */}
+          <Box
+            align='center'
+            direction='row'
+            style={{
+              position: 'relative'
+            }}
+          >
+            <Button
+              icon={
+                volume > 0 ? (
+                  <Volume size={iconSize} color='white' />
+                ) : (
+                  <VolumeMute size={iconSize} color='white' />
+                )
+              }
+              plain
+              onClick={handleVolumeOpen}
+            />
+            {volumeOpen && (
+              <RangeInput
+                a11yTitle={t('SubjectViewer.VideoController.volume')}
+                min={0}
+                max={1}
+                step={0.25}
+                onChange={onVolumeChange}
+                style={{
+                  background: 'black',
+                  display: 'block',
+                  transform: 'rotate(-90deg)',
+                  transformOrigin: 'top left',
+                  position: 'absolute',
+                  left: '-100%',
+                  bottom: 0,
+                  width: '120px',
+                  height: '30px',
+                  padding: '8px'
+                }}
+                value={volume}
+              />
+            )}
+          </Box>
+
+          {/* Full Screen */}
+          <Button
+            icon={<Expand size={iconSize} color='white' />}
+            plain
+            onClick={handleFullScreen}
+          />
+        </Box>
+      </Grid>
+      {/* </Box> */}
     </ThemeContext.Extend>
   )
 }
