@@ -118,7 +118,7 @@ function SingleVideoViewerContainer({
     toggleVolumeOpen(!prevVolumeOpen)
   }
 
-  const handleFullScreen = () => {
+  const handleFullscreen = () => {
     if (fullscreen) {
       try {
         document.exitFullscreen()
@@ -216,7 +216,7 @@ function SingleVideoViewerContainer({
       <VideoController
         duration={duration}
         isPlaying={isPlaying}
-        handleFullScreen={handleFullScreen}
+        handleFullscreen={handleFullscreen}
         handleVolumeOpen={handleVolumeOpen}
         onPlayPause={handlePlayPause}
         onSliderChange={handleSliderChange}

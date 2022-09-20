@@ -212,7 +212,10 @@
       "playbackSpeed": "Video playback speed selection",
       "play": "Play video",
       "pause": "Pause video",
-      "volume": "Volume"
+      "openVolume": "Open Volume Slider",
+      "closeVolume": "Close Volume Slider",
+      "volumeSlider": "Volume Slider",
+      "fullscreen": "Show Video Fullscreen"
     },
     "ZoomControlButton": {
       "enable": "enable zoom",

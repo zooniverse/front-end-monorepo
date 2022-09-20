@@ -13,7 +13,6 @@ import { CirclePlay, Expand, Volume, VolumeMute, Pause } from 'grommet-icons'
 import { useTranslation } from 'react-i18next'
 import { withThemeContext } from '@zooniverse/react-components'
 
-// add custom icon sizing here ?
 import controlsTheme from './theme'
 import formatTimeStamp from '@helpers/formatTimeStamp'
 
@@ -22,7 +21,7 @@ const iconSize = '16px'
 const VideoController = ({
   duration = 0,
   isPlaying = false,
-  handleFullScreen = () => true,
+  handleFullscreen = () => true,
   handleVolumeOpen = () => true,
   onPlayPause = () => true,
   onSpeedChange = () => true,
@@ -38,6 +37,10 @@ const VideoController = ({
     ? 'SubjectViewer.VideoController.pause'
     : 'SubjectViewer.VideoController.play'
 
+  const volumeButtonLabel = volumeOpen
+    ? 'SubjectViewer.VideoController.closeVolume'
+    : 'SubjectViewer.VideoController.openVolume'
+
   const sliderValue = timeStamp * duration
 
   const displayedDuration = useMemo(() => {
@@ -49,7 +52,7 @@ const VideoController = ({
       <Grid
         columns={['100px', 'flex', '120px']}
         pad='10px' // xsmall regardless of screen size
-        style={{ background: '#000000', borderTop: 'solid 1px white' }}
+        style={{ background: '#000000' }
       >
         <Box background='neutral-7' direction='row' gap='small'>
           {/* Play/Pause */}
@@ -122,6 +125,7 @@ const VideoController = ({
             }}
           >
             <Button
+              a11yTitle={t(volumeButtonLabel)}
               icon={
                 volume > 0 ? (
                   <Volume size={iconSize} color='white' />
@@ -134,7 +138,7 @@ const VideoController = ({
             />
             {volumeOpen && (
               <RangeInput
-                a11yTitle={t('SubjectViewer.VideoController.volume')}
+                a11yTitle={t('SubjectViewer.VideoController.volumeSlider')}
                 min={0}
                 max={1}
                 step={0.25}
@@ -158,13 +162,13 @@ const VideoController = ({
 
           {/* Full Screen */}
           <Button
+            a11yTitle={t('SubjectViewer.VideoController.fullscreen')}
             icon={<Expand size={iconSize} color='white' />}
             plain
-            onClick={handleFullScreen}
+            onClick={handleFullscreen}
           />
         </Box>
       </Grid>
-      {/* </Box> */}
     </ThemeContext.Extend>
   )
 }
@@ -172,12 +176,16 @@ const VideoController = ({
 VideoController.propTypes = {
   duration: PropTypes.number,
   isPlaying: PropTypes.bool,
+  handleFullscreen: PropTypes.func,
+  handleVolumeOpen: PropTypes.func,
   onPlayPause: PropTypes.func,
   onSpeedChange: PropTypes.func,
   onSliderChange: PropTypes.func,
   onVolumeChange: PropTypes.func,
   playbackRate: PropTypes.string,
-  timeStamp: PropTypes.number
+  timeStamp: PropTypes.number,
+  volume: PropTypes.number,
+  volumeOpen: PropTypes.bool
 }
 
 export default withThemeContext(VideoController)

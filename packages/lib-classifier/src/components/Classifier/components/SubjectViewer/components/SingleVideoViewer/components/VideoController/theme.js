@@ -13,7 +13,7 @@ const controlsTheme = {
     background: 'black',
     icons: {
       color: 'white',
-      margin: 0
+      margin: '0'
     },
     options: {
       text: {
