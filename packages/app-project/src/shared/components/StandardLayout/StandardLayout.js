@@ -3,24 +3,32 @@ import { Box } from 'grommet'
 import { ZooFooter } from '@zooniverse/react-components'
 import { useRouter } from 'next/router'
 
-import Announcements from '@components/Announcements'
-import ProjectHeader from '@components/ProjectHeader'
-import ZooHeaderWrapper from '@components/ZooHeaderWrapper'
+import { useAdminMode } from '@hooks'
+import {
+  AdminContainer,
+  Announcements,
+  ProjectHeader,
+  ZooHeaderWrapper
+} from '@components'
 
 function StandardLayout ({
   children,
   inBeta,
 }) {
+  const { adminMode, toggleAdmin } = useAdminMode()
   const router = useRouter()
   const locale = router?.locale
 
   return (
     <Box border={(inBeta) ? { color: 'brand', size: 'medium' } : false}>
       <ZooHeaderWrapper />
-      <ProjectHeader />
+      <ProjectHeader adminMode={adminMode} />
       <Announcements />
       {children}
-      <ZooFooter locale={locale} />
+      <ZooFooter
+        adminContainer={<AdminContainer onChange={toggleAdmin} checked={adminMode} />}
+        locale={locale}
+      />
     </Box>
   )
 }

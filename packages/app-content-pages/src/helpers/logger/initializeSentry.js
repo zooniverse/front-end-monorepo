@@ -7,6 +7,7 @@ export default function initializeSentry () {
   const ignoreErrors = [
     'ResizeObserver loop limit exceeded' // Ignore benign error: https://github.com/WICG/resize-observer/issues/38
   ]
+  console.log('Initialising Sentry:', dsn, environment, release)
   if (dsn) {
     Sentry.init({
       dsn,

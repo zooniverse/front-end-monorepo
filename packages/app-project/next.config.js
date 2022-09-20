@@ -8,6 +8,12 @@ const withSourceMaps = require('@zeit/next-source-maps')()
 const { i18n } = require('./next-i18next.config')
 
 const talkHosts = require('./config/talkHosts')
+const assetPrefixes = {
+  branch: 'https://fe-project-branch.preview.zooniverse.org/projects',
+  staging: 'https://frontend.preview.zooniverse.org/projects',
+  static: 'https://fe-static.zooniverse.org/projects',
+  production : 'https://www.zooniverse.org/projects'
+}
 
 function commitID () {
   try {
@@ -17,26 +23,26 @@ function commitID () {
   }
 }
 
-const basePath = '/projects'
 const PANOPTES_ENV = process.env.PANOPTES_ENV || 'staging'
 const webpackConfig = require('./webpack.config')
-const assetPrefix = process.env.PROJECT_ASSET_PREFIX || basePath
-const SENTRY_PROJECT_DSN = process.env.SENTRY_PROJECT_DSN
+const SENTRY_PROJECT_DSN = 'https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691'
 const APP_ENV = process.env.APP_ENV || 'development'
 const COMMIT_ID = process.env.COMMIT_ID || commitID()
+const assetPrefix = assetPrefixes[APP_ENV] || ''
+const TALK_HOST = talkHosts[PANOPTES_ENV]
 
-console.info(PANOPTES_ENV, talkHosts[PANOPTES_ENV])
+console.info({ APP_ENV, PANOPTES_ENV, TALK_HOST , assetPrefix })
 
 const nextConfig = {
   assetPrefix,
-  basePath,
+  basePath: '/projects',
 
   env: {
     COMMIT_ID,
     PANOPTES_ENV,
     SENTRY_PROJECT_DSN,
     APP_ENV,
-    TALK_HOST: talkHosts[PANOPTES_ENV]
+    TALK_HOST
   },
 
   async headers() {

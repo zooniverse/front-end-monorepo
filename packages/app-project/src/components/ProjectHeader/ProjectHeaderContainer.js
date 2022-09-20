@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { observer, MobXProviderContext } from 'mobx-react'
-import { string } from 'prop-types'
+import { bool, string } from 'prop-types'
 import { useTranslation } from 'next-i18next'
 
 import ProjectHeader from './ProjectHeader'
@@ -17,6 +17,7 @@ function storeMapper(store) {
       slug
     },
     user: {
+      isAdmin,
       isLoggedIn
     }
   } = store
@@ -25,30 +26,31 @@ function storeMapper(store) {
     availableLocales,
     defaultWorkflow,
     inBeta,
+    isAdmin,
     isLoggedIn,
     projectName,
     slug
   }
 }
 
-function useStores(mockStore) {
+function useStores() {
   const stores = useContext(MobXProviderContext)
-  const store = mockStore || stores.store
-  return storeMapper(store)
+  return storeMapper(stores.store)
 }
 
 function ProjectHeaderContainer({
-  className = '',
-  mockStore
+  adminMode = false,
+  className = ''
 }) {
   const {
     availableLocales,
     defaultWorkflow,
     inBeta,
+    isAdmin,
     isLoggedIn,
     projectName,
     slug
-  } = useStores(mockStore)
+  } = useStores()
   const { t } = useTranslation('components')
 
   function getNavLinks (isLoggedIn, baseUrl, defaultWorkflow) {
@@ -79,6 +81,13 @@ function ProjectHeaderContainer({
       })
     }
 
+    if (isLoggedIn && isAdmin && adminMode) {
+      links.push({
+        href: `/admin/project_status/${slug}`,
+        text: t('ProjectHeader.admin')
+      })
+    }
+
     return links
   }
 
@@ -96,6 +105,9 @@ function ProjectHeaderContainer({
 }
 
 ProjectHeaderContainer.propTypes = {
+  /** Zooniverse admin mode */
+  adminMode: bool,
+  /** Optional CSS classes */
   className: string
 }
 

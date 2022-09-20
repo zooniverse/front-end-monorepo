@@ -1,5 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { extent } from 'd3'
+import { Box } from 'grommet'
 import { zip } from 'lodash'
 import PropTypes from 'prop-types'
 import React, { useMemo, useRef } from 'react'
@@ -103,23 +104,25 @@ export function LightCurveViewerContainer({
   }
 
   return (
-    <LightCurveViewer
-      addAnnotation={addAnnotation}
-      annotation={annotation}
-      currentTask={activeDataVisTask}
-      dataExtent={dataExtent}
-      dataPoints={dataPoints}
-      drawFeedbackBrushes={drawFeedbackBrushes}
-      enableAnnotate={enableAnnotate}
-      enableMove={enableMove}
-      feedback={feedback}
-      forwardRef={viewer}
-      interactionMode={interactionMode}
-      onKeyDown={onKeyDown}
-      setOnPan={setOnPan}
-      setOnZoom={setOnZoom}
-      toolIndex={activeToolIndex}
-    />
+    <Box width='100%' height='500px'>
+      <LightCurveViewer
+        addAnnotation={addAnnotation}
+        annotation={annotation}
+        currentTask={activeDataVisTask}
+        dataExtent={dataExtent}
+        dataPoints={dataPoints}
+        drawFeedbackBrushes={drawFeedbackBrushes}
+        enableAnnotate={enableAnnotate}
+        enableMove={enableMove}
+        feedback={feedback}
+        forwardRef={viewer}
+        interactionMode={interactionMode}
+        onKeyDown={onKeyDown}
+        setOnPan={setOnPan}
+        setOnZoom={setOnZoom}
+        toolIndex={activeToolIndex}
+      />
+    </Box>
   )
 }
 
