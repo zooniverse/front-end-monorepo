@@ -11,7 +11,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { withThemeContext } from '@zooniverse/react-components'
 
-// add custom icon sizing here
+// add custom icon sizing here ?
 import controlsTheme from './theme'
 import formatTimeStamp from '@helpers/formatTimeStamp'
 
@@ -19,13 +19,15 @@ const VideoController = ({
   duration = 0,
   isPlaying = false,
   handleFullScreen = () => true,
+  handleVolumeOpen = () => true,
   onPlayPause = () => true,
   onSpeedChange = () => true,
   onSliderChange = () => true,
   onVolumeChange = () => true,
   playbackRate = '1x',
   timeStamp = 0, // A percentage between 0 and 1
-  volume = 1
+  volume = 1,
+  volumeOpen = false
 }) => {
   const { t } = useTranslation('components')
   const playPauseLabel = isPlaying
@@ -45,7 +47,7 @@ const VideoController = ({
         direction='row'
         gap='small'
         pad='xsmall'
-        style={{ border: 'solid 1px red' }}
+        style={{ borderTop: 'solid 1px white' }}
       >
         {/* Play/Pause */}
         <Button
@@ -113,35 +115,50 @@ const VideoController = ({
 
         {/* Volume */}
         <Box
-          // overflow='visible'
+          align='center'
+          direction='row'
           style={{
             position: 'relative'
           }}
         >
-          <Button icon={<Volume size='medium' color='white' />} plain />
-          <RangeInput
-            a11yTitle={''}
-            min={0}
-            max={1}
-            step={0.25}
-            onChange={onVolumeChange}
-            style={{
-              background: 'black',
-              border: 'solid 1px green',
-              position: 'absolute',
-              right: 0,
-              top: '-30px',
-              width: '120px',
-              height: '30px',
-              padding: '8px'
-            }}
-            value={volume}
+          <Button
+            icon={
+              volume > 0 ? (
+                <Volume size='small' color='white' />
+              ) : (
+                <VolumeMute size='small' color='white' />
+              )
+            }
+            plain
+            onClick={handleVolumeOpen}
           />
+          {volumeOpen && (
+            <RangeInput
+              a11yTitle={t('SubjectViewer.VideoController.volume')}
+              min={0}
+              max={1}
+              step={0.25}
+              onChange={onVolumeChange}
+              style={{
+                background: 'black',
+                display: 'block',
+                transform: 'rotate(-90deg)',
+                transformOrigin: 'top left',
+                position: 'absolute',
+                left: '-100%',
+                bottom: 0,
+                width: '120px',
+                height: '30px',
+                padding: '8px'
+              }}
+              value={volume}
+            />
+          )}
         </Box>
 
         {/* Full Screen */}
         <Button
-          icon={<Expand size='medium' color='white' />}
+          icon={<Expand size='small' color='white' />}
           plain
           onClick={handleFullScreen}
         />

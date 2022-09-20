@@ -41,6 +41,7 @@ function SingleVideoViewerContainer({
   const [videoHeight, setVideoHeight] = useState(0)
   const [videoWidth, setVideoWidth] = useState(0)
   const [volume, setVolume] = useState(1)
+  const [volumeOpen, toggleVolumeOpen] = useState(false)
 
   const interactionLayerSVG = useRef()
   const playerRef = useRef()
@@ -112,6 +113,11 @@ function SingleVideoViewerContainer({
     setVolume(e.target.value)
   }
 
+  const handleVolumeOpen = () => {
+    const prevVolumeOpen = volumeOpen
+    toggleVolumeOpen(!prevVolumeOpen)
+  }
+
   const handleFullScreen = () => {
     if (fullscreen) {
       try {
@@ -165,7 +171,7 @@ function SingleVideoViewerContainer({
         }
       }}
     />
-  ), [isPlaying, playbackRate, videoSrc])
+  ), [isPlaying, playbackRate, videoSrc, volume])
 
   const canvas = transformLayer?.current
   const interactionLayerScale = clientWidth / videoWidth
@@ -211,6 +217,7 @@ function SingleVideoViewerContainer({
         duration={duration}
         isPlaying={isPlaying}
         handleFullScreen={handleFullScreen}
+        handleVolumeOpen={handleVolumeOpen}
         onPlayPause={handlePlayPause}
         onSliderChange={handleSliderChange}
         onSpeedChange={handleSpeedChange}
@@ -218,6 +225,7 @@ function SingleVideoViewerContainer({
         playbackRate={playbackRate}
         timeStamp={timeStamp}
         volume={volume}
+        volumeOpen={volumeOpen}
       />
     </>
   )
