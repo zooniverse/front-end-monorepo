@@ -19,7 +19,7 @@ describe('Component > SubjectViewer', function () {
 
   it('should render a loading indicator if the subject store is loading', function () {
     const wrapper = shallow(<SubjectViewer subjectQueueState={asyncStates.loading} />)
-    expect(wrapper.text()).to.equal('Loading')
+    expect(wrapper.text()).to.equal('SubjectViewer.loading')
   })
 
   it('should render nothing if the subject store errors', function () {
