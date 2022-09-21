@@ -11,6 +11,8 @@ import {
   ZooHeaderWrapper
 } from '@components'
 
+export const adminBorderImage = 'repeating-linear-gradient(45deg, #000, #000 25px, #ff0 25px, #ff0 50px) 5'
+
 function StandardLayout ({
   children,
   inBeta,
@@ -19,8 +21,17 @@ function StandardLayout ({
   const router = useRouter()
   const locale = router?.locale
 
+  const adminBorder = { size: 'medium' }
+  const betaBorder = { color: 'brand', size: 'medium' }
+  const pageStyle = {}
+  if (adminMode) {
+    pageStyle.borderImage = adminBorderImage
+  }
+  let border = adminMode ? adminBorder : false
+  border = inBeta ? betaBorder : border
+
   return (
-    <Box border={(inBeta) ? { color: 'brand', size: 'medium' } : false}>
+    <Box data-testid='project-page' border={border} style={pageStyle}>
       <ZooHeaderWrapper />
       <ProjectHeader adminMode={adminMode} />
       <Announcements />

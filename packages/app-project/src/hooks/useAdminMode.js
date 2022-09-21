@@ -5,7 +5,7 @@ const localStorage = isBrowser ? window.localStorage : null
 
 export default function useAdminMode() {
   const adminFlag = localStorage?.getItem('adminFlag')
-  const [adminState, setAdminState] = useState(adminFlag)
+  const [adminState, setAdminState] = useState(!!adminFlag)
   const adminMode = adminFlag && adminState
   
   function toggleAdmin() {

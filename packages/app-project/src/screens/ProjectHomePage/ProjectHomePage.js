@@ -20,6 +20,8 @@ import ProjectStatistics from '@shared/components/ProjectStatistics'
 import ZooniverseTalk from './components/ZooniverseTalk'
 import { Media } from '@shared/components/Media'
 
+export const adminBorderImage = 'repeating-linear-gradient(45deg, #000, #000 25px, #ff0 25px, #ff0 50px) 5'
+
 const FullHeightBox = styled(Box)`
   min-height: 98vh;
 `
@@ -36,8 +38,21 @@ function ProjectHomePage ({
   const router = useRouter()
   const locale = router?.locale
 
+  const adminBorder = { size: 'medium' }
+  const betaBorder = { color: 'brand', size: 'medium' }
+  const pageStyle = {}
+  if (adminMode) {
+    pageStyle.borderImage = adminBorderImage
+  }
+  let border = adminMode ? adminBorder : false
+  border = inBeta ? betaBorder : border
+
   return (
-    <Box data-testid='project-home-page' border={(inBeta) ? { color: 'brand', size: 'medium' } : false}>
+    <Box
+      data-testid='project-home-page'
+      border={border}
+      style={pageStyle}
+    >
       <Media at='default'>
         <ZooHeaderWrapper />
         <ProjectHeader adminMode={adminMode} />
