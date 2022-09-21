@@ -48,7 +48,6 @@
     "snazzy": "^8.0.0",
     "styled-components": "~5.3.3",
     "superagent": "~8.0.0",
-    "url-parse": "~1.5.1",
     "validator": "~13.7.0"
   },
   "devDependencies": {
