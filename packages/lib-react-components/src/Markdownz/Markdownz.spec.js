@@ -3,7 +3,14 @@ import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import { Anchor, Paragraph } from 'grommet'
 import Media from '../Media'
-import { Markdownz } from './Markdownz'
+import {
+  Markdownz,
+  RESTRICTED_USERNAMES,
+  buildResourceURL,
+  renderMedia,
+  replaceImageString,
+  shouldResourceBeLinkable
+} from './Markdownz'
 import { markdown } from './helpers/testExamples'
 
 // TO DO: Add back working snapshots to test the overall HTML output
@@ -59,27 +66,14 @@ describe('<Markdownz />', function () {
   })
 
   describe('#buildResourceURL', function () {
-    let buildResourceURLSpy
-    before(function () {
-      wrapper = shallow(<Markdownz>{'# hello'}</Markdownz>)
-      buildResourceURLSpy = sinon.spy(Markdownz.prototype, 'buildResourceURL')
-    })
-
-    afterEach(function () {
-      buildResourceURLSpy.resetHistory()
-    })
-
-    after(function () {
-      buildResourceURLSpy.restore()
-    })
 
     it('should return an empty string if symbol is not defined', function () {
-      const url = wrapper.instance().buildResourceURL('srallen')
+      const url = buildResourceURL()
       expect(url).to.equal('')
     })
 
     it('should return an empty string if the resource is falsy, but the mention symbol is present', function () {
-      const url = wrapper.instance().buildResourceURL('', '@')
+      const url = buildResourceURL('', '', '', '@')
       expect(url).to.equal('')
     })
 
@@ -87,162 +81,98 @@ describe('<Markdownz />', function () {
       it('should return the expected url with a search query param', function () {
         const resource = 'tigers'
         const baseURL = ''
-        const expectedReturnValue = `${baseURL}/talk/search?query=%23${resource}`
-        wrapper.instance().buildResourceURL(resource, '#')
-        expect(buildResourceURLSpy.withArgs(resource, '#')).to.have.been.calledOnce()
-        expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
+        const url = buildResourceURL(baseURL, '', resource, '#')
+        expect(url).to.equal(`${baseURL}/talk/search?query=%23${resource}`)
       })
 
       it('should return a url with the project slug if props.projectSlug is defined', function () {
         const resource = 'tigers'
         const projectSlug = 'zooniverse/snapshot-wakanda'
-        const expectedReturnValue = `/projects/${projectSlug}/talk/tag/${resource}`
-        wrapper.setProps({ projectSlug })
-        wrapper.instance().buildResourceURL(resource, '#')
-        expect(buildResourceURLSpy.withArgs(resource, '#')).to.have.been.calledOnce()
-        expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
-        wrapper.setProps({ projectSlug: '' })
+        const url = buildResourceURL('', projectSlug, resource, '#')
+        expect(url).to.equal(`/projects/${projectSlug}/talk/tag/${resource}`)
       })
 
       it('should return a url with props.baseURI if defined', function () {
         const resource = 'tigers'
         const baseURI = 'https://classrooms.zooniverse.org'
-        const expectedReturnValue = `${baseURI}/talk/search?query=%23${resource}`
-        wrapper.setProps({ baseURI })
-        wrapper.instance().buildResourceURL(resource, '#')
-        expect(buildResourceURLSpy.withArgs(resource, '#')).to.have.been.calledOnce()
-        expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
-        wrapper.setProps({ baseURI: '' })
+        const url = buildResourceURL(baseURI, '', resource, '#')
+        expect(url).to.equal(`${baseURI}/talk/search?query=%23${resource}`)
       })
     })
 
     describe('when the symbol is @', function () {
       it('should return a url for the user profile', function () {
         const resource = 'srallen'
-        const expectedReturnValue = `/users/${resource}`
-        wrapper.instance().buildResourceURL(resource, '@')
-        expect(buildResourceURLSpy.withArgs(resource, '@')).to.have.been.calledOnce()
-        expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
+        const url = buildResourceURL('', '', resource, '@')
+        expect(url).to.equal(`/users/${resource}`)
       })
 
       it('should return a url with the project slug if props.projectSlug is defined', function () {
         const resource = 'srallen'
         const projectSlug = 'zooniverse/snapshot-wakanda'
-        const expectedReturnValue = `/projects/${projectSlug}/users/${resource}`
-        wrapper.setProps({ projectSlug })
-        wrapper.instance().buildResourceURL(resource, '@')
-        expect(buildResourceURLSpy.withArgs(resource, '@')).to.have.been.calledOnce()
-        expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
-        wrapper.setProps({ projectSlug: '' })
+        const url = buildResourceURL('', projectSlug, resource, '@')
+        expect(url).to.equal(`/projects/${projectSlug}/users/${resource}`)
       })
 
       it('should return a url with props.baseURI if defined', function () {
         const resource = 'srallen'
         const baseURI = 'https://classrooms.zooniverse.org'
-        const expectedReturnValue = `${baseURI}/users/${resource}`
-        wrapper.setProps({ baseURI })
-        wrapper.instance().buildResourceURL(resource, '@')
-        expect(buildResourceURLSpy.withArgs(resource, '@')).to.have.been.calledOnce()
-        expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
-        wrapper.setProps({ baseURI: '' })
+        const url = buildResourceURL(baseURI, '', resource, '@')
+        expect(url).to.equal(`${baseURI}/users/${resource}`)
       })
     })
 
     describe('when the symbol is ^S', function () {
       it('should return an empty string if props.projectSlug is not defined', function () {
         const resource = '1245'
-        const expectedReturnValue = ''
-        wrapper.instance().buildResourceURL(resource, '^S')
-        expect(buildResourceURLSpy.withArgs(resource, '^S')).to.have.been.calledOnce()
-        expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
+        const url = buildResourceURL('', '', resource, '^S')
+        expect(url).to.equal('')
       })
 
       it('should return a url with the project slug if props.projectSlug is defined', function () {
         const resource = '1234'
         const projectSlug = 'zooniverse/snapshot-wakanda'
-        const expectedReturnValue = `/projects/${projectSlug}/talk/subjects/${resource}`
-        wrapper.setProps({ projectSlug })
-        wrapper.instance().buildResourceURL(resource, '^S')
-        expect(buildResourceURLSpy.withArgs(resource, '^S')).to.have.been.calledOnce()
-        expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
-        wrapper.setProps({ projectSlug: '' })
+        const url = buildResourceURL('', projectSlug, resource, '^S')
+        expect(url).to.equal(`/projects/${projectSlug}/talk/subjects/${resource}`)
       })
 
       it('should return a url with props.baseURI if defined', function () {
         const resource = '1234'
         const baseURI = 'https://classrooms.zooniverse.org'
         const projectSlug = 'zooniverse/snapshot-wakanda'
-        const expectedReturnValue = `${baseURI}/projects/${projectSlug}/talk/subjects/${resource}`
-        wrapper.setProps({ baseURI, projectSlug })
-        wrapper.instance().buildResourceURL(resource, '^S')
-        expect(buildResourceURLSpy.withArgs(resource, '^S')).to.have.been.calledOnce()
-        expect(buildResourceURLSpy).to.have.returned(expectedReturnValue)
-        wrapper.setProps({ baseURI: '', projectSlug: '' })
+        const url = buildResourceURL(baseURI, projectSlug, resource, '^S')
+        expect(url).to.equal(`${baseURI}/projects/${projectSlug}/talk/subjects/${resource}`)
       })
     })
   })
 
   describe('#shouldResourceBeLinkable', function () {
-    let shouldResourceBeLinkableSpy
-    before(function () {
-      wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
-      shouldResourceBeLinkableSpy = sinon.spy(Markdownz.prototype, 'shouldResourceBeLinkable')
-    })
-    afterEach(function () {
-      shouldResourceBeLinkableSpy.resetHistory()
-    })
-    after(function () {
-      shouldResourceBeLinkableSpy.restore()
-    })
-
     it('should default to return true', function () {
-      wrapper.instance().shouldResourceBeLinkable('tigers', '#')
-      expect(shouldResourceBeLinkableSpy).to.have.returned(true)
+      expect(shouldResourceBeLinkable([], '', 'tigers', '#')).to.be.true()
     })
 
     it('should return true if the symbol is ^S and props.projectSlug is truthy', function () {
-      wrapper.setProps({ projectSlug: 'zooniverse/snapshot-wakanda' })
-      wrapper.instance().shouldResourceBeLinkable('1234', '^S')
-      expect(shouldResourceBeLinkableSpy).to.have.returned(true)
-      wrapper.setProps({ projectSlug: '' })
+      expect(shouldResourceBeLinkable([], 'zooniverse/snapshot-wakanda', '1234', '^S')).to.be.true()
     })
 
     it('should return true if the symbol is ^S and props.projectSlug is falsey', function () {
-      wrapper.instance().shouldResourceBeLinkable('1234', '^S')
-      expect(shouldResourceBeLinkableSpy).to.have.returned(false)
+      expect(shouldResourceBeLinkable([], '', '1234', '^S')).to.be.false()
     })
 
     it('should return true if the symbol is @ and the resource is not in the props.restrictedUserNames array', function () {
-      wrapper.instance().shouldResourceBeLinkable('srallen', '@')
-      expect(shouldResourceBeLinkableSpy).to.have.returned(true)
+      expect(shouldResourceBeLinkable([], '', 'srallen', '@')).to.be.true()
     })
 
     it('should return false if the symbol is @ and the resource is in the props.restrictedUserNames array', function () {
-      wrapper.instance().props.restrictedUserNames.forEach((username) => {
-        wrapper.instance().shouldResourceBeLinkable(username, '@')
-        expect(shouldResourceBeLinkableSpy).to.have.returned(false)
+      RESTRICTED_USERNAMES.forEach((username) => {
+        expect(shouldResourceBeLinkable(RESTRICTED_USERNAMES, '', username, '@')).to.be.false()
       })
     })
   })
 
   describe('#replaceImageString', function () {
-    let replaceImageStringSpy
-
-    before(function () {
-      wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
-      replaceImageStringSpy = sinon.spy(Markdownz.prototype, 'replaceImageString')
-    })
-    afterEach(function () {
-      replaceImageStringSpy.resetHistory()
-    })
-    after(function () {
-      replaceImageStringSpy.restore()
-    })
-
     it('should return a string', function () {
-      wrapper.instance().replaceImageString(markdown)
-      const returnedValue = replaceImageStringSpy.returnValues[0]
-      expect(returnedValue).to.be.a('string')
+      expect(replaceImageString(markdown)).to.be.a('string')
     })
 
     it('should remove any size parameters from markdown image src, and place them in the alt tag', function () {
@@ -251,65 +181,46 @@ describe('<Markdownz />', function () {
       const imageSize = '=100x100'
       const imageURL = 'https://panoptes-uploads.zooniverse.org/production/subject_location/66094.jpeg'
       const expectedReturnValue = '![imagealttext =100x100](https://panoptes-uploads.zooniverse.org/production/subject_location/66094.jpeg)'
-      wrapper.instance().replaceImageString(img, altText, imageURL, imageSize)
-      const returnedValue = replaceImageStringSpy.returnValues[0]
-      expect(returnedValue).to.equal(expectedReturnValue)
+      expect(replaceImageString(img, altText, imageURL, imageSize)).to.equal(expectedReturnValue)
     })
   })
 
   describe('#renderMedia', function () {
-    let renderMediaSpy
     const src = 'https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg'
     const altText = 'A placeholder image.'
     const imagePropsMock = { src, alt: altText, children: undefined }
     const imagePropsMockWithSize = { src, alt: `${altText} =100x100`, children: undefined }
-    before(function () {
-      wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
-      renderMediaSpy = sinon.spy(Markdownz.prototype, 'renderMedia')
-    })
-    afterEach(function () {
-      renderMediaSpy.resetHistory()
-    })
-    after(function () {
-      renderMediaSpy.restore()
-    })
 
     it('should return a Media component', function () {
-      wrapper.instance().renderMedia(imagePropsMock)
-      const returnedValue = renderMediaSpy.returnValues[0]
+      const returnedValue = renderMedia(imagePropsMock)
       expect(returnedValue.type).to.equal(Media)
     })
 
     it('should set the alt attribute with the alt prop', function () {
-      wrapper.instance().renderMedia(imagePropsMock)
-      const returnedValue = renderMediaSpy.returnValues[0]
+      const returnedValue = renderMedia(imagePropsMock)
       expect(returnedValue.props.alt).to.equal(imagePropsMock.alt)
     })
 
     it('should set the src attribute with the src prop', function () {
-      wrapper.instance().renderMedia(imagePropsMock)
-      const returnedValue = renderMediaSpy.returnValues[0]
+      const returnedValue = renderMedia(imagePropsMock)
       expect(returnedValue.props.src).to.equal(imagePropsMock.src)
     })
 
     it('should use the width and height from the alt text if defined', function () {
-      wrapper.instance().renderMedia(imagePropsMockWithSize)
-      const returnedValue = renderMediaSpy.returnValues[0]
+      const returnedValue = renderMedia(imagePropsMockWithSize)
       expect(returnedValue.props.width).to.equal(100)
       expect(returnedValue.props.height).to.equal(100)
     })
 
     it('should set max height as none if only width is defined', function () {
       const imagePropsMockWithWidth = { src, alt: `${altText} =100x`, children: undefined }
-      wrapper.instance().renderMedia(imagePropsMockWithWidth)
-      const returnedValue = renderMediaSpy.returnValues[0]
+      const returnedValue = renderMedia(imagePropsMockWithWidth)
       expect(returnedValue.props.width).to.equal(100)
       expect(returnedValue.props.height).to.equal('none')
     })
 
     it('should remove the width and height declaration from the alt text before setting it on the rendered Image', function () {
-      wrapper.instance().renderMedia(imagePropsMockWithSize)
-      const returnedValue = renderMediaSpy.returnValues[0]
+      const returnedValue = renderMedia(imagePropsMockWithSize)
       expect(returnedValue.props.alt).to.equal(altText)
     })
   })
