@@ -89,8 +89,8 @@ describe('Component > QuickTalk', function () {
     })
 
     it('should render without crashing', function () {
-      expect(screen.queryByRole('tab')).to.have.text('QuickTalk.tabTitle')
-      expect(screen.queryByRole('link')).to.have.text('QuickTalk.goToTalk')
+      expect(screen.queryByRole('tab', { name: 'QuickTalk.tabTitle' })).to.exist()
+      expect(screen.queryByRole('link', { name: 'QuickTalk.goToTalk ShareRounded' })).to.exist()
     })
 
     it('should have the correct number of comments', function () {
@@ -121,7 +121,7 @@ describe('Component > QuickTalk', function () {
     })
 
     it('should prompt users to login', function () {
-      expect(screen.queryByRole('button')).to.have.text('QuickTalk.buttonForPostingComments')
+      expect(screen.queryByRole('button', { name: 'QuickTalk.buttonForPostingComments' })).to.exist()
     })
   })
 })
