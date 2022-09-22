@@ -22,12 +22,14 @@ const StyledButton = styled(Button)`
 function TeamComponent (props) {
   const { className, data, filters } = props
 
+  const heading = (
+    <Heading margin={{ top: 'none' }} size='small'>
+      Our Team
+    </Heading>
+  )
+
   const main = (
     <article>
-      <Heading margin={{ top: 'none' }} size='small'>
-        Our Team
-      </Heading>
-
       {data && data.map(team => (
         <Team
           key={team.name}
@@ -61,6 +63,7 @@ function TeamComponent (props) {
       />
       <TwoColumnLayout
         className={className}
+        heading={heading}
         main={main}
         sidebar={sidebar}
       />
