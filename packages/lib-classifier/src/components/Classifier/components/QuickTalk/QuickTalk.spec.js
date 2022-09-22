@@ -119,7 +119,7 @@ describe('Component > QuickTalk', function () {
     })
 
     it('should prompt users to login', function () {
-      expect(screen.queryByRole('button')).to.have.text('Post')
+      expect(screen.queryByRole('button')).to.have.text('QuickTalk.buttonForPostingComments')
     })
   })
 })
