@@ -2,10 +2,23 @@ import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
+import { applySnapshot } from 'mobx-state-tree'
+import { RouterContext } from 'next/dist/shared/lib/router-context'
 
 import { mockWorkflow as mockGroupedWorkflow } from '@shared/components/SubjectSetPicker/helpers'
 import initStore from '@stores'
 import WorkflowMenuModal from './WorkflowMenuModal'
+
+const router = {
+  locale: 'en',
+  query: {
+    owner: 'test-owner',
+    project: 'test-project'
+  },
+  prefetch() {
+    return Promise.resolve()
+  }
+}
 
 const snapshot = {
   project: {
@@ -24,12 +37,15 @@ const snapshot = {
   user: {
     loadingState: asyncStates.success,
     personalization: {
-      projectPreferences: {}
+      projectPreferences: {
+        loadingState: asyncStates.success
+      }
     }
   }
 }
 
 const store = initStore(false, snapshot)
+applySnapshot(store.user, snapshot.user)
 
 const WORKFLOWS = [
   {
@@ -56,18 +72,20 @@ function StoryContext (props) {
   const { children, theme } = props
 
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={theme}
-      themeMode={(theme.dark) ? 'dark' : 'light'}
-    >
-      <Provider store={store}>
-        {children}
-      </Provider>
-    </Grommet>
+    <RouterContext.Provider value={router}>
+      <Grommet
+        background={{
+          dark: 'dark-1',
+          light: 'light-1'
+        }}
+        theme={theme}
+        themeMode={(theme.dark) ? 'dark' : 'light'}
+      >
+        <Provider store={store}>
+          {children}
+        </Provider>
+      </Grommet>
+    </RouterContext.Provider>
   )
 }
 

@@ -23,15 +23,24 @@ const StyledAnchor = styled(Anchor)`
   }
 `
 
-function ProjectTitle(props) {
-  const router = useRouter()
-  const { showDropdown, title } = props
-  const { owner, project } = router.query
+function ProjectTitle({
+  showDropdown = false,
+  /** 
+    Optional custom router. Overrides the default NextJS.
+    Useful for mocking the router in stories and shallow tests.
+  */
+  router,
+  title = ''
+}) {
+  const nextRouter = useRouter()
+  router = router || nextRouter
+  const owner = router?.query?.owner
+  const project = router?.query?.project
   const linkProps = {
-    href: addQueryParams(`/${owner}/${project}`, router)
+    href: addQueryParams(`/${owner}/${project}`)
   }
 
-  const isCurrentPage = router.pathname === linkProps.href
+  const isCurrentPage = router?.pathname === linkProps.href
 
   const anchor = (
     <StyledAnchor>

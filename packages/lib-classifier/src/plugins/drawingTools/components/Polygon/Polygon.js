@@ -34,9 +34,9 @@ function Polygon({ active, mark, scale, onFinish }) {
     mark.shortenPath()
   }
 
-  function handleClosePolygon() {
+  function handleClosePolygon(event) {
     mark.finish()
-    onFinish()
+    onFinish(event)
   }
 
   const fill = finished ? 'transparent' : 'none'

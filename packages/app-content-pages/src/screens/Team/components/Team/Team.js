@@ -8,11 +8,12 @@ function Team (props) {
   return (
     <Box as='section' key={name} margin={{ bottom: 'medium' }}>
       <Heading
-        children={name}
         level='2'
         margin={{ bottom: 'small', top: 'none' }}
         size='small'
-      />
+      >
+        {name}
+      </Heading>
 
       {people.map(person => (
         <Person

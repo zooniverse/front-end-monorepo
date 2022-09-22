@@ -22,7 +22,7 @@ export default {
 
 export const Plain = () => (
   <Grommet theme={zooTheme}>
-    <ContentBox children={CONTENT} />
+    <ContentBox>{CONTENT}</ContentBox>
   </Grommet>
 );
 
@@ -32,7 +32,7 @@ Plain.story = {
 
 export const ContentWithTitle = () => (
   <Grommet theme={zooTheme}>
-    <ContentBox children={CONTENT} title={TITLE} />
+    <ContentBox title={TITLE}>{CONTENT}</ContentBox>
   </Grommet>
 );
 
@@ -42,7 +42,7 @@ ContentWithTitle.story = {
 
 export const ContentWithTitleAndALink = () => (
   <Grommet theme={zooTheme}>
-    <ContentBox children={CONTENT} linkLabel={LINK_LABEL} linkUrl={LINK_URL} title={TITLE} />
+    <ContentBox linkLabel={LINK_LABEL} linkUrl={LINK_URL} title={TITLE}>{CONTENT}</ContentBox>
   </Grommet>
 );
 

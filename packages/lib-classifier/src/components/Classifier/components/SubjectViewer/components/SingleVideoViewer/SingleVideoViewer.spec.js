@@ -1,18 +1,17 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-
+import { render, waitFor } from '@testing-library/react'
+import { expect } from 'chai'
 import SingleVideoViewer from './SingleVideoViewer'
 
-let wrapper
-
 describe('Component > SingleVideoViewer', function () {
-  beforeEach(function () {
-    wrapper = shallow(
-      <SingleVideoViewer height={200} width={100} viewBox='0 0 100 100' />
-    )
-  })
+  const mockUrl = 'https://zooniverse.org/test1234.mp4'
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
+  it('render a video element with a src', async function () {
+    const { container } = render(<SingleVideoViewer url={mockUrl} />)
+    await waitFor(() => {
+      const videoElement = container.querySelector('video')
+      expect(videoElement).exists()
+      expect(videoElement.src).to.equal(mockUrl)
+    })
   })
 })

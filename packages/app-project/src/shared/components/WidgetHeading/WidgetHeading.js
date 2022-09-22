@@ -8,8 +8,10 @@ const StyledHeading = styled(Heading)`
   line-height: 22px;
 `
 
-function WidgetHeading (props) {
-  const { children, level } = props
+function WidgetHeading ({
+  children,
+  level = '2'
+}) {
   return (
     <StyledHeading level={level} margin='none'>
       <SpacedText
@@ -28,10 +30,6 @@ function WidgetHeading (props) {
 WidgetHeading.propTypes = {
   level: string,
   text: string
-}
-
-WidgetHeading.defaultProps = {
-  level: '2'
 }
 
 export default WidgetHeading

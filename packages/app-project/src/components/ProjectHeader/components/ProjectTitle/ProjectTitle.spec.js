@@ -1,5 +1,4 @@
 import { render } from 'enzyme'
-import * as Router from 'next/router'
 import sinon from 'sinon'
 import ProjectTitle from './ProjectTitle'
 
@@ -27,12 +26,7 @@ describe('Component > ProjectTitle', function () {
   const TITLE = 'Project title'
 
   before(function () {
-    routerStub = sinon.stub(Router, 'useRouter').callsFake(() => ROUTER_ON_HOME_PAGE)
-    wrapper = render(<ProjectTitle title={TITLE} />)
-  })
-
-  after(function () {
-    routerStub.restore()
+    wrapper = render(<ProjectTitle router={ROUTER_ON_HOME_PAGE} title={TITLE} />)
   })
 
   it('should render without crashing', function () {
@@ -54,8 +48,7 @@ describe('Component > ProjectTitle', function () {
 
   describe('when not on the homepage', function () {
     it('should be wrapped in an anchor with an `href`', function () {
-      routerStub.callsFake(() => ROUTER_ON_OTHER_PAGE)
-      wrapper = render(<ProjectTitle title={TITLE} />)
+      wrapper = render(<ProjectTitle router={ROUTER_ON_OTHER_PAGE} title={TITLE} />)
       expect(wrapper[0].name).to.equal('a')
       expect(wrapper.attr('href')).to.equal('/foo/bar')
     })

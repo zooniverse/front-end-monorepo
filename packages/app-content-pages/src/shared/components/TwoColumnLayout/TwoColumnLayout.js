@@ -4,19 +4,16 @@ import { node } from 'prop-types'
 import AboutHeader from '../AboutHeader'
 
 function TwoColumnLayout (props) {
-  const { main, sidebar } = props
+  const { sidebar, main } = props
   return (
     <>
       <AboutHeader />
       <Box align='center' pad={{ horizontal: 'medium', vertical: 'large' }}>
         <Box
-          direction='row-reverse'
+          direction='row'
           gap='medium'
           width='xlarge'
         >
-          <Box fill gridArea='main'>
-            {main}
-          </Box>
           <Box
             as='aside'
             gridArea='sidebar'
@@ -24,6 +21,11 @@ function TwoColumnLayout (props) {
           >
             {sidebar}
           </Box>
+          
+          <Box fill gridArea='main'>
+            {main}
+          </Box>
+          
         </Box>
       </Box>
     </>

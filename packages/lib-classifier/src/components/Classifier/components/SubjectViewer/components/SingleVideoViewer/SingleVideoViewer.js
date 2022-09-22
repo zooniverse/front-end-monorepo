@@ -18,36 +18,40 @@ const Container = styled.div`
 `
 
 const SingleVideoViewer = ({
-  url,
-  isPlaying,
-  playbackRate,
-  progressInterval,
-  onProgress,
-  playerRef,
-  onDuration,
-  onEnded
+  url = '',
+  isPlaying = false,
+  onDuration = () => {},
+  onEnded = () => {},
+  onError = () => {},
+  onProgress = () => {},
+  onReactPlayerReady = () => {},
+  playbackRate = 1,
+  progressInterval = 100,
+  playerRef = null
 }) => {
   return (
     <Container>
       <ReactPlayer
-        ref={playerRef}
         controls={false}
-        url={url}
+        height='100%'
+        onDuration={onDuration}
+        onEnded={onEnded}
+        onError={onError}
+        onReady={onReactPlayerReady}
+        onProgress={onProgress}
         playing={isPlaying}
         playbackRate={playbackRate}
         progressInterval={progressInterval}
-        onProgress={onProgress}
-        onDuration={onDuration}
-        onEnded={onEnded}
+        ref={playerRef}
         width='100%'
-        height='100%'
+        url={url}
       />
     </Container>
   )
 }
 
 SingleVideoViewer.propTypes = {
-  playerRef: PropTypes.func,
+  playerRef: PropTypes.object,
   url: PropTypes.string,
   isPlaying: PropTypes.bool,
   playbackRate: PropTypes.number,
@@ -55,17 +59,6 @@ SingleVideoViewer.propTypes = {
   onProgress: PropTypes.func,
   onDuration: PropTypes.func,
   onEnded: PropTypes.func
-}
-
-SingleVideoViewer.defaultProps = {
-  playerRef: () => {},
-  url: '',
-  isPlaying: false,
-  playbackRate: 1,
-  progressInterval: 100,
-  onProgress: () => {},
-  onDuration: () => {},
-  onEnded: () => {}
 }
 
 export default SingleVideoViewer

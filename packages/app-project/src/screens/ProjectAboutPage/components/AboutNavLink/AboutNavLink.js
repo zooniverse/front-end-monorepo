@@ -18,7 +18,7 @@ const AboutNavLink = ({ router, link }) => {
 
   useEffect(() => {
     const { href } = link
-    setCurrentPage(router?.asPath === addQueryParams(href, router))
+    setCurrentPage(router?.asPath === addQueryParams(href))
   }, [router])
 
   return (

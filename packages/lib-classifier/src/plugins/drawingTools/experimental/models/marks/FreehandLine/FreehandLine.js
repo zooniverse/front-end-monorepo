@@ -67,8 +67,13 @@ const FreehandLineModel = types
         path.push(pointPath)
       })
       // closes the drawing path
-      if (!self.dragPoint && self.isClosed) {
-        path.push(`Z`)
+      if (self.isClosed) {
+        if (self.dragPoint) {
+          const { x, y } = self.initialPoint
+          path.push(`L ${x},${y}`)
+        } else {
+          path.push(`Z`)
+        }
       }
       return path.join(' ')
     },
@@ -107,6 +112,7 @@ const FreehandLineModel = types
   .volatile(self => ({
     clipPath: types.array(SingleCoord),
     dragPoint: types.maybeNull(SingleCoord),
+    originalPath: types.array(SingleCoord),
     targetPoint: types.maybeNull(SingleCoord)
   }))
   .actions((self) => ({
@@ -122,7 +128,7 @@ const FreehandLineModel = types
     },
 
     setCoordinates(points) {
-      self.points = points
+      self.points = points.map(({ x, y }) => ({ x, y }))
     },
 
     move() {
@@ -150,33 +156,53 @@ const FreehandLineModel = types
       }
     },
 
-    cutSegment(point) {
-      let dragIndex = self.points.indexOf(self.dragPoint)
-      let targetIndex = self.points.indexOf(point)
-      if (targetIndex < dragIndex) {
-        dragIndex = self.points.indexOf(point)
-        targetIndex = self.points.indexOf(self.dragPoint)
+    cancelClipPath() {
+      self.setCoordinates(self.originalPath)
+      self.setClipPath([])
+    },
+
+    cutSegment(startPoint, endPoint) {
+      /*
+        If the line has already been cut into subpaths, restore the original path.
+        Note that this will overwrite both dragPoint and targetPoint.
+      */
+      if (self.clipPath.length > 0) {
+        self.setCoordinates(self.originalPath)
+      } else {
+        self.originalPath = self.points.map(({ x, y }) => ({ x, y }))
       }
-      const deleteCount = targetIndex - dragIndex - 1
-      const distFromEnd = self.points.length - targetIndex - 1
-      const spansStartPoint = self.isClosed && (distFromEnd + dragIndex) < deleteCount
+      const dragPoint = self.selectPoint(startPoint)
+      let startIndex = self.points.indexOf(dragPoint)
+      const targetPoint = self.selectPoint(endPoint)
+      let endIndex = self.points.indexOf(targetPoint)
+      let spansStartPoint = false
+      if (self.isClosed) {
+        const firstPoint = Math.min(startIndex, endIndex)
+        const lastPoint = Math.max(startIndex, endIndex)
+        const deleteCount = lastPoint - firstPoint - 1
+        const distFromEnd = self.points.length - lastPoint - 1
+        const distFromStart = firstPoint
+        spansStartPoint = (distFromEnd + distFromStart) < deleteCount
+      }
       if (!spansStartPoint) {
         /*
         Segment lies entirely within the line path, so splice points
         from dragIndex to targetIndex.
         */
-        self.splice(dragIndex, targetIndex)
-        self.dragPoint = self.points[dragIndex]
-        self.targetPoint = self.points[dragIndex + 1]
+        self.splice(startIndex, endIndex)
       } else {
         /*
         Segment spans the start point of a closed loop, so
         trim the ends of the line back to dragIndex and targetIndex.
         */
-        self.trim(dragIndex, targetIndex)
-        self.dragPoint = null
-        self.targetPoint = null
+        self.trim(startIndex, endIndex)
       }
+    },
+
+    revertEdits() {
+      self.cancelClipPath()
+      self.dragPoint = null
+      self.targetPoint = null
     },
 
     setClipPath(points = []) {
@@ -184,11 +210,11 @@ const FreehandLineModel = types
     },
 
     setDragPoint(point) {
-      self.dragPoint = point
+      self.dragPoint = point ? self.selectPoint(point) : null
     },
 
     setTargetPoint(point) {
-      self.targetPoint = point
+      self.targetPoint = point ? self.selectPoint(point) : null
     },
 
     shortenPath() {
@@ -199,17 +225,50 @@ const FreehandLineModel = types
     },
 
     splice(startIndex, endIndex) {
-      const deleteCount = endIndex - startIndex - 1
-      const clippedPoints = self.points.slice(startIndex, endIndex + 1)
+      let firstPoint = Math.min(startIndex, endIndex)
+      let lastPoint = Math.max(startIndex, endIndex)
+      /*
+        Reverse the path, if necessary, so that the first point clicked
+        is always the draggable point.
+      */
+      if (firstPoint === endIndex) {
+        const lastIndex = self.points.length - 1
+        self.points.reverse()
+        firstPoint = lastIndex - startIndex
+        lastPoint = lastIndex - endIndex
+      }
+      const deleteCount = lastPoint - firstPoint - 1
+      const clippedPoints = self.points.slice(firstPoint, lastPoint + 1)
       self.clipPath = clippedPoints.map(({ x, y }) => ({ x, y }))
-      self.points.splice(startIndex + 1, deleteCount)
+      self.points.splice(firstPoint + 1, deleteCount)
+      // Make the ends of the spliced section draggable.
+      self.dragPoint = self.points[firstPoint]
+      self.targetPoint = self.points[firstPoint + 1]
     },
 
     trim(startIndex, endIndex) {
-      const clippedPoints = [ ...self.points.slice(endIndex), ...self.points.slice(0, startIndex + 1)]
+      let firstPoint = Math.min(startIndex, endIndex)
+      let lastPoint = Math.max(startIndex, endIndex)
+      /*
+        Reverse the path, if necessary, so that the first point clicked
+        is always at the end of the new line. The end of an open line
+        is the draggable point.
+      */
+      if (lastPoint === endIndex) {
+        const lastIndex = self.points.length - 1
+        self.points.reverse()
+        lastPoint = lastIndex - startIndex
+        firstPoint = lastIndex - endIndex
+      }
+      const clippedPoints = [ ...self.points.slice(lastPoint), ...self.points.slice(0, firstPoint + 1)]
       self.clipPath = clippedPoints.map(({ x, y }) => ({ x, y }))
-      self.points.splice(0, startIndex + 1)
-      self.points.splice(endIndex)
+      // Move the end of the line back to lastPoint.
+      self.points.splice(lastPoint + 1)
+      // Move the start of the line forward to firstPoint.
+      self.points.splice(0, firstPoint)
+      // Make the ends of the new, open line draggable.
+      self.dragPoint = null
+      self.targetPoint = null
     }
   }))
 

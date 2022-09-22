@@ -3,22 +3,43 @@ import { Box } from 'grommet'
 import { ZooFooter } from '@zooniverse/react-components'
 import { useRouter } from 'next/router'
 
-import Announcements from '@components/Announcements'
-import ProjectHeader from '@components/ProjectHeader'
-import ZooHeaderWrapper from '@components/ZooHeaderWrapper'
+import { useAdminMode } from '@hooks'
+import {
+  AdminContainer,
+  Announcements,
+  ProjectHeader,
+  ZooHeaderWrapper
+} from '@components'
+
+export const adminBorderImage = 'repeating-linear-gradient(45deg, #000, #000 25px, #ff0 25px, #ff0 50px) 5'
 
 function StandardLayout ({
   children,
-  inBeta
+  inBeta,
 }) {
-  const { locale } = useRouter()
+  const { adminMode, toggleAdmin } = useAdminMode()
+  const router = useRouter()
+  const locale = router?.locale
+
+  const adminBorder = { size: 'medium' }
+  const betaBorder = { color: 'brand', size: 'medium' }
+  const pageStyle = {}
+  if (adminMode) {
+    pageStyle.borderImage = adminBorderImage
+  }
+  let border = adminMode ? adminBorder : false
+  border = inBeta ? betaBorder : border
+
   return (
-    <Box border={(inBeta) ? { color: 'brand', size: 'medium' } : false}>
+    <Box data-testid='project-page' border={border} style={pageStyle}>
       <ZooHeaderWrapper />
-      <ProjectHeader />
+      <ProjectHeader adminMode={adminMode} />
       <Announcements />
       {children}
-      <ZooFooter locale={locale} />
+      <ZooFooter
+        adminContainer={<AdminContainer onChange={toggleAdmin} checked={adminMode} />}
+        locale={locale}
+      />
     </Box>
   )
 }

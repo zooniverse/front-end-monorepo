@@ -154,6 +154,7 @@
     "previous": "Go to previous step"
   },
   "SubjectViewer": {
+    "loading": "Loading a subject",
     "BarChartViewer": {
       "chartLabel": "Bar chart"
     },
@@ -188,6 +189,9 @@
         "previousFrameLabel": "Previous",
         "nextFrameLabel": "Next"
       }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "There was an error loading the subject."
     },
     "VariableStarViewer": {
       "controls": "controls",

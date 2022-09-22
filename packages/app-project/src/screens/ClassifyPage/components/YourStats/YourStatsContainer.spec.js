@@ -6,21 +6,19 @@ describe('Component > YourStatsContainer', function () {
   let wrapper
   let componentWrapper
 
-  const stores = {
-    store: {
-      project: {
-        display_name: 'Test Project'
-      },
-      user: {
-        personalization: {
-          counts: 10
-        }
+  const mockStore = {
+    project: {
+      display_name: 'Test Project'
+    },
+    user: {
+      personalization: {
+        counts: 10
       }
     }
   }
 
   before(function () {
-    wrapper = shallow(<YourStatsContainer stores={stores} />)
+    wrapper = shallow(<YourStatsContainer mockStore={mockStore} />)
     componentWrapper = wrapper.find(YourStats)
   })
 

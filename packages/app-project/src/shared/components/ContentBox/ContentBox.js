@@ -1,5 +1,4 @@
-import { SpacedText } from '@zooniverse/react-components'
-import { Anchor, Box } from 'grommet'
+import { Box } from 'grommet'
 import { bool, node, object, shape, string } from 'prop-types'
 import { withTheme } from 'styled-components'
 import NavLink from '@shared/components/NavLink'
@@ -52,7 +51,7 @@ function ContentBox (props) {
         >
 
           {title && (
-            <WidgetHeading children={title} level={titleLevel} />
+            <WidgetHeading level={titleLevel}>{title}</WidgetHeading>
           )}
 
           {link.text && (

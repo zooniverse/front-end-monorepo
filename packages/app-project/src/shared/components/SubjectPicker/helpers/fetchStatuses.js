@@ -13,7 +13,7 @@ export default async function fetchStatuses(
     const end = (page + 1) * page_size
     const subject_ids = subjects.slice(start, end).map(row => row.subject_id).join(',')
     const statuses = await checkRetiredStatus(subject_ids, t, workflow)
-    function updateSeenStatus(rows) {
+    const updateSeenStatus = (rows) => {
       const newRows = rows.slice()
       Object.entries(statuses).forEach(([ subjectID, subjectStatus ]) => {
         const subject = newRows.find(subject => subject.subject_id === parseInt(subjectID))

@@ -1,203 +1,61 @@
-// import { shallow } from 'enzyme'
-// import sinon from 'sinon'
-// import React from 'react'
+import React from 'react'
+import { render, screen, waitFor } from '@testing-library/react'
+import { expect } from 'chai'
+import { Factory } from 'rosie'
+import { Provider } from 'mobx-react'
 
-// import { DraggableImage, SingleImageViewerContainer } from './SingleImageViewerContainer'
-// import SingleImageViewer from './SingleImageViewer'
+import mockStore from '@test/mockStore'
+import SingleVideoViewerContainer from './SingleVideoViewerContainer'
 
-// describe('Component > SingleImageViewerContainer', function () {
-//   let wrapper
-//   const height = 200
-//   const width = 400
-//   const DELAY = 0
-//   const HTMLImgError = {
-//     message: 'The HTML img did not load'
-//   }
+describe('Component > SingleVideoViewerContainer', function () {
+  describe('with a video subject src', function () {
+    const mockSubject = Factory.build('subject', {
+      locations: [
+        {
+          'video/mp4': 'https://panoptes-uploads.zooniverse.org/subject_location/239f17f7-acf9-49f1-9873-266a80d29c33.mp4'
+        }
+      ]
+    })
 
-//   // mock an image that loads after a delay of 0.1s
-//   class ValidImage {
-//     constructor () {
-//       this.naturalHeight = height
-//       this.naturalWidth = width
-//       setTimeout(() => this.onload(), DELAY)
-//     }
-//   }
+    const store = mockStore({
+      subject: mockSubject
+    })
 
-//   // mock an image that errors after a delay of 0.1s
-//   class InvalidImage {
-//     constructor () {
-//       this.naturalHeight = height
-//       this.naturalWidth = width
-//       setTimeout(() => this.onerror(HTMLImgError), DELAY)
-//     }
-//   }
+    it('should render a video html element with subject url as src', async function () {
+      const { container } = render(
+        <Provider classifierStore={store}>
+          <SingleVideoViewerContainer
+            subject={mockSubject}
+          />
+        </Provider>
+      )
+      // We need to wait for React Player to be ready
+      await waitFor(() => {
+        const videoElement = container.querySelector('video')
+        expect(videoElement).exists()
+      })
+    })
+  })
 
-//   describe('without a subject', function () {
-//     const onError = sinon.stub()
+  describe('without a video subject src', function () {
+    const emptySubject = Factory.build('subject', {
+      locations: []
+    })
 
-//     before(function () {
-//       wrapper = shallow(<SingleImageViewerContainer onError={onError} />)
-//     })
+    const store = mockStore({
+      subject: emptySubject
+    })
 
-//     it('should render without crashing', function () {
-//       expect(wrapper).to.be.ok()
-//     })
-
-//     it('should render null', function () {
-//       expect(wrapper.type()).to.be.null()
-//     })
-//   })
-
-//   describe('with a valid subject', function () {
-//     let imageWrapper
-//     const onReady = sinon.stub()
-//     const onError = sinon.stub()
-
-//     beforeEach(function (done) {
-//       onReady.callsFake(() => done())
-//       onError.callsFake(() => done())
-//       const subject = {
-//         id: 'test',
-//         locations: [
-//           { 'image/jpeg': 'https://some.domain/image.jpg' }
-//         ],
-//         metadata: {
-//           default_frame: "0"
-//         }
-//       }
-//       wrapper = shallow(
-//         <SingleImageViewerContainer
-//           ImageObject={ValidImage}
-//           subject={subject}
-//           onError={onError}
-//           onReady={onReady}
-//         />
-//       )
-//       imageWrapper = wrapper.find(SingleImageViewer)
-//       wrapper.instance().imageViewer = {
-//         current: {
-//           clientHeight: 50,
-//           clientWidth: 100,
-//           addEventListener: sinon.stub(),
-//           getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
-//           removeEventListener: sinon.stub()
-//         }
-//       }
-//     })
-
-//     afterEach(function () {
-//       onReady.resetHistory()
-//     })
-
-//     it('should render without crashing', function () {
-//       expect(wrapper).to.be.ok()
-//     })
-
-//     it('should record the original image dimensions on load', function () {
-//       const svg = wrapper.instance().imageViewer.current
-//       const fakeEvent = {
-//         target: {
-//           clientHeight: 0,
-//           clientWidth: 0
-//         }
-//       }
-//       const expectedEvent = {
-//         target: {
-//           clientHeight: svg.clientHeight,
-//           clientWidth: svg.clientWidth,
-//           naturalHeight: height,
-//           naturalWidth: width
-//         }
-//       }
-//       expect(onReady).to.have.been.calledOnceWith(expectedEvent)
-//       expect(onError).to.not.have.been.called()
-//     })
-
-//     it('should pass the original image dimensions to the SVG image', function () {
-//       const { height, width } = wrapper.find(SingleImageViewer).props()
-//       expect(height).to.equal(height)
-//       expect(width).to.equal(width)
-//     })
-
-//     it('should render an svg image', function () {
-//       const image = wrapper.find('image')
-//       expect(image).to.have.lengthOf(1)
-//       expect(image.prop('xlinkHref')).to.equal('https://some.domain/image.jpg')
-//     })
-
-//     describe('with dragging enabled', function () {
-//       it('should render a draggable image', function () {
-//         wrapper.setProps({ move: true })
-//         const image = wrapper.find(DraggableImage)
-//         expect(image).to.have.lengthOf(1)
-//         expect(image.prop('xlinkHref')).to.equal('https://some.domain/image.jpg')
-//       })
-//     })
-//   })
-
-//   describe('with an invalid subject', function () {
-//     let imageWrapper
-//     const onReady = sinon.stub()
-//     const onError = sinon.stub()
-
-//     before(function () {
-//       sinon.stub(console, 'error')
-//     })
-
-//     beforeEach(function (done) {
-//       onReady.callsFake(() => done())
-//       onError.callsFake(() => done())
-//       const subject = {
-//         id: 'test',
-//         locations: [
-//           { 'image/jpeg': '' }
-//         ]
-//       }
-//       wrapper = shallow(
-//         <SingleImageViewerContainer
-//           ImageObject={InvalidImage}
-//           subject={subject}
-//           onError={onError}
-//           onReady={onReady}
-//         />
-//       )
-//       imageWrapper = wrapper.find(SingleImageViewer)
-//       wrapper.instance().imageViewer = {
-//         current: {
-//           clientHeight: 50,
-//           clientWidth: 100,
-//           addEventListener: sinon.stub(),
-//           getBoundingClientRect: sinon.stub().callsFake(() => ({ width: 100, height: 50 })),
-//           removeEventListener: sinon.stub()
-//         }
-//       }
-//     })
-
-//     afterEach(function () {
-//       onError.resetHistory()
-//       onReady.resetHistory()
-//     })
-
-//     after(function () {
-//       console.error.restore()
-//     })
-
-//     it('should render without crashing', function () {
-//       expect(wrapper).to.be.ok()
-//     })
-
-//     it('should log an error from an invalid image', function () {
-//       const fakeEvent = {
-//         target: {
-//           clientHeight: 0,
-//           clientWidth: 0
-//         }
-//       }
-//       expect(onError.withArgs(HTMLImgError)).to.have.been.calledOnce()
-//     })
-
-//     it('should not call onReady', function () {
-//       expect(onReady).to.not.have.been.called()
-//     })
-//   })
-// })
+    it('should display an error message and no video html element ', function () {
+      const { container } = render(
+        <Provider classifierStore={store}>
+          <SingleVideoViewerContainer />
+        </Provider>
+      )
+      const videoElement = container.querySelector('video')
+      const errorMessage = screen.getByText('SubjectViewer.SingleVideoViewerContainer.error')
+      expect(videoElement).to.be.null()
+      expect(errorMessage).exists()
+    })
+  })
+})

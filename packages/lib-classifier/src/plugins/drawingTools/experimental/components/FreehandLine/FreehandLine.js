@@ -50,36 +50,61 @@ function FreehandLine({ active, mark, onFinish, scale }) {
   const { path, initialPoint, lastPoint, finished, isClosed } = mark
   const [editing, setEditing] = useState(false)
 
-  const dragPoint = !mark.isCloseToStart && mark.dragPoint
-  const targetPoint = !mark.isCloseToStart && mark.targetPoint
+  const dragPoint = mark.isCloseToStart ? null : mark.dragPoint
+  const targetPoint = mark.isCloseToStart ? null : mark.targetPoint
   const clippedPath = mark.clipPath.map(
     (point, index) => index === 0 ? `M ${point.x},${point.y}` : `L ${point.x},${point.y}`
   ).join(' ')
+  /*
+    Line segmentation has begun if either:
+    - a drag point has been created to cut the path internally.
+    - the path is open but has a clipped path joining the open ends.
+  */
+  const segmentationInProgress = dragPoint || (!isClosed && clippedPath)
 
-  if (editing && !dragPoint) {
+  if (segmentationInProgress && !editing) {
+    setEditing(true)
+  }
+
+  // cancel editing when lines become inactive
+  if (segmentationInProgress && !active) {
+    mark.revertEdits()
+    setEditing(false)
+  }
+
+  if (active && editing && mark.isCloseToStart) {
     cancelEditing()
   }
 
-  if (!editing && isClosed) {
-    if (mark.clipPath.length > 0) {
-      mark.setClipPath([])
-    }
+  if (active && !segmentationInProgress && clippedPath) {
+    // clear the dashed guide line when segmentation ends.
+    mark.setClipPath([])
   }
 
   function onDoubleClick(event) {
     if (active) {
       const { x, y } = createPoint(event)
-      mark.setDragPoint(mark.selectPoint({ x, y }))
-      setEditing(true)
+      mark.setDragPoint({ x, y })
       return cancelEvent(event)
     }
     return true
   }
 
   function onPointerDown(event) {
-    if (active && editing) {
-      const { x, y } = createPoint(event)
-      mark.cutSegment(mark.selectPoint({ x, y }))
+    let startPoint
+    if (!mark.isClosed && clippedPath) {
+      // The last point is always draggable for open lines.
+      const { x, y } = mark.lastPoint
+      startPoint = { x, y }
+    }
+    if (mark.dragPoint) {
+      // If editing has already started, use the existing drag point.
+      const { x, y } = mark.dragPoint
+      startPoint = { x, y }
+    }
+    if (active && startPoint) {
+      const endPoint = createPoint(event)
+      mark.cutSegment(startPoint, endPoint)
       return cancelEvent(event)
     }
     if (active) {
@@ -99,7 +124,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
       className={ editing ? 'editing' : undefined}
       onPointerUp={active ? onFinish : undefined}
     >
-      {active && !editing && !isClosed && (
+      {active && !dragPoint && !isClosed && (
         <circle
           fill='currentColor'
           r={FINISHER_RADIUS / scale}
@@ -135,13 +160,24 @@ function FreehandLine({ active, mark, onFinish, scale }) {
         fill='none'
       />
       {active && clippedPath &&
-        <path
-          d={clippedPath}
-          strokeDasharray='2 2'
-          strokeWidth={STROKE_WIDTH}
-        />
+        <>
+          <path
+            d={clippedPath}
+            strokeDasharray='2 2'
+            strokeWidth={STROKE_WIDTH}
+          />
+          <path
+            d={clippedPath}
+            onPointerDown={onPointerDown}
+            style={{
+              strokeOpacity: '0',
+              strokeWidth: GRAB_STROKE_WIDTH / scale
+            }}
+            fill='none'
+          />
+        </>
       }
-      {active && finished && !editing && !isClosed &&
+      {active && finished && !dragPoint && !isClosed &&
         <DragHandle
           scale={scale}
           x={lastPoint.x}
