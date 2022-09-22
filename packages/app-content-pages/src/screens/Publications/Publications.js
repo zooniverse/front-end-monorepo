@@ -7,6 +7,10 @@ import Category from './components/Category'
 import TwoColumnLayout from '../../shared/components/TwoColumnLayout'
 import Head from '../../shared/components/Head'
 
+const StyledLi = styled.li`
+  list-style-type: none;
+`
+
 const StyledButton = styled(Button)`
   ${props => props.active && css`
     background: none;
@@ -44,16 +48,16 @@ function Publications (props) {
   )
 
   const sidebar = (
-    <Box gap='small'>
+    <Box as='ul' gap='small'>
       {filters.map(filter => (
-        <div key={filter.name} >
+        <StyledLi key={filter.name} >
           <StyledButton
             active={filter.active}
             label={filter.name}
             onClick={filter.setActive}
             plain
           />
-        </div>
+        </StyledLi>
       ))}
     </Box>
   )
