@@ -43,11 +43,7 @@ describe('Component > QuickTalkContainer', function () {
   beforeEach(function () {
     const store = mockStore()
     render(
-      <QuickTalkContainerForTesting
-        authClient={authClient}
-        enabled={true}
-        subject={subject}
-      />,
+      <QuickTalkContainerForTesting />,
       {
         wrapper: withStore(store)
       }
