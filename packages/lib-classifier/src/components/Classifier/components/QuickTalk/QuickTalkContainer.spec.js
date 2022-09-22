@@ -51,7 +51,7 @@ describe('Component > QuickTalkContainer', function () {
   })
 
   it('should render without crashing', function () {
-    expect(screen.queryByRole('tab')).to.have.text('QuickTalk.tabTitle')
-    expect(screen.queryByRole('link')).to.have.text('QuickTalk.goToTalk')
+    expect(screen.queryByRole('tab', { name: 'QuickTalk.tabTitle' })).to.exist()
+    expect(screen.queryByRole('link', { name: 'QuickTalk.goToTalk ShareRounded' })).to.exist()
   })
 })
