@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { QuickTalk } from './QuickTalk'
-import { Tabs } from '@zooniverse/react-components'
+import { Tabs, Tab } from '@zooniverse/react-components'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 
@@ -82,6 +82,7 @@ describe('Component > QuickTalk', function () {
               authorRoles={authorRoles}
               userId={undefined}
             />
+            <Tab title="Other">Placeholder for testing</Tab>
           </Tabs>
         </Grommet>
       )
@@ -113,6 +114,7 @@ describe('Component > QuickTalk', function () {
               authorRoles={authorRoles}
               userId={loggedInUserId}
             />
+            <Tab title="Other">Placeholder for testing</Tab>
           </Tabs>
         </Grommet>
       )
