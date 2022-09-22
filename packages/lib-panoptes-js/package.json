@@ -13,8 +13,7 @@
     "test:ci": "NODE_ENV=test mocha --config ./test/.mocharc.json --reporter=min \"./src/**/*.spec.js\""
   },
   "dependencies": {
-    "superagent": "~8.0.0",
-    "url-parse": "~1.5.10"
+    "superagent": "~8.0.0"
   },
   "devDependencies": {
     "@zooniverse/standard": "~1.0.0",

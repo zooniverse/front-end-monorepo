@@ -77,7 +77,12 @@ function SingleVideoViewerContainer({
     }
   }
 
-  const enableDrawing = loadingState === asyncStates.success && enableInteractionLayer
+  async getVideoSize() {
+    const vid = await this.preload()
+    const svg = this.videoViewer.current
+    const { width: clientWidth, height: clientHeight } = svg
+      ? svg.getBoundingClientRect()
+      : {}
 
   /* ==================== react-player ==================== */
 
@@ -233,6 +238,7 @@ function SingleVideoViewerContainer({
 
 SingleVideoViewerContainer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
+  loadingState: PropTypes.string,
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onKeyDown: PropTypes.func,

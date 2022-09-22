@@ -7,7 +7,7 @@ import { applySnapshot } from 'mobx-state-tree'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
 
 import initStore from '@stores'
-import ProjectHomePage from './ProjectHomePage.js'
+import ProjectHomePage, { adminBorderImage } from './ProjectHomePage.js'
 
 describe('Component > ProjectHomePage', function () {
   this.timeout(5000)
@@ -124,7 +124,6 @@ describe('Component > ProjectHomePage', function () {
       adminToggle = within(zooFooter).getByRole('checkbox', { name: 'Admin Mode' })
     })
 
-    // TODO: add a border to pages in admin mode.
     it('should not have a border', function () {
       expect(homePage).to.be.ok()
       const { border } = window.getComputedStyle(homePage)
@@ -133,6 +132,51 @@ describe('Component > ProjectHomePage', function () {
 
     it('should show the admin toggle in the footer', function () {
       expect(adminToggle).to.be.ok()
+      expect(adminToggle.checked).to.be.false()
+    })
+  })
+
+  describe('in admin mode', function () {
+    before(function () {
+      const snapshot = {
+        project: {
+          configuration: {
+            languages: ['en']
+          },
+          slug: 'Foo/Bar',
+          strings: {
+            display_name: 'Foobar'
+          },
+          links: {
+            active_workflows: ['1']
+          }
+        },
+        user: {
+          id: '1',
+          admin: true,
+          login: 'zooVolunteer'
+        }
+      }
+      window.localStorage.setItem('adminFlag', true)
+      render(<ProjectHomePage />, { wrapper: withStore(snapshot) })
+      homePage = screen.getByTestId('project-home-page')
+      const zooFooter = within(homePage).getByRole('contentinfo')
+      adminToggle = within(zooFooter).getByRole('checkbox', { name: 'Admin Mode' })
+    })
+
+    after(function () {
+      window.localStorage.removeItem('adminFlag')
+    })
+
+    it('should have a striped border', function () {
+      expect(homePage).to.be.ok()
+      const borderImage = window.getComputedStyle(homePage)['border-image']
+      expect(borderImage).to.equal(adminBorderImage)
+    })
+
+    it('should show the admin toggle in the footer', function () {
+      expect(adminToggle).to.be.ok()
+      expect(adminToggle.checked).to.be.true()
     })
   })
 })

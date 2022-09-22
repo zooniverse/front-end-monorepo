@@ -1,7 +1,12 @@
-const URL = require('url-parse')
+function getProjectSlugFromURL(urlArg) {
+  let parsed
 
-function getProjectSlugFromURL (urlArg) {
-  const parsed = new URL(urlArg)
+  if (urlArg.startsWith('http')) {
+    parsed = new URL(urlArg)
+  } else {
+    const path = urlArg.startsWith('/') ? urlArg : `/${urlArg}`
+    parsed = new URL(`https://www.zooniverse.org${path}`)
+  }
 
   const [projectPath, owner, project] = parsed.pathname.split('/')
     .filter(Boolean)
