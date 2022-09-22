@@ -1,5 +1,6 @@
 import counterpart from 'counterpart'
 import { Anchor, Box, Button, Heading, Paragraph } from 'grommet'
+import Link from 'next/link'
 import { array, arrayOf, bool, func, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 
@@ -19,9 +20,11 @@ const StyledButton = styled(Button)`
 `
 const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdbAKVT2tGs1WfBqWNrMekFE5lL4ZuMnWlwJuCuNM33QO2ZYg/viewform'
 
-function Publications (props) {
-  const { className, data, filters } = props
-
+function Publications ({
+  className,
+  data,
+  filters
+}) {
   const heading = (
     <section>
       <Heading margin={{ top: 'none' }} size='small'>
@@ -42,6 +45,7 @@ function Publications (props) {
           key={category.title}
           title={category.title}
           projects={category.projects}
+          slug={category.slug}
         />
       ))}
     </article>
@@ -51,12 +55,17 @@ function Publications (props) {
     <Box as='ul' gap='small'>
       {filters.map(filter => (
         <StyledLi key={filter.name} >
-          <StyledButton
-            active={filter.active}
-            label={filter.name}
-            onClick={filter.setActive}
-            plain
-          />
+          <Link
+            href={ filter.slug ? `#${filter.slug}` : '' }
+            passHref
+          >
+            <StyledButton
+              active={filter.active}
+              label={filter.name}
+              onClick={filter.setActive}
+              plain
+            />
+          </Link>
         </StyledLi>
       ))}
     </Box>

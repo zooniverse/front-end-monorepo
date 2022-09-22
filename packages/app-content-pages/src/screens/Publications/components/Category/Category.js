@@ -3,11 +3,14 @@ import { arrayOf, shape, string } from 'prop-types'
 
 import Project from '../Project'
 
-function Category (props) {
-  const { title, projects } = props
+function Category ({
+  title,
+  projects,
+  slug
+}) {
   return (
     <Box as='section'>
-      <Heading level='2' size='small'>
+      <Heading id={slug} level='2' size='small'>
         {title}
       </Heading>
       {projects.map(project => (

@@ -1,5 +1,6 @@
 import counterpart from 'counterpart'
 import { Box, Button, Heading } from 'grommet'
+import Link from 'next/link'
 import { array, arrayOf, bool, func, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 
@@ -19,9 +20,11 @@ const StyledButton = styled(Button)`
   `}
 `
 
-function TeamComponent (props) {
-  const { className, data, filters } = props
-
+function TeamComponent ({
+  className,
+  data,
+  filters
+}) {
   const heading = (
     <Heading margin={{ top: 'none' }} size='small'>
       Our Team
@@ -35,6 +38,7 @@ function TeamComponent (props) {
           key={team.name}
           name={team.name}
           people={team.people}
+          slug={team.slug}
         />
       ))}
     </article>
@@ -44,12 +48,17 @@ function TeamComponent (props) {
     <Box as='ul' gap='small'>
       {filters.map(filter => (
         <StyledLi key={filter.name}>
-          <StyledButton
-            active={filter.active}
-            label={filter.name}
-            onClick={filter.setActive}
-            plain
-          />
+          <Link
+            href={ filter.slug ? `#${filter.slug}` : '' }
+            passHref
+          >
+            <StyledButton
+              active={filter.active}
+              label={filter.name}
+              onClick={filter.setActive}
+              plain
+            />
+          </Link>
         </StyledLi>
       ))}
     </Box>
