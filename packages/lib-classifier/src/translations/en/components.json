@@ -129,6 +129,7 @@
     "subjectHasNoComments": "This Subject doesn't have any comments yet.",
     "textAreaForComments": "Write comment",
     "buttonForPostingComments": "Post comment",
+    "opensInNewTab": "(opens in a new tab/window)",
     "status": {
       "initialized": "Leave a note about this subject",
       "loading": "Posting comment...",

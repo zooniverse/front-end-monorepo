@@ -90,7 +90,7 @@ describe('Component > QuickTalk', function () {
 
     it('should render without crashing', function () {
       expect(screen.queryByRole('tab', { name: 'QuickTalk.tabTitle' })).to.exist()
-      expect(screen.queryByRole('link', { name: 'QuickTalk.goToTalk ShareRounded' })).to.exist()
+      expect(screen.queryByRole('link', { name: 'QuickTalk.goToTalk QuickTalk.opensInNewTab' })).to.exist()
     })
 
     it('should have the correct number of comments', function () {
