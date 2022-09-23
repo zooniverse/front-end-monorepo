@@ -12449,10 +12449,10 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0:
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz#26c8a3cee6cc05fbcf1e333cd2fc3e003326c0b5"
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
-newrelic@^9.0.0, newrelic@~9.0.0:
-  version "9.0.3"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-9.0.3.tgz#e053756306c49625b4934a0ef565e665274cd83e"
-  integrity sha512-PGmEWBm0VgScTagcOYJWl/wM3ny5VhbB6T+1wfeRvgSt8yMKBFXPNspp0RwKEzkU6Q9jf7aevjPzD8nNnDxCpg==
+newrelic@^9.0.0, newrelic@~9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-9.1.0.tgz#e0fce72f49379b323b6ffb3de3bda02b6758a893"
+  integrity sha512-LAxJAJ7sN554FidgjPZwc9dyoMmLNKVi5HH+2E2d3ldr0jQywImzrJhrVa0T2jtO6flVYkXFtitl3UyQnFh8Ew==
   dependencies:
     "@grpc/grpc-js" "^1.5.5"
     "@grpc/proto-loader" "^0.6.13"
