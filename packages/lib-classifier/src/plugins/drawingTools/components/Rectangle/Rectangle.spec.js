@@ -19,7 +19,11 @@ describe('Rectangle tool', () => {
   })
 
   it('should render a rectangle with correct dimensions and position', () => {
-    render(<Rectangle mark={mark} scale={1} />)
+    render(
+      <svg xmlns='http://www.w3.org/2000/svg'>
+        <Rectangle mark={mark} scale={1} />
+      </svg>
+    )
 
     const rectElement = screen.getByTestId('rectangle-element')
 
@@ -30,7 +34,11 @@ describe('Rectangle tool', () => {
   })
 
   it('should render an active rectangle with four drag handles', () => {
-    render(<Rectangle active mark={mark} scale={1} />)
+    render(
+      <svg xmlns='http://www.w3.org/2000/svg'>
+        <Rectangle active mark={mark} scale={1} />
+      </svg>
+    )
 
     expect(screen.getByTestId('rect-dragHandle1')).to.exist
     expect(screen.getByTestId('rect-dragHandle2')).to.exist
@@ -41,7 +49,11 @@ describe('Rectangle tool', () => {
   it('should resize when a drag handle is moved', async () => {
     const user = userEvent.setup()
 
-    render(<Rectangle active mark={mark} scale={1} />)
+    render(
+      <svg xmlns='http://www.w3.org/2000/svg'>
+        <Rectangle active mark={mark} scale={1} />
+      </svg>
+    )
 
     const rectElement = screen.getByTestId('rectangle-element')
 
