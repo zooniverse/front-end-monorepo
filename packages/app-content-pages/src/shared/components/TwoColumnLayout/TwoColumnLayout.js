@@ -10,13 +10,18 @@ function TwoColumnLayout (props) {
       <AboutHeader />
       <Box align='center' pad={{ horizontal: 'medium', vertical: 'large' }}>
         <Box 
-            direction='row'
-            gap='medium'
-            width='xlarge'
-            >
-              {heading}
-
+          direction='row'
+          gap='medium'
+          width='xlarge'
+        >
+          <Box
+            width='medium'
+          />
+          <Box fill gridArea='heading'>
+            {heading}
           </Box>
+        </Box>
+
         <Box
           direction='row'
           gap='medium'
