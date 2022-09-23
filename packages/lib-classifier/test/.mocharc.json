@@ -6,8 +6,8 @@
   "require": [
     "@babel/register",
     "@babel/polyfill",
-    "chai/register-expect",
-    "chai/register-should",
+    "chai/register-expect.js",
+    "chai/register-should.js",
     "ignore-styles",
     "./test/setup.js",
     "./test/enzyme-config.js"

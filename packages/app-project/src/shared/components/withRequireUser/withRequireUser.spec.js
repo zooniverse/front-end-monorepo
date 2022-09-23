@@ -10,25 +10,21 @@ describe('withRequireUser', function () {
   const WithRequireUser = withRequireUser(StubComponent)
   let wrapper
 
-  const loggedOutStores = {
-    store: {
-      user: {
-        isLoggedIn: false
-      }
+  const loggedOutStore = {
+    user: {
+      isLoggedIn: false
     }
   }
 
-  const loggedInStores = {
-    store: {
-      user: {
-        isLoggedIn: true
-      }
+  const loggedInStore = {
+    user: {
+      isLoggedIn: true
     }
   }
 
   describe('behavior when not logged in', function () {
     before(function () {
-      wrapper = shallow(<WithRequireUser stores={loggedOutStores} />)
+      wrapper = shallow(<WithRequireUser mockStore={loggedOutStore} />)
     })
 
     it('should render the wrapped component', function () {
@@ -42,7 +38,7 @@ describe('withRequireUser', function () {
 
   describe('behavior when logged in', function () {
     before(function () {
-      wrapper = shallow(<WithRequireUser stores={loggedInStores} />)
+      wrapper = shallow(<WithRequireUser mockStore={loggedInStore} />)
     })
 
     it('should render the wrapped component', function () {

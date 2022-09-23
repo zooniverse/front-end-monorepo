@@ -126,12 +126,12 @@ The yarn build scripts default to production for libraries if `PANOPTES_ENV` is 
 - `NODE_ENV`: the [webpack build mode](https://webpack.js.org/configuration/mode/) for libraries and the NextJS apps (production, development or undefined.)
 - `APP_ENV`: the deployment environment, logged as the [Sentry environment](https://docs.sentry.io/product/sentry-basics/environments/) with errors:
   - `development`: local development on `localhost` or `local.zooniverse.org`.
+  - `branch`: PR branch deploys on `fe-project-branch.preview.zooniverse.org`.
   - `staging`: staging on `frontend.preview.zooniverse.org`.
   - `production`: the Zooniverse web site, `www.zooniverse.org`.
 - `CONTENTFUL_ACCESS_TOKEN`: access token for the Contentful API. Should be kept secret.
 - `CONTENTFUL_SPACE_ID`: space ID for Zooniverse About pages in Contentful. Should be kept secret.
-- `CONTENT_ASSET_PREFIX`: [NextJS asset prefix](https://nextjs.org/docs/api-reference/next.config.js/cdn-support-with-asset-prefix) for `app-content-pages`.
-- `PROJECT_ASSET_PREFIX`: [NextJS asset prefix](https://nextjs.org/docs/api-reference/next.config.js/cdn-support-with-asset-prefix) for `app-project`.
+- `NEWRELIC_LICENSE_KEY`:  License key for New Relic logging. Should be kept secret.
 - `COMMIT_ID`: the latest git commit hash. Used for versioning Sentry releases and recorded in classification metadata.
 
 ### Docker images

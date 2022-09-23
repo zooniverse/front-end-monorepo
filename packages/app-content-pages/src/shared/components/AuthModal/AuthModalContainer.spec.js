@@ -29,17 +29,25 @@ describe('Component > AuthModalContainer', function () {
   })
 
   it('should pass a prop to show the Login tab if there is a matching url query', function () {
+    global.dom.reconfigure({
+      url: 'https://localhost/foo/bar?login=true'
+    })
     const loginWrapper = shallow(<AuthModalContainer router={ROUTER} />)
-    expect(getChildProp(loginWrapper, 'activeIndex')).to.equal(-1)
-    loginWrapper.setProps({ router: { ...ROUTER, asPath: '/?login=true' } })
     expect(getChildProp(loginWrapper, 'activeIndex')).to.equal(0)
+    global.dom.reconfigure({
+      url: 'https://localhost'
+    })
   })
 
   it('should pass a prop to show the Register tab if there is a matching url query', function () {
+    global.dom.reconfigure({
+      url: 'https://localhost/foo/bar?register=true'
+    })
     const loginWrapper = shallow(<AuthModalContainer router={ROUTER} />)
-    expect(getChildProp(loginWrapper, 'activeIndex')).to.equal(-1)
-    loginWrapper.setProps({ router: { ...ROUTER, asPath: '/?register=true' } })
     expect(getChildProp(loginWrapper, 'activeIndex')).to.equal(1)
+    global.dom.reconfigure({
+      url: 'https://localhost'
+    })
   })
 })
 

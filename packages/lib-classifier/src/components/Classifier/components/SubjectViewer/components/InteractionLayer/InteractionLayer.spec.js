@@ -88,10 +88,28 @@ describe('Component > InteractionLayer', function () {
 
     describe('pointer events', function () {
       describe('onPointerDown', function () {
+        it('should cancel the event', function () {
+          const fakeEvent = {
+            pointerId: 'fakePointer',
+            type: 'pointerdown',
+            preventDefault: sinon.stub(),
+            stopPropagation: sinon.stub(),
+            target: {
+              setPointerCapture: sinon.stub(),
+              releasePointerCapture: sinon.stub()
+            }
+          }
+          wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
+          expect(fakeEvent.preventDefault).to.have.been.calledOnce()
+          expect(fakeEvent.stopPropagation).to.have.been.calledOnce()
+        })
+
         it('should create a mark', function () {
           const fakeEvent = {
             pointerId: 'fakePointer',
             type: 'pointerdown',
+            preventDefault: sinon.stub(),
+            stopPropagation: sinon.stub(),
             target: {
               setPointerCapture: sinon.stub(),
               releasePointerCapture: sinon.stub()
@@ -105,6 +123,8 @@ describe('Component > InteractionLayer', function () {
           const fakeEvent = {
             pointerId: 'fakePointer',
             type: 'pointerdown',
+            preventDefault: sinon.stub(),
+            stopPropagation: sinon.stub(),
             target: {
               setPointerCapture: sinon.stub(),
               releasePointerCapture: sinon.stub()
@@ -121,6 +141,8 @@ describe('Component > InteractionLayer', function () {
             clientY: 20,
             pointerId: 'fakePointer',
             type: 'pointerdown',
+            preventDefault: sinon.stub(),
+            stopPropagation: sinon.stub(),
             target: {
               setPointerCapture: sinon.stub(),
               releasePointerCapture: sinon.stub()
@@ -136,6 +158,8 @@ describe('Component > InteractionLayer', function () {
           const fakeEvent = {
             pointerId: 'fakePointer',
             type: 'pointer',
+            preventDefault: sinon.stub(),
+            stopPropagation: sinon.stub(),
             target: {
               setPointerCapture: sinon.stub(),
               releasePointerCapture: sinon.stub()
@@ -146,10 +170,29 @@ describe('Component > InteractionLayer', function () {
           expect(mockMark.initialDrag).to.have.been.calledOnce()
         })
 
+        it('should cancel the event on pointer down + move', function () {
+          const fakeEvent = {
+            pointerId: 'fakePointer',
+            type: 'pointer',
+            preventDefault: sinon.stub(),
+            stopPropagation: sinon.stub(),
+            target: {
+              setPointerCapture: sinon.stub(),
+              releasePointerCapture: sinon.stub()
+            }
+          }
+          wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
+          wrapper.find(DrawingCanvas).simulate('pointermove', fakeEvent)
+          expect(fakeEvent.preventDefault).to.have.been.calledTwice()
+          expect(fakeEvent.stopPropagation).to.have.been.calledTwice()
+        })
+
         it('should capture the pointer', function () {
           const fakeEvent = {
             pointerId: 'fakePointer',
             type: 'pointer',
+            preventDefault: sinon.stub(),
+            stopPropagation: sinon.stub(),
             target: {
               setPointerCapture: sinon.stub(),
               releasePointerCapture: sinon.stub()
@@ -196,6 +239,8 @@ describe('Component > InteractionLayer', function () {
               pointerId: 'fakePointer',
               stopPropagation: sinon.stub(),
               type: 'pointer',
+              preventDefault: sinon.stub(),
+              stopPropagation: sinon.stub(),
               target: {
                 setPointerCapture: sinon.stub(),
                 releasePointerCapture: sinon.stub()
@@ -213,12 +258,31 @@ describe('Component > InteractionLayer', function () {
     })
 
     describe('onPointerUp', function () {
+      it('should cancel the event', function () {
+        const fakeEvent = {
+          pointerId: 'fakePointer',
+          type: 'pointer',
+          preventDefault: sinon.stub(),
+          stopPropagation: sinon.stub(),
+          target: {
+            setPointerCapture: sinon.stub(),
+            releasePointerCapture: sinon.stub()
+          }
+        }
+        wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
+        wrapper.find(DrawingCanvas).simulate('pointerup', fakeEvent)
+        expect(fakeEvent.preventDefault).to.have.been.calledTwice()
+        expect(fakeEvent.stopPropagation).to.have.been.calledTwice()
+      })
+
       describe('when the mark is valid', function () {
         it('should set the mark to finished', function () {
           mockMark.finish.resetHistory()
           const fakeEvent = {
             pointerId: 'fakePointer',
             type: 'pointer',
+            preventDefault: sinon.stub(),
+            stopPropagation: sinon.stub(),
             target: {
               setPointerCapture: sinon.stub(),
               releasePointerCapture: sinon.stub()
@@ -275,6 +339,8 @@ describe('Component > InteractionLayer', function () {
           const fakeEvent = {
             pointerId: 'fakePointer',
             type: 'pointer',
+            preventDefault: sinon.stub(),
+            stopPropagation: sinon.stub(),
             target: {
               setPointerCapture: sinon.stub(),
               releasePointerCapture: sinon.stub()
@@ -328,10 +394,28 @@ describe('Component > InteractionLayer', function () {
       mockMark.setCoordinates.resetHistory()
     })
 
+    it('should not cancel the event', function () {
+      const fakeEvent = {
+        pointerId: 'fakePointer',
+        type: 'pointer',
+        preventDefault: sinon.stub(),
+        stopPropagation: sinon.stub(),
+        target: {
+          setPointerCapture: sinon.stub(),
+          releasePointerCapture: sinon.stub()
+        }
+      }
+      wrapper.find(DrawingCanvas).simulate('pointerdown', fakeEvent)
+      expect(fakeEvent.preventDefault).to.have.not.been.called()
+      expect(fakeEvent.stopPropagation).to.have.not.been.called()
+    })
+
     it('should not create a mark on pointer down', function () {
       const fakeEvent = {
         pointerId: 'fakePointer',
         type: 'pointer',
+        preventDefault: sinon.stub(),
+        stopPropagation: sinon.stub(),
         target: {
           setPointerCapture: sinon.stub(),
           releasePointerCapture: sinon.stub()

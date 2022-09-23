@@ -1,6 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { withStores } from '@helpers'
 import getViewer from './helpers/getViewer'
@@ -34,12 +35,13 @@ function SubjectViewer({
   subjectQueueState = asyncStates.initialized,
   subjectReadyState
 }) {
+  const { t } = useTranslation('components')
   switch (subjectQueueState) {
     case asyncStates.initialized: {
       return null
     }
     case asyncStates.loading: {
-      return (<div>Loading</div>)
+      return (<div>{t('SubjectViewer.loading')}</div>)
     }
     case asyncStates.error: {
       console.error('There was an error loading the subjects')

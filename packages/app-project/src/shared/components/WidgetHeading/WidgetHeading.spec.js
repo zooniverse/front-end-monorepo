@@ -8,7 +8,7 @@ const TEXT = 'Foobar'
 
 describe('Component > WidgetHeading', function () {
   before(function () {
-    wrapper = shallow(<WidgetHeading level={LEVEL} children={TEXT} />)
+    wrapper = shallow(<WidgetHeading level={LEVEL}>{TEXT}</WidgetHeading>)
   })
 
   it('should render without crashing', function () {

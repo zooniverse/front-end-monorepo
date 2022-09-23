@@ -41,6 +41,13 @@ Get the logged-in user, or null if no one is logged in.
   const user = usePanoptesUser()
 ```
 
+## useProjectPreferences
+
+Get project preferences for a user and project, or null if there's no one logged in.
+```js
+  const upp = useProjectPreferences(project.id, user.id)
+```
+
 ## useProjectRoles
 
 Get the logged-in user's project roles, as an array of strings, or an empty array if no one is logged in.

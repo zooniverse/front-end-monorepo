@@ -6,6 +6,26 @@ import { useTranslation } from 'next-i18next'
 import ContentBox from '@shared/components/ContentBox'
 import SubjectPreview from '@shared/components/SubjectPreview'
 
+const isServer = typeof window === 'undefined'
+
+function Placeholder({ height, src }) {
+  if (isServer) {
+    return null
+  }
+
+  return (
+    <Box
+      align='center'
+      justify='center'
+      height={height}
+      overflow='hidden'
+      width={'100%'}
+    >
+      <img alt='' role='presentation' src={src} />
+    </Box>
+  )
+}
+
 function RecentSubjects ({
   isLoggedIn = false,
   recents = [],
@@ -19,6 +39,7 @@ function RecentSubjects ({
   const assetPrefix = publicRuntimeConfig.assetPrefix || ''
   const placeholderUrl = `${assetPrefix}/assets/subject-placeholder.png`
   const displayedRecents = recents.slice(0, size)
+  const placeholders = [...Array(size - displayedRecents.length)]
 
   return (
     <ContentBox title={t('Classify.RecentSubjects.title', { projectName })}>
@@ -49,20 +70,13 @@ function RecentSubjects ({
             />
           )
         })}
-        {[...Array(size - displayedRecents.length)].map((placeholder, i) => {
-          return (
-            <Box
-              align='center'
-              justify='center'
-              height={height}
-              key={i}
-              overflow='hidden'
-              width={'100%'}
-            >
-              <img alt='' role='presentation' src={placeholderUrl} />
-            </Box>
-          )
-        })}
+        {placeholders.map((placeholder, i) => (
+          <Placeholder
+            key={i}
+            height={height}
+            src={placeholderUrl}
+            />
+        ))}
       </Grid>
     </ContentBox>
   )

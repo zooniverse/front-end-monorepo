@@ -7,8 +7,6 @@ import { useState } from 'react';
 import styled, { css, withTheme } from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
-import addQueryParams from '@helpers/addQueryParams'
-
 const StyledAnchor = styled(Anchor)`
   padding: 10px 20px;
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);

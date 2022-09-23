@@ -4,7 +4,7 @@
     "js"
   ],
   "require": [
-    "chai/register-expect"
+    "chai/register-expect.js"
   ],
   "reporter": "spec",
   "ui": "bdd"

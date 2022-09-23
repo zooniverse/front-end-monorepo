@@ -33,7 +33,6 @@ jobs:
       APP_ENV: production
       NODE_ENV: production
       PANOPTES_ENV: production
-      PROJECT_ASSET_PREFIX: 'https://fe-project.zooniverse.org'
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 16
@@ -59,7 +58,6 @@ jobs:
       PANOPTES_ENV: production
       CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
       CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
-      CONTENT_ASSET_PREFIX: 'https://fe-content-pages.zooniverse.org'
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 16

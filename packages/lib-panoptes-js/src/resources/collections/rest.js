@@ -17,15 +17,19 @@ function create (params) {
   return panoptes.post(endpoint, { collections }, { authorization })
 }
 
-function get (params) {
-  const queryParams = (params && params.query) ? params.query : {}
-  const collectionId = (params && params.id) ? params.id : ''
-  const authorization = (params && params.authorization) ? params.authorization : ''
+function get({
+  authorization = '',
+  id = '',
+  query = {}
+}) {
+  if (!id) {
+    return panoptes.get(endpoint, query, { authorization })
+  }
+  if (id && typeof id !== 'string') {
+    return raiseError('Collections: Get request id must be a string.', 'typeError')
+  }
 
-  if (!collectionId) return panoptes.get(endpoint, queryParams, { authorization })
-  if (collectionId && typeof collectionId !== 'string') return raiseError('Collections: Get request id must be a string.', 'typeError')
-
-  return panoptes.get(`${endpoint}/${collectionId}`, {}, { authorization })
+  return panoptes.get(`${endpoint}/${id}`, {}, { authorization })
 }
 
 function update (params) {

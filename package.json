@@ -11,7 +11,7 @@
   "devDependencies": {
     "@storybook/storybook-deployer": "~2.8.10",
     "coveralls": "~3.1.0",
-    "lerna": "~5.4.0",
+    "lerna": "~5.5.0",
     "nyc": "~15.1.0",
     "snazzy": "~9.0.0"
   },
@@ -21,6 +21,7 @@
   "scripts": {
     "bootstrap": "./bin/bootstrap.sh",
     "build": "lerna run --parallel build",
+    "clean-install": "./bin/clean-install.sh",
     "coverage-lcov": "nyc report --reporter=lcov",
     "deploy-storybook": "storybook-to-ghpages --packages packages",
     "panic": "./bin/panic-button.sh",

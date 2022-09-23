@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import styled from 'styled-components'
@@ -14,26 +14,117 @@ const StyledGroup = styled.g`
       cursor: crosshair;
     }
   }
+  &.editing {
+    cursor: grabbing;
+  }
 `
 
 const STROKE_WIDTH = 1
-const GRAB_STROKE_WIDTH = 4
+const GRAB_STROKE_WIDTH = 10
 const FINISHER_RADIUS = 3
 
-function FreehandLine({ active, mark, onFinish, scale }) {
-  const { path, initialPoint, lastPoint, finished, isCloseToStart } = mark
+function createPoint(event) {
+  const { clientX, clientY } = event
+  // SVG 2 uses DOMPoint
+  if (window.DOMPointReadOnly) {
+    const svgPoint = new DOMPointReadOnly(clientX, clientY)
+    const { x, y } = svgPoint.matrixTransform
+      ? svgPoint.matrixTransform(event.target?.getScreenCTM().inverse())
+      : svgPoint
+    return { x, y }
+  }
+  // jsdom doesn't support SVG
+  return {
+    x: clientX,
+    y: clientY
+  }
+}
 
-  function onHandleDrag(coords) {
-    mark.appendPath(coords)
+function cancelEvent(event) {
+  event.preventDefault()
+  event.stopPropagation()
+  return false
+}
+
+function FreehandLine({ active, mark, onFinish, scale }) {
+  const { path, initialPoint, lastPoint, finished, isClosed } = mark
+  const [editing, setEditing] = useState(false)
+
+  const dragPoint = mark.isCloseToStart ? null : mark.dragPoint
+  const targetPoint = mark.isCloseToStart ? null : mark.targetPoint
+  const clippedPath = mark.clipPath.map(
+    (point, index) => index === 0 ? `M ${point.x},${point.y}` : `L ${point.x},${point.y}`
+  ).join(' ')
+  /*
+    Line segmentation has begun if either:
+    - a drag point has been created to cut the path internally.
+    - the path is open but has a clipped path joining the open ends.
+  */
+  const segmentationInProgress = dragPoint || (!isClosed && clippedPath)
+
+  if (segmentationInProgress && !editing) {
+    setEditing(true)
   }
 
-  function onUndoDrawing() {
-    mark.shortenPath()
+  // cancel editing when lines become inactive
+  if (segmentationInProgress && !active) {
+    mark.revertEdits()
+    setEditing(false)
+  }
+
+  if (active && editing && mark.isCloseToStart) {
+    cancelEditing()
+  }
+
+  if (active && !segmentationInProgress && clippedPath) {
+    // clear the dashed guide line when segmentation ends.
+    mark.setClipPath([])
+  }
+
+  function onDoubleClick(event) {
+    if (active) {
+      const { x, y } = createPoint(event)
+      mark.setDragPoint({ x, y })
+      return cancelEvent(event)
+    }
+    return true
+  }
+
+  function onPointerDown(event) {
+    let startPoint
+    if (!mark.isClosed && clippedPath) {
+      // The last point is always draggable for open lines.
+      const { x, y } = mark.lastPoint
+      startPoint = { x, y }
+    }
+    if (mark.dragPoint) {
+      // If editing has already started, use the existing drag point.
+      const { x, y } = mark.dragPoint
+      startPoint = { x, y }
+    }
+    if (active && startPoint) {
+      const endPoint = createPoint(event)
+      mark.cutSegment(startPoint, endPoint)
+      return cancelEvent(event)
+    }
+    if (active) {
+      return cancelEvent(event)
+    }
+    return true
+  }
+
+  function cancelEditing() {
+    mark.setTargetPoint(null)
+    mark.setDragPoint(null)
+    setEditing(false)
   }
 
   return (
-    <StyledGroup onPointerUp={active ? onFinish : undefined}>
-      {active && !isCloseToStart && (
+    <StyledGroup
+      className={ editing ? 'editing' : undefined}
+      onPointerUp={active ? onFinish : undefined}
+    >
+      {active && !dragPoint && !isClosed && (
         <circle
           fill='currentColor'
           r={FINISHER_RADIUS / scale}
@@ -46,7 +137,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
           scale={scale}
           x={initialPoint.x}
           y={initialPoint.y}
-          undoDrawing={onUndoDrawing}
+          undoDrawing={mark.shortenPath}
         />
       )}
       <path
@@ -60,22 +151,61 @@ function FreehandLine({ active, mark, onFinish, scale }) {
       />
       <path
         d={path}
+        onDoubleClick={onDoubleClick}
+        onPointerDown={onPointerDown}
         style={{
           strokeOpacity: '0',
           strokeWidth: GRAB_STROKE_WIDTH / scale
         }}
         fill='none'
       />
-      {active && finished && !isCloseToStart && (
+      {active && clippedPath &&
+        <>
+          <path
+            d={clippedPath}
+            strokeDasharray='2 2'
+            strokeWidth={STROKE_WIDTH}
+          />
+          <path
+            d={clippedPath}
+            onPointerDown={onPointerDown}
+            style={{
+              strokeOpacity: '0',
+              strokeWidth: GRAB_STROKE_WIDTH / scale
+            }}
+            fill='none'
+          />
+        </>
+      }
+      {active && finished && !dragPoint && !isClosed &&
         <DragHandle
           scale={scale}
           x={lastPoint.x}
           y={lastPoint.y}
           fill='transparent'
           invisibleWhenDragging={true}
-          dragMove={(e) => onHandleDrag(e)}
+          dragMove={mark.appendPath}
+        />
+      }
+      {active && targetPoint && (
+        <circle
+          fill='currentColor'
+          r={FINISHER_RADIUS / scale}
+          cx={targetPoint.x}
+          cy={targetPoint.y}
         />
       )}
+      {active && dragPoint &&
+        <DragHandle
+          scale={scale}
+          x={dragPoint.x}
+          y={dragPoint.y}
+          fill='transparent'
+          invisibleWhenDragging={true}
+          onClick={!targetPoint ? cancelEditing : undefined}
+          dragMove={mark.splicePath}
+        />
+      }
     </StyledGroup>
   )
 }

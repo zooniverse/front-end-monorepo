@@ -58,8 +58,6 @@ spec:
           ports:
             - containerPort: 3000
           env:
-            - name: PROJECT_ASSET_PREFIX
-              value: https://frontend.preview.zooniverse.org/projects
             - name: COMMIT_ID
               value: __IMAGE_TAG__
             - name: NEWRELIC_LICENSE_KEY
@@ -73,8 +71,6 @@ spec:
               value: production
             - name: APP_ENV
               value: staging
-            - name: SENTRY_PROJECT_DSN
-              value: https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691
             - name: ENABLE_CACHE_HEADERS
               value: "true"
 ---
@@ -150,8 +146,6 @@ spec:
           ports:
             - containerPort: 3000
           env:
-            - name: CONTENT_ASSET_PREFIX
-              value: https://frontend.preview.zooniverse.org/about
             - name: COMMIT_ID
               value: __IMAGE_TAG__
             - name: CONTENTFUL_ACCESS_TOKEN
@@ -175,8 +169,6 @@ spec:
               value: production
             - name: APP_ENV
               value: staging
-            - name: SENTRY_CONTENT_DSN
-              value: https://1f0126a750244108be76957b989081e8@sentry.io/1492498
             - name: ENABLE_CACHE_HEADERS
               value: "true"
 ---

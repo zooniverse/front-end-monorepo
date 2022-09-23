@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import asyncStates from '@zooniverse/async-states'
 
+import StepNavigation from '@shared/StepNavigation'
 import locationValidator from '../../helpers/locationValidator'
 import SingleImageViewer from '../SingleImageViewer'
 import SingleTextViewer from '../SingleTextViewer'
-import StepNavigation from '@components/Classifier/components/SlideTutorial/components/StepNavigation'
 
 const defaultDimensions = [{
   clientHeight: 400
@@ -53,6 +53,7 @@ function ImageAndTextViewerContainer ({
               onReady={onReady}
             />)}
         <StepNavigation
+          name='ImageAndTextViewerStepNavigation'
           onChange={handleFrameChange}
           stepIndex={frame}
           steps={[0, 1]}

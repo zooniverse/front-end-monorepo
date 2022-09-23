@@ -26,6 +26,7 @@ export default function ClassifierWrapper({
   onSubjectReset = () => true,
   project,
   recents,
+  router,
   showTutorial = false,
   subjectID,
   subjectSetID,
@@ -34,8 +35,10 @@ export default function ClassifierWrapper({
   workflowID,
   yourStats
 }) {
-  const router = useRouter()
-  const { locale } = router
+  const nextRouter = useRouter()
+  router = router || nextRouter
+  const locale = router?.locale
+
   function onCompleteClassification(classification, subject) {
     const finishedSubject = subject.already_seen || subject.retired
     if (!finishedSubject) {
@@ -58,7 +61,7 @@ export default function ClassifierWrapper({
     const baseURL = `/${query.owner}/${query.project}/classify`
     if (query.subjectID && subject.id !== query.subjectID) {
       const newSubjectRoute = `${baseURL}/workflow/${workflowID}/subject-set/${subjectSetID}/subject/${subject.id}`
-      const href = addQueryParams(newSubjectRoute, router)
+      const href = addQueryParams(newSubjectRoute)
       const as = href
       router.replace(href, as, { shallow: true })
     }
@@ -146,6 +149,13 @@ ClassifierWrapper.propTypes = {
   onSubjectReset: func,
   /** JSON snapshot of the active Panoptes project */
   project: shape({}),
+  /** 
+    Optional custom router. Overrides the default NextJS.
+    Useful for mocking the router in stories and shallow tests.
+  */
+  router: shape({
+    locale: string
+  }),
   /** Allow the classifier to open a popup tutorial, if necessary. */
   showTutorial: bool,
   /** optional subjectID (from the page URL.) */

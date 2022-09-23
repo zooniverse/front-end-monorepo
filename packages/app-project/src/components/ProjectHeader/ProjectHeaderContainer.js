@@ -1,27 +1,56 @@
-import { inject, observer } from 'mobx-react'
-import { array, bool, shape, string } from 'prop-types'
-import { useRouter } from 'next/router'
+import { useContext } from 'react'
+import { observer, MobXProviderContext } from 'mobx-react'
+import { bool, string } from 'prop-types'
 import { useTranslation } from 'next-i18next'
 
 import ProjectHeader from './ProjectHeader'
 
-function storeMapper (stores) {
+function storeMapper(store) {
+  const {
+    project: {
+      configuration: {
+        languages: availableLocales
+      },
+      defaultWorkflow,
+      display_name: projectName,
+      inBeta,
+      slug
+    },
+    user: {
+      isAdmin,
+      isLoggedIn
+    }
+  } = store
+
   return {
-    availableLocales: stores.store.project.configuration.languages,
-    inBeta: stores.store.project.inBeta,
-    isLoggedIn: stores.store.user.isLoggedIn,
-    projectName: stores.store.project.display_name,
-    defaultWorkflow: stores.store.project.defaultWorkflow
+    availableLocales,
+    defaultWorkflow,
+    inBeta,
+    isAdmin,
+    isLoggedIn,
+    projectName,
+    slug
   }
 }
 
-function getBaseUrl (router) {
-  const { owner, project } = router.query
-  return `/${owner}/${project}`
+function useStores() {
+  const stores = useContext(MobXProviderContext)
+  return storeMapper(stores.store)
 }
 
-function ProjectHeaderContainer ({ availableLocales, className, defaultWorkflow, inBeta, isLoggedIn, projectName }) {
-  const router = useRouter()
+function ProjectHeaderContainer({
+  adminMode = false,
+  className = ''
+}) {
+  const {
+    availableLocales,
+    defaultWorkflow,
+    inBeta,
+    isAdmin,
+    isLoggedIn,
+    projectName,
+    slug
+  } = useStores()
   const { t } = useTranslation('components')
 
   function getNavLinks (isLoggedIn, baseUrl, defaultWorkflow) {
@@ -52,10 +81,17 @@ function ProjectHeaderContainer ({ availableLocales, className, defaultWorkflow,
       })
     }
 
+    if (isLoggedIn && isAdmin && adminMode) {
+      links.push({
+        href: `/admin/project_status/${slug}`,
+        text: t('ProjectHeader.admin')
+      })
+    }
+
     return links
   }
 
-  const navLinks = getNavLinks(isLoggedIn, getBaseUrl(router), defaultWorkflow)
+  const navLinks = getNavLinks(isLoggedIn, `/${slug}`, defaultWorkflow)
 
   return (
     <ProjectHeader
@@ -68,26 +104,14 @@ function ProjectHeaderContainer ({ availableLocales, className, defaultWorkflow,
   )
 }
 
-ProjectHeaderContainer.defaultProps = {
-  availableLocales: [],
-  inBeta: false,
-  isLoggedIn: false
-}
-
 ProjectHeaderContainer.propTypes = {
-  availableLocales: array,
-  inBeta: bool,
-  isLoggedIn: bool,
-  projectName: string.isRequired,
-  router: shape({
-    query: shape({
-      project: string,
-      owner: string
-    })
-  })
+  /** Zooniverse admin mode */
+  adminMode: bool,
+  /** Optional CSS classes */
+  className: string
 }
 
-const DecoratedProjectHeaderContainer = inject(storeMapper)(observer(ProjectHeaderContainer))
+const DecoratedProjectHeaderContainer = observer(ProjectHeaderContainer)
 
 export {
   DecoratedProjectHeaderContainer as default,

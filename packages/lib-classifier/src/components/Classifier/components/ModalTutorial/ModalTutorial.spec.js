@@ -3,7 +3,6 @@ import { Grommet } from 'grommet'
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { when } from 'mobx'
 import { Provider } from 'mobx-react'
 import sinon from 'sinon'
 
@@ -43,11 +42,10 @@ describe('ModalTutorial', function () {
     expect(tutorialTitle).to.be.null()
   })
 
-  it('should not show the tutorial if it has been seen before', async function () {
+  it('should not show the tutorial if it has been seen before', function () {
     const store = mockStore()
     const tutorialSnapshot = TutorialFactory.build({ steps })
     store.tutorials.setTutorials([tutorialSnapshot])
-    await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
     const upp = UPPFactory.build()
     store.userProjectPreferences.setUPP(upp)
     store.userProjectPreferences.setHeaders({
@@ -66,11 +64,10 @@ describe('ModalTutorial', function () {
     expect(tutorialTitle).to.be.null()
   })
 
-  it('should show the tutorial if it hasn\'t been seen before', async function () {
+  it('should show the tutorial if it hasn\'t been seen before', function () {
     const store = mockStore()
     const tutorialSnapshot = TutorialFactory.build({ steps })
     store.tutorials.setTutorials([tutorialSnapshot])
-    await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
     const upp = UPPFactory.build()
     store.userProjectPreferences.setUPP(upp)
     store.userProjectPreferences.setHeaders({
@@ -99,7 +96,6 @@ describe('ModalTutorial', function () {
       user = userEvent.setup({ delay: null })
       const tutorialSnapshot = TutorialFactory.build({ steps })
       store.tutorials.setTutorials([tutorialSnapshot])
-      await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
       const upp = UPPFactory.build()
       store.userProjectPreferences.setUPP(upp)
       store.userProjectPreferences.setHeaders({

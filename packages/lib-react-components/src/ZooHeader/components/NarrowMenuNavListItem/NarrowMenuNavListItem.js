@@ -3,12 +3,13 @@ import PropTypes from 'prop-types'
 
 import SpacedText from '../../../SpacedText'
 
-export default function NarrowMenuNavListItem ({ color, text }) {
+export default function NarrowMenuNavListItem ({ color, text, lang }) {
   return (
     <SpacedText
       color={color}
-      weight='bold'
+      lang={lang}
       size='xsmall'
+      weight='bold'
     >
       {text}
     </SpacedText>

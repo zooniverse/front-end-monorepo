@@ -18,9 +18,10 @@ function storeMapper (stores) {
 class FinishedForTheDayContainer extends Component {
   getLinkProps () {
     const { router } = this.props
-    const { owner, project } = router.query
+    const owner = router?.query?.owner
+    const project = router?.query?.project
     return {
-      href: addQueryParams(`/projects/${owner}/${project}/stats`, router)
+      href: addQueryParams(`/projects/${owner}/${project}/stats`)
     }
   }
 

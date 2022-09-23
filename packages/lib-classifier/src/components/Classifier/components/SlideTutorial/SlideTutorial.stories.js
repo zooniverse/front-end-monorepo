@@ -3,7 +3,6 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 
 import SlideTutorial from './SlideTutorial'
-import * as subcomponents from './components'
 import { TutorialMediumFactory } from '@test/factories'
 
 const background = {
@@ -46,7 +45,6 @@ function stepWithMedium(index) {
 export default {
   title: 'Other / SlideTutorial',
   component: SlideTutorial,
-  subcomponents,
   argTypes: {
     onClick: {
       action: 'clicked'

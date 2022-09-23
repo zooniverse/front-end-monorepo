@@ -25,10 +25,10 @@ function Person (props) {
 
       <Box direction='column'>
         <Box direction='row' gap='xsmall' align='center'>
-          <PersonName level='3' children={`${name}, ${jobTitle}`} />
+          <PersonName level='3'>{`${name}, ${jobTitle}`}</PersonName>
           {twitter && (<TwitterLink name={name} twitterId={twitter} />)}
         </Box>
-        <Text children={bio} size='medium' />
+        <Text size='medium'>{bio}</Text>
       </Box>
 
     </Box>

@@ -4,9 +4,8 @@ import { withRouter } from 'next/router'
 import auth from 'panoptes-client/lib/auth'
 import { bool, func, shape, string } from 'prop-types'
 import { Component } from 'react'
-import Url from 'url-parse'
 
-function storeMapper (stores) {
+function storeMapper(stores) {
   const { user } = stores.store
   return {
     user
@@ -17,51 +16,46 @@ function storeMapper (stores) {
 @inject(storeMapper)
 @observer
 class ZooHeaderWrapperContainer extends Component {
-  constructor () {
+  constructor() {
     super()
     this.openRegisterModal = this.openRegisterModal.bind(this)
     this.openSignInModal = this.openSignInModal.bind(this)
     this.signOut = this.signOut.bind(this)
   }
 
-  createUserProp () {
+  createUserProp() {
     const { user } = this.props
     return (user.isLoggedIn)
       ? { display_name: user.display_name, login: user.login }
       : {}
   }
 
-  getUrlObject () {
-    const { asPath } = this.props.router
-    return new Url(asPath, true)
+  getUrlObject() {
+    return new URL(window.location)
   }
 
-  addUrlQuery (urlObject, propertyToAdd) {
-    const query = Object.assign({}, urlObject.query, {
-      [propertyToAdd]: 'true'
-    })
-    urlObject.set('query', query)
+  addUrlQuery(urlObject, propertyToAdd) {
+    urlObject.searchParams.set(propertyToAdd, true)
   }
 
-  redirect (urlObject) {
-    const { pathname, push } = this.props.router
-    const urlString = urlObject.toString().substr(urlObject.origin.length)
-    push(pathname, urlString, { shallow: true })
+  redirect(urlObject) {
+    const { push } = this.props.router
+    push(urlObject, urlObject, { shallow: true })
   }
 
-  openRegisterModal () {
+  openRegisterModal() {
     const url = this.getUrlObject()
     this.addUrlQuery(url, 'register')
     return this.redirect(url)
   }
 
-  openSignInModal () {
+  openSignInModal() {
     const url = this.getUrlObject()
     this.addUrlQuery(url, 'login')
     return this.redirect(url)
   }
 
-  signOut () {
+  signOut() {
     return auth.signOut()
       .then(() => {
         this.props.user.clear()
@@ -79,21 +73,26 @@ class ZooHeaderWrapperContainer extends Component {
       })
   }
 
-  unreadNotifications () {
+  unreadMessages() {
     const { user } = this.props
-    
-    return (user.isLoggedIn && user.personalization.notifications.count)
-      ? user.personalization.notifications.count
-      : 0
+
+    return user?.personalization?.notifications?.unreadConversationsIds.length
   }
 
-  render () {
+  unreadNotifications() {
+    const { user } = this.props
+    
+    return user?.personalization?.notifications?.unreadNotificationsCount
+  }
+
+  render() {
     return (
       <ZooHeader
         {...this.props}
         register={this.openRegisterModal}
         signIn={this.openSignInModal}
         signOut={this.signOut}
+        unreadMessages={this.unreadMessages()}
         unreadNotifications={this.unreadNotifications()}
         user={this.createUserProp()}
       />

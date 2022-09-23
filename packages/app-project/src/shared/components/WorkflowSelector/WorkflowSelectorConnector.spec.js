@@ -28,7 +28,7 @@ describe('Component > Hero > WorkflowSelector > WorkflowSelectorConnector', func
     workflows = [{ id: '5' }]
     wrapper = shallow(
       <WorkflowSelectorConnector
-        store={mockStore.store}
+        mockStore={mockStore.store}
         workflows={workflows}
       />
     )

@@ -16,85 +16,9 @@ const UserProjectPreferencesStore = types
 
   // TODO: move some of these req into panoptes.js helpers
   .actions(self => {
-    function afterAttach () {
-      createProjectObserver()
-    }
-
-    function createProjectObserver () {
-      const projectDisposer = autorun(() => {
-        const validProjectReference = isValidReference(() => getRoot(self).projects.active)
-
-        if (validProjectReference) {
-          self.reset()
-          self.checkForUser()
-        }
-      }, { name: 'UPPStore Project Observer autorun' })
-      addDisposer(self, projectDisposer)
-    }
-
-    function * createUPP (authorization) {
-      const { type } = self
-      const client = getRoot(self).client.panoptes
-      const project = getRoot(self).projects.active
-      const data = {
-        links: { project: project.id },
-        preferences: {}
-      }
-      self.loadingState = asyncStates.posting
-      try {
-        const response = yield client.post(`/${type}`, { [type]: data }, { authorization })
-        self.headers = response.headers
-        return response.body[type][0]
-      } catch (error) {
-        console.error(error)
-        self.loadingState = asyncStates.error
-        return null
-      }
-    }
-
-    function * checkForUser () {
-      const { authClient } = getRoot(self)
-
-      try {
-        const user = yield authClient.checkCurrent()
-
-        if (user) {
-          self.fetchUPP(user)
-        } else {
-          self.reset()
-          self.loadingState = asyncStates.success
-        }
-      } catch (error) {
-        console.error(error)
-        self.loadingState = asyncStates.error
-      }
-    }
-
-    function * fetchUPP (user) {
-      let resource
-      const { type } = self
-      const { authClient } = getRoot(self)
-      const client = getRoot(self).client.panoptes
-      const project = getRoot(self).projects.active
-
-      self.loadingState = asyncStates.loading
-      try {
-        const authorization = yield getBearerToken(authClient)
-        const response = yield client.get(`/${type}`, { project_id: project.id, user_id: user.id }, { authorization })
-        if (response.body[type][0]) {
-          // We don't store the headers from this get response because it's by query params
-          // and not for a specific resource, so the etag won't be usable for the later PUT request
-          resource = response.body[type][0]
-        } else {
-          resource = yield self.createUPP(authorization)
-        }
-
-        self.loadingState = asyncStates.success
-        if (resource) self.setUPP(resource)
-      } catch (error) {
-        console.error(error)
-        self.loadingState = asyncStates.error
-      }
+    function clear() {
+      self.resources.clear()
+      self.loadingState = asyncStates.success
     }
 
     function * fetchUPPById (id = '') {
@@ -181,13 +105,11 @@ const UserProjectPreferencesStore = types
     function setUPP (userProjectPreferences) {
       self.setResources([userProjectPreferences])
       self.setActive(userProjectPreferences.id)
+      self.loadingState = asyncStates.success
     }
 
     return {
-      afterAttach,
-      checkForUser: flow(checkForUser),
-      createUPP: flow(createUPP),
-      fetchUPP: flow(fetchUPP),
+      clear,
       fetchUPPById: flow(fetchUPPById),
       putUPP: flow(putUPP),
       setHeaders,

@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react'
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
-import { when } from 'mobx'
 import { Provider } from 'mobx-react'
 
 import { DrawingTaskFactory, UPPFactory, WorkflowFactory } from '@test/factories'
@@ -125,7 +124,6 @@ describe('Components > MetaTools', function () {
 
     before(async function () {
       const store = mockStore()
-      await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
       const upp = UPPFactory.build()
       store.userProjectPreferences.setUPP(upp)
       store.userProjectPreferences.setHeaders({
@@ -176,7 +174,6 @@ describe('Components > MetaTools', function () {
 
     before(async function () {
       const store = mockStore()
-      await when(() => store.userProjectPreferences.loadingState === asyncStates.success)
       const upp = UPPFactory.build()
       store.userProjectPreferences.setUPP(upp)
       store.userProjectPreferences.setHeaders({

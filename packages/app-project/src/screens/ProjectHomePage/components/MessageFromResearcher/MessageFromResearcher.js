@@ -20,10 +20,11 @@ const StyledAvatar = styled(Image)`
 const components = {
   p: (nodeProps) => (
     <Paragraph
-      children={nodeProps.children}
       margin={{ top: 'none' }}
       size='xlarge'
-    />
+    >
+      {nodeProps.children}
+    </Paragraph>
   )
 }
 
@@ -40,10 +41,9 @@ function MessageFromResearcher ({
 
       {!message && (
         <>
-          <StyledParagraph
-            children={t('Home.MessageFromResearcher.noMessage')}
-            margin={{ bottom: 'small', top: 'none' }}
-          />
+          <StyledParagraph margin={{ bottom: 'small', top: 'none' }}>
+            {t('Home.MessageFromResearcher.noMessage')}
+          </StyledParagraph>
           <div>
             <Button href={talkLink} label={t('Home.MessageFromResearcher.noMessageButton')} />
           </div>
@@ -54,8 +54,8 @@ function MessageFromResearcher ({
         <Box direction='row' gap='medium'>
           <StyledAvatar src={avatar} />
           <Box>
-            <Markdownz children={message} components={components} />
-            <SpacedText children={researcher} color='light-5' size='small' />
+            <Markdownz components={components}>{message}</Markdownz>
+            <SpacedText color='light-5' size='small'>{researcher}</SpacedText>
           </Box>
         </Box>
       )}

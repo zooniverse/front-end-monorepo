@@ -9,8 +9,9 @@ import RecentSubjectsCarousel from './RecentSubjectsCarousel'
 import MessageBox from './components/MessageBox'
 import fetchRecentSubjects from './helpers/fetchRecentSubjects'
 
-function useStoreContext(stores) {
-  const { store } = stores || useContext(MobXProviderContext)
+function useStores(mockStore) {
+  const stores = useContext(MobXProviderContext)
+  const store = mockStore || stores.store
   const { id: projectId, slug } = store?.project
 
   return {
@@ -19,9 +20,9 @@ function useStoreContext(stores) {
   }
 }
 
-function RecentSubjectsContainer({ carousel, stores }) {
+function RecentSubjectsContainer({ carousel = false, mockStore }) {
   const { t } = useTranslation('screens')
-  const { projectId, slug } = useStoreContext(stores)
+  const { projectId, slug } = useStores(mockStore)
   const [loading, setLoading] = useState(asyncStates.initialized)
   const [subjects, setSubjects] = useState([])
 
@@ -49,12 +50,12 @@ function RecentSubjectsContainer({ carousel, stores }) {
   return (
     <>
       {loading === asyncStates.error && (
-        <MessageBox children={t('Home.ZooniverseTalk.RecentSubjects.error')} />
+        <MessageBox>{t('Home.ZooniverseTalk.RecentSubjects.error')}</MessageBox>
       )}
       {loading === asyncStates.success && subjects.length < 1 ? (
-        <MessageBox
-          children={t('Home.ZooniverseTalk.RecentSubjects.noSubjects')}
-        />
+        <MessageBox>
+          {t('Home.ZooniverseTalk.RecentSubjects.noSubjects')}
+        </MessageBox>
       ) : (
         <ThumbnailComponent href={href} subjects={subjects} />
       )}
@@ -64,10 +65,6 @@ function RecentSubjectsContainer({ carousel, stores }) {
 
 RecentSubjectsContainer.propTypes = {
   carousel: bool
-}
-
-RecentSubjectsContainer.defaultProps = {
-  carousel: false
 }
 
 export default observer(RecentSubjectsContainer)

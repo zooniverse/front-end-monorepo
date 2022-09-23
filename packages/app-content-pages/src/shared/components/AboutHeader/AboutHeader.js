@@ -15,21 +15,22 @@ function AboutHeader () {
       </Box>
 
       <Box
+        aria-label='About the Zooniverse'
         as='nav'
         direction='row'
         margin={{ bottom: 'xsmall' }}
         width='xlarge'
       >
-        <NavLink label='About' href='/about' />
-        <NavLink label='Publications' href='/about/publications' />
-        <NavLink label='Our Team' href='/about/team' />
-        <NavLink label='Acknowledgements' href='/about/acknowledgements' />
-        <NavLink label='Resources' href='/about/resources' />
-        <NavLink label='Contact Us' href='/about/contact' />
-        <NavLink label='FAQ' href='/about/faq' />
-        <NavLink label='Highlights Book' href='/about/highlights' />
-        <NavLink label='Mobile App' href='/about/mobile-app' />
-        <NavLink label='Donate' href='/about/donate' />
+        <NavLink label='About' href='/' />
+        <NavLink label='Publications' href='/publications' />
+        <NavLink label='Our Team' href='/team' />
+        <NavLink label='Acknowledgements' href='/acknowledgements' />
+        <NavLink label='Resources' href='/resources' />
+        <NavLink label='Contact Us' href='/contact' />
+        <NavLink label='FAQ' href='/faq' />
+        <NavLink label='Highlights Book' href='/highlights' />
+        <NavLink label='Mobile App' href='/mobile-app' />
+        <NavLink label='Donate' href='/donate' />
       </Box>
     </Box>
   )

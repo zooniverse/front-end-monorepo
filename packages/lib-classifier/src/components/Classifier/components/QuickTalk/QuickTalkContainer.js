@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import { observer } from 'mobx-react'
 import asyncStates from '@zooniverse/async-states'
-import { withTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import useSWR from 'swr'
 
-import { withFeatureFlag, withStores } from '@helpers'
-import { usePanoptesUser } from '@hooks'
-import { getBearerToken } from '@store/utils'
+import { withFeatureFlag } from '@helpers'
+import { usePanoptesAuth, usePanoptesUser, useStores } from '@hooks'
 import QuickTalk from './QuickTalk'
 
 import getDefaultTalkBoard from './helpers/getDefaultTalkBoard'
@@ -17,32 +16,15 @@ import getUsersByID from './helpers/getUsersByID'
 import postTalkComment from './helpers/postTalkComment'
 import postTalkDiscussion from './helpers/postTalkDiscussion'
 
-function storeMapper (store) {
-  /*
-  Quick Fix: use authClient to check User resource within the QuickTalk component itself
-  - Long-term, app-project should be responsible for managing the User resource.
-  - see https://github.com/zooniverse/front-end-monorepo/discussions/2362
-   */
+function storeMapper(store) {
   const {
-    authClient,
-    projects: {
-      active: project
-    },
     subjects: {
       active: subject
     }
   } = store
-  /*
-  Experimental Check
-  - As of Aug 2021, this component is experimental.
-  - Only show this component when explicitly enabled.
-   */
-  const enabled = project?.experimental_tools.includes('quicktalk')
 
   return {
-    authClient,
-    enabled,
-    subject,
+    subject
   }
 }
 
@@ -54,15 +36,13 @@ const SWROptions = {
   refreshInterval: 0
 }
 
-function QuickTalkContainer ({
-  authClient,
-  enabled = false,
-  subject,
-  t = () => '',  // Translations
-}) {
+function QuickTalkContainer () {
 
+  const { t } = useTranslation()
+  const { subject } = useStores(storeMapper)
   const user = usePanoptesUser()
   const userId = user?.id
+  const authorization = usePanoptesAuth(userId)
   const { data: comments } = useSWR([subject, subject?.project], getTalkComments, SWROptions)
 
   let author_ids = comments?.map(comment => comment.user_id)
@@ -84,11 +64,11 @@ function QuickTalkContainer ({
   const [postCommentStatus, setPostCommentStatus] = useState(asyncStates.initialized)
   const [postCommentStatusMessage, setPostCommentStatusMessage] = useState('')
 
-  if (!enabled || !subject) return null
+  if (!subject) return null
 
   async function postComment(text) {
     const project = subject?.project
-    if (!subject || !project || !authClient) return
+    if (!subject || !project) return
 
     setPostCommentStatus(asyncStates.loading)
     setPostCommentStatusMessage('')
@@ -96,7 +76,6 @@ function QuickTalkContainer ({
     try {
       if (!text || text.trim().length === 0) throw new Error(t('QuickTalk.errors.noText'))
 
-      const authorization = await getBearerToken(authClient)  // Get a refreshed auth token for posting comments.
       if (!authorization) throw new Error(t('QuickTalk.errors.noUser'))
 
       // First, get default board
@@ -147,19 +126,5 @@ function QuickTalkContainer ({
   )
 }
 
-QuickTalkContainer.propTypes = {
-  authClient: PropTypes.object, // Quick Fix
-  enabled: PropTypes.bool,
-  subject: PropTypes.object,
-}
-
-QuickTalkContainer.defaultProps = {
-  authClient: undefined,
-  enabled: false,
-  subject: undefined,
-}
-
-const TranslatedQuickTalkContainer = withTranslation('components')(QuickTalkContainer)
-const ConnectedQuickTalkContainer = withStores(TranslatedQuickTalkContainer, storeMapper)
-export default withFeatureFlag(ConnectedQuickTalkContainer, 'quicktalk')
+export default withFeatureFlag(observer(QuickTalkContainer), 'quicktalk')
 export { QuickTalkContainer }

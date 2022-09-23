@@ -18,7 +18,11 @@ describe('Circle tool', function () {
   })
 
   it('should render a Circle with the coordinates provided', () => {
-    render(<Circle active mark={mark} scale={1} />)
+    render(
+      <svg xmlns='http://www.w3.org/2000/svg'>
+        <Circle active mark={mark} scale={1} />
+      </svg>
+    )
 
     expect(screen.getByTestId('circle-element'))
       .to.have.attr('r')
@@ -28,7 +32,11 @@ describe('Circle tool', function () {
   it('should change the radius when drag handle is moved', async () => {
     const user = userEvent.setup()
 
-    render(<Circle active mark={mark} scale={1} />)
+    render(
+      <svg xmlns='http://www.w3.org/2000/svg'>
+        <Circle active mark={mark} scale={1} />
+      </svg>
+    )
 
     expect(mark.x_center).to.equal(200)
     expect(mark.y_center).to.equal(200)
