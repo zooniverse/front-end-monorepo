@@ -6,10 +6,6 @@ import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
 
 import RootStore from '@store/RootStore'
-import SubjectGroup from './SubjectGroup'
-import ImageAndTextSubject from './ImageAndTextSubject'
-import SingleImageSubject from './SingleImageSubject'
-import SingleTextSubject from './SingleTextSubject'
 import { openTalkPage, MINIMUM_QUEUE_SIZE } from './SubjectStore'
 import { ProjectFactory, SubjectFactory, SubjectSetFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
@@ -325,109 +321,6 @@ describe('Model > SubjectStore', function () {
         expect(subjects.resources.size).to.equal(10)
         expect(subjects.active.id).to.equal(activeSubjectID)
       })
-    })
-  })
-
-  describe('single image subjects', function () {
-    let subjects
-    let imageSubjects = Factory.buildList('subject', 10, { locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
-
-    before(async function () {
-      subjects = await mockSubjectStore(imageSubjects)
-    })
-
-    it('should be valid subjects', function () {
-      const expectedSubject = SingleImageSubject.create(imageSubjects[1])
-      expect(subjects.resources.get(expectedSubject.id)).to.deep.equal(expectedSubject)
-    })
-
-    it('should be of the correct subject type', function () {
-      expect(getType(subjects.active).name).to.equal('SubjectResource')
-    })
-  })
-
-  describe('single text subjects', function () {
-    let subjects
-    const textSubjects = Factory.buildList(
-      'subject',
-      10,
-      {
-        content: 'This is test subject content',
-        contentLoadingState: asyncStates.success,
-        locations: [{ 'text/plain': 'https://foo.bar/example.txt' }]
-      })
-
-    before(async function () {
-      subjects = await mockSubjectStore(textSubjects)
-    })
-
-    it('should be valid subjects', function () {
-      const expectedSubject = SingleTextSubject.create(textSubjects[1])
-      expect(subjects.resources.get(expectedSubject.id)).to.deep.equal(expectedSubject)
-    })
-
-    it('should be of the correct subject type', function () {
-      expect(getType(subjects.active).name).to.equal('SingleTextSubject')
-    })
-  })
-
-  describe('imange and text subjects', function () {
-    let subjects
-    const imageAndTextSubjects = Factory.buildList(
-      'subject',
-      10,
-      {
-        content: 'This is test subject content',
-        contentLoadingState: asyncStates.success,
-        locations: [
-          { 'image/png': 'https://foo.bar/example.png' },
-          { 'text/plain': 'https://foo.bar/example.txt' }
-        ]
-      })
-
-    before(async function () {
-      subjects = await mockSubjectStore(imageAndTextSubjects)
-    })
-
-    it('should be valid subjects', function () {
-      const expectedSubject = ImageAndTextSubject.create(imageAndTextSubjects[1])
-      expect(subjects.resources.get(expectedSubject.id)).to.deep.equal(expectedSubject)
-    })
-
-    it('should be of the correct subject type', function () {
-      expect(getType(subjects.active).name).to.equal('ImageAndTextSubject')
-    })
-  })
-
-  describe('subject groups', function () {
-    let subjects
-    let subjectGroups = Factory.buildList(
-      'subject',
-      10,
-      {
-        locations: [
-          { 'image/png': 'https://foo.bar/example.png' },
-          { 'image/png': 'https://foo.bar/example.png' },
-          { 'image/png': 'https://foo.bar/example.png' },
-          { 'image/png': 'https://foo.bar/example.png' },
-        ],
-        metadata: {
-          '#group_subject_ids': '1111-1112-1113-1114',
-          '#subject_group_id': 101,
-      }
-    })
-
-    before(async function () {
-      subjects = await mockSubjectStore(subjectGroups)
-    })
-
-    it('should be valid subjects', function () {
-      const expectedSubject = SubjectGroup.create(subjectGroups[1])
-      expect(subjects.resources.get(expectedSubject.id)).to.deep.equal(expectedSubject)
-    })
-    
-    it('should be of the correct "subject group" type', function () {
-      expect(getType(subjects.active).name).to.equal('SubjectGroup')
     })
   })
 

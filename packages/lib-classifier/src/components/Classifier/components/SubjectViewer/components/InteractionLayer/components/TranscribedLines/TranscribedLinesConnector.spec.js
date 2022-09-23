@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import TranscriptionReductions from '@store/SubjectStore/Subject/TranscriptionReductions'
-import { reducedSubject } from '@store/SubjectStore/Subject/TranscriptionReductions/mocks'
+import TranscriptionReductions from '@store/SubjectStore/SubjectType/subjects/Subject/TranscriptionReductions'
+import { reducedSubject } from '@store/SubjectStore/SubjectType/subjects/Subject/TranscriptionReductions/mocks'
 import TranscribedLinesConnector from './TranscribedLinesConnector'
 import TranscribedLines from './TranscribedLines'
 
