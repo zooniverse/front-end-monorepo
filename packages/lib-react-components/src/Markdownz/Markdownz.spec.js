@@ -1,7 +1,8 @@
 import React from 'react'
-import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import { Anchor, Paragraph } from 'grommet'
+import { render, screen } from '@testing-library/react'
+
 import Media from '../Media'
 import {
   Markdownz,
@@ -16,27 +17,19 @@ import { markdown } from './helpers/testExamples'
 // TO DO: Add back working snapshots to test the overall HTML output
 // We have to use snapshots with styled-components because of the generated class names
 describe('<Markdownz />', function () {
-  let wrapper
-
-  it('renders without crashing', function () {
-    wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
-    expect(wrapper).to.be.ok()
-  })
-
   it('parses markdown to jsx', function () {
-    wrapper = shallow(<Markdownz>{markdown}</Markdownz>)
-    expect(wrapper.find(Anchor)).to.have.lengthOf(10)
-    expect(wrapper.find(Paragraph)).to.have.lengthOf(17)
+    const { container } = render(<Markdownz>{markdown}</Markdownz>)
+    expect(container.querySelectorAll('a[href]')).to.have.lengthOf(12)
+    expect(container.querySelectorAll('p')).to.have.lengthOf(17)
   })
 
   describe('at-mentions', function () {
     ['srallen', 'am.zooni', 'a-user'].forEach(function (username) {
       describe(username, function () {
-        function findMention (sentence) {
-          wrapper = shallow(<Markdownz>{sentence}</Markdownz>)
-          const pingAnchor = wrapper.find({ href: `/users/${username}` })
-          expect(pingAnchor).to.have.lengthOf(1)
-          expect(pingAnchor.text()).to.equal(`@${username}`)
+        function findMention(sentence) {
+          render(<Markdownz>{sentence}</Markdownz>)
+          const pingAnchor = screen.getByRole('link', { name: `@ ${username}` })
+          expect(pingAnchor.href).to.equal(`https://localhost/users/${username}`)
         }
 
         it('should be recognised at the beginning of a sentence', function () {
@@ -59,10 +52,9 @@ describe('<Markdownz />', function () {
 
   it('correctly parses a subject mention in project context', function () {
     const sentence = `Look at this interesting subject: ^S1234.`
-    wrapper = shallow(<Markdownz projectSlug='zooniverse/snapshot-wakanda'>{sentence}</Markdownz>)
-    const pingAnchor = wrapper.find({ href: '/projects/zooniverse/snapshot-wakanda/talk/subjects/1234' })
-    expect(pingAnchor).to.have.lengthOf(1)
-    expect(pingAnchor.text()).to.equal('^S1234')
+    render(<Markdownz projectSlug='zooniverse/snapshot-wakanda'>{sentence}</Markdownz>)
+    const pingAnchor = screen.getByRole('link', { name: '^S 1234' })
+    expect(pingAnchor.href).to.equal('https://localhost/projects/zooniverse/snapshot-wakanda/talk/subjects/1234')
   })
 
   describe('#buildResourceURL', function () {
