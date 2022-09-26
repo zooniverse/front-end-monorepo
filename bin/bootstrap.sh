@@ -13,7 +13,7 @@ ROOT_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && cd .. && pwd)"
 cd $ROOT_DIR
 
 printf 'Installing dependencies...\n'
-yarn install
+yarn install --frozen-lockfile
 printf '\n'
 
 printf 'Building `lib-react-components`...\n'

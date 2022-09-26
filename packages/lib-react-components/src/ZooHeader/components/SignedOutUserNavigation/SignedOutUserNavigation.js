@@ -6,19 +6,17 @@ import NarrowMainNavMenu from '../NarrowMainNavMenu'
 import { useTranslation } from 'react-i18next'
 import '../../../translations/i18n'
 
-export default function SignedOutUserNavigation (props) {
-  const {
-    adminNavLinkLabel,
-    adminNavLinkURL,
-    isAdmin,
-    isNarrow,
-    mainHeaderNavListLabels,
-    mainHeaderNavListURLs,
-    register,
-    signIn,
-    user
-  } = props
-
+export default function SignedOutUserNavigation({
+  adminNavLinkLabel,
+  adminNavLinkURL,
+  isAdmin,
+  isNarrow,
+  mainHeaderNavListLabels,
+  mainHeaderNavListURLs,
+  register,
+  signIn,
+  user
+}) {
   const { t } = useTranslation()
 
   if (Object.keys(user).length === 0 && signIn) {

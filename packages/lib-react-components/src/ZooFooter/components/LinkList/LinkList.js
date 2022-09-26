@@ -16,6 +16,7 @@ export default function LinkList ({ className, labels, urls }) {
 
   return (
     <StyledBox
+      aria-label={title.label}
       className={className}
       direction='column'
       pad='none'
