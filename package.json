@@ -21,6 +21,7 @@
   "scripts": {
     "bootstrap": "./bin/bootstrap.sh",
     "build": "lerna run --parallel build",
+    "clean-install": "./bin/clean-install.sh",
     "coverage-lcov": "nyc report --reporter=lcov",
     "deploy-storybook": "storybook-to-ghpages --packages packages",
     "panic": "./bin/panic-button.sh",

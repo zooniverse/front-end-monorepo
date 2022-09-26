@@ -1,15 +1,24 @@
 import counterpart from 'counterpart'
 import { array, string } from 'prop-types'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import en from './locales/en'
 import Publications from './Publications'
 
 counterpart.registerTranslations('en', en)
 
-function PublicationsContainer(props) {
-  const { publicationsData } = props
+const isBrowser = typeof window !== 'undefined'
+
+function PublicationsContainer({publicationsData}) {
+  publicationsData.forEach(category => {
+    category.slug = category.title.toLowerCase().replaceAll(' ', '-')
+  })
   const [activeFilter, setActiveFilter] = useState(null)
+
+  useEffect(function onMount() {
+    const slug = isBrowser ? window.location.hash.slice(1) : ''
+    setActiveFilter(slug)
+  }, [])
 
   const filters = createFilters(publicationsData, activeFilter, setActiveFilter)
   const filteredPublicationsData = createFilteredPublicationsData(publicationsData, activeFilter)
@@ -31,15 +40,17 @@ export default PublicationsContainer
 
 function createFilters(publicationsData, activeFilter, setActiveFilter) {
   const showAllFilter = {
-    active: activeFilter === null,
+    active: !activeFilter,
     name: counterpart('Publications.showAll'),
-    setActive: () => setActiveFilter(null)
+    slug: '',
+    setActive: event => setActiveFilter('')
   }
 
   const categoryFilters = publicationsData.map(category => ({
-    active: activeFilter === category.title,
+    active: activeFilter === category.slug,
     name: category.title,
-    setActive: () => setActiveFilter(category.title)
+    slug: category.title.toLowerCase().replaceAll(' ', '-'),
+    setActive: event => setActiveFilter(category.slug)
   }))
 
   return [showAllFilter, ...categoryFilters]
@@ -49,6 +60,6 @@ function createFilters(publicationsData, activeFilter, setActiveFilter) {
 // no active filter.
 function createFilteredPublicationsData(publicationsData, activeFilter) {
   return activeFilter
-    ? publicationsData.filter(category => category.title === activeFilter)
+    ? publicationsData.filter(category => category.slug === activeFilter)
     : publicationsData
 }
