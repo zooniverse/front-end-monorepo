@@ -1,1 +1,1 @@
-export { default } from './StepHistory'
+export { default } from './StepHistory.js'

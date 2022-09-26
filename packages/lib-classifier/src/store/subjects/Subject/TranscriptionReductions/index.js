@@ -1,1 +1,1 @@
-export { default } from './TranscriptionReductions'
+export { default } from './TranscriptionReductions.js'

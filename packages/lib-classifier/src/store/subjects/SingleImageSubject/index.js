@@ -1,1 +1,1 @@
-export { default } from './SingleImageSubject'
+export { default } from './SingleImageSubject.js'

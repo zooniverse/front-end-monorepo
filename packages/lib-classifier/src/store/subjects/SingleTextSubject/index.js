@@ -1,1 +1,1 @@
-export { default } from './SingleTextSubject'
+export { default } from './SingleTextSubject.js'

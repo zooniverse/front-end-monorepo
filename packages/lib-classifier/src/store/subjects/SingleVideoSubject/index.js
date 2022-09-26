@@ -1,1 +1,1 @@
-export { default } from './SingleVideoSubject'
+export { default } from './SingleVideoSubject.js'

@@ -1,1 +1,1 @@
-export { default } from './SubjectGroup'
+export { default } from './SubjectGroup.js'

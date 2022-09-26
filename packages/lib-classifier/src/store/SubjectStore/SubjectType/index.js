@@ -1,1 +1,1 @@
-export { default, SingleSubject, SubjectType, subjectModels, subjectDispatcher } from './SubjectType.js'
+export { default } from './SubjectType.js'

@@ -1,1 +1,1 @@
-export { default } from './AnnotatedStep'
+export { default } from './AnnotatedStep.js'

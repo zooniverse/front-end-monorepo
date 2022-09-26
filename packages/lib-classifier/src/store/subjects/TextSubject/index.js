@@ -1,1 +1,1 @@
-export { default } from './TextSubject'
+export { default } from './TextSubject.js'

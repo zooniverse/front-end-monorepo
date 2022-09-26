@@ -8,15 +8,15 @@ const { SubjectGroup, ...singleSubjects } = subjects
   for advice about using references with types.union.
 */
 
-export const SingleSubject = types.union(...Object.values(singleSubjects))
+const SingleSubject = types.union(...Object.values(singleSubjects))
 
-export function subjectDispatcher (snapshot) {
+function subjectDispatcher (snapshot) {
   if (snapshot?.metadata?.['#subject_group_id']) {
     return SubjectGroup
   }
   return SingleSubject
 }
-export const subjectModels = [ { dispatcher: subjectDispatcher }, SingleSubject, SubjectGroup ]
-export const SubjectType = types.union(...subjectModels)
+
+const SubjectType = types.union({ dispatcher: subjectDispatcher }, SingleSubject, SubjectGroup)
 
 export default SubjectType
