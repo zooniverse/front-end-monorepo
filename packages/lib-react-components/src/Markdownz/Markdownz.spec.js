@@ -1,6 +1,4 @@
 import React from 'react'
-import sinon from 'sinon'
-import { Anchor, Paragraph } from 'grommet'
 import { render, screen } from '@testing-library/react'
 
 import Media from '../Media'
