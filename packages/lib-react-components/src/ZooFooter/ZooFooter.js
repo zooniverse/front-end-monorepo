@@ -6,10 +6,12 @@ import { useTranslation } from 'react-i18next'
 import '../translations/i18n'
 import i18n from 'i18next'
 
-import LinkList from './components/LinkList'
-import PolicyLinkSection from './components/PolicyLinkSection'
-import LogoAndTagline from './components/LogoAndTagline'
-import SocialAnchor from './components/SocialAnchor'
+import {
+  LinkList,
+  PolicyLinkSection,
+  LogoAndTagline,
+  SocialAnchor
+} from './components'
 
 export const StyledEasterEgg = styled(Image)`
   bottom: 100%;
