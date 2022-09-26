@@ -8,7 +8,7 @@ import sinon from 'sinon'
 import mockStore from '@test/mockStore'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import readme from './README.md'
-import { reducedASMSubject } from '@store/SubjectStore/SubjectType/subjects/Subject/TranscriptionReductions/mocks'
+import { reducedASMSubject } from '@store/subjects/Subject/TranscriptionReductions/mocks'
 import MultiFrameViewer from '@viewers/components/MultiFrameViewer'
 import TooltipIcon from './components/TooltipIcon'
 

@@ -1,5 +1,5 @@
-import { reducedASMSubject } from '@store/SubjectStore/SubjectType/subjects/Subject/TranscriptionReductions/mocks'
-import TranscriptionReductions from '@store/SubjectStore/SubjectType/subjects/Subject/TranscriptionReductions'
+import { reducedASMSubject } from '@store/subjects/Subject/TranscriptionReductions/mocks'
+import TranscriptionReductions from '@store/subjects/Subject/TranscriptionReductions'
 
 export default function setupMock () {
   const transcriptionReductions = TranscriptionReductions.create({

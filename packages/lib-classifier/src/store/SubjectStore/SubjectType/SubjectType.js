@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
 
-import * as subjects from './subjects'
+import * as subjects from '@store/subjects'
 const { SubjectGroup, ...singleSubjects } = subjects
 
 /*

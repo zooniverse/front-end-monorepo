@@ -3,7 +3,7 @@ import { getType } from 'mobx-state-tree'
 import { Factory } from 'rosie'
 
 import { SubjectFactory } from '@test/factories'
-import * as subjectModels from './subjects'
+import * as subjectModels from '@store/subjects'
 import SubjectType from './SubjectType.js'
 
 describe('Models > SubjectType', function () {
