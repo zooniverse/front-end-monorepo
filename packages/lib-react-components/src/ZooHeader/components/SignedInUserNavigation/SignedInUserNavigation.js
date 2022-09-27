@@ -16,13 +16,13 @@ import { getHost } from '../../helpers'
 export default function SignedInUserNavigation({
   adminNavLinkLabel,
   adminNavLinkURL,
-  host,
-  isAdmin,
-  isNarrow,
+  host = getHost(),
+  isAdmin = false,
+  isNarrow = false,
   mainHeaderNavListLabels,
   mainHeaderNavListURLs,
-  unreadMessages,
-  unreadNotifications,
+  unreadMessages = 0,
+  unreadNotifications = 0,
   signOut,
   user
 }) {
@@ -37,11 +37,11 @@ export default function SignedInUserNavigation({
   })
 
   const notificationLabel = (isNarrow)
-    ? <FontAwesomeIcon icon={(unreadNotifications) ? fasBell : farBell} />
+    ? <FontAwesomeIcon title={notificationLabelString} icon={(unreadNotifications) ? fasBell : farBell} />
     : notificationLabelString
 
   const messagesLabel = (isNarrow)
-    ? <FontAwesomeIcon icon={(unreadMessages) ? fasEnvelope : farEnvelope} />
+    ? <FontAwesomeIcon title={messagesLabelString} icon={(unreadMessages) ? fasEnvelope : farEnvelope} />
     : messagesLabelString
 
   if (Object.keys(user).length > 0 && signOut) {
@@ -73,7 +73,7 @@ export default function SignedInUserNavigation({
           <NarrowMainNavMenu
             adminNavLinkLabel={adminNavLinkLabel}
             adminNavLinkURL={adminNavLinkURL}
-            isAdmin={isAdmin}
+            isAdmin={user?.admin && isAdmin}
             mainHeaderNavListLabels={mainHeaderNavListLabels}
             mainHeaderNavListURLs={mainHeaderNavListURLs}
           />}
@@ -82,14 +82,6 @@ export default function SignedInUserNavigation({
   }
 
   return null
-}
-
-SignedInUserNavigation.defaultProps = {
-  isAdmin: false,
-  isNarrow: false,
-  host: getHost(),
-  unreadMessages: 0,
-  unreadNotifications: 0
 }
 
 SignedInUserNavigation.propTypes = {

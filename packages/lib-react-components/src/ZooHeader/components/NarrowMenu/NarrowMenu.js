@@ -2,11 +2,22 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Menu } from 'grommet'
 
-export default function NarrowMenu (props) {
-  const { dropBackground, icon, items, label, size } = props
+export default function NarrowMenu({
+  dropBackground = 'brand',
+  icon,
+  items,
+  label = '',
+  size = 'small',
+  ...props
+}) {
+  let ariaLabel
+  if (label.props?.text) {
+    ariaLabel = label.props.text
+  }
 
   return (
     <Menu
+      aria-label={ariaLabel}
       dropBackground={dropBackground}
       icon={icon}
       items={items}
@@ -25,7 +36,7 @@ NarrowMenu.defaultProps = {
 
 NarrowMenu.propTypes = {
   dropBackground: PropTypes.string,
-  icon: PropTypes.node.isRequired,
+  icon: PropTypes.node,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   label: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   size: PropTypes.string

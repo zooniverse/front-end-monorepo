@@ -80,12 +80,12 @@ export function SignedInNarrowWindowView() {
   return(
     <Grommet theme={zooTheme} full>
       <ZooHeader
-        isNarrow
+        isAdmin
         signIn={signIn}
         signOut={signOut}
         user={{
           admin: true,
-          display_name: 'zootester1',
+          display_name: 'Zoo Tester',
           login: 'zootester1'
         }}
       />

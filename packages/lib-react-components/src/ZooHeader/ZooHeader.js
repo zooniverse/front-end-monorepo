@@ -2,6 +2,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Anchor, Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useResizeDetector } from 'react-resize-detector'
 import styled from 'styled-components'
 import { getHost } from './helpers'
 import { useTranslation } from 'react-i18next'
@@ -32,18 +33,23 @@ export const StyledLogoAnchor = styled(Anchor)`
   }
 `
 
+const defaultHandler = () => true
+
 export default function ZooHeader({
-  isAdmin,
-  isNarrow,
-  register,
-  signIn,
-  signOut,
-  unreadMessages,
-  unreadNotifications,
+  breakpoint = 960,
+  isAdmin = false,
+  isNarrow = false,
+  register = defaultHandler,
+  signIn = defaultHandler,
+  signOut = defaultHandler,
+  unreadMessages = 0,
+  unreadNotifications = 0,
   user = {},
   ...props
 }) {
   const { t } = useTranslation()
+  const { width, height, ref } = useResizeDetector()
+  isNarrow = isNarrow || width <= breakpoint
 
   const host = getHost()
   const adminNavLinkLabel = 'Admin'
@@ -67,6 +73,7 @@ export default function ZooHeader({
 
   return (
     <StyledHeader
+      ref={ref}
       background='black'
       direction='row'
       fill='horizontal'
@@ -89,7 +96,7 @@ export default function ZooHeader({
         <MainNavList
           adminNavLinkLabel={adminNavLinkLabel}
           adminNavLinkURL={adminNavLinkURL}
-          isAdmin={isAdmin}
+          isAdmin={user?.admin && isAdmin}
           isNarrow={isNarrow}
           mainHeaderNavListLabels={mainHeaderNavListLabels}
           mainHeaderNavListURLs={mainHeaderNavListURLs}
@@ -109,6 +116,7 @@ export default function ZooHeader({
       <SignedInUserNavigation
         adminNavLinkLabel={adminNavLinkLabel}
         adminNavLinkURL={adminNavLinkURL}
+        isAdmin={isAdmin}
         isNarrow={isNarrow}
         mainHeaderNavListLabels={mainHeaderNavListLabels}
         mainHeaderNavListURLs={mainHeaderNavListURLs}
@@ -119,16 +127,6 @@ export default function ZooHeader({
       />
     </StyledHeader>
   )
-}
-
-// TODO: remove default prop for register once we add that functionality to auth client
-ZooHeader.defaultProps = {
-  breakpoint: 960,
-  isAdmin: false,
-  isNarrow: false,
-  register: () => {},
-  unreadMessages: 0,
-  unreadNotifications: 0
 }
 
 ZooHeader.propTypes = {
