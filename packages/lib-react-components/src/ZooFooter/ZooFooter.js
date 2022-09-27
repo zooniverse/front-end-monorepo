@@ -134,12 +134,12 @@ export default function ZooFooter ({
           <LogoAndTagline tagLine={t('ZooFooter.tagLine')} />
           <Box
             align='end'
+            as='nav'
             direction='row'
             gap='small'
             justify='end'
             responsive={false}
             role='presentation'
-            tag='nav'
           >
             <SocialAnchor service='facebook' />
             <SocialAnchor service='twitter' />
@@ -148,6 +148,7 @@ export default function ZooFooter ({
         </Box>
 
         <Grid
+          as='section'
           fill
           gap='small'
           columns={{
@@ -155,7 +156,6 @@ export default function ZooFooter ({
             'size': '120px'
           }}
           margin={{ bottom: 'large' }}
-          tag='section'
         >
           <LinkList
             labels={projectNavListLabels}

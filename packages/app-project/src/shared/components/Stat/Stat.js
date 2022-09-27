@@ -7,16 +7,16 @@ function Stat ({ className, label, value }) {
   return (
     <div className={className}>
       <Text
+        as='div'
         color={{ light: 'dark-5', dark: 'light-1' }}
-        tag='div'
         size='xxlarge'
       >
         <AnimatedNumber value={value} />
       </Text>
       <Text
+        as='div'
         color={{ light: 'dark-5', dark: 'light-1' }}
         size='medium'
-        tag='div'
         weight='bold'
       >
         {label}
