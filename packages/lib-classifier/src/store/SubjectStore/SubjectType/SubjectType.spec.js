@@ -171,4 +171,27 @@ describe('Models > SubjectType', function () {
       expect(getType(subject).name).to.equal('SubjectGroup')
     })
   })
+
+  describe('PH-TESS subjects', function () {
+    let subject
+    let snapshot = SubjectFactory.build({
+      locations: [
+        { 'image/png': 'https://foo.bar/example.png' },
+        { 'text/plain': 'https://foo.bar/example.txt' }
+      ]
+    })
+
+    before(function () {
+      subject = SubjectType.create(snapshot)
+    })
+
+    it('should be valid subjects', function () {
+      const expectedSubject = subjectModels.ImageAndTextSubject.create(snapshot)
+      expect(subject).to.deep.equal(expectedSubject)
+    })
+
+    it('should be image and text subjects', function () {
+      expect(getType(subject).name).to.equal('ImageAndTextSubject')
+    })
+  })
 })
