@@ -60,12 +60,11 @@ A user can use the `Undo` feature after a path has been closed!
 
 ## Path Classification Data Structure
 
-When a `<path>` is sent to our api, its sent as an array of objects where each object is an x and y coordinate.
+When a `<path>` is sent to our api, its sent as an array of x coordinates and an array of y coordinates.
 
 ```json
-points: [
-  {x: 345, y:160},
-  {x: 350, y:165},
-  {x: 355, y:170}
-]
+{
+  "pathX": "[ 345, 350, 355… ]",
+  "pathY": "[ 160, 165, 170… ]"
+}
 ```

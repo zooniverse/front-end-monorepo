@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import styled from 'styled-components'
@@ -46,12 +46,40 @@ function cancelEvent(event) {
   return false
 }
 
-function FreehandLine({ active, mark, onFinish, scale }) {
-  const { path, initialPoint, lastPoint, finished, isClosed } = mark
-  const [editing, setEditing] = useState(false)
+function linePath({ dragPoint, isClosed, points, targetPoint }) {
+  const [firstCoord, ...otherCoords] = points
+  if (!firstCoord) {
+    return ''
+  }
+  const path = [`M ${firstCoord.x},${firstCoord.y}`]
+  otherCoords.forEach(point => {
+    const { x, y } = point
+    const isTarget = (x === targetPoint?.x) && (y === targetPoint?.y)
+    const pointPath = isTarget ? `M ${x},${y}` : `L ${x},${y}`
+    path.push(pointPath)
+  })
+  // closes the drawing path
+  if (isClosed) {
+    if (dragPoint) {
+      const { x, y } = firstCoord
+      path.push(`L ${x},${y}`)
+    } else {
+      path.push(`Z`)
+    }
+  }
+  return path.join(' ')
+}
 
+function FreehandLine({ active, mark, onFinish, scale }) {
+  const { initialPoint, lastPoint, finished, isClosed, points } = mark
+  const [editing, setEditing] = useState(false)
   const dragPoint = mark.isCloseToStart ? null : mark.dragPoint
   const targetPoint = mark.isCloseToStart ? null : mark.targetPoint
+  const path = useMemo(() => linePath(
+    { dragPoint, isClosed, points, targetPoint }),
+    [dragPoint, isClosed, points, targetPoint]
+  )
+
   const clippedPath = mark.clipPath.map(
     (point, index) => index === 0 ? `M ${point.x},${point.y}` : `L ${point.x},${point.y}`
   ).join(' ')
@@ -232,7 +260,7 @@ FreehandLine.propTypes = {
     isCloseToStart: PropTypes.bool
   }).isRequired,
   /**
-    Callback to reset the drawing canvas when creation of the rectangle is finished.
+    Callback to reset the drawing canvas when creation of the line is finished.
   */
   onFinish: PropTypes.func,
   /**
