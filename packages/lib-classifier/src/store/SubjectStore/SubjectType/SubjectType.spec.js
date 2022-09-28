@@ -70,6 +70,31 @@ describe('Models > SubjectType', function () {
     })
   })
 
+  describe('multi-image subjects', function () {
+    let subject
+    let snapshot = SubjectFactory.build({
+      locations: [
+        { 'image/png': 'https://foo.bar/example-1.png' },
+        { 'image/png': 'https://foo.bar/example-2.png' },
+        { 'image/png': 'https://foo.bar/example-3.png' },
+        { 'image/png': 'https://foo.bar/example-4.png' },
+      ]
+    })
+
+    before(function () {
+      subject = SubjectType.create(snapshot)
+    })
+
+    it('should be valid subjects', function () {
+      const expectedSubject = subjectModels.ImageSubject.create(snapshot)
+      expect(subject).to.deep.equal(expectedSubject)
+    })
+
+    it('should be of the correct type', function () {
+      expect(getType(subject).name).to.equal('SubjectResource')
+    })
+  })
+
   describe('image and text subjects', function () {
     let subject
     let snapshot = SubjectFactory.build({
@@ -95,14 +120,37 @@ describe('Models > SubjectType', function () {
     })
   })
 
-  describe('subject groups', function () {
+  describe('JSON data subjects', function () {
     let subject
     let snapshot = SubjectFactory.build({
       locations: [
         { 'image/png': 'https://foo.bar/example.png' },
-        { 'image/png': 'https://foo.bar/example.png' },
-        { 'image/png': 'https://foo.bar/example.png' },
-        { 'image/png': 'https://foo.bar/example.png' },
+        { 'application/json': 'https://foo.bar/example.json' }
+      ]
+    })
+
+    before(function () {
+      subject = SubjectType.create(snapshot)
+    })
+
+    it('should be valid subjects', function () {
+      const expectedSubject = subjectModels.SingleJSONSubject.create(snapshot)
+      expect(subject).to.deep.equal(expectedSubject)
+    })
+
+    it('should be of the correct subject type', function () {
+      expect(getType(subject).name).to.equal('SubjectResource')
+    })
+  })
+
+  describe('subject groups', function () {
+    let subject
+    let snapshot = SubjectFactory.build({
+      locations: [
+        { 'image/png': 'https://foo.bar/example-1.png' },
+        { 'image/png': 'https://foo.bar/example-2.png' },
+        { 'image/png': 'https://foo.bar/example-3.png' },
+        { 'image/png': 'https://foo.bar/example-4.png' },
       ],
       metadata: {
         '#group_subject_ids': '1111-1112-1113-1114',
