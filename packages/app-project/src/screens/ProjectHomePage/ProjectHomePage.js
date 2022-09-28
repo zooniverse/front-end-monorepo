@@ -54,9 +54,11 @@ function ProjectHomePage ({
       style={pageStyle}
     >
       <Media at='default'>
-        <ZooHeaderWrapper />
-        <ProjectHeader adminMode={adminMode} />
-        <Announcements />
+        <header>
+          <ZooHeaderWrapper />
+          <ProjectHeader adminMode={adminMode} />
+          <Announcements />
+        </header>
         <Hero workflows={workflows} />
         <Box margin='small' gap='small'>
           <ThemeModeToggle />
@@ -70,9 +72,11 @@ function ProjectHomePage ({
 
       <Media greaterThan='default'>
         <FullHeightBox margin={{ bottom: 'large' }}>
-          <ZooHeaderWrapper />
-          <ProjectHeader adminMode={adminMode} />
-          <Announcements />
+          <header>
+            <ZooHeaderWrapper />
+            <ProjectHeader adminMode={adminMode} />
+            <Announcements />
+          </header>
           <RemainingHeightBox>
             <Hero workflows={workflows} isWide={true} />
           </RemainingHeightBox>

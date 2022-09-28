@@ -43,7 +43,6 @@ function ContentBox (props) {
       {showHeader && (
         <Box
           align='center'
-          as='header'
           direction='row'
           justify={title ? 'between' : 'end'}
           margin={{ bottom: 'small' }}

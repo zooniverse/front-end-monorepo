@@ -38,7 +38,7 @@ function ProjectHeader({
   }
 
   return (
-    <StyledBox as='header' className={className}>
+    <StyledBox className={className}>
       <Background />
       <StyledBox
         align='center'

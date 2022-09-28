@@ -67,14 +67,12 @@ export default function ZooHeader({
 
   return (
     <StyledHeader
-      as='header'
       background='black'
       direction='row'
       fill='horizontal'
       justify='between'
       pad='none'
       responsive={false}
-      role='presentation'
       {...props}
     >
       <Box
