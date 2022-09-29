@@ -17,16 +17,6 @@ describe('Component > Choice', function () {
 
   const mockTask = SurveyTask.TaskModel.create(task)
 
-  it('should render without crashing', function () {
-    render(
-      <Choice
-        choiceId='KD'
-        task={mockTask}
-      />
-    )
-    expect(screen).to.be.ok()
-  })
-
   it('should call handleDelete when "Not this" button clicked', async function () {
     const handleDeleteSpy = sinon.spy()
     const user = userEvent.setup({ delay: null })
