@@ -18,7 +18,8 @@ describe('Component > Chooser', function () {
           task={mockTaskWithoutCharacteristics}
         />
       )
-      expect(screen.getByRole('button', { name: 'Aardvark' })).to.be.ok()
+      expect(screen.getByText('Aardvark')).to.be.ok() // first choice per mock-data survey task
+      expect(screen.getByText('Nothing here')).to.be.ok() // last choice per mock-data survey task
     })
 
     it('should not render a FilterStatus component', function () {
@@ -49,7 +50,8 @@ describe('Component > Chooser', function () {
           task={mockTask}
         />
       )
-      expect(screen.getByRole('button', { name: 'Aardvark' })).to.be.ok()
+      expect(screen.getByText('Aardvark')).to.be.ok() // first choice per mock-data survey task
+      expect(screen.getByText('Nothing here')).to.be.ok() // last choice per mock-data survey task
     })
 
     it('should render a FilterStatus component', function () {
