@@ -32,9 +32,11 @@ function StandardLayout ({
 
   return (
     <Box data-testid='project-page' border={border} style={pageStyle}>
-      <ZooHeaderWrapper />
-      <ProjectHeader adminMode={adminMode} />
-      <Announcements />
+      <header>
+        <ZooHeaderWrapper />
+        <ProjectHeader adminMode={adminMode} />
+        <Announcements />
+      </header>
       {children}
       <ZooFooter
         adminContainer={<AdminContainer onChange={toggleAdmin} checked={adminMode} />}
