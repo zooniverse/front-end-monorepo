@@ -12,7 +12,7 @@ describe('Component > Chooser', function () {
   describe('with a survey task with no characteristics', function () {
     const mockTaskWithoutCharacteristics = SurveyTask.TaskModel.create(taskWithoutCharacteristics)
 
-    it('should render a Choices component', function () {
+    it('should allow you to choose from a list of choices', function () {
       render(
         <Chooser
           task={mockTaskWithoutCharacteristics}
@@ -22,7 +22,7 @@ describe('Component > Chooser', function () {
       expect(screen.getByText('Nothing here')).to.be.ok() // last choice per mock-data survey task
     })
 
-    it('should not render a FilterStatus component', function () {
+    it('should not allow you to filter the list of choices', function () {
       render(
         <Chooser
           task={mockTaskWithoutCharacteristics}
@@ -31,7 +31,7 @@ describe('Component > Chooser', function () {
       expect(screen.queryByText('SurveyTask.CharacteristicsFilter.filter')).to.be.null()
     })
 
-    it('should not render a ClearFilters component', function () {
+    it('should not allow you to clear filters on the list of choices', function () {
       render(
         <Chooser
           task={mockTaskWithoutCharacteristics}
@@ -44,7 +44,7 @@ describe('Component > Chooser', function () {
   describe('with a survey task with characteristics', function () {
     const mockTask = SurveyTask.TaskModel.create(task)
 
-    it('should render a Choices component', function () {
+    it('should allow you to choose from a list of choices', function () {
       render(
         <Chooser
           task={mockTask}
@@ -54,7 +54,7 @@ describe('Component > Chooser', function () {
       expect(screen.getByText('Nothing here')).to.be.ok() // last choice per mock-data survey task
     })
 
-    it('should render a FilterStatus component', function () {
+    it('should allow you to filter the list of choices', function () {
       render(
         <Chooser
           task={mockTask}
@@ -63,7 +63,7 @@ describe('Component > Chooser', function () {
       expect(screen.getByText('SurveyTask.CharacteristicsFilter.filter')).to.be.ok()
     })
 
-    it('should render a ClearFilters component', function () {
+    it('should allow you to clear filters on the list of choices', function () {
       render(
         <Chooser
           task={mockTask}
