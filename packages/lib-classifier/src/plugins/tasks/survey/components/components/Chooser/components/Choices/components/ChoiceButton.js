@@ -52,6 +52,7 @@ function ChoiceButton({
   return (
     <Button
       ref={choiceButton}
+      as='li'
       disabled={disabled}
       label={
         <Box

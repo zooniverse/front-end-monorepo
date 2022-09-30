@@ -7,7 +7,7 @@ import howManyColumns from './helpers/howManyColumns'
 import whatSizeThumbnail from './helpers/whatSizeThumbnail'
 import ChoiceButton from './components/ChoiceButton'
 
-const StyledGrid = styled.div`
+const StyledGrid = styled.ul`
   ${props => props.theme.dark
     ? css`background-color: ${props.theme.global.colors['dark-1']};`
     : css`background-color: ${props.theme.global.colors['light-1']};`
@@ -16,6 +16,9 @@ const StyledGrid = styled.div`
   grid-auto-flow: column;
   grid-gap: 2px;
   grid-template-rows: repeat(${props => props.rowsCount}, auto);
+  list-style: none;
+  margin: 0;
+  padding: 0;
   width: 100%;
 `
 
