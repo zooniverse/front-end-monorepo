@@ -95,7 +95,7 @@
     "mocha": "~10.0.0",
     "mst-middlewares": "~5.1.0",
     "nock": "~13.2.1",
-    "panoptes-client": "~4.0.0",
+    "panoptes-client": "~4.1.0",
     "polished": "~4.2.2",
     "process": "~0.11.10",
     "query-string": "~7.1.0",
