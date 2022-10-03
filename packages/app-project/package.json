@@ -31,7 +31,7 @@
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/classifier": "^0.0.1",
-    "@zooniverse/grommet-theme": "~3.0.0",
+    "@zooniverse/grommet-theme": "~3.1.0",
     "@zooniverse/panoptes-js": "~0.1.2",
     "@zooniverse/react-components": "~1.1.0",
     "babel-plugin-dynamic-import-node": "~2.3.0",

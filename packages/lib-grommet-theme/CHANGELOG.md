@@ -4,9 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## [3.1.0]
 ### Added
 - Set `CheckBox` gap to a margin of 10px
+- Build with Node 16.
 
 ## [3.0.0]
 ### Added
