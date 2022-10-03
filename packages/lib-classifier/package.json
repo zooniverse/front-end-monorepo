@@ -74,7 +74,7 @@
     "@wojtekmaj/enzyme-adapter-react-17": "~0.6.6",
     "@zooniverse/grommet-theme": "~3.1.0",
     "@zooniverse/panoptes-js": "~0.1.0",
-    "@zooniverse/react-components": "~1.1.0",
+    "@zooniverse/react-components": "~1.2.0",
     "@zooniverse/standard": "~1.0.0",
     "babel-loader": "~8.2.2",
     "babel-plugin-webpack-alias": "~2.1.2",

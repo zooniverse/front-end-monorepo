@@ -3,7 +3,7 @@
   "description": "Zooniverse React Components",
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "main": "dist/main.js",
   "scripts": {
     "build": "webpack --config ./webpack.dist.js",
