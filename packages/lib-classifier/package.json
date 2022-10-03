@@ -42,7 +42,7 @@
   },
   "peerDependencies": {
     "@zooniverse/grommet-theme": "3.x.x",
-    "@zooniverse/panoptes-js": "~0.1.2",
+    "@zooniverse/panoptes-js": "~0.2.0",
     "@zooniverse/react-components": "~1.x.x",
     "grommet": "~2.17.x",
     "grommet-icons": "~4.x.x",
@@ -73,7 +73,7 @@
     "@visx/mock-data": "~2.1.2",
     "@wojtekmaj/enzyme-adapter-react-17": "~0.6.6",
     "@zooniverse/grommet-theme": "~3.1.0",
-    "@zooniverse/panoptes-js": "~0.1.0",
+    "@zooniverse/panoptes-js": "~0.2.0",
     "@zooniverse/react-components": "~1.2.0",
     "@zooniverse/standard": "~1.0.0",
     "babel-loader": "~8.2.2",
