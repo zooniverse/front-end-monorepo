@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 
 import RotateHandle from './RotateHandle'
 
-describe.only('Component > Rotatehandle', function () {
+describe('Component > Rotatehandle', function () {
   beforeEach(function () {
     render(
       <svg xmlns='http://www.w3.org/2000/svg'>
