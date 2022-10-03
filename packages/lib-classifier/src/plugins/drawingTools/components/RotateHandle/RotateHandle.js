@@ -9,7 +9,11 @@ const RotateHandle = forwardRef(function RotateHandle(
   const transform = `translate(${x}, ${y}) scale(${1 / scale})`
 
   return (
-    <g ref={ref} transform={transform}>
+    <g
+      data-testid='rotate-handle'
+      ref={ref}
+      transform={transform}
+    >
       <svg
         xmlns='http://www.w3.org/2000/svg'
         x='0'
