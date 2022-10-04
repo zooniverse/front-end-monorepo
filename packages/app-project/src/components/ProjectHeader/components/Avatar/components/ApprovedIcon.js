@@ -13,25 +13,21 @@ const StyledBox = styled(Box)`
   ${props => css`border: solid ${props.isNarrow ? '1px' : '2px'} ${props.theme.global.colors.brand};`}
 `
 
-function ApprovedIcon ({ approved = false, isNarrow }) {
+function ApprovedIcon ({ isNarrow }) {
   const { t } = useTranslation('components')
-  if (approved) {
-    return (
-      <StyledBox background='white' isNarrow={isNarrow}>
-        <FormCheckmark
-          aria-label={t('ProjectHeader.ApprovedIcon.title')}
-          color='brand'
-          size={isNarrow ? '15px' : 'medium'}
-        />
-      </StyledBox>
-    )
-  }
 
-  return null
+  return (
+    <StyledBox background='white' isNarrow={isNarrow}>
+      <FormCheckmark
+        aria-label={t('ProjectHeader.ApprovedIcon.title')}
+        color='brand'
+        size={isNarrow ? '15px' : 'medium'}
+      />
+    </StyledBox>
+  )
 }
 
 ApprovedIcon.propTypes = {
-  approved: bool,
   isNarrow: bool
 }
 
