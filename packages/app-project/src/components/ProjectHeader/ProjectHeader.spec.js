@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import { ProjectHeader } from './ProjectHeader'
 import Avatar from './components/Avatar'
 import ProjectTitle from './components/ProjectTitle'
-import ApprovedIcon from './components/ApprovedIcon'
+import ApprovedIcon from './components/Avatar/components/ApprovedIcon'
 import UnderReviewLabel from './components/UnderReviewLabel'
 import LocaleSwitcher from './components/LocaleSwitcher'
 
