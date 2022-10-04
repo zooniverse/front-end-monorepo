@@ -18,16 +18,17 @@ describe('Component > Rotatehandle', function () {
   })
 
   it('should render without crashing', function () {
-    expect(screen.queryByTestId('rotate-handle')).to.exist()
+    const rotateHandle = document.querySelector('g[transform]')
+    expect(rotateHandle).to.exist()
   })
 
   it('should have the correct transform', function () {
-    const rotateHandle = screen.queryByTestId('rotate-handle')
+    const rotateHandle = document.querySelector('g[transform]')
     expect(rotateHandle.getAttribute('transform')).to.equal('translate(100, 200) scale(0.5)')
   })
 
   it('should have the correct colour', function () {
-    const innerSVG = screen.queryByTestId('rotate-handle-inner-svg')
+    const innerSVG = screen.getByLabelText('DrawingTools.RotateHandle')
     expect(innerSVG.getAttribute('fill')).to.equal('red')
   })
 })
