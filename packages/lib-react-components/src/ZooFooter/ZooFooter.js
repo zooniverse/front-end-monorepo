@@ -30,18 +30,59 @@ export const StyledEasterEgg = styled(Image)`
     opacity: 1;
   }
 `
+const defaultProps = {
+  aboutNavListURLs: [
+    'https://www.zooniverse.org/about',
+    'https://www.zooniverse.org/about/publications',
+    'https://www.zooniverse.org/about/team',
+    'https://www.zooniverse.org/about/acknowledgements',
+    'https://www.zooniverse.org/about/contact',
+    'https://www.zooniverse.org/about/faq'
+  ],
+  adminContainer: null,
+  buildNavListURLs: [
+    'https://www.zooniverse.org/lab',
+    'https://www.zooniverse.org/help',
+    'https://www.zooniverse.org/help/glossary',
+    'https://www.zooniverse.org/help/lab-policies',
+    'https://www.zooniverse.org/lab-best-practices/introduction'
+  ],
+  getInvolvedNavListURLs: [
+    'https://www.zooniverse.org/get-involved',
+    'https://www.zooniverse.org/get-involved/education',
+    'https://www.zooniverse.org/get-involved/call-for-projects',
+    'https://www.zooniverse.org/collections'
+  ],
+  newsNavListURLs: [
+    '#',
+    'https://daily.zooniverse.org/',
+    'https://blog.zooniverse.org/projects'
+  ],
+  policyNavListURLs: [
+    'https://www.zooniverse.org/privacy',
+    'http://jobs.zooniverse.org/',
+    'https://status.zooniverse.org/',
+    'https://www.zooniverse.org/security'
+  ],
+  projectNavListURLs: [
+    'https://www.zooniverse.org/projects'
+  ],
+  talkNavListURLs: [
+    'https://www.zooniverse.org/talk'
+  ]
+}
 
 export default function ZooFooter ({
-  aboutNavListURLs,
+  aboutNavListURLs = defaultProps.aboutNavListURLs,
   adminContainer,
-  buildNavListURLs,
-  className,
-  getInvolvedNavListURLs,
+  buildNavListURLs = defaultProps.buildNavListURLs,
+  className = '',
+  getInvolvedNavListURLs = defaultProps.getInvolvedNavListURLs,
   locale,
-  newsNavListURLs,
-  policyNavListURLs,
-  projectNavListURLs,
-  talkNavListURLs
+  newsNavListURLs = defaultProps.newsNavListURLs,
+  policyNavListURLs = defaultProps.policyNavListURLs,
+  projectNavListURLs = defaultProps.projectNavListURLs,
+  talkNavListURLs = defaultProps.talkNavListURLs
 }) {
   const { t } = useTranslation()
 
@@ -134,12 +175,10 @@ export default function ZooFooter ({
           <LogoAndTagline tagLine={t('ZooFooter.tagLine')} />
           <Box
             align='end'
-            as='nav'
             direction='row'
             gap='small'
             justify='end'
             responsive={false}
-            role='presentation'
           >
             <SocialAnchor service='facebook' />
             <SocialAnchor service='twitter' />
@@ -207,48 +246,6 @@ export default function ZooFooter ({
       </Box>
     </Box>
   )
-}
-
-ZooFooter.defaultProps = {
-  aboutNavListURLs: [
-    'https://www.zooniverse.org/about',
-    'https://www.zooniverse.org/about/publications',
-    'https://www.zooniverse.org/about/team',
-    'https://www.zooniverse.org/about/acknowledgements',
-    'https://www.zooniverse.org/about/contact',
-    'https://www.zooniverse.org/about/faq'
-  ],
-  adminContainer: null,
-  buildNavListURLs: [
-    'https://www.zooniverse.org/lab',
-    'https://www.zooniverse.org/help',
-    'https://www.zooniverse.org/help/glossary',
-    'https://www.zooniverse.org/help/lab-policies',
-    'https://www.zooniverse.org/lab-best-practices/introduction'
-  ],
-  getInvolvedNavListURLs: [
-    'https://www.zooniverse.org/get-involved',
-    'https://www.zooniverse.org/get-involved/education',
-    'https://www.zooniverse.org/get-involved/call-for-projects',
-    'https://www.zooniverse.org/collections'
-  ],
-  newsNavListURLs: [
-    '#',
-    'https://daily.zooniverse.org/',
-    'https://blog.zooniverse.org/projects'
-  ],
-  policyNavListURLs: [
-    'https://www.zooniverse.org/privacy',
-    'http://jobs.zooniverse.org/',
-    'https://status.zooniverse.org/',
-    'https://www.zooniverse.org/security'
-  ],
-  projectNavListURLs: [
-    'https://www.zooniverse.org/projects'
-  ],
-  talkNavListURLs: [
-    'https://www.zooniverse.org/talk'
-  ]
 }
 
 ZooFooter.propTypes = {
