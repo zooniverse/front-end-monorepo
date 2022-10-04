@@ -28,7 +28,8 @@ const StyledLabel = styled(SpacedText)`
   text-transform: uppercase;
 `
 
-export default function FilterStatus({
+export default function FilterStatus ({
+  autoFocus = false,
   disabled = false,
   filters = {},
   handleFilter = () => {},
@@ -62,6 +63,7 @@ export default function FilterStatus({
       height='xxsmall'
     >
       <StyledDropButton
+        autoFocus={autoFocus}
         disabled={disabled}
         dropAlign={{
           left: 'left',
@@ -118,6 +120,7 @@ export default function FilterStatus({
 }
 
 FilterStatus.propTypes = {
+  autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
   filters: PropTypes.objectOf(PropTypes.string),
   handleFilter: PropTypes.func,

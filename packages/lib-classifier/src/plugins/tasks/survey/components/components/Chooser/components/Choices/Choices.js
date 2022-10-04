@@ -28,8 +28,7 @@ const defaultTheme = {
     colors: {}
   }
 }
-export function Choices({
-  autoFocus = false,
+export function Choices ({
   disabled = false,
   filteredChoiceIds = [],
   handleDelete = () => {},
@@ -38,7 +37,7 @@ export function Choices({
   task,
   theme = defaultTheme
 }) {
-  const [focusIndex, setFocusIndex] = useState(0)
+  const [focusIndex, setFocusIndex] = useState(null)
 
   useEffect(() => {
     if (selectedChoiceIds.length > 0) {
@@ -46,10 +45,10 @@ export function Choices({
       if (lastSelectedIndex > -1) {
         setFocusIndex(lastSelectedIndex)
       } else {
-        setFocusIndex(0)
+        setFocusIndex(null)
       }
     } else {
-      setFocusIndex(0)
+      setFocusIndex(null)
     }
   }, [filteredChoiceIds, selectedChoiceIds])
 
@@ -88,6 +87,15 @@ export function Choices({
         handleDelete(choiceId)
         return false
       }
+      case 'Enter':
+      case ' ': {
+        event.preventDefault()
+        event.stopPropagation()
+
+        setFocusIndex(index)
+        onChoose(choiceId)
+        return false
+      }
       default: {
         return true
       }
@@ -102,8 +110,13 @@ export function Choices({
         const choice = task.choices?.[choiceId] || {}
         const selected = selectedChoiceIds.indexOf(choiceId) > -1
         const src = task.images?.[choice.images?.[0]] || ''
-        const hasFocus = autoFocus && (index === focusIndex)
-        const tabIndex = (index === focusIndex) ? 0 : -1
+        const hasFocus = index === focusIndex
+        let tabIndex = -1
+        if (focusIndex === null && index === 0) {
+          tabIndex = 0
+        } else if (index === focusIndex) {
+          tabIndex = 0
+        }
 
         return (
           <ChoiceButton
@@ -126,7 +139,6 @@ export function Choices({
 }
 
 Choices.propTypes = {
-  autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
   filteredChoiceIds: PropTypes.arrayOf(
     PropTypes.string
