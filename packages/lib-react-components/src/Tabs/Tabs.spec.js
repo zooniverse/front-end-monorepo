@@ -9,18 +9,11 @@ import Tab from '../Tab'
 describe('Component > Tabs', function () {
   beforeEach(function () {
     render(
-      <Grommet
-        background={{
-          dark: 'dark-1',
-          light: 'light-1',
-        }}
-        theme={zooTheme}
-        themeMode="light"
-      >
+      <Grommet theme={zooTheme} >
         <Tabs>
-          <Tab title="apples">An apple is an edible fruit produced by an apple tree (Malus domestica).</Tab>
-          <Tab title="bananas">A banana is an elongated, edible fruit – botanically a berry – produced by several kinds of large herbaceous flowering plants in the genus Musa.</Tab>
-          <Tab title="cherries">A cherry is the fruit of many plants of the genus Prunus, and is a fleshy drupe (stone fruit).</Tab>
+        <Tab title='apples'>An apple is a red fruit.</Tab>
+        <Tab title='bananas'>A banana is a long fruit.</Tab>
+        <Tab title='cherries'>A cherry is a stone fruit.</Tab>
         </Tabs>
       </Grommet>
     )
