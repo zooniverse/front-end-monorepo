@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Box } from 'grommet'
-import React, { useState, useRef } from 'react'
+import { MobXProviderContext } from 'mobx-react'
+import React, { useContext, useState, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import asyncStates from '@zooniverse/async-states'
 
@@ -24,8 +25,13 @@ const DrawingLayer = styled.div`
   cursor: default;
 `
 
+function useDrawingTask() {
+  const store = useContext(MobXProviderContext)?.classifierStore
+  const drawingTasks = store?.workflowSteps.findTasksByType('drawing')
+  return !!drawingTasks?.length
+}
+
 function SingleVideoViewerContainer({
-  enableInteractionLayer = false,
   loadingState = asyncStates.initialized,
   onError = () => true,
   onReady = () => true,
@@ -46,6 +52,8 @@ function SingleVideoViewerContainer({
   const transformLayer = useRef()
 
   const { t } = useTranslation('components')
+
+  const enableInteractionLayer = useDrawingTask()
 
   /* ==================== load subject ==================== */
 
@@ -126,6 +134,10 @@ function SingleVideoViewerContainer({
 
   const canvas = transformLayer?.current
   const interactionLayerScale = clientWidth / videoWidth
+  const svgStyle = {}
+  if (enableDrawing) {
+    svgStyle.touchAction = 'pinch-zoom'
+  }
 
   return (
     <>
@@ -151,6 +163,7 @@ function SingleVideoViewerContainer({
                       ref={interactionLayerSVG}
                       focusable
                       onKeyDown={onKeyDown}
+                      style={svgStyle}
                       tabIndex={0}
                       viewBox={`0 0 ${videoWidth} ${videoHeight}`}
                       xmlns='http://www.w3.org/2000/svg'

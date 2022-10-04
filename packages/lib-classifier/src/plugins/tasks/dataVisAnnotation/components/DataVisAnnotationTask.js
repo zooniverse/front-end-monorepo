@@ -32,7 +32,7 @@ function DataVisAnnotationTask (props) {
 
   return (
     <Box>
-      <StyledText size='small' tag='legend'>
+      <StyledText as='legend' size='small'>
         <Markdownz>
           {task.instruction}
         </Markdownz>

@@ -16,10 +16,11 @@ export default function LinkList ({ className, labels, urls }) {
 
   return (
     <StyledBox
+      aria-label={title.label}
+      as='ul'
       className={className}
       direction='column'
       pad='none'
-      tag='ul'
     >
 
       <li>

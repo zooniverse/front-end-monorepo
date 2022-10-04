@@ -48,7 +48,8 @@
     "talkLabels": {
       "talk": "Talk"
     },
-    "tagLine": "People-Powered Research"
+    "tagLine": "People-Powered Research",
+    "zooniversePolicies": "Zooniverse Policies"
   },
   "ZooHeader": {
     "ariaLabel": "Site",

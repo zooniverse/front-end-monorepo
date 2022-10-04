@@ -13,21 +13,19 @@ import NavListItem from '../NavListItem'
 import UserMenu from '../UserMenu'
 import { getHost } from '../../helpers'
 
-export default function SignedInUserNavigation (props) {
-  const {
-    adminNavLinkLabel,
-    adminNavLinkURL,
-    host,
-    isAdmin,
-    isNarrow,
-    mainHeaderNavListLabels,
-    mainHeaderNavListURLs,
-    unreadMessages,
-    unreadNotifications,
-    signOut,
-    user
-  } = props
-
+export default function SignedInUserNavigation({
+  adminNavLinkLabel,
+  adminNavLinkURL,
+  host,
+  isAdmin,
+  isNarrow,
+  mainHeaderNavListLabels,
+  mainHeaderNavListURLs,
+  unreadMessages,
+  unreadNotifications,
+  signOut,
+  user
+}) {
   const { t } = useTranslation()
 
   const notificationLabelString = t('ZooHeader.SignedInUserNavigation.navListLabels.notifications', {

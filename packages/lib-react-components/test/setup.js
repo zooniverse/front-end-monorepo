@@ -13,7 +13,7 @@ chai.use(sinonChai)
 global.React = React
 global.expect = chai.expect
 
-const jsdom = new JSDOM('<!doctype html><html><body></body></html>')
+const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://localhost'})
 const { window } = jsdom
 
 function copyProps (src, target) {

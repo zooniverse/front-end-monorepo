@@ -6,10 +6,12 @@ import { useTranslation } from 'react-i18next'
 import '../translations/i18n'
 import i18n from 'i18next'
 
-import LinkList from './components/LinkList'
-import PolicyLinkSection from './components/PolicyLinkSection'
-import LogoAndTagline from './components/LogoAndTagline'
-import SocialAnchor from './components/SocialAnchor'
+import {
+  LinkList,
+  PolicyLinkSection,
+  LogoAndTagline,
+  SocialAnchor
+} from './components'
 
 export const StyledEasterEgg = styled(Image)`
   bottom: 100%;
@@ -28,18 +30,59 @@ export const StyledEasterEgg = styled(Image)`
     opacity: 1;
   }
 `
+const defaultProps = {
+  aboutNavListURLs: [
+    'https://www.zooniverse.org/about',
+    'https://www.zooniverse.org/about/publications',
+    'https://www.zooniverse.org/about/team',
+    'https://www.zooniverse.org/about/acknowledgements',
+    'https://www.zooniverse.org/about/contact',
+    'https://www.zooniverse.org/about/faq'
+  ],
+  adminContainer: null,
+  buildNavListURLs: [
+    'https://www.zooniverse.org/lab',
+    'https://www.zooniverse.org/help',
+    'https://www.zooniverse.org/help/glossary',
+    'https://www.zooniverse.org/help/lab-policies',
+    'https://www.zooniverse.org/lab-best-practices/introduction'
+  ],
+  getInvolvedNavListURLs: [
+    'https://www.zooniverse.org/get-involved',
+    'https://www.zooniverse.org/get-involved/education',
+    'https://www.zooniverse.org/get-involved/call-for-projects',
+    'https://www.zooniverse.org/collections'
+  ],
+  newsNavListURLs: [
+    '#',
+    'https://daily.zooniverse.org/',
+    'https://blog.zooniverse.org/projects'
+  ],
+  policyNavListURLs: [
+    'https://www.zooniverse.org/privacy',
+    'http://jobs.zooniverse.org/',
+    'https://status.zooniverse.org/',
+    'https://www.zooniverse.org/security'
+  ],
+  projectNavListURLs: [
+    'https://www.zooniverse.org/projects'
+  ],
+  talkNavListURLs: [
+    'https://www.zooniverse.org/talk'
+  ]
+}
 
 export default function ZooFooter ({
-  aboutNavListURLs,
+  aboutNavListURLs = defaultProps.aboutNavListURLs,
   adminContainer,
-  buildNavListURLs,
-  className,
-  getInvolvedNavListURLs,
+  buildNavListURLs = defaultProps.buildNavListURLs,
+  className = '',
+  getInvolvedNavListURLs = defaultProps.getInvolvedNavListURLs,
   locale,
-  newsNavListURLs,
-  policyNavListURLs,
-  projectNavListURLs,
-  talkNavListURLs
+  newsNavListURLs = defaultProps.newsNavListURLs,
+  policyNavListURLs = defaultProps.policyNavListURLs,
+  projectNavListURLs = defaultProps.projectNavListURLs,
+  talkNavListURLs = defaultProps.talkNavListURLs
 }) {
   const { t } = useTranslation()
 
@@ -136,8 +179,6 @@ export default function ZooFooter ({
             gap='small'
             justify='end'
             responsive={false}
-            role='presentation'
-            tag='nav'
           >
             <SocialAnchor service='facebook' />
             <SocialAnchor service='twitter' />
@@ -146,6 +187,7 @@ export default function ZooFooter ({
         </Box>
 
         <Grid
+          as='section'
           fill
           gap='small'
           columns={{
@@ -153,7 +195,6 @@ export default function ZooFooter ({
             'size': '120px'
           }}
           margin={{ bottom: 'large' }}
-          tag='section'
         >
           <LinkList
             labels={projectNavListLabels}
@@ -205,48 +246,6 @@ export default function ZooFooter ({
       </Box>
     </Box>
   )
-}
-
-ZooFooter.defaultProps = {
-  aboutNavListURLs: [
-    'https://www.zooniverse.org/about',
-    'https://www.zooniverse.org/about/publications',
-    'https://www.zooniverse.org/about/team',
-    'https://www.zooniverse.org/about/acknowledgements',
-    'https://www.zooniverse.org/about/contact',
-    'https://www.zooniverse.org/about/faq'
-  ],
-  adminContainer: null,
-  buildNavListURLs: [
-    'https://www.zooniverse.org/lab',
-    'https://www.zooniverse.org/help',
-    'https://www.zooniverse.org/help/glossary',
-    'https://www.zooniverse.org/help/lab-policies',
-    'https://www.zooniverse.org/lab-best-practices/introduction'
-  ],
-  getInvolvedNavListURLs: [
-    'https://www.zooniverse.org/get-involved',
-    'https://www.zooniverse.org/get-involved/education',
-    'https://www.zooniverse.org/get-involved/call-for-projects',
-    'https://www.zooniverse.org/collections'
-  ],
-  newsNavListURLs: [
-    '#',
-    'https://daily.zooniverse.org/',
-    'https://blog.zooniverse.org/projects'
-  ],
-  policyNavListURLs: [
-    'https://www.zooniverse.org/privacy',
-    'http://jobs.zooniverse.org/',
-    'https://status.zooniverse.org/',
-    'https://www.zooniverse.org/security'
-  ],
-  projectNavListURLs: [
-    'https://www.zooniverse.org/projects'
-  ],
-  talkNavListURLs: [
-    'https://www.zooniverse.org/talk'
-  ]
 }
 
 ZooFooter.propTypes = {

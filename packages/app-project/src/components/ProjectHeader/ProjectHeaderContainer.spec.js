@@ -9,7 +9,7 @@ import initStore from '@stores'
 import { ProjectHeaderContainer } from './ProjectHeaderContainer.js'
 
 describe('Component > ProjectHeaderContainer', function () {
-  let projectHeader
+  let navMenu, projectTitle
 
   function withStore(snapshot) {
     const store = initStore(false)
@@ -44,21 +44,16 @@ describe('Component > ProjectHeaderContainer', function () {
       }
     }
     render(<ProjectHeaderContainer />, { wrapper: withStore(snapshot)})
-    projectHeader = screen.getByRole('banner')
-  })
-
-  it('should render the `ProjectHeader` component', function () {
-    expect(projectHeader).to.be.ok()
+    projectTitle = screen.getByRole('heading', { level: 1, name: PROJECT_DISPLAY_NAME })
+    navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
   })
 
   it('should display the project title', function () {
-    const title = within(projectHeader).getByRole('heading', { level: 1, name: PROJECT_DISPLAY_NAME })
-    expect(title).to.be.ok()
+    expect(projectTitle).to.be.ok()
   })
 
   describe('when not logged in', function () {
     it('should pass down the default nav links', function () {
-      const navMenu = within(projectHeader).getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
       const navLinks = within(navMenu).getAllByRole('link')
       expect(navLinks.length).to.be.above(0)
       expect(navLinks[0].href).to.equal('https://localhost/Foo/Bar/about/research')
@@ -89,8 +84,7 @@ describe('Component > ProjectHeaderContainer', function () {
         }
       }
       render(<ProjectHeaderContainer />, { wrapper: withStore(snapshot)})
-      const projectHeader = screen.getByRole('banner')
-      const navMenu = within(projectHeader).getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+      const navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
       const navLinks = within(navMenu).getAllByRole('link')
 
       expect(navLinks.length).to.be.above(0)
@@ -120,8 +114,7 @@ describe('Component > ProjectHeaderContainer', function () {
         }
       }
       render(<ProjectHeaderContainer adminMode />, { wrapper: withStore(snapshot)})
-      const projectHeader = screen.getByRole('banner')
-      const navMenu = within(projectHeader).getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+      const navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
       const navLinks = within(navMenu).getAllByRole('link')
 
       expect(navLinks.length).to.be.above(0)
@@ -150,8 +143,7 @@ describe('Component > ProjectHeaderContainer', function () {
         }
       }
       render(<ProjectHeaderContainer />, { wrapper: withStore(snapshot)})
-      const projectHeader = screen.getByRole('banner')
-      const navMenu = within(projectHeader).getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+      const navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
       const navLinks = within(navMenu).getAllByRole('link')
 
       expect(navLinks.length).to.be.above(0)
