@@ -16,27 +16,33 @@ const Relative = styled(Box)`
   position: relative;
 `
 
-function Avatar(props) {
+function Avatar({
+  approved = false,
+  avatarSrc,
+  isNarrow = false,
+  projectTitle
+}) {
   const { t } = useTranslation('components')
 
-  if (!props.src) {
+  if (!avatarSrc) {
     return null
   }
 
-  const { approved, isNarrow = false, projectTitle, ...rest } = props
   const alt = t('ProjectHeader.Avatar.alt', { project: projectTitle })
   const width = isNarrow ? '40px' : '80px'
   return (
     <Relative>
-      <StyledAvatar alt={alt} width={width} isNarrow={isNarrow} {...rest} />
+      <StyledAvatar alt={alt} width={width} isNarrow={isNarrow} src={avatarSrc} />
       {approved && <ApprovedIcon isNarrow={isNarrow} />}
     </Relative>
   )
 }
 
 Avatar.propTypes = {
+  approved: bool,
+  avatarSrc: string,
   isNarrow: bool,
-  src: string
+  projectTitle: string
 }
 
 export default Avatar
