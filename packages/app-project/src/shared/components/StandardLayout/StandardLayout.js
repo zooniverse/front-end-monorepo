@@ -1,5 +1,7 @@
-import { bool, node } from 'prop-types'
+import { node } from 'prop-types'
 import { Box } from 'grommet'
+import { observer, MobXProviderContext } from 'mobx-react'
+import { useContext } from 'react'
 import { ZooFooter } from '@zooniverse/react-components'
 import { useRouter } from 'next/router'
 
@@ -13,10 +15,18 @@ import {
 
 export const adminBorderImage = 'repeating-linear-gradient(45deg, #000, #000 25px, #ff0 25px, #ff0 50px) 5'
 
+function useStores() {
+  const { store } = useContext(MobXProviderContext)
+  const { inBeta } = store.project
+  return {
+    inBeta
+  }
+}
+
 function StandardLayout ({
   children,
-  inBeta,
 }) {
+  const { inBeta } = useStores()
   const { adminMode, toggleAdmin } = useAdminMode()
   const router = useRouter()
   const locale = router?.locale
@@ -47,8 +57,7 @@ function StandardLayout ({
 }
 
 StandardLayout.propTypes = {
-  children: node,
-  inBeta: bool
+  children: node
 }
 
-export default StandardLayout
+export default observer(StandardLayout)

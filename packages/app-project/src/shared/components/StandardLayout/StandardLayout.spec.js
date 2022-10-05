@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import { applySnapshot } from 'mobx-state-tree'
+import nock from 'nock'
 
 import initStore from '@stores'
 import StandardLayout, { adminBorderImage } from './StandardLayout.js'
@@ -30,6 +31,14 @@ describe('Component > StandardLayout', function () {
   }
 
   before(function () {
+    nock('https://talk-staging.zooniverse.org')
+    .persist()
+    .get('/notifications')
+    .query(true)
+    .reply(200, {})
+    .get('/conversations')
+    .query(true)
+    .reply(200, {})
     const snapshot = {
       project: {
         configuration: {
@@ -50,6 +59,10 @@ describe('Component > StandardLayout', function () {
     adminToggle = within(zooFooter).queryByRole('checkbox', { name: 'Admin Mode' })
   })
 
+  after(function () {
+    nock.cleanAll()
+  })
+
   it('should show the Zooniverse header', function () {
     expect(zooHeader).to.be.ok()
   })
@@ -60,6 +73,64 @@ describe('Component > StandardLayout', function () {
 
   it('should not show the admin toggle', function () {
     expect(adminToggle).to.be.null()
+  })
+
+  describe('in beta', function () {
+    before(function () {
+      const snapshot = {
+        project: {
+          beta_approved: true,
+          configuration: {
+            languages: ['en']
+          },
+          launch_approved: false,
+          slug: 'Foo/Bar',
+          strings: {
+            display_name: 'Foobar'
+          },
+          links: {
+            active_workflows: ['1']
+          }
+        }
+      }
+      render(<StandardLayout />, { wrapper: withStore(snapshot)})
+      projectPage = screen.getByTestId('project-page')
+    })
+
+    it('should have a teal border', function () {
+      expect(projectPage).to.be.ok()
+      const { border } = window.getComputedStyle(projectPage)
+      expect(border).to.equal('4px solid #00979d')
+    })
+  })
+
+  describe('launch approved', function () {
+    before(function () {
+      const snapshot = {
+        project: {
+          beta_approved: true,
+          configuration: {
+            languages: ['en']
+          },
+          launch_approved: true,
+          slug: 'Foo/Bar',
+          strings: {
+            display_name: 'Foobar'
+          },
+          links: {
+            active_workflows: ['1']
+          }
+        }
+      }
+      render(<StandardLayout />, { wrapper: withStore(snapshot)})
+      projectPage = screen.getByTestId('project-page')
+    })
+
+    it('should not have a teal border', function () {
+      expect(projectPage).to.be.ok()
+      const { border } = window.getComputedStyle(projectPage)
+      expect(border).to.be.empty()
+    })
   })
 
   describe('with a logged-in admin', function () {
