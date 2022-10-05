@@ -72,7 +72,7 @@
     "@testing-library/user-event": "~14.4.0",
     "@visx/mock-data": "~2.1.2",
     "@wojtekmaj/enzyme-adapter-react-17": "~0.6.6",
-    "@zooniverse/grommet-theme": "~3.0.0",
+    "@zooniverse/grommet-theme": "~3.1.0",
     "@zooniverse/panoptes-js": "~0.1.0",
     "@zooniverse/react-components": "~1.1.0",
     "@zooniverse/standard": "~1.0.0",
