@@ -1,5 +1,6 @@
-import { string } from 'prop-types'
 import { Box } from 'grommet'
+import { observer, MobXProviderContext } from 'mobx-react'
+import { useContext } from 'react'
 import styled, { css } from 'styled-components'
 
 const BackgroundBox = styled(Box)`
@@ -9,7 +10,7 @@ const BackgroundBox = styled(Box)`
 const BackgroundImage = styled.div`
   background-blend-mode: multiply;
   background-color: rgba(0,93,105,0.3);
-  ${props => css`background-image: url("${props.src}");`}
+  ${props => css`background-image: url("${props['data-src']}");`}
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -18,21 +19,24 @@ const BackgroundImage = styled.div`
   transform: scale(1.15);
 `
 
-function Background ({ backgroundSrc }) {
+function useProjectBackground() {
+  const { store } = useContext(MobXProviderContext)
+  return store.project.background.src
+}
+
+function Background() {
+  const backgroundSrc = useProjectBackground()
   return (
     <BackgroundBox
+      aria-hidden='true'
       background='brand'
       height='100%'
       overflow='hidden'
       width='100%'
     >
-      {backgroundSrc && <BackgroundImage src={backgroundSrc} />}
+      {backgroundSrc && <BackgroundImage data-src={backgroundSrc} />}
     </BackgroundBox>
   )
 }
 
-Background.propTypes = {
-  backgroundSrc: string
-}
-
-export default Background
+export default observer(Background)

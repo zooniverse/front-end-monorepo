@@ -1,6 +1,8 @@
 import { Box } from 'grommet'
 import { FormCheckmark } from 'grommet-icons'
-import { bool } from 'prop-types'
+import { observer, MobXProviderContext} from 'mobx-react'
+import { useContext } from 'react'
+import { string } from 'prop-types'
 import styled from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
@@ -9,7 +11,15 @@ const StyledBox = styled(Box)`
   flex-shrink: 0;
 `
 
-function ApprovedIcon ({ approved, isNarrow }) {
+function useProjectLaunchApproved() {
+  const { store } = useContext(MobXProviderContext)
+  return store.project.launch_approved
+}
+
+function ApprovedIcon ({
+  size = 'medium'
+}) {
+  const approved = useProjectLaunchApproved()
   const { t } = useTranslation('components')
   if (approved) {
     return (
@@ -17,7 +27,7 @@ function ApprovedIcon ({ approved, isNarrow }) {
         <FormCheckmark
           aria-label={t('ProjectHeader.ApprovedIcon.title')}
           color='brand'
-          size={isNarrow ? '20px' : 'medium'}
+          size={size}
         />
       </StyledBox>
     )
@@ -27,11 +37,8 @@ function ApprovedIcon ({ approved, isNarrow }) {
 }
 
 ApprovedIcon.propTypes = {
-  approved: bool,
-  isNarrow: bool
+  /** Icon size. Either a Grommet theme t-shirt size or a valid CSS length. */
+  size: string
 }
 
-ApprovedIcon.defaultProps = {
-  approved: false
-}
-export default ApprovedIcon
+export default observer(ApprovedIcon)

@@ -1,72 +1,76 @@
 import { Box } from 'grommet'
-import { array, arrayOf, bool, shape, string } from 'prop-types'
+import { observer } from 'mobx-react'
+import { bool, string } from 'prop-types'
 import styled from 'styled-components'
-import { withResizeDetector } from 'react-resize-detector'
+import { useResizeDetector } from 'react-resize-detector'
 
-import ApprovedIcon from './components/ApprovedIcon'
-import Avatar from './components/Avatar'
-import Background from './components/Background'
-import DropdownNav from './components/DropdownNav'
-import LocaleSwitcher from './components/LocaleSwitcher'
-import Nav from './components/Nav'
-import ProjectTitle from './components/ProjectTitle'
-import UnderReviewLabel from './components/UnderReviewLabel'
+import {
+  ApprovedIcon,
+  Avatar,
+  Background,
+  DropdownNav,
+  LocaleSwitcher,
+  Nav,
+  ProjectTitle,
+  UnderReviewLabel
+} from './components/'
+import { useStores } from './hooks/'
 
 const StyledBox = styled(Box)`
   position: relative;
 `
 
 function ProjectHeader({
-  availableLocales = [],
-  className = '',
-  inBeta = false,
-  navLinks = [],
-  title,
-  width
+  adminMode,
+  className = ''
 }) {
+  const { width, height, ref } = useResizeDetector()
+  const {
+    availableLocales,
+    inBeta,
+    title
+  } = useStores()
+
   const hasTranslations = availableLocales?.length > 1
-  const showDropdownWithRow = (hasTranslations && width < 1200) || (!hasTranslations && width < 1100)
-  const showDropdownWithColumn = (hasTranslations && width < 1000) || (!hasTranslations && width < 900)
+  const maxColumnWidth = hasTranslations ? 1000 : 900
+  const isNarrow = width < maxColumnWidth
+  const direction = width < maxColumnWidth ? 'column' : 'row'
+  const gap = width < maxColumnWidth ? 'small' : 'medium'
+  const useDropdownNav = width < maxColumnWidth + 200
 
   /** Widths were determined visually and can be updated as needed if ProjectHeader components are refactored */
-  const calcMaxWidth = () => {
-    if (hasTranslations && width >= 1200) {
-      return '560px'
-    } else {
-      return '600px'
-    }
-  }
+  const maxTitleWidth = (hasTranslations && width >= 1200) ? '560px' : '600px'
 
   return (
-    <StyledBox className={className}>
+    <StyledBox ref={ref} className={className}>
       <Background />
       <StyledBox
         align='center'
-        direction={showDropdownWithColumn ? 'column' : 'row'}
+        direction={direction}
         justify='between'
         pad='medium'
       >
-        <Box direction={showDropdownWithColumn ? 'column' : 'row'} gap='small'>
+        <Box direction={direction} gap='small'>
           <Box
             align='center'
             direction='row'
-            gap={showDropdownWithColumn ? 'small' : 'medium'}
+            gap={gap}
           >
             <Box
               align='center'
-              direction={showDropdownWithColumn ? 'column' : 'row'}
+              direction={direction}
               gap='medium'
             >
-              <Avatar isNarrow={showDropdownWithColumn} />
-              <Box>
+              <Avatar width={isNarrow ? '40px' : '80px'} />
+              <Box align={ isNarrow ? 'center' : 'start' }>
                 <Box
                   direction='row'
                   gap='small'
                   align='center'
-                  style={{ maxWidth: calcMaxWidth() }}
+                  width={{ max: maxTitleWidth }}
                 >
-                  <ProjectTitle showDropdown={showDropdownWithColumn} title={title} />
-                  <ApprovedIcon isNarrow={showDropdownWithColumn} />
+                  <ProjectTitle textAlign={ isNarrow ? 'center' : 'start' } title={title} />
+                  <ApprovedIcon size={isNarrow ? '20px' : 'medium'} />
                 </Box>
                 {inBeta && <UnderReviewLabel />}
               </Box>
@@ -76,10 +80,13 @@ function ProjectHeader({
             <LocaleSwitcher availableLocales={availableLocales} />
           )}
         </Box>
-        {showDropdownWithRow || showDropdownWithColumn ? (
-          <DropdownNav navLinks={navLinks} showDropdownWithColumn={showDropdownWithColumn} />
+        {useDropdownNav ? (
+          <DropdownNav
+            adminMode={adminMode}
+            margin={ isNarrow ? { top: 'xsmall' } : { top : 0 }}
+          />
         ) : (
-          <Nav navLinks={navLinks} />
+          <Nav adminMode={adminMode} />
         )}
       </StyledBox>
     </StyledBox>
@@ -87,17 +94,10 @@ function ProjectHeader({
 }
 
 ProjectHeader.propTypes = {
-  availableLocales: array,
-  className: string,
-  inBeta: bool,
-  navLinks: arrayOf(
-    shape({
-      href: string,
-      text: string
-    })
-  ),
-  title: string.isRequired
+  /** Zooniverse admin mode */
+  adminMode: bool,
+  /** Optional CSS classes */
+  className: string
 }
 
-export default withResizeDetector(ProjectHeader)
-export { ProjectHeader }
+export default observer(ProjectHeader)

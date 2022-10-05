@@ -2,8 +2,9 @@ import { Box, Menu } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 import { SpacedText } from '@zooniverse/react-components'
 import { FormDown } from 'grommet-icons'
-import styled, { css, withTheme } from 'styled-components'
+import styled, { css } from 'styled-components'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 import { localeMenu } from '@helpers'
 
@@ -30,6 +31,7 @@ const StyledBox = styled(Box)`
 const LocaleSwitcher = ({ availableLocales }) => {
   const router = useRouter()
   const { asPath, basePath, locale } = router
+  const { t } = useTranslation('components')
 
   const items = availableLocales.map(availableLocale => ({
     href: `${basePath}/${availableLocale}${asPath}`,
@@ -41,6 +43,7 @@ const LocaleSwitcher = ({ availableLocales }) => {
   }))
   return (
     <Menu
+      a11yTitle={t('ProjectHeader.LocaleSwitcher.label')}
       alignSelf='center'
       dropAlign={{ top: 'bottom' }}
       dropBackground='brand'
@@ -57,16 +60,8 @@ const LocaleSwitcher = ({ availableLocales }) => {
 }
 
 LocaleSwitcher.propTypes = {
-  availableLocales: arrayOf(string),
-  theme: shape({
-    global: shape({
-      colors: shape({
-        'accent-1': string,
-        brand: string
-      })
-    })
-  })
+  /** Language codes for locales to show in the menu eg. `[ 'en', 'fr', 'es-mx' ]`. */
+  availableLocales: arrayOf(string)
 }
 
-export default withTheme(LocaleSwitcher)
-export { LocaleSwitcher }
+export default LocaleSwitcher

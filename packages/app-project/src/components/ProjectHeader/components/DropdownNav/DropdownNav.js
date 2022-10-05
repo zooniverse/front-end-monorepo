@@ -2,10 +2,12 @@ import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, DropButton } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import NavLink from '@shared/components/NavLink'
-import { arrayOf, shape, string } from 'prop-types'
+import { arrayOf, bool, object, oneOfType, string } from 'prop-types'
 import { useState } from 'react';
-import styled, { css, withTheme } from 'styled-components'
+import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
+
+import { useProjectNavigation } from '../../hooks'
 
 const StyledAnchor = styled(Anchor)`
   padding: 10px 20px;
@@ -35,13 +37,17 @@ const StyledDropButton = styled(DropButton)`
     `}
   }
 `
+const defaultMargin = {
+  top: 0
+}
 
 function DropdownNav({
+  adminMode = false,
   className,
-  navLinks = [],
-  showDropdownWithColumn = false
+  margin = defaultMargin,
 }) {
   const { t } = useTranslation('components')
+  const navLinks = useProjectNavigation(adminMode)
   const [ isOpen, setIsOpen ] = useState(false)
 
   function onClose() {
@@ -54,6 +60,7 @@ function DropdownNav({
 
   const dropContent = (
     <Box
+      aria-label={t('ProjectHeader.ProjectNav.ariaLabel')}
       as='nav'
       background='brand'
       elevation='medium'
@@ -82,16 +89,23 @@ function DropdownNav({
 
   return (
     <StyledDropButton
+      a11yTitle={t('ProjectHeader.exploreProject')}
       alignSelf='center'
       className={className}
       dropContent={dropContent}
       dropAlign={{ top: 'bottom' }}
       isOpen={isOpen}
-      margin={{ top: showDropdownWithColumn ? 'xsmall' : '0px' }}
+      margin={margin}
       onClose={onClose}
       onOpen={onOpen}
     >
-      <Box align='center' direction='row' gap='xsmall' justify='center'>
+      <Box
+        align='center'
+        as='span'
+        direction='row'
+        gap='xsmall'
+        justify='center'
+      >
         <SpacedText weight='bold' style={{ width: 'max-content' }}>
           {t('ProjectHeader.exploreProject')}
         </SpacedText>
@@ -102,24 +116,15 @@ function DropdownNav({
 }
 
 DropdownNav.propTypes = {
-  navLinks: arrayOf(
-    shape({
-      as: string,
-      href: string,
-      text: string
-    })
-  ),
-  theme: shape({
-    global: shape({
-      colors: shape({
-        'accent-1': string,
-        brand: string
-      })
-    })
-  })
+  /** Zooniverse admin mode */
+  adminMode: bool,
+  /** CSS class */
+  className: string,
+  /** Margin for the dropdown button (Grommet t-shirt size, CSS length or Grommet margin object.) */
+  margin: oneOfType([string, object])
 }
 
-export default withTheme(DropdownNav)
+export default DropdownNav
 export {
   DropdownNav,
   StyledDropButton

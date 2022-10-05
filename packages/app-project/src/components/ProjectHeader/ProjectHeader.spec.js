@@ -1,62 +1,181 @@
-import { shallow } from 'enzyme'
+import { within } from '@testing-library/dom'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import nock from 'nock'
 
-import { ProjectHeader } from './ProjectHeader'
-import Avatar from './components/Avatar'
-import ProjectTitle from './components/ProjectTitle'
-import ApprovedIcon from './components/ApprovedIcon'
-import UnderReviewLabel from './components/UnderReviewLabel'
-import LocaleSwitcher from './components/LocaleSwitcher'
-
-const TITLE = 'Project title'
+import * as Stories from './ProjectHeader.stories.js'
 
 describe('Component > ProjectHeader', function () {
-  let wrapper
+  let locale, languageButton, navMenu, pageURL, projectAvatar, projectBackground, projectTitle
 
   before(function () {
-    wrapper = shallow(<ProjectHeader title={TITLE} />)
+    nock('https://talk-staging.zooniverse.org')
+    .persist()
+    .get('/notifications')
+    .query(true)
+    .reply(200, {})
+    .get('/conversations')
+    .query(true)
+    .reply(200, {})
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
+  after(function () {
+    nock.cleanAll()
   })
 
-  it('should render a `<Avatar />` component', function () {
-    expect(wrapper.find(Avatar)).to.have.lengthOf(1)
-  })
-
-  it('should render a `<ProjectTitle />` component', function () {
-    expect(wrapper.find(ProjectTitle)).to.have.lengthOf(1)
-  })
-
-  it('should render a `<ApprovedIcon />` component', function () {
-    expect(wrapper.find(ApprovedIcon)).to.have.lengthOf(1)
-  })
-
-  it('should not render a `<UnderReviewLabel />` component', function () {
-    expect(wrapper.find(UnderReviewLabel)).to.have.lengthOf(0)
-  })
-
-  it('should not render a `<LocaleToggle />` component', function () {
-    expect(wrapper.find(LocaleSwitcher)).to.have.length(0)
-  })
-
-  describe('when the project is in beta', function () {
+  describe('default behaviour', function () {
     before(function () {
-      wrapper = shallow(<ProjectHeader inBeta title={TITLE} />)
+      render(<Stories.NotLoggedIn {...Stories.NotLoggedIn.args} />)
+      projectAvatar = screen.getByRole('img', { name: 'ProjectHeader.Avatar.alt' })
+      projectBackground = document.querySelector(`div[aria-hidden] div[data-src='https://panoptes-uploads.zooniverse.org/project_background/7a3c6210-f97d-4f40-9ab4-8da30772ee01.jpeg']`)
+      projectTitle = screen.getByRole('heading', { level: 1, name: 'Snapshot Serengeti' })
+      navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+      languageButton = screen.queryByRole('button', { name: 'ProjectHeader.LocaleSwitcher.label'})
     })
 
-    it('should not render a `<UnderReviewLabel />` component', function () {
-      expect(wrapper.find(UnderReviewLabel)).to.have.lengthOf(1)
+    it('should display the project title', function () {
+      expect(projectTitle).to.be.ok()
+    })
+
+    it('should show the project avatar', function () {
+      expect(projectAvatar).to.exist()
+    })
+
+    it('should show the project background', function () {
+      expect(projectBackground).to.exist()
+    })
+
+    it('should show the project navigation menu', function () {
+      expect(navMenu).to.exist()
+    })
+
+    it('should not show the language menu button', function () {
+      expect(languageButton).to.be.null()
     })
   })
 
-  describe('when the project has available translations', function () {
+  describe('when not logged in', function () {
+    let navLinks
+
     before(function () {
-      wrapper = shallow(<ProjectHeader availableLocales={['en', 'fr']} title={TITLE} />)
+      const { NotLoggedIn } = Stories
+      render(<NotLoggedIn {...NotLoggedIn.args} />)
+      const navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+      navLinks = within(navMenu).getAllByRole('link')
     })
 
-    it('should render the `<LocaleToggle />` component', function () {
-      expect(wrapper.find(LocaleSwitcher)).to.have.length(1)
+    it('should display the default nav links', function () {
+      expect(navLinks.length).to.be.above(0)
+      expect(navLinks[0].href).to.equal('https://localhost/zooniverse/snapshot-serengeti/about/research')
+      expect(navLinks[navLinks.length - 1].href).to.equal(
+        'https://localhost/zooniverse/snapshot-serengeti/collections'
+      )
+    })
+  })
+
+  describe('when logged in', function () {
+    it('should include recents in the project navigation', function () {
+      const { LoggedIn } = Stories
+      render(<LoggedIn {...LoggedIn.args} />)
+      const navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+      const navLinks = within(navMenu).getAllByRole('link')
+
+      expect(navLinks.length).to.be.above(0)
+      expect(navLinks[0].href).to.equal('https://localhost/zooniverse/snapshot-serengeti/about/research')
+      expect(navLinks[navLinks.length - 1].href).to.equal('https://localhost/zooniverse/snapshot-serengeti/recents')
+    })
+  })
+
+  describe('in beta', function () {
+    let approvedIcon, underReviewLabel
+
+    before(function () {
+      const { InBeta } = Stories
+      render(<InBeta {...InBeta.args} />)
+      approvedIcon = screen.queryByLabelText('ProjectHeader.ApprovedIcon.title')
+      underReviewLabel = screen.queryByText('ProjectHeader.UnderReviewLabel.underReview')
+    })
+
+    it('should show the Under Review label', function () {
+      expect(underReviewLabel).to.exist() 
+    })
+
+    it('should not show the approved badge', function () {
+      expect(approvedIcon).to.be.null()
+    })
+  })
+
+  describe('launch approved', function () {
+    let approvedIcon, underReviewLabel
+
+    before(function () {
+      const { LaunchApproved } = Stories
+      render(<LaunchApproved {...LaunchApproved.args} />)
+      approvedIcon = screen.queryByLabelText('ProjectHeader.ApprovedIcon.title')
+      underReviewLabel = screen.queryByText('ProjectHeader.UnderReviewLabel.underReview')
+    })
+
+    it('should not show the Under Review label', function () {
+      expect(underReviewLabel).to.be.null()
+    })
+
+    it('should show the approved badge', function () {
+      expect(approvedIcon).to.exist()
+    })
+  })
+
+  describe('in admin mode', function () {
+    it('should show the admin page link', function () {
+      const { AdminMode } = Stories
+      render(<AdminMode {...AdminMode.args} />)
+      const navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+      const navLinks = within(navMenu).getAllByRole('link')
+
+      expect(navLinks.length).to.be.above(0)
+      expect(navLinks[0].href).to.equal('https://localhost/zooniverse/snapshot-serengeti/about/research')
+      expect(navLinks[navLinks.length - 1].href).to.equal('https://www.zooniverse.org/admin/project_status/zooniverse/snapshot-serengeti')
+    })
+  })
+
+  describe('with a default workflow', function () {
+    it('should display a workflow-specific classify link', function () {
+      const { DefaultWorkflow } = Stories
+      render(<DefaultWorkflow {...DefaultWorkflow.args} />)
+      const navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+      const navLinks = within(navMenu).getAllByRole('link')
+
+      expect(navLinks.length).to.be.above(0)
+      expect(navLinks[0].href).to.equal('https://localhost/zooniverse/snapshot-serengeti/about/research')
+      expect(navLinks[1].href).to.equal('https://localhost/zooniverse/snapshot-serengeti/classify/workflow/1234')
+    })
+  })
+
+  describe('with multiple languages', function () {
+    let languageMenuItems, user
+
+    before(async function () {
+      user = userEvent.setup({ delay: 'none' })
+      const { MultipleLanguages } = Stories
+      render(<MultipleLanguages {...MultipleLanguages.args} />)
+      const languageButton = screen.getByRole('button', { name: 'ProjectHeader.LocaleSwitcher.label'})
+      await user.click(languageButton)
+      const languageMenu = screen.getByRole('menu')
+      const languageMenuItem = label => within(languageMenu).getByRole('menuitem', { name: label })
+      languageMenuItems = ['English', 'Français', 'Español'].map(languageMenuItem)
+    })
+
+    it('should show available languages in a menu', async function () {
+      expect(languageMenuItems).to.have.lengthOf(3)
+    })
+
+    it('should link to the project in different languages', function () {
+      const { MultipleLanguages } = Stories
+      const { project } = MultipleLanguages.args
+      const projectLocales = project.configuration.languages
+      projectLocales.forEach((locale, index) => {
+        const href = `https://localhost/projects/${locale}/zooniverse/snapshot-serengeti/about/team`
+        expect(languageMenuItems[index].href).to.equal(href)
+      })
     })
   })
 })

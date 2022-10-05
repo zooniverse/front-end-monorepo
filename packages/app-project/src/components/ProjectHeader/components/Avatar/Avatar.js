@@ -1,4 +1,6 @@
-import { bool, string } from 'prop-types'
+import { string } from 'prop-types'
+import { observer, MobXProviderContext} from 'mobx-react'
+import { useContext } from 'react'
 import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
@@ -10,28 +12,34 @@ const StyledAvatar = styled.img`
   ${props => css`width: ${props.width};`}
 `
 
-function Avatar (props) {
-  const { t } = useTranslation('components')
+function useProjectAvatar() {
+  const { store } = useContext(MobXProviderContext)
+  return {
+    src: store.project.avatar.src,
+    projectTitle: store.project.display_name
+  }
+}
 
-  if (!props.src) {
+function Avatar({
+  width='80px',
+  ...rest
+}) {
+  const { t } = useTranslation('components')
+  const { src, projectTitle } = useProjectAvatar()
+
+  if (!src) {
     return null
   }
 
-  const { projectTitle, ...rest } = props
   const alt = t('ProjectHeader.Avatar.alt', { project: projectTitle })
-  const width = props.isNarrow ? '40px' : '80px'
   return (
-    <StyledAvatar alt={alt} width={width} {...rest} />
+    <StyledAvatar alt={alt} src={src} width={width} {...rest} />
   )
 }
 
 Avatar.propTypes = {
-  isNarrow: bool,
-  src: string
+  /** Avatar size in CSS units. */
+  width: string
 }
 
-Avatar.defaultProps = {
-  isNarrow: false
-}
-
-export default Avatar
+export default observer(Avatar)
