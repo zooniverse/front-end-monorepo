@@ -63,10 +63,11 @@ export default function CharacteristicSection({
           return (
             <FilterButton
               characteristicId={characteristicId}
-              valueLabel={option.label}
               checked={checked}
               onFilter={onFilter}
+              valueId={option.value}
               valueImageSrc={option.imageSrc}
+              valueLabel={option.label}
             />
           )
         }}

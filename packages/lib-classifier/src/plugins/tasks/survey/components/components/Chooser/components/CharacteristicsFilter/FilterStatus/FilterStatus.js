@@ -63,6 +63,7 @@ export default function FilterStatus ({
       height='xxsmall'
     >
       <StyledDropButton
+        a11yTitle={t('SurveyTask.CharacteristicsFilter.filter')}
         autoFocus={autoFocus}
         disabled={disabled}
         dropAlign={{
@@ -106,10 +107,11 @@ export default function FilterStatus ({
         return (
           <FilterButton
             key={`${characteristicId}-${selectedValueId}`}
+            buttonSize='small'
             characteristicId={characteristicId}
             checked
             onFilter={handleFilter}
-            buttonSize='small'
+            valueId={selectedValueId}
             valueImageSrc={valueImageSrc}
             valueLabel={label}
           />

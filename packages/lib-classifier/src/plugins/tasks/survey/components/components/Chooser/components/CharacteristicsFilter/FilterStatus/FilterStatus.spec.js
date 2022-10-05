@@ -1,17 +1,17 @@
-import { mount } from 'enzyme'
-import { DropButton, Grommet } from 'grommet'
+import { expect } from 'chai'
 import React from 'react'
-import zooTheme from '@zooniverse/grommet-theme'
+import sinon from 'sinon'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import { task as mockTask } from '@plugins/tasks/survey/mock-data'
 import { default as Task } from '@plugins/tasks/survey'
 
 import FilterStatus from './FilterStatus'
-import Characteristics from '../Characteristics'
-import FilterButton from '../components/FilterButton'
 
 describe('Component > FilterStatus', function () {
-  let wrapper
+  this.timeout(0)
+
   let task = Task.TaskModel.create({
     characteristics: mockTask.characteristics,
     characteristicsOrder: mockTask.characteristicsOrder,
@@ -19,73 +19,94 @@ describe('Component > FilterStatus', function () {
     taskKey: 'T0',
     type: 'survey'
   })
+  let scrollToMock
 
   before(function () {
-    wrapper = mount(
-      <FilterStatus
-        task={task}
-      />, {
-        wrappingComponent: Grommet,
-        wrappingComponentProps: { theme: zooTheme }
-      }
-    )
+    scrollToMock = sinon.stub(window, 'scrollTo')
+  })
+
+  after(function () {
+    scrollToMock.restore()
   })
 
   it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
+    render(
+      <FilterStatus
+        task={task}
+      />
+    )
+    expect(screen.getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })).to.be.ok()
   })
 
-  it('should not show drop content on initial render', function () {
-    expect(wrapper.find(Characteristics)).to.have.lengthOf(0)
+  it('should not show characteristic radiogroups on initial render', function () {
+    render(
+      <FilterStatus
+        task={task}
+      />
+    )
+    expect(screen.queryByRole('radiogroup')).to.be.null()
   })
 
-  it('should not show selected filters if there are no selected filters', function () {
-    expect(wrapper.find(FilterButton)).to.have.lengthOf(0)
+  describe('with autoFocus true', function () {
+    it('should focus the filter button', function () {
+      render(
+        <FilterStatus
+          autoFocus
+          task={task}
+        />
+      )
+      expect(screen.getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })).to.equal(document.activeElement)
+    })
   })
 
   describe('when disabled, on click', function () {
-    before(function () {
-      wrapper.setProps({ disabled: true })
-      wrapper.find(DropButton).at(0).simulate('click')
-    })
+    it('should not show characteristic radiogroups on click', async function () {
+      const user = userEvent.setup({ delay: null })
+      render(
+        <FilterStatus
+          disabled
+          task={task}
+        />
+      )
+      const filterButton = screen.getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+      await user.click(filterButton)
 
-    after(function () {
-      wrapper.setProps({ disabled: false })
-    })
-
-    it('should not show Characteristics on click', function () {
-      expect(wrapper.find(Characteristics)).to.have.lengthOf(0)
+      expect(screen.queryByRole('radiogroup')).to.be.null()
     })
   })
 
   describe('on click', function () {
-    before(function () {
-      wrapper.find(DropButton).at(0).simulate('click')
-    })
+    it('should show the characteristic radiogroups', async function () {
+      const user = userEvent.setup({ delay: null })
+      render(
+        <FilterStatus
+          task={task}
+        />
+      )
+      const filterButton = screen.getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+      await user.click(filterButton)
 
-    it('should render the Characteristics component', function () {
-      expect(wrapper.find(Characteristics)).to.have.lengthOf(1)
+      expect(screen.getAllByRole('radiogroup')).to.have.lengthOf(task.characteristicsOrder.length)
     })
   })
 
   describe('with selected filters', function () {
-    it('should show the appropriate checked FilterButtons', function () {
-      const characteristicIds = ['LK', 'CLR', 'TL']
-      const selectedValueIds = ['CTDG', 'BLCK', 'LNG']
-      let filterButtons = wrapper.find({ buttonSize: 'small' })
-      expect(filterButtons).to.have.lengthOf(0)
-      wrapper.setProps({
-        filters: {
-          LK: 'CTDG',
-          CLR: 'BLCK',
-          TL: 'LNG'
-        }
-      })
-      filterButtons = wrapper.find({ buttonSize: 'small' })
-      expect(filterButtons).to.have.lengthOf(3)
-      filterButtons.forEach((button, index) => {
-        expect(button.key()).to.equal(`${characteristicIds[index]}-${selectedValueIds[index]}`)
-      })
+    it('should show the appropriate selected filter buttons', function () {
+      const filters = {
+        LK: 'CTDG',
+        CLR: 'BLCK',
+        PTTRN: 'SLD'
+      }
+
+      render(
+        <FilterStatus
+          filters={filters}
+          task={task}
+        />
+      )
+      expect(screen.getByTestId('filter-LK-CTDG')).to.be.ok()
+      expect(screen.getByTestId('filter-CLR-BLCK')).to.be.ok()
+      expect(screen.getByTestId('filter-PTTRN-SLD')).to.be.ok()
     })
   })
 })
