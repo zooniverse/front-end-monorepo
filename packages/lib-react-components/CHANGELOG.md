@@ -4,17 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.2.0] 2022-10-03
 
 ### Added
 - Added Grommet's `target` and `full` props to modal layers.
 - Added standard width sizes to PrimaryButton according to design
+- Localisation with `react-i18n`, including full Spanish translations!
 
 ### Fixed
 - Changed `LinkList` component to use `fit-content` CSS styling to render correct height in Safari.
 - Modified matchRegex in `ping` of `Markdownz` to avoid creating username-links in typed email addresses.
 - Fixed buttons that could be rendered like disabled buttons, but still functioned as links. Grommet's `Button` allows you to add an `href` prop which will render a link (HTML anchor tag) styled like a button. It, however, accepts all `Button` props including `disabled`, but links can't be disabled. We now prevent this by checking to see if an `href` is defined and if `disabled` is true and instead render a span via the `as` prop. This impacts `PrimaryButton` and `PlainButton` which directly use Grommet's `Button`. For `CloseButton`, we've destructured `href` from the props to make sure it's not passed along because it doesn't make sense to render this component as a link.
-- Markdownz wasn't handling ordered lists as expected. The fix includes upgrading `remark` to v12, installing `remark-footnotes`, and manually applying some style attributes to <ol> and <ul>.
+- Markdownz wasn't handling ordered lists as expected. The fix includes upgrading `remark` to v12, installing `remark-footnotes`, and manually applying some style attributes to `<ol>` and `<ul>`.
+- add the `react-rnd` `default`, `position` and `size` props to `MovableModal`.
+- Allow `CloseButton` to be clicked on touch devices.
+- catch errors in `Markdownz` during server-side rendering.
+- Remove `header` tag and `presentation` role from `ZooHeader`.
+- Replace deprecated Grommet `tag` with styled-components `as` in Grommet components.
 
 ### Changed
 - All components use `react-i18next` instead of `counterpart` for translations management.
