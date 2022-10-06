@@ -129,39 +129,7 @@ describe('Component > Choices', function () {
     })
   })
 
-  describe('with autoFocus', function () {
-    let wrapper
-
-    before(function () {
-      wrapper = mount(
-        <Choices
-          autoFocus
-          filteredChoiceIds={mockTask.choicesOrder}
-          task={task}
-        />, {
-          wrappingComponent: Grommet,
-          wrappingComponentProps: { theme: zooTheme }
-        }
-      )
-    })
-
-    it('should give focus to the first choice', function () {
-      const firstChoiceButton = wrapper.find(ChoiceButton).first()
-      expect(firstChoiceButton.props().hasFocus).to.be.true()
-      expect(firstChoiceButton.props().tabIndex).to.equal(0)
-      expect(firstChoiceButton.props().choiceId).to.equal('RDVRK')
-    })
-
-    it('should not give focus to other choices', function () {
-      const choiceButtons = wrapper.find(ChoiceButton)
-      choiceButtons.forEach((choiceButton, index) => {
-        if (index === 0) return true
-        expect(choiceButton.props().hasFocus).to.be.false()
-        expect(choiceButton.props().tabIndex).to.equal(-1)
-      })
-    })
-
-    describe('with updated filteredChoiceIds', function () {
+  describe('with updated filteredChoiceIds', function () {
       const furtherFilteredChoiceIds = ['BBN', 'FR', 'NTHNGHR']
 
       before(function () {
@@ -191,7 +159,6 @@ describe('Component > Choices', function () {
       before(function () {
         wrapper = mount(
           <Choices
-            autoFocus
             filteredChoiceIds={mockTask.choicesOrder}
             selectedChoiceIds={selectedIds}
             task={task}

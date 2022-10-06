@@ -9,7 +9,6 @@ import ClearFilters from './components/CharacteristicsFilter/ClearFilters'
 import getFilteredChoiceIds from './helpers/getFilteredChoiceIds'
 
 function Chooser ({
-  autoFocus = false,
   disabled = false,
   filters = {},
   handleDelete = () => {},
@@ -51,7 +50,6 @@ function Chooser ({
 }
 
 Chooser.propTypes = {
-  autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
   filters: PropTypes.objectOf(PropTypes.string),
   handleDelete: PropTypes.func,

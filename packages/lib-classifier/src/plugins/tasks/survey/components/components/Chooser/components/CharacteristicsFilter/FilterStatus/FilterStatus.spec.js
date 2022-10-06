@@ -47,18 +47,6 @@ describe('Component > FilterStatus', function () {
     expect(screen.queryByRole('radiogroup')).to.be.null()
   })
 
-  describe('with autoFocus true', function () {
-    it('should focus the filter button', function () {
-      render(
-        <FilterStatus
-          autoFocus
-          task={task}
-        />
-      )
-      expect(screen.getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })).to.equal(document.activeElement)
-    })
-  })
-
   describe('when disabled, on click', function () {
     it('should not show characteristic radiogroups on click', async function () {
       const user = userEvent.setup({ delay: null })

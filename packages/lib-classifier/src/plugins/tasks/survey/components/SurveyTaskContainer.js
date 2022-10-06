@@ -117,7 +117,6 @@ class SurveyTaskContainer extends React.Component {
   render () {
     const {
       annotation,
-      autoFocus,
       disabled,
       task
     } = this.props
@@ -133,7 +132,6 @@ class SurveyTaskContainer extends React.Component {
     return (
       <SurveyTask
         answers={answers}
-        autoFocus={autoFocus}
         disabled={disabled}
         filters={filters}
         handleAnswers={this.handleAnswers.bind(this)}
@@ -150,12 +148,10 @@ class SurveyTaskContainer extends React.Component {
 }
 
 SurveyTaskContainer.defaultProps = {
-  autoFocus: false,
   disabled: false
 }
 
 SurveyTaskContainer.propTypes = {
-  autoFocus: PropTypes.bool,
   annotation: PropTypes.shape({
     setChoiceInProgress: PropTypes.func,
     update: PropTypes.func,
