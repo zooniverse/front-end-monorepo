@@ -1,5 +1,7 @@
 import { Box, Grid } from 'grommet'
+import { observer, MobXProviderContext } from 'mobx-react'
 import { arrayOf, bool, shape, string } from 'prop-types'
+import { useContext } from 'react'
 import styled from 'styled-components'
 import { AdminCheckbox, ZooFooter } from '@zooniverse/react-components'
 import { useRouter } from 'next/router'
@@ -30,10 +32,18 @@ const RemainingHeightBox = styled(Box)`
   flex-grow: 1;
 `
 
+function useStores() {
+  const { store } = useContext(MobXProviderContext)
+  const { inBeta } = store.project
+  return {
+    inBeta
+  }
+}
+
 function ProjectHomePage ({
-  inBeta,
   workflows
 }) {
+  const { inBeta } = useStores()
   const { adminMode, toggleAdmin } = useAdminMode()
   const router = useRouter()
   const locale = router?.locale
@@ -121,4 +131,4 @@ ProjectHomePage.propTypes = {
   }))
 }
 
-export default ProjectHomePage
+export default observer(ProjectHomePage)
