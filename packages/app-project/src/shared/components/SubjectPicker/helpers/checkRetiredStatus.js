@@ -2,7 +2,7 @@ import { env, panoptes } from '@zooniverse/panoptes-js'
 import auth from 'panoptes-client/lib/auth'
 import { logToSentry } from '@helpers/logger'
 
-export default async function checkRetiredStatus(ids, t, workflow) {
+export default async function checkRetiredStatus(ids, workflow) {
   const token = await auth.checkBearerToken()
   const authorization = `Bearer ${token}`
   const workflow_id = workflow.id
@@ -17,8 +17,8 @@ export default async function checkRetiredStatus(ids, t, workflow) {
     { authorization })
     const { subjects } = response.body
     subjects.forEach(subject => {
-      const alreadySeen = subject.already_seen ? t('SubjectPicker.alreadySeen') : t('SubjectPicker.unclassified')
-      retirementStatuses[subject.id] = subject.retired ? t('SubjectPicker.retired') : alreadySeen
+      const alreadySeen = subject.already_seen ? 'SubjectPicker.alreadySeen' : 'SubjectPicker.unclassified'
+      retirementStatuses[subject.id] = subject.retired ? 'SubjectPicker.retired' : alreadySeen
     })
   } catch (error) {
     console.error(error)
