@@ -9,7 +9,7 @@ import { task } from '@plugins/tasks/survey/mock-data'
 const taskWithoutCharacteristics = Object.assign({}, task, { characteristics: {} })
 
 describe('Component > Chooser', function () {
-  describe('with a survey task with no characteristics', function () {
+  describe('with a survey task with no characteristics filters', function () {
     const mockTaskWithoutCharacteristics = SurveyTask.TaskModel.create(taskWithoutCharacteristics)
 
     it('should allow you to choose from a list of choices', function () {
@@ -41,7 +41,7 @@ describe('Component > Chooser', function () {
     })
   })
 
-  describe('with a survey task with characteristics', function () {
+  describe('with a survey task with characteristics filters', function () {
     const mockTask = SurveyTask.TaskModel.create(task)
 
     it('should allow you to choose from a list of choices', function () {
@@ -70,6 +70,19 @@ describe('Component > Chooser', function () {
         />
       )
       expect(screen.getByText('SurveyTask.CharacteristicsFilter.clearFilters')).to.be.ok()
+    })
+
+    describe('with a filter selected', function () {
+      it('should allow you to choose from a filtered list of choices', function () {
+        render(
+            <Chooser
+              filters={{ PTTRN: 'SLD'}}
+              task={mockTask}
+            />
+        )
+        expect(screen.getByText('Aardvark')).to.be.ok() // first choice per mock-data survey task, has characteristic pattern solid (PTTRN: SLD)
+        expect(screen.queryByText('Nothing here')).to.be.null() // last choice per mock-data survey task, doesn't have characteristic pattern solid (PTTRN: SLD)
+      })
     })
   })
 })
