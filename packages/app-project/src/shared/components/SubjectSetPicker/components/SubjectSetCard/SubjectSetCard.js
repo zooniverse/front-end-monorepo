@@ -1,6 +1,7 @@
 import { Media, SpacedText } from '@zooniverse/react-components'
 import { Box, Paragraph, Text } from 'grommet'
 import getConfig from 'next/config'
+import Image from 'next/image'
 import { array, number, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
@@ -28,6 +29,7 @@ function SubjectSetCard ({
   const alt = subject ? `Subject ${subject.id}` : 'Loading'
   const percentComplete = parseInt(100 * completeness)
   const isComplete = completeness >= 1
+  const placeholder = <Image alt='' height={358} role='presentation' src={placeholderUrl} width={500} />
 
   return (
     <Box
@@ -44,7 +46,7 @@ function SubjectSetCard ({
         <Media
           alt={alt}
           height={700}
-          placeholder={<img alt='' role='presentation' src={placeholderUrl} />}
+          placeholder={placeholder}
           src={subjectURLs[0]}
           width={700}
         />
