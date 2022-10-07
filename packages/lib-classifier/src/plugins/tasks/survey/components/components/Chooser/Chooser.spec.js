@@ -1,37 +1,88 @@
-import { shallow } from 'enzyme'
-import { types } from 'mobx-state-tree'
 import React from 'react'
+import { render, screen } from '@testing-library/react'
 
-import { default as Task } from '@plugins/tasks/survey'
 import Chooser from './Chooser'
-import FilterStatus from './components/CharacteristicsFilter/FilterStatus'
-import Choices from './components/Choices'
+
+import SurveyTask from '@plugins/tasks/survey'
+import { task } from '@plugins/tasks/survey/mock-data'
+
+const taskWithoutCharacteristics = Object.assign({}, task, { characteristics: {} })
 
 describe('Component > Chooser', function () {
-  let wrapper
-  const task = Task.TaskModel.create({
-    taskKey: 'T0',
-    type: 'survey'
-  })
-  const annotation = task.defaultAnnotation()
+  describe('with a survey task with no characteristics filters', function () {
+    const mockTaskWithoutCharacteristics = SurveyTask.TaskModel.create(taskWithoutCharacteristics)
 
-  before(function () {
-    wrapper = shallow(
-      <Chooser
-        task={task}
-      />
-    )
-  })
-  
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
+    it('should allow you to choose from a list of choices', function () {
+      render(
+        <Chooser
+          task={mockTaskWithoutCharacteristics}
+        />
+      )
+      expect(screen.getByText('Aardvark')).to.be.ok() // first choice per mock-data survey task
+      expect(screen.getByText('Nothing here')).to.be.ok() // last choice per mock-data survey task
+    })
+
+    it('should not allow you to filter the list of choices', function () {
+      render(
+        <Chooser
+          task={mockTaskWithoutCharacteristics}
+        />
+      )
+      expect(screen.queryByText('SurveyTask.CharacteristicsFilter.filter')).to.be.null()
+    })
+
+    it('should not allow you to clear filters on the list of choices', function () {
+      render(
+        <Chooser
+          task={mockTaskWithoutCharacteristics}
+        />
+      )
+      expect(screen.queryByText('SurveyTask.CharacteristicsFilter.clearFilters')).to.be.null()
+    })
   })
 
-  it('should render a FilterStatus component', function () {
-    expect(wrapper.find(FilterStatus)).to.have.lengthOf(1)
-  })
+  describe('with a survey task with characteristics filters', function () {
+    const mockTask = SurveyTask.TaskModel.create(task)
 
-  it('should render a Choices component', function () {
-    expect(wrapper.find(Choices)).to.have.lengthOf(1)
+    it('should allow you to choose from a list of choices', function () {
+      render(
+        <Chooser
+          task={mockTask}
+        />
+      )
+      expect(screen.getByText('Aardvark')).to.be.ok() // first choice per mock-data survey task
+      expect(screen.getByText('Nothing here')).to.be.ok() // last choice per mock-data survey task
+    })
+
+    it('should allow you to filter the list of choices', function () {
+      render(
+        <Chooser
+          task={mockTask}
+        />
+      )
+      expect(screen.getByText('SurveyTask.CharacteristicsFilter.filter')).to.be.ok()
+    })
+
+    it('should allow you to clear filters on the list of choices', function () {
+      render(
+        <Chooser
+          task={mockTask}
+        />
+      )
+      expect(screen.getByText('SurveyTask.CharacteristicsFilter.clearFilters')).to.be.ok()
+    })
+
+    describe('with a filter selected', function () {
+      it('should allow you to choose from a filtered list of choices', function () {
+        render(
+            <Chooser
+              filters={{ PTTRN: 'SLD'}}
+              task={mockTask}
+            />
+        )
+        expect(screen.getByText('Aardvark')).to.be.ok() // first choice per mock-data survey task, has characteristic pattern solid (PTTRN: SLD)
+        expect(screen.queryByText('Nothing here')).to.be.null() // last choice per mock-data survey task, doesn't have characteristic pattern solid (PTTRN: SLD)
+      })
+    })
   })
 })
