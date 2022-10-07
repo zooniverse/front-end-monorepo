@@ -5,6 +5,7 @@ import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import { applySnapshot } from 'mobx-state-tree'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
+import nock from 'nock'
 
 import initStore from '@stores'
 import ProjectHomePage, { adminBorderImage } from './ProjectHomePage.js'
@@ -40,6 +41,20 @@ describe('Component > ProjectHomePage', function () {
   }
 
   before(function () {
+    nock('https://talk-staging.zooniverse.org')
+    .persist()
+    .get('/notifications')
+    .query(true)
+    .reply(200, {})
+    .get('/conversations')
+    .query(true)
+    .reply(200, {})
+    // TODO: Recent Talk subjects are using the Panoptes client instead of the Talk API client.
+    nock('https://panoptes-staging.zooniverse.org/api')
+    .persist()
+    .get('/comments')
+    .query(true)
+    .reply(200, { comments: [] })
     const snapshot = {
       project: {
         configuration: {
@@ -58,6 +73,10 @@ describe('Component > ProjectHomePage', function () {
     homePage = screen.getByTestId('project-home-page')
     const zooFooter = within(homePage).getByRole('contentinfo')
     adminToggle = within(zooFooter).queryByRole('checkbox', { name: 'Admin Mode' })
+  })
+
+  after(function () {
+    nock.cleanAll()
   })
 
   it('should not render a border for the wrapping Box container', function () {
