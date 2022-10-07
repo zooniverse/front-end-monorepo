@@ -59,14 +59,16 @@ export default function CharacteristicSection({
         value={selectedValueId}
         wrap
       >
-        {(option, { checked, hover }) => {
+        {(option, { checked, focus, hover }) => {
           return (
             <FilterButton
               characteristicId={characteristicId}
-              valueLabel={option.label}
               checked={checked}
+              focus={focus}
+              hover={hover}
               onFilter={onFilter}
               valueImageSrc={option.imageSrc}
+              valueLabel={option.label}
             />
           )
         }}

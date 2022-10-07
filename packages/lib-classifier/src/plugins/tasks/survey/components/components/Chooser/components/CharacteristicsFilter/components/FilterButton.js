@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import { CloseButton, Media } from '@zooniverse/react-components'
 
 export const StyledFilter = styled(Box)`
+  box-shadow: ${props => props.focus || props.hover ? `0 0 2px 2px ${props.theme.global.colors.brand};` : 'none'};
+  
   button {
     display: none;
   }
@@ -14,16 +16,14 @@ export const StyledFilter = styled(Box)`
     display: block;
     position: absolute;
   }
-
-  &:hover {
-    box-shadow: 0 0 2px 2px ${props => props.theme.global.colors.brand};
-  }
 `
 
 export default function FilterButton (props) {
   const {
     characteristicId,
     checked,
+    focus,
+    hover,
     onFilter,
     buttonSize,
     valueImageSrc,
@@ -35,11 +35,15 @@ export default function FilterButton (props) {
   const containerSize = buttonSize === 'small' ? '30px' : '40px'
   const mediaSize = buttonSize === 'small' ? '18px' : '25px'
 
+  console.log(`${characteristicId}-${valueLabel} focus, hover`, focus, hover)
+
   return (
     <StyledFilter
       align='center'
       background={{ color: backgroundColor }}
+      focus={focus}
       height={containerSize}
+      hover={hover}
       justify='center'
       margin={marginPerSize}
       round='full'
@@ -68,6 +72,8 @@ export default function FilterButton (props) {
 FilterButton.defaultProps = {
   characteristicId: '',
   checked: false,
+  focus: false,
+  hover: false,
   onFilter: () => {},
   buttonSize: 'medium',
   valueImageSrc: '',
@@ -77,6 +83,8 @@ FilterButton.defaultProps = {
 FilterButton.propTypes = {
   characteristicId: PropTypes.string,
   checked: PropTypes.bool,
+  focus: PropTypes.bool,
+  hover: PropTypes.bool,
   onFilter: PropTypes.func,
   buttonSize: PropTypes.string,
   valueImageSrc: PropTypes.string,
