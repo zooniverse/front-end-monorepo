@@ -19,7 +19,37 @@ import branchingWorkflow, { workflowStrings } from '@test/mockStore/branchingWor
 import Classifier from './Classifier'
 
 describe('Components > Classifier', function () {
-  this.timeout(0)
+  // Allow time for workflows and subjects to load before running the tests.
+  this.timeout(5000)
+
+  function mockPanoptesAPI() {
+    return nock('https://panoptes-staging.zooniverse.org/api')
+      .persist()
+      .get('/field_guides')
+      .reply(200, { field_guides: [] })
+      .get('/project_preferences')
+      .query(true)
+      .reply(200, { project_preferences: [] })
+      .post('/project_preferences')
+      .query(true)
+      .reply(200, { project_preferences: [] })
+  }
+
+  class MockImage {
+    constructor () {
+      this.naturalHeight = 1000
+      this.naturalWidth = 500
+      setTimeout(() => this.onload(), 500)
+    }
+  }
+
+  class MockSlowImage {
+    constructor () {
+      this.naturalHeight = 1000
+      this.naturalWidth = 500
+      setTimeout(() => this.onload(), 5000)
+    }
+  }
 
   function withStore(store) {
     return function Wrapper({ children }) {
@@ -37,13 +67,7 @@ describe('Components > Classifier', function () {
     let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
 
     before(function () {
-      sinon.replace(window, 'Image', class MockImage {
-        constructor () {
-          this.naturalHeight = 1000
-          this.naturalWidth = 500
-          setTimeout(() => this.onload(), 5000)
-        }
-      })
+      sinon.replace(window, 'Image', MockSlowImage)
       const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const store = mockStore({ subject })
       const project = store.projects.active
@@ -109,13 +133,7 @@ describe('Components > Classifier', function () {
     let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
 
     before(async function () {
-      sinon.replace(window, 'Image', class MockImage {
-        constructor () {
-          this.naturalHeight = 1000
-          this.naturalWidth = 500
-          setTimeout(() => this.onload(), 500)
-        }
-      })
+      sinon.replace(window, 'Image', MockImage)
       const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const store = mockStore({ subject })
       const project = store.projects.active
@@ -182,32 +200,17 @@ describe('Components > Classifier', function () {
     let locale, subjectImage, tabPanel, taskInstruction, taskAnswers, taskTab, tutorialTab, workflow
 
     before(async function () {
-      sinon.replace(window, 'Image', class MockImage {
-        constructor () {
-          this.naturalHeight = 1000
-          this.naturalWidth = 500
-          setTimeout(() => this.onload(), 500)
-        }
-      })
+      sinon.replace(window, 'Image', MockImage)
 
       const roles = []
       const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
 
-      nock('https://panoptes-staging.zooniverse.org/api')
-          .persist()
-          .get('/field_guides')
-          .reply(200, { field_guides: [] })
-          .get('/project_preferences')
-          .query(true)
-          .reply(200, { project_preferences: [] })
-          .get('/project_roles')
-          .reply(200, { project_roles: [{ roles }]})
-          .get('/subjects/queued')
-          .query(true)
-          .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
-          .post('/project_preferences')
-          .query(true)
-          .reply(200, { project_preferences: [] })
+      mockPanoptesAPI()
+        .get('/project_roles')
+        .reply(200, { project_roles: [{ roles }]})
+        .get('/subjects/queued')
+        .query(true)
+        .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
 
       const checkBearerToken = sinon.stub().callsFake(() => Promise.resolve('mockAuth'))
       const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockUser' }))
@@ -332,13 +335,7 @@ describe('Components > Classifier', function () {
     let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
 
     before(async function () {
-      sinon.replace(window, 'Image', class MockImage {
-        constructor () {
-          this.naturalHeight = 1000
-          this.naturalWidth = 500
-          setTimeout(() => this.onload(), 500)
-        }
-      })
+      sinon.replace(window, 'Image', MockImage)
       const roles = []
       const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const workflowSnapshot = branchingWorkflow
@@ -574,13 +571,7 @@ describe('Components > Classifier', function () {
     let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
 
     before(async function () {
-      sinon.replace(window, 'Image', class MockImage {
-        constructor () {
-          this.naturalHeight = 1000
-          this.naturalWidth = 500
-          setTimeout(() => this.onload(), 500)
-        }
-      })
+      sinon.replace(window, 'Image', MockImage)
       const roles = []
       const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const workflowSnapshot = branchingWorkflow
@@ -591,29 +582,13 @@ describe('Components > Classifier', function () {
           workflows: [workflowSnapshot.id]
         }
       })
-      sinon.stub(panoptes, 'get').callsFake((endpoint, query, headers) => {
-        switch (endpoint) {
-          case '/field_guides': {
-            const field_guides = []
-            return Promise.resolve({ body: { field_guides }})
-          }
-          case '/project_preferences': {
-            const project_preferences = []
-            return Promise.resolve({ body: { project_preferences }})
-          }
-          case '/project_roles': {
-            const project_roles = [{ roles }]
-            return Promise.resolve({ body: { project_roles }})
-          }
-          case '/subjects/queued': {
-            const subjects = [subjectSnapshot, ...Factory.buildList('subject', 9)]
-            return Promise.resolve({ body: { subjects }})
-          }
-        }
-      })
-      sinon.stub(panoptes, 'post').callsFake((...args) => {
-        return Promise.resolve({ headers: {}, body: { project_preferences: []}})
-      })
+      mockPanoptesAPI()
+        .get('/project_roles')
+        .reply(200, { project_roles: [{ roles }]})
+        .get('/subjects/queued')
+        .query(true)
+        .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
+
       const checkBearerToken = sinon.stub().callsFake(() => Promise.resolve('mockAuth'))
       const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockUser' }))
       const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
@@ -641,6 +616,7 @@ describe('Components > Classifier', function () {
 
     after(function () {
       sinon.restore()
+      nock.cleanAll()
     })
 
     it('should have a task tab', function () {
@@ -668,13 +644,7 @@ describe('Components > Classifier', function () {
     let tutorialHeading
 
     before(async function () {
-      sinon.replace(window, 'Image', class MockImage {
-        constructor () {
-          this.naturalHeight = 1000
-          this.naturalWidth = 500
-          setTimeout(() => this.onload(), 500)
-        }
-      })
+      sinon.replace(window, 'Image', MockImage)
       const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const steps = [
         { content: "Hello" },
@@ -715,13 +685,7 @@ describe('Components > Classifier', function () {
     let tutorialHeading
 
     before(async function () {
-      sinon.replace(window, 'Image', class MockImage {
-        constructor () {
-          this.naturalHeight = 1000
-          this.naturalWidth = 500
-          setTimeout(() => this.onload(), 500)
-        }
-      })
+      sinon.replace(window, 'Image', MockImage)
       const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const steps = [
         { content: "Hello" },
@@ -762,13 +726,7 @@ describe('Components > Classifier', function () {
     let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
 
     before(async function () {
-      sinon.replace(window, 'Image', class MockImage {
-        constructor () {
-          this.naturalHeight = 1000
-          this.naturalWidth = 500
-          setTimeout(() => this.onload(), 500)
-        }
-      })
+      sinon.replace(window, 'Image', MockImage)
 
       const roles = []
       const subjectOneSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example1.png' }] })
@@ -783,30 +741,21 @@ describe('Components > Classifier', function () {
         }
       })
 
-      nock('https://panoptes-staging.zooniverse.org/api')
-      .persist()
-      .get('/field_guides')
-      .reply(200, { field_guides: [] })
-      .get('/project_preferences')
-      .query(true)
-      .reply(200, { project_preferences: [] })
-      .get('/project_roles')
-      .reply(200, { project_roles: [{ roles }]})
-      .get('/subjects/queued')
-      .query(query => query.subject_set_id === '1')
-      .reply(200, { subjects: [subjectOneSnapshot, ...Factory.buildList('subject', 9)] })
-      .get('/subjects/queued')
-      .query(query => query.subject_set_id === '2')
-      .reply(200, { subjects: [subjectTwoSnapshot, ...Factory.buildList('subject', 9)] })
-      .get('/subject_sets/1')
-      .query(true)
-      .reply(200, { subject_sets: [SubjectSetFactory.build({ id: '1' })] })
-      .get('/subject_sets/2')
-      .query(true)
-      .reply(200, { subject_sets: [SubjectSetFactory.build({ id: '2' })] })
-      .post('/project_preferences')
-      .query(true)
-      .reply(200, { project_preferences: [] })
+      mockPanoptesAPI()
+        .get('/project_roles')
+        .reply(200, { project_roles: [{ roles }]})
+        .get('/subjects/queued')
+        .query(query => query.subject_set_id === '1')
+        .reply(200, { subjects: [subjectOneSnapshot, ...Factory.buildList('subject', 9)] })
+        .get('/subjects/queued')
+        .query(query => query.subject_set_id === '2')
+        .reply(200, { subjects: [subjectTwoSnapshot, ...Factory.buildList('subject', 9)] })
+        .get('/subject_sets/1')
+        .query(true)
+        .reply(200, { subject_sets: [SubjectSetFactory.build({ id: '1' })] })
+        .get('/subject_sets/2')
+        .query(true)
+        .reply(200, { subject_sets: [SubjectSetFactory.build({ id: '2' })] })
 
       const checkBearerToken = sinon.stub().callsFake(() => Promise.resolve('mockAuth'))
       const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockUser' }))
@@ -880,6 +829,130 @@ describe('Components > Classifier', function () {
         taskAnswers.forEach(radioButton => {
           expect(radioButton.disabled).to.be.false()
         })
+      })
+    })
+  })
+
+  describe('admins: in admin mode', function () {
+    let subjectImage, taskAnswers, workflow
+
+    before(async function () {
+      sinon.replace(window, 'Image', MockImage)
+      const roles = []
+      const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
+      mockPanoptesAPI()
+        .get('/project_roles')
+        .reply(200, { project_roles: [{ roles }]})
+        .get('/subjects/queued')
+        .query(true)
+        .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
+
+      const workflowSnapshot = branchingWorkflow
+      workflowSnapshot.strings = workflowStrings
+      const projectSnapshot = ProjectFactory.build({
+        links: {
+          active_workflows: [],
+          workflows: [workflowSnapshot.id]
+        }
+      })
+      const checkBearerToken = sinon.stub().callsFake(() => Promise.resolve('mockAuth'))
+      const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockAdmin', admin: true }))
+      const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
+      const client = { ...defaultClient, panoptes }
+      const store = RootStore.create({}, { authClient, client })
+      render(
+        <Classifier
+          adminMode
+          classifierStore={store}
+          project={projectSnapshot}
+          workflowSnapshot={workflowSnapshot}
+        />,
+        {
+          wrapper: withStore(store)
+        }
+      )
+      await when(() => store.subjectViewer.loadingState === asyncStates.success)
+      const taskTab = screen.queryByRole('tab', { name: 'TaskArea.task'})
+      const tutorialTab = screen.queryByRole('tab', { name: 'TaskArea.tutorial'})
+      subjectImage = screen.queryByRole('img', { name: `Subject ${subjectSnapshot.id}` })
+      const tabPanel = screen.queryByRole('tabpanel', { name: '1 Tab Contents'})
+      const task = workflowSnapshot.tasks.T0
+      const getAnswerInput = answer => within(tabPanel).queryByRole('radio', { name: answer.label })
+      taskAnswers = task.answers.map(getAnswerInput)
+      workflow = store.workflows.active
+    })
+
+    after(function () {
+      sinon.restore()
+      nock.cleanAll()
+    })
+
+    it('should be able to view inactive workflows', function () {
+      expect(subjectImage.getAttribute('xlink:href')).to.equal('https://foo.bar/example.png')
+      expect(taskAnswers).to.have.lengthOf(workflow.tasks.T0.answers.length)
+      taskAnswers.forEach(radioButton => {
+        expect(radioButton.name).to.equal('T0')
+        expect(radioButton.disabled).to.be.false()
+      })
+    })
+  })
+
+  describe('admins: not in admin mode', function () {
+    let subjectImage, taskAnswers, workflow
+
+    before(function () {
+      sinon.replace(window, 'Image', MockImage)
+      const roles = []
+      const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
+      mockPanoptesAPI()
+        .get('/project_roles')
+        .reply(200, { project_roles: [{ roles }]})
+        .get('/subjects/queued')
+        .query(true)
+        .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
+
+      const workflowSnapshot = branchingWorkflow
+      workflowSnapshot.strings = workflowStrings
+      const projectSnapshot = ProjectFactory.build({
+        links: {
+          active_workflows: [],
+          workflows: [workflowSnapshot.id]
+        }
+      })
+      const checkBearerToken = sinon.stub().callsFake(() => Promise.resolve('mockAuth'))
+      const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockAdmin', admin: true }))
+      const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
+      const client = { ...defaultClient, panoptes }
+      const store = RootStore.create({}, { authClient, client })
+      render(
+        <Classifier
+          classifierStore={store}
+          project={projectSnapshot}
+          workflowSnapshot={workflowSnapshot}
+        />,
+        {
+          wrapper: withStore(store)
+        }
+      )
+      store.subjectViewer.onSubjectReady()
+      const taskTab = screen.queryByRole('tab', { name: 'TaskArea.task'})
+      const tutorialTab = screen.queryByRole('tab', { name: 'TaskArea.tutorial'})
+      subjectImage = screen.queryByRole('img', { name: `Subject ${subjectSnapshot.id}` })
+      const tabPanel = screen.queryByRole('tabpanel', { name: '1 Tab Contents'})
+      const task = workflowSnapshot.tasks.T0
+      const getAnswerInput = answer => within(tabPanel).queryByRole('radio', { name: answer.label })
+      taskAnswers = task.answers.map(getAnswerInput)
+    })
+
+    after(function () {
+      sinon.restore()
+      nock.cleanAll()
+    })
+
+    it('should not be able to load inactive workflows', function () {
+      expect(subjectImage).to.be.null()
+      taskAnswers.forEach(radioButton => {
+        expect(radioButton).to.be.null()
       })
     })
   })
