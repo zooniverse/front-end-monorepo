@@ -96,6 +96,17 @@ export function Plain() {
   )
 }
 
+export function Placeholder() {
+  return (
+    <Grommet theme={zooTheme}>
+      <RecentSubjects
+        href='/projects/zooniverse/snapshot-serengeti/talk'
+        subjects={SUBJECTS.slice(1)}
+      />
+    </Grommet>
+  )
+}
+
 export function CarouselView() {
   return (
     <Grommet theme={zooTheme}>

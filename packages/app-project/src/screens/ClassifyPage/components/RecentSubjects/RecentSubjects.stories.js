@@ -109,6 +109,19 @@ export function Plain({ dark, isLoggedIn }) {
   )
 }
 
+export function Placeholder({ dark, isLoggedIn }) {
+  return (
+    <Grommet theme={{ ...zooTheme, dark }}>
+      <RecentSubjects
+        isLoggedIn={isLoggedIn}
+        recents={RECENTS.slice(1)}
+        projectName='Snapshot Serengeti'
+        slug='zooniverse/snapshot-serengeti'
+      />
+    </Grommet>
+  )
+}
+
 export function NarrowScreens({ dark, isLoggedIn }) {
   return (
     <Grommet theme={{ ...zooTheme, dark }}>

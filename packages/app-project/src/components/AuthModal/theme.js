@@ -1,6 +1,6 @@
 import { css } from 'styled-components'
 
-export default {
+const theme = {
   checkBox: {
     border: {
       width: '1px'
@@ -64,3 +64,5 @@ export default {
     `
   }
 }
+
+export default theme

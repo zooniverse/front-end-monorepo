@@ -83,7 +83,7 @@ describe('Component > WorkflowAssignmentModalContainer', function() {
 
     describe('when the modal has been dismissed for the session', function () {
       it('should not display the modal', function () {
-        const promptAssignment = sinon.stub().callsFake(() => {})
+        const promptAssignment = sinon.stub().callsFake(() => false)
         wrapper = mount(<WorkflowAssignmentModalContainer assignedWorkflowID='555' currentWorkflowID='123' promptAssignment={promptAssignment} />, {
           wrappingComponent: Grommet,
           wrappingComponentProps: { theme: zooTheme }
