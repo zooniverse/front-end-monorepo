@@ -10,14 +10,14 @@ import Confusion from './Confusion'
 
 describe('Component > Confusion', function () {
   const mockTask = SurveyTask.TaskModel.create(task)
-  const ELAND = mockTask.choices.LND
+  const KUDU = mockTask.choices.KD
   const HUMAN = mockTask.choices.HMN
 
   it('should render without crashing', function () {
     render(
       <Confusion
-        confusion={ELAND}
-        confusionId='LND'
+        confusion={KUDU}
+        confusionId='KD'
         confusionText='Test confusion text.'
         images={mockTask.images}
       />
@@ -28,24 +28,24 @@ describe('Component > Confusion', function () {
   it('should render the confusion choice label', function () {
     render(
       <Confusion
-        confusion={ELAND}
-        confusionId='LND'
+        confusion={KUDU}
+        confusionId='KD'
         confusionText='Test confusion text.'
         images={mockTask.images}
-        label={mockTask.strings.get('choices.LND.label')}
+        label={mockTask.strings.get('choices.KD.label')}
       />
     )
-    expect(screen.getByText(ELAND.label)).to.be.exist()
+    expect(screen.getByText(KUDU.label)).to.exist()
   })
 
   it('should render confusion images with choice with images', function () {
     render(
       <Confusion
-        confusion={ELAND}
-        confusionId='LND'
+        confusion={KUDU}
+        confusionId='KD'
         confusionText='Test confusion text.'
         images={mockTask.images}
-        label={mockTask.strings.get('choices.LND.label')}
+        label={mockTask.strings.get('choices.KD.label')}
       />
     )
     expect(screen.getByTestId('confusion-images')).to.exist()
@@ -67,11 +67,11 @@ describe('Component > Confusion', function () {
   it('should render confusion text', function () {
     render(
       <Confusion
-        confusion={ELAND}
-        confusionId='LND'
+        confusion={KUDU}
+        confusionId='KD'
         confusionText='Test confusion text.'
         images={mockTask.images}
-        label={mockTask.strings.get('choices.LND.label')}
+        label={mockTask.strings.get('choices.KD.label')}
       />
     )
     expect(screen.getByText('Test confusion text.')).to.exist()
@@ -80,11 +80,11 @@ describe('Component > Confusion', function () {
   it('should render a "Cancel" button', function () {
     render(
       <Confusion
-        confusion={ELAND}
-        confusionId='LND'
+        confusion={KUDU}
+        confusionId='KD'
         confusionText='Test confusion text.'
         images={mockTask.images}
-        label={mockTask.strings.get('choices.LND.label')}
+        label={mockTask.strings.get('choices.KD.label')}
       />
     )
     /** The translation function will simply return keys in a testing env */
@@ -97,12 +97,12 @@ describe('Component > Confusion', function () {
 
     render(
       <Confusion
-        confusion={ELAND}
-        confusionId='LND'
+        confusion={KUDU}
+        confusionId='KD'
         confusionText='Test confusion text.'
         images={mockTask.images}
         onClose={onCloseSpy}
-        label={mockTask.strings.get('choices.LND.label')}
+        label={mockTask.strings.get('choices.KD.label')}
       />
     )
     /** The translation function will simply return keys in a testing env */
@@ -113,11 +113,11 @@ describe('Component > Confusion', function () {
   it('should render a "I think it\'s this" button', function () {
     render(
       <Confusion
-        confusion={ELAND}
-        confusionId='LND'
+        confusion={KUDU}
+        confusionId='KD'
         confusionText='Test confusion text.'
         images={mockTask.images}
-        label={mockTask.strings.get('choices.LND.label')}
+        label={mockTask.strings.get('choices.KD.label')}
       />
     )
     /** The translation function will simply return keys in a testing env */
@@ -130,16 +130,16 @@ describe('Component > Confusion', function () {
 
     render(
       <Confusion
-        confusion={ELAND}
-        confusionId='LND'
+        confusion={KUDU}
+        confusionId='KD'
         confusionText='Test confusion text.'
         handleChoice={handleChoiceSpy}
         images={mockTask.images}
-        label={mockTask.strings.get('choices.LND.label')}
+        label={mockTask.strings.get('choices.KD.label')}
       />
     )
     /** The translation function will simply return keys in a testing env */
     await user.click(screen.getByRole('button', { name: 'SurveyTask.ConfusedWith.itsThis' }))
-    expect(handleChoiceSpy).to.have.been.calledOnceWith('LND')
+    expect(handleChoiceSpy).to.have.been.calledOnceWith('KD')
   })
 })

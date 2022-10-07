@@ -14,18 +14,18 @@ describe('Function > getFilteredChoiceIds', function () {
 
   it('should return expected filtered choices with filters', function () {
     const filters = {
-      HRNS: 'SPRL',
-      LK: 'NTLPDR'
+      LK: 'CWHRS',
+      PTTRN: 'SLD'
     }
     const filteredChoiceIds = getFilteredChoiceIds(filters, mockTask)
-    expect(filteredChoiceIds).to.have.lengthOf(4)
+    expect(filteredChoiceIds).to.have.lengthOf(2)
   })
 
   it('should return an empty array if no choices apply to filters', function () {
     const filters = {
-      HRNS: 'SPRL',
       LK: 'NTLPDR',
-      TL: 'SMTH'
+      CLR: 'BLK',
+      PTTRN: 'SPTS'
     }
     const filteredChoiceIds = getFilteredChoiceIds(filters, mockTask)
     expect(filteredChoiceIds).to.have.lengthOf(0)

@@ -4,10 +4,13 @@ import React from 'react'
 
 import Choices from './Choices'
 import SurveyTask from '@plugins/tasks/survey'
-import { task } from '@plugins/tasks/survey/mock-data'
+import { task, taskWithMoreThanTwentyChoices } from '@plugins/tasks/survey/mock-data'
 
 const mockTask = SurveyTask.TaskModel.create(task)
 const filteredChoiceIds = Array.from(mockTask.choicesOrder)
+
+const mockTaskWithMoreThanTwentyChoices = SurveyTask.TaskModel.create(taskWithMoreThanTwentyChoices)
+const filteredChoiceIdsMoreThanTwenty = Array.from(taskWithMoreThanTwentyChoices.choicesOrder)
 
 function StoryContext (props) {
   const { children, theme } = props
@@ -59,8 +62,8 @@ LessThirtyMoreTwenty.args = {
   autoFocus: true,
   dark: false,
   disabled: false,
-  filteredChoiceIds,
-  task: mockTask
+  filteredChoiceIds: filteredChoiceIdsMoreThanTwenty,
+  task: mockTaskWithMoreThanTwentyChoices
 }
 
 export const LessTwentyMoreFive = Template.bind({})
@@ -68,7 +71,7 @@ LessTwentyMoreFive.args = {
   autoFocus: true,
   dark: false,
   disabled: false,
-  filteredChoiceIds: Array.from(filteredChoiceIds).splice(0, 10),
+  filteredChoiceIds,
   task: mockTask
 }
 
