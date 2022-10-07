@@ -10,16 +10,16 @@ import FilterButton from '../../components/FilterButton'
 
 describe('Component > CharacteristicSection', function () {
   const mockTask = SurveyTask.TaskModel.create(task)
-  const characteristicTail = mockTask.characteristics.TL
-  
+  const characteristicPattern = mockTask.characteristics.PTTRN
+
   let wrapper, onFilterSpy
 
   before(function () {
     onFilterSpy = sinon.spy()
     wrapper = mount(
       <CharacteristicSection
-        characteristic={characteristicTail}
-        characteristicId='TL'
+        characteristic={characteristicPattern}
+        characteristicId='PTTRN'
         images={mockTask.images}
         onFilter={onFilterSpy}
         selectedValueId=''
@@ -37,15 +37,15 @@ describe('Component > CharacteristicSection', function () {
   })
 
   it('should render FilterButtons for the characteristic values', function () {
-    expect(wrapper.find(FilterButton)).to.have.lengthOf(characteristicTail.valuesOrder.length)
+    expect(wrapper.find(FilterButton)).to.have.lengthOf(characteristicPattern.valuesOrder.length)
   })
 
   it('should render FilterButtons in order per the characteristic valuesOrder', function () {
     const filterButtons = wrapper.find(FilterButton)
     filterButtons.forEach((filterButton, index) => {
-      const valueIdPerTask = characteristicTail.valuesOrder[index]
+      const valueIdPerTask = characteristicPattern.valuesOrder[index]
 
-      expect(filterButton.props().valueLabel).to.equal(characteristicTail.values[valueIdPerTask].label)
+      expect(filterButton.props().valueLabel).to.equal(characteristicPattern.values[valueIdPerTask].label)
     })
   })
 
@@ -53,8 +53,8 @@ describe('Component > CharacteristicSection', function () {
     it('should call onFilter with characteristic and value IDs', function () {
       wrapper = shallow(
         <CharacteristicSection
-          characteristic={characteristicTail}
-          characteristicId='TL'
+          characteristic={characteristicPattern}
+          characteristicId='PTTRN'
           images={mockTask.images}
           onFilter={onFilterSpy}
           selectedValueId=''
@@ -65,10 +65,10 @@ describe('Component > CharacteristicSection', function () {
       expect(onFilterSpy).to.have.not.been.called()
 
       wrapper.find(RadioButtonGroup).at(0).simulate('change', {
-        target: { value: 'LNG' }
+        target: { value: 'SPTS' }
       })
 
-      expect(onFilterSpy).to.have.been.calledOnceWith('TL', 'LNG')
+      expect(onFilterSpy).to.have.been.calledOnceWith('PTTRN', 'SPTS')
     })
   })
 })

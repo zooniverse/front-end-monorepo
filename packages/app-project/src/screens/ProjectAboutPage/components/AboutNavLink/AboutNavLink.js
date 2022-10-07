@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import { string, object, shape } from 'prop-types'
 import styled from 'styled-components'
 import addQueryParams from '@helpers/addQueryParams'
@@ -14,12 +13,8 @@ const StyledAnchor = styled(Anchor)`
 `
 
 const AboutNavLink = ({ router, link }) => {
-  const [isCurrentPage, setCurrentPage] = useState(false)
-
-  useEffect(() => {
-    const { href } = link
-    setCurrentPage(router?.asPath === addQueryParams(href))
-  }, [router])
+  const { href } = link
+  const isCurrentPage = router?.asPath === addQueryParams(href)
 
   return (
     <Box

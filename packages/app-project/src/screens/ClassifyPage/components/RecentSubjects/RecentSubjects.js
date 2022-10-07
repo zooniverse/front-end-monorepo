@@ -1,5 +1,6 @@
 import { Box, Grid, Paragraph } from 'grommet'
 import getConfig from 'next/config'
+import Image from 'next/image'
 import { array, bool, number, string } from 'prop-types'
 import { useTranslation } from 'next-i18next'
 
@@ -21,7 +22,7 @@ function Placeholder({ height, src }) {
       overflow='hidden'
       width={'100%'}
     >
-      <img alt='' role='presentation' src={src} />
+      <Image alt='' height={358} role='presentation' src={src} width={500} />
     </Box>
   )
 }
@@ -40,6 +41,7 @@ function RecentSubjects ({
   const placeholderUrl = `${assetPrefix}/assets/subject-placeholder.png`
   const displayedRecents = recents.slice(0, size)
   const placeholders = [...Array(size - displayedRecents.length)]
+  const placeholder = <Image alt='' height={358} layout='responsive' role='presentation' src={placeholderUrl} width={500} />
 
   return (
     <ContentBox title={t('Classify.RecentSubjects.title', { projectName })}>
@@ -63,7 +65,7 @@ function RecentSubjects ({
               height={height}
               key={recent.subjectId}
               isLoggedIn={isLoggedIn}
-              placeholder={<img alt='' role='presentation' src={placeholderUrl} />}
+              placeholder={placeholder}
               subject={subject}
               slug={slug}
               width={'100%'}

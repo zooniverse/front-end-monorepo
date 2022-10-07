@@ -38,11 +38,10 @@ function MyApp({ Component, pageProps }) {
   const store = useStore(initialState)
   makeInspectable(store)
 
-  function onMount() {
+  useEffect(function onMount() {
     console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
     store.ui.readCookies()
-  }
-  useEffect(onMount, [])
+  }, [store.ui])
 
   const userKey = store.user?.id || 'no-user'
   const user = usePanoptesUser(userKey)
@@ -57,7 +56,7 @@ function MyApp({ Component, pageProps }) {
     if (user === null) {
       store.user.clear()
     }
-  }, [user])
+  }, [user, store.user])
 
   useEffect( function onFavouritesChange() {
     if (favourites?.id) {
@@ -67,7 +66,7 @@ function MyApp({ Component, pageProps }) {
     if (favourites === null) {
       store.user.collections.setFavourites(null)
     }
-  }, [favourites])
+  }, [favourites, store.user])
 
   try {
     if (pageProps.statusCode) {
