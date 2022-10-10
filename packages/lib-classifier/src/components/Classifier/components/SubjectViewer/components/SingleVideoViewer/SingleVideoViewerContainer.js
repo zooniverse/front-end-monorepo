@@ -226,20 +226,25 @@ function SingleVideoViewerContainer({
         : (
           <Box>{t('SubjectViewer.SingleVideoViewerContainer.error')}</Box>
           )}
-      <VideoController
-        duration={duration}
-        isPlaying={isPlaying}
-        handleFullscreen={handleFullscreen}
-        handleVolumeOpen={handleVolumeOpen}
-        onPlayPause={handlePlayPause}
-        onSliderChange={handleSliderChange}
-        onSpeedChange={handleSpeedChange}
-        onVolumeChange={handleVolume}
-        playbackSpeed={playbackSpeed}
-        timeStamp={timeStamp}
-        volume={volume}
-        volumeOpen={volumeOpen}
-      />
+
+      {/** See ADR 45 for notes on custom video controls */}
+      {enableDrawing && (
+        <VideoController
+          duration={duration}
+          enableDrawing={enableDrawing}
+          isPlaying={isPlaying}
+          handleFullscreen={handleFullscreen}
+          handleVolumeOpen={handleVolumeOpen}
+          onPlayPause={handlePlayPause}
+          onSliderChange={handleSliderChange}
+          onSpeedChange={handleSpeedChange}
+          onVolumeChange={handleVolume}
+          playbackSpeed={playbackSpeed}
+          timeStamp={timeStamp}
+          volume={volume}
+          volumeOpen={volumeOpen}
+        />
+      )}
     </>
   )
 }

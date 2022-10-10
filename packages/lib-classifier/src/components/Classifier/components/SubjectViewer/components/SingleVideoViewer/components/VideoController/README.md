@@ -14,6 +14,7 @@ Used in SingleVideoViewer. Custom video controls are necessary for building draw
 
 ## Props
 - `duration`: (number) Duration of video subject in seconds.
+- `enableDrawing`: (boolean) Determines whether or not to display the fullscreen button. Drawing tools do not work with fullscreen.
 - `isPlaying`: (boolean) State variable in SingleVideoViewerContainer determines if video player is playing.
 - `handleFullscreen`: (func) Function passed from SingleVideoViewerContainer and called when fullscreen button is clicked.
 - `handleVolumeOpen`: (func) Function passed from SingleVideoViewerContainer and called when volume icon is clicked.

@@ -20,6 +20,7 @@ const iconSize = '16px'
 
 const VideoController = ({
   duration = 0,
+  enableDrawing = false,
   isPlaying = false,
   handleFullscreen = () => true,
   handleVolumeOpen = () => true,
@@ -161,12 +162,14 @@ const VideoController = ({
           </Box>
 
           {/* Full Screen */}
-          <Button
-            a11yTitle={t('SubjectViewer.VideoController.fullscreen')}
-            icon={<Expand size={iconSize} color='white' />}
-            plain
-            onClick={handleFullscreen}
-          />
+          {enableDrawing && (
+            <Button
+              a11yTitle={t('SubjectViewer.VideoController.fullscreen')}
+              icon={<Expand size={iconSize} color='white' />}
+              plain
+              onClick={handleFullscreen}
+            />
+          )}
         </Box>
       </Grid>
     </ThemeContext.Extend>
