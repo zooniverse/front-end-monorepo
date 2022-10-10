@@ -153,7 +153,7 @@ function SingleVideoViewerContainer({
   /* Memoized so onProgress() and setTimeStamp() don't trigger each other */
   const memoizedViewer = useMemo(() => (
     <ReactPlayer
-      controls={false}
+      controls={!enableDrawing}
       height='100%'
       onDuration={handleVideoDuration}
       onEnded={handleVideoEnded}
@@ -179,7 +179,7 @@ function SingleVideoViewerContainer({
         }
       }}
     />
-  ), [isPlaying, playbackSpeed, videoSrc, volume])
+  ), [enableDrawing, isPlaying, playbackSpeed, videoSrc, volume])
 
   const canvas = transformLayer?.current
   const interactionLayerScale = clientWidth / videoWidth

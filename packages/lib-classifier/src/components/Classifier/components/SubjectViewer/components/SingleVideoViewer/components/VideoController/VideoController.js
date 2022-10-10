@@ -52,6 +52,7 @@ const VideoController = ({
     <ThemeContext.Extend value={controlsTheme}>
       <Grid
         columns={['100px', 'flex', '120px']}
+        data-testid='video subject viewer custom controls'
         pad='10px' // xsmall regardless of screen size
         style={{ background: '#000000' }}
       >

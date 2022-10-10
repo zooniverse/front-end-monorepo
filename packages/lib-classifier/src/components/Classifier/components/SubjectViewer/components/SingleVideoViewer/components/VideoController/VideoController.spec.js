@@ -143,7 +143,7 @@ describe('Component > VideoController', function () {
     expect(volumeRangeInput).exists()
   })
 
-  it('should have a fullscreen button', async function () {
+  it('should have a fullscreen button if drawing tools are enabled', async function () {
     const handleFullscreenSpy = sinon.spy()
     const user = userEvent.setup()
 
@@ -151,6 +151,7 @@ describe('Component > VideoController', function () {
       <Grommet theme={controlsTheme}>
         <VideoController
           duration={subjectDuration}
+          enableDrawing
           handleFullscreen={handleFullscreenSpy}
           timeStamp={subjectTimeStamp}
         />
