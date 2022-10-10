@@ -12,7 +12,7 @@ export default function ZooniverseLogo ({ id, size, ...rest }) {
       {...rest}
     >
       <title id={id}>
-        Zooniverse Logo
+        Zooniverse
       </title>
       <g fill='currentColor' stroke='none' transform='translate(50, 50)'>
         <path d='M 0 -45 A 45 45 0 0 1 0 45 A 45 45 0 0 1 0 -45 Z M 0 -30 A 30 30 0 0 0 0 30 A 30 30 0 0 0 0 -30 Z' />
