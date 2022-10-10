@@ -1,12 +1,13 @@
 import { Box, Menu } from 'grommet'
-import { arrayOf, shape, string } from 'prop-types'
 import { SpacedText } from '@zooniverse/react-components'
 import { FormDown } from 'grommet-icons'
 import styled, { css } from 'styled-components'
+import { observer } from 'mobx-react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { localeMenu } from '@helpers'
+import { useStores } from '../../hooks'
 
 const StyledBox = styled(Box)`
   padding: 10px 10px 10px 15px;
@@ -28,7 +29,8 @@ const StyledBox = styled(Box)`
   }
 `
 
-const LocaleSwitcher = ({ availableLocales }) => {
+function LocaleSwitcher() {
+  const { availableLocales } = useStores()
   const router = useRouter()
   const { asPath, basePath, locale } = router
   const { t } = useTranslation('components')
@@ -59,9 +61,4 @@ const LocaleSwitcher = ({ availableLocales }) => {
   )
 }
 
-LocaleSwitcher.propTypes = {
-  /** Language codes for locales to show in the menu eg. `[ 'en', 'fr', 'es-mx' ]`. */
-  availableLocales: arrayOf(string)
-}
-
-export default LocaleSwitcher
+export default observer(LocaleSwitcher)

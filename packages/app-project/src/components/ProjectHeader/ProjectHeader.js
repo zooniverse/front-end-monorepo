@@ -76,9 +76,7 @@ function ProjectHeader({
               </Box>
             </Box>
           </Box>
-          {hasTranslations && (
-            <LocaleSwitcher availableLocales={availableLocales} />
-          )}
+          {hasTranslations && <LocaleSwitcher />}
         </Box>
         {useDropdownNav ? (
           <DropdownNav

@@ -1,6 +1,5 @@
 import { within } from '@testing-library/dom'
 import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import nock from 'nock'
 
 import * as Stories from './ProjectHeader.stories.js'
@@ -151,31 +150,16 @@ describe('Component > ProjectHeader', function () {
   })
 
   describe('with multiple languages', function () {
-    let languageMenuItems, user
+    let languageButton
 
-    before(async function () {
-      user = userEvent.setup({ delay: 'none' })
+    before(function () {
       const { MultipleLanguages } = Stories
       render(<MultipleLanguages {...MultipleLanguages.args} />)
-      const languageButton = screen.getByRole('button', { name: 'ProjectHeader.LocaleSwitcher.label'})
-      await user.click(languageButton)
-      const languageMenu = screen.getByRole('menu')
-      const languageMenuItem = label => within(languageMenu).getByRole('menuitem', { name: label })
-      languageMenuItems = ['English', 'Français', 'Español'].map(languageMenuItem)
+      languageButton = screen.getByRole('button', { name: 'ProjectHeader.LocaleSwitcher.label'})
     })
 
-    it('should show available languages in a menu', async function () {
-      expect(languageMenuItems).to.have.lengthOf(3)
-    })
-
-    it('should link to the project in different languages', function () {
-      const { MultipleLanguages } = Stories
-      const { project } = MultipleLanguages.args
-      const projectLocales = project.configuration.languages
-      projectLocales.forEach((locale, index) => {
-        const href = `https://localhost/projects/${locale}/zooniverse/snapshot-serengeti/about/team`
-        expect(languageMenuItems[index].href).to.equal(href)
-      })
+    it('should show the language menu button', async function () {
+      expect(languageButton).to.exist()
     })
   })
 })
