@@ -26,7 +26,7 @@ State Variables
 - `duration`: (number) Duration of the video subject. Seconds rounded to 3 decimal places.
 - `fullscreen`: (boolean) Whether or not the video is displayed fullscreen.
 - `isPlaying`: (boolean) Whether or not the video subject is playing.
-- `playbackRate`: (number) 1, 0.5, or 0.25 ratio determines the speed of video playback.
+- `playbackSpeed`: (string) 1x, 0.5x, or 0.25x ratio determines the speed of video playback.
 - `timeStamp`: (number) Represented by percent of subject played (0 to 1).
 - `videoHeight`: (number) Natural height of video subject file.
 - `videoWidth`: (number) Natural width of the video subject file.

@@ -42,7 +42,7 @@ function SingleVideoViewerContainer({
   const [duration, setDuration] = useState(0)
   const [fullscreen, setFullscreen] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [playbackRate, setPlaybackRate] = useState('1x')
+  const [playbackSpeed, setPlaybackSpeed] = useState('1x')
   const [timeStamp, setTimeStamp] = useState(0)
   const [videoHeight, setVideoHeight] = useState(0)
   const [videoWidth, setVideoWidth] = useState(0)
@@ -108,13 +108,13 @@ function SingleVideoViewerContainer({
     setIsPlaying(!prevStatePlaying)
   }
 
-  const handleSpeedChange = rate => {
-    setPlaybackRate(rate)
+  const handleSpeedChange = speed => {
+    setPlaybackSpeed(speed)
   }
 
   const handleSliderChange = e => {
     const newTimeStamp = e.target.value
-    playerRef?.current.seekTo(newTimeStamp, 'seconds')
+    playerRef?.current?.seekTo(newTimeStamp, 'seconds')
   }
 
   const handleVolume = e => {
@@ -148,7 +148,7 @@ function SingleVideoViewerContainer({
     onError(error)
   }
 
-  const sanitizedRate = Number(playbackRate.slice(0, -1))
+  const sanitizedSpeed = Number(playbackSpeed.slice(0, -1))
 
   /* Memoized so onProgress() and setTimeStamp() don't trigger each other */
   const memoizedViewer = useMemo(() => (
@@ -161,7 +161,7 @@ function SingleVideoViewerContainer({
       onReady={onReactPlayerReady}
       onProgress={handleVideoProgress}
       playing={isPlaying}
-      playbackRate={sanitizedRate}
+      playbackSpeed={sanitizedSpeed}
       progressInterval={100} // milliseconds
       ref={playerRef}
       width='100%'
@@ -179,7 +179,7 @@ function SingleVideoViewerContainer({
         }
       }}
     />
-  ), [isPlaying, playbackRate, videoSrc, volume])
+  ), [isPlaying, playbackSpeed, videoSrc, volume])
 
   const canvas = transformLayer?.current
   const interactionLayerScale = clientWidth / videoWidth
@@ -235,7 +235,7 @@ function SingleVideoViewerContainer({
         onSliderChange={handleSliderChange}
         onSpeedChange={handleSpeedChange}
         onVolumeChange={handleVolume}
-        playbackRate={playbackRate}
+        playbackSpeed={playbackSpeed}
         timeStamp={timeStamp}
         volume={volume}
         volumeOpen={volumeOpen}

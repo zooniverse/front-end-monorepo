@@ -27,7 +27,7 @@ const VideoController = ({
   onSpeedChange = () => true,
   onSliderChange = () => true,
   onVolumeChange = () => true,
-  playbackRate = '1x',
+  playbackSpeed = '1x',
   timeStamp = 0, // A percentage between 0 and 1
   volume = 1,
   volumeOpen = false
@@ -104,7 +104,7 @@ const VideoController = ({
           <Select
             a11yTitle={t('SubjectViewer.VideoController.playbackSpeed')}
             options={['0.25x', '0.5x', '1x']}
-            value={playbackRate}
+            value={playbackSpeed}
             onChange={({ option }) => onSpeedChange(option)}
             plain
             size='small'
@@ -182,7 +182,7 @@ VideoController.propTypes = {
   onSpeedChange: PropTypes.func,
   onSliderChange: PropTypes.func,
   onVolumeChange: PropTypes.func,
-  playbackRate: PropTypes.string,
+  playbackSpeed: PropTypes.string,
   timeStamp: PropTypes.number,
   volume: PropTypes.number,
   volumeOpen: PropTypes.bool
