@@ -7,7 +7,7 @@ The only allowed video media type is mp4.
 
 ## Features
 
-SingleVideoViewerContainer handles state for the `react-player` component and VideoController. It's also contains an svg and InteractionLayer for drawing on a video subject.
+SingleVideoViewerContainer handles state for the `react-player` component and VideoController. It also contains an svg and InteractionLayer for drawing on a video subject.
 
 Refs
 - `interactionLayerSVG`: Reference to svg element displayed on top of video subject. Needed for drawing tools' InteractionLayer.
