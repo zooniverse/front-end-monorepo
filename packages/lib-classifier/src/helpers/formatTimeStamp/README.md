@@ -2,7 +2,7 @@
 
 A helper function to convert a number in seconds to a human readable string `mm:ss`. We're assuming the timestamp of a video subject is always less than 1 hour.
 
-The Zooniverse video player has a slider who's percentage `timeStamp` values are 0 to 1. As a video subject plays, the slider input will progress from 0 (start of the video) to 1 (end of the video). This function converts the decimal number to a human readable timestamp. The returned value is used in the VideoController and sent to the store as a property for temporal drawing tools.
+The Zooniverse video player has a slider whose percentage `timeStamp` values are 0 to 1. As a video subject plays, the slider input will progress from 0 (start of the video) to 1 (end of the video). This function converts the decimal number to a human readable timestamp. The returned value is used in the VideoController and sent to the store as a property for temporal drawing tools.
 
 ### accepts
 
