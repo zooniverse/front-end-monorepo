@@ -7,7 +7,7 @@ The only allowed video media type is mp4.
 
 ## Features
 
-SingleVideoViewerContainer handles state for SingleVideoViewer and VideoController. It's also contains an svg and InteractionLayer for drawing on a video subject.
+SingleVideoViewerContainer handles state for the `react-player` component and VideoController. It also contains an svg and InteractionLayer for drawing on a video subject.
 
 Refs
 - `interactionLayerSVG`: Reference to svg element displayed on top of video subject. Needed for drawing tools' InteractionLayer.
@@ -24,12 +24,14 @@ Props
 State Variables
 - `clientWidth`: (number) Returned from `getBoundingClientRect()` on the <video> element in `react-player`.
 - `duration`: (number) Duration of the video subject. Seconds rounded to 3 decimal places.
+- `fullscreen`: (boolean) Whether or not the video is displayed fullscreen.
 - `isPlaying`: (boolean) Whether or not the video subject is playing.
-- `isSeeking`: (boolean) Whether or not a user is interacting with the VideoController > Slider.
-- `playbackRate`: (number) 1, 0.5, or 0.25 ratio determines the speed of video playback.
-- `timeStamp`: (number) Current played timestamp of video subject.
+- `playbackSpeed`: (string) 1x, 0.5x, or 0.25x ratio determines the speed of video playback.
+- `timeStamp`: (number) Represented by percent of subject played (0 to 1).
 - `videoHeight`: (number) Natural height of video subject file.
 - `videoWidth`: (number) Natural width of the video subject file.
+- `volume`: (number) Number between 0 and 1. It's passed to the react-player to control volume.
+- `volumeOpen`: (boolean) Determines whether the VideoController's volume range input is displayed or not.
 
 ## External Setup: Workflows and Subjects
 

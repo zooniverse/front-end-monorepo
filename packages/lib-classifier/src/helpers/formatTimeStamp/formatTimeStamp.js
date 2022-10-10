@@ -1,17 +1,22 @@
 function formatTimeStamp(displayTime, duration) {
-  const currentVideoTime = duration ? displayTime * duration : displayTime
+  // timeStamp is in seconds
+  const timeStamp = duration ? displayTime * duration : displayTime
 
-  const pad = (string, digits) =>
-    ('0'.repeat(digits - 1) + string).slice(-digits)
-
-  const date = new Date(currentVideoTime * 1000)
-  const mm = pad(date.getUTCMinutes(), 2)
-  const ss = pad(date.getUTCSeconds(), 2)
-  const ms = pad(date.getUTCMilliseconds(), 3)
-  if (mm > 0) {
-    return `${mm}:${ss}:${ms}`
+  if (typeof timeStamp !== 'number' || isNaN(timeStamp)) {
+    return 'NaN'
   }
-  return `${ss}:${ms}`
+
+  if (timeStamp < 1) {
+    return '0:00'
+  }
+
+  let date
+  date = new Date(timeStamp * 1000).toISOString().substring(14, 19)
+  date.replace('.', ':')
+  if (date.slice(0, 2) === '00') {
+    date = date.slice(1)
+  }
+  return date
 }
 
 export default formatTimeStamp

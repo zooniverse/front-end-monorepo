@@ -214,7 +214,11 @@
       "scrubber": "Video player scrubber",
       "playbackSpeed": "Video playback speed selection",
       "play": "Play video",
-      "pause": "Pause video"
+      "pause": "Pause video",
+      "openVolume": "Open Volume Slider",
+      "closeVolume": "Close Volume Slider",
+      "volumeSlider": "Volume Slider",
+      "fullscreen": "Show Video Fullscreen"
     },
     "ZoomControlButton": {
       "enable": "enable zoom",

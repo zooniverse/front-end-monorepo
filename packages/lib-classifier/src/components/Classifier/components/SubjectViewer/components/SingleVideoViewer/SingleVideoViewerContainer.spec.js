@@ -1,61 +1,43 @@
 import React from 'react'
 import { render, screen, waitFor } from '@testing-library/react'
 import { expect } from 'chai'
-import { Factory } from 'rosie'
-import { Provider } from 'mobx-react'
-
-import mockStore from '@test/mockStore'
-import SingleVideoViewerContainer from './SingleVideoViewerContainer'
+import * as stories from './SingleVideoViewerContainer.stories'
+import { composeStories } from '@storybook/testing-react'
 
 describe('Component > SingleVideoViewerContainer', function () {
-  describe('with a video subject src', function () {
-    const mockSubject = Factory.build('subject', {
-      locations: [
-        {
-          'video/mp4': 'https://panoptes-uploads.zooniverse.org/subject_location/239f17f7-acf9-49f1-9873-266a80d29c33.mp4'
-        }
-      ]
-    })
+  const { Default, WithDrawingEnabled, NoSubject } = composeStories(stories)
 
-    const store = mockStore({
-      subject: mockSubject
-    })
-
-    it('should render a video html element with subject url as src', async function () {
-      const { container } = render(
-        <Provider classifierStore={store}>
-          <SingleVideoViewerContainer
-            subject={mockSubject}
-          />
-        </Provider>
-      )
+  describe('with a video subject src and drawing tools disabled', function () {
+    it('should render a video html element and no custom controls', async function () {
+      const { container, queryByTestId } = render(<Default />)
       // We need to wait for React Player to be ready
       await waitFor(() => {
         const videoElement = container.querySelector('video')
         expect(videoElement).exists()
+        const customControls = queryByTestId('video subject viewer custom controls')
+        expect(customControls).to.be.null()
       })
     })
   })
 
   describe('without a video subject src', function () {
-    const emptySubject = Factory.build('subject', {
-      locations: []
-    })
-
-    const store = mockStore({
-      subject: emptySubject
-    })
-
     it('should display an error message and no video html element ', function () {
-      const { container } = render(
-        <Provider classifierStore={store}>
-          <SingleVideoViewerContainer />
-        </Provider>
-      )
+      const { container } = render(<NoSubject />)
+
       const videoElement = container.querySelector('video')
-      const errorMessage = screen.getByText('SubjectViewer.SingleVideoViewerContainer.error')
+      const errorMessage = screen.getByText(
+        'SubjectViewer.SingleVideoViewerContainer.error'
+      )
       expect(videoElement).to.be.null()
       expect(errorMessage).exists()
+    })
+  })
+
+  describe('with drawing tools enabled', function () {
+    it('should display custom video controls', function () {
+      const { getByTestId } = render(<WithDrawingEnabled />)
+      const customControls = getByTestId('video subject viewer custom controls')
+      expect(customControls).exists()
     })
   })
 })
