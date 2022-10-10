@@ -20,7 +20,7 @@ describe('ZooniverseLogo', function () {
     })
 
     it('should set the height and width from the `size` prop', function () {
-      const zooLogo = screen.getByLabelText('Zooniverse')  // Gets the SVG
+      const zooLogo = screen.getByLabelText('Zooniverse Logo')  // Gets the SVG
       expect(zooLogo.getAttribute('height')).to.equal(SIZE)
       expect(zooLogo.getAttribute('width')).to.equal(SIZE)
     })
@@ -36,7 +36,7 @@ describe('ZooniverseLogo', function () {
         />
       )
 
-      const zooLogo = screen.getByLabelText('Zooniverse')  // Gets the SVG
+      const zooLogo = screen.getByLabelText('Zooniverse Logo')  // Gets the SVG
       expect(zooLogo.getAttribute('transform')).to.equal('scale(2)')
     })
   })
