@@ -3,8 +3,11 @@ import { number, string } from 'prop-types'
 
 import SVGContent from './SVGContent'
 
-export default function ZooniverseLogotype (props) {
-  const { id, width, ...rest } = props
+export default function ZooniverseLogotype({
+  id,
+  width = 178,
+  ...rest
+}) {
   const viewBoxHeight = 280.5
   const viewBoxWidth = 2433.8
   const height = (viewBoxHeight / viewBoxWidth) * width
@@ -18,7 +21,7 @@ export default function ZooniverseLogotype (props) {
       {...rest}
     >
       <title id={id}>
-        Zooniverse Logo
+        Zooniverse
       </title>
       <g fill='currentColor' stroke='none'>
         <SVGContent />
@@ -30,8 +33,4 @@ export default function ZooniverseLogotype (props) {
 ZooniverseLogotype.propTypes = {
   id: string.isRequired,
   width: number
-}
-
-ZooniverseLogotype.defaultProps = {
-  width: 178
 }

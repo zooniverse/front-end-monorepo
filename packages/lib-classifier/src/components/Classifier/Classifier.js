@@ -10,6 +10,7 @@ import Layout from './components/Layout'
 import ModalTutorial from './components/ModalTutorial'
 
 export default function Classifier({
+  adminMode = false,
   classifierStore,
   locale,
   onError = () => true,
@@ -56,7 +57,8 @@ export default function Classifier({
     }
   }
 
-  const canPreviewWorkflows = projectRoles.indexOf('owner') > -1 ||
+  const canPreviewWorkflows = adminMode && user?.admin ||
+    projectRoles.indexOf('owner') > -1 ||
     projectRoles.indexOf('collaborator') > -1 ||
     projectRoles.indexOf('tester') > -1
 
@@ -122,6 +124,7 @@ export default function Classifier({
 }
 
 Classifier.propTypes = {
+  adminMode: PropTypes.bool,
   classifierStore: PropTypes.object.isRequired,
   locale: PropTypes.string,
   onError: PropTypes.func,

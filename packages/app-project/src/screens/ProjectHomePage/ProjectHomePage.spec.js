@@ -74,9 +74,11 @@ describe('Component > ProjectHomePage', function () {
     before(function () {
       const snapshot = {
         project: {
+          beta_approved: true,
           configuration: {
             languages: ['en']
           },
+          launch_approved: false,
           slug: 'Foo/Bar',
           strings: {
             display_name: 'Foobar'
@@ -86,7 +88,7 @@ describe('Component > ProjectHomePage', function () {
           }
         }
       }
-      render(<ProjectHomePage inBeta />, { wrapper: withStore(snapshot) })
+      render(<ProjectHomePage />, { wrapper: withStore(snapshot) })
       homePage = screen.getByTestId('project-home-page')
     })
 

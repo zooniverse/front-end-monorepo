@@ -46,6 +46,7 @@ const client = {
 unregisterWorkers('./queue.js')
 
 export default function ClassifierContainer({
+  adminMode = false,
   authClient,
   cachePanoptesData = false,
   locale,
@@ -97,6 +98,7 @@ export default function ClassifierContainer({
         <StrictMode>
           <Provider classifierStore={classifierStore}>
             <Classifier
+              adminMode={adminMode}
               classifierStore={classifierStore}
               locale={locale}
               onError={onError}
@@ -122,6 +124,7 @@ export default function ClassifierContainer({
 }
 
 ClassifierContainer.propTypes = {
+  adminMode: PropTypes.bool,
   authClient: PropTypes.object.isRequired,
   cachePanoptesData: PropTypes.bool,
   locale: PropTypes.string,

@@ -17,16 +17,6 @@ describe('Component > Choice', function () {
 
   const mockTask = SurveyTask.TaskModel.create(task)
 
-  it('should render without crashing', function () {
-    render(
-      <Choice
-        choiceId='KD'
-        task={mockTask}
-      />
-    )
-    expect(screen).to.be.ok()
-  })
-
   it('should call handleDelete when "Not this" button clicked', async function () {
     const handleDeleteSpy = sinon.spy()
     const user = userEvent.setup({ delay: null })
@@ -104,16 +94,6 @@ describe('Component > Choice', function () {
       )
       expect(screen.queryByTestId('choice-images')).to.be.null()
     })
-
-    it('should have the first ConfusedWith button as the document active element', function () {
-      render(
-        <Choice
-          choiceId='NTHNGHR'
-          task={mockTask}
-        />
-      )
-      expect(screen.getByText('Fire')).to.equal(document.activeElement)
-    })
   })
 
   describe('with choice without images or confusions, with questions', function () {
@@ -127,16 +107,6 @@ describe('Component > Choice', function () {
         />
       )
       expect(screen.queryByText('Sometimes confused with')).to.be.null()
-    })
-
-    it('should have the first Questions input as the document active element', function () {
-      render(
-        <Choice
-          choiceId='HMN'
-          task={mockTask}
-        />
-      )
-      expect(screen.getByLabelText('Yes')).to.equal(document.activeElement)
     })
   })
 
@@ -152,16 +122,6 @@ describe('Component > Choice', function () {
       )
       expect(screen.queryAllByRole('radio', { hidden: true })).to.have.lengthOf(0)
       expect(screen.queryAllByRole('checkbox', { hidden: true })).to.have.lengthOf(0)
-    })
-
-    it('should have the "Identify" button as the document active element', function () {
-      render(
-        <Choice
-          choiceId='FR'
-          task={mockTask}
-        />
-      )
-      expect(screen.getByRole('button', { name: 'SurveyTask.Choice.identify' }, { hidden: true })).to.equal(document.activeElement)
     })
   })
 })

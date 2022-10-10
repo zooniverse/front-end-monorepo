@@ -8,7 +8,7 @@ import Choices from './components/Choices'
 import ClearFilters from './components/CharacteristicsFilter/ClearFilters'
 import getFilteredChoiceIds from './helpers/getFilteredChoiceIds'
 
-function Chooser({
+function Chooser ({
   autoFocus = false,
   disabled = false,
   filters = {},
@@ -18,16 +18,19 @@ function Chooser({
   selectedChoiceIds = [],
   task
 }) {
+  const showFilters = Object.keys(task.characteristics).length > 0
   const filteredChoiceIds = getFilteredChoiceIds(filters, task)
 
   return (
     <Box>
-      <FilterStatus
-        disabled={disabled}
-        filters={filters}
-        handleFilter={handleFilter}
-        task={task}
-      />
+      {showFilters
+        ? (<FilterStatus
+            disabled={disabled}
+            filters={filters}
+            handleFilter={handleFilter}
+            task={task}
+           />)
+        : null}
       <Choices
         autoFocus={autoFocus}
         disabled={disabled}
@@ -37,11 +40,13 @@ function Chooser({
         selectedChoiceIds={selectedChoiceIds}
         task={task}
       />
-      <ClearFilters
-        handleFilter={handleFilter}
-        showingChoices={filteredChoiceIds.length}
-        totalChoices={task.choicesOrder?.length}
-      />
+      {showFilters
+        ? (<ClearFilters
+            handleFilter={handleFilter}
+            showingChoices={filteredChoiceIds.length}
+            totalChoices={task.choicesOrder?.length}
+           />)
+        : null}
     </Box>
   )
 }

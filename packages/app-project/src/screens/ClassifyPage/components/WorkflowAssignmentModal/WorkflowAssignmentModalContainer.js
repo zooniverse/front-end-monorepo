@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import WorkflowAssignmentModal from './WorkflowAssignmentModal'
 
-function WorkflowAssignmentModalContainer (props) {
-  const {
-    assignedWorkflowID = '',
-    currentWorkflowID = '',
-    promptAssignment = () => { }
-  } = props
-  const [ active, setActive ] = useState(false)
+function WorkflowAssignmentModalContainer ({
+  assignedWorkflowID = '',
+  currentWorkflowID = '',
+  promptAssignment = () => false
+}) {
+  const showPrompt = useMemo(() => promptAssignment(currentWorkflowID), [currentWorkflowID, promptAssignment])
+  const [ active, setActive ] = useState(showPrompt)
   const [ dismissedForSession, setDismissed ] = useState(false)
 
   // TODO: integrate session storage
@@ -21,12 +21,12 @@ function WorkflowAssignmentModalContainer (props) {
   }
 
   useEffect(() => {
-    if (promptAssignment(currentWorkflowID)) {
-      if (!dismissedForSession) setActive(true)
+    if (showPrompt && !dismissedForSession) {
+      setActive(true)
     }
 
     return () => setActive(false)
-  }, [assignedWorkflowID, currentWorkflowID])
+  }, [assignedWorkflowID, dismissedForSession, showPrompt])
 
   if (assignedWorkflowID) {
     return (

@@ -4,6 +4,7 @@ import auth from 'panoptes-client/lib/auth'
 import { bool, func, string, shape } from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 
+import { useAdminMode } from '@hooks'
 import addQueryParams from '@helpers/addQueryParams'
 import { logToSentry } from '@helpers/logger'
 import ErrorMessage from './components/ErrorMessage'
@@ -35,6 +36,7 @@ export default function ClassifierWrapper({
   workflowID,
   yourStats
 }) {
+  const { adminMode } = useAdminMode()
   const nextRouter = useRouter()
   router = router || nextRouter
   const locale = router?.locale
@@ -92,6 +94,7 @@ export default function ClassifierWrapper({
       const key = userID || 'no-user'
       return (
         <Classifier
+          adminMode={adminMode}
           authClient={authClient}
           cachePanoptesData={cachePanoptesData}
           key={key}

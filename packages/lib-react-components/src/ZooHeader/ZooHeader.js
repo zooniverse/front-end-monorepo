@@ -32,18 +32,17 @@ export const StyledLogoAnchor = styled(Anchor)`
   }
 `
 
-export default function ZooHeader (props) {
-  const {
-    isAdmin,
-    isNarrow,
-    register,
-    signIn,
-    signOut,
-    unreadMessages,
-    unreadNotifications,
-    user
-  } = props
-
+export default function ZooHeader({
+  isAdmin,
+  isNarrow,
+  register,
+  signIn,
+  signOut,
+  unreadMessages,
+  unreadNotifications,
+  user = {},
+  ...props
+}) {
   const { t } = useTranslation()
 
   const host = getHost()
@@ -74,17 +73,15 @@ export default function ZooHeader (props) {
       justify='between'
       pad='none'
       responsive={false}
-      role='presentation'
-      tag='header'
       {...props}
     >
       <Box
+        as='nav'
         align='center'
         aria-label={t('ZooHeader.ariaLabel')}
         direction='row'
         pad={{ horizontal: 'medium' }}
         responsive={false}
-        tag='nav'
       >
         <StyledLogoAnchor href='http://www.zooniverse.org'>
           <ZooniverseLogo size='1.25em' id='HeaderZooniverseLogo' />

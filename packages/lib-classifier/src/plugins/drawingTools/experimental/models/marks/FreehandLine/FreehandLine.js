@@ -4,7 +4,7 @@ import { Mark } from '@plugins/drawingTools/models/marks'
 import { FreehandLineTool } from '@plugins/drawingTools/models/tools'
 import { FixedNumber } from '@plugins/drawingTools/types/'
 
-
+const LINE_RESOLUTION = 0.5
 const MINIMUM_POINTS = 20
 
 const SingleCoord = types.model('SingleCoord', {
@@ -14,25 +14,25 @@ const SingleCoord = types.model('SingleCoord', {
 
 const FreehandLineModel = types
   .model('FreehandLineModel', {
-    points: types.array(SingleCoord)
+    pathX: types.array(FixedNumber),
+    pathY: types.array(FixedNumber)
   })
   .views((self) => ({
     get coords() {
-      return {
-        x: self.points[0]?.x,
-        y: self.points[0]?.y
-      }
+      const [x] = self.pathX
+      const [y] = self.pathY
+      return { x, y }
     },
 
     deleteButtonPosition(scale) {
       const BUFFER = 16
-      const x = self.points[0].x - BUFFER / scale
-      const y = self.points[0].y - BUFFER / scale
+      const x = self.pathX[0] - BUFFER / scale
+      const y = self.pathY[0] - BUFFER / scale
       return { x, y }
     },
 
     get isValid() {
-      return self.points.length > MINIMUM_POINTS
+      return self.pathX.length > MINIMUM_POINTS
     },
 
     get tool() {
@@ -40,42 +40,28 @@ const FreehandLineModel = types
     },
 
     get initialPoint() {
-      const [firstCoord] = self.points
-      if (!firstCoord) {
+      const [x] = self.pathX
+      const [y] = self.pathY
+      if (!x) {
         return null
       }
-      return firstCoord
+      return { x, y }
     },
 
     get lastPoint() {
-      const lastCoord = self.points.at(-1)
-      if (!lastCoord) {
+      const x = self.pathX.at(-1)
+      const y = self.pathY.at(-1)
+      if (!x) {
         return null
       }
-      return lastCoord
+      return { x, y }
     },
 
-    get path() {
-      const [firstCoord, ...otherCoords] = self.points
-      if (!firstCoord) {
-        return ''
-      }
-      const path = [`M ${firstCoord.x},${firstCoord.y}`]
-      otherCoords.forEach(point => {
-        const { x, y } = point
-        const pointPath = point === self.targetPoint ? `M ${x},${y}` : `L ${x},${y}`
-        path.push(pointPath)
+    get points() {
+      return self.pathX.map((x, index) => {
+        const y = self.pathY[index]
+        return { x, y }
       })
-      // closes the drawing path
-      if (self.isClosed) {
-        if (self.dragPoint) {
-          const { x, y } = self.initialPoint
-          path.push(`L ${x},${y}`)
-        } else {
-          path.push(`Z`)
-        }
-      }
-      return path.join(' ')
     },
 
     get isClosed() {
@@ -117,18 +103,24 @@ const FreehandLineModel = types
   }))
   .actions((self) => ({
     initialPosition({ x, y }) {
-      self.points.push({ x, y })
+      self.pathX.push(x)
+      self.pathY.push(y)
       self.dragPoint = null
       self.targetPoint = null
       self.clipPath = []
     },
 
     initialDrag({ x, y }) {
-      self.points.push({ x: x, y: y })
+      const dist = self.getDistance(x, y, self.lastPoint.x, self.lastPoint.y)
+      if (dist > LINE_RESOLUTION) {
+        self.pathX.push(x)
+        self.pathY.push(y)
+      }
     },
 
     setCoordinates(points) {
-      self.points = points.map(({ x, y }) => ({ x, y }))
+      self.pathX = points.map(({ x, y }) => x)
+      self.pathY = points.map(({ x, y }) => y)
     },
 
     move() {
@@ -136,9 +128,12 @@ const FreehandLineModel = types
     },
 
     appendPath({ x, y }) {
-      if (!self.isClosed) {
-        self.points.push({ x, y})
-      } else {
+      const dist = self.getDistance(x, y, self.lastPoint.x, self.lastPoint.y)
+      if (dist > LINE_RESOLUTION && !self.isClosed) {
+        self.pathX.push(x)
+        self.pathY.push(y)
+      }
+      if (self.isClosed) {
         self.clipPath = []
       }
     },
@@ -147,12 +142,16 @@ const FreehandLineModel = types
       if (!self.targetPoint) {
         return true
       }
-      const dragIndex = self.points.indexOf(self.dragPoint)
-      const nextPoint = dragIndex + 1
-      self.points.splice(nextPoint, 0, { x, y })
-      self.dragPoint = self.points[nextPoint]
-      if (self.isCloseToStart) {
-        self.clipPath = []
+      const dist = self.getDistance(x, y, self.dragPoint.x, self.dragPoint.y)
+      if (dist > LINE_RESOLUTION) {
+        const dragIndex = self.points.indexOf(self.dragPoint)
+        const nextPoint = dragIndex + 1
+        self.pathX.splice(nextPoint, 0, x)
+        self.pathY.splice(nextPoint, 0, y)
+        self.dragPoint = self.points[nextPoint]
+        if (self.isCloseToStart) {
+          self.clipPath = []
+        }
       }
     },
 
@@ -220,7 +219,8 @@ const FreehandLineModel = types
     shortenPath() {
       let lengthToRemove = 20
       while (lengthToRemove--) {
-        self.points.pop()
+        self.pathX.pop()
+        self.pathY.pop()
       }
     },
 
@@ -233,14 +233,16 @@ const FreehandLineModel = types
       */
       if (firstPoint === endIndex) {
         const lastIndex = self.points.length - 1
-        self.points.reverse()
+        self.pathX.reverse()
+        self.pathY.reverse()
         firstPoint = lastIndex - startIndex
         lastPoint = lastIndex - endIndex
       }
       const deleteCount = lastPoint - firstPoint - 1
       const clippedPoints = self.points.slice(firstPoint, lastPoint + 1)
       self.clipPath = clippedPoints.map(({ x, y }) => ({ x, y }))
-      self.points.splice(firstPoint + 1, deleteCount)
+      self.pathX.splice(firstPoint + 1, deleteCount)
+      self.pathY.splice(firstPoint + 1, deleteCount)
       // Make the ends of the spliced section draggable.
       self.dragPoint = self.points[firstPoint]
       self.targetPoint = self.points[firstPoint + 1]
@@ -256,16 +258,19 @@ const FreehandLineModel = types
       */
       if (lastPoint === endIndex) {
         const lastIndex = self.points.length - 1
-        self.points.reverse()
+        self.pathX.reverse()
+        self.pathY.reverse()
         lastPoint = lastIndex - startIndex
         firstPoint = lastIndex - endIndex
       }
       const clippedPoints = [ ...self.points.slice(lastPoint), ...self.points.slice(0, firstPoint + 1)]
       self.clipPath = clippedPoints.map(({ x, y }) => ({ x, y }))
       // Move the end of the line back to lastPoint.
-      self.points.splice(lastPoint + 1)
+      self.pathX.splice(lastPoint + 1)
+      self.pathY.splice(lastPoint + 1)
       // Move the start of the line forward to firstPoint.
-      self.points.splice(0, firstPoint)
+      self.pathX.splice(0, firstPoint)
+      self.pathY.splice(0, firstPoint)
       // Make the ends of the new, open line draggable.
       self.dragPoint = null
       self.targetPoint = null

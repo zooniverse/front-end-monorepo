@@ -48,6 +48,9 @@
       ]
     }
   },
+  "DrawingTools": {
+    "RotateHandle": "Handle for rotating drawn annotation/mark."
+  },
   "FeedbackModal": {
     "keepClassifying": "Keep Classifying",
     "label": "Feedback"

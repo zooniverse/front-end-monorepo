@@ -38,17 +38,8 @@ describe('Components > Subject Picker > helpers > fetchStatuses', function () {
         { id: 3, already_seen: true, retired: true }
       ]
     })
-    subjects = await fetchSubjects('1')
-    const callback = sinon.stub().callsFake(newData => {
-      if (typeof newData === 'function') {
-        subjects = newData(subjects)
-        return subjects
-      }
-      subjects = newData
-      return subjects
-    })
-    const t = (key) => key
-    await fetchStatuses(callback, 10, subjects, t, workflow)
+    const panoptesSubjects = await fetchSubjects('1')
+    subjects = await fetchStatuses(panoptesSubjects, workflow)
   })
 
   it('should generate subject data table rows with classification statuses', function () {

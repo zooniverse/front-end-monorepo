@@ -54,26 +54,30 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
   const { indexFields } = subjectSet.metadata
   const customHeaders = indexFields.split(',')
 
-  async function fetchSubjectData() {
-    // Resetting the rows is important when fetchSubjectData() occurs as a
-    // result of changing the sort order, when the number of subjects exceeds
-    // PAGE_SIZE. Otherwise, we see a "visual hiccup" where the SubjectPicker
-    // first sorts the OLD set of subjects (say) 1-100, then fetches the new set
-    // of subjects (say) 899-999 (with the opposite sort logic), then sorts the
-    // new set.
-    // See https://github.com/zooniverse/front-end-monorepo/pull/2466#issuecomment-931547044
-    // for details.
-    setIsFetching(true)
-
-    const subjects = await fetchSubjects(subjectSet.id, query, sortField, sortOrder)
-    setRows(subjects)
-    setIsFetching(false)
-    await fetchStatuses(setRows, PAGE_SIZE, subjects, t, workflow)
-  }
+  rows.forEach(row => {
+    row.status = t(row.status)
+  })
 
   useEffect(function onChange() {
+    async function fetchSubjectData() {
+      // Resetting the rows is important when fetchSubjectData() occurs as a
+      // result of changing the sort order, when the number of subjects exceeds
+      // PAGE_SIZE. Otherwise, we see a "visual hiccup" where the SubjectPicker
+      // first sorts the OLD set of subjects (say) 1-100, then fetches the new set
+      // of subjects (say) 899-999 (with the opposite sort logic), then sorts the
+      // new set.
+      // See https://github.com/zooniverse/front-end-monorepo/pull/2466#issuecomment-931547044
+      // for details.
+      setIsFetching(true)
+
+      const subjects = await fetchSubjects(subjectSet.id, query, sortField, sortOrder)
+      const newRows = await fetchStatuses(subjects, workflow, PAGE_SIZE)
+      setRows(newRows)
+      setIsFetching(false)
+    }
+
     fetchSubjectData()
-  }, [query, sortField, sortOrder])
+  }, [query, sortField, sortOrder, subjectSet.id, workflow])
 
   function search(data) {
     const query = searchParams(data)

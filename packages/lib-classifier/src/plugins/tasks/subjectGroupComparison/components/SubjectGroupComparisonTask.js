@@ -42,7 +42,7 @@ function SubjectGroupComparisonTask (props) {
       disabled={disabled}
       theme={theme}
     >
-      <StyledText size='small' tag='legend'>
+      <StyledText as='legend' size='small'>
         <Markdownz>
           {task.question}
         </Markdownz>

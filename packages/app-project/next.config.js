@@ -9,6 +9,7 @@ const { i18n } = require('./next-i18next.config')
 
 const talkHosts = require('./config/talkHosts')
 const assetPrefixes = {
+  development: '/projects',
   branch: 'https://fe-project-branch.preview.zooniverse.org/projects',
   staging: 'https://frontend.preview.zooniverse.org/projects',
   static: 'https://fe-static.zooniverse.org/projects',
@@ -28,7 +29,7 @@ const webpackConfig = require('./webpack.config')
 const SENTRY_PROJECT_DSN = 'https://2a50683835694829b4bc3cccc9adcc1b@sentry.io/1492691'
 const APP_ENV = process.env.APP_ENV || 'development'
 const COMMIT_ID = process.env.COMMIT_ID || commitID()
-const assetPrefix = assetPrefixes[APP_ENV] || ''
+const assetPrefix = assetPrefixes[APP_ENV]
 const TALK_HOST = talkHosts[PANOPTES_ENV]
 
 console.info({ APP_ENV, PANOPTES_ENV, TALK_HOST , assetPrefix })

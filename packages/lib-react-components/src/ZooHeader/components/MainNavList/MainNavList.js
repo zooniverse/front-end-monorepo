@@ -3,16 +3,14 @@ import PropTypes from 'prop-types'
 import NavListItem from '../NavListItem'
 import { Box } from 'grommet'
 
-export default function MainNavList (props) {
-  const {
-    adminNavLinkLabel,
-    adminNavLinkURL,
-    isAdmin,
-    isNarrow,
-    mainHeaderNavListLabels,
-    mainHeaderNavListURLs
-  } = props
-
+export default function MainNavList({
+  adminNavLinkLabel,
+  adminNavLinkURL,
+  isAdmin,
+  isNarrow,
+  mainHeaderNavListLabels,
+  mainHeaderNavListURLs
+}) {
   if (isNarrow) return null
 
   return (

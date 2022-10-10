@@ -26,23 +26,22 @@ function RecentSubjectsContainer({ carousel = false, mockStore }) {
   const [loading, setLoading] = useState(asyncStates.initialized)
   const [subjects, setSubjects] = useState([])
 
-  async function onMount() {
-    setLoading(asyncStates.loading)
-    try {
-      const fetchedSubjects = await fetchRecentSubjects(projectId)
-      if (fetchedSubjects) {
-        setLoading(asyncStates.success)
-        setSubjects(fetchedSubjects)
-      }
-    } catch (error) {
-      console.error(error)
-      setLoading(asyncStates.error)
-    }
-  }
-
   useEffect(() => {
-    onMount()
-  }, [])
+    async function fetchProjectTalkSubjects() {
+      setLoading(asyncStates.loading)
+      try {
+        const fetchedSubjects = await fetchRecentSubjects(projectId)
+        if (fetchedSubjects) {
+          setLoading(asyncStates.success)
+          setSubjects(fetchedSubjects)
+        }
+      } catch (error) {
+        console.error(error)
+        setLoading(asyncStates.error)
+      }
+    }
+    fetchProjectTalkSubjects()
+  }, [projectId])
 
   const href = `/projects/${slug}/talk`
   const ThumbnailComponent = carousel ? RecentSubjectsCarousel : RecentSubjects

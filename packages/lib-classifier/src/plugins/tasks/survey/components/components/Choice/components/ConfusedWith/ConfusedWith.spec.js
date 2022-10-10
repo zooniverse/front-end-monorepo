@@ -53,8 +53,8 @@ describe('Component > ConfusedWith', function () {
     )
 
     expect(screen.getAllByRole('button')).to.have.lengthOf(2)
-    expect(screen.getByRole('button', { name: 'Eland' })).to.exist()
-    expect(screen.getByRole('button', { name: 'Hartebeest' })).to.exist()
+    expect(screen.getByRole('button', { name: 'Elephant' })).to.exist()
+    expect(screen.getByRole('button', { name: 'Aardvark' })).to.exist()
   })
 
   describe('with hasFocus of true', function () {
@@ -70,7 +70,7 @@ describe('Component > ConfusedWith', function () {
           theme={zooTheme}
         />
       )
-      expect(screen.getByRole('button', { name: 'Eland' })).to.equal(document.activeElement)
+      expect(screen.getByRole('button', { name: 'Elephant' })).to.equal(document.activeElement)
     })
 
     it('should not have the other confused with button as the document active element', function () {
@@ -85,7 +85,7 @@ describe('Component > ConfusedWith', function () {
           theme={zooTheme}
         />
       )
-      expect(screen.getByRole('button', { name: 'Hartebeest' })).to.not.equal(document.activeElement)
+      expect(screen.getByRole('button', { name: 'Aardvark' })).to.not.equal(document.activeElement)
     })
   })
 })
