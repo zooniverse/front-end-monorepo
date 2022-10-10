@@ -10,7 +10,7 @@ The Zooniverse video player has a slider who's percentage `timeStamp` values are
 
 E.g. `0.287` or `0.962`
 
-**duration:** Optional. Type: number. This is the total length of the video. This must be a number.
+**duration:** Optional. Type: number. This is the total length of the video, in seconds. This must be a number.
 
 E.g. `4.025` or `8.480`
 
