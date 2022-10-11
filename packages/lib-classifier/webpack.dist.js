@@ -30,7 +30,6 @@ module.exports = {
     'grommet-icons',
     'react',
     'react-dom',
-    'seven-ten',
     'styled-components'
   ],
   mode: 'production',
