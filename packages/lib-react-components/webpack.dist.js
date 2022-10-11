@@ -1,3 +1,4 @@
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const path = require('path')
 
@@ -25,8 +26,10 @@ module.exports = {
     '@zooniverse/grommet-theme': '@zooniverse/grommet-theme',
     grommet: 'grommet',
     'grommet-icons': 'grommet-icons',
+    i18next: 'i18next',
     react: 'react',
     'react-dom': 'react-dom',
+    'react-18next': 'react-i18next',
     'styled-components': 'styled-components'
   },
   output: {
@@ -39,6 +42,8 @@ module.exports = {
     globalObject: `typeof self !== 'undefined' ? self : this`
   },
   plugins: [
+    // uncomment this to build with the bundle analyser.
+    // new BundleAnalyzerPlugin(),
     new CleanWebpackPlugin()
   ],
   resolve: {

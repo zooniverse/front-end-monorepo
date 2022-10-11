@@ -6,6 +6,7 @@ import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
 import auth from 'panoptes-client/lib/auth'
+import nock from 'nock'
 import sinon from 'sinon'
 
 import initStore from '@stores'
@@ -23,6 +24,20 @@ describe('Component > ZooHeaderWrapperContainer', function () {
   }
 
   beforeEach(function () {
+    nock('https://talk-staging.zooniverse.org')
+    .get('/notifications')
+    .query(true)
+    .reply(200, {})
+    .get('/conversations')
+    .query(true)
+    .reply(200, {})
+    // TODO: Recent Talk subjects are using the Panoptes client instead of the Talk API client.
+    nock('https://panoptes-staging.zooniverse.org/api')
+    .persist()
+    .get('/comments')
+    .query(true)
+    .reply(200, { comments: [] })
+
     sinon.stub(auth, 'signOut').callsFake(() => Promise.resolve())
     window.sessionStorage.setItem("subjectsSeenThisSession", JSON.stringify(["1234/5678"]))
     const snapshot = {
@@ -55,7 +70,7 @@ describe('Component > ZooHeaderWrapperContainer', function () {
         </Provider>
       </RouterContext.Provider>
     )
-    siteMenu = screen.getByRole('navigation', { name: 'Site' })
+    siteMenu = screen.getByRole('navigation', { name: 'ZooHeader.ariaLabel' })
   })
 
   afterEach(function () {
@@ -92,7 +107,7 @@ describe('Component > ZooHeaderWrapperContainer', function () {
 
     it('should navigate to ./?login=true', async function () {
       const user = userEvent.setup({ delay: null })
-      signInButton = screen.getByRole('button', { name: 'Sign In' })
+      signInButton = screen.getByRole('button', { name: 'ZooHeader.SignedOutUserNavigation.signIn' })
       await user.click(signInButton)
       expect(pageURL.toString()).to.equal('https://localhost/?login=true')
     })
@@ -107,7 +122,7 @@ describe('Component > ZooHeaderWrapperContainer', function () {
 
     it('should navigate to ./?register=true', async function () {
       const user = userEvent.setup({ delay: null })
-      registerButton = screen.getByRole('button', { name: 'Register' })
+      registerButton = screen.getByRole('button', { name: 'ZooHeader.SignedOutUserNavigation.register' })
       await user.click(registerButton)
       expect(pageURL.toString()).to.equal('https://localhost/?register=true')
     })

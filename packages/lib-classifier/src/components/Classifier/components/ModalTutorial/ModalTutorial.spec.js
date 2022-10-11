@@ -116,7 +116,7 @@ describe('ModalTutorial', function () {
           wrapper: withStore(store)
         }
       )
-      const closeButton = screen.getByRole('button', { name: 'Close' })
+      const closeButton = screen.getByRole('button', { name: 'CloseButton.close' })
       await user.click(closeButton)
       const upp = store.userProjectPreferences.active
       expect(upp?.preferences.tutorials_completed_at[tutorial.id]).to.equal(seen)
@@ -136,7 +136,7 @@ describe('ModalTutorial', function () {
       )
       let tutorialTitle = screen.getByRole('heading', { level: 2, name: 'ModalTutorial.title' })
       expect(tutorialTitle).to.be.ok()
-      const closeButton = screen.getByRole('button', { name: 'Close' })
+      const closeButton = screen.getByRole('button', { name: 'CloseButton.close' })
       await user.click(closeButton)
       tutorialTitle = screen.queryByRole('heading', { level: 2, name: 'ModalTutorial.title' })
       expect(tutorialTitle).to.be.null()

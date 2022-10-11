@@ -56,7 +56,7 @@ describe('Component > StandardLayout', function () {
     render(<StandardLayout />, { wrapper: withStore(snapshot)})
     zooHeader = screen.getByRole('banner')
     zooFooter = screen.getByRole('contentinfo')
-    adminToggle = within(zooFooter).queryByRole('checkbox', { name: 'Admin Mode' })
+    adminToggle = within(zooFooter).queryByRole('checkbox', { name: 'AdminCheckbox.label' })
   })
 
   after(function () {
@@ -157,7 +157,7 @@ describe('Component > StandardLayout', function () {
       render(<StandardLayout />, { wrapper: withStore(snapshot)})
       zooHeader = screen.getByRole('banner')
       zooFooter = screen.getByRole('contentinfo')
-      adminToggle = within(zooFooter).getByRole('checkbox', { name: 'Admin Mode' })
+      adminToggle = within(zooFooter).getByRole('checkbox', { name: 'AdminCheckbox.label' })
     })
 
     it('should show the admin toggle', function () {
@@ -192,7 +192,7 @@ describe('Component > StandardLayout', function () {
       projectPage = screen.getByTestId('project-page')
       zooHeader = screen.getByRole('banner')
       zooFooter = screen.getByRole('contentinfo')
-      adminToggle = within(zooFooter).getByRole('checkbox', { name: 'Admin Mode' })
+      adminToggle = within(zooFooter).getByRole('checkbox', { name: 'AdminCheckbox.label' })
     })
 
     after(function () {

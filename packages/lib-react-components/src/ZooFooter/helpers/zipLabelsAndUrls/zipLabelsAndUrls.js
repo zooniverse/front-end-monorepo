@@ -1,4 +1,4 @@
-import { zipWith } from 'lodash'
+import zipWith from 'lodash/zipWith'
 
 export default function zipLabelsAndUrls (labels, urls) {
   return zipWith(labels, urls, zipFunction)

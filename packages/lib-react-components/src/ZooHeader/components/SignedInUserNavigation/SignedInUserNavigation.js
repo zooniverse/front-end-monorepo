@@ -1,17 +1,43 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Box } from 'grommet'
+import { Blank } from 'grommet-icons'
 import { useTranslation } from 'react-i18next'
 import '../../../translations/i18n'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBell as fasBell, faEnvelope as fasEnvelope } from '@fortawesome/free-solid-svg-icons'
-import { faBell as farBell, faEnvelope as farEnvelope } from '@fortawesome/free-regular-svg-icons'
+import { faBell as fasBell } from '@fortawesome/free-solid-svg-icons/faBell'
+import { faBell as farBell } from '@fortawesome/free-regular-svg-icons/faBell'
+import { faEnvelope as fasEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope'
+import { faEnvelope as farEnvelope } from '@fortawesome/free-regular-svg-icons/faEnvelope'
+import styled from 'styled-components'
 
 import NarrowMainNavMenu from '../NarrowMainNavMenu'
 import NavListItem from '../NavListItem'
 import UserMenu from '../UserMenu'
 import { getHost } from '../../helpers'
+
+const StyledBlank = styled(Blank)`
+  height: 1em;
+  vertical-align: -0.125em;
+`
+function FontAwesomeIcon({ color, icon, title }) {
+  const [width, height, aliases, unicode, path] = icon.icon
+  return (
+    <StyledBlank
+      role='img'
+      aria-label={title}
+      aria-hidden='false'
+      color={color}
+      viewBox={`0 0 ${width} ${height}`}
+    >
+      <path
+        strokeWidth='1'
+        fill='currentColor'
+        d={path}
+      />
+    </StyledBlank>
+  )
+}
 
 export default function SignedInUserNavigation({
   adminNavLinkLabel,

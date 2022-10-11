@@ -28,8 +28,10 @@ module.exports = {
     '@zooniverse/react-components',
     'grommet',
     'grommet-icons',
+    'i18next',
     'react',
     'react-dom',
+    'react-i18next',
     'styled-components'
   ],
   mode: 'production',

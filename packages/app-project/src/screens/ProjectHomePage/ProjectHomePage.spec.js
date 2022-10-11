@@ -72,7 +72,7 @@ describe('Component > ProjectHomePage', function () {
     render(<ProjectHomePage />, { wrapper: withStore(snapshot) })
     homePage = screen.getByTestId('project-home-page')
     const zooFooter = within(homePage).getByRole('contentinfo')
-    adminToggle = within(zooFooter).queryByRole('checkbox', { name: 'Admin Mode' })
+    adminToggle = within(zooFooter).queryByRole('checkbox', { name: 'AdminCheckbox.label' })
   })
 
   after(function () {
@@ -142,7 +142,7 @@ describe('Component > ProjectHomePage', function () {
       render(<ProjectHomePage />, { wrapper: withStore(snapshot) })
       homePage = screen.getByTestId('project-home-page')
       const zooFooter = within(homePage).getByRole('contentinfo')
-      adminToggle = within(zooFooter).getByRole('checkbox', { name: 'Admin Mode' })
+      adminToggle = within(zooFooter).getByRole('checkbox', { name: 'AdminCheckbox.label' })
     })
 
     it('should not have a border', function () {
@@ -182,7 +182,7 @@ describe('Component > ProjectHomePage', function () {
       render(<ProjectHomePage />, { wrapper: withStore(snapshot) })
       homePage = screen.getByTestId('project-home-page')
       const zooFooter = within(homePage).getByRole('contentinfo')
-      adminToggle = within(zooFooter).getByRole('checkbox', { name: 'Admin Mode' })
+      adminToggle = within(zooFooter).getByRole('checkbox', { name: 'AdminCheckbox.label' })
     })
 
     after(function () {

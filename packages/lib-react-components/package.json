@@ -16,16 +16,12 @@
     "test:ci": "mocha --config ./test/.mocharc.json --reporter=min \"./src/**/*.spec.js\""
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "~6.2.0",
     "@fortawesome/free-regular-svg-icons": "~6.2.0",
     "@fortawesome/free-solid-svg-icons": "~6.2.0",
-    "@fortawesome/react-fontawesome": "~0.2.0",
     "@tippyjs/react": "~4.2.6",
     "formik": "~2.2.9",
-    "i18next": "~22.0.1",
-    "mime-types": "~2.1.21",
+    "mime": "~3.0.0",
     "prop-types": "~15.8.1",
-    "react-i18next": "~12.0.0",
     "react-resize-detector": "~7.1.1",
     "react-rnd": "10.3.7",
     "remark": "~12.0.1",
@@ -39,10 +35,12 @@
   },
   "peerDependencies": {
     "@zooniverse/grommet-theme": "3.x.x",
-    "grommet": "2.17.x",
+    "grommet": "2.x.x",
     "grommet-icons": "4.x.x",
+    "i18next": "22.x.x",
     "react": ">= 16.14",
     "react-dom": ">= 16.14",
+    "react-i18next": "12.x.x",
     "styled-components": "5.x.x"
   },
   "devDependencies": {
@@ -75,6 +73,7 @@
     "enzyme": "~3.11.0",
     "grommet": "~2.27.0",
     "grommet-icons": "~4.8.0",
+    "i18next": "~22.0.1",
     "jsdom": "~20.0.0",
     "lodash": "~4.17.11",
     "mocha": "~10.1.0",
@@ -83,6 +82,7 @@
     "polished": "~4.2.2",
     "react": "~17.0.2",
     "react-dom": "~17.0.2",
+    "react-i18next": "~12.0.0",
     "rehype-stringify": "~8.0.0",
     "remark-rehype": "~8.1.0",
     "sinon": "~14.0.0",
@@ -92,6 +92,7 @@
     "style-loader": "~3.3.1",
     "styled-components": "~5.3.3",
     "webpack": "~5.75.0",
+    "webpack-bundle-analyzer": "~4.6.1",
     "webpack-cli": "~5.0.0"
   },
   "engines": {

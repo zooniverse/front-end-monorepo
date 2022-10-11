@@ -43,7 +43,7 @@ describe('Components > MetaTools', function () {
         name: 'MetaTools.MetadataButton.label'
       })
       favourite = screen.getByRole('checkbox', {
-        name: 'Add to favorites'
+        name: 'FavouritesButton.add'
       })
       hidePreviousMarks = screen.queryByRole('checkbox', {
         name: 'FormView MetaTools.HidePreviousMarksDrawingButton.hide'
@@ -92,7 +92,7 @@ describe('Components > MetaTools', function () {
         name: 'MetaTools.MetadataButton.label'
       })
       favourite = screen.getByRole('checkbox', {
-        name: 'Add to favorites'
+        name: 'FavouritesButton.add'
       })
       hidePreviousMarks = screen.getByRole('checkbox', {
         name: 'FormView MetaTools.HidePreviousMarksDrawingButton.hide'
@@ -142,7 +142,7 @@ describe('Components > MetaTools', function () {
         name: 'MetaTools.MetadataButton.label'
       })
       favourite = screen.getByRole('checkbox', {
-        name: 'Add to favorites'
+        name: 'FavouritesButton.add'
       })
       hidePreviousMarks = screen.queryByRole('checkbox', {
         name: 'FormView MetaTools.HidePreviousMarksDrawingButton.hide'
@@ -193,7 +193,7 @@ describe('Components > MetaTools', function () {
         name: 'MetaTools.MetadataButton.label'
       })
       favourite = screen.getByRole('checkbox', {
-        name: 'Added to favorites'
+        name: 'FavouritesButton.remove'
       })
       hidePreviousMarks = screen.queryByRole('checkbox', {
         name: 'FormView MetaTools.HidePreviousMarksDrawingButton.hide'
