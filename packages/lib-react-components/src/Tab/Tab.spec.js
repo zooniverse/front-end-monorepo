@@ -45,13 +45,13 @@ describe('Component > Tab', function () {
   })
 
   describe('with complex props', function () {
-    it('should should pass through the `title` prop if it\'s a component', function () {
+    beforeEach(function () {
       const ComplexTitle = () => (
-        <div>
-          <Key size='small' />
+        <span>
+          <Key data-testid='icon' size='small' a11yTitle={'Restricted Section:'} />
           &nbsp;
-          <b data-testid="b-tag">Special</b>
-        </div>
+          <span data-testid='text'>Members Only</span>
+        </span>
       )
 
       render(
@@ -62,11 +62,18 @@ describe('Component > Tab', function () {
           </Tabs>
         </Grommet>
       )
+    })
 
-      const keySvg = screen.getByLabelText('Key')
-      const bTag = screen.getByTestId('b-tag')
-      expect(keySvg).to.exist()
-      expect(bTag).to.exist()
+    it('should pass through the `title` prop if it\'s a component', function () {
+      const icon = screen.getByTestId('icon')
+      const text = screen.getByTestId('text')
+      expect(icon).to.exist()
+      expect(text).to.exist()
+    })
+
+    it('should render the complex title in a way accessible to screen readers', function () {
+      const title = screen.getByRole('tab', { name: 'Restricted Section: Members Only' })
+      expect(title).to.exist()
     })
   })
 })

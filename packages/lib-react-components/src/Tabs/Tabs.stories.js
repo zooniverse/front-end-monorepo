@@ -23,9 +23,9 @@ export default {
 
 const ComplexTitle = () => (
   <span>
-    <Key size='small' />
+    <Key size='small' a11yTitle={'Restricted Section:'} />
     &nbsp;
-    <span>Special</span>
+    <span>Members Only</span>
   </span>
 )
 
