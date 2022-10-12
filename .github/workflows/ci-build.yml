@@ -20,7 +20,7 @@ jobs:
       - run: yarn install --production=false --frozen-lockfile
       - run: yarn workspace @zooniverse/react-components build
       - run: yarn workspace @zooniverse/classifier build
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: build
           path: packages/*/dist/main.js
