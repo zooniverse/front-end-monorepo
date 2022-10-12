@@ -14,16 +14,13 @@ jobs:
 
    steps: 
     # See: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow#using-the-checkout-action
-    - uses: actions/checkout@v1.0.0
+    - uses: actions/checkout@v3
 
     - name: Finalise Sentry release
-      run: |
-        # Install Sentry CLI
-        curl -sL https://sentry.io/get-cli/ | bash
-        
-        # Finalise existing Sentry release
-        export VERSION=$GITHUB_SHA
-        sentry-cli releases finalize $VERSION
-        
-        # Create new production deploy for this Sentry release
-        sentry-cli releases deploys $VERSION new -e 'production'
+      uses: getsentry/action-release@v1
+      env:
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+      with:
+        environment: production
+        finalize: true

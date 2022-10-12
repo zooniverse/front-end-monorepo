@@ -8,26 +8,17 @@ on:
 jobs:
   release:
    runs-on: ubuntu-latest
-   env:
-     SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-     SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-     SENTRY_PROJECT_APP: ${{ secrets.SENTRY_PROJECT_APP }}
-     SENTRY_CONTENT_APP: ${{ secrets.SENTRY_CONTENT_APP }}
 
    steps: 
     # See: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow#using-the-checkout-action
-    - uses: actions/checkout@v1.0.0
+    - uses: actions/checkout@v3
 
     - name: Create new Sentry release
-      run: |
-        # Install Sentry CLI
-        curl -sL https://sentry.io/get-cli/ | bash
-        
-        # Create a new Sentry release with the commit SHA as the version.
-        # Associate all commits since the last finalised release.
-        export VERSION=$(sentry-cli releases propose-version)
-        sentry-cli releases new -p $SENTRY_PROJECT_APP -p $SENTRY_CONTENT_APP $VERSION
-        sentry-cli releases set-commits --auto $VERSION
-        
-        # Create new staging deploy for this Sentry release
-        sentry-cli releases deploys $VERSION new -e 'staging'
+      uses: getsentry/action-release@v1
+      env:
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+      with:
+        environment: staging
+        finalize: false
+        projects: ${{ secrets.SENTRY_PROJECT_APP }} ${{ secrets.SENTRY_CONTENT_APP }}
