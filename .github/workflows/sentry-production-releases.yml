@@ -24,3 +24,4 @@ jobs:
       with:
         environment: production
         finalize: true
+        projects: ${{ secrets.SENTRY_PROJECT_APP }} ${{ secrets.SENTRY_CONTENT_APP }}
