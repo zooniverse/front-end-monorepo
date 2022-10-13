@@ -26,10 +26,10 @@ function ChoiceButton({
 
   const choiceButton = useRef(null)
   const handleClick = useCallback(() => {
-    onChoose(choiceId)
+    !disabled && onChoose(choiceId)
   }, [choiceId, onChoose])
   const handleKeyDown = useCallback((event) => {
-    onKeyDown(choiceId, event)
+    !disabled && onKeyDown(choiceId, event)
   }, [choiceId, onKeyDown])
 
   useEffect(() => {
@@ -51,6 +51,7 @@ function ChoiceButton({
 
   return (
     <Button
+      a11yTitle={choiceLabel}
       ref={choiceButton}
       as='li'
       disabled={disabled}
