@@ -46,10 +46,6 @@ const Subject = types
         // If the Workflow configuration specifies a subject viewer, use that.
         // Otherwise, take a guess using the Subject.
 
-        const pfeMultiImageMode = configuration['multi_image_mode'] === 'separate'
-        const pfeEnableSwitchingFlipbookAndSeparate = configuration['enable_switching_flipbook_and_separate'] // expect true/false value
-        const nullViewer = pfeMultiImageMode || pfeEnableSwitchingFlipbookAndSeparate
-
         viewer = configuration.viewerType
 
         if (!viewer && counts.total === 1) {
@@ -65,13 +61,12 @@ const Subject = types
         }
 
         if (!viewer && counts.total > 1 && counts.total < 11) {
-          if (!nullViewer) {
-            if (counts.total === counts.images) {
-              viewer = subjectViewers.multiFrame
-            }
-            if (getType(self).name === 'ImageAndTextSubject') {
-              viewer = subjectViewers.imageAndText
-            }
+          // This is a subject pattern for the flipbook - Note that projects that want to use the multiFrame viewer should specify in workflow config
+          if (counts.total === counts.images) {
+            viewer = subjectViewers.flipbook
+          }
+          if (getType(self).name === 'ImageAndTextSubject') {
+            viewer = subjectViewers.imageAndText
           }
         }
       }
@@ -108,7 +103,6 @@ const Subject = types
   }))
 
   .actions(self => {
-
     function afterAttach () {
       _fetchTranscriptionReductions()
     }

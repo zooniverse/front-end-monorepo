@@ -5,6 +5,11 @@ Object.defineProperty(subjectViewers, 'dataImage', {
   enumerable: true
 })
 
+Object.defineProperty(subjectViewers, 'flipbook', {
+  value: 'flipbook',
+  enumerable: true
+})
+
 Object.defineProperty(subjectViewers, 'imageAndText', {
   value: 'imageAndText',
   enumerable: true

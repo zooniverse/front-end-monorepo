@@ -1,4 +1,5 @@
 import DataImageViewer from '../../components/DataImageViewer'
+import FlipbookViewer from '../../components/FlipbookViewer'
 import ImageAndTextViewer from '../../components/ImageAndTextViewer'
 import LightCurveViewer from '../../components/LightCurveViewer'
 import MultiFrameViewer from '../../components/MultiFrameViewer'
@@ -11,6 +12,7 @@ import VariableStarViewer from '../../components/VariableStarViewer'
 
 const viewers = {
   dataImage: DataImageViewer,
+  flipbook: FlipbookViewer,
   imageAndText: ImageAndTextViewer,
   lightCurve: LightCurveViewer,
   multiFrame: MultiFrameViewer,

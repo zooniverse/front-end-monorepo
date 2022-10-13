@@ -8,6 +8,7 @@ const WorkflowConfiguration = types.model({
   persist_annotations: types.optional(types.boolean, true),
   subject_viewer: types.maybe(types.enumeration('subjectViewer', [
     'dataImage',
+    'flipbook',
     'lightcurve',
     'multiFrame',
     'scatterPlot',
@@ -30,6 +31,9 @@ const WorkflowConfiguration = types.model({
       switch (self.subject_viewer) {
         case 'dataImage': {
           return subjectViewers.dataImage
+        }
+        case 'flipbook': {
+          return subjectViewers.flipbook
         }
         case 'lightcurve': {
           return subjectViewers.lightCurve
