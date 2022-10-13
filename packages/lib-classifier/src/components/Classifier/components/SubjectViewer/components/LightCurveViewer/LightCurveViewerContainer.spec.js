@@ -3,7 +3,7 @@ import React from 'react'
 import nock from 'nock'
 import sinon from 'sinon'
 import * as d3 from 'd3'
-import { zip } from 'lodash'
+import zip from 'lodash/zip'
 
 import { LightCurveViewerContainer } from './LightCurveViewerContainer'
 import LightCurveViewer from './LightCurveViewer'

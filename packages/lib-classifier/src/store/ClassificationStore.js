@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import cuid from 'cuid'
-import { snakeCase } from 'lodash'
+import snakeCase from 'lodash/snakeCase'
 import { flow, getRoot, getSnapshot, isValidReference, tryReference, types } from 'mobx-state-tree'
 
 import Classification, { ClassificationMetadata } from './Classification'

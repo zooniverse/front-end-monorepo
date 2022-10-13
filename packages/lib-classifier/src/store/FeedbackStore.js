@@ -1,6 +1,6 @@
 import { autorun } from 'mobx'
 import { addDisposer, addMiddleware, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
-import { flatten } from 'lodash'
+import flatten from 'lodash/flatten'
 
 import helpers from './feedback/helpers'
 import strategies from './feedback/strategies'

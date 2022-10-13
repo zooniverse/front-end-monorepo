@@ -4,7 +4,7 @@ import styled, { withTheme } from 'styled-components'
 import { Group } from '@visx/group'
 import { AxisBottom, AxisLeft } from '@visx/axis'
 import { scaleBand, scaleLinear } from '@visx/scale'
-import { extent } from 'd3'
+import { extent } from 'd3-array'
 import { withParentSize } from '@visx/responsive'
 import { useTranslation } from 'react-i18next'
 

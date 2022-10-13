@@ -1,4 +1,7 @@
-import _ from 'lodash'
+import find from 'lodash/find'
+import forEach from 'lodash/forEach'
+import reduce from 'lodash/reduce'
+
 import strategies from '../strategies'
 import metadataToRules from './metadata-to-rules'
 import getFeedbackFromTasks from './get-feedback-from-tasks'
@@ -21,9 +24,9 @@ function generateRules (subject, workflow) {
   const workflowRules = workflow ? getFeedbackFromTasks(workflow.tasks) : {}
   const canonicalRules = {}
 
-  _.forEach(workflowRules, (rules, taskId) => {
-    const taskRules = _.reduce(rules, (result, workflowRule) => {
-      const matchingSubjectRule = _.find(subjectRules, (subjectRule) => {
+  forEach(workflowRules, (rules, taskId) => {
+    const taskRules = reduce(rules, (result, workflowRule) => {
+      const matchingSubjectRule = find(subjectRules, (subjectRule) => {
         if ((subjectRule.id !== null && subjectRule.id !== undefined) &&
           (workflowRule.id !== null && workflowRule.id !== undefined)) {
           return subjectRule.id.toString() === workflowRule.id.toString()

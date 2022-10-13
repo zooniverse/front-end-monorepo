@@ -1,7 +1,7 @@
 import findLocationsByMediaType from './findLocationsByMediaType'
 import { SubjectFactory } from '@test/factories'
 import sinon from 'sinon'
-import { find } from 'lodash'
+import find from 'lodash/find'
 
 describe('Helper > findLocationsByMediaType', function () {
   const subject = SubjectFactory.build({

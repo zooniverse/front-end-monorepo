@@ -1,4 +1,5 @@
-import { difference, isEqual } from 'lodash'
+import difference from 'lodash/difference'
+import isEqual from 'lodash/isEqual'
 
 function getNextStepFromTaskKey(taskKey, steps, tasks) {
   let nextStepKey = getStepKeyFromTaskKey(steps, taskKey)

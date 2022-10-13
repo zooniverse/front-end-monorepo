@@ -1,6 +1,7 @@
 import { scaleLinear } from '@visx/scale'
-import * as d3 from 'd3'
-import { flatten, zipWith } from 'lodash'
+import { extent } from 'd3-array'
+import flatten from 'lodash/flatten'
+import zipWith from 'lodash/zipWith'
 
 function isThisMultipleDataSeries (data) {
   return Array.isArray(data)
@@ -34,13 +35,13 @@ export function getDataExtent (data) {
     }))
 
     return {
-      x: d3.extent(xValues),
-      y: d3.extent(yValues)
+      x: extent(xValues),
+      y: extent(yValues)
     }
   } else {
     return {
-      x: d3.extent(data.x),
-      y: d3.extent(data.y)
+      x: extent(data.x),
+      y: extent(data.y)
     }
   }
 }

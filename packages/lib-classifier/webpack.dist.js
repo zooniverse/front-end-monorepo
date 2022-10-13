@@ -1,3 +1,4 @@
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const { execSync } = require('child_process')
 const path = require('path')
 const webpack = require('webpack')
@@ -26,10 +27,23 @@ module.exports = {
     '@zooniverse/grommet-theme',
     '@zooniverse/panoptes-js',
     '@zooniverse/react-components',
+    'd3',
+    'd3-array',
+    'd3-axis',
+    'd3-brush',
+    'd3-scale',
+    'd3-selection',
+    'd3-zoom',
     'grommet',
     'grommet-icons',
+    'i18next',
+    'mobx',
+    'mobx-devtools-mst',
+    'mobx-react',
+    'mobx-state-tree',
     'react',
     'react-dom',
+    'react-i18next',
     'styled-components'
   ],
   mode: 'production',
@@ -71,6 +85,8 @@ module.exports = {
     umdNamedDefine: true
   },
   plugins: [
+    // uncomment this to build with the bundle analyser.
+    // new BundleAnalyzerPlugin(),
     EnvironmentWebpackPlugin
   ]
 }

@@ -1,4 +1,5 @@
-import { brushX, select } from 'd3'
+import { brushX } from 'd3-brush'
+import { select } from 'd3-selection'
 import { toJS } from 'mobx'
 import React, { useCallback } from 'react'
 

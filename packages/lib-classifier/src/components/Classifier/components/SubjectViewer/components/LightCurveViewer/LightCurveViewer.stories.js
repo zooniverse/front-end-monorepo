@@ -2,7 +2,7 @@ import React from 'react';
 import zooTheme from '@zooniverse/grommet-theme';
 import { Box, Grommet } from 'grommet';
 import * as d3 from 'd3';
-import { zip } from 'lodash';
+import zip from 'lodash/zip';
 import LightCurveViewer from './LightCurveViewer';
 import kepler from '../../helpers/mockLightCurves/kepler';
 import readme from './README.md';

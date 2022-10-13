@@ -8,7 +8,7 @@ import mockData, {
   variableStarAmplitudeMockData,
   variableStarPeriodMockData,
 } from './mockData';
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 import readme from './README.md';
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds';
 

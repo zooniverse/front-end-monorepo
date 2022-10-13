@@ -1,7 +1,7 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { genRandomNormalPoints } from '@visx/mock-data'
 import { scaleLinear } from '@visx/scale'
-import { zip } from 'lodash'
+import zip from 'lodash/zip'
 import * as d3 from 'd3'
 import kepler from '../../../helpers/mockLightCurves/kepler'
 import variableStar from '../../../helpers/mockLightCurves/variableStar'

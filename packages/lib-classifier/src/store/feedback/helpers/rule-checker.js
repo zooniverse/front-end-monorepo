@@ -1,15 +1,19 @@
-import _ from 'lodash'
+import isBoolean from 'lodash/isBoolean'
+import isEmpty from 'lodash/isEmpty'
+import isFinite from 'lodash/isFinite'
+import isUndefined from 'lodash/isUndefined'
+import reduce from 'lodash/reduce'
 
 // Checks a canonical rule for validity, and return an array of errors
 // containing any missing properties. Used by the strategy `createRule`
 // functions.
 function validateRuleProperties (rule) {
-  return _.reduce(rule, (errors, value, key) => {
-    if (_.isFinite(value)) {
+  return reduce(rule, (errors, value, key) => {
+    if (isFinite(value)) {
       return errors
-    } else if (_.isBoolean(value)) {
+    } else if (isBoolean(value)) {
       return errors
-    } else if (_.isUndefined(value) || _.isEmpty(value)) {
+    } else if (isUndefined(value) || isEmpty(value)) {
       return errors.concat([key])
     } else {
       return errors

@@ -1,4 +1,15 @@
-import * as d3 from 'd3'
+import {
+  axisRight,
+  axisTop
+} from 'd3-axis'
+import { brushX } from 'd3-brush'
+import { scaleLinear } from 'd3-scale'
+import { select } from 'd3-selection'
+import {
+  zoom,
+  zoomIdentity,
+  zoomTransform
+} from 'd3-zoom'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
@@ -258,7 +269,7 @@ class LightCurveViewer extends Component {
     const defaultBrush = this.getDefaultBrush() // a.k.a. the latest brush
     const nextAvailableId = (defaultBrush && defaultBrush.id + 1) || 0
 
-    const brush = d3.brushX()
+    const brush = brushX()
       .on('start', this.onAnnotationBrushStart)
       .on('brush', this.onAnnotationBrushBrushed)
       .on('end', this.onAnnotationBrushEnd)
@@ -376,8 +387,8 @@ class LightCurveViewer extends Component {
   }
 
   getCurrentTransform() {
-    return (this.d3interfaceLayer && d3.zoomTransform(this.d3interfaceLayer.node())) ||
-      d3.zoomIdentity
+    return (this.d3interfaceLayer && zoomTransform(this.d3interfaceLayer.node())) ||
+      zoomIdentity
   }
 
   /*
@@ -441,10 +452,10 @@ class LightCurveViewer extends Component {
       outerMargin
     } = this.props
     const container = this.svgContainer.current
-    this.d3svg = d3.select(container)
+    this.d3svg = select(container)
       .style('cursor', 'crosshair')
-    this.xScale = d3.scaleLinear()
-    this.yScale = d3.scaleLinear()
+    this.xScale = scaleLinear()
+    this.yScale = scaleLinear()
 
     // Deco layer
     this.d3svg.call(addBackgroundLayer, chartStyle)
@@ -466,8 +477,8 @@ class LightCurveViewer extends Component {
     Axis layer
     Actual scaling done in updatePresentation()
      */
-    this.xAxis = d3.axisTop(this.yScale)
-    this.yAxis = d3.axisRight(this.yScale)
+    this.xAxis = axisTop(this.yScale)
+    this.yAxis = axisRight(this.yScale)
     addAxisLayer(this.d3svg, chartStyle, this.xAxis, this.yAxis, axisXLabel, axisYLabel)
     // Adds: g.axis-layer, g.x-axis, g.y-axis, text.x-axis-label, text.y-axis-label
 
@@ -475,7 +486,7 @@ class LightCurveViewer extends Component {
     this.d3svg.call(addBorderLayer)
 
     // Zoom controller
-    this.zoom = d3.zoom()
+    this.zoom = zoom()
       .scaleExtent([minZoom, maxZoom]) // Limit zoom scale
       .on('zoom', this.doZoom)
 
@@ -533,7 +544,7 @@ class LightCurveViewer extends Component {
       .attr('class', 'brush')
       .attr('id', (brush) => (`brush-${brush.id}`))
       .each(function applyBrushLogic (annotationBrush) { // Don't use ()=>{}
-        annotationBrush.brush(d3.select(this)) // Apply the brush logic to the <g.brush> element (i.e. 'this')
+        annotationBrush.brush(select(this)) // Apply the brush logic to the <g.brush> element (i.e. 'this')
       })
       .call(addRemoveAnnotationButton, this.removeAnnotationBrush) // Note: the datum (the Annotation Brush) is passed as an argument to removeAnnotationBrush() due to the way that the data is joined by `.data()` above
 
@@ -542,7 +553,7 @@ class LightCurveViewer extends Component {
     // brush - aka the interface for creating new brushes - is the exception.
     brushSelection
       .each(function disableInvisibleBrushOverlay (annotationBrush) { // Don't use ()=>{}
-        d3.select(this)
+        select(this)
           .attr('class', 'brush')
           .selectAll('.overlay')
           .style('pointer-events', () => {

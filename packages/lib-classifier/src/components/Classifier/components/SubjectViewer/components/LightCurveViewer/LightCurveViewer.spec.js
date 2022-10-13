@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
 import { render } from 'enzyme'
-import { zip } from 'lodash'
+import zip from 'lodash/zip'
 import React from 'react'
 
 import LightCurveViewer from './LightCurveViewer'

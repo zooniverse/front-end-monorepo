@@ -1,4 +1,4 @@
-import { snakeCase } from 'lodash'
+import snakeCase from 'lodash/snakeCase'
 import sinon from 'sinon'
 import { Factory } from 'rosie'
 import RootStore from './RootStore'
