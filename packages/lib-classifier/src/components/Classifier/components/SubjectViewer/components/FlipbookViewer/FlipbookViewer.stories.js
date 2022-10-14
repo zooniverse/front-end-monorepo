@@ -41,8 +41,6 @@ const store = mockStore({
   subject: subject
 })
 
-console.log(store)
-
 export default {
   title: 'Subject Viewers / FlipbookViewer',
   component: FlipbookViewer,

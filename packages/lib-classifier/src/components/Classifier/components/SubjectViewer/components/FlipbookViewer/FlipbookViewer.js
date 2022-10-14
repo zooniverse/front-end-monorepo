@@ -7,10 +7,13 @@ import withKeyZoom from '@components/Classifier/components/withKeyZoom'
 import { withStores } from '@helpers'
 
 import locationValidator from '../../helpers/locationValidator'
-import useSubjectImage, { placeholder } from '../SingleImageViewer/hooks/useSubjectImage'
+import useSubjectImage, {
+  placeholder
+} from '../SingleImageViewer/hooks/useSubjectImage'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
 import SVGImage from '../SVGComponents/SVGImage'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
+import FlipbookControls from './components'
 
 function storeMapper(store) {
   const {
@@ -27,11 +30,9 @@ function storeMapper(store) {
   const { activeStepTasks } = store.workflowSteps
 
   const [activeInteractionTask] = activeStepTasks.filter(
-    (task) => task.type === 'drawing' || task.type === 'transcription'
+    task => task.type === 'drawing' || task.type === 'transcription'
   )
-  const {
-    activeTool
-  } = activeInteractionTask || {}
+  const { activeTool } = activeInteractionTask || {}
 
   return {
     activeTool,
@@ -63,7 +64,7 @@ function FlipbookViewer({
   onKeyDown = () => true,
   onReady = () => true,
   rotation,
-  // setFrame = () => true,
+  setFrame = () => true,
   setOnPan = () => true,
   setOnZoom = () => true,
   subject
@@ -83,20 +84,31 @@ function FlipbookViewer({
     enableRotation()
   }, [])
 
-  useEffect(function onImageLoad() {
-    if (src !== placeholder.src) {
-      const svgImage = subjectImage.current
-      const { width: clientWidth, height: clientHeight } = svgImage
-        ? svgImage.getBoundingClientRect()
-        : {}
-      const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
-      onReady({ target })
-    }
-  }, [src])
+  useEffect(
+    function onImageLoad() {
+      if (src !== placeholder.src) {
+        const svgImage = subjectImage.current
+        const { width: clientWidth, height: clientHeight } = svgImage
+          ? svgImage.getBoundingClientRect()
+          : {}
+        const target = {
+          clientHeight,
+          clientWidth,
+          naturalHeight,
+          naturalWidth
+        }
+        onReady({ target })
+      }
+    },
+    [src]
+  )
 
-  useEffect(function onFrameChange() {
-    activeTool?.validate()
-  }, [frame])
+  useEffect(
+    function onFrameChange() {
+      activeTool?.validate()
+    },
+    [frame]
+  )
 
   function setOnDrag(callback) {
     setDragMove(() => callback)
@@ -107,20 +119,16 @@ function FlipbookViewer({
   }
 
   if (loadingState === asyncStates.error) {
-    return (
-      <div>Something went wrong.</div>
-    )
+    return <div>Something went wrong.</div>
   }
 
-  const enableDrawing = loadingState === asyncStates.success && enableInteractionLayer
+  const enableDrawing =
+    loadingState === asyncStates.success && enableInteractionLayer
 
   if (loadingState !== asyncStates.initialized) {
     const subjectID = subject?.id || 'unknown'
     return (
-      <Box
-        direction='row'
-        fill='horizontal'
-      >
+      <Box fill='horizontal'>
         <SVGPanZoom
           img={subjectImage.current}
           maxZoom={5}
@@ -152,6 +160,11 @@ function FlipbookViewer({
             </g>
           </SingleImageViewer>
         </SVGPanZoom>
+        <FlipbookControls
+          frame={frame}
+          onFrameChange={setFrame}
+          locations={subject.locations}
+        />
       </Box>
     )
   }
