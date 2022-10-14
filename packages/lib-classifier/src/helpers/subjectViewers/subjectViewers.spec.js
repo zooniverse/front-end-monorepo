@@ -3,6 +3,7 @@ import subjectViewers from './subjectViewers'
 describe('Helpers > subjectViewers', function () {
   const viewers = [
     'dataImage',
+    'flipbook',
     'imageAndText',
     'lightCurve',
     'multiFrame',

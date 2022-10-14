@@ -156,21 +156,20 @@ describe('Model > Subject', function () {
       })
 
       describe('multi-frame media', function () {
-        it('should return the multi-frame viewer for subjects with more than one location', function () {
-          const multiFrameSubject = SubjectFactory.build({
+        it('should return the flipbook viewer for subjects with more than one location', function () {
+          const multipleImagesSubject = SubjectFactory.build({
             locations: [
               { 'image/png': 'https://foo.bar/example.png' },
               { 'image/png': 'https://foo.bar/example.png' }
             ]
           })
-          const store = mockStore({ project, workflow, subject: multiFrameSubject })
+          const store = mockStore({ project, workflow, subject: multipleImagesSubject })
           const subject = store.subjects.active
-          expect(subject.viewer).to.equal(subjectViewers.multiFrame)
+          expect(subject.viewer).to.equal(subjectViewers.flipbook)
         })
-
 
         it('should return a null viewer for subjects with more than ten location', function () {
-          const multiFrameSubject = SubjectFactory.build({
+          const multipleImagesSubject = SubjectFactory.build({
             locations: [
               { 'image/png': 'https://foo.bar/example.png' },
               { 'image/png': 'https://foo.bar/example.png' },
@@ -185,31 +184,7 @@ describe('Model > Subject', function () {
               { 'image/png': 'https://foo.bar/example.png' }
             ]
           })
-          const store = mockStore({ project, workflow, subject: multiFrameSubject })
-          const subject = store.subjects.active
-          expect(subject.viewer).to.be.null()
-        })
-
-        it('should return a null viewer when workflow.configuration["multi_image_mode"] === "separate"', function () {
-          const multiFrameSubject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }, { 'image/png': 'https://foo.bar/example.png' }] })
-          const workflowWithConfigSeparateMultiImage = WorkflowFactory.build({ configuration: { multi_image_mode: 'separate' } })
-          const store = mockStore({
-            project,
-            workflow: workflowWithConfigSeparateMultiImage,
-            subject: multiFrameSubject
-          })
-          const subject = store.subjects.active
-          expect(subject.viewer).to.be.null()
-        })
-
-        it('should return a null viewer when workflow.configuration["enable_switching_flipbook_and_separate"] === "true"', function () {
-          const multiFrameSubject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }, { 'image/png': 'https://foo.bar/example.png' }] })
-          const workflowWithConfigEnableSwitching = WorkflowFactory.build({ configuration: { enable_switching_flipbook_and_separate: true } })
-          const store = mockStore({
-            project,
-            workflow: workflowWithConfigEnableSwitching,
-            subject: multiFrameSubject
-          })
+          const store = mockStore({ project, workflow, subject: multipleImagesSubject })
           const subject = store.subjects.active
           expect(subject.viewer).to.be.null()
         })
