@@ -36,7 +36,7 @@
     "@visx/zoom": "~3.0.0",
     "@zooniverse/async-states": "~0.0.1",
     "cuid": "~2.1.6",
-    "d3": "~6.7.0",
+    "d3": "~7.6.1",
     "graphql": "~16.6.0",
     "graphql-request": "~5.1.0",
     "hash.js": "~1.1.7",
