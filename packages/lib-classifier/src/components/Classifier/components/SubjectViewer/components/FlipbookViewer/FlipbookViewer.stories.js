@@ -33,7 +33,7 @@ const subject = SubjectFactory.build({
     }
   ],
   metadata: {
-    default_frame: 0
+    default_frame: 1
   }
 })
 
@@ -54,7 +54,7 @@ export const Default = ({ dark }) => {
   return (
     <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
       <Provider classifierStore={store}>
-        <Box height='500px' width='large'>
+        <Box width='large'>
           <FlipbookViewer
             loadingState={asyncStates.success}
             subject={store.subjects.active}

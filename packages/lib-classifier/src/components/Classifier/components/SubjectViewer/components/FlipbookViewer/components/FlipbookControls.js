@@ -1,5 +1,5 @@
 import { Button, Box, Grid } from 'grommet'
-import { Next, Previous } from 'grommet-icons'
+import { FormNext, FormPrevious } from 'grommet-icons'
 import { tint } from 'polished'
 import PropTypes from 'prop-types'
 import React, { useRef } from 'react'
@@ -29,31 +29,36 @@ export const StyledFrameList = styled.ul`
   padding: 0 10px;
 `
 
+const StyledButton = styled(Button)`
+  & > div {
+    flex-direction: column;
+  }
+`
+
 const FlipbookControls = ({
-  frame = 0,
+  currentFrame = 0,
   locations = [],
   onFrameChange = () => true,
-  t = () => true,
   theme
 }) => {
   const activeLabel = useRef()
   const frameList = useRef()
 
-  // Sometimes we get a flash of the placeholder image when changing frames
-  // How can the UX be improved?
+  const { t } = useTranslation('components')
+
   const handleFrameChange = frameIndex => {
     onFrameChange(frameIndex)
   }
 
   const handlePrevious = () => {
-    if (frame > 0) {
-      handleFrameChange(frame - 1)
+    if (currentFrame > 0) {
+      handleFrameChange(currentFrame - 1)
     }
   }
 
   const handleNext = () => {
-    if (frame < locations.length) {
-      handleFrameChange(frame + 1)
+    if (currentFrame < locations.length) {
+      handleFrameChange(currentFrame + 1)
     }
   }
 
@@ -65,23 +70,21 @@ const FlipbookControls = ({
 
         {/** Image Thumbnails */}
         <Box direction='row' justify='between'>
-          <Button
-          // Add a translated label
-            disabled={frame === 0}
-            label={<Previous />}
+          <StyledButton
+            disabled={currentFrame === 0}
+            icon={<FormPrevious />}
+            label={t('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel')}
             onClick={() => handlePrevious()}
             style={{
               border: 'none',
-              padding: 0,
-              display: 'flex',
-              alignItems: 'center'
+              padding: 0
             }}
           />
           <StyledFrameList ref={frameList}>
             {locations?.length && locations.map((location, index) => {
               const mimeType = Object.keys(location)[0]
               const url = location[mimeType]
-              const activeFrame = frame === index
+              const activeFrame = currentFrame === index
 
               return (
                 <Box
@@ -111,8 +114,8 @@ const FlipbookControls = ({
                     }}
                   />
                   <StyledLabel
-                  // Do we need a translated label here?
-                    for={`frame ${index}`}
+                    aria-label={t('SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText')}
+                    htmlFor={`frame ${index}`}
                     style={{
                       position: 'absolute',
                       top: 0,
@@ -132,16 +135,14 @@ const FlipbookControls = ({
               )
             })}
           </StyledFrameList>
-          <Button
-            disabled={frame === locations.length - 1}
-            label={<Next />}
-            // Add a translated label
+          <StyledButton
+            disabled={currentFrame === locations.length - 1}
+            icon={<FormNext />}
+            label={t('SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel')}
             onClick={() => handleNext()}
             style={{
               border: 'none',
-              padding: 0,
-              display: 'flex',
-              alignItems: 'center'
+              padding: 0
             }}
           />
         </Box>
@@ -151,7 +152,7 @@ const FlipbookControls = ({
 }
 
 FlipbookControls.propTypes = {
-  frame: PropTypes.number.isRequired,
+  currentFrame: PropTypes.number.isRequired,
   locations: PropTypes.arrayOf(locationValidator).isRequired,
   onFrameChange: PropTypes.func.isRequired,
   theme: PropTypes.object
