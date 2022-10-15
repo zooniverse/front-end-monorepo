@@ -13,7 +13,7 @@ const background = {
   light: 'light-1'
 }
 
-const subject = SubjectFactory.build({
+const mockSubject = SubjectFactory.build({
   locations: [
     {
       'image/jpeg':
@@ -38,7 +38,7 @@ const subject = SubjectFactory.build({
 })
 
 const store = mockStore({
-  subject: subject
+  subject: mockSubject
 })
 
 export default {
@@ -49,7 +49,7 @@ export default {
   }
 }
 
-export const Default = ({ dark }) => {
+export const Default = ({ dark, onReady }) => {
   const themeMode = dark ? 'dark' : 'light'
   return (
     <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
@@ -57,7 +57,23 @@ export const Default = ({ dark }) => {
         <Box width='large'>
           <FlipbookViewer
             loadingState={asyncStates.success}
+            onReady={onReady}
             subject={store.subjects.active}
+          />
+        </Box>
+      </Provider>
+    </Grommet>
+  )
+}
+
+export const NoSubject = ({ dark }) => {
+  const themeMode = dark ? 'dark' : 'light'
+  return (
+    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
+      <Provider classifierStore={store}>
+        <Box width='large'>
+          <FlipbookViewer
+            loadingState={asyncStates.success}
           />
         </Box>
       </Provider>
