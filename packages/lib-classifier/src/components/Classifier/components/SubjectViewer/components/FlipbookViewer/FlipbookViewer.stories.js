@@ -6,7 +6,7 @@ import mockStore from '@test/mockStore'
 import { SubjectFactory } from '@test/factories'
 import asyncStates from '@zooniverse/async-states'
 
-import FlipbookViewer from './FlipbookViewer'
+import FlipbookViewerContainer from './FlipbookViewerContainer'
 
 const background = {
   dark: 'dark-1',
@@ -43,21 +43,20 @@ const store = mockStore({
 
 export default {
   title: 'Subject Viewers / FlipbookViewer',
-  component: FlipbookViewer,
+  component: FlipbookViewerContainer,
   args: {
     dark: false
   }
 }
 
-export const Default = ({ dark, onReady }) => {
+export const Default = ({ dark }) => {
   const themeMode = dark ? 'dark' : 'light'
   return (
     <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
       <Provider classifierStore={store}>
         <Box width='large'>
-          <FlipbookViewer
+          <FlipbookViewerContainer
             loadingState={asyncStates.success}
-            onReady={onReady}
             subject={store.subjects.active}
           />
         </Box>
@@ -72,7 +71,7 @@ export const NoSubject = ({ dark }) => {
     <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
       <Provider classifierStore={store}>
         <Box width='large'>
-          <FlipbookViewer
+          <FlipbookViewerContainer
             loadingState={asyncStates.success}
           />
         </Box>
