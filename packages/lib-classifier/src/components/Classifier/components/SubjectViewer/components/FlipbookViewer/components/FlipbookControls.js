@@ -35,6 +35,8 @@ const StyledButton = styled(Button)`
   }
 `
 
+const backgrounds = { dark: 'dark-3', light: 'neutral-6' }
+
 const FlipbookControls = ({
   currentFrame = 0,
   locations = [],
@@ -63,7 +65,7 @@ const FlipbookControls = ({
   }
 
   return (
-    <Box background={{ dark: 'dark-3', light: 'neutral-6' }}>
+    <Box background={backgrounds}>
       <Grid columns={['120px', 'flex']} pad='10px'>
         {/** Play/Pause & Speed go here */}
         <Box />
@@ -73,7 +75,9 @@ const FlipbookControls = ({
           <StyledButton
             disabled={currentFrame === 0}
             icon={<FormPrevious />}
-            label={t('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel')}
+            label={t(
+              'SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel'
+            )}
             onClick={() => handlePrevious()}
             style={{
               border: 'none',
@@ -81,64 +85,69 @@ const FlipbookControls = ({
             }}
           />
           <StyledFrameList ref={frameList}>
-            {locations?.length && locations.map((location, index) => {
-              const mimeType = Object.keys(location)[0]
-              const url = location[mimeType]
-              const activeFrame = currentFrame === index
+            {locations?.length &&
+              locations.map((location, index) => {
+                const mimeType = Object.keys(location)[0]
+                const url = location[mimeType]
+                const activeFrame = currentFrame === index
 
-              return (
-                <Box
-                  key={`${url}-${index}`}
-                  ref={activeFrame ? activeLabel : null}
-                  height='44px'
-                  width='44px'
-                  margin='0 5px'
-                  style={{
-                    position: 'relative'
-                  }}
-                >
-                  <input
-                    id={`frame ${index}`}
-                    checked={activeFrame}
-                    name='frame'
-                    onChange={() => handleFrameChange(index)}
-                    type='radio'
+                return (
+                  <Box
+                    key={`${url}-${index}`}
+                    ref={activeFrame ? activeLabel : null}
+                    height='40px'
+                    width='40px'
+                    margin='0 5px'
                     style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      margin: 0,
-                      height: '100%',
-                      width: '100%',
-                      opacity: '1%'
+                      position: 'relative'
                     }}
-                  />
-                  <StyledLabel
-                    aria-label={t('SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText')}
-                    htmlFor={`frame ${index}`}
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      height: '40px',
-                      width: '40px',
-                      backgroundImage: `url(${url})`,
-                      backgroundSize: 'cover',
-                      backgroundRepeat: 'no-repeat',
-                      backgroundPosition: 'center',
-                      border: activeFrame
-                        ? `solid 2px ${theme.global.colors['neutral-2']}`
-                        : 'solid 2px transparent'
-                    }}
-                  />
-                </Box>
-              )
-            })}
+                  >
+                    <input
+                      id={`frame ${index}`}
+                      checked={activeFrame}
+                      name='frame'
+                      onChange={() => handleFrameChange(index)}
+                      type='radio'
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        margin: 0,
+                        height: '100%',
+                        width: '100%',
+                        opacity: '1%'
+                      }}
+                    />
+                    <StyledLabel
+                      aria-label={t(
+                        'SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText'
+                      )}
+                      htmlFor={`frame ${index}`}
+                      style={{
+                        position: 'absolute',
+                        top: activeFrame ? 0 : '2px',
+                        left: activeFrame ? 0 : '2px',
+                        height: '40px',
+                        width: '40px',
+                        backgroundImage: `url(${url})`,
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center',
+                        border: activeFrame
+                          ? `solid 2px ${theme.global.colors['neutral-2']}`
+                          : 'none'
+                      }}
+                    />
+                  </Box>
+                )
+              })}
           </StyledFrameList>
           <StyledButton
             disabled={currentFrame === locations.length - 1}
             icon={<FormNext />}
-            label={t('SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel')}
+            label={t(
+              'SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel'
+            )}
             onClick={() => handleNext()}
             style={{
               border: 'none',
