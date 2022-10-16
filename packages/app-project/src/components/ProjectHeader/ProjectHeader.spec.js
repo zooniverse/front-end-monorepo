@@ -5,7 +5,7 @@ import nock from 'nock'
 import * as Stories from './ProjectHeader.stories.js'
 
 describe('Component > ProjectHeader', function () {
-  let locale, languageButton, navMenu, pageURL, projectAvatar, projectBackground, projectTitle
+  let languageButton, navMenu, projectAvatar, projectBackground, projectTitle
 
   before(function () {
     nock('https://talk-staging.zooniverse.org')

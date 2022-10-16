@@ -2,8 +2,8 @@ import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, DropButton } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import NavLink from '@shared/components/NavLink'
-import { arrayOf, bool, object, oneOfType, string } from 'prop-types'
-import { useState } from 'react';
+import { bool, object, oneOfType, string } from 'prop-types'
+import { useState } from 'react'
 import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
 

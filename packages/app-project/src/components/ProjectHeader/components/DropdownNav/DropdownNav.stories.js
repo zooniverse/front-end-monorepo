@@ -8,7 +8,7 @@ import initStore from '@stores'
 
 function ThemedStory(Story) {
   return (
-    <Grommet theme={zooTheme}>
+    <Grommet theme={zooTheme} background='dark-3'>
       <Story />
     </Grommet>
   )

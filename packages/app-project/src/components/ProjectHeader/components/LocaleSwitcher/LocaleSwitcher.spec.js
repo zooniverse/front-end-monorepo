@@ -2,7 +2,6 @@ import { within } from '@testing-library/dom'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import * as stories from './LocaleSwitcher.stories'
-import sinon from 'sinon'
 
 describe('Component > LocaleSwitcher', function () {
   const { Default } = stories

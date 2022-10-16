@@ -46,7 +46,7 @@ export function Default({ project }) {
   const snapshot = { project }
   applySnapshot(Default.store, snapshot)
   return (
-    <Grommet theme={zooTheme}>
+    <Grommet theme={zooTheme} background='dark-3'>
       <RouterMock>
         <Provider store={Default.store} >
           <LocaleSwitcher />
