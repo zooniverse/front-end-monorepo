@@ -20,13 +20,13 @@ const StyledLabel = styled.label`
   `}
 `
 
-export const StyledFrameList = styled.ul`
-  align-items: center;
-  height: 100%;
+export const StyledFrameList = styled.fieldset`
+  height: 44px;
   display: flex;
   flex-direction: row;
   margin: 0;
-  padding: 0 10px;
+  padding: 0;
+  border: none;
 `
 
 const StyledButton = styled(Button)`
