@@ -1,27 +1,9 @@
 import { flow, getRoot, getSnapshot, types } from 'mobx-state-tree'
 
 import { getBearerToken } from '@store/utils'
-import Subject from '../Subject'
-import SingleImageSubject from '../SingleImageSubject'
-import SingleVideoSubject from '../SingleVideoSubject'
-import SubjectGroup from '../SubjectGroup'
+import SubjectType from '../SubjectType'
 
 const CACHE_SIZE = 10
-
-/*
-  see https://github.com/mobxjs/mobx-state-tree/issues/514
-  for advice about using references with types.union.
-*/
-
-const SingleSubject = types.union(SingleImageSubject, SingleVideoSubject, Subject)
-function subjectDispatcher (snapshot) {
-  if (snapshot?.metadata?.['#subject_group_id']) {
-    return SubjectGroup
-  }
-  return SingleSubject
-}
-const subjectModels = [ { dispatcher: subjectDispatcher }, SingleSubject, SubjectGroup ]
-const SubjectType = types.union(...subjectModels)
 
 export default types.model('AvailableSubjects', {
   subjects: types.array(SubjectType)

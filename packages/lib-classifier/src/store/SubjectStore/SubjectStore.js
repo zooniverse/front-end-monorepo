@@ -5,30 +5,11 @@ import { getBearerToken } from '@store/utils'
 import { getIndexedSubjects, subjectSelectionStrategy } from './helpers'
 import { filterByLabel, filters } from '../../components/Classifier/components/MetaTools/components/Metadata/components/MetadataModal'
 import ResourceStore from '@store/ResourceStore'
-import Subject from './Subject'
-import ImageAndTextSubject from './ImageAndTextSubject'
-import SingleImageSubject from './SingleImageSubject'
-import SingleTextSubject from './SingleTextSubject'
-import SingleVideoSubject from './SingleVideoSubject'
-import SubjectGroup from './SubjectGroup'
+
+import SubjectType from './SubjectType'
 import AvailableSubjects from './AvailableSubjects'
 
 const MINIMUM_QUEUE_SIZE = 3
-
-/*
-  see https://github.com/mobxjs/mobx-state-tree/issues/514
-  for advice about using references with types.union.
-*/
-
-const SingleSubject = types.union(ImageAndTextSubject, SingleImageSubject, SingleTextSubject, SingleVideoSubject, Subject)
-function subjectDispatcher (snapshot) {
-  if (snapshot?.metadata?.['#subject_group_id']) {
-    return SubjectGroup
-  }
-  return SingleSubject
-}
-const subjectModels = [ { dispatcher: subjectDispatcher }, SingleSubject, SubjectGroup ]
-const SubjectType = types.union(...subjectModels)
 
 function openTalkPage (talkURL, newTab = false) {
   if (newTab) {
