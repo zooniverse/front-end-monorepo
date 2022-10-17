@@ -1,20 +1,14 @@
-name: Deploy branch builds
+name: Deploy Production
 
 on:
-  # possible we can deploy on specific branches using prefix and wildcard matches
-  # e.g. - 'deploy-branch-*'
-  # https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#example-excluding-branches
   push:
-    branches:
-      - '!master'
-      - 'branch-deploy-k8s-setup'
-  # or we can deploy via dispatch which has a ref (branch / tag) passed to it for checkout actions
-  # https://docs.github.com/en/rest/actions/workflows#create-a-workflow-dispatch-event
+    tags:
+      - production-release
   workflow_dispatch:
 
 jobs:
   build_and_push_image:
-    name: Build Image
+    name: Build Production Image
     runs-on: ubuntu-latest
     steps:
     - name: Login to GitHub Container Registry
@@ -32,44 +26,42 @@ jobs:
       with:
         push: true
         tags: |
-          ghcr.io/zooniverse/front-end-monorepo-branch:${{ github.sha }}
+          ghcr.io/zooniverse/front-end-monorepo-production:latest
+          ghcr.io/zooniverse/front-end-monorepo-production:${{ github.sha }}
         build-args: |
-          APP_ENV=staging
+          APP_ENV=production
           COMMIT_ID=${{ github.sha }}
           CONTENTFUL_ACCESS_TOKEN=${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
           CONTENTFUL_SPACE_ID=${{ secrets.CONTENTFUL_SPACE_ID }}
 
-  deploy_branch:
+  deploy_production:
     runs-on: ubuntu-latest
     needs: build_and_push_image
     steps:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - uses: azure/login@v1
+    - name: Set the target AKS cluster
+      uses: Azure/aks-set-context@v1
       with:
         creds: ${{ secrets.AZURE_AKS }}
-
-    - name: Set the target AKS cluster
-      uses: Azure/aks-set-context@v2
-      with:
-        resource-group: kubernetes
         cluster-name: microservices
+        resource-group: kubernetes
 
     - name: Modify & apply template
       run: |
-        sed 's/__IMAGE_TAG__/${{ github.sha }}/g' kubernetes/deployment-branch.tmpl | kubectl apply -f -
+        sed 's/__IMAGE_TAG__/${{ github.sha }}/g' kubernetes/deployment-production.tmpl | kubectl apply -f -
 
   slack_notification:
     name: Slack notification
     uses: zooniverse/ci-cd/.github/workflows/slack_notification.yaml@main
-    needs: [build_and_push_image, deploy_branch]
+    needs: [build_and_push_image, deploy_production]
     if: always()
     with:
       commit_id: ${{ github.sha }}
-      job_name: Build Image
+      job_name: Build Production Image
       status: ${{ needs.build_and_push_image.result }}
-      title: "FEM branch deploy complete"
-      title_link: "https://fe-project-branch.preview.zooniverse.org"
+      title: "FEM Production deploy complete"
+      title_link: "https://fe-project.zooniverse.org/projects/Index"
     secrets:
       slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
