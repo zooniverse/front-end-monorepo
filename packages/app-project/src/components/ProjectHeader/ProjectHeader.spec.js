@@ -1,8 +1,18 @@
+import { composeStories } from '@storybook/testing-react'
 import { within } from '@testing-library/dom'
 import { render, screen } from '@testing-library/react'
 import nock from 'nock'
 
 import * as Stories from './ProjectHeader.stories.js'
+const {
+  AdminMode,
+  DefaultWorkflow,
+  InBeta,
+  LaunchApproved,
+  LoggedIn,
+  MultipleLanguages,
+  NotLoggedIn
+} = composeStories(Stories)
 
 describe('Component > ProjectHeader', function () {
   let languageButton, navMenu, projectAvatar, projectBackground, projectTitle
@@ -24,7 +34,7 @@ describe('Component > ProjectHeader', function () {
 
   describe('default behaviour', function () {
     before(function () {
-      render(<Stories.NotLoggedIn {...Stories.NotLoggedIn.args} />)
+      render(<NotLoggedIn />)
       projectAvatar = screen.getByRole('img', { name: 'ProjectHeader.Avatar.alt' })
       projectBackground = document.querySelector(`div[aria-hidden] div[data-src='https://panoptes-uploads.zooniverse.org/project_background/7a3c6210-f97d-4f40-9ab4-8da30772ee01.jpeg']`)
       projectTitle = screen.getByRole('heading', { level: 1, name: 'Snapshot Serengeti' })
@@ -57,8 +67,7 @@ describe('Component > ProjectHeader', function () {
     let navLinks
 
     before(function () {
-      const { NotLoggedIn } = Stories
-      render(<NotLoggedIn {...NotLoggedIn.args} />)
+      render(<NotLoggedIn />)
       const navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
       navLinks = within(navMenu).getAllByRole('link')
     })
@@ -74,8 +83,7 @@ describe('Component > ProjectHeader', function () {
 
   describe('when logged in', function () {
     it('should include recents in the project navigation', function () {
-      const { LoggedIn } = Stories
-      render(<LoggedIn {...LoggedIn.args} />)
+      render(<LoggedIn />)
       const navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
       const navLinks = within(navMenu).getAllByRole('link')
 
@@ -89,8 +97,7 @@ describe('Component > ProjectHeader', function () {
     let approvedIcon, underReviewLabel
 
     before(function () {
-      const { InBeta } = Stories
-      render(<InBeta {...InBeta.args} />)
+      render(<InBeta />)
       approvedIcon = screen.queryByLabelText('ProjectHeader.ApprovedIcon.title')
       underReviewLabel = screen.queryByText('ProjectHeader.UnderReviewLabel.underReview')
     })
@@ -108,8 +115,7 @@ describe('Component > ProjectHeader', function () {
     let approvedIcon, underReviewLabel
 
     before(function () {
-      const { LaunchApproved } = Stories
-      render(<LaunchApproved {...LaunchApproved.args} />)
+      render(<LaunchApproved />)
       approvedIcon = screen.queryByLabelText('ProjectHeader.ApprovedIcon.title')
       underReviewLabel = screen.queryByText('ProjectHeader.UnderReviewLabel.underReview')
     })
@@ -125,8 +131,7 @@ describe('Component > ProjectHeader', function () {
 
   describe('in admin mode', function () {
     it('should show the admin page link', function () {
-      const { AdminMode } = Stories
-      render(<AdminMode {...AdminMode.args} />)
+      render(<AdminMode />)
       const navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
       const navLinks = within(navMenu).getAllByRole('link')
 
@@ -138,8 +143,7 @@ describe('Component > ProjectHeader', function () {
 
   describe('with a default workflow', function () {
     it('should display a workflow-specific classify link', function () {
-      const { DefaultWorkflow } = Stories
-      render(<DefaultWorkflow {...DefaultWorkflow.args} />)
+      render(<DefaultWorkflow />)
       const navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
       const navLinks = within(navMenu).getAllByRole('link')
 
@@ -153,8 +157,7 @@ describe('Component > ProjectHeader', function () {
     let languageButton
 
     before(function () {
-      const { MultipleLanguages } = Stories
-      render(<MultipleLanguages {...MultipleLanguages.args} />)
+      render(<MultipleLanguages />)
       languageButton = screen.getByRole('button', { name: 'ProjectHeader.LocaleSwitcher.label'})
     })
 

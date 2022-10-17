@@ -1,18 +1,12 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
+import { composeStories } from '@storybook/testing-react'
 import { within } from '@testing-library/dom'
 import { render, screen } from '@testing-library/react'
 import nock from 'nock'
 
 import * as Stories from './Nav.stories.js'
-
-function ThemedStory(Story) {
-  return (
-    <Grommet theme={zooTheme}>
-      <Story />
-    </Grommet>
-  )
-}
+const { Default, LoggedIn, AdminMode } = composeStories(Stories)
 
 describe('Component > ProjectHeader > Nav', function () {
   before(function () {
@@ -34,7 +28,7 @@ describe('Component > ProjectHeader > Nav', function () {
     let navMenu
 
     before(function () {
-      render(ThemedStory(Stories.Default))
+      render(<Default />)
       navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
     })
 
@@ -56,7 +50,7 @@ describe('Component > ProjectHeader > Nav', function () {
     let navMenu
 
     before(function () {
-      render(ThemedStory(Stories.LoggedIn))
+      render(<LoggedIn />)
       navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
     })
 
@@ -76,7 +70,7 @@ describe('Component > ProjectHeader > Nav', function () {
     let navMenu
 
     before(async function () {
-      render(ThemedStory(Stories.AdminMode))
+      render(<AdminMode />)
       navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
     })
 

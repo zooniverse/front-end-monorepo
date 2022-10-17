@@ -1,19 +1,13 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
+import { composeStories } from '@storybook/testing-react'
 import { within } from '@testing-library/dom'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import nock from 'nock'
 
 import * as Stories from './DropdownNav.stories.js'
-
-function ThemedStory(Story) {
-  return (
-    <Grommet theme={zooTheme}>
-      <Story />
-    </Grommet>
-  )
-}
+const { Default, LoggedIn, AdminMode } = composeStories(Stories)
 
 describe('Component > ProjectHeader > Dropdown Nav', function () {
   before(function () {
@@ -36,7 +30,7 @@ describe('Component > ProjectHeader > Dropdown Nav', function () {
 
     before(async function () {
       const user = userEvent.setup({ delay: 'none' })
-      render(ThemedStory(Stories.Default))
+      render(<Default />)
       dropdownButton = screen.queryByRole('button', { name: 'ProjectHeader.exploreProject' })
       await user.click(dropdownButton)
       navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
@@ -65,7 +59,7 @@ describe('Component > ProjectHeader > Dropdown Nav', function () {
 
     before(async function () {
       const user = userEvent.setup({ delay: 'none' })
-      render(ThemedStory(Stories.LoggedIn))
+      render(<LoggedIn />)
       dropdownButton = screen.queryByRole('button', { name: 'ProjectHeader.exploreProject' })
       await user.click(dropdownButton)
       navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
@@ -92,7 +86,7 @@ describe('Component > ProjectHeader > Dropdown Nav', function () {
 
     before(async function () {
       const user = userEvent.setup({ delay: 'none' })
-      render(ThemedStory(Stories.AdminMode))
+      render(<AdminMode />)
       dropdownButton = screen.queryByRole('button', { name: 'ProjectHeader.exploreProject' })
       await user.click(dropdownButton)
       navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
