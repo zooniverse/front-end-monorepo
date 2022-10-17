@@ -1,31 +1,32 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
-import { withStores } from '@helpers'
+import { MobXProviderContext, observer } from 'mobx-react'
 
 import locationValidator from '../../helpers/locationValidator'
 import useSubjectImage from '../SingleImageViewer/hooks/useSubjectImage'
 import FlipbookViewer from './FlipbookViewer'
 
-function storeMapper(store) {
+function useStoreContext() {
+  const store = useContext(MobXProviderContext)?.classifierStore
   const { frame: defaultFrame } = store.subjectViewer
-
   return {
     defaultFrame
   }
 }
 
 function FlipbookViewerContainer({
-  defaultFrame = 0,
   loadingState = asyncStates.initialized,
   onError = () => true,
   onReady = () => true,
   subject
 }) {
+  const { defaultFrame } = useStoreContext()
+  const indexOfDefaultFrame = defaultFrame - 1
   /** This initializes an image element from the subject's defaultFrame src url.
    * We do this so the SVGPanZoom has dimensions of the subject image.
    * We're assuming all frames in one subject have the same dimensions. */
-  const defaultFrameUrl = subject ? Object.values(subject.locations[defaultFrame])[0] : null
+  const defaultFrameUrl = subject ? Object.values(subject.locations[indexOfDefaultFrame])[0] : null
   const { img, error } = useSubjectImage(window.Image, defaultFrameUrl)
   const { naturalHeight, naturalWidth, src: defaultFrameSrc } = img
 
@@ -40,7 +41,7 @@ function FlipbookViewerContainer({
 
   return (
     <FlipbookViewer
-      defaultFrame={defaultFrame}
+      indexOfDefaultFrame={indexOfDefaultFrame}
       defaultFrameSrc={defaultFrameSrc}
       naturalHeight={naturalHeight}
       naturalWidth={naturalWidth}
@@ -52,14 +53,16 @@ function FlipbookViewerContainer({
 }
 
 FlipbookViewerContainer.propTypes = {
-  defaultFrame: PropTypes.number,
+  /** @zooniverse/async-states */
   loadingState: PropTypes.string,
+  /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */
   onError: PropTypes.func,
+  /** Passed from SubjectViewer and  dimensions are added to classification metadata. Called after svg layers successfully load with `defaultFrameSrc`. */
   onReady: PropTypes.func,
+  /** Required. Passed from mobx store via SubjectViewer. */
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
   }).isRequired
 }
 
-export default withStores(FlipbookViewerContainer, storeMapper)
-export { FlipbookViewerContainer }
+export default observer(FlipbookViewerContainer)

@@ -20,7 +20,6 @@ FlipbookControls handles the following features:
 - `subjectImage`: Reference to svg layer for handling SVGPanZoom component.
 
 ### Props
-- `defaultFrame`: (number) If a subject is configured to have `metadata.default_frame` it's fetched via SubjectViewerStore, otherwise the store will initialize frame as 0.
 - `onError`: (function) Passed from SubjectViewer and called if `useSubjectImage()` hook fails.
 - `onReady`: (function) Function is passed from SubjectViewer and  dimensions are added to classification metadata. Called after svg layers successfully load with `defaultFrameSrc`.
 - `subject`: (object) Passed from mobx store via SubjectViewer.

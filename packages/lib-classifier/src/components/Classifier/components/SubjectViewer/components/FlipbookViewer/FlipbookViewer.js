@@ -5,13 +5,13 @@ import PropTypes from 'prop-types'
 import locationValidator from '../../helpers/locationValidator'
 import { placeholder } from '../SingleImageViewer/hooks/useSubjectImage'
 
-import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
+import SingleImageViewer from '../SingleImageViewer/SingleImageViewer.js'
 import SVGImage from '../SVGComponents/SVGImage'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import FlipbookControls from './components'
 
 const FlipbookViewer = ({
-  defaultFrame,
+  indexOfDefaultFrame,
   defaultFrameSrc,
   onReady,
   naturalHeight,
@@ -19,14 +19,9 @@ const FlipbookViewer = ({
   subject
 }) => {
   const subjectImage = useRef()
-  const [currentFrame, setCurrentFrame] = useState(defaultFrame)
-  const [viewerSrc, setViewerSrc] = useState('')
+  const [currentFrame, setCurrentFrame] = useState(indexOfDefaultFrame)
 
-  useEffect(() => {
-    if (subject?.locations) {
-      setViewerSrc(Object.values(subject.locations[currentFrame])[0])
-    }
-  }, [currentFrame])
+  const viewerSrc = subject?.locations ? Object.values(subject.locations[currentFrame])[0] : ''
 
   useEffect(() => {
     const svgImage = subjectImage?.current
