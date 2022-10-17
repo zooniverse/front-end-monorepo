@@ -1,24 +1,27 @@
 import React from 'react'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import { within } from '@testing-library/dom'
 import { expect } from 'chai'
 import Meta, { Default, NoSubject } from './FlipbookViewer.stories'
 import { composeStory } from '@storybook/testing-react'
+import userEvent from '@testing-library/user-event'
 
 describe('Component > FlipbookViewer', function () {
   describe('with a valid subject', function () {
     const DefaultStory = composeStory(Default, Meta)
 
     it('should render the correct number of thumbnnails', function () {
-      const { getAllByLabelText } = render(<DefaultStory />)
-      const thumbnailLabels = getAllByLabelText('SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText')
-      expect(thumbnailLabels).to.have.length(4)
+      const { getByLabelText } = render(<DefaultStory />)
+      const thumbnailContainer = getByLabelText('Image thumbnails')
+      const thumbnailButtons = within(thumbnailContainer).getAllByRole('button')
+      expect(thumbnailButtons).to.have.length(4)
     })
 
     it('should highlight the active frame thumbnail with a border', function () {
-      const { getAllByLabelText } = render(<DefaultStory />)
-      const thumbnailLabels = getAllByLabelText('SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText')
-      const activeFrame = thumbnailLabels[1]
-      const { border } = window.getComputedStyle(activeFrame)
+      const { getByLabelText } = render(<DefaultStory />)
+      const thumbnailContainer = getByLabelText('Image thumbnails')
+      const thumbnailButtons = within(thumbnailContainer).getAllByRole('button')
+      const { border } = window.getComputedStyle(thumbnailButtons[0])
       expect(border).to.equal('2px solid #f0b200') // neutral-2 in theme
     })
 
@@ -30,13 +33,24 @@ describe('Component > FlipbookViewer', function () {
       expect(prevButton).exists()
     })
 
-    it('should handle changing the current frame via thumbnail', function () {
-      const { getAllByRole } = render(<DefaultStory />)
-      const radioInputs = getAllByRole('radio')
-      expect(radioInputs[1].checked).to.be.true()
-      fireEvent.click(radioInputs[0])
-      expect(radioInputs[0].checked).to.be.true()
-      expect(radioInputs[1].checked).to.be.false()
+    it('should handle changing the current frame via thumbnail', async function () {
+      const user = userEvent.setup({ delay: null })
+
+      const { getByLabelText, rerender } = render(<DefaultStory />)
+      const thumbnailContainer = getByLabelText('Image thumbnails')
+      const thumbnailButtons = within(thumbnailContainer).getAllByRole('button')
+      const buttonStyle = window.getComputedStyle(thumbnailButtons[0])
+      expect(buttonStyle.border).to.equal('2px solid #f0b200') // neutral-2 in theme
+
+      await user.pointer({
+        keys: '[MouseLeft]',
+        target: thumbnailButtons[1]
+      })
+
+      rerender(<DefaultStory />)
+      const newThumbnailButtons = within(thumbnailContainer).getAllByRole('button')
+      const newButtonStyle = window.getComputedStyle(newThumbnailButtons[1])
+      expect(newButtonStyle.border).to.equal('2px solid #f0b200')
     })
   })
 

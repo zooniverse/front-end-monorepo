@@ -1,33 +1,11 @@
 import { Button, Box, Grid } from 'grommet'
 import { FormNext, FormPrevious } from 'grommet-icons'
-import { tint } from 'polished'
 import PropTypes from 'prop-types'
-import React, { useRef } from 'react'
-import styled, { css, withTheme } from 'styled-components'
+import React from 'react'
+import styled, { withTheme } from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
 import locationValidator from '../../../helpers/locationValidator'
-
-const StyledLabel = styled.label`
-  ${props => css`
-    :focus {
-      outline: 2px solid ${tint(0.5, props.theme.global.colors.brand)};
-    }
-
-    :hover {
-      outline: 2px solid ${tint(0.5, props.theme.global.colors.brand)};
-    }
-  `}
-`
-
-export const StyledFrameList = styled.fieldset`
-  height: 44px;
-  display: flex;
-  flex-direction: row;
-  margin: 0;
-  padding: 0;
-  border: none;
-`
 
 const StyledButton = styled(Button)`
   & > div {
@@ -43,9 +21,6 @@ const FlipbookControls = ({
   onFrameChange = () => true,
   theme
 }) => {
-  const activeLabel = useRef()
-  const frameList = useRef()
-
   const { t } = useTranslation('components')
 
   const handleFrameChange = frameIndex => {
@@ -84,7 +59,12 @@ const FlipbookControls = ({
               padding: 0
             }}
           />
-          <StyledFrameList ref={frameList}>
+          <Box
+            aria-label='Image thumbnails'
+            direction='row'
+            gap='5px'
+            pad='5px'
+          >
             {locations?.length &&
               locations.map((location, index) => {
                 const mimeType = Object.keys(location)[0]
@@ -92,56 +72,28 @@ const FlipbookControls = ({
                 const activeFrame = currentFrame === index
 
                 return (
-                  <Box
+                  <Button
                     key={`${url}-${index}`}
-                    ref={activeFrame ? activeLabel : null}
-                    height='40px'
-                    width='40px'
-                    margin='0 5px'
+                    aria-label={`${t('SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText')} ${index + 1}`}
+                    aria-selected={activeFrame}
+                    onClick={() => handleFrameChange(index)}
                     style={{
-                      position: 'relative'
+                      display: 'flex',
+                      height: '40px',
+                      width: '40px',
+                      padding: '0',
+                      backgroundImage: `url(${url})`,
+                      backgroundSize: 'cover',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundPosition: 'center',
+                      border: activeFrame
+                        ? `solid 2px ${theme.global.colors['neutral-2']}`
+                        : 'none'
                     }}
-                  >
-                    <input
-                      id={`frame ${index}`}
-                      checked={activeFrame}
-                      name='frame'
-                      onChange={() => handleFrameChange(index)}
-                      type='radio'
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        margin: 0,
-                        height: '100%',
-                        width: '100%',
-                        opacity: '1%'
-                      }}
-                    />
-                    <StyledLabel
-                      aria-label={t(
-                        'SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText'
-                      )}
-                      htmlFor={`frame ${index}`}
-                      style={{
-                        position: 'absolute',
-                        top: activeFrame ? 0 : '2px',
-                        left: activeFrame ? 0 : '2px',
-                        height: '40px',
-                        width: '40px',
-                        backgroundImage: `url(${url})`,
-                        backgroundSize: 'cover',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundPosition: 'center',
-                        border: activeFrame
-                          ? `solid 2px ${theme.global.colors['neutral-2']}`
-                          : 'none'
-                      }}
-                    />
-                  </Box>
+                  />
                 )
               })}
-          </StyledFrameList>
+          </Box>
           <StyledButton
             disabled={currentFrame === locations.length - 1}
             icon={<FormNext />}
