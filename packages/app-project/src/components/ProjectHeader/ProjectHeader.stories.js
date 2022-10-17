@@ -12,10 +12,7 @@ const mockRouter = {
   asPath: '/zooniverse/snapshot-serengeti/about/team',
   basePath: '/projects',
   locale: 'en',
-  push(url, unused, options) {
-    pageURL = url
-    locale = options.locale
-  },
+  push() {},
   prefetch: () => new Promise((resolve, reject) => {}),
   query: {
     owner: 'zooniverse',
