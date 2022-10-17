@@ -1,1 +1,1 @@
-export { default } from './ApprovedIconContainer'
+export { default } from './ApprovedIcon'

@@ -1,6 +1,7 @@
 import { Anchor, Heading } from 'grommet'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { string } from 'prop-types'
 import styled from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
@@ -24,16 +25,10 @@ const StyledAnchor = styled(Anchor)`
 `
 
 function ProjectTitle({
-  showDropdown = false,
-  /** 
-    Optional custom router. Overrides the default NextJS.
-    Useful for mocking the router in stories and shallow tests.
-  */
-  router,
+  textAlign = 'start',
   title = ''
 }) {
-  const nextRouter = useRouter()
-  router = router || nextRouter
+  const router = useRouter()
   const owner = router?.query?.owner
   const project = router?.query?.project
   const linkProps = {
@@ -44,7 +39,7 @@ function ProjectTitle({
 
   const anchor = (
     <StyledAnchor>
-      <StyledHeading color='white' margin='none' textAlign={showDropdown ? 'center' : 'start'}>
+      <StyledHeading color='white' margin='none' textAlign={textAlign}>
         {title}
       </StyledHeading>
     </StyledAnchor>
@@ -61,4 +56,10 @@ function ProjectTitle({
   }
 }
 
+ProjectTitle.propTypes = {
+  /** [Grommet textAlign](https://v2.grommet.io/heading#textAlign) for the heading. */
+  textAlign: string,
+  /** The project name */
+  title: string
+}
 export default ProjectTitle

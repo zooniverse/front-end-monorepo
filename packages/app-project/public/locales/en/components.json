@@ -111,6 +111,9 @@
     "Avatar": {
       "alt": "Project avatar for {{project}}"
     },
+    "LocaleSwitcher": {
+      "label": "Change Language"
+    },
     "ProjectNav": {
       "ariaLabel": "Project"
     },

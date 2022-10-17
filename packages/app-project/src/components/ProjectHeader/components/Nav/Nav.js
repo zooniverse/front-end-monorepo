@@ -1,10 +1,11 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box } from 'grommet'
-import { arrayOf, shape, string } from 'prop-types'
+import { bool } from 'prop-types'
 import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
 import NavLink from '@shared/components/NavLink'
+import { useProjectNavigation } from '../../hooks'
 
 /**
   Link text styles
@@ -35,8 +36,9 @@ const StyledAnchor = styled(Anchor)`
 `
 
 function Nav({
-  navLinks = []
+  adminMode = false,
 }) {
+  const navLinks = useProjectNavigation(adminMode)
   const { t } = useTranslation('components')
   return (
     <Box aria-label={t('ProjectHeader.ProjectNav.ariaLabel')} as='nav'>
@@ -58,11 +60,8 @@ function Nav({
 }
 
 Nav.propTypes = {
-  navLinks: arrayOf(
-    shape({
-      href: string
-    })
-  )
+  /** Zooniverse admin mode */
+  adminMode: bool
 }
 
 export default Nav

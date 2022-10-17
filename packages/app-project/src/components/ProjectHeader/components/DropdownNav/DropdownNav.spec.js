@@ -1,32 +1,110 @@
-import { shallow } from 'enzyme'
+import zooTheme from '@zooniverse/grommet-theme'
+import { Grommet } from 'grommet'
+import { composeStories } from '@storybook/testing-react'
+import { within } from '@testing-library/dom'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import nock from 'nock'
 
-import { DropdownNav, StyledDropButton } from './DropdownNav'
-import NavLink from '@shared/components/NavLink'
+import * as Stories from './DropdownNav.stories.js'
+const { Default, LoggedIn, AdminMode } = composeStories(Stories)
 
-describe('Component > Nav', function () {
-  let wrapper
-
-  const BASE_URL = `/projects/foo/bar`
-  const LINKS = [
-    { text: 'About', href: `${BASE_URL}/about` },
-    { text: 'Classify', href: `${BASE_URL}/classify` },
-    { text: 'Talk', href: `${BASE_URL}/talk` },
-    { text: 'Collect', href: `${BASE_URL}/collections` },
-    { text: 'Recents', href: `${BASE_URL}/recents` }
-  ]
-
+describe('Component > ProjectHeader > Dropdown Nav', function () {
   before(function () {
-    wrapper = shallow(<DropdownNav navLinks={LINKS} />)
+    nock('https://talk-staging.zooniverse.org')
+    .persist()
+    .get('/notifications')
+    .query(true)
+    .reply(200, {})
+    .get('/conversations')
+    .query(true)
+    .reply(200, {})
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
+  after(function () {
+    nock.cleanAll()
   })
 
-  it('should render a link for each item passed in the `navLinks` prop', function () {
-    const dropButton = wrapper.find(StyledDropButton).first()
-    const { dropContent } = dropButton?.props()
-    const links = shallow(dropContent)?.find(NavLink)
-    expect(links?.length).to.equal(LINKS.length)
+  describe('not logged in', function () {
+    let dropdownButton, navMenu
+
+    before(async function () {
+      const user = userEvent.setup({ delay: 'none' })
+      render(<Default />)
+      dropdownButton = screen.queryByRole('button', { name: 'ProjectHeader.exploreProject' })
+      await user.click(dropdownButton)
+      navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+    })
+
+    it('should show the menu button', function () {
+      expect(dropdownButton).to.exist()
+    })
+
+    it('should open the navigation menu', function () {
+      expect(navMenu).to.exist()
+    })
+
+    it('should display the default nav links', function () {
+      const navLinks = within(navMenu).getAllByRole('link')
+      expect(navLinks.length).to.be.above(0)
+      expect(navLinks[0].href).to.equal('https://localhost/zooniverse/snapshot-serengeti/about/research')
+      expect(navLinks[navLinks.length - 1].href).to.equal(
+        'https://localhost/zooniverse/snapshot-serengeti/collections'
+      )
+    })
+  })
+
+  describe('logged in', function () {
+    let dropdownButton, navMenu
+
+    before(async function () {
+      const user = userEvent.setup({ delay: 'none' })
+      render(<LoggedIn />)
+      dropdownButton = screen.queryByRole('button', { name: 'ProjectHeader.exploreProject' })
+      await user.click(dropdownButton)
+      navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+    })
+
+    it('should show the menu button', function () {
+      expect(dropdownButton).to.exist()
+    })
+
+    it('should open the navigation menu', function () {
+      expect(navMenu).to.exist()
+    })
+
+    it('should include recents in the project navigation', function () {
+      const navLinks = within(navMenu).getAllByRole('link')
+      expect(navLinks.length).to.be.above(0)
+      expect(navLinks[0].href).to.equal('https://localhost/zooniverse/snapshot-serengeti/about/research')
+      expect(navLinks[navLinks.length - 1].href).to.equal('https://localhost/zooniverse/snapshot-serengeti/recents')
+    })
+  })
+
+  describe('admin mode', function () {
+    let dropdownButton, navMenu
+
+    before(async function () {
+      const user = userEvent.setup({ delay: 'none' })
+      render(<AdminMode />)
+      dropdownButton = screen.queryByRole('button', { name: 'ProjectHeader.exploreProject' })
+      await user.click(dropdownButton)
+      navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+    })
+
+    it('should show the menu button', function () {
+      expect(dropdownButton).to.exist()
+    })
+
+    it('should open the navigation menu', function () {
+      expect(navMenu).to.exist()
+    })
+
+    it('should show the admin page link', function () {
+      const navLinks = within(navMenu).getAllByRole('link')
+      expect(navLinks.length).to.be.above(0)
+      expect(navLinks[0].href).to.equal('https://localhost/zooniverse/snapshot-serengeti/about/research')
+      expect(navLinks[navLinks.length - 1].href).to.equal('https://www.zooniverse.org/admin/project_status/zooniverse/snapshot-serengeti')
+    })
   })
 })
