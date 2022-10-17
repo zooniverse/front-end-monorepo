@@ -1,0 +1,64 @@
+name: Deploy Production
+
+on:
+  push:
+    tags:
+      - production-release
+  workflow_dispatch:
+
+jobs:
+  build_and_push_image:
+    name: Build Production Image
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v3
+      with:
+        push: true
+        tags: |
+          ghcr.io/zooniverse/front-end-monorepo-production:latest
+          ghcr.io/zooniverse/front-end-monorepo-production:${{ github.sha }}
+        build-args: |
+          APP_ENV=production
+          COMMIT_ID=${{ github.sha }}
+          CONTENTFUL_ACCESS_TOKEN=${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+          CONTENTFUL_SPACE_ID=${{ secrets.CONTENTFUL_SPACE_ID }}
+
+  deploy_production:
+    runs-on: ubuntu-latest
+    needs: build_and_push_image
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Set the target AKS cluster
+      uses: Azure/aks-set-context@v1
+      with:
+        creds: ${{ secrets.AZURE_AKS }}
+        cluster-name: microservices
+        resource-group: kubernetes
+
+    - name: Modify & apply template
+      run: |
+        sed 's/__IMAGE_TAG__/${{ github.sha }}/g' kubernetes/deployment-production.tmpl | kubectl apply -f -
+
+  slack_notification:
+    name: Slack notification
+    uses: zooniverse/ci-cd/.github/workflows/slack_notification.yaml@main
+    needs: [build_and_push_image, deploy_production]
+    if: always()
+    with:
+      commit_id: ${{ github.sha }}
+      job_name: Build Production Image
+      status: ${{ needs.build_and_push_image.result }}
+      title: "FEM Production deploy complete"
+      title_link: "https://fe-project.zooniverse.org/projects/Index"
+    secrets:
+      slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
