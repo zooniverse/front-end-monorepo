@@ -64,6 +64,7 @@ const FlipbookControls = ({
             direction='row'
             gap='5px'
             pad='5px'
+            role='tablist'
           >
             {locations?.length &&
               locations.map((location, index) => {
@@ -77,6 +78,7 @@ const FlipbookControls = ({
                     aria-label={`${t('SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText')} ${index + 1}`}
                     aria-selected={activeFrame}
                     onClick={() => handleFrameChange(index)}
+                    role='tab'
                     style={{
                       display: 'flex',
                       height: '40px',
