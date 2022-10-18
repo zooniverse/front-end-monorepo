@@ -1,1 +1,1 @@
-export { default } from './withLayer'
+export { default } from './withLayer.js'

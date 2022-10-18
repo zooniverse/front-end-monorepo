@@ -1,1 +1,1 @@
-export { default } from './NarrowMenuNavListItem'
+export { default } from './NarrowMenuNavListItem.js'

@@ -5,8 +5,10 @@
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "1.2.1",
   "main": "dist/main.js",
+  "type": "module",
+  "module": "src/index.js",
   "scripts": {
-    "build": "webpack --config ./webpack.dist.js",
+    "build": "webpack --config ./webpack.dist.cjs",
     "build:storybook": "build-storybook",
     "lint": "zoo-standard --fix {.storybook,src,stories,test}/**/*.{js,jsx} | snazzy",
     "prepare": "yarn build",

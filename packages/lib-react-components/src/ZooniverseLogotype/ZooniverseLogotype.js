@@ -1,7 +1,7 @@
 import React from 'react'
 import { number, string } from 'prop-types'
 
-import SVGContent from './SVGContent'
+import SVGContent from './SVGContent.js'
 
 export default function ZooniverseLogotype({
   id,

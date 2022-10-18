@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from 'grommet'
-import NavButton from './components/NavButton'
-import NarrowMainNavMenu from '../NarrowMainNavMenu'
+import NavButton from './components/NavButton/index.js'
+import NarrowMainNavMenu from '../NarrowMainNavMenu/index.js'
 import { useTranslation } from 'react-i18next'
-import '../../../translations/i18n'
+import '../../../translations/i18n.js'
 
 export default function SignedOutUserNavigation({
   adminNavLinkLabel,

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import React, { forwardRef } from 'react'
 import { Box } from 'grommet'
-import withLayer from '../helpers/withLayer'
-import ModalBody from './components/ModalBody'
-import ModalHeading from './components/ModalHeading'
+import withLayer from '../helpers/withLayer/index.js'
+import ModalBody from './components/ModalBody/index.js'
+import ModalHeading from './components/ModalHeading/index.js'
 
 const Modal = forwardRef(function ({
   children,

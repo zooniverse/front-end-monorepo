@@ -1,1 +1,1 @@
-export { default } from './SpacedHeading'
+export { default } from './SpacedHeading.js'

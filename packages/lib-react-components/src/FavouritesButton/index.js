@@ -1,1 +1,1 @@
-export { default } from './FavouritesButton'
+export { default } from './FavouritesButton.js'

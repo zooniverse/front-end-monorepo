@@ -1,1 +1,1 @@
-export { default } from './zipLabelsAndUrls'
+export { default } from './zipLabelsAndUrls.js'

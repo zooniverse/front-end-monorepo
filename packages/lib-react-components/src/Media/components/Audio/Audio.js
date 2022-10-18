@@ -1,7 +1,7 @@
 import React from 'react'
 import { Anchor, Box } from 'grommet'
 import styled, { css } from 'styled-components'
-import { propTypes, defaultProps } from '../../helpers/mediaPropTypes'
+import { propTypes, defaultProps } from '../../helpers/mediaPropTypes.js'
 
 const StyledBox = styled(Box)`
   ${props => props.maxHeight && css`max-height: ${props.maxHeight}px;`}

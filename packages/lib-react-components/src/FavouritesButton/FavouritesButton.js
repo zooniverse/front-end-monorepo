@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { withTheme } from 'styled-components'
-import MetaToolsButton from '../MetaToolsButton'
-import HeartIcon from './HeartIcon'
+import MetaToolsButton from '../MetaToolsButton/index.js'
+import HeartIcon from './HeartIcon.js'
 import { useTranslation } from 'react-i18next'
-import '../translations/i18n'
+import '../translations/i18n.js'
 
 function FavouritesButton (props) {
   const { checked, disabled, onClick } = props

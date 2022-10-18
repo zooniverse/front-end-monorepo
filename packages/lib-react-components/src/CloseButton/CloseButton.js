@@ -2,9 +2,9 @@ import { func, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import { Button } from 'grommet'
-import CloseIcon from './components/CloseIcon'
+import CloseIcon from './components/CloseIcon/index.js'
 import { useTranslation } from 'react-i18next'
-import '../translations/i18n'
+import '../translations/i18n.js'
 
 const StyledButton = styled(Button)`
   height: 1rem;

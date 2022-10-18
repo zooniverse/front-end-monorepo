@@ -1,1 +1,1 @@
-export { default } from './LinkList'
+export { default } from './LinkList.js'

@@ -1,1 +1,1 @@
-export { default } from './withOnlyRenderOnBrowser'
+export { default } from './withOnlyRenderOnBrowser.js'

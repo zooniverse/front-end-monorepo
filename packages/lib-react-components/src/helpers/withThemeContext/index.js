@@ -1,1 +1,1 @@
-export { default } from './withThemeContext'
+export { default } from './withThemeContext.js'

@@ -3,8 +3,8 @@ import { arrayOf, string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
-import zipLabelsAndUrls from '../../helpers/zipLabelsAndUrls'
-import SpacedText from '../../../SpacedText'
+import zipLabelsAndUrls from '../../helpers/zipLabelsAndUrls/index.js'
+import SpacedText from '../../../SpacedText/index.js'
 
 const StyledBox = styled(Box)`
   height: fit-content;

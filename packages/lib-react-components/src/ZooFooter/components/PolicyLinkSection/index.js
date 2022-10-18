@@ -1,1 +1,1 @@
-export { default } from './PolicyLinkSection'
+export { default } from './PolicyLinkSection.js'

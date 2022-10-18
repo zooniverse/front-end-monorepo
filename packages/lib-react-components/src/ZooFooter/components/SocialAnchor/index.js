@@ -1,1 +1,1 @@
-export { default } from './SocialAnchor'
+export { default } from './SocialAnchor.js'

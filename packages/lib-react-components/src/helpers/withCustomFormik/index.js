@@ -1,1 +1,1 @@
-export { default } from './withCustomFormik'
+export { default } from './withCustomFormik.js'

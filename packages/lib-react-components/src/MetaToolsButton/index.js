@@ -1,1 +1,1 @@
-export { default } from './MetaToolsButton'
+export { default } from './MetaToolsButton.js'

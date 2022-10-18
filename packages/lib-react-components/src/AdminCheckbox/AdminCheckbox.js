@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 import { useTranslation } from 'react-i18next'
-import '../translations/i18n'
+import '../translations/i18n.js'
 
-import SpacedText from '../SpacedText'
+import SpacedText from '../SpacedText/index.js'
 
 export default function AdminCheckbox ({ checked, colorTheme, label, onChange }) {
   return (

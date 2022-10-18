@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Menu } from 'grommet-icons'
-import NarrowMenu from '../NarrowMenu'
-import NarrowMenuNavListItem from '../NarrowMenuNavListItem'
+import NarrowMenu from '../NarrowMenu/index.js'
+import NarrowMenuNavListItem from '../NarrowMenuNavListItem/index.js'
 
 const StyledMenuIcon = styled(Menu)`
   width: 1em;

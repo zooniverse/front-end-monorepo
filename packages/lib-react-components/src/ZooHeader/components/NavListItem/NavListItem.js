@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 
-import SpacedText from '../../../SpacedText'
+import SpacedText from '../../../SpacedText/index.js'
 
 export const StyledNavListItem = styled(Anchor)`
   border-bottom: 2px solid transparent;

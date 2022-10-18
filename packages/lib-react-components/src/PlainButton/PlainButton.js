@@ -3,7 +3,7 @@ import { bool, func, shape, string, oneOfType } from 'prop-types'
 import styled, { withTheme } from 'styled-components'
 import React from 'react'
 
-import SpacedText from '../SpacedText'
+import SpacedText from '../SpacedText/index.js'
 
 export const StyledPlainButton = styled(Button)`
   &:focus,

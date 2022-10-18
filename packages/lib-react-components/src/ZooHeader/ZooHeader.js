@@ -4,14 +4,14 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 import styled from 'styled-components'
-import { getHost } from './helpers'
+import { getHost } from './helpers/index.js'
 import { useTranslation } from 'react-i18next'
-import '../translations/i18n'
+import '../translations/i18n.js'
 
-import MainNavList from './components/MainNavList'
-import SignedInUserNavigation from './components/SignedInUserNavigation'
-import SignedOutUserNavigation from './components/SignedOutUserNavigation'
-import ZooniverseLogo from '../ZooniverseLogo'
+import MainNavList from './components/MainNavList/index.js'
+import SignedInUserNavigation from './components/SignedInUserNavigation/index.js'
+import SignedOutUserNavigation from './components/SignedOutUserNavigation/index.js'
+import ZooniverseLogo from '../ZooniverseLogo/index.js'
 
 export const StyledHeader = styled(Box)`
   color: #B2B2B2;

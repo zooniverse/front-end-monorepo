@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import NavListItem from '../NavListItem'
+import NavListItem from '../NavListItem/index.js'
 import { Box } from 'grommet'
 
 export default function MainNavList({

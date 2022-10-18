@@ -1,1 +1,1 @@
-export { default } from './Markdownz'
+export { default } from './Markdownz.js'

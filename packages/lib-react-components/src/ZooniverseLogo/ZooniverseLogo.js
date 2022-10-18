@@ -1,7 +1,7 @@
 import React from 'react'
 import { string } from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import '../translations/i18n'
+import '../translations/i18n.js'
 
 export default function ZooniverseLogo ({ id, size, ...rest }) {
   const { t } = useTranslation()

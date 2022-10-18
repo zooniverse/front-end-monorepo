@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
-import PlainButton from '../PlainButton'
+import PlainButton from '../PlainButton/index.js'
 
 export const StyledPlainButton = styled(PlainButton)`
   > div {

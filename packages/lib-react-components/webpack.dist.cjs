@@ -32,9 +32,10 @@ module.exports = {
   output: {
     path: path.resolve('dist'),
     filename: 'main.js',
-    library: '@zooniverse/react-components',
-    libraryTarget: 'umd',
-
+    library: {
+      name: '@zooniverse/react-components',
+      type: 'umd'
+    },
     // Workaround for webpack/webpack#6522
     globalObject: `typeof self !== 'undefined' ? self : this`
   },

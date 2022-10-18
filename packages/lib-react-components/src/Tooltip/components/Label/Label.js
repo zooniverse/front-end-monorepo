@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from 'grommet'
 import { withTheme } from 'styled-components'
-import SpacedText from '../../../SpacedText'
-import Triangle from '../Triangle'
+import SpacedText from '../../../SpacedText/index.js'
+import Triangle from '../Triangle/index.js'
 
 function Label ({ animation, arrow, className, label, theme, ...rest }) {
   const { family } = theme.global.font

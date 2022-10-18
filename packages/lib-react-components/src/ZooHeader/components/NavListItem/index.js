@@ -1,1 +1,1 @@
-export { default } from './NavListItem'
+export { default } from './NavListItem.js'

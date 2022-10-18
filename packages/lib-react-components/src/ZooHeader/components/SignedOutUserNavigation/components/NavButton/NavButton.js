@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
 import { Button } from 'grommet'
-import SpacedText from '../../../../../SpacedText'
+import SpacedText from '../../../../../SpacedText/index.js'
 
 const StyledNavButton = styled(Button)`
   border-bottom: 2px solid transparent;

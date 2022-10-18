@@ -1,1 +1,1 @@
-export { default } from './AdminCheckbox'
+export { default } from './AdminCheckbox.js'

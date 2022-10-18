@@ -1,1 +1,1 @@
-export { default } from './PlainButton'
+export { default } from './PlainButton.js'

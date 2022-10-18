@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Tippy from '@tippyjs/react/headless'
-import Label from './components/Label'
+import Tippy from '@tippyjs/react/headless/dist/tippy-react-headless.esm.js'
+import Label from './components/Label/index.js'
 
 function Tooltip (props) {
   const { 

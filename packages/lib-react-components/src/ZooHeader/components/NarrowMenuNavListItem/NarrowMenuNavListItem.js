@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import SpacedText from '../../../SpacedText'
+import SpacedText from '../../../SpacedText/index.js'
 
 export default function NarrowMenuNavListItem ({ color, text, lang }) {
   return (

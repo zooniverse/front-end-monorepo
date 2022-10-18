@@ -1,1 +1,1 @@
-export { default } from './Triangle'
+export { default } from './Triangle.js'

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import { FormDown } from 'grommet-icons'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
-import '../../../translations/i18n'
+import '../../../translations/i18n.js'
 
-import NarrowMenu from '../NarrowMenu'
-import NarrowMenuNavListItem from '../NarrowMenuNavListItem'
-import { getHost } from '../../helpers'
+import NarrowMenu from '../NarrowMenu/index.js'
+import NarrowMenuNavListItem from '../NarrowMenuNavListItem/index.js'
+import { getHost } from '../../helpers/index.js'
 
 // The standard xsmall size in the theme isn't small enough
 export const StyledFormDown = styled(FormDown)`

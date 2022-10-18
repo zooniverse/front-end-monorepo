@@ -1,1 +1,1 @@
-export { default } from './ResizeIcon'
+export { default } from './ResizeIcon.js'

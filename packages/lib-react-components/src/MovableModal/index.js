@@ -1,1 +1,1 @@
-export { default } from './MovableModal'
+export { default } from './MovableModal.js'

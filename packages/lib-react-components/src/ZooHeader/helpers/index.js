@@ -1,1 +1,1 @@
-export { default as getHost } from './getHost'
+export { default as getHost } from './getHost.js'

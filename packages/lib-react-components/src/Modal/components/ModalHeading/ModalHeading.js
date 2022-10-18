@@ -2,8 +2,8 @@ import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-import SpacedHeading from '../../../SpacedHeading'
-import CloseButton from '../../../CloseButton'
+import SpacedHeading from '../../../SpacedHeading/index.js'
+import CloseButton from '../../../CloseButton/index.js'
 
 const StyledBox = styled(Box)`
   min-height: 30px;

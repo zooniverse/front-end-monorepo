@@ -1,7 +1,7 @@
 import { Tab as GrommetTab } from 'grommet'
 import React from 'react'
 
-import SpacedText from '../SpacedText'
+import SpacedText from '../SpacedText/index.js'
 
 function Tab (props) {
   const clonedProps = { ...props }

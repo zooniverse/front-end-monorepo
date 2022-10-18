@@ -1,1 +1,1 @@
-export { default } from './CloseIcon'
+export { default } from './CloseIcon.js'

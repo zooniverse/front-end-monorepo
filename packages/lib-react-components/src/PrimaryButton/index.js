@@ -1,1 +1,1 @@
-export { default } from './PrimaryButton'
+export { default } from './PrimaryButton.js'

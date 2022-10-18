@@ -1,1 +1,1 @@
-export { default } from './LogoAndTagline'
+export { default } from './LogoAndTagline.js'

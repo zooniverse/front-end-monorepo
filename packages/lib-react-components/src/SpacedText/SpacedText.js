@@ -1,7 +1,7 @@
 import { Text } from 'grommet'
 import styled, { css } from 'styled-components'
 import React from 'react'
-import pxToRem from '../helpers/pxToRem'
+import pxToRem from '../helpers/pxToRem.js'
 import { bool, node, string } from 'prop-types'
 
 const letterSpacing = pxToRem(1)

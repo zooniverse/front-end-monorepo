@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import { Rnd } from 'react-rnd'
-import ResizeIcon from './components/ResizeIcon'
-import withLayer from '../helpers/withLayer'
-import { Modal } from '../Modal'
+import ResizeIcon from './components/ResizeIcon/index.js'
+import withLayer from '../helpers/withLayer/index.js'
+import { Modal } from '../Modal/index.js'
 
 const defaultRndProps = {
   default: {

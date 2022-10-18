@@ -1,9 +1,9 @@
 import React from 'react'
 import mime from 'mime-types'
-import Audio from './components/Audio'
-import ThumbnailImage from './components/ThumbnailImage'
-import Video from './components/Video'
-import { propTypes, defaultProps } from './helpers/mediaPropTypes'
+import Audio from './components/Audio/index.js'
+import ThumbnailImage from './components/ThumbnailImage/index.js'
+import Video from './components/Video/index.js'
+import { propTypes, defaultProps } from './helpers/mediaPropTypes.js'
 
 export default function Media (props) {
   const mimeType = mime.lookup(props.src)

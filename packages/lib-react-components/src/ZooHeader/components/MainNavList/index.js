@@ -1,1 +1,1 @@
-export { default } from './MainNavList'
+export { default } from './MainNavList.js'

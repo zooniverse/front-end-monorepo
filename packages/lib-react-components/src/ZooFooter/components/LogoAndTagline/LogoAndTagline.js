@@ -3,8 +3,8 @@ import { string } from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
-import ZooniverseLogotype from '../../../ZooniverseLogotype'
-import SpacedText from '../../../SpacedText'
+import ZooniverseLogotype from '../../../ZooniverseLogotype/index.js'
+import SpacedText from '../../../SpacedText/index.js'
 
 export const StyledLogoAnchor = styled(Anchor)`
   transition: color 0.2s linear;

@@ -1,1 +1,1 @@
-export { default } from './ThumbnailImage'
+export { default } from './ThumbnailImage.js'

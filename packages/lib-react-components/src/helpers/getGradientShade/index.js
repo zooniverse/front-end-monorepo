@@ -1,1 +1,1 @@
-export { default } from './getGradientShade'
+export { default } from './getGradientShade.js'

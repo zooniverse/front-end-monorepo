@@ -1,6 +1,6 @@
-import { normalizeColor } from 'grommet/utils'
+import { normalizeColor } from 'grommet/utils/index.js'
 import { css } from 'styled-components'
-import getGradientShade from '../helpers/getGradientShade'
+import getGradientShade from '../helpers/getGradientShade.js'
 
 const theme = {
   button: {

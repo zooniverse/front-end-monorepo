@@ -1,1 +1,1 @@
-export { default } from './SignedOutUserNavigation'
+export { default } from './SignedOutUserNavigation.js'

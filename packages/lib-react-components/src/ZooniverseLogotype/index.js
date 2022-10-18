@@ -1,1 +1,1 @@
-export { default } from './ZooniverseLogotype'
+export { default } from './ZooniverseLogotype.js'

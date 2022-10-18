@@ -3,9 +3,9 @@ import { arrayOf, string } from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import zipLabelsAndUrls from '../../helpers/zipLabelsAndUrls'
-import SpacedText from '../../../SpacedText'
-import withResponsiveContext from '../../../helpers/withResponsiveContext'
+import zipLabelsAndUrls from '../../helpers/zipLabelsAndUrls/index.js'
+import SpacedText from '../../../SpacedText/index.js'
+import withResponsiveContext from '../../../helpers/withResponsiveContext/index.js'
 
 function PolicyLinkSection ({
   labels = [],

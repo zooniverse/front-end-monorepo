@@ -3,7 +3,7 @@ import { arrayOf, node, string } from 'prop-types'
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
-import '../translations/i18n'
+import '../translations/i18n.js'
 import i18n from 'i18next'
 
 import {
@@ -11,7 +11,7 @@ import {
   PolicyLinkSection,
   LogoAndTagline,
   SocialAnchor
-} from './components'
+} from './components/index.js'
 
 export const StyledEasterEgg = styled(Image)`
   bottom: 100%;

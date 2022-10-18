@@ -1,1 +1,1 @@
-export { default } from './ZooHeader'
+export { default } from './ZooHeader.js'

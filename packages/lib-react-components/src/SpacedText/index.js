@@ -1,1 +1,1 @@
-export { default } from './SpacedText'
+export { default } from './SpacedText.js'

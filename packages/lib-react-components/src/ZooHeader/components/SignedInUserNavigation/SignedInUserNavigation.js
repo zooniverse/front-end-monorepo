@@ -2,16 +2,16 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Box } from 'grommet'
 import { useTranslation } from 'react-i18next'
-import '../../../translations/i18n'
+import '../../../translations/i18n.js'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell as fasBell, faEnvelope as fasEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { faBell as farBell, faEnvelope as farEnvelope } from '@fortawesome/free-regular-svg-icons'
 
-import NarrowMainNavMenu from '../NarrowMainNavMenu'
-import NavListItem from '../NavListItem'
-import UserMenu from '../UserMenu'
-import { getHost } from '../../helpers'
+import NarrowMainNavMenu from '../NarrowMainNavMenu/index.js'
+import NavListItem from '../NavListItem/index.js'
+import UserMenu from '../UserMenu/index.js'
+import { getHost } from '../../helpers/index.js'
 
 export default function SignedInUserNavigation({
   adminNavLinkLabel,

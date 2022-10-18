@@ -1,4 +1,4 @@
-import SpacedText from '../SpacedText'
+import SpacedText from '../SpacedText/index.js'
 import { Heading } from 'grommet'
 import { node, number, object, oneOfType, string } from 'prop-types'
 import React from 'react'

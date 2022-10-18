@@ -1,1 +1,1 @@
-export { default } from './withResponsiveContext'
+export { default } from './withResponsiveContext.js'
