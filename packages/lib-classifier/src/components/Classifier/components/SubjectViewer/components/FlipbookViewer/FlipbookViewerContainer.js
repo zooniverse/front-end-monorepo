@@ -1,14 +1,14 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
-import { MobXProviderContext, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 
+import { useStores } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
 import useSubjectImage from '../SingleImageViewer/hooks/useSubjectImage'
 import FlipbookViewer from './FlipbookViewer'
 
-function useStoreContext() {
-  const store = useContext(MobXProviderContext)?.classifierStore
+function storeMapper (store) {
   const { frame: defaultFrame } = store.subjectViewer
   return {
     defaultFrame
@@ -21,7 +21,7 @@ function FlipbookViewerContainer({
   onReady = () => true,
   subject
 }) {
-  const { defaultFrame } = useStoreContext()
+  const { defaultFrame } = useStores(storeMapper)
   const indexOfDefaultFrame = defaultFrame - 1
   /** This initializes an image element from the subject's defaultFrame src url.
    * We do this so the SVGPanZoom has dimensions of the subject image.
