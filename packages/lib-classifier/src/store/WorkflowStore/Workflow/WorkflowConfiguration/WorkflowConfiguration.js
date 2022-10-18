@@ -6,6 +6,7 @@ const WorkflowConfiguration = types.model({
   invert_subject: types.optional(types.boolean, false),
   multi_image_mode: types.optional(types.enumeration('multiImageMode', ['flipbook', 'separate']), 'flipbook'),
   persist_annotations: types.optional(types.boolean, true),
+  playIterations: types.optional(types.string, ''),
   subject_viewer: types.maybe(types.enumeration('subjectViewer', [
     'dataImage',
     'flipbook',

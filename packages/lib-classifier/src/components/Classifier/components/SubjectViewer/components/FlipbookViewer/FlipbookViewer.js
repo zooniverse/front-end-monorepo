@@ -16,6 +16,7 @@ const FlipbookViewer = ({
   onReady = () => true,
   naturalHeight = placeholder.height,
   naturalWidth = placeholder.width,
+  playIterations = '',
   subject
 }) => {
   const subjectImage = useRef()
@@ -60,8 +61,9 @@ const FlipbookViewer = ({
       </SVGPanZoom>
       <FlipbookControls
         currentFrame={currentFrame}
-        onFrameChange={setCurrentFrame}
         locations={subject.locations}
+        onFrameChange={setCurrentFrame}
+        playIterations={playIterations}
       />
     </Box>
   )

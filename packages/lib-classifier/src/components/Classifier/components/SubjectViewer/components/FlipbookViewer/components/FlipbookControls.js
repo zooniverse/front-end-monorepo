@@ -1,7 +1,7 @@
 import { Button, Box, Grid } from 'grommet'
-import { FormNext, FormPrevious } from 'grommet-icons'
+import { CirclePlay, Pause, FormNext, FormPrevious } from 'grommet-icons'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled, { withTheme } from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
@@ -19,6 +19,7 @@ const FlipbookControls = ({
   currentFrame = 0,
   locations = [],
   onFrameChange = () => true,
+  playIterations = '',
   theme
 }) => {
   const { t } = useTranslation('components')
@@ -43,6 +44,15 @@ const FlipbookControls = ({
     }
   }
 
+  const timeoutRef = useRef(null)
+
+  const [playing, setPlaying] = useState(false)
+  const [iterationCounter, setIterationCounter] = useState(0)
+
+  const handleFrameChange = frameIndex => {
+    onFrameChange(frameIndex)
+  }
+
   const handlePrevious = () => {
     if (currentFrame > 0) {
       onFrameChange(currentFrame - 1)
@@ -59,16 +69,60 @@ const FlipbookControls = ({
     }
   }
 
+  const resetTimeout = () => {
+    if (timeoutRef.current) {
+      clearInterval(timeoutRef.current)
+    }
+  }
+
+  const flip = () => {
+    if (currentFrame < locations.length - 1) {
+      onFrameChange(currentFrame + 1)
+    } else {
+      onFrameChange(0)
+    }
+  }
+
+  const onPlayPause = () => {
+    if (!playing) {
+      setPlaying(true)
+    } else {
+      resetTimeout()
+      setPlaying(false)
+    }
+  }
+
+  useEffect(() => {
+    if (playing) {
+      timeoutRef.current = setTimeout(() => {
+        flip()
+      }, 1000)
+    }
+
+    return () => {
+      resetTimeout()
+    }
+  }, [playing, currentFrame])
+
+  const playPauseLabel = playing
+    ? 'SubjectViewer.VideoController.pause'
+    : 'SubjectViewer.VideoController.play'
+
   return (
     <Box background={backgrounds}>
       <Grid columns={['120px', 'flex']} pad='10px'>
         {/** Play/Pause & Speed go here */}
-        <Box />
+        <Button
+          a11yTitle={t(playPauseLabel)}
+          onClick={onPlayPause}
+          icon={playing ? <Pause /> : <CirclePlay />}
+          plain
+        />
 
         {/** Image Thumbnails */}
         <Box direction='row' justify='between'>
           <StyledButton
-            disabled={currentFrame === 0}
+            disabled={currentFrame === 0 || playing}
             icon={<FormPrevious />}
             label={t(
               'SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel'
@@ -104,7 +158,7 @@ const FlipbookControls = ({
                       'SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText'
                     )} ${index + 1}`}
                     aria-selected={activeFrame ? 'true' : 'false'}
-                    onClick={() => onFrameChange(index)}
+                    onClick={() => handleFrameChange(index)}
                     onKeyDown={handleKeyDown}
                     role='tab'
                     tabIndex={tabIndex}
@@ -126,7 +180,7 @@ const FlipbookControls = ({
               })}
           </Box>
           <StyledButton
-            disabled={currentFrame === locations.length - 1}
+            disabled={currentFrame === locations.length - 1 || playing}
             icon={<FormNext />}
             label={t(
               'SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel'

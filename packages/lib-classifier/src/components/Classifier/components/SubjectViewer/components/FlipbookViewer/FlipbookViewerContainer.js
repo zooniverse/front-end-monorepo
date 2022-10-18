@@ -10,8 +10,11 @@ import FlipbookViewer from './FlipbookViewer'
 
 function storeMapper (store) {
   const { frame: defaultFrame } = store.subjectViewer
+  const { playIterations } = store.workflows.active.configuration
+
   return {
-    defaultFrame
+    defaultFrame,
+    playIterations
   }
 }
 
@@ -21,7 +24,7 @@ function FlipbookViewerContainer({
   onReady = () => true,
   subject
 }) {
-  const { defaultFrame } = useStores(storeMapper)
+  const { defaultFrame, playIterations } = useStores(storeMapper)
   /** This initializes an image element from the subject's defaultFrame src url.
    * We do this so the SVGPanZoom has dimensions of the subject image.
    * We're assuming all frames in one subject have the same dimensions. */
@@ -46,6 +49,7 @@ function FlipbookViewerContainer({
       naturalWidth={naturalWidth}
       onError={onError}
       onReady={onReady}
+      playIterations={playIterations}
       subject={subject}
     />
   )
