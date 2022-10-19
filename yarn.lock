@@ -10303,10 +10303,17 @@ i18next-fs-backend@^1.1.5:
   resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-1.1.5.tgz#dcbd8227b1c1e4323b3c40e269d4762e8313d9e5"
   integrity sha512-raTel3EfshiUXxR0gvmIoqp75jhkj8+7R1LjB006VZKPTFBbXyx6TlUVhb8Z9+7ahgpFbcQg1QWVOdf/iNzI5A==
 
-i18next@^21.9.1, i18next@~21.10.0:
+i18next@^21.9.1:
   version "21.10.0"
   resolved "https://registry.yarnpkg.com/i18next/-/i18next-21.10.0.tgz#85429af55fdca4858345d0e16b584ec29520197d"
   integrity sha512-YeuIBmFsGjUfO3qBmMOc0rQaun4mIpGKET5WDwvu8lU7gvwpcariZLNtL0Fzj+zazcHUrlXHiptcFhBMFaxzfg==
+  dependencies:
+    "@babel/runtime" "^7.17.2"
+
+i18next@~22.0.1:
+  version "22.0.1"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-22.0.1.tgz#cf21f5152c8cf4d29341ff44818cfe9f12fec87b"
+  integrity sha512-CRbtl6urEcIDbIzP4sGoPf9YuDNto1JgCRsfdvcVUOPb8nPAQ0azhPZiSdD5AFg/Erb58+/nDRmhm8bzVyjABQ==
   dependencies:
     "@babel/runtime" "^7.17.2"
 
