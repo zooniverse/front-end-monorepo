@@ -21,6 +21,7 @@ const FlipbookViewer = ({
 }) => {
   const subjectImage = useRef()
   const [currentFrame, setCurrentFrame] = useState(defaultFrame)
+  const [playing, setPlaying] = useState(false)
 
   const viewerSrc = subject?.locations ? Object.values(subject.locations[currentFrame])[0] : ''
 
@@ -33,6 +34,20 @@ const FlipbookViewer = ({
       onReady({ target })
     }
   }, [defaultFrameSrc])
+
+  const onPlayPause = () => {
+    if (!playing) {
+      setPlaying(true)
+    } else {
+      setPlaying(false)
+    }
+  }
+
+  const onKeyDown = (event) => {
+    if (event.key === ' ') {
+      onPlayPause()
+    }
+  }
 
   return (
     <Box>
@@ -47,6 +62,7 @@ const FlipbookViewer = ({
         <SingleImageViewer
           enableInteractionLayer={false}
           height={naturalHeight}
+          onKeyDown={onKeyDown}
           width={naturalWidth}
         >
           <g ref={subjectImage} role='tabpanel' id='flipbook-tab-panel'>
@@ -63,6 +79,8 @@ const FlipbookViewer = ({
         currentFrame={currentFrame}
         locations={subject.locations}
         onFrameChange={setCurrentFrame}
+        onPlayPause={onPlayPause}
+        playing={playing}
         playIterations={playIterations}
       />
     </Box>

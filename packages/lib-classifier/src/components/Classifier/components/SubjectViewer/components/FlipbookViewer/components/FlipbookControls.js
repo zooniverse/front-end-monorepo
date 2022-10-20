@@ -26,13 +26,14 @@ const FlipbookControls = ({
   currentFrame = 0,
   locations = [],
   onFrameChange = () => true,
+  onPlayPause = () => true,
+  playing = false,
   playIterations = '',
   theme
 }) => {
   const { t } = useTranslation('components')
   const timeoutRef = useRef(null)
 
-  const [playing, setPlaying] = useState(false)
   const [iterationCounter, setIterationCounter] = useState(0)
   const [playbackSpeed, setPlaybackSpeed] = useState(1)
 
@@ -88,15 +89,6 @@ const FlipbookControls = ({
       onFrameChange(currentFrame + 1)
     } else {
       onFrameChange(0)
-    }
-  }
-
-  const onPlayPause = () => {
-    if (!playing) {
-      setPlaying(true)
-    } else {
-      resetTimeout()
-      setPlaying(false)
     }
   }
 
