@@ -11,11 +11,11 @@ import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import FlipbookControls from './components'
 
 const FlipbookViewer = ({
-  defaultFrame,
-  defaultFrameSrc,
-  onReady,
-  naturalHeight,
-  naturalWidth,
+  defaultFrame = 0,
+  defaultFrameSrc = '',
+  onReady = () => true,
+  naturalHeight = placeholder.height,
+  naturalWidth = placeholder.width,
   subject
 }) => {
   const subjectImage = useRef()
