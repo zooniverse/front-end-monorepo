@@ -4,7 +4,7 @@ The flipbook viewer will display subjects with multiple images in the `locations
 
 This viewer assumes all images in one subject have the same dimensions, and is catered toward landscape oriented images. The SVG drawing layer dimensions are determined once `defaultFrame` is loaded. Then, `onReady()` is called (corresponds to SubjecViewerStore's `onSubjectReady()`).
 
-Unlike MultiFrameViewer, the currently viewed frame is saved as FlipbookViewer state rather than in SubjectViewerStore because the flipbook is designed for projects that do not intend to refresh pan, zoom, rotate, nor marks/annotations between frames. If projects wish to do so (like transcription projects), they should use the MultiFrameViewer.
+Unlike MultiFrameViewer, the currently viewed frame is saved as FlipbookViewer state rather than in SubjectViewerStore because the flipbook is designed for projects that do not intend to refresh pan, zoom, rotate, nor drawing marks between frames.
 
 ## Workflow Configuration
 

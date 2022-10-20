@@ -84,21 +84,13 @@ const FlipbookControls = ({
     }
   }
 
-  const flip = () => {
-    if (currentFrame < locations.length - 1) {
-      onFrameChange(currentFrame + 1)
-    } else {
-      onFrameChange(0)
-    }
-  }
-
   useEffect(() => {
     if (playing && iterationCounter !== parseInt(playIterations)) {
       if (playIterations !== '') {
         setIterationCounter(iterationCounter + 1)
       }
       timeoutRef.current = setTimeout(() => {
-        flip()
+        handleNext()
       }, 1000 / playbackSpeed)
     }
 
