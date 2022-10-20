@@ -48,7 +48,7 @@ const FlipbookViewer = ({
           height={naturalHeight}
           width={naturalWidth}
         >
-          <g ref={subjectImage} role='tabpanel'>
+          <g ref={subjectImage} role='tabpanel' id='flipbook-tab-panel'>
             <SVGImage
               naturalHeight={naturalHeight}
               naturalWidth={naturalWidth}

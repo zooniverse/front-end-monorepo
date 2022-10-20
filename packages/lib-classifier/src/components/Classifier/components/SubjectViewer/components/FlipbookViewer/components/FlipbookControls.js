@@ -75,8 +75,9 @@ const FlipbookControls = ({
                 return (
                   <Button
                     key={`${url}-${index}`}
+                    aria-controls='flipbook-tab-panel'
                     aria-label={`${t('SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText')} ${index + 1}`}
-                    aria-selected={activeFrame}
+                    aria-selected={activeFrame.toString()}
                     onClick={() => handleFrameChange(index)}
                     role='tab'
                     style={{
