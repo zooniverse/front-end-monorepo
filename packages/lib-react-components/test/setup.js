@@ -23,6 +23,19 @@ function copyProps (src, target) {
   Object.defineProperties(target, props)
 }
 
+class ResizeObserver {
+    disconnect() {
+      // do nothing
+    }
+    observe() {
+        // do nothing
+    }
+    unobserve() {
+        // do nothing
+    }
+}
+
+window.ResizeObserver = ResizeObserver
 global.window = window
 global.document = window.document
 global.Image = window.Image
