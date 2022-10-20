@@ -43,19 +43,19 @@ const FlipbookControls = ({
     }
   }
 
-  const handleFrameChange = frameIndex => {
-    onFrameChange(frameIndex)
-  }
-
   const handlePrevious = () => {
     if (currentFrame > 0) {
-      handleFrameChange(currentFrame - 1)
+      onFrameChange(currentFrame - 1)
+    } else {
+      onFrameChange(locations.length - 1)
     }
   }
 
   const handleNext = () => {
     if (currentFrame < locations.length - 1) {
-      handleFrameChange(currentFrame + 1)
+      onFrameChange(currentFrame + 1)
+    } else {
+      onFrameChange(0)
     }
   }
 
@@ -73,7 +73,7 @@ const FlipbookControls = ({
             label={t(
               'SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel'
             )}
-            onClick={() => handlePrevious()}
+            onClick={handlePrevious}
             style={{
               border: 'none',
               padding: 0
@@ -101,7 +101,7 @@ const FlipbookControls = ({
                       'SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText'
                     )} ${index + 1}`}
                     aria-selected={activeFrame ? 'true' : 'false'}
-                    onClick={() => handleFrameChange(index)}
+                    onClick={() => onFrameChange(index)}
                     onKeyDown={handleKeyDown}
                     role='tab'
                     tabIndex={tabIndex}
@@ -128,7 +128,7 @@ const FlipbookControls = ({
             label={t(
               'SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel'
             )}
-            onClick={() => handleNext()}
+            onClick={handleNext}
             style={{
               border: 'none',
               padding: 0
