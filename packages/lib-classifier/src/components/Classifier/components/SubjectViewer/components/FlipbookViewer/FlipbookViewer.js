@@ -65,7 +65,6 @@ const FlipbookViewer = ({
     dragMove?.(event, difference)
   }
 
-
   return (
     <Box>
       <SVGPanZoom
@@ -112,11 +111,29 @@ const FlipbookViewer = ({
 }
 
 FlipbookViewer.propTypes = {
+  /** Fetched from metadata.default_frame or initialized to zero */
   defaultFrame: PropTypes.number,
+  /** Either placeholder.src or the subject image src */
   defaultFrameSrc: PropTypes.string,
-  onReady: PropTypes.func,
+  /** Function passed from Subject Viewer Store */
+  enableRotation: PropTypes.func,
+  /** Passed from Subject Viewer Store */
+  invert: PropTypes.bool,
+  /** Passed from Subject Viewer Store */
+  move: PropTypes.bool,
+  /** Height of subject image */
   naturalHeight: PropTypes.number,
+  /** Width of subject image */
   naturalWidth: PropTypes.number,
+  /** Passed from Subject Viewer Store and called when default frame's src is loaded */
+  onReady: PropTypes.func,
+  /** Fetched from workflow configuration. Number preference for how many loops to play */
+  playIterations: PropTypes.string,
+  /** Passed from the Subject Viewer Store */
+  setOnPan: PropTypes.func,
+  /** Passed from the Subject Viewer Store */
+  setOnZoom: PropTypes.func,
+  /** Required. Passed from SubjectViewer component */
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
   }).isRequired

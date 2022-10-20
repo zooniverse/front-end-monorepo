@@ -224,9 +224,11 @@ const FlipbookControls = ({
 }
 
 FlipbookControls.propTypes = {
-  currentFrame: PropTypes.number.isRequired,
+  currentFrame: PropTypes.number,
   locations: PropTypes.arrayOf(locationValidator).isRequired,
-  onFrameChange: PropTypes.func.isRequired,
+  onFrameChange: PropTypes.func,
+  onPlayPause: PropTypes.func,
+  playIterations: PropTypes.string,
   theme: PropTypes.object
 }
 
