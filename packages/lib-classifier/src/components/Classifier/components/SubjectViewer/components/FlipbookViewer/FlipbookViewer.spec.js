@@ -33,7 +33,7 @@ describe('Component > FlipbookViewer', function () {
     it('should handle changing the current frame via thumbnail', async function () {
       const user = userEvent.setup({ delay: null })
 
-      const { getAllByRole, rerender } = render(<DefaultStory />)
+      const { getAllByRole } = render(<DefaultStory />)
       const thumbnailButtons = getAllByRole('tab')
       const buttonStyle = window.getComputedStyle(thumbnailButtons[0])
       expect(buttonStyle.border).to.equal('2px solid #f0b200') // neutral-2 in theme
@@ -43,24 +43,19 @@ describe('Component > FlipbookViewer', function () {
         target: thumbnailButtons[1]
       })
 
-      rerender(<DefaultStory />)
-      const newThumbnailButtons = getAllByRole('tab')
-      const newButtonStyle = window.getComputedStyle(newThumbnailButtons[1])
+      const newButtonStyle = window.getComputedStyle(thumbnailButtons[1])
       expect(newButtonStyle.border).to.equal('2px solid #f0b200')
     })
 
     it('should handle using arrow keys on the tablist', async function () {
       const user = userEvent.setup({ delay: null })
 
-      const { getAllByRole, rerender } = render(<DefaultStory />)
+      const { getAllByRole } = render(<DefaultStory />)
       const thumbnailButtons = getAllByRole('tab')
       expect(thumbnailButtons[0].tabIndex).to.equal(0)
 
-      await user.tab() // focus on Previous Button
-      await user.tab() // focus on tablist
+      thumbnailButtons[0].focus()
       await user.keyboard('{ArrowRight}')
-
-      rerender(<DefaultStory />)
 
       expect(thumbnailButtons[0].tabIndex).to.equal(-1)
       expect(thumbnailButtons[1].tabIndex).to.equal(0)
