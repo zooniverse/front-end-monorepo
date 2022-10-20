@@ -11,7 +11,7 @@ import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import FlipbookControls from './components'
 
 const FlipbookViewer = ({
-  indexOfDefaultFrame,
+  defaultFrame,
   defaultFrameSrc,
   onReady,
   naturalHeight,
@@ -19,7 +19,7 @@ const FlipbookViewer = ({
   subject
 }) => {
   const subjectImage = useRef()
-  const [currentFrame, setCurrentFrame] = useState(indexOfDefaultFrame)
+  const [currentFrame, setCurrentFrame] = useState(defaultFrame)
 
   const viewerSrc = subject?.locations ? Object.values(subject.locations[currentFrame])[0] : ''
 

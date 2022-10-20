@@ -31,10 +31,7 @@ const mockSubject = SubjectFactory.build({
       'image/jpeg':
         'https://panoptes-uploads.zooniverse.org/subject_location/85d8d82a-c88d-493c-b3db-7cd9f2ca5ad8.jpeg'
     }
-  ],
-  metadata: {
-    default_frame: 1
-  }
+  ]
 })
 
 const store = mockStore({

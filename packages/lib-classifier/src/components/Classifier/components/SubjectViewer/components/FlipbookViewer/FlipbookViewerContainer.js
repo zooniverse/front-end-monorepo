@@ -22,11 +22,10 @@ function FlipbookViewerContainer({
   subject
 }) {
   const { defaultFrame } = useStores(storeMapper)
-  const indexOfDefaultFrame = defaultFrame - 1
   /** This initializes an image element from the subject's defaultFrame src url.
    * We do this so the SVGPanZoom has dimensions of the subject image.
    * We're assuming all frames in one subject have the same dimensions. */
-  const defaultFrameUrl = subject ? Object.values(subject.locations[indexOfDefaultFrame])[0] : null
+  const defaultFrameUrl = subject ? Object.values(subject.locations[defaultFrame])[0] : null
   const { img, error } = useSubjectImage(window.Image, defaultFrameUrl)
   const { naturalHeight, naturalWidth, src: defaultFrameSrc } = img
 
@@ -41,7 +40,7 @@ function FlipbookViewerContainer({
 
   return (
     <FlipbookViewer
-      indexOfDefaultFrame={indexOfDefaultFrame}
+      defaultFrame={defaultFrame}
       defaultFrameSrc={defaultFrameSrc}
       naturalHeight={naturalHeight}
       naturalWidth={naturalWidth}
