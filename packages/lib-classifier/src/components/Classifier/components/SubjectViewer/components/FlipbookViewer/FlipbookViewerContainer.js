@@ -8,13 +8,29 @@ import locationValidator from '../../helpers/locationValidator'
 import useSubjectImage from '../SingleImageViewer/hooks/useSubjectImage'
 import FlipbookViewer from './FlipbookViewer'
 
-function storeMapper (store) {
-  const { frame: defaultFrame } = store.subjectViewer
+function storeMapper(store) {
+  const {
+    enableRotation,
+    frame: defaultFrame,
+    invert,
+    move,
+    rotation,
+    setFrame,
+    setOnPan,
+    setOnZoom
+  } = store.subjectViewer
   const { playIterations } = store.workflows.active.configuration
 
   return {
     defaultFrame,
-    playIterations
+    enableRotation,
+    invert,
+    move,
+    playIterations,
+    rotation,
+    setFrame,
+    setOnPan,
+    setOnZoom
   }
 }
 
@@ -24,11 +40,22 @@ function FlipbookViewerContainer({
   onReady = () => true,
   subject
 }) {
-  const { defaultFrame, playIterations } = useStores(storeMapper)
+  const {
+    defaultFrame,
+    enableRotation,
+    invert,
+    move,
+    rotation,
+    playIterations,
+    setOnPan,
+    setOnZoom
+  } = useStores(storeMapper)
   /** This initializes an image element from the subject's defaultFrame src url.
    * We do this so the SVGPanZoom has dimensions of the subject image.
    * We're assuming all frames in one subject have the same dimensions. */
-  const defaultFrameUrl = subject ? Object.values(subject.locations[defaultFrame])[0] : null
+  const defaultFrameUrl = subject
+    ? Object.values(subject.locations[defaultFrame])[0]
+    : null
   const { img, error } = useSubjectImage(window.Image, defaultFrameUrl)
   const { naturalHeight, naturalWidth, src: defaultFrameSrc } = img
 
@@ -45,11 +72,16 @@ function FlipbookViewerContainer({
     <FlipbookViewer
       defaultFrame={defaultFrame}
       defaultFrameSrc={defaultFrameSrc}
+      enableRotation={enableRotation}
+      invert={invert}
+      move={move}
       naturalHeight={naturalHeight}
       naturalWidth={naturalWidth}
-      onError={onError}
       onReady={onReady}
+      rotation={rotation}
       playIterations={playIterations}
+      setOnPan={setOnPan}
+      setOnZoom={setOnZoom}
       subject={subject}
     />
   )

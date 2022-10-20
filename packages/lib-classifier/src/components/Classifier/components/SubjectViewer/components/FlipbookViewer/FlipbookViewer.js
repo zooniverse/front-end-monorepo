@@ -13,15 +13,22 @@ import FlipbookControls from './components'
 const FlipbookViewer = ({
   defaultFrame = 0,
   defaultFrameSrc = '',
-  onReady = () => true,
+  enableRotation = () => true,
+  invert = false,
+  move,
   naturalHeight = placeholder.height,
   naturalWidth = placeholder.width,
+  onReady = () => true,
   playIterations = '',
+  rotation,
+  setOnPan = () => true,
+  setOnZoom = () => true,
   subject
 }) => {
   const subjectImage = useRef()
   const [currentFrame, setCurrentFrame] = useState(defaultFrame)
   const [playing, setPlaying] = useState(false)
+  const [dragMove, setDragMove] = useState()
 
   const viewerSrc = subject?.locations ? Object.values(subject.locations[currentFrame])[0] : ''
 
@@ -32,6 +39,7 @@ const FlipbookViewer = ({
         svgImage.getBoundingClientRect()
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
       onReady({ target })
+      enableRotation()
     }
   }, [defaultFrameSrc])
 
@@ -49,6 +57,15 @@ const FlipbookViewer = ({
     }
   }
 
+  const setOnDrag = (callback) => {
+    setDragMove(() => callback)
+  }
+
+  const onDrag = (event, difference) => {
+    dragMove?.(event, difference)
+  }
+
+
   return (
     <Box>
       <SVGPanZoom
@@ -57,18 +74,25 @@ const FlipbookViewer = ({
         minZoom={0.1}
         naturalHeight={naturalHeight}
         naturalWidth={naturalWidth}
+        setOnDrag={setOnDrag}
+        setOnPan={setOnPan}
+        setOnZoom={setOnZoom}
         src={defaultFrameSrc}
       >
         <SingleImageViewer
           enableInteractionLayer={false}
           height={naturalHeight}
           onKeyDown={onKeyDown}
+          rotate={rotation}
           width={naturalWidth}
         >
           <g ref={subjectImage} role='tabpanel' id='flipbook-tab-panel'>
             <SVGImage
+              invert={invert}
+              move={move}
               naturalHeight={naturalHeight}
               naturalWidth={naturalWidth}
+              onDrag={onDrag}
               src={viewerSrc}
               subjectID={subject.id}
             />
