@@ -1,6 +1,5 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import { within } from '@testing-library/dom'
 import { expect } from 'chai'
 import Meta, { Default, NoSubject } from './FlipbookViewer.stories'
 import { composeStory } from '@storybook/testing-react'
@@ -11,16 +10,14 @@ describe('Component > FlipbookViewer', function () {
     const DefaultStory = composeStory(Default, Meta)
 
     it('should render the correct number of thumbnnails', function () {
-      const { getByLabelText } = render(<DefaultStory />)
-      const thumbnailContainer = getByLabelText('Image thumbnails')
-      const thumbnailButtons = within(thumbnailContainer).getAllByRole('button')
+      const { getAllByRole } = render(<DefaultStory />)
+      const thumbnailButtons = getAllByRole('tab')
       expect(thumbnailButtons).to.have.length(4)
     })
 
     it('should highlight the active frame thumbnail with a border', function () {
-      const { getByLabelText } = render(<DefaultStory />)
-      const thumbnailContainer = getByLabelText('Image thumbnails')
-      const thumbnailButtons = within(thumbnailContainer).getAllByRole('button')
+      const { getAllByRole } = render(<DefaultStory />)
+      const thumbnailButtons = getAllByRole('tab')
       const { border } = window.getComputedStyle(thumbnailButtons[0])
       expect(border).to.equal('2px solid #f0b200') // neutral-2 in theme
     })
@@ -36,9 +33,8 @@ describe('Component > FlipbookViewer', function () {
     it('should handle changing the current frame via thumbnail', async function () {
       const user = userEvent.setup({ delay: null })
 
-      const { getByLabelText, rerender } = render(<DefaultStory />)
-      const thumbnailContainer = getByLabelText('Image thumbnails')
-      const thumbnailButtons = within(thumbnailContainer).getAllByRole('button')
+      const { getAllByRole, rerender } = render(<DefaultStory />)
+      const thumbnailButtons = getAllByRole('tab')
       const buttonStyle = window.getComputedStyle(thumbnailButtons[0])
       expect(buttonStyle.border).to.equal('2px solid #f0b200') // neutral-2 in theme
 
@@ -48,7 +44,7 @@ describe('Component > FlipbookViewer', function () {
       })
 
       rerender(<DefaultStory />)
-      const newThumbnailButtons = within(thumbnailContainer).getAllByRole('button')
+      const newThumbnailButtons = getAllByRole('tab')
       const newButtonStyle = window.getComputedStyle(newThumbnailButtons[1])
       expect(newButtonStyle.border).to.equal('2px solid #f0b200')
     })
