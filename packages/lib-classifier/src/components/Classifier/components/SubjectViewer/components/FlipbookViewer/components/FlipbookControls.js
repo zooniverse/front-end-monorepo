@@ -90,6 +90,9 @@ const FlipbookControls = ({
               locations.map((location, index) => {
                 const mimeType = Object.keys(location)[0]
                 const url = location[mimeType]
+                const thumbnailerUrl = `https://thumbnails.zooniverse.org/100x100${url.slice(7, url.length)}`
+                // fetching 100x100 because subject images have varying ratios and we want the image's height to be ~40px
+
                 const activeFrame = currentFrame === index
                 const tabIndex = activeFrame ? 0 : -1
 
@@ -110,7 +113,7 @@ const FlipbookControls = ({
                       height: '40px',
                       width: '40px',
                       padding: '0',
-                      backgroundImage: `url(${url})`,
+                      backgroundImage: `url(${thumbnailerUrl})`,
                       backgroundSize: 'cover',
                       backgroundRepeat: 'no-repeat',
                       backgroundPosition: 'center',
