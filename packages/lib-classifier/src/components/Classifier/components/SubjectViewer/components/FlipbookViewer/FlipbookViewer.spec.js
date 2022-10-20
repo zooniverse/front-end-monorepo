@@ -48,6 +48,23 @@ describe('Component > FlipbookViewer', function () {
       const newButtonStyle = window.getComputedStyle(newThumbnailButtons[1])
       expect(newButtonStyle.border).to.equal('2px solid #f0b200')
     })
+
+    it('should handle using arrow keys on the tablist', async function () {
+      const user = userEvent.setup({ delay: null })
+
+      const { getAllByRole, rerender } = render(<DefaultStory />)
+      const thumbnailButtons = getAllByRole('tab')
+      expect(thumbnailButtons[0].tabIndex).to.equal(0)
+
+      await user.tab() // focus on Previous Button
+      await user.tab() // focus on tablist
+      await user.keyboard('{ArrowRight}')
+
+      rerender(<DefaultStory />)
+
+      expect(thumbnailButtons[0].tabIndex).to.equal(-1)
+      expect(thumbnailButtons[1].tabIndex).to.equal(0)
+    })
   })
 
   describe('without a subject', function () {

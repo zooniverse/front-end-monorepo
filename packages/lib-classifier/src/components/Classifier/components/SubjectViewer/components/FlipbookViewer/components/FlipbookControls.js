@@ -23,6 +23,26 @@ const FlipbookControls = ({
 }) => {
   const { t } = useTranslation('components')
 
+  const handleKeyDown = (event) => {
+    switch (event.key) {
+      case 'ArrowRight': {
+        event.preventDefault()
+        event.stopPropagation()
+        handleNext()
+        break
+      }
+      case 'ArrowLeft': {
+        event.preventDefault()
+        event.stopPropagation()
+        handlePrevious()
+        break
+      }
+      default: {
+        return true
+      }
+    }
+  }
+
   const handleFrameChange = frameIndex => {
     onFrameChange(frameIndex)
   }
@@ -34,7 +54,7 @@ const FlipbookControls = ({
   }
 
   const handleNext = () => {
-    if (currentFrame < locations.length) {
+    if (currentFrame < locations.length - 1) {
       handleFrameChange(currentFrame + 1)
     }
   }
@@ -71,15 +91,20 @@ const FlipbookControls = ({
                 const mimeType = Object.keys(location)[0]
                 const url = location[mimeType]
                 const activeFrame = currentFrame === index
+                const tabIndex = activeFrame ? 0 : -1
 
                 return (
                   <Button
                     key={`${url}-${index}`}
                     aria-controls='flipbook-tab-panel'
-                    aria-label={`${t('SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText')} ${index + 1}`}
-                    aria-selected={activeFrame.toString()}
+                    aria-label={`${t(
+                      'SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText'
+                    )} ${index + 1}`}
+                    aria-selected={activeFrame ? 'true' : 'false'}
                     onClick={() => handleFrameChange(index)}
+                    onKeyDown={handleKeyDown}
                     role='tab'
+                    tabIndex={tabIndex}
                     style={{
                       display: 'flex',
                       height: '40px',
