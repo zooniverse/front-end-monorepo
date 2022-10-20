@@ -30,8 +30,8 @@ function ZooHeaderWrapperContainer(props) {
   const { user } = useStore()
   const router = useRouter()
   const onSignOut = useCallback(() => signOut(user), [user])
-  const { display_name, login } = user
-  const userProp = user.isLoggedIn ? { display_name, login } : {}
+  const { admin, display_name, login } = user
+  const userProp = user.isLoggedIn ? { admin, display_name, login } : {}
   const unreadMessages = user?.personalization?.notifications?.unreadConversationsIds.length
   const unreadNotifications = user?.personalization?.notifications?.unreadNotificationsCount
 
