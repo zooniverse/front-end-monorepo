@@ -52,3 +52,6 @@ Example Staging Project: [i-fancy-cats](https://local.zooniverse.org:3000/projec
 
 ## Maintenance
 - [ ] If not from dependabot, the PR creator has described the update (major, minor, or patch version, changelog)
+
+## Post-merge
+- [ ] This PR adds translations keys to English dictionary(s). See guidance for pulling new keys to Lokalise [here](https://github.com/zooniverse/how-to-zooniverse/blob/master/Translations/lokalise.md#lokalise-and-fem).
