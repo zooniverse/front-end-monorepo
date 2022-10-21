@@ -29,7 +29,7 @@ describe('Component > Choices', function () {
         />
       </Grommet>
     )
-    const choiceButtons = screen.getAllByRole('listitem')
+    const choiceButtons = screen.getAllByRole('button')
     expect(choiceButtons.length).to.equal(6)
     expect(choiceButtons[0]).to.have.text('Aardvark')
     expect(choiceButtons[1]).to.have.text('Elephant')
@@ -49,7 +49,7 @@ describe('Component > Choices', function () {
       </Grommet>
     )
     await userEvent.keyboard('{tab}')
-    const choiceButtons = screen.getAllByRole('listitem')
+    const choiceButtons = screen.getAllByRole('button')
     expect(choiceButtons[0]).to.equal(document.activeElement)
     await userEvent.keyboard('{arrowdown}')
     expect(choiceButtons[1]).to.equal(document.activeElement)
@@ -65,7 +65,7 @@ describe('Component > Choices', function () {
       </Grommet>
     )
     await userEvent.keyboard('{tab}')
-    const choiceButtons = screen.getAllByRole('listitem')
+    const choiceButtons = screen.getAllByRole('button')
     expect(choiceButtons[0]).to.equal(document.activeElement)
     await userEvent.keyboard('{arrowdown}')
     expect(choiceButtons[1]).to.equal(document.activeElement)
@@ -85,7 +85,7 @@ describe('Component > Choices', function () {
         />
       </Grommet>
     )
-    const choiceButtons = screen.getAllByRole('listitem')
+    const choiceButtons = screen.getAllByRole('button')
     expect(choiceButtons[0]).to.equal(document.activeElement)
     await userEvent.keyboard('{backspace}')
     expect(handleDeleteSpy).to.have.been.calledOnceWith('RDVRK')
@@ -103,7 +103,7 @@ describe('Component > Choices', function () {
         />
       </Grommet>
     )
-    const choiceButtons = screen.getAllByRole('listitem')
+    const choiceButtons = screen.getAllByRole('button')
     expect(choiceButtons[0]).to.equal(document.activeElement)
     await userEvent.keyboard('{delete}')
     expect(handleDeleteSpy).to.have.been.calledOnceWith('RDVRK')
@@ -120,7 +120,7 @@ describe('Component > Choices', function () {
         />
       </Grommet>
     )
-    const choiceButtons = screen.getAllByRole('listitem')
+    const choiceButtons = screen.getAllByRole('button')
     await userEvent.click(choiceButtons[0])
     expect(onChooseSpy).to.have.been.calledOnceWith('RDVRK')
   })
@@ -137,7 +137,7 @@ describe('Component > Choices', function () {
       </Grommet>
     )
     await userEvent.keyboard('{tab}')
-    const choiceButtons = screen.getAllByRole('listitem')
+    const choiceButtons = screen.getAllByRole('button')
     expect(choiceButtons[0]).to.equal(document.activeElement)
     await userEvent.keyboard('{enter}')
     expect(onChooseSpy).to.have.been.calledOnceWith('RDVRK')
@@ -155,7 +155,7 @@ describe('Component > Choices', function () {
       </Grommet>
     )
     await userEvent.keyboard('{tab}')
-    const choiceButtons = screen.getAllByRole('listitem')
+    const choiceButtons = screen.getAllByRole('button')
     expect(choiceButtons[0]).to.equal(document.activeElement)
     await userEvent.keyboard(' ')
     expect(onChooseSpy).to.have.been.calledOnceWith('RDVRK')
@@ -172,7 +172,7 @@ describe('Component > Choices', function () {
           />
         </Grommet>
       )
-      const choiceButtons = screen.getAllByRole('listitem')
+      const choiceButtons = screen.getAllByRole('button')
       // choiceButtons[3] is Human with ID HMN
       expect(choiceButtons[3]).to.equal(document.activeElement)
     })

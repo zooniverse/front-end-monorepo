@@ -26,10 +26,10 @@ function ChoiceButton({
 
   const choiceButton = useRef(null)
   const handleClick = useCallback(() => {
-    !disabled && onChoose(choiceId)
+    onChoose(choiceId)
   }, [choiceId, onChoose])
   const handleKeyDown = useCallback((event) => {
-    !disabled && onKeyDown(choiceId, event)
+    onKeyDown(choiceId, event)
   }, [choiceId, onKeyDown])
 
   useEffect(() => {
@@ -53,8 +53,8 @@ function ChoiceButton({
     <Button
       a11yTitle={choiceLabel}
       ref={choiceButton}
-      as='li'
       disabled={disabled}
+      fill
       label={
         <Box
           direction='row'
@@ -63,6 +63,7 @@ function ChoiceButton({
         >
           {thumbnailSize !== 'none' && src &&
             <Media
+              alt={choiceLabel}
               height={thumbnailHeight}
               margin={{ right: '1ch' }}
               src={src}

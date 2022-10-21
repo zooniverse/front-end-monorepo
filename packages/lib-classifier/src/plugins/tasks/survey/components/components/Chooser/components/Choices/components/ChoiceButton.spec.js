@@ -21,7 +21,7 @@ describe('Component > ChoiceButton', function () {
         />
       </Grommet>
     )
-    const choiceButton = screen.getByRole('listitem', { name: 'Aardvark' })
+    const choiceButton = screen.getByRole('button', { name: 'Aardvark' })
     expect(choiceButton).to.be.ok()
   })
 
@@ -39,7 +39,7 @@ describe('Component > ChoiceButton', function () {
         />
       </Grommet>
     )
-    const choiceButton = screen.getByRole('listitem', { name: 'Aardvark' })
+    const choiceButton = screen.getByRole('button', { name: 'Aardvark' })
     await userEvent.click(choiceButton)
     expect(onChooseSpy).to.have.been.calledOnceWith('RDVRK')
   })
@@ -58,7 +58,7 @@ describe('Component > ChoiceButton', function () {
         />
       </Grommet>
     )
-    const choiceButton = screen.getByRole('listitem', { name: 'Aardvark' })
+    const choiceButton = screen.getByRole('button', { name: 'Aardvark' })
     await userEvent.type(choiceButton, '{backspace}')
     expect(onKeyDownSpy).to.have.been.calledOnce() 
   })
@@ -79,7 +79,7 @@ describe('Component > ChoiceButton', function () {
           />
         </Grommet>
       )
-      const choiceButton = screen.getByRole('listitem', { name: 'Aardvark' })
+      const choiceButton = screen.getByRole('button', { name: 'Aardvark' })
       await userEvent.click(choiceButton)
       expect(onChooseSpy).to.not.have.been.called()
     })

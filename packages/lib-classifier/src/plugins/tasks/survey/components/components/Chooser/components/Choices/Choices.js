@@ -87,15 +87,6 @@ export function Choices ({
         handleDelete(choiceId)
         return false
       }
-      case 'Enter':
-      case ' ': {
-        event.preventDefault()
-        event.stopPropagation()
-
-        setFocusIndex(index)
-        onChoose(choiceId)
-        return false
-      }
       default: {
         return true
       }
@@ -104,6 +95,7 @@ export function Choices ({
 
   return (
     <StyledGrid
+      role='menu'
       rowsCount={rowsCount}
     >
       {filteredChoiceIds.map((choiceId, index) => {
@@ -119,19 +111,23 @@ export function Choices ({
         }
 
         return (
-          <ChoiceButton
+          <li
             key={choiceId}
-            choiceId={choiceId}
-            choiceLabel={task.strings.get(`choices.${choiceId}.label`)}
-            disabled={disabled}
-            hasFocus={hasFocus}
-            onChoose={onChoose}
-            onKeyDown={handleKeyDown}
-            selected={selected}
-            src={src}
-            tabIndex={tabIndex}
-            thumbnailSize={thumbnailSize}
-          />
+            role='menuitem'
+          >
+            <ChoiceButton
+              choiceId={choiceId}
+              choiceLabel={task.strings.get(`choices.${choiceId}.label`)}
+              disabled={disabled}
+              hasFocus={hasFocus}
+              onChoose={onChoose}
+              onKeyDown={handleKeyDown}
+              selected={selected}
+              src={src}
+              tabIndex={tabIndex}
+              thumbnailSize={thumbnailSize}
+            />
+          </li>
         )
       })}
     </StyledGrid>
