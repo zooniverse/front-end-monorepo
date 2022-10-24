@@ -113,7 +113,7 @@ export function Choices ({
         return (
           <li
             key={choiceId}
-            role='menuitem'
+            role="presentation"
           >
             <ChoiceButton
               choiceId={choiceId}

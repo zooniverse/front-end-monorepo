@@ -51,8 +51,9 @@ function ChoiceButton({
 
   return (
     <Button
-      a11yTitle={choiceLabel}
       ref={choiceButton}
+      aria-checked={selected}
+      a11yTitle={choiceLabel}
       disabled={disabled}
       fill
       label={
@@ -63,7 +64,7 @@ function ChoiceButton({
         >
           {thumbnailSize !== 'none' && src &&
             <Media
-              alt={choiceLabel}
+              alt={`${choiceLabel} media`}
               height={thumbnailHeight}
               margin={{ right: '1ch' }}
               src={src}
@@ -78,6 +79,7 @@ function ChoiceButton({
       }
       onClick={handleClick}
       onKeyDown={handleKeyDown}
+      role='menuitemcheckbox'
       selected={selected}
       size='small'
       tabIndex={tabIndex}
