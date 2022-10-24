@@ -1,6 +1,5 @@
 import { expect } from 'chai'
 import React from 'react'
-import sinon from 'sinon'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
@@ -18,15 +17,6 @@ describe('Component > FilterStatus', function () {
     images: mockTask.images,
     taskKey: 'T0',
     type: 'survey'
-  })
-  let scrollToMock
-
-  before(function () {
-    scrollToMock = sinon.stub(window, 'scrollTo')
-  })
-
-  after(function () {
-    scrollToMock.restore()
   })
 
   it('should render without crashing', function () {
