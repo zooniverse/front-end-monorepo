@@ -1,1 +1,1 @@
-export { default } from './ZooHeaderContainer'
+export { default } from './ZooHeader'

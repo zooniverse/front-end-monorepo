@@ -7,6 +7,7 @@ import { AdminCheckbox, ZooFooter } from '@zooniverse/react-components'
 import { useRouter } from 'next/router'
 
 import { useAdminMode } from '@hooks'
+
 import {
   AdminContainer,
   Announcements,
@@ -68,7 +69,7 @@ function ProjectHomePage ({
     >
       <Media at='default'>
         <header>
-          <ZooHeaderWrapper />
+          <ZooHeaderWrapper isAdmin={adminMode} />
           <ProjectHeader adminMode={adminMode} />
           <Announcements />
         </header>
@@ -86,7 +87,7 @@ function ProjectHomePage ({
       <Media greaterThan='default'>
         <FullHeightBox margin={{ bottom: 'large' }}>
           <header>
-            <ZooHeaderWrapper />
+            <ZooHeaderWrapper isAdmin={adminMode} />
             <ProjectHeader adminMode={adminMode} />
             <Announcements />
           </header>

@@ -46,7 +46,7 @@ function StandardLayout ({
   return (
     <PageBox className={className} data-testid='project-page' border={border}>
       <header>
-        <ZooHeaderWrapper />
+        <ZooHeaderWrapper isAdmin={adminMode} />
         <ProjectHeader adminMode={adminMode} />
         <Announcements />
       </header>

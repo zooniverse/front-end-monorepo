@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "~7.19.1",
-    "@sentry/browser": "~7.15.0",
+    "@sentry/browser": "~7.16.0",
     "@visx/axis": "~2.14.0",
     "@visx/event": "~2.6.0",
     "@visx/glyph": "~2.10.0",
@@ -32,7 +32,7 @@
     "graphql": "~16.6.0",
     "graphql-request": "~5.0.0",
     "hash.js": "~1.1.7",
-    "i18next": "~21.10.0",
+    "i18next": "~22.0.1",
     "lodash": "~4.17.11",
     "mobx-utils": "~6.0.4",
     "react-i18next": "~11.18.0",

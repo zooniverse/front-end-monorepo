@@ -9,15 +9,13 @@ const StyledMenuIcon = styled(Menu)`
   width: 1em;
 `
 
-export default function NarrowMainNavMenu (props) {
-  const {
-    adminNavLinkLabel,
-    adminNavLinkURL,
-    isAdmin,
-    mainHeaderNavListLabels,
-    mainHeaderNavListURLs
-  } = props
-
+export default function NarrowMainNavMenu({
+  adminNavLinkLabel,
+  adminNavLinkURL,
+  isAdmin = false,
+  mainHeaderNavListLabels,
+  mainHeaderNavListURLs
+}) {
   const menuListItems = mainHeaderNavListLabels.map((label, index) => {
     return {
       label: <NarrowMenuNavListItem text={label} />,
@@ -35,13 +33,9 @@ export default function NarrowMainNavMenu (props) {
   return (
     <NarrowMenu
       items={menuListItems}
-      icon={<StyledMenuIcon color='#B2B2B2' />}
+      label={<StyledMenuIcon color='#B2B2B2' text='Main Navigation' />}
     />
   )
-}
-
-NarrowMainNavMenu.defaultProps = {
-  isAdmin: false
 }
 
 NarrowMainNavMenu.propTypes = {

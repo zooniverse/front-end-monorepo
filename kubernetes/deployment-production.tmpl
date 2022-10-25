@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
         - name: fe-project-production
-          image: zooniverse/front-end-monorepo-production:__IMAGE_TAG__
+          image: ghcr.io/zooniverse/front-end-monorepo-production:__IMAGE_TAG__
           command: ["yarn", "workspace", "@zooniverse/fe-project"]
           args: ["start"]
           resources:
@@ -137,7 +137,7 @@ spec:
     spec:
       containers:
         - name: fe-content-pages-production
-          image: zooniverse/front-end-monorepo-production:__IMAGE_TAG__
+          image: ghcr.io/zooniverse/front-end-monorepo-production:__IMAGE_TAG__
           command: ["yarn", "workspace", "@zooniverse/fe-content-pages"]
           args: ["start"]
           resources:

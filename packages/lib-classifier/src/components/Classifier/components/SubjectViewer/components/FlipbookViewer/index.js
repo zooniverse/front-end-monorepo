@@ -1,1 +1,1 @@
-export { default } from './FlipbookViewer'
+export { default } from './FlipbookViewerContainer'

@@ -22,7 +22,7 @@
     "@fortawesome/react-fontawesome": "~0.2.0",
     "@tippyjs/react": "~4.2.6",
     "formik": "~2.2.9",
-    "i18next": "~21.10.0",
+    "i18next": "~22.0.1",
     "mime-types": "~2.1.21",
     "prop-types": "~15.8.1",
     "react-i18next": "~11.18.0",
