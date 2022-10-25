@@ -21,7 +21,7 @@ describe('Component > VideoController', function () {
 
   it('should display the video subject timestamp and duration', function () {
     render(
-      <Grommet them={controlsTheme}>
+      <Grommet theme={controlsTheme}>
         <VideoController
           duration={subjectDuration}
           timeStamp={subjectTimeStamp}
