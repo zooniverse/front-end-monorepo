@@ -55,14 +55,16 @@ describe('Component > ChoiceButton', function () {
         <ChoiceButton
           choiceId='RDVRK'
           choiceLabel='Aardvark'
+          hasFocus
           onKeyDown={onKeyDownSpy}
           tabIndex={0}
         />
       </Grommet>
     )
     const choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Aardvark' })
-    await user.type(choiceButton, '{backspace}')
-    expect(onKeyDownSpy).to.have.been.calledOnce() 
+    expect(choiceButton).to.equal(document.activeElement)
+    await user.keyboard('{enter}')
+    expect(onKeyDownSpy).to.have.been.calledOnce()
   })
 
   describe('when disabled', function () {
@@ -104,6 +106,8 @@ describe('Component > ChoiceButton', function () {
           />
         </Grommet>
       )
+      const choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Aardvark' })
+      expect(choiceButton).to.equal(document.activeElement)
       await user.keyboard('{enter}')
       expect(onKeyDownSpy).to.not.have.been.called()
     })
