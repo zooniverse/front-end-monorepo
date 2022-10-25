@@ -40,6 +40,7 @@ describe('Component > Choices', function () {
   })
 
   it('should focus the next choice on arrow down keyDown', async function () {
+    const user = userEvent.setup({ delay: null })
     render(
       <Grommet theme={zooTheme}>
         <Choices
@@ -48,14 +49,15 @@ describe('Component > Choices', function () {
         />
       </Grommet>
     )
-    await userEvent.keyboard('{tab}')
+    await user.keyboard('{tab}')
     const choiceButtons = screen.getAllByRole('menuitemcheckbox')
     expect(choiceButtons[0]).to.equal(document.activeElement)
-    await userEvent.keyboard('{arrowdown}')
+    await user.keyboard('{arrowdown}')
     expect(choiceButtons[1]).to.equal(document.activeElement)
   })
 
   it('should focus the previous choice on arrow up keyDown', async function () {
+    const user = userEvent.setup({ delay: null })
     render(
       <Grommet theme={zooTheme}>
         <Choices
@@ -64,17 +66,18 @@ describe('Component > Choices', function () {
         />
       </Grommet>
     )
-    await userEvent.keyboard('{tab}')
+    await user.keyboard('{tab}')
     const choiceButtons = screen.getAllByRole('menuitemcheckbox')
     expect(choiceButtons[0]).to.equal(document.activeElement)
-    await userEvent.keyboard('{arrowdown}')
+    await user.keyboard('{arrowdown}')
     expect(choiceButtons[1]).to.equal(document.activeElement)
-    await userEvent.keyboard('{arrowup}')
+    await user.keyboard('{arrowup}')
     expect(choiceButtons[0]).to.equal(document.activeElement)
   })
 
   it('should call handleDelete with choice ID on choice button backspace keyDown', async function () {
     const handleDeleteSpy = sinon.spy()
+    const user = userEvent.setup({ delay: null })
     render(
       <Grommet theme={zooTheme}>
         <Choices
@@ -87,12 +90,13 @@ describe('Component > Choices', function () {
     )
     const choiceButtons = screen.getAllByRole('menuitemcheckbox')
     expect(choiceButtons[0]).to.equal(document.activeElement)
-    await userEvent.keyboard('{backspace}')
+    await user.keyboard('{backspace}')
     expect(handleDeleteSpy).to.have.been.calledOnceWith('RDVRK')
   })
 
   it('should call handleDelete with choice ID on choice button delete keyDown', async function () {
     const handleDeleteSpy = sinon.spy()
+    const user = userEvent.setup({ delay: null })
     render(
       <Grommet theme={zooTheme}>
         <Choices
@@ -105,12 +109,13 @@ describe('Component > Choices', function () {
     )
     const choiceButtons = screen.getAllByRole('menuitemcheckbox')
     expect(choiceButtons[0]).to.equal(document.activeElement)
-    await userEvent.keyboard('{delete}')
+    await user.keyboard('{delete}')
     expect(handleDeleteSpy).to.have.been.calledOnceWith('RDVRK')
   })
 
   it('should call onChoose with choice ID on choice button click', async function () {
     const onChooseSpy = sinon.spy()
+    const user = userEvent.setup({ delay: null })
     render(
       <Grommet theme={zooTheme}>
         <Choices
@@ -121,12 +126,13 @@ describe('Component > Choices', function () {
       </Grommet>
     )
     const choiceButtons = screen.getAllByRole('menuitemcheckbox')
-    await userEvent.click(choiceButtons[0])
+    await user.click(choiceButtons[0])
     expect(onChooseSpy).to.have.been.calledOnceWith('RDVRK')
   })
 
   it('should call onChoose with choice ID on choice button enter keyDown', async function () {
     const onChooseSpy = sinon.spy()
+    const user = userEvent.setup({ delay: null })
     render(
       <Grommet theme={zooTheme}>
         <Choices
@@ -136,15 +142,16 @@ describe('Component > Choices', function () {
         />
       </Grommet>
     )
-    await userEvent.keyboard('{tab}')
+    await user.keyboard('{tab}')
     const choiceButtons = screen.getAllByRole('menuitemcheckbox')
     expect(choiceButtons[0]).to.equal(document.activeElement)
-    await userEvent.keyboard('{enter}')
+    await user.keyboard('{enter}')
     expect(onChooseSpy).to.have.been.calledOnceWith('RDVRK')
   })
 
   it('should call onChoose with choice ID on choice button space keyDown', async function () {
     const onChooseSpy = sinon.spy()
+    const user = userEvent.setup({ delay: null })
     render(
       <Grommet theme={zooTheme}>
         <Choices
@@ -154,15 +161,16 @@ describe('Component > Choices', function () {
         />
       </Grommet>
     )
-    await userEvent.keyboard('{tab}')
+    await user.keyboard('{tab}')
     const choiceButtons = screen.getAllByRole('menuitemcheckbox')
     expect(choiceButtons[0]).to.equal(document.activeElement)
-    await userEvent.keyboard(' ')
+    await user.keyboard(' ')
     expect(onChooseSpy).to.have.been.calledOnceWith('RDVRK')
   })
 
   describe('with selectedChoiceIds', function () {
     it('should focus the last selected choice', async function () {
+      const user = userEvent.setup({ delay: null })
       render(
         <Grommet theme={zooTheme}>
           <Choices
