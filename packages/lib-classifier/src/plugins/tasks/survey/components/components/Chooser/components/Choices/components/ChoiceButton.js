@@ -52,7 +52,7 @@ function ChoiceButton({
   return (
     <Button
       ref={choiceButton}
-      aria-checked={selected}
+      aria-checked={selected ? 'true' : 'false'}
       a11yTitle={choiceLabel}
       disabled={disabled}
       fill
