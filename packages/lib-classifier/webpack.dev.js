@@ -37,7 +37,6 @@ module.exports = {
     server: 'https'
   },
   entry: [
-    '@babel/polyfill',
     './dev/index.js'
   ],
   mode: 'development',
