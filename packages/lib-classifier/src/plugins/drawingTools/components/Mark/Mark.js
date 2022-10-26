@@ -186,14 +186,5 @@ Mark.propTypes = {
 }
 
 const ObservedMark = observer(Mark)
-
-ObservedMark.defaultProps = {
-  theme: {
-    global: {
-      colors: {}
-    }
-  }
-}
-
 export default draggable(withTheme(ObservedMark))
 export { Mark }
