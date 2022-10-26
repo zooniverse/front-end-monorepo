@@ -40,11 +40,13 @@ function focusMark(markNode) {
 function defaultHandler() {
   return true
 }
+
 const defaultTheme = {
   global: {
     colors: {}
   }
 }
+
 const Mark = forwardRef(function Mark(
   {
     children,
@@ -125,8 +127,8 @@ const Mark = forwardRef(function Mark(
   }
 
   function onFocus() {
-    markRoot.current?.scrollIntoView()
     onSelect(mark)
+    markRoot.current?.scrollIntoView?.()
   }
 
   let transform = ''
