@@ -40,17 +40,26 @@ function StoryContext (props) {
 
 export default {
   title: 'Tasks / SurveyTask / Chooser / Choices',
-  component: Choices
+  component: Choices,
+  argTypes: {
+    onChoose: { action: 'onChoose' },
+  }
 }
 
-const Template = ({ dark, disabled, filteredChoiceIds, task }) => (
+const Template = ({
+  dark,
+  disabled,
+  filteredChoiceIds,
+  onChoose,
+  task
+}) => (
   <StoryContext
     theme={{ ...zooTheme, dark }}
   >
     <Choices
       disabled={disabled}
       filteredChoiceIds={filteredChoiceIds}
-      onChoose={() => console.log('button clicked')}
+      onChoose={onChoose}
       task={task}
     />
   </StoryContext>

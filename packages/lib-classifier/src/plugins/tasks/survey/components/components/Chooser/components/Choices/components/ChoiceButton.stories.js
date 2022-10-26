@@ -38,7 +38,11 @@ function StoryContext (props) {
 
 export default {
   title: 'Tasks / SurveyTask / Chooser / Choices / ChoiceButton',
-  component: ChoiceButton
+  component: ChoiceButton,
+  argTypes: {
+    onChoose: { action: 'onChoose' },
+    onKeyDown: { action: 'onKeyDown' },
+  }
 }
 
 const Template = ({
@@ -47,6 +51,8 @@ const Template = ({
   dark,
   disabled,
   hasFocus,
+  onChoose,
+  onKeyDown,
   selected,
   src,
   tabIndex,
@@ -63,8 +69,8 @@ const Template = ({
         choiceLabel={choiceLabel}
         disabled={disabled}
         hasFocus={hasFocus}
-        onChoose={() => console.log(choiceId)}
-        onKeyDown={({ key }) => console.log(choiceId, key)}
+        onChoose={onChoose}
+        onKeyDown={onKeyDown}
         selected={selected}
         src={src}
         tabIndex={tabIndex}
