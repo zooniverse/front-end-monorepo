@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useEffect, useRef } from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import draggable from '../draggable'
 
@@ -27,6 +27,16 @@ const StyledGroup = styled('g')`
   }
 `
 
+function focusMark(markNode) {
+  const hasFocus = markNode === document.activeElement
+  if (!hasFocus) {
+    const x = scrollX
+    const y = scrollY
+    markNode?.focus()
+    window.scrollTo(x, y)
+  }
+}
+
 function defaultHandler() {
   return true
 }
@@ -51,7 +61,7 @@ const Mark = forwardRef(function Mark(
   },
   ref
 ) {
-  const markRoot = ref ?? React.createRef()
+  const markRoot = ref ?? useRef()
   const { tool } = mark
   const mainStyle = {
     color: tool && tool.color ? tool.color : 'green',
@@ -59,38 +69,32 @@ const Mark = forwardRef(function Mark(
     stroke: tool && tool.color ? tool.color : 'green'
   }
   const focusColor = theme.global.colors[theme.global.colors.focus]
-
-  function focusMark() {
-    const hasFocus = markRoot.current === document.activeElement
-    if (!hasFocus) {
-      const x = scrollX
-      const y = scrollY
-      markRoot.current?.focus()
-      window.scrollTo(x, y)
-    }
-  }
+  const usesSubTasks = mark.isValid && mark.tasks.length > 0
 
   function openSubTaskPopup() {
-    if (
-      mark.isValid &&
-      mark.finished &&
-      !mark.subTaskVisibility &&
-      mark.tasks.length > 0
-    ) {
-      focusMark()
+    if (!mark.subTaskVisibility) {
       const markBounds = markRoot.current?.getBoundingClientRect()
       mark.setSubTaskVisibility(true, markBounds)
     }
   }
 
-  function onSubTaskVisibilityChange() {
-    if (mark.finished && !mark.subTaskVisibility) {
-      focusMark()
+  useEffect(() => {
+    if (isActive && mark.finished) {
+      focusMark(markRoot.current)
     }
-  }
+  }, [isActive, mark.finished])
 
-  React.useEffect(openSubTaskPopup, [mark.finished])
-  React.useEffect(onSubTaskVisibilityChange, [mark.subTaskVisibility])
+  useEffect(() => {
+    if (usesSubTasks && mark.finished) {
+      openSubTaskPopup()
+    }
+  }, [usesSubTasks, mark.finished])
+
+  useEffect(() => {
+    if (mark.finished && !mark.subTaskVisibility) {
+      focusMark(markRoot.current)
+    }
+  }, [mark.finished, mark.subTaskVisibility])
 
   function onKeyDown(event) {
     switch (event.key) {
@@ -114,7 +118,13 @@ const Mark = forwardRef(function Mark(
     }
   }
 
-  function select() {
+  function onPointerUp() {
+    if (usesSubTasks) {
+      openSubTaskPopup()
+    }
+  }
+
+  function onFocus() {
     markRoot.current?.scrollIntoView()
     onSelect(mark)
   }
@@ -141,9 +151,9 @@ const Mark = forwardRef(function Mark(
       dragging={dragging}
       focusable
       focusColor={focusColor}
-      onFocus={select}
+      onFocus={onFocus}
       onKeyDown={onKeyDown}
-      onPointerUp={openSubTaskPopup}
+      onPointerUp={onPointerUp}
       pointerEvents={pointerEvents}
       ref={markRoot}
       role='button'
