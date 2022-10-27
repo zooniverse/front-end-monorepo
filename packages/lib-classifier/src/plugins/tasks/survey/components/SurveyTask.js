@@ -9,10 +9,12 @@ function SurveyTask({
   answers = {},
   disabled = false,
   filters = {},
+  focusedChoice = '',
   handleAnswers = () => {},
   handleChoice = () => {},
   handleDelete = () => {},
   handleFilter = () => {},
+  handleFocusedChoice = () => {},
   handleIdentify = () => {},
   selectedChoice = '',
   selectedChoiceIds = [],
@@ -35,8 +37,10 @@ function SurveyTask({
         : <Chooser
             disabled={disabled}
             filters={filters}
+            focusedChoiceId={focusedChoice}
             handleDelete={handleDelete}
             handleFilter={handleFilter}
+            handleFocusedChoice={handleFocusedChoice}
             onChoose={handleChoice}
             selectedChoiceIds={selectedChoiceIds}
             task={task}
@@ -54,10 +58,12 @@ SurveyTask.propTypes = {
   ),
   disabled: PropTypes.bool,
   filters: PropTypes.objectOf(PropTypes.string),
+  focusedChoice: PropTypes.string,
   handleAnswers: PropTypes.func,
   handleChoice: PropTypes.func,
   handleDelete: PropTypes.func,
   handleFilter: PropTypes.func,
+  handleFocusedChoice: PropTypes.func,
   handleIdentify: PropTypes.func,
   selectedChoice: PropTypes.string,
   selectedChoiceIds: PropTypes.arrayOf(PropTypes.string),

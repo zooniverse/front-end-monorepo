@@ -39,42 +39,6 @@ describe('Component > Choices', function () {
     expect(choiceButtons[5]).to.have.text('Nothing here')
   })
 
-  it('should focus the next choice on arrow down keyDown', async function () {
-    const user = userEvent.setup({ delay: null })
-    render(
-      <Grommet theme={zooTheme}>
-        <Choices
-          filteredChoiceIds={task.choicesOrder}
-          task={task}
-        />
-      </Grommet>
-    )
-    await user.keyboard('{tab}')
-    const choiceButtons = screen.getAllByRole('menuitemcheckbox')
-    expect(choiceButtons[0]).to.equal(document.activeElement)
-    await user.keyboard('{arrowdown}')
-    expect(choiceButtons[1]).to.equal(document.activeElement)
-  })
-
-  it('should focus the previous choice on arrow up keyDown', async function () {
-    const user = userEvent.setup({ delay: null })
-    render(
-      <Grommet theme={zooTheme}>
-        <Choices
-          filteredChoiceIds={task.choicesOrder}
-          task={task}
-        />
-      </Grommet>
-    )
-    await user.keyboard('{tab}')
-    const choiceButtons = screen.getAllByRole('menuitemcheckbox')
-    expect(choiceButtons[0]).to.equal(document.activeElement)
-    await user.keyboard('{arrowdown}')
-    expect(choiceButtons[1]).to.equal(document.activeElement)
-    await user.keyboard('{arrowup}')
-    expect(choiceButtons[0]).to.equal(document.activeElement)
-  })
-
   it('should call handleDelete with choice ID on choice button backspace keyDown', async function () {
     const handleDeleteSpy = sinon.spy()
     const user = userEvent.setup({ delay: null })
@@ -83,7 +47,7 @@ describe('Component > Choices', function () {
         <Choices
           filteredChoiceIds={task.choicesOrder}
           handleDelete={handleDeleteSpy}
-          selectedChoiceIds={['RDVRK']}
+          focusedChoiceId='RDVRK'
           task={task}
         />
       </Grommet>
@@ -102,7 +66,7 @@ describe('Component > Choices', function () {
         <Choices
           filteredChoiceIds={task.choicesOrder}
           handleDelete={handleDeleteSpy}
-          selectedChoiceIds={['RDVRK']}
+          focusedChoiceId='RDVRK'
           task={task}
         />
       </Grommet>
@@ -111,6 +75,46 @@ describe('Component > Choices', function () {
     expect(choiceButtons[0]).to.equal(document.activeElement)
     await user.keyboard('{delete}')
     expect(handleDeleteSpy).to.have.been.calledOnceWith('RDVRK')
+  })
+
+  it('should call handleFocusedChoice with expected choice ID on arrowDown keyDown', async function () {
+    const handleFocusedChoiceSpy = sinon.spy()
+    const user = userEvent.setup({ delay: null })
+    render(
+      <Grommet theme={zooTheme}>
+        <Choices
+          filteredChoiceIds={task.choicesOrder}
+          handleFocusedChoice={handleFocusedChoiceSpy}
+          task={task}
+        />
+      </Grommet>
+    )
+    await user.keyboard('{tab}')
+    const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+    expect(choiceButtons[0]).to.equal(document.activeElement)
+    await user.keyboard('{arrowDown}')
+    // LPHNT is the choice ID for the second choice button
+    expect(handleFocusedChoiceSpy).to.have.been.calledOnceWith('LPHNT')
+  })
+
+  it('should call handleFocusedChoice with expected choice ID on arrowUp keyDown', async function () {
+    const handleFocusedChoiceSpy = sinon.spy()
+    const user = userEvent.setup({ delay: null })
+    render(
+      <Grommet theme={zooTheme}>
+        <Choices
+          filteredChoiceIds={task.choicesOrder}
+          handleFocusedChoice={handleFocusedChoiceSpy}
+          task={task}
+        />
+      </Grommet>
+    )
+    await user.keyboard('{tab}')
+    const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+    expect(choiceButtons[0]).to.equal(document.activeElement)
+    await user.keyboard('{arrowUp}')
+    // NTHNGHR is the choice ID for the last choice button
+    expect(handleFocusedChoiceSpy).to.have.been.calledOnceWith('NTHNGHR')
   })
 
   it('should call onChoose with choice ID on choice button click', async function () {
@@ -168,14 +172,14 @@ describe('Component > Choices', function () {
     expect(onChooseSpy).to.have.been.calledOnceWith('RDVRK')
   })
 
-  describe('with selectedChoiceIds', function () {
-    it('should focus the last selected choice', async function () {
+  describe('with focusedChoiceId', function () {
+    it('should focus the focusedChoiceId', async function () {
       const user = userEvent.setup({ delay: null })
       render(
         <Grommet theme={zooTheme}>
           <Choices
             filteredChoiceIds={task.choicesOrder}
-            selectedChoiceIds={['RDVRK', 'HMN']}
+            focusedChoiceId='HMN'
             task={task}
           />
         </Grommet>

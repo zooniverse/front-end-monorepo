@@ -11,6 +11,7 @@ class SurveyTaskContainer extends React.Component {
     this.state = {
       answers: {},
       filters: {},
+      focusedChoice: '',
       selectedChoice: ''
     }
   }
@@ -70,8 +71,8 @@ class SurveyTaskContainer extends React.Component {
     }
     
     this.setState({
+      answers: {},
       selectedChoice: '',
-      answers: {}
     })
 
     annotation.setChoiceInProgress(false)
@@ -86,10 +87,18 @@ class SurveyTaskContainer extends React.Component {
     } else {
       newFilters = {}
     }
-    this.setState({ filters: newFilters })
+
+    this.setState({
+      filters: newFilters, 
+      focusedChoice: ''
+    })
   }
 
-  handleIdentify() {
+  handleFocusedChoice (focusedChoiceId) {
+    this.setState({ focusedChoice: focusedChoiceId })
+  }
+
+  handleIdentify () {
     const { annotation } = this.props
     const { answers, filters, selectedChoice } = this.state
 
@@ -106,10 +115,11 @@ class SurveyTaskContainer extends React.Component {
     annotation.setChoiceInProgress(false)
   }
 
-  handleReset() {
+  handleReset () {
     this.setState({
       answers: {},
       filters: {},
+      focusedChoice: '',
       selectedChoice: ''
     })
   }
@@ -124,6 +134,7 @@ class SurveyTaskContainer extends React.Component {
     const {
       answers,
       filters,
+      focusedChoice,
       selectedChoice
     } = this.state
 
@@ -134,10 +145,12 @@ class SurveyTaskContainer extends React.Component {
         answers={answers}
         disabled={disabled}
         filters={filters}
+        focusedChoice={focusedChoice}
         handleAnswers={this.handleAnswers.bind(this)}
         handleChoice={this.handleChoice.bind(this)}
         handleDelete={this.handleDelete.bind(this)}
         handleFilter={this.handleFilter.bind(this)}
+        handleFocusedChoice={this.handleFocusedChoice.bind(this)}
         handleIdentify={this.handleIdentify.bind(this)}
         selectedChoice={selectedChoice}
         selectedChoiceIds={selectedChoiceIds}

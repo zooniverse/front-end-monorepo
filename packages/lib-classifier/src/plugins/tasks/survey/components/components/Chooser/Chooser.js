@@ -11,15 +11,17 @@ import getFilteredChoiceIds from './helpers/getFilteredChoiceIds'
 function Chooser ({
   disabled = false,
   filters = {},
+  focusedChoiceId = '',
   handleDelete = () => {},
   handleFilter = () => {},
+  handleFocusedChoice = () => {},
   onChoose = () => true,
   selectedChoiceIds = [],
   task
 }) {
   const showFilters = Object.keys(task.characteristics).length > 0
   const filteredChoiceIds = getFilteredChoiceIds(filters, task)
-
+  
   return (
     <Box>
       {showFilters
@@ -33,7 +35,9 @@ function Chooser ({
       <Choices
         disabled={disabled}
         filteredChoiceIds={filteredChoiceIds}
+        focusedChoiceId={focusedChoiceId}
         handleDelete={handleDelete}
+        handleFocusedChoice={handleFocusedChoice}
         onChoose={onChoose}
         selectedChoiceIds={selectedChoiceIds}
         task={task}
@@ -52,8 +56,10 @@ function Chooser ({
 Chooser.propTypes = {
   disabled: PropTypes.bool,
   filters: PropTypes.objectOf(PropTypes.string),
+  focusedChoiceId: PropTypes.string,
   handleDelete: PropTypes.func,
   handleFilter: PropTypes.func,
+  handleFocusedChoice: PropTypes.func,
   onChoose: PropTypes.func,
   selectedChoiceIds: PropTypes.arrayOf(PropTypes.string),
   task: PropTypes.shape({

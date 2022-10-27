@@ -28,30 +28,18 @@ const defaultTheme = {
     colors: {}
   }
 }
+
 export function Choices ({
   disabled = false,
   filteredChoiceIds = [],
+  focusedChoiceId = '',
   handleDelete = () => {},
+  handleFocusedChoice = () => {},
   onChoose = () => true,
   selectedChoiceIds = [],
   task,
   theme = defaultTheme
 }) {
-  const [focusIndex, setFocusIndex] = useState(null)
-
-  useEffect(() => {
-    if (selectedChoiceIds.length > 0) {
-      const lastSelectedIndex = filteredChoiceIds.indexOf(selectedChoiceIds[selectedChoiceIds.length - 1])
-      if (lastSelectedIndex > -1) {
-        setFocusIndex(lastSelectedIndex)
-      } else {
-        setFocusIndex(null)
-      }
-    } else {
-      setFocusIndex(null)
-    }
-  }, [filteredChoiceIds, selectedChoiceIds])
-
   const columnsCount = howManyColumns(filteredChoiceIds)
   const rowsCount = Math.ceil(filteredChoiceIds.length / columnsCount)
   const thumbnailSize = task.alwaysShowThumbnails ? 'small' : whatSizeThumbnail(filteredChoiceIds)
@@ -65,7 +53,7 @@ export function Choices ({
         event.stopPropagation()
 
         newIndex = (index + 1) % filteredChoiceIds.length
-        setFocusIndex(newIndex)
+        handleFocusedChoice(filteredChoiceIds[newIndex])
         return false
       }
       case 'ArrowUp': {
@@ -76,7 +64,7 @@ export function Choices ({
         if (newIndex === -1) {
           newIndex = filteredChoiceIds.length - 1
         }
-        setFocusIndex(newIndex)
+        handleFocusedChoice(filteredChoiceIds[newIndex])
         return false
       }
       case 'Backspace':
@@ -102,11 +90,11 @@ export function Choices ({
         const choice = task.choices?.[choiceId] || {}
         const selected = selectedChoiceIds.indexOf(choiceId) > -1
         const src = task.images?.[choice.images?.[0]] || ''
-        const hasFocus = index === focusIndex
+        const hasFocus = choiceId === focusedChoiceId
         let tabIndex = -1
-        if (focusIndex === null && index === 0) {
+        if (focusedChoiceId === '' && index === 0) {
           tabIndex = 0
-        } else if (index === focusIndex) {
+        } else if (choiceId === focusedChoiceId) {
           tabIndex = 0
         }
 
@@ -139,7 +127,9 @@ Choices.propTypes = {
   filteredChoiceIds: PropTypes.arrayOf(
     PropTypes.string
   ),
+  focusedChoiceId: PropTypes.string,
   handleDelete: PropTypes.func,
+  handleFocusedChoice: PropTypes.func,
   onChoose: PropTypes.func,
   selectedChoiceIds: PropTypes.arrayOf(PropTypes.string),
   task: PropTypes.shape({
