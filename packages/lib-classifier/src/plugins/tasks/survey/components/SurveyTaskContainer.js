@@ -14,6 +14,13 @@ class SurveyTaskContainer extends React.Component {
       focusedChoice: '',
       selectedChoice: ''
     }
+
+    this.handleAnswers = this.handleAnswers.bind(this)
+    this.handleChoice = this.handleChoice.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
+    this.handleFilter = this.handleFilter.bind(this)
+    this.handleFocusedChoice = this.handleFocusedChoice.bind(this)
+    this.handleIdentify = this.handleIdentify.bind(this)
   }
 
   componentDidUpdate (prevProps) {
@@ -148,12 +155,12 @@ class SurveyTaskContainer extends React.Component {
         disabled={disabled}
         filters={filters}
         focusedChoice={focusedChoice}
-        handleAnswers={this.handleAnswers.bind(this)}
-        handleChoice={this.handleChoice.bind(this)}
-        handleDelete={this.handleDelete.bind(this)}
-        handleFilter={this.handleFilter.bind(this)}
-        handleFocusedChoice={this.handleFocusedChoice.bind(this)}
-        handleIdentify={this.handleIdentify.bind(this)}
+        handleAnswers={this.handleAnswers}
+        handleChoice={this.handleChoice}
+        handleDelete={this.handleDelete}
+        handleFilter={this.handleFilter}
+        handleFocusedChoice={this.handleFocusedChoice}
+        handleIdentify={this.handleIdentify}
         selectedChoice={selectedChoice}
         selectedChoiceIds={selectedChoiceIds}
         task={task}
