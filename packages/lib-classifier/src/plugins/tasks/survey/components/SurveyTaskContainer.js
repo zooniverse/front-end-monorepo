@@ -51,11 +51,13 @@ class SurveyTaskContainer extends React.Component {
     if (annotation?.value?.map(item => item.choice).includes(selectedChoice)) {
       const existingAnnotationValue = annotation?.value?.find(value => value.choice === selectedChoice)
       this.setState({
+        focusedChoice: selectedChoice,
         selectedChoice,
         answers: existingAnnotationValue.answers
       })
     } else {
-      this.setState({ 
+      this.setState({
+        focusedChoice: selectedChoice,
         selectedChoice,
         answers: {}
       })
