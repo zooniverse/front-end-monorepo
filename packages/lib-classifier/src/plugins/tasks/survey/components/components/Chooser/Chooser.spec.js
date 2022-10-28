@@ -86,6 +86,22 @@ describe('Component > Chooser', function () {
   
         expect(screen.getAllByRole('radiogroup')).to.have.lengthOf(task.characteristicsOrder.length)
       })
+
+      describe('when Filter button is disabled', function () {
+        it('should not show characteristic radiogroups', async function () {
+          const user = userEvent.setup({ delay: null })
+          render(
+            <Chooser
+              disabled
+              task={mockTask}
+            />
+          )
+          const filterButton = screen.getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+          await user.click(filterButton)
+    
+          expect(screen.queryByRole('radiogroup')).to.be.null()
+        })
+      })
     })
 
     describe('with a filter selected', function () {
