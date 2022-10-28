@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
 import { Box, Image } from 'grommet'
-import ProgressiveImage from 'react-progressive-image'
-import getThumbnailSrc from '../../helpers/getThumbnailSrc'
-import { propTypes, defaultProps } from '../../helpers/mediaPropTypes'
+import getThumbnailSrc from '../../helpers/getThumbnailSrc.js'
+import { propTypes, defaultProps } from '../../helpers/mediaPropTypes.js'
+import useProgressiveImage  from '../../../hooks/useProgressiveImage.js'
 
 const DEFAULT_THUMBNAIL_DIMENSION = 999
 
@@ -42,13 +42,10 @@ export default function ThumbnailImage({
   width,
   ...rest
 }) {
-  const [failed, setFailed] = useState(false)
+  const thumbnailSrc = getThumbnailSrc({ height, origin, src, width })
+  const { img, error, loading } = useProgressiveImage({ delay, src: thumbnailSrc })
 
-  function handleError() {
-    setFailed(true)
-  }
-
-  const thumbnailSrc = failed ? src : getThumbnailSrc({ height, origin, src, width })
+  const imageSrc = error ? src : thumbnailSrc
   const stringHeight = stringifySize(height)
   const stringWidth = stringifySize(width)
   const fallbackStyle = {
@@ -57,38 +54,29 @@ export default function ThumbnailImage({
   }
 
   return (
-    <ProgressiveImage
-      onError={handleError}
-      delay={delay}
-      src={thumbnailSrc}
-      placeholder=''
-    >
-      {(returnedSrc, loading) => (
-        <>
-          {loading ?
-            <Placeholder height={stringHeight} flex={flex} width={stringWidth} {...rest}>{placeholder}</Placeholder> :
-            <StyledBox
-              animation={loading ? undefined : "fadeIn"}
-              className="thumbnailImage"
-              flex={flex}
-              maxWidth={stringWidth}
-              maxHeight={stringHeight}
-              {...rest}
-            >
-              <StyledImage
-                alt={alt}
-                fit={fit}
-                src={returnedSrc}
-              />
-            </StyledBox>}
-          <noscript>
-            <div style={fallbackStyle}>
-              <img src={returnedSrc} alt={alt} height='100%' width='100%' style={{ flex, objectFit: fit }} />
-            </div>
-          </noscript>
-        </>
-      )}
-    </ProgressiveImage>
+    <>
+      {loading ?
+        <Placeholder height={stringHeight} flex={flex} width={stringWidth} {...rest}>{placeholder}</Placeholder> :
+        <StyledBox
+          animation={loading ? undefined : "fadeIn"}
+          className="thumbnailImage"
+          flex={flex}
+          maxWidth={stringWidth}
+          maxHeight={stringHeight}
+          {...rest}
+        >
+          <StyledImage
+            alt={alt}
+            fit={fit}
+            src={imageSrc}
+          />
+        </StyledBox>}
+      <noscript>
+        <div style={fallbackStyle}>
+          <img src={imageSrc} alt={alt} height='100%' width='100%' style={{ flex, objectFit: fit }} />
+        </div>
+      </noscript>
+    </>
   )
 }
 

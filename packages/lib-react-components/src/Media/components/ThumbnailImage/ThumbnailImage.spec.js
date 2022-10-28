@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import React from 'react'
+import sinon from 'sinon'
 
 import ThumbnailImage from './ThumbnailImage.js'
 
@@ -17,14 +18,11 @@ describe('ThumbnailImage', function () {
   }
 
   before(function () {
-    oldImage = window.Image
-    window.Image = ValidImage
-    global.Image = ValidImage
+    sinon.replace(window, 'Image', ValidImage)
   })
 
   after(function () {
-    window.Image = oldImage
-    global.Image = oldImage
+    sinon.restore()
   })
 
   it('should render without crashing', async function () {
