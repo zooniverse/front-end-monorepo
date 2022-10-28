@@ -129,6 +129,7 @@ Choices.propTypes = {
   filteredChoiceIds: PropTypes.arrayOf(
     PropTypes.string
   ),
+  filterDropOpen: PropTypes.bool,
   previousChoiceId: PropTypes.string,
   handleDelete: PropTypes.func,
   onChoose: PropTypes.func,

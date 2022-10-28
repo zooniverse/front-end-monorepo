@@ -127,8 +127,11 @@ export default function FilterStatus ({
 
 FilterStatus.propTypes = {
   disabled: PropTypes.bool,
+  filterDropOpen: PropTypes.bool,
   filters: PropTypes.objectOf(PropTypes.string),
   handleFilter: PropTypes.func,
+  handleFilterDropClose: PropTypes.func,
+  handleFilterDropOpen: PropTypes.func,
   task: PropTypes.shape({
     help: PropTypes.string,
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
