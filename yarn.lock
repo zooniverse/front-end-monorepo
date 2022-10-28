@@ -2715,49 +2715,49 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.1.4.tgz#0c8b74c50f29ee44f423f7416829c0bf8bb5eb27"
   integrity sha512-LwzQKA4vzIct1zNZzBmRKI9QuNpLgTQMEjsQLf3BXuGYb3QPTP4Yjf6mkdX+X1mYttZ808QpOwAzZjv28kq7DA==
 
-"@sentry/browser@~7.16.0":
-  version "7.16.0"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-7.16.0.tgz#afd2bac91857d2359272a0d9d2b1ee5ca7d69828"
-  integrity sha512-tJ063zvoF8Raw7mzQEXupOFPSN6v36WIbsDVGeFdToPCwViaBuATaxvWCrudGzsnBkMyItmTLJkzn9SEIXUOiw==
+"@sentry/browser@~7.17.1":
+  version "7.17.1"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-7.17.1.tgz#53930523b9ce0fb086063624221b31b01e07a98b"
+  integrity sha512-9W2OHgXBedHwtK5jG+Zh0WqItO178PZqrdPn6oQYLwO55XDjWKfgb1GuvHwjEK7JslqmjgY6mCmHG9JEse0Oog==
   dependencies:
-    "@sentry/core" "7.16.0"
-    "@sentry/types" "7.16.0"
-    "@sentry/utils" "7.16.0"
+    "@sentry/core" "7.17.1"
+    "@sentry/types" "7.17.1"
+    "@sentry/utils" "7.17.1"
     tslib "^1.9.3"
 
-"@sentry/core@7.16.0":
-  version "7.16.0"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-7.16.0.tgz#60f9b54ef2ec524176b329e1d15be39c36da5953"
-  integrity sha512-vq6H1b/IPTvzDD9coQ3wIudvSjkAYuUlXb1dv69dRlq4v3st9dcKBps1Zf0lQ1i4TVlDLoe1iGMmNFglMF1Q5w==
+"@sentry/core@7.17.1":
+  version "7.17.1"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-7.17.1.tgz#c9f0ed8ecf64d1f88baeddf25e6e0115cb8fa454"
+  integrity sha512-SA9SmKNn2zLrZt+lOnaGN9ko5yU72PUh2fac76CU3QfyYdMwe7BxWiZTb3C6ipy11bfJfDYM3ZbeCOBk68sirg==
   dependencies:
-    "@sentry/types" "7.16.0"
-    "@sentry/utils" "7.16.0"
+    "@sentry/types" "7.17.1"
+    "@sentry/utils" "7.17.1"
     tslib "^1.9.3"
 
-"@sentry/node@~7.16.0":
-  version "7.16.0"
-  resolved "https://registry.yarnpkg.com/@sentry/node/-/node-7.16.0.tgz#f049e243169ec4d6058d5c0fff08104509f5ba9a"
-  integrity sha512-OC0TO6UTetv8IsX3zNhdeui7YVIQCnhkbfi+CMrB6YsHaMP2A9qH5gNyu/hKbaY9+4xci7e4rxyRmI65aKS9ow==
+"@sentry/node@~7.17.1":
+  version "7.17.1"
+  resolved "https://registry.yarnpkg.com/@sentry/node/-/node-7.17.1.tgz#ab72037ef494b12c7ca9524a7c9a0de605ee9210"
+  integrity sha512-Y5QismaLNb+eHAQ9EYT7aXWuR37TtFkQevOdLj9ikhW7k+vL09gaQ5FAYxFCczQ2PUVruV2ZOXoL7xR776d1Zw==
   dependencies:
-    "@sentry/core" "7.16.0"
-    "@sentry/types" "7.16.0"
-    "@sentry/utils" "7.16.0"
+    "@sentry/core" "7.17.1"
+    "@sentry/types" "7.17.1"
+    "@sentry/utils" "7.17.1"
     cookie "^0.4.1"
     https-proxy-agent "^5.0.0"
     lru_map "^0.3.3"
     tslib "^1.9.3"
 
-"@sentry/types@7.16.0":
-  version "7.16.0"
-  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.16.0.tgz#79c06ada153a84feb949fa49b1c9d15f91decd79"
-  integrity sha512-i6D+OK6d0l/k+VQvRp/Pt21WkDEgVBUIZq+sOkEZJczbcfexVdXKeXXoYTD2vYuFq8Yy28fzlsZaKI+NoH94yQ==
+"@sentry/types@7.17.1":
+  version "7.17.1"
+  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.17.1.tgz#2931677d0c0fb7173a3e57230ede70d2a294e463"
+  integrity sha512-1rMZInb0rypqslYzJukiHe+EpHI/zgYiTK816I5pF8/e0JrE3WD/j+ZSugMYszczJIECCKtfI0Rst6jWn7Zs8Q==
 
-"@sentry/utils@7.16.0":
-  version "7.16.0"
-  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-7.16.0.tgz#b832520c661d4435808969ee04814ff8e20497b1"
-  integrity sha512-3Zh1txg7IRp4kZAdG27YF7K6lD1IZyuAo9KjoPg1Xzqa4DOZyASJuEkbf+rK2a9T4HrtVHHXJUsNbKg8WM3VHg==
+"@sentry/utils@7.17.1":
+  version "7.17.1"
+  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-7.17.1.tgz#452373890522f62c8a3e6732728ba78bd247f796"
+  integrity sha512-dypRfPRGfPPu7+x6r4zbEJwTTE9XlSLZBdq8BRvazaWBLZ6tQXYH/3U8hHaNVkdO6ELX53B6gLVRCyKFdUIUYw==
   dependencies:
-    "@sentry/types" "7.16.0"
+    "@sentry/types" "7.17.1"
     tslib "^1.9.3"
 
 "@sindresorhus/fnv1a@^1.2.0":
@@ -5454,7 +5454,7 @@ babel-eslint@~10.1.0:
     eslint-visitor-keys "^1.0.0"
     resolve "^1.12.0"
 
-babel-loader@^8.0.0, babel-loader@~8.2.2:
+babel-loader@^8.0.0:
   version "8.2.5"
   resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.2.5.tgz#d45f585e654d5a5d90f5350a779d7647c5ed512e"
   integrity sha512-OSiFfH89LrEMiWd4pLNqGz4CwJDtbs2ZVc+iGu2HrkRfPxId9F2anQj38IxWpmRfsUY0aBZYi1EFcd3mhtRMLQ==
@@ -5463,6 +5463,14 @@ babel-loader@^8.0.0, babel-loader@~8.2.2:
     loader-utils "^2.0.0"
     make-dir "^3.1.0"
     schema-utils "^2.6.5"
+
+babel-loader@~9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-9.0.0.tgz#b90f48b49f5360e4678733755d1413e16cfee48e"
+  integrity sha512-qVGQb0PNw/B1sGhPf0/KKsHZAPfa2Bk+JbjkW7yGjAHZyvjAULXYq0et0+/+7DL/rGYU+y8UoGPzA32NP29pVQ==
+  dependencies:
+    find-cache-dir "^3.3.2"
+    schema-utils "^4.0.0"
 
 babel-plugin-add-react-displayname@^0.0.5:
   version "0.0.5"
@@ -9037,7 +9045,7 @@ find-cache-dir@^2.0.0, find-cache-dir@^2.1.0:
     make-dir "^2.0.0"
     pkg-dir "^3.0.0"
 
-find-cache-dir@^3.2.0, find-cache-dir@^3.3.1:
+find-cache-dir@^3.2.0, find-cache-dir@^3.3.1, find-cache-dir@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/find-cache-dir/-/find-cache-dir-3.3.2.tgz#b30c5b6eff0730731aea9bbd9dbecbd80256d64b"
   integrity sha512-wXZV5emFEjrridIgED11OoUKLxiYjAcqot/NJdAkOhlJ+vGzwhOAfcG5OX1jP+S0PcjEn8bdMJv+g2jwQ3Onig==
@@ -10290,9 +10298,9 @@ i18next@^21.9.1:
     "@babel/runtime" "^7.17.2"
 
 i18next@~22.0.1:
-  version "22.0.2"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-22.0.2.tgz#04634aa751388625735cdb41f625a6b0dd1dcb2f"
-  integrity sha512-rGXWILemhx0dpNE5PfudVU1g4SdW0hkh4WYHaP8Cl6gm1KkMdBckmNqj9WvYqp8fOSocqX5FFJeadwiOZHLSXQ==
+  version "22.0.3"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-22.0.3.tgz#084e40ec88d63c13385175ddebcc4395c89b97e3"
+  integrity sha512-gG6kCG5+gnPXdK8TLTJ2oiuFSjn6CYMSUwV3vnmISxwTunJHREn/z6gi1g7942c61K1dL3Gm+9a64nZCPv6mlg==
   dependencies:
     "@babel/runtime" "^7.17.2"
 
@@ -12540,10 +12548,10 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0:
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz#26c8a3cee6cc05fbcf1e333cd2fc3e003326c0b5"
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
-newrelic@^9.0.0, newrelic@~9.4.0:
-  version "9.4.0"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-9.4.0.tgz#5263d5b9ee17de8b4f23ac5a0006ceddf1e523f2"
-  integrity sha512-Z7bwyf0y1FbBPfUgo6QaZwjot3OZBTq/p0SONyD/p/HaS7QxPS8tCXHPFkXFG2xg6ITGf4TVgNLvNfQx7FPdWA==
+newrelic@^9.0.0, newrelic@~9.5.0:
+  version "9.5.0"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-9.5.0.tgz#b420b8ade929392d02c630c5f512a5201f01d38f"
+  integrity sha512-PqMhX3IURa9Dr18J4U6Dfi6Lrkg1bKBm+bEu/EpivgHH7qOPzSmtNcimEj9Y2KSkyUaH/gdNhaQBjBF0zDlrjw==
   dependencies:
     "@grpc/grpc-js" "^1.5.5"
     "@grpc/proto-loader" "^0.6.13"
