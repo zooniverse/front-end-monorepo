@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Changed
+- removed `react-progressive-image` from the `Media` component.
+
 ## [1.2.0] 2022-10-03
 
 ### Added
