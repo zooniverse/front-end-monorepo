@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
 import { Box, Image } from 'grommet'
 import ProgressiveImage from 'react-progressive-image'
@@ -18,86 +18,78 @@ const StyledImage = styled(Image)`
   width: 100%;
 `
 
-export function Placeholder(props) {
+export function Placeholder({ children, flex, ...props}) {
   return (
-    <Box background='brand' flex={props.flex} justify='center' align='center' {...props}>
-      {props.children}
+    <Box background='brand' flex={flex} justify='center' align='center' {...props}>
+      {children}
     </Box>
   )
 }
 
-export default class ThumbnailImage extends React.Component {
-  constructor() {
-    super()
+function stringifySize (size) {
+  return (typeof size === 'number') ? `${size}px` : size
+}
 
-    this.state = {
-      failed: false
-    }
+export default function ThumbnailImage({
+  alt,
+  delay,
+  fit,
+  flex,
+  height,
+  origin,
+  placeholder,
+  src,
+  width,
+  ...rest
+}) {
+  const [failed, setFailed] = useState(false)
+
+  function handleError() {
+    setFailed(true)
   }
 
-  handleError() {
-    this.setState((prevState) => { if (!prevState.failed) return { failed: true } })
+  const thumbnailSrc = failed ? src : getThumbnailSrc({ height, origin, src, width })
+  const stringHeight = stringifySize(height)
+  const stringWidth = stringifySize(width)
+  const fallbackStyle = {
+    maxHeight: stringHeight,
+    maxWidth: stringWidth
   }
 
-  stringifySize (size) {
-    return (typeof size === 'number') ? `${size}px` : size
-  }
-
-  render() {
-    const {
-      alt,
-      delay,
-      fit,
-      flex,
-      height,
-      origin,
-      placeholder,
-      src,
-      width,
-      ...rest
-    } = this.props
-    const thumbnailSrc = this.state.failed ? src : getThumbnailSrc({ height, origin, src, width })
-    const stringHeight = this.stringifySize(height)
-    const stringWidth = this.stringifySize(width)
-    const fallbackStyle = {
-      maxHeight: this.stringifySize(height),
-      maxWidth: this.stringifySize(width)
-    }
-
-    return (
-      <ProgressiveImage
-        onError={this.handleError.bind(this)}
-        delay={delay}
-        src={thumbnailSrc}
-        placeholder=''
-      >
-        {(returnedSrc, loading) => (
-          <>
-            {loading ?
-              <Placeholder height={stringHeight} flex={flex} width={stringWidth} {...rest}>{placeholder}</Placeholder> :
-              <StyledBox
-                animation={loading ? undefined : "fadeIn"}
-                flex={flex}
-                maxWidth={stringWidth}
-                maxHeight={stringHeight}
-                {...rest}
-              >
-                <StyledImage
-                  alt={alt}
-                  fit={fit}
-                  src={returnedSrc}
-                />
-              </StyledBox>}
-            <noscript>
-              <div style={fallbackStyle}>
-                <img src={returnedSrc} alt={alt} height='100%' width='100%' style={{ flex, objectFit: fit }} />
-              </div>
-            </noscript>
-          </>
-        )}
-      </ProgressiveImage>
-    )
-  }
+  return (
+    <ProgressiveImage
+      onError={handleError}
+      delay={delay}
+      src={thumbnailSrc}
+      placeholder=''
+    >
+      {(returnedSrc, loading) => (
+        <>
+          {loading ?
+            <Placeholder height={stringHeight} flex={flex} width={stringWidth} {...rest}>{placeholder}</Placeholder> :
+            <StyledBox
+              animation={loading ? undefined : "fadeIn"}
+              className="thumbnailImage"
+              flex={flex}
+              maxWidth={stringWidth}
+              maxHeight={stringHeight}
+              {...rest}
+            >
+              <StyledImage
+                alt={alt}
+                fit={fit}
+                src={returnedSrc}
+              />
+            </StyledBox>}
+          <noscript>
+            <div style={fallbackStyle}>
+              <img src={returnedSrc} alt={alt} height='100%' width='100%' style={{ flex, objectFit: fit }} />
+            </div>
+          </noscript>
+        </>
+      )}
+    </ProgressiveImage>
+  )
 }
 
 ThumbnailImage.propTypes = {

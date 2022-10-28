@@ -1,83 +1,81 @@
-import { shallow, mount } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import React from 'react'
-import { Box, Image } from 'grommet'
-import ProgressiveImage from 'react-progressive-image'
 
-import ThumbnailImage, { Placeholder } from './ThumbnailImage'
+import ThumbnailImage from './ThumbnailImage.js'
 
-const image = 'https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg'
+const src = 'https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg'
 
 describe('ThumbnailImage', function () {
-  it('should render without crashing', function () {
-    const wrapper = shallow(<ThumbnailImage src={image} />)
-    expect(wrapper).to.be.ok
+  let oldImage
+
+  class ValidImage {
+    constructor () {
+      this.naturalHeight = 200
+      this.naturalWidth = 400
+      setTimeout(() => this.onload(), 0)
+    }
+  }
+
+  before(function () {
+    oldImage = window.Image
+    window.Image = ValidImage
+    global.Image = ValidImage
   })
 
-  it('should render a Grommet Image', function () {
-    const wrapper = mount(<ThumbnailImage src={image} />)
-    const progressiveImageInstance = wrapper.find(ProgressiveImage).instance()
-    progressiveImageInstance.onLoad()
-    wrapper.update()
-    expect(wrapper.find(Image)).to.have.lengthOf(1)
+  after(function () {
+    window.Image = oldImage
+    global.Image = oldImage
   })
 
-  it('should set the alt attribute using the alt prop', function () {
+  it('should render without crashing', async function () {
+    render(<ThumbnailImage alt='a test image' src={src} />)
+    const image = await screen.findByRole('img', { name: 'a test image' })
+    expect(image).to.be.ok()
+  })
+
+  it('should use alt text to describe the image.', async function () {
     const alt = "A galaxy"
-    const wrapper = mount(<ThumbnailImage alt={alt} src={image} />)
-    const progressiveImageInstance = wrapper.find(ProgressiveImage).instance()
-    progressiveImageInstance.onLoad()
-    wrapper.update()
-    expect(wrapper.find(Image).props().alt).to.equal(alt)
-  })
-
-  it('should be wrapped by ProgressiveImage', function () {
-    const wrapper = mount(<ThumbnailImage src={image} />)
-    expect(wrapper.find(ProgressiveImage)).to.have.lengthOf(1)
+    render(<ThumbnailImage alt={alt} src={src} />)
+    const image = await screen.findByRole('img', { name: alt })
+    expect(image).to.be.ok()
   })
 
   it('should render the Placeholder component if loading', function () {
-    const wrapper = mount(<ThumbnailImage src={image} />)
-
-    expect(wrapper.find(Placeholder)).to.have.lengthOf(1)
-    expect(wrapper.find(Image)).to.have.lengthOf(0)
+    render(<ThumbnailImage src={src} />)
+    expect(screen.queryByRole('img')).to.be.null()
   })
 
   it('should delay loading the image the given time in props.delay', function (done) {
     const delay = 1000
-    const wrapper = mount(<ThumbnailImage delay={delay} src={image} />)
-    const progressiveImageInstance = wrapper.find(ProgressiveImage).instance()
-    progressiveImageInstance.onLoad()
+    render(<ThumbnailImage alt='a test image' delay={delay} src={src} />)
     setTimeout(function () {
-      wrapper.update()
-      expect(wrapper.find(Image)).to.have.lengthOf(1)
+      const image = screen.findByRole('img', { name: 'a test image' })
+      expect(image).to.be.ok()
       done()
     }, delay + 1)
   })
 
   it('should have a `<noscript />` image for SSR', function () {
-    const wrapper = mount(<ThumbnailImage src={image} />)
-    const noscriptWrapper = wrapper.find('noscript')
-    expect(noscriptWrapper).to.have.lengthOf(1)
-    expect(noscriptWrapper.find('div')).to.have.lengthOf(1)
+    render(<ThumbnailImage src={src} />)
+    const noscriptWrapper = document.querySelector('noscript')
+    expect(noscriptWrapper).to.exist()
   })
 
   describe('height and width', function () {
-    it('should be set if specified', function () {
-      const wrapper = mount(<ThumbnailImage height={200} width={270} src={image} />)
-      const progressiveImageInstance = wrapper.find(ProgressiveImage).instance()
-      progressiveImageInstance.onLoad()
-      wrapper.update()
-      const { maxHeight, maxWidth } = wrapper.find(Box).props()
+    it('should be set if specified', async function () {
+      render(<ThumbnailImage alt='a test image' height={200} width={270} src={src} />)
+      const image = await screen.findByRole('img', { name: 'a test image' })
+      const imageWrapper = document.querySelector('div.thumbnailImage')
+      const { maxHeight, maxWidth } = window.getComputedStyle(imageWrapper)
       expect(maxHeight).to.equal('200px')
       expect(maxWidth).to.equal('270px')
     })
 
-    it('should default to 999', function () {
-      const wrapper = mount(<ThumbnailImage src={image} />)
-      const progressiveImageInstance = wrapper.find(ProgressiveImage).instance()
-      progressiveImageInstance.onLoad()
-      wrapper.update()
-      const { maxHeight, maxWidth } = wrapper.find(Box).props()
+    it('should default to 999', async function () {
+      render(<ThumbnailImage alt='a test image' src={src} />)
+      const image = await screen.findByRole('img', { name: 'a test image' })
+      const imageWrapper = document.querySelector('div.thumbnailImage')
+      const { maxHeight, maxWidth } = window.getComputedStyle(imageWrapper)
       expect(maxHeight).to.equal('999px')
       expect(maxWidth).to.equal('999px')
     })
