@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled, { css, withTheme } from 'styled-components'
 
 import howManyColumns from './helpers/howManyColumns'
@@ -32,14 +32,16 @@ const defaultTheme = {
 export function Choices ({
   disabled = false,
   filteredChoiceIds = [],
-  focusedChoiceId = '',
+  filterDropOpen = false,
+  previousChoiceId = '',
   handleDelete = () => {},
-  handleFocusedChoice = () => {},
   onChoose = () => true,
   selectedChoiceIds = [],
   task,
   theme = defaultTheme
 }) {
+  const [focusIndex, setFocusIndex] = useState(filteredChoiceIds.indexOf(previousChoiceId))
+
   const columnsCount = howManyColumns(filteredChoiceIds)
   const rowsCount = Math.ceil(filteredChoiceIds.length / columnsCount)
   const thumbnailSize = task.alwaysShowThumbnails ? 'small' : whatSizeThumbnail(filteredChoiceIds)
@@ -53,7 +55,7 @@ export function Choices ({
         event.stopPropagation()
 
         newIndex = (index + 1) % filteredChoiceIds.length
-        handleFocusedChoice(filteredChoiceIds[newIndex])
+        setFocusIndex(newIndex)
         return false
       }
       case 'ArrowUp': {
@@ -64,7 +66,7 @@ export function Choices ({
         if (newIndex === -1) {
           newIndex = filteredChoiceIds.length - 1
         }
-        handleFocusedChoice(filteredChoiceIds[newIndex])
+        setFocusIndex(newIndex)
         return false
       }
       case 'Backspace':
@@ -90,11 +92,11 @@ export function Choices ({
         const choice = task.choices?.[choiceId] || {}
         const selected = selectedChoiceIds.indexOf(choiceId) > -1
         const src = task.images?.[choice.images?.[0]] || ''
-        const hasFocus = choiceId === focusedChoiceId
+        const hasFocus = !filterDropOpen && (index === focusIndex)
         let tabIndex = -1
-        if (focusedChoiceId === '' && index === 0) {
+        if (focusIndex === -1 && index === 0) {
           tabIndex = 0
-        } else if (choiceId === focusedChoiceId) {
+        } else if (focusIndex === index) {
           tabIndex = 0
         }
 
@@ -127,9 +129,8 @@ Choices.propTypes = {
   filteredChoiceIds: PropTypes.arrayOf(
     PropTypes.string
   ),
-  focusedChoiceId: PropTypes.string,
+  previousChoiceId: PropTypes.string,
   handleDelete: PropTypes.func,
-  handleFocusedChoice: PropTypes.func,
   onChoose: PropTypes.func,
   selectedChoiceIds: PropTypes.arrayOf(PropTypes.string),
   task: PropTypes.shape({

@@ -30,8 +30,11 @@ const StyledLabel = styled(SpacedText)`
 
 export default function FilterStatus ({
   disabled = false,
+  filterDropOpen = false,
   filters = {},
   handleFilter = () => {},
+  handleFilterDropClose = () => {},
+  handleFilterDropOpen = () => {},
   task
 }) {
   const {
@@ -94,6 +97,9 @@ export default function FilterStatus ({
             {t('SurveyTask.CharacteristicsFilter.filter')}
           </StyledLabel>
         }
+        open={filterDropOpen}
+        onClose={handleFilterDropClose}
+        onOpen={handleFilterDropOpen}
       />
       {selectedCharacteristicIds.map(characteristicId => {
         const characteristic = characteristics?.[characteristicId] || {}

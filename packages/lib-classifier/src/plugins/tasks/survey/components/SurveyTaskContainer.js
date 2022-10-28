@@ -11,7 +11,7 @@ class SurveyTaskContainer extends React.Component {
     this.state = {
       answers: {},
       filters: {},
-      focusedChoice: '',
+      previousChoice: '',
       selectedChoice: ''
     }
 
@@ -19,7 +19,6 @@ class SurveyTaskContainer extends React.Component {
     this.handleChoice = this.handleChoice.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleFilter = this.handleFilter.bind(this)
-    this.handleFocusedChoice = this.handleFocusedChoice.bind(this)
     this.handleIdentify = this.handleIdentify.bind(this)
   }
 
@@ -58,13 +57,11 @@ class SurveyTaskContainer extends React.Component {
     if (annotation?.value?.map(item => item.choice).includes(selectedChoice)) {
       const existingAnnotationValue = annotation?.value?.find(value => value.choice === selectedChoice)
       this.setState({
-        focusedChoice: selectedChoice,
         selectedChoice,
         answers: existingAnnotationValue.answers
       })
     } else {
       this.setState({
-        focusedChoice: selectedChoice,
         selectedChoice,
         answers: {}
       })
@@ -81,6 +78,7 @@ class SurveyTaskContainer extends React.Component {
     
     this.setState({
       answers: {},
+      previousChoice: deletedChoice,
       selectedChoice: '',
     })
 
@@ -98,13 +96,8 @@ class SurveyTaskContainer extends React.Component {
     }
 
     this.setState({
-      filters: newFilters, 
-      focusedChoice: ''
+      filters: newFilters,
     })
-  }
-
-  handleFocusedChoice (focusedChoiceId) {
-    this.setState({ focusedChoice: focusedChoiceId })
   }
 
   handleIdentify () {
@@ -117,6 +110,7 @@ class SurveyTaskContainer extends React.Component {
 
     this.setState({
       answers: {},
+      previousChoice: selectedChoice,
       selectedChoice: ''
     })
 
@@ -128,7 +122,7 @@ class SurveyTaskContainer extends React.Component {
     this.setState({
       answers: {},
       filters: {},
-      focusedChoice: '',
+      previousChoice: '',
       selectedChoice: ''
     })
   }
@@ -143,7 +137,7 @@ class SurveyTaskContainer extends React.Component {
     const {
       answers,
       filters,
-      focusedChoice,
+      previousChoice,
       selectedChoice
     } = this.state
 
@@ -154,12 +148,11 @@ class SurveyTaskContainer extends React.Component {
         answers={answers}
         disabled={disabled}
         filters={filters}
-        focusedChoice={focusedChoice}
+        previousChoice={previousChoice}
         handleAnswers={this.handleAnswers}
         handleChoice={this.handleChoice}
         handleDelete={this.handleDelete}
         handleFilter={this.handleFilter}
-        handleFocusedChoice={this.handleFocusedChoice}
         handleIdentify={this.handleIdentify}
         selectedChoice={selectedChoice}
         selectedChoiceIds={selectedChoiceIds}

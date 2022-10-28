@@ -53,21 +53,6 @@ describe('Component > FilterStatus', function () {
     })
   })
 
-  describe('on click', function () {
-    it('should show the characteristic radiogroups', async function () {
-      const user = userEvent.setup({ delay: null })
-      render(
-        <FilterStatus
-          task={task}
-        />
-      )
-      const filterButton = screen.getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
-      await user.click(filterButton)
-
-      expect(screen.getAllByRole('radiogroup')).to.have.lengthOf(task.characteristicsOrder.length)
-    })
-  })
-
   describe('with selected filters', function () {
     it('should show the appropriate selected filter buttons', function () {
       const filters = {

@@ -47,7 +47,7 @@ describe('Component > Choices', function () {
         <Choices
           filteredChoiceIds={task.choicesOrder}
           handleDelete={handleDeleteSpy}
-          focusedChoiceId='RDVRK'
+          previousChoiceId='RDVRK'
           task={task}
         />
       </Grommet>
@@ -66,7 +66,7 @@ describe('Component > Choices', function () {
         <Choices
           filteredChoiceIds={task.choicesOrder}
           handleDelete={handleDeleteSpy}
-          focusedChoiceId='RDVRK'
+          previousChoiceId='RDVRK'
           task={task}
         />
       </Grommet>
@@ -77,14 +77,12 @@ describe('Component > Choices', function () {
     expect(handleDeleteSpy).to.have.been.calledOnceWith('RDVRK')
   })
 
-  it('should call handleFocusedChoice with expected choice ID on arrowDown keyDown', async function () {
-    const handleFocusedChoiceSpy = sinon.spy()
+  it('should focus the next ChoiceButton on arrowDown keyDown', async function () {
     const user = userEvent.setup({ delay: null })
     render(
       <Grommet theme={zooTheme}>
         <Choices
           filteredChoiceIds={task.choicesOrder}
-          handleFocusedChoice={handleFocusedChoiceSpy}
           task={task}
         />
       </Grommet>
@@ -93,18 +91,15 @@ describe('Component > Choices', function () {
     const choiceButtons = screen.getAllByRole('menuitemcheckbox')
     expect(choiceButtons[0]).to.equal(document.activeElement)
     await user.keyboard('{arrowDown}')
-    // LPHNT is the choice ID for the second choice button
-    expect(handleFocusedChoiceSpy).to.have.been.calledOnceWith('LPHNT')
+    expect(choiceButtons[1]).to.equal(document.activeElement)
   })
 
-  it('should call handleFocusedChoice with expected choice ID on arrowUp keyDown', async function () {
-    const handleFocusedChoiceSpy = sinon.spy()
+  it('should focus the previous ChoiceButton on arrowUp keyDown', async function () {
     const user = userEvent.setup({ delay: null })
     render(
       <Grommet theme={zooTheme}>
         <Choices
           filteredChoiceIds={task.choicesOrder}
-          handleFocusedChoice={handleFocusedChoiceSpy}
           task={task}
         />
       </Grommet>
@@ -113,8 +108,7 @@ describe('Component > Choices', function () {
     const choiceButtons = screen.getAllByRole('menuitemcheckbox')
     expect(choiceButtons[0]).to.equal(document.activeElement)
     await user.keyboard('{arrowUp}')
-    // NTHNGHR is the choice ID for the last choice button
-    expect(handleFocusedChoiceSpy).to.have.been.calledOnceWith('NTHNGHR')
+    expect(choiceButtons[5]).to.equal(document.activeElement)
   })
 
   it('should call onChoose with choice ID on choice button click', async function () {
@@ -172,14 +166,15 @@ describe('Component > Choices', function () {
     expect(onChooseSpy).to.have.been.calledOnceWith('RDVRK')
   })
 
-  describe('with focusedChoiceId', function () {
-    it('should focus the focusedChoiceId', async function () {
+  describe('with previousChoiceId and FilterStatus closed', function () {
+    it('should focus the previousChoiceId', async function () {
       const user = userEvent.setup({ delay: null })
       render(
         <Grommet theme={zooTheme}>
           <Choices
             filteredChoiceIds={task.choicesOrder}
-            focusedChoiceId='HMN'
+            filterDropOpen={false}
+            previousChoiceId='HMN'
             task={task}
           />
         </Grommet>
@@ -187,6 +182,25 @@ describe('Component > Choices', function () {
       const choiceButtons = screen.getAllByRole('menuitemcheckbox')
       // choiceButtons[3] is Human with ID HMN
       expect(choiceButtons[3]).to.equal(document.activeElement)
+    })
+  })
+
+  describe('with previousChoiceId and FilterStatus open', function () {
+    it('should not focus the previousChoiceId', async function () {
+      const user = userEvent.setup({ delay: null })
+      render(
+        <Grommet theme={zooTheme}>
+          <Choices
+            filteredChoiceIds={task.choicesOrder}
+            filterDropOpen={true}
+            previousChoiceId='HMN'
+            task={task}
+          />
+        </Grommet>
+      )
+      const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+      // choiceButtons[3] is Human with ID HMN
+      expect(choiceButtons[3]).to.not.equal(document.activeElement)
     })
   })
 })
