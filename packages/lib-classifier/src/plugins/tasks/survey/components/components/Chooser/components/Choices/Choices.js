@@ -1,13 +1,13 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled, { css, withTheme } from 'styled-components'
 
 import howManyColumns from './helpers/howManyColumns'
 import whatSizeThumbnail from './helpers/whatSizeThumbnail'
 import ChoiceButton from './components/ChoiceButton'
 
-const StyledGrid = styled.div`
+const StyledGrid = styled.ul`
   ${props => props.theme.dark
     ? css`background-color: ${props.theme.global.colors['dark-1']};`
     : css`background-color: ${props.theme.global.colors['light-1']};`
@@ -16,6 +16,9 @@ const StyledGrid = styled.div`
   grid-auto-flow: column;
   grid-gap: 2px;
   grid-template-rows: repeat(${props => props.rowsCount}, auto);
+  list-style: none;
+  margin: 0;
+  padding: 0;
   width: 100%;
 `
 
@@ -25,30 +28,19 @@ const defaultTheme = {
     colors: {}
   }
 }
-export function Choices({
-  autoFocus = false,
+
+export function Choices ({
   disabled = false,
   filteredChoiceIds = [],
+  filterDropOpen = false,
+  previousChoiceId = '',
   handleDelete = () => {},
   onChoose = () => true,
   selectedChoiceIds = [],
   task,
   theme = defaultTheme
 }) {
-  const [focusIndex, setFocusIndex] = useState(0)
-
-  useEffect(() => {
-    if (selectedChoiceIds.length > 0) {
-      const lastSelectedIndex = filteredChoiceIds.indexOf(selectedChoiceIds[selectedChoiceIds.length - 1])
-      if (lastSelectedIndex > -1) {
-        setFocusIndex(lastSelectedIndex)
-      } else {
-        setFocusIndex(0)
-      }
-    } else {
-      setFocusIndex(0)
-    }
-  }, [filteredChoiceIds, selectedChoiceIds])
+  const [focusIndex, setFocusIndex] = useState(filteredChoiceIds.indexOf(previousChoiceId))
 
   const columnsCount = howManyColumns(filteredChoiceIds)
   const rowsCount = Math.ceil(filteredChoiceIds.length / columnsCount)
@@ -93,29 +85,41 @@ export function Choices({
 
   return (
     <StyledGrid
+      role='menu'
       rowsCount={rowsCount}
     >
       {filteredChoiceIds.map((choiceId, index) => {
         const choice = task.choices?.[choiceId] || {}
         const selected = selectedChoiceIds.indexOf(choiceId) > -1
         const src = task.images?.[choice.images?.[0]] || ''
-        const hasFocus = autoFocus && (index === focusIndex)
-        const tabIndex = (index === focusIndex) ? 0 : -1
+        const hasFocus = !filterDropOpen && (index === focusIndex)
+        let tabIndex = -1
+        if (focusIndex === -1 && index === 0) {
+          tabIndex = 0
+        } else if (focusIndex === index) {
+          tabIndex = 0
+        }
 
         return (
-          <ChoiceButton
+          <li
             key={choiceId}
-            choiceId={choiceId}
-            choiceLabel={task.strings.get(`choices.${choiceId}.label`)}
-            disabled={disabled}
-            hasFocus={hasFocus}
-            onChoose={onChoose}
-            onKeyDown={handleKeyDown}
-            selected={selected}
-            src={src}
-            tabIndex={tabIndex}
-            thumbnailSize={thumbnailSize}
-          />
+            role='presentation'
+          >
+            <ChoiceButton
+              ariaChecked={selected ? 'true' : 'false'}
+              choiceId={choiceId}
+              choiceLabel={task.strings.get(`choices.${choiceId}.label`)}
+              disabled={disabled}
+              hasFocus={hasFocus}
+              onChoose={onChoose}
+              onKeyDown={handleKeyDown}
+              role='menuitemcheckbox'
+              selected={selected}
+              src={src}
+              tabIndex={tabIndex}
+              thumbnailSize={thumbnailSize}
+            />
+          </li>
         )
       })}
     </StyledGrid>
@@ -123,11 +127,12 @@ export function Choices({
 }
 
 Choices.propTypes = {
-  autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
   filteredChoiceIds: PropTypes.arrayOf(
     PropTypes.string
   ),
+  filterDropOpen: PropTypes.bool,
+  previousChoiceId: PropTypes.string,
   handleDelete: PropTypes.func,
   onChoose: PropTypes.func,
   selectedChoiceIds: PropTypes.arrayOf(PropTypes.string),

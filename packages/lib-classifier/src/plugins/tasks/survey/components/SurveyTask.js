@@ -7,9 +7,9 @@ import Chooser from './components/Chooser'
 
 function SurveyTask({
   answers = {},
-  autoFocus = false,
   disabled = false,
   filters = {},
+  previousChoice = '',
   handleAnswers = () => {},
   handleChoice = () => {},
   handleDelete = () => {},
@@ -34,9 +34,9 @@ function SurveyTask({
             task={task}
           />
         : <Chooser
-            autoFocus={autoFocus}
             disabled={disabled}
             filters={filters}
+            previousChoiceId={previousChoice}
             handleDelete={handleDelete}
             handleFilter={handleFilter}
             onChoose={handleChoice}
@@ -54,9 +54,9 @@ SurveyTask.propTypes = {
       PropTypes.string
     ])
   ),
-  autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
   filters: PropTypes.objectOf(PropTypes.string),
+  previousChoice: PropTypes.string,
   handleAnswers: PropTypes.func,
   handleChoice: PropTypes.func,
   handleDelete: PropTypes.func,

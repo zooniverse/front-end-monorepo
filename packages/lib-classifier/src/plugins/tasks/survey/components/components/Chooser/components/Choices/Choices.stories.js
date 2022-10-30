@@ -40,18 +40,26 @@ function StoryContext (props) {
 
 export default {
   title: 'Tasks / SurveyTask / Chooser / Choices',
-  component: Choices
+  component: Choices,
+  argTypes: {
+    onChoose: { action: 'onChoose' },
+  }
 }
 
-const Template = ({ autoFocus, dark, disabled, filteredChoiceIds, task }) => (
+const Template = ({
+  dark,
+  disabled,
+  filteredChoiceIds,
+  onChoose,
+  task
+}) => (
   <StoryContext
     theme={{ ...zooTheme, dark }}
   >
     <Choices
-      autoFocus={autoFocus}
       disabled={disabled}
       filteredChoiceIds={filteredChoiceIds}
-      onChoose={() => console.log('button clicked')}
+      onChoose={onChoose}
       task={task}
     />
   </StoryContext>
@@ -59,7 +67,6 @@ const Template = ({ autoFocus, dark, disabled, filteredChoiceIds, task }) => (
 
 export const LessThirtyMoreTwenty = Template.bind({})
 LessThirtyMoreTwenty.args = {
-  autoFocus: true,
   dark: false,
   disabled: false,
   filteredChoiceIds: filteredChoiceIdsMoreThanTwenty,
@@ -68,7 +75,6 @@ LessThirtyMoreTwenty.args = {
 
 export const LessTwentyMoreFive = Template.bind({})
 LessTwentyMoreFive.args = {
-  autoFocus: true,
   dark: false,
   disabled: false,
   filteredChoiceIds,
@@ -77,7 +83,6 @@ LessTwentyMoreFive.args = {
 
 export const LessThanSix = Template.bind({})
 LessThanSix.args = {
-  autoFocus: true,
   dark: false,
   disabled: false,
   filteredChoiceIds: Array.from(filteredChoiceIds).splice(0, 4),

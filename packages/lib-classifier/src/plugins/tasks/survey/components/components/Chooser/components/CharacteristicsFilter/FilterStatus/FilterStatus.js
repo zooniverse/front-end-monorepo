@@ -28,10 +28,13 @@ const StyledLabel = styled(SpacedText)`
   text-transform: uppercase;
 `
 
-export default function FilterStatus({
+export default function FilterStatus ({
   disabled = false,
+  filterDropOpen = false,
   filters = {},
   handleFilter = () => {},
+  handleFilterDropClose = () => {},
+  handleFilterDropOpen = () => {},
   task
 }) {
   const {
@@ -62,6 +65,7 @@ export default function FilterStatus({
       height='xxsmall'
     >
       <StyledDropButton
+        a11yTitle={t('SurveyTask.CharacteristicsFilter.filter')}
         disabled={disabled}
         dropAlign={{
           left: 'left',
@@ -93,6 +97,9 @@ export default function FilterStatus({
             {t('SurveyTask.CharacteristicsFilter.filter')}
           </StyledLabel>
         }
+        open={filterDropOpen}
+        onClose={handleFilterDropClose}
+        onOpen={handleFilterDropOpen}
       />
       {selectedCharacteristicIds.map(characteristicId => {
         const characteristic = characteristics?.[characteristicId] || {}
@@ -104,10 +111,11 @@ export default function FilterStatus({
         return (
           <FilterButton
             key={`${characteristicId}-${selectedValueId}`}
+            buttonSize='small'
             characteristicId={characteristicId}
             checked
             onFilter={handleFilter}
-            buttonSize='small'
+            valueId={selectedValueId}
             valueImageSrc={valueImageSrc}
             valueLabel={label}
           />
@@ -119,8 +127,11 @@ export default function FilterStatus({
 
 FilterStatus.propTypes = {
   disabled: PropTypes.bool,
+  filterDropOpen: PropTypes.bool,
   filters: PropTypes.objectOf(PropTypes.string),
   handleFilter: PropTypes.func,
+  handleFilterDropClose: PropTypes.func,
+  handleFilterDropOpen: PropTypes.func,
   task: PropTypes.shape({
     help: PropTypes.string,
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
