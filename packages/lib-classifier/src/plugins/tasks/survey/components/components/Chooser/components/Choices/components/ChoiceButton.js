@@ -12,12 +12,14 @@ import theme from './theme'
 export const THUMBNAIL_ASPECT_RATIO = 1.25
 
 function ChoiceButton({
+  ariaChecked = undefined,
   choiceId = '',
   choiceLabel = '',
   disabled = false,
   hasFocus = false,
   onChoose = () => true,
   onKeyDown = () => true,
+  role='button',
   selected = false,
   src = '',
   tabIndex = -1,
@@ -52,7 +54,7 @@ function ChoiceButton({
   return (
     <Button
       ref={choiceButton}
-      aria-checked={selected ? 'true' : 'false'}
+      aria-checked={ariaChecked}
       a11yTitle={choiceLabel}
       disabled={disabled}
       fill
@@ -79,7 +81,7 @@ function ChoiceButton({
       }
       onClick={handleClick}
       onKeyDown={handleKeyDown}
-      role='menuitemcheckbox'
+      role={role}
       selected={selected}
       size='small'
       tabIndex={tabIndex}
@@ -88,12 +90,14 @@ function ChoiceButton({
 }
 
 ChoiceButton.propTypes = {
+  ariaChecked: PropTypes.string,
   choiceId: PropTypes.string,
   choiceLabel: PropTypes.string,
   disabled: PropTypes.bool,
   hasFocus: PropTypes.bool,
   onChoose: PropTypes.func,
   onKeyDown: PropTypes.func,
+  role: PropTypes.string,
   selected: PropTypes.bool,
   src: PropTypes.string,
   tabIndex: PropTypes.number,

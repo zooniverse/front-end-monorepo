@@ -103,15 +103,17 @@ export function Choices ({
         return (
           <li
             key={choiceId}
-            role="presentation"
+            role='presentation'
           >
             <ChoiceButton
+              ariaChecked={selected ? 'true' : 'false'}
               choiceId={choiceId}
               choiceLabel={task.strings.get(`choices.${choiceId}.label`)}
               disabled={disabled}
               hasFocus={hasFocus}
               onChoose={onChoose}
               onKeyDown={handleKeyDown}
+              role='menuitemcheckbox'
               selected={selected}
               src={src}
               tabIndex={tabIndex}

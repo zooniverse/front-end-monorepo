@@ -21,7 +21,7 @@ describe('Component > ChoiceButton', function () {
         />
       </Grommet>
     )
-    const choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Aardvark' })
+    const choiceButton = screen.getByRole('button', { name: 'Aardvark' })
     expect(choiceButton).to.be.ok()
   })
 
@@ -40,7 +40,7 @@ describe('Component > ChoiceButton', function () {
         />
       </Grommet>
     )
-    const choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Aardvark' })
+    const choiceButton = screen.getByRole('button', { name: 'Aardvark' })
     await user.click(choiceButton)
     expect(onChooseSpy).to.have.been.calledOnceWith('RDVRK')
   })
@@ -61,7 +61,7 @@ describe('Component > ChoiceButton', function () {
         />
       </Grommet>
     )
-    const choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Aardvark' })
+    const choiceButton = screen.getByRole('button', { name: 'Aardvark' })
     expect(choiceButton).to.equal(document.activeElement)
     await user.keyboard('{enter}')
     expect(onKeyDownSpy).to.have.been.calledOnce()
@@ -84,7 +84,7 @@ describe('Component > ChoiceButton', function () {
           />
         </Grommet>
       )
-      const choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Aardvark' })
+      const choiceButton = screen.getByRole('button', { name: 'Aardvark' })
       await user.click(choiceButton)
       expect(onChooseSpy).to.not.have.been.called()
     })
@@ -106,7 +106,7 @@ describe('Component > ChoiceButton', function () {
           />
         </Grommet>
       )
-      const choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Aardvark' })
+      const choiceButton = screen.getByRole('button', { name: 'Aardvark' })
       expect(choiceButton).to.equal(document.activeElement)
       await user.keyboard('{enter}')
       expect(onKeyDownSpy).to.not.have.been.called()
