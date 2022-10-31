@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- export `useProgressiveImage` hook.
+
 ### Changed
 - removed `react-progressive-image` from the `Media` component.
 
