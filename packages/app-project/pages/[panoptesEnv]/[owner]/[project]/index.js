@@ -2,13 +2,22 @@ import getDefaultPageProps from '@helpers/getDefaultPageProps'
 export { default } from '@screens/ProjectHomePage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export async function getServerSideProps({ locale, params, query, req, res }) {
-  const { notFound, props } = await getDefaultPageProps({ locale, params, query, req, res })
+export async function getStaticProps({ locale, params }) {
+  const { notFound, props } = await getDefaultPageProps({ locale, params })
+
   return ({ 
     notFound,
     props: {
       ...(await serverSideTranslations(locale, ['components', 'screens'])),
       ...props
-    }
+    },
+    revalidate: 60 
   })
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking'
+  }
 }

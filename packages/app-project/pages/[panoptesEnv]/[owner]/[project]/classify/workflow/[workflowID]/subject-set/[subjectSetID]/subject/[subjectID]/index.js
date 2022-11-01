@@ -3,16 +3,15 @@ import fetchSubjectSets from '@helpers/fetchSubjectSets'
 export { default } from '@screens/ClassifyPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export async function getServerSideProps({ locale, params, query, req, res }) {
-  const { env } = query
-  const { notFound, props: defaultProps } = await getDefaultPageProps({ locale, params, query, req, res })
-  const { subjectID, subjectSetID, workflowID } = params
+export async function getStaticProps({ locale, params }) {
+  const { notFound, props: defaultProps } = await getDefaultPageProps({ locale, params })
+  const { panoptesEnv, subjectID, subjectSetID, workflowID } = params
   const props = { ...defaultProps, subjectID, subjectSetID, workflowID }
   const { workflows } = defaultProps
   const workflow = workflows?.find(workflow => workflow.id === params.workflowID)
   let pageTitle = workflow?.displayName || null
   if (workflow?.grouped) {
-    workflow.subjectSets = await fetchSubjectSets(workflow, env)
+    workflow.subjectSets = await fetchSubjectSets(workflow, panoptesEnv)
     const subjectSet = workflow.subjectSets?.find(subjectSet => subjectSet.id === subjectSetID)
     pageTitle = `${subjectSet?.display_name} | ${workflow?.displayName}`
   }
@@ -25,6 +24,14 @@ export async function getServerSideProps({ locale, params, query, req, res }) {
       subjectID,
       subjectSetID,
       workflowID
-    }
+    },
+    revalidate: 60
   })
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking'
+  }
 }

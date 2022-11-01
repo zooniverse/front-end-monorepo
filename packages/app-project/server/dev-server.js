@@ -7,7 +7,7 @@ const setLogging = require('./set-logging')
 const setCacheHeaders = require('./set-cache-headers')
 
 const port = parseInt(process.env.PORT, 10) || 3000
-const hostname = process.env.HOST || 'localhost'
+const hostname = 'local.zooniverse.org'
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev, hostname, port })
 const handle = app.getRequestHandler()
@@ -29,7 +29,7 @@ app.prepare().then(() => {
     return https.createServer(cert, server)
       .listen(port, err => {
         if (err) throw err
-        console.log(`> Ready on https://local.zooniverse.org:${port} or https://localhost.zooniverse.org:${port}`)
+        console.log(`> Ready on https://${hostname}:${port}`)
       })
   }).catch(error => console.error(error))
 })

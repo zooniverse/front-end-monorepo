@@ -170,13 +170,11 @@ describe('Helpers > getStaticPageProps', function () {
       before(async function () {
         const params = {
           owner: 'test-owner',
-          project: 'test-project-single-active-workflow'
-        }
-        const query = {
-          env: 'staging'
+          project: 'test-project-single-active-workflow',
+          panoptesEnv: 'staging'
         }
         const locale = 'en'
-        const response = await getStaticPageProps({ locale, params, query })
+        const response = await getStaticPageProps({ locale, params })
         props = response.props
       })
 
@@ -192,13 +190,11 @@ describe('Helpers > getStaticPageProps', function () {
 
       before(async function () {
         const params = {
+          panoptesEnv: 'staging',
           owner: 'test-owner',
           project: 'test-project-single-active-workflow'
         }
-        const query = {
-          env: 'staging'
-        }
-        const response = await getStaticPageProps({ params, query })
+        const response = await getStaticPageProps({ params })
         props = response.props
       })
 
@@ -229,13 +225,11 @@ describe('Helpers > getStaticPageProps', function () {
 
       before(async function () {
         const params = {
+          panoptesEnv: 'staging',
           owner: 'test-owner',
           project: 'test-project-multiple-active-workflows'
         }
-        const query = {
-          env: 'staging'
-        }
-        const response = await getStaticPageProps({ params, query })
+        const response = await getStaticPageProps({ params })
         props = response.props
       })
 
@@ -253,13 +247,11 @@ describe('Helpers > getStaticPageProps', function () {
 
       before(async function () {
         const params = {
+          panoptesEnv: 'staging',
           owner: 'test-owner',
           project: 'test-wrong-project'
         }
-        const query = {
-          env: 'staging'
-        }
-        const response = await getStaticPageProps({ params, query })
+        const response = await getStaticPageProps({ params })
         props = response.props
       })
 
@@ -277,14 +269,12 @@ describe('Helpers > getStaticPageProps', function () {
 
       before(async function () {
         const params = {
+          panoptesEnv: 'staging',
           owner: 'test-owner',
           project: 'test-project-single-active-workflow',
           workflowID: '3'
         }
-        const query = {
-          env: 'staging'
-        }
-        const response = await getStaticPageProps({ params, query })
+        const response = await getStaticPageProps({ params })
         props = response.props
       })
 
@@ -312,14 +302,12 @@ describe('Helpers > getStaticPageProps', function () {
 
       before(async function () {
         const params = {
+          panoptesEnv: 'production',
           owner: 'test-owner',
           project: 'test-project-single-active-workflow'
         }
-        const query = {
-          env: 'production'
-        }
         const locale = 'en'
-        const response = await getStaticPageProps({ locale, params, query })
+        const response = await getStaticPageProps({ locale, params })
         props = response.props
       })
 
@@ -335,13 +323,11 @@ describe('Helpers > getStaticPageProps', function () {
 
       before(async function () {
         const params = {
+          panoptesEnv: 'production',
           owner: 'test-owner',
           project: 'test-project-single-active-workflow'
         }
-        const query = {
-          env: 'production'
-        }
-        const response = await getStaticPageProps({ params, query })
+        const response = await getStaticPageProps({ params })
         props = response.props
       })
 
@@ -372,13 +358,11 @@ describe('Helpers > getStaticPageProps', function () {
 
       before(async function () {
         const params = {
+          panoptesEnv: 'production',
           owner: 'test-owner',
           project: 'test-project-multiple-active-workflows'
         }
-        const query = {
-          env: 'production'
-        }
-        const response = await getStaticPageProps({ params, query })
+        const response = await getStaticPageProps({ params })
         props = response.props
       })
 
@@ -396,21 +380,11 @@ describe('Helpers > getStaticPageProps', function () {
 
       before(async function () {
         const params = {
+          panoptesEnv: 'production',
           owner: 'test-owner',
           project: 'test-wrong-project'
         }
-        const query = {
-          env: 'production'
-        }
-        const req = {
-          connection: {
-            encrypted: true
-          },
-          headers: {
-            host: 'www.zooniverse.org'
-          }
-        }
-        const response = await getStaticPageProps({ params, query })
+        const response = await getStaticPageProps({ params })
         props = response.props
       })
 
@@ -428,14 +402,12 @@ describe('Helpers > getStaticPageProps', function () {
 
       before(async function () {
         const params = {
+          panoptesEnv: 'production',
           owner: 'test-owner',
           project: 'test-project-single-active-workflow',
           workflowID: '3'
         }
-        const query = {
-          env: 'production'
-        }
-        const response = await getStaticPageProps({ params, query })
+        const response = await getStaticPageProps({ params })
         props = response.props
       })
 
