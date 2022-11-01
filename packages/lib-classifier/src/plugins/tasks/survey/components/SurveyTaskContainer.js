@@ -11,8 +11,15 @@ class SurveyTaskContainer extends React.Component {
     this.state = {
       answers: {},
       filters: {},
+      previousChoice: '',
       selectedChoice: ''
     }
+
+    this.handleAnswers = this.handleAnswers.bind(this)
+    this.handleChoice = this.handleChoice.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
+    this.handleFilter = this.handleFilter.bind(this)
+    this.handleIdentify = this.handleIdentify.bind(this)
   }
 
   componentDidUpdate (prevProps) {
@@ -54,7 +61,7 @@ class SurveyTaskContainer extends React.Component {
         answers: existingAnnotationValue.answers
       })
     } else {
-      this.setState({ 
+      this.setState({
         selectedChoice,
         answers: {}
       })
@@ -70,8 +77,9 @@ class SurveyTaskContainer extends React.Component {
     }
     
     this.setState({
+      answers: {},
+      previousChoice: deletedChoice,
       selectedChoice: '',
-      answers: {}
     })
 
     annotation.setChoiceInProgress(false)
@@ -86,10 +94,13 @@ class SurveyTaskContainer extends React.Component {
     } else {
       newFilters = {}
     }
-    this.setState({ filters: newFilters })
+
+    this.setState({
+      filters: newFilters,
+    })
   }
 
-  handleIdentify() {
+  handleIdentify () {
     const { annotation } = this.props
     const { answers, filters, selectedChoice } = this.state
 
@@ -99,6 +110,7 @@ class SurveyTaskContainer extends React.Component {
 
     this.setState({
       answers: {},
+      previousChoice: selectedChoice,
       selectedChoice: ''
     })
 
@@ -106,10 +118,11 @@ class SurveyTaskContainer extends React.Component {
     annotation.setChoiceInProgress(false)
   }
 
-  handleReset() {
+  handleReset () {
     this.setState({
       answers: {},
       filters: {},
+      previousChoice: '',
       selectedChoice: ''
     })
   }
@@ -117,7 +130,6 @@ class SurveyTaskContainer extends React.Component {
   render () {
     const {
       annotation,
-      autoFocus,
       disabled,
       task
     } = this.props
@@ -125,6 +137,7 @@ class SurveyTaskContainer extends React.Component {
     const {
       answers,
       filters,
+      previousChoice,
       selectedChoice
     } = this.state
 
@@ -133,14 +146,14 @@ class SurveyTaskContainer extends React.Component {
     return (
       <SurveyTask
         answers={answers}
-        autoFocus={autoFocus}
         disabled={disabled}
         filters={filters}
-        handleAnswers={this.handleAnswers.bind(this)}
-        handleChoice={this.handleChoice.bind(this)}
-        handleDelete={this.handleDelete.bind(this)}
-        handleFilter={this.handleFilter.bind(this)}
-        handleIdentify={this.handleIdentify.bind(this)}
+        previousChoice={previousChoice}
+        handleAnswers={this.handleAnswers}
+        handleChoice={this.handleChoice}
+        handleDelete={this.handleDelete}
+        handleFilter={this.handleFilter}
+        handleIdentify={this.handleIdentify}
         selectedChoice={selectedChoice}
         selectedChoiceIds={selectedChoiceIds}
         task={task}
@@ -150,12 +163,10 @@ class SurveyTaskContainer extends React.Component {
 }
 
 SurveyTaskContainer.defaultProps = {
-  autoFocus: false,
   disabled: false
 }
 
 SurveyTaskContainer.propTypes = {
-  autoFocus: PropTypes.bool,
   annotation: PropTypes.shape({
     setChoiceInProgress: PropTypes.func,
     update: PropTypes.func,

@@ -22,10 +22,11 @@ export const StyledFilter = styled(Box)`
 
 export default function FilterButton (props) {
   const {
+    buttonSize,
     characteristicId,
     checked,
     onFilter,
-    buttonSize,
+    valueId,
     valueImageSrc,
     valueLabel
   } = props
@@ -39,6 +40,7 @@ export default function FilterButton (props) {
     <StyledFilter
       align='center'
       background={{ color: backgroundColor }}
+      data-testid={`filter-${characteristicId}-${valueId}`}
       height={containerSize}
       justify='center'
       margin={marginPerSize}
@@ -66,19 +68,21 @@ export default function FilterButton (props) {
 }
 
 FilterButton.defaultProps = {
+  buttonSize: 'medium',
   characteristicId: '',
   checked: false,
   onFilter: () => {},
-  buttonSize: 'medium',
+  valueId: '',
   valueImageSrc: '',
   valueLabel: ''
 }
 
 FilterButton.propTypes = {
+  buttonSize: PropTypes.string,
   characteristicId: PropTypes.string,
   checked: PropTypes.bool,
   onFilter: PropTypes.func,
-  buttonSize: PropTypes.string,
+  valueId: PropTypes.string,
   valueImageSrc: PropTypes.string,
   valueLabel: PropTypes.string
 }

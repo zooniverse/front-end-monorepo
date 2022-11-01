@@ -34,7 +34,10 @@ const theme = {
           cursor: not-allowed;
         }
         
-        &:focus:not(:disabled),
+        &:focus:not(:disabled) {
+          box-shadow: 0 0 2px 2px ${colors.focus};
+        }
+        
         &:hover:not(:disabled) {
           background: linear-gradient(${color}, ${gradientShade});
           box-shadow: none;

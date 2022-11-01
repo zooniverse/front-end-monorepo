@@ -6,15 +6,15 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import fetchTeam from '@helpers/fetchTeam'
 import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 
-export async function getServerSideProps({ locale, params, query, req, res }) {
-  const { headers, host } = getServerSideAPIHost(query.env)
-  const { notFound, props } = await getDefaultPageProps({ locale, params, query, req, res })
+export async function getStaticProps({ locale, params }) {
+  const { notFound, props } = await getDefaultPageProps({ locale, params })
+  const { panoptesEnv } = params
   const { project } = props.initialState
-  project.about_pages = await fetchProjectPageTitles(project, query.env)
-  const page = await fetchProjectPage(project, locale, 'team', query.env)
+  project.about_pages = await fetchProjectPageTitles(project, panoptesEnv)
+  const page = await fetchProjectPage(project, locale, 'team', panoptesEnv)
   const pageTitle = page?.strings?.title ?? 'Team'
 
-  const teamArray = await fetchTeam(project, query.env)
+  const teamArray = await fetchTeam(project, panoptesEnv)
 
   return {
     notFound,
@@ -24,6 +24,14 @@ export async function getServerSideProps({ locale, params, query, req, res }) {
       pageType: 'team',
       ...props,
       teamArray
-    }
+    },
+    revalidate: 60
+  }
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking'
   }
 }

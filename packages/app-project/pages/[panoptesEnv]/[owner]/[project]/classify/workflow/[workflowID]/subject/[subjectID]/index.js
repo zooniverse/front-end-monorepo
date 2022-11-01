@@ -1,17 +1,13 @@
 import getDefaultPageProps from '@helpers/getDefaultPageProps'
-import fetchSubjectSets from '@helpers/fetchSubjectSets'
 export { default } from '@screens/ClassifyPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export async function getServerSideProps({ locale, params, query, req, res }) {
-  const { env } = query
-  const { notFound, props: defaultProps } = await getDefaultPageProps({ locale, params, query, req, res })
+export async function getStaticProps({ locale, params }) {
+  const { notFound, props: defaultProps } = await getDefaultPageProps({ locale, params })
+  const { subjectID, workflowID } = params
   const { workflows } = defaultProps
   const workflow = workflows?.find(workflow => workflow.id === params.workflowID)
   const pageTitle = workflow?.displayName || null
-  if (workflow?.grouped) {
-    workflow.subjectSets = await fetchSubjectSets(workflow, env)
-  }
 
   return ({
     notFound,
@@ -19,7 +15,16 @@ export async function getServerSideProps({ locale, params, query, req, res }) {
       ...(await serverSideTranslations(locale, ['components', 'screens'])),
       ...defaultProps,
       pageTitle,
-      workflowID : params.workflowID
-    }
+      subjectID,
+      workflowID
+    },
+    revalidate: 60
   })
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking'
+  }
 }

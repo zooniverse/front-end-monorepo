@@ -5,7 +5,6 @@
   ],
   "require": [
     "@babel/register",
-    "@babel/polyfill",
     "chai/register-expect.js",
     "chai/register-should.js",
     "ignore-styles",

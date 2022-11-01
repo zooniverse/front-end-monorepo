@@ -1,5 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
+import { Box, Grommet } from 'grommet'
 import React from 'react'
 
 import theme from './theme'
@@ -8,6 +8,16 @@ import ChoiceButton from './ChoiceButton'
 const combinedTheme = Object.assign({}, zooTheme, theme)
 
 const CARACAL_SRC = 'https://panoptes-uploads.zooniverse.org/staging/workflow_attached_image/41bddb25-bb8d-4734-88fe-643d88688489.jpeg'
+
+function getColumnWidth (thumbnailSize) {
+  if (thumbnailSize === 'small') {
+    return '105px'
+  }
+  if (thumbnailSize === 'medium') {
+    return '175px'
+  }
+  return '310px'
+}
 
 function StoryContext (props) {
   const { children, theme } = props
@@ -28,7 +38,11 @@ function StoryContext (props) {
 
 export default {
   title: 'Tasks / SurveyTask / Chooser / Choices / ChoiceButton',
-  component: ChoiceButton
+  component: ChoiceButton,
+  argTypes: {
+    onChoose: { action: 'onChoose' },
+    onKeyDown: { action: 'onKeyDown' },
+  }
 }
 
 const Template = ({
@@ -37,6 +51,8 @@ const Template = ({
   dark,
   disabled,
   hasFocus,
+  onChoose,
+  onKeyDown,
   selected,
   src,
   tabIndex,
@@ -45,18 +61,22 @@ const Template = ({
   <StoryContext
     theme={{ ...combinedTheme, dark }}
   >
-    <ChoiceButton
-      choiceId={choiceId}
-      choiceLabel={choiceLabel}
-      disabled={disabled}
-      hasFocus={hasFocus}
-      onChoose={() => console.log(choiceId)}
-      onKeyDown={({ key }) => console.log(choiceId, key)}
-      selected={selected}
-      src={src}
-      tabIndex={tabIndex}
-      thumbnailSize={thumbnailSize}
-    />
+    <Box
+      width={getColumnWidth(thumbnailSize)}
+    >
+      <ChoiceButton
+        choiceId={choiceId}
+        choiceLabel={choiceLabel}
+        disabled={disabled}
+        hasFocus={hasFocus}
+        onChoose={onChoose}
+        onKeyDown={onKeyDown}
+        selected={selected}
+        src={src}
+        tabIndex={tabIndex}
+        thumbnailSize={thumbnailSize}
+      />
+    </Box>
   </StoryContext>
 )
 
@@ -76,14 +96,14 @@ Default.args = {
 export const LongLabel = Template.bind({})
 LongLabel.args = {
   choiceId: 'LONG',
-  choiceLabel: 'Long label is really long label',
+  choiceLabel: 'Label withlongwordthatislong',
   dark: false,
   disabled: false,
   hasFocus: false,
   selected: false,
   src: '',
   tabIndex: -1,
-  thumbnailSize: 'none'
+  thumbnailSize: 'small'
 }
 
 export const SmallThumbnail = Template.bind({})

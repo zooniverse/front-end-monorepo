@@ -27,6 +27,7 @@ describe('SurveyTaskContainer', function () {
     const mockState = {
       answers: {},
       filters: {},
+      previousChoice: '',
       selectedChoice: ''
     }
     expect(wrapper.state()).to.eql(mockState)
@@ -57,6 +58,7 @@ describe('SurveyTaskContainer', function () {
         CLR: 'BRWN',
         LK: 'NTLPDR'
       },
+      previousChoice: '',
       selectedChoice: 'CVT'
     }
 
@@ -76,6 +78,7 @@ describe('SurveyTaskContainer', function () {
     expect(wrapper.state()).to.eql({
       answers: {},
       filters: {},
+      previousChoice: '',
       selectedChoice: ''
     })
   })
