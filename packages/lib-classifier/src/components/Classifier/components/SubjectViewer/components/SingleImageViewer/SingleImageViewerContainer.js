@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import withKeyZoom from '../../../withKeyZoom'
 import locationValidator from '../../helpers/locationValidator'
-import useSubjectImage, { placeholder } from './hooks/useSubjectImage'
+import useSubjectImage, { PLACEHOLDER_URL } from './hooks/useSubjectImage'
 import SVGImage from '../SVGComponents/SVGImage'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import SingleImageViewer from './SingleImageViewer'
@@ -13,7 +13,6 @@ function SingleImageViewerContainer ({
   enableInteractionLayer = true,
   enableRotation = () => null,
   frame = 0,
-  ImageObject = window.Image,
   invert = false,
   loadingState = asyncStates.initialized,
   move = false,
@@ -32,12 +31,12 @@ function SingleImageViewerContainer ({
   const [dragMove, setDragMove] = useState()
   // TODO: replace this with a better function to parse the image location from a subject.
   const imageUrl = subject ? Object.values(subject.locations[frame])[0] : null
-  const { img, error } = useSubjectImage(ImageObject, imageUrl)
+  const { img, error, loading } = useSubjectImage(imageUrl)
   // default to a placeholder while image is loading.
   const { naturalHeight, naturalWidth, src } = img
 
-  useEffect(function onImageLoad () {
-    if (src !== placeholder.src) {
+  useEffect(function onImageLoad() {
+    if (src !== PLACEHOLDER_URL ) {
       const svgImage = subjectImage.current
       const { width: clientWidth, height: clientHeight } = svgImage
         ? svgImage.getBoundingClientRect()
@@ -51,10 +50,12 @@ function SingleImageViewerContainer ({
     enableRotation()
   }, [])
 
-  if (error) {
-    console.error(error)
-    onError(error)
-  }
+  useEffect(function logError() {
+    if (!loading && error) {
+      console.error(error)
+      onError(error)
+    }
+  }, [error, loading])
 
   function setOnDrag (callback) {
     setDragMove(() => callback)
