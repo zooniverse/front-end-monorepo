@@ -1,6 +1,7 @@
 import zooTheme from '@zooniverse/grommet-theme';
 import { Grommet } from 'grommet';
 import React from 'react';
+import { Key } from 'grommet-icons';
 
 import Tabs from './Tabs';
 import Tab from '../Tab';
@@ -20,6 +21,14 @@ export default {
   title: 'Components/Tabs',
 };
 
+const ComplexTitle = () => (
+  <span>
+    <Key size='small' a11yTitle={'Restricted Section:'} />
+    &nbsp;
+    <span>Members Only</span>
+  </span>
+)
+
 export const LightThemeDefault = () => (
   <Grommet
     background={{
@@ -33,7 +42,7 @@ export const LightThemeDefault = () => (
       <Tab title="one">One</Tab>
       <Tab title="two">Two</Tab>
       <Tab title="three">Three</Tab>
-      <Tab title="four">Four</Tab>
+      <Tab title={<ComplexTitle />}>Tab with complex title (tab header)</Tab>
     </Tabs>
   </Grommet>
 );

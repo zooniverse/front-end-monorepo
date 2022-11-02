@@ -7,7 +7,7 @@ import withKeyZoom from '@components/Classifier/components/withKeyZoom'
 import { withStores } from '@helpers'
 
 import locationValidator from '../../helpers/locationValidator'
-import useSubjectImage, { placeholder } from '../SingleImageViewer/hooks/useSubjectImage'
+import useSubjectImage, { PLACEHOLDER_URL } from '../SingleImageViewer/hooks/useSubjectImage'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
 import SVGImage from '../SVGComponents/SVGImage'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
@@ -56,7 +56,6 @@ function MultiFrameViewerContainer({
   enableInteractionLayer = true,
   enableRotation = () => null,
   frame = 0,
-  ImageObject = window.Image,
   invert = false,
   loadingState = asyncStates.initialized,
   move,
@@ -73,12 +72,12 @@ function MultiFrameViewerContainer({
   const [dragMove, setDragMove] = useState()
   // TODO: replace this with a better function to parse the image location from a subject.
   const imageUrl = subject ? Object.values(subject.locations[frame])[0] : null
-  const { img, error } = useSubjectImage(ImageObject, imageUrl)
+  const { img, error, loading } = useSubjectImage(imageUrl)
   // default to a placeholder while image is loading.
   const { naturalHeight, naturalWidth, src } = img
 
   useEffect(function onImageLoad() {
-    if (src !== placeholder.src) {
+    if (src !== PLACEHOLDER_URL) {
       const svgImage = subjectImage.current
       const { width: clientWidth, height: clientHeight } = svgImage
         ? svgImage.getBoundingClientRect()
@@ -96,10 +95,12 @@ function MultiFrameViewerContainer({
     activeTool?.validate()
   }, [frame])
 
-  if (error) {
-    console.error(error)
-    onError(error)
-  }
+  useEffect(function logError() {
+    if (!loading && error) {
+      console.error(error)
+      onError(error)
+    }
+  }, [error, loading])
 
   function setOnDrag(callback) {
     setDragMove(() => callback)

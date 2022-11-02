@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
@@ -53,16 +53,16 @@ function FlipbookViewerContainer({
   /** This initializes an image element from the subject's defaultFrame src url.
    * We do this so the SVGPanZoom has dimensions of the subject image.
    * We're assuming all frames in one subject have the same dimensions. */
-  const defaultFrameUrl = subject
-    ? Object.values(subject.locations[defaultFrame])[0]
-    : null
-  const { img, error } = useSubjectImage(window.Image, defaultFrameUrl)
+  const defaultFrameUrl = subject ? Object.values(subject.locations[defaultFrame])[0] : null
+  const { img, error, loading } = useSubjectImage(window.Image, defaultFrameUrl)
   const { naturalHeight, naturalWidth, src: defaultFrameSrc } = img
 
-  if (error) {
-    console.error(error)
-    onError(error)
-  }
+  useEffect(function logError() {
+    if (!loading && error) {
+      console.error(error)
+      onError(error)
+    }
+  }, [error, loading])
 
   if (loadingState === asyncStates.error || !subject?.locations) {
     return <div>Something went wrong.</div>

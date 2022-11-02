@@ -15,7 +15,7 @@ describe('Component > MultiFrameViewerContainer', function () {
   let wrapper
   const height = 200
   const width = 400
-  const DELAY = 0
+  const DELAY = 100
   const HTMLImgError = {
     message: 'The HTML img did not load'
   }
@@ -55,11 +55,12 @@ describe('Component > MultiFrameViewerContainer', function () {
   })
 
   describe('with a valid subject', function () {
-    let imageWrapper
+    let imageWrapper, wrapper
     const onReady = sinon.stub()
     const onError = sinon.stub()
 
-    beforeEach(function (done) {
+    before(function (done) {
+      sinon.replace(window, 'Image', ValidImage)
       onReady.callsFake(() => {
         imageWrapper = wrapper.find(SingleImageViewer)
         done()
@@ -82,7 +83,6 @@ describe('Component > MultiFrameViewerContainer', function () {
       wrapper = mount(
         <MultiFrameViewerContainer
           enableInteractionLayer={false}
-          ImageObject={ValidImage}
           loadingState={asyncStates.success}
           subject={subject}
           onError={onError}
@@ -95,8 +95,8 @@ describe('Component > MultiFrameViewerContainer', function () {
       )
     })
 
-    afterEach(function () {
-      onReady.resetHistory()
+    after(function () {
+      sinon.restore()
     })
 
     it('should render without crashing', function () {
@@ -172,11 +172,9 @@ describe('Component > MultiFrameViewerContainer', function () {
     const onReady = sinon.stub()
     const onError = sinon.stub()
 
-    before(function () {
+    before(function (done) {
+      sinon.replace(window, 'Image', InvalidImage)
       sinon.stub(console, 'error')
-    })
-
-    beforeEach(function (done) {
       onReady.callsFake(() => {
         imageWrapper = wrapper.find(SingleImageViewer)
         done()
@@ -194,7 +192,6 @@ describe('Component > MultiFrameViewerContainer', function () {
       wrapper = mount(
         <MultiFrameViewerContainer
           enableInteractionLayer={false}
-          ImageObject={InvalidImage}
           loadingState={asyncStates.success}
           subject={subject}
           onError={onError}
@@ -203,13 +200,8 @@ describe('Component > MultiFrameViewerContainer', function () {
       )
     })
 
-    afterEach(function () {
-      onError.resetHistory()
-      onReady.resetHistory()
-    })
-
     after(function () {
-      console.error.restore()
+      sinon.restore()
     })
 
     it('should render without crashing', function () {

@@ -1,7 +1,11 @@
 import React from 'react'
 import { string } from 'prop-types'
+import { useTranslation } from 'react-i18next'
+import '../translations/i18n'
 
 export default function ZooniverseLogo ({ id, size, ...rest }) {
+  const { t } = useTranslation()
+
   return (
     <svg
       role='img'
@@ -12,7 +16,7 @@ export default function ZooniverseLogo ({ id, size, ...rest }) {
       {...rest}
     >
       <title id={id}>
-        Zooniverse Logo
+        {t('ZooniverseLogo.title')}
       </title>
       <g fill='currentColor' stroke='none' transform='translate(50, 50)'>
         <path d='M 0 -45 A 45 45 0 0 1 0 45 A 45 45 0 0 1 0 -45 Z M 0 -30 A 30 30 0 0 0 0 30 A 30 30 0 0 0 0 -30 Z' />

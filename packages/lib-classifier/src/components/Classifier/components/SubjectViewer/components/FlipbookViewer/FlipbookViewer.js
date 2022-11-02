@@ -3,7 +3,7 @@ import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 
 import locationValidator from '../../helpers/locationValidator'
-import { placeholder } from '../SingleImageViewer/hooks/useSubjectImage'
+import { PLACEHOLDER_URL } from '../SingleImageViewer/hooks/useSubjectImage'
 
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer.js'
 import SVGImage from '../SVGComponents/SVGImage'
@@ -34,7 +34,7 @@ const FlipbookViewer = ({
 
   useEffect(() => {
     const svgImage = subjectImage?.current
-    if (svgImage && defaultFrameSrc !== placeholder.src) {
+    if (svgImage && defaultFrameSrc !== PLACEHOLDER_URL) {
       const { width: clientWidth, height: clientHeight } =
         svgImage.getBoundingClientRect()
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
