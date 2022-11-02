@@ -19,7 +19,7 @@ const FlipbookViewer = ({
   naturalHeight = placeholder.height,
   naturalWidth = placeholder.width,
   onReady = () => true,
-  playIterations = '',
+  playIterations = '', // empty string from panoptes indicates infinite
   rotation,
   setOnPan = () => true,
   setOnZoom = () => true,
