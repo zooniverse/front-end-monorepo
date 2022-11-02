@@ -51,7 +51,7 @@ jobs:
         creds: ${{ secrets.AZURE_AKS }}
 
     - name: Set the target AKS cluster
-      uses: Azure/aks-set-context@v2
+      uses: Azure/aks-set-context@v3
       with:
         resource-group: kubernetes
         cluster-name: microservices
