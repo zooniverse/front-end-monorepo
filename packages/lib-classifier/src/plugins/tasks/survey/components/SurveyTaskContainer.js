@@ -1,53 +1,32 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import SurveyTask from './SurveyTask'
 
-class SurveyTaskContainer extends React.Component {
-  constructor () {
-    super()
+export function SurveyTaskContainer ({
+  annotation,
+  task,
+  disabled = false,
+}) {
+  const [answers, setAnswers] = React.useState({})
+  const [filters, setFilters] = React.useState({})
+  const [previousChoice, setPreviousChoice] = React.useState('')
+  const [selectedChoice, setSelectedChoice] = React.useState('')
 
-    this.state = {
-      answers: {},
-      filters: {},
-      previousChoice: '',
-      selectedChoice: ''
+  useEffect(() => {
+    return () => {
+      if (annotation._choiceInProgress) {
+        annotation.setChoiceInProgress(false)
+      }
     }
+  })
 
-    this.handleAnswers = this.handleAnswers.bind(this)
-    this.handleChoice = this.handleChoice.bind(this)
-    this.handleDelete = this.handleDelete.bind(this)
-    this.handleFilter = this.handleFilter.bind(this)
-    this.handleIdentify = this.handleIdentify.bind(this)
+  function handleAnswers (answers) {
+    setAnswers(answers)
   }
 
-  componentDidUpdate (prevProps) {
-    const { task } = this.props
-    const prevTaskKey = prevProps.task?.taskKey
-    const taskChanged = task && (task.taskKey !== prevTaskKey)
-
-    if (taskChanged) {
-      this.handleReset()
-    }
-  }
-
-  componentWillUnmount () {
-    const { annotation } = this.props
-
-    if (annotation._choiceInProgress) {
-      annotation.setChoiceInProgress(false)
-    }
-  }
-
-  handleAnswers (answers) {
-    this.setState({ answers })
-  }
-
-  handleChoice (selectedChoice) {
-    const { annotation } = this.props
-    
-    // onCancel, onClickOutside, and onEsc selectedChoice defined as ''
+  function handleChoice (selectedChoice) {
     if (selectedChoice === '') {
       annotation.setChoiceInProgress(false)
     } else {
@@ -56,37 +35,29 @@ class SurveyTaskContainer extends React.Component {
 
     if (annotation?.value?.map(item => item.choice).includes(selectedChoice)) {
       const existingAnnotationValue = annotation?.value?.find(value => value.choice === selectedChoice)
-      this.setState({
-        selectedChoice,
-        answers: existingAnnotationValue.answers
-      })
+      setAnswers(existingAnnotationValue.answers)
+      setSelectedChoice(selectedChoice)
     } else {
-      this.setState({
-        selectedChoice,
-        answers: {}
-      })
+      setAnswers({})
+      setSelectedChoice(selectedChoice)
     }
   }
 
-  handleDelete (deletedChoice) {
-    const { annotation } = this.props
-    
+  function handleDelete (deletedChoice) {
     if (annotation?.value?.map(item => item.choice).includes(deletedChoice)) {
       const value = annotation?.value?.filter(item => item.choice !== deletedChoice) || []
       annotation.update(value)
     }
     
-    this.setState({
-      answers: {},
-      previousChoice: deletedChoice,
-      selectedChoice: '',
-    })
-
+    setAnswers({})
+    setPreviousChoice(deletedChoice)
+    setSelectedChoice('')
+    
     annotation.setChoiceInProgress(false)
   }
 
-  handleFilter (characteristicId, valueId) {
-    let newFilters = Object.assign({}, this.state.filters)
+  function handleFilter (characteristicId, valueId) {
+    let newFilters = Object.assign({}, filters)
     if (valueId) {
       newFilters[characteristicId] = valueId
     } else if (characteristicId) {
@@ -95,75 +66,40 @@ class SurveyTaskContainer extends React.Component {
       newFilters = {}
     }
 
-    this.setState({
-      filters: newFilters,
-    })
+    setFilters(newFilters)
   }
 
-  handleIdentify () {
-    const { annotation } = this.props
-    const { answers, filters, selectedChoice } = this.state
-
+  function handleIdentify () {
     const parsedFilters = JSON.parse(JSON.stringify(filters))
     const value = annotation?.value?.filter(item => item.choice !== selectedChoice) || []
     value.push({ choice: selectedChoice, answers, filters: parsedFilters })
 
-    this.setState({
-      answers: {},
-      previousChoice: selectedChoice,
-      selectedChoice: ''
-    })
+    setAnswers({})
+    setSelectedChoice('')
+    setPreviousChoice(selectedChoice)
 
     annotation.update(value)
     annotation.setChoiceInProgress(false)
   }
 
-  handleReset () {
-    this.setState({
-      answers: {},
-      filters: {},
-      previousChoice: '',
-      selectedChoice: ''
-    })
-  }
+  const selectedChoiceIds = annotation?.value?.map(item => item.choice)
 
-  render () {
-    const {
-      annotation,
-      disabled,
-      task
-    } = this.props
-
-    const {
-      answers,
-      filters,
-      previousChoice,
-      selectedChoice
-    } = this.state
-
-    const selectedChoiceIds = annotation?.value?.map(item => item.choice)
-
-    return (
-      <SurveyTask
-        answers={answers}
-        disabled={disabled}
-        filters={filters}
-        previousChoice={previousChoice}
-        handleAnswers={this.handleAnswers}
-        handleChoice={this.handleChoice}
-        handleDelete={this.handleDelete}
-        handleFilter={this.handleFilter}
-        handleIdentify={this.handleIdentify}
-        selectedChoice={selectedChoice}
-        selectedChoiceIds={selectedChoiceIds}
-        task={task}
-      />
-    )
-  }
-}
-
-SurveyTaskContainer.defaultProps = {
-  disabled: false
+  return (
+    <SurveyTask
+      answers={answers}
+      disabled={disabled}
+      filters={filters}
+      previousChoice={previousChoice}
+      handleAnswers={handleAnswers}
+      handleChoice={handleChoice}
+      handleDelete={handleDelete}
+      handleFilter={handleFilter}
+      handleIdentify={handleIdentify}
+      selectedChoice={selectedChoice}
+      selectedChoiceIds={selectedChoiceIds}
+      task={task}
+    />
+  )
 }
 
 SurveyTaskContainer.propTypes = {
@@ -182,10 +118,4 @@ SurveyTaskContainer.propTypes = {
   }).isRequired
 }
 
-@observer
-class DecoratedSurveyTaskContainer extends SurveyTaskContainer { }
-
-export {
-  DecoratedSurveyTaskContainer as default,
-  SurveyTaskContainer
-}
+export default observer(SurveyTaskContainer)
