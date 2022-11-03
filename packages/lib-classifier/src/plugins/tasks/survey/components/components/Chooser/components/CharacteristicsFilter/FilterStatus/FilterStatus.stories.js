@@ -35,7 +35,7 @@ function StoryContext (props) {
 }
 
 export default {
-  title: 'Tasks / SurveyTask / Chooser / CharacteristicsFilter / FilterStatus',
+  title: 'Tasks / Survey / Chooser / CharacteristicsFilter / FilterStatus',
   component: FilterStatus
 }
 

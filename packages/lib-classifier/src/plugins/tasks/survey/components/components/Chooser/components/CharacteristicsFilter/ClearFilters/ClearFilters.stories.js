@@ -31,7 +31,7 @@ function StoryContext (props) {
 }
 
 export default {
-  title: 'Tasks / SurveyTask / Chooser / CharacteristicsFilter / ClearFilters',
+  title: 'Tasks / Survey / Chooser / CharacteristicsFilter / ClearFilters',
   component: ClearFilters
 }
 

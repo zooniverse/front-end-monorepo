@@ -40,7 +40,7 @@ function StoryContext (props) {
 }
 
 export default {
-  title: 'Tasks / SurveyTask / Chooser',
+  title: 'Tasks / Survey / Chooser',
   component: Chooser
 }
 
