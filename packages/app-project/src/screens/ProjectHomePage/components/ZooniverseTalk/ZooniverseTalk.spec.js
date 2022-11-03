@@ -1,33 +1,17 @@
 import { shallow } from 'enzyme'
 import { Grid } from 'grommet'
-import i18n from '@test/i18n-for-tests'
-import sinon from 'sinon'
 
 import { ZooniverseTalk } from './ZooniverseTalk'
 
 describe('Component > ZooniverseTalk', function () {
   let wrapper
-  let useTranslationStub
-  
-  before(function () {
-    useTranslationStub = sinon.stub(i18n, 't')
-    wrapper = shallow(<ZooniverseTalk />)
-  })
 
-  after(function () {
-    useTranslationStub.restore()
+  before(function () {
+    wrapper = shallow(<ZooniverseTalk />)
   })
 
   it('should render without crashing', function () {
     expect(wrapper).to.be.ok()
-  })
-
-  it('should show the title', function () {
-    expect(useTranslationStub).to.have.been.calledWith('Home.ZooniverseTalk.title')
-  })
-
-  it('should show a message', function () {
-    expect(useTranslationStub).to.have.been.calledWith('Home.ZooniverseTalk.message')
   })
 
   it('should use a two-column layout', function () {
