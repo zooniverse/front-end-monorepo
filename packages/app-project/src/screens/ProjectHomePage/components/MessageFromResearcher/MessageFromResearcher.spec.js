@@ -1,6 +1,4 @@
 import { shallow, render } from 'enzyme'
-import sinon from 'sinon'
-import i18n from '@test/i18n-for-tests'
 
 import MessageFromResearcher from './MessageFromResearcher'
 
@@ -16,20 +14,10 @@ describe('Component > MessageFromResearcher', function () {
   })
 
   describe('behaviour without a researcher message', function () {
-    let useTranslationStub
     let wrapper
 
     before(function () {
-      useTranslationStub = sinon.stub(i18n, 't')
       wrapper = render(<MessageFromResearcher talkLink={TALK_LINK} />)
-    })
-
-    after(function () {
-      useTranslationStub.restore()
-    })
-
-    it('should show a message', function () {
-      expect(useTranslationStub).to.have.been.calledWith('Home.MessageFromResearcher.noMessage')
     })
 
     it('should show a link to the talk board', function () {
