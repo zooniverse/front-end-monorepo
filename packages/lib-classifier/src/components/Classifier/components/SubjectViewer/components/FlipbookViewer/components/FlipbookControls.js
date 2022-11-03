@@ -110,7 +110,7 @@ const FlipbookControls = ({
   return (
     <ThemeContext.Extend value={controlsTheme}>
       <Box background={backgrounds}>
-        <Grid columns={['140px', 'flex']} pad='10px' gap='small'>
+        <Grid columns={['120px', 'flex']} pad={{ horizontal: '20px', vertical: '10px' }} gap='small'>
           {/** Play/Pause & Speed */}
           <Box direction='row'>
             <Button
@@ -128,7 +128,8 @@ const FlipbookControls = ({
               icon={<FormDown />}
               focusIndicator
               style={{
-                textAlign: 'right'
+                textAlign: 'right',
+                width: '70px'
               }}
             />
           </Box>

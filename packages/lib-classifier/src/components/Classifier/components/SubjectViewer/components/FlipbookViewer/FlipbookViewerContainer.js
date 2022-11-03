@@ -54,12 +54,11 @@ function FlipbookViewerContainer({
    * We do this so the SVGPanZoom has dimensions of the subject image.
    * We're assuming all frames in one subject have the same dimensions. */
   const defaultFrameUrl = subject ? Object.values(subject.locations[defaultFrame])[0] : null
-  const { img, error, loading } = useSubjectImage(window.Image, defaultFrameUrl)
+  const { img, error, loading } = useSubjectImage(defaultFrameUrl)
   const { naturalHeight, naturalWidth, src: defaultFrameSrc } = img
 
   useEffect(function logError() {
     if (!loading && error) {
-      console.error(error)
       onError(error)
     }
   }, [error, loading])
