@@ -1,65 +1,85 @@
-import { shallow } from 'enzyme'
+import { expect } from 'chai'
 import React from 'react'
+import { composeStory } from '@storybook/testing-react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
-import { default as Task } from '@plugins/tasks/survey'
-import { task as mockTask } from '@plugins/tasks/survey/mock-data'
-import SurveyTask from './SurveyTask'
-import { SurveyTaskContainer } from './SurveyTaskContainer'
+import Meta, { Default, NoFilters } from './SurveyTask.stories'
 
 describe('SurveyTaskContainer', function () {
-  let wrapper
-  let task = Task.TaskModel.create(mockTask)
-  let annotation = task.defaultAnnotation()
+  describe('when choices are showing / without a selected choice', function () {
+    describe('with characteristic filters', function () {
+      const DefaultStory = composeStory(Default, Meta)
 
-  before(function () {
-    wrapper = shallow(
-      <SurveyTaskContainer
-        annotation={annotation}
-        task={task}
-      />)
-  })
+      it('should show a filter button', function () {
+        const { getByRole } = render(<DefaultStory />)
+        const filterButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+        expect(filterButton).to.exist()
+      })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
+      it('should show the choices', function () {
+        const { getAllByRole } = render(<DefaultStory />)
+        const choiceButtons = getAllByRole('menuitemcheckbox')
+        expect(choiceButtons.length).to.equal(6)
+        expect(choiceButtons[0]).to.have.text('Aardvark')
+        expect(choiceButtons[1]).to.have.text('Elephant')
+        expect(choiceButtons[2]).to.have.text('Kudu')
+        expect(choiceButtons[3]).to.have.text('Human')
+        expect(choiceButtons[4]).to.have.text('Fire')
+        expect(choiceButtons[5]).to.have.text('Nothing here')
+      })
 
-  it('should render a SurveyTask component', function () {
-    expect(wrapper.find(SurveyTask)).to.have.lengthOf(1)
-  })
+      it('should show the choices showing count out of total choices count', function () {
+        const { getByText } = render(<DefaultStory />)
+        const choicesShowingCount = getByText('SurveyTask.CharacteristicsFilter.showing')
+        expect(choicesShowingCount).to.exist()
+      })
 
-  it('should pass the component state and props to the SurveyTask component', function () {
-    expect(wrapper.find(SurveyTask).props().answers).to.eql({})
-    expect(wrapper.find(SurveyTask).props().filters).to.eql({})
-    expect(wrapper.find(SurveyTask).props().selectedChoice).to.eql('')
-    expect(wrapper.find(SurveyTask).props().task).to.eql(task)
-  })
+      it('should show a clear filters button', function () {
+        const { getByRole } = render(<DefaultStory />)
+        const clearFiltersButton = getByRole('button', { name: 'Clear SurveyTask.CharacteristicsFilter.clearFilters' })
+        expect(clearFiltersButton).to.exist()
+      })
 
-  describe('with updated annotation value', function () {
-    const mockAnnotationValue = [
-      {
-        choice: 'MPL',
-        answers: {
-          HWMN: '3',
-          WHTBHVRSDS: [
-            'TNG'
-          ],
-          RTHRNNGPRSNT: 'N',
-          DSNHRNS: 'N'
-        },
-        filters: {
-          CLR: 'BRWN',
-          LK: 'NTLPDR'
-        }
-      }
-    ]
-
-    it('should pass the selectedChoiceIds to the SurveyTask', function () {
-      annotation.update(mockAnnotationValue)
-      wrapper.setProps({ annotation })
-
-      expect(wrapper.find(SurveyTask).props().selectedChoiceIds).to.eql([ 'MPL' ])
+      it.skip('should keep filters after choice identified', function () {})
     })
 
-    it.skip('should persist filters after identifying a choice', function () {})
+    describe('without characteristic filters', function () {
+      const NoFiltersStory = composeStory(NoFilters, Meta)
+      
+      it('should not show a filter button', function () {
+        const { queryByRole } = render(<NoFiltersStory />)
+        const filterButton = queryByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+        expect(filterButton).to.not.exist()
+      })
+
+      it('should show the choices', function () {
+        const { getAllByRole } = render(<NoFiltersStory />)
+        const choiceButtons = getAllByRole('menuitemcheckbox')
+        expect(choiceButtons.length).to.equal(6)
+        expect(choiceButtons[0]).to.have.text('Aardvark')
+        expect(choiceButtons[1]).to.have.text('Elephant')
+        expect(choiceButtons[2]).to.have.text('Kudu')
+        expect(choiceButtons[3]).to.have.text('Human')
+        expect(choiceButtons[4]).to.have.text('Fire')
+        expect(choiceButtons[5]).to.have.text('Nothing here')
+      })
+
+      it('should not show the choices showing count out of total choices count', function () {
+        const { queryByText } = render(<NoFiltersStory />)
+        const choicesShowingCount = queryByText('SurveyTask.CharacteristicsFilter.showing')
+        expect(choicesShowingCount).to.not.exist()
+      })
+
+      it('should not not show a clear filters button', function () {
+        const { queryByRole } = render(<NoFiltersStory />)
+        const clearFiltersButton = queryByRole('button', { name: 'Clear SurveyTask.CharacteristicsFilter.clearFilters' })
+        expect(clearFiltersButton).to.not.exist()
+      })
+    })
+  })
+
+  describe('with a selected choice', function () {
+    it.skip('should...', function () {})
   })
 })
