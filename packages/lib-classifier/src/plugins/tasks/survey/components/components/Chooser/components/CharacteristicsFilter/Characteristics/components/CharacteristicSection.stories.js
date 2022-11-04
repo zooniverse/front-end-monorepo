@@ -1,65 +1,55 @@
-import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import React from 'react'
+import zooTheme from '@zooniverse/grommet-theme'
 
 import SurveyTask from '@plugins/tasks/survey'
 import { task } from '@plugins/tasks/survey/mock-data'
-const mockTask = SurveyTask.TaskModel.create(task)
 
 import CharacteristicSection from './CharacteristicSection'
 
+const mockTask = SurveyTask.TaskModel.create(task)
 const characteristicLike = mockTask.characteristics.LK
-
-function StoryContext (props) {
-  const { children, theme } = props
-
-  return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={theme}
-      themeMode={(theme.dark) ? 'dark' : 'light'}
-    >
-      {children}
-    </Grommet>
-  )
-}
 
 export default {
   title: 'Tasks / Survey / Chooser / CharacteristicsFilter / CharacteristicSection',
-  component: CharacteristicSection
+  component: CharacteristicSection,
+  args: {
+    dark: false,
+    selectedValueId: ''
+  },
+  argTypes: {
+    selectedValueId: {
+      type: 'select',
+      options: mockTask.characteristics.LK.valuesOrder
+    }
+  }
 }
 
-const Template = ({
-  characteristic,
-  characteristicId,
-  dark,
-  images,
-  selectedValueId,
-  strings
-}) => (
-  <StoryContext
-    theme={{ ...zooTheme, dark }}
-  >
-    <CharacteristicSection
-      characteristic={characteristic}
-      characteristicId={characteristicId}
-      images={images}
-      label={strings.get(`characteristics.${characteristicId}.label`)}
-      selectedValueId={selectedValueId}
-      strings={strings}
-    />
-  </StoryContext>
-)
+const background = {
+  dark: 'dark-1',
+  light: 'light-1'
+}
 
-export const Default = Template.bind({})
-Default.args = {
-  characteristic: characteristicLike,
-  characteristicId: 'LK',
-  dark: false,
-  images: mockTask.images,
-  selectedValueId: '',
-  strings: mockTask.strings
+export const Default = ({
+  dark,
+  selectedValueId
+}) => {
+  const themeMode = dark ? 'dark' : 'light'
+
+  return (
+    <Grommet
+      background={background}
+      theme={zooTheme}
+      themeMode={themeMode}
+    >
+      <CharacteristicSection
+        characteristic={characteristicLike}
+        characteristicId='LK'
+        images={mockTask.images}
+        label={mockTask.strings.get(`characteristics.LK.label`)}
+        selectedValueId={selectedValueId}
+        strings={mockTask.strings}
+      />  
+    </Grommet>
+  )
 }

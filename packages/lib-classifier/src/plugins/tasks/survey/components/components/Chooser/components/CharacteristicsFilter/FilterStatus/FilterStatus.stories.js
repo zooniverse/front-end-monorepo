@@ -1,62 +1,53 @@
-import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import React from 'react'
+import zooTheme from '@zooniverse/grommet-theme'
 
 import SurveyTask from '@plugins/tasks/survey'
 import { task } from '@plugins/tasks/survey/mock-data'
-const mockTask = SurveyTask.TaskModel.create(task)
 
 import FilterStatus from './FilterStatus'
 
-function StoryContext (props) {
-  const { children, theme } = props
+export default {
+  title: 'Tasks / Survey / Chooser / CharacteristicsFilter / FilterStatus',
+  component: FilterStatus,
+  args: {
+    dark: false,
+    disabled: false
+  }
+}
+
+const background = {
+  dark: 'dark-1',
+  light: 'light-1'
+}
+
+const mockTask = SurveyTask.TaskModel.create(task)
+
+export const Default = ({
+  dark,
+  disabled
+}) => {
+  const themeMode = dark ? 'dark' : 'light'
 
   return (
     <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={theme}
-      themeMode={(theme.dark) ? 'dark' : 'light'}
+      background={background}
+      theme={zooTheme}
+      themeMode={themeMode}
     >
       <Box
         background={{
           dark: 'dark-3',
           light: 'neutral-6'
         }}
-        pad='medium'
+        pad='1em'
         width='380px'
       >
-        {children}
+        <FilterStatus
+          disabled={disabled}
+          task={mockTask}
+        />    
       </Box>
     </Grommet>
   )
-}
-
-export default {
-  title: 'Tasks / Survey / Chooser / CharacteristicsFilter / FilterStatus',
-  component: FilterStatus
-}
-
-const Template = ({
-  dark,
-  disabled,
-  task
-}) => (
-  <StoryContext
-    theme={{ ...zooTheme, dark }}
-  >
-    <FilterStatus
-      disabled={disabled}
-      task={task}
-    />
-  </StoryContext>
-)
-
-export const Default = Template.bind({})
-Default.args = {
-  dark: false,
-  disabled: false,
-  task: mockTask
 }
