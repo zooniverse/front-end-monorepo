@@ -163,8 +163,7 @@ const FlipbookControls = ({
             >
               {locations?.length &&
                 locations.map((location, index) => {
-                  const mimeType = Object.keys(location)[0]
-                  const url = location[mimeType]
+                  const [url] = Object.values(location)
                   const thumbnailerUrl = `https://thumbnails.zooniverse.org/100x100${url.slice(
                     7,
                     url.length
