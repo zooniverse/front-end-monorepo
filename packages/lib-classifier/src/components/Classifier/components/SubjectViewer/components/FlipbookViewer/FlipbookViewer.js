@@ -44,11 +44,7 @@ const FlipbookViewer = ({
   }, [defaultFrameSrc])
 
   const onPlayPause = () => {
-    if (!playing) {
-      setPlaying(true)
-    } else {
-      setPlaying(false)
-    }
+    setPlaying(!playing)
   }
 
   const onKeyDown = (event) => {
