@@ -76,7 +76,7 @@
     "@zooniverse/panoptes-js": "~0.2.0",
     "@zooniverse/react-components": "~1.2.0",
     "@zooniverse/standard": "~1.0.0",
-    "babel-loader": "~9.0.0",
+    "babel-loader": "~9.1.0",
     "babel-plugin-webpack-alias": "~2.1.2",
     "chai": "~4.3.4",
     "chai-dom": "~1.11.0",
