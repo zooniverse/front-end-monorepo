@@ -3,7 +3,9 @@
     "babel-plugin-styled-components"
   ],
   "presets": [
-    "@babel/preset-react",
+    ["@babel/preset-react", {
+      "runtime": "automatic"
+    }],
     "@babel/preset-env"
   ]
 }
