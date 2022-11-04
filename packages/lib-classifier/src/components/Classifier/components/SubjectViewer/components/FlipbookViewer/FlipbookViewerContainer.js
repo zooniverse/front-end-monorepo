@@ -15,7 +15,6 @@ function storeMapper(store) {
     invert,
     move,
     rotation,
-    setFrame,
     setOnPan,
     setOnZoom
   } = store.subjectViewer
@@ -28,7 +27,6 @@ function storeMapper(store) {
     move,
     playIterations,
     rotation,
-    setFrame,
     setOnPan,
     setOnZoom
   }
