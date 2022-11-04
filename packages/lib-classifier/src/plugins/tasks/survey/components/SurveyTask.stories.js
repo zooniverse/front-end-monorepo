@@ -13,12 +13,19 @@ export default {
   args: {
     dark: false,
     subjectReadyState: asyncStates.success
+  },
+  argTypes: {
+    subjectReadyState: {
+      type: 'select',
+      options: Object.keys(asyncStates)
+    }
   }
 }
 
-export const Default = ({
+const Template = ({
   dark,
-  subjectReadyState
+  subjectReadyState,
+  task
 }) => {
   const tasks = { T0: task }
 
@@ -37,24 +44,13 @@ export const Default = ({
   )
 }
 
-export const NoFilters = ({
-  dark,
-  subjectReadyState
-}) => {
-  const taskWithoutCharacteristics = Object.assign({}, task, { characteristics: {} })
-  const tasks = { T0: taskWithoutCharacteristics }
+export const Default = Template.bind({})
+Default.args = {
+  task
+}
 
-  return (
-    <Box
-      fill='horizontal'
-      align='end'
-    >
-      <MockTask
-        dark={dark}
-        isThereTaskHelp={false}
-        subjectReadyState={subjectReadyState}
-        tasks={tasks}
-      />
-    </Box>
-  )
+const taskWithoutCharacteristics = Object.assign({}, task, { characteristics: {} })
+export const NoFilters = Template.bind({})
+NoFilters.args = {
+  task: taskWithoutCharacteristics
 }
