@@ -14,10 +14,20 @@ import { useTranslation } from 'react-i18next'
 import controlsTheme from './theme'
 import locationValidator from '../../../helpers/locationValidator'
 
-const StyledButton = styled(Button)`
+const DirectionButton = styled(Button)`
   & > div {
     flex-direction: column;
   }
+`
+
+const ThumbnailButton = styled(Button)`
+  display: flex;
+  height: 40px;
+  width: 40px;
+  padding: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 `
 
 const backgrounds = { dark: 'dark-3', light: 'neutral-6' }
@@ -55,10 +65,6 @@ const FlipbookControls = ({
         return true
       }
     }
-  }
-
-  const handleFrameChange = frameIndex => {
-    onFrameChange(frameIndex)
   }
 
   const handlePrevious = () => {
@@ -127,16 +133,16 @@ const FlipbookControls = ({
               plain
               icon={<FormDown />}
               focusIndicator
+              width='70px'
               style={{
-                textAlign: 'right',
-                width: '70px'
+                textAlign: 'right'
               }}
             />
           </Box>
 
           {/** Image Thumbnails */}
           <Box direction='row' justify='center' gap='small'>
-            <StyledButton
+            <DirectionButton
               disabled={currentFrame === 0 || playing}
               icon={<FormPrevious />}
               label={t(
@@ -169,7 +175,7 @@ const FlipbookControls = ({
                   const tabIndex = activeFrame ? 0 : -1
 
                   return (
-                    <Button
+                    <ThumbnailButton
                       key={`${url}-${index}`}
                       aria-controls='flipbook-tab-panel'
                       aria-label={`${t(
@@ -181,14 +187,7 @@ const FlipbookControls = ({
                       role='tab'
                       tabIndex={tabIndex}
                       style={{
-                        display: 'flex',
-                        height: '40px',
-                        width: '40px',
-                        padding: '0',
                         backgroundImage: `url(${thumbnailerUrl})`,
-                        backgroundSize: 'cover',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundPosition: 'center',
                         border: activeFrame
                           ? `solid 2px ${theme.global.colors['neutral-2']}`
                           : 'none'
@@ -197,7 +196,7 @@ const FlipbookControls = ({
                   )
                 })}
             </Box>
-            <StyledButton
+            <DirectionButton
               disabled={currentFrame === locations.length - 1 || playing}
               icon={<FormNext />}
               label={t(
