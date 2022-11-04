@@ -80,7 +80,7 @@
     "@testing-library/react": "~12.1.2",
     "@testing-library/user-event": "~14.4.0",
     "@wojtekmaj/enzyme-adapter-react-17": "~0.6.6",
-    "babel-loader": "~9.0.0",
+    "babel-loader": "~9.1.0",
     "babel-plugin-webpack-alias": "~2.1.2",
     "chai": "~4.3.4",
     "chai-dom": "~1.11.0",
