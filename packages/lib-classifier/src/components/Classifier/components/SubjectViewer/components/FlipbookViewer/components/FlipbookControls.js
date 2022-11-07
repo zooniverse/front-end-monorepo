@@ -8,7 +8,7 @@ import {
 } from 'grommet-icons'
 import PropTypes from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
-import styled, { withTheme } from 'styled-components'
+import styled, { withTheme, css } from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
 import controlsTheme from './theme'
@@ -28,6 +28,15 @@ const ThumbnailButton = styled(Button)`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  ${props => css`background-image: url(${props.thumbnailerUrl});`}
+  ${props =>
+    props.activeFrame
+      ? css`
+          border: solid 2px ${props.theme.global.colors['neutral-2']};
+        `
+      : css`
+          border: none;
+        `}
 `
 
 const backgrounds = { dark: 'dark-3', light: 'neutral-6' }
@@ -116,7 +125,11 @@ const FlipbookControls = ({
   return (
     <ThemeContext.Extend value={controlsTheme}>
       <Box background={backgrounds}>
-        <Grid columns={['120px', 'flex']} pad={{ horizontal: '20px', vertical: '10px' }} gap='small'>
+        <Grid
+          columns={['120px', 'flex']}
+          pad={{ horizontal: '20px', vertical: '10px' }}
+          gap='small'
+        >
           {/** Play/Pause & Speed */}
           <Box direction='row'>
             <Button
@@ -181,16 +194,12 @@ const FlipbookControls = ({
                         'SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText'
                       )} ${index + 1}`}
                       aria-selected={activeFrame ? 'true' : 'false'}
+                      activeFrame={activeFrame}
                       onClick={() => onFrameChange(index)}
                       onKeyDown={handleKeyDown}
                       role='tab'
                       tabIndex={tabIndex}
-                      style={{
-                        backgroundImage: `url(${thumbnailerUrl})`,
-                        border: activeFrame
-                          ? `solid 2px ${theme.global.colors['neutral-2']}`
-                          : 'none'
-                      }}
+                      thumbnailerUrl={thumbnailerUrl}
                     />
                   )
                 })}
