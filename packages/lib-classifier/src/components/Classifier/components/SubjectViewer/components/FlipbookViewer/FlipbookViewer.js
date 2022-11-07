@@ -48,7 +48,6 @@ const FlipbookViewer = ({
 
   const onKeyDown = (event) => {
     event.preventDefault()
-    event.stopPropagation()
     if (event.key === ' ') {
       onPlayPause()
     }

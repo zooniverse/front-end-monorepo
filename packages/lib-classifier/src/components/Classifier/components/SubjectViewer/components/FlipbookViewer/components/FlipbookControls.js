@@ -51,24 +51,37 @@ const FlipbookControls = ({
 
   const [playbackSpeed, setPlaybackSpeed] = useState(1)
 
-  const handleKeyDown = event => {
+  const handleKeyDown = (event) => {
+    const index = currentFrame
     switch (event.key) {
       case 'ArrowRight': {
         event.preventDefault()
         event.stopPropagation()
+
         if (playing) {
           onPlayPause()
         }
         handleNext()
+        if (index < locations.length - 1) {
+          document.getElementById(`thumbnail-${index + 1}`).focus()
+        } else {
+          document.getElementById(`thumbnail-${0}`).focus()
+        }
         break
       }
       case 'ArrowLeft': {
         event.preventDefault()
         event.stopPropagation()
+
         if (playing) {
           onPlayPause()
         }
         handlePrevious()
+        if (index > 0) {
+          document.getElementById(`thumbnail-${index - 1}`).focus()
+        } else {
+          document.getElementById(`thumbnail-${locations.length - 1}`).focus()
+        }
         break
       }
       default: {
@@ -189,6 +202,7 @@ const FlipbookControls = ({
                   return (
                     <ThumbnailButton
                       key={`${url}-${index}`}
+                      id={`thumbnail-${index}`}
                       aria-controls='flipbook-tab-panel'
                       aria-label={`${t(
                         'SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText'
