@@ -15,9 +15,11 @@ import controlsTheme from './theme'
 import locationValidator from '../../../helpers/locationValidator'
 
 const DirectionButton = styled(Button)`
-  & > div {
-    flex-direction: column;
-  }
+  border: none;
+  padding: 0;
+    & > div {
+      flex-direction: column;
+    }
 `
 
 const ThumbnailButton = styled(Button)`
@@ -162,10 +164,6 @@ const FlipbookControls = ({
                 'SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel'
               )}
               onClick={handlePrevious}
-              style={{
-                border: 'none',
-                padding: 0
-              }}
             />
             <Box
               aria-label='Image thumbnails'
@@ -211,10 +209,6 @@ const FlipbookControls = ({
                 'SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel'
               )}
               onClick={handleNext}
-              style={{
-                border: 'none',
-                padding: 0
-              }}
             />
           </Box>
         </Grid>
