@@ -27,18 +27,14 @@ const ThumbnailButton = styled(Button)`
   height: 40px;
   width: 40px;
   padding: 0;
+  border: none;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   ${props => css`background-image: url(${props.thumbnailerUrl});`}
-  ${props =>
-    props.activeFrame
-      ? css`
-          border: solid 2px ${props.theme.global.colors['neutral-2']};
-        `
-      : css`
-          border: none;
-        `}
+  &[aria-selected=true] {
+    border: solid 2px ${props => props.theme.global.colors['neutral-2']};
+  }
 `
 
 const backgrounds = { dark: 'dark-3', light: 'neutral-6' }
@@ -192,7 +188,6 @@ const FlipbookControls = ({
                         'SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText'
                       )} ${index + 1}`}
                       aria-selected={activeFrame ? 'true' : 'false'}
-                      activeFrame={activeFrame}
                       onClick={() => onFrameChange(index)}
                       onKeyDown={handleKeyDown}
                       role='tab'
