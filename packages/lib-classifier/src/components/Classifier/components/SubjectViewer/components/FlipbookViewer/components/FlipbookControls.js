@@ -44,14 +44,11 @@ const FlipbookControls = ({
   locations = [],
   onFrameChange = () => true,
   onPlayPause = () => true,
-  playing = false,
-  playIterations = '',
-  theme
+  playing = false
 }) => {
   const { t } = useTranslation('components')
   const timeoutRef = useRef(null)
 
-  const [iterationCounter, setIterationCounter] = useState(0)
   const [playbackSpeed, setPlaybackSpeed] = useState(1)
 
   const handleKeyDown = event => {
@@ -59,12 +56,18 @@ const FlipbookControls = ({
       case 'ArrowRight': {
         event.preventDefault()
         event.stopPropagation()
+        if (playing) {
+          onPlayPause()
+        }
         handleNext()
         break
       }
       case 'ArrowLeft': {
         event.preventDefault()
         event.stopPropagation()
+        if (playing) {
+          onPlayPause()
+        }
         handlePrevious()
         break
       }
@@ -90,18 +93,21 @@ const FlipbookControls = ({
     }
   }
 
+  const handleThumnbailClick = (index) => {
+    if (playing) {
+      onPlayPause()
+    }
+    onFrameChange(index)
+  }
+
   const resetTimeout = () => {
-    setIterationCounter(0)
     if (timeoutRef.current) {
       clearInterval(timeoutRef.current)
     }
   }
 
   useEffect(() => {
-    if (playing && iterationCounter !== parseInt(playIterations)) {
-      if (playIterations !== '') {
-        setIterationCounter(iterationCounter + 1)
-      }
+    if (playing) {
       timeoutRef.current = setTimeout(() => {
         handleNext()
       }, 1000 / playbackSpeed)
@@ -188,7 +194,7 @@ const FlipbookControls = ({
                         'SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText'
                       )} ${index + 1}`}
                       aria-selected={activeFrame ? 'true' : 'false'}
-                      onClick={() => onFrameChange(index)}
+                      onClick={() => handleThumnbailClick(index)}
                       onKeyDown={handleKeyDown}
                       role='tab'
                       tabIndex={tabIndex}

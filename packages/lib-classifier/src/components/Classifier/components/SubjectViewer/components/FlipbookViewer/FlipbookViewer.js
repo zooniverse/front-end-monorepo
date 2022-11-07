@@ -16,10 +16,9 @@ const FlipbookViewer = ({
   enableRotation = () => true,
   invert = false,
   move,
-  naturalHeight = placeholder.height,
-  naturalWidth = placeholder.width,
+  naturalHeight = 600,
+  naturalWidth = 800,
   onReady = () => true,
-  playIterations = '', // empty string from panoptes indicates infinite
   rotation,
   setOnPan = () => true,
   setOnZoom = () => true,
@@ -48,6 +47,8 @@ const FlipbookViewer = ({
   }
 
   const onKeyDown = (event) => {
+    event.preventDefault()
+    event.stopPropagation()
     if (event.key === ' ') {
       onPlayPause()
     }
@@ -100,7 +101,6 @@ const FlipbookViewer = ({
         onFrameChange={setCurrentFrame}
         onPlayPause={onPlayPause}
         playing={playing}
-        playIterations={playIterations}
       />
     </Box>
   )
