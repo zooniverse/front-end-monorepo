@@ -47,8 +47,8 @@ const FlipbookViewer = ({
   }
 
   const onKeyDown = (event) => {
-    event.preventDefault()
     if (event.key === ' ') {
+      event.preventDefault()
       onPlayPause()
     }
   }
