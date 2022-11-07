@@ -46,8 +46,8 @@
     "styled-components": "5.x.x"
   },
   "devDependencies": {
-    "@babel/core": "~7.19.0",
-    "@babel/preset-env": "~7.19.0",
+    "@babel/core": "~7.20.2",
+    "@babel/preset-env": "~7.20.2",
     "@babel/preset-react": "~7.18.6",
     "@babel/register": "~7.18.6",
     "@storybook/addon-a11y": "~6.5.0",
@@ -62,7 +62,7 @@
     "@testing-library/dom": "~8.19.0",
     "@testing-library/react": "~12.1.2",
     "@testing-library/user-event": "~14.4.0",
-    "@wojtekmaj/enzyme-adapter-react-17": "~0.6.6",
+    "@wojtekmaj/enzyme-adapter-react-17": "~0.7.0",
     "@zooniverse/grommet-theme": "~3.1.0",
     "@zooniverse/standard": "~1.0.0",
     "babel-loader": "~9.1.0",
