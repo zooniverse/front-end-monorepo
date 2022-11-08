@@ -106,7 +106,7 @@ const FlipbookControls = ({
     }
   }
 
-  const handleThumnbailClick = (index) => {
+  const handleThumbnailClick = (index) => {
     if (playing) {
       onPlayPause()
     }
@@ -208,7 +208,7 @@ const FlipbookControls = ({
                         'SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText'
                       )} ${index + 1}`}
                       aria-selected={activeFrame ? 'true' : 'false'}
-                      onClick={() => handleThumnbailClick(index)}
+                      onClick={() => handleThumbnailClick(index)}
                       onKeyDown={handleKeyDown}
                       role='tab'
                       tabIndex={tabIndex}
