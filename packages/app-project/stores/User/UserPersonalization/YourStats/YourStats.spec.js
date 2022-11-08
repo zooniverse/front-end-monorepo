@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+import { getSnapshot } from 'mobx-state-tree'
 import nock from 'nock'
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
@@ -99,7 +100,7 @@ describe('Stores > YourStats', function () {
       })
 
       it('should start on Monday', function () {
-        expect(rootStore.user.personalization.stats.thisWeek[0]).to.deep.equal({
+        expect(getSnapshot(rootStore.user.personalization.stats.thisWeek[0])).to.deep.equal({
           count: 12,
           dayNumber: 1,
           period: '2019-09-30'
@@ -107,7 +108,7 @@ describe('Stores > YourStats', function () {
       })
 
       it('should end on Sunday', function () {
-        expect(rootStore.user.personalization.stats.thisWeek[6]).to.deep.equal({
+        expect(getSnapshot(rootStore.user.personalization.stats.thisWeek[6])).to.deep.equal({
           count: 15,
           dayNumber: 0,
           period: '2019-10-06'
