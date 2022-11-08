@@ -1,7 +1,7 @@
 import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
-import { observable } from 'mobx'
+import { observable, toJS } from 'mobx'
 import { Anchor, Grommet, Paragraph } from 'grommet'
 import { FieldGuideItemAnchor, AnchorLabel } from './FieldGuideItemAnchor'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
@@ -107,7 +107,7 @@ describe('Component > FieldGuideItemAnchor', function () {
         />)
       const icon = wrapper.find(FieldGuideItemIcon)
       expect(icon.props().alt).to.equal(item.title)
-      expect(icon.props().icon).to.deep.equal(mediumOne)
+      expect(toJS(icon.props().icon)).to.deep.equal(mediumOne)
     })
   })
 })

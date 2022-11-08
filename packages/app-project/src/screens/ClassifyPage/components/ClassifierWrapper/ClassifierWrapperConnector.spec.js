@@ -11,6 +11,18 @@ describe('Component > ClassifierWrapperConnector', function () {
   describe('after logging in', function () {
     before(function () {
       mockStore = initStore(true, {
+        project: {
+          configuration: {
+            languages: ['en']
+          },
+          slug: 'Foo/Bar',
+          strings: {
+            display_name: 'Foobar'
+          },
+          links: {
+            active_workflows: ['1']
+          }
+        },
         user: {
           id: '1',
           loadingState: asyncStates.success,
@@ -34,7 +46,7 @@ describe('Component > ClassifierWrapperConnector', function () {
       })
 
       it('should include the project', function () {
-        expect(wrapper.props().project).to.deep.equal(mockStore.project)
+        expect(wrapper.props().project).to.deep.equal(mockStore.project.toJSON())
       })
 
       it('should include the logged-in user', function () {

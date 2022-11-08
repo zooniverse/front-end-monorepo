@@ -98,7 +98,7 @@ const Subject = types
     },
 
     get alreadySeen () {
-      return self.already_seen || subjectsSeenThisSession.check(self.workflow.id, self.id)
+      return self.already_seen || subjectsSeenThisSession.check(self.workflow?.id, self.id)
     }
   }))
 

@@ -1,3 +1,4 @@
+import { getSnapshot } from 'mobx-state-tree'
 import { SubjectSetFactory } from '@test/factories'
 import SubjectSetStore from './SubjectSetStore'
 
@@ -25,6 +26,6 @@ describe('Model > SubjectSetStore', function () {
   it('should store subject sets', function () {
     model.setResources([subjectSet])
     model.setActive('1234')
-    expect(model.active).to.deep.equal(subjectSet)
+    expect(getSnapshot(model.active)).to.deep.equal(subjectSet)
   })
 })

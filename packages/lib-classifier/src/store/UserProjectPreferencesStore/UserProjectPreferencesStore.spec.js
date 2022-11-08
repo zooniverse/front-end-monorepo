@@ -1,4 +1,5 @@
 import { when } from 'mobx'
+import { getSnapshot } from 'mobx-state-tree'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
@@ -151,7 +152,7 @@ describe('Model > UserProjectPreferencesStore', function () {
         { authorization: `Bearer ${token}`, etag }
       )
 
-      expect(rootStore.userProjectPreferences.active).to.deep.equal(updatedUPP)
+      expect(getSnapshot(rootStore.userProjectPreferences.active)).to.deep.equal(updatedUPP)
     })
 
     it('should re-request for the upp if the store does not have a stored etag header', async function () {

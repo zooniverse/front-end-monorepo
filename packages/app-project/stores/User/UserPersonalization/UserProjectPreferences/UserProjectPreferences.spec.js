@@ -1,4 +1,5 @@
 import { when } from 'mobx'
+import { getSnapshot } from 'mobx-state-tree'
 import nock from 'nock'
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
@@ -70,7 +71,7 @@ describe('Stores > UserProjectPreferences', function () {
 
   before(function () {
     sinon.stub(statsClient, 'request')
-    sinon.stub(talkAPI, 'get')
+    sinon.stub(talkAPI, 'get').resolves([])
   })
 
   after(function () {
@@ -143,11 +144,11 @@ describe('Stores > UserProjectPreferences', function () {
       it('should store the UPP resource', async function () {
         const { projectPreferences } = rootStore.user.personalization
         projectPreferences.reset()
-        expect(projectPreferences).to.deep.equal(initialState)
+        expect(getSnapshot(projectPreferences)).to.deep.equal(initialState)
         projectPreferences.fetchResource()
         await when(preferencesAreReady(projectPreferences))
         const storedUPP = Object.assign({}, upp, { error: undefined, loadingState: asyncStates.success })
-        expect(projectPreferences).to.deep.equal(storedUPP)
+        expect(getSnapshot(projectPreferences)).to.deep.equal(storedUPP)
       })
 
       it('should set the total classification count on the parent node', function () {
