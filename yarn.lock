@@ -2712,23 +2712,14 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.1.4.tgz#0c8b74c50f29ee44f423f7416829c0bf8bb5eb27"
   integrity sha512-LwzQKA4vzIct1zNZzBmRKI9QuNpLgTQMEjsQLf3BXuGYb3QPTP4Yjf6mkdX+X1mYttZ808QpOwAzZjv28kq7DA==
 
-"@sentry/browser@~7.17.1":
-  version "7.17.4"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-7.17.4.tgz#2e4ad09180905929b823d01e2a029f10933c0a03"
-  integrity sha512-cNLQ/6ea0KOZyLKXGLTdgfqWYdg43+T/uF9D/hmc6kp/5qXm2dR3FcFRZX6OicaENM3dXvSoBIF6bSWmcszRtQ==
+"@sentry/browser@~7.18.0":
+  version "7.18.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-7.18.0.tgz#3eae6bb07705ce2a05bff898effc6ece6cc4087b"
+  integrity sha512-dFNJshI5I9F2ff8X9dyN1b8UIx3h+62DOtigo+Vg2RfjplEX+rnzRWfV5QU5YBSH3AbDE3WXHuPWuYTbWg9i9w==
   dependencies:
-    "@sentry/core" "7.17.4"
-    "@sentry/types" "7.17.4"
-    "@sentry/utils" "7.17.4"
-    tslib "^1.9.3"
-
-"@sentry/core@7.17.4":
-  version "7.17.4"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-7.17.4.tgz#62686e1b2baf4e7ba3d9ca57d91d2dfc643b8250"
-  integrity sha512-U3ABSJBKGK8dJ01nEG2+qNOb6Wv7U3VqoajiZxfV4lpPWNFGCoEhiTytxBlFTOCmdUH8209zSZiWJZaDLy+TSA==
-  dependencies:
-    "@sentry/types" "7.17.4"
-    "@sentry/utils" "7.17.4"
+    "@sentry/core" "7.18.0"
+    "@sentry/types" "7.18.0"
+    "@sentry/utils" "7.18.0"
     tslib "^1.9.3"
 
 "@sentry/core@7.18.0":
@@ -2753,23 +2744,10 @@
     lru_map "^0.3.3"
     tslib "^1.9.3"
 
-"@sentry/types@7.17.4":
-  version "7.17.4"
-  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.17.4.tgz#476522bc988989101e7aee9eee3c3f8f16fa59ea"
-  integrity sha512-QJj8vO4AtxuzQfJIzDnECSmoxwnS+WJsm1Ta2Cwdy+TUCBJyWpW7aIJJGta76zb9gNPGb3UcAbeEjhMJBJeRMQ==
-
 "@sentry/types@7.18.0":
   version "7.18.0"
   resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.18.0.tgz#8b0eacd19cc9bcd1f14ca5dcaf7065ebd3186632"
   integrity sha512-bOnyoK1S1chPJ+dAeWJo0srxZ9U48WE5dZFtvKeXoog6JNHY3nqAR/P/uxh9djB4bbwQRMdnGk1zm0bxhOOC6w==
-
-"@sentry/utils@7.17.4":
-  version "7.17.4"
-  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-7.17.4.tgz#b8f4fb6a329765b97668b34f6d397e8de2169fef"
-  integrity sha512-ioG0ANy8uiWzig82/e7cc+6C9UOxkyBzJDi1luoQVDH6P0/PvM8GzVU+1iUVUipf8+OL1Jh09GrWnd5wLm3XNQ==
-  dependencies:
-    "@sentry/types" "7.17.4"
-    tslib "^1.9.3"
 
 "@sentry/utils@7.18.0":
   version "7.18.0"
