@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { getSnapshot, types } from 'mobx-state-tree'
 import SubjectGroupComparisonTask from '@plugins/tasks/subjectGroupComparison'
 
 const subjectGroupTask = {
@@ -42,7 +42,7 @@ describe('Model > SubjectGroupComparisonTask', function () {
     it('should update annotations', function () {
       const markedCell = { index: 1, subject: 'subject1111' }
       annotation.update([ markedCell ])
-      expect(annotation.value[0]).to.deep.equal(markedCell)
+      expect(getSnapshot(annotation.value[0])).to.deep.equal(markedCell)
     })
   })
 

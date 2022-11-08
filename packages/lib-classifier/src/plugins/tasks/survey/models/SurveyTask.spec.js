@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { getSnapshot, types } from 'mobx-state-tree'
 import SurveyTask from '@plugins/tasks/survey'
 
 const surveyTask = {
@@ -740,7 +740,7 @@ describe('Model > SurveyTask', function () {
 
     it('should update annotations', function () {
       annotation.update(surveyAnnotation)
-      expect(annotation.value).to.deep.equal(surveyAnnotation)
+      expect(getSnapshot(annotation.value)).to.deep.equal(surveyAnnotation)
     })
   })
 })
