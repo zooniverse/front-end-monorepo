@@ -18,6 +18,7 @@ const FlipbookViewer = ({
   move,
   naturalHeight = 600,
   naturalWidth = 800,
+  onKeyDown = () => true,
   onReady = () => true,
   rotation,
   setOnPan = () => true,
@@ -46,10 +47,12 @@ const FlipbookViewer = ({
     setPlaying(!playing)
   }
 
-  const onKeyDown = (event) => {
+  const handleSpaceBar = (event) => {
     if (event.key === ' ') {
       event.preventDefault()
       onPlayPause()
+    } else {
+      onKeyDown(event)
     }
   }
 
@@ -77,7 +80,7 @@ const FlipbookViewer = ({
         <SingleImageViewer
           enableInteractionLayer={false}
           height={naturalHeight}
-          onKeyDown={onKeyDown}
+          onKeyDown={handleSpaceBar}
           rotate={rotation}
           width={naturalWidth}
         >
@@ -120,6 +123,8 @@ FlipbookViewer.propTypes = {
   naturalHeight: PropTypes.number,
   /** Width of subject image */
   naturalWidth: PropTypes.number,
+  /** withKeyZoom in for using keyboard pan and zoom controls while focused on the subject image */
+  onKeyDown: PropTypes.func,
   /** Passed from Subject Viewer Store and called when default frame's src is loaded */
   onReady: PropTypes.func,
   /** Fetched from workflow configuration. Number preference for how many loops to play */

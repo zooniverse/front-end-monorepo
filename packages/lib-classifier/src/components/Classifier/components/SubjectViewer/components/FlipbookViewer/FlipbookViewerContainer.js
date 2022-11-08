@@ -3,6 +3,7 @@ import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 
+import withKeyZoom from '@components/Classifier/components/withKeyZoom'
 import { useStores } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
 import useSubjectImage from '../SingleImageViewer/hooks/useSubjectImage'
@@ -35,6 +36,7 @@ function storeMapper(store) {
 function FlipbookViewerContainer({
   loadingState = asyncStates.initialized,
   onError = () => true,
+  onKeyDown = () => true,
   onReady = () => true,
   subject
 }) {
@@ -73,6 +75,7 @@ function FlipbookViewerContainer({
       move={move}
       naturalHeight={naturalHeight}
       naturalWidth={naturalWidth}
+      onKeyDown={onKeyDown}
       onReady={onReady}
       rotation={rotation}
       setOnPan={setOnPan}
@@ -87,7 +90,9 @@ FlipbookViewerContainer.propTypes = {
   loadingState: PropTypes.string,
   /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */
   onError: PropTypes.func,
-  /** Passed from SubjectViewer and  dimensions are added to classification metadata. Called after svg layers successfully load with `defaultFrameSrc`. */
+  /** withKeyZoom in for using keyboard pan and zoom controls while focused on the subject image */
+  onKeyDown: PropTypes.func,
+  /** Passed from SubjectViewer and dimensions are added to classification metadata. Called after svg layers successfully load with `defaultFrameSrc`. */
   onReady: PropTypes.func,
   /** Required. Passed from mobx store via SubjectViewer. */
   subject: PropTypes.shape({
@@ -95,4 +100,4 @@ FlipbookViewerContainer.propTypes = {
   }).isRequired
 }
 
-export default observer(FlipbookViewerContainer)
+export default withKeyZoom(observer(FlipbookViewerContainer))
