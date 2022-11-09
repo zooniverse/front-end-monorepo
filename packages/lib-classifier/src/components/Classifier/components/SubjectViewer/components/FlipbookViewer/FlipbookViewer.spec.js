@@ -6,9 +6,9 @@ import { composeStory } from '@storybook/testing-react'
 import userEvent from '@testing-library/user-event'
 
 describe('Component > FlipbookViewer', function () {
-  describe('with a valid subject', function () {
-    const DefaultStory = composeStory(Default, Meta)
+  const DefaultStory = composeStory(Default, Meta)
 
+  describe('with a valid subject', function () {
     it('should render the correct number of thumbnnails', function () {
       const { getAllByRole } = render(<DefaultStory />)
       const thumbnailButtons = getAllByRole('tab')
@@ -72,6 +72,52 @@ describe('Component > FlipbookViewer', function () {
       const errorMessage = screen.getByText('Something went wrong.')
       expect(imageElement).to.be.null()
       expect(errorMessage).exists()
+    })
+  })
+
+  describe('Flipbook controls', function () {
+    it('should have a play or pause button', function () {
+      const { getByLabelText } = render(<DefaultStory />)
+      const playButton = getByLabelText('SubjectViewer.VideoController.play')
+      expect(playButton).exists()
+    })
+
+    it('should play or pause via keyboard when image is focused', async function () {
+      const user = userEvent.setup({ delay: null })
+
+      const { container, getByLabelText } = render(<DefaultStory />)
+      const imageSVG = container.querySelector('svg')
+
+      imageSVG.focus()
+      await user.keyboard(' ')
+
+      const pauseButton = getByLabelText('SubjectViewer.VideoController.pause')
+      expect(pauseButton).exists()
+    })
+
+    it('should change the looping speed', async function () {
+      const user = userEvent.setup({ delay: null })
+      const { getByLabelText, getByRole } = render(<DefaultStory />)
+      const speedButton = getByLabelText(
+        'SubjectViewer.VideoController.playbackSpeed; Selected: 1x'
+      )
+
+      await user.pointer({
+        keys: '[MouseLeft]',
+        target: speedButton
+      })
+
+      const selectedSpeed = getByRole('option', { name: '1x' })
+      expect(selectedSpeed.selected).to.be.true()
+
+      /** The following is the correct way to test with RTL
+       *  but Grommet does not render Select as a <select>
+       *  so selectOptions() will not find the speed options
+       */
+
+      // await userEvent.selectOptions(getByRole('listbox'), '0.5x')
+      // const newSelectedSpeed = getByRole('option', { name: '0.5x' })
+      // expect(newSelectedSpeed.selected).to.be.true()
     })
   })
 })
