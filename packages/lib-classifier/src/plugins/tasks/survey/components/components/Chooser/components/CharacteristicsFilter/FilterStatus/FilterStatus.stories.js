@@ -12,7 +12,11 @@ export default {
   component: FilterStatus,
   args: {
     dark: false,
-    disabled: false
+    disabled: false,
+    filters: {
+      LK: 'CTDG',
+      CLR: 'RD'
+    }
   }
 }
 
@@ -25,7 +29,8 @@ const mockTask = SurveyTask.TaskModel.create(task)
 
 export const Default = ({
   dark,
-  disabled
+  disabled,
+  filters
 }) => {
   const themeMode = dark ? 'dark' : 'light'
 
@@ -45,6 +50,7 @@ export const Default = ({
       >
         <FilterStatus
           disabled={disabled}
+          filters={filters}
           task={mockTask}
         />    
       </Box>

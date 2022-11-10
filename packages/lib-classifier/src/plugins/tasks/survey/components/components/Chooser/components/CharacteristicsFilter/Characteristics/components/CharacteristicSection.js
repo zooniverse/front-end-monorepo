@@ -46,24 +46,29 @@ export default function CharacteristicSection({
       }}
     >
       <SpacedHeading
+        id={`${label}-heading`}
         margin='none'
       >
         {label}
       </SpacedHeading>
       <RadioButtonGroup
+        aria-labelledby={`${label}-heading`}
         direction='row'
         gap='xsmall'
-        name={`${characteristic.label}RadioButtonGroup`}
+        name={`${characteristic.label}-filter`}
         onChange={({ target }) => onFilter(characteristicId, target.value)}
         options={characteristicOptions}
         value={selectedValueId}
         wrap
       >
-        {(option, { checked, hover }) => {
+        {(option, { checked, focus, hover }) => {
           return (
             <FilterButton
               characteristicId={characteristicId}
+              characteristicLabel={label}
               checked={checked}
+              focus={focus}
+              hover={hover}
               onFilter={onFilter}
               valueId={option.value}
               valueImageSrc={option.imageSrc}

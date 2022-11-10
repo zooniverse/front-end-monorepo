@@ -1,64 +1,51 @@
-import { mount } from 'enzyme'
-import { Grommet } from 'grommet'
+import { expect } from 'chai'
 import React from 'react'
-import sinon from 'sinon'
-import zooTheme from '@zooniverse/grommet-theme'
-import { CloseButton, Media } from '@zooniverse/react-components'
+import { render, screen } from '@testing-library/react'
 
-import FilterButton, { StyledFilter } from './FilterButton'
+import FilterButton from './FilterButton'
+
+const CTDG_SRC = 'https://panoptes-uploads.zooniverse.org/staging/workflow_attached_image/475c469d-448f-4207-8a58-2cb42a3faa60.svg'
 
 describe('Component > FilterButton', function () {
-  let wrapper, onFilterSpy
-
-  before(function () {
-    onFilterSpy = sinon.spy()
-    wrapper = mount(
+  it('should render the characteristic value element', function () {
+    render (
       <FilterButton
         characteristicId='LK'
-        checked={false}
-        onFilter={onFilterSpy}
-        valueImageSrc='bird-icon.svg'
-        valueLabel='bird'
-      />, {
-        wrappingComponent: Grommet,
-        wrappingComponentProps: { theme: zooTheme }
-      }
+        valueId='CTDG'
+        valueImageSrc={CTDG_SRC}
+        valueLabel='cat/dog'
+      />
     )
+
+    expect(screen.getByTestId('filter-LK-CTDG')).to.be.ok()
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
+  it('should not show a Close button', function () {
+    render (
+      <FilterButton
+        characteristicId='LK'
+        valueId='CTDG'
+        valueImageSrc={CTDG_SRC}
+        valueLabel='cat/dog'
+      />
+    )
 
-  it('should render the characteristic value media', function () {
-    expect(wrapper.find(Media)).to.have.lengthOf(1)
-    expect(wrapper.find(Media).props().src).to.equal('bird-icon.svg')
-  })
-
-  it('should render the media with an alt of the value label', function () {
-    expect(wrapper.find(Media).props().alt).to.equal('bird')
-  })
-
-  it('should have a background color neutral-6', function () {
-    expect(wrapper.find(StyledFilter).props().background.color).to.equal('neutral-6')
-  })
-
-  it('should not render a CloseButton', function () {
-    expect(wrapper.find(CloseButton)).to.have.lengthOf(0)
+    expect(screen.queryByRole('button', { name: 'Remove cat/dog filter' })).to.be.null()  
   })
 
   describe('when checked', function () {
-    before(function () {
-      wrapper.setProps({ checked: true })
-    })
+    it('should show a Close button', function () {
+      render (
+        <FilterButton
+          characteristicId='LK'
+          checked
+          valueId='CTDG'
+          valueImageSrc={CTDG_SRC}
+          valueLabel='cat/dog'
+        />
+      )
 
-    it('should have a background color of accent-1', function () {
-      expect(wrapper.find(StyledFilter).props().background.color).to.equal('accent-1')
-    })
-
-    it('should call onFilter on click of the CloseButton', function () {
-      wrapper.find(CloseButton).at(0).simulate('click')
-      expect(onFilterSpy).to.have.been.calledOnceWith('LK')
+      expect(screen.getByRole('button', { name: 'Remove cat/dog filter' })).to.be.ok()    
     })
   })
 })

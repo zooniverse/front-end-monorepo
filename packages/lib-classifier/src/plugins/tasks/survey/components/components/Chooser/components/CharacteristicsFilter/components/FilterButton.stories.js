@@ -40,6 +40,7 @@ export const Default = ({
         <FilterButton
           characteristicId='LK'
           checked={checked}
+          valueId='CTDG'
           valueImageSrc={CTDG_SRC}
           valueLabel='cat/dog'
         />

@@ -41,7 +41,7 @@ describe('SurveyTaskContainer', function () {
         expect(choicesShowingCount).to.exist()
       })
 
-      it('should show a clear filters button', function () {
+      it('should show a Clear Filters button', function () {
         const { getByRole } = render(<DefaultStory />)
         
         const clearFiltersButton = getByRole('button', { name: 'Clear SurveyTask.CharacteristicsFilter.clearFilters' })
@@ -49,7 +49,29 @@ describe('SurveyTaskContainer', function () {
         expect(clearFiltersButton).to.exist()
       })
 
-      it.skip('should keep filters after choice identified', function () {})
+      it('should disable the Clear Filters button if showing choices = total choices', function () {
+        const { getByRole } = render(<DefaultStory />)
+        
+        const clearFiltersButton = getByRole('button', { name: 'Clear SurveyTask.CharacteristicsFilter.clearFilters' })
+        
+        expect(clearFiltersButton).to.have.attribute('disabled')
+      })
+
+      // with filters applied and cleared
+
+      // it should show characteristics sections for filtering on Filter button click
+
+      // it should show a filtered list of choices
+
+      // it should show the filters selected next to the Filter button
+
+      // it should update the choices shown if a filter is cleared from the section next to the Filter button
+
+      // it should clear filters selected on Clear Filters button click (below characteristics sections)
+
+      // it should clear filters selected on Clear Filters button click (below choices) and show all choices
+
+      // it should keep filters selected after a choice is identified
     })
 
     describe('without characteristic filters', function () {

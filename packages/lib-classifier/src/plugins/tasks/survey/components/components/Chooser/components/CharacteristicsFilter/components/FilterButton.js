@@ -5,30 +5,28 @@ import styled from 'styled-components'
 import { CloseButton, Media } from '@zooniverse/react-components'
 
 export const StyledFilter = styled(Box)`
+  box-shadow: ${
+    props => props.focus || props.hover ? 
+      `0 0 2px 2px ${props.theme.global.colors.brand};` 
+      : 'none'
+  };
+
   button {
-    display: none;
-  }
-
-  &:focus > button, 
-  &:hover > button {
-    display: block;
     position: absolute;
-  }
-
-  &:hover {
-    box-shadow: 0 0 2px 2px ${props => props.theme.global.colors.brand};
   }
 `
 
 export default function FilterButton (props) {
   const {
-    buttonSize,
-    characteristicId,
-    checked,
-    onFilter,
-    valueId,
-    valueImageSrc,
-    valueLabel
+    buttonSize = 'medium',
+    characteristicId = '',
+    checked = false,
+    focus = false,
+    hover = false,
+    onFilter = () => {},
+    valueId = '',
+    valueImageSrc = '',
+    valueLabel = ''
   } = props
 
   const backgroundColor = checked ? 'accent-1' : 'neutral-6'
@@ -41,7 +39,9 @@ export default function FilterButton (props) {
       align='center'
       background={{ color: backgroundColor }}
       data-testid={`filter-${characteristicId}-${valueId}`}
+      focus={focus}
       height={containerSize}
+      hover={hover}
       justify='center'
       margin={marginPerSize}
       round='full'
@@ -55,6 +55,7 @@ export default function FilterButton (props) {
       />
       {checked && (
         <CloseButton
+          aria-label={`Remove ${valueLabel} filter`}
           closeFn={(event) => {
             // Note: preventDefault and stopPropagation are to prevent the radio button input click handler from firing and re-selecting the characteristic filter
             event.preventDefault()
@@ -67,20 +68,12 @@ export default function FilterButton (props) {
   )
 }
 
-FilterButton.defaultProps = {
-  buttonSize: 'medium',
-  characteristicId: '',
-  checked: false,
-  onFilter: () => {},
-  valueId: '',
-  valueImageSrc: '',
-  valueLabel: ''
-}
-
 FilterButton.propTypes = {
   buttonSize: PropTypes.string,
   characteristicId: PropTypes.string,
   checked: PropTypes.bool,
+  focus: PropTypes.bool,
+  hover: PropTypes.bool,
   onFilter: PropTypes.func,
   valueId: PropTypes.string,
   valueImageSrc: PropTypes.string,

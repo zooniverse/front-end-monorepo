@@ -38,7 +38,7 @@ const task = {
       'valuesOrder': ['CTDG', 'CWHRS', 'NTLPDR', 'PRMT', 'WSL', 'BRD', 'THR']
     },
     'CLR': {
-      'label': 'color',
+      'label': 'Color',
       'values': {
         'GR': {
           'image': 'gray.svg',
