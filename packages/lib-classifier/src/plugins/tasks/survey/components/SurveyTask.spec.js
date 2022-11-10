@@ -6,7 +6,10 @@ import userEvent from '@testing-library/user-event'
 
 import Meta, { Default, NoFilters } from './SurveyTask.stories'
 
-describe('SurveyTaskContainer', function () {
+describe('SurveyTask', function () {
+  // this turns off Mocha's time limit for slow tests
+  this.timeout(0)
+  
   describe('when choices are showing / without a selected choice', function () {
     describe('with characteristic filters', function () {
       const DefaultStory = composeStory(Default, Meta)
@@ -56,22 +59,6 @@ describe('SurveyTaskContainer', function () {
         
         expect(clearFiltersButton).to.have.attribute('disabled')
       })
-
-      // with filters applied and cleared
-
-      // it should show characteristics sections for filtering on Filter button click
-
-      // it should show a filtered list of choices
-
-      // it should show the filters selected next to the Filter button
-
-      // it should update the choices shown if a filter is cleared from the section next to the Filter button
-
-      // it should clear filters selected on Clear Filters button click (below characteristics sections)
-
-      // it should clear filters selected on Clear Filters button click (below choices) and show all choices
-
-      // it should keep filters selected after a choice is identified
     })
 
     describe('without characteristic filters', function () {
