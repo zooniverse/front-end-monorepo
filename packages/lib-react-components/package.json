@@ -62,7 +62,7 @@
     "@testing-library/dom": "~8.19.0",
     "@testing-library/react": "~12.1.2",
     "@testing-library/user-event": "~14.4.0",
-    "@wojtekmaj/enzyme-adapter-react-17": "~0.7.0",
+    "@wojtekmaj/enzyme-adapter-react-17": "~0.8.0",
     "@zooniverse/grommet-theme": "~3.1.0",
     "@zooniverse/standard": "~1.0.0",
     "babel-loader": "~9.1.0",

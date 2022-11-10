@@ -71,7 +71,7 @@
     "@testing-library/react-hooks": "~8.0.0",
     "@testing-library/user-event": "~14.4.0",
     "@visx/mock-data": "~2.15.1",
-    "@wojtekmaj/enzyme-adapter-react-17": "~0.7.0",
+    "@wojtekmaj/enzyme-adapter-react-17": "~0.8.0",
     "@zooniverse/grommet-theme": "~3.1.0",
     "@zooniverse/panoptes-js": "~0.2.0",
     "@zooniverse/react-components": "~1.2.0",
