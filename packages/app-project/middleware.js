@@ -28,6 +28,12 @@ export function middleware(req, event) {
   if (pathname === '/Index') {
     return NextResponse.next()
   }
+  /*
+    Don't redirect or rewrite the status check.
+  */
+  if (pathname === '/commit_id.txt') {
+    return NextResponse.next()
+  }
 
   if (url.searchParams.has('language')) {
     const locale = url.searchParams.get('language')
