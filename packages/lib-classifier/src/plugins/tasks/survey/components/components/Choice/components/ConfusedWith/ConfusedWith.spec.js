@@ -11,21 +11,7 @@ describe('Component > ConfusedWith', function () {
   const mockTask = SurveyTask.TaskModel.create(task)
   const KUDU = mockTask.choices.KD
 
-  it('should render without crashing', function () {
-    render(
-      <ConfusedWith
-        choices={mockTask.choices}
-        confusions={KUDU.confusions}
-        confusionsOrder={KUDU.confusionsOrder}
-        images={mockTask.images}
-        strings={mockTask.strings}
-        theme={zooTheme}
-      />
-    )
-    expect(screen).to.be.ok()
-  })
-
-  it('should render the section title', function () {
+  it('should show the section title', function () {
     render(
       <ConfusedWith
         choices={mockTask.choices}
@@ -37,10 +23,10 @@ describe('Component > ConfusedWith', function () {
       />
     )
     /** The translation function will simply return keys in a testing env */
-    expect(screen.getByText('SurveyTask.ConfusedWith.confused')).to.exist()
+    expect(screen.getByText('SurveyTask.ConfusedWith.confused')).to.be.ok()
   })
 
-  it('should render the appropriate confused with buttons', function () {
+  it('should show the appropriate confused with buttons', function () {
     render(
       <ConfusedWith
         choices={mockTask.choices}
@@ -53,8 +39,8 @@ describe('Component > ConfusedWith', function () {
     )
 
     expect(screen.getAllByRole('button')).to.have.lengthOf(2)
-    expect(screen.getByRole('button', { name: 'Elephant' })).to.exist()
-    expect(screen.getByRole('button', { name: 'Aardvark' })).to.exist()
+    expect(screen.getByRole('button', { name: 'Elephant' })).to.be.ok()
+    expect(screen.getByRole('button', { name: 'Aardvark' })).to.be.ok()
   })
 
   describe('with hasFocus of true', function () {

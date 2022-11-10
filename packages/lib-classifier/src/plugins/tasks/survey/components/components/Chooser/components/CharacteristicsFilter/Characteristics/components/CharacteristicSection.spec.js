@@ -11,7 +11,7 @@ const mockTask = SurveyTask.TaskModel.create(task)
 const characteristicPattern = mockTask.characteristics.PTTRN
 
 describe('Component > CharacteristicSection', function () {
-  it('should render characteristic Filter inputs in order per the task  characteristic\'s valuesOrder', function () {
+  it('should show characteristic Filter inputs in order per the task  characteristic\'s valuesOrder', function () {
     render(
       <CharacteristicSection
         characteristic={characteristicPattern}

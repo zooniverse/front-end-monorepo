@@ -16,7 +16,7 @@ describe('SurveyTaskContainer', function () {
         
         const filterButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
         
-        expect(filterButton).to.exist()
+        expect(filterButton).to.be.ok()
       })
 
       it('should show the choices', function () {
@@ -38,7 +38,7 @@ describe('SurveyTaskContainer', function () {
         
         const choicesShowingCount = getByText('SurveyTask.CharacteristicsFilter.showing')
         
-        expect(choicesShowingCount).to.exist()
+        expect(choicesShowingCount).to.be.ok()
       })
 
       it('should show a Clear Filters button', function () {
@@ -46,7 +46,7 @@ describe('SurveyTaskContainer', function () {
         
         const clearFiltersButton = getByRole('button', { name: 'Clear SurveyTask.CharacteristicsFilter.clearFilters' })
         
-        expect(clearFiltersButton).to.exist()
+        expect(clearFiltersButton).to.be.ok()
       })
 
       it('should disable the Clear Filters button if showing choices = total choices', function () {
@@ -129,7 +129,7 @@ describe('SurveyTaskContainer', function () {
       await user.click(choiceButton)
 
       const choiceImages = getByTestId('choice-images')
-      expect(choiceImages).to.exist()
+      expect(choiceImages).to.be.ok()
     })
   })
 })

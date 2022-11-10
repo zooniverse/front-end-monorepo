@@ -39,44 +39,6 @@ describe('Component > Choices', function () {
     expect(choiceButtons[5]).to.have.text('Nothing here')
   })
 
-  it('should call handleDelete with choice ID on choice button backspace keyDown', async function () {
-    const handleDeleteSpy = sinon.spy()
-    const user = userEvent.setup({ delay: null })
-    render(
-      <Grommet theme={zooTheme}>
-        <Choices
-          filteredChoiceIds={task.choicesOrder}
-          handleDelete={handleDeleteSpy}
-          previousChoiceId='RDVRK'
-          task={task}
-        />
-      </Grommet>
-    )
-    const choiceButtons = screen.getAllByRole('menuitemcheckbox')
-    expect(choiceButtons[0]).to.equal(document.activeElement)
-    await user.keyboard('{backspace}')
-    expect(handleDeleteSpy).to.have.been.calledOnceWith('RDVRK')
-  })
-
-  it('should call handleDelete with choice ID on choice button delete keyDown', async function () {
-    const handleDeleteSpy = sinon.spy()
-    const user = userEvent.setup({ delay: null })
-    render(
-      <Grommet theme={zooTheme}>
-        <Choices
-          filteredChoiceIds={task.choicesOrder}
-          handleDelete={handleDeleteSpy}
-          previousChoiceId='RDVRK'
-          task={task}
-        />
-      </Grommet>
-    )
-    const choiceButtons = screen.getAllByRole('menuitemcheckbox')
-    expect(choiceButtons[0]).to.equal(document.activeElement)
-    await user.keyboard('{delete}')
-    expect(handleDeleteSpy).to.have.been.calledOnceWith('RDVRK')
-  })
-
   it('should focus the next ChoiceButton on arrowDown keyDown', async function () {
     const user = userEvent.setup({ delay: null })
     render(
@@ -109,61 +71,6 @@ describe('Component > Choices', function () {
     expect(choiceButtons[0]).to.equal(document.activeElement)
     await user.keyboard('{arrowUp}')
     expect(choiceButtons[5]).to.equal(document.activeElement)
-  })
-
-  it('should call onChoose with choice ID on choice button click', async function () {
-    const onChooseSpy = sinon.spy()
-    const user = userEvent.setup({ delay: null })
-    render(
-      <Grommet theme={zooTheme}>
-        <Choices
-          filteredChoiceIds={task.choicesOrder}
-          onChoose={onChooseSpy}
-          task={task}
-        />
-      </Grommet>
-    )
-    const choiceButtons = screen.getAllByRole('menuitemcheckbox')
-    await user.click(choiceButtons[0])
-    expect(onChooseSpy).to.have.been.calledOnceWith('RDVRK')
-  })
-
-  it('should call onChoose with choice ID on choice button enter keyDown', async function () {
-    const onChooseSpy = sinon.spy()
-    const user = userEvent.setup({ delay: null })
-    render(
-      <Grommet theme={zooTheme}>
-        <Choices
-          filteredChoiceIds={task.choicesOrder}
-          onChoose={onChooseSpy}
-          task={task}
-        />
-      </Grommet>
-    )
-    await user.keyboard('{tab}')
-    const choiceButtons = screen.getAllByRole('menuitemcheckbox')
-    expect(choiceButtons[0]).to.equal(document.activeElement)
-    await user.keyboard('{enter}')
-    expect(onChooseSpy).to.have.been.calledOnceWith('RDVRK')
-  })
-
-  it('should call onChoose with choice ID on choice button space keyDown', async function () {
-    const onChooseSpy = sinon.spy()
-    const user = userEvent.setup({ delay: null })
-    render(
-      <Grommet theme={zooTheme}>
-        <Choices
-          filteredChoiceIds={task.choicesOrder}
-          onChoose={onChooseSpy}
-          task={task}
-        />
-      </Grommet>
-    )
-    await user.keyboard('{tab}')
-    const choiceButtons = screen.getAllByRole('menuitemcheckbox')
-    expect(choiceButtons[0]).to.equal(document.activeElement)
-    await user.keyboard(' ')
-    expect(onChooseSpy).to.have.been.calledOnceWith('RDVRK')
   })
 
   describe('with previousChoiceId and FilterStatus closed', function () {

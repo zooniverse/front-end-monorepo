@@ -10,7 +10,7 @@ import Characteristics from './Characteristics'
 const mockTask = SurveyTask.TaskModel.create(task)
 
 describe('Component > Characteristics', function () {
-  it('should render Characteristic sections in order per task characteristicsOrder', function () {
+  it('should show Characteristic sections in order per task characteristicsOrder', function () {
     render(
       <Characteristics
         characteristics={mockTask.characteristics}
