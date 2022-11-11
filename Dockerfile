@@ -41,6 +41,7 @@ USER node
 RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn install --production=false --frozen-lockfile
 RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/react-components build
 RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/classifier build
+RUN echo $COMMIT_ID > /usr/src/packages/app-content-pages/public/commit_id.txt
 RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/fe-content-pages build
 RUN echo $COMMIT_ID > /usr/src/packages/app-project/public/commit_id.txt
 RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/fe-project build
