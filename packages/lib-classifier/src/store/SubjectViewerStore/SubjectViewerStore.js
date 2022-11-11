@@ -125,8 +125,8 @@ const SubjectViewer = types
       resetSubject (subject) {
         let frame = 0
         // teams set default frame in the project builder
-        // here we're converting it to index (min of 0 instead of min of 1)
-        if (subject?.metadata?.default_frame >= 0) {
+        // here we're converting it to index
+        if (subject?.metadata?.default_frame > 0) {
           frame = parseInt(subject.metadata.default_frame - 1)
         }
         self.dimensions = []
