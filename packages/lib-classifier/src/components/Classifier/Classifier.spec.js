@@ -174,7 +174,7 @@ describe('Components > Classifier', function () {
     })
 
     it('should have a subject image', function () {
-      expect(subjectImage.getAttribute('xlink:href')).to.equal('https://foo.bar/example.png')
+      expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
     })
 
     describe('task answers', function () {
@@ -305,7 +305,7 @@ describe('Components > Classifier', function () {
     })
 
     it('should have a subject image', function () {
-      expect(subjectImage.getAttribute('xlink:href')).to.equal('https://foo.bar/example.png')
+      expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
     })
 
     it('should show the translated task instruction', function () {
@@ -435,7 +435,7 @@ describe('Components > Classifier', function () {
     })
 
     it('should have a subject image', function () {
-      expect(subjectImage.getAttribute('xlink:href')).to.equal('https://foo.bar/example.png')
+      expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
     })
 
     describe('task answers', function () {
@@ -543,7 +543,7 @@ describe('Components > Classifier', function () {
         })
 
         it('should have a subject image', function () {
-          expect(subjectImage.getAttribute('xlink:href')).to.equal('https://foo.bar/example.png')
+          expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
         })
 
         describe('task answers', function () {
@@ -811,7 +811,7 @@ describe('Components > Classifier', function () {
     })
 
     it('should show a subject image from the selected set', function () {
-      expect(subjectImage.getAttribute('xlink:href')).to.equal('https://foo.bar/example2.png')
+      expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example2.png')
     })
 
     describe('task answers', function () {
@@ -888,7 +888,7 @@ describe('Components > Classifier', function () {
     })
 
     it('should be able to view inactive workflows', function () {
-      expect(subjectImage.getAttribute('xlink:href')).to.equal('https://foo.bar/example.png')
+      expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
       expect(taskAnswers).to.have.lengthOf(workflow.tasks.T0.answers.length)
       taskAnswers.forEach(radioButton => {
         expect(radioButton.name).to.equal('T0')

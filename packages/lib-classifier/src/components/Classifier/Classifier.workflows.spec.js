@@ -148,7 +148,7 @@ function testWorkflow(workflowSnapshot, workflowStrings) {
   })
 
   it('should show a subject image from the selected set', function () {
-    expect(subjectImage.getAttribute('xlink:href')).to.equal('https://foo.bar/example.png')
+    expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
   })
 
   describe('task answers', function () {

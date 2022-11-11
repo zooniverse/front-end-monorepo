@@ -130,7 +130,7 @@ function SGVGridCell (props) {
           dragMove={dragMove}
           height={imageHeight}
           width={imageWidth}
-          xlinkHref={image.src}
+          href={image.src}
           x={imageX}
           y={imageY}
           transform={imageTransform}

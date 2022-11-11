@@ -44,7 +44,7 @@ export default function SVGImage ({
       role='img'
       filter={invert ? 'url("#svg-invert-filter")' : undefined}
       width={naturalWidth}
-      xlinkHref={src}
+      href={src}
     />
   )
 }

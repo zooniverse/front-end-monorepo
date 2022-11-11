@@ -68,7 +68,7 @@ describe('Component > SubjectGroupViewer > SGVGridCell', function () {
   it('should render an image', function () {
     const image = wrapper.find('Styled(draggable(image))')    
     expect(image).to.have.lengthOf(1)
-    expect(image.prop('xlinkHref')).to.equal('https://foo.bar/example.png')
+    expect(image.prop('href')).to.equal('https://foo.bar/example.png')
   })
   
   describe('with a pan and zoom', function () {

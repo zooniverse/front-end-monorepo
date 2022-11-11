@@ -94,7 +94,7 @@ describe('ImageAndTextViewer', function () {
       expect(image).to.exist()
 
       // "https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png" is the placeholder image for the single image subject viewer
-      expect(image.getAttribute('xlink:href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
+      expect(image.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
     })
 
     it('should render the frame change buttons', function () {
@@ -207,7 +207,7 @@ describe('ImageAndTextViewer', function () {
         expect(image).to.exist()
 
         // "https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png" is the placeholder image for the single image subject viewer
-        expect(image.getAttribute('xlink:href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
+        expect(image.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
       })
     })
   })
