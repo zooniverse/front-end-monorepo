@@ -19,7 +19,7 @@ import Classifier from './Classifier'
 
 describe('Classifier > workflow types', function () {
   // this turns off Mocha's time limit for slow tests
-  this.timeout(0)
+  this.timeout(5000)
 
   const cases = [
     {
@@ -111,11 +111,17 @@ function testWorkflow(workflowSnapshot, workflowStrings) {
     const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockUser' }))
     const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
     const client = { ...defaultClient, panoptes }
-    const store = RootStore.create({}, { authClient, client })
+    const store = RootStore.create({
+      projects: {
+        active: projectSnapshot.id,
+        resources: {
+          [projectSnapshot.id]: projectSnapshot
+        }
+      }
+    }, { authClient, client })
     render(
       <Classifier
         classifierStore={store}
-        project={projectSnapshot}
         workflowSnapshot={workflowSnapshot}
       />,
       {
