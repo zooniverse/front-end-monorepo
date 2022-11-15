@@ -123,7 +123,7 @@ const FlipbookControls = ({
     if (playing) {
       timeoutRef.current = setTimeout(() => {
         handleNext()
-      }, 1000 / playbackSpeed)
+      }, 500 / playbackSpeed)
     }
 
     return () => {
