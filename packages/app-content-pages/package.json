@@ -33,7 +33,7 @@
     "grommet": "~2.27.0",
     "grommet-icons": "~4.8.0",
     "lodash": "~4.17.11",
-    "mobx": "~6.6.1",
+    "mobx": "~6.7.0",
     "mobx-devtools-mst": "~0.9.21",
     "mobx-react": "~7.5.0",
     "mobx-state-tree": "~5.1.0",
