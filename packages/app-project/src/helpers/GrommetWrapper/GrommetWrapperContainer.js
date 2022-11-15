@@ -13,8 +13,6 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
 class GrommetWrapperContainer extends Component {
   mergeThemes () {
     const { mode, theme } = this.props
@@ -51,4 +49,4 @@ GrommetWrapperContainer.defaultProps = {
   theme
 }
 
-export default GrommetWrapperContainer
+export default inject(storeMapper)(observer(GrommetWrapperContainer))

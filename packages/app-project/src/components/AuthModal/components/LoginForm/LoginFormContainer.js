@@ -65,10 +65,8 @@ LoginFormContainer.defaultProps = {
   t: (key) => key
 }
 
-// Noting that mobx decorators are outdated https://michel.codes/blogs/mobx6
-@inject('store')
-@observer
-class DecoratedLoginFormContainer extends LoginFormContainer { }
+// Noting that mobx inject is outdated https://michel.codes/blogs/mobx6
+const DecoratedLoginFormContainer = inject('store')(observer(LoginFormContainer))
 
 export default withTranslation('components')(DecoratedLoginFormContainer)
 export { LoginFormContainer }

@@ -64,10 +64,7 @@ ProjectStatisticsContainer.defaultProps = {
   volunteers: 0
 }
 
-@inject(storeMapper)
-@withRouter
-@observer
-class DecoratedProjectStatisticsContainer extends ProjectStatisticsContainer {}
+const DecoratedProjectStatisticsContainer = inject(storeMapper)(withRouter(observer(ProjectStatisticsContainer)))
 
 export {
   DecoratedProjectStatisticsContainer as default,

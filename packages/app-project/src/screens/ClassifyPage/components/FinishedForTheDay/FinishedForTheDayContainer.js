@@ -60,10 +60,7 @@ FinishedForTheDayContainer.defaultProps = {
   projectName: ''
 }
 
-@inject(storeMapper)
-@withRouter
-@observer
-class DecoratedFinishedForTheDayContainer extends FinishedForTheDayContainer { }
+const DecoratedFinishedForTheDayContainer = inject(storeMapper)(withRouter(observer(FinishedForTheDayContainer)))
 
 export {
   DecoratedFinishedForTheDayContainer as default,
