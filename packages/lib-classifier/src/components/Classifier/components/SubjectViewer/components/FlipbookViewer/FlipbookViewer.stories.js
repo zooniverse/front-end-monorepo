@@ -3,7 +3,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import mockStore from '@test/mockStore'
-import { SubjectFactory } from '@test/factories'
+import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import asyncStates from '@zooniverse/async-states'
 
 import FlipbookViewerContainer from './FlipbookViewerContainer'
@@ -38,6 +38,17 @@ const store = mockStore({
   subject: mockSubject
 })
 
+const workflowWithPlayIterations = WorkflowFactory.build({
+  configuration: {
+    playIterations: '3'
+  }
+})
+
+const storeWithMockWorkflow = mockStore({
+  subject: mockSubject,
+  workflow: workflowWithPlayIterations
+})
+
 export default {
   title: 'Subject Viewers / FlipbookViewer',
   component: FlipbookViewerContainer,
@@ -55,6 +66,22 @@ export const Default = ({ dark }) => {
           <FlipbookViewerContainer
             loadingState={asyncStates.success}
             subject={store.subjects.active}
+          />
+        </Box>
+      </Provider>
+    </Grommet>
+  )
+}
+
+export const PlayIterations = ({ dark }) => {
+  const themeMode = dark ? 'dark' : 'light'
+  return (
+    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
+      <Provider classifierStore={storeWithMockWorkflow}>
+        <Box width='large'>
+          <FlipbookViewerContainer
+            loadingState={asyncStates.success}
+            subject={storeWithMockWorkflow.subjects.active}
           />
         </Box>
       </Provider>

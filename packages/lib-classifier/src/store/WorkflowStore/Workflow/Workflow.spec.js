@@ -6,6 +6,7 @@ import Workflow from './Workflow'
 
 import { MultipleChoiceTaskFactory, SubjectSetFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
+import { expect } from 'chai'
 
 describe('Model > Workflow', function () {
   it('should exist', function () {
@@ -38,6 +39,33 @@ describe('Model > Workflow', function () {
 
     it('should not use indexed subject selection', function () {
       expect(workflow.hasIndexedSubjects).to.be.false()
+    })
+
+    it('should have default configuration settings', function () {
+      expect(workflow.configuration.invert_subject).to.be.false()
+      expect(workflow.configuration.persist_annotations).to.be.true()
+      expect(workflow.configuration.playIterations).to.equal(Infinity)
+      expect(workflow.configuration.hide_classification_summaries).to.be.undefined()
+    })
+  })
+
+  describe('with custom configuration', function () {
+    let workflow
+
+    before(function () {
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'workflow1',
+        configuration: {
+          playIterations: '3'
+        },
+        display_name: 'A test workflow',
+        version: '0.0'
+      })
+      workflow = Workflow.create(workflowSnapshot)
+    })
+
+    it('should convert playIterations to a number', function () {
+      expect(workflow.configuration.playIterations).to.equal(3)
     })
   })
 

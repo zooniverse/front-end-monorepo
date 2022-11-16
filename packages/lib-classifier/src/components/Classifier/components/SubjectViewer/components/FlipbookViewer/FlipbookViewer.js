@@ -20,6 +20,7 @@ const FlipbookViewer = ({
   naturalWidth = 800,
   onKeyDown = () => true,
   onReady = () => true,
+  playIterations,
   rotation,
   setOnPan = () => true,
   setOnZoom = () => true,
