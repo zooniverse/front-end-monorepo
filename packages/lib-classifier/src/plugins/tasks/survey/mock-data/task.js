@@ -100,7 +100,7 @@ const task = {
       'noQuestions': true,
       'characteristics': {
         'LK': [],
-        'CLR': [],
+        'CLR': ['RD'],
         'PTTRN': []
       },
       'confusionsOrder': []
