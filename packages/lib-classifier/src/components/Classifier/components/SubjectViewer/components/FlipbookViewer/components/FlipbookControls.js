@@ -44,12 +44,14 @@ const FlipbookControls = ({
   locations = [],
   onFrameChange = () => true,
   onPlayPause = () => true,
-  playing = false
+  playing = false,
+  playIterations
 }) => {
   const { t } = useTranslation('components')
   const timeoutRef = useRef(null)
 
   const [playbackSpeed, setPlaybackSpeed] = useState(1)
+  const [iterationCounter, setIterationCounter] = useState(0)
 
   const handleKeyDown = (event) => {
     const index = currentFrame
@@ -114,16 +116,26 @@ const FlipbookControls = ({
   }
 
   const resetTimeout = () => {
+    setIterationCounter(0)
     if (timeoutRef.current) {
       clearInterval(timeoutRef.current)
     }
   }
 
+  const handleIterationCounter = () => {
+    if (playIterations !== Infinity) {
+      setIterationCounter(iterationCounter + 1)
+    }
+  }
+
   useEffect(() => {
-    if (playing) {
+    if (playing && iterationCounter < playIterations * locations.length) {
       timeoutRef.current = setTimeout(() => {
+        handleIterationCounter()
         handleNext()
       }, 1000 / playbackSpeed)
+    } else if (iterationCounter === playIterations * locations.length) {
+      onPlayPause()
     }
 
     return () => {
@@ -237,7 +249,7 @@ FlipbookControls.propTypes = {
   locations: PropTypes.arrayOf(locationValidator).isRequired,
   onFrameChange: PropTypes.func,
   onPlayPause: PropTypes.func,
-  playIterations: PropTypes.string,
+  playIterations: PropTypes.number,
   theme: PropTypes.object
 }
 

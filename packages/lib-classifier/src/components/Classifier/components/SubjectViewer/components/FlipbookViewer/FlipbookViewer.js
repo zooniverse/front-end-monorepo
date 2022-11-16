@@ -104,6 +104,7 @@ const FlipbookViewer = ({
         onFrameChange={setCurrentFrame}
         onPlayPause={onPlayPause}
         playing={playing}
+        playIterations={playIterations}
       />
     </Box>
   )

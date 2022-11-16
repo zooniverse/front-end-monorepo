@@ -73,7 +73,7 @@ export const Default = ({ dark }) => {
   )
 }
 
-export const PlayIterations = ({ dark }) => {
+export const ThreePlayIterations = ({ dark }) => {
   const themeMode = dark ? 'dark' : 'light'
   return (
     <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
