@@ -133,12 +133,12 @@ const FlipbookControls = ({
       if (playIterations === Infinity) {
         timeoutRef.current = setTimeout(() => {
           handleNext()
-        }, 1000 / playbackSpeed)
+        }, 500 / playbackSpeed)
       } else if (iterationCounter < playIterations * locations.length) {
         timeoutRef.current = setTimeout(() => {
           handleIterationCounter()
           handleNext()
-        }, 1000 / playbackSpeed)
+        }, 500 / playbackSpeed)
       } else if (iterationCounter === playIterations * locations.length) {
         onPlayPause()
       }

@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "~7.19.1",
-    "@sentry/browser": "~7.19.0",
+    "@sentry/browser": "~7.20.0",
     "@visx/axis": "~2.14.0",
     "@visx/event": "~2.6.0",
     "@visx/glyph": "~2.10.0",
@@ -90,7 +90,7 @@
     "jsdom": "~20.0.0",
     "mobx": "~6.7.0",
     "mobx-devtools-mst": "~0.9.21",
-    "mobx-react": "~7.5.0",
+    "mobx-react": "~7.6.0",
     "mobx-state-tree": "~5.1.0",
     "mocha": "~10.1.0",
     "mst-middlewares": "~5.1.0",
@@ -110,7 +110,7 @@
     "styled-components": "~5.3.3",
     "superagent": "~8.0.0",
     "webpack": "~5.75.0",
-    "webpack-cli": "~4.10.0",
+    "webpack-cli": "~5.0.0",
     "webpack-dev-server": "~4.11.0"
   },
   "eslintConfig": {
