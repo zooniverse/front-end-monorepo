@@ -49,7 +49,7 @@ Default.args = {
   task
 }
 
-const taskWithoutCharacteristics = Object.assign({}, task, { characteristics: {} })
+const taskWithoutCharacteristics = { …task, characteristics: {} }
 export const NoFilters = Template.bind({})
 NoFilters.args = {
   task: taskWithoutCharacteristics
