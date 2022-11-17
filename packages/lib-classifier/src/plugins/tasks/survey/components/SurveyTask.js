@@ -72,9 +72,8 @@ export function SurveyTaskContainer ({
   }
 
   function handleIdentify () {
-    const parsedFilters = JSON.parse(JSON.stringify(filters))
     const value = annotation?.value?.filter(item => item.choice !== selectedChoice) || []
-    value.push({ choice: selectedChoice, answers, filters: parsedFilters })
+    value.push({ choice: selectedChoice, answers, filters })
 
     setAnswers({})
     setSelectedChoice('')
