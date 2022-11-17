@@ -38,17 +38,6 @@ const store = mockStore({
   subject: mockSubject
 })
 
-const workflowWithPlayIterations = WorkflowFactory.build({
-  configuration: {
-    playIterations: '3'
-  }
-})
-
-const storeWithMockWorkflow = mockStore({
-  subject: mockSubject,
-  workflow: workflowWithPlayIterations
-})
-
 export default {
   title: 'Subject Viewers / FlipbookViewer',
   component: FlipbookViewerContainer,
@@ -73,15 +62,53 @@ export const Default = ({ dark }) => {
   )
 }
 
-export const ThreePlayIterations = ({ dark }) => {
+const workflowWithFiveIterations = WorkflowFactory.build({
+  configuration: {
+    playIterations: '5'
+  }
+})
+
+const storeWithFiveIterationWorkflow = mockStore({
+  subject: mockSubject,
+  workflow: workflowWithFiveIterations
+})
+
+export const FivePlayIterations = ({ dark }) => {
   const themeMode = dark ? 'dark' : 'light'
   return (
     <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
-      <Provider classifierStore={storeWithMockWorkflow}>
+      <Provider classifierStore={storeWithFiveIterationWorkflow}>
         <Box width='large'>
           <FlipbookViewerContainer
             loadingState={asyncStates.success}
-            subject={storeWithMockWorkflow.subjects.active}
+            subject={storeWithFiveIterationWorkflow.subjects.active}
+          />
+        </Box>
+      </Provider>
+    </Grommet>
+  )
+}
+
+const workflowWithInfiniteIterations = WorkflowFactory.build({
+  configuration: {
+    playIterations: ''
+  }
+})
+
+const storeWithInfiniteIterationWorkflow = mockStore({
+  subject: mockSubject,
+  workflow: workflowWithInfiniteIterations
+})
+
+export const InfiniteIterations = ({ dark }) => {
+  const themeMode = dark ? 'dark' : 'light'
+  return (
+    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
+      <Provider classifierStore={storeWithInfiniteIterationWorkflow}>
+        <Box width='large'>
+          <FlipbookViewerContainer
+            loadingState={asyncStates.success}
+            subject={storeWithInfiniteIterationWorkflow.subjects.active}
           />
         </Box>
       </Provider>

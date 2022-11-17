@@ -129,13 +129,19 @@ const FlipbookControls = ({
   }
 
   useEffect(() => {
-    if (playing && iterationCounter < playIterations * locations.length) {
-      timeoutRef.current = setTimeout(() => {
-        handleIterationCounter()
-        handleNext()
-      }, 1000 / playbackSpeed)
-    } else if (iterationCounter === playIterations * locations.length) {
-      onPlayPause()
+    if (playing) {
+      if (playIterations === Infinity) {
+        timeoutRef.current = setTimeout(() => {
+          handleNext()
+        }, 1000 / playbackSpeed)
+      } else if (iterationCounter < playIterations * locations.length) {
+        timeoutRef.current = setTimeout(() => {
+          handleIterationCounter()
+          handleNext()
+        }, 1000 / playbackSpeed)
+      } else if (iterationCounter === playIterations * locations.length) {
+        onPlayPause()
+      }
     }
 
     return () => {

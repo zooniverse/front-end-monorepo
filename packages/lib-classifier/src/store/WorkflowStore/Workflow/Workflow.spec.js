@@ -44,28 +44,36 @@ describe('Model > Workflow', function () {
     it('should have default configuration settings', function () {
       expect(workflow.configuration.invert_subject).to.be.false()
       expect(workflow.configuration.persist_annotations).to.be.true()
-      expect(workflow.configuration.playIterations).to.equal(Infinity)
+      expect(workflow.configuration.playIterations).to.equal(3)
       expect(workflow.configuration.hide_classification_summaries).to.be.undefined()
     })
   })
 
   describe('with custom configuration', function () {
-    let workflow
-
-    before(function () {
+    it('should convert playIterations to a number', function () {
       const workflowSnapshot = WorkflowFactory.build({
         id: 'workflow1',
         configuration: {
-          playIterations: '3'
+          playIterations: '5'
         },
-        display_name: 'A test workflow',
+        display_name: 'A test workflow with five play iterations',
         version: '0.0'
       })
-      workflow = Workflow.create(workflowSnapshot)
+      const workflow = Workflow.create(workflowSnapshot)
+      expect(workflow.configuration.playIterations).to.equal(5)
     })
 
-    it('should convert playIterations to a number', function () {
-      expect(workflow.configuration.playIterations).to.equal(3)
+    it('should convert empty string playIterations to Infinity', function () {
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'workflow1',
+        configuration: {
+          playIterations: ''
+        },
+        display_name: 'A test workflow with infinite play iterations',
+        version: '0.0'
+      })
+      const workflow = Workflow.create(workflowSnapshot)
+      expect(workflow.configuration.playIterations).to.equal(Infinity)
     })
   })
 

@@ -7,7 +7,7 @@ const WorkflowConfiguration = types.snapshotProcessor(
     invert_subject: types.optional(types.boolean, false),
     multi_image_mode: types.optional(types.enumeration('multiImageMode', ['flipbook', 'separate']), 'flipbook'),
     persist_annotations: types.optional(types.boolean, true),
-    playIterations: types.optional(types.union(types.string, types.number), Infinity),
+    playIterations: types.optional(types.union(types.string, types.number), 3),
     subject_viewer: types.maybe(
       types.enumeration('subjectViewer', [
         'dataImage',
@@ -71,11 +71,8 @@ const WorkflowConfiguration = types.snapshotProcessor(
   {
     preProcessor(snapshot) {
       const newSnapshot = Object.assign({}, snapshot)
-      if (
-        snapshot.playIterations &&
-        typeof snapshot.playIterations === 'string'
-      ) {
-        if (snapshot.playIterations.length) {
+      if (typeof snapshot?.playIterations === 'string') {
+        if (snapshot?.playIterations.length) {
           const newIterations = Number(snapshot.playIterations)
           newSnapshot.playIterations = newIterations
         } else {
