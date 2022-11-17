@@ -22,7 +22,7 @@ export function SurveyTaskContainer ({
         annotation.setChoiceInProgress(false)
       }
     }
-  })
+  }, [task])
 
   function handleAnswers (answers) {
     setAnswers(answers)
