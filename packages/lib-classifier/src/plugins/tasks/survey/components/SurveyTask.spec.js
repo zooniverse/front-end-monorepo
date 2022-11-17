@@ -580,5 +580,57 @@ describe('SurveyTask', function () {
         expect(identifyButton.disabled).to.be.false()
       })
     })
+
+    it('should remove a previously identified choice with delete key', async function () {
+      const user = userEvent.setup({ delay: null })
+      const { getAllByRole, getByRole } = render(<NoFiltersStory />)
+      let choiceButton = getByRole('menuitemcheckbox', { name: 'Fire' })
+      await user.click(choiceButton)
+      const identifyButton = getByRole('button', { name: 'SurveyTask.Choice.identify' })
+      // identify choice (Fire) and close choice (Fire) component
+      await user.click(identifyButton)
+      // confirm choices showing
+      const choiceButtons = getAllByRole('menuitemcheckbox')
+      expect(choiceButtons.length).to.equal(6)
+      
+      // confirm choice Fire selected
+      choiceButton = getByRole('menuitemcheckbox', { name: 'Fire' })
+      expect(choiceButton.getAttribute('aria-checked')).to.equal('true')
+      
+      // confirm choice Fire active element
+      expect(choiceButton).to.equal(document.activeElement)
+      
+      // press delete key to remove choice (Fire)
+      await user.keyboard('[Delete]')
+      // confirm choice Fire not selected
+      choiceButton = getByRole('menuitemcheckbox', { name: 'Fire' })
+      expect(choiceButton.getAttribute('aria-checked')).to.equal('false')
+    })
+
+    it('should remove a previously identified choice with backspace key', async function () {
+      const user = userEvent.setup({ delay: null })
+      const { getAllByRole, getByRole } = render(<NoFiltersStory />)
+      let choiceButton = getByRole('menuitemcheckbox', { name: 'Fire' })
+      await user.click(choiceButton)
+      const identifyButton = getByRole('button', { name: 'SurveyTask.Choice.identify' })
+      // identify choice (Fire) and close choice (Fire) component
+      await user.click(identifyButton)
+      // confirm choices showing
+      const choiceButtons = getAllByRole('menuitemcheckbox')
+      expect(choiceButtons.length).to.equal(6)
+      
+      // confirm choice Fire selected
+      choiceButton = getByRole('menuitemcheckbox', { name: 'Fire' })
+      expect(choiceButton.getAttribute('aria-checked')).to.equal('true')
+      
+      // confirm choice Fire active element
+      expect(choiceButton).to.equal(document.activeElement)
+      
+      // press backspace key to remove choice (Fire)
+      await user.keyboard('[Backspace]')
+      // confirm choice Fire not selected
+      choiceButton = getByRole('menuitemcheckbox', { name: 'Fire' })
+      expect(choiceButton.getAttribute('aria-checked')).to.equal('false')
+    })
   })
 })
