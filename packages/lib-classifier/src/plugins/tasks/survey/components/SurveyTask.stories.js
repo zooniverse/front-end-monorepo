@@ -5,7 +5,7 @@ import asyncStates from '@zooniverse/async-states'
 import { task } from '@plugins/tasks/survey/mock-data'
 import { MockTask } from '@stories/components'
 
-import SurveyTask from '@plugins/tasks/survey'
+import SurveyTask from './SurveyTask'
 
 export default {
   title: 'Tasks / Survey',

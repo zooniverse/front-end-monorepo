@@ -6,7 +6,7 @@ import React, { useEffect } from 'react'
 import Choice from './components/Choice'
 import Chooser from './components/Chooser'
 
-export function SurveyTaskContainer ({
+export function SurveyTask ({
   annotation,
   task,
   disabled = false,
@@ -113,14 +113,17 @@ export function SurveyTaskContainer ({
   )
 }
 
-SurveyTaskContainer.propTypes = {
+SurveyTask.propTypes = {
+  /** required, the current survey task annotation */
   annotation: PropTypes.shape({
     setChoiceInProgress: PropTypes.func,
     update: PropTypes.func,
     value: PropTypes.array,
     _choiceInProgress: PropTypes.bool
   }).isRequired,
+  /** will disable the task per subjectReadyState */
   disabled: PropTypes.bool,
+  /** required, the current survey task */
   task: PropTypes.shape({
     help: PropTypes.string,
     required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
@@ -129,4 +132,4 @@ SurveyTaskContainer.propTypes = {
   }).isRequired
 }
 
-export default observer(SurveyTaskContainer)
+export default observer(SurveyTask)
