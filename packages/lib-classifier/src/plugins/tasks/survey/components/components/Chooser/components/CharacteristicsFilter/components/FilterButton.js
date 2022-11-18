@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import { CloseButton, Media } from '@zooniverse/react-components'
+import { useTranslation } from 'react-i18next'
 
 export const StyledFilter = styled(Box)`
   box-shadow: ${
@@ -28,6 +29,8 @@ export default function FilterButton (props) {
     valueImageSrc = '',
     valueLabel = ''
   } = props
+
+  const { t } = useTranslation('plugins')
 
   const backgroundColor = checked ? 'accent-1' : 'neutral-6'
   const marginPerSize = buttonSize === 'small' ? 'none' : { bottom: 'xsmall' }
@@ -55,7 +58,7 @@ export default function FilterButton (props) {
       />
       {checked && (
         <CloseButton
-          aria-label={`Remove ${valueLabel} filter`}
+          aria-label={t('SurveyTask.CharacteristicsFilter.removeFilter', { valueLabel })}
           closeFn={(event) => {
             // Note: preventDefault and stopPropagation are to prevent the radio button input click handler from firing and re-selecting the characteristic filter
             event.preventDefault()
