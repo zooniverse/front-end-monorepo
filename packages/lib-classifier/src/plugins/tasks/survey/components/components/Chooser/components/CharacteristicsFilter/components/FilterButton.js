@@ -59,6 +59,7 @@ export default function FilterButton (props) {
       {checked && (
         <CloseButton
           aria-label={t('SurveyTask.CharacteristicsFilter.removeFilter', { valueLabel })}
+          data-testid={`remove-filter-${characteristicId}-${valueId}`}
           closeFn={(event) => {
             // Note: preventDefault and stopPropagation are to prevent the radio button input click handler from firing and re-selecting the characteristic filter
             event.preventDefault()

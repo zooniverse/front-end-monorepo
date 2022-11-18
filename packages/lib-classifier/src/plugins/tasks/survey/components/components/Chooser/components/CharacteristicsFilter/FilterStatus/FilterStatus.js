@@ -52,13 +52,14 @@ export default function FilterStatus ({
   return (
     <Box
       ref={filterStatusRef}
+      align='center'
       border={{
         color: 'light-5',
         size: 'xsmall',
         style: 'solid',
         side: 'bottom'
       }}
-      align='center'
+      data-testid='filter-status'
       direction='row'
       fill='horizontal'
       gap='xxsmall'

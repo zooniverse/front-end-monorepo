@@ -30,7 +30,7 @@ describe('Component > FilterButton', function () {
       />
     )
 
-    expect(screen.queryByRole('button', { name: 'Remove cat/dog filter' })).to.be.null()  
+    expect(screen.queryByTestId('remove-filter-LK-CTDG')).to.be.null()  
   })
 
   describe('when checked', function () {
@@ -45,7 +45,7 @@ describe('Component > FilterButton', function () {
         />
       )
 
-      expect(screen.getByRole('button', { name: 'Remove cat/dog filter' })).to.be.ok()    
+      expect(screen.getByTestId('remove-filter-LK-CTDG')).to.be.ok()    
     })
   })
 })

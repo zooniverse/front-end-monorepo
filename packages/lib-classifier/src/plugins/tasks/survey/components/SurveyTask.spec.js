@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import React from 'react'
 import { composeStory } from '@storybook/testing-react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import Meta, { Default, NoFilters } from './SurveyTask.stories'
@@ -127,7 +127,7 @@ describe('SurveyTask', function () {
       describe('when filters are clicked', function () {
         it('should show the filter button with a remove filter button', async function () {
           const user = userEvent.setup({ delay: null })
-          const { getByRole, getByTestId, queryByRole } = render(<DefaultStory />)
+          const { getByRole, getByTestId } = render(<DefaultStory />)
           const filterButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
           await user.click(filterButton)
           // the stripesFilterButton is the button to filter choices by "stripes". Stripes is a specific value of the "Pattern" characteristic.
@@ -135,11 +135,13 @@ describe('SurveyTask', function () {
           expect(stripesFilterButton).to.be.ok()
 
           // the stripesFilterRemoveButton is the small x button that appears over a filter to remove the filter, after it is selected. The presence of this button indicates that the filter is selected. The absence of this button indicates that the filter is not selected.
-          let stripesFilterRemoveButton = queryByRole('button', { name: 'Remove stripes filter' })
+          let characteristicsSection = getByTestId('characteristics')
+          let stripesFilterRemoveButton = within(characteristicsSection).queryByTestId('remove-filter-PTTRN-STRPS')
           expect(stripesFilterRemoveButton).to.be.null()
           
           await user.click(stripesFilterButton)
-          stripesFilterRemoveButton = getByRole('button', { name: 'Remove stripes filter' })
+          characteristicsSection = getByTestId('characteristics')
+          stripesFilterRemoveButton = within(characteristicsSection).getByTestId('remove-filter-PTTRN-STRPS')
           expect(stripesFilterRemoveButton).to.be.ok()
         })
 
@@ -200,7 +202,8 @@ describe('SurveyTask', function () {
           const stripesFilterButton = getByTestId('filter-PTTRN-STRPS')
           // click/apply the stripes filter
           await user.click(stripesFilterButton)
-          const stripesFilterRemoveButton = getByRole('button', { name: 'Remove stripes filter' })
+          const characteristicsSection = getByTestId('characteristics')
+          const stripesFilterRemoveButton = within(characteristicsSection).getByTestId('remove-filter-PTTRN-STRPS')
           // remove the stripes filter
           await user.click(stripesFilterRemoveButton)
           await user.click(filterButton)
@@ -222,7 +225,8 @@ describe('SurveyTask', function () {
           let choiceButtons = getAllByRole('menuitemcheckbox')
           expect(choiceButtons.length).to.equal(1)
 
-          const stripesFilterRemoveButton = getByRole('button', { name: 'Remove stripes filter' })
+          const filterStatusSection = getByTestId('filter-status')
+          const stripesFilterRemoveButton = within(filterStatusSection).getByTestId('remove-filter-PTTRN-STRPS')
           // remove the stripes filter
           await user.click(stripesFilterRemoveButton)
           // confirm the choices are the total 6 choices, not filtered by the stripes filter
@@ -232,7 +236,7 @@ describe('SurveyTask', function () {
 
         it('should remove filters on Clear Filters button click (within Characteristics) ', async function () {
           const user = userEvent.setup({ delay: null })
-          const { getByRole, getByTestId, queryByRole } = render(<DefaultStory />)
+          const { getByRole, getByTestId, queryByTestId } = render(<DefaultStory />)
           const filterButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
           await user.click(filterButton)
           // click/apply the like a cow/horse filter
@@ -241,8 +245,9 @@ describe('SurveyTask', function () {
           // click/apply the color tan/yellow filter
           const tanYellowFilterButton = getByTestId('filter-CLR-TNLLW')
           await user.click(tanYellowFilterButton)
-          let cowHorseFilterRemoveButton = getByRole('button', { name: 'Remove cow/horse filter' })
-          let tanYellowFilterRemoveButton = getByRole('button', { name: 'Remove tan/yellow filter' })
+          const characteristicsSection = getByTestId('characteristics')
+          let cowHorseFilterRemoveButton = within(characteristicsSection).getByTestId('remove-filter-LK-CWHRS')
+          let tanYellowFilterRemoveButton = within(characteristicsSection).getByTestId('remove-filter-CLR-TNLLW')
           // confirm the cow/horse and tan/yellow filters are applied
           expect(cowHorseFilterRemoveButton).to.be.ok()
           expect(tanYellowFilterRemoveButton).to.be.ok()
@@ -250,8 +255,8 @@ describe('SurveyTask', function () {
           const clearFiltersButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.clearFilters' })
           // clear the filters
           await user.click(clearFiltersButton)
-          cowHorseFilterRemoveButton = queryByRole('button', { name: 'Remove cow/horse filter' })
-          tanYellowFilterRemoveButton = queryByRole('button', { name: 'Remove tan/yellow filter' })
+          cowHorseFilterRemoveButton = queryByTestId('remove-filter-LK-CWHRS')
+          tanYellowFilterRemoveButton = queryByTestId('remove-filter-CLR-TNLLW')
           // confirm the cow/horse and tan/yellow filters are removed
           expect(cowHorseFilterRemoveButton).to.be.null()
           expect(tanYellowFilterRemoveButton).to.be.null()
@@ -401,7 +406,7 @@ describe('SurveyTask', function () {
       describe('when filters are keyed', function () {
         it('should show the filter button with a remove filter button', async function () {
           const user = userEvent.setup({ delay: null })
-          const { getByRole, getByTestId, queryByRole } = render(<DefaultStory />)
+          const { getByTestId, queryByTestId } = render(<DefaultStory />)
           // tabbing to and opening the Filter button
           await user.keyboard('[Tab][Enter]')
           // the solidFilterButton is the button to filter choices by "solid". Solid is a specific value of the "Pattern" characteristic.
@@ -409,12 +414,14 @@ describe('SurveyTask', function () {
           expect(solidFilterButton).to.be.ok()
 
           // the solidFilterRemoveButton is the small x button that appears over a filter to remove the filter, after it is selected. The presence of this button indicates that the filter is selected. The absence of this button indicates that the filter is not selected.
-          let solidFilterRemoveButton = queryByRole('button', { name: 'Remove solid filter' })
+          let characteristicsSection = queryByTestId('characteristics')
+          let solidFilterRemoveButton = within(characteristicsSection).queryByTestId('remove-filter-PTTRN-SLD')
           expect(solidFilterRemoveButton).to.be.null()
           
           // tabbing to the pattern section that contains the solid filter and selecting the solid filter with space key
           await user.keyboard('[Tab][Tab][Space]')
-          solidFilterRemoveButton = getByRole('button', { name: 'Remove solid filter' })
+          characteristicsSection = queryByTestId('characteristics')
+          solidFilterRemoveButton = within(characteristicsSection).getByTestId('remove-filter-PTTRN-SLD')
           expect(solidFilterRemoveButton).to.be.ok()
         })
 
@@ -438,20 +445,21 @@ describe('SurveyTask', function () {
 
         it('should remove the filter on remove filter button keypress (within Characteristics)', async function () {
           const user = userEvent.setup({ delay: null })
-          const { getAllByRole, getByRole, queryByRole } = render(<DefaultStory />)
+          const { getAllByRole, getByRole, queryByTestId } = render(<DefaultStory />)
           const filterButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
           // tabbing to and opening the Filter button
           await user.keyboard('[Tab][Enter]')
           // tabbing to the pattern section that contains the solid filter and selecting the solid filter with space key
           await user.keyboard('[Tab][Tab][Space]')
           // confirm the solid filter is selected with existence of the related remove filter button
-          let solidFilterRemoveButton = getByRole('button', { name: 'Remove solid filter' })
+          let characteristicsSection = queryByTestId('characteristics')
+          let solidFilterRemoveButton = within(characteristicsSection).getByTestId('remove-filter-PTTRN-SLD')
           expect(solidFilterRemoveButton).to.be.ok()
 
           // remove the solid filter with the "Remove solid filter" small x button
           await user.keyboard('[Tab][Tab][Space]')
           // confirm the solid filter is no longer selected with absence of the related remove filter button
-          solidFilterRemoveButton = queryByRole('button', { name: 'Remove solid filter' })
+          solidFilterRemoveButton = queryByTestId('remove-filter-PTTRN-SLD')
           expect(solidFilterRemoveButton).to.be.null()
           
           // close the filters
@@ -463,14 +471,15 @@ describe('SurveyTask', function () {
 
         it('should remove the filter on remove filter button keypress (within FilterStatus)', async function () {
           const user = userEvent.setup({ delay: null })
-          const { getAllByRole, getByRole } = render(<DefaultStory />)
+          const { getAllByRole, getByRole, getByTestId } = render(<DefaultStory />)
           const filterButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
           // tabbing to and opening the Filter button
           await user.keyboard('[Tab][Enter]')
           // tabbing to the pattern section that contains the solid filter and selecting the solid filter with space key
           await user.keyboard('[Tab][Tab][Space]')
           // confirm the solid filter is selected with existence of the related remove filter button
-          let solidFilterRemoveButton = getByRole('button', { name: 'Remove solid filter' })
+          let filterStatusSection = getByTestId('filter-status')
+          let solidFilterRemoveButton = within(filterStatusSection).getByTestId('remove-filter-PTTRN-SLD')
           expect(solidFilterRemoveButton).to.be.ok()
 
           // close the filters
