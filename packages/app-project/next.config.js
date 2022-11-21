@@ -52,6 +52,11 @@ const nextConfig = {
 
   experimental: {
     forceSwcTransforms: true,
+    modularizeImports: {
+      lodash: {
+        transform: 'lodash/{{member}}',
+      },
+    },
   },
 
   async headers() {

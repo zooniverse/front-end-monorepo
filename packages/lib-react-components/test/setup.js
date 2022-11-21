@@ -36,6 +36,8 @@ class ResizeObserver {
 }
 
 window.ResizeObserver = ResizeObserver
+window.scrollTo = () => true
+
 global.window = window
 global.document = window.document
 global.Image = window.Image

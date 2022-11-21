@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Button, Box, RadioButtonGroup } from 'grommet'
 import styled from 'styled-components'
 import { FormNext, FormPrevious } from 'grommet-icons'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 const StyledButton = styled(Button)`
   &:first-of-type {

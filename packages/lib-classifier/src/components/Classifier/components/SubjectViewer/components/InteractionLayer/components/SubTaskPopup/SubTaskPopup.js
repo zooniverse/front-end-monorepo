@@ -3,7 +3,7 @@ import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { useCallback, useState } from 'react'
 import { MovableModal } from '@zooniverse/react-components'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 import { useClientRect } from '@hooks'
 import * as taskRegister from '@plugins/tasks'

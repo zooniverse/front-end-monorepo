@@ -1,12 +1,12 @@
 import React from 'react'
-import mime from 'mime-types'
+import mime from 'mime/lite'
 import Audio from './components/Audio'
 import ThumbnailImage from './components/ThumbnailImage'
 import Video from './components/Video'
 import { propTypes, defaultProps } from './helpers/mediaPropTypes'
 
 export default function Media (props) {
-  const mimeType = mime.lookup(props.src)
+  const mimeType = mime.getType(props.src)
 
   if (mimeType && mimeType.includes('image')) {
     return (

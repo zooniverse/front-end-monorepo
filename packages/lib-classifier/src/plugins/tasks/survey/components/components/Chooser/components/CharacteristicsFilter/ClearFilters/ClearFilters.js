@@ -3,7 +3,7 @@ import { Clear } from 'grommet-icons'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { PlainButton, SpacedText } from '@zooniverse/react-components'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 export default function ClearFilters (props) {
   const {

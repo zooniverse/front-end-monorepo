@@ -31,6 +31,7 @@ module.exports = {
   },
   output: {
     path: path.resolve('dist'),
+    publicPath: '',
     filename: 'main.js',
     library: '@zooniverse/react-components',
     libraryTarget: 'umd',

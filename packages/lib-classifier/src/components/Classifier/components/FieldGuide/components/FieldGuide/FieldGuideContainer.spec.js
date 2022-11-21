@@ -3,7 +3,7 @@ import React from 'react'
 import { MovableModal, Modal } from '@zooniverse/react-components'
 import FieldGuideContainer from './FieldGuideContainer'
 import { FieldGuideFactory, FieldGuideMediumFactory } from '@test/factories'
-import i18n from '@test/i18n/i18n-for-tests'
+import i18n from '@translations/i18n'
 import sinon from 'sinon'
 
 const medium = FieldGuideMediumFactory.build()

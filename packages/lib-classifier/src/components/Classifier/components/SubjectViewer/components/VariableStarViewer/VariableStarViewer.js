@@ -7,7 +7,7 @@ import {
 } from 'grommet'
 import { withParentSize } from '@visx/responsive'
 import { SpacedText } from '@zooniverse/react-components'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 import { ScatterPlotViewer } from '../ScatterPlotViewer'
 import { SingleImageViewerContainer } from '../SingleImageViewer'

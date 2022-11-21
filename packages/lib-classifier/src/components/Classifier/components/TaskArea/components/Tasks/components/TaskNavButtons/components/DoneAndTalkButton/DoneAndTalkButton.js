@@ -1,7 +1,7 @@
 import { PrimaryButton } from '@zooniverse/react-components'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 function DoneAndTalkButton ({
   disabled = false,

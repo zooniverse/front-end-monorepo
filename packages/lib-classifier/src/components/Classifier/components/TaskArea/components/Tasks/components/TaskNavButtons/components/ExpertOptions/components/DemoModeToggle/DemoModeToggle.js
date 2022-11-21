@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { CheckBox } from 'grommet'
 import { SpacedText } from '@zooniverse/react-components'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 export default function DemoModeToggle ({ demoMode, setDemoMode }) {
   const { t } = useTranslation('components')

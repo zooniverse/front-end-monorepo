@@ -1,5 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { extent } from 'd3'
+import { extent } from 'd3-array'
 import { Box } from 'grommet'
 import { zip } from 'lodash'
 import PropTypes from 'prop-types'

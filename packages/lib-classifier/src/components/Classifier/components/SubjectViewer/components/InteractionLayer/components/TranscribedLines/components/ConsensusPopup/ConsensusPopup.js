@@ -3,7 +3,7 @@ import { array, bool, func, object, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import { Box, List, Paragraph, Text } from 'grommet'
 import { MovableModal } from '@zooniverse/react-components'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 import getDefaultPosition from '../../../../helpers/getDefaultPosition'
 import { MIN_POPUP_HEIGHT, MIN_POPUP_WIDTH } from './helpers/constants'

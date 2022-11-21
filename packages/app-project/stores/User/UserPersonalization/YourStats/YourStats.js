@@ -1,6 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
 import { GraphQLClient } from 'graphql-request'
-import _ from 'lodash'
 import { flow, getRoot, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 

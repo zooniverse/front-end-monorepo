@@ -9,7 +9,7 @@ import {
 import PropTypes from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { withTheme, css } from 'styled-components'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 import { observer } from 'mobx-react'
 import { useStores } from '@hooks'
 

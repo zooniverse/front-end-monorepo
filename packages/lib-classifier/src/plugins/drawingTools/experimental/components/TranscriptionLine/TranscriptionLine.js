@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react'
 import { ThemeContext } from 'styled-components'
 import { MobXProviderContext } from 'mobx-react'
 import { Tooltip } from '@zooniverse/react-components'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 import TooltipIcon from './components/TooltipIcon'
 import { HANDLE_RADIUS } from './helpers/constants'

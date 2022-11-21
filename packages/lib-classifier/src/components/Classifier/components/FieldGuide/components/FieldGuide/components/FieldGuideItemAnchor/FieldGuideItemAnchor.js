@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import { withTheme } from 'styled-components'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 const defaultIcons = observable.map()
 export function AnchorLabel({

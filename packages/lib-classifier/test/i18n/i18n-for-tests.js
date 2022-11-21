@@ -1,4 +1,4 @@
-import i18n from 'i18next'
+import i18n from '@translations/i18n'
 import { initReactI18next } from 'react-i18next'
 import components from '../../src/translations/en/components.json'
 

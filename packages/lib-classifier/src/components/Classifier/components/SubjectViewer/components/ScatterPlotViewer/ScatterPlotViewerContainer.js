@@ -1,7 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import request from 'superagent'
 import { Box } from 'grommet'
 import ScatterPlotViewer from './ScatterPlotViewer'
 import locationValidator from '../../helpers/locationValidator'
@@ -58,10 +57,13 @@ class ScatterPlotViewerContainer extends Component {
     const { onError } = this.props
     try {
       const url = this.getSubjectUrl()
-      const response = await request.get(url)
-      // Get the JSON data, or (as a failsafe) parse the JSON data if the
-      // response is returned as a string
-      const responseData = response.body || JSON.parse(response.text)
+      const response = await fetch(url)
+      if (!response.ok) {
+        const error = new Error(response.statusText)
+        error.status = response.status
+        throw error
+      }
+      const responseData = await response.json()
 
       if (responseData.data && responseData.chartOptions) {
         return responseData

@@ -5,7 +5,7 @@ import { Chat, Close, FormNextLink } from 'grommet-icons'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 import Comment from './components/Comment'
 import PostForm from './components/PostForm'

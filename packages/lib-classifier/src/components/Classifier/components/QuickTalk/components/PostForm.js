@@ -4,7 +4,7 @@ import { Box, Form, Text, TextArea } from 'grommet'
 import styled from 'styled-components'
 import { PrimaryButton } from '@zooniverse/react-components'
 import asyncStates from '@zooniverse/async-states'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 const SubmitButton = styled(PrimaryButton)`
   display: block;

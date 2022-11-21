@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Box } from 'grommet'
 import { ZoomIn } from 'grommet-icons'
 import { MetaToolsButton } from '@zooniverse/react-components'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 function ZoomControlButton (props) {
   const { t } = useTranslation('components')

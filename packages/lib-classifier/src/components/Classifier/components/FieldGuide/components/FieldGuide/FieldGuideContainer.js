@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { MovableModal, Modal } from '@zooniverse/react-components'
 import FieldGuide from './FieldGuide'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 function FieldGuideContainer ({
   onClose = () => true,

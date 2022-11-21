@@ -76,13 +76,15 @@ export function SignedIn() {
   )
 }
 
-export function SignedInNarrowWindowView() {
+export function SignedInNarrowWindowView({ unreadMessages, unreadNotifications }) {
   return(
     <Grommet theme={zooTheme} full>
       <ZooHeader
         isAdmin
         signIn={signIn}
         signOut={signOut}
+        unreadMessages={unreadMessages}
+        unreadNotifications={unreadNotifications}
         user={{
           admin: true,
           display_name: 'Zoo Tester',
@@ -91,6 +93,10 @@ export function SignedInNarrowWindowView() {
       />
     </Grommet>
   )
+}
+SignedInNarrowWindowView.args = {
+  unreadNotifications: 0,
+  unreadMessages: 3
 }
 
 SignedInNarrowWindowView.parameters = {

@@ -20,6 +20,7 @@
   },
   "scripts": {
     "bootstrap": "./bin/bootstrap.sh",
+    "bootstrap:es6": "./bin/bootstrap:es6.sh",
     "build": "lerna run --parallel build",
     "clean-install": "./bin/clean-install.sh",
     "coverage-lcov": "nyc report --reporter=lcov",

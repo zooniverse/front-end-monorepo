@@ -13,8 +13,7 @@ The `/translations` folder contains json dictionary files for translatable strin
 Import `useTranslation()` hook and config. Use `.` to indicate nested object keys.
 
 ```js
-import { useTranslation } from 'react-i18next'
-import '../translations/i18n'
+import { useTranslation } from '../translations/i18n'
 
 const MyComponent = () => {
   const { t } = useTranslation()

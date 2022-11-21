@@ -1,7 +1,7 @@
 import { MetaToolsButton } from '@zooniverse/react-components'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 import InfoIcon from './InfoIcon'
 

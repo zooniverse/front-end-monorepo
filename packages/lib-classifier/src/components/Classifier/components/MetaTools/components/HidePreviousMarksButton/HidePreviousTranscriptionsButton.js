@@ -4,7 +4,7 @@ import { Box, DropButton } from 'grommet'
 import { FormDown, FormView, FormViewHide, Hide } from 'grommet-icons'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 import SHOWN_MARKS from '@helpers/shownMarks'
 

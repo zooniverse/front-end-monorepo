@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Text } from 'grommet'
 import { PlainButton } from '@zooniverse/react-components'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 import styled from 'styled-components'
 
 const Fieldset = styled('fieldset')`

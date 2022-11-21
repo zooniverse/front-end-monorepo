@@ -4,7 +4,7 @@ import { CaretNext, CaretPrevious } from 'grommet-icons'
 import { array, bool, func, oneOf, oneOfType, shape, string } from 'prop-types'
 import React, { Component, createRef } from 'react'
 import styled, { withTheme } from 'styled-components'
-import { useTranslation, withTranslation } from 'react-i18next'
+import { useTranslation, withTranslation } from '@translations/i18n'
 
 import Triangle from '@shared/Triangle'
 import TooltipText from './components/TooltipText'

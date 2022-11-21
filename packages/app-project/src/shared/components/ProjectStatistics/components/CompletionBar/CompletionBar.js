@@ -1,5 +1,5 @@
 import theme from '@zooniverse/grommet-theme'
-import * as d3 from 'd3'
+import { select, interpolate, format } from 'd3'
 import PropTypes from 'prop-types'
 import { createRef, Component } from 'react';
 import styled from 'styled-components'
@@ -24,7 +24,7 @@ class CompletionBar extends Component {
   }
 
   initChart () {
-    this.d3svg = d3.select(this.svgRef.current)
+    this.d3svg = select(this.svgRef.current)
 
     this.d3svg
       .selectAll('.bar')
@@ -50,11 +50,11 @@ class CompletionBar extends Component {
       .transition()
       .duration(1000)
       .tween('text', function (d, i, elements) {
-        const node = d3.select(this)
-        const interpolator = d3.interpolate(0, d)
+        const node = select(this)
+        const interpolator = interpolate(0, d)
         return t => {
           const value = interpolator(t)
-          const percent = d3.format('.0%')(value)
+          const percent = format('.0%')(value)
           node.text(percent)
             .attr('x', percent)
           if (value > 0.5) {

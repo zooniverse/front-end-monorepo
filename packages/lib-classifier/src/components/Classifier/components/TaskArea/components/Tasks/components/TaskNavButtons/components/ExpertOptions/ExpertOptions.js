@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, DropButton } from 'grommet'
 import { SettingsOption } from 'grommet-icons'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 import DemoModeToggle from './components/DemoModeToggle'
 

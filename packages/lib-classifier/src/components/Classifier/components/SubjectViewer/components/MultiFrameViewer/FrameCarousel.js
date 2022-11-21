@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import { Media } from '@zooniverse/react-components'
-import { useTranslation, withTranslation } from 'react-i18next'
+import { useTranslation, withTranslation } from '@translations/i18n'
 
 import locationValidator from '../../helpers/locationValidator'
 

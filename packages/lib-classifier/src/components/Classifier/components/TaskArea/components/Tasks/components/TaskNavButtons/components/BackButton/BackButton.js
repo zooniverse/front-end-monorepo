@@ -4,7 +4,7 @@ import { Button, Text } from 'grommet'
 import styled, { css } from 'styled-components'
 import { withThemeContext } from '@zooniverse/react-components'
 import theme from './theme'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 export const StyledBackButtonWrapper = styled.div`
   margin-right: 1ch;

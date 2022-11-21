@@ -18,12 +18,12 @@ jobs:
           cache: 'yarn'
 
       - run: yarn install --production=false --frozen-lockfile
-      - run: yarn workspace @zooniverse/react-components build
-      - run: yarn workspace @zooniverse/classifier build
+      - run: yarn workspace @zooniverse/react-components build:es6
+      - run: yarn workspace @zooniverse/classifier build:es6
       - uses: actions/upload-artifact@v3
         with:
           name: build
-          path: packages/*/dist/main.js
+          path: packages/*/dist/
 
   build_project_app:
     name: Build NextJS project app

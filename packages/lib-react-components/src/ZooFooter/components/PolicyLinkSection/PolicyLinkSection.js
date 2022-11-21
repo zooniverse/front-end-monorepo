@@ -1,7 +1,7 @@
 import { Anchor, Box } from 'grommet'
 import { arrayOf, string } from 'prop-types'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '../../../translations/i18n'
 
 import zipLabelsAndUrls from '../../helpers/zipLabelsAndUrls'
 import SpacedText from '../../../SpacedText'
