@@ -1,7 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
-import SubjectStore from '../SubjectStore'
 import SubjectViewerStore from './SubjectViewerStore'
 
 describe('Model > SubjectViewerStore', function () {
@@ -153,6 +152,20 @@ describe('Model > SubjectViewerStore', function () {
       subjectViewerStore.rotate()
       subjectViewerStore.resetView()
       expect(subjectViewerStore.rotation).to.equal(0)
+    })
+  })
+
+  describe('Actions > setFlipbookSpeed', function () {
+    let subjectViewerStore
+
+    before(function () {
+      subjectViewerStore = SubjectViewerStore.create()
+    })
+
+    it('should set a new flipbook speed', function () {
+      expect(subjectViewerStore.flipbookSpeed).to.equal(1)
+      subjectViewerStore.setFlipbookSpeed(2)
+      expect(subjectViewerStore.flipbookSpeed).to.equal(2)
     })
   })
 
