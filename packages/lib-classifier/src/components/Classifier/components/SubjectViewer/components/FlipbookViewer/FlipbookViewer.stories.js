@@ -62,7 +62,7 @@ const store = mockStore({
   subject: mockSubject
 })
 
-const store2 = mockStore({
+const storeWithDefaultFrame = mockStore({
   subject: subjectWithDefaultFrame
 })
 
@@ -94,11 +94,11 @@ export const WithDefaultFrame = ({ dark }) => {
   const themeMode = dark ? 'dark' : 'light'
   return (
     <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
-      <Provider classifierStore={store2}>
+      <Provider classifierStore={storeWithDefaultFrame}>
         <Box width='large'>
           <FlipbookViewerContainer
             loadingState={asyncStates.success}
-            subject={store2.subjects.active}
+            subject={storeWithDefaultFrame.subjects.active}
           />
         </Box>
       </Provider>
