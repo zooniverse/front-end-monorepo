@@ -34,11 +34,19 @@ const nextConfig = {
   assetPrefix,
   basePath: '/about', 
 
+  compiler: {
+    styledComponents: true,
+  },
+
   env: {
     COMMIT_ID,
     PANOPTES_ENV,
     SENTRY_CONTENT_DSN,
     APP_ENV
+  },
+
+  experimental: {
+    forceSwcTransforms: true,
   },
 
   reactStrictMode: true,

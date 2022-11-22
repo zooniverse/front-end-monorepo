@@ -12,8 +12,6 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
 class ThemeModeToggleContainer extends Component {
   render () {
     const { mode, toggleMode } = this.props
@@ -35,4 +33,4 @@ ThemeModeToggleContainer.defaultProps = {
   mode: 'light'
 }
 
-export default ThemeModeToggleContainer
+export default inject(storeMapper)(observer(ThemeModeToggleContainer))

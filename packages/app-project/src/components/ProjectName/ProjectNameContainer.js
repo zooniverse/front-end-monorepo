@@ -11,8 +11,6 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
 class ProjectNameContainer extends Component {
   render () {
     return (
@@ -25,4 +23,4 @@ ProjectNameContainer.propTypes = {
   projectName: string
 }
 
-export default ProjectNameContainer
+export default inject(storeMapper)(observer(ProjectNameContainer))

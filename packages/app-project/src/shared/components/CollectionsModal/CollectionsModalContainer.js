@@ -23,8 +23,6 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
 class CollectionsModalContainer extends Component {
   constructor () {
     super()
@@ -124,4 +122,4 @@ CollectionsModalContainer.defaultProps = {
   searchCollections: Function.prototype
 }
 
-export default CollectionsModalContainer
+export default inject(storeMapper)(observer(CollectionsModalContainer))

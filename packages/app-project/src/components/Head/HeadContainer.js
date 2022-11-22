@@ -81,10 +81,7 @@ HeadContainer.propTypes = {
   })
 }
 
-@inject(storeMapper)
-@withRouter
-@observer
-class DecoratedHeadContainer extends HeadContainer {}
+const DecoratedHeadContainer = inject(storeMapper)(withRouter(observer(HeadContainer)))
 
 export default DecoratedHeadContainer
 export { HeadContainer }

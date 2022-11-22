@@ -10,8 +10,6 @@ function storeMapper(stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
 class Logger extends Component {
   static async getInitialProps({ query = {}, res }) {
     const environment = query.env || process.env.NODE_ENV
@@ -48,4 +46,4 @@ class Logger extends Component {
   }
 }
 
-export default Logger
+export default inject(storeMapper)(observer(Logger))
