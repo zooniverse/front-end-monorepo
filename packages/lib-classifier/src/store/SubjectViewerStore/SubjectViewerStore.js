@@ -12,6 +12,7 @@ const SubjectViewer = types
       naturalHeight: types.integer,
       naturalWidth: types.integer
     })),
+    flipbookSpeed: types.optional(types.number, 1),
     frame: types.optional(types.integer, 0),
     fullscreen: types.optional(types.boolean, false),
     invert: types.optional(types.boolean, false),
@@ -144,6 +145,10 @@ const SubjectViewer = types
       rotate () {
         console.log('rotating subject')
         self.rotation -= 90
+      },
+
+      setFlipbookSpeed (speed) {
+        self.flipbookSpeed = speed
       },
 
       setFrame (index) {
