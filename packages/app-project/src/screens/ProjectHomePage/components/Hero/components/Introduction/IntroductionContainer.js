@@ -42,10 +42,7 @@ IntroductionContainer.propTypes = {
   title: string.isRequired
 }
 
-@inject(storeMapper)
-@withRouter
-@observer
-class DecoratedIntroductionContainer extends IntroductionContainer {}
+const DecoratedIntroductionContainer = inject(storeMapper)(withRouter(observer(IntroductionContainer)))
 
 export {
   DecoratedIntroductionContainer as default,

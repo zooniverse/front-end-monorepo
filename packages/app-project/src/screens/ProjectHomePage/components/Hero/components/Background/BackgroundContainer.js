@@ -22,9 +22,7 @@ BackgroundContainer.propTypes = {
   backgroundSrc: string.isRequired
 }
 
-@inject(storeMapper)
-@observer
-class DecoratedBackgroundContainer extends BackgroundContainer { }
+const DecoratedBackgroundContainer = inject(storeMapper)(observer(BackgroundContainer))
 
 export {
   DecoratedBackgroundContainer as default,

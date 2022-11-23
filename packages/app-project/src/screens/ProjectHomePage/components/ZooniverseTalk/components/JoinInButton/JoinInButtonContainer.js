@@ -28,8 +28,5 @@ JoinInButtonContainer.propTypes = {
   }).isRequired
 }
 
-@withRouter
-class DecoratedJoinInButtonContainer extends JoinInButtonContainer { }
-
-export default DecoratedJoinInButtonContainer
+export default withRouter(JoinInButtonContainer)
 export { JoinInButtonContainer }

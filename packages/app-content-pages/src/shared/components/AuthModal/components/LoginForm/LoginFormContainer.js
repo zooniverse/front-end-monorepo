@@ -66,9 +66,7 @@ LoginFormContainer.defaultProps = {
   closeModal: () => {}
 }
 
-@inject('store')
-@observer
-class DecoratedLoginFormContainer extends LoginFormContainer { }
+const DecoratedLoginFormContainer = inject('store')(observer(LoginFormContainer))
 
 export default DecoratedLoginFormContainer
 export { LoginFormContainer }
