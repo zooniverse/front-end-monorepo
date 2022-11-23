@@ -153,6 +153,20 @@ describe('Model > SubjectViewerStore', function () {
     })
   })
 
+  describe('Actions > setFlipbookSpeed', function () {
+    let subjectViewerStore
+
+    before(function () {
+      subjectViewerStore = SubjectViewerStore.create()
+    })
+
+    it('should set a new flipbook speed', function () {
+      expect(subjectViewerStore.flipbookSpeed).to.equal(1)
+      subjectViewerStore.setFlipbookSpeed(2)
+      expect(subjectViewerStore.flipbookSpeed).to.equal(2)
+    })
+  })
+
   describe('With zoom', function () {
     let subjectViewerStore
     let onZoom
