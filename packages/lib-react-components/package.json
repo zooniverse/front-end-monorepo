@@ -39,7 +39,7 @@
   },
   "peerDependencies": {
     "@zooniverse/grommet-theme": "3.x.x",
-    "grommet": "2.17.x",
+    "grommet": "2.x.x",
     "grommet-icons": "4.x.x",
     "react": ">= 16.14",
     "react-dom": ">= 16.14",
