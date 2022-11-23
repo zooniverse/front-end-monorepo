@@ -41,10 +41,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Set the target AKS cluster
-      uses: Azure/aks-set-context@v1
+    - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_AKS }}
+
+    - name: Set the target AKS cluster
+      uses: Azure/aks-set-context@v3
+      with:
         cluster-name: microservices
         resource-group: kubernetes
 
