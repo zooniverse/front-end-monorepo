@@ -51,6 +51,34 @@ const FlipbookControls = ({
 
   const [playbackSpeed, setPlaybackSpeed] = useState(1)
 
+  /** DefaultLayout for classify page styling has breakpoints at 700px and 1160px
+   * In FlipbookControls we're simply checking for when this component is < 400px
+   * which happens both before and after the 700px layout breakpoint
+   */
+  const [smallScreenStyle, setSmallScreenStyle] = useState(false)
+  const controlsContainer = useRef(null)
+  const resizeObserver = useRef(null)
+
+  useEffect(() => {
+    resizeObserver.current = new window.ResizeObserver((entries) => {
+      if (entries[0].contentRect.width < 400) {
+        setSmallScreenStyle(true)
+      } else {
+        setSmallScreenStyle(false)
+      }
+    })
+
+    if (controlsContainer.current) {
+      resizeObserver.current.observe(controlsContainer.current)
+    }
+
+    return () => {
+      if (controlsContainer.current) {
+        resizeObserver.current.unobserve(controlsContainer.current)
+      }
+    }
+  }, [])
+
   const handleKeyDown = (event) => {
     const index = currentFrame
     switch (event.key) {
@@ -141,7 +169,7 @@ const FlipbookControls = ({
 
   return (
     <ThemeContext.Extend value={controlsTheme}>
-      <Box background={backgrounds}>
+      <Box background={backgrounds} ref={controlsContainer}>
         <Grid
           columns={['120px', 'flex']}
           pad={{ horizontal: '20px', vertical: '10px' }}

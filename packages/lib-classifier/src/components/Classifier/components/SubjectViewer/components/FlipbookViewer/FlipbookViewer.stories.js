@@ -62,6 +62,22 @@ export const Default = ({ dark }) => {
   )
 }
 
+export const MobileWidth = ({ dark }) => {
+  const themeMode = dark ? 'dark' : 'light'
+  return (
+    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
+      <Provider classifierStore={store}>
+        <Box width='medium'>
+          <FlipbookViewerContainer
+            loadingState={asyncStates.success}
+            subject={store.subjects.active}
+          />
+        </Box>
+      </Provider>
+    </Grommet>
+  )
+}
+
 export const NoSubject = ({ dark }) => {
   const themeMode = dark ? 'dark' : 'light'
   return (
