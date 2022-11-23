@@ -4,8 +4,6 @@ import sinon from 'sinon'
 import SubjectViewerStore from './SubjectViewerStore'
 
 describe('Model > SubjectViewerStore', function () {
-  const subject = Factory.build('subject')
-
   it('should exist', function () {
     expect(SubjectViewerStore).to.be.ok()
     expect(SubjectViewerStore).to.be.an('object')
@@ -131,12 +129,12 @@ describe('Model > SubjectViewerStore', function () {
     })
 
     describe('when the subject has a default frame of 2', function () {
-      it('should have the store frame as 2', function () {
+      it('should save frame 2 in the store as index 1', function () {
         const subjectWithDefaultFrame = Factory.build('subject', {
           metadata: { default_frame: 2 }
         })
         subjectViewerStore.resetSubject(subjectWithDefaultFrame)
-        expect(subjectViewerStore.frame).to.equal(2)
+        expect(subjectViewerStore.frame).to.equal(1)
       })
     })
   })
