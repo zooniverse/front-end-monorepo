@@ -1,5 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { getType } from 'mobx-state-tree'
+import { getSnapshot, getType } from 'mobx-state-tree'
 import { Factory } from 'rosie'
 
 import { SubjectFactory } from '@test/factories'
@@ -20,7 +20,7 @@ describe('Models > SubjectType', function () {
 
     it('should be valid subjects', function () {
       const expectedSubject = subjectModels.SingleImageSubject.create(snapshot)
-      expect(subject).to.deep.equal(expectedSubject)
+      expect(getSnapshot(subject)).to.deep.equal(getSnapshot(expectedSubject))
     })
 
     it('should be of the correct subject type', function () {
@@ -40,7 +40,7 @@ describe('Models > SubjectType', function () {
 
     it('should be valid subjects', function () {
       const expectedSubject = subjectModels.SingleVideoSubject.create(snapshot)
-      expect(subject).to.deep.equal(expectedSubject)
+      expect(getSnapshot(subject)).to.deep.equal(getSnapshot(expectedSubject))
     })
 
     it('should be of the correct subject type', function () {
@@ -62,7 +62,7 @@ describe('Models > SubjectType', function () {
 
     it('should be valid subjects', function () {
       const expectedSubject = subjectModels.SingleTextSubject.create(snapshot)
-      expect(subject).to.deep.equal(expectedSubject)
+      expect(getSnapshot(subject)).to.deep.equal(getSnapshot(expectedSubject))
     })
 
     it('should be of the correct subject type', function () {
@@ -87,7 +87,7 @@ describe('Models > SubjectType', function () {
 
     it('should be valid subjects', function () {
       const expectedSubject = subjectModels.ImageSubject.create(snapshot)
-      expect(subject).to.deep.equal(expectedSubject)
+      expect(getSnapshot(subject)).to.deep.equal(getSnapshot(expectedSubject))
     })
 
     it('should be of the correct type', function () {
@@ -112,7 +112,7 @@ describe('Models > SubjectType', function () {
 
     it('should be valid subjects', function () {
       const expectedSubject = subjectModels.ImageAndTextSubject.create(snapshot)
-      expect(subject).to.deep.equal(expectedSubject)
+      expect(getSnapshot(subject)).to.deep.equal(getSnapshot(expectedSubject))
     })
 
     it('should be of the correct subject type', function () {
@@ -135,7 +135,7 @@ describe('Models > SubjectType', function () {
 
     it('should be valid subjects', function () {
       const expectedSubject = subjectModels.SingleJSONSubject.create(snapshot)
-      expect(subject).to.deep.equal(expectedSubject)
+      expect(getSnapshot(subject)).to.deep.equal(getSnapshot(expectedSubject))
     })
 
     it('should be of the correct subject type', function () {
@@ -164,7 +164,7 @@ describe('Models > SubjectType', function () {
 
     it('should be valid subjects', function () {
       const expectedSubject = subjectModels.SubjectGroup.create(snapshot)
-      expect(subject).to.deep.equal(expectedSubject)
+      expect(getSnapshot(subject)).to.deep.equal(getSnapshot(expectedSubject))
     })
     
     it('should be of the correct "subject group" type', function () {
@@ -187,7 +187,7 @@ describe('Models > SubjectType', function () {
 
     it('should be valid subjects', function () {
       const expectedSubject = subjectModels.ImageAndTextSubject.create(snapshot)
-      expect(subject).to.deep.equal(expectedSubject)
+      expect(getSnapshot(subject)).to.deep.equal(getSnapshot(expectedSubject))
     })
 
     it('should be image and text subjects', function () {

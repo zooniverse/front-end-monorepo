@@ -1,4 +1,5 @@
 import { shallow } from 'enzyme'
+import { getSnapshot } from 'mobx-state-tree'
 import React from 'react'
 
 import SGVGridCell from './SGVGridCell'
@@ -67,7 +68,7 @@ describe('Component > SubjectGroupViewer > SGVGridCell', function () {
   it('should render an image', function () {
     const image = wrapper.find('Styled(draggable(image))')    
     expect(image).to.have.lengthOf(1)
-    expect(image.prop('xlinkHref')).to.equal('https://foo.bar/example.png')
+    expect(image.prop('href')).to.equal('https://foo.bar/example.png')
   })
   
   describe('with a pan and zoom', function () {
@@ -113,7 +114,7 @@ describe('Component > SubjectGroupViewer > SGVGridCell', function () {
       const clickableBit = wrapper.find({tabIndex: 0})
       clickableBit.simulate('click', { preventDefault: () => {} })
       expect(annotation.value.length).to.equal(2)
-      expect(annotation.value).to.deep.equal([{ index: 99, subject: '1099' }, { index: 0, subject: '1000' }])
+      expect(getSnapshot(annotation.value)).to.deep.equal([{ index: 99, subject: '1099' }, { index: 0, subject: '1000' }])
     })
   })
 })

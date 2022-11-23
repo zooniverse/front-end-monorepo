@@ -17,7 +17,7 @@ describe('SVGImage', function () {
 
     const image = screen.getByRole('img', { name: 'Subject 1234' })
     expect(image).to.exist()
-    expect(image.getAttribute('xlink:href')).to.equal('https://some.domain/image.jpg')
+    expect(image.getAttribute('href')).to.equal('https://some.domain/image.jpg')
     expect(image.getAttribute('filter')).to.be.null()
   })
 

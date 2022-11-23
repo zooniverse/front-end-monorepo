@@ -229,8 +229,10 @@ describe('Models > Drawing Task > Mark', function () {
         expect(mark.subTaskPreviousAnnotationValues.size).to.equal(0)
         mark.setPreviousAnnotations(previousAnnotationValues)
         expect(mark.subTaskPreviousAnnotationValues.size).to.equal(previousAnnotationValues.length)
-        expect(mark.subTaskPreviousAnnotationValues.get(previousAnnotationValues[0].taskKey)).to.deep.equal(previousAnnotationValues[0])
-        expect(mark.subTaskPreviousAnnotationValues.get(previousAnnotationValues[1].taskKey)).to.deep.equal(previousAnnotationValues[1])
+        let taskAnnotations = getSnapshot(mark.subTaskPreviousAnnotationValues.get(previousAnnotationValues[0].taskKey))
+        expect(taskAnnotations).to.deep.equal(previousAnnotationValues[0])
+        taskAnnotations = getSnapshot(mark.subTaskPreviousAnnotationValues.get(previousAnnotationValues[1].taskKey))
+        expect(taskAnnotations).to.deep.equal(previousAnnotationValues[1])
       })
 
       it('should clear previous values otherwise', function () {

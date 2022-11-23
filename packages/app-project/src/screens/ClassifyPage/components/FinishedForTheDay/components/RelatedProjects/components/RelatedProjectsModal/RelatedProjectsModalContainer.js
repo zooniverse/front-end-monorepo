@@ -10,8 +10,6 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
 class RelatedProjectsModalContainer extends Component {
   render () {
     const { projectTitle } = this.props
@@ -28,4 +26,4 @@ RelatedProjectsModalContainer.propTypes = {
   projectTitle: string.isRequired
 }
 
-export default RelatedProjectsModalContainer
+export default inject(storeMapper)(observer(RelatedProjectsModalContainer))

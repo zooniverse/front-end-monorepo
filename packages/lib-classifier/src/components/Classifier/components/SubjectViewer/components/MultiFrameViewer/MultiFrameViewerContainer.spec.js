@@ -130,7 +130,7 @@ describe('Component > MultiFrameViewerContainer', function () {
       wrapper.update()
       const image = wrapper.find('image')
       expect(image).to.have.lengthOf(1)
-      expect(image.prop('xlinkHref')).to.equal('https://some.domain/image.jpg')
+      expect(image.prop('href')).to.equal('https://some.domain/image.jpg')
     })
 
     describe('with dragging enabled', function () {
@@ -138,7 +138,7 @@ describe('Component > MultiFrameViewerContainer', function () {
         wrapper.setProps({ move: true })
         const image = wrapper.find(DraggableImage)
         expect(image).to.have.lengthOf(1)
-        expect(image.prop('xlinkHref')).to.equal('https://some.domain/image.jpg')
+        expect(image.prop('href')).to.equal('https://some.domain/image.jpg')
       })
     })
 
