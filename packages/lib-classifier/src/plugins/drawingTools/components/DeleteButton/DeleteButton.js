@@ -61,7 +61,7 @@ function DeleteButton ({ label, mark, onDelete, onDeselect, rotate, scale, theme
       role='button'
       stroke={STROKE_COLOR}
       strokeWidth={STROKE_WIDTH}
-      tabIndex='0'
+      tabIndex='-1'
       transform={transform}
     >
       <circle
