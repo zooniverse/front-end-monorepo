@@ -108,6 +108,9 @@ export default function FilterStatus ({
         const value = characteristic.values?.[selectedValueId] || {}
         const valueImageSrc = images?.[value.image] || ''
         const label = strings.get(`characteristics.${characteristicId}.values.${selectedValueId}.label`)
+        function clearSelection() {
+          handleFilter(characteristicId)
+        }
 
         return (
           <FilterButton
@@ -115,7 +118,7 @@ export default function FilterStatus ({
             buttonSize='small'
             characteristicId={characteristicId}
             checked
-            onFilter={handleFilter}
+            onDelete={clearSelection}
             valueId={selectedValueId}
             valueImageSrc={valueImageSrc}
             valueLabel={label}
