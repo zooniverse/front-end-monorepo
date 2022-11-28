@@ -13543,9 +13543,9 @@ pako@~1.0.5:
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
 panoptes-client@~4.2.0:
-  version "4.2.4"
-  resolved "https://registry.yarnpkg.com/panoptes-client/-/panoptes-client-4.2.4.tgz#fcfb069d9182c77c67b437841ed75302acc7ae94"
-  integrity sha512-dfJQx9PZwHkF8oIEcGjmOk/fi782Z/d10lJ7G2bm6qfz4doPpdkEbZpIoCFp+mbQ85G4UcJsNNPmIMDGEEsKXA==
+  version "4.2.5"
+  resolved "https://registry.yarnpkg.com/panoptes-client/-/panoptes-client-4.2.5.tgz#7280b04113606900dfb3854a84ae619eb8444956"
+  integrity sha512-AsqDzOYkEhBjOTabIBxgoz8gWHudBloduojrwy9I8PRm6GpvtlH6wCxVVC8checKu0MQZ8YR+yZmng8xEvXiYw==
   dependencies:
     json-api-client "~6.0.0"
     local-storage "^2.0.0"
