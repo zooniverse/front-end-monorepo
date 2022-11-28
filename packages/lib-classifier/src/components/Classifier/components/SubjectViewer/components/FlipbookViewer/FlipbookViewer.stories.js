@@ -3,10 +3,18 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import mockStore from '@test/mockStore'
-import { SubjectFactory } from '@test/factories'
+import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import asyncStates from '@zooniverse/async-states'
 
 import FlipbookViewerContainer from './FlipbookViewerContainer'
+
+export default {
+  title: 'Subject Viewers / FlipbookViewer',
+  component: FlipbookViewerContainer,
+  args: {
+    dark: false
+  }
+}
 
 const background = {
   dark: 'dark-1',
@@ -34,6 +42,26 @@ const mockSubject = SubjectFactory.build({
   ]
 })
 
+const store = mockStore({
+  subject: mockSubject
+})
+
+export const Default = ({ dark }) => {
+  const themeMode = dark ? 'dark' : 'light'
+  return (
+    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
+      <Provider classifierStore={store}>
+        <Box width='large'>
+          <FlipbookViewerContainer
+            loadingState={asyncStates.success}
+            subject={store.subjects.active}
+          />
+        </Box>
+      </Provider>
+    </Grommet>
+  )
+}
+
 const subjectWithDefaultFrame = SubjectFactory.build({
   locations: [
     {
@@ -58,37 +86,9 @@ const subjectWithDefaultFrame = SubjectFactory.build({
   }
 })
 
-const store = mockStore({
-  subject: mockSubject
-})
-
 const storeWithDefaultFrame = mockStore({
   subject: subjectWithDefaultFrame
 })
-
-export default {
-  title: 'Subject Viewers / FlipbookViewer',
-  component: FlipbookViewerContainer,
-  args: {
-    dark: false
-  }
-}
-
-export const Default = ({ dark }) => {
-  const themeMode = dark ? 'dark' : 'light'
-  return (
-    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
-      <Provider classifierStore={store}>
-        <Box width='large'>
-          <FlipbookViewerContainer
-            loadingState={asyncStates.success}
-            subject={store.subjects.active}
-          />
-        </Box>
-      </Provider>
-    </Grommet>
-  )
-}
 
 export const WithDefaultFrame = ({ dark }) => {
   const themeMode = dark ? 'dark' : 'light'
@@ -106,15 +106,67 @@ export const WithDefaultFrame = ({ dark }) => {
   )
 }
 
+const workflowWithFiveIterations = WorkflowFactory.build({
+  configuration: {
+    playIterations: '5'
+  }
+})
+
+const storeWithFiveIterationWorkflow = mockStore({
+  subject: mockSubject,
+  workflow: workflowWithFiveIterations
+})
+
+export const FivePlayIterations = ({ dark }) => {
+  const themeMode = dark ? 'dark' : 'light'
+  return (
+    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
+      <Provider classifierStore={storeWithFiveIterationWorkflow}>
+        <Box width='large'>
+          <FlipbookViewerContainer
+            loadingState={asyncStates.success}
+            subject={storeWithFiveIterationWorkflow.subjects.active}
+          />
+        </Box>
+      </Provider>
+    </Grommet>
+  )
+}
+
+const workflowWithInfiniteIterations = WorkflowFactory.build({
+  configuration: {
+    playIterations: ''
+  }
+})
+
+const storeWithInfiniteIterationWorkflow = mockStore({
+  subject: mockSubject,
+  workflow: workflowWithInfiniteIterations
+})
+
+export const InfiniteIterations = ({ dark }) => {
+  const themeMode = dark ? 'dark' : 'light'
+  return (
+    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
+      <Provider classifierStore={storeWithInfiniteIterationWorkflow}>
+        <Box width='large'>
+          <FlipbookViewerContainer
+            loadingState={asyncStates.success}
+            subject={storeWithInfiniteIterationWorkflow.subjects.active}
+          />
+        </Box>
+      </Provider>
+    </Grommet>
+  )
+}
+
 export const NoSubject = ({ dark }) => {
   const themeMode = dark ? 'dark' : 'light'
   return (
     <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
       <Provider classifierStore={store}>
         <Box width='large'>
-          <FlipbookViewerContainer
-            loadingState={asyncStates.success}
-          />
+          <FlipbookViewerContainer loadingState={asyncStates.success} />
         </Box>
       </Provider>
     </Grommet>
