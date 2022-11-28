@@ -7,7 +7,7 @@ import {
   FormDown
 } from 'grommet-icons'
 import PropTypes from 'prop-types'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled, { withTheme, css } from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
@@ -58,11 +58,14 @@ const FlipbookControls = ({
   locations = [],
   onFrameChange = () => true,
   onPlayPause = () => true,
-  playing = false
+  playing = false,
+  playIterations
 }) => {
   const { flipbookSpeed, setFlipbookSpeed } = useStores(storeMapper)
   const { t } = useTranslation('components')
   const timeoutRef = useRef(null)
+
+  const [iterationCounter, setIterationCounter] = useState(0)
 
   const handleKeyDown = (event) => {
     const index = currentFrame
@@ -127,16 +130,28 @@ const FlipbookControls = ({
   }
 
   const resetTimeout = () => {
+    setIterationCounter(0)
     if (timeoutRef.current) {
       clearInterval(timeoutRef.current)
     }
   }
 
+  const handleIterationCounter = () => {
+    if (playIterations !== Infinity) {
+      setIterationCounter(iterationCounter + 1)
+    }
+  }
+
   useEffect(() => {
     if (playing) {
-      timeoutRef.current = setTimeout(() => {
-        handleNext()
-      }, 500 / flipbookSpeed)
+      if (iterationCounter < playIterations * locations.length) {
+        timeoutRef.current = setTimeout(() => {
+          handleIterationCounter()
+          handleNext()
+        }, 500 / flipbookSpeed)
+      } else if (iterationCounter === playIterations * locations.length) {
+        onPlayPause()
+      }
     }
 
     return () => {
