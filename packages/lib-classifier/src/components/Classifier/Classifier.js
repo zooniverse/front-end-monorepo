@@ -14,13 +14,13 @@ export default function Classifier({
   classifierStore,
   locale,
   onError = () => true,
-  project,
   showTutorial = false,
   subjectID,
   subjectSetID,
   workflowSnapshot,
 }) {
 
+  const project = classifierStore.projects.active
   const workflowID = workflowSnapshot?.id
   const workflowStrings = workflowSnapshot?.strings
   const user = usePanoptesUser()
@@ -28,7 +28,8 @@ export default function Classifier({
   let workflowVersionChanged = false
 
   if (workflowSnapshot) {
-    const storedWorkflow = classifierStore.workflows.resources.get(workflowSnapshot.id)
+    const { workflows } = classifierStore
+    const storedWorkflow = workflows.resources.get(workflowSnapshot.id)
     workflowVersionChanged = workflowSnapshot.version !== storedWorkflow?.version
     /*
       Merge the new snapshot into the existing workflow,
@@ -36,6 +37,17 @@ export default function Classifier({
       that aren't in the Panoptes data.
     */
     workflowSnapshot = storedWorkflow ? { ...getSnapshot(storedWorkflow), ...workflowSnapshot } : workflowSnapshot
+    /*
+      This should run when a project owner edits a workflow, but not when a workflow updates
+      as a result of receiving classifications eg. workflow.completeness.
+      It refreshes the stored workflow then resets any classifications in progress.
+    */
+    if (workflowVersionChanged) {
+      console.log('Refreshing workflow snapshot', workflowSnapshot.id)
+      workflows.setResources([workflowSnapshot])
+      // TODO: the task area crashes without the following line. Why is that?
+      classifierStore.startClassification()
+    }
   }
 
   const upp = useProjectPreferences(project?.id, user?.id)
@@ -69,12 +81,6 @@ export default function Classifier({
     }
   }, [locale])
 
-  useEffect(function onProjectChange() {
-    const { projects } = classifierStore
-    projects.setResources([project])
-    projects.setActive(project.id)
-  }, [project.id])
-
   useEffect(function onURLChange() {
     const { workflows } = classifierStore
     if (workflowID) {
@@ -92,20 +98,6 @@ export default function Classifier({
       applySnapshot(workflow.strings, workflowStrings)
     }
   }, [workflowID, workflowStrings])
-  /*
-    This should run when a project owner edits a workflow, but not when a workflow updates
-    as a result of receiving classifications eg. workflow.completeness.
-    It refreshes the stored workflow then resets any classifications in progress.
-  */
-  useEffect(function onWorkflowVersionChange() {
-    const { workflows } = classifierStore
-    if (workflowVersionChanged) {
-      console.log('Refreshing workflow snapshot', workflowSnapshot.id)
-      workflows.setResources([workflowSnapshot])
-      // TODO: the task area crashes without the following line. Why is that?
-      classifierStore.startClassification()
-    }
-  }, [workflowVersionChanged])
 
   try {
     return (
@@ -128,9 +120,6 @@ Classifier.propTypes = {
   classifierStore: PropTypes.object.isRequired,
   locale: PropTypes.string,
   onError: PropTypes.func,
-  project: PropTypes.shape({
-    id: PropTypes.string.isRequired
-  }).isRequired,
   showTutorial: PropTypes.bool,
   subjectSetID: PropTypes.string,
   subjectID: PropTypes.string,

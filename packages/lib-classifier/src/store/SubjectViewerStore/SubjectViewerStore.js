@@ -12,6 +12,7 @@ const SubjectViewer = types
       naturalHeight: types.integer,
       naturalWidth: types.integer
     })),
+    flipbookSpeed: types.optional(types.number, 1),
     frame: types.optional(types.integer, 0),
     fullscreen: types.optional(types.boolean, false),
     invert: types.optional(types.boolean, false),
@@ -124,8 +125,10 @@ const SubjectViewer = types
 
       resetSubject (subject) {
         let frame = 0
-        if (subject?.metadata?.default_frame >= 0) {
-          frame = parseInt(subject.metadata.default_frame)
+        // teams set default frame in the project builder
+        // here we're converting it to index
+        if (subject?.metadata?.default_frame > 0) {
+          frame = parseInt(subject.metadata.default_frame - 1)
         }
         self.dimensions = []
         self.frame = frame
@@ -144,6 +147,10 @@ const SubjectViewer = types
       rotate () {
         console.log('rotating subject')
         self.rotation -= 90
+      },
+
+      setFlipbookSpeed (speed) {
+        self.flipbookSpeed = speed
       },
 
       setFrame (index) {

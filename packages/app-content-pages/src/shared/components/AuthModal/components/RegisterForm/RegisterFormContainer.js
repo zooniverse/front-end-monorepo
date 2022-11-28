@@ -112,9 +112,7 @@ RegisterFormContainer.defaultProps = {
   closeModal: () => { }
 }
 
-@inject('store')
-@observer
-class DecoratedRegisterFormContainer extends RegisterFormContainer { }
+const DecoratedRegisterFormContainer = inject('store')(observer(RegisterFormContainer))
 
 export default DecoratedRegisterFormContainer
 export { RegisterFormContainer }

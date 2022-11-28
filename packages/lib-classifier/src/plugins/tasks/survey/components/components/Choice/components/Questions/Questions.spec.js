@@ -10,18 +10,7 @@ describe('Component > Questions', function () {
   const mockTask = SurveyTask.TaskModel.create(task)
   const questionIds = ['HWMN', 'WHTBHVRSDS', 'RTHRNNGPRSNT']
 
-  it('should render without crashing', function () {
-    render(
-      <Questions
-        questionIds={questionIds}
-        questions={mockTask.questions}
-        strings={mockTask.strings}
-      />
-    )
-    expect(screen).to.be.ok()
-  })
-
-  it('should render the appropriate inputs', function () {
+  it('should show the appropriate inputs', function () {
     // "HWMN" has 12 radio inputs, "WHTBHVRSDS" has 5 checkbox inputs, and "RTHRNNGPRSNT" has 2 radio inputs
 
     render(

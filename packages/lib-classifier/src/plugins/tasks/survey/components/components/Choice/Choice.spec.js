@@ -1,84 +1,45 @@
 import { expect } from 'chai'
 import React from 'react'
-import sinon from 'sinon'
 import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 
 import { task } from '@plugins/tasks/survey/mock-data'
 import SurveyTask from '@plugins/tasks/survey'
 import Choice from './Choice'
 
+const mockTask = SurveyTask.TaskModel.create(task)
+
 describe('Component > Choice', function () {
-  /*
-    Disable the default mocha timeout.
-    TODO: figure out why these tests are so slow.
-  */
-  this.timeout(0)
-
-  const mockTask = SurveyTask.TaskModel.create(task)
-
-  it('should call handleDelete when "Not this" button clicked', async function () {
-    const handleDeleteSpy = sinon.spy()
-    const user = userEvent.setup({ delay: null })
-    render(
-      <Choice
-        choiceId='KD'
-        handleDelete={handleDeleteSpy}
-        task={mockTask}
-      />
-    )
-    const button = screen.getByRole('button', { name: 'SurveyTask.Choice.notThis' })
-    await user.click(button)
-
-    expect(handleDeleteSpy).to.have.been.calledOnceWith('KD')
-  })
-
-  it('should call onIdentify when "Identify" button clicked', async function () {
-    const onIdentifySpy = sinon.spy()
-    const user = userEvent.setup({ delay: null })
-    render(
-      <Choice
-        choiceId='FR'
-        onIdentify={onIdentifySpy}
-        task={mockTask}
-      />
-    )
-    await user.click(screen.getByText('SurveyTask.Choice.identify'))
-
-    expect(onIdentifySpy).to.have.been.calledOnce()
-  })
-
   describe('with choice with images, confusions, and questions', function () {
     // choice 'KD' (Kudu) includes images, confusions, and questions
 
-    it('should render Carousel', function () {
+    it('should show Carousel', function () {
       render(
         <Choice
           choiceId='KD'
           task={mockTask}
         />
       )
-      expect(screen.getByTestId('choice-images')).to.exist()
+      expect(screen.getByTestId('choice-images')).to.be.ok()
     })
 
-    it('should render ConfusedWith', function () {
+    it('should show ConfusedWith', function () {
       render(
         <Choice
           choiceId='KD'
           task={mockTask}
         />
       )
-      expect(screen.getByText('SurveyTask.ConfusedWith.confused')).to.exist()
+      expect(screen.getByText('SurveyTask.ConfusedWith.confused')).to.be.ok()
     })
 
-    it('should render Questions', function () {
+    it('should show Questions', function () {
       render(
         <Choice
           choiceId='HMN'
           task={mockTask}
         />
       )
-      expect(screen.getByText('Are there any young present?')).to.exist()
+      expect(screen.getByText('Are there any young present?')).to.be.ok()
     })
   })
 

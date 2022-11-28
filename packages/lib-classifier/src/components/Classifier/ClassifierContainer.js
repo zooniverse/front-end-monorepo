@@ -76,6 +76,17 @@ export default function ClassifierContainer({
 
   const classifierStore = useHydratedStore(storeEnvironment, cachePanoptesData, `fem-classifier-${project.id}`)
 
+  if (project?.id) {
+    const storedProject = classifierStore.projects.active
+    const projectChanged = project.id !== storedProject?.id
+
+    if (projectChanged) {
+      const { projects } = classifierStore
+      projects.setResources([project])
+      projects.setActive(project.id)
+    }
+  }
+
   useEffect(function onMount() {
     /*
     This should run after the store is created and hydrated.

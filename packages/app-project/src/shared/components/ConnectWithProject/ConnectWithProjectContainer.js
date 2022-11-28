@@ -13,8 +13,6 @@ function storeMapper (stores) {
   }
 }
 
-@inject(storeMapper)
-@observer
 class ConnectWithProjectContainer extends Component {
   render () {
     const { projectName, urls } = this.props
@@ -33,4 +31,4 @@ ConnectWithProjectContainer.propTypes = {
   }))
 }
 
-export default ConnectWithProjectContainer
+export default inject(storeMapper)(observer(ConnectWithProjectContainer))

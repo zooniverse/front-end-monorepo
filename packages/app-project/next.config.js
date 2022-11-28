@@ -38,12 +38,20 @@ const nextConfig = {
   assetPrefix,
   basePath: '/projects',
 
+  compiler: {
+    styledComponents: true,
+  },
+
   env: {
     COMMIT_ID,
     PANOPTES_ENV,
     SENTRY_PROJECT_DSN,
     APP_ENV,
     TALK_HOST
+  },
+
+  experimental: {
+    forceSwcTransforms: true,
   },
 
   async headers() {

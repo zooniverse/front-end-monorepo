@@ -84,9 +84,7 @@ MessageFromResearcherContainer.propTypes = {
   })
 }
 
-@inject(storeMapper)
-@observer
-class WrappedMessageFromResearcherContainer extends MessageFromResearcherContainer {}
+const WrappedMessageFromResearcherContainer = inject(storeMapper)(observer(MessageFromResearcherContainer))
 
 export default WrappedMessageFromResearcherContainer
 export { MessageFromResearcherContainer }

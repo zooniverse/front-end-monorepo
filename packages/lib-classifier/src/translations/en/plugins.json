@@ -14,6 +14,7 @@
     "CharacteristicsFilter": {
       "clearFilters": "Clear filters",
       "filter": "Filter",
+      "removeFilter": "Remove {{valueLabel}} filter",
       "showing": "Showing {{showing}} of {{total}}"
     },
     "Choice": {

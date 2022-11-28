@@ -88,10 +88,7 @@ AuthModalContainer.propTypes = {
   }).isRequired
 }
 
-@inject('store')
-@withRouter
-@observer
-class DecoratedAuthModalContainer extends AuthModalContainer { }
+const DecoratedAuthModalContainer = inject('store')(withRouter(observer(AuthModalContainer)))
 
 export default DecoratedAuthModalContainer
 export { AuthModalContainer }

@@ -113,9 +113,7 @@ RegisterFormContainer.defaultProps = {
   t: (key) => key
 }
 
-@inject('store')
-@observer
-class DecoratedRegisterFormContainer extends RegisterFormContainer { }
+const DecoratedRegisterFormContainer = inject('store')(observer(RegisterFormContainer))
 
 export default withTranslation('components')(DecoratedRegisterFormContainer)
 export { RegisterFormContainer }

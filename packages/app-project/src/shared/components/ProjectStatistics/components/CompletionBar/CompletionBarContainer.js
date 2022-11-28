@@ -27,9 +27,7 @@ CompletionBarContainer.defaultProps = {
   completeness: 0
 }
 
-@inject(storeMapper)
-@observer
-class DecoratedCompletionBarContainer extends CompletionBarContainer {}
+const DecoratedCompletionBarContainer = inject(storeMapper)(observer(CompletionBarContainer))
 
 export {
   DecoratedCompletionBarContainer as default,

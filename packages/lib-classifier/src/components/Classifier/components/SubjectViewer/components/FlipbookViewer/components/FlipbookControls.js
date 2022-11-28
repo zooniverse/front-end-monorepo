@@ -10,6 +10,8 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { withTheme, css } from 'styled-components'
 import { useTranslation } from 'react-i18next'
+import { observer } from 'mobx-react'
+import { useStores } from '@hooks'
 
 import controlsTheme from './theme'
 import locationValidator from '../../../helpers/locationValidator'
@@ -39,17 +41,31 @@ const ThumbnailButton = styled(Button)`
 
 const backgrounds = { dark: 'dark-3', light: 'neutral-6' }
 
+function storeMapper(store) {
+  const {
+    flipbookSpeed,
+    setFlipbookSpeed
+  } = store.subjectViewer
+
+  return {
+    flipbookSpeed,
+    setFlipbookSpeed
+  }
+}
+
 const FlipbookControls = ({
   currentFrame = 0,
   locations = [],
   onFrameChange = () => true,
   onPlayPause = () => true,
-  playing = false
+  playing = false,
+  playIterations
 }) => {
+  const { flipbookSpeed, setFlipbookSpeed } = useStores(storeMapper)
   const { t } = useTranslation('components')
   const timeoutRef = useRef(null)
 
-  const [playbackSpeed, setPlaybackSpeed] = useState(1)
+  const [iterationCounter, setIterationCounter] = useState(0)
 
   /** DefaultLayout for classify page styling has breakpoints at 700px and 1160px
    * In FlipbookControls we're simply checking for when this component is < 450px
@@ -142,16 +158,28 @@ const FlipbookControls = ({
   }
 
   const resetTimeout = () => {
+    setIterationCounter(0)
     if (timeoutRef.current) {
       clearInterval(timeoutRef.current)
     }
   }
 
+  const handleIterationCounter = () => {
+    if (playIterations !== Infinity) {
+      setIterationCounter(iterationCounter + 1)
+    }
+  }
+
   useEffect(() => {
     if (playing) {
-      timeoutRef.current = setTimeout(() => {
-        handleNext()
-      }, 500 / playbackSpeed)
+      if (iterationCounter < playIterations * locations.length) {
+        timeoutRef.current = setTimeout(() => {
+          handleIterationCounter()
+          handleNext()
+        }, 500 / flipbookSpeed)
+      } else if (iterationCounter === playIterations * locations.length) {
+        onPlayPause()
+      }
     }
 
     return () => {
@@ -160,7 +188,7 @@ const FlipbookControls = ({
   }, [playing, currentFrame])
 
   const handlePlaybackSpeed = e => {
-    setPlaybackSpeed(Number(e.value.slice(0, e.value.length - 1)))
+    setFlipbookSpeed(Number(e.value.slice(0, e.value.length - 1)))
   }
 
   const playPauseLabel = playing
@@ -186,7 +214,7 @@ const FlipbookControls = ({
             <Select
               a11yTitle={t('SubjectViewer.VideoController.playbackSpeed')}
               options={['0.25x', '0.5x', '1x', '2x', '4x']}
-              value={`${playbackSpeed}x`}
+              value={`${flipbookSpeed}x`}
               onChange={handlePlaybackSpeed}
               plain
               size={smallScreenStyle ? 'small' : ''}
@@ -264,9 +292,7 @@ FlipbookControls.propTypes = {
   locations: PropTypes.arrayOf(locationValidator).isRequired,
   onFrameChange: PropTypes.func,
   onPlayPause: PropTypes.func,
-  playIterations: PropTypes.string,
-  theme: PropTypes.object
+  playing: PropTypes.bool
 }
 
-export default withTheme(FlipbookControls)
-export { FlipbookControls }
+export default withTheme(observer(FlipbookControls))

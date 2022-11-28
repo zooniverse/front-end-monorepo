@@ -45,6 +45,7 @@ function FlipbookViewerContainer({
     enableRotation,
     invert,
     move,
+    playIterations,
     rotation,
     setOnPan,
     setOnZoom
@@ -77,6 +78,7 @@ function FlipbookViewerContainer({
       naturalWidth={naturalWidth}
       onKeyDown={onKeyDown}
       onReady={onReady}
+      playIterations={playIterations}
       rotation={rotation}
       setOnPan={setOnPan}
       setOnZoom={setOnZoom}

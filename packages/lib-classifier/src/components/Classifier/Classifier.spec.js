@@ -71,14 +71,12 @@ describe('Components > Classifier', function () {
       const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const store = mockStore({ subject })
       const project = store.projects.active
-      const projectSnapshot = { ...getSnapshot(project) }
       workflow = store.workflows.active
       const workflowSnapshot = { ...getSnapshot(workflow) }
       workflowSnapshot.strings = workflowStrings
       render(
         <Classifier
           classifierStore={store}
-          project={projectSnapshot}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -137,14 +135,12 @@ describe('Components > Classifier', function () {
       const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const store = mockStore({ subject })
       const project = store.projects.active
-      const projectSnapshot = { ...getSnapshot(project) }
       workflow = store.workflows.active
       const workflowSnapshot = { ...getSnapshot(workflow) }
       workflowSnapshot.strings = workflowStrings
       render(
         <Classifier
           classifierStore={store}
-          project={projectSnapshot}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -227,13 +223,19 @@ describe('Components > Classifier', function () {
         }
       })
 
-      const store = RootStore.create({}, { authClient, client })
+      const store = RootStore.create({
+        projects: {
+          active: projectSnapshot.id,
+          resources: {
+            [projectSnapshot.id]: projectSnapshot
+          }
+        }
+      }, { authClient, client })
 
       const { rerender } = render(
         <Classifier
           classifierStore={store}
           locale='en'
-          project={projectSnapshot}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -248,7 +250,6 @@ describe('Components > Classifier', function () {
         <Classifier
           classifierStore={store}
           locale='fr'
-          project={projectSnapshot}
           workflowSnapshot={workflowSnapshot}
         />,
       )
@@ -263,7 +264,6 @@ describe('Components > Classifier', function () {
         <Classifier
           classifierStore={store}
           locale='fr'
-          project={projectSnapshot}
           workflowSnapshot={frenchSnapshot}
         />,
       )
@@ -373,11 +373,17 @@ describe('Components > Classifier', function () {
       const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockUser' }))
       const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
       const client = { ...defaultClient, panoptes }
-      const store = RootStore.create({}, { authClient, client })
+      const store = RootStore.create({
+        projects: {
+          active: projectSnapshot.id,
+          resources: {
+            [projectSnapshot.id]: projectSnapshot
+          }
+        }
+      }, { authClient, client })
       const { rerender } = render(
         <Classifier
           classifierStore={store}
-          project={projectSnapshot}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -404,7 +410,6 @@ describe('Components > Classifier', function () {
       rerender(
         <Classifier
           classifierStore={store}
-          project={projectSnapshot}
           workflowSnapshot={newSnapshot}
         />,
         {
@@ -508,11 +513,17 @@ describe('Components > Classifier', function () {
           const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockUser' }))
           const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
           const client = { ...defaultClient, panoptes }
-          const store = RootStore.create({}, { authClient, client })
+          const store = RootStore.create({
+            projects: {
+              active: projectSnapshot.id,
+              resources: {
+                [projectSnapshot.id]: projectSnapshot
+              }
+            }
+          }, { authClient, client })
           render(
             <Classifier
               classifierStore={store}
-              project={projectSnapshot}
               workflowSnapshot={workflowSnapshot}
             />,
             {
@@ -593,11 +604,17 @@ describe('Components > Classifier', function () {
       const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockUser' }))
       const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
       const client = { ...defaultClient, panoptes }
-      const store = RootStore.create({}, { authClient, client })
+      const store = RootStore.create({
+        projects: {
+          active: projectSnapshot.id,
+          resources: {
+            [projectSnapshot.id]: projectSnapshot
+          }
+        }
+      }, { authClient, client })
       render(
         <Classifier
           classifierStore={store}
-          project={projectSnapshot}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -654,14 +671,12 @@ describe('Components > Classifier', function () {
       const store = mockStore({ subject })
       store.tutorials.setResources([workflowTutorial])
       store.tutorials.setActive(workflowTutorial.id)
-      const projectSnapshot = { ...getSnapshot(store.projects.active) }
       const workflowSnapshot = { ...getSnapshot(store.workflows.active) }
       workflowSnapshot.strings = workflowStrings
       render(
         <Classifier
           classifierStore={store}
           locale='en'
-          project={projectSnapshot}
           showTutorial
           workflowSnapshot={workflowSnapshot}
         />,
@@ -695,14 +710,12 @@ describe('Components > Classifier', function () {
       const store = mockStore({ subject })
       store.tutorials.setResources([workflowTutorial])
       store.tutorials.setActive(workflowTutorial.id)
-      const projectSnapshot = { ...getSnapshot(store.projects.active) }
       const workflowSnapshot = { ...getSnapshot(store.workflows.active) }
       workflowSnapshot.strings = workflowStrings
       render(
         <Classifier
           classifierStore={store}
           locale='en'
-          project={projectSnapshot}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -761,11 +774,17 @@ describe('Components > Classifier', function () {
       const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockUser' }))
       const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
       const client = { ...defaultClient, panoptes }
-      const store = RootStore.create({}, { authClient, client })
+      const store = RootStore.create({
+        projects: {
+          active: projectSnapshot.id,
+          resources: {
+            [projectSnapshot.id]: projectSnapshot
+          }
+        }
+      }, { authClient, client })
       const { rerender } = render(
         <Classifier
           classifierStore={store}
-          project={projectSnapshot}
           subjectSetID='1'
           workflowSnapshot={workflowSnapshot}
         />,
@@ -777,7 +796,6 @@ describe('Components > Classifier', function () {
       rerender(
         <Classifier
           classifierStore={store}
-          project={projectSnapshot}
           subjectSetID='2'
           workflowSnapshot={workflowSnapshot}
         />,
@@ -859,12 +877,18 @@ describe('Components > Classifier', function () {
       const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockAdmin', admin: true }))
       const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
       const client = { ...defaultClient, panoptes }
-      const store = RootStore.create({}, { authClient, client })
+      const store = RootStore.create({
+        projects: {
+          active: projectSnapshot.id,
+          resources: {
+            [projectSnapshot.id]: projectSnapshot
+          }
+        }
+      }, { authClient, client })
       render(
         <Classifier
           adminMode
           classifierStore={store}
-          project={projectSnapshot}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -923,11 +947,17 @@ describe('Components > Classifier', function () {
       const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockAdmin', admin: true }))
       const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
       const client = { ...defaultClient, panoptes }
-      const store = RootStore.create({}, { authClient, client })
+      const store = RootStore.create({
+        projects: {
+          active: projectSnapshot.id,
+          resources: {
+            [projectSnapshot.id]: projectSnapshot
+          }
+        }
+      }, { authClient, client })
       render(
         <Classifier
           classifierStore={store}
-          project={projectSnapshot}
           workflowSnapshot={workflowSnapshot}
         />,
         {

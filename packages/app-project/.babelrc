@@ -1,25 +1,10 @@
 {
-  "plugins": [
-    ["@babel/plugin-proposal-decorators", { "legacy": true }],
-    "dynamic-import-node"
-  ],
-  "presets": ["next/babel"],
   "env": {
-    "dev": {
-      "plugins": [
-        "babel-plugin-styled-components",
-      ]
-    },
-    "production": {
-      "plugins": [
-        "babel-plugin-styled-components",
-      ]
-    },
     "test": {
       "plugins": [
-        "babel-plugin-styled-components",
         [ "babel-plugin-webpack-alias", { "config": "./webpack.config.test.js" } ]
-      ]
+      ],
+      "presets": ["next/babel"]
     }
   }
 }
