@@ -67,7 +67,7 @@ export const MobileWidth = ({ dark }) => {
   return (
     <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
       <Provider classifierStore={store}>
-        <Box width='medium'>
+        <Box width='449px'>
           <FlipbookViewerContainer
             loadingState={asyncStates.success}
             subject={store.subjects.active}
