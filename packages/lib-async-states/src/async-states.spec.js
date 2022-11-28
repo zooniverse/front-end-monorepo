@@ -1,4 +1,4 @@
-const asyncStates = require('./async-states')
+import asyncStates from './async-states.js'
 
 describe('asyncStates', function () {
   const states = [
@@ -17,8 +17,7 @@ describe('asyncStates', function () {
       })
 
       it('should be immutable', function () {
-        asyncStates[state] = 'foobar'
-        expect(asyncStates[state]).to.equal(state)
+        expect(() => asyncStates[state] = 'foobar').to.throw()
       })
     })
   })
@@ -29,8 +28,7 @@ describe('asyncStates', function () {
     })
 
     it('should be immutable', function () {
-      asyncStates.values = 'foobar'
-      expect(asyncStates.values).to.deep.equal(states)
+      expect(() => asyncStates.values = 'foobar').to.throw()
     })
   })
 })

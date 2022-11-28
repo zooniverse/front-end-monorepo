@@ -41,4 +41,4 @@ Object.defineProperty(asyncStates, 'values', {
   value: Object.values(asyncStates)
 })
 
-module.exports = asyncStates
+export default asyncStates

@@ -10,6 +10,7 @@
   "bugs": "https://github.com/zooniverse/front-end-monorepo/issues",
   "version": "0.0.1",
   "main": "src/async-states.js",
+  "type": "module",
   "scripts": {
     "lint": "zoo-standard src --fix | snazzy",
     "test": "mocha --config ./test/.mocharc.json \"./src/async-states.spec.js\"",
