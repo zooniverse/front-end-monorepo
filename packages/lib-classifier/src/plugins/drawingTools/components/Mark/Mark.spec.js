@@ -1,10 +1,10 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import { EllipseTool, PointTool } from '@plugins/drawingTools/models/tools'
-import { Mark } from './Mark'
-import Point from '../Point'
+import { Ellipse, Mark, Point } from '@plugins/drawingTools/components'
 
 describe('Drawing tools > Mark', function () {
   const pointTool = PointTool.create({
@@ -20,6 +20,7 @@ describe('Drawing tools > Mark', function () {
   const onFinish = sinon.stub()
   const onSelect = sinon.stub()
   let wrapper
+  let svgPoint
 
   before(function () {
     sinon.stub(window, 'scrollTo')
@@ -27,17 +28,20 @@ describe('Drawing tools > Mark', function () {
       id: 'point1'
     })
     point.finish()
-    wrapper = shallow(
-      <Mark
-        label='Point 1'
-        mark={point}
-        onDelete={onDelete}
-        onFinish={onFinish}
-        onSelect={onSelect}
-      >
-        <Point mark={point} />
-      </Mark>
+    render(
+      <svg>
+        <Mark
+          label='Point 1'
+          mark={point}
+          onDelete={onDelete}
+          onFinish={onFinish}
+          onSelect={onSelect}
+        >
+          <Point mark={point} />
+        </Mark>
+      </svg>
     )
+    svgPoint = screen.getByLabelText('Point 1')
   })
 
   after(function () {
@@ -46,17 +50,31 @@ describe('Drawing tools > Mark', function () {
     window.scrollTo.restore()
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
-
   it('should render a child drawing tool', function () {
-    expect(wrapper.find(Point)).to.have.lengthOf(1)
+    expect(svgPoint).to.exist()
   })
 
   describe('on focus', function () {
-    before(function () {
-      wrapper.root().simulate('focus')
+    before(async function () {
+      const user = userEvent.setup({ delay: 'none' })
+      point = pointTool.createMark({
+        id: 'point1'
+      })
+      point.finish()
+      render(
+        <svg>
+          <Mark
+            label='Point 1'
+            mark={point}
+            onDelete={onDelete}
+            onFinish={onFinish}
+            onSelect={onSelect}
+          >
+            <Point mark={point} />
+          </Mark>
+        </svg>
+      )
+      await user.tab()
     })
 
     it('should be selected', function () {
@@ -66,26 +84,32 @@ describe('Drawing tools > Mark', function () {
 
   describe('on keydown', function () {
     describe('with backspace', function () {
-      const fakeEvent = {
-        key: 'Backspace',
-        preventDefault: sinon.stub(),
-        stopPropagation: sinon.stub()
-      }
 
-      before(function () {
-        wrapper.simulate('keydown', fakeEvent)
+      before(async function () {
+        const user = userEvent.setup({ delay: 'none' })
+        point = pointTool.createMark({
+          id: 'point1'
+        })
+        point.finish()
+        render(
+          <svg>
+            <Mark
+              label='Point 1'
+              mark={point}
+              onDelete={onDelete}
+              onFinish={onFinish}
+              onSelect={onSelect}
+            >
+              <Point mark={point} />
+            </Mark>
+          </svg>
+        )
+        await user.tab()
+        await user.keyboard('{Backspace}')
       })
 
       after(function () {
         onDelete.resetHistory()
-      })
-
-      it('should cancel event bubbling', function () {
-        expect(fakeEvent.stopPropagation).to.have.been.calledOnce()
-      })
-
-      it('should cancel the default backspace handler', function () {
-        expect(fakeEvent.preventDefault).to.have.been.calledOnce()
       })
 
       it('should be deleted', function () {
@@ -94,30 +118,36 @@ describe('Drawing tools > Mark', function () {
     })
 
     describe('with enter', function () {
-      const fakeEvent = {
-        key: 'Enter',
-        preventDefault: sinon.stub(),
-        stopPropagation: sinon.stub()
-      }
 
-      before(function () {
+      before(async function () {
+        const user = userEvent.setup({ delay: 'none' })
+        point = pointTool.createMark({
+          id: 'point1'
+        })
+        point.finish()
+        render(
+          <svg>
+            <Mark
+              label='Point 1'
+              mark={point}
+              onDelete={onDelete}
+              onFinish={onFinish}
+              onSelect={onSelect}
+            >
+              <Point mark={point} />
+            </Mark>
+          </svg>
+        )
         point.setSubTaskVisibility(false)
-        wrapper.simulate('keydown', fakeEvent)
+        await user.tab()
+        await user.keyboard('{Enter}')
       })
 
       after(function () {
         onFinish.resetHistory()
       })
 
-      it('should cancel event bubbling', function () {
-        expect(fakeEvent.stopPropagation).to.have.been.calledOnce()
-      })
-
-      it('should cancel the default enter handler', function () {
-        expect(fakeEvent.preventDefault).to.have.been.calledOnce()
-      })
-
-      it('should set subtask visibility', function () {
+      it('should open the subtasks popup', function () {
         expect(point.subTaskVisibility).to.be.true()
       })
 
@@ -127,30 +157,36 @@ describe('Drawing tools > Mark', function () {
     })
 
     describe('with space', function () {
-      const fakeEvent = {
-        key: ' ',
-        preventDefault: sinon.stub(),
-        stopPropagation: sinon.stub()
-      }
 
-      before(function () {
+      before(async function () {
+        const user = userEvent.setup({ delay: 'none' })
+        point = pointTool.createMark({
+          id: 'point1'
+        })
+        point.finish()
+        render(
+          <svg>
+            <Mark
+              label='Point 1'
+              mark={point}
+              onDelete={onDelete}
+              onFinish={onFinish}
+              onSelect={onSelect}
+            >
+              <Point mark={point} />
+            </Mark>
+          </svg>
+        )
         point.setSubTaskVisibility(false)
-        wrapper.simulate('keydown', fakeEvent)
+        await user.tab()
+        await user.keyboard('{ }')
       })
 
       after(function () {
         onFinish.resetHistory()
       })
 
-      it('should cancel event bubbling', function () {
-        expect(fakeEvent.stopPropagation).to.have.been.calledOnce()
-      })
-
-      it('should cancel the default space handler', function () {
-        expect(fakeEvent.preventDefault).to.have.been.calledOnce()
-      })
-
-      it('should set subtask visibility', function () {
+      it('should open the subtasks popup', function () {
         expect(point.subTaskVisibility).to.be.true()
       })
 
@@ -160,22 +196,29 @@ describe('Drawing tools > Mark', function () {
     })
 
     describe('with other keys', function () {
-      const fakeEvent = {
-        key: 'Tab',
-        preventDefault: sinon.stub(),
-        stopPropagation: sinon.stub()
-      }
-      before(function () {
+
+      before(async function () {
+        const user = userEvent.setup({ delay: 'none' })
+        point = pointTool.createMark({
+          id: 'point1'
+        })
+        point.finish()
+        render(
+          <svg>
+            <Mark
+              label='Point 1'
+              mark={point}
+              onDelete={onDelete}
+              onFinish={onFinish}
+              onSelect={onSelect}
+            >
+              <Point mark={point} />
+            </Mark>
+          </svg>
+        )
         point.setSubTaskVisibility(false)
-        wrapper.simulate('keydown', fakeEvent)
-      })
-
-      it('should not cancel event bubbling', function () {
-        expect(fakeEvent.stopPropagation).to.not.have.been.called()
-      })
-
-      it('should not cancel the default key handler', function () {
-        expect(fakeEvent.preventDefault).to.not.have.been.called()
+        await user.tab()
+        await user.keyboard('{Tab}')
       })
 
       it('should not be deleted', function () {
@@ -188,39 +231,114 @@ describe('Drawing tools > Mark', function () {
     })
   })
 
-  describe('mark position', function () {
-    it('should be positioned at {mark.x, mark.y}', function () {
-      point.initialPosition({ x: 50, y: 120 })
-      wrapper.setProps({ mark: point })
-      const transform = wrapper.root().prop('transform')
-      expect(transform).to.have.string('translate(50, 120)')
+  describe('on click', function () {
+    let point, svgPoint
+
+    before(function () {
+      point = pointTool.createMark({
+        id: 'point1'
+      })
+      point.finish()
+      render(
+        <svg>
+          <Mark
+            label='Point 1'
+            mark={point}
+            onDelete={onDelete}
+            onFinish={onFinish}
+            onSelect={onSelect}
+          >
+            <Point mark={point} />
+          </Mark>
+        </svg>
+      )
+      svgPoint = screen.getByLabelText('Point 1')
     })
 
-    describe( 'when rotated', function () {
-      beforeEach(function () {
-        const ellipseTool = EllipseTool.create({
-          type: 'ellipse'
-        })
-        const ellipse = ellipseTool.createMark({
-          id: 'ellipse1',
-          x: 50,
-          y: 120,
-          angle: -45
-        })
-        wrapper.setProps({ mark: ellipse })
-      })
-      it('should be rotated by mark.angle', function () {
-        const transform = wrapper.root().prop('transform')
-        expect(transform).to.have.string('rotate(-45)')
-      })
+    it('should open the subtask popup', async function () {
+      const user = userEvent.setup({ delay: 'none' })
+      point.setSubTaskVisibility(false)
+      expect(point.subTaskVisibility).to.be.false()
+      await user.click(svgPoint)
+      expect(point.subTaskVisibility).to.be.true()
     })
   })
 
-  describe('useEffect hook', function () {
+  describe('with an x,y position', function () {
+    let svgPoint
+
+    before(function () {
+      const pointTool = PointTool.create({
+        type: 'point'
+      })
+      const point = pointTool.createMark({
+        id: 'point1',
+        x: 50,
+        y: 120
+      })
+      render(
+        <svg>
+          <Mark
+            label='Point 1'
+            mark={point}
+            onDelete={onDelete}
+            onFinish={onFinish}
+            onSelect={onSelect}
+          >
+            <Point mark={point} />
+          </Mark>
+        </svg>
+      )
+      svgPoint = screen.getByLabelText('Point 1')
+    })
+
+    it('should be positioned at {mark.x, mark.y}', function () {
+      const transform = svgPoint.getAttribute('transform')
+      expect(transform).to.have.string('translate(50, 120)')
+    })
+  })
+
+  describe('with a rotation angle', function () {
+    let svgEllipse
+
+    before(function () {
+      const ellipseTool = EllipseTool.create({
+        type: 'ellipse'
+      })
+      const ellipse = ellipseTool.createMark({
+        id: 'ellipse1',
+        x: 50,
+        y: 120,
+        angle: -45
+      })
+      render(
+        <svg>
+          <Mark
+            label='Ellipse 1'
+            mark={ellipse}
+            onDelete={onDelete}
+            onFinish={onFinish}
+            onSelect={onSelect}
+          >
+            <Ellipse mark={ellipse} />
+          </Mark>
+        </svg>
+      )
+      svgEllipse = screen.getByLabelText('Ellipse 1')
+    })
+
+    it('should be rotated by mark.angle', function () {
+      const transform = svgEllipse.getAttribute('transform')
+      expect(transform).to.have.string('rotate(-45)')
+    })
+  })
+
+  describe('when the active mark is finished', function () {
     function markWrapper(mark) {
       return (
         <svg>
           <Mark
+            isActive
             label='Point 1'
             mark={mark}
             onDelete={onDelete}
@@ -233,14 +351,15 @@ describe('Drawing tools > Mark', function () {
       )
     }
 
-    describe('with finished mark and no subTaskVisibility', function () {
+    describe('when subtasks are closed', function () {
       let newMark
 
       before(function () {
         window.scrollTo.resetHistory()
         newMark = pointTool.createMark()
+        newMark.setSubTaskVisibility(false)
         newMark.finish()
-        wrapper = mount(markWrapper(newMark))
+        render(markWrapper(newMark))
       })
 
       after(function () {
@@ -248,58 +367,53 @@ describe('Drawing tools > Mark', function () {
         window.scrollTo.resetHistory()
       })
 
-      it('should set subtask visibility', function () {
+      it('should open the subtask popup', function () {
         expect(newMark.subTaskVisibility).to.be.true()
       })
+    })
+  })
 
-      it('should preserve window scroll position', function () {
-        expect(window.scrollTo).to.have.been.calledOnce()
-      })
+  describe('when subtasks are closed', function () {
+    function markWrapper(mark) {
+      return (
+        <svg>
+          <Mark
+            isActive
+            label='Point 1'
+            mark={mark}
+            onDelete={onDelete}
+            onFinish={onFinish}
+            onSelect={onSelect}
+          >
+            <Point mark={mark} />
+          </Mark>
+        </svg>
+      )
+    }
+
+    let newMark, svgPoint
+
+    before(function () {
+      window.scrollTo.resetHistory()
+      newMark = pointTool.createMark()
+      newMark.setSubTaskVisibility(true)
+      newMark.finish()
+      render(markWrapper(newMark))
+      newMark.setSubTaskVisibility(false)
+      svgPoint = screen.getByLabelText('Point 1')
     })
 
-    describe('when the mark is not finished', function () {
-      let newMark
-
-      before(function () {
-        newMark = pointTool.createMark()
-        wrapper = mount(markWrapper(newMark))
-      })
-
-      after(function () {
-        onFinish.resetHistory()
-        window.scrollTo.resetHistory()
-      })
-
-      it('should not set subtask visibility', function () {
-        expect(newMark.subTaskVisibility).to.be.false()
-      })
-
-      it('should not scroll the window',function () {
-        expect(window.scrollTo).to.not.have.been.called()
-      })
+    after(function () {
+      onFinish.resetHistory()
+      window.scrollTo.resetHistory()
     })
 
-    describe('when the subtask is visible', function () {
-      let newMark
+    it('should focus the active mark', function () {
+      expect(document.activeElement).to.equal(svgPoint)
+    })
 
-      before(function () {
-        newMark = pointTool.createMark()
-        newMark.setSubTaskVisibility(true)
-        wrapper = mount(markWrapper(newMark))
-      })
-
-      after(function () {
-        onFinish.resetHistory()
-        window.scrollTo.resetHistory()
-      })
-
-      it('should not change subtask visibility', function () {
-        expect(newMark.subTaskVisibility).to.be.true()
-      })
-
-      it('should not scroll the window',function () {
-        expect(window.scrollTo).to.not.have.been.called()
-      })
+    it('should preserve the window scroll position', function () {
+      expect(window.scrollTo).to.have.been.calledOnce()
     })
   })
 })

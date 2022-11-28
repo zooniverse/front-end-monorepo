@@ -10,6 +10,8 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { withTheme, css } from 'styled-components'
 import { useTranslation } from 'react-i18next'
+import { observer } from 'mobx-react'
+import { useStores } from '@hooks'
 
 import controlsTheme from './theme'
 import locationValidator from '../../../helpers/locationValidator'
@@ -39,6 +41,18 @@ const ThumbnailButton = styled(Button)`
 
 const backgrounds = { dark: 'dark-3', light: 'neutral-6' }
 
+function storeMapper(store) {
+  const {
+    flipbookSpeed,
+    setFlipbookSpeed
+  } = store.subjectViewer
+
+  return {
+    flipbookSpeed,
+    setFlipbookSpeed
+  }
+}
+
 const FlipbookControls = ({
   currentFrame = 0,
   locations = [],
@@ -47,10 +61,10 @@ const FlipbookControls = ({
   playing = false,
   playIterations
 }) => {
+  const { flipbookSpeed, setFlipbookSpeed } = useStores(storeMapper)
   const { t } = useTranslation('components')
   const timeoutRef = useRef(null)
 
-  const [playbackSpeed, setPlaybackSpeed] = useState(1)
   const [iterationCounter, setIterationCounter] = useState(0)
 
   const handleKeyDown = (event) => {
@@ -133,12 +147,12 @@ const FlipbookControls = ({
       if (playIterations === Infinity) {
         timeoutRef.current = setTimeout(() => {
           handleNext()
-        }, 500 / playbackSpeed)
+        }, 500 / flipbookSpeed)
       } else if (iterationCounter < playIterations * locations.length) {
         timeoutRef.current = setTimeout(() => {
           handleIterationCounter()
           handleNext()
-        }, 500 / playbackSpeed)
+        }, 500 / flipbookSpeed)
       } else if (iterationCounter === playIterations * locations.length) {
         onPlayPause()
       }
@@ -150,7 +164,7 @@ const FlipbookControls = ({
   }, [playing, currentFrame])
 
   const handlePlaybackSpeed = e => {
-    setPlaybackSpeed(Number(e.value.slice(0, e.value.length - 1)))
+    setFlipbookSpeed(Number(e.value.slice(0, e.value.length - 1)))
   }
 
   const playPauseLabel = playing
@@ -176,7 +190,7 @@ const FlipbookControls = ({
             <Select
               a11yTitle={t('SubjectViewer.VideoController.playbackSpeed')}
               options={['0.25x', '0.5x', '1x', '2x', '4x']}
-              value={`${playbackSpeed}x`}
+              value={`${flipbookSpeed}x`}
               onChange={handlePlaybackSpeed}
               plain
               icon={<FormDown />}
@@ -255,9 +269,7 @@ FlipbookControls.propTypes = {
   locations: PropTypes.arrayOf(locationValidator).isRequired,
   onFrameChange: PropTypes.func,
   onPlayPause: PropTypes.func,
-  playIterations: PropTypes.number,
-  theme: PropTypes.object
+  playing: PropTypes.bool
 }
 
-export default withTheme(FlipbookControls)
-export { FlipbookControls }
+export default withTheme(observer(FlipbookControls))
