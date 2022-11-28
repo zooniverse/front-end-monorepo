@@ -1,6 +1,6 @@
 import { Box, RadioButtonGroup } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { SpacedHeading } from '@zooniverse/react-components'
 
 import FilterButton from '../../components/FilterButton'
@@ -19,7 +19,35 @@ export default function CharacteristicSection({
   selectedValueId = '',
   strings
 }) {
-  const characteristicOptions = characteristic.valuesOrder.map(valueId => {
+  const onChange = useCallback(
+    ({ target }) => onFilter(characteristicId, target?.value),
+    [characteristicId, onFilter]
+  )
+  const radioButtonLabel = useCallback((option, { checked, focus, hover }) => {
+    function clearSelection(event) {
+      /*
+      This is a workaround to prevent the label from being clicked in Chrome, when the radio
+      button is already checked. However, it makes the delete function hard to use from the keyboard.
+      */
+      event.preventDefault()
+      return onFilter(characteristicId)
+    }
+    return (
+      <FilterButton
+        characteristicId={characteristicId}
+        characteristicLabel={label}
+        checked={checked}
+        focus={focus}
+        hover={hover}
+        onDelete={clearSelection}
+        valueId={option.value}
+        valueImageSrc={option.imageSrc}
+        valueLabel={option.label}
+      />
+    )
+  }, [characteristicId, label, onFilter])
+
+  const characteristicOption = useCallback(valueId => {
     const value = characteristic?.values?.[valueId] || {}
     const valueImageSrc = images?.[value.image] || ''
     const label = strings.get(`characteristics.${characteristicId}.values.${valueId}.label`)
@@ -31,7 +59,8 @@ export default function CharacteristicSection({
       label,
       value: valueId
     })
-  })
+  }, [characteristic, characteristicId, images, strings])
+  const characteristicOptions = characteristic.valuesOrder.map(characteristicOption)
 
   return (
     <Box
@@ -46,31 +75,22 @@ export default function CharacteristicSection({
       }}
     >
       <SpacedHeading
+        id={`${label}-heading`}
         margin='none'
       >
         {label}
       </SpacedHeading>
       <RadioButtonGroup
+        aria-labelledby={`${label}-heading`}
         direction='row'
         gap='xsmall'
-        name={`${characteristic.label}RadioButtonGroup`}
-        onChange={({ target }) => onFilter(characteristicId, target.value)}
+        name={`${characteristic.label}-filter`}
+        onChange={onChange}
         options={characteristicOptions}
         value={selectedValueId}
         wrap
       >
-        {(option, { checked, hover }) => {
-          return (
-            <FilterButton
-              characteristicId={characteristicId}
-              checked={checked}
-              onFilter={onFilter}
-              valueId={option.value}
-              valueImageSrc={option.imageSrc}
-              valueLabel={option.label}
-            />
-          )
-        }}
+        {radioButtonLabel}
       </RadioButtonGroup>
     </Box>
   )

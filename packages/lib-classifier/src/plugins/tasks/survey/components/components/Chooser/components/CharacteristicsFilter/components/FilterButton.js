@@ -1,35 +1,34 @@
-import { Box } from 'grommet'
+import { Box, Image } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-import { CloseButton, Media } from '@zooniverse/react-components'
+import { CloseButton } from '@zooniverse/react-components'
+import { useTranslation } from 'react-i18next'
 
 export const StyledFilter = styled(Box)`
+  box-shadow: ${
+    props => props.focus || props.hover ? 
+      `0 0 2px 2px ${props.theme.global.colors.brand};` 
+      : 'none'
+  };
+
   button {
-    display: none;
-  }
-
-  &:focus > button, 
-  &:hover > button {
-    display: block;
     position: absolute;
-  }
-
-  &:hover {
-    box-shadow: 0 0 2px 2px ${props => props.theme.global.colors.brand};
   }
 `
 
-export default function FilterButton (props) {
-  const {
-    buttonSize,
-    characteristicId,
-    checked,
-    onFilter,
-    valueId,
-    valueImageSrc,
-    valueLabel
-  } = props
+export default function FilterButton ({
+  buttonSize = 'medium',
+  characteristicId = '',
+  checked = false,
+  focus = false,
+  hover = false,
+  onDelete = () => {},
+  valueId = '',
+  valueImageSrc = '',
+  valueLabel = ''
+}) {
+  const { t } = useTranslation('plugins')
 
   const backgroundColor = checked ? 'accent-1' : 'neutral-6'
   const marginPerSize = buttonSize === 'small' ? 'none' : { bottom: 'xsmall' }
@@ -41,47 +40,39 @@ export default function FilterButton (props) {
       align='center'
       background={{ color: backgroundColor }}
       data-testid={`filter-${characteristicId}-${valueId}`}
+      focus={focus}
       height={containerSize}
+      hover={hover}
       justify='center'
       margin={marginPerSize}
       round='full'
       width={containerSize}
     >
-      <Media
+      <Image
         alt={valueLabel}
+        fit='contain'
         height={mediaSize}
         src={valueImageSrc}
         width={mediaSize}
       />
       {checked && (
         <CloseButton
-          closeFn={(event) => {
-            // Note: preventDefault and stopPropagation are to prevent the radio button input click handler from firing and re-selecting the characteristic filter
-            event.preventDefault()
-            event.stopPropagation()
-            onFilter(characteristicId)
-          }}
+          aria-label={t('SurveyTask.CharacteristicsFilter.removeFilter', { valueLabel })}
+          data-testid={`remove-filter-${characteristicId}-${valueId}`}
+          closeFn={onDelete}
         />
       )}
     </StyledFilter>
   )
 }
 
-FilterButton.defaultProps = {
-  buttonSize: 'medium',
-  characteristicId: '',
-  checked: false,
-  onFilter: () => {},
-  valueId: '',
-  valueImageSrc: '',
-  valueLabel: ''
-}
-
 FilterButton.propTypes = {
   buttonSize: PropTypes.string,
   characteristicId: PropTypes.string,
   checked: PropTypes.bool,
-  onFilter: PropTypes.func,
+  focus: PropTypes.bool,
+  hover: PropTypes.bool,
+  onDelete: PropTypes.func,
   valueId: PropTypes.string,
   valueImageSrc: PropTypes.string,
   valueLabel: PropTypes.string

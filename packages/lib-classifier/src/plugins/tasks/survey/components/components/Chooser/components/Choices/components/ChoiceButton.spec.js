@@ -25,48 +25,6 @@ describe('Component > ChoiceButton', function () {
     expect(choiceButton).to.be.ok()
   })
 
-  it('should call onChoose on click of the button', async function () {
-    const onChooseSpy = sinon.spy()
-    const user = userEvent.setup({ delay: null })
-    render(
-      <Grommet
-        theme={zooTheme}
-      >
-        <ChoiceButton
-          choiceId='RDVRK'
-          choiceLabel='Aardvark'
-          onChoose={onChooseSpy}
-          tabIndex={0}
-        />
-      </Grommet>
-    )
-    const choiceButton = screen.getByRole('button', { name: 'Aardvark' })
-    await user.click(choiceButton)
-    expect(onChooseSpy).to.have.been.calledOnceWith('RDVRK')
-  })
-
-  it('should call onKeyDown on keyDown of the button', async function () {
-    const onKeyDownSpy = sinon.spy()
-    const user = userEvent.setup({ delay: null })
-    render(
-      <Grommet
-        theme={zooTheme}
-      >
-        <ChoiceButton
-          choiceId='RDVRK'
-          choiceLabel='Aardvark'
-          hasFocus
-          onKeyDown={onKeyDownSpy}
-          tabIndex={0}
-        />
-      </Grommet>
-    )
-    const choiceButton = screen.getByRole('button', { name: 'Aardvark' })
-    expect(choiceButton).to.equal(document.activeElement)
-    await user.keyboard('{enter}')
-    expect(onKeyDownSpy).to.have.been.calledOnce()
-  })
-
   describe('when disabled', function () {
     it('should not call onChoose on click of the button', async function () {
       const onChooseSpy = sinon.spy()
