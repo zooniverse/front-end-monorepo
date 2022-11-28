@@ -1,8 +1,8 @@
-import { Box } from 'grommet'
+import { Box, Image } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-import { CloseButton, Media } from '@zooniverse/react-components'
+import { CloseButton } from '@zooniverse/react-components'
 import { useTranslation } from 'react-i18next'
 
 export const StyledFilter = styled(Box)`
@@ -17,19 +17,17 @@ export const StyledFilter = styled(Box)`
   }
 `
 
-export default function FilterButton (props) {
-  const {
-    buttonSize = 'medium',
-    characteristicId = '',
-    checked = false,
-    focus = false,
-    hover = false,
-    onFilter = () => {},
-    valueId = '',
-    valueImageSrc = '',
-    valueLabel = ''
-  } = props
-
+export default function FilterButton ({
+  buttonSize = 'medium',
+  characteristicId = '',
+  checked = false,
+  focus = false,
+  hover = false,
+  onDelete = () => {},
+  valueId = '',
+  valueImageSrc = '',
+  valueLabel = ''
+}) {
   const { t } = useTranslation('plugins')
 
   const backgroundColor = checked ? 'accent-1' : 'neutral-6'
@@ -50,8 +48,9 @@ export default function FilterButton (props) {
       round='full'
       width={containerSize}
     >
-      <Media
+      <Image
         alt={valueLabel}
+        fit='contain'
         height={mediaSize}
         src={valueImageSrc}
         width={mediaSize}
@@ -60,12 +59,7 @@ export default function FilterButton (props) {
         <CloseButton
           aria-label={t('SurveyTask.CharacteristicsFilter.removeFilter', { valueLabel })}
           data-testid={`remove-filter-${characteristicId}-${valueId}`}
-          closeFn={(event) => {
-            // Note: preventDefault and stopPropagation are to prevent the radio button input click handler from firing and re-selecting the characteristic filter
-            event.preventDefault()
-            event.stopPropagation()
-            onFilter(characteristicId)
-          }}
+          closeFn={onDelete}
         />
       )}
     </StyledFilter>
@@ -78,7 +72,7 @@ FilterButton.propTypes = {
   checked: PropTypes.bool,
   focus: PropTypes.bool,
   hover: PropTypes.bool,
-  onFilter: PropTypes.func,
+  onDelete: PropTypes.func,
   valueId: PropTypes.string,
   valueImageSrc: PropTypes.string,
   valueLabel: PropTypes.string
