@@ -144,11 +144,7 @@ const FlipbookControls = ({
 
   useEffect(() => {
     if (playing) {
-      if (playIterations === Infinity) {
-        timeoutRef.current = setTimeout(() => {
-          handleNext()
-        }, 500 / flipbookSpeed)
-      } else if (iterationCounter < playIterations * locations.length) {
+      if (iterationCounter < playIterations * locations.length) {
         timeoutRef.current = setTimeout(() => {
           handleIterationCounter()
           handleNext()
