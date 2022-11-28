@@ -14,18 +14,7 @@ describe('Component > InputGroup', function () {
       value: answerId
     }))
 
-    it('should render without crashing', function () {
-      render(
-        <InputGroup
-          options={options}
-          questionId={questionId}
-          type='checkbox'
-        />
-      )
-      expect(screen).to.be.ok()
-    })
-
-    it('should render 5 checkbox inputs', function () {
+    it('should show 5 checkbox inputs', function () {
       render(
         <InputGroup
           options={options}
@@ -37,7 +26,7 @@ describe('Component > InputGroup', function () {
     })
 
     describe('with defined answer', function () {
-      it('should render chosen CheckBoxInputs as checked', function () {
+      it('should show chosen CheckBoxInputs as checked', function () {
         render(
           <InputGroup
             options={options}
@@ -85,18 +74,7 @@ describe('Component > InputGroup', function () {
       value: answerId
     }))
 
-    it('should render without crashing', function () {
-      render(
-        <InputGroup
-          options={options}
-          questionId={questionId}
-          type='radio'
-        />
-      )
-      expect(screen).to.be.ok()
-    })
-
-    it('should render 2 radio inputs', function () {
+    it('should show 2 radio inputs', function () {
       render(
         <InputGroup
           options={options}
@@ -108,7 +86,7 @@ describe('Component > InputGroup', function () {
     })
 
     describe('with defined answer', function () {
-      it('should render chosen RadioInput as checked', function () {
+      it('should show chosen RadioInput as checked', function () {
         render(
           <InputGroup
             options={options}

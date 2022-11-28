@@ -16,15 +16,6 @@ describe('Component > FilterStatus', function () {
     type: 'survey'
   })
 
-  it('should render without crashing', function () {
-    render(
-      <FilterStatus
-        task={task}
-      />
-    )
-    expect(screen.getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })).to.be.ok()
-  })
-
   it('should not show characteristic radiogroups on initial render', function () {
     render(
       <FilterStatus

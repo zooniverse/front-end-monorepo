@@ -18,6 +18,7 @@ function Characteristics({
 
   return (
     <Box
+      data-testid='characteristics'
       fill='horizontal'
       flex='grow'
     >
