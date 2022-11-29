@@ -50,6 +50,7 @@ export default function Confusion({
         gap='xsmall'
         justify='center'
         margin={{ top: 'small' }}
+        overflow='hidden'
         pad={{ top: 'small' }}
       >
         <Button
