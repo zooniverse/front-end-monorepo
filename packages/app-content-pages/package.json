@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@sentry/browser": "~7.21.0",
-    "@sentry/node": "~7.21.0",
+    "@sentry/node": "~7.22.0",
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/grommet-theme": "~3.1.0",
