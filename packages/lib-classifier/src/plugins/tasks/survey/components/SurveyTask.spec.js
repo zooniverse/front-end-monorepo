@@ -343,25 +343,6 @@ describe('SurveyTask', function () {
         expect(fireChoiceButton.getAttribute('aria-checked')).to.equal('true')
       })
 
-      it('should disable the Identify button until required questions are answered', async function () {
-        const user = userEvent.setup({ delay: null })
-        const { getByRole } = render(<DefaultStory />)
-        const choiceButton = getByRole('menuitemcheckbox', { name: 'Aardvark' })
-        await user.click(choiceButton)
-        let identifyButton = getByRole('button', { name: 'SurveyTask.Choice.identify' })
-        // confirm the Identify button is disabled, pending required questions answered
-        expect(identifyButton.disabled).to.be.true()
-        // the required questions for Aardvark are "How many?" and "What behavior do you see?"
-        // the following answers "How many?" with "3" and "What behavior do you see?" with "Eating"
-        const howManyInput = getByRole('radio', { name: "3" })
-        await user.click(howManyInput)
-        const whatBehaviorsInput = getByRole('checkbox', { name: "Eating" })
-        await user.click(whatBehaviorsInput)
-        identifyButton = getByRole('button', { name: 'SurveyTask.Choice.identify' })
-        // confirm the Identify button is enabled, now that required questions answered
-        expect(identifyButton.disabled).to.be.false()
-      })
-
       it('should disable "Done & Talk" and "Done" buttons', async function () {
         const user = userEvent.setup({ delay: null })
         const { getByRole } = render(<DefaultStory />)
