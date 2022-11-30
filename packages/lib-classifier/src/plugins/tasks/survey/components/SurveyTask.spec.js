@@ -67,9 +67,9 @@ describe('SurveyTask', function () {
       const NoFiltersStory = composeStory(NoFilters, Meta)
       
       it('should not show a filter button', function () {
-        const { queryByRole } = render(<NoFiltersStory />)
+        const { queryByText } = render(<NoFiltersStory />)
         
-        const filterButton = queryByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+        const filterButton = queryByText('SurveyTask.CharacteristicsFilter.filter')
         
         expect(filterButton).to.not.exist()
       })
@@ -113,9 +113,9 @@ describe('SurveyTask', function () {
     describe('when the Filter button is clicked', function () {
       it('should show characteristic filter sections', async function () {
         const user = userEvent.setup({ delay: null })
-        const { getAllByRole, getByRole } = render(<DefaultStory />)
+        const { getAllByRole, getByText } = render(<DefaultStory />)
         // filterButton is the Filter button above the choices
-        const filterButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+        const filterButton = getByText('SurveyTask.CharacteristicsFilter.filter')
         await user.click(filterButton)
         // the filterSections are the characteristic filter sections, i.e. the sections for "Like", "Pattern", and "Color" for the mock task
         const filterSections = getAllByRole('radiogroup')
@@ -126,8 +126,8 @@ describe('SurveyTask', function () {
       describe('when filters are clicked', function () {
         it('should show the filter button with a remove filter button', async function () {
           const user = userEvent.setup({ delay: null })
-          const { getByRole, getByTestId } = render(<DefaultStory />)
-          const filterButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+          const { getByTestId, getByText } = render(<DefaultStory />)
+          const filterButton = getByText('SurveyTask.CharacteristicsFilter.filter')
           await user.click(filterButton)
           // the stripesFilterButton is the button to filter choices by "stripes". Stripes is a specific value of the "Pattern" characteristic.
           const stripesFilterButton = getByTestId('filter-PTTRN-STRPS')
@@ -146,8 +146,8 @@ describe('SurveyTask', function () {
 
         it('should show the choices that match the filter', async function () {
           const user = userEvent.setup({ delay: null })
-          const { getAllByRole, getByRole, getByTestId } = render(<DefaultStory />)
-          const filterButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+          const { getAllByRole, getByTestId, getByText } = render(<DefaultStory />)
+          const filterButton = getByText('SurveyTask.CharacteristicsFilter.filter')
           await user.click(filterButton)
           const redFilterButton = getByTestId('filter-CLR-RD')
           expect(redFilterButton).to.be.ok()
@@ -165,8 +165,8 @@ describe('SurveyTask', function () {
 
         it.skip('should persist filters after a choice is selected', async function () {
           const user = userEvent.setup({ delay: null })
-          const { getAllByRole, getByRole, getByTestId } = render(<DefaultStory />)
-          const filterButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+          const { getAllByRole, getByTestId, getByText } = render(<DefaultStory />)
+          const filterButton = getByText('SurveyTask.CharacteristicsFilter.filter')
 
           // open the characteristics filters
           await user.click(filterButton)
@@ -175,14 +175,10 @@ describe('SurveyTask', function () {
           await user.click(redFilterButton)
           // close the characteristics filters
           await user.click(filterButton)
-          const fireChoiceButton = getByRole('menuitemcheckbox', { name: 'Fire' })
-          expect(fireChoiceButton).to.be.ok()
-
+          const fireChoiceButton = getByText('Fire')
           // select the Fire choice
           await user.click(fireChoiceButton)
-          const identifyButton = getByRole('button', { name: 'SurveyTask.Choice.identify' })
-          expect(identifyButton).to.be.ok()
-
+          const identifyButton = getByText('SurveyTask.Choice.identify')
           // identify the Fire choice
           await user.click(identifyButton)
           // confirm the remaining choices are the 3 choices that match the red filter
@@ -195,8 +191,8 @@ describe('SurveyTask', function () {
 
         it.skip('should remove the filter on remove filter button click (within Characteristics)', async function () {
           const user = userEvent.setup({ delay: null })
-          const { getAllByRole, getByRole, getByTestId } = render(<DefaultStory />)
-          const filterButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+          const { getAllByRole, getByTestId, getByText } = render(<DefaultStory />)
+          const filterButton = getByText('SurveyTask.CharacteristicsFilter.filter')
           await user.click(filterButton)
           const stripesFilterButton = getByTestId('filter-PTTRN-STRPS')
           // click/apply the stripes filter
@@ -213,8 +209,8 @@ describe('SurveyTask', function () {
 
         it.skip('should remove the filter on remove filter button click (within FilterStatus)', async function () {
           const user = userEvent.setup({ delay: null })
-          const { getAllByRole, getByRole, getByTestId } = render(<DefaultStory />)
-          const filterButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+          const { getAllByRole, getByTestId, getByText } = render(<DefaultStory />)
+          const filterButton = getByText('SurveyTask.CharacteristicsFilter.filter')
           await user.click(filterButton)
           const stripesFilterButton = getByTestId('filter-PTTRN-STRPS')
           // click/apply the stripes filter
@@ -235,8 +231,8 @@ describe('SurveyTask', function () {
 
         it.skip('should remove filters on Clear Filters button click (within Characteristics) ', async function () {
           const user = userEvent.setup({ delay: null })
-          const { getByRole, getByTestId, queryByTestId } = render(<DefaultStory />)
-          const filterButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+          const { getByRole, getByTestId, queryByTestId, getByText } = render(<DefaultStory />)
+          const filterButton = getByText('SurveyTask.CharacteristicsFilter.filter')
           await user.click(filterButton)
           // click/apply the like a cow/horse filter
           const cowHorseFilterButton = getByTestId('filter-LK-CWHRS')
@@ -263,8 +259,8 @@ describe('SurveyTask', function () {
 
         it.skip('should remove filters on Clear Filters button click (within Chooser)', async function () {
           const user = userEvent.setup({ delay: null })
-          const { getAllByRole, getByRole, getByTestId } = render(<DefaultStory />)
-          const filterButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+          const { getAllByRole, getByTestId, getByText } = render(<DefaultStory />)
+          const filterButton = getByText('SurveyTask.CharacteristicsFilter.filter')
           await user.click(filterButton)
           const cowHorseFilterButton = getByTestId('filter-LK-CWHRS')
           // click/apply the like a cow/horse filter
@@ -277,7 +273,7 @@ describe('SurveyTask', function () {
           // confirm the choices remaining are the 1 choice (Kudu) that matches the cow/horse and tan/yellow filters
           expect(choiceButtons.length).to.equal(1)
 
-          const clearFiltersButton = getByRole('button', { name: 'Clear SurveyTask.CharacteristicsFilter.clearFilters' })
+          const clearFiltersButton = getByText('SurveyTask.CharacteristicsFilter.clearFilters')
           // clear the filters
           await user.click(clearFiltersButton)
           choiceButtons = getAllByRole('menuitemcheckbox')
@@ -373,7 +369,7 @@ describe('SurveyTask', function () {
         const { getAllByRole, getByRole } = render(<DefaultStory />)
         // tabbing to the Filter button
         await user.keyboard('[Tab]')
-        const filterButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+        const filterButton = getByRole( 'button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
         expect(filterButton).to.equal(document.activeElement)
         
         // pressing the Enter key to open the Filter button
@@ -405,10 +401,10 @@ describe('SurveyTask', function () {
           expect(solidFilterRemoveButton).to.be.ok()
         })
 
-        it.skip('should show the choices that match the filter', async function () {
+        it('should show the choices that match the filter', async function () {
           const user = userEvent.setup({ delay: null })
-          const { getAllByRole, getByRole } = render(<DefaultStory />)
-          const filterButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+          const { getAllByRole, getByText } = render(<DefaultStory />)
+          const filterButton = getByText('SurveyTask.CharacteristicsFilter.filter')
           // tabbing to and opening the Filter button
           await user.keyboard('[Tab][Enter]')
           // tabbing to the pattern section that contains the solid filter and selecting the solid filter with space key
@@ -423,10 +419,10 @@ describe('SurveyTask', function () {
           expect(choiceButtons[2]).to.have.text('Kudu')
         })
 
-        it.skip('should remove the filter on remove filter button keypress (within Characteristics)', async function () {
+        it('should remove the filter on remove filter button keypress (within Characteristics)', async function () {
           const user = userEvent.setup({ delay: null })
-          const { getAllByRole, getByRole, queryByTestId } = render(<DefaultStory />)
-          const filterButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+          const { getAllByRole, queryByTestId, getByText } = render(<DefaultStory />)
+          const filterButton = getByText('SurveyTask.CharacteristicsFilter.filter')
           // tabbing to and opening the Filter button
           await user.keyboard('[Tab][Enter]')
           // tabbing to the pattern section that contains the solid filter and selecting the solid filter with space key
@@ -449,10 +445,10 @@ describe('SurveyTask', function () {
           expect(choiceButtons.length).to.equal(6)
         })
 
-        it.skip('should remove the filter on remove filter button keypress (within FilterStatus)', async function () {
+        it('should remove the filter on remove filter button keypress (within FilterStatus)', async function () {
           const user = userEvent.setup({ delay: null })
-          const { getAllByRole, getByRole, getByTestId } = render(<DefaultStory />)
-          const filterButton = getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+          const { getAllByRole, getByTestId, getByText } = render(<DefaultStory />)
+          const filterButton = getByText('SurveyTask.CharacteristicsFilter.filter')
           // tabbing to and opening the Filter button
           await user.keyboard('[Tab][Enter]')
           // tabbing to the pattern section that contains the solid filter and selecting the solid filter with space key
@@ -572,10 +568,10 @@ describe('SurveyTask', function () {
 
     it.skip('should remove a previously identified choice with delete key', async function () {
       const user = userEvent.setup({ delay: null })
-      const { getAllByRole, getByRole } = render(<NoFiltersStory />)
+      const { getAllByRole, getByRole, getByText } = render(<NoFiltersStory />)
       let choiceButton = getByRole('menuitemcheckbox', { name: 'Fire' })
       await user.click(choiceButton)
-      const identifyButton = getByRole('button', { name: 'SurveyTask.Choice.identify' })
+      const identifyButton = getByText('SurveyTask.Choice.identify')
       // identify choice (Fire) and close choice (Fire) component
       await user.click(identifyButton)
       // confirm choices showing
@@ -598,10 +594,10 @@ describe('SurveyTask', function () {
 
     it.skip('should remove a previously identified choice with backspace key', async function () {
       const user = userEvent.setup({ delay: null })
-      const { getAllByRole, getByRole } = render(<NoFiltersStory />)
+      const { getAllByRole, getByRole, getByText } = render(<NoFiltersStory />)
       let choiceButton = getByRole('menuitemcheckbox', { name: 'Fire' })
       await user.click(choiceButton)
-      const identifyButton = getByRole('button', { name: 'SurveyTask.Choice.identify' })
+      const identifyButton = getByText('SurveyTask.Choice.identify')
       // identify choice (Fire) and close choice (Fire) component
       await user.click(identifyButton)
       // confirm choices showing
