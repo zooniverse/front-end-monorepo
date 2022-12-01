@@ -6,6 +6,11 @@
   "repository": "github:zooniverse/front-end-monorepo",
   "version": "0.2.0",
   "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zooniverse/front-end-monorepo.git",
+    "directory": "packages/lib-panoptes-js"
+  },
   "scripts": {
     "lint": "zoo-standard --fix | snazzy",
     "postversion": "npm publish",

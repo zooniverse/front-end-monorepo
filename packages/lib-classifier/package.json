@@ -6,6 +6,11 @@
   "version": "0.0.1",
   "main": "dist/main.js",
   "module": "dist/es6/components/Classifier/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zooniverse/front-end-monorepo.git",
+    "directory": "packages/lib-classifier"
+  },
   "scripts": {
     "build": "webpack --config webpack.dist.js && yarn build:es6",
     "build:es6": "babel ./src/ --out-dir ./dist/es6 --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
@@ -78,7 +83,7 @@
     "@wojtekmaj/enzyme-adapter-react-17": "~0.8.0",
     "@zooniverse/grommet-theme": "~3.1.0",
     "@zooniverse/panoptes-js": "~0.2.0",
-    "@zooniverse/react-components": "~1.2.0",
+    "@zooniverse/react-components": "~1.3.0",
     "@zooniverse/standard": "~1.0.0",
     "babel-loader": "~9.1.0",
     "babel-plugin-module-resolver": "~4.1.0",
