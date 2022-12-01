@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
-import request from 'superagent'
 import locationValidator from '../../helpers/locationValidator'
 import { findLocationsByMediaType } from '@helpers'
 import DataImageViewer from './DataImageViewer'
@@ -62,17 +61,15 @@ export default class DataImageViewerContainer extends React.Component {
     const { onError } = this.props
     try {
       const url = this.getSubjectUrl()
-      const response = await request.get(url)
-
-      // Get the JSON data, or (as a failsafe) parse the JSON data if the
-      // response is returned as a string
-      if (response.body) {
-        return response.body
-      } else if  (JSON.parse(response.text)) {
-        return { data: JSON.parse(response.text), chartOptions: {} }
+      const response = await fetch(url)
+      if (!response.ok) {
+        const error = new Error(response.statusText)
+        error.status = response.status
+        throw error
       }
+      const responseData = await response.json()
 
-      return null
+      return responseData
     } catch (error) {
       onError(error)
       return null

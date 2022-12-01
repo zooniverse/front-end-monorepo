@@ -1,9 +1,8 @@
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import request from 'superagent'
-import { extent } from 'd3'
-import { withTranslation } from 'react-i18next'
+import { extent } from 'd3-array'
+import { withTranslation } from '@translations/i18n'
 
 import VariableStarViewer from './VariableStarViewer'
 import { additiveDictionary } from './helpers/constants'
@@ -94,11 +93,14 @@ class VariableStarViewerContainer extends Component {
     const { onError } = this.props
     try {
       const url = this.getSubjectUrl()
-      const response = await request.get(url)
-
-      // Get the JSON data, or (as a failsafe) parse the JSON data if the
-      // response is returned as a string
-      return response.body || JSON.parse(response.text)
+      const response = await fetch(url)
+      if (!response.ok) {
+        const error = new Error(response.statusText)
+        error.status = response.status
+        throw error
+      }
+      const responseData = await response.json()
+      return responseData
     } catch (error) {
       onError(error)
       return null

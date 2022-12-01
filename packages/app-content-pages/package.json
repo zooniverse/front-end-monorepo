@@ -21,7 +21,7 @@
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/grommet-theme": "~3.1.0",
     "@zooniverse/panoptes-js": "~0.2.0",
-    "@zooniverse/react-components": "~1.2.0",
+    "@zooniverse/react-components": "~1.3.0",
     "contentful": "~9.2.3",
     "counterpart": "~0.18.6",
     "dotenv": "~16.0.1",

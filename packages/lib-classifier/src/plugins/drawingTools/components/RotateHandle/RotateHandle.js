@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import { string, number } from 'prop-types'
 import draggable from '../draggable'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 const RotateHandle = forwardRef(function RotateHandle(
   { fill = 'currentColor', scale = 1, x, y },

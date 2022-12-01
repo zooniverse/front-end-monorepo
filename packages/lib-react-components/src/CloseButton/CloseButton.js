@@ -3,8 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Button } from 'grommet'
 import CloseIcon from './components/CloseIcon'
-import { useTranslation } from 'react-i18next'
-import '../translations/i18n'
+import { useTranslation } from '../translations/i18n'
 
 const StyledButton = styled(Button)`
   height: 1rem;

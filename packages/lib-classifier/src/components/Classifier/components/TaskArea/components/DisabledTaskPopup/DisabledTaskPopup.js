@@ -2,7 +2,7 @@ import { Modal, PlainButton, PrimaryButton } from '@zooniverse/react-components'
 import { Paragraph } from 'grommet'
 import { bool, func } from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 /**
  A popup which interrupts classification for subjects that are retired or already seen.

@@ -1,7 +1,7 @@
 import { PrimaryButton, withThemeContext } from '@zooniverse/react-components'
 import { bool } from 'prop-types'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 import nextButtonTheme from './theme'
 

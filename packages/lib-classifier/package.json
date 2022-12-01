@@ -5,8 +5,15 @@
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
   "version": "0.0.1",
   "main": "dist/main.js",
+  "module": "dist/es6/components/Classifier/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zooniverse/front-end-monorepo.git",
+    "directory": "packages/lib-classifier"
+  },
   "scripts": {
-    "build": "webpack --config webpack.dist.js",
+    "build": "webpack --config webpack.dist.js && yarn build:es6",
+    "build:es6": "babel ./src/ --out-dir ./dist/es6 --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
     "dev": "webpack serve --config webpack.dev.js",
     "lint": "zoo-standard --fix | snazzy",
     "start": "PANOPTES_ENV=production npm run dev",
@@ -16,7 +23,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@babel/plugin-transform-runtime": "~7.19.1",
+    "@babel/runtime": "~7.19.1",
     "@sentry/browser": "~7.22.0",
     "@visx/axis": "~2.14.0",
     "@visx/event": "~2.6.0",
@@ -51,9 +58,11 @@
     "styled-components": "~5.x.x"
   },
   "devDependencies": {
+    "@babel/cli": "~7.19.3",
     "@babel/core": "~7.20.2",
     "@babel/plugin-proposal-decorators": "~7.20.0",
     "@babel/plugin-proposal-logical-assignment-operators": "~7.18.6",
+    "@babel/plugin-transform-runtime": "~7.19.1",
     "@babel/preset-env": "~7.20.2",
     "@babel/preset-react": "~7.18.6",
     "@babel/register": "~7.18.6",
@@ -74,10 +83,11 @@
     "@wojtekmaj/enzyme-adapter-react-17": "~0.8.0",
     "@zooniverse/grommet-theme": "~3.1.0",
     "@zooniverse/panoptes-js": "~0.2.0",
-    "@zooniverse/react-components": "~1.2.0",
+    "@zooniverse/react-components": "~1.3.0",
     "@zooniverse/standard": "~1.0.0",
     "babel-loader": "~9.1.0",
-    "babel-plugin-webpack-alias": "~2.1.2",
+    "babel-plugin-module-resolver": "~4.1.0",
+    "babel-plugin-transform-imports": "~2.0.0",
     "chai": "~4.3.4",
     "chai-dom": "~1.11.0",
     "css-loader": "~6.7.0",

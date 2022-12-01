@@ -1,6 +1,6 @@
 import { bool, func, number, shape, string } from 'prop-types'
 import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 import Banner from '../Banner'
 import ConfirmModal from './components/ConfirmModal'

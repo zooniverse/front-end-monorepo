@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React, { useRef } from 'react'
 import styled from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 import Characteristics from '../Characteristics'
 import FilterButton from '../components/FilterButton'

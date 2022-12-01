@@ -4,7 +4,7 @@ import { FormField, RadioButtonGroup } from 'grommet'
 import styled, { css } from 'styled-components'
 import { SpacedText, withThemeContext } from '@zooniverse/react-components'
 import theme from './theme'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 export const StyledRadioButtonGroup = styled(RadioButtonGroup)`
   label {

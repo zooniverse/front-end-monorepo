@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Box, Button, Heading, Paragraph } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 import StepNavigation from '@shared/StepNavigation'
 

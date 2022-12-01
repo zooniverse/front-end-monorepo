@@ -1,7 +1,7 @@
 import { Box, Text, TextArea } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 import styled from 'styled-components'
 import { Markdownz, PrimaryButton } from '@zooniverse/react-components'
 

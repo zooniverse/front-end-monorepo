@@ -3,7 +3,7 @@ import { Button, Box } from 'grommet'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 export const StyledPlainButton = styled(PlainButton)`
   text-align: center;

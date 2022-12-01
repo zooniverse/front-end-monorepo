@@ -2,8 +2,7 @@ import { CheckBox } from 'grommet'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
-import { useTranslation } from 'react-i18next'
-import '../translations/i18n'
+import { useTranslation } from '../translations/i18n'
 
 import SpacedText from '../SpacedText'
 

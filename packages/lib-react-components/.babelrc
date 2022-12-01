@@ -1,9 +1,27 @@
 {
   "plugins": [
-    "babel-plugin-styled-components"
+    "babel-plugin-styled-components",
+    ["transform-imports", {
+      "lodash": {
+        "transform": "lodash/${member}"
+      }
+    }]
   ],
   "presets": [
-    "@babel/preset-react",
-    "@babel/preset-env"
-  ]
+    ["@babel/preset-react", {
+      "runtime": "automatic"
+    }],
+    ["@babel/preset-env", {
+      "modules": "auto"
+    }]
+  ],
+  "env": {
+    "es6": {
+      "presets": [
+        ["@babel/preset-env", {
+          "modules": false
+        }]
+      ]
+    }
+  }
 }

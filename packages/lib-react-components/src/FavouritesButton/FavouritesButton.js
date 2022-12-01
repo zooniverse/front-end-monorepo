@@ -3,8 +3,7 @@ import React, { useState } from 'react'
 import { withTheme } from 'styled-components'
 import MetaToolsButton from '../MetaToolsButton'
 import HeartIcon from './HeartIcon'
-import { useTranslation } from 'react-i18next'
-import '../translations/i18n'
+import { useTranslation } from '../translations/i18n'
 
 function FavouritesButton (props) {
   const { checked, disabled, onClick } = props

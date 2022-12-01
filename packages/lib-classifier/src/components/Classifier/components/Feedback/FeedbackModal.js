@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Box } from 'grommet'
 import { Modal } from '@zooniverse/react-components'
-import { withTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 import { withStores } from '@helpers'
 import getFeedbackViewer from './helpers/getFeedbackViewer'
@@ -31,9 +31,9 @@ function FeedbackModal({
   hideFeedback,
   hideSubjectViewer,
   messages,
-  showModal,
-  t = key => key
+  showModal
 }) {
+  const { t } = useTranslation('components')
   const label = t('FeedbackModal.label')
   const showViewer = !hideSubjectViewer && applicableRules?.length > 0
   const FeedbackViewer = showViewer ? getFeedbackViewer(applicableRules) : null
@@ -91,6 +91,5 @@ FeedbackModal.propTypes = {
   showModal: PropTypes.bool
 }
 
-const TranslatedFeedbackModal = withTranslation('components')(FeedbackModal)
-export default withStores(TranslatedFeedbackModal, storeMapper)
+export default withStores(FeedbackModal, storeMapper)
 export { FeedbackModal }

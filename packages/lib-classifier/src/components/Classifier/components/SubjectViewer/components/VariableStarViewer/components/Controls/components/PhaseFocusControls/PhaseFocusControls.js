@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, RadioButton } from 'grommet'
 import { withTheme } from 'styled-components'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 import Label from '../Label'
 

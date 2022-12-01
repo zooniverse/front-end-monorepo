@@ -10,7 +10,7 @@ import {
   ThemeContext
 } from 'grommet'
 import { CirclePlay, Expand, Volume, VolumeMute, Pause } from 'grommet-icons'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 import { withThemeContext } from '@zooniverse/react-components'
 
 import controlsTheme from './theme'

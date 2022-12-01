@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { observer } from 'mobx-react'
 import asyncStates from '@zooniverse/async-states'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 import useSWR from 'swr'
 
 import { withFeatureFlag } from '@helpers'

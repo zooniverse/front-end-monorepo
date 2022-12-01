@@ -1,4 +1,4 @@
-import * as d3 from 'd3'
+import { select, interpolate, format } from 'd3'
 import PropTypes from 'prop-types'
 import { createRef, Component } from 'react';
 
@@ -18,13 +18,13 @@ class AnimatedNumber extends Component {
 
   animateValue (prevValue) {
     const self = this
-    d3.select(this.ref.current)
+    select(this.ref.current)
       .data([this.props.value])
       .transition()
       .duration(this.props.duration)
       .tween('text', function (d) {
-        const node = d3.select(this)
-        const interpolator = d3.interpolate(prevValue, d)
+        const node = select(this)
+        const interpolator = interpolate(prevValue, d)
         return t => {
           const value = interpolator(t)
           const niceValue = self.formatValue(value)
@@ -34,7 +34,7 @@ class AnimatedNumber extends Component {
   }
 
   formatValue (value) {
-    return d3.format(',d')(value)
+    return format(',d')(value)
   }
 
   render () {

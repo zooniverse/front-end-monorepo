@@ -6,7 +6,7 @@ import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
 

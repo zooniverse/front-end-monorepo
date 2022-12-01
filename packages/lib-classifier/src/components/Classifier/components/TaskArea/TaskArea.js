@@ -3,7 +3,7 @@ import { Box } from 'grommet'
 import { bool, func, shape, string } from 'prop-types'
 import queryString from 'query-string'
 import React, { useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 import { DisabledTaskPopup, Tasks } from './components'
 import SlideTutorial from '../SlideTutorial'

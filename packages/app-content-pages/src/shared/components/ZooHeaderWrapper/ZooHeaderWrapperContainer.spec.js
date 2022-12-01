@@ -92,7 +92,7 @@ describe('Component > ZooHeaderWrapperContainer', function () {
 
     it('should navigate to ./?login=true', async function () {
       const user = userEvent.setup({ delay: null })
-      signInButton = screen.getByRole('button', { name: 'Sign In' })
+      signInButton = await screen.findByRole('button', { name: 'Sign In' })
       await user.click(signInButton)
       expect(pageURL.toString()).to.equal('https://localhost/?login=true')
     })
@@ -107,7 +107,7 @@ describe('Component > ZooHeaderWrapperContainer', function () {
 
     it('should navigate to ./?register=true', async function () {
       const user = userEvent.setup({ delay: null })
-      registerButton = screen.getByRole('button', { name: 'Register' })
+      registerButton = await screen.findByRole('button', { name: 'Register' })
       await user.click(registerButton)
       expect(pageURL.toString()).to.equal('https://localhost/?register=true')
     })

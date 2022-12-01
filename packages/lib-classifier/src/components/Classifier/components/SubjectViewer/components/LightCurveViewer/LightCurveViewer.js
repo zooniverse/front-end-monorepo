@@ -1,4 +1,15 @@
-import * as d3 from 'd3'
+import {
+  axisRight,
+  axisTop
+} from 'd3-axis'
+import { brushX } from 'd3-brush'
+import { scaleLinear } from 'd3-scale'
+import { select } from 'd3-selection'
+import {
+  zoom,
+  zoomIdentity,
+  zoomTransform
+} from 'd3-zoom'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
@@ -13,6 +24,16 @@ import addDataMask from './d3/addDataMask'
 import addInterfaceLayer from './d3/addInterfaceLayer'
 import setDataPointStyle from './d3/setDataPointStyle'
 
+const d3 = {
+  axisRight,
+  axisTop,
+  brushX,
+  scaleLinear,
+  select,
+  zoom,
+  zoomIdentity,
+  zoomTransform
+}
 // The following are arbitrary as all heck, numbers are chosen for what "feels good"
 const ZOOM_IN_VALUE = 1.2
 const ZOOM_OUT_VALUE = 0.8

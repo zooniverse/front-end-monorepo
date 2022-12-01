@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Box } from 'grommet'
 import { MobXProviderContext } from 'mobx-react'
 import React, { useContext, useMemo, useState, useRef } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 import asyncStates from '@zooniverse/async-states'
 import ReactPlayer from 'react-player'
 

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
 import { Tooltip } from '@zooniverse/react-components'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 import TooltipIcon from './components/TooltipIcon'
 import ConsensusPopup from './components/ConsensusPopup'

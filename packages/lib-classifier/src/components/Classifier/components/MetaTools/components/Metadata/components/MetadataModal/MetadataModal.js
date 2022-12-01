@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import filterByLabel, { filters } from './filterByLabel'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 const StyledDataTable = styled(DataTable)`
   height: auto;

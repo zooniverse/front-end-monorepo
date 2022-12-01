@@ -6,10 +6,31 @@
     ["@babel/plugin-proposal-decorators", {
       "legacy": true
     }],
-    "@babel/plugin-proposal-logical-assignment-operators"
+    "@babel/plugin-proposal-logical-assignment-operators",
+    ["transform-imports", {
+      "lodash": {
+        "transform": "lodash/${member}"
+      }
+    }],
+    ["module-resolver", {
+      "alias": {
+        "@components": "./src/components",
+        "@helpers": "./src/helpers",
+        "@hooks": "./src/hooks",
+        "@plugins": "./src/plugins",
+        "@shared": "./src/components/Classifier/components/shared",
+        "@store": "./src/store",
+        "@stories": "./src/stories",
+        "@test": "./test",
+        "@translations": "./src/translations",
+        "@viewers": "./src/components/Classifier/components/SubjectViewer"
+      }
+    }]
   ],
   "presets": [
-    "@babel/preset-react",
+    ["@babel/preset-react", { 
+      "runtime": "automatic"
+    }],
     ["@babel/preset-env", {
       "modules": false,
       "targets": {
@@ -19,12 +40,11 @@
   ],
   "env": {
     "test": {
-      "plugins": [
-        ["babel-plugin-webpack-alias", { "config": "./webpack.dev.js" }]
-      ],
       "presets": [
         "@babel/preset-env",
-        "@babel/preset-react"
+        ["@babel/preset-react", { 
+          "runtime": "automatic"
+        }]
       ]
     }
   }

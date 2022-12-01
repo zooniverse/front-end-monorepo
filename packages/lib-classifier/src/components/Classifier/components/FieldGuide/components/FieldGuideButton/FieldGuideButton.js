@@ -4,7 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
 import { tint } from 'polished'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 import HelpIcon from './HelpIcon'
 

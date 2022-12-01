@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Image } from 'grommet'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 // TEMPORARY
 // TODO: find a permanent home for this PNG
