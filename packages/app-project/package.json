@@ -19,8 +19,8 @@
   },
   "dependencies": {
     "@artsy/fresnel": "~6.1.0",
-    "@sentry/browser": "~7.21.0",
-    "@sentry/node": "~7.21.0",
+    "@sentry/browser": "~7.22.0",
+    "@sentry/node": "~7.22.0",
     "@sindresorhus/string-hash": "~1.2.0",
     "@visx/axis": "~2.14.0",
     "@visx/group": "~2.10.0",
