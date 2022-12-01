@@ -85,6 +85,7 @@ export function Choices ({
 
   return (
     <StyledGrid
+      data-testid='choices-menu'
       role='menu'
       rowsCount={rowsCount}
     >

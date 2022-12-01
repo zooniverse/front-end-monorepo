@@ -25,8 +25,9 @@ describe('SurveyTask', function () {
       it('should show the choices', function () {
         render(<DefaultStory />)
         
+        const choicesMenu = screen.getByTestId('choices-menu')
         // choiceButtons are the menu items / buttons for the various choices (i.e. for the mock task the various animals)
-        const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+        const choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
         
         expect(choiceButtons.length).to.equal(6)
         expect(choiceButtons[0]).to.have.text('Aardvark')
@@ -77,8 +78,9 @@ describe('SurveyTask', function () {
       it('should show the choices', function () {
         render(<NoFiltersStory />)
         
+        const choicesMenu = screen.getByTestId('choices-menu')
         // choiceButtons are the menu items / buttons for the various choices (i.e. for the mock task the various animals)
-        const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+        const choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
         
         expect(choiceButtons.length).to.equal(6)
         expect(choiceButtons[0]).to.have.text('Aardvark')
@@ -115,10 +117,11 @@ describe('SurveyTask', function () {
         const user = userEvent.setup({ delay: null })
         render(<DefaultStory />)
         // filterButton is the Filter button above the choices
-        const filterButton = screen.getByText('SurveyTask.CharacteristicsFilter.filter')
+        const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
         await user.click(filterButton)
+        const characteristicsSection = screen.getByTestId('characteristics')
         // the filterSections are the characteristic filter sections, i.e. the sections for "Like", "Pattern", and "Color" for the mock task
-        const filterSections = screen.getAllByRole('radiogroup')
+        const filterSections = within(characteristicsSection).getAllByRole('radiogroup')
         
         expect(filterSections.length).to.equal(3)
       })
@@ -127,7 +130,7 @@ describe('SurveyTask', function () {
         it('should show the filter button with a remove filter button', async function () {
           const user = userEvent.setup({ delay: null })
           render(<DefaultStory />)
-          const filterButton = screen.getByText('SurveyTask.CharacteristicsFilter.filter')
+          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
           await user.click(filterButton)
           // the stripesFilterButton is the button to filter choices by "stripes". Stripes is a specific value of the "Pattern" characteristic.
           const stripesFilterButton = screen.getByTestId('filter-PTTRN-STRPS')
@@ -147,7 +150,7 @@ describe('SurveyTask', function () {
         it('should show the choices that match the filter', async function () {
           const user = userEvent.setup({ delay: null })
           render(<DefaultStory />)
-          const filterButton = screen.getByText('SurveyTask.CharacteristicsFilter.filter')
+          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
           await user.click(filterButton)
           const redFilterButton = screen.getByTestId('filter-CLR-RD')
           expect(redFilterButton).to.be.ok()
@@ -156,7 +159,8 @@ describe('SurveyTask', function () {
 
           await user.click(redFilterButton)
           await user.click(filterButton)
-          const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+          const choicesMenu = screen.getByTestId('choices-menu')
+          const choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
           expect(choiceButtons.length).to.equal(3)
           expect(choiceButtons[0]).to.have.text('Aardvark')
           expect(choiceButtons[1]).to.have.text('Kudu')
@@ -166,7 +170,7 @@ describe('SurveyTask', function () {
         it.skip('should persist filters after a choice is selected', async function () {
           const user = userEvent.setup({ delay: null })
           render(<DefaultStory />)
-          const filterButton = screen.getByText('SurveyTask.CharacteristicsFilter.filter')
+          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
 
           // open the characteristics filters
           await user.click(filterButton)
@@ -175,14 +179,15 @@ describe('SurveyTask', function () {
           await user.click(redFilterButton)
           // close the characteristics filters
           await user.click(filterButton)
-          const fireChoiceButton = screen.getByText('Fire')
+          const fireChoiceButton = screen.getByLabelText('Fire')
           // select the Fire choice
           await user.click(fireChoiceButton)
-          const identifyButton = screen.getByText('SurveyTask.Choice.identify')
+          const identifyButton = screen.getByRole('button', { name: 'SurveyTask.Choice.identify' })
           // identify the Fire choice
           await user.click(identifyButton)
           // confirm the remaining choices are the 3 choices that match the red filter
-          const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+          const choicesMenu = screen.getByTestId('choices-menu')
+          const choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
           expect(choiceButtons.length).to.equal(3)
           expect(choiceButtons[0]).to.have.text('Aardvark')
           expect(choiceButtons[1]).to.have.text('Kudu')
@@ -192,7 +197,7 @@ describe('SurveyTask', function () {
         it.skip('should remove the filter on remove filter button click (within Characteristics)', async function () {
           const user = userEvent.setup({ delay: null })
           render(<DefaultStory />)
-          const filterButton = screen.getByText('SurveyTask.CharacteristicsFilter.filter')
+          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
           await user.click(filterButton)
           const stripesFilterButton = screen.getByTestId('filter-PTTRN-STRPS')
           // click/apply the stripes filter
@@ -203,21 +208,23 @@ describe('SurveyTask', function () {
           await user.click(stripesFilterRemoveButton)
           await user.click(filterButton)
           // confirm the choices are the total 6 choices, not filtered by the stripes filter
-          const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+          const choicesMenu = screen.getByTestId('choices-menu')
+          const choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
           expect(choiceButtons.length).to.equal(6)
         })
 
         it.skip('should remove the filter on remove filter button click (within FilterStatus)', async function () {
           const user = userEvent.setup({ delay: null })
           render(<DefaultStory />)
-          const filterButton = screen.getByText('SurveyTask.CharacteristicsFilter.filter')
+          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
           await user.click(filterButton)
           const stripesFilterButton = screen.getByTestId('filter-PTTRN-STRPS')
           // click/apply the stripes filter
           await user.click(stripesFilterButton)
           await user.click(filterButton)
           // confirm the stripes filter is applied, of the total 6 choices only 1 choice (Kudu) matches the stripes filter
-          let choiceButtons = screen.getAllByRole('menuitemcheckbox')
+          let choicesMenu = screen.getByTestId('choices-menu')
+          let choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
           expect(choiceButtons.length).to.equal(1)
 
           const filterStatusSection = screen.getByTestId('filter-status')
@@ -225,14 +232,15 @@ describe('SurveyTask', function () {
           // remove the stripes filter
           await user.click(stripesFilterRemoveButton)
           // confirm the choices are the total 6 choices, not filtered by the stripes filter
-          choiceButtons = screen.getAllByRole('menuitemcheckbox')
+          choicesMenu = screen.getByTestId('choices-menu')
+          choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
           expect(choiceButtons.length).to.equal(6)
         })
 
         it.skip('should remove filters on Clear Filters button click (within Characteristics) ', async function () {
           const user = userEvent.setup({ delay: null })
           render(<DefaultStory />)
-          const filterButton = screen.getByText('SurveyTask.CharacteristicsFilter.filter')
+          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
           await user.click(filterButton)
           // click/apply the like a cow/horse filter
           const cowHorseFilterButton = screen.getByTestId('filter-LK-CWHRS')
@@ -260,7 +268,7 @@ describe('SurveyTask', function () {
         it.skip('should remove filters on Clear Filters button click (within Chooser)', async function () {
           const user = userEvent.setup({ delay: null })
           render(<DefaultStory />)
-          const filterButton = screen.getByText('SurveyTask.CharacteristicsFilter.filter')
+          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
           await user.click(filterButton)
           const cowHorseFilterButton = screen.getByTestId('filter-LK-CWHRS')
           // click/apply the like a cow/horse filter
@@ -269,14 +277,16 @@ describe('SurveyTask', function () {
           // click/apply the color tan/yellow filter
           await user.click(tanYellowFilterButton)
           await user.click(filterButton)
-          let choiceButtons = screen.getAllByRole('menuitemcheckbox')
+          let choicesMenu = screen.getByTestId('choices-menu')
+          let choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
           // confirm the choices remaining are the 1 choice (Kudu) that matches the cow/horse and tan/yellow filters
           expect(choiceButtons.length).to.equal(1)
 
-          const clearFiltersButton = screen.getByText('SurveyTask.CharacteristicsFilter.clearFilters')
+          const clearFiltersButton = screen.getByRole('button', { name: 'Clear SurveyTask.CharacteristicsFilter.clearFilters' })
           // clear the filters
           await user.click(clearFiltersButton)
-          choiceButtons = screen.getAllByRole('menuitemcheckbox')
+          choicesMenu = screen.getByTestId('choices-menu')
+          choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
           // confirm the choices are the total 6 choices, not filtered by the cow/horse and tan/yellow filters
           expect(choiceButtons.length).to.equal(6)
         })
@@ -316,7 +326,8 @@ describe('SurveyTask', function () {
         const choiceHeading = screen.queryByRole('heading', { name: 'Fire' })
         expect(choiceHeading).to.be.null()
         // confirm choices are shown
-        const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+        const choicesMenu = screen.getByTestId('choices-menu')
+        const choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
         expect(choiceButtons.length).to.equal(6)
       })
 
@@ -332,7 +343,8 @@ describe('SurveyTask', function () {
         const choiceHeading = screen.queryByRole('heading', { name: 'Fire' })
         expect(choiceHeading).to.be.null()
         // confirm choices are shown
-        const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+        const choicesMenu = screen.getByTestId('choices-menu')
+        const choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
         expect(choiceButtons.length).to.equal(6)
         // confirm choice (Fire) is shown as checked
         const fireChoiceButton = screen.getByRole('menuitemcheckbox', { name: 'Fire' })
@@ -375,7 +387,8 @@ describe('SurveyTask', function () {
         // pressing the Enter key to open the Filter button
         await user.keyboard('[Enter]')
         // the filterSections are the characteristic filter sections, i.e. the sections for "Like", "Pattern", and "Color" for the mock task
-        const filterSections = screen.getAllByRole('radiogroup')
+        const characteristicsSection = screen.getByTestId('characteristics')
+        const filterSections = within(characteristicsSection).getAllByRole('radiogroup')
         expect(filterSections.length).to.equal(3)
       })
 
@@ -404,7 +417,7 @@ describe('SurveyTask', function () {
         it('should show the choices that match the filter', async function () {
           const user = userEvent.setup({ delay: null })
           render(<DefaultStory />)
-          const filterButton = screen.getByText('SurveyTask.CharacteristicsFilter.filter')
+          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
           // tabbing to and opening the Filter button
           await user.keyboard('[Tab][Enter]')
           // tabbing to the pattern section that contains the solid filter and selecting the solid filter with space key
@@ -412,7 +425,8 @@ describe('SurveyTask', function () {
           // close the filters
           await user.click(filterButton)
           // confirming that the choices are filtered by the solid filter
-          const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+          const choicesMenu = screen.getByTestId('choices-menu')
+          const choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
           expect(choiceButtons.length).to.equal(3)
           expect(choiceButtons[0]).to.have.text('Aardvark')
           expect(choiceButtons[1]).to.have.text('Elephant')
@@ -422,7 +436,7 @@ describe('SurveyTask', function () {
         it('should remove the filter on remove filter button keypress (within Characteristics)', async function () {
           const user = userEvent.setup({ delay: null })
           render(<DefaultStory />)
-          const filterButton = screen.getByText('SurveyTask.CharacteristicsFilter.filter')
+          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
           // tabbing to and opening the Filter button
           await user.keyboard('[Tab][Enter]')
           // tabbing to the pattern section that contains the solid filter and selecting the solid filter with space key
@@ -441,14 +455,15 @@ describe('SurveyTask', function () {
           // close the filters
           await user.click(filterButton)
           // confirm the choices are the total 6 choices, not filtered by the solid filter
-          const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+          const choicesMenu = screen.getByTestId('choices-menu')
+          const choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
           expect(choiceButtons.length).to.equal(6)
         })
 
         it('should remove the filter on remove filter button keypress (within FilterStatus)', async function () {
           const user = userEvent.setup({ delay: null })
           render(<DefaultStory />)
-          const filterButton = screen.getByText('SurveyTask.CharacteristicsFilter.filter')
+          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
           // tabbing to and opening the Filter button
           await user.keyboard('[Tab][Enter]')
           // tabbing to the pattern section that contains the solid filter and selecting the solid filter with space key
@@ -461,13 +476,15 @@ describe('SurveyTask', function () {
           // close the filters
           await user.click(filterButton)
           // confirm the solid filter is applied, of the total 6 choices only 1 choice (Kudu) matches the solid filter
-          let choiceButtons = screen.getAllByRole('menuitemcheckbox')
+          let choicesMenu = screen.getByTestId('choices-menu')
+          let choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
           expect(choiceButtons.length).to.equal(3)
 
           // remove the solid filter with the "Remove solid filter" small x button in the Filter Status component
           await user.keyboard('[Tab][Space]')
           // confirm the choices are the total 6 choices, not filtered by the solid filter
-          choiceButtons = screen.getAllByRole('menuitemcheckbox')
+          choicesMenu = screen.getByTestId('choices-menu')
+          choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
           expect(choiceButtons.length).to.equal(6)
         })
       })
@@ -516,7 +533,8 @@ describe('SurveyTask', function () {
         choiceHeading = screen.queryByRole('heading', { name: 'Nothing here' })
         expect(choiceHeading).to.be.null()
         // confirm choices are shown
-        const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+        const choicesMenu = screen.getByTestId('choices-menu')
+        const choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
         expect(choiceButtons.length).to.equal(6)
       })
 
@@ -539,7 +557,8 @@ describe('SurveyTask', function () {
         choiceHeading = screen.queryByRole('heading', { name: 'Fire' })
         expect(choiceHeading).to.be.null()
         // confirm choices are shown
-        const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+        const choicesMenu = screen.getByTestId('choices-menu')
+        const choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
         expect(choiceButtons.length).to.equal(6)
         // confirm the identified choice (Nothing here) is the active choice
         const nothingHereChoiceButton = screen.getByRole('menuitemcheckbox', { name: 'Nothing here' })
@@ -571,11 +590,12 @@ describe('SurveyTask', function () {
       render(<NoFiltersStory />)
       let choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Fire' })
       await user.click(choiceButton)
-      const identifyButton = screen.getByText('SurveyTask.Choice.identify')
+      const identifyButton = screen.getByRole('button', { name: 'SurveyTask.Choice.identify' })
       // identify choice (Fire) and close choice (Fire) component
       await user.click(identifyButton)
       // confirm choices showing
-      const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+      const choicesMenu = screen.getByTestId('choices-menu')
+      const choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
       expect(choiceButtons.length).to.equal(6)
       
       // confirm choice Fire selected
@@ -597,11 +617,12 @@ describe('SurveyTask', function () {
       render(<NoFiltersStory />)
       let choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Fire' })
       await user.click(choiceButton)
-      const identifyButton = screen.getByText('SurveyTask.Choice.identify')
+      const identifyButton = screen.getByRole('button', { name: 'SurveyTask.Choice.identify' })
       // identify choice (Fire) and close choice (Fire) component
       await user.click(identifyButton)
       // confirm choices showing
-      const choiceButtons = screen.getAllByRole('menuitemcheckbox')
+      const choicesMenu = screen.getByTestId('choices-menu')
+      const choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
       expect(choiceButtons.length).to.equal(6)
       
       // confirm choice Fire selected
