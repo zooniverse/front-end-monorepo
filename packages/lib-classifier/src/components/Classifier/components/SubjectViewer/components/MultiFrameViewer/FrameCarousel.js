@@ -2,7 +2,7 @@ import { Button, Box } from 'grommet'
 import { FormUp, FormDown, More } from 'grommet-icons'
 import { tint } from 'polished'
 import PropTypes from 'prop-types'
-import React from 'react'
+import { createRef, Component } from 'react';
 import styled, { css, withTheme } from 'styled-components'
 import { Media } from '@zooniverse/react-components'
 import { useTranslation, withTranslation } from '@translations/i18n'
@@ -101,14 +101,14 @@ export const StyledFrameList = styled.ul`
   scroll-behavior: smooth;
 `
 
-class FrameCarousel extends React.Component {
+class FrameCarousel extends Component {
   constructor () {
     super()
     this.handleScroll = this.handleScroll.bind(this)
     this.handlePrevious = this.handlePrevious.bind(this)
     this.handleNext = this.handleNext.bind(this)
-    this.activeLabel = React.createRef()
-    this.frameList = React.createRef()
+    this.activeLabel = createRef()
+    this.frameList = createRef()
   }
 
   componentDidMount () {

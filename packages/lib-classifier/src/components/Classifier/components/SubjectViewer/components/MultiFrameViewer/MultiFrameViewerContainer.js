@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react';
 
 import withKeyZoom from '@components/Classifier/components/withKeyZoom'
 import { withStores } from '@helpers'

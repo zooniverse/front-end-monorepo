@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react';
 
 function withOnlyRenderOnBrowser (WrappedComponent) {
   return class extends Component {

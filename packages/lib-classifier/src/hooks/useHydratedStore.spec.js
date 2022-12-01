@@ -1,5 +1,4 @@
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
-import React from 'react'
 import { renderHook } from '@testing-library/react-hooks/pure'
 
 import branchingWorkflow from '@test/mockStore/branchingWorkflow'

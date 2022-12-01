@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import { useState } from 'react';
 import styled, { css, withTheme } from 'styled-components'
 
 import howManyColumns from './helpers/howManyColumns'

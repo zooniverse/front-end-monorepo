@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { forwardRef, useEffect, useRef } from 'react'
+import { forwardRef, useEffect, useRef } from 'react';
 import styled, { css, withTheme } from 'styled-components'
 import draggable from '../draggable'
 

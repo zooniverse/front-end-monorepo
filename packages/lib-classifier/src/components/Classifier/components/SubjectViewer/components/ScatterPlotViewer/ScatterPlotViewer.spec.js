@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import sinon from 'sinon'
 import ScatterPlot from './components/ScatterPlot'
 import ZoomingScatterPlot from './components/ZoomingScatterPlot'

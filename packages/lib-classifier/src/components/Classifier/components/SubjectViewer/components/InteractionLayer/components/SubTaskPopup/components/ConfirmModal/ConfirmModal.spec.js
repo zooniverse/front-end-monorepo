@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme'
 import { Button } from 'grommet'
-import React from 'react'
 import sinon from 'sinon'
 
 import ConfirmModal from './ConfirmModal'

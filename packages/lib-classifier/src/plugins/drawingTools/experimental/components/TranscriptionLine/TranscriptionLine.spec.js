@@ -1,4 +1,3 @@
-import React from 'react'
 import { mount } from 'enzyme'
 import TranscriptionLine from './TranscriptionLine'
 import { Provider } from 'mobx-react'

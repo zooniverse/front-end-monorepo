@@ -7,7 +7,7 @@ import {
   FormDown
 } from 'grommet-icons'
 import PropTypes from 'prop-types'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react';
 import styled, { withTheme, css } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 import { observer } from 'mobx-react'

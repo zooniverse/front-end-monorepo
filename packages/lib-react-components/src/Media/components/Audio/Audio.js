@@ -1,4 +1,3 @@
-import React from 'react'
 import { Anchor, Box } from 'grommet'
 import styled, { css } from 'styled-components'
 import { propTypes, defaultProps } from '../../helpers/mediaPropTypes'

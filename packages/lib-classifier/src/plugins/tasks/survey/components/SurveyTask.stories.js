@@ -1,5 +1,4 @@
 import { Box } from 'grommet'
-import React from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import { task } from '@plugins/tasks/survey/mock-data'

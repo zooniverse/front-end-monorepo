@@ -1,7 +1,6 @@
 import * as stories from './PlainButton.stories'
 import { render } from '@testing-library/react'
 import { composeStories } from '@storybook/testing-react'
-import React from 'react'
 
 describe('Components > PlainButton', function () {
   const { Default } = composeStories(stories)

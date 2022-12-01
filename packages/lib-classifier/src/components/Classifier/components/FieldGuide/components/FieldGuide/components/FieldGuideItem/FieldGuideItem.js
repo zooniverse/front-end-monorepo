@@ -4,7 +4,6 @@ import { FormPrevious } from 'grommet-icons'
 import { observable } from 'mobx'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 

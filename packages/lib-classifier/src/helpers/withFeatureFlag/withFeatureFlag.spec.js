@@ -1,5 +1,4 @@
 import { Provider } from 'mobx-react'
-import React from 'react'
 import { render, screen } from '@testing-library/react'
 
 import mockStore from '@test/mockStore'

@@ -1,4 +1,3 @@
-import React from 'react';
 import sinon from 'sinon';
 import zooTheme from '@zooniverse/grommet-theme';
 import { Box, Grommet } from 'grommet';

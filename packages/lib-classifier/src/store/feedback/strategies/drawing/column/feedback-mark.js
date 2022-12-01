@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 
 function FeedbackMark ({ rule }) {
   const color = (rule.success) ? 'green' : 'red'

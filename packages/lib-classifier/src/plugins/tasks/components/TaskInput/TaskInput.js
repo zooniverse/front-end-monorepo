@@ -1,4 +1,4 @@
-import React from 'react'
+import { memo } from 'react';
 import PropTypes from 'prop-types'
 
 import styled, { css, withTheme } from 'styled-components'
@@ -171,4 +171,4 @@ TaskInput.propTypes = {
   type: PropTypes.string.isRequired
 }
 
-export default React.memo(withTheme(TaskInput))
+export default memo(withTheme(TaskInput))

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import PlainButton from '../PlainButton'
 

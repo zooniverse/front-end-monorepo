@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { cloneElement, useRef, useEffect, useState } from 'react'
+import { cloneElement, useRef, useEffect, useState } from 'react';
 
 function SVGPanZoom({
   children,

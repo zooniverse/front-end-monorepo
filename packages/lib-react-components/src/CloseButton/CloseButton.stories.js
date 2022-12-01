@@ -1,7 +1,6 @@
 import { withActions } from '@storybook/addon-actions';
 import zooTheme from '@zooniverse/grommet-theme';
 import { Box, Grommet } from 'grommet';
-import React from 'react';
 
 import CloseButton from './CloseButton';
 import readme from './README.md';

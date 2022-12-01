@@ -1,6 +1,5 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
 import { SpacedHeading } from '@zooniverse/react-components'
 
 import InputGroup from './components/InputGroup'

@@ -1,4 +1,3 @@
-import React from 'react';
 import zooTheme from '@zooniverse/grommet-theme';
 import { Box, Grommet } from 'grommet';
 import * as d3 from 'd3';

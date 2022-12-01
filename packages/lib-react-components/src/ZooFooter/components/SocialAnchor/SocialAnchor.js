@@ -2,7 +2,6 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Anchor } from 'grommet'
 import { FacebookOption, Twitter, Instagram } from 'grommet-icons'
 import { objectOf, oneOf, string } from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 const StyledAnchor = styled(Anchor)`

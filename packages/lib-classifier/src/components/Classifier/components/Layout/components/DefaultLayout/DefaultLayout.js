@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import { pxToRem } from '@zooniverse/react-components'
 import { Box } from 'grommet'

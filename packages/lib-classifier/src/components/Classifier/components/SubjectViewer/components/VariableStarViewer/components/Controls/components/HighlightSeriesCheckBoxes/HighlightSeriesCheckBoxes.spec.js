@@ -1,5 +1,4 @@
 import { mount, shallow } from 'enzyme'
-import React from 'react'
 import sinon from 'sinon'
 import { CheckBox } from  'grommet'
 import zooTheme from '@zooniverse/grommet-theme'

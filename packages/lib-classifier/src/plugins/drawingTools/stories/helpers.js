@@ -1,5 +1,4 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import React from 'react'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 

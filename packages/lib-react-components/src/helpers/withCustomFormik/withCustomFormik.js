@@ -1,9 +1,9 @@
-import React from 'react'
+import { Component, forwardRef } from 'react';
 import PropTypes from 'prop-types'
 import { Formik } from 'formik'
 
 function withCustomFormik (WrappedComponent) {
-  class FormikHOC extends React.Component {
+  class FormikHOC extends Component {
     constructor () {
       super()
 
@@ -75,7 +75,7 @@ function withCustomFormik (WrappedComponent) {
     onSubmit: PropTypes.func.isRequired
   }
 
-  const DecoratedFormikHOC = React.forwardRef(function (props, ref) {
+  const DecoratedFormikHOC = forwardRef(function (props, ref) {
     return <FormikHOC {...props} forwardedRef={ref} />
   })
   const name = WrappedComponent.displayName || WrappedComponent.name;

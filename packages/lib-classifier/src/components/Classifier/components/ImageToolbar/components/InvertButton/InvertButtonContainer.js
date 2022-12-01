@@ -1,5 +1,4 @@
 import { withStores } from '@helpers'
-import React from 'react'
 
 import InvertButton from './InvertButton'
 

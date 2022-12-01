@@ -1,5 +1,4 @@
 import { mount } from 'enzyme'
-import React from 'react'
 import sinon from 'sinon'
 import { Markdownz } from '@zooniverse/react-components'
 

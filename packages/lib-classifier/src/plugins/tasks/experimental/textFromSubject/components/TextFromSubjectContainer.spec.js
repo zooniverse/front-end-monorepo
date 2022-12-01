@@ -1,6 +1,5 @@
 import { mount, shallow } from 'enzyme'
 import { Grommet, TextArea } from 'grommet'
-import React from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 
 import { default as Task } from '@plugins/tasks/experimental/textFromSubject'

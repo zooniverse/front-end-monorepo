@@ -1,7 +1,6 @@
 import { Button } from 'grommet'
 import { bool, func, shape, string, oneOfType } from 'prop-types'
 import styled, { withTheme } from 'styled-components'
-import React from 'react'
 
 import SpacedText from '../SpacedText'
 

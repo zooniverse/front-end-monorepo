@@ -1,6 +1,6 @@
 import { Layer } from 'grommet'
 import PropTypes from 'prop-types'
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react';
 
 function withLayer (WrappedComponent) {
   function HOC ({

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React from 'react'
+import { useRef } from 'react';
 import PropTypes from 'prop-types'
 import { Box, Text, TextArea } from 'grommet'
 import { Markdownz } from '@zooniverse/react-components'
@@ -19,7 +19,7 @@ function DefaultTextTask ({
   value,
   updateAnnotation = () => true
 }) {
-  const textArea = React.useRef()
+  const textArea = useRef()
 
   function onChange() {
     updateAnnotation(textArea)

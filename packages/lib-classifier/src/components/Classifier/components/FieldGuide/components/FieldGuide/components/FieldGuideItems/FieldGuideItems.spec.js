@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import { Grid } from 'grommet'
 import FieldGuideItems from './FieldGuideItems'
 import FieldGuideItemAnchor from '../FieldGuideItemAnchor'

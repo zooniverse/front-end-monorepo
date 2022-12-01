@@ -1,4 +1,4 @@
-import React from 'react'
+import { forwardRef } from 'react';
 import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
 import {
@@ -14,7 +14,7 @@ const StyledBox = styled(Box)`
   position: relative;
 `
 
-const DataImageViewer = React.forwardRef(function DataImageViewer(props, ref) {
+const DataImageViewer = forwardRef(function DataImageViewer(props, ref) {
   const {
     allowPanZoom,
     enableRotation,

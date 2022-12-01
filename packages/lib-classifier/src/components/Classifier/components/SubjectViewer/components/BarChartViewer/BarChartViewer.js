@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import { forwardRef } from 'react';
 import styled, { withTheme } from 'styled-components'
 import { Group } from '@visx/group'
 import { AxisBottom, AxisLeft } from '@visx/axis'
@@ -20,7 +20,7 @@ export const StyledGroup = styled(Group)`
   }
 `
 
-const BarChartViewer = React.forwardRef(function BarChartViewer (props, ref) {
+const BarChartViewer = forwardRef(function BarChartViewer (props, ref) {
   const {
     barStyles: {
       padding

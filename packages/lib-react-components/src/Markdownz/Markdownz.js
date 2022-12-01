@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import { Fragment, useCallback } from 'react';
 import PropTypes from 'prop-types'
 import {
   Anchor,
@@ -141,10 +141,10 @@ function Markdownz({
     markdown = error.message
   }
   return (
-    <React.Fragment>
+    <Fragment>
       {markdown}
-    </React.Fragment>
-  )
+    </Fragment>
+  );
 }
 
 Markdownz.propTypes = {

@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import PreviousMarks from './PreviousMarks'
 import DrawingToolMarks from '../DrawingToolMarks'
 import SHOWN_MARKS from '@helpers/shownMarks'

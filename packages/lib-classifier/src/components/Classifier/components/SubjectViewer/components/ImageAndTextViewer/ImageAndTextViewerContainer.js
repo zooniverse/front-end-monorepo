@@ -1,6 +1,5 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import StepNavigation from '@shared/StepNavigation'

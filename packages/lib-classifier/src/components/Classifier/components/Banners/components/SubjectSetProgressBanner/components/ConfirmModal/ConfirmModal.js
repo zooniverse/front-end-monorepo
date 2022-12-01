@@ -1,6 +1,5 @@
 import { Box, Button, Paragraph } from 'grommet'
 import { bool, func } from 'prop-types'
-import React from 'react'
 import { Modal, PrimaryButton } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
 

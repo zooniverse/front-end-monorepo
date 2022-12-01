@@ -1,6 +1,6 @@
 import { Box, DropButton } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
+import { useState } from 'react';
 import styled, { withTheme } from 'styled-components'
 import { SpacedHeading } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
@@ -27,7 +27,7 @@ function ConfusedWith({
 } ) {
   const { t } = useTranslation('plugins')
 
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
   function onClose () {
     setOpen(false)
   }

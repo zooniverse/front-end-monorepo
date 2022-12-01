@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import sinon from 'sinon'
 import ZoomInButton from './ZoomInButton'
 import i18n from '@test/i18n/i18n-for-tests'

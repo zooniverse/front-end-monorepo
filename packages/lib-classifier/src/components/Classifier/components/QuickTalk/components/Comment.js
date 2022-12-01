@@ -4,8 +4,7 @@ TODO:
 - [ ] add isDeleted style
  */
 
-import React from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { Box, Text } from 'grommet'
 import { Markdownz } from '@zooniverse/react-components'
 

@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import { createRef, Component } from 'react';
 import { extent } from 'd3-array'
 import { withTranslation } from '@translations/i18n'
 
@@ -11,7 +11,7 @@ import locationValidator from '../../helpers/locationValidator'
 class VariableStarViewerContainer extends Component {
   constructor () {
     super()
-    this.viewer = React.createRef()
+    this.viewer = createRef()
     this.state = {
       allowPanZoom: '',
       barJSON: {

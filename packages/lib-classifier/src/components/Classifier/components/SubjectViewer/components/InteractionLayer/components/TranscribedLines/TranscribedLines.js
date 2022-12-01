@@ -1,5 +1,5 @@
 import { array, arrayOf, bool, number, object, shape, string } from 'prop-types'
-import React, { useState } from 'react'
+import { useState } from 'react';
 import styled, { css, withTheme } from 'styled-components'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
 import { Tooltip } from '@zooniverse/react-components'

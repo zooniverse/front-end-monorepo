@@ -11,7 +11,7 @@ import {
   zoomTransform
 } from 'd3-zoom'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import { createRef, Component } from 'react';
 
 import { Chart } from '@viewers/components/SVGComponents'
 
@@ -737,7 +737,7 @@ LightCurveViewer.propTypes = {
 }
 
 LightCurveViewer.defaultProps = {
-  forwardRef: React.createRef(),
+  forwardRef: createRef(),
 
   dataExtent: { x: [-1, 1], y: [-1, 1] },
   dataPoints: [[]],

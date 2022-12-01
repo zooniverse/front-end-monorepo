@@ -1,4 +1,3 @@
-import React from 'react';
 import { withKnobs, text, number, object } from '@storybook/addon-knobs';
 import zooTheme from '@zooniverse/grommet-theme';
 import { Box, Grommet, base as baseTheme } from 'grommet';

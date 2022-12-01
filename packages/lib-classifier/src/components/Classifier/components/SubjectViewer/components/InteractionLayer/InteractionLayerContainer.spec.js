@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import { InteractionLayerContainer } from './InteractionLayerContainer'
 import InteractionLayer from './InteractionLayer'
 import PreviousMarks from './components/PreviousMarks'

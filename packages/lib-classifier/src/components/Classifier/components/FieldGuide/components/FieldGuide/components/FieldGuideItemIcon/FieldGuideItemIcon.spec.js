@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import { observable } from 'mobx'
 import { Media } from '@zooniverse/react-components'
 import FieldGuideItemIcon from './FieldGuideItemIcon'

@@ -2,7 +2,6 @@ import { linkTo } from '@storybook/addon-links';
 import zooTheme from '@zooniverse/grommet-theme';
 import { Box, Grommet } from 'grommet';
 import { merge } from 'lodash';
-import React from 'react';
 
 import ZooFooter from './ZooFooter';
 import readme from './README.md';

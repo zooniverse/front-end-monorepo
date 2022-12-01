@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
-import React from 'react'
 import TranscriptionReductions from '@store/subjects/Subject/TranscriptionReductions'
 import * as tasks from '@plugins/tasks'
 import { TranscribedLines } from './TranscribedLines'

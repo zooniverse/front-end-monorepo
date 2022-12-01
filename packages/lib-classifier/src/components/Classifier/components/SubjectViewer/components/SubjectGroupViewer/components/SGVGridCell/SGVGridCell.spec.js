@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme'
 import { getSnapshot } from 'mobx-state-tree'
-import React from 'react'
 
 import SGVGridCell from './SGVGridCell'
 import { default as Task } from '@plugins/tasks/subjectGroupComparison'

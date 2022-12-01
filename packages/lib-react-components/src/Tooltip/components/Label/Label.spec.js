@@ -1,4 +1,3 @@
-import React from 'react'
 import { shallow } from 'enzyme'
 import Triangle from '../Triangle'
 import { Label } from './Label'

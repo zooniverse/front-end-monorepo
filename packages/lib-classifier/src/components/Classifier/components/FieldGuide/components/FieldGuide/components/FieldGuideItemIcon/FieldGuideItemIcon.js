@@ -1,5 +1,4 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import React from 'react'
 import { Media } from '@zooniverse/react-components'
 import PropTypes from 'prop-types'
 

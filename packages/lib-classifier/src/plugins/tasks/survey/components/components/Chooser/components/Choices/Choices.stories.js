@@ -1,6 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
-import React from 'react'
 
 import SurveyTask from '@plugins/tasks/survey'
 import { task, taskWithMoreThanTwentyChoices } from '@plugins/tasks/survey/mock-data'

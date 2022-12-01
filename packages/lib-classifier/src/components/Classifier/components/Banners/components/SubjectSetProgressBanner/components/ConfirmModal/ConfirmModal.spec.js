@@ -1,6 +1,5 @@
 import { fireEvent, render } from '@testing-library/react'
 import { Grommet } from 'grommet'
-import React from 'react'
 import sinon from 'sinon'
 import i18n from '@test/i18n/i18n-for-tests'
 

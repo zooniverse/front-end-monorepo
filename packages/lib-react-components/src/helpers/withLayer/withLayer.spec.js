@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import sinon from 'sinon'
 import withLayer from './withLayer'
 import { Modal } from '../../Modal'

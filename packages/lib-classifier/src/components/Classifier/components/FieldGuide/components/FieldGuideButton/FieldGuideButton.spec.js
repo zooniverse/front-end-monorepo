@@ -1,6 +1,5 @@
 import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
-import React from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { FieldGuideButton, ButtonLabel, StyledButton } from './FieldGuideButton'
 import { FieldGuideFactory, FieldGuideMediumFactory } from '@test/factories'

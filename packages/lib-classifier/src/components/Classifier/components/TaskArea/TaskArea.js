@@ -2,7 +2,7 @@ import { Tab, Tabs } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { bool, func, shape, string } from 'prop-types'
 import queryString from 'query-string'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from '@translations/i18n'
 
 import { DisabledTaskPopup, Tasks } from './components'

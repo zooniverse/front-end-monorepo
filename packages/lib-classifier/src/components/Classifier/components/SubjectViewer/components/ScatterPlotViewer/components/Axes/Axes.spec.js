@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import Axes, { StyledAxis } from './Axes'
 import {
   axesConfig,

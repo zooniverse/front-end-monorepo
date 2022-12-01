@@ -1,5 +1,4 @@
 import { Box, Grid } from 'grommet'
-import React from 'react'
 import PropTypes from 'prop-types'
 import FieldGuideItemAnchor from '../FieldGuideItemAnchor'
 

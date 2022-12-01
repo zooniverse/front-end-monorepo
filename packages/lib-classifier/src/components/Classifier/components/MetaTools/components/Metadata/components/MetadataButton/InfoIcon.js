@@ -1,4 +1,3 @@
-import React from 'react'
 import { Blank } from 'grommet-icons'
 
 // SVG path from https://github.com/thesabbir/simple-line-icons

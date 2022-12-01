@@ -2,7 +2,7 @@ import { MetaToolsButton, SpacedText } from '@zooniverse/react-components'
 import PropTypes from 'prop-types'
 import { Box, DropButton } from 'grommet'
 import { FormDown, FormView, FormViewHide, Hide } from 'grommet-icons'
-import React from 'react'
+import { useState } from 'react';
 import styled, { css, withTheme } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 
@@ -21,7 +21,7 @@ const StyledDrop = styled(DropButton)`
 function HidePreviousTranscriptionsButton (props) {
   const { t } = useTranslation('components')
   const { disabled, onClick, shownMarks } = props
-  const [isOpen, setOpen] = React.useState(false)
+  const [isOpen, setOpen] = useState(false)
 
   const titles = {
     ALL: t('MetaTools.HidePreviousTranscriptionsButton.show'),

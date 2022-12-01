@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import UserMenu from './UserMenu'
 
 describe('UserMenu', function () {

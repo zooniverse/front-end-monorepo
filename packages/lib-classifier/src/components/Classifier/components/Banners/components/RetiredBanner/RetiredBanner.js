@@ -1,5 +1,4 @@
 import { bool, shape, string } from 'prop-types'
-import React from 'react'
 import { useTranslation } from '@translations/i18n'
 
 import Banner from '../Banner'

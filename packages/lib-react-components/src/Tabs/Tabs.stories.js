@@ -1,6 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme';
 import { Grommet } from 'grommet';
-import React from 'react';
 import { Key } from 'grommet-icons';
 
 import Tabs from './Tabs';

@@ -1,4 +1,3 @@
-import React from 'react'
 import { List, Paragraph, Text } from 'grommet'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'

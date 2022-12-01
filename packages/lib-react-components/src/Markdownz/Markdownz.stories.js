@@ -1,7 +1,6 @@
 import zooTheme from '@zooniverse/grommet-theme';
 import { Grid, Grommet, Box, TableRow } from 'grommet';
 import styled from 'styled-components';
-import React from 'react';
 
 import Markdownz from './Markdownz';
 import readme from './README.md';

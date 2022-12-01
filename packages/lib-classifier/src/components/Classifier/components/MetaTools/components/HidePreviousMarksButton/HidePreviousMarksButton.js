@@ -1,7 +1,6 @@
 import { MetaToolsButton } from '@zooniverse/react-components'
 import PropTypes from 'prop-types'
 import { FormView, FormViewHide } from 'grommet-icons'
-import React from 'react'
 import { useTranslation } from '@translations/i18n'
 
 import SHOWN_MARKS from '@helpers/shownMarks'

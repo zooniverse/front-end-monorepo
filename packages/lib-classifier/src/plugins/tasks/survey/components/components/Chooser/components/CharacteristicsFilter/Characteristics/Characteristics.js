@@ -1,7 +1,6 @@
 import { Box, Button } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React from 'react'
 import { useTranslation } from '@translations/i18n'
 
 import CharacteristicSection from './components/CharacteristicSection'

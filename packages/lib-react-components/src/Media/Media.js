@@ -1,4 +1,3 @@
-import React from 'react'
 import mime from 'mime/lite'
 import Audio from './components/Audio'
 import ThumbnailImage from './components/ThumbnailImage'

@@ -1,6 +1,5 @@
 import { Box, Button, Carousel, Heading, Paragraph } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
 import { PrimaryButton, Media } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
 

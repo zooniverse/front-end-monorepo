@@ -1,7 +1,7 @@
 import { Modal, PlainButton, PrimaryButton } from '@zooniverse/react-components'
 import { Paragraph } from 'grommet'
 import { bool, func } from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { useTranslation } from '@translations/i18n'
 
 /**

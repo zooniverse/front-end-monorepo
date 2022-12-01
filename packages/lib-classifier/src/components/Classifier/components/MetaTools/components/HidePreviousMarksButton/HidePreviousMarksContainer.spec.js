@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import HidePreviousMarksContainer from './HidePreviousMarksContainer'
 import HidePreviousMarksButton from './HidePreviousMarksButton'
 import HidePreviousTranscriptionsButton from './HidePreviousTranscriptionsButton'

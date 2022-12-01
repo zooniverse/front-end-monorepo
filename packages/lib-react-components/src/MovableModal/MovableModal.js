@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react';
 import PropTypes from 'prop-types'
 import { Rnd } from 'react-rnd'
 import ResizeIcon from './components/ResizeIcon'

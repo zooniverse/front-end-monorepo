@@ -1,6 +1,5 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 import SpacedHeading from '../../../SpacedHeading'
 import CloseButton from '../../../CloseButton'

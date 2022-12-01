@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import sinon from 'sinon'
 import { SpacedText } from '@zooniverse/react-components'
 import { FormField } from 'grommet'

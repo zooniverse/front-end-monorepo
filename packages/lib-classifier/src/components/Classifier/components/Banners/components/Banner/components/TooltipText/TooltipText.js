@@ -1,6 +1,5 @@
 import { Paragraph } from 'grommet'
 import { arrayOf, oneOfType, string } from 'prop-types'
-import React from 'react'
 
 function TooltipText (props) {
   const { text } = props

@@ -1,5 +1,5 @@
 import { MobXProviderContext } from 'mobx-react'
-import React, { Component, forwardRef } from 'react'
+import { Component, forwardRef } from 'react';
 
 function withKeyZoom (WrappedComponent) {
   const ALLOWED_TAGS = ['svg', 'button', 'g', 'rect']

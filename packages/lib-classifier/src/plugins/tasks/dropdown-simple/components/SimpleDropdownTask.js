@@ -4,7 +4,7 @@ import { Down } from 'grommet-icons'
 import { observer } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
-import React from 'react'
+import { useState, useRef } from 'react';
 import styled, { css } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 
@@ -59,9 +59,9 @@ function SimpleDropdownTask({
   }
 
   // The following is only relevant if the Other option is enabled.
-  const [customValue, setCustomValue] = React.useState((selectedOption === otherOption) ? value?.selection : '')
+  const [customValue, setCustomValue] = useState((selectedOption === otherOption) ? value?.selection : '')
   const showCustomInput = (selectedOption === otherOption)
-  const customInput = React.useRef()
+  const customInput = useRef()
 
   // 'selection' indicates the index of the selected answer. (number)
   // If the Other option is enabled, selection can be a string.

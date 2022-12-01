@@ -1,6 +1,6 @@
 import { Box, DropButton } from 'grommet'
 import PropTypes from 'prop-types'
-import React, { useRef } from 'react'
+import { useRef } from 'react';
 import styled from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'

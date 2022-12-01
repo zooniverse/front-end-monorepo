@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react';
 import { string, number } from 'prop-types'
 import draggable from '../draggable'
 import { useTranslation } from '@translations/i18n'

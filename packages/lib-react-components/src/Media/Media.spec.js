@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import Media from './Media'
 import ThumbnailImage from './components/ThumbnailImage'
 import Video from './components/Video'

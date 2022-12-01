@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react';
 import { observer } from 'mobx-react'
 import { useStores } from '@hooks'
 

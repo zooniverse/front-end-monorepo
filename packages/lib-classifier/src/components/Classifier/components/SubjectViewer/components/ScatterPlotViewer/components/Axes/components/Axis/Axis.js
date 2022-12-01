@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import { AxisLeft, AxisBottom } from '@visx/axis'
 import { withTheme } from 'styled-components'

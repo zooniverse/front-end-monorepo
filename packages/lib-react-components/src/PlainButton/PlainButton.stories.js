@@ -1,7 +1,6 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { Add } from 'grommet-icons'
-import React from 'react'
 
 import PlainButton from './PlainButton'
 

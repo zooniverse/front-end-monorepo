@@ -1,6 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Button, Grommet } from 'grommet'
-import React from 'react'
 
 import { default as LabelComponent } from './Label'
 

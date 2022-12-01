@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react';
 import i18n from '../../translations/i18n'
 
 import { usePanoptesUser, useProjectPreferences, useProjectRoles } from '@hooks'

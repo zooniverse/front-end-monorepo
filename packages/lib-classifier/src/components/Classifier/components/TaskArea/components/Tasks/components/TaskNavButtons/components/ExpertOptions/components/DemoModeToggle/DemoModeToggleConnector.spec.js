@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import sinon from 'sinon'
 import { shallow } from 'enzyme'
 import DemoModeToggleConnector from './DemoModeToggleConnector'

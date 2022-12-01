@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import NavListItem from '../NavListItem'
 import { Box } from 'grommet'

@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import { Rnd } from 'react-rnd'
 import sinon from 'sinon'
 import { MovableModal } from './MovableModal'

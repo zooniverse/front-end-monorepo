@@ -1,4 +1,3 @@
-import React from 'react'
 import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
 import { PointTool, LineTool } from '@plugins/drawingTools/models/tools'

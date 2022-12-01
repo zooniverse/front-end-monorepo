@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react';
 
 import withKeyZoom from '../../../withKeyZoom'
 import locationValidator from '../../helpers/locationValidator'

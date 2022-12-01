@@ -1,6 +1,5 @@
 import { Anchor, Box } from 'grommet'
 import { string } from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 import ZooniverseLogotype from '../../../ZooniverseLogotype'

@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import { createRef, Component } from 'react';
 import { Box } from 'grommet'
 import ScatterPlotViewer from './ScatterPlotViewer'
 import locationValidator from '../../helpers/locationValidator'
@@ -9,7 +9,7 @@ import { findLocationsByMediaType } from '@helpers'
 class ScatterPlotViewerContainer extends Component {
   constructor() {
     super()
-    this.viewer = React.createRef()
+    this.viewer = createRef()
 
     this.state = {
       JSONData: {

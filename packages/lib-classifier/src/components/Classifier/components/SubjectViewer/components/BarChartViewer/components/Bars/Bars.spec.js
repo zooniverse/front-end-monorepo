@@ -1,5 +1,4 @@
 import { mount, shallow } from 'enzyme'
-import React from 'react'
 import { Bar } from '@visx/shape'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Tooltip } from '@zooniverse/react-components'

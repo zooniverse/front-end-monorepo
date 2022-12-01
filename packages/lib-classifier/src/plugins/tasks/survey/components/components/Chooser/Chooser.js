@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import { useState } from 'react';
 
 import FilterStatus from './components/CharacteristicsFilter/FilterStatus'
 import Choices from './components/Choices'

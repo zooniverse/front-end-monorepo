@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import { Axis } from '@visx/axis'
 import { Line } from '@visx/shape'

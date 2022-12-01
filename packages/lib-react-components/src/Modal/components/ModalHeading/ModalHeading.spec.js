@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
-import React from 'react'
 import CloseButton from '../../../CloseButton'
 import ModalHeading, { StyledHeading } from './ModalHeading'
 

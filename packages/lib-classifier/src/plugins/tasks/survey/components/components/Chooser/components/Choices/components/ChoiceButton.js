@@ -4,7 +4,7 @@ import {
   Text
 } from 'grommet'
 import PropTypes from 'prop-types'
-import React, { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react';
 import { Media, withThemeContext } from '@zooniverse/react-components'
 
 import theme from './theme'

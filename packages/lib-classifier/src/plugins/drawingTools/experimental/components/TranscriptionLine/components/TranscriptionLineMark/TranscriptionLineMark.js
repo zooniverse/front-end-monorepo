@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import { forwardRef } from 'react';
 import { observer } from 'mobx-react'
 import { DragHandle } from '@plugins/drawingTools/components'
 import { HANDLE_RADIUS, GRAB_STROKE_WIDTH } from '../../helpers/constants'
 
 // Forward ref incase it is being rendered with the Tooltip
-const TranscriptionLineMark = React.forwardRef((props, ref) => {
+const TranscriptionLineMark = forwardRef((props, ref) => {
   const {
     active,
     color,

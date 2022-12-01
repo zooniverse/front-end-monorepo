@@ -1,6 +1,5 @@
 import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
-import React from 'react'
 import { observable, toJS } from 'mobx'
 import { Anchor, Grommet, Paragraph } from 'grommet'
 import { FieldGuideItemAnchor, AnchorLabel } from './FieldGuideItemAnchor'

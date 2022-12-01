@@ -1,6 +1,5 @@
 import { mount } from 'enzyme'
 import sinon from 'sinon'
-import React from 'react'
 
 import asyncStates from '@zooniverse/async-states'
 import { DraggableImage, SubjectGroupViewerContainer } from './SubjectGroupViewerContainer'

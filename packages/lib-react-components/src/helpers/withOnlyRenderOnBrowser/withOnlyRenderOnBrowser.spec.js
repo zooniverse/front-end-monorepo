@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import { Layer } from 'grommet'
 import withOnlyRenderOnBrowser from './withOnlyRenderOnBrowser';
 

@@ -5,8 +5,7 @@
   "react/jsx-boolean-value": ["error", "always"]
 */
 
-import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow } from 'enzyme';
 import { expect } from 'chai'
 import TaskInputLabel from './TaskInputLabel'
 import { Markdownz } from '@zooniverse/react-components'

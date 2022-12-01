@@ -1,5 +1,4 @@
 import dedent from 'dedent'
-import React from 'react'
 import { Anchor, Paragraph } from 'grommet'
 
 export const markdown = dedent`

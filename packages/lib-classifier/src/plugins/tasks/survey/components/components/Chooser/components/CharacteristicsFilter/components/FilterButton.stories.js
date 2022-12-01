@@ -1,5 +1,4 @@
 import { Box, Grommet } from 'grommet'
-import React from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 
 import FilterButton from './FilterButton'

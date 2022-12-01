@@ -1,7 +1,6 @@
 import { expect } from 'chai'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
-import React from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import zooTheme from '@zooniverse/grommet-theme'
