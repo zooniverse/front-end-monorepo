@@ -67,7 +67,6 @@ const FlipbookControls = ({
   playing = false,
   playIterations
 }) => {
-  console.log('render')
   const { flipbookSpeed, setFlipbookSpeed } = useStores(storeMapper)
   const { t } = useTranslation('components')
   const timeoutRef = useRef(null)
