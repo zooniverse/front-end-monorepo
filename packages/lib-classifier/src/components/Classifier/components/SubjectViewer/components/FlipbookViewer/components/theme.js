@@ -1,5 +1,15 @@
 const controlsTheme = {
   global: {
+    colors: {
+      icon: {
+        dark: 'white',
+        light: 'black'
+      },
+      text: {
+        dark: 'white',
+        light: 'black'
+      }
+    },
     hover: {
       background: 'accent-1'
     }

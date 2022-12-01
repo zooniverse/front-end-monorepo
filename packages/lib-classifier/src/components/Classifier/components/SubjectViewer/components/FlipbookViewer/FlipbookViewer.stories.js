@@ -62,6 +62,22 @@ export const Default = ({ dark }) => {
   )
 }
 
+export const StyledSmallerWidth = ({ dark }) => {
+  const themeMode = dark ? 'dark' : 'light'
+  return (
+    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
+      <Provider classifierStore={store}>
+        <Box width='499px'>
+          <FlipbookViewerContainer
+            loadingState={asyncStates.success}
+            subject={store.subjects.active}
+          />
+        </Box>
+      </Provider>
+    </Grommet>
+  )
+}
+
 const subjectWithDefaultFrame = SubjectFactory.build({
   locations: [
     {
