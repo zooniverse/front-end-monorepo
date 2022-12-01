@@ -17,7 +17,7 @@ describe('SurveyTask', function () {
         render(<DefaultStory />)
         
         // filterButton is the Filter button above the choices
-        const filterButton = screen.getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+        const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
         
         expect(filterButton).to.be.ok()
       })
@@ -50,7 +50,7 @@ describe('SurveyTask', function () {
       it('should show a Clear Filters button', function () {
         render(<DefaultStory />)
         
-        const clearFiltersButton = screen.getByRole('button', { name: 'Clear SurveyTask.CharacteristicsFilter.clearFilters' })
+        const clearFiltersButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.clearFilters')
         
         expect(clearFiltersButton).to.be.ok()
       })
@@ -58,7 +58,7 @@ describe('SurveyTask', function () {
       it('should disable the Clear Filters button if showing choices = total choices', function () {
         render(<DefaultStory />)
         
-        const clearFiltersButton = screen.getByRole('button', { name: 'Clear SurveyTask.CharacteristicsFilter.clearFilters' })
+        const clearFiltersButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.clearFilters')
         
         expect(clearFiltersButton).to.have.attribute('disabled')
       })
@@ -102,7 +102,7 @@ describe('SurveyTask', function () {
       it('should not not show a clear filters button', function () {
         render(<NoFiltersStory />)
         
-        const clearFiltersButton = screen.queryByRole('button', { name: 'Clear SurveyTask.CharacteristicsFilter.clearFilters' })
+        const clearFiltersButton = screen.queryByLabelText('Clear SurveyTask.CharacteristicsFilter.clearFilters')
         
         expect(clearFiltersButton).to.not.exist()
       })
@@ -178,7 +178,7 @@ describe('SurveyTask', function () {
           const fireChoiceButton = screen.getByLabelText('Fire')
           // select the Fire choice
           await user.click(fireChoiceButton)
-          const identifyButton = screen.getByRole('button', { name: 'SurveyTask.Choice.identify' })
+          const identifyButton = screen.getByLabelText('SurveyTask.Choice.identify Fire')
           // identify the Fire choice
           await user.click(identifyButton)
           // confirm the remaining choices are the 3 choices that match the red filter
@@ -239,7 +239,7 @@ describe('SurveyTask', function () {
           expect(cowHorseFilterRemoveButton).to.be.ok()
           expect(tanYellowFilterRemoveButton).to.be.ok()
 
-          const clearFiltersButton = screen.getByRole('button', { name: 'SurveyTask.CharacteristicsFilter.clearFilters' })
+          const clearFiltersButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.clearFilters')
           // clear the filters
           await user.click(clearFiltersButton)
           cowHorseFilterRemoveButton = screen.queryByTestId('remove-filter-LK-CWHRS')
@@ -262,7 +262,7 @@ describe('SurveyTask', function () {
           // confirm the choices remaining are the 1 choice (Kudu) that matches the cow/horse and tan/yellow filters
           expect(choiceButtons.length).to.equal(1)
 
-          const clearFiltersButton = screen.getByRole('button', { name: 'Clear SurveyTask.CharacteristicsFilter.clearFilters' })
+          const clearFiltersButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.clearFilters')
           // clear the filters
           await user.click(clearFiltersButton)
           choicesMenu = screen.getByTestId('choices-menu')
@@ -299,7 +299,7 @@ describe('SurveyTask', function () {
         render(<DefaultStory />)
         const choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Fire' })
         await user.click(choiceButton)
-        const notThisButton = screen.getByRole('button', { name: 'SurveyTask.Choice.notThis' })
+        const notThisButton = screen.getByLabelText('SurveyTask.Choice.notThis Fire')
         // close choice (Fire) component
         await user.click(notThisButton)
         // confirm choice (Fire) heading, and therefore choice, is not shown
@@ -316,7 +316,7 @@ describe('SurveyTask', function () {
         render(<DefaultStory />)
         const choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Fire' })
         await user.click(choiceButton)
-        const identifyButton = screen.getByRole('button', { name: 'SurveyTask.Choice.identify' })
+        const identifyButton = screen.getByLabelText('SurveyTask.Choice.identify Fire')
         // identify choice (Fire) and close choice (Fire) component
         await user.click(identifyButton)
         // confirm choice (Fire) heading, and therefore choice, is not shown
@@ -496,7 +496,7 @@ describe('SurveyTask', function () {
         expect(choiceHeading).to.be.ok()
         // tabbing to the "Not this" button
         await user.keyboard('[Tab][Tab]')
-        const notThisButton = screen.getByRole('button', { name: 'SurveyTask.Choice.notThis' })
+        const notThisButton = screen.getByLabelText('SurveyTask.Choice.notThis Nothing here')
         expect(notThisButton).to.equal(document.activeElement)
         // pressing Enter to close the choice (Nothing here)
         await user.keyboard('[Enter]')
@@ -520,7 +520,7 @@ describe('SurveyTask', function () {
         expect(choiceHeading).to.be.ok()
         // tabbing to the "Identify" button
         await user.keyboard('[Tab][Tab][Tab]')
-        const identifyButton = screen.getByRole('button', { name: 'SurveyTask.Choice.identify' })
+        const identifyButton = screen.getByLabelText('SurveyTask.Choice.identify Nothing here')
         expect(identifyButton).to.equal(document.activeElement)
         // pressing Enter to identify and close the choice (Nothing here)
         await user.keyboard('[Enter]')
@@ -541,7 +541,7 @@ describe('SurveyTask', function () {
         render(<NoFiltersStory />)
         // tabbing to the first choice (Aardvark) and pressing Enter to open the choice (Aardvark)
         await user.keyboard('[Tab][Enter]')
-        let identifyButton = screen.getByRole('button', { name: 'SurveyTask.Choice.identify' })
+        let identifyButton = screen.getByLabelText('SurveyTask.Choice.identify Aardvark')
         // confirm the Identify button is disabled, pending required questions answered
         expect(identifyButton.disabled).to.be.true()
         // the required questions for Aardvark are "How many?" and "What behavior do you see?"
@@ -550,7 +550,7 @@ describe('SurveyTask', function () {
         // tabbing (x3) to the "How many?" question, selecting the "1" answer with space key, tabbing (x4) to the "What behavior do you see?" question, selecting the "Eating" answer with space key
         await user.keyboard('[Tab][Tab][Tab][Space][Tab][Tab][Tab][Tab][Space]')
         // confirm the Identify button is enabled, now that required questions are answered
-        identifyButton = screen.getByRole('button', { name: 'SurveyTask.Choice.identify' })
+        identifyButton = screen.getByLabelText('SurveyTask.Choice.identify Aardvark')
         // confirm the Identify button is enabled, now that required questions answered
         expect(identifyButton.disabled).to.be.false()
       })
@@ -561,7 +561,7 @@ describe('SurveyTask', function () {
       render(<NoFiltersStory />)
       let choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Fire' })
       await user.click(choiceButton)
-      const identifyButton = screen.getByRole('button', { name: 'SurveyTask.Choice.identify' })
+      const identifyButton = screen.getByLabelText('SurveyTask.Choice.identify Fire')
       // identify choice (Fire) and close choice (Fire) component
       await user.click(identifyButton)
       // confirm choices showing
@@ -588,7 +588,7 @@ describe('SurveyTask', function () {
       render(<NoFiltersStory />)
       let choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Fire' })
       await user.click(choiceButton)
-      const identifyButton = screen.getByRole('button', { name: 'SurveyTask.Choice.identify' })
+      const identifyButton = screen.getByLabelText('SurveyTask.Choice.identify Fire')
       // identify choice (Fire) and close choice (Fire) component
       await user.click(identifyButton)
       // confirm choices showing

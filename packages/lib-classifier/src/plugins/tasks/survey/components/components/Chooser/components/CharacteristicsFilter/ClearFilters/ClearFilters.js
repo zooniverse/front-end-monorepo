@@ -26,6 +26,7 @@ export default function ClearFilters (props) {
         {t('SurveyTask.CharacteristicsFilter.showing', { showing: showingChoices, total: totalChoices })}
       </SpacedText>
       <PlainButton
+        a11yTitle={t('SurveyTask.CharacteristicsFilter.clearFilters')}
         disabled={showingChoices === totalChoices}
         icon={<Clear />}
         onClick={() => handleFilter()}

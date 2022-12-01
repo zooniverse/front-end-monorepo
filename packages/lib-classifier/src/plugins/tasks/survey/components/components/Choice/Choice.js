@@ -92,11 +92,13 @@ export default function Choice({
         pad={{ top: 'small' }}
       >
         <Button
+          a11yTitle={`${t('SurveyTask.Choice.notThis')} ${choice.label}`}
           fill='horizontal'
           label={t('SurveyTask.Choice.notThis')}
           onClick={() => handleDelete(choiceId)}
         />
         <PrimaryButton
+          a11yTitle={`${t('SurveyTask.Choice.identify')} ${choice.label}`}
           disabled={!allowIdentify}
           fill='horizontal'
           label={t('SurveyTask.Choice.identify')}
