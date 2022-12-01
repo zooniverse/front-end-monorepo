@@ -127,11 +127,17 @@ describe('SurveyTask', function () {
       })
 
       describe('when filters are clicked', function () {
-        it('should show the filter button with a remove filter button', async function () {
-          const user = userEvent.setup({ delay: null })
+        let user, filterButton
+        
+        beforeEach(async function () {
+          user = userEvent.setup({ delay: null })
           render(<DefaultStory />)
-          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
+          // click the Filter button above choices to open the characteristics filters
+          filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
           await user.click(filterButton)
+        })
+        
+        it('should show the filter button with a remove filter button', async function () {
           // the stripesFilterButton is the button to filter choices by "stripes". Stripes is a specific value of the "Pattern" characteristic.
           const stripesFilterButton = screen.getByTestId('filter-PTTRN-STRPS')
           expect(stripesFilterButton).to.be.ok()
@@ -148,10 +154,6 @@ describe('SurveyTask', function () {
         })
 
         it('should show the choices that match the filter', async function () {
-          const user = userEvent.setup({ delay: null })
-          render(<DefaultStory />)
-          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
-          await user.click(filterButton)
           const redFilterButton = screen.getByTestId('filter-CLR-RD')
           expect(redFilterButton).to.be.ok()
 
@@ -167,13 +169,7 @@ describe('SurveyTask', function () {
           expect(choiceButtons[2]).to.have.text('Fire')
         })
 
-        it.skip('should persist filters after a choice is selected', async function () {
-          const user = userEvent.setup({ delay: null })
-          render(<DefaultStory />)
-          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
-
-          // open the characteristics filters
-          await user.click(filterButton)
+        it('should persist filters after a choice is selected', async function () {
           const redFilterButton = screen.getByTestId('filter-CLR-RD')
           // click/apply the red filter, which filters 6 choices to 3 choices
           await user.click(redFilterButton)
@@ -194,11 +190,7 @@ describe('SurveyTask', function () {
           expect(choiceButtons[2]).to.have.text('Fire')
         })
 
-        it.skip('should remove the filter on remove filter button click (within Characteristics)', async function () {
-          const user = userEvent.setup({ delay: null })
-          render(<DefaultStory />)
-          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
-          await user.click(filterButton)
+        it('should remove the filter on remove filter button click (within Characteristics)', async function () {
           const stripesFilterButton = screen.getByTestId('filter-PTTRN-STRPS')
           // click/apply the stripes filter
           await user.click(stripesFilterButton)
@@ -213,11 +205,7 @@ describe('SurveyTask', function () {
           expect(choiceButtons.length).to.equal(6)
         })
 
-        it.skip('should remove the filter on remove filter button click (within FilterStatus)', async function () {
-          const user = userEvent.setup({ delay: null })
-          render(<DefaultStory />)
-          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
-          await user.click(filterButton)
+        it('should remove the filter on remove filter button click (within FilterStatus)', async function () {
           const stripesFilterButton = screen.getByTestId('filter-PTTRN-STRPS')
           // click/apply the stripes filter
           await user.click(stripesFilterButton)
@@ -237,11 +225,7 @@ describe('SurveyTask', function () {
           expect(choiceButtons.length).to.equal(6)
         })
 
-        it.skip('should remove filters on Clear Filters button click (within Characteristics) ', async function () {
-          const user = userEvent.setup({ delay: null })
-          render(<DefaultStory />)
-          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
-          await user.click(filterButton)
+        it('should remove filters on Clear Filters button click (within Characteristics) ', async function () {
           // click/apply the like a cow/horse filter
           const cowHorseFilterButton = screen.getByTestId('filter-LK-CWHRS')
           await user.click(cowHorseFilterButton)
@@ -265,11 +249,7 @@ describe('SurveyTask', function () {
           expect(tanYellowFilterRemoveButton).to.be.null()
         })
 
-        it.skip('should remove filters on Clear Filters button click (within Chooser)', async function () {
-          const user = userEvent.setup({ delay: null })
-          render(<DefaultStory />)
-          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
-          await user.click(filterButton)
+        it('should remove filters on Clear Filters button click (within Chooser)', async function () {
           const cowHorseFilterButton = screen.getByTestId('filter-LK-CWHRS')
           // click/apply the like a cow/horse filter
           await user.click(cowHorseFilterButton)
@@ -393,11 +373,17 @@ describe('SurveyTask', function () {
       })
 
       describe('when filters are keyed', function () {
-        it('should show the filter button with a remove filter button', async function () {
-          const user = userEvent.setup({ delay: null })
+        let user, filterButton
+
+        beforeEach(async function () {
+          user = userEvent.setup({ delay: null })
           render(<DefaultStory />)
+          filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
           // tabbing to and opening the Filter button
           await user.keyboard('[Tab][Enter]')
+        })  
+
+        it('should show the filter button with a remove filter button', async function () {
           // the solidFilterButton is the button to filter choices by "solid". Solid is a specific value of the "Pattern" characteristic.
           const solidFilterButton = screen.getByTestId('filter-PTTRN-SLD')
           expect(solidFilterButton).to.be.ok()
@@ -415,11 +401,6 @@ describe('SurveyTask', function () {
         })
 
         it('should show the choices that match the filter', async function () {
-          const user = userEvent.setup({ delay: null })
-          render(<DefaultStory />)
-          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
-          // tabbing to and opening the Filter button
-          await user.keyboard('[Tab][Enter]')
           // tabbing to the pattern section that contains the solid filter and selecting the solid filter with space key
           await user.keyboard('[Tab][Tab][Space]')
           // close the filters
@@ -434,11 +415,6 @@ describe('SurveyTask', function () {
         })
 
         it('should remove the filter on remove filter button keypress (within Characteristics)', async function () {
-          const user = userEvent.setup({ delay: null })
-          render(<DefaultStory />)
-          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
-          // tabbing to and opening the Filter button
-          await user.keyboard('[Tab][Enter]')
           // tabbing to the pattern section that contains the solid filter and selecting the solid filter with space key
           await user.keyboard('[Tab][Tab][Space]')
           // confirm the solid filter is selected with existence of the related remove filter button
@@ -461,11 +437,6 @@ describe('SurveyTask', function () {
         })
 
         it('should remove the filter on remove filter button keypress (within FilterStatus)', async function () {
-          const user = userEvent.setup({ delay: null })
-          render(<DefaultStory />)
-          const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
-          // tabbing to and opening the Filter button
-          await user.keyboard('[Tab][Enter]')
           // tabbing to the pattern section that contains the solid filter and selecting the solid filter with space key
           await user.keyboard('[Tab][Tab][Space]')
           // confirm the solid filter is selected with existence of the related remove filter button
