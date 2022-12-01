@@ -16,6 +16,12 @@ import { useStores } from '@hooks'
 import controlsTheme from './theme'
 import locationValidator from '../../../helpers/locationValidator'
 
+const SpeedSelect = styled(Select)`
+  display: block;
+  padding: 0 5px;
+  text-align: right;
+`
+
 const DirectionButton = styled(Button)`
   border: none;
   padding: 0;
@@ -61,6 +67,7 @@ const FlipbookControls = ({
   playing = false,
   playIterations
 }) => {
+  console.log('render')
   const { flipbookSpeed, setFlipbookSpeed } = useStores(storeMapper)
   const { t } = useTranslation('components')
   const timeoutRef = useRef(null)
@@ -77,7 +84,7 @@ const FlipbookControls = ({
 
   useEffect(() => {
     resizeObserver.current = new window.ResizeObserver((entries) => {
-      if (entries[0].contentRect.width < 450) {
+      if (entries[0].contentRect.width < 500) {
         setSmallScreenStyle(true)
       } else {
         setSmallScreenStyle(false)
@@ -199,7 +206,7 @@ const FlipbookControls = ({
     <ThemeContext.Extend value={controlsTheme}>
       <Box background={backgrounds} ref={controlsContainer}>
         <Grid
-          columns={smallScreenStyle ? ['100px', 'flex'] : ['120px', 'flex']}
+          columns={smallScreenStyle ? ['75px', 'flex', '75px'] : ['90px', 'flex', '90px']}
           pad={smallScreenStyle ? { horizontal: '10px', vertical: '5px' } : { horizontal: '20px', vertical: '10px' }}
           gap={smallScreenStyle ? 'xsmall' : 'small'}
         >
@@ -208,21 +215,18 @@ const FlipbookControls = ({
             <Button
               a11yTitle={t(playPauseLabel)}
               onClick={onPlayPause}
-              icon={playing ? <Pause size={smallScreenStyle ? '18px' : 'medium'} /> : <CirclePlay size={smallScreenStyle ? '18px' : 'medium'} />}
+              icon={playing ? <Pause size={smallScreenStyle ? '20px' : 'medium'} /> : <CirclePlay size={smallScreenStyle ? '20px' : 'medium'} />}
               plain
             />
-            <Select
+            <SpeedSelect
               a11yTitle={t('SubjectViewer.VideoController.playbackSpeed')}
               options={['0.25x', '0.5x', '1x', '2x', '4x']}
               value={`${flipbookSpeed}x`}
               onChange={handlePlaybackSpeed}
               plain
-              size={smallScreenStyle ? 'small' : ''}
-              icon={<FormDown size={smallScreenStyle ? 'small' : 'medium'} />}
+              size={smallScreenStyle ? 'small' : '16px'}
+              icon={<FormDown size={smallScreenStyle ? 'small' : '16px'} />}
               focusIndicator
-              style={{
-                textAlign: 'right'
-              }}
             />
           </Box>
 
@@ -281,6 +285,7 @@ const FlipbookControls = ({
               onClick={handleNext}
             />
           </Box>
+          <Box />
         </Grid>
       </Box>
     </ThemeContext.Extend>
