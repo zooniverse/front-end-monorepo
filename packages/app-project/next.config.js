@@ -6,6 +6,9 @@ const { execSync } = require('child_process')
 const path = require('path')
 const withSourceMaps = require('@zeit/next-source-maps')()
 const { i18n } = require('./next-i18next.config')
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYSE === 'true',
+})
 
 const talkHosts = require('./config/talkHosts')
 const assetPrefixes = {
@@ -107,4 +110,4 @@ const nextConfig = {
   }
 }
 
-module.exports = withSourceMaps(nextConfig)
+module.exports = withBundleAnalyzer(withSourceMaps(nextConfig))

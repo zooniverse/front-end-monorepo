@@ -6,6 +6,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
+    "analyse": "ANALYSE=true next build",
     "build": "APP_ENV=${APP_ENV:-development} NODE_ENV=${NODE_ENV:-production} PANOPTES_ENV=${PANOPTES_ENV:-production} next build",
     "dev": "APP_ENV=${APP_ENV:-development} PANOPTES_ENV=${PANOPTES_ENV:-production} node server/server.js",
     "lint": "next lint",
@@ -15,6 +16,7 @@
     "test:ci": "BABEL_ENV=test mocha --config ./test/.mocharc.json --reporter=min \"./{src,server,test}/**/*.spec.js\""
   },
   "dependencies": {
+    "@next/bundle-analyzer": "~13.0.4",
     "@sentry/browser": "~7.23.0",
     "@sentry/node": "~7.23.0",
     "@zeit/next-source-maps": "0.0.4-canary.1",
