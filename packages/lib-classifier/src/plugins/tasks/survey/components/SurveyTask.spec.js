@@ -277,7 +277,7 @@ describe('SurveyTask', function () {
       it('should show the choice heading', async function () {
         const user = userEvent.setup({ delay: null })
         render(<DefaultStory />)
-        const choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Aardvark' })
+        const choiceButton = screen.getByLabelText('Aardvark')
         await user.click(choiceButton)
         const choiceHeading = screen.getByRole('heading', { name: 'Aardvark' })
 
@@ -287,7 +287,7 @@ describe('SurveyTask', function () {
       it('should show choice images', async function () {
         const user = userEvent.setup({ delay: null })
         render(<DefaultStory />)
-        const choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Fire' })
+        const choiceButton = screen.getByLabelText('Fire')
         await user.click(choiceButton)
         const choiceImages = screen.getByTestId('choice-images')
         
@@ -297,7 +297,7 @@ describe('SurveyTask', function () {
       it('should show choices when Not This button is clicked', async function () {
         const user = userEvent.setup({ delay: null })
         render(<DefaultStory />)
-        const choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Fire' })
+        const choiceButton = screen.getByLabelText('Fire')
         await user.click(choiceButton)
         const notThisButton = screen.getByLabelText('SurveyTask.Choice.notThis Fire')
         // close choice (Fire) component
@@ -314,7 +314,7 @@ describe('SurveyTask', function () {
       it('should show choices with selected choice checked when Identify button is clicked', async function () {
         const user = userEvent.setup({ delay: null })
         render(<DefaultStory />)
-        const choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Fire' })
+        const choiceButton = screen.getByLabelText('Fire')
         await user.click(choiceButton)
         const identifyButton = screen.getByLabelText('SurveyTask.Choice.identify Fire')
         // identify choice (Fire) and close choice (Fire) component
@@ -327,7 +327,7 @@ describe('SurveyTask', function () {
         const choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
         expect(choiceButtons.length).to.equal(6)
         // confirm choice (Fire) is shown as checked
-        const fireChoiceButton = screen.getByRole('menuitemcheckbox', { name: 'Fire' })
+        const fireChoiceButton = screen.getByLabelText('Fire')
         expect(fireChoiceButton.getAttribute('aria-checked')).to.equal('true')
       })
 
@@ -340,7 +340,7 @@ describe('SurveyTask', function () {
         expect(doneAndTalkButton.disabled).to.be.false()
         expect(doneButton.disabled).to.be.false()
 
-        const choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Aardvark' })
+        const choiceButton = screen.getByLabelText('Aardvark')
         await user.click(choiceButton)
         doneAndTalkButton = screen.getByRole('button', { name: 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk' })
         doneButton = screen.getByRole('button', { name: 'TaskArea.Tasks.DoneButton.done' })
@@ -361,7 +361,7 @@ describe('SurveyTask', function () {
         render(<DefaultStory />)
         // tabbing to the Filter button
         await user.keyboard('[Tab]')
-        const filterButton = screen.getByRole( 'button', { name: 'SurveyTask.CharacteristicsFilter.filter' })
+        const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
         expect(filterButton).to.equal(document.activeElement)
         
         // pressing the Enter key to open the Filter button
@@ -467,7 +467,7 @@ describe('SurveyTask', function () {
         render(<NoFiltersStory />)
         // tabbing to the first choice (Aardvark)
         await user.keyboard('[Tab]')
-        const choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Aardvark' })
+        const choiceButton = screen.getByLabelText('Aardvark')
         expect(choiceButton).to.equal(document.activeElement)
         // pressing Enter to open the choice (Aardvark)
         await user.keyboard('[Enter]')
@@ -532,7 +532,7 @@ describe('SurveyTask', function () {
         const choiceButtons = within(choicesMenu).getAllByRole('menuitemcheckbox')
         expect(choiceButtons.length).to.equal(6)
         // confirm the identified choice (Nothing here) is the active choice
-        const nothingHereChoiceButton = screen.getByRole('menuitemcheckbox', { name: 'Nothing here' })
+        const nothingHereChoiceButton = screen.getByLabelText('Nothing here')
         expect(nothingHereChoiceButton).to.equal(document.activeElement)
       })
 
@@ -559,7 +559,7 @@ describe('SurveyTask', function () {
     it.skip('should remove a previously identified choice with delete key', async function () {
       const user = userEvent.setup({ delay: null })
       render(<NoFiltersStory />)
-      let choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Fire' })
+      let choiceButton = screen.getByLabelText('Fire')
       await user.click(choiceButton)
       const identifyButton = screen.getByLabelText('SurveyTask.Choice.identify Fire')
       // identify choice (Fire) and close choice (Fire) component
@@ -570,7 +570,7 @@ describe('SurveyTask', function () {
       expect(choiceButtons.length).to.equal(6)
       
       // confirm choice Fire selected
-      choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Fire' })
+      choiceButton = screen.getByLabelText('Fire')
       expect(choiceButton.getAttribute('aria-checked')).to.equal('true')
       
       // confirm choice Fire active element
@@ -579,14 +579,14 @@ describe('SurveyTask', function () {
       // press delete key to remove choice (Fire)
       await user.keyboard('[Delete]')
       // confirm choice Fire not selected
-      choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Fire' })
+      choiceButton = screen.getByLabelText('Fire')
       expect(choiceButton.getAttribute('aria-checked')).to.equal('false')
     })
 
     it.skip('should remove a previously identified choice with backspace key', async function () {
       const user = userEvent.setup({ delay: null })
       render(<NoFiltersStory />)
-      let choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Fire' })
+      let choiceButton = screen.getByLabelText('Fire')
       await user.click(choiceButton)
       const identifyButton = screen.getByLabelText('SurveyTask.Choice.identify Fire')
       // identify choice (Fire) and close choice (Fire) component
@@ -597,7 +597,7 @@ describe('SurveyTask', function () {
       expect(choiceButtons.length).to.equal(6)
       
       // confirm choice Fire selected
-      choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Fire' })
+      choiceButton = screen.getByLabelText('Fire')
       expect(choiceButton.getAttribute('aria-checked')).to.equal('true')
       
       // confirm choice Fire active element
@@ -606,7 +606,7 @@ describe('SurveyTask', function () {
       // press backspace key to remove choice (Fire)
       await user.keyboard('[Backspace]')
       // confirm choice Fire not selected
-      choiceButton = screen.getByRole('menuitemcheckbox', { name: 'Fire' })
+      choiceButton = screen.getByLabelText('Fire')
       expect(choiceButton.getAttribute('aria-checked')).to.equal('false')
     })
   })
