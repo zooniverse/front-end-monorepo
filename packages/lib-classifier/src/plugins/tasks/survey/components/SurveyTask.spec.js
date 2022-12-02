@@ -178,7 +178,7 @@ describe('SurveyTask', function () {
           const fireChoiceButton = screen.getByLabelText('Fire')
           // select the Fire choice
           await user.click(fireChoiceButton)
-          const identifyButton = screen.getByLabelText('SurveyTask.Choice.identify Fire')
+          const identifyButton = screen.getByLabelText('SurveyTask.Choice.identify')
           // identify the Fire choice
           await user.click(identifyButton)
           // confirm the remaining choices are the 3 choices that match the red filter
@@ -496,7 +496,7 @@ describe('SurveyTask', function () {
         expect(choiceHeading).to.be.ok()
         // tabbing to the "Not this" button
         await user.keyboard('[Tab][Tab]')
-        const notThisButton = screen.getByLabelText('SurveyTask.Choice.notThis Nothing here')
+        const notThisButton = screen.getByLabelText('SurveyTask.Choice.notThis')
         expect(notThisButton).to.equal(document.activeElement)
         // pressing Enter to close the choice (Nothing here)
         await user.keyboard('[Enter]')
@@ -520,7 +520,7 @@ describe('SurveyTask', function () {
         expect(choiceHeading).to.be.ok()
         // tabbing to the "Identify" button
         await user.keyboard('[Tab][Tab][Tab]')
-        const identifyButton = screen.getByLabelText('SurveyTask.Choice.identify Nothing here')
+        const identifyButton = screen.getByLabelText('SurveyTask.Choice.identify')
         expect(identifyButton).to.equal(document.activeElement)
         // pressing Enter to identify and close the choice (Nothing here)
         await user.keyboard('[Enter]')
@@ -541,7 +541,7 @@ describe('SurveyTask', function () {
         render(<NoFiltersStory />)
         // tabbing to the first choice (Aardvark) and pressing Enter to open the choice (Aardvark)
         await user.keyboard('[Tab][Enter]')
-        let identifyButton = screen.getByLabelText('SurveyTask.Choice.identify Aardvark')
+        let identifyButton = screen.getByLabelText('SurveyTask.Choice.identify')
         // confirm the Identify button is disabled, pending required questions answered
         expect(identifyButton.disabled).to.be.true()
         // the required questions for Aardvark are "How many?" and "What behavior do you see?"
@@ -550,7 +550,7 @@ describe('SurveyTask', function () {
         // tabbing (x3) to the "How many?" question, selecting the "1" answer with space key, tabbing (x4) to the "What behavior do you see?" question, selecting the "Eating" answer with space key
         await user.keyboard('[Tab][Tab][Tab][Space][Tab][Tab][Tab][Tab][Space]')
         // confirm the Identify button is enabled, now that required questions are answered
-        identifyButton = screen.getByLabelText('SurveyTask.Choice.identify Aardvark')
+        identifyButton = screen.getByLabelText('SurveyTask.Choice.identify')
         // confirm the Identify button is enabled, now that required questions answered
         expect(identifyButton.disabled).to.be.false()
       })
@@ -561,7 +561,7 @@ describe('SurveyTask', function () {
       render(<NoFiltersStory />)
       let choiceButton = screen.getByLabelText('Fire')
       await user.click(choiceButton)
-      const identifyButton = screen.getByLabelText('SurveyTask.Choice.identify Fire')
+      const identifyButton = screen.getByLabelText('SurveyTask.Choice.identify')
       // identify choice (Fire) and close choice (Fire) component
       await user.click(identifyButton)
       // confirm choices showing
@@ -588,7 +588,7 @@ describe('SurveyTask', function () {
       render(<NoFiltersStory />)
       let choiceButton = screen.getByLabelText('Fire')
       await user.click(choiceButton)
-      const identifyButton = screen.getByLabelText('SurveyTask.Choice.identify Fire')
+      const identifyButton = screen.getByLabelText('SurveyTask.Choice.identify')
       // identify choice (Fire) and close choice (Fire) component
       await user.click(identifyButton)
       // confirm choices showing
