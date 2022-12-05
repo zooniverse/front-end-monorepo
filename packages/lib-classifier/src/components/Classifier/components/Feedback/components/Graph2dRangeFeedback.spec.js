@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import { Graph2dRangeFeedback } from './Graph2dRangeFeedback'
 import LightCurveViewer from '../../SubjectViewer/components/LightCurveViewer'

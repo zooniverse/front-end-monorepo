@@ -1,5 +1,4 @@
 import asyncStates from '@zooniverse/async-states'
-import React from 'react'
 import { MockTask } from '@stories/components'
 import DataVisAnnotationTask from './DataVisAnnotationTask'
 

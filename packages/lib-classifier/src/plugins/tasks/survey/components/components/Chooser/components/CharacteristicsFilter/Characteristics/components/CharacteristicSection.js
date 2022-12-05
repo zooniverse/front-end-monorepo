@@ -1,6 +1,6 @@
 import { Box, RadioButtonGroup } from 'grommet'
 import PropTypes from 'prop-types'
-import React, { useCallback } from 'react'
+import { useCallback } from 'react';
 import { SpacedHeading } from '@zooniverse/react-components'
 
 import FilterButton from '../../components/FilterButton'

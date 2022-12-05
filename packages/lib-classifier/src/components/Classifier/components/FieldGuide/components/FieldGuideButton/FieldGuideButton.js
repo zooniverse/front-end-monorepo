@@ -1,6 +1,5 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Button, Box } from 'grommet'
-import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
 import { tint } from 'polished'

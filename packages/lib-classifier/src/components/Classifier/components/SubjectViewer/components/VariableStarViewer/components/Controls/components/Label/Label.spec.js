@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { SpacedText } from '@zooniverse/react-components'
 import Label from './Label'

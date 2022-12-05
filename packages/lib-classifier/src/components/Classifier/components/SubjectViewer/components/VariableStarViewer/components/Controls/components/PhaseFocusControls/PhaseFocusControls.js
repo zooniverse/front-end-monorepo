@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, RadioButton } from 'grommet'
 import { withTheme } from 'styled-components'

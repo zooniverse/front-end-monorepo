@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import { withStores } from '@helpers'
 import FullscreenButton from './FullscreenButton'

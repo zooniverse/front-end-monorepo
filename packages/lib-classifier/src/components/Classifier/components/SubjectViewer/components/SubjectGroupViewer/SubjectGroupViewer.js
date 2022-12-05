@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { forwardRef, useRef } from 'react'
+import { forwardRef, useRef } from 'react';
 import styled, { css } from 'styled-components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import SGVGridCell from './components/SGVGridCell'

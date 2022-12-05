@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react';
 import { ThemeContext } from 'styled-components'
 import { MobXProviderContext } from 'mobx-react'
 import { Tooltip } from '@zooniverse/react-components'

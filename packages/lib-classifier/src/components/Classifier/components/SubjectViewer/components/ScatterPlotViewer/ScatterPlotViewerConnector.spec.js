@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme'
-import React from 'react'
+import React from 'react';
 import sinon from 'sinon'
 import ScatterPlotViewerConnector from './ScatterPlotViewerConnector'
 import ScatterPlotViewerContainer from './ScatterPlotViewerContainer'

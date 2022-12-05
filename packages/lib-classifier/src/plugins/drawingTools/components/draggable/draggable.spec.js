@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react';
 import { mount } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'

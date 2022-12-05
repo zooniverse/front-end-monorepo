@@ -1,7 +1,6 @@
 import cuid from 'cuid'
 import { mount, shallow } from 'enzyme'
 import { Box } from 'grommet'
-import React from 'react'
 import sinon from 'sinon'
 
 import SubTaskPopup from './SubTaskPopup'

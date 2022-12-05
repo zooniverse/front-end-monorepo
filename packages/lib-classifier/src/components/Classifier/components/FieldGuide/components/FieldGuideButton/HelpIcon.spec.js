@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import HelpIcon from './HelpIcon'
 
 describe('Component > HelpIcon', function () {

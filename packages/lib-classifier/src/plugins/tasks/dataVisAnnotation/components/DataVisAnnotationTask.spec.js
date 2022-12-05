@@ -1,4 +1,3 @@
-import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import { default as Task } from '@plugins/tasks/dataVisAnnotation'

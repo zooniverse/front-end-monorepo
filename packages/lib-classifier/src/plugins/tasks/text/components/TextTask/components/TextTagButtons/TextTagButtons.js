@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Text } from 'grommet'
 import { PlainButton } from '@zooniverse/react-components'
@@ -11,7 +10,7 @@ const Fieldset = styled('fieldset')`
   padding: 0;
   outline: none;
 `
-  
+
 export default function TextTagButtons ({ disabled, tags, taskKey, onClick }) {
   const { t } = useTranslation('plugins')
   if (tags.length > 0) {

@@ -1,6 +1,5 @@
 import { tryReference } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import InteractionLayer from './InteractionLayer'
 import PreviousMarks from './components/PreviousMarks'

@@ -1,7 +1,8 @@
 import SVGContext from '@plugins/drawingTools/shared/SVGContext';
 import { withKnobs } from '@storybook/addon-knobs';
 import zooTheme from '@zooniverse/grommet-theme';
-import React, { Component, createRef, forwardRef } from 'react';
+import { Component, createRef, forwardRef } from 'react';
+import * as React from 'react';
 import sinon from 'sinon';
 import draggable from './draggable';
 

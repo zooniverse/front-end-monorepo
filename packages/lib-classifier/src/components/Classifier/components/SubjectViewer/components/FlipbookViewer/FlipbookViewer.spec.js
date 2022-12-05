@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { expect } from 'chai'
 import Meta, { Default, NoSubject } from './FlipbookViewer.stories'

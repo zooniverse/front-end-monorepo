@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import { useTranslation } from '@translations/i18n'
 
 import ZoomInIcon from './ZoomInIcon'

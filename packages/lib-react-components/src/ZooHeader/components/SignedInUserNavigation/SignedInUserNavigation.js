@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import { Box } from 'grommet'
 import { Blank } from 'grommet-icons'
 import { useTranslation } from '../../../translations/i18n'

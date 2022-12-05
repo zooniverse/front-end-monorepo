@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import SingleTextViewer from './SingleTextViewer'

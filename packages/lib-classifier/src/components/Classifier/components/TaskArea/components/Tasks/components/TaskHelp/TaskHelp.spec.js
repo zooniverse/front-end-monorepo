@@ -1,7 +1,6 @@
 import { Modal } from '@zooniverse/react-components'
 import { Button } from 'grommet'
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import TaskHelp, { StyledPlainButton as NeedHelpButton } from './TaskHelp'
 

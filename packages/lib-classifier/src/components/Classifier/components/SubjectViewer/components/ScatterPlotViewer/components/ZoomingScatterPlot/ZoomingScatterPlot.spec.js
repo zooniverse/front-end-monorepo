@@ -1,5 +1,4 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import React from 'react'
 import sinon from 'sinon'
 import { Provider } from 'mobx-react'
 import SubjectViewerStore from '@store/SubjectViewerStore'

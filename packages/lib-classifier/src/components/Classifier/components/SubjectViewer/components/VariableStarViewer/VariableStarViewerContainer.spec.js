@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme'
-import React from 'react'
+import React from 'react';
 import nock from 'nock'
 import sinon from 'sinon'
 import { Factory } from 'rosie'

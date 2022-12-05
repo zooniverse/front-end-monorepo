@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import { MovableModal } from '@zooniverse/react-components'
 import { observable } from 'mobx'
 import FieldGuide from './FieldGuide'

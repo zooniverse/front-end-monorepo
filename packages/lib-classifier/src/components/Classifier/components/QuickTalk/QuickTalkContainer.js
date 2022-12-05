@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react';
 import { observer } from 'mobx-react'
 import asyncStates from '@zooniverse/async-states'
 import { useTranslation } from '@translations/i18n'

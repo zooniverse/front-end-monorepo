@@ -2,7 +2,7 @@ import { GraphQLClient } from 'graphql-request'
 import { Paragraph } from 'grommet'
 import { Provider } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { StrictMode, useEffect } from 'react'
+import { StrictMode, useEffect } from 'react';
 import '../../translations/i18n'
 import {
   env,

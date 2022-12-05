@@ -1,5 +1,4 @@
 import { Tab as GrommetTab } from 'grommet'
-import React from 'react'
 
 import SpacedText from '../SpacedText'
 

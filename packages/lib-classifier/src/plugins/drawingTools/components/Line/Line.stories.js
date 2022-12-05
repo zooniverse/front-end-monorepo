@@ -1,4 +1,3 @@
-import React from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 import cuid from 'cuid'
 import mockStore from '@test/mockStore'

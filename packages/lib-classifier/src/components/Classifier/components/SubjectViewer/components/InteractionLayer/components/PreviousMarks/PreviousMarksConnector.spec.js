@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
-import React from 'react'
+import React from 'react';
 import PreviousMarksConnector from './PreviousMarksConnector'
 import PreviousMarks from './PreviousMarks'
 import cuid from 'cuid'

@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { useRef } from 'react'
+import { useRef } from 'react';
 
 import { useJSONData } from '@helpers'
 import BarChartViewer from './BarChartViewer'

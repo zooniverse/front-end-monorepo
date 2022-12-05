@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
-import React from 'react'
 import { ZoomEventLayer } from './ZoomEventLayer'
 
 const width = 768

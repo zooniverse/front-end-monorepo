@@ -1,6 +1,5 @@
 import { Box } from 'grommet'
 import { bool, object, oneOf, oneOfType, shape, string } from 'prop-types'
-import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 
 export const SVG = styled.svg`

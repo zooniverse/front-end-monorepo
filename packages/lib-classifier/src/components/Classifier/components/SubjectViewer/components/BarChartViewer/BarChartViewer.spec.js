@@ -1,5 +1,4 @@
 import { mount, shallow } from 'enzyme'
-import React from 'react'
 import { Group } from '@visx/group'
 import { AxisBottom, AxisLeft } from '@visx/axis'
 import zooTheme from '@zooniverse/grommet-theme'

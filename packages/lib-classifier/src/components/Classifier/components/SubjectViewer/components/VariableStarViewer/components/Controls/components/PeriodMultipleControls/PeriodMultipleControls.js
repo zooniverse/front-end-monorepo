@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import { FormField, RadioButtonGroup } from 'grommet'
 import styled, { css } from 'styled-components'

@@ -1,10 +1,10 @@
-import React from 'react'
+import { useContext } from 'react';
 import PropTypes from 'prop-types'
 import { MobXProviderContext, observer } from 'mobx-react'
 import PreviousMarks from './PreviousMarks'
 
 function useStores() {
-  const stores = React.useContext(MobXProviderContext)
+  const stores = useContext(MobXProviderContext)
   const { activeInteractionTask, interactionTask } = stores.classifierStore.workflowSteps
   const {
     active: classification

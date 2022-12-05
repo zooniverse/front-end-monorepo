@@ -1,6 +1,5 @@
 import { Box, Image } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 import { CloseButton } from '@zooniverse/react-components'
 import { useTranslation } from 'react-i18next'

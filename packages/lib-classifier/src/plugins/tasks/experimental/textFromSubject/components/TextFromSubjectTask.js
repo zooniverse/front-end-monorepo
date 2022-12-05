@@ -1,6 +1,6 @@
 import { Box, Text, TextArea } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
+import { useRef } from 'react';
 import { useTranslation } from '@translations/i18n'
 import styled from 'styled-components'
 import { Markdownz, PrimaryButton } from '@zooniverse/react-components'
@@ -19,7 +19,7 @@ export default function TextFromSubjectTask ({
   value,
   updateAnnotation = () => true
 }) {
-  const textArea = React.useRef()
+  const textArea = useRef()
   const { t } = useTranslation('plugins')
 
   function onChange () {

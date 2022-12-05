@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import SubjectGroupViewer, { SVG } from './SubjectGroupViewer'
 import SGVGridCell from './components/SGVGridCell'

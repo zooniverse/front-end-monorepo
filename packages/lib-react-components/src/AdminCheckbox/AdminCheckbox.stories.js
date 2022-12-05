@@ -1,7 +1,7 @@
 import { withActions } from '@storybook/addon-actions';
 import zooTheme from '@zooniverse/grommet-theme';
 import { Box, Grommet } from 'grommet';
-import React from 'react';
+import { Component } from 'react';
 
 import AdminCheckbox from './AdminCheckbox';
 import readme from './README.md';
@@ -33,7 +33,7 @@ DarkTheme.story = {
   parameters: config,
 };
 
-class AdminCheckboxStoryExample extends React.Component {
+class AdminCheckboxStoryExample extends Component {
   constructor() {
     super();
     this.onChange = this.onChange.bind(this);

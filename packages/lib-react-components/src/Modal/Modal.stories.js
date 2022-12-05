@@ -1,6 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
-import React from 'react'
 
 import Modal,{ Modal as ModalComponent } from './Modal'
 import readme from './README.md'

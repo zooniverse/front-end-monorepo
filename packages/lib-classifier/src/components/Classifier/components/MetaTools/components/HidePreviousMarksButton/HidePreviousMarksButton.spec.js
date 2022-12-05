@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import sinon from 'sinon'
 import { MetaToolsButton } from '@zooniverse/react-components'
 import i18n from '@test/i18n/i18n-for-tests'

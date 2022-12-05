@@ -1,6 +1,5 @@
 import { Anchor, Box } from 'grommet'
 import { arrayOf, string } from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 import zipLabelsAndUrls from '../../helpers/zipLabelsAndUrls'

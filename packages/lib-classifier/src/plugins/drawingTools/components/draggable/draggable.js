@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import { createRef, PureComponent } from 'react';
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 function draggable(WrappedComponent) {
@@ -8,7 +8,7 @@ function draggable(WrappedComponent) {
       this.dragStart = this.dragStart.bind(this)
       this.dragMove = this.dragMove.bind(this)
       this.dragEnd = this.dragEnd.bind(this)
-      this.wrappedComponent = React.createRef()
+      this.wrappedComponent = createRef()
       this.state = {
         coords: {
           x: props.coords.x,

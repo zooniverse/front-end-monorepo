@@ -1,4 +1,4 @@
-import React from 'react'
+import { Component, createRef } from 'react';
 import { mount } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
@@ -7,12 +7,12 @@ import SubjectViewerStore from '@store/SubjectViewerStore'
 import withKeyZoom from './withKeyZoom'
 
 describe('withKeyZoom', function () {
-  class StubComponent extends React.Component {
+  class StubComponent extends Component {
     render () {
       return <p>Hello</p>
     }
   }
-  const zoomStub = React.createRef()
+  const zoomStub = createRef()
   const WithZoom = withKeyZoom(StubComponent)
   const subjectViewer = SubjectViewerStore.create({})
   const classifierStore = {

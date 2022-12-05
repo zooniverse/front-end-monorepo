@@ -1,5 +1,5 @@
 import { shallow, mount } from 'enzyme'
-import React from 'react'
+import React from 'react';
 import DataImageViewerContainer from './DataImageViewerContainer'
 import DataImageViewer from './DataImageViewer'
 import nock from 'nock'

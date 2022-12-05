@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react';
 import { withResponsiveContext } from '@zooniverse/react-components'
 import { Anchor, Box, Button, Heading, Keyboard, Paragraph } from 'grommet'
 import { Chat, Close, FormNextLink } from 'grommet-icons'
@@ -67,7 +67,7 @@ function QuickTalk ({
 
   if (!subject) return null
 
-  const [_expand, setExpand] = React.useState(expand)
+  const [_expand, setExpand] = useState(expand)
   const badge = (showBadge && comments.length > 0) ? comments.length : false
 
   const QTButtonContainer = (fixedPosition) ? FixedButtonContainer : ButtonContainer

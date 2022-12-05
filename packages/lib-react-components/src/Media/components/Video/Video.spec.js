@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import { Video as GrommetVideo } from 'grommet'
 
 import Video from './Video'

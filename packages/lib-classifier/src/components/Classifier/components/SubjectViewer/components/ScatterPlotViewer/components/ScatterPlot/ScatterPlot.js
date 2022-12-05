@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import { Group } from '@visx/group'
 import cuid from 'cuid'

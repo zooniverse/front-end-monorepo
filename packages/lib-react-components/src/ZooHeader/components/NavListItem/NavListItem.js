@@ -1,7 +1,6 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Anchor } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 
 import SpacedText from '../../../SpacedText'

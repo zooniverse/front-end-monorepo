@@ -1,5 +1,4 @@
 import { ResponsiveContext } from 'grommet'
-import React from 'react'
 
 function withResponsiveContext(WrappedComponent) {
   return props => (

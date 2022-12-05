@@ -2,7 +2,6 @@ import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import zooTheme from '@zooniverse/grommet-theme';
 import { Grommet } from 'grommet';
 import { Add } from 'grommet-icons';
-import React from 'react';
 import readme from './README.md';
 
 import MetaToolsButton from './';

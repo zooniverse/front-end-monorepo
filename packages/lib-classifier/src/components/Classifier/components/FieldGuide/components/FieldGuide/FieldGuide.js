@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import { useState } from 'react';
 import { observable } from 'mobx'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 

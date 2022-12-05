@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import FlipIcon from './FlipIcon'
 
 describe('VariableStarViewer > Component > FlipIcon', function () {

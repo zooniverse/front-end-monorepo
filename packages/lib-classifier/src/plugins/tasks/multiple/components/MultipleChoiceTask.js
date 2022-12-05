@@ -1,7 +1,6 @@
 import { Markdownz, pxToRem } from '@zooniverse/react-components'
 import { Box, Text } from 'grommet'
 import { observer } from 'mobx-react'
-import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 

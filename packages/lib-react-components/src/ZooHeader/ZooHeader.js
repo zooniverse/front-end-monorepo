@@ -1,7 +1,6 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Anchor, Box } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 import styled from 'styled-components'
 import { getHost } from './helpers'

@@ -2,7 +2,6 @@ import { withKnobs, object, select, text, boolean } from '@storybook/addon-knobs
 import { action } from '@storybook/addon-actions';
 import zooTheme from '@zooniverse/grommet-theme';
 import { Box, Grommet, Text, TextArea } from 'grommet';
-import React from 'react';
 
 import MovableModal from './MovableModal';
 import PrimaryButton from '../PrimaryButton';

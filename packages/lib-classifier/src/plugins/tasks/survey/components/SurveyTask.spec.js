@@ -1,5 +1,4 @@
 import { expect } from 'chai'
-import React from 'react'
 import { composeStory } from '@storybook/testing-react'
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'

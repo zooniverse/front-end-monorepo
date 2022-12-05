@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import sinon from 'sinon'
 import zooTheme from '@zooniverse/grommet-theme'
 import { VariableStarViewer } from './VariableStarViewer'

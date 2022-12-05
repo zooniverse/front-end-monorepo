@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import { toJS } from 'mobx'
 import { getType } from 'mobx-state-tree'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types'
 import { Paragraph } from 'grommet'
 

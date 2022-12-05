@@ -1,4 +1,3 @@
-import React from 'react'
 import { mount } from 'enzyme'
 import Task from './Task'
 import * as tasks from '@plugins/tasks'

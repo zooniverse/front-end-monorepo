@@ -1,6 +1,5 @@
 import { expect } from 'chai'
 import { shallow } from 'enzyme'
-import React from 'react'
 import sinon from 'sinon'
 import { PrimaryButton } from '@zooniverse/react-components'
 import { SaveButton } from './SaveButton'

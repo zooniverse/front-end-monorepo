@@ -3,7 +3,7 @@ import { extent } from 'd3-array'
 import { Box } from 'grommet'
 import { zip } from 'lodash'
 import PropTypes from 'prop-types'
-import React, { useMemo, useRef } from 'react'
+import { useMemo, useRef } from 'react';
 
 import { withStores } from '@helpers'
 import withKeyZoom from '../../../withKeyZoom'

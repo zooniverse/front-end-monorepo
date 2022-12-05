@@ -1,5 +1,4 @@
 import { mount } from 'enzyme'
-import React from 'react'
 import { Axis } from '@visx/axis'
 import { Line } from '@visx/shape'
 import zooTheme from '@zooniverse/grommet-theme'

@@ -2,7 +2,6 @@ import { Markdownz } from '@zooniverse/react-components'
 import { shallow, mount } from 'enzyme'
 import { Button, Grommet } from 'grommet'
 import { observable } from 'mobx'
-import React from 'react'
 import sinon from 'sinon'
 import zooTheme from '@zooniverse/grommet-theme'
 

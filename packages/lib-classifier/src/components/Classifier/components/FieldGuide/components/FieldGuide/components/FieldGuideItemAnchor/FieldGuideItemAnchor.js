@@ -1,5 +1,4 @@
 import { Anchor, Box, Paragraph } from 'grommet'
-import React from 'react'
 import { observable } from 'mobx'
 import PropTypes from 'prop-types'
 import { PropTypes as MobXPropTypes } from 'mobx-react'

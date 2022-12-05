@@ -2,7 +2,7 @@ import { PlainButton, SpacedText } from '@zooniverse/react-components'
 import { Box, Button, Drop } from 'grommet'
 import { CaretNext, CaretPrevious } from 'grommet-icons'
 import { array, bool, func, oneOf, oneOfType, shape, string } from 'prop-types'
-import React, { Component, createRef } from 'react'
+import { Component, createRef } from 'react';
 import styled, { withTheme } from 'styled-components'
 import { useTranslation, withTranslation } from '@translations/i18n'
 

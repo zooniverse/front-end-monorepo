@@ -1,7 +1,7 @@
 import { Box, Grommet } from 'grommet'
 import { Provider, observer } from 'mobx-react'
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import Tasks from '@components/Classifier/components/TaskArea/components/Tasks'
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'

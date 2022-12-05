@@ -1,6 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
-import React from 'react'
 import { Provider } from 'mobx-react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'

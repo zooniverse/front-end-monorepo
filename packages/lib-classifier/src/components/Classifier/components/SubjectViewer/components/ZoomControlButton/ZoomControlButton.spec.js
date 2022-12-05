@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
-import React from 'react'
 import ZoomControlButton from './ZoomControlButton'
 import { MetaToolsButton } from '@zooniverse/react-components'
 

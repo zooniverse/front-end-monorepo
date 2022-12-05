@@ -1,6 +1,5 @@
 import { GraphQLClient } from 'graphql-request'
 import { Provider } from 'mobx-react'
-import React from 'react'
 import { Box, Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 import asyncStates from '@zooniverse/async-states'

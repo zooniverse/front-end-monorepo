@@ -1,5 +1,4 @@
 import { expect } from 'chai'
-import React from 'react'
 import { render, screen } from '@testing-library/react'
 
 import { task } from '@plugins/tasks/survey/mock-data'

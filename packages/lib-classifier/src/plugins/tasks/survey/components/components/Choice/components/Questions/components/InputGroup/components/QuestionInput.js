@@ -1,6 +1,5 @@
 import { Box, Text } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
 import styled, { withTheme } from 'styled-components'
 
 export const StyledBox = styled(Box)`

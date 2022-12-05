@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import { MovableModal, Modal } from '@zooniverse/react-components'
 import FieldGuideContainer from './FieldGuideContainer'
 import { FieldGuideFactory, FieldGuideMediumFactory } from '@test/factories'

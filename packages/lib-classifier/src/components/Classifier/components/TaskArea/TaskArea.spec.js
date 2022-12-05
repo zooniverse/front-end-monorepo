@@ -1,5 +1,4 @@
 import { Tab, Tabs } from '@zooniverse/react-components'
-import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'

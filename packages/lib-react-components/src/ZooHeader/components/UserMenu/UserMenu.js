@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import { FormDown } from 'grommet-icons'
 import styled from 'styled-components'
@@ -46,7 +45,7 @@ export default function UserMenu ({ signOut, user }) {
       label={userDisplayName}
     />
   )
-};
+}
 
 UserMenu.propTypes = {
   signOut: PropTypes.func.isRequired,

@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react';
 import { number, func } from 'prop-types'
 import styled from 'styled-components'
 import { Tooltip } from '@zooniverse/react-components'

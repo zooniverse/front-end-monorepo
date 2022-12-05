@@ -1,5 +1,3 @@
-import React from 'react'
-
 function HelpIcon (props) {
   return (
     <svg viewBox='0 0 32 32' {...props}>

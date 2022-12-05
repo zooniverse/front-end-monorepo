@@ -1,6 +1,5 @@
 import { PrimaryButton } from '@zooniverse/react-components'
 import PropTypes from 'prop-types'
-import React from 'react'
 import { useTranslation } from '@translations/i18n'
 
 function DoneAndTalkButton ({

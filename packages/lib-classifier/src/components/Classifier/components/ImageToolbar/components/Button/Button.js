@@ -1,5 +1,5 @@
 import { bool, func } from 'prop-types'
-import React from 'react'
+import { Component } from 'react';
 import { Button as GrommetButton } from 'grommet'
 import styled, { css } from 'styled-components'
 import { pxToRem } from '@zooniverse/react-components'
@@ -58,7 +58,7 @@ const StyledButton = styled(GrommetButton)`
   }
 `
 
-class Button extends React.Component {
+class Button extends Component {
   render () {
     const {
       active,

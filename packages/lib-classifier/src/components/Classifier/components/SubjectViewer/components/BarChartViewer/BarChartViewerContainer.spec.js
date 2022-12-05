@@ -1,5 +1,4 @@
 import { mount } from 'enzyme'
-import React from 'react'
 import nock from 'nock'
 import sinon from 'sinon'
 

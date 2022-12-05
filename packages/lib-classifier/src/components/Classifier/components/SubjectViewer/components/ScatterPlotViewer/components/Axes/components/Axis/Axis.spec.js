@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 import { AxisLeft, AxisBottom } from '@visx/axis'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Axis } from './Axis'

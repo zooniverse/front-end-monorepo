@@ -1,4 +1,4 @@
-import React from 'react'
+import { forwardRef } from 'react';
 import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
 import {
@@ -14,7 +14,7 @@ import { SingleImageViewerContainer } from '../SingleImageViewer'
 import { BarChartViewer } from '../BarChartViewer'
 import Controls from './components/Controls'
 
-const VariableStarViewer = React.forwardRef((props, ref) => {
+const VariableStarViewer = forwardRef((props, ref) => {
   const {
     allowPanZoom,
     barJSON,

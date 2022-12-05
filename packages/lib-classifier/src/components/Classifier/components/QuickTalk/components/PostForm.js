@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types'
 import { Box, Form, Text, TextArea } from 'grommet'
 import styled from 'styled-components'
@@ -27,10 +27,10 @@ function PostForm ({
 }) {
   const { t } = useTranslation('components')
 
-  const [text, setText] = React.useState('')
+  const [text, setText] = useState('')
 
   // Reset text when the comment is posting/has been posted.
-  React.useEffect(() => {
+  useEffect(() => {
     setText('')
   }, [postCommentStatus])
 

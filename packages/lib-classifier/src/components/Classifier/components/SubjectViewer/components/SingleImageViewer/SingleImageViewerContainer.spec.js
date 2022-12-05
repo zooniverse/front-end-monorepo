@@ -1,7 +1,6 @@
 import { mount } from 'enzyme'
 import { Provider } from 'mobx-react'
 import sinon from 'sinon'
-import React from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import mockStore from '@test/mockStore'

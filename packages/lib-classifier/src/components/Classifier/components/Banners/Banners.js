@@ -1,5 +1,5 @@
 import { MobXProviderContext, observer } from 'mobx-react'
-import React from 'react'
+import { useContext } from 'react';
 
 import AlreadySeenBanner from './components/AlreadySeenBanner'
 import RetiredBanner from './components/RetiredBanner'
@@ -8,7 +8,7 @@ import WorkflowIsFinishedBanner from './components/WorkflowIsFinishedBanner'
 import UserHasFinishedWorkflowBanner from './components/UserHasFinishedWorkflowBanner'
 
 function useStores(mockStores) {
-  const { classifierStore } = mockStores ?? React.useContext(MobXProviderContext)
+  const { classifierStore } = mockStores ?? useContext(MobXProviderContext)
   return {
     project: classifierStore.projects.active,
     subject: classifierStore.subjects.active,

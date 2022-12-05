@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react';
 import { Box } from 'grommet'
 import withLayer from '../helpers/withLayer'
 import ModalBody from './components/ModalBody'

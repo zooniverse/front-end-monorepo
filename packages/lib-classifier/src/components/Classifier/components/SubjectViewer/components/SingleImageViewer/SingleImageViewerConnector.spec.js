@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme'
-import React from 'react'
+import React from 'react';
 import sinon from 'sinon'
 import SingleImageViewerConnector from './SingleImageViewerConnector'
 import SingleImageViewerContainer from './SingleImageViewerContainer'

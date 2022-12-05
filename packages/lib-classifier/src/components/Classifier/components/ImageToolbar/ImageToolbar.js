@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import FieldGuide from '../FieldGuide'
 import AnnotateButton from './components/AnnotateButton'
@@ -12,7 +12,6 @@ import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 import withKeyZoom from '../withKeyZoom'
 
-@withKeyZoom
 class ImageToolbar extends Component {
   render () {
     return (
@@ -48,4 +47,4 @@ class ImageToolbar extends Component {
   }
 }
 
-export default ImageToolbar
+export default withKeyZoom(ImageToolbar)

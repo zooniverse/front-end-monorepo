@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import { useState, useEffect } from 'react';
 
 import Choice from './components/Choice'
 import Chooser from './components/Chooser'
@@ -11,10 +11,10 @@ export function SurveyTask ({
   task,
   disabled = false,
 }) {
-  const [answers, setAnswers] = React.useState({})
-  const [filters, setFilters] = React.useState({})
-  const [previousChoice, setPreviousChoice] = React.useState('')
-  const [selectedChoice, setSelectedChoice] = React.useState('')
+  const [answers, setAnswers] = useState({})
+  const [filters, setFilters] = useState({})
+  const [previousChoice, setPreviousChoice] = useState('')
+  const [selectedChoice, setSelectedChoice] = useState('')
 
   useEffect(() => {
     return () => {

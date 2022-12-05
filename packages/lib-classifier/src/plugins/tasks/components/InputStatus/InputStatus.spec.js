@@ -1,4 +1,3 @@
-import React from 'react'
 import { shallow } from 'enzyme'
 import InputStatus, { StyledInputStatus } from './InputStatus'
 /** The translation function will simply return keys in a testing env */

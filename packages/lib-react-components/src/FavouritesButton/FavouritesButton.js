@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import { useState } from 'react';
 import { withTheme } from 'styled-components'
 import MetaToolsButton from '../MetaToolsButton'
 import HeartIcon from './HeartIcon'

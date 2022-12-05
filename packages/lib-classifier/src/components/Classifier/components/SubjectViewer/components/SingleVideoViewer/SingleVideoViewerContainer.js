@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Box } from 'grommet'
 import { MobXProviderContext } from 'mobx-react'
-import React, { useContext, useMemo, useState, useRef } from 'react'
+import { useContext, useMemo, useState, useRef } from 'react';
 import { useTranslation } from '@translations/i18n'
 import asyncStates from '@zooniverse/async-states'
 import ReactPlayer from 'react-player'

@@ -1,7 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import { Box, Paragraph } from 'grommet'
 import { array, bool, object, shape, string } from 'prop-types'
-import React, { useContext } from 'react'
+import { useContext } from 'react';
 
 import { withStores } from '@helpers'
 import * as tasks from '@plugins/tasks'

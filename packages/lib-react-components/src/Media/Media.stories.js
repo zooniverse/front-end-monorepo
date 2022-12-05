@@ -1,7 +1,6 @@
 import { withKnobs, text } from '@storybook/addon-knobs';
 import zooTheme from '@zooniverse/grommet-theme';
 import { Grommet, Box } from 'grommet';
-import React from 'react';
 
 import Media from './Media';
 import readme from './README.md';

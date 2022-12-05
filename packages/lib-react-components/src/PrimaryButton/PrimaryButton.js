@@ -1,6 +1,6 @@
 import { Button, Text, ThemeContext } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
+import { isValidElement } from 'react';
 
 import blueTheme from './themes/blue'
 import goldTheme from './themes/gold'
@@ -24,7 +24,7 @@ function PrimaryButton ({
   ...rest
 }) {
   const theme = themeMap[color] || themeMap['gold']
-  const wrappedLabel = React.isValidElement(label)
+  const wrappedLabel = isValidElement(label)
     ? label
     : <Text size='medium'>{label}</Text>
 

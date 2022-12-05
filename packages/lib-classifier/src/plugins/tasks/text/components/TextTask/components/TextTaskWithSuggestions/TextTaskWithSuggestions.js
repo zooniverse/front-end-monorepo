@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React from 'react'
+import { useRef } from 'react';
 import PropTypes from 'prop-types'
 import { Box, TextInput, Text } from 'grommet'
 import { Markdownz } from '@zooniverse/react-components'
@@ -21,7 +21,7 @@ function TextTaskWithSuggestions ({
   value,
   updateAnnotation = () => true
 }) {
-  const textInput = React.useRef()
+  const textInput = useRef()
   const dropProps = {
     trapFocus: false
   }

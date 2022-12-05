@@ -1,5 +1,4 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import React from 'react'
 import cuid from 'cuid'
 import mockStore from '@test/mockStore'
 import DrawingTask from '@plugins/tasks/drawing/models/DrawingTask'

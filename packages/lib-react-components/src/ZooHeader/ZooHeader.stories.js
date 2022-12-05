@@ -2,7 +2,6 @@ import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
-import React from 'react'
 
 import ZooHeader from './ZooHeader'
 import readme from './README.md'

@@ -1,4 +1,3 @@
-import React from 'react'
 import { withStores } from '@helpers'
 import DisabledTaskPopup from './DisabledTaskPopup'
 

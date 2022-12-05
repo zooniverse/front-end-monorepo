@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import { forwardRef } from 'react';
 
-const Chart = React.forwardRef(function Chart ({ children, height, width, ...rest }, ref) {
+const Chart = forwardRef(function Chart ({ children, height, width, ...rest }, ref) {
   return (
     <svg
       data-testid='data-vis-chart'

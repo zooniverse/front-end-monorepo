@@ -1,4 +1,4 @@
-import React from 'react'
+import { Component } from 'react';
 import PropTypes from 'prop-types'
 import { Box } from 'grommet'
 import { FavouritesButton, withResponsiveContext } from '@zooniverse/react-components'
@@ -31,7 +31,7 @@ function storeMapper(store) {
   }
 }
 
-class MetaTools extends React.Component {
+class MetaTools extends Component {
   constructor () {
     super()
 

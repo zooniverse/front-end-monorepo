@@ -1,5 +1,4 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import React from 'react'
 import mockStore from '@test/mockStore'
 import {
   DrawingStory,

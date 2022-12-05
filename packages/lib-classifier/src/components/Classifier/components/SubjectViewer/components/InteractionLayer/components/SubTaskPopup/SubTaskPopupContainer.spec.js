@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
-import React from 'react'
 import SubTaskPopupContainer from './SubTaskPopupContainer'
 import SubTaskPopup from './SubTaskPopup'
 

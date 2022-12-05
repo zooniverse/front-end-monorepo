@@ -1,6 +1,5 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
 
 /**
 The Single Text Viewer is a variant of the Subject Viewer that's used to display text media.

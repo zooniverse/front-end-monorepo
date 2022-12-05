@@ -1,5 +1,5 @@
 import { panoptes } from '@zooniverse/panoptes-js'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'

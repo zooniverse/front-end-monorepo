@@ -1,9 +1,9 @@
-import React from 'react'
+import { useContext } from 'react';
 import { MobXProviderContext, observer } from 'mobx-react'
 import DemoModeToggle from './DemoModeToggle'
 
 function useStores() {
-  const stores = React.useContext(MobXProviderContext)
+  const stores = useContext(MobXProviderContext)
 
   const {
     demoMode,

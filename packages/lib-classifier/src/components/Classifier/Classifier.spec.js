@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { within } from '@testing-library/dom'
 import { render, screen } from '@testing-library/react'
 import asyncStates from '@zooniverse/async-states'

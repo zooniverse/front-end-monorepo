@@ -1,4 +1,3 @@
-import React from 'react'
 import { Box, DropButton } from 'grommet'
 import { SettingsOption } from 'grommet-icons'
 import { useTranslation } from '@translations/i18n'

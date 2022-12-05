@@ -1,9 +1,9 @@
-import React from 'react'
+import { Component } from 'react';
 import PropTypes from 'prop-types'
 import MetadataButton from './components/MetadataButton'
 import { MetadataModal } from './components/MetadataModal'
 
-export default class Metadata extends React.Component {
+export default class Metadata extends Component {
   constructor () {
     super()
 

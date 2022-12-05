@@ -1,4 +1,3 @@
-import React from 'react'
 import { shallow } from 'enzyme'
 import { TranscriptionLine as TranscriptionLineMarkModel } from '../../../../models/marks'
 import { TranscriptionLineMark } from './TranscriptionLineMark'

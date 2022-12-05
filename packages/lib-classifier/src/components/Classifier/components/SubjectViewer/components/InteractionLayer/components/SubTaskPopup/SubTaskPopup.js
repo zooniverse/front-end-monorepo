@@ -1,7 +1,7 @@
 import { Box, Paragraph } from 'grommet'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { useCallback, useState } from 'react'
+import { useCallback, useState } from 'react';
 import { MovableModal } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
 

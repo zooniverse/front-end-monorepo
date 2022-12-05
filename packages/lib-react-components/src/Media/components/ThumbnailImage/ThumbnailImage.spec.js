@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react'
-import React from 'react'
 import sinon from 'sinon'
 
 import ThumbnailImage from './ThumbnailImage.js'

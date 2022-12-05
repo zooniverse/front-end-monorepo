@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import DrawingToolMarks from '../DrawingToolMarks'
 import SHOWN_MARKS from '@helpers/shownMarks'

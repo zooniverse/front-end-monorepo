@@ -1,6 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
-import React from 'react'
 import { MockTask } from '@stories/components'
 import DrawingTask from './DrawingTask'
 

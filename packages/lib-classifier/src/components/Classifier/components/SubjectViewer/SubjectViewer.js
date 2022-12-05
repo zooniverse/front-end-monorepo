@@ -1,6 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
-import React from 'react'
 import { useTranslation } from '@translations/i18n'
 
 import { withStores } from '@helpers'

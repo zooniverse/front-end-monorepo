@@ -1,6 +1,5 @@
 import { Text } from 'grommet'
 import styled, { css } from 'styled-components'
-import React from 'react'
 import pxToRem from '../helpers/pxToRem'
 import { bool, node, string } from 'prop-types'
 

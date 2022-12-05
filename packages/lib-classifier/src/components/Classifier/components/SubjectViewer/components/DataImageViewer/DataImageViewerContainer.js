@@ -1,15 +1,15 @@
-import React from 'react'
+import { createRef, Component } from 'react';
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 import locationValidator from '../../helpers/locationValidator'
 import { findLocationsByMediaType } from '@helpers'
 import DataImageViewer from './DataImageViewer'
 
-export default class DataImageViewerContainer extends React.Component {
+export default class DataImageViewerContainer extends Component {
   constructor() {
     super()
 
-    this.viewer = React.createRef()
+    this.viewer = createRef()
 
     this.state = {
       allowPanZoom: '',

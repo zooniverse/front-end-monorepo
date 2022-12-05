@@ -1,7 +1,6 @@
 import { Markdownz, Modal, SpacedText } from '@zooniverse/react-components'
 import { Box, DataTable, Text } from 'grommet'
 import PropTypes from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 import filterByLabel, { filters } from './filterByLabel'
 import { useTranslation } from '@translations/i18n'

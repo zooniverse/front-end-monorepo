@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import React from 'react'
 
 import Graph2dRangeXIcon from './Graph2dRangeXIcon'
 

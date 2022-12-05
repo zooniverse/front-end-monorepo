@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen, waitFor } from '@testing-library/react'
 import { expect } from 'chai'
 import * as stories from './SingleVideoViewerContainer.stories'

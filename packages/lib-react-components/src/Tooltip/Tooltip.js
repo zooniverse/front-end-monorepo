@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import Tippy from '@tippyjs/react/headless'
 import Label from './components/Label'
 

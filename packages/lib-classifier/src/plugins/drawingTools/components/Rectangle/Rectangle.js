@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React from 'react'
 import DragHandle from '../DragHandle'
 
 const GRAB_STROKE_WIDTH = 6
