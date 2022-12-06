@@ -97,12 +97,17 @@ describe('SurveyTask', function () {
     const DefaultStory = composeStory(Default, Meta)
 
     describe('when the Filter button is clicked', function () {
-      it('should show characteristic filter sections', async function () {
-        const user = userEvent.setup({ delay: null })
+      let user, filterButton
+
+      beforeEach(async function () {
+        user = userEvent.setup({ delay: null })
         render(<DefaultStory />)
-        // filterButton is the Filter button above the choices
-        const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
+        // click the Filter button above choices to open the characteristics filters
+        filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
         await user.click(filterButton)
+      })
+
+      it('should show characteristic filter sections', async function () {
         const characteristicsSection = screen.getByTestId('characteristics')
         // the filterSections are the characteristic filter sections, i.e. the sections for "Like", "Pattern", and "Color" for the mock task
         const filterSections = within(characteristicsSection).getAllByRole('radiogroup')
@@ -111,16 +116,6 @@ describe('SurveyTask', function () {
       })
 
       describe('when filters are clicked', function () {
-        let user, filterButton
-        
-        beforeEach(async function () {
-          user = userEvent.setup({ delay: null })
-          render(<DefaultStory />)
-          // click the Filter button above choices to open the characteristics filters
-          filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
-          await user.click(filterButton)
-        })
-        
         it('should show the filter button with a remove filter button', async function () {
           // the stripesFilterButton is the button to filter choices by "stripes". Stripes is a specific value of the "Pattern" characteristic
           const stripesFilterButton = screen.getByTestId('filter-PTTRN-STRPS')
@@ -331,72 +326,69 @@ describe('SurveyTask', function () {
   describe('with user keystrokes', function () {
     const DefaultStory = composeStory(Default, Meta)
     const NoFiltersStory = composeStory(NoFilters, Meta)
-    let user
 
-    beforeEach(function () {
-      user = userEvent.setup({ delay: null })
-    })
+    describe('without filters', function() {
+      let user, choiceButton, choiceButtons
 
-    it('should remove a previously identified choice with delete key', async function () {
-      render(<NoFiltersStory />)
-      let choiceButton = screen.getByText('Fire')
-      await user.click(choiceButton)
-      const identifyButton = screen.getByText('SurveyTask.Choice.identify')
-      // identify choice (Fire) and close choice (Fire) component
-      await user.click(identifyButton)
-      // confirm choices showing
-      const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
-      expect(choiceButtons.length).to.equal(6)
-      
-      // confirm choice Fire selected
-      choiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
-      expect(choiceButton.getAttribute('aria-checked')).to.equal('true')
-      
-      // confirm choice Fire active element
-      expect(choiceButton).to.equal(document.activeElement)
-      
-      // press delete key to remove choice (Fire)
-      await user.keyboard('[Delete]')
-      choiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
-      // confirm choice Fire not selected
-      expect(choiceButton.getAttribute('aria-checked')).to.equal('false')
-    })
+      beforeEach(async function () {
+        user = userEvent.setup({ delay: null })
+        render(<NoFiltersStory />)
+        choiceButton = screen.getByText('Fire')
+        await user.click(choiceButton)
+        const identifyButton = screen.getByText('SurveyTask.Choice.identify')
+        // identify choice (Fire) and close choice (Fire) component
+        await user.click(identifyButton)
+        // confirm choices showing
+        choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
+      })
 
-    it('should remove a previously identified choice with backspace key', async function () {
-      render(<NoFiltersStory />)
-      let choiceButton = screen.getByText('Fire')
-      await user.click(choiceButton)
-      const identifyButton = screen.getByText('SurveyTask.Choice.identify')
-      // identify choice (Fire) and close choice (Fire) component
-      await user.click(identifyButton)
-      // confirm choices showing
-      const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
-      expect(choiceButtons.length).to.equal(6)
+      it('should remove a previously identified choice with delete key', async function () {
+        expect(choiceButtons.length).to.equal(6)
       
-      // confirm choice Fire selected
-      choiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
-      expect(choiceButton.getAttribute('aria-checked')).to.equal('true')
+        // confirm choice Fire selected
+        choiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
+        expect(choiceButton.getAttribute('aria-checked')).to.equal('true')
       
-      // confirm choice Fire active element
-      expect(choiceButton).to.equal(document.activeElement)
+        // confirm choice Fire active element
+        expect(choiceButton).to.equal(document.activeElement)
       
-      // press backspace key to remove choice (Fire)
-      await user.keyboard('[Backspace]')
-      choiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
-      // confirm choice Fire not selected
-      expect(choiceButton.getAttribute('aria-checked')).to.equal('false')
+        // press delete key to remove choice (Fire)
+        await user.keyboard('[Delete]')
+        choiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
+        // confirm choice Fire not selected
+        expect(choiceButton.getAttribute('aria-checked')).to.equal('false')
+      })
+
+      it('should remove a previously identified choice with backspace key', async function () {
+        expect(choiceButtons.length).to.equal(6)
+      
+        // confirm choice Fire selected
+        choiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
+        expect(choiceButton.getAttribute('aria-checked')).to.equal('true')
+      
+        // confirm choice Fire active element
+        expect(choiceButton).to.equal(document.activeElement)
+      
+        // press backspace key to remove choice (Fire)
+        await user.keyboard('[Backspace]')
+        choiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
+        // confirm choice Fire not selected
+        expect(choiceButton.getAttribute('aria-checked')).to.equal('false')
+      })
     })
 
     describe('when the Filter button is keyed with Enter', function () {
-      it('should show characteristic filter sections', async function () {
+      let user, filterButton, characteristicsSection
+
+      beforeEach(async function () {
+        user = userEvent.setup({ delay: null })
         render(<DefaultStory />)
-        // tabbing to the Filter button
-        await user.keyboard('[Tab]')
-        const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
-        expect(filterButton).to.equal(document.activeElement)
-        
-        // pressing the Enter key to open the Filter button
-        await user.keyboard('[Enter]')
+        filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
+        // tabbing to and opening the Filter button
+        await user.keyboard('[Tab][Enter]')
+      })
+
+      it('should show characteristic filter sections', async function () {
         // the filterSections are the characteristic filter sections, i.e. the sections for "Like", "Pattern", and "Color" for the mock task
         const characteristicsSection = screen.getByTestId('characteristics')
         const filterSections = within(characteristicsSection).getAllByRole('radiogroup')
@@ -404,16 +396,6 @@ describe('SurveyTask', function () {
       })
 
       describe('when filters are keyed', function () {
-        let user, filterButton
-
-        beforeEach(async function () {
-          user = userEvent.setup({ delay: null })
-          render(<DefaultStory />)
-          filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
-          // tabbing to and opening the Filter button
-          await user.keyboard('[Tab][Enter]')
-        })  
-
         it('should show the filter button with a remove filter button', async function () {
           // the solidFilterButton is the button to filter choices by "solid". Solid is a specific value of the "Pattern" characteristic
           const solidFilterButton = screen.getByTestId('filter-PTTRN-SLD')
@@ -491,15 +473,14 @@ describe('SurveyTask', function () {
     describe('when a choice is selected with Enter', function () {
       let user
 
-      beforeEach(function () {
+      beforeEach(async function () {
         user = userEvent.setup({ delay: null })
         render(<NoFiltersStory />)
+        // tabbing to the first choice (Aardvark)
+        await user.keyboard('[Tab]')
       })
 
       it('should show the choice description', async function () {
-        // tabbing to the first choice (Aardvark)
-        await user.keyboard('[Tab]')
-        const choiceButton = screen.getByText('Aardvark')
         // pressing Enter to open the choice (Aardvark)
         await user.keyboard('[Enter]')
         const choiceDescription = screen.getByText('Not as awesome as a pangolin, but surprisingly big.')
@@ -508,15 +489,14 @@ describe('SurveyTask', function () {
 
       it('should show choice images', async function () {
         // tabbing to the first choice (Aardvark) and pressing Enter to open the choice (Aardvark)
-        await user.keyboard('[Tab][Enter]')
+        await user.keyboard('[Enter]')
         const choiceImages = screen.getByTestId('choice-images')
         
         expect(choiceImages).to.be.ok()
       })
 
       it('should show choices with recent choice as active choice when Not This button keyed with Enter', async function () {
-        // tabbing to the first choice (Aardvark), arrowing up to the last choice (Nothing here), and pressing Enter to open the choice (Nothing here)
-        await user.keyboard('[Tab]')
+        // arrowing up to the last choice (Nothing here), and pressing Enter to open the choice (Nothing here)
         await user.keyboard('[ArrowUp]')
         await user.keyboard('[Enter]')
         let choiceDescription = screen.getByText('Don\'t tell the plant biologists we called vegetation \"nothing here\"!')
@@ -536,8 +516,7 @@ describe('SurveyTask', function () {
       })
 
       it('should show choices with identified choice as active choice when Identify keyed with Enter', async function () {
-        // tabbing to the first choice (Aardvark), arrowing up to the last choice (Nothing here), and pressing Enter to open the choice (Nothing here)
-        await user.keyboard('[Tab]')
+        // arrowing up to the last choice (Nothing here), and pressing Enter to open the choice (Nothing here)
         await user.keyboard('[ArrowUp]')
         await user.keyboard('[Enter]')
         let choiceDescription = screen.getByText('Don\'t tell the plant biologists we called vegetation \"nothing here\"!')
@@ -560,8 +539,8 @@ describe('SurveyTask', function () {
       })
 
       it('should disable the Identify button until required questions are answered', async function () {
-        // tabbing to the first choice (Aardvark) and pressing Enter to open the choice (Aardvark)
-        await user.keyboard('[Tab][Enter]')
+        // pressing Enter to open the choice (Aardvark)
+        await user.keyboard('[Enter]')
         let identifyButton = screen.getByTestId('choice-identify-button')
         // confirm the Identify button is disabled, pending required questions answered
         expect(identifyButton.disabled).to.be.true()
