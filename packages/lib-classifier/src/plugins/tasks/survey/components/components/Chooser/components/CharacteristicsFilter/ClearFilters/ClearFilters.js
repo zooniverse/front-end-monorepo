@@ -4,14 +4,17 @@ import PropTypes from 'prop-types'
 import { PlainButton, SpacedText } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
 
-export default function ClearFilters (props) {
-  const {
-    handleFilter,
-    showingChoices,
-    totalChoices
-  } = props
-
+const defaultHandler = () => true
+export default function ClearFilters ({
+  handleFilter = defaultHandler,
+  showingChoices = 0,
+  totalChoices = 0
+}) {
   const { t } = useTranslation('plugins')
+
+  function onClick() {
+    handleFilter()
+  }
 
   return (
     <Box
@@ -27,18 +30,12 @@ export default function ClearFilters (props) {
       </SpacedText>
       <PlainButton
         disabled={showingChoices === totalChoices}
-        icon={<Clear />}
-        onClick={() => handleFilter()}
+        icon={<Clear aria-hidden='true' />}
+        onClick={onClick}
         text={t('SurveyTask.CharacteristicsFilter.clearFilters')}
       />
     </Box>
   )
-}
-
-ClearFilters.defaultProps = {
-  handleFilter: () => {},
-  showingChoices: 0,
-  totalChoices: 0
 }
 
 ClearFilters.propTypes = {

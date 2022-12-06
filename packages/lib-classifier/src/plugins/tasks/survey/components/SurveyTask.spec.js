@@ -11,23 +11,26 @@ describe('SurveyTask', function () {
   
   describe('when choices are showing / without a selected choice', function () {
     describe('with characteristic filters', function () {
-      const DefaultStory = composeStory(Default, Meta)
+      let filterButton, choiceButtons, choicesShowingCount, clearFiltersButton
+
+      before(function () {
+        const DefaultStory = composeStory(Default, Meta)
+        render(<DefaultStory />)
+        // filterButton is the Filter button above the choices
+        filterButton = screen.queryByLabelText('SurveyTask.CharacteristicsFilter.filter')
+        const choiceMenu = document.querySelector('[role=menu]')
+        // choiceButtons are the menu items / buttons for the various choices (i.e. for the mock task the various animals)
+        choiceButtons = choiceMenu.querySelectorAll('[role=menuitemcheckbox]')
+        // choicesShowingCount is the text below choices that notes "Showing X of Y"
+        choicesShowingCount = screen.queryByText('SurveyTask.CharacteristicsFilter.showing')
+        clearFiltersButton = screen.queryByRole('button', { name: 'SurveyTask.CharacteristicsFilter.clearFilters' })
+      })
 
       it('should show a filter button', function () {
-        render(<DefaultStory />)
-        
-        // filterButton is the Filter button above the choices
-        const filterButton = screen.getByLabelText('SurveyTask.CharacteristicsFilter.filter')
-        
         expect(filterButton).to.be.ok()
       })
 
       it('should show the choices', function () {
-        render(<DefaultStory />)
-        
-        // choiceButtons are the menu items / buttons for the various choices (i.e. for the mock task the various animals)
-        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
-        
         expect(choiceButtons.length).to.equal(6)
         expect(choiceButtons[0]).to.have.text('Aardvark')
         expect(choiceButtons[1]).to.have.text('Elephant')
@@ -38,48 +41,39 @@ describe('SurveyTask', function () {
       })
 
       it('should show the choices showing count out of total choices count', function () {
-        render(<DefaultStory />)
-        
-        // choicesShowingCount is the text below choices that notes "Showing X of Y"
-        const choicesShowingCount = screen.getByText('SurveyTask.CharacteristicsFilter.showing')
-        
         expect(choicesShowingCount).to.be.ok()
       })
 
       it('should show a Clear Filters button', function () {
-        render(<DefaultStory />)
-        
-        const clearFiltersButton = screen.getByText('SurveyTask.CharacteristicsFilter.clearFilters')
-        
         expect(clearFiltersButton).to.be.ok()
       })
 
       it('should disable the Clear Filters button if showing choices = total choices', function () {
-        render(<DefaultStory />)
-        
-        const clearFiltersButton = screen.getByRole('button', { name: 'Clear SurveyTask.CharacteristicsFilter.clearFilters' })
-        
         expect(clearFiltersButton).to.have.attribute('disabled')
       })
     })
 
     describe('without characteristic filters', function () {
-      const NoFiltersStory = composeStory(NoFilters, Meta)
+      let filterButton, choiceButtons, choicesShowingCount, clearFiltersButton
+
+      before(function () {
+        const NoFiltersStory = composeStory(NoFilters, Meta)
+        render(<NoFiltersStory />)
+        // filterButton is the Filter button above the choices
+        filterButton = screen.queryByLabelText('SurveyTask.CharacteristicsFilter.filter')
+        const choiceMenu = document.querySelector('[role=menu]')
+        // choiceButtons are the menu items / buttons for the various choices (i.e. for the mock task the various animals)
+        choiceButtons = choiceMenu.querySelectorAll('[role=menuitemcheckbox]')
+        // choicesShowingCount is the text below choices that notes "Showing X of Y"
+        choicesShowingCount = screen.queryByText('SurveyTask.CharacteristicsFilter.showing')
+        clearFiltersButton = screen.queryByRole('button', { name: 'SurveyTask.CharacteristicsFilter.clearFilters' })
+      })
       
       it('should not show a filter button', function () {
-        render(<NoFiltersStory />)
-        
-        const filterButton = screen.queryByText('SurveyTask.CharacteristicsFilter.filter')
-        
         expect(filterButton).to.not.exist()
       })
 
       it('should show the choices', function () {
-        render(<NoFiltersStory />)
-        
-        // choiceButtons are the menu items / buttons for the various choices (i.e. for the mock task the various animals)
-        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
-        
         expect(choiceButtons.length).to.equal(6)
         expect(choiceButtons[0]).to.have.text('Aardvark')
         expect(choiceButtons[1]).to.have.text('Elephant')
@@ -90,18 +84,10 @@ describe('SurveyTask', function () {
       })
 
       it('should not show the choices showing count out of total choices count', function () {
-        render(<NoFiltersStory />)
-        
-        const choicesShowingCount = screen.queryByText('SurveyTask.CharacteristicsFilter.showing')
-        
         expect(choicesShowingCount).to.not.exist()
       })
 
       it('should not not show a Clear Filters button', function () {
-        render(<NoFiltersStory />)
-        
-        const clearFiltersButton = screen.queryByText('SurveyTask.CharacteristicsFilter.clearFilters')
-        
         expect(clearFiltersButton).to.not.exist()
       })
     })
