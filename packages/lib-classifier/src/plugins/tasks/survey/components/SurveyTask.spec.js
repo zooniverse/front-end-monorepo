@@ -25,9 +25,8 @@ describe('SurveyTask', function () {
       it('should show the choices', function () {
         render(<DefaultStory />)
         
-        const choicesMenu = document.querySelector('[role=menu]')
         // choiceButtons are the menu items / buttons for the various choices (i.e. for the mock task the various animals)
-        const choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
         
         expect(choiceButtons.length).to.equal(6)
         expect(choiceButtons[0]).to.have.text('Aardvark')
@@ -78,9 +77,8 @@ describe('SurveyTask', function () {
       it('should show the choices', function () {
         render(<NoFiltersStory />)
         
-        const choicesMenu = document.querySelector('[role=menu]')
         // choiceButtons are the menu items / buttons for the various choices (i.e. for the mock task the various animals)
-        const choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
         
         expect(choiceButtons.length).to.equal(6)
         expect(choiceButtons[0]).to.have.text('Aardvark')
@@ -161,8 +159,7 @@ describe('SurveyTask', function () {
 
           await user.click(redFilterButton)
           await user.click(filterButton)
-          const choicesMenu = document.querySelector('[role=menu]')
-          const choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+          const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
           // confirm the choices are the 3 choices that match the red filter
           expect(choiceButtons.length).to.equal(3)
           expect(choiceButtons[0]).to.have.text('Aardvark')
@@ -182,8 +179,7 @@ describe('SurveyTask', function () {
           const identifyButton = screen.getByText('SurveyTask.Choice.identify')
           // identify the Fire choice
           await user.click(identifyButton)
-          const choicesMenu = document.querySelector('[role=menu]')
-          const choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+          const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
           // confirm the remaining choices are the 3 choices that match the red filter
           expect(choiceButtons.length).to.equal(3)
           expect(choiceButtons[0]).to.have.text('Aardvark')
@@ -204,8 +200,7 @@ describe('SurveyTask', function () {
           await user.click(stripesFilterRemoveButton)
           // close the characteristics filters
           await user.click(filterButton)
-          const choicesMenu = document.querySelector('[role=menu]')
-          const choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+          const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
           // confirm the choices are the total 6 choices, not filtered by the stripes filter
           expect(choiceButtons.length).to.equal(6)
         })
@@ -216,16 +211,14 @@ describe('SurveyTask', function () {
           await user.click(stripesFilterButton)
           await user.click(filterButton)
           // confirm the stripes filter is applied, of the total 6 choices only 1 choice (Kudu) matches the stripes filter
-          let choicesMenu = document.querySelector('[role=menu]')
-          let choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+          let choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
           expect(choiceButtons.length).to.equal(1)
 
           const filterStatusSection = screen.getByTestId('filter-status')
           const stripesFilterRemoveButton = within(filterStatusSection).getByTestId('remove-filter-PTTRN-STRPS')
           // remove the stripes filter
           await user.click(stripesFilterRemoveButton)
-          choicesMenu = document.querySelector('[role=menu]')
-          choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+          choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
           // confirm the choices are the total 6 choices, not filtered by the stripes filter
           expect(choiceButtons.length).to.equal(6)
         })
@@ -262,16 +255,14 @@ describe('SurveyTask', function () {
           // click/apply the color tan/yellow filter
           await user.click(tanYellowFilterButton)
           await user.click(filterButton)
-          let choicesMenu = document.querySelector('[role=menu]')
-          let choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+          let choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
           // confirm the choices remaining are the 1 choice (Kudu) that matches the cow/horse and tan/yellow filters
           expect(choiceButtons.length).to.equal(1)
 
           const clearFiltersButton = screen.getByText('SurveyTask.CharacteristicsFilter.clearFilters')
           // clear the filters
           await user.click(clearFiltersButton)
-          choicesMenu = document.querySelector('[role=menu]')
-          choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+          choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
           // confirm the choices are the total 6 choices, not filtered by the cow/horse and tan/yellow filters
           expect(choiceButtons.length).to.equal(6)
         })
@@ -311,8 +302,7 @@ describe('SurveyTask', function () {
         const choiceDescription = screen.queryByText('It\'s a fire. Pretty sure you know what this looks like.')
         expect(choiceDescription).to.be.null()
         // confirm choices are shown
-        const choicesMenu = document.querySelector('[role=menu]')
-        const choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
         expect(choiceButtons.length).to.equal(6)
       })
 
@@ -328,11 +318,10 @@ describe('SurveyTask', function () {
         const choiceDescription = screen.queryByText('It\'s a fire. Pretty sure you know what this looks like.')
         expect(choiceDescription).to.be.null()
         // confirm choices are shown
-        const choicesMenu = document.querySelector('[role=menu]')
-        const choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
         expect(choiceButtons.length).to.equal(6)
         // confirm choice (Fire) is shown as checked
-        const fireChoiceButton = screen.getByRole('menuitemcheckbox', { name: 'Fire' })
+        const fireChoiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
         expect(fireChoiceButton.getAttribute('aria-checked')).to.equal('true')
       })
 
@@ -369,12 +358,11 @@ describe('SurveyTask', function () {
       // identify choice (Fire) and close choice (Fire) component
       await user.click(identifyButton)
       // confirm choices showing
-      let choicesMenu = document.querySelector('[role=menu]')
-      const choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+      const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
       expect(choiceButtons.length).to.equal(6)
       
       // confirm choice Fire selected
-      choiceButton = within(choicesMenu).getByRole('menuitemcheckbox', { name: 'Fire' })
+      choiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
       expect(choiceButton.getAttribute('aria-checked')).to.equal('true')
       
       // confirm choice Fire active element
@@ -382,8 +370,7 @@ describe('SurveyTask', function () {
       
       // press delete key to remove choice (Fire)
       await user.keyboard('[Delete]')
-      choicesMenu = document.querySelector('[role=menu]')
-      choiceButton = within(choicesMenu).getByRole('menuitemcheckbox', { name: 'Fire' })
+      choiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
       // confirm choice Fire not selected
       expect(choiceButton.getAttribute('aria-checked')).to.equal('false')
     })
@@ -397,12 +384,11 @@ describe('SurveyTask', function () {
       // identify choice (Fire) and close choice (Fire) component
       await user.click(identifyButton)
       // confirm choices showing
-      let choicesMenu = document.querySelector('[role=menu]')
-      const choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+      const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
       expect(choiceButtons.length).to.equal(6)
       
       // confirm choice Fire selected
-      choiceButton = within(choicesMenu).getByRole('menuitemcheckbox', { name: 'Fire' })
+      choiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
       expect(choiceButton.getAttribute('aria-checked')).to.equal('true')
       
       // confirm choice Fire active element
@@ -410,8 +396,7 @@ describe('SurveyTask', function () {
       
       // press backspace key to remove choice (Fire)
       await user.keyboard('[Backspace]')
-      choicesMenu = document.querySelector('[role=menu]')
-      choiceButton = within(choicesMenu).getByRole('menuitemcheckbox', { name: 'Fire' })
+      choiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
       // confirm choice Fire not selected
       expect(choiceButton.getAttribute('aria-checked')).to.equal('false')
     })
@@ -467,8 +452,7 @@ describe('SurveyTask', function () {
           // close the filters
           await user.click(filterButton)
           // confirming that the choices are filtered by the solid filter
-          const choicesMenu = document.querySelector('[role=menu]')
-          const choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+          const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
           expect(choiceButtons.length).to.equal(3)
           expect(choiceButtons[0]).to.have.text('Aardvark')
           expect(choiceButtons[1]).to.have.text('Elephant')
@@ -492,8 +476,7 @@ describe('SurveyTask', function () {
           // close the filters
           await user.click(filterButton)
           // confirm the choices are the total 6 choices, not filtered by the solid filter
-          const choicesMenu = document.querySelector('[role=menu]')
-          const choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+          const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
           expect(choiceButtons.length).to.equal(6)
         })
 
@@ -508,15 +491,13 @@ describe('SurveyTask', function () {
           // close the filters
           await user.click(filterButton)
           // confirm the solid filter is applied, of the total 6 choices only 1 choice (Kudu) matches the solid filter
-          let choicesMenu = document.querySelector('[role=menu]')
-          let choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+          let choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
           expect(choiceButtons.length).to.equal(3)
 
           // remove the solid filter with the "Remove solid filter" small x button in the Filter Status component
           await user.keyboard('[Tab][Space]')
           // confirm the choices are the total 6 choices, not filtered by the solid filter
-          choicesMenu = document.querySelector('[role=menu]')
-          choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+          choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
           expect(choiceButtons.length).to.equal(6)
         })
       })
@@ -564,8 +545,7 @@ describe('SurveyTask', function () {
         choiceDescription = screen.queryByText('Don\'t tell the plant biologists we called vegetation \"nothing here\"!')
         expect(choiceDescription).to.be.null()
         // confirm choices are shown
-        const choicesMenu = document.querySelector('[role=menu]')
-        const choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
         expect(choiceButtons.length).to.equal(6)
       })
 
@@ -588,11 +568,10 @@ describe('SurveyTask', function () {
         choiceDescription = screen.queryByText('Don\'t tell the plant biologists we called vegetation \"nothing here\"!')
         expect(choiceDescription).to.be.null()
         // confirm choices are shown
-        const choicesMenu = document.querySelector('[role=menu]')
-        const choiceButtons = choicesMenu.querySelectorAll('[role=menuitemcheckbox]')
+        const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
         expect(choiceButtons.length).to.equal(6)
         // confirm the identified choice (Nothing here) is the active choice
-        const nothingHereChoiceButton = screen.getByRole('menuitemcheckbox', { name: 'Nothing here' })
+        const nothingHereChoiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Nothing here')
         expect(nothingHereChoiceButton).to.equal(document.activeElement)
       })
 
