@@ -97,6 +97,7 @@ export default function Choice({
           onClick={() => handleDelete(choiceId)}
         />
         <PrimaryButton
+          data-testid='choice-identify-button'
           disabled={!allowIdentify}
           fill='horizontal'
           label={t('SurveyTask.Choice.identify')}

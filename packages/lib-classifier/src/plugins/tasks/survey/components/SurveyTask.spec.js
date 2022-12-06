@@ -562,16 +562,16 @@ describe('SurveyTask', function () {
       it('should disable the Identify button until required questions are answered', async function () {
         // tabbing to the first choice (Aardvark) and pressing Enter to open the choice (Aardvark)
         await user.keyboard('[Tab][Enter]')
-        let identifyButton = screen.getByRole('button', { name: 'SurveyTask.Choice.identify' })
+        let identifyButton = screen.getByTestId('choice-identify-button')
         // confirm the Identify button is disabled, pending required questions answered
         expect(identifyButton.disabled).to.be.true()
         // the required questions for Aardvark are "How many?" and "What behavior do you see?"
-        // the following answers "How many?" with "1" and "What behavior do you see?" with "Eating"
+        // the following answers "How many?" with "1" and "What behavior do you see?" with "Resting"
         
-        // tabbing (x3) to the "How many?" question, selecting the "1" answer with space key, tabbing (x4) to the "What behavior do you see?" question, selecting the "Eating" answer with space key
-        await user.keyboard('[Tab][Tab][Tab][Space][Tab][Tab][Tab][Tab][Space]')
+        // tabbing (x3) to the "How many?" question, selecting the "1" answer with space key, tabbing (x1) to the "What behavior do you see?" question, selecting the "Resting" answer with space key
+        await user.keyboard('[Tab][Tab][Tab][Space][Tab][Space]')
         // confirm the Identify button is enabled, now that required questions are answered
-        identifyButton = screen.getByRole('button', { name: 'SurveyTask.Choice.identify' })
+        identifyButton = screen.getByTestId('choice-identify-button')
         // confirm the Identify button is enabled, now that required questions answered
         expect(identifyButton.disabled).to.be.false()
       })
