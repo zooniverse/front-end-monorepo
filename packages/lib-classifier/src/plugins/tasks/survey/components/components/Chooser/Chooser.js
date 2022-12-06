@@ -20,6 +20,10 @@ function Chooser ({
 }) {
   const [filterDropOpen, setFilterDropOpen] = useState(false)
 
+  function clearFilters() {
+    handleFilter()
+  }
+
   function handleFilterDropClose () {
     setFilterDropOpen(false)
   }
@@ -56,7 +60,7 @@ function Chooser ({
       />
       {showFilters
         ? (<ClearFilters
-            handleFilter={handleFilter}
+            onClick={clearFilters}
             showingChoices={filteredChoiceIds.length}
             totalChoices={task.choicesOrder?.length}
            />)

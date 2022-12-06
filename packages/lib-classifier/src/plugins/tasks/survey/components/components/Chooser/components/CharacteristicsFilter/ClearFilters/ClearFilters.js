@@ -6,15 +6,11 @@ import { useTranslation } from '@translations/i18n'
 
 const defaultHandler = () => true
 export default function ClearFilters ({
-  handleFilter = defaultHandler,
+  onClick = defaultHandler,
   showingChoices = 0,
   totalChoices = 0
 }) {
   const { t } = useTranslation('plugins')
-
-  function onClick() {
-    handleFilter()
-  }
 
   return (
     <Box
@@ -39,7 +35,7 @@ export default function ClearFilters ({
 }
 
 ClearFilters.propTypes = {
-  handleFilter: PropTypes.func,
+  onClick: PropTypes.func,
   showingChoices: PropTypes.number,
   totalChoices: PropTypes.number
 }
