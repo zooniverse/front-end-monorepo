@@ -512,7 +512,7 @@ describe('SurveyTask', function () {
         expect(choiceImages).to.be.ok()
       })
 
-      it.skip('should show choices with recent choice as active choice when Not This button keyed with Enter', async function () {
+      it('should show choices with recent choice as active choice when Not This button keyed with Enter', async function () {
         const user = userEvent.setup({ delay: null })
         render(<NoFiltersStory />)
         // tabbing to the first choice (Aardvark), arrowing up to the last choice (Nothing here), and pressing Enter to open the choice (Nothing here)
@@ -535,7 +535,7 @@ describe('SurveyTask', function () {
         expect(choiceButtons.length).to.equal(6)
       })
 
-      it.skip('should show choices with identified choice as active choice when Identify keyed with Enter', async function () {
+      it('should show choices with identified choice as active choice when Identify keyed with Enter', async function () {
         const user = userEvent.setup({ delay: null })
         render(<NoFiltersStory />)
         // tabbing to the first choice (Aardvark), arrowing up to the last choice (Nothing here), and pressing Enter to open the choice (Nothing here)
@@ -561,7 +561,7 @@ describe('SurveyTask', function () {
         expect(nothingHereChoiceButton).to.equal(document.activeElement)
       })
 
-      it.skip('should disable the Identify button until required questions are answered', async function () {
+      it('should disable the Identify button until required questions are answered', async function () {
         const user = userEvent.setup({ delay: null })
         render(<NoFiltersStory />)
         // tabbing to the first choice (Aardvark) and pressing Enter to open the choice (Aardvark)
