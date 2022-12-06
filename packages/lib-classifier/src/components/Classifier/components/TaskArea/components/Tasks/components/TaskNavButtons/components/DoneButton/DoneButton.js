@@ -16,6 +16,7 @@ function DoneButton ({
     return (
       <PrimaryButton
         color='green'
+        data-testid='done-button'
         disabled={disabled}
         label={t('TaskArea.Tasks.DoneButton.done')}
         onClick={onClick}

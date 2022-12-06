@@ -311,16 +311,16 @@ describe('SurveyTask', function () {
       })
 
       it('should disable "Done & Talk" and "Done" buttons', async function () {
-        let doneAndTalkButton = screen.getByRole('button', { name: 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk' })
-        let doneButton = screen.getByRole('button', { name: 'TaskArea.Tasks.DoneButton.done' })
+        let doneAndTalkButton = screen.getByTestId('done-and-talk-button')
+        let doneButton = screen.getByTestId('done-button')
         // mock task doesn't require an identified choice, so confirm the Done & Talk and Done buttons are enabled before selecting a choice
         expect(doneAndTalkButton.disabled).to.be.false()
         expect(doneButton.disabled).to.be.false()
 
         const choiceButton = screen.getByText('Aardvark')
         await user.click(choiceButton)
-        doneAndTalkButton = screen.getByRole('button', { name: 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk' })
-        doneButton = screen.getByRole('button', { name: 'TaskArea.Tasks.DoneButton.done' })
+        doneAndTalkButton = screen.getByTestId('done-and-talk-button')
+        doneButton = screen.getByTestId('done-button')
         // confirm the Done & Talk and Done buttons are disabled while a choice is selected
         expect(doneAndTalkButton.disabled).to.be.true()
         expect(doneButton.disabled).to.be.true()

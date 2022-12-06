@@ -12,6 +12,7 @@ function DoneAndTalkButton ({
     return (
       <PrimaryButton
         color='blue'
+        data-testid='done-and-talk-button'
         disabled={disabled}
         label={t('TaskArea.Tasks.DoneAndTalkButton.doneAndTalk')}
         onClick={onClick}
