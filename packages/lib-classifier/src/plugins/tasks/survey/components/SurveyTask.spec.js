@@ -256,9 +256,14 @@ describe('SurveyTask', function () {
     })
 
     describe('when a choice is clicked', function () {
-      it('should show the choice description', async function () {
-        const user = userEvent.setup({ delay: null })
+      let user
+
+      beforeEach(function () {
+        user = userEvent.setup({ delay: null })
         render(<DefaultStory />)
+      })
+
+      it('should show the choice description', async function () {
         const choiceButton = screen.getByText('Aardvark')
         await user.click(choiceButton)
         const choiceDescription = screen.getByText('Not as awesome as a pangolin, but surprisingly big.')
@@ -267,8 +272,6 @@ describe('SurveyTask', function () {
       })
 
       it('should show choice images', async function () {
-        const user = userEvent.setup({ delay: null })
-        render(<DefaultStory />)
         const choiceButton = screen.getByText('Fire')
         await user.click(choiceButton)
         const choiceImages = screen.getByTestId('choice-images')
@@ -277,8 +280,6 @@ describe('SurveyTask', function () {
       })
 
       it('should show choices when Not This button is clicked', async function () {
-        const user = userEvent.setup({ delay: null })
-        render(<DefaultStory />)
         const choiceButton = screen.getByText('Fire')
         await user.click(choiceButton)
         const notThisButton = screen.getByText('SurveyTask.Choice.notThis')
@@ -293,8 +294,6 @@ describe('SurveyTask', function () {
       })
 
       it('should show choices with selected choice checked when Identify button is clicked', async function () {
-        const user = userEvent.setup({ delay: null })
-        render(<DefaultStory />)
         const choiceButton = screen.getByText('Fire')
         await user.click(choiceButton)
         const identifyButton = screen.getByText('SurveyTask.Choice.identify')
@@ -312,8 +311,6 @@ describe('SurveyTask', function () {
       })
 
       it('should disable "Done & Talk" and "Done" buttons', async function () {
-        const user = userEvent.setup({ delay: null })
-        render(<DefaultStory />)
         let doneAndTalkButton = screen.getByRole('button', { name: 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk' })
         let doneButton = screen.getByRole('button', { name: 'TaskArea.Tasks.DoneButton.done' })
         // mock task doesn't require an identified choice, so confirm the Done & Talk and Done buttons are enabled before selecting a choice
@@ -334,9 +331,13 @@ describe('SurveyTask', function () {
   describe('with user keystrokes', function () {
     const DefaultStory = composeStory(Default, Meta)
     const NoFiltersStory = composeStory(NoFilters, Meta)
+    let user
+
+    beforeEach(function () {
+      user = userEvent.setup({ delay: null })
+    })
 
     it('should remove a previously identified choice with delete key', async function () {
-      const user = userEvent.setup({ delay: null })
       render(<NoFiltersStory />)
       let choiceButton = screen.getByText('Fire')
       await user.click(choiceButton)
@@ -362,7 +363,6 @@ describe('SurveyTask', function () {
     })
 
     it('should remove a previously identified choice with backspace key', async function () {
-      const user = userEvent.setup({ delay: null })
       render(<NoFiltersStory />)
       let choiceButton = screen.getByText('Fire')
       await user.click(choiceButton)
@@ -389,7 +389,6 @@ describe('SurveyTask', function () {
 
     describe('when the Filter button is keyed with Enter', function () {
       it('should show characteristic filter sections', async function () {
-        const user = userEvent.setup({ delay: null })
         render(<DefaultStory />)
         // tabbing to the Filter button
         await user.keyboard('[Tab]')
@@ -490,9 +489,14 @@ describe('SurveyTask', function () {
     })
 
     describe('when a choice is selected with Enter', function () {
-      it('should show the choice description', async function () {
-        const user = userEvent.setup({ delay: null })
+      let user
+
+      beforeEach(function () {
+        user = userEvent.setup({ delay: null })
         render(<NoFiltersStory />)
+      })
+
+      it('should show the choice description', async function () {
         // tabbing to the first choice (Aardvark)
         await user.keyboard('[Tab]')
         const choiceButton = screen.getByText('Aardvark')
@@ -503,8 +507,6 @@ describe('SurveyTask', function () {
       })
 
       it('should show choice images', async function () {
-        const user = userEvent.setup({ delay: null })
-        render(<NoFiltersStory />)
         // tabbing to the first choice (Aardvark) and pressing Enter to open the choice (Aardvark)
         await user.keyboard('[Tab][Enter]')
         const choiceImages = screen.getByTestId('choice-images')
@@ -513,8 +515,6 @@ describe('SurveyTask', function () {
       })
 
       it('should show choices with recent choice as active choice when Not This button keyed with Enter', async function () {
-        const user = userEvent.setup({ delay: null })
-        render(<NoFiltersStory />)
         // tabbing to the first choice (Aardvark), arrowing up to the last choice (Nothing here), and pressing Enter to open the choice (Nothing here)
         await user.keyboard('[Tab]')
         await user.keyboard('[ArrowUp]')
@@ -536,8 +536,6 @@ describe('SurveyTask', function () {
       })
 
       it('should show choices with identified choice as active choice when Identify keyed with Enter', async function () {
-        const user = userEvent.setup({ delay: null })
-        render(<NoFiltersStory />)
         // tabbing to the first choice (Aardvark), arrowing up to the last choice (Nothing here), and pressing Enter to open the choice (Nothing here)
         await user.keyboard('[Tab]')
         await user.keyboard('[ArrowUp]')
@@ -562,8 +560,6 @@ describe('SurveyTask', function () {
       })
 
       it('should disable the Identify button until required questions are answered', async function () {
-        const user = userEvent.setup({ delay: null })
-        render(<NoFiltersStory />)
         // tabbing to the first choice (Aardvark) and pressing Enter to open the choice (Aardvark)
         await user.keyboard('[Tab][Enter]')
         let identifyButton = screen.getByRole('button', { name: 'SurveyTask.Choice.identify' })
