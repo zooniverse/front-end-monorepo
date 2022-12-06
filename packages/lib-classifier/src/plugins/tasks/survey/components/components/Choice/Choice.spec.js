@@ -84,4 +84,36 @@ describe('Component > Choice', function () {
       expect(screen.queryAllByRole('checkbox', { hidden: true })).to.have.lengthOf(0)
     })
   })
+
+  describe('with choice with required questions unanswered', function () {
+    // choice 'RDVRK' (Aardvark) has 2 required questions
+
+    it('should disable the Identify button', function () {
+      render(
+        <Choice
+          choiceId='RDVRK'
+          task={mockTask}
+        />
+      )
+      expect(screen.getByRole('button', { name: 'SurveyTask.Choice.identify' }).disabled).to.be.true()
+    })
+  })
+
+  describe('with choice with required questions answered', function () {
+    // choice 'RDVRK' (Aardvark) has 2 required questions
+
+    it('should enable the Identify button', function () {
+      render(
+        <Choice
+          answers={{
+            HWMN: '3',
+            WHTBHVRSDS: ['TNG', 'STNDNG']
+          }}
+          choiceId='RDVRK'
+          task={mockTask}
+        />
+      )
+      expect(screen.getByRole('button', { name: 'SurveyTask.Choice.identify' }).disabled).to.be.false()
+    })
+  })
 })

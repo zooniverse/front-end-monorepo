@@ -55,7 +55,6 @@ function ChoiceButton({
     <Button
       ref={choiceButton}
       aria-checked={ariaChecked}
-      a11yTitle={choiceLabel}
       disabled={disabled}
       fill
       label={

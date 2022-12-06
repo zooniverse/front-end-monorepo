@@ -29,7 +29,7 @@
     "panic-button": "./bin/panic-button.sh",
     "storybook": "lerna run --parallel storybook",
     "test": "lerna run --parallel test",
-    "test:ci": "nyc lerna run --parallel test:ci"
+    "test:ci": "nyc --silent lerna run --parallel test:ci"
   },
   "engines": {
     "node": ">=16"
