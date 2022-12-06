@@ -153,7 +153,7 @@ describe('SurveyTask', function () {
           expect(choiceButtons[2]).to.have.text('Fire')
         })
 
-        it('should persist filters after a choice is selected', async function () {
+        it.skip('should persist filters after a choice is selected', async function () {
           const redFilterButton = screen.getByTestId('filter-CLR-RD')
           // click/apply the red filter, which filters 6 choices to 3 choices
           await user.click(redFilterButton)
