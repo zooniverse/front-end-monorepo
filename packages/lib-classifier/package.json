@@ -39,7 +39,7 @@
     "graphql": "~16.6.0",
     "graphql-request": "~5.0.0",
     "hash.js": "~1.1.7",
-    "i18next": "~22.0.1",
+    "i18next": "~22.1.4",
     "lodash": "~4.17.11",
     "mobx-utils": "~6.0.4",
     "react-i18next": "~12.1.0",
