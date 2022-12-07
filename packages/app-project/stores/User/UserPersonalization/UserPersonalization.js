@@ -46,10 +46,8 @@ const UserPersonalization = types
   }))
   .actions(self => {
     function _onUserChange() {
-      const { project, user } = getRoot(self)
-      if (user.id) {
-        self.notifications.fetchAndSubscribe()
-      } else if (user.loadingState === asyncStates.success) {
+      const { user } = getRoot(self)
+      if (user.loadingState === asyncStates.success) {
         self.projectPreferences.setLoadingState(asyncStates.success)
       }
     }
@@ -69,6 +67,7 @@ const UserPersonalization = types
       },
 
       load() {
+        self.notifications.fetchAndSubscribe()
         self.projectPreferences.fetchResource()
         self.stats.fetchDailyCounts()
       },
