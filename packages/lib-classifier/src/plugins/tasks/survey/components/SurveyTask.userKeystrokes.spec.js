@@ -80,7 +80,7 @@ describe('SurveyTask with user keystrokes', function () {
       expect(filterSections.length).to.equal(3)
     })
 
-    describe('when filters are keyed', function () {
+    describe.skip('when filters are keyed', function () {
       it('should show the filter button with a remove filter button', async function () {
         // the solidFilterButton is the button to filter choices by "solid". Solid is a specific value of the "Pattern" characteristic
         const solidFilterButton = screen.getByTestId('filter-PTTRN-SLD')
