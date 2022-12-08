@@ -3,8 +3,7 @@
   "description": "A Javascript client for Panoptes API using Superagent",
   "license": "Apache-2.0",
   "author": "Zooniverse <contact@zooniverse.org> (https://www.zooniverse.org/)",
-  "repository": "github:zooniverse/front-end-monorepo",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "main": "src/index.js",
   "repository": {
     "type": "git",
