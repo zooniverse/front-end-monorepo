@@ -7872,15 +7872,7 @@ devcert@1.2.2:
     tmp "^0.0.33"
     tslib "^1.10.0"
 
-dezalgo@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/dezalgo/-/dezalgo-1.0.3.tgz#7f742de066fc748bc8db820569dddce49bf0d456"
-  integrity sha512-K7i4zNfT2kgQz3GylDw40ot9GAE47sFZ9EXHFSPP6zONLgH6kWXE0KWJchkbQJLBkRazq4APwZ4OwiFFlT95OQ==
-  dependencies:
-    asap "^2.0.0"
-    wrappy "1"
-
-dezalgo@^1.0.0:
+dezalgo@^1.0.0, dezalgo@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/dezalgo/-/dezalgo-1.0.4.tgz#751235260469084c132157dfa857f386d4c33d81"
   integrity sha512-rXSP0bf+5n0Qonsb+SVVfNfIsimO4HEtmnIpPHY8Q1UCzKlQrDMfdobr8nJOOsRgWCyMRqeSBQzmWUMq7zvVig==
@@ -9358,15 +9350,15 @@ format@^0.2.0:
   resolved "https://registry.yarnpkg.com/format/-/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"
   integrity sha512-wzsgA6WOq+09wrU1tsJ09udeR/YZRaeArL9e1wPbFg3GG2yDnC2ldKpxs4xunpFF9DgqCqOIra3bc1HWrJ37Ww==
 
-formidable@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/formidable/-/formidable-2.0.1.tgz#4310bc7965d185536f9565184dee74fbb75557ff"
-  integrity sha512-rjTMNbp2BpfQShhFbR3Ruk3qk2y9jKpvMW78nJgx8QKtxjDVrwbZG+wvDOmVbifHyOUOQJXxqEy6r0faRrPzTQ==
+formidable@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/formidable/-/formidable-2.1.1.tgz#81269cbea1a613240049f5f61a9d97731517414f"
+  integrity sha512-0EcS9wCFEzLvfiks7omJ+SiYJAiD+TzK4Pcw1UlUoGnhUxDcMKjt0P7x8wEb0u6OHu8Nb98WG3nxtlF5C7bvUQ==
   dependencies:
-    dezalgo "1.0.3"
-    hexoid "1.0.0"
-    once "1.4.0"
-    qs "6.9.3"
+    dezalgo "^1.0.4"
+    hexoid "^1.0.0"
+    once "^1.4.0"
+    qs "^6.11.0"
 
 formik@~2.2.9:
   version "2.2.9"
@@ -10148,7 +10140,7 @@ he@1.2.0, he@^1.2.0:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
-hexoid@1.0.0:
+hexoid@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/hexoid/-/hexoid-1.0.0.tgz#ad10c6573fb907de23d9ec63a711267d9dc9bc18"
   integrity sha512-QFLV0taWQOZtvIRIAdBChesmogZrtuXvVWsFHZTk2SU+anspqZ2vMnoLg7IE1+Uk16N19APic1BuF8bC8c2m5g==
@@ -11425,13 +11417,13 @@ jsesc@~0.5.0:
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-0.5.0.tgz#e7dee66e35d6fc16f710fe91d5cf69f70f08911d"
   integrity sha512-uZz5UnB7u4T9LvwmFqXii7pZSouaRPorGs5who1Ip7VO0wxanFvBL7GkM6dTHlgX+jhBApRetaWpnDabOeTcnA==
 
-json-api-client@~6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/json-api-client/-/json-api-client-6.0.0.tgz#4ee660250e833e664d07a53b7a03a1b32a95bed5"
-  integrity sha512-rAC5Zhswdxuv2wxmN/gcliAHykz8Sv8ARtbZEkAhevLEWbxitoYMrPEElFFWB5w/QA3cyUSglJbsUlTb9n9Lnw==
+json-api-client@^6.0.6:
+  version "6.0.6"
+  resolved "https://registry.yarnpkg.com/json-api-client/-/json-api-client-6.0.6.tgz#2bb3f72e5fb21231ee6e5176270ee3732b369e53"
+  integrity sha512-NqoBgxDTrnODxXp5DQvhdpSxEzdEuJve9ULZAneC6V05RHbQ2nrnwTwF1KLCyFl2QrHIUzjPCIx1DQGfe8D6ug==
   dependencies:
     normalizeurl "~1.0.0"
-    superagent "^8.0.0"
+    superagent "^8.0.6"
 
 json-parse-better-errors@^1.0.1, json-parse-better-errors@^1.0.2:
   version "1.0.2"
@@ -13375,7 +13367,7 @@ on-headers@~1.0.2:
   resolved "https://registry.yarnpkg.com/on-headers/-/on-headers-1.0.2.tgz#772b0ae6aaa525c399e489adfad90c403eb3c28f"
   integrity sha512-pZAE+FJLoyITytdqK0U5s+FIpjN0JP3OzFi/u8Rx+EV5/W+JTWGXG8xFzevE7AjBfDqHv/8vL8qQsIhHnqRkrA==
 
-once@1.4.0, once@^1.3.0, once@^1.3.1, once@^1.4.0:
+once@^1.3.0, once@^1.3.1, once@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/once/-/once-1.4.0.tgz#583b1aa775961d4b113ac17d9c50baef9dd76bd1"
   integrity sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==
@@ -13667,11 +13659,11 @@ pako@~1.0.5:
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
 panoptes-client@~4.2.0:
-  version "4.2.6"
-  resolved "https://registry.yarnpkg.com/panoptes-client/-/panoptes-client-4.2.6.tgz#c721627c29578b5c172b75616d209c51b62b823d"
-  integrity sha512-j5KuXHtMzMHPDkj8kk5M2rP+4ZHpYHyxsNIwYHvcsAoqUfW65ia3cRRaW/7Lbzo+4vnDze8hQvgLICcwYq9Gzg==
+  version "4.2.7"
+  resolved "https://registry.yarnpkg.com/panoptes-client/-/panoptes-client-4.2.7.tgz#0863e45e60d7f32a695296f16f68b561c5ed8352"
+  integrity sha512-hgfPMSsQJ6Z/kBr/XYpcsqQzdtLnjx5hU0qIX0797uzmhBURjwO3CkwID9Z+mJZ5e9mw6gS4Kx1eZBsJEoSNKg==
   dependencies:
-    json-api-client "~6.0.0"
+    json-api-client "^6.0.6"
     local-storage "^2.0.0"
     sugar-client "^2.0.0"
 
@@ -14493,11 +14485,6 @@ qs@6.11.0, qs@^6.10.0, qs@^6.11.0, qs@^6.9.4:
   integrity sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==
   dependencies:
     side-channel "^1.0.4"
-
-qs@6.9.3:
-  version "6.9.3"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.3.tgz#bfadcd296c2d549f1dffa560619132c977f5008e"
-  integrity sha512-EbZYNarm6138UKKq46tdx08Yo/q9ZhFoAXAI1meAFd2GtbRDhbZY2WQSICskT0c5q99aFzLG1D4nvTk9tqfXIw==
 
 qs@~6.5.2:
   version "6.5.3"
@@ -16523,17 +16510,17 @@ sugar-client@^2.0.0:
   resolved "https://registry.yarnpkg.com/sugar-client/-/sugar-client-2.0.0.tgz#2dd8158a331c54c08307d14b8abb4b0012d90d1c"
   integrity sha512-87RfgwzyiQrA77lsBGYFPjHbDVzkcSl5aiubz3n7qPOwf9LLNKe+PvtlNf0bnFS63+gGWe6r8A18iaKLBthw1w==
 
-superagent@^8.0.0, superagent@~8.0.0:
-  version "8.0.5"
-  resolved "https://registry.yarnpkg.com/superagent/-/superagent-8.0.5.tgz#6812022410c7e220416968fd3efb85c8059f5626"
-  integrity sha512-lQVE0Praz7nHiSaJLKBM/cZyi7J0E4io8tWnGSBdBrqAzhzrjQ/F5iGP9Zr29CJC8N5zYdhG2kKaNcB6dKxp7g==
+superagent@^8.0.6, superagent@~8.0.0:
+  version "8.0.6"
+  resolved "https://registry.yarnpkg.com/superagent/-/superagent-8.0.6.tgz#e3fb0b3112b79b12acd605c08846253197765bf6"
+  integrity sha512-HqSe6DSIh3hEn6cJvCkaM1BLi466f1LHi4yubR0tpewlMpk4RUFFy35bKz8SsPBwYfIIJy5eclp+3tCYAuX0bw==
   dependencies:
     component-emitter "^1.3.0"
     cookiejar "^2.1.3"
     debug "^4.3.4"
     fast-safe-stringify "^2.1.1"
     form-data "^4.0.0"
-    formidable "^2.0.1"
+    formidable "^2.1.1"
     methods "^1.1.2"
     mime "2.6.0"
     qs "^6.11.0"
