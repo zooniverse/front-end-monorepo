@@ -47,7 +47,7 @@ const UserPersonalization = types
   .actions(self => {
     function _onUserChange() {
       const { user } = getRoot(self)
-      if (user.loadingState === asyncStates.success) {
+      if (!user.isLoggedIn && (user.loadingState === asyncStates.success)) {
         self.projectPreferences.setLoadingState(asyncStates.success)
       }
     }
