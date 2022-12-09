@@ -69,7 +69,7 @@ function ChoiceButton({
         >
           {thumbnailSize !== 'none' && src &&
             <Image
-              alt={`${choiceLabel} media`}
+              alt=''
               height='fill'
               margin={{ right: '1ch' }}
               src={thumbnailSrc}
