@@ -1,12 +1,15 @@
-import queryString from 'query-string'
-import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './components/App'
 
 function getQueryParams() {
-  if (window.location && window.location.search) {
-    const { language, subject, subjectSet, workflow } = queryString.parse(window.location.search)
-    return { language, subject, subjectSet, workflow }
+  if (window.location) {
+    const url = new URL(window.location)
+    const { searchParams } = url
+    const queryParams = {}
+    searchParams.forEach((value, key) => {
+      queryParams[key] = value
+    })
+    return queryParams
   }
 
   return {}
