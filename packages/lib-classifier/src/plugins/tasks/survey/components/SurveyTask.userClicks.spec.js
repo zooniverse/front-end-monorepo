@@ -29,7 +29,7 @@ describe('SurveyTask with user clicks', function () {
       expect(filterSections.length).to.equal(3)
     })
 
-    describe.skip('when filters are clicked', function () {
+    describe('when filters are clicked', function () {
       it('should show the filter button with a remove filter button', async function () {
         // the stripesFilterButton is the button to filter choices by "stripes". Stripes is a specific value of the "Pattern" characteristic
         const stripesFilterButton = document.querySelector('label[for="PTTRN-STRPS"]')
