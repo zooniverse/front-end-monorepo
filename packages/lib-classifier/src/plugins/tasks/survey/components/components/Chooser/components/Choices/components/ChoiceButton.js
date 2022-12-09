@@ -1,11 +1,12 @@
 import {
   Box,
   Button,
+  Image,
   Text
 } from 'grommet'
 import PropTypes from 'prop-types'
 import { useCallback, useEffect, useRef } from 'react';
-import { Media, withThemeContext } from '@zooniverse/react-components'
+import { withThemeContext } from '@zooniverse/react-components'
 
 import theme from './theme'
 
@@ -51,6 +52,8 @@ function ChoiceButton({
     thumbnailHeight = 84
   }
 
+  const thumbnailWidth = Math.round(thumbnailHeight * THUMBNAIL_ASPECT_RATIO)
+  const thumbnailSrc = `https://thumbnails.zooniverse.org/${thumbnailWidth}x${thumbnailHeight}/${src.slice(8)}`
   return (
     <Button
       ref={choiceButton}
@@ -59,17 +62,18 @@ function ChoiceButton({
       fill
       label={
         <Box
+          as='span'
           direction='row'
           fill
           align='center'
         >
           {thumbnailSize !== 'none' && src &&
-            <Media
-              alt={`${choiceLabel} media`}
-              height={thumbnailHeight}
+            <Image
+              alt=''
+              height='fill'
               margin={{ right: '1ch' }}
-              src={src}
-              width={Math.round(thumbnailHeight * THUMBNAIL_ASPECT_RATIO)}
+              src={thumbnailSrc}
+              width={thumbnailWidth}
             />}
           <Text
             wordBreak='break-word'
