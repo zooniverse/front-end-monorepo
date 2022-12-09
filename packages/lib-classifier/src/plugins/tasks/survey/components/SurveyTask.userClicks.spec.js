@@ -32,7 +32,7 @@ describe('SurveyTask with user clicks', function () {
     describe.skip('when filters are clicked', function () {
       it('should show the filter button with a remove filter button', async function () {
         // the stripesFilterButton is the button to filter choices by "stripes". Stripes is a specific value of the "Pattern" characteristic
-        const stripesFilterButton = screen.getByTestId('filter-PTTRN-STRPS')
+        const stripesFilterButton = document.querySelector('label[for="PTTRN-STRPS"]')
         expect(stripesFilterButton).to.be.ok()
 
         // the stripesFilterRemoveButton is the small x button that appears over a filter to remove the filter, after it is selected. The presence of this button indicates that the filter is selected. The absence of this button indicates that the filter is not selected
@@ -47,7 +47,7 @@ describe('SurveyTask with user clicks', function () {
       })
 
       it('should show the choices that match the filter', async function () {
-        const redFilterButton = screen.getByTestId('filter-CLR-RD')
+        const redFilterButton = document.querySelector('label[for="CLR-RD"]')
         expect(redFilterButton).to.be.ok()
 
         // the following user events filter choices by the color red and then close the characteristics filters, returning to the list of choices
@@ -63,7 +63,7 @@ describe('SurveyTask with user clicks', function () {
       })
 
       it('should persist filters after a choice is selected', async function () {
-        const redFilterButton = screen.getByTestId('filter-CLR-RD')
+        const redFilterButton = document.querySelector('label[for="CLR-RD"]')
         // click/apply the red filter, which filters 6 choices to 3 choices
         await user.click(redFilterButton)
         // close the characteristics filters
@@ -83,7 +83,7 @@ describe('SurveyTask with user clicks', function () {
       })
 
       it('should remove the filter on remove filter button click (within Characteristics)', async function () {
-        const stripesFilterButton = screen.getByTestId('filter-PTTRN-STRPS')
+        const stripesFilterButton = document.querySelector('label[for="PTTRN-STRPS"]')
         // click/apply the stripes filter
         await user.click(stripesFilterButton)
         const characteristicsSection = screen.getByTestId('characteristics')
@@ -101,7 +101,7 @@ describe('SurveyTask with user clicks', function () {
       })
 
       it('should remove the filter on remove filter button click (within FilterStatus)', async function () {
-        const stripesFilterButton = screen.getByTestId('filter-PTTRN-STRPS')
+        const stripesFilterButton = document.querySelector('label[for="PTTRN-STRPS"]')
         // click/apply the stripes filter
         await user.click(stripesFilterButton)
         await user.click(filterButton)
@@ -120,7 +120,7 @@ describe('SurveyTask with user clicks', function () {
 
       it('should remove filters on Clear Filters button click (within Characteristics) ', async function () {
         // click/apply the like a cow/horse filter
-        const cowHorseFilterButton = screen.getByTestId('filter-LK-CWHRS')
+        const cowHorseFilterButton = document.querySelector('label[for="LK-CWHRS"]')
         await user.click(cowHorseFilterButton)
         // click/apply the color tan/yellow filter
         const tanYellowFilterButton = screen.getByTestId('filter-CLR-TNLLW')
@@ -143,7 +143,7 @@ describe('SurveyTask with user clicks', function () {
       })
 
       it('should remove filters on Clear Filters button click (within Chooser)', async function () {
-        const cowHorseFilterButton = screen.getByTestId('filter-LK-CWHRS')
+        const cowHorseFilterButton = document.querySelector('label[for="LK-CWHRS"]')
         // click/apply the like a cow/horse filter
         await user.click(cowHorseFilterButton)
         const tanYellowFilterButton = screen.getByTestId('filter-CLR-TNLLW')
