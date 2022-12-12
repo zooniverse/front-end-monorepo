@@ -6,6 +6,8 @@ import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import asyncStates from '@zooniverse/async-states'
 
 import FlipbookViewerContainer from './FlipbookViewerContainer'
+import ImageToolbar from '@components/Classifier/components/ImageToolbar'
+import { ViewerGrid } from '../../../Layout/components/DefaultLayout/DefaultLayout'
 
 export default {
   title: 'Subject Viewers / FlipbookViewer',
@@ -61,16 +63,20 @@ export const Default = ({ dark }) => {
   )
 }
 
+// need to figure out how to modify the subject viewer store for this mock
 export const StyledSmallerWidth = ({ dark }) => {
   const themeMode = dark ? 'dark' : 'light'
   return (
     <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
       <Provider classifierStore={store}>
-        <Box width='499px'>
-          <FlipbookViewerContainer
-            loadingState={asyncStates.success}
-            subject={store.subjects.active}
-          />
+        <Box width='500px'>
+          <ViewerGrid>
+            <FlipbookViewerContainer
+              loadingState={asyncStates.success}
+              subject={store.subjects.active}
+            />
+            <ImageToolbar />
+          </ViewerGrid>
         </Box>
       </Provider>
     </Grommet>

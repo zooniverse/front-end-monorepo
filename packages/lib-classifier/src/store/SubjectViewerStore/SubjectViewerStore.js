@@ -20,7 +20,8 @@ const SubjectViewer = types
     loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized),
     move: types.optional(types.boolean, false),
     rotationEnabled: types.optional(types.boolean, false),
-    rotation: types.optional(types.number, 0)
+    rotation: types.optional(types.number, 0),
+    viewerWidth: types.optional(types.enumeration(['small', 'default']), 'default')
   })
 
   .volatile(self => ({
@@ -167,6 +168,11 @@ const SubjectViewer = types
 
       setOnPan (callback) {
         self.onPan = callback
+      },
+
+      setViewerWidth (width) {
+        self.viewerWidth = width
+        console.log('here')
       },
 
       zoomIn () {
