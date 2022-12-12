@@ -5,7 +5,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
-import { StyledImageToolbarContainer, StyledImageToolbar, ViewerGrid } from '../Layout/components/DefaultLayout/DefaultLayout'
+import { ViewerGrid } from '../Layout/components/DefaultLayout/DefaultLayout'
 import MultiFrameViewer from '../SubjectViewer/components/MultiFrameViewer'
 import SingleImageViewer from '../SubjectViewer/components/SingleImageViewer'
 import ImageToolbar from './ImageToolbar'
@@ -82,9 +82,7 @@ export function withSingleImageViewer ({ dark }) {
               subject={store.subjects.active}
             />
           </Box>
-          <StyledImageToolbarContainer>
-            <StyledImageToolbar />
-          </StyledImageToolbarContainer>
+          <ImageToolbar />
         </ViewerGrid>
       </Provider>
     </Grommet>
@@ -111,9 +109,7 @@ export function withMultiFrameViewer ({ dark }) {
               subject={multiFrameSubjectStore.subjects.active}
             />
           </Box>
-          <StyledImageToolbarContainer>
-            <StyledImageToolbar />
-          </StyledImageToolbarContainer>
+          <ImageToolbar />
         </ViewerGrid>
       </Provider>
     </Grommet>
