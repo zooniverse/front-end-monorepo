@@ -102,7 +102,7 @@
     "mobx-devtools-mst": "~0.9.21",
     "mobx-react": "~7.6.0",
     "mobx-state-tree": "~5.1.0",
-    "mocha": "~10.1.0",
+    "mocha": "~10.2.0",
     "mst-middlewares": "~5.1.0",
     "nock": "~13.2.1",
     "panoptes-client": "~4.2.0",
