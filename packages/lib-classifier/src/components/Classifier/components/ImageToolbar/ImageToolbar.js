@@ -30,7 +30,7 @@ class ImageToolbar extends Component {
           }}
           direction='column'
           fill
-          pad='12px'
+          pad='10px' // should be responsive and the same as FieldGuideButton
         >
           <AnnotateButton />
           <MoveButton />

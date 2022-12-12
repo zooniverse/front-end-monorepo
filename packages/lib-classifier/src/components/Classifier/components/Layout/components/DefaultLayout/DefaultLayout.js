@@ -44,7 +44,7 @@ const StyledTaskArea = styled(TaskArea)`
 export const ViewerGrid = styled.section`
   display: grid;
   grid-area: viewer;
-  grid-template-columns: auto 4.5rem;
+  grid-template-columns: auto min-content;
   grid-template-areas: "subject toolbar" "metatools ...";
 `
 

@@ -10,7 +10,7 @@ import HelpIcon from './HelpIcon'
 export const StyledButton = styled(Button)`
   ${props => props.theme && css`
     background: ${props.theme.global.colors.brand};
-    padding: 15px 10px;
+    padding: 10px;
 
     &:hover, &:focus {
       background: ${tint(0.5, props.theme.global.colors.brand)};
@@ -32,7 +32,7 @@ const StyledHelpIcon = styled(HelpIcon)`
   margin-top: 8px;
   display: block;
   fill: white;
-  width: 25px;
+  width: 1.2rem; // same as ImageToolbar > Button
 `
 
 export function ButtonLabel () {

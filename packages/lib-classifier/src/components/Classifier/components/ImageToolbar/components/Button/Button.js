@@ -2,22 +2,24 @@ import { bool, func } from 'prop-types'
 import { Component } from 'react';
 import { Button as GrommetButton } from 'grommet'
 import styled, { css } from 'styled-components'
-import { pxToRem } from '@zooniverse/react-components'
 
-const paddingSize = pxToRem(13)
-const svgSize = pxToRem(18)
+const svgSize = '1.2rem' // get a min and max for this too
+                        // should be same as FieldGuideButton HelpIcon
 
 const StyledButton = styled(GrommetButton)`
-  ${props => props.active ? 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ${props => props.active ?
     css`
       background-color: ${props.theme.global.colors.brand};
     ` :
     css`
-      background-color: ${props.theme.dark ? props.theme.global.colors['dark-1'] : 'inherit'};
+      background-color: ${props.theme.dark ? props.theme.global.colors['dark-3'] : 'inherit'};
     `
   }
   border-radius: 50%;
-  padding: ${paddingSize};
+  padding: 10px;
 
   &:hover, &:focus {
     ${props => props.theme.dark ?
