@@ -172,7 +172,6 @@ const SubjectViewer = types
 
       setViewerWidth (width) {
         self.viewerWidth = width
-        console.log('here')
       },
 
       zoomIn () {
