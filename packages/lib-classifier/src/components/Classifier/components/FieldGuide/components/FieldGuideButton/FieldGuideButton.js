@@ -54,8 +54,10 @@ export function ButtonLabel({ smallViewer }) {
       )}
       <HelpIcon
         fill='white'
-        width={smallViewer ? '0.9rem' : '1.2rem'}
-        style={{ padding: smallViewer ? '8px 0' : '8px 0 0 0' }}
+        style={{
+          padding: smallViewer ? '8px 0' : '8px 0 0 0',
+          width: smallViewer ? '0.9rem' : '1.2rem'
+        }}
       />
       {/** Same styling as ImageToolbar > Button */}
     </Box>
