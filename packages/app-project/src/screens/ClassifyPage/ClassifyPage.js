@@ -80,7 +80,7 @@ function ClassifyPage({
         pad={{ horizontal: 'small', vertical: 'medium' }}
       >
 
-        <Box as='main' fill='horizontal'>
+        <Box as='main' fill='horizontal' width={{ min: 'none', max: 'xxlarge' }}>
           {!canClassify && appLoadingState === asyncStates.success && (
             <WorkflowMenuModal
               subjectSetFromUrl={subjectSetFromUrl}

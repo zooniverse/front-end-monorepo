@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import { Box } from 'grommet'
+import { useEffect, useRef } from 'react'
 
+import { useStores } from '@hooks'
 import Banners from '@components/Classifier/components/Banners'
 import FeedbackModal from '@components/Classifier/components/Feedback'
 import ImageToolbar from '@components/Classifier/components/ImageToolbar'
@@ -51,12 +53,48 @@ const StyledMetaTools = styled(MetaTools)`
   margin-top: 10px;
 `
 
-export default function DefaultLayout({
-  className = ''
-}) {
+function storeMapper(store) {
+  const {
+    setViewerWidth
+  } = store.subjectViewer
+
+  return {
+    setViewerWidth
+  }
+}
+
+export default function DefaultLayout({ className = '' }) {
+  const { setViewerWidth } = useStores(storeMapper)
+  const viewerContainer = useRef(null)
+  const resizeObserver = useRef(null)
+
+  /** DefaultLayout for classify page styling has breakpoints at 700px and 1160px.
+   * In its components such as FlipbookControls & ImageToolbar, we're simply checking for
+   * when viewer grid-area is < 550px which happens both before and after the two layout breakpoints
+   */
+  useEffect(() => {
+    resizeObserver.current = new window.ResizeObserver((entries) => {
+      if (entries[0].contentRect.width < 550) {
+        setViewerWidth('small')
+      } else {
+        setViewerWidth('default')
+      }
+    })
+
+    if (viewerContainer.current) {
+      resizeObserver.current.observe(viewerContainer.current)
+    }
+
+    return () => {
+      if (viewerContainer.current) {
+        resizeObserver.current.unobserve(viewerContainer.current)
+      }
+    }
+  }, [])
+
   return (
     <ContainerGrid className={className}>
-      <ViewerGrid>
+      <ViewerGrid ref={viewerContainer}>
         <Box gridArea='subject'>
           <Banners />
           <SubjectViewer />

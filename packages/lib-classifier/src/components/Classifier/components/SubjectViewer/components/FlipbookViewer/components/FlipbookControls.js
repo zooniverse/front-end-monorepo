@@ -50,12 +50,14 @@ const backgrounds = { dark: 'dark-3', light: 'neutral-6' }
 function storeMapper(store) {
   const {
     flipbookSpeed,
-    setFlipbookSpeed
+    setFlipbookSpeed,
+    viewerWidth
   } = store.subjectViewer
 
   return {
     flipbookSpeed,
-    setFlipbookSpeed
+    setFlipbookSpeed,
+    viewerWidth
   }
 }
 
@@ -67,39 +69,12 @@ const FlipbookControls = ({
   playing = false,
   playIterations
 }) => {
-  const { flipbookSpeed, setFlipbookSpeed } = useStores(storeMapper)
+  const { flipbookSpeed, setFlipbookSpeed, viewerWidth } = useStores(storeMapper)
   const { t } = useTranslation('components')
   const timeoutRef = useRef(null)
 
   const [iterationCounter, setIterationCounter] = useState(0)
-
-  /** DefaultLayout for classify page styling has breakpoints at 700px and 1160px
-   * In FlipbookControls we're simply checking for when this component is < 450px
-   * which happens both before and after the 700px layout breakpoint
-   */
-  const [smallScreenStyle, setSmallScreenStyle] = useState(false)
-  const controlsContainer = useRef(null)
-  const resizeObserver = useRef(null)
-
-  useEffect(() => {
-    resizeObserver.current = new window.ResizeObserver((entries) => {
-      if (entries[0].contentRect.width < 500) {
-        setSmallScreenStyle(true)
-      } else {
-        setSmallScreenStyle(false)
-      }
-    })
-
-    if (controlsContainer.current) {
-      resizeObserver.current.observe(controlsContainer.current)
-    }
-
-    return () => {
-      if (controlsContainer.current) {
-        resizeObserver.current.unobserve(controlsContainer.current)
-      }
-    }
-  }, [])
+  const smallScreenStyle = viewerWidth === 'small'
 
   const handleKeyDown = (event) => {
     const index = currentFrame
@@ -203,7 +178,7 @@ const FlipbookControls = ({
 
   return (
     <ThemeContext.Extend value={controlsTheme}>
-      <Box background={backgrounds} ref={controlsContainer}>
+      <Box background={backgrounds}>
         <Grid
           columns={smallScreenStyle ? ['75px', 'flex', '75px'] : ['90px', 'flex', '90px']}
           pad={smallScreenStyle ? { horizontal: '10px', vertical: '5px' } : { horizontal: '20px', vertical: '10px' }}
