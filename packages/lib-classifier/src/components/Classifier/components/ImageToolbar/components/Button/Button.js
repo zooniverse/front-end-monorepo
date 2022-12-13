@@ -1,82 +1,79 @@
 import { bool, func } from 'prop-types'
-import { Component } from 'react';
 import { Button as GrommetButton } from 'grommet'
 import styled, { css } from 'styled-components'
+import { observer } from 'mobx-react'
+import { useStores } from '@hooks'
 
-const svgSize = '1.2rem' // get a min and max for this too
-                        // should be same as FieldGuideButton HelpIcon
+function storeMapper(store) {
+  const {
+    viewerWidth
+  } = store.subjectViewer
+
+  return {
+    viewerWidth
+  }
+}
 
 const StyledButton = styled(GrommetButton)`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  ${props => props.active ?
-    css`
-      background-color: ${props.theme.global.colors.brand};
-    ` :
-    css`
-      background-color: ${props.theme.dark ? props.theme.global.colors['dark-3'] : 'inherit'};
-    `
-  }
+  ${props => props.active
+      ? css`background-color: ${props.theme.global.colors.brand};`
+      : css`background-color: ${props.theme.dark
+            ? props.theme.global.colors['dark-3']
+            : 'inherit'};`}
   border-radius: 50%;
-  padding: 10px;
+  padding: ${props => (props.smallViewer ? '8px' : '10px')};
+  &:not(:last-child) {
+    margin-bottom: ${props => (props.smallViewer ? '8px' : '10px')};
+  }
 
-  &:hover, &:focus {
-    ${props => props.theme.dark ?
-      css`
-        background-color: ${props.theme.global.colors['neutral-1']};
-      ` :
-      css`
-        background-color: ${props.theme.global.colors['accent-1']};
-      `
-    }
+  &:hover,
+  &:focus {
+    ${props => props.theme.dark
+        ? css`background-color: ${props.theme.global.colors['neutral-1']};`
+        : css`background-color: ${props.theme.global.colors['accent-1']};`}
 
     > svg {
       fill: white;
 
       > circle {
-        fill: ${props => props.theme.dark ? 'white' : 'black'};
-        stroke: ${props => props.theme.dark ? 'black' : 'white'};
+        fill: ${props => (props.theme.dark ? 'white' : 'black')};
+        stroke: ${props => (props.theme.dark ? 'black' : 'white')};
       }
 
       > path {
-        fill: ${props => props.theme.dark ? 'black' : 'white'};
+        fill: ${props => (props.theme.dark ? 'black' : 'white')};
       }
     }
   }
 
   > svg {
-    ${props => props.active ?
-      css`
-        fill: white;
-      ` :
-      css`
-        fill: ${props.theme.dark ? 'white' : 'black'};
-      `
-    }
-    height: ${svgSize};
+    ${props => props.active
+        ? css`fill: white;`
+        : css`fill: ${props.theme.dark ? 'white' : 'black'};`}
+    // Same width and height as FieldGuideButton
+    height: ${props => props.smallViewer ? '0.9rem' : '1.2rem'};
+    width: ${props => props.smallViewer ? '0.9rem' : '1.2rem'};
     stroke: transparent;
-    width: ${svgSize};
   }
 `
 
-class Button extends Component {
-  render () {
-    const {
-      active,
-      a11yTitle,
-      disabled,
-      icon,
-      onBlur,
-      onClick,
-      onFocus,
-      onMouseOver,
-      onMouseOut
-    } = this.props
+function Button({
+  active = false,
+  a11yTitle,
+  disabled,
+  icon,
+  onBlur = () => true,
+  onClick = () => true,
+  onFocus = () => true,
+  onMouseOver = () => true,
+  onMouseOut = () => true
+}) {
+  const { viewerWidth } = useStores(storeMapper)
 
-    const eventHandlers = (disabled)
-      ? {}
-      : {
+  const eventHandlers = disabled
+    ? {}
+    : {
         onBlur,
         onClick,
         onFocus,
@@ -84,18 +81,17 @@ class Button extends Component {
         onMouseOut
       }
 
-    return (
-      <StyledButton
-        active={active}
-        a11yTitle={a11yTitle}
-        disabled={disabled}
-        icon={icon}
-        margin={{ bottom: 'xsmall' }}
-        title={a11yTitle}
-        {...eventHandlers}
-      />
-    )
-  }
+  return (
+    <StyledButton
+      active={active}
+      a11yTitle={a11yTitle}
+      disabled={disabled}
+      icon={icon}
+      smallViewer={viewerWidth === 'small'}
+      title={a11yTitle}
+      {...eventHandlers}
+    />
+  )
 }
 
 Button.propTypes = {
@@ -107,13 +103,4 @@ Button.propTypes = {
   onMouseOut: func
 }
 
-Button.defaultProps = {
-  active: false,
-  onBlur: () => {},
-  onClick: () => {},
-  onFocus: () => {},
-  onMouseOver: () => {},
-  onMouseOut: () => {}
-}
-
-export default Button
+export default observer(Button)

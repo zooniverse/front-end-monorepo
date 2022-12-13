@@ -1,5 +1,7 @@
 import { Box } from 'grommet'
 import styled from 'styled-components'
+import { observer } from 'mobx-react'
+import { useStores } from '@hooks'
 
 import FieldGuide from '../FieldGuide'
 import AnnotateButton from './components/AnnotateButton'
@@ -12,6 +14,16 @@ import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 import withKeyZoom from '../withKeyZoom'
 
+function storeMapper(store) {
+  const {
+    viewerWidth
+  } = store.subjectViewer
+
+  return {
+    viewerWidth
+  }
+}
+
 const StickyBox = styled(Box)`
   position: sticky;
   top: 10px;
@@ -19,6 +31,8 @@ const StickyBox = styled(Box)`
 `
 
 function ImageToolbar () {
+  const { viewerWidth } = useStores(storeMapper)
+
   return (
     <StickyBox height='min-content'>
       <Box
@@ -35,7 +49,7 @@ function ImageToolbar () {
         }}
         direction='column'
         fill
-        pad='10px' // should be responsive and the same as FieldGuideButton
+        pad={viewerWidth === 'small' ? '5px' : '10px'}
       >
         <AnnotateButton />
         <MoveButton />
@@ -51,4 +65,4 @@ function ImageToolbar () {
   )
 }
 
-export default withKeyZoom(ImageToolbar)
+export default withKeyZoom(observer(ImageToolbar))
