@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.3.2] 2022-12-12
+
+### Changed
+- Change `polished` from a dev dependency to a standard dependency.
+
 ## [1.3.1] 2022-12-05
 
 ### Removed
@@ -15,7 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Added an ES6 build for loaders that use ES Modules.
 
 ### Changed
-- Use an `i18next` instance specific to this library, rather than modifying the default instance. 
+- Use an `i18next` instance specific to this library, rather than modifying the default instance.
 - Optimised `lodash` imports for tree-shaking.
 - Replaced `mime-types` with `mime/lite`.
 - Enabled the React automatic runtime.
