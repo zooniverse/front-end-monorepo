@@ -152,7 +152,7 @@ When publishing an individual package to [npm](https://www.npmjs.com/), first cd
 1. Build the package with `yarn build` from the package dir, where available
 1. Publish using `npm`:
     - Sanity check: if you're using `nvm` (Node Version Manager), make sure you've switched to the latest version of node/npm
-    - Check that you're publishing the new version by running `npm publish --dry-run` from the package dir
+    - Check that you're publishing the correct version by running `npm publish --dry-run` from the package dir
     - When you're happy, run `npm publish` from the package dir
     - You can optionally login to npm prior to this using `npm login` and store an auth token in a `.npmrc` file
 
