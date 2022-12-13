@@ -42,14 +42,6 @@ const StyledSpacedText = styled(SpacedText)`
   line-height: 1.2;
 `
 
-const StyledHelpIcon = styled(HelpIcon)`
-  display: block;
-  fill: white;
-  // Same width etc as ImageToolbar > Button
-  padding: ${props => (props.smallViewer ? '8px 0' : '8px 0 0 0')};
-  width: ${props => (props.smallViewer ? '0.9rem' : '1.2rem')};
-`
-
 export function ButtonLabel({ smallViewer }) {
   const { t } = useTranslation('components')
 
@@ -60,16 +52,17 @@ export function ButtonLabel({ smallViewer }) {
           {t('FieldGuide.FieldGuideButton.buttonLabel')}
         </StyledSpacedText>
       )}
-      <StyledHelpIcon smallViewer={smallViewer} />
+      <HelpIcon
+        fill='white'
+        width={smallViewer ? '0.9rem' : '1.2rem'}
+        style={{ padding: smallViewer ? '8px 0' : '8px 0 0 0' }}
+      />
+      {/** Same styling as ImageToolbar > Button */}
     </Box>
   )
 }
 
-function FieldGuideButton({ 
-  fieldGuide = null,
-  onClick = () => true,
-  theme
-}) {
+function FieldGuideButton({ fieldGuide = null, onClick = () => true, theme }) {
   const disabled = !fieldGuide || fieldGuide.items.length === 0
   const { t } = useTranslation('components')
   const { viewerWidth } = useStores(storeMapper)
