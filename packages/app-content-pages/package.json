@@ -18,7 +18,7 @@
   "dependencies": {
     "@next/bundle-analyzer": "~13.0.4",
     "@sentry/browser": "~7.26.0",
-    "@sentry/node": "~7.25.0",
+    "@sentry/node": "~7.26.0",
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/grommet-theme": "~3.1.0",
