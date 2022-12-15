@@ -1,8 +1,10 @@
 import asyncStates from '@zooniverse/async-states'
-import { flow, types } from 'mobx-state-tree'
+import { applySnapshot, flow, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 
-import numberString from './types/numberString'
+import numberString from '../types/numberString'
+
+import UserPersonalization from './UserPersonalization'
 
 const User = types
   .model('User', {
@@ -10,8 +12,9 @@ const User = types
     display_name: types.maybeNull(types.string),
     error: types.maybeNull(types.frozen({})),
     id: types.maybeNull(numberString),
+    loadingState: asyncStates.loading,
     login: types.maybeNull(types.string),
-    loadingState: asyncStates.loading
+    personalization: types.optional(UserPersonalization, {})
   })
 
   .views(self => ({
@@ -41,13 +44,23 @@ const User = types
     }),
 
     clear () {
-      self.id = null
+      const loggedOutUser = {
+        id: null,
+        display_name: null,
+        loadingState: asyncStates.success,
+        login: null
+      }
+      applySnapshot(self, loggedOutUser)
+      self.personalization.reset()
     },
 
     set (user) {
       self.id = user.id
       self.display_name = user.display_name
       self.login = user.login
+      if (user.id) {
+        self.personalization.load()
+      }
     }
   }))
 
