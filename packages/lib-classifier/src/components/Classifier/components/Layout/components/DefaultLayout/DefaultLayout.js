@@ -45,7 +45,7 @@ export const ViewerGrid = styled.section`
   display: grid;
   grid-area: viewer;
   grid-template-columns: auto 4.5rem;
-  grid-template-areas: "subject toolbar" "metatools ...";
+  grid-template-areas: "subject toolbar";
 `
 
 export const StyledImageToolbarContainer = styled.div`
@@ -55,11 +55,6 @@ export const StyledImageToolbarContainer = styled.div`
 export const StyledImageToolbar = styled(ImageToolbar)`
   position: sticky;
   top: 10px;
-`
-
-const StyledMetaTools = styled(MetaTools)`
-  grid-area: metatools;
-  margin-top: 10px;
 `
 
 function storeMapper(store) {
@@ -107,11 +102,11 @@ export default function DefaultLayout({ className = '' }) {
         <Box gridArea='subject'>
           <Banners />
           <SubjectViewer />
+          <MetaTools />
         </Box>
         <StyledImageToolbarContainer>
           <StyledImageToolbar />
         </StyledImageToolbarContainer>
-        <StyledMetaTools />
       </ViewerGrid>
       <StyledTaskAreaContainer>
         <StyledTaskArea />

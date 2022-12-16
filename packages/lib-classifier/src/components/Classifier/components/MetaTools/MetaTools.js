@@ -9,19 +9,10 @@ import HidePreviousMarksButton from './components/HidePreviousMarksButton'
 
 function storeMapper(store) {
   const {
-    subjects: {
-      active: subject,
-      isThereMetadata
-    },
-    subjectViewer: {
-      viewerWidth
-    },
-    userProjectPreferences: {
-      active: upp
-    },
-    workflowSteps: {
-      interactionTask
-    }
+    subjects: { active: subject, isThereMetadata },
+    subjectViewer: { viewerWidth },
+    userProjectPreferences: { active: upp },
+    workflowSteps: { interactionTask }
   } = store
 
   return {
@@ -33,46 +24,49 @@ function storeMapper(store) {
   }
 }
 
-const MetaTools = ({
-  className = ''
-}) => {
-  const { interactionTask = {}, isThereMetadata = false, subject = null, upp = null, viewerWidth = 'default' } = useStores(storeMapper)
-
+const MetaTools = () => {
+  const {
+    interactionTask = {},
+    isThereMetadata = false,
+    subject = null,
+    upp = null,
+    viewerWidth = 'default'
+  } = useStores(storeMapper)
   const { shownMarks, marks, togglePreviousMarks, type } = interactionTask
-
-  const gap = (viewerWidth === 'small') ? 'xsmall' : 'small'
-  const margin = (viewerWidth === 'small') ? { top: 'small' } : 'none'
 
   const addToCollection = () => {
     subject.addToCollection()
   }
 
   return (
-    <Box
-      key={subject && subject.id}
-      className={className}
-      direction='row-responsive'
-      gap={gap}
-      margin={margin}
-    >
-      <Metadata isThereMetadata={isThereMetadata} metadata={subject && subject.metadata} />
-      <FavouritesButton
-        checked={subject?.favorite}
-        disabled={!subject || !upp}
-        onClick={subject?.toggleFavorite}
-      />
-      <CollectionsButton
-        disabled={!subject || !upp}
-        onClick={addToCollection}
-      />
-      {Object.keys(interactionTask).length > 0 && (
-        <HidePreviousMarksButton
-          disabled={marks?.length === 0}
-          shownMarks={shownMarks}
-          type={type}
-          onClick={(state) => togglePreviousMarks(state)}
+    <Box key={subject && subject.id}>
+      <Box
+        direction={viewerWidth === 'small' ? 'column' : 'row'}
+        gap='10px'
+        margin={{ top: '10px' }}
+      >
+        <Metadata
+          isThereMetadata={isThereMetadata}
+          metadata={subject && subject.metadata}
         />
-      )}
+        <FavouritesButton
+          checked={subject?.favorite}
+          disabled={!subject || !upp}
+          onClick={subject?.toggleFavorite}
+        />
+        <CollectionsButton
+          disabled={!subject || !upp}
+          onClick={addToCollection}
+        />
+        {Object.keys(interactionTask).length > 0 && (
+          <HidePreviousMarksButton
+            disabled={marks?.length === 0}
+            shownMarks={shownMarks}
+            type={type}
+            onClick={state => togglePreviousMarks(state)}
+          />
+        )}
+      </Box>
     </Box>
   )
 }
