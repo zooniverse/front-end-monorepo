@@ -17,7 +17,11 @@ const Notifications = types
     unreadConversationsIds: types.array(types.string),
     unreadNotificationsCount: types.optional(types.number, 0),
     error: types.maybeNull(types.frozen({})),
-    loadingState: types.optional(
+    conversationsLoadingState: types.optional(
+      types.enumeration('state', asyncStates.values),
+      asyncStates.initialized
+    ),
+    notificationsLoadingState: types.optional(
       types.enumeration('state', asyncStates.values),
       asyncStates.initialized
     )
@@ -31,7 +35,7 @@ const Notifications = types
       },
 
       fetchInitialUnreadConversationsIds: flow(function * fetchInitialUnreadConversationsIds () {
-        self.setLoadingState(asyncStates.loading)
+        self.conversationsLoadingState = asyncStates.loading
         try {
           const token = yield auth.checkBearerToken()
           const authorization = `Bearer ${token}`
@@ -42,14 +46,15 @@ const Notifications = types
             self.unreadConversationsIds = unreadConversationsIds
           }
 
-          self.setLoadingState(asyncStates.success)
+          self.conversationsLoadingState = asyncStates.success
         } catch (error) {
           self.handleError(error)
+          self.conversationsLoadingState = asyncStates.error
         }
       }),
 
       fetchInitialUnreadNotificationsCount: flow(function * fetchInitialUnreadNotificationsCount () {
-        self.setLoadingState(asyncStates.loading)
+        self.notificationsLoadingState = asyncStates.loading
         try {
           const token = yield auth.checkBearerToken()
           const authorization = `Bearer ${token}`
@@ -60,9 +65,10 @@ const Notifications = types
             self.unreadNotificationsCount = unreadNotificationsCount
           }
 
-          self.setLoadingState(asyncStates.success)
+          self.notificationsLoadingState = asyncStates.success
         } catch (error) {
           self.handleError(error)
+          self.notificationsLoadingState = asyncStates.error
         }
       }),
 
@@ -107,11 +113,6 @@ const Notifications = types
       handleError (error) {
         console.error(error)
         self.error = error
-        self.setLoadingState(asyncStates.error)
-      },
-
-      setLoadingState (state) {
-        self.loadingState = state
       },
 
       reset () {
@@ -119,7 +120,8 @@ const Notifications = types
         self.unreadConversationsIds = []
         self.unreadNotificationsCount = 0
         self.error = undefined
-        this.setLoadingState(asyncStates.initialized)
+        self.conversationsLoadingState = asyncStates.initialized
+        self.notificationsLoadingState = asyncStates.initialized
       }
     }
   })
