@@ -87,7 +87,7 @@ function HidePreviousTranscriptionsButton (props) {
       plain
     >
       <Box align='center' direction='row'>
-        <FormDown style={{ marginLeft: '-0.3rem' }} />
+        <FormDown />
         <SpacedText color={{ dark: 'accent-1', light: 'neutral-1' }}>{currentTitle}</SpacedText>
       </Box>
     </StyledDrop>
