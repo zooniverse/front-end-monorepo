@@ -1,6 +1,7 @@
 import { expect } from 'chai'
-import sinon from 'sinon'
-import { talkAPI } from '@zooniverse/panoptes-js'
+import { when } from 'mobx'
+import nock from 'nock'
+import asyncStates from '@zooniverse/async-states'
 
 import Store from '../../Store'
 import UserPersonalization from './UserPersonalization'
@@ -14,50 +15,49 @@ describe('Stores > UserPersonalization', function () {
 
   before(function () {
     rootStore = Store.create()
-    sinon.stub(talkAPI, 'get').callsFake(() => Promise.resolve(undefined))
-  })
-  
-  after(function () {
-    talkAPI.get.restore()
   })
 
   it('should exist', function () {
     expect(rootStore.user.personalization).to.be.ok()
   })
 
+  describe('with an anonymous user', function () {
+    it('should not trigger the child Notifications store to request unread notifications or conversations', function () {
+      // a loading state of "initialized" means that the store has not requested (state would be "loading") or received (state would be "success" or "error") data
+      expect(rootStore.user.personalization.notifications.conversationsLoadingState).to.equal(asyncStates.initialized)
+      expect(rootStore.user.personalization.notifications.notificationsLoadingState).to.equal(asyncStates.initialized)
+    })
+  })
+
   describe('with a user', function () {
-    before(function () {
+    before(async function () {
       rootStore.user.set(user)
+
+      nock('https://talk-staging.zooniverse.org')
+        .persist()
+        .get('/conversations')
+        .query(true)
+        .reply(200)
+        .get('/notifications')
+        .query(true)
+        .reply(200)
+
+      const { notifications } = rootStore.user.personalization
+      await when(() => notifications.conversationsLoadingState === asyncStates.success)
+      await when(() => notifications.notificationsLoadingState === asyncStates.success)
     })
 
     after(function () {
-      talkAPI.get.resetHistory()
+      nock.cleanAll()
     })
 
-    it('should trigger the child Notifications store to request unread notifications', function () {
-      expect(talkAPI.get).to.have.been.calledWith(
-        '/notifications',
-        { delivered: false, page_size: 1 },
-        { authorization: 'Bearer ' }
-      )
-    })
-
-    it('should trigger the child Notifications store to request unread conversations', function () {
-      expect(talkAPI.get).to.have.been.calledWith(
-        '/conversations',
-        { unread: true, page: 1 },
-        { authorization: 'Bearer ' }
-      )
+    it('should trigger the child Notifications store to request unread notifications and conversations', function () {
+      expect(rootStore.user.personalization.notifications.conversationsLoadingState).to.equal(asyncStates.success)
+      expect(rootStore.user.personalization.notifications.notificationsLoadingState).to.equal(asyncStates.success)
     })
 
     xit('should trigger the child Notifications store to subscribe to Sugar notifications', function () {
       expect(true).to.be.false()
-    })
-  })
-
-  describe('with an anonymous user', function () {
-    it('should not trigger the child Notifications store to request unread notifications or conversations', function () {
-      expect(talkAPI.get).to.have.not.been.called()
     })
   })
 
