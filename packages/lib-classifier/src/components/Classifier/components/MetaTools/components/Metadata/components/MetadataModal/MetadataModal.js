@@ -26,9 +26,6 @@ export function formatValue (value) {
   if (value) {
     const stringValue = value.toString()
     stringValue.trim()
-    if (stringValue.startsWith('http')) {
-      return `[${stringValue}](+tab+${stringValue})`
-    }
     return stringValue
   }
 
