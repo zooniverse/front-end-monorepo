@@ -30,6 +30,12 @@ export default function Choice({
   const questionIds = getQuestionIds(choiceId, task)
   const allowIdentify = allowIdentification(answers, choiceId, task)
 
+  function handleKeyDown (event) {
+    if (event.key === 'Escape') {
+      handleDelete(choiceId)
+    }
+  }
+
   return (
     <Box
       background={{
@@ -38,6 +44,7 @@ export default function Choice({
       }}
       elevation='large'
       flex='grow'
+      onKeyDown={handleKeyDown}
       pad='small'
     >
       {choice.images?.length > 0 && (
