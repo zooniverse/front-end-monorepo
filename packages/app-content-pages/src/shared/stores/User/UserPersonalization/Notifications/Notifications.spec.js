@@ -1,8 +1,9 @@
 import { expect } from 'chai'
+import { when } from 'mobx'
+import nock from 'nock'
 import { sugarClient } from 'panoptes-client/lib/sugar'
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
-import { talkAPI } from '@zooniverse/panoptes-js'
 
 import Store from '../../../Store'
 import Notifications from './Notifications'
@@ -31,30 +32,35 @@ describe('Stores > Notifications', function () {
   describe('Actions > fetchInitialUnreadConversationsIds', function () {
     describe('when there is a resource in the response', function () {
       const mockResponse = {
-        body: {
-          conversations: [
-            { id: '1' },
-            { id: '2' },
-            { id: '3' }
-          ],
-          meta: {
-            next_page: undefined
-          }
+        conversations: [
+          { id: '1' },
+          { id: '2' },
+          { id: '3' }
+        ],
+        meta: {
+          next_page: undefined
         }
       }
 
-      before(function () {
-        sinon.stub(talkAPI, 'get').callsFake(() => Promise.resolve(mockResponse))
+      before(async function () {
+        nock('https://talk-staging.zooniverse.org')
+          .persist()
+          .get('/conversations')
+          .query(true)
+          .reply(200, mockResponse)
+          .get('/notifications')
+          .query(true)
+          .reply(200)
 
         rootStore = Store.create()
         rootStore.user.set(user)
-
         const { notifications } = rootStore.user.personalization
-        notifications.fetchInitialUnreadConversationsIds()
+        
+        await when(() => notifications.conversationsLoadingState === asyncStates.success)
       })
 
       after(function () {
-        talkAPI.get.restore()
+        nock.cleanAll()
       })
 
       it('should exist', function () {
@@ -68,51 +74,48 @@ describe('Stores > Notifications', function () {
 
     describe('when there is a resource and additional pages in the response', function () {
       const firstMockResponse = {
-        body: {
-          conversations: [
-            { id: '1' },
-            { id: '2' },
-            { id: '3' }
-          ],
-          meta: {
-            next_page: 2
-          }
+        conversations: [
+          { id: '1' },
+          { id: '2' },
+          { id: '3' }
+        ],
+        meta: {
+          next_page: 2
         }
       }
 
       const secondMockResponse = {
-        body: {
-          conversations: [
-            { id: '4' },
-            { id: '5' }
-          ],
-          meta: {
-            next_page: undefined
-          }
+        conversations: [
+          { id: '4' },
+          { id: '5' }
+        ],
+        meta: {
+          next_page: undefined
         }
       }
 
-      before(function () {
-        sinon.stub(talkAPI, 'get')
-          .callsFake((url, query, authorization) => {
-            if (query.page === 1) {
-              return Promise.resolve(firstMockResponse)
-            }
-            if (query.page === 2) {
-              return Promise.resolve(secondMockResponse)
-            }
-            return Promise.resolve(new Error('Something went wrong'))
-          })
-
+      before(async function () {
+        nock('https://talk-staging.zooniverse.org')
+          .persist()
+          .get('/conversations')
+          .query(query => query.page === '1')
+          .reply(200, firstMockResponse)
+          .get('/conversations')
+          .query(query => query.page === '2')
+          .reply(200, secondMockResponse)
+          .get('/notifications')
+          .query(true)
+          .reply(200)
+          
         rootStore = Store.create()
         rootStore.user.set(user)
-
         const { notifications } = rootStore.user.personalization
-        notifications.fetchInitialUnreadConversationsIds()
+        
+        await when(() => notifications.conversationsLoadingState === asyncStates.success)
       })
 
       after(function () {
-        talkAPI.get.restore()
+        nock.cleanAll()
       })
 
       it('should exist', function () {
@@ -125,18 +128,25 @@ describe('Stores > Notifications', function () {
     })
 
     describe('when there is not a resource in the response', function () {
-      before(function () {
-        sinon.stub(talkAPI, 'get').callsFake(() => Promise.resolve(undefined))
+      before(async function () {
+        nock('https://talk-staging.zooniverse.org')
+          .persist()
+          .get('/conversations')
+          .query(true)
+          .reply(200)
+          .get('/notifications')
+          .query(true)
+          .reply(200)
 
         rootStore = Store.create()
         rootStore.user.set(user)
-
         const { notifications } = rootStore.user.personalization
-        notifications.fetchInitialUnreadConversationsIds()
+        
+        await when(() => notifications.conversationsLoadingState === asyncStates.success)
       })
 
       after(function () {
-        talkAPI.get.restore()
+        nock.cleanAll()
       })
 
       it('should keep the unreadConversationsIds as an empty array', function () {
@@ -145,20 +155,27 @@ describe('Stores > Notifications', function () {
     })
 
     describe('when the request errors', function () {
-      before(function () {
+      before(async function () {
         sinon.stub(console, 'error')
-        sinon.stub(talkAPI, 'get').callsFake(() => Promise.reject(new Error('Error!')))
-
+        nock('https://talk-staging.zooniverse.org')
+          .persist()
+          .get('/conversations')
+          .query(true)
+          .replyWithError('Error!')
+          .get('/notifications')
+          .query(true)
+          .reply(200)
+        
         rootStore = Store.create()
         rootStore.user.set(user)
-
         const { notifications } = rootStore.user.personalization
-        notifications.fetchInitialUnreadConversationsIds()
+
+        await when(() => notifications.conversationsLoadingState === asyncStates.error)
       })
 
       after(function () {
         console.error.restore()
-        talkAPI.get.restore()
+        nock.cleanAll()
       })
 
       it('should keep the unreadConversationsIds as an empty array', function () {
@@ -176,27 +193,32 @@ describe('Stores > Notifications', function () {
   describe('Actions > fetchInitialUnreadNotificationsCount', function () {
     describe('when there is a resource in the response', function () {
       const mockResponse = {
-        body: {
-          meta: {
-            notifications: {
-              count: 5
-            }
+        meta: {
+          notifications: {
+            count: 5
           }
         }
       }
 
-      before(function () {
-        sinon.stub(talkAPI, 'get').callsFake(() => Promise.resolve(mockResponse))
+      before(async function () {
+        nock('https://talk-staging.zooniverse.org')
+          .persist()
+          .get('/notifications')
+          .query(true)
+          .reply(200, mockResponse)
+          .get('/conversations')
+          .query(true)
+          .reply(200)
 
         rootStore = Store.create()
         rootStore.user.set(user)
-
         const { notifications } = rootStore.user.personalization
-        notifications.fetchInitialUnreadNotificationsCount()
+        
+        await when(() => notifications.notificationsLoadingState === asyncStates.success)
       })
 
       after(function () {
-        talkAPI.get.restore()
+        nock.cleanAll()
       })
 
       it('should exist', function () {
@@ -209,18 +231,25 @@ describe('Stores > Notifications', function () {
     })
 
     describe('when there is not a resource in the response', function () {
-      before(function () {
-        sinon.stub(talkAPI, 'get').callsFake(() => Promise.resolve(undefined))
+      before(async function () {
+        nock('https://talk-staging.zooniverse.org')
+          .persist()
+          .get('/notifications')
+          .query(true)
+          .reply(200)
+          .get('/conversations')
+          .query(true)
+          .reply(200)
 
         rootStore = Store.create()
         rootStore.user.set(user)
-
         const { notifications } = rootStore.user.personalization
-        notifications.fetchInitialUnreadNotificationsCount()
+        
+        await when(() => notifications.notificationsLoadingState === asyncStates.success)
       })
 
       after(function () {
-        talkAPI.get.restore()
+        nock.cleanAll()
       })
 
       it('should keep the unreadNotificationsCount as zero', function () {
@@ -229,20 +258,27 @@ describe('Stores > Notifications', function () {
     })
 
     describe('when the request errors', function () {
-      before(function () {
+      before(async function () {
         sinon.stub(console, 'error')
-        sinon.stub(talkAPI, 'get').callsFake(() => Promise.reject(new Error('Error!')))
-
+        nock('https://talk-staging.zooniverse.org')
+          .persist()
+          .get('/notifications')
+          .query(true)
+          .replyWithError('Error!')
+          .get('/conversations')
+          .query(true)
+          .reply(200)
+        
         rootStore = Store.create()
         rootStore.user.set(user)
-
         const { notifications } = rootStore.user.personalization
-        notifications.fetchInitialUnreadNotificationsCount()
-      })
 
+        await when(() => notifications.notificationsLoadingState === asyncStates.error)
+      })
+      
       after(function () {
         console.error.restore()
-        talkAPI.get.restore()
+        nock.cleanAll()
       })
 
       it('should keep the unreadNotificationsCount as zero', function () {
@@ -376,18 +412,21 @@ describe('Stores > Notifications', function () {
       const notificationsStore = Notifications.create({
         unreadConversationsIds: ['1', '2', '3'],
         unreadNotificationsCount: 9,
-        loadingState: asyncStates.success
+        conversationsLoadingState: asyncStates.success,
+        notificationsLoadingState: asyncStates.success
       })
 
       expect(notificationsStore.unreadConversationsIds.length).to.equal(3)
       expect(notificationsStore.unreadNotificationsCount).to.equal(9)
-      expect(notificationsStore.loadingState).to.equal(asyncStates.success)
+      expect(notificationsStore.conversationsLoadingState).to.equal(asyncStates.success)
+      expect(notificationsStore.notificationsLoadingState).to.equal(asyncStates.success)
 
       notificationsStore.reset()
 
       expect(notificationsStore.unreadConversationsIds.length).to.equal(0)
       expect(notificationsStore.unreadNotificationsCount).to.equal(0)
-      expect(notificationsStore.loadingState).to.equal(asyncStates.initialized)
+      expect(notificationsStore.conversationsLoadingState).to.equal(asyncStates.initialized)
+      expect(notificationsStore.notificationsLoadingState).to.equal(asyncStates.initialized)
     })
   })
 })
