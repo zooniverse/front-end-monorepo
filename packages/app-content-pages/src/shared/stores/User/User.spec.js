@@ -19,9 +19,6 @@ describe('stores > User', function () {
       .get('/conversations')
       .query(true)
       .reply(200)
-
-    nock('https://talk-staging.zooniverse.org')
-      .persist()
       .get('/notifications')
       .query(true)
       .reply(200)    
