@@ -1,45 +1,34 @@
-import { Component } from 'react';
+import { useState } from 'react'
 import PropTypes from 'prop-types'
 import MetadataButton from './components/MetadataButton'
 import { MetadataModal } from './components/MetadataModal'
 
-export default class Metadata extends Component {
-  constructor () {
-    super()
+const Metadata = ({
+  isThereMetadata = false,
+  metadata = {}
+}) => {
+  const [showMetadataModal, setShowMetadataModal] = useState(false)
 
-    this.state = {
-      showMetadataModal: false
-    }
-
-    this.toggleMetadataModal = this.toggleMetadataModal.bind(this)
+  const toggleMetadataModal = () => {
+    setShowMetadataModal(!showMetadataModal)
   }
 
-  toggleMetadataModal () {
-    this.setState((prevState) => { return { showMetadataModal: !prevState.showMetadataModal } })
-  }
-
-  render () {
-    const { isThereMetadata, metadata } = this.props
-    return (
-      <>
-        <MetadataButton disabled={!isThereMetadata} onClick={this.toggleMetadataModal} />
-        {isThereMetadata &&
-          <MetadataModal
-            active={this.state.showMetadataModal}
-            closeFn={this.toggleMetadataModal}
-            metadata={metadata}
-          />}
-      </>
-    )
-  }
-}
-
-Metadata.defaultProps = {
-  isThereMetadata: false,
-  metadata: {}
+  return (
+    <>
+      <MetadataButton disabled={!isThereMetadata} onClick={toggleMetadataModal} />
+      {isThereMetadata &&
+        <MetadataModal
+          active={showMetadataModal}
+          closeFn={toggleMetadataModal}
+          metadata={metadata}
+        />}
+    </>
+  )
 }
 
 Metadata.propTypes = {
   isThereMetadata: PropTypes.bool,
   metadata: PropTypes.object
 }
+
+export default Metadata
