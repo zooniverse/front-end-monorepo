@@ -24,17 +24,11 @@ function storeMapper(store) {
   }
 }
 
-const StickyBox = styled(Box)`
-  position: sticky;
-  top: 10px;
-  grid-area: toolbar;
-`
-
 function ImageToolbar () {
   const { viewerWidth } = useStores(storeMapper)
 
   return (
-    <StickyBox height='min-content'>
+    <Box height='min-content'>
       <Box
         background={{
           dark: 'dark-3',
@@ -61,7 +55,7 @@ function ImageToolbar () {
         <InvertButton />
       </Box>
       <FieldGuide />
-    </StickyBox>
+    </Box>
   )
 }
 
