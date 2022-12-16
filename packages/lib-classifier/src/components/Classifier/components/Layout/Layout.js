@@ -8,7 +8,6 @@ function storeMapper(classifierStore) {
   return { layout }
 }
 
-
 function Layout({
   layout = 'default'
 }) {
