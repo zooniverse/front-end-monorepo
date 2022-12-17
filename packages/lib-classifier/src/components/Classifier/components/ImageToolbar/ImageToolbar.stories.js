@@ -117,22 +117,6 @@ export function withMultiFrameViewer({ dark }) {
   )
 }
 
-const smallSubjectViewer = SubjectViewerFactory.build({
-  viewerWidth: 'small'
-})
-
-const enableInvertConfig = WorkflowFactory.build({
-  configuration: {
-    invert_subject: true
-  }
-})
-
-const smallViewerStore = mockStore({
-  subject: subjectSnapshot,
-  subjectViewer: smallSubjectViewer,
-  workflow: enableInvertConfig
-})
-
 export function StyledSmallerWidth({ dark }) {
   return (
     <Grommet
@@ -143,13 +127,13 @@ export function StyledSmallerWidth({ dark }) {
       theme={zooTheme}
       themeMode={dark ? 'dark' : 'light'}
     >
-      <Provider classifierStore={smallViewerStore}>
+      <Provider classifierStore={store}>
         <Box width='500px'>
           <ViewerGrid>
             <Box gridArea='subject'>
               <SingleImageViewer
                 loadingState={asyncStates.success}
-                subject={smallViewerStore.subjects.active}
+                subject={store.subjects.active}
               />
             </Box>
             <ImageToolbar />

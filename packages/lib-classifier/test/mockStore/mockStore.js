@@ -3,7 +3,7 @@ import { Factory } from 'rosie'
 import sinon from 'sinon'
 
 import RootStore from '@store'
-import { ProjectFactory, SubjectFactory, SubjectSetFactory, WorkflowFactory } from '@test/factories'
+import { SubjectFactory, SubjectSetFactory, ProjectFactory, WorkflowFactory } from '@test/factories'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 
 import branchingWorkflow from './branchingWorkflow'
@@ -58,7 +58,6 @@ export default function mockStore({
     tutorials: [],
     workflows: [workflowSnapshot]
   })
-
 
   const rootStore = RootStore.create({
     projects: {
