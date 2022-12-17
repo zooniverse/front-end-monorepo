@@ -2,7 +2,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import mockStore from '@test/mockStore'
-import { SubjectFactory, SubjectViewerFactory, WorkflowFactory } from '@test/factories'
+import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import asyncStates from '@zooniverse/async-states'
 
 import FlipbookViewerContainer from './FlipbookViewerContainer'
@@ -61,25 +61,15 @@ export const Default = ({ dark }) => {
   )
 }
 
-const smallSubjectViewer = SubjectViewerFactory.build({
-  invert: true,
-  viewerWidth: 'small'
-})
-
-const smallViewerStore = mockStore({
-  subject: mockSubject,
-  subjectViewer: smallSubjectViewer
-})
-
 export const StyledSmallerWidth = ({ dark }) => {
   const themeMode = dark ? 'dark' : 'light'
   return (
     <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
-      <Provider classifierStore={smallViewerStore}>
-        <Box width='450px'>
+      <Provider classifierStore={store}>
+        <Box width='499px'>
           <FlipbookViewerContainer
             loadingState={asyncStates.success}
-            subject={smallViewerStore.subjects.active}
+            subject={store.subjects.active}
           />
         </Box>
       </Provider>

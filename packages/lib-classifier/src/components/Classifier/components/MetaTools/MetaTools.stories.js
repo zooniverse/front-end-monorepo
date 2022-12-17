@@ -1,5 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
+import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import {
   DrawingTaskFactory,
@@ -63,20 +63,14 @@ export const Default = ({ dark }) => {
   )
 }
 
-const smallViewerStore = mockStore({
-  subject: mockSubject,
-  subjectViewer: { viewerWidth: 'small' },
-  workflow: mockWorkflow
-})
-
-smallViewerStore.userProjectPreferences.setUPP(upp)
-
 export const SmallSubjectViewer = ({ dark }) => {
   const themeMode = dark ? 'dark' : 'light'
   return (
     <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
-      <Provider classifierStore={smallViewerStore}>
-        <MetaTools />
+      <Provider classifierStore={store}>
+        <Box width='300px' style={{ border: 'solid 1px red' }}>
+          <MetaTools />
+        </Box>
       </Provider>
     </Grommet>
   )
