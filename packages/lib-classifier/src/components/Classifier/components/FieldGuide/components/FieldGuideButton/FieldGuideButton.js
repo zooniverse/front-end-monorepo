@@ -4,25 +4,15 @@ import PropTypes from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
 import { tint } from 'polished'
 import { useTranslation } from '@translations/i18n'
-import { observer } from 'mobx-react'
-import { useStores } from '@hooks'
 
 import HelpIcon from './HelpIcon'
-
-function storeMapper(store) {
-  const { viewerWidth } = store.subjectViewer
-
-  return {
-    viewerWidth
-  }
-}
 
 export const StyledButton = styled(Button)`
   ${props =>
     props.theme &&
     css`
       background: ${props.theme.global.colors.brand};
-      padding: ${props => (props.smallViewer ? '5px' : '10px')};
+      padding: clamp(8px, 15%, 10px);
 
       &:hover,
       &:focus {
@@ -42,44 +32,32 @@ const StyledSpacedText = styled(SpacedText)`
   line-height: 1.2;
 `
 
-export function ButtonLabel({ smallViewer }) {
+export function ButtonLabel() {
   const { t } = useTranslation('components')
 
   return (
-    <Box as='span' align='center' direction='column'>
-      {smallViewer ? null : (
-        <StyledSpacedText size='xsmall' color='white' textAlign='center'>
-          {t('FieldGuide.FieldGuideButton.buttonLabel')}
-        </StyledSpacedText>
-      )}
+    <Box as='span' align='center' direction='column' gap='8px'>
+      <StyledSpacedText size='xsmall' color='white' textAlign='center'>
+        {t('FieldGuide.FieldGuideButton.buttonLabel')}
+      </StyledSpacedText>
+      {/** Same styling as ImageToolbar > Button */}
       <HelpIcon
         fill='white'
-        style={{
-          padding: smallViewer ? '8px 0' : '8px 0 0 0',
-          width: smallViewer ? '0.9rem' : '1.2rem'
-        }}
+        width='min(50%, 1.2rem)'
       />
-      {/** Same styling as ImageToolbar > Button */}
     </Box>
   )
 }
 
 function FieldGuideButton({ fieldGuide = null, onClick = () => true, theme }) {
   const disabled = !fieldGuide || fieldGuide.items.length === 0
-  const { t } = useTranslation('components')
-  const { viewerWidth } = useStores(storeMapper)
-  const smallViewer = viewerWidth === 'small'
 
   return (
     <StyledButton
-      a11yTitle={
-        smallViewer ? t('FieldGuide.FieldGuideButton.buttonLabel') : ''
-      }
-      label={<ButtonLabel smallViewer={smallViewer} />}
+      label={<ButtonLabel />}
       disabled={disabled}
       onClick={onClick}
       plain
-      smallViewer={smallViewer}
       theme={theme}
     />
   )
@@ -91,5 +69,5 @@ FieldGuideButton.propTypes = {
   theme: PropTypes.object
 }
 
-export default withTheme(observer(FieldGuideButton))
+export default withTheme(FieldGuideButton)
 export { FieldGuideButton }
