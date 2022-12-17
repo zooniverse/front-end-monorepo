@@ -1,7 +1,4 @@
 import { Box } from 'grommet'
-import styled from 'styled-components'
-import { observer } from 'mobx-react'
-import { useStores } from '@hooks'
 
 import FieldGuide from '../FieldGuide'
 import AnnotateButton from './components/AnnotateButton'
@@ -14,19 +11,7 @@ import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 import withKeyZoom from '../withKeyZoom'
 
-function storeMapper(store) {
-  const {
-    viewerWidth
-  } = store.subjectViewer
-
-  return {
-    viewerWidth
-  }
-}
-
 function ImageToolbar () {
-  const { viewerWidth } = useStores(storeMapper)
-
   return (
     <Box height='min-content'>
       <Box
@@ -43,7 +28,7 @@ function ImageToolbar () {
         }}
         direction='column'
         fill
-        pad={viewerWidth === 'small' ? '5px' : '10px'}
+        pad='clamp(8px, 15%, 10px)'
       >
         <AnnotateButton />
         <MoveButton />
@@ -59,4 +44,4 @@ function ImageToolbar () {
   )
 }
 
-export default withKeyZoom(observer(ImageToolbar))
+export default withKeyZoom(ImageToolbar)

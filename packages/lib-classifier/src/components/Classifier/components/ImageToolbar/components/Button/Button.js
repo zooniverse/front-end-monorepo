@@ -1,30 +1,23 @@
 import { bool, func } from 'prop-types'
 import { Button as GrommetButton } from 'grommet'
 import styled, { css } from 'styled-components'
-import { observer } from 'mobx-react'
-import { useStores } from '@hooks'
-
-function storeMapper(store) {
-  const {
-    viewerWidth
-  } = store.subjectViewer
-
-  return {
-    viewerWidth
-  }
-}
 
 const StyledButton = styled(GrommetButton)`
   display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
   ${props => props.active
       ? css`background-color: ${props.theme.global.colors.brand};`
       : css`background-color: ${props.theme.dark
             ? props.theme.global.colors['dark-3']
             : 'inherit'};`}
-  border-radius: 50%;
-  padding: ${props => (props.smallViewer ? '8px' : '10px')};
-  &:not(:last-child) {
-    margin-bottom: ${props => (props.smallViewer ? '8px' : '10px')};
+  
+  :not(:last-child) {
+    margin-bottom: clamp(8px, 20%, 10px); 
+    // similar to padding of Image Toolbar
   }
 
   &:hover,
@@ -51,9 +44,7 @@ const StyledButton = styled(GrommetButton)`
     ${props => props.active
         ? css`fill: white;`
         : css`fill: ${props.theme.dark ? 'white' : 'black'};`}
-    // Same width and height as FieldGuideButton
-    height: ${props => props.smallViewer ? '0.9rem' : '1.2rem'};
-    width: ${props => props.smallViewer ? '0.9rem' : '1.2rem'};
+    width: min(50%, 1.2rem); // See similar dimension in FieldGuideButton
     stroke: transparent;
   }
 `
@@ -69,8 +60,6 @@ function Button({
   onMouseOver = () => true,
   onMouseOut = () => true
 }) {
-  const { viewerWidth } = useStores(storeMapper)
-
   const eventHandlers = disabled
     ? {}
     : {
@@ -87,8 +76,8 @@ function Button({
       a11yTitle={a11yTitle}
       disabled={disabled}
       icon={icon}
-      smallViewer={viewerWidth === 'small'}
       title={a11yTitle}
+      plain
       {...eventHandlers}
     />
   )
@@ -103,4 +92,4 @@ Button.propTypes = {
   onMouseOut: func
 }
 
-export default observer(Button)
+export default Button
