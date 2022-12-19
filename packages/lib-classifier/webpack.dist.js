@@ -20,7 +20,6 @@ const EnvironmentWebpackPlugin = new webpack.EnvironmentPlugin({
 })
 
 module.exports = {
-  devtool: 'source-map',
   entry: './src/components/Classifier/index.js',
   externals: [
     '@zooniverse/grommet-theme',

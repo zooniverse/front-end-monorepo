@@ -52,6 +52,9 @@ describe('Stores > Notifications', function () {
         rootStore = initStore(true, {
           user
         })
+
+        const { notifications } = rootStore.user.personalization
+        notifications.fetchInitialUnreadConversationsIds()
       })
 
       after(function () {
@@ -108,6 +111,9 @@ describe('Stores > Notifications', function () {
         rootStore = initStore(true, {
           user
         })
+
+        const { notifications } = rootStore.user.personalization
+        notifications.fetchInitialUnreadConversationsIds()
       })
 
       after(function () {
@@ -130,6 +136,9 @@ describe('Stores > Notifications', function () {
         rootStore = initStore(true, {
           user
         })
+
+        const { notifications } = rootStore.user.personalization
+        notifications.fetchInitialUnreadConversationsIds()
       })
 
       after(function () {
@@ -149,6 +158,9 @@ describe('Stores > Notifications', function () {
         rootStore = initStore(true, {
           user
         })
+
+        const { notifications } = rootStore.user.personalization
+        notifications.fetchInitialUnreadConversationsIds()
       })
 
       after(function () {
@@ -186,6 +198,9 @@ describe('Stores > Notifications', function () {
         rootStore = initStore(true, {
           user
         })
+
+        const { notifications } = rootStore.user.personalization
+        notifications.fetchInitialUnreadNotificationsCount()
       })
 
       after(function () {
@@ -208,6 +223,9 @@ describe('Stores > Notifications', function () {
         rootStore = initStore(true, {
           user
         })
+
+        const { notifications } = rootStore.user.personalization
+        notifications.fetchInitialUnreadNotificationsCount()
       })
 
       after(function () {
@@ -227,6 +245,9 @@ describe('Stores > Notifications', function () {
         rootStore = initStore(true, {
           user
         })
+
+        const { notifications } = rootStore.user.personalization
+        notifications.fetchInitialUnreadNotificationsCount()
       })
 
       after(function () {

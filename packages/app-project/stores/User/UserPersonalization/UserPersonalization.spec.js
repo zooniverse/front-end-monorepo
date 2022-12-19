@@ -83,6 +83,7 @@ describe('Stores > UserPersonalization', function () {
     after(function () {
       clock.restore()
       rootStore.client.panoptes.get.resetHistory()
+      talkAPI.get.resetHistory()
     })
 
     it('should trigger the child UPP node store to request user preferences', function () {
@@ -211,6 +212,10 @@ describe('Stores > UserPersonalization', function () {
 
     it('should start counting from 0', function () {
       expect(rootStore.user.personalization.totalClassificationCount).to.equal(0)
+    })
+
+    it('should not trigger the child Notifications store to request unread notifications or conversations', function () {
+      expect(talkAPI.get).to.have.not.been.called()
     })
 
     describe('when we successfully know there is an anonymous user', function () {
@@ -367,7 +372,8 @@ describe('Stores > UserPersonalization', function () {
       ]
       const personalizationStore = UserPersonalization.create({
         notifications: {
-          count: 5
+          unreadConversationsIds: ['246', '357'],
+          unreadNotificationsCount: 5
         },
         projectPreferences: {
           activity_count: 8,
@@ -397,6 +403,8 @@ describe('Stores > UserPersonalization', function () {
       const signedOutUserPersonalization = personalizationStore.toJSON()
       expect(personalizationStore.sessionCount).to.equal(0)
       expect(signedOutUserPersonalization).to.not.deep.equal(signedInUserPersonalization)
+      expect(personalizationStore.notifications.unreadConversationsIds).to.deep.equal([])
+      expect(personalizationStore.notifications.unreadNotificationsCount).to.equal(0)
     })
   })
 })
