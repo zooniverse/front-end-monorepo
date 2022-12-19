@@ -2,13 +2,21 @@ import { Box, Button, Carousel, Heading, Paragraph } from 'grommet'
 import PropTypes from 'prop-types'
 import { PrimaryButton, Media } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
+import { useEffect, useRef } from 'react'
 
 import ConfusedWith from './components/ConfusedWith'
 import Questions from './components/Questions'
 import allowIdentification from './helpers/allowIdentification'
 import getQuestionIds from './helpers/getQuestionIds'
+import styled, { withTheme } from 'styled-components'
 
-export default function Choice({
+const StyledBox = styled(Box)`
+  &:focus {
+    outline: 2px solid ${props => props.theme.global.colors[props.theme.global.colors.focus]};
+  }
+`
+
+function Choice({
   answers = {},
   choiceId = '',
   handleAnswers = () => {},
@@ -23,6 +31,13 @@ export default function Choice({
     questions,
     strings
   } = task
+  const choiceRef = useRef(null)
+
+  useEffect(() => {
+    if (choiceRef.current) {
+      choiceRef.current.focus()
+    }
+  }, [choiceId])
 
   const { t } = useTranslation('plugins')
 
@@ -37,7 +52,8 @@ export default function Choice({
   }
 
   return (
-    <Box
+    <StyledBox
+      ref={choiceRef}
       background={{
         dark: 'dark-1',
         light: 'light-1'
@@ -46,6 +62,7 @@ export default function Choice({
       flex='grow'
       onKeyDown={handleKeyDown}
       pad='small'
+      tabIndex={0}
     >
       {choice.images?.length > 0 && (
         <Carousel
@@ -111,7 +128,7 @@ export default function Choice({
           onClick={() => onIdentify()}
         />
       </Box>
-    </Box>
+    </StyledBox>
   )
 }
 
@@ -134,3 +151,5 @@ Choice.propTypes = {
     type: PropTypes.string
   }).isRequired
 }
+
+export default withTheme(Choice)
