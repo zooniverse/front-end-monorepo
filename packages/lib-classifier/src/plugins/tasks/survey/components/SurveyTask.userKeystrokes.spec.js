@@ -183,8 +183,6 @@ describe('SurveyTask with user keystrokes', function () {
     it('should close choice on Escape key', async function () {
       // tabbing to the first choice (Aardvark) and pressing Enter to open the choice (Aardvark)
       await user.keyboard('[Enter]')
-      // tabbing into the choice component
-      await user.keyboard('[Tab]')
       // pressing Escape to close the choice (Aardvark)
       await user.keyboard('[Escape]')
       // confirm choice (Aardvark) description, and therefore choice, is not visible
