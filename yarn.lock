@@ -4471,7 +4471,15 @@
     "@types/d3-shape" "^1.3.1"
     d3-shape "^1.0.6"
 
-"@visx/event@2.6.0", "@visx/event@~2.6.0":
+"@visx/event@2.17.0":
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/@visx/event/-/event-2.17.0.tgz#220c7674505e0d7a55f36bce9575482a7fa7dc23"
+  integrity sha512-fg2UWo89RgKgWWnnqI+i7EF8Ry+3CdMHTND4lo4DyJvcZZUCOwhxCHMQ4/PHW0EAUfxI51nGadcE1BcEVR5zWw==
+  dependencies:
+    "@types/react" "*"
+    "@visx/point" "2.17.0"
+
+"@visx/event@~2.6.0":
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/@visx/event/-/event-2.6.0.tgz#0718eb1efabd5305cf659a153779c94ba4038996"
   integrity sha512-WGp91g82s727g3NAnENF1ppC3ZAlvWg+Y+GG0WFg34NmmOZbvPI/PTOqTqZE3x6B8EUn8NJiMxRjxIMbi+IvRw==
@@ -4516,6 +4524,11 @@
   dependencies:
     "@types/d3-random" "^2.2.0"
     d3-random "^2.2.2"
+
+"@visx/point@2.17.0":
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/@visx/point/-/point-2.17.0.tgz#c11f1efee5241bcd612a29f3b3099cb435c9604e"
+  integrity sha512-fUdGQBLGaSVbFTbQ6k+1nPisbqYjTjAdo9FhlwLd3W3uyXN/39Sx2z3N2579sVNBDzmCKdYNQIU0HC+/3Vqo6w==
 
 "@visx/point@2.6.0":
   version "2.6.0"
@@ -4617,14 +4630,14 @@
     prop-types "^15.7.2"
     reduce-css-calc "^1.3.0"
 
-"@visx/zoom@~2.10.0":
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/@visx/zoom/-/zoom-2.10.0.tgz#143248813a35d2057eaf1a6336011d8650955533"
-  integrity sha512-sId1kuO3NvlzQTOorjeMWXRR3J44zQm8sofwKEt3O9IgaBZ49WzuPUm/owSdVT+YGsXnvxEr2qAdt26GRMzS7Q==
+"@visx/zoom@~2.17.0":
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/@visx/zoom/-/zoom-2.17.0.tgz#e7c0184ce372fca45825e71e472b5445de230468"
+  integrity sha512-C/FxGzzV3X05+1wgKoHnsfNma5wy17DwThEhUK3/wo8nc7Fsb7dtuQn3HOzVpuqa52LbscUBJFi2Rxv79VykQQ==
   dependencies:
     "@types/react" "*"
     "@use-gesture/react" "^10.0.0-beta.22"
-    "@visx/event" "2.6.0"
+    "@visx/event" "2.17.0"
     prop-types "^15.6.2"
 
 "@webassemblyjs/ast@1.11.1":
