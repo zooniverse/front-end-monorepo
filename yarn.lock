@@ -4511,7 +4511,7 @@
     d3-shape "^1.2.0"
     prop-types "^15.6.2"
 
-"@visx/group@2.10.0", "@visx/group@~2.10.0":
+"@visx/group@2.10.0":
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/@visx/group/-/group-2.10.0.tgz#95839851832545621eb0d091866a61dafe552ae1"
   integrity sha512-DNJDX71f65Et1+UgQvYlZbE66owYUAfcxTkC96Db6TnxV221VKI3T5l23UWbnMzwFBP9dR3PWUjjqhhF12N5pA==
@@ -4520,7 +4520,7 @@
     classnames "^2.3.1"
     prop-types "^15.6.2"
 
-"@visx/group@2.17.0":
+"@visx/group@2.17.0", "@visx/group@~2.17.0":
   version "2.17.0"
   resolved "https://registry.yarnpkg.com/@visx/group/-/group-2.17.0.tgz#b349fd6507e56fcb43d0b067d728df4ab329ca2e"
   integrity sha512-60Y2dIKRh3cp/Drpq//wM067ZNrnCcvFCXufPgIihv0Ix8O7oMsYxu3ch4XUMjks+U2IAZQr5Dnc+C9sTQFkhw==
