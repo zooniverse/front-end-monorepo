@@ -37,7 +37,7 @@ export default function SVGImage ({
     return (
       <DraggableImage
         aria-label={`Subject ${subjectID}`}
-        dragMove={move ? onDrag : () => null}
+        dragMove={onDrag}
         height={naturalHeight}
         role='img'
         filter={invert ? 'url("#svg-invert-filter")' : undefined}
