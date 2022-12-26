@@ -16,7 +16,7 @@
     "test:ci": "BABEL_ENV=test mocha --config ./test/.mocharc.json --reporter=min \"./{src,server,test}/**/*.spec.js\""
   },
   "dependencies": {
-    "@next/bundle-analyzer": "~13.0.4",
+    "@next/bundle-analyzer": "~13.1.1",
     "@sentry/browser": "~7.28.0",
     "@sentry/node": "~7.28.0",
     "@zeit/next-source-maps": "0.0.4-canary.1",
