@@ -15,7 +15,7 @@
     "build": "yarn build:cjs && yarn build:es6",
     "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
     "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
-    "dev": "webpack serve --config webpack.dev.js",
+    "dev": "BABEL_ENV=es6 webpack serve --config webpack.dev.js",
     "lint": "zoo-standard --fix | snazzy",
     "start": "PANOPTES_ENV=production npm run dev",
     "test": "NODE_PATH=. NODE_ENV=test mocha --exit --config ./test/.mocharc.json \"./{src,test}/**/*.spec.js\"",
