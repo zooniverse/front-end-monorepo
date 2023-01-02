@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+### Changed
+- Replaced the webpack UMD build (`dist/main.js`) with a Babel CommonJS transform (`dist/cjs/index.js`).
+
 ## [1.3.3] 2023-1-12
 
 ### Changed
