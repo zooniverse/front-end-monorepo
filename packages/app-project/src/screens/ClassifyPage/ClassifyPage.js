@@ -38,7 +38,7 @@ function ClassifyPage({
   const responsiveColumns = (screenSize === 'small')
     ? ['auto']
     : ['1em', 'auto', '1em']
-  const [classifierProps, setClassifierProps]  = useState({})
+  const [classifierProps, setClassifierProps] = useState({})
   const [showTutorial, setShowTutorial] = useState(false)
 
   let subjectSetFromUrl

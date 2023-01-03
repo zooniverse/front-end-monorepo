@@ -24,7 +24,10 @@ function ProjectHeader({
   adminMode,
   className = ''
 }) {
-  const { width, height, ref } = useResizeDetector()
+  const { width, height, ref } = useResizeDetector({
+    refreshMode: 'debounce',
+    refreshRate: 100
+  })
   const {
     availableLocales,
     inBeta,
