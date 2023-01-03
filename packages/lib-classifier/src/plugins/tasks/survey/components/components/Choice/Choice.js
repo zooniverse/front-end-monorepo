@@ -54,6 +54,7 @@ function Choice({
   return (
     <StyledBox
       ref={choiceRef}
+      aria-labelledby='choice-label'
       background={{
         dark: 'dark-1',
         light: 'light-1'
@@ -80,7 +81,11 @@ function Choice({
           ))}
         </Carousel>
       )}
-      <Heading>{strings.get(`choices.${choiceId}.label`)}</Heading>
+      <Heading
+        id='choice-label'
+      >
+        {strings.get(`choices.${choiceId}.label`)}
+      </Heading>
       <Paragraph>{strings.get(`choices.${choiceId}.description`)}</Paragraph>
       {choice.confusionsOrder?.length > 0 && (
         <ConfusedWith
