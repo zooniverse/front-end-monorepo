@@ -139,7 +139,7 @@
     ],
     "parser": "babel-eslint",
     "engines": {
-      "node": ">=16"
+      "node": ">=16.18"
     }
   }
 }

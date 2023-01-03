@@ -32,7 +32,7 @@
     "test:ci": "nyc --silent lerna run --parallel test:ci"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=16.18"
   },
   "nyc": {
     "exclude": [
