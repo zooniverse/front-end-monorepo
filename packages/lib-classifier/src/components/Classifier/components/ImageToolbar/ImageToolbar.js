@@ -11,9 +11,10 @@ import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 import withKeyZoom from '../withKeyZoom'
 
-function ImageToolbar () {
+// Generalized ...props here are css rules from the page layout
+function ImageToolbar (props) {
   return (
-    <Box height='min-content'>
+    <Box height='min-content' {...props}>
       <Box
         background={{
           dark: 'dark-3',

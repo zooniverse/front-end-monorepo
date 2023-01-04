@@ -46,10 +46,13 @@ export const ViewerGrid = styled.section`
   grid-template-areas: "subject toolbar" "metatools ...";
 `
 
-const ImageToolbarContainer = styled.div`
+const StyledImageToolbarContainer = styled.div`
+  grid-area: toolbar;
+`
+
+const StyledImageToolbar = styled(ImageToolbar)`
   position: sticky;
   top: 10px;
-  grid-area: toolbar;
 `
 
 const StyledMetaTools = styled(MetaTools)`
@@ -65,9 +68,9 @@ export default function DefaultLayout({ className = '' }) {
           <Banners />
           <SubjectViewer />
         </Box>
-        <ImageToolbarContainer>
-          <ImageToolbar />
-        </ImageToolbarContainer>
+        <StyledImageToolbarContainer>
+          <StyledImageToolbar />
+        </StyledImageToolbarContainer>
         <StyledMetaTools />
       </ViewerGrid>
       <StyledTaskAreaContainer>
