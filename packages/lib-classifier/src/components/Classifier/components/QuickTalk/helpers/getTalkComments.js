@@ -1,10 +1,10 @@
 import { talkAPI } from '@zooniverse/panoptes-js'
 
-export default async function getTalkComments (subject, project) {
-  if (!subject || !project) return []
+export default async function getTalkComments(subject) {
+  if (!subject?.project) return []
 
   const query = {
-    section: `project-${project.id}`,
+    section: `project-${subject.project.id}`,
     focus_id: subject.id,
     focus_type: 'Subject',
     page: 1,
