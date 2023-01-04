@@ -55,6 +55,7 @@ function Choice({
     <StyledBox
       ref={choiceRef}
       aria-labelledby='choice-label'
+      as=‘section’
       background={{
         dark: 'dark-1',
         light: 'light-1'
