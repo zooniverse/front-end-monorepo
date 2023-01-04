@@ -164,7 +164,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}} % completado",
-      "setSelection": "establecer selección",
+      "setSelection": "Elija selección",
       "subjectSelection": "selección de objetos"
     },
     "WorkflowSelectButtons": {
