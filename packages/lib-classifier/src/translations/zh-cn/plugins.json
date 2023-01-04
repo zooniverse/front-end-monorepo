@@ -1,1 +1,7 @@
-{}
+{
+  "SurveyTask": {
+    "Choice": {
+      "identify": "辨识"
+    }
+  }
+}
