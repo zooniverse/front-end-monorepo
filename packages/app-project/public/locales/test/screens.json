@@ -2,23 +2,75 @@
   "About": {
     "PageHeading": {
       "title": {
-        "research": "Translated",
-        "team": "Translated",
-        "results": "Translated",
         "education": "Translated",
-        "faq": "Translated"
+        "faq": "Translated",
+        "research": "Translated",
+        "results": "Translated",
+        "team": "Translated"
       }
+    },
+    "PageNav": {
+      "title": "Translated"
     },
     "SidebarHeading": "Translated",
     "TeamMember": {
-      "owner": "Translated",
       "collaborator": "Translated",
-      "translator": "Translated",
-      "researcher": "Translated",
-      "moderator": "Translated",
-      "tester": "Translated",
       "expert": "Translated",
-      "museum": "Translated"
+      "moderator": "Translated",
+      "museum": "Translated",
+      "owner": "Translated",
+      "researcher": "Translated",
+      "tester": "Translated",
+      "translator": "Translated"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Translated"
+      }
+    },
+    "FinishedForTheDay": {
+      "ProjectImage": {
+        "alt": "Translated {{projectName}}"
+      },
+      "RelatedProjectsButton": {
+        "label": "Translated"
+      },
+      "RelatedProjectsModal": {
+        "ProjectCard": {
+          "viewProject": "Translated"
+        },
+        "hereAreSomeOthers": "Translated",
+        "relatedProjects": "Translated",
+        "title": "Translated {{project}}"
+      },
+      "buttons": {
+        "anotherProject": "Translated",
+        "stats": "Translated"
+      },
+      "text": "Translated {{projectName}} Translated",
+      "title": "Translated"
+    },
+    "RecentSubjects": {
+      "text": "Translated",
+      "title": "Translated"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Translated",
+      "confirm": "Translated",
+      "content": "Translated",
+      "dismiss": "Translated",
+      "title": "Translated"
+    },
+    "YourStats": {
+      "DailyClassificationsChart": {
+        "title": "{{projectName}} Translated"
+      },
+      "text": "Translated",
+      "title": "Translated {{projectName}} Translated",
+      "todaysCount": "Translated",
+      "totalCount": "Translated"
     }
   },
   "Home": {
@@ -36,63 +88,14 @@
       "title": "Translated"
     },
     "ZooniverseTalk": {
-      "button": "Translated",
-      "message": "Translated",
-      "title": "Translated",
       "RecentSubjects": {
         "error": "Translated",
         "noSubjects": "Translated",
         "subjectLabel": "Translated {{id}}"
-      }
-    }
-  },
-  "Classify": {
-    "ClassifierWrapper": {
-      "ErrorMessage": {
-        "title": "Translated"
-      }
-    },
-    "FinishedForTheDay": {
-      "buttons": {
-        "anotherProject": "Translated",
-        "stats": "Translated"
       },
-      "text": "Translated {{projectName}} Translated",
-      "title": "Translated",
-      "ProjectImage": {
-        "alt": "Translated {{projectName}}"
-      },
-      "RelatedProjectsButton": {
-        "label": "Translated"
-      },
-      "RelatedProjectsModal": {
-        "hereAreSomeOthers": "Translated",
-        "relatedProjects": "Translated",
-        "title": "Translated {{project}}",
-        "ProjectCard": {
-          "viewProject": "Translated"
-        }
-      }
-    },
-    "RecentSubjects": {
-      "text": "Translated",
+      "button": "Translated",
+      "message": "Translated",
       "title": "Translated"
-    },
-    "WorkflowAssignmentModal": {
-      "cancel": "Translated",
-      "confirm": "Translated",
-      "content": "Translated",
-      "dismiss": "Translated",
-      "title": "Translated"
-    },
-    "YourStats": {
-      "todaysCount": "Translated",
-      "totalCount": "Translated",
-      "text": "Translated",
-      "title": "Translated {{projectName}} Translated",
-      "DailyClassificationsChart": {
-        "title": "{{projectName}} Translated"
-      }
     }
   }
 }
