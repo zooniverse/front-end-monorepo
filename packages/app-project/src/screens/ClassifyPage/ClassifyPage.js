@@ -38,7 +38,7 @@ function ClassifyPage({
   const responsiveColumns = (screenSize === 'small')
     ? ['auto']
     : ['1em', 'auto', '1em']
-  const [classifierProps, setClassifierProps]  = useState({})
+  const [classifierProps, setClassifierProps] = useState({})
   const [showTutorial, setShowTutorial] = useState(false)
 
   let subjectSetFromUrl
@@ -80,7 +80,7 @@ function ClassifyPage({
         pad={{ horizontal: 'small', vertical: 'medium' }}
       >
 
-        <Box as='main' fill='horizontal' width={{ min: 'none', max: 'xxlarge' }}>
+        <Box as='main' fill='horizontal'>
           {!canClassify && appLoadingState === asyncStates.success && (
             <WorkflowMenuModal
               subjectSetFromUrl={subjectSetFromUrl}
