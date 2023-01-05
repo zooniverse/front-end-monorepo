@@ -22,8 +22,8 @@ const supportedLngs = [
   'test',
   'tr',
   'ur',
-  'zh-cn',
-  'zh-tw'
+  'zh-CN',
+  'zh-TW'
 ]
 
 const zrcI18n = i18n.createInstance()
