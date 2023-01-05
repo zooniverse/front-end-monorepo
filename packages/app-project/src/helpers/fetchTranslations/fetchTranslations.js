@@ -10,7 +10,7 @@ export default async function fetchTranslations({
   language,
   env
 }) {
-  const lowerCaseLang = language.toLowerCase() // zh-CN and zh-TW are stored as lowercase in panoptes
+  const lowerCaseLang = language?.toLowerCase() // zh-CN and zh-TW are stored as lowercase in panoptes
   const { headers, host } = getServerSideAPIHost(env)
   const languages = language === fallback ? fallback : `${lowerCaseLang},${fallback}`
   const query = {

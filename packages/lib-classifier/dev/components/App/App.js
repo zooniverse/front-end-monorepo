@@ -173,6 +173,14 @@ class App extends React.Component {
     const mergedThemes = _.merge({}, baseTheme, zooTheme, { dark: this.state.dark })
     const key = this.state.cachePanoptesData ? 'cachedClassifier' : 'classifier'
 
+    const availableLocales = project?.configuration.languages.reduce((acc, current) => {
+      let newLocale = current
+      if (current === 'zh-cn') newLocale = 'zh-CN'
+      if (current === 'zh-tw') newLocale = 'zh-TW'
+      acc.push(newLocale)
+      return acc
+    }, [])
+
     return (
       <Grommet 
         background={{
@@ -186,7 +194,7 @@ class App extends React.Component {
           <Box as='header' pad='medium' justify='end' gap='medium' direction='row'>
             <label htmlFor="locale">Language</label>
             <select id="locale" defaultValue={locale} onChange={this.selectLocale}>
-              {project?.available_languages?.map(locale => <option key={locale} value={locale}>{localeMenu[locale]}</option>)}
+              {availableLocales.map(locale => <option key={locale} value={locale}>{localeMenu[locale]}</option>)}
               <option value='test'>Test Language</option>
             </select>
             <label htmlFor="workflows">Workflow</label>
