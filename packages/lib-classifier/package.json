@@ -31,7 +31,7 @@
     "@visx/group": "~2.17.0",
     "@visx/responsive": "~2.17.0",
     "@visx/scale": "~2.18.0",
-    "@visx/shape": "~2.17.0",
+    "@visx/shape": "~2.18.0",
     "@visx/zoom": "~2.17.0",
     "@zooniverse/async-states": "~0.0.1",
     "cuid": "~2.1.6",
