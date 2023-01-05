@@ -5,28 +5,23 @@ import fetchTranslations from './'
 describe('helpers > fetchTranslations', function () {
   before(function () {
     nock('https://panoptes-staging.zooniverse.org/api')
+    .persist()
     .get('/translations')
     .query(query => query.translated_type === 'project')
     .reply(200, {
       translations: [
+        {
+          language: 'zh-cn',
+          strings: {
+            display_name: 'Chinese translation'
+          }
+        },
         {
           language: 'fr',
           strings: {
             display_name: 'Le project'
           }
         },
-        {
-          language: 'en',
-          strings: {
-            display_name: 'test project'
-          }
-        }
-      ]
-    })
-    .get('/translations')
-    .query(query => query.translated_type === 'project' && query.language === 'fr,en')
-    .reply(200, {
-      translations: [
         {
           language: 'en',
           strings: {
@@ -75,11 +70,22 @@ describe('helpers > fetchTranslations', function () {
     expect(translation?.strings?.content).to.equal('test project page')
   })
 
+  it('should handle language codes that have partial capitalization', async function () {
+    const translation = await fetchTranslations({
+      translated_id: 1234,
+      translated_type: 'project',
+      language: 'zh-CN',
+      fallback: 'en',
+      env: 'staging'
+    })
+    expect(translation?.strings?.display_name).to.equal('Chinese translation')
+  })
+
   it('should use the fallback language when translations don\'t exist', async function () {
     const translation = await fetchTranslations({
       translated_id: 1234,
       translated_type: 'project',
-      language: 'fr',
+      language: 'es',
       fallback: 'en',
       env: 'staging'
     })
