@@ -5,7 +5,7 @@ function storeMapper(store) {
   const {
     project: {
       configuration: {
-        languages: availableLocales
+        languages
       },
       defaultWorkflow,
       display_name: title,
@@ -17,6 +17,14 @@ function storeMapper(store) {
       isLoggedIn
     }
   } = store
+
+  const availableLocales = languages.reduce((acc, current) => {
+    let newLocale = current
+    if (current === 'zh-cn') newLocale = 'zh-CN'
+    if (current === 'zh-tw') newLocale = 'zh-TW'
+    acc.push(newLocale)
+    return acc
+  }, [])
 
   return {
     availableLocales,
