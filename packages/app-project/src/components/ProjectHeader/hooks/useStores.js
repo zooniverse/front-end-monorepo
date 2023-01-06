@@ -18,7 +18,7 @@ function storeMapper(store) {
     }
   } = store
 
-  const availableLocales = languages.reduce((acc, current) => {
+  const availableLocales = languages?.reduce((acc, current) => {
     let newLocale = current
     if (current === 'zh-cn') newLocale = 'zh-CN'
     if (current === 'zh-tw') newLocale = 'zh-TW'
