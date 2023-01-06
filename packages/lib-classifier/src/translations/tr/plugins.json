@@ -1,19 +1,45 @@
 {
+  "InputStatus": {
+    "drawn": "{{count}} çizildi",
+    "max": "{{count}}\/{{max}} maksimum çizim",
+    "maxAndMin": "{{count}}\/{{min}}   gerekli , {{max}} maksimum çizim",
+    "min": "{{count}} \/ {{min}} gerekli çizim"
+  },
+  "SimpleDropdownTask": {
+    "customInputPlaceholder": "Bir şey girin",
+    "otherLabel": "Diğer...",
+    "selectPlaceholder": "Bir cevap seçin"
+  },
   "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "Filtreleri sil",
-      "showing": "{{total}} / {{showing}} gösteriliyor"
+      "filter": "Filtre et",
+      "removeFilter": "{{valueLabel}} Filtresini kaldır",
+      "showing": "{{total}} \/ {{showing}} gösteriliyor"
     },
     "Choice": {
-      "identify": "Tanımla"
+      "identify": "Tanımla",
+      "notThis": "Bu değil"
     },
     "ConfusedWith": {
       "cancel": "İptal et",
-      "confused": "Sıklıkla karıştırılan",
+      "confused": "Bazen şununla karıştırılır",
       "itsThis": "Bence bu"
     }
   },
+  "TextFromSubjectTask": {
+    "reset": "Sıfırla"
+  },
   "TextFromSubjectTasks": {
     "reset": "Görünümü sıfırla"
+  },
+  "TextTask": {
+    "TextTagButtons": {
+      "modifiers": "Metin değiştiriciler"
+    }
+  },
+  "TranscriptionLine": {
+    "created": "Transkripsiyon oluşturuldu",
+    "editing": "Transkripsiyon düzenleme"
   }
 }
