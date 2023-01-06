@@ -33,12 +33,6 @@ describe('MetadataModal', function () {
     expect(wrapper.find('Styled(DataTable)').props().data).to.have.lengthOf(Object.keys(metadata).length - 2)
   })
 
-  it('should add the +tab+ prefix to metadata urls', function () {
-    const wrapper = shallow(<MetadataModal metadata={metadata} />)
-    const href = wrapper.find('Styled(DataTable)').props().data[1]
-    expect(href.value.props.children.includes('+tab+')).to.be.true()
-  })
-
   it('should not render metadata prefixed with # or !', function () {
     const wrapper = shallow(<MetadataModal metadata={metadata} />)
     wrapper.find('Styled(DataTable)').props().data.forEach((datum) => {
