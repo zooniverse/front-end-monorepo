@@ -5,6 +5,7 @@ import QuestionInput from './components/QuestionInput'
 
 export default function InputGroup (props) {
   const {
+    labelledBy,
     handleAnswer,
     hasFocus,
     options,
@@ -56,6 +57,7 @@ export default function InputGroup (props) {
 
   return (
     <Box
+      aria-labelledby={labelledBy}
       direction='row'
       wrap
     >
