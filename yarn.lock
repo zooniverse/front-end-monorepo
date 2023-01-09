@@ -4591,10 +4591,22 @@
     lodash "^4.17.21"
     prop-types "^15.5.10"
 
-"@visx/text@2.17.0", "@visx/text@~2.17.0":
+"@visx/text@2.17.0":
   version "2.17.0"
   resolved "https://registry.yarnpkg.com/@visx/text/-/text-2.17.0.tgz#e65aa8a202ce9cfdcbd898bb0afd6253ccea6a40"
   integrity sha512-Eu6b8SMI+LU4O6H4l/QhCa7c4GtDTQO6jhSYuU70pdTST1Bm74nImPGekG2xDW3uxaLlkb8fDpvXag0Z7v+vlQ==
+  dependencies:
+    "@types/lodash" "^4.14.172"
+    "@types/react" "*"
+    classnames "^2.3.1"
+    lodash "^4.17.21"
+    prop-types "^15.7.2"
+    reduce-css-calc "^1.3.0"
+
+"@visx/text@~3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@visx/text/-/text-3.0.0.tgz#9099c3605027b9ab4c54bde97518a648136c3629"
+  integrity sha512-LW6v5T/gpd9RGw83/ScXncYc6IlcfzXTpaN8WbbxLRI65gdvSqrykwAMR0cbpQmzoVFuZXljqOf0QslHGnBg1w==
   dependencies:
     "@types/lodash" "^4.14.172"
     "@types/react" "*"
