@@ -4457,15 +4457,7 @@
     "@types/d3-shape" "^1.3.1"
     d3-shape "^1.0.6"
 
-"@visx/event@2.17.0":
-  version "2.17.0"
-  resolved "https://registry.yarnpkg.com/@visx/event/-/event-2.17.0.tgz#220c7674505e0d7a55f36bce9575482a7fa7dc23"
-  integrity sha512-fg2UWo89RgKgWWnnqI+i7EF8Ry+3CdMHTND4lo4DyJvcZZUCOwhxCHMQ4/PHW0EAUfxI51nGadcE1BcEVR5zWw==
-  dependencies:
-    "@types/react" "*"
-    "@visx/point" "2.17.0"
-
-"@visx/event@~3.0.0":
+"@visx/event@3.0.0", "@visx/event@~3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@visx/event/-/event-3.0.0.tgz#5f624b63c4e178c3303f327fd357a1278c386a4c"
   integrity sha512-Jr1+HwyfaTfhzsge75PiMc/ug1V9ip2t/yg9ckDWwzT8kcdk0BHCkxKqSrXKokKd2XNJ8XrJVwZZVcQaFg0ctA==
@@ -4615,14 +4607,14 @@
     prop-types "^15.7.2"
     reduce-css-calc "^1.3.0"
 
-"@visx/zoom@~2.17.0":
-  version "2.17.0"
-  resolved "https://registry.yarnpkg.com/@visx/zoom/-/zoom-2.17.0.tgz#e7c0184ce372fca45825e71e472b5445de230468"
-  integrity sha512-C/FxGzzV3X05+1wgKoHnsfNma5wy17DwThEhUK3/wo8nc7Fsb7dtuQn3HOzVpuqa52LbscUBJFi2Rxv79VykQQ==
+"@visx/zoom@~3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@visx/zoom/-/zoom-3.0.0.tgz#b8d70dd02022a2d44ed04d7a10961c9b0f6c15f4"
+  integrity sha512-pnEqeUrAa9b84bMcPGVXSyHlx7JLFU2+G6NLgc5PxeVWGK39cT5WPZ2GQ8kw+KSVwb5oF6V8Eib6V54t399eUA==
   dependencies:
     "@types/react" "*"
     "@use-gesture/react" "^10.0.0-beta.22"
-    "@visx/event" "2.17.0"
+    "@visx/event" "3.0.0"
     prop-types "^15.6.2"
 
 "@webassemblyjs/ast@1.11.1":
