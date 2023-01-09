@@ -8,7 +8,7 @@
   "scripts": {
     "analyse": "ANALYSE=true next build",
     "build": "APP_ENV=${APP_ENV:-development} NODE_ENV=${NODE_ENV:-production} PANOPTES_ENV=${PANOPTES_ENV:-production} next build",
-    "dev": "APP_ENV=${APP_ENV:-development} PANOPTES_ENV=${PANOPTES_ENV:-production} node server/server.js",
+    "dev": "APP_ENV=${APP_ENV:-development} PANOPTES_ENV=${PANOPTES_ENV:-production} node server/dev-server.js",
     "lint": "next lint",
     "start": "NODE_ENV=${NODE_ENV:-production} PANOPTES_ENV=${PANOPTES_ENV:-production} node server/server.js",
     "storybook": "start-storybook -p 9002 -c .storybook",
@@ -65,6 +65,7 @@
     "@wojtekmaj/enzyme-adapter-react-17": "~0.8.0",
     "chai": "~4.3.4",
     "chai-dom": "~1.11.0",
+    "devcert": "1.2.2",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.11.0",
     "eslint-config-next": "~12.3.0",

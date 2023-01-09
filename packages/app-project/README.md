@@ -15,7 +15,7 @@ This package should be cloned as part of the [front-end-monorepo](https://github
 
 Starts a development server on port 3000 and a Storybook server on port 9001 by default. The package `devcert` sets up a local certificate authority to generate self-signed SSL certificates for the `local.zooniverse.org` and `localhost.zooniverse.org` sub-domains. When you run this for the first time on Mac OS, you will be prompted for sudo (Read more at: https://github.com/davewasmer/devcert#security-concerns). In addition, you must have one of those sub-domains [setup](https://stackoverflow.com/c/zooniverse/questions/109) to get past CORS errors when authenticating with Panoptes in your hosts file.
 
-Once the local CA is created and you have the hosts file configured, you'll be able to use one of those subdomains to do local development for projects on and be able to authenticate with Panoptes, i.e. at `https://local.zooniverse.org:3000/projects/brooke/i-fancy-cats` or `https://localhost.zooniverse.org:3000/projects/brooke/i-fancy-cats`
+Once the local CA is created and you have the hosts file configured, you'll be able to use one of those subdomains to do local development for projects on and be able to authenticate with Panoptes, i.e. at `https://local.zooniverse.org:3000/projects/brooke/i-fancy-cats` or `https://localhost.zooniverse.org:3000/projects/brooke/i-fancy-cats`.
 
 ### Docker
 
