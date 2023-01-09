@@ -22,7 +22,7 @@
     "snazzy": "~9.0.0"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=16.18"
   },
   "publishConfig": {
     "access": "public"
