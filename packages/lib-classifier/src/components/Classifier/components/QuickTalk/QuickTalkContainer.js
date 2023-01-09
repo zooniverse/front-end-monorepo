@@ -43,7 +43,7 @@ function QuickTalkContainer () {
   const user = usePanoptesUser()
   const userId = user?.id
   const authorization = usePanoptesAuth(userId)
-  const { data: comments } = useSWR([subject, subject?.project], getTalkComments, SWROptions)
+  const { data: comments } = useSWR(subject, getTalkComments, SWROptions)
 
   let author_ids = comments?.map(comment => comment.user_id)
   author_ids = author_ids?.filter((id, i) => author_ids.indexOf(id) === i)  // Remove duplicates
@@ -56,7 +56,8 @@ function QuickTalkContainer () {
     authorRoles[user.id] = []
   })
 
-  const { data: allRoles } = useSWR([author_ids, subject?.project], getTalkRoles, SWROptions)
+  const rolesKey = !!subject?.project ? { userIds: author_ids, project: subject.project } : null
+  const { data: allRoles } = useSWR(rolesKey, getTalkRoles, SWROptions)
   allRoles?.forEach(role => {
     authorRoles[role.user_id]?.push(role)
   })
