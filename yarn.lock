@@ -4459,10 +4459,10 @@
     classnames "^2.3.1"
     prop-types "^15.6.2"
 
-"@visx/mock-data@~2.17.0":
-  version "2.17.0"
-  resolved "https://registry.yarnpkg.com/@visx/mock-data/-/mock-data-2.17.0.tgz#55146962abfb388faf3a5d6775a67c45e83f6dbd"
-  integrity sha512-l+9tcJAZ+H5mtXaGbHUqgmo1b3Hcq+k6aIWmZt6VGgvPBFK3Rn68BORP8My+OA/CgMG3/ZNJBhJxLKxNN5Hkjw==
+"@visx/mock-data@~3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@visx/mock-data/-/mock-data-3.0.0.tgz#d8ac030e8dc58b338cba87e6b65276e7f9ac63ad"
+  integrity sha512-qi+G413zX1zIsyKDMvfKDTa8R9n+AOZygKq8qLGB9Uddx0ogXqjypDYN+gxvqSjzjxleuQ9Ml6PNTOdj9V9a1A==
   dependencies:
     "@types/d3-random" "^2.2.0"
     d3-random "^2.2.2"
