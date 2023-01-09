@@ -170,6 +170,7 @@ function SingleVideoViewerContainer({
       config={{
         file: { // styling the <video> element
           attributes: {
+            controlsList: ['nodownload'],
             style: {
               display: 'block',
               height: '100%',
