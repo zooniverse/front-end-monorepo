@@ -2,28 +2,80 @@
   "About": {
     "PageHeading": {
       "title": {
-        "research": "Araştırma",
-        "team": "Ekip",
-        "results": "Sonuçlar",
         "education": "Eğitim",
-        "faq": "SSS"
+        "faq": "SSS",
+        "research": "Araştırma",
+        "results": "Sonuçlar",
+        "team": "Proje Ekibi"
       }
+    },
+    "PageNav": {
+      "title": "Proje hakkında"
     },
     "SidebarHeading": "Hakkımızda",
     "TeamMember": {
-      "owner": "Proje Yürütücüsü",
       "collaborator": "Proje Ortakları",
-      "translator": "Çevirmen",
-      "researcher": "Araştırmacı",
-      "moderator": "Moderatör",
-      "tester": "Test edici",
       "expert": "Uzman",
-      "museum": "Müze"
+      "moderator": "Moderatör",
+      "museum": "Müze",
+      "owner": "Proje Yürütücüsü",
+      "researcher": "Araştırmacı",
+      "tester": "Test eden",
+      "translator": "Çevirmen"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Sınıflandırıcıda bir hata oluştu :("
+      }
+    },
+    "FinishedForTheDay": {
+      "ProjectImage": {
+        "alt": "{{projectName}} için resim"
+      },
+      "RelatedProjectsButton": {
+        "label": "Başka bir proje bulun"
+      },
+      "RelatedProjectsModal": {
+        "ProjectCard": {
+          "viewProject": "Proje Görüntüle"
+        },
+        "hereAreSomeOthers": "İşte hoşunuza gidebilecek diğer bazı Zooniverse projeleri",
+        "relatedProjects": "İlgili Projeler",
+        "title": "{{project}}'yi seviyor musunuz?"
+      },
+      "buttons": {
+        "anotherProject": "Başka bir proje bulun",
+        "stats": "İstatistikleri görün"
+      },
+      "text": "Siz çalışırken yanıtlarınız araştırma ekibi için kaydedilir. Proje istatistiklerini görün ve {{projectName}} ana sayfasına dönün.",
+      "title": "Bugünlük işiniz bitti mi?"
+    },
+    "RecentSubjects": {
+      "text": "Sohbet'te bir konuyu tartışın veya Favorilerinize ya da bir koleksiyona ekleyin.",
+      "title": "En son çalışmalarınız"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Hayır, teşekkürler",
+      "confirm": "Beni bir sonraki seviyeye ilerlet!",
+      "content": "Tebrikler! Bir sonraki iş akışının kilidini açtınız. Eğer isterseniz bu iş akışında kalmayı tercih edebilirsiniz.",
+      "dismiss": "Bana daha fazla mesaj gösterme",
+      "title": "Yeni İş Akışı Mevcut"
+    },
+    "YourStats": {
+      "DailyClassificationsChart": {
+        "title": "{{projectName}} günlük sınıflandırma sayıları"
+      },
+      "text": "Böyle harika çalışmaya devam edin!",
+      "title": "{{projectName}} İstatistiğiniz",
+      "todaysCount": "Bugünün sınıflandırmaları",
+      "totalCount": "Toplam sınıflandırma"
     }
   },
   "Home": {
     "AboutProject": {
-      "title": "{{projectName}} hakkında"
+      "title": "{{projectName}} Hakkında"
     },
     "Hero": {
       "Introduction": {
@@ -31,26 +83,19 @@
       }
     },
     "MessageFromResearcher": {
+      "noMessage": "Bu proje hakkında daha fazla bilgi edinmek için Sohbet üzerinden araştırma ekibiyle bağlantı kurun!",
+      "noMessageButton": "Sohbet'e git",
       "title": "Araştırmacının Mesajı"
     },
     "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Yükleme sırasında bir hata oluştu.",
+        "noSubjects": "Görünüşe göre henüz kimse bir konu hakkında yorum yapmamış. Sohbet'e gidin ve ilk yorumu yazan siz olun!",
+        "subjectLabel": "Konu {{id}}"
+      },
       "button": "Katıl",
-      "message": "Diğer gönüllülerle sohbet edebileceğiniz Talk sayfasına da göz atmayı unutmayın.",
-      "title": "Sohbet"
-    }
-  },
-  "Classify": {
-    "RecentSubjects": {
-      "title": "En son çalışmalarınız"
-    },
-    "WorkflowAssignmentModal": {
-      "cancel": "Hayır, teşekkürler",
-      "confirm": "Beni bir sonraki seviyeye ilerlet!",
-      "content": "Tebrikler! Bir sonraki iş akışının kilidini açtınız. Eğer istersenizö bu iş akışında kalmayı tercih edebilirsiniz.",
-      "dismiss": "Bana daha fazla mesaj göstermeç"
-    },
-    "YourStats": {
-      "title": "{{projectName}} İstatistikler"
+      "message": "Araştırma ekibi ve diğer gönüllülerle sohbet edin!",
+      "title": "Zooniverse Sohbet"
     }
   }
 }

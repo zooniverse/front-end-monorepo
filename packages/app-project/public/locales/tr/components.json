@@ -1,65 +1,179 @@
 {
   "Announcements": {
     "AuthenticationInvitation": {
+      "announcement": "Katkılarınızı takip etmek için lütfen oturum açın veya kaydolun.",
       "register": "Kayıt ol",
       "signIn": "Giriş yap"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "Bitti! Görünüşe göre bu projede şu anda veri tükeniyor!",
+      "seeResults": "Sonuçları Gör"
     }
   },
   "AuthModal": {
     "LoginForm": {
+      "error": "Kullanıcı adı veya şifre yanlış",
+      "forgot": "Şifrenizi mi unuttunuz?",
+      "heading": "Tekrar hoşgeldiniz!",
+      "instruction": "Geri döndüğünüz için mutluyuz! Kaldığınız yerden devam etmek için oturum açın.",
+      "login": "Kullanıcı adı veya e-posta adresi",
+      "password": "Şifre",
+      "placeholder": "ör. ZooniverseFan123",
       "signIn": "Giriş yap"
     },
     "RegisterForm": {
+      "betaListSignUp": "Yeni projelerin test edilmesine yardımcı olmak ve kullanılabilir olduklarında e-posta almak istiyorum (isteğe bağlı)",
+      "email": "E-posta Adresi (Gerekli)",
+      "emailConfirm": "E-posta Adresini Onayla (Gerekli)",
+      "emailConfirmError": "E-posta adresleri eşleşmiyor, lütfen tekrar deneyin.",
+      "emailConflict": "Bu adrese sahip bir hesap zaten mevcut",
+      "emailListSignUp": "Arada bir bana e-posta göndermenizde bir sakınca yoktur (isteğe bağlı)",
+      "emailPlaceholder": "ör. zoofan31@gmail.com",
+      "forgot": "Şifrenizi mi unuttunuz?",
+      "heading": "Tekrar hoş geldiniz!",
+      "instruction": "Gerçek bir araştırma yapmaya başlamak için lütfen hesap oluşturun.",
+      "password": "Şifre (Gerekli)",
+      "passwordConfirm": "Şifreyi Onayla (Gerekli)",
       "passwordConfirmError": "Şifreler uyuşmuyor, lütfen tekrar deneyin.",
+      "privacyAgreement": "Gizlilik politikamızı kabul ediyorsunuz (gerekli)",
+      "privacyAgreementError": "Gizlilik politikasını kabul etmeniz gerekmektedir.",
+      "privacyLink": "Gizlilik politikamızı okuyun",
       "realName": "Gerçek ad (isteğe bağlı)",
-      "realNameHelp": "Herkese açık; bunu bildirilerde, posterlerde vs. katkıda bulunanlara teşekkür etmek için kullanacağız.",
-      "register": "Kayıt ol"
+      "realNameHelp": "Bunu size bilimsel makalelerde, posterlerde vb. yer vermek için kullanacağız.",
+      "realNamePatternHelp": "E-posta adresi değil, bir ad girin",
+      "realNamePlaceholder": "Ör. Maggie Smith",
+      "register": "Kayıt ol",
+      "registering": "Kaydediliyor...",
+      "underageConsent": "Ebeveyn\/veli olduğumu onaylıyorum ve ana iletişim adresi olarak e-posta adresimi vererek çocuğumun kaydolmasına izin veriyorum. Hem ben hem de çocuğum gizlilik politikasını anlıyor ve kabul ediyoruz (gerekli)",
+      "underageEmail": "Ebeveynin\/Velinin e-posta adresi (Gerekli)",
+      "underageEmailSignUp": "Kabul etmeniz halinde, araştırma ile ilgili yeni projeleri veya araştırmamızla ilgili diğer bilgileri tanıtan e-postaları periyodik olarak göndereceğiz. İletişim bilgilerinizi ticari amaçlarla kullanmayacağız. (isteğe bağlı)",
+      "underageNotRealName": "Giriş yapmak için bu adı kullanacaksınız. Herkese açık olarak gösterilecektir. Gerçek adınızı kullanmayın.",
+      "underageWithParent": "16 yaşından küçükseniz, formu ebeveyniniz veya vasinizle birlikte doldurduğunuzu onaylamak için bu kutuyu işaretleyin",
+      "username": "Kullanıcı Adı (Gerekli)",
+      "usernameConflict": "Bu kullanıcı adı alınmış.",
+      "usernameHelp": "Bu, mesaj panolarında vb. herkese açık olarak gösterilecektir.",
+      "usernamePatternHelp": "Kullanıcı adları yalnızca harf, rakam, '.', '-' ve '_' içerebilir",
+      "usernamePlaceholder": "ör. ZooniverseFan123"
     }
   },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "Oluşturun ve ekleyin",
+      "label": "Yeni bir koleksiyon oluşturun",
+      "private": "Özel koleksiyon"
+    },
+    "SelectCollection": {
+      "addButton": "Ekle",
+      "label": "Mevcut bir koleksiyona ekle"
+    },
+    "title": "Koleksiyona ekle"
+  },
   "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "googleplus": "Google+",
+        "instagram": "Instagram",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "Web sitesi",
+        "weibo": "Weibo",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    },
     "title": "{{projectName}} ile bağlan"
   },
   "Head": {
-    "defaultDescription": "",
+    "defaultDescription": "Zooniverse, insan destekli araştırma için dünyanın en büyük ve en popüler platformudur.",
     "defaultTitle": "Projeler",
-    "siteName": "Zooniverse"
+    "siteName": "Zooniverse - İnsan destekli araştırma"
   },
   "Loader": {
-    "loading": "(Yükleniyor)"
+    "loading": "Yükleniyor"
   },
   "ProjectHeader": {
-    "about": "Hakkımızda",
-    "classify": "Sınıflandırma",
-    "exploreProject": "Projeyi Keşfet",
-    "talk": "Sohbet",
-    "collect": "Toplamak",
-    "recents": "Son bilgiler",
     "ApprovedIcon": {
       "title": "Zooniverse Onaylı"
+    },
+    "Avatar": {
+      "alt": "{{project}} için proje avatarı"
     },
     "ProjectNav": {
       "ariaLabel": "Proje"
     },
     "UnderReviewLabel": {
       "underReview": "İnceleme altında"
-    }
+    },
+    "about": "Hakkımızda",
+    "classify": "Sınıflandırma",
+    "collect": "Topla",
+    "exploreProject": "Projeyi Keşfet",
+    "recents": "Son bilgiler",
+    "talk": "Sohbet"
   },
   "ProjectStatistics": {
     "byTheNumbers": "Sayılara göre",
     "classifications": "Sınıflandırmalar",
-    "completedSubjects": "Tamamlanan Temalar",
-    "percentComplete": "yüzde tamamlandı",
-    "subjects": "Temalar",
+    "completedSubjects": "Tamamlanan Konular",
+    "percentComplete": "Tamamlanan yüzde",
+    "subjects": "Konular",
     "subtitle": "Sizin ve gönüllü arkadaşlarınızın bu projede kaydettiği ilerlemeyi takip edin.",
     "text": "Her tıklama önemlidir! Bu projeyi tamamlamak ve araştırmacıların önemli sonuçlar üretmesine yardımcı olmak için {{projectName}} topluluğuna katılın.",
-    "title": "{{projectName}} İstatistikler",
+    "title": "{{projectName}} İstatistik",
+    "viewMoreStats": "Daha fazla istatistik görüntüleyin",
     "volunteers": "Gönüllüler"
   },
   "RequireUser": {
-    "text": "Oturum açmadınız"
+    "text": "Oturum açmanız gerekiyor!"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "Daha önce görüldü",
+    "back": "Farklı bir görüntü  seti seçin",
+    "byline": "Sütun adlarını tıklayarak listeyi sıralayın. Seçtiğiniz  başlayarak, görüntüleri sırayla göreceksiniz.",
+    "fetching": "Lütfen bekleyin...",
+    "heading": "Başlamak için bir görüntü  seçin",
+    "retired": "Sistemden kaldırıldı",
+    "unclassified": "Mevcut"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "Koleksiyonlara ekle"
+    },
+    "TalkLink": {
+      "label": "Sohbette Tartışın"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "Bitti"
+    },
+    "back": "Farklı bir iş akışı seçin",
+    "byline": "Transkripsiyona başlamak için bir görüntü  seti seçin.",
+    "heading": "Nereden başlayacağınızı seçin"
   },
   "ThemeModeToggle": {
-    "switchToDark": "koyu temasına geç",
-    "switchToLight": "açık temasına geç"
+    "switchToDark": "Koyu temaya geç",
+    "switchToLight": "Açık temaya geç"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "{{completeness}} % tamamlandı",
+      "setSelection": "Görüntü  seti seçimi",
+      "subjectSelection": "Görüntü seçimi"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "Kilitli",
+      "unlocked": "Kilitli değil"
+    },
+    "error": "İş akışları getirilirken bir hata oluştu :(",
+    "getStarted": "Başlayın!",
+    "message": "Başlamak için buraya tıklayarak gerçek bir araştırma yapabilirsiniz!",
+    "noWorkflows": "Sınıflandırılacak bir şey yok"
   }
 }
