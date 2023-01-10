@@ -1,4 +1,4 @@
-import { Fragment, useCallback } from 'react';
+import { Fragment, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
   Anchor,
