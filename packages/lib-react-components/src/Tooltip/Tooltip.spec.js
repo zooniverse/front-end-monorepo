@@ -29,6 +29,13 @@ describe('Component > Tooltip', function () {
     expect(screen.queryByText('Click this button to open the help menu')).to.exist()
   })
 
+  it('should show the tooltip when the user tab-navigates to the element', async function () {
+    const user = userEvent.setup({ delay: null })
+
+    await user.tab()
+    expect(screen.queryByText('Click this button to open the help menu')).to.exist()
+  })
+
   it('should show the tooltip when the the element has focus', function () {
     screen.queryByText('Help Menu').focus()
     expect(screen.queryByText('Click this button to open the help menu')).to.exist()
