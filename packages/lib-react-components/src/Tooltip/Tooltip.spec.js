@@ -8,7 +8,7 @@ describe('Component > Tooltip', function () {
   beforeEach(function () {
     render(
       <Tooltip label='Click this button to open the help menu'>
-        <Button label='Help Menu' onClick={() => { console.log('BEEP BOOP') }} />
+        <Button label='Help Menu' onClick={() => true} />
       </Tooltip>
     )
   })
@@ -36,8 +36,18 @@ describe('Component > Tooltip', function () {
     expect(screen.queryByText('Click this button to open the help menu')).to.exist()
   })
 
-  it('should show the tooltip when the the element has focus', function () {
+  it('should show the tooltip when the the element has focus for whatever reason', function () {
     screen.queryByText('Help Menu').focus()
     expect(screen.queryByText('Click this button to open the help menu')).to.exist()
+  })
+
+  it('should hide the tooltip when the user clicks the element', async function () {
+    const user = userEvent.setup({ delay: null })
+
+    await user.hover(screen.queryByText('Help Menu'))
+    expect(screen.queryByText('Click this button to open the help menu')).to.exist()
+
+    await user.click(screen.queryByText('Help Menu'))
+    expect(screen.queryByText('Click this button to open the help menu')).to.not.exist()
   })
 })
