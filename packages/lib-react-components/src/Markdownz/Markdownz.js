@@ -41,9 +41,8 @@ export function renderMedia(nodeProps) {
 
   if (match && match.length > 0) {
     width = parseInt(match[1])
-    height = parseInt(match[3])
+    if (match[3]) height = parseInt(match[3])
     alt = alt.split(match[0])[0].trim()
-    if (width && !height) height = 'none'
   }
 
   if (src) return <Media alt={alt} height={height} src={src} width={width} />
