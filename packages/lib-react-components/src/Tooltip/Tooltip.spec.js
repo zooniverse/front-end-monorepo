@@ -5,17 +5,21 @@ import Tooltip from './Tooltip'
 import { Button } from 'grommet'
 
 describe('Component > Tooltip', function () {
-  before(function () {
+  beforeEach(function () {
     render(
       <Tooltip label='Click this button to open the help menu'>
-        <Button label='Help Menu' onClick={() => {}} />
+        <Button label='Help Menu' onClick={() => { console.log('BEEP BOOP') }} />
       </Tooltip>
     )
   })
 
   it('should render without crashing', function () {
     expect(screen).to.be.ok()
-    expect(screen.getByText('Help Menu')).to.exist()
+  })
+
+  it('should show the button without a tooltip by default', function () {
+    expect(screen.queryByText('Help Menu')).to.exist()
+    expect(screen.queryByText('Click this button to open the help menu')).to.not.exist()
   })
 })
 
