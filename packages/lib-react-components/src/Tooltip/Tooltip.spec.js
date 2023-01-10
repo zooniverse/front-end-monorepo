@@ -28,4 +28,9 @@ describe('Component > Tooltip', function () {
     await user.hover(screen.queryByText('Help Menu'))
     expect(screen.queryByText('Click this button to open the help menu')).to.exist()
   })
+
+  it('should show the tooltip when the the element has focus', function () {
+    screen.queryByText('Help Menu').focus()
+    expect(screen.queryByText('Click this button to open the help menu')).to.exist()
+  })
 })
