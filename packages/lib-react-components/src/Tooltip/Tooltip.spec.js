@@ -1,18 +1,21 @@
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+
 import Tooltip from './Tooltip'
 import { Button } from 'grommet'
 
 describe('Component > Tooltip', function () {
   before(function () {
     render(
-      <Tooltip label='helpful tip'>
-        <Button label='Click Me' onClick={() => {}} />
+      <Tooltip label='Click this button to open the help menu'>
+        <Button label='Help Menu' onClick={() => {}} />
       </Tooltip>
     )
   })
 
   it('should render without crashing', function () {
     expect(screen).to.be.ok()
+    expect(screen.getByText('Help Menu')).to.exist()
   })
 })
 
