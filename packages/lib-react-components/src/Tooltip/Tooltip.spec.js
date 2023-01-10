@@ -17,9 +17,16 @@ describe('Component > Tooltip', function () {
     expect(screen).to.be.ok()
   })
 
-  it('should show the button without a tooltip by default', function () {
+  it('should show the element without a tooltip by default', function () {
     expect(screen.queryByText('Help Menu')).to.exist()
     expect(screen.queryByText('Click this button to open the help menu')).to.not.exist()
+  })
+
+  it('should show the tooltip when the pointer hovers over the element', async function () {
+    const user = userEvent.setup({ delay: null })
+
+    await user.hover(screen.queryByText('Help Menu'))
+    expect(screen.queryByText('Click this button to open the help menu')).to.exist()
   })
 })
 
