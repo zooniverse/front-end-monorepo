@@ -1,9 +1,20 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Media } from '@zooniverse/react-components'
 import PropTypes from 'prop-types'
+import { Box } from 'grommet'
 
-export default function FieldGuideItemIcon (props) {
-  const { alt, className, height, icon, viewBox, width } = props
+export default function FieldGuideItemIcon(props) {
+  const { alt, className, height, icon, width } = props
+
+  const placeholder = (
+    <Box
+      background={zooTheme.global.colors['accent-1']}
+      className={className}
+      height={`${height}px`}
+      width={`${width}px`}
+    />
+  )
+
   if (icon && Object.keys(icon).length > 0) {
     return (
       <Media
@@ -11,18 +22,14 @@ export default function FieldGuideItemIcon (props) {
         className={className}
         fit='contain'
         height={height}
+        placeholder={placeholder}
         src={icon.src}
         width={width}
-        {...props}
       />
     )
+  } else {
+    return placeholder
   }
-
-  return (
-    <svg className={className} viewBox={viewBox} {...props}>
-      <rect fill={zooTheme.global.colors['accent-1']} height={height} width={width} />
-    </svg>
-  )
 }
 
 FieldGuideItemIcon.defaultProps = {
@@ -30,7 +37,6 @@ FieldGuideItemIcon.defaultProps = {
   className: '',
   height: 100,
   icon: {},
-  viewBox: '0 0 100 100',
   width: 100
 }
 
@@ -39,6 +45,5 @@ FieldGuideItemIcon.propTypes = {
   className: PropTypes.string,
   height: PropTypes.number,
   icon: PropTypes.object,
-  viewBox: PropTypes.string,
   width: PropTypes.number
 }

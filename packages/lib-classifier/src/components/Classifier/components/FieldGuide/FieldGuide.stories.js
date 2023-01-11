@@ -1,5 +1,5 @@
 import { panoptes } from '@zooniverse/panoptes-js'
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
@@ -11,14 +11,6 @@ import {
   FieldGuideFactory,
   FieldGuideMediumFactory
 } from '@test/factories'
-// import readme from './README.md'
-
-// TODO: add readme
-const config = {
-  notes: {
-    // markdown: readme
-  }
-}
 
 const medium = FieldGuideMediumFactory.build()
 const fieldGuide = FieldGuideFactory.build({
@@ -66,12 +58,7 @@ const mockStore = {
 
 export default {
   title: 'Help Resources/Field Guide',
-  component: FieldGuideConnector,
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
-  }
+  component: FieldGuideConnector
 }
 
 function FieldGuideStoryContext (props) {

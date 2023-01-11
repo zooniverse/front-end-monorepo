@@ -1,4 +1,4 @@
-import { Markdownz, Media, SpacedHeading } from '@zooniverse/react-components'
+import { Markdownz, SpacedHeading } from '@zooniverse/react-components'
 import { Button, Box, Paragraph } from 'grommet'
 import { FormPrevious } from 'grommet-icons'
 import { observable } from 'mobx'
@@ -6,6 +6,8 @@ import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
+
+import FieldGuideItemIcon from '../FieldGuideItemIcon'
 
 const StyledButton = styled(Button)`
   padding: 0;
@@ -74,14 +76,12 @@ function FieldGuideItem ({
         </Markdownz>
       </Box>
 
-      <Box direction='column'>
-        <Box direction='row' justify='center' pad={{ top: 'small', bottom: '35px' }}>
-          <Media
-            alt={`Icon for ${title}`}
-            width={140}
-            src={icon.src}
-          />
-        </Box>
+      <Box direction='column' overflow='auto'>
+        <FieldGuideItemIcon
+          icon={icon}
+          height='140px'
+          margin={{ top: 'small', bottom: '35px' }}
+        />
         <Markdownz components={markdownComponents}>
           {content}
         </Markdownz>

@@ -6,6 +6,7 @@ import { withTheme } from 'styled-components'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
 
 const defaultIcons = observable.map()
+
 export function AnchorLabel({
   className = '',
   icons = defaultIcons,
@@ -17,7 +18,6 @@ export function AnchorLabel({
     <Box align='center' className={className} direction='column'>
       <FieldGuideItemIcon
         alt={title}
-        fit='cover'
         height={100}
         icon={icon}
         width={100}
@@ -28,6 +28,7 @@ export function AnchorLabel({
 }
 
 const defaultTheme = { dark: false }
+
 function FieldGuideItemAnchor({
   className = '',
   icons = defaultIcons,
