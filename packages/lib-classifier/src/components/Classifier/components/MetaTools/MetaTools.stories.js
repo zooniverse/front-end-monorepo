@@ -68,7 +68,7 @@ export const SmallSubjectViewer = ({ dark }) => {
   return (
     <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
       <Provider classifierStore={store}>
-        <Box width='300px' style={{ border: 'solid 1px red' }}>
+        <Box width='300px'>
           <MetaTools />
         </Box>
       </Provider>
