@@ -2,6 +2,8 @@ import PropTypes from 'prop-types'
 import { Box } from 'grommet'
 import { FavouritesButton, withResponsiveContext } from '@zooniverse/react-components'
 import { useStores } from '@hooks'
+import { observer } from 'mobx-react'
+
 import Metadata from './components/Metadata'
 import CollectionsButton from './components/CollectionsButton'
 import HidePreviousMarksButton from './components/HidePreviousMarksButton'
@@ -30,6 +32,7 @@ const MetaTools = () => {
     subject = null,
     upp = null
   } = useStores(storeMapper)
+
   const { shownMarks, marks, togglePreviousMarks, type } = interactionTask
   const gap = (screenSize === 'small') ? 'xsmall' : 'small'
   const margin = (screenSize === 'small') ? { top: 'small' } : 'none'
@@ -84,4 +87,4 @@ MetaTools.propTypes = {
   upp: PropTypes.object
 }
 
-export default withResponsiveContext(MetaTools)
+export default withResponsiveContext(observer(MetaTools))
