@@ -37,5 +37,19 @@ describe('Tooltip > Component > Label', function () {
       const triangle = document.querySelector('svg polygon')
       expect(triangle).to.not.exist()
     })
+
+    it('should render an downward triangle/arrow if Tippy-defined placement = top', function () {
+      render(<Label label='helpful tip' arrow={true} data-placement='top' />)
+      const svg = document.querySelector('svg')
+      const svgStyle = window.getComputedStyle(svg)
+      expect(svgStyle.getPropertyValue('transform')).to.equal('rotate(180deg)')
+    })
+
+    it('should render an upward triangle/arrow if Tippy-defined placement = bottom', function () {
+      render(<Label label='helpful tip' arrow={true} data-placement='bottom' />)
+      const svg = document.querySelector('svg')
+      const svgStyle = window.getComputedStyle(svg)
+      expect(svgStyle.getPropertyValue('transform')).to.equal('rotate(0deg)')
+    })
   })
 })
