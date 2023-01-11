@@ -11,13 +11,23 @@ const setLogging = require('./set-logging')
 const setCacheHeaders = require('./set-cache-headers')
 
 const port = parseInt(process.env.PORT, 10) || 3000
-const hostname = 'local.zooniverse.org'
 const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev, hostname, port })
-const handle = app.getRequestHandler()
+
+const APP_ENV = process.env.APP_ENV || 'development'
+
+const hostnames = {
+  development: 'local.zooniverse.org',
+  branch: 'fe-project-branch.preview.zooniverse.org',
+  staging: 'frontend.preview.zooniverse.org',
+  production : 'www.zooniverse.org'
+}
+const hostname = hostnames[APP_ENV]
 
 const keyExists = fs.existsSync('server.key')
 const certExists = fs.existsSync('server.cert')
+
+const app = next({ dev, hostname, port })
+const handle = app.getRequestHandler()
 
 app.prepare().then(() => {
   const server = express()
