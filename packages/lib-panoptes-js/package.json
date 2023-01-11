@@ -26,7 +26,7 @@
     "jsdom": "~21.0.0",
     "mocha": "~10.2.0",
     "mock-local-storage": "~1.1.19",
-    "nock": "~13.2.1",
+    "nock": "~13.3.0",
     "sinon": "~15.0.0",
     "sinon-chai": "~3.7.0",
     "snazzy": "~9.0.0"
