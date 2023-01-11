@@ -184,7 +184,7 @@ describe('SurveyTask with user clicks', function () {
       expect(choiceImages).to.be.ok()
     })
 
-    it('should show choices when Not This button is clicked', async function () {
+    it('should show choices with closed choice focused when Not This button is clicked', async function () {
       const notThisButton = screen.getByText('SurveyTask.Choice.notThis')
       // close choice (Fire) component
       await user.click(notThisButton)
@@ -194,6 +194,9 @@ describe('SurveyTask with user clicks', function () {
       // confirm choices are shown
       const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
       expect(choiceButtons.length).to.equal(6)
+      const fireChoiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
+      // confirm choice (Fire) is focused
+      expect(fireChoiceButton).to.equal(document.activeElement)
     })
 
     it('should show choices with selected choice checked and focused when Identify button is clicked', async function () {
