@@ -28,17 +28,17 @@ export default function FieldGuideItemIcon (props) {
 FieldGuideItemIcon.defaultProps = {
   alt: '',
   className: '',
-  height: '100%',
+  height: 100,
   icon: {},
   viewBox: '0 0 100 100',
-  width: '100%'
+  width: 100
 }
 
 FieldGuideItemIcon.propTypes = {
   alt: PropTypes.string,
   className: PropTypes.string,
-  height: PropTypes.string,
+  height: PropTypes.number,
   icon: PropTypes.object,
   viewBox: PropTypes.string,
-  width: PropTypes.string
+  width: PropTypes.number
 }

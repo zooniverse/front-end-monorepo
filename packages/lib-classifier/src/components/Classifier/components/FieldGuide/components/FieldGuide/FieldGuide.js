@@ -16,7 +16,7 @@ function FieldGuide ({
   icons = defaultIcons,
   modalComponent,
   modalProps,
-  strings={}
+  strings = {}
 }) {
   const [activeItemIndex, setActiveItemIndex] = useState(-1)
   const items = fieldGuide?.items || []
@@ -50,11 +50,10 @@ FieldGuide.propTypes = {
   className: PropTypes.string,
   fieldGuide: PropTypes.object.isRequired,
   icons: MobXPropTypes.observableMap,
-  modalComponent: PropTypes.func.isRequired,
+  modalComponent: PropTypes.object.isRequired,
   modalProps: PropTypes.object.isRequired,
   onClose: PropTypes.func,
   size: PropTypes.string,
-  setActiveItemIndex: PropTypes.func,
   strings: PropTypes.object
 }
 

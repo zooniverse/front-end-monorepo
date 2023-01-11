@@ -1,4 +1,4 @@
-import { Markdownz, SpacedHeading } from '@zooniverse/react-components'
+import { Markdownz, Media, SpacedHeading } from '@zooniverse/react-components'
 import { Button, Box, Paragraph } from 'grommet'
 import { FormPrevious } from 'grommet-icons'
 import { observable } from 'mobx'
@@ -6,8 +6,6 @@ import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
-
-import FieldGuideItemIcon from '../FieldGuideItemIcon'
 
 const StyledButton = styled(Button)`
   padding: 0;
@@ -28,16 +26,16 @@ const StyledButton = styled(Button)`
   `}
 `
 const markdownTitleComponent = {
-  h3: (nodeProps) => <SpacedHeading level='3' margin='none'>{nodeProps.children}</SpacedHeading>
+  h3: (nodeProps) => <SpacedHeading level={3} margin='none'>{nodeProps.children}</SpacedHeading>
 }
 
 const markdownComponents = {
-  h1: (nodeProps) => <SpacedHeading level='1'>{nodeProps.children}</SpacedHeading>,
-  h2: (nodeProps) => <SpacedHeading level='2'>{nodeProps.children}</SpacedHeading>,
-  h3: (nodeProps) => <SpacedHeading level='3'>{nodeProps.children}</SpacedHeading>,
-  h4: (nodeProps) => <SpacedHeading level='4'>{nodeProps.children}</SpacedHeading>,
-  h5: (nodeProps) => <SpacedHeading level='5'>{nodeProps.children}</SpacedHeading>,
-  h6: (nodeProps) => <SpacedHeading level='6'>{nodeProps.children}</SpacedHeading>,
+  h1: (nodeProps) => <SpacedHeading level={1}>{nodeProps.children}</SpacedHeading>,
+  h2: (nodeProps) => <SpacedHeading level={2}>{nodeProps.children}</SpacedHeading>,
+  h3: (nodeProps) => <SpacedHeading level={3}>{nodeProps.children}</SpacedHeading>,
+  h4: (nodeProps) => <SpacedHeading level={4}>{nodeProps.children}</SpacedHeading>,
+  h5: (nodeProps) => <SpacedHeading level={5}>{nodeProps.children}</SpacedHeading>,
+  h6: (nodeProps) => <SpacedHeading level={6}>{nodeProps.children}</SpacedHeading>,
   p: (nodeProps) => <Paragraph margin={{ bottom: 'none', top: 'xxsmall' }}>{nodeProps.children}</Paragraph>
 }
 
@@ -50,7 +48,7 @@ function FieldGuideItem ({
   item,
   setActiveItemIndex,
   title = ''
-} ) {
+}) {
   const icon = icons.get(item.icon)
 
   const { t } = useTranslation('components')
@@ -76,13 +74,14 @@ function FieldGuideItem ({
         </Markdownz>
       </Box>
 
-      <Box direction='column' overflow='auto'>
-        <FieldGuideItemIcon
-          icon={icon}
-          height='140px'
-          margin={{ top: 'small', bottom: '35px' }}
-          viewBox='0 0 200 100'
-        />
+      <Box direction='column'>
+        <Box direction='row' justify='center' pad={{ top: 'small', bottom: '35px' }}>
+          <Media
+            alt={`Icon for ${title}`}
+            width={140}
+            src={icon.src}
+          />
+        </Box>
         <Markdownz components={markdownComponents}>
           {content}
         </Markdownz>
