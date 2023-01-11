@@ -1,16 +1,21 @@
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import { expect } from 'chai'
 import sinon from 'sinon'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import { default as Task } from '@plugins/tasks/text'
 import TextTaskWithSuggestions from './TextTaskWithSuggestions'
 
 describe('TextTask > Components > TextTaskWithSuggestions', function () {
+  // this turns off Mocha's time limit for slow tests
+  this.timeout(0)
+  
   let task
+  const suggestions = ['one', 'two', 'three']
 
   before(function () {
     sinon.stub(window, 'scrollTo')
+    
     task = Task.TaskModel.create({
       strings: {
         instruction: 'Type something here',
@@ -25,61 +30,45 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
     window.scrollTo.restore()
   })
 
-  it('should have a labelled TextInput', function () {
-    render(
-      <TextTaskWithSuggestions
-        suggestions={['one', 'two', 'three']}
-        task={task}
-        value=''
-      />
-    )
+  describe('with suggestions and without value', function () {
+    let textInput, options
 
-    expect(screen.getByLabelText(task.instruction)).to.exist()
-  })
-
-  it('should show text suggestions', async function () {
-    /*
-      This test takes 4s to run. The workaround is to disable the default mocha timeout.
-      TODO: figure out why these tests are so slow.
-    */
-    this.timeout(0)
-    const user = userEvent.setup({ delay: null })
-    const suggestions = ['one', 'two', 'three']
-    render(
-      <TextTaskWithSuggestions
-        suggestions={suggestions}
-        task={task}
-        value=''
-      />
-    )
-
-    const textInput = screen.getByLabelText(task.instruction)
-    await user.pointer({
-      keys: '[MouseLeft]',
-      target: textInput
-    })
-    suggestions.forEach(suggestion => {
-      const option = screen.getByRole('option', { name: suggestion })
-      expect(option).to.exist()
-    })
-  })
-
-  describe('with value and suggestions', function () {
-    it('should render the value', function () {
+    before(async function () {
+      const user = userEvent.setup({ delay: null })
       render(
         <TextTaskWithSuggestions
-          suggestions={['one', 'two', 'three']}
+          suggestions={suggestions}
           task={task}
-          value='This is an updated annotation value.'
+          value=''
         />
       )
-
-      expect(screen.getByDisplayValue('This is an updated annotation value.')).to.exist()
+  
+      textInput = screen.getByLabelText(task.instruction)
+      await user.pointer({
+        keys: '[MouseLeft]',
+        target: textInput
+      })
+      options = document.querySelectorAll('[role=option]')
     })
 
-    it('should not show text suggestions', async function () {
+
+    it('should have a labelled TextInput', function () {
+      expect(textInput).to.exist()
+    })
+  
+    it('should show text suggestions', async function () {
+      expect(options).to.have.lengthOf(suggestions.length)
+      suggestions.forEach((suggestion, index) => {
+        expect(options[index]).to.have.text(suggestion)
+      })
+    })
+  })
+
+  describe('with suggestions and value', function () {
+    let textInputValue, options
+
+    before(async function () {
       const user = userEvent.setup({ delay: null })
-      const suggestions = ['one', 'two', 'three']
       render(
         <TextTaskWithSuggestions
           suggestions={suggestions}
@@ -87,16 +76,22 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
           value='This is an updated annotation value.'
         />
       )
-
+  
       const textInput = screen.getByLabelText(task.instruction)
+      textInputValue = textInput.value
       await user.pointer({
         keys: '[MouseLeft]',
         target: textInput
       })
-      suggestions.forEach(suggestion => {
-        const option = screen.queryByRole('option', { name: suggestion })
-        expect(option).to.be.null()
-      })
+      options = document.querySelectorAll('[role=option]')
+    })
+    
+    it('should render the value', function () {
+      expect(textInputValue).to.equal('This is an updated annotation value.')
+    })
+
+    it('should not show text suggestions', async function () {
+      expect(options).to.have.lengthOf(0)
     })
   })
 })
