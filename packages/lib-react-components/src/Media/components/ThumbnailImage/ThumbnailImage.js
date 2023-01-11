@@ -30,13 +30,13 @@ function stringifySize (size) {
 }
 
 export default function ThumbnailImage({
-  alt, // ''
-  delay, // 0
-  fit, // cover
-  flex, // grow
+  alt = defaultProps.alt,
+  delay = defaultProps.delay,
+  fit = defaultProps.fit,
+  flex = defaultProps.flex,
   height = DEFAULT_THUMBNAIL_DIMENSION,
-  origin, // https://thumbnails.zooniverse.org
-  placeholder, //  null
+  origin = defaultProps.origin,
+  placeholder = defaultProps.placeholder,
   src,
   width = DEFAULT_THUMBNAIL_DIMENSION,
   ...rest
@@ -81,8 +81,4 @@ export default function ThumbnailImage({
 
 ThumbnailImage.propTypes = {
   ...propTypes
-}
-
-ThumbnailImage.defaultProps = {
-  ...defaultProps
 }
