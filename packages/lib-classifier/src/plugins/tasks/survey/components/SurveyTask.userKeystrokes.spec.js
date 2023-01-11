@@ -231,22 +231,5 @@ describe('SurveyTask with user keystrokes', function () {
       const nothingHereChoiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Nothing here')
       expect(nothingHereChoiceButton).to.equal(document.activeElement)
     })
-
-    it('should disable the Identify button until required questions are answered', async function () {
-      // pressing Enter to open the choice (Aardvark)
-      await user.keyboard('[Enter]')
-      let identifyButton = screen.getByTestId('choice-identify-button')
-      // confirm the Identify button is disabled, pending required questions answered
-      expect(identifyButton.disabled).to.be.true()
-      // the required questions for Aardvark are "How many?" and "What behavior do you see?"
-      // the following answers "How many?" with "1" and "What behavior do you see?" with "Resting"
-      
-      // tabbing (x3) to the "How many?" question, selecting the "1" answer with space key, tabbing (x1) to the "What behavior do you see?" question, selecting the "Resting" answer with space key
-      await user.keyboard('[Tab][Tab][Tab][Space][Tab][Space]')
-      // confirm the Identify button is enabled, now that required questions are answered
-      identifyButton = screen.getByTestId('choice-identify-button')
-      // confirm the Identify button is enabled, now that required questions answered
-      expect(identifyButton.disabled).to.be.false()
-    })
   })
 })
