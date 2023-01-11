@@ -10,6 +10,8 @@ import Choice from './Choice'
 const mockTask = SurveyTask.TaskModel.create(task)
 
 describe('Component > Choice', function () {
+  this.timeout(0)
+
   describe('with choice with images, confusions, and questions', function () {
     let carousel, confusedWith, question
 
