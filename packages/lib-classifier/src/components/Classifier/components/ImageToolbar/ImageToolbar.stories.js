@@ -3,9 +3,13 @@ import { Provider } from 'mobx-react'
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 
-import { SubjectFactory, WorkflowFactory } from '@test/factories'
+import {
+  SubjectFactory,
+  SubjectViewerFactory,
+  WorkflowFactory
+} from '@test/factories'
 import mockStore from '@test/mockStore'
-import { StyledImageToolbarContainer, StyledImageToolbar, ViewerGrid } from '../Layout/components/DefaultLayout/DefaultLayout'
+import { ViewerGrid } from '../Layout/components/DefaultLayout/DefaultLayout'
 import MultiFrameViewer from '../SubjectViewer/components/MultiFrameViewer'
 import SingleImageViewer from '../SubjectViewer/components/SingleImageViewer'
 import ImageToolbar from './ImageToolbar'
@@ -21,7 +25,8 @@ export default {
 const subjectSnapshot = SubjectFactory.build({
   locations: [
     {
-      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/production/subject_location/11f98201-1c3f-44d5-965b-e00373daeb18.jpeg'
+      'image/jpeg':
+        'https://panoptes-uploads.zooniverse.org/production/subject_location/11f98201-1c3f-44d5-965b-e00373daeb18.jpeg'
     }
   ]
 })
@@ -62,7 +67,7 @@ const multiFrameSubjectStore = mockStore({
   workflow: workflowSnapshot
 })
 
-export function withSingleImageViewer ({ dark }) {
+export function withSingleImageViewer({ dark }) {
   return (
     <Grommet
       background={{
@@ -72,9 +77,7 @@ export function withSingleImageViewer ({ dark }) {
       theme={zooTheme}
       themeMode={dark ? 'dark' : 'light'}
     >
-      <Provider
-        classifierStore={store}
-      >
+      <Provider classifierStore={store}>
         <ViewerGrid>
           <Box gridArea='subject'>
             <SingleImageViewer
@@ -82,16 +85,14 @@ export function withSingleImageViewer ({ dark }) {
               subject={store.subjects.active}
             />
           </Box>
-          <StyledImageToolbarContainer>
-            <StyledImageToolbar />
-          </StyledImageToolbarContainer>
+          <ImageToolbar />
         </ViewerGrid>
       </Provider>
     </Grommet>
   )
 }
 
-export function withMultiFrameViewer ({ dark }) {
+export function withMultiFrameViewer({ dark }) {
   return (
     <Grommet
       background={{
@@ -101,9 +102,7 @@ export function withMultiFrameViewer ({ dark }) {
       theme={zooTheme}
       themeMode={dark ? 'dark' : 'light'}
     >
-      <Provider
-        classifierStore={multiFrameSubjectStore}
-      >
+      <Provider classifierStore={multiFrameSubjectStore}>
         <ViewerGrid>
           <Box gridArea='subject'>
             <MultiFrameViewer
@@ -111,10 +110,35 @@ export function withMultiFrameViewer ({ dark }) {
               subject={multiFrameSubjectStore.subjects.active}
             />
           </Box>
-          <StyledImageToolbarContainer>
-            <StyledImageToolbar />
-          </StyledImageToolbarContainer>
+          <ImageToolbar />
         </ViewerGrid>
+      </Provider>
+    </Grommet>
+  )
+}
+
+export function StyledSmallerWidth({ dark }) {
+  return (
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={zooTheme}
+      themeMode={dark ? 'dark' : 'light'}
+    >
+      <Provider classifierStore={store}>
+        <Box width='500px'>
+          <ViewerGrid>
+            <Box gridArea='subject'>
+              <SingleImageViewer
+                loadingState={asyncStates.success}
+                subject={store.subjects.active}
+              />
+            </Box>
+            <ImageToolbar />
+          </ViewerGrid>
+        </Box>
       </Provider>
     </Grommet>
   )

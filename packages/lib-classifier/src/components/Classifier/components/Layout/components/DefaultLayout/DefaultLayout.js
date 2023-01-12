@@ -1,8 +1,6 @@
 import styled from 'styled-components'
-import { pxToRem } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 
-import { withStores } from '@helpers'
 import Banners from '@components/Classifier/components/Banners'
 import FeedbackModal from '@components/Classifier/components/Feedback'
 import ImageToolbar from '@components/Classifier/components/ImageToolbar'
@@ -44,15 +42,15 @@ const StyledTaskArea = styled(TaskArea)`
 export const ViewerGrid = styled.section`
   display: grid;
   grid-area: viewer;
-  grid-template-columns: auto 4.5rem;
+  grid-template-columns: auto clamp(3rem, 10%, 4.5rem);
   grid-template-areas: "subject toolbar" "metatools ...";
 `
 
-export const StyledImageToolbarContainer = styled.div`
+const StyledImageToolbarContainer = styled.div`
   grid-area: toolbar;
 `
 
-export const StyledImageToolbar = styled(ImageToolbar)`
+const StyledImageToolbar = styled(ImageToolbar)`
   position: sticky;
   top: 10px;
 `
@@ -62,10 +60,7 @@ const StyledMetaTools = styled(MetaTools)`
   margin-top: 10px;
 `
 
-export default function DefaultLayout({
-  className = '',
-  project
-}) {
+export default function DefaultLayout({ className = '' }) {
   return (
     <ContainerGrid className={className}>
       <ViewerGrid>

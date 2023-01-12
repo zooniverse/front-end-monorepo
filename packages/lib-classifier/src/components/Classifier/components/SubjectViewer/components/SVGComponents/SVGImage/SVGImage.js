@@ -33,18 +33,24 @@ export default function SVGImage ({
     document.body.insertAdjacentHTML('afterbegin', INVERT)
   }
 
-  const SubjectImage = move ? DraggableImage : 'image'
+  const props = {
+    'aria-label': `Subject ${subjectID}`,
+    filter: invert ? 'url("#svg-invert-filter")' : undefined,
+    height: naturalHeight,
+    href: src,
+    role: 'img',
+    width: naturalWidth,
+  }
 
   return (
-    <SubjectImage
-      aria-label={`Subject ${subjectID}`}
-      dragMove={move ? onDrag : () => null}
-      height={naturalHeight}
-      role='img'
-      filter={invert ? 'url("#svg-invert-filter")' : undefined}
-      width={naturalWidth}
-      href={src}
-    />
+    move ?
+      <DraggableImage
+        dragMove={onDrag}
+        {...props}
+      /> :
+      <image
+        {...props}
+      />
   )
 }
 
