@@ -13,51 +13,37 @@ describe('Component > Choice', function () {
   this.timeout(0)
 
   describe('with choice with images, confusions, and questions', function () {
+    let carousel, confusedWith, question
+
     // choice 'KD' (Kudu) includes images, confusions, and questions
+    before(function () {
+      render(
+        <Grommet
+          theme={zooTheme}
+          themeMode='light'
+        >
+          <Choice
+            choiceId='KD'
+            task={mockTask}
+          />
+        </Grommet>
+      )
 
+      carousel = screen.getByTestId('choice-images')
+      confusedWith = screen.getByText('SurveyTask.ConfusedWith.confused')
+      question = screen.getByText('Are there any young present?')
+    })
+    
     it('should show Carousel', function () {
-      render(
-        <Grommet
-          theme={zooTheme}
-          themeMode='light'
-        >
-          <Choice
-            choiceId='KD'
-            task={mockTask}
-          />
-        </Grommet>
-      )
-      expect(screen.getByTestId('choice-images')).to.be.ok()
+      expect(carousel).to.be.ok()
     })
-
+  
     it('should show ConfusedWith', function () {
-      render(
-        <Grommet
-          theme={zooTheme}
-          themeMode='light'
-        >
-          <Choice
-            choiceId='KD'
-            task={mockTask}
-          />
-        </Grommet>
-      )
-      expect(screen.getByText('SurveyTask.ConfusedWith.confused')).to.be.ok()
+      expect(confusedWith).to.be.ok()
     })
-
+  
     it('should show Questions', function () {
-      render(
-        <Grommet
-          theme={zooTheme}
-          themeMode='light'
-        >
-          <Choice
-            choiceId='HMN'
-            task={mockTask}
-          />
-        </Grommet>
-      )
-      expect(screen.getByText('Are there any young present?')).to.be.ok()
+      expect(question).to.be.ok()
     })
   })
 
@@ -134,7 +120,7 @@ describe('Component > Choice', function () {
           />
         </Grommet>
       )
-      expect(screen.getByRole('button', { name: 'SurveyTask.Choice.identify' }).disabled).to.be.true()
+      expect(screen.getByTestId('choice-identify-button').disabled).to.be.true()
     })
   })
 
@@ -157,7 +143,7 @@ describe('Component > Choice', function () {
           />
         </Grommet>
       )
-      expect(screen.getByRole('button', { name: 'SurveyTask.Choice.identify' }).disabled).to.be.false()
+      expect(screen.getByTestId('choice-identify-button').disabled).to.be.false()
     })
   })
 })
