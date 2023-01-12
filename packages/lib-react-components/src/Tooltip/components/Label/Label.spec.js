@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react'
-import Triangle from '../Triangle'
 import { Label } from './Label'
 
 describe('Tooltip > Component > Label', function () {
