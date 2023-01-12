@@ -58,7 +58,7 @@ export default function mockStore({
     tutorials: [],
     workflows: [workflowSnapshot]
   })
-  
+
   const rootStore = RootStore.create({
     projects: {
       active: projectSnapshot.id,

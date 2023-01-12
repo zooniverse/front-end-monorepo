@@ -1,5 +1,4 @@
 import { Box } from 'grommet'
-import { Component } from 'react'
 
 import FieldGuide from '../FieldGuide'
 import AnnotateButton from './components/AnnotateButton'
@@ -12,39 +11,38 @@ import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 import withKeyZoom from '../withKeyZoom'
 
-class ImageToolbar extends Component {
-  render () {
-    return (
-      <Box height='min-content' {...this.props}>
-        <Box
-          background={{
-            dark: 'dark-3',
-            light: 'white'
-          }}
-          border={{
-            color: {
-              dark: 'dark-1',
-              light: 'light-3'
-            },
-            side: 'all'
-          }}
-          direction='column'
-          fill
-          pad='12px'
-        >
-          <AnnotateButton />
-          <MoveButton />
-          <ZoomInButton />
-          <ZoomOutButton />
-          <RotateButton />
-          <FullscreenButton disabled />
-          <ResetButton />
-          <InvertButton />
-        </Box>
-        <FieldGuide />
+// Generalized ...props here are css rules from the page layout
+function ImageToolbar (props) {
+  return (
+    <Box height='min-content' {...props}>
+      <Box
+        background={{
+          dark: 'dark-3',
+          light: 'white'
+        }}
+        border={{
+          color: {
+            dark: 'dark-1',
+            light: 'light-3'
+          },
+          side: 'all'
+        }}
+        direction='column'
+        fill
+        pad='clamp(8px, 15%, 10px)'
+      >
+        <AnnotateButton />
+        <MoveButton />
+        <ZoomInButton />
+        <ZoomOutButton />
+        <RotateButton />
+        <FullscreenButton disabled />
+        <ResetButton />
+        <InvertButton />
       </Box>
-    )
-  }
+      <FieldGuide />
+    </Box>
+  )
 }
 
 export default withKeyZoom(ImageToolbar)
