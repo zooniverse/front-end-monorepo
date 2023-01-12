@@ -8,7 +8,7 @@ import TextTaskWithSuggestions from './TextTaskWithSuggestions'
 
 describe('TextTask > Components > TextTaskWithSuggestions', function () {
   // this turns off Mocha's time limit for slow tests
-  this.timeout(0)
+  this.timeout(5000)
   
   let task
   const suggestions = ['one', 'two', 'three']
