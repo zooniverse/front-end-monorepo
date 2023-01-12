@@ -13,9 +13,9 @@ This package should be cloned as part of the [front-end-monorepo](https://github
 
 ## Running in development
 
-Starts a development server on port 3000 and a Storybook server on port 9001 by default. Run `server/generateCertificate.sh` from the app root to set up a certificate (`server.cert`) and private key (`server.key`) for your local development domain. In addition, you must have the local sub-domain [setup](https://stackoverflow.com/c/zooniverse/questions/109) to get past CORS errors when authenticating with Panoptes in your hosts file.
+Starts a development server on port 3000 and a Storybook server on port 9001 by default. In addition, you must have the local sub-domain [setup](https://stackoverflow.com/c/zooniverse/questions/109) to get past CORS errors when authenticating with Panoptes in your hosts file.
 
-Once the local certificate is created and you have the hosts file configured, you'll be able to use one of those subdomains to do local development for projects on and be able to authenticate with Panoptes, i.e. at `https://local.zooniverse.org:3000/projects/brooke/i-fancy-cats` or `https://localhost.zooniverse.org:3000/projects/brooke/i-fancy-cats`.
+Once you have the hosts file configured, you'll be able to use one of those subdomains to do local development for projects on and be able to authenticate with Panoptes, i.e. at `https://local.zooniverse.org:3000/projects/brooke/i-fancy-cats` or `https://localhost.zooniverse.org:3000/projects/brooke/i-fancy-cats`.
 
 ### Docker
 
@@ -53,8 +53,6 @@ The production server is started on port 3000 by default.
 yarn build
 yarn start
 ```
-
-If you wish to run the app in a production environment with HTTPS and a local certificate, make sure you have a local certificate (`server.cert`) and private key (`server.key`) before running `yarn start`.
 
 ### Tests
 

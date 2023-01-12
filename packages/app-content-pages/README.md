@@ -21,9 +21,9 @@ To get the credentials, go to https://app.contentful.com/spaces/jt90kyhvp0qv/api
 
 ## Running in development
 
-Starts a development server on port 3000 by default. Run `server/generateCertificate.sh` from the app root to set up a certificate (`server.cert`) and private key (`server.key`) for your local development domain. In addition, you must have the local sub-domain [setup](https://stackoverflow.com/c/zooniverse/questions/109) to get past CORS errors when authenticating with Panoptes in your hosts file.
+Starts a development server on port 3000 by default. In addition, you must have the local sub-domain [setup](https://stackoverflow.com/c/zooniverse/questions/109) to get past CORS errors when authenticating with Panoptes in your hosts file.
 
-Once the local certificate is created and you have the hosts file configured, you'll be able to use one of those subdomains to do local development for projects on and be able to authenticate with Panoptes, i.e. at `https://local.zooniverse.org:3000/about/team` or `https://localhost.zooniverse.org:3000/about/publications`.
+Once you have the hosts file configured, you'll be able to use one of those subdomains to do local development for projects on and be able to authenticate with Panoptes, i.e. at `https://local.zooniverse.org:3000/about/team` or `https://localhost.zooniverse.org:3000/about/publications`.
 
 ### Docker
 
@@ -70,7 +70,7 @@ yarn start
 
 Next.js [treats the build and serve tasks as separate steps](https://github.com/zeit/next.js/#production-deployment) when running in production.
 
-The production server is started on port 3000 by default. It will use HTTPS if you've installed a certificate (`server.cert`) and private key (`server.key`) for local development.
+The production server is started on port 3000 by default.
 
 ### Tests
 

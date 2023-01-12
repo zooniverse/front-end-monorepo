@@ -71,6 +71,7 @@
     "jsdom": "~21.0.0",
     "mocha": "~10.2.0",
     "proxyquire": "~2.1.0",
+    "selfsigned": "~2.1.1",
     "sinon": "~15.0.0",
     "sinon-chai": "~3.7.0"
   },
