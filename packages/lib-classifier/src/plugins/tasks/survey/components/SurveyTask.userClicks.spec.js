@@ -167,30 +167,24 @@ describe('SurveyTask with user clicks', function () {
   describe('when a choice is clicked', function () {
     let user
 
-    beforeEach(function () {
+    beforeEach(async function () {
       user = userEvent.setup({ delay: null })
       render(<DefaultStory />)
+      const choiceButton = screen.getByText('Fire')
+      await user.click(choiceButton)
     })
 
     it('should show the choice description', async function () {
-      const choiceButton = screen.getByText('Aardvark')
-      await user.click(choiceButton)
-      const choiceDescription = screen.getByText('Not as awesome as a pangolin, but surprisingly big.')
-
+      const choiceDescription = screen.getByText('It\'s a fire. Pretty sure you know what this looks like.')
       expect(choiceDescription).to.be.ok()
     })
 
     it('should show choice images', async function () {
-      const choiceButton = screen.getByText('Fire')
-      await user.click(choiceButton)
       const choiceImages = screen.getByTestId('choice-images')
-      
       expect(choiceImages).to.be.ok()
     })
 
-    it('should show choices when Not This button is clicked', async function () {
-      const choiceButton = screen.getByText('Fire')
-      await user.click(choiceButton)
+    it('should show choices with closed choice focused when Not This button is clicked', async function () {
       const notThisButton = screen.getByText('SurveyTask.Choice.notThis')
       // close choice (Fire) component
       await user.click(notThisButton)
@@ -200,12 +194,13 @@ describe('SurveyTask with user clicks', function () {
       // confirm choices are shown
       const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
       expect(choiceButtons.length).to.equal(6)
+      const fireChoiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
+      // confirm choice (Fire) is focused
+      expect(fireChoiceButton).to.equal(document.activeElement)
     })
 
-    it('should show choices with selected choice checked when Identify button is clicked', async function () {
-      const choiceButton = screen.getByText('Fire')
-      await user.click(choiceButton)
-      const identifyButton = screen.getByText('SurveyTask.Choice.identify')
+    it('should show choices with selected choice checked and focused when Identify button is clicked', async function () {
+      const identifyButton = screen.getByTestId('choice-identify-button')
       // identify choice (Fire) and close choice (Fire) component
       await user.click(identifyButton)
       // confirm choice (Fire) description, and therefore choice, is not shown
@@ -214,28 +209,33 @@ describe('SurveyTask with user clicks', function () {
       // confirm choices are shown
       const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
       expect(choiceButtons.length).to.equal(6)
-      // confirm choice (Fire) is shown as checked
       const fireChoiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
+      // confirm choice (Fire) is shown as checked
       expect(fireChoiceButton.getAttribute('aria-checked')).to.equal('true')
+      // confirm choice (Fire) is shown as focused
+      expect(fireChoiceButton).to.equal(document.activeElement)
     })
-
+    
     it('should disable "Done & Talk" and "Done" buttons', async function () {
       let buttons = Array.from(document.querySelectorAll('button'))
-      
       let doneAndTalkButton = buttons.find(button => button.textContent === 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk')
       let doneButton = buttons.find( button => button.textContent === 'TaskArea.Tasks.DoneButton.done')
-      // mock task doesn't require an identified choice, so confirm the Done & Talk and Done buttons are enabled before selecting a choice
-      expect(doneAndTalkButton.disabled).to.be.false()
-      expect(doneButton.disabled).to.be.false()
-
-      const choiceButton = screen.getByText('Aardvark')
-      await user.click(choiceButton)
-      buttons = Array.from(document.querySelectorAll('button'))
-      doneAndTalkButton = buttons.find(button => button.textContent === 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk')
-      doneButton = buttons.find( button => button.textContent === 'TaskArea.Tasks.DoneButton.done')
+      
       // confirm the Done & Talk and Done buttons are disabled while a choice is selected
       expect(doneAndTalkButton.disabled).to.be.true()
       expect(doneButton.disabled).to.be.true()
+      
+      // identify choice (Fire) and close choice (Fire) component
+      const identifyButton = screen.getByTestId('choice-identify-button')
+      await user.click(identifyButton)
+
+      buttons = Array.from(document.querySelectorAll('button'))
+      doneAndTalkButton = buttons.find(button => button.textContent === 'TaskArea.Tasks.DoneAndTalkButton.doneAndTalk')
+      doneButton = buttons.find( button => button.textContent === 'TaskArea.Tasks.DoneButton.done')
+
+      // confirm the Done & Talk and Done buttons are enabled after a choice is selected
+      expect(doneAndTalkButton.disabled).to.be.false()
+      expect(doneButton.disabled).to.be.false()
     })
   })
 })

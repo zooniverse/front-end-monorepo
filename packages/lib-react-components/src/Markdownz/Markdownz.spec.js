@@ -201,11 +201,11 @@ describe('<Markdownz />', function () {
       expect(returnedValue.props.height).to.equal(100)
     })
 
-    it('should set max height as none if only width is defined', function () {
+    it('height should be undefined if only width is defined', function () {
       const imagePropsMockWithWidth = { src, alt: `${altText} =100x`, children: undefined }
       const returnedValue = renderMedia(imagePropsMockWithWidth)
       expect(returnedValue.props.width).to.equal(100)
-      expect(returnedValue.props.height).to.equal('none')
+      expect(returnedValue.props.height).to.equal(undefined)
     })
 
     it('should remove the width and height declaration from the alt text before setting it on the rendered Image', function () {
