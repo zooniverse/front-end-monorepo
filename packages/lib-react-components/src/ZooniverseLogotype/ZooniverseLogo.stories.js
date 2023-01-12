@@ -8,7 +8,7 @@ export default {
   title: 'Components/ZooniverseLogotype',
   component: ZooniverseLogotype,
   args: {
-    id: 'The Zooniverse',
+    id: 'the-zooniverse',
     width: 200,
   },
   parameters: {
