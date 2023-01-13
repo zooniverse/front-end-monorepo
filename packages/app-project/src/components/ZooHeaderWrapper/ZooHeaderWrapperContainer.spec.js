@@ -66,28 +66,28 @@ describe('Component > ZooHeaderWrapperContainer', function () {
     expect(siteMenu).to.exist()
   })
 
-  it('should clear the stored user on sign out', function () {
+  it('should clear the stored user on sign out', async function () {
     expect(store.user.isLoggedIn).to.be.true()
-    signOut(store.user)
+    await signOut(store.user)
     expect(store.user.isLoggedIn).to.be.false()
   })
 
-  it('should sign out of Panoptes', function () {
-    signOut(store.user)
+  it('should sign out of Panoptes', async function () {
+    await signOut(store.user)
     expect(auth.signOut).to.have.been.calledOnce()
   })
 
   it('should remove already seen subjects session storage', async function () {
     expect(window.sessionStorage.getItem("subjectsSeenThisSession")).to.equal('["1234/5678"]')
-    signOut(store.user)
+    await signOut(store.user)
     expect(window.sessionStorage.getItem("subjectsSeenThisSession")).to.be.null()
   })
 
   describe('Sign In', function () {
     let signInButton
 
-    beforeEach(function () {
-      signOut(store.user)
+    beforeEach(async function () {
+      await signOut(store.user)
     })
 
     it('should navigate to ./?login=true', async function () {
@@ -101,8 +101,8 @@ describe('Component > ZooHeaderWrapperContainer', function () {
   describe('Register', function () {
     let registerButton
 
-    beforeEach(function () {
-      signOut(store.user)
+    beforeEach(async function () {
+      await signOut(store.user)
     })
 
     it('should navigate to ./?register=true', async function () {

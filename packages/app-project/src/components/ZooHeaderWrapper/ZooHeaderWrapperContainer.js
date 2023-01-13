@@ -10,8 +10,11 @@ function useStore() {
   return { user }
 }
 
-export function signOut(user) {
+export async function signOut(user) {
+  await auth.signOut()
+  
   user.clear()
+  
   // resetting the alreay seen subjects during the session tracking should move
   // once we refactor the UPP and User resource tracking in the classifier
   // Current implementation in classifier is possibly buggy (see discussion https://github.com/zooniverse/front-end-monorepo/discussions/2362)
@@ -23,7 +26,6 @@ export function signOut(user) {
   if (seenThisSession) {
     window.sessionStorage.removeItem("subjectsSeenThisSession")
   }
-  auth.signOut()
 }
 
 function ZooHeaderWrapperContainer(props) {
