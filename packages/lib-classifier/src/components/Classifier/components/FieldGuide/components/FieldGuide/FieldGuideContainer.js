@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react';
+import { useState } from 'react'
 import { MovableModal, Modal } from '@zooniverse/react-components'
 import FieldGuide from './FieldGuide'
 import { useTranslation } from '@translations/i18n'
@@ -20,9 +20,6 @@ function FieldGuideContainer ({
   function onResize(e, direction, ref, delta, position) {
     if (height !== 'auto' && modalComponent === MovableModal) setHeight('auto')
   }
-
-  const boxHeight = (size === 'small') ? '100%' : `${minHeight}px`
-  const boxWidth = (size === 'small') ? '100%' : `${minWidth}px`
 
   const modalProps = {
     active: true,
@@ -45,8 +42,6 @@ function FieldGuideContainer ({
   const modalPropsToUse = (size === 'small') ? modalProps : Object.assign({}, modalProps, { rndProps })
   return (
     <FieldGuide
-      boxHeight={boxHeight}
-      boxWidth={boxWidth}
       modalComponent={modalComponent}
       modalProps={modalPropsToUse}
       {...rest}

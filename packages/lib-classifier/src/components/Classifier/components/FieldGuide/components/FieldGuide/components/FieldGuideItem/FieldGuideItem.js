@@ -12,7 +12,6 @@ import FieldGuideItemIcon from '../FieldGuideItemIcon'
 const StyledButton = styled(Button)`
   padding: 0;
 
-
   ${props => props.theme.dark ? css`
     &:hover > svg,
     &:focus > svg {
@@ -27,6 +26,16 @@ const StyledButton = styled(Button)`
       }
   `}
 `
+
+const NoScroll = styled(Box)`
+  overflow: hidden;
+`
+
+const ScrollableContent = styled(Box)`
+  overflow-y: scroll;
+  overflow-x: hidden;
+`
+
 const markdownTitleComponent = {
   h3: (nodeProps) => <SpacedHeading level={3} margin='none'>{nodeProps.children}</SpacedHeading>
 }
@@ -61,7 +70,6 @@ function FieldGuideItem ({
         align='center'
         border={{ color: 'light-5', side: 'bottom' }}
         direction='row'
-        flex={{ grow: 1, shrink: 0 }}
         pad={{ bottom: 'xsmall' }}
       >
         <StyledButton
@@ -76,12 +84,14 @@ function FieldGuideItem ({
         </Markdownz>
       </Box>
 
-      <Box direction='column' overflow='auto'>
+      <Box align='center' pad={{ top: 'small', bottom: '35px' }}>
         <FieldGuideItemIcon
           icon={icon}
-          height='140px'
-          margin={{ top: 'small', bottom: '35px' }}
+          height={140}
+          width={140}
         />
+      </Box>
+      <Box>
         <Markdownz components={markdownComponents}>
           {content}
         </Markdownz>
