@@ -13,7 +13,7 @@ function FieldGuideContainer ({
 
   const modalComponent = (size === 'small') ? Modal : MovableModal
   const minHeight = 415
-  const minWidth = 490
+  const minWidth = 550
 
   const [height, setHeight] = useState(minHeight)
 
@@ -32,7 +32,7 @@ function FieldGuideContainer ({
   const rndProps = {
     default: {
       height,
-      x: 0 - (minWidth + 60), // width plus margins
+      x: 0 - minWidth, // width plus margins
       y: 0 - (minHeight + 60) * 0.5 // centers vertically
     },
     minHeight,

@@ -110,4 +110,3 @@ FieldGuideItem.propTypes = {
 }
 
 export default withTheme(FieldGuideItem)
-export { FieldGuideItem }

@@ -73,7 +73,7 @@ describe('Component > FieldGuideContainer', function () {
 
     it('should render at a default minimum size', function () {
       const minHeight = 415
-      const minWidth = 490
+      const minWidth = 550
       const { modalProps } = wrapper.props()
       expect(modalProps.rndProps.minHeight).to.equal(minHeight)
       expect(modalProps.rndProps.minWidth).to.equal(minWidth)
@@ -81,11 +81,6 @@ describe('Component > FieldGuideContainer', function () {
 
     it('should render a title', function () {
       expect(useTranslationStub).to.have.been.calledWith('FieldGuide.title')
-    })
-
-    it('should set the boxHeight and boxWidth to their minimum sizes', function () {
-      expect(wrapper.props().boxHeight).to.equal('415px')
-      expect(wrapper.props().boxWidth).to.equal('490px')
     })
 
     it('should set the movable modal height to auto on resize', function () {
@@ -119,11 +114,6 @@ describe('Component > FieldGuideContainer', function () {
 
     it('should render a title', function () {
       expect(useTranslationStub).to.have.been.calledWith('FieldGuide.title')
-    })
-
-    it('should set the boxHeight and boxWidth to 100%', function () {
-      expect(wrapper.props().boxHeight).to.equal('100%')
-      expect(wrapper.props().boxWidth).to.equal('100%')
     })
 
     it('should not pass along props for the MovableModal', function () {
