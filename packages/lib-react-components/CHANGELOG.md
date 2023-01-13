@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.3.3] 2023-1-12
+
+### Changed
+- Refactor Markdownz's handling of custom image dimensions by allowing height to be undefined.
+
 ## [1.3.2] 2022-12-12
 
 ### Changed

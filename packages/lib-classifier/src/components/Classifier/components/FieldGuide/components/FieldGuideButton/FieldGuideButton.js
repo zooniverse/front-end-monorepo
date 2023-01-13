@@ -8,51 +8,48 @@ import { useTranslation } from '@translations/i18n'
 import HelpIcon from './HelpIcon'
 
 export const StyledButton = styled(Button)`
-  ${props => props.theme && css`
-    background: ${props.theme.global.colors.brand};
-    padding: 15px 10px;
+  ${props =>
+    props.theme &&
+    css`
+      background: ${props.theme.global.colors.brand};
+      padding: clamp(8px, 15%, 10px);
 
-    &:hover, &:focus {
-      background: ${tint(0.5, props.theme.global.colors.brand)};
-    }
-
-    &:disabled {
-      &:hover, &:focus {
-        background: ${props.theme.global.colors.brand};
+      &:hover,
+      &:focus {
+        background: ${tint(0.5, props.theme.global.colors.brand)};
       }
-    }
-  `}
+
+      &:disabled {
+        &:hover,
+        &:focus {
+          background: ${props.theme.global.colors.brand};
+        }
+      }
+    `}
 `
 
 const StyledSpacedText = styled(SpacedText)`
   line-height: 1.2;
 `
 
-const StyledHelpIcon = styled(HelpIcon)`
-  margin-top: 8px;
-  display: block;
-  fill: white;
-  width: 25px;
-`
-
-export function ButtonLabel () {
+export function ButtonLabel() {
   const { t } = useTranslation('components')
 
   return (
-    <Box as='span' align='center' direction='column'>
+    <Box as='span' align='center' direction='column' gap='8px'>
       <StyledSpacedText size='xsmall' color='white' textAlign='center'>
         {t('FieldGuide.FieldGuideButton.buttonLabel')}
       </StyledSpacedText>
-      <StyledHelpIcon />
+      {/** Same styling as ImageToolbar > Button */}
+      <HelpIcon
+        fill='white'
+        width='min(50%, 1.2rem)'
+      />
     </Box>
   )
 }
 
-function FieldGuideButton ({
-  fieldGuide = null,
-  onClick,
-  theme
-}) {
+function FieldGuideButton({ fieldGuide = null, onClick = () => true, theme }) {
   const disabled = !fieldGuide || fieldGuide.items.length === 0
 
   return (
