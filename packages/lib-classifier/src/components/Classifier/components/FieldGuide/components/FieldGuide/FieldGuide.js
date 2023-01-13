@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import FieldGuideItems from './components/FieldGuideItems'
 import FieldGuideItem from './components/FieldGuideItem'
 
-// ModalComponent has min-height, but content should have auto min-height
+// ModalComponent has min-height, but content should have auto min-height because its flexbox
 const AutoMinHeight = styled(Box)`
   min-height: auto;
 `
@@ -30,10 +30,8 @@ function FieldGuide ({
   const ModalComponent = modalComponent
   const id = activeItemIndex ? `field-guide-item-${activeItemIndex}` : 'field-guide-menu'
   return (
-    <ModalComponent
-      {...modalProps}
-    >
-      <AutoMinHeight className={className}>
+    <ModalComponent {...modalProps}>
+      <AutoMinHeight className={className} pad={{ left: 'medium', right: 'medium', bottom: 'medium', top: '0' }}>
         {item
           ? <FieldGuideItem id={id} icons={icons} item={item} setActiveItemIndex={setActiveItemIndex} content={content} title={title} />
           : <FieldGuideItems id={id} icons={icons} items={items} onChange={setActiveItemIndex} strings={strings} />

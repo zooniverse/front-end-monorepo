@@ -27,13 +27,10 @@ const StyledButton = styled(Button)`
   `}
 `
 
-const NoScroll = styled(Box)`
-  overflow: hidden;
-`
-
-const ScrollableContent = styled(Box)`
-  overflow-y: scroll;
-  overflow-x: hidden;
+const StickyTitle = styled(Box)`
+  position: sticky;
+  top: -1px;
+  z-index: 999;
 `
 
 const markdownTitleComponent = {
@@ -58,6 +55,7 @@ function FieldGuideItem ({
   id,
   item,
   setActiveItemIndex,
+  theme,
   title = ''
 }) {
   const icon = icons.get(item.icon)
@@ -66,11 +64,12 @@ function FieldGuideItem ({
 
   return (
     <Box id={id} className={className}>
-      <Box
+      <StickyTitle
         align='center'
         border={{ color: 'light-5', side: 'bottom' }}
         direction='row'
-        pad={{ bottom: 'xsmall' }}
+        pad={{ bottom: 'xsmall', top: 'medium' }}
+        background={theme.dark ? 'dark-5' : 'white'}
       >
         <StyledButton
           a11yTitle={t('FieldGuide.FieldGuideItem.ariaTitle')}
@@ -82,7 +81,7 @@ function FieldGuideItem ({
         <Markdownz components={markdownTitleComponent}>
           {`### ${title}`}
         </Markdownz>
-      </Box>
+      </StickyTitle>
 
       <Box align='center' pad={{ top: 'small', bottom: '35px' }}>
         <FieldGuideItemIcon
@@ -91,11 +90,9 @@ function FieldGuideItem ({
           width={140}
         />
       </Box>
-      <Box>
-        <Markdownz components={markdownComponents}>
-          {content}
-        </Markdownz>
-      </Box>
+      <Markdownz components={markdownComponents}>
+        {content}
+      </Markdownz>
     </Box>
   )
 }

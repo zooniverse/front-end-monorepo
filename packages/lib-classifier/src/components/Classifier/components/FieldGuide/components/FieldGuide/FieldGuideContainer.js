@@ -25,7 +25,7 @@ function FieldGuideContainer ({
     active: true,
     closeFn: onClose,
     modal: false,
-    pad: 'medium',
+    pad: '0',
     position: 'right',
     title: t('FieldGuide.title')
   }

@@ -47,31 +47,31 @@ const fieldGuide = FieldGuideFactory.build({
     },
     {
       icon: medium.id,
-      title: 'Dogs'
+      title: 'Dogs1'
     },
     {
-      title: 'Cats'
+      title: 'Cats2'
     },
     {
-      title: 'Dogs'
+      title: 'Dogs3'
     },
     {
-      title: 'Cats'
+      title: 'Cats4 a Longer Title with lots of words'
     },
     {
-      title: 'Dogs'
+      title: 'Dogs5'
     },
     {
-      title: 'Cats'
+      title: 'Cats6'
     },
     {
-      title: 'Dogs'
+      title: 'Dogs7'
     },
     {
-      title: 'Cats'
+      title: 'Cats8'
     },
     {
-      title: 'Dogs'
+      title: 'Dogs9'
     }
   ]
 })
@@ -85,23 +85,23 @@ const translation = {
   strings: {
     'items.0.title': 'Cats',
     'items.0.content': catsMarkdownContent,
-    'items.1.title': 'Dogs',
+    'items.1.title': 'Dogs1',
     'items.1.content': 'All about dogs',
-    'items.2.title': 'Cats',
+    'items.2.title': 'Cats2',
     'items.2.content': `It's raining cats and dogs`,
-    'items.3.title': 'Dogs',
+    'items.3.title': 'Dogs3',
     'items.3.content': 'All about dogs',
-    'items.4.title': 'Cats',
+    'items.4.title': 'Cats4 a Longer Title with lots of words',
     'items.4.content': `It's raining cats and dogs`,
-    'items.5.title': 'Dogs',
+    'items.5.title': 'Dogs5',
     'items.5.content': 'All about dogs',
-    'items.6.title': 'Cats',
+    'items.6.title': 'Cats6',
     'items.6.content': `It's raining cats and dogs`,
-    'items.7.title': 'Dogs',
+    'items.7.title': 'Dogs7',
     'items.7.content': 'All about dogs',
-    'items.8.title': 'Cats',
+    'items.8.title': 'Cats8',
     'items.8.content': `It's raining cats and dogs`,
-    'items.9.title': 'Dogs',
+    'items.9.title': 'Dogs9',
     'items.9.content': 'All about dogs'
   }
 }
