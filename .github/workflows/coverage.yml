@@ -22,8 +22,8 @@ jobs:
           cache: 'yarn'
 
       - run: yarn install --production=false --frozen-lockfile
-      - run: yarn workspace @zooniverse/react-components build
-      - run: yarn workspace @zooniverse/classifier build
+      - run: yarn workspace @zooniverse/react-components build:cjs
+      - run: yarn workspace @zooniverse/classifier build:cjs
       - run: yarn test:ci
       - run: yarn coverage-lcov
       - name: Coveralls
