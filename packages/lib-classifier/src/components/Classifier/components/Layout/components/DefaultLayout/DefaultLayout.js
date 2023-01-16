@@ -42,8 +42,9 @@ const StyledTaskArea = styled(TaskArea)`
 export const ViewerGrid = styled.section`
   display: grid;
   grid-area: viewer;
+  grid-template-areas: "subject toolbar";
   grid-template-columns: auto clamp(3rem, 10%, 4.5rem);
-  grid-template-areas: "subject toolbar" "metatools ...";
+  height: fit-content;
 `
 
 const StyledImageToolbarContainer = styled.div`
@@ -55,11 +56,6 @@ const StyledImageToolbar = styled(ImageToolbar)`
   top: 10px;
 `
 
-const StyledMetaTools = styled(MetaTools)`
-  grid-area: metatools;
-  margin-top: 10px;
-`
-
 export default function DefaultLayout({ className = '' }) {
   return (
     <ContainerGrid className={className}>
@@ -67,11 +63,11 @@ export default function DefaultLayout({ className = '' }) {
         <Box gridArea='subject'>
           <Banners />
           <SubjectViewer />
+          <MetaTools />
         </Box>
         <StyledImageToolbarContainer>
           <StyledImageToolbar />
         </StyledImageToolbarContainer>
-        <StyledMetaTools />
       </ViewerGrid>
       <StyledTaskAreaContainer>
         <StyledTaskArea />
