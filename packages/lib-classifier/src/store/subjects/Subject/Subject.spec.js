@@ -57,7 +57,6 @@ describe('Model > Subject', function () {
         get: sinon.stub().callsFake(() => Promise.resolve({ body: { tutorials: [] } }))
       }
       rootStore = mockStore({ workflow: workflowSnapshot, client })
-      rootStore.subjects.reset()
       client.caesar.request.resetHistory()
       await rootStore.subjects.populateQueue()
     })
