@@ -1,22 +1,18 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react';
+import { useState } from 'react'
 
 import { withStores } from '@helpers'
 import ZoomInButton from './ZoomInButton'
 
-function storeMapper (classifierStore) {
-  const {
-    zoomIn
-  } = classifierStore.subjectViewer
+function storeMapper(classifierStore) {
+  const { zoomIn } = classifierStore.subjectViewer
 
   return {
     zoomIn
   }
 }
 
-function ZoomInButtonContainer({
-  zoomIn = () => console.log('zoom in')
-}) {
+function ZoomInButtonContainer({ zoomIn = () => console.log('zoom in') }) {
   const [timer, setTimer] = useState('')
 
   function onPointerDown(event) {
@@ -35,12 +31,11 @@ function ZoomInButtonContainer({
   }
 
   return (
-    <span
+    <ZoomInButton
+      onClick={zoomIn}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
-    >
-      <ZoomInButton onClick={zoomIn} />
-    </span>
+    />
   )
 }
 

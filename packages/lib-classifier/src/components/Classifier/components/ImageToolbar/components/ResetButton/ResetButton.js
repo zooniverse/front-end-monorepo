@@ -4,7 +4,10 @@ import { useTranslation } from '@translations/i18n'
 import ResetIcon from './ResetIcon'
 import Button from '../Button'
 
-function ResetButton ({ disabled, onClick }) {
+function ResetButton({
+  disabled = false,
+  onClick = () => console.log('Reset Button')
+}) {
   const { t } = useTranslation('components')
   return (
     <Button
@@ -19,11 +22,6 @@ function ResetButton ({ disabled, onClick }) {
 ResetButton.propTypes = {
   disabled: PropTypes.bool,
   onClick: PropTypes.func
-}
-
-ResetButton.defaultProps = {
-  disabled: false,
-  onClick: () => console.log('Reset Button')
 }
 
 export default ResetButton

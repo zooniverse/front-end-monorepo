@@ -4,7 +4,10 @@ import { useTranslation } from '@translations/i18n'
 import PointerIcon from './PointerIcon'
 import Button from '../Button'
 
-function AnnotateButton ({ active, onClick }) {
+function AnnotateButton({
+  active = false,
+  onClick = () => console.log('Annotate Button')
+}) {
   const { t } = useTranslation('components')
   return (
     <Button
@@ -19,11 +22,6 @@ function AnnotateButton ({ active, onClick }) {
 AnnotateButton.propTypes = {
   active: PropTypes.bool,
   onClick: PropTypes.func
-}
-
-AnnotateButton.defaultProps = {
-  active: false,
-  onClick: () => console.log('Annotate Button')
 }
 
 export default AnnotateButton

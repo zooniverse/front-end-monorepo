@@ -625,25 +625,23 @@ describe('Model > SubjectStore', function () {
   })
 
   describe('openTalkPage', function () {
-    let originalLocation
+    let originalWindow
     const talkURL = 'https://example.org/projects/zooniverse/test-project/talk/123456'
 
     before(function () {
-      originalLocation = window.location
-      Object.defineProperty(window, 'location', {
-        value: {
+      originalWindow = window
+      global.window = {
+        ...window,
+        location: {
+          ...window.location,
           origin: 'https://example.org',
           assign: sinon.stub().callsFake(url => console.log(url))
-        },
-        writable: true
-      })
+        }
+      }
     })
 
     after(function () {
-      window.location = originalLocation
-      Object.defineProperty(window, 'location', {
-        writable: false
-      })
+      global.window = originalWindow
     })
 
     describe('in the same tab', function () {
