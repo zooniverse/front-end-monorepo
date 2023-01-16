@@ -2,7 +2,7 @@ import { MetaToolsButton, SpacedText } from '@zooniverse/react-components'
 import PropTypes from 'prop-types'
 import { Box, DropButton } from 'grommet'
 import { FormDown, FormView, FormViewHide, Hide } from 'grommet-icons'
-import { useState } from 'react';
+import { useState } from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 
