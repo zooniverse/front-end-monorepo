@@ -1,14 +1,14 @@
 import { Box, Button, Carousel, Heading, Paragraph } from 'grommet'
 import PropTypes from 'prop-types'
-import { PrimaryButton, Media } from '@zooniverse/react-components'
-import { useTranslation } from '@translations/i18n'
 import { useEffect, useRef } from 'react'
+import styled, { withTheme } from 'styled-components'
+import { useTranslation } from '@translations/i18n'
+import { PrimaryButton, Media } from '@zooniverse/react-components'
 
 import ConfusedWith from './components/ConfusedWith'
 import Questions from './components/Questions'
 import allowIdentification from './helpers/allowIdentification'
 import getQuestionIds from './helpers/getQuestionIds'
-import styled, { withTheme } from 'styled-components'
 
 const StyledBox = styled(Box)`
   &:focus {
@@ -55,13 +55,13 @@ function Choice({
     <StyledBox
       ref={choiceRef}
       aria-labelledby='choice-label'
-      as='section'
       background={{
         dark: 'dark-1',
         light: 'light-1'
       }}
       elevation='large'
       flex='grow'
+      forwardedAs='section'
       onKeyDown={handleKeyDown}
       pad='small'
       tabIndex={0}
