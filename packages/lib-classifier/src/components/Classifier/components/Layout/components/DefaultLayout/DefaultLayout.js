@@ -44,6 +44,7 @@ export const ViewerGrid = styled.section`
   grid-area: viewer;
   grid-template-areas: "subject toolbar";
   grid-template-columns: auto clamp(3rem, 10%, 4.5rem);
+  height: fit-content;
 `
 
 const StyledImageToolbarContainer = styled.div`
@@ -53,11 +54,6 @@ const StyledImageToolbarContainer = styled.div`
 const StyledImageToolbar = styled(ImageToolbar)`
   position: sticky;
   top: 10px;
-`
-
-const StyledMetaTools = styled(MetaTools)`
-  grid-area: metatools;
-  margin-top: 10px;
 `
 
 export default function DefaultLayout({ className = '' }) {
