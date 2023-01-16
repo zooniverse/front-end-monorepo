@@ -4,7 +4,10 @@ import { useTranslation } from '@translations/i18n'
 import RotateIcon from './RotateIcon'
 import Button from '../Button'
 
-function RotateButton ({ disabled, onClick }) {
+function RotateButton({
+  disabled = false,
+  onClick = () => console.log('Rotate Button')
+}) {
   const { t } = useTranslation('components')
   return (
     <Button
@@ -19,11 +22,6 @@ function RotateButton ({ disabled, onClick }) {
 RotateButton.propTypes = {
   disabled: PropTypes.bool,
   onClick: PropTypes.func
-}
-
-RotateButton.defaultProps = {
-  disabled: false,
-  onClick: () => console.log('Rotate Button')
 }
 
 export default RotateButton

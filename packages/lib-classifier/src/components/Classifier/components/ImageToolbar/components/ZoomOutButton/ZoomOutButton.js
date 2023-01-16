@@ -4,7 +4,7 @@ import { useTranslation } from '@translations/i18n'
 import ZoomOutIcon from './ZoomOutIcon'
 import Button from '../Button'
 
-function ZoomOutButton ({ onClick }) {
+function ZoomOutButton({ onClick = () => console.log('Zoom out') }) {
   const { t } = useTranslation('components')
   return (
     <Button
@@ -17,10 +17,6 @@ function ZoomOutButton ({ onClick }) {
 
 ZoomOutButton.propTypes = {
   onClick: PropTypes.func
-}
-
-ZoomOutButton.defaultProps = {
-  onClick: () => console.log('Zoom out')
 }
 
 export default ZoomOutButton

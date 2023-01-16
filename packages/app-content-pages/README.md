@@ -21,21 +21,25 @@ To get the credentials, go to https://app.contentful.com/spaces/jt90kyhvp0qv/api
 
 ## Running in development
 
+Starts a development server on port 3000 by default. The package `devcert` sets up a local certificate authority to generate self-signed SSL certificates for the `local.zooniverse.org` and `localhost.zooniverse.org` sub-domains. When you run this for the first time on Mac OS, you will be prompted for sudo (Read more at: https://github.com/davewasmer/devcert#security-concerns). In addition, you must have one of those sub-domains [setup](https://stackoverflow.com/c/zooniverse/questions/109) to get past CORS errors when authenticating with Panoptes in your hosts file.
+
+Once the local CA is created and you have the hosts file configured, you'll be able to use one of those subdomains to do local development for projects on and be able to authenticate with Panoptes, i.e. at `https://local.zooniverse.org:3000/about/team` or `https://localhost.zooniverse.org:3000/about/publications`.
+
 ### Docker
 
-- `docker-compose up` to run a dev server on http://localhost:3000 using `yarn dev`. The `--build` flag can be used to build the container. This builds and runs a local image which matches the Jenkins build except for running behind a proxy.
+- `docker-compose up` to run a dev server on http://localhost:3000 using `yarn dev`. The `--build` flag can be used to build the container. This builds and runs a local image which matches the Jenkins build except for running behind a proxy. Note: `devcert` is not yet setup for our docker build for local development.
 - `docker-compose down` to stop the dev server.
 - `docker-compose run --rm content-pages test` to run the tests.
 
 ### Node
+
 ```sh
 yarn dev
 ```
 
 Starts a development server on port 3000 by default.
 
-**Note:** `PANOPTES_ENV` is set to `production` when running `npm run dev`. This is so the project avatars for publications can be fetched from the production API. If `PANOPTES_ENV` is set to anything else, the fallback image will show.
-
+**Note:** `PANOPTES_ENV` is set to `production` when running `yarn dev`. This is so the project avatars for publications can be fetched from the production API. If `PANOPTES_ENV` is set to anything else, the fallback image will show.
 
 ```sh
 yarn storybook
@@ -44,6 +48,7 @@ yarn storybook
 Starts a Storybook server on port 9001 by default.
 
 ### Bundle Analyser
+
 ```sh
 yarn analyse
 ```
@@ -57,6 +62,7 @@ Run a build with [`@next/bundle-analyzer`](https://www.npmjs.com/package/@next/b
 - `docker-compose run --rm content-pages start` to run a webpack production build on http://localhost:3000 using `yarn start`. The `--build` flag can be used to build the container. This builds and runs a local image which matches the Jenkins build except for running behind a proxy.
 
 ### Node
+
 ```sh
 yarn build
 yarn start
@@ -69,7 +75,7 @@ The production server is started on port 3000 by default.
 ### Tests
 
 ```sh
-npm run test
+yarn test
 ```
 
 See [Testing](#testing) for more details.
