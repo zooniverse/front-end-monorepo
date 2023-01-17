@@ -51,7 +51,7 @@
     "mobx-react": "~7.6.0",
     "mobx-state-tree": "~5.1.0",
     "morgan": "^1.10.0",
-    "newrelic": "~9.7.0",
+    "newrelic": "~9.8.0",
     "next": "~12.3.0",
     "next-i18next": "~13.0.0",
     "panoptes-client": "~4.2.0",
