@@ -59,7 +59,7 @@
     "@storybook/builder-webpack5": "~6.5.0",
     "@storybook/manager-webpack5": "~6.5.0",
     "@storybook/react": "~6.5.0",
-    "@testing-library/dom": "~8.19.0",
+    "@testing-library/dom": "~8.20.0",
     "@testing-library/react": "~12.1.2",
     "@testing-library/user-event": "~14.4.0",
     "@wojtekmaj/enzyme-adapter-react-17": "~0.8.0",
