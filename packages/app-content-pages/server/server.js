@@ -4,8 +4,6 @@ if (process.env.NEWRELIC_LICENSE_KEY) {
 
 const express = require('express')
 const next = require('next')
-const https = require('https')
-const selfsigned = require('selfsigned')
 
 const setLogging = require('./set-logging')
 const setCacheHeaders = require('./set-cache-headers')
@@ -37,6 +35,9 @@ app.prepare().then(() => {
   })
 
   if (APP_ENV === 'development') {
+    const https = require('https')
+    const selfsigned = require('selfsigned')
+
     const attrs = [{ name: 'commonName', value: hostname }];
     const { cert, private: key } = selfsigned.generate(attrs, { days: 365 })
     return https.createServer({ cert, key }, server)
