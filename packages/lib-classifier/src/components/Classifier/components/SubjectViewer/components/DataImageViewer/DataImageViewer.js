@@ -58,6 +58,11 @@ const DataImageViewer = forwardRef(function DataImageViewer(props, ref) {
     setAllowPanZoom('')
   }
 
+  /*
+    PH-TESS light curves use JSONData.x and JSONData.y.
+    SuperWASP Black Hole Hunters use JSONData.data.x and JSONData.data.y
+  */
+  const data = JSONData.data ? JSONData.data : JSONData
   return (
     <Grid
       areas={areas}
@@ -74,7 +79,7 @@ const DataImageViewer = forwardRef(function DataImageViewer(props, ref) {
         height='500px'
       >
         <ScatterPlotViewer
-          data={JSONData.data}
+          data={data}
           margin={{
             bottom: 50,
             left: 70,

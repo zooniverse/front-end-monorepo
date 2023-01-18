@@ -32,13 +32,26 @@
       "runtime": "automatic"
     }],
     ["@babel/preset-env", {
-      "modules": false,
+      "modules": "auto",
       "targets": {
         "browsers": "last 2 versions"
       }
     }]
   ],
   "env": {
+    "es6": {
+      "presets": [
+        ["@babel/preset-react", { 
+          "runtime": "automatic"
+        }],
+        ["@babel/preset-env", {
+          "modules": false,
+          "targets": {
+            "esmodules": true
+          }
+        }]
+      ]
+    },
     "test": {
       "presets": [
         "@babel/preset-env",
