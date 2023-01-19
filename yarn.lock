@@ -14820,9 +14820,9 @@ react-refresh@^0.11.0:
   integrity sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==
 
 react-resize-detector@~8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/react-resize-detector/-/react-resize-detector-8.0.0.tgz#b6cf5ca4e4b6541b07882afe627fa4ad3bbc2f54"
-  integrity sha512-cw/y7u3Z2IorWWa7RkCcTzVEvQqyNNPA1Xx2pFJ19viX+EJPP5oyo6rqnR3K57E02uvFE/dfVbVc01A/Q/HyYA==
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/react-resize-detector/-/react-resize-detector-8.0.1.tgz#1f0a0018ca9319e8787a81f9df90490c2f4799a4"
+  integrity sha512-0IlE244cnb1l/K85U/d+spHm7QSXZCZgzGKfarNA3ygh+Sfa5QwV3NG0aCWkHzNrL4tXnbWkvvM9ikMmiJpWzQ==
   dependencies:
     lodash "^4.17.21"
 
