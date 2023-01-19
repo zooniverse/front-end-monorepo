@@ -11532,13 +11532,13 @@ jsesc@~0.5.0:
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-0.5.0.tgz#e7dee66e35d6fc16f710fe91d5cf69f70f08911d"
   integrity sha512-uZz5UnB7u4T9LvwmFqXii7pZSouaRPorGs5who1Ip7VO0wxanFvBL7GkM6dTHlgX+jhBApRetaWpnDabOeTcnA==
 
-json-api-client@^6.0.6:
-  version "6.0.6"
-  resolved "https://registry.yarnpkg.com/json-api-client/-/json-api-client-6.0.6.tgz#2bb3f72e5fb21231ee6e5176270ee3732b369e53"
-  integrity sha512-NqoBgxDTrnODxXp5DQvhdpSxEzdEuJve9ULZAneC6V05RHbQ2nrnwTwF1KLCyFl2QrHIUzjPCIx1DQGfe8D6ug==
+json-api-client@^6.0.7:
+  version "6.0.7"
+  resolved "https://registry.yarnpkg.com/json-api-client/-/json-api-client-6.0.7.tgz#e5d3848434648ddc2ee8610ea1b91e1c60d3faaa"
+  integrity sha512-qS75DUjX6yE0TzrKWN0mIwf+VX8jt+TtOhw7W2hCuIikQjiiVvl7ayu5vddP1Fryd5xRiM0n5rAszGP63gvaCw==
   dependencies:
     normalizeurl "~1.0.0"
-    superagent "^8.0.6"
+    superagent "^8.0.8"
 
 json-parse-better-errors@^1.0.1, json-parse-better-errors@^1.0.2:
   version "1.0.2"
@@ -13771,11 +13771,11 @@ pako@~1.0.5:
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
 panoptes-client@~4.2.0:
-  version "4.2.7"
-  resolved "https://registry.yarnpkg.com/panoptes-client/-/panoptes-client-4.2.7.tgz#0863e45e60d7f32a695296f16f68b561c5ed8352"
-  integrity sha512-hgfPMSsQJ6Z/kBr/XYpcsqQzdtLnjx5hU0qIX0797uzmhBURjwO3CkwID9Z+mJZ5e9mw6gS4Kx1eZBsJEoSNKg==
+  version "4.2.8"
+  resolved "https://registry.yarnpkg.com/panoptes-client/-/panoptes-client-4.2.8.tgz#d35a620682ec64cd80ea41eb66c621e62efb3e13"
+  integrity sha512-CnP7XJ/m6LOtEdMj86RkE7+zALL18ZMI1ht35dMyjI8aCPcUiWRnCpfCACvVk5dAKA9A+2ZrKeCzlMURp1qy/Q==
   dependencies:
-    json-api-client "^6.0.6"
+    json-api-client "^6.0.7"
     local-storage "^2.0.0"
     sugar-client "^2.0.0"
 
@@ -16589,7 +16589,7 @@ sugar-client@^2.0.0:
   resolved "https://registry.yarnpkg.com/sugar-client/-/sugar-client-2.0.0.tgz#2dd8158a331c54c08307d14b8abb4b0012d90d1c"
   integrity sha512-87RfgwzyiQrA77lsBGYFPjHbDVzkcSl5aiubz3n7qPOwf9LLNKe+PvtlNf0bnFS63+gGWe6r8A18iaKLBthw1w==
 
-superagent@^8.0.6, superagent@~8.0.0:
+superagent@^8.0.6, superagent@^8.0.8, superagent@~8.0.0:
   version "8.0.8"
   resolved "https://registry.yarnpkg.com/superagent/-/superagent-8.0.8.tgz#345f06f552dc23f3581f2c30fda7d6ad247f146d"
   integrity sha512-OpxPrqqWKOjmuomLq5pCm4LWCSFdgAQ11XVkMl7t4ie13WxWuLkdJ83ZgG2jOQeLXKwMR2p9k30hLrKGAzkPaA==
