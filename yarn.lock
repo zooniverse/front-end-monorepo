@@ -2229,10 +2229,10 @@
   resolved "https://registry.yarnpkg.com/@newrelic/superagent/-/superagent-6.0.0.tgz#8aee871547ebea90fcb37f98ea38d820cc1bc67b"
   integrity sha512-5nClQp9ACd4BvLusAgFHjjKLDgAaC+dKmIsRNOPC82LOLFaoOgxxtbecnDIJ0NWCKQS+WOdmXdgYutwH+e5dsA==
 
-"@next/bundle-analyzer@~13.0.4":
-  version "13.0.4"
-  resolved "https://registry.yarnpkg.com/@next/bundle-analyzer/-/bundle-analyzer-13.0.4.tgz#ce9acb11ae1019a956e278ecd05cac1c4242d3b6"
-  integrity sha512-GFbr0HX75Fv/S+R7NOXOUX7YBtg+snE3a/4ikEfouXVHzPakluIQL8ojYJTcR5Q6mBospGaldT19AdfuqRmPqQ==
+"@next/bundle-analyzer@~13.1.3":
+  version "13.1.3"
+  resolved "https://registry.yarnpkg.com/@next/bundle-analyzer/-/bundle-analyzer-13.1.3.tgz#f0e82bdcf17126907a58a68f85d49a71cadb6b07"
+  integrity sha512-3C9NVjV0RRwceejYuwc9yVtBGRyKZaQIAgjLnLPydg1rDO/cNNgmRaq5n+S8Wcsw+YhcDiTWtn1kTX+bbBZYOw==
   dependencies:
     webpack-bundle-analyzer "4.7.0"
 
