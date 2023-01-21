@@ -26,9 +26,9 @@ const supportedLngs = [
   'sv',
   'test',
   'tr',
-  'ur'
-  // 'zh-CN' (These are loaded manually below due to unhappy webpack file pathnames)
-  // 'zh-TW'
+  'ur',
+  'zh-CN',
+  'zh-TW'
 ]
 
 const classifierI18n = i18n.createInstance()
@@ -51,30 +51,6 @@ supportedLngs.forEach((lang) => {
     )
   })
 })
-
-classifierI18n.addResourceBundle(
-  'zh-CN',
-  'components',
-  require('./zh-CN/components.json')
-)
-
-classifierI18n.addResourceBundle(
-  'zh-CN',
-  'plugins',
-  require('./zh-CN/components.json')
-)
-
-classifierI18n.addResourceBundle(
-  'zh-TW',
-  'components',
-  require('./zh-TW/components.json')
-)
-
-classifierI18n.addResourceBundle(
-  'zh-TW',
-  'plugins',
-  require('./zh-TW/components.json')
-)
 
 export function useTranslation(ns) {
   return useBaseTranslation(ns, { i18n: classifierI18n })
