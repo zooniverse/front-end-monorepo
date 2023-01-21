@@ -2,7 +2,7 @@ import nock from 'nock'
 
 import fetchTranslations from './'
 
-describe.only('helpers > fetchTranslations', function () {
+describe('helpers > fetchTranslations', function () {
   before(function () {
     nock('https://panoptes-staging.zooniverse.org/api')
       .get('/translations')
