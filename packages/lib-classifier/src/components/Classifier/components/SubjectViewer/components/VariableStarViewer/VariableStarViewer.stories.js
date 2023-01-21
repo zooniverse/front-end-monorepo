@@ -1,7 +1,5 @@
-import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
-import { withKnobs, boolean, text, object } from '@storybook/addon-knobs'
 import { Factory } from 'rosie'
 import VariableStarViewer from './VariableStarViewerContainer'
 import VariableStarViewerConnector from './VariableStarViewerConnector'
@@ -152,7 +150,7 @@ export function PanZoom() {
         <VariableStarViewerConnector
           loadingState={asyncStates.success}
         />
-        <ImageToolbar />
+        <ImageToolbar width='4rem' />
       </Box>
     </ViewerContext>
   )

@@ -30,17 +30,19 @@ describe('TaskNavButtons > Component > ExpertOptionsContainer', function () {
   })
 
   describe('when in demo mode is enabled by query param', function () {
-    let originalLocation
+    let originalWindow
     let setDemoModeSpy
+
     before(function () {
       setDemoModeSpy = sinon.spy()
-      originalLocation = window.location
-      Object.defineProperty(window, 'location', {
-        value: {
-          search: '?demo=true',
-        },
-        writable: true
-      })
+      originalWindow = window
+      global.window = {
+        ...window,
+        location: {
+          ...window.location,
+          search: '?demo=true'
+        }
+      }
     })
 
     afterEach(function () {
@@ -48,10 +50,7 @@ describe('TaskNavButtons > Component > ExpertOptionsContainer', function () {
     })
 
     after(function () {
-      window.location = originalLocation
-      Object.defineProperty(window, 'location', {
-        writable: false
-      })
+      global.window = originalWindow
     })
 
     it('should render ExpertOptions', function () {

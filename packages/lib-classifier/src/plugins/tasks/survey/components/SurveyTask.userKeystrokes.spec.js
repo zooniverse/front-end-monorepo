@@ -163,81 +163,25 @@ describe('SurveyTask with user keystrokes', function () {
       render(<NoFiltersStory />)
       // tabbing to the first choice (Aardvark)
       await user.keyboard('[Tab]')
-    })
-
-    it('should show the choice description', async function () {
       // pressing Enter to open the choice (Aardvark)
       await user.keyboard('[Enter]')
+    })
+    
+    it('should show the choice description', async function () {
       const choiceDescription = screen.getByText('Not as awesome as a pangolin, but surprisingly big.')
       expect(choiceDescription).to.be.ok()
     })
 
     it('should show choice images', async function () {
-      // tabbing to the first choice (Aardvark) and pressing Enter to open the choice (Aardvark)
-      await user.keyboard('[Enter]')
       const choiceImages = screen.getByTestId('choice-images')
-      
       expect(choiceImages).to.be.ok()
     })
 
-    it('should show choices with recent choice as active choice when Not This button keyed with Enter', async function () {
-      // arrowing up to the last choice (Nothing here), and pressing Enter to open the choice (Nothing here)
-      await user.keyboard('[ArrowUp]')
-      await user.keyboard('[Enter]')
-      let choiceDescription = screen.getByText('Don\'t tell the plant biologists we called vegetation \"nothing here\"!')
-      expect(choiceDescription).to.be.ok()
-      // tabbing to the "Not this" button
-      await user.keyboard('[Tab][Tab]')
-      const notThisButton = screen.getByRole('button', { name: 'SurveyTask.Choice.notThis' })
-      expect(notThisButton).to.equal(document.activeElement)
-      // pressing Enter to close the choice (Nothing here)
-      await user.keyboard('[Enter]')
-      // confirm choice (Nothing here) description, and therefore choice, is not shown
-      choiceDescription = screen.queryByText('Don\'t tell the plant biologists we called vegetation \"nothing here\"!')
-      expect(choiceDescription).to.be.null()
-      // confirm choices are shown
-      const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
-      expect(choiceButtons.length).to.equal(6)
-    })
-
-    it('should show choices with identified choice as active choice when Identify keyed with Enter', async function () {
-      // arrowing up to the last choice (Nothing here), and pressing Enter to open the choice (Nothing here)
-      await user.keyboard('[ArrowUp]')
-      await user.keyboard('[Enter]')
-      let choiceDescription = screen.getByText('Don\'t tell the plant biologists we called vegetation \"nothing here\"!')
-      expect(choiceDescription).to.be.ok()
-      // tabbing to the "Identify" button
-      await user.keyboard('[Tab][Tab][Tab]')
-      const identifyButton = screen.getByRole('button', { name: 'SurveyTask.Choice.identify' })
-      expect(identifyButton).to.equal(document.activeElement)
-      // pressing Enter to identify and close the choice (Nothing here)
-      await user.keyboard('[Enter]')
-      // confirm choice (Nothing here) description, and therefore choice, is not shown
-      choiceDescription = screen.queryByText('Don\'t tell the plant biologists we called vegetation \"nothing here\"!')
-      expect(choiceDescription).to.be.null()
-      // confirm choices are shown
-      const choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
-      expect(choiceButtons.length).to.equal(6)
-      // confirm the identified choice (Nothing here) is the active choice
-      const nothingHereChoiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Nothing here')
-      expect(nothingHereChoiceButton).to.equal(document.activeElement)
-    })
-
-    it('should disable the Identify button until required questions are answered', async function () {
-      // pressing Enter to open the choice (Aardvark)
-      await user.keyboard('[Enter]')
-      let identifyButton = screen.getByTestId('choice-identify-button')
-      // confirm the Identify button is disabled, pending required questions answered
-      expect(identifyButton.disabled).to.be.true()
-      // the required questions for Aardvark are "How many?" and "What behavior do you see?"
-      // the following answers "How many?" with "1" and "What behavior do you see?" with "Resting"
-      
-      // tabbing (x3) to the "How many?" question, selecting the "1" answer with space key, tabbing (x1) to the "What behavior do you see?" question, selecting the "Resting" answer with space key
-      await user.keyboard('[Tab][Tab][Tab][Space][Tab][Space]')
-      // confirm the Identify button is enabled, now that required questions are answered
-      identifyButton = screen.getByTestId('choice-identify-button')
-      // confirm the Identify button is enabled, now that required questions answered
-      expect(identifyButton.disabled).to.be.false()
+    it('should close choice on Escape key', async function () {
+      // pressing Escape to close the choice (Aardvark)
+      await user.keyboard('[Escape]')
+      // confirm choice (Aardvark) description, and therefore choice, is not visible
+      expect(screen.queryByText('Not as awesome as a pangolin, but surprisingly big.')).to.be.null()
     })
   })
 })

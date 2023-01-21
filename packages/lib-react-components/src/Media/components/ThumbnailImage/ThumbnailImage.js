@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import styled, { css } from 'styled-components'
 import { Box, Image } from 'grommet'
 import getThumbnailSrc from '../../helpers/getThumbnailSrc.js'
 import { propTypes, defaultProps } from '../../helpers/mediaPropTypes.js'
-import useProgressiveImage  from '../../../hooks/useProgressiveImage.js'
+import useProgressiveImage from '../../../hooks/useProgressiveImage.js'
 
 const DEFAULT_THUMBNAIL_DIMENSION = 999
 
@@ -31,19 +30,19 @@ function stringifySize (size) {
 }
 
 export default function ThumbnailImage({
-  alt,
-  delay,
-  fit,
-  flex,
-  height,
-  origin,
-  placeholder,
+  alt = defaultProps.alt,
+  delay = defaultProps.delay,
+  fit = defaultProps.fit,
+  flex = defaultProps.flex,
+  height = DEFAULT_THUMBNAIL_DIMENSION,
+  origin = defaultProps.origin,
+  placeholder = defaultProps.placeholder,
   src,
-  width,
+  width = DEFAULT_THUMBNAIL_DIMENSION,
   ...rest
 }) {
   const thumbnailSrc = getThumbnailSrc({ height, origin, src, width })
-  const { img, error, loading } = useProgressiveImage({ delay, src: thumbnailSrc })
+  const { error, loading } = useProgressiveImage({ delay, src: thumbnailSrc })
 
   const imageSrc = error ? src : thumbnailSrc
   const stringHeight = stringifySize(height)
@@ -58,8 +57,8 @@ export default function ThumbnailImage({
       {loading ?
         <Placeholder height={stringHeight} flex={flex} width={stringWidth} {...rest}>{placeholder}</Placeholder> :
         <StyledBox
-          animation={loading ? undefined : "fadeIn"}
-          className="thumbnailImage"
+          animation={loading ? undefined : 'fadeIn'}
+          className='thumbnailImage'
           flex={flex}
           maxWidth={stringWidth}
           maxHeight={stringHeight}
@@ -82,10 +81,4 @@ export default function ThumbnailImage({
 
 ThumbnailImage.propTypes = {
   ...propTypes
-}
-
-ThumbnailImage.defaultProps = {
-  ...defaultProps,
-  height: DEFAULT_THUMBNAIL_DIMENSION,
-  width: DEFAULT_THUMBNAIL_DIMENSION
 }

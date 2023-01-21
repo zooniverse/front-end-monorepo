@@ -44,6 +44,7 @@ global.Image = window.Image
 global.navigator = {
   userAgent: 'node.js'
 }
+global.cancelAnimationFrame = () => true  // Required for '@tippyjs'
 copyProps(window, global)
 
 Enzyme.configure({ adapter: new Adapter() })

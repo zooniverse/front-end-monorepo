@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.4.0] 2023-01-13
+
+### Changed
+- Replaced the webpack UMD build (`dist/main.js`) with a Babel CommonJS transform (`dist/cjs/index.js`).
+
+## [1.3.3] 2023-1-12
+
+### Changed
+- Refactor Markdownz's handling of custom image dimensions by allowing height to be undefined.
+
 ## [1.3.2] 2022-12-12
 
 ### Changed

@@ -1,34 +1,66 @@
 {
+  "AdminCheckbox": {
+    "label": "Yönetici Modu"
+  },
   "CloseButton": {
     "close": "Kapat"
+  },
+  "FavouritesButton": {
+    "add": "Favorilere ekle",
+    "remove": "Favorilere eklendi"
   },
   "ZooFooter": {
     "aboutLabels": {
       "about": "Hakkımızda",
-      "publications": "Yayınlar",
-      "team": "Ekibimiz",
       "acknowledgements": "Teşekkürler",
       "contact": "Bize Ulaşın",
-      "faq": "SSS"
+      "faq": "SSS",
+      "publications": "Yayınlar",
+      "team": "Ekibimiz"
+    },
+    "buildLabels": {
+      "bestPractices": "En İyi Uygulamalar",
+      "buildAProject": "Proje Oluştur",
+      "glossary": "Sözlük",
+      "policies": "İlkeler",
+      "tutorial": "Tutorial"
     },
     "getInvolvedLabels": {
-      "getInvolved": "Katıl",
+      "callForProjects": "Proje Çağrıları",
+      "collections": "Koleksiyonlar",
       "education": "Eğitim",
-      "callForProjects": "Proje Çağrıları"
+      "getInvolved": "Siz de Katkıda Bulunun"
+    },
+    "newsLabels": {
+      "blog": "Blog",
+      "dailyZooniverse": "Günlük Zooniverse",
+      "news": "Haberler"
+    },
+    "policyLabels": {
+      "jobs": "Katkı Alanları",
+      "privacyPolicy": "Gizlilik Politikası",
+      "security": "Güvenlik",
+      "systemStatus": "Sistem Durumu"
     },
     "projectLabels": {
       "projects": "Projeler"
     },
+    "tagLine": "İnsan Destekli Araştırma",
     "talkLabels": {
       "talk": "Sohbet"
     }
   },
   "ZooHeader": {
-    "mainHeaderNavListLabels": {
-      "projects": "Projeler",
-      "about": "Hakkımızda",
-      "getInvolved": "Katıl",
-      "talk": "Sohbet"
+    "SignedInUserNavigation": {
+      "ariaLabel": "Kullanıcı hesabı",
+      "navListLabels": {
+        "messages_one": "Mesajlar ({{count}})",
+        "messages_other": "Mesajlar ({{count}})",
+        "messages_zero": "Mesajlar",
+        "notifications_one": "Bildirimler ( {{count}} )",
+        "notifications_other": "Bildirimler ( {{count}} )",
+        "notifications_zero": "Bildirimler"
+      }
     },
     "SignedOutUserNavigation": {
       "register": "Kayıt ol",
@@ -37,8 +69,19 @@
     "UserMenu": {
       "userNavListLabels": {
         "collections": "Koleksiyonlar",
-        "favorites": "Favoriler"
+        "favorites": "Favoriler",
+        "profile": "Profil",
+        "settings": "Ayarlar",
+        "signOut": "Çıkış yapın"
       }
+    },
+    "ariaLabel": "Site",
+    "mainHeaderNavListLabels": {
+      "about": "Hakkımızda",
+      "build": "Proje Oluştur",
+      "getInvolved": "Siz de Katkıda Bulunun",
+      "projects": "Projeler",
+      "talk": "Sohbet"
     }
   }
 }

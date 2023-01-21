@@ -1,12 +1,10 @@
 import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
-import { withKnobs, boolean, text, object } from '@storybook/addon-knobs'
 import { Factory } from 'rosie'
 import { Provider } from 'mobx-react'
 import asyncStates from '@zooniverse/async-states'
-import DataImageViewerContainer from './DataImageViewerContainer'
-import DataImageViewerConnector from './DataImageViewerConnector'
+import DataImageViewer from './index.js'
 import ImageToolbar from '../../../ImageToolbar'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import readme from './README.md'
@@ -68,27 +66,18 @@ const { colors } = zooTheme.global
 
 export default {
   title: 'Subject Viewers / DataImageViewer',
-  component: DataImageViewerContainer,
-  decorators: [withKnobs]
+  component: DataImageViewer
 }
 
 export function LightTheme() {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode='light'
-    >
+    <ViewerContext mode='light' theme={zooTheme}>
       <Box width='large'>
-        <DataImageViewerContainer
+        <DataImageViewer
           loadingState={asyncStates.success}
-          subject={subject}
         />
       </Box>
-    </Grommet>
+    </ViewerContext>
   )
 }
 
@@ -98,23 +87,15 @@ LightTheme.story = {
 }
 
 export function DarkTheme() {
-  const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
+  const darkZooTheme = { ...zooTheme, dark: true }
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={darkZooTheme}
-      themeMode='dark'
-    >
+    <ViewerContext mode='dark' theme={zooTheme}>
       <Box width='large'>
-        <DataImageViewerContainer
+        <DataImageViewer
           loadingState={asyncStates.success}
-          subject={subject}
         />
       </Box>
-    </Grommet>
+    </ViewerContext>
   )
 }
 
@@ -131,21 +112,13 @@ DarkTheme.story = {
 
 export function NarrowView() {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode='light'
-    >
+    <ViewerContext mode='light' theme={zooTheme}>
       <Box width='large'>
-        <DataImageViewerContainer
+        <DataImageViewer
           loadingState={asyncStates.success}
-          subject={subject}
         />
       </Box>
-    </Grommet>
+    </ViewerContext>
   )
 }
 
@@ -163,10 +136,10 @@ export function PanZoom() {
   return (
     <ViewerContext mode='light' theme={zooTheme}>
       <Box direction='row' width='large'>
-        <DataImageViewerConnector
+        <DataImageViewer
           loadingState={asyncStates.success}
         />
-        <ImageToolbar />
+        <ImageToolbar width='4rem' />
       </Box>
     </ViewerContext>
   )

@@ -1,6 +1,10 @@
 // Creates a global document object using jsdom to allow the use of the
 // `mount` method in enzyme.
 import { JSDOM } from 'jsdom'
+import nock from 'nock'
+
+// require all net requests to be mocked.
+nock.disableNetConnect()
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://localhost' })
 const { window } = jsdom

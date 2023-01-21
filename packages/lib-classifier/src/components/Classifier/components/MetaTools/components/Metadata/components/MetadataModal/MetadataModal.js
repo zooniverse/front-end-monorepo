@@ -2,7 +2,7 @@ import { Markdownz, Modal, SpacedText } from '@zooniverse/react-components'
 import { Box, DataTable, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import filterByLabel, { filters } from './filterByLabel'
+import filterByLabel, { filters as defaultFilters } from './filterByLabel'
 import { useTranslation } from '@translations/i18n'
 
 const StyledDataTable = styled(DataTable)`
@@ -26,9 +26,6 @@ export function formatValue (value) {
   if (value) {
     const stringValue = value.toString()
     stringValue.trim()
-    if (stringValue.startsWith('http')) {
-      return `[${stringValue}](+tab+${stringValue})`
-    }
     return stringValue
   }
 
@@ -37,15 +34,13 @@ export function formatValue (value) {
   return ''
 }
 
-export default function MetadataModal (props) {
-  const {
-    active,
-    closeFn,
-    filters,
-    metadata,
-    prefixes
-  } = props
-
+export default function MetadataModal ({
+  active = false,
+  closeFn = () => true,
+  filters,
+  metadata,
+  prefixes = defaultFilters
+}) {
   const { t } = useTranslation('components')
 
   const columns = [{
@@ -84,13 +79,6 @@ export default function MetadataModal (props) {
       </Box>
     </Modal>
   )
-}
-
-MetadataModal.defaultProps = {
-  active: false,
-  closeFn: () => { },
-  filters,
-  prefixes: filters
 }
 
 MetadataModal.propTypes = {

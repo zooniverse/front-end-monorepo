@@ -233,7 +233,6 @@ const FlipbookControls = ({
           <Box direction='row' justify='center' gap={smallScreenStyle ? 'xsmall' : 'small'}>
             <DirectionButton
               a11yTitle={smallScreenStyle ? t('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel') : ''}
-              disabled={currentFrame === 0 || playing}
               icon={<FormPrevious />}
               label={smallScreenStyle ? '' : t('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel')}
               onClick={handlePrevious}
@@ -278,7 +277,6 @@ const FlipbookControls = ({
             </Box>
             <DirectionButton
               a11yTitle={smallScreenStyle ? t('SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel') : ''}
-              disabled={currentFrame === locations.length - 1 || playing}
               icon={<FormNext />}
               label={smallScreenStyle ? '' : t('SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel')}
               onClick={handleNext}

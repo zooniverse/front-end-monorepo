@@ -34,8 +34,8 @@ const dataWithVariableBarColor = letterFrequency.map((datum) => {
   return { color: '#1cc6b7', label: datum.letter, value: datum.frequency }
 })
 
-const mockData = Object.assign({}, { data: dataInZooFormat }, optionsMock)
-const mockDataWithColor = Object.assign({}, { data: dataWithVariableBarColor }, optionsMock)
+const mockData = { data: dataInZooFormat, ...optionsMock }
+const mockDataWithColor = { data: dataWithVariableBarColor, ...optionsMock }
 
 const xScale = scaleBand({
   domain: dataInZooFormat.map(datum => datum.label),

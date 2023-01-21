@@ -39,8 +39,13 @@ export default function Questions({
           <Box
             key={questionId}
           >
-            <SpacedHeading>{strings.get(`questions.${questionId}.label`)}</SpacedHeading>
+            <SpacedHeading
+              id={`${questionId}-label`}
+            >
+              {strings.get(`questions.${questionId}.label`)}
+            </SpacedHeading>
             <InputGroup
+              labelledBy={`${questionId}-label`}
               handleAnswer={handleAnswer}
               hasFocus={hasFocus && index === 0}
               options={options}
