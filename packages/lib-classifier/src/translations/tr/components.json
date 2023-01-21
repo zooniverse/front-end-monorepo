@@ -1,73 +1,273 @@
 {
   "Banners": {
+    "AlreadySeenBanner": {
+      "bannerText": "Bu konuyu zaten gördünüz",
+      "tooltipText": [
+        "Bu konuyu zaten gördünüz ve sınıflandırdınız, bu nedenle daha fazla sınıflandırma onun analizine katkıda bulunmayacaktır.",
+        "Yardım etmek istiyorsanız, başka bir iş akışı seçmeyi veya başka bir projeye katkıda bulunmayı deneyin."
+      ]
+    },
     "Banner": {
-      "next": "Sonraki"
+      "next": "Sonraki",
+      "previous": "Önceki",
+      "whyAmISeeingThis": "Bunu neden görüyorum?"
     },
     "InProgressConfirmModal": {
       "cancel": "İptal et",
-      "confirm": "Tamam",
-      "inProgress": "Geri gitmek, mevcut çalışmanızı silecektir."
+      "confirm": "Onaylayın",
+      "inProgress": "Farklı bir Konuya gitmek istediğinizden emin misiniz? Mevcut Konu için yaptığınız tüm çalışmalar kaybolacaktır."
+    },
+    "RetiredBanner": {
+      "bannerText": "Bitti: Bu konu kullanımdan kaldırıldı",
+      "tooltipText": [
+        "Bu konu zaten yeterince sınıflandırmaya sahiptir, bu nedenle sizinki analizde kullanılmayacaktır.",
+        "Yardım etmek istiyorsanız, başka bir iş akışı seçmeyi veya başka bir projeye katkıda bulunmayı deneyin."
+      ]
+    },
+    "SubjectSetProgressBanner": {
+      "alreadySeen": "Daha önce görüldü",
+      "bannerText": "{{setName}}: Konu {{number}}\/{{total}}",
+      "finished": "Bitti",
+      "tooltipText": [
+        "Bu proje, gönüllülerin konuları sırayla görüntülemesine olanak tanır.",
+        "Bu sayı, konunun tüm grup içindeki konumunu gösterir."
+      ]
+    },
+    "UserHasFinishedWorkflowBanner": {
+      "bannerText": "Bitti: Her şeyi gördünüz",
+      "tooltipText": [
+        "Bu iş akışındaki her şeyi zaten sınıflandırdınız, bu konuyla ilgili daha fazla sınıflandırma analizde kullanılmayacak.",
+        "Yardım etmek istiyorsanız, başka bir iş akışı seçmeyi veya başka bir projeye katkıda bulunmayı deneyin."
+      ]
+    },
+    "WorkflowIsFinishedBanner": {
+      "bannerText": "Bu iş akışı tamamlandı",
+      "tooltipText": [
+        "Bu iş akışındaki tüm konular tamamlanmıştır, bu konuyla ilgili daha fazla çalışma analizde kullanılmayacaktır.",
+        "Yardım etmek istiyorsanız, başka bir iş akışı seçmeyi veya başka bir projeye katkıda bulunmayı deneyin."
+      ]
     }
   },
+  "DrawingTools": {
+    "RotateHandle": "Çizilen açıklamayı\/işareti döndür."
+  },
   "FeedbackModal": {
-    "keepClassifying": "Devam et"
+    "keepClassifying": "Sınıflandırmaya Devam Et",
+    "label": "Geri bildirim"
   },
   "FieldGuide": {
-    "title": "Kullanım Kılavuzu",
     "FieldGuideButton": {
       "buttonLabel": "Kullanım Kılavuzu"
     },
     "FieldGuideItem": {
-      "ariaTitle": "Geri dön"
-    }
+      "ariaTitle": "Kılavuza geri dön"
+    },
+    "FieldGuideItemAnchor": {
+      "ariaTitle": "{{title}} öğesini seçin"
+    },
+    "title": "Kullanım Kılavuzu"
   },
   "ImageToolbar": {
+    "AnnotateButton": {
+      "ariaLabel": "Açıklama ekle"
+    },
+    "FullscreenButton": {
+      "ariaLabel": {
+        "actualSize": "Normal boyutta görüntüle",
+        "fullscreen": "Tam ekran modunda görüntüle"
+      }
+    },
+    "InvertButton": {
+      "ariaLabel": "Görüntüyü tersine çevir"
+    },
+    "MoveButton": {
+      "ariaLabel": "Taşı"
+    },
     "ResetButton": {
       "ariaLabel": "Görünümü sıfırla"
+    },
+    "RotateButton": {
+      "ariaLabel": "Döndür"
+    },
+    "ZoomInButton": {
+      "ariaLabel": "Yakınlaştır"
+    },
+    "ZoomOutButton": {
+      "ariaLabel": "Uzaklaştır"
     }
+  },
+  "MetaTools": {
+    "CollectionsButton": {
+      "add": "Koleksiyonlara ekle"
+    },
+    "HidePreviousMarksDrawingButton": {
+      "hide": "Önceki İşaretleri Gizle",
+      "show": "Önceki İşaretleri Göster"
+    },
+    "HidePreviousTranscriptionsButton": {
+      "hide": "Tüm İşaretleri Gizle",
+      "show": "Tüm İşaretleri Göster",
+      "showUser": "İşaretlerinizi Gösterin"
+    },
+    "MetadataButton": {
+      "label": "Konu Bilgisi"
+    },
+    "MetadataModal": {
+      "table": {
+        "label": "Etiket",
+        "value": "Değer"
+      },
+      "title": "Görüntü Üstverisi"
+    }
+  },
+  "ModalTutorial": {
+    "title": "Tutorial"
   },
   "QuickTalk": {
+    "aria": {
+      "closeButton": "Yorum panelini kapat",
+      "goToTalk": "Tartışma için Sohbete git",
+      "mainPanel": "QuickTalk Yorumları Paneli",
+      "openButton": "Bu görüntü hakkında {{count}} yorum(lar) var. Görmek için tıkla.",
+      "panelContent": "Tartışma Yorumları",
+      "panelHeading": "Tartışma"
+    },
+    "errors": {
+      "failPostComment": "Mevcut tartışmaya yorum eklenemedi.",
+      "failPostDiscussion": "Yeni tartışmaya yorum eklenemedi.",
+      "noBoard": "Bu proje için yorum panosu henüz oluşturulmadı.",
+      "noText": "Boş yorum gönderilemiyor.",
+      "noUser": "Kullanıcı giriş yapmamış."
+    },
+    "loginToPost": "Yorum yapmak için lütfen giriş yapınız.",
     "status": {
-      "loading": "(Yükleniyor)"
-    }
+      "initialized": "Bu konu hakkında not bırakın",
+      "loading": "Yorum gönderiliyor...",
+      "success": "Yorum gönderildi!"
+    },
+    "subjectHasNoComments": "Bu konuda henüz herhangi bir yorum yapılmamıştır."
   },
   "SlideTutorial": {
+    "StepNavigation": {
+      "go": "{{index}} adımına gidin",
+      "next": "Sonraki adıma geç",
+      "previous": "Önceki adıma git"
+    },
+    "alt": "Tutorial adım {{activeStep}}",
+    "error": "Tutorial adımı yüklenemedi.",
     "getStarted": "Başla",
     "heading": "{{projectDisplayName}} Tutorial"
   },
+  "StepNavigation": {
+    "go": "{{index}} Numaralı Adıma Geç",
+    "next": "Sonraki adıma geç",
+    "previous": "Önceki adıma git"
+  },
   "SubjectViewer": {
+    "BarChartViewer": {
+      "chartLabel": "Çubuk grafik"
+    },
+    "InteractionLayer": {
+      "ConfirmModal": {
+        "close": "Kaydetmeden kapat",
+        "confirm": "Kapatmak istediğinizden emin misiniz? Bu işaret silinecektir.",
+        "keepWorking": "Çalışmaya devam et"
+      },
+      "SaveButton": {
+        "save": "Kaydet ve Kapat"
+      },
+      "SubTaskPopup": {
+        "notRender": "Görev öğesi oluşturulamadı.",
+        "required": "Bu görev gereklidir."
+      },
+      "TranscribedLines": {
+        "ConsensusPopup": {
+          "aggregatedTranscription": "Uzlaşılmış transkripsiyon",
+          "explanation": "Bu {{count}} transkripsiyon önceki gönüllüler tarafından gönderilmiştir ve değiştirilemez.",
+          "noAggregation": "Uzlaşma mevcut değil.",
+          "title": "Önceki Transkripsiyonlar",
+          "transcriptionsUnavailable": "Transkripsiyonlara ulaşılamıyor."
+        },
+        "complete": "Transkripsiyon tamamlandı",
+        "transcribed": "Transkripsiyonları var"
+      }
+    },
     "MultiFrameViewer": {
       "FrameCarousel": {
-        "nextFrameLabel": "Sonraki"
+        "nextFrameLabel": "Sonraki",
+        "previousFrameLabel": "Önceki",
+        "thumbnailAltText": "Resmin Önizlemesi"
       }
-    }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Yükleme sırasında bir hata oluştu."
+    },
+    "VariableStarViewer": {
+      "controls": "Kontroller",
+      "figCaption": "HR Diyagramı",
+      "flip": "Döndür",
+      "focus": "Odaklan",
+      "highlight": "Vurgula",
+      "imageTitle": "HR Diyagramı: Parlaklık vs Sıcaklık",
+      "label": "Filtre {{id}}",
+      "periodMultiple": "Çoklu dönem",
+      "phase": "Aşama",
+      "phaseFocus": "Aşama odağı"
+    },
+    "VideoController": {
+      "closeVolume": "Ses Ayarını Kapat",
+      "fullscreen": "Videoyu Tam Ekran Göster",
+      "openVolume": "Ses Ayarını Aç",
+      "pause": "Videoyu duraklat",
+      "play": "Videoyu oynat",
+      "playbackSpeed": "Video oynatma hızı seçimi",
+      "scrubber": "Video oynatıcı temizleyici",
+      "volumeSlider": "Ses Ayarı"
+    },
+    "ZoomControlButton": {
+      "disable": "Yakınlaştırmayı devre dışı bırak",
+      "enable": "Yakınlaştırmayı etkinleştir"
+    },
+    "loading": "Yükleniyor"
   },
   "TaskArea": {
-    "task": "Transkripsiyon  işlemi",
     "DisabledTaskPopup": {
+      "body": "Bu konu yeterli sınıflandırmaya sahiptir, bu nedenle gönderilen herhangi bir ek sınıflandırma analizde kullanılmayacaktır. Referans için bu konuyu görüntülemeye devam edebilirsiniz.",
       "options": {
-        "dismiss": "Reddet"
-      }
+        "dismiss": "Reddet",
+        "next": "Bir sonraki kullanılabilir görüntü",
+        "select": "Yeni bir görüntü seçin"
+      },
+      "title": "Bitti"
     },
     "Tasks": {
       "BackButton": {
-        "back": "Geri dön",
-        "tooltip": "Geri gitmek, mevcut çalışmanızı silecektir."
+        "back": "Geri git",
+        "tooltip": "Geri gitmek mevcut çalışmanızı silecektir."
       },
       "DoneAndTalkButton": {
-        "doneAndTalk": "Bitti & Sohbet Et"
+        "doneAndTalk": "Bitir & Sohbet Et"
       },
       "DoneButton": {
         "done": "Bitti"
       },
-      "loading": "(Yükleniyor)",
+      "ExpertOptions": {
+        "demoToggle": "Demo Modu",
+        "label": "Uzman Seçenekleri"
+      },
       "NextButton": {
         "next": "Sonraki"
       },
       "TaskHelp": {
         "close": "Kapat",
         "label": "Bu işlemle ilgili yardıma mı ihtiyacınız var?"
-      }
-    }
+      },
+      "demoMode": "Demo modunda, sınıflandırmalar kaydedilmeyecektir. Bunu, sınıflandırma arayüzünün hızlı ve hatasız demoları için kullanın.",
+      "error": "Bir sorun oluştu",
+      "loading": "Yükleniyor",
+      "renderFallback": "Görev öğesi oluşturulamadı."
+    },
+    "task": "Transkripsiyon  işlemi",
+    "tutorial": "Tutorial"
   }
 }

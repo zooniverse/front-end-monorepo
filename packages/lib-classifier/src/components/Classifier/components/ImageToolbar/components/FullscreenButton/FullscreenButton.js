@@ -5,9 +5,13 @@ import ActualSizeIcon from './ActualSizeIcon'
 import FullscreenIcon from './FullscreenIcon'
 import Button from '../Button'
 
-function FullscreenButton ({ active, disabled, onClick }) {
+function FullscreenButton({
+  active = false,
+  disabled = false,
+  onClick = () => console.log('toggle fullscreen')
+}) {
   const { t } = useTranslation('components')
-  const Icon = (active) ? ActualSizeIcon : FullscreenIcon
+  const Icon = active ? ActualSizeIcon : FullscreenIcon
   const labelKey = active ? 'actualSize' : 'fullscreen'
   const label = t(`ImageToolbar.FullscreenButton.ariaLabel.${labelKey}`)
 
@@ -26,12 +30,6 @@ FullscreenButton.propTypes = {
   active: PropTypes.bool,
   disabled: PropTypes.bool,
   onClick: PropTypes.func
-}
-
-FullscreenButton.defaultProps = {
-  active: false,
-  disabled: false,
-  onClick: () => console.log('toggle fullscreen')
 }
 
 export default FullscreenButton

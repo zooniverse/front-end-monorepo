@@ -1,4 +1,3 @@
-import { withKnobs, text, number, object } from '@storybook/addon-knobs';
 import zooTheme from '@zooniverse/grommet-theme';
 import { Box, Grommet, base as baseTheme } from 'grommet';
 import BarChartViewer from './BarChartViewer';
@@ -17,12 +16,11 @@ const config = {
   },
 };
 
-const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault });
+const darkThemeConfig = { ...config, backgrounds: backgrounds.darkDefault };
 
 export default {
   title: 'Subject Viewers / BarChartViewer',
-  component: BarChartViewer,
-  decorators: [withKnobs]
+  component: BarChartViewer
 }
 
 export const LightTheme = () => {
@@ -33,21 +31,16 @@ export const LightTheme = () => {
   return (
     <Grommet theme={zooTheme}>
       <Box
-        background={text('container background', 'white')}
+        background='white'
         height="medium"
         pad="small"
         width="large"
       >
         <BarChartViewer
-          data={object('data', data)}
-          margin={{
-            bottom: number('bottom margin', margin.bottom),
-            left: number('left margin', margin.left),
-            right: number('right margin', margin.right),
-            top: number('top margin', margin.top),
-          }}
-          xAxisLabel={text('x axis label', xAxisLabel)}
-          yAxisLabel={text('y axis label', yAxisLabel)}
+          data={data}
+          margin={margin}
+          xAxisLabel={xAxisLabel}
+          yAxisLabel={yAxisLabel}
         />
       </Box>
     </Grommet>
@@ -64,11 +57,11 @@ export const DarkTheme = () => {
     data,
     chartOptions: { margin, xAxisLabel, yAxisLabel },
   } = mockData;
-  const darkZooTheme = Object.assign({}, zooTheme, { dark: true });
+  const darkZooTheme = { ...zooTheme, dark: true };
   return (
     <Grommet theme={darkZooTheme}>
       <Box
-        background={text('container background', darkZooTheme.global.colors['dark-3'])}
+        background={darkZooTheme.global.colors['dark-3']}
         height="medium"
         pad="small"
         width="large"
@@ -76,8 +69,8 @@ export const DarkTheme = () => {
         <BarChartViewer
           data={data}
           margin={margin}
-          xAxisLabel={text('x axis label', xAxisLabel)}
-          yAxisLabel={text('y axis label', yAxisLabel)}
+          xAxisLabel={xAxisLabel}
+          yAxisLabel={yAxisLabel}
         />
       </Box>
     </Grommet>
@@ -112,8 +105,8 @@ export const CustomThemeAndBarColor = () => {
         <BarChartViewer
           data={data}
           margin={margin}
-          xAxisLabel={text('x axis label', xAxisLabel)}
-          yAxisLabel={text('y axis label', yAxisLabel)}
+          xAxisLabel={xAxisLabel}
+          yAxisLabel={yAxisLabel}
         />
       </Box>
     </Grommet>
@@ -129,64 +122,24 @@ export const VariableStarPeriodBarCharts = () => {
   return (
     <Grommet theme={zooTheme}>
       <Box
-        background={text('container background', '#ffffff')}
+        background='#ffffff'
         direction="row"
-        height={text('parent container height', '300px')}
+        height='300px'
         gap="small"
         pad="small"
-        width={text('parent container width', '300px')}
+        width='300px'
       >
         <BarChartViewer
-          data={object('period data', variableStarPeriodMockData.data)}
-          margin={{
-            bottom: number(
-              'period bottom margin',
-              variableStarPeriodMockData.chartOptions.margin.bottom
-            ),
-            left: number('period left margin', variableStarPeriodMockData.chartOptions.margin.left),
-            right: number(
-              'period right margin',
-              variableStarPeriodMockData.chartOptions.margin.right
-            ),
-            top: number('period top margin', variableStarPeriodMockData.chartOptions.margin.top),
-          }}
-          xAxisLabel={text(
-            'period x-axis label',
-            variableStarPeriodMockData.chartOptions.xAxisLabel
-          )}
-          yAxisLabel={text(
-            'period y-axis label',
-            variableStarPeriodMockData.chartOptions.yAxisLabel
-          )}
+          data={variableStarPeriodMockData.data}
+          margin={variableStarPeriodMockData.chartOptions.margin}
+          xAxisLabel={variableStarPeriodMockData.chartOptions.xAxisLabel}
+          yAxisLabel={variableStarPeriodMockData.chartOptions.yAxisLabel}
         />
         <BarChartViewer
-          data={object('amplitude data', variableStarAmplitudeMockData.data)}
-          margin={{
-            bottom: number(
-              'amplitude bottom margin',
-              variableStarAmplitudeMockData.chartOptions.margin.bottom
-            ),
-            left: number(
-              'amplitude left margin',
-              variableStarAmplitudeMockData.chartOptions.margin.left
-            ),
-            right: number(
-              'amplitude right margin',
-              variableStarAmplitudeMockData.chartOptions.margin.right
-            ),
-            top: number(
-              'amplitude top margin',
-              variableStarAmplitudeMockData.chartOptions.margin.top
-            ),
-          }}
-          xAxisLabel={text(
-            'amplitude x-axis label',
-            variableStarAmplitudeMockData.chartOptions.xAxisLabel
-          )}
-          yAxisLabel={text(
-            'amplitude y-axis label',
-            variableStarAmplitudeMockData.chartOptions.yAxisLabel
-          )}
+          data={variableStarAmplitudeMockData.data}
+          margin={variableStarAmplitudeMockData.chartOptions.margin}
+          xAxisLabel={variableStarAmplitudeMockData.chartOptions.xAxisLabel}
+          yAxisLabel={variableStarAmplitudeMockData.chartOptions.yAxisLabel}
         />
       </Box>
     </Grommet>

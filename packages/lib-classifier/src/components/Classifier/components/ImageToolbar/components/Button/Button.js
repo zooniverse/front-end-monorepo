@@ -1,80 +1,68 @@
 import { bool, func } from 'prop-types'
-import { Component } from 'react';
 import { Button as GrommetButton } from 'grommet'
 import styled, { css } from 'styled-components'
-import { pxToRem } from '@zooniverse/react-components'
-
-const paddingSize = pxToRem(13)
-const svgSize = pxToRem(18)
 
 const StyledButton = styled(GrommetButton)`
-  ${props => props.active ? 
-    css`
-      background-color: ${props.theme.global.colors.brand};
-    ` :
-    css`
-      background-color: ${props.theme.dark ? props.theme.global.colors['dark-1'] : 'inherit'};
-    `
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
   border-radius: 50%;
-  padding: ${paddingSize};
+  ${props => props.active
+      ? css`background-color: ${props.theme.global.colors.brand};`
+      : css`background-color: ${props.theme.dark
+            ? props.theme.global.colors['dark-3']
+            : 'inherit'};`}
+  
+  :not(:last-child) {
+    margin-bottom: clamp(8px, 20%, 10px); 
+    // similar to padding of Image Toolbar
+  }
 
-  &:hover, &:focus {
-    ${props => props.theme.dark ?
-      css`
-        background-color: ${props.theme.global.colors['neutral-1']};
-      ` :
-      css`
-        background-color: ${props.theme.global.colors['accent-1']};
-      `
-    }
+  &:hover,
+  &:focus {
+    ${props => props.theme.dark
+        ? css`background-color: ${props.theme.global.colors['neutral-1']};`
+        : css`background-color: ${props.theme.global.colors['accent-1']};`}
 
     > svg {
       fill: white;
 
       > circle {
-        fill: ${props => props.theme.dark ? 'white' : 'black'};
-        stroke: ${props => props.theme.dark ? 'black' : 'white'};
+        fill: ${props => (props.theme.dark ? 'white' : 'black')};
+        stroke: ${props => (props.theme.dark ? 'black' : 'white')};
       }
 
       > path {
-        fill: ${props => props.theme.dark ? 'black' : 'white'};
+        fill: ${props => (props.theme.dark ? 'black' : 'white')};
       }
     }
   }
 
   > svg {
-    ${props => props.active ?
-      css`
-        fill: white;
-      ` :
-      css`
-        fill: ${props.theme.dark ? 'white' : 'black'};
-      `
-    }
-    height: ${svgSize};
+    ${props => props.active
+        ? css`fill: white;`
+        : css`fill: ${props.theme.dark ? 'white' : 'black'};`}
+    width: min(50%, 1.2rem); // See similar dimension in FieldGuideButton
     stroke: transparent;
-    width: ${svgSize};
   }
 `
 
-class Button extends Component {
-  render () {
-    const {
-      active,
-      a11yTitle,
-      disabled,
-      icon,
-      onBlur,
-      onClick,
-      onFocus,
-      onMouseOver,
-      onMouseOut
-    } = this.props
-
-    const eventHandlers = (disabled)
-      ? {}
-      : {
+function Button({
+  active = false,
+  a11yTitle,
+  disabled,
+  icon,
+  onBlur = () => true,
+  onClick = () => true,
+  onFocus = () => true,
+  onMouseOver = () => true,
+  onMouseOut = () => true
+}) {
+  const eventHandlers = disabled
+    ? {}
+    : {
         onBlur,
         onClick,
         onFocus,
@@ -82,18 +70,17 @@ class Button extends Component {
         onMouseOut
       }
 
-    return (
-      <StyledButton
-        active={active}
-        a11yTitle={a11yTitle}
-        disabled={disabled}
-        icon={icon}
-        margin={{ bottom: 'xsmall' }}
-        title={a11yTitle}
-        {...eventHandlers}
-      />
-    )
-  }
+  return (
+    <StyledButton
+      active={active}
+      a11yTitle={a11yTitle}
+      disabled={disabled}
+      icon={icon}
+      title={a11yTitle}
+      plain
+      {...eventHandlers}
+    />
+  )
 }
 
 Button.propTypes = {
@@ -103,15 +90,6 @@ Button.propTypes = {
   onFocus: func,
   onMouseOver: func,
   onMouseOut: func
-}
-
-Button.defaultProps = {
-  active: false,
-  onBlur: () => {},
-  onClick: () => {},
-  onFocus: () => {},
-  onMouseOver: () => {},
-  onMouseOut: () => {}
 }
 
 export default Button

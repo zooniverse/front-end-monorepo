@@ -43,6 +43,26 @@ Yarn Workspaces allow us to maintain package modularity for javascript projects 
 
 ## Getting started
 
+### Debugging the production release
+
+Make sure you have pulled the latest production version.
+
+```sh
+git pull --tags -f
+```
+
+Check out the latest production release.
+
+```sh
+git checkout production-release
+```
+
+Run the bootstrap script to build all the libraries and apps. You can use `bootstrap:es6` here for a faster build if you don't want to run the tests.
+
+```sh
+yarn bootstrap
+```
+
 ### Docker
 You can run the code locally in Docker, which avoids needing to install Node or yarn.
 

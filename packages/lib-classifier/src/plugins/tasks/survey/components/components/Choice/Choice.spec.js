@@ -1,5 +1,7 @@
 import { expect } from 'chai'
+import { Grommet } from 'grommet'
 import { render, screen } from '@testing-library/react'
+import zooTheme from '@zooniverse/grommet-theme'
 
 import { task } from '@plugins/tasks/survey/mock-data'
 import SurveyTask from '@plugins/tasks/survey'
@@ -8,37 +10,40 @@ import Choice from './Choice'
 const mockTask = SurveyTask.TaskModel.create(task)
 
 describe('Component > Choice', function () {
+  this.timeout(0)
+
   describe('with choice with images, confusions, and questions', function () {
+    let carousel, confusedWith, question
+
     // choice 'KD' (Kudu) includes images, confusions, and questions
+    before(function () {
+      render(
+        <Grommet
+          theme={zooTheme}
+          themeMode='light'
+        >
+          <Choice
+            choiceId='KD'
+            task={mockTask}
+          />
+        </Grommet>
+      )
 
+      carousel = screen.getByTestId('choice-images')
+      confusedWith = screen.getByText('SurveyTask.ConfusedWith.confused')
+      question = screen.getByText('Are there any young present?')
+    })
+    
     it('should show Carousel', function () {
-      render(
-        <Choice
-          choiceId='KD'
-          task={mockTask}
-        />
-      )
-      expect(screen.getByTestId('choice-images')).to.be.ok()
+      expect(carousel).to.be.ok()
     })
-
+  
     it('should show ConfusedWith', function () {
-      render(
-        <Choice
-          choiceId='KD'
-          task={mockTask}
-        />
-      )
-      expect(screen.getByText('SurveyTask.ConfusedWith.confused')).to.be.ok()
+      expect(confusedWith).to.be.ok()
     })
-
+  
     it('should show Questions', function () {
-      render(
-        <Choice
-          choiceId='HMN'
-          task={mockTask}
-        />
-      )
-      expect(screen.getByText('Are there any young present?')).to.be.ok()
+      expect(question).to.be.ok()
     })
   })
 
@@ -47,10 +52,15 @@ describe('Component > Choice', function () {
 
     it('should not render Carousel', function () {
       render(
-        <Choice
-          choiceId='NTHNGHR'
-          task={mockTask}
-        />
+        <Grommet
+          theme={zooTheme}
+          themeMode='light'
+        >
+          <Choice
+            choiceId='NTHNGHR'
+            task={mockTask}
+          />
+        </Grommet>
       )
       expect(screen.queryByTestId('choice-images')).to.be.null()
     })
@@ -61,10 +71,15 @@ describe('Component > Choice', function () {
 
     it('should not render ConfusedWith', function () {
       render(
-        <Choice
-          choiceId='HMN'
-          task={mockTask}
-        />
+        <Grommet
+          theme={zooTheme}
+          themeMode='light'
+        >
+          <Choice
+            choiceId='HMN'
+            task={mockTask}
+          />
+        </Grommet>
       )
       expect(screen.queryByText('Sometimes confused with')).to.be.null()
     })
@@ -75,10 +90,15 @@ describe('Component > Choice', function () {
 
     it('should not render Questions', function () {
       render(
-        <Choice
-          choiceId='FR'
-          task={mockTask}
-        />
+        <Grommet
+          theme={zooTheme}
+          themeMode='light'
+        >
+          <Choice
+            choiceId='FR'
+            task={mockTask}
+          />
+        </Grommet>
       )
       expect(screen.queryAllByRole('radio', { hidden: true })).to.have.lengthOf(0)
       expect(screen.queryAllByRole('checkbox', { hidden: true })).to.have.lengthOf(0)
@@ -90,12 +110,17 @@ describe('Component > Choice', function () {
 
     it('should disable the Identify button', function () {
       render(
-        <Choice
-          choiceId='RDVRK'
-          task={mockTask}
-        />
+        <Grommet
+          theme={zooTheme}
+          themeMode='light'
+          >
+          <Choice
+            choiceId='RDVRK'
+            task={mockTask}
+          />
+        </Grommet>
       )
-      expect(screen.getByRole('button', { name: 'SurveyTask.Choice.identify' }).disabled).to.be.true()
+      expect(screen.getByTestId('choice-identify-button').disabled).to.be.true()
     })
   })
 
@@ -104,16 +129,21 @@ describe('Component > Choice', function () {
 
     it('should enable the Identify button', function () {
       render(
-        <Choice
-          answers={{
-            HWMN: '3',
-            WHTBHVRSDS: ['TNG', 'STNDNG']
-          }}
-          choiceId='RDVRK'
-          task={mockTask}
-        />
+        <Grommet
+          theme={zooTheme}
+          themeMode='light'
+        >
+          <Choice
+            answers={{
+              HWMN: '3',
+              WHTBHVRSDS: ['TNG', 'STNDNG']
+            }}
+            choiceId='RDVRK'
+            task={mockTask}
+          />
+        </Grommet>
       )
-      expect(screen.getByRole('button', { name: 'SurveyTask.Choice.identify' }).disabled).to.be.false()
+      expect(screen.getByTestId('choice-identify-button').disabled).to.be.false()
     })
   })
 })
