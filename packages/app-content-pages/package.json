@@ -40,7 +40,7 @@
     "newrelic": "^9.0.0",
     "next": "~12.3.0",
     "next-absolute-url": "~1.2.2",
-    "panoptes-client": "~5.0.0",
+    "panoptes-client": "~5.1.0",
     "path-match": "~1.2.4",
     "react": "~17.0.2",
     "react-dom": "~17.0.2",
