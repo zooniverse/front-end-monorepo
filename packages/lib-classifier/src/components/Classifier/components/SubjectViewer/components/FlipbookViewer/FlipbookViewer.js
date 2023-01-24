@@ -29,7 +29,7 @@ const FlipbookViewer = ({
 }) => {
   const subjectImage = useRef()
   const [currentFrame, setCurrentFrame] = useState(defaultFrame)
-  const [playing, setPlaying] = useState(flipbookAutoplay)
+  const [playing, setPlaying] = useState(false)
   const [dragMove, setDragMove] = useState()
 
   const viewerSrc = subject?.locations ? Object.values(subject.locations[currentFrame])[0] : ''
@@ -43,6 +43,13 @@ const FlipbookViewer = ({
       enableRotation()
     }
   }, [defaultFrameSrc])
+
+  useEffect(() => {
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (!reducedMotionQuery.matches && flipbookAutoplay) {
+      setPlaying(true)
+    }
+  }, [])
 
   const onPlayPause = () => {
     setPlaying(!playing)
@@ -117,6 +124,8 @@ FlipbookViewer.propTypes = {
   defaultFrameSrc: PropTypes.string,
   /** Function passed from Subject Viewer Store */
   enableRotation: PropTypes.func,
+  /** Fetched from workflow configuration. Determines whether to autoplay the loop on viewer load */
+  flipbookAutoplay: PropTypes.bool,
   /** Passed from Subject Viewer Store */
   invert: PropTypes.bool,
   /** Passed from Subject Viewer Store */
