@@ -56,15 +56,16 @@ function FlipbookViewerContainer({
   const defaultFrameUrl = subject ? Object.values(subject.locations[defaultFrame])[0] : null
   const { img, error, loading } = useSubjectImage(defaultFrameUrl)
 
-  // Preload subject images for a more seamless flipbook looping
-  subject?.locations?.forEach(location => {
-    const [url] = Object.values(location)
-    const { Image } = window
-    const img = new Image()
-    if (url) {
-      img.src = url
-    }
-  })
+  useEffect(function preloadImages() {
+    subject?.locations?.forEach(location => {
+      const [url] = Object.values(location)
+      const { Image } = window
+      const img = new Image()
+      if (url) {
+        img.src = url
+      }
+    })
+  }, [])
 
   const { naturalHeight, naturalWidth, src: defaultFrameSrc } = img
 
