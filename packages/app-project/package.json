@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@artsy/fresnel": "~6.1.0",
-    "@next/bundle-analyzer": "~13.0.4",
+    "@next/bundle-analyzer": "~13.1.5",
     "@sentry/browser": "~7.32.1",
     "@sentry/node": "~7.32.1",
     "@sindresorhus/string-hash": "~1.2.0",
