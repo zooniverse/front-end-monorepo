@@ -20,7 +20,7 @@
   "dependencies": {
     "@artsy/fresnel": "~6.1.0",
     "@next/bundle-analyzer": "~13.0.4",
-    "@sentry/browser": "~7.32.1",
+    "@sentry/browser": "~7.33.0",
     "@sentry/node": "~7.33.0",
     "@sindresorhus/string-hash": "~1.2.0",
     "@visx/axis": "~2.18.0",
