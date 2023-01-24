@@ -47,6 +47,10 @@ describe('Model > Workflow', function () {
       expect(workflow.configuration.playIterations).to.equal(3)
       expect(workflow.configuration.hide_classification_summaries).to.be.undefined()
     })
+
+    it('should have flipbook autoplay default to false', function () {
+      expect(workflow.usesTranscriptionTask).to.be.false()
+    })
   })
 
   describe('with custom configuration', function () {

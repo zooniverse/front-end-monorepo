@@ -175,6 +175,35 @@ export const InfiniteIterations = ({ dark }) => {
   )
 }
 
+const workflowWithAutoplay = WorkflowFactory.build({
+  configuration: {
+    playIterations: '',
+    flipbook_autoplay: true
+  }
+})
+
+const storeWithAutoplayWorkflow = mockStore({
+  subject: mockSubject,
+  workflow: workflowWithAutoplay
+})
+
+export const Autoplay = ({ dark }) => {
+  const themeMode = dark ? 'dark' : 'light'
+  return (
+    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
+      <Provider classifierStore={storeWithAutoplayWorkflow}>
+        <Box width='large'>
+          <FlipbookViewerContainer
+            loadingState={asyncStates.success}
+            subject={storeWithAutoplayWorkflow.subjects.active}
+          />
+        </Box>
+      </Provider>
+    </Grommet>
+  )
+}
+
+
 export const NoSubject = ({ dark }) => {
   const themeMode = dark ? 'dark' : 'light'
   return (

@@ -14,6 +14,7 @@ const FlipbookViewer = ({
   defaultFrame = 0,
   defaultFrameSrc = '',
   enableRotation = () => true,
+  flipbookAutoplay = false,
   invert = false,
   move,
   naturalHeight = 600,
@@ -28,7 +29,7 @@ const FlipbookViewer = ({
 }) => {
   const subjectImage = useRef()
   const [currentFrame, setCurrentFrame] = useState(defaultFrame)
-  const [playing, setPlaying] = useState(false)
+  const [playing, setPlaying] = useState(flipbookAutoplay)
   const [dragMove, setDragMove] = useState()
 
   const viewerSrc = subject?.locations ? Object.values(subject.locations[currentFrame])[0] : ''
@@ -36,8 +37,7 @@ const FlipbookViewer = ({
   useEffect(() => {
     const svgImage = subjectImage?.current
     if (svgImage && defaultFrameSrc !== PLACEHOLDER_URL) {
-      const { width: clientWidth, height: clientHeight } =
-        svgImage.getBoundingClientRect()
+      const { width: clientWidth, height: clientHeight } = svgImage.getBoundingClientRect()
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
       onReady({ target })
       enableRotation()

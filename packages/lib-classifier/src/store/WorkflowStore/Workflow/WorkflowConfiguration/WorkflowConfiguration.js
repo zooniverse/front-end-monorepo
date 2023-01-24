@@ -4,6 +4,7 @@ import subjectViewers from '@helpers/subjectViewers'
 const WorkflowConfiguration = types.snapshotProcessor(
   types.model({
     enable_switching_flipbook_and_separate: types.optional(types.boolean, false),
+    flipbook_autoplay: types.optional(types.boolean, false),
     invert_subject: types.optional(types.boolean, false),
     multi_image_mode: types.optional(types.enumeration('multiImageMode', ['flipbook', 'separate']), 'flipbook'),
     persist_annotations: types.optional(types.boolean, true),
