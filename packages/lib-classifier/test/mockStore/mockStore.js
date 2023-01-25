@@ -21,7 +21,9 @@ export const defaultClient = {
 
 export const defaultAuthClient = {
   checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null)),
-  checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null))
+  checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null)),
+  listen: sinon.stub(),
+  stopListening: sinon.stub()
 }
 
 /** build a mock store, with a branching workflow, steps, tasks and subjects. */
