@@ -140,7 +140,7 @@ More information is available in [ADR 12](docs/arch/adr-12.md) and [ADR 17](docs
 
 FEM's storybook can be viewed at [https://zooniverse.github.io/front-end-monorepo/](https://zooniverse.github.io/front-end-monorepo/).
 
-To deploy the latest version FEM's storybook, check out `master` and run `yarn bootstrap` then `yarn deploy-storybook`.
+To deploy the latest version FEM's storybook, make sure you have pulled the latest production version and run `yarn bootstrap` then `yarn deploy-storybook`.
 
 ### Environment variables
 
