@@ -59,13 +59,13 @@ function FlipbookViewerContainer({
   useEffect(function preloadImages() {
     subject?.locations?.forEach(location => {
       const [url] = Object.values(location)
-      const { Image } = window
-      const img = new Image()
       if (url) {
+        const { Image } = window
+        const img = new Image()
         img.src = url
       }
     })
-  }, [])
+  }, [subject?.locations])
 
   const { naturalHeight, naturalWidth, src: defaultFrameSrc } = img
 
