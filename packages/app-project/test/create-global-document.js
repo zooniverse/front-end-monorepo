@@ -2,6 +2,10 @@
 // `mount` method in enzyme.
 import { JSDOM } from 'jsdom'
 import fetch from 'node-fetch'
+import nock from 'nock'
+
+// require all net requests to be mocked.
+nock.disableNetConnect()
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://localhost' })
 const { window } = jsdom

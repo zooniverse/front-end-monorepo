@@ -118,7 +118,7 @@ export const WithZoomControls = () => {
   const Toolbar = withKeyZoom(Box);
   return (
     <ViewerContext theme={zooTheme}>
-      <Toolbar direction="row">
+      <Toolbar direction="row" height='4rem'>
         <AnnotateButton />
         <MoveButton />
         <ZoomInButton />

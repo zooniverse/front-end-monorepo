@@ -4,10 +4,14 @@ import sinonChai from 'sinon-chai'
 import dirtyChai from 'dirty-chai'
 import { JSDOM } from 'jsdom'
 import fetch from 'node-fetch'
+import nock from 'nock'
 
 chai.use(chaiDom)
 chai.use(dirtyChai)
 chai.use(sinonChai)
+
+// require all net requests to be mocked.
+nock.disableNetConnect()
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', {
   pretendToBeVisual: true, // See: https://github.com/jsdom/jsdom#pretending-to-be-a-visual-browser
