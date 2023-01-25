@@ -136,6 +136,12 @@ Deployments to a production Kubernetes instance are triggered by committing a `p
 
 More information is available in [ADR 12](docs/arch/adr-12.md) and [ADR 17](docs/arch/adr-17.md)
 
+### Deploying Storybook
+
+FEM's storybook can be viewed at [https://zooniverse.github.io/front-end-monorepo/](https://zooniverse.github.io/front-end-monorepo/).
+
+To deploy the latest version FEM's storybook, check out `master` and run `yarn bootstrap` then `yarn deploy-storybook`.
+
 ### Environment variables
 
 - `PANOPTES_ENV`: sets which Panoptes API endpoint to use.
