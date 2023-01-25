@@ -21,7 +21,8 @@ const ContainerGrid = styled.div`
     grid-template-columns: 45.333fr 25.333fr;
   }
 
-  @media screen and (max-width: 700px) {
+  // this breakpoint matches Grommet's ResponsiveContext component
+  @media screen and (max-width: 768px) {
     grid-template-columns: 100%;
     grid-template-rows: auto auto;
     grid-auto-flow: column;
