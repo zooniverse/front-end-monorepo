@@ -9,6 +9,7 @@ import DefaultLayout from './DefaultLayout'
 export default {
   title: 'Layouts / Default Layout',
   component: DefaultLayout,
+  excludeStories: ['mockTask'],
   args: {
     dark: false
   }
