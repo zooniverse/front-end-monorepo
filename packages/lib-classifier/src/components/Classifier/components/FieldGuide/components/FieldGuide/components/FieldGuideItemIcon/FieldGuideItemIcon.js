@@ -3,8 +3,14 @@ import { Media } from '@zooniverse/react-components'
 import PropTypes from 'prop-types'
 import { Box } from 'grommet'
 
-export default function FieldGuideItemIcon(props) {
-  const { alt, className, height, icon, width } = props
+export default function FieldGuideItemIcon({
+  alt = '',
+  className = '',
+  height = 100,
+  icon = null,
+  width = 100,
+  ...props
+}) {
 
   const placeholder = (
     <Box
