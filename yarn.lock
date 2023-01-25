@@ -6871,9 +6871,9 @@ contentful-sdk-core@^7.0.5:
     qs "^6.9.4"
 
 contentful@~9.2.3:
-  version "9.2.19"
-  resolved "https://registry.yarnpkg.com/contentful/-/contentful-9.2.19.tgz#52ebba8d1783b4522867ec8f6b629a1b5fe42052"
-  integrity sha512-n0YaFyeq1VLFp4isdI4gxpOgjCAYCJURqdl60oW+hMXrqzfo+egNOdtreBNoXQ0uRlqZcFtgQuh1sR1Cox+KdQ==
+  version "9.2.20"
+  resolved "https://registry.yarnpkg.com/contentful/-/contentful-9.2.20.tgz#77b25739762f18bd1cee36f90d402361d97d4806"
+  integrity sha512-ZIsWpxvQaGU0uG90DRezV9y6/WYlIpDGtvIjPhQI3oShclgDsjY+x+dyPRMYYSzw+AC+oFUVV97aJHsDmU/Qkw==
   dependencies:
     "@contentful/rich-text-types" "^16.0.2"
     axios "^0.27.0"
