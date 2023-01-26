@@ -114,7 +114,7 @@ describe('helpers > fetchTranslations', function () {
     expect(translation).to.be.undefined()
   })
 
-  it('should handle language codes that have partial capitalization', async function () {
+  it('should handle language codes that include dialects', async function () {
     const translation = await fetchTranslations({
       translated_id: 1234,
       translated_type: 'project',
