@@ -11,7 +11,6 @@ export default function FieldGuideItemIcon({
   width = 100,
   ...props
 }) {
-
   const placeholder = (
     <Box
       background={zooTheme.global.colors['accent-1']}
@@ -36,14 +35,6 @@ export default function FieldGuideItemIcon({
   } else {
     return placeholder
   }
-}
-
-FieldGuideItemIcon.defaultProps = {
-  alt: '',
-  className: '',
-  height: 100,
-  icon: {},
-  width: 100
 }
 
 FieldGuideItemIcon.propTypes = {
