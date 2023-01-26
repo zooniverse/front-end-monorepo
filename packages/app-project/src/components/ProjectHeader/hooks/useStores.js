@@ -19,10 +19,11 @@ function storeMapper(store) {
   } = store
 
   const availableLocales = languages?.map(current => {
-    let newLocale = current
-    if (current === 'zh-cn') newLocale = 'zh-CN'
-    if (current === 'zh-tw') newLocale = 'zh-TW'
-    return newLocale
+    const [language, dialect] = current.split('-')
+    if (dialect) {
+      return `${language}-${dialect.toUpperCase()}`
+    }
+    return language
   })
 
   return {
