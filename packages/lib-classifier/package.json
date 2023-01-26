@@ -106,7 +106,7 @@
     "mocha": "~10.2.0",
     "mst-middlewares": "~5.1.0",
     "nock": "~13.3.0",
-    "panoptes-client": "~5.1.0",
+    "panoptes-client": "~5.2.0",
     "polished": "~4.2.2",
     "process": "~0.11.10",
     "react": "~17.0.2",
