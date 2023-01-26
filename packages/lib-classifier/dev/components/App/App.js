@@ -174,10 +174,11 @@ class App extends React.Component {
     const key = this.state.cachePanoptesData ? 'cachedClassifier' : 'classifier'
 
     const availableLocales = project?.available_languages.map(current => {
-      let newLocale = current
-      if (current === 'zh-cn') newLocale = 'zh-CN'
-      if (current === 'zh-tw') newLocale = 'zh-TW'
-      return newLocale
+      const [language, dialect] = current.split('-')
+      if (dialect) {
+        return `${language}-${dialect.toUpperCase()}`
+      }
+      return language
     })
 
     return (
