@@ -27,8 +27,8 @@ const supportedLngs = [
   'test',
   'tr',
   'ur',
-  'zh-cn',
-  'zh-tw'
+  'zh-CN',
+  'zh-TW'
 ]
 
 const classifierI18n = i18n.createInstance()
