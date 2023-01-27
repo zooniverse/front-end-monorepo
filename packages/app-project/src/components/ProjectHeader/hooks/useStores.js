@@ -5,7 +5,7 @@ function storeMapper(store) {
   const {
     project: {
       configuration: {
-        languages: availableLocales
+        languages
       },
       defaultWorkflow,
       display_name: title,
@@ -17,6 +17,14 @@ function storeMapper(store) {
       isLoggedIn
     }
   } = store
+
+  const availableLocales = languages?.map(current => {
+    const [language, dialect] = current.split('-')
+    if (dialect) {
+      return `${language}-${dialect.toUpperCase()}`
+    }
+    return language
+  })
 
   return {
     availableLocales,

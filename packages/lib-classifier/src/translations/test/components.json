@@ -13,9 +13,9 @@
       "whyAmISeeingThis": "Translated"
     },
     "InProgressConfirmModal": {
-      "inProgress": "Translated",
       "cancel": "Translated",
-      "confirm": "Translated"
+      "confirm": "Translated",
+      "inProgress": "Translated"
     },
     "RetiredBanner": {
       "bannerText": "Translated",
@@ -26,7 +26,7 @@
     },
     "SubjectSetProgressBanner": {
       "alreadySeen": "Translated",
-      "bannerText": "{{setName}}: Translated {{number}}/{{total}}",
+      "bannerText": "{{setName}}: Translated {{number}}\/{{total}}",
       "finished": "Translated",
       "tooltipText": [
         "Translated",
@@ -48,12 +48,14 @@
       ]
     }
   },
+  "DrawingTools": {
+    "RotateHandle": "Translated"
+  },
   "FeedbackModal": {
     "keepClassifying": "Translated",
     "label": "Translated"
   },
   "FieldGuide": {
-    "title": "Translated",
     "FieldGuideButton": {
       "buttonLabel": "Translated"
     },
@@ -62,7 +64,8 @@
     },
     "FieldGuideItemAnchor": {
       "ariaTitle": "Translated {{title}}"
-    }
+    },
+    "title": "Translated"
   },
   "ImageToolbar": {
     "AnnotateButton": {
@@ -70,9 +73,12 @@
     },
     "FullscreenButton": {
       "ariaLabel": {
-        "fullscreen": "Translated",
-        "actualSize": "Translated"
+        "actualSize": "Translated",
+        "fullscreen": "Translated"
       }
+    },
+    "InvertButton": {
+      "ariaLabel": "Translated"
     },
     "MoveButton": {
       "ariaLabel": "Translated"
@@ -107,26 +113,46 @@
       "label": "Translated"
     },
     "MetadataModal": {
-      "title": "Translated",
       "table": {
         "label": "Translated",
         "value": "Translated"
-      }
+      },
+      "title": "Translated"
     }
   },
   "ModalTutorial": {
     "title": "Translated"
   },
   "QuickTalk": {
-    "headerLink": "Translated",
-    "status": {
-      "loading": "Translated"
+    "aria": {
+      "closeButton": "Translated",
+      "goToTalk": "Translated",
+      "mainPanel": "Translated",
+      "openButton": "Translated {{count}} Translated",
+      "panelContent": "Translated",
+      "panelHeading": "Translated"
     },
     "errors": {
-      "noText": "Translated"
-    }
+      "failPostComment": "Translated",
+      "failPostDiscussion": "Translated",
+      "noBoard": "Translated",
+      "noText": "Translated",
+      "noUser": "Translated"
+    },
+    "loginToPost": "Translated",
+    "status": {
+      "initialized": "Translated",
+      "loading": "Translated",
+      "success": "Translated"
+    },
+    "subjectHasNoComments": "Translated"
   },
   "SlideTutorial": {
+    "StepNavigation": {
+      "go": "Translated {{index}}",
+      "next": "Translated",
+      "previous": "Translated"
+    },
     "alt": "Translated {{activeStep}}",
     "error": "Translated",
     "getStarted": "Translated",
@@ -155,23 +181,26 @@
         "required": "Translated"
       },
       "TranscribedLines": {
-        "complete": "Translated",
-        "transcribed": "Translated",
         "ConsensusPopup": {
           "aggregatedTranscription": "Translated",
           "explanation": "Translated {{count}} Translated",
           "noAggregation": "Translated",
           "title": "Translated",
           "transcriptionsUnavailable": "Translated"
-        }
+        },
+        "complete": "Translated",
+        "transcribed": "Translated"
       }
     },
     "MultiFrameViewer": {
       "FrameCarousel": {
-        "thumbnailAltText": "Translated",
+        "nextFrameLabel": "Translated",
         "previousFrameLabel": "Translated",
-        "nextFrameLabel": "Translated"
+        "thumbnailAltText": "Translated"
       }
+    },
+    "SingleVideoViewerContainer": {
+      "error": "Translated"
     },
     "VariableStarViewer": {
       "controls": "Translated",
@@ -186,33 +215,32 @@
       "phaseFocus": "Translated"
     },
     "VideoController": {
-      "scrubber": "Translated",
-      "playbackSpeed": "Translated",
+      "closeVolume": "Translated",
+      "fullscreen": "Translated",
+      "openVolume": "Translated",
+      "pause": "Translated",
       "play": "Translated",
-      "pause": "Translated"
+      "playbackSpeed": "Translated",
+      "scrubber": "Translated",
+      "volumeSlider": "Translated"
     },
     "ZoomControlButton": {
-      "enable": "Translated",
-      "disable": "Translated"
-    }
+      "disable": "Translated",
+      "enable": "Translated"
+    },
+    "loading": "Translated"
   },
   "TaskArea": {
-    "task": "Translated",
-    "tutorial": "Translated",
     "DisabledTaskPopup": {
-      "title": "Translated",
       "body": "Translated",
       "options": {
         "dismiss": "Translated",
         "next": "Translated",
         "select": "Translated"
-      }
+      },
+      "title": "Translated"
     },
     "Tasks": {
-      "demoMode": "Translated",
-      "error": "Translated",
-      "loading": "Translated",
-      "renderFallback": "Translated",
       "BackButton": {
         "back": "Translated",
         "tooltip": "Translated"
@@ -233,7 +261,13 @@
       "TaskHelp": {
         "close": "Translated",
         "label": "Translated"
-      }
-    }
+      },
+      "demoMode": "Translated",
+      "error": "Translated",
+      "loading": "Translated",
+      "renderFallback": "Translated"
+    },
+    "task": "Translated",
+    "tutorial": "Translated"
   }
 }

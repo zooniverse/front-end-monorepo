@@ -3,7 +3,10 @@
     "PageHeading": {
       "title": {
         "research": "研究项目",
-        "team": "研究团队"
+        "team": "研究团队",
+        "results": "结果",
+        "education": "教育",
+        "faq": "常见问题"
       }
     },
     "SidebarHeading": "关于"
@@ -18,7 +21,7 @@
       }
     },
     "ZooniverseTalk": {
-      "button": "Join in",
+      "button": "加入",
       "title": "讨论"
     }
   },
