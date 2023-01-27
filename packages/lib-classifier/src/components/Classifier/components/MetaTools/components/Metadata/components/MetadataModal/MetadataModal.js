@@ -37,7 +37,7 @@ export function formatValue (value) {
 export default function MetadataModal ({
   active = false,
   closeFn = () => true,
-  filters,
+  filters = defaultFilters,
   metadata,
   prefixes = defaultFilters
 }) {
