@@ -1,4 +1,7 @@
 {
+  "CloseButton": {
+    "close": "关闭"
+  },
   "ZooFooter": {
     "aboutLabels": {
       "about": "关于"
@@ -14,6 +17,10 @@
     "mainHeaderNavListLabels": {
       "about": "关于",
       "talk": "讨论"
+    },
+    "SignedOutUserNavigation": {
+      "register": "注册",
+      "signIn": "登录"
     }
   }
 }
