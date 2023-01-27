@@ -29,9 +29,6 @@
   "TextFromSubjectTask": {
     "reset": "Restablecer"
   },
-  "TextFromSubjectTasks": {
-    "reset": "Restablecer"
-  },
   "TextTask": {
     "TextTagButtons": {
       "modifiers": "Modificadores de texto"
