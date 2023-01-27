@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
@@ -55,6 +55,18 @@ function FlipbookViewerContainer({
    * We're assuming all frames in one subject have the same dimensions. */
   const defaultFrameUrl = subject ? Object.values(subject.locations[defaultFrame])[0] : null
   const { img, error, loading } = useSubjectImage(defaultFrameUrl)
+
+  useEffect(function preloadImages() {
+    subject?.locations?.forEach(location => {
+      const [url] = Object.values(location)
+      if (url) {
+        const { Image } = window
+        const img = new Image()
+        img.src = url
+      }
+    })
+  }, [subject?.locations])
+
   const { naturalHeight, naturalWidth, src: defaultFrameSrc } = img
 
   useEffect(function logError() {
