@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react';
+import { useState } from 'react'
 import { MovableModal, Modal } from '@zooniverse/react-components'
 import FieldGuide from './FieldGuide'
 import { useTranslation } from '@translations/i18n'
@@ -13,7 +13,7 @@ function FieldGuideContainer ({
 
   const modalComponent = (size === 'small') ? Modal : MovableModal
   const minHeight = 415
-  const minWidth = 490
+  const minWidth = 550 // includes content + 60px of padding
 
   const [height, setHeight] = useState(minHeight)
 
@@ -21,21 +21,18 @@ function FieldGuideContainer ({
     if (height !== 'auto' && modalComponent === MovableModal) setHeight('auto')
   }
 
-  const boxHeight = (size === 'small') ? '100%' : `${minHeight}px`
-  const boxWidth = (size === 'small') ? '100%' : `${minWidth}px`
-
   const modalProps = {
     active: true,
     closeFn: onClose,
     modal: false,
-    pad: 'medium',
+    pad: '0',
     position: 'right',
     title: t('FieldGuide.title')
   }
   const rndProps = {
     default: {
       height,
-      x: 0 - (minWidth + 60), // width plus margins
+      x: 0 - minWidth,
       y: 0 - (minHeight + 60) * 0.5 // centers vertically
     },
     minHeight,
@@ -45,8 +42,6 @@ function FieldGuideContainer ({
   const modalPropsToUse = (size === 'small') ? modalProps : Object.assign({}, modalProps, { rndProps })
   return (
     <FieldGuide
-      boxHeight={boxHeight}
-      boxWidth={boxWidth}
       modalComponent={modalComponent}
       modalProps={modalPropsToUse}
       {...rest}

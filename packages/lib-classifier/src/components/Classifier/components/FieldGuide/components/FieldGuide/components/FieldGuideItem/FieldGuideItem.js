@@ -12,7 +12,6 @@ import FieldGuideItemIcon from '../FieldGuideItemIcon'
 const StyledButton = styled(Button)`
   padding: 0;
 
-
   ${props => props.theme.dark ? css`
     &:hover > svg,
     &:focus > svg {
@@ -27,17 +26,24 @@ const StyledButton = styled(Button)`
       }
   `}
 `
+
+const StickyTitle = styled(Box)`
+  position: sticky;
+  top: -1px;
+  z-index: 999;
+`
+
 const markdownTitleComponent = {
-  h3: (nodeProps) => <SpacedHeading level='3' margin='none'>{nodeProps.children}</SpacedHeading>
+  h3: (nodeProps) => <SpacedHeading level={3} margin='none'>{nodeProps.children}</SpacedHeading>
 }
 
 const markdownComponents = {
-  h1: (nodeProps) => <SpacedHeading level='1'>{nodeProps.children}</SpacedHeading>,
-  h2: (nodeProps) => <SpacedHeading level='2'>{nodeProps.children}</SpacedHeading>,
-  h3: (nodeProps) => <SpacedHeading level='3'>{nodeProps.children}</SpacedHeading>,
-  h4: (nodeProps) => <SpacedHeading level='4'>{nodeProps.children}</SpacedHeading>,
-  h5: (nodeProps) => <SpacedHeading level='5'>{nodeProps.children}</SpacedHeading>,
-  h6: (nodeProps) => <SpacedHeading level='6'>{nodeProps.children}</SpacedHeading>,
+  h1: (nodeProps) => <SpacedHeading level={1}>{nodeProps.children}</SpacedHeading>,
+  h2: (nodeProps) => <SpacedHeading level={2}>{nodeProps.children}</SpacedHeading>,
+  h3: (nodeProps) => <SpacedHeading level={3}>{nodeProps.children}</SpacedHeading>,
+  h4: (nodeProps) => <SpacedHeading level={4}>{nodeProps.children}</SpacedHeading>,
+  h5: (nodeProps) => <SpacedHeading level={5}>{nodeProps.children}</SpacedHeading>,
+  h6: (nodeProps) => <SpacedHeading level={6}>{nodeProps.children}</SpacedHeading>,
   p: (nodeProps) => <Paragraph margin={{ bottom: 'none', top: 'xxsmall' }}>{nodeProps.children}</Paragraph>
 }
 
@@ -49,20 +55,21 @@ function FieldGuideItem ({
   id,
   item,
   setActiveItemIndex,
+  theme,
   title = ''
-} ) {
+}) {
   const icon = icons.get(item.icon)
 
   const { t } = useTranslation('components')
 
   return (
     <Box id={id} className={className}>
-      <Box
+      <StickyTitle
         align='center'
         border={{ color: 'light-5', side: 'bottom' }}
         direction='row'
-        flex={{ grow: 1, shrink: 0 }}
-        pad={{ bottom: 'xsmall' }}
+        pad={{ bottom: 'xsmall', top: 'medium' }}
+        background={theme.dark ? 'dark-5' : 'white'}
       >
         <StyledButton
           a11yTitle={t('FieldGuide.FieldGuideItem.ariaTitle')}
@@ -74,19 +81,18 @@ function FieldGuideItem ({
         <Markdownz components={markdownTitleComponent}>
           {`### ${title}`}
         </Markdownz>
-      </Box>
+      </StickyTitle>
 
-      <Box direction='column' overflow='auto'>
+      <Box align='center' pad={{ top: 'small', bottom: '35px' }}>
         <FieldGuideItemIcon
           icon={icon}
-          height='140px'
-          margin={{ top: 'small', bottom: '35px' }}
-          viewBox='0 0 200 100'
+          height={140}
+          width={140}
         />
-        <Markdownz components={markdownComponents}>
-          {content}
-        </Markdownz>
       </Box>
+      <Markdownz components={markdownComponents}>
+        {content}
+      </Markdownz>
     </Box>
   )
 }
@@ -104,4 +110,3 @@ FieldGuideItem.propTypes = {
 }
 
 export default withTheme(FieldGuideItem)
-export { FieldGuideItem }
