@@ -4,7 +4,7 @@ import FieldGuideItemAnchor from '../FieldGuideItemAnchor'
 
 function FieldGuideItems ({ icons, items, onChange, strings }) {
   return (
-    <Box overflow='auto'>
+    <Box overflow='auto' pad={{ top: 'medium' }}>
       <Grid
         columns={{ count: 'fill', size: '100px' }}
         gap='medium'
