@@ -25,7 +25,7 @@
     "@sindresorhus/string-hash": "~1.2.0",
     "@visx/axis": "~2.18.0",
     "@visx/group": "~3.0.0",
-    "@visx/scale": "~2.18.0",
+    "@visx/scale": "~3.0.0",
     "@visx/shape": "~3.0.0",
     "@visx/text": "~3.0.0",
     "@zeit/next-source-maps": "0.0.4-canary.1",

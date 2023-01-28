@@ -4480,7 +4480,7 @@
     lodash "^4.17.21"
     prop-types "^15.6.1"
 
-"@visx/scale@2.18.0", "@visx/scale@~2.18.0":
+"@visx/scale@2.18.0":
   version "2.18.0"
   resolved "https://registry.yarnpkg.com/@visx/scale/-/scale-2.18.0.tgz#b78054e68ac8de49f0abeea0c60bb0bd14dec492"
   integrity sha512-clH8HFblMlCuHvUjGRwenvbY1w9YXHU9fPl91Vbtd5bdM9xAN0Lo2+cgV46cvaX3YpnyVb4oNhlbPCBu3h6Rhw==
@@ -4492,7 +4492,7 @@
     d3-scale "^3.3.0"
     d3-time "^2.1.1"
 
-"@visx/scale@3.0.0":
+"@visx/scale@3.0.0", "@visx/scale@~3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@visx/scale/-/scale-3.0.0.tgz#727123f0c930d3346a4473e926831c45997e0312"
   integrity sha512-WSf+wrxZEvu5TPGfGTafzzX1MbogbIxfD9ZKM9p7xfw65v23G0dNMy4bqVBUbOJigONoQkIZyqQ+gz5AJ/ioIg==
