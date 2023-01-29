@@ -4,31 +4,9 @@ on:
   pull_request
 
 jobs:
-  build:
-    name: Build libraries
-    runs-on: ubuntu-latest
-    steps:
-    # See: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow#using-the-checkout-action
-      - uses: actions/checkout@v3
-
-      - name: Use Node.js 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 'lts/gallium'
-          cache: 'yarn'
-
-      - run: yarn install --production=false --frozen-lockfile
-      - run: yarn workspace @zooniverse/react-components build:es6
-      - run: yarn workspace @zooniverse/classifier build:es6
-      - uses: actions/upload-artifact@v3
-        with:
-          name: build
-          path: packages/*/dist/
-
   build_project_app:
     name: Build NextJS project app
     runs-on: ubuntu-latest
-    needs: build
     env:
       APP_ENV: production
       NODE_ENV: production
@@ -42,16 +20,13 @@ jobs:
          cache: 'yarn'
 
       - run: yarn install --production=false --frozen-lockfile
-      - uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: packages/
+      - run: yarn workspace @zooniverse/react-components build:es6
+      - run: yarn workspace @zooniverse/classifier build:es6
       - run: yarn workspace @zooniverse/fe-project build
 
   build_content_app:
     name: Build NextJS content pages app
     runs-on: ubuntu-latest
-    needs: build
     env:
       APP_ENV: production
       NODE_ENV: production
@@ -67,16 +42,13 @@ jobs:
          cache: 'yarn'
 
       - run: yarn install --production=false --frozen-lockfile
-      - uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: packages/
+      - run: yarn workspace @zooniverse/react-components build:es6
+      - run: yarn workspace @zooniverse/classifier build:es6
       - run: yarn workspace @zooniverse/fe-content-pages build
 
   build_storybooks:
     name: Build storybooks
     runs-on: ubuntu-latest
-    needs: build
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js 16
@@ -86,8 +58,6 @@ jobs:
          cache: 'yarn'
 
       - run: yarn install --production=false --frozen-lockfile
-      - uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: packages/
+      - run: yarn workspace @zooniverse/react-components build:es6
+      - run: yarn workspace @zooniverse/classifier build:es6
       - run: yarn deploy-storybook --dry-run

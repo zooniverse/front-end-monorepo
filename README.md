@@ -43,6 +43,26 @@ Yarn Workspaces allow us to maintain package modularity for javascript projects 
 
 ## Getting started
 
+### Debugging the production release
+
+Make sure you have pulled the latest production version.
+
+```sh
+git pull --tags -f
+```
+
+Check out the latest production release.
+
+```sh
+git checkout production-release
+```
+
+Run the bootstrap script to build all the libraries and apps. You can use `bootstrap:es6` here for a faster build if you don't want to run the tests.
+
+```sh
+yarn bootstrap
+```
+
 ### Docker
 You can run the code locally in Docker, which avoids needing to install Node or yarn.
 
@@ -115,6 +135,12 @@ Deployments to a staging Kubernetes instance that uses Panoptes production are t
 Deployments to a production Kubernetes instance are triggered by committing a `production-release` git tag on master. This can either be done using the git CLI or using the lita deploy command on slack. `https://www.zooniverse.org/projects/:project-owner/:project-name/classify` proxy redirects to the new NextJS app while the rest of the domain redirects to PFE. Currently the only project that is configured to do this is Planet Hunters TESS. Eventually more projects will migrate when they migrate to the new classifier.
 
 More information is available in [ADR 12](docs/arch/adr-12.md) and [ADR 17](docs/arch/adr-17.md)
+
+### Deploying Storybook
+
+FEM's storybook can be viewed at [https://zooniverse.github.io/front-end-monorepo/](https://zooniverse.github.io/front-end-monorepo/).
+
+To deploy the latest version FEM's storybook, make sure you have pulled the latest production version and run `yarn bootstrap` then `yarn deploy-storybook`.
 
 ### Environment variables
 

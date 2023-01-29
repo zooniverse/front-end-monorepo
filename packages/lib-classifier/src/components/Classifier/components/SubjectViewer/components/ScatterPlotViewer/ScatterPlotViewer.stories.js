@@ -2,7 +2,6 @@ import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { darken } from 'polished'
-import { withKnobs, boolean, text, number, object } from '@storybook/addon-knobs'
 import ScatterPlotViewer from './ScatterPlotViewer'
 import ScatterPlotViewerConnector from './ScatterPlotViewerConnector'
 import { Provider } from 'mobx-react'
@@ -94,7 +93,6 @@ function ViewerContext(props) {
 export default {
   title: 'Subject Viewers / ScatterPlotViewer',
   component: ScatterPlotViewer,
-  decorators: [withKnobs],
   parameters: {
     viewport: {
       defaultViewport: 'responsive'
@@ -114,13 +112,9 @@ export function LightTheme() {
     >
       <Box height='medium' width='large'>
         <ScatterPlotViewer
-          data={object('data', data)}
-          panning={boolean('panning', false)}
-          xAxisLabel={text('x axis label', 'x-axis')}
-          xAxisLabelOffset={number('x axis label offset', undefined)}
-          yAxisLabel={text('y axis label', 'y-axis')}
-          yAxisLabelOffset={number('y axis label offset', undefined)}
-          zooming={boolean('zooming', false)}
+          data={data}
+          xAxisLabel='x-axis'
+          yAxisLabel='y-axis'
         />
       </Box>
     </Grommet>
@@ -133,7 +127,7 @@ LightTheme.story = {
 }
 
 export function DarkTheme() {
-  const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
+  const darkZooTheme = { ...zooTheme, dark: true }
 
   return (
     <Grommet
@@ -146,13 +140,9 @@ export function DarkTheme() {
     >
       <Box height='medium' width='large'>
         <ScatterPlotViewer
-          data={object('data', data)}
-          panning={boolean('panning', false)}
-          xAxisLabel={text('x axis label', 'x-axis')}
-          xAxisLabelOffset={number('x axis label offset', undefined)}
-          yAxisLabel={text('y axis label', 'y-axis')}
-          yAxisLabelOffset={number('y axis label offset', undefined)}
-          zooming={boolean('zooming', false)}
+          data={data}
+          xAxisLabel='x-axis'
+          yAxisLabel='y-axis'
         />
       </Box>
     </Grommet>
@@ -171,7 +161,7 @@ DarkTheme.story = {
 }
 
 export function NarrowView() {
-  const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
+  const darkZooTheme = { ...zooTheme, dark: true }
   return (
     <Grommet
       background={{
@@ -183,13 +173,9 @@ export function NarrowView() {
     >
       <Box height='medium' width='large'>
         <ScatterPlotViewer
-          data={object('data', data)}
-          panning={boolean('panning', false)}
-          xAxisLabel={text('x axis label', 'x-axis')}
-          xAxisLabelOffset={number('x axis label offset', undefined)}
-          yAxisLabel={text('y axis label', 'y-axis')}
-          yAxisLabelOffset={number('y axis label offset', undefined)}
-          zooming={boolean('zooming', false)}
+          data={data}
+          xAxisLabel='x-axis'
+          yAxisLabel='y-axis'
         />
       </Box>
     </Grommet>
@@ -238,20 +224,18 @@ export function ErrorBars() {
     >
       <Box direction='row' height='medium' width='large'>
         <ScatterPlotViewer
-          data={object('data', data)}
-          panning={boolean('panning', true)}
+          data={data}
+          panning
           setOnZoom={setZoomCallback}
-          xAxisLabel={text('x axis label', 'x-axis')}
-          xAxisLabelOffset={number('x axis label offset', undefined)}
-          yAxisLabelOffset={number('y axis label offset', undefined)}
-          yAxisLabel={text('y axis label', 'y-axis')}
-          zooming={boolean('zooming', true)}
+          xAxisLabel='x-axis'
+          yAxisLabel='y-axis'
+          zooming
           zoomConfiguration={{
-            direction: text('zoom direction', 'both'),
-            minZoom: number('min zoom', 1),
-            maxZoom: number('max zoom', 10),
-            zoomInValue: number('zoom in scale', 1.2),
-            zoomOutValue: number('zoom out scale', 0.8)
+            direction: 'both',
+            minZoom: 1,
+            maxZoom: 10,
+            zoomInValue: 1.2,
+            zoomOutValue: 0.8
           }}
         />
       </Box>
@@ -275,23 +259,21 @@ export function KeplerLightCurve() {
     >
       <Box height='medium' width='large'>
         <ScatterPlotViewer
-          axisColor={text('axis color', colors['light-1'])}
-          backgroundColor={text('background color', darken(0.08, colors['neutral-1']))}
-          data={object('data', keplerMockDataWithOptions.data)}
+          axisColor={colors['light-1']}
+          backgroundColor={darken(0.08, colors['neutral-1'])}
+          data={keplerMockDataWithOptions.data}
           glyphColors={[colors['light-1']]}
           margin={keplerMockDataWithOptions.chartOptions.margin}
           padding={keplerMockDataWithOptions.chartOptions.padding}
-          panning={boolean('panning', false)}
           tickDirection='inner'
-          xAxisLabel={text('x axis label', keplerMockDataWithOptions.chartOptions.xAxisLabel)}
-          yAxisLabel={text('y axis label', keplerMockDataWithOptions.chartOptions.yAxisLabel)}
-          zooming={boolean('zooming', false)}
+          xAxisLabel={keplerMockDataWithOptions.chartOptions.xAxisLabel}
+          yAxisLabel={keplerMockDataWithOptions.chartOptions.yAxisLabel}
           zoomConfiguration={{
-            direction: text('zoom direction', 'both'),
-            minZoom: number('min zoom', 1),
-            maxZoom: number('max zoom', 10),
-            zoomInValue: number('zoom in scale', 1.2),
-            zoomOutValue: number('zoom out scale', 0.8)
+            direction: 'both',
+            minZoom: 1,
+            maxZoom: 10,
+            zoomInValue: 1.2,
+            zoomOutValue: 0.8
           }}
         />
       </Box>
@@ -310,14 +292,14 @@ export function PanAndZoom() {
       <Box direction='row' height='medium' width='large'>
         <ScatterPlotViewerConnector
           zoomConfiguration={{
-            direction: text('zoom direction', 'both'),
-            minZoom: number('min zoom', 1),
-            maxZoom: number('max zoom', 10),
-            zoomInValue: number('zoom in scale', 1.2),
-            zoomOutValue: number('zoom out scale', 0.8)
+            direction: 'both',
+            minZoom: 1,
+            maxZoom: 10,
+            zoomInValue: 1.2,
+            zoomOutValue: 0.8
           }}
         />
-        <ImageToolbar />
+        <ImageToolbar width='4rem' />
       </Box>
     </ViewerContext>
   )
@@ -333,7 +315,7 @@ export function MultipleSeries() {
     <ViewerContext theme={zooTheme}>
       <Box direction='row' height='medium' width='large'>
         <ScatterPlotViewerConnector />
-        <ImageToolbar />
+        <ImageToolbar width='4rem' />
       </Box>
     </ViewerContext>
   )

@@ -173,20 +173,28 @@ class App extends React.Component {
     const mergedThemes = _.merge({}, baseTheme, zooTheme, { dark: this.state.dark })
     const key = this.state.cachePanoptesData ? 'cachedClassifier' : 'classifier'
 
+    const availableLocales = project?.available_languages.map(current => {
+      const [language, dialect] = current.split('-')
+      if (dialect) {
+        return `${language}-${dialect.toUpperCase()}`
+      }
+      return language
+    })
+
     return (
-      <Grommet 
+      <Grommet
         background={{
           dark: 'dark-1',
           light: 'light-1'
         }}
-        theme={mergedThemes} 
+        theme={mergedThemes}
         themeMode={(this.state.dark) ? 'dark' : 'light'}
       >
         <Box as='main'>
           <Box as='header' pad='medium' justify='end' gap='medium' direction='row'>
             <label htmlFor="locale">Language</label>
             <select id="locale" defaultValue={locale} onChange={this.selectLocale}>
-              {project?.available_languages?.map(locale => <option key={locale} value={locale}>{localeMenu[locale]}</option>)}
+              {availableLocales?.map(locale => <option key={locale} value={locale}>{localeMenu[locale]}</option>)}
               <option value='test'>Test Language</option>
             </select>
             <label htmlFor="workflows">Workflow</label>

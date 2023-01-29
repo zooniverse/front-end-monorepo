@@ -18,8 +18,14 @@
   "env": {
     "es6": {
       "presets": [
+        ["@babel/preset-react", {
+          "runtime": "automatic"
+        }],
         ["@babel/preset-env", {
-          "modules": false
+          "modules": false,
+          "targets": {
+            "esmodules": true
+          }
         }]
       ]
     }

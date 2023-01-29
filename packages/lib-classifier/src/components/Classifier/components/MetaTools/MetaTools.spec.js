@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react'
-import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'

@@ -22,8 +22,8 @@ const locales = [
   'test',
   'tr',
   'ur',
-  'zh-cn',
-  'zh-tw'
+  'zh-CN',
+  'zh-TW'
 ]
 
 module.exports = {
