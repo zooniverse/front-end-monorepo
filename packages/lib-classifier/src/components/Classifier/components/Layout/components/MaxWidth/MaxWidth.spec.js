@@ -4,14 +4,14 @@ import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 
 import mockStore from '@test/mockStore'
-import Layout from './Layout'
+import MaxWidth from './MaxWidth'
 
-describe('Component > Layout', function () {
+describe('Component > MaxWidth', function () {
   it('should render without crashing', function () {
     render(
       <Grommet theme={zooTheme}>
         <Provider classifierStore={mockStore()}>
-          <Layout />
+          <MaxWidth />
         </Provider>
       </Grommet>
     )

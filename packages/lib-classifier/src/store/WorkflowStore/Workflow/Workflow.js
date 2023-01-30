@@ -56,6 +56,13 @@ const Workflow = types
       return self.grouped && !!activeSet?.isIndexed
     },
 
+    get layout() {
+      if (self.usesTranscriptionTask) {
+        return 'default'
+      }
+      return 'maxWidth'
+    },
+
     get subjectSetId() {
       const activeSet = tryReference(() => self.subjectSet)
       return activeSet?.id
