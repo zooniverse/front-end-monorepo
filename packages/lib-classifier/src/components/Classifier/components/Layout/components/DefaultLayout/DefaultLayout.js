@@ -1,5 +1,6 @@
+import { useContext } from 'react'
 import styled from 'styled-components'
-import { Box } from 'grommet'
+import { Box, Grid, ResponsiveContext } from 'grommet'
 
 import Banners from '@components/Classifier/components/Banners'
 import FeedbackModal from '@components/Classifier/components/Feedback'
@@ -9,25 +10,13 @@ import QuickTalk from '@components/Classifier/components/QuickTalk'
 import SubjectViewer from '@components/Classifier/components/SubjectViewer'
 import TaskArea from '@components/Classifier/components/TaskArea'
 
-const ContainerGrid = styled.div`
-  display: grid;
-  grid-gap: 30px;
-  grid-template-areas: "viewer task";
-  grid-template-columns: auto 25.333rem;
+const ContainerGrid = styled(Grid)`
   position: relative;
 
-  @media screen and (max-width: 1160px) {
+  // proportional 9/5 subject/task sizing up to a maximum task width of 25.333rem.
+  @media screen and (min-width: 769px) and (max-width: 70.666rem) {
     grid-gap: 1.75rem;
     grid-template-columns: 45.333fr 25.333fr;
-  }
-
-  // this breakpoint matches Grommet's ResponsiveContext component
-  @media screen and (max-width: 768px) {
-    grid-template-columns: 100%;
-    grid-template-rows: auto auto;
-    grid-auto-flow: column;
-    grid-gap: 20px;
-    grid-template-areas: "viewer" "task";
   }
 `
 
@@ -40,14 +29,6 @@ const StyledTaskArea = styled(TaskArea)`
   top: 10px;
 `
 
-export const ViewerGrid = styled.section`
-  display: grid;
-  grid-area: viewer;
-  grid-template-areas: "subject toolbar";
-  grid-template-columns: auto clamp(3rem, 10%, 4.5rem);
-  height: fit-content;
-`
-
 const StyledImageToolbarContainer = styled.div`
   grid-area: toolbar;
 `
@@ -57,9 +38,48 @@ const StyledImageToolbar = styled(ImageToolbar)`
   top: 10px;
 `
 
-export default function DefaultLayout({ className = '' }) {
+export function ViewerGrid({ children }) {
   return (
-    <ContainerGrid className={className}>
+    <Grid
+      as='section'
+      areas={[
+        ['subject', 'toolbar']
+      ]}
+      columns={['auto', 'clamp(3rem, 10%, 4.5rem)']}
+      gridArea='viewer'
+      height='fit-content'
+    >
+      {children}
+    </Grid>
+  )
+}
+
+export default function DefaultLayout({ className = '' }) {
+  const size = useContext(ResponsiveContext)
+  const verticalLayout = {
+    areas: [
+      ['viewer'],
+      ['task']
+    ],
+    columns: ['100%'],
+    gap: 'small',
+    margin: 'none',
+    rows: ['auto', 'auto']
+  }
+  const horizontalLayout = {
+    areas: [
+      ['viewer', 'task']
+    ],
+    columns: ['auto', '25.333rem'],
+    gap: 'medium'
+  }
+  const containerGridProps = size === 'small' ? verticalLayout : horizontalLayout
+
+  return (
+    <ContainerGrid
+      className={className}
+      {...containerGridProps}
+    >
       <ViewerGrid>
         <Box gridArea='subject'>
           <Banners />
