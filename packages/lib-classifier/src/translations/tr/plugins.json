@@ -28,9 +28,6 @@
     }
   },
   "TextFromSubjectTask": {
-    "reset": "Sıfırla"
-  },
-  "TextFromSubjectTasks": {
     "reset": "Görünümü sıfırla"
   },
   "TextTask": {

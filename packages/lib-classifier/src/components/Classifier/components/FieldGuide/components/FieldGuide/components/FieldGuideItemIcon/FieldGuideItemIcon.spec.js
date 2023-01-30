@@ -26,9 +26,8 @@ describe('Component > FieldGuideItemIcon', function () {
     expect(wrapper.find(Media)).to.have.lengthOf(1)
   })
 
-  it('should render a placeholder svg if there is not an icon', function () {
+  it('should not render a Media if there is not an icon', function () {
     const wrapper = shallow(<FieldGuideItemIcon />)
     expect(wrapper.find(Media)).to.have.lengthOf(0)
-    expect(wrapper.find('svg')).to.have.lengthOf(1)
   })
 })

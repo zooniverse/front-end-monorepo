@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import { withTheme } from 'styled-components'
 import FieldGuideItemIcon from '../FieldGuideItemIcon'
-import { useTranslation } from '@translations/i18n'
 
 const defaultIcons = observable.map()
+
 export function AnchorLabel({
   className = '',
   icons = defaultIcons,
@@ -15,21 +15,20 @@ export function AnchorLabel({
 }) {
   const icon = icons.get(item.icon)
   return (
-    <Box
-      align='center'
-      className={className}
-      direction='column'
-      width='100px'
-    >
-      <FieldGuideItemIcon alt={title} fit='cover' height='100px' icon={icon} width='100px' />
-      <Paragraph>
-        {title}
-      </Paragraph>
+    <Box align='center' className={className} direction='column'>
+      <FieldGuideItemIcon
+        alt={title}
+        height={100}
+        icon={icon}
+        width={100}
+      />
+      <Paragraph>{title}</Paragraph>
     </Box>
   )
 }
 
 const defaultTheme = { dark: false }
+
 function FieldGuideItemAnchor({
   className = '',
   icons = defaultIcons,
@@ -39,26 +38,22 @@ function FieldGuideItemAnchor({
   theme = defaultTheme,
   title
 }) {
-
-  const { t } = useTranslation('components')
-
   function selectItem(event, itemIndex) {
     onClick(itemIndex)
     event.preventDefault()
   }
 
-
-    const label = <AnchorLabel icons={icons} item={item} title={title} />
-    const anchorColor = (theme.dark) ? 'light-3' : 'dark-5'
-    return (
-      <Anchor
-        className={className}
-        color={anchorColor}
-        href={`#field-guide-item-${itemIndex}`}
-        label={label}
-        onClick={(event) => selectItem(event, itemIndex)}
-      />
-    )
+  const label = <AnchorLabel icons={icons} item={item} title={title} />
+  const anchorColor = theme.dark ? 'light-3' : 'dark-5'
+  return (
+    <Anchor
+      className={className}
+      color={anchorColor}
+      href={`#field-guide-item-${itemIndex}`}
+      label={label}
+      onClick={event => selectItem(event, itemIndex)}
+    />
+  )
 }
 
 FieldGuideItemAnchor.propTypes = {
@@ -66,7 +61,6 @@ FieldGuideItemAnchor.propTypes = {
   icons: MobXPropTypes.observableMap,
   item: PropTypes.object.isRequired,
   label: PropTypes.string,
-  setActiveItemIndex: PropTypes.func.isRequired,
   theme: PropTypes.shape({
     dark: PropTypes.bool
   })

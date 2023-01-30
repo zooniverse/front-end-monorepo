@@ -4,6 +4,18 @@
       "next": "下一个"
     }
   },
+  "FeedbackModal": {
+    "keepClassifying": "继续"
+  },
+  "FieldGuide": {
+    "title": "文本教程",
+    "FieldGuideButton": {
+      "buttonLabel": "文本教程"
+    },
+    "FieldGuideItem": {
+      "ariaTitle": "返回"
+    }
+  },
   "ModalTutorial": {
     "title": "教程"
   },
@@ -22,6 +34,9 @@
     "task": "任务",
     "tutorial": "教程",
     "Tasks": {
+      "BackButton": {
+        "back": "返回"
+      },
       "DoneAndTalkButton": {
         "doneAndTalk": "完成 讨论"
       },
@@ -32,6 +47,7 @@
         "next": "下一个"
       },
       "TaskHelp": {
+        "close": "关闭",
         "label": "需要帮助？"
       }
     }

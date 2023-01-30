@@ -27,8 +27,8 @@
       "emailConfirm": "Translated",
       "emailConfirmError": "Translated",
       "emailConflict": "Translated",
-      "emailPlaceholder": "Translated",
       "emailListSignUp": "Translated",
+      "emailPlaceholder": "Translated",
       "forgot": "Translated",
       "heading": "Translated",
       "instruction": "Translated",
@@ -57,28 +57,27 @@
     }
   },
   "CollectionsModal": {
-    "title": "Translated",
     "CreateCollection": {
-      "label": "Translated",
       "createButton": "Translated",
+      "label": "Translated",
       "private": "Translated"
     },
     "SelectCollection": {
-      "label": "Translated",
-      "addButton": "Translated"
-    }
+      "addButton": "Translated",
+      "label": "Translated"
+    },
+    "title": "Translated"
   },
   "ConnectWithProject": {
-    "title": "Translated {{projectName}}",
     "ProjectLink": {
       "types": {
         "bitbucket": "Translated",
         "facebook": "Translated",
         "github": "Translated",
+        "googleplus": "Translated",
         "instagram": "Translated",
         "medium": "Translated",
         "pinterest": "Translated",
-        "googleplus": "Translated",
         "reddit": "Translated",
         "tumblr": "Translated",
         "twitter": "Translated",
@@ -87,7 +86,8 @@
         "wordpress": "Translated",
         "youtube": "Translated"
       }
-    }
+    },
+    "title": "Translated {{projectName}}"
   },
   "Head": {
     "defaultDescription": "Translated",
@@ -98,12 +98,6 @@
     "loading": "Translated"
   },
   "ProjectHeader": {
-    "about": "Translated",
-    "classify": "Translated",
-    "exploreProject": "Translated",
-    "talk": "Translated",
-    "collect": "Translated",
-    "recents": "Translated",
     "ApprovedIcon": {
       "title": "Translated"
     },
@@ -115,7 +109,13 @@
     },
     "UnderReviewLabel": {
       "underReview": "Translated"
-    }
+    },
+    "about": "Translated",
+    "classify": "Translated",
+    "collect": "Translated",
+    "exploreProject": "Translated",
+    "recents": "Translated",
+    "talk": "Translated"
   },
   "ProjectStatistics": {
     "byTheNumbers": "Translated",
@@ -133,13 +133,13 @@
     "text": "Translated"
   },
   "SubjectPicker": {
-    "back": "Translated",
-    "heading": "Translated",
-    "byline": "Translated",
     "alreadySeen": "Translated",
+    "back": "Translated",
+    "byline": "Translated",
+    "fetching": "Translated",
+    "heading": "Translated",
     "retired": "Translated",
-    "unclassified": "Translated",
-    "fetching": "Translated"
+    "unclassified": "Translated"
   },
   "SubjectPreview": {
     "CollectionsButton": {
@@ -150,22 +150,18 @@
     }
   },
   "SubjectSetPicker": {
-    "back": "Translated",
-    "heading": "Translated",
-    "byline": "Translated",
     "SubjectSetCard": {
       "isComplete": "Translated"
-    }
+    },
+    "back": "Translated",
+    "byline": "Translated",
+    "heading": "Translated"
   },
   "ThemeModeToggle": {
     "switchToDark": "Translated",
     "switchToLight": "Translated"
   },
   "WorkflowSelector": {
-    "getStarted": "Translated",
-    "error": "Translated",
-    "message": "Translated",
-    "noWorkflows": "Translated",
     "WorkflowSelectButton": {
       "complete": "{{completeness}}% Translated",
       "setSelection": "Translated",
@@ -174,6 +170,10 @@
     "WorkflowSelectButtons": {
       "locked": "Translated",
       "unlocked": "Translated"
-    }
+    },
+    "error": "Translated",
+    "getStarted": "Translated",
+    "message": "Translated",
+    "noWorkflows": "Translated"
   }
 }
