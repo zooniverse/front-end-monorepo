@@ -6,7 +6,7 @@ const isBrowser = typeof window !== 'undefined'
 export default function useSugarProject(project) {
   const projectID = project?.id
 
-  useEffect(function onMount() {
+  useEffect(function onProjectChange() {
     if (isBrowser && projectID) {
       const channel = `project-${projectID}`
       sugarClient.subscribeTo(channel)
