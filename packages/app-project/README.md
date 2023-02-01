@@ -31,13 +31,6 @@ yarn storybook
 
 If you want to run the app using a node inspect mode, run `yarn dev:inspect`. Then you can [connect your preferred debugger](https://nextjs.org/docs/advanced-features/debugging#step-2-connect-to-the-debugger) to be able to see the server logs and debug.
 
-### Bundle Analyser
-```sh
-yarn analyse
-```
-
-Run a build with [`@next/bundle-analyzer`](https://www.npmjs.com/package/@next/bundle-analyzer) enabled. It generates two reports on bundle sizes: the browser bundle and the server bundle.
-
 ## Running in production
 
 Next.js [treats the build and serve tasks as separate steps](https://github.com/zeit/next.js/#production-deployment) when running in production.
