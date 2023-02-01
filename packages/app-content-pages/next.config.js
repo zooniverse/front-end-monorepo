@@ -4,9 +4,6 @@ const { execSync } = require('child_process')
 const Dotenv = require('dotenv-webpack')
 const path = require('path')
 const withSourceMaps = require('@zeit/next-source-maps')()
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYSE === 'true',
-})
 
 const assetPrefixes = {
   development: '/about',
@@ -35,7 +32,7 @@ console.info({ APP_ENV, PANOPTES_ENV, assetPrefix })
 
 const nextConfig = {
   assetPrefix,
-  basePath: '/about', 
+  basePath: '/about',
 
   compiler: {
     styledComponents: true,
@@ -72,5 +69,4 @@ const nextConfig = {
   }
 }
 
-module.exports = withBundleAnalyzer(withSourceMaps(nextConfig))
-
+module.exports = withSourceMaps(nextConfig)
