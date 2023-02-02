@@ -149,7 +149,8 @@ const Mark = forwardRef(function Mark(
   return (
     <StyledGroup
       {...mainStyle}
-      aria-label={label}
+	  data-testid="mark-mark"      
+	  aria-label={label}
       dragging={dragging}
       focusable
       focusColor={focusColor}

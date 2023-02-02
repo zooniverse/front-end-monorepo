@@ -5,6 +5,7 @@ import { useRef } from 'react'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import InteractionLayer from '../InteractionLayer'
 import ZoomControlButton from '../ZoomControlButton'
+import locationValidator from '../../helpers/locationValidator'
 
 function SingleImageViewer (props) {
   const {
@@ -16,6 +17,7 @@ function SingleImageViewer (props) {
     rotate = 0,
     scale = 1,
     svgMaxHeight = null,
+	subject,
     title = {},
     viewBox,
     width,
@@ -65,6 +67,7 @@ function SingleImageViewer (props) {
                 scale={scale}
                 height={height}
                 width={width}
+				subject={subject}
               />
             )}
           </g>
@@ -88,6 +91,9 @@ SingleImageViewer.propTypes = {
   /** Calculated in SVGPanZoom component */
   svgMaxHeight: PropTypes.string,
   /** Passed from container */
+  subject: PropTypes.shape({
+    locations: PropTypes.arrayOf(locationValidator)
+  }),
   title: PropTypes.shape({
     id: PropTypes.string,
     text: PropTypes.string

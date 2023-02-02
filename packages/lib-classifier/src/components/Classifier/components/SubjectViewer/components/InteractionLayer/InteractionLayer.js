@@ -4,8 +4,10 @@ import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
+import SubjectReductions from './components/SubjectReductions'
 import SubTaskPopup from './components/SubTaskPopup'
 import getFixedNumber from '../../helpers/getFixedNumber'
+import locationValidator from '../../helpers/locationValidator'
 
 const DrawingCanvas = styled('rect')`
   ${(props) =>
@@ -35,13 +37,14 @@ function InteractionLayer({
   move,
   setActiveMark = () => {},
   scale = 1,
+  subject,
   width,
   played,
   duration
 }) {
   const [creating, setCreating] = useState(false)
   const canvas = useRef()
-
+  
   if (creating && !activeMark) {
     setCreating(false)
   }
@@ -87,6 +90,30 @@ function InteractionLayer({
     return svgEventOffset
   }
 
+  // Get the Subject's Caesar Reductions for FreehandLine Tool
+  useEffect(() => {
+    SubjectReductions({
+      workflowId: subject?.workflow.id,
+      subjectId: subject?.id,
+      cb: (data) => {
+        if (data) {
+          const coors = data[0].data.points.map(val => {
+            return { x: val[0], y: val[1] };
+          });
+
+          const mark = activeTool.createMark({
+            id: cuid(),
+            frame: 0,
+            toolIndex: 0,
+          }, coors)
+
+          setActiveMark(mark)
+          setCreating(true)
+        }
+      }
+    })
+  }, []);
+
   function createMark(event) {
     // TODO: add case for played = undefined
     const timeStamp = getFixedNumber(played, 5)
@@ -131,6 +158,7 @@ function InteractionLayer({
   }
 
   function onPointerMove(event) {
+    console.log('pointerMove()', event.pointerId)
     cancelEvent(event)
     if (creating) {
       activeTool?.handlePointerMove?.(convertEvent(event), activeMark)
@@ -204,12 +232,15 @@ InteractionLayer.propTypes = {
     taskType: PropTypes.string,
     value: PropTypes.array
   }).isRequired,
-  frame: PropTypes.number,
-  marks: PropTypes.array,
-  setActiveMark: PropTypes.func,
-  height: PropTypes.number.isRequired,
   disabled: PropTypes.bool,
+  frame: PropTypes.number,
+  height: PropTypes.number.isRequired,
+  marks: PropTypes.array,
   scale: PropTypes.number,
+  setActiveMark: PropTypes.func,
+  subject: PropTypes.shape({
+    locations: PropTypes.arrayOf(locationValidator)
+  }),
   width: PropTypes.number.isRequired
 }
 

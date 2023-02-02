@@ -61,6 +61,7 @@ function SingleImageViewerContainer ({
 
   if (loadingState !== asyncStates.initialized) {
     const subjectID = subject?.id || 'unknown'
+
     return (
       <SVGPanZoom
         img={subjectImage.current}
@@ -86,6 +87,7 @@ function SingleImageViewerContainer ({
           width={img.naturalWidth}
           zoomControlFn={zoomControlFn}
           zooming={zooming}
+		  subject={subject}
         >
           <g ref={subjectImage}>
             <SVGImage

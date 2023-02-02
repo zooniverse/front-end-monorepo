@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import PropTypes from 'prop-types'
 import { DeleteButton, Mark } from '@plugins/drawingTools/components'
+import { LineControls } from '@plugins/drawingTools/experimental/components'
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 function DrawingToolMarks({
@@ -25,6 +26,7 @@ function DrawingToolMarks({
     mark.tool: the tool definition (e.g. "small red Point")
     mark.videoTime: indicates when the mark was created. Only relevant to certain time-based tools, otherwise undefined.
      */
+
     const { tool, videoTime } = mark
     const MarkingComponent = mark.toolComponent
     const isActive = mark.id === activeMark?.id
@@ -66,6 +68,7 @@ function DrawingToolMarks({
     }
 
     function selectMark() {
+		console.log('DrawingToolMarks.selectMark()')
       onSelectMark(mark)
     }
 
@@ -94,13 +97,24 @@ function DrawingToolMarks({
           scale={scale}
           played={played}
         />
-        {isActive && (
+        {isActive && mark.tool.type !== 'freehandLine' && (
           <DeleteButton
             label={`Delete ${tool.type}`}
             mark={mark}
             scale={scale}
             onDelete={deleteMark}
             onDeselect={deselectMark}
+          />
+        )}
+		{isActive && mark.tool.type == 'freehandLine' && (
+          <LineControls
+            mark={mark}
+            scale={scale}
+            onDelete={deleteMark}
+            onDeselect={deselectMark}
+			dragStart={selectMark}
+			dragMove={moveMark}
+			dragEnd={endMoveMark}
           />
         )}
       </Mark>

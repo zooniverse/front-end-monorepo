@@ -2,8 +2,25 @@ import { useMemo, useState } from 'react';
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import styled from 'styled-components'
-import UndoButton from '../../../components/UndoButton'
 import DragHandle from '../../../components/DragHandle'
+
+/*
+
+## TODO
+- Unit tests
+- Icons for LineControls
+- Redo
+- Autocomplete / snap to close changes based on zoom
+- Auto pixels / points save for undo every 10 pixels
+- splice-append.. When it "closes", it doesn't add that point to the end
+
++ WorkflowId and subjectId code refactor
++ Scale width of zoom level line width
++ Undo & X button get in the way of drawing
++ Create the drawing tools toolbar
++ Autoclose optional
+
+*/
 
 const StyledGroup = styled.g`
   &:hover {
@@ -18,10 +35,6 @@ const StyledGroup = styled.g`
     cursor: grabbing;
   }
 `
-
-const STROKE_WIDTH = 1
-const GRAB_STROKE_WIDTH = 10
-const FINISHER_RADIUS = 3
 
 function createPoint(event) {
   const { clientX, clientY } = event
@@ -70,6 +83,9 @@ function linePath({ dragPoint, isClosed, points, targetPoint }) {
   return path.join(' ')
 }
 
+const GRAB_STROKE_WIDTH = 10
+const FINISHER_RADIUS = 3
+
 function FreehandLine({ active, mark, onFinish, scale }) {
   const { initialPoint, lastPoint, finished, isClosed, points } = mark
   const [editing, setEditing] = useState(false)
@@ -79,6 +95,10 @@ function FreehandLine({ active, mark, onFinish, scale }) {
     { dragPoint, isClosed, points, targetPoint }),
     [dragPoint, isClosed, points, targetPoint]
   )
+
+  // Stroke width varies as a function of the zoom level. Ranges 1.25-5.75
+  const STROKE_WIDTH = (6 - scale)
+
 
   const clippedPath = mark.clipPath.map(
     (point, index) => index === 0 ? `M ${point.x},${point.y}` : `L ${point.x},${point.y}`
@@ -110,6 +130,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
   }
 
   function onDoubleClick(event) {
+
     if (active) {
       const { x, y } = createPoint(event)
       mark.setDragPoint({ x, y })
@@ -142,6 +163,11 @@ function FreehandLine({ active, mark, onFinish, scale }) {
   }
 
   function cancelEditing() {
+    // TODO: handle this a bit better?
+    // mark.splicePathEnd??
+    // mark.appendPathEnd??
+    // finish??
+    console.log('cancelEditing');
     mark.setTargetPoint(null)
     mark.setDragPoint(null)
     setEditing(false)
@@ -149,6 +175,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
 
   return (
     <StyledGroup
+      data-testid="mark-focusable"
       className={ editing ? 'editing' : undefined}
       onPointerUp={active ? onFinish : undefined}
     >
@@ -158,14 +185,6 @@ function FreehandLine({ active, mark, onFinish, scale }) {
           r={FINISHER_RADIUS / scale}
           cx={initialPoint.x}
           cy={initialPoint.y}
-        />
-      )}
-      {active && (
-        <UndoButton
-          scale={scale}
-          x={initialPoint.x}
-          y={initialPoint.y}
-          undoDrawing={mark.shortenPath}
         />
       )}
       <path
@@ -193,6 +212,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
             d={clippedPath}
             strokeDasharray='2 2'
             strokeWidth={STROKE_WIDTH}
+            opacity=".4"
           />
           <path
             d={clippedPath}
@@ -205,14 +225,17 @@ function FreehandLine({ active, mark, onFinish, scale }) {
           />
         </>
       }
-      {active && finished && !dragPoint && !isClosed &&
+      {active && !finished && !dragPoint && !isClosed &&
         <DragHandle
+          testid="drawing-drag-handle"
           scale={scale}
           x={lastPoint.x}
           y={lastPoint.y}
           fill='transparent'
           invisibleWhenDragging={true}
+          dragStart={mark.appendPathStart}
           dragMove={mark.appendPath}
+          dragEnd={mark.appendPathEnd}
         />
       }
       {active && targetPoint && (
@@ -231,7 +254,9 @@ function FreehandLine({ active, mark, onFinish, scale }) {
           fill='transparent'
           invisibleWhenDragging={true}
           onClick={!targetPoint ? cancelEditing : undefined}
+          dragStart={mark.splicePathStart}
           dragMove={mark.splicePath}
+          dragEnd={mark.splicePathEnd}
         />
       }
     </StyledGroup>
