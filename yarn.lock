@@ -8246,10 +8246,10 @@ endent@^2.0.1:
     fast-json-parse "^1.0.3"
     objectorarray "^1.0.5"
 
-engine.io-client@~6.3.0:
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/engine.io-client/-/engine.io-client-6.3.0.tgz#d4759de3395069eed81d7c7c459ae20b79128bf7"
-  integrity sha512-hIadC76/X+lClzc6da7gBfsLCf1z+p0hAI+ht8gvunvBoV38IeUP3oJyoElRrx5YyzsdFgYFp1GhjZa5z7Hrjg==
+engine.io-client@~6.4.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/engine.io-client/-/engine.io-client-6.4.0.tgz#88cd3082609ca86d7d3c12f0e746d12db4f47c91"
+  integrity sha512-GyKPDyoEha+XZ7iEqam49vz6auPnNJ9ZBfy89f+rMMas8AuiMWOZ9PVzu8xb9ZC6rafUqiGHSCfu22ih66E+1g==
   dependencies:
     "@socket.io/component-emitter" "~3.1.0"
     debug "~4.3.1"
