@@ -94,6 +94,6 @@
     "storybook-react-i18next": "~1.1.2"
   },
   "engines": {
-    "node": ">=16.18"
+    "node": ">=18.13"
   }
 }
