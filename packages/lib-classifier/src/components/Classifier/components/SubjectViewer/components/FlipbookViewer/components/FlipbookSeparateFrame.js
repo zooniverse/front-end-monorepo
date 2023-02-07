@@ -2,59 +2,50 @@ import { useEffect, useRef, useState } from 'react'
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 
-import locationValidator from '../../helpers/locationValidator'
-import { PLACEHOLDER_URL } from '../SingleImageViewer/hooks/useSubjectImage'
+import locationValidator from '../../../helpers/locationValidator'
+import useSubjectImage, { PLACEHOLDER_URL } from '../../SingleImageViewer/hooks/useSubjectImage'
 
-import SingleImageViewer from '../SingleImageViewer/SingleImageViewer.js'
-import SVGImage from '../SVGComponents/SVGImage'
-import SVGPanZoom from '../SVGComponents/SVGPanZoom'
-import FlipbookControls from './components'
+import SingleImageViewer from '../../SingleImageViewer/SingleImageViewer.js'
+import SVGImage from '../../SVGComponents/SVGImage'
+import SVGPanZoom from '../../SVGComponents/SVGPanZoom'
 
-const FlipbookViewer = ({
-  defaultFrame = 0,
-  defaultFrameSrc = '',
+const FlipbookSeparateFrame = ({
   enableRotation = () => true,
+  frameUrl = '',
   invert = false,
   move,
-  naturalHeight = 600,
-  naturalWidth = 800,
+  onError = () => true,
   onKeyDown = () => true,
   onReady = () => true,
-  playIterations,
   rotation,
   setOnPan = () => true,
   setOnZoom = () => true,
   subject
 }) => {
-  const subjectImage = useRef()
-  const [currentFrame, setCurrentFrame] = useState(defaultFrame)
-  const [playing, setPlaying] = useState(false)
+  console.log(frameUrl)
+  const imgRef = useRef()
   const [dragMove, setDragMove] = useState()
+  const { img, error, loading } = useSubjectImage(frameUrl)
+  const { naturalHeight, naturalWidth, src: frameSrc } = img
 
-  const viewerSrc = subject?.locations ? Object.values(subject.locations[currentFrame])[0] : ''
+  useEffect(
+    function logError() {
+      if (!loading && error) {
+        onError(error)
+      }
+    },
+    [error, loading]
+  )
 
   useEffect(() => {
-    const svgImage = subjectImage?.current
-    if (svgImage && defaultFrameSrc !== PLACEHOLDER_URL) {
+    const svgImage = imgRef?.current
+    if (svgImage && frameSrc !== PLACEHOLDER_URL) {
       const { width: clientWidth, height: clientHeight } = svgImage.getBoundingClientRect()
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
       onReady({ target })
       enableRotation()
     }
-  }, [defaultFrameSrc])
-
-  const onPlayPause = () => {
-    setPlaying(!playing)
-  }
-
-  const handleSpaceBar = (event) => {
-    if (event.key === ' ') {
-      event.preventDefault()
-      onPlayPause()
-    } else {
-      onKeyDown(event)
-    }
-  }
+  }, [frameSrc])
 
   const setOnDrag = (callback) => {
     setDragMove(() => callback)
@@ -67,7 +58,7 @@ const FlipbookViewer = ({
   return (
     <Box>
       <SVGPanZoom
-        img={subjectImage.current}
+        img={imgRef.current}
         maxZoom={5}
         minZoom={0.1}
         naturalHeight={naturalHeight}
@@ -75,45 +66,33 @@ const FlipbookViewer = ({
         setOnDrag={setOnDrag}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}
-        src={defaultFrameSrc}
+        src={frameSrc}
       >
         <SingleImageViewer
           enableInteractionLayer={false}
           height={naturalHeight}
-          onKeyDown={handleSpaceBar}
+          onKeyDown={onKeyDown}
           rotate={rotation}
           width={naturalWidth}
         >
-          <g ref={subjectImage} role='tabpanel' id='flipbook-tab-panel'>
+          <g ref={imgRef}>
             <SVGImage
               invert={invert}
               move={move}
               naturalHeight={naturalHeight}
               naturalWidth={naturalWidth}
               onDrag={onDrag}
-              src={viewerSrc}
+              src={frameSrc}
               subjectID={subject.id}
             />
           </g>
         </SingleImageViewer>
       </SVGPanZoom>
-      <FlipbookControls
-        currentFrame={currentFrame}
-        locations={subject.locations}
-        onFrameChange={setCurrentFrame}
-        onPlayPause={onPlayPause}
-        playing={playing}
-        playIterations={playIterations}
-      />
     </Box>
   )
 }
 
-FlipbookViewer.propTypes = {
-  /** Fetched from metadata.default_frame or initialized to zero */
-  defaultFrame: PropTypes.number,
-  /** Either placeholder.src or the subject image src */
-  defaultFrameSrc: PropTypes.string,
+FlipbookSeparateFrame.propTypes = {
   /** Function passed from Subject Viewer Store */
   enableRotation: PropTypes.func,
   /** Passed from Subject Viewer Store */
@@ -128,8 +107,6 @@ FlipbookViewer.propTypes = {
   onKeyDown: PropTypes.func,
   /** Passed from Subject Viewer Store and called when default frame's src is loaded */
   onReady: PropTypes.func,
-  /** Fetched from workflow configuration. Number preference for how many loops to play */
-  playIterations: PropTypes.number,
   /** Passed from the Subject Viewer Store */
   setOnPan: PropTypes.func,
   /** Passed from the Subject Viewer Store */
@@ -140,4 +117,4 @@ FlipbookViewer.propTypes = {
   }).isRequired
 }
 
-export default FlipbookViewer
+export default FlipbookSeparateFrame

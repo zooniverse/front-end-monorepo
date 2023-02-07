@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
@@ -8,6 +8,7 @@ import { useStores } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
 import useSubjectImage from '../SingleImageViewer/hooks/useSubjectImage'
 import FlipbookViewer from './FlipbookViewer'
+import FlipbookSeparateFrame from './components/FlipbookSeparateFrame'
 
 function storeMapper(store) {
   const {
@@ -53,33 +54,69 @@ function FlipbookViewerContainer({
   /** This initializes an image element from the subject's defaultFrame src url.
    * We do this so the SVGPanZoom has dimensions of the subject image.
    * We're assuming all frames in one subject have the same dimensions. */
-  const defaultFrameUrl = subject ? Object.values(subject.locations[defaultFrame])[0] : null
+  const defaultFrameUrl = subject
+    ? Object.values(subject.locations[defaultFrame])[0]
+    : null
   const { img, error, loading } = useSubjectImage(defaultFrameUrl)
+  const [separateFrameView, setSeparateFrameView] = useState(false)
 
-  useEffect(function preloadImages() {
-    subject?.locations?.forEach(location => {
-      const [url] = Object.values(location)
-      if (url) {
-        const { Image } = window
-        const img = new Image()
-        img.src = url
-      }
-    })
-  }, [subject?.locations])
+  useEffect(
+    function preloadImages() {
+      subject?.locations?.forEach(location => {
+        const [url] = Object.values(location)
+        if (url) {
+          const { Image } = window
+          const img = new Image()
+          img.src = url
+        }
+      })
+    },
+    [subject?.locations]
+  )
 
   const { naturalHeight, naturalWidth, src: defaultFrameSrc } = img
 
-  useEffect(function logError() {
-    if (!loading && error) {
-      onError(error)
-    }
-  }, [error, loading])
+  useEffect(
+    function logError() {
+      if (!loading && error) {
+        onError(error)
+      }
+    },
+    [error, loading]
+  )
+
+  const toggleSeparateFramesView = () => {
+    setSeparateFrameView(!separateFrameView)
+  }
 
   if (loadingState === asyncStates.error || !subject?.locations) {
     return <div>Something went wrong.</div>
   }
 
-  return (
+  return separateFrameView ? (
+    <>
+      {subject.locations?.map(location => (
+        <FlipbookSeparateFrame
+          enableRotation={enableRotation}
+          frameUrl={Object.values(location)[0]}
+          key={Object.values(location)[0]}
+          invert={invert}
+          move={move}
+          naturalHeight={naturalHeight}
+          naturalWidth={naturalWidth}
+          onError={onError}
+          onKeyDown={onKeyDown}
+          onReady={onReady}
+          rotation={rotation}
+          setOnPan={setOnPan}
+          setOnZoom={setOnZoom}
+          subject={subject}
+          toggleSeparateFramesView={toggleSeparateFramesView}
+        />
+      ))}
+      <div>Button here</div>
+    </>
+  ) : (
     <FlipbookViewer
       defaultFrame={defaultFrame}
       defaultFrameSrc={defaultFrameSrc}
@@ -95,6 +132,7 @@ function FlipbookViewerContainer({
       setOnPan={setOnPan}
       setOnZoom={setOnZoom}
       subject={subject}
+      toggleSeparateFramesView={toggleSeparateFramesView}
     />
   )
 }
