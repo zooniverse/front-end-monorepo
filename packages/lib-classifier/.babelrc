@@ -3,9 +3,6 @@
     ["@babel/plugin-transform-runtime", {
       "helpers": false
     }],
-    ["@babel/plugin-proposal-decorators", {
-      "legacy": true
-    }],
     "@babel/plugin-proposal-logical-assignment-operators",
     ["transform-imports", {
       "lodash": {
