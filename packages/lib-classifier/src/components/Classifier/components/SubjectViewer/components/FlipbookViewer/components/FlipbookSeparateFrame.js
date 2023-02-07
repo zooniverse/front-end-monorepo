@@ -3,7 +3,9 @@ import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 
 import locationValidator from '../../../helpers/locationValidator'
-import useSubjectImage, { PLACEHOLDER_URL } from '../../SingleImageViewer/hooks/useSubjectImage'
+import useSubjectImage, {
+  PLACEHOLDER_URL
+} from '../../SingleImageViewer/hooks/useSubjectImage'
 
 import SingleImageViewer from '../../SingleImageViewer/SingleImageViewer.js'
 import SVGImage from '../../SVGComponents/SVGImage'
@@ -22,7 +24,6 @@ const FlipbookSeparateFrame = ({
   setOnZoom = () => true,
   subject
 }) => {
-  console.log(frameUrl)
   const imgRef = useRef()
   const [dragMove, setDragMove] = useState()
   const { img, error, loading } = useSubjectImage(frameUrl)
@@ -47,7 +48,7 @@ const FlipbookSeparateFrame = ({
     }
   }, [frameSrc])
 
-  const setOnDrag = (callback) => {
+  const setOnDrag = callback => {
     setDragMove(() => callback)
   }
 
@@ -95,14 +96,14 @@ const FlipbookSeparateFrame = ({
 FlipbookSeparateFrame.propTypes = {
   /** Function passed from Subject Viewer Store */
   enableRotation: PropTypes.func,
+  /** String of Object.values(subject.locations[this frame index][0]) */
+  frameUrl: PropTypes.string,
+  /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */
+  onError: PropTypes.func,
   /** Passed from Subject Viewer Store */
   invert: PropTypes.bool,
   /** Passed from Subject Viewer Store */
   move: PropTypes.bool,
-  /** Height of subject image */
-  naturalHeight: PropTypes.number,
-  /** Width of subject image */
-  naturalWidth: PropTypes.number,
   /** withKeyZoom in for using keyboard pan and zoom controls while focused on the subject image */
   onKeyDown: PropTypes.func,
   /** Passed from Subject Viewer Store and called when default frame's src is loaded */

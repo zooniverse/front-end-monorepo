@@ -3,7 +3,7 @@ import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 
 import locationValidator from '../../helpers/locationValidator'
-import { PLACEHOLDER_URL } from '../SingleImageViewer/hooks/useSubjectImage'
+import useSubjectImage, { PLACEHOLDER_URL } from '../SingleImageViewer/hooks/useSubjectImage'
 
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer.js'
 import SVGImage from '../SVGComponents/SVGImage'
@@ -12,12 +12,10 @@ import FlipbookControls from './components'
 
 const FlipbookViewer = ({
   defaultFrame = 0,
-  defaultFrameSrc = '',
   enableRotation = () => true,
   invert = false,
   move,
-  naturalHeight = 600,
-  naturalWidth = 800,
+  onError = () => true,
   onKeyDown = () => true,
   onReady = () => true,
   playIterations,
@@ -31,7 +29,25 @@ const FlipbookViewer = ({
   const [playing, setPlaying] = useState(false)
   const [dragMove, setDragMove] = useState()
 
+  const defaultFrameUrl = subject ? Object.values(subject.locations[defaultFrame])[0] : null
+  const { img, error, loading } = useSubjectImage(defaultFrameUrl)
+  const { naturalHeight, naturalWidth, src: defaultFrameSrc } = img
+
   const viewerSrc = subject?.locations ? Object.values(subject.locations[currentFrame])[0] : ''
+
+  useEffect(
+    function preloadImages() {
+      subject?.locations?.forEach(location => {
+        const [url] = Object.values(location)
+        if (url) {
+          const { Image } = window
+          const img = new Image()
+          img.src = url
+        }
+      })
+    },
+    [subject?.locations]
+  )
 
   useEffect(() => {
     const svgImage = subjectImage?.current
@@ -42,6 +58,15 @@ const FlipbookViewer = ({
       enableRotation()
     }
   }, [defaultFrameSrc])
+
+  useEffect(
+    function logError() {
+      if (!loading && error) {
+        onError(error)
+      }
+    },
+    [error, loading]
+  )
 
   const onPlayPause = () => {
     setPlaying(!playing)
@@ -112,18 +137,14 @@ const FlipbookViewer = ({
 FlipbookViewer.propTypes = {
   /** Fetched from metadata.default_frame or initialized to zero */
   defaultFrame: PropTypes.number,
-  /** Either placeholder.src or the subject image src */
-  defaultFrameSrc: PropTypes.string,
   /** Function passed from Subject Viewer Store */
   enableRotation: PropTypes.func,
   /** Passed from Subject Viewer Store */
   invert: PropTypes.bool,
   /** Passed from Subject Viewer Store */
   move: PropTypes.bool,
-  /** Height of subject image */
-  naturalHeight: PropTypes.number,
-  /** Width of subject image */
-  naturalWidth: PropTypes.number,
+  /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */
+  onError: PropTypes.func,
   /** withKeyZoom in for using keyboard pan and zoom controls while focused on the subject image */
   onKeyDown: PropTypes.func,
   /** Passed from Subject Viewer Store and called when default frame's src is loaded */
