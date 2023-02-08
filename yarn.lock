@@ -1137,7 +1137,7 @@
     pirates "^4.0.5"
     source-map-support "^0.5.16"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.12.5", "@babel/runtime@^7.17.8", "@babel/runtime@^7.20.6", "@babel/runtime@^7.20.7", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@~7.20.6":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.12.5", "@babel/runtime@^7.17.8", "@babel/runtime@^7.20.13", "@babel/runtime@^7.20.6", "@babel/runtime@^7.20.7", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@~7.20.6":
   version "7.20.13"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.20.13.tgz#7055ab8a7cff2b8f6058bf6ae45ff84ad2aded4b"
   integrity sha512-gt3PKXs0DBoL9xCvOIIZ2NEqAGZqHjAnmVbfQtB620V0uReIQutpel14KcneZuer7UioY8ALKZ7iocavvzTNFA==
@@ -10511,10 +10511,10 @@ humanize-ms@^1.2.1:
   dependencies:
     ms "^2.0.0"
 
-i18next-fs-backend@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-2.1.0.tgz#a90983df2992f478e1d5f3a4c794754d19a0bcdc"
-  integrity sha512-gur0HAEkVDeUgZ9WNUcACYYl2N5FUt0C6bQCWsFPc+IYMXYWfiFQa8QQ930QAVYf71I75Ptl4XqQo5sl/u6/mA==
+i18next-fs-backend@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-2.1.1.tgz#07c6393be856c5a398e3dfc1257bf8439841cd89"
+  integrity sha512-FTnj+UmNgT3YRml5ruRv0jMZDG7odOL/OP5PF5mOqvXud2vHrPOOs68Zdk6iqzL47cnnM0ZVkK2BAvpFeDJToA==
 
 i18next@~22.4.3:
   version "22.4.9"
@@ -12866,15 +12866,15 @@ next-absolute-url@~1.2.2:
   integrity sha512-Z2+LZXQTthhw2je9u4eq8QWXxXd57a6b54x9exBfQX4Dct6YxaMjcXZWNLHd9AOlCue84EsMpdSGP7wACqUnPg==
 
 next-i18next@~13.1.4:
-  version "13.1.4"
-  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-13.1.4.tgz#02660bb936f9f80fbccea950731011a42a8657a9"
-  integrity sha512-//Ub7TCdbbNnI5rA6XEe+TLsiXaHR/7OjFBlXw5caPirHNCLvVs24NsmXl9z0ZIqqAT8T8I5hnPWIL75d84ubA==
+  version "13.1.5"
+  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-13.1.5.tgz#04b824bbbe0865d2ff1e6efaf19b0dcfd63c9a93"
+  integrity sha512-gULKQNQmFYIW6C45cb5ZOHa+sw8XUkibFHTqRqrcfbAa1fcBCh3TgX1KtzA0vzeh9R93BkkvFhm+FuhO3kR9jQ==
   dependencies:
-    "@babel/runtime" "^7.20.6"
+    "@babel/runtime" "^7.20.13"
     "@types/hoist-non-react-statics" "^3.3.1"
     core-js "^3"
     hoist-non-react-statics "^3.3.2"
-    i18next-fs-backend "^2.1.0"
+    i18next-fs-backend "^2.1.1"
 
 next@~12.3.0:
   version "12.3.4"
