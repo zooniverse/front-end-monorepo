@@ -49,18 +49,19 @@ export default function Confusion({
         gap='xsmall'
         justify='center'
         margin={{ top: 'small' }}
-        overflow='hidden'
         pad={{ top: 'small' }}
       >
         <Button
           fill='horizontal'
           label={t('SurveyTask.ConfusedWith.cancel')}
           onClick={() => onClose()}
+          style={{ overflow: 'hidden' }}
         />
         <PrimaryButton
           fill='horizontal'
           label={t('SurveyTask.ConfusedWith.itsThis')}
           onClick={() => handleChoice(confusionId)}
+          style={{ overflow: 'hidden' }}
         />
       </Box>
     </Box>
