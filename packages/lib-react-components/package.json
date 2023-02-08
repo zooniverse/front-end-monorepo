@@ -24,7 +24,7 @@
     "test:ci": "mocha --config ./test/.mocharc.json --reporter=min \"./src/**/*.spec.js\""
   },
   "dependencies": {
-    "@fortawesome/free-regular-svg-icons": "~6.2.0",
+    "@fortawesome/free-regular-svg-icons": "~6.3.0",
     "@fortawesome/free-solid-svg-icons": "~6.2.0",
     "@tippyjs/react": "~4.2.6",
     "formik": "~2.2.9",
