@@ -1353,18 +1353,18 @@
   resolved "https://registry.yarnpkg.com/@graphql-typed-document-node/core/-/core-3.1.1.tgz#076d78ce99822258cf813ecc1e7fa460fa74d052"
   integrity sha512-NQ17ii0rK1b34VZonlmT2QMJFI70m0TRwbknO/ihlbatXyaktDhN/98vBiUU6kNBPljqGqyIrl2T4nY2RpFANg==
 
-"@grpc/grpc-js@^1.7.3":
-  version "1.7.3"
-  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.7.3.tgz#f2ea79f65e31622d7f86d4b4c9ae38f13ccab99a"
-  integrity sha512-H9l79u4kJ2PVSxUNA08HMYAnUBLj9v6KjYQ7SQ71hOZcEXhShE/y5iQCesP8+6/Ik/7i2O0a10bPquIcYfufog==
+"@grpc/grpc-js@^1.8.4":
+  version "1.8.8"
+  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.8.8.tgz#a7c6765d0302f47ba67c0ce3cb79718d6b028248"
+  integrity sha512-4gfDqMLXTrorvYTKA1jL22zLvVwiHJ73t6Re1OHwdCFRjdGTDOVtSJuaWhtHaivyeDGg0LeCkmU77MTKoV3wPA==
   dependencies:
     "@grpc/proto-loader" "^0.7.0"
     "@types/node" ">=12.12.47"
 
-"@grpc/proto-loader@^0.7.0", "@grpc/proto-loader@^0.7.3":
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/@grpc/proto-loader/-/proto-loader-0.7.3.tgz#75a6f95b51b85c5078ac7394da93850c32d36bb8"
-  integrity sha512-5dAvoZwna2Py3Ef96Ux9jIkp3iZ62TUsV00p3wVBPNX5K178UbNi8Q7gQVqwXT1Yq9RejIGG9G2IPEo93T6RcA==
+"@grpc/proto-loader@^0.7.0", "@grpc/proto-loader@^0.7.4":
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/@grpc/proto-loader/-/proto-loader-0.7.4.tgz#4946a84fbf47c3ddd4e6a97acb79d69a9f47ebf2"
+  integrity sha512-MnWjkGwqQ3W8fx94/c1CwqLsNmHHv2t0CFn+9++6+cDphC1lolpg9M2OU0iebIjK//pBNX9e94ho+gjx6vz39w==
   dependencies:
     "@types/long" "^4.0.1"
     lodash.camelcase "^4.3.0"
@@ -2218,15 +2218,15 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@newrelic/aws-sdk@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@newrelic/aws-sdk/-/aws-sdk-5.0.0.tgz#0a9f2abcfbd824b312536de7ad1b202bb2506fcf"
-  integrity sha512-0aW1/c2m0tcX+lP0fw/cA0hctviLUo18uWsX1pwar7KAAciHBiiS/ytRyZdN78pbZi/9A25CmKB0YFx3Ct+RDg==
+"@newrelic/aws-sdk@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@newrelic/aws-sdk/-/aws-sdk-5.0.2.tgz#c3d6a9a295f647780da86dec318a0bdef844c576"
+  integrity sha512-vn5Aj0ZznjzqqxR69mHIWi7QUjBeab9f0Dfra/UOPZlyLy3Q/HbK4/sYV9/q/Ifmx85B3kJI4ca7mytCx073VQ==
 
-"@newrelic/koa@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@newrelic/koa/-/koa-7.0.0.tgz#3c88f987dfc02e1048d009da25d769310836e9b0"
-  integrity sha512-kjH2w2Nutpl+gwTYSybiM3Y8gcoxbaCt8l9WUylPDjOVXtIdG2d8XCMNr/cN8GDDUjXDNqvlQVZteelSRrOLDA==
+"@newrelic/koa@^7.1.1":
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/@newrelic/koa/-/koa-7.1.1.tgz#c5f08fda47eeceff9063ecbb09a0a5dc0f3063d3"
+  integrity sha512-QvO6Wmz+wws0vtrpqsZz3KVMbDySY7VbdIu99f9fuWd775yNCTz2n2VfQhdkBxWlSQSlR4gO0Uh8RWa4HUzb3g==
 
 "@newrelic/native-metrics@^9.0.0":
   version "9.0.0"
@@ -12838,15 +12838,15 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0:
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz#26c8a3cee6cc05fbcf1e333cd2fc3e003326c0b5"
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
-newrelic@^9.0.0, newrelic@~9.9.0:
-  version "9.9.0"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-9.9.0.tgz#f817ec72143ebbcec7053410f47ffa6d0da1a4c4"
-  integrity sha512-VqawImS8o7SszLJYtBWbJI8J5uV6GFaraHl6tB7EK0QTSahXxIw7r/WJ479o+lkjzuEN+uWfKEeMBdPzNaS7+w==
+newrelic@^9.0.0, newrelic@~9.10.0:
+  version "9.10.0"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-9.10.0.tgz#cf7f5b1e5178452f6aee0ae7c3fa165496694e73"
+  integrity sha512-JRbvdfgAQSkJynWH67gDsvkVP7h7Foeic8vC7JuB4YEzg3gjBZcdjjtZ4W9kHFjGSUMJesKeIesaBWlvUKqWUA==
   dependencies:
-    "@grpc/grpc-js" "^1.7.3"
-    "@grpc/proto-loader" "^0.7.3"
-    "@newrelic/aws-sdk" "^5.0.0"
-    "@newrelic/koa" "^7.0.0"
+    "@grpc/grpc-js" "^1.8.4"
+    "@grpc/proto-loader" "^0.7.4"
+    "@newrelic/aws-sdk" "^5.0.2"
+    "@newrelic/koa" "^7.1.1"
     "@newrelic/superagent" "^6.0.0"
     "@tyriar/fibonacci-heap" "^2.0.7"
     concat-stream "^2.0.0"
