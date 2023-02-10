@@ -1,0 +1,31 @@
+{
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "register": "注册",
+      "signIn": "登录"
+    }
+  },
+  "AuthModal": {
+    "LoginForm": {
+      "signIn": "登录"
+    },
+    "RegisterForm": {
+      "register": "注册"
+    }
+  },
+  "ProjectHeader": {
+    "about": "关于",
+    "classify": "分类",
+    "exploreProject": "探索项目",
+    "talk": "讨论",
+    "collect": "收藏",
+    "recents": "最近"
+  },
+  "ProjectStatistics": {
+    "volunteers": "志愿者"
+  },
+  "ThemeModeToggle": {
+    "switchToDark": "切换至 深色 主题",
+    "switchToLight": "切换至 浅色 主题"
+  }
+}

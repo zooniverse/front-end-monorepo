@@ -24,8 +24,8 @@
     "test:ci": "mocha --config ./test/.mocharc.json --reporter=min \"./src/**/*.spec.js\""
   },
   "dependencies": {
-    "@fortawesome/free-regular-svg-icons": "~6.2.0",
-    "@fortawesome/free-solid-svg-icons": "~6.2.0",
+    "@fortawesome/free-regular-svg-icons": "~6.3.0",
+    "@fortawesome/free-solid-svg-icons": "~6.3.0",
     "@tippyjs/react": "~4.2.6",
     "formik": "~2.2.9",
     "i18next": "~22.4.3",
@@ -80,7 +80,7 @@
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.11.0",
     "grommet": "~2.29.0",
-    "grommet-icons": "~4.8.0",
+    "grommet-icons": "~4.9.0",
     "jsdom": "~21.1.0",
     "lodash": "~4.17.11",
     "mocha": "~10.2.0",
