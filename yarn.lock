@@ -6854,9 +6854,9 @@ contentful-sdk-core@^7.0.5:
     qs "^6.9.4"
 
 contentful@~9.3.0:
-  version "9.3.0"
-  resolved "https://registry.yarnpkg.com/contentful/-/contentful-9.3.0.tgz#68dd97c9da2704778ab553520ed887236df51a6c"
-  integrity sha512-guvxWP/4iL3KgXdVKSLutADMdNpoDNrkfrV4D5wVBp+4cltwnzmXXW4pQT8sM94vIkQfM6DvZwBVdkPJDv41lw==
+  version "9.3.2"
+  resolved "https://registry.yarnpkg.com/contentful/-/contentful-9.3.2.tgz#89ac8fd518cd3aa1ea003bd387a02cd76a047bbb"
+  integrity sha512-JnHzgmNrrGHtsMhwVu+MCKJcE0OSHrbxWQvO0Qp7NjBB5/8hX5qasZu9Ed9dmg81PvBFEBtiTgEK0/iHGtjjdQ==
   dependencies:
     "@contentful/rich-text-types" "^16.0.2"
     axios "^0.27.0"
@@ -14784,9 +14784,9 @@ react-lifecycles-compat@^3.0.4:
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
 react-player@~2.11.0:
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/react-player/-/react-player-2.11.0.tgz#9afc75314eb915238e8d6615b2891fbe7170aeaa"
-  integrity sha512-fIrwpuXOBXdEg1FiyV9isKevZOaaIsAAtZy5fcjkQK9Nhmk1I2NXzY/hkPos8V0zb/ZX416LFy8gv7l/1k3a5w==
+  version "2.11.2"
+  resolved "https://registry.yarnpkg.com/react-player/-/react-player-2.11.2.tgz#19a0070e08d5ca0db8329a0584babce636372540"
+  integrity sha512-V5bf3g6lIpOjfKPUw18Og+qfizmlv6PQfJojlFiGpkfn/e21w5U4nSXE8vSIrFkfllgCrLM35nNGR1/jYQ8KIw==
   dependencies:
     deepmerge "^4.0.0"
     load-script "^1.0.0"
