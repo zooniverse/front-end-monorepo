@@ -7,7 +7,7 @@ import {
   onPatch,
   tryReference,
   types,
-  setLivelynessChecking
+  setLivelinessChecking
 } from 'mobx-state-tree'
 
 import ClassificationStore from './ClassificationStore'
@@ -136,6 +136,8 @@ const RootStore = types
 
 // Forces MST warnings to throw as errors instead with full stack trace
 // Easier for debugging...
-if (process.env.NODE_ENV === 'development') setLivelynessChecking('error')
+if (process.env.NODE_ENV === 'development') setLivelinessChecking('error')
+// mute liveliness warnings in the test logs.
+if (process.env.NODE_ENV === 'test') setLivelinessChecking('ignore')
 
 export default RootStore
