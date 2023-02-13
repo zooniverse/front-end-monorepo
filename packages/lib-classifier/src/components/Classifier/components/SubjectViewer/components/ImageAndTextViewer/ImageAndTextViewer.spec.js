@@ -106,9 +106,10 @@ describe('ImageAndTextViewer', function () {
         }
       )
 
-      expect(screen.getByRole('button', { name: 'StepNavigation.previous' })).to.exist()
-      expect(screen.getAllByRole('radio', { name: 'StepNavigation.go' })).to.have.lengthOf(2)
-      expect(screen.getByRole('button', { name: 'StepNavigation.next' })).to.exist()
+      expect(screen.getByRole('button', { name: 'FormPrevious SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel' })).to.exist()
+      expect(screen.getByRole('tab', { name: 'SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText' })).to.exist()
+      expect(screen.getByRole('tab', { name: 'SubjectViewer.ImageAndTextViewer.textIconAltText' })).to.exist()
+      expect(screen.getByRole('button', { name: 'FormNext SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel' })).to.exist()
     })
 
     describe('when the frame is changed', function () {
@@ -122,7 +123,7 @@ describe('ImageAndTextViewer', function () {
           }
         )
 
-        await user.click(screen.getByRole('button', { name: 'StepNavigation.next' }))
+        await user.click(screen.getByRole('button', { name: 'FormNext SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel' }))
         expect(screen.getByText('This is test subject content.')).to.exist()
       })
     })
@@ -169,9 +170,10 @@ describe('ImageAndTextViewer', function () {
         }
       )
 
-      expect(screen.getByRole('button', { name: 'StepNavigation.previous' })).to.exist()
-      expect(screen.getAllByRole('radio', { name: 'StepNavigation.go' })).to.have.lengthOf(2)
-      expect(screen.getByRole('button', { name: 'StepNavigation.next' })).to.exist()
+      expect(screen.getByRole('button', { name: 'FormPrevious SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel' })).to.exist()
+      expect(screen.getByRole('tab', { name: 'SubjectViewer.ImageAndTextViewer.textIconAltText' })).to.exist()
+      expect(screen.getByRole('tab', { name: 'SubjectViewer.MultiFrameViewer.FrameCarousel.thumbnailAltText' })).to.exist()
+      expect(screen.getByRole('button', { name: 'FormNext SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel' })).to.exist()
     })
 
     it('should call the onReady prop', function () {
@@ -201,7 +203,7 @@ describe('ImageAndTextViewer', function () {
           }
         )
 
-        await user.click(screen.getByRole('button', { name: 'StepNavigation.next' }))
+        await user.click(screen.getByRole('button', { name: 'FormNext SubjectViewer.MultiFrameViewer.FrameCarousel.nextFrameLabel' }))
         const image = document.querySelector('image')
         expect(image).to.exist()
 
