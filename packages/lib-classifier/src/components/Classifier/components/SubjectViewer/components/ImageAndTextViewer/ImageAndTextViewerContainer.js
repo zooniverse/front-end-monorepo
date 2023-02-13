@@ -2,8 +2,8 @@ import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 
-import StepNavigation from '@shared/StepNavigation'
 import locationValidator from '../../helpers/locationValidator'
+import ImageAndTextControls from './components/ImageAndTextControls'
 import SingleImageViewer from '../SingleImageViewer'
 import SingleTextViewer from '../SingleTextViewer'
 
@@ -51,11 +51,10 @@ function ImageAndTextViewerContainer ({
               onError={onError}
               onReady={onReady}
             />)}
-        <StepNavigation
-          name='ImageAndTextViewerStepNavigation'
-          onChange={handleFrameChange}
-          stepIndex={frame}
-          steps={[0, 1]}
+        <ImageAndTextControls
+          currentFrame={frame}
+          locations={subject.locations}
+          onFrameChange={handleFrameChange}
         />
       </Box>
     )
