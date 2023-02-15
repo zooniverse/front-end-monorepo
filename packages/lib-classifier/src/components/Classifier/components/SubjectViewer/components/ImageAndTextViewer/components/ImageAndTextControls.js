@@ -149,7 +149,6 @@ const ImageAndTextControls = ({
           pad={smallScreenStyle ? { horizontal: '10px', vertical: '5px' } : { horizontal: '20px', vertical: '10px' }}
           gap={smallScreenStyle ? 'xsmall' : 'small'}
         >
-          {/** Image Thumbnails */}
           <Box direction='row' justify='center' gap={smallScreenStyle ? 'xsmall' : 'small'}>
             <DirectionButton
               a11yTitle={smallScreenStyle ? t('SubjectViewer.MultiFrameViewer.FrameCarousel.previousFrameLabel') : ''}
@@ -158,7 +157,7 @@ const ImageAndTextControls = ({
               onClick={handlePrevious}
             />
             <Box
-              aria-label='Image thumbnails'
+              aria-label='Image thumbnail and text icon'
               direction='row'
               gap='5px'
               role='tablist'
