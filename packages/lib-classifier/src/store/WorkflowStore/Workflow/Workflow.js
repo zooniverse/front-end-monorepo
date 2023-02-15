@@ -43,17 +43,25 @@ const Workflow = types
     }
   )
   .views(self => ({
-    get hasIndexedSubjects () {
+    get caesarReducer() {
+      if (self.usesTranscriptionTask) {
+        return 'alice'
+      }
+
+      return ''
+    },
+
+    get hasIndexedSubjects() {
       const activeSet = tryReference(() => self.subjectSet)
       return self.grouped && !!activeSet?.isIndexed
     },
 
-    get subjectSetId () {
+    get subjectSetId() {
       const activeSet = tryReference(() => self.subjectSet)
       return activeSet?.id
     },
 
-    get usesTranscriptionTask () {
+    get usesTranscriptionTask() {
       const anyTranscriptionTasks = self.tasks && Object.values(self.tasks).some(task => {
         return task.type === 'transcription'
       })
