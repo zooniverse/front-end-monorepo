@@ -1,5 +1,4 @@
 import { expect } from 'chai'
-import { GraphQLClient } from 'graphql-request'
 import sinon from 'sinon'
 import { reducedEmptySubject, reducedSubject } from './mocks'
 
@@ -8,29 +7,19 @@ import TranscriptionReductions from './TranscriptionReductions'
 describe('Models > TranscriptionReductions', function () {
 
   describe('with reductions', function () {
-    const caesarClient = new GraphQLClient('https://caesar-staging.zooniverse.org/graphql')
     let reductionsModel
 
-    before(async function () {
+    before(function () {
       const response = {
         workflow: {
           subject_reductions: [{ data: reducedSubject }]
         }
       }
-      sinon.stub(caesarClient, 'request').callsFake(() => Promise.resolve(response))
       reductionsModel = TranscriptionReductions.create({
         subjectId: '13971150',
-        workflowId: '5339'
-      }, {
-        client: {
-          caesar: caesarClient
-        }
+        workflowId: '5339',
+        reductions: [{ data: reducedSubject }]
       })
-      await reductionsModel.fetchCaesarReductions()
-    })
-
-    after(function () {
-      caesarClient.request.restore()
     })
 
     it('should exist', function () {
@@ -100,29 +89,14 @@ describe('Models > TranscriptionReductions', function () {
   })
 
   describe('without reductions', function () {
-    const caesarClient = new GraphQLClient('https://caesar-staging.zooniverse.org/graphql')
     let reductionsModel
 
-    before(async function () {
-      const response = {
-        workflow: {
-          subject_reductions: [{ data: reducedEmptySubject }]
-        }
-      }
-      sinon.stub(caesarClient, 'request').callsFake(() => Promise.resolve(response))
+    before(function () {
       reductionsModel = TranscriptionReductions.create({
         subjectId: '13971170',
-        workflowId: '5339'
-      }, {
-        client: {
-          caesar: caesarClient
-        }
+        workflowId: '5339',
+        reductions: [{ data: reducedEmptySubject }]
       })
-      await reductionsModel.fetchCaesarReductions()
-    })
-
-    after(function () {
-      caesarClient.request.restore()
     })
 
     it('should exist', function () {
@@ -131,71 +105,6 @@ describe('Models > TranscriptionReductions', function () {
 
     it('should not have any transcribed lines', function () {
       reductionsModel.reductions.forEach(reduction => expect(reduction.data.transcribed_lines).to.equal(0))
-      expect(reductionsModel.consensusLines(0)).to.be.empty()
-      expect(reductionsModel.consensusLines(1)).to.be.empty()
-      expect(reductionsModel.consensusLines(2)).to.be.empty()
-      expect(reductionsModel.consensusLines(3)).to.be.empty()
-    })
-  })
-
-  describe('without a configured reducer', function () {
-    const caesarClient = new GraphQLClient('https://caesar-staging.zooniverse.org/graphql')
-    let reductionsModel
-
-    before(async function () {
-      sinon.stub(console, 'error')
-      const error = new Error('Error: GraphQL Error (Code: 404)')
-      error.response = {
-        error: '',
-        status: 404
-      }
-      error.request = {
-        query: '{ workflow(id: 3389) { subject_reductions(subjectId: 13971170, reducerKey:"ext") { data } } }',
-        variables: undefined
-      }
-      sinon.stub(caesarClient, 'request').callsFake(() => Promise.reject(error))
-      reductionsModel = TranscriptionReductions.create({
-        subjectId: '13971170',
-        workflowId: '3389'
-      }, {
-        client: {
-          caesar: caesarClient
-        }
-      })
-      await reductionsModel.fetchCaesarReductions()
-    })
-
-    after(function () {
-      caesarClient.request.restore()
-      console.error.restore()
-    })
-
-    it('should exist', function () {
-      expect(reductionsModel).to.be.ok()
-    })
-
-    it('should record the error message', function () {
-      const { message } = reductionsModel.error
-      expect(message).to.equal('Error: GraphQL Error (Code: 404)')
-    })
-
-    it('should record the error response', function () {
-      const { response } = reductionsModel.error
-      expect(response.error).to.equal('')
-      expect(response.status).to.equal(404)
-    })
-
-    it('should record the error request', function () {
-      const { request } = reductionsModel.error
-      expect(request.query).to.equal('{ workflow(id: 3389) { subject_reductions(subjectId: 13971170, reducerKey:"ext") { data } } }')
-      expect(request.variables).to.be.undefined()
-    })
-
-    it('should not have any reductions', function () {
-      expect(reductionsModel.reductions).to.be.empty()
-    })
-
-    it('should not have any transcribed lines', function () {
       expect(reductionsModel.consensusLines(0)).to.be.empty()
       expect(reductionsModel.consensusLines(1)).to.be.empty()
       expect(reductionsModel.consensusLines(2)).to.be.empty()
