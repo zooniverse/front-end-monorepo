@@ -16,6 +16,7 @@ describe('Models > TranscriptionReductions', function () {
         }
       }
       reductionsModel = TranscriptionReductions.create({
+        reducer: 'alice',
         subjectId: '13971150',
         workflowId: '5339',
         reductions: [{ data: reducedSubject }]
@@ -93,6 +94,7 @@ describe('Models > TranscriptionReductions', function () {
 
     before(function () {
       reductionsModel = TranscriptionReductions.create({
+        reducer: 'alice',
         subjectId: '13971170',
         workflowId: '5339',
         reductions: [{ data: reducedEmptySubject }]
