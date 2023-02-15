@@ -14,6 +14,7 @@ describe('Component > TranscribedLines', function () {
   let wrapper, task, consensusLines, transcriptionReductions
   before(function () {
     transcriptionReductions = TranscriptionReductions.create({
+      reducer: 'alice',
       reductions: [{ data: reducedSubject }],
       subjectId: '1234',
       workflowId: '5678'
@@ -166,6 +167,7 @@ describe('Component > TranscribedLines', function () {
       let wrapper
       before(function () {
         transcriptionReductions = TranscriptionReductions.create({
+          reducer: 'alice',
           reductions: [{ data: reducedSubject }],
           subjectId: '1234',
           workflowId: '5678'

@@ -99,8 +99,8 @@ describe('Component > TranscribedLinesConnector', function () {
         workflow: workflowSnapshot
       })
       render(<TranscribedLines />, { wrapper: withStore(store) })
-      const { transcriptionReductions } = store.subjects.active
-      await when(() => transcriptionReductions.reductions.length > 0)
+      const subject = store.subjects.active
+      await when(() => subject.caesarReductions?.reductions.length > 0)
       const lines = document.querySelectorAll('g.line')
       const completeLines = document.querySelectorAll('g.complete.line')
       const transcribedLines = document.querySelectorAll('g.transcribed.line')
@@ -117,8 +117,8 @@ describe('Component > TranscribedLinesConnector', function () {
       })
       store.subjectViewer.setFrame(1)
       render(<TranscribedLines />, { wrapper: withStore(store) })
-      const { transcriptionReductions } = store.subjects.active
-      await when(() => transcriptionReductions.reductions.length > 0)
+      const subject = store.subjects.active
+      await when(() => subject.caesarReductions?.reductions.length > 0)
       const lines = document.querySelectorAll('g.line')
       // Frame 1 has one line.
       expect(lines).to.have.lengthOf(1)
@@ -131,8 +131,8 @@ describe('Component > TranscribedLinesConnector', function () {
       })
       store.subjectViewer.setFrame(3)
       render(<TranscribedLines />, { wrapper: withStore(store) })
-      const { transcriptionReductions } = store.subjects.active
-      await when(() => transcriptionReductions.reductions.length > 0)
+      const subject = store.subjects.active
+      await when(() => subject.caesarReductions?.reductions.length > 0)
       const lines = document.querySelectorAll('g.line')
       // Frame 3 has no lines.
       expect(lines).to.have.lengthOf(0)
@@ -146,8 +146,8 @@ describe('Component > TranscribedLinesConnector', function () {
       const [task] = store.workflowSteps.findTasksByType('transcription')
       task.togglePreviousMarks(SHOWN_MARKS.USER)
       render(<TranscribedLines />, { wrapper: withStore(store) })
-      const { transcriptionReductions } = store.subjects.active
-      await when(() => transcriptionReductions.reductions.length > 0)
+      const subject = store.subjects.active
+      await when(() => subject.caesarReductions?.reductions.length > 0)
       const lines = document.querySelectorAll('g.line')
       expect(lines).to.have.lengthOf(0)
     })
@@ -160,8 +160,8 @@ describe('Component > TranscribedLinesConnector', function () {
       const [task] = store.workflowSteps.findTasksByType('transcription')
       task.togglePreviousMarks(SHOWN_MARKS.NONE)
       render(<TranscribedLines />, { wrapper: withStore(store) })
-      const { transcriptionReductions } = store.subjects.active
-      await when(() => transcriptionReductions.reductions.length > 0)
+      const subject = store.subjects.active
+      await when(() => subject.caesarReductions?.reductions.length > 0)
       const lines = document.querySelectorAll('g.line')
       expect(lines).to.have.lengthOf(0)
     })

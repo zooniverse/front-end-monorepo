@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { applySnapshot } from 'mobx-state-tree'
 
 import SHOWN_MARKS from '@helpers/shownMarks'
 import { useStores } from '@hooks'
@@ -42,7 +41,8 @@ export default function useTranscriptionReductions() {
   useEffect(function onSubjectChange() {
     async function updateReductions(caesarClient, subject, workflow) {
       const reductions = await fetchReductions(caesarClient, subject.id, workflow)
-      applySnapshot(subject.transcriptionReductions, {
+      subject.setCaesarReductions({
+        reducer: workflow.caesarReducer,
         subjectId: subject.id,
         workflowId: workflow.id,
         reductions
@@ -56,7 +56,7 @@ export default function useTranscriptionReductions() {
     }
   }, [caesar, subject, workflow])
 
-  const lines = subject?.transcriptionReductions?.consensusLines(frame)
+  const lines = subject?.caesarReductions?.consensusLines(frame)
   const activeStepAnnotations = subject?.stepHistory.latest.annotations
 
   // We expect there to only be one
