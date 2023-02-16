@@ -15,15 +15,21 @@ The `height` is defined in the ImageAndTextViewerContainer as the clientHeight p
 
 function SingleTextViewer ({
   content = '',
-  height = ''
+  height = '',
+  subjectId = ''
 }) {
   return (
     <Box
+      a11yTitle={`Subject ${subjectId} text`}
       flex='grow'
       height={{ min: height }}
       pad='xsmall'
+      role='document'
+      tabIndex='0'
     >
-      <pre style={{ whiteSpace: 'pre-wrap' }}>
+      <pre
+        style={{ whiteSpace: 'pre-wrap' }}
+      >
         {content}
       </pre>
     </Box>
@@ -34,7 +40,9 @@ SingleTextViewer.propTypes = {
   /** String defined by a subject's text mime type location */
   content: PropTypes.string,
   /** Minimum height of the text viewer in CSS units eg. '400px', '0.25vh', '20rem' etc. */
-  height: PropTypes.string
+  height: PropTypes.string,
+  /** Subject ID */
+  subjectId: PropTypes.string
 }
 
 export default SingleTextViewer

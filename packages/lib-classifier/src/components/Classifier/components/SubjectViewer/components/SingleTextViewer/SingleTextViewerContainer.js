@@ -1,38 +1,52 @@
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 
+import { useTextData } from '@helpers'
+import locationValidator from '../../helpers/locationValidator'
 import SingleTextViewer from './SingleTextViewer'
 
-export default function SingleTextViewerContainer ({
-  content = '',
-  contentLoadingState = asyncStates.initialized,
-  error = null,
-  height = '',
-  onError = () => true,
-  onReady = () => true
-}) {
-  if (contentLoadingState === asyncStates.success) {
-    onReady()
+const defaultSubject = {
+  id: '',
+  locations: []
+}
 
-    return (
-      <SingleTextViewer
-        content={content}
-        height={height}
-      />
-    )
+export default function SingleTextViewerContainer ({
+  height = '',
+  loadingState = asyncStates.initialized,
+  onError = () => true,
+  onReady = () => true,
+  subject = defaultSubject
+}) {
+  const textData = useTextData(
+    subject,
+    () => onReady(),
+    (error) => onError(error)
+  )
+
+  if (loadingState === asyncStates.error) {
+    return <div>Something went wrong.</div>
   }
 
-  if (error) {
-    onError(error)
+  if (loadingState !== asyncStates.initialized) {
+    return (
+      <SingleTextViewer
+        content={textData}
+        height={height}
+        subjectId={subject.id}
+      />
+    )
   }
 
   return null
 }
 
 SingleTextViewerContainer.propTypes = {
-  content: PropTypes.string,
-  contentLoadingState: PropTypes.oneOf(asyncStates.values),
   height: PropTypes.string,
+  loadingState: PropTypes.string,
   onError: PropTypes.func,
-  onReady: PropTypes.func
+  onReady: PropTypes.func,
+  subject: PropTypes.shape({
+    id: PropTypes.string,
+    locations: PropTypes.arrayOf(locationValidator)
+  }),
 }

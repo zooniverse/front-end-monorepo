@@ -8,40 +8,36 @@ import mockStore from '@test/mockStore'
 
 import SingleTextViewerConnector from './SingleTextViewerConnector'
 
-const defaultContent = 'Herbarium of the University of North Carolina\nSOUTH CAROLINA\nCharleston County\nGnaphalium peregrinum Fern,\nrailroad right-of-way, Johns Island Station on\nCounty Rt. 20 (wes t of Charleston.\nHarry E. Ahles 22002 April 2, 1957\nwith John G. Haesloop\nCollected for the “Flora of the Carolinas"'
-
 export default {
   title: 'Subject Viewers / SingleTextViewer',
   component: SingleTextViewerConnector,
   args: {
-    content: defaultContent,
-    contentLoadingState: asyncStates.success,
-    dark: false
+    dark: false,
+    loadingState: asyncStates.success
   },
   argTypes: {
-    contentLoadingState: {
-      control: {
-        type: 'select'
-      },
-      options: Object.values(asyncStates)
+    loadingState: {
+      options: Object.values(asyncStates),
+      type: 'select'
     }
   }
 }
 
-const store = mockStore()
+const subjectSnapshot = SubjectFactory.build({
+  id: '1234',
+  locations: [
+    { 'text/plain': 'https://panoptes-uploads-staging.zooniverse.org/subject_location/9d03230b-7ef0-42b5-aa99-996b0394cc9e.txt' }
+  ]
+})
 
-export function Default ({ content, contentLoadingState, dark }) {
-  const subjectSnapshot = SubjectFactory.build({
-    content,
-    contentLoadingState,
-    locations: [
-      { 'text/plain': 'http://localhost:8080/subjectContent.txt' }
-    ]
-  })
+const store = mockStore({
+  subject: subjectSnapshot
+})
 
-  store.subjects.setResources([subjectSnapshot])
-  store.subjects.setActive(subjectSnapshot.id)
-
+export function Default ({
+  dark,
+  loadingState
+}) {
   return (
     <Grommet
       background={{
@@ -53,7 +49,9 @@ export function Default ({ content, contentLoadingState, dark }) {
     >
       <Provider classifierStore={store}>
         <Box height='500px' width='large'>
-          <SingleTextViewerConnector />
+          <SingleTextViewerConnector
+            loadingState={loadingState}
+          />
         </Box>
       </Provider>
     </Grommet>

@@ -5,15 +5,15 @@ function storeMapper (store) {
   const {
     subjects: {
       active: subject
+    },
+    subjectViewer: {
+      loadingState
     }
   } = store
 
-  const { content, contentLoadingState, error } = subject
-
   return {
-    content,
-    contentLoadingState,
-    error
+    loadingState,
+    subject
   }
 }
 

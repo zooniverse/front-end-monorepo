@@ -1,57 +1,18 @@
 import { expect } from 'chai'
-import { Grommet } from 'grommet'
-import { Provider } from 'mobx-react'
-import sinon from 'sinon'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import asyncStates from '@zooniverse/async-states'
-import zooTheme from '@zooniverse/grommet-theme'
+import { composeStory } from '@storybook/testing-react'
 
-import { SubjectFactory } from '@test/factories'
-import mockStore from '@test/mockStore'
-
-import ImageAndTextViewerConnector from './ImageAndTextViewerConnector'
+import Meta, { Default, TextLocationFirst } from './ImageAndTextViewer.stories'
 
 describe('ImageAndTextViewer', function () {
-  function withStore (store) {
-    return function Wrapper ({ children }) {
-      return (
-        <Grommet theme={zooTheme}>
-          <Provider classifierStore={store}>
-            {children}
-          </Provider>
-        </Grommet>
-      )
-    }
-  }
-
-  const imageAndTextSubjectSnapshot = SubjectFactory.build({
-    content: 'This is test subject content.',
-    contentLoadingState: asyncStates.success,
-    locations: [
-      {
-        'image/jpeg': 'https://some.domain/image.jpg'
-      },
-      {
-        'text/plain': 'https://some.domain/text.txt'
-      }
-    ]
-  })
-
-  const store = mockStore({
-    subject: imageAndTextSubjectSnapshot
-  })
-
+  const DefaultStory = composeStory(Default, Meta)
+  const TextLocationFirstStory = composeStory(TextLocationFirst, Meta)
+  
   describe('with loading state of error', function () {
-    it('should render something went wrong', function () {
-      render(
-        <ImageAndTextViewerConnector
-          loadingState={asyncStates.error}
-          subject={store.subjects.active}
-        />, {
-          wrapper: withStore(store)
-        }
-      )
+    it('should render "Something went wrong."', function () {
+      render(<DefaultStory loadingState={asyncStates.error} />)
 
       expect(screen.getByText('Something went wrong.')).to.exist()
     })
@@ -59,14 +20,7 @@ describe('ImageAndTextViewer', function () {
 
   describe('with loading state of initialized', function () {
     it('should render null', function () {
-      render(
-        <ImageAndTextViewerConnector
-          loadingState={asyncStates.initialized}
-          subject={store.subjects.active}
-        />, {
-          wrapper: withStore(store)
-        }
-      )
+      render(<DefaultStory loadingState={asyncStates.initialized} />)
 
       expect(screen.queryByText('Something went wrong.')).to.be.null()
       const image = document.querySelector('image')
@@ -77,34 +31,15 @@ describe('ImageAndTextViewer', function () {
   })
 
   describe('with a valid subject, image type location first', function () {
-    const user = userEvent.setup({ delay: null })
-
     it('should render the image viewer', function () {
-      render(
-        <ImageAndTextViewerConnector
-          loadingState={asyncStates.success}
-          subject={store.subjects.active}
-        />, {
-          wrapper: withStore(store)
-        }
-      )
+      render(<DefaultStory />)
 
       const image = document.querySelector('image')
       expect(image).to.exist()
-
-      // "https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png" is the placeholder image for the single image subject viewer
-      expect(image.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
     })
 
     it('should render the frame change buttons', function () {
-      render(
-        <ImageAndTextViewerConnector
-          loadingState={asyncStates.success}
-          subject={store.subjects.active}
-        />, {
-          wrapper: withStore(store)
-        }
-      )
+      render(<DefaultStory />)
 
       expect(screen.getByRole('button', { name: 'StepNavigation.previous' })).to.exist()
       expect(screen.getAllByRole('radio', { name: 'StepNavigation.go' })).to.have.lengthOf(2)
@@ -113,100 +48,38 @@ describe('ImageAndTextViewer', function () {
 
     describe('when the frame is changed', function () {
       it('should render the text viewer', async function () {
-        render(
-          <ImageAndTextViewerConnector
-            loadingState={asyncStates.success}
-            subject={store.subjects.active}
-          />, {
-            wrapper: withStore(store)
-          }
-        )
+        const user = userEvent.setup({ delay: null })
+        render(<DefaultStory />)
 
         await user.click(screen.getByRole('button', { name: 'StepNavigation.next' }))
-        expect(screen.getByText('This is test subject content.')).to.exist()
+        expect(screen.getByLabelText('Subject 1234 text')).to.exist()
       })
     })
   })
 
   describe('with a valid subject, text type location first', function () {
-    const user = userEvent.setup({ delay: null })
-    const textAndImageSubjectSnapshot = SubjectFactory.build({
-      content: 'This is test subject content.',
-      contentLoadingState: asyncStates.success,
-      locations: [
-        {
-          'text/plain': 'https://some.domain/text.txt'
-        },
-        {
-          'image/jpeg': 'https://some.domain/image.jpg'
-        }
-      ]
-    })
-    const store = mockStore({
-      subject: textAndImageSubjectSnapshot
-    })
-
     it('should render the text viewer', function () {
-      render(
-        <ImageAndTextViewerConnector
-          loadingState={asyncStates.success}
-          subject={store.subjects.active}
-        />, {
-          wrapper: withStore(store)
-        }
-      )
+      render(<TextLocationFirstStory />)
 
-      expect(screen.getByText('This is test subject content.')).to.exist()
+      expect(screen.getByLabelText('Subject 5678 text')).to.exist()
     })
 
     it('should render the frame change buttons', function () {
-      render(
-        <ImageAndTextViewerConnector
-          loadingState={asyncStates.success}
-          subject={store.subjects.active}
-        />, {
-          wrapper: withStore(store)
-        }
-      )
+      render(<TextLocationFirstStory />)
 
       expect(screen.getByRole('button', { name: 'StepNavigation.previous' })).to.exist()
       expect(screen.getAllByRole('radio', { name: 'StepNavigation.go' })).to.have.lengthOf(2)
       expect(screen.getByRole('button', { name: 'StepNavigation.next' })).to.exist()
     })
 
-    it('should call the onReady prop', function () {
-      const onReadySpy = sinon.spy()
-
-      render(
-        <ImageAndTextViewerConnector
-          loadingState={asyncStates.success}
-          onReady={onReadySpy}
-          subject={store.subjects.active}
-        />, {
-          wrapper: withStore(store)
-        }
-      )
-
-      expect(onReadySpy).to.have.been.calledOnce()
-    })
-
     describe('when the frame is changed', function () {
       it('should render the image viewer', async function () {
-        render(
-          <ImageAndTextViewerConnector
-            loadingState={asyncStates.success}
-            subject={store.subjects.active}
-          />, {
-            wrapper: withStore(store)
-          }
-        )
+        const user = userEvent.setup({ delay: null })
+        render(<TextLocationFirstStory />)
 
         await user.click(screen.getByRole('button', { name: 'StepNavigation.next' }))
         const image = document.querySelector('image')
         expect(image).to.exist()
-
-        // "https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png" is the placeholder image for the single image subject viewer
-        expect(image.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
       })
     })
   })
