@@ -10,6 +10,8 @@ import useSubjectImage, {
 import SingleImageViewer from '../../SingleImageViewer/SingleImageViewer.js'
 import SVGImage from '../../SVGComponents/SVGImage'
 import SVGPanZoom from '../../SVGComponents/SVGPanZoom'
+import ImageToolbar from '@components/Classifier/components/ImageToolbar'
+import { ViewerGrid } from '@components/Classifier/components/Layout/components/MultiFrameLayout/MultiFrameLayout'
 
 const FlipbookSeparateFrame = ({
   enableRotation = () => true,
@@ -41,7 +43,8 @@ const FlipbookSeparateFrame = ({
   useEffect(() => {
     const svgImage = imgRef?.current
     if (svgImage && frameSrc !== PLACEHOLDER_URL) {
-      const { width: clientWidth, height: clientHeight } = svgImage.getBoundingClientRect()
+      const { width: clientWidth, height: clientHeight } =
+        svgImage.getBoundingClientRect()
       const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
       onReady({ target })
       enableRotation()
@@ -57,38 +60,42 @@ const FlipbookSeparateFrame = ({
   }
 
   return (
-    <Box>
-      <SVGPanZoom
-        img={imgRef.current}
-        maxZoom={5}
-        minZoom={0.1}
-        naturalHeight={naturalHeight}
-        naturalWidth={naturalWidth}
-        setOnDrag={setOnDrag}
-        setOnPan={setOnPan}
-        setOnZoom={setOnZoom}
-        src={frameSrc}
-      >
-        <SingleImageViewer
-          enableInteractionLayer={false}
-          height={naturalHeight}
-          onKeyDown={onKeyDown}
-          rotate={rotation}
-          width={naturalWidth}
+    <Box pad={{ bottom: 'small' }}>
+      <ViewerGrid>
+        <SVGPanZoom
+          gridArea='subject'
+          img={imgRef.current}
+          maxZoom={5}
+          minZoom={0.1}
+          naturalHeight={naturalHeight}
+          naturalWidth={naturalWidth}
+          setOnDrag={setOnDrag}
+          setOnPan={setOnPan}
+          setOnZoom={setOnZoom}
+          src={frameSrc}
         >
-          <g ref={imgRef}>
-            <SVGImage
-              invert={invert}
-              move={move}
-              naturalHeight={naturalHeight}
-              naturalWidth={naturalWidth}
-              onDrag={onDrag}
-              src={frameSrc}
-              subjectID={subject.id}
-            />
-          </g>
-        </SingleImageViewer>
-      </SVGPanZoom>
+          <SingleImageViewer
+            enableInteractionLayer={false}
+            height={naturalHeight}
+            onKeyDown={onKeyDown}
+            rotate={rotation}
+            width={naturalWidth}
+          >
+            <g ref={imgRef}>
+              <SVGImage
+                invert={invert}
+                move={move}
+                naturalHeight={naturalHeight}
+                naturalWidth={naturalWidth}
+                onDrag={onDrag}
+                src={frameSrc}
+                subjectID={subject.id}
+              />
+            </g>
+          </SingleImageViewer>
+        </SVGPanZoom>
+        <ImageToolbar />
+      </ViewerGrid>
     </Box>
   )
 }

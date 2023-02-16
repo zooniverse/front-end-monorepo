@@ -1,7 +1,9 @@
 import DefaultLayout from '../../components/DefaultLayout'
+import MultiFrameLayout from '../../components/MultiFrameLayout'
 
 const layoutsMap = {
-  default: DefaultLayout
+  default: DefaultLayout,
+  multiFrame: MultiFrameLayout
 }
 
 function getLayout (layout) {

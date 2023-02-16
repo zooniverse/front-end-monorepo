@@ -13,6 +13,7 @@ const SubjectViewer = types
       naturalWidth: types.integer
     })),
     flipbookSpeed: types.optional(types.number, 1),
+    flipbookViewMode: types.optional(types.enumeration('flipbookViewMode', ['flipbook', 'separate']), 'flipbook'),
     frame: types.optional(types.integer, 0),
     fullscreen: types.optional(types.boolean, false),
     invert: types.optional(types.boolean, false),
@@ -151,6 +152,10 @@ const SubjectViewer = types
 
       setFlipbookSpeed (speed) {
         self.flipbookSpeed = speed
+      },
+
+      setFlipbookViewMode(mode) {
+        self.flipbookViewMode = mode
       },
 
       setFrame (index) {

@@ -2,7 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { useTranslation } from '@translations/i18n'
 
-import { withStores } from '@helpers'
+import { createLocationCounts, withStores } from '@helpers'
 import getViewer from './helpers/getViewer'
 
 function storeMapper(classifierStore) {
@@ -14,13 +14,15 @@ function storeMapper(classifierStore) {
     subjectViewer: {
       onSubjectReady,
       onError,
-      loadingState: subjectReadyState
+      loadingState: subjectReadyState,
+      setLayout
     }
   } = classifierStore
 
   return {
     onError,
     onSubjectReady,
+    setLayout,
     subject,
     subjectQueueState,
     subjectReadyState
@@ -30,11 +32,21 @@ function storeMapper(classifierStore) {
 function SubjectViewer({
   onError,
   onSubjectReady,
+  setLayout,
   subject,
   subjectQueueState = asyncStates.initialized,
   subjectReadyState
 }) {
   const { t } = useTranslation('components')
+
+  if (subject?.locations) {
+    const locationCounts = createLocationCounts(subject)
+    // This is a subject pattern for the flipbook, see more in Subject store's get Viewer() action
+    if (locationCounts.total > 1 && locationCounts.total === locationCounts.images) {
+      setLayout('multiFrame')
+    }
+  }
+
   switch (subjectQueueState) {
     case asyncStates.initialized: {
       return null
