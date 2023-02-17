@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useState } from 'react'
 import asyncStates from '@zooniverse/async-states'
 
-import { useTextData } from '@helpers'
+import { useTextData } from '@hooks'
 import TextFromSubjectTask from './TextFromSubjectTask'
 
 function TextFromSubjectContainer ({
