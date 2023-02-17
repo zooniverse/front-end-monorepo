@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 
-import { useTextData } from '@helpers'
+import { useTextData } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
 import SingleTextViewer from './SingleTextViewer'
 

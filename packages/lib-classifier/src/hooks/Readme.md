@@ -56,7 +56,7 @@ Get the logged-in user's project roles, as an array of strings, or an empty arra
   const projectRoles = useProjectRoles(project.id, user.id)
 ```
 
-# useStores
+## useStores
   
 A custom hook which connects a component to the classifier store, or to a filtered list of store properties if a store  mapper function is provided.
 
@@ -69,6 +69,21 @@ function storeMapper(store) {
 
 function MyConnectedComponent(props) {
   const { workflows } = useStores(storeMapper)
+}
+```
+
+## useTextData
+  
+A custom hook which loads text data for a Panoptes subject.
+
+Usage:
+```js
+function MyDataComponent({ subject, onReady, onError }) {
+  const textData = useTextData(
+    subject,
+    () => onReady(),
+    (error) => onError(error)
+  )
 }
 ```
 
