@@ -9,11 +9,7 @@ const { i18n } = require('./next-i18next.config')
 
 const talkHosts = require('./config/talkHosts')
 const assetPrefixes = {
-  development: '/projects',
-  branch: 'https://fe-project-branch.preview.zooniverse.org/projects',
-  staging: 'https://fe-project.preview.zooniverse.org/projects',
-  static: 'https://fe-static.zooniverse.org/projects',
-  production : 'https://fe-project.zooniverse.org/projects'
+  production: 'https://fe-project.zooniverse.org/projects'
 }
 
 function commitID () {

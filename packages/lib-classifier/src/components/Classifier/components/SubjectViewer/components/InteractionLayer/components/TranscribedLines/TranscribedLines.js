@@ -150,6 +150,7 @@ function TranscribedLines({
                 aria-disabled={disabled.toString()}
                 aria-describedby={id}
                 aria-label={line.consensusText}
+                className="complete line"
                 focusColor={focusColor}
                 pointerEvents={disabled ? 'none' : 'painted'}
                 tabIndex={disabled ? -1 : 0}
@@ -192,6 +193,7 @@ function TranscribedLines({
                 aria-describedby={id}
                 aria-disabled={disabled.toString()}
                 aria-label={line.consensusText}
+                className="transcribed line"
                 focusColor={focusColor}
                 pointerEvents={disabled ? 'none' : 'painted'}
                 tabIndex={disabled ? -1 : 0}

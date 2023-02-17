@@ -6,11 +6,7 @@ const path = require('path')
 const withSourceMaps = require('@zeit/next-source-maps')()
 
 const assetPrefixes = {
-  development: '/about',
-  branch: 'https://fe-project-branch.preview.zooniverse.org/about',
-  staging: 'https://frontend.preview.zooniverse.org/about',
-  static: 'https://fe-static.zooniverse.org/about',
-  production : 'https://www.zooniverse.org/about'
+  production: 'https://fe-content-pages.zooniverse.org/about/'
 }
 
 function commitID () {
