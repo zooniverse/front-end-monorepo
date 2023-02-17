@@ -49,7 +49,7 @@ describe('Model > Workflow', function () {
     })
 
     it('should have flipbook autoplay default to false', function () {
-      expect(workflow.usesTranscriptionTask).to.be.false()
+      expect(workflow.configuration.flipbook_autoplay).to.be.false()
     })
   })
 
