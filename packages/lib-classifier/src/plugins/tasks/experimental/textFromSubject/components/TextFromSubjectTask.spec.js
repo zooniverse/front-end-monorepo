@@ -1,81 +1,175 @@
-import { mount } from 'enzyme'
+import { expect } from 'chai'
+import { when } from 'mobx'
+import nock from 'nock'
 import sinon from 'sinon'
-import { Markdownz } from '@zooniverse/react-components'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
-import TextFromSubjectTask from './TextFromSubjectTask'
-import { textFromSubject as Task } from '@plugins/tasks'
+import TextFromSubjectTaskContainer from './TextFromSubjectContainer'
+import { default as Task } from '@plugins/tasks/experimental/textFromSubject'
 
-describe('TextFromSubjectTask', function () {
-  let wrapper
-
+describe('TextFromSubject Task', function () {
   const task = Task.TaskModel.create({
     strings: {
-      instruction: 'Correct the text'
+      instruction: 'Correct the text.'
     },
     taskKey: 'T0',
     type: 'textFromSubject'
   })
-  const annotation = task.defaultAnnotation()
-  annotation.update('This is a test.')
-  const value = annotation.value
+  const subject = {
+    locations: [{
+      'text/plain': 'https://panoptes-uploads-staging.zooniverse.org/subject_location/9d03230b-7ef0-42b5-aa99-996b0394cc9e.txt'
+    }]
+  }
 
-  describe('when it renders', function () {
+  describe('with a subject text data request error', function () {
+    let textArea
+    const annotation = task.defaultAnnotation()
+
     before(function () {
-      wrapper = mount(
-        <TextFromSubjectTask
+      sinon.stub(console, 'error')
+      nock('https://panoptes-uploads-staging.zooniverse.org')
+        .get('/subject_location/9d03230b-7ef0-42b5-aa99-996b0394cc9e.txt')
+        .reply(400, 'This is a test error.')
+
+      render(
+        <TextFromSubjectTaskContainer
+          annotation={annotation}
+          disabled={false}
+          subject={subject}
           task={task}
-          value={value}
         />
       )
+      textArea = screen.getByRole('textbox', { name: 'Correct the text.' })
     })
 
-    it('should render without crashing', function () {
-      expect(wrapper).to.be.ok()
+    after(function () {
+      console.error.restore()
+      nock.cleanAll()
     })
 
-    it('should have a labelled textarea', function () {
-      const label = wrapper.find('label')
-      expect(label.find(Markdownz).prop('children')).to.equal(task.instruction)
+    it('should show a labelled textarea', function () {
+      expect(textArea).to.exist()
     })
 
-    it('should have a textarea with the correct value', function () {
-      const textarea = wrapper.find('textarea')
-      expect(textarea.prop('value')).to.equal(value)
+    it('should show a disabled textarea', function () {
+      expect(textArea.disabled).to.be.true()
+    })
+  })
+
+  describe('with subject text data request success', function () {
+    let textArea, resetButton
+    const annotation = task.defaultAnnotation()
+
+    before(async function () {
+      nock('https://panoptes-uploads-staging.zooniverse.org')
+        .get('/subject_location/9d03230b-7ef0-42b5-aa99-996b0394cc9e.txt')
+        .reply(200, 'This is test subject text.')
+
+      render(
+        <TextFromSubjectTaskContainer
+          annotation={annotation}
+          disabled={false}
+          subject={subject}
+          task={task}
+        />
+      )
+      
+      await when(() => annotation.initializedFromSubject === true)
+      textArea = screen.getByRole('textbox', { name: 'Correct the text.' })
+      resetButton = screen.getByRole('button', { name: 'TextFromSubjectTask.reset' })
     })
 
-    describe('with isChanged false', function () {
-      let resetButton
+    after(function () {
+      nock.cleanAll()
+    })
+    
+    it('should show a labelled textarea', function () {
+      expect(textArea).to.exist()
+    })
 
-      before(function () {
-        wrapper.setProps({ isChanged: false })
-        resetButton = wrapper.find('button')
-      })
+    it('should show an enabled textarea with subject text', function () {
+      expect(textArea.disabled).to.be.false()
+      expect(textArea).to.have.value('This is test subject text.')
+    })
 
+    describe('with textarea value unchanged from subject text', function () {
       it('should have a disabled reset button', function () {
-        expect(resetButton).to.have.lengthOf(1)
-        expect(resetButton.prop('disabled')).to.be.true()
+        expect(resetButton.disabled).to.be.true()
       })
     })
+  })
 
-    describe('with isChanged true', function () {
-      let resetButton
+  describe('with the textarea value changed from subject text', function () {
+    let textArea, resetButton
+    const annotation = task.defaultAnnotation()
+    const user = userEvent.setup({ delay: null })
 
-      before(function () {
-        wrapper.setProps({ isChanged: true })
-        resetButton = wrapper.find('button')
-      })
+    before(async function () {
+      nock('https://panoptes-uploads-staging.zooniverse.org')
+        .get('/subject_location/9d03230b-7ef0-42b5-aa99-996b0394cc9e.txt')
+        .reply(200, 'This is test subject text.')
 
-      it('should have an enabled reset button', function () {
-        expect(resetButton).to.have.lengthOf(1)
-        expect(resetButton.prop('disabled')).to.be.false()
-      })
+      render(
+        <TextFromSubjectTaskContainer
+          annotation={annotation}
+          disabled={false}
+          subject={subject}
+          task={task}
+        />
+      )
+      
+      await when(() => annotation.initializedFromSubject === true)
+      textArea = screen.getByRole('textbox', { name: 'Correct the text.' })
+      await user.type(textArea, ' With an updated value.')
+      resetButton = screen.getByRole('button', { name: 'TextFromSubjectTask.reset' })
+    })
 
-      it('should call resetSubject on click', function () {
-        const resetToSubject = sinon.spy()
-        wrapper.setProps({ resetToSubject })
-        resetButton.simulate('click')
-        expect(resetToSubject).to.have.been.calledOnce()
-      })
+    after(function () {
+      nock.cleanAll()
+    })
+    
+    it('should have a textarea with the updated value', function () {
+      expect(textArea).to.have.value('This is test subject text. With an updated value.')
+    })
+    
+    it('should have an enabled reset button', function () {
+      expect(resetButton.disabled).to.be.false()
+    })
+  })
+
+  describe('with a changed textarea value reset to the subject text', function () {
+    const annotation = task.defaultAnnotation()
+    
+    before(function () {
+      nock('https://panoptes-uploads-staging.zooniverse.org')
+        .get('/subject_location/9d03230b-7ef0-42b5-aa99-996b0394cc9e.txt')
+        .reply(200, 'This is test subject text.')
+    })
+
+    after(function () {
+      nock.cleanAll()
+    })
+    
+    it('should have a textarea value reset to the subject text on reset button click', async function () {
+      const user = userEvent.setup({ delay: null })
+      render(
+        <TextFromSubjectTaskContainer
+          annotation={annotation}
+          disabled={false}
+          subject={subject}
+          task={task}
+        />
+      )
+      
+      await when(() => annotation.initializedFromSubject === true)
+      const textArea = screen.getByRole('textbox', { name: 'Correct the text.' })
+      await user.type(textArea, ' With an updated value.')
+      expect(textArea).to.have.value('This is test subject text. With an updated value.')
+
+      const resetButton = screen.getByRole('button', { name: 'TextFromSubjectTask.reset' })
+      await user.click(resetButton)
+      expect(textArea).to.have.value('This is test subject text.')
     })
   })
 })

@@ -1,7 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { Box, Paragraph } from 'grommet'
 import { array, bool, object, shape, string } from 'prop-types'
-import { useContext } from 'react';
 
 import { withStores } from '@helpers'
 import * as tasks from '@plugins/tasks'
@@ -21,7 +20,8 @@ function storeMapper(classifierStore) {
 
   return {
     disabled,
-    latest
+    latest,
+    subject
   }
 }
 
@@ -30,6 +30,7 @@ function Task ({
   disabled = false,
   latest,
   previousAnnotationValues = null,
+  subject,
   task,
   ...props
 }) {
@@ -66,6 +67,7 @@ function Task ({
         disabled={disabled}
         annotation={annotation}
         suggestions={suggestions}
+        subject={subject}
         task={task}
       />
     </Box>
