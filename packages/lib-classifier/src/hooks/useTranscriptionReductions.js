@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react'
-import { applySnapshot } from 'mobx-state-tree'
 
 import SHOWN_MARKS from '@helpers/shownMarks'
 import { useStores } from '@hooks'
 
-const REDUCER_KEY = 'alice'
-
-async function fetchReductions(caesarClient, subjectID, workflowID) {
+async function fetchReductions(caesarClient, subjectID, workflow) {
   const query = `{
-    workflow(id: ${workflowID}) {
-      subject_reductions(subjectId: ${subjectID}, reducerKey:"${REDUCER_KEY}")
+    workflow(id: ${workflow.id}) {
+      subject_reductions(subjectId: ${subjectID}, reducerKey:"${workflow.caesarReducer}")
       {
         data
       }
@@ -43,8 +40,9 @@ export default function useTranscriptionReductions() {
 
   useEffect(function onSubjectChange() {
     async function updateReductions(caesarClient, subject, workflow) {
-      const reductions = await fetchReductions(caesarClient, subject.id, workflow.id)
-      applySnapshot(subject.transcriptionReductions, {
+      const reductions = await fetchReductions(caesarClient, subject.id, workflow)
+      subject.setCaesarReductions({
+        reducer: workflow.caesarReducer,
         subjectId: subject.id,
         workflowId: workflow.id,
         reductions
@@ -52,13 +50,13 @@ export default function useTranscriptionReductions() {
       setLoaded(true)
     }
 
-    if (subject?.id && workflow?.id) {
+    if (subject?.id && workflow?.caesarReducer) {
       setLoaded(false)
       updateReductions(caesar, subject, workflow)
     }
   }, [caesar, subject, workflow])
 
-  const lines = subject?.transcriptionReductions?.consensusLines(frame)
+  const lines = subject?.caesarReductions?.consensusLines(frame)
   const activeStepAnnotations = subject?.stepHistory.latest.annotations
 
   // We expect there to only be one
