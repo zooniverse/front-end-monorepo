@@ -1,8 +1,11 @@
+import asyncStates from '@zooniverse/async-states'
 import { destroy, getRoot, getType, tryReference, types } from 'mobx-state-tree'
 import Resource from '@store/Resource'
 import { createLocationCounts, subjectsSeenThisSession, subjectViewers, validateSubjectLocations } from '@helpers'
 import StepHistory from './StepHistory'
 import TranscriptionReductions from './TranscriptionReductions'
+
+const CaesarReductions = types.union(TranscriptionReductions)
 
 const Subject = types
   .model('Subject', {
@@ -17,7 +20,7 @@ const Subject = types
     shouldDiscuss: types.maybe(types.frozen()),
     stepHistory: types.maybe(StepHistory),
     user_has_finished_workflow: types.optional(types.boolean, false),
-    transcriptionReductions: types.maybe(TranscriptionReductions)
+    caesarReductions: types.maybeNull(CaesarReductions)
   })
 
   .postProcessSnapshot(snapshot => {
@@ -103,23 +106,6 @@ const Subject = types
   }))
 
   .actions(self => {
-    function afterAttach () {
-      _fetchTranscriptionReductions()
-    }
-
-    function beforeDestroy () {
-      self.transcriptionReductions && destroy(self.transcriptionReductions)
-    }
-
-    function _fetchTranscriptionReductions () {
-      if (self.workflow?.usesTranscriptionTask) {
-        self.transcriptionReductions = TranscriptionReductions.create({
-          subjectId: self.id,
-          workflowId: self.workflow.id
-        })
-      }
-    }
-
     function addToCollection () {
       const rootStore = getRoot(self)
       rootStore.onAddToCollection(self.id)
@@ -136,6 +122,18 @@ const Subject = types
       }
     }
 
+    function setCaesarReductions({ reducer, reductions, subjectId, workflowId }) {
+      if (reducer) {
+        self.caesarReductions = CaesarReductions.create({
+          loadingState: asyncStates.success,
+          reducer,
+          reductions,
+          subjectId,
+          workflowId
+        })
+      }
+    }
+
     function startClassification() {
       self.stepHistory = StepHistory.create({})
       self.stepHistory.start()
@@ -148,11 +146,10 @@ const Subject = types
     }
 
     return {
-      afterAttach,
-      beforeDestroy,
       addToCollection,
       markAsSeen,
       openInTalk,
+      setCaesarReductions,
       startClassification,
       toggleFavorite
     }

@@ -1483,21 +1483,21 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@lerna/child-process@6.5.0":
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/@lerna/child-process/-/child-process-6.5.0.tgz#8a0d37453f2163c3a1737493d328399a53e4cc5b"
-  integrity sha512-ZuN3eivyzkaCCT4MNwHW5FuJ0Zu4kPFCnx7NXcGisca4a7Urjs3odZN1Tf9ZoYcPCf2I9DKfHj2bfnS0SHpMIg==
+"@lerna/child-process@6.5.1":
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/@lerna/child-process/-/child-process-6.5.1.tgz#da9161ba00e8d67fa7241a709703e5cc5e4a5e5e"
+  integrity sha512-QfyleXSD9slh4qM54wDaqKVPvtUH1NJMgsFc9BabqSHO1Ttpandv1EAvTCN9Lu73RbCX3LJpn+BfJmnjHbjCyw==
   dependencies:
     chalk "^4.1.0"
     execa "^5.0.0"
     strong-log-transformer "^2.1.0"
 
-"@lerna/create@6.5.0":
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/@lerna/create/-/create-6.5.0.tgz#b8350e145968f17c4b785c50c0cba49079c192e8"
-  integrity sha512-EbYXW6W/khXDXhA15HETcU7toq2zxuqalBw9MZzHWj3sEBQsTd/un56qzIRMWUuHy8CO7FxJIdPItYI8QPop4A==
+"@lerna/create@6.5.1":
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/@lerna/create/-/create-6.5.1.tgz#326b5d26c247bfc9e2d8728aa1f69419840cec8c"
+  integrity sha512-ejERJnfA36jEuKrfM+94feLiyf2/hF2NoG923N0rE4rsmvRFPr1XLVPvAKleXW+Gdi/t1p410lJ7NKaLRMYCYw==
   dependencies:
-    "@lerna/child-process" "6.5.0"
+    "@lerna/child-process" "6.5.1"
     dedent "^0.7.0"
     fs-extra "^9.1.0"
     init-package-json "^3.0.2"
@@ -3768,13 +3768,13 @@
     "@types/d3-shape" "^1.3.1"
     d3-shape "^1.0.6"
 
-"@visx/event@3.0.0", "@visx/event@~3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@visx/event/-/event-3.0.0.tgz#5f624b63c4e178c3303f327fd357a1278c386a4c"
-  integrity sha512-Jr1+HwyfaTfhzsge75PiMc/ug1V9ip2t/yg9ckDWwzT8kcdk0BHCkxKqSrXKokKd2XNJ8XrJVwZZVcQaFg0ctA==
+"@visx/event@3.0.1", "@visx/event@~3.0.0":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@visx/event/-/event-3.0.1.tgz#d5358f52ff5ef30036d955bd2b68b96472ff2d6f"
+  integrity sha512-tK1EUYQLLStBuoCMbm8LJ3VbDyCVI8HjT0pMRQxm+C75FSIVWvrThgrfrC9sWOFnEMEYWspZO7hI5zjsPKjLQA==
   dependencies:
     "@types/react" "*"
-    "@visx/point" "3.0.0"
+    "@visx/point" "3.0.1"
 
 "@visx/glyph@~3.0.0":
   version "3.0.0"
@@ -3819,10 +3819,10 @@
   resolved "https://registry.yarnpkg.com/@visx/point/-/point-2.17.0.tgz#c11f1efee5241bcd612a29f3b3099cb435c9604e"
   integrity sha512-fUdGQBLGaSVbFTbQ6k+1nPisbqYjTjAdo9FhlwLd3W3uyXN/39Sx2z3N2579sVNBDzmCKdYNQIU0HC+/3Vqo6w==
 
-"@visx/point@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@visx/point/-/point-3.0.0.tgz#45ee074f4700a1586bf88e86dd562fc763e97f60"
-  integrity sha512-OWGTC9KZK63PSCXHpfFzez7InHW+eMdofVVyPUCtB3FG8Xr8qZbH8Ho17PH4e45AvGebOGW1F6ww391I1AV5fw==
+"@visx/point@3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@visx/point/-/point-3.0.1.tgz#77587ddaabf6f3023f09f8a0ce33a2c27c9d64c8"
+  integrity sha512-S5WOBMgEP2xHcgs3A2BFB2vwzrk0tMmn3PGZAbQJ+lu4HlnalDP72klUnxLTH8xclNNvpUHtHM5eLIJXyHx6Pw==
 
 "@visx/responsive@~3.0.0":
   version "3.0.0"
@@ -3919,13 +3919,13 @@
     reduce-css-calc "^1.3.0"
 
 "@visx/zoom@~3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@visx/zoom/-/zoom-3.0.0.tgz#b8d70dd02022a2d44ed04d7a10961c9b0f6c15f4"
-  integrity sha512-pnEqeUrAa9b84bMcPGVXSyHlx7JLFU2+G6NLgc5PxeVWGK39cT5WPZ2GQ8kw+KSVwb5oF6V8Eib6V54t399eUA==
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@visx/zoom/-/zoom-3.0.1.tgz#872bf94b2aee2363b70dd6b15a1f6ff05f7a1fcd"
+  integrity sha512-E/HNp1c/tgippJBCqn1NKx8Xhh2y4pgVjET9or3GbTs/7VAN/NkAR2V7t7u3zfGaPnBjkfbmulMkmQP4bB8m1g==
   dependencies:
     "@types/react" "*"
     "@use-gesture/react" "^10.0.0-beta.22"
-    "@visx/event" "3.0.0"
+    "@visx/event" "3.0.1"
     prop-types "^15.6.2"
 
 "@webassemblyjs/ast@1.11.1":
@@ -6220,9 +6220,9 @@ contentful-sdk-core@^7.0.5:
     qs "^6.9.4"
 
 contentful@~9.3.0:
-  version "9.3.2"
-  resolved "https://registry.yarnpkg.com/contentful/-/contentful-9.3.2.tgz#89ac8fd518cd3aa1ea003bd387a02cd76a047bbb"
-  integrity sha512-JnHzgmNrrGHtsMhwVu+MCKJcE0OSHrbxWQvO0Qp7NjBB5/8hX5qasZu9Ed9dmg81PvBFEBtiTgEK0/iHGtjjdQ==
+  version "9.3.3"
+  resolved "https://registry.yarnpkg.com/contentful/-/contentful-9.3.3.tgz#f567cfe43bf7106cbbb5b111813c01cb7b6d6aed"
+  integrity sha512-tFfdVEstxhzr4kfRZzhv8V6fx43GSGkyvzoMdQ8KROF7vPXLwQSeTNE7rOjBEJFqKyE/oHZXZQkmkvuezIImlg==
   dependencies:
     "@contentful/rich-text-types" "^16.0.2"
     axios "^0.27.0"
@@ -10866,7 +10866,7 @@ js-string-escape@^1.0.1:
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
   integrity sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
 
-js-yaml@4.1.0:
+js-yaml@4.1.0, js-yaml@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-4.1.0.tgz#c1fb65f8f5017901cdd2c951864ba18458a10602"
   integrity sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==
@@ -11107,12 +11107,12 @@ lcov-parse@^1.0.0:
   integrity sha512-aprLII/vPzuQvYZnDRU78Fns9I2Ag3gi4Ipga/hxnVMCZC8DnR2nI7XBqrPoywGfxqIx/DgarGvDJZAD3YBTgQ==
 
 lerna@~6.5.0:
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/lerna/-/lerna-6.5.0.tgz#c46f179ecf88d6a55010ced0a0ccdacdf9d3fcd2"
-  integrity sha512-2GbRXeQLFf9KwxRXd+AgEEzKat4DbvVnXtSVDkpgzIzITXtYPThxqzYhhaHUhBSM9Rq7TcJ1XLbArS2qIvlazg==
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/lerna/-/lerna-6.5.1.tgz#eb89698e5b2891f5681f39d980f63d0519fc464f"
+  integrity sha512-Va1bysubwWdoWZ1ncKcoTGBXNAu/10/TwELb550TTivXmEWjCCdek4eX0BNLTEYKxu3tpV2UEeqVisUiWGn4WA==
   dependencies:
-    "@lerna/child-process" "6.5.0"
-    "@lerna/create" "6.5.0"
+    "@lerna/child-process" "6.5.1"
+    "@lerna/create" "6.5.1"
     "@npmcli/arborist" "5.3.0"
     "@npmcli/run-script" "4.1.7"
     "@nrwl/devkit" ">=15.5.2 < 16"
@@ -11145,6 +11145,7 @@ lerna@~6.5.0:
     inquirer "^8.2.4"
     is-ci "2.0.0"
     is-stream "2.0.0"
+    js-yaml "^4.1.0"
     libnpmaccess "6.0.3"
     libnpmpublish "6.0.4"
     load-json-file "6.2.0"
@@ -12300,9 +12301,9 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0:
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 newrelic@^9.0.0, newrelic@~9.10.0:
-  version "9.10.0"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-9.10.0.tgz#cf7f5b1e5178452f6aee0ae7c3fa165496694e73"
-  integrity sha512-JRbvdfgAQSkJynWH67gDsvkVP7h7Foeic8vC7JuB4YEzg3gjBZcdjjtZ4W9kHFjGSUMJesKeIesaBWlvUKqWUA==
+  version "9.10.1"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-9.10.1.tgz#bccf243e0f01da2121569e25c0c39010dc82135b"
+  integrity sha512-G23/RlcdkgApBCQJXvRIt7bgW4KgR8mQLE+sndAT9ooIYsrxw7+9iVJzm6WE4sc3o41SIIjZ1OlVo6pUCLxIZQ==
   dependencies:
     "@grpc/grpc-js" "^1.8.4"
     "@grpc/proto-loader" "^0.7.4"
