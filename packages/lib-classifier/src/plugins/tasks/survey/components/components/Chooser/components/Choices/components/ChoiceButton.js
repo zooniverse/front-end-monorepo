@@ -19,7 +19,7 @@ const StyledBox = styled(Box)`
     margin: 0 1ch 0 0;
   }
 
-  @media (768px < width <= 1024px) {
+  @media (768px < width < 1280px) {
     flex-direction: ${props => props.columnsCount === 1 ? 'row' : 'column'};
 
     img {
