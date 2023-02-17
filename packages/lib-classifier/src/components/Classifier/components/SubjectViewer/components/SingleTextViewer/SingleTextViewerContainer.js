@@ -19,8 +19,8 @@ export default function SingleTextViewerContainer ({
 }) {
   const textData = useTextData(
     subject,
-    () => onReady(),
-    (error) => onError(error)
+    onReady,
+    onError
   )
 
   if (loadingState === asyncStates.error) {
