@@ -68,7 +68,6 @@ function DrawingToolMarks({
     }
 
     function selectMark() {
-		console.log('DrawingToolMarks.selectMark()')
       onSelectMark(mark)
     }
 

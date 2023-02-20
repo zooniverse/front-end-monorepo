@@ -42,10 +42,6 @@ export default function SVGImage ({
     width: naturalWidth,
   }
 
-  // image does not have the dragMove property and throws a DOM error blowing up rendering
-  if (!move)
-  	delete SubjectImageProps.dragMove
-
   return (
     move ?
       <DraggableImage

@@ -3,398 +3,452 @@ import { FreehandLine as FreehandLineComponent } from '@plugins/drawingTools/com
 import { Mark } from '@plugins/drawingTools/models/marks'
 import { FreehandLineTool } from '@plugins/drawingTools/models/tools'
 import { FixedNumber } from '@plugins/drawingTools/types/'
-import { action, toJS } from 'mobx'
-
-const LINE_RESOLUTION = 0.5
-const MINIMUM_POINTS = 20
-const CLOSE_DISTANCE = 10
+import { toJS } from 'mobx'
 
 const SingleCoord = types.model('SingleCoord', {
   x: FixedNumber,
   y: FixedNumber
 })
 
-const actions = [];
-
-const ActionCoor = types.model('ActionCoor', {
-  0: types.number,
-  1: types.number
-});
-
 const ActionType = types.model('ActionType', {
   type: types.string,
-  points: types.array(ActionCoor),
-  pointIndex: types.number,
+  pointIndexDrag: types.number,
+  pointIndexClose: types.number,
+  pointsFromDrag: types.array(SingleCoord),
+  pointsFromClose: types.array(SingleCoord),
+  pointsSpliceCount: types.number,
   isReversed: types.boolean,
+  throughBeginning: types.boolean,
 });
 
 const FreehandLineModel = types
-  .model('FreehandLineModel', {
-    pathX: types.array(FixedNumber),
-    pathY: types.array(FixedNumber),
-    drawActions: types.array(ActionType),
-    redoActions: types.array(ActionType),
-  })
+  .model('FreehandLineModel', {})
   .views((self) => ({
-    get coords() {
-      const [x] = self.pathX
-      const [y] = self.pathY
-      return { x, y }
-    },
-
     get isValid() {
-      return self.pathX.length > MINIMUM_POINTS
+      return true
     },
 
     get tool() {
       return getParentOfType(self, FreehandLineTool)
     },
 
-    get initialPoint() {
-      const [x] = self.pathX
-      const [y] = self.pathY
-      if (!x) {
-        return null
-      }
-      return { x, y }
-    },
-
-    get lastPoint() {
-      const x = self.pathX.at(-1)
-      const y = self.pathY.at(-1)
-      if (!x) {
-        return null
-      }
-      return { x, y }
-    },
-
-    get points() {
-      return self.pathX.map((x, index) => {
-        const y = self.pathY[index]
-        return { x, y }
-      })
-    },
-
-    get isClosed() {
-      const firstPoint = self.initialPoint
-      const lastPoint = self.lastPoint
-      if (firstPoint && lastPoint) {
-        const dist = self.getDistance(firstPoint.x, firstPoint.y, lastPoint.x, lastPoint.y)
-        return dist < CLOSE_DISTANCE
-      }
-      return false
-    },
-
-    // this determines if drawing point is close to initial point
-    get isCloseToStart() {
-      const { dragPoint, targetPoint } = self
-      if (dragPoint && targetPoint) {
-        const dist = self.getDistance(dragPoint.x, dragPoint.y, targetPoint.x, targetPoint.y)
-        return dist < CLOSE_DISTANCE
-      }
-      return false
-    },
-
     get toolComponent() {
       return FreehandLineComponent
     },
 
-    selectPoint({ x, y }) {
-      const distances = self.points.map(point => self.getDistance(x, y, point.x, point.y))
+    get closeDistance() {
+      return Math.ceil(10 / self.scale)
+    },
+
+    get isCloseToStart() {
+      if (self.dragPoint && self.closePoint) {
+        return self.pointDistance(self.dragPoint, self.closePoint) < self.closeDistance
+      }
+      return false
+    },
+
+    pointDistance(p1, p2) {
+      return self.getDistance(p1.x, p1.y, p2.x, p2.y)
+    },
+
+    findClosestPathPointIndex({ x, y }) {
+      const distances = self.points.map(point => self.pointDistance({ x: x, y: y }, point))
       const minDistance = Math.min(...distances)
-      const selectedIndex = distances.indexOf(minDistance)
-      return self.points[selectedIndex]
+      return distances.indexOf(minDistance)
+    },
+
+    get visiblePathsRender() {
+      // There are up to 3 paths
+      // 1) Start point to splice start/end
+      // 2) Splice start/end to end point
+      // 3) Splice start to splice drag
+
+      let paths = []
+      let pnts = []
+
+      if (self.spliceActive) {
+        if (self.spliceThroughBeginning) {
+          // Because it's closed we can draw 1 path
+          let startIndex = (self.spliceReverse)
+            ? self.spliceDragPointIndex
+            : self.spliceClosePointIndex
+          let endIndex = (self.spliceReverse)
+            ? self.spliceClosePointIndex
+            : self.spliceDragPointIndex
+
+          for (let i = startIndex; i <= endIndex; i++) {
+            pnts.push(self.points[i])
+          }
+          paths.push(pnts)
+        } else {
+          // Scenarion #1 and #2
+          let endIndex = (self.spliceReverse)
+            ? self.spliceClosePointIndex
+            : self.spliceDragPointIndex
+
+          for (let i = 0; i <= endIndex; i++) {
+            pnts.push(self.points[i])
+          }
+          paths.push(pnts)
+
+          pnts = []
+          let startIndex = (self.spliceReverse)
+            ? self.spliceDragPointIndex
+            : self.spliceClosePointIndex
+
+          for (let i = startIndex; i < self.points.length; i++) {
+            pnts.push(self.points[i])
+          }
+          paths.push(pnts)
+        }
+      } else {
+        paths.push(self.points)
+      }
+
+      paths.push(self.splicePoints)
+
+      return paths
+    },
+
+    get splicePathRender() {
+      // Dashed line path when splicing
+      if (!self.spliceActive) {
+        return []
+      }
+
+      let pnts = []
+      let startIndex = (self.spliceReverse)
+        ? self.spliceClosePointIndex
+        : self.spliceDragPointIndex
+      let endIndex = (self.spliceReverse)
+        ? self.spliceDragPointIndex
+        : self.spliceClosePointIndex
+
+      if (self.spliceThroughBeginning) {
+        for (let i = endIndex; i < self.points.length; i++) {
+          pnts.push(self.points[i])
+        }
+
+        for (let i = 0; i <= startIndex; i++) {
+          pnts.push(self.points[i])
+        }
+      } else {
+        for (let i = startIndex; i <= endIndex; i++) {
+          pnts.push(self.points[i])
+        }
+      }
+
+      return pnts;
     }
   }))
   .volatile(self => ({
-    clipPath: types.array(SingleCoord),
+    scale: types.number,
+    lineResolution: types.number,
+    minimumPoints: types.number,
+    undoActionPointThreshold: types.number,
+
+    points: types.array(SingleCoord),
     dragPoint: types.maybeNull(SingleCoord),
-    originalPath: types.array(SingleCoord),
-    targetPoint: types.maybeNull(SingleCoord),
+    closePoint: types.maybeNull(SingleCoord),
+    pathIsClosed: types.boolean,
+    isDragging: false,
+
+    spliceActive: types.boolean,
+    spliceReverse: types.boolean,
+    spliceThroughBeginning: types.boolean,
+    spliceDragPointIndex: types.maybeNull(types.number),
+    spliceClosePointIndex: types.maybeNull(types.number),
+    splicePoints: types.array(SingleCoord),
+
+    drawActions: types.array(ActionType),
+    redoActions: types.array(ActionType),
   }))
   .actions((self) => ({
-    initialPosition({ x, y }) {
-      // START PATH
-      self.drawActions.push({
-        type: 'start',
-        points: [{ 0: x, 1: y }],
-        pointIndex: -1,
-        isReversed: false
-      });
-      self.pathX.push(x)
-      self.pathY.push(y)
-      self.dragPoint = null
-      self.targetPoint = null
-      self.clipPath = []
-    },
-
-    initialDrag({ x, y }) {
-      // DRAG PATH FROM START
-      const dist = self.getDistance(x, y, self.lastPoint.x, self.lastPoint.y)
-      if (dist > LINE_RESOLUTION && ((self.isValid && !self.isClosed) || !self.isValid)) {
-        let action = self.drawActions[self.drawActions.length - 1]
-        action.points.push({ 0: x, 1: y });
-        self.pathX.push(x)
-        self.pathY.push(y)
-      }
-      if (self.isValid && self.isClosed) {
-        self.clipPath = []
-      }
-    },
-
-    finish({ x, y }) {
-      console.log('FINISH()')
-      // DRAG PATH END START
-      self.finished = true
-
-      if (!self.isValid) {
-        self.drawActions.pop();
-        self.tool.deleteMark(self)
-      }
-    },
-
-    close() {
-      let {x, y} = self.initialPoint
-      console.log('close()', x, y)
-      self.drawActions.push({
-        type: 'end',
-        points: [{ 0: x, 1: y }],
-        pointIndex: -1,
-        isReversed: false
-      });
-      self.pathX.push(x)
-      self.pathY.push(y)
-      self.dragPoint = null
-      self.targetPoint = null
-      self.clipPath = []
-	  },
-
     initialize(points) {
-      if (!points) return;
+      self.scale = 1
+      self.lineResolution = isNaN(self.lineResolution) ? 0.5 : self.lineResolution
+      self.minimumPoints = isNaN(self.minimumPoints) ? 20 : self.minimumPoints
+      self.undoActionPointThreshold = isNaN(self.undoActionPointThreshold) ? 20 : self.undoActionPointThreshold
 
-      self.pathX = points.map(({ x, y }) => x)
-      self.pathY = points.map(({ x, y }) => y)
-      self.dragPoint = null
-      self.targetPoint = null
-      self.originalPath = [];
-      self.clipPath = [];
-    },
+      self.points = []
+      self.pathIsClosed = false
 
-    setCoordinates(points) {
-      // TODO: this causes a re-render state issue when clicking out of editing splice mode after you've picked your 
-      // start point and your end point
-      self.pathX = points.map(({ x, y }) => x)
-      self.pathY = points.map(({ x, y }) => y)
-    },
-
-    move() {
-      return
-    },
-
-    appendPathStart({ x, y }) {
-      self.drawActions.push({
-        type: 'append',
-        points: [],
-        pointIndex: -1,
-        isReversed: false
-      });
-    },
-
-    appendPath({ x, y }) {
-      // Append points to current path
-      const dist = self.getDistance(x, y, self.lastPoint.x, self.lastPoint.y)
-      if (dist > LINE_RESOLUTION && !self.isClosed) {
-        let action = self.drawActions[self.drawActions.length - 1]
-        action.points.push({ 0: x, 1: y });
-        self.pathX.push(x)
-        self.pathY.push(y)
-      }
-      if (self.isClosed) {
-        self.clipPath = []
-      }
-    },
-
-    appendPathEnd({ x, y }) {
-      let action = self.drawActions[self.drawActions.length - 1]
-      if (action.points.length == 0) {
-        self.drawActions.pop();
-      }
-    },
-
-    splicePathStart({ x, y }) {
-      self.drawActions.push({
-        type: 'splice-append',
-        points: [],
-        pointIndex: self.points.indexOf(self.dragPoint),
-        isReversed: false
-      });
-    },
-
-    splicePath({ x, y }) {
-      if (!self.targetPoint) {
-        return true
-      }
-      const dist = self.getDistance(x, y, self.dragPoint.x, self.dragPoint.y)
-      if (dist > LINE_RESOLUTION) {
-        const dragIndex = self.points.indexOf(self.dragPoint)
-        const nextPoint = dragIndex + 1
-        self.pathX.splice(nextPoint, 0, x)
-        self.pathY.splice(nextPoint, 0, y)
-        self.dragPoint = self.points[nextPoint]
-
-        let action = self.drawActions[self.drawActions.length - 1];
-        action.points.push({ 0: x, 1: y });
-        
-        if (self.isCloseToStart) {
-          self.clipPath = []
-        }
-      }
-    },
-
-    splicePathEnd({ x, y }) {
-      let action = self.drawActions[self.drawActions.length - 1]
-      if (action.points.length == 0) {
-        self.drawActions.pop();
+      if (points && points.length > 0) {
+        self.points = [...points]
       }
 
-    },
+      self.setClosePoint(self.points.at(0))
+      self.setDragPoint(self.points.at(-1))
 
-    cancelClipPath() {
-      // Undo all actions up to splice start
-      self.setCoordinates(self.originalPath)
-      for (let i = self.drawActions.length - 1; i > 0; i--) {
-        if (actions[i].type == 'splice-start') {
-          self.drawActions.pop();
-          break;
-        } else {
-          self.drawActions.pop();
-        }
+      if (self.isCloseToStart && self.points.length > self.minimumPoints) {
+        self.setClosePoint(null)
+        self.setDragPoint(null)
+        self.pathIsClosed = true
       }
 
-      self.setClipPath([])
-    },
+      self.splicePoints = [];
+      self.spliceDragPointIndex = null;
+      self.spliceClosePointIndex = null;
+      self.spliceActive = false;
+      self.spliceReverse = false;
+      self.spliceThroughBeginning = false;
 
-    cancelEditing() {
-      // THIS IS BASICALLY CALLED RIGHT AWAY ON LOAD
-      // we set finished = true so that the drag handle appears
-      console.log('cancelEditing() called')
-      //self.finished = true
-    },
-
-    cutSegment(startPoint, endPoint) {
-      console.log('cutSegment', startPoint, endPoint)
-      
-      /*
-        If the line has already been cut into subpaths, restore the original path.
-        Note that this will overwrite both dragPoint and targetPoint.
-      */
-      if (self.clipPath.length > 0) {
-        self.setCoordinates(self.originalPath)
-      } else {
-        self.originalPath = self.points.map(({ x, y }) => ({ x, y }))
-      }
-      const dragPoint = self.selectPoint(startPoint)
-      let startIndex = self.points.indexOf(dragPoint)
-      const targetPoint = self.selectPoint(endPoint)
-      let endIndex = self.points.indexOf(targetPoint)
-      let spansStartPoint = false
-      if (self.isClosed) {
-        const firstPoint = Math.min(startIndex, endIndex)
-        const lastPoint = Math.max(startIndex, endIndex)
-        const deleteCount = lastPoint - firstPoint - 1
-        const distFromEnd = self.points.length - lastPoint - 1
-        const distFromStart = firstPoint
-        spansStartPoint = (distFromEnd + distFromStart) < deleteCount
-      }
-
-      let isReversed;
-      if (!spansStartPoint) {
-        /*
-        Segment lies entirely within the line path, so splice points
-        from dragIndex to targetIndex.
-        */
-        isReversed = self.splice(startIndex, endIndex)
-      } else {
-        /*
-        Segment spans the start point of a closed loop, so
-        trim the ends of the line back to dragIndex and targetIndex.
-        */
-        isReversed = self.trim(startIndex, endIndex)
-      }
-
-      self.drawActions.push({
-        type: 'splice-end',
-        points: [{ 0: targetPoint.x, 1: targetPoint.y }],
-        pointIndex: endIndex,
-        isReversed: isReversed,
-      });
-    },
-
-    revertEdits() {
-      self.dragPoint = null
-      self.targetPoint = null
-      self.cancelClipPath()
-    },
-
-    setClipPath(points = []) {
-      self.clipPath = points
+      self.drawActions = []
+      self.redoActions = []
     },
 
     setDragPoint(point) {
-      if (point === null) {
-        self.dragPoint = null;
-      } else {
-        let foundPoint = self.selectPoint(point);
-        self.dragPoint = foundPoint;
-        self.originalPath = self.points.map(({ x, y }) => ({ x, y }))
-        self.drawActions.push({
-          type: 'splice-start',
-          points: [{ 0: foundPoint.x, 1: foundPoint.y }],
-          pointIndex: -1,
-          isReversed: false,
-        });
+      self.dragPoint = point
+    },
+
+    setClosePoint(point) {
+      self.closePoint = point
+    },
+
+    setScale(scale) {
+      self.scale = scale
+    },
+
+    setLineResolution(lineResolution) {
+      self.lineResolution = lineResolution
+    },
+
+    setMinimumPoints(minimumPoints) {
+      self.minimumPoints = minimumPoints
+    },
+
+    setUndoActionPointThreshold(undoActionPointThreshold) {
+      self.undoActionPointThreshold = undoActionPointThreshold
+    },
+
+    initialPosition(event) {
+      self.initialize([{ x: event.x, y: event.y }])
+      self.appendPathStart()
+    },
+
+    initialDrag(point) {
+      self.appendPath(point)
+    },
+
+    appendPathStart() {
+      self.isDragging = true
+
+      self.drawActions.push({
+        type: (self.spliceActive) ? 'splice-append' : 'append',
+        pointIndexDrag: self.spliceDragPointIndex,
+        pointIndexClose: self.spliceClosePointIndex,
+        pointsFromDrag: [],
+        pointsFromClose: [],
+        pointsSpliceCount: 0,
+        isReversed: self.spliceReverse,
+        throughBeginning: self.spliceThroughBeginning
+      });
+
+      // Helps with where to set the dragPoint
+      if (self.spliceActive && self.splicePoints.length == 0) {
+        self.splicePoints = [self.points[self.spliceDragPointIndex]]
+      }
+
+      self.redoActionsClear()
+    },
+
+    appendPath({ x, y }) {
+      if (!self.isDragging) return
+
+      const pathPoints = (self.spliceActive)
+        ? self.splicePoints
+        : self.points
+      const newPoint = { x: x, y: y }
+
+      if (self.pointDistance(newPoint, pathPoints.at(-1)) < self.lineResolution) {
+        return
+      }
+
+      pathPoints.push(newPoint)
+
+      // Create new undo-able action 
+      if (self.drawActions.at(-1).pointsFromDrag.length > self.undoActionPointThreshold) {
+        self.appendPathStart()
+      }
+
+      self.drawActions.at(-1).pointsFromDrag.push(newPoint);
+      self.setDragPoint(newPoint)
+
+      if (self.isCloseToStart && (self.spliceActive || (!self.spliceActive && self.points.length > self.minimumPoints))) {
+        self.isDragging = false
+        self.closePath()
       }
     },
 
-    setTargetPoint(point) {
-      self.targetPoint = point ? self.selectPoint(point) : null
+    appendPathEnd() {
+      self.isDragging = false
+      if (self.drawActions.at(-1).pointsFromDrag.length == 0) {
+        self.drawActions.pop();
+      }
+    },
+
+    closePath() {
+      if (!self.spliceActive) {
+        self.drawActions.push({
+          type: 'end',
+          pointIndexDrag: -1,
+          pointIndexClose: -1,
+          pointsFromDrag: [
+            {
+              x: self.points.at(0).x,
+              y: self.points.at(0).y
+            }
+          ],
+          pointsFromClose: [],
+          pointsSpliceCount: 0,
+          isReversed: false,
+          throughBeginning: false
+        });
+        self.points.push(self.points.at(0))
+        self.setDragPoint(null)
+        self.setClosePoint(null)
+        self.pathIsClosed = true
+      } else {
+        let spliceEndAction = self.closeSplice()
+        self.drawActions.push(spliceEndAction);
+      }
+    },
+
+    closeSplice() {
+      // remove our splice starting point 
+      self.splicePoints.shift()
+
+      let closeSpliceAction = {
+        type: 'splice-end',
+        pointIndexDrag: self.spliceDragPointIndex,
+        pointIndexClose: self.spliceClosePointIndex,
+        pointsFromDrag: [],
+        pointsFromClose: [],
+        pointsSpliceCount: self.splicePoints.length,
+        isReversed: self.spliceReverse,
+        throughBeginning: self.spliceThroughBeginning,
+      }
+
+      let startIndex = (self.spliceReverse)
+        ? self.spliceClosePointIndex
+        : self.spliceDragPointIndex
+      let endIndex = (self.spliceReverse)
+        ? self.spliceDragPointIndex
+        : self.spliceClosePointIndex
+
+      // we don't want to remove the start index but everything in between
+      startIndex++;
+
+      if (self.spliceThroughBeginning) {
+        // When we remove our spliced points we start the path at the lowest-indexed end
+        if (self.spliceReverse) self.splicePoints = self.splicePoints.reverse()
+        self.splicePoints.push(self.points.at(endIndex))
+
+        for (let i = startIndex; i < self.points.length; i++) {
+          closeSpliceAction.pointsFromClose.push(self.points.at(i))
+        }
+        for (let i = 0; i < endIndex; i++) {
+          closeSpliceAction.pointsFromDrag.push(self.points.at(i))
+        }
+
+        self.points.splice(startIndex, self.points.length - startIndex)
+        self.points.splice(0, endIndex)
+        self.points.splice(self.points.length, 0, ...self.splicePoints)
+      } else {
+        for (var i = startIndex; i < endIndex; i++) {
+          closeSpliceAction.pointsFromDrag.push(self.points[i]);
+        }
+
+        if (self.spliceReverse) {
+          self.splicePoints = self.splicePoints.reverse()
+        }
+
+        self.points.splice(startIndex, endIndex - startIndex, ...self.splicePoints)
+      }
+
+      self.spliceReset()
+      self.setDragPoint(self.pathIsClosed ? null : self.points.at(-1))
+      self.setClosePoint(self.pathIsClosed ? null : self.points.at(0))
+
+      return closeSpliceAction;
     },
 
     undo() {
       if (self.drawActions.length == 0) return;
-      
-      let action = toJS(self.drawActions[self.drawActions.length -1]);
+      let action = toJS(self.drawActions.at(-1));
 
       if (action.type == 'start') {
         self.drawActions.pop();
         self.tool.deleteMark(self);
-      } else if(action.type == 'end') {
-        self.pathX.pop();
-        self.pathY.pop();
+      } else if (action.type == 'end') {
+        self.points.pop();
+        self.setDragPoint(self.points.at(-1))
+        self.setClosePoint(self.points.at(0))
         self.drawActions.pop()
       } else if (action.type == 'append') {
-        let indexStart = self.pathX.length - action.points.length;
-        self.pathX.splice(indexStart, action.points.length);
-        self.pathY.splice(indexStart, action.points.length);
+        let indexStart = self.points.length - action.pointsFromDrag.length;
+        self.points.splice(indexStart, action.pointsFromDrag.length);
+        self.setDragPoint(self.points.at(-1))
         self.drawActions.pop()
-      } else if (action.type == 'splice-start') {
-        self.dragPoint = null;
+      } else if (action.type == 'splice-drag-point') {
+        self.spliceDragPointIndex = null
+        self.setDragPoint((self.pathIsClosed) ? null : self.points.at(-1))
+        self.setClosePoint((self.pathIsClosed) ? null : self.points.at(0))
         self.drawActions.pop()
-      } else if (action.type == 'splice-end') {
-        self.targetPoint = null;
-        self.clipPath = [];
-        if (action.isReversed) {
-          self.pathX.reverse()
-          self.pathY.reverse()
-        }
-        self.setCoordinates(self.originalPath)
+      } else if (action.type == 'splice-close-point') {
+        self.splicePoints.length = 0
+        self.setClosePoint(null)
+        self.spliceReverse = false
+        self.spliceThroughBeginning = false
+        self.spliceActive = false
+        self.spliceClosePointIndex = null
         self.drawActions.pop()
       } else if (action.type == 'splice-append') {
-        self.pathX.splice(action.pointIndex + 1, action.points.length);
-        self.pathY.splice(action.pointIndex + 1, action.points.length);
-        self.dragPoint = self.points[action.pointIndex];
+        let indexStart = self.splicePoints.length - action.pointsFromDrag.length;
+        self.splicePoints.splice(indexStart, action.pointsFromDrag.length);
+        self.setDragPoint(self.splicePoints.at(-1))
         self.drawActions.pop()
-        self.dragPoint = self.points[action.pointIndex]
+      } else if (action.type == 'splice-end') {
+        if (action.throughBeginning) {
+          let spliceIndex = Math.abs(action.pointIndexDrag - action.pointIndexClose)
+
+          for (let i = spliceIndex; i < self.points.length - 1; i++) {
+            self.splicePoints.push(self.points[i])
+          }
+
+          if (action.isReversed) {
+            self.splicePoints = self.splicePoints.reverse()
+          }
+
+          // we add 1 because we don't splice out either drag/close point
+          self.points.splice(spliceIndex + 1, self.points.length - spliceIndex, ...action.pointsFromClose)
+          self.points.splice(0, 0, ...action.pointsFromDrag)
+        } else {
+          let spliceIndex = (action.isReversed)
+            ? action.pointIndexClose
+            : action.pointIndexDrag
+
+          for (let i = spliceIndex; i <= spliceIndex + action.pointsSpliceCount; i++) {
+            self.splicePoints.push(self.points[i])
+          }
+
+          if (action.isReversed) {
+            self.splicePoints = self.splicePoints.reverse()
+          }
+
+          // we add 1 because we don't splice out either drag/close point
+          self.points.splice(spliceIndex + 1, action.pointsSpliceCount, ...action.pointsFromDrag)
+        }
+        self.spliceActive = true
+        self.spliceReverse = action.isReversed
+        self.spliceThroughBeginning = action.throughBeginning
+        self.spliceDragPointIndex = action.pointIndexDrag
+        self.spliceClosePointIndex = action.pointIndexClose
+
+        self.setDragPoint(self.splicePoints.at(-1))
+        self.setClosePoint(self.points[self.spliceClosePointIndex])
+
+        self.drawActions.pop()
       }
 
       self.redoActions.push(action);
@@ -403,101 +457,161 @@ const FreehandLineModel = types
     redo() {
       if (self.redoActions.length == 0) return;
 
-      let action = toJS(self.redoActions[self.redoActions.length - 1])
-      console.log('action', action)
+      let action = toJS(self.redoActions.at(-1))
 
       if (action.type == 'end') {
-        self.close()
+        self.closePath()
       } else if (action.type == 'append') {
-        let length = self.points.length
-        self.pathX.splice(length, 0, ...action.points.map(pnt => pnt[0]))
-        self.pathY.splice(length, 0, ...action.points.map(pnt => pnt[1]))
+        self.points.splice(self.points.length, 0, ...action.pointsFromDrag)
+        self.setDragPoint(self.points.at(-1))
         self.drawActions.push(action)
-      } else if (action.type == 'splice-start') {
-        let foundPoint = { x: action.points[0][0], y: action.points[0][1] };
-        self.dragPoint = foundPoint;
-        self.originalPath = self.points.map(({ x, y }) => ({ x, y }))
+      } else if (action.type == 'splice-drag-point') {
+        self.spliceDragPointIndex = action.pointIndexDrag
+        self.setDragPoint(self.points[action.pointIndexDrag]);
+        self.setClosePoint(null)
+        self.drawActions.push(action)
+      } else if (action.type == 'splice-close-point') {
+        self.setClosePoint(self.points[action.pointIndexDrag]);
+        self.drawActions.push(action)
+        self.splicePathSetup()
+      } else if (action.type == 'splice-append') {
+        // complement the redo of appendPathStart
+        if (self.splicePoints.length == 0) {
+          self.splicePoints.push(self.dragPoint)
+        }
+
+        self.splicePoints.splice(self.splicePoints.length, 0, ...action.pointsFromDrag)
+        self.setDragPoint(self.splicePoints.at(-1))
         self.drawActions.push(action)
       } else if (action.type == 'splice-end') {
-        let sp = self.drawActions[self.drawActions.length - 1].points[0]
-        let ep = action.points[0]
-        self.cutSegment({ x: sp[0], y: sp[1]}, { x: ep[0], y: ep[1] });
-      } else if (action.type == 'splice-append') {
-        const dragIndex = self.points.indexOf(self.dragPoint)
-        const nextPoint = dragIndex + 1
-        self.pathX.splice(nextPoint, 0, ...action.points.map(pnt => pnt[0]))
-        self.pathY.splice(nextPoint, 0, ...action.points.map(pnt => pnt[1]))
-        self.dragPoint = self.points[nextPoint + action.points.length - 1]
+        self.closeSplice()
         self.drawActions.push(action)
-        if (self.isCloseToStart) {
-          self.clipPath = []
-          self.dragPoint = self.lastPoint
-        }
       }
 
       self.redoActions.pop()
     },
 
-    redoClear() {
+    redoActionsClear() {
       self.redoActions.length = 0;
     },
 
-    splice(startIndex, endIndex) {
-      let firstPoint = Math.min(startIndex, endIndex)
-      let lastPoint = Math.max(startIndex, endIndex)
-      let isReversed = false
-      /*
-        Reverse the path, if necessary, so that the first point clicked
-        is always the draggable point.
-      */
-      if (firstPoint === endIndex) {
-        isReversed = true
-        const lastIndex = self.points.length - 1
-        self.pathX.reverse()
-        self.pathY.reverse()
-        firstPoint = lastIndex - startIndex
-        lastPoint = lastIndex - endIndex
+    splicePathDragPoint(point) {
+      if (self.spliceDragPointIndex) {
+        return;
       }
-      const deleteCount = lastPoint - firstPoint - 1
-      const clippedPoints = self.points.slice(firstPoint, lastPoint + 1)
-      self.clipPath = clippedPoints.map(({ x, y }) => ({ x, y }))
-      self.pathX.splice(firstPoint + 1, deleteCount)
-      self.pathY.splice(firstPoint + 1, deleteCount)
-      // Make the ends of the spliced section draggable.
-      self.dragPoint = self.points[firstPoint]
-      self.targetPoint = self.points[firstPoint + 1]
-      return isReversed
+
+      let closestPointIndex = self.findClosestPathPointIndex(point)
+
+      self.drawActions.push({
+        type: 'splice-drag-point',
+        pointIndexDrag: closestPointIndex,
+        pointIndexClose: -1,
+        pointsFromDrag: [],
+        pointsFromClose: [],
+        pointsSpliceCount: 0,
+        isReversed: false,
+        throughBeginning: false
+      });
+
+      self.spliceDragPointIndex = closestPointIndex
+      self.setDragPoint(self.points.at(closestPointIndex))
+      self.setClosePoint(null)
+      self.redoActionsClear()
     },
 
-    trim(startIndex, endIndex) {
-      let firstPoint = Math.min(startIndex, endIndex)
-      let lastPoint = Math.max(startIndex, endIndex)
-      let isReversed = false
-      /*
-        Reverse the path, if necessary, so that the first point clicked
-        is always at the end of the new line. The end of an open line
-        is the draggable point.
-      */
-      if (lastPoint === endIndex) {
-        isReversed = true
-        const lastIndex = self.points.length - 1
-        self.pathX.reverse()
-        self.pathY.reverse()
-        lastPoint = lastIndex - startIndex
-        firstPoint = lastIndex - endIndex
+    splicePathClosePoint(point) {
+      if (!self.spliceDragPointIndex || self.spliceClosePointIndex) {
+        return;
       }
-      const clippedPoints = [ ...self.points.slice(lastPoint), ...self.points.slice(0, firstPoint + 1)]
-      self.clipPath = clippedPoints.map(({ x, y }) => ({ x, y }))
-      // Move the end of the line back to lastPoint.
-      self.pathX.splice(lastPoint + 1)
-      self.pathY.splice(lastPoint + 1)
-      // Move the start of the line forward to firstPoint.
-      self.pathX.splice(0, firstPoint)
-      self.pathY.splice(0, firstPoint)
-      // Make the ends of the new, open line draggable.
-      self.dragPoint = null
-      self.targetPoint = null
-      return isReversed
+
+      // Four splicing scenarios ALWAYS choosing shortest splicing path
+      // 1) Splice does path through path start going forward
+      // 2) Splice does path through path start going reverse
+      // 3) Splice does not pass through path start going forward
+      // 4) Splice does not pass through path start going reverse 
+      let dragPointIndex = self.spliceDragPointIndex
+      let closePointIndex = self.findClosestPathPointIndex(point)
+      let spliceSpan = Math.abs(closePointIndex - dragPointIndex)
+      let spliceReverse = closePointIndex < dragPointIndex
+      let spliceThroughBeginning = false
+
+      if (spliceSpan > self.points.length / 2) {
+        spliceSpan = Math.abs(dragPointIndex - closePointIndex)
+        spliceReverse = dragPointIndex < closePointIndex
+      }
+
+      if (spliceReverse && dragPointIndex < spliceSpan) {
+        spliceThroughBeginning = true;
+      } else if (!spliceReverse && (dragPointIndex + spliceSpan) > self.points.length) {
+        spliceThroughBeginning = true;
+      }
+
+      self.drawActions.push({
+        type: 'splice-close-point',
+        pointIndexDrag: dragPointIndex,
+        pointIndexClose: closePointIndex,
+        pointsFromDrag: [],
+        pointsFromClose: [],
+        pointsSpliceCount: 0,
+        isReversed: spliceReverse,
+        throughBeginning: spliceThroughBeginning
+      });
+
+      self.splicePathSetup()
+      self.redoActionsClear()
+    },
+
+    splicePathSetup() {
+      // for purposes of undo/redo we use the action to set these properties
+      let action = self.drawActions.at(-1)
+      self.spliceClosePointIndex = action.pointIndexClose
+      self.spliceReverse = action.isReversed
+      self.spliceThroughBeginning = action.throughBeginning
+      self.spliceActive = true
+      self.setClosePoint(self.points[action.pointIndexClose])
+    },
+
+    spliceReset() {
+      self.splicePoints.length = 0
+      self.spliceActive = false
+      self.spliceReverse = false
+      self.spliceThroughBeginning = false
+      self.spliceDragPointIndex = null
+      self.spliceClosePointIndex = null
+    },
+
+    move() {
+      // do nothing... tool required but not used in this context
+    },
+
+    finish({ x, y }) {
+      self.finished = true
+
+      if (self.points.length < self.minimumPoints) {
+        self.drawActions.pop();
+        self.tool.deleteMark(self)
+      }
+    },
+
+    toData() {
+      return {
+        scale: self.scale,
+        points: self.points,
+        dragPoint: self.dragPoint,
+        closePoint: self.closePoint,
+        pathIsClosed: self.pathIsClosed,
+        isDragging: self.isDragging,
+
+        spliceActive: self.spliceActive,
+        spliceReverse: self.spliceReverse,
+        spliceThroughBeginning: self.spliceThroughBeginning,
+        spliceDragPointIndex: self.spliceDragPointIndex,
+        spliceClosePointIndex: self.spliceClosePointIndex,
+        splicePoints: self.splicePoints,
+
+        drawActions: self.drawActions,
+        redoActions: self.redoActions,
+      }
     }
   }))
 

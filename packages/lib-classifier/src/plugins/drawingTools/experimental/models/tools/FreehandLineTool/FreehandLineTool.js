@@ -7,27 +7,25 @@ const FreehandLineTool = types
     marks: types.map(FreehandLine),
     type: types.literal('freehandLine')
   })
-  .actions((self) => {
-    return {
-      createMark(mark, coors) {
-        const newMark = FreehandLine.create(
-          Object.assign({}, mark, { toolType: self.type })
-        )
-        newMark.initialize(coors);
-        self.marks.put(newMark)
-		
-        return newMark
-      },
+  .actions((self) => ({
+    createMark(mark, points) {
+      const newMark = FreehandLine.create(
+        Object.assign({}, mark, { toolType: self.type })
+      )
 
-      handlePointerMove(event, mark) {
-        //mark.initialDrag(event)
-      },
+      newMark.initialize(points);
+      self.marks.put(newMark)
 
-      handlePointerUp(event, mark) {
-		console.log('handlePointerUp()')
-        mark.finish(event)
-      }
+      return newMark
+    },
+
+    handlePointerMove(event, mark) {
+      mark.initialDrag({ x: event.x, y: event.y })
+    },
+
+    handlePointerUp(event, mark) {
+      mark.finish(event)
     }
-  })
+  }))
 
 export default types.compose('FreehandLineTool', Tool, FreehandLineTool)

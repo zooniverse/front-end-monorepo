@@ -66,9 +66,9 @@ const LineControls = forwardRef(function LineControls(
     Z`;
 
   const C = `M ${position.get(activePosition).x-innerRadius} ${position.get(activePosition).y}
-  A ${innerRadius} ${innerRadius} 0 0 0 ${position.get(activePosition).x+innerRadius} ${position.get(activePosition).y}
-  A ${innerRadius} ${innerRadius} 0 0 0 ${position.get(activePosition).x-innerRadius} ${position.get(activePosition).y}
-  Z`;
+    A ${innerRadius} ${innerRadius} 0 0 0 ${position.get(activePosition).x+innerRadius} ${position.get(activePosition).y}
+    A ${innerRadius} ${innerRadius} 0 0 0 ${position.get(activePosition).x-innerRadius} ${position.get(activePosition).y}
+    Z`;
 
   function move(e) {
     if (activePosition == 'tl') {

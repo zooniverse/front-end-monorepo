@@ -90,30 +90,6 @@ function InteractionLayer({
     return svgEventOffset
   }
 
-  // Get the Subject's Caesar Reductions for FreehandLine Tool
-  useEffect(() => {
-    SubjectReductions({
-      workflowId: subject?.workflow.id,
-      subjectId: subject?.id,
-      cb: (data) => {
-        if (data) {
-          const coors = data[0].data.points.map(val => {
-            return { x: val[0], y: val[1] };
-          });
-
-          const mark = activeTool.createMark({
-            id: cuid(),
-            frame: 0,
-            toolIndex: 0,
-          }, coors)
-
-          setActiveMark(mark)
-          setCreating(true)
-        }
-      }
-    })
-  }, []);
-
   function createMark(event) {
     // TODO: add case for played = undefined
     const timeStamp = getFixedNumber(played, 5)
@@ -158,7 +134,6 @@ function InteractionLayer({
   }
 
   function onPointerMove(event) {
-    console.log('pointerMove()', event.pointerId)
     cancelEvent(event)
     if (creating) {
       activeTool?.handlePointerMove?.(convertEvent(event), activeMark)

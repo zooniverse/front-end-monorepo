@@ -73,7 +73,6 @@ function draggable(WrappedComponent) {
     }
 
     dragMove(event) {
-		console.log('event', event.currentTarget)
       const { coords, dragging, pointerId } = this.state
       if (dragging && event.pointerId === pointerId) {
         const { x, y } = this.convertEvent(event)
