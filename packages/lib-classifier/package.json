@@ -24,7 +24,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@babel/runtime": "~7.20.6",
+    "@babel/runtime": "~7.21.0",
     "@sentry/browser": "~7.38.0",
     "@visx/axis": "~2.18.0",
     "@visx/event": "~3.0.0",
