@@ -3,6 +3,7 @@ import TranscriptionReductions from '@store/subjects/Subject/TranscriptionReduct
 
 export default function setupMock () {
   const transcriptionReductions = TranscriptionReductions.create({
+    reducer: 'alice',
     reductions: reducedASMSubject.workflow.subject_reductions,
     subjectId: '1',
     workflowId: '2'

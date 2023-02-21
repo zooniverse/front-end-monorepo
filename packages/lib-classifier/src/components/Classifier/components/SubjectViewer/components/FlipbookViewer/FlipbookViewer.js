@@ -13,6 +13,7 @@ import FlipbookControls from './components'
 const FlipbookViewer = ({
   defaultFrame = 0,
   enableRotation = () => true,
+  flipbookAutoplay = false,
   invert = false,
   move,
   onError = () => true,
@@ -67,6 +68,13 @@ const FlipbookViewer = ({
     },
     [error, loading]
   )
+
+  useEffect(() => {
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (!reducedMotionQuery.matches && flipbookAutoplay) {
+      setPlaying(true)
+    }
+  }, [])
 
   const onPlayPause = () => {
     setPlaying(!playing)
@@ -139,6 +147,8 @@ FlipbookViewer.propTypes = {
   defaultFrame: PropTypes.number,
   /** Function passed from Subject Viewer Store */
   enableRotation: PropTypes.func,
+  /** Fetched from workflow configuration. Determines whether to autoplay the loop on viewer load */
+  flipbookAutoplay: PropTypes.bool,
   /** Passed from Subject Viewer Store */
   invert: PropTypes.bool,
   /** Passed from Subject Viewer Store */

@@ -4,10 +4,10 @@ import cuid from 'cuid'
 
 const DEFAULT_CONSENSUS_THRESHOLD = 3
 const DEFAULT_VIEWS_TO_RETIRE = 5
-const REDUCER_KEY = 'alice'
 
 const TranscriptionReductions = types
   .model('TranscriptionReductions', {
+    reducer: types.literal('alice'),
     error: types.maybeNull(types.frozen({})),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
     reductions: types.array(types.frozen({})),
