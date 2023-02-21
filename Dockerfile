@@ -46,7 +46,7 @@ RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.
 RUN echo $COMMIT_ID > /usr/src/packages/app-project/public/commit_id.txt
 RUN --mount=type=cache,id=fem-builder-yarn,uid=1000,gid=1000,target=/home/node/.yarn YARN_CACHE_FOLDER=/home/node/.yarn yarn workspace @zooniverse/fe-project build
 
-FROM node:16-alpine as runner
+FROM node:18-alpine as runner
 
 ARG COMMIT_ID
 ENV COMMIT_ID=$COMMIT_ID
