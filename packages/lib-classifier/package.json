@@ -59,7 +59,7 @@
     "styled-components": "~5.x.x"
   },
   "devDependencies": {
-    "@babel/cli": "~7.20.7",
+    "@babel/cli": "~7.21.0",
     "@babel/core": "~7.20.2",
     "@babel/plugin-proposal-logical-assignment-operators": "~7.20.7",
     "@babel/plugin-transform-runtime": "~7.19.1",
