@@ -2,8 +2,9 @@ import DefaultLayout from '../../components/DefaultLayout'
 import MaxWidth from '../../components/MaxWidth'
 
 const layoutsMap = {
-  default: DefaultLayout,
-  maxWidth: MaxWidth
+  default: MaxWidth,
+  maxWidth: MaxWidth,
+  noMaxWidth: DefaultLayout
 }
 
 function getLayout (layout) {

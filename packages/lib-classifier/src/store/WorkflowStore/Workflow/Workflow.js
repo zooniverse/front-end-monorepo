@@ -58,7 +58,10 @@ const Workflow = types
 
     get layout() {
       if (self.usesTranscriptionTask) {
-        return 'default'
+        return 'noMaxWidth'
+      }
+      if (self.configuration.layout) {
+        return self.configuration.layout
       }
       return 'maxWidth'
     },
