@@ -14,28 +14,52 @@ const StyledBox = styled(Box)`
   position: relative;
 `
 
-const DataImageViewer = forwardRef(function DataImageViewer(props, ref) {
+const CHART_MARGINS = {
+  bottom: 50,
+  left: 70,
+  right: 10,
+  top: 30
+}
+
+const JSON_DATA = {
+  data: [],
+  chartOptions: {
+    xAxisLabel: '',
+    yAxisLabel: ''
+  }
+}
+
+const DEFAULT_HANDLER = () => true
+
+const DEFAULT_THEME = {
+  dark: false,
+  global: {
+    colors: {}
+  }
+}
+const DataImageViewer = forwardRef(function DataImageViewer({
+  allowPanZoom = '',
+  enableRotation = DEFAULT_HANDLER,
+  imageLocation = null,
+  JSONData = JSON_DATA,
+  loadingState,
+  move = false,
+  parentWidth,
+  resetView = DEFAULT_HANDLER,
+  rotation = 0,
+  setAllowPanZoom = DEFAULT_HANDLER,
+  setOnPan = DEFAULT_HANDLER,
+  setOnZoom = DEFAULT_HANDLER,
+  theme = DEFAULT_THEME,
+  zoomConfiguration
+}, ref) {
   const {
-    allowPanZoom,
-    enableRotation,
-    imageLocation,
-    JSONData,
-    loadingState,
-    move,
-    parentWidth,
-    resetView,
-    rotation,
-    setAllowPanZoom,
-    setOnPan,
-    setOnZoom,
-    theme: {
-      dark,
-      global: {
-        colors
-      }
-    },
-    zoomConfiguration
-  } = props
+    dark,
+    global: {
+      colors = {}
+    }
+  } = theme
+  const { chartOptions } = JSONData
   const zoomEnabled = {
     image: allowPanZoom === 'image',
     scatterPlot: allowPanZoom === 'scatterPlot'
@@ -80,16 +104,12 @@ const DataImageViewer = forwardRef(function DataImageViewer(props, ref) {
       >
         <ScatterPlotViewer
           data={data}
-          margin={{
-            bottom: 50,
-            left: 70,
-            right: 10,
-            top: 30
-          }}
+          invertAxes={chartOptions?.invertAxes}
+          margin={CHART_MARGINS}
           setOnPan={setOnPan}
           setOnZoom={setOnZoom}
-          xAxisLabel={JSONData.chartOptions?.xAxisLabel}
-          yAxisLabel={JSONData.chartOptions?.yAxisLabel}
+          xAxisLabel={chartOptions?.xAxisLabel}
+          yAxisLabel={chartOptions?.yAxisLabel}
           yAxisLabelOffset={50}
           zoomConfiguration={zoomConfiguration}
           zoomControlFn={(zoomEnabled.scatterPlot) ? () => setAllowPanZoom('') : () => setAllowPanZoom('scatterPlot')}
@@ -123,31 +143,7 @@ const DataImageViewer = forwardRef(function DataImageViewer(props, ref) {
   )
 })
 
-DataImageViewer.defaultProps = {
-  allowPanZoom: '',
-  enableRotation: () =>  {},
-  imageLocation: null,
-  JSONData: {
-    data: [],
-    chartOptions: {
-      xAxisLabel: '',
-      yAxisLabel: ''
-    }
-  },
-  move: false,
-  resetView: () => {},
-  rotation: 0,
-  setAllowPanZoom: () => {},
-  setOnPan: () => {},
-  setOnZoom: () => {},
-  theme: {
-    dark: false,
-    global: {
-      colors: {},
-      font: {}
-    }
-  },
-}
+
 
 DataImageViewer.propTypes = {
   allowPanZoom: PropTypes.string,

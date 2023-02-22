@@ -25,6 +25,15 @@ const subject = Factory.build('subject', {
   ]
 })
 
+const lasairSubject = Factory.build('subject', {
+  locations: [
+    {
+      'application/json': 'https://panoptes-uploads.zooniverse.org/subject_location/718e46ec-c752-436f-9bb6-b6fdf6ba7bc7.json'
+    },
+    { 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/67b54e54-8ca9-4cb7-a4fb-2417b5bfc82a.jpeg' }
+  ]
+})
+
 const mockStore = {
   classifications: {
     active: {
@@ -44,10 +53,14 @@ const mockStore = {
   }
 }
 
-function ViewerContext (props) {
-  const { children, theme, mode } = props
+function ViewerContext ({
+  children,
+  mode,
+  store = mockStore,
+  theme
+}) {
   return (
-    <Provider classifierStore={mockStore}>
+    <Provider classifierStore={store}>
       <Grommet
         background={{
           dark: 'dark-1',
@@ -66,7 +79,8 @@ const { colors } = zooTheme.global
 
 export default {
   title: 'Subject Viewers / DataImageViewer',
-  component: DataImageViewer
+  component: DataImageViewer,
+  parameters: config
 }
 
 export function LightTheme() {
@@ -79,11 +93,6 @@ export function LightTheme() {
       </Box>
     </ViewerContext>
   )
-}
-
-LightTheme.story = {
-  name: 'light theme',
-  parameters: config,
 }
 
 export function DarkTheme() {
@@ -99,15 +108,12 @@ export function DarkTheme() {
   )
 }
 
-DarkTheme.story = {
-  name: 'dark theme',
-  parameters: {
-    backgrounds: backgrounds.darkDefault,
-    viewport: {
-      defaultViewport: 'responsive'
-    },
-    ...config
-  }
+DarkTheme.parameters = {
+  backgrounds: backgrounds.darkDefault,
+  viewport: {
+    defaultViewport: 'responsive'
+  },
+  ...config
 }
 
 export function NarrowView() {
@@ -122,14 +128,11 @@ export function NarrowView() {
   )
 }
 
-NarrowView.story = {
-  name: 'narrow view',
-  parameters: {
-    viewport: {
-      defaultViewport: 'iphone5'
-    },
-    ...config
-  }
+NarrowView.parameters = {
+  viewport: {
+    defaultViewport: 'iphone5'
+  },
+  ...config
 }
 
 export function PanZoom() {
@@ -144,8 +147,24 @@ export function PanZoom() {
     </ViewerContext>
   )
 }
+PanZoom.storyName = 'Pan / Zoom'
 
-PanZoom.story = {
-  name: 'pan / zoom',
-  parameters: config
+export function InvertYAxis() {
+  const lasairMock = {
+    ...mockStore,
+    subjects: {
+      active: lasairSubject
+    }
+  }
+
+  return (
+    <ViewerContext mode='light' store={lasairMock} theme={zooTheme}>
+      <Box direction='row' width='large'>
+        <DataImageViewer
+          loadingState={asyncStates.success}
+        />
+        <ImageToolbar width='4rem' />
+      </Box>
+    </ViewerContext>
+  )
 }
