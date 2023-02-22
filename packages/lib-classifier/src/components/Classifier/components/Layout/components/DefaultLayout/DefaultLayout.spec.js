@@ -3,7 +3,7 @@ import { composeStory } from '@storybook/testing-react'
 
 import Meta, { Default, mockTask } from './DefaultLayout.stories.js'
 
-describe('Component > DefaultLayout', function () {
+describe('Component > Layouts > DefaultLayout', function () {
   const DefaultStory = composeStory(Default, Meta)
 
   it('should render a subject and a task', function () {

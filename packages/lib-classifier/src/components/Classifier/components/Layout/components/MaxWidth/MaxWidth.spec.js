@@ -1,19 +1,14 @@
-import { render } from '@testing-library/react'
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
-import { Provider } from 'mobx-react'
+import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/testing-react'
 
-import mockStore from '@test/mockStore'
-import MaxWidth from './MaxWidth'
+import Meta, { Default, mockTask } from './MaxWidth.stories.js'
 
-describe('Component > MaxWidth', function () {
-  it('should render without crashing', function () {
-    render(
-      <Grommet theme={zooTheme}>
-        <Provider classifierStore={mockStore()}>
-          <MaxWidth />
-        </Provider>
-      </Grommet>
-    )
+describe('Component > Layouts > MaxWidth', function () {
+  const DefaultStory = composeStory(Default, Meta)
+
+  it('should render a subject and a task', function () {
+    render(<DefaultStory />)
+    expect(screen.getByLabelText('Subject 1')).exists() // img aria-label from SVGImage
+    expect(screen.getByText(mockTask.init.strings.question)).exists() // task question paragraph
   })
 })
