@@ -46,6 +46,7 @@ class ResizeObserver {
 
 window.ResizeObserver = ResizeObserver
 window.scrollTo = () => true
+window.matchMedia = () => { return { matches: false } }
 
 global.fetch = fetch
 global.window = window

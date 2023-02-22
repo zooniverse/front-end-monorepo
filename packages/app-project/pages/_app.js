@@ -11,7 +11,7 @@ import getCookie from '@helpers/getCookie'
 import GrommetWrapper from '@helpers/GrommetWrapper'
 import Head from '@components/Head'
 import { initializeLogger, logToSentry } from '@helpers/logger'
-import { usePanoptesUser, useUserFavourites } from '@hooks'
+import { usePanoptesUser, useSugarProject, useUserFavourites } from '@hooks'
 import { MediaContextProvider } from '@shared/components/Media'
 import initStore from '@stores'
 
@@ -47,6 +47,7 @@ function MyApp({ Component, pageProps }) {
   const user = usePanoptesUser(userKey)
   const project = store.project
   const favourites = useUserFavourites({ user, project })
+  useSugarProject(project)
 
   useEffect( function onUserChange() {
     if (user?.id) {
