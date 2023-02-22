@@ -1,13 +1,13 @@
 import asyncStates from '@zooniverse/async-states'
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import withKeyZoom from '@components/Classifier/components/withKeyZoom'
 import { withStores } from '@helpers'
+import { useSubjectImage } from '@hooks'
 
 import locationValidator from '../../helpers/locationValidator'
-import useSubjectImage, { PLACEHOLDER_URL } from '../SingleImageViewer/hooks/useSubjectImage'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
 import SVGImage from '../SVGComponents/SVGImage'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
@@ -68,24 +68,14 @@ function MultiFrameViewerContainer({
   setOnZoom = () => true,
   subject
 }) {
-  const subjectImage = useRef()
   const [dragMove, setDragMove] = useState()
   // TODO: replace this with a better function to parse the image location from a subject.
   const imageUrl = subject ? Object.values(subject.locations[frame])[0] : null
-  const { img, error, loading } = useSubjectImage(imageUrl)
-  // default to a placeholder while image is loading.
-  const { naturalHeight, naturalWidth, src } = img
-
-  useEffect(function onImageLoad() {
-    if (src !== PLACEHOLDER_URL) {
-      const svgImage = subjectImage.current
-      const { width: clientWidth, height: clientHeight } = svgImage
-        ? svgImage.getBoundingClientRect()
-        : {}
-      const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
-      onReady({ target })
-    }
-  }, [src])
+  const { img, error, loading, subjectImage } = useSubjectImage({
+    src: imageUrl,
+    onReady,
+    onError
+  })
 
   useEffect(function onMount() {
     enableRotation()
@@ -94,13 +84,6 @@ function MultiFrameViewerContainer({
   useEffect(function onFrameChange() {
     activeTool?.validate()
   }, [frame])
-
-  useEffect(function logError() {
-    if (!loading && error) {
-      console.error(error)
-      onError(error)
-    }
-  }, [error, loading])
 
   function setOnDrag(callback) {
     setDragMove(() => callback)
@@ -135,28 +118,28 @@ function MultiFrameViewerContainer({
           img={subjectImage.current}
           maxZoom={5}
           minZoom={0.1}
-          naturalHeight={naturalHeight}
-          naturalWidth={naturalWidth}
+          naturalHeight={img.naturalHeight}
+          naturalWidth={img.naturalWidth}
           setOnDrag={setOnDrag}
           setOnPan={setOnPan}
           setOnZoom={setOnZoom}
-          src={src}
+          src={img.src}
         >
           <SingleImageViewer
             enableInteractionLayer={enableDrawing}
-            height={naturalHeight}
+            height={img.naturalHeight}
             onKeyDown={onKeyDown}
             rotate={rotation}
-            width={naturalWidth}
+            width={img.naturalWidth}
           >
             <g ref={subjectImage}>
               <SVGImage
                 invert={invert}
                 move={move}
-                naturalHeight={naturalHeight}
-                naturalWidth={naturalWidth}
+                naturalHeight={img.naturalHeight}
+                naturalWidth={img.naturalWidth}
                 onDrag={onDrag}
-                src={src}
+                src={img.src}
                 subjectID={subjectID}
               />
             </g>

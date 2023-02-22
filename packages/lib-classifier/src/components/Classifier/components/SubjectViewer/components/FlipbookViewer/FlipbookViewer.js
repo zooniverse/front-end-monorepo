@@ -1,48 +1,50 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 
 import locationValidator from '../../helpers/locationValidator'
-import { PLACEHOLDER_URL } from '../SingleImageViewer/hooks/useSubjectImage'
+import { useSubjectImage } from '@hooks'
 
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer.js'
 import SVGImage from '../SVGComponents/SVGImage'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import FlipbookControls from './components'
 
+const DEFAULT_HANDLER = () => true
+
 const FlipbookViewer = ({
   defaultFrame = 0,
-  defaultFrameSrc = '',
-  enableRotation = () => true,
+  enableRotation = DEFAULT_HANDLER,
   flipbookAutoplay = false,
   invert = false,
   move,
-  naturalHeight = 600,
-  naturalWidth = 800,
-  onKeyDown = () => true,
-  onReady = () => true,
+  onError = DEFAULT_HANDLER,
+  onKeyDown = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
   playIterations,
   rotation,
-  setOnPan = () => true,
-  setOnZoom = () => true,
+  setOnPan = DEFAULT_HANDLER,
+  setOnZoom = DEFAULT_HANDLER,
   subject
 }) => {
-  const subjectImage = useRef()
   const [currentFrame, setCurrentFrame] = useState(defaultFrame)
   const [playing, setPlaying] = useState(false)
   const [dragMove, setDragMove] = useState()
+  /** This initializes an image element from the subject's defaultFrame src url.
+   * We do this so the SVGPanZoom has dimensions of the subject image.
+   * We're assuming all frames in one subject have the same dimensions. */
+  const defaultFrameUrl = subject ? Object.values(subject.locations[defaultFrame])[0] : null
+  const { img, error, loading, subjectImage } = useSubjectImage({
+    src: defaultFrameUrl,
+    onReady,
+    onError
+  })
 
   const viewerSrc = subject?.locations ? Object.values(subject.locations[currentFrame])[0] : ''
 
   useEffect(() => {
-    const svgImage = subjectImage?.current
-    if (svgImage && defaultFrameSrc !== PLACEHOLDER_URL) {
-      const { width: clientWidth, height: clientHeight } = svgImage.getBoundingClientRect()
-      const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
-      onReady({ target })
-      enableRotation()
-    }
-  }, [defaultFrameSrc])
+    enableRotation()
+  }, [img.src])
 
   useEffect(() => {
     const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -78,26 +80,26 @@ const FlipbookViewer = ({
         img={subjectImage.current}
         maxZoom={5}
         minZoom={0.1}
-        naturalHeight={naturalHeight}
-        naturalWidth={naturalWidth}
+        naturalHeight={img.naturalHeight}
+        naturalWidth={img.naturalWidth}
         setOnDrag={setOnDrag}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}
-        src={defaultFrameSrc}
+        src={img.src}
       >
         <SingleImageViewer
           enableInteractionLayer={false}
-          height={naturalHeight}
+          height={img.naturalHeight}
           onKeyDown={handleSpaceBar}
           rotate={rotation}
-          width={naturalWidth}
+          width={img.naturalWidth}
         >
           <g ref={subjectImage} role='tabpanel' id='flipbook-tab-panel'>
             <SVGImage
               invert={invert}
               move={move}
-              naturalHeight={naturalHeight}
-              naturalWidth={naturalWidth}
+              naturalHeight={img.naturalHeight}
+              naturalWidth={img.naturalWidth}
               onDrag={onDrag}
               src={viewerSrc}
               subjectID={subject.id}
