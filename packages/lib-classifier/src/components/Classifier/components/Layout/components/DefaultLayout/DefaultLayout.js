@@ -13,10 +13,10 @@ import TaskArea from '@components/Classifier/components/TaskArea'
 const ContainerGrid = styled(Grid)`
   position: relative;
 
-  // proportional 9/5 subject/task sizing up to a maximum task width of 25.333rem.
-  @media screen and (min-width: 769px) and (max-width: 70.666rem) {
+  // proportional 45/25 subject/task sizing up to a maximum subject/task width of 45rem/25rem.
+  @media screen and (min-width: 769px) and (max-width: 70rem) {
     grid-gap: 1.75rem;
-    grid-template-columns: 45.333fr 25.333fr;
+    grid-template-columns: 45fr 25fr;
   }
 `
 
@@ -70,7 +70,7 @@ export default function DefaultLayout({ className = '' }) {
     areas: [
       ['viewer', 'task']
     ],
-    columns: ['auto', '25.333rem'],
+    columns: ['auto', '25rem'],
     gap: 'medium'
   }
   const containerGridProps = size === 'small' ? verticalLayout : horizontalLayout
