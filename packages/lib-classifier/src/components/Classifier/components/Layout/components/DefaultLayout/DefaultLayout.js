@@ -48,6 +48,7 @@ export function ViewerGrid({ children }) {
       columns={['auto', 'clamp(3rem, 10%, 4.5rem)']}
       gridArea='viewer'
       height='fit-content'
+      rows={['auto']}
     >
       {children}
     </Grid>
@@ -71,7 +72,8 @@ export default function DefaultLayout({ className = '' }) {
       ['viewer', 'task']
     ],
     columns: ['auto', '25rem'],
-    gap: 'medium'
+    gap: 'medium',
+    rows: ['auto']
   }
   const containerGridProps = size === 'small' ? verticalLayout : horizontalLayout
 

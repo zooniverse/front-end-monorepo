@@ -48,6 +48,7 @@ export function ViewerGrid({ children }) {
       columns={['auto', 'clamp(3rem, 10%, 4.5rem)']}
       gridArea='viewer'
       height='fit-content'
+      rows={['auto']}
     >
       {children}
     </Grid>
@@ -72,7 +73,8 @@ export default function MaxWidth({ className = '' }) {
     ],
     columns: ['minmax(auto,100rem)', '25rem'],
     gap: 'medium',
-    margin: 'auto'
+    margin: 'auto',
+    rows: ['auto']
   }
   const containerGridProps = size === 'small' ? verticalLayout : horizontalLayout
 
