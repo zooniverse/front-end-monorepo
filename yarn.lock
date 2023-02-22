@@ -1362,10 +1362,10 @@
   resolved "https://registry.yarnpkg.com/@graphql-typed-document-node/core/-/core-3.1.1.tgz#076d78ce99822258cf813ecc1e7fa460fa74d052"
   integrity sha512-NQ17ii0rK1b34VZonlmT2QMJFI70m0TRwbknO/ihlbatXyaktDhN/98vBiUU6kNBPljqGqyIrl2T4nY2RpFANg==
 
-"@grpc/grpc-js@^1.8.4":
-  version "1.8.8"
-  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.8.8.tgz#a7c6765d0302f47ba67c0ce3cb79718d6b028248"
-  integrity sha512-4gfDqMLXTrorvYTKA1jL22zLvVwiHJ73t6Re1OHwdCFRjdGTDOVtSJuaWhtHaivyeDGg0LeCkmU77MTKoV3wPA==
+"@grpc/grpc-js@^1.8.7":
+  version "1.8.10"
+  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.8.10.tgz#1802adf1d7eaa31acb0e5cafe5989d75fcc892a5"
+  integrity sha512-x7QS+gJq8WaS1OJYFJkmeoX2PHhi3b5TR5TqR9a8NJv6VyedFecp3LgAUmuJSQZlwoAODpCKRtu4HzG1srNjiA==
   dependencies:
     "@grpc/proto-loader" "^0.7.0"
     "@types/node" ">=12.12.47"
@@ -12310,11 +12310,11 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0:
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 newrelic@^9.0.0, newrelic@~9.10.0:
-  version "9.10.1"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-9.10.1.tgz#bccf243e0f01da2121569e25c0c39010dc82135b"
-  integrity sha512-G23/RlcdkgApBCQJXvRIt7bgW4KgR8mQLE+sndAT9ooIYsrxw7+9iVJzm6WE4sc3o41SIIjZ1OlVo6pUCLxIZQ==
+  version "9.10.2"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-9.10.2.tgz#0105a1117ed69b1d6def2f37e99f163f281e5aba"
+  integrity sha512-kVRLwlT3/TK1B/zWAHaaJngubPeEEOhKyGXhBTrOjhQ8X44Trz/XsndlgyY30FtvM3upxCSDuOdbqOHd7DOEVg==
   dependencies:
-    "@grpc/grpc-js" "^1.8.4"
+    "@grpc/grpc-js" "^1.8.7"
     "@grpc/proto-loader" "^0.7.4"
     "@newrelic/aws-sdk" "^5.0.2"
     "@newrelic/koa" "^7.1.1"
