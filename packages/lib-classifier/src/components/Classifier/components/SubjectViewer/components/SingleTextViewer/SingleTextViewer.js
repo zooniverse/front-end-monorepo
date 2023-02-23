@@ -5,10 +5,12 @@ import PropTypes from 'prop-types'
 The Single Text Viewer is a variant of the Subject Viewer that's used to display text media.
 The `content` is defined by a subject's text mime type location.
 The `height` is defined in the ImageAndTextViewerContainer as the clientHeight per the Subject Viewer store dimensions. The Subject Viewer store dimensions are defined by the dimensions of the subject image location and image viewer.
+The `subjectId` is defined by the subject ID.
 ```
 <SingleTextViewer
   content={content}
   height={height}
+  subjectId={subjectId}
 />
 ```
 */
@@ -20,11 +22,11 @@ function SingleTextViewer ({
 }) {
   return (
     <Box
-      a11yTitle={`Subject ${subjectId} text`}
+      aria-label={`Subject ${subjectId} text`}
+      as='section'
       flex='grow'
       height={{ min: height }}
       pad='xsmall'
-      role='document'
       tabIndex='0'
     >
       <pre
