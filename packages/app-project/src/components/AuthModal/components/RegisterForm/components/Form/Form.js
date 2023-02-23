@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import { Anchor, Box, Button, CheckBox, Grid, Text, FormField, TextInput } from 'grommet'
 import styled from 'styled-components'
-import Link from 'next/link'
 import FieldLabel from '../../../../shared/components/FieldLabel'
 import { withCustomFormik } from '@zooniverse/react-components'
 import { useTranslation } from 'next-i18next'
@@ -20,9 +19,7 @@ export const underageWithParentFieldId = 'RegisterForm_underage_with_parent'
 const PrivacyPolicyLink = () => {
   const { t } = useTranslation('components')
   return (
-    <Link href='/privacy' passHref>
-      <Anchor size='small'>{t('AuthModal.RegisterForm.privacyLink')}</Anchor>
-    </Link>
+    <Anchor href='/privacy' size='small'>{t('AuthModal.RegisterForm.privacyLink')}</Anchor>
   )
 }
 
