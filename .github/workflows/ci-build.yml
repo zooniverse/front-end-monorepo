@@ -13,10 +13,10 @@ jobs:
       PANOPTES_ENV: production
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 16
+      - name: Use Node.js 18
         uses: actions/setup-node@v3
         with:
-         node-version: 'lts/gallium'
+         node-version: 'lts/hydrogen'
          cache: 'yarn'
 
       - run: yarn install --production=false --frozen-lockfile
@@ -35,10 +35,10 @@ jobs:
       CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 16
+      - name: Use Node.js 18
         uses: actions/setup-node@v3
         with:
-         node-version: 'lts/gallium'
+         node-version: 'lts/hydrogen'
          cache: 'yarn'
 
       - run: yarn install --production=false --frozen-lockfile
@@ -51,10 +51,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 16
+      - name: Use Node.js 18
         uses: actions/setup-node@v3
         with:
-         node-version: 'lts/gallium'
+         node-version: 'lts/hydrogen'
          cache: 'yarn'
 
       - run: yarn install --production=false --frozen-lockfile

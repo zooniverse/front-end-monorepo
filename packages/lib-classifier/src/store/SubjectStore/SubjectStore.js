@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/browser'
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
 import { addDisposer, addMiddleware, flow, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
@@ -173,6 +174,9 @@ const SubjectStore = types
             // subject metadata in the API response are strings, not numbers.
             const priority = metadataPriority ? parseFloat(metadataPriority) : -1
             const lastPriority = self.last?.priority || -1
+            if (priority === -1) {
+              throw new Error(`Subject ${subject.id}: missing priority field for prioritised workflow.`)
+            }
             notSeen = priority > lastPriority
           }
           if (notSeen && !alreadyStored) {
@@ -180,6 +184,7 @@ const SubjectStore = types
             self.queue.push(subject.id)
           }
         } catch (error) {
+          Sentry.captureException(error)
           console.error(`Subject ${subject.id} is not a valid subject.`)
           console.error(error)
         }
