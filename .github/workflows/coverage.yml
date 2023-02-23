@@ -15,10 +15,10 @@ jobs:
       PANOPTES_ENV: test
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 16
+      - name: Use Node.js 18
         uses: actions/setup-node@v3
         with:
-          node-version: 'lts/gallium'
+          node-version: 'lts/hydrogen'
           cache: 'yarn'
 
       - run: yarn install --production=false --frozen-lockfile

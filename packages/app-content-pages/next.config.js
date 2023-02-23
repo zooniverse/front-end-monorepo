@@ -5,12 +5,7 @@ const Dotenv = require('dotenv-webpack')
 const path = require('path')
 const withSourceMaps = require('@zeit/next-source-maps')()
 
-const assetPrefixes = {
-  development: '/about',
-  branch: 'https://fe-project-branch.preview.zooniverse.org/about',
-  static: 'https://fe-static.zooniverse.org/about',
-  production: 'https://fe-content-pages.zooniverse.org/about/'
-}
+const assetPrefixes = {}
 
 function commitID () {
   try {

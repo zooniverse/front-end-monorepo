@@ -4,10 +4,10 @@ import cuid from 'cuid'
 
 const DEFAULT_CONSENSUS_THRESHOLD = 3
 const DEFAULT_VIEWS_TO_RETIRE = 5
-const REDUCER_KEY = 'alice'
 
 const TranscriptionReductions = types
   .model('TranscriptionReductions', {
+    reducer: types.literal('alice'),
     error: types.maybeNull(types.frozen({})),
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
     reductions: types.array(types.frozen({})),
@@ -80,38 +80,7 @@ const TranscriptionReductions = types
   })
 
   .actions(self => {
-    return {
-      afterAttach () {
-        if (self.reductions.length === 0) {
-          self.fetchCaesarReductions()
-        }
-      },
-
-      fetchCaesarReductions: flow(function * fetchCaesarReductions () {
-        const { subjectId, workflowId } = self
-        const caesarClient  = getEnv(self)?.client?.caesar
-        self.loadingState = asyncStates.loading
-        try {
-          const query = `{
-            workflow(id: ${workflowId}) {
-              subject_reductions(subjectId: ${subjectId}, reducerKey:"${REDUCER_KEY}")
-              {
-                data
-              }
-            }
-          }`
-          const response = yield caesarClient?.request(query.replace(/\s+/g, ' '))
-
-          self.reductions = response?.workflow?.subject_reductions
-          self.loadingState = asyncStates.success
-        } catch (error) {
-          console.error(error)
-          self.error = error
-          self.loadingState = asyncStates.error
-          self.reductions = []
-        }
-      })
-    }
+    return {}
   })
 
 export default TranscriptionReductions
