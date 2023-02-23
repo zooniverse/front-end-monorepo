@@ -2,29 +2,14 @@ import { useEffect, useState } from 'react'
 
 import SHOWN_MARKS from '@helpers/shownMarks'
 import { useStores } from '@hooks'
-
-async function fetchReductions(caesarClient, subjectID, workflow) {
-  const query = `{
-    workflow(id: ${workflow.id}) {
-      subject_reductions(subjectId: ${subjectID}, reducerKey:"${workflow.caesarReducer}")
-      {
-        data
-      }
-    }
-  }`
-  const response = await caesarClient.request(query.replace(/\s+/g, ' '))
-  return response?.workflow?.subject_reductions
-}
+import { useCaesarReductions } from './'
 
 export default function useTranscriptionReductions() {
-  const [loaded, setLoaded] = useState(false)
-
   const {
-    client: {
-      caesar
-    },
     subjects: {
-      active: subject
+      active: {
+        stepHistory
+      }
     },
     subjectViewer: {
       frame
@@ -38,26 +23,10 @@ export default function useTranscriptionReductions() {
     }
   } = useStores()
 
-  useEffect(function onSubjectChange() {
-    async function updateReductions(caesarClient, subject, workflow) {
-      const reductions = await fetchReductions(caesarClient, subject.id, workflow)
-      subject.setCaesarReductions({
-        reducer: workflow.caesarReducer,
-        subjectId: subject.id,
-        workflowId: workflow.id,
-        reductions
-      })
-      setLoaded(true)
-    }
+  const { loaded, caesarReductions } = useCaesarReductions(workflow.caesarReducer)
 
-    if (subject?.id && workflow?.caesarReducer) {
-      setLoaded(false)
-      updateReductions(caesar, subject, workflow)
-    }
-  }, [caesar, subject, workflow])
-
-  const lines = subject?.caesarReductions?.consensusLines(frame)
-  const activeStepAnnotations = subject?.stepHistory.latest.annotations
+  const lines = caesarReductions?.consensusLines(frame)
+  const activeStepAnnotations = stepHistory?.latest.annotations
 
   // We expect there to only be one
   const [task] = findTasksByType('transcription')
