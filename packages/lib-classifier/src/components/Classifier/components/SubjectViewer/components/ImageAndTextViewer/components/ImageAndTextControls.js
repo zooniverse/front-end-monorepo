@@ -60,9 +60,9 @@ const ImageAndTextControls = ({
 }) => {
   const { t } = useTranslation('components')
   
-  /** DefaultLayout for classify page styling has breakpoints at 700px and 1160px
+  /** DefaultLayout for classify page styling has breakpoints at 768px and 1160px
    * In ImageAndTextControls we're simply checking for when this component is < 450px
-   * which happens both before and after the 700px layout breakpoint
+   * which happens both before and after the 768px layout breakpoint
    */
   const [smallScreenStyle, setSmallScreenStyle] = useState(false)
   const controlsContainer = useRef(null)
