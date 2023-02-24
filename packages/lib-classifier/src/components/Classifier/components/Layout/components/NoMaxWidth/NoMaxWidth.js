@@ -55,7 +55,7 @@ export function ViewerGrid({ children }) {
   )
 }
 
-export default function DefaultLayout({ className = '' }) {
+export default function NoMaxWidth({ className = '' }) {
   const size = useContext(ResponsiveContext)
   const verticalLayout = {
     areas: [

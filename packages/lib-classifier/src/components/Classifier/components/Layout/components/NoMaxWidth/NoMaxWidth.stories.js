@@ -4,11 +4,11 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 
-import DefaultLayout from './DefaultLayout'
+import NoMaxWidth from './NoMaxWidthLayout'
 
 export default {
-  title: 'Layouts / Default Layout',
-  component: DefaultLayout,
+  title: 'Layouts / No Max Width',
+  component: NoMaxWidth,
   excludeStories: ['mockTask'],
   args: {
     dark: false
@@ -67,7 +67,7 @@ export function Default({ dark }) {
       themeMode={dark ? 'dark' : 'light'}
     >
       <Provider classifierStore={Default.store}>
-        <DefaultLayout />
+        <NoMaxWidth />
       </Provider>
     </Grommet>
   )

@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/testing-react'
 
-import Meta, { Default, mockTask } from './DefaultLayout.stories.js'
+import Meta, { Default, mockTask } from './NoMaxWidth.stories.js'
 
-describe('Component > Layouts > DefaultLayout', function () {
+describe('Component > Layouts > NoMaxWidth', function () {
   const DefaultStory = composeStory(Default, Meta)
 
   it('should render a subject and a task', function () {
