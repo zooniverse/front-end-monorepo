@@ -4,7 +4,7 @@ import { NoMaxWidth, MaxWidth } from '../../components'
 
 describe('Helpers > getLayout', function () {
   it('should return the `MaxWidth` component if passed `maxWidth`', function () {
-    expect(getLayout('default')).to.equal(MaxWidth)
+    expect(getLayout('maxWidth')).to.equal(MaxWidth)
   })
 
   it('should return the `NoMaxWidth` component if passed `noMaxWidth`', function () {
