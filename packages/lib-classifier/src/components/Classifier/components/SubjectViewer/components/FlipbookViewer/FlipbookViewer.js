@@ -122,8 +122,6 @@ const FlipbookViewer = ({
 FlipbookViewer.propTypes = {
   /** Fetched from metadata.default_frame or initialized to zero */
   defaultFrame: PropTypes.number,
-  /** Either placeholder.src or the subject image src */
-  defaultFrameSrc: PropTypes.string,
   /** Function passed from Subject Viewer Store */
   enableRotation: PropTypes.func,
   /** Fetched from workflow configuration. Determines whether to autoplay the loop on viewer load */
@@ -132,10 +130,6 @@ FlipbookViewer.propTypes = {
   invert: PropTypes.bool,
   /** Passed from Subject Viewer Store */
   move: PropTypes.bool,
-  /** Height of subject image */
-  naturalHeight: PropTypes.number,
-  /** Width of subject image */
-  naturalWidth: PropTypes.number,
   /** withKeyZoom in for using keyboard pan and zoom controls while focused on the subject image */
   onKeyDown: PropTypes.func,
   /** Passed from Subject Viewer Store and called when default frame's src is loaded */
