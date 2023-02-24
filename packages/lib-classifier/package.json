@@ -43,7 +43,7 @@
     "i18next": "~22.4.3",
     "lodash": "~4.17.11",
     "mobx-utils": "~6.0.4",
-    "react-i18next": "~12.1.0",
+    "react-i18next": "~12.2.0",
     "react-player": "~2.11.0",
     "swr": "~2.0.0",
     "valid-url": "~1.0.9"

@@ -1362,10 +1362,10 @@
   resolved "https://registry.yarnpkg.com/@graphql-typed-document-node/core/-/core-3.1.1.tgz#076d78ce99822258cf813ecc1e7fa460fa74d052"
   integrity sha512-NQ17ii0rK1b34VZonlmT2QMJFI70m0TRwbknO/ihlbatXyaktDhN/98vBiUU6kNBPljqGqyIrl2T4nY2RpFANg==
 
-"@grpc/grpc-js@^1.8.4":
-  version "1.8.8"
-  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.8.8.tgz#a7c6765d0302f47ba67c0ce3cb79718d6b028248"
-  integrity sha512-4gfDqMLXTrorvYTKA1jL22zLvVwiHJ73t6Re1OHwdCFRjdGTDOVtSJuaWhtHaivyeDGg0LeCkmU77MTKoV3wPA==
+"@grpc/grpc-js@^1.8.7":
+  version "1.8.10"
+  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.8.10.tgz#1802adf1d7eaa31acb0e5cafe5989d75fcc892a5"
+  integrity sha512-x7QS+gJq8WaS1OJYFJkmeoX2PHhi3b5TR5TqR9a8NJv6VyedFecp3LgAUmuJSQZlwoAODpCKRtu4HzG1srNjiA==
   dependencies:
     "@grpc/proto-loader" "^0.7.0"
     "@types/node" ">=12.12.47"
@@ -12310,11 +12310,11 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0:
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 newrelic@^9.0.0, newrelic@~9.10.0:
-  version "9.10.1"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-9.10.1.tgz#bccf243e0f01da2121569e25c0c39010dc82135b"
-  integrity sha512-G23/RlcdkgApBCQJXvRIt7bgW4KgR8mQLE+sndAT9ooIYsrxw7+9iVJzm6WE4sc3o41SIIjZ1OlVo6pUCLxIZQ==
+  version "9.10.2"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-9.10.2.tgz#0105a1117ed69b1d6def2f37e99f163f281e5aba"
+  integrity sha512-kVRLwlT3/TK1B/zWAHaaJngubPeEEOhKyGXhBTrOjhQ8X44Trz/XsndlgyY30FtvM3upxCSDuOdbqOHd7DOEVg==
   dependencies:
-    "@grpc/grpc-js" "^1.8.4"
+    "@grpc/grpc-js" "^1.8.7"
     "@grpc/proto-loader" "^0.7.4"
     "@newrelic/aws-sdk" "^5.0.2"
     "@newrelic/koa" "^7.1.1"
@@ -13262,9 +13262,9 @@ pako@~1.0.5:
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
 panoptes-client@~5.2.0:
-  version "5.2.2"
-  resolved "https://registry.yarnpkg.com/panoptes-client/-/panoptes-client-5.2.2.tgz#6277ed52596e4560107dc8318549346782733d7b"
-  integrity sha512-49T+7g/2rCBxT4cGSSLD7ZU4TQtrUZXSyceM3QbeJWVtseNX5YGbfUgUb/WQjOMY1uC/KVL0SzDqiFppYGUVpw==
+  version "5.2.3"
+  resolved "https://registry.yarnpkg.com/panoptes-client/-/panoptes-client-5.2.3.tgz#8277212aeb1b1ee70834c328612c379352b4b0ff"
+  integrity sha512-hzIcwz1wwm1AbPOLMeWQkLHx0XKlG1Ijxroeapd2/wM9iWyfG8zI72oiAVRDyK8BlgpZVnUC2ozXim4VCTjRnQ==
   dependencies:
     local-storage "^2.0.0"
     normalizeurl "~1.0.0"
@@ -14250,10 +14250,10 @@ react-fast-compare@^3.0.1:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.0.tgz#641a9da81b6a6320f270e89724fb45a0b39e43bb"
   integrity sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
 
-react-i18next@~12.1.0:
-  version "12.1.5"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-12.1.5.tgz#b65f5733dd2f96188a9359c009b7dbe27443f009"
-  integrity sha512-7PQAv6DA0TcStG96fle+8RfTwxVbHVlZZJPoEszwUNvDuWpGldJmNWa3ZPesEsZQZGF6GkzwvEh6p57qpFD2gQ==
+react-i18next@~12.2.0:
+  version "12.2.0"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-12.2.0.tgz#010e3f6070b8d700442947233352ebe4b252d7a1"
+  integrity sha512-5XeVgSygaGfyFmDd2WcXvINRw2WEC1XviW1LXY/xLOEMzsCFRwKqfnHN+hUjla8ZipbVJR27GCMSuTr0BhBBBQ==
   dependencies:
     "@babel/runtime" "^7.20.6"
     html-parse-stringify "^3.0.1"
