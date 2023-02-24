@@ -4,7 +4,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 
-import NoMaxWidth from './NoMaxWidthLayout'
+import NoMaxWidth from './NoMaxWidth'
 
 export default {
   title: 'Layouts / No Max Width',
