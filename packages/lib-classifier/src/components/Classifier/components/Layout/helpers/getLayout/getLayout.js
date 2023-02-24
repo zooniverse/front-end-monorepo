@@ -1,4 +1,4 @@
-import { MaxWidth. NoMaxWidth } from '../../components/'
+import { MaxWidth, NoMaxWidth } from '../../components/'
 
 const layoutsMap = {
   default: MaxWidth,
