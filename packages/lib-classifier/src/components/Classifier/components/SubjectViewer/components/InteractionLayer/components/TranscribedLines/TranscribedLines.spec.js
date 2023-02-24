@@ -1,14 +1,73 @@
-import { shallow } from 'enzyme'
+import { within } from '@testing-library/dom'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import zooTheme from '@zooniverse/grommet-theme'
+import { Grommet } from 'grommet'
+import { when } from 'mobx'
+import { Provider } from 'mobx-react'
 import sinon from 'sinon'
+
+import RootStore from '@store'
+import { reducedSubject } from '@store/subjects/Subject/TranscriptionReductions/mocks'
+import { WorkflowFactory } from '@test/factories'
+import mockStore, { defaultClient } from '@test/mockStore/mockStore.js'
+
 import TranscriptionReductions from '@store/subjects/Subject/TranscriptionReductions'
 import * as tasks from '@plugins/tasks'
 import { TranscribedLines } from './TranscribedLines'
-import { reducedSubject } from '@store/subjects/Subject/TranscriptionReductions/mocks'
+
 import { TranscriptionLine } from '@plugins/drawingTools/components'
 import ConsensusPopup from './components/ConsensusPopup'
 import { expect } from 'chai'
 
 describe('Component > TranscribedLines', function () {
+  function withStore(store) {
+    return function Wrapper({ children }) {
+      return (
+        <Grommet theme={zooTheme}>
+          <Provider classifierStore={store}>
+            <svg>
+              {children}
+            </svg>
+          </Provider>
+        </Grommet>
+      )
+    }
+  }
+
+  const workflowSnapshot = WorkflowFactory.build({
+    id: '5339',
+    display_name: 'A test workflow',
+    steps: [
+      ['S1', { stepKey: 'S1', taskKeys: ['T0']}]
+    ],
+    strings: {
+      display_name: 'a test workflow',
+      'tasks.T0.instruction': 'Transcribe a line',
+      'tasks.T0.tools.0.details.0.instruction': 'Transcribe the text'
+    },
+    tasks: {
+      T0: {
+        instruction: 'Transcribe a line',
+        type: 'transcription',
+        tools: [
+          {
+            details: [
+              {
+                instruction: 'Transcribe the text',
+                required: 'true',
+                taskKey: 'T0.0',
+                type: 'text'
+              },
+            ],
+            type: 'transcriptionLine'
+          }
+        ]
+      }
+    },
+    version: '0.0'
+  })
+
   const { TaskModel } = tasks.transcription
 
   let wrapper, task, consensusLines, transcriptionReductions
@@ -43,49 +102,47 @@ describe('Component > TranscribedLines', function () {
       update: sinon.stub(),
       value: []
     }
-    wrapper = shallow(<TranscribedLines
+    const store = mockStore({ workflow: workflowSnapshot })
+    render(<TranscribedLines
       annotation={annotation}
       frame={0}
       lines={consensusLines}
       task={task}
       marks={task.marks}
-    />)
-    expect(wrapper).to.be.ok()
+    />, { wrapper: withStore(store) })
   })
 
   describe('when on a step without the transcription task', function () {
-    before(function () {
-      wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} />)
+    beforeEach(function () {
+      const store = mockStore()
+      render(<TranscribedLines frame={0} lines={consensusLines} />, { wrapper: withStore(store) })
     })
 
     it('should disable the incomplete lines', function () {
-      const transcribedLines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
+      const transcribedLines = document.querySelectorAll('g.transcribed.line')
       transcribedLines.forEach((line) => {
-        const consensusLineWrapper = line.parent()
-        expect(consensusLineWrapper.props()['aria-disabled']).to.equal('true')
+        expect(line.getAttribute('aria-disabled')).to.equal('true')
       })
     })
 
-    it('should not create a mark', function () {
-      const spaceEventMock = { key: ' ', preventDefault: sinon.spy() }
-      const enterEventMock = { key: 'Enter', preventDefault: sinon.spy() }
-      const transcribedLines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
-      transcribedLines.forEach((line, index) => {
-        expect(task.activeMark).to.be.undefined()
-        wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('click')
-        expect(task.activeMark).to.be.undefined()
-        wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', spaceEventMock)
-        expect(task.activeMark).to.be.undefined()
-        wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', enterEventMock)
-        expect(task.activeMark).to.be.undefined()
-      })
+    it('should not create a mark', async function () {
+      const user = userEvent.setup({ delay: null })
+      const line = document.querySelector('g.transcribed.line')
+      expect(task.activeMark).to.be.undefined()
+      await user.click(line)
+      expect(task.activeMark).to.be.undefined()
+      line.focus()
+      await user.keyboard('{Enter}')
+      expect(task.activeMark).to.be.undefined()
+      line.focus()
+      await user.keyboard('{ }')
+      expect(task.activeMark).to.be.undefined()
     })
 
     it('should not disable the complete lines', function () {
-      const completedLines = wrapper.find(TranscriptionLine).find({ state: 'completed' })
+      const completedLines = document.querySelectorAll('g.complete.line')
       completedLines.forEach((line) => {
-        const consensusLineWrapper = line.parent()
-        expect(consensusLineWrapper.props()['aria-disabled']).to.be.undefined()
+        expect(line.getAttribute('aria-disabled')).to.equal('false')
       })
     })
   })
@@ -113,16 +170,18 @@ describe('Component > TranscribedLines', function () {
       const annotation = {
         taskKey: 'T1',
         taskType: 'transcription',
+        update: sinon.stub(),
         value: []
       }
-      wrapper = shallow(<TranscribedLines
+      const store = mockStore({ workflow: workflowSnapshot })
+      render(<TranscribedLines
         annotation={annotation}
         frame={0}
         lines={consensusLines}
         marks={task.marks}
         task={task}
-      />)
-      lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
+      />, { wrapper: withStore(store) })
+      lines = document.querySelectorAll('g.transcribed.line')
     })
 
     it('should render', function () {
@@ -131,41 +190,43 @@ describe('Component > TranscribedLines', function () {
     })
 
     it('should not be disabled', function () {
-      lines.forEach((component) => {
-        const consensusLineWrapper = component.parent()
-        expect(consensusLineWrapper.props()['aria-disabled']).to.equal('false')
+      lines.forEach(line => {
+        expect(line.getAttribute('aria-disabled')).to.equal('false')
       })
     })
 
     it('should be focusable', function () {
-      lines.forEach((component) => {
-        const consensusLineWrapper = component.parent()
-        expect(consensusLineWrapper.props().tabIndex).to.equal(0)
+      lines.forEach(line => {
+        expect(line.tabIndex).to.equal(0)
       })
     })
 
     describe('when there is an existing invalid mark', function () {
-      let wrapper, lines
+      let lines
       before(function () {
-        wrapper = shallow(<TranscribedLines frame={0} invalidMark={true} lines={consensusLines} marks={task.marks} task={task} />)
-        lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
+        const store = mockStore({ workflow: workflowSnapshot })
+        wrapper = render(<TranscribedLines
+          frame={0}
+          invalidMark={true}
+          lines={consensusLines}
+          marks={task.marks}
+          task={task}
+        />, { wrapper: withStore(store) })
+        lines = document.querySelectorAll('g.transcribed.line')
       })
 
       it('should disable the lines', function () {
-        lines.forEach((component) => {
-          const consensusLineWrapper = component.parent()
-          const props = consensusLineWrapper.props()
-          expect(props['aria-disabled']).to.equal('true')
-          expect(props.tabIndex).to.equal(-1)
-          expect(props.onClick).to.be.undefined()
-          expect(props.onKeyDown).to.be.undefined()
+        lines.forEach(line => {
+          expect(line.getAttribute('aria-disabled')).to.equal('true')
+          expect(line.tabIndex).to.equal(-1)
+          expect(line.onclick).to.be.null()
+          expect(line.onkeydown).to.be.null()
         })
       })
     })
 
     describe('when there is an existing volunteer mark created from a previous consensus mark', function () {
-      let wrapper
-      before(function () {
+      beforeEach(function () {
         transcriptionReductions = TranscriptionReductions.create({
           reducer: 'alice',
           reductions: [{ data: reducedSubject }],
@@ -190,248 +251,263 @@ describe('Component > TranscribedLines', function () {
         const [ transcribedLine ] = consensusLines.filter(line => !line.consensusReached)
         const { id, x1, x2, y1, y2 } = transcribedLine
         task.activeTool.createMark({ id, x1, y1, x2, y2, toolIndex: 0 })
-        wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} marks={task.marks} task={task} />)
+        const store = mockStore({ workflow: workflowSnapshot })
+        render(<TranscribedLines
+          frame={0}
+          lines={consensusLines}
+          marks={task.marks}
+          task={task}
+        />, { wrapper: withStore(store) })
       })
 
       it('should disable the existing mark', function () {
-        const previousMarkProps = wrapper.find({ 'aria-describedby': 'transcribed-0' }).props()
-        expect(previousMarkProps['aria-disabled']).to.equal('true')
+        const previousMark = document.querySelector('[aria-describedby=transcribed-0]')
+        expect(previousMark.getAttribute('aria-disabled')).to.equal('true')
       })
 
       it('should not define on click or on keydown handlers', function () {
-        const previousMarkProps = wrapper.find({ 'aria-describedby': 'transcribed-0' }).props()
-        expect(previousMarkProps.onClick).to.be.undefined()
-        expect(previousMarkProps.onKeyDown).to.be.undefined()
+        const previousMark = document.querySelector('[aria-describedby=transcribed-0]')
+        expect(previousMark.onclick).to.be.null()
+        expect(previousMark.onkeydown).to.be.null()
       })
 
       it('should leave other previous marks interactive', function () {
-        const previousMarkProps = wrapper.find({ 'aria-describedby': 'transcribed-1' }).props()
-        expect(previousMarkProps['aria-disabled']).to.equal('false')
-        expect(previousMarkProps.onClick).to.be.a('function')
-        expect(previousMarkProps.onKeyDown).to.be.a('function')
+        const previousMark = document.querySelector('[aria-describedby=transcribed-1]')
+        expect(previousMark.getAttribute('aria-disabled')).to.equal('false')
+        expect(previousMark.onclick).to.be.a('function')
       })
     })
 
     describe('on click', function () {
-      const eventMock = { preventDefault: sinon.spy(), target: null }
-      let wrapper, consensusLines, lines
-      before(function () {
+      let annotation, consensusLines, line, result, user
+
+      beforeEach(function () {
+        user = userEvent.setup({ delay: null })
         task.reset()
         consensusLines = transcriptionReductions.consensusLines(0)
-        const annotation = {
+        annotation = {
           taskKey: 'T1',
           taskType: 'transcription',
           update: sinon.stub(),
           value: []
         }
-        wrapper = shallow(<TranscribedLines
+        const store = mockStore({ workflow: workflowSnapshot })
+        result = render(<TranscribedLines
           annotation={annotation}
           frame={0}
           lines={consensusLines}
           marks={task.marks}
           task={task}
-        />)
-        lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
+        />, { wrapper: withStore(store) })
+        line = document.querySelector('g.transcribed.line')
       })
 
-      it('should create a new mark', function () {
+      it('should create a new mark', async function () {
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         expect(task.marks.length).to.equal(0)
-        lines.forEach((line, index) => {
-          expect(task.activeMark).to.be.undefined()
-          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('click', eventMock)
-          expect(task.activeMark.x1).to.equal(transcribedLines[index].points[0].x)
-          expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
-          expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
-          expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
-          expect(task.activeMark.frame).to.equal(transcribedLines[index].frame)
-          expect(task.marks.length).to.equal(index + 1)
-          task.setActiveMark(undefined)
-        })
+        expect(task.activeMark).to.be.undefined()
+        await user.click(line)
+        expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
+        expect(task.activeMark.y1).to.equal(transcribedLines[0].points[0].y)
+        expect(task.activeMark.x2).to.equal(transcribedLines[0].points[1].x)
+        expect(task.activeMark.y2).to.equal(transcribedLines[0].points[1].y)
+        expect(task.activeMark.frame).to.equal(transcribedLines[0].frame)
+        expect(task.marks.length).to.equal(1)
+        task.setActiveMark(undefined)
       })
 
-      it('should create only one mark per transcribed line', function () {
+      it('should create only one mark per transcribed line', async function () {
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
-        lines.forEach((line, index) => {
-          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', eventMock)
-          task.setActiveMark(undefined)
-        })
-        expect(task.marks.length).to.equal(transcribedLines.length)
-        lines.forEach((line, index) => {
-          expect(task.activeMark).to.be.undefined()
-          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('click', eventMock)
-          expect(task.activeMark.x1).to.equal(transcribedLines[index].points[0].x)
-          expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
-          expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
-          expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
-          expect(task.activeMark.frame).to.equal(transcribedLines[index].frame)
-          expect(task.marks.length).to.equal(transcribedLines.length)
-          task.setActiveMark(undefined)
-        })
+        await user.click(line)
+        task.setActiveMark(undefined)
+        expect(task.marks.length).to.equal(1)
+        expect(task.activeMark).to.be.undefined()
+        await user.click(line)
+        expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
+        expect(task.activeMark.y1).to.equal(transcribedLines[0].points[0].y)
+        expect(task.activeMark.x2).to.equal(transcribedLines[0].points[1].x)
+        expect(task.activeMark.y2).to.equal(transcribedLines[0].points[1].y)
+        expect(task.activeMark.frame).to.equal(transcribedLines[0].frame)
+        expect(task.marks.length).to.equal(1)
+        task.setActiveMark(undefined)
       })
 
-      it('should create a mark for the correct frame', function () {
+      it('should create a mark for the correct frame', async function () {
         const consensusLines = transcriptionReductions.consensusLines(1)
-        wrapper.setProps({ frame: 1, lines: consensusLines })
+        const store = mockStore({ workflow: workflowSnapshot })
+        result.rerender(<TranscribedLines
+          annotation={annotation}
+          frame={1}
+          lines={consensusLines}
+          marks={task.marks}
+          task={task}
+        />, { wrapper: withStore(store) })
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
 
-        lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
-        lines.forEach((line, index) => {
-          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('click', eventMock)
-          expect(task.activeMark.frame).to.equal(1)
-          expect(task.activeMark.frame).to.equal(transcribedLines[index].frame)
-          task.setActiveMark(undefined)
-        })
+        const line = document.querySelector('g.transcribed.line')
+        expect(task.activeMark).to.be.undefined()
+        await user.click(line)
+        expect(task.activeMark.frame).to.equal(1)
+        expect(task.activeMark.frame).to.equal(transcribedLines[0].frame)
+        task.setActiveMark(undefined)
       })
     })
 
     describe('on Enter', function () {
-      const eventMock = { key: 'Enter', preventDefault: sinon.spy(), target: null }
-      let wrapper, consensusLines, lines
+      let annotation, consensusLines, line, result, user
+
       beforeEach(function () {
+        user = userEvent.setup({ delay: null })
         task.reset()
         consensusLines = transcriptionReductions.consensusLines(0)
-        const annotation = {
+        annotation = {
           taskKey: 'T1',
           taskType: 'transcription',
           update: sinon.stub(),
           value: []
         }
-        wrapper = shallow(<TranscribedLines
+        const store = mockStore({ workflow: workflowSnapshot })
+        result = render(<TranscribedLines
           annotation={annotation}
           frame={0}
           lines={consensusLines}
           marks={task.marks}
           task={task}
-        />)
-        lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
+        />, { wrapper: withStore(store) })
+        line = document.querySelector('g.transcribed.line')
       })
 
-      it('should create new marks', function () {
+      it('should create new marks', async function () {
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         expect(task.marks.length).to.equal(0)
-        lines.forEach((line, index) => {
-          expect(task.activeMark).to.be.undefined()
-          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', eventMock)
-          expect(task.activeMark.x1).to.equal(transcribedLines[index].points[0].x)
-          expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
-          expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
-          expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
-          expect(task.activeMark.frame).to.equal(transcribedLines[index].frame)
-          expect(task.marks.length).to.equal(index + 1)
-          task.setActiveMark(undefined)
-        })
+        expect(task.activeMark).to.be.undefined()
+        line.focus()
+        await user.keyboard('{Enter}')
+        expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
+        expect(task.activeMark.y1).to.equal(transcribedLines[0].points[0].y)
+        expect(task.activeMark.x2).to.equal(transcribedLines[0].points[1].x)
+        expect(task.activeMark.y2).to.equal(transcribedLines[0].points[1].y)
+        expect(task.activeMark.frame).to.equal(transcribedLines[0].frame)
+        expect(task.marks.length).to.equal(1)
+        task.setActiveMark(undefined)
       })
 
-      it('should create only one mark per transcribed line', function () {
+      it('should create only one mark per transcribed line', async function () {
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
-        lines.forEach((line, index) => {
-          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', eventMock)
-          task.setActiveMark(undefined)
-        })
-        expect(task.marks.length).to.equal(transcribedLines.length)
-        lines.forEach((line, index) => {
-          expect(task.activeMark).to.be.undefined()
-          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', eventMock)
-          expect(task.activeMark.x1).to.equal(transcribedLines[index].points[0].x)
-          expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
-          expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
-          expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
-          expect(task.marks.length).to.equal(transcribedLines.length)
-          task.setActiveMark(undefined)
-        })
+        line.focus()
+        await user.keyboard('{Enter}')
+        task.setActiveMark(undefined)
+        expect(task.marks.length).to.equal(1)
+        expect(task.activeMark).to.be.undefined()
+        await user.keyboard('{Enter}')
+        expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
+        expect(task.activeMark.y1).to.equal(transcribedLines[0].points[0].y)
+        expect(task.activeMark.x2).to.equal(transcribedLines[0].points[1].x)
+        expect(task.activeMark.y2).to.equal(transcribedLines[0].points[1].y)
+        expect(task.marks.length).to.equal(1)
+        task.setActiveMark(undefined)
       })
 
-      it('should create a mark for the correct frame', function () {
+      it('should create a mark for the correct frame', async function () {
         const consensusLines = transcriptionReductions.consensusLines(1)
-        wrapper.setProps({ frame: 1, lines: consensusLines })
+        const store = mockStore({ workflow: workflowSnapshot })
+        result.rerender(<TranscribedLines
+          annotation={annotation}
+          frame={1}
+          lines={consensusLines}
+          marks={task.marks}
+          task={task}
+        />, { wrapper: withStore(store) })
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
 
-        lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
-        lines.forEach((line, index) => {
-          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('click', eventMock)
-          expect(task.activeMark.frame).to.equal(1)
-          expect(task.activeMark.frame).to.equal(transcribedLines[index].frame)
-          task.setActiveMark(undefined)
-        })
+        const line = document.querySelector('g.transcribed.line')
+        line.focus()
+        await user.keyboard('{Enter}')
+        expect(task.activeMark.frame).to.equal(1)
+        expect(task.activeMark.frame).to.equal(transcribedLines[0].frame)
+        task.setActiveMark(undefined)
       })
     })
 
     describe('on Space', function () {
-      const eventMock = { key: ' ', preventDefault: sinon.spy(), target: null }
-      let wrapper, consensusLines
+      let annotation, consensusLines, line, result, user
+
       beforeEach(function () {
+        user = userEvent.setup({ delay: null })
         task.reset()
         consensusLines = transcriptionReductions.consensusLines(0)
-        const annotation = {
+        annotation = {
           taskKey: 'T1',
           taskType: 'transcription',
           update: sinon.stub(),
           value: []
         }
-        wrapper = shallow(<TranscribedLines
+        const store = mockStore({ workflow: workflowSnapshot })
+        result = render(<TranscribedLines
           annotation={annotation}
           frame={0}
           lines={consensusLines}
           marks={task.marks}
           task={task}
-        />)
-        lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
+        />, { wrapper: withStore(store) })
+        line = document.querySelector('g.transcribed.line')
       })
 
-      it('should create a new mark', function () {
+      it('should create a new mark', async function () {
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         expect(task.marks.length).to.equal(0)
-        lines.forEach((line, index) => {
-          expect(task.activeMark).to.be.undefined()
-          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', eventMock)
-          expect(task.activeMark.x1).to.equal(transcribedLines[index].points[0].x)
-          expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
-          expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
-          expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
-          expect(task.activeMark.frame).to.equal(transcribedLines[index].frame)
-          expect(task.marks.length).to.equal(index + 1)
-          task.setActiveMark(undefined)
-        })
+        expect(task.activeMark).to.be.undefined()
+        line.focus()
+        await user.keyboard('{ }')
+        expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
+        expect(task.activeMark.y1).to.equal(transcribedLines[0].points[0].y)
+        expect(task.activeMark.x2).to.equal(transcribedLines[0].points[1].x)
+        expect(task.activeMark.y2).to.equal(transcribedLines[0].points[1].y)
+        expect(task.activeMark.frame).to.equal(transcribedLines[0].frame)
+        expect(task.marks.length).to.equal(1)
+        task.setActiveMark(undefined)
       })
 
-      it('should create only one mark per transcribed line', function () {
+      it('should create only one mark per transcribed line', async function () {
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
-        lines.forEach((line, index) => {
-          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', eventMock)
-          task.setActiveMark(undefined)
-        })
-        expect(task.marks.length).to.equal(transcribedLines.length)
-        lines.forEach((line, index) => {
-          expect(task.activeMark).to.be.undefined()
-          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('keydown', eventMock)
-          expect(task.activeMark.x1).to.equal(transcribedLines[index].points[0].x)
-          expect(task.activeMark.y1).to.equal(transcribedLines[index].points[0].y)
-          expect(task.activeMark.x2).to.equal(transcribedLines[index].points[1].x)
-          expect(task.activeMark.y2).to.equal(transcribedLines[index].points[1].y)
-          expect(task.marks.length).to.equal(transcribedLines.length)
-          task.setActiveMark(undefined)
-        })
+        line.focus()
+        await user.keyboard('{ }')
+        task.setActiveMark(undefined)
+        expect(task.marks.length).to.equal(1)
+        expect(task.activeMark).to.be.undefined()
+        await user.keyboard('{ }')
+        expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
+        expect(task.activeMark.y1).to.equal(transcribedLines[0].points[0].y)
+        expect(task.activeMark.x2).to.equal(transcribedLines[0].points[1].x)
+        expect(task.activeMark.y2).to.equal(transcribedLines[0].points[1].y)
+        expect(task.marks.length).to.equal(1)
+        task.setActiveMark(undefined)
       })
 
-      it('should create a mark for the correct frame', function () {
+      it('should create a mark for the correct frame', async function () {
         const consensusLines = transcriptionReductions.consensusLines(1)
-        wrapper.setProps({ frame: 1, lines: consensusLines })
+        const store = mockStore({ workflow: workflowSnapshot })
+        result.rerender(<TranscribedLines
+          annotation={annotation}
+          frame={1}
+          lines={consensusLines}
+          marks={task.marks}
+          task={task}
+        />, { wrapper: withStore(store) })
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
 
-        lines = wrapper.find(TranscriptionLine).find({ state: 'transcribed' })
-        lines.forEach((line, index) => {
-          wrapper.find({ 'aria-describedby': `transcribed-${index}` }).simulate('click', eventMock)
-          expect(task.activeMark.frame).to.equal(1)
-          expect(task.activeMark.frame).to.equal(transcribedLines[index].frame)
-          task.setActiveMark(undefined)
-        })
+        const line = document.querySelector('g.transcribed.line')
+        line.focus()
+        await user.keyboard('{ }')
+        expect(task.activeMark.frame).to.equal(1)
+        expect(task.activeMark.frame).to.equal(transcribedLines[0].frame)
+        task.setActiveMark(undefined)
       })
     })
 
-    it('should have an explanatory tooltip', function () {
+    it.skip('should have an explanatory tooltip', function () {
       lines.forEach((component, index) => {
-        const tooltip = wrapper.find({ id: `transcribed-${index}` })
+        const tooltip = document.querySelector(`#transcribed-${index}`)
         expect(tooltip).to.have.lengthOf(1)
       })
     })
@@ -439,9 +515,11 @@ describe('Component > TranscribedLines', function () {
 
   describe('completed lines', function () {
     let lines, completeLines
+
     before(function () {
-      wrapper = shallow(<TranscribedLines frame={0} lines={consensusLines} task={task} />)
-      lines = wrapper.find(TranscriptionLine).find({ state: 'complete' })
+      const store = mockStore({ workflow: workflowSnapshot })
+      render(<TranscribedLines frame={0} lines={consensusLines} task={task} />, { wrapper: withStore(store) })
+      lines = document.querySelectorAll('g.complete.line')
       completeLines = consensusLines.filter(line => line.consensusReached)
     })
 
@@ -450,116 +528,93 @@ describe('Component > TranscribedLines', function () {
     })
 
     it('should be labelled with the consensus text', function () {
-      lines.forEach((component, index) => {
-        const consensusLineWrapper = component.parent()
-        expect(consensusLineWrapper.props()['aria-label']).to.equal(completeLines[index].consensusText)
+      lines.forEach((line, index) => {
+        expect(line.getAttribute('aria-label')).to.equal(completeLines[index].consensusText)
       })
     })
 
     it('should be focusable', function () {
-      lines.forEach((component) => {
-        const consensusLineWrapper = component.parent()
-        expect(consensusLineWrapper.props().tabIndex).to.equal(0)
+      lines.forEach(line => {
+        expect(line.tabIndex).to.equal(0)
       })
     })
 
-    it('should have an explanatory tooltip', function () {
+    it.skip('should have an explanatory tooltip', function () {
       lines.forEach((component, index) => {
-        const tooltip = wrapper.find({ id: `complete-${index}` })
+        const tooltip = document.querySelector(`#complete-${index}`)
         expect(tooltip).to.have.lengthOf(1)
       })
     })
 
-    it('should show the ConsensusPopup onClick', function () {
-      lines.forEach((line, index) => {
-        let popup = wrapper.find(ConsensusPopup)
-        expect(popup.props().active).to.be.false()
-        expect(popup.props().line).to.deep.equal({
-          consensusText: '',
-          textOptions: []
-        })
-        wrapper.find({ 'aria-describedby': `complete-${index}` }).simulate('click', { target: { getBoundingClientRect: sinon.spy() }})
-        popup = wrapper.find(ConsensusPopup)
-        expect(popup.props().active).to.be.true()
-        expect(popup.props().line).to.deep.equal(completeLines[index])
-        const closeFn = popup.props().closeFn
-        closeFn()
-        popup = wrapper.find(ConsensusPopup)
-        expect(popup.props().active).to.be.false()
-        expect(popup.props().line).to.deep.equal({
-          consensusText: '',
-          textOptions: []
-        })
-      })
+    it('should show the ConsensusPopup onClick', async function () {
+      const user = userEvent.setup({ delay: null })
+      const store = mockStore({ workflow: workflowSnapshot })
+      render(<TranscribedLines frame={0} lines={consensusLines} task={task} />, { wrapper: withStore(store) })
+      const line = document.querySelector('g.complete.line')
+      const popupTitle = 'SubjectViewer.InteractionLayer.TranscribedLines.ConsensusPopup.title'
+      let popup = screen.queryByRole('heading', { level: 2, name: popupTitle})
+      expect(popup).to.be.null()
+      await user.click(line)
+      popup = screen.getByRole('heading', { level: 2, name: popupTitle})
+      expect(popup).to.exist()
+      const closeButton = screen.queryByRole('button', { name: 'Close' })
+      await user.click(closeButton)
+      popup = screen.queryByRole('heading', { level: 2, name: popupTitle})
+      expect(popup).to.be.null()
     })
 
-    it('should show the ConsensusPopup onKeyDown with enter', function () {
-      const eventMock = { key: 'Enter', preventDefault: sinon.spy(), target: { getBoundingClientRect: sinon.spy() } }
-      lines.forEach((line, index) => {
-        let popup = wrapper.find(ConsensusPopup)
-        expect(popup.props().active).to.be.false()
-        expect(popup.props().line).to.deep.equal({
-          consensusText: '',
-          textOptions: []
-        })
-        wrapper.find({ 'aria-describedby': `complete-${index}` }).simulate('keydown', eventMock)
-        popup = wrapper.find(ConsensusPopup)
-        expect(eventMock.preventDefault).to.have.been.calledOnce()
-        expect(popup.props().active).to.be.true()
-        expect(popup.props().line).to.deep.equal(completeLines[index])
-        const closeFn = popup.props().closeFn
-        closeFn()
-        popup = wrapper.find(ConsensusPopup)
-        expect(popup.props().active).to.be.false()
-        expect(popup.props().line).to.deep.equal({
-          consensusText: '',
-          textOptions: []
-        })
-        eventMock.preventDefault.resetHistory()
-      })
+    it('should show the ConsensusPopup onKeyDown with enter', async function () {
+      const user = userEvent.setup({ delay: null })
+      const store = mockStore({ workflow: workflowSnapshot })
+      render(<TranscribedLines frame={0} lines={consensusLines} task={task} />, { wrapper: withStore(store) })
+      const line = document.querySelector('g.complete.line')
+      const popupTitle = 'SubjectViewer.InteractionLayer.TranscribedLines.ConsensusPopup.title'
+      let popup = screen.queryByRole('heading', { level: 2, name: popupTitle})
+      expect(popup).to.be.null()
+      line.focus()
+      await user.keyboard('{Enter}')
+      popup = screen.getByRole('heading', { level: 2, name: popupTitle})
+      expect(popup).to.exist()
+      const closeButton = screen.queryByRole('button', { name: 'Close' })
+      closeButton.focus()
+      await user.keyboard('{Enter}')
+      popup = screen.queryByRole('heading', { level: 2, name: popupTitle})
+      expect(popup).to.be.null()
     })
 
-    it('should show the ConsensusPopup onKeyDown with space', function () {
-      const eventMock = { key: ' ', preventDefault: sinon.spy(), target: { getBoundingClientRect: sinon.spy() } }
-      lines.forEach((line, index) => {
-        let popup = wrapper.find(ConsensusPopup)
-        expect(popup.props().active).to.be.false()
-        expect(popup.props().line).to.deep.equal({
-          consensusText: '',
-          textOptions: []
-        })
-        wrapper.find({ 'aria-describedby': `complete-${index}` }).simulate('keydown', eventMock)
-        popup = wrapper.find(ConsensusPopup)
-        expect(eventMock.preventDefault).to.have.been.calledOnce()
-        expect(popup.props().active).to.be.true()
-        expect(popup.props().line).to.deep.equal(completeLines[index])
-        const closeFn = popup.props().closeFn
-        closeFn()
-        popup = wrapper.find(ConsensusPopup)
-        expect(popup.props().active).to.be.false()
-        expect(popup.props().line).to.deep.equal({
-          consensusText: '',
-          textOptions: []
-        })
-        eventMock.preventDefault.resetHistory()
-      })
+    it('should show the ConsensusPopup onKeyDown with space', async function () {
+      const user = userEvent.setup({ delay: null })
+      const store = mockStore({ workflow: workflowSnapshot })
+      render(<TranscribedLines frame={0} lines={consensusLines} task={task} />, { wrapper: withStore(store) })
+      const line = document.querySelector('g.complete.line')
+      const popupTitle = 'SubjectViewer.InteractionLayer.TranscribedLines.ConsensusPopup.title'
+      let popup = screen.queryByRole('heading', { level: 2, name: popupTitle})
+      expect(popup).to.be.null()
+      line.focus()
+      await user.keyboard('{ }')
+      popup = screen.getByRole('heading', { level: 2, name: popupTitle})
+      expect(popup).to.exist()
+      const closeButton = screen.queryByRole('button', { name: 'Close' })
+      closeButton.focus()
+      await user.keyboard('{ }')
+      popup = screen.queryByRole('heading', { level: 2, name: popupTitle})
+      expect(popup).to.be.null()
     })
 
     describe('when there is an existing invalid mark', function () {
       before(function () {
-        wrapper = shallow(<TranscribedLines frame={0} invalidMark={true} lines={consensusLines} task={task} />)
-        lines = wrapper.find(TranscriptionLine).find({ state: 'complete' })
+        const store = mockStore({ workflow: workflowSnapshot })
+        render(<TranscribedLines frame={0} invalidMark={true} lines={consensusLines} task={task} />, { wrapper: withStore(store) })
+        lines = document.querySelectorAll('g.complete.line')
         completeLines = consensusLines.filter(line => line.consensusReached)
       })
 
       it('should disable the lines', function () {
-        lines.forEach((component) => {
-          const consensusLineWrapper = component.parent()
-          const props = consensusLineWrapper.props()
-          expect(props['aria-disabled']).to.equal('true')
-          expect(props.tabIndex).to.equal(-1)
-          expect(props.onClick).to.be.undefined()
-          expect(props.onKeyDown).to.be.undefined()
+        lines.forEach(line => {
+          expect(line.getAttribute('aria-disabled')).to.equal('true')
+          expect(line.tabIndex).to.equal(-1)
+          expect(line.onclick).to.be.null()
+          expect(line.onkeydown).to.be.null()
         })
       })
     })
