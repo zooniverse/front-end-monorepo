@@ -16,6 +16,7 @@ export default {
 }
 
 const subjectSnapshot = SubjectFactory.build({
+  id: '1',
   locations: [
     {
       'image/jpeg':
