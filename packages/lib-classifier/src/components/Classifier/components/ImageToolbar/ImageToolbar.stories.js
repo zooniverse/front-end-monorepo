@@ -9,7 +9,7 @@ import {
   WorkflowFactory
 } from '@test/factories'
 import mockStore from '@test/mockStore'
-import { ViewerGrid } from '../Layout/components/DefaultLayout/DefaultLayout'
+import { ViewerGrid } from '../Layout/components/NoMaxWidth/NoMaxWidth'
 import MultiFrameViewer from '../SubjectViewer/components/MultiFrameViewer'
 import SingleImageViewer from '../SubjectViewer/components/SingleImageViewer'
 import ImageToolbar from './ImageToolbar'
