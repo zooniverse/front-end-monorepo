@@ -81,7 +81,7 @@ function MyConnectedComponent(props) {
 }
 ```
 
-# useSubjectImage
+## useSubjectImage
   
 A custom hook that fetches an image from a URL, with a ref to the image's DOM node for sizing etc.
 

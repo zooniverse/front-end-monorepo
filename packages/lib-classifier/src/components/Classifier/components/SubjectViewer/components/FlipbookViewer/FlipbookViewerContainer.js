@@ -34,6 +34,7 @@ function storeMapper(store) {
 }
 
 const DEFAULT_HANDLER = () => true
+
 function FlipbookViewerContainer({
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
