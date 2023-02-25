@@ -82,7 +82,7 @@ function MyConnectedComponent(props) {
 ```
 
 ## useSubjectImage
-  
+
 A custom hook that fetches an image from a URL, with a ref to the image's DOM node for sizing etc.
 
 Usage:
@@ -97,6 +97,24 @@ if (!loading && error) {
   return <p>{error.message}</p>
 }
 return <img ref={subjectImage} alt="This is an example of a subject image" src={img.src} />
+```
+
+## useSubjectJSON
+
+A custom hook that fetches JSON data from a URL, with a ref to the viewer's DOM node for sizing etc.
+
+Usage:
+```jsx
+// viewer is a React ref to the element that displays the JSON data.
+const { data, error, loading, viewer } = useSubjectJSON({ subject, onReady, onError })
+
+if (loading) {
+  return <p>The data is still loading.</p>
+}
+if (!loading && error) {
+  return <p>{error.message}</p>
+}
+return <JSONViewer ref={viewer} data={data} />
 ```
 
 ## useTranscriptionReductions

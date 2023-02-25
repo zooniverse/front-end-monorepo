@@ -18,7 +18,7 @@ function ScatterPlotViewerContainer({
   viewerConfiguration,
   ...rest
 }) {
-  const { viewer, JSONData } = useScatterPlotSubject({ onError, onReady, subject })
+  const { loading, viewer, JSONData } = useScatterPlotSubject({ onError, onReady, subject })
   const { chartOptions, data } = JSONData
 
   if (!subject.id) {

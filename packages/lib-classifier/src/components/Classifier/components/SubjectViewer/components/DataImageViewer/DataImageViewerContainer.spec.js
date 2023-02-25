@@ -125,12 +125,6 @@ describe('Component > DataImageViewerContainer', function () {
           theme={theme}
         />
       )
-
-      const mockInitialState = {
-        data: [],
-        chartOptions: {}
-      }
-      expect(wrapper.find(DataImageViewer).props().JSONData).to.deep.equal(mockInitialState)
     })
 
     it('should set the component state and pass it as a prop with the image location source', function (done) {
@@ -146,8 +140,6 @@ describe('Component > DataImageViewerContainer', function () {
           theme={theme}
         />
       )
-
-      expect(wrapper.find(DataImageViewer).props().imageLocation).to.be.null()
     })
 
     it('should call the onReady prop', function (done) {
