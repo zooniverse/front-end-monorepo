@@ -1,5 +1,13 @@
 # Classifier hooks
 
+## useCaesarReductions
+
+Get the stored Caesar reductions from the active subject, for a given reducer key.
+
+```js
+const { loaded, caesarReductions } = useCaesarReductions(reducerKey)
+```
+
 ## useClientRect
 
 Get the bounding client rectangle (`rect`) for a referenced DOM node (`ref`.)
@@ -17,6 +25,7 @@ Returns the new store when hydration is complete. Snapshots are stored in sessio
 ```js
 const classifierStore = useHydratedStore({ authClient, client }, cachePanoptesData = false, storageKey)
 ```
+
 ## usePanoptesAuth
 
 Asynchronously fetch an auth token, for a given user ID. A wrapper for `authClient.checkBearerToken()`.
@@ -56,7 +65,7 @@ Get the logged-in user's project roles, as an array of strings, or an empty arra
   const projectRoles = useProjectRoles(project.id, user.id)
 ```
 
-# useStores
+## useStores
   
 A custom hook which connects a component to the classifier store, or to a filtered list of store properties if a store  mapper function is provided.
 
@@ -70,6 +79,42 @@ function storeMapper(store) {
 function MyConnectedComponent(props) {
   const { workflows } = useStores(storeMapper)
 }
+```
+
+## useSubjectImage
+  
+A custom hook that fetches an image from a URL, with a ref to the image's DOM node for sizing etc.
+
+Usage:
+```jsx
+// img is a DOM img. subjectImage is a React ref to the element that displays the image.
+const { img, error, loading, subjectImage } = useSubjectImage({ src, onReady, onError })
+
+if (loading) {
+  return <p>The image is still loading.</p>
+}
+if (!loading && error) {
+  return <p>{error.message}</p>
+}
+return <img ref={subjectImage} alt="This is an example of a subject image" src={img.src} />
+```
+
+## useTranscriptionReductions
+
+A wrapper for `useCaesarReductions`, specific to the transcription task. Generates the props for the `TranscribedLines` component.
+
+Usage:
+```js
+const {
+  annotation,
+  frame,
+  invalidMark,
+  lines,
+  marks,
+  task,
+  visible,
+  workflow
+} = useTranscriptionReductions()
 ```
 
 ## useWorkflowSnapshot

@@ -4,11 +4,11 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 
-import DefaultLayout from './DefaultLayout'
+import NoMaxWidth from './NoMaxWidth'
 
 export default {
-  title: 'Layouts / Default Layout',
-  component: DefaultLayout,
+  title: 'Layouts / No Max Width',
+  component: NoMaxWidth,
   excludeStories: ['mockTask'],
   args: {
     dark: false
@@ -16,6 +16,7 @@ export default {
 }
 
 const subjectSnapshot = SubjectFactory.build({
+  id: '1',
   locations: [
     {
       'image/jpeg':
@@ -56,11 +57,6 @@ const workflowSnapshot = WorkflowFactory.build({
   tasks: mockTask
 })
 
-const store = mockStore({
-  subject: subjectSnapshot,
-  workflow: workflowSnapshot
-})
-
 export function Default({ dark }) {
   return (
     <Grommet
@@ -71,9 +67,13 @@ export function Default({ dark }) {
       theme={zooTheme}
       themeMode={dark ? 'dark' : 'light'}
     >
-      <Provider classifierStore={store}>
-        <DefaultLayout />
+      <Provider classifierStore={Default.store}>
+        <NoMaxWidth />
       </Provider>
     </Grommet>
   )
 }
+Default.store = mockStore({
+  subject: subjectSnapshot,
+  workflow: workflowSnapshot
+})

@@ -70,3 +70,22 @@ describe('Component > ChoiceButton', function () {
     })
   })
 })
+
+// UI testing
+// - choice button styling is determined by the columns count and media width
+// - the following breaks down the expected choice button styling by columns count and media width:
+
+// any columns count and media width >= 1280px (i.e. laptop or desktop) - choice button styling ROW
+
+// 1 column
+//   - any media width - choice button styling ROW
+
+// 2 columns
+//   - media width <= 768px (i.e. iPhone held vertically) - choice button styling ROW
+//   - media 768px < width < 1280px (i.e. iPhone held horizontally) - choice button styling COLUMN
+
+// 3 column
+//   - media width <= 768px (i.e. iPhone held vertically) - choice button styling COLUMN
+//   - media 768px < width < 1280px (i.e. iPhone held horizontally) - choice button styling COLUMN
+
+// the Choices storybooks (https://zooniverse.github.io/front-end-monorepo/@zooniverse/classifier/?path=/story/tasks-survey-chooser-choices--less-thirty-more-twenty) reflect the above details if you change the responsive viewport in the storybook toolbar.

@@ -1,6 +1,7 @@
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
+import { useEffect } from 'react'
 
 import withKeyZoom from '@components/Classifier/components/withKeyZoom'
 import { useStores } from '@hooks'
@@ -37,11 +38,13 @@ function storeMapper(store) {
   }
 }
 
+const DEFAULT_HANDLER = () => true
+
 function FlipbookViewerContainer({
   loadingState = asyncStates.initialized,
-  onError = () => true,
-  onKeyDown = () => true,
-  onReady = () => true,
+  onError = DEFAULT_HANDLER,
+  onKeyDown = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
   subject
 }) {
   const {
@@ -59,6 +62,17 @@ function FlipbookViewerContainer({
   } = useStores(storeMapper)
 
   const separateFrameView = flipbookViewMode === 'separate'
+
+  useEffect(function preloadImages() {
+    subject?.locations?.forEach(location => {
+      const [url] = Object.values(location)
+      if (url) {
+        const { Image } = window
+        const img = new Image()
+        img.src = url
+      }
+    })
+  }, [subject?.locations])
 
   if (loadingState === asyncStates.error || !subject?.locations) {
     return <div>Something went wrong.</div>

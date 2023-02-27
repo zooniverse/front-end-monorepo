@@ -2,7 +2,6 @@ import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import { Anchor, Box, Button, CheckBox, Grid, Text, FormField, TextInput } from 'grommet'
 import styled from 'styled-components'
-import Link from 'next/link'
 import FieldLabel from '../../../../shared/components/FieldLabel'
 import { withCustomFormik } from '@zooniverse/react-components'
 import en from '../../locales/en'
@@ -21,9 +20,7 @@ export const betaListSignUpFieldId = 'RegisterForm_beta_list_sign_up'
 export const underageWithParentFieldId = 'RegisterForm_underage_with_parent'
 
 const PrivacyPolicyLink = () => (
-  <Link href='/privacy' passHref>
-    <Anchor size='small'>{counterpart('RegisterForm.privacyLink')}</Anchor>
-  </Link>
+  <Anchor href='/privacy' size='small'>{counterpart('RegisterForm.privacyLink')}</Anchor>
 )
 
 const CheckBoxFormField = styled(FormField)`

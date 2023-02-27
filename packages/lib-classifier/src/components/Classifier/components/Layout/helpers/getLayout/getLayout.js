@@ -1,5 +1,3 @@
-// import DefaultLayout from '../../components/DefaultLayout'
-// import MultiFrameLayout from '../../components/MultiFrameLayout'
 import { MaxWidth, MultiFrameLayout, NoMaxWidth } from '../../components/'
 
 const layoutsMap = {
