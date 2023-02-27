@@ -23,3 +23,7 @@ On viewports smaller than 768px, the vertical grid layout displays the subject a
 In the horizontal layout, the grid area ratio of `subject:task` on all viewport widths larger than 768px is `9:5`.
 
 ## MultiFrame
+
+This component is based on the grid layout of MaxWidth. It's primary function is to handle multi-image subjects that are not in a transcription task. Multi-image subject viewers that display all of the separate frames at once (such as FlipbookViewer) need flexibity in where the image toolbar, field guide, and other shared components are displayed.
+
+For example, the desired layout for the flipbook viewer is the same as a single-image subject with one toolbar. However, the flipbook's separate frames view has one image toolbar per subject frame.

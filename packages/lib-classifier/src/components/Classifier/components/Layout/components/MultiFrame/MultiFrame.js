@@ -1,8 +1,6 @@
 import { useContext } from 'react'
 import styled from 'styled-components'
 import { Box, Grid, ResponsiveContext } from 'grommet'
-import { observer } from 'mobx-react'
-import { useStores } from '@hooks'
 
 import Banners from '@components/Classifier/components/Banners'
 import FeedbackModal from '@components/Classifier/components/Feedback'
@@ -11,25 +9,7 @@ import MetaTools from '@components/Classifier/components/MetaTools'
 import QuickTalk from '@components/Classifier/components/QuickTalk'
 import SubjectViewer from '@components/Classifier/components/SubjectViewer'
 import TaskArea from '@components/Classifier/components/TaskArea'
-import FieldGuide from '@components/Classifier/components/FieldGuide'
-
-function storeMapper(store) {
-  const { flipbookViewMode } = store.subjectViewer
-
-  return {
-    flipbookViewMode
-  }
-}
-
-const ContainerGrid = styled(Grid)`
-  position: relative;
-
-  // proportional 9:5 subject/task sizing up to a maximum subject/task width of 45rem/25rem, then the Grommet Grid columns take over
-  @media screen and (min-width: 769px) and (max-width: 70rem) {
-    grid-gap: 1.75rem;
-    grid-template-columns: 9fr 5fr;
-  }
-`
+import { ContainerGrid, horizontalLayout, verticalLayout } from '../MaxWidth/MaxWidth.js'
 
 const StyledTaskAreaContainer = styled.div`
   grid-area: task;
@@ -40,16 +20,17 @@ const StyledTaskArea = styled(TaskArea)`
   top: 10px;
 `
 
-export const StyledImageToolbarContainer = styled.div`
+const StyledImageToolbarContainer = styled.div`
   grid-area: toolbar;
 `
 
-export const StyledImageToolbar = styled(ImageToolbar)`
+const StyledImageToolbar = styled(ImageToolbar)`
   position: sticky;
   top: 10px;
 `
 
-export function ViewerGrid({ children }) {
+// columns in ViewerGrid will change based on whether its a "separate frames" view or not
+function ViewerGrid({ children }) {
   return (
     <Grid
       as='section'
@@ -66,28 +47,8 @@ export function ViewerGrid({ children }) {
   )
 }
 
-function MultiFrame({ className = '' }) {
-  const { flipbookViewMode } = useStores(storeMapper)
+export default function MultiFrame({ className = '' }) {
   const size = useContext(ResponsiveContext)
-  const verticalLayout = {
-    areas: [
-      ['viewer'],
-      ['task']
-    ],
-    columns: ['100%'],
-    gap: 'small',
-    margin: 'none',
-    rows: ['auto', 'auto']
-  }
-  const horizontalLayout = {
-    areas: [
-      ['viewer', 'task']
-    ],
-    columns: ['minmax(auto,100rem)', '25rem'],
-    gap: 'medium',
-    margin: 'auto',
-    rows: ['auto']
-  }
   const containerGridProps = size === 'small' ? verticalLayout : horizontalLayout
 
   return (
@@ -101,25 +62,16 @@ function MultiFrame({ className = '' }) {
           <SubjectViewer />
           <MetaTools />
         </Box>
-        {flipbookViewMode !== 'separate' && (
-          <StyledImageToolbarContainer>
-            <StyledImageToolbar>
-              <ImageToolbar />
-              <FieldGuide />
-            </StyledImageToolbar>
-          </StyledImageToolbarContainer>
-        )}
+        <StyledImageToolbarContainer>
+          {/** ImageToolbar will be hidden here when "separate frames" view is being displayed */}
+          <StyledImageToolbar />
+        </StyledImageToolbarContainer>
       </ViewerGrid>
       <StyledTaskAreaContainer>
-        <StyledTaskArea>
-          <TaskArea />
-          {flipbookViewMode === 'separate' && <FieldGuide />}
-        </StyledTaskArea>
+        <StyledTaskArea />
       </StyledTaskAreaContainer>
       <FeedbackModal />
       <QuickTalk />
     </ContainerGrid>
   )
 }
-
-export default observer(MultiFrame)
