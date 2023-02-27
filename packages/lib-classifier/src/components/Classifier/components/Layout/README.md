@@ -1,10 +1,8 @@
 # Layout Components
 
-The Classifier's layout components are built specifically for certain workflow task types.
+The Classifier's layout components are built specifically for certain workflow task types and certain subject types. The Layout component looks for workflow task type and subject type, and returns the appropriate layout.
 
-`default` is set in `/Layouts/helpers/getLayout.js`.
-
-The Workflow.js store model has a `get layout()` preprocessor where workflows with a transcription task are assigned the NoMaxWidth layout component, and all other workflows are assigned the default layout component.
+`default` is set in `/Layouts/helpers/getLayout.js`, and `default` will always be returned as a fallback.
 
 ## MaxWidth
 
@@ -23,3 +21,5 @@ This layout is assigned to transcription workflows via the Worklfow.js store mod
 On viewports smaller than 768px, the vertical grid layout displays the subject area stacked above the task area.
 
 In the horizontal layout, the grid area ratio of `subject:task` on all viewport widths larger than 768px is `9:5`.
+
+## MultiFrame

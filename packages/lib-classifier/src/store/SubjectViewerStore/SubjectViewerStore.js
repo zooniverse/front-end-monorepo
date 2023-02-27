@@ -1,7 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
 import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
-import layouts from '@helpers/layouts'
 
 const SubjectViewer = types
   .model('SubjectViewer', {
@@ -17,7 +16,6 @@ const SubjectViewer = types
     frame: types.optional(types.integer, 0),
     fullscreen: types.optional(types.boolean, false),
     invert: types.optional(types.boolean, false),
-    layout: types.optional(types.enumeration('layout', layouts.values), layouts.default),
     loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized),
     move: types.optional(types.boolean, false),
     rotationEnabled: types.optional(types.boolean, false),
@@ -160,10 +158,6 @@ const SubjectViewer = types
 
       setFrame (index) {
         self.frame = index
-      },
-
-      setLayout (layout = layouts.DefaultLayout) {
-        self.layout = layout
       },
 
       setOnZoom (callback) {

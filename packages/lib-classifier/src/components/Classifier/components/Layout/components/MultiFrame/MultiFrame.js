@@ -1,5 +1,6 @@
+import { useContext } from 'react'
 import styled from 'styled-components'
-import { Box } from 'grommet'
+import { Box, Grid, ResponsiveContext } from 'grommet'
 import { observer } from 'mobx-react'
 import { useStores } from '@hooks'
 
@@ -20,25 +21,13 @@ function storeMapper(store) {
   }
 }
 
-const ContainerGrid = styled.div`
-  display: grid;
-  grid-gap: 30px;
-  grid-template-areas: 'viewer task';
-  grid-template-columns: auto 25.333rem;
+const ContainerGrid = styled(Grid)`
   position: relative;
 
-  @media screen and (max-width: 1160px) {
+  // proportional 9:5 subject/task sizing up to a maximum subject/task width of 45rem/25rem, then the Grommet Grid columns take over
+  @media screen and (min-width: 769px) and (max-width: 70rem) {
     grid-gap: 1.75rem;
-    grid-template-columns: 45.333fr 25.333fr;
-  }
-
-  // this breakpoint matches Grommet's ResponsiveContext component
-  @media screen and (max-width: 768px) {
-    grid-template-columns: 100%;
-    grid-template-rows: auto auto;
-    grid-auto-flow: column;
-    grid-gap: 20px;
-    grid-template-areas: 'viewer' 'task';
+    grid-template-columns: 9fr 5fr;
   }
 `
 
@@ -51,29 +40,61 @@ const StyledTaskArea = styled(TaskArea)`
   top: 10px;
 `
 
-export const ViewerGrid = styled.section`
-  display: grid;
-  grid-area: viewer;
-  grid-template-areas: 'subject toolbar';
-  grid-template-columns: auto clamp(3rem, 10%, 4.5rem);
-  height: fit-content;
-`
-
-const StyledImageToolbarContainer = styled.div`
+export const StyledImageToolbarContainer = styled.div`
   grid-area: toolbar;
 `
 
-const StyledImageToolbar = styled(Box)`
-  height: min-content;
+export const StyledImageToolbar = styled(ImageToolbar)`
   position: sticky;
   top: 10px;
 `
 
-function MultiFrameLayout({ className = '' }) {
+export function ViewerGrid({ children }) {
+  return (
+    <Grid
+      as='section'
+      areas={[
+        ['subject', 'toolbar']
+      ]}
+      columns={['auto', 'clamp(3rem, 10%, 4.5rem)']}
+      gridArea='viewer'
+      height='fit-content'
+      rows={['auto']}
+    >
+      {children}
+    </Grid>
+  )
+}
+
+function MultiFrame({ className = '' }) {
   const { flipbookViewMode } = useStores(storeMapper)
+  const size = useContext(ResponsiveContext)
+  const verticalLayout = {
+    areas: [
+      ['viewer'],
+      ['task']
+    ],
+    columns: ['100%'],
+    gap: 'small',
+    margin: 'none',
+    rows: ['auto', 'auto']
+  }
+  const horizontalLayout = {
+    areas: [
+      ['viewer', 'task']
+    ],
+    columns: ['minmax(auto,100rem)', '25rem'],
+    gap: 'medium',
+    margin: 'auto',
+    rows: ['auto']
+  }
+  const containerGridProps = size === 'small' ? verticalLayout : horizontalLayout
 
   return (
-    <ContainerGrid className={className}>
+    <ContainerGrid
+      className={className}
+      {...containerGridProps}
+    >
       <ViewerGrid>
         <Box gridArea='subject'>
           <Banners />
@@ -90,7 +111,10 @@ function MultiFrameLayout({ className = '' }) {
         )}
       </ViewerGrid>
       <StyledTaskAreaContainer>
-        <StyledTaskArea />
+        <StyledTaskArea>
+          <TaskArea />
+          {flipbookViewMode === 'separate' && <FieldGuide />}
+        </StyledTaskArea>
       </StyledTaskAreaContainer>
       <FeedbackModal />
       <QuickTalk />
@@ -98,4 +122,4 @@ function MultiFrameLayout({ className = '' }) {
   )
 }
 
-export default observer(MultiFrameLayout)
+export default observer(MultiFrame)
