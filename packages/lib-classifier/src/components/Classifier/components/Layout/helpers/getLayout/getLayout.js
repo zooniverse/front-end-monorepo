@@ -1,10 +1,12 @@
-import DefaultLayout from '../../components/DefaultLayout'
+import { MaxWidth, NoMaxWidth } from '../../components/'
 
 const layoutsMap = {
-  default: DefaultLayout
+  default: MaxWidth,
+  maxWidth: MaxWidth,
+  noMaxWidth: NoMaxWidth
 }
 
-function getLayout (layout) {
+export default function getLayout(layout) {
   if (layoutsMap[layout]) {
     return layoutsMap[layout]
   } else {
@@ -12,5 +14,3 @@ function getLayout (layout) {
     return layoutsMap.default
   }
 }
-
-export default getLayout

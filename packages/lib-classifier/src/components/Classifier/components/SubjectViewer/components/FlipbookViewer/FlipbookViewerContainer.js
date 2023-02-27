@@ -6,7 +6,6 @@ import { observer } from 'mobx-react'
 import withKeyZoom from '@components/Classifier/components/withKeyZoom'
 import { useStores } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
-import useSubjectImage from '../SingleImageViewer/hooks/useSubjectImage'
 import FlipbookViewer from './FlipbookViewer'
 
 function storeMapper(store) {
@@ -34,11 +33,13 @@ function storeMapper(store) {
   }
 }
 
+const DEFAULT_HANDLER = () => true
+
 function FlipbookViewerContainer({
   loadingState = asyncStates.initialized,
-  onError = () => true,
-  onKeyDown = () => true,
-  onReady = () => true,
+  onError = DEFAULT_HANDLER,
+  onKeyDown = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
   subject
 }) {
   const {
@@ -52,11 +53,6 @@ function FlipbookViewerContainer({
     setOnPan,
     setOnZoom
   } = useStores(storeMapper)
-  /** This initializes an image element from the subject's defaultFrame src url.
-   * We do this so the SVGPanZoom has dimensions of the subject image.
-   * We're assuming all frames in one subject have the same dimensions. */
-  const defaultFrameUrl = subject ? Object.values(subject.locations[defaultFrame])[0] : null
-  const { img, error, loading } = useSubjectImage(defaultFrameUrl)
 
   useEffect(function preloadImages() {
     subject?.locations?.forEach(location => {
@@ -69,14 +65,6 @@ function FlipbookViewerContainer({
     })
   }, [subject?.locations])
 
-  const { naturalHeight, naturalWidth, src: defaultFrameSrc } = img
-
-  useEffect(function logError() {
-    if (!loading && error) {
-      onError(error)
-    }
-  }, [error, loading])
-
   if (loadingState === asyncStates.error || !subject?.locations) {
     return <div>Something went wrong.</div>
   }
@@ -84,13 +72,11 @@ function FlipbookViewerContainer({
   return (
     <FlipbookViewer
       defaultFrame={defaultFrame}
-      defaultFrameSrc={defaultFrameSrc}
       enableRotation={enableRotation}
       flipbookAutoplay={flipbookAutoplay}
       invert={invert}
       move={move}
-      naturalHeight={naturalHeight}
-      naturalWidth={naturalWidth}
+      onError={onError}
       onKeyDown={onKeyDown}
       onReady={onReady}
       playIterations={playIterations}
