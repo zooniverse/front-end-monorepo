@@ -115,7 +115,7 @@ describe('Component > DataImageViewerContainer', function () {
     it('should set the component state and pass it as a prop with the json data', function (done) {
       const onReadySpy = sinon.stub().callsFake(() => {
         wrapper.update()
-        expect(wrapper.find(DataImageViewer).props().JSONData).to.deep.equal(subjectJSON)
+        expect(wrapper.find(DataImageViewer).props().jsonData).to.deep.equal(subjectJSON)
         done()
       })
       wrapper = mount(
@@ -160,28 +160,35 @@ describe('Component > DataImageViewerContainer', function () {
       let onReadySpy = sinon.stub().callsFake(() => {
         wrapper.update()
         const dataImageViewer = wrapper.find(DataImageViewer)
-        expect(dataImageViewer.props().JSONData).to.deep.equal(subjectJSON)
+        expect(dataImageViewer.props().jsonData).to.deep.equal(subjectJSON)
         expect(dataImageViewer.props().imageLocation).to.deep.equal({ 'image/png': 'http://localhost:8080/image1.png' })
+        advanceSubject()
       })
       wrapper = mount(
         <DataImageViewerContainer
+          onError={error => {
+            console.log(error)
+            done()
+          }}
           onReady={onReadySpy}
           subject={subject}
           theme={theme}
         />
       )
 
-      onReadySpy = sinon.stub().callsFake(() => {
-        wrapper.update()
-        const dataImageViewer = wrapper.find(DataImageViewer)
-        expect(dataImageViewer.props().JSONData).to.deep.equal(nextSubjectJSON)
-        expect(dataImageViewer.props().imageLocation).to.deep.equal({ 'image/png': 'http://localhost:8080/image2.png' })
-        done()
-      })
-      wrapper.setProps({
-        onReady: onReadySpy,
-        subject: nextSubject
-      })
+      function advanceSubject() {
+        onReadySpy = sinon.stub().callsFake(() => {
+          wrapper.update()
+          const dataImageViewer = wrapper.find(DataImageViewer)
+          expect(dataImageViewer.props().jsonData).to.deep.equal(nextSubjectJSON)
+          expect(dataImageViewer.props().imageLocation).to.deep.equal({ 'image/png': 'http://localhost:8080/image2.png' })
+          done()
+        })
+        wrapper.setProps({
+          onReady: onReadySpy,
+          subject: nextSubject
+        })
+      }
     })
   })
 

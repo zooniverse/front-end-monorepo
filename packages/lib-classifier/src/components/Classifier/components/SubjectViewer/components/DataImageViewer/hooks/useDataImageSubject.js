@@ -7,14 +7,14 @@ export default function useDataImageSubject({
   subject
 }) {
   const { loading, error, data, viewer } = useSubjectJSON({ onError, onReady, subject })
-  let JSONData = {
+  let jsonData = {
     data: [],
     chartOptions: {}
   }
   let imageLocation = null
 
   if (data && !loading) {
-    JSONData = data
+    jsonData = data
   }
 
   const locations = findLocationsByMediaType(subject.locations, 'image')
@@ -25,5 +25,5 @@ export default function useDataImageSubject({
     imageLocation = locations.reverse()[0]
   }
 
-  return { imageLocation, JSONData, loading, viewer }
+  return { imageLocation, jsonData, loading, viewer }
 }

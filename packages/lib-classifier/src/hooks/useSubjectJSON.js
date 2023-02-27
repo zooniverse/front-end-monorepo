@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { findLocationsByMediaType } from '@helpers'
+import JSONData from '@store/JSONData'
 
 function getSubjectUrl(subject) {
   let jsonLocation = {}
@@ -50,9 +51,10 @@ export default function useSubjectJSON({
 
     async function handleSubject() {
       try {
-        const JSONData = await requestData(subject)
-        if (JSONData) {
-          setData(JSONData)
+        const rawData = await requestData(subject)
+        if (rawData) {
+          const jsonData = JSONData.create(rawData)
+          setData(jsonData)
           onLoad()
         }
       } catch (error) {

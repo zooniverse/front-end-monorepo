@@ -18,20 +18,20 @@ export default function DataImageViewerContainer({
   ...rest
 }) {
   const [allowPanZoom, setAllowPanZoom] = useState('')
-  const { imageLocation, JSONData, loading, viewer } = useDataImageSubject({ onError, onReady, subject })
+  const { imageLocation, jsonData, loading, viewer } = useDataImageSubject({ onError, onReady, subject })
 
   if (!subject.id) {
     return null
   }
 
-  const zoomConfiguration = JSONData.chartOptions?.zoomConfiguration || viewerConfiguration?.zoomConfiguration
+  const zoomConfiguration = jsonData.chartOptions?.zoomConfiguration || viewerConfiguration?.zoomConfiguration
 
   return (
     <DataImageViewer
       allowPanZoom={allowPanZoom}
       imageLocation={imageLocation}
       ref={viewer}
-      JSONData={JSONData}
+      jsonData={jsonData}
       setAllowPanZoom={setAllowPanZoom}
       zoomConfiguration={zoomConfiguration}
       {...rest}

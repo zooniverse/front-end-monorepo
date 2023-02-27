@@ -41,7 +41,7 @@ const DataImageViewer = forwardRef(function DataImageViewer({
   allowPanZoom = '',
   enableRotation = DEFAULT_HANDLER,
   imageLocation = null,
-  JSONData = JSON_DATA,
+  jsonData = JSON_DATA,
   loadingState,
   move = false,
   parentWidth,
@@ -59,7 +59,7 @@ const DataImageViewer = forwardRef(function DataImageViewer({
       colors = {}
     }
   } = theme
-  const { chartOptions } = JSONData
+  const { chartOptions } = jsonData
   const zoomEnabled = {
     image: allowPanZoom === 'image',
     scatterPlot: allowPanZoom === 'scatterPlot'
@@ -83,10 +83,10 @@ const DataImageViewer = forwardRef(function DataImageViewer({
   }
 
   /*
-    PH-TESS light curves use JSONData.x and JSONData.y.
-    SuperWASP Black Hole Hunters use JSONData.data.x and JSONData.data.y
+    PH-TESS light curves use jsonData.x and jsonData.y.
+    SuperWASP Black Hole Hunters use jsonData.data.x and jsonData.data.y
   */
-  const data = JSONData.data ? JSONData.data : JSONData
+  const data = jsonData.data ? jsonData.data : jsonData
   return (
     <Grid
       areas={areas}
@@ -149,7 +149,7 @@ DataImageViewer.propTypes = {
   allowPanZoom: PropTypes.string,
   enableRotation: PropTypes.func,
   imageLocation: PropTypes.object,
-  JSONData: PropTypes.shape({
+  jsonData: PropTypes.shape({
     data: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]),
     chartOptions: PropTypes.object
   }),

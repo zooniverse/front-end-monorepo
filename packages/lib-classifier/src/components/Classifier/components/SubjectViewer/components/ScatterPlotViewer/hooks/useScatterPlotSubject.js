@@ -6,21 +6,21 @@ export default function useScatterPlotSubject({
   subject
 }) {
   const { loading, error, data, viewer } = useSubjectJSON({ onError, onReady, subject })
-  let JSONData = {
+  let jsonData = {
     data: [],
     chartOptions: {}
   }
 
   if (data && !loading) {
     if (data.data) {
-      JSONData = data
+      jsonData = data
     } else {
-      JSONData = {
+      jsonData = {
         data,
         chartOptions: {}
       }
     }
   }
 
-  return { loading, JSONData, error, viewer }
+  return { loading, jsonData, error, viewer }
 }

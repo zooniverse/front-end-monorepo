@@ -128,40 +128,47 @@ describe('Component > ScatterPlotViewerContainer', function () {
         const scatterPlotViewerProps = wrapper.find(ScatterPlotViewer).props()
         const { data, chartOptions } = subjectJSON
         expect(scatterPlotViewerProps.data).to.deep.equal(data)
-        expect(scatterPlotViewerProps.margin).to.equal(chartOptions.margin)
-        expect(scatterPlotViewerProps.padding).to.equal(chartOptions.padding)
+        expect(scatterPlotViewerProps.margin).to.deep.equal(chartOptions.margin)
+        expect(scatterPlotViewerProps.padding).to.deep.equal(chartOptions.padding)
         expect(scatterPlotViewerProps.xAxisLabel).to.equal(chartOptions.xAxisLabel)
         expect(scatterPlotViewerProps.xAxisLabelOffset).to.equal(chartOptions.xAxisLabelOffset)
         expect(scatterPlotViewerProps.yAxisLabel).to.equal(chartOptions.yAxisLabel)
         expect(scatterPlotViewerProps.yAxisLabelOffset).to.equal(chartOptions.yAxisLabelOffset)
+        advanceSubject()
       })
       wrapper = mount(
         <ScatterPlotViewerContainer
+          onError={error => {
+            console.log(error)
+            throw error
+          }}
           onReady={onReadySpy}
           subject={subject}
         />
       )
 
-      onReadySpy = sinon.stub(target => {
-        wrapper.update()
-        const scatterPlotViewerProps = wrapper.find(ScatterPlotViewer).props()
-        // example subject missing chart options. 
-        // We set the state to be structured in the expected way
-        // undefined options are passed and
-        // child component falls back to default props so viewer can still render
-        expect(scatterPlotViewerProps.data).to.deep.equal(nextSubjectJSON)
-        expect(scatterPlotViewerProps.margin).to.be.undefined()
-        expect(scatterPlotViewerProps.padding).to.be.undefined()
-        expect(scatterPlotViewerProps.xAxisLabel).to.be.undefined()
-        expect(scatterPlotViewerProps.xAxisLabelOffset).to.be.undefined()
-        expect(scatterPlotViewerProps.yAxisLabel).to.be.undefined()
-        expect(scatterPlotViewerProps.yAxisLabelOffset).to.be.undefined()
-        done()
-      })
-      wrapper.setProps({
-        onReady: onReadySpy,
-        subject: nextSubject
-      })
+      function advanceSubject() {
+        onReadySpy = sinon.stub(target => {
+          wrapper.update()
+          const scatterPlotViewerProps = wrapper.find(ScatterPlotViewer).props()
+          // example subject missing chart options. 
+          // We set the state to be structured in the expected way
+          // undefined options are passed and
+          // child component falls back to default props so viewer can still render
+          expect(scatterPlotViewerProps.data).to.deep.equal(nextSubjectJSON.data)
+          expect(scatterPlotViewerProps.margin).to.be.undefined()
+          expect(scatterPlotViewerProps.padding).to.be.undefined()
+          expect(scatterPlotViewerProps.xAxisLabel).to.be.undefined()
+          expect(scatterPlotViewerProps.xAxisLabelOffset).to.be.undefined()
+          expect(scatterPlotViewerProps.yAxisLabel).to.be.undefined()
+          expect(scatterPlotViewerProps.yAxisLabelOffset).to.be.undefined()
+          done()
+        })
+        wrapper.setProps({
+          onReady: onReadySpy,
+          subject: nextSubject
+        })
+      }
     })
   })
 
