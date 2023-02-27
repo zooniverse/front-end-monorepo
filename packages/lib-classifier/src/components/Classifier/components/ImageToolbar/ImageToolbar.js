@@ -40,7 +40,7 @@ function ImageToolbar (props) {
         <ResetButton />
         <InvertButton />
       </Box>
-      {/* <FieldGuide /> */}
+      <FieldGuide />
     </Box>
   )
 }

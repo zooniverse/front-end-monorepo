@@ -35,7 +35,6 @@ function SubjectViewer({
   subjectReadyState
 }) {
   const { t } = useTranslation('components')
-
   switch (subjectQueueState) {
     case asyncStates.initialized: {
       return null

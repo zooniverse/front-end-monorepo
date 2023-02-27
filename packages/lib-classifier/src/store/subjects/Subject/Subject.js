@@ -30,6 +30,11 @@ const Subject = types
   })
 
   .views(self => ({
+    get isMultiFrameSubject () {
+      const counts = createLocationCounts(self)
+      return counts.total > 1 && counts.total < 11
+    },
+
     get talkURL () {
       if (self.project) {
         const projectSlug = self.project.slug
@@ -63,8 +68,9 @@ const Subject = types
           }
         }
 
-        if (!viewer && counts.total > 1 && counts.total < 11) {
-          // This is a subject pattern for the flipbook - Note that projects that want to use the multiFrame viewer should specify in workflow config
+        if (!viewer && self.isMultiFrameSubject) {
+          // This is a subject pattern for the flipbook
+          // Note that projects that want to use the MultiFrameViewer should specify in workflow.configuration
           if (counts.total === counts.images) {
             viewer = subjectViewers.flipbook
           }

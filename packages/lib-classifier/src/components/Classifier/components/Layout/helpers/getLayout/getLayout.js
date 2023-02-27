@@ -7,7 +7,7 @@ const layoutsMap = {
   multiFrame: MultiFrame
 }
 
-export default function getLayout (layout) {
+export default function getLayout(layout) {
   if (layoutsMap[layout]) {
     return layoutsMap[layout]
   } else {
