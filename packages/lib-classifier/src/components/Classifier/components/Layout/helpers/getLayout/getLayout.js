@@ -1,12 +1,15 @@
-import DefaultLayout from '../../components/DefaultLayout'
-import MultiFrameLayout from '../../components/MultiFrameLayout'
+// import DefaultLayout from '../../components/DefaultLayout'
+// import MultiFrameLayout from '../../components/MultiFrameLayout'
+import { MaxWidth, MultiFrameLayout, NoMaxWidth } from '../../components/'
 
 const layoutsMap = {
-  default: DefaultLayout,
+  default: MaxWidth,
+  maxWidth: MaxWidth,
+  noMaxWidth: NoMaxWidth,
   multiFrame: MultiFrameLayout
 }
 
-function getLayout (layout) {
+export default function getLayout (layout) {
   if (layoutsMap[layout]) {
     return layoutsMap[layout]
   } else {
@@ -14,5 +17,3 @@ function getLayout (layout) {
     return layoutsMap.default
   }
 }
-
-export default getLayout
