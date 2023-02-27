@@ -188,6 +188,9 @@
         }
       }
     },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Icon for text viewer"
+    },
     "MultiFrameViewer": {
       "FrameCarousel":{
         "thumbnailAltText": "Thumbnail of Image",
