@@ -12327,9 +12327,9 @@ next-absolute-url@~1.2.2:
   integrity sha512-Z2+LZXQTthhw2je9u4eq8QWXxXd57a6b54x9exBfQX4Dct6YxaMjcXZWNLHd9AOlCue84EsMpdSGP7wACqUnPg==
 
 next-i18next@~13.1.4:
-  version "13.1.5"
-  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-13.1.5.tgz#04b824bbbe0865d2ff1e6efaf19b0dcfd63c9a93"
-  integrity sha512-gULKQNQmFYIW6C45cb5ZOHa+sw8XUkibFHTqRqrcfbAa1fcBCh3TgX1KtzA0vzeh9R93BkkvFhm+FuhO3kR9jQ==
+  version "13.1.6"
+  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-13.1.6.tgz#9884474861c4d949860694b6a26f8234a743aae8"
+  integrity sha512-Lgr3s3L20nAev9eJSdrXiZGZjKK69ZtH5xvu2307GfseSDtXNsZvqjNDBgucULBIbzxCsp/pmo21DdCLEUsFaw==
   dependencies:
     "@babel/runtime" "^7.20.13"
     "@types/hoist-non-react-statics" "^3.3.1"
