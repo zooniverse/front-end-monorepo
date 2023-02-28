@@ -52,7 +52,7 @@
     "text": "Não tem uma sessão activa"
   },
   "ThemeModeToggle": {
-    "switchToDark": "Mudar para escuro tema",
-    "switchToLight": "Mudar para claro tema"
+    "switchToDark": "Mudar para o tema escuro",
+    "switchToLight": "Mudar para o tema claro"
   }
 }
