@@ -1,61 +1,47 @@
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { useSubjectImage } from '@hooks'
 
 import withKeyZoom from '../../../withKeyZoom'
 import locationValidator from '../../helpers/locationValidator'
-import useSubjectImage, { PLACEHOLDER_URL } from './hooks/useSubjectImage'
 import SVGImage from '../SVGComponents/SVGImage'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
 import SingleImageViewer from './SingleImageViewer'
 
+const DEFAULT_HANDLER = () => true
+
 function SingleImageViewerContainer ({
   enableInteractionLayer = true,
-  enableRotation = () => null,
+  enableRotation = DEFAULT_HANDLER,
   frame = 0,
   invert = false,
   loadingState = asyncStates.initialized,
   move = false,
-  onError = () => true,
-  onKeyDown = () => true,
-  onReady = () => true,
+  onError = DEFAULT_HANDLER,
+  onKeyDown = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
   rotation = 0,
-  setOnPan = () => true,
-  setOnZoom = () => true,
+  setOnPan = DEFAULT_HANDLER,
+  setOnZoom = DEFAULT_HANDLER,
   subject,
   title = {},
   zoomControlFn,
   zooming = true
 }) {
-  const subjectImage = useRef()
   const [dragMove, setDragMove] = useState()
   // TODO: replace this with a better function to parse the image location from a subject.
   const imageUrl = subject ? Object.values(subject.locations[frame])[0] : null
-  const { img, error, loading } = useSubjectImage(imageUrl)
-  // default to a placeholder while image is loading.
-  const { naturalHeight, naturalWidth, src } = img
-
-  useEffect(function onImageLoad() {
-    if (src !== PLACEHOLDER_URL ) {
-      const svgImage = subjectImage.current
-      const { width: clientWidth, height: clientHeight } = svgImage
-        ? svgImage.getBoundingClientRect()
-        : {}
-      const target = { clientHeight, clientWidth, naturalHeight, naturalWidth }
-      onReady({ target })
-    }
-  }, [src])
+  const { img, error, loading, subjectImage } = useSubjectImage({
+    src: imageUrl,
+    onReady,
+    onError
+  })
 
   useEffect(function onMount () {
     enableRotation()
   }, [])
-
-  useEffect(function logError() {
-    if (!loading && error) {
-      console.error(error)
-      onError(error)
-    }
-  }, [error, loading])
 
   function setOnDrag (callback) {
     setDragMove(() => callback)
@@ -79,22 +65,22 @@ function SingleImageViewerContainer ({
         img={subjectImage.current}
         maxZoom={5}
         minZoom={0.1}
-        naturalHeight={naturalHeight}
-        naturalWidth={naturalWidth}
+        naturalHeight={img.naturalHeight}
+        naturalWidth={img.naturalWidth}
         setOnDrag={setOnDrag}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}
         zooming={zooming}
-        src={src}
+        src={img.src}
       >
         <SingleImageViewer
           enableInteractionLayer={enableDrawing}
-          height={naturalHeight}
+          height={img.naturalHeight}
           invert={invert}
           onKeyDown={onKeyDown}
           rotate={rotation}
           title={title}
-          width={naturalWidth}
+          width={img.naturalWidth}
           zoomControlFn={zoomControlFn}
           zooming={zooming}
         >
@@ -102,10 +88,10 @@ function SingleImageViewerContainer ({
             <SVGImage
               invert={invert}
               move={move}
-              naturalHeight={naturalHeight}
-              naturalWidth={naturalWidth}
+              naturalHeight={img.naturalHeight}
+              naturalWidth={img.naturalWidth}
               onDrag={onDrag}
-              src={src}
+              src={img.src}
               subjectID={subjectID}
             />
           </g>
