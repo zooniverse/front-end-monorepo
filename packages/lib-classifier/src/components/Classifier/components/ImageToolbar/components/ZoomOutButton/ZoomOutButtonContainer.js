@@ -12,7 +12,12 @@ function storeMapper(classifierStore) {
   }
 }
 
-function ZoomOutButtonContainer({ zoomOut = () => console.log('zoom out') }) {
+function DEFAULT_HANDLER() {
+  console.log('zoom out')
+  return true
+}
+
+function ZoomOutButtonContainer({ zoomOut = DEFAULT_HANDLER }) {
   const [timer, setTimer] = useState('')
 
   function onPointerDown(event) {
@@ -31,11 +36,14 @@ function ZoomOutButtonContainer({ zoomOut = () => console.log('zoom out') }) {
   }
 
   return (
-    <ZoomOutButton
-      onClick={zoomOut}
+    <span
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
-    />
+    >
+      <ZoomOutButton
+        onClick={zoomOut}
+      />
+    </span>
   )
 }
 
