@@ -18,7 +18,7 @@ const CHART_MARGINS = {
   bottom: 50,
   left: 70,
   right: 10,
-  top: 30
+  top: 40
 }
 
 const JSON_DATA = {
