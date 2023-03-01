@@ -24,7 +24,7 @@ describe('Models > SubjectType', function () {
     })
 
     it('should be of the correct subject type', function () {
-      expect(getType(subject).name).to.equal('SubjectResource')
+      expect(getType(subject).name).to.equal('SingleImageSubject')
     })
   })
 
@@ -44,7 +44,7 @@ describe('Models > SubjectType', function () {
     })
 
     it('should be of the correct subject type', function () {
-      expect(getType(subject).name).to.equal('SubjectResource')
+      expect(getType(subject).name).to.equal('SingleVideoSubject')
     })
   })
 
@@ -91,7 +91,7 @@ describe('Models > SubjectType', function () {
     })
 
     it('should be of the correct type', function () {
-      expect(getType(subject).name).to.equal('SubjectResource')
+      expect(getType(subject).name).to.equal('ImageSubject')
     })
   })
 
@@ -124,7 +124,8 @@ describe('Models > SubjectType', function () {
     let subject
     let snapshot = SubjectFactory.build({
       locations: [
-        { 'image/png': 'https://foo.bar/example.png' },
+        { 'image/png': 'https://foo.bar/example-1.png' },
+        { 'image/png': 'https://foo.bar/example-2.png' },
         { 'application/json': 'https://foo.bar/example.json' }
       ]
     })
@@ -139,7 +140,7 @@ describe('Models > SubjectType', function () {
     })
 
     it('should be of the correct subject type', function () {
-      expect(getType(subject).name).to.equal('SubjectResource')
+      expect(getType(subject).name).to.equal('SingleJSONSubject')
     })
   })
 
