@@ -81,6 +81,24 @@ function MyConnectedComponent(props) {
 }
 ```
 
+## useSubjectImage
+  
+A custom hook that fetches an image from a URL, with a ref to the image's DOM node for sizing etc.
+
+Usage:
+```jsx
+// img is a DOM img. subjectImage is a React ref to the element that displays the image.
+const { img, error, loading, subjectImage } = useSubjectImage({ src, onReady, onError })
+
+if (loading) {
+  return <p>The image is still loading.</p>
+}
+if (!loading && error) {
+  return <p>{error.message}</p>
+}
+return <img ref={subjectImage} alt="This is an example of a subject image" src={img.src} />
+```
+
 ## useTranscriptionReductions
 
 A wrapper for `useCaesarReductions`, specific to the transcription task. Generates the props for the `TranscribedLines` component.

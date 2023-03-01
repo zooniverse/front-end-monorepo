@@ -109,6 +109,7 @@ export function Choices ({
               ariaChecked={selected ? 'true' : 'false'}
               choiceId={choiceId}
               choiceLabel={task.strings.get(`choices.${choiceId}.label`)}
+              columnsCount={columnsCount}
               disabled={disabled}
               hasFocus={hasFocus}
               onChoose={onChoose}

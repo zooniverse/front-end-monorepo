@@ -48,10 +48,11 @@ export default function mockStore({
     activeWorkflowId: workflowSnapshot.id
   })
 
-  const subjectResources = { [subjectSnapshot.id]: subjectSnapshot }
+  const subjectResources = {}
   Factory
     .buildList('subject', 9)
     .forEach(subject => subjectResources[subject.id] = subject)
+  subjectResources[subjectSnapshot.id] = subjectSnapshot
 
   const { panoptes } = stubPanoptesJs({
     field_guides: [],

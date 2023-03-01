@@ -1,24 +1,22 @@
-import PropTypes from 'prop-types'
+import { observer } from 'mobx-react'
 
-import { withStores } from '@helpers'
+import { useStores } from '@hooks'
 import getLayout from './helpers/getLayout'
 
 function storeMapper(classifierStore) {
-  const { layout } = classifierStore.subjectViewer
-  return { layout }
+  const workflow = classifierStore.workflows.active
+
+  return {
+    layout: workflow?.layout
+  }
 }
 
 
-function Layout({
-  layout = 'default'
-}) {
+function Layout() {
   // `getLayout()` will always return the default layout as a fallback
+  const { layout } = useStores(storeMapper)
   const CurrentLayout = getLayout(layout)
   return <CurrentLayout />
 }
 
-Layout.propTypes = {
-  layout: PropTypes.string
-}
-
-export default withStores(Layout, storeMapper)
+export default observer(Layout)
