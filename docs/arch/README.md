@@ -44,3 +44,5 @@
 - [ADR 42: record classifier store snapshots in session storage ](adr-42.md)
 - [ADR 43: TextFromSubject Task ](adr-43.md)
 - [ADR 44: Image And Text Subject Viewer](adr-44.md)
+- [ADR 45: Custom Video Controls](adr-45.md)
+- [ADR 46: Flipbook Viewer](adr-46.md)
