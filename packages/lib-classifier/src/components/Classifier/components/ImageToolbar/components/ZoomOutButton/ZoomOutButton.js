@@ -4,7 +4,12 @@ import { useTranslation } from '@translations/i18n'
 import ZoomOutIcon from './ZoomOutIcon'
 import Button from '../Button'
 
-function ZoomOutButton({ onClick = () => console.log('Zoom out') }) {
+function DEFAULT_HANDLER() {
+  console.log('zoom out')
+  return true
+}
+
+function ZoomOutButton({ onClick = DEFAULT_HANDLER }) {
   const { t } = useTranslation('components')
   return (
     <Button
