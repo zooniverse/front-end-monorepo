@@ -12326,10 +12326,10 @@ next-absolute-url@~1.2.2:
   resolved "https://registry.yarnpkg.com/next-absolute-url/-/next-absolute-url-1.2.2.tgz#9aba5adcee8effcffd63271d99e13213ad04c23b"
   integrity sha512-Z2+LZXQTthhw2je9u4eq8QWXxXd57a6b54x9exBfQX4Dct6YxaMjcXZWNLHd9AOlCue84EsMpdSGP7wACqUnPg==
 
-next-i18next@~13.1.4:
-  version "13.1.6"
-  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-13.1.6.tgz#9884474861c4d949860694b6a26f8234a743aae8"
-  integrity sha512-Lgr3s3L20nAev9eJSdrXiZGZjKK69ZtH5xvu2307GfseSDtXNsZvqjNDBgucULBIbzxCsp/pmo21DdCLEUsFaw==
+next-i18next@~13.2.0:
+  version "13.2.0"
+  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-13.2.0.tgz#548e06ebe3565498ccd5dc63de23f946d99fabb5"
+  integrity sha512-FOaODpSlaSEPBnBh5GJzm16i7Lyx2YcRMgEVqaa3tEK0rM8u4wCDiTke9wbJmR4oCI1fc+rmTZJew8WiEjj17Q==
   dependencies:
     "@babel/runtime" "^7.20.13"
     "@types/hoist-non-react-statics" "^3.3.1"
