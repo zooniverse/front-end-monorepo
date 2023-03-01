@@ -46,3 +46,4 @@
 - [ADR 44: Image And Text Subject Viewer](adr-44.md)
 - [ADR 45: Custom Video Controls](adr-45.md)
 - [ADR 46: Flipbook Viewer](adr-46.md)
+- [ADR 47: Highlighter Task](adr-47.md)
