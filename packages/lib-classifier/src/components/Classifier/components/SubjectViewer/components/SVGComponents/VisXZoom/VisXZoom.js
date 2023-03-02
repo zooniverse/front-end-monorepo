@@ -13,14 +13,17 @@ const defaultZoomConfig = {
   zoomOutValue: 0.8
 }
 
+const DEFAULT_HANDLER = () => true
+let zoom = null
+
 function VisXZoom({
   constrain,
   height,
   left = 0,
-  onKeyDown = () => true,
+  onKeyDown = DEFAULT_HANDLER,
   panning = false,
-  setOnPan = () => true,
-  setOnZoom = () => true,
+  setOnPan = DEFAULT_HANDLER,
+  setOnZoom = DEFAULT_HANDLER,
   top = 0,
   width,
   zoomConfiguration = defaultZoomConfig,
@@ -28,13 +31,10 @@ function VisXZoom({
   zooming = false,
   ...props
 }) {
-
   useEffect(function setCallbacks() {
     setOnPan(handleToolbarPan)
     setOnZoom(handleToolbarZoom)
   }, [setOnPan, setOnZoom])
-
-  let zoom = null
 
   function handleToolbarPan(xMultiplier, yMultiplier) {
     onPan(xMultiplier, yMultiplier)
@@ -140,9 +140,9 @@ function VisXZoom({
         zoom = _zoom
         return (
           <ZoomingComponent
-            initialTransformMatrix={zoom.initialTransformMatrix}
-            transformMatrix={zoom.transformMatrix}
-            transform={zoom.toString()}
+            initialTransformMatrix={_zoom.initialTransformMatrix}
+            transformMatrix={_zoom.transformMatrix}
+            transform={_zoom.toString()}
             {...props}
           >
             <ZoomEventLayer
@@ -151,10 +151,10 @@ function VisXZoom({
               left={left}
               onDoubleClick={onDoubleClick}
               onKeyDown={onKeyDown}
-              onPointerDown={panning ? zoom.dragStart : () => { }}
+              onPointerDown={panning ? _zoom.dragStart : DEFAULT_HANDLER}
               onPointerEnter={onPointerEnter}
-              onPointerMove={panning ? zoom.dragMove : () => { }}
-              onPointerUp={panning ? zoom.dragEnd : () => { }}
+              onPointerMove={panning ? _zoom.dragMove : DEFAULT_HANDLER}
+              onPointerUp={panning ? _zoom.dragEnd : DEFAULT_HANDLER}
               onPointerLeave={onPointerLeave}
               onWheel={onWheel}
               panning={panning}
