@@ -10,13 +10,13 @@ import QuickTalk from '@components/Classifier/components/QuickTalk'
 import SubjectViewer from '@components/Classifier/components/SubjectViewer'
 import TaskArea from '@components/Classifier/components/TaskArea'
 
-const ContainerGrid = styled(Grid)`
+export const ContainerGrid = styled(Grid)`
   position: relative;
 
-  // proportional 45/25 subject/task sizing up to a maximum subject/task width of 45rem/25rem.
+  // proportional 9:5 subject/task sizing up to a maximum subject/task width of 45rem/25rem, then the Grommet Grid columns take over
   @media screen and (min-width: 769px) and (max-width: 70rem) {
     grid-gap: 1.75rem;
-    grid-template-columns: 45fr 25fr;
+    grid-template-columns: 9fr 5fr;
   }
 `
 
@@ -29,11 +29,11 @@ const StyledTaskArea = styled(TaskArea)`
   top: 10px;
 `
 
-export const StyledImageToolbarContainer = styled.div`
+const StyledImageToolbarContainer = styled.div`
   grid-area: toolbar;
 `
 
-export const StyledImageToolbar = styled(ImageToolbar)`
+const StyledImageToolbar = styled(ImageToolbar)`
   position: sticky;
   top: 10px;
 `
@@ -55,27 +55,29 @@ export function ViewerGrid({ children }) {
   )
 }
 
+export const verticalLayout = {
+  areas: [
+    ['viewer'],
+    ['task']
+  ],
+  columns: ['100%'],
+  gap: 'small',
+  margin: 'none',
+  rows: ['auto', 'auto']
+}
+
+export const horizontalLayout = {
+  areas: [
+    ['viewer', 'task']
+  ],
+  columns: ['minmax(auto,100rem)', '25rem'],
+  gap: 'medium',
+  margin: 'auto',
+  rows: ['auto']
+}
+
 export default function MaxWidth({ className = '' }) {
   const size = useContext(ResponsiveContext)
-  const verticalLayout = {
-    areas: [
-      ['viewer'],
-      ['task']
-    ],
-    columns: ['100%'],
-    gap: 'small',
-    margin: 'none',
-    rows: ['auto', 'auto']
-  }
-  const horizontalLayout = {
-    areas: [
-      ['viewer', 'task']
-    ],
-    columns: ['minmax(auto,100rem)', '25rem'],
-    gap: 'medium',
-    margin: 'auto',
-    rows: ['auto']
-  }
   const containerGridProps = size === 'small' ? verticalLayout : horizontalLayout
 
   return (
