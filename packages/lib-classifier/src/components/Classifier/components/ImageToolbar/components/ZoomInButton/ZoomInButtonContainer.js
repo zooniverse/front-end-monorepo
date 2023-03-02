@@ -12,7 +12,12 @@ function storeMapper(classifierStore) {
   }
 }
 
-function ZoomInButtonContainer({ zoomIn = () => console.log('zoom in') }) {
+function DEFAULT_HANDLER() {
+  console.log('zoom in')
+  return true
+}
+
+function ZoomInButtonContainer({ zoomIn = DEFAULT_HANDLER }) {
   const [timer, setTimer] = useState('')
 
   function onPointerDown(event) {
@@ -31,11 +36,14 @@ function ZoomInButtonContainer({ zoomIn = () => console.log('zoom in') }) {
   }
 
   return (
-    <ZoomInButton
-      onClick={zoomIn}
+    <span
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
-    />
+    >
+      <ZoomInButton
+        onClick={zoomIn}
+      />
+    </span>
   )
 }
 
