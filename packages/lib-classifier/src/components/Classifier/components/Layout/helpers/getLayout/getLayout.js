@@ -1,10 +1,9 @@
-import { MaxWidth, MultiFrame, NoMaxWidth } from '../../components/'
+import { MaxWidth, NoMaxWidth } from '../../components/'
 
 const layoutsMap = {
   default: MaxWidth,
   maxWidth: MaxWidth,
-  noMaxWidth: NoMaxWidth,
-  multiFrame: MultiFrame
+  noMaxWidth: NoMaxWidth
 }
 
 export default function getLayout(layout) {

@@ -1,6 +1,6 @@
 # Layout Components
 
-The Classifier's layout components are built specifically for certain workflow task types and certain subject types. The Layout component looks for task type and subject type, and returns the appropriate layout.
+The Classifier's layout components are built specifically for certain workflow configurations. See `get layout()` in the Workflow.js store.
 
 The `default` layout is set in `/Layouts/helpers/getLayout.js`, and `default` will always be returned as a fallback.
 
@@ -21,9 +21,3 @@ This layout is assigned to transcription-task workflows via the Worklfow.js stor
 In the horizontal layout, the grid area ratio of `subject:task` on all viewport widths larger than 768px is `9:5`.
 
 On viewports smaller than 768px, the vertical grid layout displays the subject area stacked above the task area.
-
-## MultiFrame
-
-This component is based on the grid layout of MaxWidth. It's primary function is to handle multi-image subjects that are not part of a transcription task. Multi-image subject viewers that display all of the separate frames at once (such as FlipbookViewer) need flexibility where the image toolbar, field guide, and other shared components are displayed.
-
-For example, the default view for the flipbook viewer is the same as a single-image subject with one toolbar. However, the flipbook's separate frames view has one image toolbar per subject frame.

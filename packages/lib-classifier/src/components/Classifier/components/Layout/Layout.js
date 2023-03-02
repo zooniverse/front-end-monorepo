@@ -1,27 +1,20 @@
 import { observer } from 'mobx-react'
+
 import { useStores } from '@hooks'
 import getLayout from './helpers/getLayout'
 
 function storeMapper(classifierStore) {
   const workflow = classifierStore.workflows.active
-  const subject = classifierStore.subjects.active
 
   return {
-    multiFrameSubject: subject?.isMultiFrameSubject,
-    usesTranscriptionTask: workflow?.usesTranscriptionTask
+    layout: workflow?.layout
   }
 }
 
+
 function Layout() {
-  const { multiFrameSubject, usesTranscriptionTask } = useStores(storeMapper)
-
-  let layout = 'default'
-  if (usesTranscriptionTask) {
-    layout = 'noMaxWidth'
-  } else if (multiFrameSubject && !usesTranscriptionTask) {
-    layout = 'multiFrame'
-  }
-
+  // `getLayout()` will always return the default layout as a fallback
+  const { layout } = useStores(storeMapper)
   const CurrentLayout = getLayout(layout)
   return <CurrentLayout />
 }

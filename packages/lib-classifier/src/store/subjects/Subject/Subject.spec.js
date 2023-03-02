@@ -1,7 +1,9 @@
+import { Factory } from 'rosie'
 import sinon from 'sinon'
 import Subject from './Subject'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
+import stubPanoptesJs from '@test/stubPanoptesJs'
 import subjectViewers from '@helpers/subjectViewers'
 import { subjectsSeenThisSession } from '@helpers'
 
@@ -59,40 +61,15 @@ describe('Model > Subject', function () {
   })
 
   describe('Views > talkURL', function () {
-    it('should have a Talk URL', function () {
+    let subject
+
+    before(function () {
       const store = mockStore({ project, subject: stub })
-      const subject = store.subjects.active
+      subject = store.subjects.active
+    })
+
+    it('should have a Talk URL', function () {
       expect(subject.talkURL).to.equal(`https://example.org/projects/${project.slug}/talk/subjects/${subject.id}`)
-    })
-
-    it('should correctly return isMultiFrameSubject', function () {
-      const multipleImagesSubject = SubjectFactory.build({
-        locations: [
-          { 'image/png': 'https://foo.bar/example.png' },
-          { 'image/png': 'https://foo.bar/example.png' },
-          { 'image/png': 'https://foo.bar/example.png' },
-          { 'image/png': 'https://foo.bar/example.png' }
-        ]
-      })
-      const store = mockStore({ project, workflow, subject: multipleImagesSubject })
-      const subject = store.subjects.active
-      expect(subject.isMultiFrameSubject).to.equal(true)
-    })
-  })
-
-  describe('Views > isMultiFrameSubject', function () {
-    it('should return true for a subject.locations > 1 and < 10', function () {
-      const multipleImagesSubject = SubjectFactory.build({
-        locations: [
-          { 'image/png': 'https://foo.bar/example.png' },
-          { 'image/png': 'https://foo.bar/example.png' },
-          { 'image/png': 'https://foo.bar/example.png' },
-          { 'image/png': 'https://foo.bar/example.png' }
-        ]
-      })
-      const store = mockStore({ project, workflow, subject: multipleImagesSubject })
-      const subject = store.subjects.active
-      expect(subject.isMultiFrameSubject).to.equal(true)
     })
   })
 
