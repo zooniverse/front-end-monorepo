@@ -3,9 +3,16 @@
 import { JSDOM } from 'jsdom'
 import fetch from 'node-fetch'
 import nock from 'nock'
+import sinon from 'sinon'
 
 // require all net requests to be mocked.
 nock.disableNetConnect()
+
+// mute console errors
+sinon.stub(console, 'error')
+sinon.stub(console, 'warn')
+sinon.stub(console, 'info')
+sinon.stub(console, 'log')
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://localhost' })
 const { window } = jsdom

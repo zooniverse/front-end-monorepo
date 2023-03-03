@@ -156,7 +156,6 @@ describe('Stores > Notifications', function () {
 
     describe('when the request errors', function () {
       before(async function () {
-        sinon.stub(console, 'error')
         nock('https://talk-staging.zooniverse.org')
           .persist()
           .get('/conversations')
@@ -174,7 +173,6 @@ describe('Stores > Notifications', function () {
       })
 
       after(function () {
-        console.error.restore()
         nock.cleanAll()
       })
 
@@ -259,7 +257,6 @@ describe('Stores > Notifications', function () {
 
     describe('when the request errors', function () {
       before(async function () {
-        sinon.stub(console, 'error')
         nock('https://talk-staging.zooniverse.org')
           .persist()
           .get('/notifications')
@@ -277,7 +274,6 @@ describe('Stores > Notifications', function () {
       })
       
       after(function () {
-        console.error.restore()
         nock.cleanAll()
       })
 

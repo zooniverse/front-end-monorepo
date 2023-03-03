@@ -7,11 +7,18 @@ import sinonChai from 'sinon-chai'
 import { JSDOM } from 'jsdom'
 import Enzyme from 'enzyme'
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
+import sinon from 'sinon'
 
 chai.use(dirtyChai)
 chai.use(sinonChai)
 global.React = React
 global.expect = chai.expect
+
+// mute console errors
+sinon.stub(console, 'error')
+sinon.stub(console, 'warn')
+sinon.stub(console, 'info')
+sinon.stub(console, 'log')
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://localhost'})
 const { window } = jsdom

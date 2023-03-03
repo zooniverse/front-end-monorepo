@@ -152,7 +152,6 @@ describe('Stores > Notifications', function () {
 
     describe('when the request errors', function () {
       before(function () {
-        sinon.stub(console, 'error')
         sinon.stub(talkAPI, 'get').callsFake(() => Promise.reject(new Error('Error!')))
 
         rootStore = initStore(true, {
@@ -164,7 +163,6 @@ describe('Stores > Notifications', function () {
       })
 
       after(function () {
-        console.error.restore()
         talkAPI.get.restore()
       })
 
@@ -239,7 +237,6 @@ describe('Stores > Notifications', function () {
 
     describe('when the request errors', function () {
       before(function () {
-        sinon.stub(console, 'error')
         sinon.stub(talkAPI, 'get').callsFake(() => Promise.reject(new Error('Error!')))
 
         rootStore = initStore(true, {
@@ -251,7 +248,6 @@ describe('Stores > Notifications', function () {
       })
 
       after(function () {
-        console.error.restore()
         talkAPI.get.restore()
       })
 

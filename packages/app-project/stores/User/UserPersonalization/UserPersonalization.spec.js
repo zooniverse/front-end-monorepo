@@ -22,7 +22,6 @@ describe('Stores > UserPersonalization', function () {
   }
 
   before(function () {
-    sinon.stub(console, 'error')
     const MOCK_DAILY_COUNTS = [
       { count: 12, period: '2019-09-29' },
       { count: 12, period: '2019-09-30' },
@@ -61,7 +60,6 @@ describe('Stores > UserPersonalization', function () {
   })
 
   after(function () {
-    console.error.restore()
     rootStore.client.panoptes.get.restore()
     statsClient.request.restore()
     talkAPI.get.restore()

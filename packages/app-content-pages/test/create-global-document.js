@@ -2,9 +2,14 @@
 // `mount` method in enzyme.
 import { JSDOM } from 'jsdom'
 import nock from 'nock'
+import sinon from 'sinon'
 
 // require all net requests to be mocked.
 nock.disableNetConnect()
+
+// mute console errors
+sinon.stub(console, 'error')
+sinon.stub(console, 'warn')
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://localhost' })
 const { window } = jsdom

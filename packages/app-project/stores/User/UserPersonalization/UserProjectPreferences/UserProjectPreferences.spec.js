@@ -228,7 +228,6 @@ describe('Stores > UserProjectPreferences', function () {
       let rootStore
 
       before(function () {
-        sinon.stub(console, 'error')
         nock('https://panoptes-staging.zooniverse.org/api')
           .persist()
           .get('/project_preferences')
@@ -245,7 +244,6 @@ describe('Stores > UserProjectPreferences', function () {
 
       after(function () {
         nock.cleanAll()
-        console.error.restore()
       })
 
       it('should store the error', async function () {

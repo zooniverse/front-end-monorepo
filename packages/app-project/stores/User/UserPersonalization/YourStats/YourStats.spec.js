@@ -17,7 +17,6 @@ describe('Stores > YourStats', function () {
   }
 
   before(function () {
-    sinon.stub(console, 'error')
 
     const MOCK_DAILY_COUNTS = [
       { count: 12, period: '2019-09-29' },
@@ -50,7 +49,6 @@ describe('Stores > YourStats', function () {
   })
 
   after(function () {
-    console.error.restore()
     statsClient.request.restore()
     talkAPI.get.restore()
     nock.cleanAll()
