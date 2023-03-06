@@ -121,7 +121,7 @@ function SVGPanZoom({
 
   return (
     <div
-      style={displayNaturalDimensions ? { width: '100%' } : { height: naturalHeight, width: naturalWidth }}
+      style={displayNaturalDimensions ? { height: naturalHeight, width: naturalWidth } : { width: '100%' }}
     >
       {cloneElement(children, {
         scale,

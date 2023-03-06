@@ -36,7 +36,7 @@ function storeMapper(store) {
 
   const {
     display_natural_subject_dimensions: displayNaturalDimensions
-  } = store.workflows.active.configuration
+  } = store.workflows?.active?.configuration
 
   return {
     activeTool,

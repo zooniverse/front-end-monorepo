@@ -16,7 +16,6 @@ function storeMapper(classifierStore) {
 function Layout() {
   // `getLayout()` will always return the default layout as a fallback
   const { displayNaturalDimensions, layout } = useStores(storeMapper)
-  console.log('DISPLAY NATURAL DIMENSIONS', displayNaturalDimensions)
   const CurrentLayout = getLayout(layout)
   return <CurrentLayout displayNaturalDimensions={displayNaturalDimensions} />
 }

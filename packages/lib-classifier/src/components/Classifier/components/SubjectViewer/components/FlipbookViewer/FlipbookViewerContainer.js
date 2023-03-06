@@ -22,7 +22,7 @@ function storeMapper(store) {
     display_natural_subject_dimensions: displayNaturalDimensions,
     flipbook_autoplay: flipbookAutoplay,
     playIterations
-  } = store.workflows.active.configuration
+  } = store.workflows?.active?.configuration
 
   return {
     defaultFrame,
