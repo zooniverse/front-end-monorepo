@@ -45,7 +45,7 @@
     "mobx-utils": "~6.0.4",
     "react-i18next": "~12.2.0",
     "react-player": "~2.11.0",
-    "swr": "~2.0.0",
+    "swr": "~2.1.0",
     "valid-url": "~1.0.9"
   },
   "peerDependencies": {
