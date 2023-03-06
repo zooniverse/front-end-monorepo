@@ -45,8 +45,13 @@ Default.args = {
   task
 }
 
-const taskWithoutCharacteristics = { ...task, characteristics: {} }
-export const NoFilters = Template.bind({})
-NoFilters.args = {
-  task: taskWithoutCharacteristics
+const taskWithoutInstructionStrings = { ...task.strings }
+delete taskWithoutInstructionStrings.instruction
+
+const taskWithoutCharacteristicsOrInstruction = { ...task, characteristics: {}, strings: taskWithoutInstructionStrings }
+delete taskWithoutCharacteristicsOrInstruction.instruction
+
+export const NoFiltersNoInstruction = Template.bind({})
+NoFiltersNoInstruction.args = {
+  task: taskWithoutCharacteristicsOrInstruction
 }

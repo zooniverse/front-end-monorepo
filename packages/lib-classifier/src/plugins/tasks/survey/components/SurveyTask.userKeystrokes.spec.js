@@ -4,21 +4,20 @@ import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import * as globalConfig from '../../../../../.storybook/preview'
 
-import Meta, { Default, NoFilters } from './SurveyTask.stories'
+import Meta, { Default, NoFiltersNoInstruction } from './SurveyTask.stories'
 
 describe('SurveyTask with user keystrokes', function () {
   // this turns off Mocha's time limit for slow tests
   this.timeout(0)
-
   const DefaultStory = composeStory(Default, Meta, globalConfig)
-  const NoFiltersStory = composeStory(NoFilters, Meta, globalConfig)
+  const NoFiltersNoInstructionStory = composeStory(NoFiltersNoInstruction, Meta, globalConfig)
 
   describe('without filters', function() {
     let user, choiceButton, choiceButtons
 
     beforeEach(async function () {
       user = userEvent.setup({ delay: null })
-      render(<NoFiltersStory />)
+      render(<NoFiltersNoInstructionStory />)
       choiceButton = screen.getByText('Fire')
       await user.click(choiceButton)
       const identifyButton = screen.getByText('SurveyTask.Choice.identify')
@@ -162,7 +161,7 @@ describe('SurveyTask with user keystrokes', function () {
 
     beforeEach(async function () {
       user = userEvent.setup({ delay: null })
-      render(<NoFiltersStory />)
+      render(<NoFiltersNoInstructionStory />)
       // tabbing to the first choice (Aardvark)
       await user.keyboard('[Tab]')
       // pressing Enter to open the choice (Aardvark)
