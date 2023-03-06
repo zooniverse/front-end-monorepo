@@ -96,7 +96,6 @@ export function LightTheme() {
 }
 
 export function DarkTheme() {
-  const darkZooTheme = { ...zooTheme, dark: true }
   return (
     <ViewerContext mode='dark' theme={zooTheme}>
       <Box width='large'>

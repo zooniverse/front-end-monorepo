@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import { createRef, Component } from 'react';
 import { Box } from 'grommet'
 import ScatterPlotViewer from './ScatterPlotViewer'
 import locationValidator from '../../helpers/locationValidator'
