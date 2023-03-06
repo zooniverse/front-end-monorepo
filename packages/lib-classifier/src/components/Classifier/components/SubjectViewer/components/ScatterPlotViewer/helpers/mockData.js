@@ -27,25 +27,38 @@ const data = {
   y: yPoints
 }
 
-const dataSeriesWithXErrors = [...Array(10)].map(() => {
-  const coords = {
-    x: Math.floor(Math.random() * 10) + 1,
-    y: Math.floor(Math.random() * 10) + 1,
-    x_error: Math.random()
-  }
+const dataSeriesWithXErrors = {
+  data: [
+    {
+      seriesData: [...Array(10)].map(() => {
+        const coords = {
+          x: Math.floor(Math.random() * 10) + 1,
+          y: Math.floor(Math.random() * 10) + 1,
+          x_error: Math.random()
+        }
 
-  return coords
-})
+        return coords
+      })
+    }
+  ]
+}
 
-const dataSeriesWithYErrors = [...Array(10)].map(() => {
-  const coords = {
-    x: Math.floor(Math.random() * 10) + 1,
-    y: Math.floor(Math.random() * 10) + 1,
-    y_error: Math.random()
-  }
 
-  return coords
-})
+const dataSeriesWithYErrors = {
+  data: [
+    {
+      seriesData: [...Array(10)].map(() => {
+        const coords = {
+          x: Math.floor(Math.random() * 10) + 1,
+          y: Math.floor(Math.random() * 10) + 1,
+          y_error: Math.random()
+        }
+
+        return coords
+      })
+    }
+  ]
+}
 
 const dataPoints = zip(data.x, data.y)
 

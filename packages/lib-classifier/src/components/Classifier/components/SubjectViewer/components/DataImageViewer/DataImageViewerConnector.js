@@ -1,22 +1,20 @@
-import { useContext } from 'react';
-import { MobXProviderContext, observer } from 'mobx-react'
+import { withStores } from '@helpers'
 import DataImageViewerContainer from './DataImageViewerContainer'
 
-function useStores() {
-  const stores = useContext(MobXProviderContext)
-
+function storeMapper(classifierStore) {
   const {
-    active: subject
-  } = stores.classifierStore.subjects
-
-  const {
-    enableRotation,
-    move,
-    resetView,
-    rotation,
-    setOnZoom,
-    setOnPan
-  } = stores.classifierStore.subjectViewer
+    subjects: {
+      active: subject
+    },
+    subjectViewer: {
+      enableRotation,
+      move,
+      resetView,
+      rotation,
+      setOnZoom,
+      setOnPan
+    }
+  } = classifierStore
 
   return {
     enableRotation,
@@ -29,29 +27,4 @@ function useStores() {
   }
 }
 
-function DataImageViewerConnector (props) {
-  const {
-    enableRotation,
-    move,
-    resetView,
-    rotation,
-    setOnZoom,
-    setOnPan,
-    subject
-  } = useStores()
-
-  return (
-    <DataImageViewerContainer
-      enableRotation={enableRotation}
-      move={move}
-      resetView={resetView}
-      rotation={rotation}
-      setOnZoom={setOnZoom}
-      setOnPan={setOnPan}
-      subject={subject}
-      {...props}
-    />
-  )
-}
-
-export default observer(DataImageViewerConnector)
+export default withStores(DataImageViewerContainer, storeMapper)

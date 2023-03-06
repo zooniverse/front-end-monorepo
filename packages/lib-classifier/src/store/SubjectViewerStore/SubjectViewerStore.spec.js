@@ -31,23 +31,6 @@ describe('Model > SubjectViewerStore', function () {
     })
   })
 
-  describe('layout', function () {
-    let subjectViewerStore
-    before(function () {
-      subjectViewerStore = SubjectViewerStore.create()
-    })
-
-    it('should have a `layout` property', function () {
-      expect(subjectViewerStore.layout).to.deep.equal('default')
-    })
-
-    // This can't be tested properly yet as there is only one layout, and the
-    // model uses an enumerable
-    it('should have a `setLayout` method', function () {
-      expect(subjectViewerStore.setLayout).to.be.a('function')
-    })
-  })
-
   describe('Actions > enableRotation', function () {
     let subjectViewerStore
 
