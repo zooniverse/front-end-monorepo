@@ -181,12 +181,7 @@ describe('Component > ScatterPlot', function () {
   describe('when there are error bars', function () {
     describe('for the horizontal (x) direction', function () {
       it('should render a line centered at the glyph component', function () {
-        const data = [{
-          seriesData: dataSeriesWithXErrors,
-          seriesOptions: {
-            label: 'My data'
-          }
-        }]
+        const data = dataSeriesWithXErrors.data
         const wrapper = shallow(
           <ScatterPlot
             data={data}
@@ -211,12 +206,7 @@ describe('Component > ScatterPlot', function () {
 
     describe('for the vertical (y) direction', function () {
       it('should render a line centered at the glyph component', function () {
-        const data = [{
-          seriesData: dataSeriesWithYErrors,
-          seriesOptions: {
-            label: 'My data'
-          }
-        }]
+        const data = dataSeriesWithYErrors.data
         const wrapper = shallow(
           <ScatterPlot
             data={data}

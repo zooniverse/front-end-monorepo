@@ -73,6 +73,15 @@ subject.locations = [
 
 ### JSON file
 
+Use the `JSONData` model to validate a JSON-encoded string loaded from a URL:
+
+```js
+const JSONData = await import('@store/JSONData')
+const response = await fetch(url)
+const data = await response.json()
+const chartData = JSONData.create(data)
+```
+
 The JSON file can take two different shapes depending on if the data is a single series or multiple series. 
 
 #### Series Data
