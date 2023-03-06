@@ -72,18 +72,28 @@ function SingleImageViewer (props) {
 }
 
 SingleImageViewer.propTypes = {
+  /** Passed from container */
   enableInteractionLayer: PropTypes.bool,
+  /** Calculated by useSubjectImage() */
   height: PropTypes.number.isRequired,
+  /** Passed from withKeyZoom() */
   onKeyDown: PropTypes.func,
+  /** Stored in subject viewer store */
   rotate: PropTypes.number,
+  /** Calculated in SVGPanZoom component */
   scale: PropTypes.number,
+  /** Passed from container */
   title: PropTypes.shape({
     id: PropTypes.string,
     text: PropTypes.string
   }),
+  /** Calculated in SVGPanZoom component */
   viewBox: PropTypes.string,
+  /** Calculated by useSubjectImage() */
   width: PropTypes.number.isRequired,
+  /** Stored in subject viewer store */
   zoomControlFn: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  /** Passed from container */
   zooming: PropTypes.bool
 }
 

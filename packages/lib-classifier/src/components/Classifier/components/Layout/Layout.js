@@ -7,16 +7,18 @@ function storeMapper(classifierStore) {
   const workflow = classifierStore.workflows.active
 
   return {
-    layout: workflow?.layout
+    layout: workflow?.layout,
+    displayNaturalDimensions: workflow?.configuration?.display_natural_subject_dimensions
   }
 }
 
 
 function Layout() {
   // `getLayout()` will always return the default layout as a fallback
-  const { layout } = useStores(storeMapper)
+  const { displayNaturalDimensions, layout } = useStores(storeMapper)
+  console.log('DISPLAY NATURAL DIMENSIONS', displayNaturalDimensions)
   const CurrentLayout = getLayout(layout)
-  return <CurrentLayout />
+  return <CurrentLayout displayNaturalDimensions={displayNaturalDimensions} />
 }
 
 export default observer(Layout)

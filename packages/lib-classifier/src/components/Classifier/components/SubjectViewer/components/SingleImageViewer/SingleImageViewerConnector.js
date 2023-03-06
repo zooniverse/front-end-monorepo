@@ -17,7 +17,12 @@ function storeMapper(store) {
     }
   } = store
 
+  const {
+    display_natural_subject_dimensions: displayNaturalDimensions
+  } = store.workflows.active.configuration
+
   return {
+    displayNaturalDimensions,
     enableRotation,
     frame,
     invert,

@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
 import { useSubjectImage } from '@hooks'
 
@@ -13,6 +13,7 @@ import SingleImageViewer from './SingleImageViewer'
 const DEFAULT_HANDLER = () => true
 
 function SingleImageViewerContainer ({
+  displayNaturalDimensions = false,
   enableInteractionLayer = true,
   enableRotation = DEFAULT_HANDLER,
   frame = 0,
@@ -62,6 +63,7 @@ function SingleImageViewerContainer ({
     const subjectID = subject?.id || 'unknown'
     return (
       <SVGPanZoom
+        displayNaturalDimensions={displayNaturalDimensions}
         img={subjectImage.current}
         maxZoom={5}
         minZoom={0.1}

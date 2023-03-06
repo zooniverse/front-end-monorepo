@@ -76,7 +76,7 @@ export const horizontalLayout = {
   rows: ['auto']
 }
 
-export default function MaxWidth({ className = '' }) {
+export default function MaxWidth({ className = '', displayNaturalDimensions = false }) {
   const size = useContext(ResponsiveContext)
   const containerGridProps = size === 'small' ? verticalLayout : horizontalLayout
 
@@ -86,7 +86,7 @@ export default function MaxWidth({ className = '' }) {
       {...containerGridProps}
     >
       <ViewerGrid>
-        <Box gridArea='subject'>
+        <Box gridArea='subject' align={displayNaturalDimensions ? 'start' : 'end'}>
           <Banners />
           <SubjectViewer />
           <MetaTools />

@@ -14,6 +14,7 @@ const DEFAULT_HANDLER = () => true
 
 const FlipbookViewer = ({
   defaultFrame = 0,
+  displayNaturalDimensions = false,
   enableRotation = DEFAULT_HANDLER,
   flipbookAutoplay = false,
   invert = false,

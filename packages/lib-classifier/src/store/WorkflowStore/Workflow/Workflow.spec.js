@@ -48,9 +48,13 @@ describe('Model > Workflow', function () {
       expect(workflow.configuration.hide_classification_summaries).to.be.undefined()
     })
 
-    it('should have flipbook autoplay default to false', function () {
+    it('should have flipbook_autoplay default to false', function () {
       expect(workflow.configuration.flipbook_autoplay).to.be.false()
     })
+
+    // it('should have display_natural_subject_dimensions default to false', function () {
+    //   expect(workflow.display_natural_subject_dimensions).to.be.false()
+    // })
   })
 
   describe('with custom configuration', function () {

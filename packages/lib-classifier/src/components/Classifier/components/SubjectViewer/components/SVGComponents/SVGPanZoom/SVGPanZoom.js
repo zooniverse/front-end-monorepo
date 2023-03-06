@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
-import { cloneElement, useRef, useEffect, useState } from 'react';
+import { cloneElement, useEffect, useState } from 'react'
 
 function SVGPanZoom({
   children,
+  displayNaturalDimensions = false,
   img,
   maxZoom = 2,
   minZoom = 1,
@@ -14,7 +15,6 @@ function SVGPanZoom({
   src,
   zooming = true
 }) {
-  const scrollContainer = useRef()
   const defaultViewBox = {
     x: 0,
     y: 0,
@@ -120,7 +120,9 @@ function SVGPanZoom({
   const scale = imageScale(img)
 
   return (
-    <div ref={scrollContainer} style={{ width: '100%' }}>
+    <div
+      style={displayNaturalDimensions ? { width: '100%' } : { height: naturalHeight, width: naturalWidth }}
+    >
       {cloneElement(children, {
         scale,
         viewBox: `${x} ${y} ${width} ${height}`
