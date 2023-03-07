@@ -1,8 +1,19 @@
 # Layout Components
 
-The Classifier's layout components are built specifically for certain workflow configurations. See `get layout()` in the Workflow.js store.
+The Classifier's layout components are built specifically for certain workflow configurations. See `workflow.layout` in the `Workflow` model.
 
-The `default` layout is set in `/Layouts/helpers/getLayout.js`, and `default` will always be returned as a fallback.
+Layouts are exported as named exports from `Layout/components`.
+
+```js
+ import * as layouts from 'Layout/components'
+ const WorkflowLayout = layouts[workflow.layout]
+```
+
+Or with the `getLayout` helper. If a layout isn't specified, `getLayout` falls back to the default export.
+```js
+  import getLayout from 'Layout/helpers/getLayout'
+  const WorkflowLayout = getLayout(workflow.layout)
+```
 
 ## MaxWidth
 
