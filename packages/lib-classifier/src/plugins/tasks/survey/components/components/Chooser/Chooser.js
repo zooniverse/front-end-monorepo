@@ -11,8 +11,13 @@ import ClearFilters from './components/CharacteristicsFilter/ClearFilters'
 import getFilteredChoiceIds from './helpers/getFilteredChoiceIds'
 
 const StyledText = styled(Text)`
-  display: block;
-  margin: 10px 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
+  > *:first-child {
+    margin-top: 0;
+  }
 `
 
 function Chooser ({
@@ -39,25 +44,17 @@ function Chooser ({
     setFilterDropOpen(true)
   }
 
-  const components = {
-    a: StyledText,
-    h1: StyledText,
-    h2: StyledText,
-    h3: StyledText,
-    h4: StyledText,
-    h5: StyledText,
-    h6: StyledText,
-    p: StyledText,
-    span: Text
-  }
-
   const showFilters = Object.keys(task.characteristics).length > 0
   const filteredChoiceIds = getFilteredChoiceIds(filters, task)
   
   return (
     <Box>
       {task.instruction 
-        ? <Markdownz components={components}>{task.instruction}</Markdownz>
+        ? <StyledText as='legend' size='small'>
+            <Markdownz>
+              {task.instruction}
+            </Markdownz>
+          </StyledText>
         : null}
       {showFilters
         ? (<FilterStatus
