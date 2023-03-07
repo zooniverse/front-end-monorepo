@@ -8,9 +8,11 @@ To support OCR verification (the DigiLeap project), with subjects that consist o
 The FEM highlighter task is an iteration on the [PFE highlighter task](https://github.com/zooniverse/Panoptes-Front-End/tree/master/app/classifier/tasks/highlighter).
 
 ## Features
-To use the highlighter task a volunteer selects a label from the task area, highlights the related text in the text subject viewer, then selects a different label from the task area to highlight additional text in the text subject viewer or completes the task. Highlighted text can be unhighlighted.
+To use the highlighter task a volunteer highlights the related text in the text subject viewer, selects a label from the task area, then repeats the highlighting then label selection or completes the task. Highlighted text can be unhighlighted.
 
-The highlighter task label(s) description and color is defined by researchers.
+The highlighter task label(s) description is defined by researchers and the highlighter task label color is selected by researchers from limited options as provided by the Zooniverse in the related task editor.
+
+The highlighter task will utilize the [Selection API](https://developer.mozilla.org/en-US/docs/Web/API/Selection) to highlight text in the text subject viewer. The Selection API is supported by all modern browsers.
 
 The following is an example of a highlighter task annotation with labels "Scientific Name", "Collector Name", "Habitat", and "Location":
 ```json
@@ -63,7 +65,6 @@ Create a highlighter task in FEM.
 
 ## Consequences
 Create an experimental task, the highlighter task, in FEM.
-If a workflow uses the highlighter task, add event listeners to the text subject viewer.
 
 ## Status
 Proposed
