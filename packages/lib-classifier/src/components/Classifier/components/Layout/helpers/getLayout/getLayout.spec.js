@@ -11,6 +11,10 @@ describe('Helpers > getLayout', function () {
     expect(getLayout('noMaxWidth')).to.equal(layouts.noMaxWidth)
   })
 
+  it('should return the default layout component if passed `default`', function () {
+    expect(getLayout('default')).to.equal(defaultLayout)
+  })
+
   it('should return the `MaxWidth` layout if it can\'t match a layout', function () {
     expect(getLayout('foobar')).to.equal(defaultLayout)
   })
