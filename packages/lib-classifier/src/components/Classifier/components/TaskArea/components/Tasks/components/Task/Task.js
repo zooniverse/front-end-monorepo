@@ -60,7 +60,12 @@ function Task ({
   }
 
   return (
-    <Box key={annotation.id} basis='auto'>
+    <Box
+      key={annotation.id}
+      as='fieldset'
+      basis='auto'
+      style={{ border: 'none' }}
+    >
       <TaskComponent
         {...props}
         autoFocus={autoFocus}
