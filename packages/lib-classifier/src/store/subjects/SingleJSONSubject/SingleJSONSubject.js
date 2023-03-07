@@ -3,7 +3,7 @@ import createLocationCounts from '@helpers/createLocationCounts'
 import Subject from '../Subject'
 
 const SingleJSONSubject = types
-  .refinement('SingleJSONSubject', Subject, subject => {
+  .refinement(Subject.named('SingleJSONSubject'), subject => {
     const counts = createLocationCounts(subject)
     return counts.json === 1
   })
