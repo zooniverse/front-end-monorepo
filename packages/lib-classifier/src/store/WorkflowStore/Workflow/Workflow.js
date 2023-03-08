@@ -63,7 +63,7 @@ const Workflow = types
       if (self.configuration.layout) {
         return self.configuration.layout
       }
-      return 'maxWidth'
+      return 'default'
     },
 
     get subjectSetId() {

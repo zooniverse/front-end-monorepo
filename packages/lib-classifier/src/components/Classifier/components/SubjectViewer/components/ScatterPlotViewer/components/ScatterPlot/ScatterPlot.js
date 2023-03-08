@@ -19,41 +19,68 @@ import {
   top
 } from '../../helpers/utils'
 
-function ScatterPlot (props) {
-  const {
-    axisColor,
-    backgroundColor,
-    children,
-    data,
-    dataPointSize,
-    highlightedSeries,
-    invertAxes,
-    margin,
-    padding,
-    parentHeight,
-    parentWidth,
-    tickDirection,
-    tickLength,
-    theme: {
-      dark,
-      global: {
-        colors
-      }
-    },
-    transformMatrix,
-    transform,
-    underlays,
-    xAxisLabel,
-    xAxisLabelOffset,
-    xAxisNumTicks,
-    xScale,
-    yAxisLabel,
-    yAxisLabelOffset,
-    yAxisNumTicks,
-    yScale,
-    zooming
-  } = props
+const INVERT_AXES = {
+  x: false,
+  y: false
+}
 
+const MARGIN = {
+  bottom: 60,
+  left: 60,
+  right: 10,
+  top: 10
+}
+
+const PADDING = {
+  bottom: 0,
+  left: 0,
+  right: 0,
+  top: 0
+}
+
+const TRANSFORM_MATRIX = {
+  scaleX: 1,
+  scaleY: 1,
+  skewX: 0,
+  skewY: 0,
+  translateX: 0,
+  translateY: 0
+}
+
+function ScatterPlot ({
+  axisColor = '',
+  backgroundColor = '',
+  children,
+  data,
+  dataPointSize = 25,
+  highlightedSeries,
+  invertAxes = INVERT_AXES,
+  margin = MARGIN,
+  padding = PADDING,
+  panning = false,
+  parentHeight,
+  parentWidth,
+  tickDirection = 'outer',
+  tickLength = 5,
+  theme: {
+    dark,
+    global: {
+      colors = {}
+    }
+  },
+  transformMatrix = TRANSFORM_MATRIX,
+  transform,
+  underlays = [],
+  xAxisLabel = 'x-axis',
+  xAxisLabelOffset,
+  xAxisNumTicks = 10,
+  xScale = null,
+  yAxisLabel = 'y-axis',
+  yAxisLabelOffset,
+  yAxisNumTicks = 10,
+  yScale = null,
+  zooming = false
+}) {
   const rangeParameters = {
     invertAxes,
     margin,
@@ -225,52 +252,7 @@ function ScatterPlot (props) {
   )
 }
 
-ScatterPlot.defaultProps = {
-  axisColor: '',
-  backgroundColor: '',
-  dataPointSize: 25,
-  invertAxes: {
-    x: false,
-    y: false
-  },
-  margin: {
-    bottom: 60,
-    left: 60,
-    right: 10,
-    top: 10
-  },
-  padding: {
-    bottom: 0,
-    left: 0,
-    right: 0,
-    top: 0
-  },
-  panning: false,
-  theme: {
-    global: {
-      colors: {},
-      font: {}
-    }
-  },
-  tickDirection: 'outer',
-  tickLength: 5,
-  transformMatrix: {
-    scaleX: 1,
-    scaleY: 1,
-    skewX: 0,
-    skewY: 0,
-    translateX: 0,
-    translateY: 0
-  },
-  underlays: [],
-  xAxisLabel: 'x-axis',
-  xAxisNumTicks: 10,
-  xScale: null,
-  yAxisLabel: 'y-axis',
-  yAxisNumTicks: 10,
-  yScale: null,
-  zooming: false
-}
+
 
 ScatterPlot.propTypes = {
   axisColor: PropTypes.string,

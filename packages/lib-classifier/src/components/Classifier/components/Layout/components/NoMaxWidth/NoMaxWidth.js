@@ -13,10 +13,10 @@ import TaskArea from '@components/Classifier/components/TaskArea'
 const ContainerGrid = styled(Grid)`
   position: relative;
 
-  // proportional 45/25 subject/task sizing up to a maximum subject/task width of 45rem/25rem.
+  // proportional 9:5 subject/task sizing up to a maximum subject/task width of 45rem/25rem, then the Grommet Grid columns take over
   @media screen and (min-width: 769px) and (max-width: 70rem) {
     grid-gap: 1.75rem;
-    grid-template-columns: 45fr 25fr;
+    grid-template-columns: 9fr 5fr;
   }
 `
 

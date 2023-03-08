@@ -5,7 +5,7 @@ import { ScatterPlotViewer } from '../ScatterPlotViewer'
 import { SingleImageViewerContainer } from '../SingleImageViewer'
 import kepler from '../../helpers/mockLightCurves/kepler'
 
-const JSONData = {
+const jsonData = {
   data: kepler,
   chartOptions: {
     xAxisLabel: 'time',
@@ -20,7 +20,7 @@ describe('Component > DataImageViewer', function () {
     wrapper = shallow(
       <DataImageViewer
         imageLocation={imageLocation}
-        JSONData={JSONData}
+        jsonData={jsonData}
       />
     )
   })
@@ -48,7 +48,7 @@ describe('Component > DataImageViewer', function () {
         wrapper = shallow(
           <DataImageViewer
             imageLocation={imageLocation}
-            JSONData={JSONData}
+            jsonData={jsonData}
             setAllowPanZoom={setAllowPanZoomSpy}
           />
         )
@@ -78,7 +78,7 @@ describe('Component > DataImageViewer', function () {
           <DataImageViewer
             allowPanZoom='scatterPlot'
             imageLocation={imageLocation}
-            JSONData={JSONData}
+            jsonData={jsonData}
             setAllowPanZoom={setAllowPanZoomSpy}
           />
         )
@@ -124,7 +124,7 @@ describe('Component > DataImageViewer', function () {
         wrapper = shallow(
           <DataImageViewer
             imageLocation={imageLocation}
-            JSONData={JSONData}
+            jsonData={jsonData}
             setAllowPanZoom={setAllowPanZoomSpy}
           />
         )
@@ -155,7 +155,7 @@ describe('Component > DataImageViewer', function () {
           <DataImageViewer
             allowPanZoom='image'
             imageLocation={imageLocation}
-            JSONData={JSONData}
+            jsonData={jsonData}
             resetView={resetViewSpy}
             setAllowPanZoom={setAllowPanZoomSpy}
           />

@@ -1,16 +1,10 @@
-import { MaxWidth, NoMaxWidth } from '../../components/'
-
-const layoutsMap = {
-  default: MaxWidth,
-  maxWidth: MaxWidth,
-  noMaxWidth: NoMaxWidth
-}
+import defaultLayout, * as layouts from '../../components'
 
 export default function getLayout(layout) {
-  if (layoutsMap[layout]) {
-    return layoutsMap[layout]
+  if (layouts[layout]) {
+    return layouts[layout]
   } else {
     console.warn(`Couldn't find a layout for '${layout}', falling back to default`)
-    return layoutsMap.default
+    return defaultLayout
   }
 }
