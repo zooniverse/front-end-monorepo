@@ -1362,18 +1362,18 @@
   resolved "https://registry.yarnpkg.com/@graphql-typed-document-node/core/-/core-3.1.1.tgz#076d78ce99822258cf813ecc1e7fa460fa74d052"
   integrity sha512-NQ17ii0rK1b34VZonlmT2QMJFI70m0TRwbknO/ihlbatXyaktDhN/98vBiUU6kNBPljqGqyIrl2T4nY2RpFANg==
 
-"@grpc/grpc-js@^1.8.7":
-  version "1.8.10"
-  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.8.10.tgz#1802adf1d7eaa31acb0e5cafe5989d75fcc892a5"
-  integrity sha512-x7QS+gJq8WaS1OJYFJkmeoX2PHhi3b5TR5TqR9a8NJv6VyedFecp3LgAUmuJSQZlwoAODpCKRtu4HzG1srNjiA==
+"@grpc/grpc-js@^1.8.8":
+  version "1.8.12"
+  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.8.12.tgz#bc0120859e8b153db764b473cc019ddf6bb2b414"
+  integrity sha512-MbUMvpVvakeKhdYux6gbSIPJaFMLNSY8jw4PqLI+FFztGrQRrYYAnHlR94+ncBQQewkpXQaW449m3tpH/B/ZnQ==
   dependencies:
     "@grpc/proto-loader" "^0.7.0"
     "@types/node" ">=12.12.47"
 
-"@grpc/proto-loader@^0.7.0", "@grpc/proto-loader@^0.7.4":
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/@grpc/proto-loader/-/proto-loader-0.7.4.tgz#4946a84fbf47c3ddd4e6a97acb79d69a9f47ebf2"
-  integrity sha512-MnWjkGwqQ3W8fx94/c1CwqLsNmHHv2t0CFn+9++6+cDphC1lolpg9M2OU0iebIjK//pBNX9e94ho+gjx6vz39w==
+"@grpc/proto-loader@^0.7.0", "@grpc/proto-loader@^0.7.5":
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/@grpc/proto-loader/-/proto-loader-0.7.5.tgz#ee9e7488fa585dc6b0f7fe88cd39723a3e64c906"
+  integrity sha512-mfcTuMbFowq1wh/Rn5KQl6qb95M21Prej3bewD9dUQMurYGVckGO/Pbe2Ocwto6sD05b/mxZLspvqwx60xO2Rg==
   dependencies:
     "@types/long" "^4.0.1"
     lodash.camelcase "^4.3.0"
@@ -12299,13 +12299,13 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0:
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz#26c8a3cee6cc05fbcf1e333cd2fc3e003326c0b5"
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
-newrelic@^9.0.0, newrelic@~9.10.0:
-  version "9.10.2"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-9.10.2.tgz#0105a1117ed69b1d6def2f37e99f163f281e5aba"
-  integrity sha512-kVRLwlT3/TK1B/zWAHaaJngubPeEEOhKyGXhBTrOjhQ8X44Trz/XsndlgyY30FtvM3upxCSDuOdbqOHd7DOEVg==
+newrelic@^9.0.0, newrelic@~9.11.0:
+  version "9.11.0"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-9.11.0.tgz#a89863ad3eb3087ea059f905b81a2e37495a549e"
+  integrity sha512-Jttqh3anVrgIKEgQINdjae4OGF3qjcC9G/8Z97+zhdPsVa1mLP1LHZjdkRv9ts61WjerVEcvtmS9hWpgiQJonQ==
   dependencies:
-    "@grpc/grpc-js" "^1.8.7"
-    "@grpc/proto-loader" "^0.7.4"
+    "@grpc/grpc-js" "^1.8.8"
+    "@grpc/proto-loader" "^0.7.5"
     "@newrelic/aws-sdk" "^5.0.2"
     "@newrelic/koa" "^7.1.1"
     "@newrelic/superagent" "^6.0.0"
