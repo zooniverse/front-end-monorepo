@@ -1,45 +1,61 @@
 import { mount } from 'enzyme'
+import { Provider } from 'mobx-react'
 import nock from 'nock'
 import sinon from 'sinon'
 import * as d3 from 'd3'
 import { zip } from 'lodash'
 
+import mockStore from '@test/mockStore'
 import { LightCurveViewerContainer } from './LightCurveViewerContainer'
 import LightCurveViewer from './LightCurveViewer'
 import kepler from '../../helpers/mockLightCurves/kepler'
 import { Factory } from 'rosie'
 
-let wrapper
-
-const mockData = kepler
-
-const subject = Factory.build('subject', { locations: [
-  { 'application/json': 'http://localhost:8080/mockData.json' }
-] })
-
-const nextSubject = Factory.build('subject', { locations: [
-  { 'text/plain': 'http://localhost:8080/nextSubject.json' }
-] })
-
-const nextSubjectJSON = { x: [1, 2], y: [3, 4] }
-
-const imageSubject = Factory.build('subject')
-
-const failSubject = Factory.build('subject', {
-  locations: [
-    { 'application/json': 'http://localhost:8080/failure.json' }
-  ]
-})
-
 describe('Component > LightCurveViewerContainer', function () {
+  let wrapper
+
+  const mockData = kepler
+
+  const subject = Factory.build('subject', { locations: [
+    { 'application/json': 'http://localhost:8080/mockData.json' }
+  ] })
+
+  const nextSubject = Factory.build('subject', { locations: [
+    { 'text/plain': 'http://localhost:8080/nextSubject.json' }
+  ] })
+
+  const nextSubjectJSON = { x: [1, 2], y: [3, 4] }
+
+  const imageSubject = Factory.build('subject')
+
+  const failSubject = Factory.build('subject', {
+    locations: [
+      { 'application/json': 'http://localhost:8080/failure.json' }
+    ]
+  })
+
   it('should render without crashing', function () {
-    wrapper = mount(<LightCurveViewerContainer onKeyDown={() => {}} setOnPan={() => {}} setOnZoom={() => {}} />)
+    const classifierStore = mockStore({ subject })
+    wrapper = mount(
+      <LightCurveViewerContainer onKeyDown={() => {}} />,
+      {
+        wrappingComponent: Provider,
+        wrappingComponentProps: { classifierStore }
+      }
+    )
     expect(wrapper).to.be.ok()
   })
 
   describe('without a subject', function () {
     it('should render null with the default props', function () {
-      wrapper = mount(<LightCurveViewerContainer onKeyDown={() => { }} setOnPan={() => { }} setOnZoom={() => { }} />)
+      const classifierStore = mockStore({ subject })
+      wrapper = mount(
+        <LightCurveViewerContainer onKeyDown={() => { }} />,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: { classifierStore }
+        }
+      )
       expect(wrapper.html()).to.be.null()
     })
   })
@@ -69,15 +85,18 @@ describe('Component > LightCurveViewerContainer', function () {
         expect.fail('should not call onReady')
         done()
       })
+      const classifierStore = mockStore({ subject })
       wrapper = mount(
         <LightCurveViewerContainer
           onError={onError}
           onReady={onReady}
           subject={imageSubject}
           onKeyDown={() => { }}
-          setOnPan={() => { }}
-          setOnZoom={() => { }}
-        />
+        />,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: { classifierStore }
+        }
       )
     })
 
@@ -91,15 +110,18 @@ describe('Component > LightCurveViewerContainer', function () {
         expect.fail('should not call onReady')
         done()
       })
+      const classifierStore = mockStore({ subject })
       wrapper = mount(
         <LightCurveViewerContainer
           onError={onError}
           onReady={onReady}
           subject={failSubject}
           onKeyDown={() => { }}
-          setOnPan={() => { }}
-          setOnZoom={() => { }}
-        />
+        />,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: { classifierStore }
+        }
       )
     })
   })
@@ -145,15 +167,18 @@ describe('Component > LightCurveViewerContainer', function () {
         expect.fail('should not call onError')
         done()
       })
+      const classifierStore = mockStore({ subject })
       const wrapper = mount(
         <LightCurveViewerContainer
           subject={subject}
           onError={onError}
           onKeyDown={() => { }}
           onReady={onReady}
-          setOnPan={() => { }}
-          setOnZoom={() => { }}
-        />
+        />,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: { classifierStore }
+        }
       )
     })
 
@@ -166,14 +191,17 @@ describe('Component > LightCurveViewerContainer', function () {
         expect.fail('should not call onError')
         done()
       })
+      const classifierStore = mockStore({ subject })
       const wrapper = mount(
         <LightCurveViewerContainer
           subject={subject}
           onError={onError}
           onKeyDown={() => { }}
-          setOnPan={() => { }}
-          setOnZoom={() => { }}
-        />
+        />,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: { classifierStore }
+        }
       )
       const onReady = sinon.stub().callsFake(() => {
         wrapper.update()
