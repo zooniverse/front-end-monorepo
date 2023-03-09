@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types'
-import { cloneElement, useEffect, useState } from 'react'
+import { cloneElement, useEffect, useRef, useState } from 'react'
+
+const DEFAULT_ZOOM = 1
 
 function SVGPanZoom({
   children,
@@ -21,8 +23,8 @@ function SVGPanZoom({
     height: naturalHeight,
     width: naturalWidth
   }
-
-  const [zoom, setZoom] = useState(1)
+  const svgContainerRef = useRef(null)
+  const [zoom, setZoom] = useState(DEFAULT_ZOOM)
   const [viewBox, setViewBox] = useState(defaultViewBox)
 
   function enableZoom() {
@@ -48,14 +50,25 @@ function SVGPanZoom({
     function onZoomChange() {
       const newViewBox = scaledViewBox(zoom)
       setViewBox(newViewBox)
-    },
-    [zoom]
-  )
+    }, [zoom])
 
   useEffect(() => {
-    setZoom(1)
+    if (displayNaturalDimensions) {
+      calcZoomForNaturalDimensions()
+    } else {
+      setZoom(DEFAULT_ZOOM)
+    }
     setViewBox(defaultViewBox)
   }, [src])
+
+  function calcZoomForNaturalDimensions () {
+    if (svgContainerRef.current) {
+      const zoomForNaturalDimensions = naturalWidth / svgContainerRef.current.getBoundingClientRect().width
+      if (zoomForNaturalDimensions < 1) {
+        setZoom(zoomForNaturalDimensions)
+      }
+    }
+  }
 
   function imageScale(img) {
     const { width: clientWidth, height: clientHeight } = img
@@ -105,7 +118,11 @@ function SVGPanZoom({
         return
       }
       case 'zoomto': {
-        setZoom(1)
+        if (displayNaturalDimensions) {
+          calcZoomForNaturalDimensions()
+        } else {
+          setZoom(DEFAULT_ZOOM)
+        }
         setViewBox({
           x: 0,
           y: 0,
@@ -120,12 +137,11 @@ function SVGPanZoom({
   const scale = imageScale(img)
 
   return (
-    <div
-      style={displayNaturalDimensions ? { height: naturalHeight, width: naturalWidth } : { width: '100%' }}
-    >
+    <div ref={svgContainerRef} style={{ width: '100%' }}>
       {cloneElement(children, {
         scale,
         viewBox: `${x} ${y} ${width} ${height}`
+        // svgStyle: displayNaturalDimensions ? { maxHeight: naturalHeight, maxWidth: naturalWidth } : {}
       })}
     </div>
   )

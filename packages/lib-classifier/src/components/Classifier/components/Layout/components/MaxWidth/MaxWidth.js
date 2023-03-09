@@ -86,7 +86,7 @@ export default function MaxWidth({ className = '', displayNaturalDimensions = fa
       {...containerGridProps}
     >
       <ViewerGrid>
-        <Box gridArea='subject' align={displayNaturalDimensions ? 'end' : 'inherit'}>
+        <Box gridArea='subject'>
           <Banners />
           <SubjectViewer />
           <MetaTools />

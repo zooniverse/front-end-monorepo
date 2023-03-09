@@ -14,6 +14,7 @@ function SingleImageViewer (props) {
     onKeyDown = () => true,
     rotate = 0,
     scale = 1,
+    svgStyle = {},
     title = {},
     viewBox,
     width,
@@ -24,7 +25,6 @@ function SingleImageViewer (props) {
   const transformLayer = useRef()
   const canvas = transformLayer.current
   const transform = `rotate(${rotate} ${width / 2} ${height / 2})`
-  const svgStyle = {}
   if (enableInteractionLayer) {
     svgStyle.touchAction = 'pinch-zoom'
   }
