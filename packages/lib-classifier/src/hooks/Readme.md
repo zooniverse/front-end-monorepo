@@ -117,6 +117,23 @@ if (!loading && error) {
 return <JSONViewer ref={viewer} data={data} />
 ```
 
+## useSubjectText
+  
+A custom hook which loads text data for a Panoptes subject.
+
+Usage:
+```jsx
+const { data, error, loading } = useSubjectText({ subject, onReady, onError })
+
+if (loading) {
+  return <p>The text data is still loading.</p>
+}
+if (!loading && error) {
+  return <p>{error.message}</p>
+}
+return <TextViewer data={data} />
+```
+
 ## useTranscriptionReductions
 
 A wrapper for `useCaesarReductions`, specific to the transcription task. Generates the props for the `TranscribedLines` component.
@@ -133,21 +150,6 @@ const {
   visible,
   workflow
 } = useTranscriptionReductions()
-```
-
-## useTextData
-  
-A custom hook which loads text data for a Panoptes subject.
-
-Usage:
-```js
-function MyDataComponent({ subject, onReady, onError }) {
-  const textData = useTextData(
-    subject,
-    () => onReady(),
-    (error) => onError(error)
-  )
-}
 ```
 
 ## useWorkflowSnapshot

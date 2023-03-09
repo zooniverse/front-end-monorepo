@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 
-import { useTextData } from '@hooks'
+import { useSubjectText } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
 import SingleTextViewer from './SingleTextViewer'
 
@@ -17,20 +17,20 @@ export default function SingleTextViewerContainer ({
   onReady = () => true,
   subject = defaultSubject
 }) {
-  const textData = useTextData(
+  const { data, error, loading } = useSubjectText({
     subject,
     onReady,
     onError
-  )
+})
 
   if (loadingState === asyncStates.error) {
-    return <div>Something went wrong.</div>
+    return <p>Something went wrong.</p>
   }
 
   if (loadingState !== asyncStates.initialized) {
     return (
       <SingleTextViewer
-        content={textData}
+        content={data}
         height={height}
         subjectId={subject.id}
       />

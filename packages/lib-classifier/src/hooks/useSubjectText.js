@@ -26,37 +26,38 @@ async function requestData(subject) {
 /**
   A custom hook to load text data subjects from Panoptes
 */
-export default function useTextData(
+export default function useSubjectTex({
   /** Panoptes subject */
   subject,
   /** on data ready callback */
   onReady,
   /** on error callback */
   onError
-) {
-  const [textData, setTextData] = useState('')
+}) {
+  const [data, setData] = useState('')
+  const [error, setError] = useState(null)
 
-  useEffect(() => onSubjectChange(), [subject])
-  
-  async function onSubjectChange() {
+  useEffect(function onSubjectChange() {
+    function onLoad(rawData) {
+      setData(rawData)
+      onReady()
+    }
+
+    async function handleSubject() {
+      try {
+        const rawData = await requestData(subject)
+        if (rawData) onLoad(rawData)
+      } catch (error) {
+        setError(error)
+        onError(error)
+      }
+    }
+
     if (subject) {
-      await handleSubject()
+      handleSubject()
     }
-  }
+  }, [subject, onReady, onError])
 
-  function onLoad(rawData) {
-    setTextData(rawData)
-    onReady()
-  }
-
-  async function handleSubject() {
-    try {
-      const rawData = await requestData(subject)
-      if (rawData) onLoad(rawData)
-    } catch (error) {
-      onError(error)
-    }
-  }
-
-  return textData
+  const loading = !data && !error
+  return { data, error, loading }
 }
