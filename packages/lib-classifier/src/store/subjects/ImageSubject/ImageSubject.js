@@ -3,7 +3,7 @@ import createLocationCounts from '@helpers/createLocationCounts'
 import Subject from '../Subject'
 
 const ImageSubject = types
-  .refinement('ImageSubject', Subject, subject => {
+  .refinement(Subject.named('ImageSubject'), subject => {
     const counts = createLocationCounts(subject)
     return subject.locations.length > 1 && counts.images === subject.locations.length
   })

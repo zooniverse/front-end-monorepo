@@ -20,7 +20,8 @@ const darkThemeConfig = { ...config, backgrounds: backgrounds.darkDefault };
 
 export default {
   title: 'Subject Viewers / BarChartViewer',
-  component: BarChartViewer
+  component: BarChartViewer,
+  parameters: config
 }
 
 export const LightTheme = () => {
@@ -45,11 +46,6 @@ export const LightTheme = () => {
       </Box>
     </Grommet>
   );
-};
-
-LightTheme.story = {
-  name: 'light theme',
-  parameters: config,
 };
 
 export const DarkTheme = () => {
@@ -77,11 +73,6 @@ export const DarkTheme = () => {
   );
 };
 
-DarkTheme.story = {
-  name: 'dark theme',
-  parameters: darkThemeConfig,
-};
-
 export const CustomThemeAndBarColor = () => {
   const {
     data,
@@ -97,7 +88,7 @@ export const CustomThemeAndBarColor = () => {
   return (
     <Grommet theme={customTheme}>
       <Box
-        background={text('container background', '#ffffff')}
+        background="#fff"
         height="medium"
         pad="small"
         width="large"
@@ -111,11 +102,6 @@ export const CustomThemeAndBarColor = () => {
       </Box>
     </Grommet>
   );
-};
-
-CustomThemeAndBarColor.story = {
-  name: 'Custom theme and bar color',
-  parameters: config,
 };
 
 export const VariableStarPeriodBarCharts = () => {
@@ -144,9 +130,4 @@ export const VariableStarPeriodBarCharts = () => {
       </Box>
     </Grommet>
   );
-};
-
-VariableStarPeriodBarCharts.story = {
-  name: 'Variable Star Period bar charts',
-  parameters: config,
 };

@@ -24,10 +24,8 @@ const dataExtent = {
 
 export default {
   title: 'Subject Viewers / LightCurveViewer',
-
-  parameters: {
-    component: LightCurveViewer,
-  },
+  component: LightCurveViewer,
+  parameters: config
 };
 
 export const LightTheme = () => {
@@ -45,11 +43,6 @@ export const LightTheme = () => {
   );
 };
 
-LightTheme.story = {
-  name: 'light theme',
-  parameters: config,
-};
-
 export const DarkTheme = () => {
   const darkZooTheme = Object.assign({}, zooTheme, { dark: true });
   return (
@@ -64,9 +57,4 @@ export const DarkTheme = () => {
       </Box>
     </Grommet>
   );
-};
-
-DarkTheme.story = {
-  name: 'dark theme',
-  parameters: darkThemeConfig,
 };
