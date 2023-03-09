@@ -24,7 +24,7 @@ export default function SingleTextViewerContainer ({
 })
 
   if (loadingState === asyncStates.error) {
-    return <p>Something went wrong.</p>
+    return <p>Something went wrong. {error?.message}</p>
   }
 
   if (loadingState !== asyncStates.initialized) {

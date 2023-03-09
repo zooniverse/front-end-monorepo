@@ -48,7 +48,7 @@ export function Default ({
       themeMode={dark ? 'dark' : 'light'}
     >
       <Provider classifierStore={store}>
-        <Box height='500px' width='large'>
+        <Box width='large'>
           <SingleTextViewerConnector
             loadingState={loadingState}
           />
