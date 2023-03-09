@@ -44,6 +44,15 @@ subject.locations = [
 
 **JSON file**
 
+Use the `JSONData` model to validate a JSON-encoded string loaded from a URL:
+
+```js
+const JSONData = await import('@store/JSONData')
+const response = await fetch(url)
+const data = await response.json()
+const chartData = JSONData.create(data)
+```
+
 The JSON file is a very, very basic data object consisting of an array of objects defining labels and values.
 
 ``` json

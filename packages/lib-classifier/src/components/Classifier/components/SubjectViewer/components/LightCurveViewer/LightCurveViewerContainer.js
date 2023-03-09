@@ -2,13 +2,14 @@ import asyncStates from '@zooniverse/async-states'
 import { extent } from 'd3-array'
 import { Box } from 'grommet'
 import { zip } from 'lodash'
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 
-import { withStores } from '@helpers'
+import { useStores } from '@hooks'
 import withKeyZoom from '../../../withKeyZoom'
 
-import { useJSONData } from '@helpers'
+import { useSubjectJSON } from '@hooks'
 import LightCurveViewer from './LightCurveViewer'
 import locationValidator from '../../helpers/locationValidator'
 
@@ -54,50 +55,48 @@ function storeMapper (classifierStore) {
   }
 }
 
-const defaultSubject = {
+const DEFAULT_HANDLER = () => true
+const SUBJECT = {
   id: '',
   locations: []
 }
 
 export function LightCurveViewerContainer({
-  activeDataVisTask = undefined,
-  activeToolIndex = undefined,
-  addAnnotation = () => {},
-  annotation = undefined,
-  drawFeedbackBrushes = () => {},
-  enableAnnotate = () => {},
-  enableMove = () => {},
+  drawFeedbackBrushes = DEFAULT_HANDLER,
   feedback = false,
-  interactionMode = 'annotate',
-  onKeyDown = () => {},
-  setOnPan = () => {},
-  setOnZoom = () => {},
-  subject = defaultSubject,
+  onKeyDown = DEFAULT_HANDLER,
+  subject = SUBJECT,
   loadingState = asyncStates.initialized,
-  onError = () => true,
-  onReady = () => true,
+  onError = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER
 }) {
-  const viewer = useRef()
-  const JSONdata = useJSONData(
-    subject,
-    () => onReady(viewer?.current),
-    (error) => onError(error)
-  )
+  const {
+    activeDataVisTask,
+    activeToolIndex,
+    addAnnotation,
+    annotation,  // dataVisAnnotation
+    enableAnnotate,
+    enableMove,
+    interactionMode,
+    setOnPan,
+    setOnZoom
+  } = useStores(storeMapper)
+  const { data: jsonData, viewer } = useSubjectJSON({ onError, onReady, subject })
 
   const { dataExtent, dataPoints } = useMemo(() => {
     let dataExtent = { x: [], y: [] }
     let dataPoints = []
 
-    if (JSONdata?.x && JSONdata?.y) {
+    if (jsonData?.x && jsonData?.y) {
       dataExtent = {
-        x: extent(JSONdata.x),
-        y: extent(JSONdata.y)
+        x: extent(jsonData.x),
+        y: extent(jsonData.y)
       }
-      dataPoints = zip(JSONdata.x, JSONdata.y)
+      dataPoints = zip(jsonData.x, jsonData.y)
     }
 
     return { dataExtent, dataPoints }
-  }, [JSONdata])
+  }, [jsonData])
 
   if (!subject.id) {
     return null
@@ -127,17 +126,9 @@ export function LightCurveViewerContainer({
 }
 
 LightCurveViewerContainer.propTypes = {
-  activeDataVisTask: PropTypes.object,
-  activeToolIndex: PropTypes.number,
-  addAnnotation: PropTypes.func,
   drawFeedbackBrushes: PropTypes.func,
-  enableAnnotate: PropTypes.func,
-  enableMove: PropTypes.func,
   feedback: PropTypes.bool,
-  interactionMode: PropTypes.oneOf(['annotate', 'move']),
   onKeyDown: PropTypes.func.isRequired,
-  setOnPan: PropTypes.func.isRequired,
-  setOnZoom: PropTypes.func.isRequired,
   subject: PropTypes.shape({
     id: PropTypes.string,
     locations: PropTypes.arrayOf(locationValidator)
@@ -148,4 +139,4 @@ LightCurveViewerContainer.propTypes = {
   onReady: PropTypes.func,
 }
 
-export default withKeyZoom(withStores(LightCurveViewerContainer, storeMapper))
+export default withKeyZoom(observer(LightCurveViewerContainer))

@@ -1,44 +1,47 @@
 import asyncStates from '@zooniverse/async-states'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { useRef } from 'react';
 
-import { useJSONData } from '@helpers'
+import { useSubjectJSON } from '@hooks'
 import BarChartViewer from './BarChartViewer'
 import locationValidator from '../../helpers/locationValidator'
 
-const defaultSubject = {
+const DEFAULT_HANDLER = () => true
+const SUBJECT = {
   id: '',
   locations: []
 }
 
 export function BarChartViewerContainer({
-  loadingState = asyncStates.initialized,
-  onError = () => true,
-  onReady = () => true,
-  subject = defaultSubject
+  onError = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
+  subject = SUBJECT
 }) {
-  const viewer = useRef()
-  const { data, chartOptions } = useJSONData(
-    subject, 
-    () => onReady(viewer?.current),
-    (error) => onError(error)
-  )
+  const { data: jsonData, viewer } = useSubjectJSON({ onError, onReady, subject })
 
   if (!subject.id) {
     return null
   }
 
-  if (!data && !chartOptions) {
+  if (!jsonData) {
     return null
   }
+
+  const {
+    data,
+    chartOptions: {
+      margin,
+      xAxisLabel,
+      yAxisLabel
+    }
+  } = jsonData
 
   return (
     <BarChartViewer
       data={data}
-      margin={chartOptions.margin}
-      xAxisLabel={chartOptions.xAxisLabel}
-      yAxisLabel={chartOptions.yAxisLabel}
+      margin={margin}
+      xAxisLabel={xAxisLabel}
+      yAxisLabel={yAxisLabel}
     />
   )
 }

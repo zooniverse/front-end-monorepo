@@ -1,16 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { findLocationsByMediaType } from '@helpers'
 import JSONData from '@store/JSONData'
 
 function getSubjectUrl(subject) {
-  let jsonLocation = {}
-  // Find locations that have a JSON MIME type.
-  // TODO: do we need to support txt file fallback?
-  const locations = findLocationsByMediaType(subject.locations, 'application') || []
-  if (locations?.length > 0 && locations[0]) {
-    jsonLocation = locations[0]
-  }
+  /*
+  Find the first location that has a JSON MIME type.
+  NOTE: we also temporarily accept plain text, due to quirks with the
+  Panoptes CLI uploading wonky MIME types (@shaun 20181024)
+  https://github.com/zooniverse/panoptes-python-client/issues/210
+  */
+  const jsonLocation = subject.locations.find(l => l['application/json'] || l['text/plain']) || {}
   const url = Object.values(jsonLocation)[0]
   if (url) {
     return url
