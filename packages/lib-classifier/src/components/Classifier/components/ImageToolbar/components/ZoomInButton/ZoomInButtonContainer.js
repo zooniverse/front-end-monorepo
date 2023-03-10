@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react'
-import PropTypes from 'prop-types'
 import { useState } from 'react'
 
 import { useStores } from '@hooks'
