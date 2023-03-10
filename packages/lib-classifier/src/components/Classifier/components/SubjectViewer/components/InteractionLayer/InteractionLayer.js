@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
-import SubjectReductions from './components/SubjectReductions'
 import SubTaskPopup from './components/SubTaskPopup'
 import getFixedNumber from '../../helpers/getFixedNumber'
 import locationValidator from '../../helpers/locationValidator'
@@ -35,7 +34,7 @@ function InteractionLayer({
   height,
   marks = [],
   move,
-  setActiveMark = () => {},
+  setActiveMark = () => { },
   scale = 1,
   subject,
   width,
@@ -44,12 +43,12 @@ function InteractionLayer({
 }) {
   const [creating, setCreating] = useState(false)
   const canvas = useRef()
-  
+
   if (creating && !activeMark) {
     setCreating(false)
   }
 
-  if(activeMark?.finished && !activeMark.isValid) {
+  if (activeMark?.finished && !activeMark.isValid) {
     activeTool.deleteMark(activeMark)
     setActiveMark(undefined)
   }

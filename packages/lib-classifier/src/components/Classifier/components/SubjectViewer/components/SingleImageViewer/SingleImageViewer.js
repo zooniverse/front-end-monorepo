@@ -7,7 +7,7 @@ import InteractionLayer from '../InteractionLayer'
 import ZoomControlButton from '../ZoomControlButton'
 import locationValidator from '../../helpers/locationValidator'
 
-function SingleImageViewer (props) {
+function SingleImageViewer(props) {
   const {
     children,
     enableInteractionLayer = true,
@@ -67,7 +67,7 @@ function SingleImageViewer (props) {
                 scale={scale}
                 height={height}
                 width={width}
-				subject={subject}
+                subject={subject}
               />
             )}
           </g>

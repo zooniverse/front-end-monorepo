@@ -199,7 +199,7 @@ function setupStores() {
       { x: 100, y: 254 },
       { x: 100, y: 255 }
     ])
-    
+
     return mockStores
   } catch (error) {
     console.error(error)

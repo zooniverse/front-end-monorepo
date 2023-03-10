@@ -7,7 +7,7 @@ import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 function DrawingToolMarks({
   activeMark = {
     id: '',
-    setSubTaskVisibility: () => {}
+    setSubTaskVisibility: () => { }
   },
   marks = [],
   onDelete = () => true,
@@ -15,7 +15,7 @@ function DrawingToolMarks({
   onFinish = () => true,
   onMove = () => true,
   onSelectMark = () => true,
-  pointerEvents='painted',
+  pointerEvents = 'painted',
   scale = 1,
   played
 }) {
@@ -105,15 +105,15 @@ function DrawingToolMarks({
             onDeselect={deselectMark}
           />
         )}
-		{isActive && mark.tool.type == 'freehandLine' && (
+        {isActive && mark.tool.type == 'freehandLine' && (
           <LineControls
             mark={mark}
             scale={scale}
             onDelete={deleteMark}
             onDeselect={deselectMark}
-			dragStart={selectMark}
-			dragMove={moveMark}
-			dragEnd={endMoveMark}
+            dragStart={selectMark}
+            dragMove={moveMark}
+            dragEnd={endMoveMark}
           />
         )}
       </Mark>
