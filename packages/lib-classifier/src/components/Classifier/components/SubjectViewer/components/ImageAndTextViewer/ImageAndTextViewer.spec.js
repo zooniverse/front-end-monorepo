@@ -9,10 +9,10 @@ import Meta, { Default, TextLocationFirst } from './ImageAndTextViewer.stories'
 describe('ImageAndTextViewer', function () {
   const DefaultStory = composeStory(Default, Meta)
   const TextLocationFirstStory = composeStory(TextLocationFirst, Meta)
-
+  
   describe('with loading state of error', function () {
-    it('should render something went wrong', function () {
-      render(<DefaultStory loadingState={asyncStates.error}/>)
+    it('should render "Something went wrong."', function () {
+      render(<DefaultStory loadingState={asyncStates.error} />)
 
       expect(screen.getByText('Something went wrong.')).to.exist()
     })
@@ -20,7 +20,7 @@ describe('ImageAndTextViewer', function () {
 
   describe('with loading state of initialized', function () {
     it('should render null', function () {
-      render(<DefaultStory loadingState={asyncStates.initialized}/>)
+      render(<DefaultStory loadingState={asyncStates.initialized} />)
       const image = document.querySelector('image')
       const pre = document.querySelector('pre')
       
@@ -59,12 +59,11 @@ describe('ImageAndTextViewer', function () {
   describe('with a valid subject, text type location first', function () {
     it('should render the text viewer', function () {
       render(<TextLocationFirstStory />)
-      const pre = document.querySelector('pre')
-      
-      expect(pre).to.exist()
+
+      expect(screen.getByLabelText('Subject 5678 text')).to.exist()
     })
   })
-
+  
   describe('on frame change', function () {
     it('should handle changing the current frame via thumbnail', async function () {
       const user = userEvent.setup({ delay: null })
