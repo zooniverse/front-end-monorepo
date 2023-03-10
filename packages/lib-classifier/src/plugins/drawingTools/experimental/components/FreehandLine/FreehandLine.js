@@ -11,13 +11,18 @@ const StyledGroup = styled.g`
   &:hover {
     cursor: pointer;
   }
-  g:last-of-type {
-    &:hover {
-      cursor: crosshair;
-    }
-  }
   &.editing {
-    cursor: grabbing;
+    cursor: crosshair;
+
+    g.extend {
+      &:hover {
+        cursor: grabbing !important;
+      }
+  
+      circle:hover {
+        cursor: grab !important;
+      }
+    }
   }
 `
 
@@ -60,6 +65,11 @@ function pointsToPath(points) {
 }
 
 function FreehandLine({ active, mark, onFinish, scale }) {
+  // If the user decides to cancel a splice
+  if (active === false) {
+    mark.inactive()
+  }
+
   // The model uses this internally
   mark.setScale(scale)
 
@@ -77,8 +87,23 @@ function FreehandLine({ active, mark, onFinish, scale }) {
     // We only care about click when but we need to cancel this event first
     if (active) {
       mark.splicePathClosePoint(createPoint(event))
+      return cancelEvent(event)
     }
-    return cancelEvent(event)
+  }
+
+  function getHoverText() {
+    // Handles the 4 scenarios of path open vs closed and splicing vs non-splicing
+    if (!active) {
+      return 'Click to edit this line'
+    } else if (mark.spliceDragPointIndex && mark.spliceClosePointIndex) {
+      return 'Click and drag from the open point to the close point'
+    } else if (mark.spliceDragPointIndex && !mark.spliceClosePointIndex) {
+      return 'Click anywhere on the line to set the close point'
+    } else if (mark.pathIsClosed && !mark.spliceDragPointIndex) {
+      return 'Double click anywhere on the line to create a splice point'
+    } else {
+      return 'Click and drag from the open point to the close point or double click anywhere on the line to create a splice point'
+    }
   }
 
   return (
@@ -95,9 +120,11 @@ function FreehandLine({ active, mark, onFinish, scale }) {
               strokeWidth: STROKE_WIDTH,
               strokeLinejoin: 'round',
               strokeLinecap: 'round',
-              fill: 'none'
+              fill: 'none',
+              strokeOpacity: (active) ? '1' : '0.6',
             }}
           />
+          <title>{getHoverText()}</title>
           <path // Main Path that's clickable. Not visible as its thick for click purposes
             d={pointsToPath(pts)}
             onDoubleClick={onDoubleClick}
@@ -118,7 +145,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
         opacity=".4"
       />
 
-      {mark.closePoint &&
+      {active && mark.closePoint &&
         <circle
           fill='currentColor'
           r={FINISHER_RADIUS / scale}
@@ -127,7 +154,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
         />
       }
 
-      {mark.dragPoint &&
+      {active && mark.dragPoint &&
         <DragHandle
           testid="freehandline-drag-handle"
           scale={scale}
@@ -138,6 +165,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
           dragStart={mark.appendPathStart}
           dragMove={mark.appendPath}
           dragEnd={mark.appendPathEnd}
+          className='extend'
         />
       }
     </StyledGroup>

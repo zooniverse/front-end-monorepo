@@ -22,7 +22,10 @@ const ActionType = types.model('ActionType', {
 });
 
 const FreehandLineModel = types
-  .model('FreehandLineModel', {})
+  .model('FreehandLineModel', {
+    pathX: types.array(FixedNumber),
+    pathY: types.array(FixedNumber),
+  })
   .views((self) => ({
     get isValid() {
       return true
@@ -230,6 +233,10 @@ const FreehandLineModel = types
       self.appendPath(point)
     },
 
+    close() {
+      self.closePath()
+    },
+
     appendPathStart() {
       self.isDragging = true
 
@@ -374,7 +381,13 @@ const FreehandLineModel = types
     },
 
     undo() {
-      if (self.drawActions.length == 0) return;
+      if (self.drawActions.length == 0) {
+        // remove a mark that was created, not loaded
+        if (self.points.length == 1) {
+          self.finish()
+        }
+        return;
+      }
       let action = toJS(self.drawActions.at(-1));
 
       if (action.type == 'start') {
@@ -535,15 +548,17 @@ const FreehandLineModel = types
       let spliceReverse = closePointIndex < dragPointIndex
       let spliceThroughBeginning = false
 
-      if (spliceSpan > self.points.length / 2) {
-        spliceSpan = Math.abs(dragPointIndex - closePointIndex)
-        spliceReverse = dragPointIndex < closePointIndex
-      }
+      if (self.pathIsClosed) {
+        if (spliceSpan > self.points.length / 2) {
+          spliceSpan = Math.abs(dragPointIndex - closePointIndex)
+          spliceReverse = dragPointIndex < closePointIndex
+        }
 
-      if (spliceReverse && dragPointIndex < spliceSpan) {
-        spliceThroughBeginning = true;
-      } else if (!spliceReverse && (dragPointIndex + spliceSpan) > self.points.length) {
-        spliceThroughBeginning = true;
+        if (spliceReverse && dragPointIndex < spliceSpan) {
+          spliceThroughBeginning = true;
+        } else if (!spliceReverse && (dragPointIndex + spliceSpan) > self.points.length) {
+          spliceThroughBeginning = true;
+        }
       }
 
       self.drawActions.push({
@@ -584,12 +599,28 @@ const FreehandLineModel = types
       // do nothing... tool required but not used in this context
     },
 
-    finish({ x, y }) {
-      self.finished = true
+    inactive() {
+      while (['splice-drag-point', 'splice-close-point', 'splice-append'].indexOf(self.drawActions.at(-1).type) > -1) {
+        self.undo()
+        self.redoActionsClear()
+      }
+    },
 
+    finish() {
       if (self.points.length < self.minimumPoints) {
-        self.drawActions.pop();
-        self.tool.deleteMark(self)
+        return self.tool.deleteMark(self)
+      }
+
+      if (self.isDragging) {
+        self.appendPathEnd()
+        self.finished = false
+      } else {
+        self.pathX = []
+        self.pathY = []
+        self.points.forEach(point => {
+          self.pathX.push(point.x)
+          self.pathY.push(point.y)
+        })
       }
     },
 
