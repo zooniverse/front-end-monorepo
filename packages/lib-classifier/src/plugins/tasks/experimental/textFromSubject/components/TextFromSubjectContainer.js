@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useState } from 'react'
 import asyncStates from '@zooniverse/async-states'
 
-import { useTextData } from '@hooks'
+import { useSubjectText } from '@hooks'
 import TextFromSubjectTask from './TextFromSubjectTask'
 
 function TextFromSubjectContainer ({
@@ -29,11 +29,11 @@ function TextFromSubjectContainer ({
     console.error(error)
   }
 
-  const textData = useTextData(
+  const { data: textData } = useSubjectText({
     subject,
-    () => onReady(),
-    (error) => onError(error)
-  )
+    onReady,
+    onError
+  })
 
   function updateAnnotation (ref) {
     const currentRef = ref.current
