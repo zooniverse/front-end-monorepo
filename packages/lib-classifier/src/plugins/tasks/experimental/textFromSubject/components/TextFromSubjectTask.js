@@ -31,8 +31,8 @@ export default function TextFromSubjectTask ({
   isChanged = false,
   resetToSubject = () => true,
   task,
-  value,
-  updateAnnotation = () => true
+  updateAnnotation = () => true,
+  value
 }) {
   const textArea = useRef()
   const { t } = useTranslation('plugins')
@@ -84,6 +84,8 @@ export default function TextFromSubjectTask ({
 TextFromSubjectTask.propTypes = {
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
+  isChanged: PropTypes.bool,
+  resetToSubject: PropTypes.func,
   task: PropTypes.shape({
     help: PropTypes.string,
     instruction: PropTypes.string,
