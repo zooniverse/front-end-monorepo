@@ -9,7 +9,9 @@ function DEFAULT_HANDLER() {
   return true
 }
 function ZoomInButton ({
-  onClick = DEFAULT_HANDLER
+  onClick = DEFAULT_HANDLER,
+  onPointerDown = DEFAULT_HANDLER,
+  onPointerUp = DEFAULT_HANDLER
 }) {
   const { t } = useTranslation('components')
   return (
@@ -17,6 +19,8 @@ function ZoomInButton ({
       a11yTitle={t('ImageToolbar.ZoomInButton.ariaLabel')}
       icon={<ZoomInIcon />}
       onClick={onClick}
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
     />
   )
 }
