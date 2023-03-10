@@ -9,13 +9,19 @@ function DEFAULT_HANDLER() {
   return true
 }
 
-function ZoomOutButton({ onClick = DEFAULT_HANDLER }) {
+function ZoomOutButton({
+  onClick = DEFAULT_HANDLER,
+  onPointerDown = DEFAULT_HANDLER,
+  onPointerUp = DEFAULT_HANDLER
+}) {
   const { t } = useTranslation('components')
   return (
     <Button
       a11yTitle={t('ImageToolbar.ZoomOutButton.ariaLabel')}
       icon={<ZoomOutIcon />}
       onClick={onClick}
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
     />
   )
 }

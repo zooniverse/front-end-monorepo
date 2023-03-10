@@ -1,7 +1,8 @@
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 
-import { withStores } from '@helpers'
+import { useStores } from '@hooks'
 import ZoomInButton from './ZoomInButton'
 
 function storeMapper(classifierStore) {
@@ -12,12 +13,8 @@ function storeMapper(classifierStore) {
   }
 }
 
-function DEFAULT_HANDLER() {
-  console.log('zoom in')
-  return true
-}
-
-function ZoomInButtonContainer({ zoomIn = DEFAULT_HANDLER }) {
+function ZoomInButtonContainer() {
+  const { zoomIn } = useStores(storeMapper)
   const [timer, setTimer] = useState('')
 
   function onPointerDown(event) {
@@ -36,19 +33,12 @@ function ZoomInButtonContainer({ zoomIn = DEFAULT_HANDLER }) {
   }
 
   return (
-    <span
+    <ZoomInButton
+      onClick={zoomIn}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
-    >
-      <ZoomInButton
-        onClick={zoomIn}
-      />
-    </span>
+    />
   )
 }
 
-ZoomInButtonContainer.propTypes = {
-  zoomIn: PropTypes.func
-}
-
-export default withStores(ZoomInButtonContainer, storeMapper)
+export default observer(ZoomInButtonContainer)
