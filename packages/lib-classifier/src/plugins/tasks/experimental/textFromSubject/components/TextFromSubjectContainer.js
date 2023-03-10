@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { useState } from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import { useSubjectText } from '@hooks'
@@ -18,22 +17,16 @@ function TextFromSubjectContainer ({
     value
   } = annotation
 
-  const [textDataLoadingState, setTextDataLoadingState] = useState(asyncStates.initialized)
+  let textDataLoadingState = asyncStates.initialized
 
-  function onReady () {
-    setTextDataLoadingState(asyncStates.success)
+  const { data: textData, loading, error } = useSubjectText({ subject })
+  if (!loading && textData) {
+    textDataLoadingState = asyncStates.success
   }
-
-  function onError (error) {
-    setTextDataLoadingState(asyncStates.error)
+  if (!loading && error) {
+    textDataLoadingState = asyncStates.error
     console.error(error)
   }
-
-  const { data: textData } = useSubjectText({
-    subject,
-    onReady,
-    onError
-  })
 
   function updateAnnotation (ref) {
     const currentRef = ref.current

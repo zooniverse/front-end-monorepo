@@ -23,16 +23,20 @@ async function requestData(subject) {
   return body
 }
 
+const DEFAULT_HANDLER = function () {
+  return true
+}
+
 /**
   A custom hook to load text data subjects from Panoptes
 */
-export default function useSubjectTex({
+export default function useSubjectText({
   /** Panoptes subject */
   subject,
   /** on data ready callback */
-  onReady,
+  onReady = DEFAULT_HANDLER,
   /** on error callback */
-  onError
+  onError = DEFAULT_HANDLER
 }) {
   const [data, setData] = useState('')
   const [error, setError] = useState(null)
