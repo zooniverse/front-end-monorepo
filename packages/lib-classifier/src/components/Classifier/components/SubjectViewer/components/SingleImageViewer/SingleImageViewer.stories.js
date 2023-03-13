@@ -1,87 +1,96 @@
-import zooTheme from '@zooniverse/grommet-theme';
-import { Box, Grommet } from 'grommet';
-import { Provider } from 'mobx-react';
-import { Factory } from 'rosie';
-import SubjectViewerStore from '@store/SubjectViewerStore';
-import SingleImageViewer from '@viewers/components/SingleImageViewer';
-import readme from './README.md';
-import backgrounds from '../../../../../../../.storybook/lib/backgrounds';
-import asyncStates from '@zooniverse/async-states';
-
-const config = {
-  notes: {
-    markdown: readme,
-  },
-};
+import zooTheme from '@zooniverse/grommet-theme'
+import { Box, Grommet } from 'grommet'
+import { Provider } from 'mobx-react'
+import { Factory } from 'rosie'
+import SubjectViewerStore from '@store/SubjectViewerStore'
+import SingleImageViewer from '@viewers/components/SingleImageViewer'
+import asyncStates from '@zooniverse/async-states'
 
 const subject = Factory.build('subject', {
-  locations: [{ 'image/jpeg': 'http://placekitten.com/500/300' }],
-});
+  locations: [{ 'image/jpeg': 'http://placekitten.com/500/300' }]
+})
 
 const mockStore = {
   classifications: {
     active: {
-      annotations: new Map(),
-    },
+      annotations: new Map()
+    }
   },
   fieldGuide: {
-    setModalVisibility: () => {},
+    setModalVisibility: () => {}
   },
   subjects: {
-    active: subject,
+    active: subject
   },
   subjectViewer: SubjectViewerStore.create({}),
   workflowSteps: {
-    activeStepTasks: [],
+    activeStepTasks: []
   },
-};
-
-function ViewerContext(props) {
-  const { children, theme } = props;
-  return (
-    <Provider classifierStore={mockStore}>
-      <Grommet theme={theme}>{children}</Grommet>
-    </Provider>
-  );
+  workflows: {
+    active: {
+      configuration: {
+        limit_subject_height: false
+      }
+    }
+  }
 }
-
-const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault });
 
 export default {
   title: 'Subject Viewers / SingleImageViewer',
+  component: SingleImageViewer
+}
 
-  parameters: {
-    component: SingleImageViewer,
+export const Default = () => {
+  return (
+    <Grommet theme={zooTheme}>
+      <Provider classifierStore={mockStore}>
+        <Box width='large'>
+          <SingleImageViewer
+            loadingState={asyncStates.success}
+            enableInteractionLayer={false}
+          />
+        </Box>
+      </Provider>
+    </Grommet>
+  )
+}
+
+const storeWithLimitSubjectHeight = {
+  classifications: {
+    active: {
+      annotations: new Map()
+    }
   },
-};
+  fieldGuide: {
+    setModalVisibility: () => {}
+  },
+  subjects: {
+    active: subject
+  },
+  subjectViewer: SubjectViewerStore.create({}),
+  workflowSteps: {
+    activeStepTasks: []
+  },
+  workflows: {
+    active: {
+      configuration: {
+        limit_subject_height: true
+      }
+    }
+  }
+}
 
-export const LightTheme = () => {
+export const LimitSubjectHeight = () => {
   return (
-    <ViewerContext theme={zooTheme}>
-      <Box height="500px" width="large">
-        <SingleImageViewer loadingState={asyncStates.success} enableInteractionLayer={false} />
-      </Box>
-    </ViewerContext>
-  );
-};
-
-LightTheme.story = {
-  name: 'light theme',
-  parameters: config,
-};
-
-export const DarkTheme = () => {
-  const darkZooTheme = Object.assign({}, zooTheme, { dark: true });
-  return (
-    <ViewerContext theme={darkZooTheme}>
-      <Box height="500px" width="large">
-        <SingleImageViewer loadingState={asyncStates.success} enableInteractionLayer={false} />
-      </Box>
-    </ViewerContext>
-  );
-};
-
-DarkTheme.story = {
-  name: 'dark theme',
-  parameters: darkThemeConfig,
-};
+    <Grommet theme={zooTheme}>
+      <Provider classifierStore={storeWithLimitSubjectHeight}>
+        <Box width='large'>
+          <SingleImageViewer
+            loadingState={asyncStates.success}
+            enableInteractionLayer={false}
+          />
+        </Box>
+      </Provider>
+    </Grommet>
+  )
+}
