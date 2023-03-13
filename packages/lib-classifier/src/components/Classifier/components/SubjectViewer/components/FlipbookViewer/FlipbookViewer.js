@@ -78,6 +78,7 @@ const FlipbookViewer = ({
   return (
     <Box>
       <SVGPanZoom
+        displayNaturalDimensions={displayNaturalDimensions}
         img={subjectImage.current}
         maxZoom={5}
         minZoom={0.1}

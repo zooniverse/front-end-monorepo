@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { cloneElement, useEffect, useRef, useState } from 'react'
+import { cloneElement, useEffect, useState } from 'react'
 
 const DEFAULT_ZOOM = 1
 
@@ -23,7 +23,6 @@ function SVGPanZoom({
     height: naturalHeight,
     width: naturalWidth
   }
-  const svgContainerRef = useRef(null)
   const [zoom, setZoom] = useState(DEFAULT_ZOOM)
   const [viewBox, setViewBox] = useState(defaultViewBox)
 
@@ -53,22 +52,9 @@ function SVGPanZoom({
     }, [zoom])
 
   useEffect(() => {
-    if (displayNaturalDimensions) {
-      calcZoomForNaturalDimensions()
-    } else {
-      setZoom(DEFAULT_ZOOM)
-    }
+    setZoom(1)
     setViewBox(defaultViewBox)
   }, [src])
-
-  function calcZoomForNaturalDimensions () {
-    if (svgContainerRef.current) {
-      const zoomForNaturalDimensions = naturalWidth / svgContainerRef.current.getBoundingClientRect().width
-      if (zoomForNaturalDimensions < 1) {
-        setZoom(zoomForNaturalDimensions)
-      }
-    }
-  }
 
   function imageScale(img) {
     const { width: clientWidth, height: clientHeight } = img
@@ -118,11 +104,7 @@ function SVGPanZoom({
         return
       }
       case 'zoomto': {
-        if (displayNaturalDimensions) {
-          calcZoomForNaturalDimensions()
-        } else {
-          setZoom(DEFAULT_ZOOM)
-        }
+        setZoom(1)
         setViewBox({
           x: 0,
           y: 0,
@@ -137,11 +119,11 @@ function SVGPanZoom({
   const scale = imageScale(img)
 
   return (
-    <div ref={svgContainerRef} style={{ width: '100%' }}>
+    <div>
       {cloneElement(children, {
         scale,
-        viewBox: `${x} ${y} ${width} ${height}`
-        // svgStyle: displayNaturalDimensions ? { maxHeight: naturalHeight, maxWidth: naturalWidth } : {}
+        viewBox: `${x} ${y} ${width} ${height}`,
+        svgMaxHeight: displayNaturalDimensions ? `min(${naturalHeight}px, 90vh)` : null
       })}
     </div>
   )

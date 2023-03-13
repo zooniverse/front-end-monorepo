@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import { useRef } from 'react';
+import { useRef } from 'react'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import InteractionLayer from '../InteractionLayer'
@@ -14,20 +14,16 @@ function SingleImageViewer (props) {
     onKeyDown = () => true,
     rotate = 0,
     scale = 1,
-    svgStyle = {},
+    svgMaxHeight = null,
     title = {},
     viewBox,
     width,
     zoomControlFn = null,
     zooming = false
   } = props
-
   const transformLayer = useRef()
   const canvas = transformLayer.current
   const transform = `rotate(${rotate} ${width / 2} ${height / 2})`
-  if (enableInteractionLayer) {
-    svgStyle.touchAction = 'pinch-zoom'
-  }
 
   return (
     <SVGContext.Provider value={{ canvas }}>
@@ -40,11 +36,16 @@ function SingleImageViewer (props) {
       <Box
         animation='fadeIn'
         overflow='hidden'
+        width='100%'
+        align='center'
       >
         <svg
           focusable
           onKeyDown={onKeyDown}
-          style={svgStyle}
+          style={{
+            touchAction: enableInteractionLayer ? 'pinch-zoom' : 'unset',
+            maxHeight: svgMaxHeight
+          }}
           tabIndex={0}
           viewBox={viewBox}
           xmlns='http://www.w3.org/2000/svg'
@@ -82,6 +83,8 @@ SingleImageViewer.propTypes = {
   rotate: PropTypes.number,
   /** Calculated in SVGPanZoom component */
   scale: PropTypes.number,
+  /** Calculated in SVGPanZoom component */
+  svgMaxHeight: PropTypes.string,
   /** Passed from container */
   title: PropTypes.shape({
     id: PropTypes.string,
