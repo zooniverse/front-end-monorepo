@@ -119,7 +119,7 @@ function SVGPanZoom({
   const scale = imageScale(img)
 
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       {cloneElement(children, {
         scale,
         viewBox: `${x} ${y} ${width} ${height}`,
