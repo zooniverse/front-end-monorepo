@@ -1,6 +1,4 @@
-import { autorun } from 'mobx'
-import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
-import asyncStates from '@zooniverse/async-states'
+import { types } from 'mobx-state-tree'
 
 import Annotation from '@plugins/tasks/models/Annotation'
 
@@ -15,45 +13,10 @@ const TextFromSubject = types
   .views(self => ({
     get isComplete () {
       return self.initializedFromSubject && self.value !== ''
-    },
-    get isChanged () {
-      const subject = getRoot(self).subjects?.active
-      if (subject) {
-        const { content } = subject
-        return !!content && content !== self.value
-      }
-      return false
     }
   }))
   .actions(self => {
-    function createSubjectObserver () {
-      const subjectDisposer = autorun(() => {
-        const validSubjectReference = isValidReference(() => getRoot(self).subjects.active)
-
-        if (validSubjectReference) {
-          const subject = getRoot(self).subjects.active
-          const { content, contentLoadingState } = subject
-
-          if (contentLoadingState === asyncStates.success && !self.initializedFromSubject) {
-            self.updateFromSubject(content)
-          }
-        }
-      }, { name: 'TextFromSubjectAnnotation Subject Observer autorun' })
-      addDisposer(self, subjectDisposer)
-    }
-
     return {
-      afterAttach () {
-        createSubjectObserver()
-      },
-
-      resetToSubject () {
-        const subject = getRoot(self).subjects.active
-        const { content } = subject
-
-        self.update(content)
-      },
-
       updateFromSubject (value) {
         self.initializedFromSubject = true
         self.update(value)

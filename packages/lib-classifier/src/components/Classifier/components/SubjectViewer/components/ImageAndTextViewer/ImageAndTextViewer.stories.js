@@ -6,39 +6,43 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { SubjectFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 
-import ImageAndTextViewer from './'
+import ImageAndTextViewerConnector from './ImageAndTextViewerConnector'
 
 export default {
   title: 'Subject Viewers / ImageAndTextViewer',
-  component: ImageAndTextViewer,
+  component: ImageAndTextViewerConnector,
   args: {
     dark: false,
     loadingState: asyncStates.success
   },
   argTypes: {
     loadingState: {
-      type: 'select',
-      options: Object.keys(asyncStates)
+      options: Object.values(asyncStates),
+      type: 'select'
     }
   }
 }
 
 const subjectSnapshot = SubjectFactory.build({
-  content: `
-    AMHERST COLLEGE HERBARIUM
-    No.
-    Name Potamogeton gemmiparus Robbins
-    Locality barter
-    Donor Addison Brown LLP:
-    Amherst College 1852
-  `,
-  contentLoadingState: asyncStates.success,
+  id: '1234',
   locations: [
     {
       'image/jpeg': 'https://panoptes-uploads-staging.zooniverse.org/subject_location/72823751-8222-403c-a4cc-8e365f880dfb.jpeg'
     },
     {
       'text/plain': 'https://panoptes-uploads-staging.zooniverse.org/subject_location/9d03230b-7ef0-42b5-aa99-996b0394cc9e.txt'
+    }
+  ]
+})
+
+const textLocationFirstSubjectSnapshot = SubjectFactory.build({
+  id: '5678',
+  locations: [
+    {
+      'text/plain': 'https://panoptes-uploads-staging.zooniverse.org/subject_location/9d03230b-7ef0-42b5-aa99-996b0394cc9e.txt'
+    },
+    {
+      'image/jpeg': 'https://panoptes-uploads-staging.zooniverse.org/subject_location/72823751-8222-403c-a4cc-8e365f880dfb.jpeg'
     }
   ]
 })
@@ -47,31 +51,14 @@ const store = mockStore({
   subject: subjectSnapshot
 })
 
-const textLocationFirstSubjectSnapshot = SubjectFactory.build({
-  content: `
-    AMHERST COLLEGE HERBARIUM
-    No.
-    Name Potamogeton gemmiparus Robbins
-    Locality barter
-    Donor Addison Brown LLP:
-    Amherst College 1852
-  `,
-  contentLoadingState: asyncStates.success,
-  locations: [
-    {
-      'text/plain': 'https://panoptes-uploads-staging.zooniverse.org/subject_location/9d03230b-7ef0-42b5-aa99-996b0394cc9e.txt'
-    },
-    {
-      'image/jpeg': 'https://panoptes-uploads-staging.zooniverse.org/subject_location/72823751-8222-403c-a4cc-8e365f880dfb.jpeg'
-    }
-  ]
-})
-
-const textLocationFirstStore = mockStore({
+const storeWithSubjectTextLocationFirst = mockStore({
   subject: textLocationFirstSubjectSnapshot
 })
 
-export const Default = ({ dark, loadingState }) => {
+export function Default ({
+  dark,
+  loadingState
+}) {
   return (
     <Grommet
       background={{
@@ -83,8 +70,7 @@ export const Default = ({ dark, loadingState }) => {
     >
       <Provider classifierStore={store}>
         <Box width='large'>
-          <ImageAndTextViewer
-            subject={store.subjects.active}
+          <ImageAndTextViewerConnector
             loadingState={loadingState}
           />
         </Box>
@@ -93,7 +79,10 @@ export const Default = ({ dark, loadingState }) => {
   )
 }
 
-export const TextLocationFirst = ({ dark, loadingState }) => {
+export function TextLocationFirst ({
+  dark,
+  loadingState
+}) {
   return (
     <Grommet
       background={{
@@ -103,10 +92,9 @@ export const TextLocationFirst = ({ dark, loadingState }) => {
       theme={zooTheme}
       themeMode={dark ? 'dark' : 'light'}
     >
-      <Provider classifierStore={textLocationFirstStore}>
+      <Provider classifierStore={storeWithSubjectTextLocationFirst}>
         <Box width='large'>
-          <ImageAndTextViewer
-            subject={textLocationFirstStore.subjects.active}
+          <ImageAndTextViewerConnector
             loadingState={loadingState}
           />
         </Box>

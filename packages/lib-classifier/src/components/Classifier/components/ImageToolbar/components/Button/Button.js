@@ -49,16 +49,22 @@ const StyledButton = styled(GrommetButton)`
   }
 `
 
+function DEFAULT_HANDLER() {
+  return true
+}
+
 function Button({
   active = false,
   a11yTitle,
   disabled,
   icon,
-  onBlur = () => true,
-  onClick = () => true,
-  onFocus = () => true,
-  onMouseOver = () => true,
-  onMouseOut = () => true
+  onBlur = DEFAULT_HANDLER,
+  onClick = DEFAULT_HANDLER,
+  onFocus = DEFAULT_HANDLER,
+  onPointerDown = DEFAULT_HANDLER,
+  onPointerOut = DEFAULT_HANDLER,
+  onPointerOver = DEFAULT_HANDLER,
+  onPointerUp = DEFAULT_HANDLER
 }) {
   const eventHandlers = disabled
     ? {}
@@ -66,8 +72,10 @@ function Button({
         onBlur,
         onClick,
         onFocus,
-        onMouseOver,
-        onMouseOut
+        onPointerDown,
+        onPointerOut,
+        onPointerOver,
+        onPointerUp
       }
 
   return (
@@ -76,7 +84,6 @@ function Button({
       a11yTitle={a11yTitle}
       disabled={disabled}
       icon={icon}
-      title={a11yTitle}
       plain
       {...eventHandlers}
     />
@@ -88,8 +95,10 @@ Button.propTypes = {
   onBlur: func,
   onClick: func,
   onFocus: func,
-  onMouseOver: func,
-  onMouseOut: func
+  onPointerDown: func,
+  onPointerOut: func,
+  onPointerOver: func,
+  onPointerUp: func
 }
 
 export default Button

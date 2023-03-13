@@ -1,6 +1,4 @@
-import asyncStates from '@zooniverse/async-states'
 import { getSnapshot, getType } from 'mobx-state-tree'
-import { Factory } from 'rosie'
 
 import { SubjectFactory } from '@test/factories'
 import * as subjectModels from '@store/subjects'
@@ -51,8 +49,6 @@ describe('Models > SubjectType', function () {
   describe('single text subjects', function () {
     let subject
     let snapshot = SubjectFactory.build({
-      content: 'This is test subject content',
-      contentLoadingState: asyncStates.success,
       locations: [{ 'text/plain': 'https://foo.bar/example.txt' }]
     })
 
@@ -98,8 +94,6 @@ describe('Models > SubjectType', function () {
   describe('image and text subjects', function () {
     let subject
     let snapshot = SubjectFactory.build({
-      content: 'This is test subject content',
-      contentLoadingState: asyncStates.success,
       locations: [
         { 'image/png': 'https://foo.bar/example.png' },
         { 'text/plain': 'https://foo.bar/example.txt' }
