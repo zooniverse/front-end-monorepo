@@ -18,11 +18,11 @@ function storeMapper(store) {
   } = store
 
   const {
-    display_natural_subject_dimensions: displayNaturalDimensions
+    limit_subject_height: limitSubjectHeight
   } = store.workflows?.active?.configuration
 
   return {
-    displayNaturalDimensions,
+    limitSubjectHeight,
     enableRotation,
     frame,
     invert,

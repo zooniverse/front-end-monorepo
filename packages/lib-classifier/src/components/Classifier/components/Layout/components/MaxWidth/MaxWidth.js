@@ -76,7 +76,7 @@ export const horizontalLayout = {
   rows: ['auto']
 }
 
-export default function MaxWidth({ className = '', displayNaturalDimensions = false }) {
+export default function MaxWidth({ className = '' }) {
   const size = useContext(ResponsiveContext)
   const containerGridProps = size === 'small' ? verticalLayout : horizontalLayout
 

@@ -35,12 +35,12 @@ function storeMapper(store) {
   } = activeInteractionTask || {}
 
   const {
-    display_natural_subject_dimensions: displayNaturalDimensions
+    limit_subject_height: limitSubjectHeight
   } = store.workflows?.active?.configuration
 
   return {
     activeTool,
-    displayNaturalDimensions,
+    limitSubjectHeight,
     enableRotation,
     frame,
     invert,
@@ -58,7 +58,7 @@ const defaultTool = {
 
 function MultiFrameViewerContainer({
   activeTool = defaultTool,
-  displayNaturalDimensions = false,
+  limitSubjectHeight = false,
   enableInteractionLayer = true,
   enableRotation = () => null,
   frame = 0,
@@ -121,7 +121,7 @@ function MultiFrameViewerContainer({
           locations={subject.locations}
         />
         <SVGPanZoom
-          displayNaturalDimensions={displayNaturalDimensions}
+          limitSubjectHeight={limitSubjectHeight}
           img={subjectImage.current}
           maxZoom={5}
           minZoom={0.1}

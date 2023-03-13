@@ -52,9 +52,9 @@ describe('Model > Workflow', function () {
       expect(workflow.configuration.flipbook_autoplay).to.be.false()
     })
 
-    // it('should have display_natural_subject_dimensions default to false', function () {
-    //   expect(workflow.display_natural_subject_dimensions).to.be.false()
-    // })
+    it('should have limit_subject_height default to false', function () {
+      expect(workflow.limit_subject_height).to.be.false()
+    })
   })
 
   describe('with custom configuration', function () {

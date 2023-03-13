@@ -19,14 +19,14 @@ function storeMapper(store) {
     setOnZoom
   } = store.subjectViewer
   const {
-    display_natural_subject_dimensions: displayNaturalDimensions,
+    limit_subject_height: limitSubjectHeight,
     flipbook_autoplay: flipbookAutoplay,
     playIterations
   } = store.workflows?.active?.configuration
 
   return {
     defaultFrame,
-    displayNaturalDimensions,
+    limitSubjectHeight,
     enableRotation,
     flipbookAutoplay,
     invert,
@@ -49,7 +49,7 @@ function FlipbookViewerContainer({
 }) {
   const {
     defaultFrame,
-    displayNaturalDimensions,
+    limitSubjectHeight,
     enableRotation,
     flipbookAutoplay,
     invert,
@@ -60,19 +60,17 @@ function FlipbookViewerContainer({
     setOnZoom
   } = useStores(storeMapper)
 
-  useEffect(
-    function preloadImages() {
-      subject?.locations?.forEach(location => {
-        const [url] = Object.values(location)
-        if (url) {
-          const { Image } = window
-          const img = new Image()
-          img.src = url
-        }
-      })
-    },
-    [subject?.locations]
-  )
+  useEffect(function preloadImages() {
+    subject?.locations?.forEach(location => {
+      const [url] = Object.values(location)
+      if (url) {
+        const { Image } = window
+        const img = new Image()
+        img.src = url
+      }
+    })
+  },
+  [subject?.locations])
 
   if (loadingState === asyncStates.error || !subject?.locations) {
     return <div>Something went wrong.</div>
@@ -81,7 +79,7 @@ function FlipbookViewerContainer({
   return (
     <FlipbookViewer
       defaultFrame={defaultFrame}
-      displayNaturalDimensions={displayNaturalDimensions}
+      limitSubjectHeight={limitSubjectHeight}
       enableRotation={enableRotation}
       flipbookAutoplay={flipbookAutoplay}
       invert={invert}

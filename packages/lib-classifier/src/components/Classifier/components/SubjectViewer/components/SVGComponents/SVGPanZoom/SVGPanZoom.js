@@ -5,7 +5,7 @@ const DEFAULT_ZOOM = 1
 
 function SVGPanZoom({
   children,
-  displayNaturalDimensions = false,
+  limitSubjectHeight = false,
   img,
   maxZoom = 2,
   minZoom = 1,
@@ -123,7 +123,7 @@ function SVGPanZoom({
       {cloneElement(children, {
         scale,
         viewBox: `${x} ${y} ${width} ${height}`,
-        svgMaxHeight: displayNaturalDimensions ? `min(${naturalHeight}px, 90vh)` : null
+        svgMaxHeight: limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
       })}
     </div>
   )
@@ -131,6 +131,7 @@ function SVGPanZoom({
 
 SVGPanZoom.propTypes = {
   children: PropTypes.node.isRequired,
+  limitSubjectHeight: PropTypes.bool,
   maxZoom: PropTypes.number,
   minZoom: PropTypes.number,
   naturalHeight: PropTypes.number.isRequired,
