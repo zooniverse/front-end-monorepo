@@ -53,7 +53,7 @@ describe('Model > Workflow', function () {
     })
 
     it('should have limit_subject_height default to false', function () {
-      expect(workflow.limit_subject_height).to.be.false()
+      expect(workflow.configuration.limit_subject_height).to.be.false()
     })
   })
 

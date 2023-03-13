@@ -40,10 +40,10 @@ function storeMapper(store) {
 
   return {
     activeTool,
-    limitSubjectHeight,
     enableRotation,
     frame,
     invert,
+    limitSubjectHeight,
     move,
     rotation,
     setFrame,
@@ -58,11 +58,11 @@ const defaultTool = {
 
 function MultiFrameViewerContainer({
   activeTool = defaultTool,
-  limitSubjectHeight = false,
   enableInteractionLayer = true,
   enableRotation = () => null,
   frame = 0,
   invert = false,
+  limitSubjectHeight = false,
   loadingState = asyncStates.initialized,
   move,
   onError = () => true,
@@ -121,8 +121,8 @@ function MultiFrameViewerContainer({
           locations={subject.locations}
         />
         <SVGPanZoom
-          limitSubjectHeight={limitSubjectHeight}
           img={subjectImage.current}
+          limitSubjectHeight={limitSubjectHeight}
           maxZoom={5}
           minZoom={0.1}
           naturalHeight={img.naturalHeight}
@@ -166,6 +166,7 @@ MultiFrameViewerContainer.propTypes = {
   enableRotation: PropTypes.func,
   frame: PropTypes.number,
   invert: PropTypes.bool,
+  limitSubjectHeight: PropTypes.bool,
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,

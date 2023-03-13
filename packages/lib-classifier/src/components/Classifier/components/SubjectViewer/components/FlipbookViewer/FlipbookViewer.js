@@ -14,10 +14,10 @@ const DEFAULT_HANDLER = () => true
 
 const FlipbookViewer = ({
   defaultFrame = 0,
-  limitSubjectHeight = false,
   enableRotation = DEFAULT_HANDLER,
   flipbookAutoplay = false,
   invert = false,
+  limitSubjectHeight = false,
   move,
   onError = DEFAULT_HANDLER,
   onKeyDown = DEFAULT_HANDLER,
@@ -78,8 +78,8 @@ const FlipbookViewer = ({
   return (
     <Box>
       <SVGPanZoom
-        limitSubjectHeight={limitSubjectHeight}
         img={subjectImage.current}
+        limitSubjectHeight={limitSubjectHeight}
         maxZoom={5}
         minZoom={0.1}
         naturalHeight={img.naturalHeight}

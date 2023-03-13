@@ -13,11 +13,11 @@ import SingleImageViewer from './SingleImageViewer'
 const DEFAULT_HANDLER = () => true
 
 function SingleImageViewerContainer ({
-  limitSubjectHeight = false,
   enableInteractionLayer = true,
   enableRotation = DEFAULT_HANDLER,
   frame = 0,
   invert = false,
+  limitSubjectHeight = false,
   loadingState = asyncStates.initialized,
   move = false,
   onError = DEFAULT_HANDLER,
@@ -63,8 +63,8 @@ function SingleImageViewerContainer ({
     const subjectID = subject?.id || 'unknown'
     return (
       <SVGPanZoom
-        limitSubjectHeight={limitSubjectHeight}
         img={subjectImage.current}
+        limitSubjectHeight={limitSubjectHeight}
         maxZoom={5}
         minZoom={0.1}
         naturalHeight={img.naturalHeight}

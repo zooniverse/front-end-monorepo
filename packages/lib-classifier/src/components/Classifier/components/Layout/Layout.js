@@ -7,17 +7,14 @@ function storeMapper(classifierStore) {
   const workflow = classifierStore.workflows.active
 
   return {
-    layout: workflow?.layout,
-    limitSubjectHeight: workflow?.configuration?.limit_subject_height
-  }
+    layout: workflow?.layout }
 }
-
 
 function Layout() {
   // `getLayout()` will always return the default layout as a fallback
-  const { limitSubjectHeight, layout } = useStores(storeMapper)
+  const { layout } = useStores(storeMapper)
   const CurrentLayout = getLayout(layout)
-  return <CurrentLayout limitSubjectHeight={limitSubjectHeight} />
+  return <CurrentLayout />
 }
 
 export default observer(Layout)

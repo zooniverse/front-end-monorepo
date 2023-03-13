@@ -19,17 +19,17 @@ function storeMapper(store) {
     setOnZoom
   } = store.subjectViewer
   const {
-    limit_subject_height: limitSubjectHeight,
     flipbook_autoplay: flipbookAutoplay,
+    limit_subject_height: limitSubjectHeight,
     playIterations
   } = store.workflows?.active?.configuration
 
   return {
     defaultFrame,
-    limitSubjectHeight,
     enableRotation,
     flipbookAutoplay,
     invert,
+    limitSubjectHeight,
     move,
     playIterations,
     rotation,
@@ -49,10 +49,10 @@ function FlipbookViewerContainer({
 }) {
   const {
     defaultFrame,
-    limitSubjectHeight,
     enableRotation,
     flipbookAutoplay,
     invert,
+    limitSubjectHeight,
     move,
     playIterations,
     rotation,
@@ -69,8 +69,7 @@ function FlipbookViewerContainer({
         img.src = url
       }
     })
-  },
-  [subject?.locations])
+  }, [subject?.locations])
 
   if (loadingState === asyncStates.error || !subject?.locations) {
     return <div>Something went wrong.</div>
@@ -79,10 +78,10 @@ function FlipbookViewerContainer({
   return (
     <FlipbookViewer
       defaultFrame={defaultFrame}
-      limitSubjectHeight={limitSubjectHeight}
       enableRotation={enableRotation}
       flipbookAutoplay={flipbookAutoplay}
       invert={invert}
+      limitSubjectHeight={limitSubjectHeight}
       move={move}
       onError={onError}
       onKeyDown={onKeyDown}

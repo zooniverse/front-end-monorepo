@@ -22,10 +22,10 @@ function storeMapper(store) {
   } = store.workflows?.active?.configuration
 
   return {
-    limitSubjectHeight,
     enableRotation,
     frame,
     invert,
+    limitSubjectHeight,
     move,
     rotation,
     setOnZoom,

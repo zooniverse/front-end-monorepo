@@ -5,8 +5,8 @@ const DEFAULT_ZOOM = 1
 
 function SVGPanZoom({
   children,
-  limitSubjectHeight = false,
   img,
+  limitSubjectHeight = false,
   maxZoom = 2,
   minZoom = 1,
   naturalHeight,
