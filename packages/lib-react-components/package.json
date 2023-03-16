@@ -26,6 +26,10 @@
   "dependencies": {
     "@fortawesome/free-regular-svg-icons": "~6.3.0",
     "@fortawesome/free-solid-svg-icons": "~6.3.0",
+    "@visx/glyph": "~3.0.0",
+    "@visx/group": "~3.0.0",
+    "@visx/responsive": "~3.0.0",
+    "@visx/shape": "~3.0.0",
     "@tippyjs/react": "~4.2.6",
     "formik": "~2.2.9",
     "i18next": "~22.4.3",
@@ -48,6 +52,7 @@
     "@zooniverse/grommet-theme": "3.x.x",
     "grommet": "2.x.x",
     "grommet-icons": "4.x.x",
+    "mobx-state-tree": "~5.x.x",
     "react": ">= 16.14",
     "react-dom": ">= 16.14",
     "styled-components": "5.x.x"
@@ -83,6 +88,7 @@
     "grommet-icons": "~4.10.0",
     "jsdom": "~21.1.0",
     "lodash": "~4.17.11",
+    "mobx-state-tree": "~5.1.0",
     "mocha": "~10.2.0",
     "react": "~17.0.2",
     "react-dom": "~17.0.2",

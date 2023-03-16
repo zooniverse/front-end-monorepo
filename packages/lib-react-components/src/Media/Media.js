@@ -1,27 +1,32 @@
 import mime from 'mime/lite'
-import Audio from './components/Audio'
-import ThumbnailImage from './components/ThumbnailImage'
-import Video from './components/Video'
+import * as Viewers from './components'
 import { propTypes, defaultProps } from './helpers/mediaPropTypes'
 
-export default function Media (props) {
+export default function Media(props) {
   const mimeType = mime.getType(props.src)
+  const [ type ] = mimeType ? mimeType.split('/') : []
 
-  if (mimeType && mimeType.includes('image')) {
+  if (type === 'image') {
     return (
-      <ThumbnailImage {...props} />
+      <Viewers.ThumbnailImage {...props} />
     )
   }
 
-  if (mimeType && mimeType.includes('video')) {
+  if (type === 'video') {
     return (
-      <Video {...props} />
+      <Viewers.Video {...props} />
     )
   }
 
-  if (mimeType && mimeType.includes('audio')) {
+  if (type === 'audio') {
     return (
-      <Audio {...props} />
+      <Viewers.Audio {...props} />
+    )
+  }
+
+  if (type === 'application') {
+    return (
+      <Viewers.Data {...props} />
     )
   }
 
