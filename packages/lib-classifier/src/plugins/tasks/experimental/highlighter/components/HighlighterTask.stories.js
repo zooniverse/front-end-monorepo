@@ -29,10 +29,32 @@ export function Default ({ dark, isThereTaskHelp, required, subjectReadyState })
 
   const tasks = {
     T0: {
+      highlighterLabels: [
+        {
+          'color': '#00FF7F',
+          'label': 'Species Name'
+        },
+        {
+          'color': '#DCC6E0',
+          'label': 'Location'
+        },
+        {
+          'color': '#F5D76E',
+          'label': 'Collector Name'
+        },
+        {
+          'color': '#ffa539',
+          'label': 'Habitat'
+        }
+      ],
       required,
       strings: {
-        help: 'Edit the text in the box.',
-        instruction: 'Highlight the text'
+        help: 'Highlight the text in the box.',
+        instruction: 'Highlight the text',
+        'highlighterLabels.0.label': 'Species Name',
+        'highlighterLabels.1.label': 'Location',
+        'highlighterLabels.2.label': 'Collector Name',
+        'highlighterLabels.3.label': 'Habitat'
       },
       taskKey: 'T0',
       type: 'highlighter'

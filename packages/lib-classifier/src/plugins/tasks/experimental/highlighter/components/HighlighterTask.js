@@ -3,6 +3,9 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Markdownz } from '@zooniverse/react-components'
 
+import InputStatus from '../../../components/InputStatus'
+import TaskInput from '../../../components/TaskInput'
+
 const StyledText = styled(Text)`
   margin: 0;
   padding: 0;
@@ -13,6 +16,15 @@ const StyledText = styled(Text)`
   }
 `
 
+const StyledLabelColor = styled.span`
+  align-self: center;
+  background-color: ${props => props.color};
+  border-radius: 3px;
+  height: 1.8em;
+  margin: 0 .8em;
+  width: 2.4em;
+`
+
 export default function HighlighterTask ({
   autoFocus = false,
   disabled = false,
@@ -20,6 +32,13 @@ export default function HighlighterTask ({
   updateAnnotation = () => true,
   value
 }) {
+  function onChange (index, event) {
+    console.log('onChange')
+  }
+
+  // TODO add labelCount for InputStatus per annotation.value
+  // TODO translate "No labels for the Highlighter Task"
+
   return (
     <Box
       direction='column'
@@ -29,7 +48,27 @@ export default function HighlighterTask ({
           {task.instruction}
         </Markdownz>
       </StyledText>
-      <span>Highlighter task goes here.</span>
+      {task.highlighterLabels ? 
+        task.highlighterLabels.map((label, index) => {
+          return (
+            <TaskInput
+              index={index}
+              key={`${task.taskKey}_${index}`}
+              label={task.strings.get(`highlighterLabels.${index}.label`)}
+              labelIcon={
+                <StyledLabelColor
+                  color={label.color}
+                />
+              }
+              labelStatus={<InputStatus count={index} />}
+              name='highlighter-label'
+              onChange={(event) => onChange(index, event)}
+              required={task.required}
+              type='radio'
+            />
+          )
+        }) : <span>No labels for the Highlighter Task</span>
+      }
     </Box>
   )
 }

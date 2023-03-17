@@ -13,5 +13,11 @@ describe('HighlighterTask', function () {
       const instruction = screen.getByText('Highlight the text')
       expect(instruction).to.be.ok()
     })
+
+    it('should show the label inputs', function () {
+      render(<DefaultStory />)
+      const labelInputs = document.querySelectorAll('input[name="highlighter-label"]')
+      expect(labelInputs).to.have.lengthOf(4)
+    })
   })
 })
