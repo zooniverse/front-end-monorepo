@@ -2,6 +2,7 @@ if (process.env.NEWRELIC_LICENSE_KEY) {
   require('newrelic')
 }
 
+const Sentry = require('@sentry/node')
 const express = require('express')
 const next = require('next')
 
@@ -27,11 +28,18 @@ const handle = app.getRequestHandler()
 app.prepare().then(() => {
   const server = express()
 
+  server.use(Sentry.Handlers.requestHandler())
   setLogging(server)
 
   server.get('*', (req, res) => {
     setCacheHeaders(req, res)
     return handle(req, res)
+  })
+
+  server.use(Sentry.Handlers.errorHandler())
+  server.use(function onError(error, req, res, next) {
+    res.statusCode = 500
+    res.end(res.sentry + "\n")
   })
 
   if (APP_ENV === 'development') {
