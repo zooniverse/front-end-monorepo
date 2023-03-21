@@ -62,6 +62,7 @@ export function InteractionLayerContainer({
   shownMarks = SHOWN_MARKS.ALL,
   subject,
   taskKey = '',
+  viewBox,
   width,
   played,
   duration
@@ -92,6 +93,7 @@ export function InteractionLayerContainer({
           setActiveMark={setActiveMark}
           scale={scale}
           subject={subject}
+          viewBox={viewBox}
           width={width}
         />
       )}

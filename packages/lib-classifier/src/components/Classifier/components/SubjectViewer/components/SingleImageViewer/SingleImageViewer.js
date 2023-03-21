@@ -68,6 +68,7 @@ function SingleImageViewer(props) {
                 height={height}
                 width={width}
                 subject={subject}
+                viewBox={viewBox}
               />
             )}
           </g>

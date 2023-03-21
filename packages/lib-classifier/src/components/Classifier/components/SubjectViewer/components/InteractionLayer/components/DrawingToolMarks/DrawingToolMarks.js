@@ -17,7 +17,8 @@ function DrawingToolMarks({
   onSelectMark = () => true,
   pointerEvents = 'painted',
   scale = 1,
-  played
+  played,
+  viewBox,
 }) {
   const { canvas } = useContext(SVGContext)
 
@@ -109,6 +110,7 @@ function DrawingToolMarks({
           <LineControls
             mark={mark}
             scale={scale}
+            viewBox={viewBox}
             onDelete={deleteMark}
             onDeselect={deselectMark}
             dragStart={selectMark}

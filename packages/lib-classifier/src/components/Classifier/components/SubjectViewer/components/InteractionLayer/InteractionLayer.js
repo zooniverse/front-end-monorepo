@@ -36,6 +36,7 @@ function InteractionLayer({
   move,
   setActiveMark = () => { },
   scale = 1,
+  viewBox,
   subject,
   width,
   played,
@@ -190,6 +191,7 @@ function InteractionLayer({
           onMove={(mark, difference) => mark.move(difference)}
           pointerEvents={creating ? 'none' : 'painted'}
           scale={scale}
+          viewBox={viewBox}
           played={played}
         />
       )}

@@ -54,7 +54,7 @@ function pointsToPath(points) {
     return ''
   }
 
-  const [firstPoint, ...restPoints] = points;
+  const [firstPoint, ...restPoints] = points
   const path = [`M ${firstPoint.x},${firstPoint.y}`]
 
   restPoints.forEach(point => {

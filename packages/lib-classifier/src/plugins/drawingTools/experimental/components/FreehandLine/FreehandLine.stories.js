@@ -6,9 +6,6 @@ import {
   updateStores
 } from '@plugins/drawingTools/stories/helpers.js'
 import { DrawingTaskFactory, WorkflowFactory } from '@test/factories'
-import { within, fireEvent } from '@testing-library/dom'
-import userEvent from '@testing-library/user-event'
-
 import FreehandLine from './'
 
 const drawingTaskSnapshot = DrawingTaskFactory.build({
@@ -77,6 +74,15 @@ function setupStores() {
       { x: 201, y: 101 },
     ])
 
+    freehandLineTool = drawingTask.activeTool.createMark({}, [
+      { x: 400, y: 100 },
+      { x: 375, y: 75 },
+      { x: 350, y: 75 },
+      { x: 325, y: 100 },
+      { x: 325, y: 125 },
+      { x: 350, y: 150 },
+    ])
+
     return mockStores
   } catch (error) {
     console.error(error)
@@ -91,62 +97,12 @@ export default {
   component: FreehandLine,
   parameters: {
     viewport: {
-      defaultViewport: 'responsive'
+      deafaultViewport: 'responsive'
     }
   }
 }
 
-export const Close = (args) => {
+export const Drawing = (args) => {
   updateStores(args, mockBounds, stores)
   return <DrawingStory stores={stores} />
-}
-
-Close.args = {
-  activeMark: true,
-}
-
-Close.play = async ({ canvasElement }) => {
-  const user = userEvent.setup()
-  const canvas = within(canvasElement);
-  setTimeout(async () => {
-    await user.click(canvas.getByTestId('mark-mark'));
-    await fireEvent.pointerDown(canvas.getByTestId('drawing-drag-handle'), {
-      pointerId: 1
-    });
-    await fireEvent.pointerMove(canvas.getByTestId('drawing-drag-handle'), {
-      pointerId: 1,
-      clientX: 100,
-      clientY: 255
-    });
-    // await fireEvent.pointerMove(canvas.getByTestId('drawing-drag-handle'), {
-    //   pointerId: 1,
-    //   clientX: 130,
-    //   clientY: 255
-    // });
-    // await fireEvent.pointerMove(canvas.getByTestId('drawing-drag-handle'), {
-    //   pointerId: 1,
-    //   clientX: 130,
-    //   clientY: 280
-    // });
-    await fireEvent.pointerUp(canvas.getByTestId('drawing-drag-handle'), {
-      pointerId: 1,
-    });
-
-  }, 500);
-
-  //freehandLineTool.close()
-}
-
-export const Undo = (args) => {
-  updateStores(args, mockBounds, stores)
-  return <DrawingStory stores={stores} />
-}
-
-Undo.args = {
-  activeMark: true,
-}
-
-Undo.play = async ({ canvasElement }) => {
-  freehandLineTool.undo()
-  fireEvent
 }
