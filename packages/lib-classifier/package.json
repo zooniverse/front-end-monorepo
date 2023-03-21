@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.21.0",
-    "@sentry/browser": "~7.42.0",
+    "@sentry/browser": "~7.44.1",
     "@visx/axis": "~2.18.0",
     "@visx/event": "~3.0.0",
     "@visx/glyph": "~3.0.0",
@@ -120,7 +120,7 @@
     "superagent": "~8.0.0",
     "webpack": "~5.76.0",
     "webpack-cli": "~5.0.0",
-    "webpack-dev-server": "~4.11.0"
+    "webpack-dev-server": "~4.13.1"
   },
   "eslintConfig": {
     "extends": [
