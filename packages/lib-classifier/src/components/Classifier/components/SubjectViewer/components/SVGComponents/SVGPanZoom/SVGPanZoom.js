@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types'
 import { cloneElement, useEffect, useState } from 'react'
 
-const DEFAULT_ZOOM = 1
-
 function SVGPanZoom({
   children,
   img,
@@ -23,7 +21,7 @@ function SVGPanZoom({
     height: naturalHeight,
     width: naturalWidth
   }
-  const [zoom, setZoom] = useState(DEFAULT_ZOOM)
+  const [zoom, setZoom] = useState(1)
   const [viewBox, setViewBox] = useState(defaultViewBox)
 
   function enableZoom() {

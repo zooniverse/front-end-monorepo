@@ -38,7 +38,7 @@ function SingleImageViewer (props) {
         animation='fadeIn'
         overflow='hidden'
         width='100%'
-        align={limitSubjectHeight ? 'flex-end' : 'center'}
+        align='flex-end'
       >
         <svg
           focusable

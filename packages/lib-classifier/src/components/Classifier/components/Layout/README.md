@@ -32,3 +32,11 @@ This layout is assigned to transcription-task workflows via the Worklfow.js stor
 In the horizontal layout, the grid area ratio of `subject:task` on all viewport widths larger than 768px is `9:5`.
 
 On viewports smaller than 768px, the vertical grid layout displays the subject area stacked above the task area.
+
+## CenteredLayout
+
+This layout is assigned to workflows with `configuration.limit_subject_height` set as `true`. When a subject image is not allowedt to stretch in width to fit a volunteer's viewport, the classifier components are centered in the browser window.
+
+In the horizontal layout, the grid area ratio of `subject:task` is not defined. The subject image is displayed at its natural dimensions, or at a height less than 90vh. The task area has a max-width of `25rem`.
+
+On viewports smaller than 768px, the vertical grid layout displays the subject area stacked above the task area.

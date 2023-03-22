@@ -11,19 +11,13 @@ import SubjectViewer from '@components/Classifier/components/SubjectViewer'
 import TaskArea from '@components/Classifier/components/TaskArea'
 
 export const Relative = styled(Box)`
-  position: relative;
-  border: solid red 1px;
+  position: relative; // Used for QuickTalk and FeedbackModal positioning
 `
-
-const TaskAreaContainer = styled.div``
 
 const StickyTaskArea = styled(TaskArea)`
+  flex: initial; // Don't stretch vertically
   position: sticky;
   top: 10px;
-`
-
-const ImageToolbarContainer = styled.div`
-  width: 3rem;
 `
 
 const StickyImageToolbar = styled(ImageToolbar)`
@@ -54,20 +48,19 @@ export default function CenteredLayout() {
           as='section'
           direction='row'
           margin={size === 'small' ? 'auto' : 'none'}
-          style={{ border: '1px solid blue' }}
         >
           <Box>
             <Banners />
             <SubjectViewer />
             <MetaTools />
           </Box>
-          <ImageToolbarContainer>
+          <Box width='3rem' fill='vertical' style={{ minWidth: '3rem' }}>
             <StickyImageToolbar />
-          </ImageToolbarContainer>
+          </Box>
         </Box>
-        <TaskAreaContainer>
+        <Box width={size === 'small' ? '100%' : '25rem'} fill={size === 'small' ? 'horizontal' : 'vertical'}>
           <StickyTaskArea />
-        </TaskAreaContainer>
+        </Box>
       </Box>
       <FeedbackModal />
       <QuickTalk />
