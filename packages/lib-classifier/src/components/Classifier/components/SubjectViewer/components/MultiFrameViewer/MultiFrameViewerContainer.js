@@ -135,6 +135,7 @@ function MultiFrameViewerContainer({
           <SingleImageViewer
             enableInteractionLayer={enableDrawing}
             height={img.naturalHeight}
+            limitSubjectHeight={limitSubjectHeight}
             onKeyDown={onKeyDown}
             rotate={rotation}
             width={img.naturalWidth}

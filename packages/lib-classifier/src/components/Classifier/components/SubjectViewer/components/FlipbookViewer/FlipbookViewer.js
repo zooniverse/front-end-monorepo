@@ -92,6 +92,7 @@ const FlipbookViewer = ({
         <SingleImageViewer
           enableInteractionLayer={false}
           height={img.naturalHeight}
+          limitSubjectHeight={limitSubjectHeight}
           onKeyDown={handleSpaceBar}
           rotate={rotation}
           width={img.naturalWidth}

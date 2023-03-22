@@ -11,6 +11,7 @@ function SingleImageViewer (props) {
     children,
     enableInteractionLayer = true,
     height,
+    limitSubjectHeight = false,
     onKeyDown = () => true,
     rotate = 0,
     scale = 1,
@@ -37,14 +38,15 @@ function SingleImageViewer (props) {
         animation='fadeIn'
         overflow='hidden'
         width='100%'
-        align='center'
+        align={limitSubjectHeight ? 'flex-end' : 'center'}
       >
         <svg
           focusable
           onKeyDown={onKeyDown}
           style={{
             touchAction: enableInteractionLayer ? 'pinch-zoom' : 'unset',
-            maxHeight: svgMaxHeight
+            maxHeight: svgMaxHeight,
+            maxWidth: limitSubjectHeight ? `${width}px` : '100%'
           }}
           tabIndex={0}
           viewBox={viewBox}

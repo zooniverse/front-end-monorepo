@@ -5,12 +5,13 @@ import getLayout from './helpers/getLayout'
 
 function storeMapper(classifierStore) {
   const workflow = classifierStore.workflows.active
+  const limitSubjectHeight = workflow?.configuration?.limit_subject_height
+  const layout = limitSubjectHeight ? 'centered' : workflow?.layout
 
   return {
-    layout: workflow?.layout
+    layout
   }
 }
-
 
 function Layout() {
   // `getLayout()` will always return the default layout as a fallback

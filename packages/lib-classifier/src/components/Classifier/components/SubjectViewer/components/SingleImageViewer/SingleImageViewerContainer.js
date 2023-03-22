@@ -79,6 +79,7 @@ function SingleImageViewerContainer ({
           enableInteractionLayer={enableDrawing}
           height={img.naturalHeight}
           invert={invert}
+          limitSubjectHeight={limitSubjectHeight}
           onKeyDown={onKeyDown}
           rotate={rotation}
           title={title}
