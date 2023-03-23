@@ -14,10 +14,10 @@ describe('HighlighterTask', function () {
       expect(instruction).to.be.ok()
     })
 
-    it('should show the label inputs', function () {
+    it('should show the label buttons', function () {
       render(<DefaultStory />)
-      const labelInputs = document.querySelectorAll('input[name="highlighter-label"]')
-      expect(labelInputs).to.have.lengthOf(4)
+      const labelButtons = document.querySelectorAll('button[name="highlighter-label"]')
+      expect(labelButtons).to.have.lengthOf(4)
     })
   })
 })

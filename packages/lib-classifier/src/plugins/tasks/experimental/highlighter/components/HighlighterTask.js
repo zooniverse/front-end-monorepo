@@ -1,10 +1,7 @@
-import { Box, Text } from 'grommet'
+import { Box, Button, Text } from 'grommet'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Markdownz } from '@zooniverse/react-components'
-
-import InputStatus from '../../../components/InputStatus'
-import TaskInput from '../../../components/TaskInput'
 
 const StyledText = styled(Text)`
   margin: 0;
@@ -25,15 +22,28 @@ const StyledLabelColor = styled.span`
   width: 2.4em;
 `
 
-export default function HighlighterTask ({
+export function StyledButtonLabel ({ color, label }) {
+  return (
+    <Box as='span'>
+      <StyledLabelColor color={color} />
+      <span>{label}</span>
+    </Box>
+  )
+}
+
+export function HighlighterTask ({
   autoFocus = false,
   disabled = false,
   task,
   updateAnnotation = () => true,
   value
 }) {
-  function onChange (index, event) {
-    console.log('onChange')
+  function handleClick (event, index) {
+    const selection = document.getSelection()
+    // createLabelAnnotation(selection, index)
+    
+    const selectionText = selection.toString()
+    console.log('selectionText', selectionText)
   }
 
   // TODO add labelCount for InputStatus per annotation.value
@@ -51,20 +61,11 @@ export default function HighlighterTask ({
       {task.highlighterLabels ? 
         task.highlighterLabels.map((label, index) => {
           return (
-            <TaskInput
-              index={index}
+            <Button
               key={`${task.taskKey}_${index}`}
-              label={task.strings.get(`highlighterLabels.${index}.label`)}
-              labelIcon={
-                <StyledLabelColor
-                  color={label.color}
-                />
-              }
-              labelStatus={<InputStatus count={index} />}
+              label={<StyledButtonLabel color={label.color} label={task.strings.get(`highlighterLabels.${index}.label`)} />}
               name='highlighter-label'
-              onChange={(event) => onChange(index, event)}
-              required={task.required}
-              type='radio'
+              onClick={(event) => handleClick(event, index)}
             />
           )
         }) : <span>No labels for the Highlighter Task</span>
@@ -90,3 +91,5 @@ HighlighterTask.propTypes = {
     text: PropTypes.string
   }))
 }
+
+export default HighlighterTask
