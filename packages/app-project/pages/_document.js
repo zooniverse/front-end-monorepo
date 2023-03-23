@@ -13,9 +13,11 @@ const GA_TRACKING_SCRIPT = `
 const ERROR_LOGGING_SCRIPT = `
   function setUpLogging() {
     Sentry.init({
-      dsn: '${process.env.SENTRY_PROJECT_DSN}'
+      dsn: '${process.env.SENTRY_PROJECT_DSN}',
+      environment: '${process.env.APP_ENV}',
+      release: '${process.env.COMMIT_ID}'
     });
-    console.log('Sentry init: ${process.env.SENTRY_PROJECT_DSN}');
+    console.log('Sentry init: ${process.env.SENTRY_PROJECT_DSN} ${process.env.APP_ENV}');
   }
 
   function onError(e) {
