@@ -29,7 +29,7 @@ function SingleImageViewer(props) {
   const transform = `rotate(${rotate} ${width / 2} ${height / 2})`
 
   return (
-    <SVGContext.Provider value={{ canvas }}>
+    <SVGContext.Provider value={{ canvas, viewBox }}>
       {zoomControlFn && (
         <ZoomControlButton
           onClick={zoomControlFn}
@@ -68,7 +68,6 @@ function SingleImageViewer(props) {
                 height={height}
                 width={width}
                 subject={subject}
-                viewBox={viewBox}
               />
             )}
           </g>

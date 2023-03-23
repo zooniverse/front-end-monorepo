@@ -1,7 +1,8 @@
-import React, { forwardRef, useState } from 'react'
+import React, { forwardRef, useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Tooltip } from '@zooniverse/react-components'
+import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
 const LineControls = forwardRef(function LineControls({
   mark,
@@ -9,7 +10,6 @@ const LineControls = forwardRef(function LineControls({
   dragMove,
   onDelete,
   onUnselect,
-  viewBox,
 },
   ref
 ) {
@@ -24,6 +24,7 @@ const LineControls = forwardRef(function LineControls({
   const outerRadius = 40 / scale;
   const innerRadius = 20 / scale;
 
+  const { viewBox } = useContext(SVGContext)
   const [x, y, w, h] = viewBox.split(' ').map(n => parseInt(n, 10))
   const point = (activePosition == 'tr')
     ? { x: x + (50 / scale), y: y + (50 / scale) }
@@ -109,7 +110,7 @@ const LineControls = forwardRef(function LineControls({
         role='button'
         aria-label='Redo'
         focusable='true'
-        tabIndex='1'
+        tabIndex='0'
       >
         <Tooltip label='Redo'>
           <StyledPath
@@ -125,7 +126,7 @@ const LineControls = forwardRef(function LineControls({
         role='button'
         aria-label='Close'
         focusable='true'
-        tabIndex='2'
+        tabIndex='0'
       >
         <Tooltip label='Close'>
           <StyledPath
@@ -141,7 +142,7 @@ const LineControls = forwardRef(function LineControls({
         role='button'
         aria-label='Delete'
         focusable='true'
-        tabIndex='3'
+        tabIndex='0'
       >
         <Tooltip label='Delete'>
           <StyledPath
@@ -157,7 +158,7 @@ const LineControls = forwardRef(function LineControls({
         role='button'
         aria-label='Move'
         focusable='true'
-        tabIndex='4'
+        tabIndex='0'
       >
         <Tooltip label='Move'>
           <StyledPath

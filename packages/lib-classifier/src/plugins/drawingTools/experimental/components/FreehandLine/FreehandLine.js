@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import styled from 'styled-components'
 import DragHandle from '../../../components/DragHandle'
+import { useTranslation } from '@translations/i18n' 
 
 const GRAB_STROKE_WIDTH = 10
 const FINISHER_RADIUS = 4
@@ -16,7 +17,7 @@ const StyledGroup = styled.g`
 
     g.extend {
       &:hover {
-        cursor: grabbing !important;
+        cursor: crosshair !important;
       }
   
       circle:hover {
@@ -91,18 +92,19 @@ function FreehandLine({ active, mark, onFinish, scale }) {
     }
   }
 
+  const { t } = useTranslation('plugins') 
   function getHoverText() {
     // Handles the 4 scenarios of path open vs closed and splicing vs non-splicing
     if (!active) {
-      return 'Click to edit this line'
+      return t('FreehandLine.inactive')
     } else if (mark.spliceDragPointIndex && mark.spliceClosePointIndex) {
-      return 'Click and drag from the open point to the close point'
+      return t('FreehandLine.spliceDrag')
     } else if (mark.spliceDragPointIndex && !mark.spliceClosePointIndex) {
-      return 'Click anywhere on the line to set the close point'
+      return t('FreehandLine.closePoint')
     } else if (mark.pathIsClosed && !mark.spliceDragPointIndex) {
-      return 'Double click anywhere on the line to create a splice point'
+      return t('FreehandLine.splicePoint')
     } else {
-      return 'Click and drag from the open point to the close point or double click anywhere on the line to create a splice point'
+      return t('FreehandLine.active')
     }
   }
 
@@ -121,7 +123,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
               strokeLinejoin: 'round',
               strokeLinecap: 'round',
               fill: 'none',
-              strokeOpacity: (active) ? '1' : '0.6',
+              strokeOpacity: 1,
             }}
           />
           <title>{getHoverText()}</title>

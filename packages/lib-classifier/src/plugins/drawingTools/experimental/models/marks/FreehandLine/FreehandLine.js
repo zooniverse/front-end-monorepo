@@ -644,7 +644,7 @@ const FreehandLineModel = types
 
       if (self.isDragging) {
         self.appendPathEnd()
-        self.finished = false
+        self.finished = true
       } else {
         self.pathX = []
         self.pathY = []
