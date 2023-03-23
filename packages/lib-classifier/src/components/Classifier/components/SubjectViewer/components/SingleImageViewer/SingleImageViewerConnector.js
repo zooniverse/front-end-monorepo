@@ -17,10 +17,15 @@ function storeMapper(store) {
     }
   } = store
 
+  const {
+    limit_subject_height: limitSubjectHeight
+  } = store.workflows?.active?.configuration
+
   return {
     enableRotation,
     frame,
     invert,
+    limitSubjectHeight,
     move,
     rotation,
     setOnZoom,

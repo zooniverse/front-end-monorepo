@@ -18,13 +18,18 @@ function storeMapper(store) {
     setOnPan,
     setOnZoom
   } = store.subjectViewer
-  const { flipbook_autoplay: flipbookAutoplay, playIterations } = store.workflows.active.configuration
+  const {
+    flipbook_autoplay: flipbookAutoplay,
+    limit_subject_height: limitSubjectHeight,
+    playIterations
+  } = store.workflows?.active?.configuration
 
   return {
     defaultFrame,
     enableRotation,
     flipbookAutoplay,
     invert,
+    limitSubjectHeight,
     move,
     playIterations,
     rotation,
@@ -47,6 +52,7 @@ function FlipbookViewerContainer({
     enableRotation,
     flipbookAutoplay,
     invert,
+    limitSubjectHeight,
     move,
     playIterations,
     rotation,
@@ -75,6 +81,7 @@ function FlipbookViewerContainer({
       enableRotation={enableRotation}
       flipbookAutoplay={flipbookAutoplay}
       invert={invert}
+      limitSubjectHeight={limitSubjectHeight}
       move={move}
       onError={onError}
       onKeyDown={onKeyDown}

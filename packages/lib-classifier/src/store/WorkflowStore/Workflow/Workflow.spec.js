@@ -48,8 +48,12 @@ describe('Model > Workflow', function () {
       expect(workflow.configuration.hide_classification_summaries).to.be.undefined()
     })
 
-    it('should have flipbook autoplay default to false', function () {
+    it('should have flipbook_autoplay default to false', function () {
       expect(workflow.configuration.flipbook_autoplay).to.be.false()
+    })
+
+    it('should have limit_subject_height default to false', function () {
+      expect(workflow.configuration.limit_subject_height).to.be.false()
     })
   })
 

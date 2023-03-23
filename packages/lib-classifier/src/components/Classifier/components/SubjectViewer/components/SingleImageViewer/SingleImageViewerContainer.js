@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
 import { useSubjectImage } from '@hooks'
 
@@ -17,6 +17,7 @@ function SingleImageViewerContainer ({
   enableRotation = DEFAULT_HANDLER,
   frame = 0,
   invert = false,
+  limitSubjectHeight = false,
   loadingState = asyncStates.initialized,
   move = false,
   onError = DEFAULT_HANDLER,
@@ -63,6 +64,7 @@ function SingleImageViewerContainer ({
     return (
       <SVGPanZoom
         img={subjectImage.current}
+        limitSubjectHeight={limitSubjectHeight}
         maxZoom={5}
         minZoom={0.1}
         naturalHeight={img.naturalHeight}
@@ -77,6 +79,7 @@ function SingleImageViewerContainer ({
           enableInteractionLayer={enableDrawing}
           height={img.naturalHeight}
           invert={invert}
+          limitSubjectHeight={limitSubjectHeight}
           onKeyDown={onKeyDown}
           rotate={rotation}
           title={title}
@@ -107,6 +110,7 @@ SingleImageViewerContainer.propTypes = {
   enableRotation: PropTypes.func,
   frame: PropTypes.number,
   invert: PropTypes.bool,
+  limitSubjectHeight: PropTypes.bool,
   loadingState: PropTypes.string,
   move: PropTypes.bool,
   onError: PropTypes.func,

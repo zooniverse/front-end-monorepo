@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
-import { cloneElement, useRef, useEffect, useState } from 'react';
+import { cloneElement, useEffect, useState } from 'react'
 
 function SVGPanZoom({
   children,
   img,
+  limitSubjectHeight = false,
   maxZoom = 2,
   minZoom = 1,
   naturalHeight,
@@ -14,14 +15,12 @@ function SVGPanZoom({
   src,
   zooming = true
 }) {
-  const scrollContainer = useRef()
   const defaultViewBox = {
     x: 0,
     y: 0,
     height: naturalHeight,
     width: naturalWidth
   }
-
   const [zoom, setZoom] = useState(1)
   const [viewBox, setViewBox] = useState(defaultViewBox)
 
@@ -48,9 +47,7 @@ function SVGPanZoom({
     function onZoomChange() {
       const newViewBox = scaledViewBox(zoom)
       setViewBox(newViewBox)
-    },
-    [zoom]
-  )
+    }, [zoom])
 
   useEffect(() => {
     setZoom(1)
@@ -120,10 +117,11 @@ function SVGPanZoom({
   const scale = imageScale(img)
 
   return (
-    <div ref={scrollContainer} style={{ width: '100%' }}>
+    <div style={{ width: '100%' }}>
       {cloneElement(children, {
         scale,
-        viewBox: `${x} ${y} ${width} ${height}`
+        viewBox: `${x} ${y} ${width} ${height}`,
+        svgMaxHeight: limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
       })}
     </div>
   )
@@ -131,6 +129,7 @@ function SVGPanZoom({
 
 SVGPanZoom.propTypes = {
   children: PropTypes.node.isRequired,
+  limitSubjectHeight: PropTypes.bool,
   maxZoom: PropTypes.number,
   minZoom: PropTypes.number,
   naturalHeight: PropTypes.number.isRequired,

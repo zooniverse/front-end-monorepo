@@ -34,11 +34,16 @@ function storeMapper(store) {
     activeTool
   } = activeInteractionTask || {}
 
+  const {
+    limit_subject_height: limitSubjectHeight
+  } = store.workflows?.active?.configuration
+
   return {
     activeTool,
     enableRotation,
     frame,
     invert,
+    limitSubjectHeight,
     move,
     rotation,
     setFrame,
@@ -57,6 +62,7 @@ function MultiFrameViewerContainer({
   enableRotation = () => null,
   frame = 0,
   invert = false,
+  limitSubjectHeight = false,
   loadingState = asyncStates.initialized,
   move,
   onError = () => true,
@@ -116,6 +122,7 @@ function MultiFrameViewerContainer({
         />
         <SVGPanZoom
           img={subjectImage.current}
+          limitSubjectHeight={limitSubjectHeight}
           maxZoom={5}
           minZoom={0.1}
           naturalHeight={img.naturalHeight}
@@ -128,6 +135,7 @@ function MultiFrameViewerContainer({
           <SingleImageViewer
             enableInteractionLayer={enableDrawing}
             height={img.naturalHeight}
+            limitSubjectHeight={limitSubjectHeight}
             onKeyDown={onKeyDown}
             rotate={rotation}
             width={img.naturalWidth}
@@ -159,6 +167,7 @@ MultiFrameViewerContainer.propTypes = {
   enableRotation: PropTypes.func,
   frame: PropTypes.number,
   invert: PropTypes.bool,
+  limitSubjectHeight: PropTypes.bool,
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,

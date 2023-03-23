@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import { useRef } from 'react';
+import { useRef } from 'react'
 
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 import InteractionLayer from '../InteractionLayer'
@@ -11,23 +11,20 @@ function SingleImageViewer (props) {
     children,
     enableInteractionLayer = true,
     height,
+    limitSubjectHeight = false,
     onKeyDown = () => true,
     rotate = 0,
     scale = 1,
+    svgMaxHeight = null,
     title = {},
     viewBox,
     width,
     zoomControlFn = null,
     zooming = false
   } = props
-
   const transformLayer = useRef()
   const canvas = transformLayer.current
   const transform = `rotate(${rotate} ${width / 2} ${height / 2})`
-  const svgStyle = {}
-  if (enableInteractionLayer) {
-    svgStyle.touchAction = 'pinch-zoom'
-  }
 
   return (
     <SVGContext.Provider value={{ canvas }}>
@@ -40,11 +37,17 @@ function SingleImageViewer (props) {
       <Box
         animation='fadeIn'
         overflow='hidden'
+        width='100%'
+        align='flex-end'
       >
         <svg
           focusable
           onKeyDown={onKeyDown}
-          style={svgStyle}
+          style={{
+            touchAction: enableInteractionLayer ? 'pinch-zoom' : 'unset',
+            maxHeight: svgMaxHeight,
+            maxWidth: limitSubjectHeight ? `${width}px` : '100%'
+          }}
           tabIndex={0}
           viewBox={viewBox}
           xmlns='http://www.w3.org/2000/svg'
@@ -72,18 +75,30 @@ function SingleImageViewer (props) {
 }
 
 SingleImageViewer.propTypes = {
+  /** Passed from container */
   enableInteractionLayer: PropTypes.bool,
+  /** Calculated by useSubjectImage() */
   height: PropTypes.number.isRequired,
+  /** Passed from withKeyZoom() */
   onKeyDown: PropTypes.func,
+  /** Stored in subject viewer store */
   rotate: PropTypes.number,
+  /** Calculated in SVGPanZoom component */
   scale: PropTypes.number,
+  /** Calculated in SVGPanZoom component */
+  svgMaxHeight: PropTypes.string,
+  /** Passed from container */
   title: PropTypes.shape({
     id: PropTypes.string,
     text: PropTypes.string
   }),
+  /** Calculated in SVGPanZoom component */
   viewBox: PropTypes.string,
+  /** Calculated by useSubjectImage() */
   width: PropTypes.number.isRequired,
+  /** Stored in subject viewer store */
   zoomControlFn: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  /** Passed from container */
   zooming: PropTypes.bool
 }
 

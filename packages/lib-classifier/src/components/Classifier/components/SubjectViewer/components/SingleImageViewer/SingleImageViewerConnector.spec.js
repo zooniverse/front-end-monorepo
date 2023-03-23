@@ -15,6 +15,11 @@ const mockStore = {
       rotation: 0,
       setOnPan: sinon.spy(),
       setOnZoom: sinon.spy()
+    },
+    workflows: {
+      active: {
+        configuration: {}
+      }
     }
   }
 }
