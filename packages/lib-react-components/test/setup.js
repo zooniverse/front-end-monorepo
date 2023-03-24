@@ -37,7 +37,6 @@ class ResizeObserver {
 
 window.ResizeObserver = ResizeObserver
 window.scrollTo = () => true
-window.cancelAnimationFrame = () => true
 
 global.window = window
 global.document = window.document
