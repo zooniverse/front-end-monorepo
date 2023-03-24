@@ -1,6 +1,5 @@
 import { expect } from 'chai'
-import getDataSeriesSymbol from './getDataSeriesSymbol'
-import glyphComponents from './glyphComponents'
+import getDataSeriesSymbol, { glyphComponents } from './getDataSeriesSymbol'
 
 describe('Helper > getDataSeriesSymbol', function () {
   it('should be a function', function () {

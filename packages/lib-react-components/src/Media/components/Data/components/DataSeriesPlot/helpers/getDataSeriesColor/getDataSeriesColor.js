@@ -22,13 +22,14 @@ function whichColor (color, themeColors, defaultColors, seriesIndex) {
   return validateColor(chosenColor)
 }
 
-export default function getDataSeriesColor({
-  seriesOptions = {},
-  seriesIndex = 0,
-  themeColors = {},
-  defaultColors = [],
-  highlighted = false
-} = {}) {
+export default function getDataSeriesColor(options = {}) {
+  const {
+    seriesOptions = {},
+    seriesIndex = 0,
+    themeColors = {},
+    defaultColors = [],
+    highlighted = false
+  } = options
   const { color } = seriesOptions
 
   if (highlighted) {
