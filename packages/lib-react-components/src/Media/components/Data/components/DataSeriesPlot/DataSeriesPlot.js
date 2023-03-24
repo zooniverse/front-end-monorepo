@@ -119,8 +119,7 @@ function DataSeriesPlot({
   parentHeight,
   parentWidth,
   transformMatrix = TRANSFORM_MATRIX,
-  transform,
-  underlays = []
+  transform
 }) {
   const {
     dark,
@@ -167,15 +166,6 @@ function DataSeriesPlot({
   const plotHeight = parentHeight - margin.bottom - margin.top
   const plotWidth = parentWidth - margin.right - margin.left
 
-  let underlayParameters = []
-  if (underlays.length > 0) {
-    underlayParameters = underlays.map((underlay) => {
-      const { fill, startPosition, xAxisWidth } = underlay
-      const left = xScaleTransformed(startPosition)
-      const width = xScaleTransformed(0) - xScaleTransformed(-xAxisWidth)
-      return { fill, left, width }
-    })
-  }
   return (
     <svg
       role='img'
@@ -196,12 +186,12 @@ function DataSeriesPlot({
         top={topPosition}
       >
         <rect
-          borderColor={(dark) ? colors['light-5'] : colors['dark-5']}
           fill={(dark) ? colors['light-3'] : colors['neutral-6']}
           height={plotHeight}
           left={leftPosition}
+          stroke={(dark) ? colors['light-5'] : colors['dark-5']}
+          strokeWidth={1}
           top={topPosition}
-          underlayParameters={underlayParameters}
           width={plotWidth}
         />
         {sortedDataPoints.map((series, seriesIndex) => {
@@ -236,6 +226,24 @@ function DataSeriesPlot({
 
 DataSeriesPlot.propTypes = {
   backgroundColor: PropTypes.string,
+  chartOptions: PropTypes.shape({
+    invertAxes: PropTypes.shape({
+      x: PropTypes.bool,
+      y: PropTypes.bool
+    }),
+    margin: PropTypes.shape({
+      bottom: PropTypes.number,
+      left: PropTypes.number,
+      right: PropTypes.number,
+      top: PropTypes.number
+    }),
+    padding: PropTypes.shape({
+      bottom: PropTypes.number,
+      left: PropTypes.number,
+      right: PropTypes.number,
+      top: PropTypes.number
+    })
+  }),
   data: PropTypes.oneOfType([
     PropTypes.shape({
       x: PropTypes.arrayOf(PropTypes.number),
@@ -255,22 +263,6 @@ DataSeriesPlot.propTypes = {
     }))
   ]).isRequired,
   dataPointSize: PropTypes.number,
-  invertAxes: PropTypes.shape({
-    x: PropTypes.bool,
-    y: PropTypes.bool
-  }),
-  margin: PropTypes.shape({
-    bottom: PropTypes.number,
-    left: PropTypes.number,
-    right: PropTypes.number,
-    top: PropTypes.number
-  }),
-  padding: PropTypes.shape({
-    bottom: PropTypes.number,
-    left: PropTypes.number,
-    right: PropTypes.number,
-    top: PropTypes.number
-  }),
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
   theme: PropTypes.object,
@@ -281,8 +273,7 @@ DataSeriesPlot.propTypes = {
     skewY: PropTypes.number,
     translateX: PropTypes.number,
     translateY: PropTypes.number
-  }),
-  underlays: PropTypes.arrayOf(PropTypes.object)
+  })
 }
 
 export default withParentSize(DataSeriesPlot)
