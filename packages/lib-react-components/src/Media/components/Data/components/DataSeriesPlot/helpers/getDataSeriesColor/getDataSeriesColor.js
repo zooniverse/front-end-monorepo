@@ -23,11 +23,11 @@ function whichColor (color, themeColors, defaultColors, seriesIndex) {
 }
 
 export default function getDataSeriesColor({
-    seriesOptions: seriesOptions = {},
-    seriesIndex: seriesIndex = 0,
-    themeColors: themeColors = {},
-    defaultColors: defaultColors = [],
-    highlighted: highlighted = false
+  seriesOptions = {},
+  seriesIndex = 0,
+  themeColors = {},
+  defaultColors = [],
+  highlighted = false
 } = {}) {
   const { color } = seriesOptions
 
