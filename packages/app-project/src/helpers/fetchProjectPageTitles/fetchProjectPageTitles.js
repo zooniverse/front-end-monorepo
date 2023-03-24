@@ -1,6 +1,6 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
-import { logToSentry } from '@helpers/logger'
+import logToSentry from '@helpers/logger/logToSentry.js'
 
 export default async function fetchProjectPageTitles(project, env) {
   try {

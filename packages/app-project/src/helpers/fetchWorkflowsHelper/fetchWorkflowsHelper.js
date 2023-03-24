@@ -1,7 +1,7 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 
 import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
-import { logToSentry } from '@helpers/logger'
+import logToSentry from '@helpers/logger/logToSentry.js'
 
 async function fetchWorkflowData(workflows, env) {
   const { headers, host } = getServerSideAPIHost(env)

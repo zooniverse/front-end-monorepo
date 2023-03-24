@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/node'
 import { Integrations } from '@sentry/tracing'
 
-export default function initializeSentry () {
+export default function initializeSentry() {
   const isBrowser = typeof window !== 'undefined'
   const dsn = process.env.SENTRY_PROJECT_DSN
   const environment = process.env.APP_ENV

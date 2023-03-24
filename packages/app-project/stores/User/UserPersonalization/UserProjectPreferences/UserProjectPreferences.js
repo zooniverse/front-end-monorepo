@@ -2,7 +2,7 @@ import { applySnapshot, flow, getRoot, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 import asyncStates from '@zooniverse/async-states'
 
-import { logToSentry } from '@helpers/logger'
+import logToSentry from '@helpers/logger/logToSentry.js'
 import numberString from '@stores/types/numberString'
 
 const Preferences = types

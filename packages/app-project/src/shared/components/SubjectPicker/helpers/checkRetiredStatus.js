@@ -1,6 +1,6 @@
 import { env, panoptes } from '@zooniverse/panoptes-js'
 import auth from 'panoptes-client/lib/auth'
-import { logToSentry } from '@helpers/logger'
+import logToSentry from '@helpers/logger/logToSentry.js'
 
 export default async function checkRetiredStatus(ids, workflow) {
   const token = await auth.checkBearerToken()
