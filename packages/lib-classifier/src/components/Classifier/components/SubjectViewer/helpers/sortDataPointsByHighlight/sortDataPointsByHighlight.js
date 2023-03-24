@@ -1,5 +1,5 @@
 import isDataSeriesHighlighted from "../isDataSeriesHighlighted"
-import glyphComponents from "../getDataSeriesSymbol/glyphComponents"
+import glyphComponents from "../getDataSeriesSymbol/"
 
 // SVG doesn't have a z-index, so we must sort by whether or not the series is highlighted
 // Render the unhighlighted series first and then the highlighted series on top

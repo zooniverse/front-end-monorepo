@@ -51,6 +51,30 @@ const PORTRAIT_SUBJECTS = [
   }
 ]
 
+const DATA_SUBJECTS = [
+  {
+    favorite: false,
+    subjectId: '69809594',
+    locations: [
+      { 'application/json': 'https://panoptes-uploads.zooniverse.org/subject_location/74fddc9b-790d-47c6-9eac-110c64022ea8.json' }
+    ]
+  },
+  {
+    favorite: true,
+    subjectId: '69807024',
+    locations: [
+      { 'application/json': 'https://panoptes-uploads.zooniverse.org/subject_location/57b7546c-1810-4525-95e9-98d7c792b36b.json' }
+    ]
+  },
+  {
+    favorite: false,
+    subjectId: '69807855',
+    locations: [
+      { 'application/json': 'https://panoptes-uploads.zooniverse.org/subject_location/f311cd2a-f6c7-4cc2-a411-0e32c5ff55e3.json' }
+    ]
+  }
+]
+
 const VIDEO_SUBJECTS = [
   {
     favorite: false,
@@ -98,7 +122,11 @@ export default {
 
 export function Plain({ dark, isLoggedIn }) {
   return (
-    <Grommet theme={{ ...zooTheme, dark }}>
+    <Grommet
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      theme={{ ...zooTheme, dark }}
+      themeMode={ dark ? 'dark' : 'light' }
+    >
       <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={RECENTS}
@@ -111,7 +139,11 @@ export function Plain({ dark, isLoggedIn }) {
 
 export function Placeholder({ dark, isLoggedIn }) {
   return (
-    <Grommet theme={{ ...zooTheme, dark }}>
+    <Grommet
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      theme={{ ...zooTheme, dark }}
+      themeMode={ dark ? 'dark' : 'light' }
+    >
       <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={RECENTS.slice(1)}
@@ -124,7 +156,11 @@ export function Placeholder({ dark, isLoggedIn }) {
 
 export function NarrowScreens({ dark, isLoggedIn }) {
   return (
-    <Grommet theme={{ ...zooTheme, dark }}>
+    <Grommet
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      theme={{ ...zooTheme, dark }}
+      themeMode={ dark ? 'dark' : 'light' }
+    >
       <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={RECENTS}
@@ -144,7 +180,11 @@ NarrowScreens.parameters = {
 
 export function Transcription({ dark, isLoggedIn }) {
   return (
-    <Grommet theme={{ ...zooTheme, dark }}>
+    <Grommet
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      theme={{ ...zooTheme, dark }}
+      themeMode={ dark ? 'dark' : 'light' }
+    >
       <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={PORTRAIT_SUBJECTS}
@@ -157,7 +197,11 @@ export function Transcription({ dark, isLoggedIn }) {
 
 export function Video({ dark, isLoggedIn }) {
   return (
-    <Grommet theme={{ ...zooTheme, dark }}>
+    <Grommet
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      theme={{ ...zooTheme, dark }}
+      themeMode={ dark ? 'dark' : 'light' }
+    >
       <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={VIDEO_SUBJECTS}
@@ -168,9 +212,30 @@ export function Video({ dark, isLoggedIn }) {
   )
 }
 
+export function Data({ dark, isLoggedIn }) {
+  return (
+    <Grommet
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      theme={{ ...zooTheme, dark }}
+      themeMode={ dark ? 'dark' : 'light' }
+    >
+      <RecentSubjects
+        isLoggedIn={isLoggedIn}
+        recents={DATA_SUBJECTS}
+        projectName='SuperWASP Black Hole Hunters'
+        slug='hughdickinson/superwasp-black-hole-hunters'
+      />
+    </Grommet>
+  )
+}
+
 export function OneSubject({ dark, isLoggedIn }) {
   return (
-    <Grommet theme={{ ...zooTheme, dark }}>
+    <Grommet
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      theme={{ ...zooTheme, dark }}
+      themeMode={ dark ? 'dark' : 'light' }
+    >
       <RecentSubjects
         isLoggedIn={isLoggedIn}
         recents={RECENTS.slice(0, 1)}

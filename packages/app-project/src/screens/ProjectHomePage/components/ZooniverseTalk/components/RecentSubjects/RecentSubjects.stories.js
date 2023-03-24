@@ -75,9 +75,37 @@ const VIDEO_SUBJECTS = [
     ]
   }
 ]
+
+const DATA_SUBJECTS = [
+  {
+    favorite: false,
+    id: '69809594',
+    locations: [
+      { 'application/json': 'https://panoptes-uploads.zooniverse.org/subject_location/74fddc9b-790d-47c6-9eac-110c64022ea8.json' }
+    ]
+  },
+  {
+    favorite: true,
+    id: '69807024',
+    locations: [
+      { 'application/json': 'https://panoptes-uploads.zooniverse.org/subject_location/57b7546c-1810-4525-95e9-98d7c792b36b.json' }
+    ]
+  },
+  {
+    favorite: false,
+    id: '69807855',
+    locations: [
+      { 'application/json': 'https://panoptes-uploads.zooniverse.org/subject_location/f311cd2a-f6c7-4cc2-a411-0e32c5ff55e3.json' }
+    ]
+  }
+]
+
 export default {
   title: 'Project App / Screens / Project Home / Recent Subjects',
   component: RecentSubjects,
+  args: {
+    dark: false
+  },
   parameters: {
     viewport: {
       defaultViewport: 'responsive'
@@ -85,9 +113,13 @@ export default {
   }
 }
 
-export function Plain() {
+export function Plain({ dark }) {
   return (
-    <Grommet theme={zooTheme}>
+    <Grommet
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      theme={zooTheme}
+      themeMode={ dark ? 'dark' : 'light' }
+    >
       <RecentSubjects
         href='/projects/zooniverse/snapshot-serengeti/talk'
         subjects={SUBJECTS}
@@ -96,9 +128,13 @@ export function Plain() {
   )
 }
 
-export function Placeholder() {
+export function Placeholder({ dark }) {
   return (
-    <Grommet theme={zooTheme}>
+    <Grommet
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      theme={zooTheme}
+      themeMode={ dark ? 'dark' : 'light' }
+    >
       <RecentSubjects
         href='/projects/zooniverse/snapshot-serengeti/talk'
         subjects={SUBJECTS.slice(1)}
@@ -107,9 +143,13 @@ export function Placeholder() {
   )
 }
 
-export function CarouselView() {
+export function CarouselView({ dark }) {
   return (
-    <Grommet theme={zooTheme}>
+    <Grommet
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      theme={zooTheme}
+      themeMode={ dark ? 'dark' : 'light' }
+    >
       <RecentSubjectsCarousel
         href='/projects/zooniverse/snapshot-serengeti/talk'
         subjects={SUBJECTS}
@@ -124,9 +164,13 @@ CarouselView.parameters = {
   }
 }
 
-export function Transcription() {
+export function Transcription({ dark }) {
   return (
-    <Grommet theme={zooTheme}>
+    <Grommet
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      theme={zooTheme}
+      themeMode={ dark ? 'dark' : 'light' }
+    >
       <RecentSubjects
         href='/projects/zooniverse/snapshot-serengeti/talk'
         subjects={PORTRAIT_SUBJECTS}
@@ -135,12 +179,31 @@ export function Transcription() {
   )
 }
 
-export function Video() {
+export function Video({ dark }) {
   return (
-    <Grommet theme={zooTheme}>
+    <Grommet
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      theme={zooTheme}
+      themeMode={ dark ? 'dark' : 'light' }
+    >
       <RecentSubjects
         href='/projects/zooniverse/snapshot-serengeti/talk'
         subjects={VIDEO_SUBJECTS}
+      />
+    </Grommet>
+  )
+}
+
+export function Data({ dark }) {
+  return (
+    <Grommet
+      background={{ dark: 'dark-3', light: 'neutral-6' }}
+      theme={zooTheme}
+      themeMode={ dark ? 'dark' : 'light' }
+    >
+      <RecentSubjects
+        href='/projects/hughdickinson/superwasp-black-hole-hunters/talk'
+        subjects={DATA_SUBJECTS}
       />
     </Grommet>
   )

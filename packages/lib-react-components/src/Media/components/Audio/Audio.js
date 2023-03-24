@@ -7,8 +7,15 @@ const StyledBox = styled(Box)`
   ${props => props.maxWidth && css`max-width: ${props.maxWidth}px;`}
 `
 
-export default function Audio(props) {
-  const { alt, controls, flex, height, src, width, ...rest } = props
+export default function Audio({
+  alt = defaultProps.alt,
+  controls = defaultProps.controls,
+  flex = defaultProps.flex,
+  height = defaultProps.height,
+  src = defaultProps.src,
+  width = defaultProps.width,
+  ...rest
+}) {
   return (
     <StyledBox
       {...rest}
@@ -24,10 +31,6 @@ export default function Audio(props) {
       </audio>
     </StyledBox>
   )
-}
-
-Audio.defaultProps = {
-  ...defaultProps
 }
 
 Audio.propTypes = {

@@ -5,17 +5,18 @@ import NavLink from '@shared/components/NavLink'
 
 import WidgetHeading from '../WidgetHeading'
 
-function ContentBox (props) {
-  const {
-    children,
-    linkLabel,
-    linkProps,
-    theme: { dark },
-    title,
-    titleLevel,
-    ...rest
-  } = props
+const THEME = { dark: false }
 
+function ContentBox({
+  children,
+  linkLabel,
+  linkProps,
+  theme = THEME,
+  title,
+  titleLevel,
+  ...rest
+}) {
+  const { dark = false } = theme
   const showHeader = title || (linkLabel && linkProps)
   const link = {
     ...linkProps,
@@ -74,12 +75,6 @@ ContentBox.propTypes = {
   theme: shape({ dark: bool }),
   title: string,
   titleLevel: string
-}
-
-ContentBox.defaultProps = {
-  theme: {
-    dark: false
-  }
 }
 
 export default withTheme(ContentBox)
