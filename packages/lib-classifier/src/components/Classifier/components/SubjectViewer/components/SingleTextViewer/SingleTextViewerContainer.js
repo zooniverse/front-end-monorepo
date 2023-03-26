@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { observer } from 'mobx-react'
 import asyncStates from '@zooniverse/async-states'
 
 import { useSubjectText } from '@hooks'
@@ -10,8 +11,40 @@ const defaultSubject = {
   locations: []
 }
 
-export default function SingleTextViewerContainer ({
+function labeledContent (data, annotation) {
+  const newContent = []
+  let lastFocusIndex = 0
+  let dataIndex = 0
+  const { value } = annotation
+  for (dataIndex = 0; dataIndex < data.length; dataIndex++) {
+    for (let highlight of value) {
+      if (highlight.start === dataIndex) {
+        // 1. add text between last label and current label
+        const preContent = data.slice(lastFocusIndex, dataIndex)
+        newContent.push(preContent)
+        // 2. add the highlighted content, push content to be labeled
+        const newLabel =
+          <span
+            key={`${highlight.start}-${highlight.end}`}
+            style={{ backgroundColor: highlight.labelInformation.color }}
+          >
+            {highlight.text}
+          </span>
+        newContent.push(newLabel)
+        // 3. re-set last focusIndex with annotation index
+        lastFocusIndex = highlight.end
+      }
+    }
+  }
+  // 4. if last character in the string, add the remaining content
+  const endContent = data.slice(lastFocusIndex, dataIndex)
+  newContent.push(endContent)
+  return newContent
+}
+
+export function SingleTextViewerContainer ({
   height = '',
+  latest,
   loadingState = asyncStates.initialized,
   onError = () => true,
   onReady = () => true,
@@ -22,15 +55,27 @@ export default function SingleTextViewerContainer ({
     onReady,
     onError
 })
-
+  
+  let annotation, content
+  
+  if (latest) {
+    ([ annotation ] = latest?.annotations?.filter(annotation => annotation.taskType === 'highlighter'))
+  }
+  
   if (loadingState === asyncStates.error) {
     return <p>Something went wrong. {error?.message}</p>
   }
 
   if (loadingState !== asyncStates.initialized) {
+    if (annotation && annotation.value.length > 0) {
+      content = labeledContent(data, annotation)
+    } else {
+      content = [data]
+    }
+
     return (
       <SingleTextViewer
-        content={data}
+        content={content}
         height={height}
         subjectId={subject.id}
       />
@@ -42,6 +87,9 @@ export default function SingleTextViewerContainer ({
 
 SingleTextViewerContainer.propTypes = {
   height: PropTypes.string,
+  latest: PropTypes.shape({
+    annotations: PropTypes.array
+  }),
   loadingState: PropTypes.string,
   onError: PropTypes.func,
   onReady: PropTypes.func,
@@ -50,3 +98,5 @@ SingleTextViewerContainer.propTypes = {
     locations: PropTypes.arrayOf(locationValidator)
   }),
 }
+
+export default observer(SingleTextViewerContainer)

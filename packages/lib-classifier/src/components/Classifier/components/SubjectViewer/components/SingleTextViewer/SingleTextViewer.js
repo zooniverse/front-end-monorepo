@@ -33,7 +33,7 @@ const StyledPre = styled.pre`
 `
 
 function SingleTextViewer ({
-  content = '',
+  content = [''],
   height = '',
   subjectId = ''
 }) {
@@ -54,8 +54,8 @@ function SingleTextViewer ({
 }
 
 SingleTextViewer.propTypes = {
-  /** String defined by a subject's text mime type location */
-  content: PropTypes.string,
+  /** Array defined by a subject's text mime type location, including labeled text nodes with highlighter task annotations */
+  content: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.node])),
   /** Minimum height of the text viewer in CSS units eg. '400px', '0.25vh', '20rem' etc. */
   height: PropTypes.string,
   /** Subject ID */
