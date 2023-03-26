@@ -19,6 +19,11 @@ const Highlighter = types.model('Highlighter', {
       return self.value.length > 0
     }
   }))
+  .actions(self => ({
+    deleteHighlight (index) {
+      self.value.splice(index, 1)
+    },
+  }))
 
 const HighlighterAnnotation = types.compose('HighlighterAnnotation', Annotation, Highlighter)
 export default HighlighterAnnotation

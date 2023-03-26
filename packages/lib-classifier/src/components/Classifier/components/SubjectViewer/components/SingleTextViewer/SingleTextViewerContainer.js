@@ -3,6 +3,7 @@ import { observer } from 'mobx-react'
 import asyncStates from '@zooniverse/async-states'
 
 import { useSubjectText } from '@hooks'
+import Selection from '@plugins/tasks/experimental/highlighter/components/components/Selection'
 import locationValidator from '../../helpers/locationValidator'
 import SingleTextViewer from './SingleTextViewer'
 
@@ -15,7 +16,7 @@ function labeledContent (data, annotation) {
   const newContent = []
   let lastFocusIndex = 0
   let dataIndex = 0
-  const { value } = annotation
+  const { deleteHighlight, value } = annotation
   for (dataIndex = 0; dataIndex < data.length; dataIndex++) {
     for (let highlight of value) {
       if (highlight.start === dataIndex) {
@@ -24,12 +25,12 @@ function labeledContent (data, annotation) {
         newContent.push(preContent)
         // 2. add the highlighted content, push content to be labeled
         const newLabel =
-          <span
+          <Selection
             key={`${highlight.start}-${highlight.end}`}
-            style={{ backgroundColor: highlight.labelInformation.color }}
-          >
-            {highlight.text}
-          </span>
+            color={highlight.labelInformation.color}
+            handleDelete={() => deleteHighlight(value.indexOf(highlight))}
+            text={highlight.text}
+          />
         newContent.push(newLabel)
         // 3. re-set last focusIndex with annotation index
         lastFocusIndex = highlight.end

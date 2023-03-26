@@ -5,7 +5,7 @@ export default function getOffset(selection) {
   const nodeArray = parentNode.childNodes
   for (let node of nodeArray) {
     if (node.nodeType !== 8 && node !== anchorNode) {
-      const text = node.textContent
+      const text = node.getAttribute ? node.getAttribute('data-selection') : node.textContent
       start += text?.length || 0
     }
     if (node === anchorNode) {
