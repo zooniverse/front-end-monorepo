@@ -3,11 +3,7 @@ import { types } from 'mobx-state-tree'
 
 import Task from '@plugins/tasks/models/Task'
 import HighlighterAnnotation from './HighlighterAnnotation'
-
-export const HighlighterLabel = types.model('HighlighterLabel', {
-  color: types.string,
-  label: types.string
-})
+import HighlighterLabel from './HighlighterLabel'
 
 const Highlighter = types.model('Highlighter', {
   annotation: types.safeReference(HighlighterAnnotation),

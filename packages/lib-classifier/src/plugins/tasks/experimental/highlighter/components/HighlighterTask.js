@@ -1,7 +1,13 @@
 import { Box, Button, Text } from 'grommet'
+import { observer } from 'mobx-react'
+import { getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Markdownz } from '@zooniverse/react-components'
+
+import extraNewLineCharacter from './helpers/extraNewLineCharacter'
+import getOffset from './helpers/getOffset'
+import selectableArea from './helpers/selectableArea'
 
 const StyledText = styled(Text)`
   margin: 0;
@@ -32,18 +38,39 @@ export function StyledButtonLabel ({ color, label }) {
 }
 
 export function HighlighterTask ({
+  annotation,
   autoFocus = false,
   disabled = false,
-  task,
-  updateAnnotation = () => true,
-  value
+  task
 }) {
+  function createLabelAnnotation(selection, labelIndex) {
+    // currently we only deal with one selection at a time
+    const range = selection.getRangeAt(0)
+    const offset = getOffset(selection)
+    const start = offset + range.startOffset
+    const endOffset = extraNewLineCharacter(range)
+    const end = offset + endOffset
+    const labelInformation = getSnapshot(task.highlighterLabels[labelIndex])
+    const selectable = selectableArea(selection, range, offset, start, end)
+    
+    if (selectable) {
+      const newValue = Array.from(annotation.value)
+      newValue.push({
+        labelInformation,
+        start,
+        end,
+        text: range.toString()
+      })
+      console.log('new annotation value', newValue)
+      annotation.update(newValue)
+    }
+
+    selection.collapseToEnd()
+  }
+
   function handleClick (event, index) {
     const selection = document.getSelection()
-    // createLabelAnnotation(selection, index)
-    
-    const selectionText = selection.toString()
-    console.log('selectionText', selectionText)
+    createLabelAnnotation(selection, index)
   }
 
   // TODO add labelCount for InputStatus per annotation.value
@@ -75,6 +102,10 @@ export function HighlighterTask ({
 }
 
 HighlighterTask.propTypes = {
+  annotation: PropTypes.shape({
+    update: PropTypes.func,
+    value: PropTypes.array,
+  }).isRequired,
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
@@ -84,12 +115,6 @@ HighlighterTask.propTypes = {
     taskKey: PropTypes.string,
     type: PropTypes.string
   }).isRequired,
-  updateAnnotation: PropTypes.func,
-  value: PropTypes.arrayOf(PropTypes.shape({
-    start: PropTypes.number,
-    end: PropTypes.number,
-    text: PropTypes.string
-  }))
 }
 
-export default HighlighterTask
+export default observer(HighlighterTask)
