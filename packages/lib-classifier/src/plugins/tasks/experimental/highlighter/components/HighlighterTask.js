@@ -2,12 +2,16 @@ import { Box, Button, Text } from 'grommet'
 import { observer } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Markdownz } from '@zooniverse/react-components'
 
 import extraNewLineCharacter from './helpers/extraNewLineCharacter'
 import getOffset from './helpers/getOffset'
 import selectableArea from './helpers/selectableArea'
+
+// TODO
+// translate StyledButtonLabel - "Marked"
+// translate "No labels for the Highlighter Task"
 
 const StyledText = styled(Text)`
   margin: 0;
@@ -25,21 +29,81 @@ const StyledLabelColor = styled.span`
   border-radius: 3px;
   height: 1.8em;
   margin: 0 .8em;
-  width: 2.4em;
+  width: 40px;
 `
 
-export function StyledButtonLabel ({ color, label }) {
+const StyledButton = styled(Button)`
+  ${props => props.theme.dark ?
+    css`
+      background: transparent;
+      border: 2px solid ${props.theme.global.colors['light-1']};
+    ` :
+    css`
+      background: ${props.theme.global.colors['light-1']};
+      border: none;
+    `
+  }
+  border-radius: 4px;
+  margin-bottom: .8em;
+  margin-top: .8em;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+
+  &:hover {
+    ${props => props.theme.dark ?
+      css`
+        background: ${props.theme.global.colors['neutral-1']};
+        border: 2px solid ${props.theme.global.colors['light-1']};
+      ` :
+      css`
+        background: linear-gradient(180deg, ${props.theme.global.colors['light-2']} 0%, ${props.theme.global.colors['accent-1']} 100%);
+        border: none;
+      `
+    } 
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  &:active {
+    background: ${props => props.theme.global.colors['brand']};
+    ${props => props.theme.dark ? 
+      css`border: 2px solid ${props.theme.global.colors['light-1']};` :
+      css`border: 1px solid ${props.theme.global.colors['light-5']};`
+    }
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+    color: white;
+  }
+
+  &:focus:not(:focus-visible) {
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+  }
+`
+
+function StyledButtonLabel ({ color, count = 0, label }) {
   return (
-    <Box as='span'>
+    <Box
+      align='center'
+      as='span'
+      direction='row'
+    >
       <StyledLabelColor color={color} />
-      <span>{label}</span>
+      <Box
+        fill='horizontal'
+        direction='row'
+        justify='between'
+        margin={{ left: 'small' }}
+      >
+        <Text size='16px'>
+          {label}
+        </Text>
+        <Text color={count ? 'inherit' : 'light-4' }>
+          {count} Marked
+        </Text>
+      </Box>
     </Box>
   )
 }
 
 export function HighlighterTask ({
   annotation,
-  autoFocus = false,
   disabled = false,
   task
 }) {
@@ -73,9 +137,6 @@ export function HighlighterTask ({
     createLabelAnnotation(selection, index)
   }
 
-  // TODO add labelCount for InputStatus per annotation.value
-  // TODO translate "No labels for the Highlighter Task"
-
   return (
     <Box
       direction='column'
@@ -87,10 +148,16 @@ export function HighlighterTask ({
       </StyledText>
       {task.highlighterLabels ? 
         task.highlighterLabels.map((label, index) => {
+          const count = annotation.value.filter(value => value.labelInformation.label === label.label).length
           return (
-            <Button
+            <StyledButton
               key={`${task.taskKey}_${index}`}
-              label={<StyledButtonLabel color={label.color} label={task.strings.get(`highlighterLabels.${index}.label`)} />}
+              label={
+                <StyledButtonLabel
+                  color={label.color}
+                  count={count}
+                  label={task.strings.get(`highlighterLabels.${index}.label`)}
+                />}
               name='highlighter-label'
               onClick={(event) => handleClick(event, index)}
             />
@@ -106,7 +173,6 @@ HighlighterTask.propTypes = {
     update: PropTypes.func,
     value: PropTypes.array,
   }).isRequired,
-  autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
   task: PropTypes.shape({
     help: PropTypes.string,
