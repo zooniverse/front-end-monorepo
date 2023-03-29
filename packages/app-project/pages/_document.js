@@ -15,19 +15,21 @@ const ERROR_LOGGING_SCRIPT = `
     Sentry.init({
       dsn: '${process.env.SENTRY_PROJECT_DSN}',
       environment: '${process.env.APP_ENV}',
-      release: '${process.env.COMMIT_ID}'
+      release: '${process.env.COMMIT_ID}',
+      integrations: [new Sentry.BrowserTracing()],
+      tracesSampleRate: 1.0
     });
     console.log('Sentry init: ${process.env.SENTRY_PROJECT_DSN} ${process.env.APP_ENV}');
   }
 
   function onError(e) {
-    console.log('errored', e.srcElement.src);
     const error = new Error('External script failed to load');
     Sentry.withScope((scope) => {
       scope.setTag('ScriptError', 'loadFailed');
       scope.setExtra('scriptSrc', e.srcElement.src);
       Sentry.captureException(error);
     });
+    console.log('errored', e.srcElement.src);
   };
 
   const scripts = document.querySelectorAll('script');
@@ -78,8 +80,8 @@ export default class MyDocument extends Document {
             <script dangerouslySetInnerHTML={{ __html: GA_TRACKING_SCRIPT }} />
           )}
           <script
-            src="https://browser.sentry-cdn.com/7.44.2/bundle.min.js"
-            integrity="sha384-DKvNAjtV829X/OfXiq539qMBQjm0X+mzgpSoEbPd0CUa6jU62Z7Y23By/A4oLgqB"
+            src="https://browser.sentry-cdn.com/7.45.0/bundle.tracing.min.js"
+            integrity="sha384-3eSp2mmX0+DiH727hyDCiJsV+21D7/8YtcsQuhzpNTUTKJsYa16mVS5qfrdYjkoe"
             crossorigin="anonymous"
             defer
             id='sentryScript'
