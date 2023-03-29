@@ -13674,9 +13674,9 @@ pako@~1.0.5:
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
 panoptes-client@~5.2.0:
-  version "5.2.4"
-  resolved "https://registry.yarnpkg.com/panoptes-client/-/panoptes-client-5.2.4.tgz#2a125fa3eb1a885757d3795f207c7028bf0c5ffa"
-  integrity sha512-PtWIfwuaGm7u7y2eOm+uli1kCJk/FyRjUWEVtd/kPpR+JhCz3MJa+5VzzoPZyR2AKmEm/rp3F2j4oo+My4vRnA==
+  version "5.2.5"
+  resolved "https://registry.yarnpkg.com/panoptes-client/-/panoptes-client-5.2.5.tgz#045582f22df932830cf636374b0fd26333295ee0"
+  integrity sha512-6JS+GnPsE26GyMoPqaQuUEMkrNYWrgUhqOWXybJf4+Ubwsl3LMgXyiOLjz51VDhpuPsyoKuolZPuOiXKasf5jg==
   dependencies:
     local-storage "^2.0.0"
     normalizeurl "~1.0.0"
