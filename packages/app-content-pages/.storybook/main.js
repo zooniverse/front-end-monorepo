@@ -12,7 +12,7 @@ module.exports = {
     options: {}
   },
   docs: {
-    autodocs: 'tag'
+    autodocs: true
   },
   webpackFinal: async config => {
     const resolve = {

@@ -57,11 +57,16 @@ function Publication ({
 }
 
 Publication.propTypes = {
+  /** List of author names */
   authors: string,
+  /** Must be an update compatible Media component from @zooniverse/react-components */
   avatarSrc: string,
   className: string,
+  /** Title of publication */
   title: string,
+  /** Url linking to published document on the web */
   url: string,
+  /** Year of publication */
   year: string
 }
 
