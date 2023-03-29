@@ -110,10 +110,6 @@ function DrawingToolMarks({
             mark={mark}
             scale={scale}
             onDelete={deleteMark}
-            onDeselect={deselectMark}
-            dragStart={selectMark}
-            dragMove={moveMark}
-            dragEnd={endMoveMark}
           />
         )}
       </Mark>

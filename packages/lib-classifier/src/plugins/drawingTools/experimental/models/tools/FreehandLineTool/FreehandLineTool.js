@@ -8,10 +8,19 @@ const FreehandLineTool = types
     type: types.literal('freehandLine')
   })
   .actions((self) => ({
-    createMark(mark, points) {
+    createMark(mark) {
       const newMark = FreehandLine.create(
-        { ...mark, toolType: self.type}
+        { ...mark, toolType: self.type }
       )
+
+      // points assumes [{ x, y }, { x, y }]
+      let points = mark.points || []
+      
+      if (mark.pathX && mark.pathY) {
+        points = mark.pathX.map((x, i) => {
+          return { x: mark.pathX[i], y: mark.pathY[i] }
+        })
+      }
 
       newMark.initialize(points)
       self.marks.put(newMark)

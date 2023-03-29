@@ -75,7 +75,6 @@ const FreehandLineModel = types
       // 3) Splice start to splice drag
 
       let paths = []
-      let pnts = []
 
       if (self.spliceActive) {
         if (self.spliceThroughBeginning) {
@@ -87,30 +86,20 @@ const FreehandLineModel = types
             ? self.spliceClosePointIndex
             : self.spliceDragPointIndex
 
-          for (let i = startIndex; i <= endIndex; i++) {
-            pnts.push(self.points[i])
-          }
-          paths.push(pnts)
+          paths.push(self.points.slice(startIndex, endIndex + 1))
         } else {
           // Scenarion #1 and #2
           let endIndex = (self.spliceReverse)
             ? self.spliceClosePointIndex
             : self.spliceDragPointIndex
 
-          for (let i = 0; i <= endIndex; i++) {
-            pnts.push(self.points[i])
-          }
-          paths.push(pnts)
+          paths.push(self.points.slice(0, endIndex + 1))
 
-          pnts = []
           let startIndex = (self.spliceReverse)
             ? self.spliceDragPointIndex
             : self.spliceClosePointIndex
 
-          for (let i = startIndex; i < self.points.length; i++) {
-            pnts.push(self.points[i])
-          }
-          paths.push(pnts)
+          paths.push(self.points.slice(startIndex, self.points.length))
         }
       } else {
         paths.push(self.points)
@@ -136,17 +125,10 @@ const FreehandLineModel = types
         : self.spliceClosePointIndex
 
       if (self.spliceThroughBeginning) {
-        for (let i = endIndex; i < self.points.length; i++) {
-          pnts.push(self.points[i])
-        }
-
-        for (let i = 0; i <= startIndex; i++) {
-          pnts.push(self.points[i])
-        }
+        pnts = pnts.concat(self.points.slice(endIndex, self.points.length))
+        pnts = pnts.concat(self.points.slice(0, startIndex + 1))
       } else {
-        for (let i = startIndex; i <= endIndex; i++) {
-          pnts.push(self.points[i])
-        }
+        pnts = pnts.concat(self.points.slice(startIndex, endIndex + 1))
       }
 
       return pnts
@@ -196,18 +178,13 @@ const FreehandLineModel = types
     redoActions: types.array(ActionType),
   }))
   .actions((self) => ({
-    initialize(points) {
+    initialize(points = []) {
       self.scale = 1
       self.lineResolution = isNaN(self.lineResolution) ? 0.5 : self.lineResolution
       self.minimumPoints = isNaN(self.minimumPoints) ? 20 : self.minimumPoints
       self.undoActionPointThreshold = isNaN(self.undoActionPointThreshold) ? 20 : self.undoActionPointThreshold
-
-      self.points = []
       self.pathIsClosed = false
-
-      if (points && points.length > 0) {
-        self.points = [...points]
-      }
+    	self.points = [...points]
 
       self.setClosePoint(self.points.at(0))
       self.setDragPoint(self.points.at(-1))
@@ -380,20 +357,14 @@ const FreehandLineModel = types
         if (self.spliceReverse) self.splicePoints = self.splicePoints.reverse()
         self.splicePoints.push(self.points.at(endIndex))
 
-        for (let i = startIndex; i < self.points.length; i++) {
-          closeSpliceAction.pointsFromClose.push(self.points.at(i))
-        }
-        for (let i = 0; i < endIndex; i++) {
-          closeSpliceAction.pointsFromDrag.push(self.points.at(i))
-        }
+        closeSpliceAction.pointsFromClose = closeSpliceAction.pointsFromClose.concat(self.points.slice(startIndex, self.points.length))
+        closeSpliceAction.pointsFromDrag = closeSpliceAction.pointsFromDrag.concat(self.points.slice(0, endIndex))
 
         self.points.splice(startIndex, self.points.length - startIndex)
         self.points.splice(0, endIndex)
         self.points.splice(self.points.length, 0, ...self.splicePoints)
       } else {
-        for (var i = startIndex; i < endIndex; i++) {
-          closeSpliceAction.pointsFromDrag.push(self.points[i])
-        }
+        closeSpliceAction.pointsFromDrag = closeSpliceAction.pointsFromDrag.concat(self.points.slice(startIndex, endIndex))
 
         if (self.spliceReverse) {
           self.splicePoints = self.splicePoints.reverse()
@@ -417,7 +388,7 @@ const FreehandLineModel = types
         }
         return
       }
-      let action = toJS(self.drawActions.at(-1))
+      const action = toJS(self.drawActions.at(-1))
 
       if (action.type == 'start') {
         self.drawActions.pop()
@@ -454,9 +425,7 @@ const FreehandLineModel = types
         if (action.throughBeginning) {
           let spliceIndex = Math.abs(action.pointIndexDrag - action.pointIndexClose)
 
-          for (let i = spliceIndex; i < self.points.length - 1; i++) {
-            self.splicePoints.push(self.points[i])
-          }
+          self.splicePoints = self.splicePoints.concat(self.points.slice(spliceIndex, self.points.length - 1));
 
           if (action.isReversed) {
             self.splicePoints = self.splicePoints.reverse()
@@ -470,9 +439,7 @@ const FreehandLineModel = types
             ? action.pointIndexClose
             : action.pointIndexDrag
 
-          for (let i = spliceIndex; i <= spliceIndex + action.pointsSpliceCount; i++) {
-            self.splicePoints.push(self.points[i])
-          }
+          self.splicePoints = self.splicePoints.concat(self.points.slice(spliceIndex, (spliceIndex + action.pointsSpliceCount + 1)));
 
           if (action.isReversed) {
             self.splicePoints = self.splicePoints.reverse()
@@ -499,7 +466,7 @@ const FreehandLineModel = types
     redo() {
       if (self.redoActions.length == 0) return
 
-      let action = toJS(self.redoActions.at(-1))
+      const action = toJS(self.redoActions.at(-1))
 
       if (action.type == 'end') {
         self.closePath()
@@ -607,7 +574,7 @@ const FreehandLineModel = types
 
     splicePathSetup() {
       // for purposes of undo/redo we use the action to set these properties
-      let action = self.drawActions.at(-1)
+      const action = self.drawActions.at(-1)
       self.spliceClosePointIndex = action.pointIndexClose
       self.spliceReverse = action.isReversed
       self.spliceThroughBeginning = action.throughBeginning

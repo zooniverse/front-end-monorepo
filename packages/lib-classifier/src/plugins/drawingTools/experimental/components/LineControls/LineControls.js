@@ -7,24 +7,19 @@ import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 const LineControls = forwardRef(function LineControls({
   mark,
   scale = 1,
-  dragMove,
-  onDelete,
-  onUnselect,
+  onDelete
 },
   ref
 ) {
   let [activePosition, setActivePosition] = useState('tr')
-  const ARIA_LABEL = 'Line Controls'
-  const STROKE_COLOR = 'black'
   const ARROW_STROKE_COLOR = 'white'
   const FILL_COLOR = 'black'
   const HOVER_COLOR = 'grey'
-  const STROKE_WIDTH = 1.5 / scale
-  const ARROW_STROKE_WIDTH = 0.5 / scale
-  const outerRadius = 40 / scale;
-  const innerRadius = 20 / scale;
+  const STROKE_WIDTH = 0.5 / scale
+  const OUTER_RADIUS = 40 / scale;
+  const INNER_RADIUS = 20 / scale;
 
-  const { viewBox } = useContext(SVGContext)
+  const { viewBox, rotate, width, height } = useContext(SVGContext)
   const [x, y, w, h] = viewBox.split(' ').map(n => parseInt(n, 10))
   const point = (activePosition == 'tr')
     ? { x: x + (50 / scale), y: y + (50 / scale) }
@@ -38,41 +33,37 @@ const LineControls = forwardRef(function LineControls({
     }
   `
 
-  const TL = `M ${point.x - outerRadius} ${point.y}
-    A ${outerRadius} ${outerRadius} 0 0 1 ${point.x} ${point.y - outerRadius}
-    L ${point.x} ${point.y - innerRadius}
-    A ${innerRadius} ${innerRadius} 0 0 0 ${point.x - innerRadius} ${point.y}
+  const TL = `M ${point.x - OUTER_RADIUS} ${point.y}
+    A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 1 ${point.x} ${point.y - OUTER_RADIUS}
+    L ${point.x} ${point.y - INNER_RADIUS}
+    A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 0 ${point.x - INNER_RADIUS} ${point.y}
     Z`;
 
-  const TR = `M ${point.x + outerRadius} ${point.y}
-    A ${outerRadius} ${outerRadius} 0 0 0 ${point.x} ${point.y - outerRadius}
-    L ${point.x} ${point.y - innerRadius}
-    A ${innerRadius} ${innerRadius} 0 0 1 ${point.x + innerRadius} ${point.y}
+  const TR = `M ${point.x + OUTER_RADIUS} ${point.y}
+    A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 0 ${point.x} ${point.y - OUTER_RADIUS}
+    L ${point.x} ${point.y - INNER_RADIUS}
+    A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 1 ${point.x + INNER_RADIUS} ${point.y}
     Z`;
 
-  const BL = `M ${point.x - outerRadius} ${point.y}
-    A ${outerRadius} ${outerRadius} 0 0 0 ${point.x} ${point.y + outerRadius}
-    L ${point.x} ${point.y + innerRadius}
-    A ${innerRadius} ${innerRadius} 0 0 1 ${point.x - innerRadius} ${point.y}
+  const BL = `M ${point.x - OUTER_RADIUS} ${point.y}
+    A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 0 ${point.x} ${point.y + OUTER_RADIUS}
+    L ${point.x} ${point.y + INNER_RADIUS}
+    A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 1 ${point.x - INNER_RADIUS} ${point.y}
     Z`;
 
-  const BR = `M ${point.x + outerRadius} ${point.y}
-    A ${outerRadius} ${outerRadius} 0 0 1 ${point.x} ${point.y + outerRadius}
-    L ${point.x} ${point.y + innerRadius}
-    A ${innerRadius} ${innerRadius} 0 0 0 ${point.x + innerRadius} ${point.y}
+  const BR = `M ${point.x + OUTER_RADIUS} ${point.y}
+    A ${OUTER_RADIUS} ${OUTER_RADIUS} 0 0 1 ${point.x} ${point.y + OUTER_RADIUS}
+    L ${point.x} ${point.y + INNER_RADIUS}
+    A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 0 ${point.x + INNER_RADIUS} ${point.y}
     Z`;
 
-  const C = `M ${point.x - innerRadius} ${point.y}
-    A ${innerRadius} ${innerRadius} 0 0 0 ${point.x + innerRadius} ${point.y}
-    A ${innerRadius} ${innerRadius} 0 0 0 ${point.x - innerRadius} ${point.y}
+  const C = `M ${point.x - INNER_RADIUS} ${point.y}
+    A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 0 ${point.x + INNER_RADIUS} ${point.y}
+    A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 0 ${point.x - INNER_RADIUS} ${point.y}
     Z`;
 
-  function move(e) {
-    if (activePosition == 'tl') {
-      setActivePosition('tr');
-    } else {
-      setActivePosition('tl');
-    }
+  function move() {
+    setActivePosition((activePosition == 'tl') ? 'tr' : 'tl');
   }
 
   function destroy() {
@@ -89,6 +80,8 @@ const LineControls = forwardRef(function LineControls({
       role='group'
       aria-label={'Line Controls'}
       focusable='false'
+	  transform={`rotate(${-rotate} ${width / 2} ${height / 2})`}
+
     >
       <g
         role='button'
@@ -100,7 +93,7 @@ const LineControls = forwardRef(function LineControls({
           <StyledPath
             d={TL}
             stroke={ARROW_STROKE_COLOR}
-            strokeWidth={ARROW_STROKE_WIDTH}
+            strokeWidth={STROKE_WIDTH}
             onPointerDown={mark.undo}
             onKeyDown={(ev) => { onEnterOrSpace(ev, mark.undo) }}
           ></StyledPath>
@@ -116,7 +109,7 @@ const LineControls = forwardRef(function LineControls({
           <StyledPath
             d={TR}
             stroke={ARROW_STROKE_COLOR}
-            strokeWidth={ARROW_STROKE_WIDTH}
+            strokeWidth={STROKE_WIDTH}
             onPointerDown={mark.redo}
             onKeyDown={(ev) => { onEnterOrSpace(ev, mark.redo) }}
           ></StyledPath>
@@ -132,7 +125,7 @@ const LineControls = forwardRef(function LineControls({
           <StyledPath
             d={BL}
             stroke={ARROW_STROKE_COLOR}
-            strokeWidth={ARROW_STROKE_WIDTH}
+            strokeWidth={STROKE_WIDTH}
             onPointerDown={mark.close}
             onKeyDown={(ev) => { onEnterOrSpace(ev, mark.close) }}
           ></StyledPath>
@@ -148,7 +141,7 @@ const LineControls = forwardRef(function LineControls({
           <StyledPath
             d={BR}
             stroke={ARROW_STROKE_COLOR}
-            strokeWidth={ARROW_STROKE_WIDTH}
+            strokeWidth={STROKE_WIDTH}
             onPointerDown={destroy}
             onKeyDown={(ev) => { onEnterOrSpace(ev, destroy) }}
           ></StyledPath>
@@ -164,7 +157,7 @@ const LineControls = forwardRef(function LineControls({
           <StyledPath
             d={C}
             stroke={ARROW_STROKE_COLOR}
-            strokeWidth={ARROW_STROKE_WIDTH}
+            strokeWidth={STROKE_WIDTH}
             onPointerDown={move}
             onKeyDown={(ev) => { onEnterOrSpace(ev, move) }}
           ></StyledPath>
@@ -181,8 +174,6 @@ LineControls.propTypes = {
   }),
   scale: PropTypes.number,
   onDelete: PropTypes.func,
-  onUnselect: PropTypes.func,
-
 }
 
 export default LineControls
