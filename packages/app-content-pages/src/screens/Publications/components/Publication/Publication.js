@@ -21,12 +21,12 @@ const Placeholder = (
 )
 
 function Publication ({
-  authors = 'Missing Author',
+  authors = '',
   avatarSrc = '',
   className = '',
-  title = 'Missing Title',
+  title = '',
   url = '',
-  year = 'Missing Year'
+  year = ''
 }) {
   const displayString = [title, authors, year].filter(v => v).join(', ')
 
