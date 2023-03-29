@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.1] 2023-03-29
+
+### Changed
+- Ignore mock data and screenshots in the published package.
+
 ## [1.5.0] 2023-03-20
 
 ### Added
