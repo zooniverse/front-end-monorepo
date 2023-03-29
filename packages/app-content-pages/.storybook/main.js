@@ -1,13 +1,28 @@
+const webpackConfig = require('../webpack.config.js')
+
 module.exports = {
-  core: {
-    builder: 'webpack5'
-  },
   stories: ['../src/**/*.stories.js'],
   addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-knobs',
     '@storybook/addon-links',
-    '@storybook/addon-a11y',
-    '@storybook/addon-storysource'
-  ]
-};
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions'
+  ],
+  framework: {
+    name: '@storybook/nextjs',
+    options: {}
+  },
+  docs: {
+    autodocs: 'tag'
+  },
+  webpackFinal: async config => {
+    const resolve = {
+      ...webpackConfig.resolve,
+      fallback: {
+        crypto: false,
+        path: 'path-browserify'
+      }
+    }
+
+    return { ...config, resolve }
+  }
+}

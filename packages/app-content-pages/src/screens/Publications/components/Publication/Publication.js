@@ -16,12 +16,18 @@ const Placeholder = (
     height='100%'
     width='100%'
   >
-    <ZooniverseLogo size='50%' />
+    <ZooniverseLogo id='Publication Placeholder' size='50%' />
   </Box>
 )
 
-function Publication (props) {
-  const { authors, avatarSrc, className, title, url, year } = props
+function Publication ({
+  authors = 'Missing Author',
+  avatarSrc = '',
+  className = '',
+  title = 'Missing Title',
+  url = '',
+  year = 'Missing Year'
+}) {
   const displayString = [title, authors, year].filter(v => v).join(', ')
 
   return (
