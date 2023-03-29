@@ -3,7 +3,7 @@ import asyncStates from '@zooniverse/async-states'
 import { projects } from '@zooniverse/panoptes-js'
 
 import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
-import { logToSentry } from '@helpers/logger'
+import logToSentry from '@helpers/logger/logToSentry.js'
 
 export default async function fetchProjectData(slug, params) {
   const { headers, host } = getServerSideAPIHost(params?.env)

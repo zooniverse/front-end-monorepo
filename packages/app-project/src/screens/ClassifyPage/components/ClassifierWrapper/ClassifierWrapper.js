@@ -6,7 +6,7 @@ import asyncStates from '@zooniverse/async-states'
 
 import { useAdminMode } from '@hooks'
 import addQueryParams from '@helpers/addQueryParams'
-import { logToSentry } from '@helpers/logger'
+import logToSentry from '@helpers/logger/logToSentry.js'
 import ErrorMessage from './components/ErrorMessage'
 import Loader from '@shared/components/Loader'
 

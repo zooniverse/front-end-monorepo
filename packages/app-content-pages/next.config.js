@@ -15,9 +15,10 @@ function commitID () {
   }
 }
 
+const isDevelopment = process.env.NODE_ENV === 'development'
 const PANOPTES_ENV = process.env.PANOPTES_ENV || 'staging'
 const webpackConfig = require('./webpack.config')
-const SENTRY_CONTENT_DSN = 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
+const SENTRY_CONTENT_DSN = isDevelopment ? '' : 'https://1f0126a750244108be76957b989081e8@sentry.io/1492498'
 const APP_ENV = process.env.APP_ENV || 'development'
 const COMMIT_ID = process.env.COMMIT_ID || commitID()
 const assetPrefix = assetPrefixes[APP_ENV]

@@ -1,9 +1,13 @@
 import * as Sentry from '@sentry/node'
+import { Integrations } from '@sentry/tracing'
 
-export default function initializeSentry () {
+export default function initializeSentry() {
+  const isBrowser = typeof window !== 'undefined'
   const dsn = process.env.SENTRY_CONTENT_DSN
   const release = process.env.COMMIT_ID
   const environment = process.env.APP_ENV
+  const integrations = isBrowser ? [new Integrations.BrowserTracing()] : [new Integrations.Express()]
+  const tracesSampleRate = 1.0
   const ignoreErrors = [
     'ResizeObserver loop limit exceeded' // Ignore benign error: https://github.com/WICG/resize-observer/issues/38
   ]
@@ -11,8 +15,10 @@ export default function initializeSentry () {
   if (dsn) {
     Sentry.init({
       dsn,
-      release,
       environment,
+      integrations,
+      release,
+      tracesSampleRate,
       ignoreErrors
     })
   }

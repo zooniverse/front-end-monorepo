@@ -1,6 +1,6 @@
 import fetchTranslations from '@helpers/fetchTranslations'
 import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
-import { logToSentry } from '@helpers/logger'
+import logToSentry from '@helpers/logger/logToSentry.js'
 
 export default async function fetchProjectPage(project, locale, key, env) {
   const { headers, host } = getServerSideAPIHost(env)
