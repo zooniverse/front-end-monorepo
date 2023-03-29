@@ -1,7 +1,8 @@
 import { Box } from 'grommet'
-
 import SpacedText from './SpacedText'
-import readme from './README.md'
+
+/** This will not work with @storybook/testing-react composeStory function */
+// import readme from './README.md'
 
 export default {
   title: 'Components / SpacedText',
@@ -25,14 +26,14 @@ export default {
       options: ['normal', 'bold'],
       control: { type: 'radio' }
     }
-  },
-  parameters: {
-    docs: {
-      description: {
-        component: readme
-      }
-    }
   }
+  // parameters: {
+  //   docs: {
+  //     description: {
+  //       component: readme
+  //     }
+  //   }
+  // }
 }
 
 export const Default = ({ children, size, uppercase, weight }) => (

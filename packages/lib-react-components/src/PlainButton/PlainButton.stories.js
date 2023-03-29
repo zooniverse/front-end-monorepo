@@ -2,7 +2,9 @@ import { Box } from 'grommet'
 import { Add } from 'grommet-icons'
 
 import PlainButton from './PlainButton'
-import readme from './README.md'
+
+/** This will not work with @storybook/testing-react composeStory function */
+// import readme from './README.md'
 
 export default {
   title: 'Components / PlainButton',
@@ -26,14 +28,14 @@ export default {
     onClick: {
       action: 'clicked'
     }
-  },
-  parameters: {
-    docs: {
-      description: {
-        component: readme
-      }
-    }
   }
+  // parameters: {
+  //   docs: {
+  //     description: {
+  //       component: readme
+  //     }
+  //   }
+  // }
 }
 
 export function Default({

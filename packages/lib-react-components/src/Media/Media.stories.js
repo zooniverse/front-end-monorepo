@@ -2,18 +2,20 @@ import { Box, Text } from 'grommet'
 
 import Media from './Media'
 import ZooniverseLogo from '../ZooniverseLogo'
-import readme from './README.md'
+
+/** This will not work with @storybook/testing-react composeStory function */
+// import readme from './README.md'
 
 export default {
   title: 'Components / Media',
-  component: Media,
-  parameters: {
-    docs: {
-      description: {
-        component: readme
-      }
-    }
-  }
+  component: Media
+  // parameters: {
+  //   docs: {
+  //     description: {
+  //       component: readme
+  //     }
+  //   }
+  // }
 }
 
 const AUDIO_URL =

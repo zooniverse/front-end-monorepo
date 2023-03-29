@@ -1,7 +1,8 @@
 import { Box } from 'grommet'
-
 import PrimaryButton from './PrimaryButton'
-import readme from './README.md'
+
+/** This will not work with @storybook/testing-react composeStory function */
+// import readme from './README.md'
 
 export default {
   title: 'Components / PrimaryButton',
@@ -20,14 +21,14 @@ export default {
     onClick: {
       action: 'clicked'
     }
-  },
-  parameters: {
-    docs: {
-      description: {
-        component: readme
-      }
-    }
   }
+  // parameters: {
+  //   docs: {
+  //     description: {
+  //       component: readme
+  //     }
+  //   }
+  // }
 }
 
 export const Default = ({ color, disabled, href, label, onClick }) => (

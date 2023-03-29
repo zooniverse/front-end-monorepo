@@ -1,7 +1,8 @@
 import { Box } from 'grommet'
-
 import SpacedHeading from './SpacedHeading'
-import readme from './README.md'
+
+/** This will not work with @storybook/testing-react composeStory function */
+// import readme from './README.md'
 
 export default {
   title: 'Components / SpacedHeading',
@@ -26,14 +27,14 @@ export default {
       options: ['normal', 'bold'],
       control: { type: 'radio' }
     }
-  },
-  parameters: {
-    docs: {
-      description: {
-        component: readme
-      }
-    }
   }
+  // parameters: {
+  //   docs: {
+  //     description: {
+  //       component: readme
+  //     }
+  //   }
+  // }
 }
 
 export function Default({ children, color, level, size, weight }) {
