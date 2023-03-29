@@ -1,4 +1,9 @@
 {
+  "HighlighterTask": {
+    "delete": "Delete",
+    "noLabels": "No labels for the Highlighter Task",
+    "status": "{{count}} Marked"
+  },
   "InputStatus": {
     "drawn": "{{count}} drawn",
     "max": "{{count}} of {{max}} maximum drawn",

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 /**
 The Single Text Viewer is a variant of the Subject Viewer that's used to display text media.
-The `content` is defined by a subject's text mime type location.
+The `content` is defined by a subject's text mime type location, and if the workflow has a highlighter task, the content will include labeled text nodes with highlighter task annotations.
 The `height` is defined in the ImageAndTextViewerContainer as the clientHeight per the Subject Viewer store dimensions. The Subject Viewer store dimensions are defined by the dimensions of the subject image location and image viewer.
 The `subjectId` is defined by the subject ID.
 ```

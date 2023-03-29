@@ -18,7 +18,7 @@ function labeledContent (data, annotation) {
   let dataIndex = 0
   const { deleteHighlight, value } = annotation
   for (dataIndex = 0; dataIndex < data.length; dataIndex++) {
-    for (let highlight of value) {
+    for (const highlight of value) {
       if (highlight.start === dataIndex) {
         // 1. add text between last label and current label
         const preContent = data.slice(lastFocusIndex, dataIndex)
@@ -57,10 +57,10 @@ export function SingleTextViewerContainer ({
     onError
 })
   
-  let annotation, content
+  let highlighterAnnotation, content
   
   if (latest) {
-    ([ annotation ] = latest?.annotations?.filter(annotation => annotation.taskType === 'highlighter'))
+    ([ highlighterAnnotation ] = latest?.annotations?.filter(annotation => annotation.taskType === 'highlighter'))
   }
   
   if (loadingState === asyncStates.error) {
@@ -68,8 +68,8 @@ export function SingleTextViewerContainer ({
   }
 
   if (loadingState !== asyncStates.initialized) {
-    if (annotation && annotation.value.length > 0) {
-      content = labeledContent(data, annotation)
+    if (highlighterAnnotation && highlighterAnnotation.value.length > 0) {
+      content = labeledContent(data, highlighterAnnotation)
     } else {
       content = [data]
     }

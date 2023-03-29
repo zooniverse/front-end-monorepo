@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
+import { useTranslation } from '@translations/i18n'
 
 const StyledSpan = styled.span`
   background-color: ${props => props.color};
@@ -26,6 +27,8 @@ function Selection ({
   text,
   theme
 }) {
+  const { t } = useTranslation('plugins')
+
   return (
     <StyledSpan
       data-selection={text}
@@ -35,9 +38,9 @@ function Selection ({
       {text}
       {' '}
       <StyledDeleteButton
-        aria-label='Delete'
+        aria-label={t('HighlighterTask.delete')}
         onClick={handleDelete}
-        title='Delete'
+        title={t('HighlighterTask.delete')}
       >
         &times;
       </StyledDeleteButton>

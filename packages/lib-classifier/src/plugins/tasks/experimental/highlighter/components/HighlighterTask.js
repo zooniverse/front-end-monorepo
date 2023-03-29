@@ -3,15 +3,12 @@ import { observer } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
+import { useTranslation } from '@translations/i18n'
 import { Markdownz } from '@zooniverse/react-components'
 
 import extraNewLineCharacter from './helpers/extraNewLineCharacter'
 import getOffset from './helpers/getOffset'
 import selectableArea from './helpers/selectableArea'
-
-// TODO
-// translate StyledButtonLabel - "Marked"
-// translate "No labels for the Highlighter Task"
 
 const StyledText = styled(Text)`
   margin: 0;
@@ -78,6 +75,9 @@ const StyledButton = styled(Button)`
 `
 
 function StyledButtonLabel ({ color, count = 0, label }) {
+  const { t } = useTranslation('plugins')
+  const status = t('HighlighterTask.status', { count })
+
   return (
     <Box
       align='center'
@@ -95,7 +95,7 @@ function StyledButtonLabel ({ color, count = 0, label }) {
           {label}
         </Text>
         <Text color={count ? 'inherit' : 'light-4' }>
-          {count} Marked
+          {status}
         </Text>
       </Box>
     </Box>
@@ -107,6 +107,8 @@ export function HighlighterTask ({
   disabled = false,
   task
 }) {
+  const { t } = useTranslation('plugins')
+
   function createLabelAnnotation(selection, labelIndex) {
     // currently we only deal with one selection at a time
     const range = selection.getRangeAt(0)
@@ -125,7 +127,6 @@ export function HighlighterTask ({
         end,
         text: range.toString()
       })
-      console.log('new annotation value', newValue)
       annotation.update(newValue)
     }
 
@@ -162,7 +163,7 @@ export function HighlighterTask ({
               onClick={(event) => handleClick(event, index)}
             />
           )
-        }) : <span>No labels for the Highlighter Task</span>
+        }) : <span>{t('HighlighterTask.noLabels')}</span>
       }
     </Box>
   )
