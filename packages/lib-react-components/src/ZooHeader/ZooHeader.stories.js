@@ -46,6 +46,7 @@ export function SignedOut({ dark, signIn, signOut }) {
   )
 }
 
+/** You can also see this using the 'Viewports' button in Storybook's toolbar */
 export function SignedOutNarrowWindowView({ dark, signIn, signOut }) {
   return (
     <Grommet

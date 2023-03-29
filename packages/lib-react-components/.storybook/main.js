@@ -18,7 +18,6 @@ module.exports = {
   addons: [
     '@storybook/addon-essentials',
     '@storybook/addon-knobs',
-    '@storybook/addon-links',
     '@storybook/addon-a11y',
     'storybook-react-i18next'
   ],
