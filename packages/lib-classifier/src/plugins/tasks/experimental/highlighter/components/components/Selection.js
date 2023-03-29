@@ -1,21 +1,47 @@
 import PropTypes from 'prop-types'
+import styled, { withTheme } from 'styled-components'
 
-export default function Selection ({ color, handleDelete, text }) {
+const StyledSpan = styled.span`
+  background-color: ${props => props.color};
+  border-radius: 8px;
+  color: ${props => props.theme.global.colors.text.light};
+  padding: .1em .4em .2em;
+`
+
+const StyledDeleteButton = styled.button`
+  border: none;
+  background: transparent;
+  font-size: 1.4em;
+  padding: 0;
+  vertical-align: middle;
+
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+function Selection ({
+  color,
+  handleDelete,
+  text,
+  theme
+}) {
   return (
-    <span
+    <StyledSpan
       data-selection={text}
-      style={{ backgroundColor: color }}
+      color={color}
+      theme={theme}
     >
       {text}
       {' '}
-      <button
+      <StyledDeleteButton
         aria-label='Delete'
         onClick={handleDelete}
         title='Delete'
       >
         &times;
-      </button>
-    </span>
+      </StyledDeleteButton>
+    </StyledSpan>
   )
 }
 
@@ -24,3 +50,5 @@ Selection.propTypes = {
   handleDelete: PropTypes.func,
   text: PropTypes.string
 }
+
+export default withTheme(Selection)
