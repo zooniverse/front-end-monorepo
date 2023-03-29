@@ -1,6 +1,3 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
-
 import FavouritesButton from './'
 import readme from './README.md'
 
@@ -15,58 +12,26 @@ const CAT = {
   ]
 }
 
-const config = {
-  docs: {
-    description: {
-      component: readme
+export default {
+  title: 'Components/Favourites Button',
+  component: FavouritesButton,
+  parameters: {
+    docs: {
+      description: {
+        component: readme
+      }
     }
   }
 }
 
-export default {
-  title: 'Components/Favourites Button',
-  component: FavouritesButton,
-  args: {
-    dark: false
-  },
-  parameters: config
-}
-
-export const Default = ({ dark }) => (
-  <Grommet
-    background={{
-      dark: 'dark-1',
-      light: 'light-1'
-    }}
-    theme={zooTheme}
-    themeMode={dark ? 'dark' : 'light'}
-  >
-    <FavouritesButton disabled={false} subject={CAT} />
-  </Grommet>
+export const Default = () => (
+  <FavouritesButton disabled={false} subject={CAT} />
 )
 
-export const Checked = ({ dark }) => (
-  <Grommet
-    background={{
-      dark: 'dark-1',
-      light: 'light-1'
-    }}
-    theme={zooTheme}
-    themeMode={dark ? 'dark' : 'light'}
-  >
-    <FavouritesButton checked disabled={false} subject={CAT} />
-  </Grommet>
+export const Checked = () => (
+  <FavouritesButton checked disabled={false} subject={CAT} />
 )
 
-export const Disabled = ({ dark }) => (
-  <Grommet
-    background={{
-      dark: 'dark-1',
-      light: 'light-1'
-    }}
-    theme={zooTheme}
-    themeMode={dark ? 'dark' : 'light'}
-  >
-    <FavouritesButton checked={false} disabled subject={CAT} />
-  </Grommet>
+export const Disabled = () => (
+  <FavouritesButton checked={false} disabled subject={CAT} />
 )

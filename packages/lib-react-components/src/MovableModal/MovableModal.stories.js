@@ -1,6 +1,4 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet, Text, TextArea } from 'grommet'
-import { useState } from 'react'
+import { Box, Text, TextArea } from 'grommet'
 
 import MovableModal from './MovableModal'
 import PrimaryButton from '../PrimaryButton'
@@ -24,20 +22,12 @@ const layerPositions = [
   'top-right'
 ]
 
-const config = {
-  docs: {
-    description: {
-      component: readme
-    }
-  }
-}
-
 export default {
   title: 'Components / MovableModal',
   component: MovableModal,
   args: {
     animate: false,
-    dark: false,
+    closeFn: () => true,
     headingBackground: 'brand',
     pad: 'medium',
     plain: false,
@@ -50,12 +40,19 @@ export default {
       options: layerPositions,
       control: { type: 'select' }
     }
+  },
+  parameters: {
+    docs: {
+      description: {
+        component: readme
+      }
+    }
   }
 }
 
 export const Default = ({
   animate,
-  dark,
+  closeFn,
   headingBackground,
   pad,
   plain,
@@ -63,40 +60,26 @@ export const Default = ({
   title,
   titleColor
 }) => {
-  const [active, setActive] = useState(true)
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode={dark ? 'dark' : 'light'}
+    <MovableModal
+      active
+      animate={animate}
+      closeFn={closeFn}
+      headingBackground={headingBackground}
+      pad={pad}
+      plain={plain}
+      position={position}
+      title={title}
+      titleColor={titleColor}
     >
-      <MovableModal
-        active={active}
-        animate={animate}
-        closeFn={() => setActive(!active)}
-        headingBackground={headingBackground}
-        pad={pad}
-        plain={plain}
-        position={position}
-        title={title}
-        titleColor={titleColor}
-      >
-        {EXAMPLE_STRING}
-      </MovableModal>
-    </Grommet>
+      {EXAMPLE_STRING}
+    </MovableModal>
   )
-}
-
-Default.story = {
-  parameters: config
 }
 
 export const SubTask = ({
   animate,
-  dark,
+  closeFn,
   headingBackground,
   pad,
   plain,
@@ -104,42 +87,30 @@ export const SubTask = ({
   title,
   titleColor
 }) => {
-  const [active, setActive] = useState(true)
-
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode={dark ? 'dark' : 'light'}
+    <MovableModal
+      active
+      animate={animate}
+      closeFn={closeFn}
+      headingBackground={headingBackground}
+      pad={pad}
+      plain={plain}
+      position={position}
+      title={title}
+      titleColor={titleColor}
     >
-      <MovableModal
-        active={active}
-        animate={animate}
-        closeFn={() => setActive(!active)}
-        headingBackground={headingBackground}
-        pad={pad}
-        plain={plain}
-        position={position}
-        title={title}
-        titleColor={titleColor}
-      >
-        <Box gap='xsmall'>
-          <label>
-            <Text size='small'>Transcribe the text</Text>
-            <TextArea />
-          </label>
-          <PrimaryButton label='Save' />
-        </Box>
-      </MovableModal>
-    </Grommet>
+      <Box gap='xsmall'>
+        <label>
+          <Text size='small'>Transcribe the text</Text>
+          <TextArea />
+        </label>
+        <PrimaryButton label='Save' />
+      </Box>
+    </MovableModal>
   )
 }
 
 SubTask.story = {
-  parameters: config,
   args: {
     headingBackground: 'transparent',
     plain: true

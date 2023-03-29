@@ -1,42 +1,32 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
-import { useState } from 'react'
+import { Box } from 'grommet'
 
 import AdminCheckbox from './AdminCheckbox'
 import readme from './README.md'
 
-const config = {
-  docs: {
-    description: {
-      component: readme
+export default {
+  title: 'Components / AdminCheckbox',
+  component: AdminCheckbox,
+  parameters: {
+    docs: {
+      description: {
+        component: readme
+      }
     }
   }
 }
 
-export default {
-  title: 'Components/AdminCheckbox',
-  component: AdminCheckbox,
-  args: {
-    dark: false
-  },
-  parameters: config
+export const Default = () => {
+  return (
+    <Box align='center' justify='center' height='medium'>
+      <AdminCheckbox checked={false} />
+    </Box>
+  )
 }
 
-export const Default = ({ dark }) => {
-  const [checked, setChecked] = useState(false)
-
+export const Checked = () => {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode={dark ? 'dark' : 'light'}
-    >
-      <Box align='center' justify='center' height='medium'>
-        <AdminCheckbox checked={checked} onChange={() => setChecked(!checked)} />
-      </Box>
-    </Grommet>
+    <Box align='center' justify='center' height='medium'>
+      <AdminCheckbox checked />
+    </Box>
   )
 }

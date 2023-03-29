@@ -1,5 +1,4 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grid, Grommet, Box, TableRow } from 'grommet'
+import { Grid, Box, TableRow } from 'grommet'
 import styled from 'styled-components'
 
 import Markdownz from './Markdownz'
@@ -12,86 +11,37 @@ const TableRowWithBorder = styled(TableRow)`
   border-bottom: solid thin black;
 `
 
-const config = {
-  docs: {
-    description: {
-      component: readme
+export default {
+  title: 'Components / Markdownz',
+  component: Markdownz,
+  parameters: {
+    docs: {
+      description: {
+        component: readme
+      }
     }
   }
 }
 
-export default {
-  title: 'Components / Markdownz',
-  component: Markdownz,
-  args: {
-    dark: false
-  },
-  parameters: config
-}
+export const Default = () => <Markdownz>{markdownExample}</Markdownz>
 
-export const Default = ({ dark }) => (
-  <Grommet
-    background={{
-      dark: 'dark-1',
-      light: 'light-1'
-    }}
-    theme={zooTheme}
-    themeMode={dark ? 'dark' : 'light'}
-  >
-    <Box>
-      <Markdownz>{markdownExample}</Markdownz>
-    </Box>
-  </Grommet>
+export const InProjectContext = () => (
+  <Markdownz projectSlug='zooniverse/snapshot-wakanda'>
+    {markdownExample}
+  </Markdownz>
 )
 
-export const InProjectContext = ({ dark }) => (
-  <Grommet
-    background={{
-      dark: 'dark-1',
-      light: 'light-1'
-    }}
-    theme={zooTheme}
-    themeMode={dark ? 'dark' : 'light'}
-  >
-    <Box>
-      <Markdownz projectSlug='zooniverse/snapshot-wakanda'>
-        {markdownExample}
-      </Markdownz>
-    </Box>
-  </Grommet>
+export const WithCustomComponents = () => (
+  <Markdownz components={{ tr: TableRowWithBorder }}>
+    {markdownExample}
+  </Markdownz>
 )
 
-export const WithCustomComponents = ({ dark }) => (
-  <Grommet
-    background={{
-      dark: 'dark-1',
-      light: 'light-1'
-    }}
-    theme={zooTheme}
-    themeMode={dark ? 'dark' : 'light'}
-  >
+export const GridExample = () => (
+  <Grid columns={['small', 'flex']} gap='8%'>
+    <Box>Sidebar Here</Box>
     <Box>
-      <Markdownz components={{ tr: TableRowWithBorder }}>
-        {markdownExample}
-      </Markdownz>
+      <Markdownz>{markdownInGrid}</Markdownz>
     </Box>
-  </Grommet>
-)
-
-export const GridExample = ({ dark }) => (
-  <Grommet
-    background={{
-      dark: 'dark-1',
-      light: 'light-1'
-    }}
-    theme={zooTheme}
-    themeMode={dark ? 'dark' : 'light'}
-  >
-    <Grid columns={['small', 'flex']} gap='8%'>
-      <Box>Sidebar Here</Box>
-      <Box>
-        <Markdownz>{markdownInGrid}</Markdownz>
-      </Box>
-    </Grid>
-  </Grommet>
+  </Grid>
 )
