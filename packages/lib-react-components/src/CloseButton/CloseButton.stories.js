@@ -2,13 +2,25 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 
 import CloseButton from './CloseButton'
+import readme from './README.md'
+
+const DEFAULT_CLOSE_FN = () => true
+
+const config = {
+  docs: {
+    description: {
+      component: readme
+    }
+  }
+}
 
 export default {
   title: 'Components/CloseButton',
   component: CloseButton,
   args: {
     dark: false
-  }
+  },
+  parameters: config
 }
 
 export const Default = ({ dark }) => (
@@ -21,7 +33,7 @@ export const Default = ({ dark }) => (
     themeMode={dark ? 'dark' : 'light'}
   >
     <Box align='center' height='small' justify='center' width='small'>
-      <CloseButton closeFn={() => {}} />
+      <CloseButton closeFn={DEFAULT_CLOSE_FN} />
     </Box>
   </Grommet>
 )
@@ -35,7 +47,7 @@ export const WithTealBackground = ({ dark }) => (
       justify='center'
       width='small'
     >
-      <CloseButton color='neutral-6' closeFn={() => {}} />
+      <CloseButton color='neutral-6' closeFn={DEFAULT_CLOSE_FN} />
     </Box>
   </Grommet>
 )
@@ -50,7 +62,7 @@ export const Disabled = ({ dark }) => (
     themeMode={dark ? 'dark' : 'light'}
   >
     <Box align='center' height='small' justify='center' width='small'>
-      <CloseButton disabled closeFn={() => {}} />
+      <CloseButton disabled closeFn={DEFAULT_CLOSE_FN} />
     </Box>
   </Grommet>
 )

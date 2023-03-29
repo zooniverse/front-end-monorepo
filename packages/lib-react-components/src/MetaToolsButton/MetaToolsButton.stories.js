@@ -3,13 +3,23 @@ import { Grommet } from 'grommet'
 import { Add } from 'grommet-icons'
 
 import MetaToolsButton from './'
+import readme from './README.md'
+
+const config = {
+  docs: {
+    description: {
+      component: readme
+    }
+  }
+}
 
 export default {
-  title: 'Components/MetaToolsButton',
+  title: 'Components / MetaToolsButton',
   component: MetaToolsButton,
   args: {
     dark: false
-  }
+  },
+  parameters: config
 }
 
 export const Default = ({ dark }) => (

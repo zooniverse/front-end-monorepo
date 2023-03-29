@@ -1,11 +1,11 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Button, Grommet } from 'grommet'
+import { Box, Grommet } from 'grommet'
 
-import { default as TriangleComponent } from './Triangle'
+import Triangle from './Triangle'
 
 export default {
-  title: 'Components/Tooltip/Triangle',
-  component: TriangleComponent,
+  title: 'Components / Tooltip / Triangle',
+  component: Triangle,
   args: {
     dark: false,
     height: '500px'
@@ -20,7 +20,7 @@ export default {
   }
 }
 
-export function Triangle({ dark, height, pointDirection }){
+export function DefaultTriangle({ dark, height, pointDirection }) {
   return (
     <TriangleStoryExample
       dark={dark}
@@ -38,11 +38,11 @@ function TriangleStoryExample(props) {
         dark: 'dark-1',
         light: 'light-1'
       }}
-      theme={Object.assign({}, zooTheme, { dark })}
-      themeMode={(dark) ? 'dark' : 'light'}
+      theme={zooTheme}
+      themeMode={dark ? 'dark' : 'light'}
     >
       <Box align='center' height='medium' justify='center' pad='medium'>
-        <TriangleComponent pointDirection={pointDirection} />
+        <Triangle pointDirection={pointDirection} />
       </Box>
     </Grommet>
   )

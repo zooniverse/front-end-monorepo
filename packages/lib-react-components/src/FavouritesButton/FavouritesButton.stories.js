@@ -2,6 +2,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 
 import FavouritesButton from './'
+import readme from './README.md'
 
 const CAT = {
   favorite: false,
@@ -14,12 +15,21 @@ const CAT = {
   ]
 }
 
+const config = {
+  docs: {
+    description: {
+      component: readme
+    }
+  }
+}
+
 export default {
   title: 'Components/Favourites Button',
   component: FavouritesButton,
   args: {
     dark: false
-  }
+  },
+  parameters: config
 }
 
 export const Default = ({ dark }) => (

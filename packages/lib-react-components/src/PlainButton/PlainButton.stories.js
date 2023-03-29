@@ -3,6 +3,15 @@ import { Box, Grommet } from 'grommet'
 import { Add } from 'grommet-icons'
 
 import PlainButton from './PlainButton'
+import readme from './README.md'
+
+const config = {
+  docs: {
+    description: {
+      component: readme
+    }
+  }
+}
 
 export default {
   title: 'Components / PlainButton',
@@ -27,7 +36,8 @@ export default {
     onClick: {
       action: 'clicked'
     }
-  }
+  },
+  parameters: config
 }
 
 export function Default({

@@ -1,93 +1,97 @@
-import zooTheme from '@zooniverse/grommet-theme';
-import { Grid, Grommet, Box, TableRow } from 'grommet';
-import styled from 'styled-components';
+import zooTheme from '@zooniverse/grommet-theme'
+import { Grid, Grommet, Box, TableRow } from 'grommet'
+import styled from 'styled-components'
 
-import Markdownz from './Markdownz';
-import readme from './README.md';
-import markdownExample from '../../.storybook/lib/example.md';
-import markdownInGrid from './markdownGridExample.md';
+import Markdownz from './Markdownz'
+import readme from './README.md'
+import markdownExample from '../../.storybook/lib/example.md'
+import markdownInGrid from './markdownGridExample.md'
 
 const TableRowWithBorder = styled(TableRow)`
   border-top: solid thin black;
   border-bottom: solid thin black;
-`;
+`
 
 const config = {
   docs: {
     description: {
-      component: readme,
-    },
-  },
-};
+      component: readme
+    }
+  }
+}
 
 export default {
-  title: 'Components/Markdownz',
-};
+  title: 'Components / Markdownz',
+  component: Markdownz,
+  args: {
+    dark: false
+  },
+  parameters: config
+}
 
-export const LightThemeDefault = () => (
-  <Grommet theme={zooTheme}>
+export const Default = ({ dark }) => (
+  <Grommet
+    background={{
+      dark: 'dark-1',
+      light: 'light-1'
+    }}
+    theme={zooTheme}
+    themeMode={dark ? 'dark' : 'light'}
+  >
     <Box>
       <Markdownz>{markdownExample}</Markdownz>
     </Box>
   </Grommet>
-);
+)
 
-LightThemeDefault.story = {
-  name: 'Light theme (default)',
-  parameters: config,
-};
-
-export const DarkTheme = () => (
-  <Grommet theme={zooTheme}>
-    <Box background={{ color: '#2D2D2D', dark: true }}>
-      <Markdownz>{markdownExample}</Markdownz>
-    </Box>
-  </Grommet>
-);
-
-DarkTheme.story = {
-  name: 'Dark theme',
-  parameters: config,
-};
-
-export const InProjectContext = () => (
-  <Grommet theme={zooTheme}>
+export const InProjectContext = ({ dark }) => (
+  <Grommet
+    background={{
+      dark: 'dark-1',
+      light: 'light-1'
+    }}
+    theme={zooTheme}
+    themeMode={dark ? 'dark' : 'light'}
+  >
     <Box>
-      <Markdownz projectSlug="zooniverse/snapshot-wakanda">{markdownExample}</Markdownz>
+      <Markdownz projectSlug='zooniverse/snapshot-wakanda'>
+        {markdownExample}
+      </Markdownz>
     </Box>
   </Grommet>
-);
+)
 
-InProjectContext.story = {
-  name: 'In project context',
-  parameters: config,
-};
-
-export const WithCustomComponents = () => (
-  <Grommet theme={zooTheme}>
+export const WithCustomComponents = ({ dark }) => (
+  <Grommet
+    background={{
+      dark: 'dark-1',
+      light: 'light-1'
+    }}
+    theme={zooTheme}
+    themeMode={dark ? 'dark' : 'light'}
+  >
     <Box>
-      <Markdownz components={{ tr: TableRowWithBorder }}>{markdownExample}</Markdownz>
+      <Markdownz components={{ tr: TableRowWithBorder }}>
+        {markdownExample}
+      </Markdownz>
     </Box>
   </Grommet>
-);
+)
 
-WithCustomComponents.story = {
-  name: 'With custom components',
-  parameters: config,
-};
-
-export const GridExample = () => (
-  <Grommet theme={zooTheme}>
-    <Grid columns={['small', 'flex']} gap="8%">
+export const GridExample = ({ dark }) => (
+  <Grommet
+    background={{
+      dark: 'dark-1',
+      light: 'light-1'
+    }}
+    theme={zooTheme}
+    themeMode={dark ? 'dark' : 'light'}
+  >
+    <Grid columns={['small', 'flex']} gap='8%'>
       <Box>Sidebar Here</Box>
       <Box>
         <Markdownz>{markdownInGrid}</Markdownz>
       </Box>
     </Grid>
   </Grommet>
-);
-
-GridExample.story = {
-  name: 'Grid example',
-  parameters: config,
-};
+)

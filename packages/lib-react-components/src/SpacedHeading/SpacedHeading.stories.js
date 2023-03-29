@@ -2,6 +2,15 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 
 import SpacedHeading from './SpacedHeading'
+import readme from './README.md'
+
+const config = {
+  docs: {
+    description: {
+      component: readme
+    }
+  }
+}
 
 export default {
   title: 'Components / SpacedHeading',
@@ -27,7 +36,8 @@ export default {
       options: ['normal', 'bold'],
       control: { type: 'radio' }
     }
-  }
+  },
+  parameters: config
 }
 
 export function Default({ children, color, dark, level, size, weight }) {

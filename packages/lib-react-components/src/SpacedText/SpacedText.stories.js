@@ -1,6 +1,16 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
+
 import SpacedText from './SpacedText'
+import readme from './README.md'
+
+const config = {
+  docs: {
+    description: {
+      component: readme
+    }
+  }
+}
 
 export default {
   title: 'Components / SpacedText',
@@ -25,7 +35,8 @@ export default {
       options: ['normal', 'bold'],
       control: { type: 'radio' }
     }
-  }
+  },
+  parameters: config
 }
 
 export const Default = ({ children, dark, size, uppercase, weight }) => (

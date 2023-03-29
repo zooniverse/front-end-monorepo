@@ -2,6 +2,15 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 
 import PrimaryButton from './PrimaryButton'
+import readme from './README.md'
+
+const config = {
+  docs: {
+    description: {
+      component: readme
+    }
+  }
+}
 
 export default {
   title: 'Components / PrimaryButton',
@@ -21,7 +30,8 @@ export default {
     onClick: {
       action: 'clicked'
     }
-  }
+  },
+  parameters: config
 }
 
 export const Default = ({ color, dark, disabled, href, label, onClick }) => (

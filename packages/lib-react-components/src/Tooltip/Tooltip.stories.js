@@ -2,11 +2,11 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Button, Grommet } from 'grommet'
 
 import readme from './README.md'
-import { default as TooltipComponent } from './Tooltip'
+import Tooltip from './Tooltip'
 
 export default {
-  title: 'Components/Tooltip',
-  component: TooltipComponent,
+  title: 'Components / Tooltip',
+  component: Tooltip,
   args: {
     dark: false,
     tooltipText: 'A helpful tip'
@@ -20,7 +20,7 @@ export default {
   }
 }
 
-export function Tooltip({ dark, tooltipText }) {
+export function Default({ dark, tooltipText }) {
   return (
     <TooltipStoryExample
       dark={dark}
@@ -30,7 +30,7 @@ export function Tooltip({ dark, tooltipText }) {
   )
 }
 
-export function RotatedWhenCloseToTheViewportEdge({ dark, tooltipText }) {
+export function TipMovesWhenCloseToTheViewportEdge({ dark, tooltipText }) {
   return (
     <TooltipStoryExample
       dark={dark}
@@ -47,15 +47,15 @@ function TooltipStoryExample (props) {
         dark: 'dark-1',
         light: 'light-1'
       }}
-      theme={Object.assign({}, zooTheme, { dark })}
-      themeMode={(dark) ? 'dark' : 'light'}
+      theme={zooTheme}
+      themeMode={dark ? 'dark' : 'light'}
     >
       <Box align='center' height={height} justify='center' pad='medium'>
-        <TooltipComponent
+        <Tooltip
           label={tooltipText}
         >
           <Button label='Focus me' onClick={() => { }} />
-        </TooltipComponent>
+        </Tooltip>
       </Box>
     </Grommet>
   )

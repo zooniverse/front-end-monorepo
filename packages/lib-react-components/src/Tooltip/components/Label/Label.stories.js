@@ -1,11 +1,11 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Button, Grommet } from 'grommet'
+import { Box, Grommet } from 'grommet'
 
-import { default as LabelComponent } from './Label'
+import Label from './Label'
 
 export default {
   title: 'Components/Tooltip/Label',
-  component: LabelComponent,
+  component: Label,
   args: {
     arrow: true,
     dark: false,
@@ -13,7 +13,7 @@ export default {
   }
 }
 
-export function Label({ arrow, dark, label }){
+export function DefaultLabel({ arrow, dark, label }) {
   return (
     <LabelStoryExample
       arrow={arrow}
@@ -31,11 +31,11 @@ function LabelStoryExample(props) {
         dark: 'dark-1',
         light: 'light-1'
       }}
-      theme={Object.assign({}, zooTheme, { dark })}
-      themeMode={(dark) ? 'dark' : 'light'}
+      theme={zooTheme}
+      themeMode={dark ? 'dark' : 'light'}
     >
       <Box align='center' height='medium' justify='center' pad='medium'>
-        <LabelComponent arrow={arrow} label={label} />
+        <Label arrow={arrow} label={label} />
       </Box>
     </Grommet>
   )

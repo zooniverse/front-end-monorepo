@@ -3,13 +3,23 @@ import { Grommet, Box, Text } from 'grommet'
 
 import Media from './Media'
 import ZooniverseLogo from '../ZooniverseLogo'
+import readme from './README.md'
+
+const config = {
+  docs: {
+    description: {
+      component: readme
+    }
+  }
+}
 
 export default {
   title: 'Components / Media',
   component: Media,
   args: {
     dark: false
-  }
+  },
+  parameters: config
 }
 
 const AUDIO_URL =
@@ -60,7 +70,14 @@ export function Image({ dark }) {
 
 export function Video({ dark }) {
   return (
-    <Grommet theme={zooTheme}>
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={zooTheme}
+      themeMode={dark ? 'dark' : 'light'}
+    >
       <Box>
         <Text>Width set as 270</Text>
         <Media alt='Zooniverse in a nutshell' src={VIDEO_URL} width={270} />
@@ -71,7 +88,14 @@ export function Video({ dark }) {
 
 export function Audio({ dark }) {
   return (
-    <Grommet theme={zooTheme}>
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={zooTheme}
+      themeMode={dark ? 'dark' : 'light'}
+    >
       <Box>
         <Media alt='City noise' src={AUDIO_URL} width={270} />
       </Box>
@@ -81,9 +105,21 @@ export function Audio({ dark }) {
 
 export function Data({ dark }) {
   return (
-    <Grommet theme={zooTheme}>
+    <Grommet
+      background={{
+        dark: 'dark-1',
+        light: 'light-1'
+      }}
+      theme={zooTheme}
+      themeMode={dark ? 'dark' : 'light'}
+    >
       <Box>
-        <Media alt='SuperWASP Black Hole Hunters' src={DATA_URL} height={250} width={270} />
+        <Media
+          alt='SuperWASP Black Hole Hunters'
+          src={DATA_URL}
+          height={250}
+          width={270}
+        />
       </Box>
     </Grommet>
   )
