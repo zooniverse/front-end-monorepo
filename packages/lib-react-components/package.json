@@ -15,7 +15,7 @@
     "build": "yarn build:cjs && yarn build:es6",
     "build:cjs": "babel ./src/ --out-dir ./dist/cjs --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
     "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
-    "build:storybook": "build-storybook",
+    "build-storybook": "build-storybook",
     "lint": "zoo-standard --fix {.storybook,src,stories,test}/**/*.{js,jsx} | snazzy",
     "prepare": "yarn build",
     "start": "start-storybook -p 6006",
