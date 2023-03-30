@@ -17,9 +17,8 @@ module.exports = {
   stories: ['../src/**/*.stories.js'],
   addons: [
     '@storybook/addon-essentials',
-    '@storybook/addon-knobs',
     '@storybook/addon-a11y',
     'storybook-react-i18next'
   ],
   webpackFinal
-};
+}
