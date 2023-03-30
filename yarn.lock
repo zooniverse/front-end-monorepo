@@ -2282,15 +2282,15 @@
     "@sentry/utils" "7.46.0"
     tslib "^1.9.3"
 
-"@sentry/node@~7.45.0":
-  version "7.45.0"
-  resolved "https://registry.yarnpkg.com/@sentry/node/-/node-7.45.0.tgz#7315cac471dadcbcc6ca2b2439fd2550ab3ddd1f"
-  integrity sha512-x8mq+DrJWpSi716Rap/2w70DKWD8vjl87Y70OYFu+Dn6CxWDHClObSxLzuJcE5lww0Sq9RnU6UHQWzjXSb/pVQ==
+"@sentry/node@~7.46.0":
+  version "7.46.0"
+  resolved "https://registry.yarnpkg.com/@sentry/node/-/node-7.46.0.tgz#f85ee74926372d19d6b6a23f68f19023d7a528a7"
+  integrity sha512-+GrgJMCye2WXGarRiU5IJHCK27xg7xbPc2XjGojBKbBoZfqxVAWbXEK4bnBQgRGP1pCmrU/M6ZhVgR3dP580xA==
   dependencies:
-    "@sentry-internal/tracing" "7.45.0"
-    "@sentry/core" "7.45.0"
-    "@sentry/types" "7.45.0"
-    "@sentry/utils" "7.45.0"
+    "@sentry-internal/tracing" "7.46.0"
+    "@sentry/core" "7.46.0"
+    "@sentry/types" "7.46.0"
+    "@sentry/utils" "7.46.0"
     cookie "^0.4.1"
     https-proxy-agent "^5.0.0"
     lru_map "^0.3.3"
