@@ -1,5 +1,4 @@
-import { Grommet, Grid } from 'grommet'
-import zooTheme from '@zooniverse/grommet-theme'
+import { Grid } from 'grommet'
 import AboutNavLink from './AboutNavLink'
 
 const defaultLink = {
@@ -31,25 +30,13 @@ export default {
 
 export const Default = ({ dark }) => (
   <Grid columns={['small', 'flex']}>
-    <Grommet
-      background={{ dark: 'dark-3', light: 'neutral-6' }}
-      theme={{ ...zooTheme, dark }}
-      themeMode={dark ? 'dark' : 'light'}
-    >
-      <AboutNavLink router={mockedRouter} link={defaultLink} />
-    </Grommet>
+    <AboutNavLink router={mockedRouter} link={defaultLink} />
   </Grid>
 )
 
 export const Current = ({ dark }) => (
   <Grid columns={['small', 'flex']}>
-    <Grommet
-      background={{ dark: 'dark-3', light: 'neutral-6' }}
-      theme={{ ...zooTheme, dark }}
-      themeMode={dark ? 'dark' : 'light'}
-    >
-      <AboutNavLink router={mockedRouter} link={currentLink} />
-    </Grommet>
+    <AboutNavLink router={mockedRouter} link={currentLink} />
   </Grid>
 )
 

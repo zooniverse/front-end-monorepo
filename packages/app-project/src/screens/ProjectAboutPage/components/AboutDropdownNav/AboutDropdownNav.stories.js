@@ -1,11 +1,10 @@
-import { Grommet, Box } from 'grommet'
-import zooTheme from '@zooniverse/grommet-theme'
+import { Box } from 'grommet'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
 import AboutDropdownNav from '../AboutDropdownNav'
 
-function RouterMock ({ children }) {
+function RouterMock({ children }) {
   const mockRouter = {
     asPath: '/projects/zooniverse/snapshot-serengeti/about/research',
     push: () => {},
@@ -20,7 +19,7 @@ function RouterMock ({ children }) {
 
   return (
     <RouterContext.Provider value={mockRouter}>
-      {children}
+      <Box pad='xsmall'>{children}</Box>
     </RouterContext.Provider>
   )
 }
@@ -33,36 +32,17 @@ const mockAboutNavLinks = ['research', 'team', 'education', 'faq']
 
 export default {
   title: 'Project App / Screens / About Pages / AboutDropdownNav',
-  component: AboutDropdownNav,
-  args: {
-    dark: false
-  }
+  component: AboutDropdownNav
 }
 
 export const Default = ({ dark }) => (
   <RouterMock>
-    <Grommet
-      background={{ dark: 'dark-3', light: 'neutral-6' }}
-      theme={{ ...zooTheme, dark }}
-      themeMode={dark ? 'dark' : 'light'}
-    >
-      <Box pad='xsmall'>
-        <AboutDropdownNav aboutNavLinks={[]} />
-      </Box>
-    </Grommet>
+    <AboutDropdownNav aboutNavLinks={[]} />
   </RouterMock>
 )
 
 export const MoreLinks = ({ dark }) => (
   <RouterMock>
-    <Grommet
-      background={{ dark: 'dark-3', light: 'neutral-6' }}
-      theme={{ ...zooTheme, dark }}
-      themeMode={dark ? 'dark' : 'light'}
-    >
-      <Box pad='xsmall'>
-        <AboutDropdownNav aboutNavLinks={mockAboutNavLinks} />
-      </Box>
-    </Grommet>
+    <AboutDropdownNav aboutNavLinks={mockAboutNavLinks} />
   </RouterMock>
 )

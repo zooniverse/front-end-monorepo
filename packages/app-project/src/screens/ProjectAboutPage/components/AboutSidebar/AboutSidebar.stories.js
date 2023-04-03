@@ -1,11 +1,10 @@
-import { Grommet, Grid } from 'grommet'
-import zooTheme from '@zooniverse/grommet-theme'
+import { Grid } from 'grommet'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
 import AboutSidebar from './AboutSidebar'
 
-function RouterMock ({ children }) {
+function RouterMock({ children }) {
   const mockRouter = {
     asPath: '/projects/zooniverse/snapshot-serengeti/about/research',
     push: () => {},
@@ -33,36 +32,21 @@ const mockAboutNavLinks = ['research', 'team', 'education', 'faq']
 
 export default {
   title: 'Project App / Screens / About Pages / AboutSidebar',
-  component: AboutSidebar,
-  args: {
-    dark: false
-  }
+  component: AboutSidebar
 }
 
-export const Default = ({ dark }) => (
+export const Default = () => (
   <RouterMock>
     <Grid columns={['small', 'flex']}>
-      <Grommet
-        background={{ dark: 'dark-3', light: 'neutral-6' }}
-        theme={{ ...zooTheme, dark }}
-        themeMode={dark ? 'dark' : 'light'}
-      >
-        <AboutSidebar aboutNavLinks={[]} />
-      </Grommet>
+      <AboutSidebar aboutNavLinks={[]} />
     </Grid>
   </RouterMock>
 )
 
-export const MoreLinks = ({ dark }) => (
+export const MoreLinks = () => (
   <RouterMock>
     <Grid columns={['small', 'flex']}>
-      <Grommet
-        background={{ dark: 'dark-3', light: 'neutral-6' }}
-        theme={{ ...zooTheme, dark }}
-        themeMode={dark ? 'dark' : 'light'}
-      >
-        <AboutSidebar aboutNavLinks={mockAboutNavLinks} />
-      </Grommet>
+      <AboutSidebar aboutNavLinks={mockAboutNavLinks} />
     </Grid>
   </RouterMock>
 )

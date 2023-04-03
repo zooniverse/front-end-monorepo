@@ -1,11 +1,10 @@
-import { Box, Grommet, Grid } from 'grommet'
-import zooTheme from '@zooniverse/grommet-theme'
+import { Box, Grid } from 'grommet'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
 import TeamMember from './TeamMember'
 
-function RouterMock ({ children }) {
+function RouterMock(Story) {
   const mockRouter = {
     asPath: '/projects/zooniverse/snapshot-serengeti/about/research',
     push: () => {},
@@ -20,7 +19,7 @@ function RouterMock ({ children }) {
 
   return (
     <RouterContext.Provider value={mockRouter}>
-      {children}
+      <Story />
     </RouterContext.Provider>
   )
 }
@@ -58,62 +57,36 @@ const ownerUser = {
 export default {
   title: 'Project App / Screens / About Pages / TeamMember',
   component: TeamMember,
-  args: {
-    dark: false
-  }
+  decorators: [RouterMock]
 }
 
-export const Default = ({ dark }) => (
-  <RouterMock>
-    <Grid columns={['flex', 'small']}>
-      <Box />
-      <Grommet
-        background={{ dark: 'dark-3', light: 'neutral-6' }}
-        theme={{ ...zooTheme, dark }}
-        themeMode={dark ? 'dark' : 'light'}
-      >
-        <Box as='ul' pad={{ top: 'small', left: 'small' }}>
-          <TeamMember user={defaultUser} />
-        </Box>
-      </Grommet>
-    </Grid>
-  </RouterMock>
+export const Default = () => (
+  <Grid columns={['flex', 'small']}>
+    <Box />
+    <Box as='ul' pad={{ top: 'small', left: 'small' }}>
+      <TeamMember user={defaultUser} />
+    </Box>
+  </Grid>
 )
 
-export const Placeholder = ({ dark }) => {
+export const Placeholder = () => {
   return (
-    <RouterMock>
-      <Grid columns={['flex', 'small']}>
-        <Box />
-        <Grommet
-          background={{ dark: 'dark-3', light: 'neutral-6' }}
-          theme={{ ...zooTheme, dark }}
-          themeMode={dark ? 'dark' : 'light'}
-        >
-          <Box as='ul' pad={{ top: 'small', left: 'small' }}>
-            <TeamMember user={placeholderUser} />
-          </Box>
-        </Grommet>
-      </Grid>
-    </RouterMock>
+    <Grid columns={['flex', 'small']}>
+      <Box />
+      <Box as='ul' pad={{ top: 'small', left: 'small' }}>
+        <TeamMember user={placeholderUser} />
+      </Box>
+    </Grid>
   )
 }
 
-export const Owner = ({ dark }) => {
+export const Owner = () => {
   return (
-    <RouterMock>
-      <Grid columns={['flex', 'small']}>
-        <Box />
-        <Grommet
-          background={{ dark: 'dark-3', light: 'neutral-6' }}
-          theme={{ ...zooTheme, dark }}
-          themeMode={dark ? 'dark' : 'light'}
-        >
-          <Box as='ul' pad={{ top: 'small', left: 'small' }}>
-            <TeamMember user={ownerUser} />
-          </Box>
-        </Grommet>
-      </Grid>
-    </RouterMock>
+    <Grid columns={['flex', 'small']}>
+      <Box />
+      <Box as='ul' pad={{ top: 'small', left: 'small' }}>
+        <TeamMember user={ownerUser} />
+      </Box>
+    </Grid>
   )
 }
