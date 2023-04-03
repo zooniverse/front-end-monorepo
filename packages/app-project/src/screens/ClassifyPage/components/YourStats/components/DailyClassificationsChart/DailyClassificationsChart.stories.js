@@ -1,5 +1,4 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
+import { Box } from 'grommet'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
 import Router from 'next/router'
 
@@ -34,7 +33,9 @@ function RouterMock({ children }) {
 
   return (
     <RouterContext.Provider value={mockRouter}>
-      {children}
+      <Box pad='small'>
+        {children}
+      </Box>
     </RouterContext.Provider>
   )
 }
@@ -52,13 +53,11 @@ export default {
 export function Plain({ counts, projectName, thisWeek }) {
   return (
     <RouterMock>
-      <Grommet theme={zooTheme}>
-        <DailyClassificationsChartContainer
-          counts={counts}
-          thisWeek={thisWeek}
-          projectName={projectName}
-        />
-      </Grommet>
+      <DailyClassificationsChartContainer
+        counts={counts}
+        thisWeek={thisWeek}
+        projectName={projectName}
+      />
     </RouterMock>
   )
 }
