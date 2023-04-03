@@ -24,15 +24,10 @@ export default {
         options: asyncStates
       }
     }
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
   }
 }
 
-export function Loading({ dark, isThereTaskHelp, required, subjectReadyState }) {
+export function Loading({ dark }) {
   return (
     <MockTask
       dark={dark}
@@ -41,7 +36,7 @@ export function Loading({ dark, isThereTaskHelp, required, subjectReadyState }) 
   )
 }
 
-export function Error({ dark, isThereTaskHelp, required, subjectReadyState }) {
+export function Error({ dark }) {
   return (
     <MockTask
       dark={dark}

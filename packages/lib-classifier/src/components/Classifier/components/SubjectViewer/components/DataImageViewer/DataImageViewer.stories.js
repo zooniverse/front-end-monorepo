@@ -1,4 +1,3 @@
-import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { Factory } from 'rosie'
@@ -9,12 +8,6 @@ import ImageToolbar from '../../../ImageToolbar'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
-
-const config = {
-  notes: {
-    markdown: readme
-  }
-}
 
 const subject = Factory.build('subject', {
   locations: [
@@ -75,12 +68,16 @@ function ViewerContext ({
   )
 }
 
-const { colors } = zooTheme.global
-
 export default {
   title: 'Subject Viewers / DataImageViewer',
   component: DataImageViewer,
-  parameters: config
+  parameters: {
+    docs: {
+      description: {
+        component: readme
+      }
+    }
+  }
 }
 
 export function LightTheme() {
@@ -108,11 +105,7 @@ export function DarkTheme() {
 }
 
 DarkTheme.parameters = {
-  backgrounds: backgrounds.darkDefault,
-  viewport: {
-    defaultViewport: 'responsive'
-  },
-  ...config
+  backgrounds: backgrounds.darkDefault
 }
 
 export function NarrowView() {
@@ -130,8 +123,7 @@ export function NarrowView() {
 NarrowView.parameters = {
   viewport: {
     defaultViewport: 'iphone5'
-  },
-  ...config
+  }
 }
 
 export function PanZoom() {
@@ -146,7 +138,6 @@ export function PanZoom() {
     </ViewerContext>
   )
 }
-PanZoom.storyName = 'Pan / Zoom'
 
 export function InvertYAxis() {
   const lasairMock = {

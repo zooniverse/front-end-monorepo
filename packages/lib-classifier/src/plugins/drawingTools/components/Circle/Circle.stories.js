@@ -79,12 +79,7 @@ const stores = setupStores()
 
 export default {
   title: 'Drawing tools / Circle',
-  component: Circle,
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
-  }
+  component: Circle
 }
 
 export function Complete(args) {

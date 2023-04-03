@@ -1,37 +1,35 @@
-import zooTheme from '@zooniverse/grommet-theme';
-import { Box, Grommet } from 'grommet';
-import * as d3 from 'd3';
-import { zip } from 'lodash';
-import LightCurveViewer from './LightCurveViewer';
-import kepler from '../../helpers/mockLightCurves/kepler';
-import readme from './README.md';
-import backgrounds from '../../../../../../../.storybook/lib/backgrounds';
+import zooTheme from '@zooniverse/grommet-theme'
+import { Box, Grommet } from 'grommet'
+import * as d3 from 'd3'
+import { zip } from 'lodash'
+import LightCurveViewer from './LightCurveViewer'
+import kepler from '../../helpers/mockLightCurves/kepler'
+import readme from './README.md'
 
-const config = {
-  notes: {
-    markdown: readme,
-  },
-};
-const mockData = kepler;
+const mockData = kepler
 
-const darkThemeConfig = Object.assign({}, config, { backgrounds: backgrounds.darkDefault });
-
-const dataPoints = zip(mockData.x, mockData.y);
+const dataPoints = zip(mockData.x, mockData.y)
 const dataExtent = {
   x: d3.extent(mockData.x),
-  y: d3.extent(mockData.y),
-};
+  y: d3.extent(mockData.y)
+}
 
 export default {
   title: 'Subject Viewers / LightCurveViewer',
   component: LightCurveViewer,
-  parameters: config
-};
+  parameters: {
+    docs: {
+      description: {
+        component: readme
+      }
+    }
+  }
+}
 
-export const LightTheme = () => {
+export const Default = () => {
   return (
     <Grommet theme={zooTheme}>
-      <Box height="medium" width="large">
+      <Box height='medium' width='large'>
         <LightCurveViewer
           dataExtent={dataExtent}
           dataPoints={dataPoints}
@@ -40,21 +38,5 @@ export const LightTheme = () => {
         />
       </Box>
     </Grommet>
-  );
-};
-
-export const DarkTheme = () => {
-  const darkZooTheme = Object.assign({}, zooTheme, { dark: true });
-  return (
-    <Grommet theme={darkZooTheme}>
-      <Box height="medium" width="large">
-        <LightCurveViewer
-          dataExtent={dataExtent}
-          dataPoints={dataPoints}
-          setOnPan={() => {}}
-          setOnZoom={() => {}}
-        />
-      </Box>
-    </Grommet>
-  );
-};
+  )
+}

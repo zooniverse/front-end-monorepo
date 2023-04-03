@@ -81,12 +81,7 @@ const stores = setupStores()
 
 export default {
   title: 'Drawing tools / Ellipse',
-  component: Ellipse,
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
-  }
+  component: Ellipse
 }
 
 export function Complete(args) {

@@ -18,15 +18,10 @@ export default {
         options: asyncStates
       }
     }
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
   }
 }
 
-export function LightTheme({ dark, isThereTaskHelp, required, subjectReadyState }) {
+export function Default({ dark, isThereTaskHelp, required, subjectReadyState }) {
   const simpleDropdownTask = {
     allowCreate: false,
     options: [

@@ -3,7 +3,7 @@ import { Box, Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import asyncStates from '@zooniverse/async-states'
 
-import { SubjectFactory, WorkflowFactory } from '@test/factories'
+import { SubjectFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 
 import MultiFrameViewerContainer from './MultiFrameViewerContainer'

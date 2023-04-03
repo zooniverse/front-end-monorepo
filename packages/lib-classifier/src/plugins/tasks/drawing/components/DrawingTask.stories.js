@@ -19,11 +19,6 @@ export default {
         options: asyncStates
       }
     }
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
   }
 }
 
