@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.21.0",
-    "@sentry/browser": "~7.45.0",
+    "@sentry/browser": "~7.46.0",
     "@visx/axis": "~2.18.0",
     "@visx/event": "~3.0.0",
     "@visx/glyph": "~3.0.0",
@@ -63,7 +63,7 @@
     "@babel/core": "~7.21.0",
     "@babel/plugin-proposal-logical-assignment-operators": "~7.20.7",
     "@babel/plugin-transform-runtime": "~7.21.0",
-    "@babel/preset-env": "~7.20.2",
+    "@babel/preset-env": "~7.21.4",
     "@babel/preset-react": "~7.18.6",
     "@babel/register": "~7.21.0",
     "@storybook/addon-a11y": "~6.5.0",
@@ -118,7 +118,7 @@
     "style-loader": "~3.3.1",
     "styled-components": "~5.3.3",
     "superagent": "~8.0.0",
-    "webpack": "~5.76.0",
+    "webpack": "~5.77.0",
     "webpack-cli": "~5.0.0",
     "webpack-dev-server": "~4.13.1"
   },

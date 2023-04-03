@@ -9,3 +9,6 @@ test
 .editorconfig
 .travis.yml
 webpack.dist.js
+
+**/mockLightCurves/*
+**/screenshot.png
