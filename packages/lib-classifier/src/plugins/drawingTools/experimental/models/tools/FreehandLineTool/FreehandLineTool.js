@@ -15,7 +15,7 @@ const FreehandLineTool = types
 
       // points assumes [{ x, y }, { x, y }]
       let points = mark.points || []
-      
+
       if (mark.pathX && mark.pathY) {
         points = mark.pathX.map((x, i) => {
           return { x: mark.pathX[i], y: mark.pathY[i] }

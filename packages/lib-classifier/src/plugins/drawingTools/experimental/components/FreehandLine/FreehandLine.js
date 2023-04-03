@@ -1,9 +1,9 @@
-import { Fragment } from 'react';
+import { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import styled from 'styled-components'
 import DragHandle from '../../../components/DragHandle'
-import { useTranslation } from '@translations/i18n' 
+import { useTranslation } from '@translations/i18n'
 
 const GRAB_STROKE_WIDTH = 10
 const FINISHER_RADIUS = 4
@@ -92,7 +92,7 @@ function FreehandLine({ active, mark, onFinish, scale }) {
     }
   }
 
-  const { t } = useTranslation('plugins') 
+  const { t } = useTranslation('plugins')
   function getHoverText() {
     // Handles the 4 scenarios of path open vs closed and splicing vs non-splicing
     if (!active) {
