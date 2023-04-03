@@ -1,5 +1,3 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 
 import AuthenticationInvitationConnector from './AuthenticationInvitationConnector'
@@ -8,9 +6,6 @@ import readme from './README.md'
 export default {
   title: 'Project App / Screens / Project Home / Announcements / AuthenticationInvitation',
   component: AuthenticationInvitationConnector,
-  args: {
-    dark: false
-  },
   parameters: {
     docs: {
       description: {
@@ -32,28 +27,8 @@ const stores = {
   }
 }
 
-
-function StoryContext(props) {
-  const { children, theme } = props
-
-  return (
-    <Provider store={stores}>
-      <Grommet
-        background={{
-          dark: 'dark-1',
-          light: 'light-1'
-        }}
-        theme={theme}
-        themeMode={(theme.dark) ? 'dark' : 'light'}
-      >
-        {children}
-      </Grommet>
-    </Provider>
-  )
-}
-
-export const Default = ({ dark }) => (
-  <StoryContext theme={{ ...zooTheme, dark }}>
+export const Default = () => (
+  <Provider store={stores}>
     <AuthenticationInvitationConnector />
-  </StoryContext>
+  </Provider>
 )

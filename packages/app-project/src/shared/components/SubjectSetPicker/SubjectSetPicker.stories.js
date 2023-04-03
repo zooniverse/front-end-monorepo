@@ -1,56 +1,42 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
+import { Box } from 'grommet'
 
 import SubjectSetPicker from './'
 import * as subcomponents from './components'
 import { mockWorkflow } from './helpers'
 
-function StoryContext (props) {
-  const { children, theme } = props
-
+function DecoratedStory(Story) {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={theme}
-      themeMode={(theme.dark) ? 'dark' : 'light'}
-    >
-      {children}
-    </Grommet>
+    <Box pad='small'>
+      <Story />
+    </Box>
   )
 }
 
 export default {
   title: 'Project App / Shared / Subject Set Picker',
   component: SubjectSetPicker,
+  decorators: [DecoratedStory],
   subcomponents,
   args: {
-    dark: false,
     workflow: mockWorkflow
   }
 }
 
-export function Default({ dark, workflow }) {
+export function Default({ workflow }) {
   return (
-    <StoryContext theme={{ ...zooTheme, dark }}>
-      <SubjectSetPicker
-        baseUrl='/projects/test-owner/test-project/classify'
-        workflow={workflow}
-      />
-    </StoryContext>
+    <SubjectSetPicker
+      baseUrl='/projects/test-owner/test-project/classify'
+      workflow={workflow}
+    />
   )
 }
 
-export function Tablet({ active, dark, title, workflow }) {
+export function Tablet({ workflow }) {
   return (
-    <StoryContext theme={{ ...zooTheme, dark }}>
-      <SubjectSetPicker
-        baseUrl='/projects/test-owner/test-project/classify'
-        workflow={workflow}
-      />
-    </StoryContext>
+    <SubjectSetPicker
+      baseUrl='/projects/test-owner/test-project/classify'
+      workflow={workflow}
+    />
   )
 }
 Tablet.parameters = {

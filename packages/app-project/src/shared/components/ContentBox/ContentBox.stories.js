@@ -1,6 +1,3 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
-
 import ContentBox from './ContentBox'
 
 const CONTENT = (
@@ -22,22 +19,14 @@ export default {
   title: 'Project App / Shared / ContentBox'
 }
 
-export const Plain = () => (
-  <Grommet theme={zooTheme}>
-    <ContentBox>{CONTENT}</ContentBox>
-  </Grommet>
-)
+export const Plain = () => <ContentBox>{CONTENT}</ContentBox>
 
 export const ContentWithTitle = () => (
-  <Grommet theme={zooTheme}>
-    <ContentBox title={TITLE}>{CONTENT}</ContentBox>
-  </Grommet>
+  <ContentBox title={TITLE}>{CONTENT}</ContentBox>
 )
 
 export const ContentWithTitleAndALink = () => (
-  <Grommet theme={zooTheme}>
-    <ContentBox linkLabel={LINK_LABEL} linkUrl={LINK_URL} title={TITLE}>
-      {CONTENT}
-    </ContentBox>
-  </Grommet>
+  <ContentBox linkLabel={LINK_LABEL} linkUrl={LINK_URL} title={TITLE}>
+    {CONTENT}
+  </ContentBox>
 )

@@ -1,5 +1,4 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
+import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 import { applySnapshot } from 'mobx-state-tree'
 
@@ -8,9 +7,9 @@ import initStore from '@stores'
 
 function ThemedStory(Story) {
   return (
-    <Grommet theme={zooTheme} background='dark-3'>
+    <Box background='dark-3'>
       <Story />
-    </Grommet>
+    </Box>
   )
 }
 
