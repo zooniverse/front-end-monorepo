@@ -1,5 +1,3 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
 import readme from './README.md'
 
 import CollectionsButton from './'
@@ -27,8 +25,4 @@ export default {
   }
 }
 
-export const Plain = () => (
-  <Grommet theme={{ ...zooTheme, dark: false }}>
-    <CollectionsButton disabled={false} subject={CAT} />
-  </Grommet>
-)
+export const Plain = () => <CollectionsButton disabled={false} subject={CAT} />

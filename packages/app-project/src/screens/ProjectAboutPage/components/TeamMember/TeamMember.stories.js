@@ -4,7 +4,7 @@ import Router from 'next/router'
 import PropTypes from 'prop-types'
 import TeamMember from './TeamMember'
 
-function RouterMock(Story) {
+function RouterMock({ children }) {
   const mockRouter = {
     asPath: '/projects/zooniverse/snapshot-serengeti/about/research',
     push: () => {},
@@ -19,7 +19,7 @@ function RouterMock(Story) {
 
   return (
     <RouterContext.Provider value={mockRouter}>
-      <Story />
+      {children}
     </RouterContext.Provider>
   )
 }
@@ -61,32 +61,38 @@ export default {
 }
 
 export const Default = () => (
-  <Grid columns={['flex', 'small']}>
-    <Box />
-    <Box as='ul' pad={{ top: 'small', left: 'small' }}>
-      <TeamMember user={defaultUser} />
-    </Box>
-  </Grid>
+  <RouterMock>
+    <Grid columns={['flex', 'small']}>
+      <Box />
+      <Box as='ul' pad={{ top: 'small', left: 'small' }}>
+        <TeamMember user={defaultUser} />
+      </Box>
+    </Grid>
+  </RouterMock>
 )
 
 export const Placeholder = () => {
   return (
-    <Grid columns={['flex', 'small']}>
-      <Box />
-      <Box as='ul' pad={{ top: 'small', left: 'small' }}>
-        <TeamMember user={placeholderUser} />
-      </Box>
-    </Grid>
+    <RouterMock>
+      <Grid columns={['flex', 'small']}>
+        <Box />
+        <Box as='ul' pad={{ top: 'small', left: 'small' }}>
+          <TeamMember user={placeholderUser} />
+        </Box>
+      </Grid>
+    </RouterMock>
   )
 }
 
 export const Owner = () => {
   return (
-    <Grid columns={['flex', 'small']}>
-      <Box />
-      <Box as='ul' pad={{ top: 'small', left: 'small' }}>
-        <TeamMember user={ownerUser} />
-      </Box>
-    </Grid>
+    <RouterMock>
+      <Grid columns={['flex', 'small']}>
+        <Box />
+        <Box as='ul' pad={{ top: 'small', left: 'small' }}>
+          <TeamMember user={ownerUser} />
+        </Box>
+      </Grid>
+    </RouterMock>
   )
 }

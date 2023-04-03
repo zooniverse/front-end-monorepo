@@ -1,5 +1,3 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 
 import FinishedAnnouncementConnector from './FinishedAnnouncementConnector'
@@ -27,8 +25,6 @@ export default {
 
 export const Default = () => (
   <Provider store={mockStore}>
-    <Grommet theme={zooTheme}>
-      <FinishedAnnouncementConnector />
-    </Grommet>
+    <FinishedAnnouncementConnector />
   </Provider>
 )

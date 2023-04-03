@@ -28,13 +28,13 @@ export default {
   }
 }
 
-export const Default = ({ dark }) => (
+export const Default = () => (
   <Grid columns={['small', 'flex']}>
     <AboutNavLink router={mockedRouter} link={defaultLink} />
   </Grid>
 )
 
-export const Current = ({ dark }) => (
+export const Current = () => (
   <Grid columns={['small', 'flex']}>
     <AboutNavLink router={mockedRouter} link={currentLink} />
   </Grid>
