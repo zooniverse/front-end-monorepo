@@ -29,11 +29,6 @@ export default {
   args: {
     dark: false,
     workflow: mockWorkflow
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
   }
 }
 
@@ -63,4 +58,3 @@ Tablet.parameters = {
     defaultViewport: 'ipad'
   }
 }
-

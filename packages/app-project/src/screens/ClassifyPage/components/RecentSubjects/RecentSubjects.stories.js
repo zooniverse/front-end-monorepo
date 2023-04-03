@@ -112,11 +112,6 @@ export default {
   args: {
     dark: false,
     isLoggedIn: true
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
   }
 }
 
