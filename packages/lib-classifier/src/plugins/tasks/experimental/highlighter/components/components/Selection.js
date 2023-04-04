@@ -2,6 +2,15 @@ import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 
+const defaultTheme = {
+  dark: false,
+  global: {
+    colors: {
+      text: {}
+    }
+  }
+}
+
 const StyledSpan = styled.span`
   background-color: ${props => props.color};
   border-radius: 8px;
@@ -23,9 +32,9 @@ const StyledDeleteButton = styled.button`
 
 function Selection ({
   color,
-  handleDelete,
+  handleDelete = () => {},
   text,
-  theme
+  theme = defaultTheme
 }) {
   const { t } = useTranslation('plugins')
 
@@ -49,9 +58,9 @@ function Selection ({
 }
 
 Selection.propTypes = {
-  color: PropTypes.string,
+  color: PropTypes.string.isRequired,
   handleDelete: PropTypes.func,
-  text: PropTypes.string
+  text: PropTypes.string.isRequired
 }
 
 export default withTheme(Selection)
