@@ -74,9 +74,27 @@ describe('Model > HighlighterTask', function () {
     })
 
     it('should update annotations', function () {
-      annotation.update([{ start: 0, end: 5, text: 'Hello' }, { start: 6, end: 11, text: 'there!' }])
-      expect(annotation.value[0].text).to.equal('Hello')
-      expect(annotation.value[1].text).to.equal('there!')
+      const highlight1 = {
+        start: 0,
+        end: 14,
+        text: 'This is a test',
+        labelInformation: {
+          color: '#00979d',
+          label: 'test1'
+        }
+      }
+      const highlight2 = {
+        start: 20,
+        end: 41,
+        text: 'This is another test',
+        labelInformation: {
+          color: '#FFB6AA	',
+          label: 'test2'
+        }
+      }
+      annotation.update([ highlight1, highlight2 ])
+      expect(annotation.value[0].text).to.equal('This is a test')
+      expect(annotation.value[1].text).to.equal('This is another test')
     })
   })
 })

@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import { composeStory } from '@storybook/testing-react'
 import { render, screen } from '@testing-library/react'
 
