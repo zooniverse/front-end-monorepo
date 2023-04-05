@@ -1,15 +1,14 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Button, Grommet } from 'grommet'
+import { Box } from 'grommet'
 
 import readme from './README.md'
 import ZooniverseLogo from './ZooniverseLogo'
 
 export default {
-  title: 'Components/ZooniverseLogo',
+  title: 'Components / ZooniverseLogo',
   component: ZooniverseLogo,
   args: {
     id: 'the-zooniverse',
-    size: '200px',
+    size: '200px'
   },
   parameters: {
     docs: {
@@ -20,7 +19,7 @@ export default {
   }
 }
 
-export function ZooniverseLogo_ ({ id, size }) {
+export function Default({ id, size }) {
   return (
     <Box align='center' justify='center' pad='medium'>
       <ZooniverseLogo id={id} size={size} />
