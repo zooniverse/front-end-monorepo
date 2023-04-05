@@ -1,14 +1,12 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Button, Grommet } from 'grommet'
+import { Box, Button } from 'grommet'
 
 import readme from './README.md'
-import { default as TooltipComponent } from './Tooltip'
+import Tooltip from './Tooltip'
 
 export default {
-  title: 'Components/Tooltip',
-  component: TooltipComponent,
+  title: 'Components / Tooltip',
+  component: Tooltip,
   args: {
-    dark: false,
     tooltipText: 'A helpful tip'
   },
   parameters: {
@@ -20,43 +18,21 @@ export default {
   }
 }
 
-export function Tooltip({ dark, tooltipText }) {
-  return (
-    <TooltipStoryExample
-      dark={dark}
-      height='500px'
-      tooltipText={tooltipText}
-    />
-  )
+export function Default({ tooltipText }) {
+  return <TooltipStoryExample height='500px' tooltipText={tooltipText} />
 }
 
-export function RotatedWhenCloseToTheViewportEdge({ dark, tooltipText }) {
-  return (
-    <TooltipStoryExample
-      dark={dark}
-      tooltipText={tooltipText}
-    />
-  )
+export function TipMovesWhenCloseToTheViewportEdge({ tooltipText }) {
+  return <TooltipStoryExample tooltipText={tooltipText} />
 }
 
-function TooltipStoryExample (props) {
-  const { dark, height, tooltipText } = props
+function TooltipStoryExample(props) {
+  const { height, tooltipText } = props
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={Object.assign({}, zooTheme, { dark })}
-      themeMode={(dark) ? 'dark' : 'light'}
-    >
-      <Box align='center' height={height} justify='center' pad='medium'>
-        <TooltipComponent
-          label={tooltipText}
-        >
-          <Button label='Focus me' onClick={() => { }} />
-        </TooltipComponent>
-      </Box>
-    </Grommet>
+    <Box align='center' height={height} justify='center' pad='medium'>
+      <Tooltip label={tooltipText}>
+        <Button label='Focus me' onClick={() => {}} />
+      </Tooltip>
+    </Box>
   )
 }
