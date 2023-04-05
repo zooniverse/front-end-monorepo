@@ -7,7 +7,7 @@ import withKeyZoom from '@components/Classifier/components/withKeyZoom'
 import { useStores } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
 import FlipbookViewer from './FlipbookViewer'
-import FlipbookSeparateFrame from './components/FlipbookSeparateFrame'
+import FlipbookSeparateFrame from './components/FlipbookSeparateFrame/FlipbookSeparateFrame'
 
 function storeMapper(store) {
   const {

@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react'
 import { Box, Grid } from 'grommet'
 import PropTypes from 'prop-types'
 
-import locationValidator from '../../../helpers/locationValidator'
+import locationValidator from '../../../../helpers/locationValidator'
 import useSubjectImage from '@hooks/useSubjectImage.js'
 
-import SingleImageViewer from '../../SingleImageViewer/SingleImageViewer.js'
-import SVGImage from '../../SVGComponents/SVGImage'
-import SVGPanZoom from '../../SVGComponents/SVGPanZoom'
+import SingleImageViewer from '../../../SingleImageViewer/SingleImageViewer.js'
+import SVGImage from '../../../SVGComponents/SVGImage'
+import SVGPanZoom from '../../../SVGComponents/SVGPanZoom'
+import SeparateFrameImageToolbar from './components/SeparateFrameImageToolbar'
+
+const DEFAULT_HANDLER = () => true
 
 const FlipbookSeparateFrame = ({
   enableRotation = () => true,
@@ -19,8 +22,6 @@ const FlipbookSeparateFrame = ({
   onKeyDown = () => true,
   onReady = () => true,
   rotation,
-  setOnPan = () => true,
-  setOnZoom = () => true,
   subject
 }) => {
   const [dragMove, setDragMove] = useState()
@@ -43,6 +44,26 @@ const FlipbookSeparateFrame = ({
     dragMove?.(event, difference)
   }
 
+  const separateFrameZoomIn = () => {
+    console.log('Separate Frame Zoom In')
+  }
+
+  const separateFrameZoomOut = () => {
+    console.log('Separate Frame Zoom Out')
+  }
+
+  const separateFrameRotate = () => {
+    console.log('Separate Frame Rotate')
+  }
+
+  const separateFrameInvert = () => {
+    console.log('Separate Frame Invert')
+  }
+
+  const separateFrameResetView = () => {
+    console.log('Separate Frame Reset View')
+  }
+
   return (
     <Box pad={{ bottom: 'small' }}>
       <Grid
@@ -62,8 +83,8 @@ const FlipbookSeparateFrame = ({
           naturalHeight={naturalHeight}
           naturalWidth={naturalWidth}
           setOnDrag={setOnDrag}
-          setOnPan={setOnPan}
-          setOnZoom={setOnZoom}
+          setOnPan={DEFAULT_HANDLER}
+          setOnZoom={DEFAULT_HANDLER}
           src={frameSrc}
         >
           <SingleImageViewer
@@ -87,7 +108,14 @@ const FlipbookSeparateFrame = ({
             </g>
           </SingleImageViewer>
         </SVGPanZoom>
-        <Box>Toolbar here</Box>
+        <SeparateFrameImageToolbar
+          gridArea='toolbar'
+          separateFrameInvert={separateFrameInvert}
+          separateFrameResetView={separateFrameResetView}
+          separateFrameRotate={separateFrameRotate}
+          separateFrameZoomIn={separateFrameZoomIn}
+          separateFrameZoomOut={separateFrameZoomOut}
+        />
       </Grid>
     </Box>
   )

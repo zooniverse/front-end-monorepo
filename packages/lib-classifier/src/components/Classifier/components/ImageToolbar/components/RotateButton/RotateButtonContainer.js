@@ -1,36 +1,44 @@
 import PropTypes from 'prop-types'
-
-import { withStores } from '@helpers'
+import { useStores } from '@hooks'
 import RotateButton from './RotateButton'
 
-function storeMapper (classifierStore) {
+function storeMapper(classifierStore) {
   const {
+    flipbookViewMode,
     rotate,
     rotationEnabled
   } = classifierStore.subjectViewer
+  const separateFramesView = flipbookViewMode === 'separate'
 
   const disabled = !rotationEnabled
   return {
     disabled,
-    onClick: rotate
+    rotate,
+    separateFramesView
   }
 }
 
 function RotateButtonContainer({
   disabled = false,
-  onClick = () => console.log('rotate view')
+  separateFrameRotate = () => true
 }) {
+  const { separateFramesView, rotate } = useStores(storeMapper)
+
   if (disabled) {
     return null
   }
+
   return (
-    <RotateButton onClick={onClick} />
+    <RotateButton
+      onClick={separateFramesView ? separateFrameRotate : rotate}
+    />
   )
 }
 
 RotateButtonContainer.propTypes = {
   disabled: PropTypes.bool,
-  onClick: PropTypes.func
+  /** Used when separate frames of a subject each have their own ImageToolbar */
+  separateFrameRotate: PropTypes.func
 }
 
-export default withStores(RotateButtonContainer, storeMapper)
+export default RotateButtonContainer
