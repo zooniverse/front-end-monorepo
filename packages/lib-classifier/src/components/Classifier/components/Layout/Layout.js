@@ -8,16 +8,20 @@ function storeMapper(classifierStore) {
   const limitSubjectHeight = workflow?.configuration?.limit_subject_height
   const layout = limitSubjectHeight ? 'centered' : workflow?.layout
 
+  const flipbookViewMode = classifierStore.subjectViewer.flipbookViewMode
+  const separateFramesView = flipbookViewMode === 'separate'
+
   return {
-    layout
+    layout,
+    separateFramesView
   }
 }
 
 function Layout() {
   // `getLayout()` will always return the default layout as a fallback
-  const { layout } = useStores(storeMapper)
+  const { layout, separateFramesView } = useStores(storeMapper)
   const CurrentLayout = getLayout(layout)
-  return <CurrentLayout />
+  return <CurrentLayout separateFramesView={separateFramesView} />
 }
 
 export default observer(Layout)
