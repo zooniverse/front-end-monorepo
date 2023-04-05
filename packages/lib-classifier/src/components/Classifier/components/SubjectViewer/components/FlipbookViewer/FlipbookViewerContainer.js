@@ -111,16 +111,11 @@ function FlipbookViewerContainer({
             <FlipbookSeparateFrame
               enableRotation={enableRotation}
               frameUrl={Object.values(location)[0]}
-              invert={invert}
               key={Object.values(location)[0]}
               limitSubjectHeight={limitSubjectHeight}
-              move={move}
               onError={onError}
               onKeyDown={onKeyDown}
               onReady={onReady}
-              rotation={rotation}
-              setOnPan={setOnPan}
-              setOnZoom={setOnZoom}
               subject={subject}
             />
           ))}

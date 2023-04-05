@@ -7,62 +7,128 @@ import useSubjectImage from '@hooks/useSubjectImage.js'
 
 import SingleImageViewer from '../../../SingleImageViewer/SingleImageViewer.js'
 import SVGImage from '../../../SVGComponents/SVGImage'
-import SVGPanZoom from '../../../SVGComponents/SVGPanZoom'
 import SeparateFrameImageToolbar from './components/SeparateFrameImageToolbar'
 
 const DEFAULT_HANDLER = () => true
 
 const FlipbookSeparateFrame = ({
-  enableRotation = () => true,
+  enableRotation = DEFAULT_HANDLER,
   frameUrl = '',
-  invert = false,
   limitSubjectHeight = false,
-  move,
-  onError = () => true,
-  onKeyDown = () => true,
-  onReady = () => true,
-  rotation,
+  onError = DEFAULT_HANDLER,
+  onKeyDown = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
   subject
 }) => {
-  const [dragMove, setDragMove] = useState()
   const { img, error, loading, subjectImage } = useSubjectImage({
     src: frameUrl,
     onReady,
     onError
   })
+
   const { naturalHeight, naturalWidth, src: frameSrc } = img
 
-  useEffect(() => {
-    enableRotation()
-  }, [frameSrc])
+  const maxZoom = 5
+  const minZoom = 0.1
 
-  const setOnDrag = callback => {
-    setDragMove(() => callback)
+  const defaultViewBox = {
+    x: 0,
+    y: 0,
+    height: naturalHeight,
+    width: naturalWidth
   }
 
-  const onDrag = (event, difference) => {
-    dragMove?.(event, difference)
+  const [canMove, setCanMove] = useState(false)
+  const [invert, setInvert] = useState(false)
+  const [rotation, setRotation] = useState(0)
+  const [viewBox, setViewBox] = useState(defaultViewBox)
+  const [zoom, setZoom] = useState(1)
+
+  useEffect(() => {
+    if (frameSrc) {
+      enableRotation()
+      setCanMove(true)
+      setViewBox(defaultViewBox)
+      setZoom(1)
+    }
+  }, [frameSrc])
+
+  useEffect(
+    function onZoomChange() {
+      const newViewBox = scaledViewBox(zoom)
+      setViewBox(newViewBox)
+    },
+    [zoom]
+  )
+
+  // For subjects that have an InteractionLayer
+  function imageScale(img) {
+    const { width: clientWidth } = img ? img.getBoundingClientRect() : {}
+    const scale = clientWidth / naturalWidth
+    return !Number.isNaN(scale) ? scale : 1
+  }
+
+  function scaledViewBox(scale) {
+    const viewBoxScale = 1 / scale
+    const xCentre = viewBox.x + viewBox.width / 2
+    const yCentre = viewBox.y + viewBox.height / 2
+    const width = parseInt(naturalWidth * viewBoxScale, 10)
+    const height = parseInt(naturalHeight * viewBoxScale, 10)
+    const x = xCentre - width / 2
+    const y = yCentre - height / 2
+    return { x, y, width, height }
+  }
+
+  function onDrag(event, difference) {
+    setViewBox(prevViewBox => {
+      const newViewBox = Object.assign({}, prevViewBox)
+      newViewBox.x -= difference.x / 1.5
+      newViewBox.y -= difference.y / 1.5
+      return newViewBox
+    })
+  }
+
+  // This is for panning with arrow keys
+  function onPan(dx, dy) {
+    setViewBox(prevViewBox => {
+      const newViewBox = Object.assign({}, prevViewBox)
+      newViewBox.x += dx * 10
+      newViewBox.y += dy * 10
+      return newViewBox
+    })
   }
 
   const separateFrameZoomIn = () => {
-    console.log('Separate Frame Zoom In')
+    setZoom(prevZoom => Math.min(prevZoom + 0.1, maxZoom))
   }
 
   const separateFrameZoomOut = () => {
-    console.log('Separate Frame Zoom Out')
+    setZoom(prevZoom => Math.max(prevZoom - 0.1, minZoom))
   }
 
   const separateFrameRotate = () => {
-    console.log('Separate Frame Rotate')
+    const newRotation = rotation - 90
+    setRotation(newRotation)
   }
 
   const separateFrameInvert = () => {
-    console.log('Separate Frame Invert')
+    setInvert(!invert)
   }
 
   const separateFrameResetView = () => {
-    console.log('Separate Frame Reset View')
+    setRotation(0)
+    setInvert(false)
+    setZoom(1)
+    setViewBox({
+      x: 0,
+      y: 0,
+      width: naturalWidth,
+      height: naturalHeight
+    })
   }
+
+  const { x, y, width, height } = scaledViewBox(zoom)
+  const scale = imageScale(subjectImage.current)
 
   return (
     <Box pad={{ bottom: 'small' }}>
@@ -74,31 +140,24 @@ const FlipbookSeparateFrame = ({
         height='fit-content'
         rows={['auto']}
       >
-        <SVGPanZoom
-          gridArea='subject'
-          img={subjectImage.current}
-          limitSubjectHeight={limitSubjectHeight}
-          maxZoom={5}
-          minZoom={0.1}
-          naturalHeight={naturalHeight}
-          naturalWidth={naturalWidth}
-          setOnDrag={setOnDrag}
-          setOnPan={DEFAULT_HANDLER}
-          setOnZoom={DEFAULT_HANDLER}
-          src={frameSrc}
-        >
+        <div style={{ width: '100%' }}>
           <SingleImageViewer
             enableInteractionLayer={false}
             height={naturalHeight}
             limitSubjectHeight={limitSubjectHeight}
             onKeyDown={onKeyDown}
             rotate={rotation}
+            scale={scale}
+            svgMaxHeight={
+              limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
+            }
+            viewBox={`${x} ${y} ${width} ${height}`}
             width={naturalWidth}
           >
             <g ref={subjectImage}>
               <SVGImage
                 invert={invert}
-                move={move}
+                move={canMove}
                 naturalHeight={naturalHeight}
                 naturalWidth={naturalWidth}
                 onDrag={onDrag}
@@ -107,7 +166,7 @@ const FlipbookSeparateFrame = ({
               />
             </g>
           </SingleImageViewer>
-        </SVGPanZoom>
+        </div>
         <SeparateFrameImageToolbar
           gridArea='toolbar'
           separateFrameInvert={separateFrameInvert}
@@ -126,20 +185,10 @@ FlipbookSeparateFrame.propTypes = {
   enableRotation: PropTypes.func,
   /** String of Object.values(subject.locations[this frame index][0]) */
   frameUrl: PropTypes.string,
-  /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */
-  onError: PropTypes.func,
-  /** Passed from Subject Viewer Store */
-  invert: PropTypes.bool,
-  /** Passed from Subject Viewer Store */
-  move: PropTypes.bool,
   /** withKeyZoom in for using keyboard pan and zoom controls while focused on the subject image */
   onKeyDown: PropTypes.func,
   /** Passed from Subject Viewer Store and called when default frame's src is loaded */
   onReady: PropTypes.func,
-  /** Passed from the Subject Viewer Store */
-  setOnPan: PropTypes.func,
-  /** Passed from the Subject Viewer Store */
-  setOnZoom: PropTypes.func,
   /** Required. Passed from SubjectViewer component */
   subject: PropTypes.shape({
     locations: PropTypes.arrayOf(locationValidator)
