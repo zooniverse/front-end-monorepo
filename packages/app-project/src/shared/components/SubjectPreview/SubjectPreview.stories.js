@@ -49,11 +49,11 @@ export function Plain({ dark, isLoggedIn, subject, slug }) {
     <Grommet theme={{ ...zooTheme, dark }}>
       <Box height='medium' pad='medium' width='medium'>
         <SubjectPreview
-          height={'200px'}
+          height='200px'
           isLoggedIn={isLoggedIn}
           subject={subject}
           slug={slug}
-          width={'270px'}
+          width='270px'
         />
       </Box>
     </Grommet>
@@ -72,11 +72,11 @@ export function Transcription({ dark, isLoggedIn, subject, slug }) {
     <Grommet theme={{ ...zooTheme, dark }}>
       <Box height='medium' pad='medium' width='medium'>
         <SubjectPreview
-          height={'200px'}
+          height='200px'
           isLoggedIn={isLoggedIn}
           subject={subject}
           slug={slug}
-          width={'270px'}
+          width='270px'
         />
       </Box>
     </Grommet>
@@ -89,17 +89,17 @@ Transcription.args = {
   subject: PORTRAIT_PAGE,
   slug: 'zooniverse/snapshot-serengeti'
 }
-  
+
 export function Video({ dark, isLoggedIn, subject, slug }) {
   return (
     <Grommet theme={{ ...zooTheme, dark }}>
       <Box height='medium' pad='medium' width='medium'>
         <SubjectPreview
-          height={'200px'}
+          height='200px'
           isLoggedIn={isLoggedIn}
           subject={subject}
           slug={slug}
-          width={'270px'}
+          width='270px'
         />
       </Box>
     </Grommet>

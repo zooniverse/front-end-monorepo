@@ -8,21 +8,10 @@ export default {
   component: WorkflowAssignmentModalContainer,
   args: {
     dark: false
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
   }
 }
 
 export function Default({ dark }) {
-  const projectPreferences = {
-    promptAssignment: () => true,
-    settings: {
-      workflow_id: '1234'
-    }
-  }
   return (
     <Grommet
       background={{

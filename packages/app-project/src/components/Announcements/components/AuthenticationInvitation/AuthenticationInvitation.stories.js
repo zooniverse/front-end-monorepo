@@ -11,12 +11,11 @@ export default {
   args: {
     dark: false
   },
-  notes: {
-    markdown: readme
-  },
   parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
+    docs: {
+      description: {
+        component: readme
+      }
     }
   }
 }
@@ -58,7 +57,3 @@ export const Default = ({ dark }) => (
     <AuthenticationInvitationConnector />
   </StoryContext>
 )
-
-Default.args = {
-  dark: false
-}

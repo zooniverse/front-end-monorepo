@@ -105,11 +105,6 @@ export default {
   component: RecentSubjects,
   args: {
     dark: false
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
   }
 }
 
