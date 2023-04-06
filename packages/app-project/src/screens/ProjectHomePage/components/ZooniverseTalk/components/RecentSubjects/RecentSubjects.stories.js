@@ -137,10 +137,7 @@ const DATA_SUBJECTS = [
 
 export default {
   title: 'Project App / Screens / Project Home / Recent Subjects',
-  component: RecentSubjects,
-  args: {
-    dark: false
-  }
+  component: RecentSubjects
 }
 
 export function Plain() {
