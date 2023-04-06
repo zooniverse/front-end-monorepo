@@ -18,11 +18,8 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: readme,
-      },
-    },
-    viewport: {
-      defaultViewport: 'responsive'
+        component: readme
+      }
     }
   }
 }

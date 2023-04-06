@@ -1,22 +1,29 @@
-import { withKnobs, text } from '@storybook/addon-knobs';
-import zooTheme from '@zooniverse/grommet-theme';
-import { Grommet } from 'grommet';
-import { Provider } from 'mobx-react';
+import zooTheme from '@zooniverse/grommet-theme'
+import { Grommet } from 'grommet'
+import { Provider } from 'mobx-react'
 
-import FinishedAnnouncementConnector from './FinishedAnnouncementConnector';
-import readme from './README.md';
+import FinishedAnnouncementConnector from './FinishedAnnouncementConnector'
+import readme from './README.md'
 
 const mockStore = {
   project: {
     baseUrl: '/projects/zookeeper/galaxy-zoo',
-    isComplete: true,
-  },
-};
+    isComplete: true
+  }
+}
 
 export default {
-  title: 'Project App / Screens / Project Home / Announcements / FinishedAnnouncement',
-  decorators: [withKnobs],
-};
+  title:
+    'Project App / Screens / Project Home / Announcements / FinishedAnnouncement',
+  component: FinishedAnnouncementConnector,
+  parameters: {
+    docs: {
+      description: {
+        component: readme
+      }
+    }
+  }
+}
 
 export const Default = () => (
   <Provider store={mockStore}>
@@ -24,14 +31,4 @@ export const Default = () => (
       <FinishedAnnouncementConnector />
     </Grommet>
   </Provider>
-);
-
-Default.story = {
-  name: 'default',
-
-  parameters: {
-    notes: {
-      markdown: readme,
-    },
-  },
-};
+)
