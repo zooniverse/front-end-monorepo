@@ -1,14 +1,8 @@
-import asyncStates from '@zooniverse/async-states'
 import QuickTalk from './QuickTalk'
 
 export default {
   title: 'Other / QuickTalk',
-  component: QuickTalk,
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
-  }
+  component: QuickTalk
 }
 
 const subject = {

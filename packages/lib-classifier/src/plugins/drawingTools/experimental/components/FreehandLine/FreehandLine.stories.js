@@ -103,12 +103,7 @@ const stores = setupStores()
 
 export default {
   title: 'Drawing tools / Freehand line',
-  component: FreehandLine,
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
-  }
+  component: FreehandLine
 }
 
 export function Complete(args) {

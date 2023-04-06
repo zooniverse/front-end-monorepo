@@ -56,11 +56,6 @@ export default {
     steps,
     stepWithMedium,
     width: '40vw'
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
   }
 }
 

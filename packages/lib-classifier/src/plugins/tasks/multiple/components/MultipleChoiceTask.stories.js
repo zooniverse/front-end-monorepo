@@ -18,15 +18,10 @@ export default {
         options: asyncStates
       }
     }
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
   }
 }
 
-export function LightTheme({ dark, isThereTaskHelp, required, subjectReadyState }) {
+export function Default({ dark, isThereTaskHelp, required, subjectReadyState }) {
   const tasks = {
     T1: {
       answers: [{ label: 'sleeping' }, { label: 'playing' }, { label: 'looking indifferent' }],

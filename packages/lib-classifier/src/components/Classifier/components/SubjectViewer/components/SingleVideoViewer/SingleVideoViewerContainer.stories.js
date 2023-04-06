@@ -55,11 +55,6 @@ export default {
   component: SingleVideoViewerContainer,
   args: {
     dark: false
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
   }
 }
 

@@ -5,7 +5,6 @@ import zooTheme from '@zooniverse/grommet-theme'
 
 import {
   SubjectFactory,
-  SubjectViewerFactory,
   WorkflowFactory
 } from '@test/factories'
 import mockStore from '@test/mockStore'
