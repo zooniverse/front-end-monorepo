@@ -7,19 +7,19 @@ import withKeyZoom from '@components/Classifier/components/withKeyZoom'
 import { useStores } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
 import FlipbookViewer from './FlipbookViewer'
-import FlipbookSeparateFrame from './components/FlipbookSeparateFrame/FlipbookSeparateFrame'
+import SeparateFrame from '../SeparateFramesViewer/components/SeparateFrame.js'
 
 function storeMapper(store) {
   const {
     enableRotation,
-    flipbookViewMode,
     frame: defaultFrame,
     invert,
     move,
     rotation,
-    setFlipbookViewMode,
+    separateFramesView,
     setOnPan,
-    setOnZoom
+    setOnZoom,
+    setSeparateFramesView
   } = store.subjectViewer
   const {
     flipbook_autoplay: flipbookAutoplay,
@@ -31,15 +31,15 @@ function storeMapper(store) {
     defaultFrame,
     enableRotation,
     flipbookAutoplay,
-    flipbookViewMode,
     invert,
     limitSubjectHeight,
     move,
     playIterations,
     rotation,
-    setFlipbookViewMode,
+    separateFramesView,
     setOnPan,
-    setOnZoom
+    setOnZoom,
+    setSeparateFramesView
   }
 }
 
@@ -56,18 +56,16 @@ function FlipbookViewerContainer({
     defaultFrame,
     enableRotation,
     flipbookAutoplay,
-    flipbookViewMode,
     invert,
     limitSubjectHeight,
     move,
     playIterations,
     rotation,
-    setFlipbookViewMode,
+    separateFramesView,
     setOnPan,
-    setOnZoom
+    setOnZoom,
+    setSeparateFramesView
   } = useStores(storeMapper)
-
-  const separateFrameView = flipbookViewMode === 'separate'
 
   useEffect(
     function preloadImages() {
@@ -89,9 +87,9 @@ function FlipbookViewerContainer({
 
   const handleViewMode = e => {
     if (e.target.checked) {
-      setFlipbookViewMode('separate')
+      setSeparateFramesView(true)
     } else {
-      setFlipbookViewMode('flipbook')
+      setSeparateFramesView(false)
     }
   }
 
@@ -101,14 +99,14 @@ function FlipbookViewerContainer({
         <input
           type='checkbox'
           onChange={handleViewMode}
-          checked={separateFrameView}
+          checked={separateFramesView}
         />
         Separate Frames Mode
       </label>
-      {separateFrameView ? (
+      {separateFramesView ? (
         <>
           {subject.locations?.map(location => (
-            <FlipbookSeparateFrame
+            <SeparateFrame
               enableRotation={enableRotation}
               frameUrl={Object.values(location)[0]}
               key={Object.values(location)[0]}

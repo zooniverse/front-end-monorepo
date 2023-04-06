@@ -4,11 +4,10 @@ import RotateButton from './RotateButton'
 
 function storeMapper(classifierStore) {
   const {
-    flipbookViewMode,
     rotate,
-    rotationEnabled
+    rotationEnabled,
+    separateFramesView
   } = classifierStore.subjectViewer
-  const separateFramesView = flipbookViewMode === 'separate'
 
   const disabled = !rotationEnabled
   return {

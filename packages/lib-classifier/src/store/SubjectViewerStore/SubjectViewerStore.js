@@ -12,14 +12,14 @@ const SubjectViewer = types
       naturalWidth: types.integer
     })),
     flipbookSpeed: types.optional(types.number, 1),
-    flipbookViewMode: types.optional(types.enumeration('flipbookViewMode', ['flipbook', 'separate']), 'flipbook'),
     frame: types.optional(types.integer, 0),
     fullscreen: types.optional(types.boolean, false),
     invert: types.optional(types.boolean, false),
     loadingState: types.optional(types.enumeration('loadingState', asyncStates.values), asyncStates.initialized),
     move: types.optional(types.boolean, false),
     rotationEnabled: types.optional(types.boolean, false),
-    rotation: types.optional(types.number, 0)
+    rotation: types.optional(types.number, 0),
+    separateFramesView: types.optional(types.boolean, false)
   })
 
   .volatile(self => ({
@@ -152,10 +152,6 @@ const SubjectViewer = types
         self.flipbookSpeed = speed
       },
 
-      setFlipbookViewMode(mode) {
-        self.flipbookViewMode = mode
-      },
-
       setFrame (index) {
         self.frame = index
       },
@@ -166,6 +162,10 @@ const SubjectViewer = types
 
       setOnPan (callback) {
         self.onPan = callback
+      },
+
+      setSeparateFramesView(mode) {
+        self.separateFramesView = mode
       },
 
       zoomIn () {

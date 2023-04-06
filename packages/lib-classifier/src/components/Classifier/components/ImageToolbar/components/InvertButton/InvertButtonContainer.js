@@ -7,17 +7,16 @@ import InvertButton from './InvertButton'
 function storeMapper (classifierStore) {
   const {
     subjectViewer: {
-      flipbookViewMode,
       invert,
-      invertView
+      invertView,
+      separateFramesView
     },
     workflows: {
       active: workflow
     }
   } = classifierStore
-  const separateFramesView = flipbookViewMode === 'separate'
 
-  const active = invert
+  const active = invert // How does this work?
   const disabled = !workflow?.configuration?.invert_subject
   return {
     active,

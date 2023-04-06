@@ -2,23 +2,23 @@ import { useEffect, useState } from 'react'
 import { Box, Grid } from 'grommet'
 import PropTypes from 'prop-types'
 
-import locationValidator from '../../../../helpers/locationValidator'
+import locationValidator from '../../../helpers/locationValidator'
 import useSubjectImage from '@hooks/useSubjectImage.js'
 
-import SingleImageViewer from '../../../SingleImageViewer/SingleImageViewer.js'
-import SVGImage from '../../../SVGComponents/SVGImage'
-import SeparateFrameImageToolbar from './components/SeparateFrameImageToolbar'
+import SingleImageViewer from '../../SingleImageViewer/SingleImageViewer.js'
+import SVGImage from '../../SVGComponents/SVGImage'
+import SeparateFrameImageToolbar from './SeparateFrameImageToolbar/SeparateFrameImageToolbar.js'
 
 const DEFAULT_HANDLER = () => true
 
-const FlipbookSeparateFrame = ({
+const SeparateFrame = ({
   enableRotation = DEFAULT_HANDLER,
   frameUrl = '',
   limitSubjectHeight = false,
   onError = DEFAULT_HANDLER,
   onKeyDown = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
-  subject
+  subject // Do we actually use this?
 }) => {
   const { img, error, loading, subjectImage } = useSubjectImage({
     src: frameUrl,
@@ -41,6 +41,7 @@ const FlipbookSeparateFrame = ({
   const [canMove, setCanMove] = useState(false)
   const [invert, setInvert] = useState(false)
   const [rotation, setRotation] = useState(0)
+  const [separateFrameAnnotate, separateFrameEnableAnnotate] = useState(false)
   const [viewBox, setViewBox] = useState(defaultViewBox)
   const [zoom, setZoom] = useState(1)
 
@@ -169,6 +170,8 @@ const FlipbookSeparateFrame = ({
         </div>
         <SeparateFrameImageToolbar
           gridArea='toolbar'
+          separateFrameAnnotate={separateFrameAnnotate}
+          separateFrameEnableAnnotate={separateFrameEnableAnnotate}
           separateFrameInvert={separateFrameInvert}
           separateFrameResetView={separateFrameResetView}
           separateFrameRotate={separateFrameRotate}
@@ -180,7 +183,7 @@ const FlipbookSeparateFrame = ({
   )
 }
 
-FlipbookSeparateFrame.propTypes = {
+SeparateFrame.propTypes = {
   /** Function passed from Subject Viewer Store */
   enableRotation: PropTypes.func,
   /** String of Object.values(subject.locations[this frame index][0]) */
@@ -195,4 +198,4 @@ FlipbookSeparateFrame.propTypes = {
   }).isRequired
 }
 
-export default FlipbookSeparateFrame
+export default SeparateFrame

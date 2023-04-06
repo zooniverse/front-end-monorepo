@@ -6,8 +6,7 @@ import { useStores } from '@hooks'
 import ZoomInButton from './ZoomInButton'
 
 function storeMapper(classifierStore) {
-  const { flipbookViewMode, zoomIn } = classifierStore.subjectViewer
-  const separateFramesView = flipbookViewMode === 'separate'
+  const { separateFramesView, zoomIn } = classifierStore.subjectViewer
 
   return {
     separateFramesView,

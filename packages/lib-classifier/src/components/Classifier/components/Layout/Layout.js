@@ -7,9 +7,7 @@ function storeMapper(classifierStore) {
   const workflow = classifierStore.workflows.active
   const limitSubjectHeight = workflow?.configuration?.limit_subject_height
   const layout = limitSubjectHeight ? 'centered' : workflow?.layout
-
-  const flipbookViewMode = classifierStore.subjectViewer.flipbookViewMode
-  const separateFramesView = flipbookViewMode === 'separate'
+  const separateFramesView = classifierStore.subjectViewer.separateFramesView
 
   return {
     layout,

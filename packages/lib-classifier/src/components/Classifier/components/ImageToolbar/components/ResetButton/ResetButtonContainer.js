@@ -6,10 +6,9 @@ import ResetButton from './ResetButton'
 
 function storeMapper(classifierStore) {
   const {
-    flipbookViewMode,
+    separateFramesView,
     resetView
   } = classifierStore.subjectViewer
-  const separateFramesView = flipbookViewMode === 'separate'
 
   return {
     resetView,
