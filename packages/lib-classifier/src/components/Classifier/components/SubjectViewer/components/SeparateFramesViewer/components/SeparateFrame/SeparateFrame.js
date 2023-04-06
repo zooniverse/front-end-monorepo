@@ -5,7 +5,15 @@ import PropTypes from 'prop-types'
 import useSubjectImage from '@hooks/useSubjectImage.js'
 import SingleImageViewer from '../../../SingleImageViewer/SingleImageViewer.js'
 import SVGImage from '../../../SVGComponents/SVGImage'
-import { AnnotateButton, InvertButton, MoveButton, ResetButton, RotateButton, ZoomInButton, ZoomOutButton } from '../../../../../ImageToolbar/components'
+import {
+  AnnotateButton,
+  InvertButton,
+  MoveButton,
+  ResetButton,
+  RotateButton,
+  ZoomInButton,
+  ZoomOutButton
+} from '../../../../../ImageToolbar/components'
 
 const DEFAULT_HANDLER = () => true
 
@@ -14,7 +22,6 @@ const SeparateFrame = ({
   frameUrl = '',
   limitSubjectHeight = false,
   onError = DEFAULT_HANDLER,
-  onKeyDown = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER
 }) => {
   const { img, error, loading, subjectImage } = useSubjectImage({
@@ -44,7 +51,6 @@ const SeparateFrame = ({
   const [viewBox, setViewBox] = useState(defaultViewBox)
   const [zoom, setZoom] = useState(1)
 
-
   /** Effects */
 
   useEffect(() => {
@@ -55,25 +61,21 @@ const SeparateFrame = ({
     }
   }, [frameSrc])
 
-  useEffect(
-    function onZoomChange() {
-      const newViewBox = scaledViewBox(zoom)
-      setViewBox(newViewBox)
-    },
-    [zoom]
-  )
+  useEffect(() => {
+    const newViewBox = scaledViewBox(zoom)
+    setViewBox(newViewBox)
+  }, [zoom])
 
+  /** Move/Zoom functions */
 
-  /** Pan/Zoom functions */
-
-  function imageScale(img) {
+  const imageScale = img => {
     const { width: clientWidth } = img ? img.getBoundingClientRect() : {}
     const scale = clientWidth / naturalWidth
     return !Number.isNaN(scale) ? scale : 1
   }
   const scale = imageScale(subjectImage.current) // For images with an InteractionLayer
 
-  function scaledViewBox(scale) {
+  const scaledViewBox = scale => {
     const viewBoxScale = 1 / scale
     const xCentre = viewBox.x + viewBox.width / 2
     const yCentre = viewBox.y + viewBox.height / 2
@@ -84,7 +86,7 @@ const SeparateFrame = ({
     return { x, y, width, height }
   }
 
-  function onDrag(event, difference) {
+  const onDrag = (event, difference) => {
     setViewBox(prevViewBox => {
       const newViewBox = Object.assign({}, prevViewBox)
       newViewBox.x -= difference.x / 1.5
@@ -92,17 +94,6 @@ const SeparateFrame = ({
       return newViewBox
     })
   }
-
-  // This is for panning with arrow keys
-  function onPan(dx, dy) {
-    setViewBox(prevViewBox => {
-      const newViewBox = Object.assign({}, prevViewBox)
-      newViewBox.x += dx * 10
-      newViewBox.y += dy * 10
-      return newViewBox
-    })
-  }
-
 
   /** Image Toolbar functions */
 
@@ -145,77 +136,122 @@ const SeparateFrame = ({
     })
   }
 
+  /** Panning with Keyboard */
+
+  const onPan = (dx, dy) => {
+    setViewBox(prevViewBox => {
+      const newViewBox = { ...prevViewBox }
+      newViewBox.x += dx * 10
+      newViewBox.y += dy * 10
+      return newViewBox
+    })
+  }
+
+  const onKeyDown = e => {
+    // This is not working yet
+    console.log('separate frame key down')
+
+    // const htmlTag = e.target?.tagName.toLowerCase()
+    // const ALLOWED_TAGS = ['svg', 'button', 'g', 'rect']
+
+    switch (e.key) {
+      case '+':
+      case '=': {
+        separateFrameZoomIn()
+        return true
+      }
+      case '-':
+      case '_': {
+        separateFrameZoomOut()
+        return true
+      }
+      case 'ArrowRight': {
+        e.preventDefault()
+        onPan(1, 0)
+        return false
+      }
+      case 'ArrowLeft': {
+        e.preventDefault()
+        onPan(-1, 0)
+        return false
+      }
+      case 'ArrowUp': {
+        e.preventDefault()
+        onPan(0, -1)
+        return false
+      }
+      case 'ArrowDown': {
+        e.preventDefault()
+        onPan(0, 1)
+        return false
+      }
+      default: {
+        return true
+      }
+    }
+  }
+
+  /** Frame Component */
+
   const { x, y, width, height } = scaledViewBox(zoom)
 
   return (
-    <Box pad={{ bottom: 'small' }}>
-      <Grid
-        as='section'
-        areas={[['subject', 'toolbar']]}
-        columns={['auto', '3rem']}
-        gridArea='viewer'
-        height='fit-content'
-        rows={['auto']}
+    <Box direction='row'>
+      <SingleImageViewer
+        height={naturalHeight}
+        limitSubjectHeight={limitSubjectHeight}
+        onKeyDown={onKeyDown}
+        rotate={rotation}
+        scale={scale}
+        svgMaxHeight={
+          limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
+        }
+        viewBox={`${x} ${y} ${width} ${height}`}
+        width={naturalWidth}
       >
-        <div style={{ width: '100%' }}>
-          <SingleImageViewer
-            enableInteractionLayer={false}
-            height={naturalHeight}
-            limitSubjectHeight={limitSubjectHeight}
-            onKeyDown={onKeyDown}
-            rotate={rotation}
-            scale={scale}
-            svgMaxHeight={
-              limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
-            }
-            viewBox={`${x} ${y} ${width} ${height}`}
-            width={naturalWidth}
-          >
-            <g ref={subjectImage}>
-              <SVGImage
-                invert={invert}
-                move={separateFrameMove}
-                naturalHeight={naturalHeight}
-                naturalWidth={naturalWidth}
-                onDrag={onDrag}
-                src={frameSrc}
-                subjectID={frameUrl} // Used for an aria-label
-              />
-            </g>
-          </SingleImageViewer>
-        </div>
-        <Box
-          background={{
-            dark: 'dark-3',
-            light: 'white'
-          }}
-          border={{
-            color: {
-              dark: 'dark-1',
-              light: 'light-3'
-            },
-            side: 'all'
-          }}
-          direction='column'
-          fill
-          height='min-content'
-          pad='clamp(8px, 15%, 10px)'
-        >
-          <AnnotateButton
-            separateFrameAnnotate={separateFrameAnnotate}
-            separateFrameEnableAnnotate={separateFrameEnableAnnotate}
+        <g ref={subjectImage}>
+          <SVGImage
+            invert={invert}
+            move={separateFrameMove}
+            naturalHeight={naturalHeight}
+            naturalWidth={naturalWidth}
+            onDrag={onDrag}
+            src={frameSrc}
+            subjectID={frameUrl} // for aria-label
           />
-          <MoveButton
-            separateFrameMove={separateFrameMove}
-            separateFrameEnableMove={separateFrameEnableMove}
-          />
-          <ZoomInButton separateFrameZoomIn={separateFrameZoomIn} />
-          <ZoomOutButton separateFrameZoomOut={separateFrameZoomOut} />
-          <RotateButton separateFrameRotate={separateFrameRotate} />
-          <ResetButton separateFrameResetView={separateFrameResetView} />
-          <InvertButton separateFrameInvert={separateFrameInvert} />
-        </Box>
-      </Grid>
+        </g>
+      </SingleImageViewer>
+      <Box
+        background={{
+          dark: 'dark-3',
+          light: 'white'
+        }}
+        border={{
+          color: {
+            dark: 'dark-1',
+            light: 'light-3'
+          },
+          side: 'all'
+        }}
+        direction='column'
+        height='fit-content'
+        pad='8px'
+        style={{ width: '3rem' }}
+      >
+        <AnnotateButton
+          separateFrameAnnotate={separateFrameAnnotate}
+          separateFrameEnableAnnotate={separateFrameEnableAnnotate}
+        />
+        <MoveButton
+          separateFrameMove={separateFrameMove}
+          separateFrameEnableMove={separateFrameEnableMove}
+        />
+        <ZoomInButton separateFrameZoomIn={separateFrameZoomIn} />
+        <ZoomOutButton separateFrameZoomOut={separateFrameZoomOut} />
+        <RotateButton separateFrameRotate={separateFrameRotate} />
+        <ResetButton separateFrameResetView={separateFrameResetView} />
+        <InvertButton separateFrameInvert={separateFrameInvert} />
+      </Box>
     </Box>
   )
 }
@@ -228,9 +264,7 @@ SeparateFrame.propTypes = {
   /** Function passed from Workflow Configuration */
   limitSubjectHeight: PropTypes.bool,
   /** Passed from Subject Viewer Store and called whe a frame's src is not loaded */
-  onErrory: PropTypes.func,
-  /** withKeyZoom in for using keyboard pan and zoom controls while focused on the subject image */
-  onKeyDown: PropTypes.func,
+  onError: PropTypes.func,
   /** Passed from Subject Viewer Store and called when a frame's src is loaded */
   onReady: PropTypes.func
 }

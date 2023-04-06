@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
+import { Box } from 'grommet'
 
 import withKeyZoom from '@components/Classifier/components/withKeyZoom'
 import { useStores } from '@hooks'
@@ -104,7 +105,7 @@ function FlipbookViewerContainer({
         Separate Frames Mode
       </label>
       {separateFramesView ? (
-        <>
+        <Box gap='small'>
           {subject.locations?.map(location => (
             <SeparateFrame
               enableRotation={enableRotation}
@@ -116,7 +117,7 @@ function FlipbookViewerContainer({
               onReady={onReady}
             />
           ))}
-        </>
+        </Box>
       ) : (
         <FlipbookViewer
           defaultFrame={defaultFrame}
