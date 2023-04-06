@@ -1,14 +1,14 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
-
+import { Box } from 'grommet'
 import PrimaryButton from './PrimaryButton'
+
+/** This will not work with @storybook/testing-react composeStory function */
+// import readme from './README.md'
 
 export default {
   title: 'Components / PrimaryButton',
   component: PrimaryButton,
   args: {
     color: 'gold',
-    dark: false,
     disabled: false,
     href: 'https://www.zooniverse.org',
     label: 'Click me'
@@ -22,27 +22,25 @@ export default {
       action: 'clicked'
     }
   }
+  // parameters: {
+  //   docs: {
+  //     description: {
+  //       component: readme
+  //     }
+  //   }
+  // }
 }
 
-export const Default = ({ color, dark, disabled, href, label, onClick }) => (
-  <Grommet
-    background={{
-      dark: 'dark-1',
-      light: 'light-1'
-    }}
-    theme={zooTheme}
-    themeMode={dark ? 'dark' : 'light'}
-  >
-    <Box pad='medium'>
-      <PrimaryButton
-        color={color}
-        disabled={disabled}
-        href={href}
-        label={label}
-        onClick={onClick}
-      />
-    </Box>
-  </Grommet>
+export const Default = ({ color, disabled, href, label, onClick }) => (
+  <Box pad='medium'>
+    <PrimaryButton
+      color={color}
+      disabled={disabled}
+      href={href}
+      label={label}
+      onClick={onClick}
+    />
+  </Box>
 )
 
 const imgLabel = (
@@ -53,25 +51,16 @@ const imgLabel = (
   />
 )
 
-export const ImgLabel = ({ color, dark, disabled, href, label, onClick }) => (
-  <Grommet
-    background={{
-      dark: 'dark-1',
-      light: 'light-1'
-    }}
-    theme={zooTheme}
-    themeMode={dark ? 'dark' : 'light'}
-  >
-    <Box pad='medium'>
-      <PrimaryButton
-        color={color}
-        disabled={disabled}
-        href={href}
-        label={label}
-        onClick={onClick}
-      />
-    </Box>
-  </Grommet>
+export const ImgLabel = ({ color, disabled, href, label, onClick }) => (
+  <Box pad='medium'>
+    <PrimaryButton
+      color={color}
+      disabled={disabled}
+      href={href}
+      label={label}
+      onClick={onClick}
+    />
+  </Box>
 )
 
 ImgLabel.args = {

@@ -1,7 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import cuid from 'cuid'
 import mockStore from '@test/mockStore'
-import DrawingTask from '@plugins/tasks/drawing/models/DrawingTask'
 import {
   DrawingStory,
   subject,
@@ -81,12 +79,7 @@ const stores = setupStores()
 
 export default {
   title: 'Drawing tools / Line',
-  component: Line,
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
-  }
+  component: Line
 }
 
 export function Complete(args) {

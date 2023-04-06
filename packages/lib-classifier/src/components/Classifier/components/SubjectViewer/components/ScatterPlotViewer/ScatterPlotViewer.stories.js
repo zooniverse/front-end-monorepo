@@ -1,4 +1,3 @@
-import { storiesOf } from '@storybook/react'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box, Grommet } from 'grommet'
 import { darken } from 'polished'
@@ -13,15 +12,8 @@ import {
 } from './helpers/mockData'
 import { Factory } from 'rosie'
 import readme from './README.md'
-import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
 
 const { data } = randomSingleSeriesData
-
-const config = {
-  notes: {
-    markdown: readme
-  }
-}
 
 let zoomCallback
 
@@ -34,12 +26,6 @@ function setZoomCallback (callback) {
 }
 
 const { colors } = zooTheme.global
-
-const keplerSubject = Factory.build('subject', {
-  locations: [
-    { 'application/json': 'https://raw.githubusercontent.com/zooniverse/front-end-monorepo/master/packages/lib-classifier/src/components/Classifier/components/SubjectViewer/helpers/mockLightCurves/kepler.json' }
-  ]
-})
 
 const transientObjectSubject = Factory.build('subject', {
   locations: [
@@ -57,7 +43,7 @@ const mockStore = {
   },
   fieldGuide: {
     setActiveItemIndex: () => {},
-    setModalVisibility:  ()  => {}
+    setModalVisibility: () => {}
   },
   subjects: {
     active: transientObjectSubject
@@ -94,8 +80,10 @@ export default {
   title: 'Subject Viewers / ScatterPlotViewer',
   component: ScatterPlotViewer,
   parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
+    docs: {
+      description: {
+        component: readme
+      }
     }
   }
 }
@@ -121,11 +109,6 @@ export function LightTheme() {
   )
 }
 
-LightTheme.story = {
-  name: 'light theme',
-  parameters: config
-}
-
 export function DarkTheme() {
   const darkZooTheme = { ...zooTheme, dark: true }
 
@@ -149,19 +132,7 @@ export function DarkTheme() {
   )
 }
 
-DarkTheme.story = {
-  name: 'dark theme',
-  parameters: {
-    backgrounds: backgrounds.darkDefault,
-    viewport: {
-      defaultViewport: 'responsive'
-    },
-    ...config
-  }
-}
-
 export function NarrowView() {
-  const darkZooTheme = { ...zooTheme, dark: true }
   return (
     <Grommet
       background={{
@@ -182,13 +153,9 @@ export function NarrowView() {
   )
 }
 
-NarrowView.story = {
-  name: 'narrow view',
-  parameters: {
-    viewport: {
-      defaultViewport: 'iphone5'
-    },
-    ...config
+NarrowView.parameters = {
+  viewport: {
+    defaultViewport: 'iphone5'
   }
 }
 
@@ -243,10 +210,6 @@ export function ErrorBars() {
   )
 }
 
-ErrorBars.story = {
-  name: 'data with error bars'
-}
-
 export function KeplerLightCurve() {
   return (
     <Grommet
@@ -281,11 +244,6 @@ export function KeplerLightCurve() {
   )
 }
 
-KeplerLightCurve.story = {
-  name: 'kepler light curve data with inner facing axes',
-  parameters: config
-}
-
 export function PanAndZoom() {
   return (
     <ViewerContext theme={zooTheme}>
@@ -305,11 +263,6 @@ export function PanAndZoom() {
   )
 }
 
-PanAndZoom.story = {
-  name: 'pan and zoom',
-  parameters: config
-}
-
 export function MultipleSeries() {
   return (
     <ViewerContext theme={zooTheme}>
@@ -319,9 +272,4 @@ export function MultipleSeries() {
       </Box>
     </ViewerContext>
   )
-}
-
-MultipleSeries.story = {
-  name: 'multiple series data (transient object)',
-  parameters: config
 }

@@ -81,12 +81,7 @@ const stores = setupStores()
 
 export default {
   title: 'Drawing tools / Polygon',
-  component: Polygon,
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
-  }
+  component: Polygon
 }
 
 export function Complete(args) {

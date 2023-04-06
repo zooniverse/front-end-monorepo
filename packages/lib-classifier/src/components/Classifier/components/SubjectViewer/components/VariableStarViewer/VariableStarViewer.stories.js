@@ -10,14 +10,6 @@ import readme from './README.md'
 import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
 import asyncStates from '@zooniverse/async-states'
 
-const config = {
-  notes: {
-    markdown: readme
-  }
-}
-
-const { colors } = zooTheme.global
-
 const subject = Factory.build('subject', {
   locations: [
     {
@@ -71,8 +63,10 @@ export default {
   title: 'Subject Viewers / VariableStarViewer',
   component: VariableStarViewer,
   parameters: {
-    viewPort: {
-      defaultViewport: 'responsive'
+    docs: {
+      description: {
+        component: readme
+      }
     }
   }
 }
@@ -90,11 +84,6 @@ export function LightTheme() {
   )
 }
 
-LightTheme.story = {
-  name: 'light theme',
-  parameters: config
-}
-
 export function DarkTheme() {
   const darkZooTheme = Object.assign({}, zooTheme, { dark: true })
   return (
@@ -109,15 +98,8 @@ export function DarkTheme() {
   )
 }
 
-DarkTheme.story = {
-  name: 'dark theme',
-  parameters: {
-    backgrounds: backgrounds.darkDefault,
-    viewport: {
-      defaultViewport: 'responsive'
-    },
-    ...config
-  }
+DarkTheme.parameters = {
+  backgrounds: backgrounds.darkDefault
 }
 
 export function NarrowView() {
@@ -133,13 +115,9 @@ export function NarrowView() {
   )
 }
 
-NarrowView.story = {
-  name: 'narrow view',
-  parameters: {
-    viewport: {
-      defaultViewport: 'iphone5'
-    },
-    ...config
+NarrowView.parameters = {
+  viewport: {
+    defaultViewport: 'iphone5'
   }
 }
 
@@ -154,9 +132,4 @@ export function PanZoom() {
       </Box>
     </ViewerContext>
   )
-}
-
-PanZoom.story = {
-  name: 'pan/zoom',
-  parameters: config
 }

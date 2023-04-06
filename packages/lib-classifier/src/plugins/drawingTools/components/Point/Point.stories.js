@@ -1,7 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import cuid from 'cuid'
 import mockStore from '@test/mockStore'
-import DrawingTask from '@plugins/tasks/drawing/models/DrawingTask'
 import {
   DrawingStory,
   subject,
@@ -80,12 +78,7 @@ const stores = setupStores()
 
 export default {
   title: 'Drawing tools / Point',
-  component: Point,
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
-  }
+  component: Point
 }
 
 export function Complete(args) {
@@ -123,4 +116,3 @@ Subtask.args = {
   finished: true,
   subtask: true
 }
-

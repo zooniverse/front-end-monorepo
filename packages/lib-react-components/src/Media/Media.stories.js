@@ -1,15 +1,21 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet, Box, Text } from 'grommet'
+import { Box, Text } from 'grommet'
 
 import Media from './Media'
 import ZooniverseLogo from '../ZooniverseLogo'
 
+/** This will not work with @storybook/testing-react composeStory function */
+// import readme from './README.md'
+
 export default {
   title: 'Components / Media',
-  component: Media,
-  args: {
-    dark: false
-  }
+  component: Media
+  // parameters: {
+  //   docs: {
+  //     description: {
+  //       component: readme
+  //     }
+  //   }
+  // }
 }
 
 const AUDIO_URL =
@@ -21,16 +27,9 @@ const IMAGE_URL =
 const VIDEO_URL =
   'https://static.zooniverse.org/www.zooniverse.org/assets/home-video.mp4'
 
-export function Image({ dark }) {
+export function Image() {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode={dark ? 'dark' : 'light'}
-    >
+    <>
       <Box>
         <Text>Width set as 270</Text>
         <Media alt='A galaxy' src={IMAGE_URL} width={270} />
@@ -54,37 +53,36 @@ export function Image({ dark }) {
         <Text>Not setting the dimensions props defaults them to 999px</Text>
         <Media alt='A galaxy' src={IMAGE_URL} />
       </Box>
-    </Grommet>
+    </>
   )
 }
 
-export function Video({ dark }) {
+export function Video() {
   return (
-    <Grommet theme={zooTheme}>
-      <Box>
-        <Text>Width set as 270</Text>
-        <Media alt='Zooniverse in a nutshell' src={VIDEO_URL} width={270} />
-      </Box>
-    </Grommet>
+    <Box>
+      <Text>Width set as 270</Text>
+      <Media alt='Zooniverse in a nutshell' src={VIDEO_URL} width={270} />
+    </Box>
   )
 }
 
-export function Audio({ dark }) {
+export function Audio() {
   return (
-    <Grommet theme={zooTheme}>
-      <Box>
-        <Media alt='City noise' src={AUDIO_URL} width={270} />
-      </Box>
-    </Grommet>
+    <Box>
+      <Media alt='City noise' src={AUDIO_URL} width={270} />
+    </Box>
   )
 }
 
-export function Data({ dark }) {
+export function Data() {
   return (
-    <Grommet theme={zooTheme}>
-      <Box>
-        <Media alt='SuperWASP Black Hole Hunters' src={DATA_URL} height={250} width={270} />
-      </Box>
-    </Grommet>
+    <Box>
+      <Media
+        alt='SuperWASP Black Hole Hunters'
+        src={DATA_URL}
+        height={250}
+        width={270}
+      />
+    </Box>
   )
 }
