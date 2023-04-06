@@ -16,7 +16,7 @@ function storeMapper (classifierStore) {
     }
   } = classifierStore
 
-  const active = invert // How does this work?
+  const active = invert
   const disabled = !workflow?.configuration?.invert_subject
   return {
     active,

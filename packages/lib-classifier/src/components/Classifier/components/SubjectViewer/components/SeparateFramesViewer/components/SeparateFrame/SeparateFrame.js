@@ -2,12 +2,10 @@ import { useEffect, useState } from 'react'
 import { Box, Grid } from 'grommet'
 import PropTypes from 'prop-types'
 
-import locationValidator from '../../../helpers/locationValidator'
 import useSubjectImage from '@hooks/useSubjectImage.js'
-
-import SingleImageViewer from '../../SingleImageViewer/SingleImageViewer.js'
-import SVGImage from '../../SVGComponents/SVGImage'
-import SeparateFrameImageToolbar from './SeparateFrameImageToolbar/SeparateFrameImageToolbar.js'
+import SingleImageViewer from '../../../SingleImageViewer/SingleImageViewer.js'
+import SVGImage from '../../../SVGComponents/SVGImage'
+import { AnnotateButton, InvertButton, MoveButton, ResetButton, RotateButton, ZoomInButton, ZoomOutButton } from '../../../../../ImageToolbar/components'
 
 const DEFAULT_HANDLER = () => true
 
@@ -17,8 +15,7 @@ const SeparateFrame = ({
   limitSubjectHeight = false,
   onError = DEFAULT_HANDLER,
   onKeyDown = DEFAULT_HANDLER,
-  onReady = DEFAULT_HANDLER,
-  subject // Do we actually use this?
+  onReady = DEFAULT_HANDLER
 }) => {
   const { img, error, loading, subjectImage } = useSubjectImage({
     src: frameUrl,
@@ -38,17 +35,21 @@ const SeparateFrame = ({
     width: naturalWidth
   }
 
-  const [canMove, setCanMove] = useState(false)
+  /** State Variables */
+
   const [invert, setInvert] = useState(false)
   const [rotation, setRotation] = useState(0)
-  const [separateFrameAnnotate, separateFrameEnableAnnotate] = useState(false)
+  const [separateFrameAnnotate, setSeparateFrameAnnotate] = useState(false)
+  const [separateFrameMove, setSeparateFrameMove] = useState(true)
   const [viewBox, setViewBox] = useState(defaultViewBox)
   const [zoom, setZoom] = useState(1)
+
+
+  /** Effects */
 
   useEffect(() => {
     if (frameSrc) {
       enableRotation()
-      setCanMove(true)
       setViewBox(defaultViewBox)
       setZoom(1)
     }
@@ -62,12 +63,15 @@ const SeparateFrame = ({
     [zoom]
   )
 
-  // For subjects that have an InteractionLayer
+
+  /** Pan/Zoom functions */
+
   function imageScale(img) {
     const { width: clientWidth } = img ? img.getBoundingClientRect() : {}
     const scale = clientWidth / naturalWidth
     return !Number.isNaN(scale) ? scale : 1
   }
+  const scale = imageScale(subjectImage.current) // For images with an InteractionLayer
 
   function scaledViewBox(scale) {
     const viewBoxScale = 1 / scale
@@ -97,6 +101,19 @@ const SeparateFrame = ({
       newViewBox.y += dy * 10
       return newViewBox
     })
+  }
+
+
+  /** Image Toolbar functions */
+
+  const separateFrameEnableAnnotate = () => {
+    setSeparateFrameAnnotate(true)
+    setSeparateFrameMove(false)
+  }
+
+  const separateFrameEnableMove = () => {
+    setSeparateFrameMove(true)
+    setSeparateFrameAnnotate(false)
   }
 
   const separateFrameZoomIn = () => {
@@ -129,7 +146,6 @@ const SeparateFrame = ({
   }
 
   const { x, y, width, height } = scaledViewBox(zoom)
-  const scale = imageScale(subjectImage.current)
 
   return (
     <Box pad={{ bottom: 'small' }}>
@@ -158,26 +174,47 @@ const SeparateFrame = ({
             <g ref={subjectImage}>
               <SVGImage
                 invert={invert}
-                move={canMove}
+                move={separateFrameMove}
                 naturalHeight={naturalHeight}
                 naturalWidth={naturalWidth}
                 onDrag={onDrag}
                 src={frameSrc}
-                subjectID={subject.id}
+                subjectID={frameUrl} // Used for an aria-label
               />
             </g>
           </SingleImageViewer>
         </div>
-        <SeparateFrameImageToolbar
-          gridArea='toolbar'
-          separateFrameAnnotate={separateFrameAnnotate}
-          separateFrameEnableAnnotate={separateFrameEnableAnnotate}
-          separateFrameInvert={separateFrameInvert}
-          separateFrameResetView={separateFrameResetView}
-          separateFrameRotate={separateFrameRotate}
-          separateFrameZoomIn={separateFrameZoomIn}
-          separateFrameZoomOut={separateFrameZoomOut}
-        />
+        <Box
+          background={{
+            dark: 'dark-3',
+            light: 'white'
+          }}
+          border={{
+            color: {
+              dark: 'dark-1',
+              light: 'light-3'
+            },
+            side: 'all'
+          }}
+          direction='column'
+          fill
+          height='min-content'
+          pad='clamp(8px, 15%, 10px)'
+        >
+          <AnnotateButton
+            separateFrameAnnotate={separateFrameAnnotate}
+            separateFrameEnableAnnotate={separateFrameEnableAnnotate}
+          />
+          <MoveButton
+            separateFrameMove={separateFrameMove}
+            separateFrameEnableMove={separateFrameEnableMove}
+          />
+          <ZoomInButton separateFrameZoomIn={separateFrameZoomIn} />
+          <ZoomOutButton separateFrameZoomOut={separateFrameZoomOut} />
+          <RotateButton separateFrameRotate={separateFrameRotate} />
+          <ResetButton separateFrameResetView={separateFrameResetView} />
+          <InvertButton separateFrameInvert={separateFrameInvert} />
+        </Box>
       </Grid>
     </Box>
   )
@@ -188,14 +225,13 @@ SeparateFrame.propTypes = {
   enableRotation: PropTypes.func,
   /** String of Object.values(subject.locations[this frame index][0]) */
   frameUrl: PropTypes.string,
+  /** Function passed from Workflow Configuration */
+  limitSubjectHeight: PropTypes.bool,
+  /** Passed from Subject Viewer Store and called whe a frame's src is not loaded */
+  onErrory: PropTypes.func,
   /** withKeyZoom in for using keyboard pan and zoom controls while focused on the subject image */
   onKeyDown: PropTypes.func,
-  /** Passed from Subject Viewer Store and called when default frame's src is loaded */
-  onReady: PropTypes.func,
-  /** Required. Passed from SubjectViewer component */
-  subject: PropTypes.shape({
-    locations: PropTypes.arrayOf(locationValidator)
-  }).isRequired
+  /** Passed from Subject Viewer Store and called when a frame's src is loaded */
+  onReady: PropTypes.func
 }
-
 export default SeparateFrame

@@ -7,7 +7,7 @@ import withKeyZoom from '@components/Classifier/components/withKeyZoom'
 import { useStores } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
 import FlipbookViewer from './FlipbookViewer'
-import SeparateFrame from '../SeparateFramesViewer/components/SeparateFrame.js'
+import SeparateFrame from '../SeparateFramesViewer/components/SeparateFrame/SeparateFrame.js'
 
 function storeMapper(store) {
   const {
@@ -114,7 +114,6 @@ function FlipbookViewerContainer({
               onError={onError}
               onKeyDown={onKeyDown}
               onReady={onReady}
-              subject={subject}
             />
           ))}
         </>
