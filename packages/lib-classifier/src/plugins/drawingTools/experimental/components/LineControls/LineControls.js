@@ -127,10 +127,11 @@ const LineControls = forwardRef(function LineControls({
       aria-label={t('lineControls.lineControls')}
       focusable='false'
       transform={`rotate(${-rotate} ${width / 2} ${height / 2})`}
+	  fill={FILL_COLOR}
     >
       {buttons.map(({ label, path, action, icon }, index) => {
-        return <>
-          <Tooltip label={label} key={index}>
+        return <g focusable='false' key={index}>
+          <Tooltip label={label}>
             <StyledPath
               role='button'
               aria-label={label}
@@ -153,7 +154,7 @@ const LineControls = forwardRef(function LineControls({
             y: icon.y,
             focusable: 'false'
           })}
-        </>
+        </g>
       })}
     </g>
   )
