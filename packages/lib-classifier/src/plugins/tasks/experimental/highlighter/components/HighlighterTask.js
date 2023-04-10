@@ -135,7 +135,7 @@ export function HighlighterTask ({
 
   function handleClick (event, index) {
     const selection = document.getSelection()
-    createLabelAnnotation(selection, index)
+    selection.rangeCount ? createLabelAnnotation(selection, index) : null
   }
 
   return (
@@ -150,6 +150,7 @@ export function HighlighterTask ({
       {task.highlighterLabels ? 
         task.highlighterLabels.map((label, index) => {
           const count = annotation.value.filter(value => value.labelInformation.label === label.label).length
+          
           return (
             <StyledButton
               key={`${task.taskKey}_${index}`}
