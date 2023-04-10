@@ -1,25 +1,14 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
 import Stat from './Stat'
 
 export default {
-  title: 'Project App / Shared / Stat'
+  title: 'Project App / Shared / Stat',
+  component: Stat
 }
 
-export const Default = () => (
-  <Grommet theme={zooTheme}>
-    <Stat label='Volunteers' value={122} />
-  </Grommet>
-)
+export const Default = () => <Stat label='Volunteers' value={122} />
 
 export const HugeNumber = () => (
-  <Grommet theme={zooTheme}>
-    <Stat label='Volunteers is a long word' value={122000000} />
-  </Grommet>
+  <Stat label='Volunteers is a long word' value={122000000} />
 )
 
-export const Zero = () => (
-  <Grommet theme={zooTheme}>
-    <Stat label='Zero' value={0} />
-  </Grommet>
-)
+export const Zero = () => <Stat label='Zero' value={0} />

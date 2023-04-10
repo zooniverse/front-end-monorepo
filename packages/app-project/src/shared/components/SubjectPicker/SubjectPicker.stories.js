@@ -1,45 +1,28 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
-
+import { Box } from 'grommet'
 import SubjectPicker from './SubjectPicker'
 
-function StoryContext (props) {
-  const { children, theme } = props
-
+function DecoratedStory(Story) {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={theme}
-      themeMode={(theme.dark) ? 'dark' : 'light'}
-    >
-      {children}
-    </Grommet>
+    <Box pad='small'>
+      <Story />
+    </Box>
   )
 }
 
 export default {
   title: 'Project App / Shared / Subject Picker',
-  component: SubjectPicker
+  component: SubjectPicker,
+  decorators: [DecoratedStory]
 }
 
 export function Default(args) {
-  const { dark, ...props } = args
-  return (
-    <StoryContext theme={{ ...zooTheme, dark }}>
-      <SubjectPicker
-        {...props}
-      />
-    </StoryContext>
-  )
+  const { ...props } = args
+  return <SubjectPicker {...props} />
 }
 Default.args = {
   active: true,
   baseUrl: '/projects/test-owner/test-project/classify/workflow/12345',
   closeFn: e => true,
-  dark: false,
   subjectSet: {
     id: '15582',
     title: 'Anti-Slavery Letters: 1800-1839',
@@ -54,21 +37,14 @@ Default.args = {
 }
 
 export function Tablet(args) {
-  const { dark, ...props } = args
-  return (
-    <StoryContext theme={{ ...zooTheme, dark }}>
-      <SubjectPicker
-        {...props}
-      />
-    </StoryContext>
-  )
+  const { ...props } = args
+  return <SubjectPicker {...props} />
 }
-Tablet.parameters = { viewport: { defaultViewport: 'ipad' }}
+Tablet.parameters = { viewport: { defaultViewport: 'ipad' } }
 Tablet.args = {
   active: true,
   baseUrl: '/projects/test-owner/test-project/classify/workflow/12345',
   closeFn: e => true,
-  dark: false,
   subjectSet: {
     id: '15582',
     title: 'Anti-Slavery Letters: 1800-1839',

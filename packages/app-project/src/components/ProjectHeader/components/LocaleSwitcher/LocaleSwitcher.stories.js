@@ -1,7 +1,6 @@
-import { Grommet } from 'grommet'
+import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 import { applySnapshot } from 'mobx-state-tree'
-import zooTheme from '@zooniverse/grommet-theme'
 import Router from 'next/router'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
 import PropTypes from 'prop-types'
@@ -46,17 +45,17 @@ export function Default({ project }) {
   const snapshot = { project }
   applySnapshot(Default.store, snapshot)
   return (
-    <Grommet theme={zooTheme} background='dark-3'>
+    <Box background='dark-3'>
       <RouterMock>
-        <Provider store={Default.store} >
+        <Provider store={Default.store}>
           <LocaleSwitcher />
         </Provider>
       </RouterMock>
-    </Grommet>
+    </Box>
   )
 }
 Default.store = initStore(true)
-Default.args ={
+Default.args = {
   project: {
     avatar: {
       src: 'https://panoptes-uploads.zooniverse.org/project_avatar/442e8392-6c46-4481-8ba3-11c6613fba56.jpeg'

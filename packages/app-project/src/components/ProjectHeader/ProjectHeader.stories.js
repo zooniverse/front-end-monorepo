@@ -1,5 +1,3 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import { applySnapshot } from 'mobx-state-tree'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
@@ -20,18 +18,9 @@ const mockRouter = {
   }
 }
 
-function ThemedStory(Story) {
-  return (
-    <Grommet theme={zooTheme}>
-      <Story />
-    </Grommet>
-  )
-}
-
 export default {
   title: 'Project App / Shared / Project Header',
   component: ProjectHeader,
-  decorators: [ThemedStory],
   subcomponents
 }
 
