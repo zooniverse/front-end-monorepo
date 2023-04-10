@@ -121,7 +121,7 @@ function draggable(WrappedComponent) {
           <WrappedComponent
             ref={this.wrappedComponent}
             {...rest}
-            dragging={dragging}
+            dragging={dragging.toString()}
           >
             {children}
           </WrappedComponent>

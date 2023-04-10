@@ -96,14 +96,14 @@ function FlipbookViewerContainer({
 
   return (
     <>
-      <label>
+      {/* <label>
         <input
           type='checkbox'
           onChange={handleViewMode}
           checked={separateFramesView}
         />
         Separate Frames Mode
-      </label>
+      </label> */}
       {separateFramesView ? (
         <Box gap='small'>
           {subject.locations?.map(location => (
