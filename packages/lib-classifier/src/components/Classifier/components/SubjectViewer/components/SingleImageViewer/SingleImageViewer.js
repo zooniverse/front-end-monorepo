@@ -26,8 +26,6 @@ function SingleImageViewer (props) {
   const canvas = transformLayer.current
   const transform = `rotate(${rotate} ${width / 2} ${height / 2})`
 
-  onKeyDown({ key: 'test' })
-
   return (
     <SVGContext.Provider value={{ canvas }}>
       {zoomControlFn && (

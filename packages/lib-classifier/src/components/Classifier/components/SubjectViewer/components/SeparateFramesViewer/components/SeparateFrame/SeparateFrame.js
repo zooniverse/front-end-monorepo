@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Box, Grid } from 'grommet'
+import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 
 import useSubjectImage from '@hooks/useSubjectImage.js'
@@ -151,42 +151,44 @@ const SeparateFrame = ({
     // This is not working yet
     console.log('separate frame key down')
 
-    // const htmlTag = e.target?.tagName.toLowerCase()
-    // const ALLOWED_TAGS = ['svg', 'button', 'g', 'rect']
+    const ALLOWED_TAGS = ['svg', 'button', 'g', 'rect']
+    const htmlTag = e.target?.tagName.toLowerCase()
 
-    switch (e.key) {
-      case '+':
-      case '=': {
-        separateFrameZoomIn()
-        return true
-      }
-      case '-':
-      case '_': {
-        separateFrameZoomOut()
-        return true
-      }
-      case 'ArrowRight': {
-        e.preventDefault()
-        onPan(1, 0)
-        return false
-      }
-      case 'ArrowLeft': {
-        e.preventDefault()
-        onPan(-1, 0)
-        return false
-      }
-      case 'ArrowUp': {
-        e.preventDefault()
-        onPan(0, -1)
-        return false
-      }
-      case 'ArrowDown': {
-        e.preventDefault()
-        onPan(0, 1)
-        return false
-      }
-      default: {
-        return true
+    if (ALLOWED_TAGS.includes(htmlTag)) {
+      switch (e.key) {
+        case '+':
+        case '=': {
+          separateFrameZoomIn()
+          return true
+        }
+        case '-':
+        case '_': {
+          separateFrameZoomOut()
+          return true
+        }
+        case 'ArrowRight': {
+          e.preventDefault()
+          onPan(1, 0)
+          return false
+        }
+        case 'ArrowLeft': {
+          e.preventDefault()
+          onPan(-1, 0)
+          return false
+        }
+        case 'ArrowUp': {
+          e.preventDefault()
+          onPan(0, -1)
+          return false
+        }
+        case 'ArrowDown': {
+          e.preventDefault()
+          onPan(0, 1)
+          return false
+        }
+        default: {
+          return true
+        }
       }
     }
   }
