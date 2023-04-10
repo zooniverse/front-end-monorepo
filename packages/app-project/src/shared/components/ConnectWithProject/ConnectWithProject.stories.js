@@ -1,5 +1,4 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
+import { Box } from 'grommet'
 import ConnectWithProject from './ConnectWithProject'
 
 const mockUrls = [
@@ -71,7 +70,6 @@ const mockUrls = [
 ]
 
 const args = {
-  dark: false,
   projectName: 'Test Project',
   urls: mockUrls
 }
@@ -82,20 +80,10 @@ export default {
   args
 }
 
-export const Default = ({ dark, projectName, urls }) => {
-  const theme = { ...zooTheme, dark }
+export const Default = ({ projectName, urls }) => {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-3',
-        light: 'white'
-      }}
-      theme={theme}
-      themeMode={dark ? 'dark' : 'light'}
-    >
-      <Box pad='12px'>
-        <ConnectWithProject projectName={projectName} urls={urls} />
-      </Box>
-    </Grommet>
+    <Box pad='xsmall'>
+      <ConnectWithProject projectName={projectName} urls={urls} />
+    </Box>
   )
 }

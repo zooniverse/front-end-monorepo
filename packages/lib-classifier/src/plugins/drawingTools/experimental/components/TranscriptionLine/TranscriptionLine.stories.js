@@ -1,7 +1,5 @@
 import zooTheme from '@zooniverse/grommet-theme'
-import cuid from 'cuid'
 import mockStore from '@test/mockStore'
-import DrawingTask from '@plugins/tasks/drawing/models/DrawingTask'
 import { DrawingStory, subject, updateStores } from '@plugins/drawingTools/stories/helpers.js'
 import { DrawingTaskFactory, WorkflowFactory } from '@test/factories'
 import TranscriptionLine from './'
@@ -63,12 +61,7 @@ const stores = setupStores()
 
 export default {
   title: 'Drawing tools / Transcription Line',
-  component: TranscriptionLine,
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
-  }
+  component: TranscriptionLine
 }
 
 export function Complete(args) {
@@ -106,4 +99,3 @@ Subtask.args = {
   finished: true,
   subtask: true
 }
-

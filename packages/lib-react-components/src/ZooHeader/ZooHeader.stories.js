@@ -1,83 +1,63 @@
-import { action } from '@storybook/addon-actions'
-import { storiesOf } from '@storybook/react'
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
+import { Box } from 'grommet'
 
 import ZooHeader from './ZooHeader'
 import readme from './README.md'
 
-const signIn = action('Sign in button clicked')
-const signOut = action('Sign out button clicked')
-
-const config = {
-  docs: {
-    description: {
-      component: readme
+export default {
+  title: 'Components / ZooHeader',
+  component: ZooHeader,
+  argTypes: {
+    signIn: {
+      action: 'User signed in'
+    },
+    signOut: {
+      action: 'User signed out'
+    }
+  },
+  parameters: {
+    docs: {
+      description: {
+        component: readme
+      }
     }
   }
 }
 
-export default {
-  title: 'Components / ZooHeader',
-  component: ZooHeader,
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    },
-    ...config
-  }
+export function SignedOut({ signIn, signOut }) {
+  return <ZooHeader signIn={signIn} signOut={signOut} user={{}} />
 }
 
-export function SignedOut() {
+/** You can also see this using the 'Viewports' button in Storybook's toolbar */
+export function SignedOutNarrowWindowView({ signIn, signOut }) {
   return (
-    <Grommet theme={zooTheme} full>
-      <ZooHeader
-        signIn={signIn}
-        signOut={signOut}
-        user={{}}
-      />
-    </Grommet>
+    <Box width='400px'>
+      <ZooHeader isNarrow signIn={signIn} signOut={signOut} user={{}} />
+    </Box>
   )
 }
 
-export function SignedOutNarrowWindowView() {
+export function SignedIn({ signIn, signOut }) {
   return (
-    <Grommet theme={zooTheme} full>
-      <ZooHeader
-        isNarrow
-        signIn={signIn}
-        signOut={signOut}
-        user={{}}
-      />
-    </Grommet>
+    <ZooHeader
+      signIn={signIn}
+      signOut={signOut}
+      user={{
+        display_name: 'zootester1',
+        login: 'zootester1'
+      }}
+    />
   )
 }
 
-SignedOutNarrowWindowView.parameters = {
-  viewport: {
-    defaultViewport: 'iphone5'
-  },
-  ...config
-}
-
-export function SignedIn() {
+/** You can also see this using the 'Viewports' button in Storybook's toolbar */
+export function SignedInNarrowWindowView({
+  signIn,
+  signOut,
+  unreadMessages,
+  unreadNotifications
+}) {
   return (
-    <Grommet theme={zooTheme} full>
-      <ZooHeader
-        signIn={signIn}
-        signOut={signOut}
-        user={{
-          display_name: 'zootester1',
-          login: 'zootester1'
-        }}
-      />
-    </Grommet>
-  )
-}
-
-export function SignedInNarrowWindowView({ unreadMessages, unreadNotifications }) {
-  return(
-    <Grommet theme={zooTheme} full>
+    <Box width='400px'>
       <ZooHeader
         isAdmin
         signIn={signIn}
@@ -90,7 +70,7 @@ export function SignedInNarrowWindowView({ unreadMessages, unreadNotifications }
           login: 'zootester1'
         }}
       />
-    </Grommet>
+    </Box>
   )
 }
 SignedInNarrowWindowView.args = {
@@ -98,60 +78,47 @@ SignedInNarrowWindowView.args = {
   unreadMessages: 3
 }
 
-SignedInNarrowWindowView.parameters = {
-  viewport: {
-    defaultViewport: 'iphone5'
-  },
-  ...config
-}
-
-export function SignedInAsAdmin() {
-  return(
-    <Grommet theme={zooTheme} full>
-      <ZooHeader
-        isAdmin
-        signIn={signIn}
-        signOut={signOut}
-        user={{
-          admin: true,
-          display_name: 'zootester1',
-          login: 'zootester1'
-        }}
-      />
-    </Grommet>
-  )
-}
-
-export function SignedInWithNotifications() {
-  return(
-    <Grommet theme={zooTheme} full>
-      <ZooHeader
-        signIn={signIn}
-        signOut={signOut}
-        unreadNotifications={3}
-        user={{
-          admin: true,
-          display_name: 'zootester1',
-          login: 'zootester1'
-        }}
-      />
-    </Grommet>
-  )
-}
-
-export function SignedInWithMessages() {
+export function SignedInAsAdmin({ signIn, signOut }) {
   return (
-    <Grommet theme={zooTheme} full>
-      <ZooHeader
-        signIn={signIn}
-        signOut={signOut}
-        unreadMessages={3}
-        user={{
-          admin: true,
-          display_name: 'zootester1',
-          login: 'zootester1'
-        }}
-      />
-    </Grommet>
+    <ZooHeader
+      isAdmin
+      signIn={signIn}
+      signOut={signOut}
+      user={{
+        admin: true,
+        display_name: 'zootester1',
+        login: 'zootester1'
+      }}
+    />
+  )
+}
+
+export function SignedInWithNotifications({ signIn, signOut }) {
+  return (
+    <ZooHeader
+      signIn={signIn}
+      signOut={signOut}
+      unreadNotifications={3}
+      user={{
+        admin: true,
+        display_name: 'zootester1',
+        login: 'zootester1'
+      }}
+    />
+  )
+}
+
+export function SignedInWithMessages({ signIn, signOut }) {
+  return (
+    <ZooHeader
+      signIn={signIn}
+      signOut={signOut}
+      unreadMessages={3}
+      user={{
+        admin: true,
+        display_name: 'zootester1',
+        login: 'zootester1'
+      }}
+    />
   )
 }

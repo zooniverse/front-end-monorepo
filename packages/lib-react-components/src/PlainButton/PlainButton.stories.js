@@ -1,8 +1,10 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
+import { Box } from 'grommet'
 import { Add } from 'grommet-icons'
 
 import PlainButton from './PlainButton'
+
+/** This will not work with @storybook/testing-react composeStory function */
+// import readme from './README.md'
 
 export default {
   title: 'Components / PlainButton',
@@ -12,7 +14,6 @@ export default {
       dark: 'accent-1',
       light: 'neutral-1'
     },
-    dark: false,
     disabled: false,
     href: 'https://www.zooniverse.org',
     icon: false,
@@ -28,11 +29,17 @@ export default {
       action: 'clicked'
     }
   }
+  // parameters: {
+  //   docs: {
+  //     description: {
+  //       component: readme
+  //     }
+  //   }
+  // }
 }
 
 export function Default({
   color,
-  dark,
   disabled,
   href,
   labelSize,
@@ -41,25 +48,16 @@ export function Default({
   text
 }) {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode={dark ? 'dark' : 'light'}
-    >
-      <Box pad='medium'>
-        <PlainButton
-          color={color}
-          disabled={disabled}
-          href={href}
-          labelSize={labelSize}
-          icon={icon ? <Add size='16px' /> : null}
-          onClick={onClick}
-          text={text}
-        />
-      </Box>
-    </Grommet>
+    <Box pad='medium'>
+      <PlainButton
+        color={color}
+        disabled={disabled}
+        href={href}
+        labelSize={labelSize}
+        icon={icon ? <Add size='16px' /> : null}
+        onClick={onClick}
+        text={text}
+      />
+    </Box>
   )
 }

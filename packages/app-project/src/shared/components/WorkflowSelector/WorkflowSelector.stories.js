@@ -1,6 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
+import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
 
@@ -67,23 +66,14 @@ const WORKFLOWS = [
   }
 ]
 
-function StoryContext (props) {
-  const { children, theme } = props
-
+function StoryContext(Story) {
   return (
     <RouterContext.Provider value={router}>
-      <Grommet
-        background={{
-          dark: 'dark-1',
-          light: 'light-1'
-        }}
-        theme={theme}
-        themeMode={(theme.dark) ? 'dark' : 'light'}
-      >
-        <Provider store={store}>
-          {children}
-        </Provider>
-      </Grommet>
+      <Provider store={store}>
+        <Box pad='small'>
+          <Story />
+        </Box>
+      </Provider>
     </RouterContext.Provider>
   )
 }
@@ -91,6 +81,7 @@ function StoryContext (props) {
 export default {
   title: 'Project App / Shared / Workflow Selector',
   component: WorkflowSelector,
+  decorators: [StoryContext],
   subcomponents,
   argTypes: {
     userReadyState: {
@@ -99,32 +90,31 @@ export default {
         options: asyncStates
       }
     }
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
   }
 }
 
-export function Default({ assignedWorkflowID, dark, uppLoaded, userReadyState, workflowAssignmentEnabled, workflowDescription, workflows }) {
+export function Default({
+  assignedWorkflowID,
+  uppLoaded,
+  userReadyState,
+  workflowAssignmentEnabled,
+  workflowDescription,
+  workflows
+}) {
   return (
-    <StoryContext theme={{ ...zooTheme, dark }}>
-      <WorkflowSelector
-        assignedWorkflowID={assignedWorkflowID}
-        uppLoaded={uppLoaded}
-        userReadyState={userReadyState}
-        workflowAssignmentEnabled={workflowAssignmentEnabled}
-        workflowDescription={workflowDescription}
-        workflows={workflows}
-      />
-    </StoryContext>
+    <WorkflowSelector
+      assignedWorkflowID={assignedWorkflowID}
+      uppLoaded={uppLoaded}
+      userReadyState={userReadyState}
+      workflowAssignmentEnabled={workflowAssignmentEnabled}
+      workflowDescription={workflowDescription}
+      workflows={workflows}
+    />
   )
 }
 
 Default.args = {
   assignedWorkflowID: '',
-  dark: false,
   uppLoaded: true,
   userReadyState: asyncStates.success,
   workflowAssignmentEnabled: false,
@@ -132,24 +122,28 @@ Default.args = {
   workflows: WORKFLOWS
 }
 
-export function WithLevels({ assignedWorkflowID, dark, uppLoaded, userReadyState, workflowAssignmentEnabled, workflowDescription, workflows }) {
+export function WithLevels({
+  assignedWorkflowID,
+  uppLoaded,
+  userReadyState,
+  workflowAssignmentEnabled,
+  workflowDescription,
+  workflows
+}) {
   return (
-    <StoryContext theme={{ ...zooTheme, dark }}>
-      <WorkflowSelector
-        assignedWorkflowID={assignedWorkflowID}
-        uppLoaded={uppLoaded}
-        workflowAssignmentEnabled={workflowAssignmentEnabled}
-        workflowDescription={workflowDescription}
-        userReadyState={userReadyState}
-        workflows={workflows}
-      />
-    </StoryContext>
+    <WorkflowSelector
+      assignedWorkflowID={assignedWorkflowID}
+      uppLoaded={uppLoaded}
+      workflowAssignmentEnabled={workflowAssignmentEnabled}
+      workflowDescription={workflowDescription}
+      userReadyState={userReadyState}
+      workflows={workflows}
+    />
   )
 }
 
 WithLevels.args = {
   assignedWorkflowID: '7890',
-  dark: false,
   uppLoaded: true,
   userReadyState: asyncStates.success,
   workflowAssignmentEnabled: true,
@@ -157,21 +151,23 @@ WithLevels.args = {
   workflows: WORKFLOWS
 }
 
-export function Loading({ dark, uppLoaded, userReadyState, workflowAssignmentEnabled, workflowDescription, workflows }) {
+export function Loading({
+  uppLoaded,
+  userReadyState,
+  workflowDescription,
+  workflows
+}) {
   return (
-    <StoryContext theme={{ ...zooTheme, dark }}>
-      <WorkflowSelector
-        uppLoaded={uppLoaded}
-        userReadyState={userReadyState}
-        workflowDescription={workflowDescription}
-        workflows={workflows}
-      />
-    </StoryContext>
+    <WorkflowSelector
+      uppLoaded={uppLoaded}
+      userReadyState={userReadyState}
+      workflowDescription={workflowDescription}
+      workflows={workflows}
+    />
   )
 }
 
 Loading.args = {
-  dark: false,
   uppLoaded: false,
   userReadyState: asyncStates.loading,
   workflowAssignmentEnabled: false,
@@ -179,21 +175,23 @@ Loading.args = {
   workflows: WORKFLOWS
 }
 
-export function Error({ dark, uppLoaded, userReadyState, workflowAssignmentEnabled, workflowDescription, workflows }) {
+export function Error({
+  uppLoaded,
+  userReadyState,
+  workflowDescription,
+  workflows
+}) {
   return (
-    <StoryContext theme={{ ...zooTheme, dark }}>
-      <WorkflowSelector
-        uppLoaded={uppLoaded}
-        userReadyState={userReadyState}
-        workflowDescription={workflowDescription}
-        workflows={workflows}
-      />
-    </StoryContext>
+    <WorkflowSelector
+      uppLoaded={uppLoaded}
+      userReadyState={userReadyState}
+      workflowDescription={workflowDescription}
+      workflows={workflows}
+    />
   )
 }
 
 Error.args = {
-  dark: false,
   uppLoaded: false,
   userReadyState: asyncStates.error,
   workflowAssignmentEnabled: false,

@@ -2,7 +2,6 @@ import { GraphQLClient } from 'graphql-request'
 import { Provider } from 'mobx-react'
 import { Box, Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
-import asyncStates from '@zooniverse/async-states'
 import sinon from 'sinon'
 import mockStore from '@test/mockStore'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
@@ -13,7 +12,6 @@ import TooltipIcon from './components/TooltipIcon'
 
 import TranscribedLines from './TranscribedLines'
 
-const query = '{ workflow(id: 5339) { subject_reductions(subjectId: 13967054, reducerKey:"ext") { data } } }'
 const subjectSnapshot = SubjectFactory.build({
   id: '13967054',
   locations: [{ 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/production/subject_location/bb2bf18b-4c1e-4a2a-8bc5-444347f44af1.jpeg' }]
@@ -23,7 +21,7 @@ const workflowSnapshot = WorkflowFactory.build({
   id: '5339',
   display_name: 'A test workflow',
   steps: [
-    ['S1', { stepKey: 'S1', taskKeys: ['T0']}]
+    ['S1', { stepKey: 'S1', taskKeys: ['T0'] }]
   ],
   strings: {
     display_name: 'a test workflow',
@@ -55,9 +53,9 @@ const workflowSnapshot = WorkflowFactory.build({
 const client = {
   panoptes: {
     get: () => Promise.resolve({ body: {
-        subjects: [],
-        workflows: []
-      }
+      subjects: [],
+      workflows: []
+    }
     })
   },
   caesar: new GraphQLClient('https://caesar.zooniverse.org/graphql'),

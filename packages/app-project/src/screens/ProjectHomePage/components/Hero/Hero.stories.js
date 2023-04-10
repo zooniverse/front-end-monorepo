@@ -1,13 +1,8 @@
 import { MediaContextProvider } from '@shared/components/Media'
 import asyncStates from '@zooniverse/async-states'
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
-import { Provider } from "mobx-react"
+import { Provider } from 'mobx-react'
 import { applySnapshot } from 'mobx-state-tree'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
-import PropTypes from 'prop-types'
-import { Component } from 'react'
-import sinon from 'sinon'
 
 import initStore from '@stores'
 import Hero from './'
@@ -50,21 +45,12 @@ const snapshot = {
 const store = initStore(false, snapshot)
 applySnapshot(store.user, snapshot.user)
 
-function MockProjectContext({ children, theme }) {
+function MockProjectContext({ children }) {
   return (
     <RouterContext.Provider value={router}>
       <MediaContextProvider>
         <Provider store={store}>
-          <Grommet
-            background={{
-              dark: 'dark-1',
-              light: 'light-1'
-            }}
-            theme={theme}
-            themeMode={(theme.dark) ? 'dark' : 'light'}
-          >
-            {children}
-          </Grommet>
+          {children}
         </Provider>
       </MediaContextProvider>
     </RouterContext.Provider>
@@ -94,20 +80,14 @@ const WORKFLOWS = [
 export default {
   title: 'Project App / Screens / Project Home / Hero',
   component: Hero,
-  parameters: {
-    viewport: {
-      defaultViewport: 'responsive'
-    }
-  },
   args: {
-    dark: false,
     isWide: true
   }
 }
 
-export function Default({ dark, isWide }) {
-  return(
-    <MockProjectContext theme={{ ...zooTheme, dark }}>
+export function Default({ isWide }) {
+  return (
+    <MockProjectContext>
       <Hero
         isWide={isWide}
         workflows={WORKFLOWS}
@@ -116,9 +96,9 @@ export function Default({ dark, isWide }) {
   )
 }
 
-export function SmallScreen({ dark }) {
+export function SmallScreen() {
   return (
-    <MockProjectContext theme={{ ...zooTheme, dark }}>
+    <MockProjectContext>
       <Hero
         isWide={false}
         workflows={WORKFLOWS}

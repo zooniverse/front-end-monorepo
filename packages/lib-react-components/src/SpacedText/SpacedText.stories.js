@@ -1,13 +1,14 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
+import { Box } from 'grommet'
 import SpacedText from './SpacedText'
+
+/** This will not work with @storybook/testing-react composeStory function */
+// import readme from './README.md'
 
 export default {
   title: 'Components / SpacedText',
   component: SpacedText,
   args: {
     children: 'Zooniverse Spaced Text',
-    dark: false,
     size: 'medium',
     uppercase: true,
     weight: 'normal'
@@ -26,21 +27,19 @@ export default {
       control: { type: 'radio' }
     }
   }
+  // parameters: {
+  //   docs: {
+  //     description: {
+  //       component: readme
+  //     }
+  //   }
+  // }
 }
 
-export const Default = ({ children, dark, size, uppercase, weight }) => (
-  <Grommet
-    background={{
-      dark: 'dark-1',
-      light: 'light-1'
-    }}
-    theme={zooTheme}
-    themeMode={dark ? 'dark' : 'light'}
-  >
-    <Box pad='medium'>
-      <SpacedText size={size} uppercase={uppercase} weight={weight}>
-        {children}
-      </SpacedText>
-    </Box>
-  </Grommet>
+export const Default = ({ children, size, uppercase, weight }) => (
+  <Box pad='medium'>
+    <SpacedText size={size} uppercase={uppercase} weight={weight}>
+      {children}
+    </SpacedText>
+  </Box>
 )
