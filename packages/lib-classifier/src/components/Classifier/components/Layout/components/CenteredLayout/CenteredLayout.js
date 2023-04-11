@@ -9,12 +9,13 @@ import MetaTools from '@components/Classifier/components/MetaTools'
 import QuickTalk from '@components/Classifier/components/QuickTalk'
 import SubjectViewer from '@components/Classifier/components/SubjectViewer'
 import TaskArea from '@components/Classifier/components/TaskArea'
+import FieldGuide from '@components/Classifier/components/FieldGuide'
 
 export const Relative = styled(Box)`
   position: relative; // Used for QuickTalk and FeedbackModal positioning
 `
 
-const StickyTaskArea = styled(TaskArea)`
+const StickyTaskArea = styled(Box)`
   flex: initial; // Don't stretch vertically
   position: sticky;
   top: 10px;
@@ -64,7 +65,10 @@ export default function CenteredLayout({ separateFramesView = false }) {
           width={size === 'small' ? '100%' : '25rem'}
           fill={size === 'small' ? 'horizontal' : 'vertical'}
         >
-          <StickyTaskArea />
+          <StickyTaskArea>
+            <TaskArea />
+            {separateFramesView && <FieldGuide />}
+          </StickyTaskArea>
         </Box>
       </Box>
       <FeedbackModal />

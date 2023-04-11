@@ -11,7 +11,8 @@ export default {
   component: MaxWidth,
   excludeStories: ['mockTask'],
   args: {
-    dark: false
+    dark: false,
+    separateFramesView: false
   }
 }
 
@@ -57,7 +58,7 @@ const workflowSnapshot = WorkflowFactory.build({
   tasks: mockTask
 })
 
-export function Default({ dark }) {
+export function Default({ dark, separateFramesView }) {
   return (
     <Grommet
       background={{
@@ -68,7 +69,7 @@ export function Default({ dark }) {
       themeMode={dark ? 'dark' : 'light'}
     >
       <Provider classifierStore={Default.store}>
-        <MaxWidth />
+        <MaxWidth separateFramesView={separateFramesView} />
       </Provider>
     </Grommet>
   )
