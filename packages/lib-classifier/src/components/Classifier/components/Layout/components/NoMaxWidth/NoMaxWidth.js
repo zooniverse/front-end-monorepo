@@ -42,9 +42,7 @@ export function ViewerGrid({ children }) {
   return (
     <Grid
       as='section'
-      areas={[
-        ['subject', 'toolbar']
-      ]}
+      areas={[['subject', 'toolbar']]}
       columns={['auto', 'clamp(3rem, 10%, 4.5rem)']}
       gridArea='viewer'
       height='fit-content'
@@ -55,43 +53,44 @@ export function ViewerGrid({ children }) {
   )
 }
 
-export default function NoMaxWidth({ className = '' }) {
+export default function NoMaxWidth({ className = '', separateFramesView = false }) {
   const size = useContext(ResponsiveContext)
   const verticalLayout = {
-    areas: [
-      ['viewer'],
-      ['task']
-    ],
+    areas: [['viewer'], ['task']],
     columns: ['100%'],
     gap: 'small',
     margin: 'none',
     rows: ['auto', 'auto']
   }
   const horizontalLayout = {
-    areas: [
-      ['viewer', 'task']
-    ],
+    areas: [['viewer', 'task']],
     columns: ['auto', '25rem'],
     gap: 'medium',
     rows: ['auto']
   }
-  const containerGridProps = size === 'small' ? verticalLayout : horizontalLayout
+  const containerGridProps =
+    size === 'small' ? verticalLayout : horizontalLayout
 
   return (
-    <ContainerGrid
-      className={className}
-      {...containerGridProps}
-    >
-      <ViewerGrid>
-        <Box gridArea='subject'>
+    <ContainerGrid className={className} {...containerGridProps}>
+      {separateFramesView ? (
+        <Box>
           <Banners />
           <SubjectViewer />
           <MetaTools />
         </Box>
-        <StyledImageToolbarContainer>
-          <StyledImageToolbar />
-        </StyledImageToolbarContainer>
-      </ViewerGrid>
+      ) : (
+        <ViewerGrid>
+          <Box gridArea='subject'>
+            <Banners />
+            <SubjectViewer />
+            <MetaTools />
+          </Box>
+          <StyledImageToolbarContainer>
+            <StyledImageToolbar />
+          </StyledImageToolbarContainer>
+        </ViewerGrid>
+      )}
       <StyledTaskAreaContainer>
         <StyledTaskArea />
       </StyledTaskAreaContainer>
