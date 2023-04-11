@@ -54,7 +54,12 @@ function storeMapper(store) {
     setFlipbookSpeed
   } = store.subjectViewer
 
+  const {
+    enable_switching_flipbook_and_separate: enableSwitchView
+  } = store.workflows?.active?.configuration
+
   return {
+    enableSwitchView,
     flipbookSpeed,
     setFlipbookSpeed
   }
@@ -68,7 +73,7 @@ const FlipbookControls = ({
   playing = false,
   playIterations
 }) => {
-  const { flipbookSpeed, setFlipbookSpeed } = useStores(storeMapper)
+  const { enableSwitchView, flipbookSpeed, setFlipbookSpeed } = useStores(storeMapper)
   const { t } = useTranslation('components')
   const timeoutRef = useRef(null)
 
@@ -283,8 +288,8 @@ const FlipbookControls = ({
               onClick={handleNext}
             />
           </Box>
-          <Box>
-            <ViewModeButton />
+          <Box justify='center' align='center'>
+            {enableSwitchView && <ViewModeButton smallScreenStyle={smallScreenStyle} />}
           </Box>
         </Grid>
       </Box>

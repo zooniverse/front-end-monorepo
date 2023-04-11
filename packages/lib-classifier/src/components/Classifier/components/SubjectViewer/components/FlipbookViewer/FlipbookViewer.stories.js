@@ -203,6 +203,31 @@ export const Autoplay = ({ dark }) => {
   )
 }
 
+const workflowWithSwitchToSeparateFrames = WorkflowFactory.build({
+  configuration: {
+    enable_switching_flipbook_and_separate: true
+  }
+})
+const storeWithSwitchToSeparateFrames = mockStore({
+  subject: mockSubject,
+  workflow: workflowWithSwitchToSeparateFrames
+})
+
+export const WithViewModeButton = ({ dark }) => {
+  const themeMode = dark ? 'dark' : 'light'
+  return (
+    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
+      <Provider classifierStore={storeWithSwitchToSeparateFrames}>
+        <Box width='large'>
+          <FlipbookViewerContainer
+            loadingState={asyncStates.success}
+            subject={storeWithSwitchToSeparateFrames.subjects.active}
+          />
+        </Box>
+      </Provider>
+    </Grommet>
+  )
+}
 
 export const NoSubject = ({ dark }) => {
   const themeMode = dark ? 'dark' : 'light'

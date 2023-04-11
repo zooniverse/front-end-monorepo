@@ -6,7 +6,7 @@ import mockStore from '@test/mockStore'
 import SeparateFrame from './SeparateFrame'
 
 export default {
-  title: 'Subject Viewers / SeparateFrame',
+  title: 'Subject Viewers / SeparateFramesViewer / SeparateFrame',
   component: SeparateFrame,
   args: {
     dark: false,
