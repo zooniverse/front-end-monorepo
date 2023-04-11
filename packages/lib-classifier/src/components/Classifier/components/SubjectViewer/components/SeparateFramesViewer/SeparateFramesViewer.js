@@ -6,7 +6,7 @@ import asyncStates from '@zooniverse/async-states'
 import { useStores } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
 import SeparateFrame from './components/SeparateFrame/SeparateFrame.js'
-import ViewModeButton from '../FlipbookViewer/components/ViewModeButton'
+import ViewModeButton from './components/ViewModeButton/ViewModeButton.js'
 
 function storeMapper(store) {
   const { separateFramesView, setSeparateFramesView } = store.subjectViewer
@@ -35,20 +35,25 @@ function SeparateFramesViewer({
   }
 
   return (
-    <Box gap='small'>
-      {subject.locations?.map(location => (
-        <SeparateFrame
-          frameUrl={Object.values(location)[0]}
-          key={Object.values(location)[0]}
-          limitSubjectHeight={limitSubjectHeight}
-          onError={onError}
-          onReady={onReady}
-        />
-      ))}
-      <Box justify='center'>
+    <>
+      <Box gap='small'>
+        {subject.locations?.map(location => (
+          <SeparateFrame
+            frameUrl={Object.values(location)[0]}
+            key={Object.values(location)[0]}
+            limitSubjectHeight={limitSubjectHeight}
+            onError={onError}
+            onReady={onReady}
+          />
+        ))}
+      </Box>
+      <Box
+        justify='center'
+        pad='xsmall'
+      >
         <ViewModeButton />
       </Box>
-    </Box>
+    </>
   )
 }
 

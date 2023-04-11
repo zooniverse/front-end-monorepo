@@ -39,6 +39,7 @@ const mockSubject = SubjectFactory.build({
 const store = mockStore({
   subject: mockSubject
 })
+store.subjectViewer.setSeparateFramesView(true)
 
 export const OneColumn = ({ dark }) => {
   const themeMode = dark ? 'dark' : 'light'

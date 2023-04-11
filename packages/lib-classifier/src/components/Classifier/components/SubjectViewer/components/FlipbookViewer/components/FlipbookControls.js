@@ -15,7 +15,7 @@ import { useStores } from '@hooks'
 
 import controlsTheme from './theme'
 import locationValidator from '../../../helpers/locationValidator'
-import ViewModeButton from './ViewModeButton'
+import ViewModeButton from '../../SeparateFramesViewer/components/ViewModeButton/ViewModeButton.js'
 
 const SpeedSelect = styled(Select)`
   display: block;
