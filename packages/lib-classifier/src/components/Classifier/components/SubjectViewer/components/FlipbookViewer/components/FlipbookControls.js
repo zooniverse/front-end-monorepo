@@ -15,6 +15,7 @@ import { useStores } from '@hooks'
 
 import controlsTheme from './theme'
 import locationValidator from '../../../helpers/locationValidator'
+import ViewModeButton from './ViewModeButton'
 
 const SpeedSelect = styled(Select)`
   display: block;
@@ -282,7 +283,9 @@ const FlipbookControls = ({
               onClick={handleNext}
             />
           </Box>
-          <Box />
+          <Box>
+            <ViewModeButton />
+          </Box>
         </Grid>
       </Box>
     </ThemeContext.Extend>
