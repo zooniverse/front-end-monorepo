@@ -1,0 +1,24 @@
+name: deploy storybooks
+
+on:
+  push:
+    tags:
+      - production-release
+  workflow_dispatch:
+
+jobs:
+  build_storybooks:
+    name: Build storybooks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+         node-version: 'lts/hydrogen'
+         cache: 'yarn'
+
+      - run: yarn install --production=false --frozen-lockfile
+      - run: yarn workspace @zooniverse/react-components build:es6
+      - run: yarn workspace @zooniverse/classifier build:es6
+      - run: yarn deploy-storybook
