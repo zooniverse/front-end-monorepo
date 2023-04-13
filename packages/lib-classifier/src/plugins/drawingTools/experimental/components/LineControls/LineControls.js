@@ -146,13 +146,18 @@ const LineControls = forwardRef(function LineControls({
               onKeyDown={(ev) => { onEnterOrSpace(ev, action) }}
             ></StyledPath>
           </Tooltip>
-          <IconComponent
-            color='white'
-            size={`${icon.size}px`}
+          <svg
+            height={icon.size}
+            width={icon.size}
             x={icon.x}
             y={icon.y}
-            focusable='false'
-          />
+          >
+            <IconComponent
+              color='white'
+              size={`${icon.size}px`}
+              focusable='false'
+            />
+          </svg>
         </g>
       })}
     </g>
