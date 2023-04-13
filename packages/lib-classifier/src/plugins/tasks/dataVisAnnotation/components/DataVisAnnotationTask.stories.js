@@ -21,7 +21,7 @@ export default {
   }
 }
 
-export function LightTheme({ dark, isThereTaskHelp, required, subjectReadyState }) {
+export function Default({ isThereTaskHelp, required, subjectReadyState }) {
   const help = isThereTaskHelp ?
     'Use the drawing tool to mark any dips in the light curve that look like planetary transits.' :
     ''
@@ -46,7 +46,6 @@ export function LightTheme({ dark, isThereTaskHelp, required, subjectReadyState 
   }
   return (
     <MockTask
-      dark={dark}
       isThereTaskHelp={isThereTaskHelp}
       subjectReadyState={subjectReadyState}
       tasks={tasks}

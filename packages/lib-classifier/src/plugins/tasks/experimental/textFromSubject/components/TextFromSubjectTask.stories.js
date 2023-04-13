@@ -7,7 +7,6 @@ export default {
   title: 'Tasks / TextFromSubject',
   component: TextFromSubjectTask,
   args: {
-    dark: false,
     subjectReadyState: asyncStates.success
   },
   argTypes: {
@@ -34,13 +33,9 @@ const subject = {
   }]
 }
 
-export function Default ({
-  dark,
-  subjectReadyState
-}) {
+export function Default ({ subjectReadyState }) {
   return (
     <MockTask
-      dark={dark}
       subject={subject}
       subjectReadyState={subjectReadyState}
       tasks={tasks}

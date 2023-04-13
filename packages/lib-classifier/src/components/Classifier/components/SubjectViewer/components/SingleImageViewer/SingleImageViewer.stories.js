@@ -1,5 +1,4 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
+import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 import { Factory } from 'rosie'
 import SubjectViewerStore from '@store/SubjectViewerStore'
@@ -42,16 +41,14 @@ export default {
 
 export const Default = () => {
   return (
-    <Grommet theme={zooTheme}>
-      <Provider classifierStore={mockStore}>
-        <Box width='large'>
-          <SingleImageViewer
-            loadingState={asyncStates.success}
-            enableInteractionLayer={false}
-          />
-        </Box>
-      </Provider>
-    </Grommet>
+    <Provider classifierStore={mockStore}>
+      <Box width='large'>
+        <SingleImageViewer
+          loadingState={asyncStates.success}
+          enableInteractionLayer={false}
+        />
+      </Box>
+    </Provider>
   )
 }
 
@@ -82,15 +79,13 @@ const storeWithLimitSubjectHeight = {
 
 export const LimitSubjectHeight = () => {
   return (
-    <Grommet theme={zooTheme}>
-      <Provider classifierStore={storeWithLimitSubjectHeight}>
-        <Box width='large'>
-          <SingleImageViewer
-            loadingState={asyncStates.success}
-            enableInteractionLayer={false}
-          />
-        </Box>
-      </Provider>
-    </Grommet>
+    <Provider classifierStore={storeWithLimitSubjectHeight}>
+      <Box width='large'>
+        <SingleImageViewer
+          loadingState={asyncStates.success}
+          enableInteractionLayer={false}
+        />
+      </Box>
+    </Provider>
   )
 }

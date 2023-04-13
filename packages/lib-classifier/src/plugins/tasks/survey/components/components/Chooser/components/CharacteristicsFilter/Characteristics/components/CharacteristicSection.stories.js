@@ -1,6 +1,3 @@
-import { Grommet } from 'grommet'
-import zooTheme from '@zooniverse/grommet-theme'
-
 import SurveyTask from '@plugins/tasks/survey'
 import { task } from '@plugins/tasks/survey/mock-data'
 
@@ -10,10 +7,10 @@ const mockTask = SurveyTask.TaskModel.create(task)
 const characteristicLike = mockTask.characteristics.LK
 
 export default {
-  title: 'Tasks / Survey / Chooser / CharacteristicsFilter / CharacteristicSection',
+  title:
+    'Tasks / Survey / Chooser / CharacteristicsFilter / CharacteristicSection',
   component: CharacteristicSection,
   args: {
-    dark: false,
     selectedValueId: ''
   },
   argTypes: {
@@ -24,31 +21,15 @@ export default {
   }
 }
 
-const background = {
-  dark: 'dark-1',
-  light: 'light-1'
-}
-
-export const Default = ({
-  dark,
-  selectedValueId
-}) => {
-  const themeMode = dark ? 'dark' : 'light'
-
+export const Default = ({ selectedValueId }) => {
   return (
-    <Grommet
-      background={background}
-      theme={zooTheme}
-      themeMode={themeMode}
-    >
-      <CharacteristicSection
-        characteristic={characteristicLike}
-        characteristicId='LK'
-        images={mockTask.images}
-        label={mockTask.strings.get(`characteristics.LK.label`)}
-        selectedValueId={selectedValueId}
-        strings={mockTask.strings}
-      />  
-    </Grommet>
+    <CharacteristicSection
+      characteristic={characteristicLike}
+      characteristicId='LK'
+      images={mockTask.images}
+      label={mockTask.strings.get('characteristics.LK.label')}
+      selectedValueId={selectedValueId}
+      strings={mockTask.strings}
+    />
   )
 }
