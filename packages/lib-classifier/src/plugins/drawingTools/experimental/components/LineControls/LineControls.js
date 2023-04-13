@@ -148,8 +148,8 @@ const LineControls = forwardRef(function LineControls({
           {React.createElement(icon.type, {
             color: 'white',
             size: `${icon.size}px`,
-            width: `${icon.size}px`,
-            height: `${icon.size}px`,
+            width: `${icon.size}`,
+            height: `${icon.size}`,
             x: icon.x,
             y: icon.y,
             focusable: 'false'
