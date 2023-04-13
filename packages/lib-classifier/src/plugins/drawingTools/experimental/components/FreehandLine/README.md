@@ -61,6 +61,10 @@ The `drawActions` and `redoActions` are an array of objects that contain the suc
 
 ### Methods
 
+- `afterCreate()`
+
+Automatically invoked on mark creation. This checks to see if points were passed into the model on creation, and if so, it invokes `initialize()` to setup the model with those points.
+
 - `initialize(points=[])`
 
 When the tool's model is initiliazed, this method is invoked to setup the internal state. It is passed an array of `{ x, y }` coordinate objects and sets up the `dragPoint`, `closePoint`, and `pathIsClosed` attributes along with sane defaults for all other state properties.

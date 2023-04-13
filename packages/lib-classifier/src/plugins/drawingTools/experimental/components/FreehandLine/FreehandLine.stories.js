@@ -97,7 +97,7 @@ export default {
   component: FreehandLine,
   parameters: {
     viewport: {
-      deafaultViewport: 'responsive'
+      defaultViewport: 'responsive'
     }
   }
 }

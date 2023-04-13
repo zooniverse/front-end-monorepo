@@ -3,7 +3,6 @@ import { FreehandLine as FreehandLineComponent } from '@plugins/drawingTools/com
 import { Mark } from '@plugins/drawingTools/models/marks'
 import { FreehandLineTool } from '@plugins/drawingTools/models/tools'
 import { FixedNumber } from '@plugins/drawingTools/types/'
-import { toJS } from 'mobx'
 
 const SingleCoord = types.model('SingleCoord', {
   x: FixedNumber,
@@ -153,7 +152,7 @@ const FreehandLineModel = types
         drawActions: self.drawActions,
         redoActions: self.redoActions,
       }
-    }
+    },
   }))
   .volatile(self => ({
     scale: types.number,
@@ -178,6 +177,19 @@ const FreehandLineModel = types
     redoActions: types.array(ActionType),
   }))
   .actions((self) => ({
+    afterCreate: () => {
+      // points assumes [{ x, y }, { x, y }]
+      let points = self.points || []
+
+      if (self.pathX && self.pathY) {
+        points = self.pathX.map((x, i) => {
+          return { x: self.pathX[i], y: self.pathY[i] }
+        })
+      }
+
+      self.initialize(points)
+    },
+
     initialize(points = []) {
       self.scale = 1
       self.lineResolution = isNaN(self.lineResolution) ? 0.5 : self.lineResolution
@@ -388,7 +400,8 @@ const FreehandLineModel = types
         }
         return
       }
-      const action = toJS(self.drawActions.at(-1))
+      const action = self.drawActions.at(-1)
+
 
       if (action.type == 'start') {
         self.drawActions.pop()
@@ -466,7 +479,7 @@ const FreehandLineModel = types
     redo() {
       if (self.redoActions.length == 0) return
 
-      const action = toJS(self.redoActions.at(-1))
+      const action = self.redoActions.at(-1)
 
       if (action.type == 'end') {
         self.closePath()
