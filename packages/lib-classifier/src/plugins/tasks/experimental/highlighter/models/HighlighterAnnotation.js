@@ -12,7 +12,7 @@ const Highlight = types.model('Highlight', {
 
 const Highlighter = types.model('Highlighter', {
   taskType: types.literal('highlighter'),
-  value: types.optional(types.array(Highlight), [])
+  value: types.array(Highlight)
 })
   .views(self => ({
     get isComplete () {
