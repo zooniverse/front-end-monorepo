@@ -130,6 +130,7 @@ const LineControls = forwardRef(function LineControls({
 	  fill={FILL_COLOR}
     >
       {buttons.map(({ label, path, action, icon }, index) => {
+        const IconComponent = icon.type
         return <g focusable='false' key={index}>
           <Tooltip label={label}>
             <StyledPath
@@ -145,15 +146,13 @@ const LineControls = forwardRef(function LineControls({
               onKeyDown={(ev) => { onEnterOrSpace(ev, action) }}
             ></StyledPath>
           </Tooltip>
-          {React.createElement(icon.type, {
-            color: 'white',
-            size: `${icon.size}px`,
-            width: `${icon.size}`,
-            height: `${icon.size}`,
-            x: icon.x,
-            y: icon.y,
-            focusable: 'false'
-          })}
+          <IconComponent
+            color='white'
+            size={`${icon.size}px`}
+            x={icon.x}
+            y={icon.y}
+            focusable='false'
+          />
         </g>
       })}
     </g>
