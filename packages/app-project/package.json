@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@artsy/fresnel": "~6.1.0",
-    "@sentry/browser": "~7.47.0",
+    "@sentry/browser": "~7.48.0",
     "@sentry/node": "~7.47.0",
     "@sentry/tracing": "~7.47.0",
     "@sindresorhus/string-hash": "~1.2.0",
