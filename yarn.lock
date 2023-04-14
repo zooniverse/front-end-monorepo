@@ -2313,12 +2313,12 @@
     "@sentry/types" "7.48.0"
     "@sentry/utils" "7.48.0"
 
-"@sentry/tracing@~7.47.0":
-  version "7.47.0"
-  resolved "https://registry.yarnpkg.com/@sentry/tracing/-/tracing-7.47.0.tgz#5f665cec7ab1703e3d0250da9284a9d8dc2eb604"
-  integrity sha512-hJCpKdekwaFNbCVXxfCz5IxfSEJIKnkPmRSVHITOm5VhKwq2e5kmy4Rn6bzSETwJFSDE8LGbR/3eSfGTqw37XA==
+"@sentry/tracing@~7.48.0":
+  version "7.48.0"
+  resolved "https://registry.yarnpkg.com/@sentry/tracing/-/tracing-7.48.0.tgz#071eb9536a1f2cf0f81a3a5661e99f0253e3b87e"
+  integrity sha512-X6w74Av0fyayNicKIlwL1IdpZ3O0ETQjyYXCDTwHoJL71ojrgrL5vdiNz8WwbPONTnqu98HehPYL/z3DCCKVbw==
   dependencies:
-    "@sentry-internal/tracing" "7.47.0"
+    "@sentry-internal/tracing" "7.48.0"
 
 "@sentry/types@7.47.0":
   version "7.47.0"
