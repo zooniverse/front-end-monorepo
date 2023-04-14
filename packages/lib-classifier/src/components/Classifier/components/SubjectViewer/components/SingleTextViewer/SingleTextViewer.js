@@ -39,7 +39,7 @@ function SingleTextViewer ({
 }) {
   return (
     <Box
-      aria-label={`Subject ${subjectId} text`}
+      a11yTitle={`Subject ${subjectId} text`}
       as='section'
       flex='grow'
       height={{ min: height }}
