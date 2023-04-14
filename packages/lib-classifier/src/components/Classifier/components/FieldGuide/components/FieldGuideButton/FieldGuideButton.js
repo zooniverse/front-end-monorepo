@@ -52,10 +52,10 @@ function RowButtonLabel() {
 
   return (
     <Box direction='row' gap='8px' justify='center' align='center'>
+      <HelpIcon fill='white' width='1.2rem' />
       <StyledSpacedText size='small' color='white'>
         {t('FieldGuide.FieldGuideButton.buttonLabel')}
       </StyledSpacedText>
-      <HelpIcon fill='white' width='1.2rem' />
     </Box>
   )
 }
