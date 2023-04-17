@@ -33,7 +33,7 @@ function labeledContent (data, annotation) {
           />
         newContent.push(newLabel)
         // 3. re-set last focusIndex with annotation index
-        lastFocusIndex = highlight.end
+        lastFocusIndex = highlight.end + 1
       }
     }
   }

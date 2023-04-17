@@ -6,7 +6,6 @@ import styled, { css } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 import { Markdownz } from '@zooniverse/react-components'
 
-import extraNewLineCharacter from './helpers/extraNewLineCharacter'
 import getOffset from './helpers/getOffset'
 import selectableArea from './helpers/selectableArea'
 
@@ -114,8 +113,7 @@ export function HighlighterTask ({
     const range = selection.getRangeAt(0)
     const offset = getOffset(selection)
     const start = offset + range.startOffset
-    const endOffset = extraNewLineCharacter(range)
-    const end = offset + endOffset
+    const end = offset + range.endOffset - 1
     const labelInformation = getSnapshot(task.highlighterLabels[labelIndex])
     const selectable = selectableArea(selection, range, offset, start, end)
     
