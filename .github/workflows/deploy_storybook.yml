@@ -20,4 +20,7 @@ jobs:
 
       - run: yarn install --production=false --frozen-lockfile
       - run: yarn workspace @zooniverse/react-components build:es6
-      - run: yarn deploy-storybook
+      - name: Deploy to GH Pages
+        run: yarn deploy-storybook -- --ci
+        env:
+          GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
