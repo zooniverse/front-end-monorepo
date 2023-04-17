@@ -20,5 +20,4 @@ jobs:
 
       - run: yarn install --production=false --frozen-lockfile
       - run: yarn workspace @zooniverse/react-components build:es6
-      - run: yarn workspace @zooniverse/classifier build:es6
       - run: yarn deploy-storybook
