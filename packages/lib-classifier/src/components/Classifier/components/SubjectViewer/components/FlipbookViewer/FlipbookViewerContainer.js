@@ -7,6 +7,7 @@ import withKeyZoom from '@components/Classifier/components/withKeyZoom'
 import { useStores } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
 import FlipbookViewer from './FlipbookViewer'
+import SeparateFramesViewer from '../SeparateFramesViewer/SeparateFramesViewer'
 
 function storeMapper(store) {
   const {
@@ -15,6 +16,7 @@ function storeMapper(store) {
     invert,
     move,
     rotation,
+    separateFramesView,
     setOnPan,
     setOnZoom
   } = store.subjectViewer
@@ -33,6 +35,7 @@ function storeMapper(store) {
     move,
     playIterations,
     rotation,
+    separateFramesView,
     setOnPan,
     setOnZoom
   }
@@ -56,42 +59,56 @@ function FlipbookViewerContainer({
     move,
     playIterations,
     rotation,
+    separateFramesView,
     setOnPan,
     setOnZoom
   } = useStores(storeMapper)
 
-  useEffect(function preloadImages() {
-    subject?.locations?.forEach(location => {
-      const [url] = Object.values(location)
-      if (url) {
-        const { Image } = window
-        const img = new Image()
-        img.src = url
-      }
-    })
-  }, [subject?.locations])
+  useEffect(
+    function preloadImages() {
+      subject?.locations?.forEach(location => {
+        const [url] = Object.values(location)
+        if (url) {
+          const { Image } = window
+          const img = new Image()
+          img.src = url
+        }
+      })
+    },
+    [subject?.locations]
+  )
 
   if (loadingState === asyncStates.error || !subject?.locations) {
     return <div>Something went wrong.</div>
   }
 
   return (
-    <FlipbookViewer
-      defaultFrame={defaultFrame}
-      enableRotation={enableRotation}
-      flipbookAutoplay={flipbookAutoplay}
-      invert={invert}
-      limitSubjectHeight={limitSubjectHeight}
-      move={move}
-      onError={onError}
-      onKeyDown={onKeyDown}
-      onReady={onReady}
-      playIterations={playIterations}
-      rotation={rotation}
-      setOnPan={setOnPan}
-      setOnZoom={setOnZoom}
-      subject={subject}
-    />
+    <>
+      {separateFramesView ? (
+        <SeparateFramesViewer
+          onError={onError}
+          onReady={onReady}
+          subject={subject}
+        />
+      ) : (
+        <FlipbookViewer
+          defaultFrame={defaultFrame}
+          enableRotation={enableRotation}
+          flipbookAutoplay={flipbookAutoplay}
+          invert={invert}
+          limitSubjectHeight={limitSubjectHeight}
+          move={move}
+          onError={onError}
+          onKeyDown={onKeyDown}
+          onReady={onReady}
+          playIterations={playIterations}
+          rotation={rotation}
+          setOnPan={setOnPan}
+          setOnZoom={setOnZoom}
+          subject={subject}
+        />
+      )}
+    </>
   )
 }
 

@@ -1,14 +1,34 @@
-import { withStores } from '@helpers'
+import PropTypes from 'prop-types'
+import { observer } from 'mobx-react'
+
+import { useStores } from '@hooks'
 import ResetButton from './ResetButton'
 
 function storeMapper(classifierStore) {
   const {
+    separateFramesView,
     resetView
   } = classifierStore.subjectViewer
 
   return {
-    onClick: resetView
+    resetView,
+    separateFramesView
   }
 }
 
-export default withStores(ResetButton, storeMapper)
+function ResetButtonContainer({ separateFrameResetView = () => true }) {
+  const { separateFramesView, resetView } = useStores(storeMapper)
+
+  return (
+    <ResetButton
+      onClick={separateFramesView ? separateFrameResetView : resetView}
+    />
+  )
+}
+
+export default observer(ResetButtonContainer)
+
+ResetButton.propTypes = {
+  /** Used when separate frames of a subject each have their own ImageToolbar */
+  separateFrameResetView: PropTypes.func
+}

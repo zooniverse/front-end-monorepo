@@ -19,6 +19,9 @@ const mockStoreSnapshot = {
       setActiveItemIndex: () => {},
       setModalVisibility: () => {},
       showModal: false
+    },
+    subjectViewer: {
+      separateFramesView: false
     }
   }
 }

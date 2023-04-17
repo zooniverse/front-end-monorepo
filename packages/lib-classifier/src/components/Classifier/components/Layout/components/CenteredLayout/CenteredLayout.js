@@ -9,12 +9,13 @@ import MetaTools from '@components/Classifier/components/MetaTools'
 import QuickTalk from '@components/Classifier/components/QuickTalk'
 import SubjectViewer from '@components/Classifier/components/SubjectViewer'
 import TaskArea from '@components/Classifier/components/TaskArea'
+import FieldGuide from '@components/Classifier/components/FieldGuide'
 
 export const Relative = styled(Box)`
   position: relative; // Used for QuickTalk and FeedbackModal positioning
 `
 
-const StickyTaskArea = styled(TaskArea)`
+const StickyTaskArea = styled(Box)`
   flex: initial; // Don't stretch vertically
   position: sticky;
   top: 10px;
@@ -37,7 +38,7 @@ export const horizontalLayout = {
   justify: 'center'
 }
 
-export default function CenteredLayout() {
+export default function CenteredLayout({ separateFramesView = false }) {
   const size = useContext(ResponsiveContext)
   const containerProps = size === 'small' ? verticalLayout : horizontalLayout
 
@@ -54,12 +55,20 @@ export default function CenteredLayout() {
             <SubjectViewer />
             <MetaTools />
           </Box>
-          <Box width='3rem' fill='vertical' style={{ minWidth: '3rem' }}>
-            <StickyImageToolbar />
-          </Box>
+          {!separateFramesView && (
+            <Box width='3rem' fill='vertical' style={{ minWidth: '3rem' }}>
+              <StickyImageToolbar />
+            </Box>
+          )}
         </Box>
-        <Box width={size === 'small' ? '100%' : '25rem'} fill={size === 'small' ? 'horizontal' : 'vertical'}>
-          <StickyTaskArea />
+        <Box
+          width={size === 'small' ? '100%' : '25rem'}
+          fill={size === 'small' ? 'horizontal' : 'vertical'}
+        >
+          <StickyTaskArea>
+            <TaskArea />
+            {separateFramesView && <FieldGuide />}
+          </StickyTaskArea>
         </Box>
       </Box>
       <FeedbackModal />
