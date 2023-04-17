@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { Box } from 'grommet'
+import { Box, Grid } from 'grommet'
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 
@@ -9,14 +9,14 @@ import SeparateFrame from './components/SeparateFrame/SeparateFrame.js'
 import ViewModeButton from './components/ViewModeButton/ViewModeButton.js'
 
 function storeMapper(store) {
-  const { separateFramesView, setSeparateFramesView } = store.subjectViewer
-  const { limit_subject_height: limitSubjectHeight } =
-    store.workflows?.active?.configuration
+  const {
+    limit_subject_height: limitSubjectHeight,
+    multi_image_layout: multiImageLayout
+  } = store.workflows?.active?.configuration
 
   return {
     limitSubjectHeight,
-    separateFramesView,
-    setSeparateFramesView
+    multiImageLayout
   }
 }
 
@@ -28,29 +28,81 @@ function SeparateFramesViewer({
   onReady = DEFAULT_HANDLER,
   subject
 }) {
-  const { limitSubjectHeight } = useStores(storeMapper)
+  const { limitSubjectHeight, multiImageLayout } = useStores(storeMapper)
 
   if (loadingState === asyncStates.error || !subject?.locations) {
     return <div>Something went wrong.</div>
   }
 
+  // add resize observer to handle when frames should always be displayed in one column
+
   return (
     <>
-      <Box gap='small'>
-        {subject.locations?.map(location => (
-          <SeparateFrame
-            frameUrl={Object.values(location)[0]}
-            key={Object.values(location)[0]}
-            limitSubjectHeight={limitSubjectHeight}
-            onError={onError}
-            onReady={onReady}
-          />
-        ))}
-      </Box>
-      <Box
-        justify='center'
-        pad='xsmall'
-      >
+      {multiImageLayout === 'col' && (
+        <Box gap='small'>
+          {subject.locations?.map(location => (
+            <SeparateFrame
+              frameUrl={Object.values(location)[0]}
+              key={Object.values(location)[0]}
+              limitSubjectHeight={limitSubjectHeight}
+              onError={onError}
+              onReady={onReady}
+            />
+          ))}
+        </Box>
+      )}
+      {multiImageLayout === 'row' && (
+        <Grid
+          gap='xsmall'
+          columns={[`repeat(${subject.locations?.length}, 1fr)`]}
+          rows='auto'
+        >
+          {subject.locations?.map(location => (
+            <SeparateFrame
+              frameUrl={Object.values(location)[0]}
+              key={Object.values(location)[0]}
+              limitSubjectHeight={limitSubjectHeight}
+              onError={onError}
+              onReady={onReady}
+            />
+          ))}
+        </Grid>
+      )}
+      {multiImageLayout === 'grid2' && (
+        <Grid
+          gap='xsmall'
+          columns={['repeat(2, 1fr)']}
+          rows='auto'
+        >
+          {subject.locations?.map(location => (
+            <SeparateFrame
+              frameUrl={Object.values(location)[0]}
+              key={Object.values(location)[0]}
+              limitSubjectHeight={limitSubjectHeight}
+              onError={onError}
+              onReady={onReady}
+            />
+          ))}
+        </Grid>
+      )}
+      {multiImageLayout === 'grid3' && (
+        <Grid
+          gap='xsmall'
+          columns={['repeat(3, 1fr)']}
+          rows='auto'
+        >
+          {subject.locations?.map(location => (
+            <SeparateFrame
+              frameUrl={Object.values(location)[0]}
+              key={Object.values(location)[0]}
+              limitSubjectHeight={limitSubjectHeight}
+              onError={onError}
+              onReady={onReady}
+            />
+          ))}
+        </Grid>
+      )}
+      <Box justify='center' pad='xsmall'>
         <ViewModeButton />
       </Box>
     </>
