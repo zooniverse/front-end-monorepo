@@ -74,6 +74,7 @@ const FlipbookControls = ({
   playIterations
 }) => {
   const { enableSwitchView, flipbookSpeed, setFlipbookSpeed } = useStores(storeMapper)
+  console.log('enableSwitchView', enableSwitchView)
   const { t } = useTranslation('components')
   const timeoutRef = useRef(null)
 
