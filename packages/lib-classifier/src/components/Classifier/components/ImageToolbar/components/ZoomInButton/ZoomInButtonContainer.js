@@ -1,19 +1,21 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 
 import { useStores } from '@hooks'
 import ZoomInButton from './ZoomInButton'
 
 function storeMapper(classifierStore) {
-  const { zoomIn } = classifierStore.subjectViewer
+  const { separateFramesView, zoomIn } = classifierStore.subjectViewer
 
   return {
+    separateFramesView,
     zoomIn
   }
 }
 
-function ZoomInButtonContainer() {
-  const { zoomIn } = useStores(storeMapper)
+function ZoomInButtonContainer({ separateFrameZoomIn = () => true }) {
+  const { separateFramesView, zoomIn } = useStores(storeMapper)
   const [timer, setTimer] = useState('')
 
   function onPointerDown(event) {
@@ -33,7 +35,7 @@ function ZoomInButtonContainer() {
 
   return (
     <ZoomInButton
-      onClick={zoomIn}
+      onClick={separateFramesView ? separateFrameZoomIn : zoomIn}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
     />
@@ -41,3 +43,8 @@ function ZoomInButtonContainer() {
 }
 
 export default observer(ZoomInButtonContainer)
+
+ZoomInButtonContainer.propTypes = {
+  /** Used when separate frames of a subject each have their own ImageToolbar */
+  separateFrameZoomIn: PropTypes.func
+}
