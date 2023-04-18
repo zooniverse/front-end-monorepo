@@ -21,9 +21,8 @@ const StyledSpan = styled.span`
 const StyledDeleteButton = styled.button`
   border: none;
   background: transparent;
-  font-size: 1.4em;
+  font-size: 1.2em;
   padding: 0;
-  vertical-align: middle;
 
   &:hover {
     cursor: pointer;
