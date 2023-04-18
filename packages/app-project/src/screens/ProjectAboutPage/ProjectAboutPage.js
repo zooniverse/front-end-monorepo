@@ -62,7 +62,7 @@ function ProjectAboutPage ({
             dark: 'none'
           }}
           height={{ min: '98vh' }}
-          width={{ min: 'fill-available', max: 'xxlarge' }}
+          width={{ max: 'xxlarge' }}
           pad='large'
           alignSelf='center'
           elevation={dark ? 'xlarge' : 'none'}

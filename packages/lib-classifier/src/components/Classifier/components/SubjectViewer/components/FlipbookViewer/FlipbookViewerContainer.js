@@ -18,7 +18,8 @@ function storeMapper(store) {
     rotation,
     separateFramesView,
     setOnPan,
-    setOnZoom
+    setOnZoom,
+    setSeparateFramesView
   } = store.subjectViewer
   const {
     flipbook_autoplay: flipbookAutoplay,
@@ -37,7 +38,8 @@ function storeMapper(store) {
     rotation,
     separateFramesView,
     setOnPan,
-    setOnZoom
+    setOnZoom,
+    setSeparateFramesView
   }
 }
 
@@ -61,7 +63,8 @@ function FlipbookViewerContainer({
     rotation,
     separateFramesView,
     setOnPan,
-    setOnZoom
+    setOnZoom,
+    setSeparateFramesView
   } = useStores(storeMapper)
 
   useEffect(
