@@ -2,6 +2,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import mockStore from '@test/mockStore'
+import { WorkflowFactory } from '@test/factories'
 
 import SeparateFrame from './SeparateFrame'
 
@@ -16,8 +17,17 @@ export default {
   }
 }
 
-const store = mockStore()
+const workflowSnapshot = WorkflowFactory.build({
+  configuration: {
+    invert_subject: true
+  }
+})
+
+const store = mockStore({
+  workflow: workflowSnapshot
+})
 store.subjectViewer.setSeparateFramesView(true)
+store.subjectViewer.enableRotation(true)
 
 const background = {
   dark: 'dark-1',
