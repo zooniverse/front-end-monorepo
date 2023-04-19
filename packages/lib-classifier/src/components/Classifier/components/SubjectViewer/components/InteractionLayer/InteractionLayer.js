@@ -6,6 +6,7 @@ import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import SubTaskPopup from './components/SubTaskPopup'
 import getFixedNumber from '../../helpers/getFixedNumber'
+import locationValidator from '../../helpers/locationValidator'
 
 const DrawingCanvas = styled('rect')`
   ${(props) =>
@@ -33,8 +34,9 @@ function InteractionLayer({
   height,
   marks = [],
   move,
-  setActiveMark = () => {},
+  setActiveMark = () => { },
   scale = 1,
+  subject,
   width,
   played,
   duration
@@ -46,7 +48,7 @@ function InteractionLayer({
     setCreating(false)
   }
 
-  if(activeMark?.finished && !activeMark.isValid) {
+  if (activeMark?.finished && !activeMark.isValid) {
     activeTool.deleteMark(activeMark)
     setActiveMark(undefined)
   }
@@ -204,12 +206,15 @@ InteractionLayer.propTypes = {
     taskType: PropTypes.string,
     value: PropTypes.array
   }).isRequired,
-  frame: PropTypes.number,
-  marks: PropTypes.array,
-  setActiveMark: PropTypes.func,
-  height: PropTypes.number.isRequired,
   disabled: PropTypes.bool,
+  frame: PropTypes.number,
+  height: PropTypes.number.isRequired,
+  marks: PropTypes.array,
   scale: PropTypes.number,
+  setActiveMark: PropTypes.func,
+  subject: PropTypes.shape({
+    locations: PropTypes.arrayOf(locationValidator)
+  }),
   width: PropTypes.number.isRequired
 }
 

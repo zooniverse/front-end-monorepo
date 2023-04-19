@@ -10,14 +10,16 @@ const FreehandLineTool = types
   .actions((self) => ({
     createMark(mark) {
       const newMark = FreehandLine.create(
-        Object.assign({}, mark, { toolType: self.type })
+        { ...mark, toolType: self.type }
       )
+
       self.marks.put(newMark)
+
       return newMark
     },
 
     handlePointerMove(event, mark) {
-      mark.initialDrag(event)
+      mark.initialDrag({ x: event.x, y: event.y })
     },
 
     handlePointerUp(event, mark) {

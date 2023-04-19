@@ -12,7 +12,7 @@ import SingleImageViewer from './SingleImageViewer'
 
 const DEFAULT_HANDLER = () => true
 
-function SingleImageViewerContainer ({
+function SingleImageViewerContainer({
   enableInteractionLayer = true,
   enableRotation = DEFAULT_HANDLER,
   frame = 0,
@@ -40,15 +40,15 @@ function SingleImageViewerContainer ({
     onError
   })
 
-  useEffect(function onMount () {
+  useEffect(function onMount() {
     enableRotation()
   }, [])
 
-  function setOnDrag (callback) {
+  function setOnDrag(callback) {
     setDragMove(() => callback)
   }
 
-  function onDrag (event, difference) {
+  function onDrag(event, difference) {
     dragMove?.(event, difference)
   }
 
@@ -61,6 +61,7 @@ function SingleImageViewerContainer ({
 
   if (loadingState !== asyncStates.initialized) {
     const subjectID = subject?.id || 'unknown'
+
     return (
       <SVGPanZoom
         img={subjectImage.current}
@@ -86,6 +87,7 @@ function SingleImageViewerContainer ({
           width={img.naturalWidth}
           zoomControlFn={zoomControlFn}
           zooming={zooming}
+          subject={subject}
         >
           <g ref={subjectImage}>
             <SVGImage

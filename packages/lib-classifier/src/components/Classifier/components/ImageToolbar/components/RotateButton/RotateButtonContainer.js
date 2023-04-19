@@ -1,36 +1,36 @@
 import PropTypes from 'prop-types'
+import { observer } from 'mobx-react'
 
-import { withStores } from '@helpers'
+import { useStores } from '@hooks'
 import RotateButton from './RotateButton'
 
 function storeMapper (classifierStore) {
-  const {
-    rotate,
-    rotationEnabled
-  } = classifierStore.subjectViewer
+  const { rotate, rotationEnabled, separateFramesView } =
+    classifierStore.subjectViewer
 
   const disabled = !rotationEnabled
   return {
     disabled,
-    onClick: rotate
+    rotate,
+    separateFramesView
   }
 }
 
-function RotateButtonContainer({
-  disabled = false,
-  onClick = () => console.log('rotate view')
-}) {
+function RotateButtonContainer({ separateFrameRotate = () => true }) {
+  const { disabled, rotate, separateFramesView } = useStores(storeMapper)
+
   if (disabled) {
     return null
   }
+
   return (
-    <RotateButton onClick={onClick} />
+    <RotateButton onClick={separateFramesView ? separateFrameRotate : rotate} />
   )
 }
 
 RotateButtonContainer.propTypes = {
-  disabled: PropTypes.bool,
-  onClick: PropTypes.func
+  /** Used when separate frames of a subject each have their own ImageToolbar */
+  separateFrameRotate: PropTypes.func
 }
 
-export default withStores(RotateButtonContainer, storeMapper)
+export default observer(RotateButtonContainer)

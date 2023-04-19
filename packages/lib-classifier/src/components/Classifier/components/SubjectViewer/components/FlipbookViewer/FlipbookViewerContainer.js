@@ -2,11 +2,13 @@ import { useEffect } from 'react'
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
+import { Box } from 'grommet'
 
 import withKeyZoom from '@components/Classifier/components/withKeyZoom'
 import { useStores } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
 import FlipbookViewer from './FlipbookViewer'
+import SeparateFrame from '../SeparateFramesViewer/components/SeparateFrame/SeparateFrame.js'
 
 function storeMapper(store) {
   const {
@@ -15,8 +17,10 @@ function storeMapper(store) {
     invert,
     move,
     rotation,
+    separateFramesView,
     setOnPan,
-    setOnZoom
+    setOnZoom,
+    setSeparateFramesView
   } = store.subjectViewer
   const {
     flipbook_autoplay: flipbookAutoplay,
@@ -33,8 +37,10 @@ function storeMapper(store) {
     move,
     playIterations,
     rotation,
+    separateFramesView,
     setOnPan,
-    setOnZoom
+    setOnZoom,
+    setSeparateFramesView
   }
 }
 
@@ -56,42 +62,81 @@ function FlipbookViewerContainer({
     move,
     playIterations,
     rotation,
+    separateFramesView,
     setOnPan,
-    setOnZoom
+    setOnZoom,
+    setSeparateFramesView
   } = useStores(storeMapper)
 
-  useEffect(function preloadImages() {
-    subject?.locations?.forEach(location => {
-      const [url] = Object.values(location)
-      if (url) {
-        const { Image } = window
-        const img = new Image()
-        img.src = url
-      }
-    })
-  }, [subject?.locations])
+  useEffect(
+    function preloadImages() {
+      subject?.locations?.forEach(location => {
+        const [url] = Object.values(location)
+        if (url) {
+          const { Image } = window
+          const img = new Image()
+          img.src = url
+        }
+      })
+    },
+    [subject?.locations]
+  )
 
   if (loadingState === asyncStates.error || !subject?.locations) {
     return <div>Something went wrong.</div>
   }
 
+  const handleViewMode = e => {
+    if (e.target.checked) {
+      setSeparateFramesView(true)
+    } else {
+      setSeparateFramesView(false)
+    }
+  }
+
   return (
-    <FlipbookViewer
-      defaultFrame={defaultFrame}
-      enableRotation={enableRotation}
-      flipbookAutoplay={flipbookAutoplay}
-      invert={invert}
-      limitSubjectHeight={limitSubjectHeight}
-      move={move}
-      onError={onError}
-      onKeyDown={onKeyDown}
-      onReady={onReady}
-      playIterations={playIterations}
-      rotation={rotation}
-      setOnPan={setOnPan}
-      setOnZoom={setOnZoom}
-      subject={subject}
-    />
+    <>
+      {/* <label>
+        <input
+          type='checkbox'
+          onChange={handleViewMode}
+          checked={separateFramesView}
+        />
+        Separate Frames Mode
+      </label> */}
+      {separateFramesView ? (
+        <Box gap='small'>
+          {subject.locations?.map(location => (
+            <SeparateFrame
+              enableRotation={enableRotation}
+              frameUrl={Object.values(location)[0]}
+              key={Object.values(location)[0]}
+              limitSubjectHeight={limitSubjectHeight}
+              onError={onError}
+              onKeyDown={onKeyDown}
+              onReady={onReady}
+            />
+          ))}
+        </Box>
+      ) : (
+        <FlipbookViewer
+          defaultFrame={defaultFrame}
+          enableRotation={enableRotation}
+          flipbookAutoplay={flipbookAutoplay}
+          invert={invert}
+          limitSubjectHeight={limitSubjectHeight}
+          move={move}
+          onError={onError}
+          onKeyDown={onKeyDown}
+          onReady={onReady}
+          playIterations={playIterations}
+          rotation={rotation}
+          setOnPan={setOnPan}
+          setOnZoom={setOnZoom}
+          subject={subject}
+        />
+      )}
+    </>
   )
 }
 

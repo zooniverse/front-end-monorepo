@@ -10,18 +10,18 @@ const SELECTED_STROKE_WIDTH = 4
 const StyledGroup = styled('g')`
   &:focus {
     ${(props) =>
-      css`
+    css`
         outline: solid 4px ${props.focusColor};
       `}
   }
 
   :hover {
     ${(props) =>
-      props.dragging
-        ? css`
+    props.dragging
+      ? css`
             cursor: grabbing;
           `
-        : css`
+      : css`
             cursor: grab;
           `}
   }
@@ -149,6 +149,7 @@ const Mark = forwardRef(function Mark(
   return (
     <StyledGroup
       {...mainStyle}
+      data-testid="mark-mark"
       aria-label={label}
       dragging={dragging}
       focusable
