@@ -1,27 +1,31 @@
-import { useMemo, useState } from 'react';
+import { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import styled from 'styled-components'
-import UndoButton from '../../../components/UndoButton'
 import DragHandle from '../../../components/DragHandle'
+import { useTranslation } from '@translations/i18n'
+
+const GRAB_STROKE_WIDTH = 10
+const FINISHER_RADIUS = 4
 
 const StyledGroup = styled.g`
   &:hover {
     cursor: pointer;
   }
-  g:last-of-type {
-    &:hover {
-      cursor: crosshair;
+  &.editing {
+    cursor: crosshair;
+
+    g.extend {
+      &:hover {
+        cursor: crosshair !important;
+      }
+  
+      circle:hover {
+        cursor: grab !important;
+      }
     }
   }
-  &.editing {
-    cursor: grabbing;
-  }
 `
-
-const STROKE_WIDTH = 1
-const GRAB_STROKE_WIDTH = 10
-const FINISHER_RADIUS = 3
 
 function createPoint(event) {
   const { clientX, clientY } = event
@@ -46,156 +50,86 @@ function cancelEvent(event) {
   return false
 }
 
-function linePath({ dragPoint, isClosed, points, targetPoint }) {
-  const [firstCoord, ...otherCoords] = points
-  if (!firstCoord) {
+function pointsToPath(points) {
+  if (points.length === 0) {
     return ''
   }
-  const path = [`M ${firstCoord.x},${firstCoord.y}`]
-  otherCoords.forEach(point => {
-    const { x, y } = point
-    const isTarget = (x === targetPoint?.x) && (y === targetPoint?.y)
-    const pointPath = isTarget ? `M ${x},${y}` : `L ${x},${y}`
-    path.push(pointPath)
+
+  const [firstPoint, ...restPoints] = points
+  const path = [`M ${firstPoint.x},${firstPoint.y}`]
+
+  restPoints.forEach(point => {
+    path.push(`L ${point.x},${point.y}`)
   })
-  // closes the drawing path
-  if (isClosed) {
-    if (dragPoint) {
-      const { x, y } = firstCoord
-      path.push(`L ${x},${y}`)
-    } else {
-      path.push(`Z`)
-    }
-  }
+
   return path.join(' ')
 }
 
 function FreehandLine({ active, mark, onFinish, scale }) {
-  const { initialPoint, lastPoint, finished, isClosed, points } = mark
-  const [editing, setEditing] = useState(false)
-  const dragPoint = mark.isCloseToStart ? null : mark.dragPoint
-  const targetPoint = mark.isCloseToStart ? null : mark.targetPoint
-  const path = useMemo(() => linePath(
-    { dragPoint, isClosed, points, targetPoint }),
-    [dragPoint, isClosed, points, targetPoint]
-  )
-
-  const clippedPath = mark.clipPath.map(
-    (point, index) => index === 0 ? `M ${point.x},${point.y}` : `L ${point.x},${point.y}`
-  ).join(' ')
-  /*
-    Line segmentation has begun if either:
-    - a drag point has been created to cut the path internally.
-    - the path is open but has a clipped path joining the open ends.
-  */
-  const segmentationInProgress = dragPoint || (!isClosed && clippedPath)
-
-  if (segmentationInProgress && !editing) {
-    setEditing(true)
+  // If the user decides to cancel a splice
+  if (active === false) {
+    mark.inactive()
   }
 
-  // cancel editing when lines become inactive
-  if (segmentationInProgress && !active) {
-    mark.revertEdits()
-    setEditing(false)
-  }
+  // The model uses this internally
+  mark.setScale(scale)
 
-  if (active && editing && mark.isCloseToStart) {
-    cancelEditing()
-  }
-
-  if (active && !segmentationInProgress && clippedPath) {
-    // clear the dashed guide line when segmentation ends.
-    mark.setClipPath([])
-  }
+  // Stroke width varies as a function of the zoom level. Ranges 1-5.75
+  const STROKE_WIDTH = (scale < 3) ? (4 - scale) : 1
 
   function onDoubleClick(event) {
     if (active) {
-      const { x, y } = createPoint(event)
-      mark.setDragPoint({ x, y })
-      return cancelEvent(event)
+      mark.splicePathDragPoint(createPoint(event))
     }
-    return true
+    return cancelEvent(event)
   }
 
   function onPointerDown(event) {
-    let startPoint
-    if (!mark.isClosed && clippedPath) {
-      // The last point is always draggable for open lines.
-      const { x, y } = mark.lastPoint
-      startPoint = { x, y }
-    }
-    if (mark.dragPoint) {
-      // If editing has already started, use the existing drag point.
-      const { x, y } = mark.dragPoint
-      startPoint = { x, y }
-    }
-    if (active && startPoint) {
-      const endPoint = createPoint(event)
-      mark.cutSegment(startPoint, endPoint)
-      return cancelEvent(event)
-    }
+    // We only care about click when but we need to cancel this event first
     if (active) {
+      mark.splicePathClosePoint(createPoint(event))
       return cancelEvent(event)
     }
-    return true
   }
 
-  function cancelEditing() {
-    mark.setTargetPoint(null)
-    mark.setDragPoint(null)
-    setEditing(false)
+  const { t } = useTranslation('plugins')
+  function getHoverText() {
+    // Handles the 4 scenarios of path open vs closed and splicing vs non-splicing
+    if (!active) {
+      return t('FreehandLine.inactive')
+    } else if (mark.spliceDragPointIndex && mark.spliceClosePointIndex) {
+      return t('FreehandLine.spliceDrag')
+    } else if (mark.spliceDragPointIndex && !mark.spliceClosePointIndex) {
+      return t('FreehandLine.closePoint')
+    } else if (mark.pathIsClosed && !mark.spliceDragPointIndex) {
+      return t('FreehandLine.splicePoint')
+    } else {
+      return t('FreehandLine.active')
+    }
   }
 
   return (
     <StyledGroup
-      className={ editing ? 'editing' : undefined}
+      data-testid="mark-focusable"
+      className={active ? 'editing' : undefined}
       onPointerUp={active ? onFinish : undefined}
     >
-      {active && !dragPoint && !isClosed && (
-        <circle
-          fill='currentColor'
-          r={FINISHER_RADIUS / scale}
-          cx={initialPoint.x}
-          cy={initialPoint.y}
-        />
-      )}
-      {active && (
-        <UndoButton
-          scale={scale}
-          x={initialPoint.x}
-          y={initialPoint.y}
-          undoDrawing={mark.shortenPath}
-        />
-      )}
-      <path
-        d={path}
-        style={{
-          strokeWidth: STROKE_WIDTH,
-          strokeLinejoin: 'round',
-          strokeLinecap: 'round',
-          fill: 'none'
-        }}
-      />
-      <path
-        d={path}
-        onDoubleClick={onDoubleClick}
-        onPointerDown={onPointerDown}
-        style={{
-          strokeOpacity: '0',
-          strokeWidth: GRAB_STROKE_WIDTH / scale
-        }}
-        fill='none'
-      />
-      {active && clippedPath &&
-        <>
-          <path
-            d={clippedPath}
-            strokeDasharray='2 2'
-            strokeWidth={STROKE_WIDTH}
+      {mark.visiblePathsRender.map((pts, i) => {
+        return <Fragment key={i}>
+          <path // Main Path that's visible
+            d={pointsToPath(pts)}
+            style={{
+              strokeWidth: STROKE_WIDTH,
+              strokeLinejoin: 'round',
+              strokeLinecap: 'round',
+              fill: 'none',
+              strokeOpacity: 1,
+            }}
           />
-          <path
-            d={clippedPath}
+          <title>{getHoverText()}</title>
+          <path // Main Path that's clickable. Not visible as its thick for click purposes
+            d={pointsToPath(pts)}
+            onDoubleClick={onDoubleClick}
             onPointerDown={onPointerDown}
             style={{
               strokeOpacity: '0',
@@ -203,35 +137,37 @@ function FreehandLine({ active, mark, onFinish, scale }) {
             }}
             fill='none'
           />
-        </>
-      }
-      {active && finished && !dragPoint && !isClosed &&
-        <DragHandle
-          scale={scale}
-          x={lastPoint.x}
-          y={lastPoint.y}
-          fill='transparent'
-          invisibleWhenDragging={true}
-          dragMove={mark.appendPath}
-        />
-      }
-      {active && targetPoint && (
+        </Fragment>
+      })}
+
+      <path // Clipped Path
+        d={pointsToPath(mark.splicePathRender)}
+        strokeDasharray='2 2'
+        strokeWidth={STROKE_WIDTH}
+        opacity=".4"
+      />
+
+      {active && mark.closePoint &&
         <circle
           fill='currentColor'
           r={FINISHER_RADIUS / scale}
-          cx={targetPoint.x}
-          cy={targetPoint.y}
+          cx={mark.closePoint.x}
+          cy={mark.closePoint.y}
         />
-      )}
-      {active && dragPoint &&
+      }
+
+      {active && mark.dragPoint &&
         <DragHandle
+          testid="freehandline-drag-handle"
           scale={scale}
-          x={dragPoint.x}
-          y={dragPoint.y}
-          fill='transparent'
+          x={mark.dragPoint.x}
+          y={mark.dragPoint.y}
+          fill='none'
           invisibleWhenDragging={true}
-          onClick={!targetPoint ? cancelEditing : undefined}
-          dragMove={mark.splicePath}
+          dragStart={mark.appendPathStart}
+          dragMove={mark.appendPath}
+          dragEnd={mark.appendPathEnd}
+          className='extend'
         />
       }
     </StyledGroup>
@@ -272,7 +208,7 @@ FreehandLine.propTypes = {
 FreehandLine.defaultProps = {
   active: false,
   onFinish: () => true,
-  scale: 1
+  scale: 1,
 }
 
 export default observer(FreehandLine)
