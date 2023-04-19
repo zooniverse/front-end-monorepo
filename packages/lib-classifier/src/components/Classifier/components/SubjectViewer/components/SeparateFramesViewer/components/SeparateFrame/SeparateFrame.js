@@ -46,8 +46,8 @@ const SeparateFrame = ({
 
   const [invert, setInvert] = useState(false)
   const [rotation, setRotation] = useState(0)
-  const [separateFrameAnnotate, setSeparateFrameAnnotate] = useState(false)
-  const [separateFrameMove, setSeparateFrameMove] = useState(true)
+  const [separateFrameAnnotate, setSeparateFrameAnnotate] = useState(true)
+  const [separateFrameMove, setSeparateFrameMove] = useState(false)
   const [viewBox, setViewBox] = useState(defaultViewBox)
   const [zoom, setZoom] = useState(1)
 
@@ -237,6 +237,7 @@ const SeparateFrame = ({
         }}
         direction='column'
         height='fit-content'
+        onKeyDown={onKeyDown}
         pad='8px'
         style={{ width: '3rem' }}
       >
