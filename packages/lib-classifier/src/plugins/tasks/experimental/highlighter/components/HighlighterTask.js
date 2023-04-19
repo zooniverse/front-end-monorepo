@@ -152,6 +152,7 @@ export function HighlighterTask ({
           return (
             <StyledButton
               key={`${task.taskKey}_${index}`}
+              disabled={disabled}
               label={
                 <StyledButtonLabel
                   color={label.color}

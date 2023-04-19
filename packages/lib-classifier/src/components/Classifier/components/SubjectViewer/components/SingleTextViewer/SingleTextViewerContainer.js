@@ -55,7 +55,7 @@ export function SingleTextViewerContainer ({
     subject,
     onReady,
     onError
-})
+  })
   
   let highlighterAnnotation, content
   

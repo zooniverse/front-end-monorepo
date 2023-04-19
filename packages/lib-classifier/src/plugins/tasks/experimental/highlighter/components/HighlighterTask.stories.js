@@ -8,6 +8,7 @@ export default {
   component: HighlighterTask,
   args: {
     dark: false,
+    disabled: false,
     isThereTaskHelp: true,
     required: false,
     subjectReadyState: asyncStates.success
@@ -20,7 +21,7 @@ export default {
   }
 }
 
-export function Default ({ dark, isThereTaskHelp, required, subjectReadyState }) {
+export function Default ({ dark, disabled, isThereTaskHelp, required, subjectReadyState }) {
   const subject = {
     locations: [
       { 'text/plain': 'https://panoptes-uploads-staging.zooniverse.org/subject_location/9d03230b-7ef0-42b5-aa99-996b0394cc9e.txt' }
@@ -64,6 +65,7 @@ export function Default ({ dark, isThereTaskHelp, required, subjectReadyState })
   return (
     <MockTask
       dark={dark}
+      disabled={disabled}
       isThereTaskHelp={isThereTaskHelp}
       required={required}
       subject={subject}
