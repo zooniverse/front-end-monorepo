@@ -37,6 +37,8 @@ const nextConfig = {
     styledComponents: true,
   },
 
+  compress: false,
+
   env: {
     COMMIT_ID,
     PANOPTES_ENV,
