@@ -54,10 +54,7 @@ export function ViewerGrid({ children }) {
   )
 }
 
-export default function NoMaxWidth({
-  className = '',
-  separateFramesView = false
-}) {
+export default function NoMaxWidth({ className = '', separateFramesView = false }) {
   const size = useContext(ResponsiveContext)
   const verticalLayout = {
     areas: [['viewer'], ['task']],
