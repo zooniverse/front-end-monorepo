@@ -10,7 +10,6 @@ export default {
   title: 'Tasks / Survey',
   component: SurveyTask,
   args: {
-    dark: false,
     subjectReadyState: asyncStates.success
   },
   argTypes: {
@@ -22,7 +21,6 @@ export default {
 }
 
 const Template = ({
-  dark,
   subjectReadyState,
   task
 }) => {
@@ -34,7 +32,6 @@ const Template = ({
       align='end'
     >
       <MockTask
-        dark={dark}
         isThereTaskHelp={false}
         subjectReadyState={subjectReadyState}
         tasks={tasks}

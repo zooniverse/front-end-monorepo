@@ -6,7 +6,6 @@ export default {
   title: 'Tasks / General',
   component: Tasks,
   args: {
-    dark: false,
     isThereTaskHelp: true,
     required: false,
     subjectReadyState: asyncStates.success
@@ -27,19 +26,17 @@ export default {
   }
 }
 
-export function Loading({ dark }) {
+export function Loading() {
   return (
     <MockTask
-      dark={dark}
       loadingState={asyncStates.loading}
     />
   )
 }
 
-export function Error({ dark }) {
+export function Error() {
   return (
     <MockTask
-      dark={dark}
       loadingState={asyncStates.error}
     />
   )
@@ -75,7 +72,6 @@ export function MultipleTasks({ dark, isThereTaskHelp, required, subjectReadySta
   }
   return (
     <MockTask
-      dark={dark}
       isThereTaskHelp={isThereTaskHelp}
       subjectReadyState={subjectReadyState}
       tasks={tasks}

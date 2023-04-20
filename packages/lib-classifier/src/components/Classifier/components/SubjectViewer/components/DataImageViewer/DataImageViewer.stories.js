@@ -1,5 +1,4 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
+import { Box } from 'grommet'
 import { Factory } from 'rosie'
 import { Provider } from 'mobx-react'
 import asyncStates from '@zooniverse/async-states'
@@ -7,7 +6,6 @@ import DataImageViewer from './index.js'
 import ImageToolbar from '../../../ImageToolbar'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import readme from './README.md'
-import backgrounds from '../../../../../../../.storybook/lib/backgrounds'
 
 const subject = Factory.build('subject', {
   locations: [
@@ -48,22 +46,11 @@ const mockStore = {
 
 function ViewerContext ({
   children,
-  mode,
-  store = mockStore,
-  theme
+  store = mockStore
 }) {
   return (
     <Provider classifierStore={store}>
-      <Grommet
-        background={{
-          dark: 'dark-1',
-          light: 'light-1'
-        }}
-        theme={theme}
-        themeMode={mode}
-      >
-        {children}
-      </Grommet>
+      {children}
     </Provider>
   )
 }
@@ -80,9 +67,9 @@ export default {
   }
 }
 
-export function LightTheme() {
+export function Default() {
   return (
-    <ViewerContext mode='light' theme={zooTheme}>
+    <ViewerContext>
       <Box width='large'>
         <DataImageViewer
           loadingState={asyncStates.success}
@@ -90,27 +77,11 @@ export function LightTheme() {
       </Box>
     </ViewerContext>
   )
-}
-
-export function DarkTheme() {
-  return (
-    <ViewerContext mode='dark' theme={zooTheme}>
-      <Box width='large'>
-        <DataImageViewer
-          loadingState={asyncStates.success}
-        />
-      </Box>
-    </ViewerContext>
-  )
-}
-
-DarkTheme.parameters = {
-  backgrounds: backgrounds.darkDefault
 }
 
 export function NarrowView() {
   return (
-    <ViewerContext mode='light' theme={zooTheme}>
+    <ViewerContext>
       <Box width='large'>
         <DataImageViewer
           loadingState={asyncStates.success}
@@ -128,7 +99,7 @@ NarrowView.parameters = {
 
 export function PanZoom() {
   return (
-    <ViewerContext mode='light' theme={zooTheme}>
+    <ViewerContext>
       <Box direction='row' width='large'>
         <DataImageViewer
           loadingState={asyncStates.success}
@@ -148,7 +119,7 @@ export function InvertYAxis() {
   }
 
   return (
-    <ViewerContext mode='light' store={lasairMock} theme={zooTheme}>
+    <ViewerContext store={lasairMock}>
       <Box direction='row' width='large'>
         <DataImageViewer
           loadingState={asyncStates.success}

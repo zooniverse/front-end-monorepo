@@ -1,5 +1,4 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
+import { Box } from 'grommet'
 import setupMock from './helpers/setupMock'
 import ConsensusPopup from './ConsensusPopup'
 
@@ -16,34 +15,15 @@ export default {
 }
 
 function ConsensusPopupStory(props) {
-  const { dark = false, index = 0 } = props
+  const { index = 0 } = props
 
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={{ ...zooTheme, dark }}
-      themeMode={dark ? 'dark' : 'light'}
-    >
-      <Box width='1000px'>
-        <ConsensusPopup active line={completedLines[index]} />
-      </Box>
-    </Grommet>
+    <Box width='1000px'>
+      <ConsensusPopup active line={completedLines[index]} />
+    </Box>
   )
 }
 
 export function Default() {
-  return (
-    <ConsensusPopupStory />
-  )
-}
-
-export function DarkTheme() {
-  return (
-    <ConsensusPopupStory
-      dark
-    />
-  )
+  return <ConsensusPopupStory />
 }

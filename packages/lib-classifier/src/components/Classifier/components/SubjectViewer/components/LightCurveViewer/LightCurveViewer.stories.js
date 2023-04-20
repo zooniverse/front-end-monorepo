@@ -1,5 +1,4 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
+import { Box } from 'grommet'
 import * as d3 from 'd3'
 import { zip } from 'lodash'
 import LightCurveViewer from './LightCurveViewer'
@@ -28,15 +27,13 @@ export default {
 
 export const Default = () => {
   return (
-    <Grommet theme={zooTheme}>
-      <Box height='medium' width='large'>
-        <LightCurveViewer
-          dataExtent={dataExtent}
-          dataPoints={dataPoints}
-          setOnPan={() => {}}
-          setOnZoom={() => {}}
-        />
-      </Box>
-    </Grommet>
+    <Box height='medium' width='large'>
+      <LightCurveViewer
+        dataExtent={dataExtent}
+        dataPoints={dataPoints}
+        setOnPan={() => {}}
+        setOnZoom={() => {}}
+      />
+    </Box>
   )
 }
