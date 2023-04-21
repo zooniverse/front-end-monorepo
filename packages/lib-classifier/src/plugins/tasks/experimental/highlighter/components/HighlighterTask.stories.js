@@ -7,7 +7,6 @@ export default {
   title: 'Tasks / Highlighter',
   component: HighlighterTask,
   args: {
-    dark: false,
     disabled: false,
     isThereTaskHelp: true,
     required: false,
@@ -21,7 +20,12 @@ export default {
   }
 }
 
-export function Default ({ dark, disabled, isThereTaskHelp, required, subjectReadyState }) {
+export function Default ({
+  disabled,
+  isThereTaskHelp,
+  required,
+  subjectReadyState
+}) {
   const subject = {
     locations: [
       { 'text/plain': 'https://panoptes-uploads-staging.zooniverse.org/subject_location/9d03230b-7ef0-42b5-aa99-996b0394cc9e.txt' }
@@ -32,19 +36,19 @@ export function Default ({ dark, disabled, isThereTaskHelp, required, subjectRea
     T0: {
       highlighterLabels: [
         {
-          'color': '#00FF7F',
+          'color': '#65eeca',
           'label': 'Species Name'
         },
         {
-          'color': '#DCC6E0',
+          'color': '#c17ddf',
           'label': 'Location'
         },
         {
-          'color': '#F5D76E',
+          'color': '#fced54',
           'label': 'Collector Name'
         },
         {
-          'color': '#ffa539',
+          'color': '#ee7bcf',
           'label': 'Habitat'
         }
       ],
@@ -64,7 +68,6 @@ export function Default ({ dark, disabled, isThereTaskHelp, required, subjectRea
   
   return (
     <MockTask
-      dark={dark}
       disabled={disabled}
       isThereTaskHelp={isThereTaskHelp}
       required={required}

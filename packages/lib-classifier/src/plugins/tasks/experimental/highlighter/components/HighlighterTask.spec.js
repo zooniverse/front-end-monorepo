@@ -1,10 +1,11 @@
 import { composeStory } from '@storybook/testing-react'
 import { render, screen } from '@testing-library/react'
+import * as globalConfig from '../../../../../../.storybook/preview'
 
 import Meta, { Default } from './HighlighterTask.stories'
 
 describe('HighlighterTask', function () {
-  const DefaultStory = composeStory(Default, Meta)
+  const DefaultStory = composeStory(Default, Meta, globalConfig)
 
   describe('when it renders', function () {
     it('should show the instruction', function () {
