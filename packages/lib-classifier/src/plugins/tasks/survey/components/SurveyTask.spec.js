@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import { composeStory } from '@storybook/testing-react'
 import { render, screen } from '@testing-library/react'
+import * as globalConfig from '../../../../../.storybook/preview'
 
 import Meta, { Default, NoFilters } from './SurveyTask.stories'
 
@@ -10,7 +11,7 @@ describe('SurveyTask', function () {
       let filterButton, choiceButtons, choicesShowingCount, clearFiltersButton
 
       before(function () {
-        const DefaultStory = composeStory(Default, Meta)
+        const DefaultStory = composeStory(Default, Meta, globalConfig)
         render(<DefaultStory />)
         // filterButton is the Filter button above the choices
         filterButton = screen.queryByLabelText('SurveyTask.CharacteristicsFilter.filter')
@@ -53,7 +54,7 @@ describe('SurveyTask', function () {
       let filterButton, choiceButtons, choicesShowingCount, clearFiltersButton
 
       before(function () {
-        const NoFiltersStory = composeStory(NoFilters, Meta)
+        const NoFiltersStory = composeStory(NoFilters, Meta, globalConfig)
         render(<NoFiltersStory />)
         // filterButton is the Filter button above the choices
         filterButton = screen.queryByLabelText('SurveyTask.CharacteristicsFilter.filter')

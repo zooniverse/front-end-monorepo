@@ -198,6 +198,12 @@
         "nextFrameLabel": "Next"
       }
     },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToSeparateFrames": "Switch to separate frames view",
+        "switchToFlipbook": "Switch to flipbook view"
+      }
+    },
     "SingleVideoViewerContainer": {
       "error": "There was an error loading the subject."
     },

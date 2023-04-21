@@ -10,9 +10,10 @@ import FieldGuide from './components/FieldGuide'
 function FieldGuideWrapper ({
   fieldGuide = null,
   locale,
+  separateFramesView = false,
   ...props
 }) {
-  const [showModal, setModalVisibility]  = useState(false)
+  const [showModal, setModalVisibility] = useState(false)
   const translation = usePanoptesTranslations({
     translated_type: 'field_guide',
     translated_id: fieldGuide?.id,
@@ -22,7 +23,7 @@ function FieldGuideWrapper ({
 
   return (
     <>
-      <FieldGuideButton fieldGuide={fieldGuide} onClick={() => setModalVisibility(true)} />
+      <FieldGuideButton fieldGuide={fieldGuide} onClick={() => setModalVisibility(true)} separateFramesView={separateFramesView} />
       {showModal &&
         <ResponsiveContext.Consumer>
           {size => (

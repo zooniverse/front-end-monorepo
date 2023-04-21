@@ -1,11 +1,18 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
+import { Box } from 'grommet'
 import SubjectSetProgressBanner from './SubjectSetProgressBanner'
 // import readme from '../../README.md'
-import { SubjectFactory, SubjectSetFactory, WorkflowFactory } from '@test/factories'
+import {
+  SubjectFactory,
+  SubjectSetFactory,
+  WorkflowFactory
+} from '@test/factories'
 import mockStore from '@test/mockStore'
 
-function buildMocks({ already_seen, metadata = { ['#priority']: 37 }, retired }) {
+function buildMocks({
+  already_seen,
+  metadata = { ['#priority']: 37 },
+  retired
+}) {
   const subjectSnapshot = SubjectFactory.build({
     already_seen,
     metadata,
@@ -17,7 +24,11 @@ function buildMocks({ already_seen, metadata = { ['#priority']: 37 }, retired })
     prioritized: true,
     subjectSet: subjectSetSnapshot.id
   })
-  const store = mockStore({ subject: subjectSnapshot, subjectSet: subjectSetSnapshot, workflow: workflowSnapshot })
+  const store = mockStore({
+    subject: subjectSnapshot,
+    subjectSet: subjectSetSnapshot,
+    workflow: workflowSnapshot
+  })
 
   const subject = store.subjects.active
   const workflow = store.workflows.resources.get(workflowSnapshot.id)
@@ -26,7 +37,7 @@ function buildMocks({ already_seen, metadata = { ['#priority']: 37 }, retired })
 
 export default {
   title: 'Banners / Subject Set Progress Banner',
-  component: SubjectSetProgressBanner,
+  component: SubjectSetProgressBanner
   // parameters: {
   //   docs: {
   //     description: {
@@ -36,169 +47,116 @@ export default {
   // }
 }
 
-export function Default({ already_seen, dark, retired }) {
+export function Default({ already_seen, retired }) {
   const { subject, workflow } = buildMocks({ already_seen, retired })
   return (
-    <Grommet
-      theme={Object.assign({}, zooTheme, { dark })}
-      themeMode={(dark) ? 'dark' : 'light'}
-    >
-      <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
-        <SubjectSetProgressBanner
-          subject={subject}
-          workflow={workflow}
-        />
-        <img src="https://placekitten.com/800/400" alt='placeholder' />
-      </Box>
-    </Grommet>
+    <Box width='large'>
+      <SubjectSetProgressBanner subject={subject} workflow={workflow} />
+      <img src='https://placekitten.com/800/400' alt='placeholder' />
+    </Box>
   )
 }
 
 Default.args = {
   already_seen: false,
-  dark: false,
   retired: false
 }
 
-export function WithVisiblePriorityMetadata({ already_seen, dark, retired }) {
+export function WithVisiblePriorityMetadata({ already_seen, retired }) {
   const metadata = { priority: 37 }
   const { subject, workflow } = buildMocks({ already_seen, metadata, retired })
   return (
-    <Grommet
-      theme={Object.assign({}, zooTheme, { dark })}
-      themeMode={(dark) ? 'dark' : 'light'}
-    >
-      <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
-        <SubjectSetProgressBanner
-          subject={subject}
-          workflow={workflow}
-        />
-        <img src="https://placekitten.com/800/400" alt='placeholder' />
-      </Box>
-    </Grommet>
+    <Box width='large'>
+      <SubjectSetProgressBanner subject={subject} workflow={workflow} />
+      <img src='https://placekitten.com/800/400' alt='placeholder' />
+    </Box>
   )
 }
 
-export function WithVisiblePriorityMetadataAndRetired({ already_seen, dark, retired }) {
+export function WithVisiblePriorityMetadataAndRetired({
+  already_seen,
+  retired
+}) {
   const metadata = { priority: 37 }
   const { subject, workflow } = buildMocks({ already_seen, metadata, retired })
   return (
-    <Grommet
-      theme={Object.assign({}, zooTheme, { dark })}
-      themeMode={(dark) ? 'dark' : 'light'}
-    >
-      <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
-        <SubjectSetProgressBanner
-          subject={subject}
-          workflow={workflow}
-        />
-        <img src="https://placekitten.com/800/400" alt='placeholder' />
-      </Box>
-    </Grommet>
+    <Box width='large'>
+      <SubjectSetProgressBanner subject={subject} workflow={workflow} />
+      <img src='https://placekitten.com/800/400' alt='placeholder' />
+    </Box>
   )
 }
 
 WithVisiblePriorityMetadataAndRetired.args = {
   already_seen: false,
-  dark: false,
   retired: true
 }
 
-export function WithVisiblePriorityMetadataAndAlreadySeen({ already_seen, dark, retired }) {
+export function WithVisiblePriorityMetadataAndAlreadySeen({
+  already_seen,
+  retired
+}) {
   const metadata = { priority: 37 }
   const { subject, workflow } = buildMocks({ already_seen, metadata, retired })
   return (
-    <Grommet
-      theme={Object.assign({}, zooTheme, { dark })}
-      themeMode={(dark) ? 'dark' : 'light'}
-    >
-      <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
-        <SubjectSetProgressBanner
-          subject={subject}
-          workflow={workflow}
-        />
-        <img src="https://placekitten.com/800/400" alt='placeholder' />
-      </Box>
-    </Grommet>
+    <Box width='large'>
+      <SubjectSetProgressBanner subject={subject} workflow={workflow} />
+      <img src='https://placekitten.com/800/400' alt='placeholder' />
+    </Box>
   )
 }
 
 WithVisiblePriorityMetadataAndAlreadySeen.args = {
   already_seen: true,
-  dark: false,
   retired: false
 }
 
-export function WithRetiredSubject({ already_seen, dark, retired }) {
+export function WithRetiredSubject({ already_seen, retired }) {
   const { subject, workflow } = buildMocks({ already_seen, retired })
   return (
-    <Grommet
-      theme={Object.assign({}, zooTheme, { dark })}
-      themeMode={(dark) ? 'dark' : 'light'}
-    >
-      <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
-        <SubjectSetProgressBanner
-          subject={subject}
-          workflow={workflow}
-        />
-        <img src="https://placekitten.com/800/400" alt='placeholder' />
-      </Box>
-    </Grommet>
+    <Box width='large'>
+      <SubjectSetProgressBanner subject={subject} workflow={workflow} />
+      <img src='https://placekitten.com/800/400' alt='placeholder' />
+    </Box>
   )
 }
 
 WithRetiredSubject.args = {
   already_seen: false,
-  dark: false,
   retired: true
 }
 
-export function WithAlreadySeenSubject({ already_seen, dark, retired }) {
+export function WithAlreadySeenSubject({ already_seen, retired }) {
   const { subject, workflow } = buildMocks({ already_seen, retired })
   return (
-    <Grommet
-      theme={Object.assign({}, zooTheme, { dark })}
-      themeMode={(dark) ? 'dark' : 'light'}
-    >
-      <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
-        <SubjectSetProgressBanner
-          subject={subject}
-          workflow={workflow}
-        />
-        <img src="https://placekitten.com/800/400" alt='placeholder' />
-      </Box>
-    </Grommet>
+    <Box width='large'>
+      <SubjectSetProgressBanner subject={subject} workflow={workflow} />
+      <img src='https://placekitten.com/800/400' alt='placeholder' />
+    </Box>
   )
 }
 
 WithAlreadySeenSubject.args = {
   already_seen: true,
-  dark: false,
   retired: false
 }
 
-export function WithArrows({ already_seen, dark, retired }) {
+export function WithArrows({ already_seen, retired }) {
   const { subject, workflow } = buildMocks({ already_seen, retired })
   return (
-    <Grommet
-      theme={Object.assign({}, zooTheme, { dark })}
-      themeMode={(dark) ? 'dark' : 'light'}
-    >
-      <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
-        <SubjectSetProgressBanner
-          onNext={() => {}}
-          onPrevious={() => {}}
-          subject={subject}
-          workflow={workflow}
-        />
-        <img src="https://placekitten.com/800/400" alt='placeholder' />
-      </Box>
-    </Grommet>
+    <Box width='large'>
+      <SubjectSetProgressBanner
+        onNext={() => {}}
+        onPrevious={() => {}}
+        subject={subject}
+        workflow={workflow}
+      />
+      <img src='https://placekitten.com/800/400' alt='placeholder' />
+    </Box>
   )
 }
 
 WithArrows.args = {
   already_seen: false,
-  dark: false,
   retired: false
 }

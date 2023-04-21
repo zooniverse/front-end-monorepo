@@ -2,13 +2,12 @@ import { useEffect } from 'react'
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
-import { Box } from 'grommet'
 
 import withKeyZoom from '@components/Classifier/components/withKeyZoom'
 import { useStores } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
 import FlipbookViewer from './FlipbookViewer'
-import SeparateFrame from '../SeparateFramesViewer/components/SeparateFrame/SeparateFrame.js'
+import SeparateFramesViewer from '../SeparateFramesViewer/SeparateFramesViewer'
 
 function storeMapper(store) {
   const {
@@ -86,38 +85,14 @@ function FlipbookViewerContainer({
     return <div>Something went wrong.</div>
   }
 
-  const handleViewMode = e => {
-    if (e.target.checked) {
-      setSeparateFramesView(true)
-    } else {
-      setSeparateFramesView(false)
-    }
-  }
-
   return (
     <>
-      {/* <label>
-        <input
-          type='checkbox'
-          onChange={handleViewMode}
-          checked={separateFramesView}
-        />
-        Separate Frames Mode
-      </label> */}
       {separateFramesView ? (
-        <Box gap='small'>
-          {subject.locations?.map(location => (
-            <SeparateFrame
-              enableRotation={enableRotation}
-              frameUrl={Object.values(location)[0]}
-              key={Object.values(location)[0]}
-              limitSubjectHeight={limitSubjectHeight}
-              onError={onError}
-              onKeyDown={onKeyDown}
-              onReady={onReady}
-            />
-          ))}
-        </Box>
+        <SeparateFramesViewer
+          onError={onError}
+          onReady={onReady}
+          subject={subject}
+        />
       ) : (
         <FlipbookViewer
           defaultFrame={defaultFrame}

@@ -2,13 +2,14 @@ import { expect } from 'chai'
 import { composeStory } from '@storybook/testing-react'
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import * as globalConfig from '../../../../../.storybook/preview'
 
 import Meta, { Default } from './SurveyTask.stories'
 
 describe('SurveyTask with user clicks', function () {
   // this turns off Mocha's time limit for slow tests
   this.timeout(0)
-  const DefaultStory = composeStory(Default, Meta)
+  const DefaultStory = composeStory(Default, Meta, globalConfig)
 
   describe('when the Filter button is clicked', function () {
     let user, filterButton

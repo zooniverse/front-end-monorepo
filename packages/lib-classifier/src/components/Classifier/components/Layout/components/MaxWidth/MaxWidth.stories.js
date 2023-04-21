@@ -1,6 +1,4 @@
-import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
-import zooTheme from '@zooniverse/grommet-theme'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 
@@ -11,7 +9,7 @@ export default {
   component: MaxWidth,
   excludeStories: ['mockTask'],
   args: {
-    dark: false
+    separateFramesView: false
   }
 }
 
@@ -57,22 +55,14 @@ const workflowSnapshot = WorkflowFactory.build({
   tasks: mockTask
 })
 
-export function Default({ dark }) {
+export function Default({ separateFramesView }) {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode={dark ? 'dark' : 'light'}
-    >
-      <Provider classifierStore={Default.store}>
-        <MaxWidth />
-      </Provider>
-    </Grommet>
+    <Provider classifierStore={Default.store}>
+      <MaxWidth separateFramesView={separateFramesView} />
+    </Provider>
   )
 }
+
 Default.store = mockStore({
   subject: subjectSnapshot,
   workflow: workflowSnapshot

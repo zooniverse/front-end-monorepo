@@ -6,7 +6,6 @@ export default {
   title: 'Tasks / Multiple Choice Question',
   component: MultipleChoiceTask,
   args: {
-    dark: false,
     isThereTaskHelp: true,
     required: false,
     subjectReadyState: asyncStates.success
@@ -21,7 +20,7 @@ export default {
   }
 }
 
-export function Default({ dark, isThereTaskHelp, required, subjectReadyState }) {
+export function Default({ isThereTaskHelp, required, subjectReadyState }) {
   const tasks = {
     T1: {
       answers: [{ label: 'sleeping' }, { label: 'playing' }, { label: 'looking indifferent' }],
@@ -39,7 +38,6 @@ export function Default({ dark, isThereTaskHelp, required, subjectReadyState }) 
   }
   return (
     <MockTask
-      dark={dark}
       isThereTaskHelp={isThereTaskHelp}
       subjectReadyState={subjectReadyState}
       tasks={tasks}
