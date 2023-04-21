@@ -9,6 +9,7 @@ import MetaTools from '@components/Classifier/components/MetaTools'
 import QuickTalk from '@components/Classifier/components/QuickTalk'
 import SubjectViewer from '@components/Classifier/components/SubjectViewer'
 import TaskArea from '@components/Classifier/components/TaskArea'
+import FieldGuide from '@components/Classifier/components/FieldGuide'
 
 export const ContainerGrid = styled(Grid)`
   position: relative;
@@ -24,7 +25,7 @@ const StyledTaskAreaContainer = styled.div`
   grid-area: task;
 `
 
-const StyledTaskArea = styled(TaskArea)`
+const StyledTaskArea = styled(Box)`
   position: sticky;
   top: 10px;
 `
@@ -98,7 +99,10 @@ export default function MaxWidth({
         </ViewerGrid>
       )}
       <StyledTaskAreaContainer>
-        <StyledTaskArea />
+        <StyledTaskArea>
+          <TaskArea />
+          {separateFramesView && <FieldGuide />}
+        </StyledTaskArea>
       </StyledTaskAreaContainer>
       <FeedbackModal />
       <QuickTalk />

@@ -7,7 +7,10 @@ import NoMaxWidth from './NoMaxWidth'
 export default {
   title: 'Layouts / No Max Width',
   component: NoMaxWidth,
-  excludeStories: ['mockTask']
+  excludeStories: ['mockTask'],
+  args: {
+    separateFramesView: false
+  }
 }
 
 const subjectSnapshot = SubjectFactory.build({
@@ -52,13 +55,14 @@ const workflowSnapshot = WorkflowFactory.build({
   tasks: mockTask
 })
 
-export function Default() {
+export function Default({ separateFramesView }) {
   return (
     <Provider classifierStore={Default.store}>
-      <NoMaxWidth />
+      <NoMaxWidth separateFramesView={separateFramesView} />
     </Provider>
   )
 }
+
 Default.store = mockStore({
   subject: subjectSnapshot,
   workflow: workflowSnapshot

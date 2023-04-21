@@ -1,10 +1,11 @@
 import { Provider } from 'mobx-react'
 import mockStore from '@test/mockStore'
+import { WorkflowFactory } from '@test/factories'
 
 import SeparateFrame from './SeparateFrame'
 
 export default {
-  title: 'Subject Viewers / SeparateFrame',
+  title: 'Subject Viewers / SeparateFramesViewer / SeparateFrame',
   component: SeparateFrame,
   args: {
     frameUrl:
@@ -13,8 +14,17 @@ export default {
   }
 }
 
-const store = mockStore()
+const workflowSnapshot = WorkflowFactory.build({
+  configuration: {
+    invert_subject: true
+  }
+})
+
+const store = mockStore({
+  workflow: workflowSnapshot
+})
 store.subjectViewer.setSeparateFramesView(true)
+store.subjectViewer.enableRotation(true)
 
 export const Default = ({ frameUrl, limitSubjectHeight }) => {
   return (

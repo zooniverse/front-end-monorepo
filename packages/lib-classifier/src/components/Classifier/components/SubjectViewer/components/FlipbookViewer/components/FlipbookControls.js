@@ -15,6 +15,7 @@ import { useStores } from '@hooks'
 
 import controlsTheme from './theme'
 import locationValidator from '../../../helpers/locationValidator'
+import ViewModeButton from '../../SeparateFramesViewer/components/ViewModeButton/ViewModeButton.js'
 
 const SpeedSelect = styled(Select)`
   display: block;
@@ -53,7 +54,12 @@ function storeMapper(store) {
     setFlipbookSpeed
   } = store.subjectViewer
 
+  const {
+    enable_switching_flipbook_and_separate: enableSwitchView
+  } = store.workflows?.active?.configuration
+
   return {
+    enableSwitchView,
     flipbookSpeed,
     setFlipbookSpeed
   }
@@ -67,7 +73,7 @@ const FlipbookControls = ({
   playing = false,
   playIterations
 }) => {
-  const { flipbookSpeed, setFlipbookSpeed } = useStores(storeMapper)
+  const { enableSwitchView, flipbookSpeed, setFlipbookSpeed } = useStores(storeMapper)
   const { t } = useTranslation('components')
   const timeoutRef = useRef(null)
 
@@ -282,7 +288,9 @@ const FlipbookControls = ({
               onClick={handleNext}
             />
           </Box>
-          <Box />
+          <Box justify='center' align='center'>
+            {enableSwitchView && <ViewModeButton smallScreenStyle={smallScreenStyle} />}
+          </Box>
         </Grid>
       </Box>
     </ThemeContext.Extend>

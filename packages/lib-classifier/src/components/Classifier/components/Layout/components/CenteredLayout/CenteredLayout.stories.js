@@ -7,7 +7,10 @@ import CenteredLayout from './CenteredLayout'
 export default {
   title: 'Layouts / Centered',
   component: CenteredLayout,
-  excludeStories: ['mockTask']
+  excludeStories: ['mockTask'],
+  args: {
+    separateFramesView: false
+  }
 }
 
 const subjectSnapshot = SubjectFactory.build({
@@ -53,13 +56,14 @@ const workflowSnapshot = WorkflowFactory.build({
   tasks: mockTask
 })
 
-export function Default() {
+export function Default({ separateFramesView }) {
   return (
     <Provider classifierStore={Default.store}>
-      <CenteredLayout />
+      <CenteredLayout separateFramesView={separateFramesView} />
     </Provider>
   )
 }
+
 Default.store = mockStore({
   subject: subjectSnapshot,
   workflow: workflowSnapshot

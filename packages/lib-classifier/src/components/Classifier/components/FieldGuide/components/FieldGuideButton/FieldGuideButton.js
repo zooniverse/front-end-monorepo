@@ -8,6 +8,7 @@ import { useTranslation } from '@translations/i18n'
 import HelpIcon from './HelpIcon'
 
 export const StyledButton = styled(Button)`
+  width: 100%;
   ${props =>
     props.theme &&
     css`
@@ -32,7 +33,7 @@ const StyledSpacedText = styled(SpacedText)`
   line-height: 1.2;
 `
 
-export function ButtonLabel() {
+export function ColumnButtonLabel() {
   const { t } = useTranslation('components')
 
   return (
@@ -41,20 +42,35 @@ export function ButtonLabel() {
         {t('FieldGuide.FieldGuideButton.buttonLabel')}
       </StyledSpacedText>
       {/** Same styling as ImageToolbar > Button */}
-      <HelpIcon
-        fill='white'
-        width='min(50%, 1.2rem)'
-      />
+      <HelpIcon fill='white' width='min(50%, 1.2rem)' />
     </Box>
   )
 }
 
-function FieldGuideButton({ fieldGuide = null, onClick = () => true, theme }) {
+function RowButtonLabel() {
+  const { t } = useTranslation('components')
+
+  return (
+    <Box as='span' direction='row' gap='8px' justify='center' align='center'>
+      <HelpIcon fill='white' width='1.2rem' />
+      <StyledSpacedText size='small' color='white'>
+        {t('FieldGuide.FieldGuideButton.buttonLabel')}
+      </StyledSpacedText>
+    </Box>
+  )
+}
+
+function FieldGuideButton({
+  fieldGuide = null,
+  onClick = () => true,
+  separateFramesView = false,
+  theme
+}) {
   const disabled = !fieldGuide || fieldGuide.items.length === 0
 
   return (
     <StyledButton
-      label={<ButtonLabel />}
+      label={separateFramesView ? <RowButtonLabel /> : <ColumnButtonLabel />}
       disabled={disabled}
       onClick={onClick}
       plain

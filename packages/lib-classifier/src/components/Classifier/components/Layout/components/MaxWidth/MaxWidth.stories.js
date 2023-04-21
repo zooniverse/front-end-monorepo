@@ -7,7 +7,10 @@ import MaxWidth from './MaxWidth'
 export default {
   title: 'Layouts / Maximum Width',
   component: MaxWidth,
-  excludeStories: ['mockTask']
+  excludeStories: ['mockTask'],
+  args: {
+    separateFramesView: false
+  }
 }
 
 const subjectSnapshot = SubjectFactory.build({
@@ -52,13 +55,14 @@ const workflowSnapshot = WorkflowFactory.build({
   tasks: mockTask
 })
 
-export function Default() {
+export function Default({ separateFramesView }) {
   return (
     <Provider classifierStore={Default.store}>
-      <MaxWidth />
+      <MaxWidth separateFramesView={separateFramesView} />
     </Provider>
   )
 }
+
 Default.store = mockStore({
   subject: subjectSnapshot,
   workflow: workflowSnapshot

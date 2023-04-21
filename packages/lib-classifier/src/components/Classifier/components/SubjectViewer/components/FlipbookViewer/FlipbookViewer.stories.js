@@ -176,6 +176,29 @@ export const Autoplay = () => {
   )
 }
 
+const workflowWithSwitchToSeparateFrames = WorkflowFactory.build({
+  configuration: {
+    enable_switching_flipbook_and_separate: true
+  }
+})
+const storeWithSwitchToSeparateFrames = mockStore({
+  subject: mockSubject,
+  workflow: workflowWithSwitchToSeparateFrames
+})
+
+export const WithViewModeButton = () => {
+  return (
+    <Provider classifierStore={storeWithSwitchToSeparateFrames}>
+      <Box width='large'>
+        <FlipbookViewerContainer
+          loadingState={asyncStates.success}
+          subject={storeWithSwitchToSeparateFrames.subjects.active}
+        />
+      </Box>
+    </Provider>
+  )
+}
+
 export const NoSubject = () => {
   return (
     <Provider classifierStore={store}>
