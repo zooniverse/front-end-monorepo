@@ -17,7 +17,7 @@ export default {
   args
 }
 
-export function Default({ dark, active, disabled, onClick }) {
+export function Default({ active, disabled, onClick }) {
   return (
     <Box width='72px' pad='12px'>
       <FullscreenButton active={active} disabled={disabled} onClick={onClick} />

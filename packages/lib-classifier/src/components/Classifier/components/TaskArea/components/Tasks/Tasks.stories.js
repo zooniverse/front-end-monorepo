@@ -42,7 +42,7 @@ export function Error() {
   )
 }
 
-export function MultipleTasks({ dark, isThereTaskHelp, required, subjectReadyState }) {
+export function MultipleTasks({ isThereTaskHelp, required, subjectReadyState }) {
   const tasks = {
     init: {
       answers: [{ label: 'yes' }, { label: 'no' }],

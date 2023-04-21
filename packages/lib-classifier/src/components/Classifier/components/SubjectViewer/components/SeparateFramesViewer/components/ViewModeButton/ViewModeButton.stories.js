@@ -1,5 +1,3 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import mockStore from '@test/mockStore'
 
@@ -7,50 +5,27 @@ import ViewModeButton from './ViewModeButton'
 
 export default {
   title: 'Subject Viewers / SeparateFramesViewer / ViewModeButton',
-  component: ViewModeButton,
-  args: {
-    dark: false
-  }
+  component: ViewModeButton
 }
 
 const storeWithSeparateFramesView = mockStore()
 storeWithSeparateFramesView.subjectViewer.setSeparateFramesView(true)
 
-export const SwitchToFlipbook = ({ dark }) => {
-  const themeMode = dark ? 'dark' : 'light'
+export const SwitchToFlipbook = () => {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode={themeMode}
-    >
-      <Provider classifierStore={storeWithSeparateFramesView}>
-        <ViewModeButton />
-      </Provider>
-    </Grommet>
+    <Provider classifierStore={storeWithSeparateFramesView}>
+      <ViewModeButton />
+    </Provider>
   )
 }
 
 const storeWithFlipbookViewMode = mockStore()
 storeWithFlipbookViewMode.subjectViewer.setSeparateFramesView(false)
 
-export const SwitchToSeparateFrames = ({ dark }) => {
-  const themeMode = dark ? 'dark' : 'light'
+export const SwitchToSeparateFrames = () => {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode={themeMode}
-    >
-      <Provider classifierStore={storeWithFlipbookViewMode}>
-        <ViewModeButton />
-      </Provider>
-    </Grommet>
+    <Provider classifierStore={storeWithFlipbookViewMode}>
+      <ViewModeButton />
+    </Provider>
   )
 }

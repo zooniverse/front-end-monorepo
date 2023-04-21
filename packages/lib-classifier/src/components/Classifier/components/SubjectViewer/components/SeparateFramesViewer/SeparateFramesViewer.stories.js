@@ -1,5 +1,3 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import mockStore from '@test/mockStore'
 import { SubjectFactory } from '@test/factories'
@@ -9,10 +7,7 @@ import SeparateFramesViewer from './SeparateFramesViewer'
 
 export default {
   title: 'Subject Viewers / SeparateFramesViewer',
-  component: SeparateFramesViewer,
-  args: {
-    dark: false
-  }
+  component: SeparateFramesViewer
 }
 
 const mockSubject = SubjectFactory.build({
@@ -41,23 +36,13 @@ const store = mockStore({
 })
 store.subjectViewer.setSeparateFramesView(true)
 
-export const OneColumn = ({ dark }) => {
-  const themeMode = dark ? 'dark' : 'light'
+export const OneColumn = () => {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode={themeMode}
-    >
-      <Provider classifierStore={store}>
-        <SeparateFramesViewer
-          loadingState={asyncStates.success}
-          subject={store.subjects.active}
-        />
-      </Provider>
-    </Grommet>
+    <Provider classifierStore={store}>
+      <SeparateFramesViewer
+        loadingState={asyncStates.success}
+        subject={store.subjects.active}
+      />
+    </Provider>
   )
 }
