@@ -29,18 +29,31 @@ const StyledDeleteButton = styled.button`
   }
 `
 
+function DEFAULT_HANDLER() {
+  return true
+}
+
 function Selection ({
   color,
-  handleDelete = () => {},
+  handleDelete = DEFAULT_HANDLER,
   text,
   theme = defaultTheme
 }) {
   const { t } = useTranslation('plugins')
 
+  function onKeyDown (event) {
+    if (event.key === 'Delete'
+      || event.key === 'Backspace') {
+        handleDelete()
+    }
+  }
+
   return (
     <StyledSpan
       data-selection={text}
       color={color}
+      onKeyDown={onKeyDown}
+      tabIndex='0'
       theme={theme}
     >
       {text}

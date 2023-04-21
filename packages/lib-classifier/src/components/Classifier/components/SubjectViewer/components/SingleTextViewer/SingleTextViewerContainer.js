@@ -43,12 +43,16 @@ function labeledContent (data, annotation) {
   return newContent
 }
 
+function DEFAULT_HANDLER() {
+  return true
+}
+
 export function SingleTextViewerContainer ({
   height = '',
   latest,
   loadingState = asyncStates.initialized,
-  onError = () => true,
-  onReady = () => true,
+  onError = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
   subject = defaultSubject
 }) {
   const { data, error, loading } = useSubjectText({
