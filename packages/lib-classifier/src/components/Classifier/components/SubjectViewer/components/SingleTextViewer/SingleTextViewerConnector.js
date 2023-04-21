@@ -11,7 +11,10 @@ function storeMapper (store) {
     }
   } = store
 
+  const latest = subject?.stepHistory.latest
+
   return {
+    latest,
     loadingState,
     subject
   }
