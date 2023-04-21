@@ -31,8 +31,9 @@ const StyledLabelColor = styled.span`
 const StyledButton = styled(Button)`
   ${props => props.theme.dark ?
     css`
-      background: transparent;
+      background: ${props.theme.global.colors['dark-4']};
       border: 2px solid ${props.theme.global.colors['light-1']};
+      color: white;
     ` :
     css`
       background: ${props.theme.global.colors['light-1']};
@@ -93,7 +94,12 @@ function StyledButtonLabel ({ color, count = 0, label }) {
         <Text size='16px'>
           {label}
         </Text>
-        <Text color={count ? 'inherit' : 'light-4' }>
+        <Text
+          color={{
+            dark: (count ? 'inherit' : 'dark-5'),
+            light: (count ? 'inherit' : 'light-4')
+          }}
+        >
           {status}
         </Text>
       </Box>
