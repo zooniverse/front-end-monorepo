@@ -1,5 +1,4 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
+import { Box } from 'grommet'
 import UserHasFinishedWorkflowBanner from './UserHasFinishedWorkflowBanner'
 import readme from '../../README.md'
 import { SubjectFactory } from '@test/factories'
@@ -12,7 +11,6 @@ export default {
   title: 'Banners / UserHasFinishedWorkflowBanner',
   component: UserHasFinishedWorkflowBanner,
   args: {
-    dark: false,
     subject
   },
   parameters: {
@@ -24,16 +22,11 @@ export default {
   }
 }
 
-export function Default({ dark, subject }) {
-  const theme = { ...zooTheme, dark }
+export function Default({ subject }) {
   return (
-    <Grommet theme={theme}>
-      <Box background={{ dark: 'dark-3', light: 'light-3' }} width='large'>
-        <UserHasFinishedWorkflowBanner
-          subject={subject}
-        />
-        <img src="https://placekitten.com/800/400" alt='placeholder' />
-      </Box>
-    </Grommet>
+    <Box width='large'>
+      <UserHasFinishedWorkflowBanner subject={subject} />
+      <img src='https://placekitten.com/800/400' alt='placeholder' />
+    </Box>
   )
 }

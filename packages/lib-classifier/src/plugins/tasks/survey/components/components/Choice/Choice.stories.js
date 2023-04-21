@@ -1,5 +1,4 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
+import { Box } from 'grommet'
 
 import SurveyTask from '@plugins/tasks/survey'
 import { task } from '@plugins/tasks/survey/mock-data'
@@ -12,8 +11,7 @@ export default {
   title: 'Tasks / Survey / Choice',
   component: Choice,
   args: {
-    choiceId: 'KD',
-    dark: false
+    choiceId: 'KD'
   },
   argTypes: {
     choiceId: {
@@ -23,42 +21,19 @@ export default {
   }
 }
 
-const background = {
-  dark: 'dark-1',
-  light: 'light-1'
-}
-
-export const Default = ({
-  choiceId,
-  dark
-}) => {
-  const themeMode = dark ? 'dark' : 'light'
-  
+export const Default = ({ choiceId }) => {
   return (
-    <Grommet
-      background={background}
-      theme={zooTheme}
-      themeMode={themeMode}
-    >
+    <Box align='end' fill='horizontal'>
       <Box
-        align='end'
-        fill='horizontal'
+        background={{
+          dark: 'dark-3',
+          light: 'neutral-6'
+        }}
+        pad='1em'
+        width='380px'
       >
-        <Box
-          background={{
-            dark: 'dark-3',
-            light: 'neutral-6'
-          }}
-          
-          pad='1em'
-          width='380px'
-        >
-          <Choice
-            choiceId={choiceId}
-            task={mockTask}
-          />
-        </Box>
+        <Choice choiceId={choiceId} task={mockTask} />
       </Box>
-    </Grommet>
+    </Box>
   )
 }

@@ -6,7 +6,6 @@ export default {
   title: 'Tasks / Text',
   component: TextTask,
   args: {
-    dark: false,
     isThereTaskHelp: true,
     required: false,
     subjectReadyState: asyncStates.success
@@ -21,7 +20,7 @@ export default {
   }
 }
 
-export function Default({ dark, isThereTaskHelp, required, subjectReadyState }) {
+export function Default({ isThereTaskHelp, required, subjectReadyState }) {
   const tasks = {
     T0: {
       required,
@@ -36,7 +35,6 @@ export function Default({ dark, isThereTaskHelp, required, subjectReadyState }) 
   }
   return (
     <MockTask
-      dark={dark}
       isThereTaskHelp={isThereTaskHelp}
       subjectReadyState={subjectReadyState}
       tasks={tasks}
@@ -44,7 +42,7 @@ export function Default({ dark, isThereTaskHelp, required, subjectReadyState }) 
   )
 }
 
-export function withSuggestions({ dark, isThereTaskHelp, required, subjectReadyState }) {
+export function withSuggestions({ isThereTaskHelp, required, subjectReadyState }) {
   const tasks = {
     T0: {
       required,
@@ -65,7 +63,6 @@ export function withSuggestions({ dark, isThereTaskHelp, required, subjectReadyS
   const previousAnnotationValues = new Map([[ 'T0', previousTextAnnotations]])
   return (
     <MockTask
-      dark={dark}
       isThereTaskHelp={isThereTaskHelp}
       subjectReadyState={subjectReadyState}
       previousAnnotationValues={previousAnnotationValues}

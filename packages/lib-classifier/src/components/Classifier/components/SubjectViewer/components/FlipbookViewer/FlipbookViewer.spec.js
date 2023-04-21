@@ -3,9 +3,10 @@ import { expect } from 'chai'
 import Meta, { Default, NoSubject } from './FlipbookViewer.stories'
 import { composeStory } from '@storybook/testing-react'
 import userEvent from '@testing-library/user-event'
+import * as globalConfig from '../../../../../../../.storybook/preview'
 
 describe('Component > FlipbookViewer', function () {
-  const DefaultStory = composeStory(Default, Meta)
+  const DefaultStory = composeStory(Default, Meta, globalConfig)
 
   describe('with a valid subject', function () {
     it('should render the correct number of thumbnnails', function () {
@@ -62,7 +63,7 @@ describe('Component > FlipbookViewer', function () {
   })
 
   describe('without a subject', function () {
-    const NoSubjectStory = composeStory(NoSubject, Meta)
+    const NoSubjectStory = composeStory(NoSubject, Meta, globalConfig)
 
     it('should display an error message and no image element ', function () {
       const { container } = render(<NoSubjectStory />)

@@ -10,7 +10,7 @@
     "otherLabel": "Other...",
     "selectPlaceholder": "Choose an answer"
   },
-  "SurveyTask":{
+  "SurveyTask": {
     "CharacteristicsFilter": {
       "clearFilters": "Clear filters",
       "filter": "Filter",
@@ -38,5 +38,20 @@
   "TranscriptionLine": {
     "editing": "Editing transcription",
     "created": "Created transcription"
+  },
+  "FreehandLine": {
+    "inactive": "Click to edit this line",
+    "active": "Click and drag from the open point to the close point or double click anywhere on the line to create a splice point",
+    "splicePoint": "Double click anywhere on the line to create a splice point",
+    "closePoint": "Click anywhere on the line to set the close point",
+    "spliceDrag": "Click and drag from the open point to the close point"
+  },
+  "LineControls": {
+    "lineControls": "Line Controls",
+    "close": "Close",
+    "delete": "Delete",
+    "move": "Move",
+    "redo": "Redo",
+    "undo": "Undo"
   }
 }

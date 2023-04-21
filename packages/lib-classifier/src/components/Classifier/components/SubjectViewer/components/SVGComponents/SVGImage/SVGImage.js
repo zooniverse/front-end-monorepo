@@ -20,7 +20,7 @@ const INVERT =
     </defs>
   </svg>`
 
-export default function SVGImage ({
+export default function SVGImage({
   invert = false,
   move = false,
   naturalHeight,

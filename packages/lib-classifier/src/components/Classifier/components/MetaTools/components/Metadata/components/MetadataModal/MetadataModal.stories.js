@@ -1,11 +1,9 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
+import { Box } from 'grommet'
 import MetadataModal from './MetadataModal'
 import { filters } from './filterByLabel'
 
 const args = {
   active: true,
-  dark: false,
   filters: filters,
   metadata: {
     id: '1',
@@ -27,31 +25,15 @@ export default {
   args
 }
 
-export function Default({
-  active,
-  closeFn,
-  dark,
-  filters,
-  metadata
-}) {
-  const theme = { ...zooTheme, dark }
+export function Default({ active, closeFn, filters, metadata }) {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-3',
-        light: 'white'
-      }}
-      theme={theme}
-      themeMode={dark ? 'dark' : 'light'}
-    >
-      <Box pad='12px'>
-        <MetadataModal
-          active={active}
-          closeFn={closeFn}
-          filters={filters}
-          metadata={metadata}
-        />
-      </Box>
-    </Grommet>
+    <Box pad='12px'>
+      <MetadataModal
+        active={active}
+        closeFn={closeFn}
+        filters={filters}
+        metadata={metadata}
+      />
+    </Box>
   )
 }
