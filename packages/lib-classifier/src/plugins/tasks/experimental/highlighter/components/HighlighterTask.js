@@ -139,7 +139,10 @@ export function HighlighterTask ({
 
   function handleClick (event, index) {
     const selection = document.getSelection()
-    selection.rangeCount ? createLabelAnnotation(selection, index) : null
+    if (selection.rangeCount && selection.getRangeAt(0).toString().length) {
+      createLabelAnnotation(selection, index)
+    }
+    return null
   }
 
   return (
