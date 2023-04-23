@@ -1,5 +1,5 @@
 import { Component, createRef } from 'react';
-import { mount } from 'enzyme'
+import { render } from '@testing-library/react'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import { Provider } from 'mobx-react'
@@ -24,8 +24,8 @@ describe('withKeyZoom', function () {
   subjectViewer.setOnZoom(onZoom)
   let wrappedComponent
 
-  before(function () {
-    mount(
+  beforeEach(function () {
+    render(
       <Provider classifierStore={classifierStore}>
         <WithZoom ref={zoomStub} />
       </Provider>

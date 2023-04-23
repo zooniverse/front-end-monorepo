@@ -26,6 +26,16 @@ Returns the new store when hydration is complete. Snapshots are stored in sessio
 const classifierStore = useHydratedStore({ authClient, client }, cachePanoptesData = false, storageKey)
 ```
 
+## useKeyZoom
+
+Add keyboard zoom controls to a component
+
+```js
+const onKeyZoom = useKeyZoom()
+
+<ComponentWithZoom onKeyDown={onKeyZoom} />
+```
+
 ## usePanoptesAuth
 
 Asynchronously fetch an auth token, for a given user ID. A wrapper for `authClient.checkBearerToken()`.
