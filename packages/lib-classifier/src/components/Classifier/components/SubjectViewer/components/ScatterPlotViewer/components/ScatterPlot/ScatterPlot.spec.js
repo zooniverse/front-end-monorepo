@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
@@ -271,6 +272,118 @@ describe('Component > ScatterPlot', function () {
       underlays.forEach(({ fill }) => {
         const underlay = document.querySelector(`.chartBackground-underlay[fill="${fill}"]`)
         expect(underlay).to.exist()
+      })
+    })
+  })
+
+  describe('with selection enabled', function () {
+    let brushLayer, user
+
+    describe('without any selections', function () {
+      beforeEach(function () {
+        render(
+          <ScatterPlot
+            data={variableStar.scatterPlot.data}
+            experimentalSelectionTool
+            parentHeight={parentHeight}
+            parentWidth={parentWidth}
+            theme={zooTheme}
+            transformMatrix={transformMatrix}
+          />,
+          {
+            wrapper: withStore()
+          }
+        )
+        brushLayer = document.querySelector('.chartContent .brushLayer')
+      })
+
+      it('should render a visx brush layer', function () {
+        expect(brushLayer.querySelector('.visx-brush-overlay')).to.exist()
+      })
+    })
+
+    describe('with selections', function () {
+      beforeEach(function () {
+        const initialSelections = [
+          { x0: 250, x1: 300 },
+          { x0: 495, x1: 505 }
+        ]
+
+        render(
+          <ScatterPlot
+            data={variableStar.scatterPlot.data}
+            experimentalSelectionTool
+            initialSelections={initialSelections}
+            parentHeight={parentHeight}
+            parentWidth={parentWidth}
+            theme={zooTheme}
+            transformMatrix={transformMatrix}
+          />,
+          {
+            wrapper: withStore()
+          }
+        )
+        brushLayer = document.querySelector('.chartContent .brushLayer')
+      })
+
+      it('should render a visx brush layer', function () {
+        expect(brushLayer.querySelector('.visx-brush-overlay')).to.exist()
+      })
+
+      it('should render the selections', function () {
+        expect(brushLayer.querySelectorAll('.selection')).to.have.lengthOf(2)
+      })
+
+      it('should render delete buttons', function () {
+        const user = userEvent.setup()
+        const buttons = brushLayer.querySelectorAll('[role="button"]')
+        expect(buttons).to.have.lengthOf(2)
+        buttons.forEach(async (button, index) => {
+          const label = button.getAttribute('aria-label')
+          expect(label).to.equal('SubjectViewer.ScatterPlotViewer.Selection.delete')
+          expect(brushLayer.querySelectorAll('.selection')).to.have.lengthOf(2 - index)
+          await user.click(button)
+          expect(brushLayer.querySelectorAll('.selection')).to.have.lengthOf(1 - index)
+        })
+      })
+    })
+
+    describe('with selections but disabled', function () {
+      beforeEach(function () {
+        const initialSelections = [
+          { x0: 250, x1: 300 },
+          { x0: 495, x1: 505 }
+        ]
+
+        render(
+          <ScatterPlot
+            data={variableStar.scatterPlot.data}
+            disabled
+            experimentalSelectionTool
+            initialSelections={initialSelections}
+            parentHeight={parentHeight}
+            parentWidth={parentWidth}
+            theme={zooTheme}
+            transformMatrix={transformMatrix}
+          />,
+          {
+            wrapper: withStore()
+          }
+        )
+        brushLayer = document.querySelector('.chartContent .brushLayer')
+      })
+
+      it('should not render a visx brush layer', function () {
+        expect(brushLayer.querySelector('.visx-brush-overlay')).not.to.exist()
+      })
+
+      it('should render the selections', function () {
+        expect(brushLayer.querySelectorAll('.selection')).to.have.lengthOf(2)
+      })
+
+      it('should not show delete buttons', function () {
+        const buttons = brushLayer.querySelectorAll('[role="button"]')
+        expect(buttons).to.have.lengthOf(0)
       })
     })
   })

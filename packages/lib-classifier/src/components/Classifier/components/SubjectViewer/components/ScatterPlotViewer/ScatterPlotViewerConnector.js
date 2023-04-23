@@ -7,12 +7,14 @@ function storeMapper(classifierStore) {
       active: subject
     },
     subjectViewer: {
+      interactionMode,
       setOnZoom,
       setOnPan
     }
   } = classifierStore
 
   return {
+    interactionMode,
     setOnZoom,
     setOnPan,
     subject
