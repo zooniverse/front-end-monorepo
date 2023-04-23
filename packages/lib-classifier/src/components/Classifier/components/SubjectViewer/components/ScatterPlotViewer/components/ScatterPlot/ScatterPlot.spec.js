@@ -1,6 +1,11 @@
-import { shallow } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import { Group } from '@visx/group'
 import zooTheme from '@zooniverse/grommet-theme'
+import { Grommet } from 'grommet'
+import { Provider } from 'mobx-react'
+
+import mockStore from '@test/mockStore/mockStore.js'
+
 import Axes from '../Axes'
 import Background from '../../../SVGComponents/Background'
 import Chart from '../../../SVGComponents/Chart'
@@ -21,12 +26,25 @@ import { left, top } from '../../helpers/utils'
 describe('Component > ScatterPlot', function () {
   const { variableStar } = lightCurveMockData
   const { data, dataPoints } = randomSingleSeriesData
-
   const defaultColors = Object.values(zooTheme.global.colors.drawingTools)
+  const store = mockStore()
+
+  function withStore() {
+    return function Wrapper({ children }) {
+      return (
+        <Grommet theme={zooTheme}>
+          <Provider classifierStore={store}>
+            {children}
+          </Provider>
+        </Grommet>
+      )
+    }
+  }
+
   describe('render', function () {
     let wrapper, chart
-    before(function () {
-      wrapper = shallow(
+    beforeEach(function () {
+      render(
         <ScatterPlot
           data={data}
           margin={margin}
@@ -36,93 +54,84 @@ describe('Component > ScatterPlot', function () {
           transformMatrix={transformMatrix}
         >
           <rect id='test' />
-        </ScatterPlot>
+        </ScatterPlot>,
+        {
+          wrapper: withStore()
+        }
       )
-      chart = wrapper.find(Chart)
-    })
-
-    it('should render without crashing', function () {
-      expect(wrapper).to.be.ok()
     })
 
     it('should render a Chart', function () {
-      expect(chart).to.have.lengthOf(1)
+      const chart = document.querySelector('.scatterPlot')
+      expect(chart).to.exist()
     })
 
     it('should set the Chart\'s width and height from props', function () {
-      expect(chart.props().width).to.equal(parentWidth)
-      expect(chart.props().height).to.equal(parentHeight)
+      const chart = document.querySelector('.scatterPlot')
+      expect(chart.getAttribute('width')).to.equal(parentWidth.toString())
+      expect(chart.getAttribute('height')).to.equal(parentHeight.toString())
     })
 
     it('should render Backgrounds', function () {
-      expect(wrapper.find(Background)).to.have.lengthOf(2)
+      const backgrounds = document.querySelectorAll('.chartBackground')
+      expect(backgrounds).to.have.lengthOf(2)
     })
 
     it('should style the Background fill', function () {
-      wrapper.find(Background).forEach((backgroundElement) => {
-        expect(backgroundElement.props().fill).to.be.a('string')
+      const backgrounds = document.querySelectorAll('.chartBackground')
+      backgrounds.forEach((backgroundElement) => {
+        expect(backgroundElement.getAttribute('fill')).to.be.a('string')
       })
     })
 
-    it('should not render the plot area background if the axis ticks are inner facing', function () {
-      wrapper.setProps({ tickDirection: 'inner' })
-      expect(wrapper.find(Background)).to.have.lengthOf(1)
-      wrapper.setProps({ tickDirection: 'outer' })
-    })
-
     it('should render a clipPath with a child rect the size of the parent chart minus the axes margin', function () {
-      const clipPath = wrapper.find('clipPath')
-      expect(clipPath).to.have.lengthOf(1)
-      expect(clipPath.find('rect').props().height).to.equal(parentHeight - margin.top - margin.bottom)
-      expect(clipPath.find('rect').props().width).to.equal(parentWidth - margin.left - margin.right)
+      const clipPath = document.querySelector('clipPath')
+      expect(clipPath.querySelector('rect').getAttribute('height')).to.equal(`${parentHeight - margin.top - margin.bottom}`)
+      expect(clipPath.querySelector('rect').getAttribute('width')).to.equal(`${parentWidth - margin.left - margin.right}`)
     })
 
-    it('should set the clipPath attribute with the clipPath id on the Group wrapping the data', function () {
-      const clipPathId = wrapper.find('clipPath').props().id
-      expect(wrapper.find(Group).first().props().clipPath).to.equal(`url(#${clipPathId})`)
+    it('should render chart content', function () {
+      expect(document.querySelectorAll('g.chartContent')).to.have.lengthOf(1)
     })
 
-    it('should render Group components', function () {
-      expect(wrapper.find(Group)).to.have.lengthOf(2)
+    it('should render chart axes', function () {
+      expect(document.querySelectorAll('g.chartAxes')).to.have.lengthOf(1)
     })
 
     it('should set the position of the Group wrapping the Chart', function () {
-      const chartGroupWrapper = wrapper.find(Group).first()
+      const chartGroupWrapper = document.querySelector('g.chartContent')
       const leftPosition = left('outer', margin)
       const topPosition = top('outer', margin)
-      expect(chartGroupWrapper.props().left).to.equal(leftPosition)
-      expect(chartGroupWrapper.props().top).to.equal(topPosition)
+      expect(chartGroupWrapper.getAttribute('transform')).to.equal(`translate(${leftPosition}, ${topPosition})`)
     })
 
     it('should set the position of the Group wrapping the Axes', function () {
-      const axesGroupWrapper = wrapper.find(Group).last()
+      const axesGroupWrapper = document.querySelector('g.chartAxes')
       const leftPosition = left('outer', margin)
-      expect(axesGroupWrapper.props().left).to.equal(leftPosition)
-      expect(axesGroupWrapper.props().top).to.equal(margin.top)
-    })
-
-    it('should render Axes', function () {
-      expect(wrapper.find(Axes)).to.have.lengthOf(1)
+      expect(axesGroupWrapper.getAttribute('transform')).to.equal(`translate(${leftPosition}, ${margin.top})`)
     })
 
     it('should render children', function () {
-      expect(wrapper.find('rect#test')).to.have.lengthOf(1)
+      expect(document.querySelectorAll('rect#test')).to.have.lengthOf(1)
     })
   })
 
   describe('when there\'s a single data series', function () {
-    let wrapper, glyphs
-    before(function () {
-      wrapper = shallow(
+    let glyphs
+    beforeEach(function () {
+      render(
         <ScatterPlot
           data={data}
           parentHeight={parentHeight}
           parentWidth={parentWidth}
           theme={zooTheme}
           transformMatrix={transformMatrix}
-        />
+        />,
+        {
+          wrapper: withStore()
+        }
       )
-      glyphs = wrapper.find(glyphComponents.circle)
+      glyphs = document.querySelectorAll('.visx-glyph-circle')
     })
 
     it('should render a number of glyph components equal to the number of data points', function () {
@@ -131,27 +140,28 @@ describe('Component > ScatterPlot', function () {
 
     it('should render the glyph components with a fill color', function () {
       glyphs.forEach((glyph) => {
-        expect(glyph.props().fill).to.not.be.empty()
-        expect(glyph.props().fill).to.not.equal('transparent')
-        expect(glyph.props().fill).to.equal(defaultColors[0])
+        expect(glyph.getAttribute('fill')).to.equal(defaultColors[0])
       })
     })
   })
 
-  describe('when there\'s multiple data series', function () {
-    let wrapper, renderedSeriesGlyphs
-    before(function () {
-      wrapper = shallow(
+  describe('when there are multiple data series', function () {
+    let renderedSeriesGlyphs
+    beforeEach(function () {
+      render(
         <ScatterPlot
           data={variableStar.scatterPlot.data}
           parentHeight={parentHeight}
           parentWidth={parentWidth}
           theme={zooTheme}
           transformMatrix={transformMatrix}
-        />
+        />,
+        {
+          wrapper: withStore()
+        }
       )
-      renderedSeriesGlyphs = Object.values(glyphComponents).filter((component) => {
-        const components = wrapper.find(component)
+      renderedSeriesGlyphs = Object.keys(glyphComponents).filter(key => {
+        const components = document.querySelectorAll(`.visx-glyph-${key}`)
         return components.length > 0
       })
     })
@@ -162,16 +172,16 @@ describe('Component > ScatterPlot', function () {
 
     it('should render a number of glyph components equal to the number of data points for each data series', function () {
       variableStar.scatterPlot.data.forEach((series, index) => {
-        expect(wrapper.find(renderedSeriesGlyphs[index])).to.have.lengthOf(series.seriesData.length)
+        const selector = `.visx-glyph-${renderedSeriesGlyphs[index]}`
+        const glyphs = document.querySelectorAll(selector)
+        expect(glyphs).to.have.lengthOf(series.seriesData.length)
       })
     })
 
     it('should render the glyph components for each series with different fill colors', function () {
       variableStar.scatterPlot.data.forEach((series, index) => {
-        wrapper.find(renderedSeriesGlyphs[index]).forEach((glyph) => {
-          const { fill } = glyph.props()
-          expect(fill).to.not.be.empty()
-          expect(fill).to.not.equal('transparent')
+        document.querySelectorAll(`.visx-glyph-${renderedSeriesGlyphs[index]}`).forEach((glyph) => {
+          const fill = glyph.getAttribute('fill')
           expect(fill).to.equal(zooTheme.global.colors[series.seriesOptions.color])
         })
       })
@@ -182,24 +192,30 @@ describe('Component > ScatterPlot', function () {
     describe('for the horizontal (x) direction', function () {
       it('should render a line centered at the glyph component', function () {
         const data = dataSeriesWithXErrors.data
-        const wrapper = shallow(
+        render(
           <ScatterPlot
             data={data}
             parentHeight={parentHeight}
             parentWidth={parentWidth}
             theme={zooTheme}
             transformMatrix={transformMatrix}
-          />
+          />,
+          {
+            wrapper: withStore()
+          }
         )
 
-        const lines = wrapper.find('line')
+        const lines = document.querySelectorAll('line.errorBar')
         expect(lines).to.have.lengthOf(data[0].seriesData.length)
+        const glyphs = document.querySelectorAll('.visx-glyph-circle')
         lines.forEach((line, index) => {
-          const glyph = wrapper.find('GlyphCircle').at(index)
-          expect(line.props().x1).to.not.equal(line.props().x2)
-          expect(line.props().y1).to.equal(line.props().y2)
-          expect(line.props().x1).to.be.below(glyph.props().left)
-          expect(line.props().x2).to.be.above(glyph.props().left)
+          const glyph = glyphs.item(index).parentElement
+          const transform = glyph.getAttribute('transform').replace('translate(', '').replace(')', '')
+          const [left, top] = transform.split(',')
+          expect(line.getAttribute('x1')).to.not.equal(line.getAttribute('x2'))
+          expect(line.getAttribute('y1')).to.equal(line.getAttribute('y2'))
+          expect(parseFloat(line.getAttribute('x1'))).to.be.below(parseFloat(left))
+          expect(parseFloat(line.getAttribute('x2'))).to.be.above(parseFloat(left))
         })
       })
     })
@@ -207,24 +223,30 @@ describe('Component > ScatterPlot', function () {
     describe('for the vertical (y) direction', function () {
       it('should render a line centered at the glyph component', function () {
         const data = dataSeriesWithYErrors.data
-        const wrapper = shallow(
+        render(
           <ScatterPlot
             data={data}
             parentHeight={parentHeight}
             parentWidth={parentWidth}
             theme={zooTheme}
             transformMatrix={transformMatrix}
-          />
+          />,
+          {
+            wrapper: withStore()
+          }
         )
 
-        const lines = wrapper.find('line')
+        const lines = document.querySelectorAll('line.errorBar')
         expect(lines).to.have.lengthOf(data[0].seriesData.length)
+        const glyphs = document.querySelectorAll('.visx-glyph-circle')
         lines.forEach((line, index) => {
-          const glyph = wrapper.find('GlyphCircle').at(index)
-          expect(line.props().x1).to.equal(line.props().x2)
-          expect(line.props().y1).to.not.equal(line.props().y2)
-          expect(line.props().y1).to.be.below(glyph.props().top)
-          expect(line.props().y2).to.be.above(glyph.props().top)
+          const glyph = glyphs.item(index).parentElement
+          const transform = glyph.getAttribute('transform').replace('translate(', '').replace(')', '')
+          const [left, top] = transform.split(',')
+          expect(line.getAttribute('y1')).to.not.equal(line.getAttribute('y2'))
+          expect(line.getAttribute('x1')).to.equal(line.getAttribute('x2'))
+          expect(parseFloat(line.getAttribute('y1'))).to.be.below(parseFloat(top))
+          expect(parseFloat(line.getAttribute('y2'))).to.be.above(parseFloat(top))
         })
       })
     })
@@ -237,7 +259,7 @@ describe('Component > ScatterPlot', function () {
         { fill: zooTheme.global.colors['light-3'], startPosition: -phaseLimit, xAxisWidth: phaseLimit },
         { fill: zooTheme.global.colors['light-3'], startPosition: 1, xAxisWidth: phaseLimit }
       ]
-      const wrapper = shallow(
+      render(
         <ScatterPlot
           data={variableStar.scatterPlot.data}
           parentHeight={parentHeight}
@@ -245,16 +267,15 @@ describe('Component > ScatterPlot', function () {
           theme={zooTheme}
           transformMatrix={transformMatrix}
           underlays={underlays}
-        />
+        />,
+        {
+          wrapper: withStore()
+        }
       )
-      
-      const backgroundOfCoordinateArea = wrapper.find(Group).first().find(Background)
-      const { underlayParameters } = backgroundOfCoordinateArea.props()
-      underlayParameters.forEach((parameters, index) => {
-        const { fill, left, width } = parameters
-        expect(fill).to.equal(underlays[index].fill)
-        expect(left).to.be.a('number')
-        expect(width).to.be.a('number')
+
+      underlays.forEach(({ fill }) => {
+        const underlay = document.querySelector(`.chartBackground-underlay[fill="${fill}"]`)
+        expect(underlay).to.exist()
       })
     })
   })

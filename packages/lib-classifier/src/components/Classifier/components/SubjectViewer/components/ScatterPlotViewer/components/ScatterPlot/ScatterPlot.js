@@ -140,6 +140,7 @@ function ScatterPlot ({
   }
   return (
     <Chart
+      className='scatterPlot'
       height={parentHeight}
       width={parentWidth}
     >
@@ -151,6 +152,7 @@ function ScatterPlot ({
         />
       </clipPath>
       <Group
+        className='chartContent'
         clipPath={`url(#scatter-plot-${clipPathId})`}
         left={leftPosition}
         top={topPosition}
@@ -202,6 +204,7 @@ function ScatterPlot ({
               <g key={pointIndex}>
                 {x_error &&
                   <line
+                    className='errorBar'
                     stroke={errorBarColor}
                     strokeWidth={2}
                     x1={xErrorBarPoints.x1}
@@ -211,6 +214,7 @@ function ScatterPlot ({
                   />}
                 {y_error &&
                   <line
+                    className='errorBar'
                     stroke={errorBarColor}
                     strokeWidth={2}
                     x1={cx}
@@ -234,6 +238,7 @@ function ScatterPlot ({
       </Group>
       {children}
       <Group
+        className='chartAxes'
         left={leftPosition}
         top={margin.top}
       >
