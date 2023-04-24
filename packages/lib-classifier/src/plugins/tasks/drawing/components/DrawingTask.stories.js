@@ -7,7 +7,6 @@ export default {
   title: 'Tasks / Drawing ',
   component: DrawingTask,
   args: {
-    dark: false,
     isThereTaskHelp: true,
     required: false,
     subjectReadyState: asyncStates.success
@@ -22,7 +21,7 @@ export default {
   }
 }
 
-export function Drawing({ dark, isThereTaskHelp, required, subjectReadyState }) {
+export function Drawing({ isThereTaskHelp, required, subjectReadyState }) {
   const tasks = {
     T2: {
       required,
@@ -66,7 +65,6 @@ export function Drawing({ dark, isThereTaskHelp, required, subjectReadyState }) 
   }
   return (
     <MockTask
-      dark={dark}
       isThereTaskHelp={isThereTaskHelp}
       subjectReadyState={subjectReadyState}
       tasks={tasks}

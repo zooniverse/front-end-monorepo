@@ -1,6 +1,5 @@
 import sinon from 'sinon'
-import zooTheme from '@zooniverse/grommet-theme'
-import { Box, Grommet } from 'grommet'
+import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import SubjectGroupViewer from './SubjectGroupViewerContainer'
@@ -57,11 +56,10 @@ const mockStore = {
   }
 }
 
-function ViewerContext(props) {
-  const { children, theme } = props
+function ViewerContext({ children }) {
   return (
     <Provider classifierStore={mockStore}>
-      <Grommet theme={theme}>{children}</Grommet>
+      {children}
     </Provider>
   )
 }
@@ -80,7 +78,7 @@ export default {
 
 export const Default = () => {
   return (
-    <ViewerContext theme={zooTheme}>
+    <ViewerContext>
       <Box height='medium' width='large'>
         <SubjectGroupViewer subject={subject} />
       </Box>
@@ -91,7 +89,7 @@ export const Default = () => {
 export const WithZoomControls = () => {
   const Toolbar = withKeyZoom(Box)
   return (
-    <ViewerContext theme={zooTheme}>
+    <ViewerContext>
       <Toolbar direction='row' height='4rem'>
         <AnnotateButton />
         <MoveButton />

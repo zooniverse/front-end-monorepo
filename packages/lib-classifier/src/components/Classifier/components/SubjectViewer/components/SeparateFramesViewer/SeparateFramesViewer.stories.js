@@ -1,5 +1,3 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import mockStore from '@test/mockStore'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
@@ -9,10 +7,7 @@ import SeparateFramesViewer from './SeparateFramesViewer'
 
 export default {
   title: 'Subject Viewers / SeparateFramesViewer / Layouts',
-  component: SeparateFramesViewer,
-  args: {
-    dark: false
-  }
+  component: SeparateFramesViewer
 }
 
 const mockSubject = SubjectFactory.build({
@@ -48,24 +43,14 @@ const storeWithOneColumn = mockStore({
 })
 storeWithOneColumn.subjectViewer.setSeparateFramesView(true)
 
-export const OneColumn = ({ dark }) => {
-  const themeMode = dark ? 'dark' : 'light'
+export const OneColumn = () => {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode={themeMode}
-    >
-      <Provider classifierStore={storeWithOneColumn}>
-        <SeparateFramesViewer
-          loadingState={asyncStates.success}
-          subject={storeWithOneColumn.subjects.active}
-        />
-      </Provider>
-    </Grommet>
+    <Provider classifierStore={storeWithOneColumn}>
+      <SeparateFramesViewer
+        loadingState={asyncStates.success}
+        subject={storeWithOneColumn.subjects.active}
+      />
+    </Provider>
   )
 }
 
@@ -81,24 +66,14 @@ const storeWithOneRow = mockStore({
 })
 storeWithOneRow.subjectViewer.setSeparateFramesView(true)
 
-export const OneRow = ({ dark }) => {
-  const themeMode = dark ? 'dark' : 'light'
+export const OneRow = () => {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode={themeMode}
-    >
-      <Provider classifierStore={storeWithOneRow}>
-        <SeparateFramesViewer
-          loadingState={asyncStates.success}
-          subject={storeWithOneRow.subjects.active}
-        />
-      </Provider>
-    </Grommet>
+    <Provider classifierStore={storeWithOneRow}>
+      <SeparateFramesViewer
+        loadingState={asyncStates.success}
+        subject={storeWithOneRow.subjects.active}
+      />
+    </Provider>
   )
 }
 
@@ -114,24 +89,14 @@ const storeWithTwoColGrid = mockStore({
 })
 storeWithTwoColGrid.subjectViewer.setSeparateFramesView(true)
 
-export const TwoColumnGrid = ({ dark }) => {
-  const themeMode = dark ? 'dark' : 'light'
+export const TwoColumnGrid = () => {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode={themeMode}
-    >
-      <Provider classifierStore={storeWithTwoColGrid}>
-        <SeparateFramesViewer
-          loadingState={asyncStates.success}
-          subject={storeWithTwoColGrid.subjects.active}
-        />
-      </Provider>
-    </Grommet>
+    <Provider classifierStore={storeWithTwoColGrid}>
+      <SeparateFramesViewer
+        loadingState={asyncStates.success}
+        subject={storeWithTwoColGrid.subjects.active}
+      />
+    </Provider>
   )
 }
 
@@ -147,23 +112,13 @@ const storeWithThreeColGrid = mockStore({
 })
 storeWithThreeColGrid.subjectViewer.setSeparateFramesView(true)
 
-export const ThreeColumnGrid = ({ dark }) => {
-  const themeMode = dark ? 'dark' : 'light'
+export const ThreeColumnGrid = () => {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode={themeMode}
-    >
-      <Provider classifierStore={storeWithThreeColGrid}>
-        <SeparateFramesViewer
-          loadingState={asyncStates.success}
-          subject={storeWithThreeColGrid.subjects.active}
-        />
-      </Provider>
-    </Grommet>
+    <Provider classifierStore={storeWithThreeColGrid}>
+      <SeparateFramesViewer
+        loadingState={asyncStates.success}
+        subject={storeWithThreeColGrid.subjects.active}
+      />
+    </Provider>
   )
 }

@@ -1,7 +1,6 @@
-import zooTheme from '@zooniverse/grommet-theme'
-import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 import mockStore from '@test/mockStore'
+import { WorkflowFactory } from '@test/factories'
 
 import SeparateFrame from './SeparateFrame'
 
@@ -9,31 +8,31 @@ export default {
   title: 'Subject Viewers / SeparateFramesViewer / SeparateFrame',
   component: SeparateFrame,
   args: {
-    dark: false,
     frameUrl:
       'https://panoptes-uploads.zooniverse.org/subject_location/1e54b552-4608-4701-9db9-b8342b81278a.jpeg',
     limitSubjectHeight: false
   }
 }
 
-const store = mockStore()
+const workflowSnapshot = WorkflowFactory.build({
+  configuration: {
+    invert_subject: true
+  }
+})
+
+const store = mockStore({
+  workflow: workflowSnapshot
+})
 store.subjectViewer.setSeparateFramesView(true)
+store.subjectViewer.enableRotation(true)
 
-const background = {
-  dark: 'dark-1',
-  light: 'light-1'
-}
-
-export const Default = ({ dark, frameUrl, limitSubjectHeight }) => {
-  const themeMode = dark ? 'dark' : 'light'
+export const Default = ({ frameUrl, limitSubjectHeight }) => {
   return (
-    <Grommet background={background} theme={zooTheme} themeMode={themeMode}>
-      <Provider classifierStore={store}>
-        <SeparateFrame
-          frameUrl={frameUrl}
-          limitSubjectHeight={limitSubjectHeight}
-        />
-      </Provider>
-    </Grommet>
+    <Provider classifierStore={store}>
+      <SeparateFrame
+        frameUrl={frameUrl}
+        limitSubjectHeight={limitSubjectHeight}
+      />
+    </Provider>
   )
 }
