@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@babel/register": "~7.21.0",
-    "@storybook/addon-a11y": "~6.5.0",
+    "@storybook/addon-a11y": "~7.0.7",
     "@storybook/addon-essentials": "~6.5.0",
     "@storybook/addon-knobs": "~6.4.0",
     "@storybook/addon-links": "~6.5.0",
