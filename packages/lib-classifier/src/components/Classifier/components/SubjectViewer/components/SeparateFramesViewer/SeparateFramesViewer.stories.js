@@ -33,6 +33,7 @@ const mockSubject = SubjectFactory.build({
 
 const workflowWithOneColumn = WorkflowFactory.build({
   configuration: {
+    invert_subject: true,
     multi_image_layout: 'col'
   }
 })
@@ -42,6 +43,7 @@ const storeWithOneColumn = mockStore({
   workflow: workflowWithOneColumn
 })
 storeWithOneColumn.subjectViewer.setSeparateFramesView(true)
+storeWithOneColumn.subjectViewer.enableRotation(true)
 
 export const OneColumn = () => {
   return (
@@ -56,6 +58,7 @@ export const OneColumn = () => {
 
 const workflowWithOneRow = WorkflowFactory.build({
   configuration: {
+    invert_subject: true,
     multi_image_layout: 'row'
   }
 })
@@ -65,6 +68,7 @@ const storeWithOneRow = mockStore({
   workflow: workflowWithOneRow
 })
 storeWithOneRow.subjectViewer.setSeparateFramesView(true)
+storeWithOneRow.subjectViewer.enableRotation(true)
 
 export const OneRow = () => {
   return (
@@ -79,6 +83,7 @@ export const OneRow = () => {
 
 const workflowWithTwoColGrid = WorkflowFactory.build({
   configuration: {
+    invert_subject: true,
     multi_image_layout: 'grid2'
   }
 })
@@ -88,6 +93,7 @@ const storeWithTwoColGrid = mockStore({
   workflow: workflowWithTwoColGrid
 })
 storeWithTwoColGrid.subjectViewer.setSeparateFramesView(true)
+storeWithTwoColGrid.subjectViewer.enableRotation(true)
 
 export const TwoColumnGrid = () => {
   return (
@@ -102,6 +108,7 @@ export const TwoColumnGrid = () => {
 
 const workflowWithThreeColGrid = WorkflowFactory.build({
   configuration: {
+    invert_subject: true,
     multi_image_layout: 'grid3'
   }
 })
@@ -111,6 +118,7 @@ const storeWithThreeColGrid = mockStore({
   workflow: workflowWithThreeColGrid
 })
 storeWithThreeColGrid.subjectViewer.setSeparateFramesView(true)
+storeWithThreeColGrid.subjectViewer.enableRotation(true)
 
 export const ThreeColumnGrid = () => {
   return (

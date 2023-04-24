@@ -148,9 +148,6 @@ const SeparateFrame = ({
   }
 
   const onKeyDown = e => {
-    // This is not working yet
-    console.log('separate frame key down')
-
     const ALLOWED_TAGS = ['svg', 'button', 'g', 'rect']
     const htmlTag = e.target?.tagName.toLowerCase()
 
@@ -205,9 +202,7 @@ const SeparateFrame = ({
         onKeyDown={onKeyDown}
         rotate={rotation}
         scale={scale}
-        svgMaxHeight={
-          limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
-        }
+        svgMaxHeight={limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null}
         viewBox={`${x} ${y} ${width} ${height}`}
         width={naturalWidth}
       >
@@ -271,4 +266,5 @@ SeparateFrame.propTypes = {
   /** Passed from Subject Viewer Store and called when a frame's src is loaded */
   onReady: PropTypes.func
 }
+
 export default SeparateFrame

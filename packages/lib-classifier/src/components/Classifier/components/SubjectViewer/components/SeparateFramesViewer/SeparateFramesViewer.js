@@ -22,6 +22,7 @@ function storeMapper(store) {
 }
 
 const DEFAULT_HANDLER = () => true
+const minFrameWidth = 200
 
 function SeparateFramesViewer({
   loadingState = asyncStates.initialized,
@@ -31,19 +32,29 @@ function SeparateFramesViewer({
 }) {
   const { limitSubjectHeight, multiImageLayout } = useStores(storeMapper)
 
-  /** We're simply checking for when this frame container is < 600px
-   * to avoid subject images from being very tiny in the frames layout
-   */
-  const [smallContainerStyle, setSmallContainerStyle] = useState(false)
+  const [forceColLayout, setForceColLayout] = useState(false)
+  const [numFramesHorizontally, setNumFramesHorizontally] = useState(1)
+
+  useEffect(() => {
+    if (multiImageLayout === 'row') {
+      setNumFramesHorizontally(subject?.locations?.length)
+    } else if (multiImageLayout === 'grid2') {
+      setNumFramesHorizontally(2)
+    } else if (multiImageLayout === 'grid3') {
+      setNumFramesHorizontally(3)
+    }
+  }, [multiImageLayout])
+
   const framesContainer = useRef(null)
   const resizeObserver = useRef(null)
 
   useEffect(() => {
-    resizeObserver.current = new window.ResizeObserver((entries) => {
-      if (entries[0].contentRect.width < 600) {
-        setSmallContainerStyle(true)
+    const tooSmallContainerWidth = numFramesHorizontally * minFrameWidth
+    resizeObserver.current = new window.ResizeObserver(entries => {
+      if (entries[0].contentRect.width < tooSmallContainerWidth) {
+        setForceColLayout(true)
       } else {
-        setSmallContainerStyle(false)
+        setForceColLayout(false)
       }
     })
 
@@ -56,7 +67,7 @@ function SeparateFramesViewer({
         resizeObserver.current.unobserve(framesContainer.current)
       }
     }
-  }, [])
+  }, [numFramesHorizontally])
 
   if (loadingState === asyncStates.error || !subject?.locations) {
     return <div>Something went wrong.</div>
@@ -64,70 +75,21 @@ function SeparateFramesViewer({
 
   return (
     <div ref={framesContainer}>
-      {(multiImageLayout === 'col' || smallContainerStyle) && (
-        <Box gap='small'>
-          {subject.locations?.map(location => (
-            <SeparateFrame
-              frameUrl={Object.values(location)[0]}
-              key={Object.values(location)[0]}
-              limitSubjectHeight={limitSubjectHeight}
-              onError={onError}
-              onReady={onReady}
-            />
-          ))}
-        </Box>
-      )}
-      {multiImageLayout === 'row' && !smallContainerStyle && (
-        <Grid
-          gap='xsmall'
-          columns={[`repeat(${subject.locations?.length}, 1fr)`]}
-          rows='auto'
-        >
-          {subject.locations?.map(location => (
-            <SeparateFrame
-              frameUrl={Object.values(location)[0]}
-              key={Object.values(location)[0]}
-              limitSubjectHeight={limitSubjectHeight}
-              onError={onError}
-              onReady={onReady}
-            />
-          ))}
-        </Grid>
-      )}
-      {multiImageLayout === 'grid2' && !smallContainerStyle && (
-        <Grid
-          gap='xsmall'
-          columns={['repeat(2, 1fr)']}
-          rows='auto'
-        >
-          {subject.locations?.map(location => (
-            <SeparateFrame
-              frameUrl={Object.values(location)[0]}
-              key={Object.values(location)[0]}
-              limitSubjectHeight={limitSubjectHeight}
-              onError={onError}
-              onReady={onReady}
-            />
-          ))}
-        </Grid>
-      )}
-      {multiImageLayout === 'grid3' && !smallContainerStyle && (
-        <Grid
-          gap='xsmall'
-          columns={['repeat(3, 1fr)']}
-          rows='auto'
-        >
-          {subject.locations?.map(location => (
-            <SeparateFrame
-              frameUrl={Object.values(location)[0]}
-              key={Object.values(location)[0]}
-              limitSubjectHeight={limitSubjectHeight}
-              onError={onError}
-              onReady={onReady}
-            />
-          ))}
-        </Grid>
-      )}
+      <Grid
+        gap='xsmall'
+        columns={forceColLayout ? 'auto' : [`repeat(${numFramesHorizontally}, 1fr)`]}
+        rows='auto'
+      >
+        {subject.locations?.map(location => (
+          <SeparateFrame
+            frameUrl={Object.values(location)[0]}
+            key={Object.values(location)[0]}
+            limitSubjectHeight={limitSubjectHeight}
+            onError={onError}
+            onReady={onReady}
+          />
+        ))}
+      </Grid>
       <Box justify='center' pad='xsmall'>
         <ViewModeButton />
       </Box>
@@ -142,8 +104,6 @@ SeparateFramesViewer.propTypes = {
   loadingState: PropTypes.string,
   /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */
   onError: PropTypes.func,
-  /** withKeyZoom in for using keyboard pan and zoom controls while focused on the subject image */
-  onKeyDown: PropTypes.func,
   /** Passed from SubjectViewer and dimensions are added to classification metadata. Called after svg layers successfully load with `defaultFrameSrc`. */
   onReady: PropTypes.func,
   /** Required. Passed from mobx store via SubjectViewer. */
