@@ -11,7 +11,7 @@ jobs:
     name: Build and Push Image
     uses: zooniverse/ci-cd/.github/workflows/build_and_push_image.yaml@main
     with:
-      repo_name: panoptes
+      repo_name: front-end-monorepo
       commit_id: ${{ github.sha }}
       latest: true
       build-args: |
