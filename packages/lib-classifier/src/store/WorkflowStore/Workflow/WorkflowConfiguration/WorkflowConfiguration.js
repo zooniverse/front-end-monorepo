@@ -3,12 +3,12 @@ import subjectViewers from '@helpers/subjectViewers'
 
 const WorkflowConfiguration = types.snapshotProcessor(
   types.model({
-    enable_switching_flipbook_and_separate: types.optional(types.boolean, true),
+    enable_switching_flipbook_and_separate: types.optional(types.boolean, false),
     flipbook_autoplay: types.optional(types.boolean, false),
     invert_subject: types.optional(types.boolean, false),
     limit_subject_height: types.optional(types.boolean, false),
     multi_image_mode: types.optional(types.enumeration('multiImageMode', ['flipbook', 'separate']), 'flipbook'),
-    multi_image_layout: types.optional(types.enumeration('multiImageLayout', ['col', 'grid2', 'grid3', 'row']), 'row'),
+    multi_image_layout: types.optional(types.enumeration('multiImageLayout', ['col', 'grid2', 'grid3', 'row']), 'col'),
     persist_annotations: types.optional(types.boolean, true),
     playIterations: types.optional(types.number, 3),
     subject_viewer: types.maybe(
