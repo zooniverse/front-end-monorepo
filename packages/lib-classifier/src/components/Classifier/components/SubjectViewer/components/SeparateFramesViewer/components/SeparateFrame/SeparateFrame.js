@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 
@@ -24,6 +24,8 @@ const SeparateFrame = ({
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER
 }) => {
+  const containerRef = useRef(null)
+
   const { img, error, loading, subjectImage } = useSubjectImage({
     src: frameUrl,
     onReady,
@@ -192,10 +194,33 @@ const SeparateFrame = ({
 
   /** Frame Component */
 
+  const resizeObserver = useRef(null)
+  const [containerWidth, setContainerWidth] = useState(200)
+
+  useEffect(() => {
+    resizeObserver.current = new window.ResizeObserver(entries => {
+      if (entries[0].contentRect.width) {
+        setContainerWidth(Math.round(entries[0].contentRect.width))
+      }
+    })
+
+    if (containerRef.current) {
+      resizeObserver.current.observe(containerRef.current)
+    }
+
+    return () => {
+      if (containerRef.current) {
+        resizeObserver.current.unobserve(containerRef.current)
+      }
+    }
+  }, [])
+
   const { x, y, width, height } = scaledViewBox(zoom)
 
   return (
-    <Box direction='row'>
+    <Box>
+      {containerRef.current && <span style={{ color: 'red', fontSize: '12px' }}>Width: {containerWidth}px</span>}
+    <Box direction='row' style={{ border: 'solid 1px red' }} ref={containerRef}>
       <SingleImageViewer
         height={naturalHeight}
         limitSubjectHeight={limitSubjectHeight}
@@ -250,6 +275,7 @@ const SeparateFrame = ({
         <ResetButton separateFrameResetView={separateFrameResetView} />
         <InvertButton separateFrameInvert={separateFrameInvert} />
       </Box>
+    </Box>
     </Box>
   )
 }
