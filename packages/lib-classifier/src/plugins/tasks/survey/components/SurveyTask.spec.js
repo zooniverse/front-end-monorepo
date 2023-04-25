@@ -9,7 +9,7 @@ describe('SurveyTask', function () {
   describe('when choices are showing / without a selected choice', function () {
     describe('with task instruction', function () {
       it('should show the instruction', function () {
-        const DefaultStory = composeStory(Default, Meta)
+        const DefaultStory = composeStory(Default, Meta, globalConfig)
         render(<DefaultStory />)
 
         const instruction = screen.findByText('Select the animals you see in the image.')
