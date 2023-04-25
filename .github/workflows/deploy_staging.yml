@@ -14,7 +14,7 @@ jobs:
       repo_name: front-end-monorepo
       commit_id: ${{ github.sha }}
       latest: true
-      build-args: |
+      build_args: |
         APP_ENV=staging
         COMMIT_ID=${{ github.sha }}
         CONTENTFUL_ACCESS_TOKEN=${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
