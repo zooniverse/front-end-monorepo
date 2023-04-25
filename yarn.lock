@@ -9625,10 +9625,10 @@ grommet-styles@^0.2.0:
   resolved "https://registry.yarnpkg.com/grommet-styles/-/grommet-styles-0.2.0.tgz#b2eac2b7e2747cb523434d21728ce5234f8ce4f4"
   integrity sha512-0OMSYuGeyifYKpg4Gv2HzL8rUdd0ddnJ5LbCBKgDuloC71XIwr9g/Fxa6rs737MbPV7OZ4pEm4wvrjH4epzf1A==
 
-grommet@~2.31.0:
-  version "2.31.0"
-  resolved "https://registry.yarnpkg.com/grommet/-/grommet-2.31.0.tgz#eb74f1d983436eaec5d8fb023333387229ea6cf0"
-  integrity sha512-giWBFTCZpVushmEUJikWBL702k4y3qOE6TpnczIiNZAqQofu8N/u3v3m/ODXP/o+bxfMLnU/unUIDQoS2XQOkQ==
+grommet@~2.32.0:
+  version "2.32.0"
+  resolved "https://registry.yarnpkg.com/grommet/-/grommet-2.32.0.tgz#46b1ef5b86f2fb1ffb74ab781e93e22adf411a64"
+  integrity sha512-KSDg8kqpEUcNYf4uOSTpu2KLF8hCNlTk/V0HPTZhNXS3Mz95C/A10v8TntvxdtUha9wkiWBwssRelyCGb45aDA==
   dependencies:
     grommet-icons "^4.10.0"
     hoist-non-react-statics "^3.2.0"
@@ -16623,9 +16623,9 @@ svg-loaders-react@~2.2.1:
   integrity sha512-ATfg5pAMOla2GqPcwGRDrNTLlTQzl2fMvfW290j20qH7qpB61C3SQAnu+T9t8Z+V4IKKN2Bm1d/SaCv5IR1DDA==
 
 swr@~2.1.0:
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/swr/-/swr-2.1.4.tgz#f5b5cfb3d43f04beb23ae012e0b0c9f8ec395ed1"
-  integrity sha512-NG+eu3s3YT7aCnL0BRzsYIh8U0HhzA4II1bNMTUtO5D+N+4+YJpcfLiagFdrt0IbTGCbOiVyzAIMvqOCsk9cQA==
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-2.1.5.tgz#688effa719c03f6d35c66decbb0f8e79c7190399"
+  integrity sha512-/OhfZMcEpuz77KavXST5q6XE9nrOBOVcBLWjMT+oAE/kQHyE3PASrevXCtQDZ8aamntOfFkbVJp7Il9tNBQWrw==
   dependencies:
     use-sync-external-store "^1.2.0"
 
