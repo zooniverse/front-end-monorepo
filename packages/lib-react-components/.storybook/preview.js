@@ -3,20 +3,12 @@ import i18n from '../src/translations/i18n'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 
-export const parameters = {
-  i18n,
-  layout: 'fullscreen',
-  locale: 'en',
-  locales: {
-    en: 'English',
-    test: 'Test Language'
-  },
-  viewport: {
-    viewports: INITIAL_VIEWPORTS
-  }
+const background = {
+  dark: 'dark-1',
+  light: 'light-1'
 }
 
-export const globalTypes = {
+const globalTypes = {
   theme: {
     name: 'Grommet Theme',
     description: 'Global Grommet theme for components',
@@ -29,12 +21,7 @@ export const globalTypes = {
   }
 }
 
-const background = {
-  dark: 'dark-1',
-  light: 'light-1'
-}
-
-export const decorators = [
+const decorators = [
   (Story, context) => {
     return (
       <Grommet
@@ -48,3 +35,22 @@ export const decorators = [
     )
   }
 ]
+
+const preview = {
+  parameters: {
+    i18n,
+    layout: 'fullscreen',
+    locale: 'en',
+    locales: {
+      en: 'English',
+      test: 'Test Language'
+    },
+    viewport: {
+      viewports: INITIAL_VIEWPORTS
+    }
+  },
+  decorators,
+  globalTypes,
+}
+
+export default preview

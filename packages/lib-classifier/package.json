@@ -19,9 +19,7 @@
     "lint": "zoo-standard --fix | snazzy",
     "start": "PANOPTES_ENV=production npm run dev",
     "test": "NODE_PATH=. NODE_ENV=test mocha --exit --config ./test/.mocharc.json \"./{src,test}/**/*.spec.js\"",
-    "test:ci": "NODE_PATH=. NODE_ENV=test mocha --exit --config ./test/.mocharc.json --reporter=min \"./{src,test}/**/*.spec.js\"",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "test:ci": "NODE_PATH=. NODE_ENV=test mocha --exit --config ./test/.mocharc.json --reporter=min \"./{src,test}/**/*.spec.js\""
   },
   "dependencies": {
     "@babel/runtime": "~7.21.0",
@@ -66,13 +64,6 @@
     "@babel/preset-env": "~7.21.4",
     "@babel/preset-react": "~7.18.6",
     "@babel/register": "~7.21.0",
-    "@storybook/addon-a11y": "~6.5.0",
-    "@storybook/addon-essentials": "~6.5.0",
-    "@storybook/addons": "~6.5.0",
-    "@storybook/builder-webpack5": "~6.5.0",
-    "@storybook/manager-webpack5": "~6.5.0",
-    "@storybook/react": "~6.5.0",
-    "@storybook/testing-react": "~1.3.0",
     "@testing-library/dom": "~8.20.0",
     "@testing-library/react": "~12.1.2",
     "@testing-library/react-hooks": "~8.0.0",
@@ -112,7 +103,6 @@
     "sinon": "~15.0.0",
     "sinon-chai": "~3.7.0",
     "snazzy": "~9.0.0",
-    "storybook-react-i18next": "~1.1.2",
     "style-loader": "~3.3.1",
     "styled-components": "~5.3.3",
     "superagent": "~8.0.0",
