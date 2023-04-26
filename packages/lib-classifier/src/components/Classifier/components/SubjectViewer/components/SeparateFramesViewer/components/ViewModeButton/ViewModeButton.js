@@ -65,6 +65,7 @@ const ViewModeButton = ({ smallScreenStyle }) => {
           />
         )
       }
+      style={{ width: 'fit-content' }}
     />
   )
 }
