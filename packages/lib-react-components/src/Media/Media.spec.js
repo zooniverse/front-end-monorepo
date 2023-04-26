@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { composeStory } from '@storybook/testing-react'
+import { composeStory } from '@storybook/react'
 
 import Meta, * as Stories from './Media.stories.js'
 

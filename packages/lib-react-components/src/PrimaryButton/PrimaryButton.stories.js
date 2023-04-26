@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 import PrimaryButton from './PrimaryButton'
 
-/** This will not work with @storybook/testing-react composeStory function */
+/** This will not work with @storybook/react composeStory function */
 // import readme from './README.md'
 
 export default {

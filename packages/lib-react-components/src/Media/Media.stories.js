@@ -3,7 +3,7 @@ import { Box, Text } from 'grommet'
 import Media from './Media'
 import ZooniverseLogo from '../ZooniverseLogo'
 
-/** This will not work with @storybook/testing-react composeStory function */
+/** This will not work with @storybook/react composeStory function */
 // import readme from './README.md'
 
 export default {
