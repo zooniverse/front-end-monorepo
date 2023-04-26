@@ -24,6 +24,7 @@ function webpackFinal(config, options) {
 const config = {
   stories: ['../src/**/*.stories.js'],
   addons: [
+    '@storybook/addon-a11y',
     '@storybook/addon-essentials'
   ],
   framework: {

@@ -1,8 +1,8 @@
 const config = {
   stories: ['../src/**/*.stories.js'],
   addons: [
+    '@storybook/addon-a11y',
     '@storybook/addon-essentials',
-    // '@storybook/addon-viewport',
     'storybook-react-i18next'
   ],
   framework: {
