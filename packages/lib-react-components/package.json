@@ -17,10 +17,10 @@
     "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
     "lint": "zoo-standard --fix {.storybook,src,stories,test}/**/*.{js,jsx} | snazzy",
     "prepare": "yarn build",
-    "start": "start-storybook -p 6006",
+    "start": "start-storybook -p 6007",
     "test": "mocha --config ./test/.mocharc.json \"./src/**/*.spec.js\"",
     "test:ci": "mocha --config ./test/.mocharc.json --reporter=min \"./src/**/*.spec.js\"",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6007",
     "build-storybook": "storybook build"
   },
   "dependencies": {

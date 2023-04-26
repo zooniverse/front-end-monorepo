@@ -16,7 +16,7 @@ const globalTypes = {
     toolbar: {
       icon: 'arrowdown',
       items: ['light', 'dark'],
-      showName: true,
+      title: 'Grommet Theme',
     }
   }
 }
