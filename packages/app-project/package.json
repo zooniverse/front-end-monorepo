@@ -12,7 +12,9 @@
     "lint": "next lint",
     "start": "NODE_ENV=${NODE_ENV:-production} PANOPTES_ENV=${PANOPTES_ENV:-production} node server/server.js",
     "test": "BABEL_ENV=test mocha --config test/.mocharc.json \"./{src,pages,stores}/**/*.spec.js\"",
-    "test:ci": "BABEL_ENV=test mocha --config test/.mocharc.json --reporter=min \"./{src,pages,stores}/**/*.spec.js\""
+    "test:ci": "BABEL_ENV=test mocha --config test/.mocharc.json --reporter=min \"./{src,pages,stores}/**/*.spec.js\"",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@artsy/fresnel": "~6.1.0",
@@ -64,6 +66,9 @@
   },
   "devDependencies": {
     "@babel/register": "~7.21.0",
+    "@storybook/addon-essentials": "^7.0.7",
+    "@storybook/nextjs": "^7.0.7",
+    "@storybook/react": "^7.0.7",
     "@testing-library/dom": "~8.20.0",
     "@testing-library/react": "~12.1.2",
     "@testing-library/user-event": "~14.4.0",
@@ -80,7 +85,9 @@
     "nock": "~13.3.0",
     "selfsigned": "~2.1.1",
     "sinon": "~15.0.0",
-    "sinon-chai": "~3.7.0"
+    "sinon-chai": "~3.7.0",
+    "storybook": "^7.0.7",
+    "storybook-react-i18next": "~2.0.1"
   },
   "engines": {
     "node": ">=18.13"
