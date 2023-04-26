@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { expect } from 'chai'
 import Meta, { Default } from './SeparateFrame.stories.js'
-import { composeStory } from '@storybook/testing-react'
+import { composeStory } from '@storybook/react'
 
 describe('Component > SeparateFrame', function () {
   const DefaultStory = composeStory(Default, Meta)

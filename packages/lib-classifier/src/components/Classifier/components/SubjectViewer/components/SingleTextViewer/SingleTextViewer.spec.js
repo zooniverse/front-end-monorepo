@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { render, screen } from '@testing-library/react'
 import asyncStates from '@zooniverse/async-states'
-import { composeStory } from '@storybook/testing-react'
+import { composeStory } from '@storybook/react'
 
 import Meta, { Default } from './SingleTextViewer.stories'
 

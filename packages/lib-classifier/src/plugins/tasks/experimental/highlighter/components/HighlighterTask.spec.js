@@ -1,11 +1,11 @@
-import { composeStory } from '@storybook/testing-react'
+import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
-import * as globalConfig from '../../../../../../.storybook/preview'
+import * as projectAnnotations from '../../../../../../.storybook/preview'
 
 import Meta, { Default } from './HighlighterTask.stories'
 
 describe('HighlighterTask', function () {
-  const DefaultStory = composeStory(Default, Meta, globalConfig)
+  const DefaultStory = composeStory(Default, Meta, projectAnnotations)
 
   describe('when it renders', function () {
     it('should show the instruction', function () {
@@ -22,7 +22,7 @@ describe('HighlighterTask', function () {
 
     describe('when the task is disabled', function () {
       it('should disable the label buttons', function () {
-        render(<DefaultStory disabled={true} />)
+        render(<DefaultStory disabled />)
         const labelButtons = document.querySelectorAll('button[name="highlighter-label"]')
         labelButtons.forEach(button => {
           expect(button.disabled).to.be.true()

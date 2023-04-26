@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import { expect } from 'chai'
 import Meta, { Default } from './MetadataModal.stories'
-import { composeStory } from '@storybook/testing-react'
+import { composeStory } from '@storybook/react'
 import { within } from '@testing-library/dom'
 
 describe('MetadataModal', function () {
