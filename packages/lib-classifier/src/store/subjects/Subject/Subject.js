@@ -5,8 +5,9 @@ import { createLocationCounts, subjectsSeenThisSession, subjectViewers } from '@
 import StepHistory from './StepHistory'
 import SubjectLocation from './SubjectLocation'
 import TranscriptionReductions from './TranscriptionReductions'
+import FreehandLineReductions from './FreehandLineReductions'
 
-const CaesarReductions = types.union(TranscriptionReductions)
+const CaesarReductions = types.union(TranscriptionReductions, FreehandLineReductions)
 
 
 

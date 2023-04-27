@@ -1,1 +1,1 @@
-export { default } from './DrawingToolMarks'
+export { default } from './DrawingToolMarksConnector'

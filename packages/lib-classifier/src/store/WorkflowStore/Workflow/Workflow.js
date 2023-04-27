@@ -46,6 +46,8 @@ const Workflow = types
     get caesarReducer() {
       if (self.usesTranscriptionTask) {
         return 'alice'
+      } else if (self.usesFreehandLineTool) {
+        return 'machine-learnt'
       }
 
       return ''
@@ -77,6 +79,14 @@ const Workflow = types
       })
 
       return anyTranscriptionTasks
+    },
+
+    get usesFreehandLineTool() {
+      const anyFreehandLineTool = self.tasks && Object.values(self.tasks).some(task => {
+        return task.tools.some(tool => tool.type === 'freehandLine')
+      })
+
+      return anyFreehandLineTool
     }
   }))
 
