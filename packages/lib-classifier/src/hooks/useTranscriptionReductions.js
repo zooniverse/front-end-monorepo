@@ -47,7 +47,9 @@ export default function useTranscriptionReductions() {
     task?.shownMarks === SHOWN_MARKS.ALL &&
     lines.length > 0
 
+  const active = step.tasks.find(t => task?.taskKey === t.taskKey)
   return {
+    active,
     annotation,
     frame,
     invalidMark,
