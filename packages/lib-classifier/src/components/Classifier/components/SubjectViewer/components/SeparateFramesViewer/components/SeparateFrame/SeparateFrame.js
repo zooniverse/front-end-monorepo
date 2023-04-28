@@ -22,7 +22,8 @@ const SeparateFrame = ({
   frameUrl = '',
   limitSubjectHeight = false,
   onError = DEFAULT_HANDLER,
-  onReady = DEFAULT_HANDLER
+  onReady = DEFAULT_HANDLER,
+  panAndZoom = true
 }) => {
   const { img, error, loading, subjectImage } = useSubjectImage({
     src: frameUrl,
@@ -218,38 +219,40 @@ const SeparateFrame = ({
           />
         </g>
       </SingleImageViewer>
-      <Box
-        background={{
-          dark: 'dark-3',
-          light: 'white'
-        }}
-        border={{
-          color: {
-            dark: 'dark-1',
-            light: 'light-3'
-          },
-          side: 'all'
-        }}
-        direction='column'
-        height='fit-content'
-        onKeyDown={onKeyDown}
-        pad='8px'
-        style={{ width: '3rem' }}
-      >
-        <AnnotateButton
-          separateFrameAnnotate={separateFrameAnnotate}
-          separateFrameEnableAnnotate={separateFrameEnableAnnotate}
-        />
-        <MoveButton
-          separateFrameMove={separateFrameMove}
-          separateFrameEnableMove={separateFrameEnableMove}
-        />
-        <ZoomInButton separateFrameZoomIn={separateFrameZoomIn} />
-        <ZoomOutButton separateFrameZoomOut={separateFrameZoomOut} />
-        <RotateButton separateFrameRotate={separateFrameRotate} />
-        <ResetButton separateFrameResetView={separateFrameResetView} />
-        <InvertButton separateFrameInvert={separateFrameInvert} />
-      </Box>
+      {panAndZoom && (
+        <Box
+          background={{
+            dark: 'dark-3',
+            light: 'white'
+          }}
+          border={{
+            color: {
+              dark: 'dark-1',
+              light: 'light-3'
+            },
+            side: 'all'
+          }}
+          direction='column'
+          height='fit-content'
+          onKeyDown={onKeyDown}
+          pad='8px'
+          style={{ width: '3rem' }}
+        >
+          <AnnotateButton
+            separateFrameAnnotate={separateFrameAnnotate}
+            separateFrameEnableAnnotate={separateFrameEnableAnnotate}
+          />
+          <MoveButton
+            separateFrameMove={separateFrameMove}
+            separateFrameEnableMove={separateFrameEnableMove}
+          />
+          <ZoomInButton separateFrameZoomIn={separateFrameZoomIn} />
+          <ZoomOutButton separateFrameZoomOut={separateFrameZoomOut} />
+          <RotateButton separateFrameRotate={separateFrameRotate} />
+          <ResetButton separateFrameResetView={separateFrameResetView} />
+          <InvertButton separateFrameInvert={separateFrameInvert} />
+        </Box>
+      )}
     </Box>
   )
 }

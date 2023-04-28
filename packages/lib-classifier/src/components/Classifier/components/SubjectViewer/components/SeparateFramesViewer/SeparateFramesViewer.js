@@ -12,12 +12,14 @@ import ViewModeButton from './components/ViewModeButton/ViewModeButton.js'
 function storeMapper(store) {
   const {
     limit_subject_height: limitSubjectHeight,
-    multi_image_layout: multiImageLayout
+    multi_image_layout: multiImageLayout,
+    pan_and_zoom: panAndZoom
   } = store.workflows?.active?.configuration
 
   return {
     limitSubjectHeight,
-    multiImageLayout
+    multiImageLayout,
+    panAndZoom
   }
 }
 
@@ -30,9 +32,12 @@ function SeparateFramesViewer({
   onReady = DEFAULT_HANDLER,
   subject
 }) {
-  console.log(subject)
-  const { limitSubjectHeight, multiImageLayout } = useStores(storeMapper)
-
+  const {
+    limitSubjectHeight,
+    multiImageLayout,
+    panAndZoom
+  } = useStores(storeMapper)
+  
   const [forceColLayout, setForceColLayout] = useState(false)
   const [numFramesHorizontally, setNumFramesHorizontally] = useState(1)
 
@@ -88,6 +93,7 @@ function SeparateFramesViewer({
             limitSubjectHeight={limitSubjectHeight}
             onError={onError}
             onReady={onReady}
+            panAndZoom={panAndZoom}
           />
         ))}
       </Grid>
