@@ -57,7 +57,10 @@ const SubjectViewer = types
       const frameLocation = subject?.locations[self.frame]
       const frameMimeType = frameLocation && Object.keys(frameLocation)[0]
 
-      if (self.separateFramesView || NO_IMAGE_TOOLBAR_MIME_TYPES.includes(frameMimeType)) {
+      const workflow = getRoot(self).workflows.active
+      const panAndZoom = workflow?.configuration?.pan_and_zoom
+
+      if (!panAndZoom || self.separateFramesView || NO_IMAGE_TOOLBAR_MIME_TYPES.includes(frameMimeType)) {
         return false
       }
       return true
