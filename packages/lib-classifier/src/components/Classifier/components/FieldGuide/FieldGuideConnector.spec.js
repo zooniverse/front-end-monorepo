@@ -21,7 +21,7 @@ const mockStoreSnapshot = {
       showModal: false
     },
     subjectViewer: {
-      separateFramesView: false
+      showImageToolbar: true
     }
   }
 }

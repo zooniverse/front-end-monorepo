@@ -9,7 +9,7 @@ export default {
   component: MaxWidth,
   excludeStories: ['mockTask'],
   args: {
-    separateFramesView: false
+    showImageToolbar: true
   }
 }
 
@@ -55,10 +55,10 @@ const workflowSnapshot = WorkflowFactory.build({
   tasks: mockTask
 })
 
-export function Default({ separateFramesView }) {
+export function Default({ showImageToolbar }) {
   return (
     <Provider classifierStore={Default.store}>
-      <MaxWidth separateFramesView={separateFramesView} />
+      <MaxWidth showImageToolbar={showImageToolbar} />
     </Provider>
   )
 }

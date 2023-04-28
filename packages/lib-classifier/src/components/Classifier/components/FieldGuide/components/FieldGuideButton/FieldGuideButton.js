@@ -63,14 +63,14 @@ function RowButtonLabel() {
 function FieldGuideButton({
   fieldGuide = null,
   onClick = () => true,
-  separateFramesView = false,
+  showImageToolbar = true,
   theme
 }) {
   const disabled = !fieldGuide || fieldGuide.items.length === 0
 
   return (
     <StyledButton
-      label={separateFramesView ? <RowButtonLabel /> : <ColumnButtonLabel />}
+      label={showImageToolbar ? <ColumnButtonLabel /> : <RowButtonLabel />}
       disabled={disabled}
       onClick={onClick}
       plain

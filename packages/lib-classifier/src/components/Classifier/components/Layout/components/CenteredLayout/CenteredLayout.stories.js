@@ -9,7 +9,7 @@ export default {
   component: CenteredLayout,
   excludeStories: ['mockTask'],
   args: {
-    separateFramesView: false
+    showImageToolbar: true
   }
 }
 
@@ -56,10 +56,10 @@ const workflowSnapshot = WorkflowFactory.build({
   tasks: mockTask
 })
 
-export function Default({ separateFramesView }) {
+export function Default({ showImageToolbar }) {
   return (
     <Provider classifierStore={Default.store}>
-      <CenteredLayout separateFramesView={separateFramesView} />
+      <CenteredLayout showImageToolbar={showImageToolbar} />
     </Provider>
   )
 }

@@ -38,7 +38,7 @@ export const horizontalLayout = {
   justify: 'center'
 }
 
-export default function CenteredLayout({ separateFramesView = false }) {
+export default function CenteredLayout({ showImageToolbar = true }) {
   const size = useContext(ResponsiveContext)
   const containerProps = size === 'small' ? verticalLayout : horizontalLayout
 
@@ -55,7 +55,7 @@ export default function CenteredLayout({ separateFramesView = false }) {
             <SubjectViewer />
             <MetaTools />
           </Box>
-          {!separateFramesView && (
+          {showImageToolbar && (
             <Box width='3rem' fill='vertical' style={{ minWidth: '3rem' }}>
               <StickyImageToolbar />
             </Box>
@@ -67,7 +67,7 @@ export default function CenteredLayout({ separateFramesView = false }) {
         >
           <StickyTaskArea>
             <TaskArea />
-            {separateFramesView && <FieldGuide />}
+            {!showImageToolbar && <FieldGuide />}
           </StickyTaskArea>
         </Box>
       </Box>

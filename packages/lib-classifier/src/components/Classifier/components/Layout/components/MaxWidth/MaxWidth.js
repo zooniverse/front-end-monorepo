@@ -72,7 +72,7 @@ export const horizontalLayout = {
 
 export default function MaxWidth({
   className = '',
-  separateFramesView = false
+  showImageToolbar = true
 }) {
   const size = useContext(ResponsiveContext)
   const containerGridProps =
@@ -80,13 +80,7 @@ export default function MaxWidth({
 
   return (
     <ContainerGrid className={className} {...containerGridProps}>
-      {separateFramesView ? (
-        <Box>
-          <Banners />
-          <SubjectViewer />
-          <MetaTools />
-        </Box>
-      ) : (
+      {showImageToolbar ? (
         <ViewerGrid>
           <Box gridArea='subject'>
             <Banners />
@@ -97,11 +91,17 @@ export default function MaxWidth({
             <StyledImageToolbar />
           </StyledImageToolbarContainer>
         </ViewerGrid>
+      ) : (
+        <Box>
+          <Banners />
+          <SubjectViewer />
+          <MetaTools />
+        </Box>
       )}
       <StyledTaskAreaContainer>
         <StyledTaskArea>
           <TaskArea />
-          {separateFramesView && <FieldGuide />}
+          {!showImageToolbar && <FieldGuide />}
         </StyledTaskArea>
       </StyledTaskAreaContainer>
       <FeedbackModal />

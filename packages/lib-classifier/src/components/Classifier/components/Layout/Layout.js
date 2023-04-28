@@ -7,19 +7,19 @@ function storeMapper(classifierStore) {
   const workflow = classifierStore.workflows.active
   const limitSubjectHeight = workflow?.configuration?.limit_subject_height
   const layout = limitSubjectHeight ? 'centered' : workflow?.layout
-  const separateFramesView = classifierStore.subjectViewer.separateFramesView
+  const showImageToolbar = classifierStore.subjectViewer.showImageToolbar
 
   return {
     layout,
-    separateFramesView
+    showImageToolbar
   }
 }
 
 function Layout() {
   // `getLayout()` will always return the default layout as a fallback
-  const { layout, separateFramesView } = useStores(storeMapper)
+  const { layout, showImageToolbar } = useStores(storeMapper)
   const CurrentLayout = getLayout(layout)
-  return <CurrentLayout separateFramesView={separateFramesView} />
+  return <CurrentLayout showImageToolbar={showImageToolbar} />
 }
 
 export default observer(Layout)

@@ -9,7 +9,7 @@ function storeMapper(classifierStore) {
       attachedMedia: icons
     },
     subjectViewer: {
-      separateFramesView
+      showImageToolbar
     }
   } = classifierStore
 
@@ -17,7 +17,7 @@ function storeMapper(classifierStore) {
     locale,
     fieldGuide,
     icons,
-    separateFramesView
+    showImageToolbar
   }
 }
 

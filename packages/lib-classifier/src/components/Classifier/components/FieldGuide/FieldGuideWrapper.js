@@ -10,7 +10,7 @@ import FieldGuide from './components/FieldGuide'
 function FieldGuideWrapper ({
   fieldGuide = null,
   locale,
-  separateFramesView = false,
+  showImageToolbar = true,
   ...props
 }) {
   const [showModal, setModalVisibility] = useState(false)
@@ -23,7 +23,11 @@ function FieldGuideWrapper ({
 
   return (
     <>
-      <FieldGuideButton fieldGuide={fieldGuide} onClick={() => setModalVisibility(true)} separateFramesView={separateFramesView} />
+      <FieldGuideButton
+        fieldGuide={fieldGuide}
+        onClick={() => setModalVisibility(true)}
+        showImageToolbar={showImageToolbar}
+      />
       {showModal &&
         <ResponsiveContext.Consumer>
           {size => (

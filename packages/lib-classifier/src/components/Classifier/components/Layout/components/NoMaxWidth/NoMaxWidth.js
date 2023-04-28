@@ -56,7 +56,7 @@ export function ViewerGrid({ children }) {
 
 export default function NoMaxWidth({
   className = '',
-  separateFramesView = false
+  showImageToolbar = true
 }) {
   const size = useContext(ResponsiveContext)
   const verticalLayout = {
@@ -77,13 +77,7 @@ export default function NoMaxWidth({
 
   return (
     <ContainerGrid className={className} {...containerGridProps}>
-      {separateFramesView ? (
-        <Box>
-          <Banners />
-          <SubjectViewer />
-          <MetaTools />
-        </Box>
-      ) : (
+      {showImageToolbar ? (
         <ViewerGrid>
           <Box gridArea='subject'>
             <Banners />
@@ -94,11 +88,17 @@ export default function NoMaxWidth({
             <StyledImageToolbar />
           </StyledImageToolbarContainer>
         </ViewerGrid>
+      ) : (
+        <Box>
+          <Banners />
+          <SubjectViewer />
+          <MetaTools />
+        </Box>
       )}
       <StyledTaskAreaContainer>
         <StyledTaskArea>
           <TaskArea />
-          {separateFramesView && <FieldGuide />}
+          {showImageToolbar && <FieldGuide />}
         </StyledTaskArea>
       </StyledTaskAreaContainer>
       <FeedbackModal />
