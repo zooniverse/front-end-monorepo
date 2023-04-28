@@ -2,6 +2,16 @@ import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
 import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
 
+const NO_IMAGE_TOOLBAR_MIME_TYPES = [
+  'audio/mp3',
+  'audio/m4a',
+  'audio/mpeg',
+  'text/plain',
+  'video/mp4',
+  'video/mpeg',
+  'video/x-m4v'
+]
+
 const SubjectViewer = types
   .model('SubjectViewer', {
     annotate: types.optional(types.boolean, true),
@@ -41,6 +51,16 @@ const SubjectViewer = types
     get interactionMode () {
       // Default interaction mode is 'annotate'
       return (!self.annotate && self.move) ? 'move' : 'annotate'
+    },
+    get showImageToolbar () {
+      const subject = getRoot(self).subjects.active
+      const frameLocation = subject?.locations[self.frame]
+      const frameMimeType = frameLocation && Object.keys(frameLocation)[0]
+
+      if (self.separateFramesView || NO_IMAGE_TOOLBAR_MIME_TYPES.includes(frameMimeType)) {
+        return false
+      }
+      return true
     }
   }))
 
