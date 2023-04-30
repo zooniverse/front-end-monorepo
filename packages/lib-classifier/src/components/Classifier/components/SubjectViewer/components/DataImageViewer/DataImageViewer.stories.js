@@ -2,9 +2,11 @@ import { Box } from 'grommet'
 import { Factory } from 'rosie'
 import { Provider } from 'mobx-react'
 import asyncStates from '@zooniverse/async-states'
+
 import DataImageViewer from './index.js'
 import ImageToolbar from '../../../ImageToolbar'
 import SubjectViewerStore from '@store/SubjectViewerStore'
+import mockStore from '@test/mockStore'
 import readme from './README.md'
 
 const subject = Factory.build('subject', {
@@ -25,28 +27,9 @@ const lasairSubject = Factory.build('subject', {
   ]
 })
 
-const mockStore = {
-  classifications: {
-    active: {
-      annotations: new Map()
-    }
-  },
-  fieldGuide: {},
-  subjects: {
-    active: subject
-  },
-  subjectViewer: SubjectViewerStore.create({}),
-  workflows: {
-    active: {}
-  },
-  workflowSteps: {
-    activeStepTasks: []
-  }
-}
-
 function ViewerContext ({
   children,
-  store = mockStore
+  store = mockStore({ subject })
 }) {
   return (
     <Provider classifierStore={store}>
@@ -111,12 +94,7 @@ export function PanZoom() {
 }
 
 export function InvertYAxis() {
-  const lasairMock = {
-    ...mockStore,
-    subjects: {
-      active: lasairSubject
-    }
-  }
+  const lasairMock = mockStore({ subject: lasairSubject })
 
   return (
     <ViewerContext store={lasairMock}>

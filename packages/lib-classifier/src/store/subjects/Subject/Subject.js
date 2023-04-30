@@ -1,18 +1,21 @@
 import asyncStates from '@zooniverse/async-states'
-import { destroy, getRoot, getType, tryReference, types } from 'mobx-state-tree'
+import { destroy, getRoot, getSnapshot, getType, tryReference, types } from 'mobx-state-tree'
 import Resource from '@store/Resource'
-import { createLocationCounts, subjectsSeenThisSession, subjectViewers, validateSubjectLocations } from '@helpers'
+import { createLocationCounts, subjectsSeenThisSession, subjectViewers } from '@helpers'
 import StepHistory from './StepHistory'
+import SubjectLocation from './SubjectLocation'
 import TranscriptionReductions from './TranscriptionReductions'
 
 const CaesarReductions = types.union(TranscriptionReductions)
+
+
 
 const Subject = types
   .model('Subject', {
     already_seen: types.optional(types.boolean, false),
     favorite: types.optional(types.boolean, false),
     finished_workflow: types.optional(types.boolean, false),
-    locations: types.refinement('SubjectLocations', types.frozen([]), validateSubjectLocations),
+    locations: types.array(SubjectLocation),
     metadata: types.frozen({}),
     retired: types.optional(types.boolean, false),
     selected_at: types.maybe(types.string),
@@ -42,7 +45,7 @@ const Subject = types
 
     get viewer () {
       let viewer = null
-      const counts = createLocationCounts(self)
+      const counts = createLocationCounts(getSnapshot(self))
       if (self.workflow) {
         const { configuration } = self.workflow
 

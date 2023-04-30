@@ -152,7 +152,7 @@ export function SubjectGroupViewerContainer({
     if (subject?.locations) {
       // TODO: Validate for allowed image media mime types
 
-      let imageUrls = subject.locations.map(obj => Object.values(obj)[0])
+      let imageUrls = subject.locations.map(l => l.url)
       const images = await Promise.all(imageUrls.map(fetchImage))
 
       setImages(images)

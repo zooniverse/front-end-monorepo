@@ -80,8 +80,8 @@ class VariableStarViewerContainer extends Component {
 
   getSubjectUrl () {
     // Find the first location that has a JSON MIME type. Fallback to text MIME type
-    const jsonLocation = this.props.subject.locations.find(l => l['application/json'] || l['text/plain']) || {}
-    const url = Object.values(jsonLocation)[0]
+    const jsonLocation = this.props.subject.locations.find(l => l.type === 'application' || l.type === 'text') || {}
+    const { url } = jsonLocation
     if (url) {
       return url
     } else {

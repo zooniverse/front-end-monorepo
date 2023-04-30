@@ -9,29 +9,34 @@ import {
   variableStarPeriodMockData
 } from './mockData'
 import { Factory } from 'rosie'
+import SubjectType from '@store/SubjectStore/SubjectType'
 
-const subject = Factory.build('subject', {
+const subjectSnapshot = Factory.build('subject', {
   locations: [
     { 'application/json': 'http://localhost:8080/mockData.json' }
   ]
 })
+const subject = SubjectType.create(subjectSnapshot)
 
-const nextSubject = Factory.build('subject', {
+const nextSubjectSnapshot = Factory.build('subject', {
   locations: [
     { 'application/json': 'http://localhost:8080/nextSubject.json' }
   ]
 })
+const nextSubject = SubjectType.create(nextSubjectSnapshot)
 
 const subjectJSON = variableStarAmplitudeMockData
 const nextSubjectJSON = variableStarPeriodMockData
 
-const imageSubject = Factory.build('subject')
+const imageSubjectSnapshot = Factory.build('subject')
+const imageSubject = SubjectType.create(imageSubjectSnapshot)
 
-const failSubject = Factory.build('subject', {
+const failSubjectSnapshot = Factory.build('subject', {
   locations: [
     { 'application/json': 'http://localhost:8080/failure.json' }
   ]
 })
+const failSubject = SubjectType.create(failSubjectSnapshot)
 
 describe('Component > BarChartViewerContainer', function () {
   it('should render without crashing', function () {
