@@ -1,8 +1,10 @@
 import { mount } from 'enzyme'
 import { Provider } from 'mobx-react'
+import { Factory } from 'rosie'
 import sinon from 'sinon'
 import asyncStates from '@zooniverse/async-states'
 
+import SubjectType from '@store/SubjectStore/SubjectType'
 import mockStore from '@test/mockStore'
 import TranscriptionLineTool from '@plugins/drawingTools/experimental/models/tools/TranscriptionLineTool/TranscriptionLineTool'
 import { DraggableImage } from '../SVGComponents/SVGImage'
@@ -68,7 +70,7 @@ describe('Component > MultiFrameViewerContainer', function () {
         imageWrapper = wrapper.find(SingleImageViewer)
         done()
       })
-      const subject = {
+      const subjectSnapshot = Factory.build('subject', {
         id: 'test',
         locations: [
           { 'image/jpeg': 'https://some.domain/image.jpg' },
@@ -77,8 +79,9 @@ describe('Component > MultiFrameViewerContainer', function () {
         metadata: {
           default_frame: 1
         }
-      }
-      const classifierStore = mockStore({ subject })
+      })
+      const subject = SubjectType.create(subjectSnapshot)
+      const classifierStore = mockStore({ subject: subjectSnapshot })
       wrapper = mount(
         <MultiFrameViewerContainer
           enableInteractionLayer={false}
@@ -182,12 +185,13 @@ describe('Component > MultiFrameViewerContainer', function () {
         imageWrapper = wrapper.find(SingleImageViewer)
         done()
       })
-      const subject = {
+      const subjectSnapshot = Factory.build('subject', {
         id: 'test',
         locations: [
-          { 'image/jpeg': 'this is not an image URL' }
+          { 'image/jpeg': 'https://some.domain/image.jpg' }
         ]
-      }
+      })
+      const subject = SubjectType.create(subjectSnapshot)
       wrapper = mount(
         <MultiFrameViewerContainer
           enableInteractionLayer={false}

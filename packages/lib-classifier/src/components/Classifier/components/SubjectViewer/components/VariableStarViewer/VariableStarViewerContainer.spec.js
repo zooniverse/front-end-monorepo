@@ -1,31 +1,35 @@
 import { shallow } from 'enzyme'
+import { getSnapshot } from 'mobx-state-tree'
 import React from 'react';
 import nock from 'nock'
 import sinon from 'sinon'
 import { Factory } from 'rosie'
 
+import SubjectType from '@store/SubjectStore/SubjectType'
 import { VariableStarViewerContainer } from './VariableStarViewerContainer'
 import VariableStarViewer from './VariableStarViewer'
 import variableStar from '@viewers/helpers/mockLightCurves/variableStar'
 import { additiveDictionary } from './helpers/constants'
 
 describe('Component > VariableStarViewerContainer', function () {
-  const subject = Factory.build('subject', {
+  const subjectSnapshot = Factory.build('subject', {
     locations: [
       { 'image/png': 'http://localhost:8080/talk-backup.png' },
       { 'application/json': 'http://localhost:8080/variableStar.json' },
       { 'image/png': 'http://localhost:8080/image1.png' }
     ]
   })
+  const subject = SubjectType.create(subjectSnapshot)
 
   // Use text MIME type to test allowed text file fallback
-  const nextSubject = Factory.build('subject', {
+  const nextSubjectSnapshot = Factory.build('subject', {
     locations: [
       { 'image/png': 'http://localhost:8080/talk-backup.png' },
       { 'text/plain': 'http://localhost:8080/nextSubject.txt' },
       { 'image/png': 'http://localhost:8080/image2.png' }
     ]
   })
+  const nextSubject = SubjectType.create(nextSubjectSnapshot)
 
   const nextSubjectJSON = {
     data: {
@@ -158,13 +162,15 @@ describe('Component > VariableStarViewerContainer', function () {
     let cdmSpy
     let onErrorSpy
     let nockScope
-    const imageSubject = Factory.build('subject')
-    const failSubject = Factory.build('subject', {
+    const imageSubjectSnapshot = Factory.build('subject')
+    const imageSubject = SubjectType.create(imageSubjectSnapshot)
+    const failSubjectSnapshot = Factory.build('subject', {
       locations: [
         { 'application/json': 'http://localhost:8080/failure.json' },
         { 'image/png': 'http://localhost:8080/image.png' }
       ]
     })
+    const failSubject = SubjectType.create(failSubjectSnapshot)
     before(function () {
       sinon.stub(console, 'error')
       cdmSpy = sinon.spy(VariableStarViewerContainer.prototype, 'componentDidMount')
@@ -279,7 +285,7 @@ describe('Component > VariableStarViewerContainer', function () {
     it('should set the component state with the image location source', function (done) {
       expect(wrapper.state().imageLocation).to.be.null()
       cdmSpy.returnValues[0].then(() => {
-        expect(wrapper.state().imageLocation).to.deep.equal({ 'image/png': 'http://localhost:8080/image1.png' })
+        expect(getSnapshot(wrapper.state().imageLocation)).to.deep.equal({ 'image/png': 'http://localhost:8080/image1.png' })
       }).then(done, done)
     })
 
@@ -292,13 +298,13 @@ describe('Component > VariableStarViewerContainer', function () {
     it('should update component state when there is a new valid subject', function (done) {
       cdmSpy.returnValues[0].then(() => {
         expect(wrapper.state().rawJSON).to.deep.equal(variableStar)
-        expect(wrapper.state().imageLocation).to.deep.equal({ 'image/png': 'http://localhost:8080/image1.png' })
+        expect(getSnapshot(wrapper.state().imageLocation)).to.deep.equal({ 'image/png': 'http://localhost:8080/image1.png' })
       })
       wrapper.setProps({ subject: nextSubject })
 
       cduSpy.returnValues[0].then(() => {
         expect(wrapper.state().rawJSON).to.deep.equal(nextSubjectJSON)
-        expect(wrapper.state().imageLocation).to.deep.equal({ 'image/png': 'http://localhost:8080/image2.png' })
+        expect(getSnapshot(wrapper.state().imageLocation)).to.deep.equal({ 'image/png': 'http://localhost:8080/image2.png' })
       }).then(done, done)
     })
   })

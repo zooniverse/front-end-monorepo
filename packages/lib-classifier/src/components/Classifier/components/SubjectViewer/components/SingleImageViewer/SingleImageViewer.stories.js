@@ -1,47 +1,30 @@
 import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
-import { Factory } from 'rosie'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import SingleImageViewer from '@viewers/components/SingleImageViewer'
 import asyncStates from '@zooniverse/async-states'
 
-const subject = Factory.build('subject', {
-  locations: [{ 'image/jpeg': 'http://placekitten.com/500/300' }]
+import mockStore from '@test/mockStore'
+import { SubjectFactory, WorkflowFactory } from '@test/factories'
+
+const subject = SubjectFactory.build({
+  locations: [{ 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/production/subject_location/11f98201-1c3f-44d5-965b-e00373daeb18.jpeg' }]
 })
 
-const mockStore = {
-  classifications: {
-    active: {
-      annotations: new Map()
-    }
-  },
-  fieldGuide: {
-    setModalVisibility: () => {}
-  },
-  subjects: {
-    active: subject
-  },
-  subjectViewer: SubjectViewerStore.create({}),
-  workflowSteps: {
-    activeStepTasks: []
-  },
-  workflows: {
-    active: {
-      configuration: {
-        limit_subject_height: false
-      }
-    }
+const workflow = WorkflowFactory.build('workflow', {
+  configuration: {
+    limit_subject_height: true
   }
-}
+})
 
 export default {
   title: 'Subject Viewers / SingleImageViewer',
   component: SingleImageViewer
 }
 
-export const Default = () => {
+export function Default() {
   return (
-    <Provider classifierStore={mockStore}>
+    <Provider classifierStore={Default.store}>
       <Box width='large'>
         <SingleImageViewer
           loadingState={asyncStates.success}
@@ -51,35 +34,11 @@ export const Default = () => {
     </Provider>
   )
 }
+Default.store = mockStore({ subject })
 
-const storeWithLimitSubjectHeight = {
-  classifications: {
-    active: {
-      annotations: new Map()
-    }
-  },
-  fieldGuide: {
-    setModalVisibility: () => {}
-  },
-  subjects: {
-    active: subject
-  },
-  subjectViewer: SubjectViewerStore.create({}),
-  workflowSteps: {
-    activeStepTasks: []
-  },
-  workflows: {
-    active: {
-      configuration: {
-        limit_subject_height: true
-      }
-    }
-  }
-}
-
-export const LimitSubjectHeight = () => {
+export function LimitSubjectHeight() {
   return (
-    <Provider classifierStore={storeWithLimitSubjectHeight}>
+    <Provider classifierStore={LimitSubjectHeight.store}>
       <Box width='large'>
         <SingleImageViewer
           loadingState={asyncStates.success}
@@ -89,3 +48,4 @@ export const LimitSubjectHeight = () => {
     </Provider>
   )
 }
+LimitSubjectHeight.store = mockStore({ subject, workflow })

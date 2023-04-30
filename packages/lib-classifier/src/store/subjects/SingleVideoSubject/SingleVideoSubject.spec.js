@@ -1,4 +1,6 @@
+import { getSnapshot } from 'mobx-state-tree'
 import sinon from 'sinon'
+
 import SingleVideoSubject from './SingleVideoSubject'
 import RootStore from '@store/'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
@@ -20,7 +22,7 @@ describe('Model > SingleVideoSubject', function () {
   })
 
   it('should have a `locations` property', function () {
-    expect(subject.locations).to.deep.equal(subjectSnapshot.locations)
+    expect(getSnapshot(subject.locations)).to.deep.equal(subjectSnapshot.locations)
   })
 
   it('should have one location', function () {

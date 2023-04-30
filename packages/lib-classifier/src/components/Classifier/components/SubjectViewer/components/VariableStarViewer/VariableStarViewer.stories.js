@@ -3,7 +3,9 @@ import { Factory } from 'rosie'
 import VariableStarViewer from './VariableStarViewerContainer'
 import VariableStarViewerConnector from './VariableStarViewerConnector'
 import { Provider } from 'mobx-react'
+
 import SubjectViewerStore from '@store/SubjectViewerStore'
+import mockStore from '@test/mockStore'
 import ImageToolbar from '../../../ImageToolbar'
 import readme from './README.md'
 import asyncStates from '@zooniverse/async-states'
@@ -20,28 +22,11 @@ const subject = Factory.build('subject', {
   ]
 })
 
-const mockStore = {
-  classifications: {
-    active: {
-      annotations: new Map()
-    }
-  },
-  fieldGuide: {},
-  subjects: {
-    active: subject
-  },
-  subjectViewer: SubjectViewerStore.create({}),
-  workflows: {
-    active: {}
-  },
-  workflowSteps: {
-    activeStepTasks: []
-  }
-}
+const store = mockStore({ subject })
 
 function ViewerContext ({ children }) {
   return (
-    <Provider classifierStore={mockStore}>
+    <Provider classifierStore={store}>
       {children}
     </Provider>
   )
@@ -65,7 +50,7 @@ export function Default() {
       <Box height='640px' width={{ max: '900px' }}>
         <VariableStarViewer
           loadingState={asyncStates.success}
-          subject={subject}
+          subject={store.subjects.active}
         />
       </Box>
     </ViewerContext>
@@ -78,7 +63,7 @@ export function NarrowView() {
       <Box height='640px' width={{ max: '900px' }}>
         <VariableStarViewer
           loadingState={asyncStates.success}
-          subject={subject}
+          subject={store.subjects.active}
         />
       </Box>
     </ViewerContext>

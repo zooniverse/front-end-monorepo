@@ -1,4 +1,6 @@
+import { getSnapshot } from 'mobx-state-tree'
 import sinon from 'sinon'
+
 import SingleJSONSubject from './SingleJSONSubject.js'
 import RootStore from '@store/'
 import WorkflowStore from '@store/WorkflowStore'
@@ -26,7 +28,7 @@ describe('Model > SingleJSONSubject', function () {
   })
 
   it('should have a `locations` property', function () {
-    expect(subject.locations).to.deep.equal(subjectSnapshot.locations)
+    expect(getSnapshot(subject.locations)).to.deep.equal(subjectSnapshot.locations)
   })
 
   it('should have two locations', function () {

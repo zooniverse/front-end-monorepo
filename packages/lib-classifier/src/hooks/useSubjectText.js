@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 
 function getSubjectUrl(subject) {
   // Find the first location that has a text MIME type.
-  const textLocation = subject.locations.find(l => l['text/plain']) || {}
-  const url = Object.values(textLocation)[0]
+  const textLocation = subject.locations.find(l => l.type === 'text') || {}
+  const { url } = textLocation
   if (url) {
     return url
   } else {

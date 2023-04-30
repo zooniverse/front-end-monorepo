@@ -4,10 +4,9 @@ const mimeTypeRe = /^[-\w+.]+\/[-\w+.]+$/
 
 function locationValidator (propValue, key, componentName, location, propFullName) {
   const subjectLocation = propValue[key]
-  const mimeType = Object.keys(subjectLocation)[0]
-  const uri = Object.values(subjectLocation)[0]
+  const { mimeType, url } = subjectLocation
 
-  if (!mimeTypeRe.test(mimeType) || !isUri(uri)) {
+  if (!mimeTypeRe.test(mimeType) || !isUri(url)) {
     return new Error(
       'Invalid prop `' + propFullName + '` supplied to' +
         ' `' + componentName + '`. Validation failed.'
