@@ -37,14 +37,16 @@ const decorators = [
 ]
 
 const preview = {
-  parameters: {
-    i18n,
-    layout: 'fullscreen',
+  globals: {
     locale: 'en',
     locales: {
       en: 'English',
       test: 'Test Language'
     },
+  },
+  parameters: {
+    i18n,
+    layout: 'fullscreen',
     viewport: {
       viewports: INITIAL_VIEWPORTS
     }
