@@ -43,90 +43,128 @@ export function Default({ loadingState }) {
   )
 }
 
+const value = [
+  {
+      "labelInformation": {
+          "color": "#e65252",
+          "label": "Scientific Name"
+      },
+      "start": 77,
+      "end": 101,
+      "text": "Vitis rotundifolia Michx"
+  },
+  {
+      "labelInformation": {
+          "color": "#f1ae45",
+          "label": "Date"
+      },
+      "start": 316,
+      "end": 325,
+      "text": "9/15/2001"
+  },
+  {
+      "labelInformation": {
+          "color": "#fced54",
+          "label": "Country"
+      },
+      "start": 17,
+      "end": 39,
+      "text": "UNIVERSTY OF TENNESSEE"
+  },
+  {
+      "labelInformation": {
+          "color": "#ee7bcf",
+          "label": "County"
+      },
+      "start": 60,
+      "end": 76,
+      "text": "Van Baren County"
+  },
+  {
+      "labelInformation": {
+          "color": "#c7f55b",
+          "label": "State / Province"
+      },
+      "start": 50,
+      "end": 59,
+      "text": "Tennessee"
+  },
+  {
+      "labelInformation": {
+          "color": "#65eeca",
+          "label": "Locality"
+      },
+      "start": 184,
+      "end": 227,
+      "text": "edge of forest along trail near campsite #1"
+  },
+  {
+      "labelInformation": {
+          "color": "#52db72",
+          "label": "Scientific Name"
+      },
+      "start": 102,
+      "end": 129,
+      "text": "Fall Creek Falls State Park"
+  },
+  {
+      "labelInformation": {
+          "color": "#7cdff2",
+          "label": "Country"
+      },
+      "start": 229,
+      "end": 294,
+      "text": "ca. 2.7\nkm W of trailhead at North Entrance of patk Sampson Quad."
+  },
+  {
+      "labelInformation": {
+          "color": "#8aa0d3",
+          "label": "State / Province"
+      },
+      "start": 334,
+      "end": 369,
+      "text": "Chris A. Fleming and Charles Winder"
+  },
+  {
+      "labelInformation": {
+          "color": "#c17ddf",
+          "label": "County"
+      },
+      "start": 303,
+      "end": 315,
+      "text": "No: FCF-1589"
+  },
+  {
+      "labelInformation": {
+          "color": "#e7bbe3",
+          "label": "Date"
+      },
+      "start": 131,
+      "end": 171,
+      "text": "Located along Lower Loop Overnight\nTrail"
+  }
+]
+
+
 const latest = {
   annotations: [
     {
       taskType: 'highlighter',
-      value: [
-        {
-            "start": 77,
-            "end": 101,
-            "text": "Vitis rotundifolia Michx",
-            "labelInformation": {
-                "color": "#00FF7F",
-                "label": "Species Name"
-            }
-        },
-        {
-            "start": 184,
-            "end": 210,
-            "text": "edge of forest along trail",
-            "labelInformation": {
-                "color": "#ffa539",
-                "label": "Habitat"
-            }
-        },
-        {
-            "start": 334,
-            "end": 350,
-            "text": "Chris A. Fleming",
-            "labelInformation": {
-                "color": "#F5D76E",
-                "label": "Collector Name"
-            }
-        },
-        {
-            "start": 355,
-            "end": 369,
-            "text": "Charles Winder",
-            "labelInformation": {
-                "color": "#F5D76E",
-                "label": "Collector Name"
-            }
-        },
-        {
-            "start": 145,
-            "end": 171,
-            "text": "Lower Loop Overnight\nTrail",
-            "labelInformation": {
-                "color": "#DCC6E0",
-                "label": "Location"
-            }
-        },
-        {
-            "start": 229,
-            "end": 302,
-            "text": "ca. 2.7\nkm W of trailhead at North Entrance of patk Sampson Quad.; 510 m.",
-            "labelInformation": {
-                "color": "#DCC6E0",
-                "label": "Location"
-            }
-        }
-      ]
+      value: value
     }
   ]
 }
 
 export const WithLabeledText = ({
-  dark,
   loadingState
 }) => {
   return (
-    <Grommet
-      background={{
-        dark: 'dark-1',
-        light: 'light-1'
-      }}
-      theme={zooTheme}
-      themeMode={dark ? 'dark' : 'light'}
-    >
-      <Box width='large'>
-        <SingleTextViewerContainer
-          latest={latest}
-          loadingState={loadingState}
-          subject={subjectSnapshot}
-        />
-      </Box>
-    </Grommet>
+    <Box width='large'>
+      <SingleTextViewerContainer
+        latest={latest}
+        loadingState={loadingState}
+        subject={subjectSnapshot}
+      />
+    </Box>
   )
 }
