@@ -6,16 +6,27 @@ import { useStores } from '@hooks'
 import ZoomInButton from './ZoomInButton'
 
 function storeMapper(classifierStore) {
-  const { separateFramesView, zoomIn } = classifierStore.subjectViewer
+  const {
+    disableImageToolbar,
+    separateFramesView,
+    zoomIn
+  } = classifierStore.subjectViewer
+
+  const disabled = disableImageToolbar
 
   return {
+    disabled,
     separateFramesView,
     zoomIn
   }
 }
 
 function ZoomInButtonContainer({ separateFrameZoomIn = () => true }) {
-  const { separateFramesView, zoomIn } = useStores(storeMapper)
+  const {
+    disabled,
+    separateFramesView,
+    zoomIn
+  } = useStores(storeMapper)
   const [timer, setTimer] = useState('')
 
   function onPointerDown(event) {
@@ -35,6 +46,7 @@ function ZoomInButtonContainer({ separateFrameZoomIn = () => true }) {
 
   return (
     <ZoomInButton
+      disabled={disabled}
       onClick={separateFramesView ? separateFrameZoomIn : zoomIn}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}

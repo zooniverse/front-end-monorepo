@@ -10,6 +10,7 @@ function DEFAULT_HANDLER() {
 }
 
 function ZoomOutButton({
+  disabled = false,
   onClick = DEFAULT_HANDLER,
   onPointerDown = DEFAULT_HANDLER,
   onPointerUp = DEFAULT_HANDLER
@@ -18,6 +19,7 @@ function ZoomOutButton({
   return (
     <Button
       a11yTitle={t('ImageToolbar.ZoomOutButton.ariaLabel')}
+      disabled={disabled}
       icon={<ZoomOutIcon />}
       onClick={onClick}
       onPointerDown={onPointerDown}
@@ -27,6 +29,7 @@ function ZoomOutButton({
 }
 
 ZoomOutButton.propTypes = {
+  disabled: PropTypes.bool,
   onClick: PropTypes.func
 }
 

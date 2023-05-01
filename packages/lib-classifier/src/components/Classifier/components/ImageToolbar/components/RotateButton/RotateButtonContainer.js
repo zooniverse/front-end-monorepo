@@ -5,26 +5,37 @@ import { useStores } from '@hooks'
 import RotateButton from './RotateButton'
 
 function storeMapper (classifierStore) {
-  const { rotate, rotationEnabled, separateFramesView } =
+  const {
+    disableImageToolbar,
+    rotate,
+    rotationEnabled,
+    separateFramesView
+  } =
     classifierStore.subjectViewer
 
-  const disabled = !rotationEnabled
+  const disabled = disableImageToolbar
+  const hidden = !rotationEnabled
+  
   return {
     disabled,
+    hidden,
     rotate,
     separateFramesView
   }
 }
 
 function RotateButtonContainer({ separateFrameRotate = () => true }) {
-  const { disabled, rotate, separateFramesView } = useStores(storeMapper)
+  const { disabled, hidden, rotate, separateFramesView } = useStores(storeMapper)
 
-  if (disabled) {
+  if (hidden) {
     return null
   }
 
   return (
-    <RotateButton onClick={separateFramesView ? separateFrameRotate : rotate} />
+    <RotateButton
+      disabled={disabled}
+      onClick={separateFramesView ? separateFrameRotate : rotate}
+    />
   )
 }
 
