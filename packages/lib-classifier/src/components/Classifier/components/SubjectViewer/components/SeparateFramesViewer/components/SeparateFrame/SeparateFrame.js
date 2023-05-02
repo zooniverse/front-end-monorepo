@@ -46,8 +46,8 @@ const SeparateFrame = ({
 
   const [invert, setInvert] = useState(false)
   const [rotation, setRotation] = useState(0)
-  const [separateFrameAnnotate, setSeparateFrameAnnotate] = useState(false)
-  const [separateFrameMove, setSeparateFrameMove] = useState(true)
+  const [separateFrameAnnotate, setSeparateFrameAnnotate] = useState(true)
+  const [separateFrameMove, setSeparateFrameMove] = useState(false)
   const [viewBox, setViewBox] = useState(defaultViewBox)
   const [zoom, setZoom] = useState(1)
 
@@ -148,9 +148,6 @@ const SeparateFrame = ({
   }
 
   const onKeyDown = e => {
-    // This is not working yet
-    console.log('separate frame key down')
-
     const ALLOWED_TAGS = ['svg', 'button', 'g', 'rect']
     const htmlTag = e.target?.tagName.toLowerCase()
 
@@ -205,9 +202,7 @@ const SeparateFrame = ({
         onKeyDown={onKeyDown}
         rotate={rotation}
         scale={scale}
-        svgMaxHeight={
-          limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
-        }
+        svgMaxHeight={limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null}
         viewBox={`${x} ${y} ${width} ${height}`}
         width={naturalWidth}
       >
@@ -237,6 +232,7 @@ const SeparateFrame = ({
         }}
         direction='column'
         height='fit-content'
+        onKeyDown={onKeyDown}
         pad='8px'
         style={{ width: '3rem' }}
       >
@@ -270,4 +266,5 @@ SeparateFrame.propTypes = {
   /** Passed from Subject Viewer Store and called when a frame's src is loaded */
   onReady: PropTypes.func
 }
+
 export default SeparateFrame

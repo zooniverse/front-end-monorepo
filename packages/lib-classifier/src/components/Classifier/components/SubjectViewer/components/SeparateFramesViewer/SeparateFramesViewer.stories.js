@@ -1,12 +1,12 @@
 import { Provider } from 'mobx-react'
 import mockStore from '@test/mockStore'
-import { SubjectFactory } from '@test/factories'
+import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import asyncStates from '@zooniverse/async-states'
 
 import SeparateFramesViewer from './SeparateFramesViewer'
 
 export default {
-  title: 'Subject Viewers / SeparateFramesViewer',
+  title: 'Subject Viewers / SeparateFramesViewer / Layouts',
   component: SeparateFramesViewer
 }
 
@@ -31,17 +31,101 @@ const mockSubject = SubjectFactory.build({
   ]
 })
 
-const store = mockStore({
-  subject: mockSubject
+const workflowWithOneColumn = WorkflowFactory.build({
+  configuration: {
+    invert_subject: true,
+    multi_image_layout: 'col'
+  }
 })
-store.subjectViewer.setSeparateFramesView(true)
+
+const storeWithOneColumn = mockStore({
+  subject: mockSubject,
+  workflow: workflowWithOneColumn
+})
+storeWithOneColumn.subjectViewer.setSeparateFramesView(true)
+storeWithOneColumn.subjectViewer.enableRotation(true)
 
 export const OneColumn = () => {
   return (
-    <Provider classifierStore={store}>
+    <Provider classifierStore={storeWithOneColumn}>
       <SeparateFramesViewer
         loadingState={asyncStates.success}
-        subject={store.subjects.active}
+        subject={storeWithOneColumn.subjects.active}
+      />
+    </Provider>
+  )
+}
+
+const workflowWithOneRow = WorkflowFactory.build({
+  configuration: {
+    invert_subject: true,
+    multi_image_layout: 'row'
+  }
+})
+
+const storeWithOneRow = mockStore({
+  subject: mockSubject,
+  workflow: workflowWithOneRow
+})
+storeWithOneRow.subjectViewer.setSeparateFramesView(true)
+storeWithOneRow.subjectViewer.enableRotation(true)
+
+export const OneRow = () => {
+  return (
+    <Provider classifierStore={storeWithOneRow}>
+      <SeparateFramesViewer
+        loadingState={asyncStates.success}
+        subject={storeWithOneRow.subjects.active}
+      />
+    </Provider>
+  )
+}
+
+const workflowWithTwoColGrid = WorkflowFactory.build({
+  configuration: {
+    invert_subject: true,
+    multi_image_layout: 'grid2'
+  }
+})
+
+const storeWithTwoColGrid = mockStore({
+  subject: mockSubject,
+  workflow: workflowWithTwoColGrid
+})
+storeWithTwoColGrid.subjectViewer.setSeparateFramesView(true)
+storeWithTwoColGrid.subjectViewer.enableRotation(true)
+
+export const TwoColumnGrid = () => {
+  return (
+    <Provider classifierStore={storeWithTwoColGrid}>
+      <SeparateFramesViewer
+        loadingState={asyncStates.success}
+        subject={storeWithTwoColGrid.subjects.active}
+      />
+    </Provider>
+  )
+}
+
+const workflowWithThreeColGrid = WorkflowFactory.build({
+  configuration: {
+    invert_subject: true,
+    multi_image_layout: 'grid3'
+  }
+})
+
+const storeWithThreeColGrid = mockStore({
+  subject: mockSubject,
+  workflow: workflowWithThreeColGrid
+})
+storeWithThreeColGrid.subjectViewer.setSeparateFramesView(true)
+storeWithThreeColGrid.subjectViewer.enableRotation(true)
+
+export const ThreeColumnGrid = () => {
+  return (
+    <Provider classifierStore={storeWithThreeColGrid}>
+      <SeparateFramesViewer
+        loadingState={asyncStates.success}
+        subject={storeWithThreeColGrid.subjects.active}
       />
     </Provider>
   )

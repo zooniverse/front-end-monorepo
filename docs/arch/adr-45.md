@@ -17,4 +17,3 @@ The video subject viewer will be deployed without custom video controls for now.
 
 ## Status
 Accepted
-
