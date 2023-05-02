@@ -170,6 +170,10 @@ export function HighlighterTask ({
                 />}
               name='highlighter-label'
               onClick={(event) => handleClick(event, index)}
+              onTouchEnd={(event) => {
+                event.preventDefault()
+                handleClick(event, index)
+              }}
             />
           )
         }) : <span>{t('HighlighterTask.noLabels')}</span>
