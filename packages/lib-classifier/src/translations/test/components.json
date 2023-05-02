@@ -167,6 +167,9 @@
     "BarChartViewer": {
       "chartLabel": "Translated"
     },
+    "ImageAndTextViewer": {
+      "textIconAltText": "Translated"
+    },
     "InteractionLayer": {
       "ConfirmModal": {
         "close": "Translated",
@@ -197,6 +200,12 @@
         "nextFrameLabel": "Translated",
         "previousFrameLabel": "Translated",
         "thumbnailAltText": "Translated"
+      }
+    },
+    "SeparateFramesViewer": {
+      "ViewModeButton": {
+        "switchToFlipbook": "Translated",
+        "switchToSeparateFrames": "Translated"
       }
     },
     "SingleVideoViewerContainer": {
