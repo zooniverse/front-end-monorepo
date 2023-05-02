@@ -7,45 +7,42 @@ import { useTranslation } from '../../../translations/i18n'
 export default function SignedOutUserNavigation({
   adminNavLinkLabel,
   adminNavLinkURL,
-  isAdmin,
-  isNarrow,
+  isAdmin = false,
+  isNarrow = false,
   mainHeaderNavListLabels,
   mainHeaderNavListURLs,
   register,
-  signIn,
-  user
+  signIn
 }) {
   const { t } = useTranslation()
 
-  if (Object.keys(user).length === 0 && signIn) {
-    return (
-      <>
-        <Box
-          direction='row'
-          justify='center'
-          pad={{ horizontal: 'medium', vertical: 'small' }}
-        >
-          <NavButton label={t('ZooHeader.SignedOutUserNavigation.signIn')} onClick={signIn} />
-          <NavButton label={t('ZooHeader.SignedOutUserNavigation.register')} onClick={register} />
-        </Box>
-        {isNarrow &&
-          <NarrowMainNavMenu
-            adminNavLinkLabel={adminNavLinkLabel}
-            adminNavLinkURL={adminNavLinkURL}
-            isAdmin={isAdmin}
-            mainHeaderNavListLabels={mainHeaderNavListLabels}
-            mainHeaderNavListURLs={mainHeaderNavListURLs}
-          />}
-      </>
-    )
-  }
-
-  return null
-}
-
-SignedOutUserNavigation.defaultProps = {
-  isAdmin: false,
-  isNarrow: false
+  return (
+    <>
+      <Box
+        direction='row'
+        justify='center'
+        pad={{ horizontal: 'medium', vertical: 'small' }}
+      >
+        <NavButton
+          label={t('ZooHeader.SignedOutUserNavigation.signIn')}
+          onClick={signIn}
+        />
+        <NavButton
+          label={t('ZooHeader.SignedOutUserNavigation.register')}
+          onClick={register}
+        />
+      </Box>
+      {isNarrow && (
+        <NarrowMainNavMenu
+          adminNavLinkLabel={adminNavLinkLabel}
+          adminNavLinkURL={adminNavLinkURL}
+          isAdmin={isAdmin}
+          mainHeaderNavListLabels={mainHeaderNavListLabels}
+          mainHeaderNavListURLs={mainHeaderNavListURLs}
+        />
+      )}
+    </>
+  )
 }
 
 SignedOutUserNavigation.propTypes = {
@@ -56,8 +53,5 @@ SignedOutUserNavigation.propTypes = {
   mainHeaderNavListLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
   mainHeaderNavListURLs: PropTypes.arrayOf(PropTypes.string).isRequired,
   register: PropTypes.func.isRequired,
-  signIn: PropTypes.func.isRequired,
-  user: PropTypes.shape({
-    display_name: PropTypes.string
-  }).isRequired
+  signIn: PropTypes.func.isRequired
 }

@@ -28,11 +28,7 @@ function FontAwesomeIcon({ color, icon, title }) {
       color={color}
       viewBox={`0 0 ${width} ${height}`}
     >
-      <path
-        strokeWidth='1'
-        fill='currentColor'
-        d={path}
-      />
+      <path strokeWidth='1' fill='currentColor' d={path} />
     </StyledBlank>
   )
 }
@@ -52,60 +48,60 @@ export default function SignedInUserNavigation({
 }) {
   const { t } = useTranslation()
 
-  const notificationLabelString = t('ZooHeader.SignedInUserNavigation.navListLabels.notifications', {
-    count: unreadNotifications
-  })
+  const notificationLabelString = t('ZooHeader.SignedInUserNavigation.navListLabels.notifications', { count: unreadNotifications })
 
-  const messagesLabelString = t('ZooHeader.SignedInUserNavigation.navListLabels.messages', {
-    count: unreadMessages
-  })
+  const messagesLabelString = t('ZooHeader.SignedInUserNavigation.navListLabels.messages', { count: unreadMessages })
 
-  const notificationLabel = (isNarrow)
-    ? <FontAwesomeIcon title={notificationLabelString} icon={(unreadNotifications) ? fasBell : farBell} />
-    : notificationLabelString
+  const notificationLabel = isNarrow ? (
+    <FontAwesomeIcon
+      title={notificationLabelString}
+      icon={unreadNotifications ? fasBell : farBell}
+    />
+  ) : (
+    notificationLabelString
+  )
 
-  const messagesLabel = (isNarrow)
-    ? <FontAwesomeIcon title={messagesLabelString} icon={(unreadMessages) ? fasEnvelope : farEnvelope} />
-    : messagesLabelString
+  const messagesLabel = isNarrow ? (
+    <FontAwesomeIcon
+      title={messagesLabelString}
+      icon={unreadMessages ? fasEnvelope : farEnvelope}
+    />
+  ) : (
+    messagesLabelString
+  )
 
-  if (Object.keys(user).length > 0 && signOut) {
-    return (
-      <Box
-        aria-label={t('ZooHeader.SignedInUserNavigation.ariaLabel')}
-        as='nav'
-        align='center'
-        direction='row'
-        gap='small'
-      >
-        <NavListItem
-          color={unreadNotifications ? 'accent-1' : '#B2B2B2'}
-          label={notificationLabel}
-          unread={unreadNotifications}
-          url={`${host}/notifications`}
+  return (
+    <Box
+      aria-label={t('ZooHeader.SignedInUserNavigation.ariaLabel')}
+      as='nav'
+      align='center'
+      direction='row'
+      gap='small'
+    >
+      <NavListItem
+        color={unreadNotifications ? 'accent-1' : '#B2B2B2'}
+        label={notificationLabel}
+        unread={unreadNotifications}
+        url={`${host}/notifications`}
+      />
+      <NavListItem
+        color={unreadMessages ? 'accent-1' : '#B2B2B2'}
+        label={messagesLabel}
+        unread={unreadMessages}
+        url={`${host}/inbox`}
+      />
+      <UserMenu signOut={signOut} user={user} />
+      {isNarrow && (
+        <NarrowMainNavMenu
+          adminNavLinkLabel={adminNavLinkLabel}
+          adminNavLinkURL={adminNavLinkURL}
+          isAdmin={user?.admin && isAdmin}
+          mainHeaderNavListLabels={mainHeaderNavListLabels}
+          mainHeaderNavListURLs={mainHeaderNavListURLs}
         />
-        <NavListItem
-          color={unreadMessages ? 'accent-1' : '#B2B2B2'}
-          label={messagesLabel}
-          unread={unreadMessages}
-          url={`${host}/inbox`}
-        />
-        <UserMenu
-          signOut={signOut}
-          user={user}
-        />
-        {isNarrow &&
-          <NarrowMainNavMenu
-            adminNavLinkLabel={adminNavLinkLabel}
-            adminNavLinkURL={adminNavLinkURL}
-            isAdmin={user?.admin && isAdmin}
-            mainHeaderNavListLabels={mainHeaderNavListLabels}
-            mainHeaderNavListURLs={mainHeaderNavListURLs}
-          />}
-      </Box>
-    )
-  }
-
-  return null
+      )}
+    </Box>
+  )
 }
 
 SignedInUserNavigation.propTypes = {

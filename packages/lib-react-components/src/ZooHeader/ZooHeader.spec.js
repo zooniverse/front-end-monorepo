@@ -1,13 +1,9 @@
 import { within } from '@testing-library/dom'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import MainNavList from './components/MainNavList'
-import SignedOutUserNavigation from './components/SignedOutUserNavigation'
-import SignedInUserNavigation from './components/SignedInUserNavigation'
-import ZooniverseLogo from '../ZooniverseLogo'
 import ZooHeader from './ZooHeader'
 
-describe('ZooHeader', function () {
+describe.only('ZooHeader', function () {
   this.timeout(5000)
   let mainNavList, zooLogo
 
@@ -49,8 +45,8 @@ describe('ZooHeader', function () {
     let userNavigation, notifications, messages, userMenu
 
     before(function () {
-      const user = { display_name: 'zootester1', login: 'zootester1' }
-      render(<ZooHeader user={user} unreadMessages={2} unreadNotifications={1} />)
+      const mockUser = { display_name: 'zootester1', login: 'zootester1' }
+      render(<ZooHeader user={mockUser} unreadMessages={2} unreadNotifications={1} />)
       userNavigation = screen.getByRole('navigation', { name: 'User account'})
       notifications = within(userNavigation).getByRole('link', { name: 'Notifications (1)'})
       messages = within(userNavigation).getByRole('link', { name: 'Messages (2)'})
@@ -78,8 +74,8 @@ describe('ZooHeader', function () {
     let adminLink, userNavigation, notifications, messages, userMenu
 
     before(function () {
-      const user = { display_name: 'Zoo Admin', login: 'zoo-admin', admin: true }
-      render(<ZooHeader isAdmin signIn={() => {}} signOut={() => {}} user={user} />)
+      const mockUser = { display_name: 'Zoo Admin', login: 'zoo-admin', admin: true }
+      render(<ZooHeader isAdmin signIn={() => {}} signOut={() => {}} user={mockUser} />)
       const mainNavList = screen.getByRole('navigation', { name: 'Site' })
       adminLink = within(mainNavList).getByRole('link', { name: 'Admin' })
       userNavigation = screen.getByRole('navigation', { name: 'User account'})
@@ -116,8 +112,10 @@ describe('ZooHeader', function () {
         render(<ZooHeader isNarrow signIn={() => {}} signOut={() => {}} />)
         zooLogo = screen.getByRole('img', { name: 'Zooniverse Logo' })
         const mainNavButton = screen.getByRole('button', { name: 'Main Navigation' })
-        await user.click(mainNavButton)
-        mainNavList = screen.getByRole('menu', { name: 'Main Navigation' })
+        await user.click(mainNavButton) // in NarrowMainNavMenu
+        await waitFor(() => {
+          mainNavList = screen.getByRole('menu', { name: 'Main Navigation' })
+        })
       })
 
       it('shows the Zooniverse logo', function () {
@@ -151,8 +149,8 @@ describe('ZooHeader', function () {
       let userNavigation, notifications, messages, userMenu
 
       before(function () {
-        const user = { display_name: 'Zoo Tester', login: 'zootester1' }
-        render(<ZooHeader isNarrow signIn={() => {}} signOut={() => {}} user={user} />)
+        const mockUser = { display_name: 'Zoo Tester', login: 'zootester1' }
+        render(<ZooHeader isNarrow signIn={() => {}} signOut={() => {}} user={mockUser} />)
         userNavigation = screen.getByRole('navigation', { name: 'User account'})
         notifications = within(userNavigation).getByRole('link', { name: 'Notifications'})
         messages = within(userNavigation).getByRole('link', { name: 'Messages'})
@@ -181,16 +179,18 @@ describe('ZooHeader', function () {
 
       before(async function () {
         const user = userEvent.setup({ delay: 'none' })
-        const userProp = { display_name: 'Zoo Admin', login: 'zoo-admin', admin: true }
-        render(<ZooHeader isAdmin isNarrow signIn={() => {}} signOut={() => {}} user={userProp} />)
+        const mockUser = { display_name: 'Zoo Admin', login: 'zoo-admin', admin: true }
+        render(<ZooHeader isAdmin isNarrow signIn={() => {}} signOut={() => {}} user={mockUser} />)
         const mainNavButton = screen.getByRole('button', { name: 'Main Navigation' })
         await user.click(mainNavButton)
-        const mainNavList = screen.getByRole('menu', { name: 'Main Navigation' })
-        adminLink = within(mainNavList).getByRole('menuitem', { name: 'Admin' })
-        userNavigation = screen.getByRole('navigation', { name: 'User account'})
-        notifications = within(userNavigation).getByRole('link', { name: 'Notifications'})
-        messages = within(userNavigation).getByRole('link', { name: 'Messages'})
-        userMenu = within(userNavigation).getAllByRole('button', { name: 'Zoo Admin' })
+        await waitFor(() => {
+          const mainNavList = screen.getByRole('menu', { name: 'Main Navigation' }) // failing
+          adminLink = within(mainNavList).getByRole('menuitem', { name: 'Admin' })
+          userNavigation = screen.getByRole('navigation', { name: 'User account'})
+          notifications = within(userNavigation).getByRole('link', { name: 'Notifications'})
+          messages = within(userNavigation).getByRole('link', { name: 'Messages'})
+          userMenu = within(userNavigation).getAllByRole('button', { name: 'Zoo Admin' })
+        })
       })
 
       it('should have a user account menu', function () {
