@@ -1,9 +1,7 @@
-import { MobXProviderContext } from 'mobx-react'
-import { Component, forwardRef } from 'react';
+import { forwardRef } from 'react'
 
 import { useKeyZoom } from '@hooks'
 
-const DEFAULT_HANDLER = () => true
 
 function withKeyZoom (WrappedComponent) {
 

@@ -1,14 +1,10 @@
 import { render, screen } from '@testing-library/react'
-import { Group } from '@visx/group'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
 
 import mockStore from '@test/mockStore/mockStore.js'
 
-import Axes from '../Axes'
-import Background from '../../../SVGComponents/Background'
-import Chart from '../../../SVGComponents/Chart'
 import ScatterPlot from './ScatterPlot'
 import { glyphComponents } from '../../../../helpers/getDataSeriesSymbol'
 import {
@@ -42,7 +38,6 @@ describe('Component > ScatterPlot', function () {
   }
 
   describe('render', function () {
-    let wrapper, chart
     beforeEach(function () {
       render(
         <ScatterPlot
