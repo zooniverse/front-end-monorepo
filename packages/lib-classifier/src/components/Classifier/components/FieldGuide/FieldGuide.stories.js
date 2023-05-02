@@ -117,7 +117,10 @@ const mockStore = {
     active: fieldGuide.id,
     attachedMedia: { [medium.id]: medium },
     resources: { [fieldGuide.id]: fieldGuide }
-  })
+  }),
+  subjectViewer: {
+    separateFramesView: false
+  }
 }
 
 export default {
