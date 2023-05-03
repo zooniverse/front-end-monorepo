@@ -82,10 +82,13 @@ function FlipbookViewerContainer({
     return <div>Something went wrong.</div>
   }
 
+  const enableInteractionLayer = loadingState === asyncStates.success
+
   return (
     <>
       {separateFramesView ? (
         <SeparateFramesViewer
+          enableInteractionLayer={enableInteractionLayer}
           onError={onError}
           onReady={onReady}
           subject={subject}
@@ -93,6 +96,7 @@ function FlipbookViewerContainer({
       ) : (
         <FlipbookViewer
           defaultFrame={defaultFrame}
+          enableInteractionLayer={enableInteractionLayer}
           enableRotation={enableRotation}
           flipbookAutoplay={flipbookAutoplay}
           invert={invert}

@@ -25,12 +25,12 @@ const DEFAULT_HANDLER = () => true
 const minFrameWidth = 300
 
 function SeparateFramesViewer({
+  enableInteractionLayer = true,
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
   subject
 }) {
-  console.log(subject)
   const { limitSubjectHeight, multiImageLayout } = useStores(storeMapper)
 
   const [forceColLayout, setForceColLayout] = useState(false)
@@ -83,6 +83,7 @@ function SeparateFramesViewer({
       >
         {subject.locations?.map(location => (
           <SeparateFrame
+            enableInteractionLayer={enableInteractionLayer}
             frameUrl={Object.values(location)[0]}
             key={Object.values(location)[0]}
             limitSubjectHeight={limitSubjectHeight}
@@ -101,6 +102,8 @@ function SeparateFramesViewer({
 export default observer(SeparateFramesViewer)
 
 SeparateFramesViewer.propTypes = {
+  /** From FlipbookViewerContainer or other viewer container */
+  enableInteractionLayer: PropTypes.bool,
   /** @zooniverse/async-states */
   loadingState: PropTypes.string,
   /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */

@@ -14,6 +14,7 @@ const DEFAULT_HANDLER = () => true
 
 const FlipbookViewer = ({
   defaultFrame = 0,
+  enableInteractionLayer = true,
   enableRotation = DEFAULT_HANDLER,
   flipbookAutoplay = false,
   invert = false,
@@ -90,7 +91,7 @@ const FlipbookViewer = ({
         src={img.src}
       >
         <SingleImageViewer
-          enableInteractionLayer={false}
+          enableInteractionLayer={enableInteractionLayer}
           height={img.naturalHeight}
           limitSubjectHeight={limitSubjectHeight}
           onKeyDown={handleSpaceBar}
@@ -125,6 +126,8 @@ const FlipbookViewer = ({
 FlipbookViewer.propTypes = {
   /** Fetched from metadata.default_frame or initialized to zero */
   defaultFrame: PropTypes.number,
+  /** If async.states === success then enable drawing tools */
+  enableInteractionLayer: PropTypes.bool,
   /** Function passed from Subject Viewer Store */
   enableRotation: PropTypes.func,
   /** Fetched from workflow configuration. Determines whether to autoplay the loop on viewer load */
