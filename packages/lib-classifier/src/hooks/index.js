@@ -1,6 +1,7 @@
 export { default as useCaesarReductions } from './useCaesarReductions'
 export { default as useClientRect } from './useClientRect'
 export { default as useHydratedStore } from './useHydratedStore'
+export { default as useKeyZoom } from './useKeyZoom'
 export { default as usePanoptesAuth } from './usePanoptesAuth'
 export { default as usePanoptesTranslations } from './usePanoptesTranslations'
 export { default as usePanoptesUser } from './usePanoptesUser'

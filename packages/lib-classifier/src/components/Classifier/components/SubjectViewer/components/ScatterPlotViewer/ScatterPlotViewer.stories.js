@@ -4,7 +4,9 @@ import { darken } from 'polished'
 import ScatterPlotViewer from './ScatterPlotViewer'
 import ScatterPlotViewerConnector from './ScatterPlotViewerConnector'
 import { Provider } from 'mobx-react'
+
 import SubjectViewerStore from '@store/SubjectViewerStore'
+import mockStore from '@test/mockStore'
 import ImageToolbar from '../../../ImageToolbar'
 import {
   keplerMockDataWithOptions,
@@ -36,31 +38,11 @@ const transientObjectSubject = Factory.build('subject', {
   ]
 })
 
-const mockStore = {
-  classifications: {
-    active: {
-      annotations: new Map()
-    }
-  },
-  fieldGuide: {
-    setActiveItemIndex: () => {},
-    setModalVisibility: () => {}
-  },
-  subjects: {
-    active: transientObjectSubject
-  },
-  subjectViewer: SubjectViewerStore.create({}),
-  workflows: {
-    active: {}
-  },
-  workflowSteps: {
-    activeStepTasks: []
-  }
-}
+const store = mockStore({ subject: transientObjectSubject })
 
 function ViewerContext(props) {
   const { children } = props
-  return <Provider classifierStore={mockStore}>{children}</Provider>
+  return <Provider classifierStore={store}>{children}</Provider>
 }
 
 export default {
@@ -121,23 +103,25 @@ export function ErrorBars() {
   ]
 
   return (
-    <Box direction='row' height='medium' width='large'>
-      <ScatterPlotViewer
-        data={data}
-        panning
-        setOnZoom={setZoomCallback}
-        xAxisLabel='x-axis'
-        yAxisLabel='y-axis'
-        zooming
-        zoomConfiguration={{
-          direction: 'both',
-          minZoom: 1,
-          maxZoom: 10,
-          zoomInValue: 1.2,
-          zoomOutValue: 0.8
-        }}
-      />
-    </Box>
+    <ViewerContext>
+      <Box direction='row' height='medium' width='large'>
+        <ScatterPlotViewer
+          data={data}
+          panning
+          setOnZoom={setZoomCallback}
+          xAxisLabel='x-axis'
+          yAxisLabel='y-axis'
+          zooming
+          zoomConfiguration={{
+            direction: 'both',
+            minZoom: 1,
+            maxZoom: 10,
+            zoomInValue: 1.2,
+            zoomOutValue: 0.8
+          }}
+        />
+      </Box>
+    </ViewerContext>
   )
 }
 

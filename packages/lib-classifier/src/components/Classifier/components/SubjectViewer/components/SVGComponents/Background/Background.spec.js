@@ -1,38 +1,38 @@
-import { shallow } from 'enzyme'
+import { cleanup, render } from '@testing-library/react'
 
 import Background from './Background'
 
 describe('Component > Background', function () {
   it('should render without crashing', function () {
-    const wrapper = shallow(<Background />)
-    expect(wrapper).to.be.ok()
+    render(<svg><Background /></svg>)
   })
 
   it('should render a rect', function () {
-    const wrapper = shallow(<Background />)
-    expect(wrapper.find('rect')).to.have.lengthOf(1)
+    render(<svg><Background /></svg>)
+    expect(document.querySelectorAll('rect')).to.have.lengthOf(1)
   })
 
   it('should pass along any other props', function () {
-    const wrapper = shallow(<Background foo='bar' />)
-    expect(wrapper.find('rect').props().foo).to.equal('bar')
+    render(<svg><Background foo='bar' /></svg>)
+    expect(document.querySelector('rect').getAttribute('foo')).to.equal('bar')
   })
 
   it('should set the fill color by prop', function () {
-    const wrapper = shallow(<Background fill='black' />)
-    expect(wrapper.find('rect').props().fill).to.equal('black')
+    render(<svg><Background fill='black' /></svg>)
+    expect(document.querySelector('rect').getAttribute('fill')).to.equal('black')
   })
 
   it('should set the stroke properties if a borderColor is defined', function () {
     let rect
-    const wrapper = shallow(<Background fill='black' />)
-    rect = wrapper.find('rect')
-    expect(rect.props().stroke).to.be.empty()
-    expect(rect.props().strokeWidth).to.be.equal(0)
-    wrapper.setProps({ borderColor: '#ffffff' })
-    rect = wrapper.find('rect')
-    expect(rect.props().stroke).to.equal('#ffffff')
-    expect(rect.props().strokeWidth).to.be.equal(1)
+    render(<svg><Background fill='black' /></svg>)
+    rect = document.querySelector('rect')
+    expect(rect.getAttribute('stroke')).to.be.empty()
+    expect(rect.getAttribute('stroke-width')).to.equal('0')
+    cleanup()
+    render(<svg><Background fill='black' borderColor='#fff' /></svg>)
+    rect = document.querySelector('rect')
+    expect(rect.getAttribute('stroke')).to.equal('#fff')
+    expect(rect.getAttribute('stroke-width')).to.equal('1')
   })
 
   describe('when there are underlays', function () {
@@ -40,8 +40,8 @@ describe('Component > Background', function () {
       const underlayParameters = [
         { fill: '#000000', left: 5, width: 10 }
       ]
-      const wrapper = shallow(<Background fill='white' underlayParameters={underlayParameters} />)
-      expect(wrapper.find('rect')).to.have.lengthOf(2)
+      render(<svg><Background fill='white' underlayParameters={underlayParameters} /></svg>)
+      expect(document.querySelectorAll('rect')).to.have.lengthOf(2)
     })
 
     it('should render the underlay rects with the specified parameters', function () {
@@ -49,16 +49,17 @@ describe('Component > Background', function () {
       const underlayParameters = [
         { fill: '#000000', left: 5, width: 10 }
       ]
-      const wrapper = shallow(<Background fill='white' underlayParameters={underlayParameters} />)
-      underlayRect = wrapper.find('rect').last()
-      expect(underlayRect.props().fill).to.equal(underlayParameters[0].fill)
-      expect(underlayRect.props().transform).to.equal(`translate(${underlayParameters[0].left}, 0)`)
-      expect(underlayRect.props().width).to.equal(underlayParameters[0].width)
-      wrapper.setProps({ borderColor: 'blue' })
-      underlayRect = wrapper.find('rect').last()
-      expect(underlayRect.props().fill).to.equal(underlayParameters[0].fill)
-      expect(underlayRect.props().transform).to.equal(`translate(${underlayParameters[0].left}, 1)`)
-      expect(underlayRect.props().width).to.equal(underlayParameters[0].width)
+      render(<svg><Background fill='white' underlayParameters={underlayParameters} /></svg>)
+      underlayRect = document.querySelector('rect.chartBackground-underlay')
+      expect(underlayRect.getAttribute('fill')).to.equal(underlayParameters[0].fill)
+      expect(underlayRect.getAttribute('transform')).to.equal(`translate(${underlayParameters[0].left}, 0)`)
+      expect(underlayRect.getAttribute('width')).to.equal(underlayParameters[0].width.toString())
+      cleanup()
+      render(<svg><Background fill='white' borderColor='blue' underlayParameters={underlayParameters} /></svg>)
+      underlayRect = document.querySelector('rect.chartBackground-underlay')
+      expect(underlayRect.getAttribute('fill')).to.equal(underlayParameters[0].fill)
+      expect(underlayRect.getAttribute('transform')).to.equal(`translate(${underlayParameters[0].left}, 1)`)
+      expect(underlayRect.getAttribute('width')).to.equal(underlayParameters[0].width.toString())
     })
   })
 })
