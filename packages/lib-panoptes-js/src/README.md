@@ -134,7 +134,7 @@ panoptes.get('/projects', { page: 2 }).then((response) => {
 Get a single project:
 
 ``` javascript
-panoptes.get('/projects/1104', { include: 'avatar,background,owners' }).then((response) => {
+panoptes.get('/projects/1104', { include: 'avatar,background,organization,owners' }).then((response) => {
   // Do something with the response
 });
 ```

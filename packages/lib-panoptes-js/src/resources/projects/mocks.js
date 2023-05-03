@@ -85,6 +85,20 @@ const projectTwo = {
   workflow_description: ''
 }
 
+const projectOrganization = {
+  description: 'A short description of the organization',
+  display_name: 'Untitled organization 1',
+  href: '/organizations/1',
+  id: '1',
+  introduction: 'A more in-depth introduction to your organization...',
+  links: { projects: ['2'] },
+  listed: true,
+  listed_at: '2018-05-10T16:53:33.328Z',
+  primary_language: 'en',
+  slug: 'user/untitled-organization-1',
+  title: 'Untitled organization 1',
+}
+
 const projectPages = {
   team: {
     content: '',
@@ -132,6 +146,7 @@ const resources = {
   projectBackground,
   projectOne,
   projectTwo,
+  projectOrganization,
   projectPages,
   projectRoles
 }
@@ -157,6 +172,7 @@ const projectPagesResponse = buildResponse('get', 'project_pages', [resources.pr
 const projectWithLinkedResources = buildResponse('get', 'projects', [resources.projectTwo], {
   avatars: [resources.projectAvatar],
   backgrounds: [resources.projectBackground],
+  organizations: [resources.projectOrganization],
   owners: users.mocks.resources.user,
   project_pages: [resources.projectPages]
 })

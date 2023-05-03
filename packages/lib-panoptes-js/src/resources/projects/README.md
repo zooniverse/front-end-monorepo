@@ -180,6 +180,7 @@ projects.getBySlug({ slug: 'zooniverse/galaxy-zoo' }).then((response) => {
 A project get request that automatically includes the following linked resources with the `includes` query param:
 - avatar
 - background
+- organization
 - owners
 - pages
 
@@ -223,6 +224,7 @@ projects.getWithLinkedResources({ slug: 'zooniverse/galaxy-zoo' }).then((respons
   this.setState({
     avatar: response.body.linked.avatar[0],
     background: response.body.linked.background[0],
+    organization: response.body.linked.organization[0],
     owner: response.body.linked.owners[0],
     pages: response.body.linked.pages,
     project: response.body.projects[0]
@@ -236,6 +238,7 @@ projects.getWithLinkedResources().then((response) => {
   this.setState({
     avatar: response.body.linked.avatar[0],
     background: response.body.linked.background[0],
+    organization: response.body.linked.organization[0],
     owner: response.body.linked.owners[0],
     pages: response.body.linked.pages,
     project: response.body.projects[0]
@@ -252,6 +255,7 @@ For your convenience, the mocks used in testing are exported and made available 
 - resources
   - projectAvatar - `projects.mocks.resources.projectAvatar`
   - projectBackground - `projects.mocks.resources.projectBackground`
+  - projectOrganization - `projects.mocks.resources.projectOrganization`
   - projectOne - `projects.mocks.resources.projectOne`
   - projectTwo - `projects.mocks.resources.projectTwo`
   - projectPages
