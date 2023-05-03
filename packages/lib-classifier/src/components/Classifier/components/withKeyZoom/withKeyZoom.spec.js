@@ -1,5 +1,5 @@
-import { Component, createRef } from 'react';
 import { render } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import { Provider } from 'mobx-react'
@@ -7,37 +7,10 @@ import SubjectViewerStore from '@store/SubjectViewerStore'
 import withKeyZoom from './withKeyZoom'
 
 describe('withKeyZoom', function () {
-  class StubComponent extends Component {
-    render () {
-      return <p>Hello</p>
-    }
-  }
-  const zoomStub = createRef()
-  const WithZoom = withKeyZoom(StubComponent)
-  const subjectViewer = SubjectViewerStore.create({})
-  const classifierStore = {
-    subjectViewer
-  }
-  const onPan = sinon.stub()
-  subjectViewer.setOnPan(onPan)
-  const onZoom = sinon.stub()
-  subjectViewer.setOnZoom(onZoom)
-  let wrappedComponent
-
-  beforeEach(function () {
-    render(
-      <Provider classifierStore={classifierStore}>
-        <WithZoom ref={zoomStub} />
-      </Provider>
-    )
-    wrappedComponent = zoomStub.current
-  })
-
-  it('should add an onKeyDown handler to wrapped components', function () {
-    expect(wrappedComponent.props.onKeyDown).to.be.ok()
-  })
-
   describe('on key down', function () {
+    const onPan = sinon.stub()
+    const onZoom = sinon.stub()
+
     const bindings = [
       {
         key: '+',
@@ -81,61 +54,102 @@ describe('withKeyZoom', function () {
       }
     ]
 
-    function testAllowedTag(tagName) {
+    function testAllowedTag(tagName, StubComponent) {
       describe(`when the event target is ${tagName}`, function () {
+        let wrappedComponent
+
+        beforeEach(function () {
+          const WithZoom = withKeyZoom(StubComponent)
+          const subjectViewer = SubjectViewerStore.create({})
+          const classifierStore = {
+            subjectViewer
+          }
+          subjectViewer.setOnPan(onPan)
+          subjectViewer.setOnZoom(onZoom)
+          render(
+            <Provider classifierStore={classifierStore}>
+              <WithZoom />
+            </Provider>
+          )
+          wrappedComponent = document.getElementById('testStub')
+        })
+
         afterEach(function () {
           onPan.resetHistory()
           onZoom.resetHistory()
         })
 
         bindings.forEach(function ({ key, name, handler }) {
-          it(`should call ${name} for ${key}`, function () {
-            const fakeEvent = {
-              key,
-              preventDefault: sinon.stub(),
-              target: {
-                tagName
-              }
-            }
-            wrappedComponent.props.onKeyDown(fakeEvent)
+          it(`should call ${name} for ${key}`, async function () {
+            const user = userEvent.setup()
+            wrappedComponent.focus()
+            await user.keyboard(`{${key}}`)
             expect(handler).to.have.been.calledOnce()
           })
         })
       })
     }
 
-    testAllowedTag('SVG')
-    testAllowedTag('BUTTON')
-    testAllowedTag('G')
+    describe('for allowed tags', function () {
+      testAllowedTag('SVG', props => <svg id='testStub' tabIndex='0' {...props}><text>Hello</text></svg>)
+      testAllowedTag('BUTTON', props => <button id='testStub' {...props}>Hello</button>)
+      testAllowedTag('G', props => <svg><g id='testStub' tabIndex='0'{...props}><text>Hello</text></g></svg>)
+      testAllowedTag('RECT', props => <svg><rect id='testStub' tabIndex='0'{...props}><text>Hello</text></rect></svg>)
+    })
 
     describe('when the event target is something else', function () {
+      let wrappedComponent
+
+      beforeEach(function () {
+        const WithZoom = withKeyZoom(props => <p id='testStub' tabIndex='0' {...props}>Hello</p>)
+        const subjectViewer = SubjectViewerStore.create({})
+        const classifierStore = {
+          subjectViewer
+        }
+        subjectViewer.setOnPan(onPan)
+        subjectViewer.setOnZoom(onZoom)
+        render(
+          <Provider classifierStore={classifierStore}>
+            <WithZoom />
+          </Provider>
+        )
+        wrappedComponent = document.getElementById('testStub')
+      })
+
       afterEach(function () {
         onPan.resetHistory()
         onZoom.resetHistory()
       })
 
       bindings.forEach(function ({ key, name, handler }) {
-        it(`should not call ${name} for ${key}`, function () {
-          const fakeEvent = {
-            key,
-            preventDefault: sinon.stub(),
-            target: {
-              tagName: 'div'
-            }
-          }
-          wrappedComponent.props.onKeyDown(fakeEvent)
+        it(`should not call ${name} for ${key}`, async function () {
+          const user = userEvent.setup()
+          wrappedComponent.focus()
+          await user.keyboard(`{${key}}`)
           expect(handler).to.not.have.been.called()
         })
       })
     })
 
-    it('should not trap other keys', function () {
-      const fakeEvent = {
-        key: 'Tab',
-        preventDefault: sinon.stub()
+    it('should not trap other keys', async function () {
+      const WithZoom = withKeyZoom(props => <button id='testStub' tabIndex='0' {...props}>Hello</button>)
+      const subjectViewer = SubjectViewerStore.create({})
+      const classifierStore = {
+        subjectViewer
       }
-      wrappedComponent.props.onKeyDown(fakeEvent)
-      expect(fakeEvent.preventDefault).to.have.not.been.called()
+      subjectViewer.setOnPan(onPan)
+      subjectViewer.setOnZoom(onZoom)
+      render(
+        <Provider classifierStore={classifierStore}>
+          <WithZoom />
+        </Provider>
+      )
+      const wrappedComponent = document.getElementById('testStub')
+      const user = userEvent.setup()
+      wrappedComponent.focus()
+      await user.keyboard('{Tab}')
+      expect(onPan).to.have.not.been.called()
+      expect(onZoom).to.have.not.been.called()
     })
   })
 })
