@@ -48,8 +48,11 @@ function useStores() {
 }
 
 function ProjectHomePage ({
+  organization,
   workflows
 }) {
+  console.log('ProjectHomePage organization.strings.title', organization?.strings?.title);
+
   const { inBeta } = useStores()
   const { adminMode, toggleAdmin } = useAdminMode()
   const router = useRouter()
@@ -125,11 +128,15 @@ function ProjectHomePage ({
 
 ProjectHomePage.defaultProps = {
   inBeta: false,
+  organization: {},
   workflows: []
 }
 
 ProjectHomePage.propTypes = {
   inBeta: bool,
+  organization: shape({
+    id: string
+  }),
   workflows: arrayOf(shape({
     id: string.isRequired
   }))
