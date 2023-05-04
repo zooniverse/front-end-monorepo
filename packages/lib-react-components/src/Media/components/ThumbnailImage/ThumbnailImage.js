@@ -1,21 +1,9 @@
-import styled, { css } from 'styled-components'
 import { Box, Image } from 'grommet'
 import getThumbnailSrc from '../../helpers/getThumbnailSrc.js'
 import { propTypes, defaultProps } from '../../helpers/mediaPropTypes.js'
 import useProgressiveImage from '../../../hooks/useProgressiveImage.js'
 
-const DEFAULT_THUMBNAIL_DIMENSION = 999
-
-const StyledBox = styled(Box)`
-  ${props => props.maxHeight && css`max-height: ${props.maxHeight};`}
-  ${props => props.maxWidth && css`max-width: ${props.maxWidth};`}
-`
-
-const StyledImage = styled(Image)`
-  height: 100%;
-  object-position: 50% 0%;
-  width: 100%;
-`
+const DEFAULT_THUMBNAIL_DIMENSION = ''
 
 export function Placeholder({ children, flex, ...props}) {
   return (
@@ -51,25 +39,32 @@ export default function ThumbnailImage({
     maxHeight: stringHeight,
     maxWidth: stringWidth
   }
+  const boxHeight = {
+    max: stringHeight
+  }
+  const boxWidth = {
+    max: stringWidth
+  }
 
   return (
     <>
       {loading ?
         <Placeholder height={stringHeight} flex={flex} width={stringWidth} {...rest}>{placeholder}</Placeholder> :
-        <StyledBox
+        <Box
           animation={loading ? undefined : 'fadeIn'}
           className='thumbnailImage'
           flex={flex}
-          maxWidth={stringWidth}
-          maxHeight={stringHeight}
+          height={boxHeight}
+          width={boxWidth}
           {...rest}
         >
-          <StyledImage
+          <Image
             alt={alt}
             fit={fit}
+            fill
             src={imageSrc}
           />
-        </StyledBox>}
+        </Box>}
       <noscript>
         <div style={fallbackStyle}>
           <img src={imageSrc} alt={alt} height='100%' width='100%' style={{ flex, objectFit: fit }} />

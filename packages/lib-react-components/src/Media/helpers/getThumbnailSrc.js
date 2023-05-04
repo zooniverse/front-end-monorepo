@@ -1,4 +1,4 @@
-const DEFAULT_THUMBNAIL_DIMENSION = 999
+const DEFAULT_THUMBNAIL_DIMENSION = ''
 
 export default function getThumbnailSrc({ height = DEFAULT_THUMBNAIL_DIMENSION, origin, src, width = DEFAULT_THUMBNAIL_DIMENSION }) {
   if (!src) return undefined

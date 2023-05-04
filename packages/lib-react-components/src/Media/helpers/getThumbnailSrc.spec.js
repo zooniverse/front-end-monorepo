@@ -5,8 +5,8 @@ describe('getThumbnailSrc', function () {
   const gif = 'https://panoptes-uploads.zooniverse.org/production/workflow_attached_image/939b6e91-a853-4e67-969e-3d91f03dba3d.gif'
   const origin = 'https://thumbnails.zooniverse.org'
   it('should return a source string using the Zooniverse thumbnail service', function () {
-    const returnValue = getThumbnailSrc({ origin, src: jpeg })
-    expect(returnValue).to.equal(`${origin}/999x999/panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg`)
+    const returnValue = getThumbnailSrc({ origin, src: jpeg, width: 100 })
+    expect(returnValue).to.equal(`${origin}/100x/panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg`)
   })
 
   it('should use width and height if defined', function () {
