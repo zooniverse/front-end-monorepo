@@ -555,7 +555,7 @@ describe('Component > TranscribedLines', function () {
       let popup = screen.queryByRole('heading', { level: 2, name: popupTitle})
       expect(popup).to.be.null()
       await user.click(line)
-      popup = screen.getByRole('heading', { level: 2, name: popupTitle})
+      popup = await screen.findByRole('heading', { level: 2, name: popupTitle})
       expect(popup).to.exist()
       const closeButton = screen.queryByRole('button', { name: 'Close' })
       await user.click(closeButton)
