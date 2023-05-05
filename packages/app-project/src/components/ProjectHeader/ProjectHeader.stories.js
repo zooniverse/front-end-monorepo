@@ -18,6 +18,13 @@ const mockRouter = {
   }
 }
 
+const ORGANIZATION = {
+  id: '1',
+  listed: true,
+  slug: 'zooniverse/snapshot-safari',
+  title: 'Snapshot Safari'
+}
+
 export default {
   title: 'Project App / Shared / Project Header',
   component: ProjectHeader,
@@ -301,6 +308,41 @@ MultipleLanguages.args = {
     },
     links: {
       active_workflows: ['1234']
+    }
+  }
+}
+
+export function OrganizationLink({ project }) {
+  const snapshot = { project }
+  applySnapshot(OrganizationLink.store, snapshot)
+  return (
+    <RouterContext.Provider value={mockRouter}>
+      <Provider store={OrganizationLink.store}>
+        <ProjectHeader organization={ORGANIZATION} />
+      </Provider>
+    </RouterContext.Provider>
+  )
+}
+OrganizationLink.store = initStore(true)
+OrganizationLink.args = {
+  adminMode: false,
+  className: '',
+  project: {
+    avatar: {
+      src: 'https://panoptes-uploads.zooniverse.org/project_avatar/442e8392-6c46-4481-8ba3-11c6613fba56.jpeg'
+    },
+    background: {
+      src: 'https://panoptes-uploads.zooniverse.org/project_background/7a3c6210-f97d-4f40-9ab4-8da30772ee01.jpeg'
+    },
+    configuration: {
+      languages: ['en']
+    },
+    slug: 'zooniverse/snapshot-serengeti',
+    strings: {
+      display_name: 'Snapshot Serengeti'
+    },
+    links: {
+      active_workflows: ['1']
     }
   }
 }

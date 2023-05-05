@@ -51,8 +51,6 @@ function ProjectHomePage ({
   organization,
   workflows
 }) {
-  console.log('ProjectHomePage organization.strings.title', organization?.strings?.title);
-
   const { inBeta } = useStores()
   const { adminMode, toggleAdmin } = useAdminMode()
   const router = useRouter()
@@ -73,7 +71,10 @@ function ProjectHomePage ({
       <Media at='default'>
         <header>
           <ZooHeaderWrapper isAdmin={adminMode} />
-          <ProjectHeader adminMode={adminMode} />
+          <ProjectHeader
+            adminMode={adminMode}
+            organization={organization}
+          />
           <Announcements />
         </header>
         <Hero workflows={workflows} />
@@ -91,7 +92,10 @@ function ProjectHomePage ({
         <FullHeightBox margin={{ bottom: 'large' }}>
           <header>
             <ZooHeaderWrapper isAdmin={adminMode} />
-            <ProjectHeader adminMode={adminMode} />
+            <ProjectHeader
+              adminMode={adminMode}
+              organization={organization}
+            />
             <Announcements />
           </header>
           <RemainingHeightBox>
