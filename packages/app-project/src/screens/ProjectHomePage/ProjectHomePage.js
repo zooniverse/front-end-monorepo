@@ -77,7 +77,10 @@ function ProjectHomePage ({
           />
           <Announcements />
         </header>
-        <Hero workflows={workflows} />
+        <Hero
+          workflows={workflows}
+          organization={organization}
+        />
         <Box margin='small' gap='small'>
           <ThemeModeToggle />
           <ZooniverseTalk />
@@ -99,7 +102,11 @@ function ProjectHomePage ({
             <Announcements />
           </header>
           <RemainingHeightBox>
-            <Hero workflows={workflows} isWide={true} />
+            <Hero
+              isWide={true}
+              organization={organization}
+              workflows={workflows}
+            />
           </RemainingHeightBox>
         </FullHeightBox>
         <Box
