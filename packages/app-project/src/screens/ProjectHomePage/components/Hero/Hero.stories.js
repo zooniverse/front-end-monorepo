@@ -106,3 +106,22 @@ SmallScreen.parameters = {
     defaultViewport: 'iphone5'
   }
 }
+
+const ORGANIZATION = {
+  id: '1',
+  listed: true,
+  slug: 'brbcornell/nest-quest-go',
+  title: 'Nest Quest Go'
+}
+
+export function WithOrganization({ isWide }) {
+  return (
+    <MockProjectContext>
+      <Hero
+        isWide={isWide}
+        organization={ORGANIZATION}
+        workflows={WORKFLOWS}
+      />
+    </MockProjectContext>
+  )
+}
