@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import { composeStory } from '@storybook/testing-react'
-import { render, screen, within } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import * as globalConfig from '../../../../../.storybook/preview'
 
@@ -36,10 +36,9 @@ describe('SurveyTask with user keystrokes', function () {
       expect(choiceButton.getAttribute('aria-checked')).to.equal('true')
     
       // confirm choice Fire active element
-      // expect(choiceButton).to.equal(document.activeElement)
+      await waitFor(() => expect(choiceButton).to.equal(document.activeElement))
     
       // press delete key to remove choice (Fire)
-      choiceButton.focus()
       await user.keyboard('[Delete]')
       choiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
       // confirm choice Fire not selected
@@ -54,10 +53,9 @@ describe('SurveyTask with user keystrokes', function () {
       expect(choiceButton.getAttribute('aria-checked')).to.equal('true')
     
       // confirm choice Fire active element
-      // expect(choiceButton).to.equal(document.activeElement)
+      await waitFor(() => expect(choiceButton).to.equal(document.activeElement))
     
       // press backspace key to remove choice (Fire)
-      choiceButton.focus()
       await user.keyboard('[Backspace]')
       choiceButtons = document.querySelector('[role=menu]').querySelectorAll('[role=menuitemcheckbox]')
       choiceButton = Array.from(choiceButtons).find(choiceButton => choiceButton.textContent === 'Fire')
@@ -181,7 +179,8 @@ describe('SurveyTask with user keystrokes', function () {
       expect(choiceImages).to.be.ok()
     })
 
-    it.skip('should close choice on Escape key', async function () {
+    it('should close choice on Escape key', async function () {
+      await waitFor(() => expect(document.activeElement === document.body).to.be.false())
       // pressing Escape to close the choice (Aardvark)
       await user.keyboard('[Escape]')
       // confirm choice (Aardvark) description, and therefore choice, is not visible
