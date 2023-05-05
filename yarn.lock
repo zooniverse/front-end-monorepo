@@ -2239,16 +2239,16 @@
     "@sentry/utils" "7.51.0"
     tslib "^1.9.3"
 
-"@sentry/browser@~7.50.0":
-  version "7.50.0"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-7.50.0.tgz#16c995c336322c8aec65570f90f50288678004ec"
-  integrity sha512-a+UYbP89+SAvW47/p9wxEi9eWlyp/SkYl52OCdZNXnplQY4kQIOVyiaIs5nnCxIxZgXKrhAX4eo1E9ykleFuNQ==
+"@sentry/browser@~7.51.0":
+  version "7.51.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-7.51.0.tgz#c132470ffa658ec5b4c0bdc44c9a72a479e6edb1"
+  integrity sha512-SqaXM9qhGnSqEcdWEnzHKKkCLcMzE0cAc/Y6VQOttGjkP3KRW8INdWrN7F0ySBdy6BMar6ViDJKhB6cMKsuCIg==
   dependencies:
-    "@sentry-internal/tracing" "7.50.0"
-    "@sentry/core" "7.50.0"
-    "@sentry/replay" "7.50.0"
-    "@sentry/types" "7.50.0"
-    "@sentry/utils" "7.50.0"
+    "@sentry-internal/tracing" "7.51.0"
+    "@sentry/core" "7.51.0"
+    "@sentry/replay" "7.51.0"
+    "@sentry/types" "7.51.0"
+    "@sentry/utils" "7.51.0"
     tslib "^1.9.3"
 
 "@sentry/core@7.50.0":
@@ -2283,14 +2283,14 @@
     lru_map "^0.3.3"
     tslib "^1.9.3"
 
-"@sentry/replay@7.50.0":
-  version "7.50.0"
-  resolved "https://registry.yarnpkg.com/@sentry/replay/-/replay-7.50.0.tgz#dd29f063492d91e708629ff8dd95a59d4b7180f1"
-  integrity sha512-EYRk+DTZ5luwfkiCaDpBC3YBKIEdkReTUNZtWDVUytSVjsCnttkAipx/y6bxy3HN+rSXungMd3XKQT5RNMRUNA==
+"@sentry/replay@7.51.0":
+  version "7.51.0"
+  resolved "https://registry.yarnpkg.com/@sentry/replay/-/replay-7.51.0.tgz#d37f19d9201f63094f665ed7813c1c82b3be8c30"
+  integrity sha512-3jv+chhhlOVFjPKYJOEJy+J+9yTUEHxybZ0tTwGZYOJp9T8HdO21L6NjYk5b9wEqJonhZHp1BiQnzG82NLDkSQ==
   dependencies:
-    "@sentry/core" "7.50.0"
-    "@sentry/types" "7.50.0"
-    "@sentry/utils" "7.50.0"
+    "@sentry/core" "7.51.0"
+    "@sentry/types" "7.51.0"
+    "@sentry/utils" "7.51.0"
 
 "@sentry/tracing@~7.50.0":
   version "7.50.0"
