@@ -3937,6 +3937,19 @@
     classnames "^2.3.1"
     prop-types "^15.6.0"
 
+"@visx/brush@~3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@visx/brush/-/brush-3.0.1.tgz#23d550530443504380c9ae39cf31af6f49b66e58"
+  integrity sha512-5pZ5poFy3roi5bWAhqp6PNxQaWA23TKVjUHFDrWO7+szxx4bML2lHDxWalkaYeRbhpu84eqPXo0cU4pVOk2P+Q==
+  dependencies:
+    "@visx/drag" "3.0.1"
+    "@visx/event" "3.0.1"
+    "@visx/group" "3.0.0"
+    "@visx/scale" "3.0.0"
+    "@visx/shape" "3.0.0"
+    classnames "^2.3.1"
+    prop-types "^15.6.1"
+
 "@visx/curve@2.17.0":
   version "2.17.0"
   resolved "https://registry.yarnpkg.com/@visx/curve/-/curve-2.17.0.tgz#9b4c87dd0d10a62a0f85d5a72e4c0400316df9bf"
@@ -3952,6 +3965,16 @@
   dependencies:
     "@types/d3-shape" "^1.3.1"
     d3-shape "^1.0.6"
+
+"@visx/drag@3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@visx/drag/-/drag-3.0.1.tgz#753d5f471d4e31679ca4fddcb476cf2d5c7eb6e4"
+  integrity sha512-yi2AB/unUfNYBRKS4pmUOuz8MjaAAYjsQGYcD/s4LqeQjd+lBZF7CuNcYZ/maGNQAEUfgLr2czIzADanOMtMaw==
+  dependencies:
+    "@types/react" "*"
+    "@visx/event" "3.0.1"
+    "@visx/point" "3.0.1"
+    prop-types "^15.5.10"
 
 "@visx/event@3.0.1", "@visx/event@~3.0.0":
   version "3.0.1"
@@ -4061,7 +4084,7 @@
     lodash "^4.17.21"
     prop-types "^15.5.10"
 
-"@visx/shape@~3.0.0":
+"@visx/shape@3.0.0", "@visx/shape@~3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@visx/shape/-/shape-3.0.0.tgz#a1d4bd0e12cc94c164252f175997932a09c24652"
   integrity sha512-t6lpP9bIA1vwChDwiOUWl92ro29XF/M8IVNWRA0pm4LGxGGTACvxG3Agfcdi3JprahUVqPpnRCwuR36PDanq3Q==

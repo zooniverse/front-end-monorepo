@@ -7,7 +7,7 @@ import Chart from '@viewers/components/SVGComponents/Chart'
 import getZoomBackgroundColor from '@viewers/helpers/getZoomBackgroundColor'
 import sortDataPointsByHighlight from '@viewers/helpers/sortDataPointsByHighlight'
 import Axes from '../Axes'
-import { ScatterPlotSeries } from './components'
+import { ScatterPlotSeries, Selections } from './components'
 
 import {
   getDataPoints,
@@ -53,7 +53,11 @@ export default function ScatterPlot({
   children,
   data,
   dataPointSize = 25,
+  disabled = false,
+  experimentalSelectionTool = false,
   highlightedSeries,
+  initialSelections = [],
+  interactionMode = 'annotate',
   invertAxes = INVERT_AXES,
   margin = MARGIN,
   padding = PADDING,
@@ -182,6 +186,16 @@ export default function ScatterPlot({
           />
         ))}
         {children}
+        {experimentalSelectionTool && <Selections
+          colors={colors}
+          disabled={disabled || interactionMode !== 'annotate'}
+          height={plotHeight}
+          initialSelections={initialSelections}
+          margin={margin}
+          width={plotWidth}
+          xScale={xScaleTransformed}
+          yScale={yScaleTransformed}
+        />}
       </Group>
       <Group
         className='chartAxes'
