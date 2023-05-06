@@ -40,7 +40,7 @@ export default function DeleteButton({
     switch (event.key) {
       case 'Enter':
       case ' ': {
-        return onPointerDown(event)
+        return onPointerUp(event)
       }
       default: {
         return true
