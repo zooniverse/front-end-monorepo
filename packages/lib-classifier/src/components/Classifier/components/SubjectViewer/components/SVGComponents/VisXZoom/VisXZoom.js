@@ -123,6 +123,7 @@ function VisXZoom({
 
 
   const ZoomingComponent = zoomingComponent
+  console.log('+++ ZoomingComponent', ZoomingComponent)
   return (
     <Zoom
       constrain={constrain}
@@ -148,7 +149,6 @@ function VisXZoom({
             <ZoomEventLayer
               focusable
               height={height}
-              left={left}
               onDoubleClick={onDoubleClick}
               onKeyDown={onKeyDown}
               onPointerDown={panning ? _zoom.dragStart : DEFAULT_HANDLER}
@@ -159,7 +159,6 @@ function VisXZoom({
               onWheel={onWheel}
               panning={panning}
               tabIndex={0}
-              top={top}
               width={width}
             />
           </ZoomingComponent>
