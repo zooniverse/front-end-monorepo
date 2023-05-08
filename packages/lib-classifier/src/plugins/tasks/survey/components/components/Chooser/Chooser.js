@@ -48,7 +48,10 @@ function Chooser ({
   const filteredChoiceIds = getFilteredChoiceIds(filters, task)
   
   return (
-    <Box>
+    <Box
+      as={task.instruction ? 'fieldset' : 'div'}
+      style={{ border: 'none' }}
+    >
       {task.instruction 
         ? <StyledText as='legend' size='small'>
             <Markdownz>
