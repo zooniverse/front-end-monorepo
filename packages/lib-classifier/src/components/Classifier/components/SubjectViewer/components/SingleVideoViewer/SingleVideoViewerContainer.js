@@ -59,7 +59,7 @@ function SingleVideoViewerContainer({
 
   /* ==================== load subject ==================== */
 
-  const videoSrc = subject ? Object.values(subject.locations[0])[0] : null
+  const videoLocation = subject ? subject.locations.find(l => l.type === 'video') : null
 
   const onReactPlayerReady = () => {
     try {
@@ -166,7 +166,7 @@ function SingleVideoViewerContainer({
       ref={playerRef}
       width='100%'
       volume={volume}
-      url={videoSrc}
+      url={videoLocation?.url}
       config={{
         file: { // styling the <video> element
           attributes: {
@@ -180,7 +180,7 @@ function SingleVideoViewerContainer({
         }
       }}
     />
-  ), [enableDrawing, isPlaying, playbackSpeed, videoSrc, volume])
+  ), [enableDrawing, isPlaying, playbackSpeed, videoLocation, volume])
 
   const canvas = transformLayer?.current
   const interactionLayerScale = clientWidth / videoWidth
@@ -191,7 +191,7 @@ function SingleVideoViewerContainer({
 
   return (
     <>
-      {videoSrc
+      {videoLocation
         ? (
           <SubjectContainer>
             {memoizedViewer}
