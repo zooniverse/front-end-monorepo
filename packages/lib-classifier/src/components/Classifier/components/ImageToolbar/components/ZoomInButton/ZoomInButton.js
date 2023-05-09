@@ -9,6 +9,7 @@ function DEFAULT_HANDLER() {
   return true
 }
 function ZoomInButton ({
+  disabled = false,
   onClick = DEFAULT_HANDLER,
   onPointerDown = DEFAULT_HANDLER,
   onPointerUp = DEFAULT_HANDLER
@@ -17,6 +18,7 @@ function ZoomInButton ({
   return (
     <Button
       a11yTitle={t('ImageToolbar.ZoomInButton.ariaLabel')}
+      disabled={disabled}
       icon={<ZoomInIcon />}
       onClick={onClick}
       onPointerDown={onPointerDown}
@@ -26,6 +28,7 @@ function ZoomInButton ({
 }
 
 ZoomInButton.propTypes = {
+  disabled: PropTypes.bool,
   onClick: PropTypes.func
 }
 
