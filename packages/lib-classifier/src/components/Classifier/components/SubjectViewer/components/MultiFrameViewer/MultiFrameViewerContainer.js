@@ -76,7 +76,7 @@ function MultiFrameViewerContainer({
 }) {
   const [dragMove, setDragMove] = useState()
   // TODO: replace this with a better function to parse the image location from a subject.
-  const imageLocation = subject ? subject.locations.find(l => l.type === 'image') : null
+  const imageLocation = subject ? subject.locations[frame] : null
   const { img, error, loading, subjectImage } = useSubjectImage({
     src: imageLocation?.url,
     onReady,
