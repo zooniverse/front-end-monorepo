@@ -177,21 +177,17 @@ describe('Component > VisXZoom', function () {
         expect(wrapper.find(StubComponent).find(ZoomEventLayer)).to.have.lengthOf(1)
       })
 
-      it('should set the height, width, and left and top positions by props', function () {
+      it('should set the height and width by props', function () {
         const wrapper = mount(
           <VisXZoom
             data={mockData}
-            left={20}
             height={height}
             width={width}
-            top={40}
             zoomingComponent={StubComponent}
           />
         )
 
         const zoomEventLayer = wrapper.find(StubComponent).find(ZoomEventLayer)
-        expect(zoomEventLayer.props().left).to.equal(20)
-        expect(zoomEventLayer.props().top).to.equal(40)
         expect(zoomEventLayer.props().height).to.equal(height)
         expect(zoomEventLayer.props().width).to.equal(width)
       })
