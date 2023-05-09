@@ -123,7 +123,6 @@ function VisXZoom({
 
 
   const ZoomingComponent = zoomingComponent
-  console.log('+++ ZoomingComponent', ZoomingComponent)
   return (
     <Zoom
       constrain={constrain}
