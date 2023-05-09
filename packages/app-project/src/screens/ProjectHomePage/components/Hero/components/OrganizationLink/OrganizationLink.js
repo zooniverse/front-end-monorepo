@@ -18,7 +18,7 @@ function OrganizationLink({
         {t('ProjectHeader.organization')}
       </SpacedText>
       <Anchor
-        href={`https://www.zooniverse.org/organizations/${slug}`}
+        href={`/organizations/${slug}`}
       >
         <SpacedText
           weight='bold'
