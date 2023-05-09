@@ -163,7 +163,7 @@ export const WithLabeledText = ({
       <SingleTextViewerContainer
         latest={latest}
         loadingState={loadingState}
-        subject={subjectSnapshot}
+        subject={store.subjects.active}
       />
     </Box>
   )
