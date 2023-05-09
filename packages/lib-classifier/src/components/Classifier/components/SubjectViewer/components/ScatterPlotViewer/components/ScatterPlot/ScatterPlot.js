@@ -168,8 +168,6 @@ export default function ScatterPlot({
             borderColor={(dark) ? colors['light-5'] : colors['dark-5']}
             fill={(dark) ? colors['light-3'] : colors['neutral-6']}
             height={plotHeight}
-            left={leftPosition}
-            top={topPosition}
             underlayParameters={underlayParameters}
             width={plotWidth}
           />}
