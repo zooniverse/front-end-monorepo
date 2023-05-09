@@ -1,5 +1,6 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
+import { useEffect } from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import locationValidator from '../../helpers/locationValidator'
@@ -11,15 +12,22 @@ const defaultDimensions = [{
   clientHeight: 400
 }]
 
+const DEFAULT_HANDLER = () => true
+
 function ImageAndTextViewerContainer ({
   dimensions = defaultDimensions,
+  enableRotation = DEFAULT_HANDLER,
   frame = 0,
   loadingState = asyncStates.initialized,
-  onError = () => true,
-  onReady = () => true,
-  setFrame = () => true,
+  onError = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
+  setFrame = DEFAULT_HANDLER,
   subject
 }) {
+  useEffect(function onMount() {
+    enableRotation()
+  }, [])
+
   function handleFrameChange (newFrame) {
     setFrame(newFrame)
   }
