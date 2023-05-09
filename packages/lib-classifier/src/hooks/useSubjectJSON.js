@@ -9,8 +9,8 @@ function getSubjectUrl(subject) {
   Panoptes CLI uploading wonky MIME types (@shaun 20181024)
   https://github.com/zooniverse/panoptes-python-client/issues/210
   */
-  const jsonLocation = subject.locations.find(l => l['application/json'] || l['text/plain']) || {}
-  const url = Object.values(jsonLocation)[0]
+  const jsonLocation = subject.locations.find(l => l.type === 'application' || l.type === 'text') || {}
+  const { url } = jsonLocation
   if (url) {
     return url
   } else {

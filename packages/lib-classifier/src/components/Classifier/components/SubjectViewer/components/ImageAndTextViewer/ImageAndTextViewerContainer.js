@@ -30,14 +30,14 @@ function ImageAndTextViewerContainer ({
     )
   }
 
-  const [mimeType] = Object.keys(subject.locations[frame])
+  const { type } = subject.locations[frame]
 
   if (loadingState !== asyncStates.initialized) {
     return (
       <Box
         fill='horizontal'
       >
-        {(mimeType === 'text/plain')
+        {(type === 'text')
           ? (
             <SingleTextViewer
               height={dimensions[0]?.clientHeight ? `${dimensions[0]?.clientHeight}px` : ''}

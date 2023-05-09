@@ -154,8 +154,7 @@ class FrameCarousel extends Component {
   render () {
     const { frame, locations, t } = this.props
     const locationElements = locations.map((location, index) => {
-      const mimeType = Object.keys(location)[0]
-      const url = location[mimeType]
+      const { mimeType, url } = location
       const activeFrame = frame === index
 
       return (

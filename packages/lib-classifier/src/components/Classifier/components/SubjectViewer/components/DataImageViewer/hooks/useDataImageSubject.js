@@ -1,4 +1,3 @@
-import { findLocationsByMediaType } from '@helpers'
 import { useSubjectJSON } from '@hooks'
 
 export default function useDataImageSubject({
@@ -17,7 +16,7 @@ export default function useDataImageSubject({
     jsonData = data
   }
 
-  const locations = findLocationsByMediaType(subject.locations, 'image')
+  const locations = subject.locations.filter(location => location.type === 'image')
   if (locations?.length > 0) {
     // Presumably 2 image locations will be found
     // The first will be the fallback to display something in Talk

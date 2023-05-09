@@ -2,6 +2,8 @@ import { mount } from 'enzyme'
 import sinon from 'sinon'
 
 import asyncStates from '@zooniverse/async-states'
+
+import SubjectType from '@store/SubjectStore/SubjectType'
 import { DraggableImage, SubjectGroupViewerContainer } from './SubjectGroupViewerContainer'
 import SubjectGroupViewer from './SubjectGroupViewer'
 
@@ -61,7 +63,7 @@ describe('Component > SubjectGroupViewerContainer', function () {
     beforeEach(function (done) {
       onReady.callsFake(() => done())
       onError.callsFake(() => done())
-      const subject = {
+      const subjectSnapshot = {
         id: 'test',
         locations: [
           { 'image/jpeg': 'https://some.domain/image.jpg' },
@@ -75,6 +77,7 @@ describe('Component > SubjectGroupViewerContainer', function () {
           default_frame: "0"
         }
       }
+      const subject = SubjectType.create(subjectSnapshot)
       wrapper = mount(
         <SubjectGroupViewerContainer
           ImageObject={ValidImage}
@@ -119,12 +122,13 @@ describe('Component > SubjectGroupViewerContainer', function () {
     beforeEach(function (done) {
       onReady.callsFake(() => done())
       onError.callsFake(() => done())
-      const subject = {
+      const subjectSnapshot = {
         id: 'test',
         locations: [
-          { 'image/jpeg': '' }
+          { 'image/jpeg': 'http://domain/path/file.jpg' }
         ]
       }
+      const subject = SubjectType.create(subjectSnapshot)
       wrapper = mount(
         <SubjectGroupViewerContainer
           ImageObject={InvalidImage}

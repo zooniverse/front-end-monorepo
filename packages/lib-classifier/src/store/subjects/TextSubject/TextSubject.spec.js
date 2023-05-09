@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+import { getSnapshot } from 'mobx-state-tree'
 import sinon from 'sinon'
 
 import subjectViewers from '@helpers/subjectViewers'
@@ -34,7 +35,7 @@ describe('Model > TextSubject', function () {
   })
 
   it('should have a `locations` property', function () {
-    expect(textSubject.locations).to.deep.equal(textSubjectSnapshot.locations)
+    expect(getSnapshot(textSubject.locations)).to.deep.equal(textSubjectSnapshot.locations)
   })
 
   describe('with an invalid subject location', function () {

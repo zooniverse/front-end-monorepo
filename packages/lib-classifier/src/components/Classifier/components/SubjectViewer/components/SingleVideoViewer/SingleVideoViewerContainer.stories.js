@@ -57,7 +57,7 @@ export const Default = ({ onError, onReady }) => {
           loadingState='success'
           onError={onError}
           onReady={onReady}
-          subject={subject}
+          subject={noDrawingStore.subjects.active}
         />
       </Box>
     </Provider>
@@ -72,7 +72,7 @@ export const WithDrawingEnabled = ({ onError, onReady }) => {
           loadingState='success'
           onError={onError}
           onReady={onReady}
-          subject={subject}
+          subject={drawingStore.subjects.active}
         />
       </Box>
     </Provider>

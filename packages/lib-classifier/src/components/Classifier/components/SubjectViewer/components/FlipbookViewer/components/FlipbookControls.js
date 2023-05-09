@@ -252,10 +252,9 @@ const FlipbookControls = ({
             >
               {locations?.length &&
                 locations.map((location, index) => {
-                  const [url] = Object.values(location)
-                  const thumbnailerUrl = `https://thumbnails.zooniverse.org/100x100${url.slice(
+                  const thumbnailerUrl = `https://thumbnails.zooniverse.org/100x100${location.url.slice(
                     7,
-                    url.length
+                    location.url.length
                   )}`
                   // fetching 100x100 because subject images have varying ratios and we want the image's height to be ~40px
 
@@ -264,7 +263,7 @@ const FlipbookControls = ({
 
                   return (
                     <ThumbnailButton
-                      key={`${url}-${index}`}
+                      key={`${location.url}-${index}`}
                       id={`thumbnail-${index}`}
                       aria-controls='flipbook-tab-panel'
                       aria-label={`${t(
