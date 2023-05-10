@@ -20,6 +20,18 @@ const StyledText = styled(Text)`
   }
 `
 
+const components = {
+  a: Text,
+  h1: Text,
+  h2: Text,
+  h3: Text,
+  h4: Text,
+  h5: Text,
+  h6: Text,
+  p: Text,
+  span: Text
+}
+
 function Chooser ({
   disabled = false,
   filters = {},
@@ -54,7 +66,7 @@ function Chooser ({
     >
       {task.instruction 
         ? <StyledText as='legend' size='small'>
-            <Markdownz>
+            <Markdownz components={components}>
               {task.instruction}
             </Markdownz>
           </StyledText>
