@@ -1,5 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { flow, getEnv, types } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 
 const FreehandLineReductions = types
   .model('FreehandLineReductions', {
@@ -13,27 +13,35 @@ const FreehandLineReductions = types
 
   .views(self => {
     return {
-      consensusLines(frame) {
-        let pathX = []
-        let pathY = []
+      findCurrentTaskMark({ stepKey, tasks, frame }) {
+        if (stepKey === undefined || tasks === undefined || frame === undefined) {
+          return
+        }
+
+        let caesarMark;
 
         self.reductions.forEach(reduction => {
-			    reduction.data.points.forEach(xy => {
-            pathX.push(xy[0])
-            pathY.push(xy[1])
-          })
+          let { data } = reduction
+          let task = tasks[data.taskIndex]
+          let tool = task.tools[data.toolIndex]
+
+          if (data.frame === frame
+            && data.stepKey === stepKey
+            && data.taskKey === task.taskKey
+            && data.taskType === task.type
+            && data.toolType === tool.type
+          ) {
+            caesarMark = data
+          }
         })
 
-        return {
-          pathX: pathX,
-          pathY: pathY
-        }
+        return caesarMark
       }
     }
   })
 
   .actions(self => {
-  return {}
-})
+    return {}
+  })
 
 export default FreehandLineReductions

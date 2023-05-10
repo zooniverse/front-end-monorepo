@@ -23,8 +23,11 @@ export default function useTranscriptionReductions() {
     }
   } = useStores()
 
-  const { loaded, caesarReductions } = useCaesarReductions(workflow.caesarReducer)
+  // NOTE: useFreehandLineReductions() and useTranscriptionReductions() are called regardless of reducer key
+  if (workflow.caesarReducer !== 'alice') return
 
+  let { loaded, caesarReductions } = useCaesarReductions(workflow.caesarReducer)
+  
   const lines = caesarReductions?.consensusLines(frame)
   const activeStepAnnotations = stepHistory?.latest.annotations
 
