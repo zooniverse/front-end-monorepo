@@ -7,6 +7,10 @@ import { useTranslation } from '@translations/i18n'
 
 import HelpIcon from './HelpIcon'
 
+const StyledHelpIcon = styled(HelpIcon)`
+  width: min(50%, 1.2rem);
+`
+
 export const StyledButton = styled(Button)`
   width: 100%;
   ${props =>
@@ -42,7 +46,7 @@ export function ColumnButtonLabel() {
         {t('FieldGuide.FieldGuideButton.buttonLabel')}
       </StyledSpacedText>
       {/** Same styling as ImageToolbar > Button */}
-      <HelpIcon fill='white' width='min(50%, 1.2rem)' />
+      <StyledHelpIcon fill='white' />
     </Box>
   )
 }
