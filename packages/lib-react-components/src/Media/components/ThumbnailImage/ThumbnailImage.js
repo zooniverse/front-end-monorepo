@@ -13,10 +13,6 @@ export function Placeholder({ children, flex, ...props}) {
   )
 }
 
-function stringifySize (size) {
-  return (typeof size === 'number') ? `${size}px` : size
-}
-
 export default function ThumbnailImage({
   alt = defaultProps.alt,
   delay = defaultProps.delay,
@@ -33,23 +29,23 @@ export default function ThumbnailImage({
   const { error, loading } = useProgressiveImage({ delay, src: thumbnailSrc })
 
   const imageSrc = error ? src : thumbnailSrc
-  const stringHeight = stringifySize(height)
-  const stringWidth = stringifySize(width)
+  const cssHeight = height > 0 ? `${height}px` : height
+  const cssWidth = width > 0 ? `${width}px` : width
   const fallbackStyle = {
-    maxHeight: stringHeight,
-    maxWidth: stringWidth
+    maxHeight: cssHeight,
+    maxWidth: cssWidth
   }
   const boxHeight = {
-    max: stringHeight
+    max: cssHeight
   }
   const boxWidth = {
-    max: stringWidth
+    max: cssWidth
   }
 
   return (
     <>
       {loading ?
-        <Placeholder height={stringHeight} flex={flex} width={stringWidth} {...rest}>{placeholder}</Placeholder> :
+        <Placeholder height={cssHeight} flex={flex} width={cssWidth} {...rest}>{placeholder}</Placeholder> :
         <Box
           animation={loading ? undefined : 'fadeIn'}
           className='thumbnailImage'
