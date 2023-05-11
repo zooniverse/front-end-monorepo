@@ -56,8 +56,7 @@ const ownerUser = {
 
 export default {
   title: 'Project App / Screens / About Pages / TeamMember',
-  component: TeamMember,
-  decorators: [RouterMock]
+  component: TeamMember
 }
 
 export const Default = () => (
