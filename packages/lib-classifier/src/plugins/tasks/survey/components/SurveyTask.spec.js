@@ -11,7 +11,7 @@ describe('SurveyTask', function () {
       let filterButton, choiceButtons, choicesShowingCount, clearFiltersButton
 
       before(function () {
-        const DefaultStory = composeStory(Default, Meta, projectAnnotations)
+        const DefaultStory = composeStory(Default, Meta, projectAnnotations.default)
         render(<DefaultStory />)
         // filterButton is the Filter button above the choices
         filterButton = screen.queryByLabelText('SurveyTask.CharacteristicsFilter.filter')
@@ -54,7 +54,7 @@ describe('SurveyTask', function () {
       let filterButton, choiceButtons, choicesShowingCount, clearFiltersButton
 
       before(function () {
-        const NoFiltersStory = composeStory(NoFilters, Meta, projectAnnotations)
+        const NoFiltersStory = composeStory(NoFilters, Meta, projectAnnotations.default)
         render(<NoFiltersStory />)
         // filterButton is the Filter button above the choices
         filterButton = screen.queryByLabelText('SurveyTask.CharacteristicsFilter.filter')

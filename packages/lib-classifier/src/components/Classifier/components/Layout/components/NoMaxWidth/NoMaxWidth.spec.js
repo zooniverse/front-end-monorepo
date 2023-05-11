@@ -7,7 +7,7 @@ import Meta, { Default, mockTask } from './NoMaxWidth.stories.js'
 
 describe('Component > Layouts > NoMaxWidth', function () {
   it('should render a subject and a task', function () {
-    const DefaultStory = composeStory(Default, Meta, projectAnnotations)
+    const DefaultStory = composeStory(Default, Meta, projectAnnotations.default)
     render(<DefaultStory />)
     expect(screen.getByLabelText('Subject 1')).exists() // img aria-label from SVGImage
     expect(screen.getByText(mockTask.init.strings.question)).exists() // task question paragraph

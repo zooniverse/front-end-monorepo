@@ -8,8 +8,8 @@ import * as projectAnnotations from '../../../../../../../.storybook/preview'
 import Meta, { Default, TextLocationFirst } from './ImageAndTextViewer.stories'
 
 describe('ImageAndTextViewer', function () {
-  const DefaultStory = composeStory(Default, Meta, projectAnnotations)
-  const TextLocationFirstStory = composeStory(TextLocationFirst, Meta, projectAnnotations)
+  const DefaultStory = composeStory(Default, Meta, projectAnnotations.default)
+  const TextLocationFirstStory = composeStory(TextLocationFirst, Meta, projectAnnotations.default)
   
   describe('with loading state of error', function () {
     it('should render "Something went wrong."', function () {

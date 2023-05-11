@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event'
 import * as projectAnnotations from '../../../../../../../.storybook/preview'
 
 describe('Component > FlipbookViewer', function () {
-  const DefaultStory = composeStory(Default, Meta, projectAnnotations)
+  const DefaultStory = composeStory(Default, Meta, projectAnnotations.default)
 
   describe('with a valid subject', function () {
     it('should render the correct number of thumbnnails', function () {
@@ -63,7 +63,7 @@ describe('Component > FlipbookViewer', function () {
   })
 
   describe('without a subject', function () {
-    const NoSubjectStory = composeStory(NoSubject, Meta, projectAnnotations)
+    const NoSubjectStory = composeStory(NoSubject, Meta, projectAnnotations.default)
 
     it('should display an error message and no image element ', function () {
       const { container } = render(<NoSubjectStory />)

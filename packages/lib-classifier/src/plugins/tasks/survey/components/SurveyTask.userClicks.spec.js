@@ -9,7 +9,7 @@ import Meta, { Default } from './SurveyTask.stories'
 describe('SurveyTask with user clicks', function () {
   // this turns off Mocha's time limit for slow tests
   this.timeout(0)
-  const DefaultStory = composeStory(Default, Meta, projectAnnotations)
+  const DefaultStory = composeStory(Default, Meta, projectAnnotations.default)
 
   describe('when the Filter button is clicked', function () {
     let user, filterButton
