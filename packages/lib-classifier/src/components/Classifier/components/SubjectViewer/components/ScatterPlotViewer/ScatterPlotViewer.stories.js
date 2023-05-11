@@ -4,7 +4,9 @@ import { darken } from 'polished'
 import ScatterPlotViewer from './ScatterPlotViewer'
 import ScatterPlotViewerConnector from './ScatterPlotViewerConnector'
 import { Provider } from 'mobx-react'
+
 import SubjectViewerStore from '@store/SubjectViewerStore'
+import mockStore from '@test/mockStore'
 import ImageToolbar from '../../../ImageToolbar'
 import {
   keplerMockDataWithOptions,
@@ -36,31 +38,20 @@ const transientObjectSubject = Factory.build('subject', {
   ]
 })
 
-const mockStore = {
-  classifications: {
-    active: {
-      annotations: new Map()
-    }
-  },
-  fieldGuide: {
-    setActiveItemIndex: () => {},
-    setModalVisibility: () => {}
-  },
-  subjects: {
-    active: transientObjectSubject
-  },
-  subjectViewer: SubjectViewerStore.create({}),
-  workflows: {
-    active: {}
-  },
-  workflowSteps: {
-    activeStepTasks: []
-  }
-}
+const storeWithTransientSubject = mockStore({ subject: transientObjectSubject })
 
-function ViewerContext(props) {
-  const { children } = props
-  return <Provider classifierStore={mockStore}>{children}</Provider>
+const superWaspSubject = Factory.build('subject', {
+  locations: [
+    { 'application/json': 'https://panoptes-uploads.zooniverse.org/subject_location/f311cd2a-f6c7-4cc2-a411-0e32c5ff55e3.json'}
+  ]
+})
+
+
+function ViewerContext({
+  store = storeWithTransientSubject,
+  children
+}) {
+  return <Provider classifierStore={store}>{children}</Provider>
 }
 
 export default {
@@ -121,23 +112,25 @@ export function ErrorBars() {
   ]
 
   return (
-    <Box direction='row' height='medium' width='large'>
-      <ScatterPlotViewer
-        data={data}
-        panning
-        setOnZoom={setZoomCallback}
-        xAxisLabel='x-axis'
-        yAxisLabel='y-axis'
-        zooming
-        zoomConfiguration={{
-          direction: 'both',
-          minZoom: 1,
-          maxZoom: 10,
-          zoomInValue: 1.2,
-          zoomOutValue: 0.8
-        }}
-      />
-    </Box>
+    <ViewerContext>
+      <Box direction='row' height='medium' width='large'>
+        <ScatterPlotViewer
+          data={data}
+          panning
+          setOnZoom={setZoomCallback}
+          xAxisLabel='x-axis'
+          yAxisLabel='y-axis'
+          zooming
+          zoomConfiguration={{
+            direction: 'both',
+            minZoom: 1,
+            maxZoom: 10,
+            zoomInValue: 1.2,
+            zoomOutValue: 0.8
+          }}
+        />
+      </Box>
+    </ViewerContext>
   )
 }
 
@@ -195,3 +188,51 @@ export function MultipleSeries() {
     </ViewerContext>
   )
 }
+
+export function XRangeSelection() {
+  return (
+    <ViewerContext store={XRangeSelection.store}>
+      <Box direction='row' height='medium' width='large'>
+        <ScatterPlotViewerConnector
+          experimentalSelectionTool
+          zoomConfiguration={{
+            direction: 'x',
+            minZoom: 1,
+            maxZoom: 10,
+            zoomInValue: 1.2,
+            zoomOutValue: 0.8
+          }}
+        />
+        <ImageToolbar width='4rem' />
+      </Box>
+    </ViewerContext>
+  )
+}
+XRangeSelection.store = mockStore({ subject: superWaspSubject })
+
+export function SelectedXRanges() {
+  const initialSelections = [
+    { x0: 95, x1: 101 },
+    { x0: 114, x1: 118 }
+  ]
+  return (
+    <ViewerContext store={SelectedXRanges.store}>
+      <Box direction='row' height='medium' width='large'>
+        <ScatterPlotViewerConnector
+          disabled
+          experimentalSelectionTool
+          initialSelections={initialSelections}
+          zoomConfiguration={{
+            direction: 'x',
+            minZoom: 1,
+            maxZoom: 10,
+            zoomInValue: 1.2,
+            zoomOutValue: 0.8
+          }}
+        />
+        <ImageToolbar width='4rem' />
+      </Box>
+    </ViewerContext>
+  )
+}
+SelectedXRanges.store = mockStore({ subject: superWaspSubject })

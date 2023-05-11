@@ -198,6 +198,11 @@
         "nextFrameLabel": "Next"
       }
     },
+    "ScatterPlotViewer": {
+      "Selection": {
+        "delete": "Delete selection {{index}}"
+      }
+    },
     "SeparateFramesViewer": {
       "ViewModeButton": {
         "switchToSeparateFrames": "Switch to separate frames view",

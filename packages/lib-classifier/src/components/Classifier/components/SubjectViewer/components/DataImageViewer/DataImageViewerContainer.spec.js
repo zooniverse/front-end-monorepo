@@ -1,9 +1,12 @@
 import { mount } from 'enzyme'
+import { getSnapshot } from 'mobx-state-tree'
 import React from 'react';
 import DataImageViewerContainer from './DataImageViewerContainer'
 import DataImageViewer from './DataImageViewer'
 import nock from 'nock'
 import sinon from 'sinon'
+
+import SubjectType from '@store/SubjectStore/SubjectType'
 import kepler from '../../helpers/mockLightCurves/kepler'
 import variableStar from '../../helpers/mockLightCurves/variableStar'
 
@@ -11,30 +14,34 @@ import { Factory } from 'rosie'
 
 describe('Component > DataImageViewerContainer', function () {
   const theme = {}
-  const subject = Factory.build('subject', {
+  const subjectSnapshot = Factory.build('subject', {
     locations: [
       { 'application/json': 'http://localhost:8080/mockData.json' },
       { 'image/png': 'http://localhost:8080/image1.png' }
     ]
   })
+  const subject = SubjectType.create(subjectSnapshot)
 
-  const nextSubject = Factory.build('subject', {
+  const nextSubjectSnapshot = Factory.build('subject', {
     locations: [
       { 'application/json': 'http://localhost:8080/nextSubject.json' },
       { 'image/png': 'http://localhost:8080/image2.png' }
     ]
   })
+  const nextSubject = SubjectType.create(nextSubjectSnapshot)
 
   const subjectJSON = kepler
   const nextSubjectJSON = variableStar
 
-  const imageSubject = Factory.build('subject')
+  const imageSubjectSnapshot = Factory.build('subject')
+  const imageSubject = SubjectType.create(imageSubjectSnapshot)
 
-  const failSubject = Factory.build('subject', {
+  const failSubjectSnapshot = Factory.build('subject', {
     locations: [
       { 'application/json': 'http://localhost:8080/failure.json' }
     ]
   })
+  const failSubject = SubjectType.create(failSubjectSnapshot)
 
   it('should render without crashing', function () {
     const wrapper = mount(<DataImageViewerContainer />)
@@ -130,7 +137,7 @@ describe('Component > DataImageViewerContainer', function () {
     it('should set the component state and pass it as a prop with the image location source', function (done) {
       const onReadySpy = sinon.stub().callsFake(() => {
         wrapper.update()
-        expect(wrapper.find(DataImageViewer).props().imageLocation).to.deep.equal({ 'image/png': 'http://localhost:8080/image1.png' })
+        expect(getSnapshot(wrapper.find(DataImageViewer).props().imageLocation)).to.deep.equal({ 'image/png': 'http://localhost:8080/image1.png' })
         done()
       })
       const wrapper = mount(
@@ -161,7 +168,7 @@ describe('Component > DataImageViewerContainer', function () {
         wrapper.update()
         const dataImageViewer = wrapper.find(DataImageViewer)
         expect(dataImageViewer.props().jsonData).to.deep.equal(subjectJSON)
-        expect(dataImageViewer.props().imageLocation).to.deep.equal({ 'image/png': 'http://localhost:8080/image1.png' })
+        expect(getSnapshot(dataImageViewer.props().imageLocation)).to.deep.equal({ 'image/png': 'http://localhost:8080/image1.png' })
         advanceSubject()
       })
       wrapper = mount(
@@ -181,7 +188,7 @@ describe('Component > DataImageViewerContainer', function () {
           wrapper.update()
           const dataImageViewer = wrapper.find(DataImageViewer)
           expect(dataImageViewer.props().jsonData).to.deep.equal(nextSubjectJSON)
-          expect(dataImageViewer.props().imageLocation).to.deep.equal({ 'image/png': 'http://localhost:8080/image2.png' })
+          expect(getSnapshot(dataImageViewer.props().imageLocation)).to.deep.equal({ 'image/png': 'http://localhost:8080/image2.png' })
           done()
         })
         wrapper.setProps({

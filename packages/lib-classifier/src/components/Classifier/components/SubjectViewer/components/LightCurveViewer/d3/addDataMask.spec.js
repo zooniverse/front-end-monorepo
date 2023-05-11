@@ -27,7 +27,7 @@ describe('LightCurveViewer > d3 > addDataMask', function () {
 
   it('should append a clip path with the correct attributes to the selection', function () {
     addDataMask(d3svg, outerMargin, id)
-    expect(node.querySelectorAll(`clipPath#data-mask-${id}`)).to.have.lengthOf(1)
+    expect(node.querySelectorAll(`clippath#data-mask-${id}`)).to.have.lengthOf(1)
   })
 
   it('should append a rect with the correct attributes to the selection', function () {

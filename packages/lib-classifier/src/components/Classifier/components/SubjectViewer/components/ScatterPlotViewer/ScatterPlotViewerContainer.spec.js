@@ -6,34 +6,39 @@ import sinon from 'sinon'
 import ScatterPlotViewerContainer from './ScatterPlotViewerContainer'
 import ScatterPlotViewer from './ScatterPlotViewer'
 import { dataSeriesWithXErrors, keplerMockDataWithOptions } from './helpers/mockData'
+import SubjectType from '@store/SubjectStore/SubjectType'
 
 import { Factory } from 'rosie'
 
 
 
 describe('Component > ScatterPlotViewerContainer', function () {
-  const subject = Factory.build('subject', {
+  const subjectSnapshot = Factory.build('subject', {
     locations: [
       { 'application/json': 'http://localhost:8080/mockData.json' }
     ]
   })
+  const subject = SubjectType.create(subjectSnapshot)
 
-  const nextSubject = Factory.build('subject', {
+  const nextSubjectSnapshot = Factory.build('subject', {
     locations: [
       { 'application/json': 'http://localhost:8080/nextSubject.json' }
     ]
   })
+  const nextSubject = SubjectType.create(nextSubjectSnapshot)
 
   const subjectJSON = keplerMockDataWithOptions
   const nextSubjectJSON = dataSeriesWithXErrors
 
-  const imageSubject = Factory.build('subject')
+  const imageSubjectSnapshot = Factory.build('subject')
+  const imageSubject = SubjectType.create(imageSubjectSnapshot)
 
-  const failSubject = Factory.build('subject', {
+  const failSubjectSnapshot = Factory.build('subject', {
     locations: [
       { 'application/json': 'http://localhost:8080/failure.json' }
     ]
   })
+  const failSubject = SubjectType.create(failSubjectSnapshot)
 
   it('should render without crashing', function () {
     const wrapper = mount(<ScatterPlotViewerContainer />)

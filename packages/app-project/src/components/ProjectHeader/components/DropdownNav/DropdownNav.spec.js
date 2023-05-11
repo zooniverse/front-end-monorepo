@@ -31,7 +31,7 @@ describe('Component > ProjectHeader > Dropdown Nav', function () {
       render(<Default />)
       dropdownButton = screen.queryByRole('button', { name: 'ProjectHeader.exploreProject' })
       await user.click(dropdownButton)
-      navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+      navMenu = await screen.findByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
     })
 
     it('should show the menu button', function () {
@@ -60,7 +60,7 @@ describe('Component > ProjectHeader > Dropdown Nav', function () {
       render(<LoggedIn />)
       dropdownButton = screen.queryByRole('button', { name: 'ProjectHeader.exploreProject' })
       await user.click(dropdownButton)
-      navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+      navMenu = await screen.findByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
     })
 
     it('should show the menu button', function () {
@@ -87,7 +87,7 @@ describe('Component > ProjectHeader > Dropdown Nav', function () {
       render(<AdminMode />)
       dropdownButton = screen.queryByRole('button', { name: 'ProjectHeader.exploreProject' })
       await user.click(dropdownButton)
-      navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+      navMenu = await screen.findByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
     })
 
     it('should show the menu button', function () {

@@ -34,14 +34,14 @@ const FlipbookViewer = ({
   /** This initializes an image element from the subject's defaultFrame src url.
    * We do this so the SVGPanZoom has dimensions of the subject image.
    * We're assuming all frames in one subject have the same dimensions. */
-  const defaultFrameUrl = subject ? Object.values(subject.locations[defaultFrame])[0] : null
+  const defaultFrameLocation = subject ? subject.locations[defaultFrame] : null
   const { img, error, loading, subjectImage } = useSubjectImage({
-    src: defaultFrameUrl,
+    src: defaultFrameLocation.url,
     onReady,
     onError
   })
 
-  const viewerSrc = subject?.locations ? Object.values(subject.locations[currentFrame])[0] : ''
+  const viewerLocation = subject?.locations ? subject.locations[currentFrame] : ''
 
   useEffect(() => {
     enableRotation()
@@ -104,7 +104,7 @@ const FlipbookViewer = ({
               naturalHeight={img.naturalHeight}
               naturalWidth={img.naturalWidth}
               onDrag={onDrag}
-              src={viewerSrc}
+              src={viewerLocation.url}
               subjectID={subject.id}
             />
           </g>

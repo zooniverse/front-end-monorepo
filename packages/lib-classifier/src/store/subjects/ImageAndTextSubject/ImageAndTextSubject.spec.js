@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+import { getSnapshot } from 'mobx-state-tree'
 import sinon from 'sinon'
 
 import subjectViewers from '@helpers/subjectViewers'
@@ -41,7 +42,7 @@ describe('Model > ImageAndTextSubject', function () {
   })
 
   it('should have a `locations` property', function () {
-    expect(imageAndTextSubject.locations).to.deep.equal(imageAndTextSubjectSnapshot.locations)
+    expect(getSnapshot(imageAndTextSubject.locations)).to.deep.equal(imageAndTextSubjectSnapshot.locations)
   })
 
   it('should have two locations', function () {

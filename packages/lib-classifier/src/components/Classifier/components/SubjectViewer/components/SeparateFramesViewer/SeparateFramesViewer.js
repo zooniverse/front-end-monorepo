@@ -83,8 +83,8 @@ function SeparateFramesViewer({
       >
         {subject.locations?.map(location => (
           <SeparateFrame
-            frameUrl={Object.values(location)[0]}
-            key={Object.values(location)[0]}
+            frameUrl={location.url}
+            key={location.url}
             limitSubjectHeight={limitSubjectHeight}
             onError={onError}
             onReady={onReady}

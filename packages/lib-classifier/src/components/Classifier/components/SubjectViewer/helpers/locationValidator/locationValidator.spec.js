@@ -1,6 +1,10 @@
 import locationValidator from './locationValidator'
 
-const valid = [{ 'image/png': 'https://example.com/image.png' }]
+const valid = [{
+  type: 'image',
+  mimeType: 'image/png',
+  url: 'https://example.com/image.png'
+}]
 const invalid = [{ 'foo': 'bar' }]
 
 // Note that we only test a single location - locationValidator is applied to

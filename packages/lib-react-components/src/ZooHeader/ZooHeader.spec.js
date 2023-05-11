@@ -117,7 +117,7 @@ describe('ZooHeader', function () {
         zooLogo = screen.getByRole('img', { name: 'Zooniverse Logo' })
         const mainNavButton = screen.getByRole('button', { name: 'Main Navigation' })
         await user.click(mainNavButton)
-        mainNavList = screen.getByRole('menu', { name: 'Main Navigation' })
+        mainNavList = await screen.findByRole('menu', { name: 'Main Navigation' })
       })
 
       it('shows the Zooniverse logo', function () {
@@ -185,7 +185,7 @@ describe('ZooHeader', function () {
         render(<ZooHeader isAdmin isNarrow signIn={() => {}} signOut={() => {}} user={userProp} />)
         const mainNavButton = screen.getByRole('button', { name: 'Main Navigation' })
         await user.click(mainNavButton)
-        const mainNavList = screen.getByRole('menu', { name: 'Main Navigation' })
+        const mainNavList = await screen.findByRole('menu', { name: 'Main Navigation' })
         adminLink = within(mainNavList).getByRole('menuitem', { name: 'Admin' })
         userNavigation = screen.getByRole('navigation', { name: 'User account'})
         notifications = within(userNavigation).getByRole('link', { name: 'Notifications'})

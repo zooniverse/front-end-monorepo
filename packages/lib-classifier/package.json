@@ -25,8 +25,9 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.21.0",
-    "@sentry/browser": "~7.50.0",
+    "@sentry/browser": "~7.51.0",
     "@visx/axis": "~2.18.0",
+    "@visx/brush": "~3.0.1",
     "@visx/event": "~3.0.0",
     "@visx/glyph": "~3.0.0",
     "@visx/group": "~3.0.0",
@@ -70,7 +71,7 @@
     "@storybook/addon-essentials": "^7.0.7",
     "@storybook/react": "^7.0.7",
     "@storybook/react-webpack5": "^7.0.7",
-    "@testing-library/dom": "~8.20.0",
+    "@testing-library/dom": "~9.2.0",
     "@testing-library/react": "~12.1.2",
     "@testing-library/react-hooks": "~8.0.0",
     "@testing-library/user-event": "~14.4.0",
@@ -92,7 +93,7 @@
     "grommet-icons": "~4.10.0",
     "html-webpack-plugin": "~5.5.0",
     "ignore-styles": "~5.0.1",
-    "jsdom": "~21.1.0",
+    "jsdom": "~22.0.0",
     "mobx": "~6.9.0",
     "mobx-devtools-mst": "~0.9.21",
     "mobx-react": "~8.0.0",
@@ -115,9 +116,9 @@
     "style-loader": "~3.3.1",
     "styled-components": "~5.3.3",
     "superagent": "~8.0.0",
-    "webpack": "~5.81.0",
-    "webpack-cli": "~5.0.0",
-    "webpack-dev-server": "~4.13.1"
+    "webpack": "~5.82.0",
+    "webpack-cli": "~5.1.0",
+    "webpack-dev-server": "~4.15.0"
   },
   "eslintConfig": {
     "extends": [

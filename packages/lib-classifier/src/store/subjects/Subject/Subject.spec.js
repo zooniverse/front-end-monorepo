@@ -1,5 +1,7 @@
+import { getSnapshot } from 'mobx-state-tree'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
+
 import Subject from './Subject'
 import { ProjectFactory, SubjectFactory, WorkflowFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
@@ -23,7 +25,7 @@ describe('Model > Subject', function () {
   })
 
   it('should have a `locations` property', function () {
-    expect(subject.locations).to.deep.equal(stub.locations)
+    expect(getSnapshot(subject.locations)).to.deep.equal(stub.locations)
   })
 
   it('should not have transcription reductions', function () {

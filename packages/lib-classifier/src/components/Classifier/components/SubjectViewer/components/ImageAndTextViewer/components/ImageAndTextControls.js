@@ -164,10 +164,7 @@ const ImageAndTextControls = ({
               align='center'
             >
               {locations?.length &&
-                locations.map((location, index) => {
-                  const [mimeType] = Object.keys(locations[index])
-                  const [url] = Object.values(location)
-                  
+                locations.map(({ mimeType, url }, index) => {
                   const activeFrame = currentFrame === index
                   const tabIndex = activeFrame ? 0 : -1
 

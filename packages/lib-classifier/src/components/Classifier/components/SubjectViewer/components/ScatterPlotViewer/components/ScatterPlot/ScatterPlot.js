@@ -1,15 +1,13 @@
 import PropTypes from 'prop-types'
 import { Group } from '@visx/group'
 import cuid from 'cuid'
-import { lighten } from 'polished'
+
 import Background from '@viewers/components/SVGComponents/Background'
 import Chart from '@viewers/components/SVGComponents/Chart'
-import Axes from '../Axes'
-import getDataSeriesColor from '@viewers/helpers/getDataSeriesColor'
-import getDataSeriesSymbol from '@viewers/helpers/getDataSeriesSymbol'
-import isDataSeriesHighlighted from '@viewers/helpers/isDataSeriesHighlighted'
 import getZoomBackgroundColor from '@viewers/helpers/getZoomBackgroundColor'
 import sortDataPointsByHighlight from '@viewers/helpers/sortDataPointsByHighlight'
+import Axes from '../Axes'
+import { ScatterPlotSeries, Selections } from './components'
 
 import {
   getDataPoints,
@@ -47,13 +45,19 @@ const TRANSFORM_MATRIX = {
   translateY: 0
 }
 
-function ScatterPlot ({
+
+
+export default function ScatterPlot({
   axisColor = '',
   backgroundColor = '',
   children,
   data,
   dataPointSize = 25,
+  disabled = false,
+  experimentalSelectionTool = false,
   highlightedSeries,
+  initialSelections = [],
+  interactionMode = 'annotate',
   invertAxes = INVERT_AXES,
   margin = MARGIN,
   padding = PADDING,
@@ -81,6 +85,7 @@ function ScatterPlot ({
   yScale = null,
   zooming = false
 }) {
+
   const rangeParameters = {
     invertAxes,
     margin,
@@ -138,8 +143,10 @@ function ScatterPlot ({
       return { fill, left, width }
     })
   }
+
   return (
     <Chart
+      className='scatterPlot'
       height={parentHeight}
       width={parentWidth}
     >
@@ -151,6 +158,7 @@ function ScatterPlot ({
         />
       </clipPath>
       <Group
+        className='chartContent'
         clipPath={`url(#scatter-plot-${clipPathId})`}
         left={leftPosition}
         top={topPosition}
@@ -160,80 +168,35 @@ function ScatterPlot ({
             borderColor={(dark) ? colors['light-5'] : colors['dark-5']}
             fill={(dark) ? colors['light-3'] : colors['neutral-6']}
             height={plotHeight}
-            left={leftPosition}
-            top={topPosition}
             underlayParameters={underlayParameters}
             width={plotWidth}
           />}
-        {sortedDataPoints.map((series, seriesIndex) => {
-          const highlighted = isDataSeriesHighlighted({ highlightedSeries, seriesOptions: series?.seriesOptions })
-          const glyphColor = getDataSeriesColor({
-            defaultColors: Object.values(colors.drawingTools),
-            seriesOptions: series?.seriesOptions,
-            seriesIndex,
-            themeColors: colors,
-            highlighted
-          })
-
-          const errorBarColor = lighten(0.25, glyphColor)
-          const GlyphComponent = getDataSeriesSymbol({ seriesOptions: series?.seriesOptions, seriesIndex })
-
-          return series.seriesData.map((point, pointIndex) => {
-            let xErrorBarPoints, yErrorBarPoints
-            const { x, y, x_error, y_error } = point
-            const cx = xScaleTransformed(x)
-            const cy = yScaleTransformed(y)
-
-            if (x_error) {
-              xErrorBarPoints = {
-                x1: xScaleTransformed(x - x_error),
-                x2: xScaleTransformed(x + x_error)
-              }
-            }
-
-            if (y_error) {
-              yErrorBarPoints = {
-                y1: yScaleTransformed(y + y_error),
-                y2: yScaleTransformed(y - y_error)
-              }
-            }
-
-            return (
-              <g key={pointIndex}>
-                {x_error &&
-                  <line
-                    stroke={errorBarColor}
-                    strokeWidth={2}
-                    x1={xErrorBarPoints.x1}
-                    x2={xErrorBarPoints.x2}
-                    y1={cy}
-                    y2={cy}
-                  />}
-                {y_error &&
-                  <line
-                    stroke={errorBarColor}
-                    strokeWidth={2}
-                    x1={cx}
-                    x2={cx}
-                    y1={yErrorBarPoints.y1}
-                    y2={yErrorBarPoints.y2}
-                  />}
-                <GlyphComponent
-                  data-x={x}
-                  data-y={y}
-                  left={cx}
-                  size={dataPointSize}
-                  top={cy}
-                  fill={glyphColor}
-                  stroke={(highlighted) ? 'black' : colors['light-4']}
-                />
-              </g>
-            )
-          })
-        })}
+        {sortedDataPoints.map((series, seriesIndex) => (
+          <ScatterPlotSeries
+            key={`series-${seriesIndex}`}
+            colors={colors}
+            dataPointSize={dataPointSize}
+            highlightedSeries={highlightedSeries}
+            series={series}
+            seriesIndex={seriesIndex}
+            xScale={xScaleTransformed}
+            yScale={yScaleTransformed}
+          />
+        ))}
+        {children}
+        {experimentalSelectionTool && <Selections
+          colors={colors}
+          disabled={disabled || interactionMode !== 'annotate'}
+          height={plotHeight}
+          initialSelections={initialSelections}
+          margin={margin}
+          width={plotWidth}
+          xScale={xScaleTransformed}
+          yScale={yScaleTransformed}
+        />}
       </Group>
-      {children}
       <Group
+        className='chartAxes'
         left={leftPosition}
         top={margin.top}
       >
@@ -318,5 +281,3 @@ ScatterPlot.propTypes = {
   yScale: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   zooming: PropTypes.bool
 }
-
-export default ScatterPlot
