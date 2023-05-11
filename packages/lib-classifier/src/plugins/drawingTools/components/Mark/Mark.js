@@ -110,11 +110,7 @@ const Mark = forwardRef(function Mark(
       case 'Enter': {
         event.preventDefault()
         event.stopPropagation()
-        try {
-          openSubTaskPopup()
-        } catch (err) {
-          // this causes freehandLine to blow up when deleting a mark
-        }
+        openSubTaskPopup()
         onFinish(event)
         return false
       }

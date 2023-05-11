@@ -67,11 +67,7 @@ function draggable(WrappedComponent) {
       const { setPointerCapture } = this.wrappedComponent.current
       const { x, y, pointerId } = this.convertEvent(event)
       this.setState({ coords: { x, y }, dragging: true, pointerId })
-      try {
-        this.props.dragStart({ x, y, pointerId })
-      } catch (err) {
-        // this causes freehandLine to blow up when deleting a mark
-      }
+      this.props.dragStart({ x, y, pointerId })
       setPointerCapture &&
         this.wrappedComponent.current.setPointerCapture(pointerId)
     }

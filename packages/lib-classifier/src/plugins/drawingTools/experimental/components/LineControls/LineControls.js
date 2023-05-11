@@ -38,7 +38,17 @@ const LineControls = forwardRef(function LineControls({
   `
 
   function onEnterOrSpace(ev, func) {
-    if (ev.keyCode === 13 || ev.keyCode === 32) func()
+    if (ev.keyCode === 13 || ev.keyCode === 32) {
+      ev.preventDefault()
+      ev.stopPropagation()
+      return func(ev)
+    }
+  }
+
+  function deleteMark(event) {
+    event.preventDefault()
+    event.stopPropagation()
+    return onDelete(event)
   }
 
   const buttons = [
@@ -89,7 +99,7 @@ const LineControls = forwardRef(function LineControls({
     },
     {
       label: t('LineControls.delete'),
-      action: onDelete,
+      action: deleteMark,
       icon: {
         type: Trash,
         size: (10 / scale),
