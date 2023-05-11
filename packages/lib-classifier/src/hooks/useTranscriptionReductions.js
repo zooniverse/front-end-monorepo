@@ -1,3 +1,4 @@
+import { getType } from 'mobx-state-tree'
 import { useEffect, useState } from 'react'
 
 import SHOWN_MARKS from '@helpers/shownMarks'
@@ -23,14 +24,10 @@ export default function useTranscriptionReductions() {
     }
   } = useStores()
 
-  // NOTE: useFreehandLineReductions() and useTranscriptionReductions() are called regardless of reducer key
-  if (workflow.caesarReducer !== 'alice') return
+  const { loaded, caesarReductions } = useCaesarReductions(workflow.caesarReducer)
 
-  let { loaded, caesarReductions } = useCaesarReductions(workflow.caesarReducer)
-  
-  const lines = caesarReductions?.consensusLines(frame)
+  let lines = []
   const activeStepAnnotations = stepHistory?.latest.annotations
-
   // We expect there to only be one
   const [task] = findTasksByType('transcription')
   // We want to observe the marks array for changes, so pass that as a separate prop.
@@ -39,8 +36,12 @@ export default function useTranscriptionReductions() {
   const annotation = activeStepAnnotations.find(
     annotation => annotation.task === task?.taskKey
   )
-
   const invalidMark = !step?.isValid
+
+  if (loaded && getType(caesarReductions).name === 'TranscriptionReductions') {
+    lines = caesarReductions.consensusLines(frame)
+  }
+
   const visible = workflow?.usesTranscriptionTask &&
     loaded &&
     task?.shownMarks === SHOWN_MARKS.ALL &&

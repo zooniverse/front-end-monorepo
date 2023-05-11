@@ -1,3 +1,5 @@
+import { getType } from 'mobx-state-tree'
+
 import { useStores } from '@hooks'
 import { useCaesarReductions } from './'
 
@@ -15,37 +17,29 @@ export default function useFreehandLineReductions() {
     }
   } = useStores()
 
-  // NOTE: useFreehandLineReductions() and useTranscriptionReductions() are called regardless of reducer key
-  if (workflow.caesarReducer !== 'machine-learnt') return
-
   const { loaded, caesarReductions } = useCaesarReductions(workflow.caesarReducer)
 
-  const caesarMark = caesarReductions?.findCurrentTaskMark({
-    stepKey: step.stepKey,
-    tasks: step.tasks,
-    frame,
-  })
-
-  let task = step?.tasks[caesarMark?.taskIndex]
-  let tool = task?.tools[caesarMark?.toolIndex]
-  let marks = tool?.marks;
-  let marksjson = marks?.toJSON()
-
-  if (marks && caesarMark && marksjson[caesarMark.markId] === undefined) {
-    tool.createMark({
-      frame: caesarMark.frame,
-      id: caesarMark.markId,
-      toolIndex: caesarMark.toolIndex,
-      pathX: caesarMark.pathX,
-      pathY: caesarMark.pathY
+  if (loaded && getType(caesarReductions).name === 'FreehandLineReductions') {
+    const caesarMark = caesarReductions.findCurrentTaskMark({
+      stepKey: step.stepKey,
+      tasks: step.tasks,
+      frame,
     })
+
+    if (caesarMark) {
+      const { frame, markId: id, taskIndex, toolIndex, pathX, pathY } = caesarMark
+      const task = step?.tasks[taskIndex]
+      const tool = task?.tools[toolIndex]
+
+      if (tool && !tool.marks.has(id)) {
+        tool.createMark({ frame, id, toolIndex, pathX, pathY })
+      }
+    }
   }
 
   const [drawingTask] = findTasksByType('drawing')
-  const drawingMarks = drawingTask?.marks
 
   return {
-    task: drawingTask,
-    marks: drawingMarks,
+    task: drawingTask
   }
 }

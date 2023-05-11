@@ -82,9 +82,11 @@ const Workflow = types
     },
 
     get usesFreehandLineTool() {
-      const anyFreehandLineTool = self.tasks && Object.values(self.tasks).some(task => {
-        return task.tools.some(tool => tool.type === 'freehandLine')
-      })
+      const anyFreehandLineTool = self.tasks && Object.values(self.tasks)
+        .filter(task => !!task.tools)
+        .some(task => {
+          return task.tools.some(tool => tool.type === 'freehandLine')
+        })
 
       return anyFreehandLineTool
     }
