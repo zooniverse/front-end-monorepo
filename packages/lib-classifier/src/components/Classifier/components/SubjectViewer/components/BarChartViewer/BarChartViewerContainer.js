@@ -1,5 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { observer } from 'mobx-react'
+import { getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 
 import { useSubjectJSON } from '@hooks'
@@ -34,7 +35,7 @@ export function BarChartViewerContainer({
       xAxisLabel,
       yAxisLabel
     }
-  } = jsonData
+  } = getSnapshot(jsonData)
 
   return (
     <BarChartViewer

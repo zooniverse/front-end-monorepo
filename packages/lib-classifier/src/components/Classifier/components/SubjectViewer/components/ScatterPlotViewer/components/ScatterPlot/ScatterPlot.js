@@ -51,6 +51,7 @@ export default function ScatterPlot({
   axisColor = '',
   backgroundColor = '',
   children,
+  color = '',
   data,
   dataPointSize = 25,
   disabled = false,
@@ -174,6 +175,7 @@ export default function ScatterPlot({
         {sortedDataPoints.map((series, seriesIndex) => (
           <ScatterPlotSeries
             key={`series-${seriesIndex}`}
+            color={color}
             colors={colors}
             dataPointSize={dataPointSize}
             highlightedSeries={highlightedSeries}

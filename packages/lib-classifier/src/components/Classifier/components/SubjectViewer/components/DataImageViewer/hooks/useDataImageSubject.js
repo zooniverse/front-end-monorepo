@@ -1,3 +1,5 @@
+import { getSnapshot } from 'mobx-state-tree'
+
 import { useSubjectJSON } from '@hooks'
 
 export default function useDataImageSubject({
@@ -13,7 +15,7 @@ export default function useDataImageSubject({
   let imageLocation = null
 
   if (data && !loading) {
-    jsonData = data
+    jsonData = getSnapshot(data)
   }
 
   const locations = subject.locations.filter(location => location.type === 'image')

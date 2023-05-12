@@ -11,34 +11,34 @@ import {
 import { Factory } from 'rosie'
 import SubjectType from '@store/SubjectStore/SubjectType'
 
-const subjectSnapshot = Factory.build('subject', {
-  locations: [
-    { 'application/json': 'http://localhost:8080/mockData.json' }
-  ]
-})
-const subject = SubjectType.create(subjectSnapshot)
-
-const nextSubjectSnapshot = Factory.build('subject', {
-  locations: [
-    { 'application/json': 'http://localhost:8080/nextSubject.json' }
-  ]
-})
-const nextSubject = SubjectType.create(nextSubjectSnapshot)
-
-const subjectJSON = variableStarAmplitudeMockData
-const nextSubjectJSON = variableStarPeriodMockData
-
-const imageSubjectSnapshot = Factory.build('subject')
-const imageSubject = SubjectType.create(imageSubjectSnapshot)
-
-const failSubjectSnapshot = Factory.build('subject', {
-  locations: [
-    { 'application/json': 'http://localhost:8080/failure.json' }
-  ]
-})
-const failSubject = SubjectType.create(failSubjectSnapshot)
-
 describe('Component > BarChartViewerContainer', function () {
+  const subjectSnapshot = Factory.build('subject', {
+    locations: [
+      { 'application/json': 'http://localhost:8080/mockData.json' }
+    ]
+  })
+  const subject = SubjectType.create(subjectSnapshot)
+
+  const nextSubjectSnapshot = Factory.build('subject', {
+    locations: [
+      { 'application/json': 'http://localhost:8080/nextSubject.json' }
+    ]
+  })
+  const nextSubject = SubjectType.create(nextSubjectSnapshot)
+
+  const subjectJSON = variableStarAmplitudeMockData
+  const nextSubjectJSON = variableStarPeriodMockData
+
+  const imageSubjectSnapshot = Factory.build('subject')
+  const imageSubject = SubjectType.create(imageSubjectSnapshot)
+
+  const failSubjectSnapshot = Factory.build('subject', {
+    locations: [
+      { 'application/json': 'http://localhost:8080/failure.json' }
+    ]
+  })
+  const failSubject = SubjectType.create(failSubjectSnapshot)
+
   it('should render without crashing', function () {
     const wrapper = mount(<BarChartViewerContainer />)
     expect(wrapper).to.be.ok()
@@ -148,7 +148,7 @@ describe('Component > BarChartViewerContainer', function () {
         const bcv = wrapper.find(BarChartViewer)
         const { data, chartOptions } = subjectJSON
         const { margin, xAxisLabel, yAxisLabel } = chartOptions
-      
+
         expect(bcv.props()).to.deep.equal({ data, margin, xAxisLabel, yAxisLabel })
         done()
       })

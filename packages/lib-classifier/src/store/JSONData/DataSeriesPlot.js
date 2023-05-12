@@ -23,10 +23,11 @@ const ZoomConfiguration = types.model('ZoomConfiguration', {
 })
 
 const ChartOptions = types.model('ChartOptions', {
+  color: types.maybe(types.string),
   xAxisLabel: types.string,
-  xAxisLabelOffset: types.optional(types.number, 0),
+  xAxisLabelOffset: types.maybe(types.number),
   yAxisLabel: types.string,
-  yAxisLabelOffset: types.optional(types.number, 0),
+  yAxisLabelOffset: types.maybe(types.number),
   invertAxes: types.maybe(InvertAxes),
   margin: types.maybe(CSSBox),
   padding: types.maybe(CSSBox),
@@ -43,7 +44,8 @@ const DataPoint = types.model('DataPoint', {
 const SeriesOptions = types.model('SeriesOptions', {
   glyph: types.maybe(types.enumeration(['circle', 'cross', 'diamond', 'square', 'star', 'triangle', 'wye'])),
   label: types.string,
-  color: types.maybe(types.string)
+  color: types.maybe(types.string),
+  period: types.maybe(types.number)
 })
 
 const DataSeries = types.model('DataSeries', {
@@ -51,9 +53,9 @@ const DataSeries = types.model('DataSeries', {
   seriesOptions: types.maybe(SeriesOptions)
 })
 
-const DataSeriesPlot = types.model('DataSeriesPlot', {
-  data: types.union(types.array(DataSeries), TESSLightCurve),
+const ChartData = types.refinement('ChartData', types.array(DataSeries), value => value.length > 0)
+
+export default types.model('DataSeriesPlot', {
+  data: types.union(ChartData, TESSLightCurve),
   chartOptions: types.maybe(ChartOptions)
 })
-
-export default types.frozen(DataSeriesPlot)

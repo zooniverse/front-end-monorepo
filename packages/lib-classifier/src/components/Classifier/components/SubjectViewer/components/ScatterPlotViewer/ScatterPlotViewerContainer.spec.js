@@ -136,9 +136,9 @@ describe('Component > ScatterPlotViewerContainer', function () {
         expect(scatterPlotViewerProps.margin).to.deep.equal(chartOptions.margin)
         expect(scatterPlotViewerProps.padding).to.deep.equal(chartOptions.padding)
         expect(scatterPlotViewerProps.xAxisLabel).to.equal(chartOptions.xAxisLabel)
-        expect(scatterPlotViewerProps.xAxisLabelOffset).to.equal(chartOptions.xAxisLabelOffset)
+        expect(scatterPlotViewerProps.xAxisLabelOffset).to.be.undefined()
         expect(scatterPlotViewerProps.yAxisLabel).to.equal(chartOptions.yAxisLabel)
-        expect(scatterPlotViewerProps.yAxisLabelOffset).to.equal(chartOptions.yAxisLabelOffset)
+        expect(scatterPlotViewerProps.yAxisLabelOffset).to.be.undefined()
         advanceSubject()
       })
       wrapper = mount(
@@ -160,7 +160,8 @@ describe('Component > ScatterPlotViewerContainer', function () {
           // We set the state to be structured in the expected way
           // undefined options are passed and
           // child component falls back to default props so viewer can still render
-          expect(scatterPlotViewerProps.data).to.deep.equal(nextSubjectJSON.data)
+          expect(scatterPlotViewerProps.data.seriesData).to.deep.equal(nextSubjectJSON.data.seriesData)
+          expect(scatterPlotViewerProps.data.seriesOptions).to.be.undefined()
           expect(scatterPlotViewerProps.margin).to.be.undefined()
           expect(scatterPlotViewerProps.padding).to.be.undefined()
           expect(scatterPlotViewerProps.xAxisLabel).to.be.undefined()
@@ -201,7 +202,11 @@ describe('Component > ScatterPlotViewerContainer', function () {
       before(function () {
         const subjectWithZoomConfigJSON = { 
           ...keplerMockDataWithOptions,
-          chartOptions: { zoomConfiguration:  subjectZoomConfiguration }
+          chartOptions: {
+            xAxisLabel: 'Days',
+            yAxisLabel: 'Brightness',
+            zoomConfiguration:  subjectZoomConfiguration
+          }
         }
         nockScope = nock('http://localhost:8080')
           .persist(true)

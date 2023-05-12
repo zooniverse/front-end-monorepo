@@ -10,6 +10,11 @@ Object.defineProperty(subjectViewers, 'flipbook', {
   enumerable: true
 })
 
+Object.defineProperty(subjectViewers, 'jsonData', {
+  value: 'jsonData',
+  enumerable: true
+})
+
 Object.defineProperty(subjectViewers, 'imageAndText', {
   value: 'imageAndText',
   enumerable: true

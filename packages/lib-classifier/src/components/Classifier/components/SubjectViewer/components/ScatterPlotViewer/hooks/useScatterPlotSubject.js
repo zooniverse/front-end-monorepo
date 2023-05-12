@@ -1,3 +1,5 @@
+import { getSnapshot } from 'mobx-state-tree'
+
 import { useSubjectJSON } from '@hooks'
 
 export default function useScatterPlotSubject({
@@ -13,10 +15,10 @@ export default function useScatterPlotSubject({
 
   if (data && !loading) {
     if (data.data) {
-      jsonData = data
+      jsonData = getSnapshot(data)
     } else {
       jsonData = {
-        data,
+        data: getSnapshot(data),
         chartOptions: {}
       }
     }
