@@ -1,6 +1,6 @@
 import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
-import projectAnnotations from '../../../../../../../.storybook/preview'
+import projectAnnotations from '../../../../../../.storybook/preview'
 
 import Meta, { Default } from './HighlighterTask.stories'
 

@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
-import projectAnnotations from '../../../../../../../.storybook/preview'
+import projectAnnotations from '../../../../../.storybook/preview'
 
 import Meta, { Default, NoFiltersNoInstruction } from './SurveyTask.stories'
 
@@ -9,7 +9,7 @@ describe('SurveyTask', function () {
   describe('when choices are showing / without a selected choice', function () {
     describe('with task instruction', function () {
       it('should show the instruction', function () {
-        const DefaultStory = composeStory(Default, Meta, globalConfig)
+        const DefaultStory = composeStory(Default, Meta, projectAnnotations)
         render(<DefaultStory />)
 
         const instruction = screen.findByText('Select the animals you see in the image.')

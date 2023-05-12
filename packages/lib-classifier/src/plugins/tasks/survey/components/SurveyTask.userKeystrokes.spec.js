@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import { composeStory } from '@storybook/react'
 import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import projectAnnotations from '../../../../../../../.storybook/preview'
+import projectAnnotations from '../../../../../.storybook/preview'
 
 import Meta, { Default, NoFiltersNoInstruction } from './SurveyTask.stories'
 
