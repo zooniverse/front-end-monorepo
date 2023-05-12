@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import { composeStory } from '@storybook/react'
 import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import * as projectAnnotations from '../../../../../.storybook/preview'
+import projectAnnotations from '../../../../../../../.storybook/preview'
 
 import Meta, { Default, NoFilters } from './SurveyTask.stories'
 
@@ -10,8 +10,8 @@ describe('SurveyTask with user keystrokes', function () {
   // this turns off Mocha's time limit for slow tests
   this.timeout(0)
 
-  const DefaultStory = composeStory(Default, Meta, projectAnnotations.default)
-  const NoFiltersStory = composeStory(NoFilters, Meta, projectAnnotations.default)
+  const DefaultStory = composeStory(Default, Meta, projectAnnotations)
+  const NoFiltersStory = composeStory(NoFilters, Meta, projectAnnotations)
 
   describe('without filters', function() {
     let user, choiceButton, choiceButtons

@@ -3,13 +3,13 @@ import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import asyncStates from '@zooniverse/async-states'
-import * as projectAnnotations from '../../../../../../../.storybook/preview'
+import projectAnnotations from '../../../../../../../.storybook/preview'
 
 import Meta, { Default, TextLocationFirst } from './ImageAndTextViewer.stories'
 
 describe('ImageAndTextViewer', function () {
-  const DefaultStory = composeStory(Default, Meta, projectAnnotations.default)
-  const TextLocationFirstStory = composeStory(TextLocationFirst, Meta, projectAnnotations.default)
+  const DefaultStory = composeStory(Default, Meta, projectAnnotations)
+  const TextLocationFirstStory = composeStory(TextLocationFirst, Meta, projectAnnotations)
   
   describe('with loading state of error', function () {
     it('should render "Something went wrong."', function () {
