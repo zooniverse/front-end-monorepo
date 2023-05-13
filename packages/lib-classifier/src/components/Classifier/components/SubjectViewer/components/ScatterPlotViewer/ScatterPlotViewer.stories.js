@@ -1,8 +1,8 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box } from 'grommet'
 import { darken } from 'polished'
-import ScatterPlotViewer from './ScatterPlotViewer'
-import ScatterPlotViewerConnector from './ScatterPlotViewerConnector'
+import ScatterPlotViewer from './'
+import JSONDataViewer from '../JSONDataViewer'
 import { Provider } from 'mobx-react'
 
 import SubjectViewerStore from '@store/SubjectViewerStore'
@@ -163,7 +163,7 @@ export function PanAndZoom() {
   return (
     <ViewerContext>
       <Box direction='row' height='medium' width='large'>
-        <ScatterPlotViewerConnector
+        <JSONDataViewer
           zoomConfiguration={{
             direction: 'both',
             minZoom: 1,
@@ -182,7 +182,7 @@ export function MultipleSeries() {
   return (
     <ViewerContext>
       <Box direction='row' height='medium' width='large'>
-        <ScatterPlotViewerConnector />
+        <JSONDataViewer />
         <ImageToolbar width='4rem' />
       </Box>
     </ViewerContext>
@@ -193,7 +193,7 @@ export function XRangeSelection() {
   return (
     <ViewerContext store={XRangeSelection.store}>
       <Box direction='row' height='medium' width='large'>
-        <ScatterPlotViewerConnector
+        <JSONDataViewer
           experimentalSelectionTool
           zoomConfiguration={{
             direction: 'x',
@@ -218,7 +218,7 @@ export function SelectedXRanges() {
   return (
     <ViewerContext store={SelectedXRanges.store}>
       <Box direction='row' height='medium' width='large'>
-        <ScatterPlotViewerConnector
+        <JSONDataViewer
           disabled
           experimentalSelectionTool
           initialSelections={initialSelections}

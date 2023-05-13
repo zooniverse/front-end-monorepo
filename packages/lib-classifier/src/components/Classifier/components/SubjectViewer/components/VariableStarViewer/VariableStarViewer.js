@@ -9,9 +9,9 @@ import { withParentSize } from '@visx/responsive'
 import { SpacedText } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
 
-import { ScatterPlotViewer } from '../ScatterPlotViewer'
+import ScatterPlotViewer from '../ScatterPlotViewer'
 import { SingleImageViewerContainer } from '../SingleImageViewer'
-import { BarChartViewer } from '../BarChartViewer'
+import BarChartViewer from '../BarChartViewer'
 import Controls from './components/Controls'
 
 const VariableStarViewer = forwardRef((props, ref) => {

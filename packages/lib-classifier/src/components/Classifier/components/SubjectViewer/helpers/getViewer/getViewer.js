@@ -18,7 +18,7 @@ const viewers = {
   imageAndText: ImageAndTextViewer,
   lightCurve: LightCurveViewer,
   multiFrame: MultiFrameViewer,
-  scatterPlot: ScatterPlotViewer,
+  scatterPlot: JSONDataViewer,
   singleImage: SingleImageViewer,
   singleText: SingleTextViewer,
   singleVideo: SingleVideoViewer,

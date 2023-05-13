@@ -19,12 +19,14 @@ function storeMapper(classifierStore) {
       active: subject
     },
     subjectViewer: {
+      interactionMode,
       setOnZoom,
       setOnPan
     }
   } = classifierStore
 
   return {
+    interactionMode,
     setOnZoom,
     setOnPan,
     subject
@@ -67,7 +69,7 @@ function JSONDataViewer({
   onReady = DEFAULT_HANDLER,
   ...props
 }) {
-  const { subject, setOnPan, setOnZoom } = useStores(storeMapper)
+  const { interactionMode, subject, setOnPan, setOnZoom } = useStores(storeMapper)
   const { data: jsonData, loading, error, type, viewer } = useSubjectJSON({ onError, onReady, subject})
 
   if (loading) {
@@ -88,6 +90,7 @@ function JSONDataViewer({
     <Box ref={viewer} width='100%' height='500px'>
       <Viewer
         data={data}
+        interactionMode={interactionMode}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}
         zoomConfiguration={zoomConfiguration}
