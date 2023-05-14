@@ -176,7 +176,6 @@ export default function ScatterPlot({
           <ScatterPlotSeries
             key={`series-${seriesIndex}`}
             color={color}
-            colors={colors}
             dataPointSize={dataPointSize}
             highlightedSeries={highlightedSeries}
             series={series}

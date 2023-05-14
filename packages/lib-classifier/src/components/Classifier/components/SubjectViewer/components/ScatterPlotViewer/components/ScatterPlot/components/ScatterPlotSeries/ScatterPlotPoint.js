@@ -1,4 +1,5 @@
 import { lighten } from 'polished'
+import { useTheme } from 'styled-components'
 
 export default function ScatterPlotPoint({
   dataPointSize,
@@ -9,6 +10,11 @@ export default function ScatterPlotPoint({
   xScale,
   yScale
 }) {
+  const {
+    global: {
+      colors = {}
+    }
+  } = useTheme()
   let xErrorBarPoints, yErrorBarPoints
   const { x, y, x_error, y_error } = point
   const cx = xScale(x)
