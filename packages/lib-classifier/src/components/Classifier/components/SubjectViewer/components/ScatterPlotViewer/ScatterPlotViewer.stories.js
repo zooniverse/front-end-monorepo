@@ -135,25 +135,42 @@ export function ErrorBars() {
 }
 
 export function KeplerLightCurve() {
+  const tessChartOptions = {
+    axisColor: colors['light-1'],
+    backgroundColor: darken(0.08, colors['neutral-1']),
+    color: colors['light-1'],
+    margin: {
+      bottom: 10,
+      left: 10,
+      right: 10,
+      top: 10
+    },
+    padding: {
+      bottom: 30,
+      left: 30,
+      right: 0,
+      top: 0
+    },
+    tickDirection: 'inner',
+    xAxisLabel: 'Days',
+    yAxisLabel: 'Brightness',
+    zoomConfiguration: {
+      direction: 'x',
+      minZoom: 1,
+      maxZoom: 10,
+      zoomInValue: 1.2,
+      zoomOutValue: 0.8
+    }
+  }
   return (
     <Box height='medium' width='large'>
       <ScatterPlotViewer
-        axisColor={colors['light-1']}
-        backgroundColor={darken(0.08, colors['neutral-1'])}
         data={keplerMockDataWithOptions.data}
-        glyphColors={[colors['light-1']]}
+        {...tessChartOptions}
         margin={keplerMockDataWithOptions.chartOptions.margin}
         padding={keplerMockDataWithOptions.chartOptions.padding}
-        tickDirection='inner'
         xAxisLabel={keplerMockDataWithOptions.chartOptions.xAxisLabel}
         yAxisLabel={keplerMockDataWithOptions.chartOptions.yAxisLabel}
-        zoomConfiguration={{
-          direction: 'both',
-          minZoom: 1,
-          maxZoom: 10,
-          zoomInValue: 1.2,
-          zoomOutValue: 0.8
-        }}
       />
     </Box>
   )

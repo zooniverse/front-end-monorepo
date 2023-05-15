@@ -16,7 +16,7 @@ const viewers = {
   flipbook: FlipbookViewer,
   jsonData: JSONDataViewer,
   imageAndText: ImageAndTextViewer,
-  lightCurve: LightCurveViewer,
+  lightCurve: JSONDataViewer,
   multiFrame: MultiFrameViewer,
   scatterPlot: JSONDataViewer,
   singleImage: SingleImageViewer,

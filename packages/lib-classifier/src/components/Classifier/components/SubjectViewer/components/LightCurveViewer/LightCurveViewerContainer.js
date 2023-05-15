@@ -62,10 +62,10 @@ const SUBJECT = {
 }
 
 export function LightCurveViewerContainer({
+  data = null,
   drawFeedbackBrushes = DEFAULT_HANDLER,
   feedback = false,
   onKeyDown = DEFAULT_HANDLER,
-  subject = SUBJECT,
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER
@@ -81,24 +81,23 @@ export function LightCurveViewerContainer({
     setOnPan,
     setOnZoom
   } = useStores(storeMapper)
-  const { data: jsonData, viewer } = useSubjectJSON({ onError, onReady, subject })
 
   const { dataExtent, dataPoints } = useMemo(() => {
     let dataExtent = { x: [], y: [] }
     let dataPoints = []
 
-    if (jsonData?.x && jsonData?.y) {
+    if (data?.x && data?.y) {
       dataExtent = {
-        x: extent(jsonData.x),
-        y: extent(jsonData.y)
+        x: extent(data.x),
+        y: extent(data.y)
       }
-      dataPoints = zip(jsonData.x, jsonData.y)
+      dataPoints = zip(data.x, data.y)
     }
 
     return { dataExtent, dataPoints }
-  }, [jsonData])
+  }, [data])
 
-  if (!subject.id) {
+  if (!data) {
     return null
   }
 
@@ -114,7 +113,6 @@ export function LightCurveViewerContainer({
         enableAnnotate={enableAnnotate}
         enableMove={enableMove}
         feedback={feedback}
-        forwardRef={viewer}
         interactionMode={interactionMode}
         onKeyDown={onKeyDown}
         setOnPan={setOnPan}

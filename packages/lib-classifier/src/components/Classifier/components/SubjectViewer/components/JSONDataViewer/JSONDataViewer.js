@@ -4,13 +4,14 @@ import { observer } from 'mobx-react'
 import { darken } from 'polished'
 
 import { useStores, useSubjectJSON } from '@hooks'
-import BarChartViewer from '@viewers/components/BarChartViewer/BarChartViewer'
-import ScatterPlotViewer from '@viewers/components/ScatterPlotViewer/ScatterPlotViewer'
+import BarChartViewer from '@viewers/components/BarChartViewer'
+import LightCurveViewer from '@viewers/components/LightCurveViewer'
+import ScatterPlotViewer from '@viewers/components/ScatterPlotViewer'
 
 const viewers = {
   BarChart: BarChartViewer,
   DataSeriesPlot: ScatterPlotViewer,
-  TESSLightCurve: ScatterPlotViewer
+  TESSLightCurve: LightCurveViewer
 }
 
 function storeMapper(classifierStore) {
@@ -35,35 +36,6 @@ function storeMapper(classifierStore) {
 
 const DEFAULT_HANDLER = () => true
 
-const { colors } = zooTheme.global
-const TESSChartOptions = {
-  axisColor: colors['light-1'],
-  backgroundColor: darken(0.08, colors['neutral-1']),
-  color: colors['light-1'],
-  margin: {
-    bottom: 10,
-    left: 10,
-    right: 10,
-    top: 10
-  },
-  padding: {
-    bottom: 30,
-    left: 30,
-    right: 0,
-    top: 0
-  },
-  tickDirection: 'inner',
-  xAxisLabel: 'Days',
-  yAxisLabel: 'Brightness',
-  zoomConfiguration: {
-    direction: 'x',
-    minZoom: 1,
-    maxZoom: 10,
-    zoomInValue: 1.2,
-    zoomOutValue: 0.8
-  }
-}
-
 function JSONDataViewer({
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
@@ -80,9 +52,7 @@ function JSONDataViewer({
   }
 
   const Viewer = viewers[type.name]
-  const { chartOptions, data } = type.name === 'TESSLightCurve' ?
-    { chartOptions: TESSChartOptions, data: jsonData } :
-    jsonData
+  const { chartOptions, data } = type.name === 'TESSLightCurve' ? { data: jsonData } : jsonData
   const zoomConfiguration = chartOptions?.zoomConfiguration || subject?.viewerConfiguration?.zoomConfiguration
   const chartProps = { ...chartOptions, zoomConfiguration }
 

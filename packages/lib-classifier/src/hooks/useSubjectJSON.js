@@ -32,9 +32,11 @@ async function requestData(subject) {
   return responseData
 }
 
+const DEFAULT_HANDLER = () => true
+
 export default function useSubjectJSON({
-  onError,
-  onReady,
+  onError = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
   subject
 }) {
   const viewer = useRef()
