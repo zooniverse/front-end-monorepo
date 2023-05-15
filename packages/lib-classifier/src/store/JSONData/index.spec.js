@@ -13,6 +13,11 @@ describe('Models > JSONData', function () {
     return await response.json()
   }
 
+  async function variableStarSubject() {
+    const response = await fetch('https://panoptes-uploads.zooniverse.org/subject_location/d6b3a990-b284-456e-ab23-1e497d660779.json')
+    return await response.json()
+  }
+
   const barChartSnapshot = {
     data: [
       {
@@ -52,5 +57,12 @@ describe('Models > JSONData', function () {
     const barData = JSONData.create(barChartSnapshot)
     const dataType = getType(barData).name
     expect(dataType).to.equal('BarChart')
+  })
+
+  it('should load variable star data', async function () {
+    const variableStarSnapshot = await variableStarSubject()
+    const variableStarData = JSONData.create(variableStarSnapshot)
+    const dataType = getType(variableStarData).name
+    expect(dataType).to.equal('VariableStarPlots')
   })
 })
