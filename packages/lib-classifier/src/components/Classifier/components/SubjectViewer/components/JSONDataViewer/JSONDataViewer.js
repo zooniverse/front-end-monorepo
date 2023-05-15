@@ -57,7 +57,12 @@ function JSONDataViewer({
   const chartProps = { ...chartOptions, zoomConfiguration }
 
   return (
-    <Box ref={viewer} width='100%' height='500px'>
+    <Box
+      ref={viewer}
+      className={type.name}
+      width='100%'
+      height='500px'
+    >
       <Viewer
         data={data}
         interactionMode={interactionMode}
