@@ -1,4 +1,4 @@
-import { getType } from 'mobx-state-tree'
+import { getSnapshot, getType } from 'mobx-state-tree'
 import { useEffect, useRef, useState } from 'react'
 
 import JSONData from '@store/JSONData'
@@ -72,6 +72,11 @@ export default function useSubjectJSON({
   }, [subject])
 
   const loading = !data && !error
-  const type = data ? getType(data) : null
-  return { loading, data, error, type, viewer }
+  return {
+    loading,
+    data : data ? getSnapshot(data) : null,
+    error,
+    type: data ? getType(data) : null,
+    viewer
+  }
 }
