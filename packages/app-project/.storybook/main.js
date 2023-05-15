@@ -1,7 +1,3 @@
-const path = require('path')
-const webpack = require('webpack')
-const Dotenv = require('dotenv-webpack')
-
 const webpackConfig = require('../webpack.config')
 
 function webpackFinal(config, options) {
@@ -16,6 +12,7 @@ function webpackFinal(config, options) {
     },
     fallback: {
       ...webpackConfig.resolve.fallback,
+      "url": false,
       crypto: false,
       path: 'path-browserify'
     }
@@ -24,15 +21,20 @@ function webpackFinal(config, options) {
   return { ...config, resolve }
 }
 
-module.exports = {
-  core: {
-    builder: 'webpack5'
-  },
+const config = {
   stories: ['../src/**/*.stories.js'],
   addons: [
-    '@storybook/addon-essentials',
     '@storybook/addon-a11y',
+    '@storybook/addon-essentials',
     'storybook-react-i18next'
   ],
+  framework: {
+    name: '@storybook/nextjs',
+    options: {}
+  },
+  docs: {
+    autodocs: 'tag'
+  },
   webpackFinal
-};
+}
+export default config

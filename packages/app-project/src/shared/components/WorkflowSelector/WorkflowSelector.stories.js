@@ -4,7 +4,6 @@ import { Provider } from 'mobx-react'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
 
 import WorkflowSelector from './WorkflowSelector'
-import * as subcomponents from './components'
 
 const store = {
   project: {
@@ -82,7 +81,6 @@ export default {
   title: 'Project App / Shared / Workflow Selector',
   component: WorkflowSelector,
   decorators: [StoryContext],
-  subcomponents,
   argTypes: {
     userReadyState: {
       control: {

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { expect } from 'chai'
 import Meta, { OneColumn } from './SeparateFramesViewer.stories.js'
-import { composeStory } from '@storybook/testing-react'
+import { composeStory } from '@storybook/react'
 
 describe('Component > SeparateFramesViewer', function () {
   const OneColumnStory = composeStory(OneColumn, Meta)

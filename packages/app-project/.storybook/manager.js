@@ -3,7 +3,7 @@ import { create } from '@storybook/theming/create';
 
 const theme = create({
   base: 'light',
-  brandTitle: 'Zooniverse Project',
+  brandTitle: 'Zooniverse Project App',
 });
 
 addons.setConfig({

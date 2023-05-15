@@ -45,7 +45,7 @@ Starts a development server on port 3000 by default.
 yarn storybook
 ```
 
-Starts a Storybook server on port 9001 by default.
+Starts a Storybook server on port 9002 by default.
 
 ## Running in production
 

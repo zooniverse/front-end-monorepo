@@ -1,24 +1,16 @@
-function webpackFinal(config, options) {
-  const resolve = {
-    ...config.resolve,
-    fallback: {
-      crypto: false,
-      path: 'path-browserify'
-    }
-  }
-
-  return { ...config, resolve }
-}
-
-module.exports = {
-  core: {
-    builder: 'webpack5'
-  },
+const config = {
   stories: ['../src/**/*.stories.js'],
   addons: [
-    '@storybook/addon-essentials',
     '@storybook/addon-a11y',
+    '@storybook/addon-essentials',
     'storybook-react-i18next'
   ],
-  webpackFinal
+  framework: {
+    name: '@storybook/react-webpack5',
+    options: {}
+  },
+  docs: {
+    autodocs: 'tag'
+  }
 }
+export default config
