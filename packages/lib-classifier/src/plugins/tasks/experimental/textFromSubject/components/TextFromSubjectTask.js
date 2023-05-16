@@ -66,7 +66,7 @@ export default function TextFromSubjectTask ({
           autoFocus={autoFocus}
           disabled={disabled}
           id={`${task.taskKey}-${task.type}`}
-          rows={value?.split(/\r\n|\r|\n/).length + 1}
+          rows={value?.split(/\r\n|\r|\n/).length + 3}
           value={value}
           onChange={onChange}
         />
