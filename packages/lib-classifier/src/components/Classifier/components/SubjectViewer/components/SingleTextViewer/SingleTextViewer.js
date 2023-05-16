@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 
 /**
 The Single Text Viewer is a variant of the Subject Viewer that's used to display text media.
@@ -18,6 +18,7 @@ The `subjectId` is defined by the subject ID.
 
 const StyledPre = styled.pre`
   white-space: pre-wrap;
+  color: ${props => props.theme.dark ? 'inherit' : 'black'};
   font-family: 'Anonymous Pro', monospace;
   @font-face {
     font-family: 'Anonymous Pro';
@@ -35,7 +36,8 @@ const StyledPre = styled.pre`
 function SingleTextViewer ({
   content = [''],
   height = '',
-  subjectId = ''
+  subjectId = '',
+  theme = { dark: false }
 }) {
   return (
     <Box
@@ -46,7 +48,7 @@ function SingleTextViewer ({
       pad='xsmall'
       tabIndex='0'
     >
-      <StyledPre>
+      <StyledPre theme={theme}>
         {content}
       </StyledPre>
     </Box>
@@ -59,7 +61,11 @@ SingleTextViewer.propTypes = {
   /** Minimum height of the text viewer in CSS units eg. '400px', '0.25vh', '20rem' etc. */
   height: PropTypes.string,
   /** Subject ID */
-  subjectId: PropTypes.string
+  subjectId: PropTypes.string,
+  /** Theme */
+  theme: PropTypes.shape({
+    dark: PropTypes.bool
+  })
 }
 
-export default SingleTextViewer
+export default withTheme(SingleTextViewer)
