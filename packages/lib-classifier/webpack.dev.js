@@ -52,6 +52,9 @@ module.exports = {
       '@test': path.resolve(__dirname, 'test'),
       '@translations': path.resolve(__dirname, 'src/translations'),
       '@viewers': path.resolve(__dirname, 'src/components/Classifier/components/SubjectViewer')
+    },
+    fallback: {
+      "url": false,
     }
   },
   module: {
