@@ -1,6 +1,6 @@
 import * as stories from './SpacedHeading.stories'
 import { render } from '@testing-library/react'
-import { composeStories } from '@storybook/testing-react'
+import { composeStories } from '@storybook/react'
 
 describe('Component > SpacedHeading', function () {
   const { Default } = composeStories(stories)

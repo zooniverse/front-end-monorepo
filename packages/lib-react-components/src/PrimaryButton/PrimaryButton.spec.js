@@ -1,6 +1,6 @@
 import * as stories from './PrimaryButton.stories'
 import { render } from '@testing-library/react'
-import { composeStories } from '@storybook/testing-react'
+import { composeStories } from '@storybook/react'
 
 describe('Component > PrimaryButton', function () {
   const { Default } = composeStories(stories)

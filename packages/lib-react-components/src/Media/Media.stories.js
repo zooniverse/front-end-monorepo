@@ -3,7 +3,7 @@ import { Box, Text } from 'grommet'
 import Media from './Media'
 import ZooniverseLogo from '../ZooniverseLogo'
 
-/** This will not work with @storybook/testing-react composeStory function */
+/** This will not work with @storybook/react composeStory function */
 // import readme from './README.md'
 
 export default {
@@ -50,7 +50,7 @@ export function Image() {
         <Media alt='A galaxy' src={IMAGE_URL} height={100} />
       </Box>
       <Box>
-        <Text>Not setting the dimensions props defaults them to 999px</Text>
+        <Text>Without dimensions, the component should fall back to the original image.</Text>
         <Media alt='A galaxy' src={IMAGE_URL} />
       </Box>
     </>

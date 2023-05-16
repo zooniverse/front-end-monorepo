@@ -10,20 +10,21 @@
     "dev": "APP_ENV=${APP_ENV:-development} PANOPTES_ENV=${PANOPTES_ENV:-production} node server/server.js",
     "lint": "next lint",
     "start": "NODE_ENV=${NODE_ENV:-production} PANOPTES_ENV=${PANOPTES_ENV:-production} node server/server.js",
-    "storybook": "start-storybook -p 9002 -c .storybook",
     "test": "BABEL_ENV=test mocha --config ./test/.mocharc.json \"./{src,server,test}/**/*.spec.js\"",
-    "test:ci": "BABEL_ENV=test mocha --config ./test/.mocharc.json --reporter=min \"./{src,server,test}/**/*.spec.js\""
+    "test:ci": "BABEL_ENV=test mocha --config ./test/.mocharc.json --reporter=min \"./{src,server,test}/**/*.spec.js\"",
+    "storybook": "storybook dev -p 9002",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@sentry/browser": "~7.51.0",
-    "@sentry/node": "~7.51.0",
+    "@sentry/browser": "~7.52.1",
+    "@sentry/node": "~7.52.1",
     "@sentry/tracing": "~7.51.0",
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/grommet-theme": "~3.1.0",
     "@zooniverse/panoptes-js": "~0.2.0",
     "@zooniverse/react-components": "~1.5.0",
-    "contentful": "~10.1.0",
+    "contentful": "~10.2.0",
     "counterpart": "~0.18.6",
     "dotenv": "~16.0.1",
     "dotenv-webpack": "~8.0.0",
@@ -50,15 +51,11 @@
   },
   "devDependencies": {
     "@babel/register": "~7.21.0",
-    "@storybook/addon-a11y": "~6.5.0",
-    "@storybook/addon-essentials": "~6.5.0",
-    "@storybook/addon-knobs": "~6.4.0",
-    "@storybook/addon-links": "~6.5.0",
-    "@storybook/addon-storysource": "~6.5.0",
-    "@storybook/builder-webpack5": "~6.5.0",
-    "@storybook/manager-webpack5": "~6.5.0",
-    "@storybook/react": "~6.5.0",
-    "@testing-library/dom": "~9.2.0",
+    "@storybook/addon-a11y": "~7.0.10",
+    "@storybook/addon-essentials": "~7.0.10",
+    "@storybook/nextjs": "~7.0.10",
+    "@storybook/react": "~7.0.10",
+    "@testing-library/dom": "~9.3.0",
     "@testing-library/react": "~12.1.2",
     "@testing-library/user-event": "~14.4.0",
     "@wojtekmaj/enzyme-adapter-react-17": "~0.8.0",
@@ -72,7 +69,8 @@
     "proxyquire": "~2.1.0",
     "selfsigned": "~2.1.1",
     "sinon": "~15.0.0",
-    "sinon-chai": "~3.7.0"
+    "sinon-chai": "~3.7.0",
+    "storybook": "~7.0.10"
   },
   "engines": {
     "node": ">=18.13"

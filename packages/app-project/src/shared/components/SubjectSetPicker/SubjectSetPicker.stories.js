@@ -1,7 +1,6 @@
 import { Box } from 'grommet'
 
 import SubjectSetPicker from './'
-import * as subcomponents from './components'
 import { mockWorkflow } from './helpers'
 
 function DecoratedStory(Story) {
@@ -16,7 +15,6 @@ export default {
   title: 'Project App / Shared / Subject Set Picker',
   component: SubjectSetPicker,
   decorators: [DecoratedStory],
-  subcomponents,
   args: {
     workflow: mockWorkflow
   }

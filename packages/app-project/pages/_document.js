@@ -80,8 +80,8 @@ export default class MyDocument extends Document {
             <script dangerouslySetInnerHTML={{ __html: GA_TRACKING_SCRIPT }} />
           )}
           <script
-            src="https://browser.sentry-cdn.com/7.51.2/bundle.tracing.min.js"
-            integrity="sha384-N5vXqbPqX/LdeRxiZvbQRZ9llvpFyPH8Dpen43iJEJ25jh/EwQIBAAgiy38ZhfB9"
+            src="https://browser.sentry-cdn.com/7.52.1/bundle.tracing.min.js"
+            integrity="sha384-muuFXKS3752PNA4rPm9Uq6BLvOfV4CXyr9MHDBPvozOJJUWLKkogEFWOIRoVps43"
             crossorigin="anonymous"
             defer
             id='sentryScript'

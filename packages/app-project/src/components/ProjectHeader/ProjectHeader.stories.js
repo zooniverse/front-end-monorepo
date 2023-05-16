@@ -4,7 +4,6 @@ import { RouterContext } from 'next/dist/shared/lib/router-context'
 
 import initStore from '@stores'
 import ProjectHeader from './ProjectHeader.js'
-import * as subcomponents from './components'
 
 const mockRouter = {
   asPath: '/zooniverse/snapshot-serengeti/about/team',
@@ -20,8 +19,7 @@ const mockRouter = {
 
 export default {
   title: 'Project App / Shared / Project Header',
-  component: ProjectHeader,
-  subcomponents
+  component: ProjectHeader
 }
 
 export function NotLoggedIn({ adminMode, className, project }) {
