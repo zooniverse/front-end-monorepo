@@ -2415,20 +2415,20 @@
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
 
 "@storybook/addon-a11y@~7.0.10":
-  version "7.0.10"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-7.0.10.tgz#fceae98bc39026746c062701db01a47da754a6e4"
-  integrity sha512-uzCnpn70n1El4j4SSFx23tKGr9XDeCb1eF20Fo6RTAb/rBp7xmksXR532SDkKRXwBvXcKwdJh9NICNFzzWWnqg==
+  version "7.0.12"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-7.0.12.tgz#4c2f80d02fbab991b5992245da99457d0be8debb"
+  integrity sha512-mN0jcPBhkN7K5GjTDYabBjK0NxyePlj+S0vH7TdWqjJ9MwBqa0wy8g6zvbTPKoCWOuMBfcrQEKS0N3/O36tfcg==
   dependencies:
-    "@storybook/addon-highlight" "7.0.10"
-    "@storybook/channels" "7.0.10"
-    "@storybook/client-logger" "7.0.10"
-    "@storybook/components" "7.0.10"
-    "@storybook/core-events" "7.0.10"
+    "@storybook/addon-highlight" "7.0.12"
+    "@storybook/channels" "7.0.12"
+    "@storybook/client-logger" "7.0.12"
+    "@storybook/components" "7.0.12"
+    "@storybook/core-events" "7.0.12"
     "@storybook/global" "^5.0.0"
-    "@storybook/manager-api" "7.0.10"
-    "@storybook/preview-api" "7.0.10"
-    "@storybook/theming" "7.0.10"
-    "@storybook/types" "7.0.10"
+    "@storybook/manager-api" "7.0.12"
+    "@storybook/preview-api" "7.0.12"
+    "@storybook/theming" "7.0.12"
+    "@storybook/types" "7.0.12"
     axe-core "^4.2.0"
     lodash "^4.17.21"
     react-resize-detector "^7.1.2"
@@ -2565,6 +2565,15 @@
     "@storybook/core-events" "7.0.10"
     "@storybook/global" "^5.0.0"
     "@storybook/preview-api" "7.0.10"
+
+"@storybook/addon-highlight@7.0.12":
+  version "7.0.12"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-highlight/-/addon-highlight-7.0.12.tgz#4b5ff3e347d983c7fc3ae4e6a26514931053be8a"
+  integrity sha512-ccIsBVjUlZ7cM1adSSFTqqWXiELPdDqfZLz4dWfDbiLyG3InC953ugtvoUWCIZpC2OOnjVLpF7Rbshq2O/QoMw==
+  dependencies:
+    "@storybook/core-events" "7.0.12"
+    "@storybook/global" "^5.0.0"
+    "@storybook/preview-api" "7.0.12"
 
 "@storybook/addon-measure@7.0.10":
   version "7.0.10"
@@ -5335,15 +5344,10 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.11.0.tgz#d61f46d83b2519250e2784daf5b09479a8b41c59"
   integrity sha512-xh1Rl34h6Fi1DC2WWKfxUTVqRsNnr6LsKz2+hfwDxQJWmrx8+c7ylaqBMcHfl1U1r2dsifOvKX3LQuLNZ+XSvA==
 
-axe-core@^4.2.0:
+axe-core@^4.2.0, axe-core@^4.6.2:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.7.0.tgz#34ba5a48a8b564f67e103f0aa5768d76e15bbbbf"
   integrity sha512-M0JtH+hlOL5pLQwHOLNYZaXuhqmvS8oExsqB1SBYgA4Dk7u/xx+YdGHXaK5pyUfed5mYXdlYiphWq3G8cRi5JQ==
-
-axe-core@^4.6.2:
-  version "4.6.2"
-  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.6.2.tgz#6e566ab2a3d29e415f5115bc0fd2597a5eb3e5e3"
-  integrity sha512-b1WlTV8+XKLj9gZy2DZXgQiyDp9xkkoe2a6U6UbYccScq2wgH/YwCeI2/Jq2mgo0HzQxqJOjWZBLeA/mqsk5Mg==
 
 axios@^0.26.1:
   version "0.26.1"
