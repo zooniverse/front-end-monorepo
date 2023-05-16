@@ -16,7 +16,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@sentry/browser": "~7.51.0",
+    "@sentry/browser": "~7.52.1",
     "@sentry/node": "~7.52.1",
     "@sentry/tracing": "~7.51.0",
     "@zeit/next-source-maps": "0.0.4-canary.1",
