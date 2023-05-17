@@ -26,6 +26,10 @@ Regardless of the selected layout, the component code will switch to the 1-colum
 
 Note that `enable_switching_flipbook_and_separate` in WorkflowConfiguration store enables the "switch to separate frames view" in Flipbook Controls.
 
+### SeparateFrame Component
+
+The separate frames viewer has a repeatable component that is designed to include an image toolbar affecting only one frame. This SeparateFrame component is in contrast to the generalized ImageToolbar in the classifier layout components, which relies on the subject viewer store to handle pan, zoom, rotate, and invert state. In SeparateFrame, local state is used for those features instead.
+
 ### With Drawing Tasks
 
 When "Clone markers in all frames" is checked/enabled in the project builder:
