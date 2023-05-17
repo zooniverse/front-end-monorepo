@@ -1,11 +1,11 @@
 import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
-import * as projectAnnotations from '../../../../../../.storybook/preview'
+import projectAnnotations from '../../../../../../.storybook/preview'
 
 import Meta, { Default } from './HighlighterTask.stories'
 
 describe('HighlighterTask', function () {
-  const DefaultStory = composeStory(Default, Meta, projectAnnotations.default)
+  const DefaultStory = composeStory(Default, Meta, projectAnnotations)
 
   describe('when it renders', function () {
     it('should show the instruction', function () {
