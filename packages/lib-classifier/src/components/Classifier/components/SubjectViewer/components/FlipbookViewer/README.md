@@ -1,10 +1,10 @@
 # Flipbook Viewer
 
-The flipbook viewer will display subjects with multiple images in the `locations` array whose workflow configration does not include `multiFrame`. See SubjectStore > Subject > `getViewer()` and ADR 46 for more details.
+The flipbook viewer displays subjects with multiple images in the `locations` array whose workflow configration does not include `multiFrame`. See SubjectStore > Subject > `getViewer()` and ADR 46 for more details.
 
-This viewer assumes all images in one subject have the same dimensions, and is catered toward landscape oriented images. The SVG drawing layer dimensions are determined once `defaultFrame` is loaded. Then, `onReady()` is called (corresponds to SubjecViewerStore's `onSubjectReady()`).
+This viewer assumes all images in one subject have the same dimensions, and is catered toward landscape oriented or square images. 
 
-Unlike MultiFrameViewer, the currently viewed frame is saved as FlipbookViewer state rather than in SubjectViewerStore because the flipbook is designed for projects that do not intend to refresh pan, zoom, rotate, nor drawing marks between frames.
+?? The SVG drawing layer dimensions are determined once `defaultFrame` is loaded. Then, `onReady()` is called (corresponds to SubjecViewerStore's `onSubjectReady()`).
 
 ## Workflow Configuration
 
@@ -15,6 +15,9 @@ The "Pan and Zoom" section and the "Multi-Image Options" section in the lab are 
 FlipbookControls handles the following features:
 - Thumbnails of each frame (ratio inputs)
 - Next and previous buttons for navigation between frames
+- Play speed with five options: 0.25x, 0.5x, 1x, 2x, 4x
+- Play/Pause button
+- Button to switch to separate frames view
 
 ### Refs
 - `subjectImage`: Reference to svg layer for handling SVGPanZoom component.
