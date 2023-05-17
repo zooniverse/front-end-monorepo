@@ -70,6 +70,8 @@ spec:
           env:
             - name: COMMIT_ID
               value: __IMAGE_TAG__
+            - name: GITHUB_REF_NAME
+              value: production-release
             - name: NEWRELIC_LICENSE_KEY
               valueFrom:
                 secretKeyRef:
