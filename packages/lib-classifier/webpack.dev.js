@@ -33,7 +33,6 @@ module.exports = {
       'localhost',
       '.zooniverse.org'
     ],
-    host: process.env.HOST || 'localhost',
     server: 'https'
   },
   entry: [
@@ -54,7 +53,7 @@ module.exports = {
       '@viewers': path.resolve(__dirname, 'src/components/Classifier/components/SubjectViewer')
     },
     fallback: {
-      "url": false,
+      url: false,
     }
   },
   module: {
