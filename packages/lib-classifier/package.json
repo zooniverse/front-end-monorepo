@@ -116,7 +116,7 @@
     "style-loader": "~3.3.1",
     "styled-components": "~5.3.3",
     "superagent": "~8.0.0",
-    "webpack": "~5.82.0",
+    "webpack": "~5.83.0",
     "webpack-cli": "~5.1.0",
     "webpack-dev-server": "~4.15.0"
   },
