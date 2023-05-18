@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { expect } from 'chai'
+import { when } from 'mobx'
 import sinon from 'sinon'
 import { EllipseTool, PointTool } from '@plugins/drawingTools/models/tools'
 import { Ellipse, Mark, Point } from '@plugins/drawingTools/components'
@@ -140,17 +141,18 @@ describe('Drawing tools > Mark', function () {
         point.setSubTaskVisibility(false)
         await user.tab()
         await user.keyboard('{Enter}')
+        await when(() => point.subTaskVisibility)
       })
 
       after(function () {
         onFinish.resetHistory()
       })
 
-      it('should open the subtasks popup', function () {
+      it('should open the subtasks popup', async function () {
         expect(point.subTaskVisibility).to.be.true()
       })
 
-      it('should call onFinish', function () {
+      it('should call onFinish', async function () {
         expect(onFinish).to.have.been.calledOnce()
       })
     })
@@ -179,17 +181,18 @@ describe('Drawing tools > Mark', function () {
         point.setSubTaskVisibility(false)
         await user.tab()
         await user.keyboard('{ }')
+        await when(() => point.subTaskVisibility)
       })
 
       after(function () {
         onFinish.resetHistory()
       })
 
-      it('should open the subtasks popup', function () {
+      it('should open the subtasks popup', async function () {
         expect(point.subTaskVisibility).to.be.true()
       })
 
-      it('should call onFinish', function () {
+      it('should call onFinish', async function () {
         expect(onFinish).to.have.been.calledOnce()
       })
     })
@@ -366,7 +369,7 @@ describe('Drawing tools > Mark', function () {
         window.scrollTo.resetHistory()
       })
 
-      it('should open the subtask popup', function () {
+      it('should open the subtask popup', async function () {
         expect(newMark.subTaskVisibility).to.be.true()
       })
     })
