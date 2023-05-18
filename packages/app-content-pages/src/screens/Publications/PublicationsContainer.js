@@ -7,6 +7,7 @@ import Publications from './Publications'
 const isBrowser = typeof window !== 'undefined'
 
 function PublicationsContainer({ publicationsData }) {
+  const { t } = useTranslation('components')
   publicationsData.forEach(category => {
     category.slug = category.title.toLowerCase().replaceAll(' ', '-')
   })
@@ -17,7 +18,7 @@ function PublicationsContainer({ publicationsData }) {
     setActiveFilter(slug)
   }, [])
 
-  const filters = createFilters(publicationsData, activeFilter, setActiveFilter)
+  const filters = createFilters(publicationsData, activeFilter, setActiveFilter, t)
   const filteredPublicationsData = createFilteredPublicationsData(publicationsData, activeFilter)
 
   return (
@@ -35,9 +36,7 @@ PublicationsContainer.defaultProps = {
 
 export default PublicationsContainer
 
-function createFilters(publicationsData, activeFilter, setActiveFilter) {
-  const { t } = useTranslation('components')
-
+function createFilters(publicationsData, activeFilter, setActiveFilter, t) {
   const showAllFilter = {
     active: !activeFilter,
     name: t('Publications.showAll'),

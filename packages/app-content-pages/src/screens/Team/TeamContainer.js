@@ -7,6 +7,7 @@ import Team from './Team'
 const isBrowser = typeof window !== 'undefined'
 
 function TeamContainer ({ teamData }) {
+  const { t } = useTranslation('components')
   teamData.forEach(team => {
     team.slug = team.name.toLowerCase().replaceAll(' ', '-')
   })
@@ -17,7 +18,7 @@ function TeamContainer ({ teamData }) {
     setActiveFilter(slug)
   }, [])
 
-  const filters = createFilters(teamData, activeFilter, setActiveFilter)
+  const filters = createFilters(teamData, activeFilter, setActiveFilter, t)
   const filteredTeamData = createFilteredTeamData(teamData, activeFilter)
 
   return (
@@ -35,8 +36,7 @@ TeamContainer.defaultProps = {
 
 export default TeamContainer
 
-function createFilters (teamData, activeFilter, setActiveFilter) {
-  const { t } = useTranslation('components')
+function createFilters (teamData, activeFilter, setActiveFilter, t) {
   const showAllFilter = {
     active: !activeFilter,
     name: t('Team.showAll'),
