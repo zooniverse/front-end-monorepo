@@ -16,15 +16,15 @@ const ChartOptions = types.model('ChartOptions', {
   padding: types.maybe(CSSBox)
 })
 
-const BarData = types.model('BarData', {
+const BarValues = types.model('BarValues', {
   color: types.maybe(types.string),
   label: types.string,
   value: types.number
 })
 
-const BarChart = types.model('BarChart', {
-  data: types.array(BarData),
+const BarData = types.refinement('BarData', types.array(BarValues), value => value.length > 0)
+
+export default types.model('BarChart', {
+  data: BarData,
   chartOptions: types.maybe(ChartOptions)
 })
-
-export default types.frozen(BarChart)

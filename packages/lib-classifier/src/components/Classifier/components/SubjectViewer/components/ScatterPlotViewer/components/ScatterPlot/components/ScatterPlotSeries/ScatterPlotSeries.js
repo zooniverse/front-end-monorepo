@@ -4,6 +4,7 @@ import getDataSeriesSymbol from '@viewers/helpers/getDataSeriesSymbol'
 import isDataSeriesHighlighted from '@viewers/helpers/isDataSeriesHighlighted'
 
 export default function ScatterPlotSeries({
+  color,
   colors,
   dataPointSize,
   highlightedSeries,
@@ -13,7 +14,7 @@ export default function ScatterPlotSeries({
   yScale
 }) {
   const highlighted = isDataSeriesHighlighted({ highlightedSeries, seriesOptions: series?.seriesOptions })
-  const glyphColor = getDataSeriesColor({
+  const glyphColor = color || getDataSeriesColor({
     defaultColors: Object.values(colors.drawingTools),
     seriesOptions: series?.seriesOptions,
     seriesIndex,

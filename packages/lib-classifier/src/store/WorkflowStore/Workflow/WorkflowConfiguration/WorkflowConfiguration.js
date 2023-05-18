@@ -15,6 +15,7 @@ const WorkflowConfiguration = types.snapshotProcessor(
       types.enumeration('subjectViewer', [
         'dataImage',
         'flipbook',
+        'jsonData',
         'lightcurve',
         'multiFrame',
         'scatterPlot',
@@ -45,6 +46,9 @@ const WorkflowConfiguration = types.snapshotProcessor(
           }
           case 'flipbook': {
             return subjectViewers.flipbook
+          }
+          case 'jsonData': {
+            return subjectViewers.jsonData
           }
           case 'lightcurve': {
             return subjectViewers.lightCurve

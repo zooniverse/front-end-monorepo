@@ -12,6 +12,7 @@ chai.use(sinonChai)
 
 // require all net requests to be mocked.
 nock.disableNetConnect()
+nock.enableNetConnect('panoptes-uploads.zooniverse.org')
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', {
   pretendToBeVisual: true, // See: https://github.com/jsdom/jsdom#pretending-to-be-a-visual-browser

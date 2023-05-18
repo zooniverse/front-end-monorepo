@@ -6,7 +6,7 @@ import {
   Grid
 } from 'grommet'
 import { withParentSize } from '@visx/responsive'
-import { ScatterPlotViewer } from '../ScatterPlotViewer'
+import ScatterPlotViewer from '../ScatterPlotViewer'
 import { SingleImageViewerContainer } from '../SingleImageViewer'
 import getZoomBackgroundColor from '@viewers/helpers/getZoomBackgroundColor'
 

@@ -3,7 +3,7 @@ import sinon from 'sinon'
 import zooTheme from '@zooniverse/grommet-theme'
 import { VariableStarViewer } from './VariableStarViewer'
 import { SingleImageViewerContainer } from '../SingleImageViewer'
-import { ScatterPlotViewer } from '../ScatterPlotViewer'
+import ScatterPlotViewer from '../ScatterPlotViewer'
 import { expect } from 'chai'
 
 describe('Component > VariableStarViewer', function () {

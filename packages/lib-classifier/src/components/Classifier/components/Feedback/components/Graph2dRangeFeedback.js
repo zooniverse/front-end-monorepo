@@ -3,7 +3,7 @@ import { select } from 'd3-selection'
 import { toJS } from 'mobx'
 import { useCallback } from 'react';
 
-import { withStores } from '@helpers'
+import { useStores, useSubjectJSON } from '@hooks'
 
 import LightCurveViewer from '../../SubjectViewer/components/LightCurveViewer'
 
@@ -29,12 +29,14 @@ function storeMapper(classifierStore) {
   }
 }
 
-function Graph2dRangeFeedback({
-  annotations = [],
-  applicableRules = [],
-  feedback = false,
-  subject = null
-}) {
+function Graph2dRangeFeedback() {
+  const {
+    annotations = [],
+    applicableRules = [],
+    feedback = false,
+    subject = null
+  } = useStores(storeMapper)
+  const { data } = useSubjectJSON({ subject })
 
   const drawFeedbackBrushes = useCallback(function (d3annotationsLayer, repositionBrush) {
     const annotationBrushes = []
@@ -99,13 +101,12 @@ function Graph2dRangeFeedback({
 
   return (
     <LightCurveViewer
+      data={data}
       drawFeedbackBrushes={drawFeedbackBrushes}
       feedback={feedback}
-      subject={subject}
-      subjectId={subject.id}
     />
   )
 }
 
-export default withStores(Graph2dRangeFeedback, storeMapper)
+export default Graph2dRangeFeedback
 export { Graph2dRangeFeedback }

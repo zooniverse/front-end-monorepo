@@ -61,6 +61,9 @@ const Subject = types
           if (counts.videos) {
             viewer = subjectViewers.singleVideo
           }
+          if (counts.json) {
+            viewer = subjectViewers.jsonData
+          }
           if (counts.text) {
             viewer = subjectViewers.singleText
           }
