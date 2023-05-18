@@ -3,10 +3,11 @@ import { ZooFooter } from '@zooniverse/react-components'
 import { Grommet, base } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
 import { Provider } from 'mobx-react'
-import { getSnapshot } from 'mobx-state-tree'
-import App from 'next/app'
 import { createGlobalStyle } from 'styled-components'
 import merge from 'lodash/merge'
+import Error from 'next/error'
+import { useMemo } from 'react'
+import { appWithTranslation } from 'next-i18next'
 
 import { initializeLogger, logReactError } from '../src/helpers/logger'
 import AuthModal from '../src/shared/components/AuthModal'
@@ -20,31 +21,29 @@ const GlobalStyle = createGlobalStyle`
 `
 initializeLogger()
 
-export default class MyApp extends App {
-  constructor (props) {
-    super(props)
-    const { isServer, initialState } = props
-    this.store = initStore(isServer, initialState, props.client)
-    makeInspectable(this.store)
-  }
+function useStore(initialState) {
+  const isServer = typeof window === 'undefined'
+  const store = useMemo(
+    () => initStore(isServer, initialState),
+    [isServer, initialState]
+  )
+  return store
+}
 
-  componentDidMount () {
-    console.info(`Deployed commit is ${process.env.COMMIT_ID}`)
-    this.store.user.checkCurrent()
-  }
+function MyApp({ Component, initialState, pageProps }) {
+  const mergedThemes = merge({}, base, zooTheme)
+  const store = useStore(initialState)
+  makeInspectable(store)
 
-  componentDidCatch (error, errorInfo) {
-    logReactError(error, errorInfo)
-    super.componentDidCatch(error, errorInfo)
-  }
+  try {
+    if (pageProps.statusCode) {
+      return <Error statusCode={pageProps.statusCode} title={pageProps.title} />
+    }
 
-  render () {
-    const { Component, pageProps, theme } = this.props
-    const mergedThemes = merge({}, base, theme)
     return (
       <>
         <GlobalStyle />
-        <Provider store={this.store}>
+        <Provider store={store}>
           <Grommet theme={mergedThemes}>
             <ZooHeaderWrapper />
             <Component {...pageProps} />
@@ -54,9 +53,10 @@ export default class MyApp extends App {
         </Provider>
       </>
     )
+  } catch (error) {
+    logReactError(error)
+    return <Error statusCode={500} title={error.message} />
   }
 }
 
-MyApp.defaultProps = {
-  theme: zooTheme
-}
+export default appWithTranslation(MyApp)

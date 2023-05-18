@@ -4,6 +4,7 @@ const { execSync } = require('child_process')
 const Dotenv = require('dotenv-webpack')
 const path = require('path')
 const withSourceMaps = require('@zeit/next-source-maps')()
+const { i18n } = require('./next-i18next.config')
 
 const assetPrefixes = {}
 
@@ -44,6 +45,12 @@ const nextConfig = {
 
   experimental: {
     forceSwcTransforms: true,
+  },
+
+  /** localeDetection is a Next.js feature, while the rest of i18n config pertains to next-i18next */
+  i18n: {
+    localeDetection: false,
+    ...i18n
   },
 
   reactStrictMode: true,
