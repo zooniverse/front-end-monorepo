@@ -2,7 +2,6 @@ import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 import { Factory } from 'rosie'
 
-import SubjectViewerStore from '@store/SubjectViewerStore'
 import mockStore from '@test/mockStore'
 
 import ImageToolbar from '../../../ImageToolbar'

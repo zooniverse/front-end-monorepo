@@ -1,7 +1,5 @@
-import zooTheme from '@zooniverse/grommet-theme'
 import { Box } from 'grommet'
 import { observer } from 'mobx-react'
-import { darken } from 'polished'
 
 import { useStores, useSubjectJSON } from '@hooks'
 import BarChartViewer from '@viewers/components/BarChartViewer'

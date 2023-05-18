@@ -5,7 +5,6 @@ import ScatterPlotViewer from './'
 import JSONDataViewer from '../JSONDataViewer'
 import { Provider } from 'mobx-react'
 
-import SubjectViewerStore from '@store/SubjectViewerStore'
 import mockStore from '@test/mockStore'
 import ImageToolbar from '../../../ImageToolbar'
 import {

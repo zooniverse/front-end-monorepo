@@ -66,9 +66,6 @@ export function LightCurveViewerContainer({
   drawFeedbackBrushes = DEFAULT_HANDLER,
   feedback = false,
   onKeyDown = DEFAULT_HANDLER,
-  loadingState = asyncStates.initialized,
-  onError = DEFAULT_HANDLER,
-  onReady = DEFAULT_HANDLER
 }) {
   const {
     activeDataVisTask,
