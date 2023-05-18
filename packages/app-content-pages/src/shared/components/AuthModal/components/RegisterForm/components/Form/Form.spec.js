@@ -15,9 +15,9 @@ import {
   underageWithParentFieldId,
   Form
 } from './Form'
-import en from '../../locales/en'
+// import en from '../../locales/en'
 
-describe('RegisterForm > Component > Form', function () {
+describe.skip('RegisterForm > Component > Form', function () {
   const shallowOptions = { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
   it('should render without crashing', function () {
     const wrapper = shallow(

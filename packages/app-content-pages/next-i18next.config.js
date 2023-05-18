@@ -1,6 +1,7 @@
 /** next-i18next has { useSuspense: false } by default */
 const locales = [
-  'en'
+  'en',
+  'test'
 ]
 
 module.exports = {

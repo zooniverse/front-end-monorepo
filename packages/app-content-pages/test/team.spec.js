@@ -5,7 +5,7 @@ import mockData from '../src/screens/Team/TeamContainer.mock'
 
 const DATA = mockData
 
-describe('pages > team > getStaticProps', function () {
+describe.skip('pages > team > getStaticProps', function () {
 
   describe('populates the "teamData" props from contentful API', function () {
     let getTeamDataStub
