@@ -1,11 +1,10 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box } from 'grommet'
 import { darken } from 'polished'
-import ScatterPlotViewer from './ScatterPlotViewer'
-import ScatterPlotViewerConnector from './ScatterPlotViewerConnector'
+import ScatterPlotViewer from './'
+import JSONDataViewer from '../JSONDataViewer'
 import { Provider } from 'mobx-react'
 
-import SubjectViewerStore from '@store/SubjectViewerStore'
 import mockStore from '@test/mockStore'
 import ImageToolbar from '../../../ImageToolbar'
 import {
@@ -135,25 +134,42 @@ export function ErrorBars() {
 }
 
 export function KeplerLightCurve() {
+  const tessChartOptions = {
+    axisColor: colors['light-1'],
+    backgroundColor: darken(0.08, colors['neutral-1']),
+    color: colors['light-1'],
+    margin: {
+      bottom: 10,
+      left: 10,
+      right: 10,
+      top: 10
+    },
+    padding: {
+      bottom: 30,
+      left: 30,
+      right: 0,
+      top: 0
+    },
+    tickDirection: 'inner',
+    xAxisLabel: 'Days',
+    yAxisLabel: 'Brightness',
+    zoomConfiguration: {
+      direction: 'x',
+      minZoom: 1,
+      maxZoom: 10,
+      zoomInValue: 1.2,
+      zoomOutValue: 0.8
+    }
+  }
   return (
     <Box height='medium' width='large'>
       <ScatterPlotViewer
-        axisColor={colors['light-1']}
-        backgroundColor={darken(0.08, colors['neutral-1'])}
         data={keplerMockDataWithOptions.data}
-        glyphColors={[colors['light-1']]}
+        {...tessChartOptions}
         margin={keplerMockDataWithOptions.chartOptions.margin}
         padding={keplerMockDataWithOptions.chartOptions.padding}
-        tickDirection='inner'
         xAxisLabel={keplerMockDataWithOptions.chartOptions.xAxisLabel}
         yAxisLabel={keplerMockDataWithOptions.chartOptions.yAxisLabel}
-        zoomConfiguration={{
-          direction: 'both',
-          minZoom: 1,
-          maxZoom: 10,
-          zoomInValue: 1.2,
-          zoomOutValue: 0.8
-        }}
       />
     </Box>
   )
@@ -163,7 +179,7 @@ export function PanAndZoom() {
   return (
     <ViewerContext>
       <Box direction='row' height='medium' width='large'>
-        <ScatterPlotViewerConnector
+        <JSONDataViewer
           zoomConfiguration={{
             direction: 'both',
             minZoom: 1,
@@ -182,7 +198,7 @@ export function MultipleSeries() {
   return (
     <ViewerContext>
       <Box direction='row' height='medium' width='large'>
-        <ScatterPlotViewerConnector />
+        <JSONDataViewer />
         <ImageToolbar width='4rem' />
       </Box>
     </ViewerContext>
@@ -193,7 +209,7 @@ export function XRangeSelection() {
   return (
     <ViewerContext store={XRangeSelection.store}>
       <Box direction='row' height='medium' width='large'>
-        <ScatterPlotViewerConnector
+        <JSONDataViewer
           experimentalSelectionTool
           zoomConfiguration={{
             direction: 'x',
@@ -218,7 +234,7 @@ export function SelectedXRanges() {
   return (
     <ViewerContext store={SelectedXRanges.store}>
       <Box direction='row' height='medium' width='large'>
-        <ScatterPlotViewerConnector
+        <JSONDataViewer
           disabled
           experimentalSelectionTool
           initialSelections={initialSelections}

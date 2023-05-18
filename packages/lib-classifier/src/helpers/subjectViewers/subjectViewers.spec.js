@@ -4,6 +4,7 @@ describe('Helpers > subjectViewers', function () {
   const viewers = [
     'dataImage',
     'flipbook',
+    'jsonData',
     'imageAndText',
     'lightCurve',
     'multiFrame',

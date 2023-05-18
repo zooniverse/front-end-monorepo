@@ -175,6 +175,15 @@ describe('Model > Subject', function () {
           expect(subject.viewer).to.equal(subjectViewers.lightCurve)
         })
       })
+
+      describe('JSON data', function () {
+        it('should return the JSON data viewer for subjects with a JSON location', function () {
+          const jsonSubject = SubjectFactory.build({ locations: [{ 'application/json': 'https://foo.bar/example.json' }] })
+          const store = mockStore({ project, workflow, subject: jsonSubject })
+          const subject = store.subjects.active
+          expect(subject.viewer).to.equal(subjectViewers.jsonData)
+        })
+      })
     })
 
     describe('when any subject locations are invalid', function () {
