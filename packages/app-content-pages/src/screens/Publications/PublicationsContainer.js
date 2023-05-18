@@ -1,15 +1,12 @@
-import counterpart from 'counterpart'
-import { array, string } from 'prop-types'
+import { array } from 'prop-types'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'next-i18next'
 
-import en from './locales/en'
 import Publications from './Publications'
-
-counterpart.registerTranslations('en', en)
 
 const isBrowser = typeof window !== 'undefined'
 
-function PublicationsContainer({publicationsData}) {
+function PublicationsContainer({ publicationsData }) {
   publicationsData.forEach(category => {
     category.slug = category.title.toLowerCase().replaceAll(' ', '-')
   })
@@ -39,9 +36,11 @@ PublicationsContainer.defaultProps = {
 export default PublicationsContainer
 
 function createFilters(publicationsData, activeFilter, setActiveFilter) {
+  const { t } = useTranslation('components')
+
   const showAllFilter = {
     active: !activeFilter,
-    name: counterpart('Publications.showAll'),
+    name: t('Publications.showAll'),
     slug: '',
     setActive: event => setActiveFilter('')
   }
