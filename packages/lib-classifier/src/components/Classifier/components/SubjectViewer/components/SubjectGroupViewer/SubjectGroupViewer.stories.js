@@ -3,6 +3,7 @@ import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 import { Factory } from 'rosie'
 
+import { useKeyZoom } from '@hooks'
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import mockStore from '@test/mockStore'
 import SubjectGroupViewer from './SubjectGroupViewerContainer'
@@ -14,7 +15,6 @@ import {
   ZoomInButton,
   ZoomOutButton
 } from '../../../ImageToolbar/components/'
-import withKeyZoom from '../../../withKeyZoom'
 import readme from './README.md'
 
 const subject = Factory.build('subject', {
@@ -75,8 +75,16 @@ export const Default = () => {
   )
 }
 
+function Toolbar({ children, ...props }) {
+  const { onKeyZoom } = useKeyZoom()
+  return (
+    <Box onKeyDown={onKeyZoom} {...props}>
+      {children}
+    </Box>
+  )
+}
+
 export const WithZoomControls = () => {
-  const Toolbar = withKeyZoom(Box)
   return (
     <ViewerContext>
       <Toolbar direction='row' height='4rem'>

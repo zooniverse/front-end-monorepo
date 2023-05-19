@@ -19,11 +19,6 @@ const StyledRect = styled.rect`
 `
 
 const DEFAULT_HANDLER = () => true
-const DEFAULT_THEME = {
-  global: {
-    colors: {}
-  }
-}
 
 function ZoomEventLayer ({
   height,

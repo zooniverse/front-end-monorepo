@@ -116,6 +116,7 @@ describe('Hooks > useKeyZoom', function () {
           return (
             <p
               id='testStub'
+              tabIndex='0'
               onKeyDown={onKeyZoom}
               {...props}
             >

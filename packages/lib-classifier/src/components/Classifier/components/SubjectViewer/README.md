@@ -53,7 +53,6 @@ Currently, we have four implementations of pan and zoom functionality. An open [
 
 - [`ZoomControlButton`](components/ZoomControlButton) - This is a button component that can be used to provide a toggle for when to enable pan and zoom for a particular subject viewer. Currently used by the complex composite viewers of `VariableStarViewer` and `DataImageViewer`.
 - [`VideoController`](components/VideoController) - The button toolbar of controls for playing, pausing, and scrubbing a video.
-- [`withKeyZoom`](../withKeyZoom/README.md) - A Higher Order Component that can wrap other components to provide keyboard key event listeners for controlling zoom on the subject.
 - [`ImageToolbar`](../../../ImageToolbar/README.md) - a side toolbar to control pan, zoom, rotation, and possibly other transformations. A misnomer now since it also is wired up to work with scatter plots. Could potentially have added toggle for full screen mode for certain media types once that layout is implemented. Also contains the launch button for the field guide.
 - [`MetaTools`](../../../MetaTools) - a set of buttons rendering below the subject viewer that include displaying a modal popup to view the subject metadata, an add to favorites collections button, an add to any collection button opening a modal, and optionally a toggle to hide previous drawing marks if a drawing task is active in the workflow step.
 

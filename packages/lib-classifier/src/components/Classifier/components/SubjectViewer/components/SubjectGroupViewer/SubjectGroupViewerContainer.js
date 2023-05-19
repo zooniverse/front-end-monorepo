@@ -30,6 +30,8 @@ const DEFAULT_GRID_ROWS = 3
 const DEFAULT_GRID_MAX_WIDTH = ''
 const DEFAULT_GRID_MAX_HEIGHT = ''
 
+const DEFAULT_HANDLER = () => true
+
 function storeMapper (classifierStore) {
   const {
     interactionMode,
@@ -104,10 +106,10 @@ export function SubjectGroupViewerContainer({
   interactionMode = 'annotate',
   isCurrentTaskValidForAnnotation,
   loadingState = asyncStates.initialized,
-  onError = () => true,
-  onReady = () => true,
-  setOnPan = () => true,
-  setOnZoom = () => true,
+  onError = DEFAULT_HANDLER,
+  onReady = DEFAULT_HANDLER,
+  setOnPan = DEFAULT_HANDLER,
+  setOnZoom = DEFAULT_HANDLER,
   subject = undefined
 }) {
   const { onKeyZoom } = useKeyZoom()
