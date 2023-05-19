@@ -6,9 +6,9 @@ import PropTypes from 'prop-types'
 import { Paragraph } from 'grommet'
 
 import { withStores } from '@helpers'
+import { useKeyZoom } from '@hooks'
 import SubjectGroupViewer from './SubjectGroupViewer'
 import locationValidator from '../../helpers/locationValidator'
-import withKeyZoom from '../../../withKeyZoom'
 
 function preventDefault (e) {
   e.preventDefault()
@@ -105,12 +105,12 @@ export function SubjectGroupViewerContainer({
   isCurrentTaskValidForAnnotation,
   loadingState = asyncStates.initialized,
   onError = () => true,
-  onKeyDown = () => true,
   onReady = () => true,
   setOnPan = () => true,
   setOnZoom = () => true,
   subject = undefined
 }) {
+  const { onKeyZoom } = useKeyZoom()
   const groupViewer = useRef()
   const scrollContainer = useRef()
   const [images, setImages] = useState([])
@@ -268,7 +268,7 @@ export function SubjectGroupViewerContainer({
         subjectIds={subject.subjectIds}
         
         dragMove={dragMove}
-        onKeyDown={onKeyDown}
+        onKeyDown={onKeyZoom}
         
         cellWidth={cellWidth}
         cellHeight={cellHeight}
@@ -307,4 +307,4 @@ SubjectGroupViewerContainer.propTypes = {
   setOnZoom: PropTypes.func,
 }
 
-export default withKeyZoom(withStores(SubjectGroupViewerContainer, storeMapper))
+export default withStores(SubjectGroupViewerContainer, storeMapper)

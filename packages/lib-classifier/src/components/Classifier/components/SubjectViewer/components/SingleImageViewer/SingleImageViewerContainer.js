@@ -2,9 +2,8 @@ import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 
-import { useSubjectImage } from '@hooks'
+import { useKeyZoom, useSubjectImage } from '@hooks'
 
-import withKeyZoom from '../../../withKeyZoom'
 import locationValidator from '../../helpers/locationValidator'
 import SVGImage from '../SVGComponents/SVGImage'
 import SVGPanZoom from '../SVGComponents/SVGPanZoom'
@@ -21,7 +20,6 @@ function SingleImageViewerContainer({
   loadingState = asyncStates.initialized,
   move = false,
   onError = DEFAULT_HANDLER,
-  onKeyDown = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
   rotation = 0,
   setOnPan = DEFAULT_HANDLER,
@@ -31,6 +29,7 @@ function SingleImageViewerContainer({
   zoomControlFn,
   zooming = true
 }) {
+  const { onKeyZoom } = useKeyZoom()
   const [dragMove, setDragMove] = useState()
   // TODO: replace this with a better function to parse the image location from a subject.
   const imageLocation = subject ? subject.locations[frame] : null
@@ -81,7 +80,7 @@ function SingleImageViewerContainer({
           height={img.naturalHeight}
           invert={invert}
           limitSubjectHeight={limitSubjectHeight}
-          onKeyDown={onKeyDown}
+          onKeyDown={onKeyZoom}
           rotate={rotation}
           title={title}
           width={img.naturalWidth}
@@ -131,5 +130,4 @@ SingleImageViewerContainer.propTypes = {
   zooming: PropTypes.bool
 }
 
-export default withKeyZoom(SingleImageViewerContainer)
-export { SingleImageViewerContainer }
+export default SingleImageViewerContainer

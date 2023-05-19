@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
-import styled, { css, withTheme } from 'styled-components'
-import withKeyZoom from '../../../../withKeyZoom'
+import styled, { css, useTheme } from 'styled-components'
 
 const StyledRect = styled.rect`
   ${props => props.panning ?
@@ -19,26 +18,31 @@ const StyledRect = styled.rect`
   }
 `
 
-function ZoomEventLayer (props) {
-  const {
-    height,
-    left,
-    onDoubleClick,
-    onKeyDown,
-    onPointerDown,
-    onPointerEnter,
-    onPointerMove,
-    onPointerUp,
-    onPointerLeave,
-    onWheel,
-    panning,
-    theme,
-    top,
-    width,
-    ...rest
-  } = props
+const DEFAULT_HANDLER = () => true
+const DEFAULT_THEME = {
+  global: {
+    colors: {}
+  }
+}
 
-  const focusColor = theme.global.colors[theme.global.colors.focus]
+function ZoomEventLayer ({
+  height,
+  left = 0,
+  onDoubleClick = DEFAULT_HANDLER,
+  onKeyDown = DEFAULT_HANDLER,
+  onPointerDown = DEFAULT_HANDLER,
+  onPointerEnter = DEFAULT_HANDLER,
+  onPointerMove = DEFAULT_HANDLER,
+  onPointerUp = DEFAULT_HANDLER,
+  onPointerLeave = DEFAULT_HANDLER,
+  onWheel = DEFAULT_HANDLER,
+  panning = false,
+  top = 0,
+  width,
+  ...rest
+}) {
+  const theme = useTheme()
+  const focusColor = theme?.global.colors[theme.global.colors.focus]
   return (
     <StyledRect
       data-testid='zoom-layer'
@@ -61,21 +65,6 @@ function ZoomEventLayer (props) {
   )
 }
 
-ZoomEventLayer.defaultProps = {
-  left: 0,
-  onDoubleClick: () => {},
-  onKeyDown: () => {},
-  onPointerEnter: () => {},
-  onWheel: () => {},
-  panning: false,
-  theme: {
-    global: {
-      colors: {}
-    }
-  },
-  top: 0
-}
-
 ZoomEventLayer.propTypes = {
   height: PropTypes.number.isRequired,
   left: PropTypes.number,
@@ -93,5 +82,4 @@ ZoomEventLayer.propTypes = {
   width: PropTypes.number.isRequired
 }
 
-export default withTheme(ZoomEventLayer)
-export { ZoomEventLayer }
+export default ZoomEventLayer
