@@ -1,7 +1,7 @@
 import getViewer from './getViewer'
 
 import DataImageViewer from '../../components/DataImageViewer'
-import LightCurveViewer from '../../components/LightCurveViewer'
+import JSONDataViewer from '../../components/JSONDataViewer'
 import MultiFrameViewer from '../../components/MultiFrameViewer'
 import SingleImageViewer from '../../components/SingleImageViewer'
 import SingleTextViewer from '../../components/SingleTextViewer'
@@ -29,8 +29,8 @@ describe('Helpers > getViewer', function () {
     expect(getViewer('subjectGroup')).to.equal(SubjectGroupViewer)
   })
 
-  it('should return the `LightCurveViewer` component if passed `lightCurve`', function () {
-    expect(getViewer('lightCurve')).to.equal(LightCurveViewer)
+  it('should return the `JSONDataViewer` component if passed `lightCurve`', function () {
+    expect(getViewer('lightCurve')).to.equal(JSONDataViewer)
   })
 
   it('should return the `VariableStarViewer` component if passed `variableStar`', function () {

@@ -1,5 +1,6 @@
 import DataImageViewer from '../../components/DataImageViewer'
 import FlipbookViewer from '../../components/FlipbookViewer'
+import JSONDataViewer from '../../components/JSONDataViewer'
 import ImageAndTextViewer from '../../components/ImageAndTextViewer'
 import LightCurveViewer from '../../components/LightCurveViewer'
 import MultiFrameViewer from '../../components/MultiFrameViewer'
@@ -13,10 +14,11 @@ import VariableStarViewer from '../../components/VariableStarViewer'
 const viewers = {
   dataImage: DataImageViewer,
   flipbook: FlipbookViewer,
+  jsonData: JSONDataViewer,
   imageAndText: ImageAndTextViewer,
-  lightCurve: LightCurveViewer,
+  lightCurve: JSONDataViewer,
   multiFrame: MultiFrameViewer,
-  scatterPlot: ScatterPlotViewer,
+  scatterPlot: JSONDataViewer,
   singleImage: SingleImageViewer,
   singleText: SingleTextViewer,
   singleVideo: SingleVideoViewer,
