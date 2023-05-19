@@ -5,11 +5,13 @@ import { useStores, useSubjectJSON } from '@hooks'
 import BarChartViewer from '@viewers/components/BarChartViewer'
 import LightCurveViewer from '@viewers/components/LightCurveViewer'
 import ScatterPlotViewer from '@viewers/components/ScatterPlotViewer'
+import VariableStarViewer from '@viewers/components/VariableStarViewer'
 
 const viewers = {
   BarChart: BarChartViewer,
   DataSeriesPlot: ScatterPlotViewer,
-  TESSLightCurve: LightCurveViewer
+  TESSLightCurve: LightCurveViewer,
+  VariableStarPlots: VariableStarViewer
 }
 
 function storeMapper(classifierStore) {
@@ -66,6 +68,7 @@ function JSONDataViewer({
         interactionMode={interactionMode}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}
+        subject={subject}
         zoomConfiguration={zoomConfiguration}
         zooming
         {...chartProps}
