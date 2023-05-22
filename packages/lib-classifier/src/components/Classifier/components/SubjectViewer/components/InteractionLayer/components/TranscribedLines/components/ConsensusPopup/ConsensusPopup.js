@@ -73,6 +73,7 @@ export default function ConsensusPopup ({
         {line.textOptions.length > 0 &&
           <List
             data={line.textOptions}
+            itemKey={(item, index) => `line-${index}`}
             itemProps={itemProps}
           />}
         {line.textOptions.length === 0 &&
