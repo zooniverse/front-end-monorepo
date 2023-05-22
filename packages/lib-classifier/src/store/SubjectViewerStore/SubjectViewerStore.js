@@ -44,8 +44,8 @@ const SubjectViewer = types
     },
     get disableImageToolbar () {
       const subject = getRoot(self).subjects.active
-      const locationType = subject?.locations[self.frame].type
-      if (locationType === 'text') {
+      const frameType = subject?.locations[self.frame].type
+      if (frameType === 'text' || frameType === 'video') {
         return true
       }
       return false
