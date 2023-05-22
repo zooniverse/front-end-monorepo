@@ -41,7 +41,7 @@
     "graphql-request": "~6.0.0",
     "grommet": "~2.32.0",
     "grommet-icons": "~4.10.0",
-    "i18next": "~22.4.3",
+    "i18next": "~22.5.0",
     "lodash": "~4.17.11",
     "luxon": "~3.3.0",
     "mobx": "~6.9.0",
