@@ -8,7 +8,7 @@ import SubjectType from '@store/SubjectStore/SubjectType'
 import mockStore from '@test/mockStore'
 import { DraggableImage } from '../SVGComponents/SVGImage'
 import SingleImageViewer from './SingleImageViewer'
-import { SingleImageViewerContainer } from './SingleImageViewerContainer'
+import SingleImageViewerContainer from './SingleImageViewerContainer'
 
 describe('Component > SingleImageViewerContainer', function () {
   let wrapper
@@ -41,7 +41,13 @@ describe('Component > SingleImageViewerContainer', function () {
     const onError = sinon.stub()
 
     before(function () {
-      wrapper = mount(<SingleImageViewerContainer onError={onError} />)
+      wrapper = mount(
+        <SingleImageViewerContainer onError={onError} />,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: { classifierStore: mockStore() }
+        }
+      )
     })
 
     it('should render without crashing', function () {
@@ -89,7 +95,7 @@ describe('Component > SingleImageViewerContainer', function () {
         />,
         {
           wrappingComponent: Provider,
-          wrappingComponentProps: classifierStore
+          wrappingComponentProps: { classifierStore }
         }
       )
     })
@@ -166,7 +172,11 @@ describe('Component > SingleImageViewerContainer', function () {
           subject={subject}
           onError={onError}
           onReady={onReady}
-        />
+        />,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: { classifierStore: mockStore({ subject }) }
+        }
       )
     })
 

@@ -82,8 +82,6 @@ SingleImageViewer.propTypes = {
   enableInteractionLayer: PropTypes.bool,
   /** Calculated by useSubjectImage() */
   height: PropTypes.number.isRequired,
-  /** Passed from withKeyZoom() */
-  onKeyDown: PropTypes.func,
   /** Stored in subject viewer store */
   rotate: PropTypes.number,
   /** Calculated in SVGPanZoom component */

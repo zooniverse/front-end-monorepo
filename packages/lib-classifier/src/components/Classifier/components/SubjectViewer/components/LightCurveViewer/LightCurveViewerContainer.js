@@ -6,8 +6,7 @@ import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useMemo } from 'react';
 
-import { useStores } from '@hooks'
-import withKeyZoom from '../../../withKeyZoom'
+import { useKeyZoom, useStores } from '@hooks'
 
 import { useSubjectJSON } from '@hooks'
 import LightCurveViewer from './LightCurveViewer'
@@ -65,7 +64,6 @@ export function LightCurveViewerContainer({
   data = null,
   drawFeedbackBrushes = DEFAULT_HANDLER,
   feedback = false,
-  onKeyDown = DEFAULT_HANDLER,
 }) {
   const {
     activeDataVisTask,
@@ -78,6 +76,7 @@ export function LightCurveViewerContainer({
     setOnPan,
     setOnZoom
   } = useStores(storeMapper)
+  const { onKeyZoom } = useKeyZoom()
 
   const { dataExtent, dataPoints } = useMemo(() => {
     let dataExtent = { x: [], y: [] }
@@ -111,7 +110,7 @@ export function LightCurveViewerContainer({
         enableMove={enableMove}
         feedback={feedback}
         interactionMode={interactionMode}
-        onKeyDown={onKeyDown}
+        onKeyDown={onKeyZoom}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}
         toolIndex={activeToolIndex}
@@ -123,7 +122,6 @@ export function LightCurveViewerContainer({
 LightCurveViewerContainer.propTypes = {
   drawFeedbackBrushes: PropTypes.func,
   feedback: PropTypes.bool,
-  onKeyDown: PropTypes.func.isRequired,
   subject: PropTypes.shape({
     id: PropTypes.string,
     locations: PropTypes.arrayOf(locationValidator)
@@ -134,4 +132,4 @@ LightCurveViewerContainer.propTypes = {
   onReady: PropTypes.func,
 }
 
-export default withKeyZoom(observer(LightCurveViewerContainer))
+export default observer(LightCurveViewerContainer)
