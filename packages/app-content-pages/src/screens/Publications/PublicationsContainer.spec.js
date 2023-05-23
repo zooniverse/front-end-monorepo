@@ -40,7 +40,7 @@ describe('Component > PublicationsContainer', function () {
       category => category.title
     )
     const sideBar = document.querySelector('aside')
-    const listedFilters = within(sideBar).getAllByRole('listitem')
+    const listedFilters = within(sideBar).getAllByRole('link')
     expect(listedFilters.length).to.equal(categoryFilters.length + 1) // +1 to account for Show All
     expect(listedFilters[1].textContent).to.equal(categoryFilters[0])
   })
