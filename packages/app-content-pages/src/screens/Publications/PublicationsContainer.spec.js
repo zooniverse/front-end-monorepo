@@ -3,7 +3,6 @@ import { within } from '@testing-library/dom'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
 import Router from 'next/router'
 import { composeStory } from '@storybook/react'
-import userEvent from '@testing-library/user-event'
 
 import Meta, { Default } from './Publications.stories.js'
 import projectAnnotations from '../../../.storybook/preview.js'
@@ -45,8 +44,7 @@ describe('Component > PublicationsContainer', function () {
     expect(listedFilters[1].textContent).to.equal(categoryFilters[0])
   })
 
-  it('should render all publications in data', async function () {
-    const user = userEvent.setup({ delay: null })
+  it('should render all publications in data', function () {
     render(
       <RouterMock>
         <DefaultStory />
