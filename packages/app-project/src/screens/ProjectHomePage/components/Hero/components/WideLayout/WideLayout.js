@@ -15,11 +15,15 @@ const StyledContentBox = styled(ContentBox)`
   border-color: transparent;
 `
 
-function WideLayout (props) {
-  const { workflows } = props
-
+function WideLayout ({
+  workflows = []
+}) {
   return (
-    <GrowBox align='stretch' direction='row' justify='between'>
+    <GrowBox
+      align='stretch'
+      direction='row'
+      justify='between'
+    >
       <Box width='62%'>
         <Background />
       </Box>
@@ -36,10 +40,6 @@ function WideLayout (props) {
       </StyledContentBox>
     </GrowBox>
   )
-}
-
-WideLayout.defaultProps = {
-  workflows: []
 }
 
 WideLayout.propTypes = {
