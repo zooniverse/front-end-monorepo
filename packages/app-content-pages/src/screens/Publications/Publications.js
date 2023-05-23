@@ -21,9 +21,9 @@ const StyledButton = styled(Button)`
 const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdbAKVT2tGs1WfBqWNrMekFE5lL4ZuMnWlwJuCuNM33QO2ZYg/viewform'
 
 function Publications ({
-  className,
-  data,
-  filters
+  className = '',
+  data = [],
+  filters = []
 }) {
   const { t } = useTranslation('components')
 
@@ -34,7 +34,9 @@ function Publications ({
       </Heading>
 
       <Paragraph>
-        To submit a new publication or update an existing one, <Anchor href={FORM_URL}>please use this form</Anchor>. We aim to post links to published papers that can be accessed by the public. Articles accepted for publication but not yet published are also fine.
+        {t('Publications.formInstruction')}
+        {' '}<Anchor href={FORM_URL}>{t('Publications.formLabel')}</Anchor>.{' '}
+        {t('Publications.formInfo')}
       </Paragraph>
     </section>
   )
@@ -55,9 +57,9 @@ function Publications ({
   const sidebar = (
     <Box as='ul' gap='small'>
       {filters.map(filter => (
-        <StyledLi key={filter.name} >
+        <StyledLi key={filter.name}>
           <Link
-            href={ filter.slug ? `#${filter.slug}` : '' }
+            href={filter.slug ? `#${filter.slug}` : ''}
             passHref
           >
             <StyledButton

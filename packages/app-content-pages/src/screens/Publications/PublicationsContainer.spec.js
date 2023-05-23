@@ -1,49 +1,58 @@
-import { shallow } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import { within } from '@testing-library/dom'
+import { RouterContext } from 'next/dist/shared/lib/router-context'
+import Router from 'next/router'
+import { composeStory } from '@storybook/react'
+import userEvent from '@testing-library/user-event'
 
-import PublicationsContainer from './PublicationsContainer'
-import mockData from './PublicationsContainer.mock'
-import PublicationsComponent from './Publications'
+import Meta, { Default } from './Publications.stories.js'
+import projectAnnotations from '../../../.storybook/preview.js'
 
-let wrapper
-let componentWrapper
-const DATA = mockData
+function RouterMock({ children }) {
+  const mockRouter = {
+    locale: 'en',
+    push: () => {},
+    prefetch: () => new Promise((resolve, reject) => {}),
+    query: {
+      owner: 'test-owner',
+      project: 'test-project'
+    }
+  }
+
+  Router.router = mockRouter
+
+  return (
+    <RouterContext.Provider value={mockRouter}>
+      {children}
+    </RouterContext.Provider>
+  )
+}
 
 describe('Component > PublicationsContainer', function () {
-  before(function () {
-    wrapper = shallow(<PublicationsContainer publicationsData={DATA} />)
-    componentWrapper = wrapper.find(PublicationsComponent)
+  const DefaultStory = composeStory(Default, Meta, projectAnnotations)
+  it('should have a sidebar with available filters', function () {
+    render(
+      <RouterMock>
+        <DefaultStory />
+      </RouterMock>
+    )
+    const categoryFilters = DefaultStory.args.publicationsData.map(
+      category => category.title
+    )
+    const sideBar = document.querySelector('aside')
+    const listedFilters = within(sideBar).getAllByRole('listitem')
+    expect(listedFilters.length).to.equal(categoryFilters.length + 1) // +1 to account for Show All
+    expect(listedFilters[1].textContent).to.equal(categoryFilters[0])
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
-
-  describe('with no publications data', function () {
-    it('should render without crashing', function () {
-      const noDataWrapper = shallow(<PublicationsContainer publicationsData={undefined} />)
-      expect(noDataWrapper).to.be.ok()
-    })
-  })
-
-  it('should render the `Publications` component', function () {
-    expect(componentWrapper).to.have.lengthOf(1)
-  })
-
-  describe('with no active filters', function () {
-    it('should pass down the expected props', function () {
-      expect(componentWrapper.prop('data')).to.deep.equal(DATA)
-    })
-  })
-
-  describe('with an active filter', function () {
-    it('should pass down the expected props', function () {
-      const filters = componentWrapper.prop('filters')
-      const targetFilter = filters[2]
-      targetFilter.setActive()
-      componentWrapper = wrapper.find(PublicationsComponent)
-      const expectedResult = DATA.filter(t => t.title === targetFilter.name)
-      expect(componentWrapper.prop('data')).to.deep.equal(expectedResult)
-      expect(componentWrapper.prop('filters')[2].active).to.be.true()
-    })
+  it('should render all publications in data', async function () {
+    const user = userEvent.setup({ delay: null })
+    render(
+      <RouterMock>
+        <DefaultStory />
+      </RouterMock>
+    )
+    const publications = screen.getAllByTestId('publication-test-element')
+    expect(publications.length).to.equal(60) // number of publications in mock.json
   })
 })

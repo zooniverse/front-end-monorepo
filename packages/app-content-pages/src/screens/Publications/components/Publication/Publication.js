@@ -35,6 +35,7 @@ function Publication({
   return (
     <Box
       className={className}
+      data-testid='publication-test-element'
       direction='row'
       gap='small'
       margin={{ bottom: 'small' }}
@@ -50,7 +51,7 @@ function Publication({
         )}
       </StyledBox>
       <Box direction='column' gap='xxsmall'>
-        {url.length ? (
+        {url?.length ? (
           <Anchor size='medium' href={url}>
             {displayString}
           </Anchor>

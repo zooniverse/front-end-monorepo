@@ -4,11 +4,11 @@ import { useTranslation } from 'next-i18next'
 
 import Publications from './Publications'
 
-const isBrowser = typeof window !== 'undefined'
+const isBrowser = typeof window !== 'undefined' // to handle testing environment
 
-function PublicationsContainer({ publicationsData }) {
+function PublicationsContainer({ publicationsData = [] }) {
   const { t } = useTranslation('components')
-  publicationsData.forEach(category => {
+  publicationsData?.forEach(category => {
     category.slug = category.title.toLowerCase().replaceAll(' ', '-')
   })
   const [activeFilter, setActiveFilter] = useState(null)
@@ -30,11 +30,10 @@ PublicationsContainer.propTypes = {
   publicationsData: array
 }
 
-PublicationsContainer.defaultProps = {
-  publicationsData: []
-}
-
 export default PublicationsContainer
+
+
+/** Helper Functions */
 
 function createFilters(publicationsData, activeFilter, setActiveFilter, t) {
   const showAllFilter = {
@@ -54,8 +53,8 @@ function createFilters(publicationsData, activeFilter, setActiveFilter, t) {
   return [showAllFilter, ...categoryFilters]
 }
 
-// Show the filtered category if a filter is active; show everything if there's
-// no active filter.
+// Show the filtered category if a filter is active;
+// show everything if there's no active filter.
 function createFilteredPublicationsData(publicationsData, activeFilter) {
   return activeFilter
     ? publicationsData.filter(category => category.slug === activeFilter)

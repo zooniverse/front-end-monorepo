@@ -1,4 +1,5 @@
 const webpackConfig = require('../webpack.config')
+const path = require('path')
 
 function webpackFinal(config, options) {
   config.plugins.concat(webpackConfig.plugins)
@@ -25,7 +26,8 @@ const config = {
   stories: ['../src/**/*.stories.js'],
   addons: [
     '@storybook/addon-a11y',
-    '@storybook/addon-essentials'
+    '@storybook/addon-essentials',
+    'storybook-react-i18next'
   ],
   framework: {
     name: '@storybook/nextjs',
