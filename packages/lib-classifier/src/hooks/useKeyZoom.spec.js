@@ -3,10 +3,11 @@ import userEvent from '@testing-library/user-event'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import { Provider } from 'mobx-react'
-import SubjectViewerStore from '@store/SubjectViewerStore'
-import withKeyZoom from './withKeyZoom'
 
-describe('withKeyZoom', function () {
+import { useKeyZoom } from '@hooks'
+import SubjectViewerStore from '@store/SubjectViewerStore'
+
+describe('Hooks > useKeyZoom', function () {
   describe('on key down', function () {
     const onPan = sinon.stub()
     const onZoom = sinon.stub()
@@ -58,8 +59,17 @@ describe('withKeyZoom', function () {
       describe(`when the event target is ${tagName}`, function () {
         let wrappedComponent
 
+        function WithZoom(props) {
+          const { onKeyZoom } = useKeyZoom()
+          return (
+            <StubComponent
+              onKeyDown={onKeyZoom}
+              {...props}
+            />
+          )
+        }
+
         beforeEach(function () {
-          const WithZoom = withKeyZoom(StubComponent)
           const subjectViewer = SubjectViewerStore.create({})
           const classifierStore = {
             subjectViewer
@@ -101,7 +111,19 @@ describe('withKeyZoom', function () {
       let wrappedComponent
 
       beforeEach(function () {
-        const WithZoom = withKeyZoom(props => <p id='testStub' tabIndex='0' {...props}>Hello</p>)
+        function WithZoom(props) {
+          const { onKeyZoom } = useKeyZoom()
+          return (
+            <p
+              id='testStub'
+              tabIndex='0'
+              onKeyDown={onKeyZoom}
+              {...props}
+            >
+              Hello
+            </p>
+          )
+        }
         const subjectViewer = SubjectViewerStore.create({})
         const classifierStore = {
           subjectViewer
@@ -132,7 +154,19 @@ describe('withKeyZoom', function () {
     })
 
     it('should not trap other keys', async function () {
-      const WithZoom = withKeyZoom(props => <button id='testStub' tabIndex='0' {...props}>Hello</button>)
+      function WithZoom(props) {
+        const { onKeyZoom } = useKeyZoom()
+        return (
+          <button
+            id='testStub'
+            tabIndex='0'
+            onKeyDown={onKeyZoom}
+            {...props}
+          >
+            Hello
+          </button>
+        )
+      }
       const subjectViewer = SubjectViewerStore.create({})
       const classifierStore = {
         subjectViewer

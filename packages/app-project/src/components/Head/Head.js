@@ -47,6 +47,7 @@ function Head (props) {
       <meta name='twitter:image' content={ogImage} />
 
       <meta name='zooniverse:deployed_commit' content={process.env.COMMIT_ID} />
+      <meta name='zooniverse:deployed_ref' content={process.env.GITHUB_REF_NAME} />
     </NextHead>
   )
 }

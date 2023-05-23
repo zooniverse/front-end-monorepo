@@ -3,8 +3,7 @@ import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 
-import withKeyZoom from '@components/Classifier/components/withKeyZoom'
-import { useStores } from '@hooks'
+import { useKeyZoom, useStores } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
 import FlipbookViewer from './FlipbookViewer'
 import SeparateFramesViewer from '../SeparateFramesViewer/SeparateFramesViewer'
@@ -46,7 +45,6 @@ const DEFAULT_HANDLER = () => true
 function FlipbookViewerContainer({
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
-  onKeyDown = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
   subject
 }) {
@@ -63,6 +61,8 @@ function FlipbookViewerContainer({
     setOnPan,
     setOnZoom
   } = useStores(storeMapper)
+
+  const { onKeyZoom } = useKeyZoom()
 
   useEffect(
     function preloadImages() {
@@ -98,7 +98,7 @@ function FlipbookViewerContainer({
           limitSubjectHeight={limitSubjectHeight}
           move={move}
           onError={onError}
-          onKeyDown={onKeyDown}
+          onKeyDown={onKeyZoom}
           onReady={onReady}
           playIterations={playIterations}
           rotation={rotation}
@@ -116,8 +116,6 @@ FlipbookViewerContainer.propTypes = {
   loadingState: PropTypes.string,
   /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */
   onError: PropTypes.func,
-  /** withKeyZoom in for using keyboard pan and zoom controls while focused on the subject image */
-  onKeyDown: PropTypes.func,
   /** Passed from SubjectViewer and dimensions are added to classification metadata. Called after svg layers successfully load with `defaultFrameSrc`. */
   onReady: PropTypes.func,
   /** Required. Passed from mobx store via SubjectViewer. */
@@ -126,4 +124,4 @@ FlipbookViewerContainer.propTypes = {
   }).isRequired
 }
 
-export default withKeyZoom(observer(FlipbookViewerContainer))
+export default observer(FlipbookViewerContainer)
