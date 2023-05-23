@@ -1,42 +1,28 @@
-import { render } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
 
-import Publication from './Publication'
+import Meta, { Default, MissingUrl } from './Publication.stories.js'
 
-const AUTHORS = 'Foo'
-const TITLE = 'Baz'
-const URL = 'Qux'
-const YEAR = '2019'
+describe('Publications > Publication', function () {
+  const DefaultStory = composeStory(Default, Meta)
+  const MissingUrlStory = composeStory(MissingUrl, Meta)
 
-describe('Component > Publication', function () {
-  it('should render without crashing', function () {
-    const wrapper = render(<Publication />)
-    expect(wrapper).to.be.ok()
+  it('should render the publication title, authors, and year if present', function () {
+    render(<DefaultStory />)
+    const { title, authors, year } = Default.args
+    const displayString = screen.getByText(`${title}, ${authors}, ${year}`)
+    expect(displayString).exists()
   })
 
-  describe('citation', function () {
-    it('should render the title', function () {
-      const wrapper = render(<Publication title={TITLE} />)
-      expect(wrapper.html()).to.include(TITLE)
-    })
-
-    it('should render the title and authors if present', function () {
-      const wrapper = render(<Publication authors={AUTHORS} title={TITLE} />)
-      expect(wrapper.html()).to.include(`${TITLE}, ${AUTHORS}`)
-    })
-
-    it('should render the title and year if present', function () {
-      const wrapper = render(<Publication title={TITLE} year={YEAR} />)
-      expect(wrapper.html()).to.include(`${TITLE}, ${YEAR}`)
-    })
-
-    it('should render the title, author and year if present', function () {
-      const wrapper = render(<Publication authors={AUTHORS} title={TITLE} year={YEAR} />)
-      expect(wrapper.html()).to.include(`${TITLE}, ${AUTHORS}, ${YEAR}`)
-    })
+  it('should render a link to the publication if url is present', function () {
+    render(<DefaultStory />)
+    const link = screen.getByRole('link')
+    expect(link.href).includes(Default.args.url)
   })
 
-  it('should render a link to the publication', function () {
-    const wrapper = render(<Publication url={URL} />)
-    expect(wrapper.find(`a[href="${URL}"]`)).to.have.lengthOf(1)
+  it('should render only text if url is not present', function () {
+    render(<MissingUrlStory />)
+    const link = screen.queryByRole('link')
+    expect(link).to.equal(null)
   })
 })
