@@ -1,4 +1,24 @@
 {
+  "Head": {
+    "defaultDescription": "The Zooniverse is the world’s largest and most popular platform for people-powered research.",
+    "defaultTitle": "About",
+    "siteName": "Zooniverse - People-powered research"
+  },
+  "LoginForm": {
+    "error": "Username or password is incorrect",
+    "forgot": "Forgot your password?",
+    "heading": "Welcome back!",
+    "instruction": "We're glad you're back! Sign in to pick up where you left off.",
+    "login": "Username or email address",
+    "password": "Password",
+    "placeholder": "e.g. ZooniverseFan123",
+    "signIn": "Sign in"
+  },
+  "Publications": {
+    "description": "A list of academic publications that use Zooniverse-generated data.",
+    "showAll": "Show all",
+    "title": "Publications"
+  },
   "RegisterForm": {
     "betaListSignUp": "I'd like to help test new projects and be emailed when they're available (optional)",
     "email": "Email Address (Required)",
@@ -32,5 +52,10 @@
     "usernameHelp": "This will be shown publicly on message boards, etc.",
     "usernamePatternHelp": "Usernames can only contain letters, numbers, '.','-', and '_'",
     "usernamePlaceholder": "e.g. ZooniverseFan123"
+  },
+  "Team": {
+    "description": "The people who make the Zooniverse.",
+    "showAll": "Show all",
+    "title": "Our Team"
   }
 }

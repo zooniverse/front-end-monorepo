@@ -1,12 +1,10 @@
-import counterpart from 'counterpart'
 import PropTypes from 'prop-types'
 import { Box, Heading, Text } from 'grommet'
-import en from './locales/en'
+import { useTranslation } from 'next-i18next'
 import Form from './components/Form'
 
-counterpart.registerTranslations('en', en)
-
 function RegisterForm ({ generalError, validate, onSubmit }) {
+  const { t } = useTranslation('components')
   const initialValues = {
     betaListSignUp: false,
     email: '',
@@ -23,10 +21,10 @@ function RegisterForm ({ generalError, validate, onSubmit }) {
   return (
     <Box width='large'>
       <Heading size='small' margin={{ bottom: 'xsmall', top: 'none' }}>
-        {counterpart('RegisterForm.heading')}
+        {t('RegisterForm.heading')}
       </Heading>
       <Text>
-        {counterpart('RegisterForm.instruction')}
+        {t('RegisterForm.instruction')}
       </Text>
 
       {generalError &&

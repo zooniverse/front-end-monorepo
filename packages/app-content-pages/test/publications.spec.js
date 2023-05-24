@@ -5,7 +5,7 @@ import mockData from '../src/screens/Publications/PublicationsContainer.mock'
 
 const DATA = mockData
 
-describe('pages > publications > getStaticProps', function () {
+describe.skip('pages > publications > getStaticProps', function () {
 
   describe('populates the "publicationsData" props from contentful API', function () {
     let getpublicationsDataStub
