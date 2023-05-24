@@ -16,7 +16,7 @@ function Person({
   bio = '',
   jobTitle = '',
   name = '',
-  twitter = ''
+  twitterID = ''
 }) {
   return (
     <Box
@@ -30,7 +30,7 @@ function Person({
       <Box direction='column'>
         <Box direction='row' gap='xsmall' align='center'>
           <PersonName level='3'>{`${name}, ${jobTitle}`}</PersonName>
-          {twitter && <TwitterLink name={name} twitterId={twitter} />}
+          {twitterID && <TwitterLink name={name} twitterId={twitterID} />}
         </Box>
         <Text size='medium'>{bio}</Text>
       </Box>
@@ -39,12 +39,12 @@ function Person({
 }
 
 Person.propTypes = {
-  authors: string,
   avatarSrc: string,
   className: string,
-  title: string,
-  url: string,
-  year: string
+  bio: string,
+  jobTitle: string,
+  name: string,
+  twitterID: string
 }
 
 export default Person
