@@ -3,7 +3,6 @@ require('dotenv').config()
 const { execSync } = require('child_process')
 const Dotenv = require('dotenv-webpack')
 const path = require('path')
-const withSourceMaps = require('@zeit/next-source-maps')()
 const { i18n } = require('./next-i18next.config')
 
 const assetPrefixes = {}
@@ -73,4 +72,4 @@ const nextConfig = {
   }
 }
 
-module.exports = withSourceMaps(nextConfig)
+module.exports = nextConfig
