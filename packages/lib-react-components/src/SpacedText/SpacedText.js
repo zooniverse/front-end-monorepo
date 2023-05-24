@@ -38,10 +38,10 @@ SpacedText.propTypes = {
   children: node.isRequired,
   /** (string): */
   margin: oneOfType([
+     /** (string): Maps to preset sizes defined in the grommet theme. */
     string,
-    /** (string): Maps to preset sizes defined in the grommet theme. */
-    objectOf(string)
     /** (object): An object can be specified to distinguish horizontal margin, vertical margin, and margin on a particular side, i.e. `{ top: 'small' }` */
+    objectOf(string)
   ]),
   size: string,
   /** (boolean): Handled by styled-components. */
