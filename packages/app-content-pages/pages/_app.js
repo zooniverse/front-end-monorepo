@@ -34,6 +34,7 @@ function MyApp({ Component, initialState, pageProps }) {
   const mergedThemes = merge({}, base, zooTheme)
   const store = useStore(initialState)
   makeInspectable(store)
+  store?.user.checkCurrent()
 
   try {
     if (pageProps.statusCode) {
