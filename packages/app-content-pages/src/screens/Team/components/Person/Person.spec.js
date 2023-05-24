@@ -1,18 +1,15 @@
-import { render } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
 
-import Person from './Person'
-
-const JOB_TITLE = 'Foo'
-const NAME = 'Baz'
+import Meta, { Default } from './Person.stories.js'
 
 describe('Component > Person', function () {
-  it('should render without crashing', function () {
-    const wrapper = render(<Person />)
-    expect(wrapper).to.be.ok()
-  })
+  const DefaultStory = composeStory(Default, Meta)
 
   it('should render the name and job title', function () {
-    const wrapper = render(<Person jobTitle={JOB_TITLE} name={NAME} />)
-    expect(wrapper.html()).to.include(`${NAME}, ${JOB_TITLE}`)
+    render(<DefaultStory />)
+    const { jobTitle, name } = Default.args
+    const displayString = screen.getByText(`${name}, ${jobTitle}`)
+    expect(displayString).exists()
   })
 })

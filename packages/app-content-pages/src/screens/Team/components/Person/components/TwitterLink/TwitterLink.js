@@ -20,8 +20,7 @@ const StyledAnchor = styled(Anchor)`
   }
 `
 
-function TwitterLink (props) {
-  const { className, name, twitterId } = props
+function TwitterLink ({ className = '', name = '', twitterId = '' }) {
   return (
     <StyledAnchor
       a11yTitle={name}

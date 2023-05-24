@@ -7,7 +7,7 @@ const StyledImage = styled(Image)`
   filter: grayscale(100%);
 `
 
-const Placeholder = (
+const Placeholder = ({ name }) => (
   <Box
     align='center'
     justify='center'
@@ -15,13 +15,11 @@ const Placeholder = (
     height='100%'
     width='100%'
   >
-    <ZooniverseLogo size='50%' />
+    <ZooniverseLogo size='50%' id={`Team Avatar - ${name}`} />
   </Box>
 )
 
-function Avatar (props) {
-  const { avatarSrc, className, name } = props
-
+function Avatar ({ avatarSrc = '', className = '', name = '' }) {
   return (
     <Box
       flex={false}
@@ -30,7 +28,7 @@ function Avatar (props) {
       round='xxsmall'
       width='80px'
     >
-      {!avatarSrc ? Placeholder : (
+      {!avatarSrc ? <Placeholder name={name} /> : (
         <StyledImage
           alt={name}
           className={className}

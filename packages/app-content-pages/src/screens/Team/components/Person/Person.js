@@ -10,9 +10,14 @@ const PersonName = styled(Heading)`
   margin: 0;
 `
 
-function Person (props) {
-  const { avatarSrc, className, bio, jobTitle, name, twitter } = props
-
+function Person({
+  avatarSrc = '',
+  className = '',
+  bio = '',
+  jobTitle = '',
+  name = '',
+  twitter = ''
+}) {
   return (
     <Box
       className={className}
@@ -20,17 +25,15 @@ function Person (props) {
       gap='small'
       margin={{ bottom: 'small' }}
     >
-
       <Avatar avatarSrc={avatarSrc} name={name} />
 
       <Box direction='column'>
         <Box direction='row' gap='xsmall' align='center'>
           <PersonName level='3'>{`${name}, ${jobTitle}`}</PersonName>
-          {twitter && (<TwitterLink name={name} twitterId={twitter} />)}
+          {twitter && <TwitterLink name={name} twitterId={twitter} />}
         </Box>
         <Text size='medium'>{bio}</Text>
       </Box>
-
     </Box>
   )
 }
