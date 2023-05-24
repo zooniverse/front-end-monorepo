@@ -1,5 +1,4 @@
 const webpackConfig = require('../webpack.config')
-const path = require('path')
 
 function webpackFinal(config, options) {
   config.plugins.concat(webpackConfig.plugins)

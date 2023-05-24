@@ -8,10 +8,13 @@ import Category from './components/Category/Category.js'
 import TwoColumnLayout from '../../shared/components/TwoColumnLayout'
 import Head from '../../shared/components/Head'
 
+const StyledLi = styled.li`
+  list-style-type: none;
+`
+
 const StyledButton = styled(Button)`
   ${props =>
-    props.active &&
-    css`
+    props.active && css`
       background: none;
       font-weight: bold;
     `}
@@ -50,22 +53,22 @@ function Publications({ className = '', data = [], filters = [] }) {
   )
 
   const sidebar = (
-    <Box as='menu' gap='small' name='Filter by category'>
+    <Box as='ul' gap='small' name='Filter by category'>
       {filters.map(filter => (
-        <Link
-          href={filter.slug ? `#${filter.slug}` : ''}
-          key={filter.name}
-          passHref
-          role='menuitemcheckbox'
-        >
-          <StyledButton
-            active={filter.active}
-            ariaChecked={filter.active}
-            label={filter.name}
-            onClick={filter.setActive}
-            plain
-          />
-        </Link>
+        <StyledLi key={filter.name}>
+          <Link
+            href={filter.slug ? `#${filter.slug}` : ''}
+            passHref
+          >
+            <StyledButton
+              active={filter.active}
+              ariaChecked={filter.active}
+              label={filter.name}
+              onClick={filter.setActive}
+              plain
+            />
+          </Link>
+        </StyledLi>
       ))}
     </Box>
   )
