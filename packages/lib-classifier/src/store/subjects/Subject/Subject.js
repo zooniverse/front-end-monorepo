@@ -1,14 +1,13 @@
 import asyncStates from '@zooniverse/async-states'
-import { destroy, getRoot, getSnapshot, getType, tryReference, types } from 'mobx-state-tree'
+import { getRoot, getSnapshot, tryReference, types } from 'mobx-state-tree'
 import Resource from '@store/Resource'
 import { createLocationCounts, subjectsSeenThisSession, subjectViewers } from '@helpers'
 import StepHistory from './StepHistory'
 import SubjectLocation from './SubjectLocation'
+import FreehandLineReductions from './FreehandLineReductions'
 import TranscriptionReductions from './TranscriptionReductions'
 
-const CaesarReductions = types.union(TranscriptionReductions)
-
-
+const CaesarReductions = types.union(FreehandLineReductions, TranscriptionReductions)
 
 const Subject = types
   .model('Subject', {
@@ -33,7 +32,7 @@ const Subject = types
   })
 
   .views(self => ({
-    get talkURL () {
+    get talkURL() {
       if (self.project) {
         const projectSlug = self.project.slug
         const { origin } = window.location
@@ -43,7 +42,7 @@ const Subject = types
       return ''
     },
 
-    get viewer () {
+    get viewer() {
       let viewer = null
       const counts = createLocationCounts(getSnapshot(self))
       if (self.workflow) {
@@ -77,7 +76,7 @@ const Subject = types
           // This is a subject pattern for the image and text viewer
           // Note that workflows with subjects that have the same subject pattern that want to use a different viewer (i.e. light curve viewer)
           // should specify which viewer in the workflow configuration
-          if (counts.total === 2 && counts.images === 1 && counts.text === 1 ) {
+          if (counts.total === 2 && counts.images === 1 && counts.text === 1) {
             viewer = subjectViewers.imageAndText
           }
         }
@@ -85,7 +84,7 @@ const Subject = types
       return viewer
     },
 
-    get viewerConfiguration () {
+    get viewerConfiguration() {
       if (self.workflow) {
         return self.workflow.configuration.subject_viewer_configuration
       }
@@ -93,15 +92,15 @@ const Subject = types
       return undefined
     },
 
-    get project () {
+    get project() {
       return tryReference(() => getRoot(self).projects?.active)
     },
 
-    get workflow () {
+    get workflow() {
       return tryReference(() => getRoot(self).workflows?.active)
     },
 
-    get priority () {
+    get priority() {
       const priority = self.metadata['#priority'] ?? self.metadata.priority
       if (priority !== undefined) {
         return parseFloat(priority)
@@ -109,13 +108,13 @@ const Subject = types
       return undefined
     },
 
-    get alreadySeen () {
+    get alreadySeen() {
       return self.already_seen || subjectsSeenThisSession.check(self.workflow?.id, self.id)
     }
   }))
 
   .actions(self => {
-    function addToCollection () {
+    function addToCollection() {
       const rootStore = getRoot(self)
       rootStore.onAddToCollection(self.id)
     }
@@ -124,7 +123,7 @@ const Subject = types
       self.already_seen = true
     }
 
-    function openInTalk (newTab = false) {
+    function openInTalk(newTab = false) {
       self.shouldDiscuss = {
         newTab,
         url: self.talkURL
@@ -148,7 +147,7 @@ const Subject = types
       self.stepHistory.start()
     }
 
-    function toggleFavorite () {
+    function toggleFavorite() {
       const rootStore = getRoot(self)
       self.favorite = !self.favorite
       rootStore.onToggleFavourite(self.id, self.favorite)

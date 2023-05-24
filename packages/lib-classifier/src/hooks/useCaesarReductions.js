@@ -1,6 +1,5 @@
 import { captureException } from '@sentry/browser'
 import { useEffect, useState } from 'react'
-
 import { useStores } from '@hooks'
 
 async function fetchReductions(caesarClient, reducerKey, subjectID, workflowID) {

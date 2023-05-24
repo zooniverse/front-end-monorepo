@@ -179,20 +179,18 @@ function InteractionLayer({
         activeMark={activeMark}
         onDelete={inactivateMark}
       />
-      {marks && (
-        <DrawingToolMarks
-          activeMark={activeMark}
-          marks={marks}
-          onDelete={inactivateMark}
-          onDeselectMark={inactivateMark}
-          onFinish={onFinish}
-          onSelectMark={onSelectMark}
-          onMove={(mark, difference) => mark.move(difference)}
-          pointerEvents={creating ? 'none' : 'painted'}
-          scale={scale}
-          played={played}
-        />
-      )}
+      <DrawingToolMarks
+        activeMark={activeMark}
+        marks={marks}
+        onDelete={inactivateMark}
+        onDeselectMark={inactivateMark}
+        onFinish={onFinish}
+        onSelectMark={onSelectMark}
+        onMove={(mark, difference) => mark.move(difference)}
+        pointerEvents={creating ? 'none' : 'painted'}
+        scale={scale}
+        played={played}
+      />
     </>
   )
 }
