@@ -21,6 +21,7 @@ function Person({
   return (
     <Box
       className={className}
+      data-testid='person-test-element'
       direction='row'
       gap='small'
       margin={{ bottom: 'small' }}

@@ -1,7 +1,7 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import TeamAPI from '../src/api/team'
 import logNodeError from '../src/helpers/logger/logNodeError.js'
-export { default } from '../src/screens/Team'
+export { default } from '../src/screens/Teams'
 
 export async function getStaticProps({ locale }) {
   try {

@@ -1,0 +1,52 @@
+import { render, screen } from '@testing-library/react'
+import { RouterContext } from 'next/dist/shared/lib/router-context'
+import Router from 'next/router'
+import { composeStory } from '@storybook/react'
+import { within } from '@testing-library/dom'
+import projectAnnotations from '../../../.storybook/preview.js'
+
+import Meta, { Default } from './Teams.stories.js'
+
+function RouterMock({ children }) {
+  const mockRouter = {
+    locale: 'en',
+    push: () => {},
+    prefetch: () => new Promise((resolve, reject) => {}),
+    query: {}
+  }
+
+  Router.router = mockRouter
+
+  return (
+    <RouterContext.Provider value={mockRouter}>
+      {children}
+    </RouterContext.Provider>
+  )
+}
+
+describe('Component > TeamsContainer', function () {
+  const DefaultStory = composeStory(Default, Meta, projectAnnotations)
+
+  it('should have a sidebar with available filters', function () {
+    render(
+      <RouterMock>
+        <DefaultStory />
+      </RouterMock>
+    )
+    const teamFilters = Default.args.teamData.map(team => team.name)
+    const sideBar = document.querySelector('aside')
+    const listedFilters = within(sideBar).getAllByRole('link')
+    expect(listedFilters.length).to.equal(teamFilters.length + 1) // +1 to account for Show All
+    expect(listedFilters[1].textContent).to.equal(teamFilters[0])
+  })
+
+  it('should render all people in data', function () {
+    render(
+      <RouterMock>
+        <DefaultStory />
+      </RouterMock>
+    )
+    const people = screen.getAllByTestId('person-test-element')
+    expect(people.length).to.equal(31) // number of non-alumni in mock.json
+  })
+})
