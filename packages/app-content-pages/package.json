@@ -29,7 +29,7 @@
     "express": "^4.17.1",
     "grommet": "~2.32.0",
     "grommet-icons": "~4.10.0",
-    "i18next": "~22.4.15",
+    "i18next": "~22.5.0",
     "lodash": "~4.17.11",
     "mobx": "~6.9.0",
     "mobx-devtools-mst": "~0.9.21",
