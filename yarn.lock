@@ -11803,9 +11803,9 @@ neo-async@^2.5.0, neo-async@^2.6.0, neo-async@^2.6.1, neo-async@^2.6.2:
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
 newrelic@^10.0.0, newrelic@~10.1.0:
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-10.1.1.tgz#24b3eeca668632d99ff9a30cd2ada20101393f1e"
-  integrity sha512-evJrxNR62awuRouV+GglH5kMZfM6G+afN2bfLv+uq2xZ/HXTi7c/kPdSD1Jai37bt6I+a5NjAnDARKlXfplMCg==
+  version "10.1.2"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-10.1.2.tgz#8b1ae51813ffc235821e9c08033f8d16e8d0615c"
+  integrity sha512-aI2nAuNgEJbx+7dEztQJahA6IG/PdVVd4sd6Al4AECRqSPZVgEhHlzeR4ScNptsKxgHC46Ru8OdBBaU5FZ7fHQ==
   dependencies:
     "@grpc/grpc-js" "^1.8.10"
     "@grpc/proto-loader" "^0.7.5"
@@ -13799,20 +13799,10 @@ readable-stream@^2.0.0, readable-stream@^2.0.1, readable-stream@^2.2.2, readable
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
 
-readable-stream@^4.0.0:
+readable-stream@^4.0.0, readable-stream@^4.1.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-4.4.0.tgz#55ce132d60a988c460d75c631e9ccf6a7229b468"
   integrity sha512-kDMOq0qLtxV9f/SQv522h8cxZBqNZXuXNyjyezmfAAuribMyVXziljpQ/uQhfE1XLg2/TLTW2DsnoE4VAi/krg==
-  dependencies:
-    abort-controller "^3.0.0"
-    buffer "^6.0.3"
-    events "^3.3.0"
-    process "^0.11.10"
-
-readable-stream@^4.1.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-4.3.0.tgz#0914d0c72db03b316c9733bb3461d64a3cc50cba"
-  integrity sha512-MuEnA0lbSi7JS8XM+WNJlWZkHAAdm7gETHdFK//Q/mChGyj2akEFtdLZh32jSdkWGbRwCW9pn6g3LWDdDeZnBQ==
   dependencies:
     abort-controller "^3.0.0"
     buffer "^6.0.3"
