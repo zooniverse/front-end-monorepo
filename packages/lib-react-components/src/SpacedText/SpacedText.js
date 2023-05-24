@@ -1,7 +1,7 @@
 import { Text } from 'grommet'
 import styled, { css } from 'styled-components'
 import pxToRem from '../helpers/pxToRem'
-import { bool, node, string } from 'prop-types'
+import { bool, node, objectOf, oneOfType, string  } from 'prop-types'
 
 const letterSpacing = pxToRem(1)
 const StyledText = styled(Text)`
@@ -37,8 +37,12 @@ SpacedText.propTypes = {
   /** (node): Required. The child of the component. Usually text. */
   children: node.isRequired,
   /** (string): */
-  margin: string,
-  /** (string): Maps to preset sizes defined in the grommet theme. */
+  margin: oneOfType([
+    string,
+    /** (string): Maps to preset sizes defined in the grommet theme. */
+    objectOf(string)
+    /** (object): An object can be specified to distinguish horizontal margin, vertical margin, and margin on a particular side, i.e. `{ top: 'small' }` */
+  ]),
   size: string,
   /** (boolean): Handled by styled-components. */
   uppercase: bool,
