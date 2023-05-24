@@ -2449,20 +2449,20 @@
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
 
 "@storybook/addon-a11y@~7.0.10":
-  version "7.0.13"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-7.0.13.tgz#949f5e42e9a66021ad90016d84a45cae8070b668"
-  integrity sha512-+gStqpr9m/dN/DjNoWL3ij2vRI/5SIcYGLRG/S0M9vfAl1K5m6Z4DZSB0XXrv8ouHBs4f8renlB1mEdeeToOyA==
+  version "7.0.15"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-7.0.15.tgz#ca2e073c57e59f09065829313a51797238e240e8"
+  integrity sha512-1f2pD4ySlfE/fFO7QUKVC6EDDSALo2X8xwoz2akJjYaUDGX0kCqEEduUGkRjeY5pETvW9L5iLOwAqdE1ad/zlA==
   dependencies:
-    "@storybook/addon-highlight" "7.0.13"
-    "@storybook/channels" "7.0.13"
-    "@storybook/client-logger" "7.0.13"
-    "@storybook/components" "7.0.13"
-    "@storybook/core-events" "7.0.13"
+    "@storybook/addon-highlight" "7.0.15"
+    "@storybook/channels" "7.0.15"
+    "@storybook/client-logger" "7.0.15"
+    "@storybook/components" "7.0.15"
+    "@storybook/core-events" "7.0.15"
     "@storybook/global" "^5.0.0"
-    "@storybook/manager-api" "7.0.13"
-    "@storybook/preview-api" "7.0.13"
-    "@storybook/theming" "7.0.13"
-    "@storybook/types" "7.0.13"
+    "@storybook/manager-api" "7.0.15"
+    "@storybook/preview-api" "7.0.15"
+    "@storybook/theming" "7.0.15"
+    "@storybook/types" "7.0.15"
     axe-core "^4.2.0"
     lodash "^4.17.21"
     react-resize-detector "^7.1.2"
@@ -2590,15 +2590,6 @@
     "@storybook/node-logger" "7.0.15"
     "@storybook/preview-api" "7.0.15"
     ts-dedent "^2.0.0"
-
-"@storybook/addon-highlight@7.0.13":
-  version "7.0.13"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-highlight/-/addon-highlight-7.0.13.tgz#af4a015838520f32dd6b6b67b8ad70653d717dab"
-  integrity sha512-9gDF8UT9LcUSe2SRAt2zs+Qoi1KbQrBMLjglMjpbE78wTjjipdEQu9laHLnh/d7yQkAO1wmoQLvgf5WSpv/PjA==
-  dependencies:
-    "@storybook/core-events" "7.0.13"
-    "@storybook/global" "^5.0.0"
-    "@storybook/preview-api" "7.0.13"
 
 "@storybook/addon-highlight@7.0.15":
   version "7.0.15"
