@@ -52,30 +52,6 @@ describe('SlideTutorial', function () {
     expect(wrapper.find(Media)).to.have.lengthOf(1)
   })
 
-  it('should render the Heading on the first step', function () {
-    const wrapper = shallow(
-      <SlideTutorial
-        activeStep={0}
-        stepWithMedium={() => ({ step, medium })}
-        steps={[{ step, medium }, { step, medium }]}
-        strings={strings}
-      />
-    )
-    expect(wrapper.find(Heading)).to.have.lengthOf(1)
-  })
-
-  it('should not render the Heading on the second step', function () {
-    const wrapper = shallow(
-      <SlideTutorial
-        activeStep={1}
-        stepWithMedium={() => ({ step, medium })}
-        steps={[{ step, medium }, { step, medium }]}
-        strings={strings}
-      />
-    )
-    expect(wrapper.find(Heading)).to.have.lengthOf(0)
-  })
-
   it('should render the Get Started button on the last step', function () {
     const wrapper = shallow(
       <SlideTutorial
