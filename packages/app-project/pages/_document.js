@@ -79,9 +79,10 @@ export default class MyDocument extends Document {
           {isProduction && (
             <script dangerouslySetInnerHTML={{ __html: GA_TRACKING_SCRIPT }} />
           )}
+          { /* https://docs.sentry.io/platforms/javascript/install/loader/#default-bundle */ }
           <script
-            src="https://browser.sentry-cdn.com/7.52.1/bundle.tracing.min.js"
-            integrity="sha384-muuFXKS3752PNA4rPm9Uq6BLvOfV4CXyr9MHDBPvozOJJUWLKkogEFWOIRoVps43"
+            src="https://browser.sentry-cdn.com/7.53.1/bundle.tracing.min.js"
+            integrity="sha384-bOr1dt2YT0sBkM2Dk1NBfQq82A4aw50q0GPTy4Rr5FE4P7wkAdcdl9q3FzWE1Vcv"
             crossorigin="anonymous"
             defer
             id='sentryScript'

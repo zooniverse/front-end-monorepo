@@ -1,15 +1,13 @@
-import counterpart from 'counterpart'
-import { array, string } from 'prop-types'
+import { array } from 'prop-types'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'next-i18next'
 
-import en from './locales/en'
 import Team from './Team'
-
-counterpart.registerTranslations('en', en)
 
 const isBrowser = typeof window !== 'undefined'
 
 function TeamContainer ({ teamData }) {
+  const { t } = useTranslation('components')
   teamData.forEach(team => {
     team.slug = team.name.toLowerCase().replaceAll(' ', '-')
   })
@@ -20,7 +18,7 @@ function TeamContainer ({ teamData }) {
     setActiveFilter(slug)
   }, [])
 
-  const filters = createFilters(teamData, activeFilter, setActiveFilter)
+  const filters = createFilters(teamData, activeFilter, setActiveFilter, t)
   const filteredTeamData = createFilteredTeamData(teamData, activeFilter)
 
   return (
@@ -38,10 +36,10 @@ TeamContainer.defaultProps = {
 
 export default TeamContainer
 
-function createFilters (teamData, activeFilter, setActiveFilter) {
+function createFilters (teamData, activeFilter, setActiveFilter, t) {
   const showAllFilter = {
     active: !activeFilter,
-    name: counterpart('Team.showAll'),
+    name: t('Team.showAll'),
     slug: '',
     setActive: event => setActiveFilter('')
   }

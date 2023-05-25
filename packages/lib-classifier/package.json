@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.21.0",
-    "@sentry/browser": "~7.52.1",
+    "@sentry/browser": "~7.53.0",
     "@visx/axis": "~2.18.0",
     "@visx/brush": "~3.0.1",
     "@visx/event": "~3.0.0",
@@ -39,7 +39,7 @@
     "cuid": "~3.0.0",
     "d3": "~6.7.0",
     "graphql": "~16.6.0",
-    "graphql-request": "~6.0.0",
+    "graphql-request": "~6.1.0",
     "hash.js": "~1.1.7",
     "i18next": "~22.5.0",
     "lodash": "~4.17.11",
@@ -116,7 +116,7 @@
     "style-loader": "~3.3.1",
     "styled-components": "~5.3.3",
     "superagent": "~8.0.0",
-    "webpack": "~5.83.0",
+    "webpack": "~5.84.0",
     "webpack-cli": "~5.1.0",
     "webpack-dev-server": "~4.15.0"
   },
