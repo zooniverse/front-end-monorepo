@@ -1,3 +1,4 @@
+import { auth } from '@zooniverse/panoptes-js'
 import { expect } from 'chai'
 import nock from 'nock'
 import sinon from 'sinon'
@@ -12,6 +13,16 @@ describe('ClassificationQueue', function () {
   })
 
   describe('sends classifications to the backend', function () {
+
+    before(function () {
+      sinon.stub(auth, 'verify').resolves({
+        data: { id: 1, login: 'testUser', dname: 'Test User', admin: false }
+      })
+    })
+
+    after(function () {
+      auth.verify.restore()
+    })
 
     beforeEach(function () {
       nock('https://panoptes-staging.zooniverse.org/api')
