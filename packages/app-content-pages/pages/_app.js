@@ -6,7 +6,7 @@ import { Provider } from 'mobx-react'
 import { createGlobalStyle } from 'styled-components'
 import merge from 'lodash/merge'
 import Error from 'next/error'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { appWithTranslation } from 'next-i18next'
 
 import { initializeLogger, logReactError } from '../src/helpers/logger'
@@ -34,7 +34,10 @@ function MyApp({ Component, initialState, pageProps }) {
   const mergedThemes = merge({}, base, zooTheme)
   const store = useStore(initialState)
   makeInspectable(store)
-  store?.user.checkCurrent()
+
+  useEffect(() => {
+    store?.user.checkCurrent()
+  }, [])
 
   try {
     if (pageProps.statusCode) {
