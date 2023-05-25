@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
 import Router from 'next/router'
