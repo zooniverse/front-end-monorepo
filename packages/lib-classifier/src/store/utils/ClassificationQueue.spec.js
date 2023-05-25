@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/browser'
 import { auth } from '@zooniverse/panoptes-js'
 import { expect } from 'chai'
 import nock from 'nock'
@@ -48,6 +49,62 @@ describe('ClassificationQueue', function () {
     it('adds saved classifications to the recents queue', async function () {
       await classificationQueue.add(classificationData)
       expect(classificationQueue.recents).to.have.lengthOf(1)
+    })
+  })
+
+  describe('with an invalid auth token', function () {
+    const tokenError = new Error('JWT expired')
+
+    before(function () {
+      sinon.stub(auth, 'verify').resolves({
+        error: tokenError
+      })
+      sinon.stub(Sentry, 'captureException')
+    })
+
+    after(function () {
+      auth.verify.restore()
+      Sentry.captureException.restore()
+    })
+
+    beforeEach(function () {
+      nock('https://panoptes-staging.zooniverse.org/api')
+      .post('/classifications')
+      .query(true)
+      .reply(201, {
+        classifications: [{ id: '1' }]
+      })
+
+      const authClient = {
+        checkBearerToken: sinon.stub().resolves('fakeToken')
+      }
+      const callback = sinon.stub()
+      classificationQueue = new ClassificationQueue(undefined, callback, authClient)
+    })
+
+    afterEach(function () {
+      Sentry.captureException.resetHistory()
+    })
+
+    it('saves classifications to the API', async function () {
+      expect(nock.isDone()).to.be.false()
+      await classificationQueue.add(classificationData)
+      expect(nock.isDone()).to.be.true()
+    })
+
+    it('does not store saved classifications', async function () {
+      await classificationQueue.add(classificationData)
+      expect(classificationQueue.length()).to.equal(0)
+    })
+
+    it('adds saved classifications to the recents queue', async function () {
+      await classificationQueue.add(classificationData)
+      expect(classificationQueue.recents).to.have.lengthOf(1)
+    })
+
+    it('logs invalid tokens to Sentry', async function () {
+      await classificationQueue.add(classificationData)
+      expect(Sentry.captureException.withArgs(tokenError)).to.have.been.calledOnce()
     })
   })
 
