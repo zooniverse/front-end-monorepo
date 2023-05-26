@@ -60,7 +60,7 @@
   "devDependencies": {
     "@babel/cli": "~7.21.0",
     "@babel/core": "~7.22.0",
-    "@babel/preset-env": "~7.21.4",
+    "@babel/preset-env": "~7.22.0",
     "@babel/preset-react": "~7.22.0",
     "@babel/register": "~7.21.0",
     "@storybook/addon-a11y": "~7.0.10",
