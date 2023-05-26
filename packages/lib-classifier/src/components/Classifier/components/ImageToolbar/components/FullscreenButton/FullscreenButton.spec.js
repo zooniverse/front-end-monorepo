@@ -1,31 +1,70 @@
-import { shallow } from 'enzyme'
-import sinon from 'sinon'
-import i18n from '@test/i18n/i18n-for-tests'
+import { expect } from 'chai'
+import { Grommet } from 'grommet'
+import { Provider } from 'mobx-react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import zooTheme from '@zooniverse/grommet-theme'
 
-import FullscreenButton from './FullscreenButton'
+import mockStore from '@test/mockStore'
+
+import FullscreenButtonContainer from './FullscreenButtonContainer'
 
 describe('Component > FullscreenButton', function () {
-  it('should render without crashing', function () {
-    const wrapper = shallow(<FullscreenButton />)
-    expect(wrapper).to.be.ok()
+  function withStore (store) {
+    return function Wrapper ({ children }) {
+      return (
+        <Grommet theme={zooTheme}>
+          <Provider classifierStore={store}>
+            {children}
+          </Provider>
+        </Grommet>
+      )
+    }
+  }
+  
+  describe('with fullscreen as false', function () {
+    it('should have an accessible name', function () {
+      const store = mockStore()
+      
+      render(
+        <FullscreenButtonContainer show={true} />, {
+          wrapper: withStore(store)
+        }
+      )
+  
+      expect(screen.getByRole('button', { name: 'ImageToolbar.FullscreenButton.ariaLabel.fullscreen' })).to.be.ok()
+    })
   })
 
-  it('should have an `a11yTitle` label', function () {
-    const useTranslationStub = sinon.stub(i18n, 't').callsFake((key) => key)
-    const wrapper = shallow(<FullscreenButton />)
-    expect(wrapper.prop('a11yTitle')).exists()
-    expect(useTranslationStub).to.have.been.calledWith('ImageToolbar.FullscreenButton.ariaLabel.fullscreen')
-    useTranslationStub.restore()
+  describe('with fullscreen as true', function () {
+    it('should have an accessible name', function () {
+      const store = mockStore()
+      store.subjectViewer.enableFullscreen()
+      expect(store.subjectViewer.fullscreen).to.be.true()
+
+      render(
+        <FullscreenButtonContainer show={true} />, {
+          wrapper: withStore(store)
+        }
+      )
+  
+      expect(screen.getByRole('button', { name: 'ImageToolbar.FullscreenButton.ariaLabel.actualSize' })).to.be.ok()
+    })
   })
 
-  it('should call the onClick prop function on click', function () {
-    const spy = sinon.spy()
-    const wrapper = shallow(
-      <FullscreenButton
-        onClick={spy}
-      />
+  it('should change the subject viewer fullscreen state when clicked', async function () {
+    const user = userEvent.setup({ delay: null })
+    const store = mockStore()
+    expect(store.subjectViewer.fullscreen).to.be.false()
+    
+    render(
+      <FullscreenButtonContainer show={true} />, {
+        wrapper: withStore(store)
+      }
     )
-    wrapper.simulate('click')
-    expect(spy).to.have.been.called()
+
+    await user.click(screen.getByRole('button', { name: 'ImageToolbar.FullscreenButton.ariaLabel.fullscreen' }))
+
+    expect(store.subjectViewer.fullscreen).to.be.true()
   })
 })
