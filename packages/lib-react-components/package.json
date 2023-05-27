@@ -31,7 +31,7 @@
     "@visx/group": "~3.0.0",
     "@visx/responsive": "~3.0.0",
     "@visx/shape": "~3.0.0",
-    "formik": "~2.2.9",
+    "formik": "~2.3.2",
     "i18next": "~22.5.0",
     "mime": "~3.0.0",
     "polished": "~4.2.2",
