@@ -14820,17 +14820,17 @@ store2@^2.14.2:
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.14.2.tgz#56138d200f9fe5f582ad63bc2704dbc0e4a45068"
   integrity sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==
 
-storybook-i18n@^2.0.6:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/storybook-i18n/-/storybook-i18n-2.0.6.tgz#3e698db10258c67655c2c0ff427509aec7f56b02"
-  integrity sha512-4Hhy6lBSj0LzR9YN8EiZ/QFSkyurs1z/eDRkqs8sGUganc4lZOay7Nv22ugd0TaYW39gaV88upNaJ9aH21/WrQ==
+storybook-i18n@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/storybook-i18n/-/storybook-i18n-2.0.7.tgz#1569e55ab4d6a41146394366aa439efa27251c20"
+  integrity sha512-f+sXig9sx0G2IdE5ovMpNJDDkdtSU+k9LDL2LoVR4WCB9iIovwHr3bhrYM0mKx3QqKPrSXv+fGwkAE2hNlWHbA==
 
 storybook-react-i18next@~2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/storybook-react-i18next/-/storybook-react-i18next-2.0.1.tgz#f727d3ab277076a0d8ebb3a505145db479195d91"
-  integrity sha512-OTRBDXLvCGaa+zgfQBPd4CKsOdwcbZbYbSGU+YCeQG+/zL35WbJPK9leF6c00rGgUbGvB5e480mMpoHI5OqoqQ==
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/storybook-react-i18next/-/storybook-react-i18next-2.0.2.tgz#1e771b8cf7792d99ef5e3f1479e2fd552d3c16e7"
+  integrity sha512-j5WsRYnKcgbF/Y874txiFglmg+by79geENbbYFQKZyfnrLMaDRNmltTf3xTxtMwbUgWaCeTwjeb09zwRUkrqeA==
   dependencies:
-    storybook-i18n "^2.0.6"
+    storybook-i18n "^2.0.7"
 
 storybook@~7.0.10:
   version "7.0.18"
