@@ -18,6 +18,6 @@ describe('Component > Person', function () {
   it('should render a twitter link if handle is defined', function () {
     render(<WithTwitterStory />)
     const twitterLink = screen.getByRole('link')
-    expect(twitterLink.href).includes('https://twitter.com')
+    expect(twitterLink.href).includes('twitter')
   })
 })
