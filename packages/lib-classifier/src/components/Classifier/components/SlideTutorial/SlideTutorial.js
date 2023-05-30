@@ -76,14 +76,10 @@ function SlideTutorial({
         {isThereMedia &&
           <Media
             alt={t('SlideTutorial.alt', { activeStep: stepIndex })}
-            fit='cover'
+            fit='contain'
             height={200}
             src={medium.src}
           />}
-        {isFirstStep &&
-          <Heading level='3' margin={{ bottom: 'xsmall', top: 'small' }}>
-            {t('SlideTutorial.heading', { projectDisplayName })}
-          </Heading>}
         <Markdownz>{strings[`steps.${stepIndex}.content`]}</Markdownz>
       </StyledMarkdownWrapper>
       <StepNavigation
