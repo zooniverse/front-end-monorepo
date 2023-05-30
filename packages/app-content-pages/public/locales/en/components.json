@@ -1,4 +1,19 @@
 {
+  "AboutHeader": {
+    "links": {
+      "about": "About",
+      "acknowledgements": "Acknowledgements",
+      "contact": "Contact Us",
+      "donate": "Donate",
+      "faq": "FAQ",
+      "highlights": "Highlights Book",
+      "mobile": "Mobile App",
+      "publications": "Publications",
+      "resources": "Resources",
+      "team": "Our Team"
+    },
+    "title": "About"
+  },
   "Head": {
     "defaultDescription": "The Zooniverse is the world’s largest and most popular platform for people-powered research.",
     "defaultTitle": "About",
