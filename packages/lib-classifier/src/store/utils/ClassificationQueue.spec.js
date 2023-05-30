@@ -150,18 +150,17 @@ describe('ClassificationQueue', function () {
   })
 
   describe('with a slow network connection', function () {
+    this.timeout(5000)
     let firstRequest, secondRequest, thirdRequest
 
-    before(function () {
+    before(async function () {
       firstRequest = nock('https://panoptes-staging.zooniverse.org/api')
       .post('/classifications')
+      .delayBody(3000)
       .query(true)
       .reply(201, {
         classifications: [{ id: '1' }]
       })
-
-      classificationQueue = new ClassificationQueue()
-      classificationQueue.add({ id: '1', annotations: [], metadata: {} })
 
       secondRequest = nock('https://panoptes-staging.zooniverse.org/api')
       .post('/classifications')
@@ -169,6 +168,7 @@ describe('ClassificationQueue', function () {
       .reply(201, {
         classifications: [{ id: '2' }]
       })
+
       thirdRequest = nock('https://panoptes-staging.zooniverse.org/api')
       .post('/classifications')
       .query(true)
@@ -176,7 +176,11 @@ describe('ClassificationQueue', function () {
         classifications: [{ id: '3' }]
       })
 
-      classificationQueue.add({ id: '2', annotations: [], metadata: {} })
+      classificationQueue = new ClassificationQueue()
+      await Promise.all([
+        classificationQueue.add({ id: '1', annotations: [], metadata: {} }),
+        classificationQueue.add({ id: '2', annotations: [], metadata: {} })
+      ])
     })
 
     it('saves each classification once', function () {
