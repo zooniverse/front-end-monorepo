@@ -1,4 +1,19 @@
 {
+    "AboutHeader": {
+    "links": {
+      "about": "Translated",
+      "acknowledgements": "Translated",
+      "contact": "Translated",
+      "donate": "Translated",
+      "faq": "Translated",
+      "highlights": "Translated",
+      "mobile": "Translated",
+      "publications": "Translated",
+      "resources": "Translated",
+      "team": "Translated"
+    },
+    "title": "Translated"
+  },
   "Head": {
     "defaultDescription": "Translated",
     "defaultTitle": "Translated",
