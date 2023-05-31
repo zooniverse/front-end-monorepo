@@ -54,9 +54,6 @@ const Classification = types
   })
   .postProcessSnapshot(snapshot => {
     const newSnapshot = Object.assign({}, snapshot)
-    // remove temporary classification IDs
-    // TODO: leave the ID if it came from Panoptes
-    delete newSnapshot.id
     // convert annotations to an array
     newSnapshot.annotations = Object.values(snapshot.annotations)
     return newSnapshot
