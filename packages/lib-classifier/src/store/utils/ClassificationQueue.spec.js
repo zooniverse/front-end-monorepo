@@ -1,34 +1,32 @@
 import { expect } from 'chai'
+import nock from 'nock'
 import sinon from 'sinon'
 import ClassificationQueue, { RETRY_INTERVAL } from './ClassificationQueue'
 
-// TODO: migrate this to use panoptes js stub and factories
 describe('ClassificationQueue', function () {
-  let apiClient
   let classificationQueue
-  let classificationData = { annotations: [], metadata: {} }
+  let classificationData = { id: '1', annotations: [], metadata: {} }
 
   afterEach(function () {
     classificationQueue._saveQueue([])
   })
 
   describe('sends classifications to the backend', function () {
-    let postSpy
 
     beforeEach(function () {
-      apiClient = {
-        post: () => Promise.resolve({ body: { classifications: [{ id: '1' }] }, status: 201, ok: true })
-      }
-      postSpy = sinon.spy(apiClient, 'post')
-      classificationQueue = new ClassificationQueue(apiClient)
+      nock('https://panoptes-staging.zooniverse.org/api')
+      .post('/classifications')
+      .query(true)
+      .reply(201, {
+        classifications: [{ id: '1' }]
+      })
+      classificationQueue = new ClassificationQueue()
     })
 
     it('saves classifications to the API', async function () {
+      expect(nock.isDone()).to.be.false()
       await classificationQueue.add(classificationData)
-      expect(postSpy).to.have.been.called()
-      postSpy.returnValues[0].then((response) => {
-        expect(response.ok).to.be.true()
-      })
+      expect(nock.isDone()).to.be.true()
     })
 
     it('does not store saved classifications', async function () {
@@ -44,7 +42,6 @@ describe('ClassificationQueue', function () {
 
   describe('keeps classifications in localStorage if backend fails', function () {
     let clock
-    let postSpy
 
     before(function () {
       clock = sinon.useFakeTimers({ global })
@@ -55,40 +52,35 @@ describe('ClassificationQueue', function () {
     })
 
     beforeEach(function () {
-      apiClient = { 
-        post: () => {
-          const error = new Error('Stubbing error response')
-          error.status = 504
-          return Promise.reject(error)
-        }
-      }
-      postSpy = sinon.spy(apiClient, 'post')
-      classificationData = { annotations: [], metadata: {} }
-      classificationQueue = new ClassificationQueue(apiClient)
+      nock('https://panoptes-staging.zooniverse.org/api')
+      .persist()
+      .post('/classifications')
+      .query(true)
+      .reply(504, {
+        error: 'something went wrong on the server'
+      })
+
+      classificationQueue = new ClassificationQueue()
+    })
+
+    afterEach(function () {
+      nock.cleanAll()
     })
 
     it('should not save failed classifications', async function () {
-      try {
-        await classificationQueue.add(classificationData)
-        expect(postSpy).to.have.been.called()
-        postSpy.returnValues[0].then((response) => {
-          expect(response.ok).to.be.false()
-        })
-      } catch (error) {}
+      expect(nock.isDone()).to.be.false()
+      await classificationQueue.add(classificationData)
+      expect(nock.isDone()).to.be.true()
     })
 
     it('should queue failed classifications to retry', async function () {
-      try {
-        await classificationQueue.add(classificationData)
-        expect(classificationQueue.length()).to.equal(1)
-      } catch (e) {}
+      await classificationQueue.add(classificationData)
+      expect(classificationQueue.length()).to.equal(1)
     })
 
     it('should not add failed classifications to recents', async function () {
-      try {
-        await classificationQueue.add(classificationData)
-        expect(classificationQueue.recents).to.have.lengthOf(0)
-      } catch (e) {}
+      await classificationQueue.add(classificationData)
+      expect(classificationQueue.recents).to.have.lengthOf(0)
     })
 
     it('should set a timer to retry failed classifications', async function () {
@@ -107,7 +99,6 @@ describe('ClassificationQueue', function () {
 
   describe('with invalid classifications', function () {
     let clock
-    let postSpy
 
     before(function () {
       clock = sinon.useFakeTimers({ global })
@@ -118,40 +109,30 @@ describe('ClassificationQueue', function () {
     })
 
     beforeEach(function () {
-      apiClient = { 
-        post: () => {
-          const error = new Error('Stubbing error response')
-          error.status = 422
-          return Promise.reject(error)
-        }
-      }
-      postSpy = sinon.spy(apiClient, 'post')
-      classificationData = { annotations: [], metadata: {} }
-      classificationQueue = new ClassificationQueue(apiClient)
+      nock('https://panoptes-staging.zooniverse.org/api')
+      .post('/classifications')
+      .query(true)
+      .reply(422, {
+        error: 'invalid classification'
+      })
+
+      classificationQueue = new ClassificationQueue()
     })
 
     it('should not save failed classifications', async function () {
-      try {
-        await classificationQueue.add(classificationData)
-        expect(postSpy).to.have.been.called()
-        postSpy.returnValues[0].then((response) => {
-          expect(response.ok).to.be.false()
-        })
-      } catch (error) {}
+      expect(nock.isDone()).to.be.false()
+      await classificationQueue.add(classificationData)
+      expect(nock.isDone()).to.be.true()
     })
 
     it('should not queue failed classifications to retry', async function () {
-      try {
-        await classificationQueue.add(classificationData)
-        expect(classificationQueue.length()).to.equal(0)
-      } catch (e) {}
+      await classificationQueue.add(classificationData)
+      expect(classificationQueue.length()).to.equal(0)
     })
 
     it('should not add failed classifications to recents', async function () {
-      try {
-        await classificationQueue.add(classificationData)
-        expect(classificationQueue.recents).to.have.lengthOf(0)
-      } catch (e) {}
+      await classificationQueue.add(classificationData)
+      expect(classificationQueue.recents).to.have.lengthOf(0)
     })
 
     it('should not set a timer to retry failed classifications', async function () {
@@ -169,20 +150,43 @@ describe('ClassificationQueue', function () {
   })
 
   describe('with a slow network connection', function () {
-    let apiClient
-    let postSpy
-    before(function () {
-      apiClient = { post: () => {} }
-      postSpy = sinon.stub(apiClient, 'post').callsFake(() => new Promise(function (resolve, reject) { }))
-      classificationQueue = new ClassificationQueue(apiClient)
-      classificationQueue.add({ annotations: [], metadata: {} })
-      classificationQueue.add({ annotations: [], metadata: {} })
+    this.timeout(5000)
+    let firstRequest, secondRequest, thirdRequest
+
+    before(async function () {
+      firstRequest = nock('https://panoptes-staging.zooniverse.org/api')
+      .post('/classifications')
+      .delayBody(3000)
+      .query(true)
+      .reply(201, {
+        classifications: [{ id: '1' }]
+      })
+
+      secondRequest = nock('https://panoptes-staging.zooniverse.org/api')
+      .post('/classifications')
+      .query(true)
+      .reply(201, {
+        classifications: [{ id: '2' }]
+      })
+
+      thirdRequest = nock('https://panoptes-staging.zooniverse.org/api')
+      .post('/classifications')
+      .query(true)
+      .reply(201, {
+        classifications: [{ id: '3' }]
+      })
+
+      classificationQueue = new ClassificationQueue()
+      await Promise.all([
+        classificationQueue.add({ id: '1', annotations: [], metadata: {} }),
+        classificationQueue.add({ id: '2', annotations: [], metadata: {} })
+      ])
     })
-    after(function () {
-      postSpy.restore()
-    })
+
     it('saves each classification once', function () {
-      expect(postSpy.callCount).to.equal(2)
+      expect(firstRequest.isDone()).to.be.true()
+      expect(secondRequest.isDone()).to.be.true()
+      expect(thirdRequest.isDone()).to.be.false()
     })
   })
 })
