@@ -28,6 +28,7 @@ function ProjectAboutPage ({
   aboutNavLinks,
   aboutPageData = {},
   inBeta = false,
+  organization,
   projectDisplayName,
   screenSize,
   teamArray = [],
@@ -47,7 +48,10 @@ function ProjectAboutPage ({
   // note that for future additional locales, CSS property :lang is available to format strings
 
   return (
-    <StandardLayout inBeta={inBeta}>
+    <StandardLayout
+      inBeta={inBeta}
+      organization={organization}
+    >
       <Grid columns={screenSize === 'small' ? ['auto'] : ['xsmall', 'flex', 'xsmall']}>
         <Box />
         <Box
@@ -136,6 +140,11 @@ function ProjectAboutPage ({
 ProjectAboutPage.propTypes = {
   aboutPageData: object,
   inBeta: bool,
+  organization: shape({
+    id: string,
+    slug: string,
+    title: string
+  }),
   teamArray: arrayOf(
     shape({
       avatar_src: string,

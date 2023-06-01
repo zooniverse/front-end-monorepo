@@ -1,4 +1,4 @@
-import { node } from 'prop-types'
+import { node, shape, string } from 'prop-types'
 import { Box } from 'grommet'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { useContext } from 'react'
@@ -31,6 +31,7 @@ function useStores() {
 
 function StandardLayout ({
   children,
+  organization,
 }) {
   const { inBeta } = useStores()
   const { adminMode, toggleAdmin } = useAdminMode()
@@ -47,7 +48,10 @@ function StandardLayout ({
     <PageBox className={className} data-testid='project-page' border={border}>
       <header>
         <ZooHeaderWrapper isAdmin={adminMode} />
-        <ProjectHeader adminMode={adminMode} />
+        <ProjectHeader
+          adminMode={adminMode}
+          organization={organization}
+        />
         <Announcements />
       </header>
       {children}
@@ -60,7 +64,12 @@ function StandardLayout ({
 }
 
 StandardLayout.propTypes = {
-  children: node
+  children: node,
+  organization: shape({
+    id: string,
+    slug: string,
+    title: string
+  })
 }
 
 export default observer(StandardLayout)

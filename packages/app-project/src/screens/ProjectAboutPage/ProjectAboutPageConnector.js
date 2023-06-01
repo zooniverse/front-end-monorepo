@@ -8,7 +8,11 @@ import ProjectAboutPage from './ProjectAboutPage'
   Connect the about page to the store. Pass down correct aboutPages data.
   If a non-required about page is empty or missing, content is set as null.
 */
-const ProjectAboutPageConnector = ({ pageType, teamArray }) => {
+const ProjectAboutPageConnector = ({
+  organization,
+  pageType,
+  teamArray
+}) => {
   const returnDefaultContent = () => {
     const pageTitle = pageType === 'science_case' ? 'research' : pageType
 
@@ -57,6 +61,7 @@ const ProjectAboutPageConnector = ({ pageType, teamArray }) => {
       aboutNavLinks={aboutNavLinks}
       aboutPageData={aboutPageData}
       inBeta={inBeta}
+      organization={organization}
       projectDisplayName={display_name}
       teamArray={teamArray}
     />
@@ -65,6 +70,11 @@ const ProjectAboutPageConnector = ({ pageType, teamArray }) => {
 
 ProjectAboutPageConnector.propTypes = {
   inBeta: bool,
+  organization: shape({
+    id: string,
+    slug: string,
+    title: string
+  }),
   pageType: string,
   teamArray: arrayOf(
     shape({
