@@ -7,6 +7,7 @@ import mockStore from '@test/mockStore'
 import { ViewerGrid } from '../Layout/components/NoMaxWidth/NoMaxWidth'
 import MultiFrameViewer from '../SubjectViewer/components/MultiFrameViewer'
 import SingleImageViewer from '../SubjectViewer/components/SingleImageViewer'
+import SingleTextViewer from '../SubjectViewer/components/SingleTextViewer'
 import ImageToolbar from './ImageToolbar'
 
 export default {
@@ -43,6 +44,14 @@ const multiFrameSubjectSnapshot = SubjectFactory.build({
   }
 })
 
+const textSubjectSnapshot = SubjectFactory.build({
+  locations: [
+    {
+      'text/plain': 'https://panoptes-uploads-staging.zooniverse.org/subject_location/82eef33c-11ef-4f96-a4b3-526fc2d4e82f.txt'
+    }
+  ]
+})
+
 const workflowSnapshot = WorkflowFactory.build({
   configuration: {
     invert_subject: true
@@ -56,6 +65,11 @@ const store = mockStore({
 
 const multiFrameSubjectStore = mockStore({
   subject: multiFrameSubjectSnapshot,
+  workflow: workflowSnapshot
+})
+
+const textSubjectStore = mockStore({
+  subject: textSubjectSnapshot,
   workflow: workflowSnapshot
 })
 
@@ -83,6 +97,22 @@ export function withMultiFrameViewer() {
           <MultiFrameViewer
             loadingState={asyncStates.success}
             subject={multiFrameSubjectStore.subjects.active}
+          />
+        </Box>
+        <ImageToolbar />
+      </ViewerGrid>
+    </Provider>
+  )
+}
+
+export function withSingleTextViewer() {
+  return (
+    <Provider classifierStore={textSubjectStore}>
+      <ViewerGrid>
+        <Box gridArea='subject'>
+          <SingleTextViewer
+            loadingState={asyncStates.success}
+            subject={textSubjectStore.subjects.active}
           />
         </Box>
         <ImageToolbar />

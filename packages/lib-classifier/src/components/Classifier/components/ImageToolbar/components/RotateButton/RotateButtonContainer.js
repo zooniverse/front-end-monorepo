@@ -16,7 +16,7 @@ function storeMapper (classifierStore) {
   const show = rotationEnabled
 
   return {
-    show,
+    disabled,
     rotate,
     separateFramesView,
     show
