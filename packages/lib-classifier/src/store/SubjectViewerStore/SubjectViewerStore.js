@@ -38,10 +38,6 @@ const SubjectViewer = types
   }))
 
   .views(self => ({
-    get interactionMode () {
-      // Default interaction mode is 'annotate'
-      return (!self.annotate && self.move) ? 'move' : 'annotate'
-    },
     get disableImageToolbar () {
       const subject = getRoot(self).subjects.active
       const frameType = subject?.locations[self.frame].type
@@ -49,6 +45,11 @@ const SubjectViewer = types
         return true
       }
       return false
+    },
+    
+    get interactionMode () {
+      // Default interaction mode is 'annotate'
+      return (!self.annotate && self.move) ? 'move' : 'annotate'
     }
   }))
 
