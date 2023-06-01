@@ -3,9 +3,8 @@ import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react';
 
-import withKeyZoom from '@components/Classifier/components/withKeyZoom'
 import { withStores } from '@helpers'
-import { useSubjectImage } from '@hooks'
+import { useKeyZoom, useSubjectImage } from '@hooks'
 
 import locationValidator from '../../helpers/locationValidator'
 import SingleImageViewer from '../SingleImageViewer/SingleImageViewer'
@@ -66,7 +65,6 @@ function MultiFrameViewerContainer({
   loadingState = asyncStates.initialized,
   move,
   onError = () => true,
-  onKeyDown = () => true,
   onReady = () => true,
   rotation,
   setFrame = () => true,
@@ -74,6 +72,7 @@ function MultiFrameViewerContainer({
   setOnZoom = () => true,
   subject
 }) {
+  const { onKeyZoom } = useKeyZoom()
   const [dragMove, setDragMove] = useState()
   // TODO: replace this with a better function to parse the image location from a subject.
   const imageLocation = subject ? subject.locations[frame] : null
@@ -136,7 +135,7 @@ function MultiFrameViewerContainer({
             enableInteractionLayer={enableDrawing}
             height={img.naturalHeight}
             limitSubjectHeight={limitSubjectHeight}
-            onKeyDown={onKeyDown}
+            onKeyDown={onKeyZoom}
             rotate={rotation}
             width={img.naturalWidth}
           >
@@ -179,5 +178,5 @@ MultiFrameViewerContainer.propTypes = {
   }).isRequired
 }
 
-export default withStores(withKeyZoom(MultiFrameViewerContainer), storeMapper)
+export default withStores(MultiFrameViewerContainer, storeMapper)
 export { MultiFrameViewerContainer }

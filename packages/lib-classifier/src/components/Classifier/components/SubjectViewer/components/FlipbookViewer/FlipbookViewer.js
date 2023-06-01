@@ -133,8 +133,6 @@ FlipbookViewer.propTypes = {
   invert: PropTypes.bool,
   /** Passed from Subject Viewer Store */
   move: PropTypes.bool,
-  /** withKeyZoom in for using keyboard pan and zoom controls while focused on the subject image */
-  onKeyDown: PropTypes.func,
   /** Passed from Subject Viewer Store and called when default frame's src is loaded */
   onReady: PropTypes.func,
   /** Fetched from workflow configuration. Number preference for how many loops to play */

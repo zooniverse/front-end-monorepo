@@ -14,9 +14,9 @@ function storeMapper (classifierStore) {
 
   const disabled = disableImageToolbar
   const show = rotationEnabled
-  
+
   return {
-    disabled,
+    show,
     rotate,
     separateFramesView,
     show

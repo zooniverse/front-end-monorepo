@@ -1,20 +1,18 @@
-import counterpart from 'counterpart'
 import { Anchor, Box } from 'grommet'
 import Link from 'next/link'
-import { withRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { string } from 'prop-types'
 
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
-
-function NavLink (props) {
-  const { href, label, router: { asPath } } = props
+function NavLink ({
+  href = '',
+  label = ''
+}) {
+  const { asPath } = useRouter()
   const isActive = asPath === href
   return (
-    <Link href={href} passHref >
+    <Link href={href} passHref>
       <Anchor
-        aria-current={ isActive ? 'page' : undefined }
+        aria-current={isActive ? 'page' : undefined}
         size='medium'
         weight='normal'
         active={isActive}
@@ -32,4 +30,4 @@ NavLink.propTypes = {
   href: string.isRequired
 }
 
-export default withRouter(NavLink)
+export default NavLink

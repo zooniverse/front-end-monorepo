@@ -43,7 +43,13 @@ describe('Component > MultiFrameViewerContainer', function () {
     const onError = sinon.stub()
 
     before(function () {
-      wrapper = mount(<MultiFrameViewerContainer onError={onError} />)
+      wrapper = mount(
+        <MultiFrameViewerContainer onError={onError} />,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: { classifierStore: mockStore() }
+        }
+      )
     })
 
     it('should render without crashing', function () {
@@ -92,7 +98,7 @@ describe('Component > MultiFrameViewerContainer', function () {
         />,
         {
           wrappingComponent: Provider,
-          wrappingComponentProps: classifierStore
+          wrappingComponentProps: { classifierStore }
         }
       )
     })
@@ -199,7 +205,11 @@ describe('Component > MultiFrameViewerContainer', function () {
           subject={subject}
           onError={onError}
           onReady={onReady}
-        />
+        />,
+        {
+          wrappingComponent: Provider,
+          wrappingComponentProps: { classifierStore: mockStore({ subject }) }
+        }
       )
     })
 

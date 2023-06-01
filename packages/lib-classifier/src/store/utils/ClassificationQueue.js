@@ -3,51 +3,76 @@
 // Also for browsers that do not support Background Sync API
 
 import * as Sentry from '@sentry/browser'
-import { panoptes } from '@zooniverse/panoptes-js'
+import { auth, panoptes } from '@zooniverse/panoptes-js'
 import { getBearerToken } from './'
 
 export const FAILED_CLASSIFICATION_QUEUE_NAME = 'failed-classifications'
 export const MAX_RECENTS = 10
 export const RETRY_INTERVAL = 5 * 60 * 1000
 
+const DEFAULT_HANDLER = () => true
 class ClassificationQueue {
-  constructor (api, onClassificationSaved, authClient) {
+  constructor(
+    api = panoptes,
+    onClassificationSaved = DEFAULT_HANDLER,
+    authClient
+  ) {
     this.storage = window.localStorage
-    this.apiClient = api || panoptes
+    this.apiClient = api
     this.authClient = authClient
+    this.onClassificationSaved = onClassificationSaved
     this.recents = []
+    this.sending = []
     this.flushTimeout = null
-    this.onClassificationSaved = onClassificationSaved || function () { return true }
     this.endpoint = '/classifications'
     this.flushToBackend = this.flushToBackend.bind(this)
+
+    // flush any pending classifications from previous sessions.
+    this.flushToBackend()
   }
 
-  add (classification) {
+  add(classification) {
     this.store(classification)
     return this.flushToBackend()
   }
 
-  store (classification) {
+  store(classification) {
     const queue = this._loadQueue()
     queue.push(classification)
 
     try {
       this._saveQueue(queue)
-      if (process.env.NODE_ENV !== 'test') console.info('Queued classifications:', queue.length)
+      console.info('Queued classifications:', queue.length)
     } catch (error) {
-      if (process.env.NODE_ENV !== 'test') console.error('Failed to queue classification:', error)
+      console.error('Failed to queue classification:', error.message)
       Sentry.withScope((scope) => {
+        scope.setTag('classificationQueue', 'storeFailed')
         scope.setExtra('classification', JSON.stringify(classification))
         Sentry.captureException(error)
       })
     }
   }
 
-  length () {
+  remove(classification) {
+    const queue = this._loadQueue()
+    try {
+      const newQueue = queue.filter(c => c.id !== classification.id)
+      this._saveQueue(newQueue)
+    } catch (error) {
+      console.error(error.message)
+      Sentry.withScope((scope) => {
+        scope.setTag('classificationQueue', 'removeFailed')
+        scope.setExtra('classification', JSON.stringify(classification))
+        Sentry.captureException(error)
+      })
+    }
+  }
+
+  length() {
     return this._loadQueue().length
   }
 
-  addRecent (classification) {
+  addRecent(classification) {
     if (this.recents.length > MAX_RECENTS) {
       const droppedClassification = this.recents.pop()
       droppedClassification.destroy()
@@ -56,40 +81,57 @@ class ClassificationQueue {
     this.recents.unshift(classification)
   }
 
-  async flushToBackend () {
+  async flushToBackend() {
     const pendingClassifications = this._loadQueue()
-    const failedClassifications = []
-    this._saveQueue(failedClassifications)
     if (this.flushTimeout) {
       clearTimeout(this.flushTimeout)
       this.flushTimeout = null
     }
 
-    if (process.env.NODE_ENV !== 'test') console.log('Saving queued classifications:', pendingClassifications.length)
+    console.log('Saving queued classifications:', pendingClassifications.length)
     const authorization = await getBearerToken(this.authClient)
     // generate an array of promises, one for each classification
-    const awaitSaveClassifications = pendingClassifications.map((classificationData) => {
-      this._saveClassification(classificationData, authorization)
-    })
+    const saveClassification = classificationData => this._saveClassification(classificationData, authorization)
+    const awaitSaveClassifications = pendingClassifications
+      .filter(c => !this.sending.includes(c.id))
+      .map(saveClassification)
     return Promise.all(awaitSaveClassifications)
   }
 
   async _saveClassification(classificationData, authorization) {
-    let response
     try {
-      response = await this.apiClient.post(this.endpoint, { classifications: classificationData }, { authorization })
+      const { id, ...classificationToSave } = classificationData
+      this.sending.push(id)
+      let tokenError
+      if (authorization) {
+        const token = authorization.replace('Bearer ', '')
+        const { data, error } = await auth.verify(token)
+        tokenError = error
+      }
+      const response = await this.apiClient.post(this.endpoint, { classifications: classificationToSave }, { authorization })
       if (response.ok) {
-        const savedClassification = response.body.classifications[0]
-        if (process.env.NODE_ENV !== 'test') console.log('Saved classification', savedClassification.id)
+        this.remove(classificationData)
+        const [savedClassification] = response.body.classifications
+        console.log('Saved classification', savedClassification.id)
         this.onClassificationSaved(savedClassification)
         this.addRecent(savedClassification)
+        if (tokenError) {
+          console.error(tokenError)
+          Sentry.withScope((scope) => {
+            scope.setTag('classificationError', 'tokenError')
+            scope.setExtra('classification', JSON.stringify(savedClassification))
+            Sentry.captureException(tokenError)
+          })
+        }
       }
+      this.sending = this.sending.filter(id => id !== classificationData.id)
+      return response
     } catch (error) {
-      if (process.env.NODE_ENV !== 'test') console.error('Failed to save a queued classification:', error)
+      console.error('Failed to save a queued classification:', error.message)
+      this.sending = this.sending.filter(id => id !== classificationData.id)
 
       if (error.status !== 422) {
         try {
-          this.store(classificationData)
           if (!this.flushTimeout) {
             this.flushTimeout = setTimeout(this.flushToBackend, RETRY_INTERVAL)
           }
@@ -98,16 +140,18 @@ class ClassificationQueue {
         }
       } else {
         console.error('Dropping malformed classification permanently', classificationData)
-        Sentry.withScope((scope) => {
-          scope.setExtra('classification', JSON.stringify(classificationData))
-          Sentry.captureException(error)
-        })
+        this.remove(classificationData)
       }
+      Sentry.withScope((scope) => {
+        scope.setTag('classificationError', error.status)
+        scope.setExtra('classification', JSON.stringify(classificationData))
+        Sentry.captureException(error)
+      })
+      return error
     }
-    return response
   }
 
-  _loadQueue () {
+  _loadQueue() {
     let queue = JSON.parse(this.storage.getItem(FAILED_CLASSIFICATION_QUEUE_NAME))
 
     if (queue === undefined || queue === null) {
@@ -117,7 +161,7 @@ class ClassificationQueue {
     return queue
   }
 
-  _saveQueue (queue) {
+  _saveQueue(queue) {
     this.storage.setItem(FAILED_CLASSIFICATION_QUEUE_NAME, JSON.stringify(queue))
   }
 }

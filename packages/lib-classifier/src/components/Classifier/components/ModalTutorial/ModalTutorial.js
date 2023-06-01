@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types'
 import { ResponsiveContext } from 'grommet'
 import { Modal } from '@zooniverse/react-components'
@@ -27,6 +27,7 @@ function ModalTutorial ({
   ...props
 }) {
   const [active, setActive] = useState(false)
+  const size = useContext(ResponsiveContext)
   const { t } = useTranslation('components')
 
   useEffect(() => {
@@ -40,6 +41,8 @@ function ModalTutorial ({
     tutorial.setSeenTime()
   }
 
+  const width = (size === 'small') ? '100%' : '400px'
+
   if (tutorial) {
     return (
       <Modal
@@ -48,18 +51,11 @@ function ModalTutorial ({
         closeFn={onClose}
         title={t('ModalTutorial.title')}
       >
-        <ResponsiveContext.Consumer>
-          {size => {
-            const width = (size === 'small') ? '100%' : '330px'
-            return (
-              <SlideTutorial
-                onClick={onClose}
-                pad='none'
-                width={width}
-              />
-            )
-          }}
-        </ResponsiveContext.Consumer>
+        <SlideTutorial
+          onClick={onClose}
+          pad='none'
+          width={width}
+        />
       </Modal>
     )
   }

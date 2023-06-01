@@ -1,8 +1,8 @@
-import counterpart from 'counterpart'
 import { Anchor, Box, Button, Heading, Paragraph } from 'grommet'
 import Link from 'next/link'
 import { array, arrayOf, bool, func, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
+import { useTranslation } from 'next-i18next'
 
 import Category from './components/Category'
 import TwoColumnLayout from '../../shared/components/TwoColumnLayout'
@@ -25,10 +25,12 @@ function Publications ({
   data,
   filters
 }) {
+  const { t } = useTranslation('components')
+
   const heading = (
     <section>
       <Heading margin={{ top: 'none' }} size='small'>
-        Publications
+        {t('Publications.title')}
       </Heading>
 
       <Paragraph>
@@ -74,8 +76,8 @@ function Publications ({
   return (
     <>
       <Head
-        description={counterpart('Publications.description')}
-        title={counterpart('Publications.title')}
+        description={t('Publications.description')}
+        title={t('Publications.title')}
       />
       <TwoColumnLayout
         heading={heading}

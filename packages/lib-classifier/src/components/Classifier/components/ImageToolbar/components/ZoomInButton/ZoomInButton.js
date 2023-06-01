@@ -8,6 +8,7 @@ function DEFAULT_HANDLER() {
   console.log('zoom in')
   return true
 }
+
 function ZoomInButton ({
   disabled = false,
   onClick = DEFAULT_HANDLER,
