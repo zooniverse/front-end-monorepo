@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@sentry/browser": "~7.53.0",
-    "@sentry/node": "~7.53.0",
+    "@sentry/node": "~7.54.0",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/grommet-theme": "~3.1.0",
     "@zooniverse/panoptes-js": "~0.3.0",
