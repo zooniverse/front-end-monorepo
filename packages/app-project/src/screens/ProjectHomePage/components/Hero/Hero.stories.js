@@ -116,12 +116,10 @@ const ORGANIZATION = {
 
 export function WithOrganization({ isWide }) {
   return (
-    <MockProjectContext>
-      <Hero
-        isWide={isWide}
-        organization={ORGANIZATION}
-        workflows={WORKFLOWS}
-      />
-    </MockProjectContext>
+    <Hero
+      isWide={isWide}
+      organization={ORGANIZATION}
+      workflows={WORKFLOWS}
+    />
   )
 }
