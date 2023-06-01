@@ -1,30 +1,55 @@
-import { shallow } from 'enzyme'
-import sinon from 'sinon'
-import RotateButton from './RotateButton'
-import i18n from '@test/i18n/i18n-for-tests'
+import { expect } from 'chai'
+import { Grommet } from 'grommet'
+import { Provider } from 'mobx-react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import zooTheme from '@zooniverse/grommet-theme'
+
+import mockStore from '@test/mockStore'
+
+import RotateButtonContainer from './RotateButtonContainer'
 
 describe('Component > RotateButton', function () {
-  it('should render without crashing', function () {
-    const wrapper = shallow(<RotateButton />)
-    expect(wrapper).to.be.ok()
-  })
+  function withStore (store) {
+    return function Wrapper ({ children }) {
+      return (
+        <Grommet theme={zooTheme}>
+          <Provider classifierStore={store}>
+            {children}
+          </Provider>
+        </Grommet>
+      )
+    }
+  }
 
-  it('should have an `a11yTitle` prop', function () {
-    const useTranslationStub = sinon.stub(i18n, 't').callsFake((key) => key)
-    const wrapper = shallow(<RotateButton />)
-    expect(wrapper.prop('a11yTitle')).exists()
-    expect(useTranslationStub).to.have.been.calledWith('ImageToolbar.RotateButton.ariaLabel')
-    useTranslationStub.restore()
-  })
+  it('should have an accessible name', function () {
+    const store = mockStore()
+    store.subjectViewer.enableRotation()
 
-  it('should call the onClick prop function on click', function () {
-    const spy = sinon.spy()
-    const wrapper = shallow(
-      <RotateButton
-        onClick={spy}
-      />
+    render(
+      <RotateButtonContainer />, {
+        wrapper: withStore(store)
+      }
     )
-    wrapper.simulate('click')
-    expect(spy).to.have.been.called()
+
+    expect(screen.getByRole('button', { name: 'ImageToolbar.RotateButton.ariaLabel' })).to.be.ok()
+  })
+
+  it('should rotate the subject viewer when clicked', async function () {
+    const user = userEvent.setup({ delay: null })
+    const store = mockStore()
+    store.subjectViewer.enableRotation()
+
+    expect(store.subjectViewer.rotation).to.equal(0)
+
+    render(
+      <RotateButtonContainer />, {
+        wrapper: withStore(store)
+      }
+    )
+
+    await user.click(screen.getByRole('button', { name: 'ImageToolbar.RotateButton.ariaLabel' }))
+
+    expect(store.subjectViewer.rotation).to.equal(-90)
   })
 })

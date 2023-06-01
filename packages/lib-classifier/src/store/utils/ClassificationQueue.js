@@ -3,7 +3,7 @@
 // Also for browsers that do not support Background Sync API
 
 import * as Sentry from '@sentry/browser'
-import { panoptes } from '@zooniverse/panoptes-js'
+import { auth, panoptes } from '@zooniverse/panoptes-js'
 import { getBearerToken } from './'
 
 export const FAILED_CLASSIFICATION_QUEUE_NAME = 'failed-classifications'
@@ -102,6 +102,12 @@ class ClassificationQueue {
     try {
       const { id, ...classificationToSave } = classificationData
       this.sending.push(id)
+      let tokenError
+      if (authorization) {
+        const token = authorization.replace('Bearer ', '')
+        const { data, error } = await auth.verify(token)
+        tokenError = error
+      }
       const response = await this.apiClient.post(this.endpoint, { classifications: classificationToSave }, { authorization })
       if (response.ok) {
         this.remove(classificationData)
@@ -109,6 +115,14 @@ class ClassificationQueue {
         console.log('Saved classification', savedClassification.id)
         this.onClassificationSaved(savedClassification)
         this.addRecent(savedClassification)
+        if (tokenError) {
+          console.error(tokenError)
+          Sentry.withScope((scope) => {
+            scope.setTag('classificationError', 'tokenError')
+            scope.setExtra('classification', JSON.stringify(savedClassification))
+            Sentry.captureException(tokenError)
+          })
+        }
       }
       this.sending = this.sending.filter(id => id !== classificationData.id)
       return response
