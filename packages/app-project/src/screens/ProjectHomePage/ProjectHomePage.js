@@ -48,8 +48,8 @@ function useStores() {
 }
 
 function ProjectHomePage ({
-  organization,
-  workflows
+  organization = {},
+  workflows = []
 }) {
   const { inBeta } = useStores()
   const { adminMode, toggleAdmin } = useAdminMode()
@@ -137,14 +137,7 @@ function ProjectHomePage ({
   )
 }
 
-ProjectHomePage.defaultProps = {
-  inBeta: false,
-  organization: {},
-  workflows: []
-}
-
 ProjectHomePage.propTypes = {
-  inBeta: bool,
   organization: shape({
     id: string
   }),
