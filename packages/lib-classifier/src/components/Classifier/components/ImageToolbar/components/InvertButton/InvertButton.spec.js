@@ -23,7 +23,7 @@ describe('Component > InvertButton', function () {
     }
   }
 
-  it('should render null if disabled', function () {
+  it('should render null if workflow configuration invert_subject property is false', function () {
     const workflowSnapshot = WorkflowFactory.build({
       configuration: {
         invert_subject: false
@@ -43,7 +43,7 @@ describe('Component > InvertButton', function () {
     expect(screen.queryByRole('button')).to.be.null()
   })
 
-  it('should have an `a11yTitle` label', function () {
+  it('should have an accessible name', function () {
     const workflowSnapshot = WorkflowFactory.build({
       configuration: {
         invert_subject: true
@@ -60,7 +60,7 @@ describe('Component > InvertButton', function () {
       }
     )
 
-    expect(screen.getByRole('button', { name: 'ImageToolbar.InvertButton.ariaLabel' })).to.exist()
+    expect(screen.getByRole('button', { name: 'ImageToolbar.InvertButton.ariaLabel' })).to.be.ok()
   })
 
   it('should change the subject viewer invert property on click', async function () {

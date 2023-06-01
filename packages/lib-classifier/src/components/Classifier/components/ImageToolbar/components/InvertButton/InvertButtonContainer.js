@@ -33,7 +33,13 @@ function storeMapper (classifierStore) {
 function InvertButtonContainer ({
   separateFrameInvert
 }) {
-  const { active, disabled, invertView, separateFramesView, show } = useStores(storeMapper)
+  const {
+    active,
+    disabled,
+    invertView,
+    separateFramesView,
+    show
+  } = useStores(storeMapper)
 
   if (!show) {
     return null
