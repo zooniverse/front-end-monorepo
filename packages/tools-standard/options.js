@@ -14,12 +14,17 @@ const opts = {
       env: {
         'mocha': true
       },
+      extends: [
+        'plugin:react/recommended',
+        'plugin:jsx-a11y/recommended'
+      ],
       globals: {
         'expect': true
       },
       parser: '@babel/eslint-parser',
       plugins: [
-        'jsx-a11y'
+        'jsx-a11y',
+        'react'
       ],
       rules: {
         "consistent-return": "error"
