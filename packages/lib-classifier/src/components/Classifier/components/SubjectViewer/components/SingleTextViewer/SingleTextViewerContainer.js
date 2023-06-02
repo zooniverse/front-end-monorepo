@@ -29,6 +29,7 @@ function labeledContent (data, annotation) {
             key={`${highlight.start}-${highlight.end}`}
             color={highlight.labelInformation.color}
             handleDelete={() => deleteHighlight(value.indexOf(highlight))}
+            label={highlight.labelInformation.label}
             text={highlight.text}
           />
         newContent.push(newLabel)
