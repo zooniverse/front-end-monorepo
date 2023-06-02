@@ -8,7 +8,7 @@ const StyledBox = styled(Box)`
   overflow: hidden;
 `
 
-const Placeholder = ({ id }) => {
+const Placeholder = ({ displayString }) => {
   return (
     <Box
       align='center'
@@ -17,7 +17,7 @@ const Placeholder = ({ id }) => {
       height='100%'
       width='100%'
     >
-      <ZooniverseLogo size='50%' id={id} />
+      <ZooniverseLogo size='50%' id={displayString} />
     </Box>
   )
 }
@@ -41,12 +41,12 @@ function Publication({
       margin={{ bottom: 'small' }}
     >
       <StyledBox height='50px' width='50px' flex={false}>
-        {!avatarSrc && <Placeholder id={displayString} />}
+        {!avatarSrc && <Placeholder displayString={displayString} />}
         {avatarSrc && (
           <Media
             height={50}
             src={avatarSrc}
-            placeholder={<Placeholder id={displayString} />}
+            placeholder={<Placeholder displayString={displayString} />}
           />
         )}
       </StyledBox>

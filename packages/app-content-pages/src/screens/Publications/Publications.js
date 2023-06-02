@@ -1,4 +1,4 @@
-import { Anchor, Box, Button, Heading, Paragraph } from 'grommet'
+import { Anchor, Box, Button, Heading, Nav, Paragraph } from 'grommet'
 import Link from 'next/link'
 import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
@@ -10,11 +10,13 @@ import Head from '../../shared/components/Head'
 
 const StyledLi = styled.li`
   list-style-type: none;
+  padding-top: 15px;
 `
 
 const StyledButton = styled(Button)`
   ${props =>
-    props.active && css`
+    props.active &&
+    css`
       background: none;
       font-weight: bold;
     `}
@@ -53,24 +55,23 @@ function Publications({ className = '', data = [], filters = [] }) {
   )
 
   const sidebar = (
-    <Box as='ul' gap='small' name='Filter by category'>
-      {filters.map(filter => (
-        <StyledLi key={filter.name}>
-          <Link
-            href={filter.slug ? `#${filter.slug}` : ''}
-            passHref
-          >
-            <StyledButton
-              active={filter.active}
-              ariaChecked={filter.active}
-              label={filter.name}
-              onClick={filter.setActive}
-              plain
-            />
-          </Link>
-        </StyledLi>
-      ))}
-    </Box>
+    <Nav ariaLabel={t('Publications.sideBarLabel')}>
+      <Box as='ul'>
+        {filters.map(filter => (
+          <StyledLi key={filter.name}>
+            <Link href={filter.slug ? `#${filter.slug}` : ''} passHref>
+              <StyledButton
+                active={filter.active}
+                ariaChecked={filter.active}
+                label={filter.name}
+                onClick={filter.setActive}
+                plain
+              />
+            </Link>
+          </StyledLi>
+        ))}
+      </Box>
+    </Nav>
   )
 
   return (

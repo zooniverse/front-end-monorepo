@@ -35,6 +35,7 @@
     "formLabel": "please use this form",
     "formInstruction": "To submit a new publication or update an existing one, ",
     "showAll": "Show all",
+    "sideBarLabel": "Filter by category",
     "title": "Publications"
   },
   "RegisterForm": {
