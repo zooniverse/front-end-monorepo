@@ -16,7 +16,8 @@ const opts = {
       },
       extends: [
         'plugin:react/recommended',
-        'plugin:jsx-a11y/recommended'
+        'plugin:jsx-a11y/recommended',
+        'plugin:react/jsx-runtime'
       ],
       globals: {
         'expect': true
