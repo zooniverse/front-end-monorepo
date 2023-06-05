@@ -125,18 +125,5 @@
   },
   "engines": {
     "node": ">=18.13"
-  },
-  "eslintConfig": {
-    "extends": [
-      "plugin:react/recommended",
-      "plugin:jsx-a11y/recommended",
-      "plugin:react/jsx-runtime"
-    ],
-    "parser": "@babel/eslint-parser",
-    "settings": {
-      "react": {
-        "version": "detect"
-      }
-    }
   }
 }
