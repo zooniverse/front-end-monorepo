@@ -1,4 +1,5 @@
-import * as Sentry from '@sentry/node'
+const Sentry = require('@sentry/node')
+import { BrowserTracing } from '@sentry/browser'
 
 export default function initializeSentry() {
   const isBrowser = typeof window !== 'undefined'
@@ -6,7 +7,7 @@ export default function initializeSentry() {
   const environment = process.env.APP_ENV
   const release = process.env.COMMIT_ID
   const integrations = isBrowser ?
-    [new Sentry.BrowserTracing()] :
+    [new BrowserTracing()] :
     [...Sentry.autoDiscoverNodePerformanceMonitoringIntegrations()]
   const tracesSampleRate = 1.0
   const ignoreErrors = [
