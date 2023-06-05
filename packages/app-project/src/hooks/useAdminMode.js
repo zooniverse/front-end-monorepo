@@ -10,8 +10,8 @@ export default function useAdminMode() {
   const adminMode = store?.user.isAdmin && adminState
 
   useEffect(function onUserChange() {
-    const user = store?.user
-    if (user?.isAdmin) {
+    const isAdmin = store?.user.isAdmin
+    if (isAdmin) {
       const adminFlag = !!localStorage?.getItem('adminFlag')
       setAdminState(adminFlag)
     } else {
