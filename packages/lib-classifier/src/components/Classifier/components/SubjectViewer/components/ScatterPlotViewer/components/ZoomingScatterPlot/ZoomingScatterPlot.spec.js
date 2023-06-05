@@ -1,9 +1,11 @@
 import { fireEvent, render, screen } from '@testing-library/react'
+import zooTheme from '@zooniverse/grommet-theme'
+import { Grommet } from 'grommet'
 import sinon from 'sinon'
 import { Provider } from 'mobx-react'
+
 import SubjectViewerStore from '@store/SubjectViewerStore'
 import ZoomingScatterPlot from './ZoomingScatterPlot'
-import zooTheme from '@zooniverse/grommet-theme'
 import {
   parentHeight as height,
   parentWidth as width
@@ -47,32 +49,36 @@ describe('Component > ZoomingScatterPlot', function() {
 
   it('should render without crashing', function() {
     const output = render(
-      <Provider classifierStore={mockStore}>
-        <ZoomingScatterPlot
-          data={mockData}
-          parentHeight={height}
-          parentWidth={width}
-          theme={zooTheme}
-          xAxisLabelOffset={10}
-          yAxisLabelOffset={10}
-        />
-      </Provider>
+      <Grommet theme={zooTheme}>
+        <Provider classifierStore={mockStore}>
+          <ZoomingScatterPlot
+            data={mockData}
+            parentHeight={height}
+            parentWidth={width}
+            theme={zooTheme}
+            xAxisLabelOffset={10}
+            yAxisLabelOffset={10}
+          />
+        </Provider>
+      </Grommet>
     )
     expect(output).to.be.ok()
   })
 
   it('should render a scatter plot', function () {
     const output = render(
-      <Provider classifierStore={mockStore}>
-        <ZoomingScatterPlot
-          data={mockData}
-          parentHeight={height}
-          parentWidth={width}
-          theme={zooTheme}
-          xAxisLabelOffset={10}
-          yAxisLabelOffset={10}
-        />
-      </Provider>
+      <Grommet theme={zooTheme}>
+        <Provider classifierStore={mockStore}>
+          <ZoomingScatterPlot
+            data={mockData}
+            parentHeight={height}
+            parentWidth={width}
+            theme={zooTheme}
+            xAxisLabelOffset={10}
+            yAxisLabelOffset={10}
+          />
+        </Provider>
+      </Grommet>
     )
 
     expect(output.getAllByTestId('data-vis-chart')).to.have.lengthOf(1)
@@ -82,16 +88,18 @@ describe('Component > ZoomingScatterPlot', function() {
     describe('with the default configuration of allowing zoom in both directions', function () {
       it('should scale both axes and transform data points', function () {
         const { container, getByTestId } = render(
-          <Provider classifierStore={mockStore}>
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-              xAxisLabelOffset={10}
-              yAxisLabelOffset={10}
-            />
+          <Grommet theme={zooTheme}>
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+              />
           </Provider>
+          </Grommet>
         )
 
         // Original transform position and axes labels
@@ -111,16 +119,18 @@ describe('Component > ZoomingScatterPlot', function() {
 
       it('should scale both axes out and and transform data points', function () {
         const { container, getByTestId } = render(
-          <Provider classifierStore={mockStore}>
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-              xAxisLabelOffset={10}
-              yAxisLabelOffset={10}
-            />
-          </Provider>
+          <Grommet theme={zooTheme}>
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+              />
+            </Provider>
+          </Grommet>
         )
 
         // Original transform position and axes labels
@@ -151,16 +161,18 @@ describe('Component > ZoomingScatterPlot', function() {
 
       it('should reset the scale when zooming out beyond the minimum scale', function () {
         const { container, getByTestId } = render(
-          <Provider classifierStore={mockStore}>
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-              xAxisLabelOffset={10}
-              yAxisLabelOffset={10}
-            />
-          </Provider>
+          <Grommet theme={zooTheme}>
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+              />
+            </Provider>
+          </Grommet>
         )
 
         // Original transform position and axes labels
@@ -203,17 +215,19 @@ describe('Component > ZoomingScatterPlot', function() {
 
       it('should scale the x-axis in', function () {
         const { container, getByTestId } = render(
-          <Provider classifierStore={mockStore}>
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-              xAxisLabelOffset={10}
-              yAxisLabelOffset={10}
-              zoomConfiguration={zoomConfig}
-            />
-          </Provider>
+          <Grommet theme={zooTheme}>
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+                zoomConfiguration={zoomConfig}
+              />
+            </Provider>
+          </Grommet>
         )
 
         // Original transform position and axes labels
@@ -233,17 +247,19 @@ describe('Component > ZoomingScatterPlot', function() {
 
       it('should scale the x-axis out', function () {
         const { container, getByTestId } = render(
-          <Provider classifierStore={mockStore}>
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-              xAxisLabelOffset={10}
-              yAxisLabelOffset={10}
-              zoomConfiguration={zoomConfig}
-            />
-          </Provider>
+          <Grommet theme={zooTheme}>
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+                zoomConfiguration={zoomConfig}
+              />
+            </Provider>
+          </Grommet>
         )
 
         // Original transform position and axes labels
@@ -274,17 +290,19 @@ describe('Component > ZoomingScatterPlot', function() {
 
       it('should reset the x-scale when zooming out beyond the minimum', function () {
         const { container, getByTestId } = render(
-          <Provider classifierStore={mockStore}>
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-              xAxisLabelOffset={10}
-              yAxisLabelOffset={10}
-              zoomConfiguration={zoomConfig}
-            />
-          </Provider>
+          <Grommet theme={zooTheme}>
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+                zoomConfiguration={zoomConfig}
+              />
+            </Provider>
+          </Grommet>
         )
 
         // Original transform position and axes labels
@@ -327,17 +345,19 @@ describe('Component > ZoomingScatterPlot', function() {
 
       it('should scale the y-axis in', function () {
         const { container, getByTestId } = render(
-          <Provider classifierStore={mockStore}>
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-              xAxisLabelOffset={10}
-              yAxisLabelOffset={10}
-              zoomConfiguration={zoomConfig}
-            />
-          </Provider>
+          <Grommet theme={zooTheme}>
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+                zoomConfiguration={zoomConfig}
+              />
+            </Provider>
+          </Grommet>
         )
 
         // Original transform position and axes labels
@@ -357,17 +377,19 @@ describe('Component > ZoomingScatterPlot', function() {
 
       it('should scale the y-axis out', function () {
         const { container, getByTestId } = render(
-          <Provider classifierStore={mockStore}>
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-              xAxisLabelOffset={10}
-              yAxisLabelOffset={10}
-              zoomConfiguration={zoomConfig}
-            />
-          </Provider>
+          <Grommet theme={zooTheme}>
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+                zoomConfiguration={zoomConfig}
+              />
+            </Provider>
+          </Grommet>
         )
 
         // Original transform position and axes labels
@@ -398,17 +420,19 @@ describe('Component > ZoomingScatterPlot', function() {
 
       it('should reset the y-scale when zooming out beyond the minimum', function () {
         const { container, getByTestId } = render(
-          <Provider classifierStore={mockStore}>
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-              xAxisLabelOffset={10}
-              yAxisLabelOffset={10}
-              zoomConfiguration={zoomConfig}
-            />
-          </Provider>
+          <Grommet theme={zooTheme}>
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+                zoomConfiguration={zoomConfig}
+              />
+            </Provider>
+          </Grommet>
         )
 
         // Original transform position and axes labels
@@ -442,17 +466,19 @@ describe('Component > ZoomingScatterPlot', function() {
     describe('when panning is disabled', function () {
       it('should not translate the SVG position', function () {
         render(
-          <Provider classifierStore={mockStore}>
-            <ZoomingScatterPlot
-              data={mockData}
-              panning={false}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-              xAxisLabelOffset={10}
-              yAxisLabelOffset={10}
-            />
-          </Provider>
+          <Grommet theme={zooTheme}>
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                panning={false}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+              />
+            </Provider>
+          </Grommet>
         )
 
         const eventMock = {
@@ -485,16 +511,18 @@ describe('Component > ZoomingScatterPlot', function() {
       describe('with the default configuration allowing pan in both directions', function () {
         it('should transform the data points and scale the axes', function () {
           render(
-            <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-              />
-            </Provider>
+            <Grommet theme={zooTheme}>
+              <Provider classifierStore={mockStore}>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                />
+              </Provider>
+            </Grommet>
           )
 
           const glyph = document.querySelector('.visx-glyph')
@@ -539,17 +567,19 @@ describe('Component > ZoomingScatterPlot', function() {
           }
 
           render(
-            <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-                zoomConfiguration={zoomConfiguration}
-              />
-            </Provider>
+            <Grommet theme={zooTheme}>
+              <Provider classifierStore={mockStore}>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                  zoomConfiguration={zoomConfiguration}
+                />
+              </Provider>
+            </Grommet>
           )
 
           const glyph = document.querySelector('.visx-glyph')
@@ -593,17 +623,19 @@ describe('Component > ZoomingScatterPlot', function() {
             zoomOutValue: 0.8
           }
           render(
-            <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-                zoomConfiguration={zoomConfiguration}
-              />
+            <Grommet theme={zooTheme}>
+              <Provider classifierStore={mockStore}>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                  zoomConfiguration={zoomConfiguration}
+                />
             </Provider>
+            </Grommet>
           )
 
           const glyph = document.querySelector('.visx-glyph')
@@ -654,17 +686,19 @@ describe('Component > ZoomingScatterPlot', function() {
 
       it('should not zoom in beyond maximum zoom configuration', function () {
         const { container, getByTestId } = render(
-          <Provider classifierStore={mockStore}>
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-              xAxisLabelOffset={10}
-              yAxisLabelOffset={10}
-              zoomConfiguration={zoomConfig}
-            />
-          </Provider>
+          <Grommet theme={zooTheme}>
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+                zoomConfiguration={zoomConfig}
+              />
+            </Provider>
+          </Grommet>
         )
 
         // The position and labels prior to zooming
@@ -703,17 +737,19 @@ describe('Component > ZoomingScatterPlot', function() {
 
       it('should not zoom out beyond the minimum zoom configuration and reset the zoom', function () {
         const { container, getByTestId } = render(
-          <Provider classifierStore={mockStore}>
-            <ZoomingScatterPlot
-              data={mockData}
-              parentHeight={height}
-              parentWidth={width}
-              theme={zooTheme}
-              xAxisLabelOffset={10}
-              yAxisLabelOffset={10}
-              zoomConfiguration={zoomConfig}
-            />
-          </Provider>
+          <Grommet theme={zooTheme}>
+            <Provider classifierStore={mockStore}>
+              <ZoomingScatterPlot
+                data={mockData}
+                parentHeight={height}
+                parentWidth={width}
+                theme={zooTheme}
+                xAxisLabelOffset={10}
+                yAxisLabelOffset={10}
+                zoomConfiguration={zoomConfig}
+              />
+            </Provider>
+          </Grommet>
         )
 
         // The position and labels prior to zooming
@@ -754,16 +790,18 @@ describe('Component > ZoomingScatterPlot', function() {
       describe('in the x-axis direction', function () {
         it('should not pan beyond the data extent minimum', function () {
           const { container, getByTestId } = render(
-            <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-              />
-            </Provider>
+            <Grommet theme={zooTheme}>
+              <Provider classifierStore={mockStore}>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                />
+              </Provider>
+            </Grommet>
           )
 
           // The position and labels prior to panning
@@ -799,16 +837,18 @@ describe('Component > ZoomingScatterPlot', function() {
 
         it('should not pan beyond the data extent maximum', function () {
           const { container, getByTestId } = render(
-            <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-              />
-            </Provider>
+            <Grommet theme={zooTheme}>
+              <Provider classifierStore={mockStore}>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                />
+              </Provider>
+            </Grommet>
           )
 
           // The position and labels prior to panning
@@ -846,16 +886,18 @@ describe('Component > ZoomingScatterPlot', function() {
       describe('in the y-axis direction', function () {
         it('should not pan beyond the data extent minimum', function () {
           const { container, getByTestId } = render(
-            <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-              />
-            </Provider>
+            <Grommet theme={zooTheme}>
+              <Provider classifierStore={mockStore}>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                />
+              </Provider>
+            </Grommet>
           )
 
           // The position and labels prior to panning
@@ -891,16 +933,18 @@ describe('Component > ZoomingScatterPlot', function() {
 
         it('should not pan beyond the data extent maximum', function () {
           const { container, getByTestId } = render(
-            <Provider classifierStore={mockStore}>
-              <ZoomingScatterPlot
-                data={mockData}
-                parentHeight={height}
-                parentWidth={width}
-                theme={zooTheme}
-                xAxisLabelOffset={10}
-                yAxisLabelOffset={10}
-              />
-            </Provider>
+            <Grommet theme={zooTheme}>
+              <Provider classifierStore={mockStore}>
+                <ZoomingScatterPlot
+                  data={mockData}
+                  parentHeight={height}
+                  parentWidth={width}
+                  theme={zooTheme}
+                  xAxisLabelOffset={10}
+                  yAxisLabelOffset={10}
+                />
+              </Provider>
+            </Grommet>
           )
 
           // The position and labels prior to panning

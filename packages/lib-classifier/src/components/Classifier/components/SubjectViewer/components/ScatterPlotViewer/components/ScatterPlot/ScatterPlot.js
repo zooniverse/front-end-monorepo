@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { useTheme } from 'styled-components'
 import { Group } from '@visx/group'
 import cuid from 'cuid'
 
@@ -67,12 +68,6 @@ export default function ScatterPlot({
   parentWidth,
   tickDirection = 'outer',
   tickLength = 5,
-  theme: {
-    dark,
-    global: {
-      colors = {}
-    }
-  },
   transformMatrix = TRANSFORM_MATRIX,
   transform,
   underlays = [],
@@ -86,6 +81,12 @@ export default function ScatterPlot({
   yScale = null,
   zooming = false
 }) {
+  const {
+    dark,
+    global: {
+      colors = {}
+    }
+  } = useTheme()
 
   const rangeParameters = {
     invertAxes,
@@ -176,7 +177,6 @@ export default function ScatterPlot({
           <ScatterPlotSeries
             key={`series-${seriesIndex}`}
             color={color}
-            colors={colors}
             dataPointSize={dataPointSize}
             highlightedSeries={highlightedSeries}
             series={series}
@@ -261,7 +261,6 @@ ScatterPlot.propTypes = {
   panning: PropTypes.bool,
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
-  theme: PropTypes.object,
   tickDirection: PropTypes.oneOf(['inner', 'outer']),
   tickLength: PropTypes.number,
   transformMatrix: PropTypes.shape({
