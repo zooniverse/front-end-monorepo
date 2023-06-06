@@ -7,17 +7,16 @@ import { when } from 'mobx'
 import { Provider } from 'mobx-react'
 import sinon from 'sinon'
 
+import SHOWN_MARKS from '@helpers/shownMarks'
+import * as tasks from '@plugins/tasks'
 import RootStore from '@store'
+import TranscriptionReductions from '@store/subjects/Subject/TranscriptionReductions'
 import { reducedSubject } from '@store/subjects/Subject/TranscriptionReductions/mocks'
-import { WorkflowFactory } from '@test/factories'
+import { WorkflowFactory, SubjectFactory } from '@test/factories'
 import mockStore, { defaultClient } from '@test/mockStore/mockStore.js'
 
-import TranscriptionReductions from '@store/subjects/Subject/TranscriptionReductions'
-import * as tasks from '@plugins/tasks'
-import { TranscribedLines } from './TranscribedLines'
+import TranscribedLines from '.'
 
-import { TranscriptionLine } from '@plugins/drawingTools/components'
-import ConsensusPopup from './components/ConsensusPopup'
 import { expect } from 'chai'
 
 describe('Component > TranscribedLines', function () {
@@ -39,7 +38,8 @@ describe('Component > TranscribedLines', function () {
     id: '5339',
     display_name: 'A test workflow',
     steps: [
-      ['S1', { stepKey: 'S1', taskKeys: ['T0']}]
+      ['S1', { stepKey: 'S1', taskKeys: ['T0']}],
+      ['S2', { stepKey: 'S2', taskKeys: ['T1']}]
     ],
     strings: {
       display_name: 'a test workflow',
@@ -63,59 +63,150 @@ describe('Component > TranscribedLines', function () {
             type: 'transcriptionLine'
           }
         ]
+      },
+      T1: {
+        instruction: 'Have you finished?',
+        type: 'single',
+        answers: ['yes', 'no']
       }
     },
     version: '0.0'
   })
 
+  const mockReductions = {
+    workflow: {
+      subject_reductions: [{ data: reducedSubject }]
+    }
+  }
+  const client = {
+    caesar: {
+      request: sinon.stub().resolves(mockReductions)
+    }
+  }
+
   const { TaskModel } = tasks.transcription
 
-  let wrapper, task, consensusLines, transcriptionReductions
-  before(function () {
-    transcriptionReductions = TranscriptionReductions.create({
-      reducer: 'alice',
-      reductions: [{ data: reducedSubject }],
-      subjectId: '1234',
-      workflowId: '5678'
-    })
-    consensusLines = transcriptionReductions.consensusLines(0)
-    task = TaskModel.create({
-      tools: [{
-        type: 'transcriptionLine',
-        tasks: [{
-          instruction: 'Transcribe the text',
-          taskKey: 'T1.0.0',
-          type: 'text'
-        }]
-      }],
-      instruction: 'Underline and transcribe the text',
-      taskKey: 'T1',
-      type: 'transcription'
-    })
+  it('should render without crashing', function () {
+    const store = mockStore({ client, workflow: workflowSnapshot })
+    const task = store.workflowSteps.findTasksByType('transcription')[0]
     task.setActiveTool(0)
+    render(<TranscribedLines />, { wrapper: withStore(store) })
   })
 
-  it('should render without crashing', function () {
-    const annotation = {
-      taskKey: 'T1',
-      taskType: 'transcription',
-      update: sinon.stub(),
-      value: []
-    }
-    const store = mockStore({ workflow: workflowSnapshot })
-    render(<TranscribedLines
-      annotation={annotation}
-      frame={0}
-      lines={consensusLines}
-      task={task}
-      marks={task.marks}
-    />, { wrapper: withStore(store) })
+  describe('when the workflow does not have a transcription task', function () {
+    it('should hide TranscribedLines', function () {
+      const store = mockStore({
+        client
+      })
+      render(<TranscribedLines />, { wrapper: withStore(store) })
+      const lines = document.querySelectorAll('g.line')
+      expect(lines).to.have.lengthOf(0)
+    })
+  })
+
+  describe('when the workflow does have a transcription task and subject does have consensus lines', function () {
+    it('should show TranscribedLines', async function () {
+      const store = mockStore({
+        client,
+        workflow: workflowSnapshot
+      })
+      render(<TranscribedLines />, { wrapper: withStore(store) })
+      const subject = store.subjects.active
+      await when(() => subject.caesarReductions?.reductions.length > 0)
+      const lines = document.querySelectorAll('g.line')
+      const completeLines = document.querySelectorAll('g.complete.line')
+      const transcribedLines = document.querySelectorAll('g.transcribed.line')
+      // Frame 0 has seven finished lines and two transcribed lines.
+      expect(lines).to.have.lengthOf(9)
+      expect(completeLines).to.have.lengthOf(7)
+      expect(transcribedLines).to.have.lengthOf(2)
+    })
+
+    it('should render lines per frame', async function () {
+      const store = mockStore({
+        client,
+        workflow: workflowSnapshot
+      })
+      store.subjectViewer.setFrame(1)
+      render(<TranscribedLines />, { wrapper: withStore(store) })
+      const subject = store.subjects.active
+      await when(() => subject.caesarReductions?.reductions.length > 0)
+      const lines = document.querySelectorAll('g.line')
+      // Frame 1 has one line.
+      expect(lines).to.have.lengthOf(1)
+    })
+
+    it('should hide TranscribedLines if no lines per frame', async function () {
+      const store = mockStore({
+        client,
+        workflow: workflowSnapshot
+      })
+      store.subjectViewer.setFrame(3)
+      render(<TranscribedLines />, { wrapper: withStore(store) })
+      const subject = store.subjects.active
+      await when(() => subject.caesarReductions?.reductions.length > 0)
+      const lines = document.querySelectorAll('g.line')
+      // Frame 3 has no lines.
+      expect(lines).to.have.lengthOf(0)
+    })
+
+    it('should hide TranscribedLines if showing only user marks', async function () {
+      const store = mockStore({
+        client,
+        workflow: workflowSnapshot
+      })
+      const [task] = store.workflowSteps.findTasksByType('transcription')
+      task.togglePreviousMarks(SHOWN_MARKS.USER)
+      render(<TranscribedLines />, { wrapper: withStore(store) })
+      const subject = store.subjects.active
+      await when(() => subject.caesarReductions?.reductions.length > 0)
+      const lines = document.querySelectorAll('g.line')
+      expect(lines).to.have.lengthOf(0)
+    })
+
+    it('should hide TranscribedLines if hiding all marks', async function () {
+      const store = mockStore({
+        client,
+        workflow: workflowSnapshot
+      })
+      const [task] = store.workflowSteps.findTasksByType('transcription')
+      task.togglePreviousMarks(SHOWN_MARKS.NONE)
+      render(<TranscribedLines />, { wrapper: withStore(store) })
+      const subject = store.subjects.active
+      await when(() => subject.caesarReductions?.reductions.length > 0)
+      const lines = document.querySelectorAll('g.line')
+      expect(lines).to.have.lengthOf(0)
+    })
+
+    it('should disable transcribed lines when a new mark is being created', function () {
+      const store = mockStore({
+        client,
+        workflow: workflowSnapshot
+      })
+      const [task] = store.workflowSteps.findTasksByType('transcription')
+      task.activeTool.createMark()
+      expect(store.workflowSteps.active.isValid).to.be.false()
+      render(<TranscribedLines />, { wrapper: withStore(store) })
+      const lines = document.querySelectorAll('g.transcribed.line')
+      lines.forEach(line => {
+        expect(line.getAttribute('aria-disabled')).to.equal('true')
+        expect(line.tabIndex).to.equal(-1)
+        expect(line.onclick).to.be.null()
+      })
+    })
   })
 
   describe('when on a step without the transcription task', function () {
-    beforeEach(function () {
-      const store = mockStore()
-      render(<TranscribedLines frame={0} lines={consensusLines} />, { wrapper: withStore(store) })
+    let task
+
+    beforeEach(async function () {
+      const store = mockStore({ client, workflow: workflowSnapshot })
+      task = store.workflowSteps.findTasksByType('transcription')[0]
+      task.setActiveTool(0)
+      render(<TranscribedLines />, { wrapper: withStore(store) })
+      const subject = store.subjects.active
+      await when(() => subject.caesarReductions?.reductions.length > 0)
+      store.workflowSteps.selectStep('S2')
     })
 
     it('should disable the incomplete lines', function () {
@@ -148,39 +239,18 @@ describe('Component > TranscribedLines', function () {
   })
 
   describe('incomplete lines', function () {
+    let consensusLines
     let lines
     let task
-    let wrapper
 
-    before(function () {
-      task = TaskModel.create({
-        tools: [{
-          type: 'transcriptionLine',
-          tasks: [{
-            instruction: 'Transcribe the text',
-            taskKey: 'T1.0.0',
-            type: 'text'
-          }]
-        }],
-        instruction: 'Underline and transcribe the text',
-        taskKey: 'T1',
-        type: 'transcription'
-      })
+    before(async function () {
+      const store = mockStore({ client, workflow: workflowSnapshot })
+      task = store.workflowSteps.findTasksByType('transcription')[0]
       task.setActiveTool(0)
-      const annotation = {
-        taskKey: 'T1',
-        taskType: 'transcription',
-        update: sinon.stub(),
-        value: []
-      }
-      const store = mockStore({ workflow: workflowSnapshot })
-      render(<TranscribedLines
-        annotation={annotation}
-        frame={0}
-        lines={consensusLines}
-        marks={task.marks}
-        task={task}
-      />, { wrapper: withStore(store) })
+      render(<TranscribedLines />, { wrapper: withStore(store) })
+      const subject = store.subjects.active
+      await when(() => subject.caesarReductions?.reductions.length > 0)
+      consensusLines = subject.caesarReductions.consensusLines(0)
       lines = document.querySelectorAll('g.transcribed.line')
     })
 
@@ -203,72 +273,47 @@ describe('Component > TranscribedLines', function () {
 
     describe('when there is an existing invalid mark', function () {
       let lines
-      before(function () {
-        const store = mockStore({ workflow: workflowSnapshot })
-        wrapper = render(<TranscribedLines
-          frame={0}
-          invalidMark={true}
-          lines={consensusLines}
-          marks={task.marks}
-          task={task}
-        />, { wrapper: withStore(store) })
+      let task
+
+      before(async function () {
+        const store = mockStore({ client, workflow: workflowSnapshot })
+        task = store.workflowSteps.findTasksByType('transcription')[0]
+        task.setActiveTool(0)
+        render(<TranscribedLines />, { wrapper: withStore(store) })
+        const subject = store.subjects.active
+        await when(() => subject.caesarReductions?.reductions.length > 0)
+        consensusLines = subject.caesarReductions.consensusLines(0)
         lines = document.querySelectorAll('g.transcribed.line')
+        const [ transcribedLine ] = consensusLines.filter(line => !line.consensusReached)
+        const { id, x1, y1 } = transcribedLine
+        task.activeTool.createMark({ id, x1, y1, toolIndex: 0 })
       })
 
       it('should disable the lines', function () {
         lines.forEach(line => {
           expect(line.getAttribute('aria-disabled')).to.equal('true')
           expect(line.tabIndex).to.equal(-1)
-          expect(line.onclick).to.be.null()
-          expect(line.onkeydown).to.be.null()
         })
       })
     })
 
     describe('when there is an existing volunteer mark created from a previous consensus mark', function () {
-      beforeEach(function () {
-        transcriptionReductions = TranscriptionReductions.create({
-          reducer: 'alice',
-          reductions: [{ data: reducedSubject }],
-          subjectId: '1234',
-          workflowId: '5678'
-        })
-        const consensusLines = transcriptionReductions.consensusLines(0)
-        const task = TaskModel.create({
-          tools: [{
-            type: 'transcriptionLine',
-            tasks: [{
-              instruction: 'Transcribe the text',
-              taskKey: 'T1.0.0',
-              type: 'text'
-            }]
-          }],
-          instruction: 'Underline and transcribe the text',
-          taskKey: 'T1',
-          type: 'transcription'
-        })
-        task.setActiveTool(0)
+      beforeEach(async function () {
+        const store = mockStore({ client, workflow: workflowSnapshot })
+        render(<TranscribedLines />, { wrapper: withStore(store) })
+        const subject = store.subjects.active
+        await when(() => subject.caesarReductions?.reductions.length > 0)
+        const consensusLines = store.subjects.active.caesarReductions.consensusLines(0)
         const [ transcribedLine ] = consensusLines.filter(line => !line.consensusReached)
-        const { id, x1, x2, y1, y2 } = transcribedLine
+        const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = transcribedLine.points
+        const { id } = transcribedLine
+        const [task] = store.workflowSteps.findTasksByType('transcription')
         task.activeTool.createMark({ id, x1, y1, x2, y2, toolIndex: 0 })
-        const store = mockStore({ workflow: workflowSnapshot })
-        render(<TranscribedLines
-          frame={0}
-          lines={consensusLines}
-          marks={task.marks}
-          task={task}
-        />, { wrapper: withStore(store) })
       })
 
       it('should disable the existing mark', function () {
         const previousMark = document.querySelector('[aria-describedby=transcribed-0]')
         expect(previousMark.getAttribute('aria-disabled')).to.equal('true')
-      })
-
-      it('should not define on click or on keydown handlers', function () {
-        const previousMark = document.querySelector('[aria-describedby=transcribed-0]')
-        expect(previousMark.onclick).to.be.null()
-        expect(previousMark.onkeydown).to.be.null()
       })
 
       it('should leave other previous marks interactive', function () {
@@ -279,26 +324,18 @@ describe('Component > TranscribedLines', function () {
     })
 
     describe('on click', function () {
-      let annotation, consensusLines, line, result, user
+      let consensusLines, line, store, task, user
 
-      beforeEach(function () {
+      beforeEach(async function () {
+        store = mockStore({ client, workflow: workflowSnapshot })
+        render(<TranscribedLines />, { wrapper: withStore(store) })
+        const subject = store.subjects.active
+        await when(() => subject.caesarReductions?.reductions.length > 0)
+        task = store.workflowSteps.findTasksByType('transcription')[0]
+        task.setActiveTool(0)
         user = userEvent.setup({ delay: null })
         task.reset()
-        consensusLines = transcriptionReductions.consensusLines(0)
-        annotation = {
-          taskKey: 'T1',
-          taskType: 'transcription',
-          update: sinon.stub(),
-          value: []
-        }
-        const store = mockStore({ workflow: workflowSnapshot })
-        result = render(<TranscribedLines
-          annotation={annotation}
-          frame={0}
-          lines={consensusLines}
-          marks={task.marks}
-          task={task}
-        />, { wrapper: withStore(store) })
+        consensusLines = store.subjects.active.caesarReductions.consensusLines(0)
         line = document.querySelector('g.transcribed.line')
       })
 
@@ -306,47 +343,58 @@ describe('Component > TranscribedLines', function () {
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         expect(task.marks.length).to.equal(0)
         expect(task.activeMark).to.be.undefined()
+        expect(line.getAttribute('aria-disabled')).to.equal('false')
+        expect(line.tabIndex).to.equal(0)
         await user.click(line)
+        line = document.querySelector('g.transcribed.line')
+        expect(line.getAttribute('aria-disabled')).to.equal('true')
+        expect(line.tabIndex).to.equal(-1)
+        await when(() => task.marks.length > 0)
+        expect(task.marks.length).to.equal(1)
+        expect(task.activeMark).to.exist()
         expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
         expect(task.activeMark.y1).to.equal(transcribedLines[0].points[0].y)
         expect(task.activeMark.x2).to.equal(transcribedLines[0].points[1].x)
         expect(task.activeMark.y2).to.equal(transcribedLines[0].points[1].y)
         expect(task.activeMark.frame).to.equal(transcribedLines[0].frame)
-        expect(task.marks.length).to.equal(1)
         task.setActiveMark(undefined)
       })
 
       it('should create only one mark per transcribed line', async function () {
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         await user.click(line)
-        task.setActiveMark(undefined)
         expect(task.marks.length).to.equal(1)
-        expect(task.activeMark).to.be.undefined()
+        expect(task.activeMark).to.exist()
+        line = document.querySelector('g.transcribed.line')
+        expect(line.getAttribute('aria-disabled')).to.equal('true')
+        expect(line.tabIndex).to.equal(-1)
         await user.click(line)
+        await when(() => task.activeMark !== undefined)
+        expect(task.marks.length).to.equal(1)
+        expect(task.activeMark).to.exist()
         expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
         expect(task.activeMark.y1).to.equal(transcribedLines[0].points[0].y)
         expect(task.activeMark.x2).to.equal(transcribedLines[0].points[1].x)
         expect(task.activeMark.y2).to.equal(transcribedLines[0].points[1].y)
         expect(task.activeMark.frame).to.equal(transcribedLines[0].frame)
-        expect(task.marks.length).to.equal(1)
         task.setActiveMark(undefined)
       })
 
       it('should create a mark for the correct frame', async function () {
-        const consensusLines = transcriptionReductions.consensusLines(1)
-        const store = mockStore({ workflow: workflowSnapshot })
-        result.rerender(<TranscribedLines
-          annotation={annotation}
-          frame={1}
-          lines={consensusLines}
-          marks={task.marks}
-          task={task}
-        />, { wrapper: withStore(store) })
+        store.subjectViewer.setFrame(1)
+        const consensusLines = store.subjects.active.caesarReductions.consensusLines(1)
+        task = store.workflowSteps.findTasksByType('transcription')[0]
+        task.setActiveTool(0)
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
-
-        const line = document.querySelector('g.transcribed.line')
         expect(task.activeMark).to.be.undefined()
+        line = document.querySelector('g.transcribed.line')
         await user.click(line)
+        line = document.querySelector('g.transcribed.line')
+        expect(line.getAttribute('aria-disabled')).to.equal('true')
+        expect(line.tabIndex).to.equal(-1)
+        await when(() => task.marks.length > 0)
+        expect(task.marks.length).to.equal(1)
+        expect(task.activeMark).to.exist()
         expect(task.activeMark.frame).to.equal(1)
         expect(task.activeMark.frame).to.equal(transcribedLines[0].frame)
         task.setActiveMark(undefined)
@@ -354,26 +402,17 @@ describe('Component > TranscribedLines', function () {
     })
 
     describe('on Enter', function () {
-      let annotation, consensusLines, line, result, user
+      let consensusLines, line, store, task, user
 
-      beforeEach(function () {
+      beforeEach(async function () {
+        store = mockStore({ client, workflow: workflowSnapshot })
+        render(<TranscribedLines />, { wrapper: withStore(store) })
+        const subject = store.subjects.active
+        await when(() => subject.caesarReductions?.reductions.length > 0)
         user = userEvent.setup({ delay: null })
-        task.reset()
-        consensusLines = transcriptionReductions.consensusLines(0)
-        annotation = {
-          taskKey: 'T1',
-          taskType: 'transcription',
-          update: sinon.stub(),
-          value: []
-        }
-        const store = mockStore({ workflow: workflowSnapshot })
-        result = render(<TranscribedLines
-          annotation={annotation}
-          frame={0}
-          lines={consensusLines}
-          marks={task.marks}
-          task={task}
-        />, { wrapper: withStore(store) })
+        consensusLines = store.subjects.active.caesarReductions.consensusLines(0)
+        task = store.workflowSteps.findTasksByType('transcription')[0]
+        task.setActiveTool(0)
         line = document.querySelector('g.transcribed.line')
       })
 
@@ -382,7 +421,14 @@ describe('Component > TranscribedLines', function () {
         expect(task.marks.length).to.equal(0)
         expect(task.activeMark).to.be.undefined()
         line.focus()
+        expect(line.getAttribute('aria-disabled')).to.equal('false')
+        expect(line.tabIndex).to.equal(0)
         await user.keyboard('{Enter}')
+        line = document.querySelector('g.transcribed.line')
+        expect(line.getAttribute('aria-disabled')).to.equal('true')
+        expect(line.tabIndex).to.equal(-1)
+        await when(() => task.marks.length === 1)
+        expect(task.activeMark).to.exist()
         expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
         expect(task.activeMark.y1).to.equal(transcribedLines[0].points[0].y)
         expect(task.activeMark.x2).to.equal(transcribedLines[0].points[1].x)
@@ -396,10 +442,14 @@ describe('Component > TranscribedLines', function () {
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         line.focus()
         await user.keyboard('{Enter}')
-        task.setActiveMark(undefined)
         expect(task.marks.length).to.equal(1)
-        expect(task.activeMark).to.be.undefined()
+        expect(task.activeMark).to.exist()
+        line = document.querySelector('g.transcribed.line')
+        expect(line.getAttribute('aria-disabled')).to.equal('true')
+        expect(line.tabIndex).to.equal(-1)
         await user.keyboard('{Enter}')
+        await when(() => task.activeMark !== undefined)
+        expect(task.activeMark).to.exist()
         expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
         expect(task.activeMark.y1).to.equal(transcribedLines[0].points[0].y)
         expect(task.activeMark.x2).to.equal(transcribedLines[0].points[1].x)
@@ -409,20 +459,20 @@ describe('Component > TranscribedLines', function () {
       })
 
       it('should create a mark for the correct frame', async function () {
-        const consensusLines = transcriptionReductions.consensusLines(1)
-        const store = mockStore({ workflow: workflowSnapshot })
-        result.rerender(<TranscribedLines
-          annotation={annotation}
-          frame={1}
-          lines={consensusLines}
-          marks={task.marks}
-          task={task}
-        />, { wrapper: withStore(store) })
+        const consensusLines = store.subjects.active.caesarReductions.consensusLines(1)
+        store.subjectViewer.setFrame(1)
+        task = store.workflowSteps.findTasksByType('transcription')[0]
+        task.setActiveTool(0)
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
 
-        const line = document.querySelector('g.transcribed.line')
+        line = document.querySelector('g.transcribed.line')
         line.focus()
         await user.keyboard('{Enter}')
+        line = document.querySelector('g.transcribed.line')
+        expect(line.getAttribute('aria-disabled')).to.equal('true')
+        expect(line.tabIndex).to.equal(-1)
+        await when(() => task.marks.length === 1)
+        expect(task.activeMark).to.exist()
         expect(task.activeMark.frame).to.equal(1)
         expect(task.activeMark.frame).to.equal(transcribedLines[0].frame)
         task.setActiveMark(undefined)
@@ -430,26 +480,17 @@ describe('Component > TranscribedLines', function () {
     })
 
     describe('on Space', function () {
-      let annotation, consensusLines, line, result, user
+      let consensusLines, line, store, task, user
 
-      beforeEach(function () {
+      beforeEach(async function () {
+        store = mockStore({ client, workflow: workflowSnapshot })
+        render(<TranscribedLines />, { wrapper: withStore(store) })
+        const subject = store.subjects.active
+        await when(() => subject.caesarReductions?.reductions.length > 0)
         user = userEvent.setup({ delay: null })
-        task.reset()
-        consensusLines = transcriptionReductions.consensusLines(0)
-        annotation = {
-          taskKey: 'T1',
-          taskType: 'transcription',
-          update: sinon.stub(),
-          value: []
-        }
-        const store = mockStore({ workflow: workflowSnapshot })
-        result = render(<TranscribedLines
-          annotation={annotation}
-          frame={0}
-          lines={consensusLines}
-          marks={task.marks}
-          task={task}
-        />, { wrapper: withStore(store) })
+        consensusLines = store.subjects.active.caesarReductions.consensusLines(0)
+        task = store.workflowSteps.findTasksByType('transcription')[0]
+        task.setActiveTool(0)
         line = document.querySelector('g.transcribed.line')
       })
 
@@ -458,7 +499,14 @@ describe('Component > TranscribedLines', function () {
         expect(task.marks.length).to.equal(0)
         expect(task.activeMark).to.be.undefined()
         line.focus()
+        expect(line.getAttribute('aria-disabled')).to.equal('false')
+        expect(line.tabIndex).to.equal(0)
         await user.keyboard('{ }')
+        line = document.querySelector('g.transcribed.line')
+        expect(line.getAttribute('aria-disabled')).to.equal('true')
+        expect(line.tabIndex).to.equal(-1)
+        await when(() => task.marks.length === 1)
+        expect(task.activeMark).to.exist()
         expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
         expect(task.activeMark.y1).to.equal(transcribedLines[0].points[0].y)
         expect(task.activeMark.x2).to.equal(transcribedLines[0].points[1].x)
@@ -471,11 +519,15 @@ describe('Component > TranscribedLines', function () {
       it('should create only one mark per transcribed line', async function () {
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         line.focus()
-        await user.keyboard('{ }')
-        task.setActiveMark(undefined)
+        await user.keyboard(' ')
         expect(task.marks.length).to.equal(1)
-        expect(task.activeMark).to.be.undefined()
-        await user.keyboard('{ }')
+        expect(task.activeMark).to.exist()
+        line = document.querySelector('g.transcribed.line')
+        expect(line.getAttribute('aria-disabled')).to.equal('true')
+        expect(line.tabIndex).to.equal(-1)
+        await user.keyboard(' ')
+        await when(() => task.activeMark !== undefined)
+        expect(task.activeMark).to.exist()
         expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
         expect(task.activeMark.y1).to.equal(transcribedLines[0].points[0].y)
         expect(task.activeMark.x2).to.equal(transcribedLines[0].points[1].x)
@@ -485,20 +537,19 @@ describe('Component > TranscribedLines', function () {
       })
 
       it('should create a mark for the correct frame', async function () {
-        const consensusLines = transcriptionReductions.consensusLines(1)
-        const store = mockStore({ workflow: workflowSnapshot })
-        result.rerender(<TranscribedLines
-          annotation={annotation}
-          frame={1}
-          lines={consensusLines}
-          marks={task.marks}
-          task={task}
-        />, { wrapper: withStore(store) })
+        const consensusLines = store.subjects.active.caesarReductions.consensusLines(1)
+        store.subjectViewer.setFrame(1)
+        task = store.workflowSteps.findTasksByType('transcription')[0]
+        task.setActiveTool(0)
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
-
-        const line = document.querySelector('g.transcribed.line')
+        line = document.querySelector('g.transcribed.line')
         line.focus()
         await user.keyboard('{ }')
+        line = document.querySelector('g.transcribed.line')
+        expect(line.getAttribute('aria-disabled')).to.equal('true')
+        expect(line.tabIndex).to.equal(-1)
+        await when(() => task.marks.length === 1)
+        expect(task.activeMark).to.exist()
         expect(task.activeMark.frame).to.equal(1)
         expect(task.activeMark.frame).to.equal(transcribedLines[0].frame)
         task.setActiveMark(undefined)
@@ -514,12 +565,17 @@ describe('Component > TranscribedLines', function () {
   })
 
   describe('completed lines', function () {
-    let lines, completeLines
+    let completeLines, lines, task
 
-    before(function () {
-      const store = mockStore({ workflow: workflowSnapshot })
-      render(<TranscribedLines frame={0} lines={consensusLines} task={task} />, { wrapper: withStore(store) })
+    before(async function () {
+      const store = mockStore({ client, workflow: workflowSnapshot })
+      render(<TranscribedLines />, { wrapper: withStore(store) })
+      const subject = store.subjects.active
+      await when(() => subject.caesarReductions?.reductions.length > 0)
+      task = store.workflowSteps.findTasksByType('transcription')[0]
+      task.setActiveTool(0)
       lines = document.querySelectorAll('g.complete.line')
+      const consensusLines = subject.caesarReductions.consensusLines(0)
       completeLines = consensusLines.filter(line => line.consensusReached)
     })
 
@@ -548,8 +604,12 @@ describe('Component > TranscribedLines', function () {
 
     it('should show the ConsensusPopup onClick', async function () {
       const user = userEvent.setup({ delay: null })
-      const store = mockStore({ workflow: workflowSnapshot })
-      render(<TranscribedLines frame={0} lines={consensusLines} task={task} />, { wrapper: withStore(store) })
+      const store = mockStore({ client, workflow: workflowSnapshot })
+      render(<TranscribedLines />, { wrapper: withStore(store) })
+      const subject = store.subjects.active
+      await when(() => subject.caesarReductions?.reductions.length > 0)
+      const task = store.workflowSteps.findTasksByType('transcription')[0]
+      task.setActiveTool(0)
       const line = document.querySelector('g.complete.line')
       const popupTitle = 'SubjectViewer.InteractionLayer.TranscribedLines.ConsensusPopup.title'
       let popup = screen.queryByRole('heading', { level: 2, name: popupTitle})
@@ -565,8 +625,12 @@ describe('Component > TranscribedLines', function () {
 
     it('should show the ConsensusPopup onKeyDown with enter', async function () {
       const user = userEvent.setup({ delay: null })
-      const store = mockStore({ workflow: workflowSnapshot })
-      render(<TranscribedLines frame={0} lines={consensusLines} task={task} />, { wrapper: withStore(store) })
+      const store = mockStore({ client, workflow: workflowSnapshot })
+      render(<TranscribedLines />, { wrapper: withStore(store) })
+      const subject = store.subjects.active
+      await when(() => subject.caesarReductions?.reductions.length > 0)
+      const task = store.workflowSteps.findTasksByType('transcription')[0]
+      task.setActiveTool(0)
       const line = document.querySelector('g.complete.line')
       const popupTitle = 'SubjectViewer.InteractionLayer.TranscribedLines.ConsensusPopup.title'
       let popup = screen.queryByRole('heading', { level: 2, name: popupTitle})
@@ -584,8 +648,12 @@ describe('Component > TranscribedLines', function () {
 
     it('should show the ConsensusPopup onKeyDown with space', async function () {
       const user = userEvent.setup({ delay: null })
-      const store = mockStore({ workflow: workflowSnapshot })
-      render(<TranscribedLines frame={0} lines={consensusLines} task={task} />, { wrapper: withStore(store) })
+      const store = mockStore({ client, workflow: workflowSnapshot })
+      render(<TranscribedLines />, { wrapper: withStore(store) })
+      const subject = store.subjects.active
+      await when(() => subject.caesarReductions?.reductions.length > 0)
+      const task = store.workflowSteps.findTasksByType('transcription')[0]
+      task.setActiveTool(0)
       const line = document.querySelector('g.complete.line')
       const popupTitle = 'SubjectViewer.InteractionLayer.TranscribedLines.ConsensusPopup.title'
       let popup = screen.queryByRole('heading', { level: 2, name: popupTitle})
@@ -602,19 +670,25 @@ describe('Component > TranscribedLines', function () {
     })
 
     describe('when there is an existing invalid mark', function () {
-      before(function () {
-        const store = mockStore({ workflow: workflowSnapshot })
-        render(<TranscribedLines frame={0} invalidMark={true} lines={consensusLines} task={task} />, { wrapper: withStore(store) })
-        lines = document.querySelectorAll('g.complete.line')
+      before(async function () {
+        const store = mockStore({ client, workflow: workflowSnapshot })
+        render(<TranscribedLines />, { wrapper: withStore(store) })
+        const subject = store.subjects.active
+        await when(() => subject.caesarReductions?.reductions.length > 0)
+        const task = store.workflowSteps.findTasksByType('transcription')[0]
+        task.setActiveTool(0)
+        const consensusLines = subject.caesarReductions.consensusLines(0)
         completeLines = consensusLines.filter(line => line.consensusReached)
+        const [ transcribedLine ] = consensusLines.filter(line => !line.consensusReached)
+        const { id, x1, y1 } = transcribedLine
+        task.activeTool.createMark({ id, x1, y1, toolIndex: 0 })
       })
 
       it('should disable the lines', function () {
+        const lines = document.querySelectorAll('g.complete.line')
         lines.forEach(line => {
           expect(line.getAttribute('aria-disabled')).to.equal('true')
           expect(line.tabIndex).to.equal(-1)
-          expect(line.onclick).to.be.null()
-          expect(line.onkeydown).to.be.null()
         })
       })
     })

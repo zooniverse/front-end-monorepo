@@ -1,8 +1,11 @@
+import { observer } from 'mobx-react'
 import { array, arrayOf, bool, number, object, shape, string } from 'prop-types'
 import { useState } from 'react';
-import styled, { css, withTheme } from 'styled-components'
-import { TranscriptionLine } from '@plugins/drawingTools/components'
+import styled, { css, useTheme } from 'styled-components'
 import { Tooltip } from '@zooniverse/react-components'
+
+import { useTranscriptionReductions } from '@hooks'
+import { TranscriptionLine } from '@plugins/drawingTools/components'
 import { useTranslation } from '@translations/i18n'
 
 import TooltipIcon from './components/TooltipIcon'
@@ -45,24 +48,29 @@ function onKeyDown(event, callback, line) {
 }
 
 function TranscribedLines({
-  /** the transcription task annotation */
-  annotation,
-  /** current frame, for multiple image subjects. */
-  frame = 0,
-  invalidMark = false,
-  /** Aggregated transcribed lines from Caesar. */
-  lines = [],
-  /** Marks drawn by the current user. */
-  marks = [],
   /** SVG image scale (client width / natural width.) */
-  scale = 1,
-  /** the active transcription task */
-  task = {},
-  /** Grommet theme */
-  theme = defaultTheme,
-  /** Show/hide previously transcribed lines. */
-  visible = true
+  scale = 1
 }) {
+  const {
+    /** is the transcription task active? */
+    active,
+    /** the transcription task annotation */
+    annotation,
+    /** current frame, for multiple image subjects. */
+    frame,
+    invalidMark,
+    /** Aggregated transcribed lines from Caesar. */
+    lines,
+    /** Marks drawn by the current user. */
+    marks,
+    /** the active transcription task */
+    task,
+    /** Show/hide previously transcribed lines. */
+    visible,
+  } = useTranscriptionReductions()
+  const {
+    theme = defaultTheme
+  } = useTheme()
   const [ bounds, setBounds ] = useState({})
   const [ line, setLine ] = useState(defaultLine)
   const [ show, setShow ] = useState(false)
@@ -73,7 +81,7 @@ function TranscribedLines({
     return null
   }
 
-  const invalidTranscriptionTask = Object.keys(task).length === 0
+  const invalidTranscriptionTask = !active || Object.keys(task).length === 0
   const completedLines = lines.filter(line => line.consensusReached)
   const transcribedLines = lines.filter(line => !line.consensusReached)
   const fills = {
@@ -174,7 +182,6 @@ function TranscribedLines({
           const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
           const mark = { length, x1, y1, x2, y2 }
           const id = `transcribed-${index}`
-
           const lineProps = {}
           if (!disabled) {
             lineProps.onClick = event => onClick(event, createMark, line)
@@ -220,32 +227,7 @@ function TranscribedLines({
 }
 
 TranscribedLines.propTypes = {
-  annotation: shape({
-    task: string,
-    taskType: string,
-    value: array
-  }),
-  frame: number.isRequired,
-  invalidMark: bool,
-  lines: arrayOf(shape({
-    consensusReached: bool,
-    points: arrayOf(shape({
-      x: number,
-      y: number
-    }))
-  })),
-  marks: arrayOf(shape({
-    id: string
-  })),
-  scale: number,
-  task: object,
-  theme: shape({
-    global: shape({
-      colors: object
-    })
-  }),
-  visible: bool
+  scale: number
 }
 
-export default withTheme(TranscribedLines)
-export { TranscribedLines }
+export default observer(TranscribedLines)
