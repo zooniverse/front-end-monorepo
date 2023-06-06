@@ -3,8 +3,9 @@ import { RouterContext } from 'next/dist/shared/lib/router-context'
 import Router from 'next/router'
 import { composeStory } from '@storybook/react'
 import { within } from '@testing-library/dom'
-import projectAnnotations from '../../../.storybook/preview.js'
 
+import projectAnnotations from '../../../.storybook/preview.js'
+import mockData from './TeamsContainer.mock.json'
 import Meta, { Default } from './Teams.stories.js'
 
 function RouterMock({ children }) {
@@ -47,6 +48,9 @@ describe('Component > TeamsContainer', function () {
       </RouterMock>
     )
     const people = screen.getAllByTestId('person-test-element')
-    expect(people.length).to.equal(31) // number of non-alumni in mock.json
+    const numMockPeople = mockData.reduce((count, team) => {
+      return count + ((team.name !== 'Alumni') ? team.people.length : 0) // non-alumni in mock.json
+    }, 0)
+    expect(people.length).to.equal(numMockPeople)
   })
 })
