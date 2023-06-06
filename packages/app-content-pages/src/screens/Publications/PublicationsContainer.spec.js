@@ -51,6 +51,6 @@ describe('Component > PublicationsContainer', function () {
       </RouterMock>
     )
     const publications = screen.getAllByTestId('publication-test-element')
-    expect(publications.length).to.equal(60) // number of publications in mock.json
+    expect(publications.length).to.equal(20) // number of publications in mock.json
   })
 })
