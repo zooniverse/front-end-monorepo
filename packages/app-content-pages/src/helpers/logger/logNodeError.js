@@ -1,4 +1,4 @@
-import { captureException } from '@sentry/node'
+import { captureException } from '@sentry/nextjs'
 
 export default function logNodeError (error) {
   const dsn = process.env.SENTRY_CONTENT_DSN
