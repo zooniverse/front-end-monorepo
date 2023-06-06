@@ -21,7 +21,7 @@
     "superagent": "^8.0.6"
   },
   "devDependencies": {
-    "@zooniverse/standard": "~1.0.0",
+    "@zooniverse/standard": "~2.0.0",
     "chai": "~4.3.4",
     "dirty-chai": "~2.0.1",
     "jsdom": "~22.1.0",

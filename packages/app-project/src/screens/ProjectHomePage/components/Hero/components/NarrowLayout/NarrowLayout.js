@@ -6,9 +6,9 @@ import Introduction from '../Introduction'
 import WorkflowSelector from '@shared/components/WorkflowSelector'
 import ContentBox from '@shared/components/ContentBox'
 
-function NarrowLayout (props) {
-  const { workflows } = props
-
+function NarrowLayout ({
+  workflows = []
+}) {
   return (
     <Box
       align='stretch'
@@ -32,13 +32,10 @@ function NarrowLayout (props) {
   )
 }
 
-NarrowLayout.defaultProps = {
-  workflows: []
-}
-
 NarrowLayout.propTypes = {
   workflows: arrayOf(shape({
     id: string.isRequired
   }))
 }
+
 export default NarrowLayout

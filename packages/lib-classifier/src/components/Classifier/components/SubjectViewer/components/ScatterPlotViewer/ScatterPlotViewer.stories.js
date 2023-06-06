@@ -12,7 +12,7 @@ import {
   randomSingleSeriesData
 } from './helpers/mockData'
 import { Factory } from 'rosie'
-import readme from './README.md'
+// import readme from './README.md'
 
 const { data } = randomSingleSeriesData
 
@@ -55,20 +55,13 @@ function ViewerContext({
 
 export default {
   title: 'Subject Viewers / ScatterPlotViewer',
-  component: ScatterPlotViewer,
-  parameters: {
-    docs: {
-      description: {
-        component: readme
-      }
-    }
-  }
+  component: ScatterPlotViewer
 }
 
-export function Default() {
+export function Default(props) {
   return (
     <Box height='medium' width='large'>
-      <ScatterPlotViewer data={data} xAxisLabel='x-axis' yAxisLabel='y-axis' />
+      <ScatterPlotViewer {...props} data={data} xAxisLabel='x-axis' yAxisLabel='y-axis' />
     </Box>
   )
 }
@@ -87,7 +80,7 @@ NarrowView.parameters = {
   }
 }
 
-export function ErrorBars() {
+export function ErrorBars(props) {
   function constructData() {
     return [...Array(60)].map((number, index) => {
       const coords = {
@@ -114,6 +107,7 @@ export function ErrorBars() {
     <ViewerContext>
       <Box direction='row' height='medium' width='large'>
         <ScatterPlotViewer
+          {...props}
           data={data}
           panning
           setOnZoom={setZoomCallback}
@@ -133,7 +127,7 @@ export function ErrorBars() {
   )
 }
 
-export function KeplerLightCurve() {
+export function KeplerLightCurve(props) {
   const tessChartOptions = {
     axisColor: colors['light-1'],
     backgroundColor: darken(0.08, colors['neutral-1']),
@@ -164,6 +158,7 @@ export function KeplerLightCurve() {
   return (
     <Box height='medium' width='large'>
       <ScatterPlotViewer
+        {...props}
         data={keplerMockDataWithOptions.data}
         {...tessChartOptions}
         margin={keplerMockDataWithOptions.chartOptions.margin}

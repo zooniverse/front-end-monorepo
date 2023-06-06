@@ -1,7 +1,6 @@
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types'
 import { withParentSize } from '@visx/responsive'
-import { withTheme } from 'styled-components'
 import ZoomingScatterPlot from './components/ZoomingScatterPlot'
 import ScatterPlot from './components/ScatterPlot'
 import ZoomControlButton from '../ZoomControlButton'
@@ -11,7 +10,6 @@ const ScatterPlotViewer = forwardRef(function ScatterPlotViewer (props, ref) {
     zoomControlFn,
     zooming
   } = props
-
   const Plot = (zooming) ? ZoomingScatterPlot : ScatterPlot
 
   return (
@@ -27,21 +25,14 @@ const ScatterPlotViewer = forwardRef(function ScatterPlotViewer (props, ref) {
 })
 
 ScatterPlotViewer.defaultProps = {
-  theme: {
-    global: {
-      colors: {},
-      font: {}
-    }
-  },
   zooming: false
 }
 
 ScatterPlotViewer.propTypes = {
   parentHeight: PropTypes.number.isRequired,
   parentWidth: PropTypes.number.isRequired,
-  theme: PropTypes.object,
   zooming: PropTypes.bool
 }
 
-export default withParentSize(withTheme(ScatterPlotViewer))
+export default withParentSize(ScatterPlotViewer)
 export { ScatterPlotViewer }

@@ -1,30 +1,22 @@
-import { inject, observer } from 'mobx-react'
-import { string } from 'prop-types'
-import { Component } from 'react'
+import { observer, MobXProviderContext } from 'mobx-react'
+import { useContext } from 'react'
 
 import Background from './Background'
 
-function storeMapper (stores) {
+function useStores() {
+  const { store } = useContext(MobXProviderContext)
+  const { src } = store.project?.background
   return {
-    backgroundSrc: stores.store.project.background.src
+    backgroundSrc: src
   }
 }
 
-class BackgroundContainer extends Component {
-  render () {
-    return (
-      <Background backgroundSrc={this.props.backgroundSrc} />
-    )
-  }
+function BackgroundContainer () {
+  const { backgroundSrc } = useStores()
+
+  return (
+    <Background backgroundSrc={backgroundSrc} />
+  )
 }
 
-BackgroundContainer.propTypes = {
-  backgroundSrc: string.isRequired
-}
-
-const DecoratedBackgroundContainer = inject(storeMapper)(observer(BackgroundContainer))
-
-export {
-  DecoratedBackgroundContainer as default,
-  BackgroundContainer
-}
+export default observer(BackgroundContainer)

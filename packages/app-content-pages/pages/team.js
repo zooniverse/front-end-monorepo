@@ -1,11 +1,11 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import TeamAPI from '../src/api/team'
+import createTeamResponse from '../src/api/team/team.js'
 import logNodeError from '../src/helpers/logger/logNodeError.js'
-export { default } from '../src/screens/Team'
+export { default } from '../src/screens/Teams'
 
 export async function getStaticProps({ locale }) {
   try {
-    const teamData = await TeamAPI.createTeamResponse()
+    const teamData = await createTeamResponse()
     return {
       props: {
         teamData,

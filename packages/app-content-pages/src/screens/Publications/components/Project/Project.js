@@ -1,7 +1,7 @@
 import { Box, Heading } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 
-import Publication from '../Publication'
+import Publication from '../Publication/Publication.js'
 
 function Project (props) {
   const { avatarSrc, id, title, publications } = props
@@ -23,10 +23,13 @@ function Project (props) {
 
 Project.propTypes = {
   avatarSrc: string,
-  id: string,
+  projectId: string,
   title: string,
   publications: arrayOf(shape({
-    id: string
+    authors: string,
+    title: string,
+    url: string,
+    year: string
   }))
 }
 

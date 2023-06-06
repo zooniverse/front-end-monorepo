@@ -35,11 +35,6 @@ const mockUrls = [
   {
     label: '',
     path: 'test-project',
-    site: 'plus.google.com'
-  },
-  {
-    label: '',
-    path: 'test-project',
     site: 'reddit.com'
   },
   {
