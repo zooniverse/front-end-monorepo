@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 
-const StyledSpan = styled.span`
+const StyledMark = styled.mark`
   background-color: ${props => props.color};
   border-radius: 8px;
   color: black;
@@ -28,6 +28,7 @@ function DEFAULT_HANDLER() {
 function Selection ({
   color,
   handleDelete = DEFAULT_HANDLER,
+  label,
   text
 }) {
   const { t } = useTranslation('plugins')
@@ -40,7 +41,8 @@ function Selection ({
   }
 
   return (
-    <StyledSpan
+    <StyledMark
+      aria-label={`${label}: ${text}`}
       data-selection={text}
       color={color}
       onKeyDown={onKeyDown}
@@ -55,13 +57,14 @@ function Selection ({
       >
         &times;
       </StyledDeleteButton>
-    </StyledSpan>
+    </StyledMark>
   )
 }
 
 Selection.propTypes = {
   color: PropTypes.string.isRequired,
   handleDelete: PropTypes.func,
+  label: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired
 }
 
