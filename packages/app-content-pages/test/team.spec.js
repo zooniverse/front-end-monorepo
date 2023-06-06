@@ -1,7 +1,7 @@
 import sinon from 'sinon'
 import { getStaticProps } from '../pages/team'
 import TeamAPI from '../src/api/team'
-import mockData from '../src/screens/Team/TeamContainer.mock'
+import mockData from '../src/screens/Teams/TeamsContainer.mock'
 
 const DATA = mockData
 

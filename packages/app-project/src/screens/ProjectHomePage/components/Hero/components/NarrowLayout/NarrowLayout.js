@@ -50,4 +50,5 @@ NarrowLayout.propTypes = {
     id: string.isRequired
   }))
 }
+
 export default NarrowLayout

@@ -2,7 +2,6 @@ import { Box } from 'grommet'
 import RotateButton from './RotateButton'
 
 const args = {
-  dark: false,
   disabled: false
 }
 

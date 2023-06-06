@@ -31,7 +31,11 @@
   },
   "Publications": {
     "description": "Translated",
+    "formInfo": "Translated",
+    "formLabel": "Translated",
+    "formInstruction": "Translated",
     "showAll": "Translated",
+    "sideBarLabel": "Translated",
     "title": "Translated"
   },
   "RegisterForm": {
@@ -53,7 +57,7 @@
     "privacyLink": "Translated",
     "realName": "Translated",
     "realNameHelp": "Translated",
-    "realNamePatternHelp": "Translated", 
+    "realNamePatternHelp": "Translated",
     "realNamePlaceholder": "Translated",
     "register": "Translated",
     "registering": "Translated",

@@ -9,7 +9,7 @@ import { reducedASMSubject } from '@store/subjects/Subject/TranscriptionReductio
 import MultiFrameViewer from '@viewers/components/MultiFrameViewer'
 import TooltipIcon from './components/TooltipIcon'
 
-import TranscribedLines from './TranscribedLines'
+import TranscribedLines from '.'
 
 const subjectSnapshot = SubjectFactory.build({
   id: '13967054',

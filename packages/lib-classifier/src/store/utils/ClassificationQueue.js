@@ -143,7 +143,8 @@ class ClassificationQueue {
         this.remove(classificationData)
       }
       Sentry.withScope((scope) => {
-        scope.setTag('classificationError', error.status)
+        const errorTag = error.status || 'saveFailed'
+        scope.setTag('classificationError', errorTag)
         scope.setExtra('classification', JSON.stringify(classificationData))
         Sentry.captureException(error)
       })

@@ -1,30 +1,30 @@
-import { Anchor, Box, Button, Heading, Paragraph } from 'grommet'
+import { Anchor, Box, Button, Heading, Nav, Paragraph } from 'grommet'
 import Link from 'next/link'
-import { array, arrayOf, bool, func, shape, string } from 'prop-types'
+import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
-import Category from './components/Category'
+import Category from './components/Category/Category.js'
 import TwoColumnLayout from '../../shared/components/TwoColumnLayout'
 import Head from '../../shared/components/Head'
 
 const StyledLi = styled.li`
   list-style-type: none;
+  padding-top: 15px;
 `
 
 const StyledButton = styled(Button)`
-  ${props => props.active && css`
-    background: none;
-    font-weight: bold;
-  `}
+  ${props =>
+    props.active &&
+    css`
+      background: none;
+      font-weight: bold;
+    `}
 `
-const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdbAKVT2tGs1WfBqWNrMekFE5lL4ZuMnWlwJuCuNM33QO2ZYg/viewform'
+const FORM_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLSdbAKVT2tGs1WfBqWNrMekFE5lL4ZuMnWlwJuCuNM33QO2ZYg/viewform'
 
-function Publications ({
-  className,
-  data,
-  filters
-}) {
+function Publications({ className = '', data = [], filters = [] }) {
   const { t } = useTranslation('components')
 
   const heading = (
@@ -34,14 +34,15 @@ function Publications ({
       </Heading>
 
       <Paragraph>
-        To submit a new publication or update an existing one, <Anchor href={FORM_URL}>please use this form</Anchor>. We aim to post links to published papers that can be accessed by the public. Articles accepted for publication but not yet published are also fine.
+        {t('Publications.formInstruction')}{' '}
+        <Anchor href={FORM_URL}>{t('Publications.formLabel')}</Anchor>.{' '}
+        {t('Publications.formInfo')}
       </Paragraph>
     </section>
   )
 
   const main = (
     <article>
-
       {data.map(category => (
         <Category
           key={category.title}
@@ -54,23 +55,23 @@ function Publications ({
   )
 
   const sidebar = (
-    <Box as='ul' gap='small'>
-      {filters.map(filter => (
-        <StyledLi key={filter.name} >
-          <Link
-            href={ filter.slug ? `#${filter.slug}` : '' }
-            passHref
-          >
-            <StyledButton
-              active={filter.active}
-              label={filter.name}
-              onClick={filter.setActive}
-              plain
-            />
-          </Link>
-        </StyledLi>
-      ))}
-    </Box>
+    <Nav ariaLabel={t('Publications.sideBarLabel')}>
+      <Box as='ul'>
+        {filters.map(filter => (
+          <StyledLi key={filter.name}>
+            <Link href={filter.slug ? `#${filter.slug}` : ''} passHref>
+              <StyledButton
+                active={filter.active}
+                ariaChecked={filter.active}
+                label={filter.name}
+                onClick={filter.setActive}
+                plain
+              />
+            </Link>
+          </StyledLi>
+        ))}
+      </Box>
+    </Nav>
   )
 
   return (
@@ -91,16 +92,21 @@ function Publications ({
 
 Publications.propTypes = {
   className: string,
-  data: arrayOf(shape({
-    id: string,
-    projects: array,
-    title: string
-  })),
-  filters: arrayOf(shape({
-    active: bool,
-    setActive: func,
-    title: string
-  }))
+  data: arrayOf(
+    shape({
+      projects: array,
+      slug: string,
+      title: string,
+      weight: number
+    })
+  ),
+  filters: arrayOf(
+    shape({
+      active: bool,
+      setActive: func,
+      title: string
+    })
+  )
 }
 
 export default Publications

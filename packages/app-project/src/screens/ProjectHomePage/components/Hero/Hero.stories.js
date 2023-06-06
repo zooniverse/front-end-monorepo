@@ -4,7 +4,7 @@ import { Provider } from 'mobx-react'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
 import Router from 'next/router'
 
-import initStore from '@stores'
+import Store from '@stores/Store'
 import Hero from './'
 
 function RouterMock({ children }) {
@@ -50,7 +50,7 @@ const snapshot = {
   }
 }
 
-const store = initStore(false, snapshot)
+const store = Store.create(snapshot)
 
 function MockProjectContext(Story) {
   return (
