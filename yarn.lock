@@ -14807,9 +14807,9 @@ storybook-i18n@^2.0.7:
   integrity sha512-f+sXig9sx0G2IdE5ovMpNJDDkdtSU+k9LDL2LoVR4WCB9iIovwHr3bhrYM0mKx3QqKPrSXv+fGwkAE2hNlWHbA==
 
 storybook-react-i18next@~2.0.1:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/storybook-react-i18next/-/storybook-react-i18next-2.0.2.tgz#1e771b8cf7792d99ef5e3f1479e2fd552d3c16e7"
-  integrity sha512-j5WsRYnKcgbF/Y874txiFglmg+by79geENbbYFQKZyfnrLMaDRNmltTf3xTxtMwbUgWaCeTwjeb09zwRUkrqeA==
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/storybook-react-i18next/-/storybook-react-i18next-2.0.4.tgz#ed7b6a9f7829fa80f6bb9e0851c2cf003a26f24a"
+  integrity sha512-tTIwN8m05Pppfl5fRUvuVoM4UOIpdn1n3JZBlvTH/dI9eiDSPLr8HupaBTXA/Ld2GRhbPKDj8+LCOOAtlqgTbw==
   dependencies:
     storybook-i18n "^2.0.7"
 
