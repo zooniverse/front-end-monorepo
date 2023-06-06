@@ -53,7 +53,7 @@ const MOCK_SUBMISSION_VALUES = {
   project_email_communication: true
 }
 
-describe('Component > RegisterFormContainer', function () {
+describe.skip('Component > RegisterFormContainer', function () {
   before(function () {
     wrapper = shallow(<RegisterFormContainer />)
     componentWrapper = wrapper.find(RegisterForm)

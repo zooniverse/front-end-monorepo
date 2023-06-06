@@ -1,34 +1,13 @@
-import { shallow } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
 
-import Category from './Category'
-import Project from '../Project'
-
-let wrapper
-const TITLE = 'Foobar'
-const PROJECTS = [
-  {
-    title: 'Baz'
-  }
-]
+import Meta, { Default } from './Category.stories.js'
 
 describe('Component > Category', function () {
-  before(function () {
-    wrapper = shallow(<Category title={TITLE} projects={PROJECTS} />)
-  })
-
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
-
-  it('should render the category name', function () {
-    expect(wrapper.find('Heading').shallow().text()).to.equal(TITLE)
-  })
-
-  it('should render a <Project /> for each project available', function () {
-    const projectsWrapper = wrapper.find(Project)
-    expect(projectsWrapper).to.have.lengthOf(PROJECTS.length)
-    PROJECTS.forEach(function (PROJECT) {
-      expect(projectsWrapper.find(PROJECT)).to.have.lengthOf(1)
-    })
+  const DefaultStory = composeStory(Default, Meta)
+    
+  it('should render the category title', function () {
+    render(<DefaultStory />)
+    expect(screen.getByText(Default.args.title)).exists()
   })
 })

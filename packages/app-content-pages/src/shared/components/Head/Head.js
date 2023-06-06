@@ -1,18 +1,15 @@
-import counterpart from 'counterpart'
 import NextHead from 'next/head'
 import { string } from 'prop-types'
-
-import en from './locales/en'
-
-counterpart.registerTranslations('en', en)
+import { useTranslation } from 'next-i18next'
 
 function Head (props) {
+  const { t } = useTranslation('components')
   const {
-    description,
-    siteName,
-    title,
+    description = t('Head.defaultDescription'),
+    siteName = t('Head.siteName'),
+    title = t('Head.defaultTitle'),
     url,
-    zooniverseTwitterUsername
+    zooniverseTwitterUsername = '@the_zooniverse'
   } = props
 
   return (
@@ -48,13 +45,6 @@ Head.propTypes = {
   siteName: string,
   title: string,
   url: string
-}
-
-Head.defaultProps = {
-  description: counterpart('Head.defaultDescription'),
-  siteName: counterpart('Head.siteName'),
-  title: counterpart('Head.defaultTitle'),
-  zooniverseTwitterUsername: '@the_zooniverse'
 }
 
 export default Head

@@ -1,32 +1,40 @@
-import { render } from 'enzyme'
+import { render } from '@testing-library/react'
+import { RouterContext } from 'next/dist/shared/lib/router-context'
+import Router from 'next/router'
 
 import NavLink from './NavLink'
 
-let wrapper
-
 const HREF = '/baz'
 const LABEL = 'Foobar'
-const ROUTER = {
-  asPath: '/'
+
+function RouterMock({ children }) {
+  const mockRouter = {
+    locale: 'en',
+    push: () => {},
+    prefetch: () => new Promise((resolve, reject) => {}),
+    query: {}
+  }
+
+  Router.router = mockRouter
+
+  return (
+    <RouterContext.Provider value={mockRouter}>
+      {children}
+    </RouterContext.Provider>
+  )
 }
+
 describe('Component > NavLink', function () {
   before(function () {
-    wrapper = render(<NavLink href={HREF} label={LABEL} router={ROUTER} />)
+    render(
+      <RouterMock>
+        <NavLink href={HREF} label={LABEL} />
+      </RouterMock>
+    )
   })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
-
-  it('should render an anchor tag', function () {
-    expect(wrapper.is('a')).to.be.true()
-  })
-
-  it('should use the `href` prop to set the anchor `href`', function () {
-    expect(wrapper.prop('href')).to.equal(HREF)
-  })
-
-  it('should use the `label` prop to set the anchor body', function () {
-    expect(wrapper.text()).to.equal(LABEL)
+  it('should correctly set the label and href', function () {
+    expect(document.querySelector('a').textContent).to.equal(LABEL)
+    expect(document.querySelector('a').href).to.include(HREF)
   })
 })

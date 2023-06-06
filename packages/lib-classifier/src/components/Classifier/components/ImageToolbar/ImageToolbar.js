@@ -42,7 +42,7 @@ function ImageToolbar (props) {
         <ZoomInButton />
         <ZoomOutButton />
         <RotateButton />
-        <FullscreenButton disabled />
+        <FullscreenButton show={false} />
         <ResetButton />
         <InvertButton />
       </Box>

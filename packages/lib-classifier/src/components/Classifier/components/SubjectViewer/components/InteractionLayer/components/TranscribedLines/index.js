@@ -1,1 +1,1 @@
-export { default } from './TranscribedLinesConnector'
+export { default } from './TranscribedLines'
