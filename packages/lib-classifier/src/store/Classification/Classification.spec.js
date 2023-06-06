@@ -86,8 +86,9 @@ describe('Model > Classification', function () {
       snapshot = classification.toSnapshot()
     })
 
-    it('should not have an ID', function () {
-      expect(snapshot.id).to.be.undefined()
+    it('should have an ID', function () {
+      expect(snapshot.id).to.exist()
+      expect(snapshot.id).to.be.a('string')
     })
 
     it('should have an annotations array', function () {

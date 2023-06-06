@@ -8,18 +8,18 @@ function storeMapper (classifierStore) {
   const { rotate, rotationEnabled, separateFramesView } =
     classifierStore.subjectViewer
 
-  const disabled = !rotationEnabled
+  const show = rotationEnabled
   return {
-    disabled,
+    show,
     rotate,
     separateFramesView
   }
 }
 
 function RotateButtonContainer({ separateFrameRotate = () => true }) {
-  const { disabled, rotate, separateFramesView } = useStores(storeMapper)
+  const { show, rotate, separateFramesView } = useStores(storeMapper)
 
-  if (disabled) {
+  if (!show) {
     return null
   }
 

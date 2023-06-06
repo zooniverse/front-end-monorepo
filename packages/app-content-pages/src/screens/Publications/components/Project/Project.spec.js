@@ -1,35 +1,13 @@
-import { shallow } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
 
-import Publication from '../Publication'
-import Project from './Project'
+import Meta, { Default } from './Project.stories.js'
 
-let wrapper
-const TITLE = 'Foobar'
-const PUBLICATIONS = [
-  {
-    title: 'Baz'
-  }
-]
-
-describe('Component > Project', function () {
-  before(function () {
-    wrapper = shallow(<Project title={TITLE} publications={PUBLICATIONS} />)
-  })
-
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
-
+describe('Publications > Project', function () {
+  const DefaultStory = composeStory(Default, Meta)
   it('should render the project name and project count', function () {
-    expect(wrapper.find('Heading').shallow().text()).to.include(TITLE)
-    expect(wrapper.find('Heading').shallow().text()).to.include(PUBLICATIONS.length)
-  })
-
-  it('should render a <Publication /> for each publication available', function () {
-    const publicationsWrapper = wrapper.find(Publication)
-    expect(publicationsWrapper).to.have.lengthOf(PUBLICATIONS.length)
-    PUBLICATIONS.forEach(function (PUBLICATION) {
-      expect(publicationsWrapper.find(PUBLICATION)).to.have.lengthOf(1)
-    })
+    render(<DefaultStory />)
+    const text = screen.getByText(`${Default.args.title} (${Default.args.publications.length})`)
+    expect(text).exists()
   })
 })
