@@ -75,6 +75,7 @@
   "Team": {
     "description": "The people who make the Zooniverse.",
     "showAll": "Show all",
+    "sideBarLabel": "Filter by team location",
     "title": "Our Team"
   }
 }

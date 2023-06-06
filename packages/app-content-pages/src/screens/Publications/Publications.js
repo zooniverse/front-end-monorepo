@@ -55,7 +55,7 @@ function Publications({ className = '', data = [], filters = [] }) {
   )
 
   const sidebar = (
-    <Nav ariaLabel={t('Publications.sideBarLabel')}>
+    <Nav aria-label={t('Publications.sideBarLabel')}>
       <Box as='ul'>
         {filters.map(filter => (
           <StyledLi key={filter.name}>

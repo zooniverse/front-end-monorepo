@@ -18,16 +18,17 @@ class RegisterFormContainer extends Component {
   }
 
   validate (values) {
+    const { t } = this.props
     const { email, emailConfirm, password, passwordConfirm, privacyAgreement } = values
     let errors = {}
     if (email !== emailConfirm) {
-      errors.emailConfirm = this.props.t('RegisterForm.emailConfirmError')
+      errors.emailConfirm = t('RegisterForm.emailConfirmError')
     }
     if (password !== passwordConfirm) {
-      errors.passwordConfirm = this.props.t('RegisterForm.passwordConfirmError')
+      errors.passwordConfirm = t('RegisterForm.passwordConfirmError')
     }
     if (!privacyAgreement) {
-      errors.privacyAgreement = this.props.t('RegisterForm.privacyAgreementError')
+      errors.privacyAgreement = t('RegisterForm.privacyAgreementError')
     }
     return errors
   }
@@ -101,12 +102,14 @@ RegisterFormContainer.propTypes = {
     user: shape({
       set: func
     })
-  })
+  }),
+  t: func
 }
 
 RegisterFormContainer.defaultProps = {
   authClient: auth,
-  closeModal: () => { }
+  closeModal: () => { },
+  t: (key) => key
 }
 
 const DecoratedRegisterFormContainer = inject('store')(observer(RegisterFormContainer))

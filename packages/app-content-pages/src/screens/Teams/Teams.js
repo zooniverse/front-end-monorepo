@@ -1,4 +1,4 @@
-import { Box, Button, Heading } from 'grommet'
+import { Box, Button, Heading, Nav } from 'grommet'
 import Link from 'next/link'
 import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
@@ -10,6 +10,7 @@ import TwoColumnLayout from '../../shared/components/TwoColumnLayout'
 
 const StyledLi = styled.li`
   list-style-type: none;
+  padding-top: 15px;
 `
 
 const StyledButton = styled(Button)`
@@ -46,23 +47,22 @@ function TeamComponent ({
   )
 
   const sidebar = (
-    <Box as='ul' gap='small'>
-      {filters.map(filter => (
-        <StyledLi key={filter.name}>
-          <Link
-            href={filter.slug ? `#${filter.slug}` : ''}
-            passHref
-          >
-            <StyledButton
-              active={filter.active}
-              label={filter.name}
-              onClick={filter.setActive}
-              plain
-            />
-          </Link>
-        </StyledLi>
-      ))}
-    </Box>
+    <Nav aria-label={t('Team.sideBarLabel')}>
+      <Box as='ul'>
+        {filters.map(filter => (
+          <StyledLi key={filter.name}>
+            <Link href={filter.slug ? `#${filter.slug}` : ''} passHref>
+              <StyledButton
+                active={filter.active}
+                label={filter.name}
+                onClick={filter.setActive}
+                plain
+              />
+            </Link>
+          </StyledLi>
+        ))}
+      </Box>
+    </Nav>
   )
 
   return (
