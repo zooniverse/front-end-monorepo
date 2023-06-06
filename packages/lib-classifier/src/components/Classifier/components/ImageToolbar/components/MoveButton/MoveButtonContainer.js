@@ -7,12 +7,16 @@ import MoveButton from './MoveButton'
 function storeMapper(classifierStore) {
   const {
     move,
+    disableImageToolbar,
     enableMove,
     separateFramesView
   } = classifierStore.subjectViewer
 
+  const disabled = disableImageToolbar
+
   return {
     move,
+    disabled,
     enableMove,
     separateFramesView
   }
@@ -22,11 +26,12 @@ function MoveButtonContainer({
   separateFrameMove = false,
   separateFrameEnableMove = () => true
 }) {
-  const { move, enableMove, separateFramesView } = useStores(storeMapper)
+  const { move, disabled, enableMove, separateFramesView } = useStores(storeMapper)
 
   return (
     <MoveButton
       active={separateFramesView ? separateFrameMove : move}
+      disabled={disabled}
       onClick={separateFramesView ? separateFrameEnableMove : enableMove}
     />
   )

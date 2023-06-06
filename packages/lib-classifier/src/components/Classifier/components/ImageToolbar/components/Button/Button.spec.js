@@ -19,6 +19,6 @@ describe('Component > ImageToolbar > Button', function () {
       </Grommet>
     )
     const button = getByLabelText('ImageToolbar.AnnotateButton.ariaLabel')
-    expect(button).exists()
+    expect(button).be.ok()
   })
 })
