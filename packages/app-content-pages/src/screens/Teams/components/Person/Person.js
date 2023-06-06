@@ -10,38 +10,42 @@ const PersonName = styled(Heading)`
   margin: 0;
 `
 
-function Person (props) {
-  const { avatarSrc, className, bio, jobTitle, name, twitter } = props
-
+function Person({
+  avatarSrc = '',
+  className = '',
+  bio = '',
+  jobTitle = '',
+  name = '',
+  twitterID = ''
+}) {
   return (
     <Box
       className={className}
+      data-testid='person-test-element'
       direction='row'
       gap='small'
       margin={{ bottom: 'small' }}
     >
-
       <Avatar avatarSrc={avatarSrc} name={name} />
 
       <Box direction='column'>
         <Box direction='row' gap='xsmall' align='center'>
           <PersonName level='3'>{`${name}, ${jobTitle}`}</PersonName>
-          {twitter && (<TwitterLink name={name} twitterId={twitter} />)}
+          {twitterID && <TwitterLink name={name} twitterId={twitterID} />}
         </Box>
         <Text size='medium'>{bio}</Text>
       </Box>
-
     </Box>
   )
 }
 
 Person.propTypes = {
-  authors: string,
   avatarSrc: string,
   className: string,
-  title: string,
-  url: string,
-  year: string
+  bio: string,
+  jobTitle: string,
+  name: string,
+  twitterID: string
 }
 
 export default Person

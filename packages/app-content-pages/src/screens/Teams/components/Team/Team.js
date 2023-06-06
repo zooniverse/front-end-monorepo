@@ -4,9 +4,9 @@ import { arrayOf, shape, string } from 'prop-types'
 import Person from '../Person'
 
 function Team ({
-  name,
-  people,
-  slug
+  name = '',
+  people = [],
+  slug = ''
 }) {
   return (
     <Box as='section' key={name} margin={{ bottom: 'medium' }}>
@@ -33,7 +33,8 @@ Team.propTypes = {
   name: string,
   people: arrayOf(shape({
     id: string
-  }))
+  })),
+  slug: string
 }
 
 export default Team

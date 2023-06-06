@@ -2,13 +2,14 @@ import { array } from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 
-import Team from './Team'
+import Teams from './Teams'
 
-const isBrowser = typeof window !== 'undefined'
+const isBrowser = typeof window !== 'undefined' // to handle testing environment
 
-function TeamContainer ({ teamData }) {
+function TeamContainer ({ teamData = [] }) {
   const { t } = useTranslation('components')
-  teamData.forEach(team => {
+
+  teamData?.forEach(team => {
     team.slug = team.name.toLowerCase().replaceAll(' ', '-')
   })
   const [activeFilter, setActiveFilter] = useState(null)
@@ -22,7 +23,7 @@ function TeamContainer ({ teamData }) {
   const filteredTeamData = createFilteredTeamData(teamData, activeFilter)
 
   return (
-    <Team filters={filters} data={filteredTeamData} />
+    <Teams filters={filters} data={filteredTeamData} />
   )
 }
 
@@ -30,11 +31,10 @@ TeamContainer.propTypes = {
   teamData: array
 }
 
-TeamContainer.defaultProps = {
-  teamData: []
-}
-
 export default TeamContainer
+
+
+/** Helpler Function */
 
 function createFilters (teamData, activeFilter, setActiveFilter, t) {
   const showAllFilter = {
@@ -54,8 +54,8 @@ function createFilters (teamData, activeFilter, setActiveFilter, t) {
   return [showAllFilter, ...teamFilters]
 }
 
-// Show the filtered team if a filter is active; show everything but the alumni
-// if there's no active filter.
+// Show the filtered team if a filter is active;
+// show everything but the alumni if there's no active filter.
 function createFilteredTeamData (teamData, activeFilter) {
   const filterFn = activeFilter
     ? team => team.slug === activeFilter

@@ -1,6 +1,6 @@
 import { Box, Button, Heading } from 'grommet'
 import Link from 'next/link'
-import { array, arrayOf, bool, func, shape, string } from 'prop-types'
+import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
@@ -20,9 +20,9 @@ const StyledButton = styled(Button)`
 `
 
 function TeamComponent ({
-  className,
-  data,
-  filters
+  className = '',
+  data = [],
+  filters = []
 }) {
   const { t } = useTranslation('components')
 
@@ -50,7 +50,7 @@ function TeamComponent ({
       {filters.map(filter => (
         <StyledLi key={filter.name}>
           <Link
-            href={ filter.slug ? `#${filter.slug}` : '' }
+            href={filter.slug ? `#${filter.slug}` : ''}
             passHref
           >
             <StyledButton
@@ -84,9 +84,10 @@ function TeamComponent ({
 TeamComponent.propTypes = {
   className: string,
   data: arrayOf(shape({
-    id: string,
-    projects: array,
-    title: string
+    name: string,
+    people: array,
+    slug: string,
+    weight: number
   })),
   filters: arrayOf(shape({
     active: bool,
