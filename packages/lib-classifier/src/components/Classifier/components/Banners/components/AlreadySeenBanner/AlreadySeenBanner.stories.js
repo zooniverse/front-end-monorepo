@@ -19,7 +19,8 @@ export default {
         component: readme
       }
     }
-  }
+  },
+  tags: ['autodoc']
 }
 
 export function Default({ subject }) {

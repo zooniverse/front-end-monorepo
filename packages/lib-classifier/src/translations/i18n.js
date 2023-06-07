@@ -6,7 +6,7 @@ import {
 
 const namespaces = ['components', 'plugins']
 
-/** supportedLngs array matches app-project's next-i18next.config.js */
+/* supportedLngs array matches app-project's next-i18next.config.js */
 const supportedLngs = [
   'ar',
   'cs',

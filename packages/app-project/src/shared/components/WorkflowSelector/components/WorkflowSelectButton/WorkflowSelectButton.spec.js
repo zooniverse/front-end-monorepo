@@ -30,7 +30,7 @@ describe('Component > WorkflowSelector > WorkflowSelectButton', function () {
     const wrapper = shallow(<WorkflowSelectButton theme={zooTheme} workflow={WORKFLOW} />)
     const label = shallow(wrapper.find(ThemedButton).prop('label')).render()
     expect(label.text()).to.equal('WorkflowSelector.WorkflowSelectButton.completeWorkflow name')
-    /** The translation function will simply return keys in a testing env */
+    /* The translation function will simply return keys in a testing env */
   })
 
   describe('when used with a default workflow', function () {
@@ -70,7 +70,7 @@ describe('Component > WorkflowSelector > WorkflowSelectButton', function () {
     it('should add "set selection" to the label', function () {
       const label = shallow(wrapper.find(ThemedButton).prop('label')).render()
       expect(label.text()).to.equal('WorkflowSelector.WorkflowSelectButton.complete·WorkflowSelector.WorkflowSelectButton.setSelectionWorkflow name')
-      /** The translation function will simply return keys in a testing env */
+      /* The translation function will simply return keys in a testing env */
     })
   })
 

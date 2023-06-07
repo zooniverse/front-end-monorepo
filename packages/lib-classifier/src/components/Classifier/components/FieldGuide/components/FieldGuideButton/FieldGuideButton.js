@@ -45,7 +45,7 @@ export function ColumnButtonLabel() {
       <StyledSpacedText size='xsmall' color='white' textAlign='center'>
         {t('FieldGuide.FieldGuideButton.buttonLabel')}
       </StyledSpacedText>
-      {/** Same styling as ImageToolbar > Button */}
+      {/* Same styling as ImageToolbar > Button */}
       <StyledHelpIcon fill='white' />
     </Box>
   )

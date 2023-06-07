@@ -137,7 +137,8 @@ const DATA_SUBJECTS = [
 
 export default {
   title: 'Project App / Screens / Project Home / Recent Subjects',
-  component: RecentSubjects
+  component: RecentSubjects,
+  tags: ['autodocs']
 }
 
 export function Plain() {

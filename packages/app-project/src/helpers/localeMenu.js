@@ -1,4 +1,4 @@
-/** This locale menu matches next-18next.config.js and PFE's app/locales */
+/* This locale menu matches next-18next.config.js and PFE's app/locales */
 
 const localeMenu = {
   ar: 'العربية',

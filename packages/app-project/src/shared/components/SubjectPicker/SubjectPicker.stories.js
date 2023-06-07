@@ -12,7 +12,8 @@ function DecoratedStory(Story) {
 export default {
   title: 'Project App / Shared / Subject Picker',
   component: SubjectPicker,
-  decorators: [DecoratedStory]
+  decorators: [DecoratedStory],
+  tags: ['autodocs']
 }
 
 export function Default(args) {

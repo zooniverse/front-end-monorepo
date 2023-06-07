@@ -3,7 +3,7 @@ import { arrayOf, object, string } from 'prop-types'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-/** Components */
+/* Components */
 import { Box, DropButton, Nav } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import { SpacedText } from '@zooniverse/react-components'

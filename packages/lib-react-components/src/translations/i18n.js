@@ -1,7 +1,7 @@
 import i18n from 'i18next'
 import { initReactI18next, useTranslation as useBaseTranslation } from 'react-i18next'
 
-/** supportedLngs array matches app-project's next-i18next.config.js */
+/* supportedLngs array matches app-project's next-i18next.config.js */
 const supportedLngs = [
   'ar',
   'cs',

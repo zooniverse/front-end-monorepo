@@ -81,7 +81,8 @@ const stores = setupStores()
 
 export default {
   title: 'Drawing tools / Polygon',
-  component: Polygon
+  component: Polygon,
+  tags: ['autodocs']
 }
 
 export function Complete(args) {

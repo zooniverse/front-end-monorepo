@@ -28,7 +28,8 @@ export default {
     docs: {
       inlineStories: false
     }
-  }
+  },
+  tags: ['autodocs']
 }
 
 export function Default({ isOpen, nextAvailable, onClose, reset }) {

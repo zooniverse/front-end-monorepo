@@ -17,7 +17,8 @@ export default {
   decorators: [DecoratedStory],
   args: {
     workflow: mockWorkflow
-  }
+  },
+  tags: ['autodocs']
 }
 
 export function Default({ workflow }) {

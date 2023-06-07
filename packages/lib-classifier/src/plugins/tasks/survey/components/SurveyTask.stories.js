@@ -17,7 +17,8 @@ export default {
       type: 'select',
       options: Object.keys(asyncStates)
     }
-  }
+  },
+  tags: ['autodocs']
 }
 
 const Template = ({

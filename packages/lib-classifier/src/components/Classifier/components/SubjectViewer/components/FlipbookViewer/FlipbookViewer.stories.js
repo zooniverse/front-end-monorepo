@@ -8,7 +8,8 @@ import FlipbookViewerContainer from './FlipbookViewerContainer'
 
 export default {
   title: 'Subject Viewers / FlipbookViewer',
-  component: FlipbookViewerContainer
+  component: FlipbookViewerContainer,
+  tags: ['autodocs']
 }
 
 const mockSubject = SubjectFactory.build({

@@ -2,7 +2,7 @@ import { string, object, shape } from 'prop-types'
 import styled from 'styled-components'
 import addQueryParams from '@helpers/addQueryParams'
 
-/** Components */
+/* Components */
 import NavLink from '@shared/components/NavLink'
 import { Anchor, Box } from 'grommet'
 

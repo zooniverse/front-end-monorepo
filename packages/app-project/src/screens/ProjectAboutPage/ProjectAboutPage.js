@@ -3,7 +3,7 @@ import { arrayOf, bool, object, shape, string } from 'prop-types'
 import styled, { withTheme } from 'styled-components'
 import { useTranslation } from 'next-i18next'
 
-/** Components */
+/* Components */
 import StandardLayout from '@shared/components/StandardLayout'
 import {
   SpacedHeading,

@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 import PrimaryButton from './PrimaryButton'
 
-/** This will not work with @storybook/react composeStory function */
+/* This will not work with @storybook/react composeStory function */
 // import readme from './README.md'
 
 export default {
@@ -21,7 +21,8 @@ export default {
     onClick: {
       action: 'clicked'
     }
-  }
+  },
+  tags: ['autodocs']
   // parameters: {
   //   docs: {
   //     description: {

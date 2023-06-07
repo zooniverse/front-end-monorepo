@@ -43,7 +43,7 @@ function ProjectHeader({
   const gap = width < maxColumnWidth ? 'small' : 'medium'
   const useDropdownNav = width < maxColumnWidth + 200
 
-  /** Widths were determined visually and can be updated as needed if ProjectHeader components are refactored */
+  /* Widths were determined visually and can be updated as needed if ProjectHeader components are refactored */
   const maxTitleWidth = (hasTranslations && width >= 1200) ? '560px' : '600px'
 
   return (

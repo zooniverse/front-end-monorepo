@@ -19,7 +19,8 @@ export default {
       options: Object.values(asyncStates),
       type: 'select'
     }
-  }
+  },
+  tags: ['autodocs']
 }
 
 const subjectSnapshot = SubjectFactory.build({

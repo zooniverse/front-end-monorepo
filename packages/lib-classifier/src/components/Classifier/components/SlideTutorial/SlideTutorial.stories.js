@@ -51,7 +51,8 @@ export default {
     steps,
     stepWithMedium,
     width: '40vw'
-  }
+  },
+  tags: ['autodocs']
 }
 
 export function Default({

@@ -37,7 +37,8 @@ function buildMocks({
 
 export default {
   title: 'Banners / Subject Set Progress Banner',
-  component: SubjectSetProgressBanner
+  component: SubjectSetProgressBanner,
+  tags: ['autodocs']
   // parameters: {
   //   docs: {
   //     description: {

@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 import SpacedText from './SpacedText'
 
-/** This will not work with @storybook/react composeStory function */
+/* This will not work with @storybook/react composeStory function */
 // import readme from './README.md'
 
 export default {
@@ -27,7 +27,8 @@ export default {
       options: ['normal', 'bold'],
       control: { type: 'radio' }
     }
-  }
+  },
+  tags: ['autodocs']
   // parameters: {
   //   docs: {
   //     description: {

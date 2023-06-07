@@ -79,7 +79,8 @@ const stores = setupStores()
 
 export default {
   title: 'Drawing tools / Circle',
-  component: Circle
+  component: Circle,
+  tags: ['autodocs']
 }
 
 export function Complete(args) {

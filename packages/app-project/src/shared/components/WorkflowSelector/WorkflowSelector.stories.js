@@ -88,7 +88,8 @@ export default {
         options: asyncStates
       }
     }
-  }
+  },
+  tags: ['autodocs']
 }
 
 export function Default({

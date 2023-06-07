@@ -36,7 +36,7 @@ describe('TranscribedLines > Component > ConsensusPopup', function () {
         { selector: 'p' }
       )
       expect(firstParagraph).to.exist()
-      /** The translation function will simply return keys in a testing env */
+      /* The translation function will simply return keys in a testing env */
     })
 
     it('should render the consensus text with explanation', function () {

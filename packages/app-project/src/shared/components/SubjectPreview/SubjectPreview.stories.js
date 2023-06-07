@@ -62,7 +62,8 @@ const store = Store.create(snapshot)
 
 export default {
   title: 'Project App / Shared / Subject Preview',
-  component: SubjectPreview
+  component: SubjectPreview,
+  tags: ['autodocs']
 }
 
 export function Plain({ isLoggedIn, subject, slug }) {

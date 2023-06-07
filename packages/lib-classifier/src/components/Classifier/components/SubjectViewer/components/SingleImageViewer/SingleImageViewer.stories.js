@@ -19,7 +19,8 @@ const workflow = WorkflowFactory.build('workflow', {
 
 export default {
   title: 'Subject Viewers / SingleImageViewer',
-  component: SingleImageViewer
+  component: SingleImageViewer,
+  tags: ['autodocs']
 }
 
 export function Default() {

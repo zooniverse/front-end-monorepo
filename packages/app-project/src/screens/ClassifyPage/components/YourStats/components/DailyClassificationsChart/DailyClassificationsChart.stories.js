@@ -47,7 +47,8 @@ export default {
     counts: MOCK_TOTALS,
     projectName: 'Snapshot Serengeti',
     thisWeek: MOCK_DAILY_COUNTS
-  }
+  },
+  tags: ['autodocs']
 }
 
 export function Plain({ counts, projectName, thisWeek }) {

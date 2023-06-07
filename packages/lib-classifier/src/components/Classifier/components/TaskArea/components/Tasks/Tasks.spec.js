@@ -58,7 +58,7 @@ describe('Tasks', function () {
       it('should render an error message when there is a loading error', function () {
         const wrapper = shallow(<Tasks loadingState={asyncStates.error} />)
         expect(wrapper.contains('TaskArea.Tasks.error')).to.be.true()
-        /** The translation function will simply return keys in a testing environment */
+        /* The translation function will simply return keys in a testing environment */
       })
 
       it('should render null if the workflow is loaded but has no tasks', function () {
@@ -139,7 +139,7 @@ describe('Tasks', function () {
       it('should not render the demo mode messaging', function () {
         const wrapper = shallow(<Tasks />)
         expect(wrapper.contains('TaskArea.Tasks.demoMode')).to.be.false()
-        /** The translation function will simply return keys in a testing environment */
+        /* The translation function will simply return keys in a testing environment */
       })
 
       it('should render the demo mode messaging when enabled', function () {

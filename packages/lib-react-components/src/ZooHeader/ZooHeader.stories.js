@@ -27,7 +27,7 @@ export function SignedOut({ signIn, signOut }) {
   return <ZooHeader signIn={signIn} signOut={signOut} user={{}} />
 }
 
-/** You can also see this using the 'Viewports' button in Storybook's toolbar */
+/* You can also see this using the 'Viewports' button in Storybook's toolbar */
 export function SignedOutNarrowWindowView({ signIn, signOut }) {
   return (
     <Box width='400px'>
@@ -49,7 +49,7 @@ export function SignedIn({ signIn, signOut }) {
   )
 }
 
-/** You can also see this using the 'Viewports' button in Storybook's toolbar */
+/* You can also see this using the 'Viewports' button in Storybook's toolbar */
 export function SignedInNarrowWindowView({
   signIn,
   signOut,

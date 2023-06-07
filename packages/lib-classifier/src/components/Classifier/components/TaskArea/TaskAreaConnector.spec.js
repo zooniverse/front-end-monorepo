@@ -48,7 +48,7 @@ describe('TaskAreaConnector', function () {
           wrapper: withStore(store)
         }
       )
-      /** The translation function will simply return keys in a testing environment */
+      /* The translation function will simply return keys in a testing environment */
       finishedMessage = screen.queryByText('TaskArea.DisabledTaskPopup.body')
       selectButton = screen.queryByText('TaskArea.DisabledTaskPopup.select')
       nextButton = screen.queryByText('TaskArea.DisabledTaskPopup.next')
@@ -132,7 +132,7 @@ describe('TaskAreaConnector', function () {
             wrapper: withStore(store)
           }
         )
-        /** The translation function will simply return keys in a testing environment */
+        /* The translation function will simply return keys in a testing environment */
         finishedMessage = screen.queryByText('TaskArea.DisabledTaskPopup.body')
         selectButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.select')
         nextButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.next')
@@ -182,7 +182,7 @@ describe('TaskAreaConnector', function () {
             wrapper: withStore(store)
           }
         )
-        /** The translation function will simply return keys in a testing environment */
+        /* The translation function will simply return keys in a testing environment */
         finishedMessage = screen.queryByText('TaskArea.DisabledTaskPopup.body')
         selectButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.select')
         nextButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.next')
@@ -230,7 +230,7 @@ describe('TaskAreaConnector', function () {
             wrapper: withStore(store)
           }
         )
-        /** The translation function will simply return keys in a testing environment */
+        /* The translation function will simply return keys in a testing environment */
         finishedMessage = screen.queryByText('TaskArea.DisabledTaskPopup.body')
         selectButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.select')
         nextButton = screen.queryByText('TaskArea.DisabledTaskPopup.options.next')

@@ -144,7 +144,8 @@ export default {
   component: RecentSubjects,
   args: {
     isLoggedIn: true
-  }
+  },
+  tags: ['autodocs']
 }
 
 export function Plain({ isLoggedIn }) {

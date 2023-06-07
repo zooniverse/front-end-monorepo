@@ -99,7 +99,8 @@ export default {
     viewport: {
       defaultViewport: 'responsive'
     }
-  }
+  },
+  tags: ['autodocs']
 }
 
 export const Drawing = (args) => {

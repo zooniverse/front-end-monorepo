@@ -11,7 +11,8 @@ export default {
     docs: {
       inlineStories: false
     }
-  }
+  },
+  tags: ['autodocs']
 }
 
 function ConsensusPopupStory(props) {

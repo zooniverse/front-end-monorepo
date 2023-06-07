@@ -94,7 +94,8 @@ export default {
     docs: {
       inlineStories: false
     }
-  }
+  },
+  tags: ['autodocs']
 }
 
 export function ChooseAWorkflow({ headingBackground, titleColor, workflows }) {

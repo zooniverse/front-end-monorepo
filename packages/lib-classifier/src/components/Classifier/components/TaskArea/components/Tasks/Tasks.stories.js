@@ -23,7 +23,8 @@ export default {
         options: asyncStates
       }
     }
-  }
+  },
+  tags: ['autodocs']
 }
 
 export function Loading() {

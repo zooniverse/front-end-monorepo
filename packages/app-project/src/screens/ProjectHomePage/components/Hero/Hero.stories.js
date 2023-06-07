@@ -84,7 +84,8 @@ export default {
   component: Hero,
   args: {
     isWide: true
-  }
+  },
+  tags: ['autodocs']
 }
 
 const snapshot = {

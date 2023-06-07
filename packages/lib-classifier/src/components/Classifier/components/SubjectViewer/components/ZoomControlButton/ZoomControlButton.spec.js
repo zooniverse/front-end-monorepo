@@ -16,7 +16,7 @@ describe('Component > ZoomControlButton', function () {
   })
 
   it('should label text the button according to the zooming prop', function () {
-    /** The translation function simply return keys in a testing env */
+    /* The translation function simply return keys in a testing env */
     expect(wrapper.find(MetaToolsButton).props().text).to.equal('SubjectViewer.ZoomControlButton.enable')
     wrapper.setProps({ zooming: true })
     expect(wrapper.find(MetaToolsButton).props().text).to.equal('SubjectViewer.ZoomControlButton.disable')

@@ -96,7 +96,7 @@ describe('TextTask > Components > TextTaskWithSuggestions', function () {
   })
 })
 
-/**
+/*
 UI to test in lib-classifier storybook:
 - ?path=/story/tasks-text--with-suggestions
 - ?path=/story/drawing-tools-transcribedlines--default

@@ -79,7 +79,7 @@ describe('Component > RegisterFormContainer', function () {
 
     it('should return an error when there are invalid values', function () {
       const errors = wrapper.instance().validate(MOCK_INVALID_FORM_VALUES)
-      /** The translation function t is set to simply return keys in a testing environment **/
+      /* The translation function t is set to simply return keys in a testing environment **/
       expect(errors.passwordConfirm).to.equal('AuthModal.RegisterForm.passwordConfirmError')
       expect(errors.emailConfirm).to.equal('AuthModal.RegisterForm.emailConfirmError')
       expect(errors.privacyAgreement).to.equal('AuthModal.RegisterForm.privacyAgreementError')
@@ -153,7 +153,7 @@ describe('Component > RegisterFormContainer', function () {
           await validWrapper.instance().onSubmit(MOCK_FORM_VALUES, MOCK_FORMIK)
           expect(Object.keys(synchronousErrors)).to.have.lengthOf(0)
           expect(INVALID_REGISTRATION).to.have.been.calledOnceWith(MOCK_SUBMISSION_VALUES)
-          /** The translation function t is set to simply return keys in a testing environment **/
+          /* The translation function t is set to simply return keys in a testing environment **/
           expect(MOCK_FORMIK.setFieldError.withArgs('username', 'AuthModal.RegisterForm.usernameConflict')).to.have.been.calledOnce()
           expect(MOCK_FORMIK.setFieldError.withArgs('email', 'AuthModal.RegisterForm.emailConflict')).to.have.been.calledOnce()
           expect(MOCK_FORMIK.setSubmitting).to.have.been.calledOnceWith(false)

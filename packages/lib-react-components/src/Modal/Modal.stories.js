@@ -32,7 +32,8 @@ export default {
         component: readme
       }
     }
-  }
+  },
+  tags: ['autodocs']
 }
 
 export function Default({

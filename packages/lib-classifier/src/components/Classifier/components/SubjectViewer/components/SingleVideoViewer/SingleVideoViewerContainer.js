@@ -228,7 +228,7 @@ function SingleVideoViewerContainer({
           <Box>{t('SubjectViewer.SingleVideoViewerContainer.error')}</Box>
           )}
 
-      {/** See ADR 45 for notes on custom video controls */}
+      {/* See ADR 45 for notes on custom video controls */}
       {enableDrawing && (
         <VideoController
           duration={duration}

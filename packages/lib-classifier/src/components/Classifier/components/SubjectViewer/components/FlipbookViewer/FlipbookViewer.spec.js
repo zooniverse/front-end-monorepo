@@ -110,7 +110,7 @@ describe('Component > FlipbookViewer', function () {
       const selectedSpeed = await findByRole('option', { name: '1x' })
       expect(selectedSpeed.selected).to.be.true()
 
-      /** The following is the correct way to test with RTL
+      /* The following is the correct way to test with RTL
        *  but Grommet does not render Select as a <select>
        *  so selectOptions() will not find the speed options
        */

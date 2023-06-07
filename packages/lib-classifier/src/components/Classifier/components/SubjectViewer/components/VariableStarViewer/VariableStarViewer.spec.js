@@ -96,7 +96,7 @@ describe('Component > VariableStarViewer', function () {
     })
 
     it('should set the x-axis and y-axis labels', function () {
-      /** The translation function will simply return keys in a testing environment */
+      /* The translation function will simply return keys in a testing environment */
       expect(phasedScatterPlot.props().xAxisLabel).to.equal('SubjectViewer.VariableStarViewer.phase')
       expect(phasedScatterPlot.props().yAxisLabel).to.equal(phasedJSONMock.chartOptions.yAxisLabel)
     })

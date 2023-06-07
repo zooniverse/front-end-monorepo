@@ -113,7 +113,7 @@ describe('SubTaskPopup', function () {
         expect(requiredSubtask.prop('border').size).to.equal('small')
         expect(requiredSubtask.prop('border').color).to.equal('tomato')
         expect(requiredSubtask.find('strong').text()).to.equal('SubjectViewer.InteractionLayer.SubTaskPopup.required')
-        /** The translation function will simply return keys in a testing environment */
+        /* The translation function will simply return keys in a testing environment */
       })
     })
   })

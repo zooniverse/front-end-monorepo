@@ -7,7 +7,8 @@ import SeparateFramesViewer from './SeparateFramesViewer'
 
 export default {
   title: 'Subject Viewers / SeparateFramesViewer / Layouts',
-  component: SeparateFramesViewer
+  component: SeparateFramesViewer,
+  tags: ['autodocs']
 }
 
 const mockSubject = SubjectFactory.build({

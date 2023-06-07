@@ -28,7 +28,8 @@ const ORGANIZATION = {
 
 export default {
   title: 'Project App / Shared / Project Header',
-  component: ProjectHeader
+  component: ProjectHeader,
+  tags: ['autodocs']
 }
 
 export function NotLoggedIn({ adminMode, className, project }) {

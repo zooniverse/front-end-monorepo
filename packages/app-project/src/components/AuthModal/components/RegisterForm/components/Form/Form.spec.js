@@ -217,7 +217,7 @@ describe('RegisterForm > Component > Form', function () {
         <Form />,
         shallowOptions
       )
-      /** The translation function t is set to simply return keys in a testing environment **/
+      /* The translation function t is set to simply return keys in a testing environment **/
       expect(wrapper.find({ htmlFor: userNameFieldId }).props().help).equal('AuthModal.RegisterForm.usernameHelp')
       expect(wrapper.find({ id: privacyAgreementFieldId }).props().label.props.children[0]).equal('AuthModal.RegisterForm.privacyAgreement')
       expect(wrapper.find({ id: emailListSignUpFieldId }).props().label.props.children).equal('AuthModal.RegisterForm.emailListSignUp')
@@ -231,7 +231,7 @@ describe('RegisterForm > Component > Form', function () {
       )
       wrapper.setProps({ values: { underageWithParent: true } })
 
-      /** The translation function t is set to simply return keys in a testing environment **/
+      /* The translation function t is set to simply return keys in a testing environment **/
       expect(wrapper.find({ htmlFor: userNameFieldId }).props().help).equal('AuthModal.RegisterForm.underageNotRealName')
       expect(wrapper.find({ id: privacyAgreementFieldId }).props().label.props.children[0]).equal('AuthModal.RegisterForm.underageConsent')
       expect(wrapper.find({ id: emailListSignUpFieldId }).props().label.props.children).equal('AuthModal.RegisterForm.underageEmailSignUp')
