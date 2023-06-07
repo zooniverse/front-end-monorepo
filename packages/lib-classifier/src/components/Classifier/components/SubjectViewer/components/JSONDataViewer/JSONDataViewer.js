@@ -5,11 +5,13 @@ import { useStores, useSubjectJSON } from '@hooks'
 import BarChartViewer from '@viewers/components/BarChartViewer'
 import LightCurveViewer from '@viewers/components/LightCurveViewer'
 import ScatterPlotViewer from '@viewers/components/ScatterPlotViewer'
+import VariableStarViewer from '@viewers/components/VariableStarViewer'
 
 const viewers = {
   BarChart: BarChartViewer,
   DataSeriesPlot: ScatterPlotViewer,
-  TESSLightCurve: LightCurveViewer
+  TESSLightCurve: LightCurveViewer,
+  VariableStarPlots: VariableStarViewer
 }
 
 function storeMapper(classifierStore) {
@@ -53,19 +55,22 @@ function JSONDataViewer({
   const { chartOptions, data } = type.name === 'TESSLightCurve' ? { data: jsonData } : jsonData
   const zoomConfiguration = chartOptions?.zoomConfiguration || subject?.viewerConfiguration?.zoomConfiguration
   const chartProps = { ...chartOptions, zoomConfiguration }
+  // data series plots need a fixed parent height.
+  const height = type.name === 'DataSeriesPlot' ? '500px' : undefined
 
   return (
     <Box
       ref={viewer}
       className={type.name}
+      height={height}
       width='100%'
-      height='500px'
     >
       <Viewer
         data={data}
         interactionMode={interactionMode}
         setOnPan={setOnPan}
         setOnZoom={setOnZoom}
+        subject={subject}
         zoomConfiguration={zoomConfiguration}
         zooming
         {...chartProps}

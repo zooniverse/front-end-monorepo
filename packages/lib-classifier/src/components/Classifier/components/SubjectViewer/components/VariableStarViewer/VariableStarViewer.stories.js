@@ -1,14 +1,12 @@
 import { Box } from 'grommet'
 import { Factory } from 'rosie'
-import VariableStarViewer from './VariableStarViewerContainer'
-import VariableStarViewerConnector from './VariableStarViewerConnector'
+import VariableStarViewer from '.'
+import JSONDataViewer from '../JSONDataViewer'
 import { Provider } from 'mobx-react'
 
-import SubjectViewerStore from '@store/SubjectViewerStore'
 import mockStore from '@test/mockStore'
 import ImageToolbar from '../../../ImageToolbar'
 import readme from './README.md'
-import asyncStates from '@zooniverse/async-states'
 
 const subject = Factory.build('subject', {
   locations: [
@@ -48,10 +46,7 @@ export function Default() {
   return (
     <ViewerContext>
       <Box height='640px' width={{ max: '900px' }}>
-        <VariableStarViewer
-          loadingState={asyncStates.success}
-          subject={store.subjects.active}
-        />
+        <JSONDataViewer />
       </Box>
     </ViewerContext>
   )
@@ -61,10 +56,7 @@ export function NarrowView() {
   return (
     <ViewerContext>
       <Box height='640px' width={{ max: '900px' }}>
-        <VariableStarViewer
-          loadingState={asyncStates.success}
-          subject={store.subjects.active}
-        />
+        <JSONDataViewer />
       </Box>
     </ViewerContext>
   )
@@ -80,9 +72,7 @@ export function PanZoom() {
   return (
     <ViewerContext>
       <Box direction='row' height='640px' width={{ max: '900px' }}>
-        <VariableStarViewerConnector
-          loadingState={asyncStates.success}
-        />
+        <JSONDataViewer />
         <ImageToolbar width='4rem' />
       </Box>
     </ViewerContext>
