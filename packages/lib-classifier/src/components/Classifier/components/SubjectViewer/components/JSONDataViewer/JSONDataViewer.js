@@ -55,13 +55,15 @@ function JSONDataViewer({
   const { chartOptions, data } = type.name === 'TESSLightCurve' ? { data: jsonData } : jsonData
   const zoomConfiguration = chartOptions?.zoomConfiguration || subject?.viewerConfiguration?.zoomConfiguration
   const chartProps = { ...chartOptions, zoomConfiguration }
+  // data series plots need a fixed parent height.
+  const height = type.name === 'DataSeriesPlot' ? '500px' : undefined
 
   return (
     <Box
       ref={viewer}
       className={type.name}
+      height={height}
       width='100%'
-      height='500px'
     >
       <Viewer
         data={data}
