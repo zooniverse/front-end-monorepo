@@ -33,7 +33,8 @@ export default async function getDefaultPageProps({ locale, params }) {
   }
 
   if (organization) {
-    props.organization = organization
+    props.organization = organization  // TODO: delete this in favor of organization store
+    props.initialState.organization = organization
   }
 
   return { notFound, props }

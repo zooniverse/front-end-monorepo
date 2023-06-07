@@ -16,6 +16,7 @@ import i18n from '@test/i18n-for-tests'
 
 describe('Component > ProjectAboutPage & Connector', function () {
   const mockStore = {
+    organization: {},
     project: {
       about_pages: [
         {
