@@ -5,13 +5,13 @@ import { render, screen } from '@testing-library/react'
 import Head from './Head'
 
 describe('Component > Head', function () {
+  const stub = sinon.stub(NextHead, 'default').callsFake(({ children }) => <>{children}</>)
+
   before(function () {
-    const stub = sinon.stub(NextHead, 'default').callsFake(({ children }) => <>{children}</>)
     render(<Head />)
   })
 
   it('should render the required tags', function () {
-    screen.debug()
     expect(document.querySelector(`meta[property='og:url']`)).to.be.ok()
     expect(document.querySelector(`meta[property='og:title']`)).to.be.ok()
     expect(document.querySelector(`meta[property='og:description']`)).to.be.ok()
