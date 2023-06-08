@@ -8,21 +8,16 @@ import NarrowLayout from './components/NarrowLayout'
 */
 function Hero ({
   isWide = false,
-  organization = {},
   workflows = []
 }) {
   return isWide
-    ? <WideLayout organization={organization} workflows={workflows} />
-    : <NarrowLayout organization={organization} workflows={workflows} />
+    ? <WideLayout workflows={workflows} />
+    : <NarrowLayout workflows={workflows} />
 }
 
 Hero.propTypes = {
   /** SSR flag to render either the wide or narrow screen layout. */
   isWide: bool,
-  /** The project's organization. */
-  organization: shape({
-    id: string
-  }),
   /** An array of workflows for the workflow menu. */
   workflows: arrayOf(shape({
     id: string.isRequired

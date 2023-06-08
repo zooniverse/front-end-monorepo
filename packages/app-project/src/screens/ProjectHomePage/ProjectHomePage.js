@@ -1,9 +1,9 @@
 import { Box, Grid } from 'grommet'
 import { observer, MobXProviderContext } from 'mobx-react'
-import { arrayOf, bool, shape, string } from 'prop-types'
+import { arrayOf, shape, string } from 'prop-types'
 import { useContext } from 'react'
 import styled from 'styled-components'
-import { AdminCheckbox, ZooFooter } from '@zooniverse/react-components'
+import { ZooFooter } from '@zooniverse/react-components'
 import { useRouter } from 'next/router'
 
 import { useAdminMode } from '@hooks'
@@ -48,7 +48,6 @@ function useStores() {
 }
 
 function ProjectHomePage ({
-  organization = {},
   workflows = []
 }) {
   const { inBeta } = useStores()
@@ -71,16 +70,10 @@ function ProjectHomePage ({
       <Media at='default'>
         <header>
           <ZooHeaderWrapper isAdmin={adminMode} />
-          <ProjectHeader
-            adminMode={adminMode}
-            organization={organization}
-          />
+          <ProjectHeader adminMode={adminMode} />
           <Announcements />
         </header>
-        <Hero
-          workflows={workflows}
-          organization={organization}
-        />
+        <Hero workflows={workflows} />
         <Box margin='small' gap='small'>
           <ThemeModeToggle />
           <ZooniverseTalk />
@@ -95,16 +88,12 @@ function ProjectHomePage ({
         <FullHeightBox margin={{ bottom: 'large' }}>
           <header>
             <ZooHeaderWrapper isAdmin={adminMode} />
-            <ProjectHeader
-              adminMode={adminMode}
-              organization={organization}
-            />
+            <ProjectHeader adminMode={adminMode} />
             <Announcements />
           </header>
           <RemainingHeightBox>
             <Hero
               isWide={true}
-              organization={organization}
               workflows={workflows}
             />
           </RemainingHeightBox>
@@ -138,9 +127,6 @@ function ProjectHomePage ({
 }
 
 ProjectHomePage.propTypes = {
-  organization: shape({
-    id: string
-  }),
   workflows: arrayOf(shape({
     id: string.isRequired
   }))

@@ -21,7 +21,9 @@ const ORGANIZATION = {
   id: '1',
   listed: true,
   slug: 'zooniverse/snapshot-safari',
-  title: 'Snapshot Safari'
+  strings: {
+    title: 'Snapshot Safari'
+  }
 }
 
 export default {
@@ -310,13 +312,16 @@ MultipleLanguages.args = {
   }
 }
 
-export function OrganizationLink({ project }) {
-  const snapshot = { project }
+export function OrganizationLink({ organization, project }) {
+  const snapshot = {
+    organization,
+    project
+  }
   applySnapshot(OrganizationLink.store, snapshot)
   return (
     <RouterContext.Provider value={mockRouter}>
       <Provider store={OrganizationLink.store}>
-        <ProjectHeader organization={ORGANIZATION} />
+        <ProjectHeader />
       </Provider>
     </RouterContext.Provider>
   )
@@ -325,6 +330,7 @@ OrganizationLink.store = initStore(true)
 OrganizationLink.args = {
   adminMode: false,
   className: '',
+  organization: ORGANIZATION,
   project: {
     avatar: {
       src: 'https://panoptes-uploads.zooniverse.org/project_avatar/442e8392-6c46-4481-8ba3-11c6613fba56.jpeg'

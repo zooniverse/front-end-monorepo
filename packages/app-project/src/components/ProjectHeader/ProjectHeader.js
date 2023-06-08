@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 import { observer } from 'mobx-react'
-import { bool, shape, string } from 'prop-types'
+import { bool, string } from 'prop-types'
 import styled from 'styled-components'
 import { useResizeDetector } from 'react-resize-detector'
 
@@ -22,8 +22,7 @@ const StyledBox = styled(Box)`
 `
 
 function ProjectHeader({
-  adminMode,
-  organization,
+  adminMode = false,
   className = ''
 }) {
   const { width, height, ref } = useResizeDetector({
@@ -33,6 +32,8 @@ function ProjectHeader({
   const {
     availableLocales,
     inBeta,
+    organizationTitle,
+    organizationSlug,
     title
   } = useStores()
   const hasTranslations = availableLocales?.length > 1
@@ -48,10 +49,10 @@ function ProjectHeader({
   return (
     <StyledBox ref={ref} className={className}>
       <Background />
-      {organization?.id ? (
+      {(organizationTitle && !useDropdownNav) ? (
         <OrganizationLink
-          slug={organization.slug}
-          title={organization.strings?.title || organization.title}
+          slug={organizationSlug}
+          title={organizationTitle}
         />
       ) : null}
       <StyledBox
@@ -61,7 +62,7 @@ function ProjectHeader({
         pad={{
           bottom: 'medium',
           horizontal: 'medium',
-          top: organization?.id ? 'none' : 'medium'
+          top: (organizationTitle && !useDropdownNav) ? 'none' : 'medium'
         }}
       >
         <Box direction={direction} gap='small'>
@@ -109,13 +110,7 @@ ProjectHeader.propTypes = {
   /** Zooniverse admin mode */
   adminMode: bool,
   /** Optional CSS classes */
-  className: string,
-  /** Project organization */
-  organization: shape({
-    id: string,
-    slug: string,
-    title: string
-  })
+  className: string
 }
 
 export default observer(ProjectHeader)

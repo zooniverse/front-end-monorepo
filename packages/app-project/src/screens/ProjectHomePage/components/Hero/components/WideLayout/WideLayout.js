@@ -1,5 +1,7 @@
 import { Box } from 'grommet'
+import { observer, MobXProviderContext } from 'mobx-react'
 import { arrayOf, shape, string } from 'prop-types'
+import { useContext } from 'react'
 import styled from 'styled-components'
 
 import Background from '../Background'
@@ -16,10 +18,21 @@ const StyledContentBox = styled(ContentBox)`
   border-color: transparent;
 `
 
+function useStores() {
+  const { store } = useContext(MobXProviderContext)
+  const {
+    organization
+  } = store
+  return {
+    organization
+  }
+}
+
 function WideLayout ({
-  organization = {},
   workflows = []
 }) {
+  const { organization } = useStores()
+
   return (
     <GrowBox
       align='stretch'
@@ -36,10 +49,10 @@ function WideLayout ({
         width='38%'
       >
         <Introduction />
-        {organization?.id ? (
+        {organization.id ? (
           <OrganizationLink
             slug={organization.slug}
-            title={organization.strings?.title || organization.title}
+            title={organization.title}
           />
         ) : null}
         <WorkflowSelector
@@ -51,14 +64,9 @@ function WideLayout ({
 }
 
 WideLayout.propTypes = {
-  organization: shape({
-    id: string,
-    slug: string,
-    title: string
-  }),
   workflows: arrayOf(shape({
     id: string.isRequired
   }))
 }
 
-export default WideLayout
+export default observer(WideLayout)

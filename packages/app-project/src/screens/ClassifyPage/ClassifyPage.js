@@ -24,7 +24,6 @@ function ClassifyPage({
   addToCollection,
   appLoadingState,
   onSubjectReset,
-  organization,
   screenSize,
   subjectID,
   subjectSetID,
@@ -73,7 +72,7 @@ function ClassifyPage({
   }
 
   return (
-    <StandardLayout organization={organization}>
+    <StandardLayout>
       <Box
         align='center'
         gap='medium'
@@ -126,11 +125,6 @@ function ClassifyPage({
 
 ClassifyPage.propTypes = {
   addToCollection: func,
-  organization: shape({
-    id: string,
-    slug: string,
-    title: string
-  }),
   screenSize: string,
   subjectID: string,
   subjectSetID: string,
