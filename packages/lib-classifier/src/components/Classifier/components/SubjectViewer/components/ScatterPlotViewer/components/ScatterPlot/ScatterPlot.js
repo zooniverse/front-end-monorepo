@@ -187,11 +187,10 @@ export default function ScatterPlot({
         ))}
         {children}
         {experimentalSelectionTool && <Selections
-          colors={colors}
           disabled={disabled || interactionMode !== 'annotate'}
           height={plotHeight}
-          initialSelections={initialSelections}
           margin={margin}
+          transformMatrix={transformMatrix}
           width={plotWidth}
           xScale={xScaleTransformed}
           yScale={yScaleTransformed}

@@ -6,8 +6,8 @@ export default function Selection({
   onSelect,
   xScale
 }) {
-  const x = xScale(selection.x0)
-  const width = xScale(selection.x1) - x
+  const x = xScale(selection.x - selection.width / 2)
+  const width = xScale(selection.x + selection.width / 2) - x
 
   function onClick() {
     if (!disabled) {
@@ -23,6 +23,7 @@ export default function Selection({
       focusable={disabled ? 'false' : 'true'}
       height='100%'
       onClick={onClick}
+      onFocus={onClick}
       opacity={0.5}
       pointerEvents={disabled ? 'none' : 'all'}
       tabIndex={disabled ? '-1' : '0'}

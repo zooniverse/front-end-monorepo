@@ -45,6 +45,32 @@ const superWaspSubject = Factory.build('subject', {
   ]
 })
 
+const dataSelectionWorkflow = Factory.build('workflow', {
+  tasks: {
+    T0: {
+      help: "",
+      instruction: "If you spot a transit? If so, mark it!",
+      required: false,
+      tools: [
+        {
+          type: "graph2dRangeX",
+          label: "Transit?"
+        },
+        {
+          type: "graph2dRangeX",
+          label: "Something else"
+        }
+      ],
+      type: "dataVisAnnotation"
+    },
+    T1: {
+      help: "",
+      question: "Is there anything else to note?",
+      answers: ['yes', 'no'],
+      type: "single"
+    },
+  }
+})
 
 function ViewerContext({
   store = storeWithTransientSubject,
@@ -200,7 +226,10 @@ export function MultipleSeries() {
   )
 }
 
-export function XRangeSelection() {
+export function XRangeSelection({ activeToolIndex = 0, activeStep = 'S1' }) {
+  XRangeSelection.store.workflowSteps.selectStep(activeStep)
+  const [task] = XRangeSelection.store.workflowSteps.active.tasks
+  task.setActiveTool?.(activeToolIndex)
   return (
     <ViewerContext store={XRangeSelection.store}>
       <Box direction='row' height='medium' width='large'>
@@ -219,20 +248,64 @@ export function XRangeSelection() {
     </ViewerContext>
   )
 }
-XRangeSelection.store = mockStore({ subject: superWaspSubject })
+XRangeSelection.store = mockStore({
+  subject: superWaspSubject,
+  workflow: dataSelectionWorkflow
+})
+XRangeSelection.argTypes = {
+  activeToolIndex: {
+    options: [0, 1],
+    control: {
+      type: 'select',
+      labels: {
+        0: 'Transit?',
+        1: 'Something else?'
+      }
+    }
+  },
+  activeStep: {
+    options: ['S1', 'S2'],
+    control: {
+      type: 'select',
+      labels: {
+        S1: 'Select data',
+        S2: 'Answer a question'
+      }
+    }
+  }
+}
 
 export function SelectedXRanges() {
-  const initialSelections = [
-    { x0: 95, x1: 101 },
-    { x0: 114, x1: 118 }
-  ]
+  const [task] = SelectedXRanges.store.workflowSteps.findTasksByType('dataVisAnnotation')
+  SelectedXRanges.store.classifications.addAnnotation(task, [
+    {
+      tool: 0,
+      toolType: 'graph2dRangeX',
+      x: 98,
+      width: 6,
+      zoomLevelOnCreation: 0
+    },
+    {
+      tool: 0,
+      toolType: 'graph2dRangeX',
+      x: 110,
+      width: 6,
+      zoomLevelOnCreation: 0
+    },
+    {
+      tool: 1,
+      toolType: 'graph2dRangeX',
+      x: 116,
+      width: 4,
+      zoomLevelOnCreation: 0
+    }
+  ])
   return (
     <ViewerContext store={SelectedXRanges.store}>
       <Box direction='row' height='medium' width='large'>
         <JSONDataViewer
           disabled
           experimentalSelectionTool
-          initialSelections={initialSelections}
           zoomConfiguration={{
             direction: 'x',
             minZoom: 1,
@@ -246,4 +319,7 @@ export function SelectedXRanges() {
     </ViewerContext>
   )
 }
-SelectedXRanges.store = mockStore({ subject: superWaspSubject })
+SelectedXRanges.store = mockStore({
+  subject: superWaspSubject,
+  workflow: dataSelectionWorkflow
+})

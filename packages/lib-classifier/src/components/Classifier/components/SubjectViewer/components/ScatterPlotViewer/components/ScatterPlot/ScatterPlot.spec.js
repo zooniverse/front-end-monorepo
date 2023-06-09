@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
 import { Provider } from 'mobx-react'
+import { Factory } from 'rosie'
 
 import mockStore from '@test/mockStore/mockStore.js'
 
@@ -24,7 +25,28 @@ describe('Component > ScatterPlot', function () {
   const { variableStar } = lightCurveMockData
   const { data, dataPoints } = randomSingleSeriesData
   const defaultColors = Object.values(zooTheme.global.colors.drawingTools)
-  const store = mockStore()
+
+  const dataSelectionWorkflow = Factory.build('workflow', {
+    tasks: {
+      T0: {
+        help: "",
+        instruction: "If you spot a transit? If so, mark it!",
+        required: false,
+        tools: [
+          {
+            type: "graph2dRangeX",
+            label: "Transit?"
+          },
+          {
+            type: "graph2dRangeX",
+            label: "Something else"
+          }
+        ],
+        type: "dataVisAnnotation"
+      }
+    }
+  })
+  const store = mockStore({ workflow: dataSelectionWorkflow })
 
   function withStore() {
     return function Wrapper({ children }) {
@@ -304,16 +326,28 @@ describe('Component > ScatterPlot', function () {
 
     describe('with selections', function () {
       beforeEach(function () {
-        const initialSelections = [
-          { x0: 250, x1: 300 },
-          { x0: 495, x1: 505 }
-        ]
+        const [task] = store.workflowSteps.active.tasks
+        store.classifications.addAnnotation(task, [
+          {
+            tool: 0,
+            toolType: 'graph2dRangeX',
+            x: 275,
+            width: 50,
+            zoomLevelOnCreation: 0
+          },
+          {
+            tool: 0,
+            toolType: 'graph2dRangeX',
+            x: 500,
+            width: 10,
+            zoomLevelOnCreation: 0
+          }
+        ])
 
         render(
           <ScatterPlot
             data={variableStar.scatterPlot.data}
             experimentalSelectionTool
-            initialSelections={initialSelections}
             parentHeight={parentHeight}
             parentWidth={parentWidth}
             theme={zooTheme}
@@ -350,17 +384,29 @@ describe('Component > ScatterPlot', function () {
 
     describe('with selections but disabled', function () {
       beforeEach(function () {
-        const initialSelections = [
-          { x0: 250, x1: 300 },
-          { x0: 495, x1: 505 }
-        ]
+        const [task] = store.workflowSteps.active.tasks
+        store.classifications.addAnnotation(task, [
+          {
+            tool: 0,
+            toolType: 'graph2dRangeX',
+            x: 275,
+            width: 50,
+            zoomLevelOnCreation: 0
+          },
+          {
+            tool: 0,
+            toolType: 'graph2dRangeX',
+            x: 500,
+            width: 10,
+            zoomLevelOnCreation: 0
+          }
+        ])
 
         render(
           <ScatterPlot
             data={variableStar.scatterPlot.data}
             disabled
             experimentalSelectionTool
-            initialSelections={initialSelections}
             parentHeight={parentHeight}
             parentWidth={parentWidth}
             theme={zooTheme}
