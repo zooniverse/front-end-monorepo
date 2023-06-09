@@ -2781,20 +2781,20 @@
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
 
 "@storybook/addon-a11y@~7.0.10":
-  version "7.0.18"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-7.0.18.tgz#7dd169e0aa719ca81a17b159394966f69d9d6b60"
-  integrity sha512-kftOzFBpg3goWbLBXDLLsJslfrKYbHs1xtFEH5/4J9NFNE8vZKbIBDQa/R3ezWheL+l2y+5qOlWoLl5z96zlWA==
+  version "7.0.20"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-7.0.20.tgz#d4d9dc21bd0b791b2caace2d7bd94f3cf8e9d224"
+  integrity sha512-RO8jAdxVNOEKLPMqq4Jp2s8KxfywmDjgK9VPy4VjSHJu2B6nv523tZLZPkdleekEUPt6gB2wsjOVaTt8qarnQA==
   dependencies:
-    "@storybook/addon-highlight" "7.0.18"
-    "@storybook/channels" "7.0.18"
-    "@storybook/client-logger" "7.0.18"
-    "@storybook/components" "7.0.18"
-    "@storybook/core-events" "7.0.18"
+    "@storybook/addon-highlight" "7.0.20"
+    "@storybook/channels" "7.0.20"
+    "@storybook/client-logger" "7.0.20"
+    "@storybook/components" "7.0.20"
+    "@storybook/core-events" "7.0.20"
     "@storybook/global" "^5.0.0"
-    "@storybook/manager-api" "7.0.18"
-    "@storybook/preview-api" "7.0.18"
-    "@storybook/theming" "7.0.18"
-    "@storybook/types" "7.0.18"
+    "@storybook/manager-api" "7.0.20"
+    "@storybook/preview-api" "7.0.20"
+    "@storybook/theming" "7.0.20"
+    "@storybook/types" "7.0.20"
     axe-core "^4.2.0"
     lodash "^4.17.21"
     react-resize-detector "^7.1.2"
@@ -2931,6 +2931,15 @@
     "@storybook/core-events" "7.0.18"
     "@storybook/global" "^5.0.0"
     "@storybook/preview-api" "7.0.18"
+
+"@storybook/addon-highlight@7.0.20":
+  version "7.0.20"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-highlight/-/addon-highlight-7.0.20.tgz#850b4cd0ea60ac6ae451b2c3ff8c79359bd1c566"
+  integrity sha512-AHNYMNY1DtzS+tQ4y0azyXCmIAKuf2j/xp5DgPVkdZmPIHA2wkQZw3EGQj9GTDMZ/Afj3r8kMkUw28NekGYa8A==
+  dependencies:
+    "@storybook/core-events" "7.0.20"
+    "@storybook/global" "^5.0.0"
+    "@storybook/preview-api" "7.0.20"
 
 "@storybook/addon-measure@7.0.18":
   version "7.0.18"
