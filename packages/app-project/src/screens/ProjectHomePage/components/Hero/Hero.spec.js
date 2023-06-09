@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 
-import Meta, { Default } from './Hero.stories.js'
+import Meta, { Default, WithOrganization } from './Hero.stories.js'
 
 describe('Component > Hero', function () {
   let img, title, description, link
@@ -30,5 +30,16 @@ describe('Component > Hero', function () {
 
   it('should show a link to the about page', function () {
     expect(link).to.be.ok()
+  })
+
+  describe('with an organization', function () {
+    let organizationLink
+    const WithOrganizationStory = composeStory(WithOrganization, Meta)
+
+    it('should show a link to the organization', function () {
+      render(<WithOrganizationStory />)
+      organizationLink = screen.getByRole('link', { name: 'Nest Quest Go' })
+      expect(organizationLink).to.be.ok()
+    })    
   })
 })

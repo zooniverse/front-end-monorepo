@@ -67,7 +67,7 @@ describe('Stores > initStore', function () {
         }
       }
       cleanStore()
-      const store=initStore(false, pageProps)
+      const store = initStore(false, pageProps)
       const user = User.create({
         id: '12345',
         display_name: 'test user',
@@ -115,6 +115,28 @@ describe('Stores > initStore', function () {
 
     it('should already be loaded', function () {
       expect(store.user.loadingState).to.equal(asyncStates.success)
+    })
+  })
+
+  describe('with an organization', function () {
+    it('should contain an organization store', function () {
+      const store = initStore()
+      expect(store.organization).to.be.ok()
+    })
+  
+    it('should apply a snapshot when provided', function () {
+      const snapshot = {
+        organization: {
+          id: '67890',
+          slug: 'test-user/test-org',
+          strings: {
+            title: 'Test Organization'
+          }
+        }
+      }
+      const store = initStore(true, snapshot)
+      expect(store.organization.slug).to.equal('test-user/test-org')
+      expect(store.organization.title).to.equal('Test Organization')
     })
   })
 })
