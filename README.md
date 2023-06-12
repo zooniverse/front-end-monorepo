@@ -182,6 +182,10 @@ When publishing an individual package to [npm](https://www.npmjs.com/), first cd
     - When you're happy, run `npm publish` from the package dir
     - You can optionally login to npm prior to this using `npm login` and store an auth token in a `.npmrc` file
 
+### Translation status
+
+[![translation badge](https://inlang.com/badge?url=github.com/zooniverse/front-end-monorepo)](https://inlang.com/editor/github.com/zooniverse/front-end-monorepo?ref=badge)
+
 ---
 
 ## License
