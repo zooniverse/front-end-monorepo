@@ -57,6 +57,33 @@ const TranscriptionReductions = types
       }
     }
 
+    /**
+    Unique users from all the lines of a single frame.
+    */
+    function frameUsers(frame) {
+      // A frame is an array of line transcriptions.
+      // Each line has a list of user IDs that contributed to the transcription.
+      const users = frame.map(line => line.user_ids)
+      const uniqueUsers = [...new Set(users.flat())]
+      return uniqueUsers
+    }
+
+    /**
+    Get the frames from a single reduction.
+    */
+    function reductionFrames(reduction) {
+      return Object.entries(reduction.data).filter(([key, value]) => key.startsWith('frame'))
+    }
+
+    /** 
+    Unique user IDs for a single Caesar reduction
+    */ 
+    function reductionUsers(reduction) {
+      const users = reductionFrames(reduction).map(([key, frame]) => frameUsers(frame))
+      const uniqueUsers = new Set(users.flat())
+      return [ ...uniqueUsers]
+    }
+
     return {
       consensusLines(frame) {
         const { reductions } = self
@@ -75,6 +102,12 @@ const TranscriptionReductions = types
           consensusLines = consensusLines.concat(currentFrameConsensus)
         })
         return consensusLines
+      },
+
+      get userIDs() {
+        const users = self.reductions.map(reductionUsers)
+        const uniqueUsers = new Set(users.flat())
+        return [...uniqueUsers]
       }
     }
   })
