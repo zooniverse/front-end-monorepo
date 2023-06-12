@@ -60,12 +60,12 @@
     "styled-components": "~5.x.x"
   },
   "devDependencies": {
-    "@babel/cli": "~7.21.0",
+    "@babel/cli": "~7.22.5",
     "@babel/core": "~7.22.0",
     "@babel/plugin-transform-runtime": "~7.22.0",
     "@babel/preset-env": "~7.22.0",
     "@babel/preset-react": "~7.22.0",
-    "@babel/register": "~7.21.0",
+    "@babel/register": "~7.22.5",
     "@storybook/addon-a11y": "~7.0.10",
     "@storybook/addon-essentials": "~7.0.10",
     "@storybook/react": "~7.0.10",

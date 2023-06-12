@@ -19,7 +19,7 @@
   },
   "scripts": {},
   "dependencies": {
-    "@babel/eslint-parser": "~7.21.8",
+    "@babel/eslint-parser": "~7.22.5",
     "eslint-plugin-jsx-a11y": "~6.7.0",
     "standard": "~17.1.0",
     "standard-engine": "^15.1.0"

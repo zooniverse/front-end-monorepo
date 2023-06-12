@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { PrimaryButton } from '@zooniverse/react-components'
 import PropTypes from 'prop-types'
 import { useTranslation } from '@translations/i18n'
@@ -11,10 +10,10 @@ function DoneButton ({
   completed = false,
   disabled = false,
   hasNextStep = false,
-  onClick = DEFAULT_HANDLER
+  onClick = DEFAULT_HANDLER,
+  setSaving = DEFAULT_HANDLER
 }) {
   const { t } = useTranslation('components')
-  const [saving, setSaving] = useState(false)
 
   function handleClick(event) {
     setSaving(true)
@@ -25,7 +24,7 @@ function DoneButton ({
     return (
       <PrimaryButton
         color='green'
-        disabled={disabled || saving}
+        disabled={disabled}
         label={t('TaskArea.Tasks.DoneButton.done')}
         onClick={handleClick}
         style={{ flex: '1 0', textTransform: 'capitalize' }}
@@ -41,7 +40,8 @@ DoneButton.propTypes = {
   demoMode: PropTypes.bool,
   disabled: PropTypes.bool,
   hasNextStep: PropTypes.bool,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  setSaving: PropTypes.func
 }
 
 export default DoneButton
