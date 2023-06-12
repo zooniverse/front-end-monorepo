@@ -29,12 +29,16 @@ function RouterMock({ children }) {
 
 describe('Component > PublicationsContainer', function () {
   const DefaultStory = composeStory(Default, Meta, projectAnnotations)
-  it('should have a sidebar with available filters', function () {
+
+  beforeEach(function () {
     render(
       <RouterMock>
         <DefaultStory />
       </RouterMock>
     )
+  })
+
+  it('should have a sidebar with available filters', function () {
     const categoryFilters = DefaultStory.args.publicationsData.map(
       category => category.title
     )
@@ -44,13 +48,13 @@ describe('Component > PublicationsContainer', function () {
     expect(listedFilters[1].textContent).to.equal(categoryFilters[0])
   })
 
+  it('should have sidebar nav with accessible label', function () {
+    const sideBar = screen.getByLabelText('Filter by category')
+    expect(sideBar).to.be.ok()
+  })
+
   it('should render all publications in data', function () {
-    render(
-      <RouterMock>
-        <DefaultStory />
-      </RouterMock>
-    )
     const publications = screen.getAllByTestId('publication-test-element')
-    expect(publications.length).to.equal(60) // number of publications in mock.json
+    expect(publications.length).to.equal(20) // number of publications in mock.json
   })
 })

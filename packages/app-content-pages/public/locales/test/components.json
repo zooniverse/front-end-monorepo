@@ -75,6 +75,7 @@
   "Team": {
     "description": "Translated",
     "showAll": "Translated",
+    "sideBarLabel": "Translated",
     "title": "Translated"
   }
 }

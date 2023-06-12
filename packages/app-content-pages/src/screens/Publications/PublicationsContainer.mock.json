@@ -46,106 +46,6 @@
             "year": "2018"
           }
         ]
-      },
-      {
-        "title": "Andromeda Project",
-        "projectId": "39",
-        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/e9d68b60-43d8-4fc9-b55c-ebf72f8c7bf2.jpeg",
-        "publications": [
-          {
-            "title": "Panchromatic Hubble Andromeda Treasury XVIII. The High-mass Truncation of the Star Cluster Mass Function",
-            "url": "https://arxiv.org/abs/1703.10312",
-            "authors": "Johnson+",
-            "year": "2017"
-          },
-          {
-            "title": "Panchromatic Hubble Andromeda Treasury XVI. Star Cluster Formation Efficiency and the Clustered Fraction of Young Stars",
-            "url": "https://arxiv.org/abs/1606.05349",
-            "authors": "Johnson+",
-            "year": "2016"
-          },
-          {
-            "title": "The High-mass Stellar Initial Mass Function in M31 Clusters",
-            "url": "https://arxiv.org/abs/1502.06621",
-            "authors": "Weisz+",
-            "year": "2015"
-          },
-          {
-            "title": "PHAT Stellar Cluster Survey. II. Andromeda Project Cluster Catalog",
-            "url": "http://arxiv.org/abs/1501.04966",
-            "authors": "Johnson+",
-            "year": "2015"
-          }
-        ]
-      },
-      {
-        "title": "Backyard Worlds: Planet 9",
-        "projectId": "2416",
-        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/b0703966-0f59-4bf9-909e-6cf947451870.jpeg",
-        "publications": [
-          {
-            "title": "The First Brown Dwarf Discovered by the Backyard Worlds: Planet 9 Citizen Science Project",
-            "url": "http://iopscience.iop.org/article/10.3847/2041-8213/aa7200/meta",
-            "authors": "Kuchner+",
-            "year": "2017"
-          },
-          {
-            "title": "WiseView: Visualizing motion and variability of faint WISE sources",
-            "url": "http://ascl.net/1806.004",
-            "authors": "Caselden+",
-            "year": "2018"
-          },
-          {
-            "title": "A 3 Gyr White Dwarf with Warm Dust Discovered via the Backyard Worlds: Planet 9 Citizen Science Project",
-            "url": "https://arxiv.org/abs/1902.07073",
-            "authors": "Debes+",
-            "year": "2019"
-          }
-        ]
-      },
-      {
-        "title": "Space Warps",
-        "projectId": "43",
-        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/7544ce85-d470-4924-b1a0-d9df7ff8ea36.jpeg",
-        "publications": [
-          {
-            "title": "Space Warps - II. New gravitational lens candidates from the CFHTLS discovered through citizen science",
-            "url": "http://mnras.oxfordjournals.org/content/455/2/1191.full.pdf",
-            "authors": "Marshall+",
-            "year": "2016"
-          },
-          {
-            "title": "Space Warps - I. Crowdsourcing the discovery of gravitational lenses",
-            "url": "http://mnras.oxfordjournals.org/content/455/2/1171.full.pdf",
-            "authors": "Marshall+",
-            "year": "2016"
-          },
-          {
-            "title": "Gravitational lens modelling in a citizen science context",
-            "url": "http://arxiv.org/pdf/1502.00008v1.pdf",
-            "authors": "Küng+",
-            "year": "2015"
-          },
-          {
-            "title": "The Red Radio Ring: a gravitationally lensed hyperluminous infrared radio galaxy at z=2.553 discovered through citizen science",
-            "url": "http://arxiv.org/pdf/1503.05824v1.pdf",
-            "authors": "Geach+",
-            "year": "2015"
-          }
-        ]
-      },
-      {
-        "title": "Ice Hunters",
-        "projectId": "29",
-        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/81428298-d3f7-40ee-8ec3-891aa5fb3680.jpeg",
-        "publications": [
-          {
-            "title": "2011 HM102: Discovery of a High-Inclination L5 Neptune Trojan in the Search for a post-Pluto New Horizons Target",
-            "url": "http://arxiv.org/abs/1210.4549",
-            "authors": "Parker+",
-            "year": "2012"
-          }
-        ]
       }
     ]
   },
@@ -175,85 +75,6 @@
             "url": "https://arxiv.org/abs/1611.04596",
             "authors": "Zevin+",
             "year": "2017"
-          },
-          {
-            "title": "Gravity Spy: Humans, machines and the future of citizen science",
-            "url": "https://crowston.syr.edu/node/668",
-            "authors": "Crowston+",
-            "year": "2017"
-          },
-          {
-            "title": "Machine learning for Gravity Spy: Glitch classification and dataset",
-            "url": "https://www.sciencedirect.com/science/article/pii/S0020025518301634",
-            "authors": "Bahaadini+",
-            "year": "2018"
-          },
-          {
-            "title": "Folksonomies to Support Coordination and Coordination of Folksonomies",
-            "url": "https://link.springer.com/article/10.1007%2Fs10606-018-9327-z",
-            "authors": "Jackson+",
-            "year": "2018"
-          },
-          {
-            "title": "Blending Machine and Human Learning Processes",
-            "url": "http://hdl.handle.net/10125/41159",
-            "authors": "Crowston+",
-            "year": "2017"
-          },
-          {
-            "title": "Did they login? Patterns of Anonymous Contributions in Online Communities",
-            "url": "https://crowston.syr.edu/sites/crowston.syr.edu/files/anonymous-contributions-cameraready.pdf",
-            "authors": "Jackson+",
-            "year": "2018"
-          },
-          {
-            "title": "Knowledge Tracing to Model Learning in Online Citizen Science Projects",
-            "url": "https://crowston.syr.edu/node/784",
-            "authors": "Crowston+",
-            "year": "2019"
-          },
-          {
-            "title": "The Genie in the Bottle: Different Stakeholders, Different Interpretations of Machine Learning",
-            "url": "https://crowston.syr.edu/node/781",
-            "authors": "Harandi+",
-            "year": "2020"
-          },
-          {
-            "title": "Classifying the unknown: discovering novel gravitational-wave detector glitches using similarity learning",
-            "url": "https://arxiv.org/abs/1903.04058",
-            "authors": "Coughlin+",
-            "year": "2019"
-          },
-          {
-            "title": "Linguistic Adoption in Online Citizen Science: A Structurational Perspective",
-            "url": "https://crowston.syr.edu/node/860",
-            "authors": "Jackson+",
-            "year": "2019"
-          }
-        ]
-      },
-      {
-        "title": "Higgs Hunters",
-        "projectId": "56",
-        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/f6a09e22-771a-4d54-a7bf-0558d2d5cdc8.jpeg",
-        "publications": [
-          {
-            "title": "'That looks weird' - evaluating citizen scientists' ability to detect unusual features in ATLAS images of LHC collisions",
-            "url": "https://arxiv.org/pdf/1610.02214v1.pdf",
-            "authors": "Barr+",
-            "year": "2016"
-          },
-          {
-            "title": "Proceedings of the First Higgs Hunters Schools’ Conference",
-            "url": "http://cds.cern.ch/record/2676777",
-            "authors": "Barr+",
-            "year": "2019"
-          },
-          {
-            "title": "Citizen scientist community engagement with the Higgs Hunters project at the Large Hadron Collider",
-            "url": "https://www.ingentaconnect.com/content/ioep/rfa/2018/00000002/00000002/art00013",
-            "authors": "Barr+",
-            "year": "2018"
           }
         ]
       }
@@ -273,51 +94,6 @@
             "url": "http://journals.ametsoc.org/doi/abs/10.1175/BAMS-D-13-00152.1",
             "authors": "Hennon+",
             "year": "2014"
-          }
-        ]
-      },
-      {
-        "title": "Pattern Perception",
-        "projectId": "2299",
-        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/2e2cdc02-83ce-4682-8ea7-bf975117004c.jpeg",
-        "publications": [
-          {
-            "title": "Citizen science: A new perspective to advance spatial pattern evaluation in hydrology",
-            "url": "http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0178165",
-            "authors": "Koch+",
-            "year": "2017"
-          }
-        ]
-      },
-      {
-        "title": "Season Spotter Questions",
-        "projectId": "347",
-        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/6985bc43-1b9a-4361-8bb8-d323d3d524a3.png",
-        "publications": [
-          {
-            "title": "Volunteer recruitment and retention in online citizen science projects using marketing strategies: lessons from Season Spotter",
-            "url": "https://jcom.sissa.it/sites/default/files/documents/JCOM_1601_2017_A01.pdf",
-            "authors": "Crall+",
-            "year": "2017"
-          },
-          {
-            "title": "Season Spotter: Using Citizen Science to Validate and Scale Plant Phenology from Near-Surface Remote Sensing",
-            "url": "http://www.mdpi.com/2072-4292/8/9/726",
-            "authors": "Kosmala+",
-            "year": "2016"
-          }
-        ]
-      },
-      {
-        "title": "Sounds of New York City",
-        "projectId": "5352",
-        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/940ed797-9f4e-4c69-b5e1-1f837527b112.png",
-        "publications": [
-          {
-            "title": "Crowdsourcing Multi-label Audio Annotation Tasks with Citizen Scientists",
-            "url": "https://dl.acm.org/citation.cfm?id=3300522",
-            "authors": "Cartwright+",
-            "year": "2019"
           }
         ]
       }
@@ -364,45 +140,6 @@
             "year": "2016"
           }
         ]
-      },
-      {
-        "title": "Scribes of the Cairo Geniza",
-        "projectId": "5042",
-        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/877becbd-83af-4523-87b2-e1e1a0e4bac7.jpeg",
-        "publications": [
-          {
-            "title": "Of Scribes and Scripts: Citizen Science and the Cairo Genizah",
-            "url": "https://repository.upenn.edu/mss_sims/vol3/iss1/9/",
-            "authors": "Eckstein",
-            "year": "2019"
-          }
-        ]
-      },
-      {
-        "title": "Shakespeare's World",
-        "projectId": "376",
-        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/14472e63-10fb-4d47-81c9-8d6812036b37.jpeg",
-        "publications": [
-          {
-            "title": "Tagging, Pinging and Linking – User Roles in Virtual Citizen Science Forums",
-            "url": "https://theoryandpractice.citizenscienceassociation.org/articles/10.5334/cstp.181/",
-            "authors": "Rohden+",
-            "year": "2019"
-          }
-        ]
-      },
-      {
-        "title": "The American Soldier",
-        "projectId": "5551",
-        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/ca03c413-8d8b-4aca-ae81-c67e4e634850.jpeg",
-        "publications": [
-          {
-            "title": "Supporting Historical Research and Education with Crowdsourced Analysis of Primary Sources",
-            "url": "https://vtechworks.lib.vt.edu/handle/10919/87437",
-            "authors": "Wang",
-            "year": "2019"
-          }
-        ]
       }
     ]
   },
@@ -441,90 +178,6 @@
             "year": "2019"
           }
         ]
-      },
-      {
-        "title": "Elephant Expedition",
-        "projectId": "3775",
-        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/95a815ef-7e22-434f-b6d3-a73e288837e6.jpeg",
-        "publications": [
-          {
-            "title": "The Role of Forest Elephants in Shaping Tropical Forest-Savanna Coexistence",
-            "url": "https://link.springer.com/epdf/10.1007/s10021-019-00424-3",
-            "authors": "Cardoso+",
-            "year": "2019"
-          }
-        ]
-      },
-      {
-        "title": "Floating Forests",
-        "projectId": "2864",
-        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/546ce22c-f6b2-4fbb-a883-ab4157007659.png",
-        "publications": [
-          {
-            "title": "Encouraging Work in Citizen Science: Experiments in Goal Setting and Anchoring",
-            "url": "https://dl.acm.org/citation.cfm?id=2818052.2869129",
-            "authors": "Jackson+",
-            "year": "2016"
-          }
-        ]
-      },
-      {
-        "title": "Identify New Zealand animals",
-        "projectId": "5142",
-        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/c34555c0-e790-4eee-a4c8-ca1c98429524.png",
-        "publications": [
-          {
-            "title": "Monitoring the mammalian fauna of urban areas using remote cameras and citizen science",
-            "url": "https://academic.oup.com/jue/article/4/1/juy002/4947839",
-            "authors": "Anton+",
-            "year": "2018"
-          },
-          {
-            "title": "Evaluation of remote cameras for monitoring multiple invasive mammals in New Zealand",
-            "url": "https://www.researchgate.net/publication/318727598_Evaluation_of_remote_cameras_for_monitoring_multiple_invasive_mammals_in_New_Zealand",
-            "authors": "Anton+",
-            "year": "2018"
-          }
-        ]
-      },
-      {
-        "title": "Notes from Nature",
-        "projectId": "1558",
-        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/5e650d84-6143-437c-91e1-16f387d64eae.jpeg",
-        "publications": [
-          {
-            "title": "Workforce-efficient consensus in crowdsourced transcription of biocollections information",
-            "url": "http://www.sciencedirect.com/science/article/pii/S0167739X15002277",
-            "authors": "Matsunaga+",
-            "year": "2016"
-          }
-        ]
-      },
-      {
-        "title": "Penguin Watch",
-        "projectId": "55",
-        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/6e74b1f7-e50d-4d5a-9e0c-2fc568ed1b29.jpeg",
-        "publications": [
-          {
-            "title": "Counting in the Wild, Arteta, C., Lempitsky, V., Zisserman",
-            "url": "https://link.springer.com/chapter/10.1007/978-3-319-46478-7_30",
-            "authors": "A",
-            "year": "2016"
-          }
-        ]
-      },
-      {
-        "title": "Plankton Portal",
-        "projectId": "46",
-        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/420b2e5e-3181-400e-8e09-3c92849c8863.jpeg",
-        "publications": [
-          {
-            "title": "A Tale of Two Crowds: Public Engagement in Plankton Classification",
-            "url": "https://docs.google.com/spreadsheets/d/1NZ31aVPiQag5V3-zY9tIP2x2WPXFEf9dLIIHBSHkx3M/edit#gid=0",
-            "authors": "Robinson+",
-            "year": "2017"
-          }
-        ]
       }
     ]
   },
@@ -557,19 +210,6 @@
             "year": "2018"
           }
         ]
-      },
-      {
-        "title": "Sounds of New York City",
-        "projectId": "5352",
-        "avatarSrc": "panoptes-uploads.zooniverse.org/production/project_avatar/940ed797-9f4e-4c69-b5e1-1f837527b112.png",
-        "publications": [
-          {
-            "title": "Crowdsourcing Multi-label Audio Annotation Tasks with Citizen Scientists",
-            "url": "https://dl.acm.org/citation.cfm?id=3300522",
-            "authors": "Cartwright+",
-            "year": "2019"
-          }
-        ]
       }
     ]
   },
@@ -591,12 +231,6 @@
             "url": "http://peerproduction.net/issues/issue-13-open/news-from-nowhere/open-community-health-workshop-report/",
             "authors": "Link+",
             "year": "2018"
-          },
-          {
-            "title": "Everyone counts? Design considerations in online citizen science",
-            "url": "https://jcom.sissa.it/archive/18/01/JCOM_1801_2019_A04",
-            "authors": "Spiers+",
-            "year": "2019"
           }
         ]
       }
