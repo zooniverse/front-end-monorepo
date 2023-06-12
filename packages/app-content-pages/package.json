@@ -50,7 +50,7 @@
     "validator": "~13.9.0"
   },
   "devDependencies": {
-    "@babel/register": "~7.21.0",
+    "@babel/register": "~7.22.5",
     "@storybook/addon-a11y": "~7.0.10",
     "@storybook/addon-essentials": "~7.0.10",
     "@storybook/nextjs": "~7.0.10",

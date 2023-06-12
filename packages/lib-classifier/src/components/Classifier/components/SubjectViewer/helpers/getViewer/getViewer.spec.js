@@ -6,7 +6,6 @@ import MultiFrameViewer from '../../components/MultiFrameViewer'
 import SingleImageViewer from '../../components/SingleImageViewer'
 import SingleTextViewer from '../../components/SingleTextViewer'
 import SubjectGroupViewer from '../../components/SubjectGroupViewer'
-import VariableStarViewer from '../../components/VariableStarViewer'
 
 describe('Helpers > getViewer', function () {
   it('should return the `SingleImageViewer` component if passed `singleImage`', function () {
@@ -33,8 +32,8 @@ describe('Helpers > getViewer', function () {
     expect(getViewer('lightCurve')).to.equal(JSONDataViewer)
   })
 
-  it('should return the `VariableStarViewer` component if passed `variableStar`', function () {
-    expect(getViewer('variableStar')).to.equal(VariableStarViewer)
+  it('should return the `JSONDataViewer` component if passed `variableStar`', function () {
+    expect(getViewer('variableStar')).to.equal(JSONDataViewer)
   })
 
   it('should return null if it can\'t match a viewer', function () {

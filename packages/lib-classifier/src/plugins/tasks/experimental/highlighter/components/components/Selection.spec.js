@@ -7,7 +7,7 @@ describe('Selection', function () {
   
   before(function () {
     render(<Selection color='#65EECA' text='This is a test' />)
-    selection = document.querySelector('span')
+    selection = document.querySelector('mark')
     deleteButton = screen.getByRole('button', { name: 'HighlighterTask.delete' })
   })
 
