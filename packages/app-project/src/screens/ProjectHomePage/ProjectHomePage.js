@@ -1,9 +1,9 @@
 import { Box, Grid } from 'grommet'
 import { observer, MobXProviderContext } from 'mobx-react'
-import { arrayOf, bool, shape, string } from 'prop-types'
+import { arrayOf, shape, string } from 'prop-types'
 import { useContext } from 'react'
 import styled from 'styled-components'
-import { AdminCheckbox, ZooFooter } from '@zooniverse/react-components'
+import { ZooFooter } from '@zooniverse/react-components'
 import { useRouter } from 'next/router'
 
 import { useAdminMode } from '@hooks'
@@ -48,7 +48,7 @@ function useStores() {
 }
 
 function ProjectHomePage ({
-  workflows
+  workflows = []
 }) {
   const { inBeta } = useStores()
   const { adminMode, toggleAdmin } = useAdminMode()
@@ -92,7 +92,10 @@ function ProjectHomePage ({
             <Announcements />
           </header>
           <RemainingHeightBox>
-            <Hero workflows={workflows} isWide={true} />
+            <Hero
+              isWide={true}
+              workflows={workflows}
+            />
           </RemainingHeightBox>
         </FullHeightBox>
         <Box
@@ -123,13 +126,7 @@ function ProjectHomePage ({
   )
 }
 
-ProjectHomePage.defaultProps = {
-  inBeta: false,
-  workflows: []
-}
-
 ProjectHomePage.propTypes = {
-  inBeta: bool,
   workflows: arrayOf(shape({
     id: string.isRequired
   }))

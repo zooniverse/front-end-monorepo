@@ -65,8 +65,9 @@ function initStore (isServer, snapshot = null, client = defaultClient) {
       Only apply store state that was generated on the server.
       TODO: won't this overwrite local changes to the UI store?
     */
-    const { project } = snapshot
+    const { organization, project } = snapshot
     applySnapshot(store.project, project)
+    if (organization?.id) applySnapshot(store.organization, organization)
   }
 
   return store

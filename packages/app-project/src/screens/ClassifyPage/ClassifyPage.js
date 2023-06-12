@@ -73,7 +73,6 @@ function ClassifyPage({
 
   return (
     <StandardLayout>
-
       <Box
         align='center'
         gap='medium'

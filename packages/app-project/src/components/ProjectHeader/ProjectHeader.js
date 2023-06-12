@@ -10,6 +10,7 @@ import {
   Background,
   DropdownNav,
   LocaleSwitcher,
+  OrganizationLink,
   Nav,
   ProjectTitle,
   UnderReviewLabel
@@ -21,7 +22,7 @@ const StyledBox = styled(Box)`
 `
 
 function ProjectHeader({
-  adminMode,
+  adminMode = false,
   className = ''
 }) {
   const { width, height, ref } = useResizeDetector({
@@ -31,9 +32,10 @@ function ProjectHeader({
   const {
     availableLocales,
     inBeta,
+    organizationTitle,
+    organizationSlug,
     title
   } = useStores()
-
   const hasTranslations = availableLocales?.length > 1
   const maxColumnWidth = hasTranslations ? 1000 : 900
   const isNarrow = width < maxColumnWidth
@@ -47,11 +49,21 @@ function ProjectHeader({
   return (
     <StyledBox ref={ref} className={className}>
       <Background />
+      {(organizationTitle && !useDropdownNav) ? (
+        <OrganizationLink
+          slug={organizationSlug}
+          title={organizationTitle}
+        />
+      ) : null}
       <StyledBox
         align='center'
         direction={direction}
         justify='between'
-        pad='medium'
+        pad={{
+          bottom: 'medium',
+          horizontal: 'medium',
+          top: (organizationTitle && !useDropdownNav) ? 'none' : 'medium'
+        }}
       >
         <Box direction={direction} gap='small'>
           <Box
@@ -85,6 +97,8 @@ function ProjectHeader({
           <DropdownNav
             adminMode={adminMode}
             margin={ isNarrow ? { top: 'xsmall' } : { top : 0 }}
+            organizationSlug={organizationSlug}
+            organizationTitle={organizationTitle}
           />
         ) : (
           <Nav adminMode={adminMode} />

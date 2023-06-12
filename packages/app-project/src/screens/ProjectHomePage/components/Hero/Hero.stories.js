@@ -7,62 +7,37 @@ import Router from 'next/router'
 import Store from '@stores/Store'
 import Hero from './'
 
-function RouterMock({ children }) {
-  const mockRouter = {
-    locale: 'en',
-    push: () => {},
-    prefetch: () => new Promise((resolve, reject) => {}),
-    query: {
-      owner: 'test-owner',
-      project: 'test-project'
-    }
+const ORGANIZATION = {
+  id: '1',
+  listed: true,
+  slug: 'brbcornell/nest-quest-go',
+  strings: {
+    title: 'Nest Quest Go'
   }
-
-  Router.router = mockRouter
-
-  return (
-    <RouterContext.Provider value={mockRouter}>
-      {children}
-    </RouterContext.Provider>
-  )
 }
 
-const snapshot = {
-  project: {
-    background: {
-      src: 'https://panoptes-uploads.zooniverse.org/production/project_background/260e68fd-d3ec-4a94-bb32-43ff91d5579a.jpeg'
-    },
-    slug: 'brbcornell/nest-quest-go-western-bluebirds',
-    strings: {
-      description: 'Learn about and help document the wonders of nesting Western Bluebirds.',
-      display_name: 'Nest Quest Go: Western Bluebirds',
-      introduction: 'Bluebirds introduction',
-      workflow_description: 'Choose your own adventure! There are many ways to engage with this project!'
-    }
+const PROJECT = {
+  background: {
+    src: 'https://panoptes-uploads.zooniverse.org/production/project_background/260e68fd-d3ec-4a94-bb32-43ff91d5579a.jpeg'
   },
-  user: {
-    loadingState: asyncStates.success,
-    personalization: {
-      projectPreferences: {
-        loadingState: asyncStates.success
-      }
+  slug: 'brbcornell/nest-quest-go-western-bluebirds',
+  strings: {
+    description: 'Learn about and help document the wonders of nesting Western Bluebirds.',
+    display_name: 'Nest Quest Go: Western Bluebirds',
+    introduction: 'Bluebirds introduction',
+    workflow_description: 'Choose your own adventure! There are many ways to engage with this project!'
+  }
+}
+
+const USER = {
+  loadingState: asyncStates.success,
+  personalization: {
+    projectPreferences: {
+      loadingState: asyncStates.success
     }
   }
 }
 
-const store = Store.create(snapshot)
-
-function MockProjectContext(Story) {
-  return (
-    <RouterMock>
-      <MediaContextProvider>
-        <Provider store={store}>
-          <Story />
-        </Provider>
-      </MediaContextProvider>
-    </RouterMock>
-  )
-}
 const WORKFLOWS = [
   {
     completeness: 0.65,
@@ -84,25 +59,67 @@ const WORKFLOWS = [
   }
 ]
 
+function RouterMock({ children }) {
+  const mockRouter = {
+    locale: 'en',
+    push: () => {},
+    prefetch: () => new Promise((resolve, reject) => {}),
+    query: {
+      owner: 'test-owner',
+      project: 'test-project'
+    }
+  }
+
+  Router.router = mockRouter
+
+  return (
+    <RouterContext.Provider value={mockRouter}>
+      {children}
+    </RouterContext.Provider>
+  )
+}
+
 export default {
   title: 'Project App / Screens / Project Home / Hero',
   component: Hero,
   args: {
     isWide: true
-  },
-  decorators: [MockProjectContext]
+  }
 }
+
+const snapshot = {
+  project: PROJECT,
+  user: USER
+}
+const store = Store.create(snapshot)  
 
 export function Default({ isWide }) {
-  return <Hero isWide={isWide} workflows={WORKFLOWS} />
+  return (
+    <RouterMock>
+      <MediaContextProvider>
+        <Provider store={store}>
+          <Hero isWide={isWide} workflows={WORKFLOWS} />
+        </Provider>
+      </MediaContextProvider>
+    </RouterMock>
+  )
 }
 
-export function SmallScreen() {
-  return <Hero isWide={false} workflows={WORKFLOWS} />
+const snapshotWithOrganization = {
+  organization: ORGANIZATION,
+  project: PROJECT,
+  user: USER
 }
+const storeWithOrganization = Store.create(snapshotWithOrganization)  
 
-SmallScreen.parameters = {
-  viewport: {
-    defaultViewport: 'iphone5'
-  }
+export function WithOrganization({ isWide }) {
+  return (
+    <RouterMock>
+      <MediaContextProvider>
+        <Provider store={storeWithOrganization}>
+          <Hero isWide={isWide} workflows={WORKFLOWS} />
+        </Provider>
+      </MediaContextProvider>
+    </RouterMock>
+  )
 }

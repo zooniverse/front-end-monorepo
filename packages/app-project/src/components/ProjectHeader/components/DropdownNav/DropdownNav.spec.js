@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event'
 import nock from 'nock'
 
 import * as Stories from './DropdownNav.stories.js'
-const { Default, LoggedIn, AdminMode } = composeStories(Stories)
+const { Default, LoggedIn, AdminMode, WithOrganizationLink } = composeStories(Stories)
 
 describe('Component > ProjectHeader > Dropdown Nav', function () {
   before(function () {
@@ -103,6 +103,33 @@ describe('Component > ProjectHeader > Dropdown Nav', function () {
       expect(navLinks.length).to.be.above(0)
       expect(navLinks[0].href).to.equal('https://localhost/zooniverse/snapshot-serengeti/about/research')
       expect(navLinks[navLinks.length - 1].href).to.equal('https://www.zooniverse.org/admin/project_status/zooniverse/snapshot-serengeti')
+    })
+  })
+
+  describe('with organization link', function () {
+    let dropdownButton, navMenu
+
+    before(async function () {
+      const user = userEvent.setup({ delay: 'none' })
+      render(<WithOrganizationLink />)
+      dropdownButton = screen.queryByRole('button', { name: 'ProjectHeader.exploreProject' })
+      await user.click(dropdownButton)
+      navMenu = await screen.findByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+    })
+
+    it('should show the menu button', function () {
+      expect(dropdownButton).to.exist()
+    })
+
+    it('should open the navigation menu', function () {
+      expect(navMenu).to.exist()
+    })
+
+    it('should show the organization link', function () {
+      const navLinks = within(navMenu).getAllByRole('link')
+      expect(navLinks.length).to.be.above(0)
+      expect(navLinks[0].href).to.equal('https://localhost/zooniverse/snapshot-serengeti/about/research')
+      expect(navLinks[navLinks.length - 1].href).to.equal('https://localhost/organizations/zooniverse/snapshot-safari')
     })
   })
 })

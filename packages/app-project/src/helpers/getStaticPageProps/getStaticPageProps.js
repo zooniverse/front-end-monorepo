@@ -1,7 +1,8 @@
-import { panoptes } from '@zooniverse/panoptes-js'
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 
 import notFoundError from '@helpers/notFoundError'
+
+import fetchOrganization from '@helpers/fetchOrganization'
 import fetchProjectData from '@helpers/fetchProjectData'
 import fetchTranslations from '@helpers/fetchTranslations'
 import fetchWorkflowsHelper from '@helpers/fetchWorkflowsHelper'
@@ -72,6 +73,7 @@ export default async function getStaticPageProps({ locale, params }) {
     Fetch the active project workflows
   */
   const workflows = await fetchWorkflowsHelper(language, project.links.active_workflows, workflowID, workflowOrder, env)
+  
   const props = {
     project: {
       ...project,
@@ -79,10 +81,19 @@ export default async function getStaticPageProps({ locale, params }) {
     },
     workflows
   }
-
+  
   if (workflowID) {
     props.workflowID = workflowID
   }
+
+  /*
+    Fetch the organization linked to the project
+  */
+
+  if (project.links.organization) {
+    const organization = await fetchOrganization(project.links.organization, locale, env)
+    props.organization = organization
+  }  
 
   return { props }
 }

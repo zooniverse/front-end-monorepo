@@ -44,6 +44,7 @@ describe('Component > ClassifyPageContainer', function () {
     }]
 
     const mockStore = {
+      organization: {},
       project: {
         avatar: {
           src: ''
@@ -144,6 +145,7 @@ describe('Component > ClassifyPageContainer', function () {
     }]
 
     const mockStore = {
+      organization: {},
       project: {
         avatar: {
           src: ''
@@ -348,6 +350,7 @@ describe('Component > ClassifyPageContainer', function () {
   describe('when the project is not workflow assignment enabled', function () {
     let routerStub
     const mockStore = {
+      organization: {},
       project: {
         avatar: {
           src: ''
