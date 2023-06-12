@@ -58,6 +58,30 @@ const TranscriptionReductions = types
     }
 
     /**
+    Generate an array of consensus lines for a single frame.
+    */
+    function frameConsensus(line, options) {
+      if (!line.id) {
+        line.id = cuid()
+      }
+      return constructLine(line, options)
+    }
+
+    /**
+    Generate an array of consensus lines for a single reduction and frame.
+    */
+    function reductionConsensus(reduction, frame) {
+      const { parameters } = reduction.data
+      const currentFrameReductions = reduction.data[`frame${frame}`] || []
+      const options = {
+        frame,
+        minimumViews: parameters?.minimum_views || DEFAULT_VIEWS_TO_RETIRE,
+        threshold: parameters?.low_consensus_threshold || DEFAULT_CONSENSUS_THRESHOLD
+      }
+      return currentFrameReductions.map(line => frameConsensus(line, options))
+    }
+
+    /**
     Unique users from all the lines of a single frame.
     */
     function frameUsers(frame) {
@@ -87,21 +111,7 @@ const TranscriptionReductions = types
     return {
       consensusLines(frame) {
         const { reductions } = self
-        let consensusLines = []
-        reductions.forEach(reduction => {
-          const { parameters } = reduction.data
-          const threshold = parameters?.low_consensus_threshold || DEFAULT_CONSENSUS_THRESHOLD
-          const minimumViews = parameters?.minimum_views || DEFAULT_VIEWS_TO_RETIRE
-          const currentFrameReductions = reduction.data[`frame${frame}`] || []
-          const currentFrameConsensus = currentFrameReductions.map(reduction => {
-            if (!reduction.id) {
-              reduction.id = cuid()
-            }
-            return constructLine(reduction, { frame, minimumViews, threshold })
-          })
-          consensusLines = consensusLines.concat(currentFrameConsensus)
-        })
-        return consensusLines
+        return reductions.map(reduction => reductionConsensus(reduction, frame)).flat()
       },
 
       get userIDs() {
