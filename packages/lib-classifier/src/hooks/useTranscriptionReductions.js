@@ -17,6 +17,15 @@ async function checkUser(userIDs = [], authorization) {
   return false
 }
 
+function logDuplicateSubject(subjectSnapshot) {
+  const subjectError = new Error(`Duplicate transcription subject: ${subjectSnapshot.id}`)
+  Sentry.withScope((scope) => {
+    scope.setTag('subjectError', 'duplicate')
+    scope.setExtra('subject', JSON.stringify(subjectSnapshot))
+    Sentry.captureException(subjectError)
+  })
+}
+
 export default function useTranscriptionReductions() {
   const {
     authClient,
@@ -42,14 +51,9 @@ export default function useTranscriptionReductions() {
       const authorization = await getBearerToken(authClient)
       const alreadySeen = await checkUser(caesarReductions?.userIDs, authorization)
       if (alreadySeen) {
-        subject.markAsSeen()
-        const subjectError = new Error(`Duplicate transcription subject: ${subject.id}`)
         const subjectSnapshot = getSnapshot(subject)
-        Sentry.withScope((scope) => {
-          scope.setTag('subjectError', 'duplicate')
-          scope.setExtra('subject', JSON.stringify(subjectSnapshot))
-          Sentry.captureException(subjectError)
-        })
+        logDuplicateSubject(subjectSnapshot)
+        subject.markAsSeen()
       }
     }
     checkSubject()
