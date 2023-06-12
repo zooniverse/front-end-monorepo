@@ -51,5 +51,12 @@
   "ThemeModeToggle": {
     "switchToDark": "Klicken für dunklen Hintergrund",
     "switchToLight": "Klicken für hellen Hintergrund"
-  }
+  },
+  "Head.defaultDescription": "Das Zooniverse ist die weltweit größte und beliebteste Plattform für menschengestützte Forschung.",
+  "Head.siteName": "Zooniverse – Von Menschen betriebene Forschung",
+  "Announcements.AuthenticationInvitation.announcement": "Bitte melden Sie sich an oder registrieren Sie sich, um Ihre Beiträge zu verfolgen.",
+  "Announcements.FinishedAnnouncement.announcement": "Fertig! Es sieht so aus, als ob für dieses Projekt derzeit keine Daten mehr vorhanden sind!",
+  "Announcements.FinishedAnnouncement.seeResults": "Siehe Ergebnisse",
+  "AuthModal.LoginForm.forgot": "Haben Sie Ihr Passwort vergessen?",
+  "AuthModal.LoginForm.error": "Benutzername oder Passwort sind falsch"
 }

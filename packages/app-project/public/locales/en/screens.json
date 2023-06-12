@@ -49,11 +49,11 @@
       }
     }
   },
-  "Classify" :{
+  "Classify": {
     "ClassifierWrapper": {
       "ErrorMessage": {
         "title": "There was an error in the classifier :("
-      }    
+      }
     },
     "FinishedForTheDay": {
       "buttons": {
@@ -84,7 +84,7 @@
     "WorkflowAssignmentModal": {
       "cancel": "No, thanks",
       "confirm": "Take me to the next workflow!",
-      "content":  "Congratulations! Because you're doing so well, you can now access another workflow. If you prefer to stay with the current workflow, you can choose to stay.",
+      "content": "Congratulations! Because you're doing so well, you can now access another workflow. If you prefer to stay with the current workflow, you can choose to stay.",
       "dismiss": "Don't show this again this session",
       "title": "New Workflow Available"
     },

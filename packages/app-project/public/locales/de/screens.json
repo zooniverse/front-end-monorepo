@@ -40,5 +40,6 @@
     "YourStats": {
       "title": "{{projectName}} Statistik"
     }
-  }
+  },
+  "Classify.WorkflowAssignmentModal.dismiss": "Dies in dieser Sitzung nicht mehr anzeigen"
 }
