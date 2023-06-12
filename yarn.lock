@@ -1873,6 +1873,11 @@
   resolved "https://registry.yarnpkg.com/@hutson/parse-repository-url/-/parse-repository-url-3.0.2.tgz#98c23c950a3d9b6c8f0daed06da6c3af06981340"
   integrity sha512-H9XAx3hc0BQHY6l+IFSWHDySypcXsvsuLhgYLUGywmJ5pswRVQJUHpOsobnLYp2ZUaUlKiKDrgWWhosOwAEM8Q==
 
+"@inlang/cli@~0.9.16":
+  version "0.9.16"
+  resolved "https://registry.yarnpkg.com/@inlang/cli/-/cli-0.9.16.tgz#640520efa420367963654f0f9f42c8f5ef0c32dd"
+  integrity sha512-51P3/2qWkGeJ7noySjsz+PmQ2xBRqLQ/QXtAQVMt156CfftcOcBfVQdGNgtw1I1NSmSNObd8Ihvcr5+QkPt0Cg==
+
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
   resolved "https://registry.yarnpkg.com/@isaacs/cliui/-/cliui-8.0.2.tgz#b37667b7bc181c168782259bab42474fbf52b550"
