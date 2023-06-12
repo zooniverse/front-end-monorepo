@@ -74,4 +74,7 @@ const nextConfig = {
   }
 }
 
-module.exports = withSentryConfig(nextConfig)
+module.exports = withSentryConfig(nextConfig, {
+  org: 'zooniverse-27',
+  project: 'fem-app-content-pages'
+})
