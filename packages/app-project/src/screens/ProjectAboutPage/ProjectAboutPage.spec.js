@@ -12,7 +12,6 @@ import { RouterContext } from 'next/dist/shared/lib/router-context'
 import sinon from 'sinon'
 import ProjectAboutPageConnector from './ProjectAboutPageConnector'
 import { ProjectAboutPage } from './ProjectAboutPage'
-import i18n from '@test/i18n-for-tests'
 
 describe('Component > ProjectAboutPage & Connector', function () {
   const mockStore = {

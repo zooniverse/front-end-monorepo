@@ -28,12 +28,15 @@ function RouterMock({ children }) {
 describe('Component > TeamsContainer', function () {
   const DefaultStory = composeStory(Default, Meta, projectAnnotations)
 
-  it('should have a sidebar with available filters', function () {
+  beforeEach(function () {
     render(
       <RouterMock>
         <DefaultStory />
       </RouterMock>
     )
+  })
+
+  it('should have a sidebar with available filters', function () {
     const teamFilters = Default.args.teamData.map(team => team.name)
     const sideBar = document.querySelector('aside')
     const listedFilters = within(sideBar).getAllByRole('link')
@@ -41,12 +44,12 @@ describe('Component > TeamsContainer', function () {
     expect(listedFilters[1].textContent).to.equal(teamFilters[0])
   })
 
+  it('should have a sidebar nav with accessible label', function () {
+    const sideBar = screen.getByLabelText('Filter by team location')
+    expect(sideBar).to.be.ok()
+  })
+
   it('should render all people in data', function () {
-    render(
-      <RouterMock>
-        <DefaultStory />
-      </RouterMock>
-    )
     const people = screen.getAllByTestId('person-test-element')
     const numMockPeople = mockData.reduce((count, team) => {
       return count + ((team.name !== 'Alumni') ? team.people.length : 0) // non-alumni in mock.json

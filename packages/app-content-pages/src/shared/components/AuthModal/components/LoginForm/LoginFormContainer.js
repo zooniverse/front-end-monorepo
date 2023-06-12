@@ -55,12 +55,14 @@ LoginFormContainer.propTypes = {
     user: shape({
       set: func
     })
-  })
+  }),
+  t: func
 }
 
 LoginFormContainer.defaultProps = {
   authClient: auth,
-  closeModal: () => {}
+  closeModal: () => {},
+  t: (key) => key
 }
 
 const DecoratedLoginFormContainer = inject('store')(observer(LoginFormContainer))
