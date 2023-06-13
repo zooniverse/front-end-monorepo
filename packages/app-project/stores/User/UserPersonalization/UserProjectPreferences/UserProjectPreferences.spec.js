@@ -330,6 +330,7 @@ describe('Stores > UserProjectPreferences', function () {
       before(function () {
         const project = {
           id: '2',
+          slug: 'test/project',
           links: {
             active_workflows: ['555']
           }
