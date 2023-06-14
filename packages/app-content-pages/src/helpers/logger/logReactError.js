@@ -1,4 +1,4 @@
-import { withScope, captureException} from '@sentry/node'
+import { withScope, captureException} from '@sentry/nextjs'
 
 export default function logReactError (error, errorInfo) {
   const dsn = process.env.SENTRY_CONTENT_DSN

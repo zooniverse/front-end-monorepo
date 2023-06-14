@@ -4,6 +4,7 @@ if (process.env.NEWRELIC_LICENSE_KEY) {
 
 const { execSync } = require('child_process')
 const path = require('path')
+const { withSentryConfig } = require('@sentry/nextjs')
 const { i18n } = require('./next-i18next.config')
 
 const talkHosts = require('./config/talkHosts')
@@ -93,11 +94,11 @@ const nextConfig = {
     ]
   },
 
-  webpack: (config, options) => {
-    if (!options.isServer) {
-      config.resolve.alias['@sentry/node'] = '@sentry/browser'
-    }
+  sentry: {
+    hideSourceMaps: true
+  },
 
+  webpack: (config, options) => {
     const newAliases = webpackConfig.resolve.alias
     const alias = Object.assign({}, config.resolve.alias, newAliases)
     config.resolve = Object.assign({}, config.resolve, { alias })
@@ -105,4 +106,7 @@ const nextConfig = {
   }
 }
 
-module.exports = nextConfig
+module.exports = withSentryConfig(nextConfig, {
+  org: 'zooniverse-27',
+  project: 'fem-app-project'
+})

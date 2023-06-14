@@ -1,4 +1,4 @@
-import { withScope, captureException } from '@sentry/node'
+import { withScope, captureException } from '@sentry/nextjs'
 
 export default function logToSentry(error, errorInfo = {}) {
   const dsn = process.env.SENTRY_PROJECT_DSN

@@ -9,7 +9,7 @@ import Error from 'next/error'
 import { useEffect, useMemo } from 'react'
 import { appWithTranslation } from 'next-i18next'
 
-import { initializeLogger, logReactError } from '../src/helpers/logger'
+import { logReactError } from '../src/helpers/logger'
 import AuthModal from '../src/shared/components/AuthModal'
 import ZooHeaderWrapper from '../src/shared/components/ZooHeaderWrapper'
 import initStore from '../src/shared/stores'
@@ -19,7 +19,6 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
   }
 `
-initializeLogger()
 
 function useStore(initialState) {
   const isServer = typeof window === 'undefined'

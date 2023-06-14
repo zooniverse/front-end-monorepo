@@ -10,7 +10,7 @@ import AuthModal from '@components/AuthModal'
 import getCookie from '@helpers/getCookie'
 import GrommetWrapper from '@helpers/GrommetWrapper'
 import Head from '@components/Head'
-import { addSentryUser, initializeLogger, logToSentry } from '@helpers/logger'
+import { addSentryUser, logToSentry } from '@helpers/logger'
 import { usePanoptesUser, useSugarProject, useUserFavourites } from '@hooks'
 import { MediaContextProvider } from '@shared/components/Media'
 import initStore from '@stores'
@@ -20,8 +20,6 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
   }
 `
-
-initializeLogger()
 
 /**
   useStore hook adapted from

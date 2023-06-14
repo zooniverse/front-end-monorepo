@@ -3,6 +3,7 @@ require('dotenv').config()
 const { execSync } = require('child_process')
 const Dotenv = require('dotenv-webpack')
 const path = require('path')
+const { withSentryConfig } = require('@sentry/nextjs')
 const { i18n } = require('./next-i18next.config')
 
 const assetPrefixes = {}
@@ -54,10 +55,11 @@ const nextConfig = {
 
   reactStrictMode: true,
 
+  sentry: {
+    hideSourceMaps: true
+  },
+
   webpack: (config, options) => {
-    if (!options.isServer) {
-      config.resolve.alias['@sentry/node'] = '@sentry/browser'
-    }
     config.plugins.concat([
       new Dotenv({
         path: path.join(__dirname, '.env'),
@@ -72,4 +74,7 @@ const nextConfig = {
   }
 }
 
-module.exports = nextConfig
+module.exports = withSentryConfig(nextConfig, {
+  org: 'zooniverse-27',
+  project: 'fem-app-content-pages'
+})
