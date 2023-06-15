@@ -5,6 +5,9 @@ import WorkflowAssignmentModal from './WorkflowAssignmentModal'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 
+// this might be able to be rendered with stories?
+// some of these cases might not logically ever occur
+
 describe('Component > WorkflowAssignmentModalContainer', function() {
   let wrapper
   afterEach(function () {

@@ -4,6 +4,8 @@ import { MobXProviderContext, observer } from 'mobx-react'
 
 import WorkflowAssignmentModal from './WorkflowAssignmentModal'
 
+const DEFAULT_HANDLER = () => true
+
 function useStore() {
   const { store } = useContext(MobXProviderContext)
 
@@ -14,7 +16,7 @@ function useStore() {
 }
 
 function WorkflowAssignmentModalContainer({ currentWorkflowID = '' }) {
-  const { assignedWorkflowID, promptAssignment } = useStore()
+  const { assignedWorkflowID = '', promptAssignment = DEFAULT_HANDLER } = useStore()
 
   const [active, setActive] = useState(false)
   const [dismissedForSession, setDismissed] = useState(false)
@@ -40,7 +42,8 @@ function WorkflowAssignmentModalContainer({ currentWorkflowID = '' }) {
   )
 
 
-  function onDismiss() {
+  function onDismiss(event) {
+    // Allow volunteers to uncheck this box too
     if (window.sessionStorage) {
       window.sessionStorage.setItem('workflowAssignmentModalDismissed', 'true')
     }

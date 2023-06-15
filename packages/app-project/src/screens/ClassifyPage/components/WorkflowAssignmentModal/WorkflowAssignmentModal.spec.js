@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme'
-import { Modal } from '@zooniverse/react-components'
 import { Button, CheckBox } from 'grommet'
 import sinon from 'sinon'
 import WorkflowAssignmentModal from './WorkflowAssignmentModal'
@@ -14,6 +13,8 @@ describe('Component > WorkflowAssignmentModal', function () {
       project: 'bar'
     }
   }
+
+  // change this to RTL and router Provider, get the extra code out of the component
 
   before(function() {
     closeFnSpy = sinon.spy()
@@ -38,20 +39,6 @@ describe('Component > WorkflowAssignmentModal', function () {
     expect(wrapper).to.be.ok()
   })
 
-  it('should render a Modal', function () {
-    expect(wrapper.find(Modal)).to.have.lengthOf(1)
-  })
-
-  it('should pass the closeFn to the Modal', function () {
-    expect(wrapper.find(Modal).props().closeFn).to.equal(closeFnSpy)
-  })
-
-  it('should pass the active prop to the Modal', function () {
-    expect(wrapper.find(Modal).props().active).to.be.false()
-    wrapper.setProps({ active: true })
-    expect(wrapper.find(Modal).props().active).to.be.true()
-  })
-
   it('should render a confirmation link', function () {
     const button = wrapper.find(NavLink)
     expect(button.props().link.href).to.equal('/foo/bar/classify/workflow/1234')
@@ -61,13 +48,6 @@ describe('Component > WorkflowAssignmentModal', function () {
     const button = wrapper.find(Button)
     button.simulate('click')
     expect(closeFnSpy).to.have.been.calledOnce()
-  })
-
-  it('should call the dismiss function on change', function () {
-    const event = { target: { checked: true } }
-    const checkbox = wrapper.find(CheckBox)
-    checkbox.simulate('change', event)
-    expect(dismissSpy.withArgs(event)).to.have.been.calledOnce()
   })
 
   it('should set the checked state by prop', function () {

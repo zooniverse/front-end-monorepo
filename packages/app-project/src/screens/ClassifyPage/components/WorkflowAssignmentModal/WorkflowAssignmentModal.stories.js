@@ -1,42 +1,33 @@
-import { Provider } from 'mobx-react'
-import { applySnapshot } from 'mobx-state-tree'
-import asyncStates from '@zooniverse/async-states'
-
-import initStore from '@stores'
-import WorkflowAssignmentModalContainer from './WorkflowAssignmentModalContainer'
+import WorkflowAssignmentModal from './WorkflowAssignmentModal.js'
 
 export default {
-  title: 'Project App / Screens / Classify / Workflow Assignment / Assignment Modal',
-  component: WorkflowAssignmentModalContainer
-}
-
-const snapshot = {
-  project: {
-    display_name: 'Test Project',
-    links: {
-      active_workflows: ['1234', '5678']
-    }
-  },
-  user: {
-    loadingState: asyncStates.success,
-    personalization: {
-      projectPreferences: {
-        promptAssignment: () => true,
-        settings: {
-          workflow_id: '1234'
-        }
-      }
-    }
+  title:
+    'Project App / Screens / Classify / Workflow Assignment / Assignment Modal',
+  component: WorkflowAssignmentModal,
+  args: {
+    active: true,
+    assignedWorkflowID: '1234',
+    closeFn: () => true,
+    dismiss: () => true
   }
 }
 
-const store = initStore(false, snapshot)
-applySnapshot(store.user, snapshot.user)
+const router = {
+  asPath: '/foo/bar',
+  query: {
+    owner: 'foo',
+    project: 'bar'
+  }
+}
 
-export function Default() {
+export const Default = ({ active, assignedWorkflowID, closeFn, dismiss }) => {
   return (
-  <Provider store={store}>
-    <WorkflowAssignmentModalContainer currentWorkflowID='5678' />
-  </Provider>
+    <WorkflowAssignmentModal
+      active={active}
+      assignedWorkflowID={assignedWorkflowID}
+      closeFn={closeFn}
+      dismiss={dismiss}
+      router={router}
+    />
   )
 }

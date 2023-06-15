@@ -32,7 +32,7 @@ export default function WorkflowAssignmentModal({
   const [checkboxChecked, setCheckboxChecked] = useState(false)
 
   const handleDismiss = (event) => {
-    dismiss()
+    dismiss(event)
     setCheckboxChecked(true)
   }
 
@@ -62,7 +62,7 @@ WorkflowAssignmentModal.propTypes = {
   active: PropTypes.bool,
   assignedWorkflowID: PropTypes.string.isRequired,
   closeFn: PropTypes.func.isRequired,
-  dismiss: PropTypes.func.isRequired,
+  onDismiss: PropTypes.func.isRequired,
   dismissedForSession: PropTypes.bool,
   /** 
     Optional custom router. Overrides the default NextJS.
