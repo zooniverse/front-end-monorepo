@@ -3,8 +3,15 @@ import { Button, Box, CheckBox, Text } from 'grommet'
 import { Modal, PrimaryButton, SpacedText } from '@zooniverse/react-components'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import styled from 'styled-components'
 
 import NavLink from '@shared/components/NavLink'
+
+const StyledNavLink = styled(NavLink)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 export default function WorkflowAssignmentModal({
   active = false,
@@ -34,7 +41,7 @@ export default function WorkflowAssignmentModal({
       </Box>
       <Box direction='row' gap='xsmall' justify='center'>
         <Button label={t('Classify.WorkflowAssignmentModal.cancel')} onClick={() => closeFn()} />
-        <NavLink
+        <StyledNavLink
           StyledAnchor={PrimaryButton}
           StyledSpacedText={Text}
           link={{ href: url, text: t('Classify.WorkflowAssignmentModal.confirm') }}

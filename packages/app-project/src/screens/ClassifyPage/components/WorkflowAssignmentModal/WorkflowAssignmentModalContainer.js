@@ -1,22 +1,36 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import PropTypes from 'prop-types'
+import { MobXProviderContext, observer } from 'mobx-react'
+
 import WorkflowAssignmentModal from './WorkflowAssignmentModal'
 
-function WorkflowAssignmentModalContainer ({
-  assignedWorkflowID = '',
-  currentWorkflowID = '',
-  promptAssignment = () => false
-}) {
-  const showPrompt = useMemo(() => promptAssignment(currentWorkflowID), [currentWorkflowID, promptAssignment])
-  const [ active, setActive ] = useState(showPrompt)
-  const [ dismissedForSession, setDismissed ] = useState(false)
+const DEFAULT_HANDLER = () => true
 
-  // TODO: integrate session storage
-  function onDismiss (event) {
-    setDismissed(event.target.checked)
+function useStore() {
+  const { store } = useContext(MobXProviderContext)
+
+  return {
+    assignedWorkflowID: store.user.personalization.projectPreferences.settings?.workflow_id,
+    promptAssignment: store.user.personalization.projectPreferences.promptAssignment
+  }
+}
+
+function WorkflowAssignmentModalContainer({ currentWorkflowID = '' }) {
+  const { assignedWorkflowID = '', promptAssignment = DEFAULT_HANDLER } = useStore()
+
+  const showPrompt = useMemo(
+    () => promptAssignment(currentWorkflowID),
+    [currentWorkflowID, promptAssignment]
+  )
+  const [active, setActive] = useState(showPrompt)
+
+  const dismissedForSession = window?.sessionStorage.getItem("workflowAssignmentModalDismissed")
+
+  function onDismiss(event) {
+    window?.sessionStorage.setItem("workflowAssignmentModalDismissed", true)
   }
 
-  function closeFn () {
+  function closeFn() {
     setActive(false)
   }
 
@@ -49,4 +63,4 @@ WorkflowAssignmentModalContainer.propTypes = {
   promptAssignment: PropTypes.func
 }
 
-export default WorkflowAssignmentModalContainer
+export default observer(WorkflowAssignmentModalContainer)
