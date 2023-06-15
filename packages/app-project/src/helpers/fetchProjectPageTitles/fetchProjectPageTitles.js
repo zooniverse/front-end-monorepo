@@ -18,6 +18,7 @@ export default async function fetchProjectPageTitles(project, env) {
           url_key: page.url_key
         })
       }
+      return null
     }).filter(Boolean)
   } catch (error) {
     logToSentry(error)
