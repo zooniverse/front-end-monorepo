@@ -1,6 +1,7 @@
 import { within } from '@testing-library/dom'
 import { render, screen } from '@testing-library/react'
 import asyncStates from '@zooniverse/async-states'
+import { auth } from '@zooniverse/panoptes-js'
 import zooTheme from '@zooniverse/grommet-theme'
 import { panoptes } from '@zooniverse/panoptes-js'
 import { Grommet } from 'grommet'
@@ -207,9 +208,9 @@ describe('Components > Classifier', function () {
         .query(true)
         .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
 
-      const checkBearerToken = sinon.stub().callsFake(() => Promise.resolve('mockAuth'))
-      const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockUser' }))
-      const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
+      sinon.stub(auth, 'verify').resolves({ data: { id: 123, login: 'mockUser' } })
+      const checkBearerToken = sinon.stub().resolves('mockAuth')
+      const authClient = { ...defaultAuthClient, checkBearerToken }
       const client = { ...defaultClient, panoptes }
 
       const workflowSnapshot = branchingWorkflow
@@ -368,9 +369,9 @@ describe('Components > Classifier', function () {
       sinon.stub(panoptes, 'post').callsFake((...args) => {
         return Promise.resolve({ headers: {}, body: { project_preferences: []}})
       })
-      const checkBearerToken = sinon.stub().callsFake(() => Promise.resolve('mockAuth'))
-      const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockUser' }))
-      const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
+      sinon.stub(auth, 'verify').resolves({ data: { id: 123, login: 'mockUser' } })
+      const checkBearerToken = sinon.stub().resolves('mockAuth')
+      const authClient = { ...defaultAuthClient, checkBearerToken }
       const client = { ...defaultClient, panoptes }
       const store = RootStore.create({
         projects: {
@@ -508,9 +509,9 @@ describe('Components > Classifier', function () {
           sinon.stub(panoptes, 'post').callsFake((...args) => {
             return Promise.resolve({ headers: {}, body: { project_preferences: []}})
           })
-          const checkBearerToken = sinon.stub().callsFake(() => Promise.resolve('mockAuth'))
-          const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockUser' }))
-          const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
+          sinon.stub(auth, 'verify').resolves({ data: { id: 123, login: 'mockUser' } })
+          const checkBearerToken = sinon.stub().resolves('mockAuth')
+          const authClient = { ...defaultAuthClient, checkBearerToken }
           const client = { ...defaultClient, panoptes }
           const store = RootStore.create({
             projects: {
@@ -599,9 +600,9 @@ describe('Components > Classifier', function () {
         .query(true)
         .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
 
-      const checkBearerToken = sinon.stub().callsFake(() => Promise.resolve('mockAuth'))
-      const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockUser' }))
-      const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
+      sinon.stub(auth, 'verify').resolves({ data: { id: 123, login: 'mockUser' } })
+      const checkBearerToken = sinon.stub().resolves('mockAuth')
+      const authClient = { ...defaultAuthClient, checkBearerToken }
       const client = { ...defaultClient, panoptes }
       const store = RootStore.create({
         projects: {
@@ -769,9 +770,9 @@ describe('Components > Classifier', function () {
         .query(true)
         .reply(200, { subject_sets: [SubjectSetFactory.build({ id: '2' })] })
 
-      const checkBearerToken = sinon.stub().callsFake(() => Promise.resolve('mockAuth'))
-      const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockUser' }))
-      const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
+      sinon.stub(auth, 'verify').resolves({ data: { id: 123, login: 'mockUser' } })
+      const checkBearerToken = sinon.stub().resolves('mockAuth')
+      const authClient = { ...defaultAuthClient, checkBearerToken }
       const client = { ...defaultClient, panoptes }
       const store = RootStore.create({
         projects: {
@@ -872,9 +873,9 @@ describe('Components > Classifier', function () {
           workflows: [workflowSnapshot.id]
         }
       })
-      const checkBearerToken = sinon.stub().callsFake(() => Promise.resolve('mockAuth'))
-      const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockAdmin', admin: true }))
-      const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
+      sinon.stub(auth, 'verify').resolves({ data: { id: 123, login: 'mockAdmin', admin: true } })
+      const checkBearerToken = sinon.stub().resolves('mockAuth')
+      const authClient = { ...defaultAuthClient, checkBearerToken }
       const client = { ...defaultClient, panoptes }
       const store = RootStore.create({
         projects: {
@@ -942,9 +943,9 @@ describe('Components > Classifier', function () {
           workflows: [workflowSnapshot.id]
         }
       })
-      const checkBearerToken = sinon.stub().callsFake(() => Promise.resolve('mockAuth'))
-      const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockAdmin', admin: true }))
-      const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
+      sinon.stub(auth, 'verify').resolves({ data: { id: 123, login: 'mockAdmin', admin: true } })
+      const checkBearerToken = sinon.stub().resolves('mockAuth')
+      const authClient = { ...defaultAuthClient, checkBearerToken }
       const client = { ...defaultClient, panoptes }
       const store = RootStore.create({
         projects: {
