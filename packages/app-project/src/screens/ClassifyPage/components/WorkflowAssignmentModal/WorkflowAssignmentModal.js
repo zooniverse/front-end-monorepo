@@ -4,6 +4,7 @@ import { Modal, PrimaryButton, SpacedText } from '@zooniverse/react-components'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import styled from 'styled-components'
+import { useState } from 'react'
 
 import NavLink from '@shared/components/NavLink'
 
@@ -18,7 +19,6 @@ export default function WorkflowAssignmentModal({
   assignedWorkflowID,
   closeFn,
   dismiss,
-  dismissedForSession = false,
   router
 }) {
   const { t } = useTranslation('screens')
@@ -29,14 +29,21 @@ export default function WorkflowAssignmentModal({
 
   const url = `/${owner}/${project}/classify/workflow/${assignedWorkflowID}`
 
+  const [checkboxChecked, setCheckboxChecked] = useState(false)
+
+  const handleDismiss = (event) => {
+    dismiss()
+    setCheckboxChecked(true)
+  }
+
   return (
     <Modal active={active} closeFn={closeFn} title={t('Classify.WorkflowAssignmentModal.title')}>
       <Box pad={{ bottom: 'xsmall' }}>{t('Classify.WorkflowAssignmentModal.content')}</Box>
       <Box pad={{ bottom: 'xsmall' }}>
         <CheckBox
-          checked={dismissedForSession}
+          checked={checkboxChecked}
           label={<SpacedText>{t('Classify.WorkflowAssignmentModal.dismiss')}</SpacedText>}
-          onChange={(event) => dismiss(event)}
+          onChange={(event) => handleDismiss(event)}
         />
       </Box>
       <Box direction='row' gap='xsmall' justify='center'>

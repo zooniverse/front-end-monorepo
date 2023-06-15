@@ -12,7 +12,6 @@ function useStore() {
 
 export function signOut(user) {
   user.clear()
-  window?.sessionStorage.removeItem("workflowAssignmentModalDismissed")
   // resetting the alreay seen subjects during the session tracking should move
   // once we refactor the UPP and User resource tracking in the classifier
   // Current implementation in classifier is possibly buggy (see discussion https://github.com/zooniverse/front-end-monorepo/discussions/2362)
