@@ -77,11 +77,17 @@ const RootStore = types
       }
     }
 
+    function _onUserChange() {
+      self.subjects.reset()
+      self.subjects.populateQueue()
+    }
+
     // Public actions
     function afterCreate () {
       addMiddleware(self, _addMiddleware)
       onAction(self, _onAction)
       onPatch(self, _onPatch)
+      self.authClient?.listen('change', _onUserChange)
     }
 
     function setLocale (newLocale) {
