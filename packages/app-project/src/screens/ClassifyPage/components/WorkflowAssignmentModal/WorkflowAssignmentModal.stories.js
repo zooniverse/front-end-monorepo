@@ -1,33 +1,60 @@
-import WorkflowAssignmentModal from './WorkflowAssignmentModal.js'
+import { RouterContext } from 'next/dist/shared/lib/router-context'
+import { Provider } from 'mobx-react'
+import asyncStates from '@zooniverse/async-states'
+
+import Store from '@stores/Store'
+import WorkflowAssignmentModalContainer from './WorkflowAssignmentModalContainer.js'
 
 export default {
-  title:
-    'Project App / Screens / Classify / Workflow Assignment / Assignment Modal',
-  component: WorkflowAssignmentModal,
-  args: {
-    active: true,
-    assignedWorkflowID: '1234',
-    closeFn: () => true,
-    dismiss: () => true
-  }
+  title: 'Project App / Screens / Classify / Workflow Assignment / Assignment Modal',
+  component: WorkflowAssignmentModalContainer,
 }
 
-const router = {
-  asPath: '/foo/bar',
+const mockRouter = {
+  locale: 'en',
+  push() {},
+  prefetch: () => new Promise((resolve, reject) => {}),
   query: {
-    owner: 'foo',
-    project: 'bar'
+    owner: 'zooniverse',
+    project: 'snapshot-serengeti'
   }
 }
 
-export const Default = ({ active, assignedWorkflowID, closeFn, dismiss }) => {
+const snapshot = {
+  project: {
+    strings: {
+      display_name: 'Snapshot Serengeti'
+    },
+    links: {
+      active_workflows: ['1234', '5678']
+    }
+  },
+  user: {
+    loadingState: asyncStates.success,
+    personalization: {
+      projectPreferences: {
+        loadingState: asyncStates.success,
+        promptAssignment: () => true, // Always return true to show the modal
+        settings: {
+          workflow_id: '1234'
+        }
+      }
+    }
+  }
+}
+
+const store = Store.create(snapshot)
+
+export const Default = ({ currentWorkflowID }) => {
   return (
-    <WorkflowAssignmentModal
-      active={active}
-      assignedWorkflowID={assignedWorkflowID}
-      closeFn={closeFn}
-      dismiss={dismiss}
-      router={router}
-    />
+    <RouterContext.Provider value={mockRouter}>
+      <Provider store={store}>
+          <WorkflowAssignmentModalContainer currentWorkflowID={currentWorkflowID} />
+      </Provider>
+    </RouterContext.Provider>
   )
+}
+
+Default.args = {
+  currentWorkflowID: '5678'
 }
