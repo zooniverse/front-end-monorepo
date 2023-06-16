@@ -60,7 +60,8 @@ describe('Component > Banners', function () {
     }, {
       authClient: {
         checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null)),
-        checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null))
+        checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null)),
+        listen: sinon.stub()
       },
       client
     })
