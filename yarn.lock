@@ -8339,21 +8339,21 @@ endent@^2.0.1:
     fast-json-parse "^1.0.3"
     objectorarray "^1.0.5"
 
-engine.io-client@~6.4.0:
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/engine.io-client/-/engine.io-client-6.4.0.tgz#88cd3082609ca86d7d3c12f0e746d12db4f47c91"
-  integrity sha512-GyKPDyoEha+XZ7iEqam49vz6auPnNJ9ZBfy89f+rMMas8AuiMWOZ9PVzu8xb9ZC6rafUqiGHSCfu22ih66E+1g==
+engine.io-client@~6.5.0:
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/engine.io-client/-/engine.io-client-6.5.0.tgz#c77f14c0e996d3746a1fa681b3b093003dc1743d"
+  integrity sha512-C7eN3OKggSfd5g8IDgUA9guC8TNS6CEganKT7dL6Fp3q+FobcQ/WBn2Qq2XTL1vNTiFZfDzXohvqLuR9dWejdg==
   dependencies:
     "@socket.io/component-emitter" "~3.1.0"
     debug "~4.3.1"
-    engine.io-parser "~5.0.3"
+    engine.io-parser "~5.1.0"
     ws "~8.11.0"
     xmlhttprequest-ssl "~2.0.0"
 
-engine.io-parser@~5.0.3:
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/engine.io-parser/-/engine.io-parser-5.0.4.tgz#0b13f704fa9271b3ec4f33112410d8f3f41d0fc0"
-  integrity sha512-+nVFp+5z1E3HcToEnO7ZIj3g+3k9389DvWtvJZz0T6/eOCPIyyxehFcedoYrZQrp0LgQbD9pPXhpMBKMd5QURg==
+engine.io-parser@~5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/engine.io-parser/-/engine.io-parser-5.1.0.tgz#d593d6372d7f79212df48f807b8cace1ea1cb1b8"
+  integrity sha512-enySgNiK5tyZFynt3z7iqBR+Bto9EVVVvDFuTT0ioHCGbzirZVGDGiQjZzEp8hWl6hd5FSVytJGuScX1C1C35w==
 
 enhanced-resolve@^5.15.0, enhanced-resolve@^5.7.0:
   version "5.15.0"
