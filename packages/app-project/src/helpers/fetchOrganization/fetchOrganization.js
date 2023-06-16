@@ -18,6 +18,7 @@ async function fetchOrganizationData(organizationID, env) {
   } catch (error) {
     logToSentry(error)
     console.log('Error loading organization:', error)
+    return null
   }
 }
 

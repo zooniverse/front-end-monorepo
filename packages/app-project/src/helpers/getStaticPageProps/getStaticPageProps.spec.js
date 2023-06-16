@@ -63,7 +63,7 @@ describe('Helpers > getStaticPageProps', function () {
     display_name: 'Test Organization',
     listed: true,
     primary_language: 'en',
-    title: 'Test Organization',
+    slug: 'test-owner/test-organization'
   }
 
   const TRANSLATION = {
@@ -349,8 +349,8 @@ describe('Helpers > getStaticPageProps', function () {
         props = response.props
       })
 
-      it('should return the project\'s organization as null', async function () {
-        expect(props.organization).to.be.null()
+      it('should not return the project\'s organization', async function () {
+        expect(props.organization).to.be.undefined()
       })
     })
 
@@ -518,8 +518,8 @@ describe('Helpers > getStaticPageProps', function () {
         props = response.props
       })
 
-      it('should return the project\'s organization as null', async function () {
-        expect(props.organization).to.be.null()
+      it('should not return the project\'s organization', async function () {
+        expect(props.organization).to.be.undefined()
       })
     })
 
