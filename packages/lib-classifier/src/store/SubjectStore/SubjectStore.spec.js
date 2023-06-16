@@ -36,7 +36,11 @@ describe('Model > SubjectStore', function () {
       userProjectPreferences: {}
     }, {
       client,
-      authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
+      authClient: {
+        checkBearerToken: () => Promise.resolve(),
+        checkCurrent: () => Promise.resolve(),
+        listen: sinon.stub()
+      }
     })
 
     store.projects.setResources([project])

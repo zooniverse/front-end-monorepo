@@ -335,7 +335,11 @@ describe('Models > Drawing Task > Mark', function () {
       }
 
       rootStore = RootStore.create({}, {
-        authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() },
+        authClient: {
+          checkBearerToken: () => Promise.resolve(),
+          checkCurrent: () => Promise.resolve(),
+          listen: sinon.stub()
+        },
         client
       })
       rootStore.projects.setResources([project])

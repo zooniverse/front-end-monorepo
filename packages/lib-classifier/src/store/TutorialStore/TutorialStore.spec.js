@@ -74,13 +74,15 @@ describe('Model > TutorialStore', function () {
   }
 
   const authClientStubWithoutUser = {
-    checkCurrent: sinon.stub().callsFake(() => Promise.resolve(null)),
-    checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(null))
+    checkCurrent: sinon.stub().resolves(null),
+    checkBearerToken: sinon.stub().resolves(null),
+    listen: sinon.stub()
   }
 
   const authClientStubWithUser = {
-    checkCurrent: sinon.stub().callsFake(() => Promise.resolve(user)),
-    checkBearerToken: sinon.stub().callsFake(() => Promise.resolve(token))
+    checkCurrent: sinon.stub().resolves(user),
+    checkBearerToken: sinon.stub().resolves(token),
+    listen: sinon.stub()
   }
 
   function fetchTutorials (rootStore) {

@@ -34,7 +34,11 @@ describe('Model > WorkflowStore', function () {
       tutorials: {},
       workflowSteps: {},
       userProjectPreferences: {}
-    }, { client: clientStub, authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() } })
+    }, { client: clientStub, authClient: { 
+      checkBearerToken: () => Promise.resolve(),
+      checkCurrent: () => Promise.resolve(),
+      listen: sinon.stub()
+    } })
 
     store.projects.setResources([project])
     store.projects.setActive(project.id)
