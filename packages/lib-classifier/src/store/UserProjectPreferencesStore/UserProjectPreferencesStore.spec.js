@@ -52,12 +52,14 @@ describe('Model > UserProjectPreferencesStore', function () {
 
   const authClientStubWithoutUser = {
     checkCurrent: sinon.stub().callsFake(mockUserAPI(null)),
-    checkBearerToken: sinon.stub().callsFake(mockTokenAPI(null))
+    checkBearerToken: sinon.stub().callsFake(mockTokenAPI(null)),
+    listen: sinon.stub()
   }
 
   const authClientStubWithUser = {
     checkCurrent: sinon.stub().callsFake(mockUserAPI(user)),
-    checkBearerToken: sinon.stub().callsFake(mockTokenAPI(token))
+    checkBearerToken: sinon.stub().callsFake(mockTokenAPI(token)),
+    listen: sinon.stub()
   }
 
   function setupStores (clientStub, authClientStub) {

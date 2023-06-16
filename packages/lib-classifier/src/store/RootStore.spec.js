@@ -107,7 +107,11 @@ describe('Model > RootStore', function () {
         }
       }, {
         client,
-        authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
+        authClient: {
+          checkBearerToken: () => Promise.resolve(),
+          checkCurrent: () => Promise.resolve(),
+          listen: sinon.stub()
+        }
       })
       model.workflows.setResources([workflowSnapshot])
       model.workflows.setActive(workflowSnapshot.id)

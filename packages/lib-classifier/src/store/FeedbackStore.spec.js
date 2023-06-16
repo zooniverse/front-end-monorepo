@@ -88,7 +88,11 @@ describe('Model > FeedbackStore', function () {
       feedback: feedbackSnapshot
     }, {
       client,
-      authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
+      authClient: {
+        checkBearerToken: () => Promise.resolve(),
+        checkCurrent: () => Promise.resolve(),
+        listen: sinon.stub()
+      }
     })
   }
 
