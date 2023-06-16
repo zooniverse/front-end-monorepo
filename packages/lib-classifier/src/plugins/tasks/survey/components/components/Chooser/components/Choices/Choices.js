@@ -44,7 +44,18 @@ export function Choices ({
 
   const columnsCount = howManyColumns(filteredChoiceIds)
   const rowsCount = Math.ceil(filteredChoiceIds.length / columnsCount)
-  const thumbnailSize = task.alwaysShowThumbnails ? 'small' : whatSizeThumbnail(filteredChoiceIds)
+  
+  let thumbnailSize
+  // if new survey task thumbnails property is undefined and legacy alwaysShowThumbnails is true, then show thumbnails to support legacy alwaysShowThumbnails functionality
+  if (!task.thumbnails && task.alwaysShowThumbnails) {
+    thumbnailSize = 'small'
+  } else if (task.thumbnails === 'show') {
+    thumbnailSize = 'small'
+  } else if (task.thumbnails === 'hide') {
+    thumbnailSize = 'none'
+  } else {
+    thumbnailSize = whatSizeThumbnail(filteredChoiceIds)
+  }
 
   function handleKeyDown (choiceId, event) {
     const index = filteredChoiceIds.indexOf(choiceId)
