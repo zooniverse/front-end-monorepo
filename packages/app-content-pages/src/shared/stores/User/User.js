@@ -1,3 +1,4 @@
+import * as panoptesJS from '@zooniverse/panoptes-js'
 import asyncStates from '@zooniverse/async-states'
 import { applySnapshot, flow, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
@@ -5,6 +6,42 @@ import auth from 'panoptes-client/lib/auth'
 import numberString from '../types/numberString'
 
 import UserPersonalization from './UserPersonalization'
+
+async function decodeJWT(token) {
+  let user = null
+  let error = null
+  const decodedToken = await panoptesJS.auth.verify(token)
+  const { data } = decodedToken
+  error = decodedToken.error
+  if (data) {
+    user = {
+      id: data.id.toString(),
+      login: data.login,
+      display_name: data.dname,
+      admin: data.admin
+    }
+  }
+  return { user, error }
+}
+
+async function fetchPanoptesUser() {
+  try {
+    const token = await auth.checkBearerToken()
+    if (token) {
+      const { user, error } = await decodeJWT(token)
+      if (user) {
+        return user
+      }
+      if (error) {
+        throw error
+      }
+    }
+    return await auth.checkCurrent()
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
 
 const User = types
   .model('User', {
@@ -31,7 +68,7 @@ const User = types
     checkCurrent: flow(function * checkCurrent () {
       self.loadingState = asyncStates.loading
       try {
-        const userResource = yield auth.checkCurrent()
+        const userResource = yield fetchPanoptesUser()
         self.loadingState = asyncStates.success
         if (userResource) {
           self.set(userResource)
