@@ -1,122 +1,43 @@
-import { mount } from 'enzyme'
-import sinon from 'sinon'
-import WorkflowAssignmentModalContainer from './WorkflowAssignmentModalContainer'
-import WorkflowAssignmentModal from './WorkflowAssignmentModal'
-import { Grommet } from 'grommet'
-import zooTheme from '@zooniverse/grommet-theme'
+import { expect } from 'chai'
+import { composeStory } from '@storybook/react'
+import { render, screen } from '@testing-library/react'
 
-// this might be able to be rendered with stories?
-// some of these cases might not logically ever occur
+import Meta, { Default } from './WorkflowAssignmentModal.stories.js'
 
-describe('Component > WorkflowAssignmentModalContainer', function() {
-  let wrapper
-  afterEach(function () {
-    wrapper.unmount()
-  })
-  it('should render without crashing', function() {
-    wrapper = mount(
-      <WorkflowAssignmentModalContainer />, {
-      wrappingComponent: Grommet,
-      wrappingComponentProps: { theme: zooTheme }
+describe('Component > WorkflowAssignmentModalContainer', function () {
+  const DefaultStory = composeStory(Default, Meta)
+
+  describe('essential component parts', function () {
+    beforeEach(function () {
+      render(<DefaultStory />)
     })
-    expect(wrapper).to.be.ok()
-  })
 
-  describe('when the project preferences are not loaded and a current workflow selected', function () {
-    it('should not display the modal', function () {
-      wrapper = mount(
-        <WorkflowAssignmentModalContainer />, {
-        wrappingComponent: Grommet,
-        wrappingComponentProps: { theme: zooTheme }
-      })
-      expect(wrapper.find(WorkflowAssignmentModal)).to.have.lengthOf(0)
-      wrapper.setProps({ currentWorkflowID: '555' })
-      wrapper.update()
-      expect(wrapper.find(WorkflowAssignmentModal)).to.have.lengthOf(0)
+    it('should have a cancel button', function () {
+      expect(screen.getByText('Classify.WorkflowAssignmentModal.cancel'))
+    })
+
+    it('should render a confirmation link', function () {
+      const link = document.querySelector(`a[href='/zooniverse/snapshot-serengeti/classify/workflow/1234'`)
+      expect(link).to.be.ok()
+    })
+
+    it('should have a labeled checkbox', function () {
+      expect(screen.getByLabelText('Classify.WorkflowAssignmentModal.dismiss')).to.be.ok()
     })
   })
 
-  describe('when there are project preferences but no workflow selected', function () {
-    it('should not display the modal', function () {
-      const promptAssignment = sinon.stub().callsFake(() => false)
-      wrapper = mount(
-        <WorkflowAssignmentModalContainer />, {
-        wrappingComponent: Grommet,
-        wrappingComponentProps: { theme: zooTheme }
-      })
-      expect(wrapper.find(WorkflowAssignmentModal)).to.have.lengthOf(0)
-      wrapper.setProps({ assignedWorkflowID: '555', currentWorkflowID: '', promptAssignment })
-      wrapper.update()
-      expect(wrapper.find(WorkflowAssignmentModal).props().active).to.be.false()
-    })
-  })
-
-  describe('when there are project preferences and a workflow is selected', function () {
-    describe('when the currently selected workflow is the same as the assigned workflow', function () {
-      it('should not display the modal', function () {
-        wrapper = mount(
-          <WorkflowAssignmentModalContainer />, {
-          wrappingComponent: Grommet,
-          wrappingComponentProps: { theme: zooTheme }
-        })
-        expect(wrapper.find(WorkflowAssignmentModal)).to.have.lengthOf(0)
-        const promptAssignment = sinon.stub().callsFake(() => false)
-        const assignedWorkflowID = '555'
-        wrapper.setProps({ assignedWorkflowID, currentWorkflowID: '555', promptAssignment })
-        wrapper.update()
-        expect(wrapper.find(WorkflowAssignmentModal).props().active).to.be.false()
-      })
+  describe('when modal has been dismissed', function () {
+    before(function () {
+      window.sessionStorage.setItem('workflowAssignmentModalDismissed', 'true')
     })
 
-    describe('when the currently selected workflow is not the same as the assigned workflow', function () {
-      it('should display the modal', function () {
-        wrapper = mount(
-          <WorkflowAssignmentModalContainer />, {
-          wrappingComponent: Grommet,
-          wrappingComponentProps: { theme: zooTheme }
-        })
-        expect(wrapper.find(WorkflowAssignmentModal)).to.have.lengthOf(0)
-        const promptAssignment = sinon.stub().callsFake(() => true)
-        const assignedWorkflowID = '555'
-        wrapper.setProps({ assignedWorkflowID, promptAssignment, currentWorkflowID: '123' })
-        wrapper.update()
-        expect(wrapper.find(WorkflowAssignmentModal).props().active).to.be.true()
-      })
+    after(function () {
+      window.sessionStorage.removeItem('workflowAssignmentModalDismissed', 'true')
     })
 
-    describe('when the modal has been dismissed for the session', function () {
-      it('should not display the modal', function () {
-        const promptAssignment = sinon.stub().callsFake(() => false)
-        wrapper = mount(<WorkflowAssignmentModalContainer assignedWorkflowID='555' currentWorkflowID='123' promptAssignment={promptAssignment} />, {
-          wrappingComponent: Grommet,
-          wrappingComponentProps: { theme: zooTheme }
-        })
-        expect(wrapper.find(WorkflowAssignmentModal).props().active).to.be.false()
-        wrapper.find(WorkflowAssignmentModal).props().dismiss({ target: { checked: true }})
-        wrapper.update()
-        expect(wrapper.find(WorkflowAssignmentModal).props().active).to.be.false()
-      })
-    })
-
-    describe('when the modal is cancelled', function () {
-      it('should remove the modal', function () {
-        const promptAssignment = sinon.stub().callsFake(() => true)
-        const assignedWorkflowID = '555'
-        wrapper = mount(
-          <WorkflowAssignmentModalContainer
-            assignedWorkflowID={assignedWorkflowID}
-            currentWorkflowID='123'
-            promptAssignment={promptAssignment}
-          />, {
-            wrappingComponent: Grommet,
-            wrappingComponentProps: { theme: zooTheme }
-          }
-        )
-        expect(wrapper.find(WorkflowAssignmentModal).props().active).to.be.true()
-        wrapper.find(WorkflowAssignmentModal).props().closeFn()
-        wrapper.update()
-        expect(wrapper.find(WorkflowAssignmentModal).props().active).to.be.false()
-      })
+    it('the modal should not be active', function () {
+      render(<DefaultStory />)
+      expect(document.querySelector(`a[href='/zooniverse/snapshot-serengeti/classify/workflow/1234'`)).to.be.null()
     })
   })
 })

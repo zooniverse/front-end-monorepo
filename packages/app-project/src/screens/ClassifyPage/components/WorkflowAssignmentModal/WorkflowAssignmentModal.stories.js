@@ -16,18 +16,18 @@ const mockRouter = {
   prefetch: () => new Promise((resolve, reject) => {}),
   query: {
     owner: 'zooniverse',
-    project: 'snapshot-serengeti'
-  }
+    project: 'snapshot-serengeti',
+  },
 }
 
 const snapshot = {
   project: {
     strings: {
-      display_name: 'Snapshot Serengeti'
+      display_name: 'Snapshot Serengeti',
     },
     links: {
-      active_workflows: ['1234', '5678']
-    }
+      active_workflows: ['1234', '5678'],
+    },
   },
   user: {
     loadingState: asyncStates.success,
@@ -36,25 +36,35 @@ const snapshot = {
         loadingState: asyncStates.success,
         promptAssignment: () => true, // Always return true to show the modal
         settings: {
-          workflow_id: '1234'
-        }
-      }
-    }
-  }
+          workflow_id: '1234',
+        },
+      },
+    },
+  },
 }
 
 const store = Store.create(snapshot)
 
 export const Default = ({ currentWorkflowID }) => {
-  return (
-    <RouterContext.Provider value={mockRouter}>
-      <Provider store={store}>
-          <WorkflowAssignmentModalContainer currentWorkflowID={currentWorkflowID} />
-      </Provider>
-    </RouterContext.Provider>
+  const dismissedInSession = window.sessionStorage.getItem(
+    'workflowAssignmentModalDismissed'
   )
+
+  if (dismissedInSession) {
+    return <p>sessionStorage.workflowAssignmentModalDismissed is enabled</p>
+  } else {
+    return (
+      <RouterContext.Provider value={mockRouter}>
+        <Provider store={store}>
+          <WorkflowAssignmentModalContainer
+            currentWorkflowID={currentWorkflowID}
+          />
+        </Provider>
+      </RouterContext.Provider>
+    )
+  }
 }
 
 Default.args = {
-  currentWorkflowID: '5678'
+  currentWorkflowID: '5678',
 }

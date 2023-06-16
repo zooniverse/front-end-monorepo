@@ -15,8 +15,6 @@ const StyledNavLink = styled(NavLink)`
   align-items: center;
 `
 
-const DEFAULT_HANDLER = () => false
-
 function useStore() {
   const { store } = useContext(MobXProviderContext)
 
@@ -24,12 +22,12 @@ function useStore() {
     /** assignedWorkflowID is fetched every 5 classifications per user session */
     assignedWorkflowID: store.user.personalization.projectPreferences.settings?.workflow_id,
     /** This function determines if the user has an assigned workflow and verifies that workflow is active in panoptes */
-    promptAssignment: store.user.personalization.projectPreferences.promptAssignment
+    promptAssignment: store.user.personalization.projectPreferences.promptAssignment,
   }
 }
 
 function WorkflowAssignmentModalContainer({ currentWorkflowID = '' }) {
-  const { assignedWorkflowID = '', promptAssignment } = useStore()
+  const { assignedWorkflowID, promptAssignment } = useStore()
 
   const { t } = useTranslation('screens')
   const router = useRouter()
@@ -46,15 +44,15 @@ function WorkflowAssignmentModalContainer({ currentWorkflowID = '' }) {
 
   useEffect(function checkForDismissal() {
     if (window.sessionStorage.getItem('workflowAssignmentModalDismissed')) {
-        setDismissedForSession(true)
-      } else {
-        setDismissedForSession(false)
-      }
+      setDismissedForSession(true)
+    } else {
+      setDismissedForSession(false)
+    }
   }, [])
 
-  useEffect(function modalVisibility() {
+  useEffect(
+    function modalVisibility() {
       const showPrompt = promptAssignment(currentWorkflowID)
-      console.log('SHOW PROMPT', showPrompt)
 
       if (showPrompt && !dismissedForSession) {
         setActive(true)
@@ -66,13 +64,13 @@ function WorkflowAssignmentModalContainer({ currentWorkflowID = '' }) {
   )
 
   function handleChange(event) {
-    // if checkbox is unchecked
-    window.sessionStorage.removeItem('workflowAssignmentModalDismissed')
-    setCheckboxChecked(false)
-
-    // if checkbox is checked
-    window.sessionStorage.setItem('workflowAssignmentModalDismissed', 'true')
-    setCheckboxChecked(true)
+    if (event.target.checked) {
+      window.sessionStorage.setItem('workflowAssignmentModalDismissed', 'true')
+      setCheckboxChecked(true)
+    } else {
+      window.sessionStorage.removeItem('workflowAssignmentModalDismissed')
+      setCheckboxChecked(false)
+    }
   }
 
   function closeFn() {
@@ -80,21 +78,37 @@ function WorkflowAssignmentModalContainer({ currentWorkflowID = '' }) {
   }
 
   return (
-    <Modal active={active} closeFn={closeFn} title={t('Classify.WorkflowAssignmentModal.title')}>
-      <Box pad={{ bottom: 'xsmall' }}>{t('Classify.WorkflowAssignmentModal.content')}</Box>
+    <Modal
+      active={active}
+      closeFn={closeFn}
+      title={t('Classify.WorkflowAssignmentModal.title')}
+    >
+      <Box pad={{ bottom: 'xsmall' }}>
+        {t('Classify.WorkflowAssignmentModal.content')}
+      </Box>
       <Box pad={{ bottom: 'xsmall' }}>
         <CheckBox
           checked={checkboxChecked}
-          label={<SpacedText>{t('Classify.WorkflowAssignmentModal.dismiss')}</SpacedText>}
+          label={
+            <SpacedText>
+              {t('Classify.WorkflowAssignmentModal.dismiss')}
+            </SpacedText>
+          }
           onChange={handleChange}
         />
       </Box>
       <Box direction='row' gap='xsmall' justify='center'>
-        <Button label={t('Classify.WorkflowAssignmentModal.cancel')} onClick={() => closeFn()} />
+        <Button
+          label={t('Classify.WorkflowAssignmentModal.cancel')}
+          onClick={() => closeFn()}
+        />
         <StyledNavLink
           StyledAnchor={PrimaryButton}
           StyledSpacedText={Text}
-          link={{ href: url, text: t('Classify.WorkflowAssignmentModal.confirm') }}
+          link={{
+            href: url,
+            text: t('Classify.WorkflowAssignmentModal.confirm'),
+          }}
         />
       </Box>
     </Modal>
