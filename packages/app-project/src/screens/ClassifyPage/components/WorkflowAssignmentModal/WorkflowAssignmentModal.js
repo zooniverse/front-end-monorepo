@@ -26,7 +26,7 @@ function useStore() {
   }
 }
 
-function WorkflowAssignmentModalContainer({ currentWorkflowID = '' }) {
+function WorkflowAssignmentModal({ currentWorkflowID = '' }) {
   const { assignedWorkflowID, promptAssignment } = useStore()
 
   const { t } = useTranslation('screens')
@@ -54,11 +54,8 @@ function WorkflowAssignmentModalContainer({ currentWorkflowID = '' }) {
     function modalVisibility() {
       const showPrompt = promptAssignment(currentWorkflowID)
 
-      if (showPrompt && !dismissedForSession) {
-        setActive(true)
-      } else {
-        setActive(false)
-      }
+      const isActive = (showPrompt && !dismissedForSession)
+      setActive(isActive)
     },
     [assignedWorkflowID, dismissedForSession]
   )
@@ -115,8 +112,8 @@ function WorkflowAssignmentModalContainer({ currentWorkflowID = '' }) {
   )
 }
 
-WorkflowAssignmentModalContainer.propTypes = {
+WorkflowAssignmentModal.propTypes = {
   currentWorkflowID: PropTypes.string
 }
 
-export default observer(WorkflowAssignmentModalContainer)
+export default observer(WorkflowAssignmentModal)

@@ -3,11 +3,11 @@ import { Provider } from 'mobx-react'
 import asyncStates from '@zooniverse/async-states'
 
 import Store from '@stores/Store'
-import WorkflowAssignmentModalContainer from './WorkflowAssignmentModalContainer.js'
+import WorkflowAssignmentModal from './WorkflowAssignmentModal.js'
 
 export default {
-  title: 'Project App / Screens / Classify / Workflow Assignment / Assignment Modal',
-  component: WorkflowAssignmentModalContainer,
+  title: 'Project App / Screens / Classify / Workflow Assignment Modal',
+  component: WorkflowAssignmentModal,
 }
 
 const mockRouter = {
@@ -56,7 +56,7 @@ export const Default = ({ currentWorkflowID }) => {
     return (
       <RouterContext.Provider value={mockRouter}>
         <Provider store={store}>
-          <WorkflowAssignmentModalContainer
+          <WorkflowAssignmentModal
             currentWorkflowID={currentWorkflowID}
           />
         </Provider>
