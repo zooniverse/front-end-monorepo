@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react'
 
 import Meta, { Default } from './WorkflowAssignmentModal.stories.js'
 
-describe('Component > WorkflowAssignmentModalContainer', function () {
+describe('Component > WorkflowAssignmentModal', function () {
   const DefaultStory = composeStory(Default, Meta)
 
   describe('essential component parts', function () {
