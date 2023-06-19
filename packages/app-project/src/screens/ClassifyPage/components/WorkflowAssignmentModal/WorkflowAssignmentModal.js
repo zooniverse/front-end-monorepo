@@ -26,6 +26,10 @@ function useStore() {
   }
 }
 
+/** Check if user has dismissed the modal, but only in the browser */
+const isBrowser = typeof window !== 'undefined'
+const storedDismissedForSession = isBrowser ? window.sessionStorage.getItem('workflowAssignmentModalDismissed') : false
+
 function WorkflowAssignmentModal({ currentWorkflowID = '' }) {
   const { assignedWorkflowID, promptAssignment } = useStore()
 
@@ -35,20 +39,15 @@ function WorkflowAssignmentModal({ currentWorkflowID = '' }) {
   const project = router?.query?.project
   const url = `/${owner}/${project}/classify/workflow/${assignedWorkflowID}`
 
-  /** Active state of the Modal */
+  /** Modal active state*/
   const [active, setActive] = useState(false)
-  /** State synced with sessionStorage */
-  const [dismissedForSession, setDismissedForSession] = useState(false)
+
+  /** The useEffect below observes dismissedForSession rather than storedDismissedForSession
+   * to give the user a chance to uncheck the checkbox before modal closes */
+  const [dismissedForSession, setDismissedForSession] = useState(storedDismissedForSession)
+
   /** Visual/aria checkbox state */
   const [checkboxChecked, setCheckboxChecked] = useState(false)
-
-  useEffect(function checkForDismissal() {
-    if (window.sessionStorage.getItem('workflowAssignmentModalDismissed')) {
-      setDismissedForSession(true)
-    } else {
-      setDismissedForSession(false)
-    }
-  }, [])
 
   useEffect(
     function modalVisibility() {
@@ -57,7 +56,7 @@ function WorkflowAssignmentModal({ currentWorkflowID = '' }) {
       const isActive = (showPrompt && !dismissedForSession)
       setActive(isActive)
     },
-    [assignedWorkflowID, dismissedForSession]
+    [assignedWorkflowID, dismissedForSession, router]
   )
 
   function handleChange(event) {
