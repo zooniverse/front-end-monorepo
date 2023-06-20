@@ -1,5 +1,6 @@
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext, useState } from 'react'
+import { bool, func, string } from 'prop-types'
 
 import CollectionsModal from './CollectionsModal'
 import SelectCollection from './components/SelectCollection'
@@ -38,17 +39,17 @@ const CollectionsModalContainer = ({
 
   const [newCollection, setNewCollection] = useState(defaultNewCollection)
   const [selectedCollection, setSelectedCollection] = useState(undefined)
-  const [selectedSubjectId, setSelectedSubjectID] = useState(subjectID)
+  const [selectedSubjectID, setSelectedSubjectID] = useState(subjectID)
 
   const addToCollection = (event) => {
     event.preventDefault()
-    addSubjects(selectedCollection.id, [selectedSubjectId])
+    addSubjects(selectedCollection.id, [selectedSubjectID])
     this.close()
   }
 
   const createNewCollection = (event) => {
     event.preventDefault()
-    createCollection(newCollection, [selectedSubjectId])
+    createCollection(newCollection, [selectedSubjectID])
     this.close()
   }
 
@@ -93,3 +94,9 @@ const CollectionsModalContainer = ({
 }
 
 export default observer(CollectionsModalContainer)
+
+CollectionsModalContainer.propTypes = {
+  collectionsModalActive: bool,
+  setCollectionsModalActive: func,
+  subjectID: string
+}

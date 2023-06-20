@@ -1,28 +1,37 @@
 import { Provider } from 'mobx-react'
-import asyncStates from '@zooniverse/async-states'
 
 import Store from '@stores/Store'
+import { Collection } from '@stores/User/Collections/Collections.js'
 import CollectionsModalContainer from './CollectionsModalContainer.js'
 
 export default {
   title: 'Project App / shared / Collections Modal',
-  component: CollectionsModalContainer
+  component: CollectionsModalContainer,
 }
+
+const mockCollection = Collection.create({
+  display_name: 'mock collection',
+  favorite: false,
+  id: '123',
+})
+
+const mockCollectionTwo = Collection.create({
+  display_name: 'collection two',
+  favorite: true,
+  id: '456'
+})
 
 const snapshot = {
   project: {
     strings: {
       display_name: 'Snapshot Serengeti',
-    }
+    },
   },
   user: {
     collections: {
-      addSubjects: () => true,
-      collections: [],
-      createCollection: () => true,
-      searchCollections: () => true
-    }
-  }
+      collections: [mockCollection, mockCollectionTwo]
+    },
+  },
 }
 
 const store = Store.create(snapshot)
