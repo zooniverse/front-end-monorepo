@@ -14,5 +14,6 @@ export default function useSugarProject(project) {
         sugarClient.unsubscribeFrom(channel)
       }
     }
+    return null
   }, [projectID])
 }

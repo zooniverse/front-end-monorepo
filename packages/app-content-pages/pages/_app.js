@@ -35,8 +35,8 @@ function MyApp({ Component, initialState, pageProps }) {
   makeInspectable(store)
 
   useEffect(() => {
-    store?.user.checkCurrent()
-  }, [])
+    store.user.checkCurrent()
+  }, [store.user])
 
   try {
     if (pageProps.statusCode) {
