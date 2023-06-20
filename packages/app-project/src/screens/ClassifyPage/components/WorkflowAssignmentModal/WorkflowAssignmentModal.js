@@ -56,7 +56,7 @@ function WorkflowAssignmentModal({ currentWorkflowID = '' }) {
       const isActive = (showPrompt && !dismissedForSession)
       setActive(isActive)
     },
-    [assignedWorkflowID, dismissedForSession, router]
+    [assignedWorkflowID, currentWorkflowID, dismissedForSession, promptAssignment]
   )
 
   function handleChange(event) {
