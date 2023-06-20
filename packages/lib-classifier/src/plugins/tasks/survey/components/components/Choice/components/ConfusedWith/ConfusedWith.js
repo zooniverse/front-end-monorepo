@@ -71,6 +71,9 @@ function ConfusedWith({
                   onClose={onClose}
                 />
               }
+              dropProps={{
+                overflow: 'visible'
+              }}
               label={strings.get(`choices.${confusionId}.label`)}
               open={open === confusionId}
               onClose={() => onClose()}

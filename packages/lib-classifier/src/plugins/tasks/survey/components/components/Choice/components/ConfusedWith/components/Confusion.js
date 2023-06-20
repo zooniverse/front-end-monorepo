@@ -20,6 +20,7 @@ export default function Confusion({
         dark: 'dark-3',
         light: 'neutral-6'
       }}
+      flex={false}
       pad={{
         bottom: 'small',
         horizontal: 'small',
