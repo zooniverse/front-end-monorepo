@@ -1,125 +1,95 @@
-import { inject, observer } from 'mobx-react'
-import { array, func } from 'prop-types'
-import { Component } from 'react'
+import { MobXProviderContext, observer } from 'mobx-react'
+import { useContext, useState } from 'react'
 
 import CollectionsModal from './CollectionsModal'
 import SelectCollection from './components/SelectCollection'
 import CreateCollection from './components/CreateCollection'
 
-function storeMapper (stores) {
-  const store = stores.store || {}
-  const collectionsStore = store.user?.collections || {}
-  const {
-    addSubjects,
-    collections,
-    createCollection,
-    searchCollections
-  } = collectionsStore
+function useStore() {
+  const { store } = useContext(MobXProviderContext)
+  const collectionsStore = store.user?.collections
+  const { addSubjects, collections, createCollection, searchCollections } =
+    collectionsStore
   return {
     addSubjects,
     collections,
     createCollection,
-    searchCollections
+    searchCollections,
   }
 }
 
-class CollectionsModalContainer extends Component {
-  constructor () {
-    super()
-    this.addToCollection = this.addToCollection.bind(this)
-    this.close = this.close.bind(this)
-    this.createCollection = this.createCollection.bind(this)
-    this.onSelect = this.onSelect.bind(this)
-    this.updateCollection = this.updateCollection.bind(this)
-    this.state = {
-      active: false,
-      newCollection: {
-        display_name: '',
-        private: false
-      },
-      selectedCollection: undefined,
-      subjectId: null
-    }
-  }
+const DEFAULT_HANDLER = () => true
+const defaultNewCollection = {
+  display_name: '',
+  private: false,
+}
 
-  addToCollection (event) {
+const CollectionsModalContainer = ({
+  collectionsModalActive = false,
+  setCollectionsModalActive = DEFAULT_HANDLER,
+  subjectID = '',
+}) => {
+  const {
+    addSubjects = DEFAULT_HANDLER,
+    collections = [],
+    createCollection = DEFAULT_HANDLER,
+    searchCollections = DEFAULT_HANDLER,
+  } = useStore()
+
+  const [newCollection, setNewCollection] = useState(defaultNewCollection)
+  const [selectedCollection, setSelectedCollection] = useState(undefined)
+  const [selectedSubjectId, setSelectedSubjectID] = useState(subjectID)
+
+  const addToCollection = (event) => {
     event.preventDefault()
-    const { selectedCollection, subjectId } = this.state
-    this.props.addSubjects(selectedCollection.id, [subjectId])
+    addSubjects(selectedCollection.id, [selectedSubjectId])
     this.close()
   }
 
-  createCollection (event) {
+  const createNewCollection = (event) => {
     event.preventDefault()
-    const { newCollection, subjectId } = this.state
-    this.props.createCollection(newCollection, [subjectId])
+    createCollection(newCollection, [selectedSubjectId])
     this.close()
   }
 
-  open (subjectId) {
-    this.setState({
-      active: true,
-      subjectId
-    })
+  const onSelect = (event) => {
+    const collection = event.value
+    setSelectedCollection(collection)
   }
 
-  close () {
-    const subjectId = null
-    this.setState({
-      active: false,
-      subjectId
-    })
+  const close = () => {
+    setCollectionsModalActive(false)
+    setSelectedSubjectID(null)
   }
 
-  onSelect (event) {
-    const selectedCollection = event.value
-    this.setState({ selectedCollection })
-  }
-
-  updateCollection (collectionDetails) {
-    this.setState(prevState => {
-      const newCollection = Object.assign(
-        {},
-        prevState.newCollection,
-        collectionDetails
-      )
-      return { newCollection }
-    })
-  }
-
-  render () {
-    const { collections, searchCollections } = this.props
-    const { active, newCollection, selectedCollection } = this.state
-
-    return (
-      <CollectionsModal active={active} closeFn={this.close}>
-        <SelectCollection
-          collections={collections}
-          disabled={!selectedCollection}
-          onSelect={this.onSelect}
-          onSearch={searchCollections}
-          onSubmit={this.addToCollection}
-          selected={selectedCollection}
-        />
-        <CreateCollection
-          disabled={!newCollection.display_name}
-          collection={newCollection}
-          onChange={this.updateCollection}
-          onSubmit={this.createCollection}
-        />
-      </CollectionsModal>
+  const updateCollection = (collectionDetails) => {
+    const prevNewCollectionDetails = newCollection
+    const updatedCollection = Object.assign(
+      {},
+      prevNewCollectionDetails,
+      collectionDetails
     )
+    setNewCollection(updatedCollection)
   }
+
+  return (
+    <CollectionsModal active={collectionsModalActive} closeFn={close}>
+      <SelectCollection
+        collections={collections}
+        disabled={!selectedCollection}
+        onSelect={onSelect}
+        onSearch={searchCollections}
+        onSubmit={addToCollection}
+        selected={selectedCollection}
+      />
+      <CreateCollection
+        disabled={!newCollection.display_name}
+        collection={newCollection}
+        onChange={updateCollection}
+        onSubmit={createNewCollection}
+      />
+    </CollectionsModal>
+  )
 }
 
-CollectionsModalContainer.propTypes = {
-  collections: array.isRequired,
-  searchCollections: func.isRequired
-}
-
-CollectionsModalContainer.defaultProps = {
-  collections: [],
-  searchCollections: Function.prototype
-}
-
-export default inject(storeMapper)(observer(CollectionsModalContainer))
+export default observer(CollectionsModalContainer)
