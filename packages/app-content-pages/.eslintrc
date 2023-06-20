@@ -1,5 +1,11 @@
 {
-  "extends": "next",
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "rules": {
+    "consistent-return": "error"
+  },
   "overrides": [
       {
         "files": [
