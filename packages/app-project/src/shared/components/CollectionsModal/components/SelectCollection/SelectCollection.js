@@ -1,19 +1,29 @@
 import { Box, Button, FormField, Grid, Select } from 'grommet'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'next-i18next'
+import { useState } from 'react'
 
 function SelectCollection ({
-  collections,
-  disabled,
+  collections = [],
+  disabled = false,
   onSelect,
-  onSearch,
   onSubmit,
   selected
 }) {
   const { t } = useTranslation('components')
+  const [options, setOptions] = useState(collections)
+
+  /** https://storybook.grommet.io/?path=/story/input-select-search--search */
+  const onSearch = (text) => {
+    const escapedText = text.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&')
+    const exp = new RegExp(escapedText, 'i')
+    setOptions(collections.filter((collection) => exp.test(collection.display_name)))
+  }
+
   const dropProps = {
     trapFocus: false
   }
+
   return (
     <Grid
       as='form'
@@ -35,12 +45,8 @@ function SelectCollection ({
           labelKey='display_name'
           name='display_name'
           onChange={onSelect}
-          onSearch={searchText => onSearch({
-            favorite: false,
-            current_user_roles: 'owner,collaborator,contributor',
-            search: searchText
-          })}
-          options={collections}
+          onSearch={onSearch}
+          options={options}
           valueKey='id'
           value={selected}
         />
@@ -63,11 +69,6 @@ function SelectCollection ({
 SelectCollection.propTypes = {
   disabled: PropTypes.bool,
   selected: PropTypes.shape({})
-}
-
-SelectCollection.defaultProps = {
-  disabled: false,
-  selected: {}
 }
 
 export default SelectCollection

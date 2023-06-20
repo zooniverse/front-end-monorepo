@@ -9,29 +9,23 @@ export default {
   component: CollectionsModalContainer,
 }
 
-const mockCollection = Collection.create({
-  display_name: 'mock collection',
-  favorite: false,
-  id: '123',
-})
+const mockCollectionNames = ['1', '2', '3', '4', '5', '6', '10', '12', '16']
 
-const mockCollectionTwo = Collection.create({
-  display_name: 'collection two',
-  favorite: true,
-  id: '456'
-})
+const mockCollections = mockCollectionNames.map((collection) =>
+  Collection.create({ display_name: `Collection: ${collection}`, id: collection })
+)
 
 const snapshot = {
   project: {
     strings: {
       display_name: 'Snapshot Serengeti',
-    },
+    }
   },
   user: {
     collections: {
-      collections: [mockCollection, mockCollectionTwo]
-    },
-  },
+      collections: mockCollections,
+    }
+  }
 }
 
 const store = Store.create(snapshot)

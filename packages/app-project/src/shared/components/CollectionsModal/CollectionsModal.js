@@ -3,7 +3,7 @@ import { Modal } from '@zooniverse/react-components'
 import { useTranslation } from 'next-i18next'
 
 function CollectionsModal ({
-  active,
+  active = false,
   children,
   closeFn
 }) {
@@ -22,10 +22,6 @@ function CollectionsModal ({
 CollectionsModal.propTypes = {
   active: PropTypes.bool,
   closeFn: PropTypes.func.isRequired
-}
-
-CollectionsModal.defaultProps = {
-  active: false
 }
 
 export default CollectionsModal

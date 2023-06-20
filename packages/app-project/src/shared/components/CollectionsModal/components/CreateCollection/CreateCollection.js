@@ -3,7 +3,14 @@ import PropTypes from 'prop-types'
 import { createRef } from 'react'
 import { useTranslation } from 'next-i18next'
 
-function CreateCollection ({ collection, disabled, onChange, onSubmit }) {
+const defaultCollection = {
+  display_name: '',
+  private: false
+}
+
+const DEFAULT_HANDLER = () => true
+
+function CreateCollection ({ collection = defaultCollection, disabled = false, onChange = DEFAULT_HANDLER, onSubmit = DEFAULT_HANDLER }) {
   const { t } = useTranslation('components')
   const checkbox = createRef()
   const textInput = createRef()
@@ -62,16 +69,6 @@ CreateCollection.propTypes = {
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
   onSubmit: PropTypes.func
-}
-
-CreateCollection.defaultProps = {
-  collection: {
-    display_name: '',
-    private: false
-  },
-  disabled: false,
-  onChange: () => true,
-  onSubmit: () => true
 }
 
 export default CreateCollection
