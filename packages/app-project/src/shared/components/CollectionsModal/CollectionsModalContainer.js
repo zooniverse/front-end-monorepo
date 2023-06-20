@@ -9,27 +9,25 @@ import CreateCollection from './components/CreateCollection'
 function useStore() {
   const { store } = useContext(MobXProviderContext)
 
-  if (!!store.user?.collections) {
-    const { addSubjects, collections, createCollection } = store.user?.collections
+  const { addSubjects, collections, createCollection } = store.user?.collections
 
-    return {
-      addSubjects,
-      collections,
-      createCollection
-    }
+  return {
+    addSubjects,
+    collections,
+    createCollection
   }
 }
 
 const DEFAULT_HANDLER = () => true
 const defaultNewCollection = {
   display_name: '',
-  private: false,
+  private: false
 }
 
 const CollectionsModalContainer = ({
   collectionsModalActive = false,
   setCollectionsModalActive = DEFAULT_HANDLER,
-  subjectID = '',
+  subjectID = ''
 }) => {
   const {
     addSubjects = DEFAULT_HANDLER,
