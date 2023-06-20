@@ -7,7 +7,6 @@ const path = require('path')
 const { withSentryConfig } = require('@sentry/nextjs')
 const { i18n } = require('./next-i18next.config')
 
-const talkHosts = require('./config/talkHosts')
 const assetPrefixes = {}
 
 function commitID () {
@@ -25,10 +24,9 @@ const SENTRY_PROJECT_DSN = isDevelopment ? '' : 'https://2a50683835694829b4bc3cc
 const APP_ENV = process.env.APP_ENV || 'development'
 const COMMIT_ID = process.env.COMMIT_ID || commitID()
 const assetPrefix = assetPrefixes[APP_ENV]
-const TALK_HOST = talkHosts[PANOPTES_ENV]
 const GITHUB_REF_NAME = process.env.GITHUB_REF_NAME
 
-console.info({ GITHUB_REF_NAME, APP_ENV, PANOPTES_ENV, TALK_HOST, assetPrefix })
+console.info({ GITHUB_REF_NAME, APP_ENV, PANOPTES_ENV, assetPrefix })
 
 const nextConfig = {
   assetPrefix,
@@ -45,8 +43,7 @@ const nextConfig = {
     COMMIT_ID,
     PANOPTES_ENV,
     SENTRY_PROJECT_DSN,
-    APP_ENV,
-    TALK_HOST
+    APP_ENV
   },
 
   experimental: {
