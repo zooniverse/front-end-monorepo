@@ -1,4 +1,5 @@
 import { Box, Button, FormField, Grid, Select } from 'grommet'
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'next-i18next'
 
@@ -38,7 +39,7 @@ function SelectCollection ({
           onSearch={searchText => onSearch({
             favorite: false,
             current_user_roles: 'owner,collaborator,contributor',
-            search: searchText
+            search: searchText ? searchText : undefined
           })}
           options={collections}
           valueKey='id'
@@ -70,4 +71,4 @@ SelectCollection.defaultProps = {
   selected: {}
 }
 
-export default SelectCollection
+export default observer(SelectCollection)
