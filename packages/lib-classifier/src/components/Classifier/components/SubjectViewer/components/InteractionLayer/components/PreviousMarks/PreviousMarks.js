@@ -27,6 +27,7 @@ function PreviousMarks ({
               pointerEvents='none'
             >
               <DrawingToolMarks
+                disabled
                 marks={annotationValuesPerFrame}
                 scale={scale}
               />

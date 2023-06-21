@@ -15,7 +15,7 @@ const StyledGroup = styled('g')`
       `}
   }
 
-  :hover {
+  &[aria-disabled="false"]:hover {
     ${(props) =>
     props.dragging
       ? css`
@@ -50,6 +50,7 @@ const defaultTheme = {
 const Mark = forwardRef(function Mark(
   {
     children,
+    disabled = false,
     dragging = false,
     isActive = false,
     label,
@@ -150,6 +151,7 @@ const Mark = forwardRef(function Mark(
     <StyledGroup
       {...mainStyle}
       data-testid="mark-mark"
+      aria-disabled={disabled ? 'true' : 'false'}
       aria-label={label}
       dragging={dragging}
       focusable
@@ -163,7 +165,7 @@ const Mark = forwardRef(function Mark(
       strokeWidth={
         isActive ? SELECTED_STROKE_WIDTH / scale : STROKE_WIDTH / scale
       }
-      tabIndex='0'
+      tabIndex={disabled ? -1 : 0}
       transform={transform}
     >
       {children}
