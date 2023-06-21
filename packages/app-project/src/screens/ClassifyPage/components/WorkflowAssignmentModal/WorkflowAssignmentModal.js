@@ -26,10 +26,6 @@ function useStore() {
   }
 }
 
-/** Check if user has dismissed the modal, but only in the browser */
-const isBrowser = typeof window !== 'undefined'
-const storedDismissedForSession = isBrowser ? window.sessionStorage.getItem('workflowAssignmentModalDismissed') : false
-
 function WorkflowAssignmentModal({ currentWorkflowID = '' }) {
   const { assignedWorkflowID, promptAssignment } = useStore()
 
@@ -38,6 +34,10 @@ function WorkflowAssignmentModal({ currentWorkflowID = '' }) {
   const owner = router?.query?.owner
   const project = router?.query?.project
   const url = `/${owner}/${project}/classify/workflow/${assignedWorkflowID}`
+
+  /** Check if user has dismissed the modal, but only in the browser */
+  const isBrowser = typeof window !== 'undefined'
+  const storedDismissedForSession = isBrowser ? window.sessionStorage.getItem('workflowAssignmentModalDismissed') : false
 
   /** Modal active state*/
   const [active, setActive] = useState(false)
@@ -56,7 +56,7 @@ function WorkflowAssignmentModal({ currentWorkflowID = '' }) {
       const isActive = (showPrompt && !dismissedForSession)
       setActive(isActive)
     },
-    [assignedWorkflowID, dismissedForSession, router]
+    [assignedWorkflowID, currentWorkflowID, dismissedForSession, promptAssignment]
   )
 
   function handleChange(event) {

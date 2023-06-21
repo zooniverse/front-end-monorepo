@@ -63,11 +63,12 @@
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.11.0",
     "eslint-config-next": "~12.3.0",
+    "eslint-plugin-jsx-a11y": "~6.7.0",
     "jsdom": "~22.1.0",
     "mocha": "~10.2.0",
     "proxyquire": "~2.1.0",
     "selfsigned": "~2.1.1",
-    "sinon": "~15.1.0",
+    "sinon": "~15.2.0",
     "sinon-chai": "~3.7.0",
     "storybook": "~7.0.10",
     "storybook-react-i18next": "~2.0.1"
