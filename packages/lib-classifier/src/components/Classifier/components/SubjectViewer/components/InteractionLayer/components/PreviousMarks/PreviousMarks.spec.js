@@ -27,7 +27,7 @@ describe('Component > PreviousMarks', function () {
           type: 'point'
         }]
       },
-      // inactive drawing task
+      // inactive transcription task
       'T3': {
         type: 'transcription',
         tools: [{
