@@ -2,6 +2,7 @@ import { Box, Button, FormField, Grid, Select } from 'grommet'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'next-i18next'
+import { useState } from 'react'
 
 function SelectCollection ({
   collections,
@@ -11,10 +12,23 @@ function SelectCollection ({
   onSubmit,
   selected
 }) {
+  const [searchText, setSearchText] = useState('')
   const { t } = useTranslation('components')
   const dropProps = {
     trapFocus: false
   }
+  function onTextChange(text) {
+    onSearch({
+      favorite: false,
+      current_user_roles: 'owner,collaborator,contributor',
+      search: text.length > 3 ? text : undefined
+    })
+    setSearchText(text)
+  }
+  const options = searchText.length > 3 ?
+    collections :
+    collections.filter(collection => collection.display_name.includes(searchText))
+
   return (
     <Grid
       as='form'
@@ -36,12 +50,8 @@ function SelectCollection ({
           labelKey='display_name'
           name='display_name'
           onChange={onSelect}
-          onSearch={searchText => onSearch({
-            favorite: false,
-            current_user_roles: 'owner,collaborator,contributor',
-            search: searchText ? searchText : undefined
-          })}
-          options={collections}
+          onSearch={onTextChange}
+          options={options}
           valueKey='id'
           value={selected}
         />
