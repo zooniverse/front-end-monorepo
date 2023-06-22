@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { forwardRef, useEffect, useRef } from 'react';
-import styled, { css, withTheme } from 'styled-components'
+import styled, { css, useTheme } from 'styled-components'
 import draggable from '../draggable'
 
 const STROKE_WIDTH = 2
@@ -60,10 +60,10 @@ const Mark = forwardRef(function Mark(
     onSelect = defaultHandler,
     pointerEvents = 'painted',
     scale = 1,
-    theme = defaultTheme
   },
   ref
 ) {
+  const theme = useTheme()
   const markRoot = ref ?? useRef()
   const { tool } = mark
   const mainStyle = {
@@ -71,7 +71,7 @@ const Mark = forwardRef(function Mark(
     fill: 'transparent',
     stroke: tool && tool.color ? tool.color : 'green'
   }
-  const focusColor = theme.global.colors[theme.global.colors.focus]
+  const focusColor = theme?.global.colors[theme?.global.colors.focus]
   const usesSubTasks = mark.isValid && mark.tasks.length > 0
 
   function openSubTaskPopup() {
@@ -183,12 +183,10 @@ Mark.propTypes = {
   onDeselect: PropTypes.func,
   onSelect: PropTypes.func,
   scale: PropTypes.number,
-  theme: PropTypes.object,
   tool: PropTypes.shape({
     color: PropTypes.string
   })
 }
 
-const ObservedMark = observer(Mark)
-export default draggable(withTheme(ObservedMark))
+export default draggable(observer(Mark))
 export { Mark }

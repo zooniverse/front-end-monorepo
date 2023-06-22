@@ -415,4 +415,37 @@ describe('Drawing tools > Mark', function () {
       expect(window.scrollTo).to.have.been.calledOnce()
     })
   })
+
+  describe('disabled marks', function () {
+    beforeEach(function () {
+      point = pointTool.createMark({
+        id: 'point1'
+      })
+      point.finish()
+      render(
+        <svg>
+          <Mark
+            disabled
+            label='Point 1'
+            mark={point}
+            onDelete={onDelete}
+            onFinish={onFinish}
+            onSelect={onSelect}
+          >
+            <Point mark={point} />
+          </Mark>
+        </svg>
+      )
+    })
+
+    it('should not be focusable', function () {
+      const mark = document.querySelector('g.drawingMark')
+      expect(mark.getAttribute('tabindex')).to.equal('-1')
+    })
+
+    it('should be announced as disabled', function () {
+      const mark = document.querySelector('g.drawingMark')
+      expect(mark.getAttribute('aria-disabled')).to.equal('true')
+    })
+  })
 })

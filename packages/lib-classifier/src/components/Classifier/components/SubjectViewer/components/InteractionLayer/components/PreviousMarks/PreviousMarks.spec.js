@@ -110,7 +110,7 @@ describe('Component > PreviousMarks', function () {
   })
 
   describe('when there are drawing task annotations', function () {
-    it('should render drawing marks per task by frame', function () {
+    it('should render disabled drawing marks per task by frame', function () {
       render(
         <PreviousMarks />,
         {
@@ -119,9 +119,17 @@ describe('Component > PreviousMarks', function () {
       )
       let marks = document.querySelectorAll('g.drawingMark')
       expect(marks).to.have.lengthOf(3)
+      marks.forEach(mark => {
+        expect(mark.getAttribute('aria-disabled')).to.equal('true')
+        expect(mark.getAttribute('tabindex')).to.equal('-1')
+      })
       store.subjectViewer.setFrame(1)
       marks = document.querySelectorAll('g.drawingMark')
       expect(marks).to.have.lengthOf(2)
+      marks.forEach(mark => {
+        expect(mark.getAttribute('aria-disabled')).to.equal('true')
+        expect(mark.getAttribute('tabindex')).to.equal('-1')
+      })
       store.subjectViewer.setFrame(0)
     })
   })
