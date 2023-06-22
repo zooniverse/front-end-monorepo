@@ -153,6 +153,7 @@ const Mark = forwardRef(function Mark(
       data-testid="mark-mark"
       aria-disabled={disabled ? 'true' : 'false'}
       aria-label={label}
+      className='drawingMark'
       dragging={dragging}
       focusable
       focusColor={focusColor}

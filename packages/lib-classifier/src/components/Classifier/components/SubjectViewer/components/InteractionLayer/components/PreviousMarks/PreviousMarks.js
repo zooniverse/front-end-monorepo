@@ -49,6 +49,7 @@ function PreviousMarks ({
           const annotationValuesPerFrame = annotation.value.filter(value => value.frame === frame)
           return (
             <g
+              className='markGroup'
               key={annotation.task}
               pointerEvents='none'
             >
