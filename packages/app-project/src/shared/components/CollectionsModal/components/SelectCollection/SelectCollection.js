@@ -27,7 +27,7 @@ function SelectCollection ({
   }
   const options = searchText.length > 3 ?
     collections :
-    collections.filter(collection => collection.display_name.includes(searchText))
+    collections.filter(collection => collection.display_name.toLowerCase().includes(searchText.toLowerCase()))
 
   return (
     <Grid
