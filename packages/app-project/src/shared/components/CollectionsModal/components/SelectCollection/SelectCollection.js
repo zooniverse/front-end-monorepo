@@ -17,17 +17,30 @@ function SelectCollection ({
   const dropProps = {
     trapFocus: false
   }
+
+  /*
+  Panoptes collections search uses Postgres full-text search, which needs at least 4 characters.
+  For shorter strings, we request all your collections then filter the display names.
+  */
+
   function onTextChange(text) {
+    const search = text.trim()
     onSearch({
       favorite: false,
       current_user_roles: 'owner,collaborator,contributor',
-      search: text.length > 3 ? text : undefined
+      search: search.length > 3 ? search : undefined
     })
-    setSearchText(text)
+    setSearchText(search.toLowerCase())
   }
-  const options = searchText.length > 3 ?
-    collections :
-    collections.filter(collection => collection.display_name.toLowerCase().includes(searchText.toLowerCase()))
+
+  const ignorePanoptesFullTextSearch = searchText.length < 4
+
+  function collectionNameFilter(collection) {
+    const displayNameLowerCase = collection.display_name.toLowerCase()
+    return displayNameLowerCase.includes(searchText)
+  }
+
+  const options = ignorePanoptesFullTextSearch ? collections.filter(collectionNameFilter) : collections
 
   return (
     <Grid
