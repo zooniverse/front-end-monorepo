@@ -9,6 +9,7 @@ function DrawingToolMarks({
     id: '',
     setSubTaskVisibility: () => { }
   },
+  disabled = false,
   marks = [],
   onDelete = () => true,
   onDeselectMark = () => true,
@@ -78,6 +79,7 @@ function DrawingToolMarks({
         key={mark.id}
         isActive={isActive}
         coords={mark.coords}
+        disabled={disabled}
         dragStart={selectMark}
         dragMove={moveMark}
         dragEnd={endMoveMark}
