@@ -28,7 +28,6 @@ describe('Component > RecentSubjectsContainer', function () {
   ]
 
   before(function () {
-    process.env.TALK_HOST = TALK_URL
     nock(TALK_URL)
       .get('/comments')
       .query(true)
@@ -38,10 +37,6 @@ describe('Component > RecentSubjectsContainer', function () {
       .query(true)
       .reply(200, { subjects: MOCK_SUBJECTS })
     wrapper = shallow(<RecentSubjectsContainer mockStore={mockStore} />)
-  })
-
-  after(function () {
-    delete process.env.TALK_HOST
   })
 
   it('should render without crashing', function () {
