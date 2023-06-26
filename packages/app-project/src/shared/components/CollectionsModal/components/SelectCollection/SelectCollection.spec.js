@@ -49,7 +49,7 @@ describe('Component > SelectCollection', function () {
     })
 
     it('should list collections', function () {
-      expect(select.prop('options')).to.equal(collections)
+      expect(select.prop('options')).to.eql(collections)
     })
 
     it('should call the onSearch callback', function () {
