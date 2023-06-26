@@ -1,4 +1,5 @@
 import { Box, Button, FormField, Grid, Select } from 'grommet'
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
@@ -10,19 +11,36 @@ function SelectCollection ({
   onSubmit,
   selected
 }) {
+  const [searchText, setSearchText] = useState('')
   const { t } = useTranslation('components')
-  const [options, setOptions] = useState(collections)
-
-  /** https://storybook.grommet.io/?path=/story/input-select-search--search */
-  const onSearch = (text) => {
-    const escapedText = text.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&')
-    const exp = new RegExp(escapedText, 'i')
-    setOptions(collections.filter((collection) => exp.test(collection.display_name)))
-  }
 
   const dropProps = {
     trapFocus: false
   }
+
+  /*
+  Panoptes collections search uses Postgres full-text search, which needs at least 4 characters.
+  For shorter strings, we request all your collections then filter the display names.
+  */
+
+  function onTextChange(text) {
+    const search = text.trim()
+    onSearch({
+      favorite: false,
+      current_user_roles: 'owner,collaborator,contributor',
+      search: search.length > 3 ? search : undefined
+    })
+    setSearchText(search.toLowerCase())
+  }
+
+  const ignorePanoptesFullTextSearch = searchText.length < 4
+
+  function collectionNameFilter(collection) {
+    const displayNameLowerCase = collection.display_name.toLowerCase()
+    return displayNameLowerCase.includes(searchText)
+  }
+
+  const options = ignorePanoptesFullTextSearch ? collections.filter(collectionNameFilter) : collections
 
   return (
     <Grid
@@ -45,7 +63,7 @@ function SelectCollection ({
           labelKey='display_name'
           name='display_name'
           onChange={onSelect}
-          onSearch={onSearch}
+          onSearch={onTextChange}
           options={options}
           valueKey='id'
           value={selected}
@@ -71,4 +89,9 @@ SelectCollection.propTypes = {
   selected: PropTypes.shape({})
 }
 
-export default SelectCollection
+SelectCollection.defaultProps = {
+  disabled: false,
+  selected: {}
+}
+
+export default observer(SelectCollection)

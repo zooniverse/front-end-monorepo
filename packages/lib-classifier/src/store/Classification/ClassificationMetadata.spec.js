@@ -1,5 +1,8 @@
 import { getSnapshot } from 'mobx-state-tree'
 import sinon from 'sinon'
+
+import mockStore from '@test/mockStore'
+
 import ClassificationMetadata from './ClassificationMetadata'
 
 describe('Model > ClassificationMetadata', function () {
@@ -61,6 +64,15 @@ describe('Model > ClassificationMetadata', function () {
 
     it('should ignore unknown keys', function () {
       expect(snapshot.unknownKey).to.be.undefined()
+    })
+  })
+
+  describe('user language', function () {
+    it('should match the locale', function () {
+      const store = mockStore()
+      expect(store.classifications.active.metadata.userLanguage).to.equal('en')
+      store.setLocale('de')
+      expect(store.classifications.active.metadata.userLanguage).to.equal('de')
     })
   })
 })

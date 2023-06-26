@@ -1,1 +1,1 @@
-export { default } from './PreviousMarksConnector'
+export { default } from './PreviousMarks'
