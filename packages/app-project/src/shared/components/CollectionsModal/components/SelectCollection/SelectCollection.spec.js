@@ -11,12 +11,14 @@ describe('Component > SelectCollection', function () {
     { id: '1', display_name: 'Test One' },
     { id: '2', display_name: 'Test Two' }
   ]
+  const onSearch = sinon.stub()
   const onSubmit = sinon.stub()
 
   before(function () {
     wrapper = shallow(
       <SelectCollection
         collections={collections}
+        onSearch={onSearch}
         onSubmit={onSubmit}
       />
     )
@@ -43,13 +45,23 @@ describe('Component > SelectCollection', function () {
     })
 
     it('should be empty by default', function () {
-      expect(select.prop('value')).to.eql(undefined)
+      expect(select.prop('value')).to.eql({})
     })
 
     it('should list collections', function () {
       expect(select.prop('options')).to.eql(collections)
     })
 
+    it('should call the onSearch callback', function () {
+      const searchText = 'Hello'
+      const searchSpy = onSearch.withArgs({
+        favorite: false,
+        current_user_roles: 'owner,collaborator,contributor',
+        search: searchText
+      })
+      select.simulate('search', searchText)
+      expect(searchSpy).to.have.been.calledOnce()
+    })
     it('should display the selected collection', function () {
       const collection = { id: '1', display_name: 'Selected collection' }
       wrapper.setProps({ selected: collection })

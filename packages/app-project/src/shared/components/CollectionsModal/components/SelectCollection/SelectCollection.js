@@ -7,9 +7,10 @@ import { useState } from 'react'
 function SelectCollection ({
   collections = [],
   disabled = false,
+  onSearch,
   onSelect,
   onSubmit,
-  selected
+  selected = {}
 }) {
   const [searchText, setSearchText] = useState('')
   const { t } = useTranslation('components')
@@ -87,11 +88,6 @@ function SelectCollection ({
 SelectCollection.propTypes = {
   disabled: PropTypes.bool,
   selected: PropTypes.shape({})
-}
-
-SelectCollection.defaultProps = {
-  disabled: false,
-  selected: {}
 }
 
 export default observer(SelectCollection)
