@@ -1,3 +1,5 @@
+import * as Sentry from '@sentry/browser'
+import { auth } from '@zooniverse/panoptes-js'
 import { when } from 'mobx'
 import { getType } from 'mobx-state-tree'
 import nock from 'nock'
@@ -14,8 +16,13 @@ import stubPanoptesJs from '@test/stubPanoptesJs'
 describe('Model > SubjectStore', function () {
   const longListSubjects = Factory.buildList('subject', 10)
   const shortListSubjects = Factory.buildList('subject', 2)
+  const defaultAuthClient = {
+    checkBearerToken: () => Promise.resolve(),
+    checkCurrent: () => Promise.resolve(),
+    listen: sinon.stub()
+  }
 
-  async function mockSubjectStore (subjects) {
+  async function mockSubjectStore (subjects, authClient = defaultAuthClient) {
     const project = ProjectFactory.build()
     const workflow = WorkflowFactory.build({ id: project.configuration.default_workflow })
     const subjectMocks = {
@@ -36,11 +43,7 @@ describe('Model > SubjectStore', function () {
       userProjectPreferences: {}
     }, {
       client,
-      authClient: {
-        checkBearerToken: () => Promise.resolve(),
-        checkCurrent: () => Promise.resolve(),
-        listen: sinon.stub()
-      }
+      authClient
     })
 
     store.projects.setResources([project])
@@ -306,6 +309,36 @@ describe('Model > SubjectStore', function () {
           expect(subjects.queue.length).to.equal(5)
           const queuedIDs = subjects.queue.map(subject => subject.id)
           expect(queuedIDs).to.deep.equal(subjectIDs)
+        })
+      })
+
+      describe('with an invalid auth token', function () {
+        const tokenError = new Error('something went horribly wrong.')
+
+        before(async function () {
+          const subjectSnapshots = Factory.buildList('subject', 5)
+          const subjectMocks = {
+            ['/subjects/grouped']: [],
+            ['/subjects/queued']: [],
+            ['/subjects/selection']: subjectSnapshots
+          }
+          const subjectIDs = subjectSnapshots.map(subject => subject.id)
+          const subjects = await mockSubjectStore(subjectMocks, {
+            checkBearerToken: () => 'fakeToken',
+            listen: sinon.stub()
+          })
+          sinon.stub(auth, 'verify').resolves({ error: tokenError })
+          sinon.stub(Sentry, 'captureException')
+          await subjects.populateQueue(subjectIDs)
+        })
+
+        after(function () {
+          auth.verify.restore()
+          Sentry.captureException.restore()
+        })
+
+        it('should log to Sentry', function () {
+          expect(Sentry.captureException.withArgs(tokenError)).to.have.been.calledOnce()
         })
       })
     })
