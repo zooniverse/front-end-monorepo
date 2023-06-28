@@ -8,14 +8,15 @@ import CreateCollection from './components/CreateCollection'
 
 function useStore() {
   const { store } = useContext(MobXProviderContext)
-
+  const { id } = store.user
   const { addSubjects, collections, createCollection, searchCollections } = store.user?.collections
 
   return {
     addSubjects,
     collections,
     createCollection,
-    searchCollections
+    searchCollections,
+    userID: id
   }
 }
 
@@ -34,7 +35,8 @@ const CollectionsModalContainer = ({
     addSubjects = DEFAULT_HANDLER,
     collections = [],
     createCollection = DEFAULT_HANDLER,
-    searchCollections = DEFAULT_HANDLER
+    searchCollections = DEFAULT_HANDLER,
+    userID = ''
   } = useStore()
 
   const [newCollection, setNewCollection] = useState(defaultNewCollection)
@@ -81,6 +83,7 @@ const CollectionsModalContainer = ({
         onSelect={onSelect}
         onSubmit={addToCollection}
         selected={selectedCollection}
+        userID={userID}
       />
       <CreateCollection
         disabled={!newCollection.display_name}

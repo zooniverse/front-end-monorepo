@@ -10,7 +10,8 @@ function SelectCollection ({
   onSearch,
   onSelect,
   onSubmit,
-  selected = {}
+  selected = {},
+  userID = ''
 }) {
   const [searchText, setSearchText] = useState('')
   const { t } = useTranslation('components')
@@ -41,7 +42,15 @@ function SelectCollection ({
     return displayNameLowerCase.includes(searchText)
   }
 
+  function collectionLabel(collection) {
+    if (collection.links.owner.id === userID) {
+      return collection.display_name
+    }
+    return `${collection.display_name} (${collection.links.owner.display_name})`
+  }
+
   const options = ignorePanoptesFullTextSearch ? collections.filter(collectionNameFilter) : collections
+
 
   return (
     <Grid
@@ -61,7 +70,7 @@ function SelectCollection ({
           dropHeight='medium'
           dropProps={dropProps}
           id='collectionsSearch'
-          labelKey='display_name'
+          labelKey={collectionLabel}
           name='display_name'
           onChange={onSelect}
           onSearch={onTextChange}
