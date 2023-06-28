@@ -44,7 +44,25 @@ export const subTasksSnapshot = [
     },
     taskKey: 'T0.2',
     type: 'multiple'
-  }
+  },
+  {
+    strings: {
+      help: '',
+      instruction: 'Pick a vegetable.',
+      'selects.0.options.*.0.label': 'carrot',
+      'selects.0.options.*.1.label': 'potato',
+      'selects.0.options.*.2.label': 'turnip',
+      'selects.0.options.*.3.label': 'parsnip'
+    },
+    taskKey: 'T0.3',
+    type: 'dropdown-simple',
+    options: [
+      'carrot',
+      'potato',
+      'turnip',
+      'parsnip',
+    ],
+  },
 ]
 
 export const subtaskStrings = {
@@ -58,7 +76,13 @@ export const subtaskStrings = {
   'details.2.question': 'Select your favourite animals.',
   'details.2.answers.0.label': 'cat',
   'details.2.answers.1.label': 'dog',
-  'details.2.answers.2.label': 'bird'
+  'details.2.answers.2.label': 'bird',
+  'details.3.help': '',
+  'details.3.instruction': 'Pick a vegetable.',
+  'details.3.selects.0.options.*.0.label': 'carrot',
+  'details.3.selects.0.options.*.1.label': 'potato',
+  'details.3.selects.0.options.*.2.label': 'turnip',
+  'details.3.selects.0.options.*.3.label': 'parsnip'
 }
 
 export function updateStores(
