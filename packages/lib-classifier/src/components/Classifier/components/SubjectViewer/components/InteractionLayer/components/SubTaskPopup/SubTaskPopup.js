@@ -118,7 +118,13 @@ function SubTaskPopup({
             if (!annotation) {
               annotation = activeMark.addAnnotation(task)
             }
-            const { TaskComponent } = taskRegister[task.type]
+
+            let taskType = task.type
+            if (taskType === 'dropdown-simple') {
+              taskType = 'dropdownSimple'
+            }
+
+            const { TaskComponent } = taskRegister[taskType]
 
             if (annotation && TaskComponent) {
               const requiredEmphasis = task.required && !task.isComplete(annotation) && confirmationState === 'closed'
