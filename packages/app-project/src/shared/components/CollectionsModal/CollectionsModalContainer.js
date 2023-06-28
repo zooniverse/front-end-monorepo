@@ -41,35 +41,34 @@ const CollectionsModalContainer = ({
   const [selectedCollection, setSelectedCollection] = useState(undefined)
   const [selectedSubjectID, setSelectedSubjectID] = useState(subjectID)
 
-  const addToCollection = (event) => {
+  function addToCollection (event) {
     event.preventDefault()
     addSubjects(selectedCollection.id, [selectedSubjectID])
-    this.close()
+    close()
   }
 
-  const createNewCollection = (event) => {
+  function createNewCollection (event) {
     event.preventDefault()
     createCollection(newCollection, [selectedSubjectID])
-    this.close()
+    close()
   }
 
-  const onSelect = (event) => {
+  function onSelect (event) {
     const collection = event.value
     setSelectedCollection(collection)
   }
 
-  const close = () => {
+  function close () {
     setCollectionsModalActive(false)
     setSelectedSubjectID(null)
   }
 
-  const updateCollection = (collectionDetails) => {
+  function updateCollection (collectionDetails) {
     const prevNewCollectionDetails = newCollection
-    const updatedCollection = Object.assign(
-      {},
-      prevNewCollectionDetails,
-      collectionDetails
-    )
+    const updatedCollection = {
+      ...prevNewCollectionDetails,
+      ...collectionDetails
+    }
     setNewCollection(updatedCollection)
   }
 

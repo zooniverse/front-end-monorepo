@@ -4,7 +4,7 @@ import { arrayOf, func, shape, string } from 'prop-types'
 import { useState } from 'react'
 import { withResponsiveContext } from '@zooniverse/react-components'
 
-import CollectionsModal from '../../shared/components/CollectionsModal'
+import CollectionsModal from '@shared/components/CollectionsModal'
 import ThemeModeToggle from '@components/ThemeModeToggle'
 import ProjectName from '@components/ProjectName'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
@@ -40,6 +40,7 @@ function ClassifyPage({
     : ['1em', 'auto', '1em']
   const [classifierProps, setClassifierProps] = useState({})
   const [showTutorial, setShowTutorial] = useState(false)
+  const [collectionsModalActive, setCollectionsModalActive] = useState(false)
 
   let subjectSetFromUrl
   if (workflowFromUrl && workflowFromUrl.subjectSets) {
@@ -71,7 +72,6 @@ function ClassifyPage({
     setShowTutorial(true)
   }
 
-  const [collectionsModalActive, setCollectionsModalActive] = useState(false)
   const onAddToCollection = () => {
     setCollectionsModalActive(true)
   }
