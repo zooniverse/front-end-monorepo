@@ -207,6 +207,7 @@ describe('Component > ClassifyPageContainer', function () {
             user: {
               personalization: {
                 projectPreferences: {
+                  promptAssignment: () => false,
                   settings: {
                     workflow_id: '5678'
                   }

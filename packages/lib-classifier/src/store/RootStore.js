@@ -77,7 +77,8 @@ const RootStore = types
       }
     }
 
-    function _onUserChange() {
+    async function _onUserChange() {
+      await self.authClient?.checkCurrent()
       window.sessionStorage.removeItem('subjectsSeenThisSession')
       self.subjects.reset()
       self.subjects.populateQueue()

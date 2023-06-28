@@ -17,6 +17,7 @@
     "build:es6": "BABEL_ENV=es6 babel ./src/ --out-dir ./dist/esm --copy-files --no-copy-ignored --ignore 'src/**/*.spec.js' --ignore 'src/**/*.stories.js'",
     "dev": "BABEL_ENV=es6 webpack serve --config webpack.dev.js",
     "lint": "zoo-standard --fix | snazzy",
+    "eslint": "eslint ./src --fix | snazzy",
     "start": "PANOPTES_ENV=production npm run dev",
     "test": "NODE_PATH=. NODE_ENV=test mocha --exit --config ./test/.mocharc.json \"./{src,test}/**/*.spec.js\"",
     "test:ci": "NODE_PATH=. NODE_ENV=test mocha --exit --config ./test/.mocharc.json --reporter=min \"./{src,test}/**/*.spec.js\"",
@@ -25,7 +26,7 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.22.0",
-    "@sentry/browser": "~7.55.0",
+    "@sentry/browser": "~7.56.0",
     "@visx/axis": "~2.18.0",
     "@visx/brush": "~3.0.1",
     "@visx/event": "~3.0.0",
@@ -38,15 +39,15 @@
     "@zooniverse/async-states": "~0.0.1",
     "cuid": "~3.0.0",
     "d3": "~6.7.0",
-    "graphql": "~16.6.0",
+    "graphql": "~16.7.0",
     "graphql-request": "~6.1.0",
     "hash.js": "~1.1.7",
-    "i18next": "~22.5.0",
+    "i18next": "~23.2.0",
     "lodash": "~4.17.11",
     "mobx-utils": "~6.0.4",
-    "react-i18next": "~12.3.0",
+    "react-i18next": "~13.0.1",
     "react-player": "~2.12.0",
-    "swr": "~2.1.0",
+    "swr": "~2.2.0",
     "valid-url": "~1.0.9"
   },
   "peerDependencies": {
@@ -62,6 +63,7 @@
   "devDependencies": {
     "@babel/cli": "~7.22.5",
     "@babel/core": "~7.22.0",
+    "@babel/eslint-parser": "~7.22.5",
     "@babel/plugin-transform-runtime": "~7.22.0",
     "@babel/preset-env": "~7.22.0",
     "@babel/preset-react": "~7.22.0",
@@ -88,6 +90,8 @@
     "css-loader": "~6.8.1",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.11.0",
+    "eslint-plugin-jsx-a11y": "~6.7.0",
+    "eslint-plugin-react": "~7.32.2",
     "grommet": "~2.32.0",
     "grommet-icons": "~4.11.0",
     "html-webpack-plugin": "~5.5.0",
@@ -107,7 +111,7 @@
     "react": "~17.0.2",
     "react-dom": "~17.0.2",
     "rosie": "~2.1.0",
-    "sinon": "~15.1.0",
+    "sinon": "~15.2.0",
     "sinon-chai": "~3.7.0",
     "snazzy": "~9.0.0",
     "storybook": "~7.0.10",
@@ -115,28 +119,11 @@
     "style-loader": "~3.3.1",
     "styled-components": "~5.3.3",
     "superagent": "~8.0.0",
-    "webpack": "~5.87.0",
+    "webpack": "~5.88.0",
     "webpack-cli": "~5.1.0",
     "webpack-dev-server": "~4.15.0"
   },
-  "eslintConfig": {
-    "extends": [
-      "plugin:jsx-a11y/recommended"
-    ]
-  },
-  "standardx": {
-    "env": {
-      "mocha": true
-    },
-    "globals": [
-      "before",
-      "describe",
-      "expect",
-      "it"
-    ],
-    "parser": "babel-eslint",
-    "engines": {
-      "node": ">=18.13"
-    }
+  "engines": {
+    "node": ">=18.13"
   }
 }

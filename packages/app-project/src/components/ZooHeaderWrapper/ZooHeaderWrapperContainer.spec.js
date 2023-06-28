@@ -77,12 +77,6 @@ describe('Component > ZooHeaderWrapperContainer', function () {
     expect(auth.signOut).to.have.been.calledOnce()
   })
 
-  it('should remove already seen subjects session storage', async function () {
-    expect(window.sessionStorage.getItem("subjectsSeenThisSession")).to.equal('["1234/5678"]')
-    signOut(store.user)
-    expect(window.sessionStorage.getItem("subjectsSeenThisSession")).to.be.null()
-  })
-
   describe('Sign In', function () {
     let signInButton
 

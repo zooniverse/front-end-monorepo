@@ -1,96 +1,182 @@
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
+import zooTheme from '@zooniverse/grommet-theme'
+import { Grommet } from 'grommet'
+import { Provider } from 'mobx-react'
+
+import SHOWN_MARKS from '@helpers/shownMarks'
+import { WorkflowFactory } from '@test/factories'
+import mockStore from '@test/mockStore'
+
 import PreviousMarks from './PreviousMarks'
 import DrawingToolMarks from '../DrawingToolMarks'
-import SHOWN_MARKS from '@helpers/shownMarks'
 
 describe('Component > PreviousMarks', function () {
-  const previousAnnotations = [{
-    task: 'T2',
-    value: [
-      { id: 'point1', frame: 0, toolIndex: 0, x: 100, y: 200 }
-    ]
-  }, {
-    task: 'T3',
-    value: [
-      { id: 'line1', frame: 0, toolIndex: 0, x1: 100, y1: 200, x2: 150, y2: 200 },
-      { id: 'line2', frame: 0, toolIndex: 0, x1: 200, y1: 300, x2: 250, y2: 300 },
-      { id: 'line3', frame: 1, toolIndex: 0, x1: 150, y1: 250, x2: 100, y2: 250 },
-      { id: 'line4', frame: 1, toolIndex: 0, x1: 250, y1: 350, x2: 200, y2: 350 }
-    ]
-  }]
+  const workflow = WorkflowFactory.build({
+    tasks: {
+      // active transcription task
+      'T1': {
+        type: 'transcription',
+        tools: [{
+          type: 'transcriptionLine'
+        }]
+      },
+      // inactive drawing task
+      'T2': {
+        type: 'drawing',
+        tools: [{
+          type: 'point'
+        }]
+      },
+      // inactive transcription task
+      'T3': {
+        type: 'transcription',
+        tools: [{
+          type: 'transcriptionLine'
+        }]
+      }
+    }
+  })
+  let store
+
+  beforeEach(function () {
+    store = mockStore({ workflow })
+
+    const [ pointTask ] = store.workflowSteps.steps.get('S2').tasks
+    const [ lineTask ] = store.workflowSteps.steps.get('S3').tasks
+    const [ pointTool ] = pointTask.tools
+    const [ lineTool ] = lineTask.tools
+
+    // previous drawing marks
+    pointTool.createMark({ id: 'point1', frame: 0, toolIndex: 0, x: 100, y: 200 })
+    pointTask.validate()
+    store.classifications.addAnnotation(pointTask, ['point1'])
+
+    // previous drawing marks
+    lineTool.createMark({ id: 'line1', frame: 0, toolIndex: 0, x1: 100, y1: 200, x2: 150, y2: 200 })
+    lineTool.createMark({ id: 'line2', frame: 0, toolIndex: 0, x1: 200, y1: 300, x2: 250, y2: 300 },)
+    lineTool.createMark({ id: 'line3', frame: 1, toolIndex: 0, x1: 150, y1: 250, x2: 100, y2: 250 },)
+    lineTool.createMark({ id: 'line4', frame: 1, toolIndex: 0, x1: 250, y1: 350, x2: 200, y2: 350 })
+    lineTask.validate()
+    store.classifications.addAnnotation(lineTask, ['line1', 'line2', 'line3', 'line4'])
+  })
+
+  function withStore(store) {
+    return function Wrapper({ children }) {
+      return (
+        <Grommet theme={zooTheme}>
+          <Provider classifierStore={store}>
+            <svg>
+              {children}
+            </svg>
+          </Provider>
+        </Grommet>
+      )
+    }
+  }
 
   it('should render without crashing', function () {
-    const wrapper = shallow(<PreviousMarks />)
-    expect(wrapper).to.be.ok()
+    render(
+      <PreviousMarks />,
+      {
+        wrapper: withStore(store)
+      }
+    )
   })
 
   it('should ignore pointer events on all drawn marks', function () {
-    const wrapper = shallow(<PreviousMarks previousAnnotations={previousAnnotations} scale={2} />)
-    const marksGroups = wrapper.find('g')
-    marksGroups.forEach( group => expect(group.prop('pointerEvents')).to.equal('none'))
-  })
-
-  it('should pass scale along as a prop to each DrawingToolMarks component', function ()  {
-    const wrapper = shallow(<PreviousMarks previousAnnotations={previousAnnotations} scale={2} />)
-    expect(wrapper.find(DrawingToolMarks).first().props().scale).to.equal(2)
-    expect(wrapper.find(DrawingToolMarks).last().props().scale).to.equal(2)
-  })
-
-  describe('when there are no interaction task annotations', function () {
-    it('should render null', function () {
-      const wrapper = shallow(<PreviousMarks />)
-      expect(wrapper.html()).to.be.null()
+    render(
+      <PreviousMarks scale={2} />,
+      {
+        wrapper: withStore(store)
+      }
+    )
+    const marksGroups = document.querySelectorAll('g.markGroup')
+    marksGroups.forEach( group => {
+      expect(group.getAttribute('pointer-events')).to.equal('none')
     })
   })
 
-  describe('when there are interaction task annotations', function () {
-    it('should render a DrawingToolMarks for each task', function ()  {
-      const wrapper = shallow(<PreviousMarks previousAnnotations={previousAnnotations} />)
-      expect(wrapper.find(DrawingToolMarks)).to.have.lengthOf(2)
-      expect(wrapper.find('g').first().key()).to.equal(previousAnnotations[0].task)
-      expect(wrapper.find('g').last().key()).to.equal(previousAnnotations[1].task)
-    })
-
-    it('should pass along the correct number of marks per task by frame', function () {
-      const firstTaskAnnotationsFirstFrameFirstMark = previousAnnotations[0].value[0]
-      const secondTaskAnnotationsFirstFrameFirstMark = previousAnnotations[1].value[0]
-      const secondTaskAnnotationsFirstFrameSecondMark = previousAnnotations[1].value[1]
-      const secondTaskAnnotationsSecondFrameFirstMark = previousAnnotations[1].value[2]
-      const secondTaskAnnotationsSecondFrameSecondMark = previousAnnotations[1].value[3]
-      const wrapper = shallow(<PreviousMarks previousAnnotations={previousAnnotations} />)
-      let firstTaskAnnotationRenderedMarks = wrapper.find(DrawingToolMarks).first().props().marks
-      let secondTaskAnnotationRenderedMarks = wrapper.find(DrawingToolMarks).last().props().marks
-      expect(firstTaskAnnotationRenderedMarks).to.have.lengthOf(1)
-      expect(firstTaskAnnotationRenderedMarks[0]).to.deep.equal(firstTaskAnnotationsFirstFrameFirstMark)
-      expect(secondTaskAnnotationRenderedMarks).to.have.lengthOf(2)
-      expect(secondTaskAnnotationRenderedMarks[0]).to.deep.equal(secondTaskAnnotationsFirstFrameFirstMark)
-      expect(secondTaskAnnotationRenderedMarks[1]).to.deep.equal(secondTaskAnnotationsFirstFrameSecondMark)
-      wrapper.setProps({ frame: 1 })
-      firstTaskAnnotationRenderedMarks = wrapper.find(DrawingToolMarks).first().props().marks
-      secondTaskAnnotationRenderedMarks = wrapper.find(DrawingToolMarks).last().props().marks
-      expect(firstTaskAnnotationRenderedMarks).to.have.lengthOf(0)
-      expect(secondTaskAnnotationRenderedMarks).to.have.lengthOf(2)
-      expect(secondTaskAnnotationRenderedMarks[0]).to.deep.equal(secondTaskAnnotationsSecondFrameFirstMark)
-      expect(secondTaskAnnotationRenderedMarks[1]).to.deep.equal(secondTaskAnnotationsSecondFrameSecondMark)
+  describe('when there are no drawing task annotations', function () {
+    it('should not render any marks', function () {
+      render(
+        <PreviousMarks />,
+        {
+          wrapper: withStore(mockStore({ workflow }))
+        }
+      )
+      const marks = document.querySelectorAll('g.drawingMark')
+      expect(marks).to.have.lengthOf(0)
     })
   })
 
-  describe('when shown marks is USER', function () {
-    it('should not render DrawingToolMarks if there are not annotations', function () {
-      const wrapper = shallow(<PreviousMarks shownMarks={SHOWN_MARKS.USER} />)
-      expect(wrapper.html()).to.be.null()
+  describe('when there are drawing task annotations', function () {
+    it('should render disabled drawing marks per task by frame', function () {
+      render(
+        <PreviousMarks />,
+        {
+          wrapper: withStore(store)
+        }
+      )
+      let marks = document.querySelectorAll('g.drawingMark')
+      expect(marks).to.have.lengthOf(3)
+      marks.forEach(mark => {
+        expect(mark.getAttribute('aria-disabled')).to.equal('true')
+        expect(mark.getAttribute('tabindex')).to.equal('-1')
+      })
+      store.subjectViewer.setFrame(1)
+      marks = document.querySelectorAll('g.drawingMark')
+      expect(marks).to.have.lengthOf(2)
+      marks.forEach(mark => {
+        expect(mark.getAttribute('aria-disabled')).to.equal('true')
+        expect(mark.getAttribute('tabindex')).to.equal('-1')
+      })
+      store.subjectViewer.setFrame(0)
+    })
+  })
+
+  describe('when shown transcription marks is USER', function () {
+    it('should not render marks if there are no annotations', function () {
+      render(
+        <PreviousMarks />,
+        {
+          wrapper: withStore(mockStore({ workflow }))
+        }
+      )
+      expect(store.workflowSteps.interactionTask.shownMarks).to.equal(SHOWN_MARKS.ALL)
+      store.workflowSteps.interactionTask.togglePreviousMarks(SHOWN_MARKS.USER)
+      expect(store.workflowSteps.interactionTask.shownMarks).to.equal(SHOWN_MARKS.USER)
+      let marks = document.querySelectorAll('g.drawingMark')
+      expect(marks).to.have.lengthOf(0)
     })
 
-    it('should render DrawingToolMarks if there are also annotations', function () {
-      const wrapper = shallow(<PreviousMarks previousAnnotations={previousAnnotations} shownMarks={SHOWN_MARKS.USER} />)
-      expect(wrapper.find(DrawingToolMarks)).to.have.lengthOf(2)
+    it('should render marks if there are also annotations', function () {
+      render(
+        <PreviousMarks />,
+        {
+          wrapper: withStore(store)
+        }
+      )
+      expect(store.workflowSteps.interactionTask.shownMarks).to.equal(SHOWN_MARKS.ALL)
+      store.workflowSteps.interactionTask.togglePreviousMarks(SHOWN_MARKS.USER)
+      expect(store.workflowSteps.interactionTask.shownMarks).to.equal(SHOWN_MARKS.USER)
+      const marks = document.querySelectorAll('g.drawingMark')
+      expect(marks).to.have.lengthOf(3)
     })
   })
 
   describe('when shown marks is NONE', function () {
-    it('should render null', function ()  {
-      const wrapper = shallow(<PreviousMarks shownMarks={SHOWN_MARKS.NONE} />)
-      expect(wrapper.html()).to.be.null()
+    it('should not show any marks', function ()  {
+      render(
+        <PreviousMarks />,
+        {
+          wrapper: withStore(store)
+        }
+      )
+      expect(store.workflowSteps.interactionTask.shownMarks).to.equal(SHOWN_MARKS.ALL)
+      store.workflowSteps.interactionTask.togglePreviousMarks(SHOWN_MARKS.NONE)
+      expect(store.workflowSteps.interactionTask.shownMarks).to.equal(SHOWN_MARKS.NONE)
+      const marks = document.querySelectorAll('g.drawingMark')
+      expect(marks).to.have.lengthOf(0)
     })
   })
 })

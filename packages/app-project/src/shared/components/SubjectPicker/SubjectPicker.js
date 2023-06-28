@@ -87,11 +87,12 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
   function sort(data) {
     const { property: sortField, direction: sortOrder } = data
     if (sortField === 'status') {
-      return true;
+      return true
     }
     setRows([])
     setSortField(sortField)
     setSortOrder(sortOrder)
+    return true
   }
 
   const background = {

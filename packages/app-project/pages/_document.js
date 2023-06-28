@@ -92,6 +92,7 @@ export default class MyDocument extends Document {
           {isProduction && (
             <noscript>
               <iframe
+                title='Google Tag Manager'
                 height='0'
                 src={`https://www.googletagmanager.com/ns.html?id=${GA_TRACKING_ID}`}
                 style={{ display: 'none', visibility: 'hidden' }}
