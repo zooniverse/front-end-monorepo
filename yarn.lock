@@ -8322,9 +8322,9 @@ endent@^2.0.1:
     objectorarray "^1.0.5"
 
 engine.io-client@~6.5.0:
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/engine.io-client/-/engine.io-client-6.5.0.tgz#c77f14c0e996d3746a1fa681b3b093003dc1743d"
-  integrity sha512-C7eN3OKggSfd5g8IDgUA9guC8TNS6CEganKT7dL6Fp3q+FobcQ/WBn2Qq2XTL1vNTiFZfDzXohvqLuR9dWejdg==
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/engine.io-client/-/engine.io-client-6.5.1.tgz#1735fb8ae3bae5ae13115e18d2f484daf005dd9c"
+  integrity sha512-hE5wKXH8Ru4L19MbM1GgYV/2Qo54JSMh1rlJbfpa40bEWkCKNo3ol2eOtGmowcr+ysgbI7+SGL+by42Q3pt/Ng==
   dependencies:
     "@socket.io/component-emitter" "~3.1.0"
     debug "~4.3.1"
