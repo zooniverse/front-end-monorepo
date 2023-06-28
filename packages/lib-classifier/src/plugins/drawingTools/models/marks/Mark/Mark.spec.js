@@ -37,21 +37,37 @@ describe('Models > Drawing Task > Mark', function () {
         question: 'how many?',
         answers: ['one', 'two', 'three'],
         required
-      }, {
+      },
+      {
         taskKey: 'text',
         type: 'text',
         instruction: 'Fill in the text',
+      },
+      {
+        taskKey: 'dropdown-simple',
+        type: 'dropdown-simple',
+        allowCreate: false,
+        instruction: 'select a vegetable',
+        options: [
+          'carrot',
+          'potato',
+          'turnip',
+          'parsnip'
+        ],
+        required
       }
     ]
     const drawingTool = Tool.create(toolData)
     const multipleTaskSnapshot = tasks[0]
     const singleTaskSnapshot = tasks[1]
     const textTaskSnapshot = tasks[2]
+    const simpleDropdownTaskSnapshot = tasks[3]
     const multipleTask = drawingTool.createTask(multipleTaskSnapshot)
     const singleTask = drawingTool.createTask(singleTaskSnapshot)
     const textTask = drawingTool.createTask(textTaskSnapshot)
+    const simpleDropdownTask = drawingTool.createTask(simpleDropdownTaskSnapshot)
     const mark = drawingTool.createMark({ id: 'mockMark' })
-    return { drawingTool, mark, multipleTask, singleTask, textTask }
+    return { drawingTool, mark, multipleTask, singleTask, textTask, simpleDropdownTask }
   }
 
   before(function () {
@@ -165,9 +181,10 @@ describe('Models > Drawing Task > Mark', function () {
       let mark
       let multipleTask
       let singleTask
+      let simpleDropdownTask
 
       before(function () {
-        ({ drawingTool, mark, multipleTask, singleTask } = mockMark({ required: 'true' }))
+        ({ drawingTool, mark, multipleTask, singleTask, simpleDropdownTask } = mockMark({ required: 'true' }))
       })
 
       it('should be incomplete', function () {
@@ -189,9 +206,10 @@ describe('Models > Drawing Task > Mark', function () {
         })
       })
 
-      describe('after annotating both subtasks', function () {
+      describe('after annotating all subtasks', function () {
         it('should be complete', function () {
           mark.addAnnotation(singleTask, 1)
+          mark.addAnnotation(simpleDropdownTask, { selection: 0, option: true })
           expect(mark.isComplete).to.be.true()
         })
 
