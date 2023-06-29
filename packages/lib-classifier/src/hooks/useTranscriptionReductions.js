@@ -1,16 +1,36 @@
-import { getType } from 'mobx-state-tree'
-import { useEffect, useState } from 'react'
+import { auth } from '@zooniverse/panoptes-js'
+import { getSnapshot, getType } from 'mobx-state-tree'
+import { useEffect } from 'react'
+import * as Sentry from '@sentry/browser'
 
 import SHOWN_MARKS from '@helpers/shownMarks'
 import { useStores } from '@hooks'
+import { getBearerToken } from '@store/utils'
 import { useCaesarReductions } from './'
+
+async function checkUser(userIDs = [], authorization) {
+  if (authorization) {
+    const token = authorization.replace('Bearer ', '')
+    const { data } = await auth.verify(token)
+    return data && userIDs.includes(data.id)
+  }
+  return false
+}
+
+function logDuplicateSubject(subjectSnapshot) {
+  const subjectError = new Error(`Duplicate transcription subject: ${subjectSnapshot.id}`)
+  Sentry.withScope((scope) => {
+    scope.setTag('subjectError', 'duplicate')
+    scope.setExtra('subject', JSON.stringify(subjectSnapshot))
+    Sentry.captureException(subjectError)
+  })
+}
 
 export default function useTranscriptionReductions() {
   const {
+    authClient,
     subjects: {
-      active: {
-        stepHistory
-      }
+      active: subject
     },
     subjectViewer: {
       frame
@@ -26,8 +46,21 @@ export default function useTranscriptionReductions() {
 
   const { loaded, caesarReductions } = useCaesarReductions(workflow.caesarReducer)
 
+  useEffect(function checkTranscriptionUsers() {
+    async function checkSubject() {
+      const authorization = await getBearerToken(authClient)
+      const alreadySeen = await checkUser(caesarReductions?.userIDs, authorization)
+      if (alreadySeen) {
+        const subjectSnapshot = getSnapshot(subject)
+        logDuplicateSubject(subjectSnapshot)
+        subject.markAsSeen()
+      }
+    }
+    checkSubject()
+  }, [caesarReductions, subject])
+
   let lines = []
-  const activeStepAnnotations = stepHistory?.latest.annotations
+  const activeStepAnnotations = subject?.stepHistory?.latest.annotations
   // We expect there to only be one
   const [task] = findTasksByType('transcription')
   // We want to observe the marks array for changes, so pass that as a separate prop.

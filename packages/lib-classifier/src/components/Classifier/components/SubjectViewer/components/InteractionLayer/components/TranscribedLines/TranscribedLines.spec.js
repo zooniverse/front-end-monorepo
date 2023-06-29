@@ -2,6 +2,7 @@ import { within } from '@testing-library/dom'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import zooTheme from '@zooniverse/grommet-theme'
+import { auth } from '@zooniverse/panoptes-js'
 import { Grommet } from 'grommet'
 import { when } from 'mobx'
 import { Provider } from 'mobx-react'
@@ -691,6 +692,31 @@ describe('Component > TranscribedLines', function () {
           expect(line.tabIndex).to.equal(-1)
         })
       })
+    })
+  })
+
+  describe('previously transcribed subjects', function () {
+    let subject
+
+    before(async function () {
+      sinon.stub(auth, 'verify').resolves({
+        data: { id: 1, login: 'testUser', dname: 'Test User', admin: false }
+      })
+      const authClient = {
+        checkBearerToken: sinon.stub().resolves('fakeToken')
+      }
+      const store = mockStore({ authClient, client, workflow: workflowSnapshot })
+      render(<TranscribedLines />, { wrapper: withStore(store) })
+      subject = store.subjects.active
+      await when(() => subject.caesarReductions?.reductions.length > 0)
+    })
+
+    after(function () {
+      auth.verify.restore()
+    })
+
+    it('should be marked as already seen', function () {
+      expect(subject.already_seen).to.be.true()
     })
   })
 })

@@ -1,5 +1,6 @@
 import * as Sentry from '@sentry/browser'
 import asyncStates from '@zooniverse/async-states'
+import { auth } from '@zooniverse/panoptes-js'
 import { autorun } from 'mobx'
 import { addDisposer, addMiddleware, flow, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
 import { getBearerToken } from '@store/utils'
@@ -138,7 +139,20 @@ const SubjectStore = types
 
       try {
         const authorization = await getBearerToken(authClient)
+        let tokenError
+        if (authorization) {
+          const token = authorization.replace('Bearer ', '')
+          const { data, error } = await auth.verify(token)
+          tokenError = error
+        }
         const response = await panoptes.get(apiUrl, params, { authorization })
+        if (tokenError) {
+          console.error(tokenError)
+          Sentry.withScope((scope) => {
+            scope.setTag('subjectQueueError', 'tokenError')
+            Sentry.captureException(tokenError)
+          })
+        }
 
         if (response.body.subjects?.length > 0) {
           return response.body.subjects
