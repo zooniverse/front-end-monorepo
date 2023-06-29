@@ -1,78 +1,43 @@
-import { shallow } from 'enzyme'
-import { Modal } from '@zooniverse/react-components'
-import { Button, CheckBox } from 'grommet'
-import sinon from 'sinon'
-import WorkflowAssignmentModal from './WorkflowAssignmentModal'
-import NavLink from '@shared/components/NavLink'
+import { expect } from 'chai'
+import { composeStory } from '@storybook/react'
+import { render, screen } from '@testing-library/react'
+
+import Meta, { Default } from './WorkflowAssignmentModal.stories.js'
 
 describe('Component > WorkflowAssignmentModal', function () {
-  let wrapper, closeFnSpy, dismissSpy
-  const router = {
-    asPath: '/foo/bar',
-    query: {
-      owner: 'foo',
-      project: 'bar'
-    }
-  }
+  const DefaultStory = composeStory(Default, Meta)
 
-  before(function() {
-    closeFnSpy = sinon.spy()
-    dismissSpy = sinon.spy()
-    wrapper = shallow(
-      <WorkflowAssignmentModal
-        closeFn={closeFnSpy}
-        dismiss={dismissSpy}
-        assignedWorkflowID='1234'
-        router={router}
-      />
-    )
+  describe('essential component parts', function () {
+    beforeEach(function () {
+      render(<DefaultStory />)
+    })
+
+    it('should have a cancel button', function () {
+      expect(screen.getByText('Classify.WorkflowAssignmentModal.cancel'))
+    })
+
+    it('should render a confirmation link', function () {
+      const link = document.querySelector(`a[href='/zooniverse/snapshot-serengeti/classify/workflow/1234'`)
+      expect(link).to.be.ok()
+    })
+
+    it('should have a labeled checkbox', function () {
+      expect(screen.getByLabelText('Classify.WorkflowAssignmentModal.dismiss')).to.be.ok()
+    })
   })
 
-  after(function () {
-    closeFnSpy = null
-    dismissSpy = null
-    wrapper = null
-  })
+  describe('when modal has been dismissed', function () {
+    before(function () {
+      window.sessionStorage.setItem('workflowAssignmentModalDismissed', 'true')
+    })
 
-  it('should render without crashing', function () {
-    expect(wrapper).to.be.ok()
-  })
+    after(function () {
+      window.sessionStorage.removeItem('workflowAssignmentModalDismissed', 'true')
+    })
 
-  it('should render a Modal', function () {
-    expect(wrapper.find(Modal)).to.have.lengthOf(1)
-  })
-
-  it('should pass the closeFn to the Modal', function () {
-    expect(wrapper.find(Modal).props().closeFn).to.equal(closeFnSpy)
-  })
-
-  it('should pass the active prop to the Modal', function () {
-    expect(wrapper.find(Modal).props().active).to.be.false()
-    wrapper.setProps({ active: true })
-    expect(wrapper.find(Modal).props().active).to.be.true()
-  })
-
-  it('should render a confirmation link', function () {
-    const button = wrapper.find(NavLink)
-    expect(button.props().link.href).to.equal('/foo/bar/classify/workflow/1234')
-  })
-
-  it('should call the cancel handler on cancel', function () {
-    const button = wrapper.find(Button)
-    button.simulate('click')
-    expect(closeFnSpy).to.have.been.calledOnce()
-  })
-
-  it('should call the dismiss function on change', function () {
-    const event = { target: { checked: true } }
-    const checkbox = wrapper.find(CheckBox)
-    checkbox.simulate('change', event)
-    expect(dismissSpy.withArgs(event)).to.have.been.calledOnce()
-  })
-
-  it('should set the checked state by prop', function () {
-    expect(wrapper.find(CheckBox).props().checked).to.be.false()
-    wrapper.setProps({ dismissedForSession: true })
-    expect(wrapper.find(CheckBox).props().checked).to.be.true()
+    it('the modal should not be active', function () {
+      render(<DefaultStory />)
+      expect(document.querySelector(`a[href='/zooniverse/snapshot-serengeti/classify/workflow/1234'`)).to.be.null()
+    })
   })
 })

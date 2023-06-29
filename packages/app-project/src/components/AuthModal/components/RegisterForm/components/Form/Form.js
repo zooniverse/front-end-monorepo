@@ -71,7 +71,6 @@ function Form ({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, v
             required
           >
             <TextInput
-              autoFocus
               disabled={isSubmitting}
               id={userNameFieldId}
               name='username'

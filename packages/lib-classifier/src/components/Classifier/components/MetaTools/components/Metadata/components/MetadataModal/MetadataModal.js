@@ -20,6 +20,10 @@ const StyledDataTable = styled(DataTable)`
 const DatumWrapper = styled(Text)`
   overflow-wrap: break-word;
   word-break: break-word;
+
+  & > p {
+    margin: 0;
+  }
 `
 
 export function formatValue (value) {
@@ -72,6 +76,7 @@ export default function MetadataModal ({
     >
       <Box height='medium' overflow='auto'>
         <StyledDataTable
+          pad='15px'
           columns={columns}
           data={data}
           sortable

@@ -28,6 +28,7 @@ const Characteristics = types.refinement(
 )
 
 const Survey = types.model('Survey', {
+  // alwaysShowThumbnails is deprecated in favor of the `thumbnails` property
   alwaysShowThumbnails: types.maybe(types.boolean),
   annotation: types.safeReference(SurveyAnnotation),
   characteristics: types.optional(types.frozen(Characteristics), {}),
@@ -40,6 +41,7 @@ const Survey = types.model('Survey', {
   questions: types.frozen({}),
   questionsMap: types.frozen({}),
   questionsOrder: types.array(types.string),
+  thumbnails: types.maybe(types.string),
   type: types.literal('survey')
 })
   .views(self => ({
