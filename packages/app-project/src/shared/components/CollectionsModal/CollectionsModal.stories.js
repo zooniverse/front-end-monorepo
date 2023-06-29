@@ -14,12 +14,12 @@ export default {
   excludeStories: ['mockCollections']
 }
 
-const mockCollectionNames = ['1', '2', '3', '10', '12']
+const mockCollectionNames = ['Gravity Spy', 'TESS', 'Planet Four', 'Transcriptions']
 
-const usersCollections = mockCollectionNames.map((collection) =>
+const usersCollections = mockCollectionNames.map((collection, index) =>
   Collection.create({
-    display_name: `Collection: ${collection}`,
-    id: collection,
+    display_name: collection,
+    id: index.toString(),
     links: {
       owner: {
         id: '123'
@@ -29,7 +29,7 @@ const usersCollections = mockCollectionNames.map((collection) =>
 )
 
 const otherOwnerCollection = Collection.create({
-  display_name: 'Collection: 1',
+  display_name: 'Transcriptions',
   id: '934667',
   links: {
     owner: {

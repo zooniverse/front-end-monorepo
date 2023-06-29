@@ -28,11 +28,31 @@ describe('Component > SelectCollection', function () {
   })
 
   it('should call the onSearch callback', async function () {
+    const baseQuery = {
+      favorite: false,
+      current_user_roles: 'owner,collaborator,contributor',
+      search: undefined
+    }
+
+    const textQuery = {
+      favorite: false,
+      current_user_roles: 'owner,collaborator,contributor',
+      search: 'coll'
+    }
+
     const user = userEvent.setup({ delay: null })
+    const selectButton = document.querySelector('#collectionsSearch')
 
-    const selectInput = document.querySelector('input')
-    await user.type(selectInput, 'coll')
+    // Click the drop button in order to show list of options
+    await user.click(selectButton)
+    await screen.findByRole('listbox')
 
-    // expect(searchSpy).to.have.been.calledOnce()
+    // input is the text search box
+    const dropInput = document.querySelector('#collectionsSearch__drop input')
+    await user.type(dropInput, 'coll')
+
+    expect(onSearch).to.have.callCount(4)
+    expect(onSearch.withArgs(baseQuery)).to.have.been.calledThrice()
+    expect(onSearch.withArgs(textQuery)).to.have.been.calledOnce() // only query panoptes when text search is >4 characters
   })
 })
