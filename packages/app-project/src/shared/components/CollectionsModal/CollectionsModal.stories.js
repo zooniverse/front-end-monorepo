@@ -10,7 +10,8 @@ import CollectionsModalContainer from './CollectionsModalContainer.js'
 
 export default {
   title: 'Project App / shared / Collections Modal',
-  component: CollectionsModalContainer
+  component: CollectionsModalContainer,
+  excludeStories: ['mockCollections']
 }
 
 const mockCollectionNames = ['1', '2', '3', '10', '12']
@@ -38,7 +39,7 @@ const otherOwnerCollection = Collection.create({
   }
 })
 
-const mockCollections = [...usersCollections, otherOwnerCollection]
+export const mockCollections = [...usersCollections, otherOwnerCollection]
 
 const snapshot = {
   project: {

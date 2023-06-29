@@ -1,94 +1,38 @@
-// import { shallow } from 'enzyme'
-// import { Button, Select } from 'grommet'
-// import sinon from 'sinon'
+import { render, screen } from '@testing-library/react'
+import sinon from 'sinon'
+import userEvent from '@testing-library/user-event'
 
-// import SelectCollection from './SelectCollection'
+import { mockCollections } from '../../CollectionsModal.stories.js'
+import SelectCollection from './SelectCollection.js'
 
-// let wrapper
+describe('Component > SelectCollection', function () {
+  const onSearch = sinon.stub()
 
-// describe('Component > SelectCollection', function () {
-//   const collections = [
-//     { id: '1', display_name: 'Test One' },
-//     { id: '2', display_name: 'Test Two' }
-//   ]
-//   const onSearch = sinon.stub()
-//   const onSubmit = sinon.stub()
+  beforeEach(function () {
+    render(
+      <SelectCollection
+        collections={mockCollections}
+        onSearch={onSearch}
+        userID='123'
+      />
+    )
+  })
 
-//   before(function () {
-//     wrapper = shallow(
-//       <SelectCollection
-//         collections={collections}
-//         onSearch={onSearch}
-//         onSubmit={onSubmit}
-//       />
-//     )
-//   })
+  it('should be empty by default', function () {
+    const selectInput = document.querySelector('input')
+    expect(selectInput.value).to.equal('')
+  })
 
-//   it('should render without crashing', function () {
-//     expect(wrapper).to.be.ok()
-//   })
+  it('should contain an Add button', function () {
+    expect(screen.getByText('CollectionsModal.SelectCollection.addButton')).exists()
+  })
 
-//   it('should call the onSubmit callback on submit', function () {
-//     wrapper.find('Grid').simulate('submit')
-//     expect(onSubmit).to.have.been.calledOnce()
-//   })
+  it('should call the onSearch callback', async function () {
+    const user = userEvent.setup({ delay: null })
 
-//   describe('collections search input', function () {
-//     let select
+    const selectInput = document.querySelector('input')
+    await user.type(selectInput, 'coll')
 
-//     before(function () {
-//       select = wrapper.find(Select)
-//     })
-
-//     it('should exist', function () {
-//       expect(select).to.have.lengthOf(1)
-//     })
-
-//     it('should be empty by default', function () {
-//       expect(select.prop('value')).to.eql({})
-//     })
-
-//     it('should list collections', function () {
-//       expect(select.prop('options')).to.eql(collections)
-//     })
-
-//     it('should call the onSearch callback', function () {
-//       const searchText = 'Hello'
-//       const searchSpy = onSearch.withArgs({
-//         favorite: false,
-//         current_user_roles: 'owner,collaborator,contributor',
-//         search: searchText
-//       })
-//       select.simulate('search', searchText)
-//       expect(searchSpy).to.have.been.calledOnce()
-//     })
-//     it('should display the selected collection', function () {
-//       const collection = { id: '1', display_name: 'Selected collection' }
-//       wrapper.setProps({ selected: collection })
-//       select = wrapper.find(Select)
-//       expect(select.prop('value')).to.eql(collection)
-//     })
-//   })
-
-//   describe('Add button', function () {
-//     let button
-
-//     before(function () {
-//       button = wrapper.find(Button)
-//     })
-
-//     it('should contain a button', function () {
-//       expect(button).to.have.lengthOf(1)
-//     })
-
-//     it('should submit the form', function () {
-//       expect(button.props().type).to.equal('submit')
-//     })
-
-//     it('can be disabled', function () {
-//       wrapper.setProps({ disabled: true })
-//       button = wrapper.find(Button)
-//       expect(button.prop('disabled')).to.be.true()
-//     })
-//   })
-// })
+    // expect(searchSpy).to.have.been.calledOnce()
+  })
+})
