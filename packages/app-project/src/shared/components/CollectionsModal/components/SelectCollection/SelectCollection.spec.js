@@ -43,13 +43,12 @@ describe('Component > SelectCollection', function () {
     const user = userEvent.setup({ delay: null })
     const selectButton = document.querySelector('#collectionsSearch')
 
-    // Click the drop button in order to show list of options
+    // Click the drop button in order to show options and search box
     await user.click(selectButton)
     await screen.findByRole('listbox')
 
-    // input is the text search box
-    const dropInput = document.querySelector('#collectionsSearch__drop input')
-    await user.type(dropInput, 'coll')
+    const searchBar = document.querySelector('input[type="search"]')
+    await user.type(searchBar, 'coll') // causes [TypeError: activeElement.attachEvent is not a function]
 
     expect(onSearch).to.have.callCount(4)
     expect(onSearch.withArgs(baseQuery)).to.have.been.calledThrice()
