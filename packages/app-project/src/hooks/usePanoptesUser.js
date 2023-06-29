@@ -11,7 +11,9 @@ const SWRoptions = {
 
 async function fetchPanoptesUser() {
   try {
-    return await auth.checkCurrent()
+    const user = await auth.checkCurrent()
+    console.log({ user })
+    return user
   } catch (error) {
     console.log(error)
     return null
@@ -20,5 +22,6 @@ async function fetchPanoptesUser() {
 
 export default function usePanoptesUser(key) {
   const { data } = useSWR(key, fetchPanoptesUser, SWRoptions)
+  console.log({ data })
   return data
 }
