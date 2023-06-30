@@ -2833,10 +2833,10 @@
     pump "^3.0.0"
     tar-fs "^2.1.1"
 
-"@newrelic/aws-sdk@^5.0.2":
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/@newrelic/aws-sdk/-/aws-sdk-5.0.2.tgz#c3d6a9a295f647780da86dec318a0bdef844c576"
-  integrity sha512-vn5Aj0ZznjzqqxR69mHIWi7QUjBeab9f0Dfra/UOPZlyLy3Q/HbK4/sYV9/q/Ifmx85B3kJI4ca7mytCx073VQ==
+"@newrelic/aws-sdk@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@newrelic/aws-sdk/-/aws-sdk-6.0.0.tgz#046241104394cafa3ade2cdff61c01f81b7df8ba"
+  integrity sha512-17DwEvyDS9pAkV5kBSGtm2oIQbII0qOSAXSlU51MLA0Vp/PxNDTCBBFVgpKbGyKpPfudIJMGvh4jAmlzH3xIng==
 
 "@newrelic/koa@^7.1.1":
   version "7.1.1"
@@ -7062,9 +7062,9 @@ contentful-sdk-core@^7.0.2:
     qs "^6.9.4"
 
 contentful@~10.3.0:
-  version "10.3.0"
-  resolved "https://registry.yarnpkg.com/contentful/-/contentful-10.3.0.tgz#fda067156696a54fd007fedc907d4d00eef31e30"
-  integrity sha512-o1AhgGHzn3TwWXvAbY3fHJk/QZ/uGNBBtjE9C3h86cQMUU4glGcKpzI6qp/80efCG4DLROxzjtgSOPSuE7BbRg==
+  version "10.3.1"
+  resolved "https://registry.yarnpkg.com/contentful/-/contentful-10.3.1.tgz#8d81893c804b86548b93d5f739e4476193c69748"
+  integrity sha512-0qtxJd2KKYxeZoeaRBEfP6OJJXvzYTm5fnMqZECVYbVIhTemKHEMvNMqkIZ/3r6F1DxHMk3yVh2XMuhGxrvGUQ==
   dependencies:
     "@contentful/rich-text-types" "^16.0.2"
     axios "^0.26.1"
@@ -12590,15 +12590,15 @@ neo-async@^2.5.0, neo-async@^2.6.0, neo-async@^2.6.1, neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-newrelic@^10.0.0, newrelic@~10.3.0:
-  version "10.3.2"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-10.3.2.tgz#4398d0907d07b203fa1d7e26bf82a227e156b12e"
-  integrity sha512-hSjn1/hwMgmjtfavgWRMgdMqIaZGpCh9/8ixVbcPfFyLfnNxJI4D2mwCTY4EjnO7dTNfSkiAxfAIXsUv4FibZw==
+newrelic@^10.0.0, newrelic@~10.4.0:
+  version "10.4.0"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-10.4.0.tgz#54cec77eb5771e49b6a554387b18e8eed954f927"
+  integrity sha512-50+pzuDPBFfxHRGiomyOSSlrGFr4QpiDmWaHxBK0r0omoUR4IQFCeR7RXEoxzUpAczWQLQc1HzRKZe42vUev3g==
   dependencies:
     "@grpc/grpc-js" "^1.8.10"
     "@grpc/proto-loader" "^0.7.5"
     "@mrleebo/prisma-ast" "^0.5.2"
-    "@newrelic/aws-sdk" "^5.0.2"
+    "@newrelic/aws-sdk" "^6.0.0"
     "@newrelic/koa" "^7.1.1"
     "@newrelic/security-agent" "0.1.3"
     "@newrelic/superagent" "^6.0.0"
