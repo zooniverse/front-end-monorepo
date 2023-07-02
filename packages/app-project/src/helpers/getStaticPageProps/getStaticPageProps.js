@@ -1,7 +1,7 @@
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 
 import notFoundError from '@helpers/notFoundError'
-
+import fetchProjectPageTitles from '@helpers/fetchProjectPageTitles'
 import fetchOrganization from '@helpers/fetchOrganization'
 import fetchProjectData from '@helpers/fetchProjectData'
 import fetchTranslations from '@helpers/fetchTranslations'
@@ -21,6 +21,8 @@ export default async function getStaticPageProps({ locale, params }) {
   if (params.owner && params.project) {
     const projectSlug = `${params.owner}/${params.project}`
     const project = await fetchProjectData(projectSlug, { env })
+    project.about_pages = await fetchProjectPageTitles(project, params.panoptesEnv)
+
     applySnapshot(store.project, project)
     if (!store.project.id) {
       return notFoundError(`Project ${params.owner}/${params.project} was not found`)
@@ -73,7 +75,7 @@ export default async function getStaticPageProps({ locale, params }) {
     Fetch the active project workflows
   */
   const workflows = await fetchWorkflowsHelper(language, project.links.active_workflows, workflowID, workflowOrder, env)
-  
+
   const props = {
     project: {
       ...project,
@@ -81,7 +83,7 @@ export default async function getStaticPageProps({ locale, params }) {
     },
     workflows
   }
-  
+
   if (workflowID) {
     props.workflowID = workflowID
   }
@@ -96,7 +98,7 @@ export default async function getStaticPageProps({ locale, params }) {
       applySnapshot(store.organization, organization)
       props.organization = getSnapshot(store.organization)
     }
-  }  
+  }
 
   return { props }
 }
