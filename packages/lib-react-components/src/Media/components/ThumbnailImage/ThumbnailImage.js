@@ -3,8 +3,6 @@ import getThumbnailSrc from '../../helpers/getThumbnailSrc.js'
 import { propTypes, defaultProps } from '../../helpers/mediaPropTypes.js'
 import useProgressiveImage from '../../../hooks/useProgressiveImage.js'
 
-const DEFAULT_THUMBNAIL_DIMENSION = ''
-
 export function Placeholder({ children, flex, ...props}) {
   return (
     <Box background='brand' flex={flex} justify='center' align='center' {...props}>
@@ -18,11 +16,11 @@ export default function ThumbnailImage({
   delay = defaultProps.delay,
   fit = defaultProps.fit,
   flex = defaultProps.flex,
-  height = DEFAULT_THUMBNAIL_DIMENSION,
+  height,
   origin = defaultProps.origin,
   placeholder = defaultProps.placeholder,
   src,
-  width = DEFAULT_THUMBNAIL_DIMENSION,
+  width,
   ...rest
 }) {
   const thumbnailSrc = getThumbnailSrc({ height, origin, src, width })
