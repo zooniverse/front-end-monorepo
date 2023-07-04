@@ -3,29 +3,11 @@ import { useEffect, useState } from 'react'
 
 import { getBearerToken } from '@store/utils'
 
-async function decodeJWT(token) {
-  let user = null
-  let error = null
-  const decodedToken = await auth.verify(token)
-  const { data } = decodedToken
-  error = decodedToken.error
-  if (data) {
-    user = {
-      id: data.id.toString(),
-      login: data.login,
-      display_name: data.dname,
-      admin: data.admin
-    }
-  }
-  return { user, error }
-}
-
 async function fetchPanoptesUser(authClient) {
   try {
     const authorization = await getBearerToken(authClient)
     if (authorization) {
-      const token = authorization.replace('Bearer ', '')
-      const { user, error } = await decodeJWT(token)
+      const { user, error } = await auth.decodeJWT(authorization)
       if (user) {
         return user
       }

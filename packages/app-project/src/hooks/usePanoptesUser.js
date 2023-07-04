@@ -10,28 +10,11 @@ const SWRoptions = {
   refreshInterval: 0
 }
 
-async function decodeJWT(token) {
-  let user = null
-  let error = null
-  const decodedToken = await panoptesJS.auth.verify(token)
-  const { data } = decodedToken
-  error = decodedToken.error
-  if (data) {
-    user = {
-      id: data.id.toString(),
-      login: data.login,
-      display_name: data.dname,
-      admin: data.admin
-    }
-  }
-  return { user, error }
-}
-
 async function fetchPanoptesUser() {
   try {
     const token = await auth.checkBearerToken()
     if (token) {
-      const { user, error } = await decodeJWT(token)
+      const { user, error } = await panoptesJS.auth.decodeJWT(token)
       if (user) {
         return user
       }
