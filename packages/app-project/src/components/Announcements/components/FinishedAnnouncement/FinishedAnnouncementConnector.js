@@ -1,9 +1,15 @@
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext } from 'react'
 import { useTranslation } from 'next-i18next'
+import { Anchor } from 'grommet'
+import styled from 'styled-components'
 
 import NavLink from '@shared/components/NavLink'
 import GenericAnnouncement from '../GenericAnnouncement'
+
+const StyledAnchor = styled(Anchor)`
+  line-height: 19px;
+`
 
 function useStores() {
   const { store } = useContext(MobXProviderContext)
@@ -31,7 +37,7 @@ function FinishedAnnouncementConnector() {
     return (
       <GenericAnnouncement announcement={announcement} color='neutral-3'>
         {hasResultsPage && (
-          <NavLink color='#000000' link={link} weight='normal' />
+          <NavLink color='#000000' link={link} weight='normal' StyledAnchor={StyledAnchor} />
         )}
       </GenericAnnouncement>
     )
