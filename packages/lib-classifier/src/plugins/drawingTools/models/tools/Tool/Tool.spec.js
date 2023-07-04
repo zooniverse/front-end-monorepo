@@ -41,6 +41,29 @@ describe('Model > DrawingTools > Tool', function () {
         strings: {
           instruction: 'Transcribe something'
         }
+      },
+      // NOTE: the following represents a legacy dropdown task
+      {
+        type: 'dropdown',
+        required: false,
+        selects: [
+          {
+            allowCreate: false,
+            id: '1',
+            options: {
+              '*': [
+                { label: 'carrot', value: 'carrot' },
+                { label: 'potato', value: 'potato' },
+                { label: 'turnip', value: 'turnip' },
+                { label: 'parsnip', value: 'parsnip' }
+              ]
+            },
+            required: false
+          }
+        ],
+        strings: {
+          instruction: 'select a vegetable'
+        }
       }
     ]
     const tool = Tool.create(Object.assign({}, toolData, { details }))
@@ -59,6 +82,7 @@ describe('Model > DrawingTools > Tool', function () {
   describe('tool.createTask', function () {
 
     describe('with valid subtasks', function () {
+      let simpleDropdownTaskSnapshot
       let multipleTaskSnapshot
       let singleTaskSnapshot
       let textTaskSnapshot
@@ -92,15 +116,33 @@ describe('Model > DrawingTools > Tool', function () {
               instruction: 'Transcribe something'
             },
             text_tags: []
-          }
+          },
+          // NOTE: the following represents a legacy dropdown task converted to the simple dropdown task, see tasks/dropdown-simple/README for additional details
+          {
+            taskKey: 'dropdown',
+            type: 'dropdown-simple',
+            allowCreate: false,
+            options: [
+              'carrot',
+              'potato',
+              'turnip',
+              'parsnip'
+            ],
+            required: false,
+            strings: {
+              instruction: 'select a vegetable'
+            }
+          },
         ]
         tool = Tool.create(toolData)
         multipleTaskSnapshot = tasks[0]
         singleTaskSnapshot = tasks[1]
         textTaskSnapshot = tasks[2]
+        simpleDropdownTaskSnapshot = tasks[3]
         tool.createTask(multipleTaskSnapshot)
         tool.createTask(singleTaskSnapshot)
         tool.createTask(textTaskSnapshot)
+        tool.createTask(simpleDropdownTaskSnapshot)
       })
 
       it('should create multiple choice tasks', function () {
@@ -116,6 +158,11 @@ describe('Model > DrawingTools > Tool', function () {
       it('should create text tasks', function () {
         const {annotation, ...snapshot} = getSnapshot(tool.tasks[2])
         expect(snapshot).to.deep.equal(textTaskSnapshot)
+      })
+
+      it('should create dropdown tasks', function () {
+        const {annotation, ...snapshot} = getSnapshot(tool.tasks[3])
+        expect(snapshot).to.deep.equal(simpleDropdownTaskSnapshot)
       })
     })
 

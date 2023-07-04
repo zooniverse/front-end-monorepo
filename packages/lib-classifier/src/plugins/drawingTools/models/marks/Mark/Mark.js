@@ -3,6 +3,7 @@ import { getParent, types } from 'mobx-state-tree'
 import SingleChoiceTask from '@plugins/tasks/single'
 import MultipleChoiceTask from '@plugins/tasks/multiple'
 import TextTask from '@plugins/tasks/text'
+import SimpleDropdownTask from '@plugins/tasks/dropdown-simple'
 import AnnotationsStore from '@store/AnnotationsStore'
 
 const BaseMark = types
@@ -12,7 +13,8 @@ const BaseMark = types
       types.union(
         SingleChoiceTask.AnnotationModel,
         MultipleChoiceTask.AnnotationModel,
-        TextTask.AnnotationModel
+        TextTask.AnnotationModel,
+        SimpleDropdownTask.AnnotationModel
       )
     ),
     frame: types.optional(types.number, 0),
