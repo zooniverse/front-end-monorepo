@@ -54,10 +54,11 @@ const translations = usePanoptesTranslations({ translated_id, translated_type, l
 
 ## usePanoptesUser
 
-Get the logged-in user, or null if no one is logged in.
+Get the logged-in user, or null if no one is logged in. `loading` will be true while new user state is being fetched from Panoptes.
 
 ```js
-  const user = usePanoptesUser()
+  const { authClient } = useStores()
+  const { loading, user } = usePanoptesUser(authClient)
 ```
 
 ## useProjectPreferences

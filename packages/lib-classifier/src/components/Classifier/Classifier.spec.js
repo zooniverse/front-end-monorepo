@@ -1,9 +1,8 @@
 import { within } from '@testing-library/dom'
 import { render, screen } from '@testing-library/react'
 import asyncStates from '@zooniverse/async-states'
-import { auth } from '@zooniverse/panoptes-js'
 import zooTheme from '@zooniverse/grommet-theme'
-import { panoptes } from '@zooniverse/panoptes-js'
+import { auth, panoptes } from '@zooniverse/panoptes-js'
 import { Grommet } from 'grommet'
 import { when } from 'mobx'
 import { Provider } from 'mobx-react'
@@ -208,7 +207,15 @@ describe('Components > Classifier', function () {
         .query(true)
         .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
 
-      sinon.stub(auth, 'verify').resolves({ data: { id: 123, login: 'mockUser' } })
+      const mockUser = { id: 123, login: 'mockUser' }
+      sinon.stub(auth, 'decodeJWT').resolves({
+        user: mockUser,
+        error: null
+      })
+      sinon.stub(auth, 'verify').resolves({
+        data: mockUser
+      })
+
       const checkBearerToken = sinon.stub().resolves('mockAuth')
       const authClient = { ...defaultAuthClient, checkBearerToken }
       const client = { ...defaultClient, panoptes }
@@ -369,7 +376,14 @@ describe('Components > Classifier', function () {
       sinon.stub(panoptes, 'post').callsFake((...args) => {
         return Promise.resolve({ headers: {}, body: { project_preferences: []}})
       })
-      sinon.stub(auth, 'verify').resolves({ data: { id: 123, login: 'mockUser' } })
+      const mockUser = { id: 123, login: 'mockUser' }
+      sinon.stub(auth, 'decodeJWT').resolves({
+        user: mockUser,
+        error: null
+      })
+      sinon.stub(auth, 'verify').resolves({
+        data: mockUser
+      })
       const checkBearerToken = sinon.stub().resolves('mockAuth')
       const authClient = { ...defaultAuthClient, checkBearerToken }
       const client = { ...defaultClient, panoptes }
@@ -509,7 +523,14 @@ describe('Components > Classifier', function () {
           sinon.stub(panoptes, 'post').callsFake((...args) => {
             return Promise.resolve({ headers: {}, body: { project_preferences: []}})
           })
-          sinon.stub(auth, 'verify').resolves({ data: { id: 123, login: 'mockUser' } })
+          const mockUser = { id: 123, login: 'mockUser' }
+          sinon.stub(auth, 'decodeJWT').resolves({
+            user: mockUser,
+            error: null
+          })
+          sinon.stub(auth, 'verify').resolves({
+            data: mockUser
+          })
           const checkBearerToken = sinon.stub().resolves('mockAuth')
           const authClient = { ...defaultAuthClient, checkBearerToken }
           const client = { ...defaultClient, panoptes }
@@ -600,7 +621,6 @@ describe('Components > Classifier', function () {
         .query(true)
         .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
 
-      sinon.stub(auth, 'verify').resolves({ data: { id: 123, login: 'mockUser' } })
       const checkBearerToken = sinon.stub().resolves('mockAuth')
       const authClient = { ...defaultAuthClient, checkBearerToken }
       const client = { ...defaultClient, panoptes }
@@ -669,6 +689,7 @@ describe('Components > Classifier', function () {
       ]
       const workflowTutorial = TutorialFactory.build({ steps })
       const store = mockStore({ subject })
+      store.userProjectPreferences.clear()
       store.tutorials.setResources([workflowTutorial])
       store.tutorials.setActive(workflowTutorial.id)
       const workflowSnapshot = { ...getSnapshot(store.workflows.active) }
@@ -708,6 +729,7 @@ describe('Components > Classifier', function () {
       ]
       const workflowTutorial = TutorialFactory.build({ steps })
       const store = mockStore({ subject })
+      store.userProjectPreferences.clear()
       store.tutorials.setResources([workflowTutorial])
       store.tutorials.setActive(workflowTutorial.id)
       const workflowSnapshot = { ...getSnapshot(store.workflows.active) }
@@ -770,7 +792,15 @@ describe('Components > Classifier', function () {
         .query(true)
         .reply(200, { subject_sets: [SubjectSetFactory.build({ id: '2' })] })
 
-      sinon.stub(auth, 'verify').resolves({ data: { id: 123, login: 'mockUser' } })
+      const mockUser = { id: 123, login: 'mockUser' }
+      sinon.stub(auth, 'decodeJWT').resolves({
+        user: mockUser,
+        error: null
+      })
+      sinon.stub(auth, 'verify').resolves({
+        data: mockUser
+      })
+
       const checkBearerToken = sinon.stub().resolves('mockAuth')
       const authClient = { ...defaultAuthClient, checkBearerToken }
       const client = { ...defaultClient, panoptes }
@@ -865,6 +895,15 @@ describe('Components > Classifier', function () {
         .query(true)
         .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
 
+      const mockUser = { id: 123, login: 'mockUser', admin: true }
+      sinon.stub(auth, 'decodeJWT').resolves({
+        user: mockUser,
+        error: null
+      })
+      sinon.stub(auth, 'verify').resolves({
+        data: mockUser
+      })
+
       const workflowSnapshot = branchingWorkflow
       workflowSnapshot.strings = workflowStrings
       const projectSnapshot = ProjectFactory.build({
@@ -873,7 +912,6 @@ describe('Components > Classifier', function () {
           workflows: [workflowSnapshot.id]
         }
       })
-      sinon.stub(auth, 'verify').resolves({ data: { id: 123, login: 'mockAdmin', admin: true } })
       const checkBearerToken = sinon.stub().resolves('mockAuth')
       const authClient = { ...defaultAuthClient, checkBearerToken }
       const client = { ...defaultClient, panoptes }
@@ -935,6 +973,15 @@ describe('Components > Classifier', function () {
         .query(true)
         .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
 
+      const mockUser = { id: 123, login: 'mockUser', admin: true }
+      sinon.stub(auth, 'decodeJWT').resolves({
+        user: mockUser,
+        error: null
+      })
+      sinon.stub(auth, 'verify').resolves({
+        data: mockUser
+      })
+
       const workflowSnapshot = branchingWorkflow
       workflowSnapshot.strings = workflowStrings
       const projectSnapshot = ProjectFactory.build({
@@ -943,7 +990,6 @@ describe('Components > Classifier', function () {
           workflows: [workflowSnapshot.id]
         }
       })
-      sinon.stub(auth, 'verify').resolves({ data: { id: 123, login: 'mockAdmin', admin: true } })
       const checkBearerToken = sinon.stub().resolves('mockAuth')
       const authClient = { ...defaultAuthClient, checkBearerToken }
       const client = { ...defaultClient, panoptes }

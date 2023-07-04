@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useEffect } from 'react';
 import i18n from '../../translations/i18n'
 
-import { usePanoptesUser, useProjectPreferences, useProjectRoles } from '@hooks'
+import { useProjectPreferences, useProjectRoles } from '@hooks'
 import Layout from './components/Layout'
 import ModalTutorial from './components/ModalTutorial'
 
@@ -16,14 +16,14 @@ export default function Classifier({
   showTutorial = false,
   subjectID,
   subjectSetID,
+  userID,
   workflowSnapshot,
 }) {
 
   const project = classifierStore.projects.active
   const workflowID = workflowSnapshot?.id
   const workflowStrings = workflowSnapshot?.strings
-  const user = usePanoptesUser()
-  const projectRoles = useProjectRoles(project?.id, user?.id)
+  const projectRoles = useProjectRoles(project?.id, userID)
   let workflowVersionChanged = false
 
   if (workflowSnapshot) {
@@ -49,7 +49,7 @@ export default function Classifier({
     }
   }
 
-  const upp = useProjectPreferences(project?.id, user?.id)
+  const upp = useProjectPreferences(project?.id, userID)
 
   const uppLoading = upp === undefined
   const { userProjectPreferences } = classifierStore
@@ -68,7 +68,7 @@ export default function Classifier({
     }
   }
 
-  const canPreviewWorkflows = adminMode && user?.admin ||
+  const canPreviewWorkflows = adminMode ||
     projectRoles.indexOf('owner') > -1 ||
     projectRoles.indexOf('collaborator') > -1 ||
     projectRoles.indexOf('tester') > -1
@@ -122,8 +122,10 @@ Classifier.propTypes = {
   showTutorial: PropTypes.bool,
   subjectSetID: PropTypes.string,
   subjectID: PropTypes.string,
+  userID: PropTypes.string,
   workflowSnapshot: PropTypes.shape({
     id: PropTypes.string,
+    strings: PropTypes.object,
     version: PropTypes.string
   })
 }

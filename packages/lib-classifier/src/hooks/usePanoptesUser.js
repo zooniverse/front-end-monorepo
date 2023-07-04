@@ -1,7 +1,6 @@
 import { auth } from '@zooniverse/panoptes-js'
 import { useEffect, useState } from 'react'
 
-import { useStores } from '@hooks'
 import { getBearerToken } from '@store/utils'
 
 async function decodeJWT(token) {
@@ -41,14 +40,16 @@ async function fetchPanoptesUser(authClient) {
   }
 }
 
-export default function usePanoptesUser() {
-  const { authClient } = useStores()
+export default function usePanoptesUser(authClient) {
   const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(function () {
     async function checkUserSession() {
+      setLoading(true)
       const panoptesUser = await fetchPanoptesUser(authClient)
       setUser(panoptesUser)
+      setLoading(false)
     }
 
     checkUserSession()
@@ -59,5 +60,5 @@ export default function usePanoptesUser() {
     }
   }, [authClient])
 
-  return user
+  return { user, loading }
 }

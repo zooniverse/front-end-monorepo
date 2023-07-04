@@ -1,9 +1,8 @@
 import { within } from '@testing-library/dom'
 import { render, screen } from '@testing-library/react'
 import asyncStates from '@zooniverse/async-states'
-import { auth } from '@zooniverse/panoptes-js'
 import zooTheme from '@zooniverse/grommet-theme'
-import { panoptes } from '@zooniverse/panoptes-js'
+import { auth, panoptes } from '@zooniverse/panoptes-js'
 import { Grommet } from 'grommet'
 import { when } from 'mobx'
 import { Provider } from 'mobx-react'
@@ -107,7 +106,14 @@ function testWorkflow(workflowSnapshot, workflowStrings) {
     .query(true)
     .reply(200, { project_preferences: [] })
 
-    sinon.stub(auth, 'verify').resolves({ data: { id: 123, login: 'mockUser' } })
+    const mockUser = { id: 123, login: 'mockUser' }
+    sinon.stub(auth, 'decodeJWT').resolves({
+      user: mockUser,
+      error: null
+    })
+    sinon.stub(auth, 'verify').resolves({
+      data: mockUser
+    })
     const checkBearerToken = sinon.stub().resolves('mockAuth')
     const authClient = { ...defaultAuthClient, checkBearerToken }
     const client = { ...defaultClient, panoptes }

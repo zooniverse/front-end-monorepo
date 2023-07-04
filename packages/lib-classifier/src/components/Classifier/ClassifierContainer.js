@@ -11,7 +11,7 @@ import {
   tutorials as tutorialsClient
 } from '@zooniverse/panoptes-js'
 
-import { useHydratedStore, usePanoptesTranslations, useWorkflowSnapshot } from '@hooks'
+import { useHydratedStore, usePanoptesTranslations, usePanoptesUser, useWorkflowSnapshot } from '@hooks'
 import { unregisterWorkers } from '../../workers'
 import Classifier from './Classifier'
 
@@ -63,6 +63,7 @@ export default function ClassifierContainer({
   workflowID
 }) {
   const storeEnvironment = { authClient, client }
+  const { user, loading } = usePanoptesUser(authClient)
 
   const workflowSnapshot = useWorkflowSnapshot(workflowID)
   const workflowTranslation = usePanoptesTranslations({
@@ -103,13 +104,13 @@ export default function ClassifierContainer({
   }, [])
 
   try {
-    if (classifierStore) {
+    if (!loading && classifierStore) {
 
       return (
         <StrictMode>
           <Provider classifierStore={classifierStore}>
             <Classifier
-              adminMode={adminMode}
+              adminMode={user?.admin && adminMode}
               classifierStore={classifierStore}
               locale={locale}
               onError={onError}
@@ -117,6 +118,7 @@ export default function ClassifierContainer({
               showTutorial={showTutorial}
               subjectSetID={subjectSetID}
               subjectID={subjectID}
+              userID={user?.id}
               workflowSnapshot={workflowSnapshot}
             />
           </Provider>
@@ -143,11 +145,15 @@ ClassifierContainer.propTypes = {
   onAddToCollection: PropTypes.func,
   onCompleteClassification: PropTypes.func,
   onError: PropTypes.func,
+  onSubjectChange: PropTypes.func,
   onSubjectReset: PropTypes.func,
   onToggleFavourite: PropTypes.func,
   project: PropTypes.shape({
     id: PropTypes.string.isRequired
   }).isRequired,
   showTutorial: PropTypes.bool,
-  theme: PropTypes.object
+  subjectID: PropTypes.string,
+  subjectSetID: PropTypes.string,
+  theme: PropTypes.object,
+  workflowID: PropTypes.string
 }
