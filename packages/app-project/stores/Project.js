@@ -58,6 +58,10 @@ const Project = types
       return self.display_name
     },
 
+    get hasResultsPage () {
+      return !!self.about_pages.find(page => page.url_key === 'results')
+    },
+
     get introduction () {
       return self.strings.get('introduction')
     },
