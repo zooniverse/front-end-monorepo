@@ -1,16 +1,23 @@
 import { Box, Button, CheckBox, FormField, Grid, TextInput } from 'grommet'
 import PropTypes from 'prop-types'
-import { createRef } from 'react'
+import { useRef } from 'react'
 import { useTranslation } from 'next-i18next'
 
-function CreateCollection ({ collection, disabled, onChange, onSubmit }) {
+const defaultCollection = {
+  display_name: '',
+  private: false
+}
+
+const DEFAULT_HANDLER = () => true
+
+function CreateCollection ({ collection = defaultCollection, disabled = false, onChange = DEFAULT_HANDLER, onSubmit = DEFAULT_HANDLER }) {
   const { t } = useTranslation('components')
-  const checkbox = createRef()
-  const textInput = createRef()
+  const checkboxRef = useRef()
+  const textInputRef = useRef()
   const { display_name, private: isPrivate } = collection // eslint-disable-line
   function updateCollection () {
-    const display_name = textInput.current.value // eslint-disable-line
-    const isPrivate = checkbox.current.checked
+    const display_name = textInputRef.current.value // eslint-disable-line
+    const isPrivate = checkboxRef.current.checked
     onChange({
       display_name,
       private: isPrivate
@@ -33,7 +40,7 @@ function CreateCollection ({ collection, disabled, onChange, onSubmit }) {
         <TextInput
           id='collectionName'
           onChange={updateCollection}
-          ref={textInput}
+          ref={textInputRef}
           value={display_name} // eslint-disable-line
         />
       </FormField>
@@ -48,7 +55,7 @@ function CreateCollection ({ collection, disabled, onChange, onSubmit }) {
         checked={isPrivate}
         label={t('CollectionsModal.CreateCollection.private')}
         onChange={updateCollection}
-        ref={checkbox}
+        ref={checkboxRef}
       />
     </Grid>
   )
@@ -62,16 +69,6 @@ CreateCollection.propTypes = {
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
   onSubmit: PropTypes.func
-}
-
-CreateCollection.defaultProps = {
-  collection: {
-    display_name: '',
-    private: false
-  },
-  disabled: false,
-  onChange: () => true,
-  onSubmit: () => true
 }
 
 export default CreateCollection

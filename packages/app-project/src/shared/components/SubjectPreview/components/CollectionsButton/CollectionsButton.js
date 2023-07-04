@@ -1,25 +1,26 @@
 import CollectionsModal from '@shared/components/CollectionsModal'
 import { MetaToolsButton } from '@zooniverse/react-components'
 import { array, bool, func, shape, string } from 'prop-types'
-import { createRef } from 'react'
 import { useTranslation } from 'next-i18next'
+import { useState } from 'react'
 
 import CollectionsIcon from './CollectionsIcon'
 
-export default function CollectionsButton (props) {
+export default function CollectionsButton({ disabled, onClick, subject }) {
   const { t } = useTranslation('components')
-  const { disabled, onClick, subject } = props
-  const collectionsModal = createRef()
 
-  function addToCollections () {
-    collectionsModal.current.open(subject.id)
+  const [collectionsModalActive, setCollectionsModalActive] = useState(false)
+  const addToCollections = () => {
     onClick()
+    setCollectionsModalActive(true)
   }
 
   return (
     <>
       <CollectionsModal
-        ref={collectionsModal}
+        collectionsModalActive={collectionsModalActive}
+        setCollectionsModalActive={setCollectionsModalActive}
+        subjectID={subject.id}
       />
       <MetaToolsButton
         disabled={disabled}

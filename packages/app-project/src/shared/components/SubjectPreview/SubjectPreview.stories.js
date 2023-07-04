@@ -1,4 +1,6 @@
 import { Box } from 'grommet'
+import { Provider } from 'mobx-react'
+import Store from '@stores/Store'
 
 import SubjectPreview from './'
 
@@ -43,6 +45,21 @@ function toggle() {
   subject.toggleFavourite = toggle.bind(subject)
 })
 
+const snapshot = {
+  project: {
+    strings: {
+      display_name: 'Snapshot Serengeti',
+    }
+  },
+  user: {
+    collections: {
+      collections: [],
+    }
+  }
+}
+
+const store = Store.create(snapshot)
+
 export default {
   title: 'Project App / Shared / Subject Preview',
   component: SubjectPreview
@@ -50,15 +67,17 @@ export default {
 
 export function Plain({ isLoggedIn, subject, slug }) {
   return (
-    <Box height='medium' pad='medium' width='medium'>
-      <SubjectPreview
-        height='200px'
-        isLoggedIn={isLoggedIn}
-        subject={subject}
-        slug={slug}
-        width='270px'
-      />
-    </Box>
+    <Provider store={store}>
+      <Box height='medium' pad='medium' width='medium'>
+        <SubjectPreview
+          height='200px'
+          isLoggedIn={isLoggedIn}
+          subject={subject}
+          slug={slug}
+          width='270px'
+        />
+      </Box>
+    </Provider>
   )
 }
 
@@ -70,15 +89,17 @@ Plain.args = {
 
 export function Transcription({ isLoggedIn, subject, slug }) {
   return (
-    <Box height='medium' pad='medium' width='medium'>
-      <SubjectPreview
-        height='200px'
-        isLoggedIn={isLoggedIn}
-        subject={subject}
-        slug={slug}
-        width='270px'
-      />
-    </Box>
+    <Provider store={store}>
+      <Box height='medium' pad='medium' width='medium'>
+        <SubjectPreview
+          height='200px'
+          isLoggedIn={isLoggedIn}
+          subject={subject}
+          slug={slug}
+          width='270px'
+        />
+      </Box>
+    </Provider>
   )
 }
 
@@ -90,15 +111,17 @@ Transcription.args = {
 
 export function Video({ isLoggedIn, subject, slug }) {
   return (
-    <Box height='medium' pad='medium' width='medium'>
-      <SubjectPreview
-        height='200px'
-        isLoggedIn={isLoggedIn}
-        subject={subject}
-        slug={slug}
-        width='270px'
-      />
-    </Box>
+    <Provider store={store}>
+      <Box height='medium' pad='medium' width='medium'>
+        <SubjectPreview
+          height='200px'
+          isLoggedIn={isLoggedIn}
+          subject={subject}
+          slug={slug}
+          width='270px'
+        />
+      </Box>
+    </Provider>
   )
 }
 
