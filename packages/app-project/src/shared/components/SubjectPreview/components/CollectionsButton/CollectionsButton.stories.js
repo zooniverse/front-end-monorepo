@@ -1,5 +1,7 @@
-import readme from './README.md'
+// import readme from './README.md'
+import { Provider } from 'mobx-react'
 
+import Store from '@stores/Store'
 import CollectionsButton from './'
 
 const CAT = {
@@ -13,16 +15,30 @@ const CAT = {
   ]
 }
 
-export default {
-  title: 'Project App / Shared / Collections Button',
-  component: CollectionsButton,
-  parameters: {
-    docs: {
-      description: {
-        component: readme
-      }
+const snapshot = {
+  project: {
+    strings: {
+      display_name: 'Snapshot Serengeti'
     }
   }
 }
 
-export const Plain = () => <CollectionsButton disabled={false} subject={CAT} />
+const store = Store.create(snapshot)
+
+export default {
+  title: 'Project App / Shared / Collections Button',
+  component: CollectionsButton,
+  parameters: {
+    // docs: {
+    //   description: {
+    //     component: readme
+    //   }
+    // }
+  }
+}
+
+export const Plain = () => (
+  <Provider store={store}>
+    <CollectionsButton disabled={false} subject={CAT} />
+  </Provider>
+)
