@@ -1,16 +1,15 @@
-import asyncStates from '@zooniverse/async-states'
+import { observer } from 'mobx-react'
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react';
 import i18n from '../../translations/i18n'
 
-import { useProjectPreferences, useProjectRoles } from '@hooks'
+import { useProjectPreferences, useProjectRoles, useStores } from '@hooks'
 import Layout from './components/Layout'
 import ModalTutorial from './components/ModalTutorial'
 
-export default function Classifier({
+function Classifier({
   adminMode = false,
-  classifierStore,
   locale,
   onError = () => true,
   showTutorial = false,
@@ -19,11 +18,12 @@ export default function Classifier({
   userID,
   workflowSnapshot,
 }) {
-
+  const classifierStore = useStores()
+  const { authClient } = classifierStore
   const project = classifierStore.projects.active
+  const projectRoles = useProjectRoles({ authClient, projectID: project?.id, userID })
   const workflowID = workflowSnapshot?.id
   const workflowStrings = workflowSnapshot?.strings
-  const projectRoles = useProjectRoles(project?.id, userID)
   let workflowVersionChanged = false
 
   if (workflowSnapshot) {
@@ -46,25 +46,6 @@ export default function Classifier({
       workflows.setResources([workflowSnapshot])
       // TODO: the task area crashes without the following line. Why is that?
       classifierStore.startClassification()
-    }
-  }
-
-  const upp = useProjectPreferences(project?.id, userID)
-
-  const uppLoading = upp === undefined
-  const { userProjectPreferences } = classifierStore
-  // are we replacing a stored UPP?
-  if (uppLoading && userProjectPreferences.loadingState === asyncStates.success) {
-    console.log('resetting stale user data')
-    userProjectPreferences.reset()
-  }
-  // store a new UPP
-  if (userProjectPreferences.loadingState !== asyncStates.success) {
-    if (upp === null) {
-      userProjectPreferences.clear()
-    }
-    if (upp?.id) {
-      userProjectPreferences.setUPP(upp)
     }
   }
 
@@ -129,3 +110,5 @@ Classifier.propTypes = {
     version: PropTypes.string
   })
 }
+
+export default observer(Classifier)

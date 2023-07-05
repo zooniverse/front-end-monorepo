@@ -1,3 +1,4 @@
+import asyncStates from '@zooniverse/async-states'
 import { GraphQLClient } from 'graphql-request'
 import { Paragraph } from 'grommet'
 import { Provider } from 'mobx-react'
@@ -11,7 +12,13 @@ import {
   tutorials as tutorialsClient
 } from '@zooniverse/panoptes-js'
 
-import { useHydratedStore, usePanoptesTranslations, usePanoptesUser, useWorkflowSnapshot } from '@hooks'
+import {
+  useHydratedStore,
+  usePanoptesTranslations,
+  usePanoptesUser,
+  useProjectPreferences,
+  useWorkflowSnapshot
+} from '@hooks'
 import { unregisterWorkers } from '../../workers'
 import Classifier from './Classifier'
 
@@ -103,6 +110,22 @@ export default function ClassifierContainer({
     classifierStore.setOnToggleFavourite(onToggleFavourite)
   }, [])
 
+  const upp = useProjectPreferences({ authClient, projectID: project?.id, userID: user?.id })
+  const { userProjectPreferences } = classifierStore
+
+  useEffect(function onUPPChange() {
+    if (upp === undefined) {
+      console.log('resetting stale user data')
+      userProjectPreferences.reset()
+    }
+    if (upp === null) {
+      userProjectPreferences.clear()
+    }
+    if (upp?.id) {
+      userProjectPreferences.setUPP(upp)
+    }
+  }, [upp, userProjectPreferences])
+
   try {
     if (!loading && classifierStore) {
 
@@ -111,7 +134,6 @@ export default function ClassifierContainer({
           <Provider classifierStore={classifierStore}>
             <Classifier
               adminMode={user?.admin && adminMode}
-              classifierStore={classifierStore}
               locale={locale}
               onError={onError}
               project={project}

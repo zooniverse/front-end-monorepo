@@ -44,7 +44,7 @@ function QuickTalkContainer () {
   const { authClient, subject } = useStores(storeMapper)
   const { user } = usePanoptesUser(authClient)
   const userId = user?.id
-  const authorization = usePanoptesAuth(userId)
+  const authorization = usePanoptesAuth({ authClient, userID: userId })
   const { data: comments } = useSWR(subject, getTalkComments, SWROptions)
 
   let author_ids = comments?.map(comment => comment.user_id)

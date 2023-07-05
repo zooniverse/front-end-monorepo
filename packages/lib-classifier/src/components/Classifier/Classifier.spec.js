@@ -69,13 +69,11 @@ describe('Components > Classifier', function () {
       sinon.replace(window, 'Image', MockSlowImage)
       const subject = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const store = mockStore({ subject })
-      const project = store.projects.active
       workflow = store.workflows.active
       const workflowSnapshot = { ...getSnapshot(workflow) }
       workflowSnapshot.strings = workflowStrings
       render(
         <Classifier
-          classifierStore={store}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -139,7 +137,6 @@ describe('Components > Classifier', function () {
       workflowSnapshot.strings = workflowStrings
       render(
         <Classifier
-          classifierStore={store}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -241,7 +238,6 @@ describe('Components > Classifier', function () {
 
       const { rerender } = render(
         <Classifier
-          classifierStore={store}
           locale='en'
           workflowSnapshot={workflowSnapshot}
         />,
@@ -397,7 +393,6 @@ describe('Components > Classifier', function () {
       }, { authClient, client })
       const { rerender } = render(
         <Classifier
-          classifierStore={store}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -544,7 +539,6 @@ describe('Components > Classifier', function () {
           }, { authClient, client })
           render(
             <Classifier
-              classifierStore={store}
               workflowSnapshot={workflowSnapshot}
             />,
             {
@@ -634,7 +628,6 @@ describe('Components > Classifier', function () {
       }, { authClient, client })
       render(
         <Classifier
-          classifierStore={store}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -696,7 +689,6 @@ describe('Components > Classifier', function () {
       workflowSnapshot.strings = workflowStrings
       render(
         <Classifier
-          classifierStore={store}
           locale='en'
           showTutorial
           workflowSnapshot={workflowSnapshot}
@@ -736,7 +728,6 @@ describe('Components > Classifier', function () {
       workflowSnapshot.strings = workflowStrings
       render(
         <Classifier
-          classifierStore={store}
           locale='en'
           workflowSnapshot={workflowSnapshot}
         />,
@@ -814,7 +805,6 @@ describe('Components > Classifier', function () {
       }, { authClient, client })
       const { rerender } = render(
         <Classifier
-          classifierStore={store}
           subjectSetID='1'
           workflowSnapshot={workflowSnapshot}
         />,
@@ -926,7 +916,6 @@ describe('Components > Classifier', function () {
       render(
         <Classifier
           adminMode
-          classifierStore={store}
           workflowSnapshot={workflowSnapshot}
         />,
         {
@@ -1003,7 +992,6 @@ describe('Components > Classifier', function () {
       }, { authClient, client })
       render(
         <Classifier
-          classifierStore={store}
           workflowSnapshot={workflowSnapshot}
         />,
         {

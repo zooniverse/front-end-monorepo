@@ -41,7 +41,7 @@ const onKeyZoom = useKeyZoom()
 Asynchronously fetch an auth token, for a given user ID. A wrapper for `authClient.checkBearerToken()`.
 
 ```js
-  const authorization = usePanoptesAuth(user.id)
+  const authorization = usePanoptesAuth({ authClient, userID })
 ```
 
 ## usePanoptesTranslations
@@ -65,7 +65,7 @@ Get the logged-in user, or null if no one is logged in. `loading` will be true w
 
 Get project preferences for a user and project, or null if there's no one logged in.
 ```js
-  const upp = useProjectPreferences(project.id, user.id)
+  const upp = useProjectPreferences({ authClient, projectID, userID })
 ```
 
 ## useProjectRoles
@@ -73,7 +73,7 @@ Get project preferences for a user and project, or null if there's no one logged
 Get the logged-in user's project roles, as an array of strings, or an empty array if no one is logged in.
 
 ```js
-  const projectRoles = useProjectRoles(project.id, user.id)
+  const projectRoles = useProjectRoles({ authClient, projectID, userID })
 ```
 
 ## useStores

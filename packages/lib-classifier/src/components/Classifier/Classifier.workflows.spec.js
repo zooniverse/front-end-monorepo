@@ -127,7 +127,6 @@ function testWorkflow(workflowSnapshot, workflowStrings) {
     }, { authClient, client })
     render(
       <Classifier
-        classifierStore={store}
         workflowSnapshot={workflowSnapshot}
       />,
       {
