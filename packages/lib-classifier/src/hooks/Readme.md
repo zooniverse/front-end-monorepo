@@ -64,16 +64,21 @@ Get the logged-in user, or null if no one is logged in. `loading` will be true w
 ## useProjectPreferences
 
 Get project preferences for a user and project, or null if there's no one logged in.
+
+Returns a `useSWR` hook. See the [`useSWR` API](https://swr.vercel.app/docs/api) for all returned properties.
+
 ```js
-  const upp = useProjectPreferences({ authClient, projectID, userID })
+  const { data: upp, isLoading } = useProjectPreferences({ authClient, projectID, userID })
 ```
 
 ## useProjectRoles
 
 Get the logged-in user's project roles, as an array of strings, or an empty array if no one is logged in.
 
+Returns a `useSWR` hook. See the [`useSWR` API](https://swr.vercel.app/docs/api) for all returned properties.
+
 ```js
-  const projectRoles = useProjectRoles({ authClient, projectID, userID })
+  const { data: projectRoles, isLoading } = useProjectRoles({ authClient, projectID, userID })
 ```
 
 ## useStores

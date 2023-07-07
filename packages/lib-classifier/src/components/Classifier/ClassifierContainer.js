@@ -15,11 +15,10 @@ import {
 import {
   useHydratedStore,
   usePanoptesTranslations,
-  usePanoptesUser,
-  useProjectPreferences,
-  useProjectRoles,
   useWorkflowSnapshot
 } from '@hooks'
+
+import usePanoptesUserSession from './hooks/usePanoptesUserSession'
 import { unregisterWorkers } from '../../workers'
 import Classifier from './Classifier'
 
@@ -71,10 +70,7 @@ export default function ClassifierContainer({
   workflowID
 }) {
   const storeEnvironment = { authClient, client }
-  const { user, loading } = usePanoptesUser(authClient)
-  const upp = useProjectPreferences({ authClient, projectID: project?.id, userID: user?.id })
-  const projectRoles = useProjectRoles({ authClient, projectID: project?.id, userID: user?.id })
-
+  const { user, upp, projectRoles, userHasLoaded } = usePanoptesUserSession({ authClient, projectID: project?.id })
   const canPreviewWorkflows = adminMode ||
     projectRoles?.indexOf('owner') > -1 ||
     projectRoles?.indexOf('collaborator') > -1 ||
@@ -136,7 +132,7 @@ export default function ClassifierContainer({
   }, [upp, userProjectPreferences])
 
   try {
-    if (!loading && classifierStore) {
+    if (userHasLoaded && classifierStore) {
 
       return (
         <StrictMode>
