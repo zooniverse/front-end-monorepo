@@ -4,30 +4,27 @@ import PropTypes from 'prop-types'
 import { useEffect } from 'react';
 import i18n from '../../translations/i18n'
 
-import { useProjectPreferences, useProjectRoles, useStores } from '@hooks'
+import { useStores } from '@hooks'
 import Layout from './components/Layout'
 import ModalTutorial from './components/ModalTutorial'
 
 function Classifier({
-  adminMode = false,
+  canPreviewWorkflows = false,
   locale,
   onError = () => true,
   showTutorial = false,
   subjectID,
   subjectSetID,
-  userID,
   workflowSnapshot,
 }) {
   const classifierStore = useStores()
-  const { authClient } = classifierStore
-  const project = classifierStore.projects.active
-  const projectRoles = useProjectRoles({ authClient, projectID: project?.id, userID })
+  const { workflows, projects } = classifierStore
+  const project = projects.active
   const workflowID = workflowSnapshot?.id
   const workflowStrings = workflowSnapshot?.strings
   let workflowVersionChanged = false
 
   if (workflowSnapshot) {
-    const { workflows } = classifierStore
     const storedWorkflow = workflows.resources.get(workflowSnapshot.id)
     workflowVersionChanged = workflowSnapshot.version !== storedWorkflow?.version
     /*
@@ -49,11 +46,6 @@ function Classifier({
     }
   }
 
-  const canPreviewWorkflows = adminMode ||
-    projectRoles.indexOf('owner') > -1 ||
-    projectRoles.indexOf('collaborator') > -1 ||
-    projectRoles.indexOf('tester') > -1
-
   useEffect(function onLocaleChange() {
     if (locale) {
       classifierStore.setLocale(locale)
@@ -62,22 +54,20 @@ function Classifier({
   }, [locale])
 
   useEffect(function onURLChange() {
-    const { workflows } = classifierStore
     if (workflowID) {
       console.log('starting new subject queue', { workflowID, subjectSetID, subjectID })
       workflows.setResources([workflowSnapshot])
       workflows.selectWorkflow(workflowID, subjectSetID, subjectID, canPreviewWorkflows)
     }
-  }, [canPreviewWorkflows, subjectID, subjectSetID, workflowID])
+  }, [canPreviewWorkflows, subjectID, subjectSetID, workflowID, workflows])
 
   useEffect(function onWorkflowStringsChange() {
-    const { workflows } = classifierStore
     if (workflowStrings) {
       const workflow = workflows.resources.get(workflowID)
       console.log('Refreshing workflow strings', workflowID)
       applySnapshot(workflow.strings, workflowStrings)
     }
-  }, [workflowID, workflowStrings])
+  }, [workflowID, workflows, workflowStrings])
 
   try {
     return (
@@ -96,14 +86,12 @@ function Classifier({
 }
 
 Classifier.propTypes = {
-  adminMode: PropTypes.bool,
-  classifierStore: PropTypes.object.isRequired,
+  canPreviewWorkflows: PropTypes.bool,
   locale: PropTypes.string,
   onError: PropTypes.func,
   showTutorial: PropTypes.bool,
   subjectSetID: PropTypes.string,
   subjectID: PropTypes.string,
-  userID: PropTypes.string,
   workflowSnapshot: PropTypes.shape({
     id: PropTypes.string,
     strings: PropTypes.object,

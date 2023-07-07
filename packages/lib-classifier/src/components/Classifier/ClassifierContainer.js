@@ -17,6 +17,7 @@ import {
   usePanoptesTranslations,
   usePanoptesUser,
   useProjectPreferences,
+  useProjectRoles,
   useWorkflowSnapshot
 } from '@hooks'
 import { unregisterWorkers } from '../../workers'
@@ -71,6 +72,13 @@ export default function ClassifierContainer({
 }) {
   const storeEnvironment = { authClient, client }
   const { user, loading } = usePanoptesUser(authClient)
+  const upp = useProjectPreferences({ authClient, projectID: project?.id, userID: user?.id })
+  const projectRoles = useProjectRoles({ authClient, projectID: project?.id, userID: user?.id })
+
+  const canPreviewWorkflows = adminMode ||
+    projectRoles?.indexOf('owner') > -1 ||
+    projectRoles?.indexOf('collaborator') > -1 ||
+    projectRoles?.indexOf('tester') > -1
 
   const workflowSnapshot = useWorkflowSnapshot(workflowID)
   const workflowTranslation = usePanoptesTranslations({
@@ -83,6 +91,7 @@ export default function ClassifierContainer({
   }
 
   const classifierStore = useHydratedStore(storeEnvironment, cachePanoptesData, `fem-classifier-${project.id}`)
+  const { userProjectPreferences } = classifierStore
 
   if (project?.id) {
     const storedProject = classifierStore.projects.active
@@ -110,9 +119,6 @@ export default function ClassifierContainer({
     classifierStore.setOnToggleFavourite(onToggleFavourite)
   }, [])
 
-  const upp = useProjectPreferences({ authClient, projectID: project?.id, userID: user?.id })
-  const { userProjectPreferences } = classifierStore
-
   useEffect(function onUPPChange() {
     if (upp === undefined) {
       console.log('resetting stale user data')
@@ -133,14 +139,13 @@ export default function ClassifierContainer({
         <StrictMode>
           <Provider classifierStore={classifierStore}>
             <Classifier
-              adminMode={user?.admin && adminMode}
+              canPreviewWorkflows={canPreviewWorkflows}
               locale={locale}
               onError={onError}
               project={project}
               showTutorial={showTutorial}
               subjectSetID={subjectSetID}
               subjectID={subjectID}
-              userID={user?.id}
               workflowSnapshot={workflowSnapshot}
             />
           </Provider>

@@ -472,122 +472,106 @@ describe('Components > Classifier', function () {
   })
 
   describe('with permission to view an inactive workflow', function () {
-    const allowedRoles = ['owner', 'collaborator', 'tester']
-    allowedRoles.forEach(function (role) {
-      describe(role, function () {
-        let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
+    let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
 
-        before(async function () {
-          sinon.replace(window, 'Image', class MockImage {
-            constructor () {
-              this.naturalHeight = 1000
-              this.naturalWidth = 500
-              setTimeout(() => this.onload(), 500)
-            }
-          })
-          const roles = [role]
-          const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
-          const workflowSnapshot = branchingWorkflow
-          workflowSnapshot.strings = workflowStrings
-          const projectSnapshot = ProjectFactory.build({
-            links: {
-              active_workflows: [],
-              workflows: [workflowSnapshot.id]
-            }
-          })
-          sinon.stub(panoptes, 'get').callsFake((endpoint, query, headers) => {
-            switch (endpoint) {
-              case '/field_guides': {
-                const field_guides = []
-                return Promise.resolve({ body: { field_guides }})
-              }
-              case '/project_preferences': {
-                const project_preferences = []
-                return Promise.resolve({ body: { project_preferences }})
-              }
-              case '/project_roles': {
-                const project_roles = [{ roles }]
-                return Promise.resolve({ body: { project_roles }})
-              }
-              case '/subjects/queued': {
-                const subjects = [subjectSnapshot, ...Factory.buildList('subject', 9)]
-                return Promise.resolve({ body: { subjects }})
-              }
-            }
-          })
-          sinon.stub(panoptes, 'post').callsFake((...args) => {
-            return Promise.resolve({ headers: {}, body: { project_preferences: []}})
-          })
-          const mockUser = { id: 123, login: 'mockUser' }
-          sinon.stub(auth, 'decodeJWT').resolves({
-            user: mockUser,
-            error: null
-          })
-          sinon.stub(auth, 'verify').resolves({
-            data: mockUser
-          })
-          const checkBearerToken = sinon.stub().resolves('mockAuth')
-          const authClient = { ...defaultAuthClient, checkBearerToken }
-          const client = { ...defaultClient, panoptes }
-          const store = RootStore.create({
-            projects: {
-              active: projectSnapshot.id,
-              resources: {
-                [projectSnapshot.id]: projectSnapshot
-              }
-            }
-          }, { authClient, client })
-          render(
-            <Classifier
-              workflowSnapshot={workflowSnapshot}
-            />,
-            {
-              wrapper: withStore(store)
-            }
-          )
-          await when(() => store.subjectViewer.loadingState === asyncStates.success)
-          workflow = store.workflows.active
-          taskTab = screen.getByRole('tab', { name: 'TaskArea.task'})
-          tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
-          subjectImage = screen.queryByRole('img', { name: `Subject ${subjectSnapshot.id}` })
-          tabPanel = screen.getByRole('tabpanel', { name: '1 Tab Contents'})
-          const task = workflowSnapshot.tasks.T0
-          const getAnswerInput = answer => within(tabPanel).getByRole('radio', { name: answer.label })
-          taskAnswers = task.answers.map(getAnswerInput)
+    before(async function () {
+      sinon.replace(window, 'Image', class MockImage {
+        constructor () {
+          this.naturalHeight = 1000
+          this.naturalWidth = 500
+          setTimeout(() => this.onload(), 500)
+        }
+      })
+      const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
+      const workflowSnapshot = branchingWorkflow
+      workflowSnapshot.strings = workflowStrings
+      const projectSnapshot = ProjectFactory.build({
+        links: {
+          active_workflows: [],
+          workflows: [workflowSnapshot.id]
+        }
+      })
+      sinon.stub(panoptes, 'get').callsFake((endpoint, query, headers) => {
+        switch (endpoint) {
+          case '/field_guides': {
+            const field_guides = []
+            return Promise.resolve({ body: { field_guides }})
+          }
+          case '/subjects/queued': {
+            const subjects = [subjectSnapshot, ...Factory.buildList('subject', 9)]
+            return Promise.resolve({ body: { subjects }})
+          }
+        }
+      })
+      const mockUser = { id: 123, login: 'mockUser' }
+      sinon.stub(auth, 'decodeJWT').resolves({
+        user: mockUser,
+        error: null
+      })
+      sinon.stub(auth, 'verify').resolves({
+        data: mockUser
+      })
+      const checkBearerToken = sinon.stub().resolves('mockAuth')
+      const authClient = { ...defaultAuthClient, checkBearerToken }
+      const client = { ...defaultClient, panoptes }
+      const store = RootStore.create({
+        projects: {
+          active: projectSnapshot.id,
+          resources: {
+            [projectSnapshot.id]: projectSnapshot
+          }
+        }
+      }, { authClient, client })
+      render(
+        <Classifier
+          canPreviewWorkflows
+          workflowSnapshot={workflowSnapshot}
+        />,
+        {
+          wrapper: withStore(store)
+        }
+      )
+      await when(() => store.subjectViewer.loadingState === asyncStates.success)
+      workflow = store.workflows.active
+      taskTab = screen.getByRole('tab', { name: 'TaskArea.task'})
+      tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
+      subjectImage = screen.queryByRole('img', { name: `Subject ${subjectSnapshot.id}` })
+      tabPanel = screen.getByRole('tabpanel', { name: '1 Tab Contents'})
+      const task = workflowSnapshot.tasks.T0
+      const getAnswerInput = answer => within(tabPanel).getByRole('radio', { name: answer.label })
+      taskAnswers = task.answers.map(getAnswerInput)
+    })
+
+    after(function () {
+      sinon.restore()
+    })
+
+    it('should have a task tab', function () {
+      expect(taskTab).to.be.ok()
+    })
+
+    it('should have a tutorial tab', function () {
+      expect(tutorialTab).to.be.ok()
+    })
+
+    it('should have a subject image', function () {
+      expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
+    })
+
+    describe('task answers', function () {
+      it('should be displayed', function () {
+        expect(taskAnswers).to.have.lengthOf(workflow.tasks.T0.answers.length)
+      })
+
+      it('should be linked to the task', function () {
+        taskAnswers.forEach(radioButton => {
+          expect(radioButton.name).to.equal('T0')
         })
+      })
 
-        after(function () {
-          sinon.restore()
-        })
-
-        it('should have a task tab', function () {
-          expect(taskTab).to.be.ok()
-        })
-
-        it('should have a tutorial tab', function () {
-          expect(tutorialTab).to.be.ok()
-        })
-
-        it('should have a subject image', function () {
-          expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
-        })
-
-        describe('task answers', function () {
-          it('should be displayed', function () {
-            expect(taskAnswers).to.have.lengthOf(workflow.tasks.T0.answers.length)
-          })
-
-          it('should be linked to the task', function () {
-            taskAnswers.forEach(radioButton => {
-              expect(radioButton.name).to.equal('T0')
-            })
-          })
-
-          it('should be enabled', function () {
-            taskAnswers.forEach(radioButton => {
-              expect(radioButton.disabled).to.be.false()
-            })
-          })
+      it('should be enabled', function () {
+        taskAnswers.forEach(radioButton => {
+          expect(radioButton.disabled).to.be.false()
         })
       })
     })
@@ -598,7 +582,6 @@ describe('Components > Classifier', function () {
 
     before(async function () {
       sinon.replace(window, 'Image', MockImage)
-      const roles = []
       const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
       const workflowSnapshot = branchingWorkflow
       workflowSnapshot.strings = workflowStrings
@@ -609,8 +592,6 @@ describe('Components > Classifier', function () {
         }
       })
       mockPanoptesAPI()
-        .get('/project_roles')
-        .reply(200, { project_roles: [{ roles }]})
         .get('/subjects/queued')
         .query(true)
         .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
@@ -867,156 +848,6 @@ describe('Components > Classifier', function () {
         taskAnswers.forEach(radioButton => {
           expect(radioButton.disabled).to.be.false()
         })
-      })
-    })
-  })
-
-  describe('admins: in admin mode', function () {
-    let subjectImage, taskAnswers, workflow
-
-    before(async function () {
-      sinon.replace(window, 'Image', MockImage)
-      const roles = []
-      const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
-      mockPanoptesAPI()
-        .get('/project_roles')
-        .reply(200, { project_roles: [{ roles }]})
-        .get('/subjects/queued')
-        .query(true)
-        .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
-
-      const mockUser = { id: 123, login: 'mockUser', admin: true }
-      sinon.stub(auth, 'decodeJWT').resolves({
-        user: mockUser,
-        error: null
-      })
-      sinon.stub(auth, 'verify').resolves({
-        data: mockUser
-      })
-
-      const workflowSnapshot = branchingWorkflow
-      workflowSnapshot.strings = workflowStrings
-      const projectSnapshot = ProjectFactory.build({
-        links: {
-          active_workflows: [],
-          workflows: [workflowSnapshot.id]
-        }
-      })
-      const checkBearerToken = sinon.stub().resolves('mockAuth')
-      const authClient = { ...defaultAuthClient, checkBearerToken }
-      const client = { ...defaultClient, panoptes }
-      const store = RootStore.create({
-        projects: {
-          active: projectSnapshot.id,
-          resources: {
-            [projectSnapshot.id]: projectSnapshot
-          }
-        }
-      }, { authClient, client })
-      render(
-        <Classifier
-          adminMode
-          workflowSnapshot={workflowSnapshot}
-        />,
-        {
-          wrapper: withStore(store)
-        }
-      )
-      await when(() => store.subjectViewer.loadingState === asyncStates.success)
-      const taskTab = screen.queryByRole('tab', { name: 'TaskArea.task'})
-      const tutorialTab = screen.queryByRole('tab', { name: 'TaskArea.tutorial'})
-      subjectImage = screen.queryByRole('img', { name: `Subject ${subjectSnapshot.id}` })
-      const tabPanel = screen.queryByRole('tabpanel', { name: '1 Tab Contents'})
-      const task = workflowSnapshot.tasks.T0
-      const getAnswerInput = answer => within(tabPanel).queryByRole('radio', { name: answer.label })
-      taskAnswers = task.answers.map(getAnswerInput)
-      workflow = store.workflows.active
-    })
-
-    after(function () {
-      sinon.restore()
-      nock.cleanAll()
-    })
-
-    it('should be able to view inactive workflows', function () {
-      expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
-      expect(taskAnswers).to.have.lengthOf(workflow.tasks.T0.answers.length)
-      taskAnswers.forEach(radioButton => {
-        expect(radioButton.name).to.equal('T0')
-        expect(radioButton.disabled).to.be.false()
-      })
-    })
-  })
-
-  describe('admins: not in admin mode', function () {
-    let subjectImage, taskAnswers, workflow
-
-    before(function () {
-      sinon.replace(window, 'Image', MockImage)
-      const roles = []
-      const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
-      mockPanoptesAPI()
-        .get('/project_roles')
-        .reply(200, { project_roles: [{ roles }]})
-        .get('/subjects/queued')
-        .query(true)
-        .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
-
-      const mockUser = { id: 123, login: 'mockUser', admin: true }
-      sinon.stub(auth, 'decodeJWT').resolves({
-        user: mockUser,
-        error: null
-      })
-      sinon.stub(auth, 'verify').resolves({
-        data: mockUser
-      })
-
-      const workflowSnapshot = branchingWorkflow
-      workflowSnapshot.strings = workflowStrings
-      const projectSnapshot = ProjectFactory.build({
-        links: {
-          active_workflows: [],
-          workflows: [workflowSnapshot.id]
-        }
-      })
-      const checkBearerToken = sinon.stub().resolves('mockAuth')
-      const authClient = { ...defaultAuthClient, checkBearerToken }
-      const client = { ...defaultClient, panoptes }
-      const store = RootStore.create({
-        projects: {
-          active: projectSnapshot.id,
-          resources: {
-            [projectSnapshot.id]: projectSnapshot
-          }
-        }
-      }, { authClient, client })
-      render(
-        <Classifier
-          workflowSnapshot={workflowSnapshot}
-        />,
-        {
-          wrapper: withStore(store)
-        }
-      )
-      store.subjectViewer.onSubjectReady()
-      const taskTab = screen.queryByRole('tab', { name: 'TaskArea.task'})
-      const tutorialTab = screen.queryByRole('tab', { name: 'TaskArea.tutorial'})
-      subjectImage = screen.queryByRole('img', { name: `Subject ${subjectSnapshot.id}` })
-      const tabPanel = screen.queryByRole('tabpanel', { name: '1 Tab Contents'})
-      const task = workflowSnapshot.tasks.T0
-      const getAnswerInput = answer => within(tabPanel).queryByRole('radio', { name: answer.label })
-      taskAnswers = task.answers.map(getAnswerInput)
-    })
-
-    after(function () {
-      sinon.restore()
-      nock.cleanAll()
-    })
-
-    it('should not be able to load inactive workflows', function () {
-      expect(subjectImage).to.be.null()
-      taskAnswers.forEach(radioButton => {
-        expect(radioButton).to.be.null()
       })
     })
   })
