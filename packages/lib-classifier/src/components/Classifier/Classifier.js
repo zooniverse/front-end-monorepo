@@ -9,13 +9,12 @@ import Layout from './components/Layout'
 import ModalTutorial from './components/ModalTutorial'
 
 function Classifier({
-  canPreviewWorkflows = false,
   locale,
   onError = () => true,
   showTutorial = false,
   subjectID,
   subjectSetID,
-  workflowSnapshot,
+  workflowSnapshot = null,
 }) {
   const classifierStore = useStores()
   const { workflows, projects } = classifierStore
@@ -57,9 +56,9 @@ function Classifier({
     if (workflowID) {
       console.log('starting new subject queue', { workflowID, subjectSetID, subjectID })
       workflows.setResources([workflowSnapshot])
-      workflows.selectWorkflow(workflowID, subjectSetID, subjectID, canPreviewWorkflows)
+      workflows.selectWorkflow(workflowID, subjectSetID, subjectID)
     }
-  }, [canPreviewWorkflows, subjectID, subjectSetID, workflowID, workflows])
+  }, [subjectID, subjectSetID, workflowID, workflows])
 
   useEffect(function onWorkflowStringsChange() {
     if (workflowStrings) {
@@ -86,7 +85,6 @@ function Classifier({
 }
 
 Classifier.propTypes = {
-  canPreviewWorkflows: PropTypes.bool,
   locale: PropTypes.string,
   onError: PropTypes.func,
   showTutorial: PropTypes.bool,

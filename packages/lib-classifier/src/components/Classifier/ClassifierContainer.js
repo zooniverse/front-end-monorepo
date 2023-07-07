@@ -80,7 +80,10 @@ export default function ClassifierContainer({
     projectRoles?.indexOf('collaborator') > -1 ||
     projectRoles?.indexOf('tester') > -1
 
-  const workflowSnapshot = useWorkflowSnapshot(workflowID)
+  const allowedWorkflows = canPreviewWorkflows ? project?.links.workflows : project?.links.active_workflows
+  const allowedWorkflowID = allowedWorkflows.includes(workflowID) ? workflowID : null
+
+  const workflowSnapshot = useWorkflowSnapshot(allowedWorkflowID)
   const workflowTranslation = usePanoptesTranslations({
     translated_id: workflowID,
     translated_type: 'workflow',
@@ -139,7 +142,6 @@ export default function ClassifierContainer({
         <StrictMode>
           <Provider classifierStore={classifierStore}>
             <Classifier
-              canPreviewWorkflows={canPreviewWorkflows}
               locale={locale}
               onError={onError}
               project={project}
