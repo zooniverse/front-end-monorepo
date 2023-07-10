@@ -97,8 +97,15 @@ const nextConfig = {
 
   webpack: (config, options) => {
     const newAliases = webpackConfig.resolve.alias
-    const alias = Object.assign({}, config.resolve.alias, newAliases)
-    config.resolve = Object.assign({}, config.resolve, { alias, preferRelative: true })
+    const alias = {
+      ...config.resolve.alias,
+      ...newAliases
+    }
+    config.resolve = {
+      ...config.resolve,
+      alias,
+      preferRelative: true
+    }
     return config
   }
 }
