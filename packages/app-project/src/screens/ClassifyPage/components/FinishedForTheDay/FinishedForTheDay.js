@@ -43,6 +43,7 @@ function FinishedForTheDay({
           placeholder={
             <ZooniverseLogo id={`${alt} placeholder`} size='38%' />
           }
+          width={400}
         />
         <ContentBox elevation='none'>
           <Heading
