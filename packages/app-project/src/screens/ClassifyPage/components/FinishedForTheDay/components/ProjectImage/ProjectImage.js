@@ -16,6 +16,7 @@ function ProjectImage ({ imageSrc, projectName, theme }) {
           size='38%'
         />
       }
+      width={400}
     />
   )
 }

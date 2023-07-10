@@ -39,6 +39,7 @@ export default function Confusion({
               key={filename}
               alt={`${confusion.label}-image${index}`}
               src={images[filename]}
+              width={400}
             />
           ))}
         </Carousel>
