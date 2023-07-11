@@ -12,4 +12,4 @@ Sentry.init({
   tracesSampleRate: 1.0
 })
 
-console.log('Initialising Sentry:', dsn, environment, release)
+console.log('Initialising Sentry (Node runtime):', dsn, environment, release)
