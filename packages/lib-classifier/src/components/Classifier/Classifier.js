@@ -17,8 +17,7 @@ function Classifier({
   workflowSnapshot = null,
 }) {
   const classifierStore = useStores()
-  const { workflows, projects } = classifierStore
-  const project = projects.active
+  const { workflows } = classifierStore
   const workflowID = workflowSnapshot?.id
   const workflowStrings = workflowSnapshot?.strings
   let workflowVersionChanged = false
