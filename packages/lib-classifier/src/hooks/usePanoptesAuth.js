@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import { useStores } from '@hooks'
 import { getBearerToken } from '@store/utils'
 
 export default function usePanoptesAuth({ authClient, userID }) {
