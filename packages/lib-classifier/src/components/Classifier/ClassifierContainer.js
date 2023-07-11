@@ -1,4 +1,3 @@
-import asyncStates from '@zooniverse/async-states'
 import { GraphQLClient } from 'graphql-request'
 import { Paragraph } from 'grommet'
 import { Provider } from 'mobx-react'
