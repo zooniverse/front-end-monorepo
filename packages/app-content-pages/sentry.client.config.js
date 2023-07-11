@@ -15,4 +15,4 @@ Sentry.init({
   ]
 })
 
-console.log('Initialising Sentry:', dsn, environment, release)
+console.log('Initialising Sentry (browser runtime):', dsn, environment, release)
