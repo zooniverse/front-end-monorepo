@@ -9,7 +9,8 @@ module.exports = {
       '@screens': path.resolve(__dirname, 'src/screens'),
       '@shared': path.resolve(__dirname, 'src/shared'),
       '@stores': path.resolve(__dirname, 'stores'),
-      '@test': path.resolve(__dirname, 'test')
+      '@test': path.resolve(__dirname, 'test'),
+      'sentry.edge.config.js': path.resolve(__dirname, 'sentry.edge.config.js')
     }
   }
 }
