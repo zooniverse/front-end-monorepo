@@ -2,12 +2,9 @@ import asyncStates from '@zooniverse/async-states'
 import * as client from '@zooniverse/panoptes-js'
 import { expect } from 'chai'
 import { when } from 'mobx'
-import { getSnapshot } from 'mobx-state-tree'
 import nock from 'nock'
-import sinon from 'sinon'
 
 import Store from '@stores/Store'
-import initStore from '@stores/initStore'
 
 describe('stores > User', function () {
   const user = {
