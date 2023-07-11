@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@artsy/fresnel": "~6.1.0",
-    "@sentry/nextjs": "~7.56.0",
+    "@sentry/nextjs": "~7.57.0",
     "@sindresorhus/string-hash": "~1.2.0",
     "@visx/axis": "~3.2.0",
     "@visx/group": "~3.0.0",
@@ -36,7 +36,7 @@
     "express": "^4.17.1",
     "graphql": "~16.7.0",
     "graphql-request": "~6.1.0",
-    "grommet": "~2.32.0",
+    "grommet": "~2.33.0",
     "grommet-icons": "~4.11.0",
     "i18next": "~23.2.0",
     "lodash": "~4.17.11",

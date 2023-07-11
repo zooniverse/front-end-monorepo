@@ -67,9 +67,13 @@ const nextConfig = {
       })
     ])
 
-    const newAliases = webpackConfig.resolve.alias
-    const alias = Object.assign({}, config.resolve.alias, newAliases)
-    config.resolve = Object.assign({}, config.resolve, { alias })
+    config.resolve = {
+      ...config.resolve,
+      alias: {
+        ...config.resolve.alias,
+        ...webpackConfig.resolve.alias
+      }
+    }
     return config
   }
 }
