@@ -34,19 +34,7 @@
       "ProjectImage": {
         "alt": "{{projectName}} için resim"
       },
-      "RelatedProjectsButton": {
-        "label": "Başka bir proje bulun"
-      },
-      "RelatedProjectsModal": {
-        "ProjectCard": {
-          "viewProject": "Proje Görüntüle"
-        },
-        "hereAreSomeOthers": "İşte hoşunuza gidebilecek diğer bazı Zooniverse projeleri",
-        "relatedProjects": "İlgili Projeler",
-        "title": "{{project}}'yi seviyor musunuz?"
-      },
       "buttons": {
-        "anotherProject": "Başka bir proje bulun",
         "stats": "İstatistikleri görün"
       },
       "text": "Siz çalışırken yanıtlarınız araştırma ekibi için kaydedilir. Proje istatistiklerini görün ve {{projectName}} ana sayfasına dönün.",

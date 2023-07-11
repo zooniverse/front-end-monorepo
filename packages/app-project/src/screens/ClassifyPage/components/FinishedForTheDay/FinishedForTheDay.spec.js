@@ -3,7 +3,6 @@ import { Paragraph } from 'grommet'
 
 import { FinishedForTheDay, StyledButton } from './FinishedForTheDay'
 import ProjectImage from './components/ProjectImage'
-import RelatedProjects from './components/RelatedProjects'
 
 const PROJECT_NAME = 'Foobar'
 const IMAGE_SRC = 'foobar.jpg'
@@ -33,11 +32,6 @@ describe('Component > FinishedForTheDay', function () {
     const para = wrapper.find(Paragraph)
     expect(para).to.have.lengthOf(1)
     expect(para.text().length).to.be.ok()
-  })
-
-  // TODO: Add `<RelatedProjects />` back in once API is up
-  xit('should contain a related projects button', function () {
-    expect(wrapper.find(RelatedProjects)).to.have.lengthOf(1)
   })
 
   describe('project image', function () {
