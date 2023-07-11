@@ -101,7 +101,9 @@ const FlipbookControls = ({
     resizeObserver.current.observe(controlsContainer.current)
 
     return () => {
-      resizeObserver.current.unobserve(controlsContainer.current)
+      if (controlsContainer.current) {
+        resizeObserver.current.unobserve(controlsContainer.current)
+      }
     }
   }, [])
 
