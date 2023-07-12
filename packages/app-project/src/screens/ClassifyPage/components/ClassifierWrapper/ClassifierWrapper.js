@@ -2,6 +2,7 @@ import Classifier from '@zooniverse/classifier'
 import { useRouter } from 'next/router'
 import auth from 'panoptes-client/lib/auth'
 import { bool, func, string, shape } from 'prop-types'
+import { useCallback } from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import { useAdminMode } from '@hooks'
@@ -9,6 +10,11 @@ import addQueryParams from '@helpers/addQueryParams'
 import logToSentry from '@helpers/logger/logToSentry.js'
 import ErrorMessage from './components/ErrorMessage'
 import Loader from '@shared/components/Loader'
+
+function onError(error, errorInfo={}) {
+  logToSentry(error, errorInfo)
+  console.error('Classifier error', error)
+}
 
 /**
   A wrapper for the Classifier component. Responsible for handling:
@@ -41,7 +47,7 @@ export default function ClassifierWrapper({
   router = router || nextRouter
   const locale = router?.locale
 
-  function onCompleteClassification(classification, subject) {
+  const onCompleteClassification = useCallback((classification, subject) => {
     const finishedSubject = subject.already_seen || subject.retired
     if (!finishedSubject) {
       yourStats.increment()
@@ -51,14 +57,9 @@ export default function ClassifierWrapper({
       subjectId: subject.id,
       locations: subject.locations
     })
-  }
+  }, [recents?.add, yourStats?.increment])
 
-  function onError(error, errorInfo={}) {
-    logToSentry(error, errorInfo)
-    console.error('Classifier error', error)
-  }
-
-  function onSubjectChange(subject) {
+  const onSubjectChange = useCallback((subject) => {
     const { query } = router
     const baseURL = `/${query.owner}/${query.project}/classify`
     if (query.subjectID && subject.id !== query.subjectID) {
@@ -67,15 +68,15 @@ export default function ClassifierWrapper({
       const as = href
       router.replace(href, as, { shallow: true })
     }
-  }
+  }, [router])
 
-  function onToggleFavourite(subjectId, isFavourite) {
+  const onToggleFavourite = useCallback((subjectId, isFavourite) => {
     if (isFavourite) {
       collections.addFavourites([subjectId])
     } else {
       collections.removeFavourites([subjectId])
     }
-  }
+  }, [collections?.addFavourites, collections?.removeFavourites])
 
   const somethingWentWrong = appLoadingState === asyncStates.error
 

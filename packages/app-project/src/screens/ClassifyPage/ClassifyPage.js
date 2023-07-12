@@ -1,7 +1,7 @@
 import { Box, Grid } from 'grommet'
 import dynamic from 'next/dynamic'
 import { arrayOf, func, shape, string } from 'prop-types'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { withResponsiveContext } from '@zooniverse/react-components'
 
 import CollectionsModal from '@shared/components/CollectionsModal'
@@ -72,9 +72,9 @@ function ClassifyPage({
     setShowTutorial(true)
   }
 
-  const onAddToCollection = () => {
+  const onAddToCollection = useCallback(() => {
     setCollectionsModalActive(true)
-  }
+  }, [setCollectionsModalActive])
 
   return (
     <>
