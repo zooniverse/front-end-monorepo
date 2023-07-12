@@ -1,15 +1,42 @@
+import { auth } from '@zooniverse/panoptes-js'
 import { useEffect, useState } from 'react'
 
-import { useStores } from '@hooks'
+import { getBearerToken } from '@store/utils'
 
-export default function usePanoptesUser() {
-  const { authClient } = useStores()
+async function fetchPanoptesUser(authClient) {
+  try {
+    const authorization = await getBearerToken(authClient)
+    if (authorization) {
+      const { user, error } = await auth.decodeJWT(authorization)
+      if (user) {
+        return user
+      }
+      if (error) {
+        throw error
+      }
+    }
+    return await authClient.checkCurrent()
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
+export default function usePanoptesUser(authClient) {
+  const [error, setError] = useState(null)
   const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(function () {
     async function checkUserSession() {
-      const panoptesUser = await authClient.checkCurrent()
-      setUser(panoptesUser)
+      setLoading(true)
+      try {
+        const panoptesUser = await fetchPanoptesUser(authClient)
+        setUser(panoptesUser)
+      } catch (error) {
+        setError(error)
+      }
+      setLoading(false)
     }
 
     checkUserSession()
@@ -20,5 +47,5 @@ export default function usePanoptesUser() {
     }
   }, [authClient])
 
-  return user
+  return { data: user, error, isLoading: loading }
 }

@@ -2,7 +2,7 @@ import { within } from '@testing-library/dom'
 import { render, screen } from '@testing-library/react'
 import asyncStates from '@zooniverse/async-states'
 import zooTheme from '@zooniverse/grommet-theme'
-import { panoptes } from '@zooniverse/panoptes-js'
+import { auth, panoptes } from '@zooniverse/panoptes-js'
 import { Grommet } from 'grommet'
 import { when } from 'mobx'
 import { Provider } from 'mobx-react'
@@ -106,9 +106,16 @@ function testWorkflow(workflowSnapshot, workflowStrings) {
     .query(true)
     .reply(200, { project_preferences: [] })
 
-    const checkBearerToken = sinon.stub().callsFake(() => Promise.resolve('mockAuth'))
-    const checkCurrent = sinon.stub().callsFake(() => Promise.resolve({ id: 123, login: 'mockUser' }))
-    const authClient = { ...defaultAuthClient, checkBearerToken, checkCurrent }
+    const mockUser = { id: 123, login: 'mockUser' }
+    sinon.stub(auth, 'decodeJWT').resolves({
+      user: mockUser,
+      error: null
+    })
+    sinon.stub(auth, 'verify').resolves({
+      data: mockUser
+    })
+    const checkBearerToken = sinon.stub().resolves('mockAuth')
+    const authClient = { ...defaultAuthClient, checkBearerToken }
     const client = { ...defaultClient, panoptes }
     const store = RootStore.create({
       projects: {
@@ -120,7 +127,6 @@ function testWorkflow(workflowSnapshot, workflowStrings) {
     }, { authClient, client })
     render(
       <Classifier
-        classifierStore={store}
         workflowSnapshot={workflowSnapshot}
       />,
       {

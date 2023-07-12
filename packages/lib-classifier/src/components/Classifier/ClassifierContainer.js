@@ -11,7 +11,13 @@ import {
   tutorials as tutorialsClient
 } from '@zooniverse/panoptes-js'
 
-import { useHydratedStore, usePanoptesTranslations, useWorkflowSnapshot } from '@hooks'
+import {
+  useHydratedStore,
+  usePanoptesTranslations,
+  useWorkflowSnapshot
+} from '@hooks'
+
+import usePanoptesUserSession from './hooks/usePanoptesUserSession'
 import { unregisterWorkers } from '../../workers'
 import Classifier from './Classifier'
 
@@ -63,8 +69,16 @@ export default function ClassifierContainer({
   workflowID
 }) {
   const storeEnvironment = { authClient, client }
+  const { user, upp, projectRoles, userHasLoaded } = usePanoptesUserSession({ authClient, projectID: project?.id })
+  const canPreviewWorkflows = adminMode ||
+    projectRoles?.indexOf('owner') > -1 ||
+    projectRoles?.indexOf('collaborator') > -1 ||
+    projectRoles?.indexOf('tester') > -1
 
-  const workflowSnapshot = useWorkflowSnapshot(workflowID)
+  const allowedWorkflows = canPreviewWorkflows ? project?.links.workflows : project?.links.active_workflows
+  const allowedWorkflowID = allowedWorkflows.includes(workflowID) ? workflowID : null
+
+  const workflowSnapshot = useWorkflowSnapshot(allowedWorkflowID)
   const workflowTranslation = usePanoptesTranslations({
     translated_id: workflowID,
     translated_type: 'workflow',
@@ -75,6 +89,7 @@ export default function ClassifierContainer({
   }
 
   const classifierStore = useHydratedStore(storeEnvironment, cachePanoptesData, `fem-classifier-${project.id}`)
+  const { userProjectPreferences } = classifierStore
 
   if (project?.id) {
     const storedProject = classifierStore.projects.active
@@ -102,15 +117,26 @@ export default function ClassifierContainer({
     classifierStore.setOnToggleFavourite(onToggleFavourite)
   }, [])
 
+  useEffect(function onUPPChange() {
+    if (upp === undefined) {
+      console.log('resetting stale user data')
+      userProjectPreferences.reset()
+    }
+    if (upp === null) {
+      userProjectPreferences.clear()
+    }
+    if (upp?.id) {
+      userProjectPreferences.setUPP(upp)
+    }
+  }, [upp, userProjectPreferences])
+
   try {
-    if (classifierStore) {
+    if (userHasLoaded && classifierStore) {
 
       return (
         <StrictMode>
           <Provider classifierStore={classifierStore}>
             <Classifier
-              adminMode={adminMode}
-              classifierStore={classifierStore}
               locale={locale}
               onError={onError}
               project={project}
@@ -139,15 +165,17 @@ ClassifierContainer.propTypes = {
   authClient: PropTypes.object.isRequired,
   cachePanoptesData: PropTypes.bool,
   locale: PropTypes.string,
-  mode: PropTypes.string,
   onAddToCollection: PropTypes.func,
   onCompleteClassification: PropTypes.func,
   onError: PropTypes.func,
+  onSubjectChange: PropTypes.func,
   onSubjectReset: PropTypes.func,
   onToggleFavourite: PropTypes.func,
   project: PropTypes.shape({
     id: PropTypes.string.isRequired
   }).isRequired,
   showTutorial: PropTypes.bool,
-  theme: PropTypes.object
+  subjectID: PropTypes.string,
+  subjectSetID: PropTypes.string,
+  workflowID: PropTypes.string
 }

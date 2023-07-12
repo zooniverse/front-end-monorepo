@@ -70,8 +70,10 @@ function initStore({ cachePanoptesData, storageKey, storeEnv }) {
 }
 
 export function cleanStore() {
-  destroy(store)
-  store = null
+  if (store) {
+    destroy(store)
+    store = null
+  }
 }
 
 export default function useHydratedStore(storeEnv = {}, cachePanoptesData = false, storageKey) {
