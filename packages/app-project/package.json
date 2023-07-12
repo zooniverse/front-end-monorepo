@@ -24,7 +24,7 @@
     "@visx/group": "~3.3.0",
     "@visx/scale": "~3.2.0",
     "@visx/shape": "~3.2.0",
-    "@visx/text": "~3.0.0",
+    "@visx/text": "~3.3.0",
     "@zooniverse/async-states": "~0.0.1",
     "@zooniverse/classifier": "^0.0.1",
     "@zooniverse/grommet-theme": "~3.1.0",
