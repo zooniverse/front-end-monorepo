@@ -51,17 +51,18 @@ const client = {
 // So we'll unregister the worker for now.
 unregisterWorkers('./queue.js')
 
+const DEFAULT_HANDLER = () => true
 export default function ClassifierContainer({
   adminMode = false,
   authClient,
   cachePanoptesData = false,
   locale,
-  onAddToCollection = () => true,
-  onCompleteClassification = () => true,
-  onError = () => true,
-  onSubjectChange = () => true,
-  onSubjectReset = () => true,
-  onToggleFavourite = () => true,
+  onAddToCollection = DEFAULT_HANDLER,
+  onCompleteClassification = DEFAULT_HANDLER,
+  onError = DEFAULT_HANDLER,
+  onSubjectChange = DEFAULT_HANDLER,
+  onSubjectReset = DEFAULT_HANDLER,
+  onToggleFavourite = DEFAULT_HANDLER,
   project,
   showTutorial=false,
   subjectID,
@@ -89,7 +90,7 @@ export default function ClassifierContainer({
   }
 
   const classifierStore = useHydratedStore(storeEnvironment, cachePanoptesData, `fem-classifier-${project.id}`)
-  const { userProjectPreferences } = classifierStore
+  const { classifications, subjects, userProjectPreferences } = classifierStore
 
   if (project?.id) {
     const storedProject = classifierStore.projects.active
@@ -102,20 +103,80 @@ export default function ClassifierContainer({
     }
   }
 
-  useEffect(function onMount() {
+  useEffect(function () {
     /*
     This should run after the store is created and hydrated.
     Otherwise, hydration will overwrite the callbacks with
     their defaults.
     */
-    const { classifications, subjects } = classifierStore
-    console.log('setting classifier event callbacks')
+    console.log('setting onCompleteClassification')
     classifications.setOnComplete(onCompleteClassification)
+
+    return () => {
+      console.log('cleaning up onCompleteClassification')
+      classifications.setOnComplete(DEFAULT_HANDLER)
+    }
+  }, [classifications.setOnComplete, onCompleteClassification])
+
+  useEffect(function () {
+    /*
+    This should run after the store is created and hydrated.
+    Otherwise, hydration will overwrite the callbacks with
+    their defaults.
+    */
+    console.log('setting onSubjectReset')
     subjects.setOnReset(onSubjectReset)
+
+    return () => {
+      console.log('cleaning up onSubjectReset')
+      subjects.setOnReset(DEFAULT_HANDLER)
+    }
+  }, [onSubjectReset, subjects.setOnReset])
+
+  useEffect(function () {
+    /*
+    This should run after the store is created and hydrated.
+    Otherwise, hydration will overwrite the callbacks with
+    their defaults.
+    */
+    console.log('setting onAddToCollection')
     classifierStore.setOnAddToCollection(onAddToCollection)
+
+    return () => {
+      console.log('cleaning up onAddToCollection')
+      classifierStore.setOnAddToCollection(DEFAULT_HANDLER)
+    }
+  }, [classifierStore.setOnAddToCollection, onAddToCollection])
+
+  useEffect(function () {
+    /*
+    This should run after the store is created and hydrated.
+    Otherwise, hydration will overwrite the callbacks with
+    their defaults.
+    */
+    console.log('setting onSubjectChange')
     classifierStore.setOnSubjectChange(onSubjectChange)
+
+    return () => {
+      console.log('cleaning up onSubjectChange')
+      classifierStore.setOnSubjectChange(DEFAULT_HANDLER)
+    }
+  }, [classifierStore.setOnSubjectChange, onSubjectChange])
+
+  useEffect(function () {
+    /*
+    This should run after the store is created and hydrated.
+    Otherwise, hydration will overwrite the callbacks with
+    their defaults.
+    */
+    console.log('setting onToggleFavourite')
     classifierStore.setOnToggleFavourite(onToggleFavourite)
-  }, [])
+
+    return () => {
+      console.log('cleaning up onToggleFavourite')
+      classifierStore.setOnToggleFavourite(DEFAULT_HANDLER)
+    }
+  }, [classifierStore.setOnToggleFavourite, onToggleFavourite])
 
   useEffect(function onUPPChange() {
     if (upp === undefined) {
