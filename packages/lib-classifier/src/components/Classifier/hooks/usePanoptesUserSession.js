@@ -5,7 +5,7 @@ import {
 } from '@hooks'
 
 export default function usePanoptesUserSession({ authClient, projectID }) {
-  const { user, loading: userLoading } = usePanoptesUser(authClient)
+  const { data: user, isLoading: userLoading } = usePanoptesUser(authClient)
   const userID = !userLoading && user?.id
   const { data: upp, isLoading: uppLoading } = useProjectPreferences({ authClient, projectID, userID })
   const { data: projectRoles, isLoading: rolesLoading } = useProjectRoles({ authClient, projectID, userID })

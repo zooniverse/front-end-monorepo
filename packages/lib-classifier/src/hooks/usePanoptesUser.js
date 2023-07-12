@@ -23,14 +23,19 @@ async function fetchPanoptesUser(authClient) {
 }
 
 export default function usePanoptesUser(authClient) {
+  const [error, setError] = useState(null)
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(function () {
     async function checkUserSession() {
       setLoading(true)
-      const panoptesUser = await fetchPanoptesUser(authClient)
-      setUser(panoptesUser)
+      try {
+        const panoptesUser = await fetchPanoptesUser(authClient)
+        setUser(panoptesUser)
+      } catch (error) {
+        setError(error)
+      }
       setLoading(false)
     }
 
@@ -42,5 +47,5 @@ export default function usePanoptesUser(authClient) {
     }
   }, [authClient])
 
-  return { user, loading }
+  return { data: user, error, isLoading: loading }
 }

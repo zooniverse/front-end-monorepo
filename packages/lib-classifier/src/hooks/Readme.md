@@ -58,7 +58,7 @@ Get the logged-in user, or null if no one is logged in. `loading` will be true w
 
 ```js
   const { authClient } = useStores()
-  const { loading, user } = usePanoptesUser(authClient)
+  const { data: user, error, isLoading } = usePanoptesUser(authClient)
 ```
 
 ## useProjectPreferences
