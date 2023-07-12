@@ -46,6 +46,8 @@ export default function ClassifierWrapper({
   const nextRouter = useRouter()
   router = router || nextRouter
   const locale = router?.locale
+  const ownerSlug = router?.query.owner
+  const projectSlug = router?.query.project
 
   const onCompleteClassification = useCallback((classification, subject) => {
     const finishedSubject = subject.already_seen || subject.retired
@@ -60,15 +62,14 @@ export default function ClassifierWrapper({
   }, [recents?.add, yourStats?.increment])
 
   const onSubjectChange = useCallback((subject) => {
-    const { query } = router
-    const baseURL = `/${query.owner}/${query.project}/classify`
-    if (query.subjectID && subject.id !== query.subjectID) {
+    const baseURL = `/${ownerSlug}/${projectSlug}/classify`
+    if (subjectID && subject.id !== subjectID) {
       const newSubjectRoute = `${baseURL}/workflow/${workflowID}/subject-set/${subjectSetID}/subject/${subject.id}`
       const href = addQueryParams(newSubjectRoute)
       const as = href
       router.replace(href, as, { shallow: true })
     }
-  }, [router])
+  }, [ownerSlug, projectSlug, router?.replace, subjectID])
 
   const onToggleFavourite = useCallback((subjectId, isFavourite) => {
     if (isFavourite) {
