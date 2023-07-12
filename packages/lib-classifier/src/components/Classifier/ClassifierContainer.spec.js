@@ -58,7 +58,7 @@ describe('components > ClassifierContainer', function () {
   }
 
   describe('anonymous volunteers', function () {
-    let taskAnswers, subjectsRequest, workflowRequest
+    let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, workflowRequest
     const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
     const workflowSnapshot = branchingWorkflow
     workflowSnapshot.strings = workflowStrings
@@ -85,10 +85,14 @@ describe('components > ClassifierContainer', function () {
         .query(true)
         .reply(200, { project_roles: [] })
 
-      subjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
+      firstSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/subjects/queued')
         .query(true)
         .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
+      secondSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/subjects/queued')
+        .query(true)
+        .reply(200, { subjects: [...Factory.buildList('subject', 10)] })
       workflowRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get(`/workflows/${workflowSnapshot.id}`)
         .query(true)
@@ -106,9 +110,7 @@ describe('components > ClassifierContainer', function () {
           wrapper: withGrommet()
         }
       )
-      const taskTab = await screen.findByRole('tab', { name: 'TaskArea.task'})
-      const tutorialTab = screen.queryByRole('tab', { name: 'TaskArea.tutorial'})
-      const tabPanel = screen.queryByRole('tabpanel', { name: '1 Tab Contents'})
+      const tabPanel = await screen.findByRole('tabpanel', { name: '1 Tab Contents'})
       const task = workflowSnapshot.tasks.T0
       const getAnswerInput = answer => within(tabPanel).findByRole('radio', { name: answer.label })
       taskAnswers = await Promise.all(task.answers.map(getAnswerInput))
@@ -126,7 +128,8 @@ describe('components > ClassifierContainer', function () {
         expect(subjectImage.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
       })
       expect(workflowRequest.isDone()).to.be.true()
-      expect(subjectsRequest.isDone()).to.be.true()
+      expect(firstSubjectsRequest.isDone()).to.be.true()
+      expect(secondSubjectsRequest.isDone()).to.be.false()
       expect(taskAnswers).to.have.lengthOf(workflowSnapshot.tasks.T0.answers.length)
       taskAnswers.forEach(radioButton => {
         expect(radioButton.name).to.equal('T0')
@@ -136,7 +139,7 @@ describe('components > ClassifierContainer', function () {
   })
 
   describe('signed-in volunteers without a stored Panoptes session', function () {
-    let taskAnswers, subjectsRequest, workflowRequest
+    let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, workflowRequest
     const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
     const workflowSnapshot = branchingWorkflow
     workflowSnapshot.strings = workflowStrings
@@ -168,10 +171,14 @@ describe('components > ClassifierContainer', function () {
         .get('/me')
         .reply(200, { users: [mockUser] })
 
-      subjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
+      firstSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/subjects/queued')
         .query(true)
         .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
+      secondSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/subjects/queued')
+        .query(true)
+        .reply(200, { subjects: [...Factory.buildList('subject', 10)] })
       workflowRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get(`/workflows/${workflowSnapshot.id}`)
         .query(true)
@@ -189,9 +196,7 @@ describe('components > ClassifierContainer', function () {
           wrapper: withGrommet()
         }
       )
-      const taskTab = await screen.findByRole('tab', { name: 'TaskArea.task'})
-      const tutorialTab = screen.queryByRole('tab', { name: 'TaskArea.tutorial'})
-      const tabPanel = screen.queryByRole('tabpanel', { name: '1 Tab Contents'})
+      const tabPanel = await screen.findByRole('tabpanel', { name: '1 Tab Contents'})
       const task = workflowSnapshot.tasks.T0
       const getAnswerInput = answer => within(tabPanel).findByRole('radio', { name: answer.label })
       taskAnswers = await Promise.all(task.answers.map(getAnswerInput))
@@ -209,7 +214,8 @@ describe('components > ClassifierContainer', function () {
         expect(subjectImage.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
       })
       expect(workflowRequest.isDone()).to.be.true()
-      expect(subjectsRequest.isDone()).to.be.true()
+      expect(firstSubjectsRequest.isDone()).to.be.true()
+      expect(secondSubjectsRequest.isDone()).to.be.false()
       expect(taskAnswers).to.have.lengthOf(workflowSnapshot.tasks.T0.answers.length)
       taskAnswers.forEach(radioButton => {
         expect(radioButton.name).to.equal('T0')
@@ -219,7 +225,7 @@ describe('components > ClassifierContainer', function () {
   })
 
   describe('signed-in volunteers with a stored Panoptes session', function () {
-    let taskAnswers, subjectsRequest, workflowRequest
+    let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, workflowRequest
     const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
     const workflowSnapshot = branchingWorkflow
     workflowSnapshot.strings = workflowStrings
@@ -244,10 +250,14 @@ describe('components > ClassifierContainer', function () {
         .query(true)
         .reply(200, { project_roles: [{ roles }] })
 
-      subjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
+      firstSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/subjects/queued')
         .query(true)
         .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
+      secondSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/subjects/queued')
+        .query(true)
+        .reply(200, { subjects: [...Factory.buildList('subject', 10)] })
       workflowRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get(`/workflows/${workflowSnapshot.id}`)
         .query(true)
@@ -273,9 +283,7 @@ describe('components > ClassifierContainer', function () {
           wrapper: withGrommet()
         }
       )
-      const taskTab = await screen.findByRole('tab', { name: 'TaskArea.task'})
-      const tutorialTab = screen.queryByRole('tab', { name: 'TaskArea.tutorial'})
-      const tabPanel = screen.queryByRole('tabpanel', { name: '1 Tab Contents'})
+      const tabPanel = await screen.findByRole('tabpanel', { name: '1 Tab Contents'})
       const task = workflowSnapshot.tasks.T0
       const getAnswerInput = answer => within(tabPanel).findByRole('radio', { name: answer.label })
       taskAnswers = await Promise.all(task.answers.map(getAnswerInput))
@@ -293,7 +301,8 @@ describe('components > ClassifierContainer', function () {
         expect(subjectImage.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
       })
       expect(workflowRequest.isDone()).to.be.true()
-      expect(subjectsRequest.isDone()).to.be.true()
+      expect(firstSubjectsRequest.isDone()).to.be.true()
+      expect(secondSubjectsRequest.isDone()).to.be.false()
       expect(taskAnswers).to.have.lengthOf(workflowSnapshot.tasks.T0.answers.length)
       taskAnswers.forEach(radioButton => {
         expect(radioButton.name).to.equal('T0')
@@ -303,7 +312,7 @@ describe('components > ClassifierContainer', function () {
   })
 
   describe('Project owner', function () {
-    let taskAnswers, subjectsRequest, workflowRequest
+    let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, workflowRequest
     const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
     const workflowSnapshot = branchingWorkflow
     workflowSnapshot.strings = workflowStrings
@@ -328,10 +337,14 @@ describe('components > ClassifierContainer', function () {
         .query(true)
         .reply(200, { project_roles: [{ roles }] })
 
-      subjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
+      firstSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/subjects/queued')
         .query(true)
         .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
+      secondSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/subjects/queued')
+        .query(true)
+        .reply(200, { subjects: [...Factory.buildList('subject', 10)] })
       workflowRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get(`/workflows/${workflowSnapshot.id}`)
         .query(true)
@@ -357,9 +370,7 @@ describe('components > ClassifierContainer', function () {
           wrapper: withGrommet()
         }
       )
-      const taskTab = await screen.findByRole('tab', { name: 'TaskArea.task'})
-      const tutorialTab = screen.queryByRole('tab', { name: 'TaskArea.tutorial'})
-      const tabPanel = screen.queryByRole('tabpanel', { name: '1 Tab Contents'})
+      const tabPanel = await screen.findByRole('tabpanel', { name: '1 Tab Contents'})
       const task = workflowSnapshot.tasks.T0
       const getAnswerInput = answer => within(tabPanel).findByRole('radio', { name: answer.label })
       taskAnswers = await Promise.all(task.answers.map(getAnswerInput))
@@ -377,7 +388,8 @@ describe('components > ClassifierContainer', function () {
         expect(subjectImage.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
       })
       expect(workflowRequest.isDone()).to.be.true()
-      expect(subjectsRequest.isDone()).to.be.true()
+      expect(firstSubjectsRequest.isDone()).to.be.true()
+      expect(secondSubjectsRequest.isDone()).to.be.false()
       expect(taskAnswers).to.have.lengthOf(workflowSnapshot.tasks.T0.answers.length)
       taskAnswers.forEach(radioButton => {
         expect(radioButton.name).to.equal('T0')
@@ -387,7 +399,7 @@ describe('components > ClassifierContainer', function () {
   })
 
   describe('Project collaborator', function () {
-    let taskAnswers, subjectsRequest, workflowRequest
+    let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, workflowRequest
     const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
     const workflowSnapshot = branchingWorkflow
     workflowSnapshot.strings = workflowStrings
@@ -412,10 +424,14 @@ describe('components > ClassifierContainer', function () {
         .query(true)
         .reply(200, { project_roles: [{ roles }] })
 
-      subjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
+      firstSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/subjects/queued')
         .query(true)
         .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
+      secondSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/subjects/queued')
+        .query(true)
+        .reply(200, { subjects: [...Factory.buildList('subject', 10)] })
       workflowRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get(`/workflows/${workflowSnapshot.id}`)
         .query(true)
@@ -441,9 +457,7 @@ describe('components > ClassifierContainer', function () {
           wrapper: withGrommet()
         }
       )
-      const taskTab = await screen.findByRole('tab', { name: 'TaskArea.task'})
-      const tutorialTab = screen.queryByRole('tab', { name: 'TaskArea.tutorial'})
-      const tabPanel = screen.queryByRole('tabpanel', { name: '1 Tab Contents'})
+      const tabPanel = await screen.findByRole('tabpanel', { name: '1 Tab Contents'})
       const task = workflowSnapshot.tasks.T0
       const getAnswerInput = answer => within(tabPanel).findByRole('radio', { name: answer.label })
       taskAnswers = await Promise.all(task.answers.map(getAnswerInput))
@@ -461,7 +475,8 @@ describe('components > ClassifierContainer', function () {
         expect(subjectImage.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
       })
       expect(workflowRequest.isDone()).to.be.true()
-      expect(subjectsRequest.isDone()).to.be.true()
+      expect(firstSubjectsRequest.isDone()).to.be.true()
+      expect(secondSubjectsRequest.isDone()).to.be.false()
       expect(taskAnswers).to.have.lengthOf(workflowSnapshot.tasks.T0.answers.length)
       taskAnswers.forEach(radioButton => {
         expect(radioButton.name).to.equal('T0')
@@ -471,7 +486,7 @@ describe('components > ClassifierContainer', function () {
   })
 
   describe('Project tester', function () {
-    let taskAnswers, subjectsRequest, workflowRequest
+    let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, workflowRequest
     const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
     const workflowSnapshot = branchingWorkflow
     workflowSnapshot.strings = workflowStrings
@@ -496,10 +511,14 @@ describe('components > ClassifierContainer', function () {
         .query(true)
         .reply(200, { project_roles: [{ roles }] })
 
-      subjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
+      firstSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/subjects/queued')
         .query(true)
         .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
+      secondSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/subjects/queued')
+        .query(true)
+        .reply(200, { subjects: [...Factory.buildList('subject', 10)] })
       workflowRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get(`/workflows/${workflowSnapshot.id}`)
         .query(true)
@@ -525,9 +544,7 @@ describe('components > ClassifierContainer', function () {
           wrapper: withGrommet()
         }
       )
-      const taskTab = await screen.findByRole('tab', { name: 'TaskArea.task'})
-      const tutorialTab = screen.queryByRole('tab', { name: 'TaskArea.tutorial'})
-      const tabPanel = screen.queryByRole('tabpanel', { name: '1 Tab Contents'})
+      const tabPanel = await screen.findByRole('tabpanel', { name: '1 Tab Contents'})
       const task = workflowSnapshot.tasks.T0
       const getAnswerInput = answer => within(tabPanel).findByRole('radio', { name: answer.label })
       taskAnswers = await Promise.all(task.answers.map(getAnswerInput))
@@ -545,7 +562,8 @@ describe('components > ClassifierContainer', function () {
         expect(subjectImage.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
       })
       expect(workflowRequest.isDone()).to.be.true()
-      expect(subjectsRequest.isDone()).to.be.true()
+      expect(firstSubjectsRequest.isDone()).to.be.true()
+      expect(secondSubjectsRequest.isDone()).to.be.false()
       expect(taskAnswers).to.have.lengthOf(workflowSnapshot.tasks.T0.answers.length)
       taskAnswers.forEach(radioButton => {
         expect(radioButton.name).to.equal('T0')
@@ -555,7 +573,7 @@ describe('components > ClassifierContainer', function () {
   })
 
   describe('admins: in admin mode', function () {
-    let taskAnswers, subjectsRequest, workflowRequest
+    let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, workflowRequest
     const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
     const workflowSnapshot = branchingWorkflow
     workflowSnapshot.strings = workflowStrings
@@ -580,10 +598,14 @@ describe('components > ClassifierContainer', function () {
         .query(true)
         .reply(200, { project_roles: [{ roles }] })
 
-      subjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
+      firstSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/subjects/queued')
         .query(true)
         .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
+      secondSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/subjects/queued')
+        .query(true)
+        .reply(200, { subjects: [...Factory.buildList('subject', 10)] })
       workflowRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get(`/workflows/${workflowSnapshot.id}`)
         .query(true)
@@ -610,9 +632,7 @@ describe('components > ClassifierContainer', function () {
           wrapper: withGrommet()
         }
       )
-      const taskTab = await screen.findByRole('tab', { name: 'TaskArea.task'})
-      const tutorialTab = screen.queryByRole('tab', { name: 'TaskArea.tutorial'})
-      const tabPanel = screen.queryByRole('tabpanel', { name: '1 Tab Contents'})
+      const tabPanel = await screen.findByRole('tabpanel', { name: '1 Tab Contents'})
       const task = workflowSnapshot.tasks.T0
       const getAnswerInput = answer => within(tabPanel).findByRole('radio', { name: answer.label })
       taskAnswers = await Promise.all(task.answers.map(getAnswerInput))
@@ -630,7 +650,8 @@ describe('components > ClassifierContainer', function () {
         expect(subjectImage.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
       })
       expect(workflowRequest.isDone()).to.be.true()
-      expect(subjectsRequest.isDone()).to.be.true()
+      expect(firstSubjectsRequest.isDone()).to.be.true()
+      expect(secondSubjectsRequest.isDone()).to.be.false()
       expect(taskAnswers).to.have.lengthOf(workflowSnapshot.tasks.T0.answers.length)
       taskAnswers.forEach(radioButton => {
         expect(radioButton.name).to.equal('T0')
@@ -640,7 +661,7 @@ describe('components > ClassifierContainer', function () {
   })
 
   describe('admins: not in admin mode', function () {
-    let taskAnswers, subjectsRequest, workflowRequest
+    let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, workflowRequest
     const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
     const workflowSnapshot = branchingWorkflow
     workflowSnapshot.strings = workflowStrings
@@ -665,10 +686,14 @@ describe('components > ClassifierContainer', function () {
         .query(true)
         .reply(200, { project_roles: [{ roles }] })
 
-      subjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
+      firstSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/subjects/queued')
         .query(true)
         .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
+      secondSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/subjects/queued')
+        .query(true)
+        .reply(200, { subjects: [...Factory.buildList('subject', 10)] })
       workflowRequest = nock('https://panoptes-staging.zooniverse.org/api')
         .get(`/workflows/${workflowSnapshot.id}`)
         .query(true)
@@ -709,7 +734,8 @@ describe('components > ClassifierContainer', function () {
     })
 
     it('should not load the subject queue', function () {
-      expect(subjectsRequest.isDone()).to.be.false()
+      expect(firstSubjectsRequest.isDone()).to.be.false()
+      expect(secondSubjectsRequest.isDone()).to.be.false()
     })
   })
 })
