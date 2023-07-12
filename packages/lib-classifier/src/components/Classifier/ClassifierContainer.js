@@ -165,7 +165,6 @@ ClassifierContainer.propTypes = {
   authClient: PropTypes.object.isRequired,
   cachePanoptesData: PropTypes.bool,
   locale: PropTypes.string,
-  mode: PropTypes.string,
   onAddToCollection: PropTypes.func,
   onCompleteClassification: PropTypes.func,
   onError: PropTypes.func,
@@ -178,6 +177,5 @@ ClassifierContainer.propTypes = {
   showTutorial: PropTypes.bool,
   subjectID: PropTypes.string,
   subjectSetID: PropTypes.string,
-  theme: PropTypes.object,
   workflowID: PropTypes.string
 }
