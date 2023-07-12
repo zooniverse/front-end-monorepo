@@ -5504,10 +5504,10 @@
   resolved "https://registry.yarnpkg.com/@visx/point/-/point-3.0.1.tgz#77587ddaabf6f3023f09f8a0ce33a2c27c9d64c8"
   integrity sha512-S5WOBMgEP2xHcgs3A2BFB2vwzrk0tMmn3PGZAbQJ+lu4HlnalDP72klUnxLTH8xclNNvpUHtHM5eLIJXyHx6Pw==
 
-"@visx/responsive@~3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@visx/responsive/-/responsive-3.0.0.tgz#e183c54ce04cffe756378872d30ac88c66a137ac"
-  integrity sha512-immnxQwOWlrxbnlCIqJWuDpPfrM6tglgMTN1WsyXyGluLMJqhuuxqxllfXaRPkQFS4fcvs66KCEELdazh96U2w==
+"@visx/responsive@~3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@visx/responsive/-/responsive-3.3.0.tgz#39bcc067e048e03616929460b651456ca62aa94f"
+  integrity sha512-Y3Bgrh6cJ760lG6yXsxJRNCmYZAHKQqSmTG2qxJ8yImledieGEqI0ZizXJgFkxoBaZK5gSMvFsmFWKtf7a86kQ==
   dependencies:
     "@types/lodash" "^4.14.172"
     "@types/react" "*"

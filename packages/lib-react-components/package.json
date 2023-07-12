@@ -29,7 +29,7 @@
     "@tippyjs/react": "~4.2.6",
     "@visx/glyph": "~3.3.0",
     "@visx/group": "~3.3.0",
-    "@visx/responsive": "~3.0.0",
+    "@visx/responsive": "~3.3.0",
     "@visx/shape": "~3.2.0",
     "cuid": "~3.0.0",
     "formik": "~2.4.0",
