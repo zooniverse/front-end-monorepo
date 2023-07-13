@@ -5166,7 +5166,7 @@
     "@types/react" "*"
     "@visx/point" "3.0.1"
 
-"@visx/event@~3.3.0":
+"@visx/event@3.3.0", "@visx/event@~3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@visx/event/-/event-3.3.0.tgz#30bb7f02857800749219e4ba76fce53df4d47353"
   integrity sha512-fKalbNgNz2ooVOTXhvcOx5IlEQDgVfX66rI7bgZhBxI2/scy+5rWcXJXpwkheRF68SMx9R93SjKW6tmiD0h+jA==
@@ -5302,14 +5302,14 @@
     d3-time-format "4.1.0"
     internmap "2.0.3"
 
-"@visx/zoom@~3.1.1":
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/@visx/zoom/-/zoom-3.1.3.tgz#8ac17820ca43ec59bda8812b37628b0589fd363c"
-  integrity sha512-PLY/uFdcv0U0Lauxt+Z1NLYBu/pdVYgsfLmfoeWTf2t8hNzHXso3lcyj9wPN0Ur5ihF8+diKeKgJIJGC79FBPQ==
+"@visx/zoom@~3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@visx/zoom/-/zoom-3.3.0.tgz#079d013d5299e8f2082c4790c01b177542e3a1b2"
+  integrity sha512-ijSitmJWbhupAe1F0LTsusg/WWEvYBcxV9iOHmTbGHhgpdKuhmZCXYg2zGAF4oT3lTuhofUA678jQt5+U9FlWA==
   dependencies:
     "@types/react" "*"
     "@use-gesture/react" "^10.0.0-beta.22"
-    "@visx/event" "3.0.1"
+    "@visx/event" "3.3.0"
     prop-types "^15.6.2"
 
 "@webassemblyjs/ast@1.11.5", "@webassemblyjs/ast@^1.11.5":
