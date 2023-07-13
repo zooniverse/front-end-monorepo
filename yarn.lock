@@ -5163,13 +5163,21 @@
     "@visx/point" "3.0.1"
     prop-types "^15.5.10"
 
-"@visx/event@3.0.1", "@visx/event@~3.0.0":
+"@visx/event@3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@visx/event/-/event-3.0.1.tgz#d5358f52ff5ef30036d955bd2b68b96472ff2d6f"
   integrity sha512-tK1EUYQLLStBuoCMbm8LJ3VbDyCVI8HjT0pMRQxm+C75FSIVWvrThgrfrC9sWOFnEMEYWspZO7hI5zjsPKjLQA==
   dependencies:
     "@types/react" "*"
     "@visx/point" "3.0.1"
+
+"@visx/event@~3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@visx/event/-/event-3.3.0.tgz#30bb7f02857800749219e4ba76fce53df4d47353"
+  integrity sha512-fKalbNgNz2ooVOTXhvcOx5IlEQDgVfX66rI7bgZhBxI2/scy+5rWcXJXpwkheRF68SMx9R93SjKW6tmiD0h+jA==
+  dependencies:
+    "@types/react" "*"
+    "@visx/point" "3.3.0"
 
 "@visx/glyph@~3.3.0":
   version "3.3.0"
@@ -5213,6 +5221,11 @@
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@visx/point/-/point-3.0.1.tgz#77587ddaabf6f3023f09f8a0ce33a2c27c9d64c8"
   integrity sha512-S5WOBMgEP2xHcgs3A2BFB2vwzrk0tMmn3PGZAbQJ+lu4HlnalDP72klUnxLTH8xclNNvpUHtHM5eLIJXyHx6Pw==
+
+"@visx/point@3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@visx/point/-/point-3.3.0.tgz#7a705e09892ae45b4c9cf3155e9be3a3845460d8"
+  integrity sha512-03eBBIJarkmX79WbeEGTUZwmS5/MUuabbiM9KfkGS9pETBTWkp1DZtEHZdp5z34x5TDQVLSi0rk1Plg3/8RtDg==
 
 "@visx/responsive@~3.3.0":
   version "3.3.0"
