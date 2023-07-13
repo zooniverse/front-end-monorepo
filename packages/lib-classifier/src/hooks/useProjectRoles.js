@@ -17,12 +17,12 @@ async function fetchProjectRoles({ endpoint, projectID, userID, authorization })
     const [projectRoles] = body.project_roles
     return projectRoles?.roles || []
   }
-  return []
+  return null
 }
 
 export default function useProjectRoles({ authClient, projectID, userID }) {
   const authorization = usePanoptesAuth({ authClient, userID })
   const endpoint = '/project_roles'
-  const key = userID && authorization ? { endpoint, projectID, userID, authorization } : null
+  const key = { endpoint, projectID, userID, authorization }
   return useSWR(key, fetchProjectRoles, SWRoptions)
 }

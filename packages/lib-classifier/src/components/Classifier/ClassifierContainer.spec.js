@@ -661,7 +661,7 @@ describe('components > ClassifierContainer', function () {
   })
 
   describe('admins: not in admin mode', function () {
-    let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, workflowRequest
+    let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, userRequests, workflowRequest
     const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
     const workflowSnapshot = branchingWorkflow
     workflowSnapshot.strings = workflowStrings
@@ -677,6 +677,7 @@ describe('components > ClassifierContainer', function () {
       sinon.replace(window, 'Image', MockSubjectImage)
       const roles = []
       mockPanoptesAPI()
+      userRequests = nock('https://panoptes-staging.zooniverse.org/api')
         .get('/project_preferences')
         .query(true)
         .reply(200, { project_preferences: [{
@@ -719,8 +720,6 @@ describe('components > ClassifierContainer', function () {
           wrapper: withGrommet()
         }
       )
-      const taskTab = await screen.findByRole('tab', { name: 'TaskArea.task'})
-      const tutorialTab = screen.queryByRole('tab', { name: 'TaskArea.tutorial'})
     })
 
     afterEach(function () {
@@ -729,11 +728,13 @@ describe('components > ClassifierContainer', function () {
       cleanStore()
     })
 
-    it('should not request a workflow', function () {
+    it('should not request a workflow', async function () {
+      await waitFor(() => expect(userRequests.isDone()).to.be.true())
       expect(workflowRequest.isDone()).to.be.false()
     })
 
-    it('should not load the subject queue', function () {
+    it('should not load the subject queue', async function () {
+      await waitFor(() => expect(userRequests.isDone()).to.be.true())
       expect(firstSubjectsRequest.isDone()).to.be.false()
       expect(secondSubjectsRequest.isDone()).to.be.false()
     })
