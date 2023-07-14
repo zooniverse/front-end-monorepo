@@ -48,6 +48,6 @@ async function fetchOrCreateProjectPreferences({ endpoint, projectID, userID, au
 export default function useProjectPreferences({ authClient, projectID, userID }) {
   const authorization = usePanoptesAuth({ authClient, userID })
   const endpoint = '/project_preferences'
-  const key = userID && authorization ? { endpoint, projectID, userID, authorization } : null
+  const key = { endpoint, projectID, userID, authorization }
   return useSWR(key, fetchOrCreateProjectPreferences, SWRoptions)
 }

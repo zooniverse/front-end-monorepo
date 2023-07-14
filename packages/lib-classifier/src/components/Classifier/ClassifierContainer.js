@@ -130,8 +130,15 @@ export default function ClassifierContainer({
     }
   }, [upp, userProjectPreferences])
 
+  /*
+  The classifier is ready once:
+  - we've checked Panoptes for a user session.
+  - the workflow has loaded.
+  - the project has been added to the store.
+  */
+  const classifierIsReady = userHasLoaded && !!workflowSnapshot && !!classifierStore.projects.active
   try {
-    if (userHasLoaded && classifierStore) {
+    if (classifierIsReady) {
 
       return (
         <StrictMode>
