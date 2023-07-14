@@ -41,6 +41,7 @@ function ClassifyPage({
   const [classifierProps, setClassifierProps] = useState({})
   const [showTutorial, setShowTutorial] = useState(false)
   const [collectionsModalActive, setCollectionsModalActive] = useState(false)
+  const [collectionsSubjectID, setCollectionsSubjectID] = useState(subjectID)
 
   let subjectSetFromUrl
   if (workflowFromUrl && workflowFromUrl.subjectSets) {
@@ -72,15 +73,16 @@ function ClassifyPage({
     setShowTutorial(true)
   }
 
-  const onAddToCollection = useCallback(() => {
+  const onAddToCollection = useCallback((subjectID) => {
+    setCollectionsSubjectID(subjectID)
     setCollectionsModalActive(true)
-  }, [setCollectionsModalActive])
+  }, [setCollectionsModalActive, setCollectionsSubjectID])
 
   return (
     <>
       <CollectionsModal
         collectionsModalActive={collectionsModalActive}
-        subjectID={subjectID}
+        subjectID={collectionsSubjectID}
         setCollectionsModalActive={setCollectionsModalActive}
       />
       <StandardLayout>
