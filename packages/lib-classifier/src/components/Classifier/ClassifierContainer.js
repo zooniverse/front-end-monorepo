@@ -136,7 +136,9 @@ export default function ClassifierContainer({
   - the workflow has loaded.
   - the project has been added to the store.
   */
-  const classifierIsReady = userHasLoaded && !!workflowSnapshot && !!classifierStore.projects.active
+  const workflowIsReady = !!workflowSnapshot?.strings
+  const projectIsReady = !!classifierStore.projects.active
+  const classifierIsReady = userHasLoaded && workflowIsReady && projectIsReady
   try {
     if (classifierIsReady) {
 
