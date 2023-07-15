@@ -6,7 +6,7 @@ import {
 
 export default function usePanoptesUserSession({ authClient, projectID }) {
   const { data: user, isLoading: userLoading } = usePanoptesUser(authClient)
-  const userID = !userLoading && user?.id
+  const userID = userLoading ? undefined : (user?.id || null)
   const { data: upp } = useProjectPreferences({ authClient, projectID, userID })
   const { data: projectRoles } = useProjectRoles({ authClient, projectID, userID })
   const userHasLoaded = userID ?
