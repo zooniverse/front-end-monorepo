@@ -28,12 +28,12 @@ async function fetchProjectPreferences({ endpoint, projectID, userID, authorizat
 }
 
 async function fetchOrCreateProjectPreferences({ endpoint, projectID, userID, authorization }) {
-  // auth is undefined while loading
-  if (authorization === undefined) {
+  // userID and auth are undefined while loading
+  if (userID === undefined || authorization === undefined) {
     return undefined
   }
   // logged-in
-  if (authorization) {
+  if (projectID && userID && authorization) {
     const projectPreferences = await fetchProjectPreferences({ endpoint, projectID, userID, authorization })
     if (projectPreferences) {
       return projectPreferences
