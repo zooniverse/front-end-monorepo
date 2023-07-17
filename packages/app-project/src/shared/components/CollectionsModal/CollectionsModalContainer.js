@@ -41,17 +41,16 @@ const CollectionsModalContainer = ({
 
   const [newCollection, setNewCollection] = useState(defaultNewCollection)
   const [selectedCollection, setSelectedCollection] = useState(undefined)
-  const [selectedSubjectID, setSelectedSubjectID] = useState(subjectID)
 
   function addToCollection (event) {
     event.preventDefault()
-    addSubjects(selectedCollection.id, [selectedSubjectID])
+    addSubjects(selectedCollection.id, [subjectID])
     close()
   }
 
   function createNewCollection (event) {
     event.preventDefault()
-    createCollection(newCollection, [selectedSubjectID])
+    createCollection(newCollection, [subjectID])
     close()
   }
 
@@ -62,7 +61,6 @@ const CollectionsModalContainer = ({
 
   function close () {
     setCollectionsModalActive(false)
-    setSelectedSubjectID(null)
   }
 
   function updateCollection (collectionDetails) {

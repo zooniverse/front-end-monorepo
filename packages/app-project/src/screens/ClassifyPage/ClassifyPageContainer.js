@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import ClassifyPage from './ClassifyPage'
 
@@ -30,9 +30,9 @@ function ClassifyPageContainer ({
   }, [subjectID])
 
 
-  function onSubjectReset () {
+  const onSubjectReset = useCallback(() => {
     setSelectedSubjectID(undefined)
-  }
+  }, [setSelectedSubjectID])
 
   return (
     <>
