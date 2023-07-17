@@ -69,7 +69,7 @@ export default function ClassifierWrapper({
       const as = href
       router.replace(href, as, { shallow: true })
     }
-  }, [ownerSlug, projectSlug, router?.replace, subjectID])
+  }, [ownerSlug, projectSlug, router?.replace, subjectID, subjectSetID, workflowID])
 
   const onToggleFavourite = useCallback((subjectId, isFavourite) => {
     if (isFavourite) {
