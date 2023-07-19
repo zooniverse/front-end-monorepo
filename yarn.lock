@@ -7244,16 +7244,16 @@ contentful-sdk-core@^7.0.2:
     qs "^6.9.4"
 
 contentful@~10.3.0:
-  version "10.3.4"
-  resolved "https://registry.yarnpkg.com/contentful/-/contentful-10.3.4.tgz#d788913c430d7ad21a13afd2d5babea37c725103"
-  integrity sha512-i6OHoPDqDzCN3ihbnHO0yxym5EjKsIO17iUyzcPdvYsZT8pH+nyvNeD5Wcvw5mm8hdzknDM2Jq8TAsATUKseUA==
+  version "10.3.5"
+  resolved "https://registry.yarnpkg.com/contentful/-/contentful-10.3.5.tgz#b881250f42311c3f1ac485bdc027ca81a9e55e64"
+  integrity sha512-fb9iVdUgC0VDligcedueN7XCaxNTRa9RCahzGBCTJsv6hnW8xa7RIdk0sNvZjSZWXg8tF/yxDbPtvMs6iV50fg==
   dependencies:
     "@contentful/rich-text-types" "^16.0.2"
     axios "^0.26.1"
     contentful-resolve-response "^1.3.6"
     contentful-sdk-core "^7.0.2"
     json-stringify-safe "^5.0.1"
-    type-fest "^3.1.0"
+    type-fest "^4.0.0"
 
 conventional-changelog-angular@6.0.0:
   version "6.0.0"
@@ -16732,10 +16732,15 @@ type-fest@^2.14.0, type-fest@^2.19.0:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-2.19.0.tgz#88068015bb33036a598b952e55e9311a60fd3a9b"
   integrity sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==
 
-type-fest@^3.1.0, type-fest@^3.11.0:
+type-fest@^3.11.0:
   version "3.13.1"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-3.13.1.tgz#bb744c1f0678bea7543a2d1ec24e83e68e8c8706"
   integrity sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==
+
+type-fest@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-4.0.0.tgz#1c87b05c3f0304a2f911b5a47bb45fa4d62031db"
+  integrity sha512-d/oYtUnPM9zar2fqqGLYPzgcY0qUlYK0evgNVti93xpzfjGkMgZHu9Lvgrkn0rqGXTgsFRxFamzjGoD9Uo+dgw==
 
 type-is@~1.6.18:
   version "1.6.18"
