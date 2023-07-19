@@ -68,7 +68,7 @@
     "@babel/preset-env": "~7.22.0",
     "@babel/preset-react": "~7.22.0",
     "@babel/register": "~7.22.5",
-    "@storybook/addon-a11y": "~7.0.10",
+    "@storybook/addon-a11y": "~7.1.0",
     "@storybook/addon-essentials": "~7.1.0",
     "@storybook/react": "~7.1.0",
     "@storybook/react-webpack5": "~7.1.0",
