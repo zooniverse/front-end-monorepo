@@ -26,6 +26,8 @@ const IMAGE_URL =
   'https://panoptes-uploads.zooniverse.org/production/subject_location/66094a64-8823-4314-8ef4-1ee228e49470.jpeg'
 const VIDEO_URL =
   'https://static.zooniverse.org/www.zooniverse.org/assets/home-video.mp4'
+const TEXT_URL =
+  'https://panoptes-uploads.zooniverse.org/subject_location/f5506d1c-a0e9-4aba-a418-6a6c46a7731a.txt'
 
 export function Image() {
   return (
@@ -81,6 +83,19 @@ export function Data() {
         alt='SuperWASP Black Hole Hunters'
         src={DATA_URL}
         height={250}
+        width={270}
+      />
+    </Box>
+  )
+}
+
+export function TextMedia() {
+  return (
+    <Box>
+      <Text>Width set as 270</Text>
+      <Media
+        alt='A text file'
+        src={TEXT_URL}
         width={270}
       />
     </Box>
