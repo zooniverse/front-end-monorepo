@@ -77,7 +77,7 @@
     "babel-plugin-transform-imports": "~2.0.0",
     "chai": "~4.3.4",
     "chai-dom": "~1.11.0",
-    "dedent": "~1.0.1",
+    "dedent": "~1.2.0",
     "dirty-chai": "~2.0.1",
     "enzyme": "~3.11.0",
     "grommet": "~2.33.0",
