@@ -103,6 +103,39 @@ const DATA_SUBJECTS = [
   }
 ]
 
+const TEXT_SUBJECTS = [
+  {
+    favorite: false,
+    id: '123',
+    locations: [
+      {
+        'text/plain':
+          'https://panoptes-uploads.zooniverse.org/subject_location/f5506d1c-a0e9-4aba-a418-6a6c46a7731a.txt'
+      },
+    ]
+  },
+  {
+    favorite: true,
+    id: '456',
+    locations: [
+      {
+        'text/plain':
+          'https://panoptes-uploads.zooniverse.org/subject_location/5e4a7f1a-3427-4772-912d-80b0de90acc7.txt'
+      }
+    ],
+  },
+  {
+    favorite: false,
+    id: '789',
+    locations: [
+      {
+        'text/plain':
+          'https://panoptes-uploads.zooniverse.org/subject_location/47c72ca1-55e0-446d-afdf-9e0b29219b06.txt'
+      }
+    ]
+  }
+]
+
 const VIDEO_SUBJECTS = [
   {
     favorite: false,
@@ -257,6 +290,21 @@ export function Data({ isLoggedIn }) {
           recents={DATA_SUBJECTS}
           projectName='SuperWASP Black Hole Hunters'
           slug='hughdickinson/superwasp-black-hole-hunters'
+        />
+      </Box>
+    </Provider>
+  )
+}
+
+export function Text({ isLoggedIn }) {
+  return (
+    <Provider store={store}>
+      <Box height='large' pad='medium' fill='horizontal'>
+        <RecentSubjects
+          isLoggedIn={isLoggedIn}
+          recents={TEXT_SUBJECTS}
+          projectName='Snapshot Serengeti'
+          slug='zooniverse/snapshot-serengeti'
         />
       </Box>
     </Provider>
