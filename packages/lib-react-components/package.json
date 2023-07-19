@@ -65,7 +65,7 @@
     "@babel/preset-react": "~7.22.0",
     "@babel/register": "~7.22.5",
     "@storybook/addon-a11y": "~7.0.10",
-    "@storybook/addon-essentials": "~7.0.10",
+    "@storybook/addon-essentials": "~7.1.0",
     "@storybook/react": "~7.1.0",
     "@storybook/react-webpack5": "~7.1.0",
     "@testing-library/dom": "~9.3.0",
