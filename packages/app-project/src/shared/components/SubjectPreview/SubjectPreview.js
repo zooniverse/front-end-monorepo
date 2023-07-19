@@ -25,7 +25,9 @@ function SubjectPreview ({
 
   return (
     <Box
+      elevation='small'
       fill
+      pad='xsmall'
     >
       <Anchor
         href={href}
@@ -45,7 +47,7 @@ function SubjectPreview ({
           />
         </Box>
       </Anchor>
-      <Box direction='column' gap='xsmall' pad={{ vertical: 'xsmall' }}>
+      <Box direction='column' gap='xsmall' pad={{ top: 'xsmall' }}>
         <TalkLink
           href={href}
         />
