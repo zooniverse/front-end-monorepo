@@ -1,3 +1,7 @@
+import { Box } from 'grommet'
+import { Provider } from 'mobx-react'
+import Store from '@stores/Store'
+
 import RecentSubjects from './RecentSubjects'
 
 const RECENTS = [
@@ -139,6 +143,21 @@ RECENTS.forEach(recent => {
   recent.toggleFavourite = toggle.bind(recent)
 })
 
+const snapshot = {
+  project: {
+    strings: {
+      display_name: 'Snapshot Serengeti',
+    }
+  },
+  user: {
+    collections: {
+      collections: [],
+    }
+  }
+}
+
+const store = Store.create(snapshot)
+
 export default {
   title: 'Project App / Screens / Classify / Recent Subjects',
   component: RecentSubjects,
@@ -149,35 +168,47 @@ export default {
 
 export function Plain({ isLoggedIn }) {
   return (
-    <RecentSubjects
-      isLoggedIn={isLoggedIn}
-      recents={RECENTS}
-      projectName='Snapshot Serengeti'
-      slug='zooniverse/snapshot-serengeti'
-    />
+    <Provider store={store}>
+      <Box height='large' pad='medium' fill='horizontal'>
+        <RecentSubjects
+          isLoggedIn={isLoggedIn}
+          recents={RECENTS}
+          projectName='Snapshot Serengeti'
+          slug='zooniverse/snapshot-serengeti'
+        />
+      </Box>
+    </Provider>
   )
 }
 
 export function Placeholder({ isLoggedIn }) {
   return (
-    <RecentSubjects
-      isLoggedIn={isLoggedIn}
-      recents={RECENTS.slice(1)}
-      projectName='Snapshot Serengeti'
-      slug='zooniverse/snapshot-serengeti'
-    />
+    <Provider store={store}>
+      <Box height='large' pad='medium' fill='horizontal'>
+        <RecentSubjects
+          isLoggedIn={isLoggedIn}
+          recents={RECENTS.slice(1)}
+          projectName='Snapshot Serengeti'
+          slug='zooniverse/snapshot-serengeti'
+        />
+      </Box>
+    </Provider>
   )
 }
 
 export function NarrowScreens({ isLoggedIn }) {
   return (
-    <RecentSubjects
-      isLoggedIn={isLoggedIn}
-      recents={RECENTS}
-      projectName='Snapshot Serengeti'
-      size={1}
-      slug='zooniverse/snapshot-serengeti'
-    />
+    <Provider store={store}>
+      <Box height='large' pad='medium' fill='horizontal'>
+        <RecentSubjects
+          isLoggedIn={isLoggedIn}
+          recents={RECENTS}
+          projectName='Snapshot Serengeti'
+          size={1}
+          slug='zooniverse/snapshot-serengeti'
+        />
+      </Box>
+    </Provider>
   )
 }
 
@@ -189,44 +220,60 @@ NarrowScreens.parameters = {
 
 export function Transcription({ isLoggedIn }) {
   return (
-    <RecentSubjects
-      isLoggedIn={isLoggedIn}
-      recents={PORTRAIT_SUBJECTS}
-      projectName='Notes from Nature'
-      slug='zooniverse/notes-from-nature'
-    />
+    <Provider store={store}>
+      <Box height='large' pad='medium' fill='horizontal'>
+        <RecentSubjects
+          isLoggedIn={isLoggedIn}
+          recents={PORTRAIT_SUBJECTS}
+          projectName='Notes from Nature'
+          slug='zooniverse/notes-from-nature'
+        />
+      </Box>
+    </Provider>
   )
 }
 
 export function Video({ isLoggedIn }) {
   return (
-    <RecentSubjects
-      isLoggedIn={isLoggedIn}
-      recents={VIDEO_SUBJECTS}
-      projectName='NestCams'
-      slug='spotteron/nestcams'
-    />
+    <Provider store={store}>
+      <Box height='large' pad='medium' fill='horizontal'>
+        <RecentSubjects
+          isLoggedIn={isLoggedIn}
+          recents={VIDEO_SUBJECTS}
+          projectName='NestCams'
+          slug='spotteron/nestcams'
+        />
+      </Box>
+    </Provider>
   )
 }
 
 export function Data({ isLoggedIn }) {
   return (
-    <RecentSubjects
-      isLoggedIn={isLoggedIn}
-      recents={DATA_SUBJECTS}
-      projectName='SuperWASP Black Hole Hunters'
-      slug='hughdickinson/superwasp-black-hole-hunters'
-    />
+    <Provider store={store}>
+      <Box height='large' pad='medium' fill='horizontal'>
+        <RecentSubjects
+          isLoggedIn={isLoggedIn}
+          recents={DATA_SUBJECTS}
+          projectName='SuperWASP Black Hole Hunters'
+          slug='hughdickinson/superwasp-black-hole-hunters'
+        />
+      </Box>
+    </Provider>
   )
 }
 
 export function OneSubject({ isLoggedIn }) {
   return (
-    <RecentSubjects
-      isLoggedIn={isLoggedIn}
-      recents={RECENTS.slice(0, 1)}
-      projectName='NestCams'
-      slug='spotteron/nestcams'
-    />
+    <Provider store={store}>
+      <Box height='large' pad='medium' fill='horizontal'>
+        <RecentSubjects
+          isLoggedIn={isLoggedIn}
+          recents={RECENTS.slice(0, 1)}
+          projectName='NestCams'
+          slug='spotteron/nestcams'
+        />
+      </Box>
+    </Provider>
   )
 }
