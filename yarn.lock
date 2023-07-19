@@ -12444,10 +12444,10 @@ mobx-utils@~6.0.4:
   resolved "https://registry.yarnpkg.com/mobx-utils/-/mobx-utils-6.0.7.tgz#f786c184f08503cb8357931bef1b5827a702ee3e"
   integrity sha512-fPQZQRdtKIcW8CoG5Tq5HxcZBW/E0VKRrKGMmWC7H/+AJ773kH4F44o9/UfwemF+y3eJNsHKnIrg7tpwt5ml2Q==
 
-mobx@~6.9.0:
-  version "6.9.1"
-  resolved "https://registry.yarnpkg.com/mobx/-/mobx-6.9.1.tgz#e22764561ea89bfe1ed4bf14e4ba733eae465f50"
-  integrity sha512-7V41hvBmzCQg5n/xoZi2qkhREbnF3wHbzbIdR1sLJhVt6yWq2Zq0FlNahEt/RccOmEIjipvBqeQ4mlOEyMhaaA==
+mobx@~6.10.0:
+  version "6.10.0"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-6.10.0.tgz#3537680fe98d45232cc19cc8f76280bd8bb6b0b7"
+  integrity sha512-WMbVpCMFtolbB8swQ5E2YRrU+Yu8iLozCVx3CdGjbBKlP7dFiCSuiG06uea3JCFN5DnvtAX7+G5Bp82e2xu0ww==
 
 mocha@~10.2.0:
   version "10.2.0"

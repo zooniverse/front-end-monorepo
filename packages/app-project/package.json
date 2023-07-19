@@ -41,7 +41,7 @@
     "i18next": "~23.2.0",
     "lodash": "~4.17.11",
     "luxon": "~3.3.0",
-    "mobx": "~6.9.0",
+    "mobx": "~6.10.0",
     "mobx-devtools-mst": "~0.9.21",
     "mobx-react": "~8.0.0",
     "mobx-state-tree": "~5.1.0",

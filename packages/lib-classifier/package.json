@@ -97,7 +97,7 @@
     "html-webpack-plugin": "~5.5.0",
     "ignore-styles": "~5.0.1",
     "jsdom": "~22.1.0",
-    "mobx": "~6.9.0",
+    "mobx": "~6.10.0",
     "mobx-devtools-mst": "~0.9.21",
     "mobx-react": "~8.0.0",
     "mobx-state-tree": "~5.1.0",
