@@ -16,6 +16,8 @@ function onError(error, errorInfo={}) {
   console.error('Classifier error', error)
 }
 
+const DEFAULT_HANDLER = () => true
+
 /**
   A wrapper for the Classifier component. Responsible for handling:
   - classifier errors.
@@ -28,17 +30,17 @@ export default function ClassifierWrapper({
   authClient = auth,
   appLoadingState = asyncStates.initialized,
   cachePanoptesData = false,
-  collections,
+  collections = null,
   mode,
-  onAddToCollection = () => true,
-  onSubjectReset = () => true,
-  project,
-  recents,
-  router,
+  onAddToCollection = DEFAULT_HANDLER,
+  onSubjectReset = DEFAULT_HANDLER,
+  project = null,
+  recents = null,
+  router = null,
   showTutorial = false,
   subjectID,
   subjectSetID,
-  user,
+  user = null,
   userID,
   workflowID,
   yourStats
@@ -50,35 +52,36 @@ export default function ClassifierWrapper({
   const ownerSlug = router?.query.owner
   const projectSlug = router?.query.project
 
+  const incrementStats = yourStats?.increment
+  const addRecents = recents?.add
   const onCompleteClassification = useCallback((classification, subject) => {
     const finishedSubject = subject.already_seen || subject.retired
     if (!finishedSubject) {
-      yourStats.increment()
+      incrementStats()
     }
-    recents.add({
+    addRecents({
       favorite: subject.favorite,
       subjectId: subject.id,
       locations: subject.locations
     })
-  }, [recents?.add, yourStats?.increment])
+  }, [addRecents, incrementStats])
 
+  const replaceRoute = router.replace
+  const baseURL = `/${ownerSlug}/${projectSlug}/classify/workflow/${workflowID}`
   const onSubjectChange = useCallback((subject) => {
-    const baseURL = `/${ownerSlug}/${projectSlug}/classify`
-    if (subjectID && subject.id !== subjectID) {
-      const newSubjectRoute = `${baseURL}/workflow/${workflowID}/subject-set/${subjectSetID}/subject/${subject.id}`
+    if (subjectSetID && subjectID && subject.id !== subjectID) {
+      const newSubjectRoute = `${baseURL}/subject-set/${subjectSetID}/subject/${subject.id}`
       const href = addQueryParams(newSubjectRoute)
       const as = href
-      router.replace(href, as, { shallow: true })
+      replaceRoute(href, as, { shallow: true })
     }
-  }, [ownerSlug, projectSlug, router?.replace, subjectID, subjectSetID, workflowID])
+  }, [baseURL, replaceRoute, subjectID, subjectSetID])
 
+  const addFavourites = collections?.addFavourites
+  const removeFavourites = collections?.removeFavourites
   const onToggleFavourite = useCallback((subjectId, isFavourite) => {
-    if (isFavourite) {
-      collections.addFavourites([subjectId])
-    } else {
-      collections.removeFavourites([subjectId])
-    }
-  }, [collections?.addFavourites, collections?.removeFavourites])
+    return isFavourite ? addFavourites([subjectId]) : removeFavourites([subjectId])
+  }, [addFavourites, removeFavourites])
 
   const somethingWentWrong = appLoadingState === asyncStates.error
 
