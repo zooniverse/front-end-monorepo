@@ -1,6 +1,7 @@
 import { GraphQLClient } from 'graphql-request'
 import { Paragraph } from 'grommet'
 import { Provider } from 'mobx-react'
+import { applySnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import { StrictMode, useEffect } from 'react';
 import '../../translations/i18n'
@@ -85,12 +86,17 @@ export default function ClassifierContainer({
     translated_type: 'workflow',
     language: locale
   })
-  if (workflowSnapshot && workflowTranslation) {
-    workflowSnapshot.strings = workflowTranslation.strings
-  }
+  const workflowStrings = workflowTranslation?.strings
 
   const classifierStore = useHydratedStore(storeEnvironment, cachePanoptesData, `fem-classifier-${project.id}`)
   const { classifications, subjects, userProjectPreferences } = classifierStore
+  const storedWorkflow = classifierStore.workflows.resources.get(workflowID)
+  if (workflowSnapshot?.id && workflowStrings) {
+    workflowSnapshot.strings = workflowStrings
+    if (!storedWorkflow) {
+      classifierStore.workflows.setResources([workflowSnapshot])
+    }
+  }
 
   if (project?.id) {
     const storedProject = classifierStore.projects.active
@@ -102,6 +108,13 @@ export default function ClassifierContainer({
       projects.setActive(project.id)
     }
   }
+
+  useEffect(function onWorkflowStringsChange() {
+    if (storedWorkflow && workflowStrings) {
+      console.log('Refreshing workflow strings', storedWorkflow.id)
+      applySnapshot(storedWorkflow.strings, workflowStrings)
+    }
+  }, [storedWorkflow, workflowStrings])
 
   useEffect(function () {
     /*
@@ -209,7 +222,6 @@ export default function ClassifierContainer({
             <Classifier
               locale={locale}
               onError={onError}
-              project={project}
               showTutorial={showTutorial}
               subjectSetID={subjectSetID}
               subjectID={subjectID}

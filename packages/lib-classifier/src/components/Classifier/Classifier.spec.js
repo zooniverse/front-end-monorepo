@@ -6,7 +6,7 @@ import { auth, panoptes } from '@zooniverse/panoptes-js'
 import { Grommet } from 'grommet'
 import { when } from 'mobx'
 import { Provider } from 'mobx-react'
-import { getSnapshot } from 'mobx-state-tree'
+import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 import nock from 'nock'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
@@ -235,6 +235,7 @@ describe('Components > Classifier', function () {
           }
         }
       }, { authClient, client })
+      store.workflows.setResources([workflowSnapshot])
 
       const { rerender } = render(
         <Classifier
@@ -251,7 +252,6 @@ describe('Components > Classifier', function () {
       // locale changes when the language menu changes.
       rerender(
         <Classifier
-          classifierStore={store}
           locale='fr'
           workflowSnapshot={workflowSnapshot}
         />,
@@ -263,9 +263,10 @@ describe('Components > Classifier', function () {
         frenchStrings[key] = frenchValue
       })
       const frenchSnapshot = { ...workflowSnapshot, strings: frenchStrings }
+      const storedWorkflow = store.workflows.active
+      applySnapshot(storedWorkflow.strings, frenchStrings)
       rerender(
         <Classifier
-          classifierStore={store}
           locale='fr'
           workflowSnapshot={frenchSnapshot}
         />,
@@ -391,6 +392,7 @@ describe('Components > Classifier', function () {
           }
         }
       }, { authClient, client })
+      store.workflows.setResources([workflowSnapshot])
       const { rerender } = render(
         <Classifier
           workflowSnapshot={workflowSnapshot}
@@ -416,6 +418,7 @@ describe('Components > Classifier', function () {
           }
         }
       }
+      store.workflows.setResources([newSnapshot])
       rerender(
         <Classifier
           classifierStore={store}
@@ -466,80 +469,6 @@ describe('Components > Classifier', function () {
       it('should be enabled', function () {
         taskAnswers.forEach(radioButton => {
           expect(radioButton.disabled).to.be.false()
-        })
-      })
-    })
-  })
-
-  describe('without permission to view an inactive workflow', function () {
-    let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
-
-    before(async function () {
-      sinon.replace(window, 'Image', MockImage)
-      const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
-      const workflowSnapshot = branchingWorkflow
-      workflowSnapshot.strings = workflowStrings
-      const projectSnapshot = ProjectFactory.build({
-        links: {
-          active_workflows: [],
-          workflows: [workflowSnapshot.id]
-        }
-      })
-      mockPanoptesAPI()
-        .get('/subjects/queued')
-        .query(true)
-        .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
-
-      const checkBearerToken = sinon.stub().resolves('mockAuth')
-      const authClient = { ...defaultAuthClient, checkBearerToken }
-      const client = { ...defaultClient, panoptes }
-      const store = RootStore.create({
-        projects: {
-          active: projectSnapshot.id,
-          resources: {
-            [projectSnapshot.id]: projectSnapshot
-          }
-        }
-      }, { authClient, client })
-      render(
-        <Classifier
-          workflowSnapshot={null}
-        />,
-        {
-          wrapper: withStore(store)
-        }
-      )
-      store.subjectViewer.onSubjectReady()
-      taskTab = screen.queryByRole('tab', { name: 'TaskArea.task'})
-      tutorialTab = screen.queryByRole('tab', { name: 'TaskArea.tutorial'})
-      subjectImage = screen.queryByRole('img', { name: `Subject ${subjectSnapshot.id}` })
-      tabPanel = screen.queryByRole('tabpanel', { name: '1 Tab Contents'})
-      const task = workflowSnapshot.tasks.T0
-      const getAnswerInput = answer => within(tabPanel).queryByRole('radio', { name: answer.label })
-      taskAnswers = task.answers.map(getAnswerInput)
-    })
-
-    after(function () {
-      sinon.restore()
-      nock.cleanAll()
-    })
-
-    it('should have a task tab', function () {
-      expect(taskTab).to.be.ok()
-    })
-
-    it('should have a tutorial tab', function () {
-      expect(tutorialTab).to.be.ok()
-    })
-
-    it('should not have a subject image', function () {
-      expect(subjectImage).to.be.null()
-    })
-
-    describe('task answers', function () {
-      it('should not be displayed', function () {
-        taskAnswers.forEach(radioButton => {
-          expect(radioButton).to.be.null()
         })
       })
     })

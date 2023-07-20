@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { applySnapshot, getSnapshot } from 'mobx-state-tree'
+import { getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react';
 import i18n from '../../translations/i18n'
@@ -19,7 +19,6 @@ function Classifier({
   const classifierStore = useStores()
   const { workflows } = classifierStore
   const workflowID = workflowSnapshot?.id
-  const workflowStrings = workflowSnapshot?.strings
   let workflowVersionChanged = false
 
   if (workflowSnapshot) {
@@ -54,18 +53,9 @@ function Classifier({
   useEffect(function onURLChange() {
     if (workflowID) {
       console.log('starting new subject queue', { workflowID, subjectSetID, subjectID })
-      workflows.setResources([workflowSnapshot])
       workflows.selectWorkflow(workflowID, subjectSetID, subjectID)
     }
   }, [subjectID, subjectSetID, workflowID, workflows])
-
-  useEffect(function onWorkflowStringsChange() {
-    if (workflowStrings) {
-      const workflow = workflows.resources.get(workflowID)
-      console.log('Refreshing workflow strings', workflowID)
-      applySnapshot(workflow.strings, workflowStrings)
-    }
-  }, [workflowID, workflows, workflowStrings])
 
   try {
     return (
