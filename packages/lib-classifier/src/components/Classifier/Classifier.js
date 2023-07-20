@@ -44,6 +44,7 @@ function Classifier({
     }
   }
 
+  /** Runs when locale passed from app-project changes */
   useEffect(function onLocaleChange() {
     if (locale) {
       classifierStore.setLocale(locale)
@@ -51,6 +52,12 @@ function Classifier({
     }
   }, [locale])
 
+  /** This runs when a volunteer:
+      - views a new project
+      - views a new workflow
+      - selects a new subject set
+      - selects a new subject
+   */
   useEffect(function onURLChange() {
     if (workflowID) {
       console.log('starting new subject queue', { workflowID, subjectSetID, subjectID })
@@ -59,6 +66,11 @@ function Classifier({
     }
   }, [subjectID, subjectSetID, workflowID, workflows])
 
+  /** This runs when:
+      - When a volunteer views a new project
+      - When a volunteer views a new workflow
+      - When workflow strings are updated which should be triggered by locale change
+   */
   useEffect(function onWorkflowStringsChange() {
     if (workflowStrings) {
       const workflow = workflows.resources.get(workflowID)

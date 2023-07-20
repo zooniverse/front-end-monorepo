@@ -64,13 +64,15 @@ export default function ClassifierContainer({
   onSubjectReset = DEFAULT_HANDLER,
   onToggleFavourite = DEFAULT_HANDLER,
   project,
-  showTutorial=false,
+  showTutorial = false,
   subjectID,
   subjectSetID,
   workflowID
 }) {
   const storeEnvironment = { authClient, client }
   const { user, upp, projectRoles, userHasLoaded } = usePanoptesUserSession({ authClient, projectID: project?.id })
+
+  /** When project status is private, user must have one of the following roles to view its workflows */
   const canPreviewWorkflows = adminMode ||
     projectRoles?.indexOf('owner') > -1 ||
     projectRoles?.indexOf('collaborator') > -1 ||
@@ -79,19 +81,31 @@ export default function ClassifierContainer({
   const allowedWorkflows = canPreviewWorkflows ? project?.links.workflows : project?.links.active_workflows
   const allowedWorkflowID = allowedWorkflows.includes(workflowID) ? workflowID : null
 
+  /** Fetch the workflow object by id using SWR */
   const workflowSnapshot = useWorkflowSnapshot(allowedWorkflowID)
+
+  /** Fetch workflow task strings using SWR. Locale is passed from app-project */
   const workflowTranslation = usePanoptesTranslations({
     translated_id: workflowID,
     translated_type: 'workflow',
     language: locale
   })
+
+  /** Re-assign the fetched translations to the workflow snapshot object */
   if (workflowSnapshot && workflowTranslation) {
     workflowSnapshot.strings = workflowTranslation.strings
   }
 
+  /** Init a mobx store if store is null, or load from session storage when cachePanoptesData is true
+      - storeEnvironment is the auth env and clients
+      - cachePanoptesData is true only for workflow.prioritized
+      - fem-classifier-id is a key
+      - When any of those three variables passed to useHydratedStore update, the useMemo in useHydratedStore runs
+   */
   const classifierStore = useHydratedStore(storeEnvironment, cachePanoptesData, `fem-classifier-${project.id}`)
   const { classifications, subjects, userProjectPreferences } = classifierStore
 
+  /** Make sure the classifierStore's active project is in sync with app-project */
   if (project?.id) {
     const storedProject = classifierStore.projects.active
     const projectChanged = project.id !== storedProject?.id
@@ -103,12 +117,11 @@ export default function ClassifierContainer({
     }
   }
 
-  useEffect(function () {
-    /*
-    This should run after the store is created and hydrated.
+  /** The following useEffects that handle classifier callbacks 
+    should run after the store is created and hydrated.
     Otherwise, hydration will overwrite the callbacks with
-    their defaults.
-    */
+    their defaults. */
+  useEffect(function () {
     console.log('setting onCompleteClassification')
     classifications.setOnComplete(onCompleteClassification)
 
@@ -119,11 +132,6 @@ export default function ClassifierContainer({
   }, [classifications.setOnComplete, onCompleteClassification])
 
   useEffect(function () {
-    /*
-    This should run after the store is created and hydrated.
-    Otherwise, hydration will overwrite the callbacks with
-    their defaults.
-    */
     console.log('setting onSubjectReset')
     subjects.setOnReset(onSubjectReset)
 
@@ -134,11 +142,6 @@ export default function ClassifierContainer({
   }, [onSubjectReset, subjects.setOnReset])
 
   useEffect(function () {
-    /*
-    This should run after the store is created and hydrated.
-    Otherwise, hydration will overwrite the callbacks with
-    their defaults.
-    */
     console.log('setting onAddToCollection')
     classifierStore.setOnAddToCollection(onAddToCollection)
 
@@ -149,11 +152,6 @@ export default function ClassifierContainer({
   }, [classifierStore.setOnAddToCollection, onAddToCollection])
 
   useEffect(function () {
-    /*
-    This should run after the store is created and hydrated.
-    Otherwise, hydration will overwrite the callbacks with
-    their defaults.
-    */
     console.log('setting onSubjectChange')
     classifierStore.setOnSubjectChange(onSubjectChange)
 
@@ -164,11 +162,6 @@ export default function ClassifierContainer({
   }, [classifierStore.setOnSubjectChange, onSubjectChange])
 
   useEffect(function () {
-    /*
-    This should run after the store is created and hydrated.
-    Otherwise, hydration will overwrite the callbacks with
-    their defaults.
-    */
     console.log('setting onToggleFavourite')
     classifierStore.setOnToggleFavourite(onToggleFavourite)
 
@@ -178,6 +171,11 @@ export default function ClassifierContainer({
     }
   }, [classifierStore.setOnToggleFavourite, onToggleFavourite])
 
+  /* upp and user fetched from usePanoptesUserSession with SWR:
+    - Reset userProjectPreferences store because ???
+    - If no user, upp is null so clear the userProjectPreferences store
+    - If user, set upp in userProjectPreferences store
+   */
   useEffect(function onUPPChange() {
     if (upp === undefined) {
       console.log('resetting stale user data')
@@ -209,7 +207,7 @@ export default function ClassifierContainer({
             <Classifier
               locale={locale}
               onError={onError}
-              project={project}
+              project={project} // This isn't used in Classifier, remove?
               showTutorial={showTutorial}
               subjectSetID={subjectSetID}
               subjectID={subjectID}
@@ -231,9 +229,13 @@ export default function ClassifierContainer({
 }
 
 ClassifierContainer.propTypes = {
+  /** Returned from useAdminMode() in app-project */
   adminMode: PropTypes.bool,
+  /** panoptes-client/lib/auth is passed here from app-project */
   authClient: PropTypes.object.isRequired,
+  /** Cache Panoptes API data in session storage only when workflow.prioritized */
   cachePanoptesData: PropTypes.bool,
+  /** Locale is controlled in app-project by url and/or LocaleSwitcher */
   locale: PropTypes.string,
   onAddToCollection: PropTypes.func,
   onCompleteClassification: PropTypes.func,

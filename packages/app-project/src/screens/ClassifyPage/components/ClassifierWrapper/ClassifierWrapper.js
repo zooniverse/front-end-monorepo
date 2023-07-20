@@ -20,8 +20,9 @@ function onError(error, errorInfo={}) {
   A wrapper for the Classifier component. Responsible for handling:
   - classifier errors.
   - updates to project recents on classification complete.
-  - updates to stored favourites,when the classification subject is favourited.
+  - updates to stored favourites, when the classification subject is favourited.
   - updates to stored collections, when the classification subject is added to a collection.
+  - Passing locale to classifier
 */
 export default function ClassifierWrapper({
   authClient = auth,
