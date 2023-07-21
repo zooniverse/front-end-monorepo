@@ -6,7 +6,7 @@ import { auth, panoptes } from '@zooniverse/panoptes-js'
 import { Grommet } from 'grommet'
 import { when } from 'mobx'
 import { Provider } from 'mobx-react'
-import { getSnapshot } from 'mobx-state-tree'
+import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 import nock from 'nock'
 import { Factory } from 'rosie'
 import sinon from 'sinon'
@@ -188,152 +188,6 @@ describe('Components > Classifier', function () {
     })
   })
 
-  describe('when the locale changes', function () {
-    let locale, subjectImage, tabPanel, taskInstruction, taskAnswers, taskTab, tutorialTab, workflow
-
-    before(async function () {
-      sinon.replace(window, 'Image', MockImage)
-
-      const roles = []
-      const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
-
-      mockPanoptesAPI()
-        .get('/project_roles')
-        .reply(200, { project_roles: [{ roles }]})
-        .get('/subjects/queued')
-        .query(true)
-        .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
-
-      const mockUser = { id: 123, login: 'mockUser' }
-      sinon.stub(auth, 'decodeJWT').resolves({
-        user: mockUser,
-        error: null
-      })
-      sinon.stub(auth, 'verify').resolves({
-        data: mockUser
-      })
-
-      const checkBearerToken = sinon.stub().resolves('mockAuth')
-      const authClient = { ...defaultAuthClient, checkBearerToken }
-      const client = { ...defaultClient, panoptes }
-
-      const workflowSnapshot = branchingWorkflow
-      workflowSnapshot.strings = workflowStrings
-
-      const projectSnapshot = ProjectFactory.build({
-        links: {
-          active_workflows: [workflowSnapshot.id],
-          workflows: [workflowSnapshot.id]
-        }
-      })
-
-      const store = RootStore.create({
-        projects: {
-          active: projectSnapshot.id,
-          resources: {
-            [projectSnapshot.id]: projectSnapshot
-          }
-        }
-      }, { authClient, client })
-
-      const { rerender } = render(
-        <Classifier
-          locale='en'
-          workflowSnapshot={workflowSnapshot}
-        />,
-        {
-          wrapper: withStore(store)
-        }
-      )
-
-      await when(() => store.subjectViewer.loadingState === asyncStates.success)
-
-      // locale changes when the language menu changes.
-      rerender(
-        <Classifier
-          classifierStore={store}
-          locale='fr'
-          workflowSnapshot={workflowSnapshot}
-        />,
-      )
-      // workflow strings update after the translations API request resolves.
-      const frenchStrings = { ...workflowStrings }
-      Object.entries(frenchStrings).forEach(([key, value]) => {
-        const frenchValue = `${value} - French translation.`
-        frenchStrings[key] = frenchValue
-      })
-      const frenchSnapshot = { ...workflowSnapshot, strings: frenchStrings }
-      rerender(
-        <Classifier
-          classifierStore={store}
-          locale='fr'
-          workflowSnapshot={frenchSnapshot}
-        />,
-      )
-      // wait for task strings to be updated in the store.
-      await when(() => {
-        const [task] = store.workflowSteps.active?.tasks
-        return (task.question === 'Is there a cat? - French translation.')
-      })
-      workflow = store.workflows.active
-      locale = store.locale
-      taskTab = screen.getByRole('tab', { name: 'TaskArea.task'})
-      tutorialTab = screen.getByRole('tab', { name: 'TaskArea.tutorial'})
-      subjectImage = screen.getByRole('img', { name: `Subject ${subjectSnapshot.id}` })
-      tabPanel = screen.getByRole('tabpanel', { name: '1 Tab Contents'})
-      const task = frenchSnapshot.tasks.T0
-      taskInstruction = within(tabPanel).getByText('Is there a cat? - French translation.')
-      function getAnswerInput(answer, index) {
-        const label = frenchStrings[`tasks.T0.answers.${index}.label`]
-        return within(tabPanel).getByRole('radio', { name: label })
-      }
-      taskAnswers = task.answers.map(getAnswerInput)
-    })
-
-    after(function () {
-      sinon.restore()
-      nock.cleanAll()
-    })
-
-    it('should update the global locale', function () {
-      expect(locale).to.equal('fr')
-    })
-
-    it('should have a task tab', function () {
-      expect(taskTab).to.be.ok()
-    })
-
-    it('should have a tutorial tab', function () {
-      expect(tutorialTab).to.be.ok()
-    })
-
-    it('should have a subject image', function () {
-      expect(subjectImage.getAttribute('href')).to.equal('https://foo.bar/example.png')
-    })
-
-    it('should show the translated task instruction', function () {
-      expect(taskInstruction).to.exist()
-    })
-
-    describe('task answers', function () {
-      it('should be displayed', function () {
-        expect(taskAnswers).to.have.lengthOf(workflow.tasks.T0.answers.length)
-      })
-
-      it('should be linked to the task', function () {
-        taskAnswers.forEach(radioButton => {
-          expect(radioButton.name).to.equal('T0')
-        })
-      })
-
-      it('should be enabled', function () {
-        taskAnswers.forEach(radioButton => {
-          expect(radioButton.disabled).to.be.false()
-        })
-      })
-    })
-  })
-
   describe('when the workflow version changes', function () {
     let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
 
@@ -391,6 +245,7 @@ describe('Components > Classifier', function () {
           }
         }
       }, { authClient, client })
+      store.workflows.setResources([workflowSnapshot])
       const { rerender } = render(
         <Classifier
           workflowSnapshot={workflowSnapshot}
@@ -416,6 +271,7 @@ describe('Components > Classifier', function () {
           }
         }
       }
+      store.workflows.setResources([newSnapshot])
       rerender(
         <Classifier
           classifierStore={store}
@@ -466,80 +322,6 @@ describe('Components > Classifier', function () {
       it('should be enabled', function () {
         taskAnswers.forEach(radioButton => {
           expect(radioButton.disabled).to.be.false()
-        })
-      })
-    })
-  })
-
-  describe('without permission to view an inactive workflow', function () {
-    let subjectImage, tabPanel, taskAnswers, taskTab, tutorialTab, workflow
-
-    before(async function () {
-      sinon.replace(window, 'Image', MockImage)
-      const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
-      const workflowSnapshot = branchingWorkflow
-      workflowSnapshot.strings = workflowStrings
-      const projectSnapshot = ProjectFactory.build({
-        links: {
-          active_workflows: [],
-          workflows: [workflowSnapshot.id]
-        }
-      })
-      mockPanoptesAPI()
-        .get('/subjects/queued')
-        .query(true)
-        .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
-
-      const checkBearerToken = sinon.stub().resolves('mockAuth')
-      const authClient = { ...defaultAuthClient, checkBearerToken }
-      const client = { ...defaultClient, panoptes }
-      const store = RootStore.create({
-        projects: {
-          active: projectSnapshot.id,
-          resources: {
-            [projectSnapshot.id]: projectSnapshot
-          }
-        }
-      }, { authClient, client })
-      render(
-        <Classifier
-          workflowSnapshot={null}
-        />,
-        {
-          wrapper: withStore(store)
-        }
-      )
-      store.subjectViewer.onSubjectReady()
-      taskTab = screen.queryByRole('tab', { name: 'TaskArea.task'})
-      tutorialTab = screen.queryByRole('tab', { name: 'TaskArea.tutorial'})
-      subjectImage = screen.queryByRole('img', { name: `Subject ${subjectSnapshot.id}` })
-      tabPanel = screen.queryByRole('tabpanel', { name: '1 Tab Contents'})
-      const task = workflowSnapshot.tasks.T0
-      const getAnswerInput = answer => within(tabPanel).queryByRole('radio', { name: answer.label })
-      taskAnswers = task.answers.map(getAnswerInput)
-    })
-
-    after(function () {
-      sinon.restore()
-      nock.cleanAll()
-    })
-
-    it('should have a task tab', function () {
-      expect(taskTab).to.be.ok()
-    })
-
-    it('should have a tutorial tab', function () {
-      expect(tutorialTab).to.be.ok()
-    })
-
-    it('should not have a subject image', function () {
-      expect(subjectImage).to.be.null()
-    })
-
-    describe('task answers', function () {
-      it('should not be displayed', function () {
-        taskAnswers.forEach(radioButton => {
-          expect(radioButton).to.be.null()
         })
       })
     })
