@@ -12,17 +12,23 @@ const SWRoptions = {
 }
 
 async function fetchProjectRoles({ endpoint, projectID, userID, authorization }) {
-  if (authorization) {
+  // userID and auth are undefined while loading
+  if (userID === undefined || authorization === undefined) {
+    return undefined
+  }
+  // logged in
+  if (projectID && userID && authorization) {
     const { body } = await panoptes.get(endpoint, { project_id: projectID, user_id: userID }, { authorization })
     const [projectRoles] = body.project_roles
     return projectRoles?.roles || []
   }
-  return []
+  // logged out
+  return null
 }
 
 export default function useProjectRoles({ authClient, projectID, userID }) {
   const authorization = usePanoptesAuth({ authClient, userID })
   const endpoint = '/project_roles'
-  const key = userID && authorization ? { endpoint, projectID, userID, authorization } : null
+  const key = { endpoint, projectID, userID, authorization }
   return useSWR(key, fetchProjectRoles, SWRoptions)
 }

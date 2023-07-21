@@ -1,7 +1,7 @@
 import { Box, Grid } from 'grommet'
 import dynamic from 'next/dynamic'
 import { arrayOf, func, shape, string } from 'prop-types'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { withResponsiveContext } from '@zooniverse/react-components'
 
 import CollectionsModal from '@shared/components/CollectionsModal'
@@ -41,6 +41,7 @@ function ClassifyPage({
   const [classifierProps, setClassifierProps] = useState({})
   const [showTutorial, setShowTutorial] = useState(false)
   const [collectionsModalActive, setCollectionsModalActive] = useState(false)
+  const [collectionsSubjectID, setCollectionsSubjectID] = useState(subjectID)
 
   let subjectSetFromUrl
   if (workflowFromUrl && workflowFromUrl.subjectSets) {
@@ -72,15 +73,16 @@ function ClassifyPage({
     setShowTutorial(true)
   }
 
-  const onAddToCollection = () => {
+  const onAddToCollection = useCallback((subjectID) => {
+    setCollectionsSubjectID(subjectID)
     setCollectionsModalActive(true)
-  }
+  }, [setCollectionsModalActive, setCollectionsSubjectID])
 
   return (
     <>
       <CollectionsModal
         collectionsModalActive={collectionsModalActive}
-        subjectID={subjectID}
+        subjectID={collectionsSubjectID}
         setCollectionsModalActive={setCollectionsModalActive}
       />
       <StandardLayout>

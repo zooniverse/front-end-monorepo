@@ -28,12 +28,12 @@ async function fetchProjectPreferences({ endpoint, projectID, userID, authorizat
 }
 
 async function fetchOrCreateProjectPreferences({ endpoint, projectID, userID, authorization }) {
-  // auth is undefined while loading
-  if (authorization === undefined) {
+  // userID and auth are undefined while loading
+  if (userID === undefined || authorization === undefined) {
     return undefined
   }
   // logged-in
-  if (authorization) {
+  if (projectID && userID && authorization) {
     const projectPreferences = await fetchProjectPreferences({ endpoint, projectID, userID, authorization })
     if (projectPreferences) {
       return projectPreferences
@@ -48,6 +48,6 @@ async function fetchOrCreateProjectPreferences({ endpoint, projectID, userID, au
 export default function useProjectPreferences({ authClient, projectID, userID }) {
   const authorization = usePanoptesAuth({ authClient, userID })
   const endpoint = '/project_preferences'
-  const key = userID && authorization ? { endpoint, projectID, userID, authorization } : null
+  const key = { endpoint, projectID, userID, authorization }
   return useSWR(key, fetchOrCreateProjectPreferences, SWRoptions)
 }
