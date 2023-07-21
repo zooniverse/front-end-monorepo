@@ -84,10 +84,12 @@ export default function ClassifierContainer({
   const allowedWorkflows = canPreviewWorkflows ? project?.links.workflows : project?.links.active_workflows
   const allowedWorkflowID = allowedWorkflows.includes(workflowID) ? workflowID : null
 
-  /** Fetch the workflow object by id using SWR */
+  /* Fetch the workflow object by id using SWR */
   const workflowSnapshot = useWorkflowSnapshot(allowedWorkflowID)
 
-  /** Fetch workflow task strings using SWR. Locale is passed from app-project */
+  /*
+    Fetch workflow task strings using SWR. Locale is passed from component props.
+  */
   const workflowTranslation = usePanoptesTranslations({
     translated_id: workflowID,
     translated_type: 'workflow',
@@ -95,7 +97,7 @@ export default function ClassifierContainer({
   })
   const workflowStrings = workflowTranslation?.strings
 
-  /** Init a mobx store if store is null, or load from session storage when cachePanoptesData is true
+  /* Init a mobx store if store is null, or load from session storage when cachePanoptesData is true
       - storeEnvironment is the auth env and clients
       - cachePanoptesData is true only for workflow.prioritized
       - fem-classifier-id is a key
@@ -109,7 +111,10 @@ export default function ClassifierContainer({
     i18n.changeLanguage(locale)
   }
 
-  /** Make sure the classifierStore's active project is in sync with app-project */
+  /*
+    Make sure the classifierStore's active project is in sync with parent app.
+    Useful for standalone classifier such as the dev classifier.
+  */
   if (project?.id) {
     const storedProject = classifierStore.projects.active
     const projectChanged = project.id !== storedProject?.id
@@ -121,15 +126,21 @@ export default function ClassifierContainer({
     }
   }
 
-  const storedWorkflow = classifierStore.workflows.resources.get(workflowID)
+  /*
+    If a workflow is stored in session storage... ?
+  */
+ const storedWorkflow = classifierStore.workflows.resources.get(workflowID)
 
-  if (workflowSnapshot?.id && workflowStrings) {
-    workflowSnapshot.strings = workflowStrings
+ if (workflowSnapshot?.id && workflowStrings) {
+   workflowSnapshot.strings = workflowStrings
     if (!storedWorkflow) {
       classifierStore.workflows.setResources([workflowSnapshot])
     }
   }
 
+  /*
+    Re-render workflow strings (translations) when workflow id or locale changes
+  */
   useEffect(function onWorkflowStringsChange() {
     if (storedWorkflow && workflowStrings) {
       console.log('Refreshing workflow strings', storedWorkflow.id)
@@ -137,10 +148,12 @@ export default function ClassifierContainer({
     }
   }, [storedWorkflow, workflowStrings])
 
-  /** The following useEffects that handle classifier callbacks
-      should run after the store is created and hydrated.
-      Otherwise, hydration will overwrite the callbacks with
-      their defaults. */
+  /*
+    The following useEffects that handle classifier callbacks
+    should run after the store is created and hydrated.
+    Otherwise, hydration will overwrite the callbacks with
+    their defaults.
+  */
   useEffect(function () {
     console.log('setting onCompleteClassification')
     classifications.setOnComplete(onCompleteClassification)
