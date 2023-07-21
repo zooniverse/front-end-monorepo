@@ -81,7 +81,6 @@ const RootStore = types
       await self.authClient?.checkCurrent()
       window.sessionStorage.removeItem('subjectsSeenThisSession')
       self.subjects.reset()
-      self.subjects.populateQueue()
     }
 
     // Public actions

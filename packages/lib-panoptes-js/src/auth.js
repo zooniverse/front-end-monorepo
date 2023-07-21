@@ -9,7 +9,7 @@ async function verify(token) {
   try {
     const pemKey = env === 'production' ? productionKey : stagingKey
     const publicKey = await importSPKI(pemKey, 'RS512')
-    const { payload } = await jwtVerify(token, publicKey)
+    const { payload } = await jwtVerify(token.replace('Bearer ', ''), publicKey)
     data = payload.data
   } catch (e) {
     error = e
@@ -17,6 +17,21 @@ async function verify(token) {
   return { data, error }
 }
 
+async function decodeJWT(token) {
+  let user = null
+  const { data, error } = await verify(token)
+  if (data) {
+    user = {
+      id: data.id.toString(),
+      login: data.login,
+      display_name: data.dname,
+      admin: data.admin
+    }
+  }
+  return { user, error }
+}
+
 module.exports = {
+  decodeJWT,
   verify
 }
