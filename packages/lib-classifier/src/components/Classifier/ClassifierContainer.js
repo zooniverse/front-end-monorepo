@@ -1,9 +1,10 @@
 import { GraphQLClient } from 'graphql-request'
 import { Paragraph } from 'grommet'
 import { Provider } from 'mobx-react'
+import { applySnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import { StrictMode, useEffect } from 'react';
-import '../../translations/i18n'
+import i18n from '../../translations/i18n'
 import {
   env,
   panoptes as panoptesClient,
@@ -51,17 +52,18 @@ const client = {
 // So we'll unregister the worker for now.
 unregisterWorkers('./queue.js')
 
+const DEFAULT_HANDLER = () => true
 export default function ClassifierContainer({
   adminMode = false,
   authClient,
   cachePanoptesData = false,
-  locale,
-  onAddToCollection = () => true,
-  onCompleteClassification = () => true,
-  onError = () => true,
-  onSubjectChange = () => true,
-  onSubjectReset = () => true,
-  onToggleFavourite = () => true,
+  locale = 'en',
+  onAddToCollection = DEFAULT_HANDLER,
+  onCompleteClassification = DEFAULT_HANDLER,
+  onError = DEFAULT_HANDLER,
+  onSubjectChange = DEFAULT_HANDLER,
+  onSubjectReset = DEFAULT_HANDLER,
+  onToggleFavourite = DEFAULT_HANDLER,
   project,
   showTutorial=false,
   subjectID,
@@ -84,12 +86,15 @@ export default function ClassifierContainer({
     translated_type: 'workflow',
     language: locale
   })
-  if (workflowSnapshot && workflowTranslation) {
-    workflowSnapshot.strings = workflowTranslation.strings
-  }
+  const workflowStrings = workflowTranslation?.strings
 
   const classifierStore = useHydratedStore(storeEnvironment, cachePanoptesData, `fem-classifier-${project.id}`)
-  const { userProjectPreferences } = classifierStore
+  const { classifications, subjects, userProjectPreferences } = classifierStore
+
+  if (locale !== classifierStore.locale) {
+    classifierStore.setLocale(locale)
+    i18n.changeLanguage(locale)
+  }
 
   if (project?.id) {
     const storedProject = classifierStore.projects.active
@@ -102,29 +107,107 @@ export default function ClassifierContainer({
     }
   }
 
-  useEffect(function onMount() {
+  const storedWorkflow = classifierStore.workflows.resources.get(workflowID)
+  if (workflowSnapshot?.id && workflowStrings) {
+    workflowSnapshot.strings = workflowStrings
+    if (!storedWorkflow) {
+      classifierStore.workflows.setResources([workflowSnapshot])
+    }
+  }
+
+  useEffect(function onWorkflowStringsChange() {
+    if (storedWorkflow && workflowStrings) {
+      console.log('Refreshing workflow strings', storedWorkflow.id)
+      applySnapshot(storedWorkflow.strings, workflowStrings)
+    }
+  }, [storedWorkflow, workflowStrings])
+
+  useEffect(function () {
     /*
     This should run after the store is created and hydrated.
     Otherwise, hydration will overwrite the callbacks with
     their defaults.
     */
-    const { classifications, subjects } = classifierStore
-    console.log('setting classifier event callbacks')
+    console.log('setting onCompleteClassification')
     classifications.setOnComplete(onCompleteClassification)
+
+    return () => {
+      console.log('cleaning up onCompleteClassification')
+      classifications.setOnComplete(DEFAULT_HANDLER)
+    }
+  }, [classifications.setOnComplete, onCompleteClassification])
+
+  useEffect(function () {
+    /*
+    This should run after the store is created and hydrated.
+    Otherwise, hydration will overwrite the callbacks with
+    their defaults.
+    */
+    console.log('setting onSubjectReset')
     subjects.setOnReset(onSubjectReset)
+
+    return () => {
+      console.log('cleaning up onSubjectReset')
+      subjects.setOnReset(DEFAULT_HANDLER)
+    }
+  }, [onSubjectReset, subjects.setOnReset])
+
+  useEffect(function () {
+    /*
+    This should run after the store is created and hydrated.
+    Otherwise, hydration will overwrite the callbacks with
+    their defaults.
+    */
+    console.log('setting onAddToCollection')
     classifierStore.setOnAddToCollection(onAddToCollection)
+
+    return () => {
+      console.log('cleaning up onAddToCollection')
+      classifierStore.setOnAddToCollection(DEFAULT_HANDLER)
+    }
+  }, [classifierStore.setOnAddToCollection, onAddToCollection])
+
+  useEffect(function () {
+    /*
+    This should run after the store is created and hydrated.
+    Otherwise, hydration will overwrite the callbacks with
+    their defaults.
+    */
+    console.log('setting onSubjectChange')
     classifierStore.setOnSubjectChange(onSubjectChange)
+
+    return () => {
+      console.log('cleaning up onSubjectChange')
+      classifierStore.setOnSubjectChange(DEFAULT_HANDLER)
+    }
+  }, [classifierStore.setOnSubjectChange, onSubjectChange])
+
+  useEffect(function () {
+    /*
+    This should run after the store is created and hydrated.
+    Otherwise, hydration will overwrite the callbacks with
+    their defaults.
+    */
+    console.log('setting onToggleFavourite')
     classifierStore.setOnToggleFavourite(onToggleFavourite)
-  }, [])
+
+    return () => {
+      console.log('cleaning up onToggleFavourite')
+      classifierStore.setOnToggleFavourite(DEFAULT_HANDLER)
+    }
+  }, [classifierStore.setOnToggleFavourite, onToggleFavourite])
 
   useEffect(function onUPPChange() {
+    // fresh preferences are loading from Panoptes.
     if (upp === undefined) {
       console.log('resetting stale user data')
       userProjectPreferences.reset()
     }
+    // no one is logged in.
     if (upp === null) {
       userProjectPreferences.clear()
     }
+    // someone is logged in.
     if (upp?.id) {
       userProjectPreferences.setUPP(upp)
     }
@@ -140,26 +223,22 @@ export default function ClassifierContainer({
   const projectIsReady = !!classifierStore.projects.active
   const classifierIsReady = userHasLoaded && workflowIsReady && projectIsReady
   try {
-    if (classifierIsReady) {
-
-      return (
-        <StrictMode>
-          <Provider classifierStore={classifierStore}>
+    return (
+      <StrictMode>
+        <Provider classifierStore={classifierStore}>
+          {classifierIsReady ?
             <Classifier
-              locale={locale}
               onError={onError}
-              project={project}
               showTutorial={showTutorial}
               subjectSetID={subjectSetID}
               subjectID={subjectID}
               workflowSnapshot={workflowSnapshot}
-            />
-          </Provider>
-        </StrictMode>
-      )
-    }
-
-    return <Paragraph>Loading…</Paragraph>
+            /> :
+            <Paragraph>Loading…</Paragraph>
+          }
+        </Provider>
+      </StrictMode>
+    )
   } catch (error) {
     const info = {
       package: '@zooniverse/classifier'
