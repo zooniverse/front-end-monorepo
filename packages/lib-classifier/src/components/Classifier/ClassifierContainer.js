@@ -4,7 +4,7 @@ import { Provider } from 'mobx-react'
 import { applySnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import { StrictMode, useEffect } from 'react';
-import '../../translations/i18n'
+import i18n from '../../translations/i18n'
 import {
   env,
   panoptes as panoptesClient,
@@ -57,7 +57,7 @@ export default function ClassifierContainer({
   adminMode = false,
   authClient,
   cachePanoptesData = false,
-  locale,
+  locale = 'en',
   onAddToCollection = DEFAULT_HANDLER,
   onCompleteClassification = DEFAULT_HANDLER,
   onError = DEFAULT_HANDLER,
@@ -90,12 +90,10 @@ export default function ClassifierContainer({
 
   const classifierStore = useHydratedStore(storeEnvironment, cachePanoptesData, `fem-classifier-${project.id}`)
   const { classifications, subjects, userProjectPreferences } = classifierStore
-  const storedWorkflow = classifierStore.workflows.resources.get(workflowID)
-  if (workflowSnapshot?.id && workflowStrings) {
-    workflowSnapshot.strings = workflowStrings
-    if (!storedWorkflow) {
-      classifierStore.workflows.setResources([workflowSnapshot])
-    }
+
+  if (locale !== classifierStore.locale) {
+    classifierStore.setLocale(locale)
+    i18n.changeLanguage(locale)
   }
 
   if (project?.id) {
@@ -106,6 +104,14 @@ export default function ClassifierContainer({
       const { projects } = classifierStore
       projects.setResources([project])
       projects.setActive(project.id)
+    }
+  }
+
+  const storedWorkflow = classifierStore.workflows.resources.get(workflowID)
+  if (workflowSnapshot?.id && workflowStrings) {
+    workflowSnapshot.strings = workflowStrings
+    if (!storedWorkflow) {
+      classifierStore.workflows.setResources([workflowSnapshot])
     }
   }
 
@@ -223,7 +229,6 @@ export default function ClassifierContainer({
         <StrictMode>
           <Provider classifierStore={classifierStore}>
             <Classifier
-              locale={locale}
               onError={onError}
               showTutorial={showTutorial}
               subjectSetID={subjectSetID}

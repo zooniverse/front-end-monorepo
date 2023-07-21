@@ -739,4 +739,126 @@ describe('components > ClassifierContainer', function () {
       expect(secondSubjectsRequest.isDone()).to.be.false()
     })
   })
+
+  describe('when the locale changes', function () {
+    let taskAnswers, firstSubjectsRequest, secondSubjectsRequest, translationRequests, workflowRequest
+    const subjectSnapshot = SubjectFactory.build({ locations: [{ 'image/png': 'https://foo.bar/example.png' }] })
+    const workflowSnapshot = branchingWorkflow
+    workflowSnapshot.strings = workflowStrings
+    const projectSnapshot = ProjectFactory.build({
+      links: {
+        active_workflows: [workflowSnapshot.id],
+        workflows: [workflowSnapshot.id]
+      }
+    })
+
+    beforeEach(async function () {
+      cleanStore()
+      sinon.replace(window, 'Image', MockSubjectImage)
+      const roles = []
+      const frenchStrings = { ...workflowStrings }
+      Object.entries(frenchStrings).forEach(([key, value]) => {
+        const frenchValue = `${value} - French translation.`
+        frenchStrings[key] = frenchValue
+      })
+      const frenchSnapshot = { ...workflowSnapshot, strings: frenchStrings }
+
+      nock('https://panoptes-staging.zooniverse.org/oauth')
+        .post('/token')
+        .reply(401,{ error: 'invalid_grant' })
+
+      mockPanoptesAPI()
+        .get('/project_preferences')
+        .query(true)
+        .reply(200, { project_preferences: [] })
+        .get('/project_roles')
+        .query(true)
+        .reply(200, { project_roles: [] })
+
+      firstSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/subjects/queued')
+        .query(true)
+        .reply(200, { subjects: [subjectSnapshot, ...Factory.buildList('subject', 9)] })
+      secondSubjectsRequest = nock('https://panoptes-staging.zooniverse.org/api')
+        .get('/subjects/queued')
+        .query(true)
+        .reply(200, { subjects: [...Factory.buildList('subject', 10)] })
+      workflowRequest = nock('https://panoptes-staging.zooniverse.org/api')
+        .get(`/workflows/${workflowSnapshot.id}`)
+        .query(true)
+        .reply(200, { workflows: [workflowSnapshot] })
+
+      translationRequests = nock('https://panoptes-staging.zooniverse.org/api')
+        .get(`/translations`)
+        .query(query => (
+          query.language === 'en' &&
+          query.translated_type === 'workflow' &&
+          query.translated_id === workflowSnapshot.id.toString()
+        ))
+        .reply(200, { translations: [
+          { language: 'en', strings: workflowStrings }
+        ]})
+        .get(`/translations`)
+        .query(query => (
+          query.language === 'fr,en' &&
+          query.translated_type === 'workflow' &&
+          query.translated_id === workflowSnapshot.id.toString()
+        ))
+        .reply(200, { translations: [
+          { language: 'fr', strings: frenchStrings },
+          { language: 'en', strings: workflowStrings }
+        ]})
+
+      const checkBearerToken = sinon.stub().callsFake(() => Promise.resolve(''))
+      const authClient = { ...defaultAuthClient, checkBearerToken }
+
+      const { rerender } = render(
+        <ClassifierContainer
+          authClient={authClient}
+          locale='en'
+          project={projectSnapshot}
+          workflowID={workflowSnapshot.id}
+        />,
+        {
+          wrapper: withGrommet()
+        }
+      )
+      await waitFor(() => {
+        const subjectImage = screen.getByRole('img', {name: `Subject ${subjectSnapshot.id}` })
+        expect(subjectImage.getAttribute('href')).to.equal('https://static.zooniverse.org/www.zooniverse.org/assets/fe-project-subject-placeholder-800x600.png')
+      })
+
+      // locale changes when the language menu changes.
+      rerender(
+        <ClassifierContainer
+          authClient={authClient}
+          locale='fr'
+          project={projectSnapshot}
+          workflowID={workflowSnapshot.id}
+        />,
+      )
+      const tabPanel = await screen.findByRole('tabpanel', { name: '1 Tab Contents'})
+      const task = frenchSnapshot.tasks.T0
+      const getAnswerInput = answer => within(tabPanel).findByRole('radio', { name: answer.label })
+      taskAnswers = await Promise.all(task.answers.map(getAnswerInput))
+    })
+
+    afterEach(function () {
+      sinon.restore()
+      nock.cleanAll()
+      cleanStore()
+    })
+
+    it('should show tasks in French', async function () {
+      expect(workflowRequest.isDone()).to.be.true()
+      expect(firstSubjectsRequest.isDone()).to.be.true()
+      expect(secondSubjectsRequest.isDone()).to.be.false()
+      expect(taskAnswers).to.have.lengthOf(workflowSnapshot.tasks.T0.answers.length)
+      taskAnswers.forEach(radioButton => {
+        expect(radioButton.name).to.equal('T0')
+        expect(radioButton.disabled).to.be.true()
+      })
+      //expect(translationRequests.isDone()).to.be.true()
+    })
+  })
 })

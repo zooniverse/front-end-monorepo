@@ -2,14 +2,12 @@ import { observer } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react';
-import i18n from '../../translations/i18n'
 
 import { useStores } from '@hooks'
 import Layout from './components/Layout'
 import ModalTutorial from './components/ModalTutorial'
 
 function Classifier({
-  locale,
   onError = () => true,
   showTutorial = false,
   subjectID,
@@ -43,13 +41,6 @@ function Classifier({
     }
   }
 
-  useEffect(function onLocaleChange() {
-    if (locale) {
-      classifierStore.setLocale(locale)
-      i18n.changeLanguage(locale)
-    }
-  }, [locale])
-
   const { selectWorkflow } = workflows
   useEffect(function onURLChange() {
     if (workflowID) {
@@ -75,7 +66,6 @@ function Classifier({
 }
 
 Classifier.propTypes = {
-  locale: PropTypes.string,
   onError: PropTypes.func,
   showTutorial: PropTypes.bool,
   subjectSetID: PropTypes.string,
