@@ -223,24 +223,22 @@ export default function ClassifierContainer({
   const projectIsReady = !!classifierStore.projects.active
   const classifierIsReady = userHasLoaded && workflowIsReady && projectIsReady
   try {
-    if (classifierIsReady) {
-
-      return (
-        <StrictMode>
-          <Provider classifierStore={classifierStore}>
+    return (
+      <StrictMode>
+        <Provider classifierStore={classifierStore}>
+          {classifierIsReady ?
             <Classifier
               onError={onError}
               showTutorial={showTutorial}
               subjectSetID={subjectSetID}
               subjectID={subjectID}
               workflowSnapshot={workflowSnapshot}
-            />
-          </Provider>
-        </StrictMode>
-      )
-    }
-
-    return <Paragraph>Loading…</Paragraph>
+            /> :
+            <Paragraph>Loading…</Paragraph>
+          }
+        </Provider>
+      </StrictMode>
+    )
   } catch (error) {
     const info = {
       package: '@zooniverse/classifier'
