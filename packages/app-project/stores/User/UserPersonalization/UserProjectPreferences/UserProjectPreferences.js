@@ -115,6 +115,7 @@ const UserProjectPreferences = types
           if (preferences) {
             self.settings = preferences.settings
           }
+          self.setLoadingState(asyncStates.success)
         } catch (error) {
           console.error(error)
         }

@@ -23,7 +23,7 @@ describe('Stores > UserProjectPreferences', function () {
     personalization: {
       projectPreferences: {
         id: '5',
-        loadingState: asyncStates.success
+        loadingState: asyncStates.initialized
       }
     }
   }
