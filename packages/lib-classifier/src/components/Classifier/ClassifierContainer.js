@@ -192,13 +192,16 @@ export default function ClassifierContainer({
   }, [classifierStore.setOnToggleFavourite, onToggleFavourite])
 
   useEffect(function onUPPChange() {
+    // fresh preferences are loading from Panoptes.
     if (upp === undefined) {
       console.log('resetting stale user data')
       userProjectPreferences.reset()
     }
+    // no one is logged in.
     if (upp === null) {
       userProjectPreferences.clear()
     }
+    // someone is logged in.
     if (upp?.id) {
       userProjectPreferences.setUPP(upp)
     }

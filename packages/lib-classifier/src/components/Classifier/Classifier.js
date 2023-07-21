@@ -50,12 +50,13 @@ function Classifier({
     }
   }, [locale])
 
+  const { selectWorkflow } = workflows
   useEffect(function onURLChange() {
     if (workflowID) {
       console.log('starting new subject queue', { workflowID, subjectSetID, subjectID })
-      workflows.selectWorkflow(workflowID, subjectSetID, subjectID)
+      selectWorkflow(workflowID, subjectSetID, subjectID)
     }
-  }, [subjectID, subjectSetID, workflowID, workflows])
+  }, [selectWorkflow, subjectID, subjectSetID, workflowID])
 
   try {
     return (
