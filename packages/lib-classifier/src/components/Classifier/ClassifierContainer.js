@@ -11,7 +11,13 @@ import {
   tutorials as tutorialsClient
 } from '@zooniverse/panoptes-js'
 
-import { useHydratedStore, usePanoptesTranslations, useWorkflowSnapshot } from '@hooks'
+import {
+  useHydratedStore,
+  usePanoptesTranslations,
+  useWorkflowSnapshot
+} from '@hooks'
+
+import usePanoptesUserSession from './hooks/usePanoptesUserSession'
 import { unregisterWorkers } from '../../workers'
 import Classifier from './Classifier'
 
@@ -45,17 +51,18 @@ const client = {
 // So we'll unregister the worker for now.
 unregisterWorkers('./queue.js')
 
+const DEFAULT_HANDLER = () => true
 export default function ClassifierContainer({
   adminMode = false,
   authClient,
   cachePanoptesData = false,
   locale,
-  onAddToCollection = () => true,
-  onCompleteClassification = () => true,
-  onError = () => true,
-  onSubjectChange = () => true,
-  onSubjectReset = () => true,
-  onToggleFavourite = () => true,
+  onAddToCollection = DEFAULT_HANDLER,
+  onCompleteClassification = DEFAULT_HANDLER,
+  onError = DEFAULT_HANDLER,
+  onSubjectChange = DEFAULT_HANDLER,
+  onSubjectReset = DEFAULT_HANDLER,
+  onToggleFavourite = DEFAULT_HANDLER,
   project,
   showTutorial=false,
   subjectID,
@@ -63,8 +70,16 @@ export default function ClassifierContainer({
   workflowID
 }) {
   const storeEnvironment = { authClient, client }
+  const { user, upp, projectRoles, userHasLoaded } = usePanoptesUserSession({ authClient, projectID: project?.id })
+  const canPreviewWorkflows = adminMode ||
+    projectRoles?.indexOf('owner') > -1 ||
+    projectRoles?.indexOf('collaborator') > -1 ||
+    projectRoles?.indexOf('tester') > -1
 
-  const workflowSnapshot = useWorkflowSnapshot(workflowID)
+  const allowedWorkflows = canPreviewWorkflows ? project?.links.workflows : project?.links.active_workflows
+  const allowedWorkflowID = allowedWorkflows.includes(workflowID) ? workflowID : null
+
+  const workflowSnapshot = useWorkflowSnapshot(allowedWorkflowID)
   const workflowTranslation = usePanoptesTranslations({
     translated_id: workflowID,
     translated_type: 'workflow',
@@ -75,6 +90,7 @@ export default function ClassifierContainer({
   }
 
   const classifierStore = useHydratedStore(storeEnvironment, cachePanoptesData, `fem-classifier-${project.id}`)
+  const { classifications, subjects, userProjectPreferences } = classifierStore
 
   if (project?.id) {
     const storedProject = classifierStore.projects.active
@@ -87,30 +103,110 @@ export default function ClassifierContainer({
     }
   }
 
-  useEffect(function onMount() {
+  useEffect(function () {
     /*
     This should run after the store is created and hydrated.
     Otherwise, hydration will overwrite the callbacks with
     their defaults.
     */
-    const { classifications, subjects } = classifierStore
-    console.log('setting classifier event callbacks')
+    console.log('setting onCompleteClassification')
     classifications.setOnComplete(onCompleteClassification)
-    subjects.setOnReset(onSubjectReset)
-    classifierStore.setOnAddToCollection(onAddToCollection)
-    classifierStore.setOnSubjectChange(onSubjectChange)
-    classifierStore.setOnToggleFavourite(onToggleFavourite)
-  }, [])
 
+    return () => {
+      console.log('cleaning up onCompleteClassification')
+      classifications.setOnComplete(DEFAULT_HANDLER)
+    }
+  }, [classifications.setOnComplete, onCompleteClassification])
+
+  useEffect(function () {
+    /*
+    This should run after the store is created and hydrated.
+    Otherwise, hydration will overwrite the callbacks with
+    their defaults.
+    */
+    console.log('setting onSubjectReset')
+    subjects.setOnReset(onSubjectReset)
+
+    return () => {
+      console.log('cleaning up onSubjectReset')
+      subjects.setOnReset(DEFAULT_HANDLER)
+    }
+  }, [onSubjectReset, subjects.setOnReset])
+
+  useEffect(function () {
+    /*
+    This should run after the store is created and hydrated.
+    Otherwise, hydration will overwrite the callbacks with
+    their defaults.
+    */
+    console.log('setting onAddToCollection')
+    classifierStore.setOnAddToCollection(onAddToCollection)
+
+    return () => {
+      console.log('cleaning up onAddToCollection')
+      classifierStore.setOnAddToCollection(DEFAULT_HANDLER)
+    }
+  }, [classifierStore.setOnAddToCollection, onAddToCollection])
+
+  useEffect(function () {
+    /*
+    This should run after the store is created and hydrated.
+    Otherwise, hydration will overwrite the callbacks with
+    their defaults.
+    */
+    console.log('setting onSubjectChange')
+    classifierStore.setOnSubjectChange(onSubjectChange)
+
+    return () => {
+      console.log('cleaning up onSubjectChange')
+      classifierStore.setOnSubjectChange(DEFAULT_HANDLER)
+    }
+  }, [classifierStore.setOnSubjectChange, onSubjectChange])
+
+  useEffect(function () {
+    /*
+    This should run after the store is created and hydrated.
+    Otherwise, hydration will overwrite the callbacks with
+    their defaults.
+    */
+    console.log('setting onToggleFavourite')
+    classifierStore.setOnToggleFavourite(onToggleFavourite)
+
+    return () => {
+      console.log('cleaning up onToggleFavourite')
+      classifierStore.setOnToggleFavourite(DEFAULT_HANDLER)
+    }
+  }, [classifierStore.setOnToggleFavourite, onToggleFavourite])
+
+  useEffect(function onUPPChange() {
+    if (upp === undefined) {
+      console.log('resetting stale user data')
+      userProjectPreferences.reset()
+    }
+    if (upp === null) {
+      userProjectPreferences.clear()
+    }
+    if (upp?.id) {
+      userProjectPreferences.setUPP(upp)
+    }
+  }, [upp, userProjectPreferences])
+
+  /*
+  The classifier is ready once:
+  - we've checked Panoptes for a user session.
+  - the workflow has loaded.
+  - the project has been added to the store.
+  */
+  const workflowIsReady = !!workflowSnapshot?.strings
+  const projectIsReady = !!classifierStore.projects.active
+  const classifierIsReady = userHasLoaded && workflowIsReady && projectIsReady
   try {
-    if (classifierStore) {
+    if (classifierIsReady) {
 
       return (
         <StrictMode>
           <Provider classifierStore={classifierStore}>
             <Classifier
-              adminMode={adminMode}
-              classifierStore={classifierStore}
               locale={locale}
               onError={onError}
               project={project}
@@ -139,15 +235,17 @@ ClassifierContainer.propTypes = {
   authClient: PropTypes.object.isRequired,
   cachePanoptesData: PropTypes.bool,
   locale: PropTypes.string,
-  mode: PropTypes.string,
   onAddToCollection: PropTypes.func,
   onCompleteClassification: PropTypes.func,
   onError: PropTypes.func,
+  onSubjectChange: PropTypes.func,
   onSubjectReset: PropTypes.func,
   onToggleFavourite: PropTypes.func,
   project: PropTypes.shape({
     id: PropTypes.string.isRequired
   }).isRequired,
   showTutorial: PropTypes.bool,
-  theme: PropTypes.object
+  subjectID: PropTypes.string,
+  subjectSetID: PropTypes.string,
+  workflowID: PropTypes.string
 }

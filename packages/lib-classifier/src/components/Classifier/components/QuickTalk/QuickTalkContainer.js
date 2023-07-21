@@ -18,12 +18,14 @@ import postTalkDiscussion from './helpers/postTalkDiscussion'
 
 function storeMapper(store) {
   const {
+    authClient,
     subjects: {
       active: subject
     }
   } = store
 
   return {
+    authClient,
     subject
   }
 }
@@ -39,10 +41,10 @@ const SWROptions = {
 function QuickTalkContainer () {
 
   const { t } = useTranslation()
-  const { subject } = useStores(storeMapper)
-  const user = usePanoptesUser()
+  const { authClient, subject } = useStores(storeMapper)
+  const { data: user } = usePanoptesUser(authClient)
   const userId = user?.id
-  const authorization = usePanoptesAuth(userId)
+  const authorization = usePanoptesAuth({ authClient, userID: userId })
   const { data: comments } = useSWR(subject, getTalkComments, SWROptions)
 
   let author_ids = comments?.map(comment => comment.user_id)

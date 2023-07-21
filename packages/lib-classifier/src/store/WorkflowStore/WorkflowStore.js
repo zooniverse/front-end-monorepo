@@ -24,13 +24,11 @@ const WorkflowStore = types
 
   .actions(self => {
 
-    function * selectWorkflow(id = self.defaultWorkflowID, subjectSetID, subjectID, canPreviewWorkflows = false) {
+    function * selectWorkflow(id = self.defaultWorkflowID, subjectSetID, subjectID) {
       if (!id) {
         throw new ReferenceError('No workflow ID available')
       }
-      const availableWorkflows = canPreviewWorkflows ?
-        self.project?.links?.workflows :
-        self.project?.links?.active_workflows
+      const availableWorkflows = self.project?.links?.workflows
 
       const { subjects } = getRoot(self)
       const activeWorkflow = tryReference(() => self.active)

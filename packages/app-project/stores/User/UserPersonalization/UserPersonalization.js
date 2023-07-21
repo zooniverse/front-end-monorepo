@@ -66,10 +66,14 @@ const UserPersonalization = types
         }
       },
 
-      load() {
+      load(newUser = true) {
         self.notifications.fetchAndSubscribe()
-        self.projectPreferences.fetchResource()
         self.stats.fetchDailyCounts()
+        if (newUser) {
+          self.projectPreferences.fetchResource()
+        } else {
+          self.projectPreferences.refreshSettings()
+        }
       },
 
       reset() {
