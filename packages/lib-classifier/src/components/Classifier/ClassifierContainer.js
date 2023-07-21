@@ -1,9 +1,10 @@
 import { GraphQLClient } from 'graphql-request'
 import { Paragraph } from 'grommet'
 import { Provider } from 'mobx-react'
+import { applySnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import { StrictMode, useEffect } from 'react';
-import '../../translations/i18n'
+import i18n from '../../translations/i18n'
 import {
   env,
   panoptes as panoptesClient,
@@ -56,7 +57,7 @@ export default function ClassifierContainer({
   adminMode = false,
   authClient,
   cachePanoptesData = false,
-  locale,
+  locale = 'en',
   onAddToCollection = DEFAULT_HANDLER,
   onCompleteClassification = DEFAULT_HANDLER,
   onError = DEFAULT_HANDLER,
@@ -72,7 +73,9 @@ export default function ClassifierContainer({
   const storeEnvironment = { authClient, client }
   const { user, upp, projectRoles, userHasLoaded } = usePanoptesUserSession({ authClient, projectID: project?.id })
 
-  /** When project status is private, user must have one of the following roles to view its workflows */
+  /*
+    A user must have one of the following roles to view an inactive workflow.
+  */
   const canPreviewWorkflows = adminMode ||
     projectRoles?.indexOf('owner') > -1 ||
     projectRoles?.indexOf('collaborator') > -1 ||
@@ -90,11 +93,7 @@ export default function ClassifierContainer({
     translated_type: 'workflow',
     language: locale
   })
-
-  /** Re-assign the fetched translations to the workflow snapshot object */
-  if (workflowSnapshot && workflowTranslation) {
-    workflowSnapshot.strings = workflowTranslation.strings
-  }
+  const workflowStrings = workflowTranslation?.strings
 
   /** Init a mobx store if store is null, or load from session storage when cachePanoptesData is true
       - storeEnvironment is the auth env and clients
@@ -104,6 +103,11 @@ export default function ClassifierContainer({
    */
   const classifierStore = useHydratedStore(storeEnvironment, cachePanoptesData, `fem-classifier-${project.id}`)
   const { classifications, subjects, userProjectPreferences } = classifierStore
+
+  if (locale !== classifierStore.locale) {
+    classifierStore.setLocale(locale)
+    i18n.changeLanguage(locale)
+  }
 
   /** Make sure the classifierStore's active project is in sync with app-project */
   if (project?.id) {
@@ -117,10 +121,26 @@ export default function ClassifierContainer({
     }
   }
 
-  /** The following useEffects that handle classifier callbacks 
-    should run after the store is created and hydrated.
-    Otherwise, hydration will overwrite the callbacks with
-    their defaults. */
+  const storedWorkflow = classifierStore.workflows.resources.get(workflowID)
+
+  if (workflowSnapshot?.id && workflowStrings) {
+    workflowSnapshot.strings = workflowStrings
+    if (!storedWorkflow) {
+      classifierStore.workflows.setResources([workflowSnapshot])
+    }
+  }
+
+  useEffect(function onWorkflowStringsChange() {
+    if (storedWorkflow && workflowStrings) {
+      console.log('Refreshing workflow strings', storedWorkflow.id)
+      applySnapshot(storedWorkflow.strings, workflowStrings)
+    }
+  }, [storedWorkflow, workflowStrings])
+
+  /** The following useEffects that handle classifier callbacks
+      should run after the store is created and hydrated.
+      Otherwise, hydration will overwrite the callbacks with
+      their defaults. */
   useEffect(function () {
     console.log('setting onCompleteClassification')
     classifications.setOnComplete(onCompleteClassification)
@@ -172,7 +192,7 @@ export default function ClassifierContainer({
   }, [classifierStore.setOnToggleFavourite, onToggleFavourite])
 
   /* upp and user fetched from usePanoptesUserSession with SWR:
-    - Reset userProjectPreferences store because ???
+    - Reset userProjectPreferences store when fresh upp are loading from Panoptes
     - If no user, upp is null so clear the userProjectPreferences store
     - If user, set upp in userProjectPreferences store
    */
@@ -198,27 +218,24 @@ export default function ClassifierContainer({
   const workflowIsReady = !!workflowSnapshot?.strings
   const projectIsReady = !!classifierStore.projects.active
   const classifierIsReady = userHasLoaded && workflowIsReady && projectIsReady
-  try {
-    if (classifierIsReady) {
 
-      return (
-        <StrictMode>
-          <Provider classifierStore={classifierStore}>
+  try {
+    return (
+      <StrictMode>
+        <Provider classifierStore={classifierStore}>
+          {classifierIsReady ?
             <Classifier
-              locale={locale}
               onError={onError}
-              project={project} // This isn't used in Classifier, remove?
               showTutorial={showTutorial}
               subjectSetID={subjectSetID}
               subjectID={subjectID}
               workflowSnapshot={workflowSnapshot}
-            />
-          </Provider>
-        </StrictMode>
-      )
-    }
-
-    return <Paragraph>Loading…</Paragraph>
+            /> :
+            <Paragraph>Loading…</Paragraph>
+          }
+        </Provider>
+      </StrictMode>
+    )
   } catch (error) {
     const info = {
       package: '@zooniverse/classifier'
@@ -229,13 +246,13 @@ export default function ClassifierContainer({
 }
 
 ClassifierContainer.propTypes = {
-  /** Returned from useAdminMode() in app-project */
+  /** Returned from useAdminMode() in parent app */
   adminMode: PropTypes.bool,
-  /** panoptes-client/lib/auth is passed here from app-project */
+  /** panoptes-client/lib/auth is passed here from parent app */
   authClient: PropTypes.object.isRequired,
-  /** Cache Panoptes API data in session storage only when workflow.prioritized */
+  /** Cache Panoptes API data in session storage such as when workflow.prioritized */
   cachePanoptesData: PropTypes.bool,
-  /** Locale is controlled in app-project by url and/or LocaleSwitcher */
+  /** Locale is controlled in parent app */
   locale: PropTypes.string,
   onAddToCollection: PropTypes.func,
   onCompleteClassification: PropTypes.func,
