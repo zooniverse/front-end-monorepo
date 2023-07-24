@@ -26,6 +26,11 @@ function ZoomOutButtonContainer({ separateFrameZoomOut }) {
   const [timer, setTimer] = useState('')
   const zoomCallback = separateFrameZoomOut || zoomOut
 
+  function onClick() {
+    clearInterval(timer)
+    zoomCallback()
+  }
+
   function onPointerDown(event) {
     const { currentTarget, pointerId } = event
     clearInterval(timer)
@@ -36,14 +41,13 @@ function ZoomOutButtonContainer({ separateFrameZoomOut }) {
 
   function onPointerUp(event) {
     const { currentTarget, pointerId } = event
-    clearInterval(timer)
     currentTarget.releasePointerCapture(pointerId)
   }
 
   return (
     <ZoomOutButton
       disabled={disabled}
-      onClick={zoomCallback}
+      onClick={onClick}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
     />
