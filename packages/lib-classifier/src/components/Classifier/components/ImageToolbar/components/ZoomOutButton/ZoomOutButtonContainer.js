@@ -21,15 +21,15 @@ function storeMapper(classifierStore) {
   }
 }
 
-function ZoomOutButtonContainer({ separateFrameZoomOut = () => true }) {
-  const { disabled, separateFramesView, zoomOut } = useStores(storeMapper)
+function ZoomOutButtonContainer({ separateFrameZoomOut }) {
+  const { disabled, zoomOut } = useStores(storeMapper)
   const [timer, setTimer] = useState('')
+  const zoomCallback = separateFrameZoomOut || zoomOut
 
   function onPointerDown(event) {
     const { currentTarget, pointerId } = event
-    zoomOut()
     clearInterval(timer)
-    const newTimer = setInterval(zoomOut, 100)
+    const newTimer = setInterval(zoomCallback, 100)
     setTimer(newTimer)
     currentTarget.setPointerCapture(pointerId)
   }
@@ -43,7 +43,7 @@ function ZoomOutButtonContainer({ separateFrameZoomOut = () => true }) {
   return (
     <ZoomOutButton
       disabled={disabled}
-      onClick={separateFramesView ? separateFrameZoomOut : zoomOut}
+      onClick={zoomCallback}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
     />

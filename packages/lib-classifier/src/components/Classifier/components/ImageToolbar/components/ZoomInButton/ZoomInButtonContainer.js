@@ -21,15 +21,15 @@ function storeMapper(classifierStore) {
   }
 }
 
-function ZoomInButtonContainer({ separateFrameZoomIn = () => true }) {
-  const { disabled, separateFramesView, zoomIn } = useStores(storeMapper)
+function ZoomInButtonContainer({ separateFrameZoomIn }) {
+  const { disabled, zoomIn } = useStores(storeMapper)
   const [timer, setTimer] = useState('')
+  const zoomCallback = separateFrameZoomIn || zoomIn
 
   function onPointerDown(event) {
     const { currentTarget, pointerId } = event
-    zoomIn()
     clearInterval(timer)
-    const newTimer = setInterval(zoomIn, 100)
+    const newTimer = setInterval(zoomCallback, 100)
     setTimer(newTimer)
     currentTarget.setPointerCapture(pointerId)
   }
@@ -43,7 +43,7 @@ function ZoomInButtonContainer({ separateFrameZoomIn = () => true }) {
   return (
     <ZoomInButton
       disabled={disabled}
-      onClick={separateFramesView ? separateFrameZoomIn : zoomIn}
+      onClick={zoomCallback}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
     />
