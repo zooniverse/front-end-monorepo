@@ -858,7 +858,7 @@ describe('components > ClassifierContainer', function () {
         expect(radioButton.name).to.equal('T0')
         expect(radioButton.disabled).to.be.true()
       })
-      //expect(translationRequests.isDone()).to.be.true()
+      expect(translationRequests.isDone()).to.be.true()
     })
   })
 })
