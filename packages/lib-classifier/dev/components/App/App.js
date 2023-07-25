@@ -8,6 +8,9 @@ import React from 'react'
 import Classifier from '../../../src/components/Classifier'
 import localeMenu from './localeMenu.js'
 
+const onAddToCollection = (subjectId) => console.log(subjectId)
+const onCompleteClassification = (classification, subject) => console.log('onComplete', classification, subject)
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -219,8 +222,8 @@ class App extends React.Component {
               authClient={oauth}
               cachePanoptesData={this.state.cachePanoptesData}
               locale={locale}
-              onAddToCollection={(subjectId) => console.log(subjectId)}
-              onCompleteClassification={(classification, subject) => console.log('onComplete', classification, subject)}
+              onAddToCollection={onAddToCollection}
+              onCompleteClassification={onCompleteClassification}
               onError={this.onError}
               project={this.state.project}
               showTutorial

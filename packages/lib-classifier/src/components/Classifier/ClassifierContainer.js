@@ -1,9 +1,10 @@
 import { GraphQLClient } from 'graphql-request'
 import { Paragraph } from 'grommet'
 import { Provider } from 'mobx-react'
+import { applySnapshot } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import { StrictMode, useEffect } from 'react';
-import '../../translations/i18n'
+import i18n from '../../translations/i18n'
 import {
   env,
   panoptes as panoptesClient,
@@ -56,7 +57,7 @@ export default function ClassifierContainer({
   adminMode = false,
   authClient,
   cachePanoptesData = false,
-  locale,
+  locale = 'en',
   onAddToCollection = DEFAULT_HANDLER,
   onCompleteClassification = DEFAULT_HANDLER,
   onError = DEFAULT_HANDLER,
@@ -85,12 +86,15 @@ export default function ClassifierContainer({
     translated_type: 'workflow',
     language: locale
   })
-  if (workflowSnapshot && workflowTranslation) {
-    workflowSnapshot.strings = workflowTranslation.strings
-  }
+  const workflowStrings = workflowTranslation?.strings
 
   const classifierStore = useHydratedStore(storeEnvironment, cachePanoptesData, `fem-classifier-${project.id}`)
   const { classifications, subjects, userProjectPreferences } = classifierStore
+
+  if (locale !== classifierStore.locale) {
+    classifierStore.setLocale(locale)
+    i18n.changeLanguage(locale)
+  }
 
   if (project?.id) {
     const storedProject = classifierStore.projects.active
@@ -102,6 +106,21 @@ export default function ClassifierContainer({
       projects.setActive(project.id)
     }
   }
+
+  const storedWorkflow = classifierStore.workflows.resources.get(workflowID)
+  if (workflowSnapshot?.id && workflowStrings) {
+    workflowSnapshot.strings = workflowStrings
+    if (!storedWorkflow) {
+      classifierStore.workflows.setResources([workflowSnapshot])
+    }
+  }
+
+  useEffect(function onWorkflowStringsChange() {
+    if (storedWorkflow && workflowStrings) {
+      console.log('Refreshing workflow strings', storedWorkflow.id)
+      applySnapshot(storedWorkflow.strings, workflowStrings)
+    }
+  }, [storedWorkflow, workflowStrings])
 
   useEffect(function () {
     /*
@@ -179,13 +198,16 @@ export default function ClassifierContainer({
   }, [classifierStore.setOnToggleFavourite, onToggleFavourite])
 
   useEffect(function onUPPChange() {
+    // fresh preferences are loading from Panoptes.
     if (upp === undefined) {
       console.log('resetting stale user data')
       userProjectPreferences.reset()
     }
+    // no one is logged in.
     if (upp === null) {
       userProjectPreferences.clear()
     }
+    // someone is logged in.
     if (upp?.id) {
       userProjectPreferences.setUPP(upp)
     }
@@ -201,26 +223,22 @@ export default function ClassifierContainer({
   const projectIsReady = !!classifierStore.projects.active
   const classifierIsReady = userHasLoaded && workflowIsReady && projectIsReady
   try {
-    if (classifierIsReady) {
-
-      return (
-        <StrictMode>
-          <Provider classifierStore={classifierStore}>
+    return (
+      <StrictMode>
+        <Provider classifierStore={classifierStore}>
+          {classifierIsReady ?
             <Classifier
-              locale={locale}
               onError={onError}
-              project={project}
               showTutorial={showTutorial}
               subjectSetID={subjectSetID}
               subjectID={subjectID}
               workflowSnapshot={workflowSnapshot}
-            />
-          </Provider>
-        </StrictMode>
-      )
-    }
-
-    return <Paragraph>Loading…</Paragraph>
+            /> :
+            <Paragraph>Loading…</Paragraph>
+          }
+        </Provider>
+      </StrictMode>
+    )
   } catch (error) {
     const info = {
       package: '@zooniverse/classifier'
