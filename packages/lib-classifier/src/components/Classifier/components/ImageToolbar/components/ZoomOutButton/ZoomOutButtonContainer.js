@@ -8,15 +8,11 @@ import ZoomOutButton from './ZoomOutButton'
 function storeMapper(classifierStore) {
   const {
     disableImageToolbar,
-    separateFramesView,
     zoomOut
   } = classifierStore.subjectViewer
 
-  const disabled = disableImageToolbar
-
   return {
-    disabled,
-    separateFramesView,
+    disabled: disableImageToolbar,
     zoomOut
   }
 }
