@@ -2,7 +2,7 @@ import Classifier from '@zooniverse/classifier'
 import { useRouter } from 'next/router'
 import auth from 'panoptes-client/lib/auth'
 import { bool, func, string, shape } from 'prop-types'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import { useAdminMode } from '@hooks'
@@ -45,6 +45,7 @@ export default function ClassifierWrapper({
   workflowID,
   yourStats
 }) {
+  const [classifierSubjectID, setClassifierSubjectID] = useState(subjectID)
   const { adminMode } = useAdminMode()
   const nextRouter = useRouter()
   router = router || nextRouter
@@ -66,16 +67,37 @@ export default function ClassifierWrapper({
     })
   }, [addRecents, incrementStats])
 
+  /*
+    If the page URL contains a subject ID, update that ID when the classification subject changes.
+    Subject page URLs can be either `/classify/workflow/{workflowID}/subject/{subjectID}`
+    or `/classify/workflow/{workflowID}/subject-set/{subjectSetID}/subject/{subjectID}`.
+  */
   const replaceRoute = router.replace
-  const baseURL = `/${ownerSlug}/${projectSlug}/classify/workflow/${workflowID}`
-  const onSubjectChange = useCallback((subject) => {
-    if (subjectSetID && subjectID && subject.id !== subjectID) {
-      const newSubjectRoute = `${baseURL}/subject-set/${subjectSetID}/subject/${subject.id}`
-      const href = addQueryParams(newSubjectRoute)
+  let baseURL = `/${ownerSlug}/${projectSlug}/classify/workflow/${workflowID}`
+  if (subjectSetID) {
+    baseURL = `${baseURL}/subject-set/${subjectSetID}`
+  }
+  let subjectPageURL = null
+  let subjectRouteChanged = false
+  if (subjectID) {
+    subjectPageURL = `${baseURL}/subject/${classifierSubjectID}`
+    subjectRouteChanged = router?.query.subjectID !== classifierSubjectID
+  }
+
+  useEffect(function updatePageURL() {
+    if (subjectPageURL && subjectRouteChanged) {
+      const href = addQueryParams(subjectPageURL)
       const as = href
       replaceRoute(href, as, { shallow: true })
     }
-  }, [baseURL, replaceRoute, subjectID, subjectSetID])
+  }, [replaceRoute, subjectPageURL, subjectRouteChanged])
+
+  /*
+    Track the current classification subject, when it changes inside the classifier.
+  */
+  const onSubjectChange = useCallback((subject) => {
+    setClassifierSubjectID(subject?.id)
+  }, [])
 
   const addFavourites = collections?.addFavourites
   const removeFavourites = collections?.removeFavourites
