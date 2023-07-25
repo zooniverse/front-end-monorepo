@@ -112,8 +112,8 @@ export default function ClassifierContainer({
   }
 
   /*
-    Make sure the classifierStore's active project is in sync with parent app.
-    Useful for standalone classifier such as the dev classifier.
+    When a project is fetched from Panoptes and it isn't already in the classifier store.
+    (Do this before storing a workflow below)
   */
   if (project?.id) {
     const storedProject = classifierStore.projects.active
@@ -127,7 +127,7 @@ export default function ClassifierContainer({
   }
 
   /*
-    If a workflow is stored in session storage... ?
+    When a workflow is fetched from Panoptes and it isn’t already in the classifier store.
   */
  const storedWorkflow = classifierStore.workflows.resources.get(workflowID)
 
@@ -261,7 +261,6 @@ export default function ClassifierContainer({
 ClassifierContainer.propTypes = {
   /** Returned from useAdminMode() in parent app */
   adminMode: PropTypes.bool,
-  /** panoptes-client/lib/auth is passed here from parent app */
   authClient: PropTypes.object.isRequired,
   /** Cache Panoptes API data in session storage such as when workflow.prioritized */
   cachePanoptesData: PropTypes.bool,

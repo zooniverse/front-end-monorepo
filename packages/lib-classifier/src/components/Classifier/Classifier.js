@@ -41,8 +41,7 @@ function Classifier({
     }
   }
 
-  /** This runs when a volunteer:
-      - views a new project
+  /* This runs when a volunteer:
       - views a new workflow
       - selects a new subject set
       - selects a new subject
