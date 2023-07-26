@@ -12200,9 +12200,9 @@ mobx-state-tree@~5.1.0:
   integrity sha512-oe82BNgMr408e6DxMDNat8msXQTuyuqzJ97DPupbhchEfjjHyjsmPSwtXHl+nXiW3tybpb/cr5siUClBqKqv+Q==
 
 mobx-utils@~6.0.4:
-  version "6.0.7"
-  resolved "https://registry.yarnpkg.com/mobx-utils/-/mobx-utils-6.0.7.tgz#f786c184f08503cb8357931bef1b5827a702ee3e"
-  integrity sha512-fPQZQRdtKIcW8CoG5Tq5HxcZBW/E0VKRrKGMmWC7H/+AJ773kH4F44o9/UfwemF+y3eJNsHKnIrg7tpwt5ml2Q==
+  version "6.0.8"
+  resolved "https://registry.yarnpkg.com/mobx-utils/-/mobx-utils-6.0.8.tgz#843e222c7694050c2e42842682fd24a84fdb7024"
+  integrity sha512-fPNt0vJnHwbQx9MojJFEnJLfM3EMGTtpy4/qOOW6xueh1mPofMajrbYAUvByMYAvCJnpy1A5L0t+ZVB5niKO4g==
 
 mobx@~6.10.0:
   version "6.10.0"
