@@ -2593,10 +2593,10 @@
     nan "^2.17.0"
     semver "^7.5.2"
 
-"@newrelic/security-agent@0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@newrelic/security-agent/-/security-agent-0.1.3.tgz#c87be39a63637ab28e8bfe81565e1e25af4d2e3f"
-  integrity sha512-Wc1D1+zUL/bTHXLgaiLH2gEltg+LTx89O+K2GsLs8qfsYiTWVw76S5rRbkV3iiIM1RU4sQvjcvvSwOQ2YcbpHw==
+"@newrelic/security-agent@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@newrelic/security-agent/-/security-agent-0.2.0.tgz#8d6008814c44ac8455614c9c5802581f8475eef1"
+  integrity sha512-sPUlYI99ursxaNq07TznLczmEWOjvOe5PkHe1ghjxolsZb5wy/DZYSmqIk9WuW5kNqyizUz+NNxc/7XqIAhpMw==
   dependencies:
     "@aws-sdk/client-lambda" "^3.348.0"
     axios "0.21.4"
@@ -12379,17 +12379,17 @@ neo-async@^2.5.0, neo-async@^2.6.0, neo-async@^2.6.1, neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-newrelic@^10.0.0, newrelic@~10.5.0:
-  version "10.5.0"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-10.5.0.tgz#85fe62a1aa94e85f9740f28cd0ed2802acec8322"
-  integrity sha512-CsZiImJQT40kOL7528WiJeXi0NO6GmbmAjTGO0tZXcucFOVXsVVWBiYhT+bfFFpaYAvsjukWnaLt9jIfU2gVIg==
+newrelic@^10.0.0, newrelic@~10.6.0:
+  version "10.6.0"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-10.6.0.tgz#7df247ff3eedb3d982e4f195b6546a028d365a7c"
+  integrity sha512-O4O1pEg4x0UnTBCReiVIZHNIq/6bl8/EPgtL0FQrHThQ8tLiS1jUSzyLiTGpH7WGvRy5ol8CFTmHEe1yfnWvqg==
   dependencies:
     "@grpc/grpc-js" "^1.8.10"
     "@grpc/proto-loader" "^0.7.5"
     "@mrleebo/prisma-ast" "^0.5.2"
     "@newrelic/aws-sdk" "^6.0.0"
     "@newrelic/koa" "^7.1.1"
-    "@newrelic/security-agent" "0.1.3"
+    "@newrelic/security-agent" "0.2.0"
     "@newrelic/superagent" "^6.0.0"
     "@tyriar/fibonacci-heap" "^2.0.7"
     concat-stream "^2.0.0"
