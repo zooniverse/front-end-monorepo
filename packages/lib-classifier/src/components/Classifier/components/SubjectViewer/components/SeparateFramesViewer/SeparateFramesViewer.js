@@ -30,7 +30,6 @@ function SeparateFramesViewer({
   onReady = DEFAULT_HANDLER,
   subject
 }) {
-  console.log(subject)
   const { limitSubjectHeight, multiImageLayout } = useStores(storeMapper)
 
   const [forceColLayout, setForceColLayout] = useState(false)
