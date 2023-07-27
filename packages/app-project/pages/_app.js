@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
-import { Provider } from 'mobx-react'
+import { enableStaticRendering, Provider } from 'mobx-react'
 import Error from 'next/error'
 import { useEffect, useMemo } from 'react'
 import { createGlobalStyle } from 'styled-components'
@@ -20,6 +20,8 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
   }
 `
+
+enableStaticRendering(typeof window === 'undefined')
 
 /**
   useStore hook adapted from
