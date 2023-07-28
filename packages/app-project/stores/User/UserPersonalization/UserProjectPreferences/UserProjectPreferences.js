@@ -97,7 +97,7 @@ const UserProjectPreferences = types
             self.setLoadingState(asyncStates.loading)
             const preferences = yield _fetch()
             if (preferences) {
-              self.setResource(preferences)
+              applySnapshot(self, preferences)
             }
             self.setLoadingState(asyncStates.success)
           }
@@ -112,7 +112,7 @@ const UserProjectPreferences = types
       refreshSettings: flow(function * refreshSettings() {
         try {
           const preferences = yield _fetch()
-          if (preferences) {
+          if (preferences?.settings) {
             self.settings = preferences.settings
           }
           self.setLoadingState(asyncStates.success)
