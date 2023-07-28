@@ -46,8 +46,7 @@ const UserPersonalization = types
     },
 
     get totalClassificationCount() {
-      const activityCount = self.projectPreferences?.activity_count || 0
-      return  activityCount + self.sessionCount
+      return self.projectPreferences?.activity_count || 0
     }
   }))
   .actions(self => {
@@ -66,6 +65,7 @@ const UserPersonalization = types
       increment() {
         self.sessionCount = self.sessionCount + 1
         self.todaysStats?.increment()
+        self.projectPreferences?.incrementActivityCount()
         const { user } = getRoot(self)
         if (user?.id && self.sessionCountIsDivisibleByFive) {
           self.projectPreferences.refreshSettings()

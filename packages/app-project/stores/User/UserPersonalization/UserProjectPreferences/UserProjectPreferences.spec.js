@@ -28,7 +28,7 @@ describe('Stores > UserProjectPreferences', function () {
     }
   }
   const initialState = {
-    activity_count: undefined,
+    activity_count: 0,
     activity_count_by_workflow: undefined,
     error: undefined,
     id: undefined,
