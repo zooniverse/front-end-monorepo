@@ -22,36 +22,38 @@ describe('Drawing tools > Mark', function () {
   let wrapper
   let svgPoint
 
-  before(function () {
-    sinon.stub(window, 'scrollTo')
-    point = pointTool.createMark({
-      id: 'point1'
+  describe('default behaviour', function () {
+    before(function () {
+      sinon.stub(window, 'scrollTo')
+      point = pointTool.createMark({
+        id: 'point1'
+      })
+      point.finish()
+      render(
+        <svg>
+          <Mark
+            label='Point 1'
+            mark={point}
+            onDelete={onDelete}
+            onFinish={onFinish}
+            onSelect={onSelect}
+          >
+            <Point mark={point} />
+          </Mark>
+        </svg>
+      )
+      svgPoint = screen.getByLabelText('Point 1')
     })
-    point.finish()
-    render(
-      <svg>
-        <Mark
-          label='Point 1'
-          mark={point}
-          onDelete={onDelete}
-          onFinish={onFinish}
-          onSelect={onSelect}
-        >
-          <Point mark={point} />
-        </Mark>
-      </svg>
-    )
-    svgPoint = screen.getByLabelText('Point 1')
-  })
 
-  after(function () {
-    onFinish.resetHistory()
-    onSelect.resetHistory()
-    window.scrollTo.restore()
-  })
+    after(function () {
+      onFinish.resetHistory()
+      onSelect.resetHistory()
+      window.scrollTo.restore()
+    })
 
-  it('should render a child drawing tool', function () {
-    expect(svgPoint).to.exist()
+    it('should render a child drawing tool', function () {
+      expect(svgPoint).to.exist()
+    })
   })
 
   describe('on focus', function () {
@@ -139,7 +141,6 @@ describe('Drawing tools > Mark', function () {
           </svg>
         )
         point.setSubTaskVisibility(false)
-        await user.tab()
         await user.keyboard('{Enter}')
         await when(() => point.subTaskVisibility)
       })
@@ -179,7 +180,6 @@ describe('Drawing tools > Mark', function () {
           </svg>
         )
         point.setSubTaskVisibility(false)
-        await user.tab()
         await user.keyboard('{ }')
         await when(() => point.subTaskVisibility)
       })
@@ -357,7 +357,6 @@ describe('Drawing tools > Mark', function () {
       let newMark
 
       before(function () {
-        window.scrollTo.resetHistory()
         newMark = pointTool.createMark()
         newMark.setSubTaskVisibility(false)
         newMark.finish()
@@ -366,7 +365,6 @@ describe('Drawing tools > Mark', function () {
 
       after(function () {
         onFinish.resetHistory()
-        window.scrollTo.resetHistory()
       })
 
       it('should open the subtask popup', async function () {
@@ -396,7 +394,7 @@ describe('Drawing tools > Mark', function () {
     let newMark, svgPoint
 
     before(function () {
-      window.scrollTo.resetHistory()
+      sinon.stub(window, 'scrollTo')
       newMark = pointTool.createMark()
       newMark.setSubTaskVisibility(true)
       newMark.finish()
