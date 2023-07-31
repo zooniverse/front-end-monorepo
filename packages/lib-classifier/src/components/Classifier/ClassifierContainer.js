@@ -234,7 +234,11 @@ export default function ClassifierContainer({
 
   try {
     return (
-      <StrictMode>
+      /* 
+        Strict mode is broken in mobx-react 8 with React 18.
+        See https://github.com/mobxjs/mobx/pull/3672
+      */
+      // <StrictMode>
         <Provider classifierStore={classifierStore}>
           {classifierIsReady ?
             <Classifier
@@ -247,7 +251,7 @@ export default function ClassifierContainer({
             <Paragraph>Loading…</Paragraph>
           }
         </Provider>
-      </StrictMode>
+      // </StrictMode>
     )
   } catch (error) {
     const info = {

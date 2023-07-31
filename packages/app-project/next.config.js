@@ -79,7 +79,11 @@ const nextConfig = {
     assetPrefix
   },
 
-  reactStrictMode: true,
+  /* 
+    Strict mode is broken in mobx-react 8 with React 18.
+    See https://github.com/mobxjs/mobx/pull/3672
+  */
+  reactStrictMode: false,
 
   async redirects() {
     return [
