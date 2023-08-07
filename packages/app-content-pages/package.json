@@ -46,7 +46,7 @@
     "snazzy": "^9.0.0",
     "styled-components": "~5.3.3",
     "superagent": "~8.0.0",
-    "validator": "~13.9.0"
+    "validator": "~13.11.0"
   },
   "devDependencies": {
     "@babel/register": "~7.22.5",
