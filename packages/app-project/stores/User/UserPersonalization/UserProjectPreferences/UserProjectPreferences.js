@@ -19,7 +19,7 @@ const Settings = types
 
 const UserProjectPreferences = types
   .model('UserProjectPreferences', {
-    activity_count: types.maybe(types.number),
+    activity_count: types.optional(types.number, 0),
     activity_count_by_workflow: types.maybe(types.frozen()),
     error: types.maybeNull(types.frozen({})),
     id: types.maybe(numberString),
@@ -71,7 +71,7 @@ const UserProjectPreferences = types
     return {
       reset() {
         const resetSnapshot = {
-          activity_count: undefined,
+          activity_count: 0,
           activity_count_by_workflow: undefined,
           error: undefined,
           id: undefined,
@@ -97,7 +97,7 @@ const UserProjectPreferences = types
             self.setLoadingState(asyncStates.loading)
             const preferences = yield _fetch()
             if (preferences) {
-              self.setResource(preferences)
+              applySnapshot(self, preferences)
             }
             self.setLoadingState(asyncStates.success)
           }
@@ -112,14 +112,18 @@ const UserProjectPreferences = types
       refreshSettings: flow(function * refreshSettings() {
         try {
           const preferences = yield _fetch()
-          if (preferences) {
+          if (preferences?.settings) {
             self.settings = preferences.settings
           }
           self.setLoadingState(asyncStates.success)
         } catch (error) {
           console.error(error)
         }
-      })
+      }),
+
+      incrementActivityCount() {
+        self.activity_count = self.activity_count + 1
+      }
     }
   })
 
