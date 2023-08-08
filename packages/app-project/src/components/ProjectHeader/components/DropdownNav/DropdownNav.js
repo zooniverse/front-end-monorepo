@@ -37,6 +37,7 @@ const StyledDropButton = styled(DropButton)`
     `}
   }
 `
+
 const defaultMargin = {
   top: 0
 }
@@ -45,6 +46,8 @@ function DropdownNav({
   adminMode = false,
   className,
   margin = defaultMargin,
+  organizationSlug = '',
+  organizationTitle = '',
 }) {
   const { t } = useTranslation('components')
   const navLinks = useProjectNavigation(adminMode)
@@ -70,19 +73,47 @@ function DropdownNav({
         as='ul'
         pad='0px'
       >
-        {navLinks.map(navLink => (
+        <>
+          {navLinks.map(navLink => (
+            <Box
+              as='li'
+              key={navLink.href}
+            >
+              <NavLink
+                color='white'
+                link={navLink}
+                StyledAnchor={StyledAnchor}
+                weight='bold'
+              />
+            </Box>
+          ))}
+        </>
+        {organizationTitle ? (
           <Box
             as='li'
-            key={navLink.href}
+            key={organizationSlug}
           >
-            <NavLink
-              color='white'
-              link={navLink}
-              StyledAnchor={StyledAnchor}
-              weight='bold'
+            <StyledAnchor
+              href={`/organizations/${organizationSlug}`}
+              label={(
+                <Box pad='none'>
+                  <SpacedText
+                    color='white'
+                    size='xsmall'
+                  >
+                    {t('ProjectHeader.organization')}
+                  </SpacedText>
+                  <SpacedText
+                    color='white'
+                    weight='bold'
+                  >
+                    {organizationTitle}
+                  </SpacedText>
+                </Box>
+              )}
             />
           </Box>
-        ))}
+        ) : null}
       </Box>
     </Box>
   )
@@ -121,7 +152,11 @@ DropdownNav.propTypes = {
   /** CSS class */
   className: string,
   /** Margin for the dropdown button (Grommet t-shirt size, CSS length or Grommet margin object.) */
-  margin: oneOfType([string, object])
+  margin: oneOfType([string, object]),
+  /** Organization slug */
+  organizationSlug: string,
+  /** Organization title */
+  organizationTitle: string
 }
 
 export default DropdownNav

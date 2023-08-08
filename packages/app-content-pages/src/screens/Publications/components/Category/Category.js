@@ -1,12 +1,12 @@
 import { Box, Heading } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 
-import Project from '../Project'
+import Project from '../Project/Project.js'
 
 function Category ({
-  title,
-  projects,
-  slug
+  title = '',
+  projects = [],
+  slug = ''
 }) {
   return (
     <Box as='section'>
@@ -25,8 +25,17 @@ function Category ({
 
 Category.propTypes = {
   projects: arrayOf(shape({
-    id: string
+    avatarSrc: string,
+    projectId: string,
+    title: string,
+    publications: arrayOf(shape({
+      authors: string,
+      title: string,
+      url: string,
+      year: string
+    }))
   })),
+  slug: string,
   title: string
 }
 

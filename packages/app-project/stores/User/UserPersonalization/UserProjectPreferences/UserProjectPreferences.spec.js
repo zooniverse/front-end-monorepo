@@ -23,12 +23,12 @@ describe('Stores > UserProjectPreferences', function () {
     personalization: {
       projectPreferences: {
         id: '5',
-        loadingState: asyncStates.success
+        loadingState: asyncStates.initialized
       }
     }
   }
   const initialState = {
-    activity_count: undefined,
+    activity_count: 0,
     activity_count_by_workflow: undefined,
     error: undefined,
     id: undefined,
@@ -330,6 +330,7 @@ describe('Stores > UserProjectPreferences', function () {
       before(function () {
         const project = {
           id: '2',
+          slug: 'test/project',
           links: {
             active_workflows: ['555']
           }

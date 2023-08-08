@@ -1,7 +1,9 @@
+import { observer } from 'mobx-react'
 import { useEffect, useRef, useState } from 'react'
+import { useTheme } from 'styled-components'
 import { Brush } from '@visx/brush'
 
-import { useKeyZoom } from '@hooks'
+import { useKeyZoom, useStores } from '@hooks'
 import { useTranslation } from '@translations/i18n'
 
 import DeleteButton from './DeleteButton'
@@ -9,25 +11,79 @@ import Selection from './Selection'
 
 const HANDLE_SIZE = 10
 
-export default function Selections({
-  colors,
-  disabled,
+const TRANSFORM_MATRIX = {
+  scaleX: 1,
+  scaleY: 1,
+  skewX: 0,
+  skewY: 0,
+  translateX: 0,
+  translateY: 0
+}
+
+function useDataSelectionTool() {
+  const {
+    classifications: {
+      active: classification
+    },
+    workflowSteps: {
+      active: step,
+      findTasksByType
+    }
+  } = useStores()
+
+  const [dataSelectionTask] = findTasksByType('dataVisAnnotation')
+  const annotation = dataSelectionTask ? classification.addAnnotation(dataSelectionTask) : null
+  const activeTask = step.tasks.find(task => task === dataSelectionTask)
+
+  return {
+    activeTool: activeTask?.activeTool,
+    activeToolIndex: activeTask?.activeToolIndex,
+    annotation,
+    setActiveTool: activeTask?.setActiveTool
+  }
+}
+
+function convertSelection(selection) {
+  const x = (selection.x0 + selection.x1) / 2
+  const width = selection.x1 - selection.x0
+  return { x, width }
+}
+
+const DEFAULT_HANDLER = () => true
+
+function Selections({
+  disabled = false,
   height,
-  initialSelections = [],
   margin,
+  transformMatrix = TRANSFORM_MATRIX,
   width,
-  xScale,
-  yScale
+  xScale = DEFAULT_HANDLER,
+  yScale = DEFAULT_HANDLER
 }) {
+  const {
+    activeTool = null,
+    activeToolIndex = 0,
+    annotation = null,
+    setActiveTool = DEFAULT_HANDLER
+  } = useDataSelectionTool()
+  const {
+    global: {
+      colors = {}
+    }
+  } = useTheme()
   const { t } = useTranslation('components')
   const { onKeyZoom } = useKeyZoom()
   const eventRoot = useRef()
-  const [selections, setSelections] = useState(initialSelections)
   const [activeIndex, setActiveIndex] = useState(-1)
   const [createNewBrush, setCreateNewBrush] = useState(true)
-  const activeSelection = selections[activeIndex]
+
+  const highlighterColours = Object.keys(colors.highlighterTool)
+  const allowSelection = activeTool && !disabled
+  const selections = annotation?.value
+  const activeSelection = annotation?.value[activeIndex]
+  const activeColour = `highlighter-${highlighterColours[activeToolIndex]}`
   const brushStyle = {
-    fill: colors['highlighter-blue'],
+    fill: colors[activeColour],
     fillOpacity: 0.2,
     stroke: colors['dark-3'],
     strokeOpacity: 0.2
@@ -36,8 +92,9 @@ export default function Selections({
   let key = 'new-brush'
   let initialBrushPosition
   if (activeSelection) {
-    const start = xScale(activeSelection.x0)
-    const end = xScale(activeSelection.x1)
+    const { x, width } = activeSelection
+    const start = xScale(x - width / 2)
+    const end = xScale(x + width / 2)
     initialBrushPosition = {
       start: { x: start },
       end: { x: end }
@@ -52,7 +109,7 @@ export default function Selections({
 
   function deleteSelection(index) {
     const newSelections = selections.filter((selection, i) => i !== index)
-    setSelections(newSelections)
+    annotation?.update(newSelections)
     if (index === activeIndex) {
       setActiveIndex(-1)
       setCreateNewBrush(true)
@@ -61,7 +118,8 @@ export default function Selections({
 
   function onKeyDown(event) {
     switch (event.key) {
-      case 'Backspace': {
+      case 'Backspace':
+      case 'Del': {
         if (activeIndex > -1) {
           event.preventDefault()
           deleteSelection(activeIndex)
@@ -77,6 +135,8 @@ export default function Selections({
   }
 
   function onSelectBrush(index) {
+    const selection = selections[index]
+    setActiveTool(selection.tool)
     setActiveIndex(index)
     setCreateNewBrush(false)
   }
@@ -84,8 +144,10 @@ export default function Selections({
   function onStartSelection({ x }) {
     let index = -1
     selections.forEach((selection, i) => {
-      const lower = xScale(selection.x0) - HANDLE_SIZE
-      const upper = xScale(selection.x1) + HANDLE_SIZE
+      const start = xScale(selection.x - selection.width / 2)
+      const end = xScale(selection.x + selection.width / 2)
+      const lower = start - HANDLE_SIZE
+      const upper = end + HANDLE_SIZE
       const click = xScale(x)
       const isSelection = (click > lower) && (click < upper)
       if (isSelection) {
@@ -101,8 +163,16 @@ export default function Selections({
 
   function createNewSelection(selection) {
     if (selection) {
-      const newSelections = [...selections, selection]
-      setSelections(newSelections)
+      const { x, width } = convertSelection(selection)
+      const newSelection = {
+        tool: activeToolIndex,
+        toolType: activeTool.type,
+        x,
+        width,
+        zoomLevelOnCreation: transformMatrix.scaleX
+      }
+      const newSelections = [...selections, newSelection]
+      annotation?.update(newSelections)
       return newSelections.length - 1
     } else {
       return -1
@@ -111,9 +181,15 @@ export default function Selections({
 
   function replaceActiveSelection(selection) {
     if (selection) {
+      const { x, width } = convertSelection(selection)
+      const newSelection = {
+        ...activeSelection,
+        x,
+        width
+      }
       const newSelections = [...selections]
-      newSelections[activeIndex] = selection
-      setSelections(newSelections)
+      newSelections[activeIndex] = newSelection
+      annotation?.update(newSelections)
       return activeIndex
     } else {
       setCreateNewBrush(true)
@@ -135,19 +211,19 @@ export default function Selections({
       onKeyDown={onKeyDown}
       tabIndex='-1'
     >
-      {selections.map((selection, index) => (
+      {selections?.map((selection, index) => (
         <Selection
           key={`selection-${index}`}
           active={!createNewBrush && selection === activeSelection}
-          disabled={disabled}
-          fill={colors['highlighter-blue']}
+          disabled={!allowSelection || selection.toolType !== activeTool.type}
+          fill={colors[`highlighter-${highlighterColours[selection.tool]}`]}
           height={height}
           onSelect={() => onSelectBrush(index)}
           selection={selection}
           xScale={xScale}
         />
       ))}
-      {!disabled && (
+      {allowSelection && (
         <Brush
           key={key}
           handleSize={HANDLE_SIZE}
@@ -162,11 +238,11 @@ export default function Selections({
           yScale={yScale}
         />
       )}
-      {!disabled && selections.map((selection, index) => (
+      {allowSelection && selections?.map((selection, index) => (
         <DeleteButton
           key={`delete-selection-${index}`}
           colors={colors}
-          cx={xScale((selection.x0 + selection.x1) / 2)}
+          cx={xScale(selection.x)}
           cy={10}
           fill={colors['accent-1']}
           label={t('SubjectViewer.ScatterPlotViewer.Selection.delete', { index: index + 1 })}
@@ -178,3 +254,5 @@ export default function Selections({
     </g>
   )
 }
+
+export default observer(Selections)

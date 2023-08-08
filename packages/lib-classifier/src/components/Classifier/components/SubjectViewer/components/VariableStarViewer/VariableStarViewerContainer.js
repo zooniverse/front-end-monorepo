@@ -35,20 +35,18 @@ class VariableStarViewerContainer extends Component {
       },
       phaseLimit: 0.2,
       rawJSON: {
-        data: {
-          scatterPlot: {
+        scatterPlot: {
+          data: [],
+          chartOptions: {}
+        },
+        barCharts: {
+          amplitude: {
             data: [],
             chartOptions: {}
           },
-          barCharts: {
-            amplitude: {
-              data: [],
-              chartOptions: {}
-            },
-            period: {
-              data: [],
-              chartOptions: {}
-            }
+          period: {
+            data: [],
+            chartOptions: {}
           }
         }
       },
@@ -62,69 +60,28 @@ class VariableStarViewerContainer extends Component {
   }
 
   async componentDidMount () {
-    const { subject } = this.props
-    if (subject) {
-      await this.handleSubject()
+    const { data } = this.props
+    if (data) {
+      await this.onLoad(data)
     }
   }
 
   async componentDidUpdate (prevProps) {
-    const { subject } = this.props
-    const prevSubjectId = prevProps.subject && prevProps.subject.id
-    const subjectChanged = subject && (subject.id !== prevSubjectId)
+    const { data } = this.props
+    const prevData = prevProps.data
+    const subjectChanged = data !== prevData
 
     if (subjectChanged) {
-      await this.handleSubject()
+      await this.onLoad(data)
     }
   }
 
-  getSubjectUrl () {
-    // Find the first location that has a JSON MIME type. Fallback to text MIME type
-    const jsonLocation = this.props.subject.locations.find(l => l.type === 'application' || l.type === 'text') || {}
-    const { url } = jsonLocation
-    if (url) {
-      return url
-    } else {
-      throw new Error('No JSON url found for this subject')
-    }
-  }
 
-  async requestData () {
-    const { onError } = this.props
-    try {
-      const url = this.getSubjectUrl()
-      const response = await fetch(url)
-      if (!response.ok) {
-        const error = new Error(response.statusText)
-        error.status = response.status
-        throw error
-      }
-      const responseData = await response.json()
-      return responseData
-    } catch (error) {
-      onError(error)
-      return null
-    }
-  }
-
-  async handleSubject () {
-    const { onError } = this.props
-    try {
-      const rawJSON = await this.requestData()
-
-      if (rawJSON) this.onLoad(rawJSON)
-    } catch (error) {
-      onError(error)
-    }
-  }
-
-  onLoad (rawJSON) {
+  onLoad (data) {
     const {
-      data: {
-        scatterPlot,
-        barCharts
-      }
-    } = rawJSON
+      scatterPlot,
+      barCharts
+    } = data
 
     const { onReady, subject } = this.props
     const container = this.viewer.current?.container
@@ -141,7 +98,7 @@ class VariableStarViewerContainer extends Component {
       barJSON,
       imageLocation,
       phasedJSON,
-      rawJSON,
+      rawJSON: data,
       highlightedSeries
     },
       function () {
@@ -204,13 +161,9 @@ class VariableStarViewerContainer extends Component {
 
   calculateJSON () {
     const {
-      rawJSON: {
-        data: {
-          scatterPlot,
-          barCharts
-        }
-      }
-    } = this.state
+      scatterPlot,
+      barCharts
+    } = this.state.rawJSON
 
     const phasedJSON = this.calculatePhase(scatterPlot)
     const barJSON = this.calculateBarJSON(barCharts)
@@ -258,7 +211,7 @@ class VariableStarViewerContainer extends Component {
 
   setSeriesPhaseFocus (event) {
     const seriesIndexForPeriod = parseInt(event.target.value)
-    const phasedJSON = this.calculatePhase(this.state.rawJSON.data.scatterPlot, seriesIndexForPeriod)
+    const phasedJSON = this.calculatePhase(this.state.rawJSON.scatterPlot, seriesIndexForPeriod)
     this.setState({ phasedJSON, phaseFocusedSeries: seriesIndexForPeriod })
   }
 

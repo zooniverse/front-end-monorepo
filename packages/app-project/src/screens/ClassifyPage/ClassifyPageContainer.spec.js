@@ -3,7 +3,6 @@ import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 import ClassifyPageContainer from './ClassifyPageContainer'
 import ClassifyPage from './ClassifyPage'
-import CollectionsModal from '../../shared/components/CollectionsModal'
 import { Provider } from 'mobx-react'
 import * as Router from 'next/router'
 import sinon from 'sinon'
@@ -25,10 +24,6 @@ describe('Component > ClassifyPageContainer', function () {
     expect(componentWrapper).to.have.lengthOf(1)
   })
 
-  it('should render the `CollectionsModal` component', function () {
-    expect(wrapper.find(CollectionsModal)).to.have.lengthOf(1)
-  })
-
   describe('when there is not a workflow selected from the URL', function () {
     let routerStub
     let workflows = [{
@@ -44,6 +39,7 @@ describe('Component > ClassifyPageContainer', function () {
     }]
 
     const mockStore = {
+      organization: {},
       project: {
         avatar: {
           src: ''
@@ -64,6 +60,9 @@ describe('Component > ClassifyPageContainer', function () {
         showAnnouncement: false
       },
       user: {
+        collections: {
+          collections: []
+        },
         id: '1',
         personalization: {
           projectPreferences: {
@@ -144,6 +143,7 @@ describe('Component > ClassifyPageContainer', function () {
     }]
 
     const mockStore = {
+      organization: {},
       project: {
         avatar: {
           src: ''
@@ -164,6 +164,9 @@ describe('Component > ClassifyPageContainer', function () {
         showAnnouncement: false
       },
       user: {
+        collections: {
+          collections: []
+        },
         id: '1',
         personalization: {
           projectPreferences: {
@@ -203,8 +206,12 @@ describe('Component > ClassifyPageContainer', function () {
         it('should be able to load the workflow from the url', function () {
           const mockStoreWithAssignment = Object.assign({}, mockStore, {
             user: {
+              collections: {
+                collections: []
+              },
               personalization: {
                 projectPreferences: {
+                  promptAssignment: () => false,
                   settings: {
                     workflow_id: '5678'
                   }
@@ -241,6 +248,9 @@ describe('Component > ClassifyPageContainer', function () {
         it('should not be able to load the workflow from the url', function () {
           const mockStoreWithAssignment = Object.assign({}, mockStore, {
             user: {
+              collections: {
+                collections: []
+              },
               personalization: {
                 projectPreferences: {
                   settings: {
@@ -281,6 +291,9 @@ describe('Component > ClassifyPageContainer', function () {
       it('should be able to load the first level workflow', function () {
         const mockStoreWithoutUser = Object.assign({}, mockStore, {
           user: {
+            collections: {
+              collections: []
+            },
             personalization: {
               projectPreferences: {
                 promptAssignment: () => { },
@@ -313,6 +326,9 @@ describe('Component > ClassifyPageContainer', function () {
       it('should not be able to load other workflow levels', function () {
         const mockStoreWithoutUser = Object.assign({}, mockStore, {
           user: {
+            collections: {
+              collections: []
+            },
             personalization: {
               projectPreferences: {
                 promptAssignment: () => { },
@@ -348,6 +364,7 @@ describe('Component > ClassifyPageContainer', function () {
   describe('when the project is not workflow assignment enabled', function () {
     let routerStub
     const mockStore = {
+      organization: {},
       project: {
         avatar: {
           src: ''
@@ -368,6 +385,9 @@ describe('Component > ClassifyPageContainer', function () {
         showAnnouncement: false
       },
       user: {
+        collections: {
+          collections: []
+        },
         id: '1',
         personalization: {
           projectPreferences: {

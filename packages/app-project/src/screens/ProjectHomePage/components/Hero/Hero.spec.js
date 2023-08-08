@@ -1,82 +1,43 @@
-import { shallow } from 'enzyme'
-import sinon from 'sinon'
+import { expect } from 'chai'
+import { composeStory } from '@storybook/react'
+import { render, screen } from '@testing-library/react'
 
-import Hero from './Hero'
-import NarrowLayout from './components/NarrowLayout'
-import WideLayout from './components/WideLayout'
-
-const WORKFLOWS = [
-  {
-    id: '1',
-    completeness: 0.4,
-    default: true,
-    displayName: 'Foo',
-    grouped: false,
-    links: {
-      subject_sets: ['1', '2', '3']
-    },
-    subjectSets: [
-      subjectSet('1'),
-      subjectSet('2'),
-      subjectSet('3')
-    ]
-  }
-]
-
-function subjectSet(id) {
-  return {
-    id,
-    display_name: `test set ${id}`,
-    set_member_subjects_count: 10
-  }
-}
+import Meta, { Default, WithOrganization } from './Hero.stories.js'
 
 describe('Component > Hero', function () {
-  describe('general behaviour', function () {
-    let wrapper
+  const DefaultStory = composeStory(Default, Meta)
 
-    before(function () {
-      wrapper = shallow(<Hero workflows={WORKFLOWS} />)
-    })
-
-    it('should render without crashing', function () {
-      expect(wrapper).to.be.ok()
-    })
-
-    it('should render the `NarrowLayout` by default', function () {
-      expect(wrapper.find(NarrowLayout)).to.have.lengthOf(1)
-    })
-
-    it('should render the `WideLayout` with the appropriate prop', function () {
-      wrapper.setProps({ isWide: true })
-      expect(wrapper.find(WideLayout)).to.have.lengthOf(1)
-    })
+  beforeEach(function () {
+    render(<DefaultStory />)
   })
 
-  describe('workflows', function () {
-    let wrapper
-    let componentWrapper
+  it('should show a background `img`', function () {
+    const img = document.querySelector("img[src='https://panoptes-uploads.zooniverse.org/production/project_background/260e68fd-d3ec-4a94-bb32-43ff91d5579a.jpeg']")
+    expect(img).to.be.ok()
+  })
 
-    it('should pass down the workflow data', async function () {
-      wrapper = shallow(<Hero workflows={WORKFLOWS} />)
-      componentWrapper = wrapper.first()
-      expect(componentWrapper.prop('workflows')).to.deep.equal([
-        {
-          completeness: 0.4,
-          default: true,
-          grouped: false,
-          id: '1',
-          displayName: 'Foo',
-          links: {
-            subject_sets: ['1', '2', '3']
-          },
-          subjectSets: [
-            subjectSet('1'),
-            subjectSet('2'),
-            subjectSet('3')
-          ]
-        }
-      ])
+  it('should show the title', function () {
+    const title = screen.getByText('Nest Quest Go: Western Bluebirds')
+    expect(title).to.be.ok()
+  })
+
+  it('should show the description', function () {
+    const description = screen.getByText('Learn about and help document the wonders of nesting Western Bluebirds.')
+    expect(description).to.be.ok()
+  })
+
+  it('should show a link to the about page', function () {
+    const link = screen.getByText('Home.Hero.Introduction.link')
+    expect(link).to.be.ok()
+  })
+
+  describe('with an organization', function () {
+    const WithOrganizationStory = composeStory(WithOrganization, Meta)
+
+    it('should show a link to the organization', function () {
+      render(<WithOrganizationStory />)
+      const organizationLink = screen.getByRole('link', { name: 'Nest Quest Go' })
+      expect(organizationLink).to.be.ok()
     })
   })
 })

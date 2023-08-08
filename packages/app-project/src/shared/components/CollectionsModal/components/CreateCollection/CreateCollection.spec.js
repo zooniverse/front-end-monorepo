@@ -12,7 +12,7 @@ describe('CollectionsModal > Component > CreateCollection', function () {
   const onSubmit = sinon.stub()
 
   before(function () {
-    // use mount because we're t4esting a component that uses refs
+    // use mount because we're testing a component that uses refs
     wrapper = mount(
       <CreateCollection
         collection={collection}

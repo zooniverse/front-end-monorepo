@@ -30,12 +30,14 @@ function storeMapper(classifierStore) {
   } = activeInteractionTask || {}
 
   const activeMark = tryReference(() => activeInteractionTask?.activeMark)
+  const disabled = activeTool?.disabled
 
   return {
     activeMark,
     activeTool,
     activeToolIndex,
     annotation,
+    disabled,
     frame,
     hidingIndex,
     marks,

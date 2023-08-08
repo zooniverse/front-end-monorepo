@@ -172,11 +172,10 @@ const ClassificationStore = types
     }
 
     function * submitClassification (classification) {
-      self.loadingState = asyncStates.posting
-
       // Service worker isn't working right now, so let's use the fallback queue for all browsers
       try {
         yield self.classificationQueue.add(classification)
+        self.loadingState = asyncStates.posting
       } catch (error) {
         console.error(error)
         self.loadingState = asyncStates.error

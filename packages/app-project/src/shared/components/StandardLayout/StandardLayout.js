@@ -30,7 +30,7 @@ function useStores() {
 }
 
 function StandardLayout ({
-  children,
+  children
 }) {
   const { inBeta } = useStores()
   const { adminMode, toggleAdmin } = useAdminMode()

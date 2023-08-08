@@ -1,10 +1,12 @@
+import { useTheme } from 'styled-components'
+
 import ScatterPlotPoint from './ScatterPlotPoint'
 import getDataSeriesColor from '@viewers/helpers/getDataSeriesColor'
 import getDataSeriesSymbol from '@viewers/helpers/getDataSeriesSymbol'
 import isDataSeriesHighlighted from '@viewers/helpers/isDataSeriesHighlighted'
 
 export default function ScatterPlotSeries({
-  colors,
+  color,
   dataPointSize,
   highlightedSeries,
   series,
@@ -12,8 +14,13 @@ export default function ScatterPlotSeries({
   xScale,
   yScale
 }) {
+  const {
+    global: {
+      colors = {}
+    }
+  } = useTheme()
   const highlighted = isDataSeriesHighlighted({ highlightedSeries, seriesOptions: series?.seriesOptions })
-  const glyphColor = getDataSeriesColor({
+  const glyphColor = color || getDataSeriesColor({
     defaultColors: Object.values(colors.drawingTools),
     seriesOptions: series?.seriesOptions,
     seriesIndex,

@@ -48,6 +48,7 @@ function WorkflowSelector ({
           gap='xsmall'
           margin={{ top: 'small' }}
           width={{ max: 'medium' }}
+          flex='grow'
         >
           <WorkflowSelectButtons
             assignedWorkflowID={assignedWorkflowID}

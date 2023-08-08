@@ -1,8 +1,8 @@
 import { types } from 'mobx-state-tree'
 
-const TESSLightCurve = types.model('TESSLightCurve', {
-  x: types.array(types.number),
-  y: types.array(types.number)
-})
+const chartCoordinates = types.refinement('requiredArray', types.array(types.number), value => value.length > 0)
 
-export default types.frozen(TESSLightCurve)
+export default types.model('TESSLightCurve', {
+  x: chartCoordinates,
+  y: chartCoordinates
+})

@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 
 import { SubjectViewer } from './SubjectViewer'
 import SingleImageViewer from './components/SingleImageViewer'
-import VariableStarViewer from './components/VariableStarViewer'
+import JSONDataViewer from './components/JSONDataViewer'
 
 describe('Component > SubjectViewer', function () {
   it('should render without crashing', function () {
@@ -43,7 +43,7 @@ describe('Component > SubjectViewer', function () {
     }
 
     const wrapper = shallow(<SubjectViewer subjectQueueState={asyncStates.success} subject={{ viewer: 'variableStar', viewerConfiguration }} />)
-    expect(wrapper.find(VariableStarViewer).props().viewerConfiguration).to.deep.equal(viewerConfiguration)
+    expect(wrapper.find(JSONDataViewer).props().viewerConfiguration).to.deep.equal(viewerConfiguration)
   })
 
   describe('when there is an null viewer because of invalid subject media', function () {

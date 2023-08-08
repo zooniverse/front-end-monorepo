@@ -1,16 +1,14 @@
-import counterpart from 'counterpart'
-import { array, string } from 'prop-types'
+import { array } from 'prop-types'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'next-i18next'
 
-import en from './locales/en'
 import Publications from './Publications'
 
-counterpart.registerTranslations('en', en)
+const isBrowser = typeof window !== 'undefined' // to handle testing environment
 
-const isBrowser = typeof window !== 'undefined'
-
-function PublicationsContainer({publicationsData}) {
-  publicationsData.forEach(category => {
+function PublicationsContainer({ publicationsData = [] }) {
+  const { t } = useTranslation('components')
+  publicationsData?.forEach(category => {
     category.slug = category.title.toLowerCase().replaceAll(' ', '-')
   })
   const [activeFilter, setActiveFilter] = useState(null)
@@ -20,7 +18,7 @@ function PublicationsContainer({publicationsData}) {
     setActiveFilter(slug)
   }, [])
 
-  const filters = createFilters(publicationsData, activeFilter, setActiveFilter)
+  const filters = createFilters(publicationsData, activeFilter, setActiveFilter, t)
   const filteredPublicationsData = createFilteredPublicationsData(publicationsData, activeFilter)
 
   return (
@@ -32,16 +30,15 @@ PublicationsContainer.propTypes = {
   publicationsData: array
 }
 
-PublicationsContainer.defaultProps = {
-  publicationsData: []
-}
-
 export default PublicationsContainer
 
-function createFilters(publicationsData, activeFilter, setActiveFilter) {
+
+/** Helper Functions */
+
+function createFilters(publicationsData, activeFilter, setActiveFilter, t) {
   const showAllFilter = {
     active: !activeFilter,
-    name: counterpart('Publications.showAll'),
+    name: t('Publications.showAll'),
     slug: '',
     setActive: event => setActiveFilter('')
   }
@@ -56,8 +53,8 @@ function createFilters(publicationsData, activeFilter, setActiveFilter) {
   return [showAllFilter, ...categoryFilters]
 }
 
-// Show the filtered category if a filter is active; show everything if there's
-// no active filter.
+// Show the filtered category if a filter is active;
+// show everything if there's no active filter.
 function createFilteredPublicationsData(publicationsData, activeFilter) {
   return activeFilter
     ? publicationsData.filter(category => category.slug === activeFilter)

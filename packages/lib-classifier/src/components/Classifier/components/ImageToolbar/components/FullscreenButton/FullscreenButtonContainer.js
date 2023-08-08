@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
+import { observer } from 'mobx-react'
 
-import { withStores } from '@helpers'
+import { useStores } from '@hooks'
 import FullscreenButton from './FullscreenButton'
 
 function storeMapper(classifierStore) {
@@ -19,16 +20,16 @@ function storeMapper(classifierStore) {
 
 function FullscreenButtonContainer({
   disabled = false,
-  disableFullscreen,
-  enableFullscreen,
-  fullscreen = false
+  // fullscreen is not functional, once it is, the `show` prop should default to true
+  show = false
 }) {
+  const { fullscreen, enableFullscreen, disableFullscreen } = useStores(storeMapper)
 
   function onClick() {
     return fullscreen ? disableFullscreen() : enableFullscreen()
   }
 
-  if (disabled) {
+  if (!show) {
     return null
   }
 
@@ -42,9 +43,7 @@ function FullscreenButtonContainer({
 
 FullscreenButtonContainer.propTypes = {
   disabled: PropTypes.bool,
-  disableFullscreen: PropTypes.func,
-  enableFullscreen: PropTypes.func,
-  fullscreen: PropTypes.bool
+  show: PropTypes.bool
 }
 
-export default withStores(FullscreenButtonContainer, storeMapper)
+export default observer(FullscreenButtonContainer)

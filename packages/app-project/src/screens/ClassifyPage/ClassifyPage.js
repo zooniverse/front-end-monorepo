@@ -1,9 +1,10 @@
 import { Box, Grid } from 'grommet'
 import dynamic from 'next/dynamic'
 import { arrayOf, func, shape, string } from 'prop-types'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { withResponsiveContext } from '@zooniverse/react-components'
 
+import CollectionsModal from '@shared/components/CollectionsModal'
 import ThemeModeToggle from '@components/ThemeModeToggle'
 import ProjectName from '@components/ProjectName'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
@@ -21,7 +22,6 @@ export const ClassifierWrapper = dynamic(() =>
 )
 
 function ClassifyPage({
-  addToCollection,
   appLoadingState,
   onSubjectReset,
   screenSize,
@@ -29,7 +29,7 @@ function ClassifyPage({
   subjectSetID,
   workflowID,
   workflowFromUrl,
-  workflows = []
+  workflows = [],
 }) {
   /*
     Enable session caching in the classifier for projects with ordered subject selection.
@@ -40,6 +40,8 @@ function ClassifyPage({
     : ['1em', 'auto', '1em']
   const [classifierProps, setClassifierProps] = useState({})
   const [showTutorial, setShowTutorial] = useState(false)
+  const [collectionsModalActive, setCollectionsModalActive] = useState(false)
+  const [collectionsSubjectID, setCollectionsSubjectID] = useState(subjectID)
 
   let subjectSetFromUrl
   if (workflowFromUrl && workflowFromUrl.subjectSets) {
@@ -71,56 +73,64 @@ function ClassifyPage({
     setShowTutorial(true)
   }
 
+  const onAddToCollection = useCallback((subjectID) => {
+    setCollectionsSubjectID(subjectID)
+    setCollectionsModalActive(true)
+  }, [setCollectionsModalActive, setCollectionsSubjectID])
+
   return (
-    <StandardLayout>
+    <>
+      <CollectionsModal
+        collectionsModalActive={collectionsModalActive}
+        subjectID={collectionsSubjectID}
+        setCollectionsModalActive={setCollectionsModalActive}
+      />
+      <StandardLayout>
+        <Box
+          align='center'
+          gap='medium'
+          pad={{ horizontal: 'small', vertical: 'medium' }}
+        >
+          <Box as='main' fill='horizontal'>
+            {!canClassify && appLoadingState === asyncStates.success && (
+              <WorkflowMenuModal
+                subjectSetFromUrl={subjectSetFromUrl}
+                workflowFromUrl={workflowFromUrl}
+                workflows={workflows}
+              />
+            )}
+            <Grid columns={responsiveColumns} gap='small'>
+              <ProjectName />
+              <ClassifierWrapper
+                cachePanoptesData={cachePanoptesData}
+                onAddToCollection={onAddToCollection}
+                onSubjectReset={onSubjectReset}
+                showTutorial={showTutorial}
+                {...classifierProps}
+              />
+              <ThemeModeToggle />
+            </Grid>
+            {workflowFromUrl && (
+              <WorkflowAssignmentModal currentWorkflowID={workflowID} />
+            )}
+          </Box>
 
-      <Box
-        align='center'
-        gap='medium'
-        pad={{ horizontal: 'small', vertical: 'medium' }}
-      >
-
-        <Box as='main' fill='horizontal'>
-          {!canClassify && appLoadingState === asyncStates.success && (
-            <WorkflowMenuModal
-              subjectSetFromUrl={subjectSetFromUrl}
-              workflowFromUrl={workflowFromUrl}
-              workflows={workflows}
-            />
-          )}
-          <Grid columns={responsiveColumns} gap='small'>
-            <ProjectName />
-            <ClassifierWrapper
-              cachePanoptesData={cachePanoptesData}
-              onAddToCollection={addToCollection}
-              onSubjectReset={onSubjectReset}
-              showTutorial={showTutorial}
-              {...classifierProps}
-            />
-            <ThemeModeToggle />
-          </Grid>
-          {workflowFromUrl &&
-            <WorkflowAssignmentModal currentWorkflowID={workflowID} />}
+          <Box as='aside' gap='medium' width={{ min: 'none', max: 'xxlarge' }}>
+            <FinishedForTheDay />
+            <Grid
+              alignContent='stretch'
+              columns={screenSize === 'small' ? ['auto'] : ['1fr', '2fr']}
+              gap='medium'
+            >
+              <YourStats />
+              <RecentSubjects size={screenSize === 'small' ? 1 : 3} />
+            </Grid>
+            <ProjectStatistics />
+            <ConnectWithProject />
+          </Box>
         </Box>
-
-        <Box as='aside' gap='medium' width={{ min: 'none', max: 'xxlarge' }}>
-          <FinishedForTheDay />
-          <Grid
-            alignContent='stretch'
-            columns={(screenSize === 'small') ? ['auto'] : ['1fr', '2fr']}
-            gap='medium'
-          >
-            <YourStats />
-            <RecentSubjects
-              size={(screenSize === 'small') ? 1 : 3}
-            />
-          </Grid>
-          <ProjectStatistics />
-          <ConnectWithProject />
-        </Box>
-
-      </Box>
-    </StandardLayout>
+      </StandardLayout>
+    </>
   )
 }
 

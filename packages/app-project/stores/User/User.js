@@ -1,5 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { applySnapshot, flow, types } from 'mobx-state-tree'
+import { applySnapshot, flow, getSnapshot, types } from 'mobx-state-tree'
 import auth from 'panoptes-client/lib/auth'
 
 import Collections from './Collections'
@@ -53,7 +53,10 @@ const User = types
     },
 
     set(user) {
+      const newUser = self.id !== user?.id
+      const { personalization } = getSnapshot(self)
       const userSnapshot = {
+        personalization,
         ...user,
         loadingState: asyncStates.success
       }
@@ -64,7 +67,7 @@ const User = types
         current_user_roles: 'owner,collaborator,contributor'
       })
       if (self.id) {
-        self.personalization.load()
+        self.personalization.load(newUser)
       }
     }
   }))

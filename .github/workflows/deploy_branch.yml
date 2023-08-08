@@ -34,10 +34,12 @@ jobs:
         tags: |
           ghcr.io/zooniverse/front-end-monorepo-branch:${{ github.sha }}
         build-args: |
-          APP_ENV=staging
+          APP_ENV=branch
           COMMIT_ID=${{ github.sha }}
+          GITHUB_REF_NAME=${{ github.ref_name }}
           CONTENTFUL_ACCESS_TOKEN=${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
           CONTENTFUL_SPACE_ID=${{ secrets.CONTENTFUL_SPACE_ID }}
+          SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
 
   deploy_branch:
     runs-on: ubuntu-latest
@@ -58,7 +60,7 @@ jobs:
 
     - name: Modify & apply template
       run: |
-        sed 's/__IMAGE_TAG__/${{ github.sha }}/g' kubernetes/deployment-branch.tmpl | kubectl apply -f -
+        sed 's/__IMAGE_TAG__/${{ github.sha }}/g ; s/__REF_NAME__/${{ github.ref_name }}/g' kubernetes/deployment-branch.tmpl | kubectl apply -f -
 
   slack_notification:
     name: Slack notification

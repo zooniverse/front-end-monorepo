@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, isValidReference, types } from 'mobx-state-tree'
+import { addDisposer, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
 
 const SubjectViewer = types
   .model('SubjectViewer', {
@@ -38,6 +38,15 @@ const SubjectViewer = types
   }))
 
   .views(self => ({
+    get disableImageToolbar () {
+      const subject = tryReference(() => getRoot(self).subjects?.active)
+      const frameType = subject?.locations[self.frame].type
+      if (frameType === 'text' || frameType === 'video') {
+        return true
+      }
+      return false
+    },
+    
     get interactionMode () {
       // Default interaction mode is 'annotate'
       return (!self.annotate && self.move) ? 'move' : 'annotate'

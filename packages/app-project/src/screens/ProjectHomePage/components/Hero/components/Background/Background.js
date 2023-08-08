@@ -15,8 +15,10 @@ const Img = styled.img`
   `}
 `
 
-function Background (props) {
-  const { backgroundSrc, theme } = props
+function Background ({
+  backgroundSrc,
+  theme
+}) {
   const breakpoint = theme.global.breakpoints.small.value
   return (
     <Img
@@ -41,6 +43,3 @@ Background.propTypes = {
 }
 
 export default withTheme(Background)
-export {
-  Background
-}

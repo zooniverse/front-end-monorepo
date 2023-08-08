@@ -18,7 +18,7 @@
     "deep-freeze": "~0.0.1"
   },
   "devDependencies": {
-    "@zooniverse/standard": "~1.0.0",
+    "@zooniverse/standard": "~2.0.0",
     "snazzy": "~9.0.0"
   },
   "peerDependencies": {

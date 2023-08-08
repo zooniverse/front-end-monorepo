@@ -41,7 +41,11 @@ describe('Model > ClassificationStore', function () {
     const clientSnapshot = stubPanoptesJs({ classifications: [], subjects: subjectsSnapshot })
     const store = RootStore.create(stores, {
       client: clientSnapshot,
-      authClient: { checkBearerToken: () => Promise.resolve(), checkCurrent: () => Promise.resolve() }
+      authClient: {
+        checkBearerToken: () => Promise.resolve(),
+        checkCurrent: () => Promise.resolve(),
+        listen: sinon.stub()
+      }
     })
     store.projects.setResources([projectSnapshot])
     store.projects.setActive(projectSnapshot.id)

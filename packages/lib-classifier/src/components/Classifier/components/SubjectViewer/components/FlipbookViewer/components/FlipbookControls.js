@@ -6,6 +6,7 @@ import {
   FormPrevious,
   FormDown
 } from 'grommet-icons'
+import debounce  from 'lodash/debounce'
 import PropTypes from 'prop-types'
 import { useEffect, useRef, useState } from 'react';
 import styled, { withTheme, css } from 'styled-components'
@@ -85,27 +86,27 @@ const FlipbookControls = ({
    */
   const [smallScreenStyle, setSmallScreenStyle] = useState(false)
   const controlsContainer = useRef(null)
-  const resizeObserver = useRef(null)
 
   useEffect(() => {
-    resizeObserver.current = new window.ResizeObserver((entries) => {
+    const debouncedObserver = debounce((entries) => {
       if (entries[0].contentRect.width < 500) {
         setSmallScreenStyle(true)
       } else {
         setSmallScreenStyle(false)
       }
-    })
+    }, 100)
 
-    if (controlsContainer.current) {
-      resizeObserver.current.observe(controlsContainer.current)
-    }
+    const containerElement = controlsContainer.current
+
+    const resizeObserver = new window.ResizeObserver(debouncedObserver)
+
+    resizeObserver.observe(containerElement)
 
     return () => {
-      if (controlsContainer.current) {
-        resizeObserver.current.unobserve(controlsContainer.current)
-      }
+      // Clean up: clear all current observers when the container element changes
+      resizeObserver.disconnect()
     }
-  }, [])
+  }, [controlsContainer.current])
 
   const handleKeyDown = (event) => {
     const index = currentFrame

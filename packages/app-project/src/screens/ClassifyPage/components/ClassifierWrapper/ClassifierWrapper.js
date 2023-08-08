@@ -2,6 +2,7 @@ import Classifier from '@zooniverse/classifier'
 import { useRouter } from 'next/router'
 import auth from 'panoptes-client/lib/auth'
 import { bool, func, string, shape } from 'prop-types'
+import { useCallback, useEffect, useState } from 'react'
 import asyncStates from '@zooniverse/async-states'
 
 import { useAdminMode } from '@hooks'
@@ -10,72 +11,99 @@ import logToSentry from '@helpers/logger/logToSentry.js'
 import ErrorMessage from './components/ErrorMessage'
 import Loader from '@shared/components/Loader'
 
+function onError(error, errorInfo={}) {
+  logToSentry(error, errorInfo)
+  console.error('Classifier error', error)
+}
+
+const DEFAULT_HANDLER = () => true
+
 /**
   A wrapper for the Classifier component. Responsible for handling:
   - classifier errors.
   - updates to project recents on classification complete.
-  - updates to stored favourites,when the classification subject is favourited.
+  - updates to stored favourites, when the classification subject is favourited.
   - updates to stored collections, when the classification subject is added to a collection.
+  - Passing locale to classifier
 */
 export default function ClassifierWrapper({
   authClient = auth,
   appLoadingState = asyncStates.initialized,
   cachePanoptesData = false,
-  collections,
+  collections = null,
   mode,
-  onAddToCollection = () => true,
-  onSubjectReset = () => true,
-  project,
-  recents,
-  router,
+  onAddToCollection = DEFAULT_HANDLER,
+  onSubjectReset = DEFAULT_HANDLER,
+  project = null,
+  recents = null,
+  router = null,
   showTutorial = false,
   subjectID,
   subjectSetID,
-  user,
+  user = null,
   userID,
   workflowID,
   yourStats
 }) {
+  const [classifierSubjectID, setClassifierSubjectID] = useState(subjectID)
   const { adminMode } = useAdminMode()
   const nextRouter = useRouter()
   router = router || nextRouter
   const locale = router?.locale
+  const ownerSlug = router?.query.owner
+  const projectSlug = router?.query.project
 
-  function onCompleteClassification(classification, subject) {
+  const incrementStats = yourStats?.increment
+  const addRecents = recents?.add
+  const onCompleteClassification = useCallback((classification, subject) => {
     const finishedSubject = subject.already_seen || subject.retired
     if (!finishedSubject) {
-      yourStats.increment()
+      incrementStats()
     }
-    recents.add({
+    addRecents({
       favorite: subject.favorite,
       subjectId: subject.id,
       locations: subject.locations
     })
+  }, [addRecents, incrementStats])
+
+  /*
+    If the page URL contains a subject ID, update that ID when the classification subject changes.
+    Subject page URLs can be either `/classify/workflow/{workflowID}/subject/{subjectID}`
+    or `/classify/workflow/{workflowID}/subject-set/{subjectSetID}/subject/{subjectID}`.
+  */
+  const replaceRoute = router.replace
+  let baseURL = `/${ownerSlug}/${projectSlug}/classify/workflow/${workflowID}`
+  if (subjectSetID) {
+    baseURL = `${baseURL}/subject-set/${subjectSetID}`
+  }
+  let subjectPageURL = null
+  let subjectRouteChanged = false
+  if (subjectID) {
+    subjectPageURL = `${baseURL}/subject/${classifierSubjectID}`
+    subjectRouteChanged = router?.query.subjectID !== classifierSubjectID
   }
 
-  function onError(error, errorInfo={}) {
-    logToSentry(error, errorInfo)
-    console.error('Classifier error', error)
-  }
-
-  function onSubjectChange(subject) {
-    const { query } = router
-    const baseURL = `/${query.owner}/${query.project}/classify`
-    if (query.subjectID && subject.id !== query.subjectID) {
-      const newSubjectRoute = `${baseURL}/workflow/${workflowID}/subject-set/${subjectSetID}/subject/${subject.id}`
-      const href = addQueryParams(newSubjectRoute)
+  useEffect(function updatePageURL() {
+    if (subjectPageURL && subjectRouteChanged) {
+      const href = addQueryParams(subjectPageURL)
       const as = href
-      router.replace(href, as, { shallow: true })
+      replaceRoute(href, as, { shallow: true })
     }
-  }
+  }, [replaceRoute, subjectPageURL, subjectRouteChanged])
 
-  function onToggleFavourite(subjectId, isFavourite) {
-    if (isFavourite) {
-      collections.addFavourites([subjectId])
-    } else {
-      collections.removeFavourites([subjectId])
-    }
-  }
+  /*
+    Track the current classification subject, when it changes inside the classifier.
+  */
+  const onSubjectChange = useCallback((subject) => {
+    setClassifierSubjectID(subject?.id)
+  }, [])
+
+  const addFavourites = collections?.addFavourites
+  const removeFavourites = collections?.removeFavourites
+  const onToggleFavourite = useCallback((subjectId, isFavourite) => {
+    return isFavourite ? addFavourites([subjectId]) : removeFavourites([subjectId])
+  }, [addFavourites, removeFavourites])
 
   const somethingWentWrong = appLoadingState === asyncStates.error
 

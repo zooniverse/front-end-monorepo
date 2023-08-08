@@ -1,12 +1,10 @@
 import { Box, Button, Grid, Heading, Paragraph, Text } from 'grommet'
-import Link from 'next/link'
 import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
 import { withResponsiveContext } from '@zooniverse/react-components'
 import { useTranslation } from 'next-i18next'
 
 import ProjectImage from './components/ProjectImage'
-// import RelatedProjects from './components/RelatedProjects'
 import ContentBox from '@shared/components/ContentBox'
 
 const StyledButton = styled(Button)`
@@ -21,7 +19,6 @@ const StyledBox = styled(Box)`
   max-width: 620px;
 `
 
-// TODO: Add `<RelatedProjects />` back in once API is up
 function FinishedForTheDay (props) {
   const {
     imageSrc,

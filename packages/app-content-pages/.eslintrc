@@ -1,3 +1,19 @@
 {
-  "extends": "next"
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "rules": {
+    "consistent-return": "error"
+  },
+  "overrides": [
+      {
+        "files": [
+          "src/**/*.stories.js"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ]
 }

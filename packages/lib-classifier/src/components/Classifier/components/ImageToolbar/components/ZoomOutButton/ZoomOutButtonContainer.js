@@ -6,36 +6,44 @@ import { useStores } from '@hooks'
 import ZoomOutButton from './ZoomOutButton'
 
 function storeMapper(classifierStore) {
-  const { separateFramesView, zoomOut } = classifierStore.subjectViewer
+  const {
+    disableImageToolbar,
+    zoomOut
+  } = classifierStore.subjectViewer
 
   return {
-    separateFramesView,
+    disabled: disableImageToolbar,
     zoomOut
   }
 }
 
-function ZoomOutButtonContainer({ separateFrameZoomOut = () => true }) {
-  const { separateFramesView, zoomOut } = useStores(storeMapper)
+function ZoomOutButtonContainer({ separateFrameZoomOut }) {
+  const { disabled, zoomOut } = useStores(storeMapper)
   const [timer, setTimer] = useState('')
+  const zoomCallback = separateFrameZoomOut || zoomOut
+
+  function onClick() {
+    clearInterval(timer)
+    zoomCallback()
+  }
 
   function onPointerDown(event) {
     const { currentTarget, pointerId } = event
-    zoomOut()
     clearInterval(timer)
-    const newTimer = setInterval(zoomOut, 100)
+    const newTimer = setInterval(zoomCallback, 100)
     setTimer(newTimer)
     currentTarget.setPointerCapture(pointerId)
   }
 
   function onPointerUp(event) {
     const { currentTarget, pointerId } = event
-    clearInterval(timer)
     currentTarget.releasePointerCapture(pointerId)
   }
 
   return (
     <ZoomOutButton
-      onClick={separateFramesView ? separateFrameZoomOut : zoomOut}
+      disabled={disabled}
+      onClick={onClick}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
     />

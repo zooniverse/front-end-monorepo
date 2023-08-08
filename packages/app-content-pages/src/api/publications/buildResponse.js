@@ -6,7 +6,7 @@ export default function buildResponse(publications, projectAvatarsMap) {
     // Draft items are returned in the Contentful response, but have no
     // fields, so we skip them.
     if (!publication.fields) {
-      return
+      return acc
     }
 
     const publicationData = {

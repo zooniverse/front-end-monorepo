@@ -3,7 +3,8 @@ require('dotenv').config()
 const { execSync } = require('child_process')
 const Dotenv = require('dotenv-webpack')
 const path = require('path')
-const withSourceMaps = require('@zeit/next-source-maps')()
+const { withSentryConfig } = require('@sentry/nextjs')
+const { i18n } = require('./next-i18next.config')
 
 const assetPrefixes = {}
 
@@ -46,12 +47,19 @@ const nextConfig = {
     forceSwcTransforms: true,
   },
 
+  /** localeDetection is a Next.js feature, while the rest of i18n config pertains to next-i18next */
+  i18n: {
+    localeDetection: false,
+    ...i18n
+  },
+
   reactStrictMode: true,
 
+  sentry: {
+    hideSourceMaps: true
+  },
+
   webpack: (config, options) => {
-    if (!options.isServer) {
-      config.resolve.alias['@sentry/node'] = '@sentry/browser'
-    }
     config.plugins.concat([
       new Dotenv({
         path: path.join(__dirname, '.env'),
@@ -59,11 +67,18 @@ const nextConfig = {
       })
     ])
 
-    const newAliases = webpackConfig.resolve.alias
-    const alias = Object.assign({}, config.resolve.alias, newAliases)
-    config.resolve = Object.assign({}, config.resolve, { alias })
+    config.resolve = {
+      ...config.resolve,
+      alias: {
+        ...config.resolve.alias,
+        ...webpackConfig.resolve.alias
+      }
+    }
     return config
   }
 }
 
-module.exports = withSourceMaps(nextConfig)
+module.exports = withSentryConfig(nextConfig, {
+  org: 'zooniverse-27',
+  project: 'fem-app-content-pages'
+})

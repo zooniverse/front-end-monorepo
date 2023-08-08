@@ -36,6 +36,36 @@ describe('Helpers > getStaticPageProps', function () {
     }
   }
 
+  const PROJECT_WITH_ORGANIZATION = {
+    id: '3',
+    primary_language: 'en',
+    slug: 'test-owner/test-project-with-organization',
+    links: {
+      active_workflows: ['1'],
+      organization: '1',
+      workflows: ['1', '2']
+    }
+  }
+
+  const PROJECT_WITH_NOT_LISTED_ORGANIZATION = {
+    id: '4',
+    primary_language: 'en',
+    slug: 'test-owner/test-project-with-not-listed-organization',
+    links: {
+      active_workflows: ['1'],
+      organization: '2',
+      workflows: ['1', '2']
+    }
+  }
+
+  const ORGANIZATION = {
+    id: '1',
+    display_name: 'Test Organization',
+    listed: true,
+    primary_language: 'en',
+    slug: 'test-owner/test-organization'
+  }
+
   const TRANSLATION = {
     translated_id: 1,
     language: 'en',
@@ -93,14 +123,53 @@ describe('Helpers > getStaticPageProps', function () {
         projects: [GROUPED_PROJECT]
       })
       .get('/projects')
+      .query(query => query.slug === 'test-owner/test-project-with-organization')
+      .reply(200, {
+        projects: [PROJECT_WITH_ORGANIZATION]
+      })
+      .get('/projects')
+      .query(query => query.slug === 'test-owner/test-project-with-not-listed-organization')
+      .reply(200, {
+        projects: [PROJECT_WITH_NOT_LISTED_ORGANIZATION]
+      })
+      .get('/projects')
       .query(query => query.slug === 'test-owner/test-wrong-project')
       .reply(200, {
         projects: []
+      })
+      .get('/organizations')
+      .query(query => query.id === '1')
+      .reply(200, {
+        organizations: [ORGANIZATION]
+      })
+      .get('/organizations')
+      .query(query => query.id === '2')
+      .replyWithError({
+        statusCode: 404,
+        message: 'Organization not found'
       })
       .get('/translations')
       .query(query => {
         return query.translated_type === 'project'
         && query.translated_id === '1'
+        && query.language === 'en'
+      })
+      .reply(200, {
+        translations: [TRANSLATION]
+      })
+      .get('/translations')
+      .query(query => {
+        return query.translated_type === 'project'
+        && query.translated_id === '3'
+        && query.language === 'en'
+      })
+      .reply(200, {
+        translations: [TRANSLATION]
+      })
+      .get('/translations')
+      .query(query => {
+        return query.translated_type === 'project'
+        && query.translated_id === '4'
         && query.language === 'en'
       })
       .reply(200, {
@@ -132,6 +201,13 @@ describe('Helpers > getStaticPageProps', function () {
       })
       .reply(200, {
         translations: [TRANSLATION, GROUPED_TRANSLATION]
+      })
+      .get('/translations')
+      .query(query => {
+        return query.translated_type === 'organization'
+      })
+      .reply(200, {
+        translations: [TRANSLATION]
       })
       .get('/workflows')
       .query(query => query.id === '1')
@@ -239,6 +315,42 @@ describe('Helpers > getStaticPageProps', function () {
 
       it('should return workflowID undefined', function () {
         expect(props.workflowID).to.be.undefined()
+      })
+    })
+
+    describe('with a valid project slug, linked listed organization', function () {
+      let props
+
+      before(async function () {
+        const params = {
+          panoptesEnv: 'staging',
+          owner: 'test-owner',
+          project: 'test-project-with-organization'
+        }
+        const response = await getStaticPageProps({ params })
+        props = response.props
+      })
+
+      it('should return the project\'s organization', async function () {
+        expect(props.organization).to.deep.equal({ ...ORGANIZATION, strings: { display_name: 'Foo' } })
+      })
+    })
+
+    describe('with a valid project slug, linked not listed organization', function () {
+      let props
+
+      before(async function () {
+        const params = {
+          panoptesEnv: 'staging',
+          owner: 'test-owner',
+          project: 'test-project-with-not-listed-organization'
+        }
+        const response = await getStaticPageProps({ params })
+        props = response.props
+      })
+
+      it('should not return the project\'s organization', async function () {
+        expect(props.organization).to.be.undefined()
       })
     })
 
@@ -372,6 +484,42 @@ describe('Helpers > getStaticPageProps', function () {
 
       it('should return workflowID undefined', function () {
         expect(props.workflowID).to.be.undefined()
+      })
+    })
+
+    describe('with a valid project slug, linked listed organization', function () {
+      let props
+
+      before(async function () {
+        const params = {
+          panoptesEnv: 'production',
+          owner: 'test-owner',
+          project: 'test-project-with-organization'
+        }
+        const response = await getStaticPageProps({ params })
+        props = response.props
+      })
+
+      it('should return the project\'s organization', async function () {
+        expect(props.organization).to.deep.equal({ ...ORGANIZATION, strings: { display_name: 'Foo' } })
+      })
+    })
+
+    describe('with a valid project slug, linked not listed organization', function () {
+      let props
+
+      before(async function () {
+        const params = {
+          panoptesEnv: 'production',
+          owner: 'test-owner',
+          project: 'test-project-with-not-listed-organization'
+        }
+        const response = await getStaticPageProps({ params })
+        props = response.props
+      })
+
+      it('should not return the project\'s organization', async function () {
+        expect(props.organization).to.be.undefined()
       })
     })
 

@@ -3,7 +3,8 @@ import { Box } from 'grommet'
 import InvertButton from './InvertButton'
 
 const args = {
-  active: false
+  active: false,
+  disabled: false,
 }
 
 export default {
@@ -17,10 +18,14 @@ export default {
   args
 }
 
-export function Default({ active, onClick }) {
+export function Default({ active, disabled, onClick }) {
   return (
     <Box width='72px' pad='12px'>
-      <InvertButton active={active} onClick={onClick} />
+      <InvertButton
+        active={active}
+        disabled={disabled}
+        onClick={onClick}
+      />
     </Box>
   )
 }

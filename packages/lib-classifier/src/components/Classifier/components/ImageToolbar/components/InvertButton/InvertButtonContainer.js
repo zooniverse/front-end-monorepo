@@ -7,9 +7,9 @@ import InvertButton from './InvertButton'
 function storeMapper (classifierStore) {
   const {
     subjectViewer: {
+      disableImageToolbar,
       invert,
-      invertView,
-      separateFramesView
+      invertView
     },
     workflows: {
       active: workflow
@@ -17,28 +17,36 @@ function storeMapper (classifierStore) {
   } = classifierStore
 
   const active = invert
-  const disabled = !workflow?.configuration?.invert_subject
+  const show = workflow?.configuration?.invert_subject
+  const disabled = disableImageToolbar
+
   return {
     active,
     disabled,
     invertView,
-    separateFramesView
+    show
   }
 }
 
-function InvertButtonContainer ({
-  separateFrameInvert
-}) {
-  const { active, disabled, invertView, separateFramesView } = useStores(storeMapper)
+function InvertButtonContainer ({ separateFrameInvert }) {
+  const {
+    active,
+    disabled,
+    invertView,
+    show
+  } = useStores(storeMapper)
 
-  if (disabled) {
+  const invertCallback = separateFrameInvert || invertView
+
+  if (!show) {
     return null
   }
 
   return (
     <InvertButton
       active={active}
-      onClick={separateFramesView ? separateFrameInvert : invertView}
+      disabled={disabled}
+      onClick={invertCallback}
     />
   )
 }

@@ -1,11 +1,10 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Box } from 'grommet'
 import { darken } from 'polished'
-import ScatterPlotViewer from './ScatterPlotViewer'
-import ScatterPlotViewerConnector from './ScatterPlotViewerConnector'
+import ScatterPlotViewer from './'
+import JSONDataViewer from '../JSONDataViewer'
 import { Provider } from 'mobx-react'
 
-import SubjectViewerStore from '@store/SubjectViewerStore'
 import mockStore from '@test/mockStore'
 import ImageToolbar from '../../../ImageToolbar'
 import {
@@ -13,7 +12,7 @@ import {
   randomSingleSeriesData
 } from './helpers/mockData'
 import { Factory } from 'rosie'
-import readme from './README.md'
+// import readme from './README.md'
 
 const { data } = randomSingleSeriesData
 
@@ -46,6 +45,32 @@ const superWaspSubject = Factory.build('subject', {
   ]
 })
 
+const dataSelectionWorkflow = Factory.build('workflow', {
+  tasks: {
+    T0: {
+      help: "",
+      instruction: "If you spot a transit? If so, mark it!",
+      required: false,
+      tools: [
+        {
+          type: "graph2dRangeX",
+          label: "Transit?"
+        },
+        {
+          type: "graph2dRangeX",
+          label: "Something else"
+        }
+      ],
+      type: "dataVisAnnotation"
+    },
+    T1: {
+      help: "",
+      question: "Is there anything else to note?",
+      answers: ['yes', 'no'],
+      type: "single"
+    },
+  }
+})
 
 function ViewerContext({
   store = storeWithTransientSubject,
@@ -56,20 +81,13 @@ function ViewerContext({
 
 export default {
   title: 'Subject Viewers / ScatterPlotViewer',
-  component: ScatterPlotViewer,
-  parameters: {
-    docs: {
-      description: {
-        component: readme
-      }
-    }
-  }
+  component: ScatterPlotViewer
 }
 
-export function Default() {
+export function Default(props) {
   return (
     <Box height='medium' width='large'>
-      <ScatterPlotViewer data={data} xAxisLabel='x-axis' yAxisLabel='y-axis' />
+      <ScatterPlotViewer {...props} data={data} xAxisLabel='x-axis' yAxisLabel='y-axis' />
     </Box>
   )
 }
@@ -88,7 +106,7 @@ NarrowView.parameters = {
   }
 }
 
-export function ErrorBars() {
+export function ErrorBars(props) {
   function constructData() {
     return [...Array(60)].map((number, index) => {
       const coords = {
@@ -115,6 +133,7 @@ export function ErrorBars() {
     <ViewerContext>
       <Box direction='row' height='medium' width='large'>
         <ScatterPlotViewer
+          {...props}
           data={data}
           panning
           setOnZoom={setZoomCallback}
@@ -134,26 +153,44 @@ export function ErrorBars() {
   )
 }
 
-export function KeplerLightCurve() {
+export function KeplerLightCurve(props) {
+  const tessChartOptions = {
+    axisColor: colors['light-1'],
+    backgroundColor: darken(0.08, colors['neutral-1']),
+    color: colors['light-1'],
+    margin: {
+      bottom: 10,
+      left: 10,
+      right: 10,
+      top: 10
+    },
+    padding: {
+      bottom: 30,
+      left: 30,
+      right: 0,
+      top: 0
+    },
+    tickDirection: 'inner',
+    xAxisLabel: 'Days',
+    yAxisLabel: 'Brightness',
+    zoomConfiguration: {
+      direction: 'x',
+      minZoom: 1,
+      maxZoom: 10,
+      zoomInValue: 1.2,
+      zoomOutValue: 0.8
+    }
+  }
   return (
     <Box height='medium' width='large'>
       <ScatterPlotViewer
-        axisColor={colors['light-1']}
-        backgroundColor={darken(0.08, colors['neutral-1'])}
+        {...props}
         data={keplerMockDataWithOptions.data}
-        glyphColors={[colors['light-1']]}
+        {...tessChartOptions}
         margin={keplerMockDataWithOptions.chartOptions.margin}
         padding={keplerMockDataWithOptions.chartOptions.padding}
-        tickDirection='inner'
         xAxisLabel={keplerMockDataWithOptions.chartOptions.xAxisLabel}
         yAxisLabel={keplerMockDataWithOptions.chartOptions.yAxisLabel}
-        zoomConfiguration={{
-          direction: 'both',
-          minZoom: 1,
-          maxZoom: 10,
-          zoomInValue: 1.2,
-          zoomOutValue: 0.8
-        }}
       />
     </Box>
   )
@@ -163,7 +200,7 @@ export function PanAndZoom() {
   return (
     <ViewerContext>
       <Box direction='row' height='medium' width='large'>
-        <ScatterPlotViewerConnector
+        <JSONDataViewer
           zoomConfiguration={{
             direction: 'both',
             minZoom: 1,
@@ -182,18 +219,21 @@ export function MultipleSeries() {
   return (
     <ViewerContext>
       <Box direction='row' height='medium' width='large'>
-        <ScatterPlotViewerConnector />
+        <JSONDataViewer />
         <ImageToolbar width='4rem' />
       </Box>
     </ViewerContext>
   )
 }
 
-export function XRangeSelection() {
+export function XRangeSelection({ activeToolIndex = 0, activeStep = 'S1' }) {
+  XRangeSelection.store.workflowSteps.selectStep(activeStep)
+  const [task] = XRangeSelection.store.workflowSteps.active.tasks
+  task.setActiveTool?.(activeToolIndex)
   return (
     <ViewerContext store={XRangeSelection.store}>
       <Box direction='row' height='medium' width='large'>
-        <ScatterPlotViewerConnector
+        <JSONDataViewer
           experimentalSelectionTool
           zoomConfiguration={{
             direction: 'x',
@@ -208,20 +248,64 @@ export function XRangeSelection() {
     </ViewerContext>
   )
 }
-XRangeSelection.store = mockStore({ subject: superWaspSubject })
+XRangeSelection.store = mockStore({
+  subject: superWaspSubject,
+  workflow: dataSelectionWorkflow
+})
+XRangeSelection.argTypes = {
+  activeToolIndex: {
+    options: [0, 1],
+    control: {
+      type: 'select',
+      labels: {
+        0: 'Transit?',
+        1: 'Something else?'
+      }
+    }
+  },
+  activeStep: {
+    options: ['S1', 'S2'],
+    control: {
+      type: 'select',
+      labels: {
+        S1: 'Select data',
+        S2: 'Answer a question'
+      }
+    }
+  }
+}
 
 export function SelectedXRanges() {
-  const initialSelections = [
-    { x0: 95, x1: 101 },
-    { x0: 114, x1: 118 }
-  ]
+  const [task] = SelectedXRanges.store.workflowSteps.findTasksByType('dataVisAnnotation')
+  SelectedXRanges.store.classifications.addAnnotation(task, [
+    {
+      tool: 0,
+      toolType: 'graph2dRangeX',
+      x: 98,
+      width: 6,
+      zoomLevelOnCreation: 0
+    },
+    {
+      tool: 0,
+      toolType: 'graph2dRangeX',
+      x: 110,
+      width: 6,
+      zoomLevelOnCreation: 0
+    },
+    {
+      tool: 1,
+      toolType: 'graph2dRangeX',
+      x: 116,
+      width: 4,
+      zoomLevelOnCreation: 0
+    }
+  ])
   return (
     <ViewerContext store={SelectedXRanges.store}>
       <Box direction='row' height='medium' width='large'>
-        <ScatterPlotViewerConnector
+        <JSONDataViewer
           disabled
           experimentalSelectionTool
-          initialSelections={initialSelections}
           zoomConfiguration={{
             direction: 'x',
             minZoom: 1,
@@ -235,4 +319,7 @@ export function SelectedXRanges() {
     </ViewerContext>
   )
 }
-SelectedXRanges.store = mockStore({ subject: superWaspSubject })
+SelectedXRanges.store = mockStore({
+  subject: superWaspSubject,
+  workflow: dataSelectionWorkflow
+})

@@ -21,7 +21,7 @@ const subject = Factory.build('subject', {
 const lasairSubject = Factory.build('subject', {
   locations: [
     {
-      'application/json': 'https://panoptes-uploads.zooniverse.org/subject_location/718e46ec-c752-436f-9bb6-b6fdf6ba7bc7.json'
+      'application/json': 'https://panoptes-uploads.zooniverse.org/subject_location/ede79cbf-5b44-453a-8e5b-49dea5cf510b.json'
     },
     { 'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/67b54e54-8ca9-4cb7-a4fb-2417b5bfc82a.jpeg' }
   ]

@@ -1,21 +1,13 @@
 import PropTypes from 'prop-types'
-import styled, { withTheme } from 'styled-components'
+import styled from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 
-const defaultTheme = {
-  dark: false,
-  global: {
-    colors: {
-      text: {}
-    }
-  }
-}
-
-const StyledSpan = styled.span`
+const StyledMark = styled.mark`
   background-color: ${props => props.color};
   border-radius: 8px;
-  color: ${props => props.theme.global.colors.text.light};
-  padding: .1em .4em .2em;
+  color: black;
+  margin-right: .2em;
+  padding: .1em .3em;
 `
 
 const StyledDeleteButton = styled.button`
@@ -36,8 +28,8 @@ function DEFAULT_HANDLER() {
 function Selection ({
   color,
   handleDelete = DEFAULT_HANDLER,
-  text,
-  theme = defaultTheme
+  label,
+  text
 }) {
   const { t } = useTranslation('plugins')
 
@@ -49,12 +41,12 @@ function Selection ({
   }
 
   return (
-    <StyledSpan
+    <StyledMark
+      aria-label={`${label}: ${text}`}
       data-selection={text}
       color={color}
       onKeyDown={onKeyDown}
       tabIndex='0'
-      theme={theme}
     >
       {text}
       {' '}
@@ -65,14 +57,15 @@ function Selection ({
       >
         &times;
       </StyledDeleteButton>
-    </StyledSpan>
+    </StyledMark>
   )
 }
 
 Selection.propTypes = {
   color: PropTypes.string.isRequired,
   handleDelete: PropTypes.func,
+  label: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired
 }
 
-export default withTheme(Selection)
+export default Selection

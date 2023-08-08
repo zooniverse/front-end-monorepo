@@ -6,6 +6,7 @@ function Announcements () {
   return (
     <>
       <AuthenticationInvitation />
+      <FinishedAnnouncement />
       <ProjectAnnouncement />
     </>
   )

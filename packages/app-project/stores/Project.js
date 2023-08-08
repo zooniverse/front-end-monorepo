@@ -3,6 +3,8 @@ import { getRoot, types } from 'mobx-state-tree'
 
 import numberString from './types/numberString'
 
+const TranslationStrings = types.map(types.maybeNull(types.string))
+
 const Project = types
   .model('Project', {
     about_pages: types.frozen([]),
@@ -25,7 +27,7 @@ const Project = types
     owners: types.frozen([]),
     retired_subjects_count: types.optional(types.number, 0),
     slug: types.optional(types.string, ''),
-    strings: types.frozen({}),
+    strings: TranslationStrings,
     subjects_count: types.optional(types.number, 0),
     urls: types.frozen([])
   })
@@ -45,19 +47,23 @@ const Project = types
     },
 
     get description () {
-      return self.strings?.description
+      return self.strings.get('description')
     },
 
     get display_name () {
-      return self.strings?.display_name
+      return self.strings.get('display_name')
     },
 
     get displayName () {
       return self.display_name
     },
 
+    get hasResultsPage () {
+      return !!self.about_pages.find(page => page.url_key === 'results')
+    },
+
     get introduction () {
-      return self.strings?.introduction
+      return self.strings.get('introduction')
     },
 
     get isComplete () {
@@ -69,15 +75,15 @@ const Project = types
     },
 
     get researcher_quote () {
-      return self.strings?.researcher_quote
+      return self.strings.get('researcher_quote')
     },
 
     get title () {
-      return self.strings?.title
+      return self.strings.get('title')
     },
 
     get workflow_description () {
-      return self.strings?.workflow_description
+      return self.strings.get('workflow_description')
     },
 
     workflowIsActive(workflowId) {

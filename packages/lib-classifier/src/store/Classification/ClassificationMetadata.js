@@ -1,4 +1,5 @@
-import { types } from 'mobx-state-tree'
+import { autorun } from 'mobx'
+import { addDisposer, getRoot, types } from 'mobx-state-tree'
 
 const ClassificationMetadata = types.model('ClassificationMetadata', {
   classifier_version: types.literal('2.0'),
@@ -33,14 +34,23 @@ const ClassificationMetadata = types.model('ClassificationMetadata', {
   workflowVersion: types.string
 })
   .actions(self => ({
+    afterAttach() {
+      function _onLocaleChange() {
+        self.update({
+          userLanguage: getRoot(self)?.locale
+        })
+      }
+      addDisposer(self, autorun(_onLocaleChange))
+    },
+
     afterCreate() {
       const now = new Date()
       self.startedAt = now.toISOString()
     },
 
     update(newMetadata) {
-      Object.keys(newMetadata).forEach(key => {
-        self[key] = newMetadata[key]
+      Object.entries(newMetadata).forEach(([key, value]) => {
+        self[key] = value
       })
     }
   }))

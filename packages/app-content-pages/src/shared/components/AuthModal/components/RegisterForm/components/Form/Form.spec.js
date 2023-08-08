@@ -1,6 +1,6 @@
 import { mount, shallow } from 'enzyme'
 import sinon from 'sinon'
-import { CheckBox, Grommet, TextInput, Text } from 'grommet'
+import { CheckBox, Grommet, TextInput } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
 import {
   userNameFieldId,
@@ -15,7 +15,6 @@ import {
   underageWithParentFieldId,
   Form
 } from './Form'
-import en from '../../locales/en'
 
 describe('RegisterForm > Component > Form', function () {
   const shallowOptions = { wrappingComponent: <Grommet />, wrappingComponentProps: { theme: zooTheme } }
@@ -218,11 +217,10 @@ describe('RegisterForm > Component > Form', function () {
         <Form />,
         shallowOptions
       )
-
-      expect(wrapper.find({ htmlFor: userNameFieldId }).props().help).equal(en.RegisterForm.usernameHelp)
-      expect(wrapper.find({ id: privacyAgreementFieldId }).props().label.props.children[0]).equal(en.RegisterForm.privacyAgreement)
-      expect(wrapper.find({ id: emailListSignUpFieldId }).props().label.props.children).equal(en.RegisterForm.emailListSignUp)
-      expect(wrapper.find({ htmlFor: emailFieldId }).props().label.props.children).equal(en.RegisterForm.email)
+      expect(wrapper.find({ htmlFor: userNameFieldId }).props().help).equal('This will be shown publicly on message boards, etc.')
+      expect(wrapper.find({ id: privacyAgreementFieldId }).props().label.props.children[0]).equal('You agree to our privacy policy (required)')
+      expect(wrapper.find({ id: emailListSignUpFieldId }).props().label.props.children).equal(`It's ok to send me an email every once in a while (optional)`)
+      expect(wrapper.find({ htmlFor: emailFieldId }).props().label.props.children).equal('Email Address (Required)')
     })
 
     it('should show field labels for under 16 registrants when the checkbox is checked', function () {
@@ -232,10 +230,10 @@ describe('RegisterForm > Component > Form', function () {
       )
       wrapper.setProps({ values: { underageWithParent: true } })
 
-      expect(wrapper.find({ htmlFor: userNameFieldId }).props().help).equal(en.RegisterForm.underageNotRealName)
-      expect(wrapper.find({ id: privacyAgreementFieldId }).props().label.props.children[0]).equal(en.RegisterForm.underageConsent)
-      expect(wrapper.find({ id: emailListSignUpFieldId }).props().label.props.children).equal(en.RegisterForm.underageEmailSignUp)
-      expect(wrapper.find({ htmlFor: emailFieldId }).props().label.props.children).equal(en.RegisterForm.underageEmail)
+      expect(wrapper.find({ htmlFor: userNameFieldId }).props().help).equal('You’ll use this name to log in. It will be shown publicly. Don’t use your real name.')
+      expect(wrapper.find({ id: privacyAgreementFieldId }).props().label.props.children[0]).equal('I confirm I am the parent/guardian and give permission for my child to register by providing my email address as the main contact address. Both I and my child understand and agree to the privacy policy (required)')
+      expect(wrapper.find({ id: emailListSignUpFieldId }).props().label.props.children).equal('If you agree, we will periodically send email promoting new research-related projects or other information relating to our research. We will not use your contact information for commercial purposes. (optional)')
+      expect(wrapper.find({ htmlFor: emailFieldId }).props().label.props.children).equal('Parent/Guardian’s email address (Required)')
     })
   })
 

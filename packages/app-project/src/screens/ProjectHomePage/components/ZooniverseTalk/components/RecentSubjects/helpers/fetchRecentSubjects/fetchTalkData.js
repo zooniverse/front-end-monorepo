@@ -1,4 +1,4 @@
-import { panoptes } from '@zooniverse/panoptes-js'
+import { talkAPI } from '@zooniverse/panoptes-js'
 
 async function fetchTalkData (projectId) {
   const query = {
@@ -8,7 +8,7 @@ async function fetchTalkData (projectId) {
     sort: '-created_at'
   }
 
-  return panoptes.get('/comments', query, {}, process.env.TALK_HOST)
+  return talkAPI.get('/comments', query)
     .then(response => response.body.comments)
 }
 

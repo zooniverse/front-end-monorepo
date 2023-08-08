@@ -20,8 +20,12 @@ const StyledButton = styled(GrommetButton)`
     // similar to padding of Image Toolbar
   }
 
-  &:hover,
-  &:focus {
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled),
+  &:focus:not(:disabled) {
     ${props => props.theme.dark
         ? css`background-color: ${props.theme.global.colors['neutral-1']};`
         : css`background-color: ${props.theme.global.colors['accent-1']};`}

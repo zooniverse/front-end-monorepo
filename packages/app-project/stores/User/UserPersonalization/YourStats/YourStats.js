@@ -24,6 +24,11 @@ const Count = types
     dayNumber: types.number,
     period: types.string
   })
+  .actions(self => ({
+    increment() {
+      self.count = self.count + 1
+    }
+  }))
 
 const YourStats = types
   .model('YourStats', {

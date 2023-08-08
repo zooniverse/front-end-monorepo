@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import { DataImageViewer } from './DataImageViewer'
-import { ScatterPlotViewer } from '../ScatterPlotViewer'
+import ScatterPlotViewer from '../ScatterPlotViewer'
 import { SingleImageViewerContainer } from '../SingleImageViewer'
 import kepler from '../../helpers/mockLightCurves/kepler'
 

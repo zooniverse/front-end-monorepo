@@ -77,11 +77,18 @@ const RootStore = types
       }
     }
 
+    async function _onUserChange() {
+      await self.authClient?.checkCurrent()
+      window.sessionStorage.removeItem('subjectsSeenThisSession')
+      self.subjects.reset()
+    }
+
     // Public actions
     function afterCreate () {
       addMiddleware(self, _addMiddleware)
       onAction(self, _onAction)
       onPatch(self, _onPatch)
+      self.authClient?.listen('change', _onUserChange)
     }
 
     function setLocale (newLocale) {

@@ -79,9 +79,10 @@ export default class MyDocument extends Document {
           {isProduction && (
             <script dangerouslySetInnerHTML={{ __html: GA_TRACKING_SCRIPT }} />
           )}
+          { /* https://docs.sentry.io/platforms/javascript/install/loader/#default-bundle */ }
           <script
-            src="https://browser.sentry-cdn.com/7.52.1/bundle.tracing.min.js"
-            integrity="sha384-muuFXKS3752PNA4rPm9Uq6BLvOfV4CXyr9MHDBPvozOJJUWLKkogEFWOIRoVps43"
+            src="https://browser.sentry-cdn.com/7.61.1/bundle.tracing.min.js"
+            integrity="sha384-ydXa7obxXWQDE/mWziFdruSnA3b967Erh46coUrqNPndnapk1MjhUAp2k79SxDmO"
             crossorigin="anonymous"
             defer
             id='sentryScript'
@@ -91,6 +92,7 @@ export default class MyDocument extends Document {
           {isProduction && (
             <noscript>
               <iframe
+                title='Google Tag Manager'
                 height='0'
                 src={`https://www.googletagmanager.com/ns.html?id=${GA_TRACKING_ID}`}
                 style={{ display: 'none', visibility: 'hidden' }}
