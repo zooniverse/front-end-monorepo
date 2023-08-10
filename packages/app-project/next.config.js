@@ -6,6 +6,9 @@ const { execSync } = require('child_process')
 const path = require('path')
 const { withSentryConfig } = require('@sentry/nextjs')
 const { i18n } = require('./next-i18next.config')
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
 
 const assetPrefixes = {}
 
@@ -107,7 +110,7 @@ const nextConfig = {
   }
 }
 
-module.exports = withSentryConfig(nextConfig, {
+module.exports = withSentryConfig(withBundleAnalyzer(nextConfig), {
   org: 'zooniverse-27',
   project: 'fem-app-project'
 })
