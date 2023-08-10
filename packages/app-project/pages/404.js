@@ -17,6 +17,10 @@ const Overlay = styled(Box)`
   z-index: 2;
 `
 
+const PageContent = styled(Box)`
+  z-index: 3;
+`
+
 export default function Error404({ project404Fragment = '', staticAssetsPrefix = '' }) {
   const randomImage = Math.round(Math.random() * 8) + 1 // 1-9
   const backgroundURL = `${staticAssetsPrefix}/projects/assets/background${randomImage}.png`
@@ -37,7 +41,7 @@ export default function Error404({ project404Fragment = '', staticAssetsPrefix =
           height="50vh"
           justify="center"
         />
-        <Box
+        <PageContent
           height="44px"
           alignContent="center"
           justify="center"
@@ -49,7 +53,7 @@ export default function Error404({ project404Fragment = '', staticAssetsPrefix =
             alt="404"
             src={`${staticAssetsPrefix}/projects/assets/logoWhite404.png`}
           />
-        </Box>
+        </PageContent>
         {project404Fragment}
       </ContainerBox>
       <ZooFooter />
