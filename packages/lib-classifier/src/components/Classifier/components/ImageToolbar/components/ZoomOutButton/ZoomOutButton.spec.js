@@ -57,6 +57,6 @@ describe('Component > ZoomOutButton', function () {
 
     await user.click(screen.getByRole('button', { name: 'ImageToolbar.ZoomOutButton.ariaLabel' }))
 
-    expect(zoomSpy).to.have.been.calledWith("zoomout", -1)
+    expect(zoomSpy).to.have.been.calledOnceWith("zoomout", -1)
   })
 })

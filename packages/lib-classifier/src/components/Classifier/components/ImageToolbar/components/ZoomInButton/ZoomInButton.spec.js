@@ -57,6 +57,6 @@ describe('Component > ZoomInButton', function () {
 
     await user.click(screen.getByRole('button', { name: 'ImageToolbar.ZoomInButton.ariaLabel' }))
 
-    expect(zoomSpy).to.have.been.calledWith("zoomin", 1)
+    expect(zoomSpy).to.have.been.calledOnceWith("zoomin", 1)
   })
 })

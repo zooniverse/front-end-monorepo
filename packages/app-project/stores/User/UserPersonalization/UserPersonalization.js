@@ -10,24 +10,12 @@ const UserPersonalization = types
   .model('UserPersonalization', {
     notifications: types.optional(Notifications, {}),
     projectPreferences: types.optional(UserProjectPreferences, {}),
+    sessionCount: types.optional(types.number, 0),
     stats: types.optional(YourStats, {})
   })
-  .volatile(self => ({
-    sessionCount: 0
-  }))
   .views(self => ({
     get counts() {
-      const todaysDate = new Date()
-      let todaysCount = 0
-      try {
-        if (self.stats.thisWeek.length === 7) {
-          const todaysStats = self.stats.thisWeek.find(stat => stat.dayNumber === todaysDate.getDay())
-          todaysCount = todaysStats.count
-        }
-      } catch (error) {
-        todaysCount = 0
-      }
-      const today = todaysCount + self.sessionCount
+      const today = self.todaysCount
 
       return {
         today,
@@ -39,9 +27,26 @@ const UserPersonalization = types
       return self.sessionCount % 5 === 0
     },
 
+    get todaysCount() {
+      let todaysCount = 0
+      try {
+        todaysCount = self.todaysStats.count
+      } catch (error) {
+        todaysCount = self.sessionCount
+      }
+      return todaysCount
+    },
+
+    get todaysStats() {
+      const todaysDate = new Date()
+      if (self.stats.thisWeek.length === 7) {
+        return self.stats.thisWeek.find(stat => stat.dayNumber === todaysDate.getDay())
+      }
+      return null
+    },
+
     get totalClassificationCount() {
-      const activityCount = self.projectPreferences?.activity_count || 0
-      return  activityCount + self.sessionCount
+      return self.projectPreferences?.activity_count || 0
     }
   }))
   .actions(self => {
@@ -59,7 +64,8 @@ const UserPersonalization = types
 
       increment() {
         self.sessionCount = self.sessionCount + 1
-
+        self.todaysStats?.increment()
+        self.projectPreferences?.incrementActivityCount()
         const { user } = getRoot(self)
         if (user?.id && self.sessionCountIsDivisibleByFive) {
           self.projectPreferences.refreshSettings()
@@ -68,8 +74,8 @@ const UserPersonalization = types
 
       load(newUser = true) {
         self.notifications.fetchAndSubscribe()
-        self.stats.fetchDailyCounts()
         if (newUser) {
+          self.stats.fetchDailyCounts()
           self.projectPreferences.fetchResource()
         } else {
           self.projectPreferences.refreshSettings()

@@ -14,6 +14,11 @@ services:
     image: front-end-monorepo_prod:latest
     build:
       context: ./
+      args:
+        - NODE_ENV=production
+        - PANOPTES_ENV=production
+        - NEXT_TELEMETRY_DISABLED=1
+        - APP_ENV=development
     entrypoint:
       - "yarn"
       - "workspace"
@@ -21,17 +26,17 @@ services:
     command: ["start"]
     environment:
       - PORT=3000
-      - PROJECT_ASSET_PREFIX=http://localhost:3000/projects
-      - NODE_ENV=production
-      - PANOPTES_ENV=production
-      - NEXT_TELEMETRY_DISABLED=1
-      - APP_ENV=development
     ports:
       - "3000:3000"
   fe-content:
     image: front-end-monorepo_prod:latest
     build:
       context: ./
+      args:
+        - NODE_ENV=production
+        - PANOPTES_ENV=production
+        - NEXT_TELEMETRY_DISABLED=1
+        - APP_ENV=development
     entrypoint:
       - "yarn"
       - "workspace"
@@ -39,11 +44,6 @@ services:
     command: ["start"]
     environment:
       - PORT=3000
-      - CONTENT_ASSET_PREFIX=http://localhost:3001/about
-      - NODE_ENV=production
-      - PANOPTES_ENV=production
-      - NEXT_TELEMETRY_DISABLED=1
-      - APP_ENV=development
     ports:
       - "3001:3000"
 
