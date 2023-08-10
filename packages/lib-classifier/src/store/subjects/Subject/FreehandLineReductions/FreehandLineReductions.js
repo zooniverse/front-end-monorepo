@@ -15,29 +15,31 @@ const FreehandLineReductions = types
   }))
   .views(self => {
     return {
-      findCurrentTaskMark({ stepKey, tasks, frame }) {
+      findCurrentTaskMarks({ stepKey, tasks, frame }) {
         if (stepKey === undefined || tasks === undefined || frame === undefined) {
           return
         }
 
-        let caesarMark;
+        let caesarMarks = [];
 
         self.reductions.forEach(reduction => {
-          let { data } = reduction
-          let task = tasks[data.taskIndex]
-          let tool = task.tools[data.toolIndex]
+          let { data } = reduction.data   // Caesar expects data attribute to be an object
+          data.forEach(datum => {
+            let task = tasks[datum.taskIndex]
+            let tool = task.tools[datum.toolIndex]
 
-          if (data.frame === frame
-            && data.stepKey === stepKey
-            && data.taskKey === task.taskKey
-            && data.taskType === task.type
-            && data.toolType === tool.type
-          ) {
-            caesarMark = data
-          }
+            if (datum.frame === frame
+              && datum.stepKey === stepKey
+              && datum.taskKey === task.taskKey
+              && datum.taskType === task.type
+              && datum.toolType === tool.type
+            ) {
+              caesarMarks.push(datum)
+            }
+          })
         })
 
-        return caesarMark
+        return caesarMarks
       }
     }
   })

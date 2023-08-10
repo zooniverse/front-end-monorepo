@@ -19,20 +19,28 @@ export default function useFreehandLineReductions() {
   const { loaded, caesarReductions } = useCaesarReductions(workflow.caesarReducer)
 
   if (loaded && getType(caesarReductions).name === 'FreehandLineReductions') {
-    const caesarMark = caesarReductions.findCurrentTaskMark({
+    const caesarMarks = caesarReductions.findCurrentTaskMarks({
       stepKey: step.stepKey,
       tasks: step.tasks,
       frame,
     })
 
-    if (caesarMark) {
-      const { frame, markId: id, taskIndex, toolIndex, pathX, pathY } = caesarMark
-      const task = step?.tasks[taskIndex]
-      const tool = task?.tools[toolIndex]
+    if (caesarMarks) {
+      let marksUsed = false;
 
-      if (tool && !tool.marks.has(id) && caesarReductions.isUsed === false) {
+      caesarMarks.forEach(caesarMark => {
+        const { frame, markId: id, taskIndex, toolIndex, pathX, pathY } = caesarMark
+        const task = step?.tasks[taskIndex]
+        const tool = task?.tools[toolIndex]
+
+        if (tool && !tool.marks.has(id) && caesarReductions.isUsed === false) {
+          marksUsed = true;
+          tool.createMark({ frame, id, toolIndex, pathX, pathY })
+        }
+      })
+
+      if (marksUsed) {
         caesarReductions.setIsUsed()
-        tool.createMark({ frame, id, toolIndex, pathX, pathY })
       }
     }
   }
