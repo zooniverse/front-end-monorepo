@@ -37,11 +37,22 @@ const VIDEO = {
   ]
 }
 
+const TEXT_SUBJECT = {
+  favorite: false,
+  id: '123',
+  locations: [
+    {
+      'text/plain':
+        'https://panoptes-uploads.zooniverse.org/subject_location/f5506d1c-a0e9-4aba-a418-6a6c46a7731a.txt'
+    },
+  ]
+}
+
 function toggle() {
   this.favorite = !this.favorite
 }
 
-;[GIRAFFE, PORTRAIT_PAGE, VIDEO].forEach(subject => {
+;[GIRAFFE, PORTRAIT_PAGE, VIDEO, TEXT_SUBJECT].forEach(subject => {
   subject.toggleFavourite = toggle.bind(subject)
 })
 
@@ -128,5 +139,27 @@ export function Video({ isLoggedIn, subject, slug }) {
 Video.args = {
   isLoggedIn: true,
   subject: VIDEO,
+  slug: 'zooniverse/snapshot-serengeti'
+}
+
+export function Text({ isLoggedIn, subject, slug }) {
+  return (
+    <Provider store={store}>
+      <Box height='medium' pad='medium' width='medium'>
+        <SubjectPreview
+          height='200px'
+          isLoggedIn={isLoggedIn}
+          subject={subject}
+          slug={slug}
+          width='270px'
+        />
+      </Box>
+    </Provider>
+  )
+}
+
+Text.args = {
+  isLoggedIn: true,
+  subject: TEXT_SUBJECT,
   slug: 'zooniverse/snapshot-serengeti'
 }
