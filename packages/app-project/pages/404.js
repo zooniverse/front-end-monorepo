@@ -1,5 +1,6 @@
 import { ZooHeader, ZooFooter } from '@zooniverse/react-components'
 import { Box, Image } from 'grommet'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import styled from 'styled-components'
 
 const ContainerBox = styled(Box)`
@@ -21,13 +22,23 @@ const PageContent = styled(Box)`
   z-index: 3;
 `
 
-export default function Error404({ project404Fragment = '', staticAssetsPrefix = '' }) {
+export async function getStaticProps({ locale }) {
+  const translations = await serverSideTranslations(locale, ['components', 'screens'])
+  return {
+    props: {
+      locale,
+      ...translations
+    }
+  }
+}
+
+export default function Error404({ locale = 'en', project404Fragment = '', staticAssetsPrefix = '' }) {
   const randomImage = Math.round(Math.random() * 8) + 1 // 1-9
   const backgroundURL = `${staticAssetsPrefix}/projects/assets/background${randomImage}.png`
   
   return (
     <>
-      <ZooHeader />
+      <ZooHeader locale={locale} />
       <ContainerBox
         width="100%"
         height="50vh"
@@ -56,7 +67,7 @@ export default function Error404({ project404Fragment = '', staticAssetsPrefix =
         </PageContent>
         {project404Fragment}
       </ContainerBox>
-      <ZooFooter />
+      <ZooFooter locale={locale} />
     </>
   )
 }
