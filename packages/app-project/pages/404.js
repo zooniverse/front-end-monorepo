@@ -1,7 +1,9 @@
-import { ZooHeader, ZooFooter } from '@zooniverse/react-components'
+import { ZooFooter } from '@zooniverse/react-components'
 import { Box, Image } from 'grommet'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import styled from 'styled-components'
+
+import { ZooHeaderWrapper } from '@components'
 
 const ContainerBox = styled(Box)`
   position: relative;
@@ -38,7 +40,7 @@ export default function Error404({ locale = 'en', project404Fragment = '', stati
   
   return (
     <>
-      <ZooHeader locale={locale} />
+      <ZooHeaderWrapper locale={locale} />
       <ContainerBox
         width="100%"
         height="50vh"
