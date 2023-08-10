@@ -1,6 +1,6 @@
 # Zooniverse Grommet Theme
 
-A Zooniverse theme for the [Grommet 2.0](https://grommet.github.io/) React component library. [Zooniverse brand]([https://projects.invisionapp.com/dsm/zooniverse/primary-brand/folder/colors/5bbd0dbcd018e900118186e8](https://www.figma.com/proto/HUWCyrjkwgPsGKLXhLGb21/Design-System?type=design&node-id=1-2&t=BhMF5SH2wLWBuNx6-0&scaling=scale-down-width&page-id=0%3A1&starting-point-node-id=1%3A2)).
+A Zooniverse theme for the [Grommet 2.0](https://grommet.github.io/) React component library. [Zooniverse brand](https://www.figma.com/proto/HUWCyrjkwgPsGKLXhLGb21/Design-System?type=design&node-id=1-2&t=BhMF5SH2wLWBuNx6-0&scaling=scale-down-width&page-id=0%3A1&starting-point-node-id=1%3A2]).
 
 ## Usage
 
@@ -28,7 +28,7 @@ class MyComponent extends React.Component {
 
 ## Theme colors
 
-[Zooniverse brand colors]([https://projects.invisionapp.com/dsm/zooniverse/primary-brand/folder/colors/5bbd0dbcd018e900118186e8](https://www.figma.com/proto/HUWCyrjkwgPsGKLXhLGb21/Design-System?type=design&node-id=1-10&t=BhMF5SH2wLWBuNx6-0&scaling=scale-down-width&page-id=0%3A1&starting-point-node-id=1%3A2)) map to the following variable names in the theme:
+[Zooniverse brand colors](https://www.figma.com/proto/HUWCyrjkwgPsGKLXhLGb21/Design-System?type=design&node-id=1-10&t=BhMF5SH2wLWBuNx6-0&scaling=scale-down-width&page-id=0%3A1&starting-point-node-id=1%3A2) map to the following variable names in the theme:
 
 | theme variable | hex | color |
 | - | - | - |
