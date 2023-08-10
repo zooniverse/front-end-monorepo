@@ -12,7 +12,9 @@ This viewer assumes all images (locations) in a subject have the same dimensions
 There is a plan to add fine-grained choice of subject viewer to the project builder in the future, but any relevant changes to the flipbook viewer will be discussed in another ADR.
 
 
-## Features
+## Decision
+
+### Features
 
 Configurable options in the project builder handled by the flipbook viewer are:
 - Number of play iterations

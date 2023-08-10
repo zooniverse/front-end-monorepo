@@ -9,8 +9,9 @@ To support non-transcription projects that use multi-image subjects, we built a 
 
 There is a plan to add fine-grained choice of subject viewer to the project builder in the future, but any relevant changes to the separate frames viewer will be discussed in another ADR.
 
+## Decision
 
-## Features
+### Features
 
 Configurable options in the project builder handled by the separate frames viewer are:
 - Layout
