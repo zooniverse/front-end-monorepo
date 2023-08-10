@@ -47,6 +47,13 @@ yarn storybook
 
 Starts a Storybook server on port 9002 by default.
 
+### Bundle Analyzer
+```sh
+yarn analyze
+```
+
+Run a build with [`@next/bundle-analyzer`](https://www.npmjs.com/package/@next/bundle-analyzer) enabled. It generates two reports on bundle sizes: the browser bundle and the server bundle.
+
 ## Running in production
 
 ### Docker
