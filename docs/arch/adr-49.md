@@ -30,7 +30,7 @@ Configurable options in the project builder handled by the flipbook viewer are:
 
 ### Flipbook Controls
 
-- Thumbnails of each frame (ratio inputs) as navigation buttons
+- Thumbnails of each frame as navigation buttons
 - Next and previous buttons for navigation between frames
 - Play speed selection with five options: 0.25x, 0.5x, 1x, 2x, 4x
 - Play/Pause button
@@ -40,14 +40,21 @@ Configurable options in the project builder handled by the flipbook viewer are:
 
 When "Clone markers in all frames" is checked/enabled in the project builder:
 - A drawn mark such as a circle should appear on every frame of the flipbook viewer
-- The frame that the volunteer added the mark to should still be recorded in its annotation. To implement this feature, refactoring of InteractionLayer's handling of "current frame" is needed
+- The frame index where the volunteer added the mark should still be recorded in its annotation
 - If a volunteer drags a mark to a new position, that new position should display in all frames
 
 When "Clone markers in all frames" is unchecked/disabled in the project builder:
-- A drawn mark should appear only on the frame where it was initially drawn.
-- The frame that the volunteer added the mark to should be recorded in its annotation (similar to MultiFrameViewer used for transcription projects)
+- A drawn mark should appear only on the frame where it was initially drawn
+- The frame index where the volunteer added the mark should be recorded in its annotation
 - If a volunteer drags a mark to a new position, that new position should only apply to the dragged mark
 
+## Consequences
+
+To implement the drawing tools on Flipbook Viewer, refactoring of InteractionLayer's handling of "current frame" is needed. The InteractionLayer is displayed on top of the subject image, and it is aware that is should only show/draw/edit marks for the current frame. However, it pulls the "current frame" value from the Subject Viewer Store. Then, when a mark is drawn on any subject viewer in FEM, the "current frame" is recorded in the annotation.
+
+`currentFrame` is used as as local state variable in FlipbookViewer for now, and when we want this viewer to allow the drawing tools config explained above, "current frame" needs to instead be handled using the store.
+
+ADR 50 regarding the Separate Frames Viewer has a similar consequence, and implementation of drawing tools for both viewers will include an explanatory ADR.
 
 ## Status
 Accepted
