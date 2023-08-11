@@ -36,18 +36,17 @@ function SVGPanZoom({
     setOnZoom(() => true)
   }
 
+  useEffect(function onZoomChange() {
+    const newViewBox = scaledViewBox(zoom)
+    setViewBox(newViewBox)
+  }, [zoom])
+
   useEffect(() => {
     if (zooming) {
       enableZoom()
       return disableZoom
     }
   }, [zooming, src])
-
-  useEffect(
-    function onZoomChange() {
-      const newViewBox = scaledViewBox(zoom)
-      setViewBox(newViewBox)
-    }, [zoom])
 
   useEffect(() => {
     setZoom(1)
@@ -75,16 +74,18 @@ function SVGPanZoom({
 
   function onDrag(event, difference) {
     setViewBox((prevViewBox) => {
-      const newViewBox = Object.assign({}, prevViewBox)
-      newViewBox.x -= difference.x / 1.5
-      newViewBox.y -= difference.y / 1.5
+      const newViewBox = {
+        ...prevViewBox,
+        x: prevViewBox.x - difference.x,
+        y: prevViewBox.y - difference.y
+      }
       return newViewBox
     })
   }
 
   function onPan(dx, dy) {
     setViewBox((prevViewBox) => {
-      const newViewBox = Object.assign({}, prevViewBox)
+      const newViewBox = { ...prevViewBox }
       newViewBox.x += dx * 10
       newViewBox.y += dy * 10
       return newViewBox
@@ -113,7 +114,7 @@ function SVGPanZoom({
     }
   }
 
-  const { x, y, width, height } = scaledViewBox(zoom)
+  const { x, y, width, height } = viewBox
   const scale = imageScale(img)
 
   return (
@@ -121,7 +122,7 @@ function SVGPanZoom({
       {cloneElement(children, {
         scale,
         viewBox: `${x} ${y} ${width} ${height}`,
-        svgMaxHeight: limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
+        svgmaxheight: limitSubjectHeight ? `min(${naturalHeight}px, 90vh)` : null
       })}
     </div>
   )
