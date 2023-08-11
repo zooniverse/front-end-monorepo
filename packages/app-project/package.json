@@ -43,7 +43,7 @@
     "luxon": "~3.4.0",
     "mobx": "~6.10.0",
     "mobx-devtools-mst": "~0.9.21",
-    "mobx-react": "~8.0.0",
+    "mobx-react": "~9.0.0",
     "mobx-state-tree": "~5.1.0",
     "morgan": "^1.10.0",
     "newrelic": "~10.6.0",
