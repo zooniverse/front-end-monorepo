@@ -1,136 +1,108 @@
-import { createRef, PureComponent } from 'react';
+import { useContext, useRef, useState } from 'react';
 import SVGContext from '@plugins/drawingTools/shared/SVGContext'
 
+function createPoint(event) {
+  const { clientX, clientY } = event
+  // SVG 2 uses DOMPoint
+  if (window.DOMPointReadOnly) {
+    return new DOMPointReadOnly(clientX, clientY)
+  }
+  // jsdom doesn't support SVG
+  return {
+    x: clientX,
+    y: clientY
+  }
+}
+
+function getEventOffset(event, canvas) {
+  const { clientX, clientY } = event
+  const svgPoint = createPoint(event)
+  const svgEventOffset = svgPoint.matrixTransform
+    ? svgPoint.matrixTransform(canvas.getScreenCTM().inverse())
+    : svgPoint
+  return svgEventOffset
+}
+
+function convertEvent(event, canvas) {
+  const svgEventOffset = getEventOffset(event, canvas)
+  const svgCoordinateEvent = {
+    pointerId: event.pointerId,
+    type: event.type,
+    x: svgEventOffset.x,
+    y: svgEventOffset.y
+  }
+
+  return svgCoordinateEvent
+}
+
 function draggable(WrappedComponent) {
-  class Draggable extends PureComponent {
-    constructor(props) {
-      super(props)
-      this.dragStart = this.dragStart.bind(this)
-      this.dragMove = this.dragMove.bind(this)
-      this.dragEnd = this.dragEnd.bind(this)
-      this.wrappedComponent = createRef()
-      this.state = {
-        coords: {
-          x: props.coords.x,
-          y: props.coords.y
-        },
-        dragging: false,
-        pointerId: -1
-      }
+  function Draggable(props) {
+    const { canvas } = useContext(SVGContext)
+    const wrappedComponent = useRef()
+    const [dragging, setDragging] = useState(false)
+    const [coords, setCoords] = useState(props.coords)
+    const [pointerId, setPointerId] = useState(-1)
+
+    function getBoundingClientRect() {
+      return wrappedComponent.current.getBoundingClientRect()
     }
 
-    convertEvent(event) {
-      const type = event.type
-
-      const svgEventOffset = this.getEventOffset(event)
-
-      const svgCoordinateEvent = {
-        pointerId: event.pointerId,
-        type,
-        x: svgEventOffset.x,
-        y: svgEventOffset.y
-      }
-
-      return svgCoordinateEvent
-    }
-
-    getBoundingClientRect() {
-      return this.wrappedComponent.current.getBoundingClientRect()
-    }
-
-    createPoint(event) {
-      const { clientX, clientY } = event
-      // SVG 2 uses DOMPoint
-      if (window.DOMPointReadOnly) {
-        return new DOMPointReadOnly(clientX, clientY)
-      }
-      // jsdom doesn't support SVG
-      return {
-        x: clientX,
-        y: clientY
-      }
-    }
-
-    getEventOffset(event) {
-      const { clientX, clientY } = event
-      const { canvas } = this.context
-      const svgPoint = this.createPoint(event)
-      const svgEventOffset = svgPoint.matrixTransform
-        ? svgPoint.matrixTransform(canvas.getScreenCTM().inverse())
-        : svgPoint
-      return svgEventOffset
-    }
-
-    dragStart(event) {
+    function dragStart(event) {
       event.stopPropagation()
       event.preventDefault()
-      const { setPointerCapture } = this.wrappedComponent.current
-      const { x, y, pointerId } = this.convertEvent(event)
-      this.setState({ coords: { x, y }, dragging: true, pointerId })
-      this.props.dragStart({ x, y, pointerId })
+      const { setPointerCapture } = wrappedComponent.current
+      const { x, y, pointerId } = convertEvent(event, canvas)
+      setCoords({ x, y })
+      setDragging(true)
+      setPointerId(pointerId)
+      props.dragStart({ x, y, pointerId })
       setPointerCapture &&
-        this.wrappedComponent.current.setPointerCapture(pointerId)
+        wrappedComponent.current.setPointerCapture(pointerId)
     }
 
-    dragMove(event) {
-      const { coords, dragging, pointerId } = this.state
+    function dragMove(event) {
       if (dragging && event.pointerId === pointerId) {
-        const { x, y } = this.convertEvent(event)
+        const { x, y } = convertEvent(event, canvas)
         const { currentTarget } = event
         const difference = {
           x: x - coords.x,
           y: y - coords.y
         }
-        this.props.dragMove({ currentTarget, x, y, pointerId }, difference)
-        this.setState({ coords: { x, y } })
+        props.dragMove({ currentTarget, x, y, pointerId }, difference)
+        setCoords({ x, y })
       }
     }
 
-    dragEnd(event) {
-      const { releasePointerCapture } = this.wrappedComponent.current
-      const { x, y, pointerId } = this.convertEvent(event)
+    function dragEnd(event) {
+      const { releasePointerCapture } = wrappedComponent.current
+      const point = convertEvent(event, canvas)
       const { currentTarget } = event
-      if (pointerId === this.state.pointerId) {
-        this.props.dragEnd({ currentTarget, x, y, pointerId })
+      if (point.pointerId === pointerId) {
+        props.dragEnd({ currentTarget, x: point.x, y: point.y, pointerId })
         releasePointerCapture &&
-          this.wrappedComponent.current.releasePointerCapture(pointerId)
+          wrappedComponent.current.releasePointerCapture(pointerId)
       }
-      this.setState({
-        coords: { x: null, y: null },
-        dragging: false,
-        pointerId: -1
-      })
+      setCoords({ x: null, y: null })
+      setDragging(false)
+      setPointerId(-1)
     }
 
-    render() {
-      const {
-        children,
-        coords,
-        dragStart,
-        dragMove,
-        dragEnd,
-        ...rest
-      } = this.props
-      const { dragging } = this.state
-      return (
-        <g
-          onPointerDown={this.dragStart}
-          onPointerMove={this.dragMove}
-          onPointerUp={this.dragEnd}
+    return (
+      <g
+        onPointerDown={dragStart}
+        onPointerMove={dragMove}
+        onPointerUp={dragEnd}
+      >
+        <WrappedComponent
+          ref={wrappedComponent}
+          {...props}
+          dragging={dragging}
         >
-          <WrappedComponent
-            ref={this.wrappedComponent}
-            {...rest}
-            dragging={dragging}
-          >
-            {children}
-          </WrappedComponent>
-        </g>
-      )
-    }
+          {props.children}
+        </WrappedComponent>
+      </g>
+    )
   }
-
-  Draggable.contextType = SVGContext
 
   Draggable.defaultProps = {
     coords: {
