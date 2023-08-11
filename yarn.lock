@@ -14783,9 +14783,9 @@ react-fast-compare@^3.0.1:
   integrity sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
 
 react-i18next@~13.1.0:
-  version "13.1.0"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-13.1.0.tgz#18b1769c1c22c8f1d9a8f395bec48240e3349cfd"
-  integrity sha512-TlDz4761vJe810o5nEzRkblfS0FQz+k9R5BLOPVhn0Ds6WMDcwGSMbU5fne9WSd4/vLgKg7fEJ7/JboWdmsHOw==
+  version "13.1.1"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-13.1.1.tgz#ab8105ff08f208f9e621064fd427c8c4cd1f74d5"
+  integrity sha512-V81cspLxZd37/ltd8Md5Lz99cfeqIn7vJCAUsCXuaTi1vRPKVr0dWq1DhVFUJBHpAi3PJsmFAR3/YstpP+CDYg==
   dependencies:
     "@babel/runtime" "^7.22.5"
     html-parse-stringify "^3.0.1"
