@@ -35,19 +35,28 @@ function convertEvent(event, canvas) {
   return svgCoordinateEvent
 }
 
+const DEFAULT_HANDLER = event => true
+
 function draggable(WrappedComponent) {
-  function Draggable(props) {
+  function Draggable({
+    children,
+    coords: initialCoords,
+    dragStart = DEFAULT_HANDLER,
+    dragMove = DEFAULT_HANDLER,
+    dragEnd = DEFAULT_HANDLER,
+    ...rest
+  }) {
     const { canvas } = useContext(SVGContext)
     const wrappedComponent = useRef()
     const [dragging, setDragging] = useState(false)
-    const [coords, setCoords] = useState(props.coords)
+    const [coords, setCoords] = useState(initialCoords)
     const [pointerId, setPointerId] = useState(-1)
 
     function getBoundingClientRect() {
       return wrappedComponent.current.getBoundingClientRect()
     }
 
-    function dragStart(event) {
+    function onDragStart(event) {
       event.stopPropagation()
       event.preventDefault()
       const { setPointerCapture } = wrappedComponent.current
@@ -55,12 +64,12 @@ function draggable(WrappedComponent) {
       setCoords({ x, y })
       setDragging(true)
       setPointerId(pointerId)
-      props.dragStart({ x, y, pointerId })
+      dragStart({ x, y, pointerId })
       setPointerCapture &&
         wrappedComponent.current.setPointerCapture(pointerId)
     }
 
-    function dragMove(event) {
+    function onDragMove(event) {
       if (dragging && event.pointerId === pointerId) {
         const { x, y } = convertEvent(event, canvas)
         const { currentTarget } = event
@@ -68,17 +77,17 @@ function draggable(WrappedComponent) {
           x: x - coords.x,
           y: y - coords.y
         }
-        props.dragMove({ currentTarget, x, y, pointerId }, difference)
+        dragMove({ currentTarget, x, y, pointerId }, difference)
         setCoords({ x, y })
       }
     }
 
-    function dragEnd(event) {
+    function onDragEnd(event) {
       const { releasePointerCapture } = wrappedComponent.current
       const point = convertEvent(event, canvas)
       const { currentTarget } = event
       if (point.pointerId === pointerId) {
-        props.dragEnd({ currentTarget, x: point.x, y: point.y, pointerId })
+        dragEnd({ currentTarget, x: point.x, y: point.y, pointerId })
         releasePointerCapture &&
           wrappedComponent.current.releasePointerCapture(pointerId)
       }
@@ -89,16 +98,16 @@ function draggable(WrappedComponent) {
 
     return (
       <g
-        onPointerDown={dragStart}
-        onPointerMove={dragMove}
-        onPointerUp={dragEnd}
+        onPointerDown={onDragStart}
+        onPointerMove={onDragMove}
+        onPointerUp={onDragEnd}
       >
         <WrappedComponent
           ref={wrappedComponent}
-          {...props}
+          {...rest}
           dragging={dragging}
         >
-          {props.children}
+          {children}
         </WrappedComponent>
       </g>
     )
