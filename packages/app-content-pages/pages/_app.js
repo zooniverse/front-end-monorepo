@@ -2,7 +2,7 @@ import zooTheme from '@zooniverse/grommet-theme'
 import { ZooFooter } from '@zooniverse/react-components'
 import { Grommet, base } from 'grommet'
 import makeInspectable from 'mobx-devtools-mst'
-import { Provider } from 'mobx-react'
+import { enableStaticRendering, Provider } from 'mobx-react'
 import { createGlobalStyle } from 'styled-components'
 import merge from 'lodash/merge'
 import Error from 'next/error'
@@ -19,6 +19,8 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
   }
 `
+
+enableStaticRendering(typeof window === 'undefined')
 
 function useStore(initialState) {
   const isServer = typeof window === 'undefined'

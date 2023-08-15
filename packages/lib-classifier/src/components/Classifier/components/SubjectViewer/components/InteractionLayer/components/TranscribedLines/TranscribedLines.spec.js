@@ -1,5 +1,5 @@
 import { within } from '@testing-library/dom'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import zooTheme from '@zooniverse/grommet-theme'
 import { auth } from '@zooniverse/panoptes-js'
@@ -114,11 +114,10 @@ describe('Component > TranscribedLines', function () {
       render(<TranscribedLines />, { wrapper: withStore(store) })
       const subject = store.subjects.active
       await when(() => subject.caesarReductions?.reductions.length > 0)
-      const lines = document.querySelectorAll('g.line')
+      // Frame 0 has seven finished lines and two transcribed lines.
+      await waitFor(() => expect(document.querySelectorAll('g.line')).to.have.lengthOf(9))
       const completeLines = document.querySelectorAll('g.complete.line')
       const transcribedLines = document.querySelectorAll('g.transcribed.line')
-      // Frame 0 has seven finished lines and two transcribed lines.
-      expect(lines).to.have.lengthOf(9)
       expect(completeLines).to.have.lengthOf(7)
       expect(transcribedLines).to.have.lengthOf(2)
     })
@@ -132,9 +131,8 @@ describe('Component > TranscribedLines', function () {
       render(<TranscribedLines />, { wrapper: withStore(store) })
       const subject = store.subjects.active
       await when(() => subject.caesarReductions?.reductions.length > 0)
-      const lines = document.querySelectorAll('g.line')
       // Frame 1 has one line.
-      expect(lines).to.have.lengthOf(1)
+      await waitFor(() => expect(document.querySelectorAll('g.line')).to.have.lengthOf(1))
     })
 
     it('should hide TranscribedLines if no lines per frame', async function () {
@@ -210,7 +208,8 @@ describe('Component > TranscribedLines', function () {
       store.workflowSteps.selectStep('S2')
     })
 
-    it('should disable the incomplete lines', function () {
+    it('should disable the incomplete lines', async function () {
+      await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
       const transcribedLines = document.querySelectorAll('g.transcribed.line')
       transcribedLines.forEach((line) => {
         expect(line.getAttribute('aria-disabled')).to.equal('true')
@@ -218,6 +217,7 @@ describe('Component > TranscribedLines', function () {
     })
 
     it('should not create a mark', async function () {
+      await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
       const user = userEvent.setup({ delay: null })
       const line = document.querySelector('g.transcribed.line')
       expect(task.activeMark).to.be.undefined()
@@ -241,42 +241,10 @@ describe('Component > TranscribedLines', function () {
 
   describe('incomplete lines', function () {
     let consensusLines
-    let lines
     let task
 
-    before(async function () {
-      const store = mockStore({ client, workflow: workflowSnapshot })
-      task = store.workflowSteps.findTasksByType('transcription')[0]
-      task.setActiveTool(0)
-      render(<TranscribedLines />, { wrapper: withStore(store) })
-      const subject = store.subjects.active
-      await when(() => subject.caesarReductions?.reductions.length > 0)
-      consensusLines = subject.caesarReductions.consensusLines(0)
-      lines = document.querySelectorAll('g.transcribed.line')
-    })
-
-    it('should render', function () {
-      const transcribedLines = consensusLines.filter(line => !line.consensusReached)
-      expect(lines).to.have.lengthOf(transcribedLines.length)
-    })
-
-    it('should not be disabled', function () {
-      lines.forEach(line => {
-        expect(line.getAttribute('aria-disabled')).to.equal('false')
-      })
-    })
-
-    it('should be focusable', function () {
-      lines.forEach(line => {
-        expect(line.tabIndex).to.equal(0)
-      })
-    })
-
-    describe('when there is an existing invalid mark', function () {
-      let lines
-      let task
-
-      before(async function () {
+    describe('default behaviour', function () {
+      beforeEach(async function () {
         const store = mockStore({ client, workflow: workflowSnapshot })
         task = store.workflowSteps.findTasksByType('transcription')[0]
         task.setActiveTool(0)
@@ -284,14 +252,52 @@ describe('Component > TranscribedLines', function () {
         const subject = store.subjects.active
         await when(() => subject.caesarReductions?.reductions.length > 0)
         consensusLines = subject.caesarReductions.consensusLines(0)
-        lines = document.querySelectorAll('g.transcribed.line')
+      })
+
+      it('should render', async function () {
+        await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
+        const lines = document.querySelectorAll('g.transcribed.line')
+        const transcribedLines = consensusLines.filter(line => !line.consensusReached)
+        expect(lines).to.have.lengthOf(transcribedLines.length)
+      })
+
+      it('should not be disabled', async function () {
+        await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
+        const lines = document.querySelectorAll('g.transcribed.line')
+        lines.forEach(line => {
+          expect(line.getAttribute('aria-disabled')).to.equal('false')
+        })
+      })
+
+      it('should be focusable', async function () {
+        await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
+        const lines = document.querySelectorAll('g.transcribed.line')
+        lines.forEach(line => {
+          expect(line.tabIndex).to.equal(0)
+        })
+      })
+    })
+
+    describe('when there is an existing invalid mark', function () {
+      let task
+
+      beforeEach(async function () {
+        const store = mockStore({ client, workflow: workflowSnapshot })
+        task = store.workflowSteps.findTasksByType('transcription')[0]
+        task.setActiveTool(0)
+        render(<TranscribedLines />, { wrapper: withStore(store) })
+        const subject = store.subjects.active
+        await when(() => subject.caesarReductions?.reductions.length > 0)
+        await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
+        consensusLines = subject.caesarReductions.consensusLines(0)
         const [ transcribedLine ] = consensusLines.filter(line => !line.consensusReached)
         const { id, x1, y1 } = transcribedLine
         task.activeTool.createMark({ id, x1, y1, toolIndex: 0 })
       })
 
-      it('should disable the lines', function () {
-        lines.forEach(line => {
+      it('should disable the lines', async function () {
+        await waitFor(() => expect(document.querySelectorAll('g.line[aria-disabled="true"]')).to.not.be.empty())
+        document.querySelectorAll('g.transcribed.line').forEach(line => {
           expect(line.getAttribute('aria-disabled')).to.equal('true')
           expect(line.tabIndex).to.equal(-1)
         })
@@ -304,6 +310,7 @@ describe('Component > TranscribedLines', function () {
         render(<TranscribedLines />, { wrapper: withStore(store) })
         const subject = store.subjects.active
         await when(() => subject.caesarReductions?.reductions.length > 0)
+        await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
         const consensusLines = store.subjects.active.caesarReductions.consensusLines(0)
         const [ transcribedLine ] = consensusLines.filter(line => !line.consensusReached)
         const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = transcribedLine.points
@@ -312,12 +319,14 @@ describe('Component > TranscribedLines', function () {
         task.activeTool.createMark({ id, x1, y1, x2, y2, toolIndex: 0 })
       })
 
-      it('should disable the existing mark', function () {
+      it('should disable the existing mark', async function () {
+        await waitFor(() => expect(document.querySelectorAll('g.line[aria-disabled="true"]')).to.not.be.empty())
         const previousMark = document.querySelector('[aria-describedby=transcribed-0]')
         expect(previousMark.getAttribute('aria-disabled')).to.equal('true')
       })
 
-      it('should leave other previous marks interactive', function () {
+      it('should leave other previous marks interactive', async function () {
+        await waitFor(() => expect(document.querySelectorAll('g.line[aria-disabled="true"]')).to.not.be.empty())
         const previousMark = document.querySelector('[aria-describedby=transcribed-1]')
         expect(previousMark.getAttribute('aria-disabled')).to.equal('false')
         expect(previousMark.onclick).to.be.a('function')
@@ -325,7 +334,7 @@ describe('Component > TranscribedLines', function () {
     })
 
     describe('on click', function () {
-      let consensusLines, line, store, task, user
+      let consensusLines, store, task, user
 
       beforeEach(async function () {
         store = mockStore({ client, workflow: workflowSnapshot })
@@ -337,19 +346,22 @@ describe('Component > TranscribedLines', function () {
         user = userEvent.setup({ delay: null })
         task.reset()
         consensusLines = store.subjects.active.caesarReductions.consensusLines(0)
-        line = document.querySelector('g.transcribed.line')
       })
 
       it('should create a new mark', async function () {
+        await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
+        let line = document.querySelector('g.transcribed.line')
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         expect(task.marks.length).to.equal(0)
         expect(task.activeMark).to.be.undefined()
         expect(line.getAttribute('aria-disabled')).to.equal('false')
         expect(line.tabIndex).to.equal(0)
         await user.click(line)
-        line = document.querySelector('g.transcribed.line')
-        expect(line.getAttribute('aria-disabled')).to.equal('true')
-        expect(line.tabIndex).to.equal(-1)
+        await waitFor(() => {
+          const line = document.querySelector('g.transcribed.line')
+          expect(line.getAttribute('aria-disabled')).to.equal('true')
+          expect(line.tabIndex).to.equal(-1)
+        })
         await when(() => task.marks.length > 0)
         expect(task.marks.length).to.equal(1)
         expect(task.activeMark).to.exist()
@@ -362,13 +374,17 @@ describe('Component > TranscribedLines', function () {
       })
 
       it('should create only one mark per transcribed line', async function () {
+        await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
+        let line = document.querySelector('g.transcribed.line')
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         await user.click(line)
         expect(task.marks.length).to.equal(1)
         expect(task.activeMark).to.exist()
-        line = document.querySelector('g.transcribed.line')
-        expect(line.getAttribute('aria-disabled')).to.equal('true')
-        expect(line.tabIndex).to.equal(-1)
+        await waitFor(() => {
+          const line = document.querySelector('g.transcribed.line')
+          expect(line.getAttribute('aria-disabled')).to.equal('true')
+          expect(line.tabIndex).to.equal(-1)
+        })
         await user.click(line)
         await when(() => task.activeMark !== undefined)
         expect(task.marks.length).to.equal(1)
@@ -388,11 +404,14 @@ describe('Component > TranscribedLines', function () {
         task.setActiveTool(0)
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         expect(task.activeMark).to.be.undefined()
-        line = document.querySelector('g.transcribed.line')
+        await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
+        let line = document.querySelector('g.transcribed.line')
         await user.click(line)
-        line = document.querySelector('g.transcribed.line')
-        expect(line.getAttribute('aria-disabled')).to.equal('true')
-        expect(line.tabIndex).to.equal(-1)
+        await waitFor(() => {
+          const line = document.querySelector('g.transcribed.line')
+          expect(line.getAttribute('aria-disabled')).to.equal('true')
+          expect(line.tabIndex).to.equal(-1)
+        })
         await when(() => task.marks.length > 0)
         expect(task.marks.length).to.equal(1)
         expect(task.activeMark).to.exist()
@@ -403,7 +422,7 @@ describe('Component > TranscribedLines', function () {
     })
 
     describe('on Enter', function () {
-      let consensusLines, line, store, task, user
+      let consensusLines, store, task, user
 
       beforeEach(async function () {
         store = mockStore({ client, workflow: workflowSnapshot })
@@ -414,10 +433,11 @@ describe('Component > TranscribedLines', function () {
         consensusLines = store.subjects.active.caesarReductions.consensusLines(0)
         task = store.workflowSteps.findTasksByType('transcription')[0]
         task.setActiveTool(0)
-        line = document.querySelector('g.transcribed.line')
       })
 
       it('should create new marks', async function () {
+        await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
+        let line = document.querySelector('g.transcribed.line')
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         expect(task.marks.length).to.equal(0)
         expect(task.activeMark).to.be.undefined()
@@ -425,9 +445,11 @@ describe('Component > TranscribedLines', function () {
         expect(line.getAttribute('aria-disabled')).to.equal('false')
         expect(line.tabIndex).to.equal(0)
         await user.keyboard('{Enter}')
-        line = document.querySelector('g.transcribed.line')
-        expect(line.getAttribute('aria-disabled')).to.equal('true')
-        expect(line.tabIndex).to.equal(-1)
+        await waitFor(() => {
+          const line = document.querySelector('g.transcribed.line')
+          expect(line.getAttribute('aria-disabled')).to.equal('true')
+          expect(line.tabIndex).to.equal(-1)
+        })
         await when(() => task.marks.length === 1)
         expect(task.activeMark).to.exist()
         expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
@@ -440,14 +462,18 @@ describe('Component > TranscribedLines', function () {
       })
 
       it('should create only one mark per transcribed line', async function () {
+        await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
+        let line = document.querySelector('g.transcribed.line')
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         line.focus()
         await user.keyboard('{Enter}')
         expect(task.marks.length).to.equal(1)
         expect(task.activeMark).to.exist()
-        line = document.querySelector('g.transcribed.line')
-        expect(line.getAttribute('aria-disabled')).to.equal('true')
-        expect(line.tabIndex).to.equal(-1)
+        await waitFor(() => {
+          const line = document.querySelector('g.transcribed.line')
+          expect(line.getAttribute('aria-disabled')).to.equal('true')
+          expect(line.tabIndex).to.equal(-1)
+        })
         await user.keyboard('{Enter}')
         await when(() => task.activeMark !== undefined)
         expect(task.activeMark).to.exist()
@@ -465,13 +491,15 @@ describe('Component > TranscribedLines', function () {
         task = store.workflowSteps.findTasksByType('transcription')[0]
         task.setActiveTool(0)
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
-
-        line = document.querySelector('g.transcribed.line')
+        await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
+        let line = document.querySelector('g.transcribed.line')
         line.focus()
         await user.keyboard('{Enter}')
-        line = document.querySelector('g.transcribed.line')
-        expect(line.getAttribute('aria-disabled')).to.equal('true')
-        expect(line.tabIndex).to.equal(-1)
+        await waitFor(() => {
+          const line = document.querySelector('g.transcribed.line')
+          expect(line.getAttribute('aria-disabled')).to.equal('true')
+          expect(line.tabIndex).to.equal(-1)
+        })
         await when(() => task.marks.length === 1)
         expect(task.activeMark).to.exist()
         expect(task.activeMark.frame).to.equal(1)
@@ -481,7 +509,7 @@ describe('Component > TranscribedLines', function () {
     })
 
     describe('on Space', function () {
-      let consensusLines, line, store, task, user
+      let consensusLines, store, task, user
 
       beforeEach(async function () {
         store = mockStore({ client, workflow: workflowSnapshot })
@@ -492,10 +520,11 @@ describe('Component > TranscribedLines', function () {
         consensusLines = store.subjects.active.caesarReductions.consensusLines(0)
         task = store.workflowSteps.findTasksByType('transcription')[0]
         task.setActiveTool(0)
-        line = document.querySelector('g.transcribed.line')
       })
 
       it('should create a new mark', async function () {
+        await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
+        let line = document.querySelector('g.transcribed.line')
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         expect(task.marks.length).to.equal(0)
         expect(task.activeMark).to.be.undefined()
@@ -503,9 +532,11 @@ describe('Component > TranscribedLines', function () {
         expect(line.getAttribute('aria-disabled')).to.equal('false')
         expect(line.tabIndex).to.equal(0)
         await user.keyboard('{ }')
-        line = document.querySelector('g.transcribed.line')
-        expect(line.getAttribute('aria-disabled')).to.equal('true')
-        expect(line.tabIndex).to.equal(-1)
+        await waitFor(() => {
+          const line = document.querySelector('g.transcribed.line')
+          expect(line.getAttribute('aria-disabled')).to.equal('true')
+          expect(line.tabIndex).to.equal(-1)
+        })
         await when(() => task.marks.length === 1)
         expect(task.activeMark).to.exist()
         expect(task.activeMark.x1).to.equal(transcribedLines[0].points[0].x)
@@ -518,14 +549,18 @@ describe('Component > TranscribedLines', function () {
       })
 
       it('should create only one mark per transcribed line', async function () {
+        await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
+        let line = document.querySelector('g.transcribed.line')
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
         line.focus()
         await user.keyboard(' ')
         expect(task.marks.length).to.equal(1)
         expect(task.activeMark).to.exist()
-        line = document.querySelector('g.transcribed.line')
-        expect(line.getAttribute('aria-disabled')).to.equal('true')
-        expect(line.tabIndex).to.equal(-1)
+        await waitFor(() => {
+          const line = document.querySelector('g.transcribed.line')
+          expect(line.getAttribute('aria-disabled')).to.equal('true')
+          expect(line.tabIndex).to.equal(-1)
+        })
         await user.keyboard(' ')
         await when(() => task.activeMark !== undefined)
         expect(task.activeMark).to.exist()
@@ -543,12 +578,15 @@ describe('Component > TranscribedLines', function () {
         task = store.workflowSteps.findTasksByType('transcription')[0]
         task.setActiveTool(0)
         const transcribedLines = consensusLines.filter(line => !line.consensusReached)
-        line = document.querySelector('g.transcribed.line')
+        await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
+        let line = document.querySelector('g.transcribed.line')
         line.focus()
         await user.keyboard('{ }')
-        line = document.querySelector('g.transcribed.line')
-        expect(line.getAttribute('aria-disabled')).to.equal('true')
-        expect(line.tabIndex).to.equal(-1)
+        await waitFor(() => {
+          const line = document.querySelector('g.transcribed.line')
+          expect(line.getAttribute('aria-disabled')).to.equal('true')
+          expect(line.tabIndex).to.equal(-1)
+        })
         await when(() => task.marks.length === 1)
         expect(task.activeMark).to.exist()
         expect(task.activeMark.frame).to.equal(1)
@@ -575,6 +613,7 @@ describe('Component > TranscribedLines', function () {
       await when(() => subject.caesarReductions?.reductions.length > 0)
       task = store.workflowSteps.findTasksByType('transcription')[0]
       task.setActiveTool(0)
+      await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
       lines = document.querySelectorAll('g.complete.line')
       const consensusLines = subject.caesarReductions.consensusLines(0)
       completeLines = consensusLines.filter(line => line.consensusReached)
@@ -609,6 +648,7 @@ describe('Component > TranscribedLines', function () {
       render(<TranscribedLines />, { wrapper: withStore(store) })
       const subject = store.subjects.active
       await when(() => subject.caesarReductions?.reductions.length > 0)
+      await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
       const task = store.workflowSteps.findTasksByType('transcription')[0]
       task.setActiveTool(0)
       const line = document.querySelector('g.complete.line')
@@ -630,6 +670,7 @@ describe('Component > TranscribedLines', function () {
       render(<TranscribedLines />, { wrapper: withStore(store) })
       const subject = store.subjects.active
       await when(() => subject.caesarReductions?.reductions.length > 0)
+      await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
       const task = store.workflowSteps.findTasksByType('transcription')[0]
       task.setActiveTool(0)
       const line = document.querySelector('g.complete.line')
@@ -653,6 +694,7 @@ describe('Component > TranscribedLines', function () {
       render(<TranscribedLines />, { wrapper: withStore(store) })
       const subject = store.subjects.active
       await when(() => subject.caesarReductions?.reductions.length > 0)
+      await waitFor(() => expect(document.querySelectorAll('g.line')).to.not.be.empty())
       const task = store.workflowSteps.findTasksByType('transcription')[0]
       task.setActiveTool(0)
       const line = document.querySelector('g.complete.line')
