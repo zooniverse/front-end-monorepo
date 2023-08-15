@@ -8,8 +8,7 @@ assignees: ''
 ---
 
 ## Package
-_Choose from the list, or write "unknown"_
-_app-content-pages, app-content, lib-classifier, lib-panoptes-js, lib-react-components_
+_Choose from the list: app-content-pages, app-content, lib-classifier, lib-panoptes-js, lib-react-components, unknown_
 
 ## Describe the bug
 A clear and concise description of what the bug is.
