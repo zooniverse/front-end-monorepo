@@ -45,7 +45,7 @@
     "react-i18next": "~13.1.0",
     "snazzy": "^9.0.0",
     "styled-components": "~5.3.3",
-    "superagent": "~8.0.0",
+    "superagent": "~8.1.0",
     "validator": "~13.11.0"
   },
   "devDependencies": {
