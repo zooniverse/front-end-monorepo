@@ -10,7 +10,7 @@ assignees: ''
 ## Package
 _Choose from the list:_
 - [ ] app-content-pages
-- [ ] app-content
+- [ ] app-project
 - [ ] lib-classifier
 - [ ] lib-panoptes-js
 - [ ] lib-react-components
